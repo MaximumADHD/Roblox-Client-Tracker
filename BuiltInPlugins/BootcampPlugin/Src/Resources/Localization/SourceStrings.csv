@@ -1,0 +1,6 @@
+Key,en-us
+Studio.BootcampPlugin.Plugin.Button,Bootcamp
+Studio.BootcampPlugin.Plugin.Description,An example plugin to practice plugin development.
+Studio.BootcampPlugin.Plugin.Name,Plugin Bootcamp
+Studio.BootcampPlugin.Plugin.Toolbar,Plugin Bootcamp
+Studio.BootcampPlugin.TutorialComponents.MyJiraTicket,My Button

@@ -1,0 +1,22 @@
+Key,Source,en-us
+Studio.ConvertToPackage.General.Description,Description,Description
+Studio.ConvertToPackage.General.Title,Title,Title
+Studio.ConvertToPackage.General.Error,Error,Error
+Studio.ConvertToPackage.Meta.PluginName,Convert To Package,Convert To Package
+Studio.ConvertToPackage.Action.Submit,Submit,Submit
+Studio.ConvertToPackage.General.Submit,Submit,Submit
+Studio.ConvertToPackage.General.Comments,Allow Comments,Allow Comments
+Studio.ConvertToPackage.General.ConvertToPackageFailed,Convert to package failed,Convert to package failed
+Studio.ConvertToPackage.General.Ownership,Ownership,Ownership
+Studio.ConvertToPackage.General.Me,Me,Me
+Studio.ConvertToPackage.General.YouMayFindPackagesInToolbox,You may find your packages in Toolbox.,You may find your packages in Toolbox.
+Studio.ConvertToPackage.General.InstanceFail,Convert to Package failed due to invalid objects,Convert to Package failed due to invalid objects
+Studio.ConvertToPackage.General.ChooseOne,Choose One,Choose One
+Studio.ConvertToPackage.General.OK,OK,OK
+Studio.ConvertToPackage.General.DiscardMessage,Would you like to discard all changes?,Would you like to discard all changes?
+Studio.ConvertToPackage.General.GetAssetFailed,There was a problem fetching asset data.,There was a problem fetching asset data.
+Studio.ConvertToPackage.Action.Discard,Discard,Discard
+Studio.ConvertToPackage.General.SuccessfullyConverted,Successfully Converted!,Successfully Converted!
+Studio.ConvertToPackage.Action.Cancel,Cancel,Cancel
+Studio.ConvertToPackage.Action.Close,Close,Close
+Studio.ConvertToPackage.Action.Converting,Converting,Converting

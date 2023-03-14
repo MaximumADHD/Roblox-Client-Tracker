@@ -1,0 +1,262 @@
+Key,Source,en-us,es-es,fr-fr,it-it,ja-jp,ko-kr,pt-br,zh-cjv,zh-cn,zh-tw
+Studio.MaterialManager.Materials.CorrodedMetalVariant,Corroded Metal Variant,Corroded Metal Variant,Variante de metal corroído,Variante de métal corrodé,Variante Metallo Corroso,さびた金属のバリエーション,부식된 금속 변형,Variante de metal corroido,腐蚀金属变量,腐蚀金属变量,腐蝕金屬變種
+Studio.MaterialManager.Plugin.Description,Toggles the Material Manager window.,Toggles the Material Manager window.,Alterna la ventana del Gestor de materiales.,Active/désactive la fenêtre du gestionnaire de matériels.,Attiva o disattiva la finestra Gestore Materiali.,素材管理ウィンドウの切り替え。,재질 관리자 창을 토글합니다.,Alterna a janela do Gerenciador de materiais.,切换材质管理器窗口。,切换材质管理器窗口。,切換材質管理器視窗。
+Studio.MaterialManager.Import.RoughnessMapPreview,Roughness Map Preview,Roughness Map Preview,Vista previa de la rugosidad del mapa,Prévisualisation de la carte rugosité,Anteprima Mappa Ruvidità,粗さマップのプレビュー,거칠기 맵 미리 보기,Prévia do mapa de aspereza,粗糙度地图预览,粗糙度地图预览,粗糙度圖預覽
+Studio.MaterialManager.Plugin.Button,Material Manager,Material Manager,Gestor de materiales,Gestionnaire de matériel,Gestore Materiali,素材管理,재질 관리자,Gerenciador de materiais,材质管理器,材质管理器,材質管理器
+Studio.MaterialManager.Plugin.Name,Material Manager,Material Manager,Gestor de materiales,Gestionnaire de matériel,Gestore Materiali,素材管理,재질 관리자,Gerenciador de materiais,材质管理器,材质管理器,材質管理器
+Studio.MaterialManager.Plugin.Toolbar,Material Manager,Material Manager,Gestor de materiales,Gestionnaire de matériel,Gestore Materiali,素材管理,재질 관리자,Gerenciador de materiais,材质管理器,材质管理器,材質管理器
+Studio.MaterialManager.Categories.Wood,Wood,Wood,Madera,Bois,Legno,木材,목재,Madeira,木材,木材,木材
+Studio.MaterialManager.Materials.Wood,Wood,Wood,Madera,Bois,Legno,木材,목재,Madeira,木材,木材,木材
+Studio.MaterialManager.Categories.HumanMade,Human-Made,Human-Made,Hecho por humanos,Fabriqué par l'homme,Fatto dall'Uomo,人工,인간 제작,Feito por humanos,人造,人造,人造
+Studio.MaterialManager.Materials.GrassVariant,Grass Variant,Grass Variant,Variante de hierba,Variante de l'herbe,Variante Erba,草のバリエーション,잔디 변형,Variante de grama,草变量,草变量,草變種
+Studio.MaterialManager.CreateDialog.SaveVariant,Save,Save,Guardar,Sauvegarder,Salva,保存,저장,Salvar,保存,保存,儲存
+Studio.MaterialManager.CreateDialog.CreateVariant,Create Variant,Create Variant,Crear variante,Créer Variante,Crea Variante,バリエーションを作成,변형 만들기,Criar variante,创建变量,创建变量,建立變種
+Studio.MaterialManager.MaterialInformation.CreateVariant,Create Variant,Create Variant,Crear variante,Créer une variante,Crea Variante,バリエーションを作成,변형 만들기,Criar variante,创建变量,创建变量,建立變種
+Studio.MaterialManager.MaterialOptions.CreateVariant,Create Variant,Create Variant,Crear variante,Créer Variante,Crea Variante,バリエーションを作成,변형 만들기,Criar variante,创建变量,创建变量,建立變種
+Studio.MaterialManager.CreateDialog.PlaceholderName,Material Variant name,Material Variant name,Nombre de la variante de material,Nom de la variante de matière,Nome Variante Materiale,素材のバリエーション名,재질 변형 이름,Nome da variante do material,材质变量名称,材质变量名称,變種材質名稱
+Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps,Texture Maps,Mapas de textura,Cartes des textures,Mappe del texture,テクスチャマップ,텍스처 맵,Mapas de textura,纹理地图,纹理地图,紋理圖
+Studio.MaterialManager.MaterialTextures.TextureMaps,Texture Maps,Texture Maps,Mapas de textura,Cartes des textures,Mappe Texture,テクスチャマップ,텍스처 맵,Mapas de textura,纹理地图,纹理地图,紋理圖
+Studio.MaterialManager.Materials.GroundVariant,Ground Variant,Ground Variant,Variante de suelo,Variante du sol,Variante Terreno,地面のバリエーション,토양 변형,Variante de chão,土地变量,土地变量,土地變種
+Studio.MaterialManager.Materials.Glass,Glass,Glass,Vidrio,Verre,Vetro,ガラス,유리,Vidro,玻璃,玻璃,玻璃
+Studio.MaterialManager.CreateDialog.General,General,General,General,Général,Generali,全般,일반,Geral,通用,通用,一般
+Studio.MaterialManager.MaterialGeneral.General,General,General,General,Général,Generali,全般,일반,Geral,通用,通用,一般
+Studio.MaterialManager.CreateDialog.CancelVariant,Cancel,Cancel,Cancelar,Annuler,Annulla,キャンセル,취소,Cancelar,取消,取消,取消
+Studio.MaterialManager.CreateDialog.NameVariant,Name,Name,Nombre,Nom ,Nome,名前,이름,Nome,名称,名称,名稱
+Studio.MaterialManager.CreateDialog.BaseMaterialVariant,Base Material,Base Material,Material base,Matériel de base,Materiale Base,ベース素材,기본 재질,Material base,基础材质,基础材质,基礎材質
+Studio.MaterialManager.MaterialTile.BaseMaterial,Base Material,Base Material,Material base,Matériel de base,Materiale Base,ベース素材,기본 재질,Material base,基础材质,基础材质,底部材質
+Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select,Select,Seleccionar,Sélectionner,Seleziona,選ぶ,선택,Selecionar,选择,选择,選擇
+Studio.MaterialManager.Categories.Synthetic,Synthetic,Synthetic,Sintético,Synthétique,Sintetico,合成,합성,Sintético,合成,合成,合成
+Studio.MaterialManager.CreateDialog.ImportColorMap,Color,Color,Color,Couleur,Colore,色,색상,Cor,颜色,颜色,顏色
+Studio.MaterialManager.MaterialInformation.Color,Color,Color,Color,Couleur,Colore,色,색상,Cor,颜色,颜色,顏色
+Studio.MaterialManager.MaterialTextures.Color,Color,Color,Color,Couleur,Colore,色,색상,Cor,颜色,颜色,顏色
+Studio.MaterialManager.Categories.Snow,Snow,Snow,Nieve,Neige,Neve,雪,눈,Neve,雪,雪,雪
+Studio.MaterialManager.Materials.Snow,Snow,Snow,Nieve,Neige,Neve,雪,눈,Neve,雪,雪,雪
+Studio.MaterialManager.Materials.WoodPlanksMaterial,Wood Planks Material,Wood Planks Material,Material de tablones de madera,Matériau de planches de bois,Materiale Assi Di Legno,木の板素材,나무 판자 재질,Material de tábuas,木板材质,木板材质,木板材質
+Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal,Normal,Normal,Normal,Normale,標準,일반,Normal,标准,标准,普通
+Studio.MaterialManager.MaterialInformation.Normal,Normal,Normal,Normal,Normal,Normale,標準,일반,Normal,标准,标准,普通
+Studio.MaterialManager.MaterialTextures.Normal,Normal,Normal,Normal,Normal,Normale,標準,일반,Normal,标准,标准,普通
+Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness,Metalness,Metalidad,Métallurgie,Metalità,金属度,금속성,Metalidade,金属度,金属度,金屬度
+Studio.MaterialManager.MaterialInformation.Metalness,Metalness,Metalness,Metalidad,Métallurgie,Metalità,金属度,금속성,Metalidade,金属度,金属度,金屬度
+Studio.MaterialManager.MaterialTextures.Metalness,Metalness,Metalness,Metalidad,Métallurgie,Metallità,金属度,금속성,Metalidade,金属度,金属度,金屬度
+Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness,Roughness,Rugosidad,Rugosité,Ruvidità,粗さ,거칠기,Aspereza,粗糙度,粗糙度,粗糙度
+Studio.MaterialManager.MaterialInformation.Roughness,Roughness,Roughness,Rugosidad,Rugosité,Ruvidità,粗さ,거칠기,Aspereza,粗糙度,粗糙度,粗糙度
+Studio.MaterialManager.MaterialTextures.Roughness,Roughness,Roughness,Rugosidad,Rugosité,Ruvidità,粗さ,거칠기,Aspereza,粗糙度,粗糙度,粗糙度
+Studio.MaterialManager.TopBar.Create,Create Material Variant,Create Material Variant,Crear variante de material,Créer une variante de matériau,Crea Variante Materiale,素材のバリエーションを作成,재질 변형 만들기,Criar variante de material,创建材质变量,创建材质变量,建立變種材質
+Studio.MaterialManager.TopBar.Search,Search Materials,Search Materials,Buscar materiales,Rechercher des matériaux,Cerca Materiali,素材をサーチ,재질 검색,Pesquisar materiais,搜索材质,搜索材质,搜尋材質
+Studio.MaterialManager.TopBar.Show,Show in Explorer,Show in Explorer,Mostrar en Explorador,Afficher dans l'explorateur,Mostra in Explorer,エクスプローラで表示,탐색기에서 표시,Mostrar no Explorador,在项目管理器中显示,在项目管理器中显示,在總管中顯示
+Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts,Apply to Selected Parts,Aplicar a piezas seleccionadas,Appliquer aux pièces sélectionnées,Applica alle parti selezionate,選択したパーツに適用,선택한 파트에 적용,Aplicar às partes selecionadas,应用于所选部件,应用于所选部件,套用到選取零件
+Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material,Terrain Material,Material del terreno,Partie matériau,Materiale Terreno,地形の素材,지형 재질,Material do terreno,地形材质,地形材质,地形材質
+Studio.MaterialManager.TopBar.Filters,Filters,Filters,Filtros,Filtres,Filtri,フィルタ,필터,Filtros,筛选,筛选,篩選
+Studio.MaterialManager.PhysicalProperties.FrictionWeight,Friction Weight,Friction Weight,Peso de la fricción,Poids de friction,Peso Di Attrito,摩擦重量,마찰 가중치,Peso do atrito,摩擦重量,摩擦重量,摩擦力重量
+Studio.MaterialManager.Import.MetalnessMapPreview,Metalness Map Preview,Metalness Map Preview,Vista previa de la metalidad del mapa,Prévisualisation de la carte des métaux,Anteprima Mappa Metallizzazione,金属度マップのプレビュー,금속성 맵 미리 보기,Prévia da metalidade do mapa,金属度地图预览,金属度地图预览,金屬度圖預覽
+Studio.MaterialManager.MaterialTile.PartMaterial,Part Material,Part Material,Material de la pieza,Partie matériau,Parte Materiale,パーツ素材,파트 재질,Material da parte,部件材质,部件材质,零件材質
+Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant,Base Variant,Variante base,Variante de base,Base Variante,ベースのバリエーション,기본 변형,Variante base,基础变量,基础变量,底部變種
+Studio.MaterialManager.Materials.Granite,Granite,Granite,Granito,Granite,Granito,花崗岩,화강암,Granito,花岗岩,花岗岩,花崗岩
+Studio.MaterialManager.Materials.FabricMaterial,Fabric Material,Fabric Material,Material de tela,Matériau textile,Materiale Tessuto,生地の素材,직물 재질,Material de tecido,布料材质,布料材质,布料材質
+Studio.MaterialManager.MaterialTile.PartVariant,Part Variant,Part Variant,Variante de la pieza,Variante de la pièce,Parte Variante,パーツのバリエーション,파트 변형,Variante da parte,部件变量,部件变量,零件變種
+Studio.MaterialManager.PhysicalProperties.Density,Density,Density,Densidad,Densité,Densità,密度,밀도,Densidade,密度,密度,密度
+Studio.MaterialManager.MaterialTile.TerrainVariant,Terrain Variant,Terrain Variant,Variante del terreno,Variante du terrain,Variante Terreno,地形のバリエーション,지형 변형,Variante do terreno,地形变量,地形变量,地形變種
+Studio.MaterialManager.Materials.DiamondPlate,Diamond Plate,Diamond Plate,Placa de diamante,Plaque en Diamant,Piastra Di Diamante,ダイヤモンド板,다이아몬드판,Placa de diamante,花纹板,花纹板,菱形板
+Studio.MaterialManager.LocalImageSelector.NoImageSelected,No image,No image,Sin imagen,Pas d'image,Nessuna immagine,画像なし,이미지 없음,Sem imagem,无图像,无图像,無圖像
+Studio.MaterialManager.Import.ColorMapPreview,Color Map Preview,Color Map Preview,Vista previa del color del mapa,Aperçu de la carte en couleurs,Anteprima Mappa Colore,カラーマップのプレビュー,컬러 맵 미리 보기,Prévia do mapa de cores,颜色地图预览,颜色地图预览,顏色圖預覽
+Studio.MaterialManager.Materials.LeafyGrass,Leafy Grass,Leafy Grass,Hierba espesa,Herbe à feuilles,Erba A Foglie,草地,무성한 잔디,Grama alta,绿叶草,绿叶草,綠葉草
+Studio.MaterialManager.MaterialStatus.DuplicateMaterial,"Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime.","Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime.",Encontrados múltiples MaterialVariants que coinciden con el nombre y reemplazan el material en MaterialService. Esto puede causar un comportamiento inesperado en el tiempo de ejecución.,Plusieurs MaterialVariants correspondant au nom et au matériau de remplacement de MaterialService ont été trouvés. Cela pourrait avoir des résultats inattendus.,"Trovato più MaterialVarianti che corrispondono al nome e sostituiscono il materiale in MaterialService, questo può causare un comportamento inatteso in fase di esecuzione.",MaterialService で名前とオーバーライド素材に一致する複数の MaterialVariant が見つかりました。これは実行時に予期しない動作を引き起こす可能性があります。,MaterialService에서 이름 및 재정의 재질과 일치하는 여러 MaterialVariant를 찾았습니다. 이로 인해 런타임 시 예기치 않은 동작이 발생할 수 있습니다.,"Encontrados múltiplos MaterialVariant que correspondem ao nome e ao material de substituição do MaterialService, isso pode causar um comportamento inesperado no tempo de execução.",MaterialService 中找到多个符合名称和覆盖材质的 MaterialVariant，这可能会在运行时发生异常。,MaterialService 中找到多个符合名称和覆盖材质的 MaterialVariant，这可能会在运行时发生异常。,MaterialService 中找到多個符合名稱和覆寫材質的 MaterialVariant，執行階段可能會發生異常行為。
+Studio.MaterialManager.Materials.CrackedLava,Cracked Lava,Cracked Lava,Lava agrietada,Lave fissurée,Lava incrinata,ひび割れた溶岩,갈라진 용암,Lava rachada,裂纹熔岩,裂纹熔岩,裂紋熔岩
+Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview,Normal Map Preview,Vista previa del mapa normal,Prévisualisation de la carte normale,Anteprima Mappa Normale,標準マップのプレビュー,일반 맵 미리 보기,Prévia do mapa normal,标准地图预览,标准地图预览,法線圖預覽
+Studio.MaterialManager.Materials.Basalt,Basalt,Basalt,Basalto,Basalte,Basalto,玄武岩,현무암,Basalto,玄武岩,玄武岩,玄武岩
+Studio.MaterialManager.Categories.All,All,All,Todas,Tout,Tutti,すべて,전체,Tudo,全部,全部,全部
+Studio.MaterialManager.Categories.Metal,Metal,Metal,Metal,Métal,Metallo,金属,금속,Metal,金属,金属,金屬
+Studio.MaterialManager.Materials.Metal,Metal,Metal,Metal,Métal,Metallo,金属,금속,Metal,金属,金属,金屬
+Studio.MaterialManager.Categories.FinishedWood,Finished Wood,Finished Wood,Madera terminada,Bois Fini,Legno Rifinito,加工済みの木材,도장처리 목재,Madeira trabalhada,加工木材,加工木材,上漆木材
+Studio.MaterialManager.Categories.Natural,Natural,Natural,Natural,Naturel,Naturale,ナチュラル,자연,Natural,天然,天然,天然
+Studio.MaterialManager.Categories.Rock,Rock,Rock,Roca,Roche,Roccia,岩,바위,Rocha,岩石,岩石,岩石
+Studio.MaterialManager.Materials.Rock,Rock,Rock,Roca,Rocher,Roccia,岩,바위,Rocha,岩石,岩石,岩石
+Studio.MaterialManager.Categories.Asphalt,Asphalt,Asphalt,Asfalto,Asphalte,Asfalto,アスファルト,아스팔트,Asfalto,沥青,沥青,瀝青
+Studio.MaterialManager.Materials.Asphalt,Asphalt,Asphalt,Alquitrán,Asphalte,Asfalto,アスファルト,아스팔트,Asfalto,沥青,沥青,瀝青
+Studio.MaterialManager.Materials.DiamondPlateVariant,Diamond Plate Variant,Diamond Plate Variant,Variante de placa de diamante,Variante de plaque de diamant,Variante Piastra Diamante,ダイヤモンド板のバリエーション,다이아몬드판 변형,Variante de placa de diamante,花纹板变量,花纹板变量,菱形板變種
+Studio.MaterialManager.Materials.Brick,Brick,Brick,Ladrillo,Brique,Mattone,レンガ,벽돌,Tijolo,砖块,砖块,磚塊
+Studio.MaterialManager.Categories.Stone,Stone,Stone,Piedra,Pierre,Pietra,石,돌,Pedra,石头,石头,石頭
+Studio.MaterialManager.Materials.SmoothPlasticMaterial,Smooth Plastic Material,Smooth Plastic Material,Material de plástico liso,Matériau plastique lisse,Materiale Plastica Liscia,なめらかなプラスチック素材,매끈한 플라스틱 재질,Material de plástico liso,平滑塑料材质,平滑塑料材质,平滑塑膠材質
+Studio.MaterialManager.Categories.Fabric,Fabric,Fabric,Tela,Tissu,Tessuto,布地,직물,Tecido,布料,布料,布料
+Studio.MaterialManager.Materials.Fabric,Fabric,Fabric,Tela,Tissu,Tessuto,布地,직물,Tecido,布料,布料,布料
+Studio.MaterialManager.Categories.Glacier,Glacier,Glacier,Glaciar,Glacier,Ghiacciaio,氷河,빙하,Geleira,冰川,冰川,冰河
+Studio.MaterialManager.Materials.Glacier,Glacier,Glacier,Glaciar,Glacier,Ghiacciaio,氷河,빙하,Geleira,冰川,冰川,冰河
+Studio.MaterialManager.Categories.Translucent,Translucent,Translucent,Translúcido,Translucide,Traslucido,透明,반투명,Translúcido,半透明,半透明,半透明
+Studio.MaterialManager.Categories.Ground,Ground,Ground,Suelo,Sol,Suolo,地面,토양,Chão,土地,土地,土地
+Studio.MaterialManager.Materials.Ground,Ground,Ground,Suelo,Sol,Suolo,地面,토양,Chão,土地,土地,土地
+Studio.MaterialManager.Categories.Grass,Grass,Grass,Hierba,Herbe,Erba,草,잔디,Grama,草地,草地,草
+Studio.MaterialManager.Materials.Grass,Grass,Grass,Hierba,Herbe,Erba,草,잔디,Grama,草地,草地,草
+Studio.MaterialManager.Categories.Dirt,Dirt,Dirt,Tierra,Terre,Terriccio,土,흙먼지,Poeira,尘土,尘土,塵土
+Studio.MaterialManager.Categories.Mineral,Mineral,Mineral,Mineral,Minéral,Minerale,鉱石,광물,Mineral,矿物,矿物,礦物
+Studio.MaterialManager.Categories.Salt,Salt,Salt,Sal,Sel,Sale,塩,소금,Sal,盐,盐,鹽
+Studio.MaterialManager.Materials.Salt,Salt,Salt,Sal,Sel,Sale,塩,소금,Sal,盐,盐,鹽
+Studio.MaterialManager.Categories.Mud,Mud,Mud,Barro,Boue,Fango,泥,진흙,Lama,泥,泥,泥
+Studio.MaterialManager.Materials.Mud,Mud,Mud,Barro,Boue,Fango,泥,진흙,Lama,泥,泥,泥
+Studio.MaterialManager.Materials.Air,Air,Air,Aire,Air,Aria,空気,공기,Ar,空气,空气,空氣
+Studio.MaterialManager.Materials.Cobblestone,Cobblestone,Cobblestone,Adoquín,Pavés,Ciottolo,玉砂利,왕자갈,Paralelepípedo,大鹅卵石,大鹅卵石,鵝卵石
+Studio.MaterialManager.Categories.Concrete,Concrete,Concrete,Hormigón,Béton,Cemento,コンクリート,콘크리트,Concreto,水泥,水泥,混凝土
+Studio.MaterialManager.Materials.Concrete,Concrete,Concrete,Hormigón,Béton,Cemento,コンクリート,콘크리트,Concreto,水泥,水泥,混凝土
+Studio.MaterialManager.Materials.CorrodedMetal,Corroded Metal,Corroded Metal,Metal corroído,Métal corrodé,Metallo corroso,さびた金属,부식된 금속,Metal corroído,锈蚀金属,锈蚀金属,腐蝕金屬
+Studio.MaterialManager.Materials.Foil,Foil,Foil,Papel aluminio,Feuille d'aluminium,Alluminio,ホイル,포일,Papel alumínio,锡箔,锡箔,金屬箔
+Studio.MaterialManager.Materials.Forcefield,Force Field,Force Field,Campo de fuerza,Forcer le champ,Campo Forza,フォースフィールド,역장,Campo de força,力场,力场,力場
+Studio.MaterialManager.Materials.Ice,Ice,Ice,Hielo,Glace,Ghiaccio,氷,얼음,Gelo,冰,冰,冰
+Studio.MaterialManager.Materials.Limestone,Limestone,Limestone,Piedra caliza,Pierre calcaire,Calcare,ライムストーン,석회암,Calcário,石灰石,石灰石,石灰岩
+Studio.MaterialManager.Materials.Marble,Marble,Marble,Mármol,Marbre,Marmo,大理石,대리석,Mármore,大理石,大理石,大理石
+Studio.MaterialManager.Materials.Neon,Neon,Neon,Neón,Néon,Neon,ネオン,네온,Neon,霓虹,霓虹,霓虹
+Studio.MaterialManager.Materials.Pavement,Pavement,Pavement,Pavimento,Pavé,Pavimento,舗道,보도,Pavimento,路面,路面,人行道
+Studio.MaterialManager.Materials.Pebble,Pebble,Pebble,Piedrita,Galet,Sassi,小石,자갈,Cascalho,小鹅卵石,小鹅卵石,卵石
+Studio.MaterialManager.Categories.Plastic,Plastic,Plastic,Plástico,Plastique,Plastica,プラスチック,플라스틱,Plástico,塑料,塑料,塑膠
+Studio.MaterialManager.Materials.Plastic,Plastic,Plastic,Plástico,Plastique,Plastica,プラスチック,플라스틱,Plástico,塑料,塑料,塑膠
+Studio.MaterialManager.Categories.Sand,Sand,Sand,Arena,4000,Sabbia,砂,모래,Areia,沙,沙,沙
+Studio.MaterialManager.Materials.Sand,Sand,Sand,Arena,Sable,Sabbia,砂,모래,Areia,沙,沙,沙
+Studio.MaterialManager.Materials.Slate,Slate,Slate,Pizarra,Ardoise,Asse,スレート,슬레이트,Ardósia,石板,石板,板岩
+Studio.MaterialManager.Materials.Sandstone,Sandstone,Sandstone,Piedra arenisca,Grès,Arenaria,サンドストーン,사암,Arenito,砂岩,砂岩,砂岩
+Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMap,Failed to upload Texture Map,Failed to upload Texture Map,Error al cargar el mapa de textura,Échec du téléchargement de la carte des textures,Impossibile caricare la Mappa Texture,テクスチャマップをアップロードできませんでした,텍스처 맵을 업로드하지 못했습니다,Falha no upload do mapa de textura,上传纹理地图失败,上传纹理地图失败,無法上傳紋理圖
+Studio.MaterialManager.Materials.SmoothPlastic,Smooth Plastic,Smooth Plastic,Plástico liso,Plastique lisse,Plastica liscia,なめらかなプラスチック,매끈한 플라스틱,Plástico liso,平滑塑料,平滑塑料,平滑塑膠
+Studio.MaterialManager.Materials.Water,Water,Water,Agua,Eau,Acqua,水,물,Água,水,水,水
+Studio.MaterialManager.Materials.WoodPlanks,Wood Planks,Wood Planks,Tablones de madera,Planches de bois,Assi di legno,木の板,나무 판자,Tábuas,木板,木板,木板
+Studio.MaterialManager.CreateDialog.InsertAssetURL,URL,URL,URL,URL,URL,URL,URL,URL,URL,URL,網址
+Studio.MaterialManager.MaterialInformation.ResetPartMaterial,Reset Part Material,Reset Part Material,Restablecer material de la pieza,Réinitialiser le matériel de la pièce,Reimposta Materiale Della Parte,パーツ素材をリセット,파트 재질 재설정,Reiniciar o material da parte,重置部件材质,重置部件材质,重置零件材質
+Studio.MaterialManager.MaterialOptions.ResetPartMaterial,Reset Part Material,Reset Part Material,Restablecer material de la pieza,Réinitialiser le matériel de la pièce,Reimposta Materiale Parte,パーツ素材をリセット,파트 재질 재설정,Reiniciar o material da parte,重置部件材质,重置部件材质,重置零件材質
+Studio.MaterialManager.MaterialInformation.ResetTerrainMaterial,Reset Terrain Material,Reset Terrain Material,Restablecer material del terreno,Réinitialiser le matériau du terrain,Reimposta Materiale Terreno,地形の素材をリセット,지형 재질 재설정,Reiniciar o material do terreno,重置地形材质,重置地形材质,重置地形材質
+Studio.MaterialManager.MaterialOptions.ResetTerrainMaterial,Reset Terrain Material,Reset Terrain Material,Restablecer material del terreno,Réinitialiser le matériau du terrain,Reimposta Materiale Terreno,地形の素材をリセット,지형 재질 재설정,Reiniciar o material do terreno,重置地形材质,重置地形材质,重置地形材質
+Studio.MaterialManager.MaterialOverrides.MaterialOverrides,Material Overrides,Material Overrides,Cambios de material,Substitutions de matériel,Sostituzione Materiale,素材のオーバーライド,재질 재정의,Substituições de material,材质覆盖,材质覆盖,材質覆寫
+Studio.MaterialManager.MaterialInformation.ResetMaterial,Reset Material,Reset Material,Restablecer material,Réinitialiser le matériau,Reimposta Materiale,素材をリセット,재질 재설정,Reiniciar o material,重置材质,重置材质,重置材質
+Studio.MaterialManager.MaterialOptions.ResetMaterial,Reset Material,Reset Material,Restablecer material,Réinitialiser le matériau,Reimposta Materiale,素材をリセット,재질 재설정,Reiniciar o material,重置材质,重置材质,重置材質
+Studio.MaterialManager.MaterialInformation.Edit,Edit,Edit,Editar,Modifier,Modifica,編集する,편집,Editar,编辑,编辑,編輯
+Studio.MaterialManager.MaterialOptions.Edit,Edit,Edit,Editar,Modifier,Modifica,編集する,편집,Editar,编辑,编辑,編輯
+Studio.MaterialManager.MaterialInformation.SetPartOverride,Set Part Override,Set Part Override,Establecer reemplazo de la pieza,Définir le remplacement de pièce,Impostare la sostituzione della parte,パーツのオーバーライドを設定,파트 재정의 설정,Definir substituição de parte,设置部件覆盖,设置部件覆盖,設定零件覆寫
+Studio.MaterialManager.MaterialOptions.SetPartOverride,Set Part Override,Set Part Override,Establecer reemplazo de la pieza,Définir le remplacement de pièce,Impostare la sostituzione della parte,パーツのオーバーライドを設定,파트 재정의 설정,Definir substituição de parte,设置部件覆盖,设置部件覆盖,設定零件覆寫
+Studio.MaterialManager.MaterialInformation.SetTerrainOverride,Set Terrain Override,Set Terrain Override,Establecer reemplazo del terreno,Définir le remplacement du terrain,Imposta la sostituzione del terreno,地形のオーバーライドを設定,지형 재정의 설정,Definir Substituição de terreno,设置地形覆盖,设置地形覆盖,設定地形覆寫
+Studio.MaterialManager.MaterialOptions.SetTerrainOverride,Set Terrain Override,Set Terrain Override,Establecer reemplazo del terreno,Définir le remplacement du terrain,Imposta la sostituzione del terreno,地形のオーバーライドを設定,지형 재정의 설정,Definir Substituição de terreno,设置地形覆盖,设置地形覆盖,設定地形覆寫
+Studio.MaterialManager.Materials.WaterMaterial,Water Material,Water Material,Material de agua,Matériau d'eau,Materiale Acqua,水素材,물 재질,Material de água,水材质,水材质,水材質
+Studio.MaterialManager.MaterialInformation.SetOverride,Set Override,Set Override,Establecer reemplazo,Définir la substitution,Imposta Sostituisci,オーバーライドを設定,재정의 설정,Definir substituição,设置覆盖,设置覆盖,設定覆寫
+Studio.MaterialManager.MaterialOptions.SetOverride,Set Override,Set Override,Establecer reemplazo,Définir la substitution,Imposta Sostituzione,オーバーライドを設定,재정의 설정,Definir substituição,设置覆盖,设置覆盖,設定覆寫
+Studio.MaterialManager.MaterialOverrides.SetOverride,Set Override,Set Override,Establecer reemplazo,Définir la substitution,Imposta Sostituisci,オーバーライドを設定,재정의 설정,Definir substituição,设置覆盖,设置覆盖,設定覆寫
+Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override,Part Override,Reemplazo de pieza,Remplacer les pièces,Sostituzione Parte,パーツをオーバーライド,파트 재정의,Substituição de parte,部件覆盖,部件覆盖,零件覆寫
+Studio.MaterialManager.Materials.LimestoneMaterial,Limestone Material,Limestone Material,Material de piedra caliza,Matériau calcaire,Materiale Calcareo,ライムストーン素材,석회암 재질,Material de calcário,石灰岩材质,石灰岩材质,石灰岩材質
+Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override,Terrain Override,Cambio de terreno,Remplacer le terrain,Sostituzione Terreno,地形を上書き,지형 재정의,Substituição de terreno,地形覆盖,地形覆盖,地形覆寫
+Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override,Material Override,Cambio de material,Substitution de matériel,Sostituzione Materiale,素材をオーバーライド,재질 재정의,Substituição de material,材质覆盖,材质覆盖,材質覆寫
+Studio.MaterialManager.Materials.SlateVariant,Slate Variant,Slate Variant,Variante de pizarra,Variante de l'ardoise,Variante Tegola,スレートのバリエーション,슬레이트 변형,Variante de ardósia,石板变量,石板变量,板岩變種
+Studio.MaterialManager.MaterialOverrides.None,None,None,Ninguno,Aucun,Nessuno,なし,없음,Nenhum(a),无,无,無
+Studio.MaterialManager.MaterialOverrides.CreateNew,Create New,Create New,Crear Nuevo,Créer un nouveau,Crea nuovo,新規作成,새로 만들기,Criar novo,新建,新建,新建
+Studio.MaterialManager.CreateDialog.EditVariant,Edit Variant,Edit Variant,Editar variante,Modifier la variante,Modifica Variante,バリエーションを編集,변형 편집,Editar variante,编辑变量,编辑变量,編輯變種
+Studio.MaterialManager.CreateDialog.ErrorNoName,Name required,Name required,Nombre obligatorio,Nom requis,Nome necessario,名前が必要です,이름은 필수입니다,Nome obrigatório,必填名称,必填名称,需要名稱
+Studio.MaterialManager.CreateDialog.ErrorBaseMaterialNotSelected,No Base Material selected,No Base Material selected,Ningún material base seleccionado,Aucun matériau de base sélectionné,Nessun materiale base selezionato,ベース材料が選択されていません,선택한 기본 재질이 없습니다,Nenhum material base selecionado,未选择基本材质,未选择基本材质,未選擇底部材質
+Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists,Name already exists,El nombre ya existe,Le nom existe déjà,Il nome esiste già,名前がすでに使われています,이름이 이미 존재합니다,Nome já existe,名称已存在,名称已存在,名稱已存在
+Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected,No Image Selected,No imagen seleccionada,Aucune image sélectionnée,Nessuna immagine selezionata,選択された画像がありません,선택한 이미지가 없습니다,Nenhuma imagem selecionada,未选择图像,未选择图像,未選擇圖像
+Studio.MaterialManager.CreateDialog.ErrorImportMap,Failed to import Texture Map,Failed to import Texture Map,Error al importar el mapa de textura,Échec de l'importation de la carte des textures,Impossibile importare la Mappa Texture,テクスチャマップをインポートできませんでした,텍스처 맵을 가져오지 못했습니다,Falha ao importar Mapa de textura,导入纹理地图失败,导入纹理地图失败,無法匯入紋理圖
+Studio.MaterialManager.CreateDialog.FailedToImportMap,Failed to import Texture Map,Failed to import Texture Map,Error al importar el mapa de textura,Échec de l'importation de la carte des textures,Impossibile importare la Mappa Texture,テクスチャマップをインポートできませんでした,텍스처 맵을 가져오지 못했습니다,Falha ao importar Mapa de textura,导入纹理地图失败,导入纹理地图失败,無法匯入紋理圖
+Studio.MaterialManager.CreateDialog.MaterialPatternVariant,Material Pattern,Material Pattern,Patrón del material,Motif de matériau,Tipo Materiale,素材のパターン,재질 패턴,Padrão de material,材质纹理,材质纹理,材質紋路
+Studio.MaterialManager.MaterialAdditional.MaterialPattern,Material Pattern,Material Pattern,Patrón del material,Motif de matériau,Tipo Materiale,素材のパターン,재질 패턴,Padrão de material,材质纹理,材质纹理,材質紋路
+Studio.MaterialManager.Materials.PlasticVariant,Plastic Variant,Plastic Variant,Variante de plástico,Variante en matière plastique,Variante Plastica,プラスチックのバリエーション,플라스틱 변형,Variante de plástico,塑料变量,塑料变量,塑膠變種
+Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map,Failed to select Texture Map,Error al seleccionar el mapa de textura,Échec de la sélection de la carte des textures,Impossibile selezionare Mappa Texture,テクスチャマップを選択できませんでした,텍스처 맵을 선택하지 못했습니다,Falha ao selecionar Mapa de textura,选择纹理地图失败,选择纹理地图失败,無法選擇紋理圖
+Studio.MaterialManager.Materials.AsphaltMaterial,Asphalt Material,Asphalt Material,Material de alquitrán,Matériau de l'asphalte,Materiale Asfalto,アスファルト素材,아스팔트 재질,Material de asfalto,沥青材质,沥青材质,瀝青材質
+Studio.MaterialManager.CreateDialog.ErrorFindUrl,Failed to find URL,Failed to find URL,Error al encontrar la URL,Impossible de trouver l'URL,Impossibile trovare l'URL,URLが見つかりませんでした,URL을 찾지 못했습니다,Falha ao encontrar URL,找不到网址,找不到网址,找不到網址
+Studio.MaterialManager.CreateDialog.FailedUrl,Failed to find URL,Failed to find URL,Error al encontrar la URL,Impossible de trouver l'URL,Impossibile trovare l'URL,URLが見つかりませんでした,URL을 찾지 못했습니다,Falha ao encontrar URL,找不到网址,找不到网址,找不到網址
+Studio.MaterialManager.CreateDialog.ErrorStudsPerTile,Studs Per Tile should be positive,Studs Per Tile should be positive,Los studs por mosaico deben ser positivos,Les montants par tuile doivent être positifs,Studs per mattonella dovrebbe essere in positivo,タイルあたりのスタッド数は正の値でなければなりません,타일 당 스터드 수는 양수여야 합니다,Quadrículas por ladrilho deve ser positivo,单一砖块格数应为正数,单一砖块格数应为正数,單一磚格磚塊數應為正數
+Studio.MaterialManager.CreateDialog.Import,Import,Import,Importar,Importer,Importa,インポートする,가져오기,Importar,导入,导入,匯入
+Studio.MaterialManager.Materials.AirVariant,Air Variant,Air Variant,Variante de aire,Variante de l'air,Variante Aria,空気のバリエーション,공기 변형,Variante de ar,空气变量,空气变量,空氣變種
+Studio.MaterialManager.Materials.AsphaltVariant,Asphalt Variant,Asphalt Variant,Variante de alquitrán,Variante de l'asphalt,Variante Asfalto,アスファルトのバリエーション,아스팔트 변형,Variante de asfalto,沥青变量,沥青变量,瀝青變種
+Studio.MaterialManager.Materials.BasaltVariant,Basalt Variant,Basalt Variant,Variante de basalto,Variante du basalte,Variante Basalto,玄武岩のバリエーション,현무암 변형,Variante de basalto,玄武岩变量,玄武岩变量,玄武岩變種
+Studio.MaterialManager.Materials.BrickVariant,Brick Variant,Brick Variant,Variante de ladrillo,Variante de brique,Variante Mattone,レンガのバリエーション,벽돌 변형,Variante de tijolo,砖块变量,砖块变量,磚塊變種
+Studio.MaterialManager.TerrainDetails.Top,Top,Top,Sup.,Haut,Alto,上,상단,Superior,顶部,顶部,頂部
+Studio.MaterialManager.Materials.CobblestoneVariant,Cobblestone Variant,Cobblestone Variant,Variante de adoquín,Variante de pierre taillée,Variante Mattoni,玉砂利のバリエーション,왕자갈 변형,Variante de paralelepípedo,大鹅卵石变量,大鹅卵石变量,鵝卵石變種
+Studio.MaterialManager.Materials.GlacierMaterial,Glacier Material,Glacier Material,Material de glaciar,Matériau du glacier,Materiale Del Ghiacciaio,氷河の素材,빙하 재질,Material de geleira,冰川材质,冰川材质,冰河材質
+Studio.MaterialManager.Materials.ConcreteVariant,Concrete Variant,Concrete Variant,Variante de hormigón,Variante de béton,Variante Cemento,コンクリートのバリエーション,콘크리트 변형,Variante de concreto,水泥变量,水泥变量,混凝土變種
+Studio.MaterialManager.Materials.CrackedLavaVariant,Cracked Lava Variant,Cracked Lava Variant,Variante de lava agrietada,Variante de lave fissurée,Variante Lava Incrinata,ひび割れた溶岩のバリエーション,갈라진 용암 변형,Variante de lava rachada,裂纹熔岩变量,裂纹熔岩变量,裂紋熔岩變種
+Studio.MaterialManager.Materials.FabricVariant,Fabric Variant,Fabric Variant,Variante de tela,Variante de tissu,Variante Tessuto,生地のバリエーション,직물 변형,Variante de tecido,布料变量,布料变量,布料變種
+Studio.MaterialManager.Materials.FoilVariant,Foil Variant,Foil Variant,Variante de papel aluminio,Variante de la feuille d'aluminium,Variante Lamina,ホイルのバリエーション,포일 변형,Variante de papel alumínio,锡箔变量,锡箔变量,金屬箔變種
+Studio.MaterialManager.Materials.ForcefieldVariant,Force Field Variant,Force Field Variant,Variante de campo de fuerza,Forcer la variante du champ,Variante Campo Forza,フォースフィールドのバリエーション,역장 변형,Variante de campo força,力场变量,力场变量,力場變種
+Studio.MaterialManager.Materials.GlacierVariant,Glacier Variant,Glacier Variant,Variante de glaciar,Variante du glacier,Variante Ghiacciaio,氷河のバリエーション,빙하 변형,Variante de geleira,冰川变量,冰川变量,冰河變種
+Studio.MaterialManager.Materials.GlassVariant,Glass Variant,Glass Variant,Variante de vidrio,Variante de verre,Variante Vetro,ガラスのバリエーション,유리 변형,Variante de vidro,玻璃变量,玻璃变量,玻璃變種
+Studio.MaterialManager.PhysicalProperties.ElasticityWeight,Elasticity Weight,Elasticity Weight,Peso de la elasticidad,Poids élasticité,Elasticitá Peso,弾力性重量,탄성 가중치,Peso da elasticidade,弹性重量,弹性重量,彈性重量
+Studio.MaterialManager.Materials.GraniteVariant,Granite Variant,Granite Variant,Variante de granito,Variante de granit,Variante Granito,大理石のバリエーション,화강암 변형,Variante de granito,花岗岩变量,花岗岩变量,花崗岩變種
+Studio.MaterialManager.ViewType.Grid,Grid,Grid,Cuadrícula,Grille,Griglia,グリッド,그리드,Grade,方格,方格,方格
+Studio.MaterialManager.Materials.IceVariant,Ice Variant,Ice Variant,Variante de hielo,Variante de la glace,Variante Ghiaccio,氷のバリエーション,얼음 변형,Variante de gelo,冰变量,冰变量,冰變種
+Studio.MaterialManager.Materials.LeafyGrassVariant,Leafy Grass Variant,Leafy Grass Variant,Variante de hierba espesa,Variante de l'herbe feuillue,Variante Erba A Foglie,草地のバリエーション,무성한 잔디 변형,Variante de grama alta,绿叶草变量,绿叶草变量,綠葉草變種
+Studio.MaterialManager.Materials.LimestoneVariant,Limestone Variant,Limestone Variant,Variante de piedra caliza,Variante du calcaire,Variante Calcare,ライムストーンのバリエーション,석회암 변형,Variante de calcário,石灰岩变量,石灰岩变量,石灰岩變種
+Studio.MaterialManager.Materials.MarbleVariant,Marble Variant,Marble Variant,Variante de mármol,Variante de Marbre,Variante Marmo,大理石のバリエーション,대리석 변형,Variante de mármore,大理石变量,大理石变量,大理石變種
+Studio.MaterialManager.Materials.MetalVariant,Metal Variant,Metal Variant,Variante de metal,Variante de métal,Variante Metallo,金属のバリエーション,금속 변형,Variante de metal,金属变量,金属变量,金屬變種
+Studio.MaterialManager.Materials.MudVariant,Mud Variant,Mud Variant,Variante de barro,Variante de boue,Variante Fango,泥のバリエーション,진흙 변형,Variante de lama,泥变量,泥变量,泥變種
+Studio.MaterialManager.Materials.NeonVariant,Neon Variant,Neon Variant,Variante de neón,Variante de néon,Variante Neon,ネオンのバリエーション,네온 변형,Variante de neon,霓虹变量,霓虹变量,霓虹變種
+Studio.MaterialManager.CreateDialog.Location,Location,Location,Ubicación,Localisation,Posizione,場所,위치,Local,地点,地点,地點
+Studio.MaterialManager.Categories.Organic,Organic,Organic,Orgánico,Organique,Organico,天然素材,오가닉,Orgânico,不规则,不规则,不規則
+Studio.MaterialManager.MaterialPatterns.Organic,Organic,Organic,Orgánico,Organique,Organico,天然素材,오가닉,Orgânico,不规则,不规则,不規則
+Studio.MaterialManager.Materials.NeonMaterial,Neon Material,Neon Material,Material de neón,Matériel néon,Materiale Neon,ネオン素材,네온 재질,Material de neon,霓虹材质,霓虹材质,霓虹材質
+Studio.MaterialManager.Materials.PavementVariant,Pavement Variant,Pavement Variant,Variante de pavimento,Variante de chaussée,Variante Pavimento,鋪道のバリエーション,보도 변형,Variante de pavimento,人行道变量,人行道变量,人行道變種
+Studio.MaterialManager.Materials.PebbleVariant,Pebble Variant,Pebble Variant,Variante de piedrita,Variante du galet,Variante Pebble,小石のバリエーション,자갈 변형,Variante de cascalho,小鹅卵石变量,小鹅卵石变量,卵石變種
+Studio.MaterialManager.TerrainDetails.ButtonCreate,Create,Create,Crear,Créer,Crea,作成,만들기,Criar,创建,创建,建立
+Studio.MaterialManager.Materials.RockVariant,Rock Variant,Rock Variant,Variante de roca,Variante rocheuse,Variante Roccia,岩のバリエーション,바위 변형,Variante de rocha,岩石变量,岩石变量,岩石變種
+Studio.MaterialManager.Materials.SaltVariant,Salt Variant,Salt Variant,Variante de sal,Variante de sel,Variante Sale,塩のバリエーション,소금 변형,Variante de sal,盐变量,盐变量,鹽變種
+Studio.MaterialManager.Materials.SandVariant,Sand Variant,Sand Variant,Variante de arena,Variante de sable,Variante Sabbia,砂のバリエーション,모래 변형,Variante de areia,沙变量,沙变量,沙變種
+Studio.MaterialManager.Materials.SandstoneVariant,Sandstone Variant,Sandstone Variant,Variante de piedra arenisca,Variante de grès,Variante Arenaria,サンドストーンのバリエーション,사암 변형,Variante de arenito,砂岩变量,砂岩变量,砂岩變種
+Studio.MaterialManager.Materials.SmoothPlasticVariant,Smooth Plastic Variant,Smooth Plastic Variant,Variante de plástico liso,Variante en plastique lisse,Variante Di Plastica Liscia,なめらかなプラスチックのバリエーション,매끈한 플라스틱 변형,Variante de plástico liso,平滑塑料变量,平滑塑料变量,平滑塑膠變種
+Studio.MaterialManager.Materials.WaterVariant,Water Variant,Water Variant,Variante de agua,Variante de l'eau,Variante Acqua,水のバリエーション,물 변형,Variante de água,水变量,水变量,水變種
+Studio.MaterialManager.Materials.MarbleMaterial,Marble Material,Marble Material,Material de mármol,Matériau marbre,Materiale Marmo,大理石の素材,대리석 재질,Material de mármore,大理石材质,大理石材质,大理石材質
+Studio.MaterialManager.Materials.WoodVariant,Wood Variant,Wood Variant,Variante de madera,Variante de bois,Variante Roccia,木材のバリエーション,목재 변형,Variante de madeira,木变量,木变量,木材變種
+Studio.MaterialManager.Materials.WoodPlanksVariant,Wood Planks Variant,Wood Planks Variant,Variante de tablones de madera,Variante de planches de bois,Variante Piastre Di Legno,木の板のバリエーション,나무 판자 변형,Variante de tábuas,木板变量,木板变量,木板變種
+Studio.MaterialManager.Materials.AirMaterial,Air Material,Air Material,Material de aire,Matériau de l'air,Materiale Aria,空気の素材,공기 재질,Material de ar,空气材质,空气材质,空氣材質
+Studio.MaterialManager.Materials.BasaltMaterial,Basalt Material,Basalt Material,Material de basalto,Matériau de basalte,Materiale Basalto,玄武岩の素材,현무암 재질,Material de basalto,玄武岩材质,玄武岩材质,玄武岩材質
+Studio.MaterialManager.Materials.BrickMaterial,Brick Material,Brick Material,Material de ladrillo,Matériau de brique,Materiale Mattone,レンガ素材,벽돌 재질,Material de tijolo,砖块材质,砖块材质,磚塊材質
+Studio.MaterialManager.Materials.CobblestoneMaterial,Cobblestone Material,Cobblestone Material,Material de adoquín,Matériau de pierre,Materiale Ciottolo,玉砂利の素材,왕자갈 재질,Material de paralelepípedo,大鹅卵石材质,大鹅卵石材质,鵝卵石材質
+Studio.MaterialManager.CreateDialog.FailedToInsertAssetManager,Failed to insert assetId to AssetManager,Failed to insert assetId to AssetManager,Error al insertar assetId a AssetManager,Impossible d'insérer assetId dans AssetManager,Impossibile inserire assetId in AssetManager,assetId を AssetManager に挿入できませんでした,assetId를 AssetManager에 삽입하지 못했습니다,Falha ao inserir o assetId para o AssetManager,无法将 assetId 插入 AssetManager,无法将 assetId 插入 AssetManager,無法將 assetId 插入 AssetManager
+Studio.MaterialManager.Materials.ConcreteMaterial,Concrete Material,Concrete Material,Material de hormigón,Matériau de béton,Materiale Cemento,コンクリート素材,콘크리트 재질,Material de concreto,水泥材质,水泥材质,混凝土材質
+Studio.MaterialManager.Materials.CorrodedMetalMaterial,Corroded Metal Material,Corroded Metal Material,Material de metal corroído,Matériau de métal corrodé,Materiale In Metallo Corroso,さびた金属素材,부식된 금속 재질,Material de metal corroido,腐蚀金属材质,腐蚀金属材质,腐蝕金屬材質
+Studio.MaterialManager.Materials.CrackedLavaMaterial,Cracked Lava Material,Cracked Lava Material,Material de lava agrietada,Matériau de Lave fissurée,Materiale Di Lava Incrinata,ひび割れた溶岩素材,갈라진 용암 재질,Material de lava rachada,裂纹熔岩材质,裂纹熔岩材质,裂紋熔岩材質
+Studio.MaterialManager.Materials.DiamondPlateMaterial,Diamond Plate Material,Diamond Plate Material,Material de placa de diamante,Matériau de plaque de diamant,Materiale Piastra Diamante,ダイヤモンド板の素材,다이아몬드판 재질,Material de placa de diamante,花纹板材质,花纹板材质,菱形板材質
+Studio.MaterialManager.Materials.FoilMaterial,Foil Material,Foil Material,Material de papel aluminio,Matériau d'aluminium,Materiale in Lamina,ホイル素材,포일 재질,Material de papel alumínio,锡箔材质,锡箔材质,金屬箔材質
+Studio.MaterialManager.Materials.ForcefieldMaterial,Force Field Material,Force Field Material,Material de campo de fuerza,Matériau du champ de force,Variante Campo Forza,フォースフィールド素材,역장 재질,Material de campo de força,力场材质,力场材质,力場材質
+Studio.MaterialManager.Materials.GlassMaterial,Glass Material,Glass Material,Material de vidrio,Matériau en verre,Materiale Vetro,ガラス素材,유리 재질,Material de vidro,草材质,草材质,玻璃材質
+Studio.MaterialManager.Materials.GraniteMaterial,Granite Material,Granite Material,Material de granito,Matériau de granite,Materiale Granito,大理石素材,화강암 재질,Material de granito,花岗岩材质,花岗岩材质,花崗岩材質
+Studio.MaterialManager.TerrainDetails.Side,Side,Side,Lateral,Coté,Lato,横,측면,Lateral,侧部,侧部,邊
+Studio.MaterialManager.Materials.GrassMaterial,Grass Material,Grass Material,Material de hierba,Matériau d'herbe,Materiale Erba,草の素材,잔디 재질,Material de grama,草材质,草材质,草材質
+Studio.MaterialManager.Materials.GroundMaterial,Ground Material,Ground Material,Material de suelo,Matériau de sol,Materiale Terra,地面の素材,토양 재질,Material de chão,土地材质,土地材质,土地材質
+Studio.MaterialManager.CreateDialog.StudsPerTileVariant,Studs Per Tile,Studs Per Tile,Studs por mosaico,Montants par carreau,Studs Per Mattonella,タイルあたりのスタッド数,타일당 스터드 수,Quadrículas por ladrilho,单一砖块格数,单一砖块格数,單一磚格磚塊數
+Studio.MaterialManager.MaterialAdditional.StudsPerTile,Studs Per Tile,Studs Per Tile,Studs por cuadrícula,Montants par carreau,Studs Per Mattonella,タイルあたりのスタッド数,타일당 스터드 수,Quadrículas por ladrilho,单一砖块格数,单一砖块格数,單一磚格磚塊數
+Studio.MaterialManager.MaterialTiling.StudsPerTile,Studs Per Tile,Studs Per Tile,Studs por mosaico,Montants par carreau,Studs Per Mattonella,タイルあたりのスタッド数,타일당 스터드 수,Quadrículas por ladrilho,单一砖块格数,单一砖块格数,單一磚格磚塊數
+Studio.MaterialManager.Materials.IceMaterial,Ice Material,Ice Material,Material de hielo,Matériau de glace,Materiale Ghiaccio,氷素材,얼음 재질,Material de gelo,冰材质,冰材质,冰材質
+Studio.MaterialManager.Materials.LeafyGrassMaterial,Leafy Grass Material,Leafy Grass Material,Material de hierba espesa,Matériau d'herbe à feuilles,Materiale Erba a Foglie,草地の素材,무성한 잔디 재질,Material de grama alta,绿叶草材质,绿叶草材质,綠葉草材質
+Studio.MaterialManager.Materials.MetalMaterial,Metal Material,Metal Material,Material de metal,Matériau de métal,Materiale Metallico,金属の素材,금속 재질,Material de metal,金属材质,金属材质,金屬材質
+Studio.MaterialManager.Materials.MudMaterial,Mud Material,Mud Material,Material de barro,Matériau de boue,Materiale Fango,泥素材,진흙 재질,Material de lama,泥材质,泥材质,泥材質
+Studio.MaterialManager.PhysicalProperties.Reset,Reset,Reset,Restablecer,Réinitialiser,Reimposta,リセット,재설정,Reiniciar,重置,重置,重置
+Studio.MaterialManager.Materials.PavementMaterial,Pavement Material,Pavement Material,Material de pavimento,Matériau trottoir,Materiale Pavimentazione,鋪道の素材,보도 재질,Material de pavimento,人行道材质,人行道材质,人行道材質
+Studio.MaterialManager.Materials.PebbleMaterial,Pebble Material,Pebble Material,Material de piedrita,Matériau galet,Materiale Ghiaia,小石の素材,자갈 재질,Material de cascalho,小鹅卵石材质,小鹅卵石材质,卵石材質
+Studio.MaterialManager.Materials.PlasticMaterial,Plastic Material,Plastic Material,Material de plástico,Matériau plastique,Materiale Plastica,プラスチック素材,플라스틱 재질,Material de plástico,塑料材质,塑料材质,塑膠材質
+Studio.MaterialManager.Materials.RockMaterial,Rock Material,Rock Material,Material de roca,Matériau de roche,Materiale Roccia,岩素材,바위 재질,Material de rocha,岩石材质,岩石材质,岩石材質
+Studio.MaterialManager.Materials.SaltMaterial,Salt Material,Salt Material,Material de sal,Matériau de sel,Materiale Sale,塩の素材,소금 재질,Material de sal,盐材质,盐材质,鹽材質
+Studio.MaterialManager.Materials.SandMaterial,Sand Material,Sand Material,Material de arena,Matériau de sable,Materiale Sabbia,砂素材,모래 재질,Material de areia,沙材质,沙材质,沙材質
+Studio.MaterialManager.Materials.SlateMaterial,Slate Material,Slate Material,Material de pizarra,Matériau ardoise,Materiale Ardesia,スレート素材,슬레이트 재질,Material de ardósia,石板材质,石板材质,板岩材質
+Studio.MaterialManager.Materials.SandstoneMaterial,Sandstone Material,Sandstone Material,Material de piedra arenisca,Matériau en grès,Materiale Arena,サンドストーン素材,사암 재질,Material de arenito,砂岩材质,砂岩材质,砂岩材質
+Studio.MaterialManager.Materials.WoodMaterial,Wood Material,Wood Material,Material de madera,Matériau en bois,Materiale Legno,木材の素材,목재 재질,Material de madeira,木材质,木材质,木材材質
+Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override,Clear Part Override,Eliminar reemplazo de la pieza,Effacer la substitution de pièce,Cancella Parte Sostituzione,パーツのオーバーライドを消す,파트 재정의 지우기,Limpar substituição de parte,清除部件覆盖,清除部件覆盖,清除零件覆寫
+Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override,Clear Terrain Override,Eliminar reemplazo del terreno,Effacer le remplacement du terrain,Cancella Sostituzione Terreno,地形のオーバーライドを消す,지형 재정의 지우기,Limpar substituição de terreno,清除地形覆盖,清除地形覆盖,清除地形覆寫
+Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override,Clear Override,Eliminar reemplazo,Effacer la substitution,Cancella Sostituzione,オーバーライドを消す,재정의 지우기,Limpar substituição,清除覆盖,清除覆盖,清除覆寫
+Studio.MaterialManager.Categories.Materials,Materials,Materials,Materiales,Matériel,Materiale,素材,재질,Materiais,材质,材质,材質
+Studio.MaterialManager.Materials.SnowVariant,Snow Variant,Snow Variant,Variante de nieve,Variante de la neige,Variante Neve,雪のバリエーション,눈 변형,Variante de neve,雪变量,雪变量,雪變種
+Studio.MaterialManager.Materials.SnowMaterial,Snow Material,Snow Material,Material de nieve,Matériel de neige,Materiale Neve,雪の素材,눈 재질,Variante de neve,雪材质,雪材质,雪材質
+Studio.MaterialManager.MaterialStatus.MissingMaterial,Unable to find a MaterialVariant matching the name and override material in MaterialService.,Unable to find a MaterialVariant matching the name and override material in MaterialService.,No se puede encontrar un MaterialVariant que coincida con el nombre y reemplace el material en MaterialService.,Impossible de trouver un MaterialVariant correspondant au nom et au matériau de remplacement de MaterialService.,Impossibile trovare un MaterialeVariante corrispondente al nome e sostituire il materiale in MaterialService.,MaterialService で一致する名前とオーバーライド素材の MaterialVariant が見つかりません。,MaterialService에서 이름 및 재정의 재질과 일치하는 MaterialVariant를 찾을 수 없습니다.,Não é possível encontrar um MaterialVariant que corresponda ao nome e material de substituição no MaterialService.,无法在 MaterialService 中找到符合名称及覆盖材质的 MaterialVariant。,无法在 MaterialService 中找到符合名称及覆盖材质的 MaterialVariant。,無法在 MaterialService 中找到符合名稱和覆寫材質的 MaterialVariant。
+Studio.MaterialManager.CreateDialog.AdditionalProperties,Additional,Additional,Adicional,Supplémentaire,Ulteriori,追加,추가,Adicional,额外,额外,額外
+Studio.MaterialManager.MaterialAdditional.Additional,Additional,Additional,Adicional,Supplémentaire,Ulteriori,追加,추가,Adicional,额外,额外,額外
+Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to apply the selected material to the selected parts,Click here to apply the selected material to the selected parts,Haz clic aquí para aplicar el material seleccionado a las piezas seleccionadas,Cliquez ici pour appliquer le matériau sélectionné aux pièces sélectionnées,Fare clic qui per applicare il materiale selezionato alle parti selezionate,ここをクリックして、選択したパーツに選択した素材を適用,"여기를 클릭해, 선택한 재질을 선택한 파트에 적용하세요",Clique aqui para aplicar o material selecionado às partes selecionadas,点按此处将选定材质应用至所选部件,点按此处将选定材质应用至所选部件,點擊將選取材質套用到選取零件
+Studio.MaterialManager.MaterialPatterns.Regular,Regular,Regular,Regular,Régulier,Regolare,標準,일반,Regular,标准,标准,標準
+Studio.MaterialManager.Categories.Special,Special,Special,Especial,Spécial,Speciale,スペシャル,스페셜,Especial,特殊,特殊,特殊
+Studio.MaterialManager.ViewType.List,List,List,Lista,Liste,Elenco,リスト,목록,Lista,列表,列表,清單
+Studio.MaterialManager.TopBar.MaterialAsTool,Paint parts with selected material,Paint parts with selected material,Pintar piezas con el material seleccionado,Peindre des pièces avec le matériau sélectionné,Disegna parti con il materiale scelto,選択した素材でパーツをペイントする,선택한 재질로 파트를 칠합니다,Pintar partes com material selecionado,使用所选材质为部件涂色,使用所选材质为部件涂色,使用選取材質為零件上漆
+Studio.MaterialManager.TerrainDetails.Bottom,Bottom,Bottom,Inferior,Bas,Basso,下,하단,Inferior,底部,底部,底部
+Studio.MaterialManager.MaterialInformation.Delete,Delete,Delete,Eliminar,Supprimer,Elimina,削除,삭제,Excluir,删除,删除,刪除
+Studio.MaterialManager.TerrainDetails.Delete,Delete,Delete,Eliminar,Supprimer,Elimina,削除,삭제,Excluir,删除,删除,刪除
+Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMapToLarge,Failed to upload: file is too large,Failed to upload: file is too large,Error al cargar: el archivo es demasiado grande,Impossible de télécharger : le fichier est trop volumineux,Caricamento non riuscito: file troppo grande,アップロードできませんでした。ファイルが大きすぎます,업로드 실패: 파일이 너무 큽니다,Falha no upload: o arquivo é grande demais,上传失败：文件太大,上传失败：文件太大,無法上傳：檔案過大
+Studio.MaterialManager.CreateDialog.FailedToUploadTooLarge,Failed to upload: file is too large,Failed to upload: file is too large,Error al cargar: el archivo es demasiado grande,Impossible de télécharger : le fichier est trop volumineux,Caricamento non riuscito: file troppo grande,アップロードできませんでした。ファイルが大きすぎます,업로드 실패: 파일이 너무 큽니다,Falha no upload: o arquivo é grande demais,上传失败：文件太大,上传失败：文件太大,無法上傳：檔案過大
+Studio.MaterialManager.CreateDialog.Uploading,Uploading Texture Map...,Uploading Texture Map...,Cargando mapa de textura...,Téléchargement de la carte des textures en cours...,Caricamento Mappa Texture...,テクスチャマップをアップロード中...,텍스처 맵을 업로드하는 중...,Enviando Mapa de Textura...,正在上传纹理地图...,正在上传纹理地图...,正在上傳紋理圖……
+Studio.MaterialManager.MaterialTiling.Tiling,Tiling,Tiling,Mosaico,Carreau,Piastrellatura,タイル,타일링,Ladrilhamento,砖格,砖格,磚格
+Studio.MaterialManager.MaterialTiling.Pattern,Pattern,Pattern,Patrón,Motif,Tipo,パターン,패턴,Padrão,纹理,纹理,紋路
+Studio.MaterialManager.CreateDialog.FailedToUploadFromFileMap,Failed to upload,Failed to upload,Error al cargar,Échec du téléchargement,Caricamento non riuscito,アップロードできませんでした,업로드하지 못했습니다,Falha ao fazer upload,上传失败,上传失败,無法上傳
+Studio.MaterialManager.MaterialOverrides.Overrides,Overrides,Overrides,Reemplazos,Substitutions,Sostituisce,オーバーライド,재정의,Substituições,覆盖,覆盖,覆寫
+Studio.MaterialManager.OverrideSettings.Overrides,Overrides,Overrides,Reemplazos,Substitutions,Sostituisce,オーバーライド,재정의,Substituições,覆盖,覆盖,覆寫
+Studio.MaterialManager.OverrideSettings.SetOverride,Set as Override,Set as Override,Establecer como Reemplazo,Définir comme remplacement,Imposta Sostituisci,オーバーライドに設定,재정의로 설정,Definir como substituição,设为覆盖,设为覆盖,設為覆寫
+Studio.MaterialManager.PhysicalProperties.Elasticity,Elasticity,Elasticity,Elasticidad,Élasticité,Elasticità,弾力性,탄성,Elasticidade,弹性,弹性,彈性
+Studio.MaterialManager.PhysicalProperties.Friction,Friction,Friction,Fricción,Friction,Attrito,摩擦,마찰,Atrito,摩擦力,摩擦力,摩擦力
+Studio.MaterialManager.PhysicalProperties.Physics,Physics,Physics,Física,Physique,Fisica,物理,물리,Física,物理,物理,物理
+Studio.MaterialManager.TerrainDetails.TerrainDetails,Terrain Details,Terrain Details,Detalles del terreno,Détails du terrain,Dettagli Terreno,地形の詳細,지형 세부 사항,Detalhes do terreno,地形详细信息,地形详细信息,地形詳細資訊
+Studio.MaterialManager.MaterialOverrides.OverrideUnavailable,This Material doesn't support Variants,This Material doesn't support Variants,Este material no admite variantes,Ce matériau ne prend pas en charge les variantes,Questo materiale non supporta le varianti,この素材は、バリエーションに対応していません,이 재질은 변형을 지원하지 않습니다,Este material não suporta variantes,此材质不支持变量,此材质不支持变量,此材質不支援變種

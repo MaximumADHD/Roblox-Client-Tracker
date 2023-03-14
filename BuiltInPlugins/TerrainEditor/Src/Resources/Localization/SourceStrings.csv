@@ -1,0 +1,15 @@
+Key,en-us
+Studio.TerrainEditor.BaseTool.BrushDeform,Deform
+Studio.TerrainEditor.BaseTool.BrushFlatten,Flatten
+Studio.TerrainEditor.BaseTool.BrushPaint,Paint
+Studio.TerrainEditor.BaseTool.BrushSculpt,Sculpt
+Studio.TerrainEditor.BaseTool.BrushSmooth,Smooth
+Studio.TerrainEditor.BaseTool.RegionFill,Fill
+Studio.TerrainEditor.BaseTool.RegionGenerate,Generate
+Studio.TerrainEditor.BaseTool.RegionImport,Import
+Studio.TerrainEditor.BaseTool.RegionTransform,Transform
+Studio.TerrainEditor.Plugin.Button,Toggle
+Studio.TerrainEditor.Plugin.Description,Toggles the Template plugin window.
+Studio.TerrainEditor.Plugin.Name,Terrain Editor
+Studio.TerrainEditor.Plugin.Text,Example Text!
+Studio.TerrainEditor.Plugin.Toolbar,Terrain Editor

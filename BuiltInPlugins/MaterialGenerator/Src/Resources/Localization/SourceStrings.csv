@@ -1,0 +1,15 @@
+Key,en-us
+Studio.MaterialGenerator.Header.GenerateButton,Generate
+Studio.MaterialGenerator.Header.PromptPlaceholderText,Enter text to create images
+Studio.MaterialGenerator.MaterialView.BaseMaterial,Base Material
+Studio.MaterialGenerator.MaterialView.MaterialPattern,Pattern
+Studio.MaterialGenerator.MaterialView.MaterialPatternOrganic,Organic
+Studio.MaterialGenerator.MaterialView.Name,Name
+Studio.MaterialGenerator.MaterialView.SaveAndApply,Save & Apply Variant
+Studio.MaterialGenerator.MaterialView.StudsPerTile,Studs Per Tile
+Studio.MaterialGenerator.Plugin.Button,Material Generator
+Studio.MaterialGenerator.Plugin.Description,Generate materials from text using AI
+Studio.MaterialGenerator.Plugin.Name,Material Generator
+Studio.MaterialGenerator.Plugin.Toolbar,MaterialGenerator
+Studio.MaterialGenerator.TextureBrowser.Remove,Remove
+Studio.MaterialGenerator.TextureBrowser.RemoveAll,Remove All

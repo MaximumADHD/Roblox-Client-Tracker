@@ -1,0 +1,8 @@
+Key,Source,en-us
+Studio.PlayerEmulator.LanguageSection.CustomLanguageDisplayText,(Custom),(Custom)
+Studio.PlayerEmulator.LanguageSection.LabelText,Locale,Locale
+Studio.PlayerEmulator.Meta.PluginTitle,Player Emulator,Player Emulator
+Studio.PlayerEmulator.MainSwitchSection.LabelText,Enable Test Profile,Enable Test Profile
+Studio.PlayerEmulator.LanguageSection.InstructionText,Cloud table will fetch translations for %s (%s),Cloud table will fetch translations for %s (%s)
+Studio.PlayerEmulator.CountryRegionSection.LabelText,Region,Region
+Studio.PlayerEmulator.CustomPolicySwitchSection.LabelText,Enable Custom Policies,Enable Custom Policies

@@ -1,0 +1,101 @@
+Key,Source,de-de,en-us,es-es,fr-fr,it-it,ja-jp,ko-kr,pt-br,ru-ru,zh-cjv,zh-cn,zh-tw
+Studio.TerrainEditor.Generate.BiomeSizeMassive,Massive (500),Riesig (500),Massive (500),Masivo (500),Énorme (500),Gigante (500),特大 (500),특대형(500),Enorme (500),Очень большой (500),巨大 (500),巨大 (500),巨大 (500)
+Studio.TerrainEditor.BaseTool.BrushPaint,Paint, ,Paint,Pintar,Peindre,Disegna,ペイント,칠하기,Pintar, , , ,上色
+Studio.TerrainEditor.MainButtons.Paint,Paint,Bemalen,Paint,Pintar,Peindre,Dipingi,ペイント,칠하기,Pintar,Раскрасить,绘制,绘制,上色
+Studio.TerrainEditor.Generate.BiomeHills,Hills,Hügel,Hills,Colinas,Collines,Colline,丘,언덕,Colinas,Холмы,丘陵,丘陵,山丘
+Studio.TerrainEditor.MainButtons.GrowTooltip,Click and hold to grow and expand terrain.,Klicken und gedrückt halten zum Erhöhen und Erweitern von Gelände.,Click and hold to grow and expand terrain.,Haz clic y mantén presionado para aumentar o expandir el terreno.,Cliquer et maintenir pour augmenter et étendre le terrain.,Clicca e tieni premuto per ingrandire ed espandere il terreno.,クリックして長押しで地形を大きくして広げる。,길게 클릭해 지형을 높이고 확장합니다.,Clique e mantenha pressionado para aumentar e expandir o terreno.,"Удерживайте кнопку мыши, чтобы нарастить и расширить рельеф.",单击并按住以增长和扩大地形。,单击并按住以增长和扩大地形。,按住即可生長地形。
+Studio.TerrainEditor.Main.Title,Terrain Editor,Gelände-Editor,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor di terreno,地形エディタ,지형 편집기,Editor de terreno,Редактор рельефа,地形编辑器,地形编辑器,地形編輯器
+Studio.TerrainEditor.Plugin.Name,Terrain Editor, ,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor Terreno,地形エディタ,지형 편집기,Editor de terreno, ,地形编辑器,地形编辑器,地形編輯器
+Studio.TerrainEditor.Plugin.Toolbar,Terrain Editor, ,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor Terreno,地形エディタ,지형 편집기,Editor de terreno, ,地形编辑器,地形编辑器,地形編輯器
+Studio.TerrainEditor.Generate.BiomeWater,Water,Wasser,Water,Agua,Eau,Acqua,水,물,Água,Вода,水域,水域,水域
+Studio.TerrainEditor.Materials.Water,Water,Wasser,Water,Agua,Eau,Acqua,水,물,Água,Вода,水域,水域,水域
+Studio.TerrainEditor.Main.Tooltip,"Add, remove, and modify terrain","Gelände hinzufügen, entfernen und bearbeiten","Add, remove, and modify terrain","Añade, elimina y modifica el terreno","Ajouter, supprimer et modifier le terrain","Aggiungi, rimuovi e modifica terreno",地形の削除、追加、変更,"지형 추가, 제거, 수정","Adicione, remova e modifique o terreno","Добавляйте, удаляйте и изменяйте рельеф",添加、删除和修改地形,添加、删除和修改地形,新增、移除及修改地形
+Studio.TerrainEditor.MainButtons.Erode,Erode,Vertiefen,Erode,Erosionar,Éroder,Erodi,削る,낮추기,Erodir,Эрозия,侵蚀,侵蚀,侵蝕
+Studio.TerrainEditor.Main.ToolbarButton,Editor, ,Editor,Editor,Éditeur,Editor,エディタ,편집기,Editor,Редактор,编辑器,编辑器,編輯器
+Studio.TerrainEditor.Materials.Brick,Brick,Baustein,Brick,Ladrillo,Brique,Mattone,レンガ,벽돌,Tijolo,Кирпич,砖块,砖块,磚塊
+Studio.TerrainEditor.MainButtons.Grow,Grow,Erhöhen,Grow,Aumentar,Augmenter,Ingrandisci,大きく,높이기,Aumentar,Нарастить,增长,增长,生長
+Studio.TerrainEditor.Generate.MapSizeMedium,Medium (256),Mittel (256),Medium (256),Medio (256),Moyenne (256),Media (256),中 (256),중형(256),Médio (256),Средний (256),中 (256),中 (256),中 (256)
+Studio.TerrainEditor.Materials.Snow,Snow,Schnee,Snow,Nieve,Neige,Neve,雪,눈,Neve,Снег,雪,雪,雪
+Studio.TerrainEditor.BaseTool.RegionGenerate,Generate, ,Generate,Generar,Générer,Genera,作成する,생성,Gerar, , , ,生成
+Studio.TerrainEditor.Generate.ButtonGenerate,Generate,Generieren,Generate,Generar,Générer,Genera,作成する,생성,Gerar,Генерировать,生成,生成,生成
+Studio.TerrainEditor.MainButtons.Generate,Generate,Generieren,Generate,Generar,Générer,Genera,作成する,생성,Gerar,Генерировать,生成,生成,產生
+Studio.TerrainEditor.Materials.Asphalt,Asphalt, ,Asphalt,Asfalto,Asphalte,Asfalto,アスファルト,아스팔트,Asfalto,Асфальт,沥青,沥青,柏油路
+Studio.TerrainEditor.BaseTool.BrushDeform,Deform, ,Deform,Deformar,Déformer,Deforma,変形,변형,Deformar, , , ,變形
+Studio.TerrainEditor.Brush.IgnoreWater,Ignore Water,Wasser ignorieren,Ignore Water,Omitir agua,Ignorer eau,Ignora acqua,水を無視,물 무시,Ignorar água,Игнорировать воду,忽略水域,忽略水域,忽略水域
+Studio.TerrainEditor.Materials.Rock,Rock,Stein,Rock,Roca,Pierre,Pietra,岩,바위,Rocha,Камень,岩石,岩石,岩石
+Studio.TerrainEditor.MainButtons.Add,Add,Hinzufügen,Add,Añadir,Ajouter,Aggiungi,拡大,추가,Adicionar,Добавить,增加,增加,新增
+Studio.TerrainEditor.Materials.Salt,Salt,Salz,Salt,Sal,Sel,Sale,塩,소금,Sal,Соль,盐,盐,鹽
+Studio.TerrainEditor.MainButtons.Subtract,Subtract,Abtragen,Subtract,Sustraer,Soustraire,Rimuovi,削減,삭제,Subtrair,Вычесть,减少,减少,刪減
+Studio.TerrainEditor.BaseTool.BrushSmooth,Smooth, ,Smooth,Alisar,Lisser,Liscio,平らにする,다듬기,Suavizar, , , ,磨平
+Studio.TerrainEditor.MainButtons.Smooth,Smooth,Glätten,Smooth,Alisar,Lisser,Livella,平らにする,다듬기,Suavizar,Сгладить,平滑,平滑,磨平
+Studio.TerrainEditor.MainButtons.SmoothTooltip,Brush to smooth out rough or jagged terrain.,Zum Glätten von unebenem oder zerklüftetem Gelände.,Brush to smooth out rough or jagged terrain.,Usa el pincel para alisar terreno áspero o irregular.,Brosser pour lisser les contours irréguliers du terrain.,Usa il pennello per livellare un'area di terreno irregolare o frastagliata.,キザギザで荒い地形を平らにするブラシ。,울퉁불퉁한 지형을 부드럽게 깎아냅니다.,Pincele para suavizar terrenos acidentados ou irregulares,Кисть для сглаживания неровной поверхности.,平滑参差不平的地形。,平滑参差不平的地形。,刷動即可磨平粗糙不平的地形。
+Studio.TerrainEditor.MainButtons.Regions,Regions,Regionen,Regions,Regiones,Régions,Aree,地域,범위,Regiões,Области,区域,区域,地區
+Studio.TerrainEditor.Materials.Concrete,Concrete,Beton,Concrete,Concreto,Béton,Calcestruzzo,コンクリート,콘크리트,Concreto,Бетон,水泥,水泥,混凝土
+Studio.TerrainEditor.MainButtons.GenerateTooltip,Generate landscapes of terrain.,Zum Generieren von Landschaftsgelände.,Generate landscapes of terrain.,Genera paisajes de terreno.,Générer des paysages grâce au terrain.,Genera paesaggi di terreno.,地形の景観を作成する。,지형의 풍경을 생성합니다.,Gerar paisagens de terreno.,Создание рельефа.,生成地形地貌。,生成地形地貌。,生成地形景觀。
+Studio.TerrainEditor.Generate.Seed,Seed,Startwert,Seed,Semilla,Valeur initiale,Seme,蒔く,시드,Semente,Зерно карты,随机种子,随机种子,種子
+Studio.TerrainEditor.MainButtons.AddTooltip,Click and hold to add terrain.,Klicken und gedrückt halten zum Hinzufügen von Gelände.,Click and hold to add terrain.,Haz clic y mantén presionado para añadir terreno.,Cliquer et maintenir pour ajouter du terrain.,Clicca e tieni premuto per aggiungere il terreno.,クリックして長押しで地形を追加。,길게 클릭해 지형을 추가합니다.,Clique e mantenha pressionado para adicionar terreno.,"Удерживайте кнопку мыши, чтобы добавить рельеф.",单击并按住以增加地形。,单击并按住以增加地形。,按住不放以加入地形。
+Studio.TerrainEditor.Generate.BiomeArctic,Arctic,Arktisch,Arctic,Ártico,Arctique,Polare,北極,북극,Ártico,Арктика,极地,极地,極地
+Studio.TerrainEditor.MainButtons.SubtractTooltip,Click and hold to remove terrain.,Klicken und gedrückt halten zum Abtragen von Gelände.,Click and hold to remove terrain.,Haz clic y mantén presionado para eliminar terreno.,Cliquer et maintenir pour supprimer du terrain.,Clicca e tieni premuto per rimuovere il terreno.,クリックして長押しで地形を削除。,길게 클릭해 지형을 제거합니다.,Clique e mantenha pressionado para remover terreno.,"Удерживайте кнопку мыши, чтобы удалить рельеф.",单击并按住以减少地形。,单击并按住以减少地形。,按住不放以移除地形。
+Studio.TerrainEditor.MainButtons.PaintTooltip,Paint the material of the terrain.,Zum Bemalen des Geländematerials.,Paint the material of the terrain.,Pinta el material del terreno.,Peindre les matériaux du terrain.,Dipingi il materiale del terreno.,地形の素材をペイント。,지형의 재질을 색칠합니다.,Pinte o material do terreno.,Раскрасьте рельеф.,绘制地形的材质。,绘制地形的材质。,為地形材質上色。
+Studio.TerrainEditor.Generate.BiomeMountains,Mountains,Gebirge,Mountains,Montañas,Montagnes,Montagne,山,산,Montanhas,Горы,山脉,山脉,山脈
+Studio.TerrainEditor.MainButtons.ErodeTooltip,Click and hold to erode and remove terrain.,Klicken und gedrückt halten zum Vertiefen und Entfernen von Gelände.,Click and hold to erode and remove terrain.,Haz clic y mantén presionado para erosionar o eliminar el terreno.,Cliquer et maintenir pour éroder et supprimer du terrain.,Clicca e tieni premuto per erodere e rimuovere il terreno.,クリックして長押しで地形を平らにしたり削除する。,길게 클릭해 지형을 낮추고 제거합니다.,Clique e mantenha pressionado para erodir e remover o terreno.,"Удерживайте кнопку мыши, чтобы удалить часть рельефа.",点击并按住以侵蚀和删除地形。,点击并按住以侵蚀和删除地形。,按住即可侵蝕並移除地形。
+Studio.TerrainEditor.Materials.Glacier,Glacier,Gletscher,Glacier,Glaciar,Glacier,Ghiacciaio,氷河,빙하,Geleira,Ледник,冰川,冰川,冰河
+Studio.TerrainEditor.MainButtons.RegionsTooltip,Manipulate regions of smooth terrain.,Zum Bearbeiten von glatten Geländebereichen.,Manipulate regions of smooth terrain.,Manipula las regiones de terreno liso.,Manipuler des régions de terrain lisse.,Gestisci aree di terreno uniforme.,平らな地形の地域を操作,부드러운 지형의 범위를 조절하세요.,Manipule regiões de terreno suavizado.,Манипулировать участками рельефа.,对平滑的地形区域进行操作。,对平滑的地形区域进行操作。,操控平滑地形區域。
+Studio.TerrainEditor.Generate.BiomeCanyons,Canyons,Schluchten,Canyons,Cañones,Canyons,Canyon,谷,협곡,Cânions,Каньоны,峡谷,峡谷,峽谷
+Studio.TerrainEditor.Materials.Sandstone,Sandstone,Sandstein,Sandstone,Piedra arenisca,Grès,Arenaria,サンドストーン,사암,Arenito,Песчаник,砂岩,砂岩,砂岩
+Studio.TerrainEditor.Brush.Strength,Strength,Stärke,Strength,Fuerza,Intensité,Forza,強度,강도,Força,Интенсивность,强度,强度,強度
+Studio.TerrainEditor.Generate.Biomes,Biomes,Biomen,Biomes,Biomas,Biomes,Biomi,バイオーム,생물군,Biomas,Биомы,生态,生态,生物群系
+Studio.TerrainEditor.Generate.BiomeDunes,Dunes,Dünen,Dunes,Dunas,Dunes,Dune,砂丘,모래 언덕,Dunas,Дюны,沙丘,沙丘,沙丘
+Studio.TerrainEditor.Generate.BiomeLavaflow,Lavaflow,Lavafluss,Lavaflow,Flujo de lava,Flot de lave,Flusso di lava,溶岩,용암,Fluxo de lava,Поток лавы,熔岩流,熔岩流,岩漿流
+Studio.TerrainEditor.Generate.BiomePlains,Plains,Felder,Plains,Llanuras,Plaines,Pianure,平野,평야,Planícies,Равнины,平原,平原,平原
+Studio.TerrainEditor.Generate.BiomeMarsh,Marsh,Sumpf,Marsh,Pantano,Marais,Palude,沼,습지,Pântano,Болото,沼泽,沼泽,沼澤
+Studio.TerrainEditor.Materials.Ice,Ice,Eis,Ice,Hielo,Glace,Ghiaccio,氷,얼음,Gelo,Лед,冰,冰,冰
+Studio.TerrainEditor.Generate.BiomeSizeSmall,Small (50),Klein (50),Small (50),Pequeño (50),Petit (50),Piccolo (50),小 (50),소형(50),Pequeno (50),Маленький (50),小 (50),小 (50),小 (50)
+Studio.TerrainEditor.Generate.BiomeSizeMedium,Medium (100),Mittel (100),Medium (100),Medio (100),Moyen (100),Medio (100),中 (100),중형(100),Médio (100),Средний (100),中 (100),中 (100),中 (100)
+Studio.TerrainEditor.Materials.WoodPlanks,Wood Planks,Holzbretter,Wood Planks,Tablones de madera,Planches de bois,Assi di legno,木の板,나무 판자,Tábuas,Доски,木板,木板,木板
+Studio.TerrainEditor.Materials.Mud,Mud,Schlamm,Mud,Barro,Boue,Fango,泥,진흙,Lama,Грязь,泥,泥,泥巴
+Studio.TerrainEditor.Generate.BiomeSizeLarge,Large (200),Groß (200),Large (200),Grande (200),Grand (200),Grande (200),大 (200),대형(200),Grande (200),Большой (200),大 (200),大 (200),大 (200)
+Studio.TerrainEditor.Generate.MapSizeSmall,Small (128),Klein (128),Small (128),Pequeño (128),Petite (128),Piccola (128),小 (128),소형(128),Pequeno (128),Маленький (128),小 (128),小 (128),小 (128)
+Studio.TerrainEditor.Generate.MapSizeLarge,Large (512),Groß (512),Large (512),Grande (512),Grande (512),Grande (512),大 (512),대형(512),Grande (512),Большой (512),大 (512),大 (512),大 (512)
+Studio.TerrainEditor.Materials.Limestone,Limestone,Kalkstein,Limestone,Piedra caliza,Calcaire,Calcare,ライムストーン,석회암,Calcário,Известняк,石灰石,石灰石,石灰岩
+Studio.TerrainEditor.Generate.MapSizeMassive,Massive (1024),Riesig (1024),Massive (1024),Masivo (1024),Énorme (1024),Gigante (1024),特大 (1024),특대형(1024),Enorme (1024),Очень большой (1024),巨大 (1024),巨大 (1024),巨大 (1024)
+Studio.TerrainEditor.Generate.MapSettings,Map Settings,Karteneinstellungen,Map Settings,Configuración del mapa,Paramètres carte,Impostazioni mappa,マップ設定,맵 설정,Configurações do mapa,Параметры карты,地图设置,地图设置,地圖設定
+Studio.TerrainEditor.Generate.MapSize,Map Size,Kartengröße,Map Size,Tamaño del mapa,Taille carte,Dimensione mappa,マップサイズ,맵 크기,Tamanho do mapa,Размер карты,地图尺寸,地图尺寸,地圖大小
+Studio.TerrainEditor.Generate.ButtonClear,Clear,Löschen,Clear,Eliminar,Effacer,Cancella,消す,지우기,Limpar,Очистить,清除,清除,清除
+Studio.TerrainEditor.MainButtons.Clear,Clear,Löschen,Clear,Eliminar,Enlever,Cancella,消す,지우기,Limpar,Очистить,清除,清除,清除
+Studio.TerrainEditor.Generate.Caves,Caves,Höhlen,Caves,Cuevas,Grottes,Caverne,洞窟,동굴,Cavernas,Пещеры,洞穴,洞穴,洞穴
+Studio.TerrainEditor.Materials.Grass,Grass,Gras,Grass,Hierba,Herbe,Erba,草,잔디,Grama,Трава,草地,草地,草
+Studio.TerrainEditor.Generate.BiomesSettings,Biomes Settings,Biomen-Einstellungen,Biomes Settings,Configuración de biomas,Paramètres biomes,Impostazioni biomi,バイオーム設定,생물군 설정,Configurações de biomas,Параметры биома,生态设置,生态设置,生物群系設定
+Studio.TerrainEditor.Generate.BiomeSize,Biome Size,Biomen-Größe,Biome Size,Tamaño de bioma,Taille biome,Dimensione bioma,バイオームサイズ,생물군 크기,Tamanho do bioma,Размер биома,生态规模,生态规模,生物群系大小
+Studio.TerrainEditor.Materials.Sand,Sand, ,Sand,Arena,Sable,Sabbia,砂,모래,Areia,Песок,沙,沙,沙
+Studio.TerrainEditor.Materials.Ground,Ground,Erde,Ground,Suelo,Terre,Suolo,地面,토양,Solo,Земля,土地,土地,地面
+Studio.TerrainEditor.Materials.Slate,Slate,Schiefer,Slate,Pizarra,Ardoise,Ardesia,スレート,슬레이트,Ardósia,Сланец,石板,石板,板岩
+Studio.TerrainEditor.Materials.LeafyGrass,Leafy Grass,Gras mit Blättern,Leafy Grass,Hierba espesa,Feuilles,Erba rigogliosa,草地,무성한 잔디,Grama alta,Лужайка,绿叶草,绿叶草,綠葉草
+Studio.TerrainEditor.Regions.FillSelection,Fill Selection,Auswahl füllen,Fill Selection,Rellenar selección,Remplir sélection,Riempi selezione,選択肢を埋める,채우기 선택,Preencher seleção,Заполнить выделенные области,填充选中范围,填充选中范围,填滿選取內容
+Studio.TerrainEditor.Brush.Auto,Auto,Automatisch,Auto,Automático,Auto,Auto,自動,자동,Automático,Авто,自动,自动,自動
+Studio.TerrainEditor.Materials.CrackedLava,Cracked Lava,Rissige Lava,Cracked Lava,Lava agrietada,Lave fissurée,Lava incrinata,ひび割れた溶岩,갈라진 용암,Lava rachada,Застывшая лава,裂纹熔岩,裂纹熔岩,裂紋熔岩
+Studio.TerrainEditor.Materials.Basalt,Basalt, ,Basalt,Basalto,Basalte,Basalto,玄武岩,현무암,Basalto,Базальт,玄武岩,玄武岩,玄武岩
+Studio.TerrainEditor.Materials.Cobblestone,Cobblestone,Kopfstein,Cobblestone,Adoquín,Pavés,Ciottolo,玉砂利,왕자갈,Paralelepípedo,Брусчатка,大鹅卵石,大鹅卵石,鵝卵石
+Studio.TerrainEditor.Materials.Pavement,Pavement,Gehweg,Pavement,Pavimento,Chaussée,Pavimentazione,舗道,보도,Pavimento,Покрытие,路面,路面,人行道
+Studio.TerrainEditor.Brush.BrushSettings,Brush Settings,Pinseleinstellungen,Brush Settings,Configuración del pincel,Paramètres brosse,Impostazioni pennello,ブラシ設定,브러시 설정,Configurações do pincel,Параметры кисти,笔刷设置,笔刷设置,筆刷設定
+Studio.TerrainEditor.Brush.Size,Size,Größe,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho,Размер,尺寸,尺寸,大小
+Studio.TerrainEditor.Brush.MaterialSettings,Material Settings,Materialeinstellungen,Material Settings,Configuración del material,Paramètres matériaux,Impostazioni materiale,素材の設定,재질 설정,Configurações do material,Свойства материала,材质设置,材质设置,材質設定
+Studio.TerrainEditor.Brush.Advanced,Advanced,Fortgeschritten,Advanced,Avanzado,Avancé,Avanzato,詳細設定,고급,Avançado,Расширенные настройки,高级,高级,進階
+Studio.TerrainEditor.Brush.PlaneLock,Plane Lock,Ebene sperren,Plane Lock,Bloquear plano,Verrouillage plan,Blocco piano,平面ロック,평면 고정,Bloquear plano,Блокировка поверхности,平面锁定,平面锁定,鎖定平面
+Studio.TerrainEditor.Brush.SnapToGrid,Snap to Grid,Am Raster ausrichten,Snap to Grid,Alinear a la cuadrícula,Aligner sur la grille,Aderisci a griglia,グリッドに装着,그리드에 맞추기,Ajustar à grade,Привязать к сетке,对齐至栅格,对齐至栅格,貼齊到網格
+Studio.TerrainEditor.Brush.Material,Material, ,Material,Material,Matériau,Materiale,素材,재질,Material,Материал,材质,材质,材質
+Studio.TerrainEditor.Brush.Shape,Shape,Form,Shape,Forma,Forme,Forma,形状,셰이프,Formato,Форма,形状,形状,形狀
+Studio.TerrainEditor.Regions.EditTools,Edit Tools,Bearbeitungstools,Edit Tools,Herramientas de edición,Outils d'édition,Strumenti Modifica,編集ツール,편집 도구,Editar ferramentas,Инструменты редактирования,编辑工具,编辑工具,編輯工具
+Studio.TerrainEditor.Regions.MergeEmpty,Merge Empty,Leere zusammenführen,Merge Empty,Combinar vacío,Fusionner vides,Unisci vuoto,空白を併合,빈 공간 병합,Mesclar vazios,Объединить пустые области,合并空白,合并空白,合併空位
+Studio.TerrainEditor.Regions.Tools,Tools, ,Tools,Herramientas,Outils,Strumenti,ツール,도구,Ferramentas,Инструменты,工具,工具,工具
+Studio.TerrainEditor.BaseTool.RegionImport,Import, ,Import,Importar,Importer,Importa,インポートする,가져오기,Importar, , , ,匯入
+Studio.TerrainEditor.MainButtons.Import,Import, ,Import,Importar,Importer,Importa,インポート,가져오기,Importar,Импорт,导入,导入,匯入
+Studio.TerrainEditor.MainButtons.ImportTooltip,Import a HeightMap and ColorMap., ,Import a HeightMap and ColorMap.,Importa HeightMap y ColorMap,Importer une HeightMap et une ColorMap.,Importa una HeightMap e una ColorMap.,HeightMap と ColorMapをインポート。,HeightMap과 ColorMap을 가져옵니다.,Importar um HeightMap e ColorMap.,Импортировать HeightMap и ColorMap.,导入 HeightMap 和 ColorMap。,导入 HeightMap 和 ColorMap。,匯入 HeightMap 與 ColorMap。
+Studio.TerrainEditor.MainButtons.ClearTooltip,Clear all Terrain., ,Clear all Terrain.,Eliminar todos los terrenos,Déblayer tout le terrain.,Cancella tutti i terreni.,すべての地形を消す。,모든 지형을 삭제합니다.,Limpar todos os terrenos.,Очистить весь рельеф.,清除所有地形。,清除所有地形。,清除所有地形。
+Studio.TerrainEditor.Plugin.Button,Toggle, ,Toggle,Activar,Activer/désactiver,Attiva/disattiva,切り換え,토글,Alternador, ,切换,切换,切換
+Studio.TerrainEditor.Plugin.Description,Toggles the Template plugin window., ,Toggles the Template plugin window.,Activar la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,Attiva/Disattiva la finestra del plugin Template.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos., ,切换样板插件窗口。,切换样板插件窗口。,切換樣板外掛程式視窗。
+Studio.TerrainEditor.Plugin.Text,Example Text!, ,Example Text!,Texto de ejemplo,Exemple de texte !,Testo Di Esempio!,テキストの例！,예시 텍스트!,Texto de exemplo!, ,示例文本！,示例文本！,範例文字！
+Studio.TerrainEditor.BaseTool.BrushFlatten,Flatten, ,Flatten,Aplanar,Aplatir,Appianare,平地化,평탄화,Aplainar, , , ,平地化
+Studio.TerrainEditor.BaseTool.BrushSculpt,Sculpt, ,Sculpt,Esculpir,Sculpter,Scolpire,彫刻,조각,Esculpir, , , ,雕塑
+Studio.TerrainEditor.BaseTool.RegionFill,Fill, ,Fill,Llenar,Remplir,Riempi,埋める,채우기,Preencher, , , ,填滿
+Studio.TerrainEditor.BaseTool.RegionTransform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, , , ,轉換

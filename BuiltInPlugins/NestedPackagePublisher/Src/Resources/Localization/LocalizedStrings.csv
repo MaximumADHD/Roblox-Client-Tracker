@@ -1,0 +1,7 @@
+Key,Source,en-us,es-es,fr-fr,it-it,ja-jp,ko-kr,pt-br,zh-tw
+Studio.NestedPackagePublisher.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,Attiva/Disattiva la finestra del plugin template.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.,切換樣板外掛程式視窗。
+Studio.NestedPackagePublisher.Plugin.Name,NestedPackagePublisher,NestedPackagePublisher,Publicador de paquete anidado,NestedPackagePublisher,NestedPackagePublisher,ネスト化済みパッケージパブリッシャー,NestedPackagePublisher,NestedPackagePublisher,NestedPackagePublisher
+Studio.NestedPackagePublisher.Plugin.Toolbar,NestedPackagePublisher,NestedPackagePublisher,Publicador de paquete anidado,NestedPackagePublisher,NestedPackagePublisher,ネスト化済みパッケージパブリッシャー,NestedPackagePublisher,NestedPackagePublisher,NestedPackagePublisher
+Studio.NestedPackagePublisher.Plugin.Button,Toggle,Toggle,Alternar,Activer/désactiver,Attiva/disattiva,切り換え,토글,Alternador,切換
+Studio.NestedPackagePublisher.Action.Cancel,Cancel,Cancel,Cancelar,Annuler,Annulla,キャンセル,취소,Cancelar,取消
+Studio.NestedPackagePublisher.Action.Publish,Publish,Publish,Publicar,Publier,Pubblica,公開,게시,Publicar,發布
