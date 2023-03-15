@@ -38,19 +38,6 @@ local runTestsWithProps = function(config: { store: any, shouldShowContentFrame:
 
 		local defaultProps, supportsContacts, getContacts
 		local checkForContactsListV2 = findElementHelpers.findElement({ Name = "contentFrame" })
-		local originalContactImporterCatchErrorWithGetUserSettings
-
-		beforeAll(function()
-			originalContactImporterCatchErrorWithGetUserSettings =
-				game:SetFastFlagForTesting("ContactImporterCatchErrorWithGetUserSettings", false)
-		end)
-
-		afterAll(function()
-			game:SetFastFlagForTesting(
-				"ContactImporterCatchErrorWithGetUserSettings",
-				originalContactImporterCatchErrorWithGetUserSettings
-			)
-		end)
 
 		beforeEach(function()
 			NetworkingUserSettings.UpdateUserSettings.Mock.clear()
@@ -152,35 +139,5 @@ describe("soothSayerEnabled default", function()
 		}),
 		shouldShowContentFrame = getFFlagFriendInvitesEnabledForSoothsayers(),
 		describe = "soothSayerEnabled default",
-	})
-end)
-
-describe("soothsayerDisabled", function()
-	runTestsWithProps({
-		store = mockStore({
-			ScreenSize = Vector2.new(100, 100),
-			IsLocalUserSoothsayer = false,
-			LocalUserId = "123",
-			[RODUX_KEY] = {
-				NetworkStatus = {},
-			},
-		}),
-		shouldShowContentFrame = false,
-		describe = "soothsayerDisabled",
-	})
-end)
-
-describe("no config", function()
-	runTestsWithProps({
-		store = mockStore({
-			ScreenSize = Vector2.new(100, 100),
-			IsLocalUserSoothsayer = false,
-			LocalUserId = "123",
-			[RODUX_KEY] = {
-				NetworkStatus = {},
-			},
-		}),
-		shouldShowContentFrame = false,
-		describe = "friendInvitesFlag disabled",
 	})
 end)

@@ -1,7 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
-local LuaProfileDeps = require(CorePackages.Packages.LuaProfileDeps)
+local SocialTestHelpers = require(CorePackages.Workspace.Packages.SocialTestHelpers)
+
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 
 local InspectAndBuyFolder = script.Parent.Parent
@@ -59,7 +60,7 @@ return function()
 				}),
 			})
 
-			LuaProfileDeps.UnitTestHelpers.runWhileMounted(element, function(parent)
+			SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
 				local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
 				expect(verifiedBadge.Text).to.equal(VerifiedBadges.emoji.verified)
 			end)
@@ -79,7 +80,7 @@ return function()
 				}),
 			})
 
-			LuaProfileDeps.UnitTestHelpers.runWhileMounted(element, function(parent)
+			SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
 				local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
 				expect(verifiedBadge).to.never.be.ok()
 			end)

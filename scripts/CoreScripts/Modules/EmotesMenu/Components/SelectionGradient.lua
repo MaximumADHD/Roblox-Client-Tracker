@@ -51,4 +51,4 @@ local function mapStateToProps(state)
     }
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(SelectionGradient)
+return RoactRodux.connect(mapStateToProps, nil)(SelectionGradient)

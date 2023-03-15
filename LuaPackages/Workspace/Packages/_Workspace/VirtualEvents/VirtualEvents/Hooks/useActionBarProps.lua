@@ -1,5 +1,6 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local useLocalization = require(VirtualEvents.Parent.RoactUtils).Hooks.useLocalization
@@ -11,6 +12,8 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local INTERESTED_OFF_IMAGE = "icons/actions/favoriteOff"
 local INTERESTED_ON_IMAGE = "icons/actions/favoriteOn"
 local SHARE_IMAGE = "icons/actions/share"
+
+type VirtualEvent = types.VirtualEvent | GraphQLServer.VirtualEvent
 
 type Button = {
 	props: {
@@ -53,7 +56,7 @@ type Callbacks = {
 	- Elapsed and Cancelled events allow returning to the homepage
 ]]
 local function useActionBarProps(
-	virtualEvent: types.VirtualEvent,
+	virtualEvent: VirtualEvent,
 	eventTimerStatus: types.EventTimerStatus,
 	callbacks: Callbacks
 ): ActionBarProps
@@ -65,7 +68,7 @@ local function useActionBarProps(
 	})
 
 	local button: Button? = React.useMemo(function()
-		if virtualEvent.eventStatus ~= "cancelled" then
+		if virtualEvent.eventStatus ~= "cancelled" and virtualEvent.eventStatus ~= "moderated" then
 			if eventTimerStatus == "Upcoming" or eventTimerStatus == "UpcomingImminent" then
 				if virtualEvent.userRsvpStatus == "going" then
 					return {
@@ -109,7 +112,11 @@ local function useActionBarProps(
 	end, { virtualEvent, eventTimerStatus, callbacks } :: { any })
 
 	local shareIcon: Icon? = React.useMemo(function()
-		if virtualEvent.eventStatus ~= "cancelled" and eventTimerStatus ~= "Elapsed" then
+		if
+			virtualEvent.eventStatus ~= "cancelled"
+			and virtualEvent.eventStatus ~= "moderated"
+			and eventTimerStatus ~= "Elapsed"
+		then
 			return {
 				props = {
 					anchorPoint = Vector2.new(0.5, 0.5),

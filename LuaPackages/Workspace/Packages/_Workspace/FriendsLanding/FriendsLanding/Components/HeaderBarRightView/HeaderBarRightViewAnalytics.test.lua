@@ -16,8 +16,6 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
-local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
-
 local HeaderBarRightView = require(script.Parent)
 
 describe("GIVEN mock analytics", function()
@@ -28,7 +26,7 @@ describe("GIVEN mock analytics", function()
 		analytics = {
 			buttonClick = jest.fn(),
 			navigate = jest.fn(),
-			playerSearch = if getFFlagRenameSearchAnalyticEvent() then jest.fn() else nil,
+			playerSearch = jest.fn(),
 		}
 		navigation = {
 			navigate = jest.fn(),
@@ -110,13 +108,8 @@ describe("GIVEN mock analytics", function()
 			navigation = navigation,
 		}, "SearchFriendsIcon")
 
-		if getFFlagRenameSearchAnalyticEvent() then
-			expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
-			expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "friendsLanding")
-		else
-			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
-			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearch)
-		end
+		expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+		expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "friendsLanding")
 	end)
 
 	it("SHOULD fire playerSearch event with right source when SearchIcon is clicked from AddFriends", function()
@@ -129,14 +122,7 @@ describe("GIVEN mock analytics", function()
 			},
 		}, "SearchFriendsIcon")
 
-		if getFFlagRenameSearchAnalyticEvent() then
-			expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
-			expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "addUniversalFriends")
-		else
-			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
-			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendSearch, {
-				contextOverride = "friendRequestsPage",
-			})
-		end
+		expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+		expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "addUniversalFriends")
 	end)
 end)

@@ -8,6 +8,7 @@ local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local useLocalization = require(VirtualEvents.Parent.RoactUtils).Hooks.useLocalization
 local RoactAppExperiment = require(VirtualEvents.Parent.RoactAppExperiment)
 local PaginatedVerticalList = require(script.Parent.PaginatedVerticalList)
+local ExposureLogger = require(script.Parent.ExposureLogger)
 local sortEventsByStartDate = require(VirtualEvents.Common.sortEventsByStartDate)
 local types = require(VirtualEvents.types)
 local requests = require(VirtualEvents.requests)
@@ -73,7 +74,7 @@ local function EventsList(providedProps: Props)
 	}, function(layerVariables)
 		local layer = layerVariables[getFStringEventsOnExperienceDetailsPageLayer()]
 		return if layer then layer.virtualEventsMVPEnabled else nil
-	end)
+	end, false)
 
 	if props.mockVirtualEventsMVPEnabled ~= nil then
 		virtualEventsMVPEnabled = props.mockVirtualEventsMVPEnabled
@@ -108,8 +109,13 @@ local function EventsList(providedProps: Props)
 		end
 	end, { props.onEventImpression })
 
-	if result.data and virtualEventsMVPEnabled then
+	if result.data then
 		local virtualEvents = result.data.virtualEventsByUniverseId.virtualEvents
+
+		if #virtualEvents == 0 then
+			return nil :: any
+		end
+
 		local sortedVirtualEvents = sortEventsByStartDate(virtualEvents)
 
 		local items = {}
@@ -139,25 +145,37 @@ local function EventsList(providedProps: Props)
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 		}, {
-			Layout = React.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = PADDING,
+			ExposureLogger = React.createElement(ExposureLogger, {
+				exposureLayer = getFStringEventsOnExperienceDetailsPageLayer(),
 			}),
 
-			Title = React.createElement(StyledTextLabel, {
-				layoutOrder = 1,
-				text = text.title,
-				colorStyle = style.Theme.TextEmphasis,
-				fontStyle = style.Font.Header1,
-			}),
+			-- Remove this wrapper when cleaning up the experiment
+			Wrapper = if virtualEventsMVPEnabled
+				then React.createElement("Frame", {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundTransparency = 1,
+				}, {
+					Layout = React.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = PADDING,
+					}),
 
-			PaginatedList = React.createElement(PaginatedVerticalList, {
-				layoutOrder = 2,
-				initialItemsShown = props.initialEventsShown,
-				extraItemsShownOnLoad = props.extraEventsShownOnLoad,
-				items = items,
-				isDesktopGrid = props.isDesktopGrid,
-			}),
+					Title = React.createElement(StyledTextLabel, {
+						layoutOrder = 1,
+						text = text.title,
+						colorStyle = style.Theme.TextEmphasis,
+						fontStyle = style.Font.Header1,
+					}),
+
+					PaginatedList = React.createElement(PaginatedVerticalList, {
+						layoutOrder = 2,
+						initialItemsShown = props.initialEventsShown,
+						extraItemsShownOnLoad = props.extraEventsShownOnLoad,
+						items = items,
+						isDesktopGrid = props.isDesktopGrid,
+					}),
+				})
+				else nil,
 		})
 	else
 		return nil :: any

@@ -6,6 +6,7 @@ local beforeEach = JestGlobals.beforeEach
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 local ReactTestingLibrary = require(VirtualEvents.Parent.Dev.ReactTestingLibrary)
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local Rodux = require(VirtualEvents.Parent.Rodux)
 local React = require(VirtualEvents.Parent.React)
 local withMockProviders = require(VirtualEvents.withMockProviders)
@@ -18,6 +19,8 @@ local ExperienceDetailsModel = require(VirtualEvents.Models.ExperienceDetailsMod
 local EventDetailsPage = require(script.Parent.EventDetailsPage)
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
+local createMockVirtualEvent = GraphQLServer.mocks.createMockVirtualEvent
+
 local act = ReactTestingLibrary.act
 local render = ReactTestingLibrary.render
 
@@ -29,7 +32,9 @@ local reducer = Rodux.combineReducers({
 
 local mockExperienceMedia = ExperienceMediaModel.mock()
 local mockExperienceDetails = ExperienceDetailsModel.mock()
-local mockVirtualEvent = VirtualEventModel.mock("1")
+local mockVirtualEvent = if getFFlagVirtualEventsGraphQL()
+	then createMockVirtualEvent("1")
+	else VirtualEventModel.mock("1")
 
 beforeEach(function()
 	local universeId = tostring(mockVirtualEvent.universeId)
@@ -90,12 +95,17 @@ it("should create a new mock event and render EventDetailPage", function()
 		}),
 	}, {
 		store = store,
+		mockResolvers = {},
 	})
 
 	local result = render(element)
 
 	expect(result.getByText(mockVirtualEvent.title)).toBeDefined()
-	expect(result.getByText(mockExperienceDetails.name)).toBeDefined()
+	if getFFlagVirtualEventsGraphQL() then
+		expect(result.getByText((mockVirtualEvent :: any).experienceDetails.name)).toBeDefined()
+	else
+		expect(result.getByText(mockExperienceDetails.name)).toBeDefined()
+	end
 	expect(result.getByText(mockVirtualEvent.description)).toBeDefined()
 end)
 
@@ -127,6 +137,7 @@ it("should never show the attendance list when the event is over", function()
 		}),
 	}, {
 		store = store,
+		mockResolvers = {},
 	})
 
 	local result = render(element)

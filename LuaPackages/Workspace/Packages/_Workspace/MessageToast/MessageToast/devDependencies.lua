@@ -8,7 +8,7 @@ JestGlobals.expect.extend(LuaSocialLibrariesDeps.CollisionMatchers.Jest)
 
 return {
 	JestGlobals = JestGlobals,
-	UnitTestHelpers = require(Packages.Dev.LuaProfileDeps).UnitTestHelpers,
+	UnitTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers,
 	Rhodium = require(Packages.Dev.Rhodium),
 	RhodiumHelpers = function()
 		return require(Packages.Dev.RhodiumHelpers)

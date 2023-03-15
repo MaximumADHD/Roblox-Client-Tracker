@@ -13,6 +13,7 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Symbol = require(CorePackages.Symbol)
 local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
 local IXPService = game:GetService("IXPService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -128,6 +129,8 @@ local VoiceIndicatorsExperimentEnabled = require(RobloxGui.Modules.VoiceChat.Exp
 local GetFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
+local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
+local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 
 local MuteStatusIcons = {
 	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
@@ -241,6 +244,10 @@ local function CreateSettingsHub()
 	if GetFFlagVoiceRecordingIndicatorsEnabled() then
 		this.isMuted = nil
 		this.lastVoiceRecordingIndicatorTextUpdated = nil
+	end
+
+	if GetFFlagInGameMenuV1FadeBackgroundAnimation() then
+		NotchSupportExperiment.initialize()
 	end
 
 	--[[
@@ -734,6 +741,34 @@ local function CreateSettingsHub()
 		})
 	end
 
+	this.createBackgroundFadeGui = function()
+		if not this.FullscreenGui then
+			this.FullscreenGui = utility:Create("ScreenGui")
+			{
+				Name = "FSSettingsMenuBackground",
+				ScreenInsets = Enum.ScreenInsets.None,
+				ClipToDeviceSafeArea = false,
+				DisplayOrder = RobloxGui.DisplayOrder - 1,
+				Enabled = false,
+				Parent = CoreGui,
+			}
+		end
+
+		if not this.FullscreenBackgroundCover then
+			this.FullscreenBackgroundCover = utility:Create("Frame")
+			{
+				Name = "BackgroundCover",
+				Size = UDim2.fromScale(1, 1),
+				Position = UDim2.fromScale(0, 0),
+				BackgroundColor3 = SETTINGS_SHIELD_COLOR,
+				BackgroundTransparency = 1,
+				Visible = true,
+				Active = true,
+				Parent = this.FullscreenGui,
+			}
+		end
+	end
+
 	local function createGui()
 		local PageViewSizeReducer = 0
 		if utility:IsSmallTouchScreen() then
@@ -1094,8 +1129,8 @@ local function CreateSettingsHub()
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
 			local paddingTop = topCornerInset.Y
-			if GetFFlagSelfViewSettingsEnabled() or GetFFlagVoiceRecordingIndicatorsEnabled() then
-				-- Audio/Video permissions bar or voice recording indicator takes up the padding
+			if GetFFlagSelfViewSettingsEnabled() or (GetFFlagVoiceRecordingIndicatorsEnabled() and not NotchSupportExperiment.enabled()) then
+				-- Audio/Video permissions bar takes up padding, but not voice recording indicator.
 				paddingTop = 0
 			end
 			this.MenuContainerPadding = utility:Create'UIPadding'
@@ -2001,6 +2036,11 @@ local function CreateSettingsHub()
 
 		local playerList = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
+		if NotchSupportExperiment.enabled() then
+			this.Shield.BackgroundTransparency = 1 -- Hide non-fullscreen shield
+			this.createBackgroundFadeGui()
+		end
+
 		if this.Visible then
 			this.ResizedConnection = RobloxGui.Changed:connect(function(prop)
 				if prop == "AbsoluteSize" then
@@ -2018,14 +2058,28 @@ local function CreateSettingsHub()
 
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
 			this.Shield.Visible = this.Visible
+			
+			if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
+				this.FullscreenGui.Enabled = true
+				this.FullscreenBackgroundCover.Visible = true
+				this.FullscreenBackgroundCover.BackgroundTransparency = 1
+			end
+
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
 				this.Shield.Position = UDim2.new(0, 0, 0, 0)
 			else
+				local movementTime: number = 0
+				if NotchSupportExperiment.enabled() then
+					movementTime = if Constants then Constants.ShieldOpenFadeTime2 else 0.3
+				else
+					movementTime = if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5
+				end
+
 				this.Shield:TweenPosition(
 					UDim2.new(0, 0, 0, 0),
 					Enum.EasingDirection.InOut,
 					Enum.EasingStyle.Quart,
-					if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5,
+					movementTime,
 					true,
 					function ()
 						if FFlagEnableInGameMenuDurationLogger then
@@ -2033,6 +2087,16 @@ local function CreateSettingsHub()
 						end
 					end
 				)
+
+				if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
+					local tweenInfo = TweenInfo.new(movementTime,
+						Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
+					local tweenProps = {
+						BackgroundTransparency = SETTINGS_SHIELD_TRANSPARENCY,
+					}
+					local tween = TweenService:Create(this.FullscreenBackgroundCover, tweenInfo, tweenProps)
+					tween:Play()
+				end
 			end
 
 			local noOpFunc = function() end
@@ -2091,12 +2155,26 @@ local function CreateSettingsHub()
 				if FFlagEnableInGameMenuDurationLogger then
 					PerfUtils.menuCloseComplete()
 				end
+
+				if NotchSupportExperiment.enabled() then
+					this.FullscreenGui.Enabled = false
+					this.FullscreenBackgroundCover.Visible = false
+				end
 			else
+				local movementTime: number = 0
+				local fadeTime: number = 0
+				if NotchSupportExperiment.enabled() then
+					movementTime = if Constants then Constants.ShieldCloseFadeTime2 else 0.2
+					fadeTime = if Constants then movementTime + Constants.ShieldExtraFadeTime else 0.25
+				else
+					movementTime = if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4
+				end
+
 				this.Shield:TweenPosition(
 					SETTINGS_SHIELD_INACTIVE_POSITION,
 					Enum.EasingDirection.In,
 					Enum.EasingStyle.Quad,
-					if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4,
+					movementTime,
 					true,
 					function()
 						this.Shield.Visible = this.Visible
@@ -2107,8 +2185,27 @@ local function CreateSettingsHub()
 						if FFlagEnableInGameMenuDurationLogger then
 							PerfUtils.menuCloseComplete()
 						end
+
+						if NotchSupportExperiment.enabled() then
+							clearMenuStack()
+							this.GameSettingsPage:CloseSettingsPage()
+						end
 					end
 				)
+
+				if NotchSupportExperiment.enabled() then
+					local tweenInfo = TweenInfo.new(fadeTime,
+						Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+					local tweenProps = {
+						BackgroundTransparency = 1,
+					}
+					local tween = TweenService:Create(this.FullscreenBackgroundCover, tweenInfo, tweenProps)
+					tween.Completed:Connect(function()
+						this.FullscreenGui.Enabled = false
+						this.FullscreenBackgroundCover.Visible = false
+					end)
+					tween:Play()
+				end
 			end
 
 			if lastInputChangedCon then
@@ -2126,7 +2223,9 @@ local function CreateSettingsHub()
 				MouseIconOverrideService.pop(SETTINGS_HUB_MOUSE_OVERRIDE_KEY)
 			end
 
-			clearMenuStack()
+			if not NotchSupportExperiment.enabled() then
+				clearMenuStack()
+			end
 			ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
 			ContextActionService:UnbindCoreAction("RbxSettingsHubStopCharacter")
 			ContextActionService:UnbindCoreAction("RbxSettingsScrollHotkey")
@@ -2134,7 +2233,9 @@ local function CreateSettingsHub()
 
 			GuiService.SelectedCoreObject = nil
 
-			this.GameSettingsPage:CloseSettingsPage()
+			if not NotchSupportExperiment.enabled() then
+				this.GameSettingsPage:CloseSettingsPage()
+			end
 
 			if GetFFlagShareInviteLinkContextMenuV1Enabled() then
 				if GetFFlagShareGamePageNullCheckEnabled() then
@@ -2214,10 +2315,20 @@ local function CreateSettingsHub()
 	end
 
 	function this:ShowShield()
-		this.Shield.BackgroundTransparency = UserInputService.VREnabled and SETTINGS_SHIELD_VR_TRANSPARENCY or SETTINGS_SHIELD_TRANSPARENCY
+		local shieldTransparency = 0
+		if UserInputService.VREnabled then
+			shieldTransparency = SETTINGS_SHIELD_VR_TRANSPARENCY
+		else
+			shieldTransparency = if NotchSupportExperiment.enabled() then 1 else SETTINGS_SHIELD_TRANSPARENCY
+		end
+		this.Shield.BackgroundTransparency = shieldTransparency
 	end
 	function this:HideShield()
 		this.Shield.BackgroundTransparency = 1
+
+		if UserInputService.VREnabled then
+			this.FullscreenGui.Enabled = false
+		end
 	end
 
 	local thisModuleName = "SettingsMenu"

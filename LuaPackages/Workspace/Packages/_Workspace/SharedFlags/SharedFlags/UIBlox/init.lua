@@ -14,7 +14,6 @@ return {
 	GetFFlagUIBloxVRApplyHeadScale = require(script.GetFFlagUIBloxVRApplyHeadScale),
 	GetUIBloxUseNewThemeColorPalettes = require(script.GetUIBloxUseNewThemeColorPalettes),
 	GetFFlagUIBloxMoveBindActivate = require(script.GetFFlagUIBloxMoveBindActivate),
-	GetFFlagUIBloxEnableAutoHidingPointerOverlay = require(script.GetFFlagUIBloxEnableAutoHidingPointerOverlay),
 	GetFFlagUIBloxRemovePreviewAnchor = require(script.GetFFlagUIBloxRemovePreviewAnchor),
 	GetFFlagUIBloxEnableMediaGalleryUpdate = require(script.GetFFlagUIBloxEnableMediaGalleryUpdate),
 	GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder = require(
@@ -26,4 +25,5 @@ return {
 	GetFFlagUIBloxLoadableImageResponsiveThumbnails = require(script.GetFFlagUIBloxLoadableImageResponsiveThumbnails),
 	GetFFlagUIBloxUpdateVerticalTile = require(script.GetFFlagUIBloxUpdateVerticalTile),
 	GetFFlagUIBloxUseDetailsPageTemplateConfig = require(script.GetFFlagUIBloxUseDetailsPageTemplateConfig),
+	GetFFlagUIBloxUpdatePlayerTileFooterPadding = require(script.GetFFlagUIBloxUpdatePlayerTileFooterPadding),
 }

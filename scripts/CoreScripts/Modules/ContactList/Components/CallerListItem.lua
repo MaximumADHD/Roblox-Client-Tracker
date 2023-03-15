@@ -10,6 +10,9 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
+local IconButton = UIBlox.App.Button.IconButton
+local IconSize = UIBlox.App.ImageSet.Enum.IconSize
+local Images = UIBlox.App.ImageSet.Images
 
 local useDispatch = dependencies.Hooks.useDispatch
 
@@ -33,6 +36,7 @@ export type Props = {
 		state: string,
 	},
 	showDivider: boolean,
+	OpenCallDetails: () -> (),
 }
 
 local function getTextFromCallState(state)
@@ -157,6 +161,18 @@ local function CallerListItem(props: Props)
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
 			}),
+		}),
+
+		CallDetailsButton = React.createElement(IconButton, {
+			size = UDim2.fromOffset(16, 16),
+			iconSize = IconSize.Small,
+			position = UDim2.new(1, -40, 0, 12),
+			iconColor3 = theme.SystemPrimaryDefault.Color,
+			iconTransparency = theme.SystemPrimaryDefault.Transparency,
+			icon = Images["icons/actions/info"],
+			onActivated = function()
+				props.OpenCallDetails()
+			end,
 		}),
 
 		Divider = props.showDivider and React.createElement("Frame", {

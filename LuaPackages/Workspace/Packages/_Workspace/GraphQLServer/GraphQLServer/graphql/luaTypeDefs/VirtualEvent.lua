@@ -3,6 +3,7 @@ local VirtualEventTypeDef = [[
         unpublished
         active
         cancelled
+		moderated
     }
 
     enum RsvpStatus {

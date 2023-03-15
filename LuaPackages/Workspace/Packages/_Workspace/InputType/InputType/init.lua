@@ -1,7 +1,7 @@
 local InputTypeConstants = require(script.InputTypeConstants)
-local InputTypeMap = require(script.InputTypeMap)
+local getInputGroup = require(script.getInputGroup)
 
 return {
 	InputTypeConstants = InputTypeConstants,
-	InputTypeMap = InputTypeMap,
+	getInputGroup = getInputGroup,
 }

@@ -31,6 +31,7 @@ local getFFlagSocialOnboardingExperimentEnabled =
 	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
+local getFFlagProfileQRCodeEnableAlerts = require(Packages.SharedFlags).getFFlagProfileQRCodeEnableAlerts
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -143,6 +144,7 @@ return {
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 	getFFlagProfileQRCodeCoreFeaturesEnabled = getFFlagProfileQRCodeCoreFeaturesEnabled,
 	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
+	getFFlagProfileQRCodeEnableAlerts = getFFlagProfileQRCodeEnableAlerts,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,
@@ -156,6 +158,7 @@ return {
 	ShowContactImporterParams = ContactImporter.ShowContactImporterParams,
 	FetchUserSettingsMetadata = require(Packages.DiscoverabilityModal).FetchUserSettingsMetadata,
 	DiscoverabilityOverlay = require(Packages.DiscoverabilityModal).DiscoverabilityOverlay,
+	DiscoverabilityAnalytics = require(Packages.DiscoverabilityModal).Analytics,
 
 	Hooks = {
 		useLocalization = require(Packages.RoactUtils).Hooks.useLocalization,

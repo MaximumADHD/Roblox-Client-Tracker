@@ -10,8 +10,7 @@ return function()
 	local expect = JestGlobals.expect
 
 	local useInputType = require(script.Parent.useInputType)
-	local InputType = require(Packages.InputType)
-	local InputTypeConstants = InputType.InputTypeConstants
+	local InputTypeConstants = require(Packages.InputType).InputTypeConstants
 
 	local lastInputTypeChanged = Instance.new("BindableEvent")
 
@@ -76,15 +75,5 @@ return function()
 		expect(inputType).toBe(InputTypeConstants.Touch)
 
 		root:unmount()
-	end)
-
-	beforeEach(function(context: any)
-		context.oldFlag = game:SetFastFlagForTesting("DebugLuaAppAlwaysUseGamepad", false)
-	end)
-
-	-- All tests under this folder will have flag values reset automatically,
-	-- as long as they are set using `context.setFlag`
-	afterEach(function(context: any)
-		game:SetFastFlagForTesting("DebugLuaAppAlwaysUseGamepad", context.oldFlag)
 	end)
 end

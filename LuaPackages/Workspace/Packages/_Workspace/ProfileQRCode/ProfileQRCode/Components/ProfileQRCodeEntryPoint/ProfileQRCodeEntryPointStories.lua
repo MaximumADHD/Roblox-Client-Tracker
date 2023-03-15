@@ -7,6 +7,7 @@ local mockStore = require(ProfileQRCode.TestHelpers.mockStore)
 local mockState = require(ProfileQRCode.TestHelpers.mockState)
 local Dash = require(Packages.Dash)
 local Constants = require(ProfileQRCode.Common.Constants)
+local createMockRobloxEventReceiver = require(ProfileQRCode.TestHelpers.createMockRobloxEventReceiver)
 
 return {
 	default = function(props)
@@ -19,6 +20,7 @@ return {
 				layoutOrder = 1,
 				analyticsService = if props and props.analyticsService then props.analyticsService else nil,
 				onClose = if props and props.onClose then props.onClose else Dash.noop,
+				robloxEventReceiver = createMockRobloxEventReceiver().mockEventReceiver,
 			}),
 		})
 	end,
@@ -36,6 +38,7 @@ return {
 				layoutOrder = 1,
 				analyticsService = if props and props.analyticsService then props.analyticsService else nil,
 				onClose = if props and props.onClose then props.onClose else Dash.noop,
+				robloxEventReceiver = createMockRobloxEventReceiver().mockEventReceiver,
 			}),
 		})
 	end,

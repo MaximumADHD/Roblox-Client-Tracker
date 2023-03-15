@@ -39,6 +39,7 @@ return function()
 						state = "Outgoing",
 					},
 					showDivider = true,
+					OpenCallDetails = function() end,
 				}),
 			}),
 		})

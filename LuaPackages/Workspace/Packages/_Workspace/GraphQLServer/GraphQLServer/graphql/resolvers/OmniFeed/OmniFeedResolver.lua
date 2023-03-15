@@ -13,6 +13,7 @@ type OmniFeedJson = OmniFeedConnector.OmniFeedJson
 type OmniFeedItemJson = OmniFeedConnector.OmniFeedItemJson
 type OmniFeedMetadataRoot = OmniFeedConnector.OmniFeedMetadataRoot
 local findFeedBySessionId = OmniFeedConnector.findOmniFeedBySessionId
+local fetchMoreOmniRecommendationMetadata = OmniFeedConnector.fetchMoreOmniRecommendationMetadata
 
 local generatedTypes = require(script.Parent.Parent.Parent.generatedTypes)
 type QueryOmniFeedArgs = generatedTypes.QueryOmniFeedArgs
@@ -113,9 +114,26 @@ local resolvers = {
 			return feedItems
 		end,
 	},
+	OmniFeedItemWithMetadata = {
+		metadata = function(root)
+			return root.contentMetadata
+		end,
+		sort = function(root)
+			return {
+				topicId = root.topicId,
+
+				-- Used to merge experience data into FeedItemContent
+				metadata = root.contentMetadata,
+				recommendations = root.recommendations,
+			}
+		end,
+	},
 	Query = {
 		omniFeed = function(_root: any, ref0: QueryOmniFeedArgs, context: any): Promise<OmniFeedRoot>
 			return findFeedBySessionId(ref0, context.fetchImpl)
+		end,
+		refreshOmniFeedItem = function(_root: any, args, context: any)
+			return fetchMoreOmniRecommendationMetadata(args, context.fetchImpl)
 		end,
 	},
 }

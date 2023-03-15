@@ -17,6 +17,7 @@ return {
 					state = "Incoming",
 				},
 				showDivider = props.controls.showDivider,
+				OpenCallDetails = function() end,
 			})
 		end,
 		Missed = function(props)
@@ -31,6 +32,7 @@ return {
 					state = "Missed",
 				},
 				showDivider = props.controls.showDivider,
+				OpenCallDetails = function() end,
 			})
 		end,
 		Outgoing = function(props)
@@ -45,6 +47,7 @@ return {
 					state = "Outgoing",
 				},
 				showDivider = props.controls.showDivider,
+				OpenCallDetails = function() end,
 			})
 		end,
 	},

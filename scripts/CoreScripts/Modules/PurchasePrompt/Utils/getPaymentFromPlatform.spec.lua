@@ -45,20 +45,11 @@ return function()
 		expect(getPaymentFromPlatform(Enum.Platform.Android, true, true, false)).to.equal(PaymentPlatform.Midas)
 	end)
 
-	it("should return correctly when on Quest", function()
-		expect(getPaymentFromPlatform(Enum.Platform.Android, false, false, true)).to.equal(PaymentPlatform.Quest)
+	it("should return correctly when on Maquettes", function()
+		expect(getPaymentFromPlatform(Enum.Platform.Android, false, false, true)).to.equal(PaymentPlatform.Maquettes)
 	end)
 
 	it("should return correctly when on UWP", function()
 		expect(getPaymentFromPlatform(Enum.Platform.UWP, false, false, false)).to.equal(PaymentPlatform.UWP)
 	end)
-
-	it("should return correctly when on PS3", function()
-		expect(getPaymentFromPlatform(Enum.Platform.PS3, false, false, false)).to.equal(PaymentPlatform.PlayStation)
-	end)
-
-	it("should return correctly when on PS4", function()
-		expect(getPaymentFromPlatform(Enum.Platform.PS4, false, false, false)).to.equal(PaymentPlatform.PlayStation)
-	end)
-
 end

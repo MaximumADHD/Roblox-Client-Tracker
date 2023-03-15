@@ -9,7 +9,7 @@ local DisplayQRCode = QRCodeDisplay.DisplayQRCode
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images
 local useLocalUserId = require(ProfileQRCode.Utils.useLocalUserId)
-local useLocalUserInfo = require(script.Parent.useLocalUserInfo)
+local useLocalUserInfo = require(ProfileQRCode.Utils.useLocalUserInfo)
 local getAvatarThumbnail = require(script.Parent.getAvatarThumbnail)
 local LightTheme = UIBlox.App.Style.Themes.LightTheme
 

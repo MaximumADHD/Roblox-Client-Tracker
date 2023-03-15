@@ -37,7 +37,7 @@ return {
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()
 		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
 	detailsTemplateUseNewGradientHeader = game:DefineFastFlag("UIBloxDetailsTemplateUseNewGradient", false),
-	enableAutoHidingPointerOverlay = UIBloxFlags.GetFFlagUIBloxEnableAutoHidingPointerOverlay(),
+	enableAutoHidingPointerOverlay = true,
 	removePreviewAnchor = UIBloxFlags.GetFFlagUIBloxRemovePreviewAnchor(),
 	enableMediaGalleryUpdate = UIBloxFlags.GetFFlagUIBloxEnableMediaGalleryUpdate(),
 	enableDropdownMenuUpdateSelectedValueFromPlaceholder = UIBloxFlags.GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder(),
@@ -50,4 +50,5 @@ return {
 	headerBarInjectContentPaddingRight = true,
 	updateVerticalTile = UIBloxFlags.GetFFlagUIBloxUpdateVerticalTile(),
 	useDetailsPageTemplateConfig = UIBloxFlags.GetFFlagUIBloxUseDetailsPageTemplateConfig(),
+	updatePlayerTileFooterPadding = UIBloxFlags.GetFFlagUIBloxUpdatePlayerTileFooterPadding(),
 }

@@ -1,7 +1,5 @@
 --!nonstrict
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local enumerate = require(CorePackages.enumerate)
 
@@ -11,8 +9,6 @@ local Layouts = EmotesMenu.Layouts
 local SmallLayout = require(Layouts.Small)
 local LargeLayout = require(Layouts.Large)
 local TenFootLayout = require(Layouts.TenFoot)
-
-local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 
 local Constants = {
 	EmotesPerPage = 8,
@@ -140,7 +136,7 @@ local Constants = {
 	-- Use the Large layout if the screen is larger than this size
 	-- Values taken from isSmallTouchScreen in Utility module
 	-- 500x500 to be consistant with what is considered large/small by the touch jump button (for proper ui positioning)
-	SmallScreenMaxSize = GetFFlagNewEmotesInGame() and Vector2.new(500, 500) or Vector2.new(700, 500),
+	SmallScreenMaxSize = Vector2.new(700, 500),
 
 	Layout = {
 		Small = 0,
@@ -151,16 +147,6 @@ local Constants = {
 	Colors = {
 		White = Color3.new(1, 1, 1),
 		Black = Color3.new(0, 0, 0),
-	},
-
-	EmoteBubbleSizes = {
-		BubbleSize = 56,
-		BubblePadding = 8,
-		TextSize = 9,
-		TextPadding = 2,
-		HighlightOffset = 8,
-		HighlightPadding = 2,
-		AnimScale = 1.2,
 	},
 
 	OffScreen = enumerate("OffScreen", {

@@ -40,6 +40,7 @@ local Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localizat
 local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics)
 local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 
 ----------- COMPONENTS --------------
 
@@ -55,12 +56,14 @@ local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 ------------ VARIABLES -------------------
 
 local PageInstance = nil
+local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 ------------ FLAGS -------------------
 
 local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
 local GetFIntEducationalPopupDisplayMaxCount = require(RobloxGui.Modules.Flags.GetFIntEducationalPopupDisplayMaxCount)
 local FFlagLuaAppExitModalDoNotShow = game:DefineFastFlag("LuaAppExitModalDoNotShow", false)
+local GetFFlagEnableSurveyImprovements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSurveyImprovements
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -225,6 +228,10 @@ local function Initialize()
 						this.DontShowAgain()
 					end
 					this.LeaveGameFunc(false)
+
+					if GetFFlagEnableSurveyImprovements() then 
+						MessageBus.publish(Constants.OnLeaveButtonClickDescriptor, {}) 
+					end
 				end,
 			}),
 		})

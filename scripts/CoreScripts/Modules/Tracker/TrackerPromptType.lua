@@ -4,4 +4,5 @@ return {
 	NotAvailable = "NotAvailable",
 	FeatureDisabled = "FeatureDisabled",
 	LODCameraRecommendDisable = "LODCameraRecommendDisable",
+	NoDynamicHeadEquipped = "NoDynamicHeadEquipped",
 }

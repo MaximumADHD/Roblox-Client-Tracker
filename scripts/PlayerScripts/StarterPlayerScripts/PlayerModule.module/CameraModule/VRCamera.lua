@@ -29,6 +29,13 @@ local FFlagUserFlagEnableVRUpdate3 do
 	FFlagUserFlagEnableVRUpdate3 = success and result
 end
 
+local FFlagUserVRPlaySeatedStanding do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRPlaySeatedStanding")
+	end)
+	FFlagUserVRPlaySeatedStanding = success and result
+end
+
 function VRCamera.new()
 	local self = setmetatable(VRBaseCamera.new(), VRCamera)
 
@@ -102,6 +109,22 @@ function VRCamera:Update(timeDelta)
 	return newCameraCFrame, newCameraFocus
 end
 
+-- returns where the floor should be placed given the camera subject, nil if anything is invalid
+function VRCamera:GetAvatarFeetWorldYValue(): number?
+	local camera = workspace.CurrentCamera
+	local cameraSubject = camera.CameraSubject
+	if not cameraSubject then
+		return nil
+	end
+
+	if cameraSubject:IsA("Humanoid") and cameraSubject.RootPart then
+		local rootPart = cameraSubject.RootPart
+		return rootPart.Position.Y - rootPart.Size.Y / 2 - cameraSubject.HipHeight
+	end
+
+	return nil
+end
+
 function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
 	-- transition from TP to FP
 	if self.needsReset then
@@ -145,7 +168,22 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 
 	local newLookVector = self:CalculateNewLookVectorFromArg(cameraLookVector, Vector2.new(yawDelta, 0))
 	newCameraCFrame = CFrame.new(cameraFocusP - (FP_ZOOM * newLookVector), cameraFocusP)
-	return newCameraCFrame, newCameraFocus
+
+	if FFlagUserVRPlaySeatedStanding then 
+		-- If stand mode, then update the Y value so that the floor is in the correct spot
+		local avatarFloorSpot = self:GetAvatarFeetWorldYValue()
+		if UserGameSettings.VRPlayMode == Enum.VRPlayMode.Standing and avatarFloorSpot and VRService:GetUserCFrameEnabled(Enum.UserCFrame.Floor) then
+			local camera = workspace.CurrentCamera
+			local floorCameraOffset = VRService:GetUserCFrame(Enum.UserCFrame.Floor).Position.Y * camera.HeadScale
+			-- same x, z and rotation, but the y is based on the floor position
+			newCameraCFrame = CFrame.new(newCameraCFrame.Position.X, avatarFloorSpot - floorCameraOffset, newCameraCFrame.Position.Z)
+			* newCameraCFrame.Rotation
+		end
+
+		return newCameraCFrame, newCameraCFrame * CFrame.new(0, 0, -FP_ZOOM) -- focus should always be in front of the camera
+	else
+		return newCameraCFrame, newCameraFocus
+	end
 end
 
 function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)

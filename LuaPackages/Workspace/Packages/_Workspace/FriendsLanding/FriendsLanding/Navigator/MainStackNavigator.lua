@@ -12,11 +12,11 @@ local PlayerSearchWrapper = require(FriendsLanding.Navigator.PlayerSearchWrapper
 local HeaderBarCenterView = require(FriendsLanding.Components.HeaderBarCenterView)
 local HeaderBarRightView = require(FriendsLanding.Components.HeaderBarRightView)
 local GatewayComponent = require(FriendsLanding.Navigator.GatewayComponent)
-local llama = dependencies.llama
 
-local getFFlagAddFriendsFixSocialTabSearchbar = require(FriendsLanding.Flags.getFFlagAddFriendsFixSocialTabSearchbar)
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagFixValidatePropErrors = require(FriendsLanding.Flags.getFFlagFixValidatePropErrors)
+local getFFlagAddFriendsSearchbarWidemodeUpdate =
+	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 
 local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 	{
@@ -41,25 +41,9 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 					headerText = {
 						raw = "Feature.Chat.Label.AddFriends",
 					},
-					renderCenter = if getFFlagAddFriendsFixSocialTabSearchbar()
-						then function()
-							return Roact.createElement(HeaderBarCenterView, navProps)
-						end
-						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
-							return FriendsLandingContext.with(function(context)
-								return Roact.createElement(
-									HeaderBarCenterView,
-									llama.Dictionary.join(navProps, {
-										shouldRenderSearchbarButtonInWideMode = if context.addFriendsPageSearchbarEnabled
-											then true
-											else nil,
-									})
-								)
-							end)
-						end
-						else function()
-							return Roact.createElement(HeaderBarCenterView, navProps)
-						end,
+					renderCenter = function()
+						return Roact.createElement(HeaderBarCenterView, navProps)
+					end,
 					renderRight = if getFFlagAddFriendsSearchbarIXPEnabled()
 						then function()
 							return FriendsLandingContext.with(function(context)
@@ -87,8 +71,9 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 						else function()
 							return nil
 						end,
-					shouldRenderSearchbarButtonInWideMode = if getFFlagAddFriendsSearchbarIXPEnabled()
-						then function()
+					shouldRenderSearchbarButtonInWideMode = if getFFlagAddFriendsSearchbarWidemodeUpdate()
+						then nil
+						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
 							return FriendsLandingContext.with(function(context)
 								if context.addFriendsPageSearchbarEnabled then
 									return true

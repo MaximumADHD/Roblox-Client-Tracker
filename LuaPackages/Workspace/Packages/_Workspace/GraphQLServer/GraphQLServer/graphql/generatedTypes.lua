@@ -18,9 +18,14 @@ export type Scalars = {
 	Float: number,
 	JSONObject: any,
 }
-local EventStatus = { Active = "active", Cancelled = "cancelled", Unpublished = "unpublished" }
+local EventStatus = {
+	Active = "active",
+	Cancelled = "cancelled",
+	Moderated = "moderated",
+	Unpublished = "unpublished",
+}
 -- ROBLOX deviation START: convert EventStatus enum to type union
-export type EventStatus = "active" | "cancelled" | "unpublished"
+export type EventStatus = "active" | "cancelled" | "unpublished" | "moderated"
 -- ROBLOX deviation END
 exports.EventStatus = EventStatus
 export type EventTime = {
@@ -138,6 +143,11 @@ export type OmniFeedItem = {
 	topicId: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	treatmentType: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 }
+export type OmniFeedItemWithMetadata = {
+	__typename: "OmniFeedItemWithMetadata"?,
+	metadata: Maybe<OmniFeedMetadata>?,
+	sort: Maybe<OmniFeedItem>?,
+}
 export type OmniFeedMetadata = {
 	__typename: "OmniFeedMetadata"?,
 	CatalogAssetJSON: Maybe<typeof((({} :: any) :: Scalars).JSONObject)>?,
@@ -151,6 +161,10 @@ export type OmniFeedRecommendation = {
 	contentId: Maybe<typeof((({} :: any) :: Scalars).String)>?,
 	contentMetadata: Maybe<typeof((({} :: any) :: Scalars).JSONObject)>?,
 	contentType: Maybe<typeof((({} :: any) :: Scalars).String)>?,
+}
+export type OmniFeedRecommendationDescriptor = {
+	contentId: InputMaybe<typeof((({} :: any) :: Scalars).String)>?,
+	contentType: InputMaybe<typeof((({} :: any) :: Scalars).String)>?,
 }
 export type Player = User & {
 	__typename: "Player"?,
@@ -170,6 +184,7 @@ export type Query = {
 	omniFeed: Maybe<OmniFeed>?,
 	omniFeedItem: Maybe<OmniFeedItem>?,
 	profilesInsights: Maybe<Array<ProfileInsights>>?,
+	refreshOmniFeedItem: Maybe<OmniFeedItemWithMetadata>?,
 	user: User,
 	virtualEvent: Maybe<VirtualEvent>?,
 	virtualEventsByUniverseId: Maybe<VirtualEventsPage>?,
@@ -184,6 +199,11 @@ export type QueryOmniFeedItemArgs = { sortId: typeof((({} :: any) :: Scalars).St
 export type QueryProfilesInsightsArgs = {
 	count: InputMaybe<typeof((({} :: any) :: Scalars).Int)>?,
 	userIds: Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>,
+}
+export type QueryRefreshOmniFeedItemArgs = {
+	recommendations: InputMaybe<Array<InputMaybe<OmniFeedRecommendationDescriptor>>>?,
+	sessionId: typeof((({} :: any) :: Scalars).String),
+	topicId: typeof((({} :: any) :: Scalars).String),
 }
 export type QueryUserArgs = { id: typeof((({} :: any) :: Scalars).ID) }
 export type QueryVirtualEventArgs = { id: typeof((({} :: any) :: Scalars).ID) }

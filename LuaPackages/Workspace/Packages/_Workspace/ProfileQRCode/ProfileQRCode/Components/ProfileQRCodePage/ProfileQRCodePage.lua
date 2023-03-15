@@ -9,6 +9,13 @@ local useStyle = UIBlox.Core.Style.useStyle
 local TextKeys = require(ProfileQRCode.Common.TextKeys)
 local RoactUtils = require(Packages.RoactUtils)
 local useLocalization = RoactUtils.Hooks.useLocalization
+local QRCodeFriendRequestNotification = require(ProfileQRCode.Components.QRCodeFriendRequestNotification)
+local Toast = UIBlox.App.Dialog.Toast
+local useGetUsersInfoUrl = require(ProfileQRCode.Networking.useGetUsersInfoUrl)
+local useLocalUserId = require(ProfileQRCode.Utils.useLocalUserId)
+local useAcceptFriendUrl = require(ProfileQRCode.Networking.useAcceptFriendUrl)
+local Cryo = require(Packages.Cryo)
+local getFFlagProfileQRCodeEnableAlerts = require(Packages.SharedFlags).getFFlagProfileQRCodeEnableAlerts
 
 local ROOT_PADDING = 24
 local GRADIENT_ROTATION = 90
@@ -16,8 +23,12 @@ local TOP_BAR_PADDING = -56
 -- We have a hardcoded white here as for gradients to work, you need a full white background. This colour will not show.
 local BACKGROUND_FOR_GRADIENT = Color3.new(1, 1, 1)
 
+local ADD_TO_QUEUE = "addItemToQueue"
+local REMOVE_FROM_QUEUE = "removeItemFromQueue"
+
 export type Props = {
 	onClose: () -> (),
+	robloxEventReceiver: any?,
 }
 
 local ProfileQRCodePage = function(props: Props)
@@ -26,6 +37,51 @@ local ProfileQRCodePage = function(props: Props)
 	})
 	local style = useStyle()
 
+	local localUserId, acceptFriendUrl, showFriendAcceptedToast, setShowFriendAcceptedToast, notificationQueue, updateNotificationQueue
+
+	if getFFlagProfileQRCodeEnableAlerts() and props.robloxEventReceiver then
+		local robloxEventReceiver = props.robloxEventReceiver
+
+		showFriendAcceptedToast, setShowFriendAcceptedToast = React.useState(false)
+		notificationQueue, updateNotificationQueue = React.useReducer(function(oldQueue, action)
+			if action.type == ADD_TO_QUEUE then
+				-- update queue
+				return Cryo.List.join(oldQueue, { action.newUserId })
+			elseif action.type == REMOVE_FROM_QUEUE then
+				return Cryo.List.removeIndex(oldQueue, 1)
+			else
+				return oldQueue
+			end
+		end, {})
+
+		localUserId = useLocalUserId()
+		local getUsersInfoUrl = useGetUsersInfoUrl()
+		acceptFriendUrl = useAcceptFriendUrl()
+
+		local function friendshipNotificationReceived(details)
+			-- Check to make sure this is the type of friend notification we respond to
+			if details.Type == "FriendshipRequested" and details.EventArgs.SourceType == "QrCode" then
+				-- get the requesting user id, each friendship request has 2 user ids the requester and the requestee.  The
+				-- requestee should be the local user so if UserId1 is the local user id then UserId2 must be the requester
+				local userId = tostring(details.EventArgs.UserId1)
+				if userId == localUserId then
+					userId = tostring(details.EventArgs.UserId2)
+				end
+
+				-- Now using the requester user id we make a call to get the display name of the requesting user
+				getUsersInfoUrl(userId):andThen(function()
+					updateNotificationQueue({ type = ADD_TO_QUEUE, newUserId = userId })
+				end)
+			end
+		end
+
+		React.useEffect(function()
+			robloxEventReceiver:observeEvent("FriendshipNotifications", function(detail)
+				friendshipNotificationReceived(detail)
+			end)
+		end, { robloxEventReceiver })
+	end
+
 	return React.createElement("Frame", {
 		BackgroundColor3 = BACKGROUND_FOR_GRADIENT,
 		BackgroundTransparency = 0,
@@ -33,6 +89,20 @@ local ProfileQRCodePage = function(props: Props)
 		Size = UDim2.new(1, 0, 1, 0),
 		BorderSizePixel = 0,
 	}, {
+		--TODO: SACQ-570 follow up ticket for getting the toast to work
+		FriendAcceptToast = if getFFlagProfileQRCodeEnableAlerts() and showFriendAcceptedToast
+			then React.createElement(Toast, {
+				toastContent = {
+					toastTitle = "James is awesome",
+					iconImage = "rbxassetid://3792530835",
+					onDismissed = function()
+						setShowFriendAcceptedToast(false)
+					end,
+				},
+				duration = 3,
+				show = true,
+			})
+			else nil,
 		Gradient = React.createElement("Frame", {
 			BackgroundColor3 = BACKGROUND_FOR_GRADIENT,
 			BackgroundTransparency = 0,
@@ -105,6 +175,22 @@ local ProfileQRCodePage = function(props: Props)
 				}),
 			}),
 		}),
+		FriendsInvite = if getFFlagProfileQRCodeEnableAlerts()
+				and #notificationQueue > 0
+				and not showFriendAcceptedToast
+			then React.createElement(QRCodeFriendRequestNotification, {
+				userId = tostring(notificationQueue[1]),
+				onAccept = function(acceptedUserId)
+					acceptFriendUrl(localUserId, acceptedUserId):andThen(function()
+						updateNotificationQueue({ type = REMOVE_FROM_QUEUE, newUserId = "0" })
+						setShowFriendAcceptedToast(true)
+					end)
+				end,
+				onClose = function()
+					updateNotificationQueue({ type = REMOVE_FROM_QUEUE, newUserId = "0" })
+				end,
+			})
+			else nil,
 	})
 end
 

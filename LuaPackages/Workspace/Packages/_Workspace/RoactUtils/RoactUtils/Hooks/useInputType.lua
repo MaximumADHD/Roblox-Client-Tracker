@@ -8,28 +8,20 @@ local Packages = RoactUtils.Parent
 
 local React = require(Packages.React)
 local useExternalEvent = require(script.Parent.useExternalEvent)
-local InputType = require(Packages.InputType)
-local InputTypeMap = InputType.InputTypeMap
-local InputTypeConstants = InputType.InputTypeConstants
-
-local getFFlagDebugLuaAppAlwaysUseGamepad = require(Packages.SharedFlags).getFFlagDebugLuaAppAlwaysUseGamepad
+local getInputGroup = require(Packages.InputType).getInputGroup
 
 local function useInputType(userInputServiceForTesting: any)
 	local userInputService = userInputServiceForTesting or UserInputService
 
 	local function getLastInputType()
 		local lastInputType = userInputService:GetLastInputType()
-		return InputTypeMap[lastInputType]
-	end
-
-	if getFFlagDebugLuaAppAlwaysUseGamepad() then
-		return InputTypeConstants.Gamepad
+		return getInputGroup(lastInputType)
 	end
 
 	local inputType, setInputType = React.useState(getLastInputType)
 
 	local lastInputTypeChangedCallback = React.useCallback(function(lastInputType)
-		local newInputType = InputTypeMap[lastInputType]
+		local newInputType = getInputGroup(lastInputType)
 		if newInputType ~= nil then
 			setInputType(newInputType)
 		end

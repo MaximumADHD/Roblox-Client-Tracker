@@ -17,8 +17,6 @@ local IconSize = UIBlox.App.Constant.IconSize
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagAddFriendsSearchbarColorFix = require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarColorFix)
-local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local CallbackInputBox = SocialLibraries.Components.CallbackInputBox
 
@@ -107,12 +105,8 @@ function SearchHeaderBar:render()
 					})
 				else
 					self:setState({
-						borderColor = if getFFlagAddFriendsSearchbarColorFix()
-							then style.Theme.Divider.Color
-							else style.Theme.TextDefault.Color,
-						borderTransparency = if getFFlagAddFriendsSearchbarColorFix()
-							then style.Theme.Divider.Transparency
-							else style.Theme.TextMuted.Transparency,
+						borderColor = style.Theme.Divider.Color,
+						borderTransparency = style.Theme.Divider.Transparency,
 					})
 				end
 			end
@@ -146,12 +140,10 @@ function SearchHeaderBar:render()
 				else self.props.cancelCallback and Roact.createElement(TextButton, {
 					text = cancelText,
 					layoutOrder = 2,
-					onActivated = if getFFlagRenameSearchAnalyticEvent()
-						then function()
-							self.props.cancelCallback()
-							PlayerSearchEvent(self.props.analytics, "cancel")
-						end
-						else self.props.cancelCallback,
+					onActivated = function()
+						self.props.cancelCallback()
+						PlayerSearchEvent(self.props.analytics, "cancel")
+					end,
 				}),
 
 			filterBoxBackground = Roact.createElement(
@@ -159,12 +151,8 @@ function SearchHeaderBar:render()
 				if (getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled)
 					then {
 						Size = filterBoxSize,
-						BackgroundColor3 = if getFFlagAddFriendsSearchbarColorFix()
-							then style.Theme.UIMuted.Color
-							else style.Theme.BackgroundMuted.Color,
-						BackgroundTransparency = if getFFlagAddFriendsSearchbarColorFix()
-							then style.Theme.UIMuted.Transparency
-							else style.Theme.BackgroundMuted.Transparency,
+						BackgroundColor3 = style.Theme.UIMuted.Color,
+						BackgroundTransparency = style.Theme.UIMuted.Transparency,
 						BorderSizePixel = 0,
 						LayoutOrder = 1,
 					}
@@ -192,12 +180,8 @@ function SearchHeaderBar:render()
 							getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled
 						)
 						then Roact.createElement("UIStroke", {
-							Color = if getFFlagAddFriendsSearchbarColorFix()
-								then self.state.borderColor or style.Theme.Divider.Color
-								else self.state.borderColor or style.Theme.TextDefault.Color,
-							Transparency = if getFFlagAddFriendsSearchbarColorFix()
-								then self.state.borderTransparency or style.Theme.Divider.Transparency
-								else self.state.borderTransparency or style.Theme.TextMuted.Transparency,
+							Color = self.state.borderColor or style.Theme.Divider.Color,
+							Transparency = self.state.borderTransparency or style.Theme.Divider.Transparency,
 							Thickness = 1,
 						})
 						else nil,

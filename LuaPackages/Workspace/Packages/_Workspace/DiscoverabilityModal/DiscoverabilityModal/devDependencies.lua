@@ -5,7 +5,7 @@ return {
 	JestGlobals = require(Packages.Dev.JestGlobals),
 	ReactRoblox = require(Packages.Dev.ReactRoblox),
 	Mock = require(Packages.LuaSocialLibrariesDeps).Mock,
-	UnitTestHelpers = require(Packages.Dev.LuaProfileDeps).UnitTestHelpers,
+	UnitTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers,
 	RhodiumHelpers = function()
 		return require(Packages.Dev.RhodiumHelpers)
 	end,

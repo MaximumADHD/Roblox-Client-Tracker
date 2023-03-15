@@ -61,8 +61,8 @@ local Images = UIBlox.App.ImageSet.Images
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local InputTypeConstants = require(CorePackages.Workspace.Packages.InputType).InputTypeConstants
-local InputTypeMap = require(CorePackages.Workspace.Packages.InputType).InputTypeMap
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
+local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
 
 local FeatureAPIScrollVelocity = game:GetEngineFeature("FeatureAPIScrollVelocity")
 local GetFFlagPeekViewClipFramePositionFromBottom =
@@ -124,7 +124,7 @@ function PeekView:init()
 		scrollableViewType = false,
 		absoluteWindowSizeX = 0,
 		absoluteWindowSizeY = 0,
-		lastInputGroup = InputTypeMap[UserInputService:GetLastInputType()],
+		lastInputGroup = getInputGroup(UserInputService:GetLastInputType()),
 	})
 
 	self.containerFrameRef = Roact.createRef()
@@ -943,9 +943,9 @@ function PeekView:didMount()
 		end
 	end
 
-	self:setState({ lastInputGroup = InputTypeMap[UserInputService:GetLastInputType()] })
+	self:setState({ lastInputGroup = getInputGroup(UserInputService:GetLastInputType()) })
 	UserInputService.LastInputTypeChanged:Connect(function(lastInputType)
-		self:setState({ lastInputGroup = InputTypeMap[lastInputType] })
+		self:setState({ lastInputGroup = getInputGroup(lastInputType) })
 	end)
 end
 

@@ -33,6 +33,7 @@ local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfV
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
+local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicConnectingToast)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
 local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
@@ -110,6 +111,8 @@ function BubbleChatBillboard:init()
 			onClick = function()
 				if GetFFlagEnableVoiceChatManualReconnect() and self.props.voiceState == Constants.VOICE_STATE.ERROR then
 					VoiceChatServiceManager:RejoinPreviousChannel()
+				elseif GetFFlagMicConnectingToast() and self.props.voiceState == Constants.VOICE_STATE.CONNECTING then
+					VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 				else
 					VoiceChatServiceManager:ToggleMic()
 				end

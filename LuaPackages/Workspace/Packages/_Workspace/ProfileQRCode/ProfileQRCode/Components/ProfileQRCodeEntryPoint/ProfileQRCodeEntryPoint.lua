@@ -15,6 +15,7 @@ export type Props = {
 	analyticsService: any?,
 	onClose: () -> (),
 	source: string?,
+	robloxEventReceiver: any?,
 }
 
 local ProfileQRCodeEntryPoint = function(props: Props)

@@ -24,6 +24,8 @@ local ThrottleFunctionCall = require(ShareGame.ThrottleFunctionCall)
 
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 
+local GetFFlagAbuseReportAnalyticsHasLaunchData =
+	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagInviteListStyleFixes = require(Modules.Flags.GetFFlagInviteListStyleFixes)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
@@ -82,8 +84,10 @@ local InviteSingleUserContainer = function(props)
 			return
 		end
 
+		local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
 		analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.SendInvite, {
 			recipient = friend.id,
+			isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData() then isLaunchDataProvided else nil,
 		})
 
 		local onSuccess = function(results)
@@ -117,7 +121,8 @@ local InviteSingleUserContainer = function(props)
 		-- Roact doesn't immediately block clicking the button, so we introduce
 		-- a short delay here to make sure the user can't trigger more than one
 		-- invite at a time
-		onInvite = React.useCallback(ThrottleFunctionCall(GetFIntThrottleInviteSendEndpointDelay(), onInvite), {onInvite})
+		onInvite =
+			React.useCallback(ThrottleFunctionCall(GetFIntThrottleInviteSendEndpointDelay(), onInvite), { onInvite })
 	end
 
 	if not friend then
@@ -131,8 +136,9 @@ local InviteSingleUserContainer = function(props)
 	end
 
 	local inviteAlreadySent = inviteStatus and inviteStatus ~= InviteStatus.Failed
-	local inviteTextKey =
-		if inviteAlreadySent then "Feature.SettingsHub.Label.Invited" else "Feature.SettingsHub.Action.InviteFriend"
+	local inviteTextKey = if inviteAlreadySent
+		then "Feature.SettingsHub.Label.Invited"
+		else "Feature.SettingsHub.Action.InviteFriend"
 
 	local applyStyleFixes = GetFFlagInviteListStyleFixes()
 
@@ -143,12 +149,14 @@ local InviteSingleUserContainer = function(props)
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		BorderSizePixel = 0,
 		BackgroundColor3 = if applyStyleFixes then BACKGROUND_COLOR else Colors.FLINT,
-		BackgroundTransparency = if applyStyleFixes then 0.1 else 0
+		BackgroundTransparency = if applyStyleFixes then 0.1 else 0,
 	}, {
-		SizeConstraint = if applyStyleFixes then React.createElement("UISizeConstraint", {
-			MaxSize = Vector2.new(MODAL_WIDTH, math.huge),
-			MinSize = Vector2.new(0, 0)
-		}) else nil,
+		SizeConstraint = if applyStyleFixes
+			then React.createElement("UISizeConstraint", {
+				MaxSize = Vector2.new(MODAL_WIDTH, math.huge),
+				MinSize = Vector2.new(0, 0),
+			})
+			else nil,
 		Corner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, BACKGROUND_BORDER_RADIUS),
 		}),
@@ -189,18 +197,16 @@ local InviteSingleUserContainer = function(props)
 				size = UDim2.new(0, 95, 0, 95),
 				layoutOrder = 1,
 				square = true,
-				backgroundTransparency = if applyStyleFixes then 1 else nil
+				backgroundTransparency = if applyStyleFixes then 1 else nil,
 			}),
 
 			TextBody = React.createElement(StyledTextLabel, {
 				fontStyle = style.Font.Header2,
 				colorStyle = style.Theme.TextEmphasis,
-				text = props.promptMessage or RobloxTranslator:FormatByKey(
-					"Feature.SettingsHub.Label.DefaultInviteMessage",
-					{
+				text = props.promptMessage
+					or RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.DefaultInviteMessage", {
 						DisplayName = friend.displayName,
-					}
-				),
+					}),
 				textXAlignment = Enum.TextXAlignment.Center,
 				automaticSize = Enum.AutomaticSize.Y,
 				size = UDim2.new(1, 0, 0, 0),
@@ -230,48 +236,44 @@ local InviteSingleUserContainer = function(props)
 	})
 end
 
-return RoactRodux.connect(
-	function(state)
-		return {
-			friends = state.Users,
-			friendsRetrievalStatus = Players.LocalPlayer and state.Friends.retrievalStatus[tostring(
-				Players.LocalPlayer.UserId
-			)],
-			invites = state.Invites,
-		}
-	end,
-	function(dispatch: (any) -> any)
-		return {
-			inviteUser = function(userId: string, analytics: any, inviteMessageId: string?, launchData: string?)
-				local requestImpl = httpRequest(HttpRbxApiService :: any)
-				local placeId = tostring(game.PlaceId)
+return RoactRodux.connect(function(state)
+	return {
+		friends = state.Users,
+		friendsRetrievalStatus = Players.LocalPlayer
+			and state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
+		invites = state.Invites,
+	}
+end, function(dispatch: (any) -> any)
+	return {
+		inviteUser = function(userId: string, analytics: any, inviteMessageId: string?, launchData: string?)
+			local requestImpl = httpRequest(HttpRbxApiService :: any)
+			local placeId = tostring(game.PlaceId)
 
-				if GetFFlagEnableNewInviteSendEndpoint() then
-					return dispatch(
-						InviteUserIdToPlaceIdCustomized(
-							requestImpl,
-							userId,
-							placeId,
-							analytics,
-							ShareGameConstants.Triggers.DeveloperSingle,
-							inviteMessageId,
-							launchData
-						)
+			if GetFFlagEnableNewInviteSendEndpoint() then
+				return dispatch(
+					InviteUserIdToPlaceIdCustomized(
+						requestImpl,
+						userId,
+						placeId,
+						analytics,
+						ShareGameConstants.Triggers.DeveloperSingle,
+						inviteMessageId,
+						launchData
 					)
-				else
-					return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
-				end
-			end,
-		}
-	end
-)(function(props)
+				)
+			else
+				return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
+			end
+		end,
+	}
+end)(function(props)
 	-- Style Provider For UIBlox components
 	return React.createElement(UIBlox.Style.Provider, {
 		style = {
 			Theme = AppDarkTheme,
-			Font = AppFont
-		}
+			Font = AppFont,
+		},
 	}, {
-		SingleUserInvite = React.createElement(InviteSingleUserContainer, props)
+		SingleUserInvite = React.createElement(InviteSingleUserContainer, props),
 	})
 end)

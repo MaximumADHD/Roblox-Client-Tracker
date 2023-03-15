@@ -1,14 +1,17 @@
 local ProfileQRCode = script:FindFirstAncestor("ProfileQRCode")
 local Packages = ProfileQRCode.Parent
 local JestGlobals = require(Packages.Dev.JestGlobals)
-local LuaProfileDeps = require(Packages.Dev.LuaProfileDeps)
-local runWhileMounted = LuaProfileDeps.UnitTestHelpers.runWhileMounted
+local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers)
+local runWhileMounted = SocialTestHelpers.TestHelpers.runWhileMounted
 local createTreeWithProviders = require(ProfileQRCode.TestHelpers.createTreeWithProviders)
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 local Stories = require(script.Parent.QRCodeFriendRequestNotificationStories)
 local defaultStory = Stories.default
 local findElementHelpers = require(ProfileQRCode.TestHelpers.findElementHelpers)
+local jest = JestGlobals.jest
+local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
+local DefaultTestUserId = require(ProfileQRCode.TestHelpers.DefaultTestUserId)
 
 it("SHOULD mount correctly", function()
 	local component = createTreeWithProviders(defaultStory, {})
@@ -36,38 +39,38 @@ it("SHOULD show username, description, icon, close and accept", function()
 	end)
 end)
 
--- it("SHOULD call onClose if closed", function()
--- 	local onClose = jest.fn()
--- 	local component = createTreeWithProviders(defaultStory, {
--- 		-- props = {
--- 		-- 	onClose = onClose,
--- 		-- },
--- 	})
+it("SHOULD call onClose if closed", function()
+	local onClose = jest.fn()
+	local component = createTreeWithProviders(defaultStory, {
+		props = {
+			onClose = onClose,
+		},
+	})
 
--- 	runWhileMounted(component, function(parent)
--- 		local backButton = findElementHelpers.findBackButton(parent, { assertElementExists = true })
+	runWhileMounted(component, function(parent)
+		local closeButton = findElementHelpers.findCloseButton(parent, { assertElementExists = true })
 
--- 		RhodiumHelpers.clickInstance(backButton:getRbxInstance())
+		RhodiumHelpers.clickInstance(closeButton:getRbxInstance())
 
--- 		-- it seems to get called twice, but this seems to be to be a test-specific thing. Rather than actual duplicate calls in real life.
--- 		expect(onClose).toHaveBeenCalled()
--- 	end)
--- end)
+		expect(onClose).toHaveBeenCalledTimes(1)
+	end)
+end)
 
--- it("SHOULD call onAccept if accept friend", function()
--- 	local onClose = jest.fn()
--- 	local component = createTreeWithProviders(defaultStory, {
--- 		-- props = {
--- 		-- 	onAccept = onAccept,
--- 		-- },
--- 	})
+it("SHOULD call onAccept if accept friend", function()
+	local onAccept = jest.fn()
+	local component = createTreeWithProviders(defaultStory, {
+		props = {
+			onAccept = onAccept,
+			userId = DefaultTestUserId,
+		},
+	})
 
--- 	runWhileMounted(component, function(parent)
--- 		local backButton = findElementHelpers.findBackButton(parent, { assertElementExists = true })
+	runWhileMounted(component, function(parent)
+		local acceptButton = findElementHelpers.findAcceptButton(parent, { assertElementExists = true })
 
--- 		RhodiumHelpers.clickInstance(backButton:getRbxInstance())
+		RhodiumHelpers.clickInstance(acceptButton:getRbxInstance())
 
--- 		-- it seems to get called twice, but this seems to be to be a test-specific thing. Rather than actual duplicate calls in real life.
--- 		expect(onAccept).toHaveBeenCalled()
--- 	end)
--- end)
+		expect(onAccept).toHaveBeenCalledTimes(1)
+		expect(onAccept).toHaveBeenCalledWith(DefaultTestUserId)
+	end)
+end)

@@ -75,14 +75,4 @@ return function()
 
 		root:unmount()
 	end)
-
-	beforeEach(function(context: any)
-		context.oldFlag = game:SetFastFlagForTesting("DebugLuaAppAlwaysUseGamepad", false)
-	end)
-
-	-- All tests under this folder will have flag values reset automatically,
-	-- as long as they are set using `context.setFlag`
-	afterEach(function(context: any)
-		game:SetFastFlagForTesting("DebugLuaAppAlwaysUseGamepad", context.oldFlag)
-	end)
 end

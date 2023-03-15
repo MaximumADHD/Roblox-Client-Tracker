@@ -45,10 +45,7 @@ local AbuseReportBuilder = require(RobloxGui.Modules.TrustAndSafety.Utility.Abus
 
 local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
-local GetFFlagVoiceARCantSelectVoiceAfterTextFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARCantSelectVoiceAfterTextFix)
-local GetFFlagHideMOAOnExperience = require(RobloxGui.Modules.Flags.GetFFlagHideMOAOnExperience)
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
-local GetFFlagVoiceARDropdownFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceARDropdownFix)
 local GetFFlagVoiceARRemoveOffsiteLinksForVoice = require(RobloxGui.Modules.Flags.GetFFlagVoiceARRemoveOffsiteLinksForVoice)
 local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagOldAbuseReportAnalyticsDisabled)
 local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
@@ -206,21 +203,19 @@ local function Initialize()
 			this.MethodOfAbuseMode:SetInteractable(false)
 			this.MethodOfAbuseLabel.ZIndex = 1
 			this.MethodOfAbuseFrame.LayoutOrder = 2
-			if GetFFlagVoiceARDropdownFix() then
-				this.MethodOfAbuseMode.DropDownFrame.MouseButton1Click:Connect(function()
-					local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
-					if Cryo.isEmpty(recentVoicePlayers) or not this:isVoiceReportMethodActive() then
-						-- Remove "Voice" option if we don't have any players to show
-						this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
-							-- Note that we're using the index property of the TypeOfAbuseOption,
-							-- not the index of the AbuseOption in the dropdown list
-							return item.index ~= TypeOfAbuseOptions[MethodsOfAbuse.voice].index
-						end))
-					else
-						this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
-					end
-				end)
-			end
+			this.MethodOfAbuseMode.DropDownFrame.MouseButton1Click:Connect(function()
+				local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
+				if Cryo.isEmpty(recentVoicePlayers) or not this:isVoiceReportMethodActive() then
+					-- Remove "Voice" option if we don't have any players to show
+					this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
+						-- Note that we're using the index property of the TypeOfAbuseOption,
+						-- not the index of the AbuseOption in the dropdown list
+						return item.index ~= TypeOfAbuseOptions[MethodsOfAbuse.voice].index
+					end))
+				else
+					this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
+				end
+			end)
 
 			this.WhichPlayerFrame.LayoutOrder = 3
 			this.TypeOfAbuseFrame.LayoutOrder = 4
@@ -299,7 +294,7 @@ local function Initialize()
 	end
 
 	function this:isVoiceReportSelected()
-		if not this.MethodOfAbuseMode or (GetFFlagVoiceARDropdownFix() and #this.MethodOfAbuseMode.Selections < 3) then
+		if not this.MethodOfAbuseMode or (#this.MethodOfAbuseMode.Selections < 3) then
 			return false
 		end
 
@@ -336,7 +331,7 @@ local function Initialize()
 				index = index + 1
 			end
 		end
-		if GetFFlagVoiceARDropdownFix() and index <= 1 then
+		if index <= 1 then
 			index = #PlayersService:GetPlayers()
 		end
 
@@ -484,7 +479,7 @@ local function Initialize()
 		end)
 
 		local function updateMethodOfAbuseVisibility()
-			if GetFFlagHideMOAOnExperience() and this.MethodOfAbuseMode then
+			if this.MethodOfAbuseMode then
 				this.MethodOfAbuseFrame.Visible = this.GameOrPlayerMode.CurrentIndex == 2
 			end
 		end
@@ -772,9 +767,7 @@ local function Initialize()
 
 		local function playerSelectionChanged(newIndex)
 			if voiceChatEnabled then
-				if GetFFlagVoiceARCantSelectVoiceAfterTextFix() then
-					currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
-				end
+				currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 
 				this:updateMethodOfAbuseDropdown()
 

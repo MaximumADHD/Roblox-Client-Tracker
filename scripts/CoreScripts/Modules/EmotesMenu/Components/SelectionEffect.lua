@@ -50,4 +50,4 @@ local function mapStateToProps(state)
     }
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(SelectionEffect)
+return RoactRodux.connect(mapStateToProps, nil)(SelectionEffect)

@@ -1,3 +1,5 @@
+-- FFlagUseGraphqlForAllVirtualEventData cleanup: Delete this file
+
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local ApolloClient = require(VirtualEvents.Parent.ApolloClient)
@@ -10,54 +12,14 @@ local useSelector = require(VirtualEvents.Parent.RoactUtils).Hooks.RoactRodux.us
 local RoduxNetworking = network.RoduxNetworking
 local NetworkingVirtualEvents = network.NetworkingVirtualEvents
 local logger = require(VirtualEvents.logger)
+local requests = require(VirtualEvents.requests)
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
-local gql = ApolloClient.gql
 local useQuery = ApolloClient.useQuery
-
-local GET_VIRTUAL_EVENT = gql([[
-	query virtualEvent($virtualEventId: ID!) {
-		virtualEvent(id: $virtualEventId) {
-			id
-			title
-			description
-			host {
-				hostType
-				hostId
-				hostName
-				hasVerifiedBadge
-			}
-			universeId
-			eventStatus
-			eventTime {
-				startUtc
-				endUtc
-			}
-			userRsvpStatus
-			rsvps {
-				userId
-				rsvpStatus
-			}
-			rsvpCounters {
-				none
-				going
-				maybeGoing
-				notGoing
-			}
-			experienceDetails {
-				id
-				name
-			}
-			media {
-				assetType
-			}
-		}
-	}
-]])
 
 local function useVirtualEvent(virtualEventId: string): (types.VirtualEvent, string)
 	if getFFlagVirtualEventsGraphQL() then
-		local result = useQuery(GET_VIRTUAL_EVENT, {
+		local result = useQuery(requests.GET_VIRTUAL_EVENT, {
 			variables = {
 				virtualEventId = virtualEventId,
 			},

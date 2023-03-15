@@ -15,6 +15,7 @@ local withStyle = UIBlox.Style.withStyle
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local withLocalization = dependencies.withLocalization
 local getDeepValue = dependencies.SocialLibraries.Dictionary.getDeepValue
+local DiscoverabilityAnalytics = dependencies.DiscoverabilityAnalytics
 local EnumScreens = require(FriendsLanding.EnumScreens)
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local RefreshScrollingFrame = dependencies.SocialLibraries.Components.RefreshScrollingFrame
@@ -33,6 +34,7 @@ local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.ge
 local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFFlagUpdateContactImportModalLogic)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local getFFlagFixValidatePropErrors = require(FriendsLanding.Flags.getFFlagFixValidatePropErrors)
+local getFFlagPassEntrypointFromAddFriendsPage = require(FriendsLanding.Flags.getFFlagPassEntrypointFromAddFriendsPage)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
@@ -40,6 +42,8 @@ local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEna
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
+local getFFlagAddFriendsSearchbarWidemodeUpdate =
+	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
 
@@ -48,6 +52,7 @@ local AddFriendsPage = Roact.PureComponent:extend("AddFriendsPage")
 local NEW_NAV_BAR_SIZE = 56
 local PLAYER_TILE_MARGIN = 12
 local CONTACT_IMPORTER_ORIGIN = "PhoneContactImporter"
+local TABLET_SEARCH_BAR_WIDTH = if getFFlagAddFriendsSearchbarWidemodeUpdate() then 400 else nil
 
 local BANNER_IN_BETWEEN_PADDING = if getFFlagSocialOnboardingExperimentEnabled() then 12 else nil
 local BANNER_TOP_PADDING = if getFFlagSocialOnboardingExperimentEnabled() then 8 else nil
@@ -261,6 +266,9 @@ function AddFriendsPage:init()
 								openLearnMoreLink = self.props.handleOpenLearnMoreLink,
 								diagService = self.props.diagService,
 								eventIngestService = self.props.eventIngestService,
+								entryPoint = if getFFlagPassEntrypointFromAddFriendsPage()
+									then DiscoverabilityAnalytics.EntryPoints.AddFriends
+									else nil,
 							})
 						end)
 						:catch(function()
@@ -419,7 +427,10 @@ function AddFriendsPage:render()
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
 				}, {
-					SearchbarPadding = if getFFlagAddFriendsSearchbarIXPEnabled()
+					SearchbarPadding = if getFFlagAddFriendsSearchbarWidemodeUpdate()
+						then nil
+						elseif
+							getFFlagAddFriendsSearchbarIXPEnabled()
 							and self.props.addFriendsPageSearchbarEnabled
 							and not self.props.wideMode
 						then Roact.createElement("UIPadding", {
@@ -554,12 +565,23 @@ function AddFriendsPage:render()
 			if getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled then
 				return Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
+					BackgroundTransparency = if getFFlagAddFriendsSearchbarWidemodeUpdate() then nil else 1,
+					BackgroundColor3 = if getFFlagAddFriendsSearchbarWidemodeUpdate()
+						then style.Theme.BackgroundDefault.Color
+						else nil,
 				}, {
-					SearchbarButton = if not self.props.wideMode
+					UIListLayout = if getFFlagAddFriendsSearchbarWidemodeUpdate()
+						then Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Vertical,
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						})
+						else nil,
+					SearchbarButton = if getFFlagAddFriendsSearchbarWidemodeUpdate() or not self.props.wideMode
 						then Roact.createElement(ImageSetButton, {
 							BackgroundTransparency = 1,
-							Size = UDim2.new(1, -2 * pageLeftRightPadding, 0, NEW_NAV_BAR_SIZE),
+							Size = if self.props.wideMode
+								then UDim2.new(0, TABLET_SEARCH_BAR_WIDTH, 0, NEW_NAV_BAR_SIZE)
+								else UDim2.new(1, -2 * pageLeftRightPadding, 0, NEW_NAV_BAR_SIZE),
 							Position = UDim2.new(0, pageLeftRightPadding, 0, 0),
 							[Roact.Event.Activated] = self.onSearchbarActivated,
 						}, {

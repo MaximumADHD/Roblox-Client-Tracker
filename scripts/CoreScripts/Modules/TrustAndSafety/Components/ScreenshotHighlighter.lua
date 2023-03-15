@@ -2,22 +2,11 @@ local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
 
-local ButtonStack = UIBlox.App.Button.ButtonStack
-local ButtonType = UIBlox.App.Button.Enum.ButtonType
-local HeaderBar = UIBlox.App.Bar.HeaderBar
-local IconButton = UIBlox.App.Button.IconButton
-local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local ImageSetButton = UIBlox.Core.ImageSet.Button
-local UIBloxImages = UIBlox.App.ImageSet.Images
-local useStyle = UIBlox.Core.Style.useStyle
 local Images = UIBlox.App.ImageSet.Images
 
-local TnsModule = script.Parent.Parent
-local Assets = require(TnsModule.Resources.Assets)
-local Dependencies = require(TnsModule.Dependencies) 
-
-
-local HIGHLIGHT_SIZE = 20
+-- Using hard-coded size right now; will make it dependent on screen size later
+local HIGHLIGHT_SIZE = 100 
 local SUPPORT_DRAG_SELECTION = false
 
 export type Props = {
@@ -81,15 +70,31 @@ local function ScreenshotHighlighter(props: Props)
     local children: any = {}
 
     for i, point in ipairs(props.annotationPoints) do
-        children["point" .. i] = React.createElement(ImageSetButton, {
-            -- TODO(bcwong): When clicking near the border, the dot partially lies outside
+        children["point" .. i] = React.createElement("Frame", {
             Position = UDim2.fromScale(point.X, point.Y),
-            -- TODO(bcwong): Point size should be a fraction of the image width/height
-            Size = UDim2.fromOffset(HIGHLIGHT_SIZE, HIGHLIGHT_SIZE),
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            Image = Images["component_assets/circle_16"],
-            ImageTransparency = 0.5,
             BackgroundTransparency = 1,
+            Size = UDim2.fromOffset(HIGHLIGHT_SIZE, HIGHLIGHT_SIZE)
+        }, {
+            -- Our design requires a circle with border
+            -- since we don't have the specific image for it I have to combine two images
+            Border = React.createElement(ImageSetButton, {
+                Size = UDim2.fromOffset(HIGHLIGHT_SIZE, HIGHLIGHT_SIZE),
+                AnchorPoint = Vector2.new(0.5, 0.5),
+                Image = Images["component_assets/circle_49_stroke_1"],
+                ImageColor3 = Color3.fromHex('#3CF3E9'),
+                ImageTransparency = 0,
+                BackgroundTransparency = 1,
+            }),
+            Background = React.createElement(ImageSetButton, {
+                -- TODO(bcwong): When clicking near the border, the dot partially lies outside
+                -- TODO(bcwong): Point size should be a fraction of the image width/height
+                Size = UDim2.fromOffset(HIGHLIGHT_SIZE, HIGHLIGHT_SIZE),
+                AnchorPoint = Vector2.new(0.5, 0.5),
+                Image = Images["component_assets/circle_49"],
+                ImageColor3 = Color3.fromHex('#3CF3E9'),
+                ImageTransparency = 0.6,
+                BackgroundTransparency = 1,
+            })
         })
     end
 

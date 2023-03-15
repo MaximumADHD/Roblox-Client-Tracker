@@ -183,4 +183,4 @@ local function mapDispatchToProps(dispatch)
     }
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(EmotesButtons)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EmotesButtons)

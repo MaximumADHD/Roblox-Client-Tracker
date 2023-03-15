@@ -6,26 +6,23 @@
 
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
-local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
+local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
+local VRService = game:GetService("VRService")
 
+local Otter = require(CorePackages.Otter)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local SystemBar = UIBlox.App.Navigation.SystemBar
 local Placement = UIBlox.App.Navigation.Enum.Placement
-
-local UIBlox = require(CorePackages.UIBlox)
 local Panel3D = UIBlox.Core.VR.Panel3D
 local VRConstants = UIBlox.Core.VR.Constants
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
-local Images = UIBlox.App.ImageSet.Images
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
@@ -54,6 +51,30 @@ local GetFFlagBottomBarButtonBehaviorFixVR = require(RobloxGui.Modules.Flags.Get
 local GetFFlagBottomBarInitialStateFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarInitialStateFixVR)
 local GetFFlagBottomBarSortOrderFixVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarSortOrderFixVR)
 local FFlagUserVRPlaySeatedStanding = require(RobloxGui.Modules.Flags.FFlagUserVRPlaySeatedStanding)
+local GetFFlagBottomBarImproveInVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarImproveInVR)
+
+-- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
+local function safeRequire(moduleScript)
+	local success, ret = pcall(require, moduleScript)
+	if success then
+		return ret
+	else
+		warn("Failure to Start CoreScript module " .. moduleScript.Name .. ".\n" .. ret)
+	end
+end
+
+local LOOKAWAY_Y_THRESHOLD = -0.2
+
+local SpringOptions = {
+	Default = {
+		dampingRatio = 1,
+		frequency = 4.5,
+	},
+	Slower = {
+		dampingRatio = 1,
+		frequency = 0.66,
+	},
+}
 
 -- each individual icon can either be definied as a table entry with icon and onActivate, or as a item component
 local MainMenu =
@@ -257,7 +278,9 @@ local SeparatorIcon =
 -- default bar init
 function VRBottomBar:init()
 	self:setState({
-		vrMenuOpen = true
+		vrMenuOpen = true,
+		lookAway = false, -- whether player looks away from VRBottomBar
+		userGui = GetFFlagBottomBarImproveInVR() and VRService.VREnabled and safeRequire(RobloxGui.Modules.VR.UserGui) or Roact.None
 	})
 	
 	self.backpackHasItems = false
@@ -301,6 +324,36 @@ function VRBottomBar:init()
 				self.updateItemListState()
 			end
 		end
+
+		if GetFFlagBottomBarImproveInVR() then
+			self.onVREnabledChanged = function()
+				self:setState({
+	 				userGui = VRService.VREnabled and safeRequire(RobloxGui.Modules.VR.UserGui) or Roact.None
+				})
+			end
+		end
+
+		self.onRenderStepped = function()
+			local currentCamera = workspace.CurrentCamera :: Camera
+			local cameraCF = currentCamera.CFrame
+			local userHeadCameraCF
+			if GetFFlagUIBloxVRApplyHeadScale() then
+				userHeadCameraCF = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
+			else
+				userHeadCameraCF = cameraCF * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+			end
+			local lookAway = userHeadCameraCF.LookVector.Y > LOOKAWAY_Y_THRESHOLD
+			if self.state.lookAway ~= lookAway then
+				self:setState({
+					lookAway = lookAway,
+				})
+			end
+		end
+
+		self.fadeTransparency, self.setFadeTransparency = Roact.createBinding(0)
+		self.fadeTransparencyMotor = Otter.createSingleMotor(self.fadeTransparency:getValue())
+		self.fadeTransparencyMotor:onStep(self.setFadeTransparency)
+		self.fadeTransparencyMotor:setGoal(Otter.spring(0, SpringOptions.Default))
 	else
 		if SafetyBubbleEnabled then	
 			self:setState({
@@ -406,9 +459,26 @@ function VRBottomBar:updateItems()
 end
 
 -- VRBottomBar implements two UIBlox components
-function VRBottomBar:render()	
+function VRBottomBar:render()
+
 	if GetFFlagBottomBarInitialStateFixVR() then
+		local systemBar = Roact.createElement(SystemBar, {
+			itemList = self.state.itemList,
+			selection = self.state.vrMenuOpen and 1 or 3,
+			placement = Placement.Bottom,
+			hidden = false,
+			onSafeAreaChanged = function() end,
+			size = UDim2.new(1, 0, 1, 0),
+			position = UDim2.new(),
+			layoutOrder = 1,
+			roundCorners = true,
+			buttonStroke = true,
+			bgTransparency = 0,
+			sortOrder = if GetFFlagBottomBarSortOrderFixVR() then Enum.SortOrder.LayoutOrder else nil,
+		})
+
 		return Roact.createElement(Panel3D,  {
+			alignedPanel = if GetFFlagBottomBarImproveInVR() and self.state.userGui then self.state.userGui:getPanel() else nil,
 			panelName = "BottomBar",
 			partSize = if GetFFlagUIBloxVRApplyHeadScale()
 				then Vector2.new((#self.state.itemList - 1) * 0.15, 0.15)
@@ -424,20 +494,15 @@ function VRBottomBar:render()
 			alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
 			parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
 		}, {
-			Roact.createElement(SystemBar, {
-				itemList = self.state.itemList,
-				selection = self.state.vrMenuOpen and 1 or 3,
-				placement = Placement.Bottom,
-				hidden = false,
-				onSafeAreaChanged = function() end,
-				size = UDim2.new(1, 0, 1, 0),
-				position = UDim2.new(),
-				layoutOrder = 1,
-				roundCorners = true,
-				buttonStroke = true,
-				bgTransparency = 0,
-				sortOrder = if GetFFlagBottomBarSortOrderFixVR() then Enum.SortOrder.LayoutOrder else nil,
+			CanvasGroup = GetFFlagBottomBarImproveInVR() and Roact.createElement("CanvasGroup", {
+				BackgroundTransparency =  1,
+				BorderSizePixel = 0,
+				GroupTransparency = self.fadeTransparency,
+				Size = UDim2.new(1, 0, 1, 0),
+			}, {
+				SystemBar = systemBar,
 			}),
+			SystemBar = not GetFFlagBottomBarImproveInVR() and systemBar,
 
 			ShowTopBarChanged = Roact.createElement(ExternalEventConnection, {
 				event = VRHub.ShowTopBarChanged.Event,
@@ -466,6 +531,14 @@ function VRBottomBar:render()
 			EmotesLoaded = Roact.createElement(ExternalEventConnection, {
 				event = EmotesMenuMaster.EmotesLoaded.Event,
 				callback = self.onEmotesLoaded,
+			}),
+			RenderStepped = GetFFlagBottomBarImproveInVR() and Roact.createElement(ExternalEventConnection, {
+				event = RunService.RenderStepped,
+				callback = self.onRenderStepped,
+			}),
+			VREnabled = GetFFlagBottomBarImproveInVR() and Roact.createElement(ExternalEventConnection, {
+				event = VRService:GetPropertyChangedSignal("VREnabled"),
+				callback = self.onVREnabledChanged,
 			}),
 		})
 	else
@@ -507,6 +580,23 @@ function VRBottomBar:render()
 			}),
 		})
 	end
+end
+
+function VRBottomBar:didUpdate(_, prevState)
+	if GetFFlagBottomBarImproveInVR() then
+		if prevState.lookAway ~= self.state.lookAway or prevState.vrMenuOpen ~= self.state.vrMenuOpen then
+			local fadeOut = not self.state.vrMenuOpen and self.state.lookAway
+			if fadeOut then
+				self.fadeTransparencyMotor:setGoal(Otter.spring(1, SpringOptions.Slower))
+			else
+				self.fadeTransparencyMotor:setGoal(Otter.spring(0, SpringOptions.Default))
+			end
+		end
+	end
+end
+
+function VRBottomBar:willUnmount()
+	self.fadeTransparencyMotor:stop()
 end
 
 return RoactRodux.UNSTABLE_connect2(nil, nil)(VRBottomBar)

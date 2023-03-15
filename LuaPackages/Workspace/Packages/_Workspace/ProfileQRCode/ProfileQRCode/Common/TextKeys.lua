@@ -4,4 +4,5 @@ return {
 	FailedToLoad = "Feature.Profile.Message.QRLoadFailed",
 	NotificationRequest = "Feature.Profile.Message.QRNofificationRequest",
 	AcceptFriend = "Feature.Profile.Action.AcceptFriends",
+	FriendAdded = "Feature.Profile.Message.FriendAdded",
 }

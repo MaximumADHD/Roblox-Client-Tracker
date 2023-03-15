@@ -25,9 +25,10 @@ local InviteUserIdToPlaceIdCustomized = require(ShareGame.Thunks.InviteUserIdToP
 local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
 local PlayerSearchPredicate = require(CoreGui.RobloxGui.Modules.InGameMenu.Utility.PlayerSearchPredicate)
-local GetFFlagShareInviteLinkContextMenuV1Enabled = require(
-	Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled
-)
+local GetFFlagShareInviteLinkContextMenuV1Enabled =
+	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
+local GetFFlagAbuseReportAnalyticsHasLaunchData =
+	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 
@@ -183,7 +184,9 @@ function ConversationList:render()
 				TextSize = NO_RESULTS_TEXTSIZE,
 				TextTransparency = NO_RESULTS_TRANSPRENCY,
 				ZIndex = zIndex,
-				Position = if GetFFlagShareInviteLinkContextMenuV1Enabled() then UDim2.new(0, 0, 0, topPadding) else nil,
+				Position = if GetFFlagShareInviteLinkContextMenuV1Enabled()
+					then UDim2.new(0, 0, 0, topPadding)
+					else nil,
 			})
 		end
 	end
@@ -195,7 +198,9 @@ function ConversationList:render()
 		LayoutOrder = layoutOrder,
 		Size = size,
 		Position = GetFFlagShareInviteLinkContextMenuV1Enabled() and UDim2.new(0, 0, 0, topPadding) or nil,
-		CanvasSize = if newInviteMenuEnabled then UDim2.new() else UDim2.new(0, 0, 0, numEntries * (entryHeight + entryPadding)),
+		CanvasSize = if newInviteMenuEnabled
+			then UDim2.new()
+			else UDim2.new(0, 0, 0, numEntries * (entryHeight + entryPadding)),
 		AutomaticCanvasSize = if newInviteMenuEnabled then Enum.AutomaticSize.Y else nil,
 		ScrollBarThickness = 0,
 		ZIndex = zIndex,
@@ -233,7 +238,14 @@ if GetFFlagEnableNewInviteSendEndpoint() then
 		-- DeveloperMultiple can mount even if it's not visible.
 		-- We track it opening in InviteToGamePrompt.lua
 		if self.props.analytics and self.props.trigger == Constants.Triggers.GameMenu then
-			self.props.analytics:sendEvent(self.props.trigger, InviteEvents.ModalOpened)
+			local isLaunchDataProvided = self.props.launchData ~= nil and self.props.launchData ~= ""
+			self.props.analytics:sendEvent(
+				self.props.trigger,
+				InviteEvents.ModalOpened,
+				if GetFFlagAbuseReportAnalyticsHasLaunchData()
+					then { isLaunchDataProvided = isLaunchDataProvided }
+					else nil
+			)
 		end
 		handleBinding(self)
 	end
@@ -265,44 +277,35 @@ local selectFriends = memoize(function(users)
 	return friends
 end)
 
-local connector = RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			friends = selectFriends(state.Users),
-			friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
-			invites = state.Invites,
-		}
-	end,
-	function(dispatch)
-		return {
-			inviteUser = function(
-				userId: string,
-				analytics: any,
-				trigger: string,
-				inviteMessageId: string?,
-				launchData: string?
-			)
-				local requestImpl = httpRequest(HttpRbxApiService)
-				local placeId = tostring(game.PlaceId)
+local connector = RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		friends = selectFriends(state.Users),
+		friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
+		invites = state.Invites,
+	}
+end, function(dispatch)
+	return {
+		inviteUser = function(userId: string, analytics: any, trigger: string, inviteMessageId: string?, launchData: string?)
+			local requestImpl = httpRequest(HttpRbxApiService)
+			local placeId = tostring(game.PlaceId)
 
-				if GetFFlagEnableNewInviteSendEndpoint() then
-					return dispatch(
-						InviteUserIdToPlaceIdCustomized(
-							requestImpl,
-							userId,
-							placeId,
-							analytics,
-							trigger,
-							inviteMessageId,
-							launchData
-						)
+			if GetFFlagEnableNewInviteSendEndpoint() then
+				return dispatch(
+					InviteUserIdToPlaceIdCustomized(
+						requestImpl,
+						userId,
+						placeId,
+						analytics,
+						trigger,
+						inviteMessageId,
+						launchData
 					)
-				else
-					return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
-				end
-			end,
-		}
-	end
-)
+				)
+			else
+				return dispatch(InviteUserIdToPlaceId(requestImpl, userId, placeId))
+			end
+		end,
+	}
+end)
 
 return connector(ConversationList)

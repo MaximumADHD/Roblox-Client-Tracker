@@ -1,5 +1,7 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
+local ApolloClient = require(VirtualEvents.Parent.ApolloClient)
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local Cryo = require(VirtualEvents.Parent.Cryo)
 local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
@@ -19,12 +21,16 @@ local EventDescription = require(VirtualEvents.Components.EventDescription)
 local EventHostedBy = require(VirtualEvents.Components.EventHostedBy)
 local Attendance = require(VirtualEvents.Components.Attendance)
 local network = require(VirtualEvents.network)
+local requests = require(VirtualEvents.requests)
 local types = require(VirtualEvents.types)
 
 local getFFlagHorizontalMediaOnEventDetailsPage =
 	require(VirtualEvents.Parent.SharedFlags).getFFlagHorizontalMediaOnEventDetailsPage
-local getFFlagEventNotificationsModal = require(VirtualEvents.Parent.SharedFlags).getFFlagEventNotificationsModal
+local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
+local getFFlagUpsellModalOnEventDetailsPage =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagUpsellModalOnEventDetailsPage
 
+local useMutation = ApolloClient.useMutation
 local DetailsPageTemplate = UIBlox.App.Template.DetailsPage.DetailsPageTemplate
 local ContentPositionEnum = UIBlox.App.Template.DetailsPage.Enum.ContentPosition
 local MediaGalleryPreview = UIBlox.App.Container.MediaGalleryPreview
@@ -46,7 +52,7 @@ export type BaseProps = {
 }
 
 export type Props = BaseProps & {
-	virtualEvent: types.VirtualEvent,
+	virtualEvent: types.VirtualEvent | GraphQLServer.VirtualEvent,
 }
 
 local defaultProps = {
@@ -59,9 +65,14 @@ type InternalProps = typeof(defaultProps) & Props
 
 local function EventDetailsPage(props: Props)
 	local joinedProps: InternalProps = Cryo.Dictionary.join(defaultProps, props)
+
 	local dispatch = useDispatch()
-	local media = useVirtualEventMedia(joinedProps.virtualEvent)
-	local experienceDetails = useExperienceDetails(joinedProps.virtualEvent.universeId)
+	local media = if getFFlagVirtualEventsGraphQL()
+		then (props.virtualEvent :: GraphQLServer.VirtualEvent).media
+		else useVirtualEventMedia(joinedProps.virtualEvent :: types.VirtualEvent)
+	local experienceDetails = if getFFlagVirtualEventsGraphQL()
+		then (props.virtualEvent :: GraphQLServer.VirtualEvent).experienceDetails
+		else useExperienceDetails((joinedProps.virtualEvent :: types.VirtualEvent).universeId)
 	local firstImage = if media then findFirstImageInMedia(media) else nil
 
 	local galleryHeight, setGalleryHeight = React.useState(0)
@@ -72,11 +83,21 @@ local function EventDetailsPage(props: Props)
 		return getGalleryItems(media)
 	end, { media })
 
-	local eventStatus = (
-		React.useMemo(function()
+	local updateRsvpStatus = if getFFlagVirtualEventsGraphQL()
+		then useMutation(requests.UPDATE_RSVP_STATUS, {
+			variables = {
+				virtualEventId = props.virtualEvent.id,
+			},
+		})
+		else nil
+
+	local eventStatus = if getFFlagVirtualEventsGraphQL()
+		then React.useMemo(function()
 			return getEventTimerStatus(joinedProps.virtualEvent, joinedProps.currentTime)
 		end, { joinedProps.virtualEvent, joinedProps.currentTime } :: { any })
-	) :: any
+		else (React.useMemo(function()
+			return getEventTimerStatus(joinedProps.virtualEvent, joinedProps.currentTime)
+		end, { joinedProps.virtualEvent, joinedProps.currentTime } :: { any })) :: any
 
 	local onSizeChanged = React.useCallback(function(container: Frame)
 		local containerWidth = container.AbsoluteSize.X
@@ -95,23 +116,44 @@ local function EventDetailsPage(props: Props)
 			newRsvpStatus = "notGoing"
 		end
 
-		if getFFlagEventNotificationsModal() then
-			dispatch(network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus)):andThen(
-				function(res)
+		if getFFlagVirtualEventsGraphQL() then
+			updateRsvpStatus
+				[1]({
+					variables = {
+						rsvpStatus = newRsvpStatus,
+					},
+				})
+				:andThen(function(res)
+					if getFFlagUpsellModalOnEventDetailsPage() then
+						if joinedProps.onRsvpChanged then
+							joinedProps.onRsvpChanged(
+								res.data.virtualEventRsvp.rsvpStatus,
+								res.data.virtualEventRsvp.shouldSeeNotificationsUpsellModal
+							)
+						end
+					end
+				end)
+		else
+			if getFFlagUpsellModalOnEventDetailsPage() then
+				dispatch(
+					network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus)
+				):andThen(function(res)
 					if joinedProps.onRsvpChanged then
 						joinedProps.onRsvpChanged(
 							res.responseBody.rsvpStatus,
 							res.responseBody.shouldSeeNotificationsUpsellModal
 						)
 					end
+				end)
+			else
+				if joinedProps.onRsvpChanged then
+					joinedProps.onRsvpChanged(newRsvpStatus)
 				end
-			)
-		else
-			if joinedProps.onRsvpChanged then
-				joinedProps.onRsvpChanged(newRsvpStatus)
-			end
 
-			dispatch(network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus))
+				dispatch(
+					network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus)
+				)
+			end
 		end
 	end, { joinedProps.virtualEvent })
 
@@ -176,26 +218,30 @@ local function EventDetailsPage(props: Props)
 				})
 			end,
 		},
-		EventInfo = {
-			portraitLayoutOrder = 4,
-			landscapePosition = ContentPositionEnum.Right,
-			landscapeLayoutOrder = 2,
-			renderComponent = function()
-				return React.createElement(ListTable, {
-					cells = {
-						React.createElement(EventHostedBy, {
-							host = joinedProps.virtualEvent.host,
-							onActivated = joinedProps.onHostActivated,
-						}),
-					},
-				})
-			end,
-		},
+		EventInfo = if joinedProps.virtualEvent.host
+			then {
+				portraitLayoutOrder = 4,
+				landscapePosition = ContentPositionEnum.Right,
+				landscapeLayoutOrder = 2,
+				renderComponent = function()
+					return React.createElement(ListTable, {
+						cells = {
+							React.createElement(EventHostedBy, {
+								host = joinedProps.virtualEvent.host :: any,
+								onActivated = joinedProps.onHostActivated,
+							}),
+						},
+					})
+				end,
+			}
+			else nil,
 	}
 
 	return React.createElement(DetailsPageTemplate, {
 		deviceType = deviceType,
-		titleText = joinedProps.virtualEvent.title,
+		titleText = if props.virtualEvent.eventStatus == "moderated"
+			then "[CONTENT MODERATED]"
+			else joinedProps.virtualEvent.title,
 		thumbnailImageUrl = firstImage,
 		thumbnailAspectRatio = Vector2.new(16, 9),
 		renderInfoContent = function()
@@ -206,7 +252,10 @@ local function EventDetailsPage(props: Props)
 			})
 		end,
 		actionBarProps = if shouldShowActionBar then actionBarProps else nil,
-		componentList = if props.virtualEvent.eventStatus ~= "cancelled" then componentList else {},
+		componentList = if props.virtualEvent.eventStatus ~= "cancelled"
+				and props.virtualEvent.eventStatus ~= "moderated"
+			then componentList
+			else {},
 		onClose = joinedProps.onClose,
 	})
 end

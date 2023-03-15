@@ -26,8 +26,6 @@ local LocalPlayer = Players.LocalPlayer
 
 local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
-local FFlagFixAvatarEditorPromptsSelectedObjectReset = game:DefineFastFlag("FixAvatarEditorPromptsSelectedObjectReset", false)
-
 local AvatarEditorPrompts = script.Parent.Parent
 
 local PromptType = require(AvatarEditorPrompts.PromptType)
@@ -142,23 +140,15 @@ function AvatarEditorPromptsApp:render()
 end
 
 function AvatarEditorPromptsApp:revertSelectedGuiObject()
-	if FFlagFixAvatarEditorPromptsSelectedObjectReset then
-		local PlayerGui = LocalPlayer and LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
+	local PlayerGui = LocalPlayer and LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
 
-		if self.selectedCoreGuiObject and self.selectedCoreGuiObject:IsDescendantOf(CoreGui) then
-			GuiService.SelectedCoreObject = self.selectedCoreGuiObject
-		elseif self.selectedGuiObject and self.selectedGuiObject:IsDescendantOf(PlayerGui) then
-			GuiService.SelectedObject = self.selectedGuiObject
-			GuiService.SelectedCoreObject = nil
-		else
-			GuiService.SelectedCoreObject = nil
-		end
+	if self.selectedCoreGuiObject and self.selectedCoreGuiObject:IsDescendantOf(CoreGui) then
+		GuiService.SelectedCoreObject = self.selectedCoreGuiObject
+	elseif self.selectedGuiObject and self.selectedGuiObject:IsDescendantOf(PlayerGui) then
+		GuiService.SelectedObject = self.selectedGuiObject
+		GuiService.SelectedCoreObject = nil
 	else
-		if self.selectedCoreGuiObject then
-			GuiService.SelectedCoreObject = self.selectedCoreGuiObject
-		elseif self.selectedGuiObject then
-			GuiService.SelectedObject = self.selectedGuiObject
-		end
+		GuiService.SelectedCoreObject = nil
 	end
 
 	self.selectedCoreGuiObject = nil

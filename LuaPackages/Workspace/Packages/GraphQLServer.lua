@@ -13,6 +13,8 @@ export type VirtualEvent = Package.VirtualEvent
 export type RsvpStatus = Package.RsvpStatus
 export type VirtualEventsPage = Package.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = Package.VirtualEventsByUniverseIdOptions
+export type MockOptions = Package.MockOptions
+export type Response = Package.Response
 
 
 return Package

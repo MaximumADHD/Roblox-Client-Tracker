@@ -6,14 +6,8 @@ local UIBlox = dependencies.UIBlox
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
 local EnumScreens = require(FriendsLanding.EnumScreens)
 local FriendsLandingAnalytics = require(FriendsLanding.FriendsLandingAnalytics)
-
-local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
-local Enums = SocialLuaAnalytics.Analytics.Enums
-local Contexts = Enums.Contexts
-
 local AddFriendsIcon = require(FriendsLanding.Components.AddFriendsIcon)
 local memoize = dependencies.memoize
-
 local IconButton = UIBlox.App.Button.IconButton
 local Images = UIBlox.App.ImageSet.Images
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
@@ -21,7 +15,6 @@ local PlayerSearchEvent = require(FriendsLanding.FriendsLandingAnalytics.PlayerS
 local compose = SocialLibraries.RoduxTools.compose
 
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local ICON_WIDTH = 36
 local ICON_PADDING = 0
@@ -70,17 +63,7 @@ function HeaderBarRightView:init()
 		return function()
 			local navigation = self.props.navigation
 			local currentRoute = if navigation and navigation.state then navigation.state.routeName else nil
-			if getFFlagRenameSearchAnalyticEvent() then
-				PlayerSearchEvent(self.props.analytics, "open", { currentRoute = currentRoute })
-			else
-				if currentRoute == EnumScreens.AddFriends then
-					self.props.analytics:buttonClick(ButtonClickEvents.FriendSearch, {
-						contextOverride = Contexts.FriendRequests.rawValue(),
-					})
-				else
-					self.props.analytics:buttonClick(ButtonClickEvents.FriendSearch)
-				end
-			end
+			PlayerSearchEvent(self.props.analytics, "open", { currentRoute = currentRoute })
 			setScreenTopBar(EnumScreens.FriendsLanding, {
 				shouldRenderCenter = true,
 				shouldAutoFocusCenter = true,

@@ -12,13 +12,14 @@ return function()
 	local ContactListApp = require(script.Parent.ContactListApp)
 	local OutgoingCallState = require(script.Parent.Parent.Enums.OutgoingCallState)
 	local Reducer = require(script.Parent.Parent.Reducer)
+	local Pages = require(script.Parent.Parent.Enums.Pages)
 
 	local appStyle = {
 		Font = AppFont,
 		Theme = AppDarkTheme,
 	}
 
-	local mockState = function(contactListVisible, currentCall)
+	local mockState = function(currentPage, currentCall, callDetailParticipants)
 		return {
 			Call = {
 				callList = {
@@ -56,13 +57,14 @@ return function()
 			},
 			CurrentCall = currentCall,
 			Navigation = {
-				contactListVisible = contactListVisible,
+				currentPage = currentPage,
+				callDetailParticipants = callDetailParticipants,
 			},
 		}
 	end
 
 	it("should mount and unmount without errors when all elements hidden", function()
-		local store = Rodux.Store.new(Reducer, mockState(false, nil), {
+		local store = Rodux.Store.new(Reducer, mockState(nil, nil, nil), {
 			Rodux.thunkMiddleware,
 		})
 
@@ -79,8 +81,11 @@ return function()
 		local folder = Instance.new("Folder")
 		local instance = Roact.mount(element, folder)
 
-		local containerElement = folder:FindFirstChild("CallerListContainer", true)
-		expect(containerElement).never.to.be.ok()
+		local callDetailsContainerElement = folder:FindFirstChild("CallDetailsContainer", true)
+		expect(callDetailsContainerElement).never.to.be.ok()
+
+		local callerListContainerElement = folder:FindFirstChild("CallerListContainer", true)
+		expect(callerListContainerElement).never.to.be.ok()
 
 		local notificationElement = folder:FindFirstChild("CallerNotificationContainer", true)
 		expect(notificationElement).never.to.be.ok()
@@ -88,9 +93,34 @@ return function()
 		Roact.unmount(instance)
 	end)
 
+	describe("CallDetailsContainer", function()
+		it("should mount and unmount without errors when call details is visible", function()
+			local store =
+				Rodux.Store.new(Reducer, mockState(Pages.CallDetails, nil, { { userId = 1, username = "TestUser" } }), {
+					Rodux.thunkMiddleware,
+				})
+
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
+			}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+					style = appStyle,
+				}, {
+					ContactListApp = Roact.createElement(ContactListApp),
+				}),
+			})
+
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			local containerElement = folder:FindFirstChild("Container", true)
+			expect(containerElement).to.be.ok()
+			Roact.unmount(instance)
+		end)
+	end)
+
 	describe("CallerListContainer", function()
 		it("should mount and unmount without errors when caller list visible", function()
-			local store = Rodux.Store.new(Reducer, mockState(true, nil), {
+			local store = Rodux.Store.new(Reducer, mockState(Pages.CallerList, nil, nil), {
 				Rodux.thunkMiddleware,
 			})
 
@@ -106,7 +136,7 @@ return function()
 
 			local folder = Instance.new("Folder")
 			local instance = Roact.mount(element, folder)
-			local containerElement = folder:FindFirstChild("CallerListContainer", true)
+			local containerElement = folder:FindFirstChild("Container", true)
 			expect(containerElement).to.be.ok()
 			Roact.unmount(instance)
 		end)
@@ -116,7 +146,11 @@ return function()
 		it("should mount and unmount without errors when caller notification visible", function()
 			local store = Rodux.Store.new(
 				Reducer,
-				mockState(false, { callId = 1, userId = 123, username = "TestUser", state = OutgoingCallState.Calling }),
+				mockState(
+					nil,
+					{ callId = 1, userId = 123, username = "TestUser", state = OutgoingCallState.Calling },
+					nil
+				),
 				{
 					Rodux.thunkMiddleware,
 				}

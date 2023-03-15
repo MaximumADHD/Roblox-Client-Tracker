@@ -35,11 +35,13 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 01-23-2023__1")
+debugPrint("Self View 03-7-2023__1")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
+local EngineFeatureReplicateTrackerData_Dev = game:GetEngineFeature("ReplicateTrackerData_Dev")
 local FastFlagFacialAnimationUsePhysicsTransport = game:DefineFastFlag("FacialAnimationUsePhysicsTransport", false)
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
+local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -55,6 +57,8 @@ local FaceAnimatorService = game:FindService("FaceAnimatorService")
 local VideoCaptureService = game:FindService("VideoCaptureService")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
+local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 local DEFAULT_POSITION = UDim2.fromOffset(15, 25)
 local DEFAULT_SIZE = UDim2.new(0.15, 0, 0.4, 0)
 local DEFAULT_BUTTONS_BAR_HEIGHT = 36
@@ -141,6 +145,8 @@ local cachedHasMicPermissions = false
 local lastReportedMicState = false
 local lastReportedCamState = false
 local toggleSelfViewSignalConnection
+local noDynamicHeadEquippedInfoShown = false
+local localPlayerHasDynamicHead = nil
 
 local observerInstances = {}
 local Observer = {
@@ -763,6 +769,17 @@ function updateAudioButton(enabled)
 	audioIsEnabled = enabled
 end
 
+function showNoDynamicHeadInfoIfNeeded()
+	--show prompt when no facecontrols	
+	if noDynamicHeadEquippedInfoShown then 
+		return 
+	end
+	if localPlayerHasDynamicHead == false then
+		noDynamicHeadEquippedInfoShown = true
+		TrackerMenu:showPrompt(TrackerPromptType.NoDynamicHeadEquipped)
+	end
+end
+
 function updateVideoButton(enabled)
 	if enabled then
 		if camIcon then
@@ -770,6 +787,7 @@ function updateVideoButton(enabled)
 			camIcon.ImageRectOffset = VIDEO_IMAGE.ImageRectOffset
 			camIcon.ImageRectSize = VIDEO_IMAGE.ImageRectSize
 		end
+		showNoDynamicHeadInfoIfNeeded()
 	else
 		if camIcon then
 			camIcon.Image = VIDEO_OFF_IMAGE.Image
@@ -966,7 +984,8 @@ local function syncTrack(animator, track)
 		--	cloneTrack.TimePosition = track.TimePosition
 		--	cloneTrack:AdjustSpeed(track.Speed)
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
-		if FastFlagFacialAnimationUsePhysicsTransport then
+		if FastFlagFacialAnimationUsePhysicsTransport or EngineFeatureReplicateTrackerData_Dev then
+
 			debugPrint("FastFlagFacialAnimationUsePhysicsTransport")
 			cloneTrack = animator:LoadStreamAnimation(track.Animation)
 		else
@@ -1286,6 +1305,17 @@ local function characterAdded(character)
 			headRef = getHead(character)
 
 			updateCachedHeadColor(headRef)
+
+			if FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead and not noDynamicHeadEquippedInfoShown then
+				if descendant:IsA("MeshPart") then
+					local faceControls = descendant:WaitForChild("FaceControls", 0.5)				
+					if faceControls == nil then
+						localPlayerHasDynamicHead = false
+					else
+						localPlayerHasDynamicHead = true
+					end
+				end
+			end
 		end
 
 		setCloneDirty(true)

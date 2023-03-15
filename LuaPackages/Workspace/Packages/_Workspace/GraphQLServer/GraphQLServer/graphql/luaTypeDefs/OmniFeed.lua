@@ -41,9 +41,20 @@ local OmniFeedTypeDef = [[
     contentMetadata: JSONObject
   }
 
+  type OmniFeedItemWithMetadata {
+    metadata: OmniFeedMetadata
+    sort: OmniFeedItem
+  }
+
+  input OmniFeedRecommendationDescriptor {
+    contentId: String
+    contentType: String
+  }
+
   type Query {
     omniFeed(sessionId: String!, pageType: String!, nextPageToken: String, supportedTreatmentTypes: [String]): OmniFeed
     omniFeedItem(sortId: String!): OmniFeedItem
+    refreshOmniFeedItem(sessionId: String!, topicId: String!, recommendations: [OmniFeedRecommendationDescriptor]): OmniFeedItemWithMetadata
   }
 ]]
 

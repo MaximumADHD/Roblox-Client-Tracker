@@ -21,7 +21,7 @@ local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
 local streamingStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingStats)
-game:DefineFastFlag("AvatarChatSubsessionAnalyticsV2Lua2", false)
+game:DefineFastFlag("AvatarChatSubsessionAnalyticsV2Lua3", false)
 
 if not FaceAnimatorService or not FacialAnimationStreamingService then
 	return
@@ -365,7 +365,7 @@ local function ConnectStateChangeCallback()
 	end
 	Players.PlayerRemoving:Connect(function(player)
 		playerTrace("Player leaving game", player)
-		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua2") then
+		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua3") then
 			if player.UserId == Players.LocalPlayer.UserId then
 				streamingStats.endTracking()
 			end
@@ -395,7 +395,7 @@ function InitializeVoiceChat()
 	local onCompletion = function()
 		JoinAllExistingPlayers()
 		ConnectStateChangeCallback()
-		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua2") then
+		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua3") then
 			streamingStats.startTracking()
 		end
 	end
@@ -444,9 +444,17 @@ function InitializeFacialAnimationStreaming(serviceState)
 
 	facialAnimationStreamingInited = true
 
+	local ok, playerState =
+		pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, Players.LocalPlayer.UserId)
+
+	if not ok then
+		playerTrace("Failed to resolve state for user.", Players.LocalPlayer)
+		return
+	end
+
 	FaceAnimatorService:Init(
-		FacialAnimationStreamingService:IsVideoEnabled(serviceState),
-		FacialAnimationStreamingService:IsAudioEnabled(serviceState))
+		FacialAnimationStreamingService:IsVideoEnabled(playerState) and FacialAnimationStreamingService:IsVideoEnabled(serviceState),
+		FacialAnimationStreamingService:IsAudioEnabled(playerState) and FacialAnimationStreamingService:IsAudioEnabled(serviceState))
 
 	-- Handle TrackerErrors
 	trackerErrorConnection = FaceAnimatorService.TrackerError:Connect(function(error)

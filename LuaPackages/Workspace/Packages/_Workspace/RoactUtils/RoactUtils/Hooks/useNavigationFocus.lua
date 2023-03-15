@@ -10,6 +10,8 @@ local React = require(Packages.React)
 local RoactNavigation = require(Packages.RoactNavigation)
 local useNavigation = require(script.Parent.useNavigation)
 
+local FFlagLuaAppFixUseNavigationFocusRace = game:DefineFastFlag("LuaAppFixUseNavigationFocusRace", false)
+
 local function useNavigationFocus()
 	local navigation = useNavigation()
 
@@ -22,6 +24,10 @@ local function useNavigationFocus()
 		local willBlurSub = navigation.addListener(RoactNavigation.Events.WillBlur, function()
 			setIsFocused(false)
 		end)
+
+		if FFlagLuaAppFixUseNavigationFocusRace then
+			setIsFocused(navigation.isFocused())
+		end
 
 		return function()
 			willFocusSub.remove()

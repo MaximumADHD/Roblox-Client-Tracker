@@ -1,3 +1,4 @@
+local HttpService = game:GetService("HttpService")
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
@@ -14,6 +15,7 @@ type RequestInfo = fetchModule.RequestInfo
 type RequestInit = fetchModule.RequestInit
 type FetchFunction = (RequestInfo, RequestInit) -> Promise<Response>
 local GraphQLError = require(Packages.GraphQL).GraphQLError
+local UrlBuilder = require(Packages.UrlBuilder).UrlBuilder
 
 local OmniRecommendationsRequest = require(Packages.Http).Requests.OmniRecommendations
 
@@ -102,5 +104,57 @@ local function findOmniFeedBySessionId(
 	end)
 end
 
+local OmniRecommendationMetadataPattern = UrlBuilder.fromString("apis:discovery-api/omni-recommendation-metadata")
+
+local function fetchMoreOmniRecommendationMetadata(args, fetchImpl_: FetchFunction?)
+	local fetchImpl: FetchFunction = if fetchImpl_ then fetchImpl_ else networkedFetch
+
+	return Promise.new(function(resolve, reject)
+		local url = OmniRecommendationMetadataPattern()
+
+		local response = fetchImpl(url, {
+				body = HttpService:JSONEncode({
+					sessionId = args.sessionId,
+					contents = args.recommendations,
+				}),
+				method = "POST",
+				headers = {
+					["Content-Type"] = "application/json",
+					["Accept"] = "application/json",
+				},
+			})
+			:catch(function()
+				return Response.error()
+			end)
+			:expect()
+
+		if not response.ok then
+			reject(GraphQLError.new(string.format("Failed to fetch additional metadata for topicId: %s", args.topicId)))
+			return
+		end
+
+		local json = response
+			:json()
+			:catch(function()
+				return nil
+			end)
+			:expect()
+
+		if not json then
+			reject(
+				GraphQLError.new(string.format("Failed to decode HTTP response as JSON for topicId: %s", args.topicId))
+			)
+			return
+		end
+
+		resolve(Object.assign(json, {
+			topicId = args.topicId,
+			recommendations = args.recommendations,
+		}))
+		return
+	end)
+end
+
 exports.findOmniFeedBySessionId = findOmniFeedBySessionId
+exports.fetchMoreOmniRecommendationMetadata = fetchMoreOmniRecommendationMetadata
 return exports

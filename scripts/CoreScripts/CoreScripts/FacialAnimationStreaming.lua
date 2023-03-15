@@ -19,7 +19,6 @@ end
 
 local FFlagEnableSyncAudioWithVoiceChatMuteState = game:DefineFastFlag("EnableSyncAudioWithVoiceChatMuteState", false)
 
-local useEnableFlags = game:GetEngineFeature("FacialAnimationStreamingUseEnableFlags2")
 local FFlagEnableFacialAnimationKickPlayerWhenServerDisabled = game:DefineFastFlag("EnableFacialAnimationKickPlayerWhenServerDisabled", false)
 local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
 
@@ -503,15 +502,5 @@ local function updateByEnableFlags()
 	end
 end
 
--- Initialize based on server feature state
-if useEnableFlags then
-	-- Listen for server enable flag changes
-	FacialAnimationStreamingService:GetPropertyChangedSignal("EnableFlags"):Connect(function()
-		updateByEnableFlags()
-	end)
-
-	updateByEnableFlags()
-else
-	-- Try to initialize, but probably need to wait for server to replicate enabled property first
-	InitializeFacialAnimationStreaming()
-end
+-- Try to initialize, but probably need to wait for server to replicate enabled property first
+InitializeFacialAnimationStreaming()

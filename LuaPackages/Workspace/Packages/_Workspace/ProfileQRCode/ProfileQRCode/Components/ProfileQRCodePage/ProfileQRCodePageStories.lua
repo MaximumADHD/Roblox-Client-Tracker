@@ -5,10 +5,12 @@ local React = require(Packages.React)
 local RoactRodux = require(Packages.RoactRodux)
 local mockStore = require(ProfileQRCode.TestHelpers.mockStore)
 local mockState = require(ProfileQRCode.TestHelpers.mockState)
+local createMockRobloxEventReceiver = require(ProfileQRCode.TestHelpers.createMockRobloxEventReceiver)
 local Dash = require(Packages.Dash)
 
 return {
 	default = function(props)
+		local receiver = createMockRobloxEventReceiver().mockEventReceiver
 		return React.createElement(RoactRodux.StoreProvider, {
 			store = mockStore(mockState({
 				LocalUserId = "156",
@@ -20,8 +22,8 @@ return {
 				BorderSizePixel = 0,
 			}, {
 				ProfileQRCodePageElement = React.createElement(ProfileQRCodePage, {
-					layoutOrder = 1,
 					onClose = if props.onClose then props.onClose else Dash.noop,
+					robloxEventReceiver = receiver,
 				}),
 			}),
 		})

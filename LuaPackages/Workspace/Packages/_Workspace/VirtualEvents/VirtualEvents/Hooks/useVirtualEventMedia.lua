@@ -1,3 +1,5 @@
+-- FFlagUseGraphqlForAllVirtualEventData cleanup: Delete this file
+
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local React = require(VirtualEvents.Parent.React)

@@ -16,6 +16,8 @@ local InviteButton = require(ShareGame.Components.InviteButton)
 local InviteStatus = ShareGameConstants.InviteStatus
 local ThrottleFunctionCall = require(ShareGame.ThrottleFunctionCall)
 
+local GetFFlagAbuseReportAnalyticsHasLaunchData =
+	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
@@ -77,8 +79,12 @@ return function(props: Props)
 		end
 
 		if GetFFlagEnableNewInviteSendEndpoint() then
+			local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
 			analytics:sendEvent(props.trigger, InviteEvents.SendInvite, {
 				recipient = user.id,
+				isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData()
+					then isLaunchDataProvided
+					else nil,
 			})
 			inviteUser(user.id, analytics, props.trigger, props.inviteMessageId, props.launchData):andThen(
 				onSuccess,
@@ -92,16 +98,19 @@ return function(props: Props)
 		props.inviteStatus,
 		props.analytics,
 		user,
-	} :: {any})
+	} :: { any })
 
 	if GetFFlagThrottleInviteSendEndpoint() then
 		-- Roact doesn't immediately block clicking the button, so we introduce
 		-- a short delay here to make sure the user can't trigger more than one
 		-- invite at a time
-		onInvite = React.useCallback(ThrottleFunctionCall(GetFIntThrottleInviteSendEndpointDelay(), onInvite), {onInvite})
+		onInvite =
+			React.useCallback(ThrottleFunctionCall(GetFIntThrottleInviteSendEndpointDelay(), onInvite), { onInvite })
 	end
 
-	if not props.visible then return end
+	if not props.visible then
+		return
+	end
 	return React.createElement("ImageButton", {
 		Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
 		Image = ENTRY_BG_IMAGE,
@@ -124,9 +133,9 @@ return function(props: Props)
 		}),
 		UserInfo = React.createElement("Frame", {
 			Position = UDim2.new(0, ICON_SIZE, 0, 0),
-			Size = UDim2.new(1, - ICON_SIZE - INVITE_BUTTON_WIDTH - PADDING, 1, 0),
+			Size = UDim2.new(1, -ICON_SIZE - INVITE_BUTTON_WIDTH - PADDING, 1, 0),
 			BackgroundTransparency = 1,
-			ClipsDescendants = true
+			ClipsDescendants = true,
 		}, {
 			Padding = React.createElement("UIPadding", {
 				PaddingLeft = UDim.new(0, PADDING),
@@ -157,17 +166,17 @@ return function(props: Props)
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 2,
-				})
+				}),
 			}),
 			Username = React.createElement("TextLabel", {
 				Size = UDim2.new(0, 0, 0, TEXT_SIZE),
-				Text = "@"..user.name,
+				Text = "@" .. user.name,
 				TextSize = TEXT_SIZE,
 				TextColor3 = Constants.COLORS.PUMICE,
 				Font = Enum.Font.Gotham,
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
-			})
+			}),
 		}),
 		InviteButton = React.createElement(InviteButton, {
 			size = UDim2.new(0, INVITE_BUTTON_WIDTH, 0, 36),
@@ -175,6 +184,6 @@ return function(props: Props)
 			anchorPoint = Vector2.new(1, 0.5),
 			onInvite = onInvite,
 			inviteStatus = props.inviteStatus,
-		})
+		}),
 	})
 end

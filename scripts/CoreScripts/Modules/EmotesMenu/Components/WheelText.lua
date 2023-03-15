@@ -68,4 +68,4 @@ local function mapStateToProps(state)
     }
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(WheelText)
+return RoactRodux.connect(mapStateToProps, nil)(WheelText)

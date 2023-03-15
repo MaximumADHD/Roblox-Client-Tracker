@@ -25,6 +25,8 @@ local GetFFlagUIBloxMoveBindActivate =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxMoveBindActivate
 
 local FixVRMenuAccessEngineFeature = game:GetEngineFeature("FixVRMenuAccess")
+local FFlagEnableAmbidextrousClick = game:DefineFastFlag("EnableAmbidextrousClick", false)
+local ContextActionService = game:GetService("ContextActionService")
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -334,17 +336,36 @@ function LaserPointer.new(laserDistance)
 			end
 		end)
 
-		UserInputService.InputBegan:connect(function(input, gameProcessed)
-			if self.enableAmbidexterousPointer then
-				if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
-					self.laserHand = LaserHand.Right
-					self:updateInputUserCFrame()
-				elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
-					self.laserHand = LaserHand.Left
-					self:updateInputUserCFrame()
+
+		if (FFlagEnableAmbidextrousClick) then
+			UserInputService.InputEnded:connect(function(input, gameProcessed)
+				if self.enableAmbidexterousPointer then
+					if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
+						self.laserHand = LaserHand.Right
+						self:updateInputUserCFrame()
+						ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+						ContextActionService:UnBindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonL2)
+					elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
+						self.laserHand = LaserHand.Left
+						self:updateInputUserCFrame()
+						ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonL2)
+						ContextActionService:UnBindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+					end
 				end
-			end
-		end)
+			end)
+		else
+			UserInputService.InputBegan:connect(function(input, gameProcessed)
+				if self.enableAmbidexterousPointer then
+					if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
+						self.laserHand = LaserHand.Right
+						self:updateInputUserCFrame()
+					elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
+						self.laserHand = LaserHand.Left
+						self:updateInputUserCFrame()
+					end
+				end
+			end)
+		end
 		if not GetFFlagUIBloxMoveBindActivate() or not EngineFeatureBindActivateAllowMultiple then
 			-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
 			-- However binding multiple buttons at the same is currently not supported: NFDN-2448

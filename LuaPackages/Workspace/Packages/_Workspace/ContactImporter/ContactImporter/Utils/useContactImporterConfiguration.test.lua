@@ -19,20 +19,14 @@ local IXPVariants = require(ContactImporter.Common.IXPVariants)
 local getFStringOffPlatformIXPName = require(ContactImporter.Flags.getFStringOffPlatformIXPName)
 
 local mockConfig
-local oldContactImporterEnabledForDev, oldOffPlatformFriendRequestsExperimentEnabled_v2
+local oldContactImporterEnabledForDev
 
 beforeAll(function()
 	oldContactImporterEnabledForDev = game:SetFastFlagForTesting("ContactImporterEnabledForDev", false)
-	oldOffPlatformFriendRequestsExperimentEnabled_v2 =
-		game:SetFastFlagForTesting("OffPlatformFriendRequestsExperimentEnabled_v2", true)
 end)
 
 afterAll(function()
 	game:SetFastFlagForTesting("ContactImporterEnabledForDev", oldContactImporterEnabledForDev)
-	game:SetFastFlagForTesting(
-		"OffPlatformFriendRequestsExperimentEnabled_v2",
-		oldOffPlatformFriendRequestsExperimentEnabled_v2
-	)
 end)
 
 beforeEach(function()

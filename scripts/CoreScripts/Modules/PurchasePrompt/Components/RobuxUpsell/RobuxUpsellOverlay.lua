@@ -27,7 +27,7 @@ local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 local XBOX_A_ICON = "icons/controls/keys/xboxA"
 local XBOX_B_ICON = "icons/controls/keys/xboxB"
 
-local GetFFlagDisablePurchasePromptFunctionForQuest = require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForQuest)
+local GetFFlagDisablePurchasePromptFunctionForMaquettes = require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForMaquettes)
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
@@ -289,7 +289,7 @@ function RobuxUpsellOverlay:render()
 
 		onAnalyticEvent = props.onAnalyticEvent,
 		eventPrefix = FLOW_NAME,
-		isQuest = GetFFlagDisablePurchasePromptFunctionForQuest() and getPaymentPlatform(externalSettings.getPlatform()) == PaymentPlatform.Quest,
+		isQuest = GetFFlagDisablePurchasePromptFunctionForMaquettes() and getPaymentPlatform(externalSettings.getPlatform()) == PaymentPlatform.Maquettes,
 	})
 end
 

@@ -38,6 +38,8 @@ local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
 
+local FFlagDebugAvatarChatVisualization = game:DefineFastFlag("DebugAvatarChatVisualization", false)
+
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
@@ -272,6 +274,11 @@ if game:GetEngineFeature("FacialAnimationStreaming") then
 	if FFlagSelfieViewFeature then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
 	end
+	
+	if FFlagDebugAvatarChatVisualization then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarChatDebugVisualization", script.Parent)
+	end	
+	
 	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/TrackerLodControllerDebugUI", script.Parent)
 	end

@@ -10,22 +10,18 @@ local isSubjectToDesktopPolicies = SharedFlags.isSubjectToDesktopPolicies
 local getFFlagLuaProfileShareWithDesktopPolicy = SharedFlags.getFFlagLuaProfileShareWithDesktopPolicy
 local GetFFlagEnableSwapToSourceButton = SharedFlags.GetFFlagEnableSwapToSourceButton
 local FFlagDesktopLaunchLinksInExternalBrowser = SharedFlags.FFlagDesktopLaunchLinksInExternalBrowser
-local GetFFlagLuaAppUseOmniRecDefaultPolicy = SharedFlags.GetFFlagLuaAppUseOmniRecDefaultPolicy
 local GetFFlagEnableTopBarVRPolicyOverride = SharedFlags.GetFFlagEnableTopBarVRPolicyOverride
 local isRunningInStudio = require(Packages.AppCommonLib).isRunningInStudio
 local GetFFlagUseVoiceExitBetaLanguage = SharedFlags.GetFFlagUseVoiceExitBetaLanguage
 local GetFFlagVRAvatarExperienceNoLandingPage = SharedFlags.GetFFlagVRAvatarExperienceNoLandingPage
 local GetFFlagLuaAppGamePassGameDetails = SharedFlags.GetFFlagLuaAppGamePassGameDetails
 local GetFFlagUseGridPageLayoutInVR = SharedFlags.GetFFlagUseGridPageLayoutInVR
-local getFFlagLuaAppGridPageLayoutPolicy = SharedFlags.getFFlagLuaAppGridPageLayoutPolicy
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
 local FFLagLuaAppEnableRecommendedCarouselForDesktop =
 	game:DefineFastFlag("LuaAppEnableRecommendedCarouselForDesktop", false)
-local GetFFlagFixOmniDefaultPolicy = require(script.Parent.Flags.GetFFlagFixOmniDefaultPolicy)
 local FFlagDisableWebViewSupportInStudio = game:DefineFastFlag("DisableWebViewSupportInStudio", false)
-local FFlagLuaAppDefaultGridPageLayout = game:DefineFastFlag("LuaAppDefaultGridPageLayout", false)
 
 local function AppFeaturePolicies(policy): any
 	local function getVRDefaultPolicy(policyKey, defaultValueVR)
@@ -160,20 +156,9 @@ local function AppFeaturePolicies(policy): any
 			return policy.ShowStudioCTA or false
 		end,
 		getUseOmniRecommendation = function()
-			if GetFFlagFixOmniDefaultPolicy() then
-				-- Default to true if omni policy is not passed
-				if policy.UseOmniRecommendation == nil then
-					return true
-				else
-					return policy.UseOmniRecommendation
-				end
-			end
-			if GetFFlagLuaAppUseOmniRecDefaultPolicy() then
-				if not policy.UseOmniRecommendation then
-					return true
-				else
-					return policy.UseOmniRecommendation
-				end
+			-- Default to true if omni policy is not passed
+			if policy.UseOmniRecommendation == nil then
+				return true
 			else
 				return policy.UseOmniRecommendation
 			end
@@ -344,22 +329,11 @@ local function AppFeaturePolicies(policy): any
 			if IsVRAppBuild() and GetFFlagUseGridPageLayoutInVR() then
 				return getVRDefaultPolicy("UseGridPageLayout", true)
 			end
-			if getFFlagLuaAppGridPageLayoutPolicy() then
-				if FFlagLuaAppDefaultGridPageLayout then
-					if policy.UseGridPageLayout == nil then
-						return isSubjectToDesktopPolicies()
-					else
-						return policy.UseGridPageLayout
-					end
-				else
-					return (policy.UseGridPageLayout or false)
-				end
+			if policy.UseGridPageLayout == nil then
+				return isSubjectToDesktopPolicies()
 			else
-				return nil
+				return policy.UseGridPageLayout
 			end
-		end,
-		getUseHoverTile = function()
-			return policy.UseHoverTile or false
 		end,
 		getShouldSystemBarUsuallyBePresent = function()
 			-- Use a special policy to override VR behavior for now since we won't have VR platform targeting working

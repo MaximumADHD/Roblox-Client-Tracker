@@ -12,6 +12,7 @@ local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
+local useLocalUserInfo = require(ProfileQRCode.Utils.useLocalUserInfo)
 
 local QR_CODE_ICON = Images["icons/menu/scanqr"]
 local CLOSE_BUTTON_IMAGE = Images["icons/navigation/close"]
@@ -29,6 +30,8 @@ local MAX_WIDTH = 640
 
 export type Props = {
 	onClose: () -> (),
+	onAccept: (userId: string) -> (),
+	userId: string,
 }
 
 local QRCodeFriendRequestNotification = function(props: Props)
@@ -37,6 +40,7 @@ local QRCodeFriendRequestNotification = function(props: Props)
 		acceptFriend = TextKeys.AcceptFriend,
 	})
 	local style = useStyle()
+	local userInfo = useLocalUserInfo(props.userId)
 
 	return React.createElement("Frame", {
 		ZIndex = 2,
@@ -110,7 +114,7 @@ local QRCodeFriendRequestNotification = function(props: Props)
 				}),
 				Username = React.createElement(StyledTextLabel, {
 					LayoutOrder = 1,
-					text = "DigiKat",
+					text = userInfo.displayName,
 					Font = style.Font.CaptionBody.Font,
 					fontStyle = style.Font.Body,
 					colorStyle = style.Theme.TextDefault,
@@ -148,9 +152,7 @@ local QRCodeFriendRequestNotification = function(props: Props)
 				CloseButton = React.createElement(IconButton, {
 					icon = CLOSE_BUTTON_IMAGE,
 					iconSize = IconSize.Small,
-					onActivated = function()
-						print("************* Ignore Friend")
-					end,
+					onActivated = props.onClose,
 				}),
 			}),
 		}),
@@ -160,7 +162,7 @@ local QRCodeFriendRequestNotification = function(props: Props)
 			text = localized.acceptFriend,
 			fontStyle = style.Font.CaptionBody,
 			onActivated = function()
-				print("************* Accept Friend")
+				props.onAccept(props.userId)
 			end,
 		}),
 	})

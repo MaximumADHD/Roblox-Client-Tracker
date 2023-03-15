@@ -13,6 +13,8 @@ local HeaderBar = UIBlox.App.Bar.HeaderBar
 local getActiveChildNavigationOptionsSafely = require(FriendsLanding.Navigator.getActiveChildNavigationOptionsSafely)
 
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
+local getFFlagAddFriendsSearchbarWidemodeUpdate =
+	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 
 local FriendsLandingHeaderBar = Roact.PureComponent:extend("FriendsLandingHeaderBar")
 
@@ -50,15 +52,18 @@ function FriendsLandingHeaderBar:render()
 			local titleText = localized.titleText
 
 			if getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled then
-				local wideModeSearchbarButton = context.wideMode
-					and navigationOptions.shouldRenderSearchbarButtonInWideMode
+				local wideModeSearchbarButton = if getFFlagAddFriendsSearchbarWidemodeUpdate()
+					then nil
+					else context.wideMode and navigationOptions.shouldRenderSearchbarButtonInWideMode
 				return Roact.createElement(FriendsLandingHeaderBarPresentational, {
 					title = titleText,
 					renderLeft = not screenTopBar.shouldRenderCenter and navigationOptions.renderLeft
 						or self.renderLeft(navigation, exitFriendsLanding, screenTopBar.shouldRenderCenter),
-					renderCenter = if (screenTopBar.shouldRenderCenter or wideModeSearchbarButton)
-						then navigationOptions.renderCenter
-						else nil,
+					renderCenter = if getFFlagAddFriendsSearchbarWidemodeUpdate()
+						then if screenTopBar.shouldRenderCenter then navigationOptions.renderCenter else nil
+						else if (screenTopBar.shouldRenderCenter or wideModeSearchbarButton)
+							then navigationOptions.renderCenter
+							else nil,
 					renderRight = navigationOptions.renderRight,
 					isSecondary = navigationOptions.useSecondaryHeader,
 					shouldHideSecondaryLeftItem = screenTopBar.shouldRenderCenter,

@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableMergeOmniFeedSorts", true)
+game:DefineFastFlag("EnableMergeOmniFeedSorts2", false)
 
 return function()
-	return game:GetFastFlag("EnableMergeOmniFeedSorts")
+	return game:GetFastFlag("EnableMergeOmniFeedSorts2")
 end

@@ -24,11 +24,9 @@ local InputType = Constants.InputType
 local IconButton = require(script.Parent.IconButton)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 
-local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -39,9 +37,10 @@ local EmotesConstants = require(RobloxGui.Modules.EmotesMenu.Constants)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
-local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
+
+local FFlagTopBarUseUIBloxEmotesIcon = game:DefineFastFlag("TopBarUseUIBloxEmotesIcon", false)
 
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
@@ -64,6 +63,9 @@ local BACKPACK_ICON_OFF = "rbxasset://textures/ui/TopBar/inventoryOff.png"
 
 local MORE_ICON_ON = "rbxasset://textures/ui/TopBar/moreOn.png"
 local MORE_ICON_OFF = "rbxasset://textures/ui/TopBar/moreOff.png"
+
+local EMOTES_ICON_ON = Images["icons/controls/emoteOn"]
+local EMOTES_ICON_OFF = Images["icons/controls/emoteOff"]
 
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
 
@@ -137,11 +139,11 @@ function MoreMenu:render()
 	end
 
 	if self.props.emotesEnabled then
-		local emotesIcon = GetFFlagNewEmotesInGame() and Images["icons/controls/emoteOn"]
-			or "rbxasset://textures/ui/TopBar/emotesOn.png"
+		local emotesIcon = if FFlagTopBarUseUIBloxEmotesIcon then EMOTES_ICON_ON
+			else "rbxasset://textures/ui/TopBar/emotesOn.png"
 		if not self.props.emotesOpen then
-			emotesIcon = GetFFlagNewEmotesInGame() and Images["icons/controls/emoteOff"]
-				or "rbxasset://textures/ui/TopBar/emotesOff.png"
+			emotesIcon = if FFlagTopBarUseUIBloxEmotesIcon then EMOTES_ICON_OFF
+				else "rbxasset://textures/ui/TopBar/emotesOff.png"
 		end
 
 		local emotesKeybind = EmotesConstants.EmoteMenuOpenKey

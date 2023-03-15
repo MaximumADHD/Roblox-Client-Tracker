@@ -23,9 +23,10 @@ local getFFlagUpdateUploadContacts = require(ContactImporter.Flags.getFFlagUpdat
 local compose = dependencies.SocialLibraries.RoduxTools.compose
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
 local getFFlagUpdateContactsIsFetchingState = require(ContactImporter.Flags.getFFlagUpdateContactsIsFetchingState)
-local getFFlagContactImporterFixMatchedContacts =
-	require(ContactImporter.Flags.getFFlagContactImporterFixMatchedContacts)
-type Promise = { andThen: (...any) -> (), catch: (error: any) -> () }
+type Promise = {
+	andThen: (...any) -> (),
+	catch: (error: any) -> (),
+}
 
 local ContactsListContainer = Roact.PureComponent:extend("ContactsListContainer")
 
@@ -85,15 +86,15 @@ function ContactsListContainer:init()
 		})
 	end
 
-	self.fireContactImportingTimeEvent = function(args: { isSuccessfulUpload: true })
+	self.fireContactImportingTimeEvent = function(args: {
+		isSuccessfulUpload: true,
+	})
 		local props: InternalProps = self.props
 		local bypassFetchContacts = props.navigation.getParam(Constants.BYPASS_FETCH_CONTACTS)
 
 		props.fireAnalyticsEvent(EventNames.ContactImportingTime, {
 			[FieldNames.NumTotalContactsImported] = self.contactsCount,
-			[FieldNames.NumMatchedContacts] = if getFFlagContactImporterFixMatchedContacts()
-				then self.numMatchedContactsCount
-				else 0,
+			[FieldNames.NumMatchedContacts] = self.numMatchedContactsCount,
 			[FieldNames.NumTotalContactsOnDevice] = self.numTotalContactsOnDevice,
 			[FieldNames.NumMaxContacts] = true,
 			[FieldNames.NumMinContacts] = true,
@@ -166,15 +167,11 @@ function ContactsListContainer:init()
 			:andThen(props.getContactEntities)
 			:andThen(function(response)
 				local numMatchedContactsCount = self.getMatchedCount(response)
-				if getFFlagContactImporterFixMatchedContacts() then
-					self.numMatchedContactsCount = numMatchedContactsCount
-				end
+				self.numMatchedContactsCount = numMatchedContactsCount
 
 				props.fireAnalyticsEvent(EventNames.ContactsListLoaded, {
 					[FieldNames.NumTotalContactsImported] = self.contactsCount,
-					[FieldNames.NumMatchedContacts] = if getFFlagContactImporterFixMatchedContacts()
-						then self.numMatchedContactsCount
-						else numMatchedContactsCount,
+					[FieldNames.NumMatchedContacts] = self.numMatchedContactsCount,
 					didBypassFetchContacts = bypassFetchContacts,
 					[FieldNames.NumMaxContacts] = true,
 					[FieldNames.NumMinContacts] = true,

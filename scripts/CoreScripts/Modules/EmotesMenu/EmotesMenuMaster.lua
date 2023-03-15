@@ -21,7 +21,6 @@ end
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
-local Cryo = require(CorePackages.Cryo)
 
 local EmotesModules = script.Parent
 local CoreScriptModules = EmotesModules.Parent
@@ -35,7 +34,6 @@ local Utility = EmotesModules.Utility
 local Backpack = require(CoreScriptModules.BackpackScript)
 local Chat = require(CoreScriptModules.ChatSelector)
 local TenFootInterface = require(CoreScriptModules.TenFootInterface)
-local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 
 local CanPlayEmotes = require(Utility.CanPlayEmotes)
 local Constants = require(EmotesModules.Constants)
@@ -52,10 +50,6 @@ local NumberEmotesLoadedChanged = require(Actions.NumberEmotesLoadedChanged)
 local SetGuiInset = require(Actions.SetGuiInset)
 local SetLayout = require(Actions.SetLayout)
 local SetLocale = require(Actions.SetLocale)
-local ShowError = require(Actions.ShowError)
-local HideError = require(Actions.HideError)
-
-local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 
 local EmotesMenuMaster = {}
 EmotesMenuMaster.__index = EmotesMenuMaster
@@ -75,21 +69,7 @@ function EmotesMenuMaster:isEmotesLoaded()
 end
 
 function EmotesMenuMaster:open()
-	if GetFFlagNewEmotesInGame() then
-		if not Cryo.isEmpty(self.store:getState().emotesPage.emotesInfo) then
-			self.store:dispatch(OpenMenu())
-		else
-			local locale = self.store:getState().locale
-			local text = RobloxTranslator:FormatByKeyForLocale(Constants.LocalizationKeys.VisitShopToGetEmotes, locale)
-
-			self.store:dispatch(ShowError(text))
-			delay(Constants.ErrorDisplayTimeSeconds, function()
-				self.store:dispatch(HideError())
-			end)
-		end
-	else
-		self.store:dispatch(OpenMenu())
-	end
+	self.store:dispatch(OpenMenu())
 end
 
 function EmotesMenuMaster:close()
@@ -356,7 +336,7 @@ function EmotesMenuMaster.new()
 	-- Bindable that can be used by other modules to see when the Emotes Menu should
 	-- not be visible to users or should be visible to users.
 	self.MenuVisibilityChanged = Instance.new("BindableEvent")
-	
+
 	-- Fired with a bool indicating whether there are any equipped emotes
 	self.EmotesLoaded = Instance.new("BindableEvent")
 

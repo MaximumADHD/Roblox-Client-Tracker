@@ -9,7 +9,12 @@ local fireDiagCounter = SocialLuaAnalytics.Analytics.FireEvent.fireDiagCounter
 local AnalyticsEvents = require(script.Parent.AnalyticsEvents)
 local DiagEvents = require(script.Parent.DiagEvents)
 
-return function(setup: { diag: any, eventStreamImpl: any, loggerImpl: any?, defaultAnalyticsInfo: { uid: string, entry: any } })
+return function(setup: {
+	diag: any,
+	eventStreamImpl: any,
+	loggerImpl: any?,
+	defaultAnalyticsInfo: { uid: string, entry: any },
+})
 	local configuredFireEventStream = fireEventStream({
 		eventStreamImpl = setup.eventStreamImpl,
 		eventList = AnalyticsEvents,

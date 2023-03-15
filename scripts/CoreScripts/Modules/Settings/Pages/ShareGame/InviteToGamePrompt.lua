@@ -1,4 +1,3 @@
-
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
@@ -20,6 +19,8 @@ local AppReducer = require(ShareGameDirectory.AppReducer)
 
 local InviteStore = require(ShareGameDirectory.InviteStore)
 local GetFFlagEnableSharedInviteStore = require(Modules.Flags.GetFFlagEnableSharedInviteStore)
+local GetFFlagAbuseReportAnalyticsHasLaunchData =
+	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 
 local HIDE_INVITE_CONTEXT_BIND = "hideInvitePrompt"
 
@@ -56,8 +57,9 @@ function InviteToGamePrompt:withAnalytics(analytics)
 end
 
 function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomizationProps?)
-	local store = if GetFFlagEnableSharedInviteStore() then 
-		InviteStore else Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware })
+	local store = if GetFFlagEnableSharedInviteStore()
+		then InviteStore
+		else Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware })
 	return Roact.createElement(FullModalShareGameComponent, {
 		store = store,
 		isVisible = isVisible,
@@ -88,9 +90,15 @@ function InviteToGamePrompt:show(props: InviteCustomizationProps?)
 	self.isActive = not self.isLoading
 
 	if props then
-		local triggerId =
-			if props.inviteUserId then Constants.Triggers.DeveloperSingle else Constants.Triggers.DeveloperMultiple
-		self.analytics:sendEvent(triggerId, InviteEvents.ModalOpened)
+		local triggerId = if props.inviteUserId
+			then Constants.Triggers.DeveloperSingle
+			else Constants.Triggers.DeveloperMultiple
+		local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
+		self.analytics:sendEvent(
+			triggerId,
+			InviteEvents.ModalOpened,
+			if GetFFlagAbuseReportAnalyticsHasLaunchData() then { isLaunchDataProvided = isLaunchDataProvided } else nil
+		)
 	end
 
 	if not self.instance then

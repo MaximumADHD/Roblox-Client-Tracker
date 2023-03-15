@@ -12,11 +12,8 @@ local Dash = dependencies.Dash
 local getFStringFriendInviteVariantForSoothsayers =
 	require(ContactImporter.Flags.getFStringFriendInviteVariantForSoothsayers)
 local Roact = dependencies.Roact
-local getFFlagContactImporterCatchErrorWithGetUserSettings =
-	require(ContactImporter.Flags.getFFlagContactImporterCatchErrorWithGetUserSettings)
 
---* We can't flag the props here, so wil need to do or until one is released.
-export type Props = ContactsListContainerV2.Props | ContactsListContainer.Props
+export type Props = ContactsListContainerV2.Props
 
 if getFFlagFriendInvitesEnabledForSoothsayers() then
 	function ContactsList(props)
@@ -39,12 +36,7 @@ if getFFlagFriendInvitesEnabledForSoothsayers() then
 				)
 			)
 		end
-
-		if getFFlagContactImporterCatchErrorWithGetUserSettings() then
-			return nil :: any
-		end
-
-		return Roact.createElement(ContactsListContainer, props)
+		return nil :: any
 	end
 
 	return ContactsList

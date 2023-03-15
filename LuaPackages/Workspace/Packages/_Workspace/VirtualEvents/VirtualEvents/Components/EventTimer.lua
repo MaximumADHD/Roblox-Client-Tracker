@@ -15,7 +15,7 @@ local useStyle = UIBlox.Core.Style.useStyle
 local SEPERATOR = utf8.char(0x2022) -- Bullet •
 
 export type Props = {
-	virtualEvent: types.VirtualEvent,
+	virtualEvent: types.VirtualEvent | GraphQLServer.VirtualEvent,
 }
 
 local function EventTimer(props: Props)
@@ -28,7 +28,7 @@ local function EventTimer(props: Props)
 	local dates = if getFFlagVirtualEventsGraphQL()
 		then React.useMemo(function()
 			-- Remove type cast when cleaning up FFlagVirtualEventsGraphQL
-			return getVirtualEventDates((props.virtualEvent :: any) :: GraphQLServer.VirtualEvent)
+			return getVirtualEventDates(props.virtualEvent :: GraphQLServer.VirtualEvent)
 		end, { props.virtualEvent })
 		else nil
 
@@ -39,13 +39,13 @@ local function EventTimer(props: Props)
 				formatDate(
 					if getFFlagVirtualEventsGraphQL() and dates
 						then dates.startDate
-						else props.virtualEvent.eventTime.startTime
+						else (props.virtualEvent :: types.VirtualEvent).eventTime.startTime
 				),
 				SEPERATOR,
 				formatDate(
 					if getFFlagVirtualEventsGraphQL() and dates
 						then dates.endDate
-						else props.virtualEvent.eventTime.endTime
+						else (props.virtualEvent :: types.VirtualEvent).eventTime.endTime
 				)
 			),
 		automaticSize = Enum.AutomaticSize.XY,

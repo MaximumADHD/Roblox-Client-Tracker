@@ -12,7 +12,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local Cryo = require(CorePackages.Cryo)
 
 local Components = script.Parent
 local EmotesModules = Components.Parent
@@ -27,7 +26,6 @@ local HideError = require(Actions.HideError)
 local OpenMenu = require(Thunks.OpenMenu)
 
 local EmotesWheel = require(Components.EmotesWheel)
-local EmotesList = require(Components.EmotesList)
 local ErrorMessage = require(Components.ErrorMessage)
 
 local Constants = require(EmotesModules.Constants)
@@ -35,7 +33,6 @@ local Constants = require(EmotesModules.Constants)
 local CoreScriptModules = EmotesModules.Parent
 local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 
-local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
@@ -44,8 +41,6 @@ local PlayerGui
 
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
-
-local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
@@ -79,23 +74,11 @@ function EmotesMenu:bindActions()
 			if self.props.displayOptions.menuVisible then
 				self.props.hideMenu()
 			else
-				if GetFFlagNewEmotesInGame() then
-					if not Cryo.isEmpty(self.props.emotesInfo) then
-						self.props.openMenu()
-					else
-						self:displayVisitShopMessage()
-					end
-				else
-					self.props.openMenu()
-				end
+				self.props.openMenu()
 			end
 		end
 
-		if GetFFlagNewEmotesInGame() then
-			return Enum.ContextActionResult.Sink
-		else
-			return nil
-		end
+		return nil
 	end
 
 	ContextActionService:BindAction(
@@ -104,46 +87,10 @@ function EmotesMenu:bindActions()
 		false,
 		Constants.EmoteMenuOpenKey
 	)
-
-	if GetFFlagNewEmotesInGame() then
-		self:bindOpenMenuAction()
-	end
-end
-
-if GetFFlagNewEmotesInGame() then
-	function EmotesMenu:bindOpenMenuAction()
-		local function openMenuFunc(actionName, inputState, inputObj)
-			if GuiService.MenuIsOpen then
-				return Enum.ContextActionResult.Pass
-			end
-
-			if inputState == Enum.UserInputState.Begin then
-				local emotesInfoIsEmpty = Cryo.isEmpty(self.props.emotesInfo)
-				if not self.props.displayOptions.menuVisible and not emotesInfoIsEmpty then
-					self.props.openMenu()
-				elseif emotesInfoIsEmpty then
-					self:displayVisitShopMessage()
-				end
-			end
-
-			return Enum.ContextActionResult.Sink
-		end
-
-		ContextActionService:BindActionAtPriority(
-			Constants.OpenMenuAction,
-			openMenuFunc, --[[createTouchButton = ]]
-			false,
-			KEYBINDS_PRIORITY,
-			Constants.EmoteMenuOpenButton
-		)
-	end
 end
 
 function EmotesMenu:unbindActions()
 	ContextActionService:UnbindAction(Constants.ToggleMenuAction)
-	if GetFFlagNewEmotesInGame() then
-		ContextActionService:UnbindAction(Constants.OpenMenuAction)
-	end
 end
 
 function EmotesMenu:saveSelectedObject()
@@ -257,8 +204,7 @@ function EmotesMenu:didMount()
 
 		local inputType = input.UserInputType
 		if
-			not GetFFlagNewEmotesInGame()
-			and (inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch)
+			(inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch)
 			and not (EngineFeatureEnableVRUpdate3 and VRService.VREnabled)
 		then
 			-- Don't close the emotes menu when interacting with the game outside of the menu with
@@ -293,14 +239,8 @@ function EmotesMenu:didUpdate(prevProps, prevState)
 	if self.props.displayOptions.menuVisible ~= prevProps.displayOptions.menuVisible then
 		if self.props.displayOptions.menuVisible then
 			self:saveSelectedObject()
-			if GetFFlagNewEmotesInGame() then
-				ContextActionService:UnbindAction(Constants.OpenMenuAction)
-			end
 		else
 			self:resetSelectedObject()
-			if GetFFlagNewEmotesInGame() then
-				self:bindOpenMenuAction()
-			end
 		end
 	end
 end
@@ -317,7 +257,7 @@ function EmotesMenu:render()
 		ZIndex = Constants.EmotesMenuZIndex,
 		AutoLocalize = false,
 	}, {
-		Main = not GetFFlagNewEmotesInGame() and Roact.createElement("Frame", {
+		Main = Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			Size = Constants.ScreenAvailable,
@@ -334,8 +274,6 @@ function EmotesMenu:render()
 
 			EmotesWheel = Roact.createElement(EmotesWheel),
 		}),
-
-		EmotesList = GetFFlagNewEmotesInGame() and Roact.createElement(EmotesList),
 
 		ErrorMessage = Roact.createElement(ErrorMessage),
 	})
@@ -374,4 +312,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(EmotesMenu)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EmotesMenu)

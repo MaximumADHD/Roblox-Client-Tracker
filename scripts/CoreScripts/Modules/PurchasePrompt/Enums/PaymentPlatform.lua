@@ -18,8 +18,8 @@ local rawKeyToRawValue = {
 	UWP = "UWP",
 	Midas = "Midas",
 	Web = "Web",
-	Quest = "QuestStore",
-	PlayStation = "PlayStation",
+	Maquettes = "MaquettesStore",
+	Palisades = "Palisades",
 }
 
 -- The values here correspond to values in the requested web view.

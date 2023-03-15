@@ -7,10 +7,11 @@ local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).g
 
 local IMMINENT_EVENT_THRESHOLD = 4 * 60 * 60
 
-local function getEventTimerStatus(virtualEvent: types.VirtualEvent, currentTime: DateTime): types.EventTimerStatus
+type VirtualEvent = types.VirtualEvent | GraphQLServer.VirtualEvent
+
+local function getEventTimerStatus(virtualEvent: VirtualEvent, currentTime: DateTime): types.EventTimerStatus
 	if getFFlagVirtualEventsGraphQL() then
-		-- Remove type cast when cleaning up FFlagVirtualEventsGraphQL
-		local dates = getVirtualEventDates((virtualEvent :: any) :: GraphQLServer.VirtualEvent)
+		local dates = getVirtualEventDates(virtualEvent :: GraphQLServer.VirtualEvent)
 
 		local timeToEventStart = dates.startDate.UnixTimestamp - currentTime.UnixTimestamp
 		local timeToEventEnd = dates.endDate.UnixTimestamp - currentTime.UnixTimestamp
@@ -33,11 +34,13 @@ local function getEventTimerStatus(virtualEvent: types.VirtualEvent, currentTime
 			end
 		end
 	else
-		local timeToEventStart = virtualEvent.eventTime.startTime.UnixTimestamp - currentTime.UnixTimestamp
-		local timeToEventEnd = virtualEvent.eventTime.endTime.UnixTimestamp - currentTime.UnixTimestamp
+		local timeToEventStart = (virtualEvent :: types.VirtualEvent).eventTime.startTime.UnixTimestamp
+			- currentTime.UnixTimestamp
+		local timeToEventEnd = (virtualEvent :: types.VirtualEvent).eventTime.endTime.UnixTimestamp
+			- currentTime.UnixTimestamp
 
-		if currentTime.UnixTimestamp >= virtualEvent.eventTime.startTime.UnixTimestamp then
-			if currentTime.UnixTimestamp < virtualEvent.eventTime.endTime.UnixTimestamp then
+		if currentTime.UnixTimestamp >= (virtualEvent :: types.VirtualEvent).eventTime.startTime.UnixTimestamp then
+			if currentTime.UnixTimestamp < (virtualEvent :: types.VirtualEvent).eventTime.endTime.UnixTimestamp then
 				if timeToEventEnd <= IMMINENT_EVENT_THRESHOLD then
 					return "ElapsedImminent"
 				else

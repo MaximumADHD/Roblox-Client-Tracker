@@ -9,11 +9,16 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local ExperienceMediaModel = require(VirtualEvents.Models.ExperienceMediaModel)
+local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
 local function findFirstImageInMedia(media: { ExperienceMediaModel.Response }): string?
 	for _, singleMedia in media do
 		if singleMedia.assetType == "Image" and singleMedia.imageId then
-			return ("rbxassetid://%i"):format(singleMedia.imageId)
+			if getFFlagVirtualEventsGraphQL() then
+				return ("rbxassetid://%s"):format(singleMedia.imageId :: any)
+			else
+				return ("rbxassetid://%i"):format(singleMedia.imageId)
+			end
 		end
 	end
 	return nil

@@ -1,3 +1,7 @@
+local CorePackages = game:GetService("CorePackages")
+local t = require(CorePackages.Packages.t)
+local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+
 local InputTypes = {
 	MouseAndKeyboard = "MouseAndKeyboard",
 	Touch = "Touch",
@@ -75,6 +79,9 @@ local Constants = {
 
 	ShieldOpenAnimationTweenTime = 0.5,
 	ShieldCloseAnimationTweenTime = 0.4,
+	ShieldOpenFadeTime2 = 0.25,
+	ShieldCloseFadeTime2 = 0.15,
+	ShieldExtraFadeTime = 0.05,
 
 	Zone = {
 		PortalSize = 1,
@@ -99,6 +106,11 @@ local Constants = {
 		[Enum.UserInputType.Gamepad8] = InputTypes.Gamepad,
 
 		[Enum.UserInputType.Touch] = InputTypes.Touch,
+	},
+
+ 	OnLeaveButtonClickDescriptor = {
+		mid = MessageBus.getMessageId("Game", "onLeaveButtonClick"),
+		validateParams = t.table,
 	}
 }
 

@@ -19,7 +19,6 @@ local ScreenshotHelper = require(TnsModule.Utility.ScreenshotHelper)
 local DebugCanvas = require(TnsModule.Components.DebugCanvas)
 local ScreenshotHighlighter = require(TnsModule.Components.ScreenshotHighlighter)
 local VirtualKeyboardMonitor = require(TnsModule.Components.VirtualKeyboardMonitor)
--- local FilterIdentifiedAvatars = require(TnsModule.Thunks.FilterIdentifiedAvatars)
 
 local Divider = require(Dependencies.Divider)
 
@@ -39,9 +38,39 @@ export type Props = {
 }
 
 
-local function renderHeaderBarLeft(props: Props)
+local function renderHeaderBarLeft(props: Props, undoAnnotationPoints, redoAnnotationPoints)
     if props.backAction then
-        return HeaderBar.renderLeft.backButton(props.backAction)
+        return function()
+            return React.createElement("Frame", {
+                BackgroundTransparency = 1,
+                Size = UDim2.new(0, 200, 1, 0),
+            }, {
+                Layout = React.createElement("UIListLayout", {
+                    FillDirection = Enum.FillDirection.Horizontal,
+                    HorizontalAlignment = Enum.HorizontalAlignment.Center,
+                    VerticalAlignment = Enum.VerticalAlignment.Center,
+                    SortOrder = Enum.SortOrder.LayoutOrder,
+                }),
+                BackButton = React.createElement(IconButton, {
+                    iconSize = IconSize.Medium,
+                    icon = UIBloxImages["icons/navigation/pushBack"],
+                    layoutOrder = 1,
+                    onActivated = props.backAction,
+                }),
+                UndoButton = React.createElement(IconButton, {
+                    iconSize = IconSize.Medium,
+                    icon = UIBloxImages["icons/navigation/close"],
+                    layoutOrder = 2,
+                    onActivated = undoAnnotationPoints,
+                }),
+                RedoButton = React.createElement(IconButton, {
+                    iconSize = IconSize.Medium,
+                    icon = UIBloxImages["icons/navigation/pushRight"],
+                    layoutOrder = 3,
+                    onActivated = redoAnnotationPoints,
+                }),
+            })
+        end
     else
         print("headerBar to render dismiss action")
         return function()
@@ -58,7 +87,7 @@ local function renderHeaderBarRight(props: Props, annotationPoints)
     return function()
         return React.createElement("Frame", {
             BackgroundTransparency = 1,
-            Size = UDim2.new(0, 400, 1, 0),
+            Size = UDim2.new(0, 160, 1, 0),
         },{
             Layout = React.createElement("UIListLayout", {
                 FillDirection = Enum.FillDirection.Horizontal,
@@ -67,12 +96,6 @@ local function renderHeaderBarRight(props: Props, annotationPoints)
             }),
             Buttons = React.createElement(ButtonStack, {
                 buttons = {{
-                    buttonType = ButtonType.Secondary,
-                    props = {
-                        onActivated = function() end,
-                        text = "Retake",
-                    },
-                },{
                     buttonType = ButtonType.PrimarySystem,
                     props = {
                         onActivated = function() props.reportAction(annotationPoints) end,
@@ -106,15 +129,41 @@ local function ScreenshotDialog(props: Props)
 
     -- Store the annotation clicks
     local annotationPoints, setAnnotationPoints = React.useState(props.initialAnnotationPoints or {})
+    local annotationRedoStack, setRedoStack = React.useState({})
 
-    local handleAnnotationPoints = function(points: {Vector2})
-        -- TODO(bcwong): Update the selectedAvatars here
-        -- Make a copy to keep state mutation clean.
+    local function updatePointsAndRerender()
         local copy = {}
-        for k, v in pairs(points) do
+        for k, v in pairs(annotationPoints) do 
             copy[k] = v
         end
         setAnnotationPoints(copy)
+    end
+
+    local handleAnnotationPoints = function(points: {Vector2})
+        -- TODO(bcwong): Update the selectedAvatars here
+        updatePointsAndRerender()
+        -- when new points are added, clear the redoStack to form a new branch
+        setRedoStack({})
+    end
+
+    local undoAnnotationPoints = function()
+        if (#annotationPoints > 0) then
+            -- only perform undo when annotationPoints is non-empty
+            table.insert(annotationRedoStack, 1, annotationPoints[#annotationPoints])
+            table.remove(annotationPoints, #annotationPoints)
+            updatePointsAndRerender()
+        end
+    end
+
+    local redoAnnotationPoints = function()
+        if #annotationRedoStack > 0 then
+            -- only perform redo when redoStack is non-epty
+            table.insert(annotationPoints, annotationRedoStack[1])
+            table.remove(annotationRedoStack, 1)
+            updatePointsAndRerender()
+        else
+            print('Redo stack is empty')
+        end
     end
 
     -- Outermost container is a TextButton to get click events on the overlay.
@@ -162,7 +211,7 @@ local function ScreenshotDialog(props: Props)
                     Bar = React.createElement(HeaderBar, {
                         backgroundTransparency = 1,
                         barHeight = HEADER_HEIGHT,
-                        renderLeft = renderHeaderBarLeft(props),
+                        renderLeft = renderHeaderBarLeft(props, undoAnnotationPoints, redoAnnotationPoints),
                         -- Need dummy on the right to take up space for balance
                         renderRight = renderHeaderBarRight(props, annotationPoints),
                         title = props.titleText,
@@ -174,22 +223,33 @@ local function ScreenshotDialog(props: Props)
                 ScreenshotAnnotation = React.createElement("Frame", {
                     BackgroundTransparency = 1,
                     LayoutOrder = 3,
-                    Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
+                    Size = UDim2.new(1, 0, 1, 0),
 					ZIndex = 10
                 }, {
-                    DummyImage = React.createElement("ImageLabel", {
-                        Size = UDim2.fromScale(1, 1),
-                        Image = ScreenshotHelper:GetScreenshotContentId(),
-						ZIndex = 1
-                    }, {}),
-					DebugCanvas = React.createElement(DebugCanvas, {
-						ZIndex = 2
-					}),
-                    Highlighter = React.createElement(ScreenshotHighlighter, {
-                        annotationPoints = annotationPoints,
-                        handleAnnotationPoints = handleAnnotationPoints,
-						ZIndex = 3
-                    }, {}),
+                    Layout = React.createElement("UIListLayout", {
+                        FillDirection = Enum.FillDirection.Vertical,
+                        HorizontalAlignment = Enum.HorizontalAlignment.Center, 
+                    }),
+                    AnnotationLayer = React.createElement("Frame", {
+                        Size = UDim2.new(0.9, 0, 0.9, 0),
+                        BorderSizePixel = 12,
+                        BorderMode = Enum.BorderMode.Inset,
+                        BorderColor3 = Color3.fromRGB(255, 255, 255)
+                    }, {
+                        ScreenshotImage = React.createElement("ImageLabel", {
+                            Size = UDim2.fromScale(1, 1),
+                            Image = ScreenshotHelper:GetScreenshotContentId(),
+                            ZIndex = 1
+                        }, {}),
+                        DebugCanvas = React.createElement(DebugCanvas, {
+                            ZIndex = 2
+                        }),
+                        Highlighter = React.createElement(ScreenshotHighlighter, {
+                            annotationPoints = annotationPoints,
+                            handleAnnotationPoints = handleAnnotationPoints,
+                            ZIndex = 3
+                        }, {}),
+                    })
                 }),
             }),
         })

@@ -2,7 +2,7 @@ local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
 local React = require(VirtualEvents.Parent.React)
 
-local function useRefImpression(ref: { current: GuiObject }, callback: () -> ())
+local function useRefImpression(ref: { current: GuiObject? }, callback: () -> ())
 	local wasImpressionTriggered = React.useRef(false)
 
 	local attemptImpression = React.useCallback(function(current: GuiObject, screen: ScreenGui)
@@ -21,7 +21,7 @@ local function useRefImpression(ref: { current: GuiObject }, callback: () -> ())
 		local conn: RBXScriptConnection
 
 		if current then
-			local screen = ref.current:FindFirstAncestorWhichIsA("ScreenGui")
+			local screen = current:FindFirstAncestorWhichIsA("ScreenGui")
 
 			if screen then
 				attemptImpression(current, screen)

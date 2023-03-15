@@ -28,6 +28,8 @@ local MessageBus = devDependencies.MessageBus
 local EnumScreens = dependencies.SocialModalsCommon.EnumScreens
 
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
+local getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal =
+	require(ContactImporter.Flags.getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal)
 
 local ContactsImporterOverlayContainer = require(script.Parent.ContactsImporterOverlayContainer)
 
@@ -287,10 +289,10 @@ describe("ContactsImporterOverlayContainer", function()
 				end)
 				jestExpect(checkOrRequestPermissions).toHaveBeenCalledTimes(1)
 
-				jestExpect(navigate).toHaveBeenCalledWith(
-					EnumScreens.ContactsList,
-					{ [Constants.SHOULD_UPDATE_USER_SETTINGS] = true }
-				)
+				jestExpect(navigate).toHaveBeenCalledWith(EnumScreens.ContactsList, {
+					[Constants.SHOULD_UPDATE_USER_SETTINGS] = true,
+					[Constants.IS_PHONE_VERIFIED] = getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal(),
+				})
 			end)
 		end)
 

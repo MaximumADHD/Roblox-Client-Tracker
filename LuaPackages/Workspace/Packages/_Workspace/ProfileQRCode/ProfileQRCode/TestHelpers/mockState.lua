@@ -2,6 +2,7 @@ local ProfileQRCode = script:FindFirstAncestor("ProfileQRCode")
 local Packages = ProfileQRCode.Parent
 local Constants = require(ProfileQRCode.Common.Constants)
 local Dash = require(Packages.Dash)
+local DefaultTestUserId = require(script.Parent.DefaultTestUserId)
 
 return function(mergeState)
 	return Dash.join({
@@ -10,7 +11,7 @@ return function(mergeState)
 		[Constants.RODUX_KEY] = {
 			Users = {
 				byUserId = {
-					["156"] = {
+					[DefaultTestUserId] = {
 						displayName = "bigMalc",
 						username = "malcolmtucker",
 					},

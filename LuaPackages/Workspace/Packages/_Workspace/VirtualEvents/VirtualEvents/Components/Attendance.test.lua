@@ -7,6 +7,7 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local Rodux = require(VirtualEvents.Parent.Rodux)
 local React = require(VirtualEvents.Parent.React)
 local ReactRoblox = require(VirtualEvents.Parent.ReactRoblox)
@@ -16,8 +17,13 @@ local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local ExperienceDetailsModel = require(VirtualEvents.Models.ExperienceDetailsModel)
 local Attendance = require(script.Parent.Attendance)
+local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
 
-local mockVirtualEvent = VirtualEventModel.mock("1")
+local createMockVirtualEvent = GraphQLServer.mocks.createMockVirtualEvent
+
+local mockVirtualEvent = if getFFlagVirtualEventsGraphQL()
+	then createMockVirtualEvent("1")
+	else VirtualEventModel.mock("1")
 local mockExperienceDetails = ExperienceDetailsModel.mock()
 local mockRsvpCounters = {
 	going = 0,
@@ -38,8 +44,13 @@ local root = ReactRoblox.createRoot(container)
 local store
 
 beforeEach(function()
-	mockExperienceDetails.playing = 0
-	mockRsvpCounters.going = 0
+	if getFFlagVirtualEventsGraphQL() then
+		(mockVirtualEvent :: any).experienceDetails.playing = 0;
+		(mockVirtualEvent :: any).rsvpCounters.going = 0
+	else
+		mockExperienceDetails.playing = 0
+		mockRsvpCounters.going = 0
+	end
 
 	local universeId = tostring(mockVirtualEvent.universeId)
 	store = Rodux.Store.new(reducer, {
@@ -75,8 +86,13 @@ afterEach(function()
 end)
 
 it("should display the FacePile and AttendanceCount for an upcoming event", function()
-	mockRsvpCounters.going = 100
-	mockExperienceDetails.playing = 0
+	if getFFlagVirtualEventsGraphQL() then
+		(mockVirtualEvent :: any).rsvpCounters.going = 100;
+		(mockVirtualEvent :: any).experienceDetails.playing = 0
+	else
+		mockRsvpCounters.going = 100
+		mockExperienceDetails.playing = 0
+	end
 
 	local element = withMockProviders({
 		Attendance = React.createElement(Attendance, {
@@ -100,10 +116,13 @@ it("should display the FacePile and AttendanceCount for an upcoming event", func
 end)
 
 it("should render nothing for an upcoming event with no interested users", function()
-	local prev = game:SetFastFlagForTesting("HideAttendanceCountsForBoringEvents", true)
-
-	mockRsvpCounters.going = 0
-	mockExperienceDetails.playing = 100
+	if getFFlagVirtualEventsGraphQL() then
+		(mockVirtualEvent :: any).rsvpCounters.going = 0;
+		(mockVirtualEvent :: any).experienceDetails.playing = 100
+	else
+		mockRsvpCounters.going = 0
+		mockExperienceDetails.playing = 100
+	end
 
 	local element = withMockProviders({
 		Attendance = React.createElement(Attendance, {
@@ -119,13 +138,16 @@ it("should render nothing for an upcoming event with no interested users", funct
 	end)
 
 	expect(#container:GetChildren()).toBe(0)
-
-	game:SetFastFlagForTesting("HideAttendanceCountsForBoringEvents", prev)
 end)
 
 it("should display the FacePile and AttendanceCount for an ongoing event", function()
-	mockRsvpCounters.going = 0
-	mockExperienceDetails.playing = 100
+	if getFFlagVirtualEventsGraphQL() then
+		(mockVirtualEvent :: any).rsvpCounters.going = 0;
+		(mockVirtualEvent :: any).experienceDetails.playing = 100
+	else
+		mockRsvpCounters.going = 0
+		mockExperienceDetails.playing = 100
+	end
 
 	local element = withMockProviders({
 		Attendance = React.createElement(Attendance, {
@@ -149,14 +171,17 @@ it("should display the FacePile and AttendanceCount for an ongoing event", funct
 end)
 
 it("should render nothing for an ongoing event with no players", function()
-	local prev = game:SetFastFlagForTesting("HideAttendanceCountsForBoringEvents", true)
-
-	mockRsvpCounters.going = 100
-	mockExperienceDetails.playing = 0
+	if getFFlagVirtualEventsGraphQL() then
+		(mockVirtualEvent :: any).rsvpCounters.going = 100;
+		(mockVirtualEvent :: any).experienceDetails.playing = 0
+	else
+		mockRsvpCounters.going = 100
+		mockExperienceDetails.playing = 0
+	end
 
 	local element = withMockProviders({
 		Attendance = React.createElement(Attendance, {
-			virtualEvent = VirtualEventModel.mock("1"),
+			virtualEvent = mockVirtualEvent,
 			eventStatus = "Ongoing",
 		}),
 	}, {
@@ -168,8 +193,6 @@ it("should render nothing for an ongoing event with no players", function()
 	end)
 
 	expect(#container:GetChildren()).toBe(0)
-
-	game:SetFastFlagForTesting("HideAttendanceCountsForBoringEvents", prev)
 end)
 
 return {}

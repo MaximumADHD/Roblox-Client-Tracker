@@ -95,6 +95,14 @@ return function()
 		hasPermissionsCB = stubPromise(nil),
 	}
 
+	local getPermissionsFunction = function(resolution)
+		return function(callback)
+			return callback({
+				hasMicPermissions = resolution == PermissionsProtocol.Status.AUTHORIZED,
+			})
+		end
+	end
+
 	function PermissionServiceStub:requestPermissions(type)
 		return self.requestPermissionsCB(type)
 	end
@@ -121,7 +129,7 @@ return function()
 		HTTPServiceStub.GetAsyncFullUrlCB = noop
 		isStudio = false
 		VoiceChatServiceStub:resetMocks()
-		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event, nil, NotificationMock)
+		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event, nil, NotificationMock, getPermissionsFunction)
 		VoiceChatServiceManager.policyMapper = mockPolicyMapper
 		VoiceChatServiceManager:SetupParticipantListeners()
 	end)
@@ -261,14 +269,14 @@ return function()
 
 		it("requestMicPermission throws when a malformed response is given", function ()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-				VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub
+				VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, nil, nil, nil, getPermissionsFunction()
 			)
 			expectToReject(VoiceChatServiceManager:requestMicPermission())
 		end)
 
 		it("requestMicPermission rejects when permissions protocol response is denied", function ()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-				VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub
+				VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, nil, nil, nil, getPermissionsFunction(PermissionsProtocol.Status.DENIED)
 			)
 			PermissionServiceStub.requestPermissionsCB = stubPromise({ status=PermissionsProtocol.Status.DENIED })
 			expectToReject(VoiceChatServiceManager:requestMicPermission())
@@ -276,7 +284,7 @@ return function()
 
 		it("requestMicPermission resolves when permissions protocol response is approved", function ()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-				VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub
+				VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, nil, nil, nil, getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
 			)
 			PermissionServiceStub.requestPermissionsCB = stubPromise({ status=PermissionsProtocol.Status.AUTHORIZED })
 			expectToResolve(VoiceChatServiceManager:requestMicPermission())
@@ -375,7 +383,7 @@ return function()
 
 			it("shows correct prompt when user does not give voice permission", function ()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-					VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub
+					VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, nil, nil, nil, getPermissionsFunction(PermissionsProtocol.Status.DENIED)
 				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.userEligible = true
@@ -420,7 +428,7 @@ return function()
 			it("we call subscribe block when a user is blocked", function ()
 				local BlockMock = Instance.new("BindableEvent")
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-					VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, BlockMock.Event
+					VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, BlockMock.Event, nil, nil, getPermissionsFunction()
 				)
 				VoiceChatServiceManager:SetupParticipantListeners()
 				local player = makeMockUser("001")
@@ -437,7 +445,7 @@ return function()
 			it("we call subscribe unblock when a user is unblocked", function ()
 				local UnblockMock = Instance.new("BindableEvent")
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-					VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, UnblockMock.Event
+					VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, UnblockMock.Event, nil, nil, getPermissionsFunction()
 				)
 				VoiceChatServiceManager:SetupParticipantListeners()
 				local player = makeMockUser("001")

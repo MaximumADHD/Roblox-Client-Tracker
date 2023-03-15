@@ -15,6 +15,8 @@ local Promise = dependencies.Promise
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local SelfViewProfileDiscoverabilityUpsellIXP = dependencies.SelfViewProfileDiscoverabilityUpsellIXP
+local getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal =
+	require(ContactImporter.Flags.getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal)
 
 local ContactsImporterOverlay = require(script.Parent.ContactsImporterOverlay)
 local mapDispatchToProps = require(script.Parent.mapDispatchToProps)
@@ -84,6 +86,9 @@ function ContactsImporterOverlayContainer:init()
 					props.hideContactImporterModal()
 					navigation.navigate(EnumScreens.ContactsList, {
 						[Constants.SHOULD_UPDATE_USER_SETTINGS] = true,
+						[Constants.IS_PHONE_VERIFIED] = if getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal()
+							then props.isPhoneVerified or false
+							else false,
 					})
 				elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then
 					navigation.navigate(EnumScreens.ContactsRevokedAccessDialog, {

@@ -24,11 +24,13 @@ local IXPVariants = require(ContactImporter.Common.IXPVariants)
 
 local compose = dependencies.SocialLibraries.RoduxTools.compose
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
-local getFFlagContactImporterCatchErrorWithGetUserSettings =
-	require(ContactImporter.Flags.getFFlagContactImporterCatchErrorWithGetUserSettings)
+local getFFlagVerifyDeviceContactsIsNotNil = require(ContactImporter.Flags.getFFlagVerifyDeviceContactsIsNotNil)
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
-type Promise<T, E> = { andThen: (any, (T) -> any) -> Promise<T, E>, catch: (any, error: E) -> () }
+type Promise<T, E> = {
+	andThen: (any, (T) -> any) -> Promise<T, E>,
+	catch: (any, error: E) -> (),
+}
 
 local ContactsListContainerV2 = Roact.PureComponent:extend("ContactsListContainerV2")
 
@@ -161,6 +163,16 @@ function ContactsListContainerV2:init()
 
 	self.formatContactsFromDevice = function(contactInformation)
 		local props: InternalProps = self.props
+		local contacts = contactInformation.contacts or {}
+		if getFFlagVerifyDeviceContactsIsNotNil() then
+			if #contacts == 0 then
+				return {
+					contacts = {},
+					contactsCount = 0,
+					countryCode = nil,
+				}
+			end
+		end
 
 		props.deviceContactsReceived(contactInformation.contacts)
 
@@ -303,21 +315,12 @@ end
 function ContactsListContainerV2:didMount()
 	local props: InternalProps = self.props
 	local shouldUpdateUserSettings = props.navigation.getParam(Constants.SHOULD_UPDATE_USER_SETTINGS)
-
-	if getFFlagContactImporterCatchErrorWithGetUserSettings() then
-		if shouldUpdateUserSettings then
-			props.updateUserSettings():andThen(self.getContacts):catch(function()
-				self.failedToUpload()
-			end)
-		else
-			self.getContacts()
-		end
+	if shouldUpdateUserSettings then
+		props.updateUserSettings():andThen(self.getContacts):catch(function()
+			self.failedToUpload()
+		end)
 	else
-		if shouldUpdateUserSettings then
-			props.updateUserSettings():andThen(self.getContacts)
-		else
-			self.getContacts()
-		end
+		self.getContacts()
 	end
 end
 

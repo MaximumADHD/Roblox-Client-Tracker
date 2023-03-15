@@ -2,7 +2,7 @@ export type Config = {
 	roduxNetworking: any,
 }
 
-export type EventStatus = "unpublished" | "active" | "cancelled"
+export type EventStatus = "unpublished" | "active" | "cancelled" | "moderated"
 export type RsvpStatus = "none" | "going" | "maybeGoing" | "notGoing"
 export type HostType = "user" | "group"
 export type EventFilterBy = "upcoming" | "past" | "drafts"

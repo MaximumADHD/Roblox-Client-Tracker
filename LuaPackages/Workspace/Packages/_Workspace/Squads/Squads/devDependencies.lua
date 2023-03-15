@@ -1,7 +1,6 @@
 local Squads = script:FindFirstAncestor("Squads")
 local Packages = Squads.Parent
 
-local LuaProfileDeps = require(Packages.Dev.LuaProfileDeps)
 local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 
 local JestGlobals = require(Packages.Dev.JestGlobals)
@@ -18,7 +17,7 @@ return {
 	RhodiumHelpers = function()
 		return require(Packages.Dev.RhodiumHelpers)
 	end,
-	UnitTestHelpers = LuaProfileDeps.UnitTestHelpers,
+	UnitTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers,
 	createTreeWithProviders = require(Packages.Dev.SocialTestHelpers).TestHelpers.createTreeWithProviders,
 	findImageSet = require(Packages.Dev.SocialTestHelpers).TestHelpers.findImageSet,
 	jest = JestGlobals.jest,

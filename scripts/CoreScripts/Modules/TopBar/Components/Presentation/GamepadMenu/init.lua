@@ -58,8 +58,6 @@ local INVENTORY_ICON_OFF = "rbxasset://textures/ui/TopBar/inventoryOff.png"
 local RESPAWN_ICON = Images["icons/actions/respawn"]
 local LEAVE_ICON = Images["icons/navigation/close"]
 
-local GetFFlagOpenRootMenuInsteadOfSettings = require(RobloxGui.Modules.Flags.GetFFlagOpenRootMenuInsteadOfSettings)
-
 local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 local MENU_SLICE_CENTER = Rect.new(8, 8, 9, 9)
 
@@ -247,20 +245,6 @@ function GamepadMenu.openRootMenu()
 	end
 end
 
--- Todo: Remove this when cleaning OpenRootMenuInsteadOfSettings flag
--- This will become unused; openRootMenu will be used instead
-function GamepadMenu.openSettingsMenu()
-	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
-	if isNewInGameMenuEnabled() then
-		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
-		InGameMenu.openGameSettingsPage()
-	else
-		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true,
-			InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
-	end
-end
-
 function GamepadMenu.toggleChatVisible()
 	ChatModule:ToggleVisibility()
 end
@@ -318,7 +302,7 @@ function GamepadMenu.getMenuActionsFromProps(props)
 		icon = MENU_ICON,
 		iconComponent = nil,
 		localizationKey = "CoreScripts.TopBar.Menu",
-		onActivated = GetFFlagOpenRootMenuInsteadOfSettings() and GamepadMenu.openRootMenu or GamepadMenu.openSettingsMenu,
+		onActivated = GamepadMenu.openRootMenu,
 	})
 
 	if props.chatEnabled and not TenFootInterface:IsEnabled() then

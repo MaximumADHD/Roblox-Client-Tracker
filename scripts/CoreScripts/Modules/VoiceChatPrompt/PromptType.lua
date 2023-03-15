@@ -7,4 +7,5 @@ return {
 	Retry = "Retry",
 	VoiceChatSuspendedTemporary = "VoiceChatSuspendedTemporary",
 	VoiceChatSuspendedPermanent = "VoiceChatSuspendedPermanent",
+	VoiceLoading = "VoiceLoading",
 }

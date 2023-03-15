@@ -60,6 +60,7 @@ local PromptTitle = {
 	[PromptType.User] = "Not Eligible for Voice",
 	[PromptType.VoiceChatSuspendedTemporary] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
 	[PromptType.VoiceChatSuspendedPermanent] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
+	[PromptType.VoiceLoading] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Connecting"),
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -70,6 +71,7 @@ local PromptSubTitle = {
 	[PromptType.User] = "This account is not eligible to use Spatial Voice.",
 	[PromptType.VoiceChatSuspendedTemporary] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.TemporarySuspension"),
 	[PromptType.VoiceChatSuspendedPermanent] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Revoked"),
+	[PromptType.VoiceLoading] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Connecting"),
 }
 
 if GetFFlagVoiceChatStudioErrorToasts() and runService:IsStudio() then
@@ -134,7 +136,8 @@ function VoiceChatPromptFrame:init()
 			promptType == PromptType.User or
 			promptType == PromptType.Place or
 			promptType == PromptType.VoiceChatSuspendedTemporary or
-			promptType == PromptType.VoiceChatSuspendedPermanent then
+			promptType == PromptType.VoiceChatSuspendedPermanent or
+			promptType == PromptType.VoiceLoading then
 			self:setState({
 				promptType = promptType,
 				toastContent = {

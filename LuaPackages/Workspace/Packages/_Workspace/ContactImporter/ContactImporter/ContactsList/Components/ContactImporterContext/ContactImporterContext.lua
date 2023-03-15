@@ -5,8 +5,6 @@ local Dash = dependencies.Dash
 local useMemo = React.useMemo
 local Analytics = require(ContactImporter.Analytics)
 local Constants = require(ContactImporter.Common.Constants)
-local getOffPlatformFriendRequestsExperimentEnabled =
-	require(ContactImporter.Flags.getOffPlatformFriendRequestsExperimentEnabled)
 
 local useSelector = dependencies.useSelector
 local useNavigation = dependencies.useNavigation
@@ -33,10 +31,7 @@ local function Container(component)
 			return state.LocalUserId
 		end)
 
-		local entryPoint
-		if getOffPlatformFriendRequestsExperimentEnabled() then
-			entryPoint = if props.context then Analytics.EntryPoints.AddFriends else Analytics.EntryPoints.HomePage
-		end
+		local entryPoint = if props.context then Analytics.EntryPoints.AddFriends else Analytics.EntryPoints.HomePage
 
 		local context = useMemo(function()
 			return {
@@ -50,7 +45,7 @@ local function Container(component)
 							else Analytics.EntryPoints.HomePage.rawValue(),
 					},
 				}),
-				entryPoint = if getOffPlatformFriendRequestsExperimentEnabled() then entryPoint else nil,
+				entryPoint = entryPoint,
 				diagService = diagService,
 				eventIngestService = eventIngestService,
 				openProfilePeekView = openProfilePeekView,

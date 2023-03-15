@@ -6,7 +6,6 @@ local ButtonClickEvents = require(script.ButtonClickEvents)
 local ImpressionEvents = require(script.ImpressionEvents)
 local Context = require(script.AnalyticsContext)
 
-local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 return {
@@ -20,5 +19,5 @@ return {
 		then require(script.AddFriendsSearchbarPressedEvent)
 		else nil,
 	ImpressionEvents = ImpressionEvents,
-	PlayerSearchEvent = if getFFlagRenameSearchAnalyticEvent() then require(script.PlayerSearchEvent) else nil,
+	PlayerSearchEvent = require(script.PlayerSearchEvent),
 }

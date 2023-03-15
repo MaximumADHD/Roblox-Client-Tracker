@@ -38,6 +38,7 @@ local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags
 local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged)
 local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
+local GetFFlagUpdateCamMicPermissioning = require(CoreGui.RobloxGui.Modules.Settings.Flags.GetFFlagUpdateCamMicPermissioning)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -46,6 +47,7 @@ local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceCh
 local GetUserSettings = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetUserSettings)
 local GetInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetInformedOfBan)
 local PostInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.PostInformedOfBan)
+local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local SKIP_VOICE_CHECK_KEY = Constants.SKIP_VOICE_CHECK_KEY
 local SKIP_VOICE_CHECK_UNIVERSE_KEY = Constants.SKIP_VOICE_CHECK_UNIVERSE_KEY
 
@@ -100,6 +102,7 @@ local VoiceChatServiceManager = {
 	BlockStatusChanged = nil,
 	_mutedAnyone = false,
 	VOICE_CHAT_DEVICE_TYPE = VOICE_CHAT_DEVICE_TYPE,
+	getPermissionsFunction = getCamMicPermissions,
 }
 
 function getIconSrc(name, folder)
@@ -125,7 +128,7 @@ end
 
 VoiceChatServiceManager.__index = VoiceChatServiceManager
 
-function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, PermissionsService, BlockStatusChanged, AnalyticsService, NotificationService)
+function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, PermissionsService, BlockStatusChanged, AnalyticsService, NotificationService, getPermissionsFunction)
 	local self = setmetatable({
 		service = VoiceChatService,
 		HttpRbxApiService = HttpRbxApiService,
@@ -133,6 +136,7 @@ function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, Permis
 		PermissionsService = PermissionsService,
 		BlockStatusChanged = BlockStatusChanged,
 		Analytics = Analytics.new(AnalyticsService),
+		getPermissionsFunction = if getPermissionsFunction then getPermissionsFunction else getCamMicPermissions,
 		SequenceNumbers = {},
 	}, VoiceChatServiceManager)
 
@@ -413,6 +417,26 @@ function VoiceChatServiceManager:watchSignalR()
 	end
 end
 
+--[[
+	Given the response from PermissionProtocol, check if voice has been given.
+	Multiple permissions may have been asked for, so narrow down to voice.
+]]
+function VoiceChatServiceManager:voicePermissionGranted(permissionResponse)
+	local permissionGranted = false
+	-- If the return value is a table, that means multiple permissions have different values.
+	if typeof(permissionResponse) == "table" then
+		local hasMicPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+			or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+
+		permissionGranted = hasMicPermissionsResponse
+	else
+		-- If all permissions were authorized
+		permissionGranted = permissionResponse == PermissionsProtocol.Status.AUTHORIZED
+	end
+
+	return permissionGranted
+end
+
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	if GetFFlagSkipRedundantVoiceCheck()
 		and MemStorageService:GetItem(SKIP_VOICE_CHECK_UNIVERSE_KEY) == tostring(game.GameId)
@@ -489,6 +513,10 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage()
 	end
 end
 
+function VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
+	self:showPrompt(VoiceChatPromptType.VoiceLoading)
+end
+
 function VoiceChatServiceManager:checkLocalNetworkPermission()
 	if GetFFlagVoiceCheckLocalNetworkSet() then
 		return self.PermissionsService:hasPermissions({
@@ -511,7 +539,27 @@ function VoiceChatServiceManager:requestMicPermission()
 	if game:GetEngineFeature("PermissionsProtocolAllowsLocalNetworkAuthorization") then
 		table.insert(permissions, PermissionsProtocol.Permissions.LOCAL_NETWORK)
 	end
-	self.permissionPromise = self.PermissionsService:requestPermissions(permissions):andThen(function (permissionResponse)
+
+	local promiseStart
+	if GetFFlagUpdateCamMicPermissioning() then
+		--[[
+			getPermissionsFunction used by multiple callers to get camera & microphone permissions and creates a queue.
+			Check if the microphone has been authorized or not.
+		]]
+		promiseStart = Promise.new(function(resolve, _)
+			local callback = function(response)
+				local newAuth = {
+					status = response.hasMicPermissions and PermissionsProtocol.Status.AUTHORIZED or PermissionsProtocol.Status.DENIED
+				}
+				resolve(newAuth)
+			end
+			self.getPermissionsFunction(callback, permissions)
+		end)
+	else
+		promiseStart = self.PermissionsService:requestPermissions(permissions)
+	end
+
+	self.permissionPromise = promiseStart:andThen(function (permissionResponse)
 		if not permissionResponse and not permissionResponse.status then
 			log:debug("No permission response, rejecting access")
 			self:_reportJoinFailed("noPermissionResponse", Analytics.ERROR)
@@ -519,16 +567,31 @@ function VoiceChatServiceManager:requestMicPermission()
 		end
 		log:debug("Permission status {}", permissionResponse.status)
 
-		local permissionGranted = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+		local permissionGranted
+		if GetFFlagUpdateCamMicPermissioning() then
+			permissionGranted = self:voicePermissionGranted(permissionResponse)
+		else
+			permissionGranted = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+		end
 		if GetFFlagVoiceCheckLocalNetworkSet() then
 			if permissionGranted then
 				return Promise.resolve()
 			else
-				self:_reportJoinFailed("missingPermissions")
-				local missingPermissions = permissionResponse.missingPermissions
-				local networkPermissionDenied = missingPermissions and #missingPermissions == 1
-					and missingPermissions[1] == 'LOCAL_NETWORK'
-				return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission() or Promise.reject()
+				if GetFFlagUpdateCamMicPermissioning() then
+					return self.PermissionsService:requestPermissions({PermissionsProtocol.Permissions.LOCAL_NETWORK}):andThen(function(localNetworkResponse)
+						self:_reportJoinFailed("missingPermissions")
+						local missingPermissions = localNetworkResponse.missingPermissions
+						local networkPermissionDenied = missingPermissions and #missingPermissions == 1
+							and missingPermissions[1] == 'LOCAL_NETWORK'
+						return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission() or Promise.reject()
+					end)
+				else
+					self:_reportJoinFailed("missingPermissions")
+					local missingPermissions = permissionResponse.missingPermissions
+					local networkPermissionDenied = missingPermissions and #missingPermissions == 1
+						and missingPermissions[1] == 'LOCAL_NETWORK'
+					return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission() or Promise.reject()
+				end
 			end
 		else
 			return permissionGranted and Promise.resolve() or Promise.reject()

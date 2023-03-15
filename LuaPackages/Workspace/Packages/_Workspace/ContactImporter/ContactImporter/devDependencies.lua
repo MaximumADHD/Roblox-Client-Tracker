@@ -5,7 +5,6 @@ local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local jestExpect = JestGlobals.expect
-local LuaProfileDeps = require(Packages.Dev.LuaProfileDeps)
 local MessageBus = require(Packages.Dev.MessageBus).MessageBus
 local createTreeWithProviders = require(ContactImporter.TestHelpers.createTreeWithProviders)
 
@@ -14,7 +13,7 @@ jestExpect.extend(LuaSocialLibrariesDeps.CollisionMatchers.Jest)
 return {
 	Mock = LuaSocialLibrariesDeps.Mock,
 	-- TODO: move to social libraries?
-	UnitTestHelpers = LuaProfileDeps.UnitTestHelpers,
+	UnitTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers,
 	CollisionMatchers = LuaSocialLibrariesDeps.CollisionMatchers,
 	Rhodium = require(Packages.Dev.Rhodium),
 	-- need to keep this as a function otherwise it breaks storybooks

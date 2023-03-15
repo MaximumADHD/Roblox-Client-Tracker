@@ -1,4 +1,34 @@
 --!nonstrict
+local Timer = {}
+Timer.__index = Timer
+
+function Timer:create()
+	local timer = {}
+	timer.elapsedTime = 0.0
+	timer.timerStart = 0.0
+	timer.stopped = true
+	return setmetatable(timer, Timer)
+end
+
+function Timer:start(now)
+	if self.stopped then
+		self.timerStart = now
+	end
+
+	self.stopped = false
+end
+
+function Timer:stop(now)
+	if not self.stopped then
+		self.elapsedTime += now - self.timerStart
+	end
+
+	self.stopped = true
+end
+
+function Timer:getElapsedTime()
+	return self.elapsedTime
+end
 
 local FacialAnimationStreamingStats = {}
 local CoreGui = game:GetService("CoreGui")
@@ -30,31 +60,29 @@ if RunService:IsStudio() then
 	environment = "studio"
 end
 
-local facsSent = false
-local facsSentTimeStamp = nil
-local facsReceived = false
-local facsReceivedTimeStamp = nil
-
--- Track how many remote players we are subscribed to (i.e. unmuted) for FACS
--- If trackingFacsReceivedCount >= 1, then we are receiving FACS 
-local trackingFacsReceivedCount = 0
-local trackingFacsCanBeReceived = false
-
-local trackingFacsSent = false
-local trackingFacsSentElapsedTime = 0
-
-local facsSentTimerStart = 0
-local stateStartedTimeStamp = nil
+local SubsessionTimers =
+{
+	sendA2CSec = Timer:create(),
+	sendV2CSec = Timer:create(),
+	sendAV2CSec = Timer:create(),
+	sendRecvA2CSec = Timer:create(),
+	sendRecvV2CSec = Timer:create(),
+	sendRecvAV2CSec = Timer:create(),
+	recvSec = Timer:create()
+}
 
 local trackingStarted = false
+
+-- Track how many remote players we are subscribed to (i.e. unmuted) for FACS
+-- If trackingRemotePlayersCount >= 1, then we are receiving FACS 
+local trackingRemotePlayersCount = 0
+local trackingFacsCanBeReceived = false
+local trackingSendingFacs = false
+
+local stateStartedTimeStamp = nil
+
 local sessionStartTime = nil
 local sessionTotalElapsedTime = nil
-
-local trackingFacsReceivedElapsedTime = 0
-local facsReceivedTimerStart = 0
-
-local trackingFacsSentAndReceivedElapsedTime = 0
-local facsSentAndReceivedTimerStart = 0
 
 local playerTransmittingFacs = {}
 local playerMicOn = {}
@@ -62,11 +90,11 @@ local localCameraOn = false
 
 local userAccountVideoEnabled = false
 local userAccountAudioEnabled = false
-local placeVideoEnabled = false
-local placeAudioEnabled = false
+local universeVideoEnabled = false
+local universeAudioEnabled = false
 
-local localAudioAnimationEnabled = false
-local localVideoAnimationEnabled = false
+local a2cEnabled = false
+local v2cEnabled = false
 
 local playerJoinedGame = {}
 
@@ -84,6 +112,12 @@ local Connection = {
 	VoiceChatParticipantsStateChanged = "voiceChatParticipantsStateChanged",
 }
 
+local function stopAllTimers(now)
+	for index, timer in SubsessionTimers do
+		timer:stop(now)
+	end
+end
+
 local function canReportVoiceSessionIdVoiceExperienceId()
 	return EngineFeatureVoiceChatServiceExposesSessionId and 
 	EngineFeatureVoiceChatServiceExposesVoiceExperienceId and
@@ -92,13 +126,7 @@ end
 
 local function isPlayerTransmittingFacs(userId)
 	if Players.LocalPlayer.UserId == userId then
-		if EngineFeatureFacialAnimationStreamingServiceUseV2 then
-			if not placeVideoEnabled then
-				return false
-			end
-		end
-
-		local videoOrAudioAnimationEnabled = localVideoAnimationEnabled or localAudioAnimationEnabled
+		local videoOrAudioAnimationEnabled = v2cEnabled or a2cEnabled
 		-- FACS are transmitted either through V2C or A2C
 		return videoOrAudioAnimationEnabled
 	else
@@ -109,36 +137,17 @@ end
 
 -- Check the game/user settings to verify if FACS can be received at all.
 local function updateFacsCanBeReceived()
-	if EngineFeatureFacialAnimationStreamingServiceUseV2 then
-		if not placeVideoEnabled then
-			return false
-		end
-	end
-
 	-- You can receive face animation through A2C even if the camera is disabled, so only check the audio settings.
-	local audioEnabled = userAccountAudioEnabled and placeAudioEnabled
+	local audioEnabled = userAccountAudioEnabled and universeAudioEnabled
 	trackingFacsCanBeReceived = audioEnabled
 end
 
 -- Used at the end of session to accumulate timers that haven't been stopped yet.
 function FacialAnimationStreamingStats.trackRemainingFacs()
 	local now = os.clock()
-	if trackingFacsReceivedCount > 0 then
-		trackingFacsReceivedElapsedTime += now - facsReceivedTimerStart
-		facsReceivedTimerStart = now
-	end
-
-	if trackingFacsSent then
-		trackingFacsSentElapsedTime += now - facsSentTimerStart
-		facsSentTimerStart = now
-	end
-
-	if trackingFacsSent and trackingFacsReceivedCount > 0 then
-		trackingFacsSentAndReceivedElapsedTime += now - facsSentAndReceivedTimerStart
-		facsSentAndReceivedTimerStart = now
-	end
-
+	stopAllTimers(now)
 	sessionTotalElapsedTime = now - sessionStartTime
+
 end
 
 function fireAvatarChatSubsessionInput()
@@ -152,52 +161,32 @@ function fireAvatarChatSubsessionInput()
 		boolPlayerMicOn = false
 	end
 
-	if canReportVoiceSessionIdVoiceExperienceId() then
-		local VCService = VoiceChatServiceManager:getService()
-		local customFields = {
-			pid = tostring(game.PlaceId),
-			sessionid = AnalyticsService:GetSessionId(),
-			userid = tostring(Players.LocalPlayer.UserId),
-			universeid = tostring(game.GameId),
-			stateStarted = tostring(stateStartedTimeStamp),
-			stateEnded = tostring(now),
-			inExpCamOn = tostring(localCameraOn),
-			inExpMicOn = tostring(boolPlayerMicOn),
-			gameCamAllowed = tostring(placeVideoEnabled),
-			gameMicAllowed = tostring(placeAudioEnabled),
-			userAcctMicAllowed = tostring(userAccountAudioEnabled),
-			userAcctCamAllowed = tostring(userAccountVideoEnabled),
-			voiceSessionId = VCService:GetSessionId(),
-			voiceExperienceId = VCService:GetVoiceExperienceId()
-		}
+	local VCService = VoiceChatServiceManager:getService()
+	local customFields = {
+		pid = tostring(game.PlaceId),
+		sessionid = AnalyticsService:GetSessionId(),
+		userid = tostring(Players.LocalPlayer.UserId),
+		universeid = tostring(game.GameId),
+		stateStarted = tostring(stateStartedTimeStamp),
+		stateEnded = tostring(now),
+		inExpCamOn = tostring(localCameraOn),
+		inExpMicOn = tostring(boolPlayerMicOn),
+		universeVideoAllowed = tostring(universeVideoEnabled),
+		universeAudioAllowed = tostring(universeAudioEnabled),
+		userAcctVideoAllowed = tostring(userAccountVideoEnabled),
+		userAcctAudioAllowed = tostring(userAccountAudioEnabled),
+	}
 
-		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
-		end
-		
-		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
-	else
-		local customFields = {
-			pid = tostring(game.PlaceId),
-			sessionid = AnalyticsService:GetSessionId(),
-			userid = tostring(Players.LocalPlayer.UserId),
-			universeid = tostring(game.GameId),
-			stateStarted = tostring(stateStartedTimeStamp),
-			stateEnded = tostring(now),
-			inExpCamOn = tostring(localCameraOn),
-			inExpMicOn = tostring(boolPlayerMicOn),
-			gameCamAllowed = tostring(placeVideoEnabled),
-			gameMicAllowed = tostring(placeAudioEnabled),
-			userAcctMicAllowed = tostring(userAccountAudioEnabled),
-			userAcctCamAllowed = tostring(userAccountVideoEnabled),
-		}
-
-		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
-		end
-
-		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
 	end
+
+	if canReportVoiceSessionIdVoiceExperienceId() and VCService then
+		customFields["voiceSessionId"] = VCService:GetSessionId()
+		customFields["voiceExperienceId"] = VCService:GetVoiceExperienceId()
+	end
+
+	LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionInputConfig, nil, customFields)
 
 	stateStartedTimeStamp = now
 end
@@ -209,83 +198,80 @@ function fireAvatarChatSubsessionStats()
 
 	FacialAnimationStreamingStats.trackRemainingFacs()
 
-	if canReportVoiceSessionIdVoiceExperienceId() then
-		local VCService = VoiceChatServiceManager:getService()
-		local customFields = {
-			pid = tostring(game.PlaceId),
-			sessionid = AnalyticsService:GetSessionId(),
-			userid = tostring(Players.LocalPlayer.UserId),
-			universeid = tostring(game.GameId),
-			facsSentSec = tostring(trackingFacsSentElapsedTime),
-			facsReceivedSec = tostring(trackingFacsReceivedElapsedTime),
-			facsSentReceivedSec = tostring(trackingFacsSentAndReceivedElapsedTime),
-			sessionTimeSec = tostring(sessionTotalElapsedTime),
-			voiceSessionId = VCService:GetSessionId(),
-			voiceExperienceId = VCService:GetVoiceExperienceId()
-		}
+	local VCService = VoiceChatServiceManager:getService()
+	local customFields = {
+		pid = tostring(game.PlaceId),
+		sessionid = AnalyticsService:GetSessionId(),
+		userid = tostring(Players.LocalPlayer.UserId),
+		universeid = tostring(game.GameId),
+		sessionTimeSec = tostring(sessionTotalElapsedTime)
+	}
 
-		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
+	end
+
+	for name, timer in SubsessionTimers do
+		customFields[name] = tostring(timer:getElapsedTime())
+	end
+
+	if canReportVoiceSessionIdVoiceExperienceId() and VCService then
+		customFields["voiceSessionId"] = VCService:GetSessionId()
+		customFields["voiceExperienceId"] = VCService:GetVoiceExperienceId()
+	end
+
+	LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)	
+end
+
+local function trackFacsSendingReceiving(now)
+	stopAllTimers(now)
+	if trackingSendingFacs then
+		if v2cEnabled then
+			SubsessionTimers.sendV2CSec:start(now)
 		end
 
-		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)	
-	else
-		local customFields = {
-			pid = tostring(game.PlaceId),
-			sessionid = AnalyticsService:GetSessionId(),
-			userid = tostring(Players.LocalPlayer.UserId),
-			universeid = tostring(game.GameId),
-			facsSentSec = tostring(trackingFacsSentElapsedTime),
-			facsReceivedSec = tostring(trackingFacsReceivedElapsedTime),
-			facsSentReceivedSec = tostring(trackingFacsSentAndReceivedElapsedTime),
-			sessionTimeSec = tostring(sessionTotalElapsedTime)
-		}
-
-		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-			customFields["playSessionId"] = AnalyticsService:GetPlaySessionId()
+		if a2cEnabled then
+			SubsessionTimers.sendA2CSec:start(now)
 		end
 
-		LoggingProtocol:logRobloxTelemetryEvent(avatarChatSubsessionStatsConfig, nil, customFields)
+		if a2cEnabled and v2cEnabled then
+			SubsessionTimers.sendAV2CSec:start(now)
+		end
+	end
+
+	if trackingRemotePlayersCount > 0 then
+		SubsessionTimers.recvSec:start(now)
+
+		if trackingSendingFacs then
+			if v2cEnabled then
+				SubsessionTimers.sendRecvV2CSec:start(now)
+			end
+
+			if a2cEnabled then
+				SubsessionTimers.sendRecvA2CSec:start(now)
+			end
+
+			if a2cEnabled and v2cEnabled then
+				SubsessionTimers.sendRecvAV2CSec:start(now)
+			end
+		end
 	end
 end
 
-local function trackFacsSending(isTransmittingFacs, now)
-	-- Go from not sending FACS to sending; turn on timer
-	if not trackingFacsSent and isTransmittingFacs then
-		facsSentTimerStart = now
-		if trackingFacsReceivedCount > 0 then
-			facsSentAndReceivedTimerStart = now
-		end
-	elseif trackingFacsSent and not isTransmittingFacs then
-		-- Go from sending FACS to not sending; turn off timer and accumulate
-		trackingFacsSentElapsedTime += now - facsSentTimerStart
-		if trackingFacsReceivedCount > 0 then
-			trackingFacsSentAndReceivedElapsedTime += now - facsSentAndReceivedTimerStart
-		end
-	end
-	trackingFacsSent = isTransmittingFacs
+local function trackFacsSending(isTransmittingFacs)
+	trackingSendingFacs = isTransmittingFacs
 end
 
-local function trackFacsReceiving(userId, isTransmittingFacs, now)
+local function trackFacsReceiving(userId, isTransmittingFacs)
 	if trackingFacsCanBeReceived then
 		if playerTransmittingFacs[userId] == nil and isTransmittingFacs then
-			-- Go from not receiving FACS to receiving FACS; turn on timer
-			if trackingFacsReceivedCount == 0 then
-				facsReceivedTimerStart = now
-				if trackingFacsSent then
-					facsSentAndReceivedTimerStart = now
-				end	
-			end
-			trackingFacsReceivedCount += 1
+			trackingRemotePlayersCount += 1
 		elseif playerTransmittingFacs[userId] and not isTransmittingFacs then
-			-- Go from receiving FACS to not receiving; turn off timer and accumulate
-			if trackingFacsReceivedCount == 1 then
-				trackingFacsReceivedElapsedTime += now - facsReceivedTimerStart
-				if trackingFacsSent then
-					trackingFacsSentAndReceivedElapsedTime += now - facsSentAndReceivedTimerStart
-				end
+			trackingRemotePlayersCount -= 1
+			if trackingRemotePlayersCount < 0 then
+				warn("FacialAnimationStreamingStats: Remote Players Count shouldn't be below 0")
+				trackingRemotePlayersCount = 0
 			end
-			trackingFacsReceivedCount -= 1
 		end
 	end
 end
@@ -301,9 +287,9 @@ local function trackFacs(userId)
 
 	local now = os.clock()
 	if userId == Players.LocalPlayer.UserId then
-		trackFacsSending(isTransmittingFacs, now)
+		trackFacsSending(isTransmittingFacs)
 	else
-		trackFacsReceiving(userId, isTransmittingFacs, now)
+		trackFacsReceiving(userId, isTransmittingFacs)
 	end
 
 	if isTransmittingFacs then
@@ -311,6 +297,8 @@ local function trackFacs(userId)
 	else
 		playerTransmittingFacs[userId] = nil
 	end
+
+	trackFacsSendingReceiving(now)
 end
 
 -- Setters for each of the variables that potentially affect the subsession state and FACS sending/receiving status
@@ -341,15 +329,15 @@ function FacialAnimationStreamingStats.setCameraOn(enabled)
 end
 
 function FacialAnimationStreamingStats.setVideoAnimationEnabled(enabled)
-	if enabled ~= localVideoAnimationEnabled then
-		localVideoAnimationEnabled = enabled
+	if enabled ~= v2cEnabled then
+		v2cEnabled = enabled
 		trackFacs(Players.LocalPlayer.UserId)	
 	end
 end
 
 function FacialAnimationStreamingStats.setAudioAnimationEnabled(enabled)
-	if enabled ~= localAudioAnimationEnabled then
-		localAudioAnimationEnabled = enabled
+	if enabled ~= a2cEnabled then
+		a2cEnabled = enabled
 		trackFacs(Players.LocalPlayer.UserId)
 	end
 end
@@ -368,16 +356,16 @@ function FacialAnimationStreamingStats.setUserAudioEnabled(enabled)
 	end
 end
 
-function FacialAnimationStreamingStats.setPlaceVideoEnabled(enabled)
-	if enabled ~= placeVideoEnabled then
-		placeVideoEnabled = enabled
+function FacialAnimationStreamingStats.setUniverseVideoEnabled(enabled)
+	if enabled ~= universeVideoEnabled then
+		universeVideoEnabled = enabled
 		trackFacs(Players.LocalPlayer.UserId)
 	end
 end
 
-function FacialAnimationStreamingStats.setPlaceAudioEnabled(enabled)
-	if enabled ~= placeAudioEnabled then
-		placeAudioEnabled = enabled
+function FacialAnimationStreamingStats.setUniverseAudioEnabled(enabled)
+	if enabled ~= universeAudioEnabled then
+		universeAudioEnabled = enabled
 		trackFacs(Players.LocalPlayer.UserId)	
 	end
 end
@@ -406,8 +394,12 @@ end
 function updateFacialAnimationStreamingServiceState(serviceState)
 	local serviceState = FacialAnimationStreamingService.ServiceState
 	FacialAnimationStreamingStats.setVideoAnimationEnabled(FaceAnimatorService.VideoAnimationEnabled)
-	FacialAnimationStreamingStats.setPlaceVideoEnabled(FacialAnimationStreamingService:IsVideoEnabled(serviceState))
-	setStreamingStatsUserVideoEnabled(Players.LocalPlayer.UserId)
+	FacialAnimationStreamingStats.setAudioAnimationEnabled(FaceAnimatorService.AudioAnimationEnabled)
+
+	FacialAnimationStreamingStats.setUniverseVideoEnabled(FacialAnimationStreamingService:IsVideoEnabled(serviceState))
+	FacialAnimationStreamingStats.setUniverseAudioEnabled(FacialAnimationStreamingService:IsAudioEnabled(serviceState))
+
+	setStreamingStatsUserVideoAndAudioEnabled(Players.LocalPlayer.UserId)
 end
 
 -- Create connections to various events that affect the subsession and sending/receiving status (e.g. mic toggled, 
@@ -425,10 +417,10 @@ local function ConnectStreamingAnalyticsCallbacks()
 	end
 
 	connections[Connection.VoiceChatParticipantsUpdate] = VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
-        for userId, participantState in pairs(participants) do
+		for userId, participantState in pairs(participants) do
 			FacialAnimationStreamingStats.setMicOn(tonumber(userId), not (participantState["isMutedLocally"] or participantState["isMuted"]))
-        end
-    end)
+		end
+	end)
 
 	connections[Connection.VoiceChatMute] = VoiceChatServiceManager.muteChanged.Event:connect(function(muted)
 		FacialAnimationStreamingStats.setMicOn(Players.LocalPlayer.UserId, not muted)
@@ -459,18 +451,6 @@ local function ConnectStreamingAnalyticsCallbacks()
 	
 end
 
-function setStreamingStatsAudioSettings()
-	local VoiceChatService = game:GetService("VoiceChatService")
-	if VoiceChatService then
-		FacialAnimationStreamingStats.setPlaceAudioEnabled(VoiceChatService.VoiceChatEnabledForPlaceOnRcc)
-		local success, enabled = pcall(function()
-			return VoiceChatService:IsVoiceEnabledForUserIdAsync(Players.LocalPlayer.UserId)
-		end)
-		
-		FacialAnimationStreamingStats.setUserAudioEnabled(success and enabled)
-	end
-end
-
 function connectPlayerAddedAndRemovedCallbacks()
 	Players.PlayerRemoving:Connect(function(player)
 		FacialAnimationStreamingStats.setPlayerJoinedGame(player.UserId, false)
@@ -481,10 +461,13 @@ function connectPlayerAddedAndRemovedCallbacks()
 	end)
 end
 
-function setStreamingStatsUserVideoEnabled(userId)
+function setStreamingStatsUserVideoAndAudioEnabled(userId)
 	local ok, state = pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
 	if ok then
 		FacialAnimationStreamingStats.setUserVideoEnabled(FacialAnimationStreamingService:IsVideoEnabled(state))
+		FacialAnimationStreamingStats.setUserAudioEnabled(FacialAnimationStreamingService:IsAudioEnabled(state))
+	else
+		warn("FacialAnimationStreamingStats: Call to FacialAnimationStreamingService.ResolveStateForUser failed")
 	end
 end
 
@@ -503,8 +486,7 @@ end
 
 function FacialAnimationStreamingStats.startTracking()
 	JoinAllExistingPlayers()
-	setStreamingStatsUserVideoEnabled(Players.LocalPlayer.UserId)
-	setStreamingStatsAudioSettings()
+	setStreamingStatsUserVideoAndAudioEnabled(Players.LocalPlayer.UserId)
 	connectPlayerAddedAndRemovedCallbacks()
 	ConnectStreamingAnalyticsCallbacks()
 	updateFacsCanBeReceived()

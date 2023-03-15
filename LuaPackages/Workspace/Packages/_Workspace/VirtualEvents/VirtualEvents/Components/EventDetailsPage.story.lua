@@ -1,5 +1,6 @@
 local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local React = require(VirtualEvents.Parent.React)
 local Rodux = require(VirtualEvents.Parent.Rodux)
 local installReducer = require(VirtualEvents.installReducer)
@@ -7,6 +8,9 @@ local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local withMockProviders = require(VirtualEvents.withMockProviders)
 local EventDetailsPage = require(script.Parent.EventDetailsPage)
+local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
+
+local createMockVirtualEvent = GraphQLServer.mocks.createMockVirtualEvent
 
 local function getTimeOffsetByHour(currentTime: DateTime, hourOffset: number)
 	local currentLocalTime = currentTime:ToLocalTime()
@@ -46,10 +50,14 @@ return {
 		local startTime = getTimeOffsetByHour(now, props.controls.hoursToEventStart)
 		local endTime = getTimeOffsetByHour(now, props.controls.hoursToEventStart + props.controls.eventDurationHours)
 
-		local mockVirtualEvent = VirtualEventModel.mock("1")
+		local mockVirtualEvent = (
+			if getFFlagVirtualEventsGraphQL() then createMockVirtualEvent("1") else VirtualEventModel.mock("1")
+		) :: any
 		mockVirtualEvent.host.hostId = props.controls.hostId
 		mockVirtualEvent.universeId = props.controls.universeId
+		mockVirtualEvent.eventTime.startUtc = startTime:ToIsoDate()
 		mockVirtualEvent.eventTime.startTime = startTime
+		mockVirtualEvent.eventTime.endUtc = endTime:ToIsoDate()
 		mockVirtualEvent.eventTime.endTime = endTime
 
 		return withMockProviders({

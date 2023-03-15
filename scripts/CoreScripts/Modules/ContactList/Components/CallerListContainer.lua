@@ -18,14 +18,14 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local Components = script.Parent
 local CallerListItem = require(Components.CallerListItem)
+local OpenCallDetails = require(Components.Parent.Actions.OpenCallDetails)
 
 export type Props = {}
 
 local function CallerListContainer(props: Props)
 	local style = useStyle()
-	local theme = style.Theme
-
 	local dispatch = useDispatch()
+	local theme = style.Theme
 
 	React.useEffect(function()
 		dispatch(NetworkingCall.GetCallList.API({}))
@@ -45,6 +45,9 @@ local function CallerListContainer(props: Props)
 			entries[index] = React.createElement(CallerListItem, {
 				caller = caller,
 				showDivider = index ~= #callers,
+				OpenCallDetails = function()
+					dispatch(OpenCallDetails(caller.participants))
+				end,
 			})
 		end
 		return entries

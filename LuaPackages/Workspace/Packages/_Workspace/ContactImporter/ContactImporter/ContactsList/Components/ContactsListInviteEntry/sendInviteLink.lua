@@ -8,13 +8,15 @@ local TextKeys = require(ContactImporter.Common.TextKeys)
 local useLocalization = dependencies.useLocalization
 local RoduxContacts = dependencies.RoduxContacts
 local React = dependencies.React
-
+local Promise = dependencies.Promise
 local useAnalytics = require(ContactImporter.Analytics.useAnalytics)
 local EventNames = require(ContactImporter.Analytics.Enums.EventNames)
 local getFFlagContactImporterUseShortUrlFriendInvite =
 	require(ContactImporter.Flags.getFFlagContactImporterUseShortUrlFriendInvite)
 
 local getFFlagLuaNativeUtilEnableSMSHandling = dependencies.getFFlagLuaNativeUtilEnableSMSHandling
+local getFFlagContactImporterFixSendInviteFailedEvent =
+	require(ContactImporter.Flags.getFFlagContactImporterFixSendInviteFailedEvent)
 
 export type Setup = {
 	address: string,
@@ -30,6 +32,10 @@ local sendMessage = function(setup: Setup)
 				if dosSupportSMS then
 					return setup.nativeUtilProtocol:sendSMS({ address = setup.address, message = message })
 				else
+					if getFFlagContactImporterFixSendInviteFailedEvent() then
+						return Promise.reject()
+					end
+
 					return setup.nativeUtilProtocol.reject()
 				end
 			end)
@@ -38,6 +44,9 @@ local sendMessage = function(setup: Setup)
 				if dosSupportSMS then
 					return setup.smsProtocol:sendSMS({ address = setup.address, message = message })
 				else
+					if getFFlagContactImporterFixSendInviteFailedEvent() then
+						return Promise.reject()
+					end
 					return setup.smsProtocol.reject()
 				end
 			end)
@@ -51,9 +60,18 @@ return function(setup: Setup)
 	local completeLoading = function()
 		setIsLoading(false)
 	end
-	local localizationKeys = useLocalization({ rootMessage = TextKeys.SMS_DEFAULT_MESSAGE })
-
 	local analytics = useAnalytics()
+	local shareLinkId
+
+	local hasSuccessfullySent = function()
+		analytics.fireAnalyticsEvent(EventNames.InviteContact, {
+			offNetworkFriendRequestLinkId = shareLinkId,
+		})
+
+		setIsLoading(false)
+	end
+
+	local localizationKeys = useLocalization({ rootMessage = TextKeys.SMS_DEFAULT_MESSAGE })
 
 	local buildMessage = function(textKeys: { rootMessage: string })
 		return function(response: { responseBody: { linkId: string, shortUrl: string } })
@@ -65,9 +83,13 @@ return function(setup: Setup)
 					RoduxShareLinks.Enums.LinkType.FriendInvite.rawValue()
 				)
 
-			analytics.fireAnalyticsEvent(EventNames.InviteContact, {
-				offNetworkFriendRequestLinkId = linkId,
-			})
+			if not getFFlagContactImporterFixSendInviteFailedEvent() then
+				analytics.fireAnalyticsEvent(EventNames.InviteContact, {
+					offNetworkFriendRequestLinkId = linkId,
+				})
+			else
+				shareLinkId = response.responseBody.linkId
+			end
 			return link .. "\n\n" .. textKeys.rootMessage
 		end
 	end
@@ -83,7 +105,9 @@ return function(setup: Setup)
 				:andThen(dispatch(RoduxContacts.Actions.RequestSent({
 					id = setup.deviceContactId,
 				})))
-				:andThen(completeLoading)
+				:andThen(
+					if getFFlagContactImporterFixSendInviteFailedEvent() then hasSuccessfullySent else completeLoading
+				)
 				:catch(completeLoading)
 		end,
 		isLoading = isLoading,

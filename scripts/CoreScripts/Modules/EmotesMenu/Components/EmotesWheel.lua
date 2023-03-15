@@ -191,7 +191,7 @@ end
 function EmotesWheel:removeCursorOverride()
     if self.isCursorHidden then
         MouseIconOverrideService.pop(Constants.CursorOverrideName)
-        
+
         self.isCursorHidden = false
     end
 end
@@ -299,4 +299,4 @@ local function mapDispatchToProps(dispatch)
     }
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(EmotesWheel)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EmotesWheel)

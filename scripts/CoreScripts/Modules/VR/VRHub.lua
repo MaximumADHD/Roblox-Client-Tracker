@@ -20,6 +20,7 @@ local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
 local SafetyBubble = require(script.Parent.SafetyBubble)
 local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled) or game:GetEngineFeature("EnableMaquettesSupport")
+local BindR2AsCoreActivate = game:GetEngineFeature("BindR2AsCoreActicateInVR")
 
 local VRHub = {}
 local RegisteredModules = {}
@@ -128,6 +129,11 @@ local function onVREnabled(property)
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 		
 		VRHub.SafetyBubble = SafetyBubbleEnabled and SafetyBubble.new() or nil
+		
+		-- this is the equivalent of MouseButton1 in VR
+		if BindR2AsCoreActivate then
+			ContextActionService:BindCoreActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+		end
 	else
 		if VRHub.LaserPointer then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)

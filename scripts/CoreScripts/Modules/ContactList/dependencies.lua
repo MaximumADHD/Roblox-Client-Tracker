@@ -46,7 +46,14 @@ return {
 		keyPath = "ContactList.Call",
 	}),
 	RoduxFriends = LuaSocialLibrariesDeps.RoduxFriends.config({
-		keyPath = "ContactList.Friends",
+		keyPath = "Friends",
+	}),
+	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence.config({
+		keyPath = "Presence",
+	}),
+	RoduxNetworking = myRoduxNetworking,
+	NetworkingPresence = LuaSocialLibrariesDeps.NetworkingPresence.config({
+		roduxNetworking = myRoduxNetworking,
 	}),
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	UIBlox = require(CorePackages.UIBlox),

@@ -774,6 +774,10 @@ function Panel:SetType(panelType, config)
 	end
 end
 
+function Panel:IsPositionLockedType()
+	return self.panelType == Panel3D.Type.PositionLocked
+end
+
 function Panel:SetVisible(visible, modal)
 	if visible ~= self.isVisible then
 		self:OnVisibilityChanged(visible)

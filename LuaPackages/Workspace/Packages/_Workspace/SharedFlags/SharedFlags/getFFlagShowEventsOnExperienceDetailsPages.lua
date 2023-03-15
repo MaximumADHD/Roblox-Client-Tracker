@@ -1,5 +1,5 @@
-game:DefineFastFlag("ShowEventsOnExperienceDetailsPages", false)
+game:DefineFastFlag("ShowEventsOnExperienceDetailsPagesV2", false)
 
 return function()
-	return game:GetFastFlag("ShowEventsOnExperienceDetailsPages")
+	return game:GetFastFlag("ShowEventsOnExperienceDetailsPagesV2")
 end

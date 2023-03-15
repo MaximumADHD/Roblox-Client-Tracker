@@ -37,7 +37,6 @@ local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFrie
 local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
-local getFFlagRenameSearchAnalyticEvent = require(FriendsLanding.Flags.getFFlagRenameSearchAnalyticEvent)
 
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE = 25
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE_WIDE = 50
@@ -296,9 +295,7 @@ function AddFriendsContainer:init()
 				self.props.analytics,
 				{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
 			)
-			if getFFlagRenameSearchAnalyticEvent() then
-				PlayerSearchEvent(self.props.analytics, "open", { currentRoute = EnumScreens.AddFriends })
-			end
+			PlayerSearchEvent(self.props.analytics, "open", { currentRoute = EnumScreens.AddFriends })
 		end
 	end
 

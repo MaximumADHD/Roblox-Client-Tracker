@@ -324,7 +324,10 @@ describe("experiment", function()
 			task.wait(0.1)
 		end)
 
-		expect(#result.container:GetChildren()).never.toBe(0)
+		local eventsList = result.container:FindFirstChild("EventsList")
+
+		-- Expecting 2 children to account for ExposureLogger
+		expect(#eventsList:GetChildren()).toBe(2)
 	end)
 
 	it("should render nothing if unenrolled", function()
@@ -346,6 +349,9 @@ describe("experiment", function()
 			task.wait(0.1)
 		end)
 
-		expect(#result.container:GetChildren()).toBe(0)
+		local eventsList = result.container:FindFirstChild("EventsList")
+
+		-- Expecting 1 child to account for ExposureLogger
+		expect(#eventsList:GetChildren()).toBe(1)
 	end)
 end)

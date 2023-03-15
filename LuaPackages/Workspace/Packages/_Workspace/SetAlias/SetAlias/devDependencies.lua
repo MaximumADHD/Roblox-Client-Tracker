@@ -3,13 +3,12 @@ local Packages = SetAlias.Parent
 local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local jestExpect = JestGlobals.expect
-local LuaProfileDeps = require(Packages.Dev.LuaProfileDeps)
 
 return {
 	ReactRoblox = require(Packages.Dev.ReactRoblox),
 	Rhodium = require(Packages.Dev.Rhodium),
 	Mock = LuaSocialLibrariesDeps.Mock,
-	UnitTestHelpers = LuaProfileDeps.UnitTestHelpers,
+	UnitTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers,
 	jestExpect = jestExpect,
 	jest = JestGlobals.jest,
 	describe = JestGlobals.describe,

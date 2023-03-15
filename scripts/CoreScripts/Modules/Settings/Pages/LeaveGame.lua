@@ -13,6 +13,7 @@ local LEAVE_GAME_FRAME_WAITS = 2
 
 -------------- SERVICES --------------
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
@@ -23,6 +24,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -31,6 +33,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
+local GetFFlagEnableSurveyImprovements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSurveyImprovements
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
@@ -51,6 +54,10 @@ local function Initialize()
 		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
 											Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
 
+		if GetFFlagEnableSurveyImprovements() then 
+			MessageBus.publish(Constants.OnLeaveButtonClickDescriptor, {})	
+		end
+				
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
 		for i = 1, LEAVE_GAME_FRAME_WAITS do

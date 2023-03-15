@@ -1,5 +1,17 @@
 local Packages = script.Parent.Parent
+local InputTypeConstants = require(Packages.InputType).InputTypeConstants
+local getInputGroup = require(Packages.InputType).getInputGroup
+
 local getFFlagDebugLuaAppAlwaysUseGamepad = require(Packages.SharedFlags).getFFlagDebugLuaAppAlwaysUseGamepad
+local FFlagRoactUtilsSimplifyIsGamepad = game:DefineFastFlag("RoactUtilsSimplifyIsGamepad", false)
+
+if FFlagRoactUtilsSimplifyIsGamepad then
+	local function isGamepadInput(inputType: Enum.UserInputType): boolean
+		return getInputGroup(inputType) == InputTypeConstants.Gamepad
+	end
+
+	return isGamepadInput
+end
 
 --[[
 	A map of input type to whether or not it is a gamepad input.

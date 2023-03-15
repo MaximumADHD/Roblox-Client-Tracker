@@ -1,6 +1,7 @@
 local GraphQLServer = require(script.Server)
 local graphqlModule = require(script.graphql)
 local generatedTypes = graphqlModule.generatedTypes
+local ApolloClientTestUtils = require(script.ApolloClientTestUtils)
 
 export type OmniFeed = graphqlModule.OmniFeed
 export type OmniFeedMetadata = graphqlModule.OmniFeedMetadata
@@ -11,8 +12,12 @@ export type RsvpStatus = graphqlModule.RsvpStatus
 export type VirtualEventsPage = graphqlModule.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = graphqlModule.VirtualEventsByUniverseIdOptions
 
+export type MockOptions = ApolloClientTestUtils.MockOptions
+export type Response = ApolloClientTestUtils.Response
+
 return {
 	GraphQLServer = GraphQLServer,
 	types = generatedTypes,
 	mocks = graphqlModule.mocks,
+	ApolloClientTestUtils = ApolloClientTestUtils,
 }

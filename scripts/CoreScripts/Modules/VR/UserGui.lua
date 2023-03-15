@@ -13,6 +13,7 @@ local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRKeyboard = require(RobloxGui.Modules.VR.VirtualKeyboard)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
+local GetFFlagBottomBarImproveInVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarImproveInVR)
 
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -23,6 +24,11 @@ local GetFFlagUIBloxVRApplyHeadScale =
 
 local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
 local FFlagVRCollapseUIEndsSelection = require(RobloxGui.Modules.Flags.FFlagVRCollapseUIEndsSelection)
+
+if GetFFlagBottomBarImproveInVR() and not VRService.VREnabled then
+	warn("UserGui should not be required while not in VR")
+	return nil
+end
 
 local UserGuiModule = {}
 UserGuiModule.ModuleName = "UserGui"
@@ -288,6 +294,14 @@ end)
 if EngineFeatureEnableVRUpdate3 then
 	VRHub:SetShowTopBar(true)
 	onGuiSelection()
+end
+
+function UserGuiModule:getPanel()
+	if EngineFeatureEnableVRUpdate3 then
+		return plPanel
+	else
+		return userGuiPanel
+	end
 end
 
 return UserGuiModule

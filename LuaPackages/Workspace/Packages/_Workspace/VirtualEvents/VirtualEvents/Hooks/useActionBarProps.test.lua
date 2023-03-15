@@ -129,4 +129,29 @@ describe("cancelled event", function()
 
 		expect(actionBarProps.icons).toEqual({})
 	end)
+
+	it("should prompt the user to return to the homepage if moderated", function()
+		local virtualEvent = VirtualEventModel.mock("1")
+		virtualEvent.eventStatus = "moderated"
+
+		local actionBarProps
+		testHook(function()
+			actionBarProps = useActionBarProps(virtualEvent, "Upcoming", mockCallbacks)
+		end)
+
+		expect(actionBarProps.button).toBeDefined()
+		expect((actionBarProps.button :: any).props.text).toBe("Go Home")
+	end)
+
+	it("should not show any icons if moderated", function()
+		local virtualEvent = VirtualEventModel.mock("1")
+		virtualEvent.eventStatus = "moderated"
+
+		local actionBarProps
+		testHook(function()
+			actionBarProps = useActionBarProps(virtualEvent, "Upcoming", mockCallbacks)
+		end)
+
+		expect(actionBarProps.icons).toEqual({})
+	end)
 end)

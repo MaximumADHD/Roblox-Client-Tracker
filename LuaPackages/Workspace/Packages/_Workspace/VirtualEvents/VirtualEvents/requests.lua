@@ -5,6 +5,44 @@ local gql = ApolloClient.gql
 
 local requests = {}
 
+requests.GET_VIRTUAL_EVENT = gql([[
+	query GetVirtualEvent($virtualEventId: ID!) {
+		virtualEvent(id: $virtualEventId) {
+			id
+			title
+			description
+			host {
+				hostId
+				hostType
+				hostName
+				hasVerifiedBadge
+			}
+			universeId
+			eventStatus
+			eventTime {
+				startUtc
+				endUtc
+			}
+			userRsvpStatus
+			experienceDetails {
+				name
+				playing
+			}
+			media {
+				imageId
+				assetType
+			}
+			rsvpCounters {
+				going
+			}
+			rsvps {
+				userId
+				rsvpStatus
+			}
+		}
+	}
+]])
+
 requests.UPDATE_RSVP_STATUS = gql([[
 	mutation UpdateRsvpStatus($virtualEventId: ID!, $rsvpStatus: RsvpStatus!) {
 		virtualEventRsvp(id: $virtualEventId, rsvpStatus: $rsvpStatus) {
