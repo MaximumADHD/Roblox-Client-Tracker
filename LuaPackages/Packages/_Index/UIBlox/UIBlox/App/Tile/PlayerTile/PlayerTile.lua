@@ -18,6 +18,7 @@ local PlayerTileButton = require(App.Tile.PlayerTile.PlayerTileButton)
 local PlayerContext = require(App.Indicator.PlayerContext)
 local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Tile = require(App.Tile.BaseTile.Tile)
 
@@ -78,6 +79,10 @@ local VIGNETTE = Images["component_assets/vignette_246"]
 local OUTER_BUTTON_PADDING = 10
 local BUTTON_GAP = 10
 local BUTTON_HEIGHT = 36
+
+local INNER_PADDING = 0
+local TITLE_TOP_PADDING = 8
+local FOOTER_TOP_PADDING = 4
 
 local function footer(props)
 	return withStyle(function(style)
@@ -242,7 +247,11 @@ function PlayerTile:render()
 					controlState = self.state.controlState,
 				}),
 				hasRoundedCorners = true,
-				innerPadding = OUTER_BUTTON_PADDING,
+				innerPadding = if UIBloxConfig.updatePlayerTileFooterPadding
+					then INNER_PADDING
+					else OUTER_BUTTON_PADDING,
+				titleTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then TITLE_TOP_PADDING else nil,
+				footerTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then FOOTER_TOP_PADDING else nil,
 				name = title,
 				subtitle = self.props.subtitle,
 				hasVerifiedBadge = self.props.hasVerifiedBadge,

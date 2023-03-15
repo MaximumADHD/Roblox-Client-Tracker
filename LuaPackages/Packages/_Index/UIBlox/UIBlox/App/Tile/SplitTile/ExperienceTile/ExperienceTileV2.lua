@@ -76,6 +76,8 @@ export type Props = {
 	renderTopContent: ((isHovered: boolean) -> table)?,
 	-- Content to fill the bottom portion of the tile which can vary based on hover state
 	renderBottomContent: ((isHovered: boolean) -> table)?,
+	-- Content which contains actions a user can take which is displayed at bottom of tile on hover
+	renderActionRow: ((isHovered: boolean) -> table)?,
 }
 
 local function getPanelHeight(footerHeight: number, contentHeight: number, title: string)
@@ -129,58 +131,52 @@ local function ExperienceTile(props: Props)
 	local footer = props.footer
 	local footerHeight = setDefault(props.footerHeight, if footer then DEFAULT_FOOTER_HEIGHT else 0)
 
-	local renderTopContent = React.useCallback(
-		if props.renderTopContent
-			then props.renderTopContent
-			else function(isHoverContent: boolean)
-				local isWideHover = isHoverContent and hasBackground
-				return React.createElement(VerticalTileThumbnail, {
-					aspectRatio = if isWideHover then WIDE_ASPECT_RATIO else SQUARE_ASPECT_RATIO,
-					isTopRounded = true,
-					isBottomRounded = not hasBackground,
-					thumbnail = if isWideHover then props.wideThumbnail else props.thumbnail,
-				})
-			end,
-		{ props.renderTopContent, props.wideThumbnail, props.thumbnail, hasBackground }
-	)
-
-	local renderBottomContent = React.useCallback(
-		if props.renderBottomContent
-			then props.renderBottomContent
-			else function(isHoverContent: boolean)
-				local panelHeight = if isHoverContent
-					then getPanelHeight(footerHeight, HOVER_CONTENT_HEIGHT, experienceName)
-					else getPanelHeight(footerHeight, STANDARD_CONTENT_HEIGHT, experienceName)
-				local contentPadding = if isHoverContent and hasBackground then HOVER_PADDING else STANDARD_PADDING
-
-				return React.createElement(TileContentPanel, {
-					outerPadding = contentPadding,
-					innerPadding = if isHoverContent then STANDARD_PADDING else nil,
-					panelHeight = UDim.new(0, panelHeight),
-					contentTitle = experienceName,
-					contentFooter = if isHoverContent and hasBackground then footer else nil,
-					footerHeight = UDim.new(0, footerHeight),
-					hasSidePadding = hasBackground,
-				})
-			end,
-		{ props.renderBottomContent, footer, footerHeight, experienceName, hasBackground }
-	)
-
-	local renderActionRow = React.useCallback(function(isHovered: boolean?)
-		local contentPadding = if isHovered and hasBackground then HOVER_PADDING else STANDARD_PADDING
-		return if props.isHoverEnabled
-				and isHovered
-				and hasBackground
-			then React.createElement(ExperienceActionRow, {
-				isActionable = props.isPlayable,
-				height = ACTION_ROW_HEIGHT,
-				horizontalPadding = if hasBackground then ACTION_BUTTON_PADDING else nil,
-				verticalPadding = ACTION_BUTTON_PADDING,
-				onPlayPressed = props.onPlayPressed,
-				text = props.buttonText,
-				icon = props.buttonIcon,
+	local renderTopContent = if props.renderTopContent
+		then props.renderTopContent
+		else React.useCallback(function(isHoverContent: boolean)
+			local isWideHover = isHoverContent and hasBackground
+			return React.createElement(VerticalTileThumbnail, {
+				aspectRatio = if isWideHover then WIDE_ASPECT_RATIO else SQUARE_ASPECT_RATIO,
+				isTopRounded = true,
+				isBottomRounded = not hasBackground,
+				thumbnail = if isWideHover then props.wideThumbnail else props.thumbnail,
 			})
-			else React.createElement("Frame", {
+		end, { props.wideThumbnail, props.thumbnail, hasBackground })
+
+	local renderBottomContent = if props.renderBottomContent
+		then props.renderBottomContent
+		else React.useCallback(function(isHoverContent: boolean)
+			local panelHeight = if isHoverContent
+				then getPanelHeight(footerHeight, HOVER_CONTENT_HEIGHT, experienceName)
+				else getPanelHeight(footerHeight, STANDARD_CONTENT_HEIGHT, experienceName)
+			local contentPadding = if isHoverContent and hasBackground then HOVER_PADDING else STANDARD_PADDING
+			return React.createElement(TileContentPanel, {
+				outerPadding = contentPadding,
+				innerPadding = if isHoverContent then STANDARD_PADDING else nil,
+				panelHeight = UDim.new(0, panelHeight),
+				contentTitle = experienceName,
+				contentFooter = if isHoverContent and hasBackground then footer else nil,
+				footerHeight = UDim.new(0, footerHeight),
+				hasSidePadding = hasBackground,
+			})
+		end, { footer, footerHeight, experienceName, hasBackground })
+
+	local renderFooterRow = React.useCallback(function(isHovered: boolean?)
+		local contentPadding = if isHovered and hasBackground then HOVER_PADDING else STANDARD_PADDING
+		if props.isHoverEnabled and isHovered then
+			if props.renderActionRow then
+				return props.renderActionRow(isHovered)
+			else
+				return React.createElement(ExperienceActionRow, {
+					isActionable = props.isPlayable,
+					horizontalPadding = if not hasBackground then 0 else nil,
+					onPlayPressed = props.onPlayPressed,
+					text = props.buttonText,
+					icon = props.buttonIcon,
+				})
+			end
+		else
+			return React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, footerHeight + if hasBackground then (contentPadding * 2) else 0),
 				Position = UDim2.new(0, 0, 1, 0),
 				AnchorPoint = Vector2.new(0, 1),
@@ -196,7 +192,9 @@ local function ExperienceTile(props: Props)
 				}),
 				Footer = footer,
 			})
+		end
 	end, {
+		props.renderActionRow,
 		props.isHoverEnabled,
 		props.isPlayable,
 		props.onPlayPressed,
@@ -208,7 +206,6 @@ local function ExperienceTile(props: Props)
 	})
 
 	return React.createElement(VerticalTile, {
-		hasActionRow = true,
 		hasBackground = hasBackground,
 		hasOutline = props.hasOutline,
 		isHoverEnabled = props.isHoverEnabled,
@@ -217,8 +214,8 @@ local function ExperienceTile(props: Props)
 		onActivated = props.onActivated,
 		renderTopContent = renderTopContent,
 		renderBottomContent = renderBottomContent,
-		renderActionRow = renderActionRow,
-		reservedBottomHeight = ACTION_ROW_HEIGHT,
+		renderFooterRow = renderFooterRow,
+		reservedBottomHeight = if props.isHoverEnabled then ACTION_ROW_HEIGHT else nil,
 	})
 end
 

@@ -4,9 +4,9 @@ version = "3.15.0"
 commit = "b001fcbecfb91ca5a2102f2365a7e68c13c0c4f2"
 source = "git+https://github.com/roblox/rodux-friends#v3.15.0"
 dependencies = [
-    "FriendsNetworking NetworkingFriends 2.7.2 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.8.0 url+https://github.com/roblox/networking-friends",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "NetworkingBlocking NetworkingBlocking 1.11.0 url+https://github.com/roblox/lua-app-networking",
+    "NetworkingBlocking NetworkingBlocking 1.12.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",

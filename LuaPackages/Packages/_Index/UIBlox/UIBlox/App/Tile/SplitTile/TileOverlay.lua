@@ -20,8 +20,6 @@ local CORNER_RADIUS = UDim.new(0, 8)
 export type Props = {
 	-- Height where stateful overlay is visually cut off (ie. to allow for action rows)
 	reservedBottomHeight: number?,
-	-- Whether or not this overlay should only cover its parent tile to a cutoff point
-	hasReservedArea: boolean?,
 	-- Whether or not overlay should be visible
 	isVisible: boolean?,
 	-- Whether or not overlay should capture input
@@ -36,8 +34,8 @@ local function TileOverlay(props: Props)
 	local onActivated = props.onActivated
 	local isVisible = setDefault(props.isVisible, true)
 	local isActive = setDefault(props.isActive, true)
-	local hasReservedArea = props.hasReservedArea
-	local reservedBottomHeight = props.reservedBottomHeight
+	local reservedBottomHeight = props.reservedBottomHeight or 0
+	local hasReservedArea = reservedBottomHeight > 0
 
 	local controlState, updateControlState = useControlState()
 	local stylePalette = useStyle()
@@ -65,7 +63,7 @@ local function TileOverlay(props: Props)
 			CornerRadius = CORNER_RADIUS,
 		}),
 		ClippingFrame = React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, if hasReservedArea and reservedBottomHeight then -reservedBottomHeight else 0),
+			Size = UDim2.new(1, 0, 1, if hasReservedArea then -reservedBottomHeight else 0),
 			BackgroundTransparency = 1,
 			ClipsDescendants = true,
 		}, {

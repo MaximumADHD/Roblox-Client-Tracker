@@ -250,7 +250,10 @@ local function initializeLibrary(configs)
 			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
 			ExperienceStatsV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceStatsV2),
 			TileContentPanel = require(script.App.Tile.SplitTile.TileContentPanel),
+			ExperienceActionRow = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow),
 			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
+			VerticalTile = require(script.App.Tile.SplitTile.VerticalTile.VerticalTileV2),
+			VerticalTileThumbnail = require(script.App.Tile.SplitTile.VerticalTile.VerticalTileThumbnail),
 		}),
 
 		Dialog = strict({

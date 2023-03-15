@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["NetworkingCurrentlyWearing"]["NetworkingCurrentlyWearing"])
+local Package = require(PackageIndex["NetworkingCurrentlyWearing-fa311043-6c92cae7"]["NetworkingCurrentlyWearing"])
 
 return Package

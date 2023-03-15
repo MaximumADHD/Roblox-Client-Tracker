@@ -9,9 +9,10 @@ local RoactAppExperiment = script:FindFirstAncestor("RoactAppExperiment")
 local IXPService = game:GetService("IXPService")
 
 local React = require(RoactAppExperiment.Parent.React)
-
-local usePrevious = require(script.Parent.usePrevious)
 local ExperimentContext = require(script.Parent.ExperimentContext)
+local usePrevious = require(script.Parent.usePrevious)
+local useIXPServiceRequire = require(RoactAppExperiment.useIXPService)
+local getFFlagExportIXPServiceHook = require(RoactAppExperiment.Flags.getFFlagExportIXPServiceHook)
 
 export type MapLayers<T...> = ({ [string]: any }) -> T...
 
@@ -63,7 +64,7 @@ local function makeUseExperiment(
 			recordExposureOnMount = true
 		end
 
-		local ixpService = useIXPService()
+		local ixpService = if getFFlagExportIXPServiceHook() then useIXPServiceRequire() else useIXPService()
 
 		assert(type(layerNames) == "table", "useExperiment expects layerNames to be a list of layers")
 		assert(type(mapLayers) == "function", "useExperiment expects mapLayers to be a function")

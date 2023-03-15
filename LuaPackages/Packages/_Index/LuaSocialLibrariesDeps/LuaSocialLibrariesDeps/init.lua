@@ -36,6 +36,8 @@ return {
 	NetworkingGames = require(LuaSocialLibrariesDeps.NetworkingGames),
 	NetworkingContacts = require(LuaSocialLibrariesDeps.NetworkingContacts),
 	NetworkingShareLinks = require(LuaSocialLibrariesDeps.NetworkingShareLinks),
+	NetworkingPremiumFeatures = require(LuaSocialLibrariesDeps.NetworkingPremiumFeatures),
+	NetworkingCurrentlyWearing = require(LuaSocialLibrariesDeps.NetworkingCurrentlyWearing),
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),
 	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
 	NetworkingUsers = require(LuaSocialLibrariesDeps.NetworkingUsers),

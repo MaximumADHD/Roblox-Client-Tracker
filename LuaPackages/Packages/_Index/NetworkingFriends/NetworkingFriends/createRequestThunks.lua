@@ -11,22 +11,19 @@ local createDeclineFriendRequestFromUserId: (any) -> any = require(networkReques
 local createDeclineAllFriendRequests: (any) -> any = require(networkRequests.createDeclineAllFriendRequests)
 local createGetFriendsCountFromUserId: (any) -> any = require(networkRequests.createGetFriendsCountFromUserId)
 local createRequestFriendshipFromUserId: (any) -> any = require(networkRequests.createRequestFriendshipFromUserId)
-local createRequestFriendshipFromContactId: (config: networkingFriendsTypes.Config) -> any = require(
-	networkRequests.createRequestFriendshipFromContactId
-)
+local createRequestFriendshipFromContactId: (config: networkingFriendsTypes.Config) -> any =
+	require(networkRequests.createRequestFriendshipFromContactId)
 local createGetFollowingExists: (any) -> any = require(networkRequests.createGetFollowingExists)
 local createGetUserFollowers: (any) -> any = require(networkRequests.createGetUserFollowers)
 local createGetFriendRecommendationsFromUserId: (config: networkingFriendsTypes.Config) -> networkingFriendsTypes.GetFriendRecommendationsFromUserId =
-	require(
-		networkRequests.createGetFriendRecommendationsFromUserId
-	)
-local createGetFriendshipStatus: (config: networkingFriendsTypes.Config) -> any = require(
-	networkRequests.createGetFriendshipStatus
-)
-local createGetExtendedFriendshipStatus: (config: networkingFriendsTypes.Config) -> any = require(
-	networkRequests.createGetExtendedFriendshipStatus
-)
+	require(networkRequests.createGetFriendRecommendationsFromUserId)
+local createGetFriendshipStatus: (config: networkingFriendsTypes.Config) -> any =
+	require(networkRequests.createGetFriendshipStatus)
+local createGetExtendedFriendshipStatus: (config: networkingFriendsTypes.Config) -> any =
+	require(networkRequests.createGetExtendedFriendshipStatus)
 local createAcceptFriendRequestWithToken: (any) -> any = require(networkRequests.createAcceptFriendRequestWithToken)
+local createGetFollowersCount: (any) -> any = require(networkRequests.createGetFollowersCount)
+local createGetFollowingsCount: (any) -> any = require(networkRequests.createGetFollowingsCount)
 
 return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.RequestThunks
 	return {
@@ -46,5 +43,7 @@ return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.R
 		GetFriendshipStatus = createGetFriendshipStatus(config),
 		GetExtendedFriendshipStatus = createGetExtendedFriendshipStatus(config),
 		AcceptFriendRequestWithToken = createAcceptFriendRequestWithToken(config),
+		GetFollowersCount = createGetFollowersCount(config),
+		GetFollowingsCount = createGetFollowingsCount(config),
 	}
 end

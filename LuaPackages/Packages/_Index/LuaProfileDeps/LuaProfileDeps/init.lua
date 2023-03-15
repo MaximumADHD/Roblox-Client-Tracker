@@ -22,4 +22,5 @@ return {
 	NetworkingGames = require(Packages.NetworkingGames),
 	RoduxGames = require(Packages.RoduxGames),
 	RoduxFriends = require(Packages.RoduxFriends),
+	RoduxContacts = require(Packages.RoduxContacts),
 }

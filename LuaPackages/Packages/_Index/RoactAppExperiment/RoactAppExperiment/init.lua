@@ -260,7 +260,11 @@ return {
 
 	useBrowserTrackerExperiment = require(script.useBrowserTrackerExperiment),
 	useUserExperiment = require(script.useUserExperiment),
+	useIXPService = require(script.useIXPService),
 
 	connectBrowserTrackerLayer = connectBrowserTrackerLayer,
 	connectUserLayer = connectUserLayer,
+
+	-- Mocks
+	MockIXPService = require(script.MockIXPService),
 }

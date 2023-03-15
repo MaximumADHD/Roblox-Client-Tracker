@@ -53,6 +53,12 @@ local tileInterface = t.strictInterface({
 	-- The vertical padding between elements in the ItemTile
 	innerPadding = t.optional(t.integer),
 
+	-- The additional vertical padding above the title area
+	titleTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then t.optional(t.integer) else nil,
+
+	-- The additional vertical padding above the footer area
+	footerTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then t.optional(t.integer) else nil,
+
 	-- The function that gets called on itemTile click
 	onActivated = t.optional(t.callback),
 
@@ -134,6 +140,8 @@ local validateProps = devOnly(t.intersection(tileInterface, tileBannerUseValidat
 Tile.defaultProps = {
 	titleTextLineCount = 2,
 	innerPadding = 8,
+	titleTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then 0 else nil,
+	footerTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then 0 else nil,
 	isSelected = false,
 	multiSelect = false,
 	isDisabled = false,
@@ -165,6 +173,8 @@ function Tile:render()
 	local hasVerifiedBadge = self.props.hasVerifiedBadge
 	local titleTextLineCount = self.props.titleTextLineCount
 	local innerPadding = self.props.innerPadding
+	local titleTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then self.props.titleTopPadding else nil
+	local footerTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then self.props.footerTopPadding else nil
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
 	local thumbnailSize = self.props.thumbnailSize
@@ -191,7 +201,9 @@ function Tile:render()
 
 			local titleFontStyle = self.props.titleFontStyle or font.Header2
 			local maxTitleTextHeight = math.ceil(font.BaseSize * titleFontStyle.RelativeSize * titleTextLineCount)
-			local footerHeight = tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding
+			local footerHeight = if UIBloxConfig.updatePlayerTileFooterPadding
+				then tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding - titleTopPadding
+				else tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding
 			local titleTextSize = Vector2.new(0, 0)
 			local subtitleTextHeight = 0
 
@@ -235,7 +247,9 @@ function Tile:render()
 
 			local renderTileInset = self.props.renderTileInset
 
-			local titleAreaSize = UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight)
+			local titleAreaSize = if UIBloxConfig.updatePlayerTileFooterPadding
+				then UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight + titleTopPadding)
+				else UDim2.new(1, 0, 0, titleTextSize.Y + subtitleTextHeight)
 			local titleTextPadding = nil
 			if self.props.nameOverThumbnail then
 				local padding = 10
@@ -296,6 +310,11 @@ function Tile:render()
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
 				}, {
+					TitleTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding
+						then React.createElement("UIPadding", {
+							PaddingTop = UDim.new(0, titleTopPadding),
+						})
+						else nil,
 					UIListLayout = React.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,
 						SortOrder = Enum.SortOrder.LayoutOrder,
@@ -339,6 +358,11 @@ function Tile:render()
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
 				}, {
+					FooterTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding
+						then React.createElement("UIPadding", {
+							PaddingTop = UDim.new(0, footerTopPadding),
+						})
+						else nil,
 					Banner = bannerText and React.createElement(TileBanner, {
 						bannerText = bannerText,
 					}),

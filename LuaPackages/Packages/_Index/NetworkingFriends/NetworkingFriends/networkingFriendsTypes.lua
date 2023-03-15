@@ -1,31 +1,41 @@
 --!strict
 export type Config = {
-	roduxNetworking: any
+	roduxNetworking: any,
 }
 
 export type GetFriendRecommendationsFromUserId = {
 	API: (queryArgs: RequestTargetUser) -> any,
-	[string]: any
+	[string]: any,
 }
 
 export type GetFriendshipStatus = {
 	API: (queryArgs: RequestWithTargetUser) -> any,
-	[string]: any
+	[string]: any,
 }
 
 export type GetExtendedFriendshipStatus = {
 	API: (queryArgs: RequestTargetUser) -> any,
-	[string]: any
+	[string]: any,
 }
 
 export type RequestFriendshipFromContactId = {
 	API: (queryArgs: RequestWithContactUser) -> any,
-	[string]: any
+	[string]: any,
 }
 
 export type AcceptFriendRequestWithToken = {
 	API: (queryArgs: RequestWithTargetUserAndFriendingToken) -> any,
-	[string]: any
+	[string]: any,
+}
+
+export type GetFollowersCount = {
+	API: (targetUserId: string | number) -> any,
+	[string]: any,
+}
+
+export type GetFollowingsCount = {
+	API: (targetUserId: string | number) -> any,
+	[string]: any,
 }
 
 export type RequestThunks = {
@@ -45,22 +55,24 @@ export type RequestThunks = {
 	GetFriendshipStatus: GetFriendshipStatus,
 	GetExtendedFriendshipStatus: GetExtendedFriendshipStatus,
 	AcceptFriendRequestWithToken: AcceptFriendRequestWithToken,
+	GetFollowersCount: GetFollowersCount,
+	GetFollowingsCount: GetFollowingsCount,
 }
 
 export type RequestCurrentUser = {
-	currentUserId: number | string
+	currentUserId: number | string,
 }
 
 export type RequestTargetUser = {
-	targetUserId: number | string
+	targetUserId: number | string,
 }
 
 export type RequestContactUser = {
-	contactId: string
+	contactId: string,
 }
 
 export type RequestFriendingToken = {
-	friendingToken: string
+	friendingToken: string,
 }
 
 export type RequestWithTargetUser = RequestCurrentUser & RequestTargetUser
@@ -70,11 +82,11 @@ export type RequestWithContactUser = RequestCurrentUser & RequestContactUser
 export type RequestWithTargetUserAndFriendingToken = RequestCurrentUser & RequestTargetUser & RequestFriendingToken
 
 export type RequestTargetUserIdsType = {
-	targetUserIds: { number | string }
+	targetUserIds: { number | string },
 }
 
 export type RequestTargetUniverseIdsType = {
-	universeIds: { number | string }
+	universeIds: { number | string },
 }
 
 export type FriendRequestsOptions = {
@@ -89,7 +101,7 @@ export type LuobuOptions = {
 	userOpenId: string,
 	userAccessToken: string,
 	type: string,
-	appType: string
+	appType: string,
 }
 
 return {}

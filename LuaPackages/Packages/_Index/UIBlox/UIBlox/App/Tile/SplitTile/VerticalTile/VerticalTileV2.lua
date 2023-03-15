@@ -15,8 +15,6 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local Images = require(App.ImageSet.Images)
 local TileOverlay = require(TileRoot.SplitTile.TileOverlay)
 
-local DEFAULT_RESERVED_HEIGHT = 48
-
 local OUTLINE_THICKNESS = 1
 local CORNER_RADIUS = UDim.new(0, 8)
 local DROP_SHADOW = "component_assets/dropshadow_24_6"
@@ -27,14 +25,11 @@ local defaultProps = {
 	isHoverEnabled = true,
 	isOverlayVisible = true,
 	isActive = true,
-	reservedBottomHeight = DEFAULT_RESERVED_HEIGHT,
 }
 
 export type Props = {
 	-- Minimum dimensions allowed for the tile
 	minTileSize: Vector2?,
-	-- Whether or not the tile should show an action row
-	hasActionRow: boolean?,
 	-- Whether or not the tile should use a background
 	hasBackground: boolean?,
 	-- Whether or not the tile should show a border outline
@@ -52,7 +47,7 @@ export type Props = {
 	-- Content to fill the bottom portion of the tile which can vary based on hover state
 	renderBottomContent: ((isHovered: boolean) -> table)?,
 	-- Content which contains actions a user can take which is displayed at bottom of tile
-	renderActionRow: ((isHovered: boolean) -> table)?,
+	renderFooterRow: ((isHovered: boolean) -> table)?,
 	-- Height reserved at bottom of the tile which should not trigger onActivated
 	reservedBottomHeight: number?,
 }
@@ -109,10 +104,9 @@ local function VerticalTile(props: Props)
 				Content1 = if props.renderTopContent then props.renderTopContent(showHoverState) else nil,
 				Content2 = if props.renderBottomContent then props.renderBottomContent(showHoverState) else nil,
 			}),
-			ActionRow = if props.hasActionRow then props.renderActionRow(showHoverState) else nil,
+			FooterRow = if props.renderFooterRow then props.renderFooterRow(showHoverState) else nil,
 			Overlay = React.createElement(TileOverlay, {
 				reservedBottomHeight = props.reservedBottomHeight,
-				hasReservedArea = props.hasActionRow,
 				isVisible = props.isOverlayVisible,
 				isActive = props.isActive,
 				onActivated = props.onActivated,
