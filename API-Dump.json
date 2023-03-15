@@ -1146,24 +1146,6 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "PortalType",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "AdPortalType"
-                    }
-                },
-                {
                     "Category": "State",
                     "MemberType": "Property",
                     "Name": "PortalVersion",
@@ -4344,6 +4326,42 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptPublishAssetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SavePlaceAsync",
                     "Parameters": [
                     ],
@@ -4355,6 +4373,21 @@
                     "Tags": [
                         "Yields"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OpenPublishResultModal",
+                    "Parameters": [
+                        {
+                            "Name": "resultType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "PromptPublishAssetResult"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -15766,6 +15799,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "BindCoreActivate",
+                    "Parameters": [
+                        {
+                            "Name": "userInputTypeForActivation",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "UserInputType"
+                            }
+                        },
+                        {
+                            "Name": "keyCodesForActivation",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Tuple"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CallFunction",
                     "Parameters": [
                         {
@@ -16068,6 +16127,33 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UnbindCoreActivate",
+                    "Parameters": [
+                        {
+                            "Name": "userInputTypeForActivation",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "UserInputType"
+                            }
+                        },
+                        {
+                            "Default": "Unknown",
+                            "Name": "keyCodeForActivation",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "KeyCode"
                             }
                         }
                     ],
@@ -31844,6 +31930,27 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "StudioSelectionBox",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "SurfaceColor",
                     "Security": {
                         "Read": "None",
@@ -38964,6 +39071,104 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Clear",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DrawCircle",
+                    "Parameters": [
+                        {
+                            "Name": "center",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "radius",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "color",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Color3"
+                            }
+                        },
+                        {
+                            "Name": "alpha",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Resize",
+                    "Parameters": [
+                        {
+                            "Name": "newSize",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Rotate",
+                    "Parameters": [
+                        {
+                            "Name": "degrees",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Default": "true",
+                            "Name": "resizeCanvas",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PopulateFromImageAsync",
                     "Parameters": [
                         {
@@ -40085,6 +40290,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "SerializePatch",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "ZstdCompression",
                     "Security": {
                         "Read": "None",
@@ -40317,6 +40540,25 @@
                     "Tags": [
                         "Deprecated"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetLocalFileContents",
+                    "Parameters": [
+                        {
+                            "Name": "contentId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -45671,6 +45913,36 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAccountingBalanceAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RefillAccountingBalanceAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -45705,7 +45977,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Group",
-                        "Name": "Array"
+                        "Name": "Tuple"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -45715,7 +45987,29 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GenerateMaterialAsync",
+                    "Name": "GenerateMaterialMapsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "imageId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UploadMaterialAsync",
                     "Parameters": [
                         {
                             "Name": "imageId",
@@ -47289,6 +47583,60 @@
             "Tags": [
                 "NotCreatable",
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Size",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PopulateFromMeshAsync",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MeshDataExperimental",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
             ]
         },
         {
@@ -51507,7 +51855,7 @@
                         "Name": "Instance"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -51519,7 +51867,7 @@
                         "Name": "bool"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -53230,7 +53578,7 @@
                         "Name": "Color3"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -62524,7 +62872,7 @@
                         "Name": "Player"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -70516,6 +70864,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "DeregisterScriptAnalysisCallback",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "FindScriptDocument",
                     "Parameters": [
                         {
@@ -70548,6 +70915,39 @@
                 {
                     "MemberType": "Function",
                     "Name": "RegisterAutocompleteCallback",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "callbackFunction",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RegisterScriptAnalysisCallback",
                     "Parameters": [
                         {
                             "Name": "name",
@@ -70732,10 +71132,33 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "SelectionBoxThickness",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "SelectionLineThickness",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -79278,6 +79701,24 @@
                     }
                 },
                 {
+                    "Category": "Tools",
+                    "MemberType": "Property",
+                    "Name": "Selection Box Thickness",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Selection Color",
@@ -86732,6 +87173,28 @@
                         "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CanLoadAsset",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -101278,6 +101741,31 @@
         {
             "Items": [
                 {
+                    "Name": "Success",
+                    "Value": 1
+                },
+                {
+                    "Name": "PermissionDenied",
+                    "Value": 2
+                },
+                {
+                    "Name": "Timeout",
+                    "Value": 3
+                },
+                {
+                    "Name": "UploadFailed",
+                    "Value": 4
+                },
+                {
+                    "Name": "NoUserInput",
+                    "Value": 5
+                }
+            ],
+            "Name": "PromptPublishAssetResult"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Ok",
                     "Value": 0
                 },
@@ -102319,6 +102807,19 @@
                 }
             ],
             "Name": "ServiceVisibility"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Error",
+                    "Value": 1
+                },
+                {
+                    "Name": "Warning",
+                    "Value": 2
+                }
+            ],
+            "Name": "Severity"
         },
         {
             "Items": [

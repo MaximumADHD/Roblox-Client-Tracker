@@ -167,6 +167,7 @@ Studio.GameSettings.General.ContentDialogItem4,Robux Gambling, ,Robux Gambling
 Studio.GameSettings.General.ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.
 Studio.GameSettings.General.ContentDialogItem5,Drug Reference or Use, ,Drug Reference or Use
 Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing, ,Studio doesn't currently support video playing
+Studio.GameSettings.AvatarChat.AudioTitle,Enable Microphone, ,Enable Microphone
 Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video, ,Go to YouTube and play the video
 Studio.GameSettings.AccessPermissions.OwnerDescription,Owner of the game, ,Owner of the game
 Studio.GameSettings.Permissions.OwnerDescription,Owner of the game, ,Owner of the game
@@ -319,6 +320,7 @@ Studio.GameSettings.AccessPermissions.UsersCollaboratorType,Users, ,Users
 Studio.GameSettings.Permissions.UsersCollaboratorType,Users, ,Users
 Studio.GameSettings.AccessPermissions.GroupsCollaboratorType,Groups, ,Groups
 Studio.GameSettings.Permissions.GroupsCollaboratorType,Groups, ,Groups
+Studio.GameSettings.General.LearnMoreLink,Click here to learn more!, ,Click here to learn more!
 Studio.GameSettings.General.VoiceChatLink,Click here to learn more!, ,Click here to learn more!
 Studio.GameSettings.AccessPermissions.MyFriendsCollaborator,My Friends, ,My Friends
 Studio.GameSettings.Permissions.MyFriendsCollaborator,My Friends, ,My Friends
@@ -387,3 +389,6 @@ Studio.GameSettings.OptInLocations.SavedGameWarning,You must publish your game b
 Studio.GameSettings.General.VoiceChatTitle,Spatial Voice, ,Spatial Voice
 Studio.GameSettings.General.VoiceChatText,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience., ,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience.
 Studio.GameSettings.General.VoiceChatBody,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience. [link], ,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience. [link]
+Studio.GameSettings.AvatarChat.VideoTitle,Enable Camera, ,Enable Camera
+Studio.GameSettings.AvatarChat.VideoBody,Enabling camera allows an eligible user to animate their avatar using their movements in your experience. [link], ,Enabling camera allows an eligible user to animate their avatar using their movements in your experience. [link]
+Studio.GameSettings.AvatarChat.AudioBody,Enabling microphone allows an eligible user to chat with their voice in your experience. [link], ,Enabling microphone allows an eligible user to chat with their voice in your experience. [link]

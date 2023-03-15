@@ -45,14 +45,14 @@ Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
 Studio.AssetImporter.Properties.AddModelToInventory,Add Model To Inventory
 Studio.AssetImporter.Properties.Anchored,Anchored
-Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage intersects clothing
+Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage vertices intersects clothing
 Studio.AssetImporter.Properties.CageNonManifoldPreview,Non-Manifold Geometry
 Studio.AssetImporter.Properties.CageOverlappingVerticesPreview,Coincident Vertices
 Studio.AssetImporter.Properties.CageUVMisMatchedPreview,Modified UV map
 Studio.AssetImporter.Properties.DiffuseFilePath,Diffuse File Path
 Studio.AssetImporter.Properties.Dimensions,Object Dimensions
 Studio.AssetImporter.Properties.DoubleSided,Make Double Sided
-Studio.AssetImporter.Properties.ExistingPackageId,Package ID To Update
+Studio.AssetImporter.Properties.ExistingPackageId,Update Package ID
 Studio.AssetImporter.Properties.FileDimensions,File Dimensions
 Studio.AssetImporter.Properties.FilePath,File Path
 Studio.AssetImporter.Properties.IgnoreVertexColors,Ignore Vertex Colors
@@ -82,7 +82,7 @@ Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
 Studio.AssetImporter.PropertiesTooltip.AddModelToInventory,Whether to add the scene to your Assets inventory as a Model
 Studio.AssetImporter.PropertiesTooltip.Anchored,If this object should be anchored
-Studio.AssetImporter.PropertiesTooltip.CageMeshIntersectedPreview,"The cage intersects with the clothing mesh, which could lead to interpenetration issues."
+Studio.AssetImporter.PropertiesTooltip.CageMeshIntersectedPreview,"There are cage vertices intersecting with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.PropertiesTooltip.CageNonManifoldPreview,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
 Studio.AssetImporter.PropertiesTooltip.CageOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
 Studio.AssetImporter.PropertiesTooltip.CageUVMisMatchedPreview,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
@@ -121,9 +121,10 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
+Studio.AssetImporter.Statuses.AnimationInPackageWarning,Animations currently will not be included in the final package.
 Studio.AssetImporter.Statuses.AvatarCagesMissingWarning,Corresponding cage mesh is missing for this mesh. All R15 Body Parts must have a cage.
 Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
-Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"The cage intersects with the clothing mesh, which could lead to interpenetration issues."
+Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"There are cage vertices intersecting with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.
 Studio.AssetImporter.Statuses.CageNameHasTypoWarning,"Cage name contains a typo, try renaming to {name}."
 Studio.AssetImporter.Statuses.CageNameHasTypoWarning_v1,"Cage name contains a typo, try renaming to {SuggestedName}."

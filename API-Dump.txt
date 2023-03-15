@@ -62,7 +62,7 @@ Class Accessory : Accoutrement
 Class Hat : Accoutrement [Deprecated]
 Class AdPortal : Instance
 	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly]
-	Property Enum.AdPortalType AdPortal.PortalType
+	Property Enum.AdPortalType AdPortal.PortalType [Hidden] [NotScriptable] [Deprecated]
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
 	Property int64 AdPortal.PortalVersion {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class AdService : Instance [NotCreatable] [Service]
@@ -176,6 +176,7 @@ Class Animator : Instance
 	Event Animator.AnimationPlayedCoreScript(AnimationTrack animationTrack) {RobloxScriptSecurity}
 	Event Animator.AnimationStreamTrackPlayed(AnimationStreamTrack animationTrack) {RobloxScriptSecurity}
 	Event Animator.OnCombinedUpdate2(Content animation, bool playState, float fadeTime, float weight, float speed, float timePosition, Enum.AnimationPriority priority, int valuesUpdated) {RobloxSecurity} [Hidden]
+	Event Animator.OnStreamingUpdated(float fadeTime, float weight, Enum.AnimationPriority priority, int valuesUpdated) {RobloxSecurity} [Hidden]
 	Event Animator.StreamSyncRequest(Player player) {RobloxSecurity} [Hidden]
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
@@ -251,7 +252,9 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function Dictionary AssetService:GetBundleDetailsSync(int64 bundleId) {RobloxScriptSecurity}
 	Function int64 AssetService:GetCreatorAssetID(int64 creationID) [Yields] [Deprecated]
 	Function Instance AssetService:GetGamePlacesAsync() [Yields]
+	Function Tuple AssetService:PromptPublishAssetAsync(Player player, Instance instance, Enum.AssetType assetType) [Yields]
 	Function void AssetService:SavePlaceAsync() [Yields]
+	Event AssetService.OpenPublishResultModal(Enum.PromptPublishAssetResult resultType) {RobloxScriptSecurity}
 Class Atmosphere : Instance
 	Property float Atmosphere.Density
 	Property float Atmosphere.Offset
@@ -869,6 +872,7 @@ Class ContextActionService : Instance [NotCreatable] [Service]
 	Function void ContextActionService:BindActivate(Enum.UserInputType userInputTypeForActivation, Tuple keyCodesForActivation)
 	Function void ContextActionService:BindCoreAction(string actionName, Function functionToBind, bool createTouchButton, Tuple inputTypes) {RobloxScriptSecurity}
 	Function void ContextActionService:BindCoreActionAtPriority(string actionName, Function functionToBind, bool createTouchButton, int priorityLevel, Tuple inputTypes) {RobloxScriptSecurity}
+	Function void ContextActionService:BindCoreActivate(Enum.UserInputType userInputTypeForActivation, Tuple keyCodesForActivation) {RobloxScriptSecurity}
 	Function Tuple ContextActionService:CallFunction(string actionName, Enum.UserInputState state, Instance inputObject) {RobloxScriptSecurity}
 	Function void ContextActionService:FireActionButtonFoundSignal(string actionName, Instance actionButton) {RobloxScriptSecurity}
 	Function Dictionary ContextActionService:GetAllBoundActionInfo()
@@ -885,6 +889,7 @@ Class ContextActionService : Instance [NotCreatable] [Service]
 	Function void ContextActionService:UnbindActivate(Enum.UserInputType userInputTypeForActivation, Enum.KeyCode keyCodeForActivation = "Unknown")
 	Function void ContextActionService:UnbindAllActions()
 	Function void ContextActionService:UnbindCoreAction(string actionName) {RobloxScriptSecurity}
+	Function void ContextActionService:UnbindCoreActivate(Enum.UserInputType userInputTypeForActivation, Enum.KeyCode keyCodeForActivation = "Unknown") {RobloxScriptSecurity}
 	Event ContextActionService.BoundActionAdded(string actionAdded, bool createTouchButton, Dictionary functionInfoTable, bool isCore) {RobloxScriptSecurity}
 	Event ContextActionService.BoundActionChanged(string actionChanged, string changeName, Dictionary changeTable) {RobloxScriptSecurity}
 	Event ContextActionService.BoundActionRemoved(string actionRemoved, Dictionary functionInfoTable, bool isCore) {RobloxScriptSecurity}
@@ -1774,6 +1779,7 @@ Class InstanceAdornment : GuiBase3d [NotCreatable]
 	Property Instance InstanceAdornment.Adornee
 Class SelectionBox : InstanceAdornment
 	Property float SelectionBox.LineThickness
+	Property bool SelectionBox.StudioSelectionBox {RobloxScriptSecurity} [Hidden]
 	Property BrickColor SelectionBox.SurfaceColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 SelectionBox.SurfaceColor3
 	Property float SelectionBox.SurfaceTransparency
@@ -2194,7 +2200,11 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ImageDataExperimental : Instance [NotCreatable]
 	Property Vector2 ImageDataExperimental.Size
 	Property Content ImageDataExperimental.TemporaryId [ReadOnly]
+	Function void ImageDataExperimental:Clear()
+	Function void ImageDataExperimental:DrawCircle(Vector2 center, int radius, Color3 color, float alpha)
 	Function void ImageDataExperimental:PopulateFromImageAsync(Content textureId) [Yields]
+	Function void ImageDataExperimental:Resize(Vector2 newSize)
+	Function void ImageDataExperimental:Rotate(float degrees, bool resizeCanvas = true)
 Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Property string ImporterBaseSettings.Id [ReadOnly]
 	Property string ImporterBaseSettings.ImportName
@@ -2257,6 +2267,7 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool IncrementalPatchBuilder.AddPathsToBundle
 	Property bool IncrementalPatchBuilder.HighCompression
+	Property bool IncrementalPatchBuilder.SerializePatch
 	Property bool IncrementalPatchBuilder.ZstdCompression
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
@@ -2277,6 +2288,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Array InsertService:GetFreeDecals(string searchText, int pageNum) [Yields]
 	Function Array InsertService:GetFreeModels(string searchText, int pageNum) [Yields]
 	Function int64 InsertService:GetLatestAssetVersionAsync(int64 assetId) [Yields]
+	Function string InsertService:GetLocalFileContents(string contentId) {RobloxScriptSecurity}
 	Function Array InsertService:GetUserCategories(int64 userId) [Yields] [Deprecated]
 	Function Array InsertService:GetUserSets(int64 userId) [Yields]
 	Function void InsertService:Insert(Instance instance) [Deprecated]
@@ -2595,10 +2607,13 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) {LocalUserSecurity}
 	Callback Enum.ProductPurchaseDecision MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function double MaterialGenerationService:GetAccountingBalanceAsync() {RobloxScriptSecurity} [Yields]
+	Function double MaterialGenerationService:RefillAccountingBalanceAsync() {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationSession MaterialGenerationService:StartSession() {RobloxScriptSecurity}
 Class MaterialGenerationSession : Instance [NotCreatable] [NotReplicated]
-	Function Array MaterialGenerationSession:GenerateImagesAsync(string prompt, Dictionary options) {RobloxScriptSecurity} [Yields]
-	Function Dictionary MaterialGenerationSession:GenerateMaterialAsync(string imageId) {RobloxScriptSecurity} [Yields]
+	Function Tuple MaterialGenerationSession:GenerateImagesAsync(string prompt, Dictionary options) {RobloxScriptSecurity} [Yields]
+	Function Dictionary MaterialGenerationSession:GenerateMaterialMapsAsync(string imageId) {RobloxScriptSecurity} [Yields]
+	Function Dictionary MaterialGenerationSession:UploadMaterialAsync(string imageId) {RobloxScriptSecurity} [Yields]
 Class MaterialService : Instance [NotCreatable] [Service]
 	Property string MaterialService.AsphaltName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.BasaltName {RobloxSecurity} [NotScriptable]
@@ -2676,6 +2691,9 @@ Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
 	Function void MemoryStoreSortedMap:RemoveAsync(string key) [Yields]
 	Function bool MemoryStoreSortedMap:SetAsync(string key, Variant value, int64 expiration) [Yields]
 	Function Variant MemoryStoreSortedMap:UpdateAsync(string key, Function transformFunction, int64 expiration) [Yields]
+Class MeshDataExperimental : Instance [NotCreatable]
+	Property Vector3 MeshDataExperimental.Size [ReadOnly]
+	Function void MeshDataExperimental:PopulateFromMeshAsync(Content meshId) [Yields]
 Class Message : Instance [Deprecated]
 	Property string Message.Text [Deprecated]
 Class Hint : Message [Deprecated]
@@ -2896,8 +2914,8 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function Objects BasePart:GetConnectedParts(bool recursive = false) {🧬Safe}
 	Function Objects BasePart:GetJoints() {🧬Safe}
 	Function float BasePart:GetMass() {🧬Safe}
-	Function Instance BasePart:GetNetworkOwner()
-	Function bool BasePart:GetNetworkOwnershipAuto()
+	Function Instance BasePart:GetNetworkOwner() {🧬Safe}
+	Function bool BasePart:GetNetworkOwnershipAuto() {🧬Safe}
 	Function CFrame BasePart:GetRenderCFrame() [Deprecated]
 	Function Instance BasePart:GetRootPart() {🧬Safe}
 	Function Objects BasePart:GetTouchingParts()
@@ -2992,7 +3010,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function void Terrain:FillRegion(Region3 region, float resolution, Enum.Material material)
 	Function void Terrain:FillWedge(CFrame cframe, Vector3 size, Enum.Material material)
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
-	Function Color3 Terrain:GetMaterialColor(Enum.Material material)
+	Function Color3 Terrain:GetMaterialColor(Enum.Material material) {🧬Safe}
 	Function Array Terrain:GetTerrainWireframe(CFrame cframe, Vector3 size) {RobloxScriptSecurity}
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
 	Function void Terrain:PasteRegion(TerrainRegion region, Vector3int16 corner, bool pasteEmptyCells)
@@ -3534,7 +3552,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function HumanoidDescription Players:GetHumanoidDescriptionFromOutfitId(int64 outfitId) [Yields]
 	Function HumanoidDescription Players:GetHumanoidDescriptionFromUserId(int64 userId) [Yields]
 	Function string Players:GetNameFromUserIdAsync(int64 userId) [Yields]
-	Function Player Players:GetPlayerByUserId(int64 userId)
+	Function Player Players:GetPlayerByUserId(int64 userId) {🧬Safe}
 	Function Player Players:GetPlayerFromCharacter(Model character)
 	Function Objects Players:GetPlayers() {🧬Safe}
 	Function int64 Players:GetUserIdFromNameAsync(string userName) [Yields]
@@ -3560,6 +3578,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.PlayerRejoining(Player player) {LocalUserSecurity}
 	Event Players.PlayerRemoving(Player player)
 	Event Players.PromptGameServerReportEnrichment(string reportId) {RobloxSecurity} [Hidden]
+	Event Players.PromptReportServerEnrichmentAndScan(string v1comment, int64 submitterId, int64 abuserId, string reportId) {RobloxSecurity} [Hidden]
 	Event Players.RequestCloudEditImmediatePublishWithContext(string spanContext) {RobloxSecurity} [Hidden]
 	Event Players.RequestCloudEditKick(int64 playerId) {RobloxSecurity} [Hidden]
 	Event Players.RequestCloudEditShutdown() {RobloxSecurity} [Hidden]
@@ -3982,10 +4001,12 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Event ScriptDocument.ViewportChanged(int64 startLine, int64 endLine) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ScriptEditorService:DeregisterAutocompleteCallback(string name) {PluginSecurity}
+	Function void ScriptEditorService:DeregisterScriptAnalysisCallback(string name) {PluginSecurity}
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
 	Function Tuple ScriptEditorService:OpenScriptDocumentAsync(LuaSourceContainer script) {PluginSecurity} [Yields]
 	Function void ScriptEditorService:RegisterAutocompleteCallback(string name, int priority, Function callbackFunction) {PluginSecurity}
+	Function void ScriptEditorService:RegisterScriptAnalysisCallback(string name, int priority, Function callbackFunction) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {PluginSecurity}
@@ -3993,7 +4014,8 @@ Class ScriptRegistrationService : Instance [NotCreatable] [Service] [NotReplicat
 	Function LuaSourceContainer ScriptRegistrationService:GetSourceContainerByScriptGuid(string guid) {RobloxScriptSecurity}
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
-	Property int Selection.SelectionLineThickness [Hidden] [ReadOnly]
+	Property float Selection.SelectionBoxThickness {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int Selection.SelectionLineThickness {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property float Selection.SelectionThickness [ReadOnly]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Selection.ShowBoundingBox {RobloxScriptSecurity} [Hidden]
@@ -4497,6 +4519,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Physical Draggers Select Scope By Default {RobloxScriptSecurity}
 	Property Color3 Studio.Pivot Snap To Geometry Color {RobloxSecurity}
 	Property Color3 Studio.Select Color
+	Property float Studio.Selection Box Thickness {RobloxSecurity}
 	Property float Studio.Selection Highlight Thickness {RobloxSecurity}
 	Property int Studio.Selection Line Thickness {RobloxSecurity}
 	Property bool Studio.Show Hover Over
@@ -4629,7 +4652,7 @@ Class TeamCreateData : Instance [NotCreatable] [Service]
 	Property CFrame TeamCreateData.InitialCameraCFrame {RobloxSecurity} [Hidden] [NotScriptable]
 Class TeamCreatePublishService : Instance [NotCreatable] [Service]
 	Event TeamCreatePublishService.TeamCreatePublishResult(bool publishSuccessful, int statusCode, string errMessage, string rawMessage) {RobloxSecurity} [Hidden]
-	Event TeamCreatePublishService.TeamCreateReplicatedMessage(Enum.MessageType messageType, string message, bool printToStatusBar, int statusCode, bool isPublish, string authorName) {RobloxSecurity} [Hidden]
+	Event TeamCreatePublishService.TeamCreateReplicatedMessage(Enum.MessageType messageType, string failureMessage, int statusCode, bool isPublish, string authorName) {RobloxSecurity} [Hidden]
 	Event TeamCreatePublishService.TeamCreateSaveResult(bool saveSuccessful, int statusCode, string errMessage, string rawMessage) {RobloxSecurity} [Hidden]
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TeamCreateService:SendUnarchiveUniverseAsync(int64 universeId) {RobloxScriptSecurity}
@@ -4889,6 +4912,7 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function Tween TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
 	Function float TweenService:GetValue(float alpha, Enum.EasingStyle easingStyle, Enum.EasingDirection easingDirection)
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function bool UGCValidationService:CanLoadAsset(string assetId) {RobloxScriptSecurity} [Yields]
 	Function Objects UGCValidationService:FetchAssetWithFormat(Content url, string assetFormat) {RobloxScriptSecurity} [Yields]
 	Function int UGCValidationService:GetMeshTriCount(string meshId) {RobloxScriptSecurity} [Yields]
 	Function int UGCValidationService:GetMeshTriCountSync(string meshId) {RobloxScriptSecurity}
@@ -6945,6 +6969,12 @@ Enum ProductLocationRestriction
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1
+Enum PromptPublishAssetResult
+	EnumItem PromptPublishAssetResult.Success : 1
+	EnumItem PromptPublishAssetResult.PermissionDenied : 2
+	EnumItem PromptPublishAssetResult.Timeout : 3
+	EnumItem PromptPublishAssetResult.UploadFailed : 4
+	EnumItem PromptPublishAssetResult.NoUserInput : 5
 Enum PropertyStatus
 	EnumItem PropertyStatus.Ok : 0
 	EnumItem PropertyStatus.Warning : 1
@@ -7178,6 +7208,9 @@ Enum ServiceVisibility
 	EnumItem ServiceVisibility.Always : 0
 	EnumItem ServiceVisibility.Off : 1
 	EnumItem ServiceVisibility.WithChildren : 2
+Enum Severity
+	EnumItem Severity.Error : 1
+	EnumItem Severity.Warning : 2
 Enum SignalBehavior
 	EnumItem SignalBehavior.Default : 0
 	EnumItem SignalBehavior.Immediate : 1

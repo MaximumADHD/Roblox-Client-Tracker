@@ -4,5 +4,5 @@ struct EmitterParams
     vec4 Params;
     vec4 AtlasParams;
     vec2 Orientation_Brightness;
-    vec2 _unused_padding;
+    vec2 FlipbookLayout;
 };

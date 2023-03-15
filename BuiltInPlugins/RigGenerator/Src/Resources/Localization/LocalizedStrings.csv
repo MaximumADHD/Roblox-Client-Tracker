@@ -1,0 +1,16 @@
+Key,Source,en-us
+Studio.RigGenerator.RigPresetLabel.UserAvatar,My Avatar,My Avatar
+Studio.RigGenerator.RigPresetLabel.SkinnedAvatar,Skinned Avatar,Skinned Avatar
+Studio.RigGenerator.Menu.BodyShape,Body Shape,Body Shape
+Studio.RigGenerator.Plugin.Button,Generate Rig,Generate Rig
+Studio.RigGenerator.Plugin.Text,Generate Rig,Generate Rig
+Studio.RigGenerator.Plugin.Name,Rig Generator,Rig Generator
+Studio.RigGenerator.Plugin.Toolbar,Rig Generator,Rig Generator
+Studio.RigGenerator.Plugin.Description,Generates Avatar Rigs,Generates Avatar Rigs
+Studio.RigGenerator.Menu.RigType,Rig Type,Rig Type
+Studio.RigGenerator.BodyShape.Feminine,Feminine,Feminine
+Studio.RigGenerator.BodyShape.Masculine,Masculine,Masculine
+Studio.RigGenerator.RigPresetLabel.RthroAvatar,Rthro Avatar,Rthro Avatar
+Studio.RigGenerator.RigPresetLabel.BlockAvatar,Block Avatar,Block Avatar
+Studio.RigGenerator.RigPresetLabel.2016Avatar,Mesh Avatar (2016),Mesh Avatar (2016)
+Studio.RigGenerator.RigPresetLabel.2012Avatar,Mesh Avatar (2012),Mesh Avatar (2012)

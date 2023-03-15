@@ -1,15 +1,31 @@
 Key,en-us
+Studio.MaterialGenerator.Errors.AccountingFailedDecrement,Useage is limited during beta. Wait a moment and try again.
+Studio.MaterialGenerator.Errors.FailedToGenerateMaps,Generation error. Please try again.
+Studio.MaterialGenerator.Errors.NoSelectedMaterial,Please choose a base material.
+Studio.MaterialGenerator.Errors.NoSession,Generation error. Please try again.
+Studio.MaterialGenerator.Errors.ServerError500,"Server error, please try again."
+Studio.MaterialGenerator.Errors.ServerError504,"Server error, please try again."
+Studio.MaterialGenerator.Errors.TextFullyFiltered,Your text is fully filtered. Please try a different prompt.
+Studio.MaterialGenerator.Errors.TooManyRequests,Useage is limited during beta. Wait a moment and try again.
+Studio.MaterialGenerator.Errors.UnknownGenerationError,Generation error. Please try again.
+Studio.MaterialGenerator.Header.BudgetErrorFormat,"Generation error, please try again."
+Studio.MaterialGenerator.Header.ErrorQueryingBudget,"Generation error, please try again."
 Studio.MaterialGenerator.Header.GenerateButton,Generate
-Studio.MaterialGenerator.Header.PromptPlaceholderText,Enter text to create images
+Studio.MaterialGenerator.Header.OutOfBudget,This feature is in beta and the servers are at capacity. Try again soon!
+Studio.MaterialGenerator.Header.PromptPlaceholderText,Ancient stone wall...
+Studio.MaterialGenerator.Header.RetryBudgetQuery,"Generation error, please try again."
+Studio.MaterialGenerator.MaterialView.ApplyVariant,Apply Variant
 Studio.MaterialGenerator.MaterialView.BaseMaterial,Base Material
+Studio.MaterialGenerator.MaterialView.BaseMaterialNotGivenError,Required
+Studio.MaterialGenerator.MaterialView.BaseMaterialPlaceholderText,None
 Studio.MaterialGenerator.MaterialView.MaterialPattern,Pattern
 Studio.MaterialGenerator.MaterialView.MaterialPatternOrganic,Organic
 Studio.MaterialGenerator.MaterialView.Name,Name
-Studio.MaterialGenerator.MaterialView.SaveAndApply,Save & Apply Variant
+Studio.MaterialGenerator.MaterialView.SaveAndApplyVariant,Save & Apply Variant
 Studio.MaterialGenerator.MaterialView.StudsPerTile,Studs Per Tile
 Studio.MaterialGenerator.Plugin.Button,Material Generator
 Studio.MaterialGenerator.Plugin.Description,Generate materials from text using AI
 Studio.MaterialGenerator.Plugin.Name,Material Generator
 Studio.MaterialGenerator.Plugin.Toolbar,MaterialGenerator
-Studio.MaterialGenerator.TextureBrowser.Remove,Remove
-Studio.MaterialGenerator.TextureBrowser.RemoveAll,Remove All
+Studio.MaterialGenerator.TextureBrowser.Remove,Discard
+Studio.MaterialGenerator.TextureBrowser.RemoveAll,Discard All

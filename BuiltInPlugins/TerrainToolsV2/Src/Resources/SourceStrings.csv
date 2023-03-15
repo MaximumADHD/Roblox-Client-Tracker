@@ -181,7 +181,9 @@ Studio.TerrainToolsV2.MapSettings.Size, ,Size
 Studio.TerrainToolsV2.MaterialSettings.AutoMaterial, ,Auto Material
 Studio.TerrainToolsV2.MaterialSettings.ChooseBiome, ,Choose Biomes to apply
 Studio.TerrainToolsV2.MaterialSettings.ChooseMaterial, ,Choose a material to apply
+Studio.TerrainToolsV2.MaterialSettings.Fill, ,Fill
 Studio.TerrainToolsV2.MaterialSettings.MaterialSettings, ,Material Settings
+Studio.TerrainToolsV2.MaterialSettings.Replace, ,Replace
 Studio.TerrainToolsV2.MaterialSettings.ReplaceMaterial, ,Replace Mode
 Studio.TerrainToolsV2.MaterialSettings.SourceMaterial, ,Source material
 Studio.TerrainToolsV2.MaterialSettings.TargetMaterial, ,Target material
@@ -215,6 +217,16 @@ Studio.TerrainToolsV2.Meta.PluginName, ,TerrainToolsV2
 Studio.TerrainToolsV2.Meta.ToolbarName, ,Terrain
 Studio.TerrainToolsV2.PartToBiome.PartToBiome, ,Part to Biome
 Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, ,Part to Terrain
+Studio.TerrainToolsV2.RegionSettings.Copy, ,Copy
+Studio.TerrainToolsV2.RegionSettings.MergeEmpty, ,Merge Empty
+Studio.TerrainToolsV2.RegionSettings.Move, ,Move
+Studio.TerrainToolsV2.RegionSettings.Position, ,Position
+Studio.TerrainToolsV2.RegionSettings.RegionSettings, ,Region Settings
+Studio.TerrainToolsV2.RegionSettings.Rotation, ,Rotation
+Studio.TerrainToolsV2.RegionSettings.Select, ,Select
+Studio.TerrainToolsV2.RegionSettings.Size, ,Size
+Studio.TerrainToolsV2.RegionSettings.Transform, ,Transform
+Studio.TerrainToolsV2.RegionSettings.TransformMode, ,Transform Mode
 Studio.TerrainToolsV2.Regions.EditTools, ,Edit Tools
 Studio.TerrainToolsV2.Regions.FillSelection, ,Fill Selection
 Studio.TerrainToolsV2.Regions.Tools, ,Tools
@@ -249,9 +261,11 @@ Studio.TerrainToolsV2.ToolName.Generate, ,Generate
 Studio.TerrainToolsV2.ToolName.Grow, ,Grow
 Studio.TerrainToolsV2.ToolName.Import, ,Import
 Studio.TerrainToolsV2.ToolName.ImportLocal, ,Import
+Studio.TerrainToolsV2.ToolName.Material, ,Material
 Studio.TerrainToolsV2.ToolName.Move, ,Move
 Studio.TerrainToolsV2.ToolName.Paint, ,Paint
 Studio.TerrainToolsV2.ToolName.Paste, ,Paste
+Studio.TerrainToolsV2.ToolName.Region, ,Region
 Studio.TerrainToolsV2.ToolName.Regions, ,Regions
 Studio.TerrainToolsV2.ToolName.Replace, ,Replace
 Studio.TerrainToolsV2.ToolName.Resize, ,Resize

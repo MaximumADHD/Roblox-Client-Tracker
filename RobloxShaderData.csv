@@ -1,6 +1,7 @@
 Name,Shader Type,d3d10,d3d10_1,d3d11,glsl,glsl3,vulkan_desktop
 AdornAALineFS,Fragment,✔,✔,✔,✔,✔,✔
 AdornAALineVS,Vertex,✔,✔,✔,✔,✔,✔
+AdornFixedWidthAALineVS,Vertex,✔,✔,✔,✔,✔,✔
 AdornFS,Fragment,✔,✔,✔,✔,✔,✔
 AdornLightingVS,Vertex,✔,✔,✔,✔,✔,✔
 AdornObjectFS,Fragment,✔,✔,✔,✔,✔,✔
@@ -696,7 +697,6 @@ RadialBlurFS,Fragment,✔,✔,✔,✔,✔,✔
 ReprojectFilterFS,Fragment,❌,❌,✔,❌,❌,✔
 SelectionOutlineHorizFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineVerticalFS,Fragment,✔,✔,✔,✔,✔,✔
-SelectionOutlineVerticalOccFS,Fragment,✔,✔,✔,✔,✔,✔
 ShadowBlurFS,Fragment,✔,✔,✔,✔,✔,✔
 ShadowBlurMarkFS,Fragment,✔,✔,✔,✔,✔,✔
 ShadowBlurMarkVS,Vertex,✔,✔,✔,✔,✔,✔

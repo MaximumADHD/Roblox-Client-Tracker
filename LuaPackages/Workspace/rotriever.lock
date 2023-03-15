@@ -67,7 +67,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "MessageBus MessageBus 0.1.0",
@@ -139,7 +138,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "PermissionsProtocol PermissionsProtocol 0.1.0",
@@ -207,7 +205,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "PermissionsProtocol PermissionsProtocol 0.1.0",
@@ -324,6 +321,8 @@ version = "0.1.0"
 name = "GraphQLServer"
 version = "0.1.0"
 dependencies = [
+    "ApolloClient ApolloClient 0.1.0",
+    "ApolloLocalState ApolloLocalState 0.1.0",
     "Cryo Cryo 0.1.0",
     "DataLoader DataLoader 0.1.0",
     "Fetch Fetch 0.1.0",
@@ -335,6 +334,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Promise Promise 0.1.0",
     "RecordPlayback RecordPlayback 0.1.0",
+    "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "UrlBuilder UrlBuilder 0.1.0",
 ]
@@ -383,6 +383,7 @@ version = "0.1.0"
 [[package]]
 name = "InputType"
 version = "0.1.0"
+dependencies = ["SharedFlags SharedFlags 0.1.0"]
 
 [[package]]
 name = "InviteLinkExpiredModal"
@@ -392,7 +393,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
@@ -482,7 +482,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "React React 0.1.0",
     "Rhodium Rhodium 0.1.0",
@@ -542,7 +541,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "React React 0.1.0",
@@ -566,7 +564,10 @@ dependencies = [
 [[package]]
 name = "PeekView"
 version = "0.1.0"
-dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+]
 
 [[package]]
 name = "PermissionsProtocol"
@@ -627,15 +628,17 @@ name = "ProfileQRCode"
 version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
+    "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "Enumerate enumerate 0.1.0",
     "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
+    "NetworkingFriends NetworkingFriends 0.1.0",
+    "NetworkingUsers NetworkingUsers 0.1.0",
     "QRCodeDisplay QRCodeDisplay 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
@@ -675,7 +678,6 @@ dependencies = [
     "Dash Dash 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "QRCode QRCode 0.1.0",
@@ -849,6 +851,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "SceneManagement"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+]
+
+[[package]]
 name = "SetAlias"
 version = "0.1.0"
 dependencies = [
@@ -857,7 +869,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "Promise Promise 0.1.0",
@@ -885,7 +896,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "Rhodium Rhodium 0.1.0",
@@ -1066,7 +1076,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaProfileDeps LuaProfileDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "PeekView PeekView 0.1.0",
@@ -1127,10 +1136,15 @@ dependencies = ["TemplatePackage TemplatePackage 0.1.0"]
 name = "TenFootUiGlobalNav"
 version = "0.1.0"
 dependencies = [
+    "Cryo Cryo 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "React React 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "RoactCompat RoactCompat 0.1.0",
+    "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
 
 [[package]]
