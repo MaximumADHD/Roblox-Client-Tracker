@@ -70,7 +70,7 @@ Jest = "github.com/roblox/jest-roblox@3.2.1"
 JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
 JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.2.1", package = "JestGlobals" }
 # switch from git-dependency once mirrored in artifactory
-ReactTestingLibrary = { git = "github.com/roblox/react-testing-library-lua", rev = "main" }
+ReactTestingLibrary = "github.com/roblox/react-testing-library-lua@12.1.5"
 Rhodium = "github.com/roblox/rhodium@0.2.8"
 TagUtils = "github.com/Roblox/luau-tag-utils@0.1.0"
 RecordPlayback = "https://github.com/Roblox/http-service-utils@0.1.0"
@@ -78,6 +78,7 @@ RecordPlayback = "https://github.com/Roblox/http-service-utils@0.1.0"
 # Dependencies for the Roact17 inspector
 ReactDevtoolsExtensions = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactDevtoolsExtensionsProxy" }
 DeveloperTools = "github.com/Roblox/developer-tools@0.2.4"
+ApolloClientTesting = "github.com/Roblox/apollo-client-testing@0.3.10"
 
 # Patch all dependencies upon rodux to the flagged indireciton package, which
 # will ensure that we always use only one rodux version

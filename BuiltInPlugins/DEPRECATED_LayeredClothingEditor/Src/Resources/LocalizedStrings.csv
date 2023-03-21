@@ -76,7 +76,7 @@ Studio.LayeredClothingEditor.AssetType.Dress,Dress,Dress,Vestido,Robe,Vestito,�
 Studio.LayeredClothingEditor.Generate.Prompt,The asset is ready.,The asset is ready.,El recurso está listo.,L'actif est prêt.,La risorsa è disponibile.,アセットの準備ができました。,애셋이 준비되었습니다.,O ativo está pronto., ,素材已就绪。,素材已就绪。,素材已準備完成。
 Studio.LayeredClothingEditor.Dialog.Confirm,Confirm,Confirm,Confirmar,Confirmer,Conferma,確定,확인,Confirmar, ,确认,确认,確認
 Studio.LayeredClothingEditor.Actions.Undo,Undo,Undo,Deshacer,Annuler,Annulla,取り消す,실행 취소,Desfazer, ,撤消,撤消,復原
-Studio.LayeredClothingEditor.Actions.ToggleTransform,Toggle Transform,Toggle Transform,Alternar transformar,Transformation,Attiva/disattiva trasformazione,変形を切り替え,변형 토글,Alternar transformar, ,切换变形,切换变形,新增轉換
+Studio.LayeredClothingEditor.Actions.ToggleTransform,Toggle Transform,Toggle Transform,Alternar transformar,Transformation,Attiva/disattiva trasformazione,変形を切り替え,변형 토글,Alternar transformar, ,切换变形,切换变形,新增變形
 Studio.LayeredClothingEditor.Actions.SelectLattice,Select Lattice,Select Lattice,Seleccionar enrejado,Sélectionner treillage,Seleziona reticolo,格子を選択,격자 선택,Selecionar treliça, ,选择栅格,选择栅格,選擇格紋
 Studio.LayeredClothingEditor.ToolSettings.Target,Target,Target,Objetivo,Cible,Target,ターゲット,대상,Alvo, ,目标,目标,對象
 Studio.LayeredClothingEditor.ToolSettings.Subdivisions,Subdivisions,Subdivisions,Subdivisiones,Subdivisions,Suddivisioni,部分,세분화,Subdivisões, ,分部,分部,細分

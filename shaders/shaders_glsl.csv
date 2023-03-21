@@ -254,6 +254,7 @@ ParticleCurveCrazySparklesFS,Fragment
 ParticleCurveModulateFS,Fragment
 ParticleCurveVS,Vertex
 ParticleCustomFS,Fragment
+ParticleCustomLerpFixFS,Fragment
 ParticleCustomVS,Vertex
 ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex

@@ -54,7 +54,7 @@ void main()
     vec4 v23 = vec4(v8, v9, v10, 0.0);
     v23.w = CB1[gl_InstanceID * 7 + 6].w;
     vec4 v24 = vec4(v12, v13, v14, 0.0);
-    v24.w = inversesqrt(0.1745329201221466064453125 * CB1[gl_InstanceID * 7 + 6].z);
+    v24.w = inversesqrt(CB1[gl_InstanceID * 7 + 6].z * 0.174534320831298828125);
     gl_Position = v17;
     VARYING0 = (TEXCOORD0 * v16) + CB1[gl_InstanceID * 7 + 6].xy;
     VARYING1 = CB1[gl_InstanceID * 7 + 4] * mix(COLOR0 * 0.0039215688593685626983642578125, vec4(1.0), vec4(max(sign(CB1[gl_InstanceID * 7 + 3].w), 0.0)));

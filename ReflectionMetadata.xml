@@ -7996,6 +7996,55 @@
             <string name="PropertyOrder">1012</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SmoothTime</string>
+            <string name="Description">Specifies the time in seconds to smooth the control by.</string>
+            <string name="PropertyOrder">1013</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetChainLength</string>
+            <string name="Description">Returns the total length of the chain, which is the sum of the lengths of its segments.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetChainCount</string>
+            <string name="Description">Returns the number of segments in the chain, which is one less than the number of nodes.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetNodeWorldCFrame</string>
+            <string name="Description">Returns the CFrame of the node with the given index in world space.</string>
+            <string name="FFlag">IkControlNewInternalsApi</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetNodeLocalCFrame</string>
+            <string name="Description">Returns the CFrame of the node with the given index in local space.</string>
+            <string name="FFlag">IkControlNewInternalsApi</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetRawFinalTarget</string>
+            <string name="Description">Returns the CFrame of the raw final target in world space.</string>
+            <string name="FFlag">IkControlNewInternalsApi</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetSmoothedFinalTarget</string>
+            <string name="Description">Returns the CFrame of the smoothed final target in world space.</string>
+            <string name="FFlag">IkControlNewInternalsApi</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">

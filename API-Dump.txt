@@ -61,8 +61,9 @@ Class Accessory : Accoutrement
 	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
 Class Hat : Accoutrement [Deprecated]
 Class AdPortal : Instance
-	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly]
+	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly] [Deprecated]
 	Property Enum.AdPortalType AdPortal.PortalType [Hidden] [NotScriptable] [Deprecated]
+	Property Enum.AdUnitStatus AdPortal.Status [ReadOnly]
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
 	Property int64 AdPortal.PortalVersion {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class AdService : Instance [NotCreatable] [Service]
@@ -254,6 +255,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function Instance AssetService:GetGamePlacesAsync() [Yields]
 	Function Tuple AssetService:PromptPublishAssetAsync(Player player, Instance instance, Enum.AssetType assetType) [Yields]
 	Function void AssetService:SavePlaceAsync() [Yields]
+	Function AudioPages AssetService:SearchAudio(AudioSearchParams searchParameters) [Yields]
 	Event AssetService.OpenPublishResultModal(Enum.PromptPublishAssetResult resultType) {RobloxScriptSecurity}
 Class Atmosphere : Instance
 	Property float Atmosphere.Density
@@ -284,6 +286,15 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedCFrame [Hidden] [ReadOnly]
 	Property CFrame Bone.TransformedWorldCFrame [ReadOnly] {🧬Unsafe}
 	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
+Class AudioSearchParams : Instance [NotReplicated]
+	Property string AudioSearchParams.Album
+	Property string AudioSearchParams.Artist
+	Property Enum.AudioSubType AudioSearchParams.AudioSubtype
+	Property int AudioSearchParams.MaxDuration
+	Property int AudioSearchParams.MinDuration
+	Property string AudioSearchParams.SearchKeyword
+	Property string AudioSearchParams.Tag
+	Property string AudioSearchParams.Title
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
 	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) [Yields]
@@ -941,14 +952,14 @@ Class SwimController : ControllerBase [NotBrowsable]
 	Property float SwimController.RollSpeedFactor
 	Property float SwimController.AccelerationTime
 Class ControllerManager : Instance [NotBrowsable]
-	Property ControllerBase ControllerManager.ActiveController [ReadOnly]
+	Property ControllerBase ControllerManager.ActiveController
 	Property float ControllerManager.BaseMoveSpeed
 	Property float ControllerManager.BaseTurnSpeed
 	Property ControllerSensor ControllerManager.ClimbSensor
 	Property ControllerSensor ControllerManager.GroundSensor
 	Property Vector3 ControllerManager.FacingDirection
 	Property Vector3 ControllerManager.MovingDirection
-	Function Objects ControllerManager:GetControllers() {🧬Safe}
+	Function Objects ControllerManager:GetControllers()
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1204,7 +1215,7 @@ Class EventIngestService : Instance [NotCreatable] [Service]
 	Function void EventIngestService:SetRBXEvent(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SetRBXEventStream(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 Class ExperienceAuthService : Instance [NotCreatable] [Service]
-	Function void ExperienceAuthService:scopeCheckUIComplete(string guid, Array scopes, Enum.ScopeCheckResult result, Dictionary metadata) {RobloxScriptSecurity}
+	Function void ExperienceAuthService:ScopeCheckUIComplete(string guid, Array scopes, Enum.ScopeCheckResult result, Dictionary metadata) {RobloxScriptSecurity}
 	Event ExperienceAuthService.OpenAuthPrompt(string guid, Array scopes, Dictionary metadata) {RobloxScriptSecurity}
 	Event ExperienceAuthService.ScopeCheckResult(string guid, Enum.ScopeCheckResult result, string token, Array scopes, Dictionary metadata) {RobloxSecurity} [Hidden]
 Class ExperienceInviteOptions : Instance [NotReplicated]
@@ -1745,6 +1756,7 @@ Class SurfaceGuiBase : LayerCollector [NotCreatable]
 	Property Instance SurfaceGuiBase.Adornee
 	Property Enum.NormalId SurfaceGuiBase.Face
 Class AdGui : SurfaceGuiBase
+	Property Enum.AdUnitStatus AdGui.Status [ReadOnly]
 	Property Enum.AdShape AdGui.AdShape
 Class SurfaceGui : SurfaceGuiBase
 	Property float SurfaceGui.HorizontalCurvature {RobloxScriptSecurity} [Hidden]
@@ -2180,6 +2192,10 @@ Class IKControl : Instance
 	Property float IKControl.Weight
 	Function int IKControl:GetChainCount()
 	Function float IKControl:GetChainLength()
+	Function CFrame IKControl:GetNodeLocalCFrame(int index) [NotBrowsable]
+	Function CFrame IKControl:GetNodeWorldCFrame(int index) [NotBrowsable]
+	Function CFrame IKControl:GetRawFinalTarget() [NotBrowsable]
+	Function CFrame IKControl:GetSmoothedFinalTarget() [NotBrowsable]
 Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
 Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
 Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3057,6 +3073,7 @@ Class PartOperation : TriangleMeshPart
 	Property BinaryString PartOperation.MeshData {RobloxSecurity} [Hidden] [NotScriptable]
 	Property SharedString PartOperation.MeshData2 {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BinaryString PartOperation.PhysicsData {RobloxSecurity} [Hidden] [NotScriptable]
+	Property SharedString PartOperation.SerializedCSGTree [Hidden] [NotReplicated] [NotScriptable]
 	Property int PartOperation.TriangleCount [ReadOnly]
 	Property bool PartOperation.UsePartColor
 Class IntersectOperation : PartOperation
@@ -3110,6 +3127,9 @@ Class Model : PVInstance
 	Function void Model:TranslateBy(Vector3 delta)
 	Function void Model:move(Vector3 location) [Deprecated]
 Class Actor : Model
+	Function RBXScriptConnection Actor:BindToMessage(string name, Function function) {🧬Safe}
+	Function RBXScriptConnection Actor:BindToMessageParallel(string name, Function function) {🧬Safe}
+	Function void Actor:SendMessage(string name, Tuple message) {🧬Safe}
 Class BackpackItem : Model [NotCreatable]
 	Property Content BackpackItem.TextureId
 Class HopperBin : BackpackItem [Deprecated]
@@ -3236,6 +3256,7 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Property bool Pages.IsFinished [ReadOnly]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
 	Function Array Pages:GetCurrentPage()
+Class AudioPages : Pages [NotCreatable] [NotReplicated]
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreKeyPages : Pages [NotCreatable] [NotReplicated]
 	Property string DataStoreKeyPages.Cursor [ReadOnly]
@@ -3363,6 +3384,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreOwnersShown
 	Property bool PhysicsSettings.ArePartCoordsShown
 	Property bool PhysicsSettings.AreRegionsShown
+	Property bool PhysicsSettings.AreSolverIslandsShown {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreTerrainReplicationRegionsShown
 	Property bool PhysicsSettings.AreTimestepsShown {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreUnalignedPartsShown
@@ -3373,6 +3395,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
 	Property bool PhysicsSettings.ShowDecompositionGeometry
+	Property Enum.SolverConvergenceVisualizationMode PhysicsSettings.SolverConvergenceVisualizationMode {RobloxScriptSecurity}
 	Property bool PhysicsSettings.UseCSGv2
 	Property bool PhysicsSettings.AllowSleep
 	Property Enum.EnviromentalPhysicsThrottle PhysicsSettings.PhysicsEnvironmentalThrottle
@@ -3608,6 +3631,7 @@ Class Plugin : Instance [NotCreatable]
 	Function int64 Plugin:GetStudioUserId() {PluginSecurity} [Deprecated]
 	Function Instance Plugin:ImportFbxAnimation(Instance rigModel, bool isR15 = true) {PluginSecurity} [Yields]
 	Function Instance Plugin:ImportFbxRig(bool isR15 = true) {PluginSecurity} [Yields]
+	Function Instance Plugin:Intersect(Objects objects) {PluginSecurity}
 	Function void Plugin:Invoke(string key, Tuple arguments) {RobloxScriptSecurity}
 	Function bool Plugin:IsActivated() {PluginSecurity}
 	Function bool Plugin:IsActivatedWithExclusiveMouse() {PluginSecurity}
@@ -4090,6 +4114,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function string DataModel:HttpGetAsync(string url, Enum.HttpRequestType httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
 	Function string DataModel:HttpPostAsync(string url, string data, string contentType = "*/*", Enum.HttpRequestType httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
 	Function Objects DataModel:InsertObjectsAndJoinIfLegacyAsync(Content url) {RobloxScriptSecurity} [Yields]
+	Function bool DataModel:IsContentLoaded() {RobloxScriptSecurity}
 	Function bool DataModel:IsGearTypeAllowed(Enum.GearType gearType) [Deprecated]
 	Function bool DataModel:IsLoaded()
 	Function void DataModel:Load(Content url) {LocalUserSecurity}
@@ -4100,6 +4125,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:SetFastFlagForTesting(string name, bool newValue) {RobloxScriptSecurity}
 	Function int DataModel:SetFastIntForTesting(string name, int newValue) {RobloxScriptSecurity}
 	Function string DataModel:SetFastStringForTesting(string name, string newValue) {RobloxScriptSecurity}
+	Function void DataModel:SetIsLoaded(bool value, int? placeSizeInBytes) {RobloxScriptSecurity}
 	Function void DataModel:SetPlaceId(int64 placeId) {PluginSecurity}
 	Function void DataModel:SetUniverseId(int64 universeId) {PluginSecurity}
 	Function void DataModel:Shutdown() {LocalUserSecurity}
@@ -4558,8 +4584,6 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.TouchInBoundsChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.TouchPositionsChanged() {RobloxScriptSecurity}
-Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function bool StudioHighDpiService:IsNotHighDPIAwareBuild() {RobloxScriptSecurity}
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:ClearUploadNames() {RobloxScriptSecurity}
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
@@ -5026,6 +5050,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum.TouchCameraMovementMode UserGameSettings.TouchCameraMovementMode
 	Property Enum.TouchMovementMode UserGameSettings.TouchMovementMode
 	Property Enum.VRPlayMode UserGameSettings.VRPlayMode {✏️RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Enum.VRSafetyBubbleMode UserGameSettings.VRSafetyBubbleMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.AllTutorialsDisabled {RobloxScriptSecurity}
 	Property bool UserGameSettings.CameraYInverted {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.ChatVisible {RobloxScriptSecurity}
@@ -5048,6 +5073,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property bool UserGameSettings.OnScreenProfilerEnabled {RobloxScriptSecurity} [Hidden]
 	Property string UserGameSettings.OnboardingsCompleted {RobloxScriptSecurity}
 	Property bool UserGameSettings.PerformanceStatsVisible {RobloxScriptSecurity} [Hidden]
+	Property float UserGameSettings.PlayerHeight {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int UserGameSettings.RCCProfilerRecordFrameRate
 	Property int UserGameSettings.RCCProfilerRecordTimeFrame
 	Property bool UserGameSettings.StartMaximized {RobloxScriptSecurity} [NotReplicated] [NotScriptable]
@@ -5394,6 +5420,9 @@ Enum AdTeleportMethod
 	EnumItem AdTeleportMethod.PortalReturn : 2
 	EnumItem AdTeleportMethod.InGameMenuBackButton : 3
 	EnumItem AdTeleportMethod.UIBackButton : 4
+Enum AdUnitStatus
+	EnumItem AdUnitStatus.Inactive : 0
+	EnumItem AdUnitStatus.Active : 1
 Enum AdornCullingMode
 	EnumItem AdornCullingMode.Automatic : 0
 	EnumItem AdornCullingMode.Never : 1
@@ -5534,6 +5563,9 @@ Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
 	EnumItem AssetTypeVerification.Always : 3
+Enum AudioSubType
+	EnumItem AudioSubType.Music : 1
+	EnumItem AudioSubType.SoundEffect : 2
 Enum AutoIndentRule
 	EnumItem AutoIndentRule.Off : 0
 	EnumItem AutoIndentRule.Absolute : 1
@@ -7220,6 +7252,10 @@ Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
 	EnumItem SizeConstraint.RelativeYY : 2
+Enum SolverConvergenceVisualizationMode
+	EnumItem SolverConvergenceVisualizationMode.Disabled : 0
+	EnumItem SolverConvergenceVisualizationMode.PerIsland : 1
+	EnumItem SolverConvergenceVisualizationMode.PerEdge : 2
 Enum SortDirection
 	EnumItem SortDirection.Ascending : 0
 	EnumItem SortDirection.Descending : 1
@@ -7690,6 +7726,10 @@ Enum UserInputType
 Enum VRPlayMode
 	EnumItem VRPlayMode.Seated : 0
 	EnumItem VRPlayMode.Standing : 1
+Enum VRSafetyBubbleMode
+	EnumItem VRSafetyBubbleMode.NoOne : 0
+	EnumItem VRSafetyBubbleMode.OnlyFriends : 1
+	EnumItem VRSafetyBubbleMode.Anyone : 2
 Enum VRSessionState
 	EnumItem VRSessionState.Undefined : 0
 	EnumItem VRSessionState.Idle : 1

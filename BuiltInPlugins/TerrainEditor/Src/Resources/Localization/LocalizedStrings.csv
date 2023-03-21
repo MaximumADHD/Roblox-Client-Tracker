@@ -98,4 +98,4 @@ Studio.TerrainEditor.Plugin.Text,Example Text!, ,Example Text!,Texto de ejemplo,
 Studio.TerrainEditor.BaseTool.BrushFlatten,Flatten, ,Flatten,Aplanar,Aplatir,Appianare,平地化,평탄화,Aplainar, , , ,平地化
 Studio.TerrainEditor.BaseTool.BrushSculpt,Sculpt, ,Sculpt,Esculpir,Sculpter,Scolpire,彫刻,조각,Esculpir, , , ,雕塑
 Studio.TerrainEditor.BaseTool.RegionFill,Fill, ,Fill,Llenar,Remplir,Riempi,埋める,채우기,Preencher, , , ,填滿
-Studio.TerrainEditor.BaseTool.RegionTransform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, , , ,轉換
+Studio.TerrainEditor.BaseTool.RegionTransform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, , , ,變形

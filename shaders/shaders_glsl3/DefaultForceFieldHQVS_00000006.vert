@@ -57,7 +57,7 @@ void main()
     vec4 v28 = vec4(dot(CB0[25], v21), dot(CB0[26], v21), dot(CB0[27], v21), 0.0);
     v28.w = COLOR1.z * 0.0039215688593685626983642578125;
     vec4 v29 = vec4(v18, v19, v20, 0.0);
-    v29.w = inversesqrt(0.1745329201221466064453125 * COLOR1.y);
+    v29.w = inversesqrt(COLOR1.y * 0.174534320831298828125);
     gl_Position = v22;
     VARYING0 = TEXCOORD0;
     VARYING1 = max(0.0500000007450580596923828125, TEXCOORD1);

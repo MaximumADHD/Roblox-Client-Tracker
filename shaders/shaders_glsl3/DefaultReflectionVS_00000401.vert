@@ -70,7 +70,7 @@ void main()
     v33.w = abs(CB1[gl_InstanceID * 7 + 3].w);
     vec4 v34 = vec4(dot(CB0[25], v25), dot(CB0[26], v25), dot(CB0[27], v25), 0.0);
     v34.w = CB1[gl_InstanceID * 7 + 5].w;
-    float v35 = CB1[gl_InstanceID * 7 + 6].z * 0.50359570980072021484375;
+    float v35 = CB1[gl_InstanceID * 7 + 6].z * 0.50359976291656494140625;
     float v36 = clamp(v24, 0.0, 1.0);
     vec3 v37 = (CB0[15].xyz * v36) + (CB0[17].xyz * clamp(-v24, 0.0, 1.0));
     vec4 v38 = vec4(0.0);
@@ -80,7 +80,7 @@ void main()
     vec4 v40 = v39;
     v40.z = v37.z;
     vec4 v41 = v40;
-    v41.w = (v36 * CB0[28].w) * (CB1[gl_InstanceID * 7 + 6].z * exp2((v35 * dot(v18, normalize(v23 + v17))) - v35));
+    v41.w = v36 * ((CB1[gl_InstanceID * 7 + 6].z * 0.055555999279022216796875) * exp2((v35 * dot(v18, normalize(v23 + v17))) - v35));
     gl_Position = v26;
     VARYING0 = v15;
     VARYING1 = v28;

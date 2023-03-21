@@ -46,7 +46,7 @@ void main()
     v20.z = v17.z;
     vec4 v21 = v20;
     v21.w = 0.0;
-    float v22 = COLOR1.y * 0.50359570980072021484375;
+    float v22 = COLOR1.y * 0.50359976291656494140625;
     float v23 = clamp(v14, 0.0, 1.0);
     vec3 v24 = (CB0[15].xyz * v23) + (CB0[17].xyz * clamp(-v14, 0.0, 1.0));
     vec4 v25 = vec4(0.0);
@@ -56,7 +56,7 @@ void main()
     vec4 v27 = v26;
     v27.z = v24.z;
     vec4 v28 = v27;
-    v28.w = (v23 * CB0[28].w) * (COLOR1.y * exp2((v22 * dot(v11, normalize(v13 + normalize(v12)))) - v22));
+    v28.w = v23 * ((COLOR1.y * 0.055555999279022216796875) * exp2((v22 * dot(v11, normalize(v13 + normalize(v12)))) - v22));
     vec4 v29 = vec4(dot(CB0[25], v15), dot(CB0[26], v15), dot(CB0[27], v15), 0.0);
     v29.w = COLOR1.z * 0.0039215688593685626983642578125;
     gl_Position = v16;

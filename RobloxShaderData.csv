@@ -673,6 +673,8 @@ ParticleCurveVS,Vertex,✔,✔,✔,✔,✔,✔
 ParticleCurveVS_Soft,Vertex,✔,✔,✔,❌,❌,✔
 ParticleCustomFS,Fragment,✔,✔,✔,✔,✔,✔
 ParticleCustomFS_Soft,Fragment,✔,✔,✔,❌,❌,✔
+ParticleCustomLerpFixFS,Fragment,✔,✔,✔,✔,✔,✔
+ParticleCustomLerpFixFS_Soft,Fragment,✔,✔,✔,❌,❌,✔
 ParticleCustomVS,Vertex,✔,✔,✔,✔,✔,✔
 ParticleCustomVS_Soft,Vertex,✔,✔,✔,❌,❌,✔
 ParticleLightingFS,Fragment,✔,✔,✔,✔,✔,✔

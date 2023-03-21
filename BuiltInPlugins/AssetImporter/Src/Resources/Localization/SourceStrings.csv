@@ -30,6 +30,7 @@ Studio.AssetImporter.HttpError.422,Name was moderated. Please rename and try aga
 Studio.AssetImporter.HttpError.429,Upload failed. Endpoint has too many requests - please try again later.
 Studio.AssetImporter.HttpError.500,"Upload failed. Please try again. If the issue persists, please let us know by filing a bug report."
 Studio.AssetImporter.HttpError.OK,OK
+Studio.AssetImporter.HttpError.PackageError,Upload failed. Update package ID may have been invalid.
 Studio.AssetImporter.HttpError.UnknownStatusCode,Upload failed. Status Code:
 Studio.AssetImporter.HttpError.UploadResultBadIdParse,Could not upload. Asset name may have been rejected by moderation.
 Studio.AssetImporter.Plugin.Browse,Browse...

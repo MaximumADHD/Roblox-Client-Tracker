@@ -83,7 +83,7 @@ Studio.AccessoryFittingTool.Generate.Prompt,The asset is ready.,The asset is rea
 Studio.AccessoryFittingTool.Generate.Wait,Please wait while the asset is being generated...,Please wait while the asset is being generated...,Espera mientras se genera el recurso...,Patienter pendant que l'asset est généré...,Attendere mentre l'asset è in fase di generazione...,アセットが作成されるまでしばらくお待ちください...,애셋이 생성되는 동안 잠시 기다려 주세요...,Aguarde enquanto o ativo está sendo gerado...,素材正在生成，请稍候...,素材正在生成，请稍候...,素材正在生成，請稍後……
 Studio.AccessoryFittingTool.Dialog.Confirm,Confirm,Confirm,Confirmar,Confirmer,Conferma,確認する,확인,Confirmar, , ,確認
 Studio.AccessoryFittingTool.Actions.Undo,Undo,Undo,Deshacer,Défaire,Annulla,取り消す,실행 취소,Desfazer,撤消,撤消,復原
-Studio.AccessoryFittingTool.Actions.ToggleTransform,Toggle Transform,Toggle Transform,Alternar transformación,Activer/désactiver la transformation,Attiva/disattiva trasformazione,変形を切り替え,변형 토글,Alternar transformar,切换变形,切换变形,新增轉換
+Studio.AccessoryFittingTool.Actions.ToggleTransform,Toggle Transform,Toggle Transform,Alternar transformación,Activer/désactiver la transformation,Attiva/disattiva trasformazione,変形を切り替え,변형 토글,Alternar transformar,切换变形,切换变形,切換變形
 Studio.AccessoryFittingTool.Actions.SelectLattice,Select Lattice,Select Lattice,Seleccionar enrejado,Sélectionner treillage,Selezionare Lattice,格子を選択,격자 선택,Selecionar treliça,选择栅格,选择栅格,選擇格紋
 Studio.AccessoryFittingTool.ToolSettings.Target,Target,Target,Objetivo,Cible,Target,ターゲット,대상,Alvo,目标,目标,對象
 Studio.AccessoryFittingTool.ToolSettings.Subdivisions,Subdivisions,Subdivisions,Subdivisiones,Subdivisions,Suddivisioni,部分,세분화,Subdivisões,分部,分部,細分
