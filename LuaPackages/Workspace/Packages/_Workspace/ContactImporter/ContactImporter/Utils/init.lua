@@ -4,4 +4,5 @@ return {
 	fetchOSPermissionsForContacts = require(script.fetchOSPermissionsForContacts),
 	useFetchContactImporterInfoOnce = require(script.useFetchContactImporterInfoOnce),
 	useContactImporterConfiguration = require(script.useContactImporterConfiguration),
+	useAutoSyncContacts = require(script.useAutoSyncContacts),
 }

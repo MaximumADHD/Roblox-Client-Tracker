@@ -24,16 +24,19 @@ local UpdateOutfitPrompt = require(Prompts.UpdateOutfitPrompt)
 
 local LocalPlayer = Players.LocalPlayer
 
-local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
-
 local AvatarEditorPrompts = script.Parent.Parent
 
 local PromptType = require(AvatarEditorPrompts.PromptType)
 
 local ScreenSizeUpdated = require(AvatarEditorPrompts.Actions.ScreenSizeUpdated)
 
+local FFlagAvatarEditorServiceDisplayOrderFix = game:DefineFastFlag("AvatarEditorServiceDisplayOrderFix", false)
+
 --Displays behind the InGameMenu so that developers can't block interaction with the InGameMenu by constantly prompting.
 local AVATAR_PROMPTS_DISPLAY_ORDER = 0
+if FFlagAvatarEditorServiceDisplayOrderFix then
+	AVATAR_PROMPTS_DISPLAY_ORDER = -1
+end
 
 local GAMEPAD_INPUT_TYPES = {
 	[Enum.UserInputType.Gamepad1] = true,
@@ -84,28 +87,12 @@ end
 
 function AvatarEditorPromptsApp:render()
 	local promptElement
-	if EngineFeatureAESMoreOutfitMethods then
-		if self.props.promptType then
-			local promptComponent = PROMPT_COMPONENTS_MAP[self.props.promptType]
-			if promptComponent then
-				promptElement = Roact.createElement(promptComponent)
-			else
-				error("Unexpected prompt type!")
-			end
-		end
-	else
-		if self.props.promptType == PromptType.AllowInventoryReadAccess then
-			promptElement = Roact.createElement(AllowInventoryReadAccessPrompt)
-		elseif self.props.promptType == PromptType.SaveAvatar then
-			promptElement = Roact.createElement(SaveAvatarPrompt)
-		elseif self.props.promptType == PromptType.CreateOutfit then
-			promptElement = Roact.createElement(CreateOutfitPrompt)
-		elseif self.props.promptType == PromptType.EnterOutfitName then
-			promptElement = Roact.createElement(EnterOutfitNamePrompt)
-		elseif self.props.promptType == PromptType.SetFavorite then
-			promptElement = Roact.createElement(SetFavoritePrompt)
-		elseif self.props.promptType == PromptType.DeleteOutfit then
-			promptElement = Roact.createElement(DeleteOutfitPrompt)
+	if self.props.promptType then
+		local promptComponent = PROMPT_COMPONENTS_MAP[self.props.promptType]
+		if promptComponent then
+			promptElement = Roact.createElement(promptComponent)
+		else
+			error("Unexpected prompt type!")
 		end
 	end
 

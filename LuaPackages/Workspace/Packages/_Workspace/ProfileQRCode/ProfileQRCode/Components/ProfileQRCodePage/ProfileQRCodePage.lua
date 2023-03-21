@@ -1,27 +1,34 @@
 local ProfileQRCode = script:FindFirstAncestor("ProfileQRCode")
 local Packages = ProfileQRCode.Parent
-local React = require(Packages.React)
-local UIBlox = require(Packages.UIBlox)
-local QRCodeView = require(ProfileQRCode.Components.QRCodeView)
-local ProfileQRCodeTopBar = require(ProfileQRCode.Components.ProfileQRCodeTopBar)
-local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
-local useStyle = UIBlox.Core.Style.useStyle
-local TextKeys = require(ProfileQRCode.Common.TextKeys)
-local RoactUtils = require(Packages.RoactUtils)
-local useLocalization = RoactUtils.Hooks.useLocalization
-local QRCodeFriendRequestNotification = require(ProfileQRCode.Components.QRCodeFriendRequestNotification)
-local Toast = UIBlox.App.Dialog.Toast
-local useGetUsersInfoUrl = require(ProfileQRCode.Networking.useGetUsersInfoUrl)
-local useLocalUserId = require(ProfileQRCode.Utils.useLocalUserId)
-local useAcceptFriendUrl = require(ProfileQRCode.Networking.useAcceptFriendUrl)
-local Cryo = require(Packages.Cryo)
-local getFFlagProfileQRCodeEnableAlerts = require(Packages.SharedFlags).getFFlagProfileQRCodeEnableAlerts
 
-local ROOT_PADDING = 24
-local GRADIENT_ROTATION = 90
-local TOP_BAR_PADDING = -56
+local Cryo = require(Packages.Cryo)
+local React = require(Packages.React)
+local RoactUtils = require(Packages.RoactUtils)
+local UIBlox = require(Packages.UIBlox)
+
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
+local Toast = UIBlox.App.Dialog.Toast
+
+local EventNames = require(ProfileQRCode.Analytics.EventNames)
+local getFFlagProfileQRCodeEnableAlerts = require(Packages.SharedFlags).getFFlagProfileQRCodeEnableAlerts
+local ProfileQRCodeTopBar = require(ProfileQRCode.Components.ProfileQRCodeTopBar)
+local QRCodeFriendRequestNotification = require(ProfileQRCode.Components.QRCodeFriendRequestNotification)
+local QRCodeView = require(ProfileQRCode.Components.QRCodeView)
+local TextKeys = require(ProfileQRCode.Common.TextKeys)
+
+local useAcceptFriendUrl = require(ProfileQRCode.Networking.useAcceptFriendUrl)
+local useAnalytics = require(ProfileQRCode.Analytics.useAnalytics)
+local useGetUsersInfoUrl = require(ProfileQRCode.Networking.useGetUsersInfoUrl)
+local useLocalization = RoactUtils.Hooks.useLocalization
+local useLocalUserId = require(ProfileQRCode.Utils.useLocalUserId)
+local useStyle = UIBlox.Core.Style.useStyle
+local NetworkingFriends = require(Packages.NetworkingFriends)
+
 -- We have a hardcoded white here as for gradients to work, you need a full white background. This colour will not show.
 local BACKGROUND_FOR_GRADIENT = Color3.new(1, 1, 1)
+local GRADIENT_ROTATION = 90
+local ROOT_PADDING = 24
+local TOP_BAR_PADDING = -56
 
 local ADD_TO_QUEUE = "addItemToQueue"
 local REMOVE_FROM_QUEUE = "removeItemFromQueue"
@@ -36,6 +43,7 @@ local ProfileQRCodePage = function(props: Props)
 		description = TextKeys.Description,
 	})
 	local style = useStyle()
+	local analytics = if getFFlagProfileQRCodeEnableAlerts() then useAnalytics() else nil
 
 	local localUserId, acceptFriendUrl, showFriendAcceptedToast, setShowFriendAcceptedToast, notificationQueue, updateNotificationQueue
 
@@ -60,7 +68,11 @@ local ProfileQRCodePage = function(props: Props)
 
 		local function friendshipNotificationReceived(details)
 			-- Check to make sure this is the type of friend notification we respond to
-			if details.Type == "FriendshipRequested" and details.EventArgs.SourceType == "QrCode" then
+			if
+				details.Type == "FriendshipRequested"
+				and details.EventArgs.SourceType
+					== NetworkingFriends.Enums.FriendshipOriginSourceType.QrCode.rawValue()
+			then
 				-- get the requesting user id, each friendship request has 2 user ids the requester and the requestee.  The
 				-- requestee should be the local user so if UserId1 is the local user id then UserId2 must be the requester
 				local userId = tostring(details.EventArgs.UserId1)
@@ -179,16 +191,33 @@ local ProfileQRCodePage = function(props: Props)
 				and #notificationQueue > 0
 				and not showFriendAcceptedToast
 			then React.createElement(QRCodeFriendRequestNotification, {
-				userId = tostring(notificationQueue[1]),
+				notificationQueueSize = #notificationQueue,
 				onAccept = function(acceptedUserId)
 					acceptFriendUrl(localUserId, acceptedUserId):andThen(function()
 						updateNotificationQueue({ type = REMOVE_FROM_QUEUE, newUserId = "0" })
 						setShowFriendAcceptedToast(true)
 					end)
+					-- We can remove the `and analytics` when we remove the flag as
+					-- long as typechecking is happy
+					if getFFlagProfileQRCodeEnableAlerts() and analytics then
+						-- SACQ-593: Add test for this
+						analytics.fireEvent(EventNames.QRPageFriendRequestBannerAccepted, {
+							qrCodeBannerQueueSize = #notificationQueue,
+						})
+					end
 				end,
 				onClose = function()
 					updateNotificationQueue({ type = REMOVE_FROM_QUEUE, newUserId = "0" })
+					-- We can remove the `and analytics` when we remove the flag as
+					-- long as typechecking is happy
+					if getFFlagProfileQRCodeEnableAlerts() and analytics then
+						-- SACQ-593: Add test for this
+						analytics.fireEvent(EventNames.QRPageFriendRequestBannerDismissed, {
+							qrCodeBannerQueueSize = #notificationQueue,
+						})
+					end
 				end,
+				userId = tostring(notificationQueue[1]),
 			})
 			else nil,
 	})

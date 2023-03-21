@@ -39,10 +39,13 @@ return function()
 		it("should fetch profile insights for given userIds", function()
 			create("profile-insights-success"):execute(function(httpService)
 				local fetchImpl = buildFetch(httpService)
-				local profileInsights = findProfileInsightsByUserIds({ "2705220939" }, nil, fetchImpl):expect()
+				local response =
+					findProfileInsightsByUserIds({ "2705220939", "9999999" }, nil, "PageId", fetchImpl):expect()
 
-				expect(profileInsights).toBeDefined()
-				expect(profileInsights[1].targetUser).toBe(2705220939)
+				expect(response.profileInsights).toBeDefined()
+				expect(response.profileInsights[1].targetUser).toBe(9999999)
+				expect(response.profileInsights[2].targetUser).toBe(2705220939)
+				expect(response.pageId).toBe("PageId")
 			end)
 		end)
 
@@ -53,7 +56,7 @@ return function()
 
 			local capturedError
 			local fetchImpl = buildFetch(mockHttpService)
-			findProfileInsightsByUserIds({ "2705220939" }, nil, fetchImpl)
+			findProfileInsightsByUserIds({ "2705220939", "9999999" }, nil, nil, fetchImpl)
 				:catch(function(err)
 					capturedError = err
 				end)
@@ -79,7 +82,7 @@ return function()
 			})
 			local capturedError
 			local fetchImpl = buildFetch(mockHttpService)
-			findProfileInsightsByUserIds({ "3531439676" }, nil, fetchImpl)
+			findProfileInsightsByUserIds({ "3531439676" }, nil, nil, fetchImpl)
 				:catch(function(err)
 					capturedError = err
 				end)

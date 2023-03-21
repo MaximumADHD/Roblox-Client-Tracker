@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -20,8 +21,10 @@ local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibili
 
 local PlayerListSwitcher = Roact.PureComponent:extend("PlayerListSwitcher")
 
+local FFlagVRCoreGuiDefaultOff = require(RobloxGui.Modules.Flags.FFlagVRCoreGuiDefaultOff)
+
 function PlayerListSwitcher:didMount()
-	self.props.setPlayerListVisible(not self.props.isSmallTouchDevice)
+	self.props.setPlayerListVisible(not self.props.isSmallTouchDevice and (not FFlagVRCoreGuiDefaultOff or not VRService.VREnabled))
 end
 
 function PlayerListSwitcher:render()

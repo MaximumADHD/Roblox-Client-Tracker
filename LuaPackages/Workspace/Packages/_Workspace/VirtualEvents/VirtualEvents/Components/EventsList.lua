@@ -15,6 +15,7 @@ local requests = require(VirtualEvents.requests)
 local EventRow = require(script.Parent.EventRow)
 local getFStringEventsOnExperienceDetailsPageLayer =
 	require(VirtualEvents.Parent.SharedFlags).getFStringEventsOnExperienceDetailsPageLayer
+local getFFlagFetchEventsFromWrapper = require(VirtualEvents.Parent.SharedFlags).getFFlagFetchEventsFromWrapper
 
 type VirtualEvent = GraphQLServer.VirtualEvent
 
@@ -35,17 +36,18 @@ local defaultProps = {
 	-- information about each event. Without this the user could play for an
 	-- hour, return to the experience details page, and a now ongoing event
 	-- could show the Notify Me state
-	pollInterval = 5 * 60 * 1000,
+	pollInterval = if getFFlagFetchEventsFromWrapper() then nil else 5 * 60 * 1000,
 	isDesktopGrid = false,
 }
 
 export type Props = {
-	universeId: number,
+	virtualEvents: { VirtualEvent },
+	universeId: number, -- FFlagFetchEventsFromWrapper
 	currentTime: DateTime,
 	layoutOrder: number?,
 	initialEventsShown: number?,
 	extraEventsShownOnLoad: number?,
-	pollInterval: number?,
+	pollInterval: number?, -- FFlagFetchEventsFromWrapper
 	onRsvpChanged: ((virtualEvent: VirtualEvent, newRsvpStatus: types.RsvpStatus) -> ())?,
 	onJoinEvent: ((virtualEvent: VirtualEvent) -> ())?,
 	onTileActivated: ((virtualEvent: VirtualEvent) -> ())?,
@@ -59,15 +61,17 @@ type InternalProps = Props & typeof(defaultProps)
 local function EventsList(providedProps: Props)
 	local props: InternalProps = Cryo.Dictionary.join(defaultProps, providedProps)
 
-	local result = useQuery(requests.GET_EVENTS_FOR_EXPERIENCE, {
-		variables = {
-			universeId = props.universeId,
-			options = {
-				fromUtc = props.currentTime:ToIsoDate(),
+	local result = if getFFlagFetchEventsFromWrapper()
+		then nil
+		else useQuery(requests.GET_EVENTS_FOR_EXPERIENCE, {
+			variables = {
+				universeId = props.universeId,
+				options = {
+					fromUtc = props.currentTime:ToIsoDate(),
+				},
 			},
-		},
-		pollInterval = props.pollInterval,
-	})
+			pollInterval = props.pollInterval,
+		})
 
 	local virtualEventsMVPEnabled = useUserExperiment({
 		getFStringEventsOnExperienceDetailsPageLayer(),
@@ -109,8 +113,10 @@ local function EventsList(providedProps: Props)
 		end
 	end, { props.onEventImpression })
 
-	if result.data then
-		local virtualEvents = result.data.virtualEventsByUniverseId.virtualEvents
+	if getFFlagFetchEventsFromWrapper() or result.data then
+		local virtualEvents = if getFFlagFetchEventsFromWrapper()
+			then props.virtualEvents
+			else result.data.virtualEventsByUniverseId.virtualEvents
 
 		if #virtualEvents == 0 then
 			return nil :: any

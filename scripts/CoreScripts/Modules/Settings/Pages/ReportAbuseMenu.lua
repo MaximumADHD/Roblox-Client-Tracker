@@ -47,6 +47,8 @@ local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlag
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
 local GetFFlagVoiceARRemoveOffsiteLinksForVoice = require(RobloxGui.Modules.Flags.GetFFlagVoiceARRemoveOffsiteLinksForVoice)
+local GetFStringReportAbuseIXPLayer = require(RobloxGui.Modules.Flags.GetFStringReportAbuseIXPLayer)
+local GetFFlagEnableConfigurableReportAbuseIXP = require(RobloxGui.Modules.Flags.GetFFlagEnableConfigurableReportAbuseIXP)
 local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagOldAbuseReportAnalyticsDisabled)
 local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
@@ -485,16 +487,27 @@ local function Initialize()
 		end
 
 		VoiceChatServiceManager:asyncInit():andThen(function()
-			IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, "Social.VoiceAbuseReport.ReportAbuseMenu.V1")
-			local layerData = IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
+			local layerData = nil
+			if GetFFlagEnableConfigurableReportAbuseIXP() then
+				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, GetFStringReportAbuseIXPLayer())
+				layerData = IXPServiceWrapper:GetLayerData(GetFStringReportAbuseIXPLayer())
+			else
+				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, "Social.VoiceAbuseReport.ReportAbuseMenu.V1")
+				layerData = IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
+			end
+  
 			if layerData then
 				inSortingExperiment = layerData.VoiceAbuseReportProximitySort
 				inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
-
-				if layerData.VoiceAbuseReportDisabled == nil then
-					voiceChatEnabled = false
+				
+				if not GetFFlagEnableConfigurableReportAbuseIXP() then
+					if layerData.VoiceAbuseReportDisabled == nil then
+						voiceChatEnabled = false
+					else
+						voiceChatEnabled = not layerData.VoiceAbuseReportDisabled
+					end
 				else
-					voiceChatEnabled = not layerData.VoiceAbuseReportDisabled
+					voiceChatEnabled = true
 				end
 			else
 				-- We default to NOT showing the method of abuse if IXP is down and everything else is working

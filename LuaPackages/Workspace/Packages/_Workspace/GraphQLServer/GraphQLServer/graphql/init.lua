@@ -12,10 +12,13 @@ export type OmniFeed = generatedTypes.OmniFeed
 export type OmniFeedMetadata = generatedTypes.OmniFeedMetadata
 export type OmniFeedItem = generatedTypes.OmniFeedItem
 export type OmniFeedRecommendation = generatedTypes.OmniFeedRecommendation
+export type Experience = generatedTypes.Experience
+export type Media = generatedTypes.Media
 export type VirtualEvent = generatedTypes.VirtualEvent
 export type RsvpStatus = generatedTypes.RsvpStatus
 export type VirtualEventsPage = generatedTypes.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = generatedTypes.VirtualEventsByUniverseIdOptions
+export type ProfileInsights = generatedTypes.ProfileInsights
 
 type DocumentNode = graphqlModule.DocumentNode
 

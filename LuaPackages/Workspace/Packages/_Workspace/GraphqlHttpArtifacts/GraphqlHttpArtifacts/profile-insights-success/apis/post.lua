@@ -1,6 +1,6 @@
 return {
 	request = {
-		body = '{"userIds":["2705220939"],"count":2}',
+		body = '{"userIds":["2705220939","9999999"],"count":2}',
 		cachePolicy = Enum.HttpCachePolicy.None,
 		headers = {
 			["content-type"] = "application/json",
@@ -15,9 +15,9 @@ return {
 		},
 	},
 	response = {
-		body = '{"userInsights":[{"targetUser":2705220939,"profileInsights":[{"mutualFriendInsight":{"mutualFriends":{"2326285850":{"username":"justUser444","displayName":"Displayname_olga"}}},"insightCase":1}]}]}',
+		body = '{"userInsights":[{"targetUser":9999999,"profileInsights":[{"offlineFrequentsInsight":{"havePlayedTogether":true},"insightCase":1}]},{"targetUser":2705220939,"profileInsights":[{"mutualFriendInsight":{"mutualFriends":{"2326285850":{"username":"justUser444","displayName":"Displayname_olga"}}},"insightCase":1}]}]}',
 		headers = {
-			["content-length"] = "197",
+			["content-length"] = "312",
 			["content-type"] = "application/json; charset=utf-8",
 			["report-to"] = '{"group":"network-errors","max_age":604800,"endpoints":[{"url":"https://ncs.roblox.com/upload"}]}',
 			["strict-transport-security"] = "max-age=3600",

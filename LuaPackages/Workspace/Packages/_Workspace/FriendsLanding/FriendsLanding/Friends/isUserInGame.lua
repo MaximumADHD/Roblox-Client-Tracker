@@ -13,5 +13,5 @@ return function(user: PresenceModel?)
 		return false
 	end
 	assert(user, "user modal must be non-nil")
-	return user.userPresenceType == EnumPresenceType.InGame and user.lastLocation and user.lastLocation ~= ""
+	return user.userPresenceType == EnumPresenceType.InGame and user.lastLocation and user.lastLocation ~= "" or false
 end

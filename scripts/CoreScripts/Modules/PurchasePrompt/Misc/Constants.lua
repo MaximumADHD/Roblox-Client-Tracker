@@ -21,5 +21,9 @@ return strict({
 	PurchaseFailureReason = strict({
 		TwoStepVerificationRequired = "TwoStepVerificationRequired",
 		EconomyDisabled = "EconomyDisabled",
-	}, "Constants.TransactionStatus")
+	}, "Constants.TransactionStatus"),
+	ProductType = strict({
+		CollectibleItem = "Collectible Item",
+		DeveloperProduct = "Developer Product",
+	}, "Constants.ProductType")
 }, "Constants")

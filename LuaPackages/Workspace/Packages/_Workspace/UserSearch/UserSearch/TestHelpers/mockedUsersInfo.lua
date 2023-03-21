@@ -1,3 +1,6 @@
+local UserSearch = script:FindFirstAncestor("UserSearch")
+local ProfileInsightsMocks = require(UserSearch.TestHelpers.ProfileInsightsMocks)
+
 local userIds = {
 	yourself = "1111",
 	following = "2222",
@@ -7,6 +10,8 @@ local userIds = {
 	previousUserName = "6666",
 	random = "7777",
 	notFriend = "8888",
+	mutualFriends = "9999",
+	frequents = "101010",
 }
 
 local mockedState = {
@@ -16,6 +21,8 @@ local mockedState = {
 		[userIds.incomingFriendship] = Enum.FriendStatus.FriendRequestReceived,
 		[userIds.outgoingFriendship] = Enum.FriendStatus.FriendRequestSent,
 		[userIds.notFriend] = Enum.FriendStatus.NotFriend,
+		[userIds.mutualFriends] = Enum.FriendStatus.NotFriend,
+		[userIds.frequents] = Enum.FriendStatus.NotFriend,
 	},
 	FriendFollowings = {
 		[userIds.following] = true,
@@ -34,6 +41,11 @@ local mockedUsers = {
 	},
 	random = { id = userIds.random },
 	notFriend = { id = userIds.notFriend },
+	mutualFriends = {
+		id = userIds.mutualFriends,
+		profileInsight = ProfileInsightsMocks.mockProfileInsightWithMutualFriends(userIds.mutualFriends),
+	},
+	frequents = { id = userIds.frequents, profileInsight = ProfileInsightsMocks.mockProfileInsight(userIds.frequents) },
 }
 
 return {

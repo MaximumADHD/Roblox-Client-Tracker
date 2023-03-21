@@ -11,5 +11,6 @@ it("SHOULD have expected API", function()
 		["jest.config"] = expect.anything(),
 		UserSearchTile = expect.any("function"),
 		ImpressionsTagWrapper = expect.any("table"),
+		ProfileInsightsContextFetchWrapper = expect.any("function"),
 	})
 end)

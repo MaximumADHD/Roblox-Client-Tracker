@@ -11,6 +11,7 @@ local afterAll = JestGlobals.afterAll
 local jest = JestGlobals.jest
 local ReactTestingLibrary = require(VirtualEvents.Parent.Dev.ReactTestingLibrary)
 local Rhodium = require(VirtualEvents.Parent.Dev.Rhodium)
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local React = require(VirtualEvents.Parent.React)
 local withMockProviders = require(VirtualEvents.withMockProviders)
 local network = require(VirtualEvents.network)
@@ -18,6 +19,7 @@ local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local EventsList = require(script.Parent.EventsList)
 local getFStringEventsOnExperienceDetailsPageLayer =
 	require(VirtualEvents.Parent.SharedFlags).getFStringEventsOnExperienceDetailsPageLayer
+local getFFlagFetchEventsFromWrapper = require(VirtualEvents.Parent.SharedFlags).getFFlagFetchEventsFromWrapper
 
 local NUM_MOCK_EVENTS = 5
 local CURRENT_TIME = DateTime.now()
@@ -26,52 +28,67 @@ local act = ReactTestingLibrary.act
 local render = ReactTestingLibrary.render
 local waitFor = ReactTestingLibrary.waitFor
 
-local mockResolvers = {
-	VirtualEvent = {
-		experienceDetails = function()
-			return {
-				playing = 50000,
-			}
-		end,
-		rsvpCounters = function()
-			return {
-				going = 2500,
-			}
-		end,
-	},
-	Mutation = {
-		virtualEventRsvp = function()
-			return {
-				shouldSeeNotificationsUpsellModal = false,
-				virtualEvent = {
-					id = "1",
-					userRsvpStatus = "going",
-				},
-			}
-		end,
-	},
-	Query = {
-		virtualEventsByUniverseId = function(_root, args)
-			local virtualEvents = {}
+local mockResolvers = if getFFlagFetchEventsFromWrapper()
+	then nil
+	else {
+		VirtualEvent = {
+			experienceDetails = function()
+				return {
+					playing = 50000,
+				}
+			end,
+			rsvpCounters = function()
+				return {
+					going = 2500,
+				}
+			end,
+		},
+		Mutation = {
+			virtualEventRsvp = function()
+				return {
+					shouldSeeNotificationsUpsellModal = false,
+					virtualEvent = {
+						id = "1",
+						userRsvpStatus = "going",
+					},
+				}
+			end,
+		},
+		Query = {
+			virtualEventsByUniverseId = function(_root, args)
+				local virtualEvents = {}
 
-			for i = 1, NUM_MOCK_EVENTS do
-				local now = DateTime.now()
-				local event = VirtualEventModel.mock(tostring(i)) :: any
+				for i = 1, NUM_MOCK_EVENTS do
+					local now = DateTime.now()
+					local event = VirtualEventModel.mock(tostring(i)) :: any
 
-				event.eventTime.startUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + ((i - 1) * 24 * 60 * 60))
-					:ToIsoDate()
-				event.eventTime.endUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + (i * 24 * 60 * 60)):ToIsoDate()
+					event.eventTime.startUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + ((i - 1) * 24 * 60 * 60))
+						:ToIsoDate()
+					event.eventTime.endUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + (i * 24 * 60 * 60))
+						:ToIsoDate()
 
-				table.insert(virtualEvents, event)
-			end
+					table.insert(virtualEvents, event)
+				end
 
-			return {
-				cursor = "cursor",
-				virtualEvents = virtualEvents,
-			}
-		end,
-	},
-}
+				return {
+					cursor = "cursor",
+					virtualEvents = virtualEvents,
+				}
+			end,
+		},
+	}
+
+local mockVirtualEvents = {}
+for i = 1, NUM_MOCK_EVENTS do
+	local event = GraphQLServer.mocks.createMockVirtualEvent(tostring(i))
+
+	event.eventTime = {
+		startUtc = DateTime.fromUnixTimestamp(CURRENT_TIME.UnixTimestamp + ((i - 1) * 24 * 60 * 60)):ToIsoDate(),
+		endUtc = DateTime.fromUnixTimestamp(CURRENT_TIME.UnixTimestamp + (i * 24 * 60 * 60)):ToIsoDate(),
+	}
+
+	table.insert(mockVirtualEvents, event)
+end
 
 beforeAll(function()
 	IXPService:RegisterUserLayers({
@@ -89,6 +106,7 @@ it("should show 1 event when rendered", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			virtualEvents = mockVirtualEvents,
 			currentTime = CURRENT_TIME,
 			mockVirtualEventsMVPEnabled = true,
 		}),
@@ -110,6 +128,7 @@ it("should show 3 more events when clicking See More", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			virtualEvents = mockVirtualEvents,
 			currentTime = CURRENT_TIME,
 			mockVirtualEventsMVPEnabled = true,
 		}),
@@ -131,48 +150,66 @@ it("should show 3 more events when clicking See More", function()
 end)
 
 it("should sort events by time", function()
+	local reversedVirtualEvents = {}
+	-- Events are inserted in reverse so we can check that they render in
+	-- chronological order
+	for i = NUM_MOCK_EVENTS, 1, -1 do
+		local event = GraphQLServer.mocks.createMockVirtualEvent(tostring(i))
+		event.title = "Event " .. tostring(i)
+		event.eventTime = {
+			startUtc = DateTime.fromUnixTimestamp(CURRENT_TIME.UnixTimestamp + ((i - 1) * 24 * 60 * 60)):ToIsoDate(),
+			endUtc = DateTime.fromUnixTimestamp(CURRENT_TIME.UnixTimestamp + (i * 24 * 60 * 60)):ToIsoDate(),
+		}
+		table.insert(reversedVirtualEvents, event)
+	end
+
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			virtualEvents = reversedVirtualEvents,
 			currentTime = CURRENT_TIME,
 			initialEventsShown = NUM_MOCK_EVENTS,
 			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
-		mockResolvers = {
-			Query = {
-				virtualEventsByUniverseId = function(_root, args)
-					local virtualEvents = {}
+		mockResolvers = if getFFlagFetchEventsFromWrapper()
+			then nil
+			else {
+				Query = {
+					virtualEventsByUniverseId = function(_root, args)
+						local virtualEvents = {}
 
-					-- Events are inserted in reverse so we can check that they
-					-- render in chronological order
-					for i = NUM_MOCK_EVENTS, 1, -1 do
-						local now = DateTime.now()
-						local event = VirtualEventModel.mock(tostring(i)) :: any
-						event.title = "Event " .. tostring(i)
+						-- Events are inserted in reverse so we can check that they
+						-- render in chronological order
+						for i = NUM_MOCK_EVENTS, 1, -1 do
+							local now = DateTime.now()
+							local event = VirtualEventModel.mock(tostring(i)) :: any
+							event.title = "Event " .. tostring(i)
 
-						event.eventTime.startUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + i * 24 * 60 * 60)
-							:ToIsoDate()
-						event.eventTime.endUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + i * 24 * 60 * 60)
-							:ToIsoDate()
+							event.eventTime.startUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + i * 24 * 60 * 60)
+								:ToIsoDate()
+							event.eventTime.endUtc = DateTime.fromUnixTimestamp(now.UnixTimestamp + i * 24 * 60 * 60)
+								:ToIsoDate()
 
-						table.insert(virtualEvents, event)
-					end
+							table.insert(virtualEvents, event)
+						end
 
-					return {
-						cursor = "cursor",
-						virtualEvents = virtualEvents,
-					}
-				end,
+						return {
+							cursor = "cursor",
+							virtualEvents = virtualEvents,
+						}
+					end,
+				},
 			},
-		},
 	})
 
 	local result = render(element)
 
-	waitFor(function()
-		expect(result.getByText("Event 1")).toBeDefined()
-	end):await()
+	if not getFFlagFetchEventsFromWrapper() then
+		waitFor(function()
+			expect(result.getByText("Event 1")).toBeDefined()
+		end):await()
+	end
 
 	local event1 = result.getByText("Event 1")
 	local event2 = result.getByText("Event 2")
@@ -189,6 +226,7 @@ it("should trigger onRsvpChanged when clicking Notify Me", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			virtualEvents = mockVirtualEvents,
 			currentTime = CURRENT_TIME,
 			onRsvpChanged = onRsvpChanged,
 			initialEventsShown = NUM_MOCK_EVENTS,
@@ -200,9 +238,11 @@ it("should trigger onRsvpChanged when clicking Notify Me", function()
 
 	local result = render(element)
 
-	waitFor(function()
-		expect(result.getByText("Notify Me")).toBeDefined()
-	end):await()
+	if not getFFlagFetchEventsFromWrapper() then
+		waitFor(function()
+			expect(result.getByText("Notify Me")).toBeDefined()
+		end):await()
+	end
 
 	local buttons = result.getAllByText("Notify Me")
 
@@ -221,6 +261,7 @@ it("should trigger onJoinEvent when clicking Join Event", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			virtualEvents = mockVirtualEvents,
 			currentTime = CURRENT_TIME,
 			onJoinEvent = onJoinEvent,
 			initialEventsShown = NUM_MOCK_EVENTS,
@@ -232,9 +273,11 @@ it("should trigger onJoinEvent when clicking Join Event", function()
 
 	local result = render(element)
 
-	waitFor(function()
-		expect(result.getByText("Join Event")).toBeDefined()
-	end):await()
+	if not getFFlagFetchEventsFromWrapper() then
+		waitFor(function()
+			expect(result.getByText("Join Event")).toBeDefined()
+		end):await()
+	end
 
 	local buttons = result.getAllByText("Join Event")
 
@@ -253,6 +296,7 @@ it("should trigger onTileActivated when clicking on the event tile", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			virtualEvents = mockVirtualEvents,
 			currentTime = CURRENT_TIME,
 			onJoinEvent = onJoinEvent,
 			initialEventsShown = NUM_MOCK_EVENTS,
@@ -264,9 +308,11 @@ it("should trigger onTileActivated when clicking on the event tile", function()
 
 	local result = render(element)
 
-	waitFor(function()
-		expect(result.getByText("Join Event")).toBeDefined()
-	end):await()
+	if not getFFlagFetchEventsFromWrapper() then
+		waitFor(function()
+			expect(result.getByText("Join Event")).toBeDefined()
+		end):await()
+	end
 
 	local buttons = result.getAllByText("Join Event")
 
@@ -279,24 +325,27 @@ it("should trigger onTileActivated when clicking on the event tile", function()
 	expect(onJoinEvent).toHaveBeenCalledTimes(#buttons)
 end)
 
-it("should render nothing if the no VirtualEvents are found", function()
+it("should render nothing if no VirtualEvents are found", function()
 	local element = withMockProviders({
 		EventsList = React.createElement(EventsList, {
 			universeId = -1,
+			virtualEvents = {},
 			currentTime = CURRENT_TIME,
 			mockVirtualEventsMVPEnabled = true,
 		}),
 	}, {
-		mockResolvers = {
-			Query = {
-				virtualEventsByUniverseId = function(_root, args)
-					return {
-						cursor = "cursor",
-						virtualEvents = {},
-					}
-				end,
+		mockResolvers = if getFFlagFetchEventsFromWrapper()
+			then nil
+			else {
+				Query = {
+					virtualEventsByUniverseId = function(_root, args)
+						return {
+							cursor = "cursor",
+							virtualEvents = {},
+						}
+					end,
+				},
 			},
-		},
 	})
 
 	local result = render(element)
@@ -309,6 +358,7 @@ describe("experiment", function()
 		local element = withMockProviders({
 			EventsList = React.createElement(EventsList, {
 				universeId = -1,
+				virtualEvents = mockVirtualEvents,
 				currentTime = CURRENT_TIME,
 				initialEventsShown = NUM_MOCK_EVENTS,
 				mockVirtualEventsMVPEnabled = true,
@@ -319,10 +369,12 @@ describe("experiment", function()
 
 		local result = render(element)
 
-		-- Wait for Apollo queries to resolve
-		act(function()
-			task.wait(0.1)
-		end)
+		if not getFFlagFetchEventsFromWrapper() then
+			-- Wait for Apollo queries to resolve
+			act(function()
+				task.wait(0.1)
+			end)
+		end
 
 		local eventsList = result.container:FindFirstChild("EventsList")
 
@@ -334,6 +386,7 @@ describe("experiment", function()
 		local element = withMockProviders({
 			EventsList = React.createElement(EventsList, {
 				universeId = -1,
+				virtualEvents = mockVirtualEvents,
 				currentTime = CURRENT_TIME,
 				initialEventsShown = NUM_MOCK_EVENTS,
 				mockVirtualEventsMVPEnabled = false,
@@ -344,10 +397,12 @@ describe("experiment", function()
 
 		local result = render(element)
 
-		-- Wait for Apollo queries to resolve
-		act(function()
-			task.wait(0.1)
-		end)
+		if not getFFlagFetchEventsFromWrapper() then
+			-- Wait for Apollo queries to resolve
+			act(function()
+				task.wait(0.1)
+			end)
+		end
 
 		local eventsList = result.container:FindFirstChild("EventsList")
 

@@ -1,7 +1,10 @@
 local ProfileQRCode = script:FindFirstAncestor("ProfileQRCode")
 local Packages = ProfileQRCode.Parent
-local configureRoduxFriends = require(ProfileQRCode.Networking.configureRoduxFriends)
+
 local RoactUtils = require(Packages.RoactUtils)
+
+local configureRoduxFriends = require(ProfileQRCode.Networking.configureRoduxFriends)
+
 local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
 
 return function()

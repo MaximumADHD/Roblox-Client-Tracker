@@ -26,4 +26,5 @@ return {
 	GetFFlagUIBloxUpdateVerticalTile = require(script.GetFFlagUIBloxUpdateVerticalTile),
 	GetFFlagUIBloxUseDetailsPageTemplateConfig = require(script.GetFFlagUIBloxUseDetailsPageTemplateConfig),
 	GetFFlagUIBloxUpdatePlayerTileFooterPadding = require(script.GetFFlagUIBloxUpdatePlayerTileFooterPadding),
+	GetFFlagUIBloxDropDownMenuUseUniqueKeys = require(script.GetFFlagUIBloxDropDownMenuUseUniqueKeys),
 }

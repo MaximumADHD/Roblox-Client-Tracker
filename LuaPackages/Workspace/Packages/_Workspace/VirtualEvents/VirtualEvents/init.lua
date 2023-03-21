@@ -24,8 +24,6 @@ return {
 
 	-- Functions
 	installReducer = require(script.installReducer),
-	isEventValid = require(script.Common.isEventValid),
-	fetchSponsoredEventsOnMorePage = require(script.Common.fetchSponsoredEventsOnMorePage),
 	fireEventDetailsPageVisit = require(script.Analytics.fireEventDetailsPageVisit),
 	fireShareVirtualEventIconClicked = require(script.Analytics.fireShareVirtualEventIconClicked),
 	fireVirtualEventJoined = require(script.Analytics.fireVirtualEventJoined),

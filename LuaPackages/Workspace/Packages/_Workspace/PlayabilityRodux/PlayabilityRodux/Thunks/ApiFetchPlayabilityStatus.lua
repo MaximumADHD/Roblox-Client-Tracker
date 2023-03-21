@@ -2,10 +2,6 @@
 local PlayabilityRodux = script:FindFirstAncestor("PlayabilityRodux")
 local Packages = PlayabilityRodux.Parent
 
--- TODO remove with FFlagLuaAppWorkspaceUseLumberyakLogger
-local CorePackages = game:GetService("CorePackages")
-local Logging = require(CorePackages.Logging)
-
 local Promise = require(Packages.Promise)
 local Result = require(Packages.Result)
 local PerformFetch = require(Packages.Http).PerformFetch
@@ -15,9 +11,6 @@ local PlayabilityStatus = require(PlayabilityRodux.Models).PlayabilityStatusMode
 local MAX_UNIVERSE_IDS = 100
 
 local Logger = require(PlayabilityRodux.Logger)
-
-local GetFFlagLuaAppWorkspaceUseLumberyakLogger =
-	require(Packages.SharedFlags).GetFFlagLuaAppWorkspaceUseLumberyakLogger
 
 local function keyMapper(universeId)
 	return "luaapp.gamesapi.playabilitystatus." .. universeId
@@ -62,11 +55,7 @@ function ApiFetchPlayabilityStatus.Fetch(networkImpl, universeIds)
 					store:dispatch(SetPlayabilityStatus(playabilityStatusTable))
 				end
 			else
-				if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
-					Logger:warning("Response from GameGetVotes is malformed!")
-				else
-					Logging.warn("Response from GameGetVotes is malformed!")
-				end
+				Logger:warning("Response from GameGetVotes is malformed!")
 			end
 
 			return Promise.resolve(results)

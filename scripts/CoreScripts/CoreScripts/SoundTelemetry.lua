@@ -19,7 +19,7 @@ local myConfig : TelemetryEventConfig = {
 	throttlingPercentage = 10000, -- 100%
 	
 	-- the following 3 fields are for static documentation generation purposes only
-	lastUpdated = { 23, 6, 2 }, -- February 6, 2023
+	lastUpdated = { 23, 14, 3 }, -- March 14, 2023
 	description = [[ Hopefully we will get some logging of in-experience music ]],
 	links = "https://roblox.atlassian.net/wiki/spaces/MUS/pages/1895989494/Music+Telemetry+Instrumentation+Tech+Spec",
 }
@@ -27,6 +27,7 @@ local myConfig : TelemetryEventConfig = {
 local myStandardizedFields = {
 	myLoggingProtocol.StandardizedFields.addPlaceId,
 	myLoggingProtocol.StandardizedFields.addUniverseId,
+	myLoggingProtocol.StandardizedFields.addSessionId,
 }
 
 local MIN_MUSIC_LENGTH = 6 -- Sounds with length greater than 6 seconds are considered as "Music" (vs Sound Effect)
@@ -46,7 +47,8 @@ local function logTelemetryEvent(sound: Sound, eventName: string, numTimesLooped
 			myConfig,
 			myStandardizedFields,
 			{
-				assetid = sound.SoundId,
+				assetId = sound.SoundId,
+				debugId = sound:GetDebugId(10),
 				soundEvent = eventName,
 				volume = sound.Volume,
 				groupVolume = groupVolume,
@@ -97,7 +99,6 @@ local function hookupSoundEvents(sound: Sound)
 	end)
 
 	local soundConnections = { playedSoundConnection, pausedSoundConnection, stoppedSoundConnection, endedSoundConnection, resumedSoundConnection, didLoopSoundConnection}
-
 	trackedSounds[sound] = soundConnections
 end
 

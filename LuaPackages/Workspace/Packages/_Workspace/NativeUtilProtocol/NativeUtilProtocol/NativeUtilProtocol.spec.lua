@@ -9,6 +9,7 @@ return function()
 	local getFFlagLuaNativeUtilProtocol = require(script.Parent.Flags.getFFlagLuaNativeUtilProtocol)
 	local getFFlagLuaSwitchToSettingsApp = require(script.Parent.Flags.getFFlagLuaSwitchToSettingsApp)
 	local getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling
+	local getFFlagLuaGetSMSOTP = require(script.Parent.Flags.getFFlagLuaGetSMSOTP)
 
 	describe("NativeUtilProtocol", function()
 		beforeAll(function(context)
@@ -194,6 +195,53 @@ return function()
 				function(params)
 					MessageBus.publishProtocolMethodResponse(
 						NativeUtilProtocol.SUPPORTS_SWITCH_TO_SETTINGS_APP_METHOD_RESPONSE_DESCRIPTOR,
+						{
+							support = true,
+						},
+						0,
+						{}
+					)
+				end
+			)
+			wait()
+			expect(didSucceed).to.equal(true)
+		end)
+
+		it("should process get sms otp request", function(context)
+			if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetSMSOTP() then
+				return
+			end
+
+			local smsCode = ""
+			context.NativeUtilProtocol:getSMSOTP():andThen(function(code)
+				smsCode = code
+			end)
+
+			context.subscriber:subscribeProtocolMethodRequest(
+				NativeUtilProtocol.GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(NativeUtilProtocol.GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR, {
+						code = "123456",
+					}, 0, {})
+				end
+			)
+			wait()
+			expect(smsCode).to.equal("123456")
+		end)
+
+		it("should process get sms otp support correctly", function(context)
+			if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetSMSOTP() then
+				return
+			end
+			local didSucceed = false
+			context.NativeUtilProtocol:supportsGetSMSOTP():andThen(function(supported)
+				didSucceed = supported
+			end)
+			context.subscriber:subscribeProtocolMethodRequest(
+				NativeUtilProtocol.SUPPORTS_GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						NativeUtilProtocol.SUPPORTS_GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR,
 						{
 							support = true,
 						},

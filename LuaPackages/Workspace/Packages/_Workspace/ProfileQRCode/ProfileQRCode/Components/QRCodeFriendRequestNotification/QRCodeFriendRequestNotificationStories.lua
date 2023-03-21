@@ -14,6 +14,7 @@ return {
 			store = mockStore(mockState()),
 		}, {
 			QRCodeFriendRequestNotificationElement = React.createElement(QRCodeFriendRequestNotification, {
+				notificationQueueSize = 1,
 				onClose = if props.onClose then props.onClose else Dash.noop,
 				onAccept = if props.onAccept then props.onAccept else Dash.noop,
 				userId = if props.userId then props.userId else DefaultTestUserId,

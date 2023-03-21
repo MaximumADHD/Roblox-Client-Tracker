@@ -7,6 +7,7 @@
 local Players =  game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
@@ -17,3 +18,13 @@ VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
 		end
 	end
 end)
+
+local function setLocalPlayerVideoAnimationEnabled()
+	local player = Players.LocalPlayer
+	if player then
+		player:SetAttribute("RBXAttentionVideoAnimationEnabled", FaceAnimatorService.VideoAnimationEnabled)
+	end
+end
+
+setLocalPlayerVideoAnimationEnabled()
+FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"):Connect(setLocalPlayerVideoAnimationEnabled)

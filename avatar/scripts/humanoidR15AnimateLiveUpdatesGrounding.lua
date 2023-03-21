@@ -881,21 +881,6 @@ function stepAnimate(currentTime)
 	end
 end
 
-function setupIkAutopole()
-	local character = script.Parent
-	local autopoleModule = script:WaitForChild("module_autopole")
-	local autopole = require(autopoleModule)
-	autopole:Init(character)
-end
-
-function setupCharacterGrounding()
-	local character = script.Parent
-
-	local groundingModule = script:WaitForChild("module_grounding")
-	local grounding = require(groundingModule)
-	grounding:Init(character, 0.35)
-
-end
 
 -- connect events
 Humanoid.Died:connect(onDied)
@@ -960,11 +945,48 @@ if Character.Parent ~= nil then
 	pose = "Standing"
 end
 
--- Setup IK Autopole
-setupIkAutopole()
+function setupIkAutopole()
+    local character = script.Parent
+    local autopoleModule = script:WaitForChild("module_autopole")
+    local autopole = require(autopoleModule)
+    autopole:Init(character)
+end
 
--- Setup Grouding IK
-setupCharacterGrounding()
+function setupCharacterGrounding()
+    local character = script.Parent
+    local groundingModule = script:WaitForChild("module_grounding")
+    local grounding = require(groundingModule)
+    grounding:Init(character)
+end
+
+local function loadOptionalFeatures()
+    local optionalFeatures = {}
+    -- default values
+    optionalFeatures.FootGrounding = false
+
+    -- load overrides from ReplicatedStorage/AvatarConfiguration/Animate
+    local avatarConfig = game:GetService("ReplicatedStorage"):FindFirstChild("AvatarConfiguration")
+    if avatarConfig then
+        local animateConfig = avatarConfig:FindFirstChild("Animate")
+        if animateConfig then
+            local attributes = animateConfig:GetAttributes()
+            for key, value in pairs(attributes) do
+                optionalFeatures[key] = value
+            end
+        end
+    end
+
+    -- apply optional features
+    if optionalFeatures.FootGrounding then
+        -- Setup IK Autopole
+        setupIkAutopole()
+
+        -- Setup Grouding IK
+        setupCharacterGrounding()
+    end
+end
+
+loadOptionalFeatures()
 
 -- loop to handle timed state transitions and tool animations
 while Character.Parent ~= nil do

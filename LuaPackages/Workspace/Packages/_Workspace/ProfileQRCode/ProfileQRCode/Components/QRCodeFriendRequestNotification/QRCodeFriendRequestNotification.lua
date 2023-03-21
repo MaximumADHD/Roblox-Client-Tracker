@@ -13,6 +13,8 @@ local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
 local useLocalUserInfo = require(ProfileQRCode.Utils.useLocalUserInfo)
+local useAnalytics = require(ProfileQRCode.Analytics.useAnalytics)
+local EventNames = require(ProfileQRCode.Analytics.EventNames)
 
 local QR_CODE_ICON = Images["icons/menu/scanqr"]
 local CLOSE_BUTTON_IMAGE = Images["icons/navigation/close"]
@@ -29,6 +31,7 @@ local REQUEST_TEXT_HEIGHT = 28
 local MAX_WIDTH = 640
 
 export type Props = {
+	notificationQueueSize: number,
 	onClose: () -> (),
 	onAccept: (userId: string) -> (),
 	userId: string,
@@ -41,6 +44,13 @@ local QRCodeFriendRequestNotification = function(props: Props)
 	})
 	local style = useStyle()
 	local userInfo = useLocalUserInfo(props.userId)
+	local analytics = useAnalytics()
+
+	React.useEffect(function()
+		analytics.fireEvent(EventNames.QRPageFriendRequestBannerShown, {
+			qrCodeBannerQueueSize = props.notificationQueueSize,
+		})
+	end, { props.userId })
 
 	return React.createElement("Frame", {
 		ZIndex = 2,

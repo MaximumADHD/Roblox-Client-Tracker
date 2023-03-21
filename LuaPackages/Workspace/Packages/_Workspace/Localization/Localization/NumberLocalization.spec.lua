@@ -1,14 +1,8 @@
 return function()
-	local Packages = script.Parent.Parent
-	local CorePackages = game:GetService("CorePackages")
-	local Logging = require(CorePackages.Logging)
 	local NumberLocalization = require(script.Parent.NumberLocalization)
 	local Logger = require(script.Parent.Logger)
 
 	local RoundingBehaviour = require(script.Parent.RoundingBehaviour)
-
-	local GetFFlagLuaAppWorkspaceUseLumberyakLogger =
-		require(Packages.SharedFlags).GetFFlagLuaAppWorkspaceUseLumberyakLogger
 
 	local function checkLocale(locale, responseMapping)
 		for input, output in pairs(responseMapping) do
@@ -45,54 +39,33 @@ return function()
 
 	describe("NumberLocalization.localize", function()
 		it("should default to en-us when locale is not recognized", function()
-			if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
-				local sink = newSink(Logger.Levels.Warning)
-				Logger:addSink(sink)
+			local sink = newSink(Logger.Levels.Warning)
+			Logger:addSink(sink)
 
-				checkValid_en_zh("bad_locale")
+			checkValid_en_zh("bad_locale")
 
-				expect(#sink.seen).to.equal(11)
-				expect(string.match(sink.seen[1].message, "^Warning: Locale not found:") ~= nil).to.equal(true)
-			else
-				local logs = Logging.capture(function()
-					checkValid_en_zh("bad_locale")
-				end)
-				expect(string.match(logs.warnings[1], "^Warning: Locale not found:") ~= nil).to.equal(true)
-			end
+			expect(#sink.seen).to.equal(11)
+			expect(string.match(sink.seen[1].message, "^Warning: Locale not found:") ~= nil).to.equal(true)
 		end)
 
 		it("should default to en-us when locale is nil", function()
-			if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
-				local sink = newSink(Logger.Levels.Info)
-				Logger:addSink(sink)
+			local sink = newSink(Logger.Levels.Info)
+			Logger:addSink(sink)
 
-				checkValid_en_zh(nil)
+			checkValid_en_zh(nil)
 
-				expect(#sink.seen).to.equal(11)
-				expect(string.match(sink.seen[1].message, "^Warning: Locale not found:") ~= nil).to.equal(true)
-			else
-				local logs = Logging.capture(function()
-					checkValid_en_zh(nil)
-				end)
-				expect(string.match(logs.warnings[1], "^Warning: Locale not found:") ~= nil).to.equal(true)
-			end
+			expect(#sink.seen).to.equal(11)
+			expect(string.match(sink.seen[1].message, "^Warning: Locale not found:") ~= nil).to.equal(true)
 		end)
 
 		it("should default to en-us when locale is empty", function()
-			if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
-				local sink = newSink(Logger.Levels.Info)
-				Logger:addSink(sink)
+			local sink = newSink(Logger.Levels.Info)
+			Logger:addSink(sink)
 
-				checkValid_en_zh("")
+			checkValid_en_zh("")
 
-				expect(#sink.seen).to.equal(11)
-				expect(string.match(sink.seen[1].message, "^Warning: Locale not found:") ~= nil).to.equal(true)
-			else
-				local logs = Logging.capture(function()
-					checkValid_en_zh("")
-				end)
-				expect(string.match(logs.warnings[1], "^Warning: Locale not found:") ~= nil).to.equal(true)
-			end
+			expect(#sink.seen).to.equal(11)
+			expect(string.match(sink.seen[1].message, "^Warning: Locale not found:") ~= nil).to.equal(true)
 		end)
 
 		it("should localize correctly. (en-us)", function()

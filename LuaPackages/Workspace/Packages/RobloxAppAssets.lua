@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["RobloxAppAssets"]["RobloxAppAssets"])
 
+export type ImageSetData = Package.ImageSetData
+export type ImageData = Package.ImageData
+
+
 return Package

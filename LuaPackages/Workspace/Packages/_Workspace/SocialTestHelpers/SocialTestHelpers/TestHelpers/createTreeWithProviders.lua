@@ -25,7 +25,6 @@ local EMPTY_STORE = Rodux.Store.new(function()
 	return {}
 end, {}, { Rodux.thunkMiddleware })
 
--- TODO: replace when SOCCONN-1516 is in social libraries
 local createTreeWithProviders = function(element, config)
 	local tree = Roact.createFragment({
 		storeProvider = Roact.createElement(RoactRodux.StoreProvider, {
@@ -47,6 +46,10 @@ local createTreeWithProviders = function(element, config)
 			}),
 		}),
 	})
+
+	if config.mockProvider then
+		tree = config.mockProvider(tree)
+	end
 
 	return tree
 end

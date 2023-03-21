@@ -4,4 +4,5 @@ local enumerate = dependencies.enumerate
 
 return enumerate(script.Name, {
 	PlayerProfile = "playerProfile",
+	ShareLinkErrorDialog = "shareLinkErrorDialog",
 })

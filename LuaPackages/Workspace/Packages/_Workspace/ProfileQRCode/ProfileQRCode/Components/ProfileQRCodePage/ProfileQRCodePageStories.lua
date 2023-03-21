@@ -23,7 +23,7 @@ return {
 			}, {
 				ProfileQRCodePageElement = React.createElement(ProfileQRCodePage, {
 					onClose = if props.onClose then props.onClose else Dash.noop,
-					robloxEventReceiver = receiver,
+					robloxEventReceiver = if props.robloxEventReceiver then props.robloxEventReceiver else receiver,
 				}),
 			}),
 		})

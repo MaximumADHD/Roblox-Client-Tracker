@@ -1,12 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images
 
--- Using hard-coded size right now; will make it dependent on screen size later
-local HIGHLIGHT_SIZE = 100 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local SUPPORT_DRAG_SELECTION = false
 
 export type Props = {
@@ -64,6 +65,11 @@ local function ScreenshotHighlighter(props: Props)
         end
     end
 
+    -- Using a fraction of screen size to determine annotation circle size
+    local sizeData = RobloxGui.AbsoluteSize
+    local minScreenDimension = (sizeData.Y > sizeData.X) and sizeData.X or sizeData.Y
+    local annotationCircleSize = minScreenDimension / 5;
+
     -----------------------
     -- Render clicks
     -----------------------
@@ -73,12 +79,12 @@ local function ScreenshotHighlighter(props: Props)
         children["point" .. i] = React.createElement("Frame", {
             Position = UDim2.fromScale(point.X, point.Y),
             BackgroundTransparency = 1,
-            Size = UDim2.fromOffset(HIGHLIGHT_SIZE, HIGHLIGHT_SIZE)
+            Size = UDim2.fromOffset(annotationCircleSize, annotationCircleSize)
         }, {
             -- Our design requires a circle with border
             -- since we don't have the specific image for it I have to combine two images
             Border = React.createElement(ImageSetButton, {
-                Size = UDim2.fromOffset(HIGHLIGHT_SIZE, HIGHLIGHT_SIZE),
+                Size = UDim2.fromOffset(annotationCircleSize, annotationCircleSize),
                 AnchorPoint = Vector2.new(0.5, 0.5),
                 Image = Images["component_assets/circle_49_stroke_1"],
                 ImageColor3 = Color3.fromHex('#3CF3E9'),
@@ -88,7 +94,7 @@ local function ScreenshotHighlighter(props: Props)
             Background = React.createElement(ImageSetButton, {
                 -- TODO(bcwong): When clicking near the border, the dot partially lies outside
                 -- TODO(bcwong): Point size should be a fraction of the image width/height
-                Size = UDim2.fromOffset(HIGHLIGHT_SIZE, HIGHLIGHT_SIZE),
+                Size = UDim2.fromOffset(annotationCircleSize, annotationCircleSize),
                 AnchorPoint = Vector2.new(0.5, 0.5),
                 Image = Images["component_assets/circle_49"],
                 ImageColor3 = Color3.fromHex('#3CF3E9'),
@@ -104,6 +110,7 @@ local function ScreenshotHighlighter(props: Props)
         [React.Event.InputBegan] = onInputBegan,
         [React.Event.InputChanged] = onInputChanged,
         [React.Event.InputEnded] = onInputEnded,
+        ZIndex = 3
     }, children)
 end
 

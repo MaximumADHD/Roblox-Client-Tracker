@@ -141,7 +141,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}),
 					DescriptionInput = Roact.createElement(AssetDescriptionTextBox, {
-						Size = UDim2.new(1, 0, 0, 60),
+						Size = UDim2.new(1, 0, 0, 80),
 						Position = UDim2.new(0, 0, 0, 60 + LABEL_HEIGHT),
 						BackgroundTransparency = 1,
 						onAssetDescriptionUpdated = self.onAssetDescriptionUpdated,

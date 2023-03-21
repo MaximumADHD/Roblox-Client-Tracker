@@ -34,7 +34,9 @@ export type InsightsJson = {
 	mutualFriendInsight: {
 		mutualFriends: MutualFriendsJson,
 	}?,
-	offlineFrequentsInsight: boolean?,
+	offlineFrequentsInsight: {
+		havePlayedTogether: boolean,
+	}?,
 	friendRequestOriginInsight: any?,
 }
 
@@ -47,14 +49,20 @@ type ProfileInsightsJson = {
 	userInsights: { UserInsightsJson },
 }
 
+export type ProfileInsightsPage = {
+	pageId: string?,
+	profileInsights: { UserInsightsJson },
+}
+
 --* at the moment we support only 2 types of profile insights
 local DEFAULT_COUNT = 2
 
 local function findProfileInsightsByUserIds(
 	ids: { string },
 	count: number?,
+	pageId: string?,
 	fetchImpl_: fetch?
-): Promise<Array<UserInsightsJson>>
+): Promise<ProfileInsightsPage>
 	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
 
 	return Promise.new(function(resolve, reject)
@@ -102,7 +110,10 @@ local function findProfileInsightsByUserIds(
 			return
 		end
 
-		resolve(profileInsightsJson.userInsights)
+		resolve({
+			pageId = pageId,
+			profileInsights = profileInsightsJson.userInsights,
+		})
 		return
 	end)
 end

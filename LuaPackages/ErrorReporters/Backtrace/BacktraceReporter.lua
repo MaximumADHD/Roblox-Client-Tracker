@@ -15,7 +15,6 @@ local ErrorQueue = require(script.Parent.Parent.ErrorQueue)
 
 local DEVELOPMENT_IN_STUDIO = RunService:IsStudio()
 
-local FFlagFixVeryOldUAReportBacktraceErrors = game:DefineFastFlag("FixVeryOldUAReportBacktraceErrors", false)
 local FIntOldestUAVersionToReportErrors = game:DefineFastInt("OldestUAVersionToReportErrors", 0)
 
 local DEFAULT_LOG_INTERVAL = 60 -- seconds
@@ -96,7 +95,7 @@ function BacktraceReporter:sendErrorReport(report, log)
 		return
 	end
 
-	if FFlagFixVeryOldUAReportBacktraceErrors and self:isTooOldToReportErrors() then
+	if self:isTooOldToReportErrors() then
 		return
 	end
 

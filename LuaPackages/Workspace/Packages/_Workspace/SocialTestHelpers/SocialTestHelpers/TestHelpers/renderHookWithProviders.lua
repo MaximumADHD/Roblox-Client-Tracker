@@ -6,10 +6,11 @@ local SocialTestHelpers = script:FindFirstAncestor("SocialTestHelpers")
 local dependencies = require(SocialTestHelpers.dependencies)
 local ReactRoblox = dependencies.ReactRoblox
 local act = ReactRoblox.act
+local Dash = dependencies.Dash
 
 local createTreeWithProviders = require(script.Parent.createTreeWithProviders)
 
-local function renderHookWithProviders(callback: (any), setupProps: any?)
+local function renderHookWithProviders(callback: any, setupProps: any?)
 	local result
 
 	local Wrapper = function(props)
@@ -17,8 +18,11 @@ local function renderHookWithProviders(callback: (any), setupProps: any?)
 		return nil
 	end
 
-	local function createRootElement(props)
-		local value = createTreeWithProviders(Wrapper, setupProps or {})
+	local function createRootElement(props: any?, updatedSetupProps: any?)
+		local config = Dash.join(setupProps or {}, updatedSetupProps or {})
+		config.props = Dash.join(config.props or {}, props or {})
+
+		local value = createTreeWithProviders(Wrapper, config)
 
 		return value
 	end
@@ -30,9 +34,9 @@ local function renderHookWithProviders(callback: (any), setupProps: any?)
 		root:render(createRootElement({}))
 	end)
 
-	local function rerender(newProps)
+	local function rerender(newProps: any?, setupProps: any?)
 		act(function()
-			root:render(createRootElement(newProps))
+			root:render(createRootElement(newProps, setupProps))
 		end)
 	end
 
@@ -42,6 +46,10 @@ local function renderHookWithProviders(callback: (any), setupProps: any?)
 
 	return {
 		result = result,
+		--* use getResult instead of result (result doesn't get updated after hook update)
+		getResult = function()
+			return result
+		end,
 		rerender = rerender,
 		cleanup = cleanup,
 	}

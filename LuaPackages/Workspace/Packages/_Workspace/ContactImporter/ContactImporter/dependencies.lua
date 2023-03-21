@@ -67,6 +67,7 @@ return {
 	memoize = require(Packages.AppCommonLib).memoize,
 	RoduxNetworking = myRoduxNetworking,
 	enumerate = require(Packages.enumerate),
+	IXPService = game:GetService("IXPService"),
 
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	SocialModalsCommon = require(Packages.SocialModalsCommon),
@@ -113,6 +114,7 @@ return {
 	FlatList = VirtualizedList.FlatList,
 	useSelector = require(Packages.RoactUtils).Hooks.RoactRodux.useSelector,
 	useDispatch = require(Packages.RoactUtils).Hooks.RoactRodux.useDispatch,
+	usePrevious = require(Packages.RoactUtils).Hooks.usePrevious,
 	useNavigation = require(Packages.RoactUtils).Hooks.useNavigation,
 	useLocalization = require(Packages.RoactUtils).Hooks.useLocalization,
 	useStyle = UIBlox.Core.Style.useStyle,
@@ -126,4 +128,6 @@ return {
 	getFFlagEnableContactInvitesForNonPhoneVerified = require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling,
 	SelfViewProfileDiscoverabilityUpsellIXP = require(Packages.DiscoverabilityModal).Flags.SelfViewProfileDiscoverabilityUpsellIXP,
+	getFFlagEnableDeeplinkForContactsList = require(Packages.SharedFlags).getFFlagEnableDeeplinkForContactsList,
+	getFFlagReEnableAutoSyncContacts = require(Packages.SharedFlags).getFFlagReEnableAutoSyncContacts,
 }

@@ -51,4 +51,5 @@ return {
 	updateVerticalTile = UIBloxFlags.GetFFlagUIBloxUpdateVerticalTile(),
 	useDetailsPageTemplateConfig = UIBloxFlags.GetFFlagUIBloxUseDetailsPageTemplateConfig(),
 	updatePlayerTileFooterPadding = UIBloxFlags.GetFFlagUIBloxUpdatePlayerTileFooterPadding(),
+	dropDownMenuUseUniqueKeys = UIBloxFlags.GetFFlagUIBloxDropDownMenuUseUniqueKeys(),
 }

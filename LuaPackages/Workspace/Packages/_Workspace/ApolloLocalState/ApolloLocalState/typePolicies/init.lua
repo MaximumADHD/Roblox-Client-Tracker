@@ -4,4 +4,5 @@ return {
 	OmniFeedItem = require(script.OmniFeedItem),
 	Experience = require(script.Experience),
 	Query = require(script.Query),
+	ProfileInsightsPages = require(script.ProfileInsightsPages),
 }

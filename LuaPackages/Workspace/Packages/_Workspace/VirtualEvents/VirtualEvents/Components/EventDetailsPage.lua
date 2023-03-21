@@ -88,6 +88,21 @@ local function EventDetailsPage(props: Props)
 			variables = {
 				virtualEventId = props.virtualEvent.id,
 			},
+			update = function(_self, cache, result)
+				local virtualEvent = result.data.virtualEventRsvp.virtualEvent
+
+				cache:modify({
+					id = cache:identify(virtualEvent),
+					fields = {
+						rsvpCounters = function(_self, prev: { going: number })
+							local increment = if virtualEvent.userRsvpStatus == "going" then 1 else -1
+							return Cryo.Dictionary.join(prev, {
+								going = prev.going + increment,
+							})
+						end,
+					},
+				})
+			end,
 		})
 		else nil
 

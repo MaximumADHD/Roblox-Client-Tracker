@@ -73,9 +73,9 @@ return{
 	["Authentication.Login.Label.ConnectionError.RetryReady"] = [[ขออภัย มีปัญหาในการติดต่อกับเซิร์ฟเวอร์ของเรา
 
 กรุณาลองใหม่อีกครั้ง]],
-	["Authentication.Login.Label.ConnectionError.RetryDisabled"] = [[ขออภัย มีปัญหาในการติดต่อกับเซิร์ฟเวอร์ของเรา
+	["Authentication.Login.Label.ConnectionError.RetryDisabled"] = [[ขออภัย มีปัญหาเกิดขึ้นในการติดต่อกับเซิร์ฟเวอร์ของเรา
 
-การลองใหม่ถูกปิดการใช้งานอยู่ในขณะนี้ กรุณาลองใหม่อีกครั้งในภายหลัง]],
+การลองอีกครั้งถูกปิดใช้งานอยู่ในขณะนี้ โปรดลองใหม่อีกครั้งในภายหลัง]],
 	["Authentication.Login.Action.AnotherLoggedInDevice"] = [[อีกหนึ่งอุปกรณ์ที่เข้าระบบอยู่]],
 	["Authentication.Login.Label.AccountSelectorTitle"] = [[เลือกบัญชีที่จะเข้าสู่ระบบ]],
 	["Authentication.Login.Description.AccountSelectorHelp"] = [[จะระบุบัญชีทั้งหมดที่เกี่ยวข้องของคุณไว้ที่นี่]],
@@ -83,6 +83,7 @@ return{
 	["Authentication.Login.Response.OtpLoginRobloxEmailNetworkError"] = [[คุณจะต้องอยู่บนเครือข่ายของบริษัทเพื่อเข้าสู่ระบบ]],
 	["Authentication.Login.Response.ErrorUseCorporateNetwork"] = [[คุณจะต้องอยู่บนเครือข่ายของบริษัทเพื่อเข้าสู่ระบบ]],
 	["Authentication.OneTimePasscode.Response.Under13NotAllowed"] = [[ผู้ที่มีอายุ 13 ปีขึ้นไปเท่านั้นที่สามารถเข้าสู่ระบบด้วยรหัสแบบใช้ครั้งเดียวได้]],
+	["Authentication.OneTimePasscode.Action.Continue"] = [[ต่อไป]],
 	["Authentication.ResetPassword.Response.ResetPasswordStarted"] = [[คุณจะต้องทำการรีเซ็ตรหัสผ่านของคุณก่อนที่จะดำเนินการต่อ]],
 	["Authentication.ResetPassword.Heading.AccountRecoveryPrompt.Title"] = [[ลืมชื่อผู้ใช้/รหัสผ่านอย่างนั้นหรือ?]],
 	["Authentication.ResetPassword.Description.AccountRecoveryPrompt.Body"] = [[คุณต้องการกู้บัญชีของคุณคืนหรือไม่?]],
@@ -164,6 +165,7 @@ return{
 	["Authentication.SignUp.Description.VerifiedParentalConsentModal.LegalCheckboxLabel"] = [[การป้อนรหัส จะถือว่าคุณยินยอมให้บุตรหลานของคุณเข้าถึง Roblox]],
 	["Authentication.SignUp.Reponse.PasswordKISAComplexity"] = [[จำเป็นต้องใช้รหัสผ่านที่มีการผสมผสานระหว่างตัวอักษรพิมพ์ใหญ่และตัวพิมพ์เล็กและหมายเลข]],
 	["Authentication.SignUp.Response.PasswordKISAComplexity"] = [[จำเป็นต้องใช้รหัสผ่านที่มีการผสมผสานระหว่างตัวอักษรพิมพ์ใหญ่และตัวพิมพ์เล็กและหมายเลข]],
+	["Authentication.SignUp.Action.Continue"] = [[ต่อไป]],
 	["Authentication.TwoStepVerification.Label.EnterEmailCode"] = [[ป้อนรหัสที่เราเพิ่งส่งให้คุณทางอีเมล]],
 	["Authentication.TwoStepVerification.Label.EnterTextCode"] = [[ป้อนรหัสที่เราเพิ่งส่งให้คุณทางการส่งข้อความ]],
 	["Authentication.TwoStepVerification.Label.InvalidCode"] = [[รหัสไม่ถูกต้อง]],

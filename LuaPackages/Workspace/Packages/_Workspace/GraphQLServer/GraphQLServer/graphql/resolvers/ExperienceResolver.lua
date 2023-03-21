@@ -1,5 +1,9 @@
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local Promise = require(Packages.Promise)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
+local generatedTypes = require(script.Parent.Parent.generatedTypes)
+type QueryExperienceThumbnailsArgs = generatedTypes.QueryExperienceThumbnailsArgs
 
 local resolvers = {
 	Experience = {
@@ -20,6 +24,15 @@ local resolvers = {
 					return {}
 				end)
 			return thumbnailData
+		end,
+	},
+	Query = {
+		experienceThumbnails = function(_root, args: QueryExperienceThumbnailsArgs)
+			return Array.map(args.universeIds, function(universeId)
+				return {
+					universeId = universeId,
+				}
+			end)
 		end,
 	},
 }

@@ -22,6 +22,7 @@ local noOpt = function() end
 
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
+local getFFlagProfileQRCodeEnableAlerts = dependencies.getFFlagProfileQRCodeEnableAlerts
 
 local RECORD_EXPOSURE_ON_MOUNT = if getFFlagAddFriendsSearchbarIXPEnabled() then false else nil
 
@@ -133,6 +134,9 @@ function FriendsLandingEntryPoint:render()
 					setScreenTopBar = self.setScreenTopBar,
 					refreshPage = self.refreshPage,
 					friendsRequestEventListener = self.props.friendsRequestEventListener,
+					robloxEventReceiver = if getFFlagProfileQRCodeEnableAlerts()
+						then self.props.robloxEventReceiver
+						else nil,
 					contactImporterAndPYMKEnabled = self.props.contactImporterAndPYMKEnabled,
 					contactImporterExperimentVariant = self.props.contactImporterExperimentVariant,
 					addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()

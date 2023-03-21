@@ -426,6 +426,7 @@ function AddFriendsPage:render()
 				page = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+					BorderSizePixel = if getFFlagAddFriendsSearchbarWidemodeUpdate() then 0 else nil,
 				}, {
 					SearchbarPadding = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 						then nil

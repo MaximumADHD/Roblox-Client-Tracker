@@ -16,6 +16,7 @@ return function()
 					SubPages = jestExpect.any("userdata"),
 					Pages = jestExpect.any("userdata"),
 					RecommendationContextTypes = jestExpect.any("userdata"),
+					ContextualInfoTypes = jestExpect.any("userdata"),
 				},
 				FireEvent = {
 					fireDiagCounter = jestExpect.any("function"),

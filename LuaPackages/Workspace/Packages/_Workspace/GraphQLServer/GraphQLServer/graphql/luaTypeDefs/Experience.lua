@@ -67,6 +67,10 @@ local ExperienceTypeDef = [[
         # multiple thumbnails revealed on hover.
         thumbnails: [Media]
     }
+
+    type Query {
+        experienceThumbnails(universeIds: [String!]!): [Experience!]
+    }
 ]]
 
 return ExperienceTypeDef

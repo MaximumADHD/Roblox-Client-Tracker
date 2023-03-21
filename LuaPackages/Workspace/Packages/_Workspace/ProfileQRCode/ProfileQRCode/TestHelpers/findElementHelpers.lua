@@ -20,4 +20,6 @@ return {
 	findNotificationDescription = findElementWithAssert({ Name = "Description" }),
 	findCloseButton = findElementWithAssert({ Name = "CloseButton" }),
 	findAcceptButton = findElementWithAssert({ Name = "AcceptButton" }),
+	findAlertView = findElementWithAssert({ Name = "FriendsInvite" }),
+	findToastView = findElementWithAssert({ Name = "FriendAcceptToast" }),
 }

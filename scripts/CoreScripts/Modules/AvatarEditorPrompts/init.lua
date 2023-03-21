@@ -21,8 +21,6 @@ local RoactGlobalConfig = require(script.RoactGlobalConfig)
 
 local ConnectAvatarEditorServiceEvents = require(script.ConnectAvatarEditorServiceEvents)
 
-local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
-
 local AvatarEditorPrompts = {}
 AvatarEditorPrompts.__index = AvatarEditorPrompts
 
@@ -51,23 +49,11 @@ function AvatarEditorPrompts.new()
 		Font = AppFont,
 	}
 
-	if EngineFeatureAESMoreOutfitMethods then
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
-		}, {
-			PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
-				policy = { AvatarEditorPromptsPolicy.Mapper },
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp)
-				})
-			})
-		})
-	else
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
+	self.root = Roact.createElement(RoactRodux.StoreProvider, {
+		store = self.store,
+	}, {
+		PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
+			policy = { AvatarEditorPromptsPolicy.Mapper },
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 				style = appStyle,
@@ -75,7 +61,7 @@ function AvatarEditorPrompts.new()
 				AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp)
 			})
 		})
-	end
+	})
 
 	self.element = Roact.mount(self.root, CoreGui, "AvatarEditorPrompts")
 

@@ -1,7 +1,11 @@
+-- Types duplicated in UserSearchTileUniversalWrapper
+
 export type Args = {
 	userId: string,
 	index: number,
 	hasEmphasis: boolean?,
+	contextualInfoType: string?,
+	contextualInfoDisplay: { text: string, icon: string? }?,
 }
 
 export type LuaAppNetworkingRequests = {

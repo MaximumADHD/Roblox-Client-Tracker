@@ -20,6 +20,7 @@ return enumerate(script.Name, {
 		then "peopleSearchfromAddFriends"
 		else nil,
 	ProfileCard = if getFFlagAddFriendsQRCodeAnalytics() then "profileCard" else nil,
+	ShareLinks = "shareLinks",
 
 	-- TODO SOCCONN-1976 these refer to the same page, we should standardise this
 	AddFriends = "addUniversalFriends",

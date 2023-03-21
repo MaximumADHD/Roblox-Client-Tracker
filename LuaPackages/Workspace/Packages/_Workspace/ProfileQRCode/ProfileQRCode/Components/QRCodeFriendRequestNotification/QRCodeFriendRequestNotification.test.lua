@@ -1,23 +1,68 @@
 local ProfileQRCode = script:FindFirstAncestor("ProfileQRCode")
 local Packages = ProfileQRCode.Parent
-local JestGlobals = require(Packages.Dev.JestGlobals)
-local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers)
-local runWhileMounted = SocialTestHelpers.TestHelpers.runWhileMounted
+
 local createTreeWithProviders = require(ProfileQRCode.TestHelpers.createTreeWithProviders)
+local DefaultTestUserId = require(ProfileQRCode.TestHelpers.DefaultTestUserId)
+local findElementHelpers = require(ProfileQRCode.TestHelpers.findElementHelpers)
+local JestGlobals = require(Packages.Dev.JestGlobals)
+local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
+local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers)
+local validateEvent = require(ProfileQRCode.TestHelpers.validateEvent)
+local EventNames = require(script.Parent.Parent.Parent.Analytics.EventNames)
+
+local runWhileMounted = SocialTestHelpers.TestHelpers.runWhileMounted
+local jest = JestGlobals.jest
 local expect = JestGlobals.expect
 local it = JestGlobals.it
+
 local Stories = require(script.Parent.QRCodeFriendRequestNotificationStories)
 local defaultStory = Stories.default
-local findElementHelpers = require(ProfileQRCode.TestHelpers.findElementHelpers)
-local jest = JestGlobals.jest
-local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
-local DefaultTestUserId = require(ProfileQRCode.TestHelpers.DefaultTestUserId)
 
 it("SHOULD mount correctly", function()
 	local component = createTreeWithProviders(defaultStory, {})
 
 	runWhileMounted(component, function(parent)
 		expect(#parent:GetChildren()).toBe(1)
+	end)
+end)
+
+it("SHOULD fire a banner shown RBXEventStream analytics event on mount", function()
+	local component, analytics = createTreeWithProviders(defaultStory, {
+		props = {
+			onAccept = function() end,
+			userId = DefaultTestUserId,
+		},
+	})
+
+	runWhileMounted(component, function(parent)
+		expect(analytics.analyticsMock.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
+
+		expect(analytics.analyticsMock.EventStream.setRBXEventStream).toHaveBeenCalledWith(
+			analytics.analyticsMock.EventStream,
+			validateEvent(EventNames.QRPageFriendRequestBannerShown, {
+				qrCodeBannerQueueSize = 1,
+				uid = "123",
+			})
+		)
+	end)
+end)
+
+it("SHOULD fire a banner shown Diag analytics event on mount", function()
+	local component, analytics = createTreeWithProviders(defaultStory, {
+		props = {
+			onAccept = function() end,
+			userId = DefaultTestUserId,
+		},
+	})
+
+	runWhileMounted(component, function(parent)
+		expect(analytics.analyticsMock.Diag.reportCounter).toHaveBeenCalledTimes(1)
+
+		expect(analytics.analyticsMock.Diag.reportCounter).toHaveBeenCalledWith(
+			analytics.analyticsMock.Diag,
+			"ProfileQRPageFriendRequestBannerShown",
+			1
+		)
 	end)
 end)
 

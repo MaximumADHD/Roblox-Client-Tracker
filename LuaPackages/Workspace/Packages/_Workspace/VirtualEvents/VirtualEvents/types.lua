@@ -27,23 +27,4 @@ export type Event = {
 	bannerImageUrl: string?,
 }
 
-export type SponsoredEventResponse = {
-	name: string,
-	title: string,
-	pageType: string,
-	pagePath: string,
-
-	-- This gets set to `null` when the event is over to remove the
-	-- SponsoredEvent from the list
-	logoImageUrl: string?,
-}
-
-export type SponsoredEvent = {
-	name: string,
-	title: string,
-	pagePath: string,
-	url: string,
-	imageUrl: string?, -- mapped from logoImageUrl
-}
-
 return types

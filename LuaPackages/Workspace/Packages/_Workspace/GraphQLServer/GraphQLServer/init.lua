@@ -7,10 +7,13 @@ export type OmniFeed = graphqlModule.OmniFeed
 export type OmniFeedMetadata = graphqlModule.OmniFeedMetadata
 export type OmniFeedRecommendation = graphqlModule.OmniFeedRecommendation
 export type OmniFeedItem = graphqlModule.OmniFeedItem
+export type Experience = graphqlModule.Experience
+export type Media = graphqlModule.Media
 export type VirtualEvent = graphqlModule.VirtualEvent
 export type RsvpStatus = graphqlModule.RsvpStatus
 export type VirtualEventsPage = graphqlModule.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = graphqlModule.VirtualEventsByUniverseIdOptions
+export type ProfileInsights = graphqlModule.ProfileInsights
 
 export type MockOptions = ApolloClientTestUtils.MockOptions
 export type Response = ApolloClientTestUtils.Response

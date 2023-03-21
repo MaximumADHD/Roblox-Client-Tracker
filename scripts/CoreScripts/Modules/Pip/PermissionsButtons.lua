@@ -1,5 +1,6 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
@@ -8,9 +9,8 @@ local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local toggleModeEvent = ReplicatedStorage:WaitForChild("ToggleModeEvent")
-local roomTeleportRequestedEvent = ReplicatedStorage:WaitForChild("RoomTeleportRequestedEvent")
 local camModeChanged = ReplicatedStorage:WaitForChild("CamModeChanged")
-local roomTeleportEvent = ReplicatedStorage:WaitForChild("RoomTeleportEvent")
+local Camera = workspace:WaitForChild("Camera")
 
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
@@ -29,15 +29,18 @@ local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Pip.PermissionButton)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 
+local isSmallScreen = if Camera.ViewportSize.X < 640 then true else false
+
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
-local PADDING_SIZE = 8
-local DIVIDER_HEIGHT = 24
+local PADDING_SIZE = 36
+local OUTER_PADDING = 24
 local Y_HEIGHT = 38
 
 local TOTAL_MODES = 3
-local TOTAL_ROOMS = 3
 local LEAVE_GAME_FRAME_WAITS = 2
+local AVATAR_SIZE = 40
+local IN_BETWEEN_PADING = 12
 
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
@@ -46,8 +49,6 @@ local MIC_OFF_IMAGE = Images["icons/controls/microphoneMute"]
 local SPATIAL_IMAGE = Images["icons/actions/previewExpand"]
 local FREE_PLAY_IMAGE = Images["icons/actions/previewShrink"]
 local PIP_IMAGE = Images["icons/controls/selfie"]
-local PLAY_IMAGE = Images["icons/common/play"]
-local END_CALL_IMAGE = Images["icons/navigation/close"]
 
 local MODES_IMAGES = {
 	SPATIAL_IMAGE,
@@ -69,7 +70,7 @@ end
 
 function PermissionsButtons:init()
 	local camMode = ReplicatedStorage:WaitForChild("CamMode")
-	local roomIndex = ReplicatedStorage:WaitForChild("RoomIndex")
+
 	self:setState({
 		allPlayersMuted = false,
 		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
@@ -77,8 +78,18 @@ function PermissionsButtons:init()
 		hasCameraPermissions = false,
 		hasMicPermissions = false,
 		camMode = camMode.Value,
-		roomIndex = roomIndex.Value,
+		visible = true,
+		player = nil,
+		showCallInfo = false,
 	})
+
+	GuiService.MenuOpened:Connect(function()
+		self:setState({ visible = false })
+	end)
+
+	GuiService.MenuClosed:Connect(function()
+		self:setState({ visible = true })
+	end)
 
 	camModeChanged.OnClientEvent:Connect(function()
 		local mode = ReplicatedStorage:WaitForChild("CamMode").Value
@@ -87,11 +98,31 @@ function PermissionsButtons:init()
 		})
 	end)
 
-	roomTeleportEvent.OnClientEvent:Connect(function()
-		local index = ReplicatedStorage:WaitForChild("RoomIndex").Value
-		self:setState({
-			roomIndex = index,
-		})
+	local players = Players:GetPlayers()
+	-- If the other call participant joined the private place before local user
+	if #players > 1 then
+		local otherPlayer
+
+		if players[1].UserId == Players.LocalPlayer.UserId then
+			otherPlayer = players[2]
+		else
+			otherPlayer = players[1]
+		end
+
+		self:setState({ player = otherPlayer, showCallInfo = true })
+	else
+		-- If local user is the first to join private place listen for when other participant joins
+		local playerAddedConnection 
+		playerAddedConnection = Players.PlayerAdded:Connect(function(player)
+			self:setState({ player = player, showCallInfo = true })
+			playerAddedConnection:Disconnect()
+		end)
+	end
+
+	local playerRemovingConnection
+	playerRemovingConnection = Players.PlayerRemoving:Connect(function(player)
+		self:setState({ plater = nil, showCallInfo = false })
+		playerRemovingConnection:Disconnect()
 	end)
 
 	-- Mute all players in the lobby
@@ -142,14 +173,6 @@ function PermissionsButtons:init()
 		toggleModeEvent:FireServer(newState)
 	end
 
-	self.cycleRoom = function()
-		local newState = (self.state.roomIndex + 1) % TOTAL_ROOMS
-		self:setState({
-			roomIndex = newState,
-		})
-		roomTeleportRequestedEvent:FireServer(newState)
-	end
-
 	self.openEnvironmentsMenu = function()
 		toggleEnvironmentsMenuEvent:Fire()
 	end
@@ -177,6 +200,13 @@ function PermissionsButtons:init()
 		end
 		game:Shutdown()
 	end
+
+	VoiceChatServiceManager:asyncInit():andThen(function()
+		self:getPermissions()
+	end):catch(function()
+		-- If mic permissions are not allowed the init never resolves
+		self:getPermissions()
+	end)
 end
 
 --[[
@@ -192,37 +222,30 @@ function PermissionsButtons:getPermissions()
 	getCamMicPermissions(callback)
 end
 
-function PermissionsButtons:didMount()
-	self:getPermissions()
-end
-
 function PermissionsButtons:render()
 	local shouldShowMicButtons = self.state.hasMicPermissions
 	local shouldShowCameraButtons = self.state.hasCameraPermissions
 
 	return Roact.createElement("Frame", {
 		Name = "PermissionsButton",
-		AutomaticSize = Enum.AutomaticSize.XY,
+		Size = if isSmallScreen then UDim2.new(1, -OUTER_PADDING * 2, 0, 0) else UDim2.new(0, 400, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
 		ZIndex = self.props.ZIndex,
-		BackgroundTransparency = 0,
-		BackgroundColor3 = Color3.fromRGB(35, 37, 39),
-		Position = UDim2.new(0.5, 0, 1, -36),
-		AnchorPoint = Vector2.new(0.5, 0.5),
+		BackgroundTransparency = 0.1,
+		BackgroundColor3 = Color3.fromRGB(17, 18, 20),
+		Position = UDim2.new(0.5, 0, 0, 12),
+		AnchorPoint = Vector2.new(0.5, 0),
 		LayoutOrder = self.props.LayoutOrder,
-		Visible = not self.props.isTenFootInterface, -- Not Visible on Xbox
+		Visible = not self.props.isTenFootInterface and self.state.visible, -- Not Visible on Xbox
 	}, {
-		UIPaddingPermissionsContainer = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, 4),
-		}),
 		UIListLayout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
+			FillDirection = Enum.FillDirection.Vertical,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(0, PADDING_SIZE),
 		}),
 		UICorner = Roact.createElement("UICorner", {
-			CornerRadius = UDim.new(0.8, 0),
+			CornerRadius = UDim.new(0, 8),
 		}),
 		UIPadding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),
@@ -230,6 +253,65 @@ function PermissionsButtons:render()
 			PaddingTop = UDim.new(0, 12),
 			PaddingBottom = UDim.new(0, 12),
 		}),
+		CallInfo = if self.state.showCallInfo then Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, AVATAR_SIZE),
+			BackgroundTransparency = 1,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, IN_BETWEEN_PADING),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+			Avatar = Roact.createElement("ImageLabel", {
+				Size = UDim2.new(0, AVATAR_SIZE, 0, AVATAR_SIZE),
+				BackgroundColor3 = Color3.fromRGB(220, 220, 220),
+				BackgroundTransparency = 1,
+				Image = "rbxthumb://type=AvatarHeadShot&id=" .. self.state.player.UserId .. "&w=150&h=150",
+				LayoutOrder = 1,
+			}, {
+				UICorner = Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(0.5, 0.5),
+				}),
+			}),
+			Info = Roact.createElement("Frame", {
+				Size = UDim2.new(1, -AVATAR_SIZE - IN_BETWEEN_PADING, 1, 0),
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+			}, {
+				UIListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+				DisplayName = Roact.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					Font = Enum.Font.GothamMedium,
+					LayoutOrder = 1,
+					Text = self.state.player.DisplayName,
+					TextColor3 = Color3.fromRGB(255, 255, 255),
+					TextSize = 16,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+				HelperText = Roact.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					Font = Enum.Font.Gotham,
+					LayoutOrder = 2,
+					Text = "Roblox call",
+					TextColor3 = Color3.fromRGB(255, 255, 255),
+					TextSize = 12,
+					TextTransparency = .4,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				})
+			})
+		}) else nil,
 		Container = Roact.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.X,
 			Size = UDim2.fromOffset(0, Y_HEIGHT),
@@ -254,20 +336,22 @@ function PermissionsButtons:render()
 				image = if self.state.cameraEnabled then VIDEO_IMAGE else VIDEO_OFF_IMAGE,
 				callback = self.toggleVideo,
 			}),
-			FreePlayButton = Roact.createElement(PermissionButton, {
-				LayoutOrder = 3,
-				image = PLAY_IMAGE,
-				callback = if GetFFlagIrisV2Enabled() then self.openEnvironmentsMenu else self.cycleRoom,
-			}),
-			CamModeButton = Roact.createElement(PermissionButton, {
-				LayoutOrder = 4,
-				image = self:getCamModeImage(),
-				callback = self.toggleCamModes,
-			}),
-			EndCallButton = Roact.createElement(PermissionButton, {
+			-- FreePlayButton = Roact.createElement(PermissionButton, {
+			-- 	LayoutOrder = 3,
+			-- 	image = PLAY_IMAGE,
+			-- 	callback = self.openEnvironmentsMenu
+			-- }),
+			-- CamModeButton = Roact.createElement(PermissionButton, {
+			-- 	LayoutOrder = 4,
+			-- 	image = self:getCamModeImage(),
+			-- 	callback = self.toggleCamModes,
+			-- }),
+			EndCallButton = Roact.createElement("ImageButton", {
+				Size = UDim2.new(0, 36, 0, 28),
+				BackgroundTransparency = 1,
 				LayoutOrder = 5,
-				image = END_CALL_IMAGE,
-				callback = self.toggleEndCallButton,
+				Image = "rbxassetid://12788429603",
+				[Roact.Event.Activated] = self.toggleEndCallButton,
 			}),
 		}),
 		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {

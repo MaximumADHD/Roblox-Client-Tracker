@@ -23,11 +23,14 @@ local Util = require(RobloxGui.Modules.ChatUtil)
 local ClassicChatEnabled = Players.ClassicChat
 local BubbleChatEnabled = Players.BubbleChat
 
+local VRService = game:GetService("VRService")
+
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+local FFlagVRCoreGuiDefaultOff = require(RobloxGui.Modules.Flags.FFlagVRCoreGuiDefaultOff)
 
 local useModule = nil
 
-local state = {Visible = true}
+local state = {Visible = (not FFlagVRCoreGuiDefaultOff or not VRService.VREnabled)}
 local interface = {}
 do
 	function interface:ToggleVisibility()

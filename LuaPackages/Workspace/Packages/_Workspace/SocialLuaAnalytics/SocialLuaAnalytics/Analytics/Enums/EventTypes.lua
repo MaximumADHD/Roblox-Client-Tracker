@@ -18,7 +18,6 @@ return enumerate(script.Name, {
 	ContactsListLoaded = "contactsListLoaded",
 	ContactImportingTime = "contactImportingTime",
 
-	-- TODO SOCCONN-1975  list all the steps contact importer load can fail
 	ContactsListLoadError = "contactsListLoadError",
 
 	ContactWarningSeen = "contactWarningSeen",
@@ -31,4 +30,10 @@ return enumerate(script.Name, {
 
 	NavigateToPhoneVerification = "navigateToPhoneVerification",
 	PhoneVerificationClose = "phoneVerificationClose",
+
+	AppOpenViaShareLink = "appOpenViaShareLink",
+	LinkResolved = "linkResolved",
+	GamePlayIntent = "gamePlayIntent",
+
+	ProfileQRCodeNotificationBannerShown = "ProfileQRCodeNotificationBannerSeen",
 })

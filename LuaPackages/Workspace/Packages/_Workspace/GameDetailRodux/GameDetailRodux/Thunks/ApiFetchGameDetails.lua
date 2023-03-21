@@ -1,10 +1,7 @@
 --!nonstrict
-local CorePackages = game:GetService("CorePackages")
 local GameDetailRodux = script:FindFirstAncestor("GameDetailRodux")
 local Packages = GameDetailRodux.Parent
 
--- TODO: packagify logging
-local Logging = require(CorePackages.Logging)
 local Promise = require(Packages.Promise)
 local ArgCheck = require(Packages.ArgCheck)
 local Result = require(Packages.Result)
@@ -15,9 +12,6 @@ local AddGameDetails = require(GameDetailRodux.Actions.AddGameDetails)
 local GameDetail = require(GameDetailRodux.Models.GameDetailModel)
 
 local Logger = require(GameDetailRodux.Logger)
-
-local GetFFlagLuaAppWorkspaceUseLumberyakLogger =
-	require(Packages.SharedFlags).GetFFlagLuaAppWorkspaceUseLumberyakLogger
 
 local ApiFetchGameDetails = {}
 
@@ -52,11 +46,7 @@ function ApiFetchGameDetails.Fetch(networkImpl, universeIds)
 					store:dispatch(AddGameDetails(decodedGameDetails))
 				end
 			else
-				if GetFFlagLuaAppWorkspaceUseLumberyakLogger() then
-					Logger:warning("Response from GamesMultigetDetails is malformed!")
-				else
-					Logging.warn("Response from GamesMultigetDetails is malformed!")
-				end
+				Logger:warning("Response from GamesMultigetDetails is malformed!")
 			end
 
 			return Promise.resolve(results)

@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/26fa4ea99b/modules/graphql/graphql-server-ts/src/graphql/generatedTypes.ts
+-- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/1f080a862e/generatedTypes.ts
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Array<T> = LuauPolyfill.Array<T>
@@ -178,16 +178,25 @@ export type ProfileInsights = {
 	mutualFriends: Maybe<Array<MutualFriend>>?,
 	targetUserId: typeof((({} :: any) :: Scalars).ID),
 }
+export type ProfileInsightsPages = {
+	__typename: "ProfileInsightsPages"?,
+	id: typeof((({} :: any) :: Scalars).ID),
+	profileInsights: Maybe<Array<ProfileInsights>>?,
+}
 export type Query = {
 	__typename: "Query"?,
+	experienceThumbnails: Maybe<Array<Experience>>?,
 	me: User,
 	omniFeed: Maybe<OmniFeed>?,
 	omniFeedItem: Maybe<OmniFeedItem>?,
-	profilesInsights: Maybe<Array<ProfileInsights>>?,
+	profilesInsights: Maybe<ProfileInsightsPages>?,
 	refreshOmniFeedItem: Maybe<OmniFeedItemWithMetadata>?,
 	user: User,
 	virtualEvent: Maybe<VirtualEvent>?,
 	virtualEventsByUniverseId: Maybe<VirtualEventsPage>?,
+}
+export type QueryExperienceThumbnailsArgs = {
+	universeIds: Array<typeof((({} :: any) :: Scalars).String)>,
 }
 export type QueryOmniFeedArgs = {
 	nextPageToken: InputMaybe<typeof((({} :: any) :: Scalars).String)>?,
@@ -198,6 +207,7 @@ export type QueryOmniFeedArgs = {
 export type QueryOmniFeedItemArgs = { sortId: typeof((({} :: any) :: Scalars).String) }
 export type QueryProfilesInsightsArgs = {
 	count: InputMaybe<typeof((({} :: any) :: Scalars).Int)>?,
+	pageId: InputMaybe<typeof((({} :: any) :: Scalars).String)>?,
 	userIds: Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>,
 }
 export type QueryRefreshOmniFeedItemArgs = {

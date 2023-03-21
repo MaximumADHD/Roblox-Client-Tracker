@@ -61,6 +61,16 @@ return function()
 		expect(errorReason).to.equal(PurchaseError.AlreadyOwn)
 	end)
 
+	it("should return true for purchasing already owned collectible item", function()
+		local productInfo = getValidProductInfo()
+		productInfo.ProductType = "Collectible Item"
+		productInfo.Remaining = 10
+
+		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+
+		expect(met).to.equal(true)
+	end)
+
 	it("should return false if the product is not for sale", function()
 		local productInfo = getValidProductInfo()
 		productInfo.IsForSale = false
@@ -102,6 +112,17 @@ return function()
 	it("should return false if no copies are available", function()
 		local productInfo = getValidProductInfo()
 		productInfo.IsLimited = true
+		productInfo.Remaining = 0
+
+		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+
+		expect(met).to.equal(false)
+		expect(errorReason).to.equal(PurchaseError.Limited)
+	end)
+
+	it("should return false if no copies are available of a collectilbe item", function()
+		local productInfo = getValidProductInfo()
+		productInfo.ProductType = "Collectible Item"
 		productInfo.Remaining = 0
 
 		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)

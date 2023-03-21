@@ -5,7 +5,6 @@ return {
 
 	-- Ecosystems
 	getFFlagUseVerifiedBadgeExperienceModal = require(script.getFFlagUseVerifiedBadgeExperienceModal),
-	getFFlagVBDuarFix = require(script.getFFlagVBDuarFix),
 	getFFlagVBXboxReducerFix = require(script.getFFlagVBXboxReducerFix),
 	GetFFlagFixGameDetailsAutomaticSize = require(script.GetFFlagFixGameDetailsAutomaticSize),
 	getFFlagVirtualEventsGraphQL = require(script.getFFlagVirtualEventsGraphQL),
@@ -16,12 +15,15 @@ return {
 	getFFlagEventNotificationsModal = require(script.getFFlagEventNotificationsModal),
 	getFFlagEventDetailsDynamicReferralSource = require(script.getFFlagEventDetailsDynamicReferralSource),
 	getFFlagUpsellModalOnEventDetailsPage = require(script.getFFlagUpsellModalOnEventDetailsPage),
+	getFFlagUpdateRsvpButtonText = require(script.getFFlagUpdateRsvpButtonText),
+	getFFlagFetchEventsFromWrapper = require(script.getFFlagFetchEventsFromWrapper),
 
 	-- LuaApp
 	getFFlagLuaProfileShareWithDesktopPolicy = require(script.getFFlagLuaProfileShareWithDesktopPolicy),
 	GetFFlagEnableSwapToSourceButton = require(script.GetFFlagEnableSwapToSourceButton),
 	FFlagDesktopLaunchLinksInExternalBrowser = require(script.FFlagDesktopLaunchLinksInExternalBrowser),
 	ConvertUniverseIdToString = require(script.ConvertUniverseIdToString),
+	FFlagMultiTryOnPurchaseGamepadEnabled = require(script.FFlagMultiTryOnPurchaseGamepadEnabled),
 	GetFFlagUseExperienceDetailsPageSelector = require(script.GetFFlagUseExperienceDetailsPageSelector),
 
 	-- Social
@@ -32,12 +34,14 @@ return {
 	getFFlagProfileAddQRCodeEventLogging = require(script.getFFlagProfileAddQRCodeEventLogging),
 	getFFlagProfileQRCodeReducerEnabled = require(script.getFFlagProfileQRCodeReducerEnabled),
 	getFFlagEnableRoduxUsersRoactChat = require(script.getFFlagEnableRoduxUsersRoactChat),
-	getFFlagMigrageHttpRequestToPackage = require(script.getFFlagMigrageHttpRequestToPackage),
 	getFFlagEnableContactInvitesForNonPhoneVerified = require(script.getFFlagEnableContactInvitesForNonPhoneVerified),
 	getFFlagGameInviteShortUrlEnabled = require(script.getFFlagGameInviteShortUrlEnabled),
 	getFFlagAddFriendsQRCodeAnalytics = require(script.getFFlagAddFriendsQRCodeAnalytics),
 	getFFlagProfileQRCodeCoreFeaturesEnabled = require(script.getFFlagProfileQRCodeCoreFeaturesEnabled),
 	getFFlagProfileQRCodeEnableAlerts = require(script.getFFlagProfileQRCodeEnableAlerts),
+	getFFlagReEnableAutoSyncContacts = require(script.getFFlagReEnableAutoSyncContacts),
+	getFFlagEnableDeeplinkForContactsList = require(script.getFFlagEnableDeeplinkForContactsList),
+	GetFFlagUserSearchNewContextExperimentEnabled = require(script.GetFFlagUserSearchNewContextExperimentEnabled),
 
 	-- Notifications
 	getFFlagEnableNotificationExperienceInvite = require(script.getFFlagEnableNotificationExperienceInvite),
@@ -60,6 +64,7 @@ return {
 	FFlagLuaAppFixMessageBusUnsubscribe = require(script.FFlagLuaAppFixMessageBusUnsubscribe),
 	FFlagAXCatalogSearchSizeGamepad = require(script.FFlagAXCatalogSearchSizeGamepad),
 	GetFFlagAvatarEditorServiceInUniversalApp = require(script.GetFFlagAvatarEditorServiceInUniversalApp),
+	GetFFlagUseColor3sForBodyParts = require(script.GetFFlagUseColor3sForBodyParts),
 	GetEngineFeatureIxpUserAppLayersPrefetchEnabled = require(script.GetEngineFeatureIxpUserAppLayersPrefetchEnabled),
 	GetFFlagEnableUnifiedWebViews = require(script.GetFFlagEnableUnifiedWebViews),
 	GetFFlagEnableVRWelcomePanel = require(script.GetFFlagEnableVRWelcomePanel),
@@ -97,22 +102,17 @@ return {
 	GetFFlagUseVoiceExitBetaLanguage = require(script.GetFFlagUseVoiceExitBetaLanguage),
 	GetFFlagGameInfoRowVoiceExitBetaBugFix = require(script.GetFFlagGameInfoRowVoiceExitBetaBugFix),
 	GetFFlagHideConnectPageWebViewItemsForVR = require(script.GetFFlagHideConnectPageWebViewItemsForVR),
-	GetFFlagHideGameDetailsWebViewItemsForVR = require(script.GetFFlagHideGameDetailsWebViewItemsForVR),
-	GetFFlagEnableToastForDisabledWebViewItemsInVR = require(script.GetFFlagEnableToastForDisabledWebViewItemsInVR),
 	GetFFlagPeekViewClipFramePositionFromBottom = require(script.GetFFlagPeekViewClipFramePositionFromBottom),
 	getFFlagPYMKUseDesktopPolicies = require(script.getFFlagPYMKUseDesktopPolicies),
 	GetFFlagDisableEditProfileForVR = require(script.GetFFlagDisableEditProfileForVR),
 	GetFFlagLuaAppInfiniteHomePage = require(script.GetFFlagLuaAppInfiniteHomePage),
 	getFFlagProfileQRCodePageEnabled = require(script.getFFlagProfileQRCodePageEnabled),
 	getFFlagProfileQRCodePageSoothsayerAccessEnabled = require(script.getFFlagProfileQRCodePageSoothsayerAccessEnabled),
-	GetFFlagLuaAppWorkspaceUseLumberyakLogger = require(script.GetFFlagLuaAppWorkspaceUseLumberyakLogger),
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = require(
 		script.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 	),
 	getFFlagLuaNativeUtilEnableSMSHandling = require(script.getFFlagLuaNativeUtilEnableSMSHandling),
-	GetFFlagHideTopBarRobuxButton = require(script.GetFFlagHideTopBarRobuxButton),
 	GetFFlagEnableTopBarVRPolicyOverride = require(script.GetFFlagEnableTopBarVRPolicyOverride),
-	GetFFlagHidePrivateServerInGameDetailsForVR = require(script.GetFFlagHidePrivateServerInGameDetailsForVR),
 	getFFlagFriendsCarouselRemoveVariant = require(script.getFFlagFriendsCarouselRemoveVariant),
 	GetFFlagPhoneVerificationWebviewShouldBeFullscreen = require(
 		script.GetFFlagPhoneVerificationWebviewShouldBeFullscreen

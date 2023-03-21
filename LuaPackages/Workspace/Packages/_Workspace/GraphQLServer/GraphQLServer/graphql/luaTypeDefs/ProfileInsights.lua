@@ -11,8 +11,13 @@ local ProfileInsightsTypeDef = [[
 		isOfflineFrequents: Boolean!
 	}
 
+	type ProfileInsightsPages {
+		id: ID!
+		profileInsights: [ProfileInsights!]
+	}
+
 	type Query {
-		profilesInsights(userIds: [String]!, count: Int): [ProfileInsights!]
+		profilesInsights(userIds: [String]!, count: Int, pageId: String): ProfileInsightsPages
 	}
 ]]
 

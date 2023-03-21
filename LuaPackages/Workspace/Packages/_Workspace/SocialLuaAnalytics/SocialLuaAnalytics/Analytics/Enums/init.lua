@@ -5,6 +5,7 @@ local FriendStatuses = require(script.FriendStatuses)
 local EventTypes = require(script.EventTypes)
 local Pages = require(script.Pages)
 local RecommendationContextTypes = require(script.RecommendationContextTypes)
+local ContextualInfoTypes = require(script.ContextualInfoTypes)
 
 return {
 	Contexts = Contexts,
@@ -14,4 +15,5 @@ return {
 	SubPages = SubPages,
 	Pages = Pages,
 	RecommendationContextTypes = RecommendationContextTypes,
+	ContextualInfoTypes = ContextualInfoTypes,
 }

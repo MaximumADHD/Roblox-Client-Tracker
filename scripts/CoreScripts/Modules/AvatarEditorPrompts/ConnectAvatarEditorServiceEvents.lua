@@ -11,8 +11,6 @@ local OpenDeleteOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenDeleteOutf
 local OpenRenameOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenRenameOutfitPrompt)
 local OpenUpdateOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenUpdateOutfitPrompt)
 
-local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
-
 local function ConnectAvatarEditorServiceEvents(store)
 	local connections = {}
 
@@ -39,17 +37,13 @@ local function ConnectAvatarEditorServiceEvents(store)
 		store:dispatch(OpenDeleteOutfitPrompt(outfitId))
 	end))
 
-	if EngineFeatureAESMoreOutfitMethods then
-		table.insert(connections, AvatarEditorService.OpenPromptRenameOutfit:Connect(function(outfitId)
-			store:dispatch(OpenRenameOutfitPrompt(outfitId))
-		end))
-	end
+	table.insert(connections, AvatarEditorService.OpenPromptRenameOutfit:Connect(function(outfitId)
+		store:dispatch(OpenRenameOutfitPrompt(outfitId))
+	end))
 
-	if EngineFeatureAESMoreOutfitMethods then
-		table.insert(connections, AvatarEditorService.OpenPromptUpdateOutfit:Connect(function(outfitId, humanoidDescription, rigType)
-			store:dispatch(OpenUpdateOutfitPrompt(outfitId, humanoidDescription, rigType))
-		end))
-	end
+	table.insert(connections, AvatarEditorService.OpenPromptUpdateOutfit:Connect(function(outfitId, humanoidDescription, rigType)
+		store:dispatch(OpenUpdateOutfitPrompt(outfitId, humanoidDescription, rigType))
+	end))
 
 	return connections
 end

@@ -19,23 +19,20 @@ local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
-local FillCircle = require(RobloxGui.Modules.Common.FillCircle)
 
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local TEXTBOX_PADDING = 6
 
-local MAX_DESCRIPTION_LENGTH = 1000 --TODO: figure out actual max description length
+local MAX_DESCRIPTION_LENGTH = 1000 -- Source of truth is AssetConfigConstants.lua in game-engine
 local BUTTON_STROKE = Images["component_assets/circle_17_stroke_1"]
 local BACKGROUND_9S_CENTER = Rect.new(8, 8, 8, 8)
 local SCROLL_BAR_THICKNESS = 12
 local MIN_CANVAS_HEIGHT = 100
 local SCROLL_FRAME_HEIGHT = 100
 local DEFAULT_TEXTBOX_WIDTH = 100
-
-local FULL_CIRCLE_OVERAGE = 10
-local LARGER_CIRCLE_CHARACTERS = 20
+local LENGTH_COUNTER_HEIGHT = 15
 
 local AssetDescriptionTextBox = Roact.PureComponent:extend("AssetDescriptionTextBox")
 
@@ -166,7 +163,7 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 			ImageTransparency = theme.UIDefault.Transparency,
 			LayoutOrder = 1,
 			ScaleType = Enum.ScaleType.Slice,
-			Size = UDim2.fromScale(1, 1),
+			Size = UDim2.new(1, 0, 1, -LENGTH_COUNTER_HEIGHT),
 			SliceCenter = BACKGROUND_9S_CENTER,
 		}, {
 			-- Scrolling frame so that when the description text exceeds the box length, we scroll down.
@@ -236,24 +233,20 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 					end,
 				}),
 			}),
-
-			TextAmountIndicator = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Position = UDim2.new(1, -15, 1, -5),
-				AnchorPoint = Vector2.new(1, 1),
-				Size = UDim2.new(0, 20, 0, 20),
-			}, {
-				Roact.createElement(FillCircle, {
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					fillFraction = self.state.descriptionLength / (MAX_DESCRIPTION_LENGTH - FULL_CIRCLE_OVERAGE),
-					largerCircleFraction = (MAX_DESCRIPTION_LENGTH - LARGER_CIRCLE_CHARACTERS) / MAX_DESCRIPTION_LENGTH,
-					popCircleFraction = 1,
-					shakeCircleFraction = MAX_DESCRIPTION_LENGTH / (MAX_DESCRIPTION_LENGTH - FULL_CIRCLE_OVERAGE),
-					BackgroundColor = theme.BackgroundUIDefault.Color,
-				}),
-			}),
 		}),
+
+		-- Only display the description length if it's above a certain amount.
+		LengthDisplay = if self.state.descriptionLength / MAX_DESCRIPTION_LENGTH > 0.9
+			then Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 0, LENGTH_COUNTER_HEIGHT),
+				AnchorPoint = Vector2.new(1, 1),
+				Position = UDim2.fromScale(1, 1),
+				Text = self.state.descriptionLength .. "/" .. MAX_DESCRIPTION_LENGTH,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				TextColor3 = theme.TextDefault.Color,
+				BackgroundTransparency = 1,
+			})
+			else nil,
 	})
 end
 

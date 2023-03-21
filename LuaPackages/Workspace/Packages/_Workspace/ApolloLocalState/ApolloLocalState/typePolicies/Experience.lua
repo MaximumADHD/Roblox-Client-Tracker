@@ -1,6 +1,7 @@
 local Packages = script:FindFirstAncestor("ApolloLocalState").Parent
 local GetFFlagApolloClientFetchThumbnails = require(Packages.SharedFlags).GetFFlagApolloClientFetchThumbnails
 local GetFFlagApolloClientFetchExperiences = require(Packages.SharedFlags).GetFFlagApolloClientFetchExperiences
+local makeDefaultReadPolicy = require(script.Parent.utils.makeDefaultReadPolicy)
 
 return {
 	keyFields = if GetFFlagApolloClientFetchThumbnails() then { "universeId" } else nil,
@@ -30,6 +31,9 @@ return {
 					return adId ~= nil and adId ~= ""
 				end
 				else nil,
+		},
+		thumbnails = {
+			read = makeDefaultReadPolicy({}),
 		},
 	},
 }

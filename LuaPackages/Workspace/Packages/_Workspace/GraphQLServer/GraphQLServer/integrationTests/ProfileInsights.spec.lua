@@ -27,14 +27,17 @@ return function()
 				fetchImpl = fetch,
 			})
 			local query = [[
-				query getProfilesInsights($userIds: [String]!, $count: Int) {
-					profilesInsights(userIds: $userIds, count: $count) {
-						targetUserId
-						isOfflineFrequents
-						mutualFriends {
-							id
-							username
-							displayName
+				query ProfilesInsights($userIds: [String]!, $count: Int, $pageId: String) {
+					profilesInsights(userIds: $userIds, count: $count, pageId: $pageId) {
+						id
+						profileInsights {
+							targetUserId
+							isOfflineFrequents
+							mutualFriends {
+								id
+								username
+								displayName
+							}
 						}
 					}
 				}
@@ -43,7 +46,7 @@ return function()
 			local body = HttpService:JSONEncode({
 				query = query,
 				variables = {
-					userIds = { "2705220939" },
+					userIds = { "2705220939", "9999999" },
 				},
 			})
 
@@ -53,10 +56,20 @@ return function()
 				})
 				:expect()
 
-			local profilesInsights = result.body.data.profilesInsights
+			local root = result.body.data.profilesInsights
+			local profileInsights = root.profileInsights
+			local pageId = root.id
 
-			jestExpect(profilesInsights).toBeDefined()
-			jestExpect(profilesInsights).toEqual({
+			jestExpect(pageId).toBeDefined()
+			jestExpect(pageId).toEqual(jestExpect.any("string"))
+
+			jestExpect(profileInsights).toBeDefined()
+			jestExpect(profileInsights).toEqual({
+				{
+					targetUserId = "9999999",
+					mutualFriends = {},
+					isOfflineFrequents = true,
+				},
 				{
 					targetUserId = "2705220939",
 					mutualFriends = {

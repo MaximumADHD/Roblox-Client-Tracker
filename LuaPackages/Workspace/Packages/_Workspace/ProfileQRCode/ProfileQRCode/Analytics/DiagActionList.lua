@@ -9,4 +9,19 @@ return {
 	[EventNames.QRPageLoadFailed] = {
 		name = game:DefineFastString("ProfileQRPageLoadFailed", "ProfileQRPageLoadFailed") :: string,
 	},
+	[EventNames.QRPageFriendRequestBannerShown] = {
+		name = game:DefineFastString("ProfileQRPageFriendRequestBannerShown", "ProfileQRPageFriendRequestBannerShown") :: string,
+	},
+	[EventNames.QRPageFriendRequestBannerAccepted] = {
+		name = game:DefineFastString(
+			"ProfileQRPageFriendRequestBannerAccepted",
+			"ProfileQRPageFriendRequestBannerAccepted"
+		) :: string,
+	},
+	[EventNames.QRPageFriendRequestBannerDismissed] = {
+		name = game:DefineFastString(
+			"ProfileQRPageFriendRequestBannerDismissed",
+			"ProfileQRPageFriendRequestBannerDismissed"
+		) :: string,
+	},
 }

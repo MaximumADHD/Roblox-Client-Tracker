@@ -3,6 +3,8 @@ local Packages = ProfileQRCode.Parent
 local Constants = require(ProfileQRCode.Common.Constants)
 local Dash = require(Packages.Dash)
 local DefaultTestUserId = require(script.Parent.DefaultTestUserId)
+local FirstFriendRequesterUserId = require(script.Parent.FirstFriendRequesterUserId)
+local SecondFriendRequesterUserId = require(script.Parent.SecondFriendRequesterUserId)
 
 return function(mergeState)
 	return Dash.join({
@@ -14,6 +16,14 @@ return function(mergeState)
 					[DefaultTestUserId] = {
 						displayName = "bigMalc",
 						username = "malcolmtucker",
+					},
+					[FirstFriendRequesterUserId] = {
+						displayName = "Apollo",
+						username = "captapollo",
+					},
+					[SecondFriendRequesterUserId] = {
+						displayName = "Starbuck",
+						username = "ltstarbuck",
 					},
 				},
 			},

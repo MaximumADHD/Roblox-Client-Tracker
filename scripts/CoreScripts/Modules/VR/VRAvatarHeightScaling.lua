@@ -1,18 +1,8 @@
 --!nonstrict
 -- This script is responsible for scaling the world in VR based on the size of the avatar
 
-local Players = game:GetService("Players")
-
-local LocalPlayer = Players.LocalPlayer
-while not LocalPlayer do
-	Players.Changed:Wait()
-	LocalPlayer = Players.LocalPlayer
-end
-
--- retry 25 times * 0.2 = 5 seconds before giving up
-local RETRY_COUNT = 25
-local RETRY_TIMER = 0.2 
-local FIntHeightScalingHeadRootPartPercentageHundreds = game:DefineFastInt("HeightScalingHeadRootPartPercentageHundreds", 25)
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local AvatarUtil = require(RobloxGui.Modules.VR.AvatarUtil)
 
 local VRAvatarHeightScaling = {}
 VRAvatarHeightScaling.__index = VRAvatarHeightScaling
@@ -22,14 +12,18 @@ function VRAvatarHeightScaling.new()
 
 	-- default playerheight is 5.5 studs (1.65 meters, ~5.41 feet)
 	self.playerHeight = 5.5
-	self:setHeadScale()
-	self:connectAvatarChanges()
+	
+	self.avatarUtil = AvatarUtil.new()
+	self.characterChangedConnections = self.avatarUtil:connectLocalCharacterChanges(function(character)
+		self:setHeadScale(character)
+	end)
+
 	return self
 end
 
 -- sets camera.HeadScale, does nothing if subject or camera is invalid
-function VRAvatarHeightScaling:setHeadScale()
-	local avatarHeight = self:GetSubjectHeight()
+function VRAvatarHeightScaling:setHeadScale(character)
+	local avatarHeight = self:GetSubjectHeight(character)
 	if not avatarHeight or avatarHeight <= 0 then return end
 	
 	local newHeadScale = avatarHeight / self.playerHeight
@@ -41,87 +35,35 @@ function VRAvatarHeightScaling:setHeadScale()
 	camera.HeadScale = newHeadScale
 end
 
--- returns the height of the subject, returns nil if the subject is invalid
--- valid subjects are alive humanoids
-function VRAvatarHeightScaling:GetSubjectHeight()
+-- returns the height of the subject
+function VRAvatarHeightScaling:GetSubjectHeight(character)
 
-	local camera = workspace.CurrentCamera
-	local cameraSubject = camera and camera.CameraSubject
-
-	if not cameraSubject or not cameraSubject:IsA("Humanoid") then return end
-
-	local humanoid = cameraSubject
-	local humanoidIsDead = humanoid:GetState() == Enum.HumanoidStateType.Dead
-	local rootPart = humanoid.RootPart
-
-	if humanoidIsDead or not rootPart or not rootPart:IsA("BasePart") then return end
-
-	local head = humanoid.Parent:FindFirstChild("Head")
-	if head then
-		return humanoid.HipHeight + rootPart.Size.Y / 2 + head.Position.Y - rootPart.Position.Y + head.Size.Y / 2
-	else
-		-- HipHeight (distance from legs to bottom of rootpart) + root part + estimated head size (1/4 root part)
-		return humanoid.HipHeight + rootPart.Size.Y + rootPart.Size.Y * FIntHeightScalingHeadRootPartPercentageHundreds / 100
-	end
-end
-
--- if the avatar changes size, we'll need to recalculate. This should not be called without a pcall
-function VRAvatarHeightScaling:connectAvatarChanges()
-	-- retry setup in case character needs to load from server, otherwise assume the character is invalid and 
-	-- cannot be sized
-	local retries = RETRY_COUNT
+	local humanoid = character:FindFirstChild("Humanoid")
+	if humanoid and humanoid:GetState() == Enum.HumanoidStateType.Dead then return end
 	
-	-- attempt connecting character change events
-	while not pcall(function()
-			local character = LocalPlayer.Character
-			local updateHeadScale = function() 
-				self:setHeadScale()
-			end
-			local connectNumberValueChanges = function()
-				-- connect humanoid numbervalue scales
-				local changeValues = {
-					[character.Humanoid.HeadScale] = "headScaleChanged",
-					[character.Humanoid.BodyWidthScale] = "bodyWidthScaleChanged",
-					[character.Humanoid.BodyHeightScale] = "bodyHeightScaleChanged",
-					[character.Humanoid.BodyDepthScale] = "bodyDepthScaleChanged",
-				}
-				for numberValue, connection in pairs(changeValues) do
-					if numberValue then
-						if self[connection] then self[connection]:Disconnect() self[connection] = nil end
-						self[connection] = numberValue.Changed:Connect(updateHeadScale)
-					end
-				end
-			end
-
-			
-			character.Humanoid.ChildAdded:Connect(function(child)
-				if (child.Name == "HeadScale" or 
-					child.Name == "BodyWidthScale" or
-					child.Name == "BodyHeightScale" or
-					child.Name == "BodyDepthScale") then
-					self:setHeadScale()
-					connectNumberValueChanges()
-				end
-			end)
-			connectNumberValueChanges()
+	local rootPart = humanoid and humanoid.RootPart or character:FindFirstChild("HumanoidRootPart")
+	local lowerTorso = character:FindFirstChild("LowerTorso")
+	local upperTorso = character:FindFirstChild("UpperTorso")
+	local head = character:FindFirstChild("Head")
+	
+	-- take exact height measurements based on all the parts
+	if rootPart and lowerTorso and upperTorso and head and humanoid then
+		local rootMotor = lowerTorso:FindFirstChild("Root")
+		local waistMotor = upperTorso:FindFirstChild("Waist")
+		local neckMotor = head:FindFirstChild("Neck")
 		
-			-- child added and disconnect
-			
-			if self["characterChildAddedConnection"] then self["characterChildAddedConnection"]:Disconnect() self["characterChildAddedConnection"] = nil end
-			character.ChildAdded:Connect(updateHeadScale)
-			if self["characterChildRemovedConnection"] then self["characterChildRemovedConnection"]:Disconnect() self["characterChildRemovedConnection"] = nil end
-			character.ChildRemoved:Connect(updateHeadScale)
-
-		end) do
-		-- character setup failed, wait and retry
-		retries -= 1
-		if retries < 0 then
-			warn("Invalid Character for VRAvatarHeightScaling")
-			return
+		if rootMotor and waistMotor and neckMotor then
+			-- get the CFrames of the parts with motor6D transform = 0, removes the animations
+			-- all cframes are with respect to the rootpart
+			local lowerTorsoCFrame = rootMotor.C0 * rootMotor.C1:inverse()
+			local upperTorsoCFrame = lowerTorsoCFrame * waistMotor.C0 * waistMotor.C1:inverse()
+			local headCFrame = upperTorsoCFrame * neckMotor.C0 * neckMotor.C1:inverse()
+			return headCFrame.Position.Y + head.Size.Y / 2 + rootPart.Size.Y / 2 + humanoid.HipHeight
 		end
-		-- 25 retries, 0.2 seconds between each try = 5 seconds before giving up
-		task.wait(RETRY_TIMER)
 	end
+	
+	-- use the model extents
+	return character:GetExtentsSize().Y
 end
 
 function VRAvatarHeightScaling:setPlayerHeight(playerHeight)

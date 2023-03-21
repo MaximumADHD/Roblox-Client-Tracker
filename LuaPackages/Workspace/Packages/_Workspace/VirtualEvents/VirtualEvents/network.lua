@@ -4,7 +4,6 @@ local HttpRequest = require(VirtualEvents.Parent.HttpRequest)
 local RoduxNetworking = require(VirtualEvents.Parent.RoduxNetworking)
 local NetworkingVirtualEvents = require(VirtualEvents.Parent.NetworkingVirtualEvents)
 local NetworkingGames = require(VirtualEvents.Parent.NetworkingGames)
-local NetworkingSponsoredEvents = require(VirtualEvents.NetworkingSponsoredEvents)
 local logger = require(VirtualEvents.logger)
 
 local maxHttpRetries = game:DefineFastInt("VirtualEventsHttpRetryCount", 3)
@@ -35,10 +34,6 @@ local myNetworkingVirtualEvents = NetworkingVirtualEvents.config({
 	roduxNetworking = myRoduxNetworking,
 })
 
-local myNetworkingSponsoredEvents = NetworkingSponsoredEvents.config({
-	roduxNetworking = myRoduxNetworking,
-})
-
 local myNetworkingGames = NetworkingGames.config({
 	roduxNetworking = myRoduxNetworking,
 })
@@ -46,6 +41,5 @@ local myNetworkingGames = NetworkingGames.config({
 return {
 	RoduxNetworking = myRoduxNetworking,
 	NetworkingVirtualEvents = myNetworkingVirtualEvents,
-	NetworkingSponsoredEvents = myNetworkingSponsoredEvents,
 	NetworkingGames = myNetworkingGames,
 }

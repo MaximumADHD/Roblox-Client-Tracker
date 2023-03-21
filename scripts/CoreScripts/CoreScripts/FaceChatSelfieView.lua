@@ -35,10 +35,10 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 03-7-2023__1")
+debugPrint("Self View 03-9-2023__1")
 
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
-local EngineFeatureReplicateTrackerData_Dev = game:GetEngineFeature("ReplicateTrackerData_Dev")
+local EngineFeatureReplicateTrackerData = game:GetEngineFeature("ReplicateTrackerData")
 local FastFlagFacialAnimationUsePhysicsTransport = game:DefineFastFlag("FacialAnimationUsePhysicsTransport", false)
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
@@ -984,7 +984,7 @@ local function syncTrack(animator, track)
 		--	cloneTrack.TimePosition = track.TimePosition
 		--	cloneTrack:AdjustSpeed(track.Speed)
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
-		if FastFlagFacialAnimationUsePhysicsTransport or EngineFeatureReplicateTrackerData_Dev then
+		if FastFlagFacialAnimationUsePhysicsTransport or EngineFeatureReplicateTrackerData then
 
 			debugPrint("FastFlagFacialAnimationUsePhysicsTransport")
 			cloneTrack = animator:LoadStreamAnimation(track.Animation)

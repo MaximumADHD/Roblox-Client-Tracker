@@ -2,18 +2,21 @@ local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 
+local Constants = require(Root.Misc.Constants)
 local PurchaseError = require(Root.Enums.PurchaseError)
 
 local CONTENT_RATING_13_PLUS = 1
 local ROBLOX_CREATOR = 1
-local DEVELOPER_PRODUCT_TYPE = "Developer Product"
 
 local THIRD_PARTY_WARNING = "AllowThirdPartySales has blocked the purchase"
 	.. " prompt for %d created by %d. To sell this asset made by a"
 	.. " different %s, you will need to enable AllowThirdPartySales."
 
 local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
-	if alreadyOwned then
+	local isCollectibleItem = productInfo.ProductType == Constants.ProductType.CollectibleItem
+
+	-- A user can own multiple instances of a Collectible item
+	if not isCollectibleItem and alreadyOwned then
 		return false, PurchaseError.AlreadyOwn
 	end
 
@@ -26,7 +29,7 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 		return false, PurchaseError.NotForSaleHere
 	end
 
-	if productInfo.IsLimited or productInfo.IsLimitedUnique then
+	if isCollectibleItem or productInfo.IsLimited or productInfo.IsLimitedUnique then
 		if productInfo.Remaining == nil or productInfo.Remaining == 0 then
 			return false, PurchaseError.Limited
 		end
@@ -51,7 +54,7 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 	end
 
 	-- Restricting third party sales is only valid for Assets and Game Passes
-	if productInfo.ProductType ~= DEVELOPER_PRODUCT_TYPE
+	if productInfo.ProductType ~= Constants.ProductType.DeveloperProduct
 		and restrictThirdParty
 		and not allowThirdPartyPurchase
 	then

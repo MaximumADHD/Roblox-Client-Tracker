@@ -54,7 +54,7 @@ local animNames = {
 		{ id = "http://www.roblox.com/asset/?id=12518152696", weight = 10 }
 	},
 	run = 	{
-			{ id = "http://www.roblox.com/asset/?id=12518152696", weight = 10 } 
+		{ id = "http://www.roblox.com/asset/?id=12518152696", weight = 10 } 
 	},
 	jump = 	{
 		{ id = "http://www.roblox.com/asset/?id=12520880485", weight = 10 }
@@ -140,7 +140,9 @@ function configureAnimationSet(name, fileList)
 	animTable[name].totalWeight = 0
 	animTable[name].connections = {}
 
-	-- check for config values
+	-- uncomment this section to allow players to load with their
+	-- own (non-classic) animations
+	--[[
 	local config = script:FindFirstChild(name)
 	if (config ~= nil) then
 		table.insert(animTable[name].connections, config.ChildAdded:connect(function(child) configureAnimationSet(name, fileList) end))
@@ -169,7 +171,7 @@ function configureAnimationSet(name, fileList)
 					strafingLocomotionMap[name] = {lv=lv, speed = lv.Magnitude}
 				end
 				if name == "run" or name == "walk" then
-										
+
 					if lv then
 						fallbackLocomotionMap[name] = strafingLocomotionMap[name]
 					else
@@ -177,13 +179,24 @@ function configureAnimationSet(name, fileList)
 						fallbackLocomotionMap[name] = {lv=Vector2.new(0.0, speed), speed = speed}
 						locomotionMap = fallbackLocomotionMap
 						-- If you don't have a linear velocity with your run or walk, you can't blend/strafe
-						warn("Strafe blending disabled. No linear velocity information for "..'"'.."walk"..'"'.." and "..'"'.."run"..'"'..".")
+						--warn("Strafe blending disabled. No linear velocity information for "..'"'.."walk"..'"'.." and "..'"'.."run"..'"'..".")
 					end
 
 				end
 			end
 		end
 	end
+	]]
+
+    -- if you uncomment the above section, comment out this "if"-block
+	if name == "run" or name == "walk" then
+        local speed = name == "run" and RUN_SPEED or WALK_SPEED
+        fallbackLocomotionMap[name] = {lv=Vector2.new(0.0, speed), speed = speed}
+        locomotionMap = fallbackLocomotionMap
+        -- If you don't have a linear velocity with your run or walk, you can't blend/strafe
+        --warn("Strafe blending disabled. No linear velocity information for "..'"'.."walk"..'"'.." and "..'"'.."run"..'"'..".")
+	end
+	
 
 	-- fallback to defaults
 	if (animTable[name].count <= 0) then
@@ -429,11 +442,11 @@ local function getWalkDirection()
 end
 
 local function updateVelocity(currentTime)
-	
+
 	local tempDir
-	
+
 	if locomotionMap == strafingLocomotionMap then
-		
+
 		local moveDirection = getWalkDirection()
 
 		if not Humanoid.RootPart then
@@ -605,7 +618,7 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 			currentAnimTrack.Priority = Enum.AnimationPriority.Core
 
 			currentAnimTrack:Play(transitionTime)	
-			
+
 			-- set up keyframe name triggers
 			currentAnimKeyframeHandler = currentAnimTrack.KeyframeReached:connect(keyFrameReachedFunc)
 		end
@@ -706,7 +719,7 @@ function onRunning(speed)
 			pose = "Standing"
 		end
 	end
-	
+
 
 
 end

@@ -16,4 +16,5 @@ return {
 	ContextualPlayabilityAgeRecommendationParentalControls = "ContextualPlayabilityAgeRecommendationParentalControls",
 	ContextualPlayabilityRegionalAvailability = "ContextualPlayabilityRegionalAvailability",
 	ContextualPlayabilityRegionalCompliance = "ContextualPlayabilityRegionalCompliance",
+	ContextualPlayabilityUnverifiedSeventeenPlusUser = "ContextualPlayabilityUnverifiedSeventeenPlusUser",
 }

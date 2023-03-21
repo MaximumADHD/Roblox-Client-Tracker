@@ -199,17 +199,23 @@ local function initializeSoundSystem(instances)
 
 	local activeState: Enum.HumanoidStateType = stateRemap[humanoid:GetState()] or humanoid:GetState()
 
+	local function transitionTo(state)
+		local transitionFunc: () -> () = stateTransitions[state]
+
+		if transitionFunc then
+			transitionFunc()
+		end
+
+		activeState = state
+	end
+
+	transitionTo(activeState)
+
 	local stateChangedConn = humanoid.StateChanged:Connect(function(_, state)
 		state = stateRemap[state] or state
 
 		if state ~= activeState then
-			local transitionFunc: () -> () = stateTransitions[state]
-
-			if transitionFunc then
-				transitionFunc()
-			end
-
-			activeState = state
+			transitionTo(state)
 		end
 	end)
 

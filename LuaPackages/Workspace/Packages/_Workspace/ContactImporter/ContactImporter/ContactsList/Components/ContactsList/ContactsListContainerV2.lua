@@ -26,6 +26,7 @@ local compose = dependencies.SocialLibraries.RoduxTools.compose
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
 local getFFlagVerifyDeviceContactsIsNotNil = require(ContactImporter.Flags.getFFlagVerifyDeviceContactsIsNotNil)
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
+local getFFlagEnableDeeplinkForContactsList = dependencies.getFFlagEnableDeeplinkForContactsList
 
 type Promise<T, E> = {
 	andThen: (any, (T) -> any) -> Promise<T, E>,
@@ -71,6 +72,15 @@ function ContactsListContainerV2:init()
 		isFetching = true,
 	} :: State
 
+	-- For compatability so this component supports roact navigation as well as old navigation
+	self.getPropOrParam = function(prop)
+		if self.props.navigation or not getFFlagEnableDeeplinkForContactsList() then
+			return self.props.navigation.getParam(prop)
+		else
+			return getDeepValue(self.props, prop)
+		end
+	end
+
 	self.contactsCount = nil
 	-- contacts can have multiple numbers
 	self.numTotalNumbersOnDevice = nil
@@ -105,6 +115,14 @@ function ContactsListContainerV2:init()
 		local userContactsEntities = getDeepValue(response or {}, "responseBody.userContactsEntities")
 
 		return if userContactsEntities then #userContactsEntities else 0
+	end
+
+	local navigateBack = function()
+		if self.props.navigation then
+			self.props.navigation.pop()
+		elseif self.props.onClose then
+			self.props.onClose()
+		end
 	end
 
 	self.requestFriendship = function(contactId)
@@ -270,8 +288,7 @@ function ContactsListContainerV2:init()
 	end
 
 	self.getContacts = function()
-		local props: Props = self.props
-		local isPhoneVerified = props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
+		local isPhoneVerified = self.getPropOrParam(Constants.IS_PHONE_VERIFIED)
 		if getFFlagEnableContactInvitesForNonPhoneVerified() and not isPhoneVerified then
 			self.getContactsFromDevice()
 				:andThen(self.formatContactsFromDevice, makeErrorFunction(EventNames.FailedGetContactsFromDevice))
@@ -295,8 +312,11 @@ function ContactsListContainerV2:init()
 			isLoading = self.isFetching(props.variant, IXPVariants),
 			loadingTime = if state.isFetching then os.clock() - self.startTime else nil,
 		})
-
-		props.navigation.pop()
+		if getFFlagEnableDeeplinkForContactsList() then
+			navigateBack()
+		else
+			props.navigation.pop()
+		end
 	end
 
 	self.onAddFriendsActivated = function()
@@ -314,7 +334,7 @@ end
 
 function ContactsListContainerV2:didMount()
 	local props: InternalProps = self.props
-	local shouldUpdateUserSettings = props.navigation.getParam(Constants.SHOULD_UPDATE_USER_SETTINGS)
+	local shouldUpdateUserSettings = self.getPropOrParam(Constants.SHOULD_UPDATE_USER_SETTINGS)
 	if shouldUpdateUserSettings then
 		props.updateUserSettings():andThen(self.getContacts):catch(function()
 			self.failedToUpload()
@@ -326,7 +346,7 @@ end
 
 function ContactsListContainerV2:render()
 	local props: InternalProps = self.props
-	local isPhoneVerified = props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
+	local isPhoneVerified = self.getPropOrParam(Constants.IS_PHONE_VERIFIED)
 	local variant = props.variant
 
 	return Roact.createElement(ContactsListV2, {

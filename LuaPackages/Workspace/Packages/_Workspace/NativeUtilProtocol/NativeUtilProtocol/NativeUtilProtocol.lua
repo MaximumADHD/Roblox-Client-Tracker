@@ -9,7 +9,7 @@ local t = require(Packages.t)
 local getFFlagLuaNativeUtilProtocol = require(script.Parent.Flags.getFFlagLuaNativeUtilProtocol)
 local getFFlagLuaSwitchToSettingsApp = require(script.Parent.Flags.getFFlagLuaSwitchToSettingsApp)
 local getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling
-
+local getFFlagLuaGetSMSOTP = require(script.Parent.Flags.getFFlagLuaGetSMSOTP)
 local Types = require(script.Parent.NativeUtilProtocolTypes)
 
 type Promise<T> = MessageBusPackage.Promise<T>
@@ -28,9 +28,15 @@ local SEND_SMS_METHOD_NAME = "sendSMS"
 local SUPPORTS_SMS_METHOD_NAME = "supportsSMS"
 local SWITCH_TO_SETTING_APP_METHOD_NAME = "switchToSettingsApp"
 local SUPPORTS_SWITCH_TO_SETTING_APP_METHOD_NAME = "supportsSwitchToSettingsApp"
+local GET_SMS_OTP_METHOD_NAME = "getSMSOTP"
+local SUPPORTS_GET_SMS_OTP_METHOD_NAME = "supportsGetSMSOTP"
 
 local returnParamsValidator = t.strictInterface({
 	sent = t.optional(t.boolean),
+})
+
+local returnStringParamsValidator = t.strictInterface({
+	code = t.optional(t.string),
 })
 
 local sendParamsValidator = t.strictInterface({
@@ -75,6 +81,26 @@ local NativeUtilProtocol: NativeUtilProtocolModule = {
 	SUPPORTS_SWITCH_TO_SETTINGS_APP_METHOD_RESPONSE_DESCRIPTOR = {
 		protocolName = PROTOCOL_NAME,
 		methodName = SUPPORTS_SWITCH_TO_SETTING_APP_METHOD_NAME,
+		validateParams = t.table,
+	},
+	GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = GET_SMS_OTP_METHOD_NAME,
+		validateParams = t.table,
+	},
+	GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = GET_SMS_OTP_METHOD_NAME,
+		validateParams = returnStringParamsValidator,
+	},
+	SUPPORTS_GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = SUPPORTS_GET_SMS_OTP_METHOD_NAME,
+		validateParams = t.table,
+	},
+	SUPPORTS_GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = SUPPORTS_GET_SMS_OTP_METHOD_NAME,
 		validateParams = t.table,
 	},
 } :: NativeUtilProtocolModule;
@@ -191,6 +217,63 @@ function NativeUtilProtocol:supportsSwitchToSettingsApp(): Promise<boolean?>
 	MessageBus.publishProtocolMethodRequest(
 		self.SUPPORTS_SWITCH_TO_SETTINGS_APP_METHOD_REQUEST_DESCRIPTOR,
 		-- need to pass in a dummy variable otherwise Android will not work
+		-- because it converts `{}` into `[]` which fails inside of MessageBus.java
+		{ includeStatus = false },
+		{}
+	)
+	return promise
+end
+
+--[[
+Get the SMS OTP code
+
+@return promise<string>: The OTP code
+]]
+
+function NativeUtilProtocol:getSMSOTP(): Promise<string?>
+	if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetSMSOTP() then
+		return Promise.resolve()
+	end
+	local promise = Promise.new(function(resolve, _)
+		local desc = self.GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: { code: string })
+			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+			resolve(params.code)
+		end)
+	end)
+
+	MessageBus.publishProtocolMethodRequest(
+		self.GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR,
+		-- need to pass in a dummy variable otherwise Android will not  work
+		-- because it converts `{}` into `[]` which fails inside of MessageBus.java
+		{ includeStatus = false },
+		{}
+	)
+	return promise
+end
+
+--[[
+	Check if get SMS OTP is supported by this device
+	
+	@return promise<boolean>: returns true if getSMSOTP is
+	supported by the device and false if not supported
+	]]
+
+function NativeUtilProtocol:supportsGetSMSOTP(): Promise<boolean?>
+	if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetSMSOTP() then
+		return Promise.resolve()
+	end
+
+	local promise = Promise.new(function(resolve, _)
+		local desc = self.SUPPORTS_GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: { support: boolean })
+			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+			resolve(params.support)
+		end)
+	end)
+	MessageBus.publishProtocolMethodRequest(
+		self.SUPPORTS_GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR,
+		-- need to pass in a dummy variable otherwise Android will not  work
 		-- because it converts `{}` into `[]` which fails inside of MessageBus.java
 		{ includeStatus = false },
 		{}
