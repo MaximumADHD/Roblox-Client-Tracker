@@ -11,14 +11,14 @@ local GridConfigReader = require(Grid.GridConfigReader)
 export type Config = GridConfigReader.Config
 
 export type Props = {
-	width: number,
-	config: Config,
+	width: number?,
+	config: Config?,
 	children: { [any]: React.React_Node },
 }
 
 local function GridProvider(props: Props)
-	local width = props.width
-	local config = props.config
+	local width = props.width or 1
+	local config = props.config or {}
 
 	local breakpoint, setBreakpoint = React.useState(function()
 		return GridConfigReader.findBreakpoint(config, width)

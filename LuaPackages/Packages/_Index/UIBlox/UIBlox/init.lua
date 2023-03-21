@@ -33,6 +33,7 @@ local function initializeLibrary(configs)
 				GridCell = require(script.Core.Layout.Grid.GridCell),
 				GridRow = require(script.Core.Layout.Grid.GridRow),
 				withGridConfig = require(script.Core.Layout.Grid.withGridConfig),
+				useGridConfig = require(script.Core.Layout.Grid.useGridConfig),
 			}),
 		}),
 
@@ -93,6 +94,7 @@ local function initializeLibrary(configs)
 			useIsGamepad = require(script.Utility.useIsGamepad),
 			useLazyRef = require(script.Utility.useLazyRef),
 			useInitializedValue = require(script.Utility.useInitializedValue),
+			useForwardRef = require(script.Utility.useForwardRef),
 		}),
 	})
 
@@ -188,6 +190,9 @@ local function initializeLibrary(configs)
 					Only to be used in ScrollingAppCarousel
 				]]
 				ScrollButton = require(script.App.Container.Carousel.ScrollButton),
+			}),
+			Grid = strict({
+				GridTable = require(script.App.Container.Grid.GridTable),
 			}),
 			VerticalScrollView = configs.useNewVerticalScrollView and require(
 				script.App.Container.VerticalScrollViewV2

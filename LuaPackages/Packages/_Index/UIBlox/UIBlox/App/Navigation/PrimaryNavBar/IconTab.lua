@@ -36,6 +36,10 @@ return function(providedProps: Props)
 	local selected = props.selected
 	local style = useStyle()
 	local roundedBackgroundHeight = Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_PADDING * 2
+	assert(item.icon == nil or item.iconComponent == nil, "icon or iconComponent cannot be assigned at same time")
+	local tabSpacing = if item.icon ~= nil or item.iconComponent ~= nil
+		then Constants.ICON_TAB_ITEM_ICON_TITLE_SPACING
+		else 0
 	return HorizontalContainer({
 		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_HEIGHT),
 		automaticSize = Enum.AutomaticSize.X,
@@ -43,7 +47,7 @@ return function(providedProps: Props)
 		roundedBackgroundPosition = UDim2.fromOffset(Constants.ICON_TAB_PADDING, Constants.ICON_TAB_PADDING),
 		roundedBackgroundColor = style.Theme.Divider.Color,
 		roundedBackgroundTransparency = Constants.ICON_TAB_SELECTED_TRANSPARENCY,
-		spacing = Constants.ICON_TAB_ITEM_ICON_TITLE_SPACING,
+		spacing = tabSpacing,
 		padding = {
 			left = Constants.ICON_TAB_ITEM_PADDING_LEFT,
 			right = Constants.ICON_TAB_ITEM_PADDING_RIGHT,
@@ -51,7 +55,7 @@ return function(providedProps: Props)
 		showRoundedBackground = if item.showRoundedBackground ~= nil then item.showRoundedBackground else selected,
 		showOverlay = if item.showOverlay ~= nil then item.showOverlay else pressed,
 	}, {
-		Icon = if item.iconComponent == nil
+		Icon = if item.icon ~= nil
 			then React.createElement(ImageSetLabel, {
 				Size = UDim2.new(0, Constants.ICON_TAB_ITEM_ICON_WIDTH, 0, Constants.ICON_TAB_ITEM_ICON_HEIGHT),
 				LayoutOrder = 1,
@@ -59,7 +63,7 @@ return function(providedProps: Props)
 				BackgroundTransparency = 1,
 				ScaleType = Enum.ScaleType.Fit,
 			})
-			else React.createElement("Frame", {
+			elseif item.iconComponent ~= nil then React.createElement("Frame", {
 				Size = UDim2.new(0, Constants.ICON_TAB_ITEM_ICON_WIDTH, 0, Constants.ICON_TAB_ITEM_ICON_HEIGHT),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
@@ -70,7 +74,8 @@ return function(providedProps: Props)
 					pressed = pressed,
 					hovered = false,
 				}),
-			}),
+			})
+			else nil,
 		Title = React.createElement(GenericTextLabel, {
 			LayoutOrder = 2,
 			Size = UDim2.new(0, 0, 1, 0),

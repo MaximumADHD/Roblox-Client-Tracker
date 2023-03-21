@@ -85,6 +85,7 @@ local itemTileInterface = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	thumbnailRef = t.optional(t.table),
 	textButtonRef = t.optional(t.table),
+	inputBindings = t.optional(t.table),
 
 	-- Optional height of the title area is set to the max
 	useMaxTitleHeight = t.optional(t.boolean),
@@ -205,6 +206,7 @@ function ItemTile:render()
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
 		textButtonRef = self.props.textButtonRef,
+		inputBindings = self.props.inputBindings,
 		ref = self.props.thumbnailRef,
 		[React.Tag] = self.props[React.Tag],
 	})

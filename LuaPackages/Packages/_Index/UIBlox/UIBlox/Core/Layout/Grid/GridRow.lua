@@ -13,6 +13,14 @@ local GridConfigReader = require(Grid.GridConfigReader)
 local GridBasicRow = require(Grid.GridBasicRow)
 local GridCell = require(Grid.GridCell)
 
+export type Context = {
+	width: number?,
+	columns: number,
+	margin: number,
+	gutter: number,
+	verticalGutter: number?,
+}
+
 local GridRow = Roact.PureComponent:extend("GridRow")
 
 GridRow.validateProps = t.strictInterface({
@@ -20,6 +28,7 @@ GridRow.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	scrollable = t.optional(t.boolean),
 	multiLine = t.optional(t.boolean),
+	displayLines = t.optional(t.NumberRange),
 	relativeHeight = t.optional(t.UDim),
 	data = t.optional(t.any),
 	getItem = t.optional(t.callback),
@@ -29,14 +38,14 @@ GridRow.validateProps = t.strictInterface({
 	getCellColspan = t.optional(t.callback),
 	getCellRowspan = t.optional(t.callback),
 	getCellOrder = t.optional(t.callback),
-	forwardedRef = t.optional(t.table),
+	forwardedRef = t.optional(t.union(t.table, t.callback)),
 })
 
 GridRow.defaultProps = {
 	kind = "default",
 	multiLine = false,
 	data = {},
-	getItem = function(data, index)
+	getItem = function(data, index, context)
 		if type(data) == "table" then
 			return data[index]
 		else
@@ -119,12 +128,36 @@ local function addPaddingCells(children, context)
 		end
 		table.insert(
 			current,
-			Object.assign(child, {
+			Object.assign({}, child, {
 				order = #current + 1,
 			})
 		)
 		return current
 	end, {})
+end
+
+local function formatCellKey(index, cellCount)
+	-- width in characters of the largest possible index
+	local digitCount = math.floor(math.log10(cellCount) + 1)
+	return string.format("GridRowCell%0" .. digitCount .. "d", index)
+end
+
+function filterDisplayedCells(children, context, displayLines)
+	local minIndex = (displayLines.Min - 1) * context.columns + 1
+	local maxIndex = displayLines.Max * context.columns
+	-- select only cells that should be displayed
+	local filtered = Array.filter(children, function(_, index)
+		return index >= minIndex and index <= maxIndex
+	end)
+	local displayedCells = (displayLines.Max - displayLines.Min + 1) * context.columns
+	-- assign keys from [1, displayedCells] to reuse existing instances when possible
+	return Array.map(filtered, function(child, index)
+		return Object.assign({}, child, {
+			-- assuming this is called after addPaddingCells
+			-- which sets sequential child order values
+			key = formatCellKey(((child.order - 1) % displayedCells) + 1, displayedCells),
+		})
+	end)
 end
 
 function GridRow:init()
@@ -166,6 +199,10 @@ function GridRow:renderChildren(context)
 		end)
 		children = addPaddingCells(children, context)
 		lines = math.ceil(#children / context.columns)
+		if self.props.displayLines then
+			--TODO filter before calling renderItem (and other non relevant code)
+			children = filterDisplayedCells(children, context, self.props.displayLines)
+		end
 	elseif self.props.scrollable then
 		pages = Array.reduce(children, function(sum, child)
 			return sum + child.colspan
@@ -173,7 +210,7 @@ function GridRow:renderChildren(context)
 	end
 	return Array.map(children, function(child, index)
 		return Roact.createElement(GridCell, {
-			key = tostring(index),
+			key = child.key or formatCellKey(index, #children),
 			colspan = child.colspan,
 			rowspan = child.rowspan,
 			order = child.order,
@@ -194,10 +231,12 @@ function GridRow:render()
 			local children, pages, lines = self:renderChildren({
 				breakpoint = context.breakpoint,
 				kind = context.kind,
+				-- FIXME these defaults are wrong, they should be nil, 1, 0, 0
 				width = GridConfigReader.getValue(context, "width") or 1,
 				columns = GridConfigReader.getValue(context, "columns") or 1,
 				margin = GridConfigReader.getValue(context, "margin") or 1,
 				gutter = GridConfigReader.getValue(context, "gutter") or 1,
+				verticalGutter = GridConfigReader.getValue(context, "verticalGutter"),
 			})
 			return Roact.createElement(GridBasicRow, {
 				kind = self.props.kind,
@@ -206,8 +245,11 @@ function GridRow:render()
 				pages = pages,
 				multiLine = self.props.multiLine,
 				lines = lines,
+				paddingTopLines = if self.props.multiLine and self.props.displayLines
+					then math.max(self.props.displayLines.Min - 1, 0)
+					else nil,
 				relativeHeight = self.props.relativeHeight,
-				gridBasicRowRef = self.props.forwardedRef,
+				[Roact.Ref] = self.props.forwardedRef,
 			}, children)
 		end,
 	})

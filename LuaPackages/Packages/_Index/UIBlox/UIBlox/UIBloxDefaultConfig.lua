@@ -158,6 +158,9 @@ return {
 	-- Enables VerticalTiles to accept render props for contents
 	updateVerticalTile = false,
 
+	-- Introduce `key` prop for DropDownMenu's cellDatas to uniquely identify entries
+	dropDownMenuUseUniqueKeys = false,
+
 	-- Enables the details template to be more configurable
 	useDetailsPageTemplateConfig = false,
 

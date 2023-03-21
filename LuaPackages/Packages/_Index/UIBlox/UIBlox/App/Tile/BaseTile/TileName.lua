@@ -24,8 +24,8 @@ local ItemTileName = Roact.PureComponent:extend("ItemTileName")
 local validateProps = devOnly(t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 
-	maxHeight = t.intersection(t.integer, t.numberMin(0)),
-	maxWidth = t.intersection(t.integer, t.numberMin(0)),
+	maxHeight = t.intersection(t.number, t.numberMin(0)),
+	maxWidth = t.intersection(t.number, t.numberMin(0)),
 
 	-- Loading skeleton will be rendered if name is not included
 	name = t.optional(t.string),

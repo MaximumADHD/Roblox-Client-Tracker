@@ -19,10 +19,11 @@ GridBasicRow.validateProps = t.intersection(
 		scrollable = t.optional(t.boolean),
 		pages = t.optional(t.numberPositive),
 		multiLine = t.optional(t.boolean),
-		lines = t.optional(t.intersection(t.integer, t.numberPositive)),
+		lines = t.optional(t.intersection(t.integer, t.numberMin(0))),
+		paddingTopLines = t.optional(t.intersection(t.integer, t.numberMin(0))),
 		relativeHeight = t.optional(t.UDim),
 		[Roact.Children] = t.optional(t.table),
-		gridBasicRowRef = t.optional(t.table),
+		gridBasicRowRef = t.optional(t.union(t.table, t.callback)),
 	}),
 	function(props)
 		if props.multiLine and props.scrollable then
@@ -38,17 +39,28 @@ GridBasicRow.defaultProps = {
 	multiLine = false,
 }
 
-function GridBasicRow:renderChildrenWithPadding(margin)
+function GridBasicRow:renderChildrenWithPadding(margin, verticalGutter)
+	local lines = self.props.lines or 1
+	local paddingTopLines = self.props.paddingTopLines or 0
 	return Object.assign({
 		_uiblox_grid_padding_ = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, margin),
 			PaddingRight = UDim.new(0, margin),
+			PaddingTop = if self.props.multiLine
+					and paddingTopLines > 0
+					and lines > 0
+				then UDim.new(paddingTopLines / lines, paddingTopLines / lines * verticalGutter)
+				else nil,
 		}),
 	}, self.props[Roact.Children])
 end
 
-function GridBasicRow:renderChildrenMultiline(columns, margin, gutter)
+function GridBasicRow:renderChildrenMultiline(columns, margin, gutter, verticalGutter)
 	local lines = self.props.lines or 1
+	if self.props.paddingTopLines then
+		lines -= self.props.paddingTopLines
+	end
+	lines = math.max(lines, 1)
 	return Object.assign({
 		_uiblox_grid_layout_ = Roact.createElement("UIGridLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -58,21 +70,21 @@ function GridBasicRow:renderChildrenMultiline(columns, margin, gutter)
 				1 / columns,
 				math.floor((1 - columns) / columns * gutter),
 				1 / lines,
-				math.floor((1 - lines) / lines * gutter)
+				math.floor((1 - lines) / lines * verticalGutter)
 			),
-			CellPadding = UDim2.fromOffset(gutter, gutter),
+			CellPadding = UDim2.fromOffset(gutter, verticalGutter),
 		}),
-	}, self:renderChildrenWithPadding(margin))
+	}, self:renderChildrenWithPadding(margin, verticalGutter))
 end
 
-function GridBasicRow:renderChildren(scrollable, margin, gutter)
+function GridBasicRow:renderChildren(scrollable, margin, gutter, verticalGutter)
 	local children = Object.assign({
 		_uiblox_grid_layout_ = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Padding = UDim.new(0, gutter),
 		}),
-	}, self:renderChildrenWithPadding(margin))
+	}, self:renderChildrenWithPadding(margin, verticalGutter))
 	if scrollable then
 		-- width in number of pages (ie total cells / columns per screen)
 		local canvasWidth = self.props.pages or 1
@@ -101,7 +113,7 @@ local function applyUDim(udim, length)
 end
 
 -- this could potentially be optimized in the future using a cache system
-function GridBasicRow:getSize(relativeHeight, gutter, margin, columns)
+function GridBasicRow:getSize(relativeHeight, gutter, verticalGutter, margin, columns)
 	if relativeHeight == nil then
 		return UDim2.fromScale(1, 0)
 	else
@@ -113,10 +125,13 @@ function GridBasicRow:getSize(relativeHeight, gutter, margin, columns)
 		local offsetPerColumn = (gutter - 2 * margin) / columns - gutter
 		local heightOffset = applyUDim(relativeHeight, offsetPerColumn)
 		if self.props.multiLine and self.props.lines then
+			if self.props.lines == 0 then
+				return UDim2.fromScale(1, 0)
+			end
 			heightScale *= self.props.lines
 			heightOffset *= self.props.lines
 			-- add n-1 gutter for n lines
-			heightOffset += (self.props.lines - 1) * gutter
+			heightOffset += (self.props.lines - 1) * verticalGutter
 		end
 		return UDim2.new(1, 0, heightScale, heightOffset)
 	end
@@ -144,10 +159,11 @@ function GridBasicRow:render()
 			end
 			local width = GridConfigReader.getValue(context, "width")
 			local gutter = GridConfigReader.getValue(context, "gutter") or 0
+			local verticalGutter = GridConfigReader.getValue(context, "verticalGutter") or gutter
 			local margin = GridConfigReader.getValue(context, "margin") or 0
 			local columns = GridConfigReader.getValue(context, "columns") or 1
 			local hasHeight = relativeHeight and if multiLine then self.props.lines else true
-			local frameSize = self:getSize(relativeHeight, gutter, margin, columns)
+			local frameSize = self:getSize(relativeHeight, gutter, verticalGutter, margin, columns)
 			return Roact.createElement(GridContext.Provider, {
 				value = context,
 			}, {
@@ -173,8 +189,8 @@ function GridBasicRow:render()
 								else nil,
 						},
 						if multiLine
-							then self:renderChildrenMultiline(columns, margin, gutter)
-							else self:renderChildren(scrollable, margin, gutter)
+							then self:renderChildrenMultiline(columns, margin, gutter, verticalGutter)
+							else self:renderChildren(scrollable, margin, gutter, verticalGutter)
 					)
 				),
 			})

@@ -19,14 +19,8 @@ GridCell.validateProps = t.interface({
 	order = t.optional(t.union(t.integer, t.table)),
 	-- also allows props of the forms colspan_*/rowspan_*/order_*
 	[Roact.Children] = t.optional(t.table),
-	gridCellRef = t.optional(t.table),
+	gridCellRef = t.optional(t.union(t.table, t.callback)),
 })
-
-local function widthName(name, element)
-	return Roact.createFragment({
-		[name] = element,
-	})
-end
 
 local function findProp(props, name, breakpoint)
 	if breakpoint == nil then
@@ -51,12 +45,12 @@ end
 
 function GridCell:getColspan(breakpoint)
 	local value = findProp(self.props, "colspan", breakpoint)
-	return value ~= nil and value or 1
+	return if value ~= nil then value else 1
 end
 
 function GridCell:getRowspan(breakpoint)
 	local value = findProp(self.props, "rowspan", breakpoint)
-	return value ~= nil and value or 1
+	return if value ~= nil then value else 1
 end
 
 function GridCell:getOrder(breakpoint)
@@ -67,6 +61,7 @@ function GridCell:getOrder(breakpoint)
 end
 
 -- shares unusable sub-pixel offset values between row's cells
+-- FIXME this modifies non-react state (mutates context) during render and reads it - potentially unsafe
 local function round(offset, context)
 	local base = math.floor(offset)
 	context.subPixelOffset += offset - base
@@ -79,8 +74,9 @@ end
 function GridCell:getSize(colspan, rowspan, context)
 	local gutter = GridConfigReader.getValue(context, "gutter") or 0
 	if context.multiLine then
+		local verticalGutter = GridConfigReader.getValue(context, "verticalGutter") or gutter
 		-- size relative to grid cell
-		return UDim2.new(colspan, (colspan - 1) * gutter, rowspan, (rowspan - 1) * gutter)
+		return UDim2.new(colspan, (colspan - 1) * gutter, rowspan, (rowspan - 1) * verticalGutter)
 	else
 		local columns = GridConfigReader.getValue(context, "columns") or 1
 		if context.scrollable then
@@ -102,7 +98,9 @@ function GridCell:render()
 			if colspan > 0 and rowspan > 0 then
 				local order = self:getOrder(context.breakpoint)
 				local cellName = if order then string.format("GridCell%02d", order) else "GridCell"
+				local cellSpans = context.multiLine and (colspan > 1 or rowspan > 1)
 				local cell = Roact.createElement("Frame", {
+					Name = if cellSpans then nil else cellName,
 					Size = self:getSize(colspan, rowspan, context),
 					AutomaticSize = if context.relativeHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
@@ -110,18 +108,16 @@ function GridCell:render()
 					[Roact.Ref] = self.props.gridCellRef,
 				}, self.props[Roact.Children])
 				-- wrap multiline cell to allow row/colspan
-				if context.multiLine then
-					return widthName(
-						cellName,
-						Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							LayoutOrder = order,
-						}, {
-							GridCellInner = cell,
-						})
-					)
+				if cellSpans then
+					return Roact.createElement("Frame", {
+						Name = cellName,
+						BackgroundTransparency = 1,
+						LayoutOrder = order,
+					}, {
+						GridCellInner = cell,
+					})
 				else
-					return widthName(cellName, cell)
+					return cell
 				end
 			else
 				-- skip hidden child (its :render() may still be called)

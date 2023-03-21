@@ -109,6 +109,7 @@ local tileInterface = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	thumbnailRef = t.optional(t.table),
 	textButtonRef = t.optional(t.table),
+	inputBindings = t.optional(t.table),
 
 	-- Optional height of the title area is set to the max
 	useMaxTitleHeight = t.optional(t.boolean),
@@ -259,6 +260,15 @@ function Tile:render()
 				})
 			end
 
+			local inputBindings = self.props.inputBindings
+			if not inputBindings then
+				inputBindings = (not isDisabled and onActivated)
+						and {
+							Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated),
+						}
+					or nil
+			end
+
 			-- TODO: use generic/state button from UIBlox
 			return React.createElement("TextButton", {
 				Text = "",
@@ -288,9 +298,7 @@ function Tile:render()
 					ref = self.props.thumbnailRef,
 					[React.Tag] = self.props[React.Tag],
 					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
-					inputBindings = (not isDisabled and onActivated) and {
-						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated),
-					} or nil,
+					inputBindings = inputBindings,
 				}, {
 					Image = React.createElement(TileThumbnail, {
 						Image = thumbnail,
