@@ -111,7 +111,7 @@ local function unhookSoundEvents(sound: Sound)
 end
 
 -- Throttle number of clients sending events
-if GetFFlagEnableSoundTelemetry() and (math.random(0, 100)) < GetFIntSoundTelemetryThrottlingPercentage() then
+if GetFFlagEnableSoundTelemetry() and (math.random(0, 10000)) < GetFIntSoundTelemetryThrottlingPercentage() then
 	for _, instance in ipairs(game:GetDescendants()) do
 		if instance:IsA("Sound") and not trackedSounds[instance] then
 			hookupSoundEvents(instance)

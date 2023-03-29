@@ -69,7 +69,7 @@ local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", fa
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGamePageNullCheckEnabled)
-local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 
@@ -254,7 +254,7 @@ local function CreateSettingsHub()
 		Keep the status of whether the user has enabled Self View or not. This is used
 		to keep track of the self view button state.
 	]]
-	if GetFFlagSelfViewSettingsEnabled() then
+	if FFlagAvatarChatCoreScriptSupport then
 		this.selfViewOpen = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 		this.toggleSelfViewSignal = toggleSelfViewSignal:connect(function()
 			this.selfViewOpen = not this.selfViewOpen
@@ -1129,7 +1129,7 @@ local function CreateSettingsHub()
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
 			local paddingTop = topCornerInset.Y
-			if GetFFlagSelfViewSettingsEnabled() or (GetFFlagVoiceRecordingIndicatorsEnabled() and not NotchSupportExperiment.enabled()) then
+			if FFlagAvatarChatCoreScriptSupport or (GetFFlagVoiceRecordingIndicatorsEnabled() and not NotchSupportExperiment.enabled()) then
 				-- Audio/Video permissions bar takes up padding, but not voice recording indicator.
 				paddingTop = 0
 			end
@@ -1140,7 +1140,7 @@ local function CreateSettingsHub()
 			}
 		end
 
-		if GetFFlagSelfViewSettingsEnabled() then
+		if FFlagAvatarChatCoreScriptSupport then
 			-- Create the settings buttons for audio/camera permissions.
 			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")
 		end
@@ -1183,7 +1183,7 @@ local function CreateSettingsHub()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Parent = this.HubBar
 		}
-		
+
 		if GetFFlagEnableTeleportBackButton() then
 			this.BackBarRef = Roact.createRef()
 			this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
@@ -1509,7 +1509,7 @@ local function CreateSettingsHub()
 				this.HubBar.Size = UDim2.new(0, 800, 0, 60)
 				this.MenuAspectRatio.Parent = this.MenuContainer
 
-				if GetFFlagSelfViewSettingsEnabled() then
+				if FFlagAvatarChatCoreScriptSupport then
 					-- Reconfigure these buttons to take a new parent to be next to
 					-- the close button.
 					if this.permissionsButtonsRoot then
@@ -2021,7 +2021,7 @@ local function CreateSettingsHub()
 			this.ResizedConnection:disconnect()
 			this.ResizedConnection = nil
 		end
-		
+
 		if GetFFlagEnableTeleportBackButton() and this.BackBarVisibleConnection then
 			this.BackBarVisibleConnection:disconnect()
 			this.BackBarVisibleConnection = nil
@@ -2058,7 +2058,7 @@ local function CreateSettingsHub()
 
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
 			this.Shield.Visible = this.Visible
-			
+
 			if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
 				this.FullscreenGui.Enabled = true
 				this.FullscreenBackgroundCover.Visible = true

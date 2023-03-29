@@ -20,6 +20,7 @@ local useContextualInfo = require(script.Parent.useContextualInfo)
 
 local GetFFlagUserSearchNewContextExperimentEnabled =
 	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
+local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
 
 local ICON_FRIEND = Images["icons/status/player/friend"]
 local ICON_FOLLOWING = Images["icons/status/player/following"]
@@ -63,14 +64,27 @@ describe("useContextualInfo", function()
 		})
 
 		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			expect(helper.result).toEqual(
-				{ text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername },
-				ContextualInfoTypes.PreviousUsername.rawValue()
-			)
+			if getFFlagUserSearchContextualInfoUpdateUI() then
+				expect(helper.result).toEqual(
+					{ text = "Feature.PlayerSearchResults.Label.Previously" .. " @" .. previousUsername },
+					ContextualInfoTypes.PreviousUsername.rawValue()
+				)
+			else
+				expect(helper.result).toEqual(
+					{ text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername },
+					ContextualInfoTypes.PreviousUsername.rawValue()
+				)
+			end
 		else
-			expect(helper.result).toEqual({
-				text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername,
-			})
+			if getFFlagUserSearchContextualInfoUpdateUI() then
+				expect(helper.result).toEqual({
+					text = "Feature.PlayerSearchResults.Label.Previously" .. " @" .. previousUsername,
+				})
+			else
+				expect(helper.result).toEqual({
+					text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername,
+				})
+			end
 		end
 	end)
 
@@ -90,6 +104,11 @@ describe("useContextualInfo", function()
 				{ text = "Feature.PlayerSearchResults.Label.YouAreFriends", icon = ICON_FRIEND },
 				ContextualInfoTypes.Friend.rawValue()
 			)
+		elseif getFFlagUserSearchContextualInfoUpdateUI() then
+			expect(helper.result).toEqual({
+				text = "Feature.PlayerSearchResults.Label.YouAreFriends",
+				icon = ICON_FRIEND,
+			})
 		else
 			expect(helper.result).toEqual({
 				text = "Feature.PlayerSearchResults.Label.YouAreFriends",

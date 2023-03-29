@@ -48,7 +48,7 @@ return {
 	emptyStateTitleAndIconSize = SharedFlags.getFFlagSocialOnboardingExperimentEnabled(),
 	headerBarInjectMargin = true,
 	headerBarInjectContentPaddingRight = true,
-	updateVerticalTile = UIBloxFlags.GetFFlagUIBloxUpdateVerticalTile(),
+	updateVerticalTile = true,
 	useDetailsPageTemplateConfig = UIBloxFlags.GetFFlagUIBloxUseDetailsPageTemplateConfig(),
 	updatePlayerTileFooterPadding = UIBloxFlags.GetFFlagUIBloxUpdatePlayerTileFooterPadding(),
 	dropDownMenuUseUniqueKeys = UIBloxFlags.GetFFlagUIBloxDropDownMenuUseUniqueKeys(),

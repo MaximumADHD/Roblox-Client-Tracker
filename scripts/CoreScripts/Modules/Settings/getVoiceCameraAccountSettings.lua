@@ -11,6 +11,8 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
 local FFlagDebugMockCameraEndpoints = game:DefineFastFlag("DebugMockCameraEndpoints", false)
 
+local cachedResults
+
 local function getRequest(url, _)
 	local success, result = pcall(function()
 		local request = HttpRbxApiService:GetAsyncFullUrl(url,
@@ -21,6 +23,10 @@ local function getRequest(url, _)
 end
 
 return function()
+	if cachedResults then
+		return cachedResults
+	end
+
 	-- Call the voice endpoint that contains all the data we need.
 	local result = GetShowAgeVerificationOverlay(getRequest, tostring(game.GameId), tostring(game.PlaceId))
 
@@ -52,8 +58,10 @@ return function()
 		isCameraEnabled = true
 	end
 
-	return {
+	cachedResults = {
 		isVoiceEnabledUserSettings = isVoiceEnabled,
 		isCameraEnabledUserSettings = isCameraEnabled,
 	}
+
+	return cachedResults
 end

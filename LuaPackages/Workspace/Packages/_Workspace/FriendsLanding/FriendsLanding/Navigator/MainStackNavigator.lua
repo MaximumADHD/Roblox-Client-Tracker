@@ -14,9 +14,9 @@ local HeaderBarRightView = require(FriendsLanding.Components.HeaderBarRightView)
 local GatewayComponent = require(FriendsLanding.Navigator.GatewayComponent)
 
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagFixValidatePropErrors = require(FriendsLanding.Flags.getFFlagFixValidatePropErrors)
 local getFFlagAddFriendsSearchbarWidemodeUpdate =
 	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
+local getFFlagAddFriendsPageHideBottomBar = dependencies.getFFlagAddFriendsPageHideBottomBar
 
 local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 	{
@@ -57,20 +57,7 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 						else function()
 							return Roact.createElement(HeaderBarRightView, navProps)
 						end,
-					useSecondaryHeader = if getFFlagFixValidatePropErrors()
-						then true
-						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
-							return FriendsLandingContext.with(function(context)
-								if context.addFriendsPageSearchbarEnabled then
-									return true
-								else
-									return nil
-								end
-							end)
-						end
-						else function()
-							return nil
-						end,
+					useSecondaryHeader = true,
 					shouldRenderSearchbarButtonInWideMode = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 						then nil
 						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
@@ -85,6 +72,9 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 						else function()
 							return nil
 						end,
+					--This is for SocialTab -> AddFriendsPage; remove when deprecating SocialTab
+					--Other instances of tabBarVisible are accounted for in AppPageProperties
+					tabBarVisible = if getFFlagAddFriendsPageHideBottomBar() then false else nil,
 				}
 			end,
 		},
@@ -110,20 +100,7 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 					renderRight = function()
 						return Roact.createElement(HeaderBarRightView, navProps)
 					end,
-					useSecondaryHeader = if getFFlagFixValidatePropErrors()
-						then true
-						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
-							return FriendsLandingContext.with(function(context)
-								if context.addFriendsPageSearchbarEnabled then
-									return true
-								else
-									return nil
-								end
-							end)
-						end
-						else function()
-							return nil
-						end,
+					useSecondaryHeader = true,
 				}
 			end,
 		},

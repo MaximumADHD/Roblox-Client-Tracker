@@ -24,7 +24,6 @@ local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
-local getFFlagFixValidatePropErrors = require(FriendsLanding.Flags.getFFlagFixValidatePropErrors)
 
 local AddFriendsTile = Roact.PureComponent:extend("AddFriendsTile")
 
@@ -56,7 +55,7 @@ AddFriendsTile.validateProps = t.strictInterface({
 	contactImporterWarningSeen = t.optional(t.callback),
 	showTooltip = t.optional(t.boolean),
 	tooltipShown = t.optional(t.callback),
-	navigation = if getFFlagFixValidatePropErrors() then t.optional(t.table) else nil,
+	navigation = t.optional(t.table),
 })
 
 AddFriendsTile.defaultProps = {

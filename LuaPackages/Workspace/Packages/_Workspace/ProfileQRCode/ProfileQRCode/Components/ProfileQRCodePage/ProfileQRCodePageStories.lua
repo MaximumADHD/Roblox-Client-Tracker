@@ -23,6 +23,9 @@ return {
 			}, {
 				ProfileQRCodePageElement = React.createElement(ProfileQRCodePage, {
 					onClose = if props.onClose then props.onClose else Dash.noop,
+					profileQRCodeFriendRequestAlertsEnabled = if props.profileQRCodeFriendRequestAlertsEnabled
+						then props.profileQRCodeFriendRequestAlertsEnabled
+						else nil,
 					robloxEventReceiver = if props.robloxEventReceiver then props.robloxEventReceiver else receiver,
 				}),
 			}),

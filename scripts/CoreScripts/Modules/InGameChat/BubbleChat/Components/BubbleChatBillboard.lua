@@ -36,11 +36,12 @@ local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetF
 local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicConnectingToast)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
-local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
-local GetFFlagBubbleChatAddCamera = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatAddCamera)
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
+
+local FFlagDebugAllowControlButtonsNoVoiceChat = game:DefineFastFlag("DebugAllowControlButtonsNoVoiceChat", false)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -64,7 +65,7 @@ BubbleChatBillboard.validateProps = t.strictInterface({
 
 function BubbleChatBillboard:init()
 	local selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
-	local selfViewEnabled = if GetFFlagSelfViewSettingsEnabled() then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) else nil
+	local selfViewEnabled = if FFlagAvatarChatCoreScriptSupport then StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) else nil
 
 	self:setState({
 		adornee = nil,
@@ -162,7 +163,7 @@ end
 function BubbleChatBillboard:checkCounterForTimeout(lastCounter)
 	-- Start a new timer when the counter changes, unless this is the local
 	-- user or the voice state is TALKING.
-	if 
+	if
 		self.props.userId ~= tostring(Players.LocalPlayer.UserId) and
 		self.state.lastVoiceState ~= Constants.VOICE_STATE.TALKING and
 		self.state.voiceStateCounter ~= lastCounter
@@ -190,7 +191,7 @@ function BubbleChatBillboard:didMount()
 	self.offsetGoal = initialOffset
 	self.offsetMotor:setGoal(Otter.instant(initialOffset))
 
-	if GetFFlagBubbleChatAddCamera() then
+	if FFlagAvatarChatCoreScriptSupport then
 		self:getPermissions()
 	end
 
@@ -407,7 +408,7 @@ end
 	show or hide the bubble to toggle mic/camera.
 ]]
 function BubbleChatBillboard:shouldShowControlBubble()
-	if GetFFlagBubbleChatAddCamera() then
+	if FFlagAvatarChatCoreScriptSupport then
 		return self.state.hasMicPermissions or self.state.hasCameraPermissions
 	else
 		return false
@@ -415,15 +416,25 @@ function BubbleChatBillboard:shouldShowControlBubble()
 end
 
 function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
-	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
-	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
-
-	-- Self View hides local player's bubble. Otherwise proceed as normal for other players.
-	if isLocalPlayer and not self.state.selfViewOpen then
-		return true
+	-- If voice isn't enabled, never render buttons
+	if not self.props.voiceEnabled and not FFlagDebugAllowControlButtonsNoVoiceChat then
+		return false
 	end
 
-	if not isLocalPlayer and showVoiceIndicator and (
+	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
+	if isLocalPlayer then
+		-- Self View hides local player's bubble.
+		if not self.state.selfViewOpen then
+			-- Local player renders the control button even in the timed out state
+			-- Controls buttons are separate for local player even with other messages.
+			return true
+		else
+			return false
+		end
+	end
+
+	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
+	if showVoiceIndicator and (
 		not self.props.bubbleChatEnabled
 		or not self.props.messageIds
 		or #self.props.messageIds == 0)
@@ -456,31 +467,33 @@ function BubbleChatBillboard:render()
 	local children = {}
 	local active = nil
 	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
-	
+
 	-- Self View hides the local user's bubble chat billboard.
-	if GetFFlagSelfViewSettingsEnabled() and isLocalPlayer then
+	if FFlagAvatarChatCoreScriptSupport and isLocalPlayer then
 		showVoiceIndicator = showVoiceIndicator and not self.state.selfViewOpen
 	end
 
-	if GetFFlagBubbleChatAddCamera() and self:getRenderVoiceAndCameraBubble() then
-		children.VoiceAndCameraBubble = Roact.createElement(ControlsBubble, {
-			chatSettings = chatSettings,
-			isInsideMaximizeDistance = self.state.isInsideMaximizeDistance,
-			LayoutOrder = 2,
-			isLocalPlayer = isLocalPlayer,
-			hasCameraPermissions = self.state.hasCameraPermissions,
-			hasMicPermissions = self.state.hasMicPermissions,
-			userId = self.props.userId,
-		})
-		children.listLayout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			VerticalAlignment = Enum.VerticalAlignment.Bottom,
-			Padding = UDim.new(0, 8),
-		})
-		children.padding = Roact.createElement("UIPadding", {
-			PaddingBottom = UDim.new(0, 8),
-		})
+	if FFlagAvatarChatCoreScriptSupport then
+		if self:getRenderVoiceAndCameraBubble() then
+			children.VoiceAndCameraBubble = Roact.createElement(ControlsBubble, {
+				chatSettings = chatSettings,
+				isInsideMaximizeDistance = self.state.isInsideMaximizeDistance,
+				LayoutOrder = 2,
+				isLocalPlayer = isLocalPlayer,
+				hasCameraPermissions = self.state.hasCameraPermissions,
+				hasMicPermissions = self.state.hasMicPermissions,
+				userId = self.props.userId,
+			})
+			children.listLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				VerticalAlignment = Enum.VerticalAlignment.Bottom,
+				Padding = UDim.new(0, 8),
+			})
+			children.padding = Roact.createElement("UIPadding", {
+				PaddingBottom = UDim.new(0, 8),
+			})
+		end
 	else
 		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
 		if showVoiceIndicator and (
@@ -505,7 +518,7 @@ function BubbleChatBillboard:render()
 				isVisible = self.state.isInsideMaximizeDistance,
 				onLastBubbleFadeOut = self.onLastBubbleFadeOut,
 				chatSettings = chatSettings,
-				renderFirstInsert = if not GetFFlagBubbleChatAddCamera() and showVoiceIndicator then self.renderInsert else nil,
+				renderFirstInsert = if not FFlagAvatarChatCoreScriptSupport and showVoiceIndicator then self.renderInsert else nil,
 				insertSize = self.insertSize,
 			})
 		else
@@ -520,6 +533,9 @@ function BubbleChatBillboard:render()
 	end
 
 	active = showVoiceIndicator
+	if FFlagAvatarChatCoreScriptSupport then
+		active = self:getRenderVoiceAndCameraBubble()
+	end
 
 	-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
 	-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting

@@ -224,6 +224,7 @@ return{
 	["Authentication.SignUp.Description.VerifiedParentalConsentModal.LegalCheckboxLabel"] = [[확인란을 선택하고 계속을 클릭하면 자녀의 Roblox 이용을 승인하게 됩니다.]],
 	["Authentication.SignUp.Reponse.PasswordKISAComplexity"] = [[비밀번호에는 대소문자 및 숫자를 모두 포함해야 합니다.]],
 	["Authentication.SignUp.Response.PasswordKISAComplexity"] = [[비밀번호에는 대소문자 및 숫자를 모두 포함해야 합니다.]],
+	["Authentication.SignUp.Description.SignupOtpModal.LegalCheckboxLabel"] = [[확인란을 선택하고 계속을 클릭하면 자녀의 Roblox 이용을 승인하게 됩니다.]],
 	["Authentication.SignUp.Action.Continue"] = [[계속]],
 	["Authentication.TwoStepVerification.Label.EnterEmailCode"] = [[이메일로 방금 발송된 코드를 입력하세요.]],
 	["Authentication.TwoStepVerification.Label.EnterTextCode"] = [[문자 메시지로 방금 발송된 코드를 입력하세요.]],
@@ -621,6 +622,13 @@ return{
 	["Feature.AddFriends.Title.ShareQRCode"] = [[QR 코드 공유]],
 	["Feature.AddFriends.Label.ShareQRCode"] = [[사람들이 내 QR 코드를 스캔하면 바로 나를 친구로 추가할 수 있어요!]],
 	["Feature.AddFriends.Label.EmptyStatePrompt"] = [[Roblox에서 함께하고 싶은 사람이 있나요? 친구로 추가할 사람을 찾아 보거나, 이미 알고 있는 친구와 소통하세요!]],
+	["Feature.AgeVerificationUpsell.Modal.Title"] = [[나이 인증 필요]],
+	["Feature.AgeVerificationUpsell.Modal.ContentText"] = [[이 체험에 액세스하려면 나이 인증을 완료하세요.
+
+1. 설정에서 계정 정보로 이동하세요.
+2. 나이 인증을 선택하세요.
+3. 안내에 따라 인증을 완료하세요.
+]],
 	["Feature.AgeVerificationUpsell.Button.Cancel"] = [[취소]],
 	["Feature.AgeVerificationUpsell.Button.Settings"] = [[설정]],
 	["Feature.Avatar.Heading.All"] = [[전체]],
@@ -1596,6 +1604,7 @@ return{
 	["Feature.GamePage.QuickLaunch.LaunchError.ContextualPlayabilityRegionalCompliance"] = [[규정 준수상의 이유로, 이 체험은 해당 지역에서 이용할 수 없습니다.]],
 	["Feature.GamePage.QuickLaunch.LaunchError.ContextualPlayabilityAgeRecommendationParentalControls"] = [[계정 설정으로 인해 이 체험을 이용할 수 없습니다.]],
 	["Feature.GamePage.QuickLaunch.LaunchError.ContextualPlayabilityAgeGated"] = [[크리에이터가 설정해 둔 연령 제한으로 인해 이 체험을 이용할 수 없습니다.]],
+	["Feature.GamePage.Label.Sponsored.AllCap"] = [[스폰서]],
 	["Feature.GamePass.Heading.PassesForThisGame"] = [[패스]],
 	["Feature.GenreExplorer.Heading.Categories"] = [[카테고리]],
 	["Feature.GenreExplorer.Tile.Action"] = [[액션]],
@@ -1728,7 +1737,7 @@ return{
 	["Feature.NotApproved.Label.AbuseType.ExplicitNudityPorn"] = [[노골적인 누드 또는 포르노]],
 	["Feature.NotApproved.Label.AbuseType.GangImages"] = [[범죄 단체 이미지]],
 	["Feature.NotApproved.Label.AbuseType.Nazis"] = [[나치 관련]],
-	["Feature.NotApproved.Label.AbuseType.PersonalAttackHarassmentBullying"] = [[인신공격, 괴롭힘, 왕따]],
+	["Feature.NotApproved.Label.AbuseType.PersonalAttackHarassmentBullying"] = [[인신공격, 희롱, 괴롭힘]],
 	["Feature.NotApproved.Label.AbuseType.RedArmbandsNotNazis"] = [[빨간 완장(나치 관련 제외)]],
 	["Feature.NotApproved.Label.AbuseType.SuggestiveSexualizedImagery"] = [[외설적이거나 선정적인 이미지]],
 	["Feature.NotApproved.Label.AbuseType.SuicideSelfHarm"] = [[자살 또는 자해]],
@@ -1774,7 +1783,7 @@ return{
 	["Feature.NotApproved.Label.AbuseType.MisusingRobloxSystems"] = [[Roblox 시스템 오용]],
 	["Feature.NotApproved.Label.AbuseType.PoliticalContent"] = [[정치적인 콘텐츠]],
 	["Feature.NotApproved.Label.AbuseType.TerrorismExtremism"] = [[테러리즘 및 극단주의]],
-	["Feature.NotApproved.Label.AbuseType.ChildEndangerment"] = [[아동 위험]],
+	["Feature.NotApproved.Label.AbuseType.ChildEndangerment"] = [[아동 학대]],
 	["Feature.NotApproved.Label.AbuseType.RealLifeThreats"] = [[실제 위협]],
 	["Feature.NotApproved.Label.AbuseType.CheatandExploits"] = [[치트 및 익스플로잇(핵 사용)]],
 	["Feature.NotApproved.Label.AbuseType.SeekingSexualContent"] = [[성적인 콘텐츠 찾기]],
@@ -1784,7 +1793,7 @@ return{
 	["Feature.NotApproved.Label.AbuseType.TerrorismExtremism.Note"] = [[Roblox는 테러리즘 또는 폭력적 극단주의와의 연대를 허용하지 않습니다.]],
 	["Feature.NotApproved.Label.AbuseType.IrlDangerousActivities.Note"] = [[Roblox는 커뮤니티 멤버 사이에서 현실 세계의 위험한 활동을 조장하거나 이에 참여하는 것을 허용하지 않습니다.]],
 	["Feature.NotApproved.Label.AbuseType.PrivacyAskingforPII.Note"] = [[Roblox는 커뮤니티 멤버 간의 개인 식별 정보(PII) 교환을 허용하지 않습니다.]],
-	["Feature.NotApproved.Label.AbuseType.Harassment.Note"] = [[Roblox는 커뮤니티 멤버를 따돌리거나 괴롭히는 행위를 허용하지 않습니다.]],
+	["Feature.NotApproved.Label.AbuseType.Harassment.Note"] = [[Roblox는 커뮤니티 멤버를 괴롭히거나 희롱하는 행위를 허용하지 않습니다.]],
 	["Feature.NotApproved.Label.AbuseType.Discriminatory.Note"] = [[Roblox는 차별적인 언어나 행동, 관련된 모든 종류의 콘텐츠를 허용하지 않습니다.]],
 	["Feature.NotApproved.Label.AbuseType.SexualContent.Note"] = [[Roblox는 플랫폼에서 어떤 형태의 성적인 콘텐츠도 허용하지 않습니다.]],
 	["Feature.NotApproved.Label.AbuseType.ViolentContentAndGore.Note"] = [[Roblox는 이미지나 동영상에 대한 과도한 수준의 유혈 묘사 등 폭력적인 콘텐츠 및 고어물을 허용하지 않습니다.]],

@@ -4,10 +4,10 @@ local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
 
 local PermissionsButtons = require(script.Parent.PermissionsButtons)
-local GetFFlagSelfViewSettingsEnabled = require(Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local FFlagAvatarChatCoreScriptSupport = require(Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 
 return function()
-	if GetFFlagSelfViewSettingsEnabled() then
+	if FFlagAvatarChatCoreScriptSupport then
 		it("should mount and unmount without errors", function()
 			local element = Roact.createElement(PermissionsButtons, {
 				isPortrait = true,

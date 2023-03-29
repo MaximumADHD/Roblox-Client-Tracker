@@ -5,4 +5,5 @@ return {
 	FeatureDisabled = "FeatureDisabled",
 	LODCameraRecommendDisable = "LODCameraRecommendDisable",
 	NoDynamicHeadEquipped = "NoDynamicHeadEquipped",
+	VideoUnsupported = "VideoUnsupported",
 }

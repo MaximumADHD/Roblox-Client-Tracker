@@ -251,6 +251,9 @@ local function onChildAdded(child)
 			onProxiedPartAdded(child)
 		end
 	end
+    if child:IsA("Humanoid") then
+        child.BreakJointsOnDeath = false
+    end
 end
 
 local function onChildRemoved(child)

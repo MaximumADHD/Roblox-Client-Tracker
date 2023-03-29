@@ -21,14 +21,16 @@ local CLOSE_BUTTON_IMAGE = Images["icons/navigation/close"]
 
 local NOTIF_PADDING = 12
 local TEXT_TO_BUTTON_PADDING = 16
-local QR_CODE_IMAGE_HEIGHT = 20
-local QR_CODE_IMAGE_WIDTH = 20
-local CLOSE_BUTTON_HEIGHT = 16
-local CLOSE_BUTTON_WIDTH = 16
+local TEXT_TO_TEXT_PADDING = 5
+local QR_CODE_IMAGE_HEIGHT = 40
+local QR_CODE_IMAGE_WIDTH = 40
+local CLOSE_BUTTON_HEIGHT = 32
+local CLOSE_BUTTON_WIDTH = 32
 local UPPER_BUTTONS_TOTAL_WIDTH = QR_CODE_IMAGE_WIDTH + CLOSE_BUTTON_WIDTH
 local USERNAME_TEXT_HEIGHT = 20
 local REQUEST_TEXT_HEIGHT = 28
 local MAX_WIDTH = 640
+local CLOSE_BUTTON_ANCHOR_POINT_OFFSET = 0.13
 
 export type Props = {
 	notificationQueueSize: number,
@@ -106,7 +108,7 @@ local QRCodeFriendRequestNotification = function(props: Props)
 					BackgroundTransparency = 1,
 					ImageTransparency = 0,
 					ImageColor3 = style.Theme.TextEmphasis.Color,
-					Size = UDim2.fromScale(1, 1),
+					Size = UDim2.new(0, QR_CODE_IMAGE_WIDTH, 0, QR_CODE_IMAGE_HEIGHT),
 				}),
 			}),
 			TextFrame = React.createElement("Frame", {
@@ -123,22 +125,27 @@ local QRCodeFriendRequestNotification = function(props: Props)
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				Username = React.createElement(StyledTextLabel, {
-					LayoutOrder = 1,
+					layoutOrder = 1,
 					text = userInfo.displayName,
-					Font = style.Font.CaptionBody.Font,
-					fontStyle = style.Font.Body,
+					Font = style.Font.Header2.Font,
+					fontStyle = style.Font.Header2,
 					colorStyle = style.Theme.TextDefault,
 					size = UDim2.new(1, 0, 0, USERNAME_TEXT_HEIGHT),
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextColor3 = style.Theme.TextEmphasis.Color,
-					TextSize = style.Font.BaseSize * style.Font.CaptionBody.RelativeSize,
 					TextTransparency = style.Theme.TextEmphasis.Transparency,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Top,
+					TextYAlignment = Enum.TextYAlignment.Center,
 					TextWrapped = true,
 				}),
-				Description = React.createElement(StyledTextLabel, {
+				Spacer1 = React.createElement("Frame", {
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 0, TEXT_TO_TEXT_PADDING),
 					LayoutOrder = 2,
+				}),
+				Description = React.createElement(StyledTextLabel, {
+					layoutOrder = 3,
 					text = localized.notificationRequest,
 					Font = style.Font.CaptionBody.Font,
 					fontStyle = style.Font.Body,
@@ -146,11 +153,11 @@ local QRCodeFriendRequestNotification = function(props: Props)
 					size = UDim2.new(1, 0, 0, REQUEST_TEXT_HEIGHT),
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextColor3 = style.Theme.TextEmphasis.Color,
-					TextSize = style.Font.BaseSize * style.Font.CaptionBody.RelativeSize,
 					TextTransparency = style.Theme.TextEmphasis.Transparency,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Top,
+					TextYAlignment = Enum.TextYAlignment.Center,
 					TextWrapped = true,
+					lineHeight = 1,
 				}),
 			}),
 			CloseButtonFrame = React.createElement("Frame", {
@@ -161,8 +168,9 @@ local QRCodeFriendRequestNotification = function(props: Props)
 			}, {
 				CloseButton = React.createElement(IconButton, {
 					icon = CLOSE_BUTTON_IMAGE,
-					iconSize = IconSize.Small,
+					iconSize = IconSize.Medium,
 					onActivated = props.onClose,
+					anchorPoint = Vector2.new(CLOSE_BUTTON_ANCHOR_POINT_OFFSET, CLOSE_BUTTON_ANCHOR_POINT_OFFSET),
 				}),
 			}),
 		}),

@@ -43,7 +43,6 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
-local FFlagEnableDevConsoleDebugVisualizations = require(CoreGui.RobloxGui.Modules.Common.Flags.GetFFlagEnableDevConsoleDebugVisualizations)
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
 
 local DEV_TAB_LIST = {
@@ -86,18 +85,15 @@ local DEV_TAB_LIST = {
 		tab = MicroProfiler,
 		layoutOrder = 9,
 	},
+	DebugVisualizations = {
+		tab = DebugVisualizations,
+		layoutOrder = 10,
+	},
 	ScriptProfiler = if ScriptProfilerEngineFeature then {
 		tab = ScriptProfiler,
 		layoutOrder = 11,
 	} else nil
 }
-
-if FFlagEnableDevConsoleDebugVisualizations() then
-	DEV_TAB_LIST["DebugVisualizations"] = {
-		tab = DebugVisualizations,
-		layoutOrder = 10,
-	}
-end
 
 local PLAYER_TAB_LIST = {
 	Log = {

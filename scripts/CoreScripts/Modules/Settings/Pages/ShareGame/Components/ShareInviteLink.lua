@@ -26,6 +26,7 @@ local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 
 local GetFFlagLuaAppNewShareSheet =
 	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
+local getFFlagShareLinkFixAnalytics = require(RobloxGui.Modules.Settings.Flags.getFFlagShareLinkFixAnalytics)
 local getFFlagGameInviteShortUrlEnabled = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagGameInviteShortUrlEnabled
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
@@ -126,8 +127,12 @@ function ShareInviteLink:didUpdate(oldProps: InternalProps)
 	if oldProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
 		local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
 		local linkId = self.props.shareInviteLink.linkId
-		-- TODO SACQ-445 this is passing in the values incorrectly
-		self.props.analytics:onLinkGenerated(linkType, linkId)
+		if getFFlagShareLinkFixAnalytics() then
+			self.props.analytics:linkGenerated({ linkType = linkType, linkId = linkId })
+		else
+			self.props.analytics:onLinkGenerated(linkType, linkId)
+		end
+
 		if getFFlagGameInviteShortUrlEnabled() then
 			self.displayShareSheet(props.shareInviteLink)
 		else

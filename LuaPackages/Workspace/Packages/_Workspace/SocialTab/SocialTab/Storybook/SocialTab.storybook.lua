@@ -5,7 +5,7 @@
 local SocialTab = script:FindFirstAncestor("SocialTab")
 local Packages = SocialTab.Parent
 
-local UIBlox = require(Packages.Dev.UIBlox)
+local UIBlox = require(Packages.UIBlox)
 -- Make sure to initialize in story book in case this storybook is called first
 UIBlox.init(require(Packages.Dev.RobloxAppUIBloxConfig))
 

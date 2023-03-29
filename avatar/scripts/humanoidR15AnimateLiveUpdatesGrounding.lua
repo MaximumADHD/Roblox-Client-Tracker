@@ -7,20 +7,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
 
-local userEmoteToRunThresholdChange do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserEmoteToRunThresholdChange")
-	end)
-	userEmoteToRunThresholdChange = success and value
-end
-
-local userPlayEmoteByIdAnimTrackReturn do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteByIdAnimTrackReturn2")
-	end)
-	userPlayEmoteByIdAnimTrackReturn = success and value
-end
-
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 local HumanoidHipHeight = 2
 
@@ -723,8 +709,7 @@ end
 -- STATE CHANGE HANDLERS
 
 function onRunning(speed)
-	local movedDuringEmote =
-		userEmoteToRunThresholdChange and currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
+	local movedDuringEmote = currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
 	local speedThreshold = movedDuringEmote and Humanoid.WalkSpeed or 0.75
 	humanoidSpeed = speed
 	if speed > speedThreshold then
@@ -919,20 +904,12 @@ script:WaitForChild("PlayEmote").OnInvoke = function(emote)
 		-- Default emotes
 		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
 
-		if userPlayEmoteByIdAnimTrackReturn then
-			return true, currentAnimTrack
-		else
-			return true
-		end
+		return true, currentAnimTrack
 	elseif typeof(emote) == "Instance" and emote:IsA("Animation") then
 		-- Non-default emotes
 		playEmote(emote, EMOTE_TRANSITION_TIME, Humanoid)
 
-		if userPlayEmoteByIdAnimTrackReturn then
-			return true, currentAnimTrack
-		else
-			return true
-		end
+		return true, currentAnimTrack
 	end
 
 	-- Return false to indicate that the emote could not be played
@@ -945,47 +922,44 @@ if Character.Parent ~= nil then
 	pose = "Standing"
 end
 
-function setupIkAutopole()
+local function setupIkAutopole()
     local character = script.Parent
     local autopoleModule = script:WaitForChild("module_autopole")
     local autopole = require(autopoleModule)
     autopole:Init(character)
 end
 
-function setupCharacterGrounding()
+local function setupCharacterGrounding()
     local character = script.Parent
     local groundingModule = script:WaitForChild("module_grounding")
     local grounding = require(groundingModule)
     grounding:Init(character)
 end
 
-local function loadOptionalFeatures()
-    local optionalFeatures = {}
-    -- default values
-    optionalFeatures.FootGrounding = false
+local optionalFeatures =
+{
+    FootGrounding = false,    
+}
 
-    -- load overrides from ReplicatedStorage/AvatarConfiguration/Animate
-    local avatarConfig = game:GetService("ReplicatedStorage"):FindFirstChild("AvatarConfiguration")
+local function overrideOptionalFeatures(avatarConfig)
     if avatarConfig then
-        local animateConfig = avatarConfig:FindFirstChild("Animate")
-        if animateConfig then
-            local attributes = animateConfig:GetAttributes()
-            for key, value in pairs(attributes) do
-                optionalFeatures[key] = value
-            end
+        local avatarConfigModule = require(avatarConfig)
+        for key, value in pairs(avatarConfigModule) do
+            optionalFeatures[key] = value
         end
     end
+end
 
-    -- apply optional features
+local function loadOptionalFeatures()
     if optionalFeatures.FootGrounding then
-        -- Setup IK Autopole
         setupIkAutopole()
-
-        -- Setup Grouding IK
         setupCharacterGrounding()
     end
 end
 
+-- load overrides from ReplicatedStorage/AvatarConfiguration, followed by the Character ones
+overrideOptionalFeatures(game:GetService("ReplicatedStorage"):FindFirstChild("AvatarConfiguration"))
+overrideOptionalFeatures(Character:FindFirstChild("AvatarConfiguration"))
 loadOptionalFeatures()
 
 -- loop to handle timed state transitions and tool animations

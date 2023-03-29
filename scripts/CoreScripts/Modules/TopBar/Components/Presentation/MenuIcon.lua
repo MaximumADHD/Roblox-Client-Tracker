@@ -45,7 +45,7 @@ local DEFAULT_DELAY_TIME = 0.4
 local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local VoiceIndicatorsExperimentEnabled = require(RobloxGui.Modules.VoiceChat.Experiments.VoiceIndicatorExperiment)
 
@@ -199,7 +199,7 @@ function MenuIcon:render()
 						onActivated = self.menuIconActivated,
 						onHover = self.menuIconOnHover,
 						onHoverEnd = self.menuIconOnHoverEnd,
-						enableFlashingDot = GetFFlagSelfViewSettingsEnabled(),
+						enableFlashingDot = FFlagAvatarChatCoreScriptSupport,
 				}),
 				ShowTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
 					event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),

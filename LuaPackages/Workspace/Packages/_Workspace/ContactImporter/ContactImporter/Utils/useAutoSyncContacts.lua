@@ -9,6 +9,7 @@ local useSelector = dependencies.useSelector
 local useDispatch = dependencies.useDispatch
 local useEffectOnce = dependencies.useEffectOnce
 local AutoSyncContacts = require(ContactImporter.Networking.AutoSyncContacts)
+local getContactImporterParams = require(ContactImporter.Utils.getContactImporterParams)
 
 type contactImporterSettings = {
 	shouldFetchContactImporterData: boolean,
@@ -17,17 +18,21 @@ type contactImporterSettings = {
 }
 
 -- mockDispatchAutoSyncContacts is used for testing only
-return function(contactImporterSettings: contactImporterSettings, mockDispatchAutoSyncContacts: any?)
+return function(mockDispatchAutoSyncContacts: any?)
 	local dispatch = useDispatch()
 	local userId = useSelector(function(state)
 		return state.LocalUserId
 	end)
 
+	local contactImporterInfo = useSelector(getContactImporterParams)
+
+	local canUploadContacts = contactImporterInfo.canUploadContacts or false
+
 	local dispatchAutoSyncContacts = if mockDispatchAutoSyncContacts
 		then mockDispatchAutoSyncContacts
 		else function()
-			dispatch(AutoSyncContacts(userId, ContactsProtocol.default, AppStorageService, true))
+			dispatch(AutoSyncContacts(userId, ContactsProtocol.default, AppStorageService))
 		end
 
-	useEffectOnce(dispatchAutoSyncContacts, contactImporterSettings.shouldShowContactImporter)
+	useEffectOnce(dispatchAutoSyncContacts, canUploadContacts)
 end

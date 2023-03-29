@@ -29,9 +29,7 @@ local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 
-local EngineFeatureFacialAnimationStreaming = game:GetEngineFeature("FacialAnimationStreaming")
-local FFlagSelfieViewFeature = require(RobloxGui.Modules.Flags.FFlagSelfieViewFeature)
-local IsSelfViewEnabled = EngineFeatureFacialAnimationStreaming and FFlagSelfieViewFeature
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
@@ -82,7 +80,7 @@ function PermissionsButtons:init()
 		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
 		cameraEnabled = isUsingCamera,
 		selfViewOpen = self.props.selfViewOpen,
-		showSelfView = IsSelfViewEnabled and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
+		showSelfView = FFlagAvatarChatCoreScriptSupport and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
 		hasCameraPermissions = false,
 		hasMicPermissions = false,
 	})
@@ -152,7 +150,7 @@ function PermissionsButtons:init()
 		local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 		if self.state.showSelfView ~= coreGuiState then
 			self:setState({
-				showSelfView = IsSelfViewEnabled and coreGuiState and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
+				showSelfView = FFlagAvatarChatCoreScriptSupport and coreGuiState and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
 			})
 		end
 	end
@@ -175,7 +173,7 @@ function PermissionsButtons:didUpdate(prevProps, prevState)
 	local coreGuiState = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
 	if self.state.hasCameraPermissions ~= prevState.hasCameraPermissions or self.state.hasMicPermissions ~= prevState.hasMicPermissions then
 		self:setState({
-			showSelfView = IsSelfViewEnabled and coreGuiState and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
+			showSelfView = FFlagAvatarChatCoreScriptSupport and coreGuiState and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
 		})
 	end
 end

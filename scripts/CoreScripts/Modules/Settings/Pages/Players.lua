@@ -82,16 +82,13 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local getFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
-local GetFFlagEnableVoiceChatMuteAll = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatMuteAll)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
-local GetFFlagSubscriptionFailureUX = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureUX)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
-local GetFFlagSubscriptionFailureRejoin = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureRejoin)
 local GetFFlagInviteTextTruncateFix = require(RobloxGui.Modules.Flags.GetFFlagInviteTextTruncateFix)
-local GetFFlagSelfViewSettingsEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagSelfViewSettingsEnabled)
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
@@ -389,50 +386,6 @@ local function Initialize()
 
 	local muteAllState = false
 
-	local function muteButtonUpdateOld(playerLabel, playerStatus)
-		local buttonParent = nil
-		if playerLabel then
-			buttonParent = playerLabel:FindFirstChild("RightSideButtons")
-		end
-
-		if buttonParent then
-			-- Get rid of the old button
-			local oldButton = buttonParent:FindFirstChild("MuteStatusButton")
-			if oldButton then
-				oldButton:Destroy()
-			end
-
-			-- We don't exit until this point because we still need to destroy any old buttons
-			if playerStatus == nil then
-				return
-			end
-
-			local image = playerStatus.isMuted
-				and MuteStatusIcons.MicOff
-				or MuteStatusIcons.MicOn
-			if playerStatus.isMutedLocally then
-				image = MuteStatusIcons.MicDisabled
-			elseif not playerStatus.subscriptionCompleted then
-				image = MuteStatusIcons.Loading
-			end
-
-			local muteLabel, muteLabelText = utility:MakeStyledImageButton(
-				"MuteStatus",
-				image,
-				UDim2.new(0, 46, 0, 46),
-				UDim2.new(0, 20, 0, 26),
-				function ()
-					VoiceChatServiceManager:ToggleMutePlayer(
-						playerStatus.userId
-					)
-				end
-			)
-			muteLabelText.ZIndex = 3
-			muteLabelText.Position = muteLabelText.Position + UDim2.new(0,0,0,1)
-			muteLabel.Parent = buttonParent
-		end
-	end
-
 	local function muteButtonUpdate(playerLabel, playerStatus)
 		local buttonParent = nil
 		if playerLabel then
@@ -459,7 +412,7 @@ local function Initialize()
 			and MuteStatusIcons.MicOff
 			or MuteStatusIcons.MicOn
 
-		if playerStatus.subscriptionFailed and GetFFlagSubscriptionFailureUX() then
+		if playerStatus.subscriptionFailed then
 			image = MuteStatusIcons.Error
 			imageSize = UDim2.fromOffset(36, 36)
 			imageOffset = UDim2.fromOffset(2, -2)
@@ -502,27 +455,20 @@ local function Initialize()
 				function ()
 					-- TODO(SOCRTC-3638|kangiwang): replace per-user subscription failure
 					-- rejoin buttons with one single button to retry all subscriptions.
-					if GetFFlagSubscriptionFailureUX() then
-						local status = VoiceChatServiceManager.participants[tostring(playerStatus.userId)]
-						if status.subscriptionCompleted then
-							VoiceChatServiceManager:ToggleMutePlayer(
-								playerStatus.userId
-							)
-						elseif GetFFlagSubscriptionFailureRejoin() and status.subscriptionFailed then
-							if LuaFlagVoiceChatDisableSubscribeRetryForMultistream then
-								if not EngineFeatureVoiceChatMultistreamSubscriptionsEnabled then
-									VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
-								end
-							else
-								VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
-							end
-						end
-					else
+					local status = VoiceChatServiceManager.participants[tostring(playerStatus.userId)]
+					if status.subscriptionCompleted then
 						VoiceChatServiceManager:ToggleMutePlayer(
 							playerStatus.userId
 						)
+					elseif status.subscriptionFailed then
+						if LuaFlagVoiceChatDisableSubscribeRetryForMultistream then
+							if not EngineFeatureVoiceChatMultistreamSubscriptionsEnabled then
+								VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
+							end
+						else
+							VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
+						end
 					end
-
 				end
 			)
 			if GetFFlagPlayerListAnimateMic() then
@@ -774,7 +720,7 @@ local function Initialize()
 		local frame = createRow("ImageButton")
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
-		if voiceChatServiceConnected and GetFFlagEnableVoiceChatMuteAll() then
+		if voiceChatServiceConnected then
 			frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
 			if GetFFlagInviteTextTruncateFix() then
 				textLabel.Size = UDim2.new(0.5, 0, 0, 0)
@@ -1076,7 +1022,7 @@ local function Initialize()
 			if player and frame then
 				local status = VoiceChatServiceManager.participants[tostring(player.UserId)]
 				-- Check if a player is not muted to update the Mute All button.
-				if GetFFlagSelfViewSettingsEnabled() and status and (not status.isMutedLocally and not status.isMuted) then
+				if FFlagAvatarChatCoreScriptSupport and status and (not status.isMutedLocally and not status.isMuted) then
 					allMuted = false
 				end
 				muteButtonUpdate(frame, status)
@@ -1084,13 +1030,18 @@ local function Initialize()
 		end
 
 		-- See if the Mute All button needs to update.
-		if GetFFlagSelfViewSettingsEnabled() then
+		if FFlagAvatarChatCoreScriptSupport then
 			if allMuted then
 				muteAllState = true
 			else
 				muteAllState = false
 			end
 			local text = muteAllState and RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.UnmuteAll") or RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
+
+			-- This button may not exist when cleaning up the settings menu after exiting a game.
+			if FFlagAvatarChatCoreScriptSupport and not (muteAllButton and muteAllButton:FindFirstChild("TextLabel")) then
+				return
+			end
 			muteAllButton.TextLabel.Text = text
 			if GetFFlagOldMenuNewIcons() then
 				muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
@@ -1110,7 +1061,7 @@ local function Initialize()
 		end
 
 		local buttonFrame
-		local showMuteAllButton = voiceChatServiceConnected and not muteAllButton and GetFFlagEnableVoiceChatMuteAll()
+		local showMuteAllButton = voiceChatServiceConnected and not muteAllButton
 		if showMuteAllButton then
 			buttonFrame = utility:Create'Frame'
 			{
@@ -1187,11 +1138,7 @@ local function Initialize()
 
 				if voiceChatServiceConnected then
 					local status = VoiceChatServiceManager.participants[tostring(player.UserId)]
-					if GetFFlagSubscriptionFailureUX() then
-						muteButtonUpdate(frame, status)
-					else
-						muteButtonUpdateOld(frame, status)
-					end
+					muteButtonUpdate(frame, status)
 				end
 
 				local imageUrl = SocialUtil.GetPlayerImage(

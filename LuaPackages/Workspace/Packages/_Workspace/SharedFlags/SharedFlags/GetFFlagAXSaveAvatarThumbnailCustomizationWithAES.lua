@@ -8,13 +8,9 @@
 
 game:DefineFastFlag("AXSaveAvatarThumbnailCustomizationWithAES2", false)
 local AvatarEditorServiceSupportsATCData = game:GetEngineFeature("AvatarEditorServiceSupportsATCData2")
-local GetFFlagAvatarEditorServiceInUniversalApp = require(script.Parent.GetFFlagAvatarEditorServiceInUniversalApp)
 
 return function()
 	if not AvatarEditorServiceSupportsATCData then
-		return false
-	end
-	if not GetFFlagAvatarEditorServiceInUniversalApp() then
 		return false
 	end
 	return game:GetFastFlag("AXSaveAvatarThumbnailCustomizationWithAES2")

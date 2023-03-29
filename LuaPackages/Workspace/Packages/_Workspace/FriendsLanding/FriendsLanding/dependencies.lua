@@ -32,6 +32,7 @@ local getFFlagSocialOnboardingExperimentEnabled =
 local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
 local getFFlagProfileQRCodeEnableAlerts = require(Packages.SharedFlags).getFFlagProfileQRCodeEnableAlerts
+local getFFlagAddFriendsPageHideBottomBar = require(Packages.SharedFlags).getFFlagAddFriendsPageHideBottomBar
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -145,6 +146,7 @@ return {
 	getFFlagProfileQRCodeCoreFeaturesEnabled = getFFlagProfileQRCodeCoreFeaturesEnabled,
 	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
 	getFFlagProfileQRCodeEnableAlerts = getFFlagProfileQRCodeEnableAlerts,
+	getFFlagAddFriendsPageHideBottomBar = getFFlagAddFriendsPageHideBottomBar,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,

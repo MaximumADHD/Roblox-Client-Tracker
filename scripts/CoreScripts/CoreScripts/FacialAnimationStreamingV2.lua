@@ -16,12 +16,16 @@ local FFlagStreamingAnimationPauseWhileEmoting = game:DefineFastFlag("StreamingA
 local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
 local FFlagFaceAnimatorDisableVideoByDefault = game:DefineFastFlag("FaceAnimatorDisableVideoByDefault", false)
 local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
+local FFlagRvCaptureResolveReturnError = game:GetEngineFeature("RvCaptureResolveReturnError")
+local FFlagFacialAnimationStreamingPauseOnMute = game:GetEngineFeature("FacialAnimationStreamingPauseOnMute")
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
 local streamingStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingStats)
 game:DefineFastFlag("AvatarChatSubsessionAnalyticsV2Lua3", false)
+
+local heartbeatStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingHeartbeatStats)
 
 if not FaceAnimatorService or not FacialAnimationStreamingService then
 	return
@@ -329,6 +333,12 @@ local function playerUpdate(player)
 	end
 end
 
+local function toggleMute(userId, muted)
+	if playerAnimations[userId] and playerAnimations[userId].animationTrack then
+		playerAnimations[userId].animationTrack:TogglePause(muted)
+	end
+end
+
 local function JoinAllExistingPlayers()
 	for _, player in ipairs(Players:GetPlayers()) do
 		playerJoinedGame[player.UserId] = true
@@ -338,6 +348,19 @@ end
 
 local function ConnectStateChangeCallback()
 	local VoiceChatService = VoiceChatServiceManager:getService()
+
+	if FFlagFacialAnimationStreamingPauseOnMute then
+		local localPlayerId = Players.LocalPlayer.UserId
+		VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
+			for userId, state in pairs(participants) do
+				local userIdAsNumber = tonumber(userId)
+				if userIdAsNumber ~= localPlayerId then
+					toggleMute(userIdAsNumber, state.isMutedLocally)
+				end
+			end
+		end)
+	end
+
 	if VoiceChatService then
 		VoiceChatService.ParticipantsStateChanged:Connect(function(participantsLeft, participantsJoined, statesUpdated)
 			for _, userId in ipairs(participantsLeft) do
@@ -461,6 +484,8 @@ function InitializeFacialAnimationStreaming(serviceState)
 		playerTrace(string.format("TrackerError: %s", tostring(error)), nil)
 		if error == (Enum::any).TrackerError.VideoNoPermission then
 			TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
+		elseif FFlagRvCaptureResolveReturnError and error == (Enum::any).TrackerError.VideoUnsupported then
+			TrackerMenu:showPrompt(TrackerPromptType.VideoUnsupported)
 		else
 			TrackerMenu:showPrompt(TrackerPromptType.NotAvailable)
 		end
@@ -486,6 +511,7 @@ function InitializeFacialAnimationStreaming(serviceState)
 	end
 
 	InitializeVoiceChat()
+	heartbeatStats.Initialize()
 end
 
 function CleanupFacialAnimationStreaming()
@@ -496,6 +522,7 @@ function CleanupFacialAnimationStreaming()
 	facialAnimationStreamingInited = false
 
 	CleanupVoiceChat()
+	heartbeatStats.Cleanup()
 
 	for _, player in ipairs(Players:GetPlayers()) do
 		playerJoinedGame[player.UserId] = nil

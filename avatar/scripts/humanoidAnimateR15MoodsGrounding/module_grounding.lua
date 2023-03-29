@@ -1,4 +1,4 @@
--- Module Grounding - V0.15
+-- Module Grounding - V0.16
 
 --------------------------------------------------------------------------------
 
@@ -97,8 +97,9 @@ local maxHeightAdjustment = 0.5 -- units
 local maxHeightAdjustmentVelocity = 5 -- units/second
 local raycastVersion = 2 -- v1==single raycast, 2==multiple raycasts
 local rayTangentOffset = 0.1
-local maxVelocityForIdle = 0.3
+local maxVelocityForIdle = 0.2
 local weightFadeTime = 0.3
+local rootAdjustmentBias = -0.05
 
 local function GroundHit(rayOrigin: Vector3, rayDirection: Vector3)
     if raycastVersion == 1 then
@@ -132,10 +133,24 @@ local function GroundHit(rayOrigin: Vector3, rayDirection: Vector3)
     end
 end
 
+
+local function ComputeRootCf(ik)
+    local root : BasePart = ik.ChainRoot
+    local motor : Motor6D = root:FindFirstChildOfClass("Motor6D")
+    return ComputeMotor6dFkPose(motor)
+end
+
+local function ComputeEeffCf(ik)
+    local eeff : Attachment = ik.EndEffector
+    local motor : Motor6D = eeff.Parent:FindFirstChildOfClass("Motor6D")
+    -- ComputeMotor6dFkPose(eeff.Parent:FindFirstChildOfClass("Motor6D")) * eeff.CFrame
+    return ComputeMotor6dFkPose(motor) * motor.C1:Inverse() * eeff.CFrame
+end
+
 local function HeightFromGround(ik) : number -- returns >0 when the foot is above ground, <0 when below
     local eeff : Attachment = ik.EndEffector
     if not eeff then return 0 end
-    local eeffCFrame = ComputeMotor6dFkPose(eeff.Parent:FindFirstChildOfClass("Motor6D")) * eeff.CFrame
+    local eeffCFrame = ComputeEeffCf(ik)
     local hit = workspace:Raycast(eeffCFrame.Position + Vector3.yAxis * 10, -Vector3.yAxis * 100, rcp)
     if hit then
         return (eeffCFrame.Position - hit.Position).Y
@@ -156,6 +171,7 @@ local function MoveRoot(dt)
         local hl = HeightFromGround(ikControlL)
         local hr = HeightFromGround(ikControlR)
         targetHeightAdjustment = math.clamp(-math.max(hl, hr), -maxHeightAdjustment, maxHeightAdjustment)
+        targetHeightAdjustment += rootAdjustmentBias
     end
     currentHeightAdjustment = Smooth(currentHeightAdjustment, targetHeightAdjustment, maxHeightAdjustmentVelocity, dt)
 
@@ -174,8 +190,8 @@ local function DoGrounding(ik : IKControl)
     local target : Attachment = ik.Target
     assert(target, "Target should have been created")
 
-    local rootCFrame = ComputeMotor6dFkPose(root:FindFirstChildOfClass("Motor6D"))
-    local eeffCFrame = ComputeMotor6dFkPose(eeff.Parent:FindFirstChildOfClass("Motor6D")) * eeff.CFrame
+    local rootCFrame = ComputeRootCf(ik)
+    local eeffCFrame = ComputeEeffCf(ik)
 
     -- NOTES: the pose should be already reset and overwritten by the animation
     local origin = rootCFrame.Position

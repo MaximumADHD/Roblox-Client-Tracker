@@ -33,7 +33,6 @@ local TextKeys = ContactImporter.TextKeys
 local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFFlagUpdateContactImportModalLogic)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
-local getFFlagFixValidatePropErrors = require(FriendsLanding.Flags.getFFlagFixValidatePropErrors)
 local getFFlagPassEntrypointFromAddFriendsPage = require(FriendsLanding.Flags.getFFlagPassEntrypointFromAddFriendsPage)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
@@ -100,10 +99,10 @@ AddFriendsPage.validateProps = t.strictInterface({
 	showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then t.optional(t.boolean) else nil,
 	fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics() then t.optional(t.callback) else nil,
 	fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics() then t.optional(t.callback) else nil,
-	hasOSPermissions = if getFFlagFixValidatePropErrors() then t.optional(t.boolean) else nil,
-	openProfilePeekView = if getFFlagFixValidatePropErrors() then t.optional(t.callback) else nil,
-	fireSearchbarPressedEvent = if getFFlagFixValidatePropErrors() then t.optional(t.callback) else nil,
-	canUploadContacts = if getFFlagFixValidatePropErrors() then t.optional(t.boolean) else nil,
+	hasOSPermissions = t.optional(t.boolean),
+	openProfilePeekView = t.optional(t.callback),
+	fireSearchbarPressedEvent = t.optional(t.callback),
+	canUploadContacts = t.optional(t.boolean),
 })
 
 AddFriendsPage.defaultProps = {

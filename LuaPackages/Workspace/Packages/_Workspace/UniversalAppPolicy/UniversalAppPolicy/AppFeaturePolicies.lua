@@ -16,6 +16,7 @@ local GetFFlagUseVoiceExitBetaLanguage = SharedFlags.GetFFlagUseVoiceExitBetaLan
 local GetFFlagVRAvatarExperienceNoLandingPage = SharedFlags.GetFFlagVRAvatarExperienceNoLandingPage
 local GetFFlagLuaAppGamePassGameDetails = SharedFlags.GetFFlagLuaAppGamePassGameDetails
 local GetFFlagUseGridPageLayoutInVR = SharedFlags.GetFFlagUseGridPageLayoutInVR
+local GetFFlagDisableCDLQrCodeForMaquettes = SharedFlags.GetFFlagDisableCDLQrCodeForMaquettes
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
@@ -335,6 +336,9 @@ local function AppFeaturePolicies(policy): any
 				return policy.UseGridPageLayout
 			end
 		end,
+		useNewDropDown = function()
+			return policy.UseNewDropDown or false
+		end,
 		getShouldSystemBarUsuallyBePresent = function()
 			-- Use a special policy to override VR behavior for now since we won't have VR platform targeting working
 			-- until QuestVR useragent is deployed.
@@ -400,6 +404,13 @@ local function AppFeaturePolicies(policy): any
 				return policy.ShowPassesOnExperienceDetails or false
 			end
 			return false
+		end,
+		getDisableCDLQrCodeForMaquettes = function()
+			if GetFFlagDisableCDLQrCodeForMaquettes() then
+				return policy.DisableCDLQrCodeForMaquettes
+			else
+				return false
+			end
 		end,
 	}
 end

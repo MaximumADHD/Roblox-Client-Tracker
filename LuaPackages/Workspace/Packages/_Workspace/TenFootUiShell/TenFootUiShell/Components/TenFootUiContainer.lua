@@ -3,8 +3,14 @@ local CoreGui = game:GetService("CoreGui")
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
 local React = require(Packages.React)
+local ReactFocusNavigation = require(Packages.ReactFocusNavigation)
 local RoactNavigation = require(Packages.RoactNavigation)
+
+local useTenFootUiSceneManager = require(TenFootUiShell.Utils.useTenFootUiSceneManager)
 local createTenFootUiSwitchNavigator = require(TenFootUiShell.ReactNavigationExtend.createTenFootUiSwitchNavigator)
+
+local FocusNavigationService = ReactFocusNavigation.FocusNavigationService
+local CoreGuiInterface = ReactFocusNavigation.EngineInterface.CoreGui
 
 type ScreenWithButtonsProps = {
 	navigation: any,
@@ -68,6 +74,7 @@ local function ScreenWithButtons(props: ScreenWithButtonsProps)
 	return React.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
 		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 0.8,
 	}, { buttons })
 end
 
@@ -75,7 +82,7 @@ local function MainScreen(props: ScreenProps)
 	return React.createElement(ScreenWithButtons, {
 		buttons = {
 			["Discover"] = function()
-				props.navigation.navigate({ routeName = "Discover" })
+				props.navigation.navigate("Discover")
 			end,
 		},
 	})
@@ -85,13 +92,13 @@ local function DiscoverScreen(props: ScreenProps)
 	return React.createElement(ScreenWithButtons, {
 		buttons = {
 			["Home"] = function()
-				props.navigation.navigate({ routeName = "Home" })
+				props.navigation.navigate("Home")
 			end,
 		},
 	})
 end
 
-local function TenFootUiContainer(props: Props)
+local function getOrCreateSurfaceGuiContainer(): Instance
 	local surfaceGuiContainer: Instance = CoreGui:FindFirstChild(TenFootUiSurfaceGuiFolderName)
 	if not surfaceGuiContainer then
 		local folder = Instance.new("Folder")
@@ -100,6 +107,10 @@ local function TenFootUiContainer(props: Props)
 		surfaceGuiContainer = folder
 	end
 
+	return surfaceGuiContainer
+end
+
+local function getOrCreateWorkSpaceContainer(): Instance
 	local workspaceContainer: Instance = workspace:FindFirstChild(TenFootUiWorkspaceFolderName)
 	if not workspaceContainer then
 		local folder = Instance.new("Folder")
@@ -107,6 +118,14 @@ local function TenFootUiContainer(props: Props)
 		folder.Parent = workspace
 		workspaceContainer = folder
 	end
+	return workspaceContainer
+end
+
+local function TenFootUiContainer(props: Props)
+	useTenFootUiSceneManager()
+
+	local surfaceGuiContainer = getOrCreateSurfaceGuiContainer()
+	local workspaceContainer = getOrCreateWorkSpaceContainer()
 
 	-- This is placeholder not production code.
 	local rootNavigator = createTenFootUiSwitchNavigator({
@@ -140,9 +159,13 @@ local function TenFootUiContainer(props: Props)
 		worldContainer = workspaceContainer,
 	})
 
+	local focusNav = React.useRef(FocusNavigationService.new(CoreGuiInterface))
+
 	local appContainer = RoactNavigation.createAppContainer(rootNavigator)
 
-	return React.createElement(appContainer)
+	return React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
+		value = focusNav.current,
+	}, React.createElement(appContainer))
 end
 
 return TenFootUiContainer

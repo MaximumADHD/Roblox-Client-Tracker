@@ -8,14 +8,6 @@ local Neck = Torso:WaitForChild("Neck")
 local Humanoid = Figure:WaitForChild("Humanoid")
 local pose = "Standing"
 
-
-local userPlayEmoteByIdAnimTrackReturn do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteByIdAnimTrackReturn2")
-	end)
-	userPlayEmoteByIdAnimTrackReturn = success and value
-end
-
 local EMOTE_TRANSITION_TIME = 0.1
 
 local currentAnim = ""
@@ -554,11 +546,7 @@ script:WaitForChild("PlayEmote").OnInvoke = function(emote)
 		-- Default emotes
 		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
 
-		if userPlayEmoteByIdAnimTrackReturn then
-			return true, currentAnimTrack
-		else
-			return true
-		end
+		return true, currentAnimTrack
 	end
 
 	-- Return false to indicate that the emote could not be played

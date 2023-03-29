@@ -10,5 +10,6 @@ local SetUpProxyParts = require(Character:WaitForChild("SetupProxyParts"))
 -- rig building/scaling will be done after this script runs
 task.wait()
 SetUpProxyParts.setupCharacter()
-Scale.ScaleCharacter(Character, Scale.Target, true)
+Scale.ScaleCharacter(Character, Scale.Target)
+
 MoveHitboxes.moveHitboxes(Character)

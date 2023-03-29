@@ -69,6 +69,8 @@ local GetFFlagPeekViewClipFramePositionFromBottom =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewClipFramePositionFromBottom
 local GetFFlagPeekViewDeprecateFitChildren =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewDeprecateFitChildren
+local FFlagMultiTryOnPurchaseGamepadEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagMultiTryOnPurchaseGamepadEnabled
 
 local useAutomaticSizeForPeekView = GetFFlagPeekViewDeprecateFitChildren()
 	and game:GetEngineFeature("UseActualSizeToCalculateListMinSize")
@@ -979,10 +981,20 @@ function PeekView:didUpdate(prevProps, prevState)
 
 	-- allow use of prop to be passed to move the PeekView (ex: useful for input bindings in ResultsList)
 	local peekViewState = self.props.peekViewState
+	local goToBlocked = false
+	if FFlagMultiTryOnPurchaseGamepadEnabled then
+		-- Avoid an update in peekViewState triggering a call to goTo
+		-- if we are already in a go to state since that would otherwise
+		-- cause an error. Let the go to state finish before attempting a call
+		-- to another goTo
+		goToBlocked = self.isInGoToState
+	end
+
 	if
 		peekViewState ~= prevProps.peekViewState
 		and self.viewType == prevProps.peekViewState
 		and peekViewState ~= VT_Extended
+		and not goToBlocked
 	then
 		self.goTo(self.props.peekViewState)
 	end

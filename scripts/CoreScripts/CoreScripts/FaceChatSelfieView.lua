@@ -743,7 +743,7 @@ function toggleIndicator(mode)
 				and hasCameraPermissions
 				and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible))
 			)
-		if mode == Enum.TrackerMode.AudioVideo then
+		if mode == Enum.TrackerMode.AudioVideo or mode == Enum.TrackerMode.Audio then
 			indicatorCircle.Image = INDICATOR_ON_IMAGE
 		else
 			indicatorCircle.Image = INDICATOR_OFF_IMAGE

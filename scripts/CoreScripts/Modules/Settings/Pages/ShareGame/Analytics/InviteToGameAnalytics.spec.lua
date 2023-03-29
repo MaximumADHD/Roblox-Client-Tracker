@@ -2,6 +2,12 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local InviteToGameAnalytics = require(script.Parent.InviteToGameAnalytics)
 	local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
+	local CoreGui = game:GetService("CoreGui")
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+	local getFFlagShareLinkFixAnalytics = require(RobloxGui.Modules.Settings.Flags.getFFlagShareLinkFixAnalytics)
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local jestExpect = JestGlobals.expect
+	local jest = JestGlobals.jest
 
 	local function createMockEventStream()
 		local eventStream = {
@@ -30,7 +36,7 @@ return function()
 	describe("new", function()
 		it("SHOULD return an object", function()
 			local analytics = InviteToGameAnalytics.new()
-			expect(analytics).to.be.ok()
+			jestExpect(analytics).never.toBeNil()
 		end)
 	end)
 
@@ -38,7 +44,7 @@ return function()
 		it("SHOULD return the original object", function()
 			local analytics = InviteToGameAnalytics.new():withEventStream()
 
-			expect(analytics).to.be.ok()
+			jestExpect(analytics).never.toBeNil()
 		end)
 	end)
 
@@ -46,7 +52,7 @@ return function()
 		it("SHOULD return the original object", function()
 			local analytics = InviteToGameAnalytics.new():withDiag()
 
-			expect(analytics).to.be.ok()
+			jestExpect(analytics).never.toBeNil()
 		end)
 	end)
 
@@ -54,7 +60,7 @@ return function()
 		it("SHOULD return the original object", function()
 			local analytics = InviteToGameAnalytics.new():withEventStream()
 
-			expect(analytics).to.be.ok()
+			jestExpect(analytics).never.toBeNil()
 		end)
 	end)
 
@@ -63,17 +69,17 @@ return function()
 			local eventStreamMock = {}
 			local analytics = InviteToGameAnalytics.new():withEventStream(eventStreamMock)
 
-			expect(analytics).to.be.ok()
-			expect(analytics:_getEventStream()).to.equal(eventStreamMock)
+			jestExpect(analytics).never.toBeNil()
+			jestExpect(analytics:_getEventStream()).toBe(eventStreamMock)
 		end)
 
 		it("SHOULD throw if not provided an EventStream", function()
 			local analytics = InviteToGameAnalytics.new()
 
-			expect(analytics).to.be.ok()
-			expect(function()
+			jestExpect(analytics).never.toBeNil()
+			jestExpect(function()
 				analytics:_getEventStream()
-			end).to.throw()
+			end).toThrow()
 		end)
 	end)
 
@@ -82,17 +88,17 @@ return function()
 			local buttonMock = "testing"
 			local analytics = InviteToGameAnalytics.new():withButtonName(buttonMock)
 
-			expect(analytics).to.be.ok()
-			expect(analytics:_getButtonName()).to.equal(buttonMock)
+			jestExpect(analytics).never.toBeNil()
+			jestExpect(analytics:_getButtonName()).toBe(buttonMock)
 		end)
 
 		it("SHOULD throw if not provided a Context", function()
 			local analytics = InviteToGameAnalytics.new()
 
-			expect(analytics).to.be.ok()
-			expect(function()
+			jestExpect(analytics).never.toBeNil()
+			jestExpect(function()
 				analytics:_getButtonName()
-			end).to.throw()
+			end).toThrow()
 		end)
 	end)
 
@@ -116,8 +122,8 @@ return function()
 
 			analytics:inputShareGameEntryPoint()
 
-			expect(lastEventContext).to.equal(mockButtonName)
-			expect(lastEventName).to.equal(InviteToGameAnalytics.EventName.EntryPoint)
+			jestExpect(lastEventContext).toBe(mockButtonName)
+			jestExpect(lastEventName).toBe(InviteToGameAnalytics.EventName.EntryPoint)
 		end)
 	end)
 
@@ -141,8 +147,8 @@ return function()
 
 			analytics:onActivatedInviteSent("senderId", "conversationId", {})
 
-			expect(lastEventContext).to.equal(mockButtonName)
-			expect(lastEventName).to.equal(InviteToGameAnalytics.EventName.InviteSent)
+			jestExpect(lastEventContext).toBe(mockButtonName)
+			jestExpect(lastEventName).toBe(InviteToGameAnalytics.EventName.InviteSent)
 		end)
 
 		it("SHOULD fire a diag counter", function()
@@ -160,7 +166,7 @@ return function()
 
 			analytics:onActivatedInviteSent("senderId", "conversationId", {"recipientId"})
 
-			expect(diagSum).to.equal(1)
+			jestExpect(diagSum).toBe(1)
 		end)
 	end)
 
@@ -178,11 +184,40 @@ return function()
 
 			local analytics = InviteToGameAnalytics.new()
 				:withEventStream(mockEventStream)
+			if getFFlagShareLinkFixAnalytics() then
+				jestExpect(function()
+					analytics:onLinkGenerated("", "123456")
+				end).toThrow()
+			else
+				analytics:onLinkGenerated("", "123456")
 
-			analytics:onLinkGenerated("", "123456")
+				jestExpect(lastEventContext).toBe("testing123")
+				jestExpect(lastEventName).toBe(InviteToGameAnalytics.EventName.LinkGenerated)
+			end
+		end)
+	end)
 
-			expect(lastEventContext).to.equal("testing123")
-			expect(lastEventName).to.equal(InviteToGameAnalytics.EventName.LinkGenerated)
+
+	describe("linkGenerated", function()
+		it("SHOULD fire `EventName.LinkGenerated` event", function()
+			local eventStreamMock = {
+				setRBXEventStream = jest.fn()
+			}
+
+			local analytics = InviteToGameAnalytics.new()
+				:withEventStream(eventStreamMock)
+				analytics:linkGenerated({ linkId = "123", linkType = "Profile" })
+
+				if getFFlagShareLinkFixAnalytics() then
+					jestExpect(eventStreamMock.setRBXEventStream).toHaveBeenCalledWith(eventStreamMock, "shareLinks", InviteToGameAnalytics.EventName.LinkGenerated, {
+						linkId = "123",
+						linkType = "Profile",
+						page = "inGameMenu",
+						subpage = "inviteFriendsPage",
+					})
+				else
+					jestExpect(eventStreamMock.setRBXEventStream).never.toHaveBeenCalled()
+				end
 		end)
 	end)
 
@@ -203,8 +238,8 @@ return function()
 
 			analytics:onShareButtonClick()
 
-			expect(lastEventContext).to.equal('testing123')
-			expect(lastEventName).to.equal(InviteToGameAnalytics.EventName.ShareButtonClick)
+			jestExpect(lastEventContext).toBe('testing123')
+			jestExpect(lastEventName).toBe(InviteToGameAnalytics.EventName.ShareButtonClick)
 		end)
 	end)
 end

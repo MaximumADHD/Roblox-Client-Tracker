@@ -34,13 +34,17 @@ end
 local useGetUsersInfoUrlMock, useAcceptFriendUrlMock
 
 local oldGetFFlagProfileQRCodeEnableAlerts
+local oldGetFFlagProfileQRCodeEnableAlertsExperiment
 
 beforeAll(function()
-	oldGetFFlagProfileQRCodeEnableAlerts = game:SetFastFlagForTesting("ProfileQRCodeEnableAlerts_v3", true)
+	oldGetFFlagProfileQRCodeEnableAlerts = game:SetFastFlagForTesting("ProfileQRCodeEnableAlerts_v5", true)
+	oldGetFFlagProfileQRCodeEnableAlertsExperiment =
+		game:SetFastFlagForTesting("ProfileQRCodeEnableAlertsExperiment", true)
 end)
 
 afterAll(function()
-	game:SetFastFlagForTesting("ProfileQRCodeEnableAlerts_v3", oldGetFFlagProfileQRCodeEnableAlerts)
+	game:SetFastFlagForTesting("ProfileQRCodeEnableAlerts_v5", oldGetFFlagProfileQRCodeEnableAlerts)
+	game:SetFastFlagForTesting("ProfileQRCodeEnableAlertsExperiment", oldGetFFlagProfileQRCodeEnableAlertsExperiment)
 end)
 
 beforeEach(function()
@@ -147,6 +151,7 @@ it("SHOULD show alert when signalR friendship request event is received but no t
 	local mockEventReceieverSetup = mockRobloxEventReceiver()
 	local component = createTreeWithProviders(defaultStory, {
 		props = {
+			profileQRCodeFriendRequestAlertsEnabled = true,
 			robloxEventReceiver = mockEventReceieverSetup.mockEventReceiver,
 		},
 	})
@@ -198,6 +203,7 @@ it("SHOULD show alert when signalR friendship request event is received and toas
 	local mockEventReceieverSetup = mockRobloxEventReceiver()
 	local component = createTreeWithProviders(defaultStory, {
 		props = {
+			profileQRCodeFriendRequestAlertsEnabled = true,
 			robloxEventReceiver = mockEventReceieverSetup.mockEventReceiver,
 		},
 	})

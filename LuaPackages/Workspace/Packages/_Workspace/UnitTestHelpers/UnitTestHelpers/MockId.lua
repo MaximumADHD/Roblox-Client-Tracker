@@ -11,7 +11,7 @@
 
 local lastId = 0
 
-return function()
+return function(): string
 	lastId = lastId + 1
 	return tostring(lastId)
 end

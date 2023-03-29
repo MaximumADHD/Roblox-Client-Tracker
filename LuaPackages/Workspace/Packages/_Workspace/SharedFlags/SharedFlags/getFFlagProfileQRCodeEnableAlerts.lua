@@ -1,5 +1,5 @@
-game:DefineFastFlag("ProfileQRCodeEnableAlerts_v3", false)
+game:DefineFastFlag("ProfileQRCodeEnableAlerts_v5", false)
 
 return function()
-	return game:GetFastFlag("ProfileQRCodeEnableAlerts_v3")
+	return game:GetFastFlag("ProfileQRCodeEnableAlerts_v5")
 end

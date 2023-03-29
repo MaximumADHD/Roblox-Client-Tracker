@@ -59,7 +59,6 @@ local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListEnabled = require(RobloxGui.Modules.Flags.GetFFlagContactListEnabled)
 local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt", false)
-local FFlagSelfieViewFeature = require(RobloxGui.Modules.Flags.FFlagSelfieViewFeature)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 game:DefineFastFlag("PipEnabled", false)
@@ -72,6 +71,12 @@ local localPlayer = Players.LocalPlayer
 while not localPlayer do
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 	localPlayer = Players.LocalPlayer
+end
+
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+if FFlagAvatarChatCoreScriptSupport then
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	ExperienceChat.GlobalFlags.AvatarChatEnabled = true
 end
 
 -- Since prop validation can be expensive in certain scenarios, you can enable
@@ -265,20 +270,18 @@ if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")
 end
 
-if game:GetEngineFeature("FacialAnimationStreaming") then
+if FFlagAvatarChatCoreScriptSupport then
 	if game:GetEngineFeature("FacialAnimationStreamingServiceUseV2") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreamingV2", script.Parent)
 	else
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 	end
-	if FFlagSelfieViewFeature then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
-	end
-	
+	ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
+
 	if FFlagDebugAvatarChatVisualization then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarChatDebugVisualization", script.Parent)
-	end	
-	
+	end
+
 	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/TrackerLodControllerDebugUI", script.Parent)
 	end

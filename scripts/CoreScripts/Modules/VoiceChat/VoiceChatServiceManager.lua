@@ -38,7 +38,7 @@ local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags
 local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged)
 local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
-local GetFFlagUpdateCamMicPermissioning = require(CoreGui.RobloxGui.Modules.Settings.Flags.GetFFlagUpdateCamMicPermissioning)
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -223,7 +223,7 @@ function VoiceChatServiceManager:asyncInit()
 
 		return Promise.resolve()
 	end
-	if 
+	if
 		GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged()
 		or GetFFlagVoiceChatWatchForMissedSignalROnEventReceived()
 		or GetFFlagVoiceChatReportOutOfOrderSequence()
@@ -302,18 +302,18 @@ function VoiceChatServiceManager:checkAndUpdateSequence(namespace: string, value
 			-- Got a nil value. We'll react when we get a message showing that we actually missed something.
 			return true
 		end
-	
+
 		if not self.SequenceNumbers[namespace] then
 			-- This is the first one we've seen, so assume it's fine.
 			self.SequenceNumbers[namespace] = value
 			return true
 		end
-	
+
 		local diff = value - self.SequenceNumbers[namespace]
 		if diff > 0 then
 			self.SequenceNumbers[namespace] = value
 		end
-	
+
 		-- Duplicates and old values are fine. Return false if there's a gap though.
 		return diff <= 1
 	end
@@ -342,7 +342,7 @@ function VoiceChatServiceManager:watchSignalR()
 			local seqNum = detail.SequenceNumber
 			log:trace("SignalR message {}: {}", namespace, seqNum)
 
-			local diff = self:checkAndUpdateSequence(namespace, seqNum) 
+			local diff = self:checkAndUpdateSequence(namespace, seqNum)
 			if diff > 0 then
 				self.Analytics:reportReconnectDueToMissedSequence()
 				if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
@@ -366,7 +366,7 @@ function VoiceChatServiceManager:watchSignalR()
 					end
 					log:trace("SignalR message {}: {}", namespace, value)
 
-					local diff = self:checkAndUpdateSequence(namespace, value) 
+					local diff = self:checkAndUpdateSequence(namespace, value)
 					if diff > 0 then
 						self.Analytics:reportReconnectDueToMissedSequence()
 						if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
@@ -541,7 +541,7 @@ function VoiceChatServiceManager:requestMicPermission()
 	end
 
 	local promiseStart
-	if GetFFlagUpdateCamMicPermissioning() then
+	if FFlagAvatarChatCoreScriptSupport then
 		--[[
 			getPermissionsFunction used by multiple callers to get camera & microphone permissions and creates a queue.
 			Check if the microphone has been authorized or not.
@@ -568,7 +568,7 @@ function VoiceChatServiceManager:requestMicPermission()
 		log:debug("Permission status {}", permissionResponse.status)
 
 		local permissionGranted
-		if GetFFlagUpdateCamMicPermissioning() then
+		if FFlagAvatarChatCoreScriptSupport then
 			permissionGranted = self:voicePermissionGranted(permissionResponse)
 		else
 			permissionGranted = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
@@ -577,7 +577,7 @@ function VoiceChatServiceManager:requestMicPermission()
 			if permissionGranted then
 				return Promise.resolve()
 			else
-				if GetFFlagUpdateCamMicPermissioning() then
+				if FFlagAvatarChatCoreScriptSupport then
 					return self.PermissionsService:requestPermissions({PermissionsProtocol.Permissions.LOCAL_NETWORK}):andThen(function(localNetworkResponse)
 						self:_reportJoinFailed("missingPermissions")
 						local missingPermissions = localNetworkResponse.missingPermissions
@@ -1113,7 +1113,7 @@ function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid
 	if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
 		if game:GetEngineFeature("UseFmodForInputDevices") and GetFFlagVoiceChatUseSoundServiceInputApi() then
 			SoundService:SetInputDevice(deviceName, deviceGuid)
-			log:info("[InputDeviceSelection] Setting SS Mic Device To {} {}", deviceName, deviceGuid)	
+			log:info("[InputDeviceSelection] Setting SS Mic Device To {} {}", deviceName, deviceGuid)
 		else
 			self.service:SetMicDevice(deviceName, deviceGuid)
 			-- TODO: This will be removed when set device API refactoring is done
@@ -1136,7 +1136,7 @@ function VoiceChatServiceManager:GetDevices(deviceType)
 				return SoundService:GetInputDevices()
 			else
 				return self.service:GetMicDevices()
-			end		
+			end
 		else
 			return SoundService:GetOutputDevices()
 		end

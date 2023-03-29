@@ -26,183 +26,138 @@ local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsP
 local getVoiceCameraAccountSettings = require(CoreGui.RobloxGui.Modules.Settings.getVoiceCameraAccountSettings)
 local Promise = require(CorePackages.Promise)
 
-local GetFFlagUpdateCamMicPermissioning = require(CoreGui.RobloxGui.Modules.Settings.Flags.GetFFlagUpdateCamMicPermissioning)
-
 type Table = { [any]: any }
 type Array<T> = { T }
 
 local hasCameraPermissions
 local hasMicPermissions
-local callbackQueue: Table = {}
+local requestPermissionsQueue: any = {}
 local inProgress = false
+
+export type PermissionsToCheck = { any? }
 
 export type UserSettings = {
 	isVoiceEnabledUserSettings: boolean,
 	isCameraEnabledUserSettings: boolean,
 }
 
-local function invokeCallbacks(response)
-	-- Notify all callback listeners of the result.
-	for index, callback in callbackQueue do
-		callback(response)
-	end
-end
-
 -- Do not request permissions if the user has not enabled them
 -- in their roblox account settings.
-local function getPermissionsToRequest(userSettings: UserSettings, overridePermissions: Array<string>?)
-	local permissionsToRequest: Array<string> = {}
-
-	if userSettings.isCameraEnabledUserSettings then
-		table.insert(permissionsToRequest, PermissionsProtocol.Permissions.CAMERA_ACCESS)
+local function removePermissionsBasedOnUserSetting(userSettings: UserSettings, permissionsToCheck: Array<string>): Array<string>
+	if not userSettings.isCameraEnabledUserSettings and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) then
+		permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS)
 	end
 
-	if userSettings.isVoiceEnabledUserSettings then
-		table.insert(permissionsToRequest, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+	if not userSettings.isVoiceEnabledUserSettings and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) then
+		permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
 	end
 
-	if overridePermissions then
-		permissionsToRequest = overridePermissions
-	end
-
-	return permissionsToRequest
+	return permissionsToCheck
 end
 
-if GetFFlagUpdateCamMicPermissioning() then
-	return function(callback, overridePermissions: Array<string>?)
-		-- A request is already in progress, add the callback to the queue.
-		if inProgress and callback then
-			table.insert(callbackQueue, callback)
+-- TODO Make callback required with removal of FFlagUpdateCamMicPermissioning
+local function getCamMicPermissions(callback, permissionsToRequest: Array<string>?)
+	local permsToCheck: Array<string> = {}
+	if permissionsToRequest then
+		permsToCheck = permissionsToRequest
+	else
+		permsToCheck = {
+			PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
+			PermissionsProtocol.Permissions.CAMERA_ACCESS,
+		}
+	end
+
+	-- A function to call the next request in the queue.
+	local function invokeNextRequest()
+		if requestPermissionsQueue[1] then
+			local nextRequest = requestPermissionsQueue[1]
+			table.remove(requestPermissionsQueue, 1)
+			getCamMicPermissions(nextRequest.callback, nextRequest.permsToCheck)
+		end
+	end
+
+	-- A request is already in progress. Queue up another call to this function.
+	if inProgress then
+		table.insert(requestPermissionsQueue, {
+			callback = callback,
+			permissionsToRequest = permissionsToRequest,
+		})
+
+		return
+	end
+
+	inProgress = true
+
+	return Promise.new(function(resolve, _)
+		-- First check that the user has enabled voice/camera on their roblox account,
+		-- and that the universe and place has it enabled as well.
+		resolve(getVoiceCameraAccountSettings())
+	end):andThen(function(userSettings)
+		local permissionsToCheck = removePermissionsBasedOnUserSetting(userSettings, permsToCheck)
+		local checkingCamera = Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
+		local checkingMic = Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
+
+		-- early out if no permissions are to be checked.
+		if not permissionsToCheck or #permissionsToCheck <= 0 then
+			local response = {
+				hasCameraPermissions = false,
+				hasMicPermissions = false,
+			}
+
+			callback(response)
 			return
 		end
+		-- First check if permissions were already given.
+		return PermissionsProtocol:hasPermissions(permissionsToCheck):andThen(function(hasPermissionsResult)
+			-- If permissions have already granted
+			if hasPermissionsResult.status == PermissionsProtocol.Status.AUTHORIZED then
+				local response = {
+					hasCameraPermissions = checkingCamera,
+					hasMicPermissions = checkingMic,
+				}
 
-		inProgress = true
-		if callback then
-			table.insert(callbackQueue, callback)
-		end
+				callback(response)
+				inProgress = false
+				invokeNextRequest()
+				return hasPermissionsResult
+			else
+				-- Requesting any permissions that have not been given yet.
+				return PermissionsProtocol:requestPermissions(permissionsToCheck):andThen(function(requestPermissionsResult)
+					-- If the return value is a table, that means permissions have different values.
+					if typeof(requestPermissionsResult) == "table" then
+						local hasCameraPermissionsResponse = checkingCamera and (requestPermissionsResult.status == PermissionsProtocol.Status.AUTHORIZED
+							or not Cryo.List.find(requestPermissionsResult.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS))
+						local hasMicPermissionsResponse = checkingMic and (requestPermissionsResult.status == PermissionsProtocol.Status.AUTHORIZED
+							or not Cryo.List.find(requestPermissionsResult.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS))
+			
+						hasCameraPermissions = hasCameraPermissionsResponse
+						hasMicPermissions = hasMicPermissionsResponse
+					else
+						-- If all permissions were authorized
+						if requestPermissionsResult == PermissionsProtocol.Status.AUTHORIZED then
+							hasCameraPermissions = checkingCamera
+							hasMicPermissions = checkingMic
+						else
+							-- Fall back to denied
+							hasCameraPermissions = false
+							hasMicPermissions = false
+						end
+					end
 
-		-- Default Permissions to check for.
-		local permissions: Array<string> = {
-			PermissionsProtocol.Permissions.CAMERA_ACCESS,
-			PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
-		}
-
-		if overridePermissions then
-			permissions = overridePermissions
-		end
-
-		return Promise.new(function(resolve, _)
-			-- First check that the user has enabled voice/camera on their roblox account,
-			-- and that the universe and place has it enabled as well.
-			resolve(getVoiceCameraAccountSettings())
-		end):andThen(function(userSettings)
-			-- First check if permissions were already given.
-			return PermissionsProtocol:hasPermissions(permissions):andThen(function(hasPermissionsResult)
-				-- If permissions have already granted
-				if hasPermissionsResult.status == PermissionsProtocol.Status.AUTHORIZED then
 					local response = {
-						hasCameraPermissions = userSettings.isCameraEnabledUserSettings,
-						hasMicPermissions = userSettings.isVoiceEnabledUserSettings,
+						hasCameraPermissions = hasCameraPermissions,
+						hasMicPermissions = hasMicPermissions,
 					}
 
-					invokeCallbacks(response)
+					callback(response)
 					inProgress = false
-					callbackQueue = {}
+					invokeNextRequest()
 
-					return hasPermissionsResult
-				else
-					local permissionsToRequest: Array<string> = getPermissionsToRequest(userSettings, overridePermissions)
-					-- Requesting any permissions that have not been given yet.
-					return PermissionsProtocol:requestPermissions(permissionsToRequest):andThen(function(requestPermissionsResult)
-						-- If the return value is a table, that means permissions have different values.
-						if typeof(requestPermissionsResult) == "table" then
-							local hasCameraPermissionsResponse = requestPermissionsResult.status == PermissionsProtocol.Status.AUTHORIZED
-								or not Cryo.List.find(requestPermissionsResult.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS)
-							local hasMicPermissionsResponse = requestPermissionsResult.status == PermissionsProtocol.Status.AUTHORIZED
-								or not Cryo.List.find(requestPermissionsResult.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
-				
-							hasCameraPermissions = hasCameraPermissionsResponse
-							hasMicPermissions = hasMicPermissionsResponse
-						else
-							-- If all permissions were authorized
-							if requestPermissionsResult == PermissionsProtocol.Status.AUTHORIZED then
-								hasCameraPermissions = true
-								hasMicPermissions = true
-							else
-								-- Fall back to denied
-								hasCameraPermissions = false
-								hasMicPermissions = false
-							end
-						end
-				
-						local response = {
-							hasCameraPermissions = hasCameraPermissions,
-							hasMicPermissions = hasMicPermissions,
-						}
-
-						invokeCallbacks(response)
-				
-						callbackQueue = {}
-						inProgress = false
-
-						return requestPermissionsResult
-					end)
-				end
-			end)
-		end)
-	end
-else
-	return function(callback)
-		--do not use cached results here else it will return permissions not given from cached result despite meanwhile given
-		--on first run when no permissions given before and then user gives them
-	
-		-- A request is already in progress, add the callback to the queue.
-		if inProgress then
-			table.insert(callbackQueue, callback)
-			return
-		end
-	
-		inProgress = true
-		table.insert(callbackQueue, callback)
-	
-		-- Obtain the permissions for camera and mic.
-		PermissionsProtocol:hasPermissions({
-			PermissionsProtocol.Permissions.CAMERA_ACCESS,
-			PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
-		}):andThen(function (permissionResponse)
-			-- If permissions were different
-			if typeof(permissionResponse) == "table" then
-				local hasCameraPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-					or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.CAMERA_ACCESS)
-				local hasMicPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-					or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
-	
-				hasCameraPermissions = hasCameraPermissionsResponse
-				hasMicPermissions = hasMicPermissionsResponse
-			else
-				-- If all permissions were authorized
-				if permissionResponse == PermissionsProtocol.Status.AUTHORIZED then
-					hasCameraPermissions = true
-					hasMicPermissions = true
-				else
-					-- Fall back to denied
-					hasCameraPermissions = false
-					hasMicPermissions = false
-				end
+					return requestPermissionsResult
+				end)
 			end
-	
-			local response = {
-				hasCameraPermissions = hasCameraPermissions,
-				hasMicPermissions = hasMicPermissions,
-			}
-	
-			-- Notify all callback listeners of the result.
-			for _, callback in callbackQueue do
-				callback(response)
-			end
-	
-			callbackQueue = {}
-			inProgress = false
 		end)
-	end
+	end)
 end
+
+return getCamMicPermissions

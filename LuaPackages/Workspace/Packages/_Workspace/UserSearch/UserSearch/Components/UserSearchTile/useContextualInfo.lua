@@ -18,6 +18,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local GetFFlagUserSearchNewContextExperimentEnabled =
 	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
+local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
 
 local ICON_FRIEND = Images["icons/status/player/friend"]
 local ICON_FOLLOWING = Images["icons/status/player/following"]
@@ -54,7 +55,12 @@ local useContextualInfo = function(args: {
 	local localized = useLocalization({
 		youAreFriends = "Feature.PlayerSearchResults.Label.YouAreFriends",
 		youAreFollowing = "Feature.PlayerSearchResults.Label.YouAreFollowing",
-		alsoKnownAs = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation",
+		alsoKnownAs = if getFFlagUserSearchContextualInfoUpdateUI()
+			then nil
+			else "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation",
+		previously = if getFFlagUserSearchContextualInfoUpdateUI()
+			then "Feature.PlayerSearchResults.Label.Previously"
+			else nil,
 		thisIsYou = "Feature.PlayerSearchResults.Label.ThisIsYou",
 		frequents = if GetFFlagUserSearchNewContextExperimentEnabled() then "Feature.Friends.Label.Frequent" else nil,
 		mutualFriendSingular = if GetFFlagUserSearchNewContextExperimentEnabled()
@@ -75,16 +81,27 @@ local useContextualInfo = function(args: {
 
 	if isKnownAs(args.previousUsernames, args.searchKeyword) then
 		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			return { text = localized.alsoKnownAs .. " " .. args.searchKeyword },
-				ContextualInfoTypes.PreviousUsername.rawValue()
+			if getFFlagUserSearchContextualInfoUpdateUI() then
+				return { text = localized.previously .. " @" .. args.searchKeyword },
+					ContextualInfoTypes.PreviousUsername.rawValue()
+			else
+				return { text = localized.alsoKnownAs .. " " .. args.searchKeyword },
+					ContextualInfoTypes.PreviousUsername.rawValue()
+			end
 		else
-			return { text = localized.alsoKnownAs .. " " .. args.searchKeyword }
+			if getFFlagUserSearchContextualInfoUpdateUI() then
+				return { text = localized.previously .. " @" .. args.searchKeyword }
+			else
+				return { text = localized.alsoKnownAs .. " " .. args.searchKeyword }
+			end
 		end
 	end
 
 	if relationship.status == Enum.FriendStatus.Friend then
 		if GetFFlagUserSearchNewContextExperimentEnabled() then
 			return { text = localized.youAreFriends, icon = ICON_FRIEND }, ContextualInfoTypes.Friend.rawValue()
+		elseif getFFlagUserSearchContextualInfoUpdateUI() then
+			return { text = localized.youAreFriends, icon = ICON_FRIEND }
 		else
 			return { text = localized.youAreFriends }
 		end

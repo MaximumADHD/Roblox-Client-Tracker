@@ -14,23 +14,22 @@ local useAutoSyncContacts = require(script.Parent.useAutoSyncContacts)
 local renderHookWithProviders = require(ContactImporter.TestHelpers.renderHookWithProviders)
 
 describe("useAutoSyncContacts", function()
-	it("SHOULD call AutoSyncContacts when shouldShowContactImporter is true", function()
-		local mockContactImporterSettings = {
-			shouldFetchContactImporterData = true,
-			shouldShowContactImporter = true,
-			shouldShowContactImporterModal = true,
-		}
-
+	it("SHOULD call AutoSyncContacts when canUploadContacts is true", function()
 		local mockDispatchAutoSyncContacts = jest.fn()
 
 		local testStore = Rodux.Store.new(function()
 			return {
 				LocalUserId = "111",
+				ContactImporter = {
+					ShowContactImporterParams = {
+						canUploadContacts = true,
+					},
+				},
 			}
 		end, {}, { Rodux.thunkMiddleware })
 
 		local _helper = renderHookWithProviders(function()
-			useAutoSyncContacts(mockContactImporterSettings, mockDispatchAutoSyncContacts)
+			useAutoSyncContacts(mockDispatchAutoSyncContacts)
 		end, {
 			store = testStore,
 		})
@@ -38,23 +37,22 @@ describe("useAutoSyncContacts", function()
 		jestExpect(mockDispatchAutoSyncContacts).toHaveBeenCalled()
 	end)
 
-	it("SHOULD NOT call AutoSyncContacts when shouldShowContactImporter is false", function()
-		local mockContactImporterSettings = {
-			shouldFetchContactImporterData = false,
-			shouldShowContactImporter = false,
-			shouldShowContactImporterModal = true,
-		}
-
+	it("SHOULD NOT call AutoSyncContacts when canUploadContacts is false", function()
 		local mockDispatchAutoSyncContacts = jest.fn()
 
 		local testStore = Rodux.Store.new(function()
 			return {
 				LocalUserId = "111",
+				ContactImporter = {
+					ShowContactImporterParams = {
+						canUploadContacts = false,
+					},
+				},
 			}
 		end, {}, { Rodux.thunkMiddleware })
 
 		local _helper = renderHookWithProviders(function()
-			useAutoSyncContacts(mockContactImporterSettings, mockDispatchAutoSyncContacts)
+			useAutoSyncContacts(mockDispatchAutoSyncContacts)
 		end, {
 			store = testStore,
 		})

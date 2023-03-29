@@ -15,7 +15,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
-local FFlagExpChatAddNewCallbacks = game:DefineFastFlag("ExpChatAddNewCallbacks2", false)
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableBubbleChatForExpChat
 
 local getIconVoiceIndicator
@@ -28,7 +28,7 @@ end
 local onClickedCameraIndicator
 local getPermissions
 local selfViewListenerChanged
-if FFlagExpChatAddNewCallbacks then
+if FFlagAvatarChatCoreScriptSupport then
 	onClickedCameraIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedCameraIndicator)
 	getPermissions = require(RobloxGui.Modules.VoiceChat.Components.getPermissions)
 	selfViewListenerChanged = require(RobloxGui.Modules.VoiceChat.Components.selfViewListenerChanged)

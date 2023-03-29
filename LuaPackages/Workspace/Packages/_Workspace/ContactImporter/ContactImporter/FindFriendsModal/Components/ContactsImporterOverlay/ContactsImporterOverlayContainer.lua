@@ -87,7 +87,7 @@ function ContactsImporterOverlayContainer:init()
 					navigation.navigate(EnumScreens.ContactsList, {
 						[Constants.SHOULD_UPDATE_USER_SETTINGS] = true,
 						[Constants.IS_PHONE_VERIFIED] = if getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal()
-							then props.isPhoneVerified or false
+							then navigation.getParam(Constants.IS_PHONE_VERIFIED) or false
 							else false,
 					})
 				elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then

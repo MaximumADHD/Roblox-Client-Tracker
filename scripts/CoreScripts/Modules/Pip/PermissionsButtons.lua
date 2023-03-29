@@ -189,6 +189,10 @@ function PermissionsButtons:init()
 		})
 	end
 
+	self.cameraChangedEvent = function()
+		self:setState({ cameraEnabled = FaceAnimatorService.VideoAnimationEnabled })
+	end
+
 	self.toggleEndCallButton = function()
 		-- deselects the button and prevents spamming the popup to save in studio when using gamepad
 		GuiService.SelectedCoreObject = nil
@@ -357,6 +361,10 @@ function PermissionsButtons:render()
 		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
 			event = VoiceChatServiceManager.muteChanged.Event,
 			callback = self.muteChangedEvent,
+		}),
+		CameraChangedEvent = Roact.createElement(ExternalEventConnection, {
+			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
+			callback = self.cameraChangedEvent,
 		}),
 	})
 end

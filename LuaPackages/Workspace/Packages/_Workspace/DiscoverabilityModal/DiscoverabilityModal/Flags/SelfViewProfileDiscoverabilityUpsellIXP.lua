@@ -1,4 +1,4 @@
-game:DefineFastFlag("SelfViewProfileDiscoverabilityUpsellIXPSetupEnabled", false)
+game:DefineFastFlag("SelfViewProfileDiscoverabilityUpsellIXPSetupEnabled_v1", false)
 game:DefineFastFlag("SelfViewProfileDiscoverabilityUpsellEnabledForAll", false)
 game:DefineFastFlag("SelfViewProfileDiscoverabilityUpsellIXPEnabled", false)
 game:DefineFastInt("SelfViewProfileDiscoverabilityUpsellRolloutEnabled", 0)
@@ -14,11 +14,11 @@ local rolloutPercent = function()
 end
 
 local function selfViewProfileDiscoverabilityUpsellIXPSetupEnabled()
-	return game:GetFastFlag("SelfViewProfileDiscoverabilityUpsellIXPSetupEnabled")
+	return game:GetFastFlag("SelfViewProfileDiscoverabilityUpsellIXPSetupEnabled_v1")
 end
 
 local function selfViewProfileDiscoverabilityUpsellRolloutEnabled()
-	return rolloutByApplicationId(rolloutPercent)
+	return rolloutByApplicationId(rolloutPercent)()
 end
 
 local function selfViewProfileDiscoverabilityUpsellExperimentEnabled()

@@ -51,6 +51,9 @@ local FFlagFacialStreamingStatsReportVoiceSessionIdExperienceId = game:DefineFas
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
+local FFlagAvatarChatProtocolDebugV1 = game:GetEngineFeature("AvatarChatProtocolDebugV1")
+local FFlagTrackFacsPacketSendingAndReceivingTime = game:GetEngineFeature("TrackFacsPacketSendingAndReceivingTime")
+
 local RunService = game:GetService("RunService")
 local avatarChatSubsessionStatsConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionStats)
 local avatarChatSubsessionInputConfig = require(script.Parent.RobloxTelemetryConfigs.AvatarChatSubsessionInput)
@@ -73,6 +76,7 @@ local SubsessionTimers =
 
 local trackingStarted = false
 
+local playerSourceStreaming = {}
 -- Track how many remote players we are subscribed to (i.e. unmuted) for FACS
 -- If trackingRemotePlayersCount >= 1, then we are receiving FACS 
 local trackingRemotePlayersCount = 0
@@ -110,6 +114,7 @@ local Connection = {
 	VoiceChatMute = "voiceChatMute",
 	VoiceChatParticipantsUpdate = "voiceChatParticipantsUpdate",
 	VoiceChatParticipantsStateChanged = "voiceChatParticipantsStateChanged",
+	isStreamingFacsUpdated = "isStreamingFacsUpdated"
 }
 
 local function stopAllTimers(now)
@@ -125,13 +130,24 @@ local function canReportVoiceSessionIdVoiceExperienceId()
 end
 
 local function isPlayerTransmittingFacs(userId)
-	if Players.LocalPlayer.UserId == userId then
-		local videoOrAudioAnimationEnabled = v2cEnabled or a2cEnabled
-		-- FACS are transmitted either through V2C or A2C
-		return videoOrAudioAnimationEnabled
+	if FFlagAvatarChatProtocolDebugV1 and FFlagTrackFacsPacketSendingAndReceivingTime then
+		if Players.LocalPlayer.UserId == userId then
+			local videoOrAudioAnimationEnabled = v2cEnabled or a2cEnabled
+			-- FACS are transmitted either through V2C or A2C
+			return videoOrAudioAnimationEnabled and playerSourceStreaming[userId]
+		else
+			--Receiving from remote player
+			return playerJoinedGame[userId] and playerSourceStreaming[userId]
+		end
 	else
-		--Receiving from remote player
-		return playerJoinedGame[userId]
+		if Players.LocalPlayer.UserId == userId then
+			local videoOrAudioAnimationEnabled = v2cEnabled or a2cEnabled
+			-- FACS are transmitted either through V2C or A2C
+			return videoOrAudioAnimationEnabled
+		else
+			--Receiving from remote player
+			return playerJoinedGame[userId]
+		end
 	end
 end
 
@@ -147,7 +163,6 @@ function FacialAnimationStreamingStats.trackRemainingFacs()
 	local now = os.clock()
 	stopAllTimers(now)
 	sessionTotalElapsedTime = now - sessionStartTime
-
 end
 
 function fireAvatarChatSubsessionInput()
@@ -319,6 +334,18 @@ function FacialAnimationStreamingStats.setMicOn(userId, enabled)
 	end
 end
 
+function FacialAnimationStreamingStats.setSourceStreaming(userId, enabled)
+	local transmitting = enabled
+	if not enabled then
+		transmitting = nil
+	end
+
+	if transmitting ~= playerSourceStreaming[userId] then
+		playerSourceStreaming[userId] = transmitting
+		trackFacs(userId)
+	end
+end
+
 function FacialAnimationStreamingStats.setCameraOn(enabled)
 	if enabled ~= localCameraOn then
 		-- Send an event if the local player has turned camera on/off
@@ -331,7 +358,7 @@ end
 function FacialAnimationStreamingStats.setVideoAnimationEnabled(enabled)
 	if enabled ~= v2cEnabled then
 		v2cEnabled = enabled
-		trackFacs(Players.LocalPlayer.UserId)	
+		trackFacs(Players.LocalPlayer.UserId)
 	end
 end
 
@@ -375,6 +402,7 @@ function FacialAnimationStreamingStats.setPlayerJoinedGame(userId, joined)
 		playerJoinedGame[userId] = true
 	else
 		playerJoinedGame[userId] = nil
+		playerSourceStreaming[userId] = nil
 	end
 	trackFacs(userId)
 end
@@ -447,6 +475,13 @@ local function ConnectStreamingAnalyticsCallbacks()
 	connections[Connection.FaceStreamingServiceStateChanged] = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState"):Connect(function()
 		updateFacialAnimationStreamingServiceState(FacialAnimationStreamingService.ServiceState)
 	end)
+
+	if FFlagAvatarChatProtocolDebugV1 and FFlagTrackFacsPacketSendingAndReceivingTime then
+		connections[Connection.isStreamingFacsUpdated] = FacialAnimationStreamingService:GetStats().isStreamingFacsUpdated:Connect(function(isStreaming, playerId)
+			FacialAnimationStreamingStats.setSourceStreaming(playerId, isStreaming)
+		end)
+	end
+	
 	updateFacialAnimationStreamingServiceState(FacialAnimationStreamingService.ServiceState)
 	
 end

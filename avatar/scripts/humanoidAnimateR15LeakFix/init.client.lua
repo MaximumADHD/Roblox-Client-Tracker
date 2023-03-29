@@ -5,20 +5,6 @@ local pose = "Standing"
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
 
-local userEmoteToRunThresholdChange do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserEmoteToRunThresholdChange")
-	end)
-	userEmoteToRunThresholdChange = success and value
-end
-
-local userPlayEmoteByIdAnimTrackReturn do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserPlayEmoteByIdAnimTrackReturn2")
-	end)
-	userPlayEmoteByIdAnimTrackReturn = success and value
-end
-
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 local HumanoidHipHeight = 2
 
@@ -581,8 +567,7 @@ end
 -- STATE CHANGE HANDLERS
 
 function onRunning(speed)
-	local movedDuringEmote =
-		userEmoteToRunThresholdChange and currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
+	local movedDuringEmote = currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
 	local speedThreshold = movedDuringEmote and Humanoid.WalkSpeed or 0.75
 	if speed > speedThreshold then
 		local scale = 16.0
@@ -770,20 +755,12 @@ script:WaitForChild("PlayEmote").OnInvoke = function(emote)
 		-- Default emotes
 		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
 		
-		if userPlayEmoteByIdAnimTrackReturn then
-			return true, currentAnimTrack
-		else
-			return true
-		end
+		return true, currentAnimTrack
 	elseif typeof(emote) == "Instance" and emote:IsA("Animation") then
 		-- Non-default emotes
 		playEmote(emote, EMOTE_TRANSITION_TIME, Humanoid)
 
-		if userPlayEmoteByIdAnimTrackReturn then
-			return true, currentAnimTrack
-		else
-			return true
-		end
+		return true, currentAnimTrack
 	end
 	
 	-- Return false to indicate that the emote could not be played

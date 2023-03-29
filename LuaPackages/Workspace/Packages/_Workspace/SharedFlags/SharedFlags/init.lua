@@ -39,9 +39,11 @@ return {
 	getFFlagAddFriendsQRCodeAnalytics = require(script.getFFlagAddFriendsQRCodeAnalytics),
 	getFFlagProfileQRCodeCoreFeaturesEnabled = require(script.getFFlagProfileQRCodeCoreFeaturesEnabled),
 	getFFlagProfileQRCodeEnableAlerts = require(script.getFFlagProfileQRCodeEnableAlerts),
+	getFFlagProfileQRCodeFixDistanceFromTop = require(script.getFFlagProfileQRCodeFixDistanceFromTop),
 	getFFlagReEnableAutoSyncContacts = require(script.getFFlagReEnableAutoSyncContacts),
 	getFFlagEnableDeeplinkForContactsList = require(script.getFFlagEnableDeeplinkForContactsList),
 	GetFFlagUserSearchNewContextExperimentEnabled = require(script.GetFFlagUserSearchNewContextExperimentEnabled),
+	getFFlagAddFriendsPageHideBottomBar = require(script.getFFlagAddFriendsPageHideBottomBar),
 
 	-- Notifications
 	getFFlagEnableNotificationExperienceInvite = require(script.getFFlagEnableNotificationExperienceInvite),
@@ -63,7 +65,6 @@ return {
 	-- Misc
 	FFlagLuaAppFixMessageBusUnsubscribe = require(script.FFlagLuaAppFixMessageBusUnsubscribe),
 	FFlagAXCatalogSearchSizeGamepad = require(script.FFlagAXCatalogSearchSizeGamepad),
-	GetFFlagAvatarEditorServiceInUniversalApp = require(script.GetFFlagAvatarEditorServiceInUniversalApp),
 	GetFFlagUseColor3sForBodyParts = require(script.GetFFlagUseColor3sForBodyParts),
 	GetEngineFeatureIxpUserAppLayersPrefetchEnabled = require(script.GetEngineFeatureIxpUserAppLayersPrefetchEnabled),
 	GetFFlagEnableUnifiedWebViews = require(script.GetFFlagEnableUnifiedWebViews),
@@ -89,7 +90,7 @@ return {
 	GetFFlagAXSaveAvatarThumbnailCustomizationWithAES = require(
 		script.GetFFlagAXSaveAvatarThumbnailCustomizationWithAES
 	),
-	GetFFlagUpgradeExpChatV3_3_11 = require(script.GetFFlagUpgradeExpChatV3_3_11),
+	GetFFlagUpgradeExpChatV3_4_0 = require(script.GetFFlagUpgradeExpChatV3_4_0),
 	GetFFlagLuaAppAddSignalToFocusArea = require(script.GetFFlagLuaAppAddSignalToFocusArea),
 	GetFFlagLuaAppUseUIBloxColorPalettes = require(script.GetFFlagLuaAppUseUIBloxColorPalettes),
 	isNewFriendsEndpointsEnabled = require(script.isNewFriendsEndpointsEnabled),
@@ -122,9 +123,9 @@ return {
 	GetFFlagApolloClientFetchThumbnails = require(script.GetFFlagApolloClientFetchThumbnails),
 	GetFFlagApiFetchThumbnailsKeyMapper = require(script.GetFFlagApiFetchThumbnailsKeyMapper),
 	getFFlagDebugLuaAppAlwaysUseGamepad = require(script.getFFlagDebugLuaAppAlwaysUseGamepad),
-	getFFlagProfileFromSearchSource = require(script.getFFlagProfileFromSearchSource),
 	FFlagRemoveRoduxLastInputType = require(script.FFlagRemoveRoduxLastInputType),
 	GetFFlagApolloClientFetchExperiences = require(script.GetFFlagApolloClientFetchExperiences),
 	GetFFlagEnableSurveyImprovements = require(script.GetFFlagEnableSurveyImprovements),
 	GetFFlagIrisV2Enabled = require(script.GetFFlagIrisV2Enabled),
+	GetFFlagDisableCDLQrCodeForMaquettes = require(script.GetFFlagDisableCDLQrCodeForMaquettes),
 }

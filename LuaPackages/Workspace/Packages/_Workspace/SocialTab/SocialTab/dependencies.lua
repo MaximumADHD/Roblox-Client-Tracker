@@ -1,7 +1,6 @@
 local Root = script.Parent
 local Packages = Root.Parent
 
-local LuaChatDeps = require(Packages.LuaChatDeps)
 local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 
 local Lumberyak = require(Packages.Lumberyak)
@@ -75,7 +74,7 @@ return {
 	Logger = logger,
 	t = require(Packages.t),
 	Text = require(Packages.AppCommonLib).Text,
-	UIBlox = LuaChatDeps.UIBlox,
+	UIBlox = require(Packages.UIBlox),
 	withLocalization = require(Packages.Localization).withLocalization,
 	useDispatch = require(Packages.RoactUtils).Hooks.RoactRodux.useDispatch,
 	useLocalization = require(Packages.RoactUtils).Hooks.useLocalization,

@@ -107,7 +107,7 @@ function InviteToGamePrompt:show(props: InviteCustomizationProps?)
 		self.instance = Roact.update(self.instance, self:_createTree(true, props))
 	end
 
-	if self.analytics then
+	if self.analytics and not self.isLoading then
 		self.analytics:inputShareGameEntryPoint()
 	end
 

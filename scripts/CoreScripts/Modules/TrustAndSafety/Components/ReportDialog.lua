@@ -13,7 +13,6 @@ local Dependencies = require(TnsModule.Dependencies)
 local GameIcon = require(Dependencies.GameIcon)
 local PlayerCell = require(Dependencies.PlayerCell)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
-local UIBloxInGameConfig = require(Dependencies.UIBloxInGameConfig)
 local withLocalization = require(Dependencies.withLocalization)
 local playerInterface = require(Dependencies.playerInterface)
 
@@ -24,9 +23,11 @@ local SendReport = require(TnsModule.Thunks.SendReport)
 local TextEntryField = require(TnsModule.Components.TextEntryField)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
 local ScreenshotDialog = require(TnsModule.Components.ScreenshotDialog)
+local ScreenshotFlowStepHandler = require(TnsModule.Components.ScreenshotFlowStepHandler)
 local SendAnalytics = require(TnsModule.Utility.SendAnalytics)
 local SessionUtility = require(TnsModule.Utility.SessionUtility)
 local GetFFlagReportAnythingScreenshot = require(TnsModule.Flags.GetFFlagReportAnythingScreenshot)
+local GetFFlagReportAnythingMultistepScreenshot = require(TnsModule.Flags.GetFFlagReportAnythingMultistepScreenshot)
 local ScreenshotAnnotated = require(TnsModule.Actions.ScreenshotAnnotated)
 local FilterIdentifiedAvatars = require(TnsModule.Thunks.FilterIdentifiedAvatars)
 
@@ -112,7 +113,7 @@ function ReportDialog:init()
 	-- Change the drop-down list selection.
 	self.onReasonChanged = function(reason)
 		self:setState({
-			reasonText = reason
+			reasonText = reason,
 		})
 	end
 	-- Edit the text field.
@@ -125,7 +126,15 @@ function ReportDialog:init()
 	self.onReport = function(toastTitle, toastDescription)
 		local reason = self:getReason()
 		-- print("Report button pressed. Annotation points:", self.props.screenshotAnnotationPoints)
-		self.props.sendReport(self.props.reportType, self.props.targetPlayer, reason, self.state.descriptionText, self.props.reportCategory, toastTitle, toastDescription)
+		self.props.sendReport(
+			self.props.reportType,
+			self.props.targetPlayer,
+			reason,
+			self.state.descriptionText,
+			self.props.reportCategory,
+			toastTitle,
+			toastDescription
+		)
 	end
 	-- Press the Back button (when available)
 	self.navigateBack = function()
@@ -168,7 +177,9 @@ function ReportDialog:renderPlayerInfo()
 			Theme = cellTheme,
 		})
 		local memoKey = 0
-		if voiceReportFlow and self.props.isReportDialogOpen then memoKey += 1 end
+		if voiceReportFlow and self.props.isReportDialogOpen then
+			memoKey += 1
+		end
 		return Roact.createElement(StyleProvider, {
 			style = cellStyle,
 		}, {
@@ -183,16 +194,19 @@ function ReportDialog:renderPlayerInfo()
 				key = tostring(self.props.targetPlayer.UserId),
 				memoKey = memoKey,
 			}, {
-				VoiceIndicator = voiceReportFlow and self.props.isReportDialogOpen and Roact.createElement(VoiceIndicatorWrapper, {
-					userId = tostring(self.props.targetPlayer.UserId),
-					hideOnError = true,
-					iconStyle = "SpeakerLight",
-					size = UDim2.fromOffset(36, 36),
-					onClicked = function()
-						VoiceChatServiceManager:ToggleMutePlayer(self.props.targetPlayer.UserId)
-					end,
-				}) or nil,
-			})
+				VoiceIndicator = voiceReportFlow and self.props.isReportDialogOpen and Roact.createElement(
+					VoiceIndicatorWrapper,
+					{
+						userId = tostring(self.props.targetPlayer.UserId),
+						hideOnError = true,
+						iconStyle = "SpeakerLight",
+						size = UDim2.fromOffset(36, 36),
+						onClicked = function()
+							VoiceChatServiceManager:ToggleMutePlayer(self.props.targetPlayer.UserId)
+						end,
+					}
+				) or nil,
+			}),
 		})
 	end)
 end
@@ -223,7 +237,7 @@ function ReportDialog:renderDropDownMenu()
 			local cellDatas = {}
 			local reasonMap = {}
 			for i, reason in ipairs(REPORT_REASONS) do
-				local text = localized["menu"..tostring(i)]
+				local text = localized["menu" .. tostring(i)]
 				table.insert(cellDatas, {
 					text = text,
 				})
@@ -244,7 +258,7 @@ function ReportDialog:renderDropDownMenu()
 				showDropShadow = true,
 				fixedListHeight = fixedListHeight,
 			})
-		end)
+		end),
 	})
 end
 
@@ -264,7 +278,7 @@ function ReportDialog:renderPlayerContents()
 				PlaceholderText = localized.placeHolderText,
 				Position = UDim2.fromOffset(0, 132),
 				Size = UDim2.new(1, 0, 1, -132),
-			})
+			}),
 		})
 	end)
 end
@@ -309,7 +323,7 @@ function ReportDialog:renderPlaceContents()
 				PlaceholderText = localized.placeHolderText,
 				Position = UDim2.fromOffset(0, 112),
 				Size = UDim2.new(1, 0, 1, -112),
-			})
+			}),
 		})
 	end)
 end
@@ -347,14 +361,21 @@ function ReportDialog:render()
 		toastDefaultDescription = "CoreScripts.InGameMenu.Report.Confirmation.ThanksForReportDescription",
 	})(function(localized)
 		if GetFFlagReportAnythingScreenshot() and self.props.currentPage == Constants.Page.ScreenshotDialog then
-			return React.createElement(ScreenshotDialog, {
-				-- TODO(bcwong): Localize
-				titleText = "Highlight What's Wrong",
-				backAction = if self.props.canNavigateBack then self.navigateBack else nil,
-				dismissAction = self.onCancel,
-				reportAction = self.onScreenshotAnnotated,
-				initialAnnotationPoints = self.props.screenshotAnnotationPoints,
-			})	
+			if GetFFlagReportAnythingMultistepScreenshot() then
+				-- TODO(richardli): add additional props
+				return React.createElement(ScreenshotFlowStepHandler, {
+					dismissAction = self.onCancel,
+				})
+			else
+				return React.createElement(ScreenshotDialog, {
+					-- TODO(bcwong): Localize
+					titleText = "Highlight What's Wrong",
+					backAction = if self.props.canNavigateBack then self.navigateBack else nil,
+					dismissAction = self.onCancel,
+					reportAction = self.onScreenshotAnnotated,
+					initialAnnotationPoints = self.props.screenshotAnnotationPoints,
+				})
+			end
 		end
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.isReportDialogOpen,
@@ -372,22 +393,25 @@ function ReportDialog:render()
 			}),
 			actionButtons = Roact.createElement(ButtonStack, {
 				buttonHeight = BUTTON_HEIGHT,
-				buttons = {{
-					buttonType = ButtonType.Secondary,
-					props = {
-						onActivated = self.onCancel,
-						text = localized.cancelText,
+				buttons = {
+					{
+						buttonType = ButtonType.Secondary,
+						props = {
+							onActivated = self.onCancel,
+							text = localized.cancelText,
+						},
 					},
-				},{
-					buttonType = ButtonType.PrimarySystem,
-					props = {
-						isDisabled = not self:canReport(),
-						onActivated = function()
-							return self.onReport(localized.toastDefaultTitle, localized.toastDefaultDescription)
-						end,
-						text = localized.reportText,
+					{
+						buttonType = ButtonType.PrimarySystem,
+						props = {
+							isDisabled = not self:canReport(),
+							onActivated = function()
+								return self.onReport(localized.toastDefaultTitle, localized.toastDefaultDescription)
+							end,
+							text = localized.reportText,
+						},
 					},
-				}}
+				},
 			}),
 			onDismiss = self.onCancel,
 			onBackButtonActivated = if self.props.canNavigateBack then self.navigateBack else nil,
@@ -405,55 +429,46 @@ function ReportDialog:didUpdate(prevProps)
 	end
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			reportCategory = state.report.reportCategory,
-			isReportDialogOpen = state.report.currentPage == Constants.Page.ReportForm,
-			currentPage = state.report.currentPage,
-			reportType = state.report.reportType,
-			targetPlayer = state.report.targetPlayer,
-			canNavigateBack = #state.report.history > 1,
-			placeName = state.placeInfo.name,
-			screenSize = state.displayOptions.screenSize,
-			screenshotAnnotationPoints = state.report.screenshotAnnotationPoints,
-		}
-	end,
-	function(dispatch)
-		return {
-			navigateBack = function(reason, descriptionTextChanged)
-				dispatch(NavigateBack())
-				SendAnalytics(
-					Constants.Page.ReportForm,
-					Constants.Analytics.ReportFlowBack,
-					{
-						source = Constants.Page.ReportForm,
-						reason = reason,
-						descriptionTextChanged = descriptionTextChanged
-					}
-				)
-			end,
-			closeDialog = function(reason, descriptionTextChanged)
-				dispatch(EndReportFlow())
-				SendAnalytics(
-					Constants.Page.ReportForm,
-					Constants.Analytics.ReportFlowAbandoned,
-					{
-						source = Constants.Page.ReportForm,
-						reason = reason,
-						descriptionTextChanged = descriptionTextChanged
-					}
-				)
-				SessionUtility.endAbuseReportSession()
-			end,
-			-- See Constants.lua for the diff between category & type.
-			screenshotAnnotated = function(reportCategory, reportType, annotationPoints)
-				dispatch(FilterIdentifiedAvatars(annotationPoints))
-				dispatch(ScreenshotAnnotated(reportCategory, reportType, annotationPoints))
-			end,
-			sendReport = function(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription)
-				dispatch(SendReport(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription))
-			end
-		}
-	end
-)(ReportDialog)
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		reportCategory = state.report.reportCategory,
+		isReportDialogOpen = state.report.currentPage == Constants.Page.ReportForm,
+		currentPage = state.report.currentPage,
+		reportType = state.report.reportType,
+		targetPlayer = state.report.targetPlayer,
+		canNavigateBack = #state.report.history > 1,
+		placeName = state.placeInfo.name,
+		screenSize = state.displayOptions.screenSize,
+		screenshotAnnotationPoints = state.report.screenshotAnnotationPoints,
+	}
+end, function(dispatch)
+	return {
+		navigateBack = function(reason, descriptionTextChanged)
+			dispatch(NavigateBack())
+			SendAnalytics(Constants.Page.ReportForm, Constants.Analytics.ReportFlowBack, {
+				source = Constants.Page.ReportForm,
+				reason = reason,
+				descriptionTextChanged = descriptionTextChanged,
+			})
+		end,
+		closeDialog = function(reason, descriptionTextChanged)
+			dispatch(EndReportFlow())
+			SendAnalytics(Constants.Page.ReportForm, Constants.Analytics.ReportFlowAbandoned, {
+				source = Constants.Page.ReportForm,
+				reason = reason,
+				descriptionTextChanged = descriptionTextChanged,
+			})
+			SessionUtility.endAbuseReportSession()
+		end,
+		-- See Constants.lua for the diff between category & type.
+		screenshotAnnotated = function(reportCategory, reportType, annotationPoints)
+			dispatch(FilterIdentifiedAvatars(annotationPoints))
+			dispatch(ScreenshotAnnotated(reportCategory, reportType, annotationPoints))
+		end,
+		sendReport = function(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription)
+			dispatch(
+				SendReport(reportType, targetPlayer, reason, description, reportCategory, toastTitle, toastDescription)
+			)
+		end,
+	}
+end)(ReportDialog)
