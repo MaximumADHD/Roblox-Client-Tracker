@@ -217,6 +217,7 @@ Studio.TerrainToolsV2.Meta.PluginName, ,TerrainToolsV2
 Studio.TerrainToolsV2.Meta.ToolbarName, ,Terrain
 Studio.TerrainToolsV2.PartToBiome.PartToBiome, ,Part to Biome
 Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, ,Part to Terrain
+Studio.TerrainToolsV2.RegionSettings.Apply, ,Apply
 Studio.TerrainToolsV2.RegionSettings.Copy, ,Copy
 Studio.TerrainToolsV2.RegionSettings.MergeEmpty, ,Merge Empty
 Studio.TerrainToolsV2.RegionSettings.Move, ,Move
@@ -243,6 +244,16 @@ Studio.TerrainToolsV2.SeaLevel.Create, ,Create
 Studio.TerrainToolsV2.SeaLevel.Evaporate, ,Evaporate
 Studio.TerrainToolsV2.SeaLevel.SeaLevelProgressTitle, ,Sea Level
 Studio.TerrainToolsV2.SeaLevel.Start, ,Starting Replace Method
+Studio.TerrainToolsV2.SelectionAction.CopyStatusTip, ,Copy Region Selection
+Studio.TerrainToolsV2.SelectionAction.CopyText, ,Copy
+Studio.TerrainToolsV2.SelectionAction.CutStatusTip, ,Cut Region Selection
+Studio.TerrainToolsV2.SelectionAction.CutText, ,Cut
+Studio.TerrainToolsV2.SelectionAction.DeleteStatusTip, ,Delete Region Selection
+Studio.TerrainToolsV2.SelectionAction.DeleteText, ,Delete
+Studio.TerrainToolsV2.SelectionAction.DuplicateStatusTip, ,Duplicate Region Selection
+Studio.TerrainToolsV2.SelectionAction.DuplicateText, ,Duplicate
+Studio.TerrainToolsV2.SelectionAction.PasteStatusTip, ,Paste Region Selection
+Studio.TerrainToolsV2.SelectionAction.PasteText, ,Paste
 Studio.TerrainToolsV2.Tab.Build, ,Build
 Studio.TerrainToolsV2.Tab.Create, ,Create
 Studio.TerrainToolsV2.Tab.Edit, ,Edit
@@ -261,7 +272,7 @@ Studio.TerrainToolsV2.ToolName.Generate, ,Generate
 Studio.TerrainToolsV2.ToolName.Grow, ,Grow
 Studio.TerrainToolsV2.ToolName.Import, ,Import
 Studio.TerrainToolsV2.ToolName.ImportLocal, ,Import
-Studio.TerrainToolsV2.ToolName.Material, ,Material
+Studio.TerrainToolsV2.ToolName.Material, ,Fill
 Studio.TerrainToolsV2.ToolName.Move, ,Move
 Studio.TerrainToolsV2.ToolName.Paint, ,Paint
 Studio.TerrainToolsV2.ToolName.Paste, ,Paste
@@ -274,6 +285,8 @@ Studio.TerrainToolsV2.ToolName.SeaLevel, ,Sea Level
 Studio.TerrainToolsV2.ToolName.Select, ,Select
 Studio.TerrainToolsV2.ToolName.Smooth, ,Smooth
 Studio.TerrainToolsV2.ToolName.Subtract, ,Subtract
+Studio.TerrainToolsV2.TransformAction.ApplyStatusTip, ,Apply Region Transform
+Studio.TerrainToolsV2.TransformAction.ApplyText, ,Apply
 Studio.TerrainToolsV2.UpgradeShorelines.ActionButton, ,Upgrade
 Studio.TerrainToolsV2.UpgradeShorelines.Description, ,Click Upgrade to improve the way water joins with terrain at the shores.
 Studio.TerrainToolsV2.UpgradeShorelines.Explanation, ,"The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. You might want to review and hand-edit the results afterwards, especially around streams, waterfalls and any other non-horizontal water surfaces. The upgrade can be reverted right after its completion using the Undo command."

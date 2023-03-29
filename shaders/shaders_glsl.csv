@@ -216,6 +216,8 @@ HighlightPostprocessAlphaTestFS_00000000,Fragment
 HighlightPostprocessFS_00000000,Fragment
 HighlightStudioSelectionAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionFS_00000000,Fragment
+HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
+HighlightStudioSelectionTeamCreateFS_00000000,Fragment
 ImageProcessAlphaFS,Fragment
 ImageProcessBloomFS,Fragment
 ImageProcessBloomLinearFS,Fragment
@@ -275,7 +277,11 @@ ProcessGuiFS,Fragment
 ProfilerFS,Fragment
 ProfilerVS,Vertex
 RadialBlurFS,Fragment
+SelectionOutlineActiveFS,Fragment
+SelectionOutlineFS,Fragment
 SelectionOutlineHorizFS,Fragment
+SelectionOutlineHoverFS,Fragment
+SelectionOutlineTeamCreateFS,Fragment
 SelectionOutlineVerticalFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment

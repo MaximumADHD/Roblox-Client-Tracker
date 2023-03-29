@@ -142,6 +142,7 @@ Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Function Tuple AnimationStreamTrack:GetTrackerData() {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Play(float fadeTime = 0.100000001, float weight = 1) {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Stop(float fadeTime = 0.100000001) {RobloxScriptSecurity}
+	Function void AnimationStreamTrack:TogglePause(bool paused) {RobloxScriptSecurity}
 	Event AnimationStreamTrack.Stopped() {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
 	Property Animation AnimationTrack.Animation [ReadOnly]
@@ -172,6 +173,7 @@ Class Animator : Instance
 	Function AnimationTrack Animator:LoadAnimation(Animation animation)
 	Function AnimationTrack Animator:LoadAnimationCoreScript(Animation animation) {RobloxScriptSecurity}
 	Function AnimationStreamTrack Animator:LoadStreamAnimation(TrackerStreamAnimation animation) {RobloxScriptSecurity}
+	Function AnimationStreamTrack Animator:LoadStreamAnimationForSelfieView_deprecated(TrackerStreamAnimation animation, Player player) {RobloxScriptSecurity}
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
 	Event Animator.AnimationPlayed(AnimationTrack animationTrack)
 	Event Animator.AnimationPlayedCoreScript(AnimationTrack animationTrack) {RobloxScriptSecurity}
@@ -726,6 +728,7 @@ Class AngularVelocity : Constraint
 Class AnimationConstraint : Constraint [NotBrowsable]
 	Property float AnimationConstraint.MaxForce
 	Property float AnimationConstraint.MaxTorque
+	Property bool AnimationConstraint.IsKinematic
 	Property CFrame AnimationConstraint.Transform
 Class BallSocketConstraint : Constraint
 	Property float BallSocketConstraint.Radius
@@ -1320,6 +1323,7 @@ Class FacialAnimationStreamingService : Instance [NotCreatable] [Service]
 Class FacialAnimationStreamingServiceStats : Instance [NotCreatable] [NotReplicated]
 	Function int64 FacialAnimationStreamingServiceStats:Get(string label) {RobloxScriptSecurity}
 	Function int64 FacialAnimationStreamingServiceStats:GetWithPlayerId(string label, int64 playerId) {RobloxScriptSecurity}
+	Event FacialAnimationStreamingServiceStats.isStreamingFacsUpdated(bool isStreaming, int64 playerId) {RobloxScriptSecurity}
 Class FacialAnimationStreamingServiceV2 : Instance [NotCreatable] [Service]
 	Property int FacialAnimationStreamingServiceV2.ServiceState {RobloxScriptSecurity} [Hidden]
 	Function FacialAnimationStreamingServiceStats FacialAnimationStreamingServiceV2:GetStats() {RobloxScriptSecurity}
@@ -2282,6 +2286,7 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Enum.NormalId ImporterRootSettings.WorldUp
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool IncrementalPatchBuilder.AddPathsToBundle
+	Property double IncrementalPatchBuilder.BuildDebouncePeriod
 	Property bool IncrementalPatchBuilder.HighCompression
 	Property bool IncrementalPatchBuilder.SerializePatch
 	Property bool IncrementalPatchBuilder.ZstdCompression
@@ -2426,10 +2431,11 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function void Lighting:SetMinutesAfterMidnight(double minutes)
 	Event Lighting.LightingChanged(bool skyChanged)
 Class LiveScriptingService : Instance [NotCreatable] [Service]
-	Event LiveScriptingService.BeginEdit(LuaSourceContainer script) {RobloxSecurity} [Hidden]
-	Event LiveScriptingService.EndEdit(LuaSourceContainer script) {RobloxSecurity} [Hidden]
-	Event LiveScriptingService.OpenedWithSource(LuaSourceContainer script, string source) {RobloxSecurity} [Hidden]
-	Event LiveScriptingService.SendOperation(LuaSourceContainer script, string op) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.BeginEdit(string guid) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.EndEdit(string script) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.FailedToOpen(string guid) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.OpenedWithSource(string script, string source) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.SendOperation(string script, string op) {RobloxSecurity} [Hidden]
 Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalStorageService:Flush() {RobloxScriptSecurity}
 	Function string LocalStorageService:GetItem(string key) {RobloxScriptSecurity}
@@ -3038,6 +3044,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function void Terrain:SetMaterialColor(Enum.Material material, Color3 value)
 	Function void Terrain:SetMaterialInTransform(CFrame cframe, Vector3 size, Enum.Material targetMaterial) {RobloxScriptSecurity}
 	Function void Terrain:SetWaterCell(int x, int y, int z, Enum.WaterForce force, Enum.WaterDirection direction) [Deprecated]
+	Function Tuple Terrain:SmoothRegion(Region3 region, float resolution, float strength) {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
 	Function Vector3 Terrain:WorldToCell(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferEmpty(Vector3 position)
 	Function Vector3 Terrain:WorldToCellPreferSolid(Vector3 position)
@@ -3165,6 +3172,7 @@ Class Flag : Tool [Deprecated]
 Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:ArePartsTouchingOthers(Objects partList, float overlapIgnored = 0.000199999995)
+	Function RaycastResult WorldRoot:Blockcast(CFrame cframe, Vector3 size, Vector3 direction, RaycastParams params = RaycastParams.new())
 	Function void WorldRoot:BulkMoveTo(Objects partList, Array cframeList, Enum.BulkMoveMode eventMode = "FireAllEvents")
 	Function string WorldRoot:CacheCurrentTerrain(string id, Vector3 center, float radius) {RobloxScriptSecurity}
 	Function bool WorldRoot:ClearCachedTerrain(string id) {RobloxScriptSecurity}
@@ -3183,6 +3191,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {🧬Safe}
 	Function RaycastResult WorldRoot:RaycastCachedTerrain(string id, Vector3 origin, Vector3 direction, bool ignoreWater) {RobloxScriptSecurity}
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
+	Function RaycastResult WorldRoot:Spherecast(Vector3 position, float radius, Vector3 direction, RaycastParams params = RaycastParams.new())
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
 	Property Enum.ClientAnimatorThrottlingMode Workspace.ClientAnimatorThrottling
@@ -3376,9 +3385,13 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreAssembliesShown
 	Property bool PhysicsSettings.AreAwakePartsHighlighted
 	Property bool PhysicsSettings.AreBodyTypesShown
+	Property bool PhysicsSettings.AreConstraintForcesShownForSelectedOrHoveredInstances {RobloxScriptSecurity}
+	Property bool PhysicsSettings.AreConstraintTorquesShownForSelectedOrHoveredInstances {RobloxScriptSecurity}
+	Property bool PhysicsSettings.AreContactForcesShownForSelectedOrHoveredAssemblies {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreContactIslandsShown
 	Property bool PhysicsSettings.AreContactPointsShown
 	Property bool PhysicsSettings.AreJointCoordinatesShown
+	Property bool PhysicsSettings.AreMagnitudesShownForDrawnForcesAndTorques {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreMechanismsShown
 	Property bool PhysicsSettings.AreModelCoordsShown
 	Property bool PhysicsSettings.AreOwnersShown
@@ -3391,6 +3404,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
 	Property bool PhysicsSettings.ForceCSGv2 [Hidden] [NotReplicated]
+	Property float PhysicsSettings.ForceDrawScale {RobloxScriptSecurity}
 	Property bool PhysicsSettings.IsInterpolationThrottleShown
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
@@ -4027,6 +4041,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ScriptEditorService:DeregisterAutocompleteCallback(string name) {PluginSecurity}
 	Function void ScriptEditorService:DeregisterScriptAnalysisCallback(string name) {PluginSecurity}
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
+	Function void ScriptEditorService:ForceReloadSource(string uri, string newsrc) {RobloxScriptSecurity}
 	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
 	Function Tuple ScriptEditorService:OpenScriptDocumentAsync(LuaSourceContainer script) {PluginSecurity} [Yields]
 	Function void ScriptEditorService:RegisterAutocompleteCallback(string name, int priority, Function callbackFunction) {PluginSecurity}
@@ -4036,6 +4051,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {PluginSecurity}
 Class ScriptRegistrationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LuaSourceContainer ScriptRegistrationService:GetSourceContainerByScriptGuid(string guid) {RobloxScriptSecurity}
+Class ScriptRuntime : Instance [NotCreatable] [NotReplicated]
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
 	Property float Selection.SelectionBoxThickness {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -4117,6 +4133,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:IsContentLoaded() {RobloxScriptSecurity}
 	Function bool DataModel:IsGearTypeAllowed(Enum.GearType gearType) [Deprecated]
 	Function bool DataModel:IsLoaded()
+	Function bool DataModel:IsUniverseMetadataLoaded() {RobloxScriptSecurity}
 	Function void DataModel:Load(Content url) {LocalUserSecurity}
 	Function void DataModel:OpenScreenshotsFolder() {RobloxScriptSecurity}
 	Function void DataModel:OpenVideosFolder() {RobloxScriptSecurity}
@@ -4135,6 +4152,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Event DataModel.Loaded()
 	Event DataModel.ScreenshotReady(string path) {RobloxScriptSecurity}
 	Event DataModel.ScreenshotSavedToAlbum(string filename, bool success, string message) {RobloxScriptSecurity}
+	Event DataModel.UniverseMetadataLoaded() {RobloxScriptSecurity}
 	Callback Tuple DataModel.OnClose() [Deprecated]
 Class GenericSettings : ServiceProvider [NotCreatable]
 Class AnalysticsSettings : GenericSettings [NotCreatable]
@@ -4737,6 +4755,7 @@ Class TerrainRegion : Instance
 	Property BinaryString TerrainRegion.SmoothGrid [Hidden] [NotReplicated] [NotScriptable]
 	Function void TerrainRegion:ApplyTransform(CFrame rotation, Vector3 size) {RobloxScriptSecurity}
 	Function void TerrainRegion:ConvertToSmooth() {PluginSecurity} [Deprecated]
+	Function Array TerrainRegion:GetRegionWireframe() {RobloxScriptSecurity}
 Class TestService : Instance [Service]
 	Property string TestService.Description
 	Property bool TestService.AutoRuns
@@ -7651,9 +7670,10 @@ Enum TrackerError
 	EnumItem TrackerError.NoVideo : 3
 	EnumItem TrackerError.VideoError : 4
 	EnumItem TrackerError.VideoNoPermission : 5
-	EnumItem TrackerError.NoAudio : 6
-	EnumItem TrackerError.AudioError : 7
-	EnumItem TrackerError.AudioNoPermission : 8
+	EnumItem TrackerError.VideoUnsupported : 6
+	EnumItem TrackerError.NoAudio : 7
+	EnumItem TrackerError.AudioError : 8
+	EnumItem TrackerError.AudioNoPermission : 9
 Enum TrackerExtrapolationFlagMode
 	EnumItem TrackerExtrapolationFlagMode.ForceDisabled : 0
 	EnumItem TrackerExtrapolationFlagMode.ExtrapolateFacsAndPose : 1

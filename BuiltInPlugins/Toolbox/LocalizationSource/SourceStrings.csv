@@ -36,7 +36,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Yes,Studio.Toolbox.General.SortByFavorites,Favorites
  ,Favorites,Studio.Toolbox.General.AssetTypePlugin,Plugin
  ,Plugin,Studio.Toolbox.General.SearchBarCreatorText,Search for users
- ,Search for users,Studio.Toolbox.Audio.SoundEffect.Category.whispers,Whispers
+ ,Search for users,Studio.Toolbox.General.CreatorDashboardLinkMessage,You can place this item on sale and configure it on your {creatorDashboardLink}.
+A message displayed to the user if they try to put an avatar item on sale and this message directs them to the Creator Dashboard instead.,You can place this item on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.Audio.SoundEffect.Category.debris,Debris
+ ,Debris,Studio.Toolbox.Audio.SoundEffect.Category.whispers,Whispers
  ,Whispers,Studio.Toolbox.Audio.SoundEffect.Category.sports,Sports
  ,Sports,Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory
  ,Front Accessory,Studio.Toolbox.Common.No,No
@@ -47,9 +49,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,On Sale,Studio.Toolbox.Audio.SoundEffect.Category.prop-planes,Prop Planes
  ,Prop Planes,Studio.Toolbox.General.CategoryCreationsModels,Models
  ,Models,Studio.Toolbox.General.CategoryModels,Models
- ,Models,Studio.Toolbox.General.SalesOnsale,Onsale
- ,Onsale,Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item
- ,Marked as a high-quality item,Studio.Toolbox.General.CategoryCreationsDecals,Images
+ ,Models,Studio.Toolbox.General.CreatorDashboard,Creator Dashboard
+Creator Dashboard is the name of the web interface for managing user generated content.,Creator Dashboard,Studio.Toolbox.General.CategoryCreationsDecals,Images
  ,Images,Studio.Toolbox.General.CategoryDecals,Images
  ,Images,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoShortLink,What's my limit?
  ,What's my limit?,Studio.Toolbox.Audio.SoundEffect.Category.zippers,Zippers
@@ -89,9 +90,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Got it!,Studio.Toolbox.General.CategoryRecentAnimations,Recent Animations
  ,Recent Animations,Studio.Toolbox.General.Package,Convert to Package
  ,Convert to Package,Studio.Toolbox.General.SearchTagIdUnverified,Show ID Unverified creators
- ,Show ID Unverified creators,Studio.Toolbox.General.VerifiedCreatorBadgeTooltipText,Creator is ID verified
- ,Creator is ID verified,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory,Right Shoe Accessories
- ,Right Shoe Accessories,Studio.Toolbox.General.CategoryGroupModels,Group Models
+ ,Show ID Unverified creators,Studio.Toolbox.General.CategoryGroupModels,Group Models
  ,Group Models,Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories
  ,Face Accessories,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username
  ,Search by username,Studio.Toolbox.Audio.SoundEffect.Category.coughs,Coughs
@@ -130,7 +129,11 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Mechanical,Studio.Toolbox.General.VotingVotesText,votes
  ,votes,Studio.Toolbox.General.FooterButtonBlackName,Black
  ,Black,Studio.Toolbox.General.FooterButtonNoneName,None
- ,None,Studio.Toolbox.Audio.SoundEffect.Category.robots,Robots
+ ,None,Studio.Toolbox.General.SalesOnsale,Onsale
+ ,Onsale,Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item
+ ,Marked as a high-quality item,Studio.Toolbox.General.VerifiedCreatorBadgeTooltipText,Creator is ID verified
+ ,Creator is ID verified,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory,Right Shoe Accessories
+ ,Right Shoe Accessories,Studio.Toolbox.Audio.SoundEffect.Category.robots,Robots
  ,Robots,Studio.Toolbox.General.CategoryCreationsTShirtAccessory,T-Shirt Accessories
  ,T-Shirt Accessories,Studio.Toolbox.General.UnverifiedCreatorBadgeTooltipText,Creator is unverified
  ,Creator is unverified,Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found
@@ -214,9 +217,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Submission failed,Studio.Toolbox.General.CategoryCreationsGroupHats,Group Hats
  ,Group Hats,Studio.Toolbox.AssetConfigCopy.PackageCantShare,Marketplace publishing is not available when updates are enabled
  ,Marketplace publishing is not available when updates are enabled,Studio.Toolbox.Audio.SoundEffect.Category.sirens,Sirens
- ,Sirens,Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory,Group Face Accessories
- ,Group Face Accessories,Studio.Toolbox.Audio.SoundEffect.Category.machines,Machines
- ,Machines,Studio.Toolbox.Audio.SoundEffect.Category.reverse,Reverse
+ ,Sirens,Studio.Toolbox.Audio.SoundEffect.Category.machines,Machines
+ ,Machines,Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory,Group Face Accessories
+ ,Group Face Accessories,Studio.Toolbox.Audio.SoundEffect.Category.reverse,Reverse
  ,Reverse,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories
  ,Group Neck Accessories,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory
  ,Waist Accessory,Studio.Toolbox.Audio.SoundEffect.Category.bullets,Bullets
@@ -246,8 +249,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,Combustion,Studio.Toolbox.General.CategoryCreationsGroupDressSkirtAccessory,Group Dress Skirt Accessories
  ,Group Dress Skirt Accessories,Studio.Toolbox.General.TabCreations,Creations
  ,Creations,Studio.Toolbox.General.RightClickMenuCopyAssetID,Copy Asset ID
- ,Copy Asset ID,Studio.Toolbox.Audio.SoundEffect.Category.machine,Machine
- ,Machine,Studio.Toolbox.General.RightClickMenuCopyMeshID,Copy Mesh ID
+ ,Copy Asset ID,Studio.Toolbox.General.RightClickMenuCopyMeshID,Copy Mesh ID
  ,Copy Mesh ID,Studio.Toolbox.General.RightClickMenuViewInBrowser,View In Browser
  ,View In Browser,Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset
  ,Configure asset,Studio.Toolbox.Purchase.FreeSuccessHeader,Installation Complete!
@@ -482,7 +484,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent 
  ,s,Studio.Toolbox.General.AbbreviatedMinutes,m
  ,m,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
  ,Sound Length,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
- ,Filter ID,Studio.Toolbox.Audio.SoundEffect.Category.battle,Battle
+ ,Filter ID,Studio.Toolbox.AssetUploadResult.CreatorDashboardMessage,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.
+A message displayed to the user after asset upload success informing them that they can configure and put assets on sale in the Creator Dashboard web interface a link to it.,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.Audio.SoundEffect.Category.battle,Battle
  ,Battle,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
  ,Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
  ,This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.InsertTool.DialogText,Put this tool into the StarterPack?
@@ -553,8 +556,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantBut
  ,Classic Cars,Studio.Toolbox.Audio.SoundEffect.Category.clocks,Clocks
  ,Clocks,Studio.Toolbox.Audio.SoundEffect.Category.cooking,Cooking
  ,Cooking,Studio.Toolbox.Audio.SoundEffect.Category.creaks,Creaks
- ,Creaks,Studio.Toolbox.Audio.SoundEffect.Category.debris,Debris
- ,Debris,Studio.Toolbox.Audio.SoundEffect.Category.dirt,Dirt
+ ,Creaks,Studio.Toolbox.Audio.SoundEffect.Category.dirt,Dirt
  ,Dirt,Studio.Toolbox.Audio.SoundEffect.Category.doors,Doors
  ,Doors,Studio.Toolbox.Audio.SoundEffect.Category.drips,Drips
  ,Drips,Studio.Toolbox.Audio.SoundEffect.Category.earthquakes,Earthquakes
@@ -585,7 +587,8 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantBut
  ,Knives & Swords,Studio.Toolbox.Audio.SoundEffect.Category.land,Land
  ,Land,Studio.Toolbox.Audio.SoundEffect.Category.props,Props
  ,Props,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX
- ,Liquid FX,Studio.Toolbox.Audio.SoundEffect.Category.microphone,Microphone
+ ,Liquid FX,Studio.Toolbox.Audio.SoundEffect.Category.machine,Machine
+ ,Machine,Studio.Toolbox.Audio.SoundEffect.Category.microphone,Microphone
  ,Microphone,Studio.Toolbox.Audio.SoundEffect.Category.military,Military
  ,Military,Studio.Toolbox.Audio.SoundEffect.Category.motorboats,Motorboats
  ,Motorboats,Studio.Toolbox.Audio.SoundEffect.Category.motors,Motors

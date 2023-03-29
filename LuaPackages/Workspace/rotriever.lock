@@ -648,6 +648,7 @@ dependencies = [
     "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
@@ -699,6 +700,10 @@ dependencies = [
 
 [[package]]
 name = "React"
+version = "0.1.0"
+
+[[package]]
+name = "ReactFocusNavigation"
 version = "0.1.0"
 
 [[package]]
@@ -856,8 +861,10 @@ version = "0.1.0"
 dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
 ]
 
 [[package]]
@@ -1007,7 +1014,6 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
-    "LuaChatDeps LuaChatDeps 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "Otter Otter 0.1.0",
@@ -1156,6 +1162,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "React React 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
