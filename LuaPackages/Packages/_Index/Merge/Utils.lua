@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Utils"]["Utils"])
+local Package = require(PackageIndex["Utils-debf4142-0.2.0"]["Utils"])
 
 export type TypeAndFieldToDirectives = Package.TypeAndFieldToDirectives
 export type SchemaPrintOptions = Package.SchemaPrintOptions

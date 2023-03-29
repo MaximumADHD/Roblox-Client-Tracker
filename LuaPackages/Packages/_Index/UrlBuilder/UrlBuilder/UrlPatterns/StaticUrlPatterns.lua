@@ -61,5 +61,9 @@ return function(UrlBuilder)
 			verify = UrlBuilder.fromString("www:id-verification/verify"),
 			getAge = UrlBuilder.fromString("apis:age-verification-service/v1/age-verification/get-verified-age"),
 		},
+		notifications = {
+			clearUnread = UrlBuilder.fromString("notifications:stream-notifications/clear-unread"),
+			unreadCount = UrlBuilder.fromString("notifications:stream-notifications/unread-count"),
+		},
 	}
 end

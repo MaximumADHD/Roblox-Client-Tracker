@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["rodux-networking-6492c3b7-082e44c0"]["rodux-networking"])
+local Package = require(PackageIndex["rodux-networking"]["rodux-networking"])
 
 return Package
