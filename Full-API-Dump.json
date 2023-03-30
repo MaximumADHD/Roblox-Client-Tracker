@@ -1503,7 +1503,7 @@
                 },
                 {
                     "Category": "Behavior",
-                    "Default": "Active",
+                    "Default": "Inactive",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
@@ -34895,7 +34895,7 @@
                 },
                 {
                     "Category": "Behavior",
-                    "Default": "Active",
+                    "Default": "Inactive",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
