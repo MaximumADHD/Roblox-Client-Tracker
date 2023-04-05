@@ -96610,7 +96610,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "TextFilterFailed",
+                    "Default": "Sending",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
