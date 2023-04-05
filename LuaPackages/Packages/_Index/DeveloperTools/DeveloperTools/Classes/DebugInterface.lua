@@ -58,7 +58,7 @@ end
 function DebugInterface:_connectTargets()
 	-- Ensure that GetTargets is only connected to once.
 	-- If targets have already been added we don't need to add another listener
-	if #self.targets > 0 then
+	if next(self.targets) then
 		return
 	end
 	self:_connect({
@@ -142,8 +142,10 @@ end
 
 function DebugInterface:removeTarget(targetId: number)
 	local target = self.targets[targetId]
-	self:_disconnect(target.listener)
-	self.targets[targetId] = nil
+	if target ~= nil then
+		self:_disconnect(target.listener)
+		self.targets[targetId] = nil
+	end
 end
 
 function DebugInterface:removeWorker(id: number)

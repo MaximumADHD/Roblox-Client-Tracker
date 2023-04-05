@@ -6,9 +6,9 @@ local Roact17UpgradeFlag = require(Packages.Roact17UpgradeFlag)
 -- definitions from rc11; we cast the rc10 import to any to supress the warnings
 local React
 if Roact17UpgradeFlag.getRolloutForId() then
-	React = require(Packages.React_rc18)
+	React = require(Packages.React_rc19)
 else
-	React = require(Packages.React_rc16) :: any
+	React = require(Packages.React_rc18) :: any
 end
 
 type Object = { [string]: any }
@@ -23,6 +23,11 @@ export type LazyComponent<T, P> = {
 -- export type LazyComponent<T, P> = ReactLazy.LazyComponent<T, P>
 
 local SharedModule = require(script.Shared)
+-- ROBLOX deviation START: bindings support
+export type Binding<T> = SharedModule.ReactBinding<T>
+export type BindingUpdater<T> = SharedModule.ReactBindingUpdater<T>
+-- ROBLOX deviation END
+
 export type StatelessFunctionalComponent<P> = SharedModule.React_StatelessFunctionalComponent<P>
 -- ROBLOX deviation START: we use the definitely-typed version of this, which appears to work for flowtype in VirtualizedList, etc
 export type ComponentType<P> = ComponentClass<P> | FC<P>
@@ -40,7 +45,6 @@ export type ElementConfig<T> = SharedModule.React_ElementConfig<T>
 export type ElementRef<C> = SharedModule.React_ElementRef<C>
 -- ROBLOX TODO: Config
 -- ROBLOX TODO: ChildrenArray
-
 
 -- ROBLOX deviation START: manual type exports since that's not free with 'return React'
 export type ComponentClass<P> = SharedModule.React_ComponentType<P>

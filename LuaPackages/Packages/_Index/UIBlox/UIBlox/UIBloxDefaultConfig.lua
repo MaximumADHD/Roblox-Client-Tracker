@@ -166,7 +166,4 @@ return {
 
 	-- Indicate whether design token support is enabled
 	enableRoDSDesignTokenSupport = false,
-
-	-- Decrease padding above PlayerTile footer
-	updatePlayerTileFooterPadding = false,
 }

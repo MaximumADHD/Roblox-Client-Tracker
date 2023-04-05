@@ -57,29 +57,27 @@ InteractableList.validateProps = t.strictInterface({
 
 InteractableList.defaultProps = {
 	renderList = function(items, renderItem, extraProps)
-		local children = {}
+		local children = {
+			Roact.createElement("UIListLayout", {
+				Padding = extraProps.padding,
+				FillDirection = extraProps.fillDirection,
+				HorizontalAlignment = extraProps.horizontalAlignment,
+				VerticalAlignment = extraProps.verticalAlignment,
+				SortOrder = extraProps.sortOrder,
+				-- selene: allow(roblox_incorrect_roact_usage)
+				key = LAYOUT_KEY,
+			}),
+		}
 		for key in pairs(items) do
-			children[tostring(key)] = renderItem(key)
+			table.insert(children, renderItem(key))
 		end
-		return Roact.createElement(
-			"Frame",
-			{
-				Size = extraProps.size,
-				Position = extraProps.position,
-				BackgroundTransparency = 1,
-				AutomaticSize = extraProps.automaticSize,
-				BorderSizePixel = 0,
-			},
-			Cryo.Dictionary.join({
-				[LAYOUT_KEY] = Roact.createElement("UIListLayout", {
-					Padding = extraProps.padding,
-					FillDirection = extraProps.fillDirection,
-					HorizontalAlignment = extraProps.horizontalAlignment,
-					VerticalAlignment = extraProps.verticalAlignment,
-					SortOrder = extraProps.sortOrder,
-				}),
-			}, children)
-		)
+		return Roact.createElement("Frame", {
+			Size = extraProps.size,
+			Position = extraProps.position,
+			BackgroundTransparency = 1,
+			AutomaticSize = extraProps.automaticSize,
+			BorderSizePixel = 0,
+		}, children)
 	end,
 	size = UDim2.fromScale(1, 1),
 	itemSize = UDim2.fromScale(1, 1),
@@ -99,12 +97,14 @@ function InteractableList:init()
 	end
 	self:setState(state)
 
-	self.setInteractableState = function(key, newState)
-		self:setState({
-			interactable = Cryo.Dictionary.join(self.state.interactable, {
-				[key] = newState,
-			}),
-		})
+	self.setInteractableState = function(key, newInteractableState)
+		self:setState(function(prevState)
+			return {
+				interactable = Cryo.Dictionary.join(prevState.interactable, {
+					[key] = newInteractableState,
+				}),
+			}
+		end)
 	end
 	self.setSelection = function(newSelection)
 		self:setState({
@@ -160,6 +160,7 @@ function InteractableList:render()
 			onSelectionChanged = self.props.onSelectionChanged,
 			setInteractableState = self.setInteractableState,
 			setSelection = self.setSelection,
+			key = tostring(key),
 		})
 	end, self.props)
 end

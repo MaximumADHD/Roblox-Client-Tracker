@@ -169,13 +169,18 @@ export type ReactScopeInstance = {
 }
 
 -- ROBLOX deviation START: Bindings are unique to Roact
-export type ReactBinding<T> = {
-	getValue: (self: ReactBinding<T>) -> T,
-	-- FIXME Luau: can't create recursive type with different parameters, so we
-	-- approximate for now
-	map: <U>(self: ReactBinding<T>, (T) -> U) -> any,
+-- FIXME Luau: can't create recursive type with different parameters, so we
+-- need to split the generic `map` method into a different type and then
+-- re-combine those types together
+type CoreReactBinding<T> = {
+	getValue: (self: CoreReactBinding<T>) -> T,
 	_source: string?,
 }
+type ReactBindingMap = {
+	map: <T, U>(self: CoreReactBinding<T> & ReactBindingMap, (T) -> U) -> ReactBindingMap & CoreReactBinding<U>,
+}
+
+export type ReactBinding<T> = CoreReactBinding<T> & ReactBindingMap
 export type ReactBindingUpdater<T> = (T) -> ()
 -- ROBLOX deviation END
 
@@ -190,9 +195,7 @@ export type MutableSourceSubscribeFn<Source, Snapshot> = (
 	callback: (snapshot: Snapshot) -> ()
 ) -> (() -> ())
 
-export type MutableSourceGetVersionFn = (
-	_source: NonMaybeType<any>
-) -> MutableSourceVersion
+export type MutableSourceGetVersionFn = (_source: NonMaybeType<any>) -> MutableSourceVersion
 
 export type MutableSource<Source> = {
 	_source: Source,
@@ -238,11 +241,7 @@ export type Wakeable = {
 -- then function.
 -- ROBLOX FIXME: workaround for Luau recursive type used with different parameters. delete this copy once that issue is resolved.
 export type _Thenable<R> = {
-	andThen: <U>(
-		self: _Thenable<R>,
-		onFulfill: (R) -> () | U,
-		onReject: (error: any) -> () | U
-	) -> (),
+	andThen: <U>(self: _Thenable<R>, onFulfill: (R) -> () | U, onReject: (error: any) -> () | U) -> (),
 }
 
 export type Thenable<R> = {

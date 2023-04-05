@@ -131,9 +131,10 @@ local function ExperienceTile(props: Props)
 	local footer = props.footer
 	local footerHeight = setDefault(props.footerHeight, if footer then DEFAULT_FOOTER_HEIGHT else 0)
 
-	local renderTopContent = if props.renderTopContent
-		then props.renderTopContent
-		else React.useCallback(function(isHoverContent: boolean)
+	local renderTopContent = React.useCallback(function(isHoverContent: boolean)
+		if props.renderTopContent then
+			return props.renderTopContent(isHoverContent)
+		else
 			local isWideHover = isHoverContent and hasBackground
 			return React.createElement(VerticalTileThumbnail, {
 				aspectRatio = if isWideHover then WIDE_ASPECT_RATIO else SQUARE_ASPECT_RATIO,
@@ -141,11 +142,13 @@ local function ExperienceTile(props: Props)
 				isBottomRounded = not hasBackground,
 				thumbnail = if isWideHover then props.wideThumbnail else props.thumbnail,
 			})
-		end, { props.wideThumbnail, props.thumbnail, hasBackground })
+		end
+	end, { props.renderTopContent, props.wideThumbnail, props.thumbnail, hasBackground })
 
-	local renderBottomContent = if props.renderBottomContent
-		then props.renderBottomContent
-		else React.useCallback(function(isHoverContent: boolean)
+	local renderBottomContent = React.useCallback(function(isHoverContent: boolean)
+		if props.renderBottomContent then
+			return props.renderBottomContent(isHoverContent)
+		else
 			local panelHeight = if isHoverContent
 				then getPanelHeight(footerHeight, HOVER_CONTENT_HEIGHT, experienceName)
 				else getPanelHeight(footerHeight, STANDARD_CONTENT_HEIGHT, experienceName)
@@ -159,7 +162,8 @@ local function ExperienceTile(props: Props)
 				footerHeight = UDim.new(0, footerHeight),
 				hasSidePadding = hasBackground,
 			})
-		end, { footer, footerHeight, experienceName, hasBackground })
+		end
+	end, { props.renderBottomContent, footer, footerHeight, experienceName, hasBackground })
 
 	local renderFooterRow = React.useCallback(function(isHovered: boolean?)
 		local contentPadding = if isHovered and hasBackground then HOVER_PADDING else STANDARD_PADDING

@@ -6,9 +6,9 @@ local Roact17UpgradeFlag = require(Packages.Roact17UpgradeFlag)
 -- definitions from rc11; we cast the rc10 import to any to supress the warnings
 local Roact
 if Roact17UpgradeFlag.getRolloutForId() then
-	Roact = require(Packages.Roact17_rc18)
+	Roact = require(Packages.Roact17_rc19)
 else
-	Roact = require(Packages.Roact17_rc16) :: any
+	Roact = require(Packages.Roact17_rc18) :: any
 end
 
 return Roact

@@ -5,5 +5,5 @@ commit = "ee9b08bd9bef499ed1ca3173f0bcbde38bd6b5de"
 source = "url+https://github.com/roblox/focus-navigation"
 dependencies = [
     "FocusNavigation FocusNavigation 0.1.0 url+https://github.com/roblox/focus-navigation",
-    "React <patched> ReactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
 ]

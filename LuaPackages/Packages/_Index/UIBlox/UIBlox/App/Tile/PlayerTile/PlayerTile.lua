@@ -247,11 +247,9 @@ function PlayerTile:render()
 					controlState = self.state.controlState,
 				}),
 				hasRoundedCorners = true,
-				innerPadding = if UIBloxConfig.updatePlayerTileFooterPadding
-					then INNER_PADDING
-					else OUTER_BUTTON_PADDING,
-				titleTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then TITLE_TOP_PADDING else nil,
-				footerTopPadding = if UIBloxConfig.updatePlayerTileFooterPadding then FOOTER_TOP_PADDING else nil,
+				innerPadding = INNER_PADDING,
+				titleTopPadding = TITLE_TOP_PADDING,
+				footerTopPadding = FOOTER_TOP_PADDING,
 				name = title,
 				subtitle = self.props.subtitle,
 				hasVerifiedBadge = self.props.hasVerifiedBadge,

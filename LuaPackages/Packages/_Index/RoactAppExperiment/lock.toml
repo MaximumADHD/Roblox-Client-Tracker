@@ -5,8 +5,8 @@ commit = "058897d7a87013cf4c42e7e94436716f4d837b64"
 source = "url+https://github.com/roblox/roact-app-experiment"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
-    "React <patched> ReactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactRoblox <patched> ReactRobloxProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Roact <patched> RoactProxy 77d1ead4 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactRoblox <patched> ReactRobloxProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

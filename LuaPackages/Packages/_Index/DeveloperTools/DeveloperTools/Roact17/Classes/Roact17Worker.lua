@@ -303,7 +303,6 @@ function Roact17Worker:getPath(instance: Instance)
 	local branch = {}
 	-- Build up the path to the instance by traversing up node parents
 	while nodeId ~= self.root do
-		print("ooo", nodeId, self.root)
 		local node = self.devtools.store:getElementByID(nodeId)
 		if node.type == ReactTypes.ElementType.HostComponent and #branch > 0 then
 			insert(path, concat(reverse(branch), "."))
@@ -438,7 +437,6 @@ function Roact17Worker:getHostNode(nodeId: number, jumpBranch: boolean?, key: st
 				return resultNode, resultKey
 			end
 		end
-		return node, nodeKey
 	end
 	return nil
 end

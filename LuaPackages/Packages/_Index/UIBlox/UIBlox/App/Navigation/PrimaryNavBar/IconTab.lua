@@ -63,18 +63,20 @@ return function(providedProps: Props)
 				BackgroundTransparency = 1,
 				ScaleType = Enum.ScaleType.Fit,
 			})
-			elseif item.iconComponent ~= nil then React.createElement("Frame", {
-				Size = UDim2.new(0, Constants.ICON_TAB_ITEM_ICON_WIDTH, 0, Constants.ICON_TAB_ITEM_ICON_HEIGHT),
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-			}, {
+			elseif item.iconComponent ~= nil then React.createElement(
+				"Frame",
+				{
+					Size = UDim2.new(0, Constants.ICON_TAB_ITEM_ICON_WIDTH, 0, Constants.ICON_TAB_ITEM_ICON_HEIGHT),
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+				},
 				React.createElement(item.iconComponent, {
 					placement = Placement.Bottom,
 					selected = selected,
 					pressed = pressed,
 					hovered = false,
-				}),
-			})
+				})
+			)
 			else nil,
 		Title = React.createElement(GenericTextLabel, {
 			LayoutOrder = 2,

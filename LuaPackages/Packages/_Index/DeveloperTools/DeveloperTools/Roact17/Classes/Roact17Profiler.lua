@@ -12,6 +12,7 @@ local forEach = Dash.forEach
 local pretty = Dash.pretty
 local reverse = Dash.reverse
 local some = Dash.some
+local find = Dash.find
 
 local concat = table.concat
 local insert = table.insert
@@ -104,7 +105,9 @@ end
 	Process all the events we recorded live in a delayed cycle.
 ]]
 function Roact17Profiler:updateRows(input: Roact17Types.ProfilerData)
-	local rootData = input.dataForRoots[self.root]
+	local rootData = find(input.dataForRoots, function(data)
+		return data.rootID == self.root
+	end)
 	if not rootData then
 		return
 	end
@@ -118,12 +121,12 @@ function Roact17Profiler:updateRows(input: Roact17Types.ProfilerData)
 			local node = self.devtools.store:getElementByID(nodeId)
 			local descriptionData = changeDescription[2]
 			local hostNode = self.worker:getHostNode(nodeId)
-			local instance = hostNode and self.worker:getHostInstance(hostNode.id) or nil
-			local path = instance and self.worker:getPath(instance) or nil
+			local instance = if hostNode then self.worker:getHostInstance(hostNode.id) else nil
+			local path = if instance then self.worker:getPath(instance) else nil
 			local pathString
 			if path then
 				local pathParts: Array<string> = {}
-				while instance ~= rootInstance do
+				while instance ~= nil and instance ~= rootInstance do
 					insert(pathParts, instance.Name)
 					instance = instance.Parent
 				end
@@ -132,14 +135,14 @@ function Roact17Profiler:updateRows(input: Roact17Types.ProfilerData)
 			else
 				pathString = "Unknown"
 			end
-			local instanceName = node and node.displayName or "Unknown"
+			local instanceName = if node then node.displayName else "Unknown"
 			if node and #node.key > 0 and node.key ~= node.displayName then
 				instanceName = ("%s: %s"):format(node.key, instanceName)
 			end
 			local row: Types.ProfileComponentRow = self.rows[nodeId] or {
 				instanceId = nodeId,
 				count = 0,
-				depth = path and #path or 0,
+				depth = if path then #path else 0,
 				path = path or {},
 				pathString = pathString,
 				instanceName = instanceName,
@@ -163,8 +166,8 @@ function Roact17Profiler:updateRows(input: Roact17Types.ProfilerData)
 					insert(cause, "state")
 				end
 			end
-			local propsString = descriptionData.props and pretty(descriptionData.props) or ""
-			local stateString = descriptionData.state and pretty(descriptionData.state) or ""
+			local propsString = if descriptionData.props then pretty(descriptionData.props) else ""
+			local stateString = if descriptionData.state then pretty(descriptionData.state) else ""
 			local details = propsString .. " " .. stateString
 			local event = {
 				startTime = commit.timestamp,

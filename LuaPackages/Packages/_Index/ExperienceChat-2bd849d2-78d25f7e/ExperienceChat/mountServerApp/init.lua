@@ -23,8 +23,6 @@ local Config = require(ExperienceChat.Config)
 local Analytics = require(ExperienceChat.Analytics)
 local Logger = require(ExperienceChat.Logger):new("ExpChat/" .. script.Name)
 
-local FFlagShowVerifiedBadgeInNewChat = game:DefineFastFlag("ShowVerifiedBadgeInNewChat", false)
-
 type Config = {
 	analytics: any?,
 	script: Instance?,
@@ -104,29 +102,14 @@ return function(config: Config)
 			Logger:debug("Creating team TextChannel: {}", channel.Name)
 
 			team.PlayerAdded:Connect(function(player)
-				if FFlagShowVerifiedBadgeInNewChat then
-					local teamChannel = addChannel("RBXTeam" .. tostring(team.TeamColor.Name))
-					local textSource = teamChannel:AddUserAsync(player.UserId)
-					textSource.CanSend = true
-				else
-					local textSource = channel:AddUserAsync(player.UserId)
-					textSource.CanSend = true
-				end
-				
+				local textSource = channel:AddUserAsync(player.UserId)
+				textSource.CanSend = true
 			end)
 
 			team.PlayerRemoved:Connect(function(player)
-				if FFlagShowVerifiedBadgeInNewChat then
-					local teamChannel = addChannel("RBXTeam" .. tostring(team.TeamColor.Name))
-					local textSource = findTextSourceFromChannelWithUserId(teamChannel, player.UserId)
-					if textSource then
-						textSource:Destroy()
-					end
-				else
-					local textSource = findTextSourceFromChannelWithUserId(channel, player.UserId)
-					if textSource then
-						textSource:Destroy()
-					end
+				local textSource = findTextSourceFromChannelWithUserId(channel, player.UserId)
+				if textSource then
+					textSource:Destroy()
 				end
 			end)
 
@@ -134,12 +117,7 @@ return function(config: Config)
 			-- in the unlikely case a developer tries to then reuse this team, the associated team TextChannel should
 			-- also be reused, with corresponding name change
 			team:GetPropertyChangedSignal("TeamColor"):Connect(function()
-				if FFlagShowVerifiedBadgeInNewChat then
-					local teamChannel = addChannel("RBXTeam" .. tostring(team.TeamColor.Name))
-					teamChannel.Name = "RBXTeam" .. tostring(team.TeamColor.Name)
-				else
-					channel.Name = "RBXTeam" .. tostring(team.TeamColor.Name)
-				end
+				channel.Name = "RBXTeam" .. tostring(team.TeamColor.Name)
 			end)
 		end
 
