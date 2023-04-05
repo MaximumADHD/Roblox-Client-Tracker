@@ -2,7 +2,6 @@ Key,en-us
 Studio.RobloxClassic.ClassicComponents.Active,Active
 Studio.RobloxClassic.InsertComponents.AlreadyExist,RobloxClassic: script already exists! Skipping all script insertion
 Studio.RobloxClassic.InsertComponents.NoStarter,RobloxClassic: can't find StarterCharacterScripts!
-Studio.RobloxClassic.Plugin.Apply,Apply
 Studio.RobloxClassic.Plugin.Button,Roblox Classic
 Studio.RobloxClassic.Plugin.Description,Tools to create Roblox Classic experiences
 Studio.RobloxClassic.Plugin.Name,Roblox Classic

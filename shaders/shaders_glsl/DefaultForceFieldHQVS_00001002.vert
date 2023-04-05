@@ -7,7 +7,6 @@ uniform vec4 CB1[216];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
 attribute vec2 TEXCOORD0;
-attribute float TEXCOORD1;
 attribute vec4 COLOR0;
 attribute vec4 COLOR1;
 varying vec2 VARYING0;
@@ -48,7 +47,7 @@ void main()
     v19.w = inversesqrt(COLOR1.y * 0.174534320831298828125);
     gl_Position = v12;
     VARYING0 = TEXCOORD0;
-    VARYING1 = max(0.0500000007450580596923828125, TEXCOORD1);
+    VARYING1 = max(0.0500000007450580596923828125, COLOR1.w * 0.0039215688593685626983642578125);
     VARYING2 = COLOR0;
     VARYING3 = v17;
     VARYING4 = vec4(CB0[11].xyz - v7, v12.w);

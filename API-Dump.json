@@ -2603,6 +2603,9 @@
                         "Name": "void"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -2631,6 +2634,9 @@
                         "Name": "void"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -2705,6 +2711,9 @@
                         "Name": "void"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -2725,6 +2734,9 @@
                         "Name": "void"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -44516,6 +44528,27 @@
                         "Category": "Class",
                         "Name": "Instance"
                     }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RuntimeSource",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -45641,6 +45674,30 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "collectibleItemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "collectibleProductId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "idempotencyKey",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -48249,6 +48306,13 @@
                             "Type": {
                                 "Category": "DataType",
                                 "Name": "Function"
+                            }
+                        },
+                        {
+                            "Name": "customTelemetryData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
                             }
                         }
                     ],
@@ -55557,7 +55621,7 @@
                     "Name": "BindToMessage",
                     "Parameters": [
                         {
-                            "Name": "name",
+                            "Name": "topic",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -55583,7 +55647,7 @@
                     "Name": "BindToMessageParallel",
                     "Parameters": [
                         {
-                            "Name": "name",
+                            "Name": "topic",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -55609,7 +55673,7 @@
                     "Name": "SendMessage",
                     "Parameters": [
                         {
-                            "Name": "name",
+                            "Name": "topic",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -57205,8 +57269,8 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
                     "Tags": [
                         "NotScriptable"
@@ -68607,6 +68671,17 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
+            "Name": "RemoteCursorService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
             "Name": "RemoteDebuggerServer",
             "Superclass": "Instance",
             "Tags": [
@@ -70267,17 +70342,6 @@
             "MemoryCategory": "Instances",
             "Name": "ScriptBuilder",
             "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "CoreScriptBuilder",
-            "Superclass": "ScriptBuilder",
             "Tags": [
                 "NotCreatable",
                 "NotReplicated"
@@ -73862,6 +73926,35 @@
             "Superclass": "GenericSettings",
             "Tags": [
                 "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "VisibleServices",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "BinaryString"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ServiceVisibilityService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -80656,24 +80749,6 @@
                     "Category": "Explorer",
                     "MemberType": "Property",
                     "Name": "Show Core GUI in Explorer while Playing",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "Show Deployment Warnings",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -92403,6 +92478,27 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "AutomaticScaling",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "VRScaling"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "DidPointerHit",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -97944,20 +98040,12 @@
                     "Value": 285
                 },
                 {
-                    "Name": "DisconnectOutOfMemory",
-                    "Value": 286
-                },
-                {
                     "Name": "DisconnectModeratedGame",
                     "Value": 287
                 },
                 {
-                    "Name": "DisconnectOutOfMemoryExitContinue",
-                    "Value": 288
-                },
-                {
-                    "Name": "DisconnectOutOfMemoryKeepPlayingExit",
-                    "Value": 289
+                    "Name": "DisconnectRomarkEndOfTest",
+                    "Value": 293
                 },
                 {
                     "Name": "ReplicatorTimeout",
@@ -105783,6 +105871,19 @@
                 }
             ],
             "Name": "VRSafetyBubbleMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "World",
+                    "Value": 0
+                },
+                {
+                    "Name": "Off",
+                    "Value": 1
+                }
+            ],
+            "Name": "VRScaling"
         },
         {
             "Items": [

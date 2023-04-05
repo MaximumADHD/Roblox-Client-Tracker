@@ -17,6 +17,7 @@ Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moder
 Studio.GameSettings.General.PlayabilityPrivate,Private, ,Private
 Studio.GameSettings.General.DevSubsDeleteHeader,Are you sure you want to delete this subscription?, ,Are you sure you want to delete this subscription?
 Studio.GameSettings.General.PluginDescription,Update settings related to current game, ,Update settings related to current game
+Studio.GameSettings.General.GuidelinesLearnMoreLink,Learn More, ,Learn More
 Studio.GameSettings.General.GenreSports,Sports, ,Sports
 Studio.GameSettings.General.DevSubsIsNotActive,No, ,No
 Studio.GameSettings.General.ReplyNo,No, ,No
@@ -68,8 +69,6 @@ Studio.GameSettings.General.CategoryBasicInfo,Basic Info, ,Basic Info
 Studio.GameSettings.General.CategoryAccessPermissions,Permissions, ,Permissions
 Studio.GameSettings.General.CategoryPermissions,Permissions, ,Permissions
 Studio.GameSettings.General.SettingsInsufficientPermission,Only the game owner can edit these settings, ,Only the game owner can edit these settings
-Studio.GameSettings.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
-Studio.GameSettings.General.GenreAll,All, ,All
 Studio.GameSettings.OptInLocations.InReview,In review., ,In review.
 Studio.GameSettings.General.CategoryAvatar,Avatar, ,Avatar
 Studio.GameSettings.General.CategorySecurity,Security, ,Security
@@ -79,6 +78,7 @@ Studio.GameSettings.General.LocalizationSettingsPublishMessageLinkText,Publishin
 Studio.GameSettings.General.GenreMedieval,Medieval, ,Medieval
 Studio.GameSettings.General.DevSubsName,Name, ,Name
 Studio.GameSettings.General.TitleName,Name, ,Name
+Studio.GameSettings.General.TitleGuidelines,Guidelines, ,Guidelines
 Studio.GameSettings.General.SourceLanguageDesc,The source language represents the language that the game has been written in., ,The source language represents the language that the game has been written in.
 Studio.GameSettings.General.DevSubsTitle,Title, ,Title
 Studio.GameSettings.General.DevSubsDescription,Description, ,Description
@@ -124,6 +124,14 @@ Studio.GameSettings.General.TitleWorldPresets,Presets, ,Presets
 Studio.GameSettings.General.ErrorNameEmpty,Name cannot be empty., ,Name cannot be empty.
 Studio.GameSettings.General.ImagePreview,Preview, ,Preview
 Studio.GameSettings.General.PreviewDialogHeader,Preview, ,Preview
+Studio.GameSettings.General.GuidelinesUnavailable,Unavailable, ,Unavailable
+Studio.GameSettings.General.GuidelinesImpactText,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines., ,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines.
+Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
+Studio.GameSettings.General.GuidelinesConfiguredText,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience., ,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience.
+Studio.GameSettings.General.GuidelinesExperienceQuestionnaireLink,Experience Questionnaire, ,Experience Questionnaire
+Studio.GameSettings.General.GuidelinesUnavailableNoticeText,Experiences without Guidelines are treated as "Ages 13+" for users with parental controls enabled., ,Experiences without Guidelines are treated as "Ages 13+" for users with parental controls enabled.
+Studio.GameSettings.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
+Studio.GameSettings.General.GenreAll,All, ,All
 Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.
 Studio.GameSettings.General.GenreAdventure,Adventure, ,Adventure
 Studio.GameSettings.Monetization.BadgeImage,Badge Image, ,Badge Image
@@ -295,6 +303,7 @@ Studio.GameSettings.General.ScaleSliderUnits,%, ,%
 Studio.GameSettings.General.PublishingHintLinkExplanation, is required for changing Avatar game settings, , is required for changing Avatar game settings
 Studio.GameSettings.General.DevSubsNewHeader,New Subscription, ,New Subscription
 Studio.GameSettings.General.DevSubsDiscontinuedHeader,Discontinued Developer Subscription, ,Discontinued Developer Subscription
+Studio.GameSettings.General.GameDescriptionWasModerated,Game description was moderated, ,Game description was moderated
 Studio.GameSettings.OptInLocations.EmailAddress,Email address, ,Email address
 Studio.GameSettings.General.WorldPresetsClassic,Classic, ,Classic
 Studio.GameSettings.Security.EnableThirdPartyTeleports,Allow Third Party Teleports, ,Allow Third Party Teleports
@@ -379,7 +388,6 @@ Studio.GameSettings.OptInLocations.Tooltip,"Your creation will be published to a
 Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback, ,Email for Review Feedback
 Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:, ,Please enter the email where you would like to receive review feedback:
 Studio.GameSettings.OptInLocations.ConfirmEmailAddress,Confirm email address, ,Confirm email address
-Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
 Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", ,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]"
 Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, , to publish to China
 Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements, ,Requirements
@@ -389,6 +397,7 @@ Studio.GameSettings.OptInLocations.SavedGameWarning,You must publish your game b
 Studio.GameSettings.General.VoiceChatTitle,Spatial Voice, ,Spatial Voice
 Studio.GameSettings.General.VoiceChatText,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience., ,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience.
 Studio.GameSettings.General.VoiceChatBody,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience. [link], ,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience. [link]
+Studio.GameSettings.General.GameNameWasModerated,Game name was moderated, ,Game name was moderated
 Studio.GameSettings.AvatarChat.VideoTitle,Enable Camera, ,Enable Camera
 Studio.GameSettings.AvatarChat.VideoBody,Enabling camera allows an eligible user to animate their avatar using their movements in your experience. [link], ,Enabling camera allows an eligible user to animate their avatar using their movements in your experience. [link]
 Studio.GameSettings.AvatarChat.AudioBody,Enabling microphone allows an eligible user to chat with their voice in your experience. [link], ,Enabling microphone allows an eligible user to chat with their voice in your experience. [link]

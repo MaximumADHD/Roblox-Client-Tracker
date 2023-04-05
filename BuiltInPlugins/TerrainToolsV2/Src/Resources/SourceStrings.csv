@@ -44,11 +44,13 @@ Studio.TerrainToolsV2.Action.Undo, ,Undo
 Studio.TerrainToolsV2.Action.Update, ,Update
 Studio.TerrainToolsV2.Action.Yes, ,Yes
 Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText, ,Select game asset image
+Studio.TerrainToolsV2.BrushSettings.Add, ,Add
 Studio.TerrainToolsV2.BrushSettings.Advanced, ,Advanced
 Studio.TerrainToolsV2.BrushSettings.Apply, ,Apply
 Studio.TerrainToolsV2.BrushSettings.Auto, ,Auto
 Studio.TerrainToolsV2.BrushSettings.BaseSize, ,Base Size
 Studio.TerrainToolsV2.BrushSettings.BottomPivot, ,Bot
+Studio.TerrainToolsV2.BrushSettings.BrushMode, ,Brush Mode
 Studio.TerrainToolsV2.BrushSettings.BrushSettings, ,Brush Settings
 Studio.TerrainToolsV2.BrushSettings.CenterPivot, ,Cen
 Studio.TerrainToolsV2.BrushSettings.Edit, ,Edit
@@ -72,6 +74,7 @@ Studio.TerrainToolsV2.BrushSettings.Shape, ,Shape
 Studio.TerrainToolsV2.BrushSettings.Size, ,Size
 Studio.TerrainToolsV2.BrushSettings.SnapToVoxels, ,Snap to Voxels
 Studio.TerrainToolsV2.BrushSettings.Strength, ,Strength
+Studio.TerrainToolsV2.BrushSettings.Subtract, ,Subtract
 Studio.TerrainToolsV2.BrushSettings.TopPivot, ,Top
 Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, ,Do you want to clear all terrain?
 Studio.TerrainToolsV2.ClearTool.ConfirmationTitle, ,Clear Terrain
@@ -265,6 +268,7 @@ Studio.TerrainToolsV2.ToolName.Clear, ,Clear
 Studio.TerrainToolsV2.ToolName.ConvertPart, ,Convert
 Studio.TerrainToolsV2.ToolName.Copy, ,Copy
 Studio.TerrainToolsV2.ToolName.Delete, ,Delete
+Studio.TerrainToolsV2.ToolName.Draw, ,Draw
 Studio.TerrainToolsV2.ToolName.Erode, ,Erode
 Studio.TerrainToolsV2.ToolName.Fill, ,Fill
 Studio.TerrainToolsV2.ToolName.Flatten, ,Flatten
@@ -281,6 +285,7 @@ Studio.TerrainToolsV2.ToolName.Regions, ,Regions
 Studio.TerrainToolsV2.ToolName.Replace, ,Replace
 Studio.TerrainToolsV2.ToolName.Resize, ,Resize
 Studio.TerrainToolsV2.ToolName.Rotate, ,Rotate
+Studio.TerrainToolsV2.ToolName.Sculpt, ,Sculpt
 Studio.TerrainToolsV2.ToolName.SeaLevel, ,Sea Level
 Studio.TerrainToolsV2.ToolName.Select, ,Select
 Studio.TerrainToolsV2.ToolName.Smooth, ,Smooth

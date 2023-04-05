@@ -225,8 +225,9 @@
       </Group>
       <Group name="Solid Modeling" text="Studio.App.RobloxRibbonMainWindow.SolidModeling" modernIcon="UnionOperation" icon=":/RibbonBar/images/RibbonIcons/Home/Union.png" width="32" height="32">
         <addaction name="unionSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Union.png" modernIcon="UnionOperation" tooltip="Studio.App.RobloxRibbonMainWindow.FusePartsTogether" width="32" height="32" />
+        <addaction name="intersectSelectionAction" fflag="SimCSGV3AddIntersection" style="textundericon" icon="" modernIcon="IntersectOperation" tooltip="Studio.App.RobloxRibbonMainWindow.IntersectParts" width="32" height="32" />
         <addaction name="negateSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Negate.png" modernIcon="NegateOperation" tooltip="Studio.App.RobloxRibbonMainWindow.NegatePartsForMakingHoles" width="32" height="32" />
-        <addaction name="separateSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Separate.png" modernIcon="Separate" tooltip="Studio.App.RBXMainWindow.SeparateFusedSelection" width="32" height="32" />
+        <addaction name="separateSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Separate.png" modernIcon="Separate" tooltip="Studio.App.RBXMainWindow.SeparateSelection" width="32" height="32" />
       </Group>
       <Group name="Constraints" text="Studio.App.RobloxRibbonMainWindow.Constraints" modernIcon="CreateConstraints" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="32" height="32">
         <MenuPopupButton fflag="!RibbonBarGalleryDropdown" name="createConstraintAction" handleMenuTrigger="true" style="textundericon" popupStyle="menubutton" ischeckable="true" text="Studio.Common.Action.Create" tooltip="Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" modernIcon="CreateConstraints" width="32" height="32">

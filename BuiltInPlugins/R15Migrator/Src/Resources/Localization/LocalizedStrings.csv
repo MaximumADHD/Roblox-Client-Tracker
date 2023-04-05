@@ -1,7 +1,17 @@
 Key,Source,en-us,es-es,fr-fr,it-it,ja-jp,ko-kr,pt-br,zh-tw
-Studio.R15Migrator.ScriptConversion.ReplaceWith,Replace With {part},Replace With {part}, , , , , , , 
 Studio.R15Migrator.Plugin.Name,R15Migrator,R15Migrator,Migrador de R15,R15Migrator,R15Migratore,R15移行ツール,R15Migrator,R15Migrator,R15Migrator
 Studio.R15Migrator.Plugin.Toolbar,R15Migrator,R15Migrator,Migrador de R15,R15Migrator,R15Migratore,R15移行ツール,R15Migrator,R15Migrator,R15Migrator
+Studio.R15Migrator.ScriptConversion.ReplaceWith,Replace With {part},Replace With {part},Reemplazar con {part},Remplacer par {part},Sostituisci con {part},{part} に置き換える,{part}(으)로 바꾸기,Substituir com {part}, 
+Studio.R15Migrator.ScriptConversion.RevertAll,Revert All Scripts,Revert All Scripts, , , , , , , 
 Studio.R15Migrator.Plugin.Button,Migrate Avatars,Migrate Avatars,Migrar avatares,Migrer les avatars,Migra avatar,アバターを移行,아바타 마이그레이션,Migrar avatares,移植虛擬人偶
 Studio.R15Migrator.Plugin.Description,Tools to migrate avatars to R15,Tools to migrate avatars to R15,Herramientas para migrar avatares a R15,Outils pour migrer les avatars vers R15,Strumenti per migrare gli avatar a R15,アバターをR15に移行するツール,아바타를 R15로 마이그레이션하는 도구,Ferramentas para migrar avatares para R15,移植虛擬人偶到 R15 的工具
-Studio.R15Migrator.ScriptConversion.GoToScript,Go to Script,Go to Script, , , , , , , 
+Studio.R15Migrator.ScriptConversion.GoToScript,Go to Script,Go to Script,Ir a Script,Aller sur Script,Vai a script,スクリプトへ,스크립트로 이동,Ir para script, 
+Studio.R15Migrator.ScriptConversion.RevertScript,Revert Script,Revert Script, , , , , , , 
+Studio.R15Migrator.ScriptConversion.RevertingScripts,Reverting Scripts,Reverting Scripts, , , , , , , 
+Studio.R15Migrator.ScriptConversion.InProgress,In Progress,In Progress, , , , , , , 
+Studio.R15Migrator.ScriptConversion.Reverted,Reverted,Reverted, , , , , , , 
+Studio.R15Migrator.ScriptConversion.Completed,Completed,Completed, , , , , , , 
+Studio.R15Migrator.ScriptConversion.Confirm,Confirm,Confirm, , , , , , , 
+Studio.R15Migrator.ScriptConversion.Cancel,Cancel,Cancel, , , , , , , 
+Studio.R15Migrator.ScriptConversion.RevertWarning,Confirm reverting scripts to initial state? You will lose all of your current changes for the selected scripts.,Confirm reverting scripts to initial state? You will lose all of your current changes for the selected scripts., , , , , , , 
+Studio.R15Migrator.ScriptConversion.RevertScripts,Revert Scripts,Revert Scripts, , , , , , , 

@@ -122,6 +122,7 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
+Studio.AssetImporter.Sections.RigGeneral,Rig General
 Studio.AssetImporter.Statuses.AnimationInPackageWarning,Animations currently will not be included in the final package.
 Studio.AssetImporter.Statuses.AvatarCagesMissingWarning,Corresponding cage mesh is missing for this mesh. All R15 Body Parts must have a cage.
 Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
