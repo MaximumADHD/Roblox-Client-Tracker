@@ -18,11 +18,9 @@ local it = JestGlobals.it
 local jest = JestGlobals.jest
 
 local dependencies = require(FriendsLanding.dependencies)
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local Enums = SocialLuaAnalytics.Analytics.Enums
 local Contexts = Enums.Contexts
-local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFFlagAddFriendsSearchbarWidemodeUpdate =
 	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 
@@ -160,119 +158,115 @@ describe("navigationEvents", function()
 	end)
 end)
 
-if getFFlagAddFriendsSearchbarIXPEnabled() then
-	describe("inputTextBox", function()
-		it("SHOULD render cancel text button when inputTextBox is activated", function()
-			local parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarCenterView, {})
-			local inputTextBox = RhodiumHelpers.findFirstInstance(parent, {
-				Name = "inputTextBox",
+describe("inputTextBox", function()
+	it("SHOULD render cancel text button when inputTextBox is activated", function()
+		local parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarCenterView, {})
+		local inputTextBox = RhodiumHelpers.findFirstInstance(parent, {
+			Name = "inputTextBox",
+		})
+		expect(inputTextBox).toEqual(expect.any("Instance"))
+
+		ReactRoblox.act(function()
+			RhodiumHelpers.clickInstance(inputTextBox)
+			task.wait()
+		end)
+
+		local cancel = RhodiumHelpers.findFirstInstance(parent, {
+			Name = "cancel",
+		})
+		expect(cancel).toEqual(expect.any("Instance"))
+		cleanup()
+	end)
+end)
+
+if not getFFlagAddFriendsSearchbarWidemodeUpdate() then
+	describe("wideMode device searchbar button on AddFriends page", function()
+		local parent, cleanup, analytics
+		local navigation = {
+			state = {
+				routeName = EnumScreens.AddFriends,
+			},
+			navigate = jest.fn().mockName("navigate"),
+		}
+
+		beforeEach(function()
+			analytics = {
+				buttonClick = jest.fn().mockName("buttonClick"),
+				navigate = jest.fn().mockName("navigate"),
+				playerSearch = jest.fn().mockName("playerSearch"),
+			}
+
+			parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarCenterView, {
+				props = {
+					shouldRenderSearchbarButtonInWideMode = true,
+					navigation = navigation,
+					wideMode = true,
+					addFriendsPageSearchbarEnabled = true,
+				},
+				analytics = analytics,
 			})
-			expect(inputTextBox).toEqual(expect.any("Instance"))
+		end)
 
-			ReactRoblox.act(function()
-				RhodiumHelpers.clickInstance(inputTextBox)
-				task.wait()
-			end)
+		afterEach(function()
+			cleanup()
+		end)
 
+		it("SHOULD have searchbar button with disabled searchbar", function()
+			expect(parent).toEqual(expect.any("Instance"))
+
+			local CallbackInputBox = RhodiumHelpers.findFirstInstance(parent, {
+				className = "CallbackInputBox",
+			})
+
+			expect(CallbackInputBox).toBeNil()
+		end)
+
+		it("SHOULD NOT have cancel text button", function()
 			local cancel = RhodiumHelpers.findFirstInstance(parent, {
 				Name = "cancel",
 			})
-			expect(cancel).toEqual(expect.any("Instance"))
-			cleanup()
+
+			expect(cancel).toBeNil()
+		end)
+
+		it("SHOULD go to the search friends page if you press on searchbar button", function()
+			local ImageButton = RhodiumHelpers.findFirstInstance(parent, {
+				className = "ImageButton",
+			})
+
+			expect(ImageButton).toEqual(expect.any("Instance"))
+
+			ReactRoblox.act(function()
+				RhodiumHelpers.clickInstance(ImageButton)
+				task.wait()
+			end)
+
+			expect(navigation.navigate).toHaveBeenCalledTimes(1)
+			expect(navigation.navigate).toHaveBeenCalledWith(
+				EnumScreens.SearchFriends,
+				{ searchText = "", shouldShowEmptyLandingPage = true }
+			)
+		end)
+
+		it("SHOULD fire analytic events when you press on searchbar button", function()
+			local ImageButton = RhodiumHelpers.findFirstInstance(parent, {
+				className = "ImageButton",
+			})
+
+			expect(ImageButton).toEqual(expect.any("Instance"))
+
+			ReactRoblox.act(function()
+				RhodiumHelpers.clickInstance(ImageButton)
+				task.wait()
+			end)
+
+			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PeopleSearchBar, {
+				contextOverride = Contexts.PeopleSearchFromAddFriends.rawValue(),
+				formFactor = "WIDE",
+			})
+			expect(analytics.navigate).toHaveBeenCalledTimes(1)
+			expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
 		end)
 	end)
-
-	if not getFFlagAddFriendsSearchbarWidemodeUpdate() then
-		describe("wideMode device searchbar button on AddFriends page", function()
-			local parent, cleanup, analytics
-			local navigation = {
-				state = {
-					routeName = EnumScreens.AddFriends,
-				},
-				navigate = jest.fn().mockName("navigate"),
-			}
-
-			beforeEach(function()
-				analytics = {
-					buttonClick = jest.fn().mockName("buttonClick"),
-					navigate = jest.fn().mockName("navigate"),
-					playerSearch = jest.fn().mockName("playerSearch"),
-				}
-
-				parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarCenterView, {
-					props = {
-						shouldRenderSearchbarButtonInWideMode = true,
-						navigation = navigation,
-						wideMode = true,
-						addFriendsPageSearchbarEnabled = true,
-					},
-					analytics = analytics,
-				})
-			end)
-
-			afterEach(function()
-				cleanup()
-			end)
-
-			it("SHOULD have searchbar button with disabled searchbar", function()
-				expect(parent).toEqual(expect.any("Instance"))
-
-				local CallbackInputBox = RhodiumHelpers.findFirstInstance(parent, {
-					className = "CallbackInputBox",
-				})
-
-				expect(CallbackInputBox).toBeNil()
-			end)
-
-			it("SHOULD NOT have cancel text button", function()
-				local cancel = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "cancel",
-				})
-
-				expect(cancel).toBeNil()
-			end)
-
-			it("SHOULD go to the search friends page if you press on searchbar button", function()
-				local ImageButton = RhodiumHelpers.findFirstInstance(parent, {
-					className = "ImageButton",
-				})
-
-				expect(ImageButton).toEqual(expect.any("Instance"))
-
-				ReactRoblox.act(function()
-					RhodiumHelpers.clickInstance(ImageButton)
-					task.wait()
-				end)
-
-				expect(navigation.navigate).toHaveBeenCalledTimes(1)
-				expect(navigation.navigate).toHaveBeenCalledWith(
-					EnumScreens.SearchFriends,
-					{ searchText = "", shouldShowEmptyLandingPage = true }
-				)
-			end)
-
-			if getFFlagAddFriendsFullSearchbarAnalytics() then
-				it("SHOULD fire analytic events when you press on searchbar button", function()
-					local ImageButton = RhodiumHelpers.findFirstInstance(parent, {
-						className = "ImageButton",
-					})
-
-					expect(ImageButton).toEqual(expect.any("Instance"))
-
-					ReactRoblox.act(function()
-						RhodiumHelpers.clickInstance(ImageButton)
-						task.wait()
-					end)
-
-					expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
-					expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PeopleSearchBar, {
-						contextOverride = Contexts.PeopleSearchFromAddFriends.rawValue(),
-						formFactor = "WIDE",
-					})
-					expect(analytics.navigate).toHaveBeenCalledTimes(1)
-					expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
-				end)
-			end
-		end)
-	end
 end

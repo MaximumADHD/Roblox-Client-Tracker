@@ -6,8 +6,6 @@ local ButtonClickEvents = require(script.ButtonClickEvents)
 local ImpressionEvents = require(script.ImpressionEvents)
 local Context = require(script.AnalyticsContext)
 
-local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
-
 return {
 	Class = require(script.FriendsLandingAnalytics),
 	Context = Context,
@@ -15,9 +13,7 @@ return {
 	with = ContextUtils.getWith(Context),
 	ButtonClickEvents = ButtonClickEvents,
 	AddFriendsPageLoadAnalytics = require(script.AddFriendsPageLoadAnalytics),
-	AddFriendsSearchbarPressedEvent = if getFFlagAddFriendsFullSearchbarAnalytics()
-		then require(script.AddFriendsSearchbarPressedEvent)
-		else nil,
+	AddFriendsSearchbarPressedEvent = require(script.AddFriendsSearchbarPressedEvent),
 	ImpressionEvents = ImpressionEvents,
 	PlayerSearchEvent = require(script.PlayerSearchEvent),
 }

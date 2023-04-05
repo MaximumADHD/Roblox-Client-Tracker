@@ -1,5 +1,5 @@
 --!strict
-local debug = false
+local debug : boolean = false
 
 local replicatedStorage : ReplicatedStorage = game:GetService("ReplicatedStorage")
 local characterStateMachineFolder : Instance = replicatedStorage:WaitForChild("CharacterStateMachine")
@@ -16,6 +16,10 @@ local runningStateMachines : { [Model]: commonTypes.RunningStateMachineRecord } 
 
 local humanoidUploadTransferInProgress : {[Model]:commonTypes.OwnerTransferDataType} = {}
 local humanoidStartupTransferInProgress : {[Model]:commonTypes.OwnerContextTransferDataType} = {}
+
+local localHumanoidStateMachineEvent : BindableEvent = Instance.new("BindableEvent")
+localHumanoidStateMachineEvent.Name = "LocalHumanoidStateMachineEvent"
+localHumanoidStateMachineEvent.Parent = script
 
 --[[
 	Event Types
@@ -34,9 +38,9 @@ local function startStateMachine(character : Model, humanoid : Humanoid, stateNa
 	
 	local record : commonTypes.RunningStateMachineRecord? = nil
 	if stateName == nil then
-		record = commonFuncs.startStateMachine(character, humanoid)	
+		record = commonFuncs.StartStateMachine(character, humanoid, localHumanoidStateMachineEvent, true)	
 	else
-		record = commonFuncs.continueStateMachine(character, humanoid, stateName, context)	
+		record = commonFuncs.ContinueStateMachine(character, humanoid, localHumanoidStateMachineEvent, stateName, context)	
 	end
 
 	if record ~= nil then
@@ -45,7 +49,11 @@ local function startStateMachine(character : Model, humanoid : Humanoid, stateNa
 end
 
 local function onHumanoidRemoteEventServer(player : Player, eventType : string, data : any)
-	if eventType == "RegisterHumanoidSM" then
+	if eventType == "ChangeStateSM" then
+		-- changes to character state
+		local changeStateData : commonTypes.ChangeStateSMRecord = data
+		commonFuncs.SetState(changeStateData.character, changeStateData.newState)
+	elseif eventType == "RegisterHumanoidSM" then
 		if debug then
 			print("Server: New Humanoid", data)
 		end
@@ -66,7 +74,8 @@ local function onHumanoidRemoteEventServer(player : Player, eventType : string, 
 			-- Check to see if we're expecting it from this Client
 			if transferRecord.oldOwner == contextXfer.oldOwner then
 				humanoidUploadTransferInProgress[contextXfer.character] = nil
-				local contextTransferData : commonTypes.ContextTransferDataType = data
+--				local contextTransferData : commonTypes.ContextTransferDataType = data
+				commonFuncs.SetState(contextXfer.character, contextXfer.currentState)
 				if  transferRecord.newOwner == nil then
 					-- server owned
 					local humanoid : Humanoid? = contextXfer.character:FindFirstChildOfClass("Humanoid")
@@ -83,7 +92,7 @@ local function onHumanoidRemoteEventServer(player : Player, eventType : string, 
 						currentState = contextXfer.currentState,
 						context = contextXfer.context
 					}
-					humanoidStartupTransferInProgress[newOwner] = newTransferRecord 
+					humanoidStartupTransferInProgress[contextXfer.character] = newTransferRecord 
 
 					trackedOwnershipList[contextXfer.character] = newOwner
 					humanoidRemoteEvent:FireClient(newOwner, "ContextDataHumanoidSM", contextXfer)
@@ -99,7 +108,7 @@ local function onHumanoidRemoteEventServer(player : Player, eventType : string, 
 			if startupRecord == nil then
 				-- error
 				if debug then
-					warn("Startup confirmation from unexpected client")
+					warn("Startup confirmation from unexpected client", character, humanoidStartupTransferInProgress)
 				end
 			else
 				-- check to verify that this client is supposed to own this
@@ -189,7 +198,7 @@ while(wait(0.1)) do
 								}
 
 								humanoidRemoteEvent:FireClient(currentOwnerInstance, "ContextDataHumanoidSM", contextXfer)
-								commonFuncs.stopStateMachine(record)	
+								commonFuncs.StopStateMachine(record)	
 								runningStateMachines[characterModel] = nil
 							else
 								warn("New State Machine owner is not a player or nil", currentOwnerInstance)
@@ -220,3 +229,23 @@ while(wait(0.1)) do
 	end
 end
 
+-- WATCH FOR LOCAL MESSAGES -----------------------------------------------------------
+
+local function onLocalHumanoidStateMachineEvent(character : Model, humanoid : Humanoid, eventType : string, data : any)
+	if eventType == "ChangeStateSM" then
+		-- changes to character state
+		print("local server state change")
+		local changeStateData : commonTypes.ChangeStateSMRecord = data
+		commonFuncs.SetState(changeStateData.character, changeStateData.newState)
+	elseif eventType == "RegisterHumanoidSM" then
+		-- New character starting up --
+		local registerRecord : commonTypes.RegisterHumanoidSMDataType = {
+			characterModel = character,
+			humanoidInstance = humanoid
+		}
+		humanoidStateMachineUpdateEvent:FireServer("RegisterHumanoidSM", registerRecord)
+		startStateMachine(character, humanoid)
+	end
+end
+
+localHumanoidStateMachineEvent.Event:Connect(onLocalHumanoidStateMachineEvent)

@@ -101,14 +101,14 @@ function TryOnViewport:tryOnBundleWithoutCostumeId(bundleId, humanoidDescription
 		end
 	end
 
-	-- Finally, iterate through the assets and include them in the humanoid description 
+	-- Finally, iterate through the assets and include them in the humanoid description
 	for _, assetId in pairs(self.props.bundles[bundleId].assetIds) do
 		local assetInfo = self.props.assets[assetId]
 		if Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] then
 			local tryOnAccessoryInfo = createDefaultHumanoidDescriptionAccessoryInfo(assetInfo.assetTypeId, assetId)
 			table.insert(tryOnAccessories, tryOnAccessoryInfo)
 		else
-			humanoidDescription[Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId]] = assetId
+			humanoidDescription[Constants.AssetTypeIdStringToHumanoidDescriptionProp[assetInfo.assetTypeId]] = assetId
 		end
 	end
 
@@ -139,7 +139,7 @@ function TryOnViewport:render()
 				visible = self.state.obtainedHumanoidDescriptions[costumeId] == true
 				if costumeHumanoidDescription then
 					-- Overwrite the inspecter's assets with any asset from the costume.
-					for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
+					for assetTypeId, name in pairs(Constants.AssetTypeIdStringToHumanoidDescriptionProp) do
 						if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil
 							and tonumber(costumeHumanoidDescription[name]) and tostring(costumeHumanoidDescription[name]) ~= "0" then
 							humanoidDescription[name] = costumeHumanoidDescription[name]
@@ -177,7 +177,7 @@ function TryOnViewport:render()
 				table.insert(tryOnAccessories, tryOnAccessoryInfo)
 				humanoidDescription:SetAccessories(tryOnAccessories, --[[includeRigidAccessories =]] true)
 			else
-				humanoidDescription[Constants.HumanoidDescriptionIdToName[tryingOnInfo.assetTypeId]] = tryingOnInfo.assetId
+				humanoidDescription[Constants.AssetTypeIdStringToHumanoidDescriptionProp[tryingOnInfo.assetTypeId]] = tryingOnInfo.assetId
 			end
 		end
 	end

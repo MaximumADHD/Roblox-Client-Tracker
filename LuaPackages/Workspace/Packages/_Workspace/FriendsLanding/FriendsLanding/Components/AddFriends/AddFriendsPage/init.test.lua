@@ -7,7 +7,6 @@ local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
 local Dash = dependencies.Dash
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
@@ -215,7 +214,7 @@ end)
 
 if getFFlagSocialOnboardingExperimentEnabled() then
 	describe("QR code banner behavior", function()
-		local instance, cleanup, navigation
+		local instance, cleanup, navigation, navigateToLuaAppPages
 		local fireProfileQRCodeBannerPressedEventSpy = jest.fn()
 		local fireProfileQRCodeBannerSeenEventSpy = jest.fn()
 
@@ -223,8 +222,12 @@ if getFFlagSocialOnboardingExperimentEnabled() then
 			navigation = {
 				navigate = jest.fn(),
 			}
+			navigateToLuaAppPages = {
+				[EnumScreens.ProfileQRCodePage] = jest.fn(),
+			}
 			instance, cleanup = createInstance({}, {
 				navigation = navigation,
+				navigateToLuaAppPages = navigateToLuaAppPages,
 				fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics()
 					then function()
 						fireProfileQRCodeBannerPressedEventSpy()
@@ -470,26 +473,24 @@ if getFFlagEnableContactInvitesForNonPhoneVerified() then
 	end)
 end
 
-if getFFlagAddFriendsSearchbarIXPEnabled() then
-	describe("full searchbar button on compactMode", function()
-		local instance, cleanup
+describe("full searchbar button on compactMode", function()
+	local instance, cleanup
 
-		beforeEach(function()
-			instance, cleanup = createInstance(friendRequests, {
-				addFriendsPageSearchbarEnabled = true,
-			})
-		end)
+	beforeEach(function()
+		instance, cleanup = createInstance(friendRequests, {
+			addFriendsPageSearchbarEnabled = true,
+		})
+	end)
 
-		afterEach(function()
-			cleanup()
-		end)
+	afterEach(function()
+		cleanup()
+	end)
 
-		it("SHOULD render searchbar button correctly", function()
-			testElement(instance, function()
-				return byName(instance, "SearchbarButton")
-			end, function(SearchbarButton)
-				expect(SearchbarButton).never.toBeNil()
-			end)
+	it("SHOULD render searchbar button correctly", function()
+		testElement(instance, function()
+			return byName(instance, "SearchbarButton")
+		end, function(SearchbarButton)
+			expect(SearchbarButton).never.toBeNil()
 		end)
 	end)
-end
+end)

@@ -27,9 +27,6 @@ function PublishAssetPrompt.new()
 		Rodux.thunkMiddleware,
 	})
 
-	-- TODO: do we need to show the experience name somewhere in the prompt, to be consistent with AvatarEditorService prompts?
-	-- If so, we can use GetGameName
-
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,

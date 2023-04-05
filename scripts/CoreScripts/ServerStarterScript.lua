@@ -32,13 +32,19 @@ initify(RobloxGui.Modules)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
 
+local FFlagUseServerLeaderstatsV2 = game:DefineFastFlag("UseServerLeaderstatsV2", false)
+
 -- Leaderstat server child-order tracker
-ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)
+if FFlagUseServerLeaderstatsV2 then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstatsV2", script.Parent)
+else
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)
+end
 
 -- Default Alternate Death Ragdoll (China only for now)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
 
-local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false) 
+local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
 if FFlagVRAvatarGestures then
 	-- make the avatars match controller movement when the player is in VR
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerAvatarGesturesController", script.Parent)

@@ -1,7 +1,7 @@
 --[[ NoSitCmd Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local NoSitCmd = baseTransition:extend()
+local NoSitCmd = baseTransition:inherit()
 NoSitCmd.name = script.Name
 NoSitCmd.destinationName = "Running"
 NoSitCmd.sourceName = "Seated"

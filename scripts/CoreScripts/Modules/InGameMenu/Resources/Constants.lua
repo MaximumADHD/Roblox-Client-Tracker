@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local t = require(CorePackages.Packages.t)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+local GetFFlagEnableSurveyImprovements =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSurveyImprovements
 
 local InputTypes = {
 	MouseAndKeyboard = "MouseAndKeyboard",
@@ -74,7 +76,7 @@ local Constants = {
 		ConfirmationDialog = 8,
 		EducationalPopup = 9,
 		HeadsetDisconnectedDialog = 100,
-		ControllerBar = 9
+		ControllerBar = 9,
 	},
 
 	ShieldOpenAnimationTweenTime = 0.5,
@@ -108,10 +110,15 @@ local Constants = {
 		[Enum.UserInputType.Touch] = InputTypes.Touch,
 	},
 
- 	OnLeaveButtonClickDescriptor = {
-		mid = MessageBus.getMessageId("Game", "onLeaveButtonClick"),
-		validateParams = t.table,
-	}
+	OnSurveyEventDescriptor = if GetFFlagEnableSurveyImprovements()
+		then {
+			mid = MessageBus.getMessageId("Game", "openSurvey"),
+			validateParams = t.strictInterface({
+				eventType = t.string,
+			}),
+		}
+		else nil,
+	SurveyEventType =  if GetFFlagEnableSurveyImprovements() then "leaveButtonClick" else nil,
 }
 
 return Constants

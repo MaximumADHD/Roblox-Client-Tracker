@@ -21,7 +21,7 @@ local POINT_SIZE = 4
 local POINT_OFFSET = -1 * (POINT_SIZE / 2)
 
 function DebugCanvas:render()
-	if not GetFFlagReportAnythingDebugCanvas() then
+	if not GetFFlagReportAnythingDebugCanvas() or not self.props.identifiedAvatars then
 		return React.createElement("Frame", {Size = UDim2.fromScale(0, 0)})
 	end
 
@@ -47,13 +47,8 @@ function DebugCanvas:render()
 	return React.createElement("Frame", {
 		BackgroundTransparency = 0.9,
 		Size = UDim2.fromScale(1, 1),
+		ZIndex = self.props.ZIndex
 	}, children)
 end
 
-return RoactRodux.UNSTABLE_connect2(function(state, props)
-	return {
-		identifiedAvatars = state.report.identifiedAvatars
-	}
-end, function(dispatch)
-	return {}
-end)(DebugCanvas)
+return DebugCanvas

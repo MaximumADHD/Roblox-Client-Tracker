@@ -20,9 +20,12 @@
 local CoreGui = game:GetService("CoreGui")
 
 local MockId = require(script.Parent.Parent.MockId)
+local Constants = require(script.Parent.Parent.Constants)
 
 local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy
 	= require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
+
+local GetCollectibleItemInInspectAndBuyEnabled = require(script.Parent.Parent.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 
 local AssetInfo = {}
 
@@ -60,13 +63,18 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 	newAsset.name = assetInfo.Name
 	newAsset.description = assetInfo.Description
 	newAsset.price = assetInfo.PriceInRobux
+	newAsset.productType = assetInfo.ProductType
+	newAsset.remaining = assetInfo.Remaining
 	newAsset.creatorId = tostring(assetInfo.Creator.Id)
 	newAsset.creatorName = assetInfo.Creator.Name
 	newAsset.assetId = tostring(assetInfo.AssetId)
 	newAsset.assetTypeId = tostring(assetInfo.AssetTypeId)
 	newAsset.productId = tostring(assetInfo.ProductId)
-	if FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
-		newAsset.isForSale = assetInfo.isForSale and assetInfo.CanBeSoldInThisGame
+	if GetCollectibleItemInInspectAndBuyEnabled() and newAsset.productType == Constants.ProductType.CollectibleItem then
+		newAsset.isForSale = assetInfo.IsForSale and assetInfo.Remaining > 0 and assetInfo.CanBeSoldInThisGame
+			and assetInfo.SaleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+	elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
+		newAsset.isForSale = assetInfo.IsForSale and assetInfo.CanBeSoldInThisGame
 	else
 		newAsset.isForSale = assetInfo.IsForSale
 	end

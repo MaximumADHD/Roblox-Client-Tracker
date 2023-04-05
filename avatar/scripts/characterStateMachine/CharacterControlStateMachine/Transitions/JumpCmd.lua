@@ -1,7 +1,7 @@
 --[[ JumpCmd Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local JumpCmd = baseTransition:extend()
+local JumpCmd = baseTransition:inherit()
 JumpCmd.name = script.Name
 JumpCmd.destinationName = "Jumping"
 JumpCmd.sourceName = "Swimming, Running, Climbing, Seated, PlatformStanding"
@@ -20,7 +20,9 @@ function JumpCmd:Test(stateMachine)
 		return false
 	end	
 	
-	if currentState == "Climbing" and not humanoid.FacingLadder then
+	-- TODO - put this back once climbing sensor is working
+	--if currentState == "Climbing" and not humanoid.FacingLadder then
+	if currentState == "Climbing" then
 		return false
 	elseif currentState == "Seated" and humanoid.SeatPart == nil then
 		humanoid.Sit = false

@@ -17,6 +17,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local EventIngestService = game:GetService("EventIngestService")
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
+local Roact = require(CorePackages.Roact)
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics.new(AnalyticsService)
 local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 local AvatarIdentification = require(CorePackages.Workspace.Packages.TnSAvatarIdentification).AvatarIdentification
@@ -42,6 +43,7 @@ local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 local AbuseReportBuilder = require(RobloxGui.Modules.TrustAndSafety.Utility.AbuseReportBuilder)
+local ScreenshotFlowStepHandlerContainer = require(RobloxGui.Modules.TrustAndSafety.Components.ScreenshotFlowStepHandlerContainer)
 
 local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
@@ -52,8 +54,10 @@ local GetFFlagEnableConfigurableReportAbuseIXP = require(RobloxGui.Modules.Flags
 local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagOldAbuseReportAnalyticsDisabled)
 local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
-local GetFFlagIGMv1ARFlowCS = require(Settings.Flags.GetFFlagIGMv1ARFlowCS)
 local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlowCSWaitFrames)
+local GetFFlagIGMv1ARFlowRAv1Experience = require(Settings.Flags.GetFFlagIGMv1ARFlowRAv1Experience)
+local GetFFlagIGMv1ARFlowRAv1Other = require(Settings.Flags.GetFFlagIGMv1ARFlowRAv1Other)
+local GetShouldDoARScreenshot = require(Settings.Flags.GetShouldDoARScreenshot)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -105,6 +109,12 @@ pcall(function()
 	end
 end)
 
+type FormPhase = "Init" | "Annotation"
+local FormPhase = {
+	Init = "Init" :: "Init",
+	Annotation = "Annotation" :: "Annotation",
+}
+
 local PageInstance = nil
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
@@ -121,7 +131,7 @@ type MethodOfAbuse = ReportAbuseLogic.MethodOfAbuse
 local MethodsOfAbuse = ReportAbuseLogic.MethodsOfAbuse
 
 type MOAOption = { title: string, subtitle: string, index: number}
-local TypeOfAbuseOptions: {
+local MethodOfAbuseOptions: {
 	["voice"]: MOAOption,
 	["text"]: MOAOption,
 	["other"]: MOAOption,
@@ -135,6 +145,7 @@ local TypeOfAbuseOptions: {
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
+	this.previousFormPhase = FormPhase.Init
 
 	local playerNames = {}
 	local sortedUserIds = {}
@@ -145,14 +156,43 @@ local function Initialize()
 	local voiceChatEnabled = false
 
 	this.isHidingForARScreenshot = false
+
 	if GetFFlagIGMv1ARFlowSessionEnabled() then
 		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(EventIngest.new(EventIngestService), Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
 	else
 		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics.EventStream, Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
 	end
 
+	function this:GetSelectedMethodOfAbuse()
+		if this.MethodOfAbuseMode then
+			local currentIndex = this.MethodOfAbuseMode.CurrentIndex
+			local voiceAllowed = false
+			if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
+				if currentIndex == nil then
+					return nil
+				end
+				voiceAllowed = this:shouldVoiceMOABeAvailable()
+			else
+				voiceAllowed = this:isVoiceReportMethodActive()
+			end
+
+			if not voiceAllowed then
+				currentIndex += 1
+			end
+
+			if currentIndex == 1 then
+				return "Voice"
+			elseif currentIndex == 2 then
+				return "Chat"
+			else
+				return "Other"
+			end
+		end
+		return "Chat"
+	end
+
 	local function getMethodOfAbuseDropdownItems()
-		return Cryo.List.map(Cryo.Dictionary.values(TypeOfAbuseOptions), function(item: MOAOption)
+		return Cryo.List.map(Cryo.Dictionary.values(MethodOfAbuseOptions), function(item: MOAOption)
 			return Cryo.Dictionary.join(item, {
 				title = RobloxTranslator:FormatByKey(item.title),
 				subtitle = RobloxTranslator:FormatByKey(item.subtitle)
@@ -164,6 +204,170 @@ local function Initialize()
 		return Cryo.List.sort(getMethodOfAbuseDropdownItems(), function(a, b)
 			return a.index < b.index
 		end)
+	end
+
+	function this:ActivateFormPhase(newFormPhase, isPlayerPreselected)
+		local normalFormVisibility = function()
+			this.GameOrPlayerFrame.Visible = true
+			this.MethodOfAbuseFrame.Visible = true
+			if this.GameOrPlayerMode.CurrentIndex == 1 then -- game mode
+				this.TypeOfAbuseFrame.Visible = false
+			else
+				this.TypeOfAbuseFrame.Visible = true
+			end
+			this.WhichPlayerFrame.Visible = true 
+			this.AbuseDescriptionFrame.Visible = true 
+			this.SubmitButton.Visible = true
+			this.BackButton.Visible = false
+		end
+		local twoButtonSubmit = function()
+			this.BackButton.Position = UDim2.new(0.2,0,1,5)
+			this.SubmitButton.Position = UDim2.new(0.8,0,1,5)
+		end
+		local oneButtonSubmit = function()
+			this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
+		end
+		local actions: { [FormPhase]: (boolean) -> nil } = {}
+		actions[FormPhase.Init] = function(isPlayerPreselected)
+			if isPlayerPreselected then
+				-- show everything including the submit button
+				normalFormVisibility()
+				oneButtonSubmit()
+			else
+				if this.MethodOfAbuseMode and this.GameOrPlayerMode.CurrentIndex ~= 1 then
+					this.MethodOfAbuseFrame.Visible = true
+				end
+				this.NextButton.Visible = true
+				this:updateNextButton()
+				this.GameOrPlayerFrame.Visible = true
+
+				this.TypeOfAbuseFrame.Visible = false
+				this.WhichPlayerFrame.Visible = false
+				this.AbuseDescriptionFrame.Visible = false
+				this.SubmitButton.Visible = false
+			end
+			this.previousFormPhase = FormPhase.Init
+		end
+		actions[FormPhase.Annotation] = function(isPlayerPreselected)
+			this.GameOrPlayerFrame.Visible = false
+			if this.MethodOfAbuseMode then
+				this.MethodOfAbuseFrame.Visible = false
+			end
+			this.WhichPlayerFrame.Visible = false
+			this.NextButton.Visible = false
+
+			this.TypeOfAbuseFrame.Visible = true
+			this.AbuseDescriptionFrame.Visible = true
+			this.BackButton.Visible = true
+			this.SubmitButton.Visible = true
+			twoButtonSubmit()
+			if this.GameOrPlayerMode.CurrentIndex == 1 then
+				this.previousFormPhase = FormPhase.Annotation
+				this:mountAnnotationPage()
+				return
+			end
+			local selectedMethodOfAbuse = this:GetSelectedMethodOfAbuse() 
+			if selectedMethodOfAbuse == "Other" then
+				this.previousFormPhase = FormPhase.Annotation
+				this:mountAnnotationPage()
+				return 
+			else -- Chat, Voice, and MoA not selected
+				-- Allow selection of alleged abuser via dropdown
+				this.WhichPlayerFrame.Visible = true
+			end
+			this.previousFormPhase = FormPhase.Init
+		end
+		actions[newFormPhase](isPlayerPreselected)
+	end
+
+	function this:ActivatePreviousFormPhase()
+		if this.previousFormPhase ~= nil then
+			this:ActivateFormPhase(this.previousFormPhase)
+			return
+		end
+		this:ActivateFormPhase(FormPhase.Init)
+	end
+
+	function this:unmountAnnotationPage()
+		if this.annotationPageHandle ~= nil then
+			Roact.unmount(this.annotationPageHandle)
+			this.annotationPageHandle = nil
+		end
+		if this.annotationPageScreenGui ~= nil then
+			this.annotationPageFrame.Parent = nil
+			this.annotationPageFrame = nil
+			this.annotationPageScreenGui = nil
+		end
+	end
+
+	function this:mountAnnotationPage()
+		local topCornerInset, _ = GuiService:GetGuiInset()
+		if not this.annotationPageScreenGui then
+			this.annotationPageScreenGui = utility:Create("ScreenGui")({
+				Name = "AnnotationPageContents",
+				DisplayOrder = 7,
+				Enabled = true,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				Parent = RobloxGui
+			})
+			this.annotationPageFrame = utility:Create("Frame")({
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0,0,0,-topCornerInset.Y),
+				Size = UDim2.new(1,0,1,topCornerInset.Y),
+				Parent = this.annotationPageScreenGui
+			})
+		end
+
+		local shouldShowPlayerDropdownPostAnnotation = function()
+			return #AbuseReportBuilder.getSelectedAbusers() == 0 and
+				this:GetSelectedMethodOfAbuse() == "Other" and
+				this.GameOrPlayerMode.CurrentIndex == 2 -- Player mode
+		end
+
+		local onBack = function()
+			this:unmountAnnotationPage()
+			AbuseReportBuilder.clearAnnotationPoints()
+			this:ActivateFormPhase(FormPhase.Init)
+		end
+
+		local onAnnotate = function(points: {Vector2})
+			AbuseReportBuilder.setAnnotationPoints(points)
+			if shouldShowPlayerDropdownPostAnnotation() then
+				-- select manually from dropdown if no annotated players
+				this.WhichPlayerFrame.Visible = true
+			end
+			this:unmountAnnotationPage()
+		end
+
+		local onSkip = function()
+			AbuseReportBuilder.clearAnnotationPoints()
+			AbuseReportBuilder.setAnnotationOptionSeen(true)
+			if shouldShowPlayerDropdownPostAnnotation() then
+				this.WhichPlayerFrame.Visible = true
+			end
+			this:unmountAnnotationPage()
+		end
+
+		local onRestart = function()
+			this:unmountAnnotationPage()
+			-- keep the animation on menu close to ensure the Hidden event
+			-- fires without being deferred
+			this.HubRef:SetVisibility(false, false)
+		end
+
+		AbuseReportBuilder.setAnnotationOptionSeen(true)
+		local annotationPage = Roact.createElement(ScreenshotFlowStepHandlerContainer, {
+			screenshot = AbuseReportBuilder.getScreenshotContentId(),
+			backAction = onBack,
+			dismissAction = onBack,
+			reportAction = onAnnotate,
+			restartAction = onRestart,
+			skipAnnotationAction = onSkip,
+			-- populated if they open the flow by going back from last page
+			initialAnnotationPoints = AbuseReportBuilder.getAnnotationPoints(),
+			initialPageNumber = if AbuseReportBuilder.getAnnotationPageSeen() then 2 else 1
+		})
+		this.annotationPageHandle = Roact.mount(annotationPage, this.annotationPageFrame, "AnnotationPage")
 	end
 
 	function this:setReportTimestamp(reportTimeSeconds)
@@ -195,6 +399,73 @@ local function Initialize()
 		nextPlayerToReport = player
 		currentSelectedPlayer = player
 		this:SetDefaultMethodOfAbuse(nextPlayerToReport)
+		if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+			this:ActivateFormPhase(FormPhase.Init, true)
+		end
+	end
+
+	function this:shouldVoiceMOABeAvailable()
+		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
+		return recentVoicePlayers and not Cryo.isEmpty(recentVoicePlayers) and this:isVoiceReportMethodActive()
+	end
+
+	function this:updateRALayout()
+		-- basically updateVoiceLayout but can also run without Voice, and
+		-- determines the selected method of abuse correctly.
+		local MOALabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.MethodOfAbuse")
+		this.MethodOfAbuseFrame, this.MethodOfAbuseLabel, this.MethodOfAbuseMode =
+			utility:AddNewRow(this, MOALabel, "DropDown", getSortedMethodOfAbuseList())
+		this.MethodOfAbuseMode:SetInteractable(false)
+		this.MethodOfAbuseLabel.ZIndex = 1
+		this.MethodOfAbuseFrame.LayoutOrder = 2
+		this.MethodOfAbuseMode.DropDownFrame.MouseButton1Click:Connect(function()
+			if not this:shouldVoiceMOABeAvailable() then
+				-- Remove "Voice" option if we don't have any players to show
+				this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
+					-- Note that we're using the index property of the TypeOfAbuseOption,
+					-- not the index of the AbuseOption in the dropdown list
+					return item.index ~= MethodOfAbuseOptions[MethodsOfAbuse.voice].index
+				end))
+			else
+				this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
+			end
+		end)
+
+		this.WhichPlayerFrame.LayoutOrder = 3
+		this.TypeOfAbuseFrame.LayoutOrder = 4
+		this.AbuseDescriptionFrame.LayoutOrder = 5
+
+		local function methodOfAbuseChanged(newIndex)
+			--As we're now relying on a reference to the player object instead of the
+			--playerlist index, we can update whenever the method of
+			--abuse (and potentially sorting behavior) changes
+			this:UpdatePlayerDropDown()
+			local selectedMethodOfAbuse
+
+			local voiceMOAAvailable = this:shouldVoiceMOABeAvailable()
+
+			if voiceMOAAvailable and newIndex == 1 then
+				selectedMethodOfAbuse = "voice"
+			elseif (voiceMOAAvailable and newIndex == 2) or newIndex == 1 then
+				selectedMethodOfAbuse = "text"
+			else
+				selectedMethodOfAbuse = "other"
+			end
+
+			this:updateNextButton()
+			if GetFFlagVoiceARRemoveOffsiteLinksForVoice() then
+				abuseTypePlayerList = if selectedMethodOfAbuse == "voice" then ABUSE_TYPES_PLAYER_VOICE else ABUSE_TYPES_PLAYER
+				this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
+				this.TypeOfAbuseMode:SetInteractable(#abuseTypePlayerList > 1)
+			end
+
+			this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
+				field = 'MethodOfAbuse',
+				methodOfAbuse = selectedMethodOfAbuse,
+			})
+		end
+
+		this.MethodOfAbuseMode.IndexChanged:connect(methodOfAbuseChanged)
 	end
 
 	function this:updateVoiceLayout()
@@ -212,7 +483,7 @@ local function Initialize()
 					this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
 						-- Note that we're using the index property of the TypeOfAbuseOption,
 						-- not the index of the AbuseOption in the dropdown list
-						return item.index ~= TypeOfAbuseOptions[MethodsOfAbuse.voice].index
+						return item.index ~= MethodOfAbuseOptions[MethodsOfAbuse.voice].index
 					end))
 				else
 					this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
@@ -261,7 +532,7 @@ local function Initialize()
 		--and that user isn't voice enabled/active, we remove Voice Chat as an option
 		if not currentSelectedPlayer or not recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then
 			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
-				return item.index ~= TypeOfAbuseOptions[MethodsOfAbuse.voice].index
+				return item.index ~= MethodOfAbuseOptions[MethodsOfAbuse.voice].index
 			end))
 		else
 			this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
@@ -278,8 +549,8 @@ local function Initialize()
 			this:updateMethodOfAbuseDropdown()
 			if inEntryExperiment then
 				local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(player, VoiceChatServiceManager)
-				-- We need to use getSortedMethodOfAbuseList because TypeOfAbuseOptions doesn't have the translated title
-				PageInstance.MethodOfAbuseMode:SetSelectionByValue(getSortedMethodOfAbuseList()[TypeOfAbuseOptions[AbuseType].index].title)
+				-- We need to use getSortedMethodOfAbuseList because MethodOfAbuseOptions doesn't have the translated title
+				PageInstance.MethodOfAbuseMode:SetSelectionByValue(getSortedMethodOfAbuseList()[MethodOfAbuseOptions[AbuseType].index].title)
 			else
 				PageInstance.MethodOfAbuseMode:SetSelectionIndex(1)
 			end
@@ -292,7 +563,7 @@ local function Initialize()
 		end
 		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
 		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
-		return (not currentSelectedPlayer or isCurrentSelectedPlayerVoice)
+		return not currentSelectedPlayer or isCurrentSelectedPlayerVoice
 	end
 
 	function this:isVoiceReportSelected()
@@ -303,6 +574,15 @@ local function Initialize()
 		local isVoiceDropdownSelected = this.MethodOfAbuseMode.CurrentIndex == AbuseVectorIndex.Voice.rawValue()
 
 		return this:isVoiceReportMethodActive() and isVoiceDropdownSelected
+	end
+
+	function this:isOtherReportSelected()
+		if not this.MethodOfAbuseMode then
+			return false
+		end
+
+		local selectedMOA = this:GetSelectedMethodOfAbuse()
+		return selectedMOA == "Other"
 	end
 
 	function this:UpdatePlayerDropDown()
@@ -517,10 +797,17 @@ local function Initialize()
 			if game:GetFastFlag("ReportAbuseExtraAnalytics") then
 				log:debug("IXP Result {} for user {}", HttpService:JSONEncode(layerData), PlayersService.LocalPlayer.UserId)
 			end
-			this:updateVoiceLayout()
+			if not (GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other()) then
+				this:updateVoiceLayout()
+			else
+				this:updateRALayout()
+			end
 			updateMethodOfAbuseVisibility()
 		end):catch(function()
 			voiceChatEnabled = false
+			if (GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other()) then
+				this:updateRALayout()
+			end
 			log:warning("ReportAbuseMenu: Failed to init VoiceChatServiceManager")
 		end)
 
@@ -530,18 +817,67 @@ local function Initialize()
 			BackgroundTransparency = 1
 		};
 
-		local submitButton, submitText = nil, nil
+		this.SubmitButton, this.SubmitText = nil, nil
 
 		local function makeSubmitButtonActive()
-			submitButton.ZIndex = 2
-			submitButton.Selectable = true
-			submitText.ZIndex = 2
+			this.SubmitButton.ZIndex = 2
+			this.SubmitButton.Selectable = true
+			this.SubmitText.ZIndex = 2
 		end
 
 		local function makeSubmitButtonInactive()
-			submitButton.ZIndex = 1
-			submitButton.Selectable = false
-			submitText.ZIndex = 1
+			this.SubmitButton.ZIndex = 1
+			this.SubmitButton.Selectable = false
+			this.SubmitText.ZIndex = 1
+		end
+
+		this.NextButton, this.NextText, this.NextEnabled = nil, nil, false
+
+		function this:makeNextButtonActive()
+			this.NextButton.ZIndex = 2
+			this.NextButton.Selectable = true
+			this.NextText.ZIndex = 2
+			this.NextEnabled = true
+		end
+
+		function this:makeNextButtonInactive()
+			this.NextButton.ZIndex = 1
+			this.NextButton.Selectable = false
+			this.NextText.ZIndex = 1
+			this.NextEnabled = false
+		end
+
+		function this:isPlayerModeSubmissionAllowed()
+			if GetFFlagIGMv1ARFlowRAv1Other() then
+				local methodOfAbuseSelected = this:GetSelectedMethodOfAbuse()
+				if methodOfAbuseSelected == "Other" then
+					-- When player select is hidden, this report went through
+					-- the annotation flow where an abuser may not be directly
+					-- selected, but submission should still be allowed. If
+					-- player select is visible then they did not go through the
+					-- annotation flow, or didn't annotate anyone during the
+					-- flow, and should select a player normally.
+					if this.TypeOfAbuseMode:GetSelectedIndex() and (
+						not this.WhichPlayerFrame.Visible -- found a player via annotation
+						or (this.WhichPlayerFrame.Visible and this.WhichPlayerMode:GetSelectedIndex())
+					) then
+						return true
+					end
+				elseif this.WhichPlayerMode:GetSelectedIndex() then
+					if this.TypeOfAbuseMode:GetSelectedIndex() then
+						return true
+					end
+				end
+			else
+				-- previous behavior in player mode branch of
+				-- updateSubmitButton, moved here.
+				if this.WhichPlayerMode:GetSelectedIndex() then
+					if this.TypeOfAbuseMode:GetSelectedIndex() then
+						return true
+					end
+				end
+			end	
+			return false
 		end
 
 		local function updateSubmitButton()
@@ -553,16 +889,30 @@ local function Initialize()
 					end
 				end
 			else
-				if this.WhichPlayerMode:GetSelectedIndex() then
-					if this.TypeOfAbuseMode:GetSelectedIndex() then
-						makeSubmitButtonActive()
-						return
-					end
+				if this:isPlayerModeSubmissionAllowed() then
+					makeSubmitButtonActive()
+					return
 				end
 			end
 			makeSubmitButtonInactive()
 		end
 
+		function this:updateNextButton()
+			if not this.NextButton then
+				return
+			end
+			if this.GameOrPlayerMode.CurrentIndex == 1 then -- 1 is Report Game
+				this:makeNextButtonActive()
+			else
+				local methodOfAbuseSelected = this:GetSelectedMethodOfAbuse()
+				if methodOfAbuseSelected ~= nil then
+					this:makeNextButtonActive()
+				else
+					this:makeNextButtonInactive()
+				end
+			end
+		end
+		
 		local function updateAbuseDropDown()
 			this.WhichPlayerMode:ResetSelectionIndex()
 			this.TypeOfAbuseMode:ResetSelectionIndex()
@@ -577,6 +927,14 @@ local function Initialize()
 				this.WhichPlayerLabel.ZIndex = 1
 
 				updateSubmitButton()
+				if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
+
+					-- clear out preselected player options
+					currentSelectedPlayer = nil
+					nextPlayerToReport = nil
+					this:ActivateFormPhase(FormPhase.Init)
+					this:updateNextButton()
+				end
 			else
 				this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
 				this.TypeOfAbuseMode:SetInteractable(#abuseTypePlayerList > 1)
@@ -591,6 +949,10 @@ local function Initialize()
 				end
 
 				updateSubmitButton()
+				if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
+					this:ActivateFormPhase(FormPhase.Init, currentSelectedPlayer and true or false)
+					this:updateNextButton()
+				end
 			end
 
 			local abuseType = "Game"
@@ -608,7 +970,8 @@ local function Initialize()
 		local function cleanupReportAbuseMenu()
 			updateAbuseDropDown()
 			this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
-			this.HubRef:SetVisibility(false, true)
+			-- animation enabled for deferred lua workaround
+			this.HubRef:SetVisibility(false, not GetShouldDoARScreenshot())
 		end
 
 		local function reportAnalytics(reportType, id)
@@ -641,7 +1004,13 @@ local function Initialize()
 				abuseReason = abuseTypePlayerList[this.TypeOfAbuseMode.CurrentIndex]
 
 				local currentAbusingPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
-				if currentAbusingPlayer and abuseReason then
+				local shouldProceedWithReport = currentAbusingPlayer and abuseReason
+
+				if GetFFlagIGMv1ARFlowRAv1Other() then
+					shouldProceedWithReport = this:isPlayerModeSubmissionAllowed()
+				end
+
+				if shouldProceedWithReport then
 					reportSucceeded = true
 					showReportSentAlert = true
 					local layerData = IXPServiceWrapper:GetLayerData("AbuseReports")
@@ -649,27 +1018,13 @@ local function Initialize()
 					isReportSentEnabled = self.HubRef.ReportSentPage and GetFFlagAbuseReportEnableReportSentPage() and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
 
 					if this.MethodOfAbuseMode then
-						local currentIndex = this.MethodOfAbuseMode.CurrentIndex
-
-						if not this:isVoiceReportMethodActive() then
-							currentIndex += 1
-						end
-
-						if currentIndex == 1 then
-							methodOfAbuse = "Voice"
-						elseif currentIndex == 2 then
-							methodOfAbuse = "Chat"
-						else
-							methodOfAbuse = "Other"
-						end
+						methodOfAbuse = PageInstance:GetSelectedMethodOfAbuse()
 
 						if not GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
 							this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse, {
 								typeOfAbuse = abuseReason,
 							})
 						end
-
-						reportAnalytics("user", currentAbusingPlayer.UserId)
 					end
 
 					if ((GetFFlagAddVoiceTagsToAllARSubmissionsEnabled() and this.MethodOfAbuseMode) or this:isVoiceReportSelected()) then
@@ -690,6 +1045,26 @@ local function Initialize()
 									local fullUrl = Url.APIS_URL.."/abuse-reporting/v2/abuse-report"
 									HttpRbxApiService:PostAsyncFullUrl(fullUrl, request)
 								end
+							end)
+						end)
+					elseif (GetFFlagIGMv1ARFlowRAv1Other() and this:isOtherReportSelected()) then
+						pcall(function()
+							task.spawn(function()
+								local request = AbuseReportBuilder.buildOtherReportRequest({
+									localUserId = PlayersService.LocalPlayer.UserId,
+									formSelectedAbuserUserId = currentAbusingPlayer and currentAbusingPlayer.UserId,
+									abuseComment = this.AbuseDescription.Selection.Text,
+									abuseReason = abuseReason,
+									menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
+									variant = AbuseReportBuilder.Constants.Variant.Sampling
+								})
+		
+								PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
+								if #AbuseReportBuilder.getSelectedAbusers() > 0 or not currentAbusingPlayer then
+									isReportSentEnabled = false -- disable new page that needs to be passed one specific player 
+									showReportSentAlert = true -- use old page that does not need a player (TODO: message presented references chatlogs?)
+								end
+								AbuseReportBuilder.clear()
 							end)
 						end)
 					else
@@ -718,13 +1093,14 @@ local function Initialize()
 				if abuseReason then
 					reportSucceeded = true
 					showReportSentAlert = true
-					if GetFFlagIGMv1ARFlowCS() then
+					if GetFFlagIGMv1ARFlowRAv1Experience() then
 						local request = AbuseReportBuilder.buildExperienceReportRequest({
 							localUserId = PlayersService.LocalPlayer.UserId,
 							placeId = game.PlaceId,
 							abuseComment = this.AbuseDescription.Selection.Text,
 							abuseReason = abuseReason,
-							menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint()
+							menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
+							variant = if GetFFlagIGMv1ARFlowRAv1Experience() then AbuseReportBuilder.Constants.Variant.Sampling else nil
 						})
 
 						PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
@@ -763,20 +1139,55 @@ local function Initialize()
 					alertText = "Thanks for your report! Our moderators will review the place and make a determination."
 				end
 
+				if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
+					alertText = "We’ve received your report and will take action soon if needed. Your feedback helps keep our community safe."
+				end
+
 				utility:ShowAlert(alertText, "Ok", this.HubRef, cleanupReportAbuseMenu)
 			end
 
 			if reportSucceeded then
 				this.LastSelectedObject = nil
+				if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+					this:ActivateFormPhase(FormPhase.Init)
+				end
 			end
 		end
 
-		submitButton, submitText = utility:MakeStyledButton("SubmitButton", "Submit", UDim2.new(0,198,0,50), onReportSubmitted, this)
-		submitButton.AnchorPoint = Vector2.new(0.5,0)
-		submitButton.Position = UDim2.new(0.5,0,1,5)
+		this.SubmitButton, this.SubmitText = utility:MakeStyledButton("SubmitButton", "Submit", UDim2.new(0,198,0,50), onReportSubmitted, this)
+		this.SubmitButton.AnchorPoint = Vector2.new(0.5,0)
+		this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
 
 		updateSubmitButton()
-		submitButton.Parent = this.AbuseDescription.Selection
+
+		this.SubmitButton.Parent = this.AbuseDescription.Selection
+
+
+		if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+			local onNext = function()
+				if this.NextEnabled then
+					this:ActivateFormPhase(FormPhase.Annotation)
+				end
+			end
+			this.NextButton, this.NextText = utility:MakeStyledButton("NextButton", "Next", UDim2.new(0,198,0,50), onNext, this)
+			this.NextButton.AnchorPoint = Vector2.new(0.5,0)
+			this.NextButton.Position = UDim2.new(0.5,0,2,5)
+
+			this.NextButton.Parent = this.GameOrPlayerMode.Selection
+
+			local onBack = function()
+				this:ActivatePreviousFormPhase()
+			end
+			this.BackButton, this.BackText = utility:MakeStyledButton("BackButton", "Back", UDim2.new(0,198,0,50), onBack, this)
+			this.BackButton.AnchorPoint = Vector2.new(0.5,0)
+			this.BackButton.Position = UDim2.new(-1,0,1,5)
+			this.BackButton.ZIndex = 2
+			this.BackButton.Selectable = true
+			this.BackButton.Parent = this.AbuseDescription.Selection
+			this.BackText.ZIndex = 2
+		end
+
+		this.SubmitButton.Parent = this.AbuseDescription.Selection
 
 		local function playerSelectionChanged(newIndex)
 			if voiceChatEnabled then
@@ -815,7 +1226,11 @@ local function Initialize()
 
 		this:AddRow(nil, nil, this.AbuseDescription)
 
-		this.Page.Size = UDim2.new(1,0,0,submitButton.AbsolutePosition.Y + submitButton.AbsoluteSize.Y)
+		this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y)
+		
+		if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+			this:ActivateFormPhase(FormPhase.Init)
+		end
 	end
 
 	return this
@@ -827,7 +1242,7 @@ do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
-		if GetFFlagIGMv1ARFlowCS() and not PageInstance.isHidingForARScreenshot then
+		if GetShouldDoARScreenshot() and not PageInstance.isHidingForARScreenshot then
 			PageInstance.isHidingForARScreenshot = true
 			PageInstance.HubRef:SetVisibility(false, true)
 
@@ -838,7 +1253,7 @@ do
 				AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
 			end)()
 
-			ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId)
+			ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
 			for i = 1, (1 + GetFIntIGMv1ARFlowCSWaitFrames()) do
 				RunService.RenderStepped:Wait()
 			end
@@ -862,7 +1277,7 @@ do
 
 	PageInstance.Hidden.Event:connect(function()
 		if open then
-			if GetFFlagIGMv1ARFlowCS() and PageInstance.isHidingForARScreenshot then
+			if GetShouldDoARScreenshot() and PageInstance.isHidingForARScreenshot then
 				open = false
 				return
 			end
@@ -894,6 +1309,13 @@ do
 				})
 			end
 
+			if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+				PageInstance:unmountAnnotationPage()
+				if AbuseReportBuilder.getAnnotationOptionSeen() then
+					PageInstance:ActivateFormPhase(FormPhase.Init)
+				end
+				AbuseReportBuilder.clear() -- opening the AR flow again will replace anything in here anyway.
+			end
 			ReportAbuseAnalytics:endAbuseReportSession()
 			open = false
 		end

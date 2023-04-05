@@ -16,6 +16,8 @@ local EventRow = require(script.Parent.EventRow)
 local getFStringEventsOnExperienceDetailsPageLayer =
 	require(VirtualEvents.Parent.SharedFlags).getFStringEventsOnExperienceDetailsPageLayer
 local getFFlagFetchEventsFromWrapper = require(VirtualEvents.Parent.SharedFlags).getFFlagFetchEventsFromWrapper
+local getFFlagRemoveVirtualEventsExperiment =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagRemoveVirtualEventsExperiment
 
 type VirtualEvent = GraphQLServer.VirtualEvent
 
@@ -52,7 +54,7 @@ export type Props = {
 	onJoinEvent: ((virtualEvent: VirtualEvent) -> ())?,
 	onTileActivated: ((virtualEvent: VirtualEvent) -> ())?,
 	onEventImpression: ((virtualEvent: VirtualEvent) -> ())?,
-	mockVirtualEventsMVPEnabled: boolean?,
+	mockVirtualEventsMVPEnabled: boolean?, -- Remove this line with FFlagRemoveVirtualEventsExperiment
 	isDesktopGrid: boolean?,
 }
 
@@ -73,12 +75,14 @@ local function EventsList(providedProps: Props)
 			pollInterval = props.pollInterval,
 		})
 
-	local virtualEventsMVPEnabled = useUserExperiment({
-		getFStringEventsOnExperienceDetailsPageLayer(),
-	}, function(layerVariables)
-		local layer = layerVariables[getFStringEventsOnExperienceDetailsPageLayer()]
-		return if layer then layer.virtualEventsMVPEnabled else nil
-	end, false)
+	local virtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment()
+		then nil
+		else useUserExperiment({
+			getFStringEventsOnExperienceDetailsPageLayer(),
+		}, function(layerVariables)
+			local layer = layerVariables[getFStringEventsOnExperienceDetailsPageLayer()]
+			return if layer then layer.virtualEventsMVPEnabled else nil
+		end, false)
 
 	if props.mockVirtualEventsMVPEnabled ~= nil then
 		virtualEventsMVPEnabled = props.mockVirtualEventsMVPEnabled
@@ -145,44 +149,73 @@ local function EventsList(providedProps: Props)
 			table.insert(items, element)
 		end
 
-		return React.createElement("Frame", {
-			LayoutOrder = props.layoutOrder,
-			Size = UDim2.fromScale(1, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-		}, {
-			ExposureLogger = React.createElement(ExposureLogger, {
-				exposureLayer = getFStringEventsOnExperienceDetailsPageLayer(),
-			}),
+		if getFFlagRemoveVirtualEventsExperiment() then
+			return React.createElement("Frame", {
+				LayoutOrder = props.layoutOrder,
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+			}, {
+				Layout = React.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = PADDING,
+				}),
 
-			-- Remove this wrapper when cleaning up the experiment
-			Wrapper = if virtualEventsMVPEnabled
-				then React.createElement("Frame", {
-					AutomaticSize = Enum.AutomaticSize.XY,
-					BackgroundTransparency = 1,
-				}, {
-					Layout = React.createElement("UIListLayout", {
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = PADDING,
-					}),
+				Title = React.createElement(StyledTextLabel, {
+					layoutOrder = 1,
+					text = text.title,
+					colorStyle = style.Theme.TextEmphasis,
+					fontStyle = style.Font.Header1,
+				}),
 
-					Title = React.createElement(StyledTextLabel, {
-						layoutOrder = 1,
-						text = text.title,
-						colorStyle = style.Theme.TextEmphasis,
-						fontStyle = style.Font.Header1,
-					}),
+				PaginatedList = React.createElement(PaginatedVerticalList, {
+					layoutOrder = 2,
+					initialItemsShown = props.initialEventsShown,
+					extraItemsShownOnLoad = props.extraEventsShownOnLoad,
+					items = items,
+					isDesktopGrid = props.isDesktopGrid,
+				}),
+			})
+		else
+			return React.createElement("Frame", {
+				LayoutOrder = props.layoutOrder,
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+			}, {
+				ExposureLogger = React.createElement(ExposureLogger, {
+					exposureLayer = getFStringEventsOnExperienceDetailsPageLayer(),
+				}),
 
-					PaginatedList = React.createElement(PaginatedVerticalList, {
-						layoutOrder = 2,
-						initialItemsShown = props.initialEventsShown,
-						extraItemsShownOnLoad = props.extraEventsShownOnLoad,
-						items = items,
-						isDesktopGrid = props.isDesktopGrid,
-					}),
-				})
-				else nil,
-		})
+				-- Remove this wrapper when cleaning up the experiment
+				Wrapper = if virtualEventsMVPEnabled
+					then React.createElement("Frame", {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+					}, {
+						Layout = React.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							Padding = PADDING,
+						}),
+
+						Title = React.createElement(StyledTextLabel, {
+							layoutOrder = 1,
+							text = text.title,
+							colorStyle = style.Theme.TextEmphasis,
+							fontStyle = style.Font.Header1,
+						}),
+
+						PaginatedList = React.createElement(PaginatedVerticalList, {
+							layoutOrder = 2,
+							initialItemsShown = props.initialEventsShown,
+							extraItemsShownOnLoad = props.extraEventsShownOnLoad,
+							items = items,
+							isDesktopGrid = props.isDesktopGrid,
+						}),
+					})
+					else nil,
+			})
+		end
 	else
 		return nil :: any
 	end

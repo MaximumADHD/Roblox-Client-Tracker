@@ -14,7 +14,6 @@ while not Players.LocalPlayer do
 	wait()
 end
 local LocalPlayer = Players.LocalPlayer
-local RobloxGui = script.Parent
 local CurrentVehicleSeat = nil
 local VehicleSeatHeartbeatCn = nil
 local VehicleSeatHUDChangedCn = nil
@@ -23,6 +22,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
+local FFlagFixVehicleHudMemoryLeak = game:DefineFastFlag("FixVehicleHudMemoryLeak", false)
 
 --[[ Images ]]--
 local VEHICLE_HUD_BG = 'rbxasset://textures/ui/Vehicle/SpeedBarBKG.png'
@@ -80,11 +80,11 @@ speedBarClippingFrame.ClipsDescendants = true
 speedBarClippingFrame.ZIndex = 2
 speedBarClippingFrame.Parent = VehicleHudFrame
 
-local HudBG = createImageLabel("HudBG", UDim2.new(1, 0, 1, 0), UDim2.new(0, 0, 0, 1), VEHICLE_HUD_BG, VehicleHudFrame)
+createImageLabel("HudBG", UDim2.new(1, 0, 1, 0), UDim2.new(0, 0, 0, 1), VEHICLE_HUD_BG, VehicleHudFrame)
 local SpeedBG = createImageLabel("SpeedBG", UDim2.new(0, (isTenFootInterface and 284 or 142), 0, (isTenFootInterface and 24 or 4)), UDim2.new(0.5, (isTenFootInterface and -142 or -71), 0.5, (isTenFootInterface and -13 or -2)), SPEED_BAR_EMPTY, VehicleHudFrame)
-local SpeedBarImage = createImageLabel("SpeedBarImage", UDim2.new(0, (isTenFootInterface and 284 or 142), 1, 0), UDim2.new(0, 0, 0, 0), SPEED_BAR, speedBarClippingFrame)
+createImageLabel("SpeedBarImage", UDim2.new(0, (isTenFootInterface and 284 or 142), 1, 0), UDim2.new(0, 0, 0, 0), SPEED_BAR, speedBarClippingFrame)
 
-local SpeedLabel = createTextLabel("SpeedLabel", Enum.TextXAlignment.Left, "Speed", VehicleHudFrame)
+createTextLabel("SpeedLabel", Enum.TextXAlignment.Left, "Speed", VehicleHudFrame)
 local SpeedText = createTextLabel("SpeedText", Enum.TextXAlignment.Right, "0", VehicleHudFrame)
 
 --[[ Local Functions ]]--
@@ -139,18 +139,63 @@ local function onSeated(active, currentSeatPart)
 	end
 end
 
-local function connectSeated()
-	local humanoid = getHumanoid()
-	while not humanoid do
-		wait()
-		humanoid = getHumanoid()
+if FFlagFixVehicleHudMemoryLeak then
+	local seatedConnection
+	local childAddedConnection
+
+	local function disconnectSeatedConnection()
+		if seatedConnection then
+			seatedConnection:Disconnect()
+			seatedConnection = nil
+		end
 	end
-	humanoid.Seated:connect(onSeated)
+
+	local function disconnectChildAddedConnection()
+		if childAddedConnection then
+			childAddedConnection:Disconnect()
+			childAddedConnection = nil
+		end
+	end
+
+	local function characterAdded(character)
+		disconnectSeatedConnection()
+		disconnectChildAddedConnection()
+
+		local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+		if humanoid then
+			seatedConnection = humanoid.Seated:connect(onSeated)
+			return
+		end
+
+		childAddedConnection = character.ChildAdded:Connect(function(child)
+			if child:IsA("Humanoid") then
+				disconnectSeatedConnection()
+				disconnectChildAddedConnection()
+				seatedConnection = child.Seated:connect(onSeated)
+			end
+		end)
+	end
+	if LocalPlayer.Character then
+		characterAdded(LocalPlayer.Character)
+	end
+	LocalPlayer.CharacterAdded:connect(function(character)
+		onSeated(false)
+		characterAdded(character)
+	end)
+else
+	local function connectSeated()
+		local humanoid = getHumanoid()
+		while not humanoid do
+			wait()
+			humanoid = getHumanoid()
+		end
+		humanoid.Seated:connect(onSeated)
+	end
+	if LocalPlayer.Character then
+		connectSeated()
+	end
+	LocalPlayer.CharacterAdded:connect(function(character)
+		onSeated(false)
+		connectSeated()
+	end)
 end
-if LocalPlayer.Character then
-	connectSeated()
-end
-LocalPlayer.CharacterAdded:connect(function(character)
-	onSeated(false)
-	connectSeated()
-end)

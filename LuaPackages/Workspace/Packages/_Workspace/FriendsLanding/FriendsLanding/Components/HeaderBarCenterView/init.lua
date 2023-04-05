@@ -16,15 +16,13 @@ local ImageSetButton = UIBlox.Core.ImageSet.Button
 local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
 
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFFlagAddFriendsSearchbarWidemodeUpdate =
 	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 
 local FriendsLandingAnalytics = require(FriendsLanding.FriendsLandingAnalytics)
 local HeaderBarCenterView = Roact.PureComponent:extend("HeaderBarCenterView")
 
-local TABLET_SEARCH_BAR_WIDTH = if getFFlagAddFriendsSearchbarIXPEnabled() then 400 else nil
+local TABLET_SEARCH_BAR_WIDTH = 400
 
 function HeaderBarCenterView:init()
 	self.state = {
@@ -55,7 +53,7 @@ function HeaderBarCenterView:render()
 		local routeName = navigation and navigation.state and navigation.state.routeName
 
 		local wideModeSearchbarButton
-		if getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled then
+		if context.addFriendsPageSearchbarEnabled then
 			wideModeSearchbarButton = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 				then nil
 				else context.wideMode and (routeName == EnumScreens.AddFriends)
@@ -63,10 +61,6 @@ function HeaderBarCenterView:render()
 			if not (wideModeSearchbarButton or screenTopBar.shouldRenderCenter) then
 				return nil
 			else
-				-- To handle the case of new header when the center searchbar is open
-				-- on SearchFriends page and the user presses the native Android back button.
-				-- If / when we add new header to FriendsLanding page we will need to
-				-- add (routeName == EnumScreens.FriendsLanding) check too
 				if
 					(routeName == EnumScreens.AddFriends)
 					and (getFFlagAddFriendsSearchbarWidemodeUpdate() or not wideModeSearchbarButton)
@@ -84,24 +78,19 @@ function HeaderBarCenterView:render()
 		end
 
 		return withLocalization({
-			searchPlaceholderText = if getFFlagAddFriendsSearchbarIXPEnabled()
-					and context.addFriendsPageSearchbarEnabled
+			searchPlaceholderText = if context.addFriendsPageSearchbarEnabled
 				then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
 				else "Feature.Chat.Label.SearchWord",
 			cancelText = "Feature.Chat.Action.Cancel",
 		})(function(localizedStrings)
-			return Roact.createElement(if getFFlagAddFriendsSearchbarIXPEnabled() then ImageSetButton else "Frame", {
-				Size = if (getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled)
-						and context.wideMode
+			return Roact.createElement(ImageSetButton, {
+				Size = if context.addFriendsPageSearchbarEnabled and context.wideMode
 					then UDim2.new(0, TABLET_SEARCH_BAR_WIDTH, 1, 0)
 					else UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				[Roact.Event.Activated] = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 					then nil
-					elseif
-						(getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled)
-						and wideModeSearchbarButton
-					then function()
+					elseif context.addFriendsPageSearchbarEnabled and wideModeSearchbarButton then function()
 						local navParams = {
 							searchText = "",
 							shouldShowEmptyLandingPage = true,
@@ -111,13 +100,10 @@ function HeaderBarCenterView:render()
 							shouldRenderCenter = true,
 							shouldAutoFocusCenter = true,
 						})
-
-						if getFFlagAddFriendsFullSearchbarAnalytics() then
-							AddFriendsSearchbarPressedEvent(
-								self.props.analytics,
-								{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
-							)
-						end
+						AddFriendsSearchbarPressedEvent(
+							self.props.analytics,
+							{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
+						)
 						self.props.analytics:playerSearch("open", nil, Contexts.AddFriends.rawValue())
 					end
 					else nil,
@@ -131,10 +117,7 @@ function HeaderBarCenterView:render()
 					onSelectCallback = screenTopBar.closeInputBar or function() end,
 					isDisabled = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 						then nil
-						elseif
-							(getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled)
-							and wideModeSearchbarButton
-						then true
+						elseif context.addFriendsPageSearchbarEnabled and wideModeSearchbarButton then true
 						else nil,
 
 					resetOnMount = function()

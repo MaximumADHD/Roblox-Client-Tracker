@@ -143,6 +143,5 @@ return {
 
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
-	getFFlagFriendsCarouselRemoveVariant = require(Packages.SharedFlags).getFFlagFriendsCarouselRemoveVariant,
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 }

@@ -2,7 +2,6 @@ local SocialLuaAnalytics = script.Parent.Parent.Parent
 local dependencies = require(SocialLuaAnalytics.dependencies)
 local enumerate = dependencies.enumerate
 
-local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 
 return enumerate(script.Name, {
@@ -16,9 +15,7 @@ return enumerate(script.Name, {
 	SocialTab = "SocialTab",
 	FriendsLanding = "friendsLanding",
 	Chat = "chat",
-	PeopleSearchFromAddFriends = if getFFlagAddFriendsFullSearchbarAnalytics()
-		then "peopleSearchfromAddFriends"
-		else nil,
+	PeopleSearchFromAddFriends = "peopleSearchfromAddFriends",
 	ProfileCard = if getFFlagAddFriendsQRCodeAnalytics() then "profileCard" else nil,
 	ShareLinks = "shareLinks",
 

@@ -52,9 +52,6 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
@@ -68,13 +65,13 @@ BasicPage.validateProps = t.strictInterface({
 	currentPage = t.optional(t.string),
 	canCaptureFocus = t.optional(t.boolean),
 	canGamepadCaptureFocus = t.optional(t.boolean),
-	vrService = GetFFlagInGameMenuVRToggle() and t.optional(t.union(t.Instance, t.table)) or nil,
+	vrService = t.optional(t.union(t.Instance, t.table)),
 	shouldForgetPreviousSelection = t.optional(t.boolean),
 })
 
 BasicPage.defaultProps = {
 	-- vrService can be overridden as a prop to allow a mock for testing
-	vrService = GetFFlagInGameMenuVRToggle() and VRService or nil,
+	vrService = VRService,
 }
 
 local vrEnabledAtModuleLoad = UserGameSettings.VREnabled
@@ -84,7 +81,7 @@ function BasicPage:init()
 		shiftLockEnabled = localPlayer.DevEnableMouseLock,
 		fullScreenEnabled = UserGameSettings:InFullScreen(),
 		invertedCameraEnabled = UserGameSettings.IsUsingCameraYInverted,
-		vrActive = GetFFlagInGameMenuVRToggle() and self.props.vrService.VREnabled or nil,
+		vrActive = self.props.vrService.VREnabled,
 		vrEnabled = UserGameSettings.VREnabled,
 		voiceChatEnabled = false,
 		heightOffset = 0,
@@ -114,7 +111,7 @@ function BasicPage:init()
 end
 
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
-	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
+	local shouldSettingsDisabledInVRBeShown = not self.state.vrActive
 	local showVoiceChatOptions = self.state.voiceChatEnabled
 	local showVideoCameraOptions = game:GetEngineFeature("VideoCaptureService")
 	local dividerSize = UDim2.new(1, -24, 0, 1)
@@ -249,8 +246,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 					end,
 				}) or nil,
-				VRMode = GetFFlagInGameMenuVRToggle()
-					and (self.state.vrActive or UserGameSettings.HasEverUsedVR)
+				VRMode = (self.state.vrActive or UserGameSettings.HasEverUsedVR)
 					and Roact.createElement(AutoPropertyToggleEntry, {
 						LayoutOrder = 17,
 						labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
@@ -340,7 +336,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						})
 					end,
 				}),
-				VRActiveListener = GetFFlagInGameMenuVRToggle() and Roact.createElement(ExternalEventConnection, {
+				VRActiveListener = Roact.createElement(ExternalEventConnection, {
 					event = self.props.vrService:GetPropertyChangedSignal("VREnabled"),
 					callback = function()
 						if self.props.vrService.VREnabled then
@@ -351,7 +347,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						})
 					end,
 				}),
-				VREnabledListener = GetFFlagInGameMenuVRToggle() and Roact.createElement(ExternalEventConnection, {
+				VREnabledListener = Roact.createElement(ExternalEventConnection, {
 					event = VREnabledChanged,
 					callback = function()
 						self:setState({

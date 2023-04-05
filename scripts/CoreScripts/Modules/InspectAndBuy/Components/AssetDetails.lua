@@ -13,9 +13,11 @@ local GetAssetBundles = require(InspectAndBuyFolder.Thunks.GetAssetBundles)
 local ReportOpenDetailsPage = require(InspectAndBuyFolder.Thunks.ReportOpenDetailsPage)
 local GetEconomyProductInfo = require(InspectAndBuyFolder.Thunks.GetEconomyProductInfo)
 local Colors = require(InspectAndBuyFolder.Colors)
+local Constants = require(InspectAndBuyFolder.Constants)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
+local GetCollectibleItemInInspectAndBuyEnabled = require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local CONTROLLER_BAR_HEIGHT = require(CoreGui.RobloxGui.Modules.InGameMenuConstants).ControllerBarHeight
@@ -60,7 +62,11 @@ function AssetDetails:didUpdate(prevProps)
 		local bundleId = isBundle and UtilityFunctions.getBundleId(assetInfo)
 		local productId = isBundle and bundles[bundleId].productId or assetInfo.productId
 
-		if (not isBundle and assetInfo.owned == nil) or (isBundle and bundles[bundleId].owned == nil) then
+		-- TODO: Update the condition if or when we introduce L2.0 bundles
+		-- Collectible Items don't need the getEconomyProductInfo() check, as users can own multiple instances
+		local skipEconomyProductInfo = GetCollectibleItemInInspectAndBuyEnabled() and assetInfo.productType == Constants.ProductType.CollectibleItem
+
+		if (not isBundle and not skipEconomyProductInfo and assetInfo.owned == nil) or (isBundle and bundles[bundleId].owned == nil) then
 			getEconomyProductInfo(productId, isBundle, bundleId)
 		end
 	end

@@ -59,9 +59,9 @@ local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListEnabled = require(RobloxGui.Modules.Flags.GetFFlagContactListEnabled)
 local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt", false)
+local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
-game:DefineFastFlag("PipEnabled", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -299,7 +299,7 @@ if game:GetEngineFeature("AdPortal") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
 end
 
-if game:GetFastFlag("PipEnabled") then
+if GetFFlagPipEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PipInitialize", RobloxGui)
 end
 

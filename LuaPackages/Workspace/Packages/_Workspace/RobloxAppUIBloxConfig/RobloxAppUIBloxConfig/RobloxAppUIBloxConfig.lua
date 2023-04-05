@@ -50,6 +50,5 @@ return {
 	headerBarInjectContentPaddingRight = true,
 	updateVerticalTile = true,
 	useDetailsPageTemplateConfig = UIBloxFlags.GetFFlagUIBloxUseDetailsPageTemplateConfig(),
-	updatePlayerTileFooterPadding = UIBloxFlags.GetFFlagUIBloxUpdatePlayerTileFooterPadding(),
 	dropDownMenuUseUniqueKeys = UIBloxFlags.GetFFlagUIBloxDropDownMenuUseUniqueKeys(),
 }

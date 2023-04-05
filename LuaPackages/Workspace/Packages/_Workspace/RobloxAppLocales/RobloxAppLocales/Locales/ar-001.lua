@@ -225,6 +225,7 @@ return{
 	["Authentication.SignUp.Response.PasswordKISAComplexity"] = [[مطلوب كلمة مرور تحتوي على مزيج من الحروف الكبيرة والحروف الصغيرة والرقم.]],
 	["Authentication.SignUp.Description.SignupOtpModal.LegalCheckboxLabel"] = [[من خلال تحديد المربع والنقر على المتابعة، فإنك تعطي موافقتك لطفلك للوصول إلى Roblox.]],
 	["Authentication.SignUp.Action.Continue"] = [[متابعة]],
+	["Authentication.SignUp.Description.Try"] = [[جرب]],
 	["Authentication.TwoStepVerification.Label.EnterEmailCode"] = [[أدخل الرمز الذي أرسلناه للتو عبر البريد الإلكتروني.]],
 	["Authentication.TwoStepVerification.Label.EnterTextCode"] = [[أدخل الرمز الذي أرسلناه للتو عبر رسالة نصية.]],
 	["Authentication.TwoStepVerification.Label.InvalidCode"] = [[رمز غير صالح]],

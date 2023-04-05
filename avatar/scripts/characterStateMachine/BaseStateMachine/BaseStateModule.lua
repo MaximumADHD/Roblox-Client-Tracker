@@ -3,46 +3,10 @@ BaseState.__index = BaseState
 
 BaseState.name = script.Name
 
-function BaseState.new(...)
-	local self = {
-		class = BaseState,	 -- may not be needed anymore
-		transitions = {}
-	}
-	setmetatable(self, BaseState)
-	self:OnCreate(...)
-	return self
-end
 
-function BaseState:extend()	
-	local derivedState = setmetatable({
-		baseClass = self 
-	}, self)
-	derivedState.__index = derivedState
-
-	function derivedState.new(...)
-		local self = setmetatable(self.new(...), derivedState)		
-		self:OnCreate(...)
-		return self
-	end
-	
-	return derivedState	
-end
-
-function BaseState:OnCreate(...)
-	
-end
-
-function BaseState:OnStepped(stateMachine, dt)
-	
-end
-
-function BaseState:OnEnter(stateMachine)
-
-end
-
-function BaseState:OnExit(stateMachine)
-
-end
+----------------------------------------------------
+-- L O C A L    F U N C T I O N S
+----------------------------------------------------
 
 function BaseState:CheckTransitions(stateMachine)
 
@@ -62,7 +26,7 @@ function BaseState:AddTransition(transition)
 			return
 		end
 	end
-	
+
 	for idx, t in pairs(self.transitions) do
 		if transition.priority < t.priority then
 			table.insert(self.transitions, idx, transition)
@@ -79,6 +43,64 @@ function BaseState:RemoveTransition(TransitionName)
 			break
 		end
 	end
+end
+
+
+function BaseState:InternalNew(...)
+	local newSelf = {}
+	local baseClass = self.baseClass
+	if baseClass then
+		newSelf = baseClass:InternalNew(...)
+		newSelf.name = self.name
+	else
+		newSelf = {
+			name = BaseState.name,			
+			transitions = {}
+		}
+	end
+	setmetatable(newSelf, self)
+	return newSelf
+end
+
+----------------------------------------------------
+-- P U B L I C    F U N C T I O N S
+----------------------------------------------------
+
+function BaseState.new(...)
+	local self = BaseState:InternalNew(...)
+	self:OnCreate(...)
+	return self
+end
+
+function BaseState:inherit()	
+	local derivedState = setmetatable({
+		baseClass = self 
+	}, self)
+	derivedState.__index = derivedState
+
+	function derivedState.new(...)
+		local newObject = derivedState:InternalNew(...)	
+		newObject:OnCreate(...)
+		return newObject
+	end
+	
+	return derivedState	
+end
+
+function BaseState:OnCreate(...)
+	
+end
+
+function BaseState:OnStepped(stateMachine, dt)
+	
+end
+
+function BaseState:OnEnter(stateMachine, oldStateName)
+
+end
+
+function BaseState:OnExit(stateMachine, newStateName)
+
 end
 
 return BaseState

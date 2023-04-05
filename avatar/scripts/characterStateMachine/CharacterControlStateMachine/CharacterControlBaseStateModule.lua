@@ -1,8 +1,10 @@
 --[[ CCSM Base State ]]--
 local baseState = require(script.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseStateModule"))
+local commonTypes = require(script.Parent.Parent:WaitForChild("CharacterStateMachineTypes"))
 
-local CCSMBaseState = baseState:extend()
+local CCSMBaseState = baseState:inherit()
 CCSMBaseState.name = script.Name 
+CCSMBaseState.activeController = ""
 	
 ----------------------------------------------------------------------------------
 
@@ -71,7 +73,9 @@ end
 
 ------------------------------------------------------------------------------------
 
-function CCSMBaseState:OnCreate()
+function CCSMBaseState:OnCreate(...)
+	baseState.OnCreate(self, ...)
+	
 	self.timer = 0
 	self.armsShouldCollide = false
 	self.legsShouldCollide = false
@@ -85,10 +89,23 @@ function CCSMBaseState:OnEnter(stateMachine)
 	local humanoid = stateMachine.context.humanoid
 	if humanoid ~= nil then
 		humanoid:ChangeState(self.humanoidState)
+		humanoid:SetAttribute(commonTypes.StateAttribute, self.name)
+		if stateMachine.localEvent ~= nil then
+			local record : ChangeStateSMRecord = {
+				character = stateMachine.context.character,
+				newState = self.name,
+				newHumanoidState = self.humanoidState.Name
+			}
+			stateMachine.localEvent:Fire(stateMachine.context.character, humanoid, "ChangeStateSM", record)
+		end
 		self:SetArmsCollide(humanoid, self.armsShouldCollide)
 		self:SetLegsCollide(humanoid, self.legsShouldCollide)
 		self:SetTorsoCollide(humanoid, self.torsoShouldCollide)
 		self:SetHeadCollide(humanoid, self.headShouldCollide)
+	end
+	local controllerManager = stateMachine.context.controllerManager
+	if controllerManager ~= nil then
+		controllerManager.ActiveController = controllerManager:FindFirstChild(self.activeController)
 	end
 	self.timer = 0
 end

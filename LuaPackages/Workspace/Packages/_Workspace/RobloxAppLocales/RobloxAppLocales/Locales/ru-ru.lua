@@ -611,6 +611,7 @@ return{
 	["Feature.AddFriends.Heading.SearchForPeople"] = [[Поиск людей]],
 	["Feature.AgeVerificationUpsell.Button.Cancel"] = [[Отмена]],
 	["Feature.AgeVerificationUpsell.Button.Settings"] = [[Настройки]],
+	["Feature.AgeVerificationUpsell.Button.AccountInfo"] = [[Аккаунт]],
 	["Feature.Avatar.Heading.All"] = [[Все]],
 	["Feature.Avatar.Heading.Clothing"] = [[Одежда]],
 	["Feature.Avatar.Heading.Animations"] = [[Анимация]],

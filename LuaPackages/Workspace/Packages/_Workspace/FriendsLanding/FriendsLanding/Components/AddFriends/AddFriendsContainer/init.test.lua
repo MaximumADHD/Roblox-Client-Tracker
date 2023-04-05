@@ -6,8 +6,6 @@ local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createIns
 local waitUntil = require(FriendsLanding.TestHelpers.waitUntil)
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 
 local llama = dependencies.llama
 
@@ -328,38 +326,36 @@ describe("AddFriendsContainer", function()
 		cleanup()
 	end)
 
-	if getFFlagAddFriendsSearchbarIXPEnabled() and getFFlagAddFriendsFullSearchbarAnalytics() then
-		it("SHOULD fire analytic events when full searchbar clicked in compactMode", function()
-			local analytics = {
-				buttonClick = jest.fn(),
-				navigate = jest.fn(),
-				impressionEvent = jest.fn(),
-				playerSearch = jest.fn(),
-			}
+	it("SHOULD fire analytic events when full searchbar clicked in compactMode", function()
+		local analytics = {
+			buttonClick = jest.fn(),
+			navigate = jest.fn(),
+			impressionEvent = jest.fn(),
+			playerSearch = jest.fn(),
+		}
 
-			local instance, cleanup = createInstanceWithRequests(
-				{ hasRequests = true },
-				{ addFriendsPageSearchbarEnabled = true },
-				{ analytics = analytics, context = { wideMode = false, addFriendsPageSearchbarEnabled = true } }
-			)
+		local instance, cleanup = createInstanceWithRequests(
+			{ hasRequests = true },
+			{ addFriendsPageSearchbarEnabled = true },
+			{ analytics = analytics, context = { wideMode = false, addFriendsPageSearchbarEnabled = true } }
+		)
 
-			local SearchbarButton = RhodiumHelpers.findFirstInstance(instance, {
-				Name = "SearchbarButton",
-			})
-			expect(SearchbarButton).toEqual(expect.any("Instance"))
-			RhodiumHelpers.clickInstance(SearchbarButton)
+		local SearchbarButton = RhodiumHelpers.findFirstInstance(instance, {
+			Name = "SearchbarButton",
+		})
+		expect(SearchbarButton).toEqual(expect.any("Instance"))
+		RhodiumHelpers.clickInstance(SearchbarButton)
 
-			expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
-			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PeopleSearchBar, {
-				contextOverride = Contexts.PeopleSearchFromAddFriends.rawValue(),
-				formFactor = "COMPACT",
-			})
-			expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
-			expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
-			expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "addUniversalFriends")
-			cleanup()
-		end)
-	end
+		expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+		expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PeopleSearchBar, {
+			contextOverride = Contexts.PeopleSearchFromAddFriends.rawValue(),
+			formFactor = "COMPACT",
+		})
+		expect(analytics.navigate).toHaveBeenCalledWith(analytics, EnumScreens.SearchFriends)
+		expect(analytics.playerSearch).toHaveBeenCalledTimes(1)
+		expect(analytics.playerSearch).toHaveBeenCalledWith(analytics, "open", nil, "addUniversalFriends")
+		cleanup()
+	end)
 
 	describe("GetFriendRequests", function()
 		it("SHOULD be triggered when mounted", function()
@@ -373,20 +369,11 @@ describe("AddFriendsContainer", function()
 			end)
 
 			expect(getFriendRequests).toHaveBeenCalled()
-			if getFFlagAddFriendsSearchbarIXPEnabled() then
-				expect(getFriendRequests.mock.calls[1][3]).toEqual({
-					queryArgs = {
-						limit = 50,
-					},
-				})
-			else
-				expect(getFriendRequests.mock.calls[1][3]).toEqual({
-					queryArgs = {
-						limit = 25,
-					},
-				})
-			end
-
+			expect(getFriendRequests.mock.calls[1][3]).toEqual({
+				queryArgs = {
+					limit = 50,
+				},
+			})
 			cleanup()
 		end)
 

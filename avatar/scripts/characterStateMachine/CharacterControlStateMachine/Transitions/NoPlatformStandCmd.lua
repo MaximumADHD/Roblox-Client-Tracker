@@ -1,7 +1,7 @@
 --[[ NoPlatformStandCmd Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local NoPlatformStandCmd = baseTransition:extend()
+local NoPlatformStandCmd = baseTransition:inherit()
 NoPlatformStandCmd.name = script.Name
 NoPlatformStandCmd.destinationName = "Running"
 NoPlatformStandCmd.sourceName = "PlatformStanding"

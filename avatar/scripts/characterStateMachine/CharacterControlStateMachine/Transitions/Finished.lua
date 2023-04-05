@@ -1,7 +1,7 @@
 --[[ Finished Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local Finished = baseTransition:extend()
+local Finished = baseTransition:inherit()
 Finished.name = script.Name
 Finished.destinationName = "FreeFall"
 Finished.sourceName = "Jumping"

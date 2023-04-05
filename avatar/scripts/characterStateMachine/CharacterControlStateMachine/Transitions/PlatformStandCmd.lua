@@ -1,7 +1,7 @@
 --[[ PlatformStandCmd Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local PlatformStandCmd = baseTransition:extend()
+local PlatformStandCmd = baseTransition:inherit()
 PlatformStandCmd.name = script.Name
 PlatformStandCmd.destinationName = "PlatformStanding"
 PlatformStandCmd.sourceName = "Climbing, FreeFall, FallingDown, GettingUp, Landed, Running, Jumping, Swimming"

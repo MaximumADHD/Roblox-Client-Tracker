@@ -23,6 +23,8 @@ local ReactRoblox = require(Packages.Dev.ReactRoblox)
 local FirstFriendRequesterUserId = require(ProfileQRCode.TestHelpers.FirstFriendRequesterUserId)
 local SecondFriendRequesterUserId = require(ProfileQRCode.TestHelpers.SecondFriendRequesterUserId)
 local NetworkingFriends = require(Packages.NetworkingFriends)
+local validateEvent = require(ProfileQRCode.TestHelpers.validateEvent)
+local EventNames = require(script.Parent.Parent.Parent.Analytics.EventNames)
 
 local function fireSignalREvent(eventReceiver: any, type: any, details: any)
 	local callback = eventReceiver.events[type]
@@ -199,6 +201,57 @@ it("SHOULD show alert when signalR friendship request event is received but no t
 	end)
 end)
 
+it("SHOULD fire event stream and diag events when friend request alert is dismissed", function()
+	local mockEventReceieverSetup = mockRobloxEventReceiver()
+	local component, analytics = createTreeWithProviders(defaultStory, {
+		props = {
+			profileQRCodeFriendRequestAlertsEnabled = true,
+			robloxEventReceiver = mockEventReceieverSetup.mockEventReceiver,
+		},
+	})
+
+	local requesterUserId = tonumber(FirstFriendRequesterUserId)
+
+	runWhileMounted(component, function(parent)
+		fireSignalREvent(mockEventReceieverSetup, "FriendshipNotifications", {
+			Type = "FriendshipRequested",
+			EventArgs = {
+				UserId1 = 156,
+				UserId2 = requesterUserId,
+				SourceType = NetworkingFriends.Enums.FriendshipOriginSourceType.QrCode.rawValue(),
+			},
+		})
+
+		--Ensure that a render has happened
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
+
+		local closeButton = findElementHelpers.findCloseButton(parent, { assertElementExists = true })
+
+		RhodiumHelpers.clickInstance(closeButton:getRbxInstance())
+
+		--Ensure that a render has happened
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
+
+		expect(analytics.analyticsMock.EventStream.setRBXEventStream).toHaveBeenCalledWith(
+			analytics.analyticsMock.EventStream,
+			validateEvent(EventNames.QRPageFriendRequestBannerDismissed, {
+				qrCodeBannerQueueSize = 1,
+				uid = "123",
+			})
+		)
+
+		expect(analytics.analyticsMock.Diag.reportCounter).toHaveBeenCalledWith(
+			analytics.analyticsMock.Diag,
+			"ProfileQRPageFriendRequestBannerDismissed",
+			1
+		)
+	end)
+end)
+
 it("SHOULD show alert when signalR friendship request event is received and toast when accepted", function()
 	local mockEventReceieverSetup = mockRobloxEventReceiver()
 	local component = createTreeWithProviders(defaultStory, {
@@ -248,5 +301,52 @@ it("SHOULD show alert when signalR friendship request event is received and toas
 		expect(receivedAcceptUserIdUrl).toContain(tostring(requesterUserId))
 		expect(qrCodeAlert).toBeNil()
 		expect(toastAlert).toBeDefined()
+	end)
+end)
+
+it("SHOULD fire event stream and diag events when friend request alert is accepted", function()
+	local mockEventReceieverSetup = mockRobloxEventReceiver()
+	local component, analytics = createTreeWithProviders(defaultStory, {
+		props = {
+			profileQRCodeFriendRequestAlertsEnabled = true,
+			robloxEventReceiver = mockEventReceieverSetup.mockEventReceiver,
+		},
+	})
+
+	local requesterUserId = tonumber(SecondFriendRequesterUserId)
+
+	runWhileMounted(component, function(parent)
+		fireSignalREvent(mockEventReceieverSetup, "FriendshipNotifications", {
+			Type = "FriendshipRequested",
+			EventArgs = { UserId1 = requesterUserId, UserId2 = 156, SourceType = "QrCode" },
+		})
+
+		--Ensure that a render has happened
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
+
+		local acceptButton = findElementHelpers.findAcceptButton(parent, { assertElementExists = true })
+
+		RhodiumHelpers.clickInstance(acceptButton:getRbxInstance())
+
+		--Ensure that a render has happened
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
+
+		expect(analytics.analyticsMock.EventStream.setRBXEventStream).toHaveBeenCalledWith(
+			analytics.analyticsMock.EventStream,
+			validateEvent(EventNames.QRPageFriendRequestBannerAccepted, {
+				qrCodeBannerQueueSize = 1,
+				uid = "123",
+			})
+		)
+
+		expect(analytics.analyticsMock.Diag.reportCounter).toHaveBeenCalledWith(
+			analytics.analyticsMock.Diag,
+			"ProfileQRPageFriendRequestBannerAccepted",
+			1
+		)
 	end)
 end)

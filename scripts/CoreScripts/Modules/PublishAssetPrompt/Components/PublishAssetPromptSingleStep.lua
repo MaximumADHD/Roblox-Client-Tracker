@@ -10,6 +10,7 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local ExperienceAuthService = game:GetService("ExperienceAuthService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -25,6 +26,7 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local AssetNameTextBox = require(script.Parent.AssetNameTextBox)
 local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
 local ObjectViewport = require(script.Parent.ObjectViewport)
+local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
 
 local INPUT_FIELDS_WIDTH_PERCENT = 0.6
 local VIEWPORT_WIDTH_PERCENT = 1 - INPUT_FIELDS_WIDTH_PERCENT
@@ -59,19 +61,44 @@ local LayeredAssetTypes = {
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
 
 PublishAssetPromptSingleStep.validateProps = t.strictInterface({
-	model = t.instanceOf("Model"), -- All things we want to publish can be wrapped in a Model
+	screenSize = t.Vector2,
+
+	-- Mapped state
+	assetInstance = t.Instance, -- The type of this parameter will change depending on what asset type we're publishing.
 	assetType = t.enum(Enum.AssetType),
+	guid = t.any,
+	scopes = t.any,
+
+	-- Mapped dispatch functions
+	closePrompt = t.callback,
 })
 
 function PublishAssetPromptSingleStep:init()
-	self.closePrompt = function() end
-
-	self.confirmAndUpload = function()
-		self.closePrompt()
+	self.closePrompt = function()
+		self.props.closePrompt()
 	end
 
-	self.onAssetNameUpdated = function(newName)
-		self.assetName = newName
+	self.confirmAndUpload = function()
+		local metadata = {}
+		metadata["assetName"] = self.assetName
+		metadata["assetDescription"] = self.assetDescription
+
+		-- We should never get to this point if this engine feature is off (see ConnectAssetServiceEvents.lua), but just in case:
+		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
+			ExperienceAuthService:ScopeCheckUIComplete(
+				self.props.guid,
+				self.props.scopes,
+				Enum.ScopeCheckResult.ConsentAccepted,
+				metadata
+			)
+			self.closePrompt()
+		end
+	end
+
+	self.onAssetNameUpdated = function(newName, isNameInvalid)
+		if not isNameInvalid then
+			self.assetName = newName
+		end
 	end
 
 	self.onAssetDescriptionUpdated = function(newDescription)
@@ -97,14 +124,14 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 				Size = UDim2.new(1, 0, 1, -DISCLAIMER_HEIGHT_PIXELS),
 				BackgroundTransparency = 1,
 			}, {
-				-- Parent frame so that ObjectViewport can use UIAspectRatioConstraint
-				-- to size the Viewport to be the largest possible square.
+				-- Create a parent frame so that ObjectViewport can use UIAspectRatioConstraint
+				-- to resize the Viewport to be the largest possible square.
 				ViewportParent = Roact.createElement("Frame", {
 					Size = UDim2.new(VIEWPORT_WIDTH_PERCENT, 0, 1, 0),
 					BackgroundTransparency = 1,
 				}, {
 					ObjectViewport = Roact.createElement(ObjectViewport, {
-						model = self.props.model,
+						model = self.props.assetInstance,
 					}),
 				}),
 
@@ -126,7 +153,6 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 					NameInput = Roact.createElement(AssetNameTextBox, {
 						Size = UDim2.new(1, 0, 0, 30),
 						Position = UDim2.new(0, 0, 0, LABEL_HEIGHT),
-						BackgroundTransparency = 1,
 						onAssetNameUpdated = self.onAssetNameUpdated,
 					}),
 
@@ -143,7 +169,6 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 					DescriptionInput = Roact.createElement(AssetDescriptionTextBox, {
 						Size = UDim2.new(1, 0, 0, 80),
 						Position = UDim2.new(0, 0, 0, 60 + LABEL_HEIGHT),
-						BackgroundTransparency = 1,
 						onAssetDescriptionUpdated = self.onAssetDescriptionUpdated,
 					}),
 				}),
@@ -188,7 +213,7 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 		middleContent = function()
 			return self:renderMiddle(localized)
 		end,
-		screenSize = Vector2.new(400, 400), -- TODO nkyger: use actual screen size
+		screenSize = self.props.screenSize,
 		defaultChildRef = self.props.defaultChildRef,
 	})
 end
@@ -235,16 +260,21 @@ function PublishAssetPromptSingleStep:render()
 	return self:renderAlertLocalized(localized)
 end
 
-PublishAssetPromptSingleStep = RoactRodux.connect(function(state, props)
+local function mapStateToProps(state)
 	return {
-		screenSize = state.ScreenSize,
+		assetInstance = state.promptRequest.promptInfo.assetInstance,
+		assetType = state.promptRequest.promptInfo.assetType,
+		guid = state.promptRequest.promptInfo.guid,
+		scopes = state.promptRequest.promptInfo.scopes,
 	}
-end, function(dispatch)
+end
+
+local function mapDispatchToProps(dispatch)
 	return {
-		submitAsset = function()
-			-- TODO: publish asset
+		closePrompt = function()
+			return dispatch(CloseOpenPrompt())
 		end,
 	}
-end)(PublishAssetPromptSingleStep)
+end
 
-return PublishAssetPromptSingleStep
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PublishAssetPromptSingleStep)

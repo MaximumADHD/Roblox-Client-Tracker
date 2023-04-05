@@ -2,16 +2,9 @@ local Constants = {
 	BUTTON_HEIGHT = 48,
 	BOTTOM_BAR_PADDING = 24,
 
-	HumanoidDescriptionIdToName = {
+	AssetTypeIdStringToHumanoidDescriptionProp = {
 		[tostring(Enum.AssetType.TShirt.Value)]  = "GraphicTShirt",
 		[tostring(Enum.AssetType.Hat.Value)]  = "HatAccessory",
-		[tostring(Enum.AssetType.HairAccessory.Value)] = "HairAccessory",
-		[tostring(Enum.AssetType.FaceAccessory.Value)] = "FaceAccessory",
-		[tostring(Enum.AssetType.NeckAccessory.Value)] = "NeckAccessory",
-		[tostring(Enum.AssetType.ShoulderAccessory.Value)] = "ShouldersAccessory",
-		[tostring(Enum.AssetType.FrontAccessory.Value)] = "FrontAccessory",
-		[tostring(Enum.AssetType.BackAccessory.Value)] = "BackAccessory",
-		[tostring(Enum.AssetType.WaistAccessory.Value)] = "WaistAccessory",
 		[tostring(Enum.AssetType.Shirt.Value)] = "Shirt",
 		[tostring(Enum.AssetType.Pants.Value)] = "Pants",
 		[tostring(Enum.AssetType.Head.Value)] = "Head",
@@ -21,6 +14,13 @@ local Constants = {
 		[tostring(Enum.AssetType.LeftArm.Value)] = "LeftArm",
 		[tostring(Enum.AssetType.LeftLeg.Value)] = "LeftLeg",
 		[tostring(Enum.AssetType.RightLeg.Value)] = "RightLeg",
+		[tostring(Enum.AssetType.HairAccessory.Value)] = "HairAccessory",
+		[tostring(Enum.AssetType.FaceAccessory.Value)] = "FaceAccessory",
+		[tostring(Enum.AssetType.NeckAccessory.Value)] = "NeckAccessory",
+		[tostring(Enum.AssetType.ShoulderAccessory.Value)] = "ShouldersAccessory",
+		[tostring(Enum.AssetType.FrontAccessory.Value)] = "FrontAccessory",
+		[tostring(Enum.AssetType.BackAccessory.Value)] = "BackAccessory",
+		[tostring(Enum.AssetType.WaistAccessory.Value)] = "WaistAccessory",
 		[tostring(Enum.AssetType.ClimbAnimation.Value)] = "ClimbAnimation",
 		[tostring(Enum.AssetType.FallAnimation.Value)] = "FallAnimation",
 		[tostring(Enum.AssetType.IdleAnimation.Value)] = "IdleAnimation",
@@ -28,6 +28,8 @@ local Constants = {
 		[tostring(Enum.AssetType.RunAnimation.Value)] = "RunAnimation",
 		[tostring(Enum.AssetType.SwimAnimation.Value)] = "SwimAnimation",
 		[tostring(Enum.AssetType.WalkAnimation.Value)] = "WalkAnimation",
+		-- DynamicHead goes in the same field as a classic head.
+		[tostring(Enum.AssetType.DynamicHead.Value)] = "Head",
 	},
 
 	BundleTypeAsString = {

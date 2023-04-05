@@ -20,9 +20,7 @@ local LoadingTile = require(FriendsCarousel.Components.LoadingTile)
 
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 local TextKeys = require(FriendsCarousel.Common.TextKeys)
-local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
-local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 -- Note: Type information is not retained on lua tables, so the only way to get
@@ -31,7 +29,6 @@ local React = require(game:GetService("CorePackages").Packages.React)
 
 local Carousel = Roact.Component:extend("Carousel")
 
-local TILE_SIZE_SQUARE: number = 100
 local TILE_SIZE_CIRCULAR: number = 96
 
 local CARD_PADDING: number = 10
@@ -39,9 +36,6 @@ local CARD_PADDING: number = 10
 export type Props = {
 	carousel: React.ComponentType<any>,
 	carouselProps: any,
-
-	-- remove with getFFlagFriendsCarouselRemoveVariant
-	friendsCarouselExperimentVariant: string?,
 
 	showToast: (toastMessageKey: string) -> (),
 	onSuccessfulRender: () -> ()?,
@@ -90,16 +84,11 @@ Carousel.validateProps = t.strictInterface({
 	onUserTileActivated = t.callback,
 	userSeen = t.callback,
 	onSuccessfulRender = t.optional(t.callback),
-	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else t.string,
 	showNewBadge = t.optional(t.boolean),
 	showNewAddFriendsUIVariant = t.optional(t.boolean),
 })
 
-Carousel.defaultProps = {
-	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-		then nil
-		else UIVariants.CIRCULAR_TILES,
-}
+Carousel.defaultProps = {}
 
 function Carousel:init()
 	self.renderFindFriendsTile = function(): any
@@ -111,9 +100,6 @@ function Carousel:init()
 				newTextBadge = TextKeys.NewText,
 			})(function(localized)
 				return Roact.createElement(FindFriendsTile, {
-					friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-						then nil
-						else props.friendsCarouselExperimentVariant,
 					onActivated = props.onFindFriendsTileActivated,
 					badgeValue = if getFFlagSocialOnboardingExperimentEnabled() and props.showNewBadge
 						then localized.newTextBadge
@@ -128,9 +114,6 @@ function Carousel:init()
 			end)
 		else
 			return Roact.createElement(FindFriendsTile, {
-				friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-					then nil
-					else props.friendsCarouselExperimentVariant,
 				onActivated = props.onFindFriendsTileActivated,
 				badgeValue = props.friendRequestCount,
 				tileSize = tileUIProperties.tileHeight,
@@ -161,9 +144,6 @@ function Carousel:init()
 		local user: LocalTypes.LoadingUser = passedProps.user :: any
 		if user.isLoading then
 			local loadingTilePassedProps: LoadingTile.Props = {
-				friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-					then nil
-					else props.friendsCarouselExperimentVariant,
 				layoutOrder = passedProps.layoutOrder,
 				tileSize = tileUIProperties.tileHeight,
 				tileInfoHeight = passedProps.tileInfoHeight,
@@ -173,9 +153,6 @@ function Carousel:init()
 		end
 
 		local userTilePassedProps: CarouselUserTile.Props = llama.Dictionary.join(passedProps, {
-			friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-				then nil
-				else props.friendsCarouselExperimentVariant,
 			tileSize = tileUIProperties.tileHeight,
 			contextualInfoLines = tileUIProperties.maxContextualLines,
 			tileInfoHeight = passedProps.tileInfoHeight,
@@ -188,17 +165,7 @@ function Carousel:init()
 	end
 
 	self.getTileUIProperties = memoize(function()
-		local props: InternalProps = self.props
-
-		if getFFlagFriendsCarouselRemoveVariant() then
-			return { tileHeight = TILE_SIZE_CIRCULAR }
-		end
-
-		return {
-			tileHeight = if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
-				then TILE_SIZE_SQUARE
-				else TILE_SIZE_CIRCULAR,
-		}
+		return { tileHeight = TILE_SIZE_CIRCULAR }
 	end)
 end
 

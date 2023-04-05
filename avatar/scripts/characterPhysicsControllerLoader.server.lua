@@ -30,31 +30,49 @@ end
 local controllerManager = humanoid:FindFirstChildOfClass("ControllerManager")
 if controllerManager == nil then
 	controllerManager = Instance.new("ControllerManager")
-	
+
 	local runningController = Instance.new("GroundController", controllerManager)
 	runningController.Name = "RunningController"	
-	
+	runningController.GroundOffset = humanoid.HipHeight
+
 	local gettingUpController = Instance.new("GroundController", controllerManager)	
 	gettingUpController.Name = "GettingUpController"	
-	
-	local gettingUpController = Instance.new("GroundController", controllerManager)	
-	gettingUpController.Name = "GettingUpController"	
-	gettingUpController.RigidityEnabled = true
-	
+	gettingUpController.GroundOffset = humanoid.HipHeight
+
 	local freeFallController = Instance.new("AirController", controllerManager)	
 	-- Uses default name? : freeFallController.Name = "FreeFallController"	
-	
+
 	local jumpController = Instance.new("AirController", controllerManager)	
 	jumpController.Name = "JumpController"
 	jumpController.VectorForce = Vector3.new(0, calculateJumpPower(humanoid), 0);
-	
+
 	local swimController = Instance.new("SwimController", controllerManager)	
 
-	local climbController = Instance.new("ClimbController", controllerManager)	
-
-	controllerManager.HipHeight = humanoid.HipHeight
-	controllerManager.BaseMoveSpeed = humanoid.WalkSpeed
+	local climbController = Instance.new("ClimbController", controllerManager)
 	
+	local humanoidRootPart = script.Parent:WaitForChild("HumanoidRootPart")
+	
+	local GroundSensor = Instance.new("ControllerPartSensor", humanoidRootPart)
+	GroundSensor.Name = "GroundSensor"
+	GroundSensor.SensorMode = Enum.SensorMode.Floor
+	controllerManager.GroundSensor = GroundSensor
+	
+	local ClimbSensor = Instance.new("ControllerPartSensor", humanoidRootPart)
+	ClimbSensor.Name = "ClimbSensor"
+	ClimbSensor.SensorMode = Enum.SensorMode.Ladder
+	ClimbSensor.SearchDistance = 2
+	controllerManager.ClimbSensor = ClimbSensor
+	
+	-- TODO: add this under Torso or UpperTorso
+	local torsoattach
+	if humanoid.RigType == Enum.HumanoidRigType.R6 then
+		torsoattach = script.Parent:WaitForChild("Torso")
+	else
+		torsoattach = script.Parent:WaitForChild("UpperTorso")
+	end
+	local BuoyancySensor = Instance.new("BuoyancySensor", torsoattach)
+
+	controllerManager.BaseMoveSpeed = humanoid.WalkSpeed
+
 	controllerManager.Parent = humanoid
 end
-

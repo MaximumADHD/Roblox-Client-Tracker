@@ -181,7 +181,7 @@ function AssetDetailBottomBar:shouldDisableTryOn()
 			return true
 		end
 
-		if IBConstants.HumanoidDescriptionIdToName[assetType] == nil
+		if IBConstants.AssetTypeIdStringToHumanoidDescriptionProp[assetType] == nil
 			and IBConstants.AssetTypeIdToAccessoryTypeEnum[assetType] == nil then
 			return true
 		end

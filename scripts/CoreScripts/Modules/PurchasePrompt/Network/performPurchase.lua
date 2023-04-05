@@ -4,8 +4,8 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local Constants = require(Root.Misc.Constants)
 local Promise = require(Root.Promise)
 
-local function performPurchase(network, infoType, productId, expectedPrice, requestId, isRobloxPurchase)
-	return network.performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase)
+local function performPurchase(network, infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey)
+	return network.performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey)
 		:andThen(function(result)
 			--[[
 				User might purchase the product through the web after having

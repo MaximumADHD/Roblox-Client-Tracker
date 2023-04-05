@@ -1,6 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local MemStorageService = game:GetService("MemStorageService")
+local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local PlayersService = game:GetService("Players")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
@@ -14,6 +15,7 @@ local NotificationService = game:GetService("NotificationService")
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagEnableVoiceChatRejoinOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatRejoinOnBlock)
+local GetFFlagStopFacialAnimationOnBan = require(RobloxGui.Modules.Flags.GetFFlagStopFacialAnimationOnBan)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceCheckLocalNetworkSet = require(RobloxGui.Modules.Flags.GetFFlagVoiceCheckLocalNetworkSet)
 local GetFIntEnableVoiceChatRejoinOnBlockDelay = require(RobloxGui.Modules.Flags.GetFIntEnableVoiceChatRejoinOnBlockDelay)
@@ -39,6 +41,7 @@ local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged = require(Roblox
 local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -92,6 +95,7 @@ local VoiceChatServiceManager = {
 	participantLeft = Instance.new("BindableEvent"),
 	participantsUpdate = Instance.new("BindableEvent"),
 	muteChanged = Instance.new("BindableEvent"),
+	muteAllChanged = if GetFFlagMuteAllEvent() then Instance.new("BindableEvent") else nil,
 	talkingChanged = Instance.new("BindableEvent"),
 	service = nil,
 	voiceEnabled = false,
@@ -799,6 +803,9 @@ function VoiceChatServiceManager:MuteAll(muteState: boolean)
 		player.isMutedLocally = muteState
 		self.participantsUpdate:Fire(self.participants)
 	end
+	if GetFFlagMuteAllEvent() then
+		self.muteAllChanged:Fire(muteState)
+	end
 end
 
 
@@ -960,6 +967,9 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				log:debug("User Moderated")
 				self:ShowPlayerModeratedMessage()
 				self.service:Leave()
+				if GetFFlagStopFacialAnimationOnBan() then
+					FaceAnimatorService:Stop()
+				end
 			end)
 		end
 

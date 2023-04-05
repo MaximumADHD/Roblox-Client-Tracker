@@ -47,10 +47,12 @@ end
 
 -- Reset camera position when model changes.
 function ObjectViewport:OnModelChanged()
-	self.modelCFrame = self.props.model:GetModelCFrame()
-	self.initialLookVector = self.modelCFrame.lookVector
-	self.modelExtentsSize = self.props.model:GetExtentsSize()
-	self.cameraDistance = getCameraDistance(CAMERA_FOV, self.modelExtentsSize)
+	if self.props.model ~= nil then
+		self.modelCFrame = self.props.model:GetModelCFrame()
+		self.initialLookVector = self.modelCFrame.lookVector
+		self.modelExtentsSize = self.props.model:GetExtentsSize()
+		self.cameraDistance = getCameraDistance(CAMERA_FOV, self.modelExtentsSize)
+	end
 end
 
 function ObjectViewport:render()
@@ -108,7 +110,7 @@ function ObjectViewport:render()
 end
 
 function ObjectViewport:didMount()
-	if self.worldModelRef:getValue() then
+	if self.worldModelRef:getValue() and self.props.model ~= nil then
 		self.props.model.Parent = self.worldModelRef:getValue()
 	end
 end
@@ -117,9 +119,13 @@ function ObjectViewport:didUpdate(prevProps)
 	local modelChanged = self.props.model ~= prevProps.model
 	if modelChanged then
 		-- Unparent the old model, parent the new one.
-		prevProps.model.Parent = nil
-		self.props.model.Parent = self.worldModelRef:getValue()
+		if prevProps.model ~= nil then
+			prevProps.model.Parent = nil
+		end
 
+		if self.props.model ~= nil then
+			self.props.model.Parent = self.worldModelRef:getValue()
+		end
 		self:OnModelChanged()
 	end
 end

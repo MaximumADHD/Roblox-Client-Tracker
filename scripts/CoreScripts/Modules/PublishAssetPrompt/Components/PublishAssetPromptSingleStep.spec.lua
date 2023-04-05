@@ -12,6 +12,7 @@ return function()
 	local PublishAssetPromptFolder = script.Parent.Parent
 	local Reducer = require(PublishAssetPromptFolder.Reducer)
 	local OpenPublishAssetPrompt = require(PublishAssetPromptFolder.Actions.OpenPublishAssetPrompt)
+	local PromptType = require(PublishAssetPromptFolder.PromptType)
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -28,7 +29,15 @@ return function()
 
 			local model = Instance.new("Model")
 
-			store:dispatch(OpenPublishAssetPrompt(model, Enum.AssetType.Model))
+			store:dispatch(
+				OpenPublishAssetPrompt(
+					PromptType.PublishAssetSingleStep,
+					model,
+					Enum.AssetType.Model,
+					"12345",
+					{ Enum.ExperienceAuthScope.CreatorAssetsCreate }
+				)
+			)
 
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
@@ -36,7 +45,9 @@ return function()
 				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 					style = appStyle,
 				}, {
-					PublishAssetPromptSingleStep = Roact.createElement(PublishAssetPromptSingleStep),
+					PublishAssetPromptSingleStep = Roact.createElement(PublishAssetPromptSingleStep, {
+						screenSize = Vector2.new(1920, 1080),
+					}),
 				}),
 			})
 

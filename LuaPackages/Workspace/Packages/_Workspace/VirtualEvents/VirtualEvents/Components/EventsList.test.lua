@@ -20,6 +20,8 @@ local EventsList = require(script.Parent.EventsList)
 local getFStringEventsOnExperienceDetailsPageLayer =
 	require(VirtualEvents.Parent.SharedFlags).getFStringEventsOnExperienceDetailsPageLayer
 local getFFlagFetchEventsFromWrapper = require(VirtualEvents.Parent.SharedFlags).getFFlagFetchEventsFromWrapper
+local getFFlagRemoveVirtualEventsExperiment =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagRemoveVirtualEventsExperiment
 
 local NUM_MOCK_EVENTS = 5
 local CURRENT_TIME = DateTime.now()
@@ -90,17 +92,19 @@ for i = 1, NUM_MOCK_EVENTS do
 	table.insert(mockVirtualEvents, event)
 end
 
-beforeAll(function()
-	IXPService:RegisterUserLayers({
-		getFStringEventsOnExperienceDetailsPageLayer(),
-	})
+if not getFFlagRemoveVirtualEventsExperiment() then
+	beforeAll(function()
+		IXPService:RegisterUserLayers({
+			getFStringEventsOnExperienceDetailsPageLayer(),
+		})
 
-	IXPService:InitializeUserLayers(123)
-end)
+		IXPService:InitializeUserLayers(123)
+	end)
 
-afterAll(function()
-	IXPService:ClearUserLayers()
-end)
+	afterAll(function()
+		IXPService:ClearUserLayers()
+	end)
+end
 
 it("should show 1 event when rendered", function()
 	local element = withMockProviders({
@@ -108,7 +112,7 @@ it("should show 1 event when rendered", function()
 			universeId = -1,
 			virtualEvents = mockVirtualEvents,
 			currentTime = CURRENT_TIME,
-			mockVirtualEventsMVPEnabled = true,
+			mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -130,7 +134,7 @@ it("should show 3 more events when clicking See More", function()
 			universeId = -1,
 			virtualEvents = mockVirtualEvents,
 			currentTime = CURRENT_TIME,
-			mockVirtualEventsMVPEnabled = true,
+			mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -169,7 +173,7 @@ it("should sort events by time", function()
 			virtualEvents = reversedVirtualEvents,
 			currentTime = CURRENT_TIME,
 			initialEventsShown = NUM_MOCK_EVENTS,
-			mockVirtualEventsMVPEnabled = true,
+			mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 		}),
 	}, {
 		mockResolvers = if getFFlagFetchEventsFromWrapper()
@@ -230,7 +234,7 @@ it("should trigger onRsvpChanged when clicking Notify Me", function()
 			currentTime = CURRENT_TIME,
 			onRsvpChanged = onRsvpChanged,
 			initialEventsShown = NUM_MOCK_EVENTS,
-			mockVirtualEventsMVPEnabled = true,
+			mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -265,7 +269,7 @@ it("should trigger onJoinEvent when clicking Join Event", function()
 			currentTime = CURRENT_TIME,
 			onJoinEvent = onJoinEvent,
 			initialEventsShown = NUM_MOCK_EVENTS,
-			mockVirtualEventsMVPEnabled = true,
+			mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -300,7 +304,7 @@ it("should trigger onTileActivated when clicking on the event tile", function()
 			currentTime = CURRENT_TIME,
 			onJoinEvent = onJoinEvent,
 			initialEventsShown = NUM_MOCK_EVENTS,
-			mockVirtualEventsMVPEnabled = true,
+			mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 		}),
 	}, {
 		mockResolvers = mockResolvers,
@@ -331,7 +335,7 @@ it("should render nothing if no VirtualEvents are found", function()
 			universeId = -1,
 			virtualEvents = {},
 			currentTime = CURRENT_TIME,
-			mockVirtualEventsMVPEnabled = true,
+			mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 		}),
 	}, {
 		mockResolvers = if getFFlagFetchEventsFromWrapper()
@@ -353,60 +357,62 @@ it("should render nothing if no VirtualEvents are found", function()
 	expect(#result.container:GetChildren()).toBe(0)
 end)
 
-describe("experiment", function()
-	it("should render when enrolled", function()
-		local element = withMockProviders({
-			EventsList = React.createElement(EventsList, {
-				universeId = -1,
-				virtualEvents = mockVirtualEvents,
-				currentTime = CURRENT_TIME,
-				initialEventsShown = NUM_MOCK_EVENTS,
-				mockVirtualEventsMVPEnabled = true,
-			}),
-		}, {
-			mockResolvers = mockResolvers,
-		})
+if not getFFlagRemoveVirtualEventsExperiment() then
+	describe("experiment", function()
+		it("should render when enrolled", function()
+			local element = withMockProviders({
+				EventsList = React.createElement(EventsList, {
+					universeId = -1,
+					virtualEvents = mockVirtualEvents,
+					currentTime = CURRENT_TIME,
+					initialEventsShown = NUM_MOCK_EVENTS,
+					mockVirtualEventsMVPEnabled = true,
+				}),
+			}, {
+				mockResolvers = mockResolvers,
+			})
 
-		local result = render(element)
+			local result = render(element)
 
-		if not getFFlagFetchEventsFromWrapper() then
-			-- Wait for Apollo queries to resolve
-			act(function()
-				task.wait(0.1)
-			end)
-		end
+			if not getFFlagFetchEventsFromWrapper() then
+				-- Wait for Apollo queries to resolve
+				act(function()
+					task.wait(0.1)
+				end)
+			end
 
-		local eventsList = result.container:FindFirstChild("EventsList")
+			local eventsList = result.container:FindFirstChild("EventsList")
 
-		-- Expecting 2 children to account for ExposureLogger
-		expect(#eventsList:GetChildren()).toBe(2)
+			-- Expecting 2 children to account for ExposureLogger
+			expect(#eventsList:GetChildren()).toBe(2)
+		end)
+
+		it("should render nothing if unenrolled", function()
+			local element = withMockProviders({
+				EventsList = React.createElement(EventsList, {
+					universeId = -1,
+					virtualEvents = mockVirtualEvents,
+					currentTime = CURRENT_TIME,
+					initialEventsShown = NUM_MOCK_EVENTS,
+					mockVirtualEventsMVPEnabled = false,
+				}),
+			}, {
+				mockResolvers = mockResolvers,
+			})
+
+			local result = render(element)
+
+			if not getFFlagFetchEventsFromWrapper() then
+				-- Wait for Apollo queries to resolve
+				act(function()
+					task.wait(0.1)
+				end)
+			end
+
+			local eventsList = result.container:FindFirstChild("EventsList")
+
+			-- Expecting 1 child to account for ExposureLogger
+			expect(#eventsList:GetChildren()).toBe(1)
+		end)
 	end)
-
-	it("should render nothing if unenrolled", function()
-		local element = withMockProviders({
-			EventsList = React.createElement(EventsList, {
-				universeId = -1,
-				virtualEvents = mockVirtualEvents,
-				currentTime = CURRENT_TIME,
-				initialEventsShown = NUM_MOCK_EVENTS,
-				mockVirtualEventsMVPEnabled = false,
-			}),
-		}, {
-			mockResolvers = mockResolvers,
-		})
-
-		local result = render(element)
-
-		if not getFFlagFetchEventsFromWrapper() then
-			-- Wait for Apollo queries to resolve
-			act(function()
-				task.wait(0.1)
-			end)
-		end
-
-		local eventsList = result.container:FindFirstChild("EventsList")
-
-		-- Expecting 1 child to account for ExposureLogger
-		expect(#eventsList:GetChildren()).toBe(1)
-	end)
-end)
+end

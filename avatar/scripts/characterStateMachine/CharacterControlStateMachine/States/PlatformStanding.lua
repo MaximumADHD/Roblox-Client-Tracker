@@ -1,8 +1,9 @@
---[[ Physics State ]]--
+--[[ PlatformStanding State ]]--
 local baseState = require(script.Parent.Parent:WaitForChild("CharacterControlBaseStateModule"))
 
-local Physics = baseState:extend()
-Physics.humanoidState = Enum.HumanoidStateType.Physics 
-Physics.name = script.Name
+local PlatformStanding = baseState:inherit()
+PlatformStanding.name = script.Name
+PlatformStanding.humanoidState = Enum.HumanoidStateType.PlatformStanding 
+PlatformStanding.activeController = ""
 
-return Physics
+return PlatformStanding

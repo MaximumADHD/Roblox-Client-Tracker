@@ -19,6 +19,7 @@ local ScreenshotHelper = require(TnsModule.Utility.ScreenshotHelper)
 local DebugCanvas = require(TnsModule.Components.DebugCanvas)
 local ScreenshotHighlighter = require(TnsModule.Components.ScreenshotHighlighter)
 local VirtualKeyboardMonitor = require(TnsModule.Components.VirtualKeyboardMonitor)
+local AbuseReportBuilder = require(TnsModule.Utility.AbuseReportBuilder)
 
 local Divider = require(Dependencies.Divider)
 
@@ -27,26 +28,33 @@ local HEADER_HEIGHT = 48
 
 export type Props = {
 	titleText: string?,
-	screenshot: string?,
+	screenshot: string,
 	initialAnnotationPoints: { Vector2 }?,
+	imageAspectRatio: number?,
 
 	reportAction: (({ Vector2 }) -> ()),
 	dismissAction: (() -> ()),
 
 	backAction: (() -> ())?,
-	retakeAction: (() -> ())?,
 }
 
-local function renderHeaderBarLeft(props: Props, undoAnnotationPoints, redoAnnotationPoints)
+local function renderHeaderBarLeft(
+	props: Props,
+	undoAnnotationPoints,
+	redoAnnotationPoints,
+	isRedoEnabled,
+	isUndoEnabled
+)
+	local isShowUndoRedoButtons = isRedoEnabled or isUndoEnabled
 	if props.backAction then
 		return function()
 			return React.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(0, 200, 1, 0),
+				Size = UDim2.new(0, 120, 1, 0),
 			}, {
 				Layout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
@@ -56,15 +64,17 @@ local function renderHeaderBarLeft(props: Props, undoAnnotationPoints, redoAnnot
 					layoutOrder = 1,
 					onActivated = props.backAction,
 				}),
-				UndoButton = React.createElement(IconButton, {
+				UndoButton = isShowUndoRedoButtons and React.createElement(IconButton, {
 					iconSize = IconSize.Medium,
-					icon = UIBloxImages["icons/navigation/close"],
+					icon = UIBloxImages["icons/actions/edit/undo"],
+					isDisabled = not isUndoEnabled,
 					layoutOrder = 2,
 					onActivated = undoAnnotationPoints,
 				}),
-				RedoButton = React.createElement(IconButton, {
+				RedoButton = isShowUndoRedoButtons and React.createElement(IconButton, {
 					iconSize = IconSize.Medium,
-					icon = UIBloxImages["icons/navigation/pushRight"],
+					icon = UIBloxImages["icons/actions/edit/redo"],
+					isDisabled = not isRedoEnabled,
 					layoutOrder = 3,
 					onActivated = redoAnnotationPoints,
 				}),
@@ -86,7 +96,7 @@ local function renderHeaderBarRight(props: Props, annotationPoints)
 	return function()
 		return React.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 160, 1, 0),
+			Size = UDim2.new(0, 144, 1, 0),
 		}, {
 			Layout = React.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -169,6 +179,9 @@ local function ScreenshotDialog(props: Props)
 		end
 	end
 
+	local isUndoEnabled = #annotationPoints > 0
+	local isRedoEnabled = #annotationRedoStack > 0
+
 	-- Outermost container is a TextButton to get click events on the overlay.
 	-- This "button" fills the whole screen, so that when a click lands outside
 	-- the dialog area, we can exit the menu.
@@ -178,7 +191,7 @@ local function ScreenshotDialog(props: Props)
 		BackgroundColor3 = theme.Overlay.Color,
 		BackgroundTransparency = theme.Overlay.Transparency,
 		Size = UDim2.fromScale(1, 1),
-		ZIndex = -10,
+		ZIndex = 10,
 		Text = "",
 		[React.Event.Activated] = onOverlayActivated,
 	}, {
@@ -214,10 +227,16 @@ local function ScreenshotDialog(props: Props)
 					Bar = React.createElement(HeaderBar, {
 						backgroundTransparency = 1,
 						barHeight = HEADER_HEIGHT,
-						renderLeft = renderHeaderBarLeft(props, undoAnnotationPoints, redoAnnotationPoints),
+						renderLeft = renderHeaderBarLeft(
+							props,
+							undoAnnotationPoints,
+							redoAnnotationPoints,
+							isRedoEnabled,
+							isUndoEnabled
+						),
 						-- Need dummy on the right to take up space for balance
 						renderRight = renderHeaderBarRight(props, annotationPoints),
-						title = props.titleText,
+						title = "Highlight Scene",
 					}),
 				}),
 				Divider = React.createElement(Divider, {
@@ -226,29 +245,47 @@ local function ScreenshotDialog(props: Props)
 				ScreenshotAnnotation = React.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 1, 0),
+					Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT - 1),
 					ZIndex = 10,
 				}, {
 					Layout = React.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					}),
-					AnnotationLayer = React.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, 0),
+					Container = React.createElement("Frame", {
+						Size = UDim2.fromScale(1, 1),
+						BackgroundTransparency = 1,
 					}, {
-						ScreenshotImage = React.createElement("ImageLabel", {
-							Size = UDim2.fromScale(1, 1),
-							Image = ScreenshotHelper:GetScreenshotContentId(),
-							ZIndex = 1,
-						}, {}),
-						DebugCanvas = React.createElement(DebugCanvas, {
-							ZIndex = 2,
+						UIAspectRatioConstraint = React.createElement("UIAspectRatioConstraint", {
+							AspectRatio = props.imageAspectRatio,
 						}),
-						Highlighter = React.createElement(ScreenshotHighlighter, {
-							annotationPoints = annotationPoints,
-							handleAnnotationPoints = handleAnnotationPoints,
-							ZIndex = 3,
-						}, {}),
+						Padding = React.createElement("UIPadding", {
+							PaddingTop = UDim.new(0, 16),
+							PaddingBottom = UDim.new(0, 16),
+							PaddingLeft = UDim.new(0, 32),
+							PaddingRight = UDim.new(0, 32),
+						}),
+						AnnotationLayer = React.createElement("Frame", {
+							Size = UDim2.new(1, 0, 1, 0),
+							BorderSizePixel = 2,
+							BorderMode = Enum.BorderMode.Inset,
+							BorderColor3 = Color3.fromRGB(255, 255, 255),
+						}, {
+							ScreenshotImage = React.createElement("ImageLabel", {
+								Size = UDim2.fromScale(1, 1),
+								Image = props.screenshot,
+								ZIndex = 1,
+							}, {}),
+							DebugCanvas = React.createElement(DebugCanvas, {
+								identifiedAvatars = AbuseReportBuilder.getIdentifiedAvatars(),
+								ZIndex = 2,
+							}),
+							Highlighter = React.createElement(ScreenshotHighlighter, {
+								annotationPoints = annotationPoints,
+								handleAnnotationPoints = handleAnnotationPoints,
+								ZIndex = 3,
+							}, {}),
+						}),
 					}),
 				}),
 			}),

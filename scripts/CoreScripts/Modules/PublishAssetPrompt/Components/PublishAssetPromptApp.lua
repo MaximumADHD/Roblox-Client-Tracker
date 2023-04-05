@@ -19,18 +19,19 @@ local InputType = require(CorePackages.Workspace.Packages.InputType)
 local LocalPlayer = Players.LocalPlayer
 
 local Components = script.Parent
+local PromptType = require(Components.Parent.PromptType)
 local PublishAssetPromptSingleStep = require(Components.PublishAssetPromptSingleStep)
 
---Displays behind the InGameMenu so that developers can't block interaction with the InGameMenu by constantly prompting.
-local DISPLAY_ORDER = 0
+--Displays behind the in-game menu so that developers can't block interaction with the InGameMenu by constantly prompting.
+--The in-game menu displays at level 0, to render behind it we need to display at level -1.
+local DISPLAY_ORDER = -1
 
 local PublishAssetPromptApp = Roact.PureComponent:extend("PublishAssetPromptApp")
 
 PublishAssetPromptApp.validateProps = t.strictInterface({
 	--Dispatch
-	screenSizeUpdated = t.callback,
-	assetType = t.enum(Enum.AssetType),
-	assetInstance = t.instanceOf("Model"),
+	assetType = t.optional(t.enum(Enum.AssetType)),
+	assetInstance = t.optional(t.Instance), -- The individual publish prompts (like SingleStep) should support different asset types.
 })
 
 local function isGamepadInput(inputType)
@@ -40,11 +41,15 @@ end
 function PublishAssetPromptApp:init()
 	self:setState({
 		isGamepad = isGamepadInput(UserInputService:GetLastInputType()),
+		screenSize = Vector2.new(0, 0),
 	})
 
 	self.absoluteSizeChanged = function(rbx)
-		-- TODO fix
-		--self.props.screenSizeUpdated(rbx.AbsoluteSize)
+		if self.state.screenSize ~= rbx.AbsoluteSize then
+			self:setState({
+				screenSize = rbx.AbsoluteSize,
+			})
+		end
 	end
 
 	self.focusController = RoactGamepad.createFocusController()
@@ -56,10 +61,11 @@ end
 function PublishAssetPromptApp:render()
 	local promptElement
 	if self.props.assetInstance then
-		promptElement = Roact.createElement(PublishAssetPromptSingleStep, {
-			model = self.props.assetInstance,
-			assetType = self.props.assetType,
-		})
+		if self.props.promptType == PromptType.PublishAssetSingleStep then
+			promptElement = Roact.createElement(PublishAssetPromptSingleStep, {
+				screenSize = self.state.screenSize,
+			})
+		end
 	end
 
 	return Roact.createElement("ScreenGui", {
@@ -136,15 +142,10 @@ end
 
 local function mapStateToProps(state)
 	return {
-		assetInstance = state.assetInstance,
-		assetType = state.assetType,
+		promptType = state.promptRequest.promptInfo.promptType,
+		assetInstance = state.promptRequest.promptInfo.assetInstance,
+		assetType = state.promptRequest.promptInfo.assetType,
 	}
 end
 
-local function mapDispatchToProps(dispatch)
-	return {
-		-- TODO: do we need to handle resizing on ScreenSizeUpdated?
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PublishAssetPromptApp)
+return RoactRodux.connect(mapStateToProps)(PublishAssetPromptApp)

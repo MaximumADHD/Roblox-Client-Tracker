@@ -4,9 +4,6 @@ local Roact = dependencies.Roact
 local llama = dependencies.llama
 local CarouselUserTile = require(FriendsCarousel.Components.CarouselUserTile.CarouselUserTile)
 local users = require(FriendsCarousel.TestHelpers.mockedUsers)
-local UIVariants = require(FriendsCarousel.Common.UIVariants)
-
-local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 local DEFAULT_PROPS = {
 	absoluteIndex = 0,
@@ -29,9 +26,6 @@ local setupStory = function(user)
 				CarouselUserTile,
 				llama.Dictionary.join(DEFAULT_PROPS, storyProps or {}, {
 					user = user,
-					friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-						then nil
-						else UIVariants.CIRCULAR_TILES,
 					tileSize = 100,
 					tileInfoHeight = 50,
 				})

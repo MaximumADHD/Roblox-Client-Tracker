@@ -361,6 +361,7 @@ function InfoPanel:render()
 
 	local children = {
 		Header = Roact.createElement(PanelEntry, {
+			IsTitle = true,
 			Header = definition.name,
 			Description = definition.summary,
 			LayoutOrder = nextOrder(),
@@ -414,15 +415,10 @@ function InfoPanel:render()
 	end
 
 	assign(children, {
-		RequiredProps = docs and docs.Required and Roact.createElement(PropsList, {
-			Header = "Required Props",
+		Props = docs and docs.Props and Roact.createElement(PropsList, {
+			Header = "Props",
 			LayoutOrder = nextOrder(),
-			Props = docs.Required,
-		}),
-		OptionalProps = docs and docs.Optional and Roact.createElement(PropsList, {
-			Header = "Optional Props",
-			LayoutOrder = nextOrder(),
-			Props = docs.Optional,
+			Props = docs.Props,
 		}),
 		Styles = docs and docs.Style and Roact.createElement(StylesList, {
 			Header = "Styles",

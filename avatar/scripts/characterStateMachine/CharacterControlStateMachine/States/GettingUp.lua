@@ -1,8 +1,9 @@
 --[[ GettingUp State ]]--
 local baseState = require(script.Parent.Parent:WaitForChild("CharacterControlBaseStateModule"))
 
-local GettingUp = baseState:extend()
-GettingUp.humanoidState = Enum.HumanoidStateType.GettingUp 
+local GettingUp = baseState:inherit()
 GettingUp.name = script.Name
+GettingUp.humanoidState = Enum.HumanoidStateType.GettingUp 
+GettingUp.activeController = "GettingUpController"
 
 return GettingUp

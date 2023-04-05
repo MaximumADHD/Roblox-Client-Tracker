@@ -23,8 +23,6 @@ return {
 	GetFFlagUIBloxUseRightSideGadget = require(script.GetFFlagUIBloxUseRightSideGadget),
 	GetFFlagUIBloxPillGroupAutomaticSize = require(script.GetFFlagUIBloxPillGroupAutomaticSize),
 	GetFFlagUIBloxLoadableImageResponsiveThumbnails = require(script.GetFFlagUIBloxLoadableImageResponsiveThumbnails),
-	GetFFlagUIBloxUpdateVerticalTile = require(script.GetFFlagUIBloxUpdateVerticalTile),
 	GetFFlagUIBloxUseDetailsPageTemplateConfig = require(script.GetFFlagUIBloxUseDetailsPageTemplateConfig),
-	GetFFlagUIBloxUpdatePlayerTileFooterPadding = require(script.GetFFlagUIBloxUpdatePlayerTileFooterPadding),
 	GetFFlagUIBloxDropDownMenuUseUniqueKeys = require(script.GetFFlagUIBloxDropDownMenuUseUniqueKeys),
 }

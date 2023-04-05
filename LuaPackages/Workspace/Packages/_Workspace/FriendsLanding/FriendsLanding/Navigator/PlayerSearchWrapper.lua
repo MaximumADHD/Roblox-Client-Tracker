@@ -5,8 +5,6 @@ local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
 local UIBlox = dependencies.UIBlox
 local withStyle = UIBlox.Style.withStyle
 
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-
 local PlayerSearchWrapper = Roact.PureComponent:extend("PlayerSearchWrapper")
 
 PlayerSearchWrapper.defaultProps = {
@@ -19,9 +17,7 @@ function PlayerSearchWrapper:render()
 	return FriendsLandingContext.with(function(context)
 		return withStyle(function(style)
 			local searchText = self.props.navigation.getParam("searchText", nil)
-			local shouldShowEmptyLandingPage = if getFFlagAddFriendsSearchbarIXPEnabled()
-				then self.props.navigation.getParam("shouldShowEmptyLandingPage", nil)
-				else nil
+			local shouldShowEmptyLandingPage = self.props.navigation.getParam("shouldShowEmptyLandingPage", nil)
 			return Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
 				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
@@ -33,12 +29,8 @@ function PlayerSearchWrapper:render()
 						searchKeyword = searchText,
 						isKeywordSuggestionEnabled = true,
 					},
-					shouldShowEmptyLandingPage = if getFFlagAddFriendsSearchbarIXPEnabled()
-						then shouldShowEmptyLandingPage
-						else nil,
-					addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
-						then context.addFriendsPageSearchbarEnabled
-						else nil,
+					shouldShowEmptyLandingPage = shouldShowEmptyLandingPage,
+					addFriendsPageSearchbarEnabled = context.addFriendsPageSearchbarEnabled,
 				}),
 			})
 		end)

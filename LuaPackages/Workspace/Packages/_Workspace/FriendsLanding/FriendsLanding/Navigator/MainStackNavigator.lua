@@ -13,7 +13,6 @@ local HeaderBarCenterView = require(FriendsLanding.Components.HeaderBarCenterVie
 local HeaderBarRightView = require(FriendsLanding.Components.HeaderBarRightView)
 local GatewayComponent = require(FriendsLanding.Navigator.GatewayComponent)
 
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsSearchbarWidemodeUpdate =
 	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 local getFFlagAddFriendsPageHideBottomBar = dependencies.getFFlagAddFriendsPageHideBottomBar
@@ -44,23 +43,19 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 					renderCenter = function()
 						return Roact.createElement(HeaderBarCenterView, navProps)
 					end,
-					renderRight = if getFFlagAddFriendsSearchbarIXPEnabled()
-						then function()
-							return FriendsLandingContext.with(function(context)
-								if context.addFriendsPageSearchbarEnabled then
-									return false
-								else
-									return Roact.createElement(HeaderBarRightView, navProps)
-								end
-							end)
-						end
-						else function()
-							return Roact.createElement(HeaderBarRightView, navProps)
-						end,
+					renderRight = function()
+						return FriendsLandingContext.with(function(context)
+							if context.addFriendsPageSearchbarEnabled then
+								return false
+							else
+								return Roact.createElement(HeaderBarRightView, navProps)
+							end
+						end)
+					end,
 					useSecondaryHeader = true,
 					shouldRenderSearchbarButtonInWideMode = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 						then nil
-						elseif getFFlagAddFriendsSearchbarIXPEnabled() then function()
+						else function()
 							return FriendsLandingContext.with(function(context)
 								if context.addFriendsPageSearchbarEnabled then
 									return true
@@ -68,12 +63,7 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 									return nil
 								end
 							end)
-						end
-						else function()
-							return nil
 						end,
-					--This is for SocialTab -> AddFriendsPage; remove when deprecating SocialTab
-					--Other instances of tabBarVisible are accounted for in AppPageProperties
 					tabBarVisible = if getFFlagAddFriendsPageHideBottomBar() then false else nil,
 				}
 			end,
@@ -89,9 +79,7 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 			navigationOptions = function(navProps)
 				return {
 					headerText = {
-						raw = if getFFlagAddFriendsSearchbarIXPEnabled()
-							then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
-							else "Feature.Friends.Label.SearchFriends",
+						raw = "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople",
 					},
 					tabBarVisible = false,
 					renderCenter = function()

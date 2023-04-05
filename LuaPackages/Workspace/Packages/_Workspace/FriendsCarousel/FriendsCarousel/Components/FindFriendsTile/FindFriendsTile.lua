@@ -6,7 +6,6 @@ local React = dependencies.React
 local useLocalization = dependencies.Hooks.useLocalization
 
 local TextKeys = require(FriendsCarousel.Common.TextKeys)
-local UIVariants = require(FriendsCarousel.Common.UIVariants)
 local AddFriendsTileCircular = require(FriendsCarousel.Components.AddFriendsTileCircular)
 local AddFriendsTileSquare = require(FriendsCarousel.Components.AddFriendsTileSquare)
 local Analytics = require(FriendsCarousel.Analytics)
@@ -14,7 +13,6 @@ local EventNames = Analytics.EventNames
 local useAnalytics = Analytics.useAnalytics
 local useEffectOnce = dependencies.Hooks.useEffectOnce
 
-local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
@@ -26,9 +24,6 @@ export type Props = {
 	onDidMount: () -> ()?,
 
 	showNewAddFriendsUIVariant: boolean?,
-
-	--remove with getFFlagFriendsCarouselRemoveVariant
-	friendsCarouselExperimentVariant: string?,
 }
 
 local getBadgeVale = function(badgeValue: number | string | nil)
@@ -73,52 +68,24 @@ local FindFriendsTile = function(props: Props)
 		findFriendsText = TextKeys.FindFriendsText,
 	})
 
-	if getFFlagFriendsCarouselRemoveVariant() then
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			return if props.showNewAddFriendsUIVariant
-				then Roact.createElement(AddFriendsTileSquare, {
-					badgeValue = badgeValue,
-					onActivated = props.onActivated,
-					labelText = localizedStrings.findFriendsText,
-				})
-				else Roact.createElement(AddFriendsTileCircular, {
-					onActivated = props.onActivated,
-					labelText = localizedStrings.addFriendText,
-					badgeValue = badgeValue,
-				})
-		else
-			return Roact.createElement(AddFriendsTileCircular, {
+	if getFFlagSocialOnboardingExperimentEnabled() then
+		return if props.showNewAddFriendsUIVariant
+			then Roact.createElement(AddFriendsTileSquare, {
+				badgeValue = badgeValue,
+				onActivated = props.onActivated,
+				labelText = localizedStrings.findFriendsText,
+			})
+			else Roact.createElement(AddFriendsTileCircular, {
 				onActivated = props.onActivated,
 				labelText = localizedStrings.addFriendText,
-				badgeValue = nil,
+				badgeValue = badgeValue,
 			})
-		end
 	else
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			return if props.showNewAddFriendsUIVariant
-				then Roact.createElement(AddFriendsTileSquare, {
-					badgeValue = badgeValue,
-					onActivated = props.onActivated,
-					labelText = localizedStrings.findFriendsText,
-				})
-				else Roact.createElement(AddFriendsTileCircular, {
-					onActivated = props.onActivated,
-					labelText = localizedStrings.addFriendText,
-					badgeValue = nil,
-				})
-		else
-			return if props.friendsCarouselExperimentVariant == UIVariants.SQUARE_TILES
-				then Roact.createElement(AddFriendsTileSquare, {
-					badgeValue = badgeValue,
-					onActivated = props.onActivated,
-					labelText = localizedStrings.findFriendsText,
-				})
-				else Roact.createElement(AddFriendsTileCircular, {
-					onActivated = props.onActivated,
-					labelText = localizedStrings.addFriendText,
-					badgeValue = nil,
-				})
-		end
+		return Roact.createElement(AddFriendsTileCircular, {
+			onActivated = props.onActivated,
+			labelText = localizedStrings.addFriendText,
+			badgeValue = nil,
+		})
 	end
 end
 

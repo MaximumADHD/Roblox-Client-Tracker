@@ -33,9 +33,6 @@ return function()
 	)
 	local BasicPage = require(script.Parent.Parent.GameSettingsPage.BasicPage)
 
-	local Flags = InGameMenu.Flags
-	local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-
 	local function getMountableTreeAndStore(props)
 		local store = Rodux.Store.new(reducer)
 		local basicPage = Roact.createElement(BasicPage, Cryo.Dictionary.join({ pageTitle = "Settings" }, props or {}))
@@ -128,33 +125,31 @@ return function()
 			GuiService.SelectedCoreObject = nil
 		end)
 
-		if GetFFlagInGameMenuVRToggle() then
-			local propsForVR = {
-				vrService = {
-					VREnabled = true,
-					GetPropertyChangedSignal = function(self, propertyName)
-						return VRService:GetPropertyChangedSignal(propertyName)
-					end,
-				},
-			}
+		local propsForVR = {
+			vrService = {
+				VREnabled = true,
+				GetPropertyChangedSignal = function(self, propertyName)
+					return VRService:GetPropertyChangedSignal(propertyName)
+				end,
+			},
+		}
 
-			it("SelectedCoreObject gets modified by FFlagInGameMenuController if a gamepad is enabled in VR", function()
-				local element, store = getMountableTreeAndStore(propsForVR)
+		it("SelectedCoreObject gets modified by FFlagInGameMenuController if a gamepad is enabled in VR", function()
+			local element, store = getMountableTreeAndStore(propsForVR)
 
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-				act(function()
-					store:dispatch(SetInputType(Constants.InputType.Gamepad))
-					store:dispatch(SetMenuOpen(true))
-					store:dispatch(SetCurrentPage("GameSettings"))
-					store:flush()
-				end)
-
-				expect(GuiService.SelectedCoreObject).to.be.ok()
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("Dot")
-
-				Roact.unmount(instance)
-				GuiService.SelectedCoreObject = nil
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.Gamepad))
+				store:dispatch(SetMenuOpen(true))
+				store:dispatch(SetCurrentPage("GameSettings"))
+				store:flush()
 			end)
-		end
+
+			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(tostring(GuiService.SelectedCoreObject)).to.equal("Dot")
+
+			Roact.unmount(instance)
+			GuiService.SelectedCoreObject = nil
+		end)
 	end)
 end

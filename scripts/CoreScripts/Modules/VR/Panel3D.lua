@@ -21,6 +21,7 @@ local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
 local GetFFlagUIBloxVRApplyHeadScale =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
+local FFlagVRImproveCameraFlight = require(RobloxGui.Modules.Flags.FFlagVRImproveCameraFlight)
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -229,6 +230,7 @@ function Panel.new(name)
 	
 	self.FollowView = true
 	self.LastFollowCF = nil
+	self.LastCameraPos = Vector3.new(0,0,0)
 	
 	--self.wristLockPosition = false
 	self.wristTargetPosition = Vector3.new()
@@ -411,6 +413,14 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		
 		if not self.LastFollowCF then
 			self.LastFollowCF = userHeadCameraCF
+		end
+		
+		if FFlagVRImproveCameraFlight then
+			-- is camera moving ?
+			if (self.LastCameraPos - cameraCF.Position).Magnitude > 0.1 then
+				self.LastFollowCF = userHeadCameraCF
+			end
+			self.LastCameraPos = cameraCF.Position
 		end
 		
 		if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) < 0.85 then

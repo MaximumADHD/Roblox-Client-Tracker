@@ -15,10 +15,6 @@ local formatRecommendationContextType = SocialLuaAnalytics.Analytics.Formatters.
 local formatPresence = SocialLuaAnalytics.Analytics.Formatters.formatPresence
 
 local getFIntShowFriendRecommendationsLimit = require(FriendsCarousel.Flags.getFIntShowFriendRecommendationsLimit)
-local getFFlagFriendsCarouselAddUniverseIdToEvents =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
-
-local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 
 type GenericEvent = {
 	context: any,
@@ -62,7 +58,7 @@ local coreEvents = {
 			presence = formatPresence,
 			recommendationRank = acceptAnyValue,
 			userId = acceptAnyValue,
-			universeId = if getFFlagFriendsCarouselAddUniverseIdToEvents() then getUniverseIdFromUser else nil,
+			universeId = getUniverseIdFromUser,
 		},
 	},
 	[EventNames.UserPressed] = {
@@ -79,7 +75,7 @@ local coreEvents = {
 			friendStatus = formatFriendStatus,
 			isRecommendation = acceptAnyValue,
 			recommendationRank = acceptAnyValue,
-			universeId = if getFFlagFriendsCarouselAddUniverseIdToEvents() then getUniverseIdFromUser else nil,
+			universeId = getUniverseIdFromUser,
 		},
 	},
 	[EventNames.RequestFriendship] = {
@@ -154,7 +150,6 @@ local coreEvents = {
 			loadingThreshold = acceptAnyValue,
 
 			experimentLayerStatus = acceptAnyValue,
-			experimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else acceptAnyValue,
 			isLegacyCarousel = acceptAnyValue,
 		},
 	},

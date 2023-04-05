@@ -1,5 +1,6 @@
 --!nonstrict
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
+local Packages = FriendsLanding.Parent
 local AppStorageService = game:GetService("AppStorageService")
 local AddFriends = FriendsLanding.AddFriends
 local dependencies = require(AddFriends.dependencies)
@@ -31,8 +32,10 @@ local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterToolt
 local getShowNewAddFriendsPageVariant = require(FriendsLanding.Utils.getShowNewAddFriendsPageVariant)
 local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
+local ProfileQRCodeExperiments = require(Packages.ProfileQRCode).Experiments
+
+local getFFlagProfileQRCodeEnable3DAvatarExperiment =
+	ProfileQRCodeExperiments.getFFlagProfileQRCodeEnable3DAvatarExperiment
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
 local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
@@ -289,14 +292,12 @@ function AddFriendsContainer:init()
 		self.props.analytics:impressionEvent(ImpressionEvents.ContactImporterBannerSeen)
 	end
 
-	if getFFlagAddFriendsFullSearchbarAnalytics() then
-		self.fireSearchbarPressedEvent = function()
-			AddFriendsSearchbarPressedEvent(
-				self.props.analytics,
-				{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
-			)
-			PlayerSearchEvent(self.props.analytics, "open", { currentRoute = EnumScreens.AddFriends })
-		end
+	self.fireSearchbarPressedEvent = function()
+		AddFriendsSearchbarPressedEvent(
+			self.props.analytics,
+			{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
+		)
+		PlayerSearchEvent(self.props.analytics, "open", { currentRoute = EnumScreens.AddFriends })
 	end
 
 	if getFFlagAddFriendsQRCodeAnalytics() then
@@ -319,13 +320,14 @@ end
 
 function AddFriendsContainer:render()
 	local contactImporterAndPYMKEnabled = self.props.contactImporterAndPYMKEnabled
-	local addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
-		then self.props.addFriendsPageSearchbarEnabled
-		else nil
+	local addFriendsPageSearchbarEnabled = self.props.addFriendsPageSearchbarEnabled
 	local showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
 		then self.props.showNewAddFriendsPageVariant
 		else nil
 	return Roact.createElement(AddFriendsPage, {
+		navigateToLuaAppPages = if getFFlagProfileQRCodeEnable3DAvatarExperiment()
+			then self.props.navigateToLuaAppPages
+			else nil,
 		screenSize = self.props.screenSize,
 		friendRecommendations = self.props.friendRecommendations,
 		friendRequests = self.props.friendRequests,
@@ -346,11 +348,7 @@ function AddFriendsContainer:render()
 		refreshPage = self.refreshPage,
 		handleNavigateDownToViewUserProfile = self.handleNavigateDownToViewUserProfile,
 		handleOpenLearnMoreLink = if contactImporterAndPYMKEnabled then self.handleOpenLearnMore else nil,
-		navigation = if contactImporterAndPYMKEnabled
-				or getFFlagAddFriendsSearchbarIXPEnabled()
-				or getFFlagSocialOnboardingExperimentEnabled()
-			then self.props.navigation
-			else nil,
+		navigation = self.props.navigation,
 		contactImporterAndPYMKEnabled = contactImporterAndPYMKEnabled,
 		localUserId = if contactImporterAndPYMKEnabled then self.props.localUserId else nil,
 		shouldShowContactImporterFeature = if contactImporterAndPYMKEnabled
@@ -370,14 +368,10 @@ function AddFriendsContainer:render()
 			then self.handleOpenPhoneVerificationLinkWebview
 			else nil,
 		showTooltip = if getFFlagContactImporterUseNewTooltip() then self.props.showTooltip else nil,
-		wideMode = if getFFlagAddFriendsSearchbarIXPEnabled() then self.props.wideMode else nil,
-		setScreenTopBar = if getFFlagAddFriendsSearchbarIXPEnabled() then self.props.setScreenTopBar else nil,
-		addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
-			then addFriendsPageSearchbarEnabled
-			else nil,
-		fireSearchbarPressedEvent = if getFFlagAddFriendsFullSearchbarAnalytics()
-			then self.fireSearchbarPressedEvent
-			else nil,
+		wideMode = self.props.wideMode,
+		setScreenTopBar = self.props.setScreenTopBar,
+		addFriendsPageSearchbarEnabled = addFriendsPageSearchbarEnabled,
+		fireSearchbarPressedEvent = self.fireSearchbarPressedEvent,
 		openProfilePeekView = self.props.openProfilePeekView,
 		showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
 			then showNewAddFriendsPageVariant
@@ -395,40 +389,29 @@ function AddFriendsContainer:willUnmount()
 	self.props.getFriendRequestsCount(self.props.localUserId)
 end
 
-if getFFlagAddFriendsSearchbarIXPEnabled() then
-	AddFriendsContainer = compose(
-		RoactRodux.connect(mapStateToProps, mapDispatchToProps),
-		FriendsLandingAnalytics.connect(function(analytics)
-			return {
-				analytics = analytics,
-			}
-		end),
-		FriendsLandingContext.connect(function(context)
-			return {
-				wideMode = context.wideMode,
-				setScreenTopBar = context.setScreenTopBar,
-			}
-		end),
-		-- This is the main exposure event for the Social.AddFriendsPage layer
-		RoactAppExperiment.connectUserLayer({
-			getFStringSocialAddFriendsPageLayer(),
-		}, function(layerVariables, props)
-			local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
-			return {
-				addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
-			}
-		end)
-	)(AddFriendsContainer)
-else
-	AddFriendsContainer = compose(
-		RoactRodux.connect(mapStateToProps, mapDispatchToProps),
-		FriendsLandingAnalytics.connect(function(analytics)
-			return {
-				analytics = analytics,
-			}
-		end)
-	)(AddFriendsContainer)
-end
+AddFriendsContainer = compose(
+	RoactRodux.connect(mapStateToProps, mapDispatchToProps),
+	FriendsLandingAnalytics.connect(function(analytics)
+		return {
+			analytics = analytics,
+		}
+	end),
+	FriendsLandingContext.connect(function(context)
+		return {
+			wideMode = context.wideMode,
+			setScreenTopBar = context.setScreenTopBar,
+		}
+	end),
+	-- This is the main exposure event for the Social.AddFriendsPage layer
+	RoactAppExperiment.connectUserLayer({
+		getFStringSocialAddFriendsPageLayer(),
+	}, function(layerVariables, props)
+		local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
+		return {
+			addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
+		}
+	end)
+)(AddFriendsContainer)
 
 if getFFlagSocialOnboardingExperimentEnabled() then
 	AddFriendsContainer = compose(RoactAppExperiment.connectUserLayer({

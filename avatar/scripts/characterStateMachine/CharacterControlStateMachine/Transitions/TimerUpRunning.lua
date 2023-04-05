@@ -1,7 +1,7 @@
 --[[ TimerUpRunning Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local TimerUpRunning = baseTransition:extend()
+local TimerUpRunning = baseTransition:inherit()
 TimerUpRunning.name = script.Name
 TimerUpRunning.destinationName = "Running"
 TimerUpRunning.sourceName = "Landed"

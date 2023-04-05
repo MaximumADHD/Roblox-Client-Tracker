@@ -50,8 +50,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-	 
+
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
@@ -63,13 +62,13 @@ BasicPage.validateProps = t.strictInterface({
 	currentPage = t.optional(t.string),
 	canCaptureFocus = t.optional(t.boolean),
 	canGamepadCaptureFocus = t.optional(t.boolean),
-	vrService = GetFFlagInGameMenuVRToggle() and t.optional(t.union(t.Instance, t.table)) or nil,
+	vrService = t.optional(t.union(t.Instance, t.table)),
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 })
 
 BasicPage.defaultProps = {
 	-- vrService can be overridden as a prop to allow a mock for testing
-	vrService = GetFFlagInGameMenuVRToggle() and VRService or nil,
+	vrService = VRService,
 }
 
 local vrEnabledAtModuleLoad = UserGameSettings.VREnabled
@@ -79,7 +78,7 @@ function BasicPage:init()
 		shiftLockEnabled = localPlayer.DevEnableMouseLock,
 		fullScreenEnabled = UserGameSettings:InFullScreen(),
 		invertedCameraEnabled = UserGameSettings.IsUsingCameraYInverted,
-		vrActive =  GetFFlagInGameMenuVRToggle() and self.props.vrService.VREnabled or nil,
+		vrActive =  self.props.vrService.VREnabled,
 		vrEnabled = UserGameSettings.VREnabled,
 		voiceChatEnabled = false,
 	})
@@ -91,15 +90,13 @@ function BasicPage:init()
 end
 
 function BasicPage:didUpdate(prevProps)
-	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
-
 	if not GetFFlagIGMGamepadSelectionHistory() then
 		-- Gamepad navigation
 		-- if there is nothing selected on page open, select the first button in the menu
 		if (self.props.canCaptureFocus and self.props.canGamepadCaptureFocus)
 			and not (prevProps.canCaptureFocus and prevProps.canGamepadCaptureFocus)
 		then
-			if shouldSettingsDisabledInVRBeShown then
+			if not self.state.vrActive then
 				GuiService.SelectedCoreObject = self.cameraModeButton:getValue()
 			else
 				GuiService.SelectedCoreObject = self.volumeButton:getValue()
@@ -109,7 +106,6 @@ function BasicPage:didUpdate(prevProps)
 end
 
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
-	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
 	local showVoiceChatOptions = self.state.voiceChatEnabled
 
 	return Roact.createElement(Page, {
@@ -122,7 +118,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			didFocus = function(previousSelection)
 				if previousSelection then
 					GuiService.SelectedCoreObject = previousSelection
-				elseif shouldSettingsDisabledInVRBeShown then
+				elseif not self.state.vrActive then
 					GuiService.SelectedCoreObject = self.cameraModeButton:getValue()
 				else
 					GuiService.SelectedCoreObject = self.volumeButton:getValue()
@@ -150,20 +146,20 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				LayoutOrder = 1,
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.CameraTitle",
 			}),
-			CameraMode = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraModeEntry, {
+			CameraMode = not self.state.vrActive and Roact.createElement(CameraModeEntry, {
 				LayoutOrder = 2,
 				ButtonRef = self.cameraModeButton,
 				canOpen = self.props.canCaptureFocus,
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
 			}),
-			InvertedCamera = shouldSettingsDisabledInVRBeShown and
+			InvertedCamera = not self.state.vrActive and
 				self.state.invertedCameraEnabled and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 3,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.InvertedCamera",
 				instance = UserGameSettings,
 				valueKey = "CameraYInverted",
 			}),
-			CameraSensitivity = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraSensitivityEntry, {
+			CameraSensitivity = not self.state.vrActive and Roact.createElement(CameraSensitivityEntry, {
 				LayoutOrder = 4,
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 				isMenuOpen = self.props.isMenuOpen,
@@ -177,7 +173,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				LayoutOrder = 6,
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.ControlsAudio",
 			}),
-			ShiftLock = shouldSettingsDisabledInVRBeShown and Roact.createElement(AutoPropertyToggleEntry, {
+			ShiftLock = not self.state.vrActive and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 7,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.ShiftLock",
 				instance = UserGameSettings,
@@ -186,7 +182,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				offValue = Enum.ControlMode.Classic,
 				lockedToOff = not self.state.shiftLockEnabled,
 			}),
-			MovementMode = shouldSettingsDisabledInVRBeShown and Roact.createElement(MovementModeEntry, {
+			MovementMode = not self.state.vrActive and Roact.createElement(MovementModeEntry, {
 				LayoutOrder = 8,
 				canOpen = self.props.canCaptureFocus,
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
@@ -225,7 +221,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 				isMenuOpen = self.props.isMenuOpen,
 			}),
-			FullScreen = shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
+			FullScreen = not self.state.vrActive and Roact.createElement(ToggleEntry, {
 				LayoutOrder = 15,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 				checked = self.state.fullScreenEnabled,
@@ -234,7 +230,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			}),
-			VRMode = GetFFlagInGameMenuVRToggle() and (self.state.vrActive or UserGameSettings.HasEverUsedVR) and Roact.createElement(AutoPropertyToggleEntry, {
+			VRMode = (self.state.vrActive or UserGameSettings.HasEverUsedVR) and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 16,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
 				instance = UserGameSettings,
@@ -320,7 +316,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					})
 				end,
 			}),
-			VRActiveListener = GetFFlagInGameMenuVRToggle() and Roact.createElement(ExternalEventConnection, {
+			VRActiveListener = Roact.createElement(ExternalEventConnection, {
 				event = self.props.vrService:GetPropertyChangedSignal("VREnabled"),
 				callback = function()
 					if self.props.vrService.VREnabled then
@@ -331,7 +327,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					})
 				end,
 			}),
-			VREnabledListener = GetFFlagInGameMenuVRToggle() and Roact.createElement(ExternalEventConnection, {
+			VREnabledListener = Roact.createElement(ExternalEventConnection, {
 				event = VREnabledChanged,
 				callback = function()
 					self:setState({

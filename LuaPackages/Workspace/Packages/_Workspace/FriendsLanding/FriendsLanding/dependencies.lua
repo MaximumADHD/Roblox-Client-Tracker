@@ -19,8 +19,6 @@ local getFFlagContactImporterEnabledForDev = require(Packages.SharedFlags).getFF
 local getFFlagContactImporterWithPhoneVerification =
 	require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification
 local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFFlagVerifiedBadgeInFriendsLanding)
-local getFFlagAddFriendsSearchbarIXPEnabled = require(Packages.SharedFlags).getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagAddFriendsFullSearchbarAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsFullSearchbarAnalytics
 local getFStringSocialAddFriendsPageLayer = require(Packages.SharedFlags).getFStringSocialAddFriendsPageLayer
 local getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
@@ -136,8 +134,6 @@ return {
 	getFFlagContactImporterEnabledForDev = getFFlagContactImporterEnabledForDev,
 	getFFlagContactImporterWithPhoneVerification = getFFlagContactImporterWithPhoneVerification,
 	getFFlagVerifiedBadgeInFriendsLanding = getFFlagVerifiedBadgeInFriendsLanding,
-	getFFlagAddFriendsSearchbarIXPEnabled = getFFlagAddFriendsSearchbarIXPEnabled,
-	getFFlagAddFriendsFullSearchbarAnalytics = getFFlagAddFriendsFullSearchbarAnalytics,
 	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
 	getFStringSocialFriendsLayer = getFStringSocialFriendsLayer,

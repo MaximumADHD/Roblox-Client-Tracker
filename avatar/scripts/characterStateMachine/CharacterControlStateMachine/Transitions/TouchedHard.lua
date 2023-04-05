@@ -1,7 +1,7 @@
 --[[ TouchedHard Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local TouchedHard = baseTransition:extend()
+local TouchedHard = baseTransition:inherit()
 TouchedHard.name = script.Name
 TouchedHard.destinationName = "Ragdoll"
 TouchedHard.sourceName = "Swimming, Running"

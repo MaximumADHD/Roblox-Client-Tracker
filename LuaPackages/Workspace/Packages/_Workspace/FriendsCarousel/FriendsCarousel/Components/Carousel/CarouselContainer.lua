@@ -19,12 +19,8 @@ local EventNames = Analytics.EventNames
 local UserModel = dependencies.RoduxUsers.Models.User
 local PresenceModel = dependencies.RoduxPresence.Models.Presence
 local RecommendationModel = dependencies.RoduxFriends.Models.Recommendation
-local UIVariants = require(FriendsCarousel.Common.UIVariants)
 
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
-local getFFlagFriendsCarouselAddUniverseIdToEvents =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
-local getFFlagFriendsCarouselRemoveVariant = dependencies.getFFlagFriendsCarouselRemoveVariant
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local CarouselContainer = Roact.PureComponent:extend("CarouselContainer")
@@ -54,9 +50,6 @@ type Props = {
 	diagService: any,
 	eventIngestService: any,
 	eventStreamService: any,
-
-	-- remove with getFFlagFriendsCarouselRemoveVariant
-	friendsCarouselExperimentVariant: string?,
 }
 
 type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props
@@ -86,7 +79,6 @@ CarouselContainer.validateProps = t.strictInterface({
 	fetchingStatus = t.string,
 
 	--* Wrapper
-	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant() then nil else t.optional(t.string),
 	openProfilePeekView = t.callback,
 	openContextualMenu = t.callback,
 	showToast = t.callback,
@@ -105,9 +97,6 @@ CarouselContainer.validateProps = t.strictInterface({
 
 CarouselContainer.defaultProps = {
 	analyticsService = AnalyticsService,
-	friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-		then nil
-		else UIVariants.CIRCULAR_TILES,
 }
 
 function CarouselContainer:init()
@@ -144,7 +133,7 @@ function CarouselContainer:init()
 				recommendationRank = user.rank,
 				isRecommendation = if user.contextType then true else false,
 				userId = user.id,
-				universeId = if getFFlagFriendsCarouselAddUniverseIdToEvents() then user else nil,
+				universeId = user,
 			})
 
 			self:setState(function(state: State)
@@ -179,7 +168,7 @@ function CarouselContainer:init()
 			recommendationContextType = user.contextType,
 			recommendationRank = user.rank,
 			isRecommendation = if user.contextType then true else false,
-			universeId = if getFFlagFriendsCarouselAddUniverseIdToEvents() then user else nil,
+			universeId = user,
 		})
 
 		props.openProfilePeekView(user.id, {
@@ -245,9 +234,6 @@ function CarouselContainer:render()
 		Roact.createElement(Carousel, {
 			carousel = props.carousel,
 			carouselProps = props.carouselProps,
-			friendsCarouselExperimentVariant = if getFFlagFriendsCarouselRemoveVariant()
-				then nil
-				else props.friendsCarouselExperimentVariant,
 			showToast = props.showToast,
 			onSuccessfulRender = props.onSuccessfulRender,
 

@@ -18,6 +18,7 @@ local FFlagFaceAnimatorDisableVideoByDefault = game:DefineFastFlag("FaceAnimator
 local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
 local FFlagRvCaptureResolveReturnError = game:GetEngineFeature("RvCaptureResolveReturnError")
 local FFlagFacialAnimationStreamingPauseOnMute = game:GetEngineFeature("FacialAnimationStreamingPauseOnMute")
+local FFlagFacialAnimationStreamingServiceFixAnimatorSetup = game:DefineFastFlag("FacialAnimationStreamingServiceFixAnimatorSetup", false)
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -197,6 +198,11 @@ local function onAnimatorAdded(player, animator)
 		return
 	end
 
+	if FFlagFacialAnimationStreamingServiceFixAnimatorSetup and playerAnimations[player.UserId] then
+		playerTrace("onAnimatorAdded already done; skipping", player)
+		return
+	end
+
 	-- clear any previous waiting connection
 	clearConnection(player, Connections.AnimatorDataModelReady)
 
@@ -310,6 +316,10 @@ local function playerUpdate(player)
 	clearAllConnections(player)
 
 	if setupPlayer then
+		if FFlagFacialAnimationStreamingServiceFixAnimatorSetup and playerAnimations[player.UserId] then
+			playerTrace("Player already setup", player)
+			return
+		end
 		playerTrace("Player update - joined", player)
 
 		if player.Character then

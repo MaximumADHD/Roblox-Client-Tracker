@@ -21,16 +21,6 @@ local ChatLocalization = nil
 -- ROBLOX FIXME: Can we define ClientChatModules statically in the project config
 pcall(function() ChatLocalization = require((game:GetService("Chat") :: any).ClientChatModules.ChatLocalization :: any) end)
 
-local FFlagUserShowVerifiedBadgeInLegacyChat
-do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserShowVerifiedBadgeInLegacyChat")
-	end)
-	if success then
-		FFlagUserShowVerifiedBadgeInLegacyChat = value
-	end
-end
-
 function IsPlayerVerified(userId)
 	local player = PlayersService:GetPlayerByUserId(userId)
 
@@ -61,7 +51,7 @@ function CreateMessageLabel(messageData, channelName)
 	end
 
 	local speakerUserId = messageData.SpeakerUserId
-	if FFlagUserShowVerifiedBadgeInLegacyChat and IsPlayerVerified(speakerUserId) then
+	if IsPlayerVerified(speakerUserId) then
 		speakerName = AppendVerifiedBadge(speakerName)
 	end
 	

@@ -12,7 +12,6 @@ local HeaderBar = UIBlox.App.Bar.HeaderBar
 
 local getActiveChildNavigationOptionsSafely = require(FriendsLanding.Navigator.getActiveChildNavigationOptionsSafely)
 
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 local getFFlagAddFriendsSearchbarWidemodeUpdate =
 	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 
@@ -51,7 +50,7 @@ function FriendsLandingHeaderBar:render()
 		})(function(localized)
 			local titleText = localized.titleText
 
-			if getFFlagAddFriendsSearchbarIXPEnabled() and context.addFriendsPageSearchbarEnabled then
+			if context.addFriendsPageSearchbarEnabled then
 				local wideModeSearchbarButton = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 					then nil
 					else context.wideMode and navigationOptions.shouldRenderSearchbarButtonInWideMode

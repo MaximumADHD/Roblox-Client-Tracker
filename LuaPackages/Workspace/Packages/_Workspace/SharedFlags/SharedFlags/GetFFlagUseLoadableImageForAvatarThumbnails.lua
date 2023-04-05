@@ -9,15 +9,10 @@
 ]]
 local GetFFlagUIBloxLoadableImageResponsiveThumbnails =
 	require(script.Parent.UIBlox.GetFFlagUIBloxLoadableImageResponsiveThumbnails)
-local GetFFlagAXSaveAvatarThumbnailCustomizationWithAES =
-	require(script.Parent.GetFFlagAXSaveAvatarThumbnailCustomizationWithAES)
 
 game:DefineFastFlag("UseLoadableImageForAvatarThumbnails", false)
 
 return function()
-	if not GetFFlagAXSaveAvatarThumbnailCustomizationWithAES() then
-		return false
-	end
 	if not GetFFlagUIBloxLoadableImageResponsiveThumbnails() then
 		return false
 	end

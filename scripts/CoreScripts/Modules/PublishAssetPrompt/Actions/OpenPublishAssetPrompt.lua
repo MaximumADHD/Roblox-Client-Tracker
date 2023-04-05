@@ -5,12 +5,30 @@
 		PublishAssetPrompt.Reducer.PromptRequestReducer
 ]]
 local CorePackages = game:GetService("CorePackages")
+local Rodux = require(CorePackages.Rodux)
 
-local Action = require(CorePackages.AppTempCommon.Common.Action)
+export type Action = {
+	type: string,
+	promptInfo: {
+		promptType: string,
+		assetInstance: any,
+		assetType: Enum.AssetType,
+		guid: string,
+		scopes: any,
+	},
+}
 
-return Action(script.Name, function(assetInstance, assetType)
-	return {
-		assetInstance = assetInstance,
-		assetType = assetType,
-	}
-end)
+return Rodux.makeActionCreator(
+	script.Name,
+	function(promptType: string, assetInstance: any, assetType: Enum.AssetType, guid: string, scopes: any)
+		return {
+			promptInfo = {
+				promptType = promptType,
+				assetInstance = assetInstance,
+				assetType = assetType,
+				guid = guid,
+				scopes = scopes,
+			},
+		}
+	end
+)

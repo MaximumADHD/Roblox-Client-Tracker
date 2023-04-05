@@ -1,7 +1,7 @@
 --[[ JumpRagdollCmd Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local JumpRagdollCmd = baseTransition:extend()
+local JumpRagdollCmd = baseTransition:inherit()
 JumpRagdollCmd.name = script.Name
 JumpRagdollCmd.destinationName = "GettingUp"
 JumpRagdollCmd.sourceName = "Ragdoll"

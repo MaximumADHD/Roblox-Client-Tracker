@@ -8,9 +8,11 @@ local it = JestGlobals.it
 
 it("SHOULD have expected API", function()
 	expect(ProfileQRCode).toEqual({
-		installReducer = expect.any("function"),
-		RoduxKey = expect.any("string"),
-		ProfileQRCodeEntryPoint = expect.any("function"),
 		["jest.config"] = expect.anything(),
+		Experiments = expect.any("table"),
+		installReducer = expect.any("function"),
+		ProfileQRCodeEntryPoint = expect.any("function"),
+		RoduxKey = expect.any("string"),
+		TitleKey = expect.any("string"),
 	})
 end)

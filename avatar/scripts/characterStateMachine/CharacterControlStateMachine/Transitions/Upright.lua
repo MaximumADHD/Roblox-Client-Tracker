@@ -1,7 +1,7 @@
 --[[ Upright Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local Upright = baseTransition:extend()
+local Upright = baseTransition:inherit()
 Upright.name = script.Name
 Upright.destinationName = "Running"
 Upright.sourceName = "GettingUp"

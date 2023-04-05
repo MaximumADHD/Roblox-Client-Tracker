@@ -5,6 +5,8 @@ local LocalizedKeys = require(FriendsLanding.Enums.LocalizedKeys)
 
 local HeaderBarRightView = require(FriendsLanding.Components.HeaderBarRightView)
 local HeaderBarCenterView = require(FriendsLanding.Components.HeaderBarCenterView)
+local getFFlagNewHeaderBarForFriendsLandingEnabled =
+	require(FriendsLanding.Flags.getFFlagNewHeaderBarForFriendsLandingEnabled)
 
 return function(navProps)
 	return {
@@ -12,6 +14,7 @@ return function(navProps)
 			raw = LocalizedKeys.FriendsHeader.rawValue(),
 			shouldLocalize = true,
 		},
+		useSecondaryHeader = if getFFlagNewHeaderBarForFriendsLandingEnabled() then true else nil,
 		shouldExitNavigation = false,
 		tabBarVisible = false,
 		renderRight = function()

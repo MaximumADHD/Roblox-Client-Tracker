@@ -6,20 +6,29 @@
 	More info here: https://jira.rbx.com/browse/AVBURST-10955
 ]]
 
---local AssetService = game:GetService("AssetService")
+local ExpAuthSvc = game:GetService("ExperienceAuthService")
 
---local PublishAssetPrompt = script.Parent
-
---local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenSetFavoritePrompt)
+local PublishAssetPrompt = script.Parent
+local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
 
 local function ConnectAssetServiceEvents(store)
 	local connections = {}
 
-	-- TODO nkyger: uncomment this once OpenPromptPublishAsset event has been added to game-engine
-	-- (this currently causes a CI build failure due to missing event)
-	--table.insert(connections, AssetService.OpenPromptPublishAsset:Connect(function(assetInstance, assetType)
-	--	store:dispatch(OpenPublishAssetPrompt(assetInstance, assetType))
-	--end))
+	-- Only subscribe to event if it exists
+	if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
+		-- Event that fires when the dev triggers the in-experience "Publish Asset" prompt.
+		table.insert(
+			connections,
+			ExpAuthSvc.OpenAuthPrompt:Connect(function(guid, scopes, metadata)
+				-- Check scopes; we only want to show the publish prompt for the CreatorAssetsCreate scope
+				if #scopes == 1 and scopes[1] == Enum.ExperienceAuthScope.CreatorAssetsCreate then
+					store:dispatch(
+						OpenPublishAssetPrompt(metadata["instanceToPublish"], metadata["assetType"], guid, scopes)
+					)
+				end
+			end)
+		)
+	end
 
 	return connections
 end

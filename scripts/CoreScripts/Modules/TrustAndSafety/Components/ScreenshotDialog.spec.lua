@@ -45,6 +45,7 @@ return function()
 						localization = Localization.new("en-us"),
 					}, {
 						ScreenshotDialog = Roact.createElement(ScreenshotDialog, {
+							screenshot= "",
 							reportAction = fn(),
 							dismissAction = fn(),
 						}),

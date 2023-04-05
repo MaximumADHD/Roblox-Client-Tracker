@@ -7,6 +7,8 @@ local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local EventsList = require(script.Parent.EventsList)
 local getFFlagFetchEventsFromWrapper = require(VirtualEvents.Parent.SharedFlags).getFFlagFetchEventsFromWrapper
+local getFFlagRemoveVirtualEventsExperiment =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagRemoveVirtualEventsExperiment
 
 local mockResolvers = if getFFlagFetchEventsFromWrapper()
 	then nil
@@ -111,7 +113,7 @@ return {
 					virtualEvents = virtualEvents,
 					universeId = props.controls.universeId,
 					currentTime = DateTime.now(),
-					mockVirtualEventsMVPEnabled = true,
+					mockVirtualEventsMVPEnabled = if getFFlagRemoveVirtualEventsExperiment() then nil else true,
 					isDesktopGrid = props.controls.isDesktopGrid,
 					initialEventsShown = if props.controls.isDesktopGrid then 2 else 1,
 				}),

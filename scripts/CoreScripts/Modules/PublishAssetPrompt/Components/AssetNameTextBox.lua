@@ -24,7 +24,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local TEXTBOX_HEIGHT = 30
 local TEXTBOX_PADDING = 6
 
-local MAX_NAME_LENGTH = 99 --TODO: figure out actual max name length
+local MAX_NAME_LENGTH = 50 -- Source of truth is AssetConfigConstants in game-engine
 local BUTTON_STOKE = Images["component_assets/circle_17_stroke_1"]
 local BACKGROUND_9S_CENTER = Rect.new(8, 8, 8, 8)
 local WARNING_TEXT_SIZE = 12
@@ -32,6 +32,8 @@ local WARNING_TEXT_SIZE = 12
 local AssetNameTextBox = Roact.PureComponent:extend("AssetNameTextBox")
 
 AssetNameTextBox.validateProps = t.strictInterface({
+	Size = t.optional(t.UDim2),
+	Position = t.optional(t.UDim2),
 	onAssetNameUpdated = t.callback, -- function(newName, isNameInvalid)
 })
 
@@ -70,7 +72,8 @@ function AssetNameTextBox:init()
 		local assetName = rbx.Text
 
 		if isNameTooLong(assetName, MAX_NAME_LENGTH) then
-			assetName = self.state.lastValidName
+			local byteOffset = utf8.offset(assetName, MAX_NAME_LENGTH + 1) - 1
+			assetName = string.sub(assetName, 1, byteOffset)
 			rbx.Text = assetName
 		end
 

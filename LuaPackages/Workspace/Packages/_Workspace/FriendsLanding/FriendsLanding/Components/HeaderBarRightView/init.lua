@@ -14,8 +14,6 @@ local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonC
 local PlayerSearchEvent = require(FriendsLanding.FriendsLandingAnalytics.PlayerSearchEvent)
 local compose = SocialLibraries.RoduxTools.compose
 
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-
 local ICON_WIDTH = 36
 local ICON_PADDING = 0
 local SearchFriendsIcon = function(props)
@@ -82,7 +80,7 @@ function HeaderBarRightView:render()
 	local navigation = self.props.navigation
 	local shouldShowSearchIcon, shouldShowAddFriendsIcon
 
-	if getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled then
+	if self.props.addFriendsPageSearchbarEnabled then
 		SCREEN_BUTTONS.SHOW_ADDFRIENDS_ICON[EnumScreens.SearchFriends] = false
 	end
 
@@ -134,9 +132,7 @@ return compose(
 			friendRequestCount = state.friendRequestCount,
 			totalFriendCount = state.totalFriendCount,
 			luaAddFriendsPageEnabled = state.luaAddFriendsPageEnabled,
-			addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled()
-				then state.addFriendsPageSearchbarEnabled
-				else nil,
+			addFriendsPageSearchbarEnabled = state.addFriendsPageSearchbarEnabled,
 		}
 	end)
 )(HeaderBarRightView)

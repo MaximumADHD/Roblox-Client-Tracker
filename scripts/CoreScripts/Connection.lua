@@ -20,10 +20,6 @@ local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocaliz
 -- After 2 hours, disable reconnect after the failure of first try
 local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSeconds", 7200)
 
-local fflagPredictedOOMExit = game:DefineFastFlag("PredictedOOMExit", false)
-local fflagPredictedOOMExitContinueChoice = game:DefineFastFlag("PredictedOOMExitContinueChoice", false)
-local fflagExitContinueHighlight = game:DefineFastFlag("ExitContinueHighlight", false)
-local fflagPredictedOOMKeepPlayingExit = game:DefineFastFlag("PredictedOOMKeepPlayingExit", false)
 local fflagPredictedOOMKeepPlayingLeave = game:DefineFastFlag("PredictedOOMKeepPlayingLeave", false)
 
 local fflagSanitizeKickMessageInDisconnectPrompt = game:DefineFastFlag("SanitizeKickMessageInDisconnectPrompt", false)
@@ -43,7 +39,6 @@ local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagC
 
 local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessage")
 local FFlagVRFixErrorPrompt = require(RobloxGui.Modules.Flags.FFlagVRFixErrorPrompt)
-local FFlagXboxEnableDisconnectPrompt = require(RobloxGui.Modules.Flags.FFlagXboxEnableDisconnectPrompt)
 
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()
@@ -86,10 +81,7 @@ local ConnectionPromptState = {
 	RECONNECT_DISABLED_DISCONNECT = 6, -- i.e After Player Being Kicked From Server
 	RECONNECT_DISABLED_PLACELAUNCH = 7, -- Unauthorized join
 	RECONNECT_DISABLED = 8, -- General Disable by FFlag, i.e overloaded servers
-	OUT_OF_MEMORY = 9, -- Show Out Of Memory Message
-	OUT_OF_MEMORY_EXIT_CONTINUE = 10, -- Show Out Of Memory with Exit/Continue Message
-	OUT_OF_MEMORY_KEEPPLAYING_EXIT = 11, -- Show Out Of Memory with Keep Playing/Exit Message
-	OUT_OF_MEMORY_KEEPPLAYING_LEAVE = 12, -- Show Out Of Memory with Keep Playing/Leave Message
+	OUT_OF_MEMORY_KEEPPLAYING_LEAVE = 9, -- Show Out Of Memory with Keep Playing/Leave Message
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -105,9 +97,6 @@ local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = "Disconnected",
 	[ConnectionPromptState.TELEPORT_FAILED] = "Teleport Failed",
 	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
-	[ConnectionPromptState.OUT_OF_MEMORY] = "Disconnected",
-	[ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE] = "Experience Unstable",
-	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT] = "Out of Memory",
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE] = "Low Memory Warning",
 }
 
@@ -118,9 +107,6 @@ local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = "InGame.ConnectionError.Title.Disconnected",
 	[ConnectionPromptState.TELEPORT_FAILED] = "InGame.ConnectionError.Title.TeleportFailed",
 	[ConnectionPromptState.RECONNECT_DISABLED] = "InGame.CommonUI.Title.Error",
-	[ConnectionPromptState.OUT_OF_MEMORY] = "InGame.ConnectionError.Title.Disconnected",
-	[ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE] = "InGame.ConnectionError.Title.ExperienceUnstable",
-	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT] = "InGame.ConnectionError.Title.OutOfMemory",
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE] = "InGame.ConnectionError.Title.LowMemoryWarning",
 }
 
@@ -309,46 +295,6 @@ local ButtonList = {
 			Primary = true,
 		},
 	},
-	[ConnectionPromptState.OUT_OF_MEMORY] = {
-		{
-			Text = "OK",
-			LocalizationKey = "InGame.CommonUI.Button.Ok",
-			LayoutOrder = 1,
-			Callback = leaveFunction,
-			Primary = true,
-		},
-	},
-	[ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE] = {
-		{
-			Text = "Exit",
-			LocalizationKey = "InGame.CommonUI.Button.Exit",
-			LayoutOrder = 1,
-			Callback = leaveFunction,
-			Primary = true,
-		},
-		{
-			Text = "Continue",
-			LocalizationKey = "InGame.CommonUI.Button.Continue",
-			LayoutOrder = 2,
-			Callback = closePrompt,
-			Primary = if fflagExitContinueHighlight then nil else true,
-		},
-	},
-	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT] = {
-		{
-			Text = "Keep Playing",
-			LocalizationKey = "InGame.CommonUI.Button.KeepPlaying",
-			LayoutOrder = 1,
-			Callback = closePrompt,
-		},
-		{
-			Text = "Exit",
-			LocalizationKey = "InGame.CommonUI.Button.Exit",
-			LayoutOrder = 2,
-			Callback = leaveFunction,
-			Primary = true,
-		},
-	},
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE] = {
 		{
 			Text = "Keep Playing",
@@ -414,15 +360,6 @@ local updateFullScreenEffect = {
 		promptOverlay.Active = true
 		promptOverlay.Transparency = 1
 	end,
-	[ConnectionPromptState.OUT_OF_MEMORY] = function()
-		if FFlagVRFixErrorPrompt and VRService.VREnabled then
-			RunService:SetRobloxGuiFocused(false)
-		else
-			RunService:SetRobloxGuiFocused(true)
-		end
-		promptOverlay.Active = true
-		promptOverlay.Transparency = 1
-	end,
 }
 
 local function onEnter(newState)
@@ -469,21 +406,6 @@ local function stateTransit(errorType, errorCode, oldState)
 				and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryKeepPlayingLeave"]
 			then
 				return ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE
-			end
-			if
-				fflagPredictedOOMKeepPlayingExit
-				and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryKeepPlayingExit"]
-			then
-				return ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT
-			end
-			if
-				fflagPredictedOOMExitContinueChoice
-				and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryExitContinue"]
-			then
-				return ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE
-			end
-			if fflagPredictedOOMExit and errorCode == Enum.ConnectionError["DisconnectOutOfMemory"] then
-				return ConnectionPromptState.OUT_OF_MEMORY
 			end
 			if reconnectDisabledList[errorCode] then
 				return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
@@ -641,13 +563,7 @@ local function onLocaleIdChanged()
 end
 
 -- only when we load this script from engine (engine feature LoadErrorHandlerFromEngine is enabled)
--- when we remove FFlagXboxEnableDisconnectPrompt, this will be enabled for all platforms, we can
--- then rely on LoadErrorHandlerFromEngine
-local loadErrorHandlerFromEngine = game:GetEngineFeature("LoadErrorHandlerFromEngine")
-local shouldSetUpErrorHandlerForXbox = FFlagXboxEnableDisconnectPrompt() and GuiService:IsTenFootInterface()
-local shouldSetUpErrorHandlerFromThisScript = not (loadErrorHandlerFromEngine and GuiService:IsTenFootInterface())
-
-if shouldSetUpErrorHandlerFromThisScript or shouldSetUpErrorHandlerForXbox then
+if game:GetEngineFeature("LoadErrorHandlerFromEngine") then
 	RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
 	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
 

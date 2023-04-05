@@ -1,7 +1,7 @@
 --[[ Tipped Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local Tipped = baseTransition:extend()
+local Tipped = baseTransition:inherit()
 Tipped.name = script.Name
 Tipped.destinationName = "FallingDown"
 Tipped.sourceName = "Landed, Running"

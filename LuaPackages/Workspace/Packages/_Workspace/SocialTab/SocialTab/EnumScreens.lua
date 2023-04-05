@@ -24,4 +24,5 @@ return {
 
 	VerifiedBadgeModal = "VerifiedBadgeModal",
 	DiscoverabilityModal = "DiscoverabilityModal",
+	ProfileQRCode = "ProfileQRCode",
 }

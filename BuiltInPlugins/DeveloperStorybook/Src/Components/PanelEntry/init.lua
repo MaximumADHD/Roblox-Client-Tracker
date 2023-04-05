@@ -35,6 +35,7 @@ function PanelEntry:render()
 	local size = props.Size
 
 	local contentChildren = props[Roact.Children]
+	local headerStyles = if props.IsTitle then text.Title else text.Header
 	local hasChild = contentChildren and mapOne(contentChildren)
 	local hasDescription = typeof(description) == "string" and description ~= ""
 
@@ -45,8 +46,9 @@ function PanelEntry:render()
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Size = UDim2.new(1, 0, 0, 0),
 			Text = header,
-			TextSize = text.Header.Size,
-			TextColor = text.Header.Color,
+			Font = headerStyles.Font,
+			TextSize = headerStyles.Size,
+			TextColor = headerStyles.Color,
 		}),
 		Description = hasDescription and Roact.createElement(TextLabel, {
 			LayoutOrder = 2,

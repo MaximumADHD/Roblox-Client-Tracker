@@ -37,6 +37,7 @@ local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicCo
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local GetFFlagPlayerBillboardReducerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerBillboardReducerEnabled
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
@@ -61,6 +62,7 @@ BubbleChatBillboard.validateProps = t.strictInterface({
 	messageIds = t.optional(t.array(t.string)), -- messageIds == nil during the last bubble's fade out animation
 	lastMessage = t.optional(Types.IMessage),
 	voiceState = t.optional(t.string),
+	shouldNotRenderVoiceAndCameraBubble = if GetFFlagPlayerBillboardReducerEnabled() then t.optional(t.boolean) else nil,
 })
 
 function BubbleChatBillboard:init()
@@ -416,6 +418,10 @@ function BubbleChatBillboard:shouldShowControlBubble()
 end
 
 function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
+	if GetFFlagPlayerBillboardReducerEnabled() and self.props.shouldNotRenderVoiceAndCameraBubble then
+		return false
+	end
+
 	-- If voice isn't enabled, never render buttons
 	if not self.props.voiceEnabled and not FFlagDebugAllowControlButtonsNoVoiceChat then
 		return false
@@ -607,6 +613,9 @@ local function mapStateToProps(state, props)
 		messageIds = messageIds,
 		lastMessage = lastMessage,
 		voiceState = voiceState,
+		shouldNotRenderVoiceAndCameraBubble = if GetFFlagPlayerBillboardReducerEnabled()
+			then state.playerBillboardSettings.shouldNotRenderVoiceAndCameraBubble
+			else nil,
 	}
 end
 

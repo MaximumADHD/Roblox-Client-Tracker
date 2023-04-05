@@ -29,15 +29,11 @@ it("SHOULD return correct data for default state", function()
 		},
 	}
 	local newProps = carouselMapStateToProps(state, RODUX_KEY)
-	jestExpect(newProps).toEqual({
-		localUserId = state.LocalUserId,
-	})
+	jestExpect(newProps).toEqual({})
 end)
 
 it("SHOULD return correct data with not empty state", function()
 	local state = baseTestStates.friendsAndRecommendations
 	local newProps = carouselMapStateToProps(state, RODUX_KEY)
-	jestExpect(newProps).toEqual({
-		localUserId = state.LocalUserId,
-	})
+	jestExpect(newProps).toEqual({})
 end)

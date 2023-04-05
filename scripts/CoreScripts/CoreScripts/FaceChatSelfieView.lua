@@ -35,13 +35,15 @@ function debugPrint(text)
 	end
 end
 
-debugPrint("Self View 03-9-2023__1")
-
+local newTrackerStreamAnimation = nil
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
+local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local EngineFeatureReplicateTrackerData = game:GetEngineFeature("ReplicateTrackerData")
 local FastFlagFacialAnimationUsePhysicsTransport = game:DefineFastFlag("FacialAnimationUsePhysicsTransport", false)
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
+local FFlagUseLoadStreamAnimationForClone = game:DefineFastFlag("UseLoadStreamAnimationForClone", false)
+local FFlagSelfViewFixCloneOrientation = game:DefineFastFlag("SelfViewFixCloneOrientation", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -147,6 +149,8 @@ local lastReportedCamState = false
 local toggleSelfViewSignalConnection
 local noDynamicHeadEquippedInfoShown = false
 local localPlayerHasDynamicHead = nil
+
+--log:trace("Self View 03-27-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -980,14 +984,18 @@ local function syncTrack(animator, track)
 	-- create the track
 	local cloneTrack = nil
 	if track.Animation:IsA("Animation") then
-		--	cloneTrack = animator:LoadAnimation(track.Animation)
-		--	cloneTrack.TimePosition = track.TimePosition
-		--	cloneTrack:AdjustSpeed(track.Speed)
+		--regular animation sync handled further below
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
 		if FastFlagFacialAnimationUsePhysicsTransport or EngineFeatureReplicateTrackerData then
-
 			debugPrint("FastFlagFacialAnimationUsePhysicsTransport")
-			cloneTrack = animator:LoadStreamAnimation(track.Animation)
+			if FFlagUseLoadStreamAnimationForClone and EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled then
+				log:trace("FFlagUseLoadStreamAnimationForClone: using LoadStreamAnimationForClone!")
+				newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
+				cloneTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, Players.LocalPlayer)
+			else
+				log:trace("animator:LoadStreamAnimation, not FFlagUseLoadStreamAnimationForClone")
+				cloneTrack = animator:LoadStreamAnimation(track.Animation)
+			end
 		else
 			--in non physics transport way there were jitters when reusing the game world avatar's stream animation so there we were creating a new one for self view
 			local newAnimation = Instance.new("TrackerStreamAnimation")
@@ -1145,6 +1153,18 @@ local function updateClone(player)
 	end
 
 	clone = character:Clone()
+
+	--resetting the joints orientations in the clone since it can happen that body/head IK like code was applied on the player avatar
+	--and we want to start with default pose setup in clone, else issues with clone avatar (parts) orientation etc
+	if FFlagSelfViewFixCloneOrientation then
+		for _, part in ipairs( clone:GetDescendants()) do
+			if part:IsA("Motor6D") then
+				part.C0 = CFrame.new(part.C0.Position)
+				part.C1 = CFrame.new(part.C1.Position)
+			end
+		end
+	end
+
 	clone.Name = cloneCharacterName
 
 	-- remove unneeded cloned assets
@@ -1241,6 +1261,11 @@ local function updateClone(player)
 				track:Stop(0)
 				track:Destroy()
 			end
+		end
+
+		if newTrackerStreamAnimation then
+			newTrackerStreamAnimation:Destroy()
+			newTrackerStreamAnimation = nil
 		end
 
 		if animator then
@@ -1858,7 +1883,7 @@ StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, newState)
 				.. tostring(shouldBeEnabledCoreGuiSetting)
 		)
 		--when disable call comes in we always do it, when enable call comes in only if not visible already
-		if not newState or frame.Visible ~= newState then
+		if not newState or frame == nil or (frame ~= nil and frame.Visible ~= newState) then
 			if newState then
 				if initialized then
 					ReInit(Players.LocalPlayer)

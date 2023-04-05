@@ -83,8 +83,16 @@ describe("DiscoverabilityOverlayContainer", function()
 		end)
 	end)
 
-	describe("RadioButtons", function()
-		it("SHOULD not prefill YES setting if value is false", function()
+	describe("Selector", function()
+		local flag
+		beforeAll(function()
+			flag = game:SetFastFlagForTesting("DiscoverabilityUpsellPrefillDiscoverableRedesignEnabledForAll", true)
+		end)
+		afterAll(function()
+			game:SetFastFlagForTesting("DiscoverabilityUpsellPrefillDiscoverableRedesignEnabledForAll", flag)
+		end)
+
+		it("SHOULD be RadioButtons and not prefill YES setting if value is false", function()
 			local discoverabilityOverlayContainer = createTreeWithProviders(DiscoverabilityOverlayContainer, {
 				store = mockStore(Dash.join(DEFAULT_STORE, {
 					DiscoverabilityModal = {
@@ -106,17 +114,17 @@ describe("DiscoverabilityOverlayContainer", function()
 			end)
 		end)
 
-		it("SHOULD prefill YES setting if value is true", function()
+		it("SHOULD be Checkbox and prefill checked if value is true", function()
 			local discoverabilityOverlayContainer = createTreeWithProviders(DiscoverabilityOverlayContainer, {
 				store = mockStore(DEFAULT_STORE),
 				props = DEFAULT_PROPS,
 			})
 
 			runWhileMounted(discoverabilityOverlayContainer, function(parent)
-				local yesRadioButton = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "RadioButton1",
+				local yesCheckboxButton = RhodiumHelpers.findFirstInstance(parent, {
+					Name = "Checkbox",
 				})
-				expect(yesRadioButton.InputButtonImage.InputFillImage.Size).toBe(UDim2.fromOffset(18, 18))
+				expect(yesCheckboxButton.InputButtonImage.InputFillImage.Size).toBe(UDim2.fromOffset(14, 14))
 			end)
 		end)
 	end)

@@ -1,4 +1,3 @@
---!strict
 local baseState = require(script.Parent:WaitForChild("BaseStateModule"))
 local baseTransition = require(script.Parent:WaitForChild("BaseTransitionModule"))
 
@@ -26,19 +25,8 @@ local function SplitStringByCharacter(list, character : string)
 	return out
 end
 
-local RunService = game:GetService("RunService") 
-function BaseStateMachine:CountChildren()
-	if RunService:IsServer() then
-		local childCount = 0
-		for _,c in pairs(script:GetChildren()) do
-			childCount = childCount + 1 
-		end
-		script:SetAttribute("ChildCount", childCount)
-	end
-end
-
 function BaseStateMachine:SetupStates()
-	local Definition = BaseStateMachine.definition
+	local Definition = self.definition
 	for stateName, stateDef in pairs(Definition.stateDefs) do
 		local stateInstance = stateDef.new()
 		self.states[stateName] = stateInstance
@@ -46,7 +34,7 @@ function BaseStateMachine:SetupStates()
 end
 
 function BaseStateMachine:SetupTranstions()
-	local Definition = BaseStateMachine.definition
+	local Definition = self.definition
 	for _, transitionDef in pairs(Definition.transitionDefs) do
 		local transitionInstance = transitionDef.new()
 		-- local transitionSourceAttrib = transitionModule:GetAttribute("Source")
@@ -66,41 +54,7 @@ function BaseStateMachine:SetupTranstions()
 	end
 end
 
------------------------ PUBLIC FUNCTIONS -----------------------
-function BaseStateMachine:CreateTransition()
-	return baseTransition:extend()
-	-- may need to add this transition to the state machine transition definition list
-end
-
-function BaseStateMachine:CreateState()
-	return baseState:extend()
-	-- may need to add this state to the state machine state definition list
-end
-
-function BaseStateMachine:GetStateByName(stateName)
-	for name, state in pairs(self.states) do
-		if name == stateName then
-			return state
-		end
-	end
-	return nil
-end
-
-function BaseStateMachine:InitializeFromDefinition()
-	self.currentState = nil
-	self.context = { }
-	self.states = { }
-		
-	self:SetupStates()
-	self:SetupTranstions()
-	if BaseStateMachine.definition.startingStateName == nil then
-		warn("No Starting State Specified.")
-	else
-		self:SetState(self:GetStateByName(BaseStateMachine.definition.startingStateName))
-	end
-end
-
-function BaseStateMachine:SetState(newState)
+function BaseStateMachine:SetStateFromState(newState)
 	if newState ~= self.currentState then
 		local oldState = self.currentState
 		local oldStateName, newStateName
@@ -119,6 +73,69 @@ function BaseStateMachine:SetState(newState)
 	end
 end
 
+function BaseStateMachine:InitializeFromDefinition()
+	self.currentState = nil
+	self.context = { }
+	self.states = { }
+
+	self:SetupStates()
+	self:SetupTranstions()
+	if self.definition.startingStateName == nil then
+		warn("No Starting State Specified.")
+	else
+		self:SetState(self.definition.startingStateName)
+	end
+end
+
+function BaseStateMachine:InternalNew(...)
+	local newSelf = {}
+	local baseClass = self.baseClass
+	if baseClass then
+		newSelf = baseClass:InternalNew(...)
+		newSelf.name = self.name
+	else
+		newSelf = {
+			name = BaseStateMachine.name,
+			OnStateChanged = Instance.new("BindableEvent"),
+			currentState = nil,
+			context = { },
+			states = { }	
+		}
+	end
+	setmetatable(newSelf, self)
+	return newSelf
+end
+
+----------------------- PUBLIC FUNCTIONS -----------------------
+function BaseStateMachine:CreateTransition()
+	return baseTransition:inherit()
+	-- may need to add this transition to the state machine transition definition list
+end
+
+function BaseStateMachine:CreateState()
+	return baseState:inherit()
+	-- may need to add this state to the state machine state definition list
+end
+
+function BaseStateMachine:GetStateByName(stateName : string)
+	for name, state in pairs(self.states) do
+		if name == stateName then
+			return state
+		end
+	end
+	return nil
+end
+
+function BaseStateMachine:SetState(newStateName : string)
+	local newState = self:GetStateByName(newStateName)
+	if newState == nil then
+		warn("SetState(): Unable to find state named" .. newStateName .. ".")
+		return
+	end
+	
+	self:SetStateFromState(newState)
+end
+
 function BaseStateMachine:GetCurrentStateName() : string
 	if self.currentState ~= nil then
 		return self.currentState.name
@@ -130,7 +147,7 @@ end
 function BaseStateMachine:OnStepped(dt)	
 	-- check for state transitions
 	if self.currentState ~= nil then
-		self:SetState(self.currentState:CheckTransitions(self))
+		self:SetStateFromState(self.currentState:CheckTransitions(self))
 
 		-- run current state, need to check for nil again since it could have changed in transitions above
 		if self.currentState ~= nil then
@@ -144,15 +161,27 @@ end
 
 -- need to plumb extend as the basic mechanism for inheritence through the entire model
 -- child classes should 'extend' from base classes at all levels to ensure the functions correctly has the base classes set
-function BaseStateMachine:extend()	
+function BaseStateMachine:inherit()	
 	local derivedSM = setmetatable({
-		baseStateMachine = self,
-		definition = BaseStateMachine.definition 
+		baseClass = self,
+		definition = {
+			startingStateName = self.definition.startingStateName,
+			stateDefs = { },
+			transitionDefs = { }
+		} 
 	}, self)
+	local Definition = self.definition
+	for StateName, StateDef in pairs(Definition.stateDefs) do
+		derivedSM.definition.stateDefs[StateName] = StateDef 
+	end
+	for TransitionName, TransitionDef in pairs(Definition.transitionDefs) do
+		derivedSM.definition.transitionDefs[TransitionName] = TransitionDef 
+	end
 	derivedSM.__index = derivedSM
 	
 	function derivedSM.new(...)
-		local self = setmetatable(self.new(...), derivedSM)		
+		local self = derivedSM:InternalNew(...)
+		self:InitializeFromDefinition()
 		self:OnCreate(...)
 		return self
 	end
@@ -161,17 +190,9 @@ function BaseStateMachine:extend()
 end
 
 function BaseStateMachine.new(...)
-	local self = {
-		Name = BaseStateMachine.name,
-		OnStateChanged = Instance.new("BindableEvent"),
-		currentState = nil,
-		context = { },
-		states = { }	
-	}
-	setmetatable(self, BaseStateMachine)
-	
-	self:CountChildren()
+	local self = BaseStateMachine:InternalNew(...)
 	self:InitializeFromDefinition()
+	self:OnCreate(...)
 
 	return self
 end

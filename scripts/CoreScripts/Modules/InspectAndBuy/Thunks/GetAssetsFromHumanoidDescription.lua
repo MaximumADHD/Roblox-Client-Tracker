@@ -13,7 +13,7 @@ local requiredServices = {}
 local function getAssetIds(humanoidDescription)
 	local assets = {}
 
-	for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
+	for assetTypeId, name in pairs(Constants.AssetTypeIdStringToHumanoidDescriptionProp) do
 		if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil then
 			local assetIds = humanoidDescription[name] or ""
 			for _, id in pairs(string.split(assetIds)) do

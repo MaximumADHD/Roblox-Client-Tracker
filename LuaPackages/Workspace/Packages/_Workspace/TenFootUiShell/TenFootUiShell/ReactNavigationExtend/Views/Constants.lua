@@ -10,6 +10,7 @@ return {
 	DefaultDistanceToCamera = defaultDistanceToCamera,
 	CanvasSize = Vector2.new(canvasWidth, canvasHeight),
 	TopbarHeightRatio = topbarHeightRatio,
+	TopbarCanvasSize = Vector2.new(canvasWidth, topbarCanvasHeight),
 	PageContentHeightRatio = 1 - topbarHeightRatio,
 	PageContentCanvasSize = Vector2.new(canvasWidth, pageContentCanvasHeight),
 }

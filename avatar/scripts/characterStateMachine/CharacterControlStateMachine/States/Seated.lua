@@ -1,9 +1,10 @@
 --[[ Seated State ]]--
 local baseState = require(script.Parent.Parent:WaitForChild("CharacterControlBaseStateModule"))
 
-local Seated = baseState:extend()
+local Seated = baseState:inherit()
 Seated.name = script.Name
 Seated.humanoidState = Enum.HumanoidStateType.Seated 
+Seated.activeController = ""
 
 function Seated:OnExit(stateMachine)
 	local humanoid = stateMachine.context.humanoid

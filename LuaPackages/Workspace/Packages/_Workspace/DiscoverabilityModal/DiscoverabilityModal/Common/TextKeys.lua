@@ -8,4 +8,7 @@ return {
 	DISCOVERABILITY_TITLE = "Feature.Contacts.Heading.LetFriendsFindYou",
 	CI_FAILED = "Feature.Toast.NetworkingError.Timeout",
 	SETTING_SAVED = "Feature.Contacts.Heading.SettingSaved",
+	DISCOVERABILITY_TITLE_PREFILL_DISCOVERABLE = "Feature.Contacts.Heading.HelpFriendsFindYou",
+	DISCOVERABILITY_OPT_IN_PREFILL_DISCOVERABLE = "Feature.Contacts.Label.DiscoverabilityOptIn",
+	DISCOVERABILITY_INFO_PREFILL_DISCOVERABLE = "Feature.Contacts.Message.ContactDiscoverable",
 }

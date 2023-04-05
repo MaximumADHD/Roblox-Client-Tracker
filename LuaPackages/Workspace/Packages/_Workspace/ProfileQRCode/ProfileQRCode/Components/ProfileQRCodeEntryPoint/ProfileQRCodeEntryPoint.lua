@@ -18,6 +18,7 @@ local getFFlagProfileQRCodeFixDistanceFromTop = require(Packages.SharedFlags).ge
 export type Props = {
 	analyticsService: any?,
 	distanceFromTop: number?,
+	isProfile3DAvatarEnabled: boolean?,
 	onClose: () -> (),
 	profileQRCodeFriendRequestAlertsEnabled: boolean?,
 	robloxEventReceiver: any?,

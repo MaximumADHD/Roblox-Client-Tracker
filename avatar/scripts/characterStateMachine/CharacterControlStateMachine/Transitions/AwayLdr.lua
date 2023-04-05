@@ -1,14 +1,15 @@
 --[[ AwayLdr Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local AwayLdr = baseTransition:extend()
+local AwayLdr = baseTransition:inherit()
 AwayLdr.name = script.Name
 AwayLdr.destinationName = "Running"
 AwayLdr.sourceName = "Climbing"
 AwayLdr.priority = 3
 
 function AwayLdr:Test(stateMachine)
-	return not stateMachine.context.humanoid.FacingLadder
+	local climbSensor = stateMachine.context.humanoid.Parent.HumanoidRootPart.ClimbSensor
+	return climbSensor.SensedPart == nil
 end
 
 return AwayLdr

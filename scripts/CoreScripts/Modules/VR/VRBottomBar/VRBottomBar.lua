@@ -4,6 +4,7 @@
 	Roblox VR 2022, @MetaVars
 ]]--
 
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
@@ -49,6 +50,7 @@ local GetFFlagUIBloxVRApplyHeadScale =
 local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
 local FFlagUserVRPlaySeatedStanding = require(RobloxGui.Modules.Flags.FFlagUserVRPlaySeatedStanding)
 local GetFFlagBottomBarImproveInVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarImproveInVR)
+local GetFFlagReportBottomBarEventInVR = require(RobloxGui.Modules.Flags.GetFFlagReportBottomBarEventInVR)
 
 -- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
 local function safeRequire(moduleScript)
@@ -85,6 +87,10 @@ local MainMenu =
 		else
 			InGameMenu.closeInGameMenu()
 		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-MainMenu")
+		end
 	end,
 }
 
@@ -99,6 +105,10 @@ local ToggleGui =
 		else
 			VRHub:SetShowTopBar(false)
 			InGameMenu.closeInGameMenu()
+		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-ToggleGui")
 		end
 	end,
 }
@@ -117,6 +127,10 @@ local BackpackIcon =
 		else
 			BackpackScript.OpenClose()
 		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-Backpack")
+		end
 	end,
 }
 
@@ -133,6 +147,10 @@ local PlayerList =
 			end
 		else
 			PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-PlayerList")
 		end
 	end,
 }
@@ -155,6 +173,10 @@ local Emotes =
 				EmotesMenuMaster:open()
 			end
 		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-Emotes")
+		end
 	end,
 }
 
@@ -174,6 +196,10 @@ local Chat =
 			ChatSelector:ToggleVisibility()
 			GameSettings.ChatVisible = ChatSelector:GetVisibility()
 		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-Chat")
+		end
 	end,
 }
 
@@ -185,6 +211,10 @@ if FFlagUserVRPlaySeatedStanding then
 			GameSettings.VRPlayMode = Enum.VRPlayMode.Standing
 		else
 			GameSettings.VRPlayMode = Enum.VRPlayMode.Seated
+		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-VRPlayMode")
 		end
 	end
 
@@ -209,6 +239,10 @@ local SafetyOn =
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_safety_on.png",
 	onActivated = function()
 		VRHub:ToggleSafetyBubble()
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-Safety")
+		end
 	end,
 }
 
@@ -218,6 +252,10 @@ local SafetyOff =
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_safety_off.png",
 	onActivated = function()
 		VRHub:ToggleSafetyBubble()
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-Safety")
+		end
 	end,
 }
 
@@ -239,6 +277,10 @@ local LeaveGame =
 					InGameMenu.openGameLeavePage()
 				end
 			end
+		end
+
+		if GetFFlagReportBottomBarEventInVR() then
+			AnalyticsService:ReportCounter("VR-BottomBar-LeaveGame")
 		end
 	end,
 }

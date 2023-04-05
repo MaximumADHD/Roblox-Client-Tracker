@@ -13,7 +13,7 @@ local InspectAndBuyThunk = require(InGameMenu.InspectAndBuyThunk)
 local function getAssetIds(humanoidDescription: HumanoidDescription)
 	local assets = {}
 
-	for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
+	for assetTypeId, name in pairs(Constants.AssetTypeIdStringToHumanoidDescriptionProp) do
 		-- assets that have an associated AccessoryTypeEnum will be added to the assets
 		-- table through the GetAccessories function. Avoid adding them here by indexing into
 		-- the humanoid description

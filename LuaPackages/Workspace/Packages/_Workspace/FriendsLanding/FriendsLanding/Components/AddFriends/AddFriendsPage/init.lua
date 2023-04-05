@@ -1,5 +1,6 @@
 --!nonstrict
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
+local Packages = FriendsLanding.Parent
 local AddFriends = FriendsLanding.AddFriends
 local dependencies = require(AddFriends.dependencies)
 local Roact = dependencies.Roact
@@ -26,7 +27,13 @@ local AddFriendsContactImporterBanner = require(script.Parent.AddFriendsContactI
 local AddFriendsGenericBanner = require(script.Parent.AddFriendsGenericBanner)
 local SearchHeaderBar = require(FriendsLanding.Components.FriendsLandingHeaderBar.SearchHeaderBar)
 
-local Packages = FriendsLanding.Parent
+local ProfileQRCodeExperiments = require(Packages.ProfileQRCode).Experiments
+local getFFlagProfileQRCodeEnable3DAvatarExperiment =
+	ProfileQRCodeExperiments.getFFlagProfileQRCodeEnable3DAvatarExperiment
+local RoactAppExperiment = require(Packages.RoactAppExperiment)
+local profileQRCode3DAvatarIXP = ProfileQRCodeExperiments.profileQRCode3DAvatarIXP
+local getFStringProfileQRCodeLayer = ProfileQRCodeExperiments.getFStringProfileQRCodeLayer
+
 local ContactImporter = require(Packages.ContactImporter)
 local TextKeys = ContactImporter.TextKeys
 
@@ -35,8 +42,6 @@ local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFF
 local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local getFFlagPassEntrypointFromAddFriendsPage = require(FriendsLanding.Flags.getFFlagPassEntrypointFromAddFriendsPage)
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
-local getFFlagAddFriendsFullSearchbarAnalytics = dependencies.getFFlagAddFriendsFullSearchbarAnalytics
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
@@ -51,6 +56,7 @@ local AddFriendsPage = Roact.PureComponent:extend("AddFriendsPage")
 local NEW_NAV_BAR_SIZE = 56
 local PLAYER_TILE_MARGIN = 12
 local CONTACT_IMPORTER_ORIGIN = "PhoneContactImporter"
+local TURN_OFF_EXPOSURE_FOR_EXPERIMENT = false
 local TABLET_SEARCH_BAR_WIDTH = if getFFlagAddFriendsSearchbarWidemodeUpdate() then 400 else nil
 
 local BANNER_IN_BETWEEN_PADDING = if getFFlagSocialOnboardingExperimentEnabled() then 12 else nil
@@ -92,9 +98,9 @@ AddFriendsPage.validateProps = t.strictInterface({
 	getUserSettingsMetadata = t.optional(t.callback),
 	handleShowToastForTests = t.optional(Dash.isCallable),
 	showTooltip = t.optional(t.boolean),
-	wideMode = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(t.boolean) else nil,
-	setScreenTopBar = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(Dash.isCallable) else nil,
-	addFriendsPageSearchbarEnabled = if getFFlagAddFriendsSearchbarIXPEnabled() then t.optional(t.boolean) else nil,
+	wideMode = t.optional(t.boolean),
+	setScreenTopBar = t.optional(Dash.isCallable),
+	addFriendsPageSearchbarEnabled = t.optional(t.boolean),
 	originSourceType = t.optional(t.table),
 	showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then t.optional(t.boolean) else nil,
 	fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics() then t.optional(t.callback) else nil,
@@ -288,8 +294,7 @@ function AddFriendsPage:init()
 		end
 	end
 
-	self.onSearchbarActivated = if getFFlagAddFriendsSearchbarIXPEnabled()
-			and self.props.addFriendsPageSearchbarEnabled
+	self.onSearchbarActivated = if self.props.addFriendsPageSearchbarEnabled
 		then function()
 			local navParams = {
 				searchText = "",
@@ -300,10 +305,7 @@ function AddFriendsPage:init()
 				shouldRenderCenter = true,
 				shouldAutoFocusCenter = true,
 			})
-
-			if getFFlagAddFriendsFullSearchbarAnalytics() then
-				self.props.fireSearchbarPressedEvent()
-			end
+			self.props.fireSearchbarPressedEvent()
 		end
 		else nil
 
@@ -314,7 +316,14 @@ function AddFriendsPage:init()
 				self.props.fireProfileQRCodeBannerPressedEvent()
 			end
 
-			self.props.navigation.navigate(EnumScreens.ProfileQRCodePage)
+			if
+				getFFlagProfileQRCodeEnable3DAvatarExperiment()
+				and (self.props.isProfile3DAvatarExperimentEnabled or self.props.isLocalUserSoothsayer)
+			then
+				self.props.navigateToLuaAppPages[EnumScreens.ProfileQRCode]()
+			else
+				self.props.navigation.navigate(EnumScreens.ProfileQRCodePage)
+			end
 		end
 		else nil
 end
@@ -360,8 +369,7 @@ function AddFriendsPage:render()
 		bannerText = if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant
 			then nil
 			else TextKeys.BANNER_TEXT,
-		searchPlaceholderText = if getFFlagAddFriendsSearchbarIXPEnabled()
-				and self.props.addFriendsPageSearchbarEnabled
+		searchPlaceholderText = if self.props.addFriendsPageSearchbarEnabled
 			then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
 			else nil,
 		contactImporterBannerTitle = if getFFlagSocialOnboardingExperimentEnabled()
@@ -430,9 +438,7 @@ function AddFriendsPage:render()
 					SearchbarPadding = if getFFlagAddFriendsSearchbarWidemodeUpdate()
 						then nil
 						elseif
-							getFFlagAddFriendsSearchbarIXPEnabled()
-							and self.props.addFriendsPageSearchbarEnabled
-							and not self.props.wideMode
+							self.props.addFriendsPageSearchbarEnabled and not self.props.wideMode
 						then Roact.createElement("UIPadding", {
 							PaddingTop = UDim.new(0, NEW_NAV_BAR_SIZE),
 						})
@@ -562,7 +568,7 @@ function AddFriendsPage:render()
 				}),
 			})
 
-			if getFFlagAddFriendsSearchbarIXPEnabled() and self.props.addFriendsPageSearchbarEnabled then
+			if self.props.addFriendsPageSearchbarEnabled then
 				return Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = if getFFlagAddFriendsSearchbarWidemodeUpdate() then nil else 1,
@@ -600,11 +606,24 @@ function AddFriendsPage:render()
 	end)
 end
 
+if getFFlagProfileQRCodeEnable3DAvatarExperiment() then
+	AddFriendsPage = RoactAppExperiment.connectUserLayer({
+		getFStringProfileQRCodeLayer(),
+	}, function(layerVariables, props)
+		return {
+			isProfile3DAvatarExperimentEnabled = profileQRCode3DAvatarIXP.isExperimentEnabled(layerVariables),
+		}
+	end, TURN_OFF_EXPOSURE_FOR_EXPERIMENT)(AddFriendsPage)
+end
+
 if getFFlagContactImporterUseNewTooltip() then
 	return RoactRodux.connect(function(state)
 		local originSourceType = getDeepValue(state, "FriendsLanding.RequestsFromOriginSourceType") or {}
 		return {
 			originSourceType = originSourceType,
+			isLocalUserSoothsayer = if getFFlagProfileQRCodeEnable3DAvatarExperiment()
+				then state.IsLocalUserSoothsayer
+				else nil,
 		}
 	end, nil)(AddFriendsPage)
 else

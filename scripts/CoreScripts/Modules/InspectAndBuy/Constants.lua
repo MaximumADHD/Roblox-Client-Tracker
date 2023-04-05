@@ -19,34 +19,34 @@ local Constants = {
 		WideLandscape = 2,
 	},
 
-	HumanoidDescriptionIdToName = {
-		["2"] = "GraphicTShirt",
-		["8"] = "HatAccessory",
-		["41"] = "HairAccessory",
-		["42"] = "FaceAccessory",
-		["43"] = "NeckAccessory",
-		["44"] = "ShouldersAccessory",
-		["45"] = "FrontAccessory",
-		["46"] = "BackAccessory",
-		["47"] = "WaistAccessory",
-		["11"] = "Shirt",
-		["12"] = "Pants",
-		["17"] = "Head",
+	AssetTypeIdStringToHumanoidDescriptionProp = {
+		[tostring(Enum.AssetType.TShirt.Value)]  = "GraphicTShirt",
+		[tostring(Enum.AssetType.Hat.Value)]  = "HatAccessory",
+		[tostring(Enum.AssetType.Shirt.Value)] = "Shirt",
+		[tostring(Enum.AssetType.Pants.Value)] = "Pants",
+		[tostring(Enum.AssetType.Head.Value)] = "Head",
+		[tostring(Enum.AssetType.Face.Value)] = "Face",
+		[tostring(Enum.AssetType.Torso.Value)] = "Torso",
+		[tostring(Enum.AssetType.RightArm.Value)] = "RightArm",
+		[tostring(Enum.AssetType.LeftArm.Value)] = "LeftArm",
+		[tostring(Enum.AssetType.LeftLeg.Value)] = "LeftLeg",
+		[tostring(Enum.AssetType.RightLeg.Value)] = "RightLeg",
+		[tostring(Enum.AssetType.HairAccessory.Value)] = "HairAccessory",
+		[tostring(Enum.AssetType.FaceAccessory.Value)] = "FaceAccessory",
+		[tostring(Enum.AssetType.NeckAccessory.Value)] = "NeckAccessory",
+		[tostring(Enum.AssetType.ShoulderAccessory.Value)] = "ShouldersAccessory",
+		[tostring(Enum.AssetType.FrontAccessory.Value)] = "FrontAccessory",
+		[tostring(Enum.AssetType.BackAccessory.Value)] = "BackAccessory",
+		[tostring(Enum.AssetType.WaistAccessory.Value)] = "WaistAccessory",
+		[tostring(Enum.AssetType.ClimbAnimation.Value)] = "ClimbAnimation",
+		[tostring(Enum.AssetType.FallAnimation.Value)] = "FallAnimation",
+		[tostring(Enum.AssetType.IdleAnimation.Value)] = "IdleAnimation",
+		[tostring(Enum.AssetType.JumpAnimation.Value)] = "JumpAnimation",
+		[tostring(Enum.AssetType.RunAnimation.Value)] = "RunAnimation",
+		[tostring(Enum.AssetType.SwimAnimation.Value)] = "SwimAnimation",
+		[tostring(Enum.AssetType.WalkAnimation.Value)] = "WalkAnimation",
 		-- DynamicHead goes in the same field as a classic head.
-		["79"] = "Head",
-		["18"] = "Face",
-		["27"] = "Torso",
-		["28"] = "RightArm",
-		["29"] = "LeftArm",
-		["30"] = "LeftLeg",
-		["31"] = "RightLeg",
-		["48"] = "ClimbAnimation",
-		["50"] = "FallAnimation",
-		["51"] = "IdleAnimation",
-		["52"] = "JumpAnimation",
-		["53"] = "RunAnimation",
-		["54"] = "SwimAnimation",
-		["55"] = "WalkAnimation",
+		[tostring(Enum.AssetType.DynamicHead.Value)] = "Head",
 	},
 
 	AnimationAssetTypes = {
@@ -157,6 +157,20 @@ Constants.LayeredClothingOrder = {
 	[tostring(Enum.AssetType.HairAccessory.Value)] = 11,
 	[tostring(Enum.AssetType.EyebrowAccessory.Value)] = 3,
 	[tostring(Enum.AssetType.EyelashAccessory.Value)] = 3,
+}
+
+Constants.ProductType = {
+	CollectibleItem = "Collectible Item",
+}
+
+Constants.SaleLocationType = {
+	Invalid = 0,
+	ShopOnly = 1,
+	MyExperiencesOnly = 2,
+	ShopAndMyExperiences = 3,
+	ExperiencesById = 4,
+	ShopAndAllExperiences = 5,
+	ExperiencesDevApiOnly = 6,
 }
 
 return Constants

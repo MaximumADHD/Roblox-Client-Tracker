@@ -27,9 +27,13 @@ local Images = UIBlox.App.ImageSet.Images
 
 local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Settings.Components.PermissionButton)
+local RecordingIndicator = require(Modules.Settings.Components.RecordingIndicator)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 
+local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
+local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagFixSettingsCameraButtonUpdating = game:DefineFastFlag("FixSettingsCameraButtonUpdating", false)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
@@ -99,6 +103,14 @@ function PermissionsButtons:init()
 			allPlayersMuted = newAllPlayersMuted,
 		})
 	end
+	
+	-- Sets only the icon
+	self.toggleMuteAllIcon = function(allPlayersMuted)
+		local newAllPlayersMuted = allPlayersMuted
+		self:setState({
+			allPlayersMuted = newAllPlayersMuted,
+		})
+	end
 
 	-- toggle mic permissions
 	self.toggleMic = function()
@@ -154,6 +166,12 @@ function PermissionsButtons:init()
 			})
 		end
 	end
+
+	self.updateVideoCaptureEnabled = function()
+		self:setState({
+			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
+		})
+	end
 end
 
 --[[
@@ -189,6 +207,7 @@ end
 function PermissionsButtons:render()
 	local shouldShowMicButtons = self.state.hasMicPermissions
 	local shouldShowCameraButtons = self.state.hasCameraPermissions
+	local showMuteAll = if GetFFlagInvertMuteAllPermissionButton() then not self.state.allPlayersMuted else self.state.allPlayersMuted
 	local isTopCloseButton = not self.props.isPortrait
 		and not self.props.isTenFootInterface
 		and not self.props.isSmallTouchScreen
@@ -231,7 +250,7 @@ function PermissionsButtons:render()
 			}),
 			MuteAllButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 1,
-				image = if self.state.allPlayersMuted then MUTE_ALL_IMAGE else UNMUTE_ALL_IMAGE,
+				image = if showMuteAll then MUTE_ALL_IMAGE else UNMUTE_ALL_IMAGE,
 				callback = self.toggleMuteAll,
 			}),
 			ToggleMicButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
@@ -249,8 +268,11 @@ function PermissionsButtons:render()
 				image = if self.state.selfViewOpen then SELF_VIEW_IMAGE else SELF_VIEW_OFF_IMAGE,
 				callback = self.toggleSelfView,
 			}),
+			Divider2 = createDivider(5),
+			RecordingIndicator = Roact.createElement(RecordingIndicator, {
+				micOn = self.state.microphoneEnabled
+			}),
 		}),
-		Divider2 = createDivider(3),
 		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
 			event = VoiceChatServiceManager.muteChanged.Event,
 			callback = self.muteChangedEvent,
@@ -259,6 +281,16 @@ function PermissionsButtons:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.onCoreGuiChanged,
 		}),
+		MuteAllChangedEvent = if GetFFlagMuteAllEvent() then
+			Roact.createElement(ExternalEventConnection, {
+				event = VoiceChatServiceManager.muteAllChanged.Event,
+				callback = self.toggleMuteAllIcon,
+			})
+		else nil,
+		VideoCaptureEnabledEvent = if FFlagFixSettingsCameraButtonUpdating then Roact.createElement(ExternalEventConnection, {
+			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
+			callback = self.updateVideoCaptureEnabled,
+		}) else nil,
 	})
 end
 

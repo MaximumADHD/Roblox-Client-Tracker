@@ -40,8 +40,6 @@ local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerL
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
-local FFlagTopBarUseUIBloxEmotesIcon = game:DefineFastFlag("TopBarUseUIBloxEmotesIcon", false)
-
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
 local MENU_GAP = 12
@@ -139,11 +137,9 @@ function MoreMenu:render()
 	end
 
 	if self.props.emotesEnabled then
-		local emotesIcon = if FFlagTopBarUseUIBloxEmotesIcon then EMOTES_ICON_ON
-			else "rbxasset://textures/ui/TopBar/emotesOn.png"
+		local emotesIcon = EMOTES_ICON_ON
 		if not self.props.emotesOpen then
-			emotesIcon = if FFlagTopBarUseUIBloxEmotesIcon then EMOTES_ICON_OFF
-				else "rbxasset://textures/ui/TopBar/emotesOff.png"
+			emotesIcon = EMOTES_ICON_OFF
 		end
 
 		local emotesKeybind = EmotesConstants.EmoteMenuOpenKey

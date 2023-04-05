@@ -37,6 +37,8 @@ local LENGTH_COUNTER_HEIGHT = 15
 local AssetDescriptionTextBox = Roact.PureComponent:extend("AssetDescriptionTextBox")
 
 AssetDescriptionTextBox.validateProps = t.strictInterface({
+	Size = t.optional(t.UDim2),
+	Position = t.optional(t.UDim2),
 	onAssetDescriptionUpdated = t.callback, -- function(newDescription)
 })
 

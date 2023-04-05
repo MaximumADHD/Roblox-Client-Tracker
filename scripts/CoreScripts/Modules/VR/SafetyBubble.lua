@@ -4,6 +4,7 @@
 	Roblox VR 2022, @MetaVars
 ]]--
 
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 
@@ -17,6 +18,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local MAX_SAFETY_DIST = require(RobloxGui.Modules.Flags.FIntSafetyBubbleRadius) -- this is using a 2d distance
 local MAX_TRANSPARENCY = require(RobloxGui.Modules.Flags.FIntSafetyBubbleTransparencyPercent) * 0.01 -- how transparent do we get
 local AFFECT_FRIENDS = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleAffectsFriends) -- are friends excluded ?
+local GetFFlagReportBottomBarEventInVR = require(RobloxGui.Modules.Flags.GetFFlagReportBottomBarEventInVR)
 
 local UPDATE_CADENCE = 0.2
 
@@ -33,6 +35,11 @@ end
 
 function SafetyBubble:ToggleEnabled()
 	self.enabled = not self.enabled
+
+	if GetFFlagReportBottomBarEventInVR() then
+		local safetyOnOff = self.enabled and "On" or "Off"
+		AnalyticsService:ReportCounter("VR-SafetyBubble-"..safetyOnOff)
+	end
 end
 
 function SafetyBubble:HasToolAncestor(object)

@@ -46,14 +46,15 @@ function StylesList:render()
 	end
 
 	local stylesString = table.concat(stylesList, ", ")
-	local headerString = next(stylesList) and SUMMARY or NOSTYLES
+	local hasStyles = next(stylesList)
+	local headerString = hasStyles and SUMMARY or NOSTYLES
 
 	return Roact.createElement(PanelEntry, {
 		Header = header,
 		Description = headerString,
 		LayoutOrder = layoutOrder,
 	}, {
-		Styles = Roact.createElement("TextLabel", {
+		Styles = hasStyles and Roact.createElement("TextLabel", {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Text = stylesString,
 			Font = Enum.Font.SourceSans,

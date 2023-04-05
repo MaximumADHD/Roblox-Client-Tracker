@@ -55,7 +55,7 @@ local function Initialize()
 											Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
 
 		if GetFFlagEnableSurveyImprovements() then 
-			MessageBus.publish(Constants.OnLeaveButtonClickDescriptor, {})	
+			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})	
 		end
 				
 		-- need to wait for render frames so on slower devices the leave button highlight will update

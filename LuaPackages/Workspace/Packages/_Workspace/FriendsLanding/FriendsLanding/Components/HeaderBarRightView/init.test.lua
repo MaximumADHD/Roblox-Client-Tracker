@@ -3,7 +3,6 @@ local EnumScreens = require(FriendsLanding.EnumScreens)
 local createInstanceWithProps = require(FriendsLanding.TestHelpers.createInstanceWithProps)
 local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createInstanceWithProviders)
 
-local dependencies = require(FriendsLanding.dependencies)
 local devDependencies = require(FriendsLanding.devDependencies)
 local RhodiumHelpers = devDependencies.RhodiumHelpers
 local mockLocale = devDependencies.UnitTestHelpers.mockLocale
@@ -15,8 +14,6 @@ local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
-
-local getFFlagAddFriendsSearchbarIXPEnabled = dependencies.getFFlagAddFriendsSearchbarIXPEnabled
 
 -- FIXME: APPFDN-1925
 local headerBarRightView = require((script :: any).Parent["HeaderBarRightView.story"]) :: any
@@ -55,78 +52,28 @@ describe("HeaderBarRightView", function()
 			cleanup()
 		end)
 
-		if getFFlagAddFriendsSearchbarIXPEnabled() then
-			it("SHOULD show SearchFriendsIcon on SearchFriends", function()
-				local parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarRightView, {
-					context = {
-						addFriendsPageSearchbarEnabled = true,
-					},
-					props = {
-						navigation = {
-							state = {
-								routeName = EnumScreens.SearchFriends,
-							},
-						},
-					},
-				})
-
-				local searchFriendsIcon = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "SearchFriendsIcon",
-				})
-
-				expect(searchFriendsIcon).toEqual(expect.any("Instance"))
-
-				cleanup()
-			end)
-		else
-			it("SHOULD show AddFriendsIcon and SearchFriendsIcon on SearchFriends", function()
-				local parent, cleanup = createInstanceWithProps(mockLocale)(noFriendsStory, {
+		it("SHOULD show SearchFriendsIcon on SearchFriends", function()
+			local parent, cleanup = createInstanceWithProviders(mockLocale)(headerBarRightView, {
+				context = {
+					addFriendsPageSearchbarEnabled = true,
+				},
+				props = {
 					navigation = {
 						state = {
 							routeName = EnumScreens.SearchFriends,
 						},
 					},
-				})
+				},
+			})
 
-				local addFriendsIcon = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "AddFriendsIcon",
-				})
+			local searchFriendsIcon = RhodiumHelpers.findFirstInstance(parent, {
+				Name = "SearchFriendsIcon",
+			})
 
-				local searchFriendsIcon = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "SearchFriendsIcon",
-				})
+			expect(searchFriendsIcon).toEqual(expect.any("Instance"))
 
-				expect(addFriendsIcon).toEqual(expect.any("Instance"))
-				expect(searchFriendsIcon).toEqual(expect.any("Instance"))
-
-				cleanup()
-			end)
-		end
-
-		if not getFFlagAddFriendsSearchbarIXPEnabled() then
-			it("SHOULD ONLY show SearchFriendsIcon on AddFriends", function()
-				local parent, cleanup = createInstanceWithProps(mockLocale)(noFriendsStory, {
-					navigation = {
-						state = {
-							routeName = EnumScreens.AddFriends,
-						},
-					},
-				})
-
-				local addFriendsIcon = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "AddFriendsIcon",
-				})
-
-				local searchFriendsIcon = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "SearchFriendsIcon",
-				})
-
-				expect(searchFriendsIcon).toEqual(expect.any("Instance"))
-				expect(addFriendsIcon).toBeNil()
-
-				cleanup()
-			end)
-		end
+			cleanup()
+		end)
 	end)
 
 	describe("friendshipStates", function()

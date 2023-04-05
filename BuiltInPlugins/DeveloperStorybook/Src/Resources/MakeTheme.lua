@@ -10,8 +10,6 @@ local StyleKey = Style.StyleKey
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
 local style = {
-	[StyleKey.TypeTextColor] = Color3.fromRGB(0, 162, 255),
-
 	ErrorColor = StyleKey.WarningText,
 
 	Sizes = {
@@ -26,12 +24,18 @@ local style = {
 	},
 
 	Text = {
+		Title = {
+			Size = 24,
+			Color = StyleKey.BrightText,
+			Font = Enum.Font.SourceSansSemibold,
+		},
 		Header = {
 			Size = 20,
 			Color = StyleKey.BrightText,
+			Font = Enum.Font.SourceSansSemibold,
 		},
 		Body = {
-			Size = 16,
+			Size = 17,
 			Color = StyleKey.DimmedText,
 		},
 		Button = {
@@ -41,7 +45,16 @@ local style = {
 		},
 		Type = {
 			Size = 18,
-			Color = StyleKey.TypeTextColor,
+			Color = StyleKey.LinkText,
+		},
+		Mono = {
+			-- Mono is a slightly larger optical size, decrease slightly to offset
+			Size = 17,
+			Font = Enum.Font.RobotoMono,
+		},
+		Default = {
+			Color = StyleKey.SubText,
+			Weight = Enum.FontWeight.SemiBold,
 		},
 	},
 }

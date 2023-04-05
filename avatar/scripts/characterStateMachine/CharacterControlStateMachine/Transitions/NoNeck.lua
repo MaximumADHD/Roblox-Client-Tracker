@@ -1,7 +1,7 @@
 --[[ NoNeck Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local NoNeck = baseTransition:extend()
+local NoNeck = baseTransition:inherit()
 NoNeck.name = script.Name
 NoNeck.destinationName = "Dead"
 NoNeck.sourceName = "Climbing, FallingDown, FreeFall, GettingUp, Jumping, Landed, Physics, PlatformStanding, Ragdoll, Running, Seated, Swimming"

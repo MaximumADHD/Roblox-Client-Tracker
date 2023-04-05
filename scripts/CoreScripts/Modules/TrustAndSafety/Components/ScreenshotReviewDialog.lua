@@ -9,6 +9,7 @@ local HeaderBar = UIBlox.App.Bar.HeaderBar
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local ImageSetLabel = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
@@ -16,19 +17,23 @@ local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 local TnsModule = script.Parent.Parent
 local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
-local ScreenshotHelper = require(TnsModule.Utility.ScreenshotHelper)
 local RestartScreenshotDialog = require(TnsModule.Components.RestartScreenshotDialog)
 
 local Divider = require(Dependencies.Divider)
 
 local TITLE_HEIGHT = 49
 local HEADER_HEIGHT = 48
-local FOOTER_HEIGHT = 48
+local FOOTER_HEIGHT = 60
 
 export type Props = {
+	screenshot: string,
+	imageAspectRatio: number,
 	onBack: () -> (),
+	onRestart: () -> (),
+	onSkip: () -> (),
 	onNextPage: () -> (),
 }
+
 local function ScreenshotReviewDialog(props: Props)
 	local isShowRestartDialog, setShowRestartDialog = React.useState(false)
 	local stylePalette = useStyle()
@@ -39,7 +44,7 @@ local function ScreenshotReviewDialog(props: Props)
 		BorderSizePixel = 0,
 		BackgroundColor3 = theme.Overlay.Color,
 		BackgroundTransparency = 0,
-		ZIndex = -10,
+		ZIndex = 10,
 	}, {
 		RestartDialog = isShowRestartDialog and React.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -50,13 +55,22 @@ local function ScreenshotReviewDialog(props: Props)
 				onCancel = function()
 					setShowRestartDialog(false)
 				end,
-				onRestart = function() end,
+				onRestart = props.onRestart,
 			}),
 		}),
-		RestartDialogMask = isShowRestartDialog and React.createElement("Frame", {
+		RestartDialogMask = isShowRestartDialog and React.createElement(ImageSetLabel, {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 0.2,
 			BackgroundColor3 = theme.BackgroundUIDefault.Color,
+			Active = true,
+			AutoButtonColor = false,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			Image = Assets.Images.RoundedRect.Image,
+			ImageColor3 = theme.BackgroundUIDefault.Color,
+			ImageTransparency = 1,
+			ScaleType = Assets.Images.RoundedRect.ScaleType,
+			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 		}, {}),
 		ScreenshotDialog = React.createElement(ImageSetLabel, {
 			Active = true, -- block input to the background overlay
@@ -106,7 +120,7 @@ local function ScreenshotReviewDialog(props: Props)
 						end,
 						-- Need dummy on the right to take up space for balance
 						renderRight = function() end,
-						title = "Highlight What's Wrong",
+						title = "Highlight What You're Reporting",
 					}),
 				}),
 				Divider = React.createElement(Divider, {
@@ -115,46 +129,77 @@ local function ScreenshotReviewDialog(props: Props)
 				ScreenshotBody = React.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 1, FOOTER_HEIGHT),
+					Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
 					ZIndex = 10,
 				}, {
+					Padding = React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, 16),
+					}),
 					Layout = React.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					}),
-					Screenshot = React.createElement("Frame", {
-						Size = UDim2.new(0.8, 0, 0.8, 0),
-						BorderSizePixel = 2,
-						BorderMode = Enum.BorderMode.Inset,
-						BorderColor3 = Color3.fromRGB(255, 255, 255),
-						LayoutOrder = 1,
+					ScreenshotContainer = React.createElement("Frame", {
+						Size = UDim2.new(1, 0, 1, -32),
+						BackgroundTransparency = 1,
 					}, {
-						ScreenshotImage = React.createElement("ImageLabel", {
-							Size = UDim2.fromScale(1, 1),
-							Image = ScreenshotHelper:GetScreenshotContentId(),
-							ZIndex = 1,
-						}, {}),
-						RestartButton = React.createElement(PrimarySystemButton, {
-							position = UDim2.new(1, -200, 1, -54),
-							size = UDim2.new(0, 160, 0, 48),
-							icon = UIBloxImages["icons/menu/recover"],
-							text = "Re-start",
-							layoutOrder = 1,
-							onActivated = function()
-								setShowRestartDialog(true)
-							end,
+						Padding = React.createElement("UIPadding", {
+							PaddingTop = UDim.new(0, 12),
+							PaddingBottom = UDim.new(0, 12),
+							PaddingLeft = UDim.new(0, 16),
+							PaddingRight = UDim.new(0, 16),
+						}),
+						Layout = React.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Vertical,
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+						}),
+						Screenshot = React.createElement("Frame", {
+							Size = UDim2.new(1, 0, 1, 0),
+							BorderSizePixel = 2,
+							BorderMode = Enum.BorderMode.Inset,
+							BorderColor3 = Color3.fromRGB(255, 255, 255),
+							LayoutOrder = 1,
+						}, {
+							UIAspectRatioConstraint = React.createElement("UIAspectRatioConstraint", {
+								AspectRatio = props.imageAspectRatio,
+							}),
+							ScreenshotImage = React.createElement(ImageSetButton, {
+								Active = true,
+								Size = UDim2.fromScale(1, 1),
+								Image = props.screenshot,
+								ZIndex = 1,
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								Position = UDim2.fromScale(0.5, 0.5),
+								BackgroundTransparency = 1,
+								ScaleType = Enum.ScaleType.Fit,
+								SliceCenter = Assets.Images.RoundedRect.SliceCenter,
+								[React.Event.Activated] = function()
+									props.onNextPage()
+								end,
+							}),
+							RestartButton = React.createElement(PrimarySystemButton, {
+								position = UDim2.new(1, -152, 1, -42),
+								size = UDim2.new(0, 136, 0, 36),
+								icon = UIBloxImages["icons/menu/recover"],
+								text = "Retake",
+								layoutOrder = 1,
+								onActivated = function()
+									setShowRestartDialog(true)
+								end,
+							}),
 						}),
 					}),
 					Description = React.createElement("TextLabel", {
-						Text = "Here's a screenshot we took when you hit Report",
+						Text = "Did we miss it? Try retake, or skip to describe what happened",
 						Font = font.Header1.Font,
 						LayoutOrder = 2,
 						TextColor3 = theme.TextEmphasis.Color,
 						TextTransparency = theme.TextEmphasis.Transparency,
 						TextSize = 14,
 						TextXAlignment = Enum.TextXAlignment.Center,
-						Size = UDim2.new(1, 0, 0, 24),
+						Size = UDim2.new(1, 0, 0, 20),
 						BackgroundTransparency = 1,
 					}),
 				}),
@@ -167,31 +212,41 @@ local function ScreenshotReviewDialog(props: Props)
 				Position = UDim2.fromScale(0, 1),
 				LayoutOrder = 4,
 			}, {
-				Padding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 8),
-					PaddingBottom = UDim.new(0, 8),
-					PaddingLeft = UDim.new(0, 400),
-					PaddingRight = UDim.new(0, 400),
+				Layout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				}),
-				ActionButtons = React.createElement(ButtonStack, {
-					buttons = {
-						{
-							buttonType = ButtonType.Secondary,
-							props = {
-								onActivated = function() end,
-								text = "Describe Scene",
+				Container = React.createElement("Frame", {
+					Size = UDim2.new(0, 612, 1, 0),
+					BackgroundTransparency = 1,
+				}, {
+					Padding = React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, 12),
+						PaddingBottom = UDim.new(0, 12),
+						PaddingLeft = UDim.new(0, 16),
+						PaddingRight = UDim.new(0, 16),
+					}),
+					ActionButtons = React.createElement(ButtonStack, {
+						marginBetween = 8,
+						buttons = {
+							{
+								buttonType = ButtonType.Secondary,
+								props = {
+									onActivated = props.onSkip,
+									text = "Skip to Report",
+								},
+							},
+							{
+								buttonType = ButtonType.PrimarySystem,
+								props = {
+									onActivated = function()
+										props.onNextPage()
+									end,
+									text = "Highlight Scene",
+								},
 							},
 						},
-						{
-							buttonType = ButtonType.PrimarySystem,
-							props = {
-								onActivated = function()
-									props.onNextPage()
-								end,
-								text = "Highlight Scene",
-							},
-						},
-					},
+					}),
 				}),
 			}),
 		}),

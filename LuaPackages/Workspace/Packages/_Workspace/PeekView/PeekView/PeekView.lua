@@ -64,7 +64,6 @@ local InputTypeConstants = require(CorePackages.Workspace.Packages.InputType).In
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
 
-local FeatureAPIScrollVelocity = game:GetEngineFeature("FeatureAPIScrollVelocity")
 local GetFFlagPeekViewClipFramePositionFromBottom =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewClipFramePositionFromBottom
 local GetFFlagPeekViewDeprecateFitChildren =
@@ -74,6 +73,8 @@ local FFlagMultiTryOnPurchaseGamepadEnabled =
 
 local useAutomaticSizeForPeekView = GetFFlagPeekViewDeprecateFitChildren()
 	and game:GetEngineFeature("UseActualSizeToCalculateListMinSize")
+
+local FFlagPeekViewFixFullViewLoop = game:DefineFastFlag("PeekViewFixFullViewLoop", false)
 
 local BACKGROUND_SLICE_CENTER = Rect.new(9, 9, 9, 9)
 local DRAGGER_IMAGE = Images["icons/navigation/swipe"]
@@ -412,12 +413,7 @@ function PeekView:init()
 			return
 		end
 
-		local inertialVelocityY
-		if FeatureAPIScrollVelocity then
-			inertialVelocityY = swipeScrollingFrame.ScrollVelocity.Y
-		else
-			inertialVelocityY = swipeScrollingFrame:GetSampledInertialVelocity().Y
-		end
+		local inertialVelocityY = swipeScrollingFrame.ScrollVelocity.Y
 		local inertiaUp = inertialVelocityY < 0
 		local inertiaDown = inertialVelocityY > 0
 		local curY = swipeScrollingFrame.CanvasPosition.Y
@@ -505,6 +501,12 @@ function PeekView:init()
 	end
 
 	self.goTo = function(viewType, animation)
+		if FFlagPeekViewFixFullViewLoop then
+			if self.viewType == viewType then
+				return
+			end
+		end
+
 		if ArgCheck.isEqual(self.isInGoToState, false, "self.isInGoToState") then
 			return
 		end
@@ -514,11 +516,7 @@ function PeekView:init()
 		end
 
 		self.isInGoToState = true
-		if FeatureAPIScrollVelocity then
-			self.swipeScrollingFrameRef:getValue().ScrollVelocity = Vector2.new(0, 0)
-		else
-			self.swipeScrollingFrameRef.current:ClearInertialScrolling()
-		end
+		self.swipeScrollingFrameRef:getValue().ScrollVelocity = Vector2.new(0, 0)
 		self.clipFrameRef.current.Active = true
 
 		if animation == false then
@@ -534,11 +532,7 @@ function PeekView:init()
 					return
 				end
 
-				if FeatureAPIScrollVelocity then
-					self.swipeScrollingFrameRef:getValue().ScrollVelocity = Vector2.new(0, 0)
-				else
-					self.swipeScrollingFrameRef.current:ClearInertialScrolling()
-				end
+				self.swipeScrollingFrameRef:getValue().ScrollVelocity = Vector2.new(0, 0)
 
 				local swipeScrollingFrame = self.swipeScrollingFrameRef.current
 				local containerFrameHeight = self.containerFrameRef.current.AbsoluteSize.Y
@@ -614,7 +608,7 @@ function PeekView:handleCurYFromBriefToFull(curY, inertialVelocityY, inertiaUp, 
 			else
 				self.goTo(VT_Closed)
 			end
-		else
+		elseif not FFlagPeekViewFixFullViewLoop then
 			self.goTo(VT_Full)
 		end
 	elseif self.viewType == VT_Extended then
@@ -929,7 +923,13 @@ function PeekView:didMount()
 
 	if self.props.closeSignal then
 		self.closeSignalConnection = self.props.closeSignal:connect(function()
-			self.goTo(VT_Closed, true)
+			if FFlagPeekViewFixFullViewLoop then
+				if not self.isInGoToState then
+					self.goTo(VT_Closed, true)
+				end
+			else
+				self.goTo(VT_Closed, true)
+			end
 		end)
 	end
 

@@ -6,6 +6,8 @@ local PackageIndex = script.Parent._Index
 local Package = require(PackageIndex["ReactProxy"]["ReactProxy"])
 
 export type LazyComponent<T, P> = Package.LazyComponent<T, P> 
+export type Binding<T> = Package.Binding<T> 
+export type BindingUpdater<T> = Package.BindingUpdater<T> 
 export type StatelessFunctionalComponent<P> = Package.StatelessFunctionalComponent<P> 
 export type ComponentType<P> = Package.ComponentType<P> 
 export type AbstractComponent<Config, Instance> = Package.AbstractComponent<Config, Instance> 

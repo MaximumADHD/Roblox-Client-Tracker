@@ -28,6 +28,9 @@ local VoiceChatService = nil
 
 local GetFFlagXboxEnableGraphicsQuality = require(RobloxGui.Modules.Flags.GetFFlagXboxEnableGraphicsQuality)
 
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
+
 -------------- CONSTANTS --------------
 -- DEPRECATED Remove with FixGraphicsQuality
 local GRAPHICS_QUALITY_LEVELS = 10
@@ -134,9 +137,7 @@ local GetFFlagEnableVoiceChatDeviceChangeDebounce = require(RobloxGui.Modules.Fl
 local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flags.GetFIntVoiceChatDeviceChangeDebounceDelay)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
-local GetFFlagUseVideoCaptureServiceEvents = require(RobloxGui.Modules.Flags.GetFFlagUseVideoCaptureServiceEvents)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local GetFFlagFixVideoCaptureSettings = require(RobloxGui.Modules.Flags.GetFFlagFixVideoCaptureSettings)
 local GetFFlagDisableCameraOffSetting = require(RobloxGui.Modules.Flags.GetFFlagDisableCameraOffSetting)
 
 local function reportSettingsForAnalytics()
@@ -1288,10 +1289,10 @@ local function Initialize()
 		local languageNameToLanguageCodeMapping = {} -- Maps language names to language codes, functions as a reverse lookup for dropdown options to language codes
 		local languageCodeMetadataMappings = {} -- Maps language codes to locale code, language name, and language ID, all of which are used for option display, calculating locales to set when toggling, and initial state
 		local languageIdToLanguageCodeMapping = {} -- Maps language IDs to language codes from the results returned by locale API
-		
+
 		-- Holds the dropdown option strings for the language selection dropdown
 		local languageOptions = {}
-		
+
 		-- Requests will be sent sequentially, and the final callback will
 		-- perform an evaluation of API results to determine initial state of
 		-- the toggle.
@@ -1347,10 +1348,10 @@ local function Initialize()
 				-- All GET API calls succeeded, so the feature should be enabled
 				-- and starting state calculated
 				local playerPreferenceSupported = false
-				
+
 				-- Reserve index 1 for the source language
 				table.insert(languageOptions, languageCodeMetadataMappings[sourceLanguageCode].languageName .. " (Original)")
-				
+
 				-- Add an option for each supported language code and check if
 				-- the playered preferred language code is among the supported languages
 				for i, code in pairs(supportedLanguageCodes) do
@@ -1392,11 +1393,11 @@ local function Initialize()
 					-- Disable interactability of the setting until API call is
 					-- completed and response processed
 					this.LanguageSelectorMode:SetInteractable(false)
-					
+
 					-- Calculate payload to POST to GI API to remember the
 					-- user's preference for the experience
 					local newTargetId = nil
-					
+
 					if newIndex == 1 then
 						newTargetId = languageCodeMetadataMappings[sourceLanguageCode].id
 					else
@@ -1420,7 +1421,7 @@ local function Initialize()
 						},
 						Body = HttpService:JSONEncode(payload)
 					})
-					
+
 					-- Callback for API call to make upon completion
 					-- If the POST succeeded then we should perform the call to
 					-- game engine to update the locale
@@ -1515,7 +1516,7 @@ local function Initialize()
 								playerPreferredLanguageCode = playerLanguageCode
 								return
 							end
-							
+
 							if localizationSettingValue.settingType == "SourceOrTranslation" then
 								-- 1 indicates source is desired, anything else
 								-- indicates the player's language is desired
@@ -1645,7 +1646,7 @@ local function Initialize()
 							local t_localeCode = obj.locale.locale
 							local t_languageName = obj.locale.language.name
 							local t_languageId = obj.locale.language.id
-							languageCodeMetadataMappings[t_languageCode] = 
+							languageCodeMetadataMappings[t_languageCode] =
 							{
 								localeCode = t_localeCode,
 								languageName = t_languageName,
@@ -2200,7 +2201,7 @@ local function Initialize()
 					return SoundService:GetInputDevices()
 				else
 					return VoiceChatService:GetMicDevices()
-				end	
+				end
 			else
 				return SoundService:GetOutputDevices()
 			end
@@ -2278,11 +2279,6 @@ local function Initialize()
 	local function updateVoiceChatOptions()
 		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
 		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
-		if not GetFFlagUseVideoCaptureServiceEvents() then
-			if game:GetEngineFeature("VideoCaptureService") then
-				updateCameraDevices()
-			end
-		end
 	end
 
 	local function setupDeviceChangedListener()
@@ -2314,6 +2310,7 @@ local function Initialize()
 	local function teardownVideoCameraDeviceChangedListener()
 		if VideoCaptureService.DevicesChanged and videoCameraDeviceChangedConnection then
 			videoCameraDeviceChangedConnection:Disconnect()
+			videoCameraDeviceChangedConnection = nil
 		end
 	end
 
@@ -2347,6 +2344,14 @@ local function Initialize()
 				end
 			end)
 		end)
+	end
+
+	this.VideoOptionsEnabled = false
+	if FFlagAvatarChatCoreScriptSupport then
+		local callback = function(response)
+			this.VideoOptionsEnabled = response.hasCameraPermissions
+		end
+		getCamMicPermissions(callback)
 	end
 
 	createCameraModeOptions(
@@ -2480,17 +2485,10 @@ local function Initialize()
 			this.startVolume = GameSettings.MasterVolume
 		end
 
-		if GetFFlagUseVideoCaptureServiceEvents() then
-			if GetFFlagFixVideoCaptureSettings() then
-				if game:GetEngineFeature("VideoCaptureService") then
-					updateCameraDevices()
-					setupVideoCameraDeviceChangedListener()
-				end
-			else
-				if VideoCaptureService then
-					updateCameraDevices()
-					setupVideoCameraDeviceChangedListener()
-				end
+		if FFlagAvatarChatCoreScriptSupport and this.VideoOptionsEnabled then
+			if game:GetEngineFeature("VideoCaptureService") then
+				updateCameraDevices()
+				setupVideoCameraDeviceChangedListener()
 			end
 		end
 
@@ -2500,21 +2498,16 @@ local function Initialize()
 	this.CloseSettingsPage = function()
 		this.PageOpen = false
 		teardownDeviceChangedListener()
-		if GetFFlagFixVideoCaptureSettings() then
+		if FFlagAvatarChatCoreScriptSupport then
 			if game:GetEngineFeature("VideoCaptureService") then
 				teardownVideoCameraDeviceChangedListener()
 			end
-		else
-			if GetFFlagUseVideoCaptureServiceEvents() then
-				if VideoCaptureService then
-					teardownVideoCameraDeviceChangedListener()
-				end
-			end
 		end
+
 		-- Check volume settings.
 		-- If player has decreased volume from >0 to 0, show prompt
 		if game:GetEngineFeature("VoiceChatSupported")
-			and this.VoiceChatOptionsEnabled and this.startVolume > 0
+			and this.VoiceChatOptionsEnabled and this.startVolume ~= nil and this.startVolume > 0
 		then
 			VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 		end
@@ -2532,7 +2525,7 @@ local function Initialize()
 			return true
 		end
 
-		-- Check if the user is in the forced list of users 
+		-- Check if the user is in the forced list of users
 		local forcedUserIds = game:GetFastString("V1MenuLanguageSelectionFeatureForcedUserIds")
 		for forcedUserIdString in forcedUserIds:gmatch("%d+") do
 			if tonumber(forcedUserIdString) == LocalPlayer.UserId then
@@ -2545,7 +2538,7 @@ local function Initialize()
 
 	function this:SetHub(newHubRef)
 		this.HubRef = newHubRef
-		
+
 		if isLangaugeSelectionDropdownEnabled() then
 			createTranslationOptions()
 		end

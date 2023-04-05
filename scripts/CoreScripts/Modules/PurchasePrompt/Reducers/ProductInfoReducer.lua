@@ -5,6 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Rodux = PurchasePromptDeps.Rodux
 
+local Constants = require(Root.Misc.Constants)
 local CompleteRequest = require(Root.Actions.CompleteRequest)
 local ProductInfoReceived = require(Root.Actions.ProductInfoReceived)
 local BundleProductInfoReceived = require(Root.Actions.BundleProductInfoReceived)
@@ -17,6 +18,13 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 	[ProductInfoReceived.name] = function(state, action)
 		local productInfo = action.productInfo
 
+		local collectibleItemId = ""
+		local collectibleProductId = ""
+		if productInfo.ProductType == Constants.ProductType.CollectibleItem then
+			collectibleItemId = productInfo.CollectibleItemId
+			collectibleProductId = productInfo.CollectibleProductId
+		end
+
 		return {
 			name = productInfo.Name,
 			price = productInfo.PriceInRobux or 0,
@@ -24,8 +32,11 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 			imageUrl = getPreviewImageUrl(productInfo),
 			assetTypeId = productInfo.AssetTypeId,
 			productId = productInfo.ProductId,
+			productType = productInfo.ProductType,
 			membershipTypeRequired = productInfo.MinimumMembershipLevel,
-			itemType = productInfo.AssetTypeId
+			itemType = productInfo.AssetTypeId,
+			collectibleItemId = collectibleItemId,
+			collectibleProductId = collectibleProductId,
 		}
 	end,
 

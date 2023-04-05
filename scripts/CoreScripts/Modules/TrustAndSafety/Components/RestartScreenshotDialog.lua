@@ -17,8 +17,8 @@ local HEADER_HEIGHT = 48
 local FOOTER_HEIGHT = 48
 
 export type Props = {
-    onCancel: () -> (),
-    onRestart: () -> (),
+	onCancel: () -> (),
+	onRestart: () -> (),
 }
 
 local function RestartScreenshotDialog(props: Props)
@@ -26,15 +26,15 @@ local function RestartScreenshotDialog(props: Props)
 	local theme = stylePalette.Theme
 	local font = stylePalette.Font
 	return React.createElement("Frame", {
-		Size = UDim2.new(0.3, 0, 0.3, 0),
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 480, 0, 160),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
 		BackgroundColor3 = Color3.fromHex("#4F545F"),
 		ZIndex = 5,
 	}, {
-        Corner = React.createElement("UICorner", {
-            CornerRadius = UDim.new(0, 8)
-        }),
+		Corner = React.createElement("UICorner", {
+			CornerRadius = UDim.new(0, 8),
+		}),
 		HeaderAndContent = React.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
@@ -50,16 +50,16 @@ local function RestartScreenshotDialog(props: Props)
 				renderLeft = function() end,
 				-- Need dummy on the right to take up space for balance
 				renderRight = function() end,
-				title = "Re-Start Report",
+				title = "Retake Scene",
 				LayoutOrder = 1,
 			}),
 			Divider = React.createElement(Divider, {
 				LayoutOrder = 2,
 			}),
 			Description = React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, - FOOTER_HEIGHT - 1),
+				Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT - 1),
 				BackgroundTransparency = 1,
-                LayoutOrder = 3
+				LayoutOrder = 3,
 			}, {
 				Padding = React.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, 8),
@@ -68,8 +68,8 @@ local function RestartScreenshotDialog(props: Props)
 					PaddingRight = UDim.new(0, 16),
 				}),
 				TextBody = React.createElement("TextLabel", {
-					Text = "This will take you back to the experience. Your scene will be captured again when you hit the Report Button.",
-					Font = font.Header1.Font,
+					Text = "Help us understand what’s happening around you. We’ll capture the scene the moment you select “Report.”",
+					Font = font.Body.Font,
 					LayoutOrder = 3,
 					TextColor3 = theme.TextEmphasis.Color,
 					TextTransparency = theme.TextEmphasis.Transparency,
@@ -91,8 +91,8 @@ local function RestartScreenshotDialog(props: Props)
 			Padding = React.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, 6),
 				PaddingBottom = UDim.new(0, 6),
-					PaddingLeft = UDim.new(0, 16),
-					PaddingRight = UDim.new(0, 16),
+				PaddingLeft = UDim.new(0, 16),
+				PaddingRight = UDim.new(0, 16),
 			}),
 			ActionButtons = React.createElement(ButtonStack, {
 				buttons = {
@@ -107,7 +107,7 @@ local function RestartScreenshotDialog(props: Props)
 						buttonType = ButtonType.PrimarySystem,
 						props = {
 							onActivated = props.onRestart,
-							text = "Re-Start",
+							text = "Back To Experience",
 						},
 					},
 				},

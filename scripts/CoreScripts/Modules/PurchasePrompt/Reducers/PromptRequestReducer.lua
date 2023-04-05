@@ -1,6 +1,7 @@
 --!nonstrict
 local Root = script.Parent.Parent
 local CorePackages = game:GetService("CorePackages")
+local HttpService = game:GetService("HttpService")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 local Rodux = PurchasePromptDeps.Rodux
@@ -23,6 +24,7 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 			requestType = RequestType.Asset,
 			equipIfPurchased = action.equipIfPurchased,
 			isRobloxPurchase = action.isRobloxPurchase,
+			idempotencyKey = HttpService:GenerateGUID(false),
 		}
 	end,
 	[RequestGamepassPurchase.name] = function(state, action)

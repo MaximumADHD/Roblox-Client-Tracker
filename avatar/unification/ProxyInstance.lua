@@ -26,7 +26,10 @@ local ExludeClasses = {
 	Attachment = true,
 	WrapTarget = true,
 	WrapLayer = true,
+	SurfaceAppearance = true,
 }
+
+local DEFAULT_NECK_NAME = "spartacus"
 
 local JointRemappings = {
 	RightShoulder = "Right Shoulder",
@@ -34,6 +37,30 @@ local JointRemappings = {
 	RightHip = "Right Hip",
 	LeftHip = "Left Hip",
 	Neck = "Neck",
+	Root = "Root Hip",
+}
+
+-- orientation of r6 joints are setup slightly differently from r15 motors -- we have to apply rotation and translation corrections for consistency 
+local centralRotation = CFrame.Angles(math.pi/2, -math.pi, 0)
+local leftRotation = CFrame.Angles(0, -math.pi/2, 0)
+local rightRotation = CFrame.Angles(0, math.pi/2, 0)
+
+local Motor6DAdjustments = {
+	Root = centralRotation,
+	[DEFAULT_NECK_NAME] = centralRotation,
+	RightShoulder = rightRotation,
+	RightHip = rightRotation,
+	LeftShoulder = leftRotation,
+	LeftHip = leftRotation,
+}
+
+local R6MotorValues = {
+	Root = {centralRotation,  centralRotation},
+	[DEFAULT_NECK_NAME] = {CFrame.new(0., 1., 0.) * centralRotation, CFrame.new(0., -0.5, 0.) * centralRotation},
+	RightShoulder = {CFrame.new(1., 0.5, 0.) * rightRotation, CFrame.new(-0.5, 0.5, 0.) * rightRotation},
+	RightHip = {CFrame.new(1., -1., 0.)* rightRotation, CFrame.new(0.5, 1., 0.)* rightRotation},
+	LeftShoulder = {CFrame.new(-1., 0.5, 0.) * leftRotation, CFrame.new(0.5, 0.5, 0.) * leftRotation},
+	LeftHip = {CFrame.new(-1., -1., 0.) * leftRotation, CFrame.new(-0.5, 1., 0.) * leftRotation},
 }
 
 local ProxiedInstances = {}
@@ -50,6 +77,101 @@ local function isPropertyBlacklisted(proxiedInstance, propName)
 	return false
 end
 
+-- store offset between R6 motors and R15 motors
+local function setMotor6DAdjustment(motor)
+	local name = motor.Name
+	local map = Motor6DAdjustments[name]
+	local rotation
+	if typeof(map) == "CFrame" then
+		rotation = map:Inverse()
+	else
+		rotation = map.C0[2]
+	end
+	if not rotation then
+		return
+	end
+	local defaultCFrames =  R6MotorValues[name]
+	local c0TranslateInverse = CFrame.new(motor.C0.Position - defaultCFrames[1].Position)
+	local c1TranslateInverse = CFrame.new(motor.C1.Position - defaultCFrames[2].Position)
+	Motor6DAdjustments[name] = {C0 = {c0TranslateInverse, rotation}, C1 = {c1TranslateInverse, rotation}}
+end
+
+-- apply adjustment from R6->R15 motor
+local function applyMotor6DAdjustment(motor, cframe, prop)
+	if not Motor6DAdjustments[motor.Name] then
+		return
+	end
+	local adjustments = Motor6DAdjustments[motor.Name][prop]
+	return adjustments[1] * cframe * adjustments[2]
+end
+
+local motorCache = {}
+
+-- set proxy motors to be default values
+local function remapMotor6DCFrame(motor, proxyMotor)
+	local cframes = R6MotorValues[motor.Name]
+	if not cframes then
+		return
+	end
+	motorCache[motor].C0 = motor.C0
+	motorCache[motor].C1 = motor.C1
+	motorCache[proxyMotor].C0 = cframes[1]
+	motorCache[proxyMotor].C1 = cframes[2]
+	proxyMotor.C0 = cframes[1]
+	proxyMotor.C1 = cframes[2]
+end
+
+local function fuzzyEq(a, b)
+	local epsilon = 0.001
+	return math.abs(a - b) < epsilon
+end
+
+local function fuzzyEq_CFrame(cf1, cf2)
+	local rx1, ry1, rz1 = cf1:ToEulerAnglesXYZ()
+	local rx2, ry2, rz2 = cf2:ToEulerAnglesXYZ()
+	return cf1.p:FuzzyEq(cf2.p)
+		and fuzzyEq(rx1, rx2)
+		and fuzzyEq(ry1, ry2)
+		and fuzzyEq(rz1, rz2)
+end
+
+local onPropertyChanged = function(proxied, proxy)
+	return function(prop)
+		if isPropertyBlacklisted(proxied, prop) then
+			return
+		end
+
+		pcall(function()
+			if proxy:IsA("Motor6D") and (prop == "C0" or prop == "C1") then
+				if fuzzyEq_CFrame(motorCache[proxy][prop], proxy[prop]) then
+					return
+				end
+				local transformedCFrame = applyMotor6DAdjustment(proxied, proxy[prop], prop)
+				motorCache[proxied][prop] = transformedCFrame
+				motorCache[proxy][prop] = proxy[prop]
+				proxied[prop] = transformedCFrame
+				return
+			end
+			proxied[prop] = proxy[prop]
+		end)
+	end
+end
+
+local onMotorChanged = function(motor, proxyMotor)
+	local motorChangedFunction
+	motorChangedFunction = function(prop)
+		if prop ~= "C0" and prop ~= "C1" then
+			return
+		end
+		if fuzzyEq_CFrame(motorCache[motor][prop], motor[prop]) then
+			return
+		end
+		setMotor6DAdjustment(motor)
+		remapMotor6DCFrame(proxyMotor)
+	end
+	return motorChangedFunction
+end
+
 local function ProxyInstance(proxied, proxy)
 	if ProxiedInstances[proxied] then
 		return
@@ -58,15 +180,41 @@ local function ProxyInstance(proxied, proxy)
 
 	local mirrorInstances = {}
 
-	local changedConnection = proxy.Changed:Connect(function(prop)
-		if isPropertyBlacklisted(proxied, prop) then
-			return
-		end
+	local connections = {}
 
-		pcall(function()
-			proxied[prop] = proxy[prop]
-		end)
-	end)
+	if proxied:IsA("Motor6D") and JointRemappings[proxied.Name] then
+		-- change neck name to prevent FindFirstChild() returning R15 Neck
+		if proxied.Name == "Neck" then
+			proxied.Name = DEFAULT_NECK_NAME
+			proxied:GetPropertyChangedSignal("Name"):Connect(function()
+				if proxied.Name == DEFAULT_NECK_NAME then
+					return
+				end
+				proxied.Name = DEFAULT_NECK_NAME
+			end)
+			if proxied.Part0 then
+				local att = proxied.Part0:FindFirstChild("NeckRigAttachment")
+				if att then
+					att.Name = DEFAULT_NECK_NAME .. "RigAttachment"
+				end
+			end
+			if proxied.Part1 then
+				local att = proxied.Part1:FindFirstChild("NeckRigAttachment")
+				if att then
+					att.Name = DEFAULT_NECK_NAME .. "RigAttachment"
+				end
+			end
+		end
+		motorCache[proxy] = {}
+		motorCache[proxied] = {}
+		setMotor6DAdjustment(proxied)
+		remapMotor6DCFrame(proxied, proxy)
+	end
+
+	if proxied:IsA("Motor6D") and Motor6DAdjustments[proxied.Name] then
+		connections.motorChangedConnection = proxied.Changed:Connect(onMotorChanged(proxied, proxy))
+	end
+	connections.changedConnection = proxy.Changed:Connect(onPropertyChanged(proxied, proxy))
 
 	local function onChildAdded(child)
 		if mirrorInstances[child] then
@@ -82,6 +230,9 @@ local function ProxyInstance(proxied, proxy)
 		if JointRemappings[name] and child:IsA("Motor6D") then
 			name = JointRemappings[name]
 			parent = proxy.Parent:FindFirstChild("Torso") or parent
+			if name == "Root Hip" then
+				parent = proxy.Parent:FindFirstChild("HumanoidRootPart") or parent
+			end
 		end
 
 		local mirror
@@ -102,20 +253,19 @@ local function ProxyInstance(proxied, proxy)
 		ProxyInstance(child, mirror)
 	end
 
-	local childAddedConnection = proxied.ChildAdded:Connect(onChildAdded)
+	connections.childAddedConnection = proxied.ChildAdded:Connect(onChildAdded)
 	for _, child in proxied:GetChildren() do
 		task.spawn(onChildAdded, child)
 	end
 
-	local childRemovedConnection = proxied.ChildRemoved:Connect(function(child)
+	connections.childRemovedConnection = proxied.ChildRemoved:Connect(function(child)
 		if mirrorInstances[child] then
 			mirrorInstances[child]:Destroy()
 			mirrorInstances[child] = nil
 		end
 	end)
 
-	local ancestryChangedConnection
-	ancestryChangedConnection = proxied.AncestryChanged:Connect(function(_, parent)
+	connections.ancestryChangedConnection = proxied.AncestryChanged:Connect(function(_, parent)
 		if parent then
 			return
 		end
@@ -129,14 +279,10 @@ local function ProxyInstance(proxied, proxy)
 			end
 		end
 
-		changedConnection:Disconnect()
-		childAddedConnection:Disconnect()
-		childRemovedConnection:Disconnect()
-		ancestryChangedConnection:Disconnect()
-		changedConnection = nil
-		childAddedConnection = nil
-		childRemovedConnection = nil
-		ancestryChangedConnection = nil
+		for _, connection in pairs(connections) do
+			connection:Disconnect()
+		end
+		connections = {}
 	end)
 end
 

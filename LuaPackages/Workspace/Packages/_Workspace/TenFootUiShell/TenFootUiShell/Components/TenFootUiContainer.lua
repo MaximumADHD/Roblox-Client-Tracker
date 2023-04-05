@@ -8,6 +8,17 @@ local RoactNavigation = require(Packages.RoactNavigation)
 
 local useTenFootUiSceneManager = require(TenFootUiShell.Utils.useTenFootUiSceneManager)
 local createTenFootUiSwitchNavigator = require(TenFootUiShell.ReactNavigationExtend.createTenFootUiSwitchNavigator)
+local TenFootUiGlobalNav = require(Packages.TenFootUiGlobalNav)
+local GlobalNavContainer = TenFootUiGlobalNav.GlobalNavContainer
+
+local SceneManagement = require(Packages.SceneManagement)
+local SurfaceGuiWithAdornee = SceneManagement.SurfaceGuiWithAdornee
+local calculateTopBarAdorneeProps = SceneManagement.calculateAdorneeProps.calculateTopBarAdorneeProps
+local Constants = require(TenFootUiShell.ReactNavigationExtend.Views.Constants)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local TenFootUiContext = TenFootUiCommon.TenFootUiContext
+
+type TenFootUiContext = TenFootUiCommon.TenFootUiContext
 
 local FocusNavigationService = ReactFocusNavigation.FocusNavigationService
 local CoreGuiInterface = ReactFocusNavigation.EngineInterface.CoreGui
@@ -24,6 +35,7 @@ type ScreenProps = {
 type Props = {
 	store: any,
 	updateRoute: () -> (),
+	dependencies: TenFootUiContext,
 }
 
 local TenFootUiSurfaceGuiFolderName = "TenFootUiSurfaceGuiFolder"
@@ -74,25 +86,15 @@ local function ScreenWithButtons(props: ScreenWithButtonsProps)
 	return React.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
 		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 0.8,
+		BackgroundTransparency = 1,
 	}, { buttons })
 end
 
-local function MainScreen(props: ScreenProps)
-	return React.createElement(ScreenWithButtons, {
-		buttons = {
-			["Discover"] = function()
-				props.navigation.navigate("Discover")
-			end,
-		},
-	})
-end
-
-local function DiscoverScreen(props: ScreenProps)
+local function EmptyScreen(props: ScreenProps)
 	return React.createElement(ScreenWithButtons, {
 		buttons = {
 			["Home"] = function()
-				props.navigation.navigate("Home")
+				props.navigation.navigate({ routeName = "Home" })
 			end,
 		},
 	})
@@ -111,7 +113,7 @@ local function getOrCreateSurfaceGuiContainer(): Instance
 end
 
 local function getOrCreateWorkSpaceContainer(): Instance
-	local workspaceContainer: Instance = workspace:FindFirstChild(TenFootUiWorkspaceFolderName)
+	local workspaceContainer: Instance = workspace:FindFirstChild(TenFootUiWorkspaceFolderName) :: Instance
 	if not workspaceContainer then
 		local folder = Instance.new("Folder")
 		folder.Name = TenFootUiWorkspaceFolderName
@@ -121,25 +123,69 @@ local function getOrCreateWorkSpaceContainer(): Instance
 	return workspaceContainer
 end
 
-local function TenFootUiContainer(props: Props)
-	useTenFootUiSceneManager()
-
+local function createAppContainer()
 	local surfaceGuiContainer = getOrCreateSurfaceGuiContainer()
 	local workspaceContainer = getOrCreateWorkSpaceContainer()
 
+	local navigationConfig = {
+		initialRouteName = "Home",
+		surfaceGuiContainer = surfaceGuiContainer,
+		worldContainer = workspaceContainer,
+	}
+
 	-- This is placeholder not production code.
-	local rootNavigator = createTenFootUiSwitchNavigator({
+	local InnerNavigator = createTenFootUiSwitchNavigator({
 		{
 			Home = {
-				screen = MainScreen,
+				screen = EmptyScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},
 			},
 		},
 		{
-			Discover = {
-				screen = DiscoverScreen,
+			Games = {
+				screen = EmptyScreen,
+				navigationOptions = {
+					screenKind = "Default",
+				},
+			},
+		},
+		{
+			AvatarExperienceRoot = {
+				screen = EmptyScreen,
+				navigationOptions = {
+					screenKind = "Default",
+				},
+			},
+		},
+		{
+			Chat = {
+				screen = EmptyScreen,
+				navigationOptions = {
+					screenKind = "Default",
+				},
+			},
+		},
+		{
+			SearchPage = {
+				screen = EmptyScreen,
+				navigationOptions = {
+					screenKind = "Default",
+				},
+			},
+		},
+		{
+			PurchaseRobux = {
+				screen = EmptyScreen,
+				navigationOptions = {
+					screenKind = "Default",
+				},
+			},
+		},
+		{
+			More = {
+				screen = EmptyScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},
@@ -153,19 +199,50 @@ local function TenFootUiContainer(props: Props)
 		-- 		}
 		-- 	},
 		-- },
-	}, {
-		initialRouteName = "Home",
-		surfaceGuiContainer = surfaceGuiContainer,
-		worldContainer = workspaceContainer,
+	}, navigationConfig)
+
+	local topBarDims: Vector3, topBarCframe: CFrame =
+		calculateTopBarAdorneeProps(Constants.TopbarHeightRatio, Constants.DefaultDistanceToCamera)
+
+	local GlobalNavBar = React.createElement(SurfaceGuiWithAdornee, {
+		adorneeSize = topBarDims,
+		adorneeCFrame = topBarCframe,
+		canvasSize = Constants.TopbarCanvasSize,
+		alwaysOnTop = true,
+		isVisible = true,
+		name = "GlobalNavBar",
+		adorneeParent = navigationConfig.worldContainer,
+		surfaceGuiParent = navigationConfig.surfaceGuiContainer,
+		children = React.createElement(GlobalNavContainer),
 	})
 
+	local TenFootUiRootNavigator = React.Component:extend("TenFootUiRootNavigator")
+	TenFootUiRootNavigator.router = InnerNavigator.router
+
+	function TenFootUiRootNavigator:render()
+		return React.createElement(React.Fragment, nil, {
+			GlobalNavBar = GlobalNavBar,
+			InnerNavigator = React.createElement(InnerNavigator, {
+				navigation = self.props.navigation,
+			}),
+		})
+	end
+	return RoactNavigation.createAppContainer(TenFootUiRootNavigator)
+end
+
+local function TenFootUiContainer(props: Props)
+	useTenFootUiSceneManager()
+
+	local TenFootUiAppContainer = createAppContainer()
 	local focusNav = React.useRef(FocusNavigationService.new(CoreGuiInterface))
 
-	local appContainer = RoactNavigation.createAppContainer(rootNavigator)
-
-	return React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
-		value = focusNav.current,
-	}, React.createElement(appContainer))
+	return React.createElement(
+		ReactFocusNavigation.FocusNavigationContext.Provider,
+		{ value = focusNav.current },
+		React.createElement(TenFootUiContext.Provider, { value = props.dependencies }, {
+			TenFootUiAppContainer = React.createElement(TenFootUiAppContainer, { detached = true }),
+		})
+	)
 end
 
 return TenFootUiContainer

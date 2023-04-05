@@ -1,16 +1,17 @@
 --[[ Swimming State ]]--
 local baseState = require(script.Parent.Parent:WaitForChild("CharacterControlBaseStateModule"))
 
-local Swimming = baseState:extend()
+local Swimming = baseState:inherit()
 Swimming.name = script.Name
 Swimming.humanoidState = Enum.HumanoidStateType.Swimming 
+Swimming.activeController = "SwimController"
 
 function Swimming:OnStepped(stateMachine, dt)
 	baseState.OnStepped(self, stateMachine, dt)
 
 	local humanoid = stateMachine.context.humanoid
 
-	local moveDir = humanoid.MoveDirection
+	local moveDir = stateMachine.context.MoveDirection
 	-- print(moveDir)
 
 	if moveDir.Magnitude < 0.1 then		

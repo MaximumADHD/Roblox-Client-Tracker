@@ -12,6 +12,7 @@ return {
 
 	GDPR_VERSION = "gdpr_version",
 	NON_GDPR_VERSION = "non_gdpr_version",
+	NON_GDPR_VERSION_CHECKBOX = "non_gdpr_version_checkbox",
 
 	IS_STANDALONE_DISCOVERABILITY_MODAL = "isStandaloneDiscoverabilityModal",
 	NAVIGATE_ON_ACTIVATED = "navigateOnActivated",

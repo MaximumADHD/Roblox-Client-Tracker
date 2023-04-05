@@ -55,21 +55,21 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should keep old text when new text exceeds max length or is invalid", function()
+	it("should handle when new text exceeds max length or is invalid", function()
 		local updatedText
+		local textChangedWasCalled = false
 		local isNameInvalid = false
-		local test100Chars =
-			"Lorem ipsum 89 dolor sit amet consectetur adipiscing elit Fusce volutpat quam maximus nibh vulputate"
-		local test101Chars =
-			"Lorem ipsum 89 dolor sit amet consectetur adipiscing elit Fusce volutpat quam maximus nibh vulputatex"
+		local test50Chars = "Lorem ipsum dolor sit amet consectetur adipisci ve"
+		local test51Chars = "Lorem ipsum dolor sit amet consectetur adipisci vel"
 
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			AssetNameTextBox = Roact.createElement(AssetNameTextBox, {
-				onAssetNameUpdated = function(newName, isNameInvalid)
+				onAssetNameUpdated = function(newName, invalid)
 					updatedText = newName
-					isNameInvalid = isNameInvalid
+					isNameInvalid = invalid
+					textChangedWasCalled = true
 				end,
 			}),
 		})
@@ -78,24 +78,26 @@ return function()
 		local instance = Roact.mount(element, folder)
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 
-		textBox.Text = test100Chars
+		textBox.Text = test50Chars
 		waitForEvents.act()
 
-		expect(textBox.Text).to.equal(test100Chars)
-		expect(updatedText).to.equal(test100Chars)
+		expect(textChangedWasCalled).to.equal(true)
+		expect(textBox.Text).to.equal(test50Chars)
+		expect(updatedText).to.equal(test50Chars)
 		expect(isNameInvalid).to.equal(false)
 
-		textBox.Text = test101Chars
+		textBox.Text = test51Chars
 		waitForEvents.act()
 
-		expect(textBox.Text).to.equal(test100Chars)
-		expect(updatedText).to.equal(test100Chars)
+		expect(textBox.Text).to.equal(test50Chars)
+		expect(updatedText).to.equal(test50Chars)
 		expect(isNameInvalid).to.equal(false)
 
-		textBox.Text = "InvalidName!" -- Special characters are invalid
+		local invalidName = "InvalidName!" -- Special characters are invalid
+		textBox.Text = invalidName
 		waitForEvents.act()
 
-		expect(updatedText).to.equal(test100Chars)
+		expect(updatedText).to.equal(invalidName)
 		expect(isNameInvalid).to.equal(true)
 
 		Roact.unmount(instance)

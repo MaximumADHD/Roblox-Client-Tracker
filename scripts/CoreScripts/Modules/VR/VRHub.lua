@@ -19,8 +19,10 @@ local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
 local SafetyBubble = require(script.Parent.SafetyBubble)
-local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled) or game:GetEngineFeature("EnableMaquettesSupport")
+local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
+	or game:GetEngineFeature("EnableMaquettesSupport")
 local BindR2AsCoreActivate = game:GetEngineFeature("BindR2AsCoreActicateInVR")
+local GetFFlagEnableVRHubStateListener = require(RobloxGui.Modules.Flags.GetFFlagEnableVRHubStateListener)
 
 local VRHub = {}
 local RegisteredModules = {}
@@ -101,11 +103,7 @@ local function onRenderSteppedLast()
 	end
 end
 
-local function onVREnabled(property)
-	if property ~= "VREnabled" then
-		return
-	end
-
+local function onVREnabledChanged()
 	if VRService.VREnabled then
 		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
@@ -127,9 +125,9 @@ local function onVREnabled(property)
 			VRHub.LaserPointer:setForcePointer(true)
 		end
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
-		
+
 		VRHub.SafetyBubble = SafetyBubbleEnabled and SafetyBubble.new() or nil
-		
+
 		-- this is the equivalent of MouseButton1 in VR
 		if BindR2AsCoreActivate then
 			ContextActionService:BindCoreActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
@@ -141,8 +139,48 @@ local function onVREnabled(property)
 		RunService:UnbindFromRenderStep(vrUpdateRenderstepName)
 	end
 end
-onVREnabled("VREnabled")
-VRService.Changed:connect(onVREnabled)
+
+local function onVREnabled(property)
+	if property ~= "VREnabled" then
+		return
+	end
+	onVREnabledChanged()
+end
+
+local function onVRSessionStateChanged()
+	if VRService.VRSessionState == Enum.VRSessionState.Focused then
+		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Disabled then
+			VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
+			enableControllerModels(true)
+		end
+		if not VRHub.ControllerModelsEnabled then
+			enableControllerModels(true)
+		end
+	else
+		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Navigation then
+			VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
+		end
+		if VRHub.ControllerModelsEnabled then
+			enableControllerModels(false)
+		end
+	end
+end
+
+local function onVRPropertyChanged(property)
+	if property == "VREnabled" then
+		onVREnabledChanged()
+	elseif property == "VRSessionState" then
+		onVRSessionStateChanged()
+	end
+end
+
+if GetFFlagEnableVRHubStateListener then
+	onVREnabledChanged()
+	VRService.Changed:connect(onVRPropertyChanged)
+else
+	onVREnabled("VREnabled")
+	VRService.Changed:connect(onVREnabled)
+end
 
 --VRHub API
 function VRHub:RegisterModule(module)
@@ -167,9 +205,9 @@ function VRHub:GetOpenedModules()
 	return result
 end
 
-VRHub.ModuleOpened = Util:Create "BindableEvent" {
-	Name = "VRModuleOpened"
-}
+VRHub.ModuleOpened = Util:Create("BindableEvent")({
+	Name = "VRModuleOpened",
+})
 --Wrapper function to document the arguments to the event
 function VRHub:FireModuleOpened(moduleName)
 	if not RegisteredModules[moduleName] then
@@ -182,9 +220,9 @@ function VRHub:FireModuleOpened(moduleName)
 	end
 end
 
-VRHub.ModuleClosed = Util:Create "BindableEvent" {
-	Name = "VRModuleClosed"
-}
+VRHub.ModuleClosed = Util:Create("BindableEvent")({
+	Name = "VRModuleClosed",
+})
 --Wrapper function to document the arguments to the event
 function VRHub:FireModuleClosed(moduleName)
 	if not RegisteredModules[moduleName] then
@@ -208,13 +246,13 @@ end
 
 VRHub.ShowTopBar = true
 
-VRHub.ShowTopBarChanged = Util:Create "BindableEvent" {
-	Name = "ShowTopBarChanged"
-}
+VRHub.ShowTopBarChanged = Util:Create("BindableEvent")({
+	Name = "ShowTopBarChanged",
+})
 
-VRHub.SafetyBubbleToggled = Util:Create "BindableEvent" {
-	Name = "SafetyBubbleToggled"
-}
+VRHub.SafetyBubbleToggled = Util:Create("BindableEvent")({
+	Name = "SafetyBubbleToggled",
+})
 
 function VRHub:SetShowTopBar(showTopBar)
 	if VRHub.ShowTopBar ~= showTopBar then

@@ -20,6 +20,8 @@ local SocialLibraries = dependencies.SocialLibraries
 local React = dependencies.React
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
+local DiscoverabilityUpsellPrefillDiscoverableRedesignRolloutEnabled =
+	require(DiscoverabilityModal.Flags.DiscoverabilityUpsellPrefillDiscoverableRedesignRolloutEnabled)
 local SelfViewProfileDiscoverabilityUpsellIXP =
 	require(DiscoverabilityModal.Flags.SelfViewProfileDiscoverabilityUpsellIXP)
 
@@ -101,10 +103,19 @@ local DiscoverabilityOverlayContainer = function(passedProps: Props)
 	end)
 
 	React.useEffect(function()
+		local version
+		if userSettingsMetadata.prefillDiscoverabilitySetting then
+			if DiscoverabilityUpsellPrefillDiscoverableRedesignRolloutEnabled() then
+				version = Constants.NON_GDPR_VERSION_CHECKBOX
+			else
+				version = Constants.NON_GDPR_VERSION
+			end
+		else
+			version = Constants.GDPR_VERSION
+		end
+
 		analytics.fireAnalyticsEvent(EventNames.DiscoverabilityModalLoad, {
-			version = if userSettingsMetadata.prefillDiscoverabilitySetting
-				then Constants.NON_GDPR_VERSION
-				else Constants.GDPR_VERSION,
+			version = version,
 		})
 	end, {})
 

@@ -24,7 +24,14 @@ local PanelEntry = require(Main.Src.Components.PanelEntry)
 
 local PropsList = Roact.PureComponent:extend("PropsList")
 
-function PropsList:renderProp(name: string, type: string, comment: string, index: number)
+function PropsList:renderProp(
+	name: string,
+	type: string,
+	isOptional: boolean?,
+	default: any?,
+	comment: string?,
+	index: number
+)
 	local props = self.props
 	local style = props.Stylizer
 	local sizes = style.Sizes
@@ -45,27 +52,44 @@ function PropsList:renderProp(name: string, type: string, comment: string, index
 			AutomaticSize = Enum.AutomaticSize.XY,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		}, {
-			Type = Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Text = type,
-				Font = Enum.Font.SourceSans,
-				TextSize = text.Type.Size,
-				TextColor3 = text.Type.Color,
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-			}),
-
 			Name = Roact.createElement("TextLabel", {
 				AutomaticSize = Enum.AutomaticSize.XY,
-				Text = name,
+				Text = name .. if isOptional then "?" else "",
 				Font = Enum.Font.SourceSans,
 				TextSize = text.Type.Size,
 				TextColor3 = text.Header.Color,
 				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			}),
+			Type = Roact.createElement("TextLabel", {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Text = type,
+				Font = text.Mono.Font,
+				TextSize = text.Mono.Size,
+				TextColor3 = text.Type.Color,
+				BackgroundTransparency = 1,
 				LayoutOrder = 2,
 			}),
+			Default = default and Roact.createElement("TextLabel", {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Text = '(default: <font face="'
+					.. text.Mono.Font.Name
+					.. '" weight="'
+					.. text.Default.Weight.Name
+					.. '" size="'
+					.. tostring(text.Mono.Size)
+					.. '">'
+					.. tostring(default)
+					.. "</font>)",
+				Font = Enum.Font.SourceSans,
+				TextSize = text.Type.Size,
+				TextColor3 = text.Default.Color,
+				BackgroundTransparency = 1,
+				RichText = true,
+				LayoutOrder = 3,
+			}),
 		}),
-		Comment = Roact.createElement("TextLabel", {
+		Comment = comment and Roact.createElement("TextLabel", {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Text = comment,
 			Font = Enum.Font.SourceSans,
@@ -88,7 +112,7 @@ function PropsList:render()
 
 	local children = {}
 	for index, prop in ipairs(Props) do
-		children[prop.Name] = self:renderProp(prop.Name, prop.Type, prop.Comment, index)
+		children[prop.Name] = self:renderProp(prop.Name, prop.Type, prop.IsOptional, prop.Default, prop.Comment, index)
 	end
 
 	return Roact.createElement(PanelEntry, {

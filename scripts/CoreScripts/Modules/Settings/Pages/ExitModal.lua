@@ -230,7 +230,7 @@ local function Initialize()
 					this.LeaveGameFunc(false)
 
 					if GetFFlagEnableSurveyImprovements() then 
-						MessageBus.publish(Constants.OnLeaveButtonClickDescriptor, {}) 
+						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType}) 
 					end
 				end,
 			}),

@@ -9,6 +9,7 @@ local calculatePageContentAdorneeProps = SceneManagement.calculateAdorneeProps.c
 
 local Constants = require(script.Parent.Constants)
 local TenFootUiNavigatorTypes = require(script.Parent.Parent.TenFootUiNavigatorTypes)
+
 type NavigationObject = TenFootUiNavigatorTypes.NavigationObject
 type SwitchNavigatorConfig = TenFootUiNavigatorTypes.SwitchNavigatorConfig
 type Descriptor = TenFootUiNavigatorTypes.Descriptor

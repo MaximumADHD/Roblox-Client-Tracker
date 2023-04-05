@@ -31,9 +31,9 @@ local function startStateMachine(character : Model, humanoid : Humanoid, stateNa
 	
 	local record : commonTypes.RunningStateMachineRecord? = nil
 	if stateName == nil then
-		record = commonFuncs.startStateMachine(character, humanoid)	
+		record = commonFuncs.StartStateMachine(character, humanoid, localHumanoidStateMachineEvent, true)	
 	else
-		record = commonFuncs.continueStateMachine(character, humanoid, stateName, context)	
+		record = commonFuncs.ContinueStateMachine(character, humanoid, localHumanoidStateMachineEvent, stateName, context)	
 	end
 
 	if record ~= nil then
@@ -44,13 +44,17 @@ local function startStateMachine(character : Model, humanoid : Humanoid, stateNa
 	return false
 end
 
--- WATCH FOR NEW PCs -----------------------------------------------------------
+-- WATCH FOR LOCAL MESSAGES -----------------------------------------------------------
 if debug then
 	print("Starting client monitor")
 end
 
-local function onLocalHumanoidStateMachineEvent(character : Model, humanoid : Humanoid, eventType : string)
-	if eventType == "RegisterHumanoidSM" then
+local function onLocalHumanoidStateMachineEvent(character : Model, humanoid : Humanoid, eventType : string, data : any)
+	if eventType == "ChangeStateSM" then
+		-- changes to character state
+		humanoidStateMachineUpdateEvent:FireServer("ChangeStateSM", data)
+	elseif eventType == "RegisterHumanoidSM" then
+		-- New PC starting up --
 		local registerRecord : commonTypes.RegisterHumanoidSMDataType = {
 			characterModel = character,
 			humanoidInstance = humanoid
@@ -83,7 +87,7 @@ local function onHumanoidRemoteEventClient(eventType : string, data : any)
 			}
 
 			humanoidStateMachineUpdateEvent:FireServer("ContextDataHumanoidSM", contextXfer)
-			commonFuncs.stopStateMachine(record)	
+			commonFuncs.StopStateMachine(record)	
 			runningStateMachines[transferDataModel] = nil
 		end
 	elseif eventType == "ContextDataHumanoidSM" then

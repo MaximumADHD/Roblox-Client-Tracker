@@ -26,6 +26,7 @@ local ScreenshotDialog = require(TnsModule.Components.ScreenshotDialog)
 local ScreenshotFlowStepHandler = require(TnsModule.Components.ScreenshotFlowStepHandler)
 local SendAnalytics = require(TnsModule.Utility.SendAnalytics)
 local SessionUtility = require(TnsModule.Utility.SessionUtility)
+local ScreenshotHelper = require(TnsModule.Utility.ScreenshotHelper)
 local GetFFlagReportAnythingScreenshot = require(TnsModule.Flags.GetFFlagReportAnythingScreenshot)
 local GetFFlagReportAnythingMultistepScreenshot = require(TnsModule.Flags.GetFFlagReportAnythingMultistepScreenshot)
 local ScreenshotAnnotated = require(TnsModule.Actions.ScreenshotAnnotated)
@@ -365,10 +366,16 @@ function ReportDialog:render()
 				-- TODO(richardli): add additional props
 				return React.createElement(ScreenshotFlowStepHandler, {
 					dismissAction = self.onCancel,
+					titleText = "Highlight What's Wrong",
+					screenshot = ScreenshotHelper:GetScreenshotContentId(),
+					skipAnnotationAction = function() end,
+					restartAction = function() end,
+					reportAction = function() end,
 				})
 			else
 				return React.createElement(ScreenshotDialog, {
 					-- TODO(bcwong): Localize
+					screenshot = ScreenshotHelper:GetScreenshotContentId(),
 					titleText = "Highlight What's Wrong",
 					backAction = if self.props.canNavigateBack then self.navigateBack else nil,
 					dismissAction = self.onCancel,

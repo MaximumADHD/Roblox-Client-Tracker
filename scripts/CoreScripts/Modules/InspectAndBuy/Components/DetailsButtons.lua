@@ -16,6 +16,7 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 
 local FFlagFixInspectAndBuyPremiumPrice = game:DefineFastFlag("FixInspectAndBuyPremiumPrice", false)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
+local GetCollectibleItemInInspectAndBuyEnabled = require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -124,7 +125,13 @@ function DetailsButtons:render()
 		else
 			itemType = Constants.ItemType.Asset
 			itemId = assetInfo.assetId
-			forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
+			if GetCollectibleItemInInspectAndBuyEnabled() and assetInfo.productType == Constants.ProductType.CollectibleItem then
+				-- isForSale bit for Collectible Items is already computed in GetProductInfo() where sale location
+				-- and remaining stock are already taken into account.
+				forSale = assetInfo.isForSale
+			else
+				forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
+			end
 			if forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
 				forSale = (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium
 			end
@@ -133,7 +140,7 @@ function DetailsButtons:render()
 		end
 
 		showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
-		if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil
+		if Constants.AssetTypeIdStringToHumanoidDescriptionProp[assetInfo.assetTypeId] == nil
 			and Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] == nil then
 			showTryOn = false
 		end

@@ -35,8 +35,6 @@ local NetworkingAccountInformation = dependencies.NetworkingAccountInformation
 
 local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFilterOutRecs)
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
-local getFFlagFriendsCarouselAddUniverseIdToEvents =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddUniverseIdToEvents)
 local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
 local getFFlagFriendsCarouselAddNewBadgeTracking =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
@@ -387,9 +385,7 @@ describe("CarouselContainer", function()
 								friendStatus = "friend",
 								isRecommendation = false,
 								uid = "test",
-								universeId = if getFFlagFriendsCarouselAddUniverseIdToEvents()
-									then "universeIdTest"
-									else nil,
+								universeId = "universeIdTest",
 							})
 						)
 						jestExpect(mockedAnalytics.Diag.reportCounter).toHaveBeenCalledTimes(1)

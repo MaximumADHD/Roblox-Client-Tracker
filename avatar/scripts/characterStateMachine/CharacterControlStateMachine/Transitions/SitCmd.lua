@@ -1,7 +1,7 @@
 --[[ SitCmd Transition ]]--
 local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
 
-local SitCmd = baseTransition:extend()
+local SitCmd = baseTransition:inherit()
 SitCmd.name = script.Name
 SitCmd.destinationName = "Seated"
 SitCmd.sourceName = "Climbing, FreeFall, FallingDown, GettingUp, Landed, Running, Jumping, Swimming"

@@ -125,7 +125,6 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local VoiceIndicatorsExperimentEnabled = require(RobloxGui.Modules.VoiceChat.Experiments.VoiceIndicatorExperiment)
 local GetFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
@@ -615,7 +614,7 @@ local function CreateSettingsHub()
 		voiceChatServiceConnected = true
 		VoiceChatServiceManager:asyncInit():andThen(function()
 			voiceEnabled = true
-			if GetFFlagVoiceRecordingIndicatorsEnabled() and VoiceIndicatorsExperimentEnabled() then
+			if GetFFlagVoiceRecordingIndicatorsEnabled() then
 				this.VoiceRecordingText.Visible = true
 				local VCS = VoiceChatServiceManager:getService()
 				VCS.StateChanged:Connect(function(_oldState, newState)
@@ -637,7 +636,7 @@ local function CreateSettingsHub()
 			if GetFFlagMuteButtonRaceConditionFix() then
 				VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 					updateIcon()
-					if GetFFlagVoiceRecordingIndicatorsEnabled() and VoiceIndicatorsExperimentEnabled() then
+					if GetFFlagVoiceRecordingIndicatorsEnabled() then
 						this.isMuted = muted
 						this.lastVoiceRecordingIndicatorTextUpdated = tick()
 						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
@@ -668,7 +667,7 @@ local function CreateSettingsHub()
 							RunService:UnbindFromRenderStep(renderStepName)
 						end
 
-						if GetFFlagVoiceRecordingIndicatorsEnabled() and VoiceIndicatorsExperimentEnabled() then
+						if GetFFlagVoiceRecordingIndicatorsEnabled() then
 							if isOpen then
 								this.lastVoiceRecordingIndicatorTextUpdated = tick()
 								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
@@ -1205,7 +1204,7 @@ local function CreateSettingsHub()
 			this.HubBar.Position = UDim2.new(0.5,0,0.1,0)
 		end
 
-		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() then utility:Create'Frame'
+		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() and not FFlagAvatarChatCoreScriptSupport then utility:Create'Frame'
 			{
 				Size = UDim2.fromOffset(0, 100),
 				Position = UDim2.new(0,0,0,0),

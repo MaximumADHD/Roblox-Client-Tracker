@@ -47,7 +47,6 @@ local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
-local VoiceIndicatorsExperimentEnabled = require(RobloxGui.Modules.VoiceChat.Experiments.VoiceIndicatorExperiment)
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -66,7 +65,7 @@ function MenuIcon:init()
 		-- We spawn a new coroutine so that this doesn't block the UI from loading.
 		task.spawn(function()
 			self:setState({
-				enableFlashingDot = VoiceIndicatorsExperimentEnabled()
+				enableFlashingDot = true
 			})
 		end)
 	end
