@@ -13,6 +13,7 @@ return function(state: ReducerTypes.ByContactId, action: ActionTypes.GetContactE
 		newState[contact.id] = {
 			contactName = contact.name,
 			mutualContacts = contact.mutualContacts,
+			avatarAssetHashId = contact.avatarAssetHashId,
 		}
 	end)
 

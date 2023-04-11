@@ -26,6 +26,27 @@ local getErrorStack
 local invariant
 -- ROBLOX deviation END
 
+-- ROBLOX deviation START: add additional imports
+local RegExp = require(Packages.RegExp)
+-- ROBLOX deviation END
+
+-- ROBLOX deviation START: add function to extract bare string message from stacktrace line
+local function separateMessageFromStack(content: string): { message: string, stack: string }
+	if not content then
+		return { message = "", stack = "" }
+	end
+	local message = content
+	local stack = ""
+	local re = RegExp([=[^(\s*LoadedCode.*:\d+)?(: )?(.*)$]=])
+	local messageMatch = re:exec(content)
+	if messageMatch then
+		message = messageMatch[4]
+		stack = messageMatch[2]
+	end
+	return { message = message, stack = stack }
+end
+-- ROBLOX deviation END
+
 -- ROBLOX FIXME START: added types and objects that do not exist in Luau
 type NodeJS_Timeout = LuauPolyfill.Timeout
 -- ROBLOX FIXME END
@@ -393,6 +414,15 @@ test functions can only return Promise or undefined.
 			-- ROBLOX deviation: no need to unref the timeoutID in Lua
 			-- timeoutID.unref?.()
 			clearTimeout(timeoutID)
+			-- ROBLOX deviation START: add special handling for bare strings getting thrown as Promise chain will make them unusable otherwise
+			if typeof(error_) == "string" then
+				local separated = separateMessageFromStack(error_)
+				local wrappedError = Error.new(separated.message);
+				(wrappedError :: any).__stack = separated.stack
+				Error.__recalculateStacktrace(wrappedError)
+				error(wrappedError)
+			end
+			-- ROBLOX deviation END
 			error(error_)
 		end)
 end

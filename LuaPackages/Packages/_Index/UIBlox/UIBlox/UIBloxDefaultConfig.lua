@@ -110,8 +110,6 @@ return {
 	-- Enable fix for the image set resolution scale
 	enableImageSetResolutionScaleFix = false,
 
-	-- Register gamepad buttons for VR laser pointer input
-	moveBindActivate = false,
 	-- Enable support for the new Collectible/Limited 2.0 item restriction type
 	enableCollectibleItemRestriction = false,
 
@@ -166,4 +164,7 @@ return {
 
 	-- Indicate whether design token support is enabled
 	enableRoDSDesignTokenSupport = false,
+
+	-- Change how VR Panel3D aligned to the in-game panel
+	vrAlignPanel3DUnderInGamePanel = false,
 }

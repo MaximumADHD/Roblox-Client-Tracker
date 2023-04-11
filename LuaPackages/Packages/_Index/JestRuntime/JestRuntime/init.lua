@@ -131,8 +131,6 @@ type ResolveModuleConfig = any
 -- ROBLOX deviation END
 
 -- ROBLOX deviation START: additional dependencies
-local setTimeout = LuauPolyfill.setTimeout
-
 local TypeError = Error
 local _typesModule = require(script._types)
 export type Jest = _typesModule.Jest
@@ -565,13 +563,21 @@ type Runtime_private = { --
 	-- 	options_: ResolveOptions?
 	-- ) -> any,
 	-- _requireResolvePaths: (self: Runtime_private, from: Config_Path, moduleName: string?) -> any,
-	-- _execModule: (
-	-- 	self: Runtime_private,
-	-- 	localModule: InitialModule,
-	-- 	options: InternalModuleOptions | nil,
-	-- 	moduleRegistry: ModuleRegistry,
-	-- 	from: Config_Path | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]]
-	-- ) -> any,
+	-- ROBLOX deviation END
+	_execModule: (
+		self: Runtime_private,
+		localModule: InitialModule,
+		options: InternalModuleOptions | nil,
+		moduleRegistry: ModuleRegistry,
+		-- ROBLOX deviation START: using ModuleScript instead of string
+		-- from: Config_Path | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]]
+		from: ModuleScript | nil,
+		-- ROBLOX deviation END
+		-- ROBLOX deviation START: additional param to not require return from test files
+		noModuleReturnRequired: boolean?
+		-- ROBLOX deviation END
+	) -> any,
+	-- ROBLOX deviation START: skipped
 	-- transformFile: (self: Runtime_private, filename: string, options: InternalModuleOptions?) -> string,
 	-- transformFileAsync: (
 	-- 	self: Runtime_private,
@@ -1160,6 +1166,11 @@ function Runtime_private:requireModule<T>(
 	-- ROBLOX deviation START: additional logic
 	local moduleName = if moduleName_ == nil then from else moduleName_
 	-- ROBLOX deviation END
+	-- ROBLOX deviation START: additional interception. We need to make sure Symbol is only loaded once
+	if string.find(moduleName.Name, ".global$") then
+		return (require :: any)(moduleName)
+	end
+	-- ROBLOX deviation END
 	-- ROBLOX deviation START: skipped
 	-- local isRequireActual: boolean = if isRequireActual_ ~= nil then isRequireActual_ else false
 	-- ROBLOX deviation END
@@ -1417,68 +1428,15 @@ function Runtime_private:_loadModule(
 	-- elseif path:extname(modulePath) == ".node" then
 	-- 	localModule.exports = require_(modulePath)
 	-- else
-	-- 	-- Only include the fromPath if a moduleName is given. Else treat as root.
-	-- 	local fromPath = if Boolean.toJSBoolean(moduleName) then from else nil
-	-- 	self:_execModule(localModule, options, moduleRegistry, fromPath)
-	-- end
-
-	-- ROBLOX note: each test runner stores its own cache of loaded module functions
-	local moduleFunction, defaultEnvironment, errorMessage, cleanupFn
-
-	if self._loadedModuleFns and self._loadedModuleFns:has(modulePath) then
-		local loadedModule = self._loadedModuleFns:get(modulePath) :: { any }
-		moduleFunction = loadedModule[1]
-		defaultEnvironment = loadedModule[2]
-	else
-		-- Narrowing this type here lets us appease the type checker while still
-		-- counting on types for the rest of this file
-		local loadmodule: (ModuleScript) -> (any, string, () -> any) = debug["loadmodule"]
-		moduleFunction, errorMessage, cleanupFn = loadmodule(modulePath)
-		assert(moduleFunction ~= nil, errorMessage)
-
-		-- Cache initial environment table to inherit from later
-		defaultEnvironment = getfenv(moduleFunction)
-
-		if self._loadedModuleFns then
-			self._loadedModuleFns:set(modulePath, { moduleFunction, defaultEnvironment, cleanupFn })
-		else
-			if cleanupFn ~= nil then
-				table.insert(self._cleanupFns, cleanupFn)
-			end
-		end
+	do
+		-- ROBLOX deviation END
+		-- Only include the fromPath if a moduleName is given. Else treat as root.
+		local fromPath = if Boolean.toJSBoolean(moduleName) then from else nil
+		-- ROBLOX deviation START: one additional param - noModuleReturnRequired
+		-- 	self:_execModule(localModule, options, moduleRegistry, fromPath)
+		self:_execModule(localModule, options, moduleRegistry, fromPath, noModuleReturnRequired)
+		-- ROBLOX deviation END
 	end
-
-	-- The default behavior for function environments is to inherit the table instance from the
-	-- parent environment. This means that each invocation of `moduleFunction()` will return
-	-- a new module instance but with the same environment table as `moduleFunction` itself at the
-	-- time of invocation. In order to properly sanbox module instances, we need to ensure that
-	-- each instance has its own distinct environment table containing the specific overrides for it,
-	-- but still inherits from the default parent environment for non-overriden environment goodies.
-	setfenv(
-		moduleFunction,
-		setmetatable({
-			require = function(scriptInstance: ModuleScript)
-				return self:requireModuleOrMock(scriptInstance)
-			end,
-			delay = self._fakeTimersImplementation.delayOverride,
-			tick = self._fakeTimersImplementation.tickOverride,
-			time = self._fakeTimersImplementation.timeOverride,
-			DateTime = self._fakeTimersImplementation.dateTimeOverride,
-			os = self._fakeTimersImplementation.osOverride,
-			task = self._fakeTimersImplementation.taskOverride,
-		}, { __index = defaultEnvironment }) :: any
-	)
-
-	local moduleResult = table.pack(moduleFunction())
-	if moduleResult.n ~= 1 and noModuleReturnRequired ~= true then
-		error(
-			string.format(
-				"[Module Error]: %s did not return a valid result\n" .. "\tModuleScripts must return exactly one value",
-				tostring(moduleName)
-			)
-		)
-	end
-	localModule.exports = moduleResult[1]
 	-- ROBLOX deviation END
 	localModule.loaded = true
 end
@@ -1500,8 +1458,8 @@ function Runtime_private:requireModuleOrMock<T>(moduleName: ModuleScript): T
 	end
 	-- ROBLOX deviation END
 
-	-- ROBLOX deviation START: additional interception. We need to make sure LuauPolyfill is only loaded once
-	if moduleName.Name == "LuauPolyfill" then
+	-- ROBLOX deviation START: additional interception. We need to make sure Symbol is only loaded once
+	if string.find(moduleName.Name, ".global$") then
 		return (require :: any)(moduleName)
 	end
 	-- ROBLOX deviation END
@@ -1900,105 +1858,196 @@ end
 -- 	end
 -- 	return self._resolver:getModulePaths(path:resolve(from, ".."))
 -- end
--- function Runtime_private:_execModule(
--- 	localModule: InitialModule,
--- 	options: InternalModuleOptions | nil,
--- 	moduleRegistry: ModuleRegistry,
--- 	from: Config_Path | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]]
--- )
--- 	if Boolean.toJSBoolean(self.isTornDown) then
--- 		self:_logFormattedReferenceError(
--- 			"You are trying to `import` a file after the Jest environment has been torn down."
--- 		)
--- 		process.exitCode = 1
--- 		return
--- 	end -- If the environment was disposed, prevent this module from being executed.
--- 	if not Boolean.toJSBoolean(self._environment.global) then
--- 		return
--- 	end
--- 	local module = localModule :: Module
--- 	local filename = module.filename
--- 	local lastExecutingModulePath = self._currentlyExecutingModulePath
--- 	self._currentlyExecutingModulePath = filename
--- 	local origCurrExecutingManualMock = self._isCurrentlyExecutingManualMock
--- 	self._isCurrentlyExecutingManualMock = filename
--- 	module.children = {}
--- 	Object.defineProperty(module, "parent", {
--- 		enumerable = true,
--- 		get = function(self)
--- 			local key = Boolean.toJSBoolean(from) and from or ""
--- 			local ref = moduleRegistry:get(key)
--- 			return Boolean.toJSBoolean(ref) and ref or nil
--- 		end,
--- 	})
--- 	module.paths = self._resolver:getModulePaths(module.path)
--- 	Object.defineProperty(module, "require", { value = self:_createRequireImplementation(module, options) })
--- 	local transformedCode = self:transformFile(filename, options)
--- 	local compiledFunction: ModuleWrapper | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]] =
--- 		nil
--- 	local script_ = self:createScriptFromCode(transformedCode, filename)
--- 	local runScript: RunScriptEvalResult | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]] =
--- 		nil
--- 	local vmContext = self._environment:getVmContext()
--- 	if Boolean.toJSBoolean(vmContext) then
--- 		runScript = script_:runInContext(vmContext, { filename = filename })
--- 	end
--- 	if runScript ~= nil then
--- 		compiledFunction = runScript[tostring(EVAL_RESULT_VARIABLE)]
--- 	end
--- 	if compiledFunction == nil then
--- 		self:_logFormattedReferenceError(
--- 			"You are trying to `import` a file after the Jest environment has been torn down."
--- 		)
--- 		process.exitCode = 1
--- 		return
--- 	end
--- 	local jestObject = self:_createJestObjectFor(filename)
--- 	self.jestObjectCaches:set(filename, jestObject)
--- 	local lastArgs: Array<Jest | nil | any --[[ ROBLOX TODO: Unhandled node for type: TSRestType ]] --[[ ...Array<Global.Global> ]]> = Array.concat(
--- 		{},
--- 		{
--- 			if Boolean.toJSBoolean(self._config.injectGlobals) then jestObject else nil,
--- 		}, -- jest object
--- 		Array.spread(Array.map(self._config.extraGlobals, function(globalVariable)
--- 			if Boolean.toJSBoolean(self._environment.global[tostring(globalVariable)]) then
--- 				return self._environment.global[tostring(globalVariable)]
--- 			end
--- 			error(
--- 				Error.new(
--- 					("You have requested '%s' as a global variable, but it was not present. Please check your config or your global environment."):format(
--- 						tostring(globalVariable)
--- 					)
--- 				)
--- 			)
--- 		end) --[[ ROBLOX CHECK: check if 'this._config.extraGlobals' is an Array ]])
--- 	)
--- 	if not Boolean.toJSBoolean(self._mainModule) and filename == self._testPath then
--- 		self._mainModule = module
--- 	end
--- 	Object.defineProperty(module, "main", { enumerable = true, value = self._mainModule })
--- 	do --[[ ROBLOX COMMENT: try-catch block conversion ]]
--- 		local ok, result, hasReturned = xpcall(function()
--- 			compiledFunction(
--- 				module.exports,
--- 				module, -- module object
--- 				module.exports, -- module exports
--- 				module.require, -- require implementation
--- 				module.path, -- __dirname
--- 				module.filename, -- __filename
--- 				-- @ts-expect-error
--- 				error("not implemented") --[[ ROBLOX TODO: Unhandled node for type: SpreadElement ]] --[[ ...lastArgs.filter(notEmpty) ]]
--- 			)
--- 		end, function(error_)
--- 			self:handleExecutionError(error_, module)
--- 		end)
--- 		if hasReturned then
--- 			return result
--- 		end
--- 	end
--- 	self._isCurrentlyExecutingManualMock = origCurrExecutingManualMock
--- 	self._currentlyExecutingModulePath = lastExecutingModulePath
--- end
+function Runtime_private:_execModule(
+	localModule: InitialModule,
+	options: InternalModuleOptions | nil,
+	moduleRegistry: ModuleRegistry,
+	-- ROBLOX deviation START: using ModuleScript instead of string
+	-- from: Config_Path | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]]
+	from: ModuleScript | nil, --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]]
+	-- ROBLOX deviation END
+	-- ROBLOX deviation START: additional param to not require return from test files
+	noModuleReturnRequired: boolean?
+	-- ROBLOX deviation END
+): ()
+	-- ROBLOX deviation START: custom implementation
+	-- 	if Boolean.toJSBoolean(self.isTornDown) then
+	-- 		self:_logFormattedReferenceError(
+	-- 			"You are trying to `import` a file after the Jest environment has been torn down."
+	-- 		)
+	-- 		process.exitCode = 1
+	-- 		return
+	-- 	end -- If the environment was disposed, prevent this module from being executed.
+	-- 	if not Boolean.toJSBoolean(self._environment.global) then
+	-- 		return
+	-- 	end
+	-- 	local module = localModule :: Module
+	-- 	local filename = module.filename
+	-- 	local lastExecutingModulePath = self._currentlyExecutingModulePath
+	-- 	self._currentlyExecutingModulePath = filename
+	-- 	local origCurrExecutingManualMock = self._isCurrentlyExecutingManualMock
+	-- 	self._isCurrentlyExecutingManualMock = filename
+	-- 	module.children = {}
+	-- 	Object.defineProperty(module, "parent", {
+	-- 		enumerable = true,
+	-- 		get = function(self)
+	-- 			local key = Boolean.toJSBoolean(from) and from or ""
+	-- 			local ref = moduleRegistry:get(key)
+	-- 			return Boolean.toJSBoolean(ref) and ref or nil
+	-- 		end,
+	-- 	})
+	-- 	module.paths = self._resolver:getModulePaths(module.path)
+	-- 	Object.defineProperty(module, "require", { value = self:_createRequireImplementation(module, options) })
+	-- 	local transformedCode = self:transformFile(filename, options)
+	-- 	local compiledFunction: ModuleWrapper | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]] =
+	-- 		nil
+	-- 	local script_ = self:createScriptFromCode(transformedCode, filename)
+	-- 	local runScript: RunScriptEvalResult | nil --[[ ROBLOX CHECK: verify if `null` wasn't used differently than `undefined` ]] =
+	-- 		nil
+	-- 	local vmContext = self._environment:getVmContext()
+	-- 	if Boolean.toJSBoolean(vmContext) then
+	-- 		runScript = script_:runInContext(vmContext, { filename = filename })
+	-- 	end
+	-- 	if runScript ~= nil then
+	-- 		compiledFunction = runScript[tostring(EVAL_RESULT_VARIABLE)]
+	-- 	end
+	-- 	if compiledFunction == nil then
+	-- 		self:_logFormattedReferenceError(
+	-- 			"You are trying to `import` a file after the Jest environment has been torn down."
+	-- 		)
+	-- 		process.exitCode = 1
+	-- 		return
+	-- 	end
+	-- 	local jestObject = self:_createJestObjectFor(filename)
+	-- 	self.jestObjectCaches:set(filename, jestObject)
+	-- 	local lastArgs: Array<Jest | nil | any --[[ ROBLOX TODO: Unhandled node for type: TSRestType ]] --[[ ...Array<Global.Global> ]]> = Array.concat(
+	-- 		{},
+	-- 		{
+	-- 			if Boolean.toJSBoolean(self._config.injectGlobals) then jestObject else nil,
+	-- 		}, -- jest object
+	-- 		Array.spread(Array.map(self._config.extraGlobals, function(globalVariable)
+	-- 			if Boolean.toJSBoolean(self._environment.global[tostring(globalVariable)]) then
+	-- 				return self._environment.global[tostring(globalVariable)]
+	-- 			end
+	-- 			error(
+	-- 				Error.new(
+	-- 					("You have requested '%s' as a global variable, but it was not present. Please check your config or your global environment."):format(
+	-- 						tostring(globalVariable)
+	-- 					)
+	-- 				)
+	-- 			)
+	-- 		end) --[[ ROBLOX CHECK: check if 'this._config.extraGlobals' is an Array ]])
+	-- 	)
+	-- 	if not Boolean.toJSBoolean(self._mainModule) and filename == self._testPath then
+	-- 		self._mainModule = module
+	-- 	end
+	-- 	Object.defineProperty(module, "main", { enumerable = true, value = self._mainModule })
+	-- 	do --[[ ROBLOX COMMENT: try-catch block conversion ]]
+	-- 		local ok, result, hasReturned = xpcall(function()
+	-- 			compiledFunction(
+	-- 				module.exports,
+	-- 				module, -- module object
+	-- 				module.exports, -- module exports
+	-- 				module.require, -- require implementation
+	-- 				module.path, -- __dirname
+	-- 				module.filename, -- __filename
+	-- 				-- @ts-expect-error
+	-- 				error("not implemented") --[[ ROBLOX TODO: Unhandled node for type: SpreadElement ]] --[[ ...lastArgs.filter(notEmpty) ]]
+	-- 			)
+	-- 		end, function(error_)
+	-- 			self:handleExecutionError(error_, module)
+	-- 		end)
+	-- 		if hasReturned then
+	-- 			return result
+	-- 		end
+	-- 	end
+	-- 	self._isCurrentlyExecutingManualMock = origCurrExecutingManualMock
+	-- 	self._currentlyExecutingModulePath = lastExecutingModulePath
+	-- ROBLOX note: each test runner stores its own cache of loaded module functions
+	local moduleFunction, defaultEnvironment, errorMessage, cleanupFn
+
+	local modulePath = localModule.filename
+
+	if self._loadedModuleFns and self._loadedModuleFns:has(modulePath) then
+		local loadedModule = self._loadedModuleFns:get(modulePath) :: { any }
+		moduleFunction = loadedModule[1]
+		defaultEnvironment = loadedModule[2]
+	else
+		-- Narrowing this type here lets us appease the type checker while still
+		-- counting on types for the rest of this file
+		local loadmodule: (ModuleScript) -> (any, string, () -> any) = debug["loadmodule"]
+		moduleFunction, errorMessage, cleanupFn = loadmodule(modulePath)
+		-- ROBLOX NOTE: we are not using assert() as it throws a bare string and we need to throw an Error object
+		if moduleFunction == nil then
+			error(Error.new(errorMessage))
+		end
+
+		-- Cache initial environment table to inherit from later
+		defaultEnvironment = getfenv(moduleFunction)
+
+		if self._loadedModuleFns then
+			self._loadedModuleFns:set(modulePath, { moduleFunction, defaultEnvironment, cleanupFn })
+		else
+			if cleanupFn ~= nil then
+				table.insert(self._cleanupFns, cleanupFn)
+			end
+		end
+	end
+
+	-- The default behavior for function environments is to inherit the table instance from the
+	-- parent environment. This means that each invocation of `moduleFunction()` will return
+	-- a new module instance but with the same environment table as `moduleFunction` itself at the
+	-- time of invocation. In order to properly sanbox module instances, we need to ensure that
+	-- each instance has its own distinct environment table containing the specific overrides for it,
+	-- but still inherits from the default parent environment for non-overriden environment goodies.
+	-- local isInternal = false -- if options ~= nil and options.isInternalModule then options.isInternalModule else false
+	local isInternal = if options ~= nil and options.isInternalModule then options.isInternalModule else false
+	setfenv(
+		moduleFunction,
+		setmetatable(
+			Object.assign(
+				{
+					--[[
+						ROBLOX NOTE:
+						Adding `script` directly into a table so that it is accessible to the debugger
+						It seems to be a similar issue to code inside of __index function not being debuggable
+					]]
+					script = defaultEnvironment.script,
+					require = if isInternal
+						then function(scriptInstance: ModuleScript)
+							return self:requireInternalModule(scriptInstance)
+						end
+						else function(scriptInstance: ModuleScript)
+							return self:requireModuleOrMock(scriptInstance)
+						end,
+				},
+				if isInternal
+					then {}
+					else {
+						delay = self._fakeTimersImplementation.delayOverride,
+						tick = self._fakeTimersImplementation.tickOverride,
+						time = self._fakeTimersImplementation.timeOverride,
+						DateTime = self._fakeTimersImplementation.dateTimeOverride,
+						os = self._fakeTimersImplementation.osOverride,
+						task = self._fakeTimersImplementation.taskOverride,
+					}
+			) :: Object,
+			{ __index = defaultEnvironment }
+		) :: any
+	)
+
+	local moduleResult = table.pack(moduleFunction())
+	if moduleResult.n ~= 1 and noModuleReturnRequired ~= true then
+		error(
+			string.format(
+				"[Module Error]: %s did not return a valid result\n" .. "\tModuleScripts must return exactly one value",
+				tostring(modulePath)
+			)
+		)
+	end
+	localModule.exports = moduleResult[1]
+	-- ROBLOX deviation END
+end
 -- function Runtime_private:transformFile(filename: string, options: InternalModuleOptions?): string
 -- 	local source = self:readFile(filename)
 -- 	if Boolean.toJSBoolean(if typeof(options) == "table" then options.isInternalModule else nil) then
@@ -2625,8 +2674,8 @@ function Runtime_private:_createJestObjectFor(from: ModuleScript): Jest
 				error(TypeError.new("setSystemTime is not available when not using modern timers"))
 			end
 		end,
-		setTimeout = setTimeout,
 		-- ROBLOX TODO START: not implemented yet
+		-- setTimeout = setTimeout,
 		-- spyOn = spyOn,
 		-- ROBOX TODO END
 		unmock = unmock,

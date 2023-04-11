@@ -12,10 +12,6 @@ local VR = script.Parent
 local App = VR.Parent
 local UIBlox = App.Parent
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local GetEngineFeatureSafe = require(UIBlox.Core.Utility.GetEngineFeatureSafe)
-
-local EngineFeatureBindActivateAllowMultiple = GetEngineFeatureSafe("EngineFeatureBindActivateAllowMultiple")
-
 type VRControllerModel = {
 	update: () -> (),
 	setEnabled: (enabled: boolean) -> (),
@@ -76,32 +72,22 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 
 		LeftControllerModel.current:setEnabled(VRService.VREnabled)
 		RightControllerModel.current:setEnabled(VRService.VREnabled)
-		if UIBloxConfig.moveBindActivate and EngineFeatureBindActivateAllowMultiple then
-			if VRService.VREnabled then
-				ContextActionService:BindActivate(
-					Enum.UserInputType.Gamepad1,
-					Enum.KeyCode.ButtonA,
-					Enum.KeyCode.ButtonR2
-				)
-			end
+		if VRService.VREnabled then
+			ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA, Enum.KeyCode.ButtonR2)
 		end
 	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 
 	local VRDisabledCallback
-	if UIBloxConfig.moveBindActivate then
-		VRDisabledCallback = React.useCallback(function()
-			if LeftControllerModel.current then
-				LeftControllerModel.current:setEnabled(false)
-			end
-			if RightControllerModel.current then
-				RightControllerModel.current:setEnabled(false)
-			end
-			if EngineFeatureBindActivateAllowMultiple then
-				ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
-				ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
-			end
-		end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
-	end
+	VRDisabledCallback = React.useCallback(function()
+		if LeftControllerModel.current then
+			LeftControllerModel.current:setEnabled(false)
+		end
+		if RightControllerModel.current then
+			RightControllerModel.current:setEnabled(false)
+		end
+		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
+		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 
 	local VRSessionStateCallback = React.useCallback(function()
 		local overlayEnabeld = not (
@@ -128,9 +114,7 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 		if VRService.VREnabled then
 			VREnabledCallback()
 		end
-		if UIBloxConfig.moveBindActivate then
-			return VRDisabledCallback
-		end
+		return VRDisabledCallback
 	end, {})
 
 	return React.createElement(Roact.Portal, {

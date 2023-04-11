@@ -47,6 +47,7 @@ export type RequestThunks = {
 	DeclineFriendRequestFromUserId: any,
 	DeclineAllFriendRequests: any,
 	GetFriendsCountFromUserId: any,
+	GetInactiveFriends: any,
 	RequestFriendshipFromUserId: any,
 	GetFollowingExists: any,
 	GetUserFollowers: any,

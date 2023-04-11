@@ -17,6 +17,7 @@ local instanceof = LuauPolyfill.instanceof
 local RobloxShared = require(Packages.RobloxShared)
 local escapePatternCharacters = RobloxShared.escapePatternCharacters
 local normalizePromiseError = RobloxShared.normalizePromiseError
+local Error = LuauPolyfill.Error
 -- ROBLOX deviation END
 
 type Record<K, T> = { [K]: T }
@@ -86,6 +87,9 @@ function formatNodeAssertErrors(_self: any, event: Circus_Event, state: Circus_S
 					error_.message = if Boolean.toJSBoolean(originalError.message)
 						then originalError.message
 						else ("thrown: %s"):format(prettyFormat(originalError, { maxDepth = 3 }))
+					-- ROBLOX deviation START: add __recalculateStacktrace after message has been altered
+					Error.__recalculateStacktrace(error_)
+					-- ROBLOX deviation END
 				else
 					error_ = originalError
 				end

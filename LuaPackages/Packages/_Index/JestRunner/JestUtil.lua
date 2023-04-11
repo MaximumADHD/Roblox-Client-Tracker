@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestUtil-edcba0e9-3.2.1"]["JestUtil"])
+local Package = require(PackageIndex["JestUtil-edcba0e9-3.2.5"]["JestUtil"])
 
 export type ErrorWithStack = Package.ErrorWithStack
 

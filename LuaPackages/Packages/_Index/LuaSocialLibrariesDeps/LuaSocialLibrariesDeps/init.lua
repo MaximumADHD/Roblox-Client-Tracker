@@ -1,9 +1,9 @@
 local LuaSocialLibrariesDeps = script.Parent
 
-game:DefineFastFlag("SocialUpdateRoduxFriendsv314", false)
+game:DefineFastFlag("SocialUpdateRoduxFriendsv316", false)
 
-local getFFlagSocialUpdateRoduxFriendsv314 = function()
-	return game:GetFastFlag("SocialUpdateRoduxFriendsv314")
+local getFFlagSocialUpdateRoduxFriendsv316 = function()
+	return game:GetFastFlag("SocialUpdateRoduxFriendsv316")
 end
 
 return {
@@ -15,9 +15,10 @@ return {
 	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxUsers_v13 = require(LuaSocialLibrariesDeps.RoduxUsers_v13),
-	RoduxFriends = if getFFlagSocialUpdateRoduxFriendsv314()
-		then require(LuaSocialLibrariesDeps.RoduxFriends_v315)
+	RoduxFriends = if getFFlagSocialUpdateRoduxFriendsv316()
+		then require(LuaSocialLibrariesDeps.RoduxFriends_v316)
 		else require(LuaSocialLibrariesDeps.RoduxFriends),
+	getFFlagSocialUpdateRoduxFriendsv316 = getFFlagSocialUpdateRoduxFriendsv316,
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 	RoduxPresence_v3 = require(LuaSocialLibrariesDeps.RoduxPresence_v3),
 	RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),
@@ -33,6 +34,7 @@ return {
 	NetworkingChat = require(LuaSocialLibrariesDeps.NetworkingChat),
 	NetworkingFriends = require(LuaSocialLibrariesDeps.NetworkingFriends),
 	NetworkingFriends_221 = require(LuaSocialLibrariesDeps.NetworkingFriends_221),
+	NetworkingFriends_290 = require(LuaSocialLibrariesDeps.NetworkingFriends_290),
 	NetworkingGames = require(LuaSocialLibrariesDeps.NetworkingGames),
 	NetworkingContacts = require(LuaSocialLibrariesDeps.NetworkingContacts),
 	NetworkingShareLinks = require(LuaSocialLibrariesDeps.NetworkingShareLinks),
@@ -42,7 +44,6 @@ return {
 	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
 	NetworkingUsers = require(LuaSocialLibrariesDeps.NetworkingUsers),
 	NetworkingBlocking = require(LuaSocialLibrariesDeps.NetworkingBlocking),
-	getFFlagSocialUpdateRoduxFriendsv314 = getFFlagSocialUpdateRoduxFriendsv314,
 	NetworkingSquads = require(LuaSocialLibrariesDeps.NetworkingSquads),
 	RoduxSquads = require(LuaSocialLibrariesDeps.RoduxSquads),
 	NetworkingCall = require(LuaSocialLibrariesDeps.NetworkingCall),
