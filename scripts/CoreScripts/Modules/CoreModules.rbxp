@@ -130,12 +130,6 @@
             "LoadingScreen":{
                 "$path": "LoadingScreen"
             },
-            "ABTestHelper": {
-                "$path": "ABTestHelper.lua",
-                ".robloxrc": {
-                    "$path": "../.robloxrc"
-                }
-            },
             "act": {
                 "$path": "act.lua",
                 ".robloxrc": {
@@ -214,6 +208,12 @@
                     "$path": "../.robloxrc"
                 }
             },
+            "ExperienceMenuABTestManager": {
+                "$path": "ExperienceMenuABTestManager.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
             "FriendingUtility": {
                 "$path": "FriendingUtility.lua",
                 ".robloxrc": {
@@ -240,6 +240,12 @@
             },
             "InGameMenuInit": {
                 "$path": "InGameMenuInit.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "IsExperienceMenuABTestEnabled": {
+                "$path": "IsExperienceMenuABTestEnabled.lua",
                 ".robloxrc": {
                     "$path": "../.robloxrc"
                 }

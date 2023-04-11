@@ -79,3 +79,5 @@ Studio.LocalizationTools.PluginMetadata.GetAllLocalesFailed,Localization Tools f
 Studio.LocalizationTools.ImageLocalizationSection.SectionLabel,Image Localization,Image Localization
 Studio.LocalizationTools.ImageLocalizationSection.UploadButton,Upload Image IDs,Upload Image IDs
 Studio.LocalizationTools.ImageLocalizationSection.UploadButtonLabel,Upload Image Asset IDs,Upload Image Asset IDs
+Studio.LocalizationTools.EngineErrors.MissingKeyOrSource,Error reading {1}: Missing a Key or Source header column.,Error reading {1}: Missing a Key or Source header column.
+Studio.LocalizationTools.EngineErrors.NonUtf8,Error opening CSV {1}: Invalid UTF-8. File must be UTF-8 encoded.,Error opening CSV {1}: Invalid UTF-8. File must be UTF-8 encoded.

@@ -51,11 +51,13 @@ Studio.TerrainToolsV2.BrushSettings.Auto, ,Auto
 Studio.TerrainToolsV2.BrushSettings.BaseSize, ,Base Size
 Studio.TerrainToolsV2.BrushSettings.BottomPivot, ,Bot
 Studio.TerrainToolsV2.BrushSettings.BrushMode, ,Brush Mode
+Studio.TerrainToolsV2.BrushSettings.BrushModeTooltip, ,Alt to perform opposite action
 Studio.TerrainToolsV2.BrushSettings.BrushSettings, ,Brush Settings
 Studio.TerrainToolsV2.BrushSettings.CenterPivot, ,Cen
 Studio.TerrainToolsV2.BrushSettings.Edit, ,Edit
 Studio.TerrainToolsV2.BrushSettings.EditPlane, ,Edit Plane
 Studio.TerrainToolsV2.BrushSettings.EditPlaneTooltip, ,Ctrl+Shift+Space
+Studio.TerrainToolsV2.BrushSettings.Fill, ,Fill
 Studio.TerrainToolsV2.BrushSettings.FixedPlane, ,Fixed Plane
 Studio.TerrainToolsV2.BrushSettings.FlattenMode, ,Flatten Mode
 Studio.TerrainToolsV2.BrushSettings.Height, ,Height
@@ -63,11 +65,14 @@ Studio.TerrainToolsV2.BrushSettings.IgnoreParts, ,Ignore Parts
 Studio.TerrainToolsV2.BrushSettings.IgnoreWater, ,Ignore Water
 Studio.TerrainToolsV2.BrushSettings.Manual, ,Manual
 Studio.TerrainToolsV2.BrushSettings.Material, ,Material
+Studio.TerrainToolsV2.BrushSettings.MaterialMode, ,Material Mode
 Studio.TerrainToolsV2.BrushSettings.Off, ,Off
+Studio.TerrainToolsV2.BrushSettings.Paint, ,Paint
 Studio.TerrainToolsV2.BrushSettings.PivotPosition, ,Pivot Position
 Studio.TerrainToolsV2.BrushSettings.PlaneLock, ,Plane Lock
 Studio.TerrainToolsV2.BrushSettings.PlanePosition, ,Plane Position
 Studio.TerrainToolsV2.BrushSettings.Position, ,Position
+Studio.TerrainToolsV2.BrushSettings.Replace, ,Replace
 Studio.TerrainToolsV2.BrushSettings.Reset, ,Reset
 Studio.TerrainToolsV2.BrushSettings.Rotation, ,Rotation
 Studio.TerrainToolsV2.BrushSettings.Shape, ,Shape
@@ -181,6 +186,7 @@ Studio.TerrainToolsV2.MapSettings.HeightMap, ,Height Map
 Studio.TerrainToolsV2.MapSettings.MapSettings, ,Map Settings
 Studio.TerrainToolsV2.MapSettings.Position, ,Position
 Studio.TerrainToolsV2.MapSettings.Size, ,Size
+Studio.TerrainToolsV2.MaterialSettings.Apply, ,Apply
 Studio.TerrainToolsV2.MaterialSettings.AutoMaterial, ,Auto Material
 Studio.TerrainToolsV2.MaterialSettings.ChooseBiome, ,Choose Biomes to apply
 Studio.TerrainToolsV2.MaterialSettings.ChooseMaterial, ,Choose a material to apply
@@ -223,6 +229,7 @@ Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, ,Part to Terrain
 Studio.TerrainToolsV2.RegionSettings.Apply, ,Apply
 Studio.TerrainToolsV2.RegionSettings.Copy, ,Copy
 Studio.TerrainToolsV2.RegionSettings.MergeEmpty, ,Merge Empty
+Studio.TerrainToolsV2.RegionSettings.MergeEmptyTooltip, ,"When enabled, air voxels in the selection will overwrite existing voxels at the destination."
 Studio.TerrainToolsV2.RegionSettings.Move, ,Move
 Studio.TerrainToolsV2.RegionSettings.Position, ,Position
 Studio.TerrainToolsV2.RegionSettings.RegionSettings, ,Region Settings
@@ -257,6 +264,7 @@ Studio.TerrainToolsV2.SelectionAction.DuplicateStatusTip, ,Duplicate Region Sele
 Studio.TerrainToolsV2.SelectionAction.DuplicateText, ,Duplicate
 Studio.TerrainToolsV2.SelectionAction.PasteStatusTip, ,Paste Region Selection
 Studio.TerrainToolsV2.SelectionAction.PasteText, ,Paste
+Studio.TerrainToolsV2.SelectionSettings.SelectionSettings, ,Selection Settings
 Studio.TerrainToolsV2.Tab.Build, ,Build
 Studio.TerrainToolsV2.Tab.Create, ,Create
 Studio.TerrainToolsV2.Tab.Edit, ,Edit
@@ -280,7 +288,6 @@ Studio.TerrainToolsV2.ToolName.Material, ,Fill
 Studio.TerrainToolsV2.ToolName.Move, ,Move
 Studio.TerrainToolsV2.ToolName.Paint, ,Paint
 Studio.TerrainToolsV2.ToolName.Paste, ,Paste
-Studio.TerrainToolsV2.ToolName.Region, ,Region
 Studio.TerrainToolsV2.ToolName.Regions, ,Regions
 Studio.TerrainToolsV2.ToolName.Replace, ,Replace
 Studio.TerrainToolsV2.ToolName.Resize, ,Resize
@@ -290,8 +297,13 @@ Studio.TerrainToolsV2.ToolName.SeaLevel, ,Sea Level
 Studio.TerrainToolsV2.ToolName.Select, ,Select
 Studio.TerrainToolsV2.ToolName.Smooth, ,Smooth
 Studio.TerrainToolsV2.ToolName.Subtract, ,Subtract
+Studio.TerrainToolsV2.ToolName.Transform, ,Transform
 Studio.TerrainToolsV2.TransformAction.ApplyStatusTip, ,Apply Region Transform
 Studio.TerrainToolsV2.TransformAction.ApplyText, ,Apply
+Studio.TerrainToolsV2.TransformAction.CancelStatusTip, ,Cancel Region Transform
+Studio.TerrainToolsV2.TransformAction.CancelText, ,Cancel
+Studio.TerrainToolsV2.TransformAction.PressEnter, ,Press Enter
+Studio.TerrainToolsV2.TransformSettings.TransformSettings, ,Transform Settings
 Studio.TerrainToolsV2.UpgradeShorelines.ActionButton, ,Upgrade
 Studio.TerrainToolsV2.UpgradeShorelines.Description, ,Click Upgrade to improve the way water joins with terrain at the shores.
 Studio.TerrainToolsV2.UpgradeShorelines.Explanation, ,"The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. You might want to review and hand-edit the results afterwards, especially around streams, waterfalls and any other non-horizontal water surfaces. The upgrade can be reverted right after its completion using the Undo command."

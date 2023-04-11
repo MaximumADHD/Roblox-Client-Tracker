@@ -291,7 +291,8 @@ Class Bone : Attachment
 Class AudioSearchParams : Instance [NotReplicated]
 	Property string AudioSearchParams.Album
 	Property string AudioSearchParams.Artist
-	Property Enum.AudioSubType AudioSearchParams.AudioSubtype
+	Property Enum.AudioSubType AudioSearchParams.AudioSubType
+	Property Enum.AudioSubType AudioSearchParams.AudioSubtype [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property int AudioSearchParams.MaxDuration
 	Property int AudioSearchParams.MinDuration
 	Property string AudioSearchParams.SearchKeyword
@@ -925,13 +926,21 @@ Class ControllerBase : Instance [NotCreatable]
 	Property bool ControllerBase.RigidityEnabled
 	Property float ControllerBase.MoveSpeedFactor
 Class AirController : ControllerBase [NotBrowsable]
-	Property float AirController.OrientationMaxTorque
-	Property float AirController.OrientationSpeedFactor
-	Property Vector3 AirController.VectorForce
-	Property bool AirController.MaintainAngularMomentum
+	Property float AirController.BalanceMaxTorque
+	Property bool AirController.BalanceRigidityEnabled
+	Property float AirController.BalanceSpeed
 	Property bool AirController.MaintainLinearMomentum
 	Property float AirController.MoveMaxForce
+	Property Vector3 AirController.VectorForce
+	Property float AirController.OrientationMaxTorque
+	Property float AirController.OrientationSpeedFactor
+	Property bool AirController.MaintainAngularMomentum
+	Property float AirController.TurningMaxTorque
+	Property float AirController.TurningSpeedFactor
 Class ClimbController : ControllerBase [NotBrowsable]
+	Property float ClimbController.BalanceMaxTorque
+	Property bool ClimbController.BalanceRigidityEnabled
+	Property float ClimbController.BalanceSpeed
 	Property float ClimbController.OrientationMaxTorque
 	Property float ClimbController.OrientationSpeedFactor
 	Property float ClimbController.AccelerationTime
@@ -940,6 +949,9 @@ Class GroundController : ControllerBase [NotBrowsable]
 	Property float GroundController.AccelerationLean
 	Property float GroundController.AlignSpeed
 	Property float GroundController.AlignTorque
+	Property float GroundController.BalanceMaxTorque
+	Property bool GroundController.BalanceRigidityEnabled
+	Property float GroundController.BalanceSpeed
 	Property float GroundController.AccelerationTime
 	Property float GroundController.DecelerationTime
 	Property float GroundController.Friction
@@ -4146,6 +4158,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function bool DataModel:SetFastFlagForTesting(string name, bool newValue) {RobloxScriptSecurity}
 	Function int DataModel:SetFastIntForTesting(string name, int newValue) {RobloxScriptSecurity}
 	Function string DataModel:SetFastStringForTesting(string name, string newValue) {RobloxScriptSecurity}
+	Function void DataModel:SetFlagVersion(string name, int version) {RobloxScriptSecurity}
 	Function void DataModel:SetIsLoaded(bool value, int? placeSizeInBytes) {RobloxScriptSecurity}
 	Function void DataModel:SetPlaceId(int64 placeId) {PluginSecurity}
 	Function void DataModel:SetUniverseId(int64 universeId) {PluginSecurity}

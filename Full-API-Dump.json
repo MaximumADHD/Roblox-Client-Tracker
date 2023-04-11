@@ -6070,7 +6070,7 @@
                     "Category": "Data",
                     "Default": "Music",
                     "MemberType": "Property",
-                    "Name": "AudioSubtype",
+                    "Name": "AudioSubType",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -6079,6 +6079,33 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AudioSubType"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "Music",
+                    "MemberType": "Property",
+                    "Name": "AudioSubtype",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "Deprecated",
+                        {
+                            "PreferredDescriptorName": "AudioSubType",
+                            "ThreadSafety": "Unknown"
+                        }
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -18658,7 +18685,64 @@
         {
             "Members": [
                 {
-                    "Category": "Movement",
+                    "Category": "Balance",
+                    "Default": "10000",
+                    "MemberType": "Property",
+                    "Name": "BalanceMaxTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Balance",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "BalanceRigidityEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Balance",
+                    "Default": "100",
+                    "MemberType": "Property",
+                    "Name": "BalanceSpeed",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Turn",
                     "Default": "true",
                     "MemberType": "Property",
                     "Name": "MaintainAngularMomentum",
@@ -18715,7 +18799,7 @@
                     }
                 },
                 {
-                    "Category": "Balance",
+                    "Category": "Orientation",
                     "Default": "10000",
                     "MemberType": "Property",
                     "Name": "OrientationMaxTorque",
@@ -18734,7 +18818,7 @@
                     }
                 },
                 {
-                    "Category": "Balance",
+                    "Category": "Orientation",
                     "Default": "1",
                     "MemberType": "Property",
                     "Name": "OrientationSpeedFactor",
@@ -18753,7 +18837,45 @@
                     }
                 },
                 {
-                    "Category": "Balance",
+                    "Category": "Turn",
+                    "Default": "10000",
+                    "MemberType": "Property",
+                    "Name": "TurningMaxTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Turn",
+                    "Default": "1",
+                    "MemberType": "Property",
+                    "Name": "TurningSpeedFactor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Movement",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
                     "Name": "VectorForce",
@@ -18801,8 +18923,65 @@
                     }
                 },
                 {
+                    "Category": "Balance",
+                    "Default": "10000",
+                    "MemberType": "Property",
+                    "Name": "BalanceMaxTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Balance",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "BalanceRigidityEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Balance",
+                    "Default": "100",
+                    "MemberType": "Property",
+                    "Name": "BalanceSpeed",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
                     "Category": "Movement",
-                    "Default": "INF",
+                    "Default": "10000",
                     "MemberType": "Property",
                     "Name": "MoveMaxForce",
                     "Security": {
@@ -18821,7 +19000,7 @@
                 },
                 {
                     "Category": "Balance",
-                    "Default": "INF",
+                    "Default": "10000",
                     "MemberType": "Property",
                     "Name": "OrientationMaxTorque",
                     "Security": {
@@ -18840,7 +19019,7 @@
                 },
                 {
                     "Category": "Balance",
-                    "Default": "1",
+                    "Default": "100",
                     "MemberType": "Property",
                     "Name": "OrientationSpeedFactor",
                     "Security": {
@@ -18929,6 +19108,63 @@
                     "Default": "10000",
                     "MemberType": "Property",
                     "Name": "AlignTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Balance",
+                    "Default": "10000",
+                    "MemberType": "Property",
+                    "Name": "BalanceMaxTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Balance",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "BalanceRigidityEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Balance",
+                    "Default": "100",
+                    "MemberType": "Property",
+                    "Name": "BalanceSpeed",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -82761,6 +82997,32 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetFlagVersion",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "version",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"

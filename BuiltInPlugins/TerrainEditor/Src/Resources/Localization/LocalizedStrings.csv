@@ -85,7 +85,7 @@ Studio.TerrainEditor.Brush.PlaneLock,Plane Lock,Ebene sperren,Plane Lock,Bloquea
 Studio.TerrainEditor.Brush.SnapToGrid,Snap to Grid,Am Raster ausrichten,Snap to Grid,Alinear a la cuadrícula,Aligner sur la grille,Aderisci a griglia,グリッドに装着,그리드에 맞추기,Ajustar à grade,Привязать к сетке,对齐至栅格,对齐至栅格,貼齊到網格
 Studio.TerrainEditor.Brush.Material,Material, ,Material,Material,Matériau,Materiale,素材,재질,Material,Материал,材质,材质,材質
 Studio.TerrainEditor.Brush.Shape,Shape,Form,Shape,Forma,Forme,Forma,形状,셰이프,Formato,Форма,形状,形状,形狀
-Studio.TerrainEditor.Regions.EditTools,Edit Tools,Bearbeitungstools,Edit Tools,Herramientas de edición,Outils d'édition,Strumenti Modifica,編集ツール,편집 도구,Editar ferramentas,Инструменты редактирования,编辑工具,编辑工具,編輯工具
+Studio.TerrainEditor.Regions.EditTools,Edit Tools,Bearbeitungstools,Edit Tools,Herramientas de Edición,Outils d'édition,Strumenti Modifica,編集ツール,편집 도구,Editar ferramentas,Инструменты редактирования,编辑工具,编辑工具,編輯工具
 Studio.TerrainEditor.Regions.MergeEmpty,Merge Empty,Leere zusammenführen,Merge Empty,Combinar vacío,Fusionner vides,Unisci vuoto,空白を併合,빈 공간 병합,Mesclar vazios,Объединить пустые области,合并空白,合并空白,合併空位
 Studio.TerrainEditor.Regions.Tools,Tools, ,Tools,Herramientas,Outils,Strumenti,ツール,도구,Ferramentas,Инструменты,工具,工具,工具
 Studio.TerrainEditor.BaseTool.RegionImport,Import, ,Import,Importar,Importer,Importa,インポートする,가져오기,Importar, , , ,匯入

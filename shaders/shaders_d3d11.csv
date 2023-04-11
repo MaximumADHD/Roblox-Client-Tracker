@@ -565,7 +565,7 @@ ImGuiFS,Fragment
 ImGuiTexVS,Vertex
 ImGuiVS,Vertex
 InstancedCopy,Compute
-InstancedUploadCFrame,Compute
+InstancedDebugGarbage,Compute
 InstancedUploadFull,Compute
 LightGridAvgLightCountCS,Compute
 LightGridCullAccumAndCreateMaskCS,Compute

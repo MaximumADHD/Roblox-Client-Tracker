@@ -9,6 +9,7 @@ Studio.PluginInstallation.Details.HttpRequestInfo,"By allowing HTTP requests, 3r
 Studio.PluginInstallation.Dialog.Ok,OK,OK
 Studio.PluginInstallation.Progress.Completed,Installation Complete!,Installation Complete!
 Studio.PluginInstallation.Details.ScriptInjection,Script Injection,Script Injection
+Studio.PluginInstallation.Entry.ModeratedWarning,This plugin has been moderated and can’t be run anymore.,This plugin has been moderated and can’t be run anymore.
 Studio.PluginInstallation.Meta.PluginWindowName,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.PluginEntry.AutoUpdateEntry,Last updated on {date:shortdate},Last updated on {date:shortdate}
@@ -35,9 +36,8 @@ Studio.PluginInstallation.Entry.UpdateButton,Update,Update
 Studio.PluginInstallation.Entry.LastUpdatedDate,Updated: {date:shortdate},Updated: {date:shortdate}
 Studio.PluginInstallation.Entry.UpdateError,Error. Try updating again.,Error. Try updating again.
 Studio.PluginInstallation.Entry.UpdateSuccess,Update complete!,Update complete!
-Studio.PluginInstallation.EntrySeeMore.RemoveButton,Uninstall,Uninstall
-Studio.PluginInstallation.Entry.ModeratedWarning,This plugin includes malicious content and can’t be run anymore.,This plugin includes malicious content and can’t be run anymore.
 Studio.PluginInstallation.EntrySeeMore.DetailsButton,Details,Details
+Studio.PluginInstallation.EntrySeeMore.RemoveButton,Uninstall,Uninstall
 Studio.PluginInstallation.Header.PendingUpdates,Pending updates,Pending updates
 Studio.PluginInstallation.Moved.NewLocationMessage,Get plugins from Marketplace under Toolbox.,Get plugins from Marketplace under Toolbox.
 Studio.PluginInstallation.Header.UpToDate,Up to date,Up to date

@@ -551,7 +551,7 @@ ImGuiFS,Fragment
 ImGuiTexVS,Vertex
 ImGuiVS,Vertex
 InstancedCopy,Compute
-InstancedUploadCFrame,Compute
+InstancedDebugGarbage,Compute
 InstancedUploadFull,Compute
 LightGridDebugTilesFS,Fragment
 LightGridPointSplatFS,Fragment
