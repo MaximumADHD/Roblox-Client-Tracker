@@ -29,10 +29,16 @@ local removeIdsFromRequestsStore = function(state: State, ids: { string })
 end
 
 return Rodux.createReducer(DEFAULT_STATE, {
-	[FriendsNetworking.AcceptFriendRequestFromUserId.Succeeded.name] = function(state: State, action: { ids: { string } })
+	[FriendsNetworking.AcceptFriendRequestFromUserId.Succeeded.name] = function(
+		state: State,
+		action: { ids: { string } }
+	)
 		return removeIdsFromRequestsStore(state, action.ids)
 	end,
-	[FriendsNetworking.DeclineFriendRequestFromUserId.Succeeded.name] = function(state: State, action: { ids: { string } })
+	[FriendsNetworking.DeclineFriendRequestFromUserId.Succeeded.name] = function(
+		state: State,
+		action: { ids: { string } }
+	)
 		return removeIdsFromRequestsStore(state, action.ids)
 	end,
 	[FriendRequestCreated.name] = function(state: State, action: any)

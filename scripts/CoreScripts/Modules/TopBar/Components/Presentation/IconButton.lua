@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -11,6 +12,10 @@ local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Images = UIBlox.App.ImageSet.Images
 
 local FlashingDot = require(script.Parent.FlashingDot)
+local FlashingDotV2 = require(script.Parent.FlashingDotV2)
+local GetFFlagFlashingDotUseAsyncInit = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFlashingDotUseAsyncInit)
+
+
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -81,7 +86,11 @@ function IconButton:render()
 				ZIndex = 1,
 			}),
 
-			FlashingDot = if self.props.enableFlashingDot then Roact.createElement(FlashingDot) else nil,
+			FlashingDot = if self.props.enableFlashingDot then Roact.createElement(
+				if GetFFlagFlashingDotUseAsyncInit()
+					then FlashingDotV2
+					else FlashingDot
+			) else nil,
 
 			StateOverlay = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,

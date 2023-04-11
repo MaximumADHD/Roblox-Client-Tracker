@@ -24,7 +24,6 @@ local IXPVariants = require(ContactImporter.Common.IXPVariants)
 
 local compose = dependencies.SocialLibraries.RoduxTools.compose
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
-local getFFlagVerifyDeviceContactsIsNotNil = require(ContactImporter.Flags.getFFlagVerifyDeviceContactsIsNotNil)
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagEnableDeeplinkForContactsList = dependencies.getFFlagEnableDeeplinkForContactsList
 
@@ -182,14 +181,12 @@ function ContactsListContainerV2:init()
 	self.formatContactsFromDevice = function(contactInformation)
 		local props: InternalProps = self.props
 		local contacts = contactInformation.contacts or {}
-		if getFFlagVerifyDeviceContactsIsNotNil() then
-			if #contacts == 0 then
-				return {
-					contacts = {},
-					contactsCount = 0,
-					countryCode = nil,
-				}
-			end
+		if #contacts == 0 then
+			return {
+				contacts = {},
+				contactsCount = 0,
+				countryCode = nil,
+			}
 		end
 
 		props.deviceContactsReceived(contactInformation.contacts)

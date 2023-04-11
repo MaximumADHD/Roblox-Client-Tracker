@@ -37,7 +37,7 @@ local JointRemappings = {
 	RightHip = "Right Hip",
 	LeftHip = "Left Hip",
 	Neck = "Neck",
-	Root = "Root Hip",
+	Root = "RootJoint",
 }
 
 -- orientation of r6 joints are setup slightly differently from r15 motors -- we have to apply rotation and translation corrections for consistency 
@@ -229,9 +229,10 @@ local function ProxyInstance(proxied, proxy)
 		local parent = proxy
 		if JointRemappings[name] and child:IsA("Motor6D") then
 			name = JointRemappings[name]
-			parent = proxy.Parent:FindFirstChild("Torso") or parent
-			if name == "Root Hip" then
+			if name == "RootJoint" then
 				parent = proxy.Parent:FindFirstChild("HumanoidRootPart") or parent
+			else
+				parent = proxy.Parent:FindFirstChild("Torso") or parent
 			end
 		end
 

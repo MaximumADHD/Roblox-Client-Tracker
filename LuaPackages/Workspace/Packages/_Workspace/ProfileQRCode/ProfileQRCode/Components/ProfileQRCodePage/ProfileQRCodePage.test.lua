@@ -11,8 +11,6 @@ local defaultStory = Stories.default
 local createOrGetProfileShareUrl = require(ProfileQRCode.Networking.createOrGetProfileShareUrl)
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
-local beforeAll = JestGlobals.beforeAll
-local afterAll = JestGlobals.afterAll
 local findElementHelpers = require(ProfileQRCode.TestHelpers.findElementHelpers)
 local mockRobloxEventReceiver = require(ProfileQRCode.TestHelpers.createMockRobloxEventReceiver)
 local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
@@ -34,20 +32,6 @@ local function fireSignalREvent(eventReceiver: any, type: any, details: any)
 end
 
 local useGetUsersInfoUrlMock, useAcceptFriendUrlMock
-
-local oldGetFFlagProfileQRCodeEnableAlerts
-local oldGetFFlagProfileQRCodeEnableAlertsExperiment
-
-beforeAll(function()
-	oldGetFFlagProfileQRCodeEnableAlerts = game:SetFastFlagForTesting("ProfileQRCodeEnableAlerts_v5", true)
-	oldGetFFlagProfileQRCodeEnableAlertsExperiment =
-		game:SetFastFlagForTesting("ProfileQRCodeEnableAlertsExperiment", true)
-end)
-
-afterAll(function()
-	game:SetFastFlagForTesting("ProfileQRCodeEnableAlerts_v5", oldGetFFlagProfileQRCodeEnableAlerts)
-	game:SetFastFlagForTesting("ProfileQRCodeEnableAlertsExperiment", oldGetFFlagProfileQRCodeEnableAlertsExperiment)
-end)
 
 beforeEach(function()
 	createOrGetProfileShareUrl.Mock.reply(function()

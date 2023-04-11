@@ -3,9 +3,6 @@ local dependencies = require(ContactImporter.dependencies)
 local Dash = dependencies.Dash
 local LocalTypes = require(ContactImporter.Common.LocalTypes)
 
-local getFFlagContactsListCaseInsensitiveOrdering =
-	require(ContactImporter.Flags.getFFlagContactsListCaseInsensitiveOrdering)
-
 local DEFAULT_TABLE: LocalTypes.RoduxContactsReducer = {}
 
 local formatContactData = function(contactData: LocalTypes.RoduxContactsReducer): LocalTypes.RoduxContactsReducer
@@ -62,25 +59,16 @@ local function stripLeadingWhitespace(str)
 end
 
 local sortByName = function(contacts: { LocalTypes.InviteOnlyContact })
-	if getFFlagContactsListCaseInsensitiveOrdering() then
-		table.sort(contacts, function(a, b)
-			if a.contactName and b.contactName then
-				local aProcessedName: string = stripLeadingWhitespace(string.upper(a.contactName))
-				local bProcessedName: string = stripLeadingWhitespace(string.upper(b.contactName))
-				if aProcessedName and bProcessedName and aProcessedName ~= bProcessedName then
-					return aProcessedName < bProcessedName
-				end
+	table.sort(contacts, function(a, b)
+		if a.contactName and b.contactName then
+			local aProcessedName: string = stripLeadingWhitespace(string.upper(a.contactName))
+			local bProcessedName: string = stripLeadingWhitespace(string.upper(b.contactName))
+			if aProcessedName and bProcessedName and aProcessedName ~= bProcessedName then
+				return aProcessedName < bProcessedName
 			end
-			return a.deviceContactId < b.deviceContactId
-		end)
-	else
-		table.sort(contacts, function(a, b)
-			if (a.contactName and b.contactName) and (a.contactName ~= b.contactName) then
-				return a.contactName < b.contactName
-			end
-			return a.deviceContactId < b.deviceContactId
-		end)
-	end
+		end
+		return a.deviceContactId < b.deviceContactId
+	end)
 	return contacts
 end
 

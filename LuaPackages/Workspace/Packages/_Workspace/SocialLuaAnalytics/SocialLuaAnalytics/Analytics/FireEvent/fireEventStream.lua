@@ -53,12 +53,12 @@ end
 return function(setup: {
 	eventStreamImpl: any,
 	eventList: Types.EventStreamList,
-	infoForAllEvents: (Types.AdditionalInfo)?,
+	infoForAllEvents: Types.AdditionalInfo?,
 	loggerImpl: Types.Logger?,
 })
 	local eventInfoGetter = getEventInfo(setup.eventList)
 
-	return function(eventName: Types.Enumerate, additionalInfo: (Types.AdditionalInfo)?)
+	return function(eventName: Types.Enumerate, additionalInfo: Types.AdditionalInfo?)
 		local specificEventInfo = eventInfoGetter(eventName)
 
 		compose(optionallyLog(setup.loggerImpl, stringifyEventDetails), setRBXEventStream(setup.eventStreamImpl))({

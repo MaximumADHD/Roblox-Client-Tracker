@@ -27,7 +27,6 @@ local LocalTypes = require(ContactImporter.Common.LocalTypes)
 local ContactsListSearchBar = require(ContactImporter.ContactsList.Components.ContactsListSearchBar)
 local Dash = dependencies.Dash
 
-local getFFlagContactImporterSearchBarBugFixes = require(ContactImporter.Flags.getFFlagContactImporterSearchBarBugFixes)
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local OffPlatformFriendRequestsIXP = require(ContactImporter.Flags.OffPlatformFriendRequestsIXP)
 local IXPVariants = OffPlatformFriendRequestsIXP.IXPVariants
@@ -81,18 +80,6 @@ local function ContactsListV2(props: Props)
 		)
 	end
 
-	local contacts = {}
-	if getFFlagContactImporterSearchBarBugFixes() then
-		contacts = {}
-	else
-		Dash.append(
-			contacts,
-			props.matchedContacts,
-			if #props.matchedContacts ~= 0 then { { isSectionDivider = true } } else nil,
-			props.deviceContacts
-		)
-	end
-
 	local closeFromButton = function()
 		props.closeModal(EventNames.CloseContactListButton)
 	end
@@ -112,30 +99,19 @@ local function ContactsListV2(props: Props)
 	local filteredContacts = {}
 	local filteredMatchedContacts = {}
 	local filteredDeviceContacts = {}
-	if getFFlagContactImporterSearchBarBugFixes() then
-		filteredMatchedContacts = filterContacts(props.matchedContacts)
-		filteredDeviceContacts = filterContacts(props.deviceContacts)
-		createContactList(filteredContacts, filteredMatchedContacts, filteredDeviceContacts)
-	else
-		filteredContacts = filterContacts(contacts)
-	end
+	filteredMatchedContacts = filterContacts(props.matchedContacts)
+	filteredDeviceContacts = filterContacts(props.deviceContacts)
+	createContactList(filteredContacts, filteredMatchedContacts, filteredDeviceContacts)
 
-	local numFilteredMatchedContacts = if getFFlagContactImporterSearchBarBugFixes()
-		then #filteredMatchedContacts
-		else #props.matchedContacts
+	local numFilteredMatchedContacts = #filteredMatchedContacts
 
 	local isEmpty = function()
-		return if getFFlagContactImporterSearchBarBugFixes()
-			then (#props.matchedContacts + #props.deviceContacts) == 0
-			else #contacts == 0
+		return (#props.matchedContacts + #props.deviceContacts) == 0
 	end
 
 	local renderItem = function(ref): any
 		local item = ref.item
-		local numMatchedContacts = #props.matchedContacts
-		local hasDivider = if getFFlagContactImporterSearchBarBugFixes()
-			then ref.index ~= #filteredContacts and ref.index ~= numFilteredMatchedContacts
-			else ref.index ~= #contacts and ref.index ~= numMatchedContacts
+		local hasDivider = ref.index ~= #filteredContacts and ref.index ~= numFilteredMatchedContacts
 		if item.isSectionDivider then
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
@@ -232,7 +208,7 @@ local function ContactsListV2(props: Props)
 
 	local contactsList = if #filteredContacts ~= 0
 		then Roact.createElement(FlatList, {
-			ref = getFFlagContactImporterSearchBarBugFixes() and flatListRef or nil,
+			ref = flatListRef,
 			data = filteredContacts,
 			renderItem = renderItem,
 			initialNumToRender = 15,
@@ -303,9 +279,7 @@ local function ContactsListV2(props: Props)
 		searchBarContainer = Roact.createElement(ContactsListSearchBar, {
 			height = SEARCH_BAR_HEIGHT,
 			layoutOrder = 4,
-			textChangeCallback = if getFFlagContactImporterSearchBarBugFixes()
-				then onFilterTextChange
-				else setFilterText,
+			textChangeCallback = onFilterTextChange,
 		}),
 		spacer3 = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, SEARCH_BAR_BOTTOM_MARGIN),

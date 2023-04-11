@@ -13,7 +13,7 @@ export type Props = ScreenshotDialog.Props & {
 	restartAction: () -> (),
 	-- provide optional capability for mounting menu flow to specify which page to start with
 	initialPageNumber: number?,
-	dismissAction: (() -> ()),
+	dismissAction: (() -> ())
 }
 
 local function ScreenshotFlowStepHandler(props: Props)
@@ -42,7 +42,8 @@ local function ScreenshotFlowStepHandler(props: Props)
 			onBack = props.dismissAction,
 			onSkip = props.skipAnnotationAction,
 			onRestart = props.restartAction,
-			screenshot = props.screenshot
+			screenshot = props.screenshot,
+			reportAnythingAnalytics = props.reportAnythingAnalytics,
 		}, {})
 	else
 		currentPageDialog = React.createElement(ScreenshotDialog, {
@@ -53,6 +54,7 @@ local function ScreenshotFlowStepHandler(props: Props)
 			initialAnnotationPoints = props.initialAnnotationPoints,
 			screenshot = props.screenshot,
 			imageAspectRatio = imageAspectRatio,
+			reportAnythingAnalytics = props.reportAnythingAnalytics,
 		})
 	end
 	return currentPageDialog

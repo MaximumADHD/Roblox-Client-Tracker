@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
+local Cryo = require(CorePackages.Cryo)
 
 local ButtonStack = UIBlox.App.Button.ButtonStack
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
@@ -15,11 +16,12 @@ local useStyle = UIBlox.Core.Style.useStyle
 local TnsModule = script.Parent.Parent
 local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
-local ScreenshotHelper = require(TnsModule.Utility.ScreenshotHelper)
 local DebugCanvas = require(TnsModule.Components.DebugCanvas)
 local ScreenshotHighlighter = require(TnsModule.Components.ScreenshotHighlighter)
 local VirtualKeyboardMonitor = require(TnsModule.Components.VirtualKeyboardMonitor)
 local AbuseReportBuilder = require(TnsModule.Utility.AbuseReportBuilder)
+local ReportAnythingAnalytics = require(TnsModule.Utility.ReportAnythingAnalytics)
+local GetFFlagEnableReportAnythingAnalytics = require(TnsModule.Flags.GetFFlagEnableReportAnythingAnalytics)
 
 local Divider = require(Dependencies.Divider)
 
@@ -36,6 +38,7 @@ export type Props = {
 	dismissAction: (() -> ()),
 
 	backAction: (() -> ())?,
+	reportAnythingAnalytics: typeof(ReportAnythingAnalytics)?
 }
 
 local function renderHeaderBarLeft(
@@ -122,6 +125,13 @@ end
 
 local function ScreenshotDialog(props: Props)
 	-- TODO(bcwong): Handle size change?
+	if GetFFlagEnableReportAnythingAnalytics() then
+		React.useEffect(function()
+			if props.reportAnythingAnalytics then
+				props.reportAnythingAnalytics.incrementAnnotationPageSeen()
+			end
+		end, {})
+	end
 
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
@@ -141,7 +151,7 @@ local function ScreenshotDialog(props: Props)
 	end
 
 	-- Store the annotation clicks
-	local annotationPoints, setAnnotationPoints = React.useState(props.initialAnnotationPoints or {})
+	local annotationPoints, setAnnotationPoints = React.useState(Cryo.Dictionary.join({}, props.initialAnnotationPoints or {}))
 	local annotationRedoStack, setRedoStack = React.useState({})
 
 	local function updatePointsAndRerender()
@@ -153,6 +163,9 @@ local function ScreenshotDialog(props: Props)
 	end
 
 	local handleAnnotationPoints = function(points: { Vector2 })
+		if GetFFlagEnableReportAnythingAnalytics() and props.reportAnythingAnalytics then
+			props.reportAnythingAnalytics.incrementAnnotationPlace()
+		end
 		-- TODO(bcwong): Update the selectedAvatars here
 		updatePointsAndRerender()
 		-- when new points are added, clear the redoStack to form a new branch
@@ -161,6 +174,9 @@ local function ScreenshotDialog(props: Props)
 
 	local undoAnnotationPoints = function()
 		if #annotationPoints > 0 then
+			if GetFFlagEnableReportAnythingAnalytics() and props.reportAnythingAnalytics then
+				props.reportAnythingAnalytics.incrementAnnotationUndo()
+			end
 			-- only perform undo when annotationPoints is non-empty
 			table.insert(annotationRedoStack, 1, annotationPoints[#annotationPoints])
 			table.remove(annotationPoints, #annotationPoints)
@@ -170,12 +186,13 @@ local function ScreenshotDialog(props: Props)
 
 	local redoAnnotationPoints = function()
 		if #annotationRedoStack > 0 then
+			if GetFFlagEnableReportAnythingAnalytics() and props.reportAnythingAnalytics then
+				props.reportAnythingAnalytics.incrementAnnotationRedo()
+			end
 			-- only perform redo when redoStack is non-epty
 			table.insert(annotationPoints, annotationRedoStack[1])
 			table.remove(annotationRedoStack, 1)
 			updatePointsAndRerender()
-		else
-			print("Redo stack is empty")
 		end
 	end
 
@@ -219,9 +236,11 @@ local function ScreenshotDialog(props: Props)
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				Header = React.createElement("Frame", {
-					BackgroundTransparency = 1,
+					BackgroundTransparency = 0,
+					BackgroundColor3 = Color3.fromHex("#4F545F"),
 					LayoutOrder = 1,
 					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT - 1),
+					ZIndex = 2,
 				}, {
 					-- Bar can be hidden. Still keep the space for HeaderBar
 					Bar = React.createElement(HeaderBar, {
@@ -246,7 +265,7 @@ local function ScreenshotDialog(props: Props)
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
 					Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT - 1),
-					ZIndex = 10,
+					ZIndex = 1,
 				}, {
 					Layout = React.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,

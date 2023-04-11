@@ -1,9 +1,12 @@
 local Packages = script:FindFirstAncestor("ApolloLocalState").Parent
 local GetFFlagApolloClientFetchThumbnails = require(Packages.SharedFlags).GetFFlagApolloClientFetchThumbnails
 local GetFFlagApolloClientFetchExperiences = require(Packages.SharedFlags).GetFFlagApolloClientFetchExperiences
+local ApolloClient = require(Packages.ApolloClient)
+type FieldMergeFunction<TExisting, TIncoming> = ApolloClient.FieldMergeFunction<TExisting, TIncoming>
+type Reference = ApolloClient.Reference
+type FieldFunctionOptions = ApolloClient.FieldFunctionOptions<any, any>
 
 local makeDefaultReadPolicy = require(script.Parent.utils.makeDefaultReadPolicy)
-local mergeArrays = require(script.Parent.utils.mergeArrays)
 
 return {
 	keyFields = if GetFFlagApolloClientFetchThumbnails() then { "topicId" } else nil,
@@ -12,7 +15,34 @@ return {
 			read = makeDefaultReadPolicy({}),
 		},
 		experiences = {
-			merge = if GetFFlagApolloClientFetchExperiences() then mergeArrays else nil,
+			merge = if GetFFlagApolloClientFetchExperiences()
+				then function(_self, existing: { Reference }?, incoming: { Reference }, options: FieldFunctionOptions)
+					if existing == nil then
+						return incoming
+					end
+
+					local universeIds = {}
+					local experiences: { Reference } = {}
+
+					for index, experience in existing :: { Reference } do
+						local universeId = options:readField("universeId", experience) :: string
+						universeIds[universeId] = index
+						table.insert(experiences, experience)
+					end
+
+					for _, experience in incoming do
+						local universeId = options:readField("universeId", experience) :: string
+						if universeIds[universeId] == nil then
+							table.insert(experiences, experience)
+						else
+							local index = universeIds[universeId]
+							experiences[index] = experience
+						end
+					end
+
+					return experiences
+				end :: FieldMergeFunction<{ Reference }, { Reference }>
+				else nil,
 		},
 		hasMoreRows = {
 			read = if GetFFlagApolloClientFetchExperiences()

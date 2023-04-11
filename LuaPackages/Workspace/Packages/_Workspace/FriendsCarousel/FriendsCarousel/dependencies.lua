@@ -144,4 +144,7 @@ return {
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
+
+	isSubjectToDesktopPolicies = require(Packages.SharedFlags).isSubjectToDesktopPolicies,
+	getFFlagFriendsCarouselCleanUpFetchExperimentCode = require(Packages.SharedFlags).getFFlagFriendsCarouselCleanUpFetchExperimentCode,
 }

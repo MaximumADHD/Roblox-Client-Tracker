@@ -114,19 +114,19 @@ function getIconSrc(name, folder)
 	return "rbxasset://textures/ui/VoiceChat/" .. folderStr .. name .. ".png"
 end
 
-function getIcon(voiceState, level)
+function getIcon(voiceState, level, folder)
 	if voiceState == VOICE_STATE.MUTED then
-		return getIconSrc("Muted")
+		return getIconSrc("Muted", folder)
 	elseif voiceState == VOICE_STATE.CONNECTING then
-		return getIconSrc("Connecting")
+		return getIconSrc("Connecting", folder)
 	elseif voiceState == VOICE_STATE.INACTIVE then
-		return getIconSrc("Blank")
+		return getIconSrc("Blank", folder)
 	elseif voiceState == VOICE_STATE.TALKING then
 		local micLevel = level or math.random()
 		local roundedLevel = 20 * math.floor(0.5 + 5*micLevel)
-		return level and getIconSrc("Unmuted" .. tostring(roundedLevel)) or getIconSrc("Blank")
+		return level and getIconSrc("Unmuted" .. tostring(roundedLevel), folder) or getIconSrc("Blank", folder)
 	else
-		return getIconSrc("Error")
+		return getIconSrc("Error", folder)
 	end
 end
 
@@ -809,7 +809,7 @@ function VoiceChatServiceManager:MuteAll(muteState: boolean)
 end
 
 
-function VoiceChatServiceManager:VoiceStateToIcon(participantState, level)
+function VoiceChatServiceManager:ParticipantStateToIcon(participantState, level)
 	local voiceState = VOICE_STATE.INACTIVE
 	if not participantState.subscriptionCompleted then
 		voiceState = VOICE_STATE.CONNECTING
@@ -822,6 +822,10 @@ function VoiceChatServiceManager:VoiceStateToIcon(participantState, level)
 	end
 
 	return getIcon(voiceState, level)
+end
+
+function VoiceChatServiceManager:VoiceStateToIcon(voiceState, level, folder)
+	return getIcon(voiceState, level, folder)
 end
 
 function VoiceChatServiceManager:GetIcon(name, folder)

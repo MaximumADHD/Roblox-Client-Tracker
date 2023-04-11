@@ -17,14 +17,16 @@ export type BulkAction = (
 	recommendationsMetadata: OmniTypes.RecommendationsMetadata?
 ) -> any
 
-local getRecommendationsSort =
-	function(pagecontent: OmniTypes.OmniRecommendationsPage, PYMKTreatmentType: string): OmniTypes.RecommendationsSort?
-		local sorts = pagecontent.sorts or {} :: { [number]: OmniTypes.RecommendationsSort }
-		local recommendationsSortIndex: number = llama.List.findWhere(sorts, function(sort)
-			return sort.treatmentType == PYMKTreatmentType
-		end)
-		return if recommendationsSortIndex then sorts[recommendationsSortIndex] else nil
-	end
+local getRecommendationsSort = function(
+	pagecontent: OmniTypes.OmniRecommendationsPage,
+	PYMKTreatmentType: string
+): OmniTypes.RecommendationsSort?
+	local sorts = pagecontent.sorts or {} :: { [number]: OmniTypes.RecommendationsSort }
+	local recommendationsSortIndex: number = llama.List.findWhere(sorts, function(sort)
+		return sort.treatmentType == PYMKTreatmentType
+	end)
+	return if recommendationsSortIndex then sorts[recommendationsSortIndex] else nil
+end
 
 return function(
 	omniRecommendations: OmniTypes.OmniRecommendations,

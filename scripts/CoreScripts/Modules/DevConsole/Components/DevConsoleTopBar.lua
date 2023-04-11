@@ -20,10 +20,14 @@ local LiveUpdateElement = require(script.Parent.Parent.Components.LiveUpdateElem
 local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
 
 local GetFFlagDevConsoleCloseButtonOverlapFix = require(RobloxGui.Modules.Common.Flags.GetFFlagDevConsoleCloseButtonOverlapFix)
+local FFlagDevConsoleReduceInputConnections = game:DefineFastFlag("DevConsoleReduceInputConnections", false)
 
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
 function DevConsoleTopBar:init()
+
+	self.inputChangedConnection = nil
+
 	self.inputBegan = function(rbx,input)
 		if self.props.isMinimized then
 			return
@@ -32,6 +36,17 @@ function DevConsoleTopBar:init()
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			local absPos = self.ref.current.AbsolutePosition
 			local startPos = Vector3.new(absPos.X, absPos.Y, 0)
+
+			if FFlagDevConsoleReduceInputConnections then
+				-- connect to UserInputChanged to get mouse movement inputs. This connection has to be on UserInputService
+				-- and not the button's InputChanged because the button will stop receiving events if the mouse is moved off of the GUI
+				if self.inputChangedConnection then
+					self.inputChangedConnection:Disconnect()
+					self.inputChangedConnection = nil
+				end
+				self.inputChangedConnection = UserInputService.InputChanged:Connect(function(input) self.inputChanged(nil, input) end)
+			end
+
 			self:setState({
 				startPos = startPos,
 				startOffset = input.Position,
@@ -40,23 +55,49 @@ function DevConsoleTopBar:init()
 		end
 	end
 	self.inputChanged = function(rbx,input)
-		if self.state.moving and input.UserInputType == Enum.UserInputType.MouseMovement then
-			local offset = self.state.startPos - self.state.startOffset
-			offset = offset + input.Position
-			local position = UDim2.new(0, offset.X, 0, offset.Y)
-			self.props.dispatchSetDevConsolePosition(position)
+		if FFlagDevConsoleReduceInputConnections then
+			if self.state.moving then
+				if input.UserInputType == Enum.UserInputType.MouseMovement then
+					local offset = self.state.startPos - self.state.startOffset
+					offset = offset + input.Position
+					local position = UDim2.new(0, offset.X, 0, offset.Y)
+					self.props.dispatchSetDevConsolePosition(position)
+				end
+			elseif self.inputChangedConnection then -- this connection should not be connected if the console is not being dragged
+				self.inputChangedConnection:Disconnect()
+				self.inputChangedConnection = nil
+
+			end
+		else
+			if self.state.moving and input.UserInputType == Enum.UserInputType.MouseMovement then
+				local offset = self.state.startPos - self.state.startOffset
+				offset = offset + input.Position
+				local position = UDim2.new(0, offset.X, 0, offset.Y)
+				self.props.dispatchSetDevConsolePosition(position)
+			end
 		end
 	end
 	self.inputEnded = function(rbx,input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 and 
 			input.UserInputState == Enum.UserInputState.End then
+
+			if FFlagDevConsoleReduceInputConnections then
+				-- stop listening to inputchanged when stopping dragging to save performance
+				if self.inputChangedConnection then
+					self.inputChangedConnection:Disconnect()
+					self.inputChangedConnection = nil
+				end
+			end
+
 			self:setState({
 				moving = false, -- stop dev console dragging
 			})
 		end
 	end
 	
-	UserInputService.InputChanged:Connect(function(input) self.inputChanged(nil, input) end)
+	if not FFlagDevConsoleReduceInputConnections then
+		UserInputService.InputChanged:Connect(function(input) self.inputChanged(nil, input) end)
+	end
 
 	self.ref = Roact.createRef()
 end

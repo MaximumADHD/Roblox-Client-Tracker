@@ -13,12 +13,12 @@ local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
-local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 
 -- These hotkeys are on the spec, but they haven't been implemented
 -- https://jira.rbx.com/browse/APPEXP-476

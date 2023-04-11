@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -24,7 +25,7 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
 local Pages = require(InGameMenu.Components.Pages)
 local UIAnimator = require(InGameMenu.Utility.UIAnimator)
-local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 local DismissTooltip = require(InGameMenu.Actions.DismissTooltip)
 local EducationTooltipPolicy = require(InGameMenu.Utility.EducationTooltipPolicy)

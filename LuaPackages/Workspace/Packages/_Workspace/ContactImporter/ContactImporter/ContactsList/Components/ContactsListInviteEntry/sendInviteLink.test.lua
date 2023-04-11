@@ -22,8 +22,6 @@ local mockNativeUtilProtocol = require(ContactImporter.TestHelpers.mockNativeUti
 local mockSMSProtocol = require(ContactImporter.TestHelpers.mockSMSProtocol)
 local getFFlagContactImporterUseShortUrlFriendInvite =
 	require(ContactImporter.Flags.getFFlagContactImporterUseShortUrlFriendInvite)
-local getFFlagContactImporterFixSendInviteFailedEvent =
-	require(ContactImporter.Flags.getFFlagContactImporterFixSendInviteFailedEvent)
 
 -- When removing this flag clean up mockSMSProtocol as well.
 local getFFlagLuaNativeUtilEnableSMSHandling = dependencies.getFFlagLuaNativeUtilEnableSMSHandling
@@ -164,11 +162,8 @@ describe("sendInviteLink", function()
 		helper.rerender({})
 
 		jestExpect(calledGenerateLink).toHaveBeenCalledTimes(1)
-		if getFFlagContactImporterFixSendInviteFailedEvent() then
-			jestExpect(fireAnalyticsEvent).never.toHaveBeenCalled()
-		else
-			jestExpect(fireAnalyticsEvent).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(fireAnalyticsEvent).never.toHaveBeenCalled()
+
 		jestExpect(helper.result).toEqual({
 			sendInvite = jestExpect.any("function"),
 			isLoading = false,
@@ -202,11 +197,8 @@ describe("sendInviteLink", function()
 		helper.rerender({})
 
 		jestExpect(calledGenerateLink).toHaveBeenCalledTimes(1)
-		if getFFlagContactImporterFixSendInviteFailedEvent() then
-			jestExpect(fireAnalyticsEvent).never.toHaveBeenCalled()
-		else
-			jestExpect(fireAnalyticsEvent).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(fireAnalyticsEvent).never.toHaveBeenCalled()
+
 		jestExpect(helper.result).toEqual({
 			sendInvite = jestExpect.any("function"),
 			isLoading = false,
@@ -241,11 +233,8 @@ describe("sendInviteLink", function()
 		helper.rerender({})
 
 		jestExpect(calledGenerateLink).toHaveBeenCalledTimes(1)
-		if getFFlagContactImporterFixSendInviteFailedEvent() then
-			jestExpect(fireAnalyticsEvent).never.toHaveBeenCalled()
-		else
-			jestExpect(fireAnalyticsEvent).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(fireAnalyticsEvent).never.toHaveBeenCalled()
+
 		jestExpect(helper.result).toEqual({
 			sendInvite = jestExpect.any("function"),
 			isLoading = false,

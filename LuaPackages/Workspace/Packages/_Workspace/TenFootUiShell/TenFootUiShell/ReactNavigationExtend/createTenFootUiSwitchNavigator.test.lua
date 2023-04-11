@@ -40,8 +40,5 @@ it("should return a navigator that can be used by app container", function()
 		root:render(React.createElement(appContainer))
 	end)
 
-	local viewInstance = rootContainer:FindFirstChild("View")
-	expect(viewInstance).never.toBeNil()
-
 	root:unmount()
 end)

@@ -232,27 +232,31 @@ describe("mapDispatchToProps", function()
 			mockRequestSuccWithCallback(GetFollowingExists, jest.fn(), nil)
 			mockRequestSuccWithCallback(GetExperiencesDetails, jest.fn(), nil)
 
-			checkNetworkRequestWhenInvokeGetFriendRequest =
-				function(requestToCheck, shouldRequestBeInvoked, getFriendRequestsArg, response)
-					local callback = jest.fn()
-					mockRequestSuccWithCallback(requestToCheck, callback, nil)
+			checkNetworkRequestWhenInvokeGetFriendRequest = function(
+				requestToCheck,
+				shouldRequestBeInvoked,
+				getFriendRequestsArg,
+				response
+			)
+				local callback = jest.fn()
+				mockRequestSuccWithCallback(requestToCheck, callback, nil)
+				expect(callback).toHaveBeenCalledTimes(0)
+				testRequestSucc(
+					GetFriendRequests,
+					returnValue.getFriendRequests,
+					llama.Dictionary.join({
+						limit = 25,
+						localUserId = "0",
+						isRefresh = false,
+					}, getFriendRequestsArg),
+					response
+				)
+				if shouldRequestBeInvoked then
+					expect(callback).toHaveBeenCalledTimes(1)
+				else
 					expect(callback).toHaveBeenCalledTimes(0)
-					testRequestSucc(
-						GetFriendRequests,
-						returnValue.getFriendRequests,
-						llama.Dictionary.join({
-							limit = 25,
-							localUserId = "0",
-							isRefresh = false,
-						}, getFriendRequestsArg),
-						response
-					)
-					if shouldRequestBeInvoked then
-						expect(callback).toHaveBeenCalledTimes(1)
-					else
-						expect(callback).toHaveBeenCalledTimes(0)
-					end
 				end
+			end
 		end)
 
 		it("SHOULD fetch user followings when getFriendRequest return non-empty user ids", function()

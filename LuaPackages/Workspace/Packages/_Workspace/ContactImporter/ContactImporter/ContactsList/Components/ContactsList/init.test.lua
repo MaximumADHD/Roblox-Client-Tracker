@@ -20,8 +20,6 @@ local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local Promise = dependencies.Promise
 local ContactsListContainer = require(script.Parent)
 
-local getFFlagFriendInvitesEnabledForSoothsayers =
-	require(ContactImporter.Flags.getFFlagFriendInvitesEnabledForSoothsayers)
 local FindFriendsModal = ContactImporter.FindFriendsModal
 local RODUX_KEY = require(ContactImporter.Common.Constants).RODUX_KEY
 local createTreeWithProviders = devDependencies.createTreeWithProviders
@@ -29,7 +27,7 @@ local mockStore = require(FindFriendsModal.TestHelpers.mockStore)
 local mockRawContacts = require(FindFriendsModal.TestHelpers.mockRawContacts)
 local findElementHelpers = require(ContactImporter.TestHelpers.findElementHelpers)
 
-local runTestsWithProps = function(config: { store: any, shouldShowContentFrame: boolean, describe: string })
+local runTestsWithProps = function(config: { store: any, describe: string })
 	describe(config.describe, function()
 		local screenParams = {
 			closeModal = Dash.noop,
@@ -95,7 +93,7 @@ local runTestsWithProps = function(config: { store: any, shouldShowContentFrame:
 			})
 
 			runWhileMounted(element, function(parent)
-				checkForContactsListV2(parent, { assertElementExists = config.shouldShowContentFrame })
+				checkForContactsListV2(parent, { assertElementExists = true })
 				jestExpect(supportsContacts).toHaveBeenCalledTimes(1)
 				jestExpect(getContacts).toHaveBeenCalledTimes(1)
 			end)
@@ -122,7 +120,6 @@ describe("soothSayerEnabled with blended", function()
 				NetworkStatus = {},
 			},
 		}),
-		shouldShowContentFrame = getFFlagFriendInvitesEnabledForSoothsayers(),
 		describe = "soothSayerEnabled blended",
 	})
 end)
@@ -137,7 +134,6 @@ describe("soothSayerEnabled default", function()
 				NetworkStatus = {},
 			},
 		}),
-		shouldShowContentFrame = getFFlagFriendInvitesEnabledForSoothsayers(),
 		describe = "soothSayerEnabled default",
 	})
 end)

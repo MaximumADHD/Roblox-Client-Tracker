@@ -8,9 +8,6 @@ local jestExpect = devDependencies.jestExpect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 
-local getFFlagContactsListCaseInsensitiveOrdering =
-	require(ContactImporter.Flags.getFFlagContactsListCaseInsensitiveOrdering)
-
 describe("getDeviceContacts", function()
 	describe("Default state", function()
 		it("SHOULD return a function", function()
@@ -133,134 +130,132 @@ describe("getDeviceContacts", function()
 			jestExpect(sortedContacts).toEqual(expectedState)
 		end)
 
-		if getFFlagContactsListCaseInsensitiveOrdering() then
-			it("SHOULD sort contactNames disregarding case", function()
-				local state = {
-					byDeviceContactId = {
-						["45gsd-545df-51fgh"] = {
-							contactName = "Jake Long",
-							id = "45gsd-545df-51fgh",
-							phoneNumbers = { 9999, 67890 },
-						},
-						["1gbv-1f8gs-34ghsa"] = {
-							contactName = "bob smith",
-							id = "1gbv-1f8gs-34ghsa",
-							phoneNumbers = { 8888, 67890 },
-						},
-					},
-				}
-
-				local expectedState = {
-					{
-						deviceContactId = "1gbv-1f8gs-34ghsa",
-						contactName = "bob smith",
-						phoneNumber = "8888",
-						isMatchedContact = false,
-					},
-					{
-						deviceContactId = "45gsd-545df-51fgh",
+		it("SHOULD sort contactNames disregarding case", function()
+			local state = {
+				byDeviceContactId = {
+					["45gsd-545df-51fgh"] = {
 						contactName = "Jake Long",
-						phoneNumber = "9999",
-						isMatchedContact = false,
+						id = "45gsd-545df-51fgh",
+						phoneNumbers = { 9999, 67890 },
 					},
-				}
-				local sortedContacts = getDeviceContacts(state)
-
-				jestExpect(sortedContacts).toEqual(expectedState)
-			end)
-
-			it("SHOULD sort contactNames disregarding leading whitespace", function()
-				local state = {
-					byDeviceContactId = {
-						["45gsd-545df-51fgh"] = {
-							contactName = "    Jake Long",
-							id = "45gsd-545df-51fgh",
-							phoneNumbers = { 9999, 67890 },
-						},
-						["1gbv-1f8gs-34ghsa"] = {
-							contactName = "Bob smith",
-							id = "1gbv-1f8gs-34ghsa",
-							phoneNumbers = { 8888, 67890 },
-						},
+					["1gbv-1f8gs-34ghsa"] = {
+						contactName = "bob smith",
+						id = "1gbv-1f8gs-34ghsa",
+						phoneNumbers = { 8888, 67890 },
 					},
-				}
+				},
+			}
 
-				local expectedState = {
-					{
-						deviceContactId = "1gbv-1f8gs-34ghsa",
-						contactName = "Bob smith",
-						phoneNumber = "8888",
-						isMatchedContact = false,
-					},
-					{
-						deviceContactId = "45gsd-545df-51fgh",
+			local expectedState = {
+				{
+					deviceContactId = "1gbv-1f8gs-34ghsa",
+					contactName = "bob smith",
+					phoneNumber = "8888",
+					isMatchedContact = false,
+				},
+				{
+					deviceContactId = "45gsd-545df-51fgh",
+					contactName = "Jake Long",
+					phoneNumber = "9999",
+					isMatchedContact = false,
+				},
+			}
+			local sortedContacts = getDeviceContacts(state)
+
+			jestExpect(sortedContacts).toEqual(expectedState)
+		end)
+
+		it("SHOULD sort contactNames disregarding leading whitespace", function()
+			local state = {
+				byDeviceContactId = {
+					["45gsd-545df-51fgh"] = {
 						contactName = "    Jake Long",
-						phoneNumber = "9999",
-						isMatchedContact = false,
+						id = "45gsd-545df-51fgh",
+						phoneNumbers = { 9999, 67890 },
 					},
-				}
-				local sortedContacts = getDeviceContacts(state)
-
-				jestExpect(sortedContacts).toEqual(expectedState)
-			end)
-
-			it("SHOULD sort contactNames disregarding both case and leading whitespace", function()
-				local state = {
-					byDeviceContactId = {
-						["9fjf4-3mnd9-1j9df"] = {
-							contactName = "   bob smith",
-							id = "9fjf4-3mnd9-1j9df",
-							phoneNumbers = { 123456, 67890 },
-						},
-						["45gsd-545df-51fgh"] = {
-							contactName = "\r\n\t\f\v jake long",
-							id = "45gsd-545df-51fgh",
-							phoneNumbers = { 9999, 67890 },
-						},
-						["1gbv-1f8gs-34ghsa"] = {
-							contactName = "Bob Smith",
-							id = "1gbv-1f8gs-34ghsa",
-							phoneNumbers = { 8888, 67890 },
-						},
-						["9g2df-5h74-v57das"] = {
-							contactName = "Kate Murphy",
-							id = "9g2df-5h74-v57das",
-							phoneNumbers = { 6666, 67890 },
-						},
+					["1gbv-1f8gs-34ghsa"] = {
+						contactName = "Bob smith",
+						id = "1gbv-1f8gs-34ghsa",
+						phoneNumbers = { 8888, 67890 },
 					},
-				}
+				},
+			}
 
-				local expectedState = {
-					{
-						deviceContactId = "1gbv-1f8gs-34ghsa",
-						contactName = "Bob Smith",
-						phoneNumber = "8888",
-						isMatchedContact = false,
-					},
-					{
-						deviceContactId = "9fjf4-3mnd9-1j9df",
+			local expectedState = {
+				{
+					deviceContactId = "1gbv-1f8gs-34ghsa",
+					contactName = "Bob smith",
+					phoneNumber = "8888",
+					isMatchedContact = false,
+				},
+				{
+					deviceContactId = "45gsd-545df-51fgh",
+					contactName = "    Jake Long",
+					phoneNumber = "9999",
+					isMatchedContact = false,
+				},
+			}
+			local sortedContacts = getDeviceContacts(state)
+
+			jestExpect(sortedContacts).toEqual(expectedState)
+		end)
+
+		it("SHOULD sort contactNames disregarding both case and leading whitespace", function()
+			local state = {
+				byDeviceContactId = {
+					["9fjf4-3mnd9-1j9df"] = {
 						contactName = "   bob smith",
-						phoneNumber = "123456",
-						isMatchedContact = false,
+						id = "9fjf4-3mnd9-1j9df",
+						phoneNumbers = { 123456, 67890 },
 					},
-					{
-						deviceContactId = "45gsd-545df-51fgh",
+					["45gsd-545df-51fgh"] = {
 						contactName = "\r\n\t\f\v jake long",
-						phoneNumber = "9999",
-						isMatchedContact = false,
+						id = "45gsd-545df-51fgh",
+						phoneNumbers = { 9999, 67890 },
 					},
-					{
-						deviceContactId = "9g2df-5h74-v57das",
+					["1gbv-1f8gs-34ghsa"] = {
+						contactName = "Bob Smith",
+						id = "1gbv-1f8gs-34ghsa",
+						phoneNumbers = { 8888, 67890 },
+					},
+					["9g2df-5h74-v57das"] = {
 						contactName = "Kate Murphy",
-						phoneNumber = "6666",
-						isMatchedContact = false,
+						id = "9g2df-5h74-v57das",
+						phoneNumbers = { 6666, 67890 },
 					},
-				}
-				local sortedContacts = getDeviceContacts(state)
+				},
+			}
 
-				jestExpect(sortedContacts).toEqual(expectedState)
-			end)
-		end
+			local expectedState = {
+				{
+					deviceContactId = "1gbv-1f8gs-34ghsa",
+					contactName = "Bob Smith",
+					phoneNumber = "8888",
+					isMatchedContact = false,
+				},
+				{
+					deviceContactId = "9fjf4-3mnd9-1j9df",
+					contactName = "   bob smith",
+					phoneNumber = "123456",
+					isMatchedContact = false,
+				},
+				{
+					deviceContactId = "45gsd-545df-51fgh",
+					contactName = "\r\n\t\f\v jake long",
+					phoneNumber = "9999",
+					isMatchedContact = false,
+				},
+				{
+					deviceContactId = "9g2df-5h74-v57das",
+					contactName = "Kate Murphy",
+					phoneNumber = "6666",
+					isMatchedContact = false,
+				},
+			}
+			local sortedContacts = getDeviceContacts(state)
+
+			jestExpect(sortedContacts).toEqual(expectedState)
+		end)
 
 		it("SHOULD match up any sentRequestData", function()
 			local state = {

@@ -2,7 +2,6 @@ local SocialTab = script:FindFirstAncestor("SocialTab")
 local createInstanceWithProviders = require(SocialTab.TestHelpers.createInstanceWithProviders)
 local isAutomaticSizingEnabled = require(SocialTab.TestHelpers.isAutomaticSizingEnabled)
 local findImageSet = require(SocialTab.TestHelpers.findImageSet)
-local disableSocialPanelIA = require(SocialTab.TestHelpers.disableSocialPanelIA)
 
 local devDependencies = require(SocialTab.devDependencies)
 local ReactRoblox = devDependencies.ReactRoblox
@@ -19,8 +18,6 @@ local jest = JestGlobals.jest
 local story = require((script :: any).Parent["withProviders.story"]) :: any
 
 describe("GIVEN mock analytics", function()
-	disableSocialPanelIA()
-
 	local analytics
 
 	beforeEach(function()

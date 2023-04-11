@@ -22,6 +22,7 @@ local RecordingIndicator = Roact.PureComponent:extend("PermissionsButtons")
 
 RecordingIndicator.validateProps = t.strictInterface({
 	micOn = t.boolean,
+	isSmallTouchScreen = t.optional(t.boolean),
 })
 
 function RecordingIndicator:init()
@@ -74,10 +75,10 @@ end
 function RecordingIndicator:render()
 	return Roact.createElement("TextLabel", {
 		Text = if self.props.micOn then MicOn else MicOff,
+		AutomaticSize = Enum.AutomaticSize.XY,
 		Visible = true,
-		TextSize = 12,
+		TextSize = if self.props.isSmallTouchScreen then 10 else 12,
 		Font = Enum.Font.GothamMedium,
-		Size = UDim2.fromScale(1, 1),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextYAlignment = Enum.TextYAlignment.Center,
 		TextColor3 = Color3.fromRGB(255, 255, 255),

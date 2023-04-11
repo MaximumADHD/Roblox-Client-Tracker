@@ -15,8 +15,9 @@ local Promise = dependencies.Promise
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local SelfViewProfileDiscoverabilityUpsellIXP = dependencies.SelfViewProfileDiscoverabilityUpsellIXP
-local getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal =
-	require(ContactImporter.Flags.getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal)
+
+local getFFlagCheckDiscoverabilityUsesRoactNavParam =
+	require(ContactImporter.Flags.getFFlagCheckDiscoverabilityUsesRoactNavParam)
 
 local ContactsImporterOverlay = require(script.Parent.ContactsImporterOverlay)
 local mapDispatchToProps = require(script.Parent.mapDispatchToProps)
@@ -86,15 +87,15 @@ function ContactsImporterOverlayContainer:init()
 					props.hideContactImporterModal()
 					navigation.navigate(EnumScreens.ContactsList, {
 						[Constants.SHOULD_UPDATE_USER_SETTINGS] = true,
-						[Constants.IS_PHONE_VERIFIED] = if getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal()
-							then navigation.getParam(Constants.IS_PHONE_VERIFIED) or false
-							else false,
+						[Constants.IS_PHONE_VERIFIED] = navigation.getParam(Constants.IS_PHONE_VERIFIED),
 					})
+					return Promise.resolve()
 				elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then
 					navigation.navigate(EnumScreens.ContactsRevokedAccessDialog, {
 						screenSize = props.screenSize,
 						closeModal = self.closeModal,
 					})
+					return Promise.resolve()
 				else
 					return Promise.reject()
 				end
@@ -115,8 +116,11 @@ function ContactsImporterOverlayContainer:init()
 
 	self.checkDiscoverability = function(isDiscoverabilityUnset)
 		local props: InternalProps = self.props
+		local isPhoneVerified = if getFFlagCheckDiscoverabilityUsesRoactNavParam()
+			then props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
+			else nil
 		if getFFlagEnableContactInvitesForNonPhoneVerified() then
-			return isDiscoverabilityUnset and props.isPhoneVerified
+			return isDiscoverabilityUnset and (isPhoneVerified or props.isPhoneVerified)
 		else
 			return isDiscoverabilityUnset
 		end
@@ -125,6 +129,9 @@ function ContactsImporterOverlayContainer:init()
 	self.onConnectContacts = function()
 		local props: InternalProps = self.props
 		local isDiscoverabilityUnset = props.navigation.getParam("isDiscoverabilityUnset")
+		local isPhoneVerified = if getFFlagCheckDiscoverabilityUsesRoactNavParam()
+			then props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
+			else props.isPhoneVerified
 		local navigation = props.navigation
 		props.fireAnalyticsEvent(Analytics.EventNames.ContactImportModalContinue)
 
@@ -132,7 +139,7 @@ function ContactsImporterOverlayContainer:init()
 		-- not phone verified. This is because they cannot go through the webview
 		-- phone verification flow. There is top-level feature gating on
 		-- users for email verified/non-phone verified users
-		if getFFlagContactImporterWithPhoneVerification() and not props.isPhoneVerified then
+		if getFFlagContactImporterWithPhoneVerification() and not isPhoneVerified then
 			local openPhoneVerificationWebview = navigation.getParam(Constants.OPEN_PHONE_VERIFICATION_WEBVIEW)
 			props.fireAnalyticsEvent(Analytics.EventNames.PhoneVerificationWebview)
 			openPhoneVerificationWebview({

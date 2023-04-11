@@ -1,6 +1,5 @@
 local SocialTab = script:FindFirstAncestor("SocialTab")
 local createInstanceWithProps = require(SocialTab.TestHelpers.createInstanceWithProps)
-local disableSocialPanelIA = require(SocialTab.TestHelpers.disableSocialPanelIA)
 
 local dependencies = require(SocialTab.dependencies)
 local Mock = dependencies.Mock
@@ -24,8 +23,6 @@ local mockUser = {
 }
 
 expect.extend(dependencies.CollisionMatchers.Jest)
-
-disableSocialPanelIA()
 
 describe("Layout", function()
 	it("SHOULD have the Friend Carousel above the top of the Button Grid", function()

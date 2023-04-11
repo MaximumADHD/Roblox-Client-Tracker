@@ -16,7 +16,6 @@ local CorePackages = game:GetService("CorePackages")
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 require(RobloxGui.Modules.VR.Panel3D)
 
-local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local GetFFlagUIBloxVRApplyHeadScale =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
@@ -307,7 +306,7 @@ function LaserPointer.new(laserDistance)
 			Active = false,
 			AlwaysOnTop = true,
 			Enabled = false,
-			ZOffset = FFlagRenderVRCursorOnTop and 10 or 0,
+			ZOffset = 10,
 			Parent = self.cursorPart,
 		})
 		self.cursorImage = Utility:Create("ImageLabel")({

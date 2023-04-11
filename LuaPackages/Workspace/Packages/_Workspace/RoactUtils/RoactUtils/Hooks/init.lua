@@ -15,6 +15,7 @@ local useRouteName = require(script.useRouteName)
 local useSelectedTheme = require(script.useSelectedTheme)
 local useThrottledCallback = require(script.useThrottledCallback)
 local useInputType = require(script.useInputType)
+local useArrayCollection = require(script.useArrayCollection)
 
 local RoactRodux = require(script.RoactRodux)
 
@@ -37,4 +38,5 @@ return {
 	useRouteName = useRouteName,
 	useSelectedTheme = useSelectedTheme,
 	useThrottledCallback = useThrottledCallback,
+	useArrayCollection = useArrayCollection,
 }

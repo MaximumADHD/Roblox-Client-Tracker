@@ -9,7 +9,6 @@ local logger = Lumberyak.Logger.new(nil, "SocialTab")
 local getFFlagSocialProfileShareAnalyticsEnabled =
 	require(Packages.SharedFlags).getFFlagSocialProfileShareAnalyticsEnabled
 local getFFlagSocialAddFriendshipRequestEvent = require(Packages.SharedFlags).getFFlagSocialAddFriendshipRequestEvent
-local getFFlagSocialPanelIAEnabled = require(Packages.SharedFlags).getFFlagSocialPanelIAEnabled
 local getFFlagVBXboxReducerFix = require(Packages.SharedFlags).getFFlagVBXboxReducerFix
 local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFlagUseCorrectedFriendSortUtil
 local FFlagExperienceJoinAttemptId = require(Packages.GameProtocol).Flags.FFlagExperienceJoinAttemptId
@@ -129,14 +128,12 @@ return {
 	CollisionMatchers = LuaSocialLibrariesDeps.CollisionMatchers,
 	Lumberyak = Lumberyak,
 	RunService = game:GetService("RunService"),
-	UserInputService = game:GetService("UserInputService"),
 
 	validatePropsWithForwardRef = validatePropsWithForwardRef,
 
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	getFFlagSocialProfileShareAnalyticsEnabled = getFFlagSocialProfileShareAnalyticsEnabled,
 	getFFlagSocialAddFriendshipRequestEvent = getFFlagSocialAddFriendshipRequestEvent,
-	getFFlagSocialPanelIAEnabled = getFFlagSocialPanelIAEnabled,
 	getFFlagVBXboxReducerFix = getFFlagVBXboxReducerFix,
 	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	FFlagExperienceJoinAttemptId = FFlagExperienceJoinAttemptId,

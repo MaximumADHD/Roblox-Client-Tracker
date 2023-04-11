@@ -1,6 +1,5 @@
 local SocialTab = script:FindFirstAncestor("SocialTab")
 local createInstanceWithProviders = require(SocialTab.TestHelpers.createInstanceWithProviders)
-local disableSocialPanelIA = require(SocialTab.TestHelpers.disableSocialPanelIA)
 local _getFFlagDebugSocialTabCarouselEnabled = require(SocialTab.Flags.getFFlagDebugSocialTabCarouselEnabled)
 
 local dependencies = require(SocialTab.dependencies)
@@ -24,8 +23,6 @@ local jest = JestGlobals.jest
 local SocialTabContainer = require(script.Parent)
 
 describe("SocialTabContainer", function()
-	disableSocialPanelIA()
-
 	local function findImageSet(imageSetPath)
 		local imageSet = Images[imageSetPath]
 

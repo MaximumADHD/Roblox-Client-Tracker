@@ -35,8 +35,24 @@ local function getActiveRouteName(navigationState)
 end
 
 return function(entryPoints, props)
-	local isRoactChatDefaultScreen = props.isRoactChatDefaultScreen
-	local routes = {
+	local switchNavigator = RoactNavigation.createRobloxSwitchNavigator({
+		{
+			[EnumScreens.SocialTab] = {
+				screen = function(navProps)
+					return Roact.createFragment({
+						screen = Roact.createElement(SocialTabContainer, {
+							navigation = navProps.navigation,
+						}),
+						navigationEvents = Roact.createElement(SocialTabNavigationEventReceiver, {
+							navigationEventReceiver = RoactNavigation.NavigationEvents,
+						}),
+					})
+				end,
+				navigationOptions = {
+					tabBarVisible = true,
+				},
+			},
+		},
 		{
 			[EnumScreens.RoactChat] = {
 				screen = function(navProps)
@@ -56,14 +72,12 @@ return function(entryPoints, props)
 							androidBackButtonSignal = props.androidBackButtonSignal[EnumScreens.RoactChat],
 						}
 
-						local navigationProps = if isRoactChatDefaultScreen
-							then {}
-							else {
-								navigateToRootStack = function()
-									navProps.navigation.navigate(EnumScreens.SocialTab)
-								end,
-							}
-						local joinedProps = llama.Dictionary.join(navProps, props, formattedContext, navigationProps)
+						local joinedProps = llama.Dictionary.join(navProps, props, formattedContext, {
+							navigateToRootStack = function()
+								navProps.navigation.navigate(EnumScreens.SocialTab)
+							end,
+						})
+
 						return Roact.createElement(entryPoints[EnumScreens.RoactChat], joinedProps)
 					end)
 				end,
@@ -75,29 +89,7 @@ return function(entryPoints, props)
 		entryPoints[EnumScreens.FriendsLanding] and {
 			[EnumScreens.FriendsLanding] = entryPoints[EnumScreens.FriendsLanding](SocialTabContext),
 		},
-	}
-
-	if not isRoactChatDefaultScreen then
-		table.insert(routes, 1, {
-			[EnumScreens.SocialTab] = {
-				screen = function(navProps)
-					return Roact.createFragment({
-						screen = Roact.createElement(SocialTabContainer, {
-							navigation = navProps.navigation,
-						}),
-						navigationEvents = Roact.createElement(SocialTabNavigationEventReceiver, {
-							navigationEventReceiver = RoactNavigation.NavigationEvents,
-						}),
-					})
-				end,
-				navigationOptions = {
-					tabBarVisible = true,
-				},
-			},
-		})
-	end
-
-	local switchNavigator = RoactNavigation.createRobloxSwitchNavigator(routes, {
+	}, {
 		keepVisitedScreensMounted = false,
 		backBehavior = BackBehavior.InitialRoute,
 	})
@@ -163,7 +155,6 @@ return function(entryPoints, props)
 
 			return Roact.createFragment({
 				eventReceiver = Roact.createElement(SocialTabEventReceiver, {
-					iaExperimentation = context.iaExperimentation,
 					robloxEventReceiver = context.robloxEventReceiver,
 					getActiveConversationId = context.getActiveConversationId,
 					showTabBar = function()
@@ -171,17 +162,7 @@ return function(entryPoints, props)
 						props.setTabBarVisible(activeRouteName == EnumScreens.SocialTab)
 					end,
 					goToChat = function()
-						-- Obsolete, prop goToChat should be removed when the results regarding IAExperimentation are concluded
 						self.props.navigation.navigate(EnumScreens.RoactChat)
-					end,
-					onStartConversationNotification = function(_detail, _detailType)
-						if context.isDrawerPanel then
-							if props.closeDrawer then
-								props.closeDrawer()
-							end
-						else
-							self.props.navigation.navigate(EnumScreens.RoactChat)
-						end
 					end,
 				}),
 				switchNavigator = Roact.createElement(switchNavigator, {

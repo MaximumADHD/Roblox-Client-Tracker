@@ -3,7 +3,6 @@ local dependencies = require(FriendsLanding.dependencies)
 local Roact = dependencies.Roact
 local FriendsLandingNavigator = require(FriendsLanding.Navigator)
 local FriendsLandingEntryPoint = require(FriendsLanding.Components.FriendsLandingEntryPoint)
-local getFFlagProfileQRCodeEnableAlerts = dependencies.getFFlagProfileQRCodeEnableAlerts
 
 return function(parentContext)
 	assert(type(parentContext.with) == "function", "Expect parentContext to have with")
@@ -19,7 +18,7 @@ return function(parentContext)
 				navigateToLuaAppPages = context.navigateToLuaAppPages,
 				luaAppPages = context.luaAppPages,
 				friendsRequestEventListener = context.friendsRequestEventListener,
-				robloxEventReceiver = if getFFlagProfileQRCodeEnableAlerts() then context.robloxEventReceiver else nil,
+				robloxEventReceiver = context.robloxEventReceiver,
 				getLoadingTimeInfo = context.getNavigatingFromSocialTabEvent,
 				entryPage = entryPage,
 				luaAddFriendsPageEnabled = context.luaAddFriendsPageEnabled,

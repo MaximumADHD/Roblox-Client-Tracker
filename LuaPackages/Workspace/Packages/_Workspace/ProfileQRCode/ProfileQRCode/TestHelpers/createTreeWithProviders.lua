@@ -12,8 +12,7 @@ return function(element, config)
 		uid = "123",
 	}, JestGlobals.jest)
 
-	return
-		React.createElement(Analytics.Context.Provider, {
+	return React.createElement(Analytics.Context.Provider, {
 		value = if config.mockAnalytics then config.mockAnalytics else mockAnalytics.value,
 	}, {
 		Element = createTreeWithProviders(element, config),

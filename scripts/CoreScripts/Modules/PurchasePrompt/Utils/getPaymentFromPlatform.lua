@@ -2,6 +2,7 @@ local Root = script.Parent.Parent
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 
+-- To add a new payment platform. Also update the Modules.LuaApp.Util.getPaymentFromPlatform for LuaApp.
 return function(platform, isLuobu, isAmazon, isMaquettes)
 	if platform == Enum.Platform.XBoxOne then
 		return PaymentPlatform.Xbox

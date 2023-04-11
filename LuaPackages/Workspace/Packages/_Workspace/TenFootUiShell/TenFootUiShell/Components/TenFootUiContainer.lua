@@ -6,8 +6,9 @@ local React = require(Packages.React)
 local ReactFocusNavigation = require(Packages.ReactFocusNavigation)
 local RoactNavigation = require(Packages.RoactNavigation)
 
-local useTenFootUiSceneManager = require(TenFootUiShell.Utils.useTenFootUiSceneManager)
+local useTenFootUiSceneManager = require(TenFootUiShell.Hooks.useTenFootUiSceneManager)
 local createTenFootUiSwitchNavigator = require(TenFootUiShell.ReactNavigationExtend.createTenFootUiSwitchNavigator)
+local createTenFootUiStackNavigator = require(TenFootUiShell.ReactNavigationExtend.createTenFootUiStackNavigator)
 local TenFootUiGlobalNav = require(Packages.TenFootUiGlobalNav)
 local GlobalNavContainer = TenFootUiGlobalNav.GlobalNavContainer
 
@@ -90,11 +91,31 @@ local function ScreenWithButtons(props: ScreenWithButtonsProps)
 	}, { buttons })
 end
 
-local function EmptyScreen(props: ScreenProps)
+local function HomeScreen(props: ScreenProps)
 	return React.createElement(ScreenWithButtons, {
 		buttons = {
 			["Home"] = function()
 				props.navigation.navigate({ routeName = "Home" })
+			end,
+		},
+	})
+end
+
+local function GamesScreen(props: ScreenProps)
+	return React.createElement(ScreenWithButtons, {
+		buttons = {
+			["Games"] = function()
+				props.navigation.navigate({ routeName = "ExpDetails" })
+			end,
+		},
+	})
+end
+
+local function ExpDetailsScreen(props: ScreenProps)
+	return React.createElement(ScreenWithButtons, {
+		buttons = {
+			["ExpDetails"] = function()
+				props.navigation.navigate({ routeName = "Games" })
 			end,
 		},
 	})
@@ -134,26 +155,43 @@ local function createAppContainer()
 	}
 
 	-- This is placeholder not production code.
+	local placeHolderStackNavigator = createTenFootUiStackNavigator({
+		{
+			Games = {
+				screen = GamesScreen,
+				navigationOptions = {
+					screenKind = "Default",
+				},
+			},
+		},
+		{
+			ExpDetails = {
+				screen = ExpDetailsScreen,
+				navigationOptions = {
+					screenKind = "Default",
+				},
+			},
+		},
+	}, {
+		surfaceGuiContainer = surfaceGuiContainer,
+		worldContainer = workspaceContainer,
+	})
+
 	local InnerNavigator = createTenFootUiSwitchNavigator({
 		{
 			Home = {
-				screen = EmptyScreen,
+				screen = HomeScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},
 			},
 		},
 		{
-			Games = {
-				screen = EmptyScreen,
-				navigationOptions = {
-					screenKind = "Default",
-				},
-			},
+			Games = placeHolderStackNavigator,
 		},
 		{
 			AvatarExperienceRoot = {
-				screen = EmptyScreen,
+				screen = HomeScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},
@@ -161,7 +199,7 @@ local function createAppContainer()
 		},
 		{
 			Chat = {
-				screen = EmptyScreen,
+				screen = HomeScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},
@@ -169,7 +207,7 @@ local function createAppContainer()
 		},
 		{
 			SearchPage = {
-				screen = EmptyScreen,
+				screen = HomeScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},
@@ -177,7 +215,7 @@ local function createAppContainer()
 		},
 		{
 			PurchaseRobux = {
-				screen = EmptyScreen,
+				screen = HomeScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},
@@ -185,7 +223,7 @@ local function createAppContainer()
 		},
 		{
 			More = {
-				screen = EmptyScreen,
+				screen = HomeScreen,
 				navigationOptions = {
 					screenKind = "Default",
 				},

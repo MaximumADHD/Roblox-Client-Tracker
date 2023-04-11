@@ -1,5 +1,5 @@
-game:DefineFastFlag("ApolloClientFetchExperiences2", false)
+game:DefineFastFlag("ApolloClientFetchExperiences3", false)
 
 return function()
-	return game:GetFastFlag("ApolloClientFetchExperiences2")
+	return game:GetFastFlag("ApolloClientFetchExperiences3")
 end

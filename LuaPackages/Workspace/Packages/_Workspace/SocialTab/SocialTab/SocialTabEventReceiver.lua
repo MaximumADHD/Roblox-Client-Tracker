@@ -30,12 +30,6 @@ function SocialTabEventReceiver:init()
 	self.lastSeqNumByNamespace = {}
 	self.lastConnectionState = Enum.ConnectionState.Connected
 
-	local socialPanelNotifications = false
-	if self.props.iaExperimentation then
-		socialPanelNotifications = self.props.iaExperimentation.default:shouldShowSocialPanel()
-			or self.props.iaExperimentation.default:shouldShowSocialPanelFullscreen()
-	end
-
 	local function updateLastSequenceNumber(namespace, sequenceNumber)
 		self.lastSeqNumByNamespace[namespace] = sequenceNumber
 	end
@@ -139,13 +133,7 @@ function SocialTabEventReceiver:init()
 		-- RoactChat's event receiver system handles navigating to the appropriate conversation, we need to go to chat tile
 		robloxEventReceiver:observeEvent("AppShellNotifications", function(detail, detailType)
 			if detailType == "StartConversationWithUserId" or detailType == "StartConversationWithId" then
-				if socialPanelNotifications then
-					if self.props.onStartConversationNotification then
-						self.props.onStartConversationNotification(detail, detailType)
-					end
-				else
-					self.props.goToChat()
-				end
+				self.props.goToChat()
 			end
 		end),
 

@@ -4,9 +4,11 @@ local DiagEventList = require(script.Parent.DiagEventList)
 local EventStreamEventList = require(script.Parent.EventStreamEventList)
 local Types = require(script.Parent.Parent.FireEvent.Types)
 
-return function(
-	setup: { analytics: { Diag: any, EventStream: any }, loggerImpl: any?, infoForAllEvents: (Types.AdditionalInfo)? }
-)
+return function(setup: {
+	analytics: { Diag: any, EventStream: any },
+	loggerImpl: any?,
+	infoForAllEvents: Types.AdditionalInfo?,
+})
 	local fireEventStream = fireEventStream({
 		eventStreamImpl = setup.analytics.EventStream,
 		eventList = EventStreamEventList,

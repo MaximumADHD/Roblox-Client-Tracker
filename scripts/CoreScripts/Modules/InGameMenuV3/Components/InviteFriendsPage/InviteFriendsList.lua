@@ -1,5 +1,7 @@
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -22,7 +24,7 @@ local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextu
 local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
-local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local isPlayerVerified = VerifiedBadges.isPlayerVerified

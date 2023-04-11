@@ -11,21 +11,20 @@ local Constants = require(script.Parent.Constants)
 local TenFootUiNavigatorTypes = require(script.Parent.Parent.TenFootUiNavigatorTypes)
 
 type NavigationObject = TenFootUiNavigatorTypes.NavigationObject
-type SwitchNavigatorConfig = TenFootUiNavigatorTypes.SwitchNavigatorConfig
+type NavigatorConfig = TenFootUiNavigatorTypes.NavigatorConfig
 type Descriptor = TenFootUiNavigatorTypes.Descriptor
+type NavigationState = TenFootUiNavigatorTypes.NavigationState
 
 export type Props = {
 	screenProps: { [any]: any }?,
 	navigation: NavigationObject,
-	navigationConfig: SwitchNavigatorConfig,
+	navigationConfig: NavigatorConfig,
 	descriptors: {
 		[string]: Descriptor,
 	},
 }
 
 local function TenFootUiSwitchView(props: Props)
-	local visitedScreenKeys, setVisitedScreenKeys = React.useState({})
-
 	local descriptors = props.descriptors
 	local navigationConfig = props.navigationConfig
 	local screenProps = props.screenProps
@@ -38,38 +37,23 @@ local function TenFootUiSwitchView(props: Props)
 	end, {})
 
 	local activeKey = state.routes[state.index].key
+	local descriptor = descriptors[activeKey]
 
-	if not visitedScreenKeys[activeKey] then
-		setVisitedScreenKeys(function(prevVisitedScreenKeys)
-			local nextVisitedScreenKeys = table.clone(prevVisitedScreenKeys)
-			nextVisitedScreenKeys[activeKey] = true
-			return nextVisitedScreenKeys
-		end)
-	end
-
-	local screens = {}
-	for key, descriptor in descriptors do
-		local isActiveKey = (key == activeKey)
-		if visitedScreenKeys[key] == true then
-			screens[key] = React.createElement(SurfaceGuiWithAdornee, {
-				adorneeSize = dims,
-				adorneeCFrame = cframe,
-				canvasSize = Constants.PageContentCanvasSize,
-				alwaysOnTop = isActiveKey,
-				isVisible = isActiveKey,
-				name = key,
-				adorneeParent = navigationConfig.worldContainer,
-				surfaceGuiParent = navigationConfig.surfaceGuiContainer,
-				children = React.createElement(SceneView, {
-					component = descriptor.getComponent(),
-					navigation = descriptor.navigation,
-					screenProps = screenProps,
-				}),
-			})
-		end
-	end
-
-	return React.createElement("Folder", nil, { screens })
+	return React.createElement(SurfaceGuiWithAdornee, {
+		adorneeSize = dims,
+		adorneeCFrame = cframe,
+		canvasSize = Constants.PageContentCanvasSize,
+		alwaysOnTop = true,
+		isVisible = true,
+		name = descriptor.key,
+		adorneeParent = navigationConfig.worldContainer,
+		surfaceGuiParent = navigationConfig.surfaceGuiContainer,
+		children = React.createElement(SceneView, {
+			component = descriptor.getComponent(),
+			navigation = descriptor.navigation,
+			screenProps = screenProps,
+		}),
+	})
 end
 
 return TenFootUiSwitchView

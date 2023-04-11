@@ -36,14 +36,6 @@ local FFlagUserVRPlaySeatedStanding do
 	FFlagUserVRPlaySeatedStanding = success and result
 end
 
-local FFlagUserVRCameraZoomFix do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRCameraZoomFix")
-	end)
-	FFlagUserVRCameraZoomFix = success and result
-end
-
-
 function VRCamera.new()
 	local self = setmetatable(VRBaseCamera.new(), VRCamera)
 
@@ -77,10 +69,6 @@ function VRCamera:Update(timeDelta)
 		self.lastCameraTransform = nil
 	end
 
-	if not FFlagUserVRCameraZoomFix then
-		self:StepZoom()
-	end
-	
 	-- update fullscreen effects
 	self:UpdateFadeFromBlack(timeDelta)
 	self:UpdateEdgeBlur(player, timeDelta)

@@ -2,8 +2,8 @@
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 
-local IsExperienceMenuABTestEnabled = require(script.Parent.InGameMenuV3.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(script.Parent.InGameMenuV3.ExperienceMenuABTestManager)
+local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(script.Parent.ExperienceMenuABTestManager)
 
 game:DefineFastInt("NewInGameMenuPercentRollout3", 0)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")

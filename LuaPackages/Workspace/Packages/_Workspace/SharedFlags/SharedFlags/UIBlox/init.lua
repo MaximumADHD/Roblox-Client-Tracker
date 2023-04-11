@@ -25,4 +25,5 @@ return {
 	GetFFlagUIBloxLoadableImageResponsiveThumbnails = require(script.GetFFlagUIBloxLoadableImageResponsiveThumbnails),
 	GetFFlagUIBloxUseDetailsPageTemplateConfig = require(script.GetFFlagUIBloxUseDetailsPageTemplateConfig),
 	GetFFlagUIBloxDropDownMenuUseUniqueKeys = require(script.GetFFlagUIBloxDropDownMenuUseUniqueKeys),
+	GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel = require(script.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel),
 }

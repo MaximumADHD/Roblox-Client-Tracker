@@ -10,9 +10,9 @@ local RoduxFriends = dependencies.RoduxFriends
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 local Constants = require(PYMKCarousel.Common.Constants)
 local llama = dependencies.llama
-local getFFlagSocialUpdateRoduxFriendsv314 = dependencies.getFFlagSocialUpdateRoduxFriendsv314
 local getFFlagPYMKCarouselIncomingFriendshipReducer =
 	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendshipReducer)
+local getFFlagSocialUpdateRoduxFriendsv316 = devDependencies.getFFlagSocialUpdateRoduxFriendsv316
 
 local installReducer = require(script.Parent)
 
@@ -24,17 +24,18 @@ local defaultState = {
 			receivedCount = 0,
 			byUserId = {},
 			mutualFriends = {},
+			originSourceType = if getFFlagSocialUpdateRoduxFriendsv316() then {} else nil,
 			sentAt = {},
 			sourceUniverseIds = {},
 		},
 		recommendations = {
 			byUserId = {},
 			bySource = {},
-			hasIncomingFriendRequest = if getFFlagSocialUpdateRoduxFriendsv314() then {} else nil,
+			hasIncomingFriendRequest = {},
 		},
 		friendshipStatus = {},
 		friendsRankByUserId = {},
-		contactNamesByUserId = if getFFlagSocialUpdateRoduxFriendsv314() then {} else nil,
+		contactNamesByUserId = {},
 	},
 	Users = {
 		byUserId = {},
@@ -101,6 +102,7 @@ describe("PYMKCarousel reducer", function()
 					requests = {
 						receivedCount = 0,
 						byUserId = {},
+						originSourceType = if getFFlagSocialUpdateRoduxFriendsv316() then {} else nil,
 						mutualFriends = {},
 						sentAt = {},
 						sourceUniverseIds = {},
@@ -113,15 +115,13 @@ describe("PYMKCarousel reducer", function()
 								RecommendedFriend3 = true,
 							},
 						},
-						hasIncomingFriendRequest = if getFFlagSocialUpdateRoduxFriendsv314()
-							then {
-								RecommendedFriend1 = false,
-								RecommendedFriend2 = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-									then true
-									else false,
-								RecommendedFriend3 = false,
-							}
-							else nil,
+						hasIncomingFriendRequest = {
+							RecommendedFriend1 = false,
+							RecommendedFriend2 = if getFFlagPYMKCarouselIncomingFriendshipReducer()
+								then true
+								else false,
+							RecommendedFriend3 = false,
+						},
 						byUserId = {
 							[LOCAL_USER_ID] = {
 								RecommendedFriend3 = {
@@ -150,7 +150,7 @@ describe("PYMKCarousel reducer", function()
 					},
 					friendshipStatus = {},
 					friendsRankByUserId = {},
-					contactNamesByUserId = if getFFlagSocialUpdateRoduxFriendsv314() then {} else nil,
+					contactNamesByUserId = {},
 				},
 				Users = {
 					byUserId = {

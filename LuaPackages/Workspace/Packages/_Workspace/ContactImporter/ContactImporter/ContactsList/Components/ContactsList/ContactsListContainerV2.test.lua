@@ -255,54 +255,43 @@ describe("ContactsListContainerV2", function()
 				end)
 			end)
 
-			describe("FFlagVerifyDeviceContactsIsNotNil", function()
-				local flag
-				beforeAll(function()
-					flag = game:SetFastFlagForTesting("VerifyDeviceContactsIsNotNil", true)
-				end)
-
-				afterAll(function()
-					game:SetFastFlagForTesting("VerifyDeviceContactsIsNotNil", flag)
-				end)
-
-				it("SHOULD show empty list if contacts are nil", function()
-					local getContactsNil = jest.fn().mockImplementation(function()
-						return Promise.resolve({
-							countryCode = "US",
-							contacts = nil,
-						})
-					end)
-					local ContactsImporterOverlayContainerComponent = createTreeWithProviders(ContactsListContainerV2, {
-						store = mockStore({
-							ScreenSize = Vector2.new(100, 100),
-							LocalUserId = "123",
-							[RODUX_KEY] = {
-								NetworkStatus = {},
-								Contacts = { byContactId = {}, byDeviceContactId = {} },
-							},
-						}),
-						props = Dash.join(defaultProps, {
-							contactsProtocol = {
-								supportsContacts = supportsContacts,
-								getContacts = getContactsNil,
-							},
-							navigation = navigationProps,
-						}),
+			it("SHOULD show empty list if contacts are nil", function()
+				local getContactsNil = jest.fn().mockImplementation(function()
+					return Promise.resolve({
+						countryCode = "US",
+						contacts = nil,
 					})
+				end)
+				local ContactsImporterOverlayContainerComponent = createTreeWithProviders(ContactsListContainerV2, {
+					store = mockStore({
+						ScreenSize = Vector2.new(100, 100),
+						LocalUserId = "123",
+						[RODUX_KEY] = {
+							NetworkStatus = {},
+							Contacts = { byContactId = {}, byDeviceContactId = {} },
+						},
+					}),
+					props = Dash.join(defaultProps, {
+						contactsProtocol = {
+							supportsContacts = supportsContacts,
+							getContacts = getContactsNil,
+						},
+						navigation = navigationProps,
+					}),
+				})
 
-					runWhileMounted(ContactsImporterOverlayContainerComponent, function(parent)
-						local buttons = RhodiumHelpers.findFirstInstance(parent, {
-							Name = "Buttons",
-						})
-						jestExpect(buttons[1][1]).never.toBeNil()
+				runWhileMounted(ContactsImporterOverlayContainerComponent, function(parent)
+					local buttons = RhodiumHelpers.findFirstInstance(parent, {
+						Name = "Buttons",
+					})
+					jestExpect(buttons[1][1]).never.toBeNil()
 
-						RhodiumHelpers.clickInstance(buttons[1][1])
+					RhodiumHelpers.clickInstance(buttons[1][1])
 
-						jestExpect(supportsContacts).toHaveBeenCalledTimes(1)
-						jestExpect(getContactsNil).toHaveBeenCalledTimes(1)
+					jestExpect(supportsContacts).toHaveBeenCalledTimes(1)
+					jestExpect(getContactsNil).toHaveBeenCalledTimes(1)
 
-						findElementHelpers.checkEmptyList(parent, { assertElementExists = true })
-					end)
+					findElementHelpers.checkEmptyList(parent, { assertElementExists = true })
 				end)
 			end)
 

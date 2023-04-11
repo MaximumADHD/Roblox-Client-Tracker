@@ -9,8 +9,6 @@ local JestGlobals = devDependencies.JestGlobals
 local jestExpect = devDependencies.jestExpect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
-local beforeAll = JestGlobals.beforeAll
-local afterAll = JestGlobals.afterAll
 local beforeEach = JestGlobals.beforeEach
 
 local RODUX_KEY = require(ContactImporter.Common.Constants).RODUX_KEY
@@ -19,15 +17,6 @@ local IXPVariants = require(ContactImporter.Common.IXPVariants)
 local getFStringOffPlatformIXPName = require(ContactImporter.Flags.getFStringOffPlatformIXPName)
 
 local mockConfig
-local oldContactImporterEnabledForDev
-
-beforeAll(function()
-	oldContactImporterEnabledForDev = game:SetFastFlagForTesting("ContactImporterEnabledForDev", false)
-end)
-
-afterAll(function()
-	game:SetFastFlagForTesting("ContactImporterEnabledForDev", oldContactImporterEnabledForDev)
-end)
 
 beforeEach(function()
 	mockConfig = {

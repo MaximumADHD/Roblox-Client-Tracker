@@ -7,8 +7,6 @@ local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local RoduxContacts = dependencies.RoduxContacts
 local Promise = dependencies.Promise
 local llama = dependencies.llama
-local getFFlagContactImporterLoadBlendedSuccessful =
-	require(ContactImporter.Flags.getFFlagContactImporterLoadBlendedSuccessful)
 
 local mapDispatchToProps = function(dispatch: any)
 	return {
@@ -22,7 +20,7 @@ local mapDispatchToProps = function(dispatch: any)
 		end,
 		getContactEntities = function(args: LocalTypes.GetContactEntities)
 			if llama.isEmpty(args) or not args then
-				return if getFFlagContactImporterLoadBlendedSuccessful() then Promise.resolve() else Promise.reject()
+				return Promise.resolve()
 			else
 				return dispatch(NetworkingContacts.GetContactEntitiesByContactId.API(args))
 			end

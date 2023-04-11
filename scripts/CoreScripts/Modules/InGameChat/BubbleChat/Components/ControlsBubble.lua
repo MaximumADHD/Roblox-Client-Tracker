@@ -123,19 +123,27 @@ function ControlsBubble:init()
 		local voiceState = values[1] :: string
 		local level = values[2] :: number
 
+		local speakerIconStyle = if
+			game:GetEngineFeature("VoiceChatNewSpeakerIcons") then "SpeakerNew" else "SpeakerDark"
+		local iconStyle = if self.props.isLocalPlayer then "New" else speakerIconStyle
+
 		if voiceState == Constants.VOICE_STATE.MUTED or voiceState == Constants.VOICE_STATE.LOCAL_MUTED then
-			-- We use UIBlox for the muted cases. The image is retrieved from UIBlox in ControlBubble.lua.
-			return ""
+			if self.props.isLocalPlayer then
+				-- We use UIBlox for the local muted cases. The image is retrieved from UIBlox in ControlBubble.lua.
+				return ""
+			else
+				return VoiceChatServiceManager:GetIcon("Muted", iconStyle)
+			end
 		elseif voiceState == Constants.VOICE_STATE.CONNECTING then
-			return VoiceChatServiceManager:GetIcon("Connecting", "New")
+			return VoiceChatServiceManager:GetIcon("Connecting", iconStyle)
 		elseif voiceState == Constants.VOICE_STATE.INACTIVE then
-			return VoiceChatServiceManager:GetIcon("Unmuted0", "New")
+			return VoiceChatServiceManager:GetIcon("Unmuted0", iconStyle)
 		elseif voiceState == Constants.VOICE_STATE.TALKING then
 			-- Calculate a number between 0-100 by increments of 20.
 			local micLevel = INCREMENT_AMOUNT * math.floor(0.5 + NUM_INCREMENTS * level)
-			return VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(micLevel), "New")
+			return VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(micLevel), iconStyle)
 		else
-			return VoiceChatServiceManager:GetIcon("Error", "New")
+			return VoiceChatServiceManager:GetIcon("Error", iconStyle)
 		end
 	end)
 end
@@ -152,15 +160,20 @@ function ControlsBubble:shouldShowCameraIndicator()
 end
 
 function ControlsBubble:getMicIcon()
-	-- If the local player has not given mic permissions to their device, we show the muted icon.
-	local localMuted = self.props.isLocalPlayer and not (self.state.microphoneEnabled and self.props.hasMicPermissions)
-	local micMuted = self.props.voiceState == Constants.VOICE_STATE.MUTED or self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
-
-	if localMuted or micMuted then
-		return MIC_OFF_IMAGE, true
-	else
+	if not self.props.isLocalPlayer then
+		-- Non local player always uses icons from VoiceChatManager
 		return self.levelIcon, false
 	end
+
+	-- If the local player has not given mic permissions to their device, we show the muted icon.
+	local noPermissions = not (self.state.microphoneEnabled and self.props.hasMicPermissions)
+	local micMuted = self.props.voiceState == Constants.VOICE_STATE.MUTED or self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
+
+	if noPermissions or micMuted then
+		return MIC_OFF_IMAGE, true
+	end
+
+	return self.levelIcon, false
 end
 
 function ControlsBubble:didUpdate(prevProps, _)

@@ -98,12 +98,14 @@ end
 
 function FlashingDot:render()
 	local image
+	local imageSize = UDim2.fromOffset(4, 4)
 	if FFlagAvatarChatCoreScriptSupport then
 		local isUsingCamera = self.state.hasCameraPermissions and FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
 		if self.state.isUsingMic then
 			image = FLASHING_DOT
 		elseif isUsingCamera then
 			image = GREEN_DOT
+			imageSize = UDim2.fromOffset(12, 12)
 		end
 	end
 
@@ -118,7 +120,9 @@ function FlashingDot:render()
 	},  {
 		FlashingDot = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 4, 0, 4),
+			AnchorPoint = if FFlagAvatarChatCoreScriptSupport then Vector2.new(0.5, 0.5) else nil,
+			Position = if FFlagAvatarChatCoreScriptSupport then UDim2.fromScale(0.5, 0.5) else nil,
+			Size = imageSize,
 			Image = if FFlagAvatarChatCoreScriptSupport then image else FLASHING_DOT,
 			ImageTransparency = self.transparencyBinding,
 			LayoutOrder = 2,

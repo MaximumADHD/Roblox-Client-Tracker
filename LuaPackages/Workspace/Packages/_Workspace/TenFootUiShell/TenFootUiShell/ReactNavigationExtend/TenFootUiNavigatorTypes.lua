@@ -1,14 +1,14 @@
 local Packages = script:FindFirstAncestor("TenFootUiShell").Parent
 local React = require(Packages.React)
 
-export type ScreenKind = "Default" | "FullScreen" | "Overlay"
+export type ScreenKind = "Default" | "Fullscreen" | "Overlay"
 
 export type DefaultScreen = {
 	screenKind: "Default",
 }
 
 export type FullScreen = {
-	screenKind: "FullScreen",
+	screenKind: "Fullscreen",
 }
 
 export type OverlayScreen = {
@@ -21,11 +21,13 @@ export type RouteState = {
 	key: string,
 	routeName: string,
 	params: { [any]: any }?,
-}
+} & ({ routes: nil } | { index: number, routes: { RouteState } })
 
 export type NavigationState = {
+	key: string,
 	index: number,
 	routes: { RouteState },
+	isTransitioning: boolean?,
 }
 
 export type NavigationObject = {
@@ -41,22 +43,24 @@ export type Descriptor = {
 		screenKind: ScreenKind,
 	},
 	navigation: NavigationObject,
-	state: RouteState,
+	state: NavigationState,
 }
 
-export type SwitchNavigatorConfig = {
+export type NavigatorConfig = {
 	initialRouteName: string?,
 	surfaceGuiContainer: Instance,
 	worldContainer: Instance,
 }
 
-export type RouteArray = { {
-	[string]: {
-		screen: React.ComponentType<any>,
-		navigationOptions: {
-			screenKind: ScreenKind,
-		}?,
-	},
-} }
+export type RouteArray = {
+	{
+		[string]: {
+			screen: React.ComponentType<any>,
+			navigationOptions: {
+				screenKind: ScreenKind,
+			}?,
+		},
+	}
+}
 
 return {}

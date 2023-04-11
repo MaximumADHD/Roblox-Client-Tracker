@@ -3,7 +3,14 @@ local Url = require(script.Parent.Parent.Url)
 
 game:DefineFastFlag("LuaAppExperienceJoinIdempotencyKey", false)
 
-return function(requestImpl, userId: string, placeId: string, trigger: string, inviteMessageId: string?, launchData: string?)
+return function(
+	requestImpl,
+	userId: string,
+	placeId: string,
+	trigger: string,
+	inviteMessageId: string?,
+	launchData: string?
+)
 	local payload = HttpService:JSONEncode({
 		recipientUserId = userId,
 		inviteMessageId = inviteMessageId,

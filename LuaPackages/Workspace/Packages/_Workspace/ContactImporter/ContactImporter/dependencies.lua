@@ -41,7 +41,6 @@ local myRoduxNetworking = RoduxNetworking.config({
 	networkImpl = myHttpRequest,
 })
 
-local getFFlagContactImporterEnabledForDev = require(Packages.SharedFlags).getFFlagContactImporterEnabledForDev
 local RoactAppExperiment = require(Packages.RoactAppExperiment)
 
 local UIBlox = require(Packages.UIBlox)
@@ -123,7 +122,6 @@ return {
 	DiscoverabilityOverlay = require(Packages.DiscoverabilityModal).DiscoverabilityOverlay,
 	DiscoverabilityAnalytics = require(Packages.DiscoverabilityModal).Analytics,
 	RoactExperimentProvider = RoactAppExperiment.Provider,
-	getFFlagContactImporterEnabledForDev = getFFlagContactImporterEnabledForDev,
 	getFFlagContactImporterWithPhoneVerification = require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification,
 	getFFlagEnableContactInvitesForNonPhoneVerified = require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling,

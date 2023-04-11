@@ -79,5 +79,4 @@ return {
 	LocalizationProvider = require(Packages.Localization).LocalizationProvider,
 	enumerate = require(Packages.enumerate),
 	getFFlagPYMKDontUseIngestService = getFFlagPYMKDontUseIngestService,
-	getFFlagSocialUpdateRoduxFriendsv314 = LuaSocialLibrariesDeps.getFFlagSocialUpdateRoduxFriendsv314,
 }

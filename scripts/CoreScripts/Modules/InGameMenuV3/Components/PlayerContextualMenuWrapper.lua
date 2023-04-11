@@ -32,7 +32,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
-local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 
 local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)

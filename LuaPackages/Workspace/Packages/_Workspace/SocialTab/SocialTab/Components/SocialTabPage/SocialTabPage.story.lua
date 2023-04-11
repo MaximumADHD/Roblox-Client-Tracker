@@ -8,10 +8,6 @@ local llama = dependencies.llama
 
 local SocialTabPage = require(script.Parent)
 
-local _ = pcall(function()
-	game:SetFastFlagForTesting("SocialPanelIAEnabled", false)
-end)
-
 return function(props)
 	local allProps = llama.Dictionary.join({
 		analytics = Mock.MagicMock.new({ name = "analytics" }),

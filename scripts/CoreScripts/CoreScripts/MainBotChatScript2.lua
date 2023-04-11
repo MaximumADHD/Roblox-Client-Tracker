@@ -85,9 +85,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse", math.huge)
 
-local FFlagFixStuckDialogWhenUsingGamepad = game:DefineFastFlag("FixStuckDialogWhenUsingGamepad", false)
-local FFlagFixDialogChoiceLocalization = game:DefineFastFlag("FixDialogChoiceLocalization", false)
-
 local chatNotificationGui
 local messageDialog
 local dialogMap = {}
@@ -296,11 +293,9 @@ function endDialog()
 		touchControlGui.Visible = true
 	end
 
-	if FFlagFixStuckDialogWhenUsingGamepad then
-		if guiService.SelectedCoreObject and
-			guiService.SelectedCoreObject.Parent == mainFrame then
-			guiService.SelectedCoreObject = nil
-		end
+	if guiService.SelectedCoreObject and
+		guiService.SelectedCoreObject.Parent == mainFrame then
+		guiService.SelectedCoreObject = nil
 	end
 end
 
@@ -374,10 +369,8 @@ function newChoice()
 	frame.RobloxLocked = true
 
 	local prompt = Instance.new("TextLabel")
-	if FFlagFixDialogChoiceLocalization then
-		-- User response text is manually translated using GameTranslator
-		prompt.AutoLocalize = false
-	end
+	-- User response text is manually translated using GameTranslator
+	prompt.AutoLocalize = false
 	prompt.Name = "UserPrompt"
 	prompt.BackgroundTransparency = 1
 	prompt.Font = Enum.Font.SourceSans

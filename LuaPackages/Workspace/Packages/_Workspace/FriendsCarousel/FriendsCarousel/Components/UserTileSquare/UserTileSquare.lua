@@ -56,121 +56,122 @@ local defaultProps = {
 
 local noOpt = function() end
 
-local UserTileSquare =
-	function(passedProps)
-		local props: Props = llama.Dictionary.join(defaultProps, passedProps or {})
-		local tileSize = props.tileSize
+local UserTileSquare = function(passedProps)
+	local props: Props = llama.Dictionary.join(defaultProps, passedProps or {})
+	local tileSize = props.tileSize
 
-		local userTileRef = Roact.createRef()
-		local onActivated = React.useCallback(function()
-			if userTileRef and props.onActivated then
-				props.onActivated(userTileRef)
-			end
-		end, { userTileRef })
+	local userTileRef = Roact.createRef()
+	local onActivated = React.useCallback(function()
+		if userTileRef and props.onActivated then
+			props.onActivated(userTileRef)
+		end
+	end, { userTileRef })
 
-		local style: dependencies.UIBloxAppStyle = useStyle()
+	local style: dependencies.UIBloxAppStyle = useStyle()
 
-		local contextualTextFont = style.Font.CaptionSubHeader
-		local textHeight = React.useMemo(function()
-			local contextualTextFontSize: number = style.Font.BaseSize * style.Font.CaptionSubHeader.RelativeSize
-			return getTextHeight(props.contextualText, contextualTextFont.Font, contextualTextFontSize)
-		end, { props.contextualText })
+	local contextualTextFont = style.Font.CaptionSubHeader
+	local textHeight = React.useMemo(function()
+		local contextualTextFontSize: number = style.Font.BaseSize * style.Font.CaptionSubHeader.RelativeSize
+		return getTextHeight(props.contextualText, contextualTextFont.Font, contextualTextFontSize)
+	end, { props.contextualText })
 
-		return Roact.createFragment({
-			UserTileSquare = Roact.createElement("Frame", {
-				[Roact.Ref] = userTileRef,
-				LayoutOrder = props.layoutOrder,
-				Size = UDim2.fromOffset(tileSize, 0),
+	return Roact.createFragment({
+		UserTileSquare = Roact.createElement("Frame", {
+			[Roact.Ref] = userTileRef,
+			LayoutOrder = props.layoutOrder,
+			Size = UDim2.fromOffset(tileSize, 0),
+			BackgroundTransparency = 1,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			PlayerAvatarFrame = Roact.createElement("Frame", {
+				LayoutOrder = 1,
+				Size = UDim2.fromOffset(tileSize, tileSize),
+				BackgroundTransparency = 1,
+			}, {
+				PlayerAvatar = Roact.createElement(PlayerTile, {
+					tileSize = UDim2.fromOffset(tileSize, tileSize),
+					thumbnail = props.thumbnail,
+					onActivated = onActivated,
+					buttons = props.buttons,
+				}),
+			}),
+			Padding1 = Roact.createElement("Frame", {
+				LayoutOrder = 2,
+				Size = UDim2.fromOffset(0, TILE_PADDING),
+				BackgroundTransparency = 1,
+			}),
+			UserInfo = Roact.createElement(Interactable, {
+				LayoutOrder = 3,
+				[Roact.Event.Activated] = onActivated,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				onStateChanged = noOpt,
 				BackgroundTransparency = 1,
 			}, {
 				UIListLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
-				PlayerAvatarFrame = Roact.createElement("Frame", {
-					LayoutOrder = 1,
-					Size = UDim2.fromOffset(tileSize, tileSize),
-					BackgroundTransparency = 1,
-				}, {
-					PlayerAvatar = Roact.createElement(PlayerTile, {
-						tileSize = UDim2.fromOffset(tileSize, tileSize),
-						thumbnail = props.thumbnail,
-						onActivated = onActivated,
-						buttons = props.buttons,
-					}),
+				PlayerName = Roact.createElement(PlayerName, {
+					layoutOrder = 1,
+					name = props.username,
+					tileSize = tileSize,
 				}),
-				Padding1 = Roact.createElement("Frame", {
+				Padding2 = Roact.createElement("Frame", {
 					LayoutOrder = 2,
-					Size = UDim2.fromOffset(0, TILE_PADDING),
+					Size = UDim2.fromOffset(0, CONTEXTUAL_INFO_PADDING),
 					BackgroundTransparency = 1,
 				}),
-				UserInfo = Roact.createElement(Interactable, {
-					LayoutOrder = 3,
-					[Roact.Event.Activated] = onActivated,
+				ContextualInfoFrame = Roact.createElement("Frame", {
 					AutomaticSize = Enum.AutomaticSize.XY,
-					onStateChanged = noOpt,
 					BackgroundTransparency = 1,
+					LayoutOrder = 3,
 				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
 						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, PRESENCE_ICON_PADDING),
 					}),
-					PlayerName = Roact.createElement(PlayerName, {
-						layoutOrder = 1,
-						name = props.username,
-						tileSize = tileSize,
-					}),
-					Padding2 = Roact.createElement("Frame", {
-						LayoutOrder = 2,
-						Size = UDim2.fromOffset(0, CONTEXTUAL_INFO_PADDING),
+					PresenceIcon = props.showOnlineIndicator and Roact.createElement(ImageSetLabel, {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Image = PRESENCE_ICON,
+						ImageColor3 = style.Theme.OnlineStatus.Color,
+						ImageTransparency = style.Theme.OnlineStatus.Transparency,
+						LayoutOrder = 1,
+						Position = UDim2.fromScale(0.5, 0.5),
+						Size = UDim2.new(0, PRESENCE_ICON_SIZE, 0, PRESENCE_ICON_SIZE),
 						BackgroundTransparency = 1,
-					}),
-					ContextualInfoFrame = Roact.createElement("Frame", {
-						AutomaticSize = Enum.AutomaticSize.XY,
-						BackgroundTransparency = 1,
-						LayoutOrder = 3,
-					}, {
-						Layout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							Padding = UDim.new(0, PRESENCE_ICON_PADDING),
-						}),
-						PresenceIcon = props.showOnlineIndicator and Roact.createElement(ImageSetLabel, {
-							AnchorPoint = Vector2.new(0.5, 0.5),
-							Image = PRESENCE_ICON,
-							ImageColor3 = style.Theme.OnlineStatus.Color,
-							ImageTransparency = style.Theme.OnlineStatus.Transparency,
-							LayoutOrder = 1,
-							Position = UDim2.fromScale(0.5, 0.5),
-							Size = UDim2.new(0, PRESENCE_ICON_SIZE, 0, PRESENCE_ICON_SIZE),
-							BackgroundTransparency = 1,
-							ScaleType = Enum.ScaleType.Slice,
-						}) or nil,
-						ContextualInfo = props.contextualText and Roact.createElement(StyledTextLabel, {
-							layoutOrder = 2,
-							text = props.contextualText,
-							fontStyle = contextualTextFont,
-							size = UDim2.fromOffset(
-								if props.showOnlineIndicator
-									then props.tileSize - (PRESENCE_ICON_SIZE + PRESENCE_ICON_PADDING)
-									else props.tileSize,
-								textHeight * props.contextualInfoLines
-							),
-							colorStyle = props.isContextualTextMuted and style.Theme.TextMuted
-								or style.Theme.TextEmphasis,
-							textTruncate = Enum.TextTruncate.AtEnd,
-							textXAlignment = Enum.TextXAlignment.Left,
-							textYAlignment = Enum.TextYAlignment.Center,
-							fluidSizing = false,
-							richText = false,
-							lineHeight = 1,
-						}) or nil,
-					}),
+						ScaleType = Enum.ScaleType.Slice,
+					}) or nil,
+					ContextualInfo = props.contextualText
+							and Roact.createElement(StyledTextLabel, {
+								layoutOrder = 2,
+								text = props.contextualText,
+								fontStyle = contextualTextFont,
+								size = UDim2.fromOffset(
+									if props.showOnlineIndicator
+										then props.tileSize - (PRESENCE_ICON_SIZE + PRESENCE_ICON_PADDING)
+										else props.tileSize,
+									textHeight * props.contextualInfoLines
+								),
+								colorStyle = props.isContextualTextMuted and style.Theme.TextMuted
+									or style.Theme.TextEmphasis,
+								textTruncate = Enum.TextTruncate.AtEnd,
+								textXAlignment = Enum.TextXAlignment.Left,
+								textYAlignment = Enum.TextYAlignment.Center,
+								fluidSizing = false,
+								richText = false,
+								lineHeight = 1,
+							})
+						or nil,
 				}),
 			}),
-		})
-	end
+		}),
+	})
+end
 
 return UserTileSquare

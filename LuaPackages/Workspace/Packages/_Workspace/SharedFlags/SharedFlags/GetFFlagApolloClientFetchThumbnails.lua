@@ -1,5 +1,5 @@
-game:DefineFastFlag("ApolloClientFetchThumbnails3", false)
+game:DefineFastFlag("ApolloClientFetchThumbnails4", false)
 
 return function()
-	return game:GetFastFlag("ApolloClientFetchThumbnails3")
+	return game:GetFastFlag("ApolloClientFetchThumbnails4")
 end

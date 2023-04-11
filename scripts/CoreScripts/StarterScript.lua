@@ -47,11 +47,13 @@ local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagShareInviteLinkContextMenuABTestEnabled =
 	require(RobloxGui.Modules.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local ShareInviteLinkABTestManager = require(RobloxGui.Modules.ShareInviteLinkABTestManager)
-local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenuV3.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenuV3.ExperienceMenuABTestManager)
+local IsExperienceMenuABTestEnabled = require(CoreGuiModules.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(CoreGuiModules.ExperienceMenuABTestManager)
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
 local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
 local GetFFlagEnableSoundTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundTelemetry)
+local GetFFlagReportAnythingAnnotationIXP = require(CoreGuiModules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
+local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustAndSafetyIXPManager)
 
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
@@ -260,6 +262,10 @@ coroutine.wrap(function()
 	if GetFFlagEnableNewInviteMenuIXP() then
 		NewInviteMenuExperimentManager.default:initialize()
 	end
+
+	if GetFFlagReportAnythingAnnotationIXP() then
+		TrustAndSafetyIXPManager.default:initialize()
+	end
 end)()
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
@@ -270,12 +276,15 @@ if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")
 end
 
-if FFlagAvatarChatCoreScriptSupport then
+if game:GetEngineFeature("FacialAnimationStreaming") then
 	if game:GetEngineFeature("FacialAnimationStreamingServiceUseV2") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreamingV2", script.Parent)
 	else
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 	end
+end
+
+if FFlagAvatarChatCoreScriptSupport then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/FaceChatSelfieView", RobloxGui)
 
 	if FFlagDebugAvatarChatVisualization then

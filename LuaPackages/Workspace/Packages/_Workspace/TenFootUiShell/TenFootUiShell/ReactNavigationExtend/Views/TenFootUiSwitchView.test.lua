@@ -8,13 +8,14 @@ local expect = JestGlobals.expect
 local TenFootUiSwitchView = require(script.Parent.TenFootUiSwitchView)
 local TenFootUiNavigatorTypes = require(script.Parent.Parent.TenFootUiNavigatorTypes)
 type ScreenKind = TenFootUiNavigatorTypes.ScreenKind
+type RouteState = TenFootUiNavigatorTypes.RouteState
 
 it("should mount and pass required props and context", function()
 	local containerFolder: Instance = Instance.new("Folder")
 
 	local testScreenProps = {}
-	local routeState = {
-		key = "Foo",
+	local routeState: RouteState = {
+		key = "foo",
 		routeName = "Foo",
 	}
 	local testState = {
@@ -22,21 +23,17 @@ it("should mount and pass required props and context", function()
 			routeState,
 		},
 		index = 1,
+		key = "foo",
 	}
 	local testNavigation = {
 		state = testState,
 		dispatch = function() end,
-		getParam = function(foo)
+		getParam = function(...)
 			return nil
 		end,
 	}
-	local testNavigationConfig = {
-		surfaceGuiContainer = containerFolder,
-		worldContainer = containerFolder,
-	}
 
-	local testComponentNavigationFromProp = nil
-	local testComponentScreenProps = nil
+	local testComponentNavigationFromProp, testComponentScreenProps
 
 	local TestComponent = React.Component:extend("TestComponent")
 	function TestComponent:render()
@@ -45,17 +42,22 @@ it("should mount and pass required props and context", function()
 		return nil
 	end
 
+	local testNavigationConfig = {
+		surfaceGuiContainer = containerFolder,
+		worldContainer = containerFolder,
+	}
+
 	local testDescriptors = {
-		Foo = {
+		foo = {
 			getComponent = function()
 				return TestComponent
 			end,
-			key = "Foo",
+			key = "foo",
 			options = {
 				screenKind = "Default" :: ScreenKind,
 			},
 			navigation = testNavigation,
-			state = routeState,
+			state = testState,
 		},
 	}
 
@@ -71,10 +73,10 @@ it("should mount and pass required props and context", function()
 		root:render(element)
 	end)
 
+	expect(testComponentNavigationFromProp).toBe(testNavigation)
+	expect(testComponentScreenProps).toBe(testScreenProps)
+
 	ReactRoblox.act(function()
 		root:unmount()
 	end)
-
-	expect(testComponentNavigationFromProp).toBe(testNavigation)
-	expect(testComponentScreenProps).toBe(testScreenProps)
 end)

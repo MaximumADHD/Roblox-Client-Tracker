@@ -37,7 +37,7 @@ local SetGameFollow = require(InGameMenu.Actions.SetGameFollow)
 local SendGameFollow = require(InGameMenu.Thunks.SendGameFollow)
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
-local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local HttpRbxApiService = game:GetService("HttpRbxApiService")

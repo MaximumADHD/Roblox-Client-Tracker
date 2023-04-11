@@ -20,8 +20,6 @@ local IXPVariants = OffPlatformFriendRequestsIXP.IXPVariants
 local createTreeWithProviders = devDependencies.createTreeWithProviders
 local Dash = dependencies.Dash
 
-local getFFlagContactImporterSearchBarBugFixes = require(ContactImporter.Flags.getFFlagContactImporterSearchBarBugFixes)
-
 describe("ContactsListV2", function()
 	local screenParams = {
 		closeModal = Dash.noop,
@@ -202,34 +200,9 @@ describe("ContactsListV2", function()
 		end)
 	end
 
-	if getFFlagContactImporterSearchBarBugFixes() then
-		it(
-			"SHOULD show the divider bar between matched and unmatched contacts if both result types exist after filtering",
-			function()
-				local element = createTreeWithProviders(ContactsListV2, {
-					props = Dash.join(DEFAULT_PROPS, {
-						deviceContacts = { { contactName = "alice", contactId = "123" } },
-						matchedContacts = { { contactName = "eve", contactId = "456" } },
-						showAddFriendsButton = true,
-					}),
-				})
-
-				local checkForDivider = findElementHelpers.findElement({ Name = "divider" })
-				local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
-
-				runWhileMounted(element, function(parent)
-					local searchBar = checkForSearchBar(parent, { assertElementExists = true })
-
-					act(function()
-						RhodiumHelpers.typeTextIntoElement(searchBar, "e")
-					end)
-
-					checkForDivider(parent, { assertElementExists = true })
-				end)
-			end
-		)
-
-		it("SHOULD show the divider bar if there are only matched contacts results", function()
+	it(
+		"SHOULD show the divider bar between matched and unmatched contacts if both result types exist after filtering",
+		function()
 			local element = createTreeWithProviders(ContactsListV2, {
 				props = Dash.join(DEFAULT_PROPS, {
 					deviceContacts = { { contactName = "alice", contactId = "123" } },
@@ -245,13 +218,36 @@ describe("ContactsListV2", function()
 				local searchBar = checkForSearchBar(parent, { assertElementExists = true })
 
 				act(function()
-					RhodiumHelpers.typeTextIntoElement(searchBar, "eve")
+					RhodiumHelpers.typeTextIntoElement(searchBar, "e")
 				end)
 
 				checkForDivider(parent, { assertElementExists = true })
 			end)
+		end
+	)
+
+	it("SHOULD show the divider bar if there are only matched contacts results", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				deviceContacts = { { contactName = "alice", contactId = "123" } },
+				matchedContacts = { { contactName = "eve", contactId = "456" } },
+				showAddFriendsButton = true,
+			}),
+		})
+
+		local checkForDivider = findElementHelpers.findElement({ Name = "divider" })
+		local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
+
+		runWhileMounted(element, function(parent)
+			local searchBar = checkForSearchBar(parent, { assertElementExists = true })
+
+			act(function()
+				RhodiumHelpers.typeTextIntoElement(searchBar, "eve")
+			end)
+
+			checkForDivider(parent, { assertElementExists = true })
 		end)
-	end
+	end)
 
 	it("SHOULD show shimmer if fetching", function()
 		local element = createTreeWithProviders(ContactsListV2, {

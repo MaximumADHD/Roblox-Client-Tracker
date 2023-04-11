@@ -1,6 +1,5 @@
 local SocialTab = script:FindFirstAncestor("SocialTab")
 local isAutomaticSizingEnabled = require(SocialTab.TestHelpers.isAutomaticSizingEnabled)
-local disableSocialPanelIA = require(SocialTab.TestHelpers.disableSocialPanelIA)
 local findImageSet = require(SocialTab.TestHelpers.findImageSet)
 local EnumScreens = require(SocialTab.EnumScreens)
 
@@ -27,8 +26,6 @@ local style = {
 }
 
 describe("GIVEN mock navigation functions", function()
-	disableSocialPanelIA()
-
 	local navigation
 	local navigateToLuaAppPages
 

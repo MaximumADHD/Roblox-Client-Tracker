@@ -6,10 +6,10 @@ local TenFootUiSwitchView = require(script.Parent.Views.TenFootUiSwitchView)
 local TenFootUiNavigatorTypes = require(script.Parent.TenFootUiNavigatorTypes)
 
 type RouteArray = TenFootUiNavigatorTypes.RouteArray
-type SwitchConfig = TenFootUiNavigatorTypes.SwitchNavigatorConfig
+type NavigatorConfig = TenFootUiNavigatorTypes.NavigatorConfig
 
-local function createTenFootUiSwitchNavigator(routeArray: RouteArray, switchConfig: SwitchConfig)
-	local router = SwitchRouter(routeArray, switchConfig)
-	return createNavigator(TenFootUiSwitchView, router, switchConfig)
+local function createTenFootUiSwitchNavigator(routeArray: RouteArray, navigationConfig: NavigatorConfig)
+	local router = SwitchRouter(routeArray, navigationConfig)
+	return createNavigator(TenFootUiSwitchView, router, navigationConfig)
 end
 return createTenFootUiSwitchNavigator

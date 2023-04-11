@@ -3,7 +3,7 @@
 *current requirements for showing Self View:
 	-player has to have an avatar with Head and Animator. Head can be either an object inside body with FaceControls or an object called "Head".
 	-avatar parent not nil
-	-CoreGuiType.SelfView is not set to false. 
+	-CoreGuiType.SelfView is not set to false.
 	It gets set to false when either calling SetCoreGuiEnabled(CoreGuiType.CoreGuiType.SelfView), false
 	or SetCoreGuiEnabled(CoreGuiType.All, false)
 	the later is the case in many experiences
@@ -36,14 +36,14 @@ function debugPrint(text)
 end
 
 local newTrackerStreamAnimation = nil
+local cloneStreamTrack = nil
 local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
-local EngineFeatureReplicateTrackerData = game:GetEngineFeature("ReplicateTrackerData")
-local FastFlagFacialAnimationUsePhysicsTransport = game:DefineFastFlag("FacialAnimationUsePhysicsTransport", false)
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
 local FFlagUseLoadStreamAnimationForClone = game:DefineFastFlag("UseLoadStreamAnimationForClone", false)
 local FFlagSelfViewFixCloneOrientation = game:DefineFastFlag("SelfViewFixCloneOrientation", false)
+local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImprovements", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -90,6 +90,8 @@ local UPDATE_CLONE_CD = 0.35
 local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
+local FFlagSelfViewMicAddStatusIndicators = game:DefineFastFlag("SelfViewMicAddStatusIndicators", false)
+
 local renderSteppedConnection = nil
 local playerCharacterAddedConnection
 local playerCharacterRemovingConnection
@@ -129,8 +131,6 @@ local INDICATOR_ON_IMAGE = "rbxasset://textures/SelfView/SelfView_icon_indicator
 local INDICATOR_OFF_IMAGE = "rbxasset://textures/SelfView/SelfView_icon_indicator_off.png"
 --state
 local isOpen = false
-local audioIsEnabled = false
-local videoIsEnabled = false
 local foundStreamTrack = nil
 local gotUsableClone = false
 local noUsableCloneOffset = nil
@@ -150,7 +150,7 @@ local toggleSelfViewSignalConnection
 local noDynamicHeadEquippedInfoShown = false
 local localPlayerHasDynamicHead = nil
 
---log:trace("Self View 03-27-2023__1!!")
+log:trace("Self View 04-03-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -500,7 +500,7 @@ local function createViewport()
 		if voiceService and hasMicPermissions then
 			VoiceChatServiceManager:ToggleMic()
 			Analytics:setLastCtx("SelfView")
-		else
+		elseif not FFlagSelfViewMicAddStatusIndicators then
 			updateAudioButton(false)
 		end
 	end)
@@ -683,6 +683,18 @@ local function createViewport()
 			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
 			frame.Active = false
 			frame.Visible = false
+
+			if FFlagSelfViewCleanupImprovements then
+				if cloneStreamTrack then
+					cloneStreamTrack:Stop()
+					cloneStreamTrack:Destroy()
+					cloneStreamTrack = nil
+				end
+				if newTrackerStreamAnimation then
+					newTrackerStreamAnimation:Destroy()
+					newTrackerStreamAnimation = nil
+				end
+			end
 		end
 
 		bottomButtonsFrame.Visible = isOpen
@@ -755,6 +767,7 @@ function toggleIndicator(mode)
 	end
 end
 
+-- Remove with FFlagSelfViewMicAddStatusIndicators
 function updateAudioButton(enabled)
 	if enabled then
 		if micIcon then
@@ -769,14 +782,93 @@ function updateAudioButton(enabled)
 			micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
 		end
 	end
+end
 
-	audioIsEnabled = enabled
+
+if FFlagSelfViewMicAddStatusIndicators then
+	do
+		local cachedMicState = VoiceChatServiceManager.VOICE_STATE.MUTED
+		local cachedLevel = 0
+
+		local function updateMicIcon(state, level)
+			if state == cachedMicState and level == cachedLevel then
+				return
+			end
+
+			cachedMicState = state
+			cachedLevel = level
+
+			if state == VoiceChatServiceManager.VOICE_STATE.MUTED then
+				micIcon.Size = UDim2.fromOffset(32, 32)
+				micIcon.Image = MIC_OFF_IMAGE.Image
+				micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
+				micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
+			else
+				local icon = VoiceChatServiceManager:VoiceStateToIcon(state, level, "New")
+				micIcon.Size = UDim2.fromOffset(16, 20)
+				micIcon.Image = icon
+				micIcon.ImageRectOffset = Vector2.new(0, 0)
+				micIcon.ImageRectSize = Vector2.new(0, 0)
+			end
+		end
+
+		local voiceIndicatorRenderSteppedBound = false
+		local function updateVoiceIndicatorRenderStepped(isMuted)
+			if isMuted then
+				if voiceIndicatorRenderSteppedBound then
+					RunService:UnbindFromRenderStep("SelfViewVoiceIndicatorRenderStepped")
+					voiceIndicatorRenderSteppedBound = false
+				end
+			else
+				if not voiceIndicatorRenderSteppedBound then
+					-- Generate a fake volume level for now
+					RunService:BindToRenderStep("SelfViewVoiceIndicatorRenderStepped", Enum.RenderPriority.First.Value + 1, function()
+						updateMicIcon(cachedMicState, math.random())
+					end)
+					voiceIndicatorRenderSteppedBound = true
+				end
+			end
+		end
+
+		VoiceChatServiceManager.talkingChanged.Event:Connect(function(isTalking)
+			if isTalking then
+				updateMicIcon(VoiceChatServiceManager.VOICE_STATE.TALKING, cachedLevel)
+			else
+				updateMicIcon(VoiceChatServiceManager.VOICE_STATE.INACTIVE, cachedLevel)
+			end
+		end)
+
+		VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+			updateVoiceIndicatorRenderStepped(muted)
+			debugPrint("Self View: VoiceChatServiceManager.muteChanged.Event, muted: " .. tostring(muted))
+			local voiceState = muted and VoiceChatServiceManager.VOICE_STATE.MUTED or VoiceChatServiceManager.VOICE_STATE.INACTIVE
+			updateMicIcon(voiceState, cachedLevel)
+		end)
+
+		local LOCAL_STATE_MAP = {
+			[(Enum::any).VoiceChatState.Joining] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
+			[(Enum::any).VoiceChatState.JoiningRetry] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
+			[(Enum::any).VoiceChatState.Joined] = VoiceChatServiceManager.VOICE_STATE.MUTED,
+			[(Enum::any).VoiceChatState.Leaving] = VoiceChatServiceManager.VOICE_STATE.MUTED,
+			[(Enum::any).VoiceChatState.Failed] = VoiceChatServiceManager.VOICE_STATE.ERROR,
+		}
+
+		local voiceService = VoiceChatServiceManager:getService()
+		if voiceService then
+			voiceService.StateChanged:Connect(function(_oldState, newState)
+				local voiceManagerState = LOCAL_STATE_MAP[newState]
+				if voiceManagerState then
+					updateMicIcon(voiceManagerState, cachedLevel)
+				end
+			end)
+		end
+	end
 end
 
 function showNoDynamicHeadInfoIfNeeded()
-	--show prompt when no facecontrols	
-	if noDynamicHeadEquippedInfoShown then 
-		return 
+	--show prompt when no facecontrols
+	if noDynamicHeadEquippedInfoShown then
+		return
 	end
 	if localPlayerHasDynamicHead == false then
 		noDynamicHeadEquippedInfoShown = true
@@ -799,8 +891,6 @@ function updateVideoButton(enabled)
 			camIcon.ImageRectSize = VIDEO_OFF_IMAGE.ImageRectSize
 		end
 	end
-
-	videoIsEnabled = enabled
 end
 
 local onUpdateTrackerMode = function()
@@ -881,20 +971,22 @@ local onUpdateTrackerMode = function()
 			lastReportedCamState = newReportedCamState
 		end
 
-		local audioEnabled = false
-		local voiceService = VoiceChatServiceManager:getService()
-		if voiceService and VoiceChatServiceManager.localMuted ~= nil then
-			audioEnabled = not VoiceChatServiceManager.localMuted
+		if not FFlagSelfViewMicAddStatusIndicators then
+			local audioEnabled = false
+			local voiceService = VoiceChatServiceManager:getService()
+			if voiceService and VoiceChatServiceManager.localMuted ~= nil then
+				audioEnabled = not VoiceChatServiceManager.localMuted
 
-			if cachedAudioEnabled ~= audioEnabled then
-				local newReportedMicState = audioEnabled
-				if lastReportedMicState ~= newReportedMicState then
-					Analytics:reportMicState(newReportedMicState)
-					lastReportedMicState = newReportedMicState
+				if cachedAudioEnabled ~= audioEnabled then
+					local newReportedMicState = audioEnabled
+					if lastReportedMicState ~= newReportedMicState then
+						Analytics:reportMicState(newReportedMicState)
+						lastReportedMicState = newReportedMicState
+					end
+
+					updateAudioButton(audioEnabled)
+					cachedAudioEnabled = audioEnabled
 				end
-
-				updateAudioButton(audioEnabled)
-				cachedAudioEnabled = audioEnabled
 			end
 		end
 	end
@@ -904,10 +996,12 @@ local onUpdateTrackerMode = function()
 	cachedMode = currentTrackerMode
 end
 
-VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-	debugPrint("Self View: VoiceChatServiceManager.muteChanged.Event, muted: " .. tostring(muted))
-	updateAudioButton(not muted)
-end)
+if not FFlagSelfViewMicAddStatusIndicators then
+	VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+		debugPrint("Self View: VoiceChatServiceManager.muteChanged.Event, muted: " .. tostring(muted))
+		updateAudioButton(not muted)
+	end)
+end
 
 local function clearObserver(observerId)
 	if observerInstances[observerId] then
@@ -986,20 +1080,14 @@ local function syncTrack(animator, track)
 	if track.Animation:IsA("Animation") then
 		--regular animation sync handled further below
 	elseif track.Animation:IsA("TrackerStreamAnimation") then
-		if FastFlagFacialAnimationUsePhysicsTransport or EngineFeatureReplicateTrackerData then
-			debugPrint("FastFlagFacialAnimationUsePhysicsTransport")
-			if FFlagUseLoadStreamAnimationForClone and EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled then
-				log:trace("FFlagUseLoadStreamAnimationForClone: using LoadStreamAnimationForClone!")
-				newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
-				cloneTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, Players.LocalPlayer)
-			else
-				log:trace("animator:LoadStreamAnimation, not FFlagUseLoadStreamAnimationForClone")
-				cloneTrack = animator:LoadStreamAnimation(track.Animation)
-			end
+		if FFlagUseLoadStreamAnimationForClone and EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled then
+			log:trace("FFlagUseLoadStreamAnimationForClone: using LoadStreamAnimationForClone!")
+			newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
+			cloneStreamTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, Players.LocalPlayer)
+			cloneTrack = cloneStreamTrack
 		else
-			--in non physics transport way there were jitters when reusing the game world avatar's stream animation so there we were creating a new one for self view
-			local newAnimation = Instance.new("TrackerStreamAnimation")
-			cloneTrack = animator:LoadStreamAnimation(newAnimation)
+			log:trace("animator:LoadStreamAnimation, not FFlagUseLoadStreamAnimationForClone")
+			cloneTrack = animator:LoadStreamAnimation(track.Animation)
 		end
 		foundStreamTrack = true
 		debugPrint("foundStreamTrack = true")
@@ -1333,7 +1421,7 @@ local function characterAdded(character)
 
 			if FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead and not noDynamicHeadEquippedInfoShown then
 				if descendant:IsA("MeshPart") then
-					local faceControls = descendant:WaitForChild("FaceControls", 0.5)				
+					local faceControls = descendant:WaitForChild("FaceControls", 0.5)
 					if faceControls == nil then
 						localPlayerHasDynamicHead = false
 					else
@@ -1504,10 +1592,6 @@ function prepMicAndCamPropertyChangedSignalHandler()
 			onUpdateTrackerMode()
 		end)
 	end
-end
-
-function lerp(a, b, t)
-	return a + (b - a) * t
 end
 
 function trackSelfViewSessionAsNeeded()
@@ -1780,7 +1864,7 @@ if EngineFeatureFacialAnimationStreamingServiceUseV2 then
 
 		--[[
 		--TODO: product decision to be made whether we won't show Self View if not voice or video on for experience, if so, comment this in
-		if EngineFeatureFacialAnimationStreamingServiceUseV2 then	
+		if EngineFeatureFacialAnimationStreamingServiceUseV2 then
 			if not experienceSettings_placeEnabled and not experienceSettings_videoEnabled and not experienceSettings_audioEnabled and not IS_STUDIO and not debug then
 				showSelfView(false)
 			end
@@ -1883,7 +1967,7 @@ StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, newState)
 				.. tostring(shouldBeEnabledCoreGuiSetting)
 		)
 		--when disable call comes in we always do it, when enable call comes in only if not visible already
-		if not newState or frame == nil or (frame ~= nil and frame.Visible ~= newState) then
+		if not newState or (frame ~= nil and frame.Visible ~= newState) then
 			if newState then
 				if initialized then
 					ReInit(Players.LocalPlayer)

@@ -12,7 +12,10 @@ local setupFireEvent = Analytics.setupFireEvent
 local AnalyticsService = dependencies.AnalyticsService
 local UserSorts = require(FriendsCarousel.Common.UserSorts)
 local IXPService = dependencies.IXPService
+
 local getFFlagProfileAliasEnabled = dependencies.getFFlagProfileAliasEnabled
+local isSubjectToDesktopPolicies = dependencies.isSubjectToDesktopPolicies
+local getFFlagFriendsCarouselCleanUpFetchExperimentCode = dependencies.getFFlagFriendsCarouselCleanUpFetchExperimentCode
 
 game:DefineFastInt("Debug_RecommendationFetchDelay", 0)
 
@@ -21,9 +24,13 @@ local getDelay = function()
 end
 
 local shouldFetchRecommendations = function(friendsCount, injectedFriendsCarouselIXP: any?)
-	local friendsCarouselIXP = injectedFriendsCarouselIXP or FriendsCarouselIXP
-	return showRecommendations(friendsCount)
-		and friendsCarouselIXP.experimentOrRolloutEnabled(nil, { useIXPdirectly = true })
+	if getFFlagFriendsCarouselCleanUpFetchExperimentCode() then
+		return showRecommendations(friendsCount) and not isSubjectToDesktopPolicies()
+	else
+		local friendsCarouselIXP = injectedFriendsCarouselIXP or FriendsCarouselIXP
+		return showRecommendations(friendsCount)
+			and friendsCarouselIXP.experimentOrRolloutEnabled(nil, { useIXPdirectly = true })
+	end
 end
 
 local shouldFetchFriendRequestCount = function(refresh, injectedFriendsCarouselIXP: any?)
@@ -77,10 +84,93 @@ return function(config: Config?): any
 						end)
 				end
 
-				if config and config.waitUntilIXPUserInit then
-					store:dispatch(config.waitUntilIXPUserInit(IXPService, localUserId)):andThen(function()
-						local experimentLayerStatus = getExperimentLayerStatus(config and config.friendsCarouselIXP)
+				if getFFlagFriendsCarouselCleanUpFetchExperimentCode() then
+					if shouldFetchRecommendations(friendsCount) then
+						store
+							:dispatch(NetworkingFriends.GetFriendRecommendationsFromUserId.API({
+								targetUserId = localUserId,
+							}))
+							:andThen(function(result: any)
+								if fireEvent then
+									local recommendations = result.responseBody.data
+									local recommendationCount = recommendations and #recommendations or 0
+									local recommendationSessionId = result.responseBody.recommendationRequestId
 
+									fireEvent(EventNames.CarouselLoadedWithUsers, {
+										friendCount = friendsCount,
+										recommendationCount = recommendationCount,
+										-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
+										recommendationLimit = true,
+										refreshCount = refreshCount,
+										fetchedRecommendations = true,
+										recommendationSessionId = recommendationSessionId,
+									})
+								end
+							end)
+					else
+						if fireEvent then
+							fireEvent(EventNames.CarouselLoadedWithUsers, {
+								friendCount = friendsCount,
+								recommendationCount = 0,
+								-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
+								recommendationLimit = true,
+								refreshCount = refreshCount,
+								fetchedRecommendations = false,
+							})
+						end
+					end
+				else
+					if config and config.waitUntilIXPUserInit then
+						store:dispatch(config.waitUntilIXPUserInit(IXPService, localUserId)):andThen(function()
+							local experimentLayerStatus = getExperimentLayerStatus(config and config.friendsCarouselIXP)
+
+							if shouldFetchRecommendations(friendsCount, config and config.friendsCarouselIXP) then
+								-- TODO SOCCONN-1625: clean up before release
+								if getDelay() > 0 then
+									Promise.delay(getDelay()):andThen(function()
+										store:dispatch(NetworkingFriends.GetFriendRecommendationsFromUserId.API({
+											targetUserId = localUserId,
+										}))
+									end)
+								else
+									store
+										:dispatch(NetworkingFriends.GetFriendRecommendationsFromUserId.API({
+											targetUserId = localUserId,
+										}))
+										:andThen(function(result: any)
+											if fireEvent then
+												local recommendations = result.responseBody.data
+												local recommendationCount = recommendations and #recommendations or 0
+												local recommendationSessionId =
+													result.responseBody.recommendationRequestId
+												fireEvent(EventNames.CarouselLoadedWithUsers, {
+													friendCount = friendsCount,
+													recommendationCount = recommendationCount,
+													-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
+													recommendationLimit = true,
+													refreshCount = refreshCount,
+													experimentLayerStatus = experimentLayerStatus,
+													fetchedRecommendations = true,
+													recommendationSessionId = recommendationSessionId,
+												})
+											end
+										end)
+								end
+							else
+								if fireEvent then
+									fireEvent(EventNames.CarouselLoadedWithUsers, {
+										friendCount = friendsCount,
+										recommendationCount = 0,
+										-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
+										recommendationLimit = true,
+										refreshCount = refreshCount,
+										experimentLayerStatus = experimentLayerStatus,
+										fetchedRecommendations = false,
+									})
+								end
+							end
+						end)
+					else
 						if shouldFetchRecommendations(friendsCount, config and config.friendsCarouselIXP) then
 							-- TODO SOCCONN-1625: clean up before release
 							if getDelay() > 0 then
@@ -98,16 +188,13 @@ return function(config: Config?): any
 										if fireEvent then
 											local recommendations = result.responseBody.data
 											local recommendationCount = recommendations and #recommendations or 0
-											local recommendationSessionId = result.responseBody.recommendationRequestId
 											fireEvent(EventNames.CarouselLoadedWithUsers, {
 												friendCount = friendsCount,
 												recommendationCount = recommendationCount,
 												-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
 												recommendationLimit = true,
 												refreshCount = refreshCount,
-												experimentLayerStatus = experimentLayerStatus,
-												fetchedRecommendations = true,
-												recommendationSessionId = recommendationSessionId,
+												recommendationSessionId = result.responseBody.recommendationRequestId,
 											})
 										end
 									end)
@@ -120,56 +207,18 @@ return function(config: Config?): any
 									-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
 									recommendationLimit = true,
 									refreshCount = refreshCount,
-									experimentLayerStatus = experimentLayerStatus,
-									fetchedRecommendations = false,
 								})
 							end
-						end
-					end)
-				else
-					if shouldFetchRecommendations(friendsCount, config and config.friendsCarouselIXP) then
-						-- TODO SOCCONN-1625: clean up before release
-						if getDelay() > 0 then
-							Promise.delay(getDelay()):andThen(function()
-								store:dispatch(NetworkingFriends.GetFriendRecommendationsFromUserId.API({
-									targetUserId = localUserId,
-								}))
-							end)
-						else
-							store
-								:dispatch(NetworkingFriends.GetFriendRecommendationsFromUserId.API({
-									targetUserId = localUserId,
-								}))
-								:andThen(function(result: any)
-									if fireEvent then
-										local recommendations = result.responseBody.data
-										local recommendationCount = recommendations and #recommendations or 0
-										fireEvent(EventNames.CarouselLoadedWithUsers, {
-											friendCount = friendsCount,
-											recommendationCount = recommendationCount,
-											-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
-											recommendationLimit = true,
-											refreshCount = refreshCount,
-											recommendationSessionId = result.responseBody.recommendationRequestId,
-										})
-									end
-								end)
-						end
-					else
-						if fireEvent then
-							fireEvent(EventNames.CarouselLoadedWithUsers, {
-								friendCount = friendsCount,
-								recommendationCount = 0,
-								-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
-								recommendationLimit = true,
-								refreshCount = refreshCount,
-							})
 						end
 					end
 				end
 
-				if shouldFetchFriendRequestCount(config and config.refresh, config and config.friendsCarouselIXP) then
-					store:dispatch(NetworkingFriends.GetFriendRequestsCount.API())
+				if not getFFlagFriendsCarouselCleanUpFetchExperimentCode() then
+					if
+						shouldFetchFriendRequestCount(config and config.refresh, config and config.friendsCarouselIXP)
+					then
+						store:dispatch(NetworkingFriends.GetFriendRequestsCount.API())
+					end
 				end
 
 				return Promise.resolve(friends)

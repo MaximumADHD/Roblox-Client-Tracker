@@ -11,6 +11,7 @@ local describe = JestGlobals.describe
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 local beforeAll = JestGlobals.beforeAll
+local afterAll = JestGlobals.afterAll
 local afterEach = JestGlobals.afterEach
 
 local UnitTestHelpers = devDependencies.UnitTestHelpers
@@ -28,8 +29,6 @@ local MessageBus = devDependencies.MessageBus
 local EnumScreens = dependencies.SocialModalsCommon.EnumScreens
 
 local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal =
-	require(ContactImporter.Flags.getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal)
 
 local ContactsImporterOverlayContainer = require(script.Parent.ContactsImporterOverlayContainer)
 
@@ -255,46 +254,87 @@ describe("ContactsImporterOverlayContainer", function()
 				end)
 			end
 		)
-
-		it("SHOULD should navigate to contactsList if authorized from connect contacts button is pressed", function()
-			local checkOrRequestPermissions = jest.fn(function()
-				return Promise.resolve(PermissionsProtocol.Status.AUTHORIZED)
-			end)
-			local ContactsImporterOverlayContainerComponent =
-				createTreeWithProviders(ContactsImporterOverlayContainer, {
-					props = llama.Dictionary.join(DEFAULT_PROPS, {
-						checkOrRequestPermissions = checkOrRequestPermissions,
-					}),
-				})
-
-			NetworkingUserSettings.UpdateUserSettings.Mock.reply(function()
-				return {
-					responseBody = {},
-				}
-			end)
-
-			runWhileMounted(ContactsImporterOverlayContainerComponent, function(parent)
-				waitForEvents.act()
-				jestExpect(#parent:GetChildren()).toBe(1)
-
-				local buttons = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "Buttons",
-				})
-				local button = buttons[1][2]
-				jestExpect(button).never.toBeNil()
-
-				waitForEvents.act()
-				act(function()
-					RhodiumHelpers.clickInstance(button)
+		describe(
+			"FFlagCheckDiscoverabilityUsesRoactNavParam && FFlagEnableContactInvitesForNonPhoneVerifiedForAll_v2",
+			function()
+				local flag
+				local flag2
+				beforeAll(function()
+					flag = game:SetFastFlagForTesting("CheckDiscoverabilityUsesRoactNavParam", true)
+					flag2 = game:SetFastFlagForTesting("EnableContactInvitesForNonPhoneVerifiedForAll_v2", true)
 				end)
-				jestExpect(checkOrRequestPermissions).toHaveBeenCalledTimes(1)
 
-				jestExpect(navigate).toHaveBeenCalledWith(EnumScreens.ContactsList, {
-					[Constants.SHOULD_UPDATE_USER_SETTINGS] = true,
-					[Constants.IS_PHONE_VERIFIED] = getFFlagPassPhoneVerificationIntoContactsListFromFindFriendsModal(),
-				})
-			end)
-		end)
+				afterAll(function()
+					game:SetFastFlagForTesting("CheckDiscoverabilityUsesRoactNavParam", flag)
+					game:SetFastFlagForTesting("EnableContactInvitesForNonPhoneVerifiedForAll_v2", flag2)
+				end)
+
+				it(
+					"SHOULD should navigate to contactsList if authorized from connect contacts button is pressed",
+					function()
+						local checkOrRequestPermissions = jest.fn(function()
+							return Promise.resolve(PermissionsProtocol.Status.AUTHORIZED)
+						end)
+						local navigateSpy, navigateSpyFn = jest.fn()
+						local navigation = {
+							getParam = function(param)
+								if param == "isFromAddFriendsPage" then
+									return false
+								elseif param == "isDiscoverabilityUnset" then
+									return false
+								elseif param == "isPhoneVerified" then
+									return true
+								else
+									return NOOP
+								end
+							end,
+							navigate = navigateSpyFn,
+							replace = function()
+								return
+							end,
+							pop = function()
+								return
+							end,
+						}
+						local ContactsImporterOverlayContainerComponent =
+							createTreeWithProviders(ContactsImporterOverlayContainer, {
+								props = llama.Dictionary.join(DEFAULT_PROPS, {
+									checkOrRequestPermissions = checkOrRequestPermissions,
+									navigation = navigation,
+								}),
+							})
+
+						NetworkingUserSettings.UpdateUserSettings.Mock.reply(function()
+							return {
+								responseBody = {},
+							}
+						end)
+
+						runWhileMounted(ContactsImporterOverlayContainerComponent, function(parent)
+							waitForEvents.act()
+							jestExpect(#parent:GetChildren()).toBe(1)
+
+							local buttons = RhodiumHelpers.findFirstInstance(parent, {
+								Name = "Buttons",
+							})
+							local button = buttons[1][2]
+							jestExpect(button).never.toBeNil()
+
+							waitForEvents.act()
+							act(function()
+								RhodiumHelpers.clickInstance(button)
+							end)
+							jestExpect(checkOrRequestPermissions).toHaveBeenCalledTimes(1)
+
+							jestExpect(navigateSpy).toHaveBeenCalledWith(EnumScreens.ContactsList, {
+								[Constants.SHOULD_UPDATE_USER_SETTINGS] = true,
+								[Constants.IS_PHONE_VERIFIED] = true,
+							})
+						end)
+					end
+				)
+			end
+		)
 
 		it("SHOULD navigate to revoked access modal if OS permissions have been revoked", function()
 			local checkOrRequestPermissions = jest.fn().mockImplementation(function()
@@ -439,60 +479,59 @@ describe("ContactsImporterOverlayContainer", function()
 		end)
 	end
 
-	if not getFFlagContactImporterWithPhoneVerification() then
-		it("SHOULD should navigate to discoverabilityModal if user has not yet set value", function()
-			local navigateSpy, navigateSpyFn = jest.fn()
-			NetworkingUserSettings.GetUserSettingsMetadata.Mock.reply(function()
-				return {
-					responseBody = {},
-				}
-			end)
-			local navigation = {
-				getParam = function(param)
-					if param == "isFromAddFriendsPage" then
-						return false
-					elseif param == "isDiscoverabilityUnset" then
-						return true
-					else
-						return NOOP
-					end
-				end,
-				navigate = navigateSpyFn,
-				replace = function()
-					return
-				end,
-				pop = function()
-					return
-				end,
+	it("SHOULD should navigate to discoverabilityModal if user has not yet set value", function()
+		local getUserSettingsMetadataSpy = jest.fn()
+		local navigateSpy, navigateSpyFn = jest.fn()
+		NetworkingUserSettings.GetUserSettingsMetadata.Mock.reply(function()
+			getUserSettingsMetadataSpy()
+			return {
+				responseBody = {},
 			}
-
-			local ContactsImporterOverlayContainerComponent =
-				createTreeWithProviders(ContactsImporterOverlayContainer, {
-					props = llama.Dictionary.join(DEFAULT_PROPS, {
-						navigation = navigation,
-					}),
-				})
-
-			runWhileMounted(ContactsImporterOverlayContainerComponent, function(parent)
-				waitForEvents.act()
-				jestExpect(#parent:GetChildren()).toBe(1)
-
-				local buttons = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "Buttons",
-				})
-				local connectContactsButton = buttons[1][2]
-				jestExpect(connectContactsButton).never.toBeNil()
-				waitForEvents.act()
-				act(function()
-					RhodiumHelpers.clickInstance(connectContactsButton)
-				end)
-				jestExpect(navigateSpy).toHaveBeenCalledWith(
-					EnumScreens.DiscoverabilityOverlay,
-					jestExpect.any("table")
-				)
-			end)
 		end)
-	end
+		local navigation = {
+			getParam = function(param)
+				if param == "isFromAddFriendsPage" then
+					return false
+				elseif param == "isDiscoverabilityUnset" then
+					return true
+				elseif param == "isPhoneVerified" then
+					return true
+				else
+					return NOOP
+				end
+			end,
+			navigate = navigateSpyFn,
+			replace = function()
+				return
+			end,
+			pop = function()
+				return
+			end,
+		}
+
+		local ContactsImporterOverlayContainerComponent = createTreeWithProviders(ContactsImporterOverlayContainer, {
+			props = llama.Dictionary.join(DEFAULT_PROPS, {
+				navigation = navigation,
+			}),
+		})
+
+		runWhileMounted(ContactsImporterOverlayContainerComponent, function(parent)
+			waitForEvents.act()
+			jestExpect(#parent:GetChildren()).toBe(1)
+
+			local buttons = RhodiumHelpers.findFirstInstance(parent, {
+				Name = "Buttons",
+			})
+			local connectContactsButton = buttons[1][2]
+			jestExpect(connectContactsButton).never.toBeNil()
+			waitForEvents.act()
+			act(function()
+				RhodiumHelpers.clickInstance(connectContactsButton)
+			end)
+			jestExpect(getUserSettingsMetadataSpy).toHaveBeenCalledTimes(1)
+			jestExpect(navigateSpy).toHaveBeenCalledWith(EnumScreens.DiscoverabilityOverlay, jestExpect.any("table"))
+		end)
+	end)
 
 	if getFFlagContactImporterWithPhoneVerification() then
 		it("SHOULD should navigate to webview if button is pressed and requirements are met", function()

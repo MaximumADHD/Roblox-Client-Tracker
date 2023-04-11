@@ -9,7 +9,6 @@ local Roact = dependencies.Roact
 local RoactRodux = dependencies.RoactRodux
 local withLocalization = dependencies.withLocalization
 local UniversalAppPolicy = dependencies.UniversalAppPolicy
-local getFFlagSocialPanelIAEnabled = dependencies.getFFlagSocialPanelIAEnabled
 local SelfViewProfileDiscoverabilityUpsellIXP = dependencies.SelfViewProfileDiscoverabilityUpsellIXP
 
 local mapStateToProps = require(script.mapStateToProps)
@@ -39,16 +38,6 @@ function SocialTabContainer:render()
 	return withLocalization(self.localization)(function(localizedStrings)
 		return Analytics.with(function(analytics)
 			return SocialTabContext.with(function(context)
-				local isDrawerPanel = false
-				local isSocialPanelFullScreen = false
-				if getFFlagSocialPanelIAEnabled() then
-					local iaExperimentation = context.iaExperimentation
-					if iaExperimentation and iaExperimentation.isEnabled() then
-						isDrawerPanel = iaExperimentation.default:shouldShowSocialPanel()
-						isSocialPanelFullScreen = iaExperimentation.default:shouldShowSocialPanelFullscreen()
-					end
-				end
-
 				return Roact.createElement(
 					SocialTabPage,
 					llama.Dictionary.join(self.props, {
@@ -61,8 +50,6 @@ function SocialTabContainer:render()
 						isLuaProfilePageEnabled = context.isLuaProfilePageEnabled,
 						luaAddFriendsPageEnabled = if context.luaAddFriendsPageEnabled then true else false,
 						luaSelfProfileEnabled = context.luaSelfProfileEnabled,
-						isDrawerPanel = isDrawerPanel,
-						isSocialPanelFullScreen = isSocialPanelFullScreen,
 						closeCentralOverlay = if SelfViewProfileDiscoverabilityUpsellIXP.SetupEnabled()
 							then context.closeCentralOverlay
 							else nil,

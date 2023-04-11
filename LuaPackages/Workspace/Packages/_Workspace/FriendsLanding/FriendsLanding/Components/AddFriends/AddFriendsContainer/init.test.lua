@@ -88,7 +88,7 @@ describe("AddFriendsContainer", function()
 		end
 	end
 
-	local function mockRequestWithCallback(req, callback: (...any) -> (...any))
+	local function mockRequestWithCallback(req, callback: (...any) -> ...any)
 		req.Mock.clear()
 		req.Mock.reply(function(url, method, options)
 			callback(url, method, options)

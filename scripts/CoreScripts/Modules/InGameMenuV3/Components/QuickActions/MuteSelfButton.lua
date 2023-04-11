@@ -17,7 +17,7 @@ local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
-local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local GetFFlagSelfMuteConnectingFix = require(InGameMenu.Flags.GetFFlagSelfMuteConnectingFix)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default

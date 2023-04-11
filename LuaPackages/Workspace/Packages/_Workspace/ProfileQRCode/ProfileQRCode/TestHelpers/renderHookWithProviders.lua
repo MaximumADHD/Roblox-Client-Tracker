@@ -5,7 +5,7 @@ local act = ReactRoblox.act
 
 local createTreeWithProviders = require(script.Parent.createTreeWithProviders)
 
-local function renderHookWithProviders(callback: (any), setupProps: any?)
+local function renderHookWithProviders(callback: any, setupProps: any?)
 	local result
 
 	local Wrapper = function(props)

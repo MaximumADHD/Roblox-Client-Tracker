@@ -15,7 +15,6 @@ local Players = game:GetService("Players")
 local LocalizationService = game:GetService("LocalizationService")
 local Otter = require(Packages.Otter)
 local getFFlagSocialAddFriendshipRequestEvent = require(Packages.SharedFlags).getFFlagSocialAddFriendshipRequestEvent
-local getFFlagContactImporterEnabledForDev = require(Packages.SharedFlags).getFFlagContactImporterEnabledForDev
 local getFFlagContactImporterWithPhoneVerification =
 	require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification
 local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFFlagVerifiedBadgeInFriendsLanding)
@@ -29,7 +28,6 @@ local getFFlagSocialOnboardingExperimentEnabled =
 	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
-local getFFlagProfileQRCodeEnableAlerts = require(Packages.SharedFlags).getFFlagProfileQRCodeEnableAlerts
 local getFFlagAddFriendsPageHideBottomBar = require(Packages.SharedFlags).getFFlagAddFriendsPageHideBottomBar
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
@@ -92,6 +90,7 @@ return {
 	SocialLibraries = SocialLibrariesPackage,
 	SocialLuaAnalytics = SocialLuaAnalytics,
 	ProfileQRCode = require(Packages.ProfileQRCode),
+	SocialCommon = require(Packages.SocialCommon),
 
 	UniversalAppPolicy = require(Packages.UniversalAppPolicy).UniversalAppPolicy,
 	tutils = require(Packages.tutils),
@@ -131,7 +130,6 @@ return {
 	Otter = Otter,
 	CollisionMatchers = LuaSocialLibrariesDeps.CollisionMatchers,
 	getFFlagSocialAddFriendshipRequestEvent = getFFlagSocialAddFriendshipRequestEvent,
-	getFFlagContactImporterEnabledForDev = getFFlagContactImporterEnabledForDev,
 	getFFlagContactImporterWithPhoneVerification = getFFlagContactImporterWithPhoneVerification,
 	getFFlagVerifiedBadgeInFriendsLanding = getFFlagVerifiedBadgeInFriendsLanding,
 	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
@@ -141,7 +139,6 @@ return {
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 	getFFlagProfileQRCodeCoreFeaturesEnabled = getFFlagProfileQRCodeCoreFeaturesEnabled,
 	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
-	getFFlagProfileQRCodeEnableAlerts = getFFlagProfileQRCodeEnableAlerts,
 	getFFlagAddFriendsPageHideBottomBar = getFFlagAddFriendsPageHideBottomBar,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,

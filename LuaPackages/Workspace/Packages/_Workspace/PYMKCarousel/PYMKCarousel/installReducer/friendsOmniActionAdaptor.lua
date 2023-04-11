@@ -18,40 +18,46 @@ local isContextTypeDefined = function(contextType: string?)
 	return contextTypeEnum and contextTypeEnum ~= RecommendationContextType.None
 end
 
-local newRecommendationFromOmni =
-	function(recommendation: OmniTypes.FriendRecommendation, index: number, metadata: OmniTypes.RecommendationMetadata)
-		local contextType = if isContextTypeDefined(recommendation.contextType)
-			then recommendation.contextType
-			else metadata.contextType
+local newRecommendationFromOmni = function(
+	recommendation: OmniTypes.FriendRecommendation,
+	index: number,
+	metadata: OmniTypes.RecommendationMetadata
+)
+	local contextType = if isContextTypeDefined(recommendation.contextType)
+		then recommendation.contextType
+		else metadata.contextType
 
-		local mutualFriendsCount = metadata.mutualFriendsCount and tonumber(metadata.mutualFriendsCount) or 0
-		if contextType == RecommendationContextType.MutualFriends.rawValue() and mutualFriendsCount == 0 then
-			contextType = RecommendationContextType.None.rawValue()
-		end
-
-		return {
-			id = tostring(recommendation.userId),
-			contextType = contextType,
-			mutualFriendsList = recommendation.mutualFriendDisplayName,
-			rank = if metadata.rank then tonumber(metadata.rank) else index,
-			mutualFriendsCount = mutualFriendsCount,
-			hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-				then metadata.hasPendingFriendRequest == Constants.BE_TRUE_VALUE
-				else nil,
-		}
+	local mutualFriendsCount = metadata.mutualFriendsCount and tonumber(metadata.mutualFriendsCount) or 0
+	if contextType == RecommendationContextType.MutualFriends.rawValue() and mutualFriendsCount == 0 then
+		contextType = RecommendationContextType.None.rawValue()
 	end
 
-local recommendationToFriendsAction =
-	function(recommendation: OmniTypes.FriendRecommendation, index: number, metadata: OmniTypes.RecommendationMetadata)
-		local localPlayer = Players.LocalPlayer
-		assert(localPlayer, "LocalPlayer must be non-nil")
-		local localUserId = tostring(localPlayer.UserId)
+	return {
+		id = tostring(recommendation.userId),
+		contextType = contextType,
+		mutualFriendsList = recommendation.mutualFriendDisplayName,
+		rank = if metadata.rank then tonumber(metadata.rank) else index,
+		mutualFriendsCount = mutualFriendsCount,
+		hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
+			then metadata.hasPendingFriendRequest == Constants.BE_TRUE_VALUE
+			else nil,
+	}
+end
 
-		return RoduxFriends.Actions.RecommendationCreated({
-			baseUserId = localUserId,
-			recommendedUser = newRecommendationFromOmni(recommendation, index, metadata),
-		})
-	end
+local recommendationToFriendsAction = function(
+	recommendation: OmniTypes.FriendRecommendation,
+	index: number,
+	metadata: OmniTypes.RecommendationMetadata
+)
+	local localPlayer = Players.LocalPlayer
+	assert(localPlayer, "LocalPlayer must be non-nil")
+	local localUserId = tostring(localPlayer.UserId)
+
+	return RoduxFriends.Actions.RecommendationCreated({
+		baseUserId = localUserId,
+		recommendedUser = newRecommendationFromOmni(recommendation, index, metadata),
+	})
+end
 
 local recommendationsToSourceAction = function(
 	_recommendationsSort: OmniTypes.RecommendationsSort?,

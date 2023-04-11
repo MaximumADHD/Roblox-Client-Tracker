@@ -38,7 +38,6 @@ local noHardcodedStringInLuaKickMessage = game:GetEngineFeature("NoHardcodedStri
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
 
 local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessage")
-local FFlagVRFixErrorPrompt = require(RobloxGui.Modules.Flags.FFlagVRFixErrorPrompt)
 
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()
@@ -319,7 +318,7 @@ local updateFullScreenEffect = {
 		promptOverlay.Transparency = 1
 	end,
 	[ConnectionPromptState.RECONNECT_DISCONNECT] = function()
-		if FFlagVRFixErrorPrompt and VRService.VREnabled then
+		if VRService.VREnabled then
 			RunService:SetRobloxGuiFocused(false)
 		else
 			RunService:SetRobloxGuiFocused(true)
@@ -338,7 +337,7 @@ local updateFullScreenEffect = {
 		promptOverlay.Transparency = 0.3
 	end,
 	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = function()
-		if FFlagVRFixErrorPrompt and VRService.VREnabled then
+		if VRService.VREnabled then
 			RunService:SetRobloxGuiFocused(false)
 		else
 			RunService:SetRobloxGuiFocused(true)
@@ -352,7 +351,7 @@ local updateFullScreenEffect = {
 		promptOverlay.Transparency = 0.3
 	end,
 	[ConnectionPromptState.RECONNECT_DISABLED] = function()
-		if FFlagVRFixErrorPrompt and VRService.VREnabled then
+		if VRService.VREnabled then
 			RunService:SetRobloxGuiFocused(false)
 		else
 			RunService:SetRobloxGuiFocused(true)

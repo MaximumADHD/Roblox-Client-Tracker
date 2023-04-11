@@ -6,7 +6,6 @@ local dependencies = require(ContactImporter.dependencies)
 local ReleaseHelpers = dependencies.SocialLibraries.ReleaseHelpers
 local setupIsRolloutEnabledForUser = ReleaseHelpers.setupIsRolloutEnabledForUser
 local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
-local getFStringContactImporterVariantForDev = require(script.Parent.getFStringContactImporterVariantForDev)
 local useUserExperiment = dependencies.useUserExperiment
 local getFStringOffPlatformIXPName = require(script.Parent.getFStringOffPlatformIXPName)
 
@@ -17,17 +16,12 @@ local getRolloutPercentage = function()
 end
 
 local getExperimentVariantFromSocialLayer = function(layer): string?
-	local devFlagVariant = getFStringContactImporterVariantForDev()
-	if devFlagVariant and #devFlagVariant > 0 then
-		return devFlagVariant
-	else
-		local layerVariant
-		if layer then
-			layerVariant = layer[VARIANT_NAME]
-		end
-
-		return layerVariant
+	local layerVariant
+	if layer then
+		layerVariant = layer[VARIANT_NAME]
 	end
+
+	return layerVariant
 end
 
 local getExperimentVariant = function(layers: any?): string?

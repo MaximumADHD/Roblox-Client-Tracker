@@ -34,11 +34,6 @@ end
 
 FaceAnimatorService.FlipHeadOrientation = true
 
--- FIXME V2C should not be toggled by selfie view.
---if game:GetFastFlag("SelfieViewFeature3") then
---	FaceAnimatorService.VideoAnimationEnabled = true
---end
-
 local AvatarChatConstants = require(RobloxGui.Modules.Common.AvatarChatConstants)
 local EmoteHelper = require(RobloxGui.Modules.Emote.EmoteHelper)
 local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)

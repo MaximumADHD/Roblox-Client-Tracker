@@ -12,6 +12,7 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local t = require(CorePackages.Packages.t)
 
 local ProcessErrorStack = require(script.Parent.ProcessErrorStack)
+local GetFFlagBacktraceMainSourcePathEnabled = require(script.Parent.Flags.GetFFlagBacktraceMainSourcePathEnabled)
 
 local DEFAULT_THREAD_NAME = "default"
 
@@ -151,6 +152,19 @@ local BacktraceReport = {
 }
 BacktraceReport.__index = BacktraceReport
 
+local getMainSourcePathFromSourceCode = function (sourceCode)
+	if sourceCode and type(sourceCode) == "table" then
+		local keys = Cryo.Dictionary.keys(sourceCode)
+		if #keys > 0 then
+			local firstSourceCode = sourceCode[keys[1]]
+			if firstSourceCode and firstSourceCode.path ~= nil then
+				return firstSourceCode.path
+			end
+		end
+	end
+	return ""
+end
+
 function BacktraceReport:validate()
 	return IBacktraceReport(self)
 end
@@ -227,6 +241,12 @@ function BacktraceReport.fromMessageAndStack(errorMessage, errorStack)
 	report:addStackToMainThread(stack)
 	report.sourceCode = sourceCode
 
+	if GetFFlagBacktraceMainSourcePathEnabled() then
+		report:addAttributes({
+			MainSourcePath = getMainSourcePathFromSourceCode(report.sourceCode)
+		})
+	end
+
 	return report
 end
 
@@ -252,6 +272,12 @@ function BacktraceReport.fromDetails(details)
 	end
 
 	report:addAnnotations(details.annotations)
+
+	if GetFFlagBacktraceMainSourcePathEnabled() then
+		report:addAttributes({
+			MainSourcePath = getMainSourcePathFromSourceCode(report.sourceCode)
+		})
+	end
 
 	return report
 end

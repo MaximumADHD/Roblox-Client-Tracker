@@ -12,6 +12,7 @@ local EnumScreens = require(FriendsLanding.EnumScreens)
 local filterStates = require(FriendsLanding.Friends.filterStates)
 local memoize = dependencies.memoize
 local SocialLibraries = dependencies.SocialLibraries
+local BottomInsetBackground = dependencies.SocialCommon.Components.BottomInsetBackground
 local compose = SocialLibraries.RoduxTools.compose
 local mapStateToProps = require(script.mapStateToProps)
 local mapDispatchToProps = require(script.mapDispatchToProps)
@@ -21,7 +22,8 @@ local FriendsLandingEntryPoint = Roact.PureComponent:extend("FriendsLandingEntry
 local noOpt = function() end
 
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
-local getFFlagProfileQRCodeEnableAlerts = dependencies.getFFlagProfileQRCodeEnableAlerts
+local getFFlagFriendsLandingPagesMaskBottomInset =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingPagesMaskBottomInset)
 
 local RECORD_EXPOSURE_ON_MOUNT = false
 
@@ -133,9 +135,7 @@ function FriendsLandingEntryPoint:render()
 					setScreenTopBar = self.setScreenTopBar,
 					refreshPage = self.refreshPage,
 					friendsRequestEventListener = self.props.friendsRequestEventListener,
-					robloxEventReceiver = if getFFlagProfileQRCodeEnableAlerts()
-						then self.props.robloxEventReceiver
-						else nil,
+					robloxEventReceiver = self.props.robloxEventReceiver,
 					contactImporterAndPYMKEnabled = self.props.contactImporterAndPYMKEnabled,
 					contactImporterExperimentVariant = self.props.contactImporterExperimentVariant,
 					addFriendsPageSearchbarEnabled = self.props.addFriendsPageSearchbarEnabled,
@@ -151,6 +151,9 @@ function FriendsLandingEntryPoint:render()
 					getFriendRequestsCount = self.props.getFriendRequestsCount,
 				}),
 				androidBackButtonNavigationHandler = androidBackButtonNavigationHandler,
+				BottomInsetBackground = if getFFlagFriendsLandingPagesMaskBottomInset()
+					then Roact.createElement(BottomInsetBackground)
+					else nil,
 			}),
 		})
 	end)

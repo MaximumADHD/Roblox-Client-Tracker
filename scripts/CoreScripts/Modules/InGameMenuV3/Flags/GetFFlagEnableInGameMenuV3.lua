@@ -1,8 +1,8 @@
 --!nonstrict
 local Players = game:GetService("Players")
 
-local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(script.Parent.Parent.ExperienceMenuABTestManager)
+local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.Parent.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(script.Parent.Parent.Parent.ExperienceMenuABTestManager)
 
 game:DefineFastFlag("EnableInGameMenuV3", false)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")

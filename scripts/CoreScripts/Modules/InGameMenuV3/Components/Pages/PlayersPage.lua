@@ -42,7 +42,7 @@ local PageWithSearch = require(InGameMenu.Components.PageWithSearch)
 local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
-local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 local FriendRequestStatus = require(InGameMenu.Utility.FriendRequestStatus)
 

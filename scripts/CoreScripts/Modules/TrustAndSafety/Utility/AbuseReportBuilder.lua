@@ -42,6 +42,12 @@ type AbuseReportRequest = {
 	tags: { [string]: TagValueList }
 }
 
+type FinalParameters = {
+	finalAnnotationOptionSeen: boolean,
+	finalAnnotationPageSeen: boolean,
+	finalAnnotationCount: number,
+}
+
 local builderState: AbuseReportBuilderState = {
 	screenshotId = "",
 	identifiedAvatars = {},
@@ -388,6 +394,14 @@ return {
 			annotationOptionSeen = false,
 			annotationPageSeen = false,
 			selectedAbusers = {}
+		}
+	end,
+	getAnalyticsParameters = function(): FinalParameters
+		return {
+			finalAnnotationOptionSeen = builderState.annotationOptionSeen,
+			finalAnnotationPageSeen = builderState.annotationPageSeen,
+			finalAnnotationCount = #builderState.annotationPoints,
+			finalAnnotatedAvatarsCount = #builderState.selectedAbusers
 		}
 	end,
 	Constants = Constants

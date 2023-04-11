@@ -20,8 +20,6 @@ local LAYOUT_PADDING = 4
 local ICON = Images["icons/common/search"]
 local CLEAR_BUTTON_IMAGE = Images["icons/actions/edit/clear_small"]
 
-local getFFlagContactImporterSearchBarBugFixes = require(ContactImporter.Flags.getFFlagContactImporterSearchBarBugFixes)
-
 export type Props = {
 	height: number,
 	layoutOrder: number?,
@@ -34,19 +32,12 @@ function ContactsListSearchBar(props: Props)
 	})
 	local style = useStyle()
 
-	local isSearchBarFocused, setIsSearchBarFocused
-	if getFFlagContactImporterSearchBarBugFixes() then
-		isSearchBarFocused, setIsSearchBarFocused = React.useState(false)
-	end
+	local isSearchBarFocused, setIsSearchBarFocused = React.useState(false)
 
 	return Roact.createElement("Frame", {
-		BackgroundTransparency = if getFFlagContactImporterSearchBarBugFixes()
-			then style.Theme.BackgroundMuted.Transparency
-			else 1,
-		BorderSizePixel = if getFFlagContactImporterSearchBarBugFixes() then nil else 1,
-		BackgroundColor3 = if getFFlagContactImporterSearchBarBugFixes()
-			then style.Theme.BackgroundMuted.Color
-			else nil,
+		BackgroundTransparency = style.Theme.BackgroundMuted.Transparency,
+		BorderSizePixel = 0,
+		BackgroundColor3 = style.Theme.BackgroundMuted.Color,
 		Size = UDim2.new(1, 0, 0, props.height),
 		LayoutOrder = props.layoutOrder,
 	}, {
@@ -62,14 +53,10 @@ function ContactsListSearchBar(props: Props)
 		}),
 		Border = React.createElement("UIStroke", {
 			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-			Color = if getFFlagContactImporterSearchBarBugFixes()
-				then if isSearchBarFocused then style.Theme.SecondaryOnHover.Color else style.Theme.Divider.Color
-				else style.Theme.IconEmphasis.Color,
-			Transparency = if getFFlagContactImporterSearchBarBugFixes()
-				then if isSearchBarFocused
-					then style.Theme.SecondaryOnHover.Transparency
-					else style.Theme.Divider.Transparency
-				else style.Theme.BackgroundUIDefault.Transparency,
+			Color = if isSearchBarFocused then style.Theme.SecondaryOnHover.Color else style.Theme.Divider.Color,
+			Transparency = if isSearchBarFocused
+				then style.Theme.SecondaryOnHover.Transparency
+				else style.Theme.Divider.Transparency,
 			Thickness = 1,
 		}),
 		padding = Roact.createElement("UIPadding", {
@@ -94,20 +81,12 @@ function ContactsListSearchBar(props: Props)
 				clearIconTransparency = style.Theme.IconEmphasis.Transparency,
 				clearButtonSize = IconSize.Small,
 				clearButtonDisabled = false,
-				focusChangedCallback = if getFFlagContactImporterSearchBarBugFixes()
-					then setIsSearchBarFocused
-					else nil,
-				inputTextColor3 = if getFFlagContactImporterSearchBarBugFixes()
-					then style.Theme.TextEmphasis.Color
-					else style.Theme.TextDefault.Color,
-				inputTextTransparency = if getFFlagContactImporterSearchBarBugFixes()
-					then style.Theme.TextEmphasis.Transparency
-					else nil,
+				focusChangedCallback = setIsSearchBarFocused,
+				inputTextColor3 = style.Theme.TextEmphasis.Color,
+				inputTextTransparency = style.Theme.TextEmphasis.Transparency,
 				placeholderText = localized.searchContacts,
 				placeholderTextColor3 = style.Theme.TextMuted.Color,
-				placeholderTextTransparency = if getFFlagContactImporterSearchBarBugFixes()
-					then style.Theme.TextMuted.Transparency
-					else nil,
+				placeholderTextTransparency = style.Theme.TextMuted.Transparency,
 				inputTextXAlignment = Enum.TextXAlignment.Left,
 				textChangedCallback = props.textChangeCallback,
 			}),

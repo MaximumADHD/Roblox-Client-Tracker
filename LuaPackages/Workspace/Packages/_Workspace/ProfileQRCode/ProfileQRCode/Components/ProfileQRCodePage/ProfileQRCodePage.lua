@@ -26,9 +26,6 @@ local useStyle = UIBlox.Core.Style.useStyle
 local NetworkingFriends = require(Packages.NetworkingFriends)
 local Images = UIBlox.App.ImageSet.Images
 
-local getFFlagProfileQRCodeEnableAlerts = require(Packages.SharedFlags).getFFlagProfileQRCodeEnableAlerts
-local getFFlagProfileQRCodeEnableAlertsExperiment =
-	require(ProfileQRCode.Flags.getFFlagProfileQRCodeEnableAlertsExperiment)
 local getFStringProfileQRCodeFriendRequestAlertsExperimentKey =
 	require(ProfileQRCode.Flags.getFStringProfileQRCodeFriendRequestAlertsExperimentKey)
 local getFStringProfileQRCodeFriendRequestAlertsLayer =
@@ -52,7 +49,7 @@ local TOAST_DURATION = 3
 export type Props = {
 	onClose: () -> (),
 	profileQRCodeFriendRequestAlertsEnabled: boolean?,
-	robloxEventReceiver: any?,
+	robloxEventReceiver: any,
 }
 
 local ProfileQRCodePage = function(props: Props)
@@ -61,62 +58,55 @@ local ProfileQRCodePage = function(props: Props)
 		friendAdded = TextKeys.FriendAdded,
 	})
 	local style = useStyle()
-	local friendRequestAlertsEnabled = if getFFlagProfileQRCodeEnableAlertsExperiment()
-		then props.profileQRCodeFriendRequestAlertsEnabled
-		else false
-	local analytics = if getFFlagProfileQRCodeEnableAlerts() then useAnalytics() else nil
+	local friendRequestAlertsEnabled = props.profileQRCodeFriendRequestAlertsEnabled
+	local analytics = useAnalytics()
 
 	local localUserId, acceptFriendUrl, showFriendAcceptedToast, setShowFriendAcceptedToast, notificationQueue, updateNotificationQueue
 
-	if getFFlagProfileQRCodeEnableAlerts() and props.robloxEventReceiver then
-		local robloxEventReceiver = props.robloxEventReceiver
+	local robloxEventReceiver = props.robloxEventReceiver
 
-		showFriendAcceptedToast, setShowFriendAcceptedToast = React.useState(false)
-		notificationQueue, updateNotificationQueue = React.useReducer(function(oldQueue, action)
-			if action.type == ADD_TO_QUEUE then
-				if getFFlagProfileQRCodeEnableAlertsExperiment() then
-					IXPService:LogUserLayerExposure(getFStringProfileQRCodeFriendRequestAlertsLayer())
-				end
-				-- update queue
-				return Cryo.List.join(oldQueue, { action.newUserId })
-			elseif action.type == REMOVE_FROM_QUEUE then
-				return Cryo.List.removeIndex(oldQueue, 1)
-			else
-				return oldQueue
-			end
-		end, {})
-
-		localUserId = useLocalUserId()
-		local getUsersInfoUrl = useGetUsersInfoUrl()
-		acceptFriendUrl = useAcceptFriendUrl()
-
-		local function friendshipNotificationReceived(details)
-			-- Check to make sure this is the type of friend notification we respond to
-			if
-				details.Type == "FriendshipRequested"
-				and details.EventArgs.SourceType
-					== NetworkingFriends.Enums.FriendshipOriginSourceType.QrCode.rawValue()
-			then
-				-- get the requesting user id, each friendship request has 2 user ids the requester and the requestee.  The
-				-- requestee should be the local user so if UserId1 is the local user id then UserId2 must be the requester
-				local userId = tostring(details.EventArgs.UserId1)
-				if userId == localUserId then
-					userId = tostring(details.EventArgs.UserId2)
-				end
-
-				-- Now using the requester user id we make a call to get the display name of the requesting user
-				getUsersInfoUrl(userId):andThen(function()
-					updateNotificationQueue({ type = ADD_TO_QUEUE, newUserId = userId })
-				end)
-			end
+	showFriendAcceptedToast, setShowFriendAcceptedToast = React.useState(false)
+	notificationQueue, updateNotificationQueue = React.useReducer(function(oldQueue, action)
+		if action.type == ADD_TO_QUEUE then
+			IXPService:LogUserLayerExposure(getFStringProfileQRCodeFriendRequestAlertsLayer())
+			-- update queue
+			return Cryo.List.join(oldQueue, { action.newUserId })
+		elseif action.type == REMOVE_FROM_QUEUE then
+			return Cryo.List.removeIndex(oldQueue, 1)
+		else
+			return oldQueue
 		end
+	end, {})
 
-		React.useEffect(function()
-			robloxEventReceiver:observeEvent("FriendshipNotifications", function(detail)
-				friendshipNotificationReceived(detail)
+	localUserId = useLocalUserId()
+	local getUsersInfoUrl = useGetUsersInfoUrl()
+	acceptFriendUrl = useAcceptFriendUrl()
+
+	local function friendshipNotificationReceived(details)
+		-- Check to make sure this is the type of friend notification we respond to
+		if
+			details.Type == "FriendshipRequested"
+			and details.EventArgs.SourceType == NetworkingFriends.Enums.FriendshipOriginSourceType.QrCode.rawValue()
+		then
+			-- get the requesting user id, each friendship request has 2 user ids the requester and the requestee.  The
+			-- requestee should be the local user so if UserId1 is the local user id then UserId2 must be the requester
+			local userId = tostring(details.EventArgs.UserId1)
+			if userId == localUserId then
+				userId = tostring(details.EventArgs.UserId2)
+			end
+
+			-- Now using the requester user id we make a call to get the display name of the requesting user
+			getUsersInfoUrl(userId):andThen(function()
+				updateNotificationQueue({ type = ADD_TO_QUEUE, newUserId = userId })
 			end)
-		end, { robloxEventReceiver })
+		end
 	end
+
+	React.useEffect(function()
+		robloxEventReceiver:observeEvent("FriendshipNotifications", function(detail)
+			friendshipNotificationReceived(detail)
+		end)
+	end, { robloxEventReceiver })
 
 	return React.createElement("Frame", {
 		BackgroundColor3 = BACKGROUND_FOR_GRADIENT,
@@ -197,9 +187,7 @@ local ProfileQRCodePage = function(props: Props)
 				}),
 			}),
 		}),
-		FriendAcceptToastFrame = if friendRequestAlertsEnabled
-				and getFFlagProfileQRCodeEnableAlerts()
-				and showFriendAcceptedToast
+		FriendAcceptToastFrame = if friendRequestAlertsEnabled and showFriendAcceptedToast
 			then React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -219,7 +207,6 @@ local ProfileQRCodePage = function(props: Props)
 			})
 			else nil,
 		FriendsInviteFrame = if friendRequestAlertsEnabled
-				and getFFlagProfileQRCodeEnableAlerts()
 				and #notificationQueue > 0
 				and not showFriendAcceptedToast
 			then React.createElement("Frame", {
@@ -235,25 +222,15 @@ local ProfileQRCodePage = function(props: Props)
 							updateNotificationQueue({ type = REMOVE_FROM_QUEUE, newUserId = "0" })
 							setShowFriendAcceptedToast(true)
 						end)
-						-- We can remove the `and analytics` when we remove the flag as
-						-- long as typechecking is happy
-						if getFFlagProfileQRCodeEnableAlerts() and analytics then
-							-- SACQ-593: Add test for this
-							analytics.fireEvent(EventNames.QRPageFriendRequestBannerAccepted, {
-								qrCodeBannerQueueSize = #notificationQueue,
-							})
-						end
+						analytics.fireEvent(EventNames.QRPageFriendRequestBannerAccepted, {
+							qrCodeBannerQueueSize = #notificationQueue,
+						})
 					end,
 					onClose = function()
 						updateNotificationQueue({ type = REMOVE_FROM_QUEUE, newUserId = "0" })
-						-- We can remove the `and analytics` when we remove the flag as
-						-- long as typechecking is happy
-						if getFFlagProfileQRCodeEnableAlerts() and analytics then
-							-- SACQ-593: Add test for this
-							analytics.fireEvent(EventNames.QRPageFriendRequestBannerDismissed, {
-								qrCodeBannerQueueSize = #notificationQueue,
-							})
-						end
+						analytics.fireEvent(EventNames.QRPageFriendRequestBannerDismissed, {
+							qrCodeBannerQueueSize = #notificationQueue,
+						})
 					end,
 					userId = tostring(notificationQueue[1]),
 				}),
@@ -262,16 +239,14 @@ local ProfileQRCodePage = function(props: Props)
 	})
 end
 
-if getFFlagProfileQRCodeEnableAlertsExperiment() then
-	ProfileQRCodePage = RoactAppExperiment.connectUserLayer({
-		getFStringProfileQRCodeFriendRequestAlertsLayer(),
-	}, function(layerVariables, props)
-		local profileQRCodeFriendRequestAlertsLayer: any = layerVariables[getFStringProfileQRCodeFriendRequestAlertsLayer()]
-			or {}
-		return {
-			profileQRCodeFriendRequestAlertsEnabled = profileQRCodeFriendRequestAlertsLayer[getFStringProfileQRCodeFriendRequestAlertsExperimentKey()],
-		}
-	end, false)(ProfileQRCodePage)
-end
+ProfileQRCodePage = RoactAppExperiment.connectUserLayer({
+	getFStringProfileQRCodeFriendRequestAlertsLayer(),
+}, function(layerVariables, props)
+	local profileQRCodeFriendRequestAlertsLayer: any = layerVariables[getFStringProfileQRCodeFriendRequestAlertsLayer()]
+		or {}
+	return {
+		profileQRCodeFriendRequestAlertsEnabled = profileQRCodeFriendRequestAlertsLayer[getFStringProfileQRCodeFriendRequestAlertsExperimentKey()],
+	}
+end, false)(ProfileQRCodePage)
 
 return ProfileQRCodePage

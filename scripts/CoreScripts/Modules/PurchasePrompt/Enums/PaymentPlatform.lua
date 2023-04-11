@@ -18,7 +18,7 @@ local rawKeyToRawValue = {
 	UWP = "UWP",
 	Midas = "Midas",
 	Web = "Web",
-	Maquettes = "MaquettesStore",
+	Maquettes = "Maquettes",
 	Palisades = "Palisades",
 }
 

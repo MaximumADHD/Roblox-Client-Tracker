@@ -16,8 +16,6 @@ local withStyle = UIBlox.Style.withStyle
 local TextKeys = require(ContactImporter.Common.TextKeys)
 local Dash = dependencies.Dash
 
-local getFFlagUpdateContactsCaptionText = require(ContactImporter.Flags.getFFlagUpdateContactsCaptionText)
-
 local MIDDLE_CONTENT_PADDING_TOP: number = 24
 local MIDDLE_CONTENT_PADDING_BOTTOM: number = 36
 local MIDDLE_CONTENT_SPACING: number = 12
@@ -49,9 +47,7 @@ function ContactsImporterOverlay:render()
 	return withLocalization({
 		connectWithFriends = TextKeys.CONTACTS_LIST_TITLE,
 		connectWithFriendsBody = TextKeys.CONNECT_CONTACTS_BODY,
-		connectWithFriendsCaption = if getFFlagUpdateContactsCaptionText()
-			then TextKeys.CONNECT_CONTACTS_CAPTION_V2
-			else TextKeys.CONNECT_CONTACTS_CAPTION,
+		connectWithFriendsCaption = TextKeys.CONNECT_CONTACTS_CAPTION,
 		getStarted = TextKeys.GET_STARTED,
 		closeModal = TextKeys.CLOSE_MODAL,
 		goToAddFriends = TextKeys.NOT_NOW,

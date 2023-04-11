@@ -23,12 +23,8 @@ local ChatTile = require(Components.ChatTile)
 local GroupsTile = require(Components.GroupsTile)
 local ProfileEntry = require(Components.ProfileEntry)
 
-local SocialPanel = require(SocialTab.SocialPanel)
-local SocialPanelHeader = require(SocialTab.SocialPanel.SocialPanelHeader)
-
 local RefreshScrollingFrame = dependencies.SocialLibraries.Components.RefreshScrollingFrame
 local getFFlagSocialProfileShareAnalyticsEnabled = dependencies.getFFlagSocialProfileShareAnalyticsEnabled
-local UserInputService = dependencies.UserInputService
 local DiscoverabilityEntryPoints = dependencies.DiscoverabilityModal.Analytics.EntryPoints
 
 local TOP_BAR_PADDING = 24
@@ -36,10 +32,6 @@ local PROFILE_PADDING = 22
 local FRIENDS_CAROUSEL_PADDING = 36
 local EnumScreens = require(SocialTab.EnumScreens)
 local UserUtils = require(SocialTab.User)
-
-local function getTopMargin()
-	return (UserInputService.StatusBarSize.Y or 0) + 40
-end
 
 local SocialTabPage = Roact.PureComponent:extend("SocialTabPage")
 SocialTabPage.TileCellSize = {
@@ -81,8 +73,6 @@ SocialTabPage.defaultProps = {
 	enableNotificationsPolicy = enableNotificationsPolicyDefaultValue,
 	isProfileShareEnabled = false,
 	luaSelfProfileEnabled = false,
-	isDrawerPanel = false,
-	isSocialPanelFullScreen = false,
 	disableWebViewSupport = false,
 }
 
@@ -107,8 +97,6 @@ SocialTabPage.validateProps = t.interface({
 	luaAddFriendsPageEnabled = t.optional(t.boolean),
 	isLuaProfilePageEnabled = t.optional(t.boolean),
 	luaSelfProfileEnabled = t.optional(t.boolean),
-	isDrawerPanel = t.optional(t.boolean),
-	isSocialPanelFullScreen = t.optional(t.boolean),
 })
 
 function SocialTabPage:init()
@@ -118,11 +106,7 @@ function SocialTabPage:init()
 		Logger:info("Going to Chats")
 		self.props.analytics:buttonClick("Chats")
 		self.props.analytics:navigate("Chats")
-		if self.props.isDrawerPanel then
-			self.props.navigateToLuaAppPages[EnumScreens.RoactChat]()
-		else
-			self.props.navigation.navigate(EnumScreens.RoactChat)
-		end
+		self.props.navigation.navigate(EnumScreens.RoactChat)
 	end
 
 	self.goToGroups = function()
@@ -191,19 +175,11 @@ function SocialTabPage:init()
 		if self.props.navigatingFromSocialTabEvent then
 			self.props.navigatingFromSocialTabEvent(EnumScreens.FriendsLanding)
 		end
-		if self.props.isDrawerPanel then
-			self.props.navigateToLuaAppPages[EnumScreens.ViewFriends]()
-		else
-			self.props.navigation.navigate(EnumScreens.FriendsLanding)
-		end
+		self.props.navigation.navigate(EnumScreens.FriendsLanding)
 	end
 
 	self.goToAddFriends = function()
-		if self.props.isDrawerPanel then
-			self.props.navigateToLuaAppPages[EnumScreens.AddFriends]()
-		else
-			self.props.navigation.navigate(EnumScreens.FriendsLanding, { EntryPage = "AddFriendsPage" })
-		end
+		self.props.navigation.navigate(EnumScreens.FriendsLanding, { EntryPage = "AddFriendsPage" })
 	end
 
 	self.renderTopBarButtons = memoize(function(numberOfNotifications, enableNotificationsPolicy)
@@ -302,30 +278,6 @@ end
 
 function SocialTabPage:render()
 	return UIBlox.Style.withStyle(function(style)
-		local useSocialPanel = self.props.isDrawerPanel or self.props.isSocialPanelFullScreen
-
-		local headerBar = useSocialPanel
-				and Roact.createElement(SocialPanelHeader, {
-					layoutOrder = 1,
-					isDrawerPanel = self.props.isDrawerPanel,
-					onChatActivated = self.goToChat,
-					onGroupsActivated = self.goToGroups,
-					onAddFriendActivated = self.goToAddFriends,
-				})
-			or Roact.createElement(HeaderBar, {
-				barHeight = self.props.topBarHeight,
-				title = self.props.socialText,
-				renderRight = self.renderTopBarButtons(
-					self.props.numberOfNotifications,
-					self.props.enableNotificationsPolicy
-				),
-			})
-
-		local socialPanelTopBarHeight = self.props.topBarHeight
-		if self.props.isDrawerPanel then
-			socialPanelTopBarHeight = socialPanelTopBarHeight + getTopMargin()
-		end
-
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
@@ -336,108 +288,97 @@ function SocialTabPage:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			TopMargin = if self.props.isDrawerPanel
-				then Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					Size = UDim2.fromOffset(0, getTopMargin()),
-					LayoutOrder = 0,
-				})
-				else nil,
-
 			topBar = Roact.createElement("Frame", {
 				LayoutOrder = 1,
 				Size = UDim2.new(1, 0, 0, self.props.topBarHeight),
 				BackgroundTransparency = 1,
 			}, {
-				headerBar = headerBar,
+				headerBar = Roact.createElement(HeaderBar, {
+					barHeight = self.props.topBarHeight,
+					title = self.props.socialText,
+					renderRight = self.renderTopBarButtons(
+						self.props.numberOfNotifications,
+						self.props.enableNotificationsPolicy
+					),
+				}),
 			}),
 
-			socialPanel = useSocialPanel and Roact.createElement(SocialPanel, {
-				onAddFriends = self.goToAddFriends,
-				onGoToFriendsPage = self.goToFriendsLanding,
-				onChatActivated = self.goToChat,
-				topBarHeight = socialPanelTopBarHeight,
-				onRefresh = self.props.refreshPageData,
-			}),
-
-			gridFrame = not useSocialPanel
-				and Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					LayoutOrder = 2,
+			gridFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+			}, {
+				ScrollView = Roact.createElement(RefreshScrollingFrame, {
+					scrollingElementProps = {
+						Size = UDim2.new(1, 0, 1, -self.props.topBarHeight),
+						ScrollBarThickness = 0,
+						BackgroundTransparency = 1,
+						CanvasSize = UDim2.new(1, 0, 1, -self.props.topBarHeight + 1), -- 1px for pull down to refresh
+						AutomaticCanvasSize = Enum.AutomaticSize.XY,
+						ScrollingDirection = Enum.ScrollingDirection.Y,
+					},
+					refresh = self.props.refreshPageData,
 				}, {
-					ScrollView = Roact.createElement(RefreshScrollingFrame, {
-						scrollingElementProps = {
-							Size = UDim2.new(1, 0, 1, -self.props.topBarHeight),
-							ScrollBarThickness = 0,
-							BackgroundTransparency = 1,
-							CanvasSize = UDim2.new(1, 0, 1, -self.props.topBarHeight + 1), -- 1px for pull down to refresh
-							AutomaticCanvasSize = Enum.AutomaticSize.XY,
-							ScrollingDirection = Enum.ScrollingDirection.Y,
-						},
-						refresh = self.props.refreshPageData,
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+					pageMargin = Roact.createElement(HorizontalPageMargin, {
+						size = UDim2.new(1, 0, 0, 0),
+						useAutomaticSizing = true,
+						layoutOrder = 1,
+						backgroundTransparency = 1,
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							FillDirection = Enum.FillDirection.Vertical,
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
-						pageMargin = Roact.createElement(HorizontalPageMargin, {
-							size = UDim2.new(1, 0, 0, 0),
-							useAutomaticSizing = true,
-							layoutOrder = 1,
-							backgroundTransparency = 1,
-						}, {
-							Layout = Roact.createElement("UIListLayout", {
-								FillDirection = Enum.FillDirection.Vertical,
-								SortOrder = Enum.SortOrder.LayoutOrder,
-							}),
-							spacerTopBar = Roact.createElement("Frame", {
-								Size = UDim2.new(1, 0, 0, TOP_BAR_PADDING),
-								BackgroundTransparency = 1,
-								LayoutOrder = 1,
-							}),
-							profileEntry = Roact.createElement(ProfileEntry, {
-								userText = self.props.enableDisplayNamePolicy and self.props.localUser.displayName
-									or self.props.localUser.username,
-								avatarImage = self.props.localUser.thumbnail,
-								isPremium = self.props.localUser.isPremium,
-								navigateToLuaAppPages = self.props.navigateToLuaAppPages,
-								hasVerifiedBadge = self.props.localUser.hasVerifiedBadge,
-								onActivated = self.goToUserProfile,
-								isProfileShareEnabled = self.props.isProfileShareEnabled,
-								onActivatedProfileShare = self.goToProfileShare,
-								layoutOrder = 2,
-							}),
-							spacerProfile = Roact.createElement("Frame", {
-								Size = UDim2.new(1, 0, 0, PROFILE_PADDING),
-								BackgroundTransparency = 1,
-								LayoutOrder = 3,
-							}),
-							friendsCarousel = self.props.renderUserCarousel({
-								LayoutOrder = 4,
-								wideMode = self.props.wideMode,
-								navigateToLuaAppPages = self.props.navigateToLuaAppPages,
-								goToFriendsLanding = self.goToFriendsLanding,
-								goToAddFriends = self.goToAddFriends,
-								luaAddFriendsPageEnabled = self.props.luaAddFriendsPageEnabled,
-							}),
-							spacerFriends = Roact.createElement("Frame", {
-								Size = UDim2.new(1, 0, 0, FRIENDS_CAROUSEL_PADDING),
-								BackgroundTransparency = 1,
-								LayoutOrder = 5,
-							}),
-							buttonGrid = Roact.createElement(DefaultMetricsGridView, {
-								LayoutOrder = 6,
-								renderItem = self.renderButtonGridItem(self.props.unreadConversationCount),
-								getItemHeight = self.getButtonGridItemHeight,
-								getItemMetrics = GridMetrics.getMediumMetrics,
-								itemPadding = Vector2.new(12, 12),
-								items = self.gridButtons,
-							}),
+						spacerTopBar = Roact.createElement("Frame", {
+							Size = UDim2.new(1, 0, 0, TOP_BAR_PADDING),
+							BackgroundTransparency = 1,
+							LayoutOrder = 1,
+						}),
+						profileEntry = Roact.createElement(ProfileEntry, {
+							userText = self.props.enableDisplayNamePolicy and self.props.localUser.displayName
+								or self.props.localUser.username,
+							avatarImage = self.props.localUser.thumbnail,
+							isPremium = self.props.localUser.isPremium,
+							navigateToLuaAppPages = self.props.navigateToLuaAppPages,
+							hasVerifiedBadge = self.props.localUser.hasVerifiedBadge,
+							onActivated = self.goToUserProfile,
+							isProfileShareEnabled = self.props.isProfileShareEnabled,
+							onActivatedProfileShare = self.goToProfileShare,
+							layoutOrder = 2,
+						}),
+						spacerProfile = Roact.createElement("Frame", {
+							Size = UDim2.new(1, 0, 0, PROFILE_PADDING),
+							BackgroundTransparency = 1,
+							LayoutOrder = 3,
+						}),
+						friendsCarousel = self.props.renderUserCarousel({
+							LayoutOrder = 4,
+							wideMode = self.props.wideMode,
+							navigateToLuaAppPages = self.props.navigateToLuaAppPages,
+							goToFriendsLanding = self.goToFriendsLanding,
+							goToAddFriends = self.goToAddFriends,
+							luaAddFriendsPageEnabled = self.props.luaAddFriendsPageEnabled,
+						}),
+						spacerFriends = Roact.createElement("Frame", {
+							Size = UDim2.new(1, 0, 0, FRIENDS_CAROUSEL_PADDING),
+							BackgroundTransparency = 1,
+							LayoutOrder = 5,
+						}),
+						buttonGrid = Roact.createElement(DefaultMetricsGridView, {
+							LayoutOrder = 6,
+							renderItem = self.renderButtonGridItem(self.props.unreadConversationCount),
+							getItemHeight = self.getButtonGridItemHeight,
+							getItemMetrics = GridMetrics.getMediumMetrics,
+							itemPadding = Vector2.new(12, 12),
+							items = self.gridButtons,
 						}),
 					}),
 				}),
+			}),
 		})
 	end)
 end

@@ -15,8 +15,6 @@ local getFFlagContactImporterUseShortUrlFriendInvite =
 	require(ContactImporter.Flags.getFFlagContactImporterUseShortUrlFriendInvite)
 
 local getFFlagLuaNativeUtilEnableSMSHandling = dependencies.getFFlagLuaNativeUtilEnableSMSHandling
-local getFFlagContactImporterFixSendInviteFailedEvent =
-	require(ContactImporter.Flags.getFFlagContactImporterFixSendInviteFailedEvent)
 
 export type Setup = {
 	address: string,
@@ -32,11 +30,7 @@ local sendMessage = function(setup: Setup)
 				if dosSupportSMS then
 					return setup.nativeUtilProtocol:sendSMS({ address = setup.address, message = message })
 				else
-					if getFFlagContactImporterFixSendInviteFailedEvent() then
-						return Promise.reject()
-					end
-
-					return setup.nativeUtilProtocol.reject()
+					return Promise.reject()
 				end
 			end)
 		else
@@ -44,10 +38,7 @@ local sendMessage = function(setup: Setup)
 				if dosSupportSMS then
 					return setup.smsProtocol:sendSMS({ address = setup.address, message = message })
 				else
-					if getFFlagContactImporterFixSendInviteFailedEvent() then
-						return Promise.reject()
-					end
-					return setup.smsProtocol.reject()
+					return Promise.reject()
 				end
 			end)
 		end
@@ -83,13 +74,7 @@ return function(setup: Setup)
 					RoduxShareLinks.Enums.LinkType.FriendInvite.rawValue()
 				)
 
-			if not getFFlagContactImporterFixSendInviteFailedEvent() then
-				analytics.fireAnalyticsEvent(EventNames.InviteContact, {
-					offNetworkFriendRequestLinkId = linkId,
-				})
-			else
-				shareLinkId = response.responseBody.linkId
-			end
+			shareLinkId = response.responseBody.linkId
 			return link .. "\n\n" .. textKeys.rootMessage
 		end
 	end
@@ -105,9 +90,7 @@ return function(setup: Setup)
 				:andThen(dispatch(RoduxContacts.Actions.RequestSent({
 					id = setup.deviceContactId,
 				})))
-				:andThen(
-					if getFFlagContactImporterFixSendInviteFailedEvent() then hasSuccessfullySent else completeLoading
-				)
+				:andThen(hasSuccessfullySent)
 				:catch(completeLoading)
 		end,
 		isLoading = isLoading,

@@ -10,8 +10,6 @@ local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local TextKeys = require(ContactImporter.Common.TextKeys)
 local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
 
-local ADD_BUTTON_HEIGHT = 36
-local ADD_BUTTON_WIDTH = 44
 local CONTACTS_ENTRY_HEIGHT = 72
 local CONTEXTUAL_TEXT_HEIGHT = 20
 local FLAT_LIST_FIX = -1 -- Need to account for a pixel being cut off from flat list
@@ -22,8 +20,6 @@ local Dash = dependencies.Dash
 local useStyle = dependencies.useStyle
 local useLocalization = dependencies.useLocalization
 
-local getFFlagInvitesFlatListFixEnabled = require(ContactImporter.Flags.getFFlagInvitesFlatListFixEnabled)
-local getFFlagRemoveSentTextKey = require(ContactImporter.Flags.getFFlagRemoveSentTextKey)
 local getFFlagContactsListEntryUpdatedTruncationFix =
 	require(ContactImporter.Flags.getFFlagContactsListEntryUpdatedTruncationFix)
 
@@ -48,7 +44,6 @@ function ContactsListInviteEntry(passedProps: Props)
 	local props = Dash.join(defaultProps, passedProps)
 
 	local localized = useLocalization({
-		sent = if getFFlagRemoveSentTextKey() then nil else TextKeys.SENT_BUTTON_TEXT,
 		invite = TextKeys.INVITE_BUTTON_TEXT,
 	})
 	local style = useStyle()
@@ -104,12 +99,8 @@ function ContactsListInviteEntry(passedProps: Props)
 
 			sendInviteButton = if not props.hasSentRequest
 				then Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
-					position = if getFFlagInvitesFlatListFixEnabled()
-						then UDim2.new(1, FLAT_LIST_FIX, 0.5, 0)
-						else UDim2.fromScale(1, 0),
-					anchorPoint = if getFFlagInvitesFlatListFixEnabled()
-						then Vector2.new(1, 0.5)
-						else Vector2.new(1, 0),
+					position = UDim2.new(1, FLAT_LIST_FIX, 0.5, 0),
+					anchorPoint = Vector2.new(1, 0.5),
 					standardSize = StandardButtonSize.XSmall,
 					fitContent = true,
 					text = localized.invite,
@@ -122,16 +113,11 @@ function ContactsListInviteEntry(passedProps: Props)
 					end,
 				})
 				else Roact.createElement(UIBlox.App.Button.SecondaryButton, {
-					position = if getFFlagInvitesFlatListFixEnabled()
-						then UDim2.new(1, FLAT_LIST_FIX, 0.5, 0)
-						else UDim2.fromScale(1, 0.5),
+					position = UDim2.new(1, FLAT_LIST_FIX, 0.5, 0),
 					anchorPoint = Vector2.new(1, 0.5),
 					standardSize = StandardButtonSize.XSmall,
 					isDisabled = true,
 					text = localized.invite,
-					size = if getFFlagInvitesFlatListFixEnabled()
-						then nil
-						else UDim2.fromOffset(ADD_BUTTON_WIDTH, ADD_BUTTON_HEIGHT),
 					onActivated = Dash.noop,
 					[React.Change.AbsoluteSize] = function(rbx: any)
 						if getFFlagContactsListEntryUpdatedTruncationFix() then

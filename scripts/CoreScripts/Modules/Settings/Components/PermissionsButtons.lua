@@ -39,6 +39,7 @@ local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
 local PADDING_SIZE = 24
+local SMALL_PADDING_SIZE = 16
 local DIVIDER_HEIGHT = 24
 local Y_HEIGHT = 38
 
@@ -223,7 +224,7 @@ function PermissionsButtons:render()
 		Visible = not self.props.isTenFootInterface, -- Not Visible on Xbox
 	}, {
 		UIPaddingPermissionsContainer = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 74), -- Close Button location
+			PaddingLeft = UDim.new(0, if self.props.isSmallTouchScreen then 54 else 74), -- Close Button location
 			PaddingTop = UDim.new(0, 4), -- Top Padding from button to edge of screen
 		}),
 		UIListLayout = Roact.createElement("UIListLayout", {
@@ -231,7 +232,7 @@ function PermissionsButtons:render()
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(0, PADDING_SIZE),
+			Padding = UDim.new(0, if self.props.isSmallTouchScreen then SMALL_PADDING_SIZE else PADDING_SIZE),
 		}),
 		Divider1 = createDivider(1),
 		Container = Roact.createElement("Frame", {
@@ -246,7 +247,7 @@ function PermissionsButtons:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, PADDING_SIZE),
+				Padding = UDim.new(0, if self.props.isSmallTouchScreen then SMALL_PADDING_SIZE else PADDING_SIZE),
 			}),
 			MuteAllButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 1,
@@ -268,10 +269,11 @@ function PermissionsButtons:render()
 				image = if self.state.selfViewOpen then SELF_VIEW_IMAGE else SELF_VIEW_OFF_IMAGE,
 				callback = self.toggleSelfView,
 			}),
-			Divider2 = createDivider(5),
-			RecordingIndicator = Roact.createElement(RecordingIndicator, {
-				micOn = self.state.microphoneEnabled
-			}),
+		}),
+		Divider2 = createDivider(5),
+		RecordingIndicator = Roact.createElement(RecordingIndicator, {
+			micOn = self.state.microphoneEnabled,
+			isSmallTouchScreen = self.props.isSmallTouchScreen,
 		}),
 		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
 			event = VoiceChatServiceManager.muteChanged.Event,

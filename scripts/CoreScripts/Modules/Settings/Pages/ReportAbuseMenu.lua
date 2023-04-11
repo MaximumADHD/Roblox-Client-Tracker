@@ -44,6 +44,8 @@ local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.create
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 local AbuseReportBuilder = require(RobloxGui.Modules.TrustAndSafety.Utility.AbuseReportBuilder)
 local ScreenshotFlowStepHandlerContainer = require(RobloxGui.Modules.TrustAndSafety.Components.ScreenshotFlowStepHandlerContainer)
+local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustAndSafetyIXPManager).default
+local ReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Utility.ReportAnythingAnalytics)
 
 local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
@@ -55,9 +57,9 @@ local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagO
 local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
 local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlowCSWaitFrames)
-local GetFFlagIGMv1ARFlowRAv1Experience = require(Settings.Flags.GetFFlagIGMv1ARFlowRAv1Experience)
-local GetFFlagIGMv1ARFlowRAv1Other = require(Settings.Flags.GetFFlagIGMv1ARFlowRAv1Other)
-local GetShouldDoARScreenshot = require(Settings.Flags.GetShouldDoARScreenshot)
+local GetFFlagReportAnythingAnnotationIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
+local GetFFlagEnableReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableReportAnythingAnalytics)
+local GetFFlagEnableARFlowAnalyticsCleanup = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -141,6 +143,10 @@ local MethodOfAbuseOptions: {
 	[MethodsOfAbuse.other] = {title = "Feature.SettingsHub.MethodOfAbuse.Other.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Other.Subtitle", index = 3}
 }
 
+local function shouldDoARScreenshot()
+	return TrustAndSafetyIXPManager:getReportAnythingEnabled()
+end
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -167,7 +173,7 @@ local function Initialize()
 		if this.MethodOfAbuseMode then
 			local currentIndex = this.MethodOfAbuseMode.CurrentIndex
 			local voiceAllowed = false
-			if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
+			if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
 				if currentIndex == nil then
 					return nil
 				end
@@ -349,6 +355,7 @@ local function Initialize()
 		end
 
 		local onRestart = function()
+			ReportAnythingAnalytics.setAbandonedForRetake()
 			this:unmountAnnotationPage()
 			-- keep the animation on menu close to ensure the Hidden event
 			-- fires without being deferred
@@ -365,7 +372,8 @@ local function Initialize()
 			skipAnnotationAction = onSkip,
 			-- populated if they open the flow by going back from last page
 			initialAnnotationPoints = AbuseReportBuilder.getAnnotationPoints(),
-			initialPageNumber = if AbuseReportBuilder.getAnnotationPageSeen() then 2 else 1
+			initialPageNumber = if AbuseReportBuilder.getAnnotationPageSeen() then 2 else 1,
+			reportAnythingAnalytics = ReportAnythingAnalytics
 		})
 		this.annotationPageHandle = Roact.mount(annotationPage, this.annotationPageFrame, "AnnotationPage")
 	end
@@ -399,7 +407,7 @@ local function Initialize()
 		nextPlayerToReport = player
 		currentSelectedPlayer = player
 		this:SetDefaultMethodOfAbuse(nextPlayerToReport)
-		if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+		if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
 			this:ActivateFormPhase(FormPhase.Init, true)
 		end
 	end
@@ -797,17 +805,27 @@ local function Initialize()
 			if game:GetFastFlag("ReportAbuseExtraAnalytics") then
 				log:debug("IXP Result {} for user {}", HttpService:JSONEncode(layerData), PlayersService.LocalPlayer.UserId)
 			end
-			if not (GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other()) then
-				this:updateVoiceLayout()
-			else
-				this:updateRALayout()
+
+			local function TnSIXPInitializationCallback()
+				if not TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+					this:updateVoiceLayout()
+					updateMethodOfAbuseVisibility()
+				end
 			end
-			updateMethodOfAbuseVisibility()
+			
+			if GetFFlagReportAnythingAnnotationIXP() then
+				-- Let RA layout run instead if eligible. Voice layout will run
+				-- if RA is not eligible. Register this callback here since at
+				-- this point we know if Voice is enabled or not, whereas we
+				-- don't know yet in the other callback as TnS IXP is
+				-- initialized before Voice IXP.
+				TrustAndSafetyIXPManager:waitForInitialization(TnSIXPInitializationCallback)
+			else
+				this:updateVoiceLayout()
+				updateMethodOfAbuseVisibility()
+			end
 		end):catch(function()
 			voiceChatEnabled = false
-			if (GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other()) then
-				this:updateRALayout()
-			end
 			log:warning("ReportAbuseMenu: Failed to init VoiceChatServiceManager")
 		end)
 
@@ -848,7 +866,7 @@ local function Initialize()
 		end
 
 		function this:isPlayerModeSubmissionAllowed()
-			if GetFFlagIGMv1ARFlowRAv1Other() then
+			if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
 				local methodOfAbuseSelected = this:GetSelectedMethodOfAbuse()
 				if methodOfAbuseSelected == "Other" then
 					-- When player select is hidden, this report went through
@@ -913,7 +931,7 @@ local function Initialize()
 			end
 		end
 		
-		local function updateAbuseDropDown()
+		local function updateAbuseDropDown(isUserInitiated: boolean?)
 			this.WhichPlayerMode:ResetSelectionIndex()
 			this.TypeOfAbuseMode:ResetSelectionIndex()
 			updateMethodOfAbuseVisibility()
@@ -927,8 +945,7 @@ local function Initialize()
 				this.WhichPlayerLabel.ZIndex = 1
 
 				updateSubmitButton()
-				if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
-
+				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
 					-- clear out preselected player options
 					currentSelectedPlayer = nil
 					nextPlayerToReport = nil
@@ -949,7 +966,7 @@ local function Initialize()
 				end
 
 				updateSubmitButton()
-				if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
+				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
 					this:ActivateFormPhase(FormPhase.Init, currentSelectedPlayer and true or false)
 					this:updateNextButton()
 				end
@@ -961,17 +978,27 @@ local function Initialize()
 				abuseType = "Player"
 			end
 
-			this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
-				field = "TypeOfAbuse",
-				abuseType = abuseType,
-			})
+			if GetFFlagEnableARFlowAnalyticsCleanup() then
+				if isUserInitiated then
+					this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
+						field = "GameOrPlayer",
+						abuseType = abuseType,
+					})
+				end
+			else
+				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
+					field = "TypeOfAbuse",
+					abuseType = abuseType,
+				})
+			end
+
 		end
 
 		local function cleanupReportAbuseMenu()
-			updateAbuseDropDown()
+			updateAbuseDropDown(false)
 			this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
 			-- animation enabled for deferred lua workaround
-			this.HubRef:SetVisibility(false, not GetShouldDoARScreenshot())
+			this.HubRef:SetVisibility(false, not shouldDoARScreenshot())
 		end
 
 		local function reportAnalytics(reportType, id)
@@ -1006,7 +1033,7 @@ local function Initialize()
 				local currentAbusingPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 				local shouldProceedWithReport = currentAbusingPlayer and abuseReason
 
-				if GetFFlagIGMv1ARFlowRAv1Other() then
+				if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
 					shouldProceedWithReport = this:isPlayerModeSubmissionAllowed()
 				end
 
@@ -1047,7 +1074,7 @@ local function Initialize()
 								end
 							end)
 						end)
-					elseif (GetFFlagIGMv1ARFlowRAv1Other() and this:isOtherReportSelected()) then
+					elseif (TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() and this:isOtherReportSelected()) then
 						pcall(function()
 							task.spawn(function()
 								local request = AbuseReportBuilder.buildOtherReportRequest({
@@ -1062,9 +1089,8 @@ local function Initialize()
 								PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 								if #AbuseReportBuilder.getSelectedAbusers() > 0 or not currentAbusingPlayer then
 									isReportSentEnabled = false -- disable new page that needs to be passed one specific player 
-									showReportSentAlert = true -- use old page that does not need a player (TODO: message presented references chatlogs?)
+									showReportSentAlert = true -- use old page that does not need a player
 								end
-								AbuseReportBuilder.clear()
 							end)
 						end)
 					else
@@ -1075,9 +1101,22 @@ local function Initialize()
 					end
 
 					if GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
-						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse or "Chat", {
+						local submittedParameters = {
 							typeOfAbuse = abuseReason,
-						})
+						}
+
+						if GetFFlagEnableReportAnythingAnalytics() and TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
+							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
+							submittedParameters = Cryo.Dictionary.join(
+								submittedParameters,
+								accumulatedParameters,
+								AbuseReportBuilder.getAnalyticsParameters(),
+								{ abandonedForRetake = Cryo.None }
+							)
+							ReportAnythingAnalytics.clear()
+						end
+
+						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse or "Chat", submittedParameters)
 					end
 
 					if GetFFlagReportSentPageV2Enabled() and this:isVoiceReportSelected() then
@@ -1093,18 +1132,16 @@ local function Initialize()
 				if abuseReason then
 					reportSucceeded = true
 					showReportSentAlert = true
-					if GetFFlagIGMv1ARFlowRAv1Experience() then
+					if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then
 						local request = AbuseReportBuilder.buildExperienceReportRequest({
 							localUserId = PlayersService.LocalPlayer.UserId,
 							placeId = game.PlaceId,
 							abuseComment = this.AbuseDescription.Selection.Text,
 							abuseReason = abuseReason,
 							menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
-							variant = if GetFFlagIGMv1ARFlowRAv1Experience() then AbuseReportBuilder.Constants.Variant.Sampling else nil
+							variant = if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then AbuseReportBuilder.Constants.Variant.Sampling else nil
 						})
-
 						PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
-						AbuseReportBuilder.clear()
 					else
 						spawn(function()
 							local placeId,placeName,placeDescription = tostring(game.PlaceId), "N/A", "N/A"
@@ -1121,9 +1158,22 @@ local function Initialize()
 						end)
 					end
 					if GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
-						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, "Game", {
+						local submittedParameters = {
 							typeOfAbuse = abuseReason,
-						})
+						}
+
+						if GetFFlagEnableReportAnythingAnalytics() and TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then
+							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
+							submittedParameters = Cryo.Dictionary.join(
+								submittedParameters,
+								accumulatedParameters,
+								AbuseReportBuilder.getAnalyticsParameters(),
+								{ abandonedForRetake = Cryo.None }
+							)
+							ReportAnythingAnalytics.clear()
+						end
+
+						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, "Game", submittedParameters)
 					end
 				end
 			end
@@ -1139,7 +1189,7 @@ local function Initialize()
 					alertText = "Thanks for your report! Our moderators will review the place and make a determination."
 				end
 
-				if GetFFlagIGMv1ARFlowRAv1Experience() or GetFFlagIGMv1ARFlowRAv1Other() then
+				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
 					alertText = "We’ve received your report and will take action soon if needed. Your feedback helps keep our community safe."
 				end
 
@@ -1148,7 +1198,8 @@ local function Initialize()
 
 			if reportSucceeded then
 				this.LastSelectedObject = nil
-				if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+					AbuseReportBuilder.clear()
 					this:ActivateFormPhase(FormPhase.Init)
 				end
 			end
@@ -1162,8 +1213,7 @@ local function Initialize()
 
 		this.SubmitButton.Parent = this.AbuseDescription.Selection
 
-
-		if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+		local function setReportAnythingNextAndBackNav()
 			local onNext = function()
 				if this.NextEnabled then
 					this:ActivateFormPhase(FormPhase.Annotation)
@@ -1217,7 +1267,13 @@ local function Initialize()
 		end
 		this.TypeOfAbuseMode.IndexChanged:connect(typeOfAbuseChanged)
 
-		this.GameOrPlayerMode.IndexChanged:connect(updateAbuseDropDown)
+		if GetFFlagEnableARFlowAnalyticsCleanup() then
+			this.GameOrPlayerMode.IndexChanged:connect(function()
+				updateAbuseDropDown(true)
+			end)
+		else
+			this.GameOrPlayerMode.IndexChanged:connect(updateAbuseDropDown)
+		end
 
 		local function abuseDescriptionChanged()
 			updateSubmitButton()
@@ -1228,8 +1284,19 @@ local function Initialize()
 
 		this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y)
 		
-		if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
-			this:ActivateFormPhase(FormPhase.Init)
+		-- IXP initialization is async. We need to do the following updates after getting the IXP variables.
+		local function ixpInitializationCallback()
+			if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+				this:updateRALayout()
+				updateMethodOfAbuseVisibility()
+				updateSubmitButton()
+				setReportAnythingNextAndBackNav()
+				this:ActivateFormPhase(FormPhase.Init)
+			end
+		end
+		
+		if GetFFlagReportAnythingAnnotationIXP() then
+			TrustAndSafetyIXPManager:waitForInitialization(ixpInitializationCallback)
 		end
 	end
 
@@ -1242,15 +1309,22 @@ do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
-		if GetShouldDoARScreenshot() and not PageInstance.isHidingForARScreenshot then
+		if shouldDoARScreenshot() and not PageInstance.isHidingForARScreenshot then
 			PageInstance.isHidingForARScreenshot = true
 			PageInstance.HubRef:SetVisibility(false, true)
 
 			AbuseReportBuilder.clear()
+
+			if GetFFlagEnableReportAnythingAnalytics() then
+				ReportAnythingAnalytics.clear()
+			end
 			coroutine.wrap(function()
 				local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()	
 				AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
 				AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
+				if GetFFlagEnableReportAnythingAnalytics() then
+					ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
+				end
 			end)()
 
 			ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
@@ -1277,7 +1351,7 @@ do
 
 	PageInstance.Hidden.Event:connect(function()
 		if open then
-			if GetShouldDoARScreenshot() and PageInstance.isHidingForARScreenshot then
+			if shouldDoARScreenshot() and PageInstance.isHidingForARScreenshot then
 				open = false
 				return
 			end
@@ -1300,16 +1374,28 @@ do
 					methodOfAbuseSelected = true
 				end
 
-				PageInstance.reportAbuseAnalytics:reportFormAbandoned(timeToExit, {
+				local abandonedParameters = {
 					reportContentType = reportContentType,
 					abuseReasonSelected = abuseReasonSelected,
 					abuserSelected = abuserSelected,
 					commentAdded = commentAdded,
 					methodOfAbuseSelected = methodOfAbuseSelected,
-				})
+				}
+
+				if GetFFlagEnableReportAnythingAnalytics() and TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+					local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
+					abandonedParameters = Cryo.Dictionary.join(
+						abandonedParameters,
+						accumulatedParameters,
+						AbuseReportBuilder.getAnalyticsParameters()
+					)
+					ReportAnythingAnalytics.clear()
+				end
+
+				PageInstance.reportAbuseAnalytics:reportFormAbandoned(timeToExit, abandonedParameters)
 			end
 
-			if GetFFlagIGMv1ARFlowRAv1Other() or GetFFlagIGMv1ARFlowRAv1Experience() then
+			if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
 				PageInstance:unmountAnnotationPage()
 				if AbuseReportBuilder.getAnnotationOptionSeen() then
 					PageInstance:ActivateFormPhase(FormPhase.Init)

@@ -51,6 +51,8 @@ local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR"
 local FFlagUserVRPlaySeatedStanding = require(RobloxGui.Modules.Flags.FFlagUserVRPlaySeatedStanding)
 local GetFFlagBottomBarImproveInVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarImproveInVR)
 local GetFFlagReportBottomBarEventInVR = require(RobloxGui.Modules.Flags.GetFFlagReportBottomBarEventInVR)
+local GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel
 
 -- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
 local function safeRequire(moduleScript)
@@ -423,6 +425,8 @@ end
 
 -- VRBottomBar implements two UIBlox components
 function VRBottomBar:render()
+	local basePartSize = GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel() and 0.2 or 0.15
+
 	local systemBar = Roact.createElement(SystemBar, {
 		itemList = self.state.itemList,
 		selection = self.state.vrMenuOpen and 1 or 3,
@@ -442,8 +446,8 @@ function VRBottomBar:render()
 		alignedPanel = if GetFFlagBottomBarImproveInVR() and self.state.userGui then self.state.userGui:getPanel() else nil,
 		panelName = "BottomBar",
 		partSize = if GetFFlagUIBloxVRApplyHeadScale()
-			then Vector2.new((#self.state.itemList - 1) * 0.15, 0.15)
-			else Vector2.new((#self.state.itemList - 1) * 0.15 * (workspace.CurrentCamera :: Camera).HeadScale, 0.15 * (workspace.CurrentCamera :: Camera).HeadScale),
+			then Vector2.new((#self.state.itemList - 1) * basePartSize, basePartSize)
+			else Vector2.new((#self.state.itemList - 1) * basePartSize * (workspace.CurrentCamera :: Camera).HeadScale, basePartSize * (workspace.CurrentCamera :: Camera).HeadScale),
 		virtualScreenSize = Vector2.new((#self.state.itemList - 1) * 50, 50),
 		offset = if GetFFlagUIBloxVRApplyHeadScale()
 			then self.state.vrMenuOpen and CFrame.new(0, -1.5, 0) or CFrame.new(0, -2, 0)

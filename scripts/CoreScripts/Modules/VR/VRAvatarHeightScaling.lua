@@ -2,6 +2,9 @@
 -- This script is responsible for scaling the world in VR based on the size of the avatar
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local VRService = game:GetService("VRService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local Players = game:GetService("Players")
 local AvatarUtil = require(RobloxGui.Modules.VR.AvatarUtil)
 
 local VRAvatarHeightScaling = {}
@@ -10,24 +13,33 @@ VRAvatarHeightScaling.__index = VRAvatarHeightScaling
 function VRAvatarHeightScaling.new()
 	local self: any = setmetatable({}, VRAvatarHeightScaling)
 
-	-- default playerheight is 5.5 studs (1.65 meters, ~5.41 feet)
-	self.playerHeight = 5.5
-	
 	self.avatarUtil = AvatarUtil.new()
-	self.characterChangedConnections = self.avatarUtil:connectLocalCharacterChanges(function(character)
-		self:setHeadScale(character)
+	VRService:GetPropertyChangedSignal("AutomaticScaling"):Connect(function()
+		self:onScalingChanged()
 	end)
-
+	UserGameSettings:GetPropertyChangedSignal("PlayerHeight"):Connect(function()
+		self:onPlayerHeightChanged()
+	end)
+	self:onScalingChanged() -- run once at the begining to set current state
 	return self
 end
 
 -- sets camera.HeadScale, does nothing if subject or camera is invalid
+-- does not assume scaling is on
 function VRAvatarHeightScaling:setHeadScale(character)
+	-- needs to ensure scaling is enabled before setting headscale because this callback can be called 
+	-- from AvatarUtil after scaling is toggled off
+	if VRService.AutomaticScaling ~= Enum.VRScaling.World then
+		return
+	end
+
 	local avatarHeight = self:GetSubjectHeight(character)
 	if not avatarHeight or avatarHeight <= 0 then return end
 	
-	local newHeadScale = avatarHeight / self.playerHeight
-	assert(newHeadScale > 0)
+	local newHeadScale = avatarHeight / UserGameSettings.PlayerHeight
+	if newHeadScale <= 0 then
+		return
+	end
 
 	local camera = workspace.CurrentCamera
 	if not camera then return end
@@ -66,9 +78,25 @@ function VRAvatarHeightScaling:GetSubjectHeight(character)
 	return character:GetExtentsSize().Y
 end
 
-function VRAvatarHeightScaling:setPlayerHeight(playerHeight)
-	self.playerHeight = playerHeight
-	self:setHeadScale()
+function VRAvatarHeightScaling:onPlayerHeightChanged()
+	-- reset the headscale
+	if Players.LocalPlayer and Players.LocalPlayer.Character then
+		self:setHeadScale(Players.LocalPlayer.Character)
+	end
+end
+
+function VRAvatarHeightScaling:onScalingChanged()
+	if VRService.AutomaticScaling == Enum.VRScaling.World then
+		-- connect to avatar changes
+		if not self.characterChangedConnection then
+			self.characterChangedConnection = self.avatarUtil:connectLocalCharacterChanges(function(character)
+				self:setHeadScale(character)
+			end)
+		end
+	else 
+		-- disconnect from avatar if turned off
+		if self.characterChangedConnection then self.characterChangedConnection:Disconnect(); self.characterChangedConnection = nil end
+	end
 end
 
 return VRAvatarHeightScaling.new()
