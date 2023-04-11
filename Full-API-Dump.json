@@ -96872,7 +96872,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "Sending",
+                    "Default": "TextFilterFailed",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
