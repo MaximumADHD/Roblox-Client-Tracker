@@ -13,4 +13,5 @@ return {
 	EventNames = require(script.Enums.EventNames),
 	EntryPoints = require(script.Enums.ContactImporterEntryPoints),
 	FieldNames = require(script.FieldNames),
+	AnalyticsService = require(script.AnalyticsService),
 }

@@ -13,6 +13,9 @@ local it = JestGlobals.it
 local filterFriends = require(script.Parent.filterFriends)
 local filterStates = require(script.Parent.filterStates)
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 describe("filterFriends", function()
 	local onlineUser = PresenceModel.format(PresenceModel.mock({
 		userPresenceType = 1,
@@ -83,5 +86,23 @@ describe("filterFriends", function()
 		local filteredFriends = filterFriends(allFriends, filterStates.Offline)
 
 		expect(filteredFriends).toEqual({ offlineUser, noInfoUser })
+	end)
+
+	describe("GIVEN inactive filter", function()
+		local inactiveFriend = { isInactiveFriend = true }
+		local activeFriend = { isInactiveFriend = false }
+		local allFriends = { inactiveFriend, activeFriend }
+
+		local filteredFriends = filterFriends(allFriends, filterStates.Inactive)
+
+		if getFFlagFriendsLandingInactiveFriendsEnabled() then
+			it("SHOULD return only inactive friends without looking at presence", function()
+				expect(filteredFriends).toEqual({ inactiveFriend })
+			end)
+		else
+			it("SHOULD have no effect if fflag is off", function()
+				expect(filteredFriends).toEqual(allFriends)
+			end)
+		end
 	end)
 end)

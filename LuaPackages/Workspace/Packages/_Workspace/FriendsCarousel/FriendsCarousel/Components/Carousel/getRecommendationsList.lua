@@ -8,8 +8,6 @@ local showRecommendations = require(FriendsCarousel.Utils.showRecommendations)
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 local Constants = require(FriendsCarousel.Common.Constants)
 
-local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFilterOutRecs)
-
 local sortRecommendationByRank = function(user1: LocalTypes.Recommendation, user2: LocalTypes.Recommendation)
 	return user1.rank < user2.rank
 end
@@ -25,15 +23,13 @@ local getRecommendationsList = function(state, keyPath: string, props: any?): Lo
 
 	local recommendationsIds = llama.Dictionary.keys(recommendationsDict)
 
-	if getFFlagFriendsCarouselFilterOutRecs() then
-		local friendsCarouselRecommendationIds = getDeepValue(
-			state,
-			string.format("%s.Friends.recommendations.bySource.%s", keyPath, Constants.RECS_SOURCE)
-		) or {}
-		recommendationsIds = llama.List.filter(recommendationsIds, function(id)
-			return friendsCarouselRecommendationIds[id]
-		end)
-	end
+	local friendsCarouselRecommendationIds = getDeepValue(
+		state,
+		string.format("%s.Friends.recommendations.bySource.%s", keyPath, Constants.RECS_SOURCE)
+	) or {}
+	recommendationsIds = llama.List.filter(recommendationsIds, function(id)
+		return friendsCarouselRecommendationIds[id]
+	end)
 
 	local mapRecommendationToUserAndContext = function(id)
 		local recommendation = recommendationsDict[id]

@@ -1,7 +1,7 @@
 local Packages = script:FindFirstAncestor("TenFootUiShell").Parent
 local React = require(Packages.React)
 local RoactNavigation = require(Packages.RoactNavigation)
-local ReactRoblox = require(Packages.Dev.ReactRoblox)
+local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
@@ -10,7 +10,7 @@ local createTenFootUiStackNavigator = require(script.Parent.createTenFootUiStack
 
 it("should return a navigator that can be used by app container", function()
 	local rootContainer = Instance.new("Folder")
-	local instanceContainer = Instance.new("Folder")
+	local instanceContainer = Instance.new("Folder") :: Instance
 
 	local navigator = createTenFootUiStackNavigator({
 		{

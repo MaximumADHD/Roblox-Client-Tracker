@@ -15,6 +15,9 @@ local jest = JestGlobals.jest
 local Signal = AppCommonLib.Signal
 
 type GlobalNavConfig = TenFootUiCommon.GlobalNavConfig
+type ScreenKind = TenFootUiCommon.ScreenKind
+type NavigationState = TenFootUiCommon.NavigationState
+type RouteState = TenFootUiCommon.RouteState
 
 local mockAppPage = {
 	Startup = "Startup",
@@ -98,21 +101,21 @@ local makeMockGlobalNavMocks = function()
 	}
 end
 
-type NavigationState = {
+type MockNavigationState = {
 	index: number?,
 	routes: { { routeName: string } }?,
 }
 
-local function makeMockNavigation(navigationState: NavigationState?)
+local function makeMockNavigation(navigationState: MockNavigationState?)
 	navigationState = navigationState or {}
 
-	local mockRoutes = {
-		{ routeName = mockAppPage.Startup },
-		{ routeName = mockAppPage.Home },
-		{ routeName = mockAppPage.Games },
-		{ routeName = mockAppPage.AvatarExperienceRoot },
-		{ routeName = mockAppPage.SearchPage },
-		{ routeName = mockAppPage.PurchaseRobux },
+	local mockRoutes: { RouteState } = {
+		{ key = "Startup", routeName = mockAppPage.Startup },
+		{ key = "Home", routeName = mockAppPage.Home },
+		{ key = "Games", routeName = mockAppPage.Games },
+		{ key = "AvatarExperienceRoot", routeName = mockAppPage.AvatarExperienceRoot },
+		{ key = "SearchPage", routeName = mockAppPage.SearchPage },
+		{ key = "PurchaseRobux", routeName = mockAppPage.PurchaseRobux },
 	}
 
 	local mockNavigation = {}
@@ -143,7 +146,7 @@ type MakeMockProvidersConfig = {
 	tenFootUiContext: any?,
 	store: any?,
 	initialStoreState: any?,
-	navigationState: NavigationState?,
+	navigationState: MockNavigationState?,
 }
 
 local makeMockProviders = function(config: MakeMockProvidersConfig?)
@@ -189,8 +192,42 @@ local makeMockProviders = function(config: MakeMockProvidersConfig?)
 	return providers, nestedMocks
 end
 
+local function makeMockNavigationObject(navState: NavigationState)
+	return {
+		state = navState,
+		dispatch = function() end,
+		getParam = function(...)
+			return nil
+		end,
+	}
+end
+
+local function makeMockDescriptor(key: string, screenKind: ScreenKind, navState: NavigationState)
+	local testComponentNavigationFromProp, testComponentScreenProps
+	local TestComponent = React.Component:extend("TestComponent")
+	function TestComponent:render()
+		testComponentNavigationFromProp = self.props.navigation
+		testComponentScreenProps = self.props.screenProps
+		return nil
+	end
+	local descriptor = {
+		getComponent = function()
+			return TestComponent
+		end,
+		key = key,
+		options = {
+			screenKind = screenKind,
+		},
+		navigation = makeMockNavigationObject(navState),
+		state = navState,
+	}
+
+	return descriptor, testComponentNavigationFromProp, testComponentScreenProps
+end
+
 return {
 	makeMockGlobalNavMocks = makeMockGlobalNavMocks,
 	makeMockProviders = makeMockProviders,
 	mockAppPage = mockAppPage,
+	makeMockDescriptor = makeMockDescriptor,
 }

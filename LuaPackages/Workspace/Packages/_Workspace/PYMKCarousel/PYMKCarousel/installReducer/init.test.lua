@@ -10,8 +10,7 @@ local RoduxFriends = dependencies.RoduxFriends
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 local Constants = require(PYMKCarousel.Common.Constants)
 local llama = dependencies.llama
-local getFFlagPYMKCarouselIncomingFriendshipReducer =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendshipReducer)
+
 local getFFlagSocialUpdateRoduxFriendsv316 = devDependencies.getFFlagSocialUpdateRoduxFriendsv316
 
 local installReducer = require(script.Parent)
@@ -117,9 +116,7 @@ describe("PYMKCarousel reducer", function()
 						},
 						hasIncomingFriendRequest = {
 							RecommendedFriend1 = false,
-							RecommendedFriend2 = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-								then true
-								else false,
+							RecommendedFriend2 = true,
 							RecommendedFriend3 = false,
 						},
 						byUserId = {

@@ -3,24 +3,19 @@ local Packages = TenFootUiShell.Parent
 local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
 local React = require(Packages.React)
 local RoactNavigation = require(Packages.RoactNavigation)
-local SceneView = RoactNavigation.SceneView
 local StackActions = RoactNavigation.StackActions
 
-local SceneManagement = require(Packages.SceneManagement)
-local SurfaceGuiWithAdornee = SceneManagement.SurfaceGuiWithAdornee
-local calculatePageContentAdorneeProps = SceneManagement.calculateAdorneeProps.calculatePageContentAdorneeProps
-
-local Constants = require(script.Parent.Constants)
-local TenFootUiNavigatorTypes = require(script.Parent.Parent.TenFootUiNavigatorTypes)
+local TenFootUiStackViewCard = require(ReactNavigationExtend.Views.Cards.TenFootUiStackViewCard)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local useStackScreens = require(ReactNavigationExtend.Hooks.useStackScreens)
-type NavigationObject = TenFootUiNavigatorTypes.NavigationObject
-type NavigatorConfig = TenFootUiNavigatorTypes.NavigatorConfig
-type Descriptor = TenFootUiNavigatorTypes.Descriptor
+type NavigationObject = TenFootUiCommon.NavigationObject
+type StackNavigatorConfig = TenFootUiCommon.StackNavigatorConfig
+type Descriptor = TenFootUiCommon.Descriptor
 
 export type Props = {
 	screenProps: { [any]: any }?,
 	navigation: NavigationObject,
-	navigationConfig: NavigatorConfig,
+	navigationConfig: StackNavigatorConfig,
 	descriptors: {
 		[string]: Descriptor,
 	},
@@ -28,15 +23,11 @@ export type Props = {
 
 local function TenFootUiStackView(props: Props)
 	local descriptors = props.descriptors
-	local navigationConfig = props.navigationConfig
+	local navigatorConfig = props.navigationConfig
 	local screenProps = props.screenProps
 
 	local navigation = props.navigation
 	local state = navigation.state
-
-	local dims: Vector3, cframe: CFrame = React.useMemo(function()
-		return calculatePageContentAdorneeProps(Constants.PageContentHeightRatio, Constants.DefaultDistanceToCamera)
-	end, {})
 
 	local completeTransition = React.useCallback(function(toChildKey: string?)
 		navigation.dispatch(StackActions.completeTransition({
@@ -56,26 +47,39 @@ local function TenFootUiStackView(props: Props)
 		local cardKey = screenInfo.key
 		local descriptor = screenInfo.descriptor
 
-		table.insert(cards, {
-			[cardKey] = React.createElement(SurfaceGuiWithAdornee, {
-				adorneeSize = dims,
-				adorneeCFrame = cframe,
-				canvasSize = Constants.PageContentCanvasSize,
-				alwaysOnTop = screenInfo.visible,
-				isVisible = screenInfo.visible,
-				name = cardKey,
-				adorneeParent = navigationConfig.worldContainer,
-				surfaceGuiParent = navigationConfig.surfaceGuiContainer,
-				children = React.createElement(SceneView, {
-					component = descriptor.getComponent(),
-					navigation = descriptor.navigation,
+		local isVisible = screenInfo.visible
+		if screenProps and screenProps.isVisible ~= nil then
+			isVisible = isVisible and screenProps.isVisible
+		end
+
+		local adorneeParent
+		if screenProps and screenProps.adorneeParent then
+			adorneeParent = screenProps.adorneeParent
+		elseif navigatorConfig.worldContainer then
+			adorneeParent = navigatorConfig.worldContainer
+		end
+
+		local surfaceGuiParent
+		if screenProps and screenProps.surfaceGuiParent then
+			surfaceGuiParent = screenProps.surfaceGuiParent
+		elseif navigatorConfig.surfaceGuiContainer then
+			surfaceGuiParent = navigatorConfig.surfaceGuiContainer
+		end
+
+		if adorneeParent and surfaceGuiParent then
+			table.insert(cards, {
+				[cardKey] = React.createElement(TenFootUiStackViewCard, {
+					isVisible = isVisible,
+					descriptor = descriptor,
+					adorneeParent = adorneeParent,
+					surfaceGuiParent = surfaceGuiParent,
 					screenProps = screenProps,
 				}),
-			}),
-		})
+			})
+		end
 	end
 
-	return React.createElement("Folder", nil, { cards })
+	return React.createElement("Folder", nil, cards)
 end
 
 return TenFootUiStackView

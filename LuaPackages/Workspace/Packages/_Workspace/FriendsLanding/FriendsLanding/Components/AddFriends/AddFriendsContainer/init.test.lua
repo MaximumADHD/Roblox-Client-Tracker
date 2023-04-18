@@ -4,8 +4,6 @@ local EnumScreens = require(FriendsLanding.EnumScreens)
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
 local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createInstanceWithProviders)
 local waitUntil = require(FriendsLanding.TestHelpers.waitUntil)
-local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
-local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 
 local llama = dependencies.llama
 
@@ -259,30 +257,6 @@ describe("AddFriendsContainer", function()
 		cleanup()
 	end)
 
-	if not getFFlagShowContactImporterTooltipOnce() then
-		it("SHOULD show tooltip if visible", function()
-			local declineAllFriendRequests = jest.fn()
-			mockRequestWithCallback(dependencies.FriendsNetworking.DeclineAllFriendRequests, declineAllFriendRequests)
-
-			local instance, cleanup = createInstanceWithRequests({
-				hasRequests = true,
-				extraData = {
-					ContactImporterWarning = {
-						contactImporterFriendRequests = { ["1989"] = true },
-						seenContactImporterFriendRequest = false,
-					},
-				},
-			})
-			local tooltip = RhodiumHelpers.findFirstInstance(instance, {
-				Name = "Tooltip",
-			})
-
-			expect(tooltip).never.toBeNil()
-
-			cleanup()
-		end)
-	end
-
 	it("SHOULD trigger handleNavigateDownToViewUserProfile action when profile is clicked", function()
 		local viewUserProfile = jest.fn()
 		local analytics = {
@@ -427,12 +401,7 @@ describe("AddFriendsContainer", function()
 			local requestSection = RhodiumHelpers.findFirstInstance(instance, {
 				Name = "requestSection",
 			})
-			local AddFriendTile
-			if getFFlagContactImporterUseNewTooltip() then
-				AddFriendTile = requestSection.ContentContainer.ContentView[1].TriggerPoint[1]
-			else
-				AddFriendTile = requestSection.ContentContainer.ContentView[1].Content
-			end
+			local AddFriendTile = requestSection.ContentContainer.ContentView[1].TriggerPoint[1]
 
 			expect(AddFriendTile.Tile.FooterContainer.Footer.PlayerContext.Text.Text).toEqual(
 				"3 feature.friends.label.mutualfriends"

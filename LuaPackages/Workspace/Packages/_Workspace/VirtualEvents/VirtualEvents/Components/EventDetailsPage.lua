@@ -27,8 +27,6 @@ local types = require(VirtualEvents.types)
 local getFFlagHorizontalMediaOnEventDetailsPage =
 	require(VirtualEvents.Parent.SharedFlags).getFFlagHorizontalMediaOnEventDetailsPage
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
-local getFFlagUpsellModalOnEventDetailsPage =
-	require(VirtualEvents.Parent.SharedFlags).getFFlagUpsellModalOnEventDetailsPage
 
 local useMutation = ApolloClient.useMutation
 local DetailsPageTemplate = UIBlox.App.Template.DetailsPage.DetailsPageTemplate
@@ -139,36 +137,24 @@ local function EventDetailsPage(props: Props)
 					},
 				})
 				:andThen(function(res)
-					if getFFlagUpsellModalOnEventDetailsPage() then
-						if joinedProps.onRsvpChanged then
-							joinedProps.onRsvpChanged(
-								res.data.virtualEventRsvp.rsvpStatus,
-								res.data.virtualEventRsvp.shouldSeeNotificationsUpsellModal
-							)
-						end
+					if joinedProps.onRsvpChanged then
+						joinedProps.onRsvpChanged(
+							res.data.virtualEventRsvp.rsvpStatus,
+							res.data.virtualEventRsvp.shouldSeeNotificationsUpsellModal
+						)
 					end
 				end)
 		else
-			if getFFlagUpsellModalOnEventDetailsPage() then
-				dispatch(
-					network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus)
-				):andThen(function(res)
+			dispatch(network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus)):andThen(
+				function(res)
 					if joinedProps.onRsvpChanged then
 						joinedProps.onRsvpChanged(
 							res.responseBody.rsvpStatus,
 							res.responseBody.shouldSeeNotificationsUpsellModal
 						)
 					end
-				end)
-			else
-				if joinedProps.onRsvpChanged then
-					joinedProps.onRsvpChanged(newRsvpStatus)
 				end
-
-				dispatch(
-					network.NetworkingVirtualEvents.UpdateMyRsvpStatus.API(joinedProps.virtualEvent.id, newRsvpStatus)
-				)
-			end
+			)
 		end
 	end, { joinedProps.virtualEvent })
 

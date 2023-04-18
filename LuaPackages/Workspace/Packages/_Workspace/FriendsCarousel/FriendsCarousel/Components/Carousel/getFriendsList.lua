@@ -27,9 +27,7 @@ local getFriendsList = function(state: any, keyPath: string, props: any?): Local
 
 	return llama.List.sort(
 		llama.List.map(friendsList, mapIdToUserAndPresence),
-		if dependencies.GetFFlagUseCorrectedFriendSortUtil()
-			then User.sortFriendsByCorrectedPresenceAndRank
-			else User.sortFriendsByPresenceAndRank
+		User.sortFriendsByCorrectedPresenceAndRank
 	)
 end
 

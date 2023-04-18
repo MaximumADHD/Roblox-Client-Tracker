@@ -1,5 +1,4 @@
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
-local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 
 local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
@@ -149,10 +148,8 @@ describe("WHEN called with no requests", function()
 		expect(shouldShowContactImporterUpsellModal).toBe(nil)
 	end)
 
-	if getFFlagContactImporterUseNewTooltip() then
-		it("SHOULD return showTooltip field with false value by default", function()
-			local showTooltip = returnValue.showTooltip
-			expect(showTooltip).toBe(false)
-		end)
-	end
+	it("SHOULD return showTooltip field with false value by default", function()
+		local showTooltip = returnValue.showTooltip
+		expect(showTooltip).toBe(false)
+	end)
 end)

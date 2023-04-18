@@ -1,14 +1,15 @@
 local Packages = script:FindFirstAncestor("TenFootUiShell").Parent
 local React = require(Packages.React)
-local ReactRoblox = require(Packages.Dev.ReactRoblox)
+local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 
 local TenFootUiStackView = require(script.Parent.TenFootUiStackView)
-local TenFootUiNavigatorTypes = require(script.Parent.Parent.TenFootUiNavigatorTypes)
-type ScreenKind = TenFootUiNavigatorTypes.ScreenKind
-type RouteState = TenFootUiNavigatorTypes.RouteState
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
+
+type ScreenKind = TenFootUiCommon.ScreenKind
+type RouteState = TenFootUiCommon.RouteState
 
 it("should mount and pass required props and context", function()
 	local containerFolder: Instance = Instance.new("Folder")
@@ -42,7 +43,7 @@ it("should mount and pass required props and context", function()
 		return nil
 	end
 
-	local testNavigationConfig = {
+	local testNavigatorConfig = {
 		surfaceGuiContainer = containerFolder,
 		worldContainer = containerFolder,
 	}
@@ -64,7 +65,7 @@ it("should mount and pass required props and context", function()
 	local element = React.createElement(TenFootUiStackView, {
 		screenProps = testScreenProps,
 		navigation = testNavigation,
-		navigationConfig = testNavigationConfig,
+		navigationConfig = testNavigatorConfig,
 		descriptors = testDescriptors,
 	})
 

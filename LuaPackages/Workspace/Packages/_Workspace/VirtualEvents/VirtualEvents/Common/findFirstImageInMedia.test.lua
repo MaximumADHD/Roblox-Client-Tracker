@@ -3,14 +3,21 @@ local VirtualEvents = script:FindFirstAncestor("VirtualEvents")
 local JestGlobals = require(VirtualEvents.Parent.Dev.JestGlobals)
 local expect = JestGlobals.expect
 local it = JestGlobals.it
-local ExperienceMediaModel = require(VirtualEvents.Models.ExperienceMediaModel)
+local GraphQLServer = require(VirtualEvents.Parent.GraphQLServer)
 local findFirstImageInMedia = require(script.Parent.findFirstImageInMedia)
 
-it("should return the rbxassetid of the first image-based media object", function()
-	local image = ExperienceMediaModel.mock()
+type ExperienceMedia = GraphQLServer.ExperienceMedia
 
-	local video: ExperienceMediaModel.Response = {
-		assetTypeId = 33,
+it("should return the rbxassetid of the first image-based media object", function()
+	local image: ExperienceMedia = {
+		assetTypeId = "1",
+		assetType = "Image",
+		imageId = "1234567",
+		altText = "Foo",
+	}
+
+	local video: ExperienceMedia = {
+		assetTypeId = "33",
 		assetType = "YouTubeVideo",
 		videoHash = "Foo",
 		videoTitle = "Bar",

@@ -44,6 +44,7 @@ type Props = {
 	showContactImporter: boolean?,
 	navigateFromAddFriends: () -> (),
 	showNewAddFriendsUIVariant: boolean?,
+	showRecommendations: boolean?,
 
 	navigation: any,
 	analyticsService: any,
@@ -85,6 +86,7 @@ CarouselContainer.validateProps = t.strictInterface({
 	showContactImporter = t.optional(t.boolean),
 	navigateFromAddFriends = t.callback,
 	showNewAddFriendsUIVariant = t.optional(t.boolean),
+	showRecommendations = t.optional(t.boolean),
 
 	navigation = t.table,
 	diagService = t.table,

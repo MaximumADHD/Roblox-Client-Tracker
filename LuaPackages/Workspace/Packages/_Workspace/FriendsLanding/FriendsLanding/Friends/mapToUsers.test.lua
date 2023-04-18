@@ -14,6 +14,9 @@ local it = JestGlobals.it
 
 local mapToUsers = require(script.Parent.mapToUsers)
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 describe("mapToUsers", function()
 	local baseTestStates = getBaseTestStates()
 
@@ -132,4 +135,24 @@ describe("mapToUsers", function()
 			expect(result[4].thumbnail).toBe("")
 		end)
 	end)
+
+	if getFFlagFriendsLandingInactiveFriendsEnabled() then
+		describe("GIVEN populated state.FriendsLanding.InactiveFriends field", function()
+			local inactiveTestState = baseTestStates.smallNumbersOfFriends
+			inactiveTestState.FriendsLanding = llama.Dictionary.join(
+				inactiveTestState.FriendsLanding,
+				{ InactiveFriends = { ["37"] = true, ["39"] = true } }
+			)
+
+			local result = mapToUsers(inactiveTestState)("test")
+
+			it("SHOULD return corresponding isInactiveFriend values", function()
+				expect(result[1].isInactiveFriend).toBeNil()
+				expect(result[2].isInactiveFriend).toEqual(true)
+				expect(result[3].isInactiveFriend).toBeNil()
+				expect(result[4].isInactiveFriend).toEqual(true)
+				expect(result[5].isInactiveFriend).toBeNil()
+			end)
+		end)
+	end
 end)

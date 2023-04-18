@@ -12,12 +12,7 @@ local Roact = dependencies.Roact
 local RoactRodux = dependencies.RoactRodux
 local PermissionsProtocol = dependencies.PermissionsProtocol
 local Promise = dependencies.Promise
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local SelfViewProfileDiscoverabilityUpsellIXP = dependencies.SelfViewProfileDiscoverabilityUpsellIXP
-
-local getFFlagCheckDiscoverabilityUsesRoactNavParam =
-	require(ContactImporter.Flags.getFFlagCheckDiscoverabilityUsesRoactNavParam)
 
 local ContactsImporterOverlay = require(script.Parent.ContactsImporterOverlay)
 local mapDispatchToProps = require(script.Parent.mapDispatchToProps)
@@ -25,10 +20,8 @@ local RoduxContacts = dependencies.RoduxContacts
 local Selectors = RoduxContacts.Selectors
 local AppStorageService = dependencies.AppStorageService
 local compose = dependencies.SocialLibraries.RoduxTools.compose
-local getDeepValue = dependencies.SocialLibraries.Dictionary.getDeepValue
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
 local DiscoverabilityAnalytics = dependencies.DiscoverabilityAnalytics
-local RODUX_KEY = require(ContactImporter.Common.Constants).RODUX_KEY
 
 local ContactsImporterOverlayContainer = Roact.PureComponent:extend("ContactsImporterOverlayContainer")
 
@@ -43,7 +36,6 @@ export type Props = {
 	diagService: any,
 	updateUserSettings: () -> any,
 	setIsPhoneVerified: () -> any,
-	isPhoneVerified: boolean?,
 }
 
 type InternalProps = Props & mapDispatchToProps.Props
@@ -103,50 +95,18 @@ function ContactsImporterOverlayContainer:init()
 			:catch(self.failedToUpload)
 	end
 
-	self.closeCallback = function()
-		local props: InternalProps = self.props
-		props.fireAnalyticsEvent(
-			Analytics.EventNames.PhoneVerificationClose,
-			{ isPhoneVerified = props.isPhoneVerified }
-		)
-		if props.isPhoneVerified then
-			self.permissionsFlowToContactImporter()
-		end
-	end
-
 	self.checkDiscoverability = function(isDiscoverabilityUnset)
 		local props: InternalProps = self.props
-		local isPhoneVerified = if getFFlagCheckDiscoverabilityUsesRoactNavParam()
-			then props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
-			else nil
-		if getFFlagEnableContactInvitesForNonPhoneVerified() then
-			return isDiscoverabilityUnset and (isPhoneVerified or props.isPhoneVerified)
-		else
-			return isDiscoverabilityUnset
-		end
+		local isPhoneVerified = props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
+		return isDiscoverabilityUnset and isPhoneVerified
 	end
 
 	self.onConnectContacts = function()
 		local props: InternalProps = self.props
 		local isDiscoverabilityUnset = props.navigation.getParam("isDiscoverabilityUnset")
-		local isPhoneVerified = if getFFlagCheckDiscoverabilityUsesRoactNavParam()
-			then props.navigation.getParam(Constants.IS_PHONE_VERIFIED)
-			else props.isPhoneVerified
-		local navigation = props.navigation
 		props.fireAnalyticsEvent(Analytics.EventNames.ContactImportModalContinue)
 
-		-- Do not show Contact importer to users who are email verified but
-		-- not phone verified. This is because they cannot go through the webview
-		-- phone verification flow. There is top-level feature gating on
-		-- users for email verified/non-phone verified users
-		if getFFlagContactImporterWithPhoneVerification() and not isPhoneVerified then
-			local openPhoneVerificationWebview = navigation.getParam(Constants.OPEN_PHONE_VERIFICATION_WEBVIEW)
-			props.fireAnalyticsEvent(Analytics.EventNames.PhoneVerificationWebview)
-			openPhoneVerificationWebview({
-				onSuccessCallback = self.props.setIsPhoneVerified,
-				closeCallback = self.closeCallback,
-			})
-		elseif self.checkDiscoverability(isDiscoverabilityUnset) then
+		if self.checkDiscoverability(isDiscoverabilityUnset) then
 			self.navigateToDiscoverabilityModal()
 		else
 			self.permissionsFlowToContactImporter()
@@ -236,16 +196,10 @@ return compose(
 		}
 	end),
 	RoactRodux.connect(function(state)
-		local isPhoneVerified = nil
-		if getFFlagContactImporterWithPhoneVerification() then
-			isPhoneVerified = getDeepValue(state, RODUX_KEY .. ".ShowContactImporterParams.isPhoneVerified") or false
-		end
-
 		return {
 			contacts = Selectors.sortContacts(state),
 			localUserId = state.LocalUserId,
 			screenSize = state.ScreenSize,
-			isPhoneVerified = isPhoneVerified,
 		}
 	end, mapDispatchToProps)
 )(ContactsImporterOverlayContainer)

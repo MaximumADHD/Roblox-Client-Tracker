@@ -8,7 +8,6 @@ local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local testHook = require(VirtualEvents.testHook)
 local useActionBarProps = require(script.Parent.useActionBarProps)
-local getFFlagUpdateRsvpButtonText = require(VirtualEvents.Parent.SharedFlags).getFFlagUpdateRsvpButtonText
 
 local mockCallbacks = {
 	onRsvpChanged = function() end,
@@ -28,11 +27,7 @@ describe("upcoming event", function()
 		end)
 
 		expect(actionBarProps.button).toBeDefined()
-		if getFFlagUpdateRsvpButtonText() then
-			expect((actionBarProps.button :: any).props.text).toBe("Notify Me")
-		else
-			expect((actionBarProps.button :: any).props.text).toBe("Interested?")
-		end
+		expect((actionBarProps.button :: any).props.text).toBe("Notify Me")
 	end)
 
 	it("should prompt the user to remove their RSVP", function()
@@ -45,11 +40,7 @@ describe("upcoming event", function()
 		end)
 
 		expect(actionBarProps.button).toBeDefined()
-		if getFFlagUpdateRsvpButtonText() then
-			expect((actionBarProps.button :: any).props.text).toBe("Unfollow Event")
-		else
-			expect((actionBarProps.button :: any).props.text).toBe("Interested")
-		end
+		expect((actionBarProps.button :: any).props.text).toBe("Unfollow Event")
 	end)
 
 	it("should show the share icon", function()

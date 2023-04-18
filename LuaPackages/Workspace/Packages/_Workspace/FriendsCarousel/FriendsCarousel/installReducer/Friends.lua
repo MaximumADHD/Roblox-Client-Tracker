@@ -8,8 +8,6 @@ local llama = dependencies.llama
 
 local friendsRecommendationsBySouceAdaptor = require(script.Parent.friendsRecommendationsBySouceAdaptor)
 
-local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFilterOutRecs)
-
 local defaultState = {
 	countsByUserId = {},
 	byUserId = {},
@@ -23,18 +21,8 @@ local defaultState = {
 
 local reducer = RoduxFriends.installReducer()
 
-local extendedFriendsActionAdaptor
-
-if getFFlagFriendsCarouselFilterOutRecs() then
-	extendedFriendsActionAdaptor = function(RoduxFriends)
-		return llama.Dictionary.join(friendsActionAdaptor(RoduxFriends), friendsRecommendationsBySouceAdaptor())
-	end
+local extendedFriendsActionAdaptor = function(RoduxFriends)
+	return llama.Dictionary.join(friendsActionAdaptor(RoduxFriends), friendsRecommendationsBySouceAdaptor())
 end
 
-return convertActions(
-	reducer,
-	if getFFlagFriendsCarouselFilterOutRecs()
-		then extendedFriendsActionAdaptor(RoduxFriends)
-		else friendsActionAdaptor(RoduxFriends),
-	defaultState
-)
+return convertActions(reducer, extendedFriendsActionAdaptor(RoduxFriends), defaultState)

@@ -14,7 +14,6 @@ local network = require(VirtualEvents.network)
 local VirtualEventModel = network.NetworkingVirtualEvents.VirtualEventModel
 local types = require(VirtualEvents.types)
 local EventRow = require(script.Parent.EventRow)
-local getFFlagUpdateRsvpButtonText = require(VirtualEvents.Parent.SharedFlags).getFFlagUpdateRsvpButtonText
 
 type VirtualEvent = GraphQLServer.VirtualEvent
 
@@ -156,11 +155,7 @@ describe("upcoming event", function()
 
 		local result = render(element)
 
-		if getFFlagUpdateRsvpButtonText() then
-			expect(result.queryByText("Unfollow Event")).toBeDefined()
-		else
-			expect(result.queryByText("Interested")).toBeDefined()
-		end
+		expect(result.queryByText("Unfollow Event")).toBeDefined()
 	end)
 
 	it("should trigger onRsvpChanged when clicking Notify Me", function()

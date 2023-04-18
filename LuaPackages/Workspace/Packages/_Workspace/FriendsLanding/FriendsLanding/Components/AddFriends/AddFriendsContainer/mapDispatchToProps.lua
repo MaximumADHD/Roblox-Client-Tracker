@@ -11,7 +11,6 @@ local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local ContactImporterWarningSeen = require(FriendsLanding.installReducer.Actions.ContactImporterWarningSeen)
 
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 
 -- Extract the userId and sourceUniverseId set for current batch of friend requests
 local getIdsForCurrentRequestBatch = function(friendRequestData)
@@ -90,10 +89,8 @@ return function(dispatch)
 			else function()
 				dispatch(ContactImporterWarningSeen())
 			end,
-		getUserSettingsMetadata = if getFFlagEnableContactInvitesForNonPhoneVerified()
-			then function()
-				return dispatch(NetworkingUserSettings.GetUserSettingsMetadata.API())
-			end
-			else nil,
+		getUserSettingsMetadata = function()
+			return dispatch(NetworkingUserSettings.GetUserSettingsMetadata.API())
+		end,
 	}
 end

@@ -34,20 +34,22 @@ local RoactAppExperiment = require(Packages.RoactAppExperiment)
 local profileQRCode3DAvatarIXP = ProfileQRCodeExperiments.profileQRCode3DAvatarIXP
 local getFStringProfileQRCodeLayer = ProfileQRCodeExperiments.getFStringProfileQRCodeLayer
 
+local getFFlagAddFriendsPageMoveTextKeys = require(FriendsLanding.Flags.getFFlagAddFriendsPageMoveTextKeys)
 local ContactImporter = require(Packages.ContactImporter)
-local TextKeys = ContactImporter.TextKeys
+local ContactImporterTextKeys = ContactImporter.TextKeys
+local TextKeys = if getFFlagAddFriendsPageMoveTextKeys()
+	then require(FriendsLanding.Common.TextKeys)
+	else ContactImporter.TextKeys
 
 local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFFlagUpdateContactImportModalLogic)
-local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local getFFlagPassEntrypointFromAddFriendsPage = require(FriendsLanding.Flags.getFFlagPassEntrypointFromAddFriendsPage)
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 local getFFlagAddFriendsSearchbarWidemodeUpdate =
 	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
+local getFFlagAddFriendsMoreButtonFixed = require(FriendsLanding.Flags.getFFlagAddFriendsMoreButtonFixed)
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
 
@@ -131,12 +133,10 @@ function AddFriendsPage:init()
 
 	self.renderAddFriendsTile = function(user, itemWidth, itemHeight, index)
 		local showToolTip = false
-		if getFFlagContactImporterUseNewTooltip() then
-			local fromContactImporter = self.props.originSourceType[user.id] == CONTACT_IMPORTER_ORIGIN
-			showToolTip = self.props.showTooltip and not tooltipShown and fromContactImporter
-			if fromContactImporter then
-				tooltipShown = true
-			end
+		local fromContactImporter = self.props.originSourceType[user.id] == CONTACT_IMPORTER_ORIGIN
+		showToolTip = self.props.showTooltip and not tooltipShown and fromContactImporter
+		if fromContactImporter then
+			tooltipShown = true
 		end
 
 		return Roact.createElement(AddFriendsTile, {
@@ -152,25 +152,14 @@ function AddFriendsPage:init()
 			handleAcceptFriendRequest = self.props.handleAcceptFriendRequest,
 			handleDeclineFriendRequest = self.props.handleDeclineFriendRequest,
 			handleRequestFriendship = self.props.handleRequestFriendship,
-			contactImporterWarningSeen = if getFFlagContactImporterUseNewTooltip()
-				then self.props.contactImporterWarningSeen
-				else nil,
-			showTooltip = if getFFlagContactImporterUseNewTooltip() then showToolTip else nil,
+			contactImporterWarningSeen = self.props.contactImporterWarningSeen,
+			showTooltip = showToolTip,
 			navigation = self.props.navigation,
 		})
 	end
 
 	self.showContactImporterBanner = function(props)
-		if getFFlagEnableContactInvitesForNonPhoneVerified() then
-			return props.contactImporterAndPYMKEnabled
-				or (getFFlagContactImporterWithPhoneVerification() and not props.isEmailVerified)
-		else
-			return props.contactImporterAndPYMKEnabled
-				and (
-					props.isPhoneVerified
-					or (getFFlagContactImporterWithPhoneVerification() and not props.isEmailVerified)
-				)
-		end
+		return props.contactImporterAndPYMKEnabled
 	end
 
 	self.shouldRenderShowMoreFriendRequests = function(currentVisibleFriends)
@@ -205,90 +194,44 @@ function AddFriendsPage:init()
 		end
 
 		if shouldShowContactImporterModal then
-			local navParams = {}
-			if getFFlagContactImporterWithPhoneVerification() then
-				if getFFlagEnableContactInvitesForNonPhoneVerified() then
-					navParams = {
-						isFromAddFriendsPage = true,
-						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
-						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
-						diagService = self.props.diagService,
-						eventIngestService = self.props.eventIngestService,
-						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
-						openPhoneVerificationWebview = self.props.handleOpenPhoneVerificationLinkWebview,
-						isPhoneVerified = self.props.isPhoneVerified,
-					}
-				else
-					navParams = {
-						isFromAddFriendsPage = true,
-						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
-						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
-						diagService = self.props.diagService,
-						eventIngestService = self.props.eventIngestService,
-						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
-						openPhoneVerificationWebview = self.props.handleOpenPhoneVerificationLinkWebview,
-					}
-				end
-			else
-				if getFFlagEnableContactInvitesForNonPhoneVerified() then
-					navParams = {
-						isFromAddFriendsPage = true,
-						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
-						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
-						diagService = self.props.diagService,
-						eventIngestService = self.props.eventIngestService,
-						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
-						isPhoneVerified = self.props.isPhoneVerified,
-					}
-				else
-					navParams = {
-						isFromAddFriendsPage = true,
-						openLearnMoreLink = self.props.handleOpenLearnMoreLink,
-						showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
-						diagService = self.props.diagService,
-						eventIngestService = self.props.eventIngestService,
-						isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
-					}
-				end
-			end
+			local navParams = {
+				isFromAddFriendsPage = true,
+				openLearnMoreLink = self.props.handleOpenLearnMoreLink,
+				showToast = self.props.handleShowToastForTests or self.showToastForContactsUpload,
+				diagService = self.props.diagService,
+				eventIngestService = self.props.eventIngestService,
+				isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
+				isPhoneVerified = self.props.isPhoneVerified,
+			}
+
 			self.props.navigation.navigate(EnumScreens.ContactImporter, navParams)
 		else
-			local navParams
-			if getFFlagEnableContactInvitesForNonPhoneVerified() then
-				navParams = {
-					isFromAddFriendsPage = true,
-					bypassFetchContacts = true,
-					diagService = self.props.diagService,
-					eventIngestService = self.props.eventIngestService,
-					isPhoneVerified = self.props.isPhoneVerified,
-				}
-				if self.props.isDiscoverabilityUnset and self.props.isPhoneVerified then
-					self.props
-						.getUserSettingsMetadata()
-						:andThen(function()
-							self.props.navigation.navigate(EnumScreens.DiscoverabilityOverlay, {
-								showToast = self.showToastForContactsUpload,
-								openLearnMoreLink = self.props.handleOpenLearnMoreLink,
-								diagService = self.props.diagService,
-								eventIngestService = self.props.eventIngestService,
-								entryPoint = if getFFlagPassEntrypointFromAddFriendsPage()
-									then DiscoverabilityAnalytics.EntryPoints.AddFriends
-									else nil,
-							})
-						end)
-						:catch(function()
-							return Promise.reject()
-						end)
-				else
-					self.props.navigation.navigate(EnumScreens.ContactsList, navParams)
-				end
+			local navParams = {
+				isFromAddFriendsPage = true,
+				bypassFetchContacts = true,
+				diagService = self.props.diagService,
+				eventIngestService = self.props.eventIngestService,
+				isPhoneVerified = self.props.isPhoneVerified,
+			}
+
+			if self.props.isDiscoverabilityUnset and self.props.isPhoneVerified then
+				self.props
+					.getUserSettingsMetadata()
+					:andThen(function()
+						self.props.navigation.navigate(EnumScreens.DiscoverabilityOverlay, {
+							showToast = self.showToastForContactsUpload,
+							openLearnMoreLink = self.props.handleOpenLearnMoreLink,
+							diagService = self.props.diagService,
+							eventIngestService = self.props.eventIngestService,
+							entryPoint = if getFFlagPassEntrypointFromAddFriendsPage()
+								then DiscoverabilityAnalytics.EntryPoints.AddFriends
+								else nil,
+						})
+					end)
+					:catch(function()
+						return Promise.reject()
+					end)
 			else
-				navParams = {
-					isFromAddFriendsPage = true,
-					bypassFetchContacts = true,
-					diagService = self.props.diagService,
-					eventIngestService = self.props.eventIngestService,
-				}
 				self.props.navigation.navigate(EnumScreens.ContactsList, navParams)
 			end
 		end
@@ -365,20 +308,26 @@ function AddFriendsPage:render()
 		friendRequestsText = "Feature.AddFriends.Label.FriendRequests",
 		buttonText = if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant
 			then nil
+			elseif getFFlagAddFriendsPageMoveTextKeys() then ContactImporterTextKeys.CONTACTS_LIST_TITLE
 			else TextKeys.CONTACTS_LIST_TITLE,
 		bannerText = if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant
 			then nil
+			elseif getFFlagAddFriendsPageMoveTextKeys() then ContactImporterTextKeys.BANNER_TEXT
 			else TextKeys.BANNER_TEXT,
 		searchPlaceholderText = if self.props.addFriendsPageSearchbarEnabled
 			then "Feature.AddFriends.Label.InputPlaceholder.SearchForPeople"
 			else nil,
 		contactImporterBannerTitle = if getFFlagSocialOnboardingExperimentEnabled()
 				and self.props.showNewAddFriendsPageVariant
-			then "Feature.AddFriends.Title.ConnectWithContacts"
+			then if getFFlagAddFriendsPageMoveTextKeys()
+				then ContactImporterTextKeys.CONNECT_WITH_CONTACTS_TITLE
+				else "Feature.AddFriends.Title.ConnectWithContacts"
 			else nil,
 		contactImporterBannerText = if getFFlagSocialOnboardingExperimentEnabled()
 				and self.props.showNewAddFriendsPageVariant
-			then "Feature.AddFriends.Label.ConnectWithContacts"
+			then if getFFlagAddFriendsPageMoveTextKeys()
+				then ContactImporterTextKeys.CONNECT_WITH_CONTACTS_BODY
+				else "Feature.AddFriends.Label.ConnectWithContacts"
 			else nil,
 		qrCodeBannerTitle = if getFFlagSocialOnboardingExperimentEnabled()
 				and self.props.showNewAddFriendsPageVariant
@@ -597,6 +546,11 @@ function AddFriendsPage:render()
 							}),
 						})
 						else nil,
+					BottomPagePadding = if getFFlagAddFriendsMoreButtonFixed()
+						then Roact.createElement("UIPadding", {
+							PaddingBottom = UDim.new(0, NEW_NAV_BAR_SIZE),
+						})
+						else nil,
 					AddFriendsScrollView,
 				})
 			else
@@ -616,16 +570,12 @@ if getFFlagProfileQRCodeEnable3DAvatarExperiment() then
 	end, TURN_OFF_EXPOSURE_FOR_EXPERIMENT)(AddFriendsPage)
 end
 
-if getFFlagContactImporterUseNewTooltip() then
-	return RoactRodux.connect(function(state)
-		local originSourceType = getDeepValue(state, "FriendsLanding.RequestsFromOriginSourceType") or {}
-		return {
-			originSourceType = originSourceType,
-			isLocalUserSoothsayer = if getFFlagProfileQRCodeEnable3DAvatarExperiment()
-				then state.IsLocalUserSoothsayer
-				else nil,
-		}
-	end, nil)(AddFriendsPage)
-else
-	return AddFriendsPage
-end
+return RoactRodux.connect(function(state)
+	local originSourceType = getDeepValue(state, "FriendsLanding.RequestsFromOriginSourceType") or {}
+	return {
+		originSourceType = originSourceType,
+		isLocalUserSoothsayer = if getFFlagProfileQRCodeEnable3DAvatarExperiment()
+			then state.IsLocalUserSoothsayer
+			else nil,
+	}
+end, nil)(AddFriendsPage)

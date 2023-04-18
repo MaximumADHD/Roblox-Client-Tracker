@@ -1,22 +1,20 @@
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
-local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
 local React = require(Packages.React)
-local ReactRoblox = require(Packages.Dev.ReactRoblox)
+local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
-
-local TenFootUiNavigatorTypes = require(ReactNavigationExtend.TenFootUiNavigatorTypes)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local useStackScreens = require(script.Parent.useStackScreens)
 
-type RouteState = TenFootUiNavigatorTypes.RouteState
-type Descriptor = TenFootUiNavigatorTypes.Descriptor
-type NavigationState = TenFootUiNavigatorTypes.NavigationState
-type NavigationObject = TenFootUiNavigatorTypes.NavigationObject
-type ScreenKind = TenFootUiNavigatorTypes.ScreenKind
+type RouteState = TenFootUiCommon.RouteState
+type Descriptor = TenFootUiCommon.Descriptor
+type NavigationState = TenFootUiCommon.NavigationState
+type NavigationObject = TenFootUiCommon.NavigationObject
+type ScreenKind = TenFootUiCommon.ScreenKind
 
 local function createMockNavigationState(index: number, key: string, routes: { RouteState }): NavigationState
 	return {

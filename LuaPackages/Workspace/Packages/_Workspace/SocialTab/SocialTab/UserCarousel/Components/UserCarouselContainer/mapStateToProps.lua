@@ -15,9 +15,7 @@ local getFriendSort = function(state, props)
 	local success, result = xpcall(function()
 		return llama.List.sort(
 			llama.List.map(localFriendsList, UserUtils.mapToUsers(state, props)),
-			if dependencies.GetFFlagUseCorrectedFriendSortUtil()
-				then User.sortFriendsByCorrectedPresenceAndRank
-				else User.sortFriendsByPresenceAndRank
+			User.sortFriendsByCorrectedPresenceAndRank
 		)
 	end, debug.traceback)
 	if not success then

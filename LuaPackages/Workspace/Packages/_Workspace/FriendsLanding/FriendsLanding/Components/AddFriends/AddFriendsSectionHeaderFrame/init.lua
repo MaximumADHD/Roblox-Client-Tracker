@@ -8,11 +8,8 @@ local UIBlox = dependencies.UIBlox
 local IconButton = UIBlox.App.Button.IconButton
 local withStyle = UIBlox.Style.withStyle
 local validateImage = UIBlox.Core.ImageSet.Validator.validateImage
-local ContactImporterWarningTooltip = require(script.Parent.ContactImporterWarningTooltip)
 local HEADER_HEIGHT = 48
 local HEADER_OFFSET_Y = 24
-
-local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 
 local AddFriendsSectionHeaderFrame = Roact.PureComponent:extend("AddFriendsSectionHeaderFrame")
 
@@ -61,9 +58,6 @@ function AddFriendsSectionHeaderFrame:render()
 				iconColor3 = style.Theme.IconEmphasis.Color,
 				onActivated = self.props.onIconActivated,
 			}) or nil,
-			ContactImporterWarningTooltip = if getFFlagContactImporterUseNewTooltip()
-				then nil
-				else Roact.createElement(ContactImporterWarningTooltip),
 		})
 	end)
 end

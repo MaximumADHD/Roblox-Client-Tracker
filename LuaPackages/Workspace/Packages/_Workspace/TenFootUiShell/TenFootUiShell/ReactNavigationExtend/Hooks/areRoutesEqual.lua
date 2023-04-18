@@ -1,7 +1,8 @@
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
-local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
-local TenFootUiNavigatorTypes = require(ReactNavigationExtend.TenFootUiNavigatorTypes)
-type RouteState = TenFootUiNavigatorTypes.RouteState
+local Packages = TenFootUiShell.Parent
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
+
+type RouteState = TenFootUiCommon.RouteState
 
 local function areRoutesEqual(routes: { RouteState }, otherRoutes: { RouteState }): boolean
 	if routes == otherRoutes then

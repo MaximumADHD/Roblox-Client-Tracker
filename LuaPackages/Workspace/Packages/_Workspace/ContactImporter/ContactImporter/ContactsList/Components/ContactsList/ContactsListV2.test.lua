@@ -82,123 +82,121 @@ describe("ContactsListV2", function()
 		end)
 	end)
 
-	if devDependencies.UIBloxUniversalAppConfig.enableStandardButtonSizes then
-		it("SHOULD NOT return empty state if there are contacts", function()
-			local element = createTreeWithProviders(ContactsListV2, {
-				props = Dash.join(DEFAULT_PROPS, {
-					deviceContacts = { { contactName = "bob", contactId = "123" } },
-					showAddFriendsButton = true,
-				}),
-			})
+	it("SHOULD NOT return empty state if there are contacts", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				deviceContacts = { { contactName = "bob", contactId = "123" } },
+				showAddFriendsButton = true,
+			}),
+		})
 
-			local checkForContact = findElementHelpers.findElement({ Text = "bob" })
+		local checkForContact = findElementHelpers.findElement({ Text = "bob" })
 
-			runWhileMounted(element, function(parent)
-				checkForContact(parent, { assertElementExists = true })
-				findElementHelpers.checkEmptyList(parent, { assertElementExists = false })
-				findElementHelpers.checkCloseButton(parent, { assertElementExists = true })
-				findElementHelpers.checkFailedList(parent, { assertElementExists = false })
-				findElementHelpers.checkLoadingList(parent, { assertElementExists = false })
-				findElementHelpers.checkGoToAddFriends(parent, { assertElementExists = false })
-			end)
+		runWhileMounted(element, function(parent)
+			checkForContact(parent, { assertElementExists = true })
+			findElementHelpers.checkEmptyList(parent, { assertElementExists = false })
+			findElementHelpers.checkCloseButton(parent, { assertElementExists = true })
+			findElementHelpers.checkFailedList(parent, { assertElementExists = false })
+			findElementHelpers.checkLoadingList(parent, { assertElementExists = false })
+			findElementHelpers.checkGoToAddFriends(parent, { assertElementExists = false })
 		end)
+	end)
 
-		it("SHOULD filter out contacts if contact names don't match search query", function()
-			local element = createTreeWithProviders(ContactsListV2, {
-				props = Dash.join(DEFAULT_PROPS, {
-					deviceContacts = { { contactName = "bob", contactId = "123" } },
-					showAddFriendsButton = true,
-				}),
-			})
+	it("SHOULD filter out contacts if contact names don't match search query", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				deviceContacts = { { contactName = "bob", contactId = "123" } },
+				showAddFriendsButton = true,
+			}),
+		})
 
-			local checkForContact = findElementHelpers.findElement({ Text = "bob" })
-			local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
-			local checkForSearchBarEmptyList = findElementHelpers.findElement({ Text = TextKeys.NO_RESULTS })
+		local checkForContact = findElementHelpers.findElement({ Text = "bob" })
+		local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
+		local checkForSearchBarEmptyList = findElementHelpers.findElement({ Text = TextKeys.NO_RESULTS })
 
-			runWhileMounted(element, function(parent)
-				local searchBar = checkForSearchBar(parent, { assertElementExists = true })
-				checkForContact(parent, { assertElementExists = true })
+		runWhileMounted(element, function(parent)
+			local searchBar = checkForSearchBar(parent, { assertElementExists = true })
+			checkForContact(parent, { assertElementExists = true })
 
-				act(function()
-					RhodiumHelpers.typeTextIntoElement(searchBar, "foo")
-				end)
-
-				checkForContact(parent, { assertElementExists = false })
-				checkForSearchBarEmptyList(parent, { assertElementExists = true })
+			act(function()
+				RhodiumHelpers.typeTextIntoElement(searchBar, "foo")
 			end)
+
+			checkForContact(parent, { assertElementExists = false })
+			checkForSearchBarEmptyList(parent, { assertElementExists = true })
 		end)
+	end)
 
-		it("SHOULD NOT filter out contacts that match search query", function()
-			local element = createTreeWithProviders(ContactsListV2, {
-				props = Dash.join(DEFAULT_PROPS, {
-					deviceContacts = { { contactName = "bob", contactId = "123" } },
-					showAddFriendsButton = true,
-				}),
-			})
+	it("SHOULD NOT filter out contacts that match search query", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				deviceContacts = { { contactName = "bob", contactId = "123" } },
+				showAddFriendsButton = true,
+			}),
+		})
 
-			local checkForContact = findElementHelpers.findElement({ Text = "bob" })
-			local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
-			local checkForSearchBarEmptyList = findElementHelpers.findElement({ Text = TextKeys.NO_RESULTS })
+		local checkForContact = findElementHelpers.findElement({ Text = "bob" })
+		local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
+		local checkForSearchBarEmptyList = findElementHelpers.findElement({ Text = TextKeys.NO_RESULTS })
 
-			runWhileMounted(element, function(parent)
-				local searchBar = checkForSearchBar(parent, { assertElementExists = true })
-				checkForContact(parent, { assertElementExists = true })
+		runWhileMounted(element, function(parent)
+			local searchBar = checkForSearchBar(parent, { assertElementExists = true })
+			checkForContact(parent, { assertElementExists = true })
 
-				act(function()
-					RhodiumHelpers.typeTextIntoElement(searchBar, "bo")
-				end)
-
-				checkForContact(parent, { assertElementExists = true })
-				checkForSearchBarEmptyList(parent, { assertElementExists = false })
+			act(function()
+				RhodiumHelpers.typeTextIntoElement(searchBar, "bo")
 			end)
+
+			checkForContact(parent, { assertElementExists = true })
+			checkForSearchBarEmptyList(parent, { assertElementExists = false })
 		end)
+	end)
 
-		it("SHOULD NOT show the divider bar if there are no results", function()
-			local element = createTreeWithProviders(ContactsListV2, {
-				props = Dash.join(DEFAULT_PROPS, {
-					deviceContacts = { { contactName = "alice", contactId = "123" } },
-					matchedContacts = { { contactName = "eve", contactId = "456" } },
-					showAddFriendsButton = true,
-				}),
-			})
+	it("SHOULD NOT show the divider bar if there are no results", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				deviceContacts = { { contactName = "alice", contactId = "123" } },
+				matchedContacts = { { contactName = "eve", contactId = "456" } },
+				showAddFriendsButton = true,
+			}),
+		})
 
-			local checkForDivider = findElementHelpers.findElement({ Name = "divider" })
-			local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
+		local checkForDivider = findElementHelpers.findElement({ Name = "divider" })
+		local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
 
-			runWhileMounted(element, function(parent)
-				local searchBar = checkForSearchBar(parent, { assertElementExists = true })
+		runWhileMounted(element, function(parent)
+			local searchBar = checkForSearchBar(parent, { assertElementExists = true })
 
-				act(function()
-					RhodiumHelpers.typeTextIntoElement(searchBar, "b")
-				end)
-
-				checkForDivider(parent, { assertElementExists = false })
+			act(function()
+				RhodiumHelpers.typeTextIntoElement(searchBar, "b")
 			end)
+
+			checkForDivider(parent, { assertElementExists = false })
 		end)
+	end)
 
-		it("SHOULD NOT show the divider bar if there are only unmatched contacts results", function()
-			local element = createTreeWithProviders(ContactsListV2, {
-				props = Dash.join(DEFAULT_PROPS, {
-					deviceContacts = { { contactName = "alice", contactId = "123" } },
-					matchedContacts = { { contactName = "eve", contactId = "456" } },
-					showAddFriendsButton = true,
-				}),
-			})
+	it("SHOULD NOT show the divider bar if there are only unmatched contacts results", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				deviceContacts = { { contactName = "alice", contactId = "123" } },
+				matchedContacts = { { contactName = "eve", contactId = "456" } },
+				showAddFriendsButton = true,
+			}),
+		})
 
-			local checkForDivider = findElementHelpers.findElement({ Name = "divider" })
-			local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
+		local checkForDivider = findElementHelpers.findElement({ Name = "divider" })
+		local checkForSearchBar = findElementHelpers.findElement({ Name = "inputTextBox" })
 
-			runWhileMounted(element, function(parent)
-				local searchBar = checkForSearchBar(parent, { assertElementExists = true })
+		runWhileMounted(element, function(parent)
+			local searchBar = checkForSearchBar(parent, { assertElementExists = true })
 
-				act(function()
-					RhodiumHelpers.typeTextIntoElement(searchBar, "alice")
-				end)
-
-				checkForDivider(parent, { assertElementExists = false })
+			act(function()
+				RhodiumHelpers.typeTextIntoElement(searchBar, "alice")
 			end)
+
+			checkForDivider(parent, { assertElementExists = false })
 		end)
-	end
+	end)
 
 	it(
 		"SHOULD show the divider bar between matched and unmatched contacts if both result types exist after filtering",
@@ -303,34 +301,32 @@ describe("ContactsListV2", function()
 		end)
 	end)
 
-	if devDependencies.UIBloxUniversalAppConfig.enableStandardButtonSizes then
-		it("SHOULD show the correct text when invites variant", function()
-			local element = createTreeWithProviders(ContactsListV2, {
-				props = Dash.join(DEFAULT_PROPS, {
-					variant = IXPVariants.INVITES_ONLY,
-					matchedContacts = { { contactName = "bob", contactId = "123" } },
-				}),
-			})
+	it("SHOULD show the correct text when invites variant", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				variant = IXPVariants.INVITES_ONLY,
+				matchedContacts = { { contactName = "bob", contactId = "123" } },
+			}),
+		})
 
-			runWhileMounted(element, function(parent)
-				local descriptionText = RhodiumHelpers.findFirstInstance(parent, { Name = "descriptionText" })
-				jestExpect(descriptionText.Text).toBe(TextKeys.CONTACTS_LIST_BLURB_INVITES)
-			end)
+		runWhileMounted(element, function(parent)
+			local descriptionText = RhodiumHelpers.findFirstInstance(parent, { Name = "descriptionText" })
+			jestExpect(descriptionText.Text).toBe(TextKeys.CONTACTS_LIST_BLURB_INVITES)
 		end)
+	end)
 
-		it("SHOULD show the correct text when blended variant", function()
-			local element = createTreeWithProviders(ContactsListV2, {
-				props = Dash.join(DEFAULT_PROPS, {
-					variant = IXPVariants.BLENDED,
-					isPhoneVerified = true,
-					matchedContacts = { { contactName = "bob", contactId = "123" } },
-				}),
-			})
+	it("SHOULD show the correct text when blended variant", function()
+		local element = createTreeWithProviders(ContactsListV2, {
+			props = Dash.join(DEFAULT_PROPS, {
+				variant = IXPVariants.BLENDED,
+				isPhoneVerified = true,
+				matchedContacts = { { contactName = "bob", contactId = "123" } },
+			}),
+		})
 
-			runWhileMounted(element, function(parent)
-				local descriptionText = RhodiumHelpers.findFirstInstance(parent, { Name = "descriptionText" })
-				jestExpect(descriptionText.Text).toBe(TextKeys.CONTACTS_LIST_BLURB_MIXED)
-			end)
+		runWhileMounted(element, function(parent)
+			local descriptionText = RhodiumHelpers.findFirstInstance(parent, { Name = "descriptionText" })
+			jestExpect(descriptionText.Text).toBe(TextKeys.CONTACTS_LIST_BLURB_MIXED)
 		end)
-	end
+	end)
 end)

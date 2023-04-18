@@ -90,7 +90,7 @@ local UPDATE_CLONE_CD = 0.35
 local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
-local FFlagSelfViewMicAddStatusIndicators = game:DefineFastFlag("SelfViewMicAddStatusIndicators", false)
+local FFlagSelfViewMicAddStatusIndicators = game:DefineFastFlag("SelfViewMicAddStatusIndicators2", false)
 
 local renderSteppedConnection = nil
 local playerCharacterAddedConnection
@@ -853,15 +853,17 @@ if FFlagSelfViewMicAddStatusIndicators then
 			[(Enum::any).VoiceChatState.Failed] = VoiceChatServiceManager.VOICE_STATE.ERROR,
 		}
 
-		local voiceService = VoiceChatServiceManager:getService()
-		if voiceService then
-			voiceService.StateChanged:Connect(function(_oldState, newState)
-				local voiceManagerState = LOCAL_STATE_MAP[newState]
-				if voiceManagerState then
-					updateMicIcon(voiceManagerState, cachedLevel)
-				end
-			end)
-		end
+		VoiceChatServiceManager:asyncInit():andThen(function()
+			local voiceService = VoiceChatServiceManager:getService()
+			if voiceService then
+				voiceService.StateChanged:Connect(function(_oldState, newState)
+					local voiceManagerState = LOCAL_STATE_MAP[newState]
+					if voiceManagerState then
+						updateMicIcon(voiceManagerState, cachedLevel)
+					end
+				end)
+			end
+		end)
 	end
 end
 

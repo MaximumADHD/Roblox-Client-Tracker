@@ -12,8 +12,6 @@ local afterAll = JestGlobals.afterAll
 local Constants = require(ContactImporter.Common.Constants)
 
 local formatContacts = require(script.Parent.formatContacts)
-local getFFlagTrimContactsEarlierOnContactImporter =
-	require(ContactImporter.Flags.getFFlagTrimContactsEarlierOnContactImporter)
 
 local RoduxContacts = dependencies.RoduxContacts
 local DeviceContact = RoduxContacts.Models.DeviceContact
@@ -72,7 +70,7 @@ describe("formatContacts", function()
 
 			local expectedContacts = {
 				countryCode = "US",
-				contactsCount = if getFFlagTrimContactsEarlierOnContactImporter() then 3 else 4, -- SACQ-275
+				contactsCount = 3,
 				contacts = {
 					{
 						idAssignedByFE = DeviceContact.generateId(person1),

@@ -34,84 +34,75 @@ describe("ContactsListInviteEntry", function()
 		NetworkingShareLinks.GenerateLink.Mock.clear()
 	end)
 
-	if devDependencies.UIBloxUniversalAppConfig.enableStandardButtonSizes then
-		it("SHOULD create and destroy without errors", function()
-			local element = createTreeWithProviders(ContactsListInviteEntry, {
-				store = mockStore(state),
-				props = {
-					contactName = "contactName",
-					deviceContactId = "deviceContactId",
-				},
+	it("SHOULD create and destroy without errors", function()
+		local element = createTreeWithProviders(ContactsListInviteEntry, {
+			store = mockStore(state),
+			props = {
+				contactName = "contactName",
+				deviceContactId = "deviceContactId",
+			},
+		})
+		runWhileMounted(element, function(parent)
+			jestExpect(#parent:GetChildren()).toBe(1)
+		end)
+	end)
+
+	it("SHOULD call the invite link endpoint when pressed", function()
+		local testCall = jest.fn()
+		local element = createTreeWithProviders(ContactsListInviteEntry, {
+			store = mockStore(state),
+			props = {
+				contactName = "contactName",
+				deviceContactId = "deviceContactId",
+			},
+		})
+		NetworkingShareLinks.GenerateLink.Mock.reply(function()
+			testCall()
+			return {
+				responseBody = { linkId = "123412", shortUrl = "www.bbc.co.uk" },
+			}
+		end)
+
+		runWhileMounted(element, function(parent)
+			local button = RhodiumHelpers.findFirstInstance(parent, {
+				Name = "sendInviteButton",
 			})
-			runWhileMounted(element, function(parent)
-				jestExpect(#parent:GetChildren()).toBe(1)
-			end)
-		end)
-	else
-		-- Avoid error "Your test suite must contain at least one test." in Jest 3.0
-		it("SHOULD pass with flag off", function()
-			jestExpect(true).toBe(true)
-		end)
-	end
 
-	if devDependencies.UIBloxUniversalAppConfig.enableStandardButtonSizes then
-		it("SHOULD call the invite link endpoint when pressed", function()
-			local testCall = jest.fn()
-			local element = createTreeWithProviders(ContactsListInviteEntry, {
-				store = mockStore(state),
-				props = {
-					contactName = "contactName",
-					deviceContactId = "deviceContactId",
-				},
+			findElementHelpers.checkInviteButton(parent, { assertElementExists = true })
+
+			RhodiumHelpers.clickInstance(button)
+
+			jestExpect(testCall).toHaveBeenCalledTimes(1)
+		end)
+	end)
+
+	it("SHOULD show not call invite link endpoint when pressed as user has already been sent request", function()
+		local testCall = jest.fn()
+		local element = createTreeWithProviders(ContactsListInviteEntry, {
+			store = mockStore(state),
+			props = {
+				contactName = "contactName",
+				deviceContactId = "deviceContactId",
+				hasSentRequest = true,
+			},
+		})
+		NetworkingShareLinks.GenerateLink.Mock.reply(function()
+			testCall()
+			return {
+				responseBody = { linkId = "123412", shortUrl = "www.bbc.co.uk" },
+			}
+		end)
+
+		runWhileMounted(element, function(parent)
+			local button = RhodiumHelpers.findFirstInstance(parent, {
+				Name = "sendInviteButton",
 			})
-			NetworkingShareLinks.GenerateLink.Mock.reply(function()
-				testCall()
-				return {
-					responseBody = { linkId = "123412", shortUrl = "www.bbc.co.uk" },
-				}
-			end)
 
-			runWhileMounted(element, function(parent)
-				local button = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "sendInviteButton",
-				})
+			findElementHelpers.checkInviteButton(parent, { assertElementExists = true })
 
-				findElementHelpers.checkInviteButton(parent, { assertElementExists = true })
+			RhodiumHelpers.clickInstance(button)
 
-				RhodiumHelpers.clickInstance(button)
-
-				jestExpect(testCall).toHaveBeenCalledTimes(1)
-			end)
+			jestExpect(testCall).never.toHaveBeenCalled()
 		end)
-
-		it("SHOULD show not call invite link endpoint when pressed as user has already been sent request", function()
-			local testCall = jest.fn()
-			local element = createTreeWithProviders(ContactsListInviteEntry, {
-				store = mockStore(state),
-				props = {
-					contactName = "contactName",
-					deviceContactId = "deviceContactId",
-					hasSentRequest = true,
-				},
-			})
-			NetworkingShareLinks.GenerateLink.Mock.reply(function()
-				testCall()
-				return {
-					responseBody = { linkId = "123412", shortUrl = "www.bbc.co.uk" },
-				}
-			end)
-
-			runWhileMounted(element, function(parent)
-				local button = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "sendInviteButton",
-				})
-
-				findElementHelpers.checkInviteButton(parent, { assertElementExists = true })
-
-				RhodiumHelpers.clickInstance(button)
-
-				jestExpect(testCall).never.toHaveBeenCalled()
-			end)
-		end)
-	end
+	end)
 end)

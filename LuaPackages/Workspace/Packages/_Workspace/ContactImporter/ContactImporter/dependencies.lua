@@ -122,8 +122,6 @@ return {
 	DiscoverabilityOverlay = require(Packages.DiscoverabilityModal).DiscoverabilityOverlay,
 	DiscoverabilityAnalytics = require(Packages.DiscoverabilityModal).Analytics,
 	RoactExperimentProvider = RoactAppExperiment.Provider,
-	getFFlagContactImporterWithPhoneVerification = require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification,
-	getFFlagEnableContactInvitesForNonPhoneVerified = require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling,
 	SelfViewProfileDiscoverabilityUpsellIXP = require(Packages.DiscoverabilityModal).Flags.SelfViewProfileDiscoverabilityUpsellIXP,
 	getFFlagEnableDeeplinkForContactsList = require(Packages.SharedFlags).getFFlagEnableDeeplinkForContactsList,

@@ -1,13 +1,10 @@
 local ContactImporter = script:FindFirstAncestor("ContactImporter")
-local dependencies = require(ContactImporter.dependencies)
 local devDependencies = require(ContactImporter.devDependencies)
 
 local JestGlobals = devDependencies.JestGlobals
 local jestExpect = devDependencies.jestExpect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
-
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 
 local mapDispatchToProps = require(script.Parent.mapDispatchToProps)
 
@@ -27,9 +24,6 @@ describe("WHEN called", function()
 			updateUserSettings = jestExpect.any("function"),
 			hideContactImporterModal = jestExpect.any("function"),
 			getUserSettingsMetadata = jestExpect.any("function"),
-			setIsPhoneVerified = if getFFlagContactImporterWithPhoneVerification()
-				then jestExpect.any("function")
-				else nil,
 		})
 	end)
 end)

@@ -24,9 +24,7 @@ local mapDispatchToProps = require(script.mapDispatchToProps)
 local AddFriendsPageLoadAnalytics = FriendsLandingAnalytics.AddFriendsPageLoadAnalytics
 local AddFriendsSearchbarPressedEvent = FriendsLandingAnalytics.AddFriendsSearchbarPressedEvent
 local PlayerSearchEvent = FriendsLandingAnalytics.PlayerSearchEvent
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
-local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 local ImpressionEvents = require(FriendsLanding.FriendsLandingAnalytics.ImpressionEvents)
 local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterTooltip)
 local getShowNewAddFriendsPageVariant = require(FriendsLanding.Utils.getShowNewAddFriendsPageVariant)
@@ -84,45 +82,21 @@ function AddFriendsContainer:init()
 	end
 
 	self.refreshPage = withToast(function()
-		if self.props.contactImporterAndPYMKEnabled then
-			return Promise.all({
-				self.props.getFriendRequestsCount(self.props.localUserId),
-				self.props
-					.getFriendRequests({
-						isRefresh = true,
-						localUserId = self.props.localUserId,
-						limit = self.getLimitPerPage(),
+		return Promise.all({
+			self.props.getFriendRequestsCount(self.props.localUserId),
+			self.props
+				.getFriendRequests({
+					isRefresh = true,
+					localUserId = self.props.localUserId,
+					limit = self.getLimitPerPage(),
+				})
+				:andThen(function(results)
+					self:setState({
+						visibleRows = SHOW_MORE_VISIBLE_ROWS,
 					})
-					:andThen(function(results)
-						self:setState({
-							visibleRows = SHOW_MORE_VISIBLE_ROWS,
-						})
-						self.props.analytics:pageLoadedWithArgs(
-							"friendRequestsPage",
-							AddFriendsPageLoadAnalytics(results)
-						)
-					end),
-			})
-		else
-			return Promise.all({
-				self.props.getFriendRequestsCount(self.props.localUserId),
-				self.props
-					.getFriendRequests({
-						isRefresh = true,
-						localUserId = self.props.localUserId,
-						limit = self.getLimitPerPage(),
-					})
-					:andThen(function(results)
-						self:setState({
-							visibleRows = SHOW_MORE_VISIBLE_ROWS,
-						})
-						self.props.analytics:pageLoadedWithArgs(
-							"friendRequestsPage",
-							AddFriendsPageLoadAnalytics(results)
-						)
-					end),
-			})
-		end
+					self.props.analytics:pageLoadedWithArgs("friendRequestsPage", AddFriendsPageLoadAnalytics(results))
+				end),
+		})
 	end)
 
 	self.contactImporterWarningSeen = function()
@@ -364,10 +338,7 @@ function AddFriendsContainer:render()
 		canUploadContacts = if contactImporterAndPYMKEnabled then self.props.canUploadContacts else nil,
 		isDiscoverabilityUnset = self.props.isDiscoverabilityUnset,
 		getUserSettingsMetadata = self.props.getUserSettingsMetadata,
-		handleOpenPhoneVerificationLinkWebview = if getFFlagContactImporterWithPhoneVerification()
-			then self.handleOpenPhoneVerificationLinkWebview
-			else nil,
-		showTooltip = if getFFlagContactImporterUseNewTooltip() then self.props.showTooltip else nil,
+		showTooltip = self.props.showTooltip,
 		wideMode = self.props.wideMode,
 		setScreenTopBar = self.props.setScreenTopBar,
 		addFriendsPageSearchbarEnabled = addFriendsPageSearchbarEnabled,

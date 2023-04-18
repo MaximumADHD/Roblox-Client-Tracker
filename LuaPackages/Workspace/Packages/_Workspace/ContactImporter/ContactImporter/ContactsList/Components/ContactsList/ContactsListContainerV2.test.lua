@@ -321,94 +321,9 @@ describe("ContactsListContainerV2", function()
 				end)
 			end)
 
-			if devDependencies.UIBloxUniversalAppConfig.enableStandardButtonSizes then
-				it(
-					"SHOULD should be able to handle a mixed list of contacts from device, and matched contacts should not be shown as invitable",
-					function()
-						local state = {
-							LocalUserId = "1111",
-							ScreenSize = Vector2.new(100, 100),
-							[RODUX_KEY] = {
-								NetworkStatus = {},
-								Contacts = {
-									byDeviceContactId = {
-										["1112"] = {
-											contactName = "zack",
-											id = "zack",
-											phoneNumbers = { 9999, 67890 },
-										},
-										["123"] = {
-											contactName = "bob",
-											id = "bob",
-											phoneNumbers = { 9999, 67890 },
-										},
-										["456"] = {
-											contactName = "alex",
-											id = "alex",
-											phoneNumbers = { 9999, 67890 },
-										},
-										["789"] = {
-											contactName = "cathy",
-											id = "cathy",
-											phoneNumbers = { 9999, 67890 },
-										},
-									},
-									byContactId = {
-										["zack"] = { contactName = "zack", contactId = "zack" },
-									},
-									deviceContactToRobloxContact = {
-										["bob"] = {},
-										["zack"] = {},
-									},
-								},
-							},
-						}
-						local store = mockStore(state)
-
-						local element = createTreeWithProviders(ContactsListContainerV2, {
-							store = store,
-							props = Dash.join(defaultProps, {
-								contactsProtocol = {
-									supportsContacts = supportsContacts,
-									getContacts = getContacts,
-								},
-								navigation = navigationProps,
-							}),
-						})
-
-						runWhileMounted(element, function(parent)
-							local alex = RhodiumHelpers.findFirstInstance(parent, {
-								name = "alex",
-							})
-							local bob = RhodiumHelpers.findFirstInstance(parent, {
-								name = "bob",
-							})
-							local cathy = RhodiumHelpers.findFirstInstance(parent, {
-								name = "cathy",
-							})
-							-- Invite only contacts have an element with their name (but matched contacts do not)
-							-- so we can check if zack is shown as an invite contact or a device contact by checking if there is an element
-							-- with their name or not.
-							local deviceContactZack = RhodiumHelpers.findFirstInstance(parent, {
-								name = "zack",
-							})
-							local matchedContactZach = RhodiumHelpers.findFirstInstance(parent, {
-								Text = "zack",
-							})
-							jestExpect(alex).never.toBeNil()
-							jestExpect(cathy).never.toBeNil()
-							jestExpect(matchedContactZach).never.toBeNil()
-							jestExpect(matchedContactZach).never.toBeNil()
-							jestExpect(alex).toBeAbove(cathy)
-							jestExpect(matchedContactZach).toBeAbove(alex)
-
-							jestExpect(bob).toBeNil()
-							jestExpect(deviceContactZack).toBeNil()
-						end)
-					end
-				)
-
-				it("SHOULD should sort contacts from device alphabetically", function()
+			it(
+				"SHOULD should be able to handle a mixed list of contacts from device, and matched contacts should not be shown as invitable",
+				function()
 					local state = {
 						LocalUserId = "1111",
 						ScreenSize = Vector2.new(100, 100),
@@ -416,16 +331,34 @@ describe("ContactsListContainerV2", function()
 							NetworkStatus = {},
 							Contacts = {
 								byDeviceContactId = {
-									["1112"] = { contactName = "zack", id = "zack", phoneNumbers = { 9999, 67890 } },
-									["123"] = { contactName = "bob", id = "bob", phoneNumbers = { 9999, 67890 } },
-									["456"] = { contactName = "alex", id = "alex", phoneNumbers = { 9999, 67890 } },
+									["1112"] = {
+										contactName = "zack",
+										id = "zack",
+										phoneNumbers = { 9999, 67890 },
+									},
+									["123"] = {
+										contactName = "bob",
+										id = "bob",
+										phoneNumbers = { 9999, 67890 },
+									},
+									["456"] = {
+										contactName = "alex",
+										id = "alex",
+										phoneNumbers = { 9999, 67890 },
+									},
 									["789"] = {
 										contactName = "cathy",
 										id = "cathy",
 										phoneNumbers = { 9999, 67890 },
 									},
 								},
-								byContactId = {},
+								byContactId = {
+									["zack"] = { contactName = "zack", contactId = "zack" },
+								},
+								deviceContactToRobloxContact = {
+									["bob"] = {},
+									["zack"] = {},
+								},
 							},
 						},
 					}
@@ -443,28 +376,93 @@ describe("ContactsListContainerV2", function()
 					})
 
 					runWhileMounted(element, function(parent)
-						local entryA = RhodiumHelpers.findFirstInstance(parent, {
+						local alex = RhodiumHelpers.findFirstInstance(parent, {
 							name = "alex",
 						})
-						local entryB = RhodiumHelpers.findFirstInstance(parent, {
+						local bob = RhodiumHelpers.findFirstInstance(parent, {
 							name = "bob",
 						})
-						local entryC = RhodiumHelpers.findFirstInstance(parent, {
+						local cathy = RhodiumHelpers.findFirstInstance(parent, {
 							name = "cathy",
 						})
-						local entryD = RhodiumHelpers.findFirstInstance(parent, {
+						-- Invite only contacts have an element with their name (but matched contacts do not)
+						-- so we can check if zack is shown as an invite contact or a device contact by checking if there is an element
+						-- with their name or not.
+						local deviceContactZack = RhodiumHelpers.findFirstInstance(parent, {
 							name = "zack",
 						})
-						jestExpect(entryA).never.toBeNil()
-						jestExpect(entryB).never.toBeNil()
-						jestExpect(entryC).never.toBeNil()
-						jestExpect(entryD).never.toBeNil()
-						jestExpect(entryA).toBeAbove(entryB)
-						jestExpect(entryB).toBeAbove(entryC)
-						jestExpect(entryC).toBeAbove(entryD)
+						local matchedContactZach = RhodiumHelpers.findFirstInstance(parent, {
+							Text = "zack",
+						})
+						jestExpect(alex).never.toBeNil()
+						jestExpect(cathy).never.toBeNil()
+						jestExpect(matchedContactZach).never.toBeNil()
+						jestExpect(matchedContactZach).never.toBeNil()
+						jestExpect(alex).toBeAbove(cathy)
+						jestExpect(matchedContactZach).toBeAbove(alex)
+
+						jestExpect(bob).toBeNil()
+						jestExpect(deviceContactZack).toBeNil()
 					end)
+				end
+			)
+
+			it("SHOULD should sort contacts from device alphabetically", function()
+				local state = {
+					LocalUserId = "1111",
+					ScreenSize = Vector2.new(100, 100),
+					[RODUX_KEY] = {
+						NetworkStatus = {},
+						Contacts = {
+							byDeviceContactId = {
+								["1112"] = { contactName = "zack", id = "zack", phoneNumbers = { 9999, 67890 } },
+								["123"] = { contactName = "bob", id = "bob", phoneNumbers = { 9999, 67890 } },
+								["456"] = { contactName = "alex", id = "alex", phoneNumbers = { 9999, 67890 } },
+								["789"] = {
+									contactName = "cathy",
+									id = "cathy",
+									phoneNumbers = { 9999, 67890 },
+								},
+							},
+							byContactId = {},
+						},
+					},
+				}
+				local store = mockStore(state)
+
+				local element = createTreeWithProviders(ContactsListContainerV2, {
+					store = store,
+					props = Dash.join(defaultProps, {
+						contactsProtocol = {
+							supportsContacts = supportsContacts,
+							getContacts = getContacts,
+						},
+						navigation = navigationProps,
+					}),
+				})
+
+				runWhileMounted(element, function(parent)
+					local entryA = RhodiumHelpers.findFirstInstance(parent, {
+						name = "alex",
+					})
+					local entryB = RhodiumHelpers.findFirstInstance(parent, {
+						name = "bob",
+					})
+					local entryC = RhodiumHelpers.findFirstInstance(parent, {
+						name = "cathy",
+					})
+					local entryD = RhodiumHelpers.findFirstInstance(parent, {
+						name = "zack",
+					})
+					jestExpect(entryA).never.toBeNil()
+					jestExpect(entryB).never.toBeNil()
+					jestExpect(entryC).never.toBeNil()
+					jestExpect(entryD).never.toBeNil()
+					jestExpect(entryA).toBeAbove(entryB)
+					jestExpect(entryB).toBeAbove(entryC)
+					jestExpect(entryC).toBeAbove(entryD)
 				end)
-			end
+			end)
 
 			it("SHOULD show error modal if there's an upload error and empty list", function()
 				supportsContacts = jest.fn().mockImplementation(function()
@@ -560,70 +558,68 @@ describe("ContactsListContainerV2", function()
 			end)
 
 			if props.variant == IXPVariants.BLENDED then
-				if devDependencies.UIBloxUniversalAppConfig.enableStandardButtonSizes then
-					it("SHOULD show invites if matched fails to load", function()
-						getContacts = jest.fn().mockImplementation(function()
-							return Promise.reject({})
-						end)
-
-						local state = {
-							LocalUserId = "1111",
-							ScreenSize = Vector2.new(100, 100),
-							[RODUX_KEY] = {
-								NetworkStatus = {},
-								Contacts = {
-									byDeviceContactId = {
-										["1112"] = {
-											contactName = "zack",
-											id = "zack",
-											phoneNumbers = { 9999, 67890 },
-										},
-										["123"] = {
-											contactName = "bob",
-											id = "bob",
-											phoneNumbers = { 9999, 67890 },
-										},
-										["456"] = {
-											contactName = "alex",
-											id = "alex",
-											phoneNumbers = { 9999, 67890 },
-										},
-										["789"] = {
-											contactName = "cathy",
-											id = "cathy",
-											phoneNumbers = { 9999, 67890 },
-										},
-									},
-									byContactId = {},
-								},
-							},
-						}
-						local store = mockStore(state)
-
-						local element = createTreeWithProviders(ContactsListContainerV2, {
-							store = store,
-							props = Dash.join(defaultProps, {
-								contactsProtocol = {
-									supportsContacts = supportsContacts,
-									getContacts = getContacts,
-								},
-								navigation = navigationProps,
-							}),
-						})
-
-						runWhileMounted(element, function(parent)
-							local entryA = RhodiumHelpers.findFirstInstance(parent, {
-								name = "alex",
-							})
-							local entryB = RhodiumHelpers.findFirstInstance(parent, {
-								name = "bob",
-							})
-							jestExpect(entryA).never.toBeNil()
-							jestExpect(entryB).never.toBeNil()
-							jestExpect(entryA).toBeAbove(entryB)
-						end)
+				it("SHOULD show invites if matched fails to load", function()
+					getContacts = jest.fn().mockImplementation(function()
+						return Promise.reject({})
 					end)
-				end
+
+					local state = {
+						LocalUserId = "1111",
+						ScreenSize = Vector2.new(100, 100),
+						[RODUX_KEY] = {
+							NetworkStatus = {},
+							Contacts = {
+								byDeviceContactId = {
+									["1112"] = {
+										contactName = "zack",
+										id = "zack",
+										phoneNumbers = { 9999, 67890 },
+									},
+									["123"] = {
+										contactName = "bob",
+										id = "bob",
+										phoneNumbers = { 9999, 67890 },
+									},
+									["456"] = {
+										contactName = "alex",
+										id = "alex",
+										phoneNumbers = { 9999, 67890 },
+									},
+									["789"] = {
+										contactName = "cathy",
+										id = "cathy",
+										phoneNumbers = { 9999, 67890 },
+									},
+								},
+								byContactId = {},
+							},
+						},
+					}
+					local store = mockStore(state)
+
+					local element = createTreeWithProviders(ContactsListContainerV2, {
+						store = store,
+						props = Dash.join(defaultProps, {
+							contactsProtocol = {
+								supportsContacts = supportsContacts,
+								getContacts = getContacts,
+							},
+							navigation = navigationProps,
+						}),
+					})
+
+					runWhileMounted(element, function(parent)
+						local entryA = RhodiumHelpers.findFirstInstance(parent, {
+							name = "alex",
+						})
+						local entryB = RhodiumHelpers.findFirstInstance(parent, {
+							name = "bob",
+						})
+						jestExpect(entryA).never.toBeNil()
+						jestExpect(entryB).never.toBeNil()
+						jestExpect(entryA).toBeAbove(entryB)
+					end)
+				end)
 			end
 
 			describe("WHEN requests are made", function()

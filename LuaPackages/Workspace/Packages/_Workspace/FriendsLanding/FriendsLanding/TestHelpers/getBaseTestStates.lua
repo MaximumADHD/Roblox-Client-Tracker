@@ -167,6 +167,7 @@ return function(config: any?)
 				},
 				NetworkStatus = {
 					["https://friends.roblox.com//v1/users/test/friends"] = "Done",
+					["https://friends.roblox.com//v1/users/test/friends/inactive"] = "Done",
 				},
 			},
 			ScreenSize = Vector2.new(1000, 100),

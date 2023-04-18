@@ -1,6 +1,5 @@
 local ContactImporter = script:FindFirstAncestor("ContactImporter")
 local dependencies = require(ContactImporter.dependencies)
-local llama = dependencies.llama
 local Constants = require(ContactImporter.Common.Constants)
 
 local getFIntContactImporterUploadContactsMax = require(ContactImporter.Flags.getFIntContactImporterUploadContactsMax)
@@ -8,8 +7,6 @@ local getFIntContactImporterUploadContactsMin = require(ContactImporter.Flags.ge
 
 local RoduxContacts = dependencies.RoduxContacts
 local DeviceContact = RoduxContacts.Models.DeviceContact
-local getFFlagTrimContactsEarlierOnContactImporter =
-	require(ContactImporter.Flags.getFFlagTrimContactsEarlierOnContactImporter)
 
 return function(contacts)
 	-- format contacts properly to send to BE
@@ -19,7 +16,7 @@ return function(contacts)
 
 	for k, v in pairs(contacts.contacts) do
 		for _, phoneNumber in pairs(v.phonenumber) do
-			if getFFlagTrimContactsEarlierOnContactImporter() and #updatedContacts >= maxContacts then
+			if #updatedContacts >= maxContacts then
 				break
 			end
 
@@ -42,10 +39,7 @@ return function(contacts)
 	-- trim contacts
 	local contactsCount = #updatedContacts
 
-	if
-		contactsCount >= minContacts
-		and (getFFlagTrimContactsEarlierOnContactImporter() or contactsCount <= maxContacts)
-	then
+	if contactsCount >= minContacts then
 		return {
 			countryCode = contacts.countryCode,
 			contacts = updatedContacts,
@@ -55,12 +49,6 @@ return function(contacts)
 		return {
 			countryCode = contacts.countryCode,
 			contacts = {},
-			contactsCount = contactsCount,
-		}
-	elseif not getFFlagTrimContactsEarlierOnContactImporter() and contactsCount > maxContacts then
-		return {
-			countryCode = contacts.countryCode,
-			contacts = llama.List.slice(updatedContacts, 1, maxContacts),
 			contactsCount = contactsCount,
 		}
 	else

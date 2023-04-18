@@ -4,11 +4,11 @@ local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 
-local TenFootUiNavigatorTypes = require(script.Parent.Parent.TenFootUiNavigatorTypes)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local RouteViewState = require(script.Parent.RouteViewState)
 
-type Descriptor = TenFootUiNavigatorTypes.Descriptor
-type RouteState = TenFootUiNavigatorTypes.RouteState
+type Descriptor = TenFootUiCommon.Descriptor
+type RouteState = TenFootUiCommon.RouteState
 type RouteViewState = RouteViewState.RouteViewState
 
 local routeState: RouteState = {

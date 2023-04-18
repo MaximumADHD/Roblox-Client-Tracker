@@ -16,6 +16,7 @@ local GuiService = game:GetService("GuiService")
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -34,15 +35,21 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "HomeTab"
 
-	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png"
-	this.TabHeader.Icon.Size = UDim2.new(0,32,0,30)
-	this.TabHeader.Icon.Position = UDim2.new(0,5,0.5,-15)
-
-	if FFlagUseNotificationsLocalization then
-		this.TabHeader.Title.Text = "Home"
+	if Theme.UIBloxThemeEnabled then
+		this.TabHeader.TabLabel.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png"
+		this.TabHeader.TabLabel.Title.Text = "Home"
 	else
-		this.TabHeader.Icon.Title.Text = "Home"
+		this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png"
+		this.TabHeader.Icon.Size = UDim2.new(0,32,0,30)
+		this.TabHeader.Icon.Position = UDim2.new(0,5,0.5,-15)
+
+		if FFlagUseNotificationsLocalization then
+			this.TabHeader.Title.Text = "Home"
+		else
+			this.TabHeader.Icon.Title.Text = "Home"
+		end
 	end
+
 
 	this.TabHeader.Size = UDim2.new(0,100,1,0)
 

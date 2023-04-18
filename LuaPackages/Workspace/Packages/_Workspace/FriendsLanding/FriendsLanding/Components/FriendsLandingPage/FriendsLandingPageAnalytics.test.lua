@@ -2,10 +2,12 @@ local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local EnumScreens = require(FriendsLanding.EnumScreens)
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
 local createInstanceWithProps = require(FriendsLanding.TestHelpers.createInstanceWithProps)
+local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createInstanceWithProviders)
 local waitUntil = require(FriendsLanding.TestHelpers.waitUntil)
 local isAutomaticSizingEnabled = require(FriendsLanding.TestHelpers.isAutomaticSizingEnabled)
 
 local devDependencies = require(FriendsLanding.devDependencies)
+local findImageSet = devDependencies.findImageSet
 local RhodiumHelpers = devDependencies.RhodiumHelpers
 local mockLocale = devDependencies.UnitTestHelpers.mockLocale
 local ReactRoblox = devDependencies.ReactRoblox
@@ -21,8 +23,12 @@ local jest = JestGlobals.jest
 local USER_DISPLAY_NAME = "rowan"
 local EXPERIENCE_NAME = "super fun"
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 -- FIXME: APPFDN-1925
 local story = require((script :: any).Parent["withResult.story"]) :: any
+local inactiveStory = require((script :: any).Parent["inactiveFilter.story"]) :: any
 
 describe("GIVEN mock analytics", function()
 	local analytics, navigateToLuaAppPages
@@ -51,7 +57,11 @@ describe("GIVEN mock analytics", function()
 		beforeEach(function()
 			mountAndClick = function(props, buttonName)
 				local parent
-				parent, cleanup = createInstanceWithProps(mockLocale)(story, props)
+				if getFFlagFriendsLandingInactiveFriendsEnabled() then
+					parent, cleanup = createInstanceWithProviders(mockLocale)(story, { props = props })
+				else
+					parent, cleanup = createInstanceWithProps(mockLocale)(story, props)
+				end
 
 				local button = nil
 				waitUntil(function()
@@ -131,4 +141,47 @@ describe("GIVEN mock analytics", function()
 			end
 		end)
 	end)
+
+	if getFFlagFriendsLandingInactiveFriendsEnabled() then
+		describe("WHEN mounted with inactive filter state", function()
+			beforeEach(function()
+				mountAndClick = function(props)
+					local parent
+					parent, cleanup = createInstanceWithProviders(mockLocale)(inactiveStory, { props = props })
+
+					local button = nil
+					waitUntil(function()
+						button =
+							RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendRemove"))
+						return button ~= nil
+					end)
+
+					assert(button, 'Could not find icon with path "icons/actions/friends/friendRemove"')
+
+					-- DefaultMetricsGridView may be very small at first, leaving the buttons offscreen:
+					-- they exist but are not clickable.  Let Roact finish what ever it's doing before
+					-- proceeding, then the button will be onscreen.
+					ReactRoblox.act(function()
+						wait()
+					end)
+					RhodiumHelpers.clickInstance(button)
+				end
+			end)
+
+			it("SHOULD fire unfriend event if button is clicked", function()
+				mountAndClick({
+					analytics = analytics,
+					navigateToLuaAppPages = navigateToLuaAppPages,
+				})
+
+				expect(analytics.buttonClick).toHaveBeenCalledTimes(1)
+				expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.FriendTileUnfriendButton, {
+					friendCount = "2",
+					inactiveFriendCount = "2",
+					presence = "PresenceType.InGame",
+					unfriendUserId = "456",
+				})
+			end)
+		end)
+	end
 end)

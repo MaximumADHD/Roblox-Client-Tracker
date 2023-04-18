@@ -19,6 +19,9 @@ local jest = JestGlobals.jest
 
 local FriendsLandingPage = require(script.Parent)
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 -- FIXME: APPFDN-1925
 local noFriendsStory = require((script :: any).Parent["noFriends.story"]) :: any
 local noResultsStory = require((script :: any).Parent["noResults.story"]) :: any
@@ -223,4 +226,34 @@ describe("FriendsLandingPage", function()
 			expect(showMore).toBeBelow(friendsGrid)
 		end)
 	end)
+
+	if getFFlagFriendsLandingInactiveFriendsEnabled() then
+		describe("friend pruning upsell active", function()
+			local parent, cleanup
+
+			beforeEach(function()
+				parent, cleanup = createInstanceWithProviders(mockLocale)(withResultStory, {
+					props = {
+						navigation = mockNavigation,
+						devForceFriendPruningUpsellOn = true,
+					},
+				})
+			end)
+
+			afterEach(function()
+				cleanup()
+			end)
+
+			it("SHOULD render the tooltip such that it blocks the filter button", function()
+				if isAutomaticSizingEnabled() then
+					local filterByButton = RhodiumHelpers.findFirstInstance(parent, {
+						Name = "filterByButton",
+					})
+
+					RhodiumHelpers.clickInstance(filterByButton)
+					expect(mockNavigate).toHaveBeenCalledTimes(0)
+				end
+			end)
+		end)
+	end
 end)

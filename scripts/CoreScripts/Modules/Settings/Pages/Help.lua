@@ -28,6 +28,7 @@ local GameSettings = Settings.GameSettings
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -612,13 +613,19 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "HelpTab"
 
-	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
+	if Theme.UIBloxThemeEnabled then
+		this.TabHeader.TabLabel.Icon.Image ="rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
+		this.TabHeader.TabLabel.Title.Text = "Help"
+	else
+		this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
 
-  if FFlagUseNotificationsLocalization then
-    this.TabHeader.Title.Text = "Help"
-  else
-    this.TabHeader.Icon.Title.Text = "Help"
-  end
+		if FFlagUseNotificationsLocalization then
+			this.TabHeader.Title.Text = "Help"
+		else
+			this.TabHeader.Icon.Title.Text = "Help"
+		end
+	end
+
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Help"
 

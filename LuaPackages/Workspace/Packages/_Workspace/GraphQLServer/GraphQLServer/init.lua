@@ -8,6 +8,7 @@ export type OmniFeedMetadata = graphqlModule.OmniFeedMetadata
 export type OmniFeedRecommendation = graphqlModule.OmniFeedRecommendation
 export type OmniFeedItem = graphqlModule.OmniFeedItem
 export type Experience = graphqlModule.Experience
+export type ExperienceMedia = graphqlModule.ExperienceMedia
 export type Media = graphqlModule.Media
 export type VirtualEvent = graphqlModule.VirtualEvent
 export type RsvpStatus = graphqlModule.RsvpStatus

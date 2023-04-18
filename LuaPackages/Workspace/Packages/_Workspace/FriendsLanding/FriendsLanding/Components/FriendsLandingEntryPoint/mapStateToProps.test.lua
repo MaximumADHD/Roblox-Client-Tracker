@@ -8,6 +8,9 @@ local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 local mapStateToProps = require(script.Parent.mapStateToProps)
 
 describe("mapStateToProps", function()
@@ -32,6 +35,12 @@ describe("mapStateToProps", function()
 			expect(returnValue.screenSize).toBe(Vector2.new(1000, 100))
 		end)
 
+		if getFFlagFriendsLandingInactiveFriendsEnabled() then
+			it("SHOULD return inactiveFriendsNetworkRequestStatus with correct value", function()
+				expect(returnValue.inactiveFriendsNetworkRequestStatus).toBe("Done")
+			end)
+		end
+
 		it("SHOULD return friendRequestCount with correct value", function()
 			expect(returnValue.friendRequestCount).toBe(12)
 		end)
@@ -42,9 +51,20 @@ describe("mapStateToProps", function()
 	end)
 
 	describe("WHEN called with empty state", function()
-		local returnValue = mapStateToProps({
-			LocalUserId = "a",
-		})
+		local emptyState = if getFFlagFriendsLandingInactiveFriendsEnabled()
+			then {
+				LocalUserId = "a",
+				FriendsLanding = {
+					NetworkStatus = {
+						["https://friends.roblox.com//v1/users/test/friends/inactive"] = "Done",
+					},
+				},
+			}
+			else {
+				LocalUserId = "a",
+			}
+
+		local returnValue = mapStateToProps(emptyState)
 
 		it("SHOULD return friendRequestCount as 0 by default", function()
 			expect(returnValue.friendRequestCount).toBe(0)

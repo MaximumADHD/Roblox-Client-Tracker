@@ -15,8 +15,6 @@ local RECS_SOURCE = require(FriendsCarousel.Common.Constants).RECS_SOURCE
 local addFriendsCarouselRecommendationIdsToState =
 	require(FriendsCarousel.TestHelpers.addFriendsCarouselRecommendationIdsToState)
 
-local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFilterOutRecs)
-
 local getRecommendationsList = require(script.Parent.getRecommendationsList)
 
 it("SHOULD return empty list if user has >= 7 friends", function()
@@ -87,38 +85,36 @@ it("SHOULD return empty list if user has < 7 friends and no recommendations", fu
 	jestExpect(recommendationsList).toEqual({})
 end)
 
-if getFFlagFriendsCarouselFilterOutRecs() then
-	it("SHOULD return only recommendations with ids in FriendsCarousel Source", function()
-		local state = baseTestStates.friendsAndRecommendations
-		state[RODUX_KEY].Friends.recommendations.bySource = {
-			[RECS_SOURCE] = { recom1 = true, recom4 = true },
-		}
-		local localUserId = state.LocalUserId
+it("SHOULD return only recommendations with ids in FriendsCarousel Source", function()
+	local state = baseTestStates.friendsAndRecommendations
+	state[RODUX_KEY].Friends.recommendations.bySource = {
+		[RECS_SOURCE] = { recom1 = true, recom4 = true },
+	}
+	local localUserId = state.LocalUserId
 
-		local recommendationsList = getRecommendationsList(state, RODUX_KEY)
+	local recommendationsList = getRecommendationsList(state, RODUX_KEY)
 
-		jestExpect(#recommendationsList).toEqual(2)
-		jestExpect(recommendationsList[1]).toEqual(
-			llama.Dictionary.join(
-				state[RODUX_KEY].Users.byUserId["recom1"],
-				state[RODUX_KEY].Friends.recommendations.byUserId[localUserId]["recom1"],
-				{
-					isFriendWithUser = false,
-					hasPendingFriendRequest = false,
-					canSendFriendRequest = true,
-				}
-			)
+	jestExpect(#recommendationsList).toEqual(2)
+	jestExpect(recommendationsList[1]).toEqual(
+		llama.Dictionary.join(
+			state[RODUX_KEY].Users.byUserId["recom1"],
+			state[RODUX_KEY].Friends.recommendations.byUserId[localUserId]["recom1"],
+			{
+				isFriendWithUser = false,
+				hasPendingFriendRequest = false,
+				canSendFriendRequest = true,
+			}
 		)
-		jestExpect(recommendationsList[2]).toEqual(
-			llama.Dictionary.join(
-				state[RODUX_KEY].Users.byUserId["recom4"],
-				state[RODUX_KEY].Friends.recommendations.byUserId[localUserId]["recom4"],
-				{
-					isFriendWithUser = false,
-					hasPendingFriendRequest = true,
-					canSendFriendRequest = false,
-				}
-			)
+	)
+	jestExpect(recommendationsList[2]).toEqual(
+		llama.Dictionary.join(
+			state[RODUX_KEY].Users.byUserId["recom4"],
+			state[RODUX_KEY].Friends.recommendations.byUserId[localUserId]["recom4"],
+			{
+				isFriendWithUser = false,
+				hasPendingFriendRequest = true,
+				canSendFriendRequest = false,
+			}
 		)
-	end)
-end
+	)
+end)

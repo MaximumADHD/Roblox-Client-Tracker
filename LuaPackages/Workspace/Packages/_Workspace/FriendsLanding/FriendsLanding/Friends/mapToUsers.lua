@@ -9,6 +9,9 @@ local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 
 local getUserAvatarImage = require(script.Parent.getUserAvatarImage)
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 return function(state)
 	return function(userId)
 		assert(t.string(userId))
@@ -31,6 +34,11 @@ return function(state)
 				{
 					hasVerifiedBadge = if getFFlagVerifiedBadgeInFriendsLanding()
 						then verifiedUsers and verifiedUsers[friendId]
+						else nil,
+				},
+				{
+					isInactiveFriend = if getFFlagFriendsLandingInactiveFriendsEnabled()
+						then getDeepValue(state, `FriendsLanding.InactiveFriends.{friendId}`)
 						else nil,
 				}
 			)

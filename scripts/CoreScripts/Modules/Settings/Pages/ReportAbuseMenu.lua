@@ -35,6 +35,7 @@ local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Url = require(RobloxGui.Modules.Common.Url)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local ReportAbuseAnalytics = require(Settings.Analytics.ReportAbuseAnalytics)
 
@@ -60,6 +61,7 @@ local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlow
 local GetFFlagReportAnythingAnnotationIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFFlagEnableReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableReportAnythingAnalytics)
 local GetFFlagEnableARFlowAnalyticsCleanup = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
+local GetFFlagEnableIGMv1ARFlowNilMoAFix = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -179,6 +181,11 @@ local function Initialize()
 				end
 				voiceAllowed = this:shouldVoiceMOABeAvailable()
 			else
+				if GetFFlagEnableIGMv1ARFlowNilMoAFix() then
+					if currentIndex == nil then
+						return "Chat"
+					end
+				end
 				voiceAllowed = this:isVoiceReportMethodActive()
 			end
 
@@ -221,8 +228,8 @@ local function Initialize()
 			else
 				this.TypeOfAbuseFrame.Visible = true
 			end
-			this.WhichPlayerFrame.Visible = true 
-			this.AbuseDescriptionFrame.Visible = true 
+			this.WhichPlayerFrame.Visible = true
+			this.AbuseDescriptionFrame.Visible = true
 			this.SubmitButton.Visible = true
 			this.BackButton.Visible = false
 		end
@@ -272,11 +279,11 @@ local function Initialize()
 				this:mountAnnotationPage()
 				return
 			end
-			local selectedMethodOfAbuse = this:GetSelectedMethodOfAbuse() 
+			local selectedMethodOfAbuse = this:GetSelectedMethodOfAbuse()
 			if selectedMethodOfAbuse == "Other" then
 				this.previousFormPhase = FormPhase.Annotation
 				this:mountAnnotationPage()
-				return 
+				return
 			else -- Chat, Voice, and MoA not selected
 				-- Allow selection of alleged abuser via dropdown
 				this.WhichPlayerFrame.Visible = true
@@ -698,12 +705,18 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
-	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png"
-	if FFlagUseNotificationsLocalization then
-		this.TabHeader.Title.Text = "Report"
+	if Theme.UIBloxThemeEnabled then
+		this.TabHeader.TabLabel.Icon.Image ="rbxasset://textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png"
+		this.TabHeader.TabLabel.Title.Text = "Report"
 	else
-		this.TabHeader.Icon.Title.Text = "Report"
+		this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png"
+		if FFlagUseNotificationsLocalization then
+			this.TabHeader.Title.Text = "Report"
+		else
+			this.TabHeader.Icon.Title.Text = "Report"
+		end
 	end
+
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ReportAbusePage"
@@ -745,7 +758,44 @@ local function Initialize()
 		this.TypeOfAbuseMode = utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME, 1)
 		this.TypeOfAbuseFrame.LayoutOrder = 3
 
-		if utility:IsSmallTouchScreen() then
+		if Theme.UIBloxThemeEnabled then
+			this.AbuseDescriptionFrame,
+			this.AbuseDescriptionLabel,
+			this.AbuseDescription = utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 1)
+
+			this.AbuseDescriptionLabel.Text = "Abuse Description"
+			this.AbuseDescriptionFrame.Size = UDim2.new(1, 0, 0, 100)
+			this.AbuseDescriptionLabel.TextYAlignment = Enum.TextYAlignment.Top
+
+			utility:Create'UICorner'
+			{
+				CornerRadius = Theme.MenuContainerCornerRadius,
+				Parent = this.AbuseDescription.Selection,
+			}
+
+			utility:Create'UIPadding'
+			{
+				PaddingTop = UDim.new(0, 4),
+				PaddingLeft = UDim.new(0, 10),
+				PaddingRight = UDim.new(0, 10),
+				PaddingBottom = UDim.new(0, 0),
+				Parent = this.AbuseDescription.Selection,
+			}
+
+			utility:Create'UIStroke'
+			{
+				Name = "Border",
+				Color = Theme.color("ControlInputStroke"), -- overwritten
+				Transparency = Theme.transparency("ControlInputStroke"), -- overwritten
+				Thickness = Theme.DefaultStokeThickness, -- overwritten
+				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+				Parent = this.AbuseDescription.Selection,
+			}
+
+			this.AbuseDescription.Selection.BackgroundColor3 = Theme.color("ControlInputBackground")
+			this.AbuseDescription.Selection.BackgroundTransparency = Theme.transparency("ControlInputBackground")
+			this.AbuseDescription.Selection.TextColor3 = Theme.color("ControlInputText")
+		elseif utility:IsSmallTouchScreen() then
 			this.AbuseDescriptionFrame,
 			this.AbuseDescriptionLabel,
 			this.AbuseDescription = utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
@@ -766,7 +816,22 @@ local function Initialize()
 			if this.AbuseDescription.Selection.Text == "" then
 				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
 			end
+			if Theme.UIBloxThemeEnabled then
+				local Border = this.AbuseDescription.Selection.Border
+				Border.Thickness = 1
+				Border.Color = Theme.color("ControlInputStroke")
+				Border.Transparency = Theme.transparency("ControlInputStroke")
+			end
 		end)
+
+		if Theme.UIBloxThemeEnabled then
+			this.AbuseDescription.Selection.Focused:connect(function()
+				local Border = this.AbuseDescription.Selection.Border
+				Border.Thickness = 2
+				Border.Color = Theme.color("ControlInputFocusedStroke")
+				Border.Transparency = Theme.transparency("ControlInputFocusedStroke")
+			end)
+		end
 
 		local function updateMethodOfAbuseVisibility()
 			if this.MethodOfAbuseMode then
@@ -783,11 +848,11 @@ local function Initialize()
 				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, "Social.VoiceAbuseReport.ReportAbuseMenu.V1")
 				layerData = IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
 			end
-  
+
 			if layerData then
 				inSortingExperiment = layerData.VoiceAbuseReportProximitySort
 				inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
-				
+
 				if not GetFFlagEnableConfigurableReportAbuseIXP() then
 					if layerData.VoiceAbuseReportDisabled == nil then
 						voiceChatEnabled = false
@@ -812,7 +877,7 @@ local function Initialize()
 					updateMethodOfAbuseVisibility()
 				end
 			end
-			
+
 			if GetFFlagReportAnythingAnnotationIXP() then
 				-- Let RA layout run instead if eligible. Voice layout will run
 				-- if RA is not eligible. Register this callback here since at
@@ -894,7 +959,7 @@ local function Initialize()
 						return true
 					end
 				end
-			end	
+			end
 			return false
 		end
 
@@ -930,7 +995,7 @@ local function Initialize()
 				end
 			end
 		end
-		
+
 		local function updateAbuseDropDown(isUserInitiated: boolean?)
 			this.WhichPlayerMode:ResetSelectionIndex()
 			this.TypeOfAbuseMode:ResetSelectionIndex()
@@ -1085,10 +1150,10 @@ local function Initialize()
 									menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
 									variant = AbuseReportBuilder.Constants.Variant.Sampling
 								})
-		
+
 								PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 								if #AbuseReportBuilder.getSelectedAbusers() > 0 or not currentAbusingPlayer then
-									isReportSentEnabled = false -- disable new page that needs to be passed one specific player 
+									isReportSentEnabled = false -- disable new page that needs to be passed one specific player
 									showReportSentAlert = true -- use old page that does not need a player
 								end
 							end)
@@ -1205,9 +1270,19 @@ local function Initialize()
 			end
 		end
 
-		this.SubmitButton, this.SubmitText = utility:MakeStyledButton("SubmitButton", "Submit", UDim2.new(0,198,0,50), onReportSubmitted, this)
+		local submitButtonSize = UDim2.new(0,198,0,50)
+		if Theme.UIBloxThemeEnabled then
+			submitButtonSize = UDim2.new(1,20,0,50)
+		end
+
+		this.SubmitButton, this.SubmitText = utility:MakeStyledButton("SubmitButton", "Submit", submitButtonSize, onReportSubmitted, this)
 		this.SubmitButton.AnchorPoint = Vector2.new(0.5,0)
-		this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
+
+		if Theme.UIBloxThemeEnabled then
+			this.SubmitButton.Position = UDim2.new(0.5,0,1,15)
+		else
+			this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
+		end
 
 		updateSubmitButton()
 
@@ -1283,7 +1358,7 @@ local function Initialize()
 		this:AddRow(nil, nil, this.AbuseDescription)
 
 		this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y)
-		
+
 		-- IXP initialization is async. We need to do the following updates after getting the IXP variables.
 		local function ixpInitializationCallback()
 			if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
@@ -1294,7 +1369,7 @@ local function Initialize()
 				this:ActivateFormPhase(FormPhase.Init)
 			end
 		end
-		
+
 		if GetFFlagReportAnythingAnnotationIXP() then
 			TrustAndSafetyIXPManager:waitForInitialization(ixpInitializationCallback)
 		end
@@ -1319,7 +1394,7 @@ do
 				ReportAnythingAnalytics.clear()
 			end
 			coroutine.wrap(function()
-				local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()	
+				local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
 				AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
 				AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
 				if GetFFlagEnableReportAnythingAnalytics() then

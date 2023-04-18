@@ -9,6 +9,9 @@ local filterStates = require(FriendsLanding.Friends.filterStates)
 local getBaseTestStates = require(FriendsLanding.TestHelpers.getBaseTestStates)
 local smallNumbersOfFriends = getBaseTestStates().smallNumbersOfFriends
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 local BASE_STORE = Rodux.Store.new(function()
 	return smallNumbersOfFriends
 end, {}, { Rodux.thunkMiddleware })
@@ -43,6 +46,14 @@ function Story:init()
 			filter = filterStates.Offline,
 		})
 	end
+
+	self.filterByInactive = if getFFlagFriendsLandingInactiveFriendsEnabled()
+		then function()
+			self:setState({
+				filter = filterStates.Inactive,
+			})
+		end
+		else nil
 end
 
 function Story:render()
@@ -88,6 +99,13 @@ function Story:render()
 					Text = "filterInExperience",
 					[Roact.Event.Activated] = self.filterInExperience,
 				}),
+				filterByInactive = if getFFlagFriendsLandingInactiveFriendsEnabled()
+					then Roact.createElement("TextButton", {
+						Size = UDim2.new(0, 100, 0, 100),
+						Text = "filterByInactive",
+						[Roact.Event.Activated] = self.filterByInactive,
+					})
+					else nil,
 			}),
 
 			withContext = Roact.createElement(FriendsLandingContainer, self.props),

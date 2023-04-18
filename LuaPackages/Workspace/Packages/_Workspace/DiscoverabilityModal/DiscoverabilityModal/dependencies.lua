@@ -74,6 +74,5 @@ return {
 		useDispatch = require(Packages.RoactUtils).Hooks.RoactRodux.useDispatch,
 	},
 
-	getFFlagEnableContactInvitesForNonPhoneVerified = SharedFlags.getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFStringSocialProfileLayer = SharedFlags.getFStringSocialProfileLayer,
 }

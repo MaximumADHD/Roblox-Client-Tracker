@@ -5,7 +5,6 @@ local React = require(VirtualEvents.Parent.React)
 local UIBlox = require(VirtualEvents.Parent.UIBlox)
 local useLocalization = require(VirtualEvents.Parent.RoactUtils).Hooks.useLocalization
 local types = require(VirtualEvents.types)
-local getFFlagUpdateRsvpButtonText = require(VirtualEvents.Parent.SharedFlags).getFFlagUpdateRsvpButtonText
 
 local Images = UIBlox.App.ImageSet.Images
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
@@ -62,10 +61,8 @@ local function useActionBarProps(
 	callbacks: Callbacks
 ): ActionBarProps
 	local text = useLocalization({
-		notifyMe = if getFFlagUpdateRsvpButtonText() then "Feature.VirtualEvents.NotifyMe" else nil,
-		unfollowEvent = if getFFlagUpdateRsvpButtonText() then "Feature.VirtualEvents.UnfollowEvent" else nil,
-		going = if getFFlagUpdateRsvpButtonText() then nil else "Feature.VirtualEvents.RsvpGoing",
-		notGoing = if getFFlagUpdateRsvpButtonText() then nil else "Feature.VirtualEvents.RsvpNotGoing",
+		notifyMe = "Feature.VirtualEvents.NotifyMe",
+		unfollowEvent = "Feature.VirtualEvents.UnfollowEvent",
 		joinEvent = "Feature.VirtualEvents.JoinEvent",
 		goHome = "Feature.VirtualEvents.GoHome",
 	})
@@ -77,7 +74,7 @@ local function useActionBarProps(
 					return {
 						props = {
 							buttonType = ButtonType.Secondary,
-							text = if getFFlagUpdateRsvpButtonText() then text.unfollowEvent else text.going,
+							text = text.unfollowEvent,
 							icon = Images[INTERESTED_ON_IMAGE],
 							onActivated = callbacks.onRsvpChanged,
 						},
@@ -86,7 +83,7 @@ local function useActionBarProps(
 					return {
 						props = {
 							buttonType = ButtonType.PrimarySystem,
-							text = if getFFlagUpdateRsvpButtonText() then text.notifyMe else text.notGoing,
+							text = text.notifyMe,
 							icon = Images[INTERESTED_OFF_IMAGE],
 							onActivated = callbacks.onRsvpChanged,
 						},

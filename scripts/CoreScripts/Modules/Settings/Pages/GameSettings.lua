@@ -91,6 +91,7 @@ local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 local GetHasGuiHidingPermission = require(RobloxGui.Modules.Common.GetHasGuiHidingPermission)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -2456,14 +2457,23 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "GameSettingsTab"
-	this.TabHeader.Icon.Image =
+
+	if Theme.UIBloxThemeEnabled then
+		this.TabHeader.TabLabel.Icon.Image =
 		isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png" or
 		"rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab.png"
 
-	if FFlagUseNotificationsLocalization then
-		this.TabHeader.Title.Text = "Settings"
+		this.TabHeader.TabLabel.Title.Text = "Settings"
 	else
-		this.TabHeader.Icon.Title.Text = "Settings"
+		this.TabHeader.Icon.Image =
+		isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png" or
+		"rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab.png"
+
+		if FFlagUseNotificationsLocalization then
+			this.TabHeader.Title.Text = "Settings"
+		else
+			this.TabHeader.Icon.Title.Text = "Settings"
+		end
 	end
 
 	------ PAGE CUSTOMIZATION -------

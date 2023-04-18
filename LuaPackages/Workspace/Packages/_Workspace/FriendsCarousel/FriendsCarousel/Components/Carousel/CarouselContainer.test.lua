@@ -33,11 +33,8 @@ local RecommendationContextType = dependencies.RoduxFriends.Enums.Recommendation
 local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local NetworkingAccountInformation = dependencies.NetworkingAccountInformation
 
-local getFFlagFriendsCarouselFilterOutRecs = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFilterOutRecs)
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
 local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
-local getFFlagFriendsCarouselAddNewBadgeTracking =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local CarouselContainer = require(script.Parent.CarouselContainer)
@@ -131,9 +128,7 @@ describe("CarouselContainer", function()
 
 				mockedAnalytics = mockAnalytics(jest)
 				local state = baseTestStates.friendsAndRecommendations
-				if getFFlagFriendsCarouselFilterOutRecs() then
-					addFriendsCarouselRecommendationIdsToState(state)
-				end
+				addFriendsCarouselRecommendationIdsToState(state)
 
 				local CarouselContainerElement = createTreeWithProviders(CarouselContainer, {
 					store = mockStore(state),
@@ -160,11 +155,7 @@ describe("CarouselContainer", function()
 			it(
 				"SHOULD render CI badge and fire analytics event for it if showNewAddFriendsUIVariant and showContactImporter are true",
 				function()
-					if
-						getFFlagFriendsCarouselCircularBadge()
-						and getFFlagSocialOnboardingExperimentEnabled()
-						and getFFlagFriendsCarouselAddNewBadgeTracking()
-					then
+					if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
 						local CarouselContainerElement = setup({
 							showContactImporter = true,
 							showNewAddFriendsUIVariant = true,

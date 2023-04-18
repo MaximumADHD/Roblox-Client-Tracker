@@ -10,24 +10,25 @@ local AnalyticsEvents = require(script.Parent.AnalyticsEvents)
 local DiagEvents = require(script.Parent.DiagEvents)
 
 return function(setup: {
-	diag: any,
-	eventStreamImpl: any,
+	eventStreamImpl: any?,
+	diag: any?,
+	analytics: { Diag: any?, EventStream: any? }?,
 	loggerImpl: any?,
 	defaultAnalyticsInfo: { uid: string, entry: any },
 })
 	local configuredFireEventStream = fireEventStream({
-		eventStreamImpl = setup.eventStreamImpl,
+		eventStreamImpl = if setup.analytics then setup.analytics.EventStream else setup.eventStreamImpl,
 		eventList = AnalyticsEvents,
 		infoForAllEvents = setup.defaultAnalyticsInfo,
 	})
 
 	local configuredFireDiagCounter = fireDiagCounter({
-		diagImpl = setup.diag,
+		diagImpl = if setup.analytics then setup.analytics.Diag else setup.diag,
 		eventList = DiagEvents,
 	})
 
 	local configuredFireReportStats = fireReportStats({
-		diagImpl = setup.diag,
+		diagImpl = if setup.analytics then setup.analytics.Diag else setup.diag,
 		eventList = DiagEvents,
 	})
 

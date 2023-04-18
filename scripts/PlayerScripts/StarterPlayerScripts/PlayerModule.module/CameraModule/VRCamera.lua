@@ -36,6 +36,13 @@ local FFlagUserVRPlaySeatedStanding do
 	FFlagUserVRPlaySeatedStanding = success and result
 end
 
+local FFlagUserVRFirstPersonRecenter do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRFirstPersonRecenter")
+	end)
+	FFlagUserVRFirstPersonRecenter = success and result
+end
+
 function VRCamera.new()
 	local self = setmetatable(VRBaseCamera.new(), VRCamera)
 
@@ -128,6 +135,9 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	-- transition from TP to FP
 	if self.needsReset then
 		self:StartFadeFromBlack()
+		if FFlagUserVRFirstPersonRecenter then
+			VRService:RecenterUserHeadCFrame()
+		end
 		self.needsReset = false
 		self.stepRotateTimeout = 0.25
 		self.VRCameraFocusFrozen = true
@@ -300,14 +310,33 @@ end
 
 function VRCamera:EnterFirstPerson()
 	self.inFirstPerson = true
+	
+	if FFlagUserVRFirstPersonRecenter then
+		self.needsReset = true
+
+		-- First person VR camera needs to recenter if the player changed play modes
+		self.vrPlayModeChangedConnection = UserGameSettings:GetPropertyChangedSignal("VRPlayMode"):Connect(function()
+			self.needsReset = true
+		end)
+	end
+	
 	self:UpdateMouseBehavior()
 end
 
 function VRCamera:LeaveFirstPerson()
 	self.inFirstPerson = false
 	self.needsReset = true
+	
+	if FFlagUserVRFirstPersonRecenter then 
+		-- remove first person reset connections
+		if self.vrPlayModeChangedConnection then
+			self.vrPlayModeChangedConnection:Disconnect()
+			self.vrPlayModeChangedConnection = nil
+		end
+	end
+	
 	self:UpdateMouseBehavior()
-
+	
 	if self.VRBlur then
 		self.VRBlur.Visible = false
 	end

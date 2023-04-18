@@ -8,8 +8,6 @@ local UpdateIsDiscoverabilityUnset = dependencies.SocialModalsCommon.Actions.Upd
 
 local Rodux = dependencies.Rodux
 local llama = dependencies.llama
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local Constants = require(ContactImporter.Common.Constants)
 
 type State = {
@@ -20,7 +18,6 @@ type State = {
 	canUploadContacts: boolean?,
 	shouldShowContactImporterUpsellModal: boolean,
 	isDiscoverabilityUnset: boolean,
-	isEmailVerified: boolean?,
 }
 
 type UpdateContactImporterModalLogicAction = {
@@ -39,34 +36,18 @@ local DEFAULT_STATE: State = {
 	isPhoneVerified = false,
 	canUploadContacts = false,
 	isDiscoverabilityUnset = false,
-	isEmailVerified = nil,
 }
 
 return Rodux.createReducer(DEFAULT_STATE, {
 	[SetContactImporterDisplayLogic.name] = function(state: State, action: SetContactImporterDisplayLogic.ParamsType)
 		local hasOSPermissions = action.hasOSPermissions
 		local isPhoneVerified = action.isPhoneVerified
-		local isEmailVerified = action.isEmailVerified
 		local shouldShowContactImporterUpsellAgain = action.shouldShowContactImporterUpsellAgain
 		local canUploadContacts = action.canUploadContacts
 		local phoneNumberDiscoverability = action.phoneNumberDiscoverability
 
 		local hasUserOptedIntoContactImporter = hasOSPermissions and action.isUserOptedInLocalStorage
-
-		local shouldShowContactImporterFeature
-		if getFFlagContactImporterWithPhoneVerification() then
-			if getFFlagEnableContactInvitesForNonPhoneVerified() then
-				shouldShowContactImporterFeature = isPhoneVerified or not isEmailVerified and canUploadContacts ~= false
-			else
-				shouldShowContactImporterFeature = not isEmailVerified and canUploadContacts ~= false
-			end
-		else
-			if getFFlagEnableContactInvitesForNonPhoneVerified() then
-				shouldShowContactImporterFeature = canUploadContacts ~= false
-			else
-				shouldShowContactImporterFeature = isPhoneVerified and canUploadContacts ~= false
-			end
-		end
+		local shouldShowContactImporterFeature = canUploadContacts ~= false
 
 		return {
 			[Constants.SHOULD_SHOW_CONTACT_IMPORTER_FEATURE] = shouldShowContactImporterFeature,
@@ -78,7 +59,6 @@ return Rodux.createReducer(DEFAULT_STATE, {
 			isPhoneVerified = isPhoneVerified,
 			canUploadContacts = canUploadContacts,
 			isDiscoverabilityUnset = phoneNumberDiscoverability == Constants.DISCOVERABILITY_UNSET,
-			isEmailVerified = if getFFlagContactImporterWithPhoneVerification() then isEmailVerified else nil,
 		}
 	end :: (state: State, action: any) -> State,
 	[UpdateContactImporterModalLogic.name] = function(state: State, action: UpdateContactImporterModalLogicAction)

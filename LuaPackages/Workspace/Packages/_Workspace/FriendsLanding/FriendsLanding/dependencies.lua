@@ -11,19 +11,17 @@ local Lumberyak = require(Packages.Lumberyak)
 local logger = Lumberyak.Logger.new(nil, "FriendsLanding")
 local httpLogger = logger:new("FriendsLanding Networking")
 local maxHttpRetries = game:DefineFastInt("FriendsLandingHttpRetryCount", 3)
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local LocalizationService = game:GetService("LocalizationService")
+local TextService = game:GetService("TextService")
 local Otter = require(Packages.Otter)
 local getFFlagSocialAddFriendshipRequestEvent = require(Packages.SharedFlags).getFFlagSocialAddFriendshipRequestEvent
-local getFFlagContactImporterWithPhoneVerification =
-	require(Packages.SharedFlags).getFFlagContactImporterWithPhoneVerification
 local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFFlagVerifiedBadgeInFriendsLanding)
 local getFStringSocialAddFriendsPageLayer = require(Packages.SharedFlags).getFStringSocialAddFriendsPageLayer
 local getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
-local getFFlagEnableContactInvitesForNonPhoneVerified =
-	require(Packages.SharedFlags).getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagSocialOnboardingExperimentEnabled =
 	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
@@ -112,8 +110,10 @@ return {
 	RoduxUserPermissions = LuaSocialLibrariesDeps.RoduxUserPermissions.config({
 		keyPath = "FriendsLanding.UserPermissions",
 	}),
+	CoreGui = CoreGui,
 	Players = Players,
 	LocalizationService = LocalizationService,
+	TextService = TextService,
 	NetworkingFriendsEnums = LuaSocialLibrariesDeps.NetworkingFriends.Enums,
 	FriendsNetworking = NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
@@ -130,9 +130,7 @@ return {
 	Otter = Otter,
 	CollisionMatchers = LuaSocialLibrariesDeps.CollisionMatchers,
 	getFFlagSocialAddFriendshipRequestEvent = getFFlagSocialAddFriendshipRequestEvent,
-	getFFlagContactImporterWithPhoneVerification = getFFlagContactImporterWithPhoneVerification,
 	getFFlagVerifiedBadgeInFriendsLanding = getFFlagVerifiedBadgeInFriendsLanding,
-	getFFlagEnableContactInvitesForNonPhoneVerified = getFFlagEnableContactInvitesForNonPhoneVerified,
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
 	getFStringSocialFriendsLayer = getFStringSocialFriendsLayer,
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,

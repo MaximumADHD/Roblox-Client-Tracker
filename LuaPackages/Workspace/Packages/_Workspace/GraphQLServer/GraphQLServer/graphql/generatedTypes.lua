@@ -107,7 +107,9 @@ export type HostType = "group" | "user"
 exports.HostType = HostType
 export type Media = { __typename: "Media"?, url: Maybe<typeof((({} :: any) :: Scalars).String)>? }
 local MediaAssetType = { Image = "Image", YouTubeVideo = "YouTubeVideo" }
-export type MediaAssetType = { [string]: string }
+-- ROBLOX deviation START: convert MediaAssetType enum to type union
+export type MediaAssetType = "Image" | "YouTubeVideo"
+-- ROBLOX deviation END
 exports.MediaAssetType = MediaAssetType
 export type Mutation = {
 	__typename: "Mutation"?,

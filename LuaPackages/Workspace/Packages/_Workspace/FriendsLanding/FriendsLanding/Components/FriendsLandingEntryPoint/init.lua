@@ -24,6 +24,8 @@ local noOpt = function() end
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
 local getFFlagFriendsLandingPagesMaskBottomInset =
 	require(FriendsLanding.Flags.getFFlagFriendsLandingPagesMaskBottomInset)
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
 
 local RECORD_EXPOSURE_ON_MOUNT = false
 
@@ -89,6 +91,9 @@ function FriendsLandingEntryPoint:init()
 	self.refreshPage = function(config)
 		return self.props.refreshPageData({
 			localUserId = self.props.localUserId,
+			inactiveFriendsNetworkRequestStatus = if getFFlagFriendsLandingInactiveFriendsEnabled()
+				then self.props.inactiveFriendsNetworkRequestStatus
+				else nil,
 			onError = function()
 				self.showErrorToast(config.errorMessage)
 				Logger:info("Refreshing FriendsLanding data failed")

@@ -11,12 +11,12 @@ local usePrevious = RoactUtils.Hooks.usePrevious
 local useArrayCollection = RoactUtils.Hooks.useArrayCollection
 
 local RouteViewState = require(ReactNavigationExtend.Views.RouteViewState)
-local TenFootUiNavigatorTypes = require(ReactNavigationExtend.TenFootUiNavigatorTypes)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local areRoutesEqual = require(ReactNavigationExtend.Hooks.areRoutesEqual)
 
-type RouteState = TenFootUiNavigatorTypes.RouteState
-type Descriptor = TenFootUiNavigatorTypes.Descriptor
-type NavigationState = TenFootUiNavigatorTypes.NavigationState
+type RouteState = TenFootUiCommon.RouteState
+type Descriptor = TenFootUiCommon.Descriptor
+type NavigationState = TenFootUiCommon.NavigationState
 type RouteViewState = RouteViewState.RouteViewState
 type ScreenInfo = RouteViewState & { visible: boolean }
 type ViewState = RouteViewState.ViewState

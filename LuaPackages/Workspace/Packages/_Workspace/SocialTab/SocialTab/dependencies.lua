@@ -10,7 +10,6 @@ local getFFlagSocialProfileShareAnalyticsEnabled =
 	require(Packages.SharedFlags).getFFlagSocialProfileShareAnalyticsEnabled
 local getFFlagSocialAddFriendshipRequestEvent = require(Packages.SharedFlags).getFFlagSocialAddFriendshipRequestEvent
 local getFFlagVBXboxReducerFix = require(Packages.SharedFlags).getFFlagVBXboxReducerFix
-local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFlagUseCorrectedFriendSortUtil
 local FFlagExperienceJoinAttemptId = require(Packages.GameProtocol).Flags.FFlagExperienceJoinAttemptId
 local GetFFlagHideConnectPageWebViewItemsForVR = require(Packages.SharedFlags).GetFFlagHideConnectPageWebViewItemsForVR
 
@@ -135,7 +134,6 @@ return {
 	getFFlagSocialProfileShareAnalyticsEnabled = getFFlagSocialProfileShareAnalyticsEnabled,
 	getFFlagSocialAddFriendshipRequestEvent = getFFlagSocialAddFriendshipRequestEvent,
 	getFFlagVBXboxReducerFix = getFFlagVBXboxReducerFix,
-	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	FFlagExperienceJoinAttemptId = FFlagExperienceJoinAttemptId,
 	GetFFlagHideConnectPageWebViewItemsForVR = GetFFlagHideConnectPageWebViewItemsForVR,
 	SelfViewProfileDiscoverabilityUpsellIXP = require(Packages.DiscoverabilityModal).Flags.SelfViewProfileDiscoverabilityUpsellIXP,

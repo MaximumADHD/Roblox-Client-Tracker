@@ -2,6 +2,9 @@ local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local AppScreens = require(FriendsLanding.AppScreens)
 local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createInstanceWithProviders)
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 local dependencies = require(FriendsLanding.dependencies)
 local FriendsNetworking = dependencies.FriendsNetworking
 
@@ -35,6 +38,9 @@ describe("FriendsLandingEntryPoint", function()
 		FriendsNetworking.GetFriendsFromUserId.Mock.clear()
 		FriendsNetworking.GetFriendRequestsCount.Mock.clear()
 		FriendsNetworking.GetFriendRequests.Mock.clear()
+		if getFFlagFriendsLandingInactiveFriendsEnabled() then
+			FriendsNetworking.GetInactiveFriends.Mock.clear()
+		end
 		FriendsNetworking.GetUserFollowers.Mock.clear()
 		FriendsNetworking.GetFriendsFromUserId.Mock.reply(function()
 			return mockData
@@ -46,6 +52,13 @@ describe("FriendsLandingEntryPoint", function()
 		FriendsNetworking.GetFriendRequests.Mock.reply(function()
 			return mockData
 		end)
+
+		if getFFlagFriendsLandingInactiveFriendsEnabled() then
+			FriendsNetworking.GetInactiveFriends.Mock.reply(function()
+				return mockData
+			end)
+		end
+
 		FriendsNetworking.GetUserFollowers.Mock.reply(function()
 			return mockData
 		end)
@@ -55,6 +68,9 @@ describe("FriendsLandingEntryPoint", function()
 		FriendsNetworking.GetFriendsFromUserId.Mock.clear()
 		FriendsNetworking.GetFriendRequestsCount.Mock.clear()
 		FriendsNetworking.GetFriendRequests.Mock.clear()
+		if getFFlagFriendsLandingInactiveFriendsEnabled() then
+			FriendsNetworking.GetInactiveFriends.Mock.clear()
+		end
 	end)
 
 	it("SHOULD mount and render without issue", function(c)
@@ -241,12 +257,20 @@ describe("FriendsLandingEntryPoint", function()
 	it("SHOULD display the correct entryPage - AddFriends", function()
 		FriendsNetworking.GetFriendRequestsCount.Mock.clear()
 		FriendsNetworking.GetFriendRequests.Mock.clear()
+		if getFFlagFriendsLandingInactiveFriendsEnabled() then
+			FriendsNetworking.GetInactiveFriends.Mock.clear()
+		end
 		FriendsNetworking.GetFriendRequestsCount.Mock.reply(function()
 			return { responseBody = { data = {} } }
 		end)
 		FriendsNetworking.GetFriendRequests.Mock.reply(function()
 			return { responseBody = { data = {} } }
 		end)
+		if getFFlagFriendsLandingInactiveFriendsEnabled() then
+			FriendsNetworking.GetInactiveFriends.Mock.reply(function()
+				return { responseBody = { data = {} } }
+			end)
+		end
 
 		local parent, cleanup = createInstanceWithProviders(mockLocale)(FriendsLandingEntryPoint, {
 			props = {

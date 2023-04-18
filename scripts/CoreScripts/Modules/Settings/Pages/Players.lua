@@ -37,6 +37,8 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 ------------ Constants -------------------
+local Theme = require(script.Parent.Parent.Theme)
+
 local FRAME_DEFAULT_TRANSPARENCY = .85
 local FRAME_SELECTED_TRANSPARENCY = .65
 local REPORT_PLAYER_IMAGE = isTenFootInterface and "rbxasset://textures/ui/Settings/Players/ReportFlagIcon@2x.png" or "rbxasset://textures/ui/Settings/Players/ReportFlagIcon.png"
@@ -109,13 +111,19 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
-	this.TabHeader.Icon.Image = isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png" or "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png"
-
-	if FFlagUseNotificationsLocalization then
-		this.TabHeader.Title.Text = "People"
+	if Theme.UIBloxThemeEnabled then
+		this.TabHeader.TabLabel.Icon.Image = isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png" or "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png"
+		this.TabHeader.TabLabel.Title.Text = "People"
 	else
-		this.TabHeader.Icon.Title.Text = "People"
+		this.TabHeader.Icon.Image = isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon@2x.png" or "rbxasset://textures/ui/Settings/MenuBarIcons/PlayersTabIcon.png"
+
+		if FFlagUseNotificationsLocalization then
+			this.TabHeader.Title.Text = "People"
+		else
+			this.TabHeader.Icon.Title.Text = "People"
+		end
 	end
+
 
 	----- FRIENDSHIP FUNCTIONS ------
 	local function getFriendStatus(selectedPlayer)
@@ -492,6 +500,19 @@ local function Initialize()
 		Visible = false
 	}
 
+	local buttonPadding = 5;
+	if Theme.UIBloxThemeEnabled then
+		utility:Create("UIPadding") {
+			PaddingBottom = UDim.new(0, 1),
+			PaddingTop = UDim.new(0, 1),
+			PaddingLeft = UDim.new(0, 1),
+			PaddingRight = UDim.new(0, 1),
+			Parent = buttonsContainer,
+		}
+		buttonPadding = 12
+		buttonsContainer.Size = UDim2.new(1, 0, 0, 48)
+	end
+
 	local leaveGameFunc = function()
 		this.HubRef:SwitchToPage(this.HubRef.LeaveGamePage, false, 1)
 	end
@@ -501,19 +522,31 @@ local function Initialize()
 		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
 	end
 
-	local leaveButton, leaveLabel = utility:MakeStyledButton("LeaveButton", leaveGameText, UDim2.new(1 / 3, -5, 1, 0), leaveGameFunc)
+	local leaveButton, leaveLabel = utility:MakeStyledButton("LeaveButton", leaveGameText, UDim2.new(1 / 3, -buttonPadding, 1, 0), leaveGameFunc)
 	leaveButton.AnchorPoint = Vector2.new(0, 0)
 	leaveButton.Position = UDim2.new(0, 0, 0, 0)
-	leaveLabel.Size = UDim2.new(1, 0, 1, -6)
+	if Theme.UIBloxThemeEnabled then
+		leaveLabel.Size = UDim2.new(1, -4, 1, 0)
+		leaveLabel.Position = UDim2.new(0, 2, 0, 0)
+	else
+		leaveLabel.Size = UDim2.new(1, 0, 1, -6)
+	end
+
 	leaveButton.Parent = buttonsContainer
 
 	local resetFunc = function()
 		this.HubRef:SwitchToPage(this.HubRef.ResetCharacterPage, false, 1)
 	end
-	local resetButton, resetLabel = utility:MakeStyledButton("ResetButton", "Reset Character", UDim2.new(1 / 3, -5, 1, 0), resetFunc)
+	local resetButton, resetLabel = utility:MakeStyledButton("ResetButton", "Reset Character", UDim2.new(1 / 3, -buttonPadding, 1, 0), resetFunc)
 	resetButton.AnchorPoint = Vector2.new(0.5, 0)
 	resetButton.Position = UDim2.new(0.5, 0, 0, 0)
-	resetLabel.Size = UDim2.new(1, 0, 1, -6)
+
+	if Theme.UIBloxThemeEnabled then
+		resetLabel.Size = UDim2.new(1, -4, 1, 0)
+		resetLabel.Position = UDim2.new(0, 2, 0, 0)
+	else
+		resetLabel.Size = UDim2.new(1, 0, 1, -6)
+	end
 	resetButton.Parent = buttonsContainer
 
 	local resumeGameFunc = function()
@@ -525,10 +558,17 @@ local function Initialize()
 		resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
 	end
 
-	local resumeButton, resumeLabel = utility:MakeStyledButton("ResumeButton", resumeGameText, UDim2.new(1 / 3, -5, 1, 0), resumeGameFunc)
+	local resumeButton, resumeLabel = utility:MakeStyledButton("ResumeButton", resumeGameText, UDim2.new(1 / 3, -buttonPadding, 1, 0), resumeGameFunc)
 	resumeButton.AnchorPoint = Vector2.new(1, 0)
 	resumeButton.Position = UDim2.new(1, 0, 0, 0)
-	resumeLabel.Size = UDim2.new(1, 0, 1, -6)
+
+	if Theme.UIBloxThemeEnabled then
+		resumeLabel.Size = UDim2.new(1, -4, 1, 0)
+		resumeLabel.Position = UDim2.new(0, 2, 0, 0)
+	else
+		resumeLabel.Size = UDim2.new(1, 0, 1, -6)
+	end
+
 	resumeButton.Parent = buttonsContainer
 
 	local function pollImage()
@@ -561,11 +601,15 @@ local function Initialize()
 	end
 
 	local function updateButtonRow()
+		local buttonPadding = 6;
+		if Theme.UIBloxThemeEnabled then
+			buttonPadding = 12
+		end
 		local newButtonSize = 2 / 7
 		local oldButtonContainerSize = 6 / 7
-		updateButtonPosition("ResumeButton", UDim2.new(1 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -6), Vector2.new(1, 0))
-		updateButtonPosition("ResetButton", UDim2.new(0.5 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -6), Vector2.new(0.5, 0))
-		updateButtonPosition("LeaveButton", UDim2.new(0 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -6), Vector2.new(0, 0))
+		updateButtonPosition("ResumeButton", UDim2.new(1 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -buttonPadding), Vector2.new(1, 0))
+		updateButtonPosition("ResetButton", UDim2.new(0.5 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -buttonPadding), Vector2.new(0.5, 0))
+		updateButtonPosition("LeaveButton", UDim2.new(0 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -buttonPadding), Vector2.new(0, 0))
 	end
 
 	local function updateIcon()
@@ -607,7 +651,11 @@ local function Initialize()
 		if isPortrait or utility:IsSmallTouchScreen() then
 			local buttonsFontSize = isPortrait and 18 or 24
 			buttonsContainer.Visible = true
-			buttonsContainer.Size = UDim2.new(1, 0, 0, isPortrait and 50 or 62)
+			if Theme.UIBloxThemeEnabled then
+				buttonsContainer.Size = UDim2.new(1, 0, 0, 48)
+			else
+				buttonsContainer.Size = UDim2.new(1, 0, 0, isPortrait and 50 or 62)
+			end
 			resetLabel.TextSize = buttonsFontSize
 			leaveLabel.TextSize = buttonsFontSize
 			resumeLabel.TextSize = buttonsFontSize
@@ -670,14 +718,25 @@ local function Initialize()
 
 	local function createRow(frameClassName, hasSecondRow)
 		local frame = Instance.new(frameClassName)
-		frame.Image = "rbxasset://textures/ui/dialog_white.png"
-		frame.ScaleType = "Slice"
-		frame.SliceCenter = Rect.new(10, 10, 10, 10)
 		frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT)
 		frame.Position = UDim2.new(0, 0, 0, 0)
-		frame.BackgroundTransparency = 1
 		frame.ZIndex = 2
-		frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
+
+		if Theme.UIBloxThemeEnabled then
+			frame.BackgroundColor3 = Theme.color("PlayerRowFrame")
+			frame.BackgroundTransparency = Theme.transparency("PlayerRowFrame")
+			utility:Create'UICorner'
+			{
+				CornerRadius = Theme.DefaultCornerRadius,
+				Parent = frame,
+			}
+		else
+			frame.Image = "rbxasset://textures/ui/dialog_white.png"
+			frame.ScaleType = "Slice"
+			frame.SliceCenter = Rect.new(10, 10, 10, 10)
+			frame.BackgroundTransparency = 1
+			frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
+		end
 
 		local icon = Instance.new("ImageLabel")
 		icon.Name = "Icon"

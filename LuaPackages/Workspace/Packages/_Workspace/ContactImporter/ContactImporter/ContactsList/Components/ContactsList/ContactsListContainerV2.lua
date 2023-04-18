@@ -24,7 +24,6 @@ local IXPVariants = require(ContactImporter.Common.IXPVariants)
 
 local compose = dependencies.SocialLibraries.RoduxTools.compose
 local ContactImporterContext = require(ContactImporter.ContactsList.Components.ContactImporterContext)
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagEnableDeeplinkForContactsList = dependencies.getFFlagEnableDeeplinkForContactsList
 
 type Promise<T, E> = {
@@ -286,7 +285,7 @@ function ContactsListContainerV2:init()
 
 	self.getContacts = function()
 		local isPhoneVerified = self.getPropOrParam(Constants.IS_PHONE_VERIFIED)
-		if getFFlagEnableContactInvitesForNonPhoneVerified() and not isPhoneVerified then
+		if not isPhoneVerified then
 			self.getContactsFromDevice()
 				:andThen(self.formatContactsFromDevice, makeErrorFunction(EventNames.FailedGetContactsFromDevice))
 				:andThen(self.fireHasLoaded, makeErrorFunction(EventNames.FailedFormatContactsFromDevice))
@@ -358,7 +357,7 @@ function ContactsListContainerV2:render()
 		showAddFriendsButton = props.entryPoint == Analytics.EntryPoints.HomePage,
 		variant = props.variant,
 		openProfilePeekView = self.props.openProfilePeekView,
-		isPhoneVerified = if getFFlagEnableContactInvitesForNonPhoneVerified() then isPhoneVerified else nil,
+		isPhoneVerified = isPhoneVerified,
 	})
 end
 

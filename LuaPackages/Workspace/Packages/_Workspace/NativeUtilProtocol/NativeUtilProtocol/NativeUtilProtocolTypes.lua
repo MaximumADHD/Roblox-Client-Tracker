@@ -21,11 +21,19 @@ export type NativeUtilProtocol = {
 	SUPPORTS_GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR: Types.ProtocolMethodDescriptor,
 	SUPPORTS_GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR: Types.ProtocolMethodDescriptor,
 
+	GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR: Types.ProtocolMethodDescriptor,
+	GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR: Types.ProtocolMethodDescriptor,
+	SUPPORTS_GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR: Types.ProtocolMethodDescriptor,
+	SUPPORTS_GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR: Types.ProtocolMethodDescriptor,
+
 	sendSMS: (NativeUtilProtocol, params: Types.Table) -> Types.Promise<SendSMSResponse?>,
 	supportsSMS: (NativeUtilProtocol) -> Types.Promise<boolean?>,
 
 	switchToSettingsApp: (NativeUtilProtocol) -> Types.Promise<nil>,
 	supportsSwitchToSettingsApp: (NativeUtilProtocol) -> Types.Promise<boolean?>,
+
+	getPhoneNumber: (NativeUtilProtocol) -> Types.Promise<string?>,
+	supportsGetPhoneNumber: (NativeUtilProtocol) -> Types.Promise<boolean?>,
 
 	getSMSOTP: (NativeUtilProtocol) -> Types.Promise<string?>,
 	supportsGetSMSOTP: (NativeUtilProtocol) -> Types.Promise<boolean?>,

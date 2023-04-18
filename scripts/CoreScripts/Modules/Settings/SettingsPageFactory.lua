@@ -16,7 +16,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local StyleWidgets = require(RobloxGui.Modules.StyleWidgets)
-
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ----------- VARIABLES --------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -77,6 +77,11 @@ local function Initialize()
 		Parent = icon
 	};
 
+	local titleTextYOffset = 0;
+	if Theme.UIBloxThemeEnabled then
+		titleTextYOffset = -2
+	end
+
 	local title = utility:Create'TextLabel'
 	{
 		Name = "Title",
@@ -86,14 +91,14 @@ local function Initialize()
 		TextColor3 = Color3.new(1,1,1),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1.05,0,1,0), --overwritten
-		Position = UDim2.new(1.2,0,0,0), --overwritten
+		Position = UDim2.new(1.2,Theme.TabHeaderIconPadding,0,titleTextYOffset), --overwritten
 		TextXAlignment = Enum.TextXAlignment.Left,
-		TextTransparency = 0.5
+		TextTransparency = 0.5,
 	};
-	
+
 	local titleTextSizeConstraint = Instance.new("UITextSizeConstraint")
 	titleTextSizeConstraint.MaxTextSize = 24
-	if FFlagUseNotificationsLocalization then
+	if FFlagUseNotificationsLocalization and not Theme.UIBloxThemeEnabled then
 		title.Parent = this.TabHeader
 		title.TextScaled = true
 		title.TextWrapped = true
@@ -110,74 +115,159 @@ local function Initialize()
 		titleTextSizeConstraint.MaxTextSize = 48
 	end
 
-	local _tabSelection = StyleWidgets.MakeTabSelectionWidget(this.TabHeader)
+	local _tabSelection
+	local tabLabel
+	if Theme.UIBloxThemeEnabled then
+		_tabSelection = utility:Create'ImageLabel'
+		{
+		  Name = "TabSelection",
+		  Visible = false,
+		  BackgroundColor3 = Theme.color("TabSelection"),
+		  BackgroundTransparency = Theme.transparency("TabSelection"),
+		  Size = UDim2.new(1,-2,0,2 ),
+		  Position = UDim2.new(0,3,1,-2 ),
+		  BorderSizePixel = 0,
+		  Parent = this.TabHeader,
+		}
+
+		tabLabel = utility:Create'Frame'
+		{
+			Name = "TabLabel",
+			Size = UDim2.new(1,0,1,0 ),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Parent = this.TabHeader,
+		}
+
+		utility:Create'UIListLayout'
+		{
+			Name = "CenterLayout",
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 10),
+			Parent = tabLabel,
+		}
+
+		icon.Parent = tabLabel
+		title.Parent = tabLabel
+		title.Size = UDim2.new(0,0,0,0)
+		title.AutomaticSize = Enum.AutomaticSize.XY
+
+	else
+		_tabSelection = StyleWidgets.MakeTabSelectionWidget(this.TabHeader)
+	end
+
+
+
+
+
 	local titleScaleInitial = Vector2.new(title.Size.X.Scale, title.Size.Y.Scale)
 	local function onResized()
 		if not this.TabHeader then
 			return
 		end
 
-		if utility:IsSmallTouchScreen() then
-			this.TabHeader.Icon.Size = UDim2.new(0,34,0,28)
-			this.TabHeader.Icon.Position = UDim2.new(this.TabHeader.Icon.Position.X.Scale,this.TabHeader.Icon.Position.X.Offset,0.5,-14)
-			this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
-		elseif isTenFootInterface then
-			this.TabHeader.Icon.Size = UDim2.new(0,88,0,74)
-			this.TabHeader.Icon.Position = UDim2.new(0,0,0.5,0)
-			this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0.5)
+		if Theme.UIBloxThemeEnabled then
+			if utility:IsSmallTouchScreen() then
+				icon.Size = UDim2.new(0,34,0,28)
+				--this.TabHeader.Icon.Position = UDim2.new(0,10,0.5,-14)
+				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+			elseif isTenFootInterface then
+				icon.Size = UDim2.new(0,88,0,74)
+				--this.TabHeader.Icon.Position = UDim2.new(0,0,0.5,0)
+				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0.5)
+			else
+				icon.Size = UDim2.new(0,22,0,22)
+				--this.TabHeader.Icon.Position = UDim2.new(0,15,0.5,-9)
+				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+			end
 		else
-			this.TabHeader.Icon.Size = UDim2.new(0,44,0,37)
-			this.TabHeader.Icon.Position = UDim2.new(0,15,0.5,-18)
-			this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+			if utility:IsSmallTouchScreen() then
+				this.TabHeader.Icon.Size = UDim2.new(0,34,0,28)
+				this.TabHeader.Icon.Position = UDim2.new(this.TabHeader.Icon.Position.X.Scale,this.TabHeader.Icon.Position.X.Offset,0.5,-14)
+				this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+			elseif isTenFootInterface then
+				this.TabHeader.Icon.Size = UDim2.new(0,88,0,74)
+				this.TabHeader.Icon.Position = UDim2.new(0,0,0.5,0)
+				this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0.5)
+			else
+				this.TabHeader.Icon.Size = UDim2.new(0,44,0,37)
+				this.TabHeader.Icon.Position = UDim2.new(0,15,0.5,-18)
+				this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+			end
 		end
 
+
 		local isPortrait = utility:IsPortrait()
-		if isPortrait then
-			this.TabHeader.Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-			this.TabHeader.Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-			this.TabHeader.Icon.Size = UDim2.new(0.5, 0, 0.5, 0)
-			if FFlagUseNotificationsLocalization then
-				this.TabHeader.Title.Visible = false
+		if Theme.UIBloxThemeEnabled then
+			if isPortrait then
+				--this.TabHeader.Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+				icon.Size = UDim2.new(0.5, 0, 0.5, 0)
+				title.Visible = false
+
 			else
-				this.TabHeader.Icon.Title.Visible = false
+				title.Visible = true
 			end
 		else
-			if FFlagUseNotificationsLocalization then
-				this.TabHeader.Title.Visible = true
+
+			if isPortrait then
+				this.TabHeader.Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+				this.TabHeader.Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+				this.TabHeader.Icon.Size = UDim2.new(0.5, 0, 0.5, 0)
+				if FFlagUseNotificationsLocalization then
+					this.TabHeader.Title.Visible = false
+				else
+					this.TabHeader.Icon.Title.Visible = false
+				end
 			else
-				this.TabHeader.Icon.Title.Visible = true
+				if FFlagUseNotificationsLocalization then
+					this.TabHeader.Title.Visible = true
+				else
+					this.TabHeader.Icon.Title.Visible = true
+				end
 			end
 		end
-		
-		if FFlagUseNotificationsLocalization then			
+
+		if FFlagUseNotificationsLocalization and not Theme.UIBloxThemeEnabled then
 			local iconSize = this.TabHeader.Icon.AbsoluteSize
 			local paddingLeft = 0.125
 			local paddingRight = 0.025
-			
+
 			title.Position = UDim2.new(
 				paddingLeft,
-				iconSize.X,
+				iconSize.X + Theme.TabHeaderIconPadding,
 				0.225,
 				0
 			)
 			title.Size = UDim2.new(
 				titleScaleInitial.X - paddingLeft - paddingRight,
-				-iconSize.X,
+				-(iconSize.X + Theme.TabHeaderIconPadding),
 				0.5,
 				0
 			)
 		end
 	end --end local function onResized()
-	
+
 	utility:OnResized(this.TabHeader, onResized)
- 
+
 	------ PAGE CREATION -------
 	this.Page = utility:Create'Frame'
 	{
 		Name = "Page",
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1,0,1,0)
+		Size = UDim2.new(1,0,1,0),
 	};
+
+	if Theme.UIBloxThemeEnabled then
+		utility:Create'UIPadding'
+		{
+			PaddingRight = UDim.new(0, 10),
+			Parent = this.Page,
+		}
+	end
 
 	this.PageListLayout = utility:Create'UIListLayout'
 	{
@@ -185,7 +275,7 @@ local function Initialize()
 		FillDirection = Enum.FillDirection.Vertical,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
-		Padding = UDim.new(0, 3),
+		Padding = UDim.new(0, Theme.UIBloxThemeEnabled and 8 or 3),
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		Parent = this.Page
 	};
@@ -238,13 +328,22 @@ local function Initialize()
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
 		if this.TabHeader then
-			this.TabHeader.TabSelection.Visible = true
-			this.TabHeader.Icon.ImageTransparency = 0
-			if FFlagUseNotificationsLocalization then
-				this.TabHeader.Title.TextTransparency = 0
+
+			if Theme.UIBloxThemeEnabled then
+				this.TabHeader.TabSelection.Visible = true
+				icon.ImageTransparency = 0
+				title.TextTransparency = 0
 			else
-				this.TabHeader.Icon.Title.TextTransparency = 0
+				this.TabHeader.TabSelection.Visible = true
+				this.TabHeader.Icon.ImageTransparency = 0
+				if FFlagUseNotificationsLocalization then
+					this.TabHeader.Title.TextTransparency = 0
+				else
+					this.TabHeader.Icon.Title.TextTransparency = 0
+				end
 			end
+
+
 		end
 
 		this.Page.Parent = pageParent
@@ -267,12 +366,18 @@ local function Initialize()
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
 		if this.TabHeader then
-			this.TabHeader.TabSelection.Visible = false
-			this.TabHeader.Icon.ImageTransparency = 0.5
-			if FFlagUseNotificationsLocalization then
-				this.TabHeader.Title.TextTransparency = 0.5
+			if Theme.UIBloxThemeEnabled then
+				this.TabHeader.TabSelection.Visible = false
+				icon.ImageTransparency = 0.5
+ 				title.TextTransparency = 0.5
 			else
-				this.TabHeader.Icon.Title.TextTransparency = 0.5
+				this.TabHeader.TabSelection.Visible = false
+				this.TabHeader.Icon.ImageTransparency = 0.5
+				if FFlagUseNotificationsLocalization then
+					this.TabHeader.Title.TextTransparency = 0.5
+				else
+					this.TabHeader.Icon.Title.TextTransparency = 0.5
+				end
 			end
 		end
 

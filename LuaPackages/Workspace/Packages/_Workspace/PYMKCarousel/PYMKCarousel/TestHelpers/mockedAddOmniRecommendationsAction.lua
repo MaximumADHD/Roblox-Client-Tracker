@@ -5,9 +5,6 @@ local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 local OmniTypes = require(PYMKCarousel.Common.OmniTypes)
 local Constants = require(PYMKCarousel.Common.Constants)
 
-local getFFlagPYMKCarouselIncomingFriendshipReducer =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendshipReducer)
-
 local FriendRecommendationCarouselSort = {
 	topicId = "topicId3",
 	treatmentType = "FriendRecommendationCarousel",
@@ -19,9 +16,7 @@ local FriendRecommendationCarouselSort = {
 			contentMetadata = {
 				rank = "10",
 				recommendationRequestId = "recommendationSessionId",
-				hasPendingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-					then Constants.BE_FALSE_VALUE
-					else nil,
+				hasPendingFriendRequest = Constants.BE_FALSE_VALUE,
 			},
 		},
 		[2] = {
@@ -32,9 +27,7 @@ local FriendRecommendationCarouselSort = {
 				mutualFriendsCount = "5",
 				contextType = RecommendationContextType.MutualFriends.rawValue(),
 				recommendationRequestId = "recommendationSessionId",
-				hasPendingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-					then Constants.BE_TRUE_VALUE
-					else nil,
+				hasPendingFriendRequest = Constants.BE_TRUE_VALUE,
 			},
 		},
 		[3] = {
@@ -44,9 +37,7 @@ local FriendRecommendationCarouselSort = {
 				rank = "8",
 				contextType = RecommendationContextType.Frequents.rawValue(),
 				recommendationRequestId = "recommendationSessionId",
-				hasPendingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-					then Constants.BE_FALSE_VALUE
-					else nil,
+				hasPendingFriendRequest = Constants.BE_FALSE_VALUE,
 			},
 		},
 	},

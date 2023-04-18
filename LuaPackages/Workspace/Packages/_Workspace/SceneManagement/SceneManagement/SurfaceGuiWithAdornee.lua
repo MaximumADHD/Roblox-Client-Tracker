@@ -11,17 +11,28 @@ export type Props = {
 	name: string,
 	adorneeParent: Instance,
 	surfaceGuiParent: Instance,
+	setAdornee: (Instance?) -> ()?,
+	setSurfaceGui: (Instance?) -> ()?,
 	children: any?,
 }
 
 local function SurfaceGuiWithAdornee(props: Props)
 	local adorneeRef = React.useRef(nil)
+	local setAdornee = props.setAdornee
+	local setSurfaceGui = props.setSurfaceGui
+
+	local refCallback = React.useCallback(function(instance)
+		adorneeRef.current = instance
+		if setAdornee then
+			setAdornee(instance)
+		end
+	end, { setAdornee, adorneeRef } :: { any })
 
 	return {
 		AdorneePortal = ReactRoblox.createPortal({
 			Adornee = React.createElement("Part", {
 				Name = props.name .. "_Part",
-				ref = adorneeRef,
+				ref = refCallback,
 				Transparency = 1,
 				Size = props.adorneeSize,
 				CFrame = props.adorneeCFrame,
@@ -32,6 +43,7 @@ local function SurfaceGuiWithAdornee(props: Props)
 		SurfaceGuiPortal = ReactRoblox.createPortal({
 			SurfaceGui = React.createElement("SurfaceGui", {
 				Name = props.name .. "_SurfaceGui",
+				ref = setSurfaceGui,
 				Adornee = adorneeRef,
 				Active = true,
 				Enabled = props.isVisible,

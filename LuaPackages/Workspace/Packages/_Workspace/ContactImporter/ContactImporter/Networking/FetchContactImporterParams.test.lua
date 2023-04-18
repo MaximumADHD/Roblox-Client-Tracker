@@ -6,8 +6,6 @@ local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local NetworkingAccountInformation = dependencies.NetworkingAccountInformation
 local NetworkingAccountSettings = dependencies.NetworkingAccountSettings
 
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-
 local mockStore = require(ContactImporter.TestHelpers.mockStore)
 
 local JestGlobals = devDependencies.JestGlobals
@@ -128,9 +126,6 @@ describe("FetchContactImporterParams", function()
 		store:dispatch(FetchContactImporterParams(USER_ID, PermissionsProtocolMock, appStorageService))
 		jestExpect(GetPhoneInformationSpy).toHaveBeenCalledTimes(1)
 		jestExpect(GetUserSettingsSpy).toHaveBeenCalledTimes(1)
-		if getFFlagContactImporterWithPhoneVerification() then
-			jestExpect(GetAccountSettingsSpy).toHaveBeenCalledTimes(1)
-		end
 		jestExpect(mockCallback).toHaveBeenCalledTimes(1)
 		jestExpect(reducerMonitorSpy).toHaveBeenCalledTimes(1)
 
@@ -140,14 +135,10 @@ describe("FetchContactImporterParams", function()
 		local hasOSPermissions = state.hasOSPermissions
 		local isPhoneVerified = state.isPhoneVerified
 		local canUploadContacts = state.canUploadContacts
-		local isEmailVerified = state.isEmailVerified
 		jestExpect(shouldShowFeature).toBe(true)
 		jestExpect(isPhoneVerified).toBe(true)
 		jestExpect(canUploadContacts).toBe(true)
 		jestExpect(hasOSPermissions).toBe(false)
-		if getFFlagContactImporterWithPhoneVerification() then
-			jestExpect(isEmailVerified).toBe(false)
-		end
 	end)
 
 	it("SHOULD update user settings canUploadContacts when changes in OS Permissions are detected", function()

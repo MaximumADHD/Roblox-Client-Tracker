@@ -23,8 +23,6 @@ local getFFlagContactNameOnFriendRequestEnabled =
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 
-local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
-
 local AddFriendsTile = Roact.PureComponent:extend("AddFriendsTile")
 
 local noOpt = function()
@@ -119,104 +117,71 @@ function AddFriendsTile:render()
 				then TextKeys.PROFILE_QR_CODE_TILE_FOOTER
 				else nil,
 		})(function(localized)
-			if getFFlagContactImporterUseNewTooltip() then
-				local tooltipProps = {
-					headerText = localized.tooltipHeaderText,
-					bodyText = localized.tooltipBodyText,
-					buttonProps = {
-						text = localized.tooltipButtonText,
-						onActivated = self.hideTooltip,
-					},
-					useLargeDropShadow = true,
-				}
-				local tooltipOptions = {
-					preferredOrientation = TooltipOrientation.Left,
-					guiTarget = CoreGui,
-					active = self.state.showTooltip,
-					DisplayOrder = 1,
-				}
+			local tooltipProps = {
+				headerText = localized.tooltipHeaderText,
+				bodyText = localized.tooltipBodyText,
+				buttonProps = {
+					text = localized.tooltipButtonText,
+					onActivated = self.hideTooltip,
+				},
+				useLargeDropShadow = true,
+			}
+			local tooltipOptions = {
+				preferredOrientation = TooltipOrientation.Left,
+				guiTarget = CoreGui,
+				active = self.state.showTooltip,
+				DisplayOrder = 1,
+			}
 
-				return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
-					return Roact.createElement("Frame", {
-						AnchorPoint = Vector2.new(1, 0.5),
-						Position = UDim2.fromScale(1, 0.5),
-						Size = UDim2.new(0, size.X, 0, size.Y),
-						BackgroundTransparency = 1,
-						ZIndex = 1,
-						[Roact.Change.AbsoluteSize] = triggerPointChanged,
-						[Roact.Change.AbsolutePosition] = triggerPointChanged,
-					}, {
-						Roact.createElement(PlayerTile, {
-							thumbnail = string.format("rbxthumb://type=Avatar&id=%s&w=720&h=720", tostring(user.id)),
-							title = user.displayName,
-							tileSize = UDim2.new(0, size.X, 0, size.Y),
-							subtitle = "@" .. (user.externalAppDisplayName or user.username),
-							buttons = getOverlayButtons({
-								playerId = user.id,
-								isFriendRequest = self.props.isFriendRequest,
-								friendStatus = self.props.friendStatus,
-								networking = self.props.networking,
-								sourceType = self.props.sourceType,
-								handleRequestFriendship = self.props.handleRequestFriendship,
-								handleAcceptFriendRequest = self.props.handleAcceptFriendRequest,
-								handleDeclineFriendRequest = self.props.handleDeclineFriendRequest,
-							}),
-							relevancyInfo = getFooterRelevanceInfo({
-								mutualFriends = user.mutualFriends,
-								isUserFollowingMe = self.props.isUserFollowingMe,
-								amIFollowingUser = self.props.amIFollowingUser,
-								sentFromExperienceName = self.props.sentFromExperienceName,
-								isFriendRequest = self.props.isFriendRequest,
-								friendStatus = self.props.friendStatus,
-								userPresenceType = user.userPresenceType,
-								lastLocation = user.lastLocation,
-								originSourceType = self.props.originSourceType,
-							}, style, localized),
-							onActivated = self.onActivated,
+			return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
+				return Roact.createElement("Frame", {
+					AnchorPoint = Vector2.new(1, 0.5),
+					Position = UDim2.fromScale(1, 0.5),
+					Size = UDim2.new(0, size.X, 0, size.Y),
+					BackgroundTransparency = 1,
+					ZIndex = 1,
+					[Roact.Change.AbsoluteSize] = triggerPointChanged,
+					[Roact.Change.AbsolutePosition] = triggerPointChanged,
+				}, {
+					Roact.createElement(PlayerTile, {
+						thumbnail = string.format("rbxthumb://type=Avatar&id=%s&w=720&h=720", tostring(user.id)),
+						title = user.displayName,
+						tileSize = UDim2.new(0, size.X, 0, size.Y),
+						subtitle = "@" .. (user.externalAppDisplayName or user.username),
+						buttons = getOverlayButtons({
+							playerId = user.id,
+							isFriendRequest = self.props.isFriendRequest,
+							friendStatus = self.props.friendStatus,
+							networking = self.props.networking,
+							sourceType = self.props.sourceType,
+							handleRequestFriendship = self.props.handleRequestFriendship,
+							handleAcceptFriendRequest = self.props.handleAcceptFriendRequest,
+							handleDeclineFriendRequest = self.props.handleDeclineFriendRequest,
 						}),
-					})
-				end)
-			else
-				return Roact.createElement(PlayerTile, {
-					thumbnail = string.format("rbxthumb://type=Avatar&id=%s&w=720&h=720", tostring(user.id)),
-					title = user.displayName,
-					tileSize = UDim2.new(0, size.X, 0, size.Y),
-					subtitle = "@" .. (user.externalAppDisplayName or user.username),
-					buttons = getOverlayButtons({
-						playerId = user.id,
-						isFriendRequest = self.props.isFriendRequest,
-						friendStatus = self.props.friendStatus,
-						networking = self.props.networking,
-						sourceType = self.props.sourceType,
-						handleRequestFriendship = self.props.handleRequestFriendship,
-						handleAcceptFriendRequest = self.props.handleAcceptFriendRequest,
-						handleDeclineFriendRequest = self.props.handleDeclineFriendRequest,
+						relevancyInfo = getFooterRelevanceInfo({
+							mutualFriends = user.mutualFriends,
+							isUserFollowingMe = self.props.isUserFollowingMe,
+							amIFollowingUser = self.props.amIFollowingUser,
+							sentFromExperienceName = self.props.sentFromExperienceName,
+							isFriendRequest = self.props.isFriendRequest,
+							friendStatus = self.props.friendStatus,
+							userPresenceType = user.userPresenceType,
+							lastLocation = user.lastLocation,
+							originSourceType = self.props.originSourceType,
+						}, style, localized),
+						onActivated = self.onActivated,
 					}),
-					relevancyInfo = getFooterRelevanceInfo({
-						mutualFriends = user.mutualFriends,
-						isUserFollowingMe = self.props.isUserFollowingMe,
-						amIFollowingUser = self.props.amIFollowingUser,
-						sentFromExperienceName = self.props.sentFromExperienceName,
-						isFriendRequest = self.props.isFriendRequest,
-						friendStatus = self.props.friendStatus,
-						userPresenceType = user.userPresenceType,
-						lastLocation = user.lastLocation,
-						originSourceType = self.props.originSourceType,
-					}, style, localized),
-					onActivated = self.onActivated,
 				})
-			end
+			end)
 		end)
 	end)
 end
 
 function AddFriendsTile:didUpdate()
-	if getFFlagContactImporterUseNewTooltip() then
-		if self.state.showTooltip and not self.props.navigation.isFocused() then
-			self:setState({
-				showTooltip = false,
-			})
-		end
+	if self.state.showTooltip and not self.props.navigation.isFocused() then
+		self:setState({
+			showTooltip = false,
+		})
 	end
 end
 

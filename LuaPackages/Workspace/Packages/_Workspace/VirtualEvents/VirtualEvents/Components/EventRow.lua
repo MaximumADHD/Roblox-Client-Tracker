@@ -12,7 +12,6 @@ local getVirtualEventDates = require(VirtualEvents.Common.getVirtualEventDates)
 local useRefImpression = require(VirtualEvents.Hooks.useRefImpression)
 local EventRowCounter = require(script.Parent.EventRowCounter)
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
-local getFFlagUpdateRsvpButtonText = require(VirtualEvents.Parent.SharedFlags).getFFlagUpdateRsvpButtonText
 
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 local PrimaryContextualButton = UIBlox.App.Button.PrimaryContextualButton
@@ -79,9 +78,8 @@ local function EventRow(providedProps: Props)
 
 	local text = useLocalization({
 		notifyMe = "Feature.VirtualEvents.NotifyMe",
-		unfollowEvent = if getFFlagUpdateRsvpButtonText() then "Feature.VirtualEvents.UnfollowEvent" else nil,
+		unfollowEvent = "Feature.VirtualEvents.UnfollowEvent",
 		joinEvent = "Feature.VirtualEvents.JoinEvent",
-		rsvpGoing = if getFFlagUpdateRsvpButtonText() then nil else "Feature.VirtualEvents.RsvpGoing",
 	})
 
 	local dates = React.useMemo(function()
@@ -128,7 +126,7 @@ local function EventRow(providedProps: Props)
 			else
 				return React.createElement(SecondaryButton, {
 					layoutOrder = 3,
-					text = if getFFlagUpdateRsvpButtonText() then text.unfollowEvent else text.rsvpGoing,
+					text = text.unfollowEvent,
 					fontStyle = style.Font.CaptionHeader,
 					size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
 					onActivated = onRsvpChanged,

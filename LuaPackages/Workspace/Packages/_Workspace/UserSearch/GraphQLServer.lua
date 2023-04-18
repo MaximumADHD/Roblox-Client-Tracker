@@ -10,6 +10,7 @@ export type OmniFeedMetadata = Package.OmniFeedMetadata
 export type OmniFeedRecommendation = Package.OmniFeedRecommendation
 export type OmniFeedItem = Package.OmniFeedItem
 export type Experience = Package.Experience
+export type ExperienceMedia = Package.ExperienceMedia
 export type Media = Package.Media
 export type VirtualEvent = Package.VirtualEvent
 export type RsvpStatus = Package.RsvpStatus

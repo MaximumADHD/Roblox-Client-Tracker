@@ -11,6 +11,7 @@ local it = JestGlobals.it
 describe("Analytics", function()
 	it("SHOULD have expected fields", function()
 		jestExpect(Analytics).toEqual({
+			AnalyticsService = jestExpect.any("table"),
 			setupFireAnalyticsEvents = jestExpect.any("function"),
 			Context = jestExpect.any("table"),
 			connect = jestExpect.any("function"),

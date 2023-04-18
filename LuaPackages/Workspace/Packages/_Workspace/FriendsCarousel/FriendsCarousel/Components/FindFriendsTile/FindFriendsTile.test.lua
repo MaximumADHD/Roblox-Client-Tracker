@@ -25,8 +25,6 @@ local FindFriendsTile = require(script.Parent)
 
 local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-local getFFlagFriendsCarouselAddNewBadgeTracking =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 
 describe("FindFriendsTile", function()
 	local state = {}
@@ -160,7 +158,7 @@ describe("FindFriendsTile", function()
 	end)
 
 	it("SHOULD call analytics event when badge value is passed", function()
-		if getFFlagSocialOnboardingExperimentEnabled() and getFFlagFriendsCarouselAddNewBadgeTracking() then
+		if getFFlagSocialOnboardingExperimentEnabled() then
 			local mockedAnalytics = mockAnalytics(jest)
 			local element = createTreeWithProviders(FindFriendsTile, {
 				store = mockStore(state),

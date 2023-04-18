@@ -50,6 +50,7 @@ export type Props = {
 
 	showNewBadge: boolean?,
 	showNewAddFriendsUIVariant: boolean?,
+	showRecommendations: boolean?,
 }
 
 type InternalProps = Props & mapStateToProps.Props & mapDispatchToProps.Props

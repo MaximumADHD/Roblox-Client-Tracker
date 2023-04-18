@@ -12,9 +12,6 @@ local Constants = require(PYMKCarousel.Common.Constants)
 
 local friendsOmniActionAdaptor = require(script.Parent.friendsOmniActionAdaptor)
 
-local getFFlagPYMKCarouselIncomingFriendshipReducer =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendshipReducer)
-
 local config = {
 	contentType = "RecommendedFriend",
 	treatmentType = "FriendRecommendationCarousel",
@@ -65,9 +62,7 @@ describe("friendsOmniActionAdaptor.AddOmniRecommendations", function()
 							mutualFriendsList = {},
 							rank = 8,
 							mutualFriendsCount = 0,
-							hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-								then false
-								else nil,
+							hasIncomingFriendRequest = false,
 						},
 					},
 				},
@@ -81,9 +76,7 @@ describe("friendsOmniActionAdaptor.AddOmniRecommendations", function()
 							mutualFriendsList = {},
 							rank = 5,
 							mutualFriendsCount = 5,
-							hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-								then true
-								else nil,
+							hasIncomingFriendRequest = true,
 						},
 					},
 				},
@@ -97,9 +90,7 @@ describe("friendsOmniActionAdaptor.AddOmniRecommendations", function()
 							mutualFriendsList = {},
 							rank = 10,
 							mutualFriendsCount = 0,
-							hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-								then false
-								else nil,
+							hasIncomingFriendRequest = false,
 						},
 					},
 				},

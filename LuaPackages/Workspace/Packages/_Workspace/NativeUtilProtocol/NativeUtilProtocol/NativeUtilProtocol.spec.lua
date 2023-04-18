@@ -10,6 +10,7 @@ return function()
 	local getFFlagLuaSwitchToSettingsApp = require(script.Parent.Flags.getFFlagLuaSwitchToSettingsApp)
 	local getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling
 	local getFFlagLuaGetSMSOTP = require(script.Parent.Flags.getFFlagLuaGetSMSOTP)
+	local getFFlagLuaGetPhoneNumber = require(script.Parent.Flags.getFFlagLuaGetPhoneNumber)
 
 	describe("NativeUtilProtocol", function()
 		beforeAll(function(context)
@@ -213,15 +214,15 @@ return function()
 			end
 
 			local smsCode = ""
-			context.NativeUtilProtocol:getSMSOTP():andThen(function(code)
-				smsCode = code
+			context.NativeUtilProtocol:getSMSOTP():andThen(function(result)
+				smsCode = result
 			end)
 
 			context.subscriber:subscribeProtocolMethodRequest(
 				NativeUtilProtocol.GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR,
 				function(params)
 					MessageBus.publishProtocolMethodResponse(NativeUtilProtocol.GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR, {
-						code = "123456",
+						result = "123456",
 					}, 0, {})
 				end
 			)
@@ -242,6 +243,58 @@ return function()
 				function(params)
 					MessageBus.publishProtocolMethodResponse(
 						NativeUtilProtocol.SUPPORTS_GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR,
+						{
+							support = true,
+						},
+						0,
+						{}
+					)
+				end
+			)
+			wait()
+			expect(didSucceed).to.equal(true)
+		end)
+
+		it("should process get phone number request", function(context)
+			if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetPhoneNumber() then
+				return
+			end
+
+			local phoneNumber = ""
+			context.NativeUtilProtocol:getPhoneNumber():andThen(function(result)
+				phoneNumber = result
+			end)
+
+			context.subscriber:subscribeProtocolMethodRequest(
+				NativeUtilProtocol.GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						NativeUtilProtocol.GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR,
+						{
+							result = "123456890",
+						},
+						0,
+						{}
+					)
+				end
+			)
+			wait()
+			expect(phoneNumber).to.equal("123456890")
+		end)
+
+		it("should process get phone number support correctly", function(context)
+			if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetPhoneNumber() then
+				return
+			end
+			local didSucceed = false
+			context.NativeUtilProtocol:supportsGetPhoneNumber():andThen(function(supported)
+				didSucceed = supported
+			end)
+			context.subscriber:subscribeProtocolMethodRequest(
+				NativeUtilProtocol.SUPPORTS_GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						NativeUtilProtocol.SUPPORTS_GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR,
 						{
 							support = true,
 						},

@@ -32,9 +32,11 @@ local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjec
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 
+local Theme = require(script.Parent.Theme)
+
 --[[ CONSTANTS ]]
-local SETTINGS_SHIELD_COLOR = Color3.new(41/255,41/255,41/255)
-local SETTINGS_SHIELD_TRANSPARENCY = 0.2
+local SETTINGS_SHIELD_COLOR = Theme.color("SETTINGS_SHIELD", Color3.new(41/255,41/255,41/255))
+local SETTINGS_SHIELD_TRANSPARENCY = Theme.transparency("SETTINGS_SHIELD_TRANSPARENCY", 0.2)
 local SETTINGS_SHIELD_VR_TRANSPARENCY = 1
 local SETTINGS_SHIELD_INACTIVE_POSITION = UDim2.new(0,0,-1,-36)
 local SETTINGS_BASE_ZINDEX = 2
@@ -396,7 +398,11 @@ local function CreateSettingsHub()
 				this[textName].Size = UDim2.new(0.675,0,0.67,0)
 				this[textName].Position = UDim2.new(0.275,0,0.125,0)
 			else
-				this[textName].Size = UDim2.new(0.75,0,0.9,0)
+				if Theme.UIBloxThemeEnabled then
+					this[textName].Size = UDim2.new(0.75,-10,1.0,0)
+				else
+					this[textName].Size = UDim2.new(0.75,0,0.9,0)
+				end
 				this[textName].Position = UDim2.new(0.25,0,0,0)
 			end
 			local hintName = name .. "Hint"
@@ -418,8 +424,11 @@ local function CreateSettingsHub()
 
 			hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
 			hintLabel.Size = UDim2.new(0,50,0,50)
-			hintLabel.Position = UDim2.new(0.15,0,0.475,0)
-
+			if Theme.UIBloxThemeEnabled then
+				hintLabel.Position = UDim2.new(0.15,0,0.5,0)
+			else
+				hintLabel.Position = UDim2.new(0.15,0,0.475,0)
+			end
 		end
 
 		if isTenFootInterface then
@@ -1119,11 +1128,16 @@ local function CreateSettingsHub()
 		{
 			Name = 'MenuContainer',
 			ZIndex = this.Shield.ZIndex,
-			BackgroundTransparency = 1,
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			Size = UDim2.new(0.95, 0, 0.95, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = Theme.transparency("MenuContainer", 1),
+			BackgroundColor3 = Theme.color("MenuContainer"),
+			Position = Theme.MenuContainerPosition.Position,
+			Size = Theme.MenuContainerPosition.Size,
+			AnchorPoint = Theme.MenuContainerPosition.AnchorPoint,
 			Parent = this.Shield
+		}
+		this.MenuContainerPadding = utility:Create'UIPadding'
+		{
+			Parent = this.MenuContainer,
 		}
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
@@ -1132,9 +1146,18 @@ local function CreateSettingsHub()
 				-- Audio/Video permissions bar takes up padding, but not voice recording indicator.
 				paddingTop = 0
 			end
-			this.MenuContainerPadding = utility:Create'UIPadding'
+			this.MenuContainerPadding.PaddingTop = UDim.new(0, paddingTop)
+		end
+
+		if Theme.UIBloxThemeEnabled then
+			this.MenuContainerPadding.PaddingLeft = Theme.HubPadding.PaddingLeft
+			this.MenuContainerPadding.PaddingRight =  Theme.HubPadding.PaddingRight
+			this.MenuContainerPadding.PaddingBottom = Theme.HubPadding.PaddingBottom
+			this.MenuContainerPadding.PaddingTop = Theme.HubPadding.PaddingTop
+
+			utility:Create'UICorner'
 			{
-				PaddingTop = UDim.new(0, paddingTop),
+				CornerRadius = Theme.MenuContainerCornerRadius,
 				Parent = this.MenuContainer,
 			}
 		end
@@ -1158,23 +1181,52 @@ local function CreateSettingsHub()
 			Name = 'MenuAspectRatio',
 			AspectRatio = 800 / 600,
 			AspectType = Enum.AspectType.ScaleWithParentSize,
-			Parent = this.MenuContainer
+			Parent = if Theme.UIBloxThemeEnabled then nil else this.MenuContainer
 		}
 
-		this.HubBar = utility:Create'ImageLabel'
-		{
-			Name = "HubBar",
-			ZIndex = this.Shield.ZIndex + 1,
-			BorderSizePixel = 0,
-			BackgroundColor3 = Color3.new(78/255, 84/255, 96/255),
-			BackgroundTransparency = 1,
-			Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png",
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(4,4,6,6),
-			AnchorPoint = Vector2.new(0.5, 0),
-			LayoutOrder = 0,
-			Parent = this.MenuContainer
-		}
+		if Theme.UIBloxThemeEnabled then
+			this.HubBar = utility:Create'ImageLabel'
+			{
+				Name = "HubBar",
+				BackgroundColor3 = Theme.color("HubBarContainer"),
+				BackgroundTransparency = Theme.transparency("HubBarContainerTransparency"),
+				ZIndex = this.Shield.ZIndex + 1,
+				BorderSizePixel = 0,
+				AnchorPoint = Vector2.new(0.5, 0),
+				LayoutOrder = 0,
+				Parent = this.MenuContainer
+			}
+			utility:Create'Frame'
+			{
+				BackgroundColor3 = Theme.color("Divider"),
+				BackgroundTransparency = Theme.transparency("Divider"),
+				BorderSizePixel = 0,
+				Size = UDim2.new(1,0,0,1),
+				Position = UDim2.new(0,0,1,0),
+				AnchorPoint = Vector2.new(0,1),
+				Parent = this.HubBar,
+			}
+
+		else
+			this.HubBar = utility:Create'ImageLabel'
+			{
+				Name = "HubBar",
+				ZIndex = this.Shield.ZIndex + 1,
+				BorderSizePixel = 0,
+				BackgroundColor3 = Color3.new(78/255, 84/255, 96/255),
+				BackgroundTransparency = 1,
+				Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png",
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(4,4,6,6),
+				AnchorPoint = Vector2.new(0.5, 0),
+				LayoutOrder = 0,
+				Parent = this.MenuContainer
+			}
+		end
+
+
+
+
 		this.HubBarListLayout = utility:Create'UIListLayout'
 		{
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -1194,7 +1246,11 @@ local function CreateSettingsHub()
 		end
 
 		if utility:IsSmallTouchScreen() then
-			this.HubBar.Size = UDim2.new(1,-10,0,40)
+			if Theme.UIBloxThemeEnabled then
+				this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-100, 0, 50)
+			else
+				this.HubBar.Size = UDim2.new(1,-10,0,40)
+			end
 			this.HubBar.Position = UDim2.new(0.5,0,0,6)
 		elseif isTenFootInterface then
 			this.HubBar.Size = UDim2.new(0,1200,0,100)
@@ -1285,13 +1341,14 @@ local function CreateSettingsHub()
 		{
 			Name = "PageView",
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.new(0.5, 0, 0.5, 0),
+			Position = if Theme.UIBloxThemeEnabled then UDim2.new(0.5, 0, 0.5, 2) else UDim2.new(0.5, 0, 0.5, 0),
 			Size = UDim2.new(1, 0, 1, -20),
 			ZIndex = this.Shield.ZIndex,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Selectable = false,
+			ScrollBarThickness = Theme.DefaultScrollBarThickness,
 			Parent = this.PageViewClipper,
 		};
 		this.PageView.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
@@ -1307,6 +1364,13 @@ local function CreateSettingsHub()
 			Selectable = false,
 			Parent = this.PageView,
 		};
+		if Theme.UIBloxThemeEnabled then
+			utility:Create'UIPadding'
+			{
+				PaddingTop = UDim.new(0, 5),
+				Parent = this.PageViewInnerFrame,
+			}
+		end
 
 		if UserInputService.MouseEnabled then
 			this.PageViewClipper.Size = UDim2.new(this.HubBar.Size.X.Scale,this.HubBar.Size.X.Offset,
@@ -1369,77 +1433,126 @@ local function CreateSettingsHub()
 			resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
 		)
 
-		if FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies() then
-			this.HubBarContainer = utility:Create'ImageLabel'
-			{
-				Name = "HubBarContainer",
-				ZIndex = this.Shield.ZIndex + 2,
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png",
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Rect.new(4, 4, 6, 6),
-				Size = UDim2.new(1, -70, 1, 0),
-				Position = UDim2.new(0, 70, 0, 0),
-				Parent = this.HubBar
-			}
+
+		if Theme.UIBloxThemeEnabled or (FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies()) then
+			if Theme.UIBloxThemeEnabled then
+				this.HubBarContainer = utility:Create'ImageLabel'
+				{
+					Name = "HubBarContainer",
+					ZIndex = this.Shield.ZIndex + 2,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Theme.color("HubBarContainer"),
+					BackgroundTransparency = Theme.transparency("HubBarContainerTransparency"),
+					Size = if Theme.ShowHomeButton then UDim2.new(1, -70, 1, 0) else UDim2.new(1, 0, 1, 0),
+					Position = if Theme.ShowHomeButton then UDim2.new(0, 70, 0, 0) else UDim2.new(0, 0, 0, 0),
+					Parent = this.HubBar
+				}
+			else
+				this.HubBarContainer = utility:Create'ImageLabel'
+				{
+					Name = "HubBarContainer",
+					ZIndex = this.Shield.ZIndex + 2,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png",
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = Rect.new(4, 4, 6, 6),
+					Size = UDim2.new(1, -70, 1, 0),
+					Position = UDim2.new(0, 70, 0, 0),
+					Parent = this.HubBar
+				}
+			end
+
 			this.HubBar.ImageTransparency = 1
 			this.HubBarListLayout.Parent = this.HubBarContainer
 
-			this.HubBarHomeButton = utility:Create'ImageButton'
-			{
-				Name = "HubBarHomeButton",
-				ZIndex = this.Shield.ZIndex + 2,
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png",
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Rect.new(4, 4, 6, 6),
-				Size = UDim2.new(1, 0, 1, 0),
-				Position = UDim2.new(0, 0, 0, 0),
-				Parent = this.HubBar
-			}
-			this.HubBarHomeButtonAspectRatio = utility:Create'UIAspectRatioConstraint'
-			{
-				AspectRatio = 1,
-				DominantAxis = Enum.DominantAxis.Height,
-				Parent = this.HubBarHomeButton
-			}
-			this.HubBarHomeButtonIcon = utility:Create'ImageLabel'
-			{
-				Name = "HubBarHomeButtonIcon",
-				ZIndex = this.Shield.ZIndex + 3,
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png",
-				Size = UDim2.new(0.7,0,0.7,0),
-				Position = UDim2.new(0.16,0,0.18,0),
-				Parent = this.HubBarHomeButton
-			}
-			this.HubBarHomeButton:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-				local newWidth = this.HubBarHomeButton.AbsoluteSize.X + 10
-				this.HubBarContainer.Size = UDim2.new(1, -newWidth, 1, 0)
-				this.HubBarContainer.Position = UDim2.new(0, newWidth, 0, 0)
-			end)
-			this.HubBarHomeButton.MouseEnter:Connect(function()
-				this.HubBarHomeButton.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuSelection@2x.png"
-			end)
-			this.HubBarHomeButton.MouseLeave:Connect(function()
-				this.HubBarHomeButton.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png"
-			end)
-
-			if GetFFlagInGameMenuV1LeaveToHome() then
-				local leaveToHomeFunc = function()
-					this:AddToMenuStack(this.Pages.CurrentPage)
-					this.HubBar.Visible = false
-					removeBottomBarBindings()
-					this:SwitchToPage(this.LeaveGameToHomePage, nil, 1, true)
+			if Theme.ShowHomeButton then
+				if Theme.UIBloxThemeEnabled then
+					this.HubBarHomeButton = utility:Create'ImageButton'
+					{
+						Name = "HubBarHomeButton",
+						ZIndex = this.Shield.ZIndex + 2,
+						BorderSizePixel = 0,
+						AutoButtonColor = false,
+						BackgroundColor3 = Theme.color("HubBarHomeButton"),
+						BackgroundTransparency = Theme.transparency("HubBarHomeButtonTransparency"),
+						Size = UDim2.new(1, 0, 1, 0),
+						Position = UDim2.new(0, 0, 0, 0),
+						Parent = this.HubBar
+					}
+					utility:Create'UICorner'
+					{
+						CornerRadius = Theme.DefaultCornerRadius,
+						Parent = this.HubBarHomeButton,
+					}
+				else
+					this.HubBarHomeButton = utility:Create'ImageButton'
+					{
+						Name = "HubBarHomeButton",
+						ZIndex = this.Shield.ZIndex + 2,
+						BorderSizePixel = 0,
+						BackgroundTransparency = 1,
+						Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png",
+						ScaleType = Enum.ScaleType.Slice,
+						SliceCenter = Rect.new(4, 4, 6, 6),
+						Size = UDim2.new(1, 0, 1, 0),
+						Position = UDim2.new(0, 0, 0, 0),
+						Parent = this.HubBar
+					}
 				end
+				this.HubBarHomeButtonAspectRatio = utility:Create'UIAspectRatioConstraint'
+				{
+					AspectRatio = 1,
+					DominantAxis = Enum.DominantAxis.Height,
+					Parent = this.HubBarHomeButton
+				}
+				this.HubBarHomeButtonIcon = utility:Create'ImageLabel'
+				{
+					Name = "HubBarHomeButtonIcon",
+					ZIndex = this.Shield.ZIndex + 3,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png",
+					Size = UDim2.new(0.7,0,0.7,0),
+					Position = UDim2.new(0.16,0,0.18,0),
+					Parent = this.HubBarHomeButton
+				}
+				this.HubBarHomeButton:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+					local newWidth = this.HubBarHomeButton.AbsoluteSize.X + 10
+					this.HubBarContainer.Size = UDim2.new(1, -newWidth, 1, 0)
+					this.HubBarContainer.Position = UDim2.new(0, newWidth, 0, 0)
+				end)
+				this.HubBarHomeButton.MouseEnter:Connect(function()
+					if Theme.UIBloxThemeEnabled then
+						this.HubBarHomeButton.BackgroundColor3 = Theme.color("HubBarHomeButtonHover")
+						this.HubBarHomeButton.BackgroundTransparency = Theme.transparency("HubBarHomeButtonTransparencyHover")
+					else
+						this.HubBarHomeButton.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuSelection@2x.png"
+					end
+				end)
+				this.HubBarHomeButton.MouseLeave:Connect(function()
+					if Theme.UIBloxThemeEnabled then
+						this.HubBarHomeButton.BackgroundColor3 = Theme.color("HubBarHomeButton")
+						this.HubBarHomeButton.BackgroundTransparency = Theme.transparency("HubBarHomeButtonTransparency")
+					else
+						this.HubBarHomeButton.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuBackground.png"
+					end
+				end)
 
-				this.HubBarHomeButton.Activated:Connect(leaveToHomeFunc)
-			else
-				this.HubBarHomeButton.Activated:Connect(leaveGameFunc)
+				if GetFFlagInGameMenuV1LeaveToHome() then
+					local leaveToHomeFunc = function()
+						this:AddToMenuStack(this.Pages.CurrentPage)
+						this.HubBar.Visible = false
+						removeBottomBarBindings()
+						this:SwitchToPage(this.LeaveGameToHomePage, nil, 1, true)
+					end
+
+					this.HubBarHomeButton.Activated:Connect(leaveToHomeFunc)
+				else
+					this.HubBarHomeButton.Activated:Connect(leaveGameFunc)
+				end
 			end
+
 		end
 
 		if FFlagInGameMenuV1FullScreenTitleBar and isSubjectToDesktopPolicies() then
@@ -1488,25 +1601,45 @@ local function CreateSettingsHub()
 		else
 			this.MenuContainer.Size = UDim2.new(0.95, 0, 0.95, 0)
 		end
+
+		if Theme.UIBloxThemeEnabled then
+			this.MenuContainer.Size = UDim2.new(0.0, 0, 0.0, 0)
+			this.MenuContainer.AutomaticSize = Enum.AutomaticSize.XY
+		end
+
 		local barSize = this.HubBar.Size.Y.Offset
 		local extraSpace = bufferSize*2+barSize*2
 		local extraTopPadding = (GetFFlagEnableTeleportBackButton() and getBackBarVisible() and this.BackBarRef:getValue()) and this.BackBarRef:getValue().Size.Y.Offset or 0
 
+
+		local menuAspectRatioParent = this.MenuContainer
+		if Theme.UIBloxThemeEnabled then
+			menuAspectRatioParent = nil
+		end
+
 		if isPortrait then
-			this.MenuContainer.Size = UDim2.new(1, 0, 1, 0)
 			this.MenuAspectRatio.Parent = nil
 			this.HubBar.Position = UDim2.new(0.5, 0, 0, 10)
-			this.HubBar.Size = UDim2.new(1, -20, 0, 40)
+			if Theme.UIBloxThemeEnabled then
+				this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-40, 0, 40)
+			else
+				this.MenuContainer.Size = UDim2.new(1, 0, 1, 0)
+				this.HubBar.Size = UDim2.new(1, -20, 0, 40)
+			end
 		else
 			if isTenFootInterface then
 				this.HubBar.Size = UDim2.new(0, 1200, 0, 100)
-				this.MenuAspectRatio.Parent = this.MenuContainer
+				this.MenuAspectRatio.Parent = menuAspectRatioParent
 			elseif utility:IsSmallTouchScreen() then
-				this.HubBar.Size = UDim2.new(1, -10, 0, 40)
+				if Theme.UIBloxThemeEnabled then
+					this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-74, 0, 52)
+				else
+					this.HubBar.Size = UDim2.new(1, -10, 0, 40)
+				end
 				this.MenuAspectRatio.Parent = nil
 			else
 				this.HubBar.Size = UDim2.new(0, 800, 0, 60)
-				this.MenuAspectRatio.Parent = this.MenuContainer
+				this.MenuAspectRatio.Parent = menuAspectRatioParent
 
 				if FFlagAvatarChatCoreScriptSupport then
 					-- Reconfigure these buttons to take a new parent to be next to
@@ -1517,6 +1650,13 @@ local function CreateSettingsHub()
 					this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(false), this.Shield, "PermissionsButtons")
 				end
 			end
+		end
+
+		if Theme.UIBloxThemeEnabled then
+			-- redo these after the resize code above
+			barSize = this.HubBar.Size.Y.Offset
+			extraSpace = bufferSize*2+barSize*2
+			extraTopPadding = (GetFFlagEnableTeleportBackButton() and getBackBarVisible() and this.BackBarRef:getValue()) and this.BackBarRef:getValue().Size.Y.Offset or 0
 		end
 
 
@@ -1790,7 +1930,7 @@ local function CreateSettingsHub()
 		end
 
 		setZIndex(SETTINGS_BASE_ZINDEX + 1, newHeader)
-		if FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies() then
+		if Theme.UIBloxThemeEnabled or (FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies()) then
 			newHeader.Parent = this.HubBarContainer
 		else
 			newHeader.Parent = this.HubBar

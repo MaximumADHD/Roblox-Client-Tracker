@@ -25,4 +25,6 @@ return {
 	ON_ROBLOX = "Feature.Contacts.Label.OnRoblox",
 	NOT_NOW = "Feature.Contacts.Message.AddFriends",
 	NO_RESULTS = "Feature.Contacts.Message.NoResults",
+	CONNECT_WITH_CONTACTS_TITLE = "Feature.AddFriends.Title.ConnectWithContacts",
+	CONNECT_WITH_CONTACTS_BODY = "Feature.AddFriends.Label.ConnectWithContacts",
 }

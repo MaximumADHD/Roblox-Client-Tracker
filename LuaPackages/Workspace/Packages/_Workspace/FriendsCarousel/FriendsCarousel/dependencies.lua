@@ -15,7 +15,6 @@ local maxHttpRetries = game:DefineFastInt("FriendsCarouselHttpRetryCount", 3)
 local getFFlagFriendsCarouselDontUseIngestService =
 	require(Packages.SharedFlags).getFFlagFriendsCarouselDontUseIngestService
 local getFFlagMigrateSocialNetworking = require(Packages.SharedFlags).getFFlagMigrateSocialNetworking
-local GetFFlagUseCorrectedFriendSortUtil = require(Packages.SharedFlags).GetFFlagUseCorrectedFriendSortUtil
 local getFFlagSocialOnboardingExperimentEnabled =
 	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 
@@ -142,9 +141,9 @@ return {
 	getFFlagProfileAliasEnabled = require(Packages.SharedFlags).getFFlagProfileAliasEnabled,
 
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,
-	GetFFlagUseCorrectedFriendSortUtil = GetFFlagUseCorrectedFriendSortUtil,
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 
 	isSubjectToDesktopPolicies = require(Packages.SharedFlags).isSubjectToDesktopPolicies,
 	getFFlagFriendsCarouselCleanUpFetchExperimentCode = require(Packages.SharedFlags).getFFlagFriendsCarouselCleanUpFetchExperimentCode,
+	GetFFlagLuaAppFriendsCarouselExperimentCleanup = require(Packages.SharedFlags).GetFFlagLuaAppFriendsCarouselExperimentCleanup,
 }

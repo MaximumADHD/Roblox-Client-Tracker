@@ -14,8 +14,6 @@ local useAnalytics = Analytics.useAnalytics
 local useEffectOnce = dependencies.Hooks.useEffectOnce
 
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-local getFFlagFriendsCarouselAddNewBadgeTracking =
-	require(FriendsCarousel.Flags.getFFlagFriendsCarouselAddNewBadgeTracking)
 
 export type Props = {
 	badgeValue: string | number | nil,
@@ -55,13 +53,11 @@ local FindFriendsTile = function(props: Props)
 		end
 	end, { props.badgeValue, isUpdatedUI :: any })
 
-	if getFFlagFriendsCarouselAddNewBadgeTracking() then
-		local analytics = useAnalytics()
-		local fireBadgeSeenEvent = function()
-			analytics.fireEvent(EventNames.ContactImporterOnAddFriends)
-		end
-		useEffectOnce(fireBadgeSeenEvent, badgeValue)
+	local analytics = useAnalytics()
+	local fireBadgeSeenEvent = function()
+		analytics.fireEvent(EventNames.ContactImporterOnAddFriends)
 	end
+	useEffectOnce(fireBadgeSeenEvent, badgeValue)
 
 	local localizedStrings = useLocalization({
 		addFriendText = TextKeys.UpdatedFindFriendsText,

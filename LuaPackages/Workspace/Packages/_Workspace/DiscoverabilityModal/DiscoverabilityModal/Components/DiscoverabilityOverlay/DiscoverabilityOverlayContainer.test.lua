@@ -129,54 +129,44 @@ describe("DiscoverabilityOverlayContainer", function()
 		end)
 	end)
 
-	describe("EnableContactInvitesForNonPhoneVerifiedForAll_v2", function()
-		local flag
-		beforeAll(function()
-			flag = game:SetFastFlagForTesting("EnableContactInvitesForNonPhoneVerifiedForAll_v2", true)
+	it("SHOULD should navigate to contactsList if authorized from connect contacts button is pressed", function()
+		local sendAPIPostSpy = jest.fn()
+		local checkOrRequestPermissions = jest.fn(function()
+			return Promise.resolve(PermissionsProtocol.Status.AUTHORIZED)
 		end)
-		afterAll(function()
-			game:SetFastFlagForTesting("EnableContactInvitesForNonPhoneVerifiedForAll_v2", flag)
+		NetworkingUserSettings.UpdateUserSettings.Mock.reply(function()
+			sendAPIPostSpy()
+			return {
+				responseBody = {},
+			}
 		end)
 
-		it("SHOULD should navigate to contactsList if authorized from connect contacts button is pressed", function()
-			local sendAPIPostSpy = jest.fn()
-			local checkOrRequestPermissions = jest.fn(function()
-				return Promise.resolve(PermissionsProtocol.Status.AUTHORIZED)
-			end)
-			NetworkingUserSettings.UpdateUserSettings.Mock.reply(function()
-				sendAPIPostSpy()
-				return {
-					responseBody = {},
-				}
-			end)
+		local discoverabilityOverlayContainer = createTreeWithProviders(DiscoverabilityOverlayContainer, {
+			store = mockStore(DEFAULT_STORE),
+			props = Dash.join(DEFAULT_PROPS, {
+				checkOrRequestPermissions = checkOrRequestPermissions,
+			}),
+		})
 
-			local discoverabilityOverlayContainer = createTreeWithProviders(DiscoverabilityOverlayContainer, {
-				store = mockStore(DEFAULT_STORE),
-				props = Dash.join(DEFAULT_PROPS, {
-					checkOrRequestPermissions = checkOrRequestPermissions,
-				}),
+		runWhileMounted(discoverabilityOverlayContainer, function(parent)
+			waitForEvents.act()
+			expect(#parent:GetChildren()).toBe(1)
+
+			local buttons = RhodiumHelpers.findFirstInstance(parent, {
+				Name = "Buttons",
 			})
+			local button = buttons[1][1]
+			expect(button).never.toBeNil()
 
-			runWhileMounted(discoverabilityOverlayContainer, function(parent)
-				waitForEvents.act()
-				expect(#parent:GetChildren()).toBe(1)
-
-				local buttons = RhodiumHelpers.findFirstInstance(parent, {
-					Name = "Buttons",
-				})
-				local button = buttons[1][1]
-				expect(button).never.toBeNil()
-
-				waitForEvents.act()
-				ReactRoblox.act(function()
-					RhodiumHelpers.clickInstance(button)
-				end)
-				expect(checkOrRequestPermissions).toHaveBeenCalledTimes(1)
-				expect(sendAPIPostSpy).toHaveBeenCalledTimes(1)
-				expect(navigate).toHaveBeenCalledWith(EnumScreens.ContactsList, {
-					[Constants.IS_PHONE_VERIFIED] = true,
-				})
+			waitForEvents.act()
+			ReactRoblox.act(function()
+				RhodiumHelpers.clickInstance(button)
 			end)
+			expect(checkOrRequestPermissions).toHaveBeenCalledTimes(1)
+			expect(sendAPIPostSpy).toHaveBeenCalledTimes(1)
+			expect(navigate).toHaveBeenCalledWith(EnumScreens.ContactsList, {
+				[Constants.IS_PHONE_VERIFIED] = true,
+			})
 		end)
 	end)
 end)

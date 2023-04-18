@@ -8,6 +8,17 @@ local Package = require(PackageIndex["TenFootUiCommon"]["TenFootUiCommon"])
 export type GlobalNavItem = Package.GlobalNavItem
 export type GlobalNavConfig = Package.GlobalNavConfig
 export type TenFootUiContext = Package.TenFootUiContext
+export type ScreenKind = Package.ScreenKind
+export type DefaultScreen = Package.DefaultScreen
+export type FullScreen = Package.FullScreen
+export type OverlayScreen = Package.OverlayScreen
+export type RouteState = Package.RouteState
+export type NavigationState = Package.NavigationState
+export type NavigationObject = Package.NavigationObject
+export type Descriptor = Package.Descriptor
+export type SwitchNavigatorConfig = Package.SwitchNavigatorConfig
+export type StackNavigatorConfig = Package.StackNavigatorConfig
+export type RouteArray = Package.RouteArray
 
 
 return Package

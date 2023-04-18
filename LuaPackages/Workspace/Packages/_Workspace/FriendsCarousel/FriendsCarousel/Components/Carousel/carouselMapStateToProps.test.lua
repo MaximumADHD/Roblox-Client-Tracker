@@ -9,9 +9,11 @@ local baseTestStates = devDependencies.baseTestStates
 local llama = dependencies.llama
 local RODUX_KEY = require(FriendsCarousel.Common.Constants).RODUX_KEY
 
-local carouselMapStateToProps = require(script.Parent.carouselMapStateToProps)
 local getRecommendationsList = require(script.Parent.getRecommendationsList)
 local getFriendsList = require(script.Parent.getFriendsList)
+local carouselMapStateToProps = require(script.Parent.carouselMapStateToProps)
+
+local GetFFlagLuaAppFriendsCarouselExperimentCleanup = dependencies.GetFFlagLuaAppFriendsCarouselExperimentCleanup
 
 describe("Correct data", function()
 	it("SHOULD return correct data for default state", function()
@@ -60,7 +62,9 @@ describe("Correct data", function()
 		local friendsAndRecList = llama.List.join(friendsList, recommendationsList)
 		local friendRequestCount = state[RODUX_KEY].Friends.requests.receivedCount
 
-		local newProps = carouselMapStateToProps(state)
+		local newProps = carouselMapStateToProps(state, {
+			showRecommendations = if GetFFlagLuaAppFriendsCarouselExperimentCleanup() then true else nil,
+		})
 		jestExpect(newProps).toEqual({
 			localUserId = state.LocalUserId,
 			friendsAndRecList = friendsAndRecList,
@@ -84,7 +88,9 @@ describe("Correct data", function()
 
 		table.insert(friendsAndRecList, { isLoading = true })
 
-		local newProps = carouselMapStateToProps(state)
+		local newProps = carouselMapStateToProps(state, {
+			showRecommendations = if GetFFlagLuaAppFriendsCarouselExperimentCleanup() then true else nil,
+		})
 		jestExpect(newProps).toEqual({
 			localUserId = state.LocalUserId,
 			friendsAndRecList = friendsAndRecList,
@@ -94,6 +100,33 @@ describe("Correct data", function()
 			recommendationCount = #recommendationsList,
 		})
 	end)
+
+	if GetFFlagLuaAppFriendsCarouselExperimentCleanup() then
+		it("SHOULD return list without recommendations if showRecommendations is false", function()
+			local state = baseTestStates.friendsAndRecommendations
+			state[RODUX_KEY].NetworkStatus = {
+				["https://friends.roblox.com//v1/users/test/friends"] = "Done",
+				["https://friends.roblox.com//v1/users/test/friends/recommendations"] = "Done",
+			}
+			local friendsList = getFriendsList(state, RODUX_KEY)
+			local friendsAndRecList = friendsList
+			local friendsCount = #friendsAndRecList
+			local friendRequestCount = state[RODUX_KEY].Friends.requests.receivedCount
+
+			local newProps = carouselMapStateToProps(state, {
+				showRecommendations = false,
+			})
+
+			jestExpect(newProps).toEqual({
+				localUserId = state.LocalUserId,
+				friendsAndRecList = friendsAndRecList,
+				friendCount = friendsCount,
+				friendRequestCount = friendRequestCount,
+				fetchingStatus = "Done",
+				recommendationCount = 0,
+			})
+		end)
+	end
 end)
 
 describe("Fetching status", function()

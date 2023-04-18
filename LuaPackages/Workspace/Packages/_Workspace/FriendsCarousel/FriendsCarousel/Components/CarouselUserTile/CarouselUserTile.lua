@@ -13,8 +13,6 @@ local TextKeys = require(FriendsCarousel.Common.TextKeys)
 
 local UserTileCircular = require(FriendsCarousel.Components.UserTileCircular)
 
-local getFFlagFriendsCarouselFixOnlineIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixOnlineIcon)
-
 export type Props = {
 	user: LocalTypes.User,
 	tileInfoHeight: number,
@@ -42,19 +40,10 @@ local isUserInStudio = function(user: LocalTypes.Friend)
 end
 
 local getShowOnlineIndicator = function(user: LocalTypes.User): boolean
-	if getFFlagFriendsCarouselFixOnlineIcon() then
-		return user.isFriendWithUser
-				and user.userPresenceType
-				and (user.userPresenceType == EnumPresenceType.Online or user.userPresenceType == EnumPresenceType.InStudio or user.userPresenceType == EnumPresenceType.InGame)
-			or false
-	else
-		return user.isFriendWithUser and isUserInGame(user :: LocalTypes.Friend)
-			or (
-				user.userPresenceType
-					and (user.userPresenceType == EnumPresenceType.Online or user.userPresenceType == EnumPresenceType.InStudio)
-				or false
-			)
-	end
+	return user.isFriendWithUser
+			and user.userPresenceType
+			and (user.userPresenceType == EnumPresenceType.Online or user.userPresenceType == EnumPresenceType.InStudio or user.userPresenceType == EnumPresenceType.InGame)
+		or false
 end
 
 local useContextualText = function(user: LocalTypes.User, variant: string?): string?

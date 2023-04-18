@@ -1,15 +1,16 @@
 local Packages = script:FindFirstAncestor("TenFootUiShell").Parent
 local RoactNavigation = require(Packages.RoactNavigation)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
+
 local createNavigator = RoactNavigation.createNavigator
 local StackRouter = RoactNavigation.StackRouter
 local TenFootUiStackView = require(script.Parent.Views.TenFootUiStackView)
-local TenFootUiNavigatorTypes = require(script.Parent.TenFootUiNavigatorTypes)
 
-type RouteArray = TenFootUiNavigatorTypes.RouteArray
-type NavigatorConfig = TenFootUiNavigatorTypes.NavigatorConfig
+type RouteArray = TenFootUiCommon.RouteArray
+type StackNavigatorConfig = TenFootUiCommon.StackNavigatorConfig
 
-local function createTenFootUiStackhNavigator(routeArray: RouteArray, navigationConfig: NavigatorConfig)
-	local router = StackRouter(routeArray, navigationConfig)
-	return createNavigator(TenFootUiStackView, router, navigationConfig)
+local function createTenFootUiStackhNavigator(routeArray: RouteArray, navigatorConfig: StackNavigatorConfig?)
+	local router = StackRouter(routeArray, navigatorConfig)
+	return createNavigator(TenFootUiStackView, router, navigatorConfig or {})
 end
 return createTenFootUiStackhNavigator

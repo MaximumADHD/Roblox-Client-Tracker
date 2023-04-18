@@ -10,9 +10,6 @@ local OmniTypes = require(PYMKCarousel.Common.OmniTypes)
 local Constants = require(PYMKCarousel.Common.Constants)
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 
-local getFFlagPYMKCarouselIncomingFriendshipReducer =
-	require(PYMKCarousel.Flags.getFFlagPYMKCarouselIncomingFriendshipReducer)
-
 local isContextTypeDefined = function(contextType: string?)
 	local contextTypeEnum = RecommendationContextType.fromRawValue(contextType)
 	return contextTypeEnum and contextTypeEnum ~= RecommendationContextType.None
@@ -38,9 +35,7 @@ local newRecommendationFromOmni = function(
 		mutualFriendsList = recommendation.mutualFriendDisplayName,
 		rank = if metadata.rank then tonumber(metadata.rank) else index,
 		mutualFriendsCount = mutualFriendsCount,
-		hasIncomingFriendRequest = if getFFlagPYMKCarouselIncomingFriendshipReducer()
-			then metadata.hasPendingFriendRequest == Constants.BE_TRUE_VALUE
-			else nil,
+		hasIncomingFriendRequest = metadata.hasPendingFriendRequest == Constants.BE_TRUE_VALUE,
 	}
 end
 

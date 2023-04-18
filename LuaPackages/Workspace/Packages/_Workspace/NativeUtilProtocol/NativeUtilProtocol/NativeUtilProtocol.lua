@@ -10,6 +10,7 @@ local getFFlagLuaNativeUtilProtocol = require(script.Parent.Flags.getFFlagLuaNat
 local getFFlagLuaSwitchToSettingsApp = require(script.Parent.Flags.getFFlagLuaSwitchToSettingsApp)
 local getFFlagLuaNativeUtilEnableSMSHandling = require(Packages.SharedFlags).getFFlagLuaNativeUtilEnableSMSHandling
 local getFFlagLuaGetSMSOTP = require(script.Parent.Flags.getFFlagLuaGetSMSOTP)
+local getFFlagLuaGetPhoneNumber = require(script.Parent.Flags.getFFlagLuaGetPhoneNumber)
 local Types = require(script.Parent.NativeUtilProtocolTypes)
 
 type Promise<T> = MessageBusPackage.Promise<T>
@@ -30,13 +31,15 @@ local SWITCH_TO_SETTING_APP_METHOD_NAME = "switchToSettingsApp"
 local SUPPORTS_SWITCH_TO_SETTING_APP_METHOD_NAME = "supportsSwitchToSettingsApp"
 local GET_SMS_OTP_METHOD_NAME = "getSMSOTP"
 local SUPPORTS_GET_SMS_OTP_METHOD_NAME = "supportsGetSMSOTP"
+local GET_PHONE_NUMBER_METHOD_NAME = "getPhoneNumber"
+local SUPPORTS_GET_PHONE_NUMBER_METHOD_NAME = "supportsGetPhoneNumber"
 
 local returnParamsValidator = t.strictInterface({
 	sent = t.optional(t.boolean),
 })
 
 local returnStringParamsValidator = t.strictInterface({
-	code = t.optional(t.string),
+	result = t.optional(t.string),
 })
 
 local sendParamsValidator = t.strictInterface({
@@ -81,6 +84,26 @@ local NativeUtilProtocol: NativeUtilProtocolModule = {
 	SUPPORTS_SWITCH_TO_SETTINGS_APP_METHOD_RESPONSE_DESCRIPTOR = {
 		protocolName = PROTOCOL_NAME,
 		methodName = SUPPORTS_SWITCH_TO_SETTING_APP_METHOD_NAME,
+		validateParams = t.table,
+	},
+	GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = GET_PHONE_NUMBER_METHOD_NAME,
+		validateParams = t.table,
+	},
+	GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = GET_PHONE_NUMBER_METHOD_NAME,
+		validateParams = returnStringParamsValidator,
+	},
+	SUPPORTS_GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = SUPPORTS_GET_PHONE_NUMBER_METHOD_NAME,
+		validateParams = t.table,
+	},
+	SUPPORTS_GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = SUPPORTS_GET_PHONE_NUMBER_METHOD_NAME,
 		validateParams = t.table,
 	},
 	GET_SMS_OTP_METHOD_REQUEST_DESCRIPTOR = {
@@ -225,9 +248,70 @@ function NativeUtilProtocol:supportsSwitchToSettingsApp(): Promise<boolean?>
 end
 
 --[[
-Get the SMS OTP code
+Get the device's phone number.
+Always call supportsGetPhoneNumber() first to check that this feature is supported before
+calling this API.
 
-@return promise<string>: The OTP code
+@return promise<string>: The device's phone number. Coule be empty if it's not available.
+]]
+
+function NativeUtilProtocol:getPhoneNumber(): Promise<string?>
+	if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetPhoneNumber() then
+		return Promise.resolve()
+	end
+	local promise = Promise.new(function(resolve, _)
+		local desc = self.GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: { result: string })
+			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+			resolve(params.result)
+		end)
+	end)
+
+	MessageBus.publishProtocolMethodRequest(
+		self.GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR,
+		-- need to pass in a dummy variable otherwise Android will not  work
+		-- because it converts `{}` into `[]` which fails inside of MessageBus.java
+		{ includeStatus = false },
+		{}
+	)
+	return promise
+end
+
+--[[
+Check if get phone number is supported by this device.
+
+@return promise<boolean>: returns true if getPhoneNumber is
+supported by the device and false if not supported
+]]
+
+function NativeUtilProtocol:supportsGetPhoneNumber(): Promise<boolean?>
+	if not getFFlagLuaNativeUtilProtocol() or not getFFlagLuaGetPhoneNumber() then
+		return Promise.resolve()
+	end
+
+	local promise = Promise.new(function(resolve, _)
+		local desc = self.SUPPORTS_GET_PHONE_NUMBER_METHOD_RESPONSE_DESCRIPTOR
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: { support: boolean })
+			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+			resolve(params.support)
+		end)
+	end)
+	MessageBus.publishProtocolMethodRequest(
+		self.SUPPORTS_GET_PHONE_NUMBER_METHOD_REQUEST_DESCRIPTOR,
+		-- need to pass in a dummy variable otherwise Android will not work
+		-- because it converts `{}` into `[]` which fails inside of MessageBus.java
+		{ includeStatus = false },
+		{}
+	)
+	return promise
+end
+
+--[[
+Get the SMS OTP code.
+Always call supportsGetSMSOTP() first to check that this feature is supported before
+calling this API.
+
+@return promise<string>: The OTP code. May not return if no sms code was received.
 ]]
 
 function NativeUtilProtocol:getSMSOTP(): Promise<string?>
@@ -236,9 +320,9 @@ function NativeUtilProtocol:getSMSOTP(): Promise<string?>
 	end
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.GET_SMS_OTP_METHOD_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: { code: string })
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: { result: string })
 			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
-			resolve(params.code)
+			resolve(params.result)
 		end)
 	end)
 

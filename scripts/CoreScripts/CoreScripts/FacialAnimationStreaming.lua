@@ -5,10 +5,9 @@ local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-local FFlagSelfieViewFeature = require(RobloxGui.Modules.Flags.FFlagSelfieViewFeature)
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
-if game:GetEngineFeature("FacialAnimationStreaming") and FFlagSelfieViewFeature then
+if game:GetEngineFeature("FacialAnimationStreaming") then
 	FaceAnimatorService.VideoAnimationEnabled = true
 end
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingService")

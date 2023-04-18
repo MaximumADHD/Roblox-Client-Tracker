@@ -8,13 +8,16 @@
 --]]
 
 ------------------ CONSTANTS --------------------
-local SELECTED_COLOR = Color3.fromRGB(0,162,255)
-local NON_SELECTED_COLOR = Color3.fromRGB(78,84,96)
+local Theme = require(script.Parent.Theme)
 
-local ARROW_COLOR = Color3.fromRGB(204, 204, 204)
-local ARROW_COLOR_HOVER = Color3.fromRGB(255, 255, 255)
+local SELECTED_COLOR = Theme.color("SELECTED_COLOR", Color3.fromRGB(0,162,255))
+local NON_SELECTED_COLOR = Theme.color("NON_SELECTED_COLOR", Color3.fromRGB(78,84,96))
+
+local ARROW_COLOR = Theme.color("ARROW_COLOR", Color3.fromRGB(204, 204, 204))
+local ARROW_COLOR_HOVER = Theme.color("ARROW_COLOR_HOVER", Color3.fromRGB(255, 255, 255))
 local ARROW_COLOR_TOUCH = ARROW_COLOR_HOVER
-local ARROW_COLOR_INACTIVE = Color3.fromRGB(150, 150, 150)
+local ARROW_COLOR_INACTIVE = Theme.color("ARROW_COLOR_INACTIVE", Color3.fromRGB(150, 150, 150))
+
 
 local SELECTED_LEFT_IMAGE = "rbxasset://textures/ui/Settings/Slider/SelectedBarLeft.png"
 local NON_SELECTED_LEFT_IMAGE = "rbxasset://textures/ui/Settings/Slider/BarLeft.png"
@@ -309,18 +312,55 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 		BackgroundTransparency = 1,
 	};
 
-	local button = Util.Create'ImageButton'
-	{
-		Name = name .. "Button",
-		Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
-		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(8,6,46,44),
-		AutoButtonColor = false,
-		BackgroundTransparency = 1,
-		Size = size,
-		ZIndex = 2,
-		SelectionImageObject = SelectionOverrideObject
-	};
+	local button
+	local borderColor = "DefaultButtonStroke"
+	local backgroundColor = "DefaultButton"
+	if Theme.UIBloxThemeEnabled then
+
+		if name == "DropDownFrame" then
+			borderColor = "ControlInputStroke"
+			backgroundColor = "ControlInputBackground"
+		end
+
+		button = Util.Create'ImageButton'
+		{
+			Name = name .. "Button",
+			AutoButtonColor = false,
+			BackgroundColor3 = Theme.color(backgroundColor),
+			BackgroundTransparency = Theme.transparency(backgroundColor),
+			Size = size,
+			ZIndex = 2,
+			SelectionImageObject = SelectionOverrideObject
+		};
+		Util.Create'UICorner'
+		{
+			CornerRadius = Theme.DefaultCornerRadius,
+			Parent = button,
+		}
+		Util.Create'UIStroke'
+		{
+			Name = "Border",
+			Color = Theme.color(borderColor),
+			Transparency = Theme.transparency(borderColor),
+			Thickness = Theme.DefaultStokeThickness,
+			Parent = button,
+		}
+	else
+		button = Util.Create'ImageButton'
+		{
+			Name = name .. "Button",
+			Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(8,6,46,44),
+			AutoButtonColor = false,
+			BackgroundTransparency = 1,
+			Size = size,
+			ZIndex = 2,
+			SelectionImageObject = SelectionOverrideObject
+		};
+	end
+
+
 
 	local _enabled = Util.Create'BoolValue'
 	{
@@ -353,7 +393,13 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 		end
 
 		if (hub and hub.Active) or hub == nil then
-			button.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png"
+
+			if Theme.UIBloxThemeEnabled then
+				button.BackgroundColor3 = Theme.color("DefaultButtonHover")
+				button.BackgroundTransparency = Theme.transparency("DefaultButtonHover")
+			else
+				button.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png"
+			end
 
 			local scrollTo = button
 			if rowRef then
@@ -366,7 +412,12 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 	end
 
 	local function deselectButton()
-		button.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png"
+		if Theme.UIBloxThemeEnabled then
+			button.BackgroundColor3 = Theme.color(backgroundColor)
+			button.BackgroundTransparency = Theme.transparency(backgroundColor)
+		else
+			button.Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png"
+		end
 	end
 
 	button.InputBegan:Connect(function(inputObject)
@@ -413,7 +464,7 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		Name = name .. "TextLabel",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 1, -8),
+		Size = Theme.UIBloxThemeEnabled and UDim2.new(1, 0, 1, 0) or UDim2.new(1, 0, 1, -8),
 		Position = UDim2.new(0,0,0,0),
 		TextColor3 = Color3.fromRGB(255,255,255),
 		TextYAlignment = Enum.TextYAlignment.Center,
@@ -635,6 +686,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local dropDownDefaultText = RobloxTranslator:FormatByKey(DROPDOWN_DEFAULT_TEXT_KEY)
 
 	local dropDownFrameSize = UDim2.new(0.6, 0, 0, 50)
+	if Theme.UIBloxThemeEnabled then
+		dropDownFrameSize = UDim2.new(0.6, 0, 0, 40)
+	end
 	this.DropDownFrame = MakeButton("DropDownFrame", dropDownDefaultText,
 		dropDownFrameSize, DropDownFrameClicked, nil, settingsHub)
 	this.DropDownFrame.Position = UDim2.new(1, 0, 0.5, 0)
@@ -643,7 +697,11 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	dropDownButtonEnabled = this.DropDownFrame.Enabled
 	local selectedTextLabel = this.DropDownFrame.DropDownFrameTextLabel
 	selectedTextLabel.Position = UDim2.new(0, 15, 0, 0)
-	selectedTextLabel.Size = UDim2.new(1, -50, 1, -8)
+	if Theme.UIBloxThemeEnabled then
+		selectedTextLabel.Size = UDim2.new(1, -50, 1, 0)
+	else
+		selectedTextLabel.Size = UDim2.new(1, -50, 1, -8)
+	end
 	selectedTextLabel.ClipsDescendants = true
 	selectedTextLabel.TextXAlignment = Enum.TextXAlignment.Left
 	local dropDownImage = Util.Create'ImageLabel'
@@ -2086,7 +2144,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			Position = UDim2.new(1,0,0.5,0),
 			Text = rowDisplayName,
 			TextColor3 = Color3.fromRGB(49, 49, 49),
-			BackgroundTransparency = 0.5,
+			BackgroundTransparency = Theme.transparency("ControlInputBackground", 0.5),
 			BorderSizePixel = 0,
 			TextYAlignment = Enum.TextYAlignment.Top,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -2116,7 +2174,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 		ValueChangerSelection.SelectionGained:Connect(function()
 			if usesSelectedObject() then
-				box.BackgroundTransparency = 0.1
+				box.BackgroundTransparency = Theme.transparency("ControlInputBackground", 0.1)
 
 				if ValueChangerInstance.HubRef then
 					ValueChangerInstance.HubRef:ScrollToFrame(ValueChangerSelection)
@@ -2125,7 +2183,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		end)
 		ValueChangerSelection.SelectionLost:Connect(function()
 			if usesSelectedObject() then
-				box.BackgroundTransparency = 0.5
+				box.BackgroundTransparency = Theme.transparency("ControlInputBackground", 0.5)
 			end
 		end)
 

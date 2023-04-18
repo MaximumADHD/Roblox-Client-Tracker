@@ -27,7 +27,6 @@ local LocalTypes = require(ContactImporter.Common.LocalTypes)
 local ContactsListSearchBar = require(ContactImporter.ContactsList.Components.ContactsListSearchBar)
 local Dash = dependencies.Dash
 
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local OffPlatformFriendRequestsIXP = require(ContactImporter.Flags.OffPlatformFriendRequestsIXP)
 local IXPVariants = OffPlatformFriendRequestsIXP.IXPVariants
 
@@ -61,8 +60,7 @@ local function ContactsListV2(props: Props)
 	local style = useStyle()
 	local localized = useLocalization({
 		fromContactsText = TextKeys.ON_ROBLOX,
-		contactsListBlurb = if props.variant == IXPVariants.INVITES_ONLY
-				or (getFFlagEnableContactInvitesForNonPhoneVerified() and not props.isPhoneVerified)
+		contactsListBlurb = if props.variant == IXPVariants.INVITES_ONLY or not props.isPhoneVerified
 			then TextKeys.CONTACTS_LIST_BLURB_INVITES
 			else TextKeys.CONTACTS_LIST_BLURB_MIXED,
 		connectWithFriends = TextKeys.CONTACTS_LIST_TITLE,

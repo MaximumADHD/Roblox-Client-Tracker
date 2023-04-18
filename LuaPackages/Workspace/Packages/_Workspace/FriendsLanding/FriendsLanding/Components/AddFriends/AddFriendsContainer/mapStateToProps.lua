@@ -7,11 +7,9 @@ local RoduxPresence = dependencies.RoduxPresence
 local SocialLibraries = dependencies.SocialLibraries
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterTooltip)
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
 local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
-local getFFlagContactImporterUseNewTooltip = require(FriendsLanding.Flags.getFFlagContactImporterUseNewTooltip)
 
 local sortFunc = require(script.Parent.sortFriendRequests)
 
@@ -70,12 +68,11 @@ return function(state)
 	shouldShowContactImporterFeature = showModalParams.shouldShowContactImporterFeature
 	shouldShowContactImporterUpsellModal = showModalParams.shouldShowContactImporterUpsellModal
 
-	local canUploadContacts, isPhoneVerified, hasOSPermissions, isDiscoverabilityUnset, isEmailVerified
+	local canUploadContacts, isPhoneVerified, hasOSPermissions, isDiscoverabilityUnset
 	isPhoneVerified = showModalParams.isPhoneVerified
 	hasOSPermissions = showModalParams.hasOSPermissions
 	canUploadContacts = showModalParams.canUploadContacts
 	isDiscoverabilityUnset = showModalParams.isDiscoverabilityUnset
-	isEmailVerified = showModalParams.isEmailVerified
 
 	local contactImporterFriendRequests = getDeepValue(
 		state,
@@ -85,9 +82,7 @@ return function(state)
 		state,
 		"FriendsLanding.ContactImporterWarning.seenContactImporterFriendRequest"
 	) or false
-	local hasRequestsFromContactImporter = if getFFlagContactImporterUseNewTooltip()
-		then not llama.isEmpty(contactImporterFriendRequests)
-		else false
+	local hasRequestsFromContactImporter = not llama.isEmpty(contactImporterFriendRequests)
 
 	if getFFlagShowContactImporterTooltipOnce() then
 		seenContactImporterFriendRequest = contactImporterTooltip.getKey(AppStorageService)
@@ -130,7 +125,6 @@ return function(state)
 		hasOSPermissions = hasOSPermissions,
 		canUploadContacts = canUploadContacts,
 		isDiscoverabilityUnset = isDiscoverabilityUnset,
-		isEmailVerified = if getFFlagContactImporterWithPhoneVerification() then isEmailVerified else nil,
-		showTooltip = if getFFlagContactImporterUseNewTooltip() then showTooltip else nil,
+		showTooltip = showTooltip,
 	}
 end

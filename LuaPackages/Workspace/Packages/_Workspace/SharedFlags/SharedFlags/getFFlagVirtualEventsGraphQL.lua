@@ -1,5 +1,5 @@
-game:DefineFastFlag("VirtualEventsGraphQLV3", false)
+game:DefineFastFlag("VirtualEventsGraphQLV4", false)
 
 return function()
-	return game:GetFastFlag("VirtualEventsGraphQLV3")
+	return game:GetFastFlag("VirtualEventsGraphQLV4")
 end

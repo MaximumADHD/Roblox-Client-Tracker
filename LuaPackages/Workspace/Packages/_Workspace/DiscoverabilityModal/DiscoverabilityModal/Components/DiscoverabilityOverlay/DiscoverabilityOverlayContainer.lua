@@ -25,8 +25,6 @@ local DiscoverabilityUpsellPrefillDiscoverableRedesignRolloutEnabled =
 local SelfViewProfileDiscoverabilityUpsellIXP =
 	require(DiscoverabilityModal.Flags.SelfViewProfileDiscoverabilityUpsellIXP)
 
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
-
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 
 local DiscoverabilityOverlay = require(script.Parent.DiscoverabilityOverlay)
@@ -194,15 +192,11 @@ local DiscoverabilityOverlayContainer = function(passedProps: Props)
 						updateOptedInUsers:addUserToLocalStorage(AppStorageService, localUserId)
 						hideContactImporterModal()
 						updateUserSettings(true, discoverabilitySetting):andThen(function()
-							if getFFlagEnableContactInvitesForNonPhoneVerified() then
-								hideDiscoverabilityModal()
-								props.navigation.pop()
-								props.navigation.navigate(EnumScreens.ContactsList, {
-									[Constants.IS_PHONE_VERIFIED] = true,
-								})
-							else
-								props.navigation.navigate(EnumScreens.ContactsList)
-							end
+							hideDiscoverabilityModal()
+							props.navigation.pop()
+							props.navigation.navigate(EnumScreens.ContactsList, {
+								[Constants.IS_PHONE_VERIFIED] = true,
+							})
 						end)
 					elseif permissionResponseStatus == PermissionsProtocol.Status.DENIED then
 						updateUserSettings(false, discoverabilitySetting):andThen(function()

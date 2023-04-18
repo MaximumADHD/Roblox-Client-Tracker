@@ -129,3 +129,7 @@ if game:DefineFastFlag("ExperienceChatOnLoadedCounters", false) then
 		AnalyticsService:ReportCounter(counterName, 1)
 	end
 end
+
+if game:DefineFastFlag("VersionedFlags_Dev", false) then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/VersionedFlagTest", script.Parent)
+end

@@ -13,6 +13,7 @@ export type OmniFeedMetadata = generatedTypes.OmniFeedMetadata
 export type OmniFeedItem = generatedTypes.OmniFeedItem
 export type OmniFeedRecommendation = generatedTypes.OmniFeedRecommendation
 export type Experience = generatedTypes.Experience
+export type ExperienceMedia = generatedTypes.ExperienceMedia
 export type Media = generatedTypes.Media
 export type VirtualEvent = generatedTypes.VirtualEvent
 export type RsvpStatus = generatedTypes.RsvpStatus

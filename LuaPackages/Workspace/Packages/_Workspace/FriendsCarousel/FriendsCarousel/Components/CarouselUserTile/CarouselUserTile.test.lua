@@ -19,8 +19,6 @@ local RhodiumHelpers = devDependencies.RhodiumHelpers()
 local users = require(FriendsCarousel.TestHelpers.mockedUsers)
 local RODUX_KEY = require(FriendsCarousel.Common.Constants).RODUX_KEY
 
-local getFFlagFriendsCarouselFixOnlineIcon = require(FriendsCarousel.Flags.getFFlagFriendsCarouselFixOnlineIcon)
-
 describe("CarouselUserTile", function()
 	describe("WHEN any type of user is passed", function()
 		local runForAnyUserStory = function(UserType: string)
@@ -123,13 +121,11 @@ describe("CarouselUserTile", function()
 				text = "last Location very long name name name",
 			},
 		})
-		if getFFlagFriendsCarouselFixOnlineIcon() then
-			runForFriendStory("friendInGameWithoutLocation", {
-				presenceExpectation = {
-					onlineIndicator = true,
-				},
-			})
-		end
+		runForFriendStory("friendInGameWithoutLocation", {
+			presenceExpectation = {
+				onlineIndicator = true,
+			},
+		})
 		runForFriendStory("friendInStudio", {
 			presenceExpectation = {
 				onlineIndicator = true,

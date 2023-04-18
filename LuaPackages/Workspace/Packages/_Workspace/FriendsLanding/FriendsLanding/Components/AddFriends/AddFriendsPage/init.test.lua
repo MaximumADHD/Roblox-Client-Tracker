@@ -6,8 +6,6 @@ local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createIns
 local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
 local Dash = dependencies.Dash
-local getFFlagContactImporterWithPhoneVerification = dependencies.getFFlagContactImporterWithPhoneVerification
-local getFFlagEnableContactInvitesForNonPhoneVerified = dependencies.getFFlagEnableContactInvitesForNonPhoneVerified
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
@@ -20,6 +18,8 @@ local waitForEvents = devDependencies.DeferredLuaHelpers.waitForEvents
 local JestGlobals = devDependencies.JestGlobals
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
+local beforeAll = JestGlobals.beforeAll
+local afterAll = JestGlobals.afterAll
 local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
@@ -409,17 +409,21 @@ it("SHOULD not show contact list if clicked", function()
 		isFromAddFriendsPage = true,
 		isDiscoverabilityUnset = false,
 		openLearnMoreLink = handleOpenLearnMoreLink,
-		openPhoneVerificationWebview = if getFFlagContactImporterWithPhoneVerification()
-			then handleOpenPhoneVerificationLinkWebview
-			else nil,
 		showToast = handleShowToastForTests,
-		isPhoneVerified = if getFFlagEnableContactInvitesForNonPhoneVerified() then true else nil,
+		isPhoneVerified = true,
 	})
 
 	cleanup()
 end)
+describe("FFlagUpdateContactImporterModalLogic", function()
+	local flag
+	beforeAll(function()
+		flag = game:SetFastFlagForTesting("UpdateContactImporterModalLogic", true)
+	end)
+	afterAll(function()
+		game:SetFastFlagForTesting("UpdateContactImporterModalLogic", flag)
+	end)
 
-if getFFlagEnableContactInvitesForNonPhoneVerified() then
 	it("SHOULD show contact list if clicked", function()
 		local instance, cleanup, fireContactImporterAnalyticsEvents, fireContactImporterSeenEvent, navigation
 		local handleOpenPhoneVerificationLinkWebview = jest.fn()
@@ -471,7 +475,7 @@ if getFFlagEnableContactInvitesForNonPhoneVerified() then
 
 		cleanup()
 	end)
-end
+end)
 
 describe("full searchbar button on compactMode", function()
 	local instance, cleanup

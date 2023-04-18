@@ -1,5 +1,6 @@
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
+local ImpressionEvents = require(FriendsLanding.FriendsLandingAnalytics.ImpressionEvents)
 local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createInstanceWithProviders)
 
 local devDependencies = require(FriendsLanding.devDependencies)
@@ -18,12 +19,16 @@ local jest = JestGlobals.jest
 
 local FriendsLandingFilter = require(script.Parent)
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 describe("GIVEN mock analytics", function()
 	local analytics
 
 	beforeEach(function()
 		analytics = {
 			buttonClick = jest.fn(),
+			impressionEvent = if getFFlagFriendsLandingInactiveFriendsEnabled() then jest.fn() else nil,
 		}
 	end)
 
@@ -63,4 +68,38 @@ describe("GIVEN mock analytics", function()
 
 		cleanup()
 	end)
+
+	if getFFlagFriendsLandingInactiveFriendsEnabled() then
+		it("SHOULD fire FriendPruningNewBadgeSeen impression event on load", function()
+			local mockFriendCount = 5
+			local mockInactiveFriendCount = 3
+
+			local mockNavigation = Mock.MagicMock.new({ Name = "navigation" })
+			mockNavigation.getParam = function(param)
+				if param == "friendCount" then
+					return mockFriendCount
+				elseif param == "inactiveFriendCount" then
+					return mockInactiveFriendCount
+				else
+					return 0
+				end
+			end
+
+			local _, cleanup = createInstanceWithProviders(mockLocale)(FriendsLandingFilter, {
+				props = {
+					navigation = mockNavigation,
+				},
+				analytics = analytics,
+			})
+			waitForEvents.act()
+
+			expect(analytics.impressionEvent).toHaveBeenCalledTimes(1)
+			expect(analytics.impressionEvent).toHaveBeenCalledWith(analytics, ImpressionEvents.FriendPruningNewBadgeSeen, {
+				friendCount = tostring(mockFriendCount),
+				inactiveFriendCount = tostring(mockInactiveFriendCount),
+			})
+
+			cleanup()
+		end)
+	end
 end)

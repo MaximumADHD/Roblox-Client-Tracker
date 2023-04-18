@@ -1,5 +1,6 @@
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local createInstanceWithProps = require(FriendsLanding.TestHelpers.createInstanceWithProps)
+local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createInstanceWithProviders)
 local waitUntil = require(FriendsLanding.TestHelpers.waitUntil)
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
 
@@ -18,6 +19,9 @@ local jest = JestGlobals.jest
 
 local ShowMoreWrapper = require(script.Parent)
 
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+
 -- FIXME: APPFDN-1925
 local fullyLoadedStory = require((script :: any).Parent["fullyLoaded.story"]) :: any
 local withMoreToLoadStory = require((script :: any).Parent["withMoreToLoad.story"]) :: any
@@ -33,10 +37,21 @@ describe("ShowMoreWrapper", function()
 				pageMountingTimeReport = jest.fn(),
 			}
 
-			local _, cleanup = createInstanceWithProps(mockLocale)(ShowMoreWrapper, {
-				friends = {},
-				analytics = mockAnalytics,
-			})
+			local _, cleanup
+			if getFFlagFriendsLandingInactiveFriendsEnabled() then
+				_, cleanup = createInstanceWithProviders(mockLocale)(
+					ShowMoreWrapper,
+					{ props = {
+						friends = {},
+						analytics = mockAnalytics,
+					} }
+				)
+			else
+				_, cleanup = createInstanceWithProps(mockLocale)(ShowMoreWrapper, {
+					friends = {},
+					analytics = mockAnalytics,
+				})
+			end
 
 			cleanup()
 		end)

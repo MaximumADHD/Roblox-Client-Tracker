@@ -15,6 +15,7 @@ local VRService = game:GetService("VRService")
 ----------- UTILITIES --------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -35,18 +36,24 @@ local function Initialize()
 	function this:IsRecording()
 		return isRecordingVideo
 	end
-	
+
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "RecordTab"
 
-	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/RecordTab.png"
-	this.TabHeader.Icon.AspectRatioConstraint.AspectRatio = 41 / 40
-	
-	if FFlagUseNotificationsLocalization then
-		this.TabHeader.Title.Text = "Record"
+	if Theme.UIBloxThemeEnabled then
+		this.TabHeader.TabLabel.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/RecordTab.png"
+		this.TabHeader.TabLabel.Title.Text = "Record"
 	else
-		this.TabHeader.Icon.Title.Text = "Record"
+		this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/RecordTab.png"
+		this.TabHeader.Icon.AspectRatioConstraint.AspectRatio = 41 / 40
+
+		if FFlagUseNotificationsLocalization then
+			this.TabHeader.Title.Text = "Record"
+		else
+			this.TabHeader.Icon.Title.Text = "Record"
+		end
 	end
+
 
 	local function onVREnabled()
 		this.TabHeader.Visible = not VRService.VREnabled

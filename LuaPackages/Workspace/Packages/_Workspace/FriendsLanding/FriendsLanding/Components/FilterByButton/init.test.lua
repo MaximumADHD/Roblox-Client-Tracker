@@ -1,13 +1,16 @@
 local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
+local dependencies = require(FriendsLanding.dependencies)
 local filterStates = require(FriendsLanding.Friends.filterStates)
-local getFFlagFilterByButtonZeroStateFixEnabled =
-	require(FriendsLanding.Flags.getFFlagFilterByButtonZeroStateFixEnabled)
 local createInstanceWithProps = require(FriendsLanding.TestHelpers.createInstanceWithProps)
+
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
 
 local devDependencies = require(FriendsLanding.devDependencies)
 local RhodiumHelpers = devDependencies.RhodiumHelpers
 local mockLocale = devDependencies.UnitTestHelpers.mockLocale
 
+local CoreGui = dependencies.CoreGui
 local JestGlobals = devDependencies.JestGlobals
 local describe = JestGlobals.describe
 local expect = JestGlobals.expect
@@ -18,6 +21,8 @@ local FilterByButton = require(script.Parent)
 
 local buttonTextName = "PillText"
 local buttonIconName = "Icon"
+local dismissFriendPruningTooltipButtonName = "DismissFriendPruningTooltipButton"
+local friendPruningAlertName = "FilterByButtonPillPossiblyWithAlert"
 
 describe("lifecycle", function()
 	it("SHOULD mount and render without issue", function(c)
@@ -58,12 +63,7 @@ describe("lifecycle", function()
 		})
 
 		expect(buttonText).toEqual(expect.any("Instance"))
-
-		if getFFlagFilterByButtonZeroStateFixEnabled() then
-			expect(buttonText.Text).toEqual("Feature.Friends.Label.All")
-		else
-			expect(buttonText.Text).toContain("(0)")
-		end
+		expect(buttonText.Text).toEqual("Feature.Friends.Label.All")
 
 		cleanup()
 	end)
@@ -170,4 +170,31 @@ describe("lifecycle", function()
 
 		cleanup()
 	end)
+
+	if getFFlagFriendsLandingInactiveFriendsEnabled() then
+		it("SHOULD show friend pruning tooltip and alert when relevant props are activated", function(c)
+			local _, cleanup = createInstanceWithProps(mockLocale)(FilterByButton, {
+				onActivated = function() end,
+				filter = filterStates.All,
+				friendCount = 200,
+				showFriendPruningAlert = true,
+				initialShowFriendPruningTooltip = true,
+				onTooltipDismissal = function() end,
+			})
+
+			local dismissFriendPruningTooltipButtonText = RhodiumHelpers.findFirstInstance(CoreGui, {
+				Name = dismissFriendPruningTooltipButtonName,
+			})
+
+			local friendPruningAlert = RhodiumHelpers.findFirstInstance(CoreGui, {
+				Name = friendPruningAlertName,
+			})
+
+			expect(dismissFriendPruningTooltipButtonText).toEqual(expect.any("Instance"))
+			expect(dismissFriendPruningTooltipButtonText.Text).toEqual("")
+			expect(friendPruningAlert).toEqual(expect.any("Instance"))
+
+			cleanup()
+		end)
+	end
 end)

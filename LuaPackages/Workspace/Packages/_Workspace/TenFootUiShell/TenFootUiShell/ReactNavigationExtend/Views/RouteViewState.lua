@@ -1,8 +1,8 @@
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
-local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
-local TenFootUiNavigatorTypes = require(ReactNavigationExtend.TenFootUiNavigatorTypes)
+local Packages = TenFootUiShell.Parent
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
 
-type Descriptor = TenFootUiNavigatorTypes.Descriptor
+type Descriptor = TenFootUiCommon.Descriptor
 
 export type ViewState = "Opened" | "Opening" | "Closing"
 

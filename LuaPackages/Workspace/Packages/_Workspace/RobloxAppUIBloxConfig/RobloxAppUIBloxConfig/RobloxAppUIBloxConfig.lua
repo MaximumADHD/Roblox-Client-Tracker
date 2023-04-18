@@ -3,7 +3,6 @@
 local RobloxAppUIBloxConfig = script.Parent
 local Packages = RobloxAppUIBloxConfig.Parent
 
-local ArgCheck = require(Packages.ArgCheck)
 local SharedFlags = require(Packages.SharedFlags)
 local UIBloxFlags = SharedFlags.UIBlox
 
@@ -14,10 +13,7 @@ return {
 	allowSystemBarToAcceptString = true,
 	emptyStateControllerSupport = true,
 	useTileThumbnailV2 = true,
-	useAnimatedXboxCursors = true,
-	useUpdatedCheckbox = true,
 	enableSubtitleOnTile = true,
-	enableGamepadKeyCodeSupportForKeyLabel = true,
 	useNewGenericTextLabelProps = UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
 	enableRadioButtonGamepadSupport = UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
@@ -25,12 +21,9 @@ return {
 	enableActionBarLayoutFix = UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix(),
 	enableNewIconSizes = game:DefineFastFlag("UIBloxUseNewIconSizes", false),
 	enableGenericButtonHoverBackgroundFix = UIBloxFlags.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix(),
-	enableStandardButtonSizes = true,
 	sliderUpdateOnDismiss = UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss(),
 	fixDropdownMenuCellTextSize = UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize(),
-	useDynamicHeadIcon = true,
 	systemBarBottomAlignedItems = UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems(),
-	devMode = ArgCheck.isEnabled(),
 	enableImageSetResolutionScaleFix = UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
 	vrApplyHeadScale = UIBloxFlags.GetFFlagUIBloxVRApplyHeadScale(),
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()

@@ -3,6 +3,8 @@ local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local dependencies = require(FriendsLanding.dependencies)
 local Rodux = dependencies.Rodux
 local getFFlagVerifiedBadgeInFriendsLanding = dependencies.getFFlagVerifiedBadgeInFriendsLanding
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
 
 local devDependencies = require(FriendsLanding.devDependencies)
 
@@ -22,6 +24,7 @@ it("SHOULD return expected structure", function()
 	expect(roduxStore:getState()).toEqual({
 		DeletedUsers = expect.any("table"),
 		VerifiedUsers = if getFFlagVerifiedBadgeInFriendsLanding() then expect.any("table") else nil,
+		InactiveFriends = if getFFlagFriendsLandingInactiveFriendsEnabled() then expect.any("table") else nil,
 		IsUserFollowing = expect.any("table"),
 		Games = expect.any("table"),
 		Users = expect.any("table"),

@@ -1,15 +1,12 @@
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
-local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
-
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
-
-local TenFootUiNavigatorTypes = require(ReactNavigationExtend.TenFootUiNavigatorTypes)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local areRoutesEqual = require(script.Parent.areRoutesEqual)
 
-type RouteState = TenFootUiNavigatorTypes.RouteState
+type RouteState = TenFootUiCommon.RouteState
 
 it("should return true when routes are identical references", function()
 	local routes1: { RouteState } = {
