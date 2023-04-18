@@ -25,7 +25,7 @@ function ProductPurchaseContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -58,11 +58,15 @@ function ProductPurchaseContainer:render(props)
 			buyItemControllerIcon = XBOX_A_ICON,
 			cancelControllerIcon = XBOX_B_ICON,
 
-			buyItemActivated = function() warn("Buy Item!") end,
-			cancelPurchaseActivated = function() warn("Cancel Purchase!") end,
+			buyItemActivated = function()
+				warn("Buy Item!")
+			end,
+			cancelPurchaseActivated = function()
+				warn("Cancel Purchase!")
+			end,
 
 			isLuobu = self.state.isLuobu,
-		})
+		}),
 	})
 end
 
@@ -76,5 +80,5 @@ return {
 		isLuobu = false,
 		isGamePass = false,
 	},
-	story = ProductPurchaseContainer
+	story = ProductPurchaseContainer,
 }

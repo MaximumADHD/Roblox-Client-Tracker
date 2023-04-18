@@ -37,10 +37,10 @@ type Props = {
 	robuxPrice: number,
 	robuxAmount: number,
 
-	acceptControllerIcon: {[string]: any?},
+	acceptControllerIcon: { [string]: any? },
 
-	purchasePremiumActivated: ()->any,
-	cancelPurchaseActivated: () ->any,
+	purchasePremiumActivated: () -> any,
+	cancelPurchaseActivated: () -> any,
 }
 
 function PremiumUpsellPrompt:init()
@@ -49,7 +49,7 @@ function PremiumUpsellPrompt:init()
 
 	self.state = {
 		padding = UDim.new(0, CONTENT_PADDING),
-		iconSize = UDim2.new(1, 0, 0, ICON_SIZE)
+		iconSize = UDim2.new(1, 0, 0, ICON_SIZE),
 	}
 
 	self.updateContentSizes = function(screenSize: Vector2?, contentSize: Vector2?)
@@ -76,9 +76,12 @@ function PremiumUpsellPrompt:init()
 		local isCondensed = self.isCondensed
 		-- 120 is the height of the components of the modal not including the customized content
 		if isCondensed then
-			isCondensed  = screenSize.Y < contentSize.Y + 120
-				+ ICON_SIZE - CONDENSED_ICON_SIZE
-				+ (CONTENT_PADDING - CONDENSED_CONTENT_PADDING) * 2
+			isCondensed = screenSize.Y
+				< contentSize.Y
+					+ 120
+					+ ICON_SIZE
+					- CONDENSED_ICON_SIZE
+					+ (CONTENT_PADDING - CONDENSED_CONTENT_PADDING) * 2
 		else
 			isCondensed = screenSize.Y < contentSize.Y + 120
 		end
@@ -102,11 +105,13 @@ function PremiumUpsellPrompt:render()
 
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
-			titleLocalizedText = if props.isCatalog then {
-				key = PREMIUM_MODAL_LOC_KEY:format("Title.GetPremium"),
-			} else {
-				key = PREMIUM_MODAL_LOC_KEY:format("Title.PremiumRequired"),
-			},
+			titleLocalizedText = if props.isCatalog
+				then {
+					key = PREMIUM_MODAL_LOC_KEY:format("Title.GetPremium"),
+				}
+				else {
+					key = PREMIUM_MODAL_LOC_KEY:format("Title.PremiumRequired"),
+				},
 			monthlyLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Action.Subscribe"),
 			},
@@ -119,17 +124,19 @@ function PremiumUpsellPrompt:render()
 			bulletPoint2Text = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Label.PremiumOnlyBenefits"),
 			},
-			bulletPoint3Text = if props.isCatalog then {
-				key = PREMIUM_MODAL_LOC_KEY:format("Label.AvatarShopBenefits"),
-			} else {
-				key = PREMIUM_MODAL_LOC_KEY:format("Body.RobuxDiscount"),
-			},
+			bulletPoint3Text = if props.isCatalog
+				then {
+					key = PREMIUM_MODAL_LOC_KEY:format("Label.AvatarShopBenefits"),
+				}
+				else {
+					key = PREMIUM_MODAL_LOC_KEY:format("Body.RobuxDiscount"),
+				},
 			disclosure = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Label.Disclosure"),
 				params = {
 					currencySymbol = props.currencySymbol,
 					price = tostring(props.robuxPrice),
-				}
+				},
 			},
 		},
 		render = function(locMap)
@@ -138,7 +145,7 @@ function PremiumUpsellPrompt:render()
 	})
 end
 
-function PremiumUpsellPrompt:renderPrompt(locMap: {[string]: string})
+function PremiumUpsellPrompt:renderPrompt(locMap: { [string]: string })
 	local props: Props = self.props
 
 	return withStyle(function(stylePalette)
@@ -148,7 +155,8 @@ function PremiumUpsellPrompt:renderPrompt(locMap: {[string]: string})
 		-- Can also use self.contentSize.X
 		local middleContentSize = PartialPageModal:getMiddleContentWidth(self.props.screenSize.X)
 
-		local bulletPoint1Text = locMap.bulletPoint1Text:gsub("{robux}",utf8.char(0xE002)..tostring(props.robuxAmount))
+		local bulletPoint1Text =
+			locMap.bulletPoint1Text:gsub("{robux}", utf8.char(0xE002) .. tostring(props.robuxAmount))
 
 		return Roact.createElement(PartialPageModal, {
 			title = locMap.titleLocalizedText,
@@ -166,7 +174,7 @@ function PremiumUpsellPrompt:renderPrompt(locMap: {[string]: string})
 				},
 				buttonHeight = 48,
 			},
-			onCloseClicked = props.cancelPurchaseActivated
+			onCloseClicked = props.cancelPurchaseActivated,
 		}, {
 			Roact.createElement(FitFrameVertical, {
 				BackgroundTransparency = 1,
@@ -183,7 +191,7 @@ function PremiumUpsellPrompt:renderPrompt(locMap: {[string]: string})
 					if self.contentSize.X ~= rbx.AbsoluteSize.X or self.contentSize.Y ~= rbx.AbsoluteSize.Y then
 						self.updateContentSizes(self.props.screenSize, rbx.AbsoluteSize)
 					end
-				end
+				end,
 			}, {
 				Icon = Roact.createElement(ImageSetLabel, {
 					LayoutOrder = 1,
@@ -224,7 +232,7 @@ function PremiumUpsellPrompt:renderPrompt(locMap: {[string]: string})
 						text = locMap.bulletPoint3Text,
 						width = middleContentSize,
 						layoutOrder = 3,
-					})
+					}),
 				}),
 				Disclosure = Roact.createElement("TextLabel", {
 					LayoutOrder = 4,
@@ -239,7 +247,7 @@ function PremiumUpsellPrompt:renderPrompt(locMap: {[string]: string})
 					TextColor3 = theme.TextDefault.Color,
 					TextTransparency = theme.TextDefault.Transparency,
 				}),
-			})
+			}),
 		})
 	end)
 end

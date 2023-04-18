@@ -5,118 +5,229 @@ export type TYPE =  {
 			FontFamily: string,
 			FontWeight: string,
 			FontSize: number,
-			LineHeight: string,
-			LetterSpacing: string,
+			LineHeight: number,
+			LetterSpacing: number,
 		},
 		Header: {
 			FontFamily: string,
 			FontWeight: string,
 			FontSize: number,
-			LineHeight: string,
-			LetterSpacing: string,
+			LineHeight: number,
+			LetterSpacing: number,
 		},
 		Subheader: {
 			FontFamily: string,
 			FontWeight: string,
 			FontSize: number,
-			LineHeight: string,
-			LetterSpacing: string,
+			LineHeight: number,
+			LetterSpacing: number,
 		},
 		Body: {
 			FontFamily: string,
 			FontWeight: string,
 			FontSize: number,
-			LineHeight: string,
-			LetterSpacing: string,
+			LineHeight: number,
+			LetterSpacing: number,
 		},
 		CaptionHeader: {
 			FontFamily: string,
 			FontWeight: string,
 			FontSize: number,
-			LineHeight: string,
-			LetterSpacing: string,
+			LineHeight: number,
+			LetterSpacing: number,
 		},
 		CaptionBody: {
 			FontFamily: string,
 			FontWeight: string,
 			FontSize: number,
-			LineHeight: string,
-			LetterSpacing: string,
+			LineHeight: number,
+			LetterSpacing: number,
 		},
 		Footer: {
 			FontFamily: string,
 			FontWeight: string,
 			FontSize: number,
-			LineHeight: string,
-			LetterSpacing: string,
+			LineHeight: number,
+			LetterSpacing: number,
 		},
 	},
 	Color: {
 		Background: {
-			Default: Color3,
-			Contrast: Color3,
-			Muted: Color3,
-			OnHover: Color3,
-			OnPress: Color3,
+			Default: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Contrast: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Muted: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			OnHover: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			OnPress: {
+				Color3: Color3,
+				Transparency: number,
+			},
 		},
 		BackgroundUi: {
-			Default: Color3,
-			Contrast: Color3,
+			Default: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Contrast: {
+				Color3: Color3,
+				Transparency: number,
+			},
 		},
 		Ui: {
-			Default: Color3,
-			Muted: Color3,
-			Emphasis: Color3,
+			Default: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Muted: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Emphasis: {
+				Color3: Color3,
+				Transparency: number,
+			},
 		},
 		Text: {
-			Default: Color3,
-			Muted: Color3,
-			Emphasis: Color3,
-			Link: Color3,
+			Default: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Muted: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Emphasis: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Link: {
+				Color3: Color3,
+				Transparency: number,
+			},
 		},
 		Icon: {
-			Default: Color3,
-			Emphasis: Color3,
-			OnHover: Color3,
+			Default: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Emphasis: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			OnHover: {
+				Color3: Color3,
+				Transparency: number,
+			},
 		},
 		Button: {
 			ContextualPrimary: {
-				Default: Color3,
-				OnHover: Color3,
-				Content: Color3,
+				Default: {
+					Color3: Color3,
+					Transparency: number,
+				},
+				OnHover: {
+					Color3: Color3,
+					Transparency: number,
+				},
+				Content: {
+					Color3: Color3,
+					Transparency: number,
+				},
 			},
 			SystemPrimary: {
-				Default: Color3,
-				OnHover: Color3,
-				Content: Color3,
+				Default: {
+					Color3: Color3,
+					Transparency: number,
+				},
+				OnHover: {
+					Color3: Color3,
+					Transparency: number,
+				},
+				Content: {
+					Color3: Color3,
+					Transparency: number,
+				},
 			},
 			Secondary: {
-				Default: Color3,
-				OnHover: Color3,
-				Content: Color3,
+				Default: {
+					Color3: Color3,
+					Transparency: number,
+				},
+				OnHover: {
+					Color3: Color3,
+					Transparency: number,
+				},
+				Content: {
+					Color3: Color3,
+					Transparency: number,
+				},
 			},
 		},
 		Common: {
-			Divider: Color3,
-			Overlay: Color3,
-			DropShadow: Color3,
-			NavigationBar: Color3,
-			Badge: Color3,
-			BadgeContent: Color3,
-			Placeholder: Color3,
-			Online: Color3,
-			Offline: Color3,
-			Alert: Color3,
-			Success: Color3,
+			Divider: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Overlay: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			DropShadow: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			NavigationBar: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Badge: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			BadgeContent: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Placeholder: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Online: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Offline: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Alert: {
+				Color3: Color3,
+				Transparency: number,
+			},
+			Success: {
+				Color3: Color3,
+				Transparency: number,
+			},
 		},
 	},
-	BorderRadius: {
+	Radius: {
 		None: number,
 		Small: number,
 		Medium: number,
 		Large: number,
 		XLarge: number,
-		Circle: string,
+		Circle: number,
 	},
 	Icon: {
 		Size: {
@@ -124,6 +235,7 @@ export type TYPE =  {
 			Medium: number,
 			Large: number,
 			XLarge: number,
+			XxLarge: number,
 		},
 	},
 }

@@ -11,7 +11,8 @@ local PREMIUM_ICON_LARGE = Images["icons/graphic/premium_xlarge"]
 local XBOX_A_ICON = Images["icons/controls/keys/xboxA"]
 local XBOX_B_ICON = Images["icons/controls/keys/xboxB"]
 
-local InsufficientRobuxProductPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.InsufficientRobuxProductPrompt)
+local InsufficientRobuxProductPrompt =
+	require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.InsufficientRobuxProductPrompt)
 
 local InsufficientRobuxProductPromptContainer = Roact.PureComponent:extend("InsufficientRobuxProductPromptContainer")
 
@@ -24,7 +25,7 @@ function InsufficientRobuxProductPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -50,9 +51,13 @@ function InsufficientRobuxProductPromptContainer:render()
 			acceptControllerIcon = XBOX_A_ICON,
 			cancelControllerIcon = XBOX_B_ICON,
 
-			robuxStoreActivated = function() warn("Robux Store!") end,
-			cancelPurchaseActivated = function() warn("Cancel Purchase!") end,
-		})
+			robuxStoreActivated = function()
+				warn("Robux Store!")
+			end,
+			cancelPurchaseActivated = function()
+				warn("Cancel Purchase!")
+			end,
+		}),
 	})
 end
 
@@ -60,5 +65,5 @@ return {
 	controls = {
 		icon = true,
 	},
-	story = InsufficientRobuxProductPromptContainer
+	story = InsufficientRobuxProductPromptContainer,
 }

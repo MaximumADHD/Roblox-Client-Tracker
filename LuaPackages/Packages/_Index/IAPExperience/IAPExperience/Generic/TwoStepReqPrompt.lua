@@ -22,8 +22,8 @@ type Props = {
 	position: UDim2?,
 	screenSize: Vector2,
 
-	doneControllerIcon: {[string]: any?},
-	cancelControllerIcon: {[string]: any?},
+	doneControllerIcon: { [string]: any? },
+	cancelControllerIcon: { [string]: any? },
 
 	closePrompt: (any) -> any,
 	openSecuritySettings: (any) -> any,
@@ -38,28 +38,28 @@ function TwoStepReqPrompt:render()
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			title = {
-				key = LOC_KEY:format("Title.VerificationRequired")
+				key = LOC_KEY:format("Title.VerificationRequired"),
 			},
 			message = {
-				key = LOC_KEY:format("Label.TwoStepRequired")
+				key = LOC_KEY:format("Label.TwoStepRequired"),
 			},
 			cancel = {
-				key = LOC_KEY:format("Action.Cancel")
+				key = LOC_KEY:format("Action.Cancel"),
 			},
 			backToGame = {
-				key = "IAPExperience.PurchaseSuccess.Action.BackToGame"
+				key = "IAPExperience.PurchaseSuccess.Action.BackToGame",
 			},
 			gotoSecurity = {
-				key = LOC_KEY:format("Action.GoToSecurity")
+				key = LOC_KEY:format("Action.GoToSecurity"),
 			},
 		},
-		render = function(locMap: {[string]: string})
+		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
-function TwoStepReqPrompt:renderAlert(locMap: {[string]: string})
+function TwoStepReqPrompt:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
 
 	local buttonStackInfo = nil
@@ -98,16 +98,16 @@ function TwoStepReqPrompt:renderAlert(locMap: {[string]: string})
 		}
 	end
 
-    return Roact.createElement(InteractiveAlert, {
-        anchorPoint = props.anchorPoint,
+	return Roact.createElement(InteractiveAlert, {
+		anchorPoint = props.anchorPoint,
 		position = props.position,
 		screenSize = props.screenSize,
 
-        title = locMap.title,
-        titleIcon = Images[ERROR_ICON],
-        bodyText = locMap.message,
-        buttonStackInfo = buttonStackInfo,
-    })
+		title = locMap.title,
+		titleIcon = Images[ERROR_ICON],
+		bodyText = locMap.message,
+		buttonStackInfo = buttonStackInfo,
+	})
 end
 
 return TwoStepReqPrompt

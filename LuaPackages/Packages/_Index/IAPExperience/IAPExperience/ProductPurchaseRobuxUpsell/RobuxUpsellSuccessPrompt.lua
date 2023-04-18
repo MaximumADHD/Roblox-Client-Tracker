@@ -33,8 +33,8 @@ type Props = {
 	itemName: string,
 	balance: number,
 
-	confirmControllerIcon: {[string]: any?},
-	cancelControllerIcon: {[string]: any?},
+	confirmControllerIcon: { [string]: any? },
+	cancelControllerIcon: { [string]: any? },
 
 	equipActivated: () -> any?,
 	doneActivated: () -> any?,
@@ -45,7 +45,6 @@ PurchaseSuccessPrompt.defaultProps = {
 	position = UDim2.new(0.5, 0, 0.5, 0),
 }
 
-
 function PurchaseSuccessPrompt:init()
 	self.contentRef = Roact.createRef()
 	self.state = {
@@ -55,7 +54,7 @@ function PurchaseSuccessPrompt:init()
 	self.changeContentSize = function(rbx)
 		if self.state.contentSize ~= rbx.AbsoluteSize then
 			self:setState({
-				contentSize = rbx.AbsoluteSize
+				contentSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -65,7 +64,7 @@ function PurchaseSuccessPrompt:render()
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			PurchaseSucceededTitle = {
-				key = LOC_KEY:format("Title.PurchaseSucceeded")
+				key = LOC_KEY:format("Title.PurchaseSucceeded"),
 			},
 			YouOwnText = {
 				key = LOC_KEY:format("Text.YouOwn"),
@@ -86,20 +85,22 @@ function PurchaseSuccessPrompt:render()
 				key = LOC_KEY:format("Action.BackToShop"),
 			},
 		},
-		render = function(locMap: {[string]: string})
+		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
-function PurchaseSuccessPrompt:renderAlert(locMap: {[string]: string})
+function PurchaseSuccessPrompt:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local fonts = stylePalette.Font
 
-		local message = locMap.YouOwnText.." "..locMap.BalanceNow:gsub("{robux}",utf8.char(0xE002)..tostring(props.balance))
+		local message = locMap.YouOwnText
+			.. " "
+			.. locMap.BalanceNow:gsub("{robux}", utf8.char(0xE002) .. tostring(props.balance))
 
 		local buttonStackInfo
 		if self.props.equipActivated then
@@ -120,7 +121,7 @@ function PurchaseSuccessPrompt:renderAlert(locMap: {[string]: string})
 							inputIcon = props.confirmControllerIcon,
 						},
 					},
-				}
+				},
 			}
 		else
 			buttonStackInfo = {
@@ -131,9 +132,9 @@ function PurchaseSuccessPrompt:renderAlert(locMap: {[string]: string})
 							onActivated = props.doneActivated,
 							text = locMap.BackToGameButtonText,
 							inputIcon = props.confirmControllerIcon,
-						}
-					}
-				}
+						},
+					},
+				},
 			}
 		end
 
@@ -161,22 +162,24 @@ function PurchaseSuccessPrompt:renderAlert(locMap: {[string]: string})
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}, {
-						ItemIcon = if props.itemIcon then Roact.createElement(ImageSetLabel, {
-							BackgroundTransparency = 1,
-							Position = UDim2.new(0, 5, 0, 5),
-							Size = UDim2.new(0, 85, 0, 85),
-							ScaleType = Enum.ScaleType.Stretch,
-							Image = props.itemIcon,
-							ImageTransparency = 0,
-						}) else Roact.createElement(ImageSetLabel, {
-							BackgroundTransparency = 1,
-							Position = UDim2.new(0, 5, 0, 5),
-							Size = UDim2.new(0, UIBloxIconSize.Large, 0, UIBloxIconSize.Large),
-							ScaleType = Enum.ScaleType.Stretch,
-							Image = MISSING_ICON,
-							ImageColor3 = theme.UIDefault.Color,
-							ImageTransparency = theme.UIDefault.Transparency,
-						}),
+						ItemIcon = if props.itemIcon
+							then Roact.createElement(ImageSetLabel, {
+								BackgroundTransparency = 1,
+								Position = UDim2.new(0, 5, 0, 5),
+								Size = UDim2.new(0, 85, 0, 85),
+								ScaleType = Enum.ScaleType.Stretch,
+								Image = props.itemIcon,
+								ImageTransparency = 0,
+							})
+							else Roact.createElement(ImageSetLabel, {
+								BackgroundTransparency = 1,
+								Position = UDim2.new(0, 5, 0, 5),
+								Size = UDim2.new(0, UIBloxIconSize.Large, 0, UIBloxIconSize.Large),
+								ScaleType = Enum.ScaleType.Stretch,
+								Image = MISSING_ICON,
+								ImageColor3 = theme.UIDefault.Color,
+								ImageTransparency = theme.UIDefault.Transparency,
+							}),
 					}),
 					YouOwnText = Roact.createElement(FitTextLabel, {
 						LayoutOrder = 1,

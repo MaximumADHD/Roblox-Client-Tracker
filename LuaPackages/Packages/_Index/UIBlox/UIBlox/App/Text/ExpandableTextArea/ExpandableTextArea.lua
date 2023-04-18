@@ -14,7 +14,6 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBlox.App.ImageSet.Images)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ExpandableTextUtils = require(UIBlox.Core.Text.ExpandableText.ExpandableTextUtils)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
@@ -43,12 +42,7 @@ local GRADIENT_ANIMATION_SPRING_SETTINGS = {
 local SpringImageComponent = SpringAnimatedItem.wrap(ImageSetComponent.Label)
 local ExpandableTextArea = Roact.PureComponent:extend("ExpandableTextArea")
 
-ExpandableTextArea.defaultProps = {
-	compactNumberOfLines = 2,
-	Text = "",
-}
-
-local validateProps = devOnly(t.strictInterface({
+ExpandableTextArea.validateProps = t.strictInterface({
 	Text = t.optional(t.string),
 	Position = t.optional(t.UDim2),
 	compactNumberOfLines = t.optional(t.number),
@@ -62,7 +56,12 @@ local validateProps = devOnly(t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	frameRef = t.optional(t.table),
-}))
+})
+
+ExpandableTextArea.defaultProps = {
+	compactNumberOfLines = 2,
+	Text = "",
+}
 
 function ExpandableTextArea:init()
 	self.state = {
@@ -118,7 +117,6 @@ function ExpandableTextArea:willUnmount()
 end
 
 function ExpandableTextArea:render()
-	assert(validateProps(self.props))
 	local descriptionText = self.props.Text
 	local position = self.props.Position
 	local compactNumberOfLines = self.props.compactNumberOfLines

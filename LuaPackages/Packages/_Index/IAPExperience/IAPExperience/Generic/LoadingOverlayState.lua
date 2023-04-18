@@ -6,12 +6,12 @@ local addRawValueMethodToEnum = require(IAPExperienceRoot.Utility.addRawValueMet
 local enumerate = require(Packages.enumerate)
 
 local rawKeyToRawValue = {
-    None = "None",
-    Loading = "Loading",
-    PurchasingItem = "PurchasingItem",
-    PurchasingRobux = "PurchasingRobux",
-    WaitingForPurchase = "WaitingForPurchase",
-    WaitingForRobux = "WaitingForRobux",
+	None = "None",
+	Loading = "Loading",
+	PurchasingItem = "PurchasingItem",
+	PurchasingRobux = "PurchasingRobux",
+	WaitingForPurchase = "WaitingForPurchase",
+	WaitingForRobux = "WaitingForRobux",
 }
 
 -- The values here correspond to values in the requested web view.

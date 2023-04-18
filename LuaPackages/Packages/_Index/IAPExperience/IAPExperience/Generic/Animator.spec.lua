@@ -17,13 +17,13 @@ return function()
 					shouldShow = false,
 					onShown = function() end,
 					onHidden = function() end,
-				})
+				}),
 			})
-	
+
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
-	
+
 		it("should create and destroy without errors (shouldAnimate:true)(shouldShow:false)", function()
 			local element = mockStyleAndLocalizationComponent({
 				Animator = Roact.createElement(Animator, {
@@ -31,13 +31,13 @@ return function()
 					shouldShow = false,
 					onShown = function() end,
 					onHidden = function() end,
-				})
+				}),
 			})
-	
+
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
-	
+
 		it("should create and destroy without errors (shouldAnimate:false)(shouldShow:true)", function()
 			local element = mockStyleAndLocalizationComponent({
 				Animator = Roact.createElement(Animator, {
@@ -45,9 +45,9 @@ return function()
 					shouldShow = true,
 					onShown = function() end,
 					onHidden = function() end,
-				})
+				}),
 			})
-	
+
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
@@ -59,7 +59,7 @@ return function()
 					shouldShow = true,
 					onShown = function() end,
 					onHidden = function() end,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

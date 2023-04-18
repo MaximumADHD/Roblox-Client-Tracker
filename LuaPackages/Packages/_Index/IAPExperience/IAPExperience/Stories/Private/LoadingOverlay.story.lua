@@ -19,7 +19,7 @@ function LoadingOverlayContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -27,7 +27,7 @@ end
 
 function LoadingOverlayContainer:render()
 	local props = self.props
-	
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
@@ -36,7 +36,7 @@ function LoadingOverlayContainer:render()
 	}, {
 		LoadingOverlay = Roact.createElement(LoadingOverlay, {
 			loadingState = props.controls.loadingState,
-		})
+		}),
 	})
 end
 
@@ -49,7 +49,7 @@ return {
 			LoadingOverlayState.WaitingForPurchase,
 			LoadingOverlayState.WaitingForRobux,
 			LoadingOverlayState.None,
-		 },
+		},
 	},
-	story = LoadingOverlayContainer
+	story = LoadingOverlayContainer,
 }

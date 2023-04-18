@@ -23,7 +23,7 @@ function PurchaseErrorPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -45,8 +45,10 @@ function PurchaseErrorPromptContainer:render(props)
 
 			doneControllerIcon = self.props.controls.showController and XBOX_A_ICON or nil,
 
-			doneActivated = function() print("OK") end,
-		})
+			doneActivated = function()
+				print("OK")
+			end,
+		}),
 	})
 end
 
@@ -54,6 +56,7 @@ return {
 	controls = {
 		errorType = {
 			PurchaseErrorType.Unknown,
+			PurchaseErrorType.FailedRobuxPurchase,
 			PurchaseErrorType.AlreadyOwn,
 			PurchaseErrorType.FailedGrant,
 			PurchaseErrorType.FailedGrantUnknown,
@@ -71,5 +74,5 @@ return {
 		},
 		showController = true,
 	},
-	story = PurchaseErrorPromptContainer
+	story = PurchaseErrorPromptContainer,
 }

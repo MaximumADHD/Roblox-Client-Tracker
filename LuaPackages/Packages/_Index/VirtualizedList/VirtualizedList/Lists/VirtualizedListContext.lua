@@ -11,7 +11,7 @@
 local Packages = script.Parent.Parent.Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
-type Object = Object
+type Object = LuauPolyfill.Object
 
 -- ROBLOX deviation: unavailable Types
 type ReadOnly<T> = T

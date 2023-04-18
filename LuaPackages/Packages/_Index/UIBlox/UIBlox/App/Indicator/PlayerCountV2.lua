@@ -1,34 +1,35 @@
+--!strict
 local App = script:FindFirstAncestor("App")
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
 local React = require(Packages.React)
+local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local StatWidget = require(App.Indicator.StatWidget)
+local Fonts = require(App.Style.Fonts)
 local useStyle = require(UIBlox.Core.Style.useStyle)
-local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local TEXT_MAX_BOUND = 10000
 local ICON_SIZE = getIconSize(IconSize.Large)
 local ICON_TEXT_PADDING = 12
 
-local StatWidgetPropsInterface = t.strictInterface({
-	countText = t.string,
-	labelText = t.string,
-	icon = validateImage,
-})
+type StatWidgetProps = {
+	countText: string,
+	labelText: string,
+	icon: ImagesTypes.ImageSetImage,
+}
 
-local validateProps = devOnly(t.strictInterface({
-	layoutOrder = t.integer,
-	countLeft = StatWidgetPropsInterface,
-	countRight = StatWidgetPropsInterface,
-}))
+export type Props = {
+	layoutOrder: number,
+	countLeft: StatWidgetProps,
+	countRight: StatWidgetProps,
+}
 
-local function getTextWidth(text, fontStyle, style)
+local function getTextWidth(text, fontStyle: Fonts.Font, style)
 	local baseSize = style.Font.BaseSize
 	local fontSize = fontStyle.RelativeSize * baseSize
 	local bounds = Vector2.new(TEXT_MAX_BOUND, TEXT_MAX_BOUND)
@@ -42,8 +43,6 @@ local function getMeasuredSectionWidth(countInfo, style)
 end
 
 local function PlayerCount(props: Props)
-	assert(validateProps(props))
-
 	local style = useStyle()
 
 	local leftSectionWidth = getMeasuredSectionWidth(props.countLeft, style)

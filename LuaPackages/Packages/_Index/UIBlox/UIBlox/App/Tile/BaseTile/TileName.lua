@@ -8,7 +8,6 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
@@ -21,7 +20,7 @@ local LINE_PADDING = 4
 
 local ItemTileName = Roact.PureComponent:extend("ItemTileName")
 
-local validateProps = devOnly(t.strictInterface({
+ItemTileName.validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 
 	maxHeight = t.intersection(t.number, t.numberMin(0)),
@@ -47,11 +46,9 @@ local validateProps = devOnly(t.strictInterface({
 	-- Font style for header (Header2, Body, etc)
 	-- Defaults to Header2.
 	titleFontStyle = t.optional(t.table),
-}))
+})
 
 function ItemTileName:render()
-	assert(validateProps(self.props))
-
 	local layoutOrder = self.props.LayoutOrder
 	local maxHeight = self.props.maxHeight
 	local maxWidth = self.props.maxWidth

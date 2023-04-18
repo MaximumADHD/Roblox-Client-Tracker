@@ -143,7 +143,7 @@ local function connectToEvent(binding, engineInterface)
 		local engineState = getEngineState(engineInterface)
 
 		local connection = engineInterface.subscribeToRenderStepped(function(step)
-			debugPrint("[EVENT] Render step triggered onStep callback")
+			-- debugPrint("[EVENT] Render step triggered onStep callback")
 			binding.action(engineState.primaryGamepadState[binding.keyCode], step)
 		end)
 
@@ -152,7 +152,7 @@ local function connectToEvent(binding, engineInterface)
 		local engineState = getEngineState(engineInterface)
 
 		local connection = engineInterface.subscribeToRenderStepped(function(step)
-			debugPrint("[EVENT] Render step triggered onMoveStep callback")
+			-- debugPrint("[EVENT] Render step triggered onMoveStep callback")
 			local moveState = {
 				[Enum.KeyCode.Thumbstick1] = engineState.primaryGamepadState[Enum.KeyCode.Thumbstick1],
 				[Enum.KeyCode.DPadUp] = engineState.primaryGamepadState[Enum.KeyCode.DPadUp],

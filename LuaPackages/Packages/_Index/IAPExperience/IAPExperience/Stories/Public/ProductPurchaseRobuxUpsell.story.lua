@@ -24,7 +24,7 @@ function ProductPurchaseRobuxUpsellContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -56,11 +56,15 @@ function ProductPurchaseRobuxUpsellContainer:render(props)
 			buyItemControllerIcon = XBOX_A_ICON,
 			cancelControllerIcon = XBOX_B_ICON,
 
-			buyItemActivated = function() warn("Buy Item!") end,
-			cancelPurchaseActivated = function() warn("Cancel Purchase!") end,
-			
+			buyItemActivated = function()
+				warn("Buy Item!")
+			end,
+			cancelPurchaseActivated = function()
+				warn("Cancel Purchase!")
+			end,
+
 			isLuobu = self.props.controls.isLuobu,
-		})
+		}),
 	})
 end
 
@@ -72,5 +76,5 @@ return {
 		enableInputDelayed = false,
 		isLuobu = false,
 	},
-	story = ProductPurchaseRobuxUpsellContainer
+	story = ProductPurchaseRobuxUpsellContainer,
 }

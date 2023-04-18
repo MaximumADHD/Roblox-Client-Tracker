@@ -25,6 +25,7 @@
     ["IAPExperience.RobuxUpsell.Text.AdditionalRobux"] = [[あと {robux} 必要です。]],
     ["IAPExperience.RobuxUpsell.WouldYouBuy"] = [[{robux} のパッケージを購入しますか？]],
     ["IAPExperience.RobuxUpsell.Text.WouldYouBuy"] = [[{robux} のパッケージを購入しますか？]],
+    ["IAPExperience.RobuxUpsell.Text.PurchaseNotAvailableOnHeadSet"] = [[ヘッドセットデバイスでは、まだRobuxの購入に対応していません。別のデバイス上でお試しください。]],
     ["IAPExperience.PremiumUpsell.Title.GetPremium"] = [[プレミアムに入会]],
     ["IAPExperience.PremiumUpsell.Action.Subscribe"] = [[定期購入する]],
     ["IAPExperience.PremiumUpsell.Label.PremiumBenefitListDesc"] = [[Robloxプレミアムに含まれるもの]],
@@ -260,4 +261,8 @@
     ["Authentication.TwoStepVerification.Description.TwoStepVerificationDeactivationSecurityKey.Body.Under13"] = [[こんにちは。{lineBreak}{lineBreak} お子様のRobloxアカウント、{accountName} のセキュリティキーによる2段階認証が無効になりました。{lineBreak}{lineBreak}Robloxより]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShort"] = [[{boldStart}重要：{boldEnd} セキュリティコードは誰にも教えないようにしてください。Roblox のほうからコードを聞き出すことはありません。これには、コードをショートメッセージで送信するように言ったり、画面共有を要求することなども含まれます。]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShortBackupCodes"] = [[{boldStart}重要：{boldEnd} バックアップコードは誰にも教えないようにしてください。Roblox のほうからコードを聞き出すことはありません。これには、コードをショートメッセージで送信するように言ったり、画面共有を要求することなども含まれます。]],
+    ["Authentication.TwoStepVerification.Response.AuthenticatorCodeAlreadyUsed"] = [[このコードはすでに使用済みです。新しいコードを入力してください。]],
+    ["IAPExperience.BuyRobux.Banner.Text"] = [[Robuxでアバターのアップデートを購入したり、仮想空間内での特殊能力を購入できます]],
+    ["IAPExperience.BuyRobux.Banner.Title"] = [[Robux（ロバックス）をゲット]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[あと {robux} Robux]],
 }

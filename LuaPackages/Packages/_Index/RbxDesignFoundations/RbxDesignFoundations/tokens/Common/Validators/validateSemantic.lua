@@ -5,118 +5,229 @@ return function(t)
 				FontFamily = t.string,
 				FontWeight = t.string,
 				FontSize = t.number,
-				LineHeight = t.string,
-				LetterSpacing = t.string,
+				LineHeight = t.number,
+				LetterSpacing = t.number,
 			}),
 			Header = t.strictInterface({
 				FontFamily = t.string,
 				FontWeight = t.string,
 				FontSize = t.number,
-				LineHeight = t.string,
-				LetterSpacing = t.string,
+				LineHeight = t.number,
+				LetterSpacing = t.number,
 			}),
 			Subheader = t.strictInterface({
 				FontFamily = t.string,
 				FontWeight = t.string,
 				FontSize = t.number,
-				LineHeight = t.string,
-				LetterSpacing = t.string,
+				LineHeight = t.number,
+				LetterSpacing = t.number,
 			}),
 			Body = t.strictInterface({
 				FontFamily = t.string,
 				FontWeight = t.string,
 				FontSize = t.number,
-				LineHeight = t.string,
-				LetterSpacing = t.string,
+				LineHeight = t.number,
+				LetterSpacing = t.number,
 			}),
 			CaptionHeader = t.strictInterface({
 				FontFamily = t.string,
 				FontWeight = t.string,
 				FontSize = t.number,
-				LineHeight = t.string,
-				LetterSpacing = t.string,
+				LineHeight = t.number,
+				LetterSpacing = t.number,
 			}),
 			CaptionBody = t.strictInterface({
 				FontFamily = t.string,
 				FontWeight = t.string,
 				FontSize = t.number,
-				LineHeight = t.string,
-				LetterSpacing = t.string,
+				LineHeight = t.number,
+				LetterSpacing = t.number,
 			}),
 			Footer = t.strictInterface({
 				FontFamily = t.string,
 				FontWeight = t.string,
 				FontSize = t.number,
-				LineHeight = t.string,
-				LetterSpacing = t.string,
+				LineHeight = t.number,
+				LetterSpacing = t.number,
 			}),
 		}),
 		Color = t.strictInterface({
 			Background = t.strictInterface({
-				Default = t.Color3,
-				Contrast = t.Color3,
-				Muted = t.Color3,
-				OnHover = t.Color3,
-				OnPress = t.Color3,
+				Default = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Contrast = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Muted = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				OnHover = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				OnPress = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
 			}),
 			BackgroundUi = t.strictInterface({
-				Default = t.Color3,
-				Contrast = t.Color3,
+				Default = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Contrast = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
 			}),
 			Ui = t.strictInterface({
-				Default = t.Color3,
-				Muted = t.Color3,
-				Emphasis = t.Color3,
+				Default = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Muted = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Emphasis = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
 			}),
 			Text = t.strictInterface({
-				Default = t.Color3,
-				Muted = t.Color3,
-				Emphasis = t.Color3,
-				Link = t.Color3,
+				Default = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Muted = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Emphasis = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Link = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
 			}),
 			Icon = t.strictInterface({
-				Default = t.Color3,
-				Emphasis = t.Color3,
-				OnHover = t.Color3,
+				Default = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Emphasis = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				OnHover = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
 			}),
 			Button = t.strictInterface({
 				ContextualPrimary = t.strictInterface({
-					Default = t.Color3,
-					OnHover = t.Color3,
-					Content = t.Color3,
+					Default = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
+					OnHover = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
+					Content = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
 				}),
 				SystemPrimary = t.strictInterface({
-					Default = t.Color3,
-					OnHover = t.Color3,
-					Content = t.Color3,
+					Default = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
+					OnHover = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
+					Content = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
 				}),
 				Secondary = t.strictInterface({
-					Default = t.Color3,
-					OnHover = t.Color3,
-					Content = t.Color3,
+					Default = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
+					OnHover = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
+					Content = t.strictInterface({
+						Color3 = t.Color3,
+						Transparency = t.number,
+					}),
 				}),
 			}),
 			Common = t.strictInterface({
-				Divider = t.Color3,
-				Overlay = t.Color3,
-				DropShadow = t.Color3,
-				NavigationBar = t.Color3,
-				Badge = t.Color3,
-				BadgeContent = t.Color3,
-				Placeholder = t.Color3,
-				Online = t.Color3,
-				Offline = t.Color3,
-				Alert = t.Color3,
-				Success = t.Color3,
+				Divider = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Overlay = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				DropShadow = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				NavigationBar = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Badge = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				BadgeContent = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Placeholder = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Online = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Offline = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Alert = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
+				Success = t.strictInterface({
+					Color3 = t.Color3,
+					Transparency = t.number,
+				}),
 			}),
 		}),
-		BorderRadius = t.strictInterface({
+		Radius = t.strictInterface({
 			None = t.number,
 			Small = t.number,
 			Medium = t.number,
 			Large = t.number,
 			XLarge = t.number,
-			Circle = t.string,
+			Circle = t.number,
 		}),
 		Icon = t.strictInterface({
 			Size = t.strictInterface({
@@ -124,6 +235,7 @@ return function(t)
 				Medium = t.number,
 				Large = t.number,
 				XLarge = t.number,
+				XxLarge = t.number,
 			}),
 		}),
 	}

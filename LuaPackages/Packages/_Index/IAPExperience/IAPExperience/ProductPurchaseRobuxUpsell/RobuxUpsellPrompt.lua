@@ -38,6 +38,7 @@ type Props = {
 	itemName: string,
 	itemRobuxCost: number,
 	robuxPurchaseAmount: number,
+	robuxCostStr: string?,
 	balanceAmount: number,
 
 	acceptControllerIcon: { [string]: any? },
@@ -108,7 +109,7 @@ function RobuxUpsellPrompt:render()
 			},
 			PurchaseNotAvialableForQuest = {
 				key = LOC_KEY:format("Text.PurchaseNotAvailableOnHeadSet"),
-			}
+			},
 		},
 		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
@@ -212,7 +213,9 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 							BackgroundTransparency = 1,
 							AutomaticSize = Enum.AutomaticSize.XY,
 							Font = fonts.Body.Font,
-							Text = if self.props.isQuest then locMap.PurchaseNotAvailableOnHeadSet else locMap.DisclosurePayment,
+							Text = if self.props.isQuest
+								then locMap.PurchaseNotAvailableOnHeadSet
+								else locMap.DisclosurePayment,
 							TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
 							TextColor3 = theme.TextDefault.Color,
 							TextTransparency = theme.TextDefault.Transparency,
@@ -297,7 +300,11 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 								enableInputDelayed = props.enableInputDelayed,
 								delayInputSeconds = props.inputDelaySec,
 								onActivated = props.buyItemActivated,
-								text = props.enableInputDelayed and locMap.LoadingText or locMap.BuyRobuxButton,
+								text = if props.enableInputDelayed
+									then locMap.LoadingText
+									else (if props.robuxCostStr ~= nil
+										then props.robuxCostStr
+										else locMap.BuyRobuxButton),
 								inputIcon = props.buyItemControllerIcon,
 							},
 						},

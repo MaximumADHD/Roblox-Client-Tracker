@@ -6,7 +6,6 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ModalBottomSheetButton = require(script.Parent.ModalBottomSheetButton)
-local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 -- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4
 local ModalBottomSheet = Roact.PureComponent:extend("ModalBottomSheet")
@@ -21,7 +20,7 @@ local MOTOR_OPTIONS = {
 	dampingRatio = 1,
 }
 
-local validateProps = devOnly(t.strictInterface({
+ModalBottomSheet.validateProps = t.strictInterface({
 	buttonModels = t.array(t.table),
 	-- this is screenWidth of the app, and is only used to calculate whether the MBS width is fixed or not
 	screenWidth = t.number,
@@ -33,7 +32,7 @@ local validateProps = devOnly(t.strictInterface({
 	bottomGap = t.optional(t.number),
 	sheetContentXSize = t.optional(t.UDim),
 	sheetContentXPosition = t.optional(t.UDim),
-}))
+})
 
 ModalBottomSheet.defaultProps = {
 	bottomGap = 0,
@@ -49,7 +48,6 @@ function ModalBottomSheet:init()
 end
 
 function ModalBottomSheet:render()
-	assert(validateProps(self.props))
 	local sheetContentXPosition = self.props.sheetContentXPosition
 	local sheetContentXSize = self.props.sheetContentXSize
 

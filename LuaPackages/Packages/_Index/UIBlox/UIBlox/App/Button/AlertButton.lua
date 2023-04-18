@@ -38,9 +38,9 @@ function AlertButton:render()
 		return React.createElement(RoactGamepad.Focusable[GenericButton], {
 			[React.Tag] = self.props[React.Tag],
 			Size = self.props.size,
-			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,
-			maxWidth = if UIBloxConfig.enableStandardButtonSizes then self.props.maxWidth else nil,
-			fitContent = if UIBloxConfig.enableStandardButtonSizes then self.props.fitContent else nil,
+			standardSize = self.props.standardSize,
+			maxWidth = self.props.maxWidth,
+			fitContent = self.props.fitContent,
 			AnchorPoint = self.props.anchorPoint,
 			Position = self.props.position,
 			LayoutOrder = self.props.layoutOrder,

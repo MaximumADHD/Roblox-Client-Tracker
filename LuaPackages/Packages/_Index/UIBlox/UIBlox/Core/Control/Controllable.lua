@@ -12,7 +12,6 @@ local t = require(Packages.t)
 
 local ControlState = require(ControlRoot.Enum.ControlState)
 local StateTable = require(UIBloxRoot.StateTable.StateTable)
-local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local Controllable = Roact.PureComponent:extend("Controllable")
 
@@ -80,7 +79,7 @@ function Controllable:init()
 	end)
 end
 
-local validateProps = devOnly(t.strictInterface({
+Controllable.validateProps = t.strictInterface({
 	-- The component that is controlled
 	controlComponent = t.strictInterface({
 		-- the actual UI control component
@@ -101,7 +100,7 @@ local validateProps = devOnly(t.strictInterface({
 
 	--A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
-}))
+})
 
 Controllable.defaultProps = {
 	userInteractionEnabled = true,
@@ -109,8 +108,6 @@ Controllable.defaultProps = {
 }
 
 function Controllable:render()
-	assert(validateProps(self.props))
-
 	local controlComponent = self.props.controlComponent
 	local userInteractionEnabled = self.props.userInteractionEnabled
 

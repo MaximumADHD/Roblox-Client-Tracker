@@ -34,12 +34,12 @@ function RobuxUpsellFlowContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
 
-	self.delayChange = function(newState: any?, callback: (any?)->any?)
+	self.delayChange = function(newState: any?, callback: (any?) -> any?)
 		delay(self.props.controls.networkDelay, function()
 			if self.props.controls.fail then
 				self:setState({
@@ -49,7 +49,7 @@ function RobuxUpsellFlowContainer:init()
 			else
 				if newState then
 					self:setState({
-						purchaseState = newState
+						purchaseState = newState,
 					})
 				end
 				if callback then
@@ -70,7 +70,7 @@ function RobuxUpsellFlowContainer:init()
 	self.showPurchaseWarning = function()
 		self.delayChange(RobuxUpsellFlowState.PurchaseWarning)
 		self:setState({
-			purchaseState = RobuxUpsellFlowState.Loading
+			purchaseState = RobuxUpsellFlowState.Loading,
 		})
 	end
 
@@ -79,7 +79,7 @@ function RobuxUpsellFlowContainer:init()
 			self.itemPurchase()
 		end)
 		self:setState({
-			purchaseState = RobuxUpsellFlowState.RobuxPurchasePending
+			purchaseState = RobuxUpsellFlowState.RobuxPurchasePending,
 		})
 	end
 
@@ -87,16 +87,16 @@ function RobuxUpsellFlowContainer:init()
 		self.delayChange(nil, function()
 			if self.props.controls.twoStep then
 				self:setState({
-					purchaseState = RobuxUpsellFlowState.TwoStepRequired
+					purchaseState = RobuxUpsellFlowState.TwoStepRequired,
 				})
 			else
 				self:setState({
-					purchaseState = RobuxUpsellFlowState.Success
+					purchaseState = RobuxUpsellFlowState.Success,
 				})
 			end
 		end)
 		self:setState({
-			purchaseState = RobuxUpsellFlowState.ItemPurchasePending
+			purchaseState = RobuxUpsellFlowState.ItemPurchasePending,
 		})
 	end
 
@@ -119,7 +119,7 @@ function RobuxUpsellFlowContainer:init()
 	self.flowComplete = function()
 		self.delayChange(self.props.controls.purchaseModal)
 		self:setState({
-			purchaseState = RobuxUpsellFlowState.None
+			purchaseState = RobuxUpsellFlowState.None,
 		})
 	end
 end
@@ -130,8 +130,8 @@ function RobuxUpsellFlowContainer:render()
 		local fonts = stylePalette.Font
 
 		local bgText = "BG "
-		for i = 10,1,-1 do 
-			bgText = bgText..bgText
+		for i = 10, 1, -1 do
+			bgText = bgText .. bgText
 		end
 
 		return Roact.createElement("Frame", {
@@ -163,13 +163,13 @@ function RobuxUpsellFlowContainer:render()
 				itemRobuxCost = 9000,
 				iapRobuxAmount = 10000,
 				beforeRobuxBalance = 50,
-				
+
 				purchaseState = self.state.purchaseState,
 				errorType = self.state.errorType,
 				u13ConfirmType = self.props.controls.u13,
 
 				acceptControllerIcon = self.props.controls.controller and XBOX_A_ICON or nil,
-				cancelControllerIcon =  self.props.controls.controller and XBOX_B_ICON or nil,
+				cancelControllerIcon = self.props.controls.controller and XBOX_B_ICON or nil,
 
 				purchaseRobux = self.purchaseRobux,
 				acceptPurchaseWarning = self.acceptPurchaseWarning,
@@ -178,10 +178,10 @@ function RobuxUpsellFlowContainer:render()
 				flowComplete = self.flowComplete,
 
 				onAnalyticEvent = function(name: string, data: table)
-					print("Analytic Event: "..name.."\n"..HttpService:JSONEncode(data))
+					print("Analytic Event: " .. name .. "\n" .. HttpService:JSONEncode(data))
 				end,
-				eventPrefix = "Test"
-			})
+				eventPrefix = "Test",
+			}),
 		})
 	end)
 end
@@ -203,5 +203,5 @@ return {
 		fail = false,
 		networkDelay = 1,
 	},
-	story = RobuxUpsellFlowContainer
+	story = RobuxUpsellFlowContainer,
 }

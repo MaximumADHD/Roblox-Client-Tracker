@@ -10,7 +10,6 @@ local RoactGamepad = require(Packages.RoactGamepad)
 local Cryo = require(Packages.Cryo)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
-local devOnly = require(UIBlox.Utility.devOnly)
 local Images = require(AppRoot.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local withStyle = require(UIBlox.Core.Style.withStyle)
@@ -31,7 +30,7 @@ local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack
 
 local Alert = Roact.PureComponent:extend("Alert")
 
-local validateProps = devOnly(t.strictInterface({
+Alert.validateProps = t.strictInterface({
 	alertType = enumerateValidator(AlertType),
 	maxWidth = t.optional(t.number),
 	minWidth = t.optional(t.number),
@@ -52,7 +51,7 @@ local validateProps = devOnly(t.strictInterface({
 	defaultChildRef = t.optional(t.table),
 	isMiddleContentFocusable = t.optional(t.boolean),
 	isFooterContentFocusable = t.optional(t.boolean),
-}))
+})
 
 Alert.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),
@@ -82,7 +81,6 @@ function Alert:didMount()
 end
 
 function Alert:render()
-	assert(validateProps(self.props))
 	local isMiddleContentFocusable = self.props.isMiddleContentFocusable
 	local isFooterContentFocusable = self.props.isFooterContentFocusable
 

@@ -10,16 +10,15 @@ local t = require(Packages.t)
 local validateFontInfo = require(UIBloxRoot.Core.Style.Validator.validateFontInfo)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local GenericTextLabel = require(UIBloxRoot.Core.Text.GenericTextLabel.GenericTextLabel)
-local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local ToastText = Roact.PureComponent:extend("ToastText")
 
-local validateProps = devOnly(t.interface({
+ToastText.validateProps = t.interface({
 	colorStyle = validateColorInfo,
 	fontStyle = validateFontInfo,
 	Size = t.UDim2,
 	Text = t.string,
-}))
+})
 
 ToastText.defaultProps = {
 	TextXAlignment = Enum.TextXAlignment.Left,
@@ -27,8 +26,6 @@ ToastText.defaultProps = {
 }
 
 function ToastText:render()
-	assert(validateProps(self.props))
-
 	return Roact.createElement(GenericTextLabel, self.props)
 end
 

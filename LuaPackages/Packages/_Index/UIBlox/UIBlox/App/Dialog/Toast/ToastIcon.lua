@@ -11,23 +11,20 @@ local t = require(Packages.t)
 local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
-local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local ToastIcon = Roact.PureComponent:extend("ToastIcon")
 
-local validateProps = devOnly(t.interface({
+ToastIcon.validateProps = t.interface({
 	colorStyle = t.optional(validateColorInfo),
 	Image = t.union(t.table, t.string),
 	Size = t.UDim2,
-}))
+})
 
 ToastIcon.defaultProps = {
 	BackgroundTransparency = 1,
 }
 
 function ToastIcon:render()
-	assert(validateProps(self.props))
-
 	return withStyle(function(style)
 		local theme = style.Theme
 

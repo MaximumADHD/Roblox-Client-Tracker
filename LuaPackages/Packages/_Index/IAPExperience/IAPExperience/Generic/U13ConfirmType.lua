@@ -6,11 +6,11 @@ local addRawValueMethodToEnum = require(IAPExperienceRoot.Utility.addRawValueMet
 local enumerate = require(Packages.enumerate)
 
 local rawKeyToRawValue = {
-    None = "None",
-    U13PaymentModal = "U13PaymentModal",
-    U13MonthlyThreshold1Modal = "U13MonthlyThreshold1Modal",
-    U13MonthlyThreshold2Modal = "U13MonthlyThreshold2Modal",
-    ParentalConsentWarningPaymentModal13To17 = "ParentalConsentWarningPaymentModal13To17"
+	None = "None",
+	U13PaymentModal = "U13PaymentModal",
+	U13MonthlyThreshold1Modal = "U13MonthlyThreshold1Modal",
+	U13MonthlyThreshold2Modal = "U13MonthlyThreshold2Modal",
+	ParentalConsentWarningPaymentModal13To17 = "ParentalConsentWarningPaymentModal13To17",
 }
 
 -- The values here correspond to values in the requested web view.

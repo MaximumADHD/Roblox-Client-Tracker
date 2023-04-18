@@ -3,6 +3,8 @@ return {
 	ProductPurchaseRobuxUpsell = require(script.ProductPurchaseRobuxUpsell.ProductPurchaseRobuxUpsell),
 
 	PurchaseFlow = {
+		BuyRobuxFlow = require(script.PurchaseFlow.BuyRobux.BuyRobuxFlow),
+		BuyRobuxFlowState = require(script.PurchaseFlow.BuyRobux.BuyRobuxFlowState),
 		RobuxUpsellFlow = require(script.PurchaseFlow.RobuxUpsell.RobuxUpsellFlow),
 		RobuxUpsellFlowState = require(script.PurchaseFlow.RobuxUpsell.RobuxUpsellFlowState),
 		PremiumUpsellFlow = require(script.PurchaseFlow.PremiumUpsell.PremiumUpsellFlow),
@@ -13,5 +15,5 @@ return {
 
 	Locale = {
 		LocaleProvider = require(script.Locale.LocaleProvider),
-	}
+	},
 }

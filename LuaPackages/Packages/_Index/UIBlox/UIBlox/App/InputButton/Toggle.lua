@@ -16,7 +16,6 @@ local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponen
 
 local divideTransparency = require(Packages.UIBlox.Utility.divideTransparency)
 local lerp = require(Packages.UIBlox.Utility.lerp)
-local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local SPRING_PARAMETERS = {
 	frequency = 4,
@@ -34,7 +33,9 @@ local TRACK_FILL_SLICE_CENTER = Rect.new(18, 18, 18, 18)
 local KNOB_IMAGE_ID = "component_assets/circle_28_padding_10"
 local KNOB_SHADOW_IMAGE_ID = "component_assets/dropshadow_28"
 
-local validateProps = devOnly(t.strictInterface({
+local Toggle = Roact.PureComponent:extend("Toggle")
+
+Toggle.validateProps = t.strictInterface({
 	isSelected = t.optional(t.boolean),
 	isDisabled = t.optional(t.boolean),
 	onActivated = t.callback,
@@ -42,79 +43,49 @@ local validateProps = devOnly(t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
-}))
+})
 
-local InnerToggle = Roact.PureComponent:extend("Toggle")
-
-function InnerToggle:init()
-	self.state = {}
+function Toggle:init()
 	local initialProgress = self.props.isSelected and 1 or 0
-	local setProgress
-	self.progress, setProgress = Roact.createBinding(initialProgress)
-
-	self.style, self.setStyle = Roact.createBinding(self.props.style)
-	self.controlState, self.setControlState = Roact.createBinding(self.state.controlState)
-
-	local joinedBinding = Roact.joinBindings({
-		progress = self.progress,
-		style = self.style,
-		controlState = self.controlState,
-	})
-
-	self.fillTransparency = joinedBinding:map(function(values)
-		local baseTransparency = values.style.Theme.ContextualPrimaryDefault.Transparency
-		local transparencyDivisor = values.controlState == ControlState.Disabled and 2 or 1
-		return lerp(1, divideTransparency(baseTransparency, transparencyDivisor), values.progress)
-	end)
-
-	self.knobPosition = self.progress:map(function(value)
-		return KNOB_OFF_POSITION:lerp(KNOB_ON_POSITION, value)
-	end)
-
-	self.knobTransparency = Roact.joinBindings({
-		style = self.style,
-		controlState = self.controlState,
-	}):map(function(values)
-		local baseTransparency = values.style.Theme.ContextualPrimaryDefault.Transparency
-		local transparencyDivisor = values.controlState == ControlState.Disabled and 2 or 1
-		return divideTransparency(baseTransparency, transparencyDivisor)
-	end)
-
-	-- We need to fade the track outline out when the toggle is selected, because
-	-- otherwise it creates a visually jarring border around the filled track.
-	self.trackTransparency = joinedBinding:map(function(values)
-		local targetTransparency = values.controlState == ControlState.Hover
-				and values.style.Theme.SecondaryOnHover.Transparency
-			or values.style.Theme.SecondaryDefault.Transparency
-
-		if values.controlState == ControlState.Disabled then
-			targetTransparency = 1 - (1 - targetTransparency) / 2
-		end
-
-		return lerp(targetTransparency, 1, values.progress)
-	end)
-
-	self.trackColor = Roact.joinBindings({
-		style = self.style,
-		controlState = self.controlState,
-	}):map(function(values)
-		if values.controlState == ControlState.Hover then
-			return values.style.Theme.SecondaryOnHover.Color
-		else
-			return values.style.Theme.SecondaryDefault.Color
-		end
-	end)
-
-	self.fillColor = self.style:map(function(style)
-		return style.Theme.ContextualPrimaryDefault.Color
-	end)
+	self.state = {
+		progress = initialProgress,
+	}
 
 	self.progressMotor = Otter.createSingleMotor(initialProgress)
-	self.progressMotor:onStep(setProgress)
+	self.progressMotor:onStep(function(newValue)
+		self:setState({
+			progress = newValue,
+		})
+	end)
+
+	self.setControlState = function(_, newState)
+		self:setState({
+			controlState = newState,
+		})
+	end
 end
 
-function InnerToggle:render()
-	return withStyle(function(style)
+function Toggle:render()
+	return withStyle(function(stylePalette)
+		local theme = stylePalette.Theme
+
+		local controlState = self.state.controlState
+		local progress = self.state.progress
+
+		local transparencyDivisor = if controlState == ControlState.Disabled then 2 else 1
+		local trackTheme = if controlState == ControlState.Hover then theme.SecondaryOnHover else theme.SecondaryDefault
+		local trackColor = trackTheme.Color
+
+		local targetTransparency = divideTransparency(trackTheme.Transparency, transparencyDivisor)
+		local knobTransparency = divideTransparency(theme.ContextualPrimaryDefault.Transparency, transparencyDivisor)
+
+		-- We need to fade the track outline out when the toggle is selected, because
+		-- otherwise it creates a visually jarring border around the filled track.
+		local trackTransparency = lerp(targetTransparency, 1, progress)
+		local fillTransparency = lerp(1, knobTransparency, progress)
+
+		local knobPosition = KNOB_OFF_POSITION:lerp(KNOB_ON_POSITION, progress)
+
 		return Roact.createElement(Controllable, {
 			controlComponent = {
 				component = "ImageButton",
@@ -134,8 +105,8 @@ function InnerToggle:render()
 						Image = Images[TRACK_IMAGE_ID],
 						ScaleType = Enum.ScaleType.Slice,
 						SliceCenter = TRACK_SLICE_CENTER,
-						ImageTransparency = self.trackTransparency,
-						ImageColor3 = self.trackColor,
+						ImageTransparency = trackTransparency,
+						ImageColor3 = trackColor,
 						Position = UDim2.fromScale(0.5, 0.5),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 					}),
@@ -145,8 +116,8 @@ function InnerToggle:render()
 						Image = Images[TRACK_FILL_IMAGE_ID],
 						ScaleType = Enum.ScaleType.Slice,
 						SliceCenter = TRACK_FILL_SLICE_CENTER,
-						ImageColor3 = self.fillColor,
-						ImageTransparency = self.fillTransparency,
+						ImageColor3 = theme.ContextualPrimaryDefault.Color,
+						ImageTransparency = fillTransparency,
 						Position = UDim2.fromScale(0.5, 0.5),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						ZIndex = 2,
@@ -155,8 +126,8 @@ function InnerToggle:render()
 						Size = UDim2.fromOffset(44, 44),
 						BackgroundTransparency = 1,
 						Image = Images[KNOB_IMAGE_ID],
-						ImageTransparency = self.knobTransparency,
-						Position = self.knobPosition,
+						ImageTransparency = knobTransparency,
+						Position = knobPosition,
 						AnchorPoint = Vector2.new(0, 0.5),
 						ZIndex = 4,
 					}),
@@ -164,52 +135,32 @@ function InnerToggle:render()
 						Size = UDim2.fromOffset(44, 44),
 						BackgroundTransparency = 1,
 						Image = Images[KNOB_SHADOW_IMAGE_ID],
-						ImageTransparency = self.knobTransparency,
-						Position = self.knobPosition,
+						ImageTransparency = knobTransparency,
+						Position = knobPosition,
 						AnchorPoint = Vector2.new(0, 0.5),
 						ZIndex = 3,
 					}),
 				},
 			},
 			isDisabled = self.props.isDisabled,
-			onStateChanged = function(_, newState)
-				self.setControlState(newState)
-			end,
+			onStateChanged = self.setControlState,
 		})
 	end)
 end
 
-function InnerToggle:didMount()
+function Toggle:didMount()
 	self.progressMotor:start()
 end
 
-function InnerToggle:didUpdate(lastProps, lastState)
+function Toggle:didUpdate(lastProps, lastState)
 	if lastProps.isSelected ~= self.props.isSelected then
 		local newProgress = self.props.isSelected and 1 or 0
 		self.progressMotor:setGoal(Otter.spring(newProgress, SPRING_PARAMETERS))
 	end
-
-	if lastProps.style ~= self.props.style then
-		self.setStyle(self.props.style)
-	end
 end
 
-function InnerToggle:willUnmount()
+function Toggle:willUnmount()
 	self.progressMotor:destroy()
 end
 
-local function injectUIBloxStyle(props)
-	-- Validate props here, since the inner toggle receives these props plus
-	-- the style prop!
-	assert(validateProps(props))
-	return withStyle(function(style)
-		return Roact.createElement(
-			InnerToggle,
-			Cryo.Dictionary.join(props, {
-				style = style,
-			})
-		)
-	end)
-end
-
-return injectUIBloxStyle
+return Toggle

@@ -9,7 +9,6 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local StyleProvider = require(UIBlox.Core.Style.StyleProvider)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local getThemeFromName = require(Style.Themes.getThemeFromName)
 local getFontFromName = require(Style.Fonts.getFontFromName)
@@ -29,17 +28,16 @@ local THEME_MAP = {
 
 local AppStyleProvider = Roact.Component:extend("AppStyleProvider")
 
-local validateProps = devOnly(t.strictInterface({
+AppStyleProvider.validateProps = t.strictInterface({
 	-- The current style of the app.
 	style = t.strictInterface({
 		themeName = t.string,
 		fontName = t.string,
 	}),
 	[Roact.Children] = t.table,
-}))
+})
 
 function AppStyleProvider:render()
-	assert(validateProps(self.props))
 	local style = self.props.style
 	local appStyle = {
 		Font = getFontFromName(style.fontName, DEFAULT_FONT, FONT_MAP),

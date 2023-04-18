@@ -25,6 +25,7 @@
     ["IAPExperience.RobuxUpsell.Text.AdditionalRobux"] = [[Hai bisogno di {robux} in più.]],
     ["IAPExperience.RobuxUpsell.WouldYouBuy"] = [[Vuoi acquistare un pacchetto {robux}?]],
     ["IAPExperience.RobuxUpsell.Text.WouldYouBuy"] = [[Vuoi acquistare un pacchetto {robux}?]],
+    ["IAPExperience.RobuxUpsell.Text.PurchaseNotAvailableOnHeadSet"] = [[L'acquisto di Robux non è ancora supportato sui dispositivi auricolari. Per favore prova su un altro dispositivo.]],
     ["IAPExperience.PremiumUpsell.Title.GetPremium"] = [[Ottieni Premium]],
     ["IAPExperience.PremiumUpsell.Action.Subscribe"] = [[Abbonati]],
     ["IAPExperience.PremiumUpsell.Label.PremiumBenefitListDesc"] = [[Roblox Premium ti offrirà:]],
@@ -257,4 +258,8 @@
     ["Authentication.TwoStepVerification.Description.TwoStepVerificationDeactivationSecurityKey.Body.Under13"] = [[Ciao,{lineBreak}{lineBreak}Verifica in 2 fasi con la chiave di sicurezza è stato disattivato per l'account Roblox di tuo figlio, {accountName}.{lineBreak}{lineBreak}Roblox]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShort"] = [[{boldStart}IMPORTANTE:{boldEnd} Non condivida i tuoi codici di sicurezza con nessuno. Roblox non ti chiederà mai per i tuoi codici. Questo può includere cose come il testo del tuo codice, la condivisione dello screening, ecc.]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShortBackupCodes"] = [[{boldStart}IMPORTANTE:{boldEnd} Non condividere i tuoi codici di backup con nessuno. Roblox non ti chiederà mai i tuoi codici. Questo può includere cose come il testo del tuo codice, la condivisione degli schermi, ecc.]],
+    ["Authentication.TwoStepVerification.Response.AuthenticatorCodeAlreadyUsed"] = [[Questo codice è già stato utilizzato. Inserisci un nuovo codice.]],
+    ["IAPExperience.BuyRobux.Banner.Text"] = [[Robux ti permette di acquistare aggiornamenti per il tuo avatar o acquistare abilità speciali in esperienze]],
+    ["IAPExperience.BuyRobux.Banner.Title"] = [[Ottieni Robux]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[{robux} altri Robux]],
 }

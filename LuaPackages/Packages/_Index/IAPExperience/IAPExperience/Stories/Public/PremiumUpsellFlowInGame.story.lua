@@ -32,12 +32,12 @@ function PremiumUpsellFlowContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
 
-	self.delayChange = function(newState: any?, callback: (any?)->any?)
+	self.delayChange = function(newState: any?, callback: (any?) -> any?)
 		delay(self.props.controls.networkDelay, function()
 			if self.props.controls.fail then
 				self:setState({
@@ -47,7 +47,7 @@ function PremiumUpsellFlowContainer:init()
 			else
 				if newState then
 					self:setState({
-						purchaseState = newState
+						purchaseState = newState,
 					})
 				end
 				if callback then
@@ -69,7 +69,7 @@ function PremiumUpsellFlowContainer:init()
 
 	self.flowComplete = function()
 		self:setState({
-			purchaseState = PremiumUpsellFlowState.PurchaseModal
+			purchaseState = PremiumUpsellFlowState.PurchaseModal,
 		})
 	end
 end
@@ -80,8 +80,8 @@ function PremiumUpsellFlowContainer:render()
 		local fonts = stylePalette.Font
 
 		local bgText = "BG "
-		for i = 10,1,-1 do 
-			bgText = bgText..bgText
+		for i = 10, 1, -1 do
+			bgText = bgText .. bgText
 		end
 
 		return Roact.createElement("Frame", {
@@ -110,7 +110,7 @@ function PremiumUpsellFlowContainer:render()
 				currencySymbol = "$",
 				robuxPrice = 4.99,
 				robuxAmount = 450,
-				
+
 				purchaseState = self.state.purchaseState,
 				errorType = self.state.errorType,
 
@@ -121,10 +121,10 @@ function PremiumUpsellFlowContainer:render()
 				flowComplete = self.flowComplete,
 
 				onAnalyticEvent = function(name: string, data: table)
-					print("Analytic Event: "..name.."\n"..HttpService:JSONEncode(data))
+					print("Analytic Event: " .. name .. "\n" .. HttpService:JSONEncode(data))
 				end,
-				eventPrefix = "Test"
-			})
+				eventPrefix = "Test",
+			}),
 		})
 	end)
 end
@@ -134,5 +134,5 @@ return {
 		controller = true,
 		fail = false,
 	},
-	story = PremiumUpsellFlowContainer
+	story = PremiumUpsellFlowContainer,
 }

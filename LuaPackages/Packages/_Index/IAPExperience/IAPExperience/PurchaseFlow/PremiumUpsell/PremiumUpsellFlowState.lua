@@ -7,9 +7,9 @@ local addRawValueMethodToEnum = require(IAPExperienceRoot.Utility.addRawValueMet
 local enumerate = require(Packages.enumerate)
 
 local rawKeyToRawValue = {
-    None = "None",
-    PurchaseModal = "PurchaseModal",
-    Error = "Error",
+	None = "None",
+	PurchaseModal = "PurchaseModal",
+	Error = "Error",
 }
 
 -- The values here correspond to values in the requested web view.

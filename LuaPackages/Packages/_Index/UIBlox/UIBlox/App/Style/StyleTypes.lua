@@ -21,4 +21,45 @@ export type AppStyle = {
 	Tokens: Tokens?,
 }
 
+export type DropShadowItem = {
+	-- Position of the drop shadow
+	Position: UDim2,
+	-- AnchorPoint of the drop shadow
+	AnchorPoint: Vector2,
+	-- Size of the drop shadow
+	Size: UDim2,
+	-- The Color and Transparency that describes the drop shadow colors
+	ImageColor: ThemeItem,
+	-- Asset name for the drop shadow
+	ImageAssetName: string,
+	-- Slice center that should be applied to the drop shadow image asset
+	SliceCenter: Rect,
+}
+
+export type PaddingItem = {
+	Left: number,
+	Top: number,
+	Right: number,
+	Bottom: number,
+}
+
+export type BorderItem = {
+	-- Color of border
+	BorderColor: ThemeItem?,
+	-- Corner radius of the border.
+	CornerRadius: UDim?,
+	-- Size of the border
+	Width: number?,
+}
+
+export type ControlStateColors = {
+	Initialize: ThemeItem?,
+	Default: ThemeItem?,
+	Pressed: ThemeItem?,
+	Hover: ThemeItem?,
+	Selected: ThemeItem?,
+	SelectedPressed: ThemeItem?,
+	Disabled: ThemeItem?,
+}
+
 return {}

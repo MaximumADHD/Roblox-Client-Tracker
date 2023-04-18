@@ -11,12 +11,11 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local Tile = require(TileRoot.BaseTile.Tile)
-local devOnly = require(UIBlox.Utility.devOnly)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local SaveTile = Roact.PureComponent:extend("SaveTile")
 
-local validateProps = devOnly(t.strictInterface({
+SaveTile.validateProps = t.strictInterface({
 	-- Optional boolean indicating whether to create an overlay to round the corners of the image
 	hasRoundedCorners = t.optional(t.boolean),
 
@@ -44,7 +43,7 @@ local validateProps = devOnly(t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	thumbnailRef = t.optional(t.table),
-}))
+})
 
 SaveTile.defaultProps = {
 	hasRoundedCorners = true,
@@ -81,8 +80,6 @@ function SaveTile:renderWithStyleProvider(stylePalette)
 end
 
 function SaveTile:render()
-	assert(validateProps(self.props))
-
 	if UIBloxConfig.useNewThemeColorPalettes then
 		return withStyle(function(stylePalette)
 			return self:renderWithStyleProvider(stylePalette)

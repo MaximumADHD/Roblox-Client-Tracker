@@ -9,7 +9,7 @@ local function getLocaleContent(locale)
 		return {
 			locale = locale,
 			translations = require(primary),
-			fallbackTranslations = require(Locales:FindFirstChild(FALLBACK_LOCALE))
+			fallbackTranslations = require(Locales:FindFirstChild(FALLBACK_LOCALE)),
 		}
 	else
 		--[[

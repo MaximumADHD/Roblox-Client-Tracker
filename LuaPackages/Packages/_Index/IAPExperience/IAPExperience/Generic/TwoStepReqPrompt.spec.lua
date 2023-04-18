@@ -21,13 +21,13 @@ return function()
 					position = UDim2.new(0.5, 0, 0.5, 0),
 					anchorPoint = Vector2.new(0.5, 0.5),
 					screenSize = Vector2.new(100, 100),
-		
+
 					doneControllerIcon = XBOX_A_ICON,
 					cancelControllerIcon = XBOX_B_ICON,
-					
+
 					doneActivated = function() end,
 					navigateToSecuritySettings = function() end,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

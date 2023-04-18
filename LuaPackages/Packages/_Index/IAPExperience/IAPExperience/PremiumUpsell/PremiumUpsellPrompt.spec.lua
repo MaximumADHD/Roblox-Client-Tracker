@@ -18,7 +18,7 @@ return function()
 					robuxAmount = 450,
 					screenSize = Vector2.new(100, 100),
 					purchasePremiumActivated = function() end,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

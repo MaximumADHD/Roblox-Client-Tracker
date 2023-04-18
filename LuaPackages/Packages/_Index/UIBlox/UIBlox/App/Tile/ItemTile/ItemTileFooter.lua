@@ -12,23 +12,20 @@ local Images = require(UIBlox.App.ImageSet.Images)
 
 local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local ICON_PADDING = 4
 
 local ItemTileFooter = Roact.PureComponent:extend("ItemTileFooter")
 
-local validateProps = devOnly(t.strictInterface({
+ItemTileFooter.validateProps = t.strictInterface({
 	-- The price text of footer
 	priceText = t.optional(t.string),
 
 	-- Is the item owned
 	isOwned = t.optional(t.boolean),
-}))
+})
 
 function ItemTileFooter:render()
-	assert(validateProps(self.props))
-
 	local priceText = self.props.priceText
 	local isOwned = self.props.isOwned
 

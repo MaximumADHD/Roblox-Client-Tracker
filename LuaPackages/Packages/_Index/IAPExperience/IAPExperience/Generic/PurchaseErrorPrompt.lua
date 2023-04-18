@@ -6,6 +6,9 @@ local Roact = require(Packages.Roact)
 local UIBlox = require(Packages.UIBlox)
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local Images = UIBlox.App.ImageSet.Images
+
+local ERROR_ICON = "icons/status/error_large"
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 
@@ -22,7 +25,7 @@ type Props = {
 
 	errorType: any?,
 
-	doneControllerIcon: {[string]: any?},
+	doneControllerIcon: { [string]: any? },
 
 	doneActivated: () -> any?,
 }
@@ -32,7 +35,15 @@ ErrorPrompt.defaultProps = {
 	position = UDim2.new(0.5, 0, 0.5, 0),
 }
 
-function ErrorPrompt:getErrorMessage(locMap: {[string]: string}, errorType: any?)
+function ErrorPrompt:getErrorTitle(locMap: { [string]: string }, errorType: any?)
+	if errorType == PurchaseErrorType.FailedRobuxPurchase then
+		return locMap.robuxFailedPurchaseTitle
+	end
+
+	return locMap.titleText
+end
+
+function ErrorPrompt:getErrorMessage(locMap: { [string]: string }, errorType: any?)
 	-- pointless code since it returns the same regardless, but sets up structure for future error messages.
 	if errorType == PurchaseErrorType.AlreadyOwn then
 		return locMap.alreadyOwnText
@@ -62,6 +73,8 @@ function ErrorPrompt:getErrorMessage(locMap: {[string]: string}, errorType: any?
 		return locMap.purchaseLimitText
 	elseif errorType == PurchaseErrorType.ParentalLimit then
 		return locMap.parentalLimitText
+	elseif errorType == PurchaseErrorType.FailedRobuxPurchase then
+		return locMap.robuxFailedPurchaseText
 	end
 
 	return locMap.unknownText
@@ -71,71 +84,78 @@ function ErrorPrompt:render()
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			titleText = {
-				key = LOC_KEY:format("Title.Error")
+				key = LOC_KEY:format("Title.Error"),
+			},
+			robuxFailedPurchaseTitle = {
+				key = LOC_KEY:format("Title.RobuxPurchaseFailed"),
+			},
+			robuxFailedPurchaseText = {
+				key = LOC_KEY:format("Text.FailedRobuxPurchase"),
 			},
 			unknownText = {
-				key = LOC_KEY:format("Text.UnknownError")
+				key = LOC_KEY:format("Text.UnknownError"),
 			},
 			okText = {
-				key = LOC_KEY:format("Text.Ok")
+				key = LOC_KEY:format("Text.Ok"),
 			},
 			alreadyOwnText = {
-				key = LOC_KEY:format("Text.AlreadyOwn")
+				key = LOC_KEY:format("Text.AlreadyOwn"),
 			},
 			failedGrantText = {
-				key = LOC_KEY:format("Text.FailedGrant")
+				key = LOC_KEY:format("Text.FailedGrant"),
 			},
 			failedGrantUnknownText = {
-				key = LOC_KEY:format("Text.FailedGrantUnknown")
+				key = LOC_KEY:format("Text.FailedGrantUnknown"),
 			},
 			limitedText = {
-				key = LOC_KEY:format("Text.Limited")
+				key = LOC_KEY:format("Text.Limited"),
 			},
 			notEnoughRobuxText = {
-				key = LOC_KEY:format("Text.NotEnoughRobux")
+				key = LOC_KEY:format("Text.NotEnoughRobux"),
 			},
 			notForSaleText = {
-				key = LOC_KEY:format("Text.NotForSale")
+				key = LOC_KEY:format("Text.NotForSale"),
 			},
 			notForSaleExperienceText = {
-				key = LOC_KEY:format("Text.NotForSaleExperience")
+				key = LOC_KEY:format("Text.NotForSaleExperience"),
 			},
 			premiumOnlyText = {
-				key = LOC_KEY:format("Text.PremiumOnly")
+				key = LOC_KEY:format("Text.PremiumOnly"),
 			},
 			thirdPartyDisabledText = {
-				key = LOC_KEY:format("Text.ThirdPartyDisabled")
+				key = LOC_KEY:format("Text.ThirdPartyDisabled"),
 			},
 			under13Text = {
-				key = LOC_KEY:format("Text.Under13")
+				key = LOC_KEY:format("Text.Under13"),
 			},
 			premiumPlatformUnavailable = {
-				key = LOC_KEY:format("Text.PremiumPlatformUnavailable")
+				key = LOC_KEY:format("Text.PremiumPlatformUnavailable"),
 			},
 			alreadyPremium = {
-				key = LOC_KEY:format("AlreadyPremium")
+				key = LOC_KEY:format("AlreadyPremium"),
 			},
 			purchaseLimitText = {
-				key = LOC_KEY:format("Text.PurchaseLimit")
+				key = LOC_KEY:format("Text.PurchaseLimit"),
 			},
 			parentalLimitText = {
-				key = LOC_KEY:format("Text.ParentalLimit")
+				key = LOC_KEY:format("Text.ParentalLimit"),
 			},
 		},
-		render = function(locMap: {[string]: string})
+		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
-function ErrorPrompt:renderAlert(locMap: {[string]: string})
+function ErrorPrompt:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
 
 	return Roact.createElement(InteractiveAlert, {
 		anchorPoint = props.anchorPoint,
 		position = props.position,
 		screenSize = props.screenSize,
-		title = locMap.titleText,
+		title = self:getErrorTitle(locMap, props.errorType),
+		titleIcon = Images[ERROR_ICON],
 		bodyText = self:getErrorMessage(locMap, props.errorType),
 		buttonStackInfo = {
 			buttons = {

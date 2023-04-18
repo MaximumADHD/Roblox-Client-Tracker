@@ -24,7 +24,7 @@ function RobuxUpsellPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -51,22 +51,28 @@ function RobuxUpsellPromptContainer:render()
 			itemName = "Premium Coins + Speed up Bonus",
 			itemRobuxCost = 9901,
 			robuxPurchaseAmount = 10000,
+			robuxCostStr = if self.props.controls.priceCTA then "$199.99" else nil,
 			balanceAmount = 100,
 
 			buyItemControllerIcon = XBOX_A_ICON,
 			cancelControllerIcon = XBOX_B_ICON,
 
-			buyItemActivated = function() warn("Buy Item!") end,
-			cancelPurchaseActivated = function() warn("Cancel Purchase!") end,
-			termsOfUseActivated = self.props.controls.tosLink
-				and function() warn("Terms of Use Clicked!") end
-				or nil,
-		})
+			buyItemActivated = function()
+				warn("Buy Item!")
+			end,
+			cancelPurchaseActivated = function()
+				warn("Cancel Purchase!")
+			end,
+			termsOfUseActivated = self.props.controls.tosLink and function()
+				warn("Terms of Use Clicked!")
+			end or nil,
+		}),
 	})
 end
 
 return {
 	controls = {
+		priceCTA = true,
 		isDisabled = false,
 		isLoading = false,
 		isDelayedInput = false,
@@ -74,5 +80,5 @@ return {
 		tosLink = true,
 		icon = true,
 	},
-	story = RobuxUpsellPromptContainer
+	story = RobuxUpsellPromptContainer,
 }

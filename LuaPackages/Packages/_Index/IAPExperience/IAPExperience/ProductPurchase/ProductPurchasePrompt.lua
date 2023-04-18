@@ -78,7 +78,7 @@ function ProductPurchasePrompt:init()
 	self.changeContentSize = function(rbx)
 		if self.state.contentSize ~= rbx.AbsoluteSize then
 			self:setState({
-				contentSize = rbx.AbsoluteSize
+				contentSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -86,7 +86,7 @@ function ProductPurchasePrompt:init()
 	self.changeFooterSize = function(rbx)
 		if self.state.footerSize ~= rbx.AbsoluteSize then
 			self:setState({
-				footerSize = rbx.AbsoluteSize
+				footerSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -95,11 +95,11 @@ end
 function ProductPurchasePrompt:render()
 	local buyItemQuestionText = self.props.isLuobu and "Text.BuyItemQuestionWithWarning" or "Text.BuyItemQuestion"
 	local useGamepassTitle = self.props.isGamePass
-	
+
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			BuyItemTitle = {
-				key = useGamepassTitle and LOC_KEY:format("Title.BuyGamepass") or LOC_KEY:format("Title.BuyItem")
+				key = useGamepassTitle and LOC_KEY:format("Title.BuyGamepass") or LOC_KEY:format("Title.BuyItem"),
 			},
 			BuyItemQuestion = {
 				key = LOC_KEY:format(buyItemQuestionText),
@@ -122,7 +122,7 @@ function ProductPurchasePrompt:render()
 		},
 		render = function(locMap)
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
@@ -169,7 +169,7 @@ function ProductPurchasePrompt:renderAlert(locMap)
 						Text = locMap.BuyItemQuestion,
 						TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
 						TextColor3 = theme.TextDefault.Color,
-					})
+					}),
 				})
 			end,
 			buttonStackInfo = {
@@ -243,7 +243,7 @@ function ProductPurchasePrompt:renderAlert(locMap)
 							Text = tostring(self.props.currentBalance - self.props.itemRobuxCost),
 							TextSize = fonts.BaseSize * fonts.Footer.RelativeSize,
 							TextColor3 = theme.TextDefault.Color,
-						})
+						}),
 					})
 				else
 					return Roact.createElement(FitFrameVertical, {

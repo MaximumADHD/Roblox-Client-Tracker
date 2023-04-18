@@ -23,13 +23,12 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
 
 local InteractiveAlert = Roact.PureComponent:extend("InteractiveAlert")
 
-local validateProps = devOnly(t.strictInterface({
+InteractiveAlert.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
 	screenSize = t.Vector2,
@@ -50,10 +49,9 @@ local validateProps = devOnly(t.strictInterface({
 	defaultChildRef = t.optional(t.table),
 	isMiddleContentFocusable = t.optional(t.boolean),
 	isFooterContentFocusable = t.optional(t.boolean),
-}))
+})
 
 function InteractiveAlert:render()
-	assert(validateProps(self.props))
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font

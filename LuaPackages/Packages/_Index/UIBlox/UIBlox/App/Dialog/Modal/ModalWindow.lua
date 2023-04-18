@@ -12,25 +12,23 @@ local FitFrameVertical = FitFrame.FitFrameVertical
 local Images = require(AppRoot.ImageSet.Images)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local SLICE_CENTER = Rect.new(8, 8, 9, 9)
+local MAX_WIDTH = 540
 
 local ANCHORED_BACKGROUND_IMAGE = "component_assets/bullet_17"
 local FLOATING_BACKGROUND_IMAGE = "component_assets/circle_17"
 
 local ModalWindow = Roact.PureComponent:extend("ModalWindow")
 
-local MAX_WIDTH = 540
-
-local validateProps = devOnly(t.strictInterface({
+ModalWindow.validateProps = t.strictInterface({
 	isFullHeight = t.boolean,
 	screenSize = t.Vector2,
 	[Roact.Children] = t.table,
 	position = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
 	distanceFromTop = t.optional(t.number),
-}))
+})
 
 ModalWindow.defaultProps = {
 	distanceFromTop = 0,
@@ -51,8 +49,6 @@ function ModalWindow:isFullWidth(screenWidth)
 end
 
 function ModalWindow:render()
-	assert(validateProps(self.props))
-
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local screenSize = self.props.screenSize

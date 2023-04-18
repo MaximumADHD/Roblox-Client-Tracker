@@ -24,7 +24,7 @@ function U13ConfirmPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -47,9 +47,13 @@ function U13ConfirmPromptContainer:render(props)
 			doneControllerIcon = self.props.controls.showController and XBOX_A_ICON or nil,
 			cancelControllerIcon = self.props.controls.showController and XBOX_B_ICON or nil,
 
-			doneActivated = function() print("OK") end,
-			cancelActivated = function() print("Cancel") end,
-		})
+			doneActivated = function()
+				print("OK")
+			end,
+			cancelActivated = function()
+				print("Cancel")
+			end,
+		}),
 	})
 end
 
@@ -63,5 +67,5 @@ return {
 		},
 		showController = true,
 	},
-	story = U13ConfirmPromptContainer
+	story = U13ConfirmPromptContainer,
 }

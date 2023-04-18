@@ -17,7 +17,7 @@ function LocaleConsumer:render()
 	return Roact.createElement(LocaleRoactContext.Consumer, {
 		render = function(localeContext)
 			return self.props.render(localeContext)
-		end
+		end,
 	})
 end
 

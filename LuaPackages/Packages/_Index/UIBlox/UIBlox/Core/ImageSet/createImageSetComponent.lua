@@ -4,7 +4,6 @@ local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local scaleSliceToResolution = require(UIBlox.App.ImageSet.scaleSliceToResolution)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 return function(innerComponent, resolutionScale)
 	assert(
@@ -15,6 +14,7 @@ return function(innerComponent, resolutionScale)
 	return Roact.forwardRef(function(props, ref)
 		local fullProps = {
 			[Roact.Ref] = ref,
+			[Roact.Children] = props[Roact.Children],
 		}
 		local imageSetProps
 		local usesImageSet = false
@@ -42,10 +42,6 @@ return function(innerComponent, resolutionScale)
 
 		if usesImageSet then
 			fullProps = scaleSliceToResolution(fullProps, resolutionScale)
-		end
-
-		if UIBloxConfig.useAnimatedXboxCursors then
-			fullProps[Roact.Children] = props[Roact.Children]
 		end
 
 		return Roact.createElement(innerComponent, fullProps)

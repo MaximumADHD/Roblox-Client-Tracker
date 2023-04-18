@@ -25,6 +25,7 @@
     ["IAPExperience.RobuxUpsell.Text.AdditionalRobux"] = [[Du benötigst zusätzliche {robux}]],
     ["IAPExperience.RobuxUpsell.WouldYouBuy"] = [[Möchtest du ein {robux}-Paket kaufen?]],
     ["IAPExperience.RobuxUpsell.Text.WouldYouBuy"] = [[Möchtest du ein {robux}-Paket kaufen?]],
+    ["IAPExperience.RobuxUpsell.Text.PurchaseNotAvailableOnHeadSet"] = [[Der Kauf von Robux wird auf Headset-Geräten noch nicht unterstützt. Bitte versuche es auf einem anderen Gerät.]],
     ["IAPExperience.PremiumUpsell.Title.GetPremium"] = [[Premium holen]],
     ["IAPExperience.PremiumUpsell.Action.Subscribe"] = [[Abonnieren]],
     ["IAPExperience.PremiumUpsell.Label.PremiumBenefitListDesc"] = [[Mit Roblox Premium erhältst du:]],
@@ -259,4 +260,8 @@
     ["Authentication.TwoStepVerification.Description.TwoStepVerificationDeactivationSecurityKey.Body.Under13"] = [[Hallo,{lineBreak}{lineBreak}die zweistufige Verifizierung per Sicherheitsschlüssel wurde für das Roblox-Konto deines Kindes, {accountName}, deaktiviert.{lineBreak}{lineBreak}Roblox]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShort"] = [[{boldStart}WICHTIG:{boldEnd} Teile niemals anderen deine Sicherheitscodes mit. Roblox wird dich niemals auffordern, deine Codes zu teilen – weder per SMS, Screensharing oder sonstiges.]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShortBackupCodes"] = [[{boldStart}WICHTIG:{boldEnd} Teile niemals anderen deine Backup-Codes mit. Roblox wird dich niemals auffordern, deine Codes zu teilen – weder per SMS, Screensharing oder sonstiges.]],
+    ["Authentication.TwoStepVerification.Response.AuthenticatorCodeAlreadyUsed"] = [[Dieser Code wurde bereits verwendet. Bitte gib einen neuen Code ein.]],
+    ["IAPExperience.BuyRobux.Banner.Text"] = [[Mit Robux kannst du Upgrades für deinen Avatar oder besondere Fähigkeiten in Erlebnissen kaufen]],
+    ["IAPExperience.BuyRobux.Banner.Title"] = [[Hol dir Robux]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[{robux} Robux mehr]],
 }

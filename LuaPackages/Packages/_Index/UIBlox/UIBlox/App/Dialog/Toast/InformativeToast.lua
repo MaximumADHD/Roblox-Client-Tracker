@@ -8,7 +8,6 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
-local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local ToastFrame = require(ToastRoot.ToastFrame)
 local validateToastIcon = require(ToastRoot.Validator.validateToastIcon)
@@ -16,7 +15,7 @@ local validateToastText = require(ToastRoot.Validator.validateToastText)
 
 local InformativeToast = Roact.PureComponent:extend("InformativeToast")
 
-local validateProps = devOnly(t.strictInterface({
+InformativeToast.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	iconProps = t.optional(validateToastIcon),
 	iconChildren = t.optional(t.table),
@@ -27,7 +26,7 @@ local validateProps = devOnly(t.strictInterface({
 	subtitleTextProps = t.optional(validateToastText),
 	textFrameSize = t.optional(t.UDim2),
 	titleTextProps = validateToastText,
-}))
+})
 
 InformativeToast.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),
@@ -37,8 +36,6 @@ InformativeToast.defaultProps = {
 }
 
 function InformativeToast:render()
-	assert(validateProps(self.props))
-
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 

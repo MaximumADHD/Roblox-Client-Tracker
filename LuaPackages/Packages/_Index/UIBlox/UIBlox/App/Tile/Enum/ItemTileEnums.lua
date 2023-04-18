@@ -10,18 +10,11 @@ local strict = require(UIBlox.Utility.strict)
 
 local ItemIconType
 
-if UIBloxConfig.useDynamicHeadIcon then
-	ItemIconType = enumerate("ItemIconType", {
-		"AnimationBundle",
-		"Bundle",
-		"DynamicHead",
-	})
-else
-	ItemIconType = enumerate("ItemIconType", {
-		"AnimationBundle",
-		"Bundle",
-	})
-end
+ItemIconType = enumerate("ItemIconType", {
+	"AnimationBundle",
+	"Bundle",
+	"DynamicHead",
+})
 
 local Restriction
 if UIBloxConfig.enableCollectibleItemRestriction then

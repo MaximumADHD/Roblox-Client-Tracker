@@ -35,8 +35,8 @@ return function(props: Props)
 
 		local totalTextSize
 		if text ~= nil then
-			totalTextSize = TextService:GetTextSize(text, textSize, font,
-				Vector2.new(props.width - TEXT_LEFT_PADDING, 10000))
+			totalTextSize =
+				TextService:GetTextSize(text, textSize, font, Vector2.new(props.width - TEXT_LEFT_PADDING, 10000))
 		else
 			totalTextSize = Vector2.new(0, 0)
 		end
@@ -45,7 +45,7 @@ return function(props: Props)
 			Size = UDim2.new(1, 0, 0, totalTextSize.Y),
 			BackgroundTransparency = 1,
 			LayoutOrder = props.layoutOrder,
-		} , {
+		}, {
 			Bullet = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, 2, 0, 2),

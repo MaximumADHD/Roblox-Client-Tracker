@@ -18,15 +18,15 @@ type Props = {
 
 	animateDown: boolean?,
 
-	onShown: ()->any?,
-	onHidden: ()->any?,
+	onShown: () -> any?,
+	onHidden: () -> any?,
 
-	renderChildren: ()->any,
+	renderChildren: () -> any,
 }
 
 function Animator:init()
 	self.state = {
-		shouldRenderChildren = self.props.shouldShow;
+		shouldRenderChildren = self.props.shouldShow,
 	}
 
 	local animationProgress, setProgress = Roact.createBinding(1)
@@ -45,7 +45,7 @@ function Animator:init()
 			end
 		else
 			self:setState({
-				shouldRenderChildren = false
+				shouldRenderChildren = false,
 			})
 			if props.onHidden ~= nil then
 				props.onHidden()
@@ -62,7 +62,7 @@ function Animator:didUpdate(prevProps: Props, prevState)
 	if prevProps.shouldShow ~= props.shouldShow then
 		if props.shouldShow then
 			self:setState({
-				shouldRenderChildren = props.shouldShow
+				shouldRenderChildren = props.shouldShow,
 			})
 		end
 		self.motor:setGoal(Otter.spring(props.shouldShow and 0 or 1, SPRING_CONFIG))

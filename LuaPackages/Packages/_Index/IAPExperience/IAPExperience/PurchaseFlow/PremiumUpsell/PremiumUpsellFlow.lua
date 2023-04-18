@@ -35,12 +35,12 @@ type Props = {
 	robuxPrice: number?,
 	robuxAmount: number?,
 
-	acceptControllerIcon: {[string]: any?},
+	acceptControllerIcon: { [string]: any? },
 
-	purchasePremium: ()->any,
-	cancelPurchase: ()->any,
-	flowComplete: ()->any,
-	
+	purchasePremium: () -> any,
+	cancelPurchase: () -> any,
+	flowComplete: () -> any,
+
 	onAnalyticEvent: (string, table) -> any?,
 	eventPrefix: string?,
 }
@@ -53,7 +53,7 @@ function PremiumUpsellFlow:init()
 	local props: Props = self.props
 
 	self.state = {
-		analyticId = HttpService:GenerateGUID(false);
+		analyticId = HttpService:GenerateGUID(false),
 	}
 end
 
@@ -72,8 +72,13 @@ function PremiumUpsellFlow:reportModalShown()
 	if not self.props.onAnalyticEvent then
 		return
 	end
-	
-	local data = getModalShownEventData(state.analyticId, props.eventPrefix, "PremiumUpsell", PremiumUpsellFlowState.toRawValue(props.purchaseState))
+
+	local data = getModalShownEventData(
+		state.analyticId,
+		props.eventPrefix,
+		"PremiumUpsell",
+		PremiumUpsellFlowState.toRawValue(props.purchaseState)
+	)
 
 	props.onAnalyticEvent("UserPurchaseFlow", data)
 end
@@ -85,8 +90,14 @@ function PremiumUpsellFlow:reportUserInput(inputType: string)
 	if not self.props.onAnalyticEvent then
 		return
 	end
-	
-	local data = getUserInputEventData(state.analyticId, props.eventPrefix, "PremiumUpsell", PremiumUpsellFlowState.toRawValue(props.purchaseState), inputType)
+
+	local data = getUserInputEventData(
+		state.analyticId,
+		props.eventPrefix,
+		"PremiumUpsell",
+		PremiumUpsellFlowState.toRawValue(props.purchaseState),
+		inputType
+	)
 
 	props.onAnalyticEvent("UserPurchaseFlow", data)
 end
@@ -109,11 +120,11 @@ function PremiumUpsellFlow:render()
 					screenSize = props.screenSize,
 
 					isCatalog = props.isCatalog,
-		
+
 					currencySymbol = props.currencySymbol,
 					robuxPrice = props.robuxPrice,
 					robuxAmount = props.robuxAmount,
-		
+
 					acceptControllerIcon = props.acceptControllerIcon,
 
 					purchasePremiumActivated = function()
@@ -133,11 +144,11 @@ function PremiumUpsellFlow:render()
 			renderChildren = function()
 				return Roact.createElement(PurchaseErrorPrompt, {
 					screenSize = props.screenSize,
-					
+
 					errorType = props.errorType,
-		
+
 					doneControllerIcon = props.acceptControllerIcon,
-		
+
 					doneActivated = function()
 						self:reportUserInput("Done")
 						props.flowComplete()

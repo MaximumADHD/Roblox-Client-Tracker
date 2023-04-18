@@ -13,7 +13,6 @@ local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local useNewGenericTextLabelProps = UIBloxConfig.useNewGenericTextLabelProps
 
@@ -21,7 +20,7 @@ local GenericTextLabel = Roact.PureComponent:extend("GenericTextLabel")
 
 local MAX_BOUND = 10000
 
-local validateProps = devOnly(t.interface({
+GenericTextLabel.validateProps = t.interface({
 	-- The max size avaliable for the textbox
 	maxSize = t.optional(t.Vector2),
 
@@ -35,7 +34,7 @@ local validateProps = devOnly(t.interface({
 	fluidSizing = t.optional(t.boolean),
 
 	-- Note that this component can accept all valid properties of the Roblox TextLabel instance
-}))
+})
 
 GenericTextLabel.defaultProps = {
 	maxSize = Vector2.new(MAX_BOUND, MAX_BOUND),
@@ -43,8 +42,6 @@ GenericTextLabel.defaultProps = {
 }
 
 function GenericTextLabel:render()
-	assert(validateProps(self.props))
-
 	local text = self.props.Text
 	local isFluidSizing = self.props.fluidSizing
 

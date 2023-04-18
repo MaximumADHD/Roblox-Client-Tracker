@@ -17,7 +17,7 @@ LocaleProvider.validateProps = t.interface({
 
 function LocaleProvider:render()
 	return Roact.createElement(LocaleRoactContext.Provider, {
-		value = getLocaleContext(self.props.locale)
+		value = getLocaleContext(self.props.locale),
 	}, self.props[Roact.Children])
 end
 

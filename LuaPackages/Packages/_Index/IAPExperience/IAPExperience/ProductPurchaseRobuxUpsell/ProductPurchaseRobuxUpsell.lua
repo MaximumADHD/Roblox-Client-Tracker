@@ -75,7 +75,7 @@ function ProductPurchaseRobuxUpsell:init()
 	self.changeContentSize = function(rbx)
 		if self.state.contentSize ~= rbx.AbsoluteSize then
 			self:setState({
-				contentSize = rbx.AbsoluteSize
+				contentSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -83,7 +83,7 @@ function ProductPurchaseRobuxUpsell:init()
 	self.changeFooterSize = function(rbx)
 		if self.state.footerSize ~= rbx.AbsoluteSize then
 			self:setState({
-				footerSize = rbx.AbsoluteSize
+				footerSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -121,7 +121,7 @@ function ProductPurchaseRobuxUpsell:render()
 		},
 		render = function(locMap)
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
@@ -174,7 +174,7 @@ function ProductPurchaseRobuxUpsell:renderAlert(locMap)
 						WouldYouLikeText = Roact.createElement(FitTextLabel, {
 							LayoutOrder = 1,
 							BackgroundTransparency = 1,
-	
+
 							width = FitTextLabel.Width.FitToText,
 							TextWrapped = true,
 							maximumWidth = self.state.contentSize.X * 0.8,
@@ -187,7 +187,7 @@ function ProductPurchaseRobuxUpsell:renderAlert(locMap)
 						RobuxIcon = Roact.createElement(ImageSetLabel, {
 							LayoutOrder = 2,
 							BackgroundTransparency = 1,
-	
+
 							Position = UDim2.new(0, 5, 0, 5),
 							Size = UDim2.new(0, 24, 0, 24),
 							ScaleType = Enum.ScaleType.Stretch,
@@ -198,9 +198,9 @@ function ProductPurchaseRobuxUpsell:renderAlert(locMap)
 						RemainingRobux = Roact.createElement(FitTextLabel, {
 							LayoutOrder = 3,
 							BackgroundTransparency = 1,
-	
+
 							width = FitTextLabel.Width.FitToText,
-	
+
 							Font = fonts.Body.Font,
 							Text = tostring(self.props.robuxPurchaseAmount),
 							TextSize = fonts.BaseSize * fonts.Body.RelativeSize,

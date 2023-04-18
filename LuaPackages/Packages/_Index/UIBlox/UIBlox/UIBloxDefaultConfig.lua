@@ -15,9 +15,6 @@ return {
 	-- non Enum.UserInputState.Begin UserInputState in the GenericSlider component
 	genericSliderFilterOldTouchInputs = false,
 
-	-- useAnimatedXboxCursors: Uses the new animated selection cursors when selecting UI elements in xbox
-	useAnimatedXboxCursors = false,
-
 	--allowSystemBarToAcceptString: Allows you to pass a string as the value for 'badgeValue'. Passing a
 	--string will show the badge even if the string is empty.
 	allowSystemBarToAcceptString = false,
@@ -27,10 +24,6 @@ return {
 
 	-- useTileThumbnailV2: Controls the usage of TileThumbnailV2
 	useTileThumbnailV2 = false,
-
-	-- useUpdatedCheckbox: Enables FitFrame for InputButton and gives Checkbox a gamepad
-	-- selection cursor.
-	useUpdatedCheckbox = false,
 
 	-- enableSubtitleOnTile: Enables a subtitle label positioned below the title
 	-- that can be passed in as a prop.
@@ -49,10 +42,6 @@ return {
 
 	-- genericButtonInputChanges: Allows delayed input + input icon on buttons
 	genericButtonInputChanges = false,
-
-	-- enableGamepadKeyCodeSupportForKeyLabel: Allows KeyLabel to accept a gamepad
-	-- KeyCode and displays the appropriate gamepad button image
-	enableGamepadKeyCodeSupportForKeyLabel = false,
 
 	-- enableAnimatedCursorForNonRoactGamepadComponent: enable animated selection cursor for contextual menu
 	-- without using RoactGamepad component in IGM
@@ -78,9 +67,6 @@ return {
 	-- indicate whether hover background fix for button is enabled
 	enableGenericButtonHoverBackgroundFix = false,
 
-	-- Allow standardSize enum (Regular/Small/XSmall) for GenericButton, PrimaryContextualButton, etc.
-	enableStandardButtonSizes = false,
-
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
@@ -92,14 +78,8 @@ return {
 	-- otherwise it overflows the icon and the component boundaries if it's too long
 	fixDropdownMenuCellTextSize = false,
 
-	-- if true, devMode features (like props validation) will be enabled
-	devMode = false,
-
 	-- if true, uses the new refactored PlayerCount
 	useNewPlayerCount = false,
-
-	-- Add a new ItemTile Icon for dynamic heads
-	useDynamicHeadIcon = false,
 
 	-- disable tooltip animation
 	disableTooltipAnimation = false,

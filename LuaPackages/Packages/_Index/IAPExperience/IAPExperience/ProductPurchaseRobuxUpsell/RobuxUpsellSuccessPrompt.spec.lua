@@ -31,9 +31,9 @@ return function()
 					buyItemControllerIcon = XBOX_A_ICON,
 					cancelControllerIcon = XBOX_B_ICON,
 
-					equipActivated = function()  end,
+					equipActivated = function() end,
 					doneActivated = function() end,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

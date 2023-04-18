@@ -5,7 +5,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
-local devOnly = require(UIBlox.Utility.devOnly)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
@@ -14,7 +13,7 @@ local TileUnselectedOverlay = require(BaseTile.TileUnselectedOverlay)
 
 local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
-local validateProps = devOnly(t.strictInterface({
+TileThumbnail.validateProps = t.strictInterface({
 	-- Optional whether this component will have rounded corner or not
 	hasRoundedCorners = t.optional(t.boolean),
 
@@ -41,7 +40,7 @@ local validateProps = devOnly(t.strictInterface({
 
 	-- Optional backgroundImage of the tile
 	backgroundImage = t.optional(t.union(t.string, t.table)),
-}))
+})
 
 TileThumbnail.defaultProps = {
 	imageSize = UDim2.fromScale(1, 1),
@@ -51,8 +50,6 @@ TileThumbnail.defaultProps = {
 local CORNER_RADIUS = UDim.new(0, 10)
 
 function TileThumbnail:render()
-	assert(validateProps(self.props))
-
 	local hasRoundedCorners = self.props.hasRoundedCorners
 	local image = self.props.Image
 	local imageSize = self.props.imageSize

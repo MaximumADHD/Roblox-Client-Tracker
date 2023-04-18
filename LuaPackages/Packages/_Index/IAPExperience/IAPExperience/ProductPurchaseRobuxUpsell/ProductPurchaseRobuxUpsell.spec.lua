@@ -27,7 +27,7 @@ return function()
 					isDisabled = true,
 					isDelayedInput = true,
 					enableInputDelayed = true,
-	
+
 					itemIcon = PREMIUM_ICON_LARGE,
 					itemName = "Premium Coins",
 					itemRobuxCost = 9999,
@@ -37,11 +37,11 @@ return function()
 					buyItemControllerIcon = XBOX_A_ICON,
 					cancelControllerIcon = XBOX_B_ICON,
 
-					buyItemActivated = function()  end,
+					buyItemActivated = function() end,
 					cancelPurchaseActivated = function() end,
 
 					isLuobu = false,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

@@ -263,4 +263,8 @@ Ressources : {lineBreak}{aTagStartWithHref}{ChangePasswordLink}{hrefEnd}Changer 
     ["Authentication.TwoStepVerification.Description.TwoStepVerificationDeactivationSecurityKey.Body.Under13"] = [[Bonjour, {lineBreak}{lineBreak}La vérification en 2 étapes avec clé de sécurité a été désactivée pour le compte Roblox de votre enfant, {accountName}.{lineBreak}{lineBreak}Roblox]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShort"] = [[{boldStart}IMPORTANT :{boldEnd} Ne partagez pas vos codes de sécurité avec quiconque. Roblox ne vous demandera jamais vos codes. Cela peut inclure des éléments comme l'envoi de votre code, le partage d'écran, etc.]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShortBackupCodes"] = [[{boldStart}IMPORTANT :{boldEnd} Ne partagez pas vos codes de sauvegarde avec quiconque. Roblox ne vous demandera jamais vos codes. Cela peut inclure des éléments comme l'envoi de votre code, le partage d'écran, etc.]],
+    ["Authentication.TwoStepVerification.Response.AuthenticatorCodeAlreadyUsed"] = [[Ce code a déjà été utilisé. Entrer un nouveau code.]],
+    ["IAPExperience.BuyRobux.Banner.Text"] = [[Robux te permet d'acheter des nouveautés pour ton avatar ou des fonctions spéciales dans des expériences]],
+    ["IAPExperience.BuyRobux.Banner.Title"] = [[Obtenir des Robux]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[{robux} Robux en plus]],
 }

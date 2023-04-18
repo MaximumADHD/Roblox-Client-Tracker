@@ -22,13 +22,13 @@ return function()
 					position = UDim2.new(0.5, 0, 0.5, 0),
 					anchorPoint = Vector2.new(0.5, 0.5),
 					screenSize = Vector2.new(100, 100),
-		
+
 					errorType = PurchaseErrorType.Unknown,
-		
+
 					doneControllerIcon = XBOX_A_ICON,
-		
+
 					doneActivated = function() end,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

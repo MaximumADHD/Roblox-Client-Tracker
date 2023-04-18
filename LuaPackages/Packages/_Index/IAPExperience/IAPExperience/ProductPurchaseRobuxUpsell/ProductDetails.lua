@@ -38,7 +38,7 @@ function ProductDetails:init()
 	self.changeContentSize = function(rbx)
 		if self.state.contentSize ~= rbx.AbsoluteSize then
 			self:setState({
-				contentSize = rbx.AbsoluteSize
+				contentSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -76,22 +76,24 @@ function ProductDetails:render()
 					right = 20,
 				},
 			}, {
-				ItemIcon = if props.itemIcon then Roact.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, 5, 0, 5),
-					Size = UDim2.new(0, 85, 0, 85),
-					ScaleType = Enum.ScaleType.Stretch,
-					Image = props.itemIcon,
-					ImageTransparency = 0,
-				}) else Roact.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, 5, 0, 5),
-					Size = UDim2.new(0, UIBloxIconSize.Large, 0, UIBloxIconSize.Large),
-					ScaleType = Enum.ScaleType.Stretch,
-					Image = MISSING_ICON,
-					ImageColor3 = theme.UIDefault.Color,
-					ImageTransparency = theme.UIDefault.Transparency,
-				}),
+				ItemIcon = if props.itemIcon
+					then Roact.createElement(ImageSetLabel, {
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, 5, 0, 5),
+						Size = UDim2.new(0, 85, 0, 85),
+						ScaleType = Enum.ScaleType.Stretch,
+						Image = props.itemIcon,
+						ImageTransparency = 0,
+					})
+					else Roact.createElement(ImageSetLabel, {
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, 5, 0, 5),
+						Size = UDim2.new(0, UIBloxIconSize.Large, 0, UIBloxIconSize.Large),
+						ScaleType = Enum.ScaleType.Stretch,
+						Image = MISSING_ICON,
+						ImageColor3 = theme.UIDefault.Color,
+						ImageTransparency = theme.UIDefault.Transparency,
+					}),
 			}),
 			ItemDetailsFrame = Roact.createElement(FitFrameVertical, {
 				LayoutOrder = 2,
@@ -115,7 +117,7 @@ function ProductDetails:render()
 					TextColor3 = theme.TextEmphasis.Color,
 
 					TextWrapped = true,
-					TextXAlignment = Enum.TextXAlignment.Left
+					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
 				ItemCostFrame = Roact.createElement(FitFrameVertical, {
 					LayoutOrder = 2,
@@ -149,8 +151,8 @@ function ProductDetails:render()
 						Text = tostring(props.itemRobuxCost),
 						TextSize = fonts.BaseSize * fonts.Header2.RelativeSize,
 						TextColor3 = theme.TextEmphasis.Color,
-					})
-				})
+					}),
+				}),
 			}),
 		})
 	end)

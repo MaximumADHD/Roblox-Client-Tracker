@@ -6,88 +6,110 @@ local addRawValueMethodToEnum = require(IAPExperienceRoot.Utility.addRawValueMet
 local enumerate = require(Packages.enumerate)
 
 local rawKeyToRawValue = {
-    --[[ PurchaseErrorType.None
+	--[[ PurchaseErrorType.None
     Default value, will always get ignored
-    ]]--
+    ]]
+	--
 	None = "None",
 
-    --[[ PurchaseErrorType.Unknown
+	--[[ PurchaseErrorType.Unknown
     This error is for when we are unsure what broke. Generic error message
-    ]]--
-    Unknown = "Unknown",
+    ]]
+	--
+	Unknown = "Unknown",
 
-    --[[ PurchaseErrorType.AlreadyOwn
+	--[[ PurchaseErrorType.AlreadyOwn
     The item the user is attempting to purchase is already owned by the given user
-    ]]--
-    AlreadyOwn = "AlreadyOwn",
+    ]]
+	--
+	AlreadyOwn = "AlreadyOwn",
 
-    --[[ PurchaseErrorType.FailedGrant
+	--[[ PurchaseErrorType.FailedGrant
     We determined that the user successfully purchased robux from the given platform
     AND we did not recieve any robux balance updates in time.
-    ]]--
-    FailedGrant = "FailedGrant",
+    ]]
+	--
+	FailedGrant = "FailedGrant",
 
-    --[[ PurchaseErrorType.FailedGrantUnknown
+	--[[ PurchaseErrorType.FailedGrantUnknown
     We are unable to know if the user successfully purchased robux
     AND we did not recieve any robux balance updates in time.
-    ]]--
-    FailedGrantUnknown = "FailedGrantUnknown",
+    ]]
+	--
+	FailedGrantUnknown = "FailedGrantUnknown",
 
-    --[[ PurchaseErrorType.Limited
+	--[[ PurchaseErrorType.Limited
     The limited item the user was attempting to purchase is no longer available.
-    ]]--
-    Limited = "Limited",
+    ]]
+	--
+	Limited = "Limited",
 
-    --[[ PurchaseErrorType.NotEnoughRobux
+	--[[ PurchaseErrorType.NotEnoughRobux
     The user attempted to purchase an item where the delta between their balance and needed robux amount
     IS to large for our largest pacakge to fulfill.
-    ]]--
-    NotEnoughRobux = "NotEnoughRobux",
+    ]]
+	--
+	NotEnoughRobux = "NotEnoughRobux",
 
-    --[[ PurchaseErrorType.NotForSale
+	--[[ PurchaseErrorType.NotForSale
     The item is not on sale to be purchased
-    ]]--
-    NotForSale = "NotForSale",
+    ]]
+	--
+	NotForSale = "NotForSale",
 
-    --[[ PurchaseErrorType.NotForSaleExperience
+	--[[ PurchaseErrorType.NotForSaleExperience
     The item is not setup to be sold in the given experience. See asset location ssale restrictions
-    ]]--
-    NotForSaleExperience = "NotForSaleExperience",
+    ]]
+	--
+	NotForSaleExperience = "NotForSaleExperience",
 
-    --[[ PurchaseErrorType.PremiumOnly
+	--[[ PurchaseErrorType.PremiumOnly
     This item is only available for premium users and the user is not premium.
-    ]]--
-    PremiumOnly = "PremiumOnly",
+    ]]
+	--
+	PremiumOnly = "PremiumOnly",
 
-    --[[ PurchaseErrorType.ThirdPartyDisabled
+	--[[ PurchaseErrorType.ThirdPartyDisabled
     Third party sales is disabled for the given experience.
-    ]]--
-    ThirdPartyDisabled = "ThirdPartyDisabled",
+    ]]
+	--
+	ThirdPartyDisabled = "ThirdPartyDisabled",
 
-    --[[ PurchaseErrorType.Under13
+	--[[ PurchaseErrorType.Under13
     The user is unable to purchase the item because they are under 13 and the item is restricted.
-    ]]--
-    Under13 = "Under13",
+    ]]
+	--
+	Under13 = "Under13",
 
-    --[[ PurchaseErrorType.PremiumPlatformUnavailable
+	--[[ PurchaseErrorType.PremiumPlatformUnavailable
     The user is attempting to purchase premium on a platorm that does not support it.
-    ]]--
-    PremiumPlatformUnavailable = "PremiumPlatformUnavailable",
+    ]]
+	--
+	PremiumPlatformUnavailable = "PremiumPlatformUnavailable",
 
-    --[[ PurchaseErrorType.AlreadyPremium
+	--[[ PurchaseErrorType.AlreadyPremium
     The user is being prompted to purchase premium but is already premium.
-    ]]--
-    AlreadyPremium = "AlreadyPremium",
+    ]]
+	--
+	AlreadyPremium = "AlreadyPremium",
 
-     --[[ PurchaseErrorType.PurchaseLimit
+	--[[ PurchaseErrorType.PurchaseLimit
     The user passed their daily/monthly limit for purchasing robux.
-    ]]--
-    PurchaseLimit = "PurchaseLimit",
+    ]]
+	--
+	PurchaseLimit = "PurchaseLimit",
 
-    --[[ PurchaseErrorType.ParentalLimit
+	--[[ PurchaseErrorType.ParentalLimit
     The user passed their parental limit for purchasing robux.
-    ]]--
-    ParentalLimit = "ParentalLimit",
+    ]]
+	--
+	ParentalLimit = "ParentalLimit",
+
+	--[[ PurchaseErrorType.Unknown
+    This error is for when the user runs into an error during a generic robux purchase
+    ]]
+	--
+	FailedRobuxPurchase = "FailedRobuxPurchase",
 }
 
 -- The values here correspond to values in the requested web view.

@@ -16,7 +16,7 @@ return function()
 					text = "Test",
 					width = 0,
 					layoutOrder = 0,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

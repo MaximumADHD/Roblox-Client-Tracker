@@ -48,28 +48,28 @@ function InsufficientRobuxPrompt:render()
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			title = {
-				key = LOC_KEY:format("Title.InsufficientRobux")
+				key = LOC_KEY:format("Title.InsufficientRobux"),
 			},
 			dontHaveEnough = {
-				key = LOC_KEY:format("Text.DontHaveEnough")
+				key = LOC_KEY:format("Text.DontHaveEnough"),
 			},
 			currentBalance = {
-				key = LOC_KEY:format("Text.CurrentBalance")
+				key = LOC_KEY:format("Text.CurrentBalance"),
 			},
 			cancel = {
-				key = LOC_KEY:format("Action.Cancel")
+				key = LOC_KEY:format("Action.Cancel"),
 			},
 			buyRobux = {
-				key = LOC_KEY:format("Action.BuyRobux")
+				key = LOC_KEY:format("Action.BuyRobux"),
 			},
 		},
-		render = function(locMap: {[string]: string})
+		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
-function InsufficientRobuxPrompt:renderAlert(locMap: {[string]: string})
+function InsufficientRobuxPrompt:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
 
 	return withStyle(function(styles)
@@ -106,14 +106,14 @@ function InsufficientRobuxPrompt:renderAlert(locMap: {[string]: string})
 					margin = RoactFitComponents.Rect.quad(PRICE_CONTAINER_PADDING, 0, PRICE_CONTAINER_PADDING, 0),
 					contentPadding = UDim.new(0, PRICE_PADDING_BETWEEN_LABEL),
 					width = UDim.new(1, 0),
-		
+
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}, {
 					CurrentBalanceLabel = Roact.createElement(FitTextLabel, {
 						width = FitTextLabel.Width.FitToText,
-		
+
 						BackgroundTransparency = 1,
 						Font = font.Body.Font,
 						Text = locMap.currentBalance,
@@ -125,10 +125,10 @@ function InsufficientRobuxPrompt:renderAlert(locMap: {[string]: string})
 					RobuxAmount = Roact.createElement(FitFrameHorizontal, {
 						height = UDim.new(1, 0),
 						contentPadding = UDim.new(0, PRICE_ICON_PADDING),
-			
+
 						FillDirection = Enum.FillDirection.Horizontal,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
-			
+
 						BackgroundTransparency = 1,
 						LayoutOrder = 1,
 					}, {
@@ -153,7 +153,7 @@ function InsufficientRobuxPrompt:renderAlert(locMap: {[string]: string})
 							TextSize = textSize,
 							BackgroundTransparency = 1,
 						}),
-					})
+					}),
 				})
 			end,
 		})

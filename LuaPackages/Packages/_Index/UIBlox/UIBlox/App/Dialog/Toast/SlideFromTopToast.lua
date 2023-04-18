@@ -10,7 +10,6 @@ local t = require(Packages.t)
 local SlidingDirection = require(UIBloxRoot.Core.Animation.Enum.SlidingDirection)
 local SlidingContainer = require(UIBloxRoot.Core.Animation.SlidingContainer)
 local StateTable = require(UIBloxRoot.StateTable.StateTable)
-local devOnly = require(UIBloxRoot.Utility.devOnly)
 
 local AnimationState = require(ToastRoot.Enum.AnimationState)
 local InformativeToast = require(ToastRoot.InformativeToast)
@@ -20,7 +19,7 @@ local validateToastContent = require(ToastRoot.Validator.validateToastContent)
 
 local SlideFromTopToast = Roact.PureComponent:extend("SlideFromTopToast")
 
-local validateProps = devOnly(t.strictInterface({
+SlideFromTopToast.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	duration = t.optional(t.number),
 	layoutOrder = t.optional(t.integer),
@@ -29,7 +28,7 @@ local validateProps = devOnly(t.strictInterface({
 	size = t.optional(t.UDim2),
 	springOptions = t.optional(t.table),
 	toastContent = validateToastContent,
-}))
+})
 
 SlideFromTopToast.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0),
@@ -179,8 +178,6 @@ function SlideFromTopToast:isShowing()
 end
 
 function SlideFromTopToast:render()
-	assert(validateProps(self.props))
-
 	local onActivated = self.currentToastContent.onActivated
 	local swipeUpDismiss = self.currentToastContent.swipeUpDismiss
 	if swipeUpDismiss == nil then

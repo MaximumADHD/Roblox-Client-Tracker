@@ -38,12 +38,12 @@ return function()
 					acceptControllerIcon = XBOX_A_ICON,
 					cancelControllerIcon = XBOX_B_ICON,
 
-					buyItemActivated = function()  end,
+					buyItemActivated = function() end,
 					cancelPurchaseActivated = function() end,
 					termsOfUseActivated = function() end,
 
 					isQuest = false,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

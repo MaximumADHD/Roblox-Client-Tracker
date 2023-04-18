@@ -18,7 +18,7 @@ function InsufficientRobuxPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -38,14 +38,17 @@ function InsufficientRobuxPromptContainer:render(props)
 
 			robuxBalance = 500,
 
-			closePrompt = function() print("Cancel!") end,
-			buyRobux = function() print("Buy Robux!") end,
-		})
+			closePrompt = function()
+				print("Cancel!")
+			end,
+			buyRobux = function()
+				print("Buy Robux!")
+			end,
+		}),
 	})
 end
 
 return {
-	controls = {
-	},
-	story = InsufficientRobuxPromptContainer
+	controls = {},
+	story = InsufficientRobuxPromptContainer,
 }

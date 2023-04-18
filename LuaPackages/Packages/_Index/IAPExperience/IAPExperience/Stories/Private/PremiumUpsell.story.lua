@@ -23,7 +23,7 @@ function PremiumUpsellPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -50,9 +50,13 @@ function PremiumUpsellPromptContainer:render()
 
 			acceptControllerIcon = self.props.controls.controller and XBOX_A_ICON or nil,
 
-			purchasePremiumActivated = function() warn("Subscribe!") end,
-			cancelPurchaseActivated = function() warn("Cancel") end,
-		})
+			purchasePremiumActivated = function()
+				warn("Subscribe!")
+			end,
+			cancelPurchaseActivated = function()
+				warn("Cancel")
+			end,
+		}),
 	})
 end
 
@@ -63,5 +67,5 @@ return {
 		smallVertical = false,
 		controller = false,
 	},
-	story = PremiumUpsellPromptContainer
+	story = PremiumUpsellPromptContainer,
 }

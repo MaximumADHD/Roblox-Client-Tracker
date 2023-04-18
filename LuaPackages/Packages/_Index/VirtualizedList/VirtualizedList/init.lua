@@ -19,12 +19,14 @@ local ScrollView = require(Components.ScrollView.ScrollView)
 local VirtualizedList = require(Lists.VirtualizedList)
 local SectionList = require(Lists.SectionList).default
 local FlatList = require(Lists.FlatList)
-local BidirectionalFlatList = require(Lists.BidirectionalFlatList).BidirectionalFlatList
+local BidirectionalFlatListModule = require(Lists.BidirectionalFlatList)
+local BidirectionalFlatList = BidirectionalFlatListModule.BidirectionalFlatList
 local View = require(Components.View.View)
 local ViewabilityHelper = require(Lists.ViewabilityHelper)
 
 export type ViewabilityConfigCallbackPair = ViewabilityHelper.ViewabilityConfigCallbackPair
 export type ViewabilityConfig = ViewabilityHelper.ViewabilityConfig
+export type BidirectionalFlatListProps<T> = BidirectionalFlatListModule.Props<T>
 
 return {
 	ScrollView = ScrollView,

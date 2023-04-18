@@ -16,7 +16,8 @@ local PurchaseErrorPrompt = require(IAPExperienceRoot.Generic.PurchaseErrorPromp
 local U13ConfirmPrompt = require(IAPExperienceRoot.Generic.U13ConfirmPrompt)
 local TwoStepReqPrompt = require(IAPExperienceRoot.Generic.TwoStepReqPrompt)
 local InsufficientRobuxPrompt = require(IAPExperienceRoot.Generic.InsufficientRobuxPrompt)
-local InsufficientRobuxProductPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.InsufficientRobuxProductPrompt)
+local InsufficientRobuxProductPrompt =
+	require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.InsufficientRobuxProductPrompt)
 local RobuxUpsellSuccessPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellSuccessPrompt)
 local RobuxUpsellPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellPrompt)
 
@@ -30,11 +31,12 @@ type Props = {
 
 	shouldAnimate: boolean?,
 	isDelayedInput: boolean?,
-	onDelayedInputComplete: ()->any?,
+	onDelayedInputComplete: () -> any?,
 
 	itemIcon: any?,
 	itemName: string,
 	itemRobuxCost: number,
+	iapCostStr: string?,
 	iapRobuxAmount: number,
 	beforeRobuxBalance: number,
 
@@ -43,8 +45,8 @@ type Props = {
 	errorType: any?,
 	u13ConfirmType: any?,
 
-	acceptControllerIcon: {[string]: any?},
-	cancelControllerIcon: {[string]: any?},
+	acceptControllerIcon: { [string]: any? },
+	cancelControllerIcon: { [string]: any? },
 
 	purchaseRobux: () -> any?,
 	acceptPurchaseWarning: () -> any?,
@@ -68,7 +70,7 @@ function RobuxUpsellFlow:init()
 	local props: Props = self.props
 
 	self.state = {
-		analyticId = HttpService:GenerateGUID(false);
+		analyticId = HttpService:GenerateGUID(false),
 
 		isDelayedInput = props.isDelayedInput,
 		enableInputDelayed = false,
@@ -90,8 +92,13 @@ function RobuxUpsellFlow:reportModalShown()
 	if not self.props.onAnalyticEvent then
 		return
 	end
-	
-	local data = getModalShownEventData(state.analyticId, props.eventPrefix, "RobuxUpsell", RobuxUpsellFlowState.toRawValue(props.purchaseState))
+
+	local data = getModalShownEventData(
+		state.analyticId,
+		props.eventPrefix,
+		"RobuxUpsell",
+		RobuxUpsellFlowState.toRawValue(props.purchaseState)
+	)
 
 	props.onAnalyticEvent("UserPurchaseFlow", data)
 end
@@ -103,8 +110,14 @@ function RobuxUpsellFlow:reportUserInput(inputType: string)
 	if not self.props.onAnalyticEvent then
 		return
 	end
-	
-	local data = getUserInputEventData(state.analyticId, props.eventPrefix, "RobuxUpsell", RobuxUpsellFlowState.toRawValue(props.purchaseState), inputType)
+
+	local data = getUserInputEventData(
+		state.analyticId,
+		props.eventPrefix,
+		"RobuxUpsell",
+		RobuxUpsellFlowState.toRawValue(props.purchaseState),
+		inputType
+	)
 
 	props.onAnalyticEvent("UserPurchaseFlow", data)
 end
@@ -130,17 +143,17 @@ function RobuxUpsellFlow:render()
 	local props: Props = self.props
 	local state: State = self.state
 	local purchaseState = props.purchaseState
-	
+
 	return Roact.createElement(LoadingOverlay, {
 		shouldAnimate = props.shouldAnimate,
-		loadingState = self:purchaseStateToOverlayState(props.purchaseState)
+		loadingState = self:purchaseStateToOverlayState(props.purchaseState),
 	}, {
 		RobuxUpsellPromptAnimator = Roact.createElement(Animator, {
 			shouldAnimate = props.shouldAnimate,
 			shouldShow = purchaseState == RobuxUpsellFlowState.PurchaseModal,
 			onShown = self.props.isDelayedInput and function()
 				self:setState({
-					enableInputDelayed = true
+					enableInputDelayed = true,
 				})
 				delay(3, function()
 					self:setState({
@@ -164,16 +177,17 @@ function RobuxUpsellFlow:render()
 
 					isDelayedInput = state.isDelayedInput,
 					enableInputDelayed = state.enableInputDelayed,
-		
+
 					itemIcon = props.itemIcon,
 					itemName = props.itemName,
 					itemRobuxCost = props.itemRobuxCost,
+					robuxCostStr = props.iapCostStr,
 					robuxPurchaseAmount = props.iapRobuxAmount,
 					balanceAmount = props.beforeRobuxBalance,
-		
+
 					buyItemControllerIcon = props.acceptControllerIcon,
 					cancelControllerIcon = props.cancelControllerIcon,
-		
+
 					buyItemActivated = function()
 						self:reportUserInput("Buy")
 						props.purchaseRobux()
@@ -196,12 +210,12 @@ function RobuxUpsellFlow:render()
 			renderChildren = function()
 				return Roact.createElement(U13ConfirmPrompt, {
 					screenSize = props.screenSize,
-					
+
 					modalType = props.u13ConfirmType,
-		
+
 					doneControllerIcon = props.acceptControllerIcon,
 					cancelControllerIcon = props.cancelControllerIcon,
-		
+
 					doneActivated = function()
 						self:reportUserInput("Confirm")
 						props.acceptPurchaseWarning()
@@ -219,11 +233,11 @@ function RobuxUpsellFlow:render()
 			renderChildren = function()
 				return Roact.createElement(PurchaseErrorPrompt, {
 					screenSize = props.screenSize,
-					
+
 					errorType = props.errorType,
-		
+
 					doneControllerIcon = props.acceptControllerIcon,
-		
+
 					doneActivated = function()
 						self:reportUserInput("Done")
 						props.flowComplete()
@@ -237,9 +251,9 @@ function RobuxUpsellFlow:render()
 			renderChildren = function()
 				return Roact.createElement(TwoStepReqPrompt, {
 					screenSize = props.screenSize,
-					
+
 					doneControllerIcon = props.acceptControllerIcon,
-		
+
 					openSecuritySettings = function()
 						self:reportUserInput("GoToSecuritySettings")
 						props.openSecuritySettings()
@@ -258,14 +272,14 @@ function RobuxUpsellFlow:render()
 			renderChildren = function()
 				return Roact.createElement(RobuxUpsellSuccessPrompt, {
 					screenSize = props.screenSize,
-		
+
 					itemIcon = props.itemIcon,
 					itemName = props.itemName,
 					balance = props.iapRobuxAmount + props.beforeRobuxBalance - props.itemRobuxCost,
-		
+
 					confirmControllerIcon = props.acceptControllerIcon,
 					cancelControllerIcon = props.cancelControllerIcon,
-		
+
 					doneActivated = function()
 						self:reportUserInput("Done")
 						props.flowComplete()
@@ -309,7 +323,7 @@ function RobuxUpsellFlow:render()
 					itemName = props.itemName,
 					itemRobuxCost = props.itemRobuxCost,
 					balanceAmount = props.beforeRobuxBalance,
-		
+
 					acceptControllerIcon = props.acceptControllerIcon,
 					cancelControllerIcon = props.cancelControllerIcon,
 

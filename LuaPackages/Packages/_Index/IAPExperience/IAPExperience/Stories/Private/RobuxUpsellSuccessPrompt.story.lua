@@ -24,7 +24,7 @@ function PurchaseSuccessPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -49,9 +49,13 @@ function PurchaseSuccessPromptContainer:render(props)
 			confirmControllerIcon = self.props.controls.showController and XBOX_A_ICON or nil,
 			cancelControllerIcon = self.props.controls.showController and XBOX_B_ICON or nil,
 
-			equipActivated = self.props.controls.canEquipAfter and function() warn("Equip") end or nil,
-			doneActivated = function() warn("Back to game") end,
-		})
+			equipActivated = self.props.controls.canEquipAfter and function()
+				warn("Equip")
+			end or nil,
+			doneActivated = function()
+				warn("Back to game")
+			end,
+		}),
 	})
 end
 
@@ -61,5 +65,5 @@ return {
 		showController = false,
 		icon = true,
 	},
-	story = PurchaseSuccessPromptContainer
+	story = PurchaseSuccessPromptContainer,
 }

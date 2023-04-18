@@ -307,6 +307,7 @@ local function initializeLibrary(configs)
 					then require(script.App.Style.Themes.LightThemeNew)
 					else require(script.App.Style.Themes.LightTheme),
 			},
+			Tokens = require(script.App.Style.Tokens),
 		}),
 
 		Indicator = strict({

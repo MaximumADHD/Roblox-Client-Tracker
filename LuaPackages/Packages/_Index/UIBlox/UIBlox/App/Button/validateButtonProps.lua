@@ -10,37 +10,15 @@ local t = require(Packages.t)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
-
--- standardSize and maxWidth are only allowed if UIBloxConfig.enableStandardButtonSizes is on
--- These special functions let us flag the prop validation in way that dynamically checks the flag's value,
--- which is good for tests which dynamically modify flags, instead of just checking the flag once on init.
-local function standardSizeValidator(value)
-	if UIBloxConfig.enableStandardButtonSizes then
-		return t.optional(enumerateValidator(StandardButtonSize))(value)
-	else
-		return value == nil
-	end
-end
-local function maxWidthValidator(value)
-	if UIBloxConfig.enableStandardButtonSizes then
-		return t.optional(t.numberPositive)(value)
-	else
-		return value == nil
-	end
-end
-local function buttonType(value)
-	return t.optional(t.userdata)(value)
-end
 
 return t.strictInterface({
 	[React.Tag] = isReactTagProp,
 
 	-- The type of the button
-	buttonType = buttonType,
+	buttonType = t.optional(t.userdata),
 
 	-- The automatic size of the button
 	automaticSize = t.optional(t.EnumItem),
@@ -49,11 +27,11 @@ return t.strictInterface({
 	size = t.optional(t.UDim2),
 
 	-- Standard button size (Regular/Small/XSmall) is optional
-	standardSize = standardSizeValidator,
+	standardSize = t.optional(enumerateValidator(StandardButtonSize)),
 
 	--For standard buttons, optionally override the default max width of 640 for Regular and Small,
 	--or set a max width for XSmall (e.g. width of parent container)
-	maxWidth = maxWidthValidator,
+	maxWidth = t.optional(t.numberPositive),
 
 	--For standard buttons, optionally override the default width behavior.
 	--If true: button just wide enough to fit its text. If false: default to the full width of its container.

@@ -9,8 +9,6 @@ local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
 local AnimatedGradient = require(script.Parent.AnimatedGradient)
 
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
-
 local ASSET_NAME = "component_assets/circle_15_stroke_3"
 
 local validateProps = t.strictInterface({
@@ -19,15 +17,12 @@ local validateProps = t.strictInterface({
 })
 
 return function(props)
-	if UIBloxConfig.useAnimatedXboxCursors then
-		assert(validateProps(props))
-	end
+	assert(validateProps(props))
 
 	return withStyle(function(style)
 		return Roact.createElement(ImageSetComponent.Label, {
 			Image = Images[ASSET_NAME],
-			ImageColor3 = UIBloxConfig.useAnimatedXboxCursors and style.Theme.SelectionCursor.AnimatedColor
-				or style.Theme.SelectionCursor.Color,
+			ImageColor3 = style.Theme.SelectionCursor.AnimatedColor,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
 			ScaleType = Enum.ScaleType.Slice,
@@ -35,9 +30,7 @@ return function(props)
 
 			[Roact.Ref] = props.cursorRef,
 		}, {
-			AnimatedGradient = (UIBloxConfig.useAnimatedXboxCursors and props.isVisible) and Roact.createElement(
-				AnimatedGradient
-			) or nil,
+			AnimatedGradient = props.isVisible and Roact.createElement(AnimatedGradient) or nil,
 		})
 	end)
 end

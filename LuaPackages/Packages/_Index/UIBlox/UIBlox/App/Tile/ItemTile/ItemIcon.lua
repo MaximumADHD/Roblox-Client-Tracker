@@ -7,9 +7,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
-local devOnly = require(UIBlox.Utility.devOnly)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -20,11 +18,8 @@ local ItemIcon = Roact.PureComponent:extend("ItemIcon")
 local ItemIconTypesMap = {
 	[ItemTileEnums.ItemIconType.AnimationBundle] = Images["icons/status/item/bundle"],
 	[ItemTileEnums.ItemIconType.Bundle] = Images["icons/status/item/bundle"],
+	[ItemTileEnums.ItemIconType.DynamicHead] = Images["icons/status/dynamicHead_small"],
 }
-
-if UIBloxConfig.useDynamicHeadIcon then
-	ItemIconTypesMap[ItemTileEnums.ItemIconType.DynamicHead] = Images["icons/status/dynamicHead_small"]
-end
 
 local PADDING_BOTTOM = 12
 local PADDING_RIGHT = 12
@@ -37,14 +32,12 @@ local function isValidItemIconType(value)
 	return false, "Unknown ItemType " .. value
 end
 
-local validateProps = devOnly(t.strictInterface({
+ItemIcon.validateProps = t.strictInterface({
 	-- Enum specifying the item type
 	itemIconType = t.intersection(enumerateValidator(ItemTileEnums.ItemIconType), isValidItemIconType),
-}))
+})
 
 function ItemIcon:render()
-	assert(validateProps(self.props))
-
 	local itemIconType = self.props.itemIconType
 
 	local icon = ItemIconTypesMap[itemIconType]

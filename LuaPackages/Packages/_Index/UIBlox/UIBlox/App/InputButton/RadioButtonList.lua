@@ -10,7 +10,6 @@ local Cryo = require(Packages.Cryo)
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
-local devOnly = require(Packages.UIBlox.Utility.devOnly)
 
 local RadioButtonList = Roact.PureComponent:extend("RadioButtonList")
 
@@ -19,7 +18,7 @@ local validateButton = t.strictInterface({
 	isDisabled = t.optional(t.boolean),
 })
 
-local validateProps = devOnly(t.strictInterface({
+RadioButtonList.validateProps = t.strictInterface({
 	radioButtons = t.array(t.union(t.string, validateButton)),
 	onActivated = t.callback,
 	elementSize = t.UDim2,
@@ -34,7 +33,7 @@ local validateProps = devOnly(t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	forwardRef = t.optional(t.table),
-}))
+})
 
 function RadioButtonList:init()
 	self.state = {
@@ -63,8 +62,6 @@ function RadioButtonList:init()
 end
 
 function RadioButtonList:renderWithProviders(getSelectionCursor)
-	assert(validateProps(self.props))
-
 	local radioButtons = {}
 	radioButtons.layout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
@@ -111,8 +108,6 @@ function RadioButtonList:render()
 			return self:renderWithProviders(getSelectionCursor)
 		end)
 	end
-
-	assert(validateProps(self.props))
 
 	local radioButtons = {}
 	radioButtons.layout = Roact.createElement("UIListLayout", {

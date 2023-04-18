@@ -13,7 +13,6 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
-local devOnly = require(UIBlox.Utility.devOnly)
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
@@ -136,7 +135,7 @@ local function tileBannerUseValidator(props)
 	return true
 end
 
-local validateProps = devOnly(t.intersection(tileInterface, tileBannerUseValidator))
+Tile.validateProps = t.intersection(tileInterface, tileBannerUseValidator)
 
 Tile.defaultProps = {
 	titleTextLineCount = 2,
@@ -167,7 +166,6 @@ function Tile:init()
 end
 
 function Tile:render()
-	assert(validateProps(self.props))
 	local footer = self.props.footer
 	local name = self.props.name
 	local subtitle = self.props.subtitle

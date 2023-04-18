@@ -14,6 +14,7 @@ if not ok then
 	warn("Error initializing UIBlox", err)
 end
 
+local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 local StyleConstants = UIBlox.App.Style.Constants
 local LightTheme = StyleConstants.ThemeName.Light
@@ -40,7 +41,9 @@ local function StoryMiddleware(story)
 			AppStyleProvider = Roact.createElement(AppStyleProvider, {
 				style = themes[storyProps.theme],
 			}, {
-				Child = Roact.createElement(story, storyProps),
+				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+					Child = Roact.createElement(story, storyProps),
+				}),
 			}),
 		})
 	end

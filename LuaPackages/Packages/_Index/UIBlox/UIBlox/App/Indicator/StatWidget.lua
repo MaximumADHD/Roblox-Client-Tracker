@@ -1,23 +1,23 @@
+--!strict
 local App = script:FindFirstAncestor("App")
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
 local React = require(Packages.React)
+local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local useStyle = require(UIBlox.Core.Style.useStyle)
-local devOnly = require(UIBlox.Utility.devOnly)
-local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
 
 local ICON_SIZE = getIconSize(IconSize.Large)
 local ICON_TEXT_PADDING = 12
 local PADDING_LEFT_RIGHT = 12
 
 export type Props = {
-	icon: any,
+	icon: ImagesTypes.ImageSetImage,
 	countText: string,
 	labelText: string,
 
@@ -28,21 +28,7 @@ export type Props = {
 	layoutOrder: number?,
 }
 
-local validateProps = devOnly(t.strictInterface({
-	icon = validateImage,
-	countText = t.string,
-	labelText = t.string,
-
-	position = t.optional(t.UDim2),
-	anchorPoint = t.optional(t.Vector2),
-	size = t.optional(t.UDim2),
-	horizontalAlignment = t.optional(t.enum(Enum.HorizontalAlignment)),
-	layoutOrder = t.optional(t.integer),
-}))
-
 local function StatWidget(props: Props)
-	assert(validateProps(props))
-
 	local style = useStyle()
 
 	return React.createElement("Frame", {

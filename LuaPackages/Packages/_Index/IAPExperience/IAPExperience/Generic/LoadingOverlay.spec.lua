@@ -16,7 +16,7 @@ return function()
 			local element = mockStyleAndLocalizationComponent({
 				Overlay = Roact.createElement(LoadingOverlay, {
 					loadingState = nil,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)
@@ -27,7 +27,7 @@ return function()
 			local element = mockStyleAndLocalizationComponent({
 				Overlay = Roact.createElement(LoadingOverlay, {
 					loadingState = LoadingOverlayState.None,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

@@ -23,7 +23,7 @@ function TwoStepReqPromptContainer:init()
 	self.changeScreenSize = function(rbx)
 		if self.state.screenSize ~= rbx.AbsoluteSize then
 			self:setState({
-				screenSize = rbx.AbsoluteSize
+				screenSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -44,11 +44,13 @@ function TwoStepReqPromptContainer:render(props)
 			doneControllerIcon = self.props.controls.showController and XBOX_A_ICON or nil,
 			cancelControllerIcon = self.props.controls.showController and XBOX_B_ICON or nil,
 
-			closePrompt = function() print("OK") end,
-			openSecuritySettings = self.props.controls.settingsLink
-				and function() print("Cancel") end
-				or nil,
-		})
+			closePrompt = function()
+				print("OK")
+			end,
+			openSecuritySettings = self.props.controls.settingsLink and function()
+				print("Cancel")
+			end or nil,
+		}),
 	})
 end
 
@@ -57,5 +59,5 @@ return {
 		showController = true,
 		settingsLink = true,
 	},
-	story = TwoStepReqPromptContainer
+	story = TwoStepReqPromptContainer,
 }

@@ -60,7 +60,7 @@ end
 function LocaleService.getString(localeContext, key, params)
 	assert(localeContext ~= nil, "Must provide valid localization context")
 	local localizedString = getLocalizedString(localeContext, key)
-	assert(localizedString ~= nil, "Unable to find localization with key: "..key)
+	assert(localizedString ~= nil, "Unable to find localization with key: " .. key)
 	if localizedString and params ~= nil then
 		for param, value in pairs(params) do
 			local replacement = value
@@ -70,10 +70,9 @@ function LocaleService.getString(localeContext, key, params)
 				replacement = value.format(localeContext)
 			end
 
-			localizedString = string.gsub(localizedString, paramPlaceholder,
-				function()
-					return replacement
-				end)
+			localizedString = string.gsub(localizedString, paramPlaceholder, function()
+				return replacement
+			end)
 		end
 	end
 

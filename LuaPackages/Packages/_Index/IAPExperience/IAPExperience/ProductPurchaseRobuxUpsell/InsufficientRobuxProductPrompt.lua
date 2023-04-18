@@ -32,8 +32,8 @@ type Props = {
 	itemRobuxCost: number,
 	balanceAmount: number,
 
-	acceptControllerIcon: {[string]: any?},
-	cancelControllerIcon: {[string]: any?},
+	acceptControllerIcon: { [string]: any? },
+	cancelControllerIcon: { [string]: any? },
 
 	robuxStoreActivated: () -> any?,
 	cancelPurchaseActivated: () -> any?,
@@ -54,7 +54,7 @@ function RobuxUpsellPrompt:init()
 	self.changeContentSize = function(rbx)
 		if self.state.contentSize ~= rbx.AbsoluteSize then
 			self:setState({
-				contentSize = rbx.AbsoluteSize
+				contentSize = rbx.AbsoluteSize,
 			})
 		end
 	end
@@ -76,13 +76,13 @@ function RobuxUpsellPrompt:render()
 				key = LOC_KEY:format("Action.Cancel"),
 			},
 		},
-		render = function(locMap: {[string]: string})
+		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
-function RobuxUpsellPrompt:renderAlert(locMap: {[string]: string})
+function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
 
 	return withStyle(function(stylePalette)
@@ -90,14 +90,19 @@ function RobuxUpsellPrompt:renderAlert(locMap: {[string]: string})
 		local fonts = stylePalette.Font
 
 		local textEmphasisColor = Color3.new(
-			math.round(theme.TextEmphasis.Color.R*255),
-			math.round(theme.TextEmphasis.Color.G*255),
-			math.round(theme.TextEmphasis.Color.B*255))
+			math.round(theme.TextEmphasis.Color.R * 255),
+			math.round(theme.TextEmphasis.Color.G * 255),
+			math.round(theme.TextEmphasis.Color.B * 255)
+		)
 
 		local additionalRobux = props.itemRobuxCost - props.balanceAmount
-		local robuxText = string.format("<font color=\"rgb(%s)\">%s%s</font>",
-			tostring(textEmphasisColor), utf8.char(0xE002), tostring(additionalRobux))
-		local youNeedText = locMap.YouNeed:gsub("{robux}",robuxText)
+		local robuxText = string.format(
+			'<font color="rgb(%s)">%s%s</font>',
+			tostring(textEmphasisColor),
+			utf8.char(0xE002),
+			tostring(additionalRobux)
+		)
+		local youNeedText = locMap.YouNeed:gsub("{robux}", robuxText)
 
 		return Roact.createElement(InteractiveAlert, {
 			screenSize = props.screenSize,

@@ -28,8 +28,6 @@ local validateImageSetData = require(Core.ImageSet.Validator.validateImageSetDat
 local ContentProviderContext = require(UIBlox.App.Context.ContentProvider)
 local GetEngineFeatureSafe = require(Core.Utility.GetEngineFeatureSafe)
 
-local devOnly = require(UIBlox.Utility.devOnly)
-
 local LOAD_FAILED_RETRY_COUNT = 3
 local LOAD_TIMED_OUT_RETRY_COUNT = 5
 local RETRY_TIME_MULTIPLIER = 1.5
@@ -63,7 +61,7 @@ end
 
 local LoadableImage = Roact.PureComponent:extend("LoadableImage")
 
-local validateProps = devOnly(t.strictInterface({
+LoadableImage.validateProps = t.strictInterface({
 	-- The anchor point of the final and loading image
 	AnchorPoint = t.optional(t.Vector2),
 	-- The background color of the final image. Defaults to placeholder background color.
@@ -121,7 +119,7 @@ local validateProps = devOnly(t.strictInterface({
 
 	[DebugProps.forceLoading] = t.optional(t.boolean),
 	[DebugProps.forceFailed] = t.optional(t.boolean),
-}))
+})
 
 LoadableImage.defaultProps = {
 	BackgroundTransparency = 0,
@@ -250,8 +248,6 @@ function LoadableImage:DEPRECATED_isLoadingComplete(image)
 end
 
 function LoadableImage:render()
-	assert(validateProps(self.props))
-
 	local anchorPoint = self.props.AnchorPoint
 	local layoutOrder = self.props.LayoutOrder
 	local size = self.props.Size

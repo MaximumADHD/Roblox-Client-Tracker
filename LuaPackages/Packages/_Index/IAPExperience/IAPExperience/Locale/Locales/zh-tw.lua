@@ -25,6 +25,7 @@
     ["IAPExperience.RobuxUpsell.Text.AdditionalRobux"] = [[您還需要 {robux}。]],
     ["IAPExperience.RobuxUpsell.WouldYouBuy"] = [[購買 {robux} 禮包？]],
     ["IAPExperience.RobuxUpsell.Text.WouldYouBuy"] = [[購買 {robux} 禮包？]],
+    ["IAPExperience.RobuxUpsell.Text.PurchaseNotAvailableOnHeadSet"] = [[目前無法使用頭戴式裝置購買 Robux，請使用其他裝置。]],
     ["IAPExperience.PremiumUpsell.Title.GetPremium"] = [[訂閱 Premium]],
     ["IAPExperience.PremiumUpsell.Action.Subscribe"] = [[訂閱]],
     ["IAPExperience.PremiumUpsell.Label.PremiumBenefitListDesc"] = [[Roblox Premium 將會給您：]],
@@ -259,4 +260,8 @@
     ["Authentication.TwoStepVerification.Description.TwoStepVerificationDeactivationSecurityKey.Body.Under13"] = [[您好，{lineBreak}{lineBreak}您小孩的 Roblox 帳號 {accountName} 已停用安全金鑰雙步驟驗證。{lineBreak}{lineBreak}Roblox]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShort"] = [[{boldStart}重要：{boldEnd}請勿以簡訊、分享畫面等方式與他人分享安全碼。Roblox 不會向您要求安全碼。]],
     ["Authentication.TwoStepVerification.Description.SecurityWarningShortBackupCodes"] = [[{boldStart}重要：{boldEnd}請勿以簡訊、分享畫面等方式與他人分享備用碼。Roblox 不會向您要求安全碼。]],
+    ["Authentication.TwoStepVerification.Response.AuthenticatorCodeAlreadyUsed"] = [[此代碼已被使用。請輸入新的代碼。]],
+    ["IAPExperience.BuyRobux.Banner.Text"] = [[您可以使用 Roblox 升級虛擬人偶或在體驗中獲得特殊能力]],
+    ["IAPExperience.BuyRobux.Banner.Title"] = [[取得 Robux]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[再加 {robux} Robux]],
 }

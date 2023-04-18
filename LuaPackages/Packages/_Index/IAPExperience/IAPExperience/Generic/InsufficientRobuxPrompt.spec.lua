@@ -20,10 +20,10 @@ return function()
 					screenSize = Vector2.new(100, 100),
 
 					robuxBalance = 500,
-		
+
 					closePrompt = function() end,
 					buyRobux = function() end,
-				})
+				}),
 			})
 
 			local instance = Roact.mount(element)

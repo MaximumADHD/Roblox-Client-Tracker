@@ -24,6 +24,7 @@ local SPRING_CONFIG = {
 
 type Props = {
 	shouldAnimate: boolean,
+	showOverlay: boolean,
 
 	loadingState: any?,
 
@@ -42,7 +43,7 @@ function LoadingOverlay:init()
 	self.motor:setGoal(Otter.spring(self.props.loadingState ~= nil and 1 or 0, SPRING_CONFIG))
 end
 
-function LoadingOverlay:getLoadingMessage(locMap: {[string]: string}, loadingState: any?): string?
+function LoadingOverlay:getLoadingMessage(locMap: { [string]: string }, loadingState: any?): string?
 	if loadingState == LoadingOverlayState.PurchasingItem then
 		return locMap.PurchasingItem
 	elseif loadingState == LoadingOverlayState.PurchasingRobux then
@@ -70,25 +71,25 @@ function LoadingOverlay:render()
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			PurchasingItem = {
-				key = LOC_KEY:format("Text.PurchasingItem")
+				key = LOC_KEY:format("Text.PurchasingItem"),
 			},
 			PurchasingRobux = {
-				key = LOC_KEY:format("Text.PurchasingRobux")
+				key = LOC_KEY:format("Text.PurchasingRobux"),
 			},
 			WaitingForPurchase = {
-				key = LOC_KEY:format("Text.WaitingForPurchase")
+				key = LOC_KEY:format("Text.WaitingForPurchase"),
 			},
 			WaitingForRobux = {
-				key = LOC_KEY:format("Text.WaitingForRobux")
+				key = LOC_KEY:format("Text.WaitingForRobux"),
 			},
 		},
-		render = function(locMap: {[string]: string})
+		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
-		end
+		end,
 	})
 end
 
-function LoadingOverlay:renderAlert(locMap: {[string]: string})
+function LoadingOverlay:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
 
 	local showSpinner: boolean = props.loadingState ~= LoadingOverlayState.None and props.loadingState ~= nil
@@ -100,10 +101,14 @@ function LoadingOverlay:renderAlert(locMap: {[string]: string})
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = theme.BackgroundUIContrast.Color,
 			BackgroundTransparency = self.animationProgress:map(function(value)
-				if props.shouldAnimate then
-					return 1 - (1 - theme.BackgroundUIContrast.Transparency) * value
+				if props.showOverlay then
+					if props.shouldAnimate then
+						return 1 - (1 - theme.BackgroundUIContrast.Transparency) * value
+					else
+						return theme.BackgroundUIContrast.Transparency
+					end
 				else
-					return theme.BackgroundUIContrast.Transparency
+					return 1
 				end
 			end),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -126,13 +131,13 @@ function LoadingOverlay:renderAlert(locMap: {[string]: string})
 					position = UDim2.fromScale(0.5, 0.5),
 					anchorPoint = Vector2.new(0.5, 0.5),
 				}) or nil,
-				PreText =  loadingMessage and Roact.createElement("TextLabel", {
+				PreText = loadingMessage and Roact.createElement("TextLabel", {
 					LayoutOrder = 1,
 					BackgroundTransparency = 1,
-	
+
 					AutomaticSize = Enum.AutomaticSize.XY,
 					TextWrapped = true,
-	
+
 					Font = fonts.Body.Font,
 					Text = loadingMessage,
 					TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
