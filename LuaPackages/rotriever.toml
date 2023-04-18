@@ -26,6 +26,7 @@ IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
 Thumbnailing = { git = "https://github.com/Roblox/Thumbnailing", rev = "main" }
 Otter = "github.com/roblox/otter@0.1.3"
+ReactOtter = "github.com/roblox/otter@1.1.0"
 t = "github.com/roblox/t@3.0.0"
 enumerate = "github.com/roblox/enumerate@1.0.0"
 PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", rev = "master" }
@@ -43,7 +44,7 @@ ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", pa
 ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy" }
 Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "Roact17UpgradeFlag" }
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
-VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
+VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.3"
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
 RoduxNetworking = "github.com/Roblox/rodux-networking@3.0.2"
 NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
@@ -120,7 +121,7 @@ InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.11"
 
 [config.patch."github.com/roblox/virtualized-list-lua"]
-VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.2"
+VirtualizedList = "github.com/roblox/virtualized-list-lua@1.1.3"
 
 # Patch over a deep jest dependency in order to preempt a new analysis error
 # that caught several mistranslation bugs

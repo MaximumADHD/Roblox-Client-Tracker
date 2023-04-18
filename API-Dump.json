@@ -16864,7 +16864,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -16882,7 +16882,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -16910,7 +16910,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -16946,7 +16946,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -16964,7 +16964,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -16982,7 +16982,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -17000,7 +17000,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17054,7 +17054,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17072,7 +17072,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17090,7 +17090,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
@@ -17118,7 +17118,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17136,7 +17136,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17154,7 +17154,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -17172,7 +17172,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17190,7 +17190,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17254,7 +17254,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17272,7 +17272,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17290,7 +17290,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17308,7 +17308,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17326,7 +17326,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17344,7 +17344,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -17362,7 +17362,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17380,7 +17380,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17398,7 +17398,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17416,7 +17416,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17434,7 +17434,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17452,7 +17452,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17470,7 +17470,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17488,7 +17488,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17516,7 +17516,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17534,7 +17534,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17552,7 +17552,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17570,7 +17570,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17588,7 +17588,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17616,7 +17616,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Class",
                         "Name": "ControllerBase"
@@ -17634,7 +17634,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17652,7 +17652,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -17670,7 +17670,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Class",
                         "Name": "ControllerSensor"
@@ -17688,7 +17688,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
@@ -17706,7 +17706,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "Class",
                         "Name": "ControllerSensor"
@@ -17724,7 +17724,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "LocalSafe",
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
@@ -17740,6 +17740,9 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -56413,7 +56416,7 @@
                         "Name": "RaycastResult"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -57085,7 +57088,7 @@
                         "Name": "RaycastResult"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -57200,6 +57203,27 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "AvatarUnificationMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AvatarUnificationMode"
                     }
                 },
                 {
@@ -91203,28 +91227,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "GazeSelectionEnabled",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "GyroscopeEnabled",
                     "Security": {
                         "Read": "None",
@@ -93081,6 +93083,21 @@
                         "Name": "void"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "LaserPointerTriggered",
+                    "Parameters": [
+                        {
+                            "Name": "input",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "InputObject"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -97190,6 +97207,23 @@
                 }
             ],
             "Name": "AvatarThumbnailCustomizationType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "AvatarUnificationMode"
         },
         {
             "Items": [
@@ -106144,6 +106178,10 @@
                 {
                     "Name": "Focused",
                     "Value": 3
+                },
+                {
+                    "Name": "Stopping",
+                    "Value": 4
                 },
                 {
                     "Name": "Undefined",

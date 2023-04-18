@@ -39,6 +39,7 @@ Studio.ManageCollaborators.CollaboratorTypes.Users,Users,Users
 Studio.ManageCollaborators.Buttons.TurnOn,Turn On,Turn On
 Studio.ManageCollaborators.Buttons.Save,Save,Save
 Studio.ManageCollaborators.Buttons.Yes,Yes,Yes
+Studio.ManageCollaborators.SearchBar.AgeWarning,Only users who are age verified as 17+ can be added as collaborators.,Only users who are age verified as 17+ can be added as collaborators.
 Studio.ManageCollaborators.Description.SaveEnableTcCurrentEditors,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.
 Studio.ManageCollaborators.Buttons.SaveToRoblox,Save to Roblox,Save to Roblox
 Studio.ManageCollaborators.Buttons.SeeMoreRoles,See {count} more roles, See {count} more roles

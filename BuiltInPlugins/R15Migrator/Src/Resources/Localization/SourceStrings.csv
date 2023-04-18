@@ -9,6 +9,8 @@ Studio.R15Migrator.ReplaceRulesPane.WithPlaceholder,With...
 Studio.R15Migrator.ScriptConversion.Cancel,Cancel
 Studio.R15Migrator.ScriptConversion.Completed,Completed
 Studio.R15Migrator.ScriptConversion.Confirm,Confirm
+Studio.R15Migrator.ScriptConversion.Filter,Filter
+Studio.R15Migrator.ScriptConversion.FilterNone,All
 Studio.R15Migrator.ScriptConversion.GoToScript,Go to Script
 Studio.R15Migrator.ScriptConversion.InProgress,In Progress
 Studio.R15Migrator.ScriptConversion.ReplaceWith,Replace With {part}

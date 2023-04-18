@@ -72,6 +72,7 @@ version = "0.1.0"
 name = "ContactImporter"
 version = "0.1.0"
 dependencies = [
+    "Analytics Analytics 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "ContactsProtocol ContactsProtocol 0.1.0",
     "Dash Dash 0.1.0",
@@ -588,6 +589,10 @@ dependencies = [
     "Promise Promise 0.1.0",
     "t t 0.1.0",
 ]
+
+[[package]]
+name = "PersonalizationTestSuite"
+version = "0.1.0"
 
 [[package]]
 name = "PlaceInfoRodux"
@@ -1214,11 +1219,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "TenFootUiGlobalNavTestSuite"
-version = "0.1.0"
-dependencies = ["TenFootUiGlobalNav TenFootUiGlobalNav 0.1.0"]
-
-[[package]]
 name = "TenFootUiShell"
 version = "0.1.0"
 dependencies = [
@@ -1227,6 +1227,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
+    "Otter Otter 0.1.0",
     "React React 0.1.0",
     "ReactFocusNavigation ReactFocusNavigation 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
@@ -1240,11 +1241,6 @@ dependencies = [
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
-
-[[package]]
-name = "TenFootUiShellTestSuite"
-version = "0.1.0"
-dependencies = ["TenFootUiShell TenFootUiShell 0.1.0"]
 
 [[package]]
 name = "TenFootUiTesting"

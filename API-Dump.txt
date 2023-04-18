@@ -974,7 +974,7 @@ Class ControllerManager : Instance [NotBrowsable]
 	Property ControllerSensor ControllerManager.GroundSensor
 	Property Vector3 ControllerManager.FacingDirection
 	Property Vector3 ControllerManager.MovingDirection
-	Function Objects ControllerManager:GetControllers()
+	Function Objects ControllerManager:GetControllers() [Deprecated]
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3185,7 +3185,7 @@ Class Flag : Tool [Deprecated]
 Class Status : Model [NotCreatable] [Deprecated]
 Class WorldRoot : Model [NotCreatable]
 	Function bool WorldRoot:ArePartsTouchingOthers(Objects partList, float overlapIgnored = 0.000199999995)
-	Function RaycastResult WorldRoot:Blockcast(CFrame cframe, Vector3 size, Vector3 direction, RaycastParams params = RaycastParams.new())
+	Function RaycastResult WorldRoot:Blockcast(CFrame cframe, Vector3 size, Vector3 direction, RaycastParams params = RaycastParams.new()) {🧬Safe}
 	Function void WorldRoot:BulkMoveTo(Objects partList, Array cframeList, Enum.BulkMoveMode eventMode = "FireAllEvents")
 	Function string WorldRoot:CacheCurrentTerrain(string id, Vector3 center, float radius) {RobloxScriptSecurity}
 	Function bool WorldRoot:ClearCachedTerrain(string id) {RobloxScriptSecurity}
@@ -3204,9 +3204,10 @@ Class WorldRoot : Model [NotCreatable]
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {🧬Safe}
 	Function RaycastResult WorldRoot:RaycastCachedTerrain(string id, Vector3 origin, Vector3 direction, bool ignoreWater) {RobloxScriptSecurity}
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
-	Function RaycastResult WorldRoot:Spherecast(Vector3 position, float radius, Vector3 direction, RaycastParams params = RaycastParams.new())
+	Function RaycastResult WorldRoot:Spherecast(Vector3 position, float radius, Vector3 direction, RaycastParams params = RaycastParams.new()) {🧬Safe}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
+	Property Enum.AvatarUnificationMode Workspace.AvatarUnificationMode [NotScriptable]
 	Property Enum.ClientAnimatorThrottlingMode Workspace.ClientAnimatorThrottling
 	Property BinaryString Workspace.CollisionGroupData {RobloxSecurity} [Hidden] [NotScriptable]
 	Property string Workspace.CollisionGroups [<📁> LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
@@ -5145,7 +5146,6 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool UserInputService.AccelerometerEnabled [ReadOnly]
 	Property Vector2 UserInputService.BottomBarSize {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool UserInputService.GamepadEnabled [ReadOnly]
-	Property bool UserInputService.GazeSelectionEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserInputService.GyroscopeEnabled [ReadOnly]
 	Property bool UserInputService.KeyboardEnabled [ReadOnly]
 	Property Enum.MouseBehavior UserInputService.MouseBehavior
@@ -5238,6 +5238,7 @@ Class VRService : Instance [NotCreatable] [Service]
 	Function void VRService:RecenterUserHeadCFrame()
 	Function void VRService:RequestNavigation(CFrame cframe, Enum.UserCFrame inputUserCFrame)
 	Function void VRService:SetTouchpadMode(Enum.VRTouchpad pad, Enum.VRTouchpadMode mode)
+	Event VRService.LaserPointerTriggered(InputObject input) {RobloxScriptSecurity}
 	Event VRService.NavigationRequested(CFrame cframe, Enum.UserCFrame inputUserCFrame)
 	Event VRService.TouchpadModeChanged(Enum.VRTouchpad pad, Enum.VRTouchpadMode mode)
 	Event VRService.UserCFrameChanged(Enum.UserCFrame type, CFrame value)
@@ -5669,6 +5670,10 @@ Enum AvatarPromptResult
 Enum AvatarThumbnailCustomizationType
 	EnumItem AvatarThumbnailCustomizationType.Closeup : 1
 	EnumItem AvatarThumbnailCustomizationType.FullBody : 2
+Enum AvatarUnificationMode
+	EnumItem AvatarUnificationMode.Default : 0
+	EnumItem AvatarUnificationMode.Disabled : 1
+	EnumItem AvatarUnificationMode.Enabled : 2
 Enum Axis
 	EnumItem Axis.X : 0
 	EnumItem Axis.Y : 1
@@ -7775,6 +7780,7 @@ Enum VRSessionState
 	EnumItem VRSessionState.Idle : 1
 	EnumItem VRSessionState.Visible : 2
 	EnumItem VRSessionState.Focused : 3
+	EnumItem VRSessionState.Stopping : 4
 Enum VRTouchpad
 	EnumItem VRTouchpad.Left : 0
 	EnumItem VRTouchpad.Right : 1

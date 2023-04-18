@@ -22,7 +22,7 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = ((texture(AlbedoMapTexture, vec3(VARYING1.xy, VARYING2.x)) * VARYING0.x) + (texture(AlbedoMapTexture, vec3(VARYING1.zw, VARYING2.z)) * VARYING0.y)) + (texture(AlbedoMapTexture, VARYING3.xyz) * VARYING0.z);
+    vec4 f0 = ((texture(AlbedoMapTexture, vec3(VARYING1.xy, VARYING2.x)) * VARYING0.x) + (texture(AlbedoMapTexture, vec3(VARYING1.zw, VARYING2.z)) * VARYING0.y)) + (texture(AlbedoMapTexture, vec3(VARYING3.xyz)) * VARYING0.z);
     vec3 f1 = f0.xyz;
     vec3 f2 = mix(f1, f1 * VARYING8.xyz, vec3(VARYING8.w * f0.w));
     float f3 = clamp(dot(step(CB0[24].xyz, abs(VARYING4 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);

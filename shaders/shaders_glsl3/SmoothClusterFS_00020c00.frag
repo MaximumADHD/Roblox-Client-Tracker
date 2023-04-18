@@ -25,7 +25,7 @@ void main()
 {
     vec4 f0 = texture(AlbedoMapTexture, vec3(VARYING1.xy, VARYING2.x));
     vec4 f1 = texture(AlbedoMapTexture, vec3(VARYING1.zw, VARYING2.z));
-    vec4 f2 = texture(AlbedoMapTexture, VARYING3.xyz);
+    vec4 f2 = texture(AlbedoMapTexture, vec3(VARYING3.xyz));
     int f3 = int(VARYING8.x + 0.5);
     int f4 = int(VARYING8.y + 0.5);
     int f5 = int(VARYING8.z + 0.5);

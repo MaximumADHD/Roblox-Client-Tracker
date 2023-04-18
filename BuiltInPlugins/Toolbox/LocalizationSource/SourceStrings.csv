@@ -1,133 +1,185 @@
 Key,Source,Context,en-us
 Studio.Toolbox.General.FooterBGText,Background:, ,Background:
+Studio.Toolbox.Audio.SoundEffect.Category.Stream,Stream, ,Stream
 Studio.Toolbox.Common.Submit,Submit, ,Submit
+Studio.Toolbox.Audio.SoundEffect.Category.Engine knocking,Engine knocking, ,Engine knocking
+"Studio.Toolbox.Audio.SoundEffect.Category.Walk, footsteps","Walk, footsteps", ,"Walk, footsteps"
 Studio.Toolbox.Common.Close,Close, ,Close
 Studio.Toolbox.Common.Install,Install, ,Install
+Studio.Toolbox.Audio.SoundEffect.Category.Clickety-clack,Clickety-clack, ,Clickety-clack
 Studio.Toolbox.General.CategoryRecentFonts,Recent Fonts, ,Recent Fonts
-Studio.Toolbox.Common.Insert,Insert, ,Insert
+Studio.Toolbox.Audio.SoundEffect.Category.Fire alarm,Fire alarm, ,Fire alarm
+Studio.Toolbox.Audio.SoundEffect.Category.Orchestra,Orchestra, ,Orchestra
 Studio.Toolbox.AssetConfigCopy.MustShare,Must share with anyone on Roblox, ,Must share with anyone on Roblox
-Studio.Toolbox.General.FooterButtonWhiteName,White, ,White
+Studio.Toolbox.Common.Insert,Insert, ,Insert
+"Studio.Toolbox.Audio.SoundEffect.Category.Bee, wasp, etc.","Bee, wasp, etc.", ,"Bee, wasp, etc."
 Studio.Toolbox.AssetConfigFooter.UploadWithFee,Submit for,{price:int} Robux, 
-Submit for,{price:int} Robux,Studio.Toolbox.General.CategoryRecentVideos,Recent Videos
- ,Recent Videos,Studio.Toolbox.General.CategoryGroupDecals,Group Images
- ,Group Images,Studio.Toolbox.AudioView.Name,Name
- ,Name,Studio.Toolbox.Common.InsertAborted,Not inserting asset {assetId} because it is invalid.
+Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
+ ,White,Studio.Toolbox.General.CategoryRecentVideos,Recent Videos
+ ,Recent Videos,Studio.Toolbox.AudioView.Name,Name
+ ,Name,Studio.Toolbox.General.CategoryGroupDecals,Group Images
+ ,Group Images,Studio.Toolbox.Audio.SoundEffect.Category.Arrow,Arrow
+ ,Arrow,Studio.Toolbox.Common.InsertAborted,Not inserting asset {assetId} because it is invalid.
  ,Not inserting asset {assetId} because it is invalid.,Studio.Toolbox.General.AllModels,AllModels
  ,All Models,Studio.Toolbox.General.CategoryMyModels,My Models
- ,My Models,Studio.Toolbox.Common.Loading,Loading
- ,Loading,Studio.Toolbox.Audio.Music.Genre.electronic,Electronic
- ,Electronic,Studio.Toolbox.AssetConfigSharing.OnlyMe,Only me
+ ,My Models,Studio.Toolbox.Audio.SoundEffect.Category.Sewing machine,Sewing machine
+ ,Sewing machine,Studio.Toolbox.Audio.SoundEffect.Category.Grunge,Grunge
+ ,Grunge,Studio.Toolbox.Audio.Music.Genre.electronic,Electronic
+ ,Electronic,Studio.Toolbox.Common.Loading,Loading
+ ,Loading,Studio.Toolbox.AssetConfigSharing.OnlyMe,Only me
  ,Only me,Studio.Toolbox.General.CategoryRecentAudio,Recent Audio
  ,Recent Audio,Studio.Toolbox.General.DistributeOnMarketplace,Distribute on Marketplace
  ,Distribute on Marketplace,Studio.Toolbox.Audio.Music.Genre.rock,Rock
- ,Rock,Studio.Toolbox.General.CategoryRecentDecals,Recent Images
- ,Recent Images,Studio.Toolbox.Common.Update,Update
- ,Update,Studio.Toolbox.General.SuggestionsWeapon,Weapon
- ,Weapon,Studio.Toolbox.Audio.SoundEffect.Category.mammals,Mammals
+ ,Rock,Studio.Toolbox.Audio.SoundEffect.Category.Choir,Choir
+ ,Choir,Studio.Toolbox.Common.Update,Update
+ ,Update,Studio.Toolbox.General.CategoryRecentDecals,Recent Images
+ ,Recent Images,Studio.Toolbox.General.SuggestionsWeapon,Weapon
+ ,Weapon,Studio.Toolbox.Audio.SoundEffect.Category.Filing (rasp),Filing (rasp)
+ ,Filing (rasp),Studio.Toolbox.Audio.SoundEffect.Category.mammals,Mammals
  ,Mammals,Studio.Toolbox.AudioView.Subcategory,Subcategory
  ,Subcategory,Studio.Toolbox.Common.Installed,Installed
- ,Installed,Studio.Toolbox.Suggestion.MoreFromCreator,More from {creatorName}
- ,More from {creatorName},Studio.Toolbox.Common.OK,OK
- ,OK,Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?
- ,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Studio.Toolbox.Audio.SoundEffect.Category.light,Light
+ ,Installed,Studio.Toolbox.Audio.SoundEffect.Category.Car,Car
+ ,Car,Studio.Toolbox.Suggestion.MoreFromCreator,More from {creatorName}
+ ,More from {creatorName},Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?
+ ,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Studio.Toolbox.Common.OK,OK
+ ,OK,Studio.Toolbox.Audio.SoundEffect.Category.Blender,Blender
+ ,Blender,Studio.Toolbox.Audio.SoundEffect.Category.light,Light
  ,Light,Studio.Toolbox.General.SuggestionsLight,Light
  ,Light,Studio.Toolbox.General.SortByUpdated,Updated
  ,Updated,Studio.Toolbox.Common.Yes,Yes
- ,Yes,Studio.Toolbox.General.SortByFavorites,Favorites
- ,Favorites,Studio.Toolbox.General.AssetTypePlugin,Plugin
- ,Plugin,Studio.Toolbox.General.SearchBarCreatorText,Search for users
- ,Search for users,Studio.Toolbox.General.CreatorDashboardLinkMessage,You can place this item on sale and configure it on your {creatorDashboardLink}.
+ ,Yes,Studio.Toolbox.General.AssetTypePlugin,Plugin
+ ,Plugin,Studio.Toolbox.General.SortByFavorites,Favorites
+ ,Favorites,Studio.Toolbox.General.SearchBarCreatorText,Search for users
+ ,Search for users,Studio.Toolbox.Audio.SoundEffect.Category.Alarm,Alarm
+ ,Alarm,Studio.Toolbox.General.CreatorDashboardLinkMessage,You can place this item on sale and configure it on your {creatorDashboardLink}.
 A message displayed to the user if they try to put an avatar item on sale and this message directs them to the Creator Dashboard instead.,You can place this item on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.Audio.SoundEffect.Category.debris,Debris
- ,Debris,Studio.Toolbox.Audio.SoundEffect.Category.whispers,Whispers
- ,Whispers,Studio.Toolbox.Audio.SoundEffect.Category.sports,Sports
- ,Sports,Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory
- ,Front Accessory,Studio.Toolbox.Common.No,No
- ,No,Studio.Toolbox.General.ToolboxToolbarName,Toolbox
- ,Toolbox,Studio.Toolbox.General.AssetCreatorIntroText,by {name:username}
- ,by {name:username},Studio.Toolbox.Audio.SoundEffect.Category.bicycles,Bicycles
- ,Bicycles,Studio.Toolbox.General.StatusOnSale,On Sale
+ ,Debris,Studio.Toolbox.Audio.SoundEffect.Category.Drip,Drip
+ ,Drip,Studio.Toolbox.Audio.SoundEffect.Category.whispers,Whispers
+ ,Whispers,Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory
+ ,Front Accessory,Studio.Toolbox.Audio.SoundEffect.Category.sports,Sports
+ ,Sports,Studio.Toolbox.Common.No,No
+ ,No,"Studio.Toolbox.Audio.SoundEffect.Category.Fire engine, fire truck (siren)","Fire engine, fire truck (siren)"
+ ,"Fire engine, fire truck (siren)",Studio.Toolbox.Audio.SoundEffect.Category.Ambient music,Ambient music
+ ,Ambient music,Studio.Toolbox.General.ToolboxToolbarName,Toolbox
+ ,Toolbox,Studio.Toolbox.Audio.SoundEffect.Category.bicycles,Bicycles
+ ,Bicycles,Studio.Toolbox.General.AssetCreatorIntroText,by {name:username}
+ ,by {name:username},Studio.Toolbox.General.StatusOnSale,On Sale
  ,On Sale,Studio.Toolbox.Audio.SoundEffect.Category.prop-planes,Prop Planes
  ,Prop Planes,Studio.Toolbox.General.CategoryCreationsModels,Models
  ,Models,Studio.Toolbox.General.CategoryModels,Models
  ,Models,Studio.Toolbox.General.CreatorDashboard,Creator Dashboard
-Creator Dashboard is the name of the web interface for managing user generated content.,Creator Dashboard,Studio.Toolbox.General.CategoryCreationsDecals,Images
+Creator Dashboard is the name of the web interface for managing user generated content.,Creator Dashboard,Studio.Toolbox.Audio.SoundEffect.Category.Clarinet,Clarinet
+ ,Clarinet,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoShortLink,What's my limit?
+ ,What's my limit?,Studio.Toolbox.General.CategoryCreationsDecals,Images
  ,Images,Studio.Toolbox.General.CategoryDecals,Images
- ,Images,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoShortLink,What's my limit?
- ,What's my limit?,Studio.Toolbox.Audio.SoundEffect.Category.zippers,Zippers
+ ,Images,Studio.Toolbox.Audio.SoundEffect.Category.zippers,Zippers
  ,Zippers,Studio.Toolbox.General.CategoryCreationsMeshes,Meshes
  ,Meshes,Studio.Toolbox.General.CategoryMeshes,Meshes
  ,Meshes,Studio.Toolbox.Audio.SoundEffect.Category.brakes,Brakes
  ,Brakes,Studio.Toolbox.General.AssetTypeAudio,Audio
  ,Audio,Studio.Toolbox.General.CategoryAudio,Audio
  ,Audio,Studio.Toolbox.General.CategoryCreationsAudio,Audio
- ,Audio,Studio.Toolbox.Audio.SoundEffect.Category.voice,Voice
- ,Voice,Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessories
- ,Waist Accessories,Studio.Toolbox.General.SortByRatings,Ratings
- ,Ratings,Studio.Toolbox.General.CategoryFonts,Fonts
- ,Fonts,Studio.Toolbox.Audio.SoundEffect.Category.instruments,Instruments
- ,Instruments,Studio.Toolbox.General.CategoryCreationsShirtAccessory,Shirt Accessories
- ,Shirt Accessories,Studio.Toolbox.General.CategoryMyDecals,My Images
- ,My Images,Studio.Toolbox.AssetConfigPackage.HelpTextV2,Enables versioning and updates for this asset.
- ,Enables versioning and updates for this asset.,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip,Not all roles have the same access; expand the group for details.
- ,Not all roles have the same access; expand the group for details.,Studio.Toolbox.Audio.SoundEffect.Category.cameras,Cameras
- ,Cameras,Studio.Toolbox.General.CategoryMyMeshes,My Meshes
+ ,Audio,Studio.Toolbox.Audio.SoundEffect.Category.Keys jangling,Keys jangling
+ ,Keys jangling,Studio.Toolbox.Audio.SoundEffect.Category.Tapping (guitar technique),Tapping (guitar technique)
+ ,Tapping (guitar technique),Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessories
+ ,Waist Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Soul music,Soul music
+ ,Soul music,Studio.Toolbox.Audio.SoundEffect.Category.Waterfall,Waterfall
+ ,Waterfall,Studio.Toolbox.Audio.SoundEffect.Category.voice,Voice
+ ,Voice,Studio.Toolbox.Audio.SoundEffect.Category.Vocal music,Vocal music
+ ,Vocal music,Studio.Toolbox.General.SortByRatings,Ratings
+ ,Ratings,Studio.Toolbox.Audio.SoundEffect.Category.instruments,Instruments
+ ,Instruments,Studio.Toolbox.General.CategoryFonts,Fonts
+ ,Fonts,Studio.Toolbox.General.CategoryCreationsShirtAccessory,Shirt Accessories
+ ,Shirt Accessories,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip,Not all roles have the same access; expand the group for details.
+ ,Not all roles have the same access; expand the group for details.,Studio.Toolbox.General.CategoryMyDecals,My Images
+ ,My Images,Studio.Toolbox.Audio.SoundEffect.Category.cameras,Cameras
+ ,Cameras,Studio.Toolbox.AssetConfigPackage.HelpTextV2,Enables versioning and updates for this asset.
+ ,Enables versioning and updates for this asset.,Studio.Toolbox.General.CategoryMyMeshes,My Meshes
  ,My Meshes,Studio.Toolbox.Audio.Music.Genre.corporate,Corporate
  ,Corporate,Studio.Toolbox.General.CategoryGroupPackages,Group Packages
- ,Group Packages,Studio.Toolbox.General.SearchTagLength,length:
- ,length:,Studio.Toolbox.Audio.Music.Genre.ethnic-pop,Ethnic Pop
- ,Ethnic Pop,Studio.Toolbox.General.CategoryMyAudio,My Audio
+ ,Group Packages,Studio.Toolbox.Audio.SoundEffect.Category.Roar,Roar
+ ,Roar,Studio.Toolbox.Audio.Music.Genre.ethnic-pop,Ethnic Pop
+ ,Ethnic Pop,Studio.Toolbox.General.SearchTagLength,length:
+ ,length:,Studio.Toolbox.General.CategoryMyAudio,My Audio
  ,My Audio,Studio.Toolbox.General.CategoryMyPackages,My Packages
- ,My Packages,Studio.Toolbox.General.SideTabSales,Sales
+ ,My Packages,Studio.Toolbox.Audio.SoundEffect.Category.Salsa music,Salsa music
+ ,Salsa music,"Studio.Toolbox.Audio.SoundEffect.Category.Pigeon, dove","Pigeon, dove"
+ ,"Pigeon, dove",Studio.Toolbox.General.SideTabSales,Sales
  ,Sales,Studio.Toolbox.General.CategoryMyPlugins,My Plugins
  ,My Plugins,Studio.Toolbox.General.CategoryMyAnimations,My Animations
  ,My Animations,Studio.Toolbox.General.CategoryMyFonts,My Fonts
  ,My Fonts,Studio.Toolbox.Audio.SoundEffect.Category.squeaks,Squeaks
  ,Squeaks,Studio.Toolbox.General.SortByText,Sort by:
  ,Sort by:,Studio.Toolbox.Audio.SoundEffect.Category.crunches,Crunches
- ,Crunches,Studio.Toolbox.General.CategoryRecentModels,Recent Models
+ ,Crunches,Studio.Toolbox.Audio.SoundEffect.Category.Wind noise (microphone),Wind noise (microphone)
+ ,Wind noise (microphone),Studio.Toolbox.General.CategoryRecentModels,Recent Models
  ,Recent Models,Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes
- ,Recent Meshes,Studio.Toolbox.Announcement.Button_Default,Got it!
- ,Got it!,Studio.Toolbox.General.CategoryRecentAnimations,Recent Animations
- ,Recent Animations,Studio.Toolbox.General.Package,Convert to Package
- ,Convert to Package,Studio.Toolbox.General.SearchTagIdUnverified,Show ID Unverified creators
- ,Show ID Unverified creators,Studio.Toolbox.General.CategoryGroupModels,Group Models
- ,Group Models,Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories
- ,Face Accessories,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username
- ,Search by username,Studio.Toolbox.Audio.SoundEffect.Category.coughs,Coughs
- ,Coughs,Studio.Toolbox.General.SuggestionsBuilding,Building
- ,Building,Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes
- ,Group Meshes,Studio.Toolbox.AssetConfigPackage.CantConvertModelWithPrimaryPartNonArchivableWarning,Cannot publish a Model package when the PrimaryPart is not archivable.
- ,Cannot publish a Model package when the PrimaryPart is not archivable.,Studio.Toolbox.Audio.Music.Genre.easy-listening,Easy Listening
+ ,Recent Meshes,Studio.Toolbox.General.CategoryRecentAnimations,Recent Animations
+ ,Recent Animations,"Studio.Toolbox.Audio.SoundEffect.Category.Canidae, dogs, wolves","Canidae, dogs, wolves"
+ ,"Canidae, dogs, wolves",Studio.Toolbox.General.Package,Convert to Package
+ ,Convert to Package,Studio.Toolbox.Announcement.Button_Default,Got it!
+ ,Got it!,Studio.Toolbox.General.SearchTagIdUnverified,Show ID Unverified creators
+ ,Show ID Unverified creators,Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories
+ ,Face Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Gurgling,Gurgling
+ ,Gurgling,Studio.Toolbox.Audio.SoundEffect.Category.coughs,Coughs
+ ,Coughs,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username
+ ,Search by username,Studio.Toolbox.General.CategoryGroupModels,Group Models
+ ,Group Models,Studio.Toolbox.Audio.SoundEffect.Category.Snicker,Snicker
+ ,Snicker,Studio.Toolbox.General.SuggestionsBuilding,Building
+ ,Building,Studio.Toolbox.AssetConfigPackage.CantConvertModelWithPrimaryPartNonArchivableWarning,Cannot publish a Model package when the PrimaryPart is not archivable.
+ ,Cannot publish a Model package when the PrimaryPart is not archivable.,Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes
+ ,Group Meshes,Studio.Toolbox.Audio.Music.Genre.easy-listening,Easy Listening
  ,Easy Listening,Studio.Toolbox.General.CategoryGroupAudio,Group Audio
- ,Group Audio,Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import.
- ,Choose an asset to import.,Studio.Toolbox.Audio.Music.Genre.world-beat,World Beat
- ,World Beat,Studio.Toolbox.Audio.SoundEffect.Category.explosions,Explosions
- ,Explosions,Studio.Toolbox.General.SortByMostTaken,Most Taken
- ,Most Taken,Studio.Toolbox.HomeView.Results,{total} Results
- ,{total} Results,Studio.Toolbox.Audio.SoundEffect.Category.fight,Fight
- ,Fight,Studio.Toolbox.Audio.SoundEffect.Category.misc,Misc
- ,Misc,Studio.Toolbox.General.SearchBarDefaultText,Search
- ,Search,Studio.Toolbox.Announcement.Header_08-09-2022,Marketplace is safer than ever!
- ,Marketplace is safer than ever!,Studio.Toolbox.General.SearchBarDisabled,Search disabled
- ,Search disabled,Studio.Toolbox.General.SearchBarIdVerified,Show ID verified creators only
- ,Show ID verified creators only,Studio.Toolbox.General.ShowMore,Show more
+ ,Group Audio,Studio.Toolbox.Audio.SoundEffect.Category.explosions,Explosions
+ ,Explosions,Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import.
+ ,Choose an asset to import.,Studio.Toolbox.Audio.SoundEffect.Category.Dog,Dog
+ ,Dog,Studio.Toolbox.Audio.SoundEffect.Category.Drum kit,Drum kit
+ ,Drum kit,Studio.Toolbox.Audio.Music.Genre.world-beat,World Beat
+ ,World Beat,Studio.Toolbox.General.SortByMostTaken,Most Taken
+ ,Most Taken,"Studio.Toolbox.Audio.SoundEffect.Category.Baby cry, infant cry","Baby cry, infant cry"
+ ,"Baby cry, infant cry",Studio.Toolbox.Audio.SoundEffect.Category.fight,Fight
+ ,Fight,Studio.Toolbox.HomeView.Results,{total} Results
+ ,{total} Results,Studio.Toolbox.Audio.SoundEffect.Category.Cowbell,Cowbell
+ ,Cowbell,Studio.Toolbox.Audio.SoundEffect.Category.Door,Door
+ ,Door,Studio.Toolbox.Audio.SoundEffect.Category.misc,Misc
+ ,Misc,"Studio.Toolbox.Audio.SoundEffect.Category.Railroad car, train wagon","Railroad car, train wagon"
+ ,"Railroad car, train wagon",Studio.Toolbox.General.SearchBarDefaultText,Search
+ ,Search,Studio.Toolbox.Audio.SoundEffect.Category.Children shouting,Children shouting
+ ,Children shouting,Studio.Toolbox.Audio.SoundEffect.Category.Video game music,Video game music
+ ,Video game music,Studio.Toolbox.General.SearchBarDisabled,Search disabled
+ ,Search disabled,Studio.Toolbox.Announcement.Header_08-09-2022,Marketplace is safer than ever!
+ ,Marketplace is safer than ever!,Studio.Toolbox.General.SearchBarIdVerified,Show ID verified creators only
+ ,Show ID verified creators only,Studio.Toolbox.Audio.SoundEffect.Category.Crowd,Crowd
+ ,Crowd,Studio.Toolbox.Audio.SoundEffect.Category.Speech synthesizer,Speech synthesizer
+ ,Speech synthesizer,Studio.Toolbox.General.ShowMore,Show more
  ,Show more,Studio.Toolbox.AudioView.Type,Type
  ,Type,Studio.Toolbox.Audio.SoundEffect.Category.plumbing,Plumbing
  ,Plumbing,Studio.Toolbox.General.ShowLess,Show less
- ,Show less,Studio.Toolbox.General.SuggestionsIntroText,Try searching for:
- ,Try searching for:,Studio.Toolbox.General.CategoryCreationsGroupHair,Group Hair
- ,Group Hair,Studio.Toolbox.General.AssetTypeTShirtAccessory,T-Shirt Accessory
- ,T-Shirt Accessory,Studio.Toolbox.General.SuggestionsNPC,NPC
- ,NPC,Studio.Toolbox.General.SuggestionsVehicle,Vehicle
- ,Vehicle,Studio.Toolbox.General.SortByRelevance,Relevance
+ ,Show less,Studio.Toolbox.Audio.SoundEffect.Category.Classical music,Classical music
+ ,Classical music,Studio.Toolbox.General.SuggestionsIntroText,Try searching for:
+ ,Try searching for:,Studio.Toolbox.Audio.SoundEffect.Category.Hands,Hands
+ ,Hands,Studio.Toolbox.General.AssetTypeTShirtAccessory,T-Shirt Accessory
+ ,T-Shirt Accessory,Studio.Toolbox.Audio.SoundEffect.Category.Whoop,Whoop
+ ,Whoop,Studio.Toolbox.Audio.SoundEffect.Category.Car alarm,Car alarm
+ ,Car alarm,Studio.Toolbox.Audio.SoundEffect.Category.Vacuum cleaner,Vacuum cleaner
+ ,Vacuum cleaner,Studio.Toolbox.General.CategoryCreationsGroupHair,Group Hair
+ ,Group Hair,Studio.Toolbox.General.SuggestionsNPC,NPC
+ ,NPC,Studio.Toolbox.Audio.SoundEffect.Category.Saxophone,Saxophone
+ ,Saxophone,Studio.Toolbox.Audio.SoundEffect.Category.Vehicle,Vehicle
+ ,Vehicle,Studio.Toolbox.General.SuggestionsVehicle,Vehicle
+ ,Vehicle,Studio.Toolbox.Audio.SoundEffect.Category.Cymbal,Cymbal
+ ,Cymbal,Studio.Toolbox.Audio.SoundEffect.Category.Brass instrument,Brass instrument
+ ,Brass instrument,Studio.Toolbox.General.SortByRelevance,Relevance
  ,Relevance,Studio.Toolbox.Audio.SoundEffect.Category.foliage,Foliage
  ,Foliage,Studio.Toolbox.AssetConfigPreview.MaxSize,Max size: {maxDimensionsX}x{maxDimensionsY} px
  ,Max size: {maxDimensionsX}x{maxDimensionsY} px,Studio.Toolbox.Audio.Music.Genre.atmosphere,Atmosphere
  ,Atmosphere,Studio.Toolbox.General.VotingVoteText,vote
- ,vote,Studio.Toolbox.Audio.SoundEffect.Category.bow-wash,Bow Wash
- ,Bow Wash,Studio.Toolbox.Audio.SoundEffect.Category.mechanical,Mechanical
- ,Mechanical,Studio.Toolbox.General.VotingVotesText,votes
- ,votes,Studio.Toolbox.General.FooterButtonBlackName,Black
+ ,vote,Studio.Toolbox.Audio.SoundEffect.Category.Boing,Boing
+ ,Boing,Studio.Toolbox.Audio.SoundEffect.Category.bow-wash,Bow Wash
+ ,Bow Wash,Studio.Toolbox.Audio.SoundEffect.Category.Independent music,Independent music
+ ,Independent music,Studio.Toolbox.General.VotingVotesText,votes
+ ,votes,Studio.Toolbox.Audio.SoundEffect.Category.mechanical,Mechanical
+ ,Mechanical,Studio.Toolbox.General.FooterButtonBlackName,Black
  ,Black,Studio.Toolbox.General.FooterButtonNoneName,None
  ,None,Studio.Toolbox.General.SalesOnsale,Onsale
  ,Onsale,Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item
@@ -138,45 +190,60 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,T-Shirt Accessories,Studio.Toolbox.General.UnverifiedCreatorBadgeTooltipText,Creator is unverified
  ,Creator is unverified,Studio.Toolbox.AssetConfigPackagePermissions.NoResults,No results found
  ,No results found,Studio.Toolbox.General.InfoBannerText,No results found
- ,No results found,Studio.Toolbox.Audio.SoundEffect.Category.whooshes,Whooshes
- ,Whooshes,Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins
- ,EndorsedPlugins,Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
- ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",Studio.Toolbox.General.SearchResults,Search Results
- ,Search Results,Studio.Toolbox.General.CategoryCreationsHats,Hats
- ,Hats,Studio.Toolbox.ScriptWarning.DetailText,{assetName} includes {numScripts:int} script(s).
- ,{assetName} includes {numScripts:int} script(s).,Studio.Toolbox.Audio.SoundEffect.Category.rattles,Rattles
- ,Rattles,Studio.Toolbox.General.SearchResultsKeyword,Search Results for
- ,Search Results for,Studio.Toolbox.General.SearchResultsBackToHome,< All {assetType} /
+ ,No results found,Studio.Toolbox.Audio.SoundEffect.Category.Bell,Bell
+ ,Bell,Studio.Toolbox.Audio.SoundEffect.Category.Mains hum,Mains hum
+ ,Mains hum,Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins
+ ,EndorsedPlugins,Studio.Toolbox.Audio.SoundEffect.Category.whooshes,Whooshes
+ ,Whooshes,Studio.Toolbox.Audio.SoundEffect.Category.Sliding door,Sliding door
+ ,Sliding door,Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
+ ,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.",Studio.Toolbox.General.CategoryCreationsHats,Hats
+ ,Hats,Studio.Toolbox.General.SearchResults,Search Results
+ ,Search Results,Studio.Toolbox.Audio.SoundEffect.Category.Yell,Yell
+ ,Yell,Studio.Toolbox.ScriptWarning.DetailText,{assetName} includes {numScripts:int} script(s).
+ ,{assetName} includes {numScripts:int} script(s).,Studio.Toolbox.General.SearchResultsKeyword,Search Results for
+ ,Search Results for,Studio.Toolbox.Audio.SoundEffect.Category.rattles,Rattles
+ ,Rattles,"Studio.Toolbox.Audio.SoundEffect.Category.Vehicle horn, car horn, honking","Vehicle horn, car horn, honking"
+ ,"Vehicle horn, car horn, honking",Studio.Toolbox.Audio.SoundEffect.Category.Chainsaw,Chainsaw
+ ,Chainsaw,Studio.Toolbox.General.SearchResultsBackToHome,< All {assetType} /
  ,< All {assetType} /,Studio.Toolbox.General.SearchOptionsAllViews,All Views
- ,All Views,Studio.Toolbox.General.SearchResultsClearAll,Clear
+ ,All Views,Studio.Toolbox.Audio.SoundEffect.Category.Bird,Bird
+ ,Bird,Studio.Toolbox.General.SearchResultsClearAll,Clear
  ,Clear,Studio.Toolbox.General.Ownership,Creator
  ,Creator,Studio.Toolbox.General.SearchOptionCreator,Creator
  ,Creator,Studio.Toolbox.General.SearchOptionSort,Sort By
  ,Sort By,Studio.Toolbox.General.SearchOptionsApply,Apply
- ,Apply,Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.
+ ,Apply,Studio.Toolbox.Audio.SoundEffect.Category.Snake,Snake
+ ,Snake,Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.
  ,Purchase of "{name}" failed.,Studio.Toolbox.General.CategoryCreationsPantsAccessory,Pants Accessories
- ,Pants Accessories,Studio.Toolbox.General.Cancel,Cancel
+ ,Pants Accessories,Studio.Toolbox.Audio.Music.Browse,Browse by Genre
+ ,Browse by Genre,Studio.Toolbox.General.Cancel,Cancel
  ,Cancel,Studio.Toolbox.General.SearchOptionsCancel,Cancel
  ,Cancel,Studio.Toolbox.GrantAssetPermission.CancelButton,Cancel
  ,Cancel,Studio.Toolbox.Purchase.Cancel,Cancel
- ,Cancel,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
- ,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.,Studio.Toolbox.Audio.Music.Browse,Browse by Genre
- ,Browse by Genre,Studio.Toolbox.HomeView.essential,Essential
+ ,Cancel,Studio.Toolbox.Audio.SoundEffect.Category.Double bass,Double bass
+ ,Double bass,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
+ ,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.,Studio.Toolbox.HomeView.essential,Essential
  ,Essential,Studio.Toolbox.General.Sharing,Sharing
  ,Sharing,Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users
- ,Image will be reviewed by moderators before being made visible to other users,Studio.Toolbox.Audio.SoundEffect.Category.steam,Steam
- ,Steam,Studio.Toolbox.General.SearchOptionsIncludeUnverifiedHeader,Include unverified creators
- ,Include unverified creators,Studio.Toolbox.Audio.SoundEffect.Category.telephone,Telephone
+ ,Image will be reviewed by moderators before being made visible to other users,Studio.Toolbox.General.SearchOptionsIncludeUnverifiedHeader,Include unverified creators
+ ,Include unverified creators,Studio.Toolbox.Audio.SoundEffect.Category.Steam,Steam
+ ,Steam,Studio.Toolbox.Audio.SoundEffect.Category.steam,Steam
+ ,Steam,Studio.Toolbox.AssetConfigPreview.Preview,Preview
+ ,Preview,Studio.Toolbox.Audio.SoundEffect.Category.Telephone,Telephone
+ ,Telephone,Studio.Toolbox.Audio.SoundEffect.Category.telephone,Telephone
  ,Telephone,Studio.Toolbox.General.SearchOptionsIncludeUnverifiedDescription,Assets from unverified sources add more risk of malicious behavior or damage
- ,Assets from unverified sources add more risk of malicious behavior or damage,Studio.Toolbox.AssetConfigPreview.Preview,Preview
- ,Preview,Studio.Toolbox.General.SearchOptionsIncludeUnverifiedTooltip,Unverified creators have not confirmed their real life identity via an ID or phone
+ ,Assets from unverified sources add more risk of malicious behavior or damage,"Studio.Toolbox.Audio.SoundEffect.Category.Ratchet, pawl","Ratchet, pawl"
+ ,"Ratchet, pawl",Studio.Toolbox.General.SearchOptionsIncludeUnverifiedTooltip,Unverified creators have not confirmed their real life identity via an ID or phone
  ,Unverified creators have not confirmed their real life identity via an ID or phone,Studio.Toolbox.General.SearchTagCreator,by:
  ,by:,Studio.Toolbox.General.RightClickMenuCopyTextureID,Copy Texture ID
- ,Copy Texture ID,Studio.Toolbox.General.TabMarketplace,Marketplace
+ ,Copy Texture ID,Studio.Toolbox.Audio.SoundEffect.Category.Harp,Harp
+ ,Harp,Studio.Toolbox.Audio.SoundEffect.Category.Pizzicato,Pizzicato
+ ,Pizzicato,Studio.Toolbox.General.TabMarketplace,Marketplace
  ,Marketplace,Studio.Toolbox.General.TabInventory,Inventory
- ,Inventory,Studio.Toolbox.Audio.SoundEffect.Category.voices,Voices
- ,Voices,Studio.Toolbox.General.GoBack,Go Back
- ,Go Back,Studio.Toolbox.General.TabRecent,Recent
+ ,Inventory,Studio.Toolbox.Audio.SoundEffect.Category.Knock,Knock
+ ,Knock,Studio.Toolbox.General.GoBack,Go Back
+ ,Go Back,Studio.Toolbox.Audio.SoundEffect.Category.voices,Voices
+ ,Voices,Studio.Toolbox.General.TabRecent,Recent
  ,Recent,Studio.Toolbox.General.Categories,Categories
  ,Categories,Studio.Toolbox.General.CategoryCreationsPlugins,Plugins
  ,Plugins,Studio.Toolbox.General.CategoryPaidPlugins,Plugins
@@ -184,26 +251,33 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Suburban,Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider,Game development assets
  ,Game development assets,Studio.Toolbox.General.CategoryCreationsAnimations,Animations
  ,Animations,Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets
- ,Avatar assets,Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset...
- ,Save as a new asset...,Studio.Toolbox.Purchase.BuyRobux,Buy Robux
- ,Buy Robux,Studio.Toolbox.AssetConfigSharing.SubTitle,Who can use this asset?
+ ,Avatar assets,Studio.Toolbox.Purchase.BuyRobux,Buy Robux
+ ,Buy Robux,Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset...
+ ,Save as a new asset...,Studio.Toolbox.AssetConfigSharing.SubTitle,Who can use this asset?
  ,Who can use this asset?,Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts
  ,T-Shirts,Studio.Toolbox.General.CategoryCreationsShirts,Shirts
  ,Shirts,Studio.Toolbox.General.AssetTypePants,Pants
  ,Pants,Studio.Toolbox.General.CategoryCreationsPants,Pants
  ,Pants,Studio.Toolbox.General.AssetTypeHairAccessory,Hair
  ,Hair,Studio.Toolbox.General.CategoryCreationsHair,Hair
- ,Hair,Studio.Toolbox.General.CategoryCreationsNeckAccessory,Neck Accessories
- ,Neck Accessories,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
+ ,Hair,Studio.Toolbox.Audio.SoundEffect.Category.Fowl,Fowl
+ ,Fowl,Studio.Toolbox.General.CategoryCreationsNeckAccessory,Neck Accessories
+ ,Neck Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Gong,Gong
+ ,Gong,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
  ,ID Copied!,Studio.Toolbox.General.PremiumBenefits,Add Premium benefits
- ,Add Premium benefits,Studio.Toolbox.General.CategoryCreationsShoulderAccessory,Shoulder Accessories
- ,Shoulder Accessories,Studio.Toolbox.AssetConfigSharing.PrivateInformation,Grant permissions to specific Universes through Asset Configuration on the web.
- ,Grant permissions to specific Universes through Asset Configuration on the web.,Studio.Toolbox.General.SalesCreatorEarnings,Creator earnings ({earningsPercent}%)
- ,Creator earnings ({earningsPercent}%),Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessories
+ ,Add Premium benefits,Studio.Toolbox.AssetConfigSharing.PrivateInformation,Grant permissions to specific Universes through Asset Configuration on the web.
+ ,Grant permissions to specific Universes through Asset Configuration on the web.,Studio.Toolbox.General.CategoryCreationsShoulderAccessory,Shoulder Accessories
+ ,Shoulder Accessories,Studio.Toolbox.General.SalesCreatorEarnings,Creator earnings ({earningsPercent}%)
+ ,Creator earnings ({earningsPercent}%),Studio.Toolbox.Audio.SoundEffect.Category.Punk rock,Punk rock
+ ,Punk rock,Studio.Toolbox.Audio.SoundEffect.Category.Bass drum,Bass drum
+ ,Bass drum,Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessories
  ,Front Accessories,Studio.Toolbox.General.CategoryCreationsBackAccessory,Back Accessories
  ,Back Accessories,Studio.Toolbox.General.CategoryCreationsJacketAccessory,Jacket Accessories
- ,Jacket Accessories,Studio.Toolbox.AssetConfigSharing.PrivateDisabledInformation,This option is not available since your asset is set to public.
- ,This option is not available since your asset is set to public.,Studio.Toolbox.Audio.SoundEffect.Category.distortion,Distortion
+ ,Jacket Accessories,"Studio.Toolbox.Audio.SoundEffect.Category.Neigh, whinny","Neigh, whinny"
+ ,"Neigh, whinny",Studio.Toolbox.AssetConfigSharing.PrivateDisabledInformation,This option is not available since your asset is set to public.
+ ,This option is not available since your asset is set to public.,"Studio.Toolbox.Audio.SoundEffect.Category.Whoosh, swoosh, swish","Whoosh, swoosh, swish"
+ ,"Whoosh, swoosh, swish",Studio.Toolbox.Audio.SoundEffect.Category.Distortion,Distortion
+ ,Distortion,Studio.Toolbox.Audio.SoundEffect.Category.distortion,Distortion
  ,Distortion,Studio.Toolbox.General.CategoryCreationsSweaterAccessory,Sweater Accessories
  ,Sweater Accessories,Studio.Toolbox.AssetConfigAdditionalImages.WillBeReviewed,Items will be reviewed by moderators before being made visible to other users
  ,Items will be reviewed by moderators before being made visible to other users,Studio.Toolbox.General.CategoryCreationsShortsAccessory,Shorts Accessories
@@ -213,127 +287,167 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Left Shoe Accessories,Studio.Toolbox.General.CategoryMyVideos,My Videos
  ,My Videos,Studio.Toolbox.Audio.SoundEffect.Category.computers,Computers
  ,Computers,Studio.Toolbox.General.CategoryCreationsDressSkirtAccessory,Dress Skirt Accessories
- ,Dress Skirt Accessories,Studio.Toolbox.AssetUploadResult.Failure,Submission failed
- ,Submission failed,Studio.Toolbox.General.CategoryCreationsGroupHats,Group Hats
- ,Group Hats,Studio.Toolbox.AssetConfigCopy.PackageCantShare,Marketplace publishing is not available when updates are enabled
- ,Marketplace publishing is not available when updates are enabled,Studio.Toolbox.Audio.SoundEffect.Category.sirens,Sirens
- ,Sirens,Studio.Toolbox.Audio.SoundEffect.Category.machines,Machines
- ,Machines,Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory,Group Face Accessories
- ,Group Face Accessories,Studio.Toolbox.Audio.SoundEffect.Category.reverse,Reverse
- ,Reverse,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories
- ,Group Neck Accessories,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory
- ,Waist Accessory,Studio.Toolbox.Audio.SoundEffect.Category.bullets,Bullets
+ ,Dress Skirt Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Rustling leaves,Rustling leaves
+ ,Rustling leaves,Studio.Toolbox.AssetUploadResult.Failure,Submission failed
+ ,Submission failed,Studio.Toolbox.AssetConfigCopy.PackageCantShare,Marketplace publishing is not available when updates are enabled
+ ,Marketplace publishing is not available when updates are enabled,Studio.Toolbox.General.CategoryCreationsGroupHats,Group Hats
+ ,Group Hats,Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory,Group Face Accessories
+ ,Group Face Accessories,Studio.Toolbox.Audio.SoundEffect.Category.machines,Machines
+ ,Machines,Studio.Toolbox.Audio.SoundEffect.Category.sirens,Sirens
+ ,Sirens,Studio.Toolbox.Audio.SoundEffect.Category.reverse,Reverse
+ ,Reverse,Studio.Toolbox.Audio.SoundEffect.Category.Engine starting,Engine starting
+ ,Engine starting,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory
+ ,Waist Accessory,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories
+ ,Group Neck Accessories,Studio.Toolbox.Audio.SoundEffect.Category.bullets,Bullets
  ,Bullets,Studio.Toolbox.General.CategoryCreationsGroupShoulderAccessory,Group Shoulder Accessories
  ,Group Shoulder Accessories,Studio.Toolbox.General.AssetTypeRightShoeAccessory,Right Shoe Accessory
- ,Right Shoe Accessory,Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory,Group Front Accessories
+ ,Right Shoe Accessory,Studio.Toolbox.Audio.SoundEffect.Category.drawers,Drawers
+ ,Drawers,Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory,Group Front Accessories
  ,Group Front Accessories,Studio.Toolbox.Audio.SoundEffect.Category.bodyfalls,Bodyfalls
- ,Bodyfalls,Studio.Toolbox.Audio.SoundEffect.Category.drawers,Drawers
- ,Drawers,Studio.Toolbox.General.CategoryCreationsGroupBackAccessory,Group Back Accessories
+ ,Bodyfalls,Studio.Toolbox.General.CategoryCreationsGroupBackAccessory,Group Back Accessories
  ,Group Back Accessories,Studio.Toolbox.General.CategoryCreationsGroupWaistAccessory,Group Waist Accessories
  ,Group Waist Accessories,Studio.Toolbox.Audio.SoundEffect.Category.hydraulic,Hydraulic
- ,Hydraulic,Studio.Toolbox.Audio.SoundEffect.Category.cracks,Cracks
- ,Cracks,Studio.Toolbox.General.CategoryCreationsGroupTShirtAccessory,Group T-Shirt Accessories
- ,Group T-Shirt Accessories,Studio.Toolbox.General.CategoryCreationsGroupShirtAccessory,Group Shirt Accessories
- ,Group Shirt Accessories,Studio.Toolbox.General.NoPluginsFound.LinkText,Library
- ,Library,Studio.Toolbox.General.CategoryCreationsGroupPantsAccessory,Group Pants Accessories
+ ,Hydraulic,Studio.Toolbox.Audio.SoundEffect.Category.Plop,Plop
+ ,Plop,Studio.Toolbox.Audio.SoundEffect.Category.cracks,Cracks
+ ,Cracks,Studio.Toolbox.Audio.SoundEffect.Category.Whimper (dog),Whimper (dog)
+ ,Whimper (dog),"Studio.Toolbox.Audio.SoundEffect.Category.Boat, Water vehicle","Boat, Water vehicle"
+ ,"Boat, Water vehicle",Studio.Toolbox.General.CategoryCreationsGroupTShirtAccessory,Group T-Shirt Accessories
+ ,Group T-Shirt Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Cluck,Cluck
+ ,Cluck,Studio.Toolbox.General.CategoryCreationsGroupShirtAccessory,Group Shirt Accessories
+ ,Group Shirt Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Chatter,Chatter
+ ,Chatter,Studio.Toolbox.General.NoPluginsFound.LinkText,Library
+ ,Library,Studio.Toolbox.Audio.SoundEffect.Category.Microwave oven,Microwave oven
+ ,Microwave oven,Studio.Toolbox.General.CategoryCreationsGroupPantsAccessory,Group Pants Accessories
  ,Group Pants Accessories,Studio.Toolbox.General.CategoryCreationsGroupJacketAccessory,Group Jacket Accessories
- ,Group Jacket Accessories,Studio.Toolbox.General.CategoryCreationsGroupSweaterAccessory,Group Sweater Accessories
- ,Group Sweater Accessories,Studio.Toolbox.Audio.SoundEffect.Category.helicopters,Helicopters
- ,Helicopters,Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details
- ,Package Details,Studio.Toolbox.General.CategoryCreationsGroupShortsAccessory,Group Shorts Accessories
+ ,Group Jacket Accessories,Studio.Toolbox.Audio.SoundEffect.Category.helicopters,Helicopters
+ ,Helicopters,Studio.Toolbox.General.CategoryCreationsGroupSweaterAccessory,Group Sweater Accessories
+ ,Group Sweater Accessories,Studio.Toolbox.AssetConfigPackagePermissions.PackageDetails,Package Details
+ ,Package Details,Studio.Toolbox.Audio.SoundEffect.Category.Bus,Bus
+ ,Bus,Studio.Toolbox.General.CategoryCreationsGroupShortsAccessory,Group Shorts Accessories
  ,Group Shorts Accessories,Studio.Toolbox.General.CategoryCreationsGroupLeftShoeAccessory,Group Left Shoe Accessories
  ,Group Left Shoe Accessories,Studio.Toolbox.General.CategoryCreationsGroupRightShoeAccessory,Group Right Shoe Accessories
- ,Group Right Shoe Accessories,Studio.Toolbox.Audio.SoundEffect.Category.impact,Impact
- ,Impact,Studio.Toolbox.General.AssetTypeShoulderAccessory,Shoulder Accessory
+ ,Group Right Shoe Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Clapping,Clapping
+ ,Clapping,Studio.Toolbox.Audio.SoundEffect.Category.impact,Impact
+ ,Impact,Studio.Toolbox.Audio.SoundEffect.Category.Sneeze,Sneeze
+ ,Sneeze,Studio.Toolbox.General.AssetTypeShoulderAccessory,Shoulder Accessory
  ,Shoulder Accessory,Studio.Toolbox.Audio.SoundEffect.Category.combustion,Combustion
  ,Combustion,Studio.Toolbox.General.CategoryCreationsGroupDressSkirtAccessory,Group Dress Skirt Accessories
  ,Group Dress Skirt Accessories,Studio.Toolbox.General.TabCreations,Creations
  ,Creations,Studio.Toolbox.General.RightClickMenuCopyAssetID,Copy Asset ID
  ,Copy Asset ID,Studio.Toolbox.General.RightClickMenuCopyMeshID,Copy Mesh ID
  ,Copy Mesh ID,Studio.Toolbox.General.RightClickMenuViewInBrowser,View In Browser
- ,View In Browser,Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset
- ,Configure asset,Studio.Toolbox.Purchase.FreeSuccessHeader,Installation Complete!
- ,Installation Complete!,Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset
+ ,View In Browser,Studio.Toolbox.Purchase.FreeSuccessHeader,Installation Complete!
+ ,Installation Complete!,Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset
+ ,Configure asset,Studio.Toolbox.Audio.SoundEffect.Category.Mallet percussion,Mallet percussion
+ ,Mallet percussion,"Studio.Toolbox.Audio.SoundEffect.Category.Gunshot, gunfire","Gunshot, gunfire"
+ ,"Gunshot, gunfire",Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset
  ,Edit Asset,Studio.Toolbox.General.RightClickMenuReport,Report
  ,Report,Studio.Toolbox.Audio.SoundEffect.Category.flowing,Flowing
  ,Flowing,Studio.Toolbox.Audio.SoundEffect.Category.radio-fx,Radio FX
- ,Radio FX,Studio.Toolbox.General.StatusReviewPending,In Review
+ ,Radio FX,Studio.Toolbox.Audio.SoundEffect.Category.Air conditioning,Air conditioning
+ ,Air conditioning,Studio.Toolbox.AssetUploadResult.Back,Back
+ ,Back,Studio.Toolbox.General.StatusReviewPending,In Review
  ,In Review,Studio.Toolbox.ThumbnailStatus.InReview,In Review
- ,In Review,Studio.Toolbox.AssetUploadResult.Back,Back
- ,Back,Studio.Toolbox.Audio.SoundEffect.Category.marine,Marine
- ,Marine,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaRemaining2,{remaining} shares left through {date}.
- ,{remaining} shares left through {date}.,Studio.Toolbox.Audio.SoundEffect.Category.crowds,Crowds
- ,Crowds,Studio.Toolbox.General.StatusModerated,Rejected
- ,Rejected,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale
+ ,In Review,Studio.Toolbox.Audio.SoundEffect.Category.crowds,Crowds
+ ,Crowds,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaRemaining2,{remaining} shares left through {date}.
+ ,{remaining} shares left through {date}.,Studio.Toolbox.Audio.SoundEffect.Category.marine,Marine
+ ,Marine,Studio.Toolbox.General.StatusModerated,Rejected
+ ,Rejected,Studio.Toolbox.Audio.SoundEffect.Category.Cat,Cat
+ ,Cat,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale
  ,Ready For Sale,Studio.Toolbox.General.StatusReviewApproved,Ready For Sale
  ,Ready For Sale,Studio.Toolbox.General.StatusOffSale,Off Sale
- ,Off Sale,Studio.Toolbox.General.StatusUnknown,Unknown
- ,Unknown,Studio.Toolbox.General.SalesOffsale,Offsale
- ,Offsale,Studio.Toolbox.General.SalesFreePrice,"To set the asset as free, enter 0."
+ ,Off Sale,Studio.Toolbox.General.SalesOffsale,Offsale
+ ,Offsale,Studio.Toolbox.General.StatusUnknown,Unknown
+ ,Unknown,Studio.Toolbox.General.SalesFreePrice,"To set the asset as free, enter 0."
  ,"To set the asset as free, enter 0.",Studio.Toolbox.General.AssetTypeModel,Model
  ,Model,Studio.Toolbox.General.AssetTypeDecal,Decal
- ,Decal,Studio.Toolbox.ThumbnailStatus.Pending,Pending
- ,Pending,Studio.Toolbox.General.AssetTypeMesh,Mesh
- ,Mesh,Studio.Toolbox.General.AssetTypeShortsAccessory,Shorts Accessory
- ,Shorts Accessory,Studio.Toolbox.General.AssetTypeHat,Hat
- ,Hat,Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt
+ ,Decal,Studio.Toolbox.Audio.SoundEffect.Category.Foghorn,Foghorn
+ ,Foghorn,Studio.Toolbox.ThumbnailStatus.Pending,Pending
+ ,Pending,Studio.Toolbox.Audio.SoundEffect.Category.Child singing,Child singing
+ ,Child singing,Studio.Toolbox.General.AssetTypeShortsAccessory,Shorts Accessory
+ ,Shorts Accessory,Studio.Toolbox.General.AssetTypeMesh,Mesh
+ ,Mesh,Studio.Toolbox.General.AssetTypeHat,Hat
+ ,Hat,Studio.Toolbox.Audio.SoundEffect.Category.A capella,A capella
+ ,A capella,Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt
  ,T-Shirt,Studio.Toolbox.General.AssetTypeShirt,Shirt
  ,Shirt,Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory
- ,Face Accessory,Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory
- ,Neck Accessory,Studio.Toolbox.ScriptWarning.InstructionText2,You can disable scripts by right-clicking in Explorer.
- ,You can disable scripts by right-clicking in Explorer.,Studio.Toolbox.Audio.SoundEffect.Category.elevators,Elevators
- ,Elevators,Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory
+ ,Face Accessory,Studio.Toolbox.ScriptWarning.InstructionText2,You can disable scripts by right-clicking in Explorer.
+ ,You can disable scripts by right-clicking in Explorer.,"Studio.Toolbox.Audio.SoundEffect.Category.Burping, eructation","Burping, eructation"
+ ,"Burping, eructation",Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory
+ ,Neck Accessory,Studio.Toolbox.Audio.SoundEffect.Category.elevators,Elevators
+ ,Elevators,Studio.Toolbox.Audio.SoundEffect.Category.Field recording,Field recording
+ ,Field recording,Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory
  ,Back Accessory,Studio.Toolbox.General.AssetTypeShirtAccessory,Shirt Accessory
  ,Shirt Accessory,Studio.Toolbox.General.AssetTypePantsAccessory,Pants Accessory
  ,Pants Accessory,Studio.Toolbox.General.AssetTypeJacketAccessory,Jacket Accessory
  ,Jacket Accessory,Studio.Toolbox.AssetConfigSharing.VerifyCurrentLimit,Current limit: {quotaText}
  ,Current limit: {quotaText},Studio.Toolbox.General.AssetTypeSweaterAccessory,Sweater Accessory
  ,Sweater Accessory,Studio.Toolbox.General.AssetTypeLeftShoeAccessory,Left Shoe Accessory
- ,Left Shoe Accessory,Studio.Toolbox.Audio.SoundEffect.Category.sea-animals,Sea Animals
- ,Sea Animals,Studio.Toolbox.General.AssetTypeDressSkirtAccessory,Dress Skirt Accessory
- ,Dress Skirt Accessory,Studio.Toolbox.Audio.SoundEffect.Category.beasts,Beasts
- ,Beasts,Studio.Toolbox.Audio.Music.Genre.classical,Classical
- ,Classical,Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?
+ ,Left Shoe Accessory,Studio.Toolbox.Audio.SoundEffect.Category.beasts,Beasts
+ ,Beasts,Studio.Toolbox.General.AssetTypeDressSkirtAccessory,Dress Skirt Accessory
+ ,Dress Skirt Accessory,Studio.Toolbox.Audio.SoundEffect.Category.sea-animals,Sea Animals
+ ,Sea Animals,Studio.Toolbox.Audio.Music.Genre.classical,Classical
+ ,Classical,Studio.Toolbox.Audio.SoundEffect.Category.Moo,Moo
+ ,Moo,Studio.Toolbox.Audio.SoundEffect.Category.Gospel music,Gospel music
+ ,Gospel music,Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?
  ,Would you like to discard all changes?,Studio.Toolbox.General.Discard,Discard
- ,Discard,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?
- ,Can’t find what you’re looking for?,Studio.Toolbox.General.Title,Title
- ,Title,Studio.Toolbox.General.Description,Description
- ,Description,Studio.Toolbox.General.Tags,Tags
+ ,Discard,Studio.Toolbox.Audio.SoundEffect.Category.Wood block,Wood block
+ ,Wood block,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?
+ ,Can’t find what you’re looking for?,"Studio.Toolbox.Audio.SoundEffect.Category.Crumpling, crinkling","Crumpling, crinkling"
+ ,"Crumpling, crinkling",Studio.Toolbox.General.Description,Description
+ ,Description,Studio.Toolbox.General.Title,Title
+ ,Title,Studio.Toolbox.General.Tags,Tags
  ,Tags,Studio.Toolbox.General.Genre,Genre
  ,Genre,Studio.Toolbox.Audio.Music.Genre.dance-traditional,Dance Traditional
  ,Dance Traditional,Studio.Toolbox.General.Copy,Allow Copying
- ,Allow Copying,Studio.Toolbox.General.Comments,Allow Comments
- ,Allow Comments,Studio.Toolbox.Audio.SoundEffect.Category.buzzers,Buzzers
- ,Buzzers,Studio.Toolbox.AssetConfigSharing.PublicDisabledLinkText,Learn more
+ ,Allow Copying,Studio.Toolbox.Audio.SoundEffect.Category.Theme music,Theme music
+ ,Theme music,Studio.Toolbox.Audio.SoundEffect.Category.buzzers,Buzzers
+ ,Buzzers,Studio.Toolbox.General.Comments,Allow Comments
+ ,Allow Comments,Studio.Toolbox.AssetConfigSharing.PublicDisabledLinkText,Learn more
  ,Learn more,Studio.Toolbox.General.LearnMore,Learn more
- ,Learn more,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarningAllVersions,Group roles that have not been assigned in Group Configuration can be set here. Permissions set here affect all users with the group role for all versions of this package.
- ,Group roles that have not been assigned in Group Configuration can be set here. Permissions set here affect all users with the group role for all versions of this package.,Studio.Toolbox.Audio.SoundEffect.Category.wingflaps,Wingflaps
- ,Wingflaps,Studio.Toolbox.General.AdditionalImages,Additional Images
- ,Additional Images,Studio.Toolbox.General.Me,Me
- ,Me,Studio.Toolbox.General.Proceed,Proceed
+ ,Learn more,Studio.Toolbox.Audio.SoundEffect.Category.Shuffling cards,Shuffling cards
+ ,Shuffling cards,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarningAllVersions,Group roles that have not been assigned in Group Configuration can be set here. Permissions set here affect all users with the group role for all versions of this package.
+ ,Group roles that have not been assigned in Group Configuration can be set here. Permissions set here affect all users with the group role for all versions of this package.,Studio.Toolbox.General.AdditionalImages,Additional Images
+ ,Additional Images,Studio.Toolbox.Audio.SoundEffect.Category.wingflaps,Wingflaps
+ ,Wingflaps,"Studio.Toolbox.Audio.SoundEffect.Category.Accelerating, revving, vroom","Accelerating, revving, vroom"
+ ,"Accelerating, revving, vroom",Studio.Toolbox.General.Me,Me
+ ,Me,Studio.Toolbox.Audio.SoundEffect.Category.Patter,Patter
+ ,Patter,Studio.Toolbox.General.Proceed,Proceed
  ,Proceed,Studio.Toolbox.General.AssetType,Asset type
- ,Asset type,Studio.Toolbox.Audio.SoundEffect.Category.gliders,Gliders
+ ,Asset type,Studio.Toolbox.Audio.SoundEffect.Category.Caterwaul,Caterwaul
+ ,Caterwaul,Studio.Toolbox.Audio.SoundEffect.Category.gliders,Gliders
  ,Gliders,Studio.Toolbox.General.SalesSale,Sale
  ,Sale,Studio.Toolbox.General.SalesMinimumPrice,The minimum price for this item type is {minPrice}.
- ,The minimum price for this item type is {minPrice}.,Studio.Toolbox.General.SalesPrice,Price
+ ,The minimum price for this item type is {minPrice}.,Studio.Toolbox.Audio.SoundEffect.Category.Throbbing,Throbbing
+ ,Throbbing,Studio.Toolbox.General.SalesPrice,Price
  ,Price,Studio.Toolbox.Audio.SoundEffect.Category.insects,Insects
- ,Insects,Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}
- ,Price range: {minPrice} - {maxPrice},Studio.Toolbox.General.SalesMaxPrice,The maximum price for this item type is {maxPrice}
+ ,Insects,Studio.Toolbox.Audio.SoundEffect.Category.Crackle,Crackle
+ ,Crackle,Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}
+ ,Price range: {minPrice} - {maxPrice},"Studio.Toolbox.Audio.SoundEffect.Category.Wind instrument, woodwind instrument","Wind instrument, woodwind instrument"
+ ,"Wind instrument, woodwind instrument",Studio.Toolbox.General.SalesMaxPrice,The maximum price for this item type is {maxPrice}
  ,The maximum price for this item type is {maxPrice},Studio.Toolbox.ScriptWarning.DontShowAgain,Don't show this again.
- ,Don't show this again.,Studio.Toolbox.General.SalesVerification,Your account must be verified in order to set a price for your plugin.
+ ,Don't show this again.,Studio.Toolbox.Audio.SoundEffect.Category.New-age music,New-age music
+ ,New-age music,Studio.Toolbox.General.SalesVerification,Your account must be verified in order to set a price for your plugin.
  ,Your account must be verified in order to set a price for your plugin.,Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset...
  ,Overwrite an existing asset...,Studio.Toolbox.General.SideTabVersions,Versions
- ,Versions,Studio.Toolbox.General.SideTabGeneral,General
- ,General,Studio.Toolbox.Audio.SoundEffect.Category.alarms,Alarms
- ,Alarms,Studio.Toolbox.HomeView.newest,Newest
+ ,Versions,Studio.Toolbox.Audio.SoundEffect.Category.alarms,Alarms
+ ,Alarms,Studio.Toolbox.Audio.SoundEffect.Category.Medium engine (mid frequency),Medium engine (mid frequency)
+ ,Medium engine (mid frequency),Studio.Toolbox.General.SideTabGeneral,General
+ ,General,Studio.Toolbox.HomeView.newest,Newest
  ,Newest,Studio.Toolbox.General.SideTabPermissions,Permissions
- ,Permissions,Studio.Toolbox.General.TermsOfUse,Terms of use
- ,Terms of use,Studio.Toolbox.Audio.SoundEffect.Category.rain,Rain
- ,Rain,Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}
+ ,Permissions,Studio.Toolbox.Audio.SoundEffect.Category.Whimper,Whimper
+ ,Whimper,Studio.Toolbox.General.TermsOfUse,Terms of use
+ ,Terms of use,Studio.Toolbox.Audio.SoundEffect.Category.Typing,Typing
+ ,Typing,Studio.Toolbox.Audio.SoundEffect.Category.Rain,Rain
+ ,Rain,Studio.Toolbox.Audio.SoundEffect.Category.rain,Rain
+ ,Rain,"Studio.Toolbox.Audio.SoundEffect.Category.Bird flight, flapping wings","Bird flight, flapping wings"
+ ,"Bird flight, flapping wings",Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}
  ,Asset ID: {assetId},Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}
  ,Status: {assetStatus},Studio.Toolbox.General.InstallSuccess,Success!
- ,Success!,Studio.Toolbox.Audio.SoundEffect.Category.sliding,Sliding
- ,Sliding,Studio.Toolbox.Audio.SoundEffect.Category.breathing,Breathing
+ ,Success!,Studio.Toolbox.Audio.SoundEffect.Category.Cap gun,Cap gun
+ ,Cap gun,Studio.Toolbox.Audio.SoundEffect.Category.sliding,Sliding
+ ,Sliding,Studio.Toolbox.Audio.SoundEffect.Category.Breathing,Breathing
+ ,Breathing,Studio.Toolbox.Audio.SoundEffect.Category.breathing,Breathing
  ,Breathing,Studio.Toolbox.General.InstallFailure,Failure
  ,Failure,Studio.Toolbox.General.HasScripts,Has scripts
  ,Has scripts,Studio.Toolbox.General.PackagesUpdateable,Updateable
@@ -349,206 +463,280 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code.",Studio.Toolbox.AssetConfigCopy.TemporarilyDisabledMessage,Marketplace publishing is unavailable at this time. Please check back later.
  ,Marketplace publishing is unavailable at this time. Please check back later.,Studio.Toolbox.AssetConfigCopy.DistributeToMarketplaceAsPackageWarning,Distributing this updateable asset to marketplace will give all users use and view access.
  ,Distributing this updateable asset to marketplace will give all users use and view access.,Studio.Toolbox.AudioView.Album,Album
- ,Album,Studio.Toolbox.AssetConfigPackage.CantConvertMultipleInstancesWarning,Cannot convert to package unless package has a single root instance.
- ,Cannot convert to package unless package has a single root instance.,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux
- ,Insufficient Robux,Studio.Toolbox.AssetConfigPackage.CantConvertIfChildPackageHasUnpublishedChangesWarning,Cannot convert to package while the instance contains packages with unpublished changes.
- ,Cannot convert to package while the instance contains packages with unpublished changes.,Studio.Toolbox.Audio.SoundEffect.Category.fire,Fire
- ,Fire,Studio.Toolbox.AssetConfigPackage.Non3DRoot3DDescendentsWarning,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package."
+ ,Album,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux
+ ,Insufficient Robux,Studio.Toolbox.AssetConfigPackage.CantConvertMultipleInstancesWarning,Cannot convert to package unless package has a single root instance.
+ ,Cannot convert to package unless package has a single root instance.,Studio.Toolbox.Audio.SoundEffect.Category.Fire,Fire
+ ,Fire,Studio.Toolbox.Audio.SoundEffect.Category.fire,Fire
+ ,Fire,"Studio.Toolbox.Audio.SoundEffect.Category.Sailboat, sailing ship","Sailboat, sailing ship"
+ ,"Sailboat, sailing ship",Studio.Toolbox.AssetConfigPackage.CantConvertIfChildPackageHasUnpublishedChangesWarning,Cannot convert to package while the instance contains packages with unpublished changes.
+ ,Cannot convert to package while the instance contains packages with unpublished changes.,Studio.Toolbox.AssetConfigPackage.Non3DRoot3DDescendentsWarning,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package."
  ,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.",Studio.Toolbox.AssetConfigPreview.Change,Change
- ,Change,Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot be made public at this time. Please check back at a later date.
+ ,Change,Studio.Toolbox.Audio.SoundEffect.Category.Writing,Writing
+ ,Writing,Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot be made public at this time. Please check back at a later date.
  ,Audio files cannot be made public at this time. Please check back at a later date.,Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
- ,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.Audio.SoundEffect.Category.breaking,Breaking
+ ,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.Audio.SoundEffect.Category.Breaking,Breaking
+ ,Breaking,Studio.Toolbox.Audio.SoundEffect.Category.breaking,Breaking
  ,Breaking,Studio.Toolbox.AssetConfigSharing.PublicAllExperiences,Public - All Experiences
  ,Public - All Experiences,Studio.Toolbox.AssetConfigSharing.AllExperiences,All Experiences
- ,All Experiences,Studio.Toolbox.Audio.SoundEffect.Category.rockets,Rockets
- ,Rockets,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
- ,Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
+ ,All Experiences,"Studio.Toolbox.Audio.SoundEffect.Category.Inside, public space","Inside, public space"
+ ,"Inside, public space",Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
+ ,Anyone on Roblox,Studio.Toolbox.Audio.SoundEffect.Category.rockets,Rockets
+ ,Rockets,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
  ,Check Status,Studio.Toolbox.AssetConfigSharing.VerifyReason1,Maximize discoverability
  ,Maximize discoverability,Studio.Toolbox.Audio.SoundEffect.Category.spaceships,Spaceships
  ,Spaceships,Studio.Toolbox.AssetConfigSharing.ExperiencesWithAccess,Experiences with access
  ,Experiences with access,Studio.Toolbox.AssetConfigSharing.PrivateInformationVersionTwo,You can grant permissions to specific experiences on web asset configuration.
- ,You can grant permissions to specific experiences on web asset configuration.,Studio.Toolbox.AssetConfigSharing.PrivateInformationLinkText,Manage permissions
- ,Manage permissions,Studio.Toolbox.Audio.SoundEffect.Category.technical,Technical
- ,Technical,Studio.Toolbox.Audio.SoundEffect.Category.p-a-,P.A.
- ,P.A.,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
+ ,You can grant permissions to specific experiences on web asset configuration.,Studio.Toolbox.Audio.SoundEffect.Category.Harpsichord,Harpsichord
+ ,Harpsichord,Studio.Toolbox.AssetConfigSharing.PrivateInformationLinkText,Manage permissions
+ ,Manage permissions,Studio.Toolbox.Audio.SoundEffect.Category.p-a-,P.A.
+ ,P.A.,Studio.Toolbox.Audio.SoundEffect.Category.technical,Technical
+ ,Technical,Studio.Toolbox.Audio.SoundEffect.Category.Drum roll,Drum roll
+ ,Drum roll,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
  ,Are you sure?,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with Anyone on Roblox, you cannot set it back to private."
  ,"Once shared with Anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnavailable,Marketplace sharing has been temporarily disabled.
- ,Marketplace sharing has been temporarily disabled.,Studio.Toolbox.AudioView.AlbumArtist,Album/Artist
- ,Album/Artist,Studio.Toolbox.Audio.SoundEffect.Category.guns,Guns
- ,Guns,Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
- ,You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.AudioView.UploadedBy,Uploaded By
- ,Uploaded By,Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins
+ ,Marketplace sharing has been temporarily disabled.,Studio.Toolbox.Audio.SoundEffect.Category.guns,Guns
+ ,Guns,Studio.Toolbox.Audio.SoundEffect.Category.Clip-clop,Clip-clop
+ ,Clip-clop,"Studio.Toolbox.Audio.SoundEffect.Category.Dishes, pots, and pans","Dishes, pots, and pans"
+ ,"Dishes, pots, and pans",Studio.Toolbox.AudioView.AlbumArtist,Album/Artist
+ ,Album/Artist,Studio.Toolbox.Audio.SoundEffect.Category.Mosquito,Mosquito
+ ,Mosquito,Studio.Toolbox.AudioView.UploadedBy,Uploaded By
+ ,Uploaded By,Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
+ ,You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins
  ,Group Plugins,Studio.Toolbox.Audio.SoundEffect.Category.fans-air-conditioning,Fans & Air Conditioning
  ,Fans & Air Conditioning,Studio.Toolbox.AssetConfigSharing.PrivateSpecificExperiences,Private - Specific Experiences
- ,Private - Specific Experiences,Studio.Toolbox.Audio.SoundEffect.Category.movement,Movement
- ,Movement,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences
- ,Specific Experiences,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
+ ,Private - Specific Experiences,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences
+ ,Specific Experiences,Studio.Toolbox.Audio.SoundEffect.Category.movement,Movement
+ ,Movement,Studio.Toolbox.Audio.SoundEffect.Category.Shofar,Shofar
+ ,Shofar,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
  ,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status.",Studio.Toolbox.General.CategoryVideos,Videos
- ,Videos,Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account
- ,ID Verify your account,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnused2,Share up to {capacity} assets per {days} days.
- ,Share up to {capacity} assets per {days} days.,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoLink,How many assets can I publish to the Creator Marketplace?
+ ,Videos,"Studio.Toolbox.Audio.SoundEffect.Category.Trickle, dribble","Trickle, dribble"
+ ,"Trickle, dribble",Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account
+ ,ID Verify your account,Studio.Toolbox.Audio.SoundEffect.Category.Tabla,Tabla
+ ,Tabla,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnused2,Share up to {capacity} assets per {days} days.
+ ,Share up to {capacity} assets per {days} days.,Studio.Toolbox.Audio.SoundEffect.Category.Owl,Owl
+ ,Owl,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoLink,How many assets can I publish to the Creator Marketplace?
  ,How many assets can I publish to the Creator Marketplace?,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
  ,"For more plugins, try searching in the {link} on our website.",Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaExhausted1,Sharing limit exceeded. Try again on {dateTime}.
  ,Sharing limit exceeded. Try again on {dateTime}.,Studio.Toolbox.AssetConfigSharing.VerifyYourAccount,Verify your account
- ,Verify your account,Studio.Toolbox.AssetConfigSharing.VerifyReason2,Increase Marketplace publishing limit
- ,Increase Marketplace publishing limit,Studio.Toolbox.AssetConfigVersions.Current,Current published version
- ,Current published version,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
- ,Restore previous version,Studio.Toolbox.Audio.SoundEffect.Category.electric,Electric
- ,Electric,Studio.Toolbox.Audio.SoundEffect.Category.flying,Flying
- ,Flying,Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page.
- ,There was an problem fetching asset data. We will be closing AssetConfig page.,Studio.Toolbox.AssetConfig.Error,Error
+ ,Verify your account,Studio.Toolbox.Audio.SoundEffect.Category.Hiss,Hiss
+ ,Hiss,Studio.Toolbox.Audio.SoundEffect.Category.Chopping (food),Chopping (food)
+ ,Chopping (food),Studio.Toolbox.AssetConfigSharing.VerifyReason2,Increase Marketplace publishing limit
+ ,Increase Marketplace publishing limit,"Studio.Toolbox.Audio.SoundEffect.Category.Propeller, airscrew","Propeller, airscrew"
+ ,"Propeller, airscrew",Studio.Toolbox.AssetConfigVersions.Current,Current published version
+ ,Current published version,Studio.Toolbox.Audio.SoundEffect.Category.flying,Flying
+ ,Flying,Studio.Toolbox.Audio.SoundEffect.Category.Growling,Growling
+ ,Growling,Studio.Toolbox.Audio.SoundEffect.Category.Ska,Ska
+ ,Ska,Studio.Toolbox.Audio.SoundEffect.Category.electric,Electric
+ ,Electric,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
+ ,Restore previous version,Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page.
+ ,There was an problem fetching asset data. We will be closing AssetConfig page.,Studio.Toolbox.Audio.SoundEffect.Category.Jingle bell,Jingle bell
+ ,Jingle bell,Studio.Toolbox.AssetConfig.Error,Error
  ,Error,Studio.Toolbox.ThumbnailStatus.Error,Error
  ,Error,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!
- ,Successfully submitted!,Studio.Toolbox.Audio.SoundEffect.Category.pumps,Pumps
- ,Pumps,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner
- ,Package Owner,Studio.Toolbox.Audio.SoundEffect.Category.wagons,Wagons
- ,Wagons,Studio.Toolbox.Audio.Music,Music
- ,Music,Studio.Toolbox.Audio.SoundEffect.Browse,Browse by Category
- ,Browse by Category,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner
+ ,Successfully submitted!,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner
+ ,Package Owner,Studio.Toolbox.Audio.SoundEffect.Category.Pant,Pant
+ ,Pant,Studio.Toolbox.Audio.SoundEffect.Category.pumps,Pumps
+ ,Pumps,Studio.Toolbox.Audio.SoundEffect.Browse,Browse by Category
+ ,Browse by Category,Studio.Toolbox.Audio.Music,Music
+ ,Music,Studio.Toolbox.Audio.SoundEffect.Category.Music,Music
+ ,Music,Studio.Toolbox.Audio.SoundEffect.Category.wagons,Wagons
+ ,Wagons,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner
  ,Owner,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner
  ,Owner,Studio.Toolbox.Audio.SoundEffect.Category.tires,Tires
  ,Tires,Studio.Toolbox.Audio.Music.Genre.ethnic-folk,Ethnic Folk
- ,Ethnic Folk,Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with
- ,Share with,Studio.Toolbox.Audio.SoundEffect.Category.rodents,Rodents
- ,Rodents,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access
- ,No Access,Studio.Toolbox.Audio.SoundEffect.Category.plastic,Plastic
- ,Plastic,Studio.Toolbox.Audio.SoundEffect.Category.burps,Burps
- ,Burps,Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View
+ ,Ethnic Folk,Studio.Toolbox.Audio.SoundEffect.Category.Explosion,Explosion
+ ,Explosion,Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with
+ ,Share with,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access
+ ,No Access,Studio.Toolbox.Audio.SoundEffect.Category.rodents,Rodents
+ ,Rodents,Studio.Toolbox.Audio.SoundEffect.Category.Tuning fork,Tuning fork
+ ,Tuning fork,Studio.Toolbox.Audio.SoundEffect.Category.burps,Burps
+ ,Burps,Studio.Toolbox.Audio.SoundEffect.Category.plastic,Plastic
+ ,Plastic,Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View
  ,Use & View,Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit
  ,Edit,Studio.Toolbox.Audio.Music.Genre.country,Country
+ ,Country,Studio.Toolbox.Audio.SoundEffect.Category.Country,Country
  ,Country,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library
+ ,Word(s) not found in the tag library,Studio.Toolbox.Tags.NoTagFound,Word(s) not found in the tag library
  ,Word(s) not found in the tag library,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple)
- ,(Multiple),Studio.Toolbox.InsertTool.DialogTitle,Insert Tool
- ,Insert Tool,Studio.Toolbox.AssetConfigPackagePermissions.LockedGroup,"To change access for the \"{roleName}\" role, visit the Configure Group page on the website."
- ,"To change access for the \"{roleName}\" role, visit the Configure Group page on the website.",Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package"
+ ,(Multiple),Studio.Toolbox.AssetConfigPackagePermissions.LockedGroup,"To change access for the \"{roleName}\" role, visit the Configure Group page on the website."
+ ,"To change access for the \"{roleName}\" role, visit the Configure Group page on the website.",Studio.Toolbox.InsertTool.DialogTitle,Insert Tool
+ ,Insert Tool,Studio.Toolbox.Audio.SoundEffect.Category.Groan,Groan
+ ,Groan,Studio.Toolbox.Audio.SoundEffect.Category.Scrape,Scrape
+ ,Scrape,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package"
  ,"Cannot use, view or edit this package",Studio.Toolbox.Announcement.Header_Default,Announcement
  ,Announcement,Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package"
- ,"Can use, view and edit this package",Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends
- ,Friends,Studio.Toolbox.Audio.Music.Genre.blues,Blues
- ,Blues,Studio.Toolbox.Audio.SoundEffect.Category.human,Human
- ,Human,Studio.Toolbox.Announcement.Header_02-28-2023,New Search Improvements!
- ,New Search Improvements!,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked
- ,Blocked,Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users
+ ,"Can use, view and edit this package","Studio.Toolbox.Audio.SoundEffect.Category.Marimba, xylophone","Marimba, xylophone"
+ ,"Marimba, xylophone",Studio.Toolbox.Audio.SoundEffect.Category.human,Human
+ ,Human,Studio.Toolbox.Audio.Music.Genre.blues,Blues
+ ,Blues,Studio.Toolbox.Audio.SoundEffect.Category.Blues,Blues
+ ,Blues,Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends
+ ,Friends,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked
+ ,Blocked,Studio.Toolbox.Announcement.Header_02-28-2023,New Search Improvements!
+ ,New Search Improvements!,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
+ ,Package Creator,Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users
  ,Users,Studio.Toolbox.General.CategoryGroupAnimations,Group Animations
- ,Group Animations,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
- ,Package Creator,Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups
- ,Groups,Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends
- ,My Friends,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators
- ,You cannot add more than {maxNumCollaborators:int} collaborators,Studio.Toolbox.AssetConfig.PublishAssetDialogHeading,This model contains private assets
- ,This model contains private assets,Studio.Toolbox.Audio.SoundEffect.Category.diesel,Diesel
- ,Diesel,Studio.Toolbox.AssetConfig.PublishAssetDialogDescription,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish."
+ ,Group Animations,Studio.Toolbox.Audio.SoundEffect.Category.Ambulance (siren),Ambulance (siren)
+ ,Ambulance (siren),Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups
+ ,Groups,"Studio.Toolbox.Audio.SoundEffect.Category.Subway, metro, underground","Subway, metro, underground"
+ ,"Subway, metro, underground",Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends
+ ,My Friends,Studio.Toolbox.Audio.SoundEffect.Category.Snare drum,Snare drum
+ ,Snare drum,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators
+ ,You cannot add more than {maxNumCollaborators:int} collaborators,Studio.Toolbox.Audio.SoundEffect.Category.diesel,Diesel
+ ,Diesel,Studio.Toolbox.AssetConfig.PublishAssetDialogHeading,This model contains private assets
+ ,This model contains private assets,Studio.Toolbox.Audio.SoundEffect.Category.Theremin,Theremin
+ ,Theremin,Studio.Toolbox.AssetConfig.PublishAssetDialogDescription,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish."
  ,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish.",Studio.Toolbox.AssetConfig.PublishAssetDialogPublish,Publish
  ,Publish,Studio.Toolbox.Audio.SoundEffect.Category.cloth,Cloth
  ,Cloth,Studio.Toolbox.AssetConfig.PublishPluginHeader,Publish as Plugin
  , Publish as Plugin,Studio.Toolbox.AssetConfig.ModelPublishWarning,Any private audio in your model will not be playable.
- , Any private audio in your model will not be playable.,Studio.Toolbox.Audio.SoundEffect.Category.horns,Horns
- ,Horns,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
- ,Your current balance:,Studio.Toolbox.Audio.SoundEffect.Category.aircraft,Aircraft
- ,Aircraft,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
+ , Any private audio in your model will not be playable.,"Studio.Toolbox.Audio.SoundEffect.Category.Water tap, faucet","Water tap, faucet"
+ ,"Water tap, faucet",Studio.Toolbox.Audio.SoundEffect.Category.horns,Horns
+ ,Horns,Studio.Toolbox.Audio.SoundEffect.Category.Rattle (instrument),Rattle (instrument)
+ ,Rattle (instrument),Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
+ ,Aircraft,Studio.Toolbox.Audio.SoundEffect.Category.aircraft,Aircraft
+ ,Aircraft,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
+ ,Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
  ,You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Retry,Retry
- ,Retry,Studio.Toolbox.Purchase.Buy,Buy
- ,Buy,Studio.Toolbox.Audio.SoundEffect.Category.glass,Glass
- ,Glass,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin
- ,Buy & Install Plugin,Studio.Toolbox.Purchase.FailedHeader,Purchase failed
- ,Purchase failed,Studio.Toolbox.Purchase.Free,FREE
- ,FREE,Studio.Toolbox.Audio.SoundEffect.Category.room-tone,Room Tone
- ,Room Tone,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}."
- ,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.",Studio.Toolbox.Audio.SoundEffect.Category.glassware,Glassware
- ,Glassware,Studio.Toolbox.Audio.SoundEffect.Category.leather,Leather
- ,Leather,Studio.Toolbox.General.Free,Free
+ ,Retry,Studio.Toolbox.Audio.SoundEffect.Category.Glass,Glass
+ ,Glass,Studio.Toolbox.Audio.SoundEffect.Category.glass,Glass
+ ,Glass,Studio.Toolbox.Purchase.Buy,Buy
+ ,Buy,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin
+ ,Buy & Install Plugin,Studio.Toolbox.Audio.SoundEffect.Category.Hammer,Hammer
+ ,Hammer,Studio.Toolbox.Purchase.FailedHeader,Purchase failed
+ ,Purchase failed,"Studio.Toolbox.Audio.SoundEffect.Category.Hubbub, speech noise, speech babble","Hubbub, speech noise, speech babble"
+ ,"Hubbub, speech noise, speech babble",Studio.Toolbox.Audio.SoundEffect.Category.Snoring,Snoring
+ ,Snoring,Studio.Toolbox.Purchase.Free,FREE
+ ,FREE,Studio.Toolbox.Audio.SoundEffect.Category.leather,Leather
+ ,Leather,Studio.Toolbox.Audio.SoundEffect.Category.glassware,Glassware
+ ,Glassware,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}."
+ ,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.",Studio.Toolbox.Audio.SoundEffect.Category.room-tone,Room Tone
+ ,Room Tone,Studio.Toolbox.General.Free,Free
  ,Free,Studio.Toolbox.Audio.SoundEffect.Category.chairs,Chairs
  ,Chairs,Studio.Toolbox.General.Installing,Installing
- ,Installing,Studio.Toolbox.AssetConfigAdditionalImages.AspectRatio,Images will be displayed at {widthRatio}:{heightRatio}
- ,Images will be displayed at {widthRatio}:{heightRatio},Studio.Toolbox.Audio.SoundEffect.Category.fireworks,Fireworks
- ,Fireworks,Studio.Toolbox.Audio.SoundEffect.Category.bys,Bys
- ,Bys,Studio.Toolbox.AssetConfigAdditionalImages.ImageTypes,Acceptable image files: {imageTypes}
+ ,Installing,Studio.Toolbox.Audio.SoundEffect.Category.Fireworks,Fireworks
+ ,Fireworks,Studio.Toolbox.Audio.SoundEffect.Category.fireworks,Fireworks
+ ,Fireworks,Studio.Toolbox.AssetConfigAdditionalImages.AspectRatio,Images will be displayed at {widthRatio}:{heightRatio}
+ ,Images will be displayed at {widthRatio}:{heightRatio},Studio.Toolbox.Audio.SoundEffect.Category.bys,Bys
+ ,Bys,"Studio.Toolbox.Audio.SoundEffect.Category.Motorboat, speedboat","Motorboat, speedboat"
+ ,"Motorboat, speedboat",Studio.Toolbox.Audio.SoundEffect.Category.Carnatic music,Carnatic music
+ ,Carnatic music,Studio.Toolbox.AssetConfigAdditionalImages.ImageTypes,Acceptable image files: {imageTypes}
  ,Acceptable image files: {imageTypes},Studio.Toolbox.AssetConfigAdditionalImages.RecommendedImageSize,Recommended image size: {width}x{height} px
- ,Recommended image size: {width}x{height} px,Studio.Toolbox.AssetConfigAdditionalImages.SelectLimit,You can select up to {limit} screenshots
- ,You can select up to {limit} screenshots,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
+ ,Recommended image size: {width}x{height} px,Studio.Toolbox.Audio.SoundEffect.Category.Music of Africa,Music of Africa
+ ,Music of Africa,Studio.Toolbox.AssetConfigAdditionalImages.SelectLimit,You can select up to {limit} screenshots
+ ,You can select up to {limit} screenshots,Studio.Toolbox.Audio.SoundEffect.Category.Traditional music,Traditional music
+ ,Traditional music,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
  ,We encountered some problems:,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends
- ,Search for Friends,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarningAllVersions,The user access granted here applies to all versions of this package.
- ,The user access granted here applies to all versions of this package.,Studio.Toolbox.General.SearchOptionAudioTo,to
- ,to,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
+ ,Search for Friends,Studio.Toolbox.General.SearchOptionAudioTo,to
+ ,to,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarningAllVersions,The user access granted here applies to all versions of this package.
+ ,The user access granted here applies to all versions of this package.,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
  ,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedTooltip,The creator always has full access.
  ,The creator always has full access.,Studio.Toolbox.Audio.SoundEffect.Category.hardware,Hardware
  ,Hardware,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!
  ,Buy & Installation Complete!,Studio.Toolbox.Audio.SoundEffect.Category.drain,Drain
- ,Drain,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
- ,Successfully installed "{name}".,Studio.Toolbox.Audio.SoundEffect.Category.antique-cars,Antique Cars
- ,Antique Cars,Studio.Toolbox.Audio.SoundEffect.Category.crashes,Crashes
+ ,Drain,Studio.Toolbox.Audio.SoundEffect.Category.antique-cars,Antique Cars
+ ,Antique Cars,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
+ ,Successfully installed "{name}".,Studio.Toolbox.Audio.SoundEffect.Category.Banjo,Banjo
+ ,Banjo,Studio.Toolbox.Audio.SoundEffect.Category.crashes,Crashes
  ,Crashes,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
- ,Add up to {max:int} tags from the tag library,Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience?
- ,Do you grant permission for this Experience?,Studio.Toolbox.Audio.SoundEffect.Category.arcs-zaps,Arcs & Zaps
- ,Arcs & Zaps,Studio.Toolbox.Audio.SoundEffect.Category.feedback,Feedback
- ,Feedback,Studio.Toolbox.General.AbbreviatedSeconds,s
+ ,Add up to {max:int} tags from the tag library,Studio.Toolbox.Tags.MaxTagsDescription,Add up to {max:int} tags from the tag library
+ ,Add up to {max:int} tags from the tag library,"Studio.Toolbox.Audio.SoundEffect.Category.Chewing, mastication","Chewing, mastication"
+ ,"Chewing, mastication",Studio.Toolbox.Audio.SoundEffect.Category.Rustle,Rustle
+ ,Rustle,Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience?
+ ,Do you grant permission for this Experience?,Studio.Toolbox.Audio.SoundEffect.Category.Singing bowl,Singing bowl
+ ,Singing bowl,Studio.Toolbox.Audio.SoundEffect.Category.Typewriter,Typewriter
+ ,Typewriter,Studio.Toolbox.Audio.SoundEffect.Category.feedback,Feedback
+ ,Feedback,Studio.Toolbox.Audio.SoundEffect.Category.arcs-zaps,Arcs & Zaps
+ ,Arcs & Zaps,Studio.Toolbox.General.AbbreviatedSeconds,s
  ,s,Studio.Toolbox.General.AbbreviatedMinutes,m
  ,m,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
  ,Sound Length,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
- ,Filter ID,Studio.Toolbox.AssetUploadResult.CreatorDashboardMessage,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.
+ ,Filter ID,Studio.Toolbox.Audio.SoundEffect.Category.Helicopter,Helicopter
+ ,Helicopter,Studio.Toolbox.AssetUploadResult.CreatorDashboardMessage,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.
 A message displayed to the user after asset upload success informing them that they can configure and put assets on sale in the Creator Dashboard web interface a link to it.,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.Audio.SoundEffect.Category.battle,Battle
  ,Battle,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
  ,Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
- ,This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.InsertTool.DialogText,Put this tool into the StarterPack?
-StarterPack is a Roblox API term that should not be translated.,Put this tool into the StarterPack?,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
- ,Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.HomeView.SeeAll,See All
+ ,This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.Audio.SoundEffect.Category.Acoustic guitar,Acoustic guitar
+ ,Acoustic guitar,"Studio.Toolbox.Audio.SoundEffect.Category.Rowboat, canoe, kayak","Rowboat, canoe, kayak"
+ ,"Rowboat, canoe, kayak",Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
+ ,Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.InsertTool.DialogText,Put this tool into the StarterPack?
+StarterPack is a Roblox API term that should not be translated.,Put this tool into the StarterPack?,Studio.Toolbox.HomeView.SeeAll,See All
  ,See All,Studio.Toolbox.Audio.SoundEffect.Category.cartoon,Cartoon
  ,Cartoon,Studio.Toolbox.HomeView.TheEssentials,The Essentials
  ,The Essentials,Studio.Toolbox.HomeView.trending,Trending
  ,Trending,Studio.Toolbox.HomeView.TopSearches,Top Searches
  ,Top Searches,Studio.Toolbox.Audio.SoundEffect.Category.chops,Chops
- ,Chops,Studio.Toolbox.AudioView.Artist,Artist
+ ,Chops,Studio.Toolbox.Audio.SoundEffect.Category.Crow,Crow
+ ,Crow,Studio.Toolbox.AudioView.Artist,Artist
  ,Artist,Studio.Toolbox.AudioView.Length,Length
- ,Length,Studio.Toolbox.Audio.SoundEffect.Category.swishes,Swishes
- ,Swishes,Studio.Toolbox.Audio.SoundEffect.Category.motorcycles,Motorcycles
- ,Motorcycles,Studio.Toolbox.AudioView.Duration,Duration
- ,Duration,Studio.Toolbox.AudioView.Category,Category
- ,Category,Studio.Toolbox.Audio.SoundEffect.Category.artillery,Artillery
- ,Artillery,Studio.Toolbox.Audio.SoundEffect.Category.hum,Hum
+ ,Length,Studio.Toolbox.Audio.SoundEffect.Category.motorcycles,Motorcycles
+ ,Motorcycles,Studio.Toolbox.Audio.SoundEffect.Category.swishes,Swishes
+ ,Swishes,Studio.Toolbox.AudioView.Duration,Duration
+ ,Duration,Studio.Toolbox.Audio.SoundEffect.Category.artillery,Artillery
+ ,Artillery,Studio.Toolbox.AudioView.Category,Category
+ ,Category,Studio.Toolbox.Audio.SoundEffect.Category.Hum,Hum
+ ,Hum,Studio.Toolbox.Audio.SoundEffect.Category.hum,Hum
  ,Hum,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
- ,Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
+ ,Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.Audio.SoundEffect.Category.Mandolin,Mandolin
+ ,Mandolin,Studio.Toolbox.Audio.SoundEffect.Category.Trumpet,Trumpet
+ ,Trumpet,Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
 ID: {assetId:int},Type: {assetType}, ,Name: {assetName}
-ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantButton,Grant
+ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Drum,Drum
+ ,Drum,Studio.Toolbox.GrantAssetPermission.GrantButton,Grant
  ,Grant,Studio.Toolbox.Audio.FindTracks,Find Tracks by {creatorName}
  ,Find Tracks by {creatorName},Studio.Toolbox.Audio.Music.Genre.children,Children
  ,Children,Studio.Toolbox.Audio.Music.Genre.electronica,Electronica
+ ,Electronica,Studio.Toolbox.Audio.SoundEffect.Category.Electronica,Electronica
  ,Electronica,Studio.Toolbox.Audio.Music.Genre.folk-contemporary,Folk Contemporary
  ,Folk Contemporary,Studio.Toolbox.Audio.Music.Genre.funk-soul-r-b,"Funk, Soul, R&B"
- ,"Funk, Soul, R&B",Studio.Toolbox.Audio.Music.Genre.hip-hop,Hip-Hop
- ,Hip-Hop,Studio.Toolbox.Audio.SoundEffect.Category.impacts,Impacts
- ,Impacts,Studio.Toolbox.Audio.Music.Genre.jazz,Jazz
+ ,"Funk, Soul, R&B",Studio.Toolbox.Audio.SoundEffect.Category.impacts,Impacts
+ ,Impacts,Studio.Toolbox.Audio.Music.Genre.hip-hop,Hip-Hop
+ ,Hip-Hop,Studio.Toolbox.Audio.Music.Genre.jazz,Jazz
+ ,Jazz,Studio.Toolbox.Audio.SoundEffect.Category.Jazz,Jazz
  ,Jazz,Studio.Toolbox.Audio.SoundEffect.Category.burning,Burning
  ,Burning,Studio.Toolbox.Audio.SoundEffect.Category.rope,Rope
  ,Rope,Studio.Toolbox.Audio.Music.Genre.kitsch-retro,Kitsch & Retro
  ,Kitsch & Retro,Studio.Toolbox.Audio.Music.Genre.latin,Latin
- ,Latin,Studio.Toolbox.Audio.SoundEffect.Category.tonalities,Tonalities
- ,Tonalities,Studio.Toolbox.Audio.SoundEffect.Category.modern-cars,Modern Cars
- ,Modern Cars,Studio.Toolbox.Audio.Music.Genre.marches-military,Marches & Military
- ,Marches & Military,Studio.Toolbox.Audio.SoundEffect.Category.laughter,Laughter
- ,Laughter,Studio.Toolbox.Audio.SoundEffect.Category.footsteps,Footsteps
+ ,Latin,Studio.Toolbox.Audio.SoundEffect.Category.Laughter,Laughter
+ ,Laughter,Studio.Toolbox.Audio.SoundEffect.Category.laughter,Laughter
+ ,Laughter,Studio.Toolbox.Audio.SoundEffect.Category.tonalities,Tonalities
+ ,Tonalities,Studio.Toolbox.Audio.Music.Genre.marches-military,Marches & Military
+ ,Marches & Military,Studio.Toolbox.Audio.SoundEffect.Category.modern-cars,Modern Cars
+ ,Modern Cars,Studio.Toolbox.Audio.SoundEffect.Category.footsteps,Footsteps
  ,Footsteps,Studio.Toolbox.Audio.Music.Genre.pop,Pop
- ,Pop,Studio.Toolbox.Audio.SoundEffect.Category.boats,Boats
+ ,Pop,"Studio.Toolbox.Audio.SoundEffect.Category.Outside, rural or natural","Outside, rural or natural"
+ ,"Outside, rural or natural",Studio.Toolbox.Audio.SoundEffect.Category.Mantra,Mantra
+ ,Mantra,Studio.Toolbox.Audio.SoundEffect.Category.boats,Boats
  ,Boats,Studio.Toolbox.Audio.Music.Genre.religious,Religious
  ,Religious,Studio.Toolbox.Audio.Music.Genre.scores-orchestral,Scores & Orchestral
  ,Scores & Orchestral,Studio.Toolbox.Audio.SoundEffect,Sound Effect
  ,Sound Effect,Studio.Toolbox.Audio.SoundEffect.Category.acid,Acid
  ,Acid,Studio.Toolbox.Audio.SoundEffect.Category.air,Air
- ,Air,Studio.Toolbox.Audio.SoundEffect.Category.alien,Alien
- ,Alien,Studio.Toolbox.Audio.SoundEffect.Category.ambience,Ambience
- ,Ambience,Studio.Toolbox.Audio.SoundEffect.Category.rocks,Rocks
- ,Rocks,Studio.Toolbox.Audio.SoundEffect.Category.amphibians,Amphibians
- ,Amphibians,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine,Answering Machine
- ,Answering Machine,Studio.Toolbox.Audio.SoundEffect.Category.applause,Applause
- ,Applause,Studio.Toolbox.Audio.SoundEffect.Category.arrows,Arrows
- ,Arrows,Studio.Toolbox.Audio.SoundEffect.Category.buses,Buses
+ ,Air,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort
+ ,Snort,Studio.Toolbox.Audio.SoundEffect.Category.alien,Alien
+ ,Alien,Studio.Toolbox.Audio.SoundEffect.Category.Buzz,Buzz
+ ,Buzz,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard open or close,Cupboard open or close
+ ,Cupboard open or close,Studio.Toolbox.Audio.SoundEffect.Category.ambience,Ambience
+ ,Ambience,Studio.Toolbox.Audio.SoundEffect.Category.amphibians,Amphibians
+ ,Amphibians,Studio.Toolbox.Audio.SoundEffect.Category.rocks,Rocks
+ ,Rocks,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine,Answering Machine
+ ,Answering Machine,Studio.Toolbox.Audio.SoundEffect.Category.Applause,Applause
+ ,Applause,Studio.Toolbox.Audio.SoundEffect.Category.applause,Applause
+ ,Applause,Studio.Toolbox.Audio.SoundEffect.Category.Funk,Funk
+ ,Funk,Studio.Toolbox.Audio.SoundEffect.Category.arrows,Arrows
+ ,Arrows,Studio.Toolbox.Audio.SoundEffect.Category.Turkey,Turkey
+ ,Turkey,Studio.Toolbox.Audio.SoundEffect.Category.buses,Buses
  ,Buses,Studio.Toolbox.Audio.SoundEffect.Category.babies,Babies
  ,Babies,Studio.Toolbox.Audio.SoundEffect.Category.beeps,Beeps
  ,Beeps,Studio.Toolbox.Audio.SoundEffect.Category.bells,Bells
- ,Bells,Studio.Toolbox.Audio.SoundEffect.Category.birds,Birds
- ,Birds,Studio.Toolbox.Audio.SoundEffect.Category.blood,Blood
- ,Blood,Studio.Toolbox.Audio.SoundEffect.Category.blow,Blow
- ,Blow,Studio.Toolbox.Audio.SoundEffect.Category.carts,Carts
- ,Carts,Studio.Toolbox.Audio.SoundEffect.Category.clicks,Clicks
- ,Clicks,Studio.Toolbox.Audio.SoundEffect.Category.bubbles,Bubbles
+ ,Bells,Studio.Toolbox.Audio.SoundEffect.Category.Bicycle bell,Bicycle bell
+ ,Bicycle bell,Studio.Toolbox.Audio.SoundEffect.Category.birds,Birds
+ ,Birds,Studio.Toolbox.Audio.SoundEffect.Category.Howl,Howl
+ ,Howl,Studio.Toolbox.Audio.SoundEffect.Category.blood,Blood
+ ,Blood,Studio.Toolbox.Audio.SoundEffect.Category.Frog,Frog
+ ,Frog,Studio.Toolbox.Audio.SoundEffect.Category.blow,Blow
+ ,Blow,Studio.Toolbox.Audio.SoundEffect.Category.clicks,Clicks
+ ,Clicks,Studio.Toolbox.Audio.SoundEffect.Category.carts,Carts
+ ,Carts,Studio.Toolbox.Audio.SoundEffect.Category.bubbles,Bubbles
  ,Bubbles,Studio.Toolbox.Audio.SoundEffect.Category.bullet-whiz,Bullet Whiz
  ,Bullet Whiz,Studio.Toolbox.Audio.SoundEffect.Category.chains,Chains
  ,Chains,Studio.Toolbox.Audio.SoundEffect.Category.chimes,Chimes
@@ -556,107 +744,442 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantBut
  ,Classic Cars,Studio.Toolbox.Audio.SoundEffect.Category.clocks,Clocks
  ,Clocks,Studio.Toolbox.Audio.SoundEffect.Category.cooking,Cooking
  ,Cooking,Studio.Toolbox.Audio.SoundEffect.Category.creaks,Creaks
- ,Creaks,Studio.Toolbox.Audio.SoundEffect.Category.dirt,Dirt
- ,Dirt,Studio.Toolbox.Audio.SoundEffect.Category.doors,Doors
+ ,Creaks,Studio.Toolbox.Audio.SoundEffect.Category.Lullaby,Lullaby
+ ,Lullaby,Studio.Toolbox.Audio.SoundEffect.Category.dirt,Dirt
+ ,Dirt,Studio.Toolbox.Audio.SoundEffect.Category.Clang,Clang
+ ,Clang,Studio.Toolbox.Audio.SoundEffect.Category.doors,Doors
  ,Doors,Studio.Toolbox.Audio.SoundEffect.Category.drips,Drips
- ,Drips,Studio.Toolbox.Audio.SoundEffect.Category.earthquakes,Earthquakes
+ ,Drips,Studio.Toolbox.Audio.SoundEffect.Category.Timpani,Timpani
+ ,Timpani,Studio.Toolbox.Audio.SoundEffect.Category.Heavy metal,Heavy metal
+ ,Heavy metal,Studio.Toolbox.Audio.SoundEffect.Category.earthquakes,Earthquakes
  ,Earthquakes,Studio.Toolbox.Audio.SoundEffect.Category.eating,Eating
  ,Eating,Studio.Toolbox.Audio.SoundEffect.Category.efforts,Efforts
- ,Efforts,Studio.Toolbox.Audio.SoundEffect.Category.energy,Energy
- ,Energy,Studio.Toolbox.Audio.SoundEffect.Category.rubber,Rubber
+ ,Efforts,"Studio.Toolbox.Audio.SoundEffect.Category.Splash, splatter","Splash, splatter"
+ ,"Splash, splatter",Studio.Toolbox.Audio.SoundEffect.Category.energy,Energy
+ ,Energy,Studio.Toolbox.Audio.SoundEffect.Category.hits,Hits
+ ,Hits,Studio.Toolbox.Audio.SoundEffect.Category.rubber,Rubber
  ,Rubber,Studio.Toolbox.Audio.SoundEffect.Category.english,English
- ,English,Studio.Toolbox.Audio.SoundEffect.Category.hits,Hits
- ,Hits,Studio.Toolbox.Audio.SoundEffect.Category.exotic,Exotic
- ,Exotic,Studio.Toolbox.Audio.SoundEffect.Category.farm,Farm
+ ,English,Studio.Toolbox.Audio.SoundEffect.Category.exotic,Exotic
+ ,Exotic,Studio.Toolbox.Audio.SoundEffect.Category.Stir,Stir
+ ,Stir,Studio.Toolbox.Audio.SoundEffect.Category.Rhythm and blues,Rhythm and blues
+ ,Rhythm and blues,Studio.Toolbox.Audio.SoundEffect.Category.farm,Farm
  ,Farm,Studio.Toolbox.Audio.SoundEffect.Category.farts,Farts
  ,Farts,Studio.Toolbox.Audio.SoundEffect.Category.foreign,Foreign
  ,Foreign,Studio.Toolbox.Audio.SoundEffect.Category.metal,Metal
- ,Metal,Studio.Toolbox.Audio.SoundEffect.Category.games,Games
- ,Games,Studio.Toolbox.Audio.SoundEffect.Category.gears,Gears
- ,Gears,Studio.Toolbox.Audio.SoundEffect.Category.ghosts,Ghosts
+ ,Metal,Studio.Toolbox.Audio.SoundEffect.Category.Power tool,Power tool
+ ,Power tool,Studio.Toolbox.Audio.SoundEffect.Category.games,Games
+ ,Games,Studio.Toolbox.Audio.SoundEffect.Category.Gears,Gears
+ ,Gears,Studio.Toolbox.Audio.SoundEffect.Category.gears,Gears
+ ,Gears,Studio.Toolbox.Audio.SoundEffect.Category.Ringtone,Ringtone
+ ,Ringtone,Studio.Toolbox.Audio.SoundEffect.Category.Wind chime,Wind chime
+ ,Wind chime,Studio.Toolbox.Audio.SoundEffect.Category.Civil defense siren,Civil defense siren
+ ,Civil defense siren,Studio.Toolbox.Audio.SoundEffect.Category.ghosts,Ghosts
  ,Ghosts,Studio.Toolbox.Audio.SoundEffect.Category.gore,Gore
  ,Gore,Studio.Toolbox.Audio.SoundEffect.Category.hand,Hand
- ,Hand,Studio.Toolbox.Audio.SoundEffect.Category.handling,Handling
- ,Handling,Studio.Toolbox.Audio.SoundEffect.Category.heavy,Heavy
+ ,Hand,Studio.Toolbox.Audio.SoundEffect.Category.Giggle,Giggle
+ ,Giggle,Studio.Toolbox.Audio.SoundEffect.Category.Sonar,Sonar
+ ,Sonar,Studio.Toolbox.Audio.SoundEffect.Category.Splinter,Splinter
+ ,Splinter,Studio.Toolbox.Audio.SoundEffect.Category.handling,Handling
+ ,Handling,Studio.Toolbox.Audio.SoundEffect.Category.Percussion,Percussion
+ ,Percussion,Studio.Toolbox.Audio.SoundEffect.Category.heavy,Heavy
  ,Heavy,Studio.Toolbox.Audio.SoundEffect.Category.industrial,Industrial
- ,Industrial,Studio.Toolbox.Audio.SoundEffect.Category.reptiles,Reptiles
- ,Reptiles,Studio.Toolbox.Audio.SoundEffect.Category.jets,Jets
- ,Jets,Studio.Toolbox.Audio.SoundEffect.Category.jungle,Jungle
- ,Jungle,Studio.Toolbox.Audio.SoundEffect.Category.lasers,Lasers
+ ,Industrial,Studio.Toolbox.Audio.SoundEffect.Category.jets,Jets
+ ,Jets,Studio.Toolbox.Audio.SoundEffect.Category.reptiles,Reptiles
+ ,Reptiles,Studio.Toolbox.Audio.SoundEffect.Category.Vibraphone,Vibraphone
+ ,Vibraphone,Studio.Toolbox.Audio.SoundEffect.Category.jungle,Jungle
+ ,Jungle,Studio.Toolbox.Audio.SoundEffect.Category.Croak,Croak
+ ,Croak,Studio.Toolbox.Audio.SoundEffect.Category.lasers,Lasers
  ,Lasers,Studio.Toolbox.Audio.SoundEffect.Category.knives-swords,Knives & Swords
  ,Knives & Swords,Studio.Toolbox.Audio.SoundEffect.Category.land,Land
  ,Land,Studio.Toolbox.Audio.SoundEffect.Category.props,Props
- ,Props,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX
+ ,Props,Studio.Toolbox.Audio.SoundEffect.Category.Flute,Flute
+ ,Flute,Studio.Toolbox.Audio.SoundEffect.Category.Ocean,Ocean
+ ,Ocean,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX
  ,Liquid FX,Studio.Toolbox.Audio.SoundEffect.Category.machine,Machine
- ,Machine,Studio.Toolbox.Audio.SoundEffect.Category.microphone,Microphone
+ ,Machine,Studio.Toolbox.Audio.SoundEffect.Category.Siren,Siren
+ ,Siren,Studio.Toolbox.Audio.SoundEffect.Category.microphone,Microphone
  ,Microphone,Studio.Toolbox.Audio.SoundEffect.Category.military,Military
- ,Military,Studio.Toolbox.Audio.SoundEffect.Category.motorboats,Motorboats
+ ,Military,"Studio.Toolbox.Audio.SoundEffect.Category.Bird vocalization, bird call, bird song","Bird vocalization, bird call, bird song"
+ ,"Bird vocalization, bird call, bird song",Studio.Toolbox.Audio.SoundEffect.Category.motorboats,Motorboats
  ,Motorboats,Studio.Toolbox.Audio.SoundEffect.Category.motors,Motors
- ,Motors,Studio.Toolbox.Audio.SoundEffect.Category.musical,Musical
+ ,Motors,Studio.Toolbox.Audio.SoundEffect.Category.Wheeze,Wheeze
+ ,Wheeze,Studio.Toolbox.Audio.SoundEffect.Category.musical,Musical
  ,Musical,Studio.Toolbox.Audio.SoundEffect.Category.nautical,Nautical
- ,Nautical,Studio.Toolbox.Audio.SoundEffect.Category.pops,Pops
- ,Pops,Studio.Toolbox.Audio.SoundEffect.Category.paper,Paper
- ,Paper,Studio.Toolbox.Audio.SoundEffect.Category.warps,Warps
- ,Warps,Studio.Toolbox.Audio.SoundEffect.Category.vehicles,Vehicles
- ,Vehicles,Studio.Toolbox.Audio.SoundEffect.Category.phonographs,Phonographs
- ,Phonographs,Studio.Toolbox.Audio.SoundEffect.Category.pistols,Pistols
- ,Pistols,Studio.Toolbox.Audio.SoundEffect.Category.pottery,Pottery
- ,Pottery,Studio.Toolbox.Audio.SoundEffect.Category.pouring,Pouring
+ ,Nautical,Studio.Toolbox.Audio.SoundEffect.Category.paper,Paper
+ ,Paper,Studio.Toolbox.Audio.SoundEffect.Category.Trombone,Trombone
+ ,Trombone,Studio.Toolbox.Audio.SoundEffect.Category.Accordion,Accordion
+ ,Accordion,Studio.Toolbox.Audio.SoundEffect.Category.pops,Pops
+ ,Pops,Studio.Toolbox.Audio.SoundEffect.Category.Squawk,Squawk
+ ,Squawk,Studio.Toolbox.Audio.SoundEffect.Category.warps,Warps
+ ,Warps,Studio.Toolbox.Audio.SoundEffect.Category.phonographs,Phonographs
+ ,Phonographs,Studio.Toolbox.Audio.SoundEffect.Category.vehicles,Vehicles
+ ,Vehicles,Studio.Toolbox.Audio.SoundEffect.Category.pistols,Pistols
+ ,Pistols,Studio.Toolbox.Audio.SoundEffect.Category.Change ringing (campanology),Change ringing (campanology)
+ ,Change ringing (campanology),Studio.Toolbox.Audio.SoundEffect.Category.pottery,Pottery
+ ,Pottery,Studio.Toolbox.Audio.SoundEffect.Category.Electronic organ,Electronic organ
+ ,Electronic organ,Studio.Toolbox.Audio.SoundEffect.Category.pouring,Pouring
  ,Pouring,Studio.Toolbox.Audio.SoundEffect.Category.power,Power
  ,Power,Studio.Toolbox.Audio.SoundEffect.Category.public-places,Public Places
  ,Public Places,Studio.Toolbox.Audio.SoundEffect.Category.race-cars,Race Cars
- ,Race Cars,Studio.Toolbox.Audio.SoundEffect.Category.radio,Radio
+ ,Race Cars,Studio.Toolbox.Audio.SoundEffect.Category.Radio,Radio
+ ,Radio,Studio.Toolbox.Audio.SoundEffect.Category.radio,Radio
  ,Radio,Studio.Toolbox.Audio.SoundEffect.Category.ratchets,Ratchets
- ,Ratchets,Studio.Toolbox.Audio.SoundEffect.Category.ricochets,Ricochets
+ ,Ratchets,Studio.Toolbox.Audio.SoundEffect.Category.Steelpan,Steelpan
+ ,Steelpan,Studio.Toolbox.Audio.SoundEffect.Category.Drawer open or close,Drawer open or close
+ ,Drawer open or close,Studio.Toolbox.Audio.SoundEffect.Category.ricochets,Ricochets
  ,Ricochets,Studio.Toolbox.Audio.SoundEffect.Category.rings,Rings
- ,Rings,Studio.Toolbox.Audio.SoundEffect.Category.rips,Rips
+ ,Rings,Studio.Toolbox.Audio.SoundEffect.Category.House music,House music
+ ,House music,Studio.Toolbox.Audio.SoundEffect.Category.rips,Rips
  ,Rips,Studio.Toolbox.Audio.SoundEffect.Category.rips-tears,Rips & Tears
- ,Rips & Tears,Studio.Toolbox.Audio.SoundEffect.Category.rollers,Rollers
+ ,Rips & Tears,Studio.Toolbox.Audio.SoundEffect.Category.Throat clearing,Throat clearing
+ ,Throat clearing,"Studio.Toolbox.Audio.SoundEffect.Category.Electric shaver, electric razor","Electric shaver, electric razor"
+ ,"Electric shaver, electric razor",Studio.Toolbox.Audio.SoundEffect.Category.rollers,Rollers
  ,Rollers,Studio.Toolbox.Audio.SoundEffect.Category.scrapes,Scrapes
  ,Scrapes,Studio.Toolbox.Audio.SoundEffect.Category.rolling,Rolling
  ,Rolling,Studio.Toolbox.Audio.SoundEffect.Category.rowboats,Rowboats
- ,Rowboats,Studio.Toolbox.Audio.SoundEffect.Category.rumbles,Rumbles
+ ,Rowboats,Studio.Toolbox.Audio.SoundEffect.Category.Toilet flush,Toilet flush
+ ,Toilet flush,Studio.Toolbox.Audio.SoundEffect.Category.rumbles,Rumbles
  ,Rumbles,Studio.Toolbox.Audio.SoundEffect.Category.rural,Rural
- ,Rural,Studio.Toolbox.Audio.SoundEffect.Category.sand,Sand
+ ,Rural,"Studio.Toolbox.Audio.SoundEffect.Category.Inside, small room","Inside, small room"
+ ,"Inside, small room",Studio.Toolbox.Audio.SoundEffect.Category.sand,Sand
  ,Sand,Studio.Toolbox.Audio.SoundEffect.Category.scrapes-squeaks,Scrapes & Squeaks
- ,Scrapes & Squeaks,Studio.Toolbox.Audio.SoundEffect.Category.user-interface,User Interface
- ,User Interface,Studio.Toolbox.Audio.SoundEffect.Category.screams,Screams
- ,Screams,Studio.Toolbox.Audio.SoundEffect.Category.ships,Ships
- ,Ships,Studio.Toolbox.Audio.SoundEffect.Category.shotguns,Shotguns
+ ,Scrapes & Squeaks,Studio.Toolbox.Audio.SoundEffect.Category.Meow,Meow
+ ,Meow,Studio.Toolbox.Audio.SoundEffect.Category.screams,Screams
+ ,Screams,Studio.Toolbox.Audio.SoundEffect.Category.user-interface,User Interface
+ ,User Interface,Studio.Toolbox.Audio.SoundEffect.Category.ships,Ships
+ ,Ships,"Studio.Toolbox.Audio.SoundEffect.Category.Domestic animals, pets","Domestic animals, pets"
+ ,"Domestic animals, pets",Studio.Toolbox.Audio.SoundEffect.Category.shotguns,Shotguns
  ,Shotguns,Studio.Toolbox.Audio.SoundEffect.Category.suspension,Suspension
  ,Suspension,Studio.Toolbox.Audio.SoundEffect.Category.sneezes,Sneezes
  ,Sneezes,Studio.Toolbox.Audio.SoundEffect.Category.snow,Snow
  ,Snow,Studio.Toolbox.Audio.SoundEffect.Category.splashes,Splashes
- ,Splashes,Studio.Toolbox.Audio.SoundEffect.Category.spray,Spray
- ,Spray,Studio.Toolbox.Audio.SoundEffect.Category.static,Static
- ,Static,Studio.Toolbox.Audio.SoundEffect.Category.stings,Stings
+ ,Splashes,Studio.Toolbox.Audio.SoundEffect.Category.Spray,Spray
+ ,Spray,Studio.Toolbox.Audio.SoundEffect.Category.spray,Spray
+ ,Spray,Studio.Toolbox.Audio.SoundEffect.Category.Static,Static
+ ,Static,Studio.Toolbox.Audio.SoundEffect.Category.static,Static
+ ,Static,Studio.Toolbox.Audio.SoundEffect.Category.Honk,Honk
+ ,Honk,Studio.Toolbox.Audio.SoundEffect.Category.stings,Stings
  ,Stings,Studio.Toolbox.Audio.SoundEffect.Category.submarines,Submarines
  ,Submarines,Studio.Toolbox.Audio.SoundEffect.Category.subway,Subway
- ,Subway,Studio.Toolbox.Audio.SoundEffect.Category.subwoofer,Subwoofer
+ ,Subway,Studio.Toolbox.Audio.SoundEffect.Category.Doorbell,Doorbell
+ ,Doorbell,Studio.Toolbox.Audio.SoundEffect.Category.subwoofer,Subwoofer
  ,Subwoofer,Studio.Toolbox.Audio.SoundEffect.Category.surf,Surf
  ,Surf,Studio.Toolbox.Audio.SoundEffect.Category.switches,Switches
- ,Switches,Studio.Toolbox.Audio.SoundEffect.Category.tones,Tones
- ,Tones,Studio.Toolbox.Audio.SoundEffect.Category.sword,Sword
- ,Sword,Studio.Toolbox.Audio.SoundEffect.Category.television-fx,Television FX
- ,Television FX,Studio.Toolbox.Audio.SoundEffect.Category.thunder,Thunder
- ,Thunder,Studio.Toolbox.Audio.SoundEffect.Category.tools,Tools
- ,Tools,Studio.Toolbox.Audio.SoundEffect.Category.traffic,Traffic
+ ,Switches,Studio.Toolbox.Audio.SoundEffect.Category.Psychedelic rock,Psychedelic rock
+ ,Psychedelic rock,Studio.Toolbox.Audio.SoundEffect.Category.sword,Sword
+ ,Sword,Studio.Toolbox.Audio.SoundEffect.Category.tones,Tones
+ ,Tones,Studio.Toolbox.Audio.SoundEffect.Category.television-fx,Television FX
+ ,Television FX,Studio.Toolbox.Audio.SoundEffect.Category.Thunder,Thunder
+ ,Thunder,Studio.Toolbox.Audio.SoundEffect.Category.thunder,Thunder
+ ,Thunder,Studio.Toolbox.Audio.SoundEffect.Category.Tools,Tools
+ ,Tools,Studio.Toolbox.Audio.SoundEffect.Category.tools,Tools
+ ,Tools,Studio.Toolbox.Audio.SoundEffect.Category.Rapping,Rapping
+ ,Rapping,Studio.Toolbox.Audio.SoundEffect.Category.traffic,Traffic
  ,Traffic,Studio.Toolbox.Audio.SoundEffect.Category.trains,Trains
  ,Trains,Studio.Toolbox.Audio.SoundEffect.Category.trucks,Trucks
  ,Trucks,Studio.Toolbox.Audio.SoundEffect.Category.turbines,Turbines
  ,Turbines,Studio.Toolbox.Audio.SoundEffect.Category.turbulent,Turbulent
  ,Turbulent,Studio.Toolbox.Audio.SoundEffect.Category.typewriters,Typewriters
- ,Typewriters,Studio.Toolbox.Audio.SoundEffect.Category.underwater,Underwater
+ ,Typewriters,Studio.Toolbox.Audio.SoundEffect.Category.Truck,Truck
+ ,Truck,Studio.Toolbox.Audio.SoundEffect.Category.underwater,Underwater
  ,Underwater,Studio.Toolbox.Audio.SoundEffect.Category.urban,Urban
  ,Urban,Studio.Toolbox.Audio.SoundEffect.Category.vacuums,Vacuums
- ,Vacuums,Studio.Toolbox.Audio.SoundEffect.Category.walla,Walla
- ,Walla,Studio.Toolbox.Audio.SoundEffect.Category.water,Water
+ ,Vacuums,Studio.Toolbox.Audio.SoundEffect.Category.White noise,White noise
+ ,White noise,"Studio.Toolbox.Audio.SoundEffect.Category.Livestock, farm animals, working animals","Livestock, farm animals, working animals"
+ ,"Livestock, farm animals, working animals",Studio.Toolbox.Audio.SoundEffect.Category.walla,Walla
+ ,Walla,Studio.Toolbox.Audio.SoundEffect.Category.Water,Water
+ ,Water,Studio.Toolbox.Audio.SoundEffect.Category.water,Water
  ,Water,Studio.Toolbox.Audio.SoundEffect.Category.whips,Whips
- ,Whips,Studio.Toolbox.Audio.SoundEffect.Category.whistles,Whistles
+ ,Whips,Studio.Toolbox.Audio.SoundEffect.Category.Soundtrack music,Soundtrack music
+ ,Soundtrack music,Studio.Toolbox.Audio.SoundEffect.Category.whistles,Whistles
  ,Whistles,Studio.Toolbox.Audio.SoundEffect.Category.wild,Wild
  ,Wild,Studio.Toolbox.Audio.SoundEffect.Category.winds,Winds
- ,Winds,Studio.Toolbox.Audio.SoundEffect.Category.wood,Wood
+ ,Winds,Studio.Toolbox.Audio.SoundEffect.Category.Wood,Wood
+ ,Wood,Studio.Toolbox.Audio.SoundEffect.Category.wood,Wood
  ,Wood,Studio.Toolbox.Announcement.Description_08-09-2022, • Machine learning blocks more harmful assets<br />• Content from verified creators now highlighted by default
  , • Machine learning blocks more harmful assets<br />• Content from verified creators now highlighted by default,Studio.Toolbox.Announcement.Description_02-28-2023,"The Creator Marketplace is testing a new set of features, so you may see a change in search behaviors for models. Try out more complicated queries like “brick house with smoke coming out the chimney” or “skyscraper with blue glass” and see what you find!"
- ,"The Creator Marketplace is testing a new set of features, so you may see a change in search behaviors. Try out more complicated queries like “brick house with smoke coming out the chimney” or “skyscraper with blue glass” and see what you find!",Studio.Toolbox.Announcement.LinkText_Default,Learn More
- ,Learn More
+ ,"The Creator Marketplace is testing a new set of features, so you may see a change in search behaviors. Try out more complicated queries like “brick house with smoke coming out the chimney” or “skyscraper with blue glass” and see what you find!",Studio.Toolbox.Audio.SoundEffect.Category.Bicycle,Bicycle
+ ,Bicycle,Studio.Toolbox.Announcement.LinkText_Default,Learn More
+ ,Learn More,Studio.Toolbox.Audio.SoundEffect.Category.Speech,Speech
+ ,Speech,Studio.Toolbox.Audio.SoundEffect.Category.Squeak,Squeak
+ ,Squeak,Studio.Toolbox.Audio.SoundEffect.Category.Baby laughter,Baby laughter
+ ,Baby laughter,"Studio.Toolbox.Audio.SoundEffect.Category.Child speech, kid speaking","Child speech, kid speaking"
+ ,"Child speech, kid speaking",Studio.Toolbox.Audio.SoundEffect.Category.Conversation,Conversation
+ ,Conversation,"Studio.Toolbox.Audio.SoundEffect.Category.Narration, monologue","Narration, monologue"
+ ,"Narration, monologue",Studio.Toolbox.Audio.SoundEffect.Category.Scissors,Scissors
+ ,Scissors,Studio.Toolbox.Audio.SoundEffect.Category.Babbling,Babbling
+ ,Babbling,Studio.Toolbox.Audio.SoundEffect.Category.Shout,Shout
+ ,Shout,Studio.Toolbox.Audio.SoundEffect.Category.Bellow,Bellow
+ ,Bellow,Studio.Toolbox.Audio.SoundEffect.Category.Screaming,Screaming
+ ,Screaming,Studio.Toolbox.Audio.SoundEffect.Category.Zing,Zing
+ ,Zing,Studio.Toolbox.Audio.SoundEffect.Category.Whispering,Whispering
+ ,Whispering,Studio.Toolbox.Audio.SoundEffect.Category.Belly laugh,Belly laugh
+ ,Belly laugh,"Studio.Toolbox.Audio.SoundEffect.Category.Chuckle, chortle","Chuckle, chortle"
+ ,"Chuckle, chortle","Studio.Toolbox.Audio.SoundEffect.Category.Crying, sobbing","Crying, sobbing"
+ ,"Crying, sobbing",Studio.Toolbox.Audio.SoundEffect.Category.Yip,Yip
+ ,Yip,"Studio.Toolbox.Audio.SoundEffect.Category.Wail, moan","Wail, moan"
+ ,"Wail, moan",Studio.Toolbox.Audio.SoundEffect.Category.Motor vehicle (road),Motor vehicle (road)
+ ,Motor vehicle (road),Studio.Toolbox.Audio.SoundEffect.Category.Sigh,Sigh
+ ,Sigh,Studio.Toolbox.Audio.SoundEffect.Category.Singing,Singing
+ ,Singing,Studio.Toolbox.Audio.SoundEffect.Category.Raindrop,Raindrop
+ ,Raindrop,Studio.Toolbox.Audio.SoundEffect.Category.Yodeling,Yodeling
+ ,Yodeling,Studio.Toolbox.Audio.SoundEffect.Category.Chant,Chant
+ ,Chant,Studio.Toolbox.Audio.SoundEffect.Category.Synthetic singing,Synthetic singing
+ ,Synthetic singing,Studio.Toolbox.Audio.SoundEffect.Category.Whistle,Whistle
+ ,Whistle,Studio.Toolbox.Audio.SoundEffect.Category.Humming,Humming
+ ,Humming,Studio.Toolbox.Audio.SoundEffect.Category.Tambourine,Tambourine
+ ,Tambourine,Studio.Toolbox.Audio.SoundEffect.Category.Grunt,Grunt
+ ,Grunt,Studio.Toolbox.Audio.SoundEffect.Category.Tire squeal,Tire squeal
+ ,Tire squeal,Studio.Toolbox.Audio.SoundEffect.Category.Whistling,Whistling
+ ,Whistling,Studio.Toolbox.Audio.SoundEffect.Category.Gasp,Gasp
+ ,Gasp,Studio.Toolbox.Audio.SoundEffect.Category.Cough,Cough
+ ,Cough,Studio.Toolbox.Audio.SoundEffect.Category.Sniff,Sniff
+ ,Sniff,Studio.Toolbox.Audio.SoundEffect.Category.Run,Run
+ ,Run,Studio.Toolbox.Audio.SoundEffect.Category.Skidding,Skidding
+ ,Skidding,Studio.Toolbox.Audio.SoundEffect.Category.Flap,Flap
+ ,Flap,Studio.Toolbox.Audio.SoundEffect.Category.Shuffle,Shuffle
+ ,Shuffle,Studio.Toolbox.Audio.SoundEffect.Category.Fart,Fart
+ ,Fart,Studio.Toolbox.Audio.SoundEffect.Category.Biting,Biting
+ ,Biting,"Studio.Toolbox.Audio.SoundEffect.Category.Roaring cats (lions, tigers)","Roaring cats (lions, tigers)"
+ ,"Roaring cats (lions, tigers)",Studio.Toolbox.Audio.SoundEffect.Category.Gargling,Gargling
+ ,Gargling,Studio.Toolbox.Audio.SoundEffect.Category.Dance music,Dance music
+ ,Dance music,Studio.Toolbox.Audio.SoundEffect.Category.Stomach rumble,Stomach rumble
+ ,Stomach rumble,Studio.Toolbox.Audio.SoundEffect.Category.Guitar,Guitar
+ ,Guitar,Studio.Toolbox.Audio.SoundEffect.Category.Hiccup,Hiccup
+ ,Hiccup,Studio.Toolbox.Audio.SoundEffect.Category.Finger snapping,Finger snapping
+ ,Finger snapping,"Studio.Toolbox.Audio.SoundEffect.Category.Chicken, rooster","Chicken, rooster"
+ ,"Chicken, rooster",Studio.Toolbox.Audio.SoundEffect.Category.Mechanisms,Mechanisms
+ ,Mechanisms,"Studio.Toolbox.Audio.SoundEffect.Category.Heart sounds, heartbeat","Heart sounds, heartbeat"
+ ,"Heart sounds, heartbeat",Studio.Toolbox.Audio.SoundEffect.Category.Heart murmur,Heart murmur
+ ,Heart murmur,Studio.Toolbox.Audio.SoundEffect.Category.Cheering,Cheering
+ ,Cheering,Studio.Toolbox.Audio.SoundEffect.Category.Children playing,Children playing
+ ,Children playing,Studio.Toolbox.Audio.SoundEffect.Category.Animal,Animal
+ ,Animal,Studio.Toolbox.Audio.SoundEffect.Category.Bark,Bark
+ ,Bark,Studio.Toolbox.Audio.SoundEffect.Category.Bow-wow,Bow-wow
+ ,Bow-wow,Studio.Toolbox.Audio.SoundEffect.Category.Hi-hat,Hi-hat
+ ,Hi-hat,Studio.Toolbox.Audio.SoundEffect.Category.Dubstep,Dubstep
+ ,Dubstep,Studio.Toolbox.Audio.SoundEffect.Category.Purr,Purr
+ ,Purr,Studio.Toolbox.Audio.SoundEffect.Category.Horse,Horse
+ ,Horse,"Studio.Toolbox.Audio.SoundEffect.Category.Cattle, bovinae","Cattle, bovinae"
+ ,"Cattle, bovinae",Studio.Toolbox.Audio.SoundEffect.Category.Pig,Pig
+ ,Pig,Studio.Toolbox.Audio.SoundEffect.Category.Oink,Oink
+ ,Oink,Studio.Toolbox.Audio.SoundEffect.Category.Goat,Goat
+ ,Goat,Studio.Toolbox.Audio.SoundEffect.Category.Bleat,Bleat
+ ,Bleat,Studio.Toolbox.Audio.SoundEffect.Category.Ukulele,Ukulele
+ ,Ukulele,Studio.Toolbox.Audio.SoundEffect.Category.Sheep,Sheep
+ ,Sheep,"Studio.Toolbox.Audio.SoundEffect.Category.Crowing, cock-a-doodle-doo","Crowing, cock-a-doodle-doo"
+ ,"Crowing, cock-a-doodle-doo",Studio.Toolbox.Audio.SoundEffect.Category.Gobble,Gobble
+ ,Gobble,Studio.Toolbox.Audio.SoundEffect.Category.Duck,Duck
+ ,Duck,Studio.Toolbox.Audio.SoundEffect.Category.Goose,Goose
+ ,Goose,Studio.Toolbox.Audio.SoundEffect.Category.Quack,Quack
+ ,Quack,Studio.Toolbox.Audio.SoundEffect.Category.Wild animals,Wild animals
+ ,Wild animals,Studio.Toolbox.Audio.SoundEffect.Category.Coo,Coo
+ ,Coo,"Studio.Toolbox.Audio.SoundEffect.Category.Chirp, tweet","Chirp, tweet"
+ ,"Chirp, tweet",Studio.Toolbox.Audio.SoundEffect.Category.Caw,Caw
+ ,Caw,Studio.Toolbox.Audio.SoundEffect.Category.Hoot,Hoot
+ ,Hoot,"Studio.Toolbox.Audio.SoundEffect.Category.Rodents, rats, mice","Rodents, rats, mice"
+ ,"Rodents, rats, mice",Studio.Toolbox.Audio.SoundEffect.Category.Mouse,Mouse
+ ,Mouse,Studio.Toolbox.Audio.SoundEffect.Category.Insect,Insect
+ ,Insect,Studio.Toolbox.Audio.SoundEffect.Category.Cricket,Cricket
+ ,Cricket,Studio.Toolbox.Audio.SoundEffect.Category.Artillery fire,Artillery fire
+ ,Artillery fire,Studio.Toolbox.Audio.SoundEffect.Category.Frying (food),Frying (food)
+ ,Frying (food),"Studio.Toolbox.Audio.SoundEffect.Category.Fly, housefly","Fly, housefly"
+ ,"Fly, housefly",Studio.Toolbox.Audio.SoundEffect.Category.Rattle,Rattle
+ ,Rattle,"Studio.Toolbox.Audio.SoundEffect.Category.Steel guitar, slide guitar","Steel guitar, slide guitar"
+ ,"Steel guitar, slide guitar",Studio.Toolbox.Audio.SoundEffect.Category.Whale vocalization,Whale vocalization
+ ,Whale vocalization,Studio.Toolbox.Audio.SoundEffect.Category.Bathtub (filling or washing),Bathtub (filling or washing)
+ ,Bathtub (filling or washing),Studio.Toolbox.Audio.SoundEffect.Category.Musical instrument,Musical instrument
+ ,Musical instrument,Studio.Toolbox.Audio.SoundEffect.Category.Plucked string instrument,Plucked string instrument
+ ,Plucked string instrument,Studio.Toolbox.Audio.SoundEffect.Category.Drum machine,Drum machine
+ ,Drum machine,Studio.Toolbox.Audio.SoundEffect.Category.Electric guitar,Electric guitar
+ ,Electric guitar,"Studio.Toolbox.Audio.SoundEffect.Category.Burst, pop","Burst, pop"
+ ,"Burst, pop",Studio.Toolbox.Audio.SoundEffect.Category.Bass guitar,Bass guitar
+ ,Bass guitar,Studio.Toolbox.Audio.SoundEffect.Category.Jet engine,Jet engine
+ ,Jet engine,Studio.Toolbox.Audio.SoundEffect.Category.Sawing,Sawing
+ ,Sawing,Studio.Toolbox.Audio.SoundEffect.Category.Strum,Strum
+ ,Strum,Studio.Toolbox.Audio.SoundEffect.Category.Sitar,Sitar
+ ,Sitar,Studio.Toolbox.Audio.SoundEffect.Category.Zither,Zither
+ ,Zither,Studio.Toolbox.Audio.SoundEffect.Category.Exciting music,Exciting music
+ ,Exciting music,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft engine,Aircraft engine
+ ,Aircraft engine,Studio.Toolbox.Audio.SoundEffect.Category.Clicking,Clicking
+ ,Clicking,Studio.Toolbox.Audio.SoundEffect.Category.Keyboard (musical),Keyboard (musical)
+ ,Keyboard (musical),Studio.Toolbox.Audio.SoundEffect.Category.Piano,Piano
+ ,Piano,Studio.Toolbox.Audio.SoundEffect.Category.Rimshot,Rimshot
+ ,Rimshot,Studio.Toolbox.Audio.SoundEffect.Category.Electric piano,Electric piano
+ ,Electric piano,Studio.Toolbox.Audio.SoundEffect.Category.Organ,Organ
+ ,Organ,Studio.Toolbox.Audio.SoundEffect.Category.Maraca,Maraca
+ ,Maraca,Studio.Toolbox.Audio.SoundEffect.Category.Hammond organ,Hammond organ
+ ,Hammond organ,Studio.Toolbox.Audio.SoundEffect.Category.Synthesizer,Synthesizer
+ ,Synthesizer,Studio.Toolbox.Audio.SoundEffect.Category.Sampler,Sampler
+ ,Sampler,Studio.Toolbox.Audio.SoundEffect.Category.Tubular bells,Tubular bells
+ ,Tubular bells,Studio.Toolbox.Audio.SoundEffect.Category.Glockenspiel,Glockenspiel
+ ,Glockenspiel,Studio.Toolbox.Audio.SoundEffect.Category.French horn,French horn
+ ,French horn,Studio.Toolbox.Audio.SoundEffect.Category.Cello,Cello
+ ,Cello,Studio.Toolbox.Audio.SoundEffect.Category.Bowed string instrument,Bowed string instrument
+ ,Bowed string instrument,Studio.Toolbox.Audio.SoundEffect.Category.String section,String section
+ ,String section,"Studio.Toolbox.Audio.SoundEffect.Category.Violin, fiddle","Violin, fiddle"
+ ,"Violin, fiddle",Studio.Toolbox.Audio.SoundEffect.Category.Background music,Background music
+ ,Background music,Studio.Toolbox.Audio.SoundEffect.Category.Church bell,Church bell
+ ,Church bell,Studio.Toolbox.Audio.SoundEffect.Category.Car passing by,Car passing by
+ ,Car passing by,Studio.Toolbox.Audio.SoundEffect.Category.Chime,Chime
+ ,Chime,Studio.Toolbox.Audio.SoundEffect.Category.Harmonica,Harmonica
+ ,Harmonica,Studio.Toolbox.Audio.SoundEffect.Category.Bagpipes,Bagpipes
+ ,Bagpipes,Studio.Toolbox.Audio.SoundEffect.Category.Didgeridoo,Didgeridoo
+ ,Didgeridoo,Studio.Toolbox.Audio.SoundEffect.Category.Rail transport,Rail transport
+ ,Rail transport,Studio.Toolbox.Audio.SoundEffect.Category.Scratching (performance technique),Scratching (performance technique)
+ ,Scratching (performance technique),Studio.Toolbox.Audio.SoundEffect.Category.Pop music,Pop music
+ ,Pop music,Studio.Toolbox.Audio.SoundEffect.Category.Hip hop music,Hip hop music
+ ,Hip hop music,Studio.Toolbox.Audio.SoundEffect.Category.Happy music,Happy music
+ ,Happy music,Studio.Toolbox.Audio.SoundEffect.Category.Beatboxing,Beatboxing
+ ,Beatboxing,Studio.Toolbox.Audio.SoundEffect.Category.Rock music,Rock music
+ ,Rock music,Studio.Toolbox.Audio.SoundEffect.Category.Progressive rock,Progressive rock
+ ,Progressive rock,Studio.Toolbox.Audio.SoundEffect.Category.Rock and roll,Rock and roll
+ ,Rock and roll,Studio.Toolbox.Audio.SoundEffect.Category.Reggae,Reggae
+ ,Reggae,Studio.Toolbox.Audio.SoundEffect.Category.Swing music,Swing music
+ ,Swing music,Studio.Toolbox.Audio.SoundEffect.Category.Scratch,Scratch
+ ,Scratch,Studio.Toolbox.Audio.SoundEffect.Category.Bluegrass,Bluegrass
+ ,Bluegrass,Studio.Toolbox.Audio.SoundEffect.Category.Chorus effect,Chorus effect
+ ,Chorus effect,Studio.Toolbox.Audio.SoundEffect.Category.Folk music,Folk music
+ ,Folk music,Studio.Toolbox.Audio.SoundEffect.Category.Middle Eastern music,Middle Eastern music
+ ,Middle Eastern music,Studio.Toolbox.Audio.SoundEffect.Category.Disco,Disco
+ ,Disco,Studio.Toolbox.Audio.SoundEffect.Category.Opera,Opera
+ ,Opera,Studio.Toolbox.Audio.SoundEffect.Category.Busy signal,Busy signal
+ ,Busy signal,Studio.Toolbox.Audio.SoundEffect.Category.Sad music,Sad music
+ ,Sad music,Studio.Toolbox.Audio.SoundEffect.Category.Electronic music,Electronic music
+ ,Electronic music,Studio.Toolbox.Audio.SoundEffect.Category.Coin (dropping),Coin (dropping)
+ ,Coin (dropping),Studio.Toolbox.Audio.SoundEffect.Category.Rub,Rub
+ ,Rub,Studio.Toolbox.Audio.SoundEffect.Category.Techno,Techno
+ ,Techno,Studio.Toolbox.Audio.SoundEffect.Category.Drum and bass,Drum and bass
+ ,Drum and bass,Studio.Toolbox.Audio.SoundEffect.Category.Toot,Toot
+ ,Toot,Studio.Toolbox.Audio.SoundEffect.Category.Electronic dance music,Electronic dance music
+ ,Electronic dance music,Studio.Toolbox.Audio.SoundEffect.Category.Trance music,Trance music
+ ,Trance music,Studio.Toolbox.Audio.SoundEffect.Category.Music of Latin America,Music of Latin America
+ ,Music of Latin America,Studio.Toolbox.Audio.SoundEffect.Category.Flamenco,Flamenco
+ ,Flamenco,Studio.Toolbox.Audio.SoundEffect.Category.Music for children,Music for children
+ ,Music for children,Studio.Toolbox.Audio.SoundEffect.Category.Afrobeat,Afrobeat
+ ,Afrobeat,Studio.Toolbox.Audio.SoundEffect.Category.Christian music,Christian music
+ ,Christian music,Studio.Toolbox.Audio.SoundEffect.Category.Buzzer,Buzzer
+ ,Buzzer,Studio.Toolbox.Audio.SoundEffect.Category.Music of Asia,Music of Asia
+ ,Music of Asia,Studio.Toolbox.Audio.SoundEffect.Category.Music of Bollywood,Music of Bollywood
+ ,Music of Bollywood,Studio.Toolbox.Audio.SoundEffect.Category.Song,Song
+ ,Song,Studio.Toolbox.Audio.SoundEffect.Category.Slam,Slam
+ ,Slam,Studio.Toolbox.Audio.SoundEffect.Category.Jingle (music),Jingle (music)
+ ,Jingle (music),Studio.Toolbox.Audio.SoundEffect.Category.Christmas music,Christmas music
+ ,Christmas music,Studio.Toolbox.Audio.SoundEffect.Category.Wedding music,Wedding music
+ ,Wedding music,Studio.Toolbox.Audio.SoundEffect.Category.Jackhammer,Jackhammer
+ ,Jackhammer,Studio.Toolbox.Audio.SoundEffect.Category.Tender music,Tender music
+ ,Tender music,Studio.Toolbox.Audio.SoundEffect.Category.Angry music,Angry music
+ ,Angry music,Studio.Toolbox.Audio.SoundEffect.Category.Scary music,Scary music
+ ,Scary music,Studio.Toolbox.Audio.SoundEffect.Category.Wind,Wind
+ ,Wind,Studio.Toolbox.Audio.SoundEffect.Category.Thunderstorm,Thunderstorm
+ ,Thunderstorm,Studio.Toolbox.Audio.SoundEffect.Category.Rain on surface,Rain on surface
+ ,Rain on surface,"Studio.Toolbox.Audio.SoundEffect.Category.Waves, surf","Waves, surf"
+ ,"Waves, surf",Studio.Toolbox.Audio.SoundEffect.Category.Ship,Ship
+ ,Ship,"Studio.Toolbox.Audio.SoundEffect.Category.Power windows, electric windows","Power windows, electric windows"
+ ,"Power windows, electric windows","Studio.Toolbox.Audio.SoundEffect.Category.Race car, auto racing","Race car, auto racing"
+ ,"Race car, auto racing",Studio.Toolbox.Audio.SoundEffect.Category.Air brake,Air brake
+ ,Air brake,Studio.Toolbox.Audio.SoundEffect.Category.Alarm clock,Alarm clock
+ ,Alarm clock,"Studio.Toolbox.Audio.SoundEffect.Category.Air horn, truck horn","Air horn, truck horn"
+ ,"Air horn, truck horn",Studio.Toolbox.Audio.SoundEffect.Category.Reversing beeps,Reversing beeps
+ ,Reversing beeps,"Studio.Toolbox.Audio.SoundEffect.Category.Ice cream truck, ice cream van","Ice cream truck, ice cream van"
+ ,"Ice cream truck, ice cream van",Studio.Toolbox.Audio.SoundEffect.Category.Emergency vehicle,Emergency vehicle
+ ,Emergency vehicle,Studio.Toolbox.Audio.SoundEffect.Category.Police car (siren),Police car (siren)
+ ,Police car (siren),Studio.Toolbox.Audio.SoundEffect.Category.Motorcycle,Motorcycle
+ ,Motorcycle,"Studio.Toolbox.Audio.SoundEffect.Category.Traffic noise, roadway noise","Traffic noise, roadway noise"
+ ,"Traffic noise, roadway noise",Studio.Toolbox.Audio.SoundEffect.Category.Train,Train
+ ,Train,Studio.Toolbox.Audio.SoundEffect.Category.Train whistle,Train whistle
+ ,Train whistle,Studio.Toolbox.Audio.SoundEffect.Category.Clatter,Clatter
+ ,Clatter,Studio.Toolbox.Audio.SoundEffect.Category.Train horn,Train horn
+ ,Train horn,Studio.Toolbox.Audio.SoundEffect.Category.Train wheels squealing,Train wheels squealing
+ ,Train wheels squealing,"Studio.Toolbox.Audio.SoundEffect.Category.Fixed-wing aircraft, airplane","Fixed-wing aircraft, airplane"
+ ,"Fixed-wing aircraft, airplane",Studio.Toolbox.Audio.SoundEffect.Category.Skateboard,Skateboard
+ ,Skateboard,Studio.Toolbox.Audio.SoundEffect.Category.Engine,Engine
+ ,Engine,Studio.Toolbox.Audio.SoundEffect.Category.Light engine (high frequency),Light engine (high frequency)
+ ,Light engine (high frequency),"Studio.Toolbox.Audio.SoundEffect.Category.Dental drill, dentist's drill","Dental drill, dentist's drill"
+ ,"Dental drill, dentist's drill",Studio.Toolbox.Audio.SoundEffect.Category.Lawn mower,Lawn mower
+ ,Lawn mower,Studio.Toolbox.Audio.SoundEffect.Category.Heavy engine (low frequency),Heavy engine (low frequency)
+ ,Heavy engine (low frequency),Studio.Toolbox.Audio.SoundEffect.Category.Idling,Idling
+ ,Idling,Studio.Toolbox.Audio.SoundEffect.Category.Shatter,Shatter
+ ,Shatter,Studio.Toolbox.Audio.SoundEffect.Category.Ding-dong,Ding-dong
+ ,Ding-dong,Studio.Toolbox.Audio.SoundEffect.Category.Tap,Tap
+ ,Tap,"Studio.Toolbox.Audio.SoundEffect.Category.Cutlery, silverware","Cutlery, silverware"
+ ,"Cutlery, silverware",Studio.Toolbox.Audio.SoundEffect.Category.Sink (filling or washing),Sink (filling or washing)
+ ,Sink (filling or washing),Studio.Toolbox.Audio.SoundEffect.Category.Hair dryer,Hair dryer
+ ,Hair dryer,Studio.Toolbox.Audio.SoundEffect.Category.Electronic tuner,Electronic tuner
+ ,Electronic tuner,Studio.Toolbox.Audio.SoundEffect.Category.Toothbrush,Toothbrush
+ ,Toothbrush,Studio.Toolbox.Audio.SoundEffect.Category.Electric toothbrush,Electric toothbrush
+ ,Electric toothbrush,Studio.Toolbox.Audio.SoundEffect.Category.Zipper (clothing),Zipper (clothing)
+ ,Zipper (clothing),Studio.Toolbox.Audio.SoundEffect.Category.Computer keyboard,Computer keyboard
+ ,Computer keyboard,Studio.Toolbox.Audio.SoundEffect.Category.Telephone bell ringing,Telephone bell ringing
+ ,Telephone bell ringing,"Studio.Toolbox.Audio.SoundEffect.Category.Telephone dialing, DTMF","Telephone dialing, DTMF"
+ ,"Telephone dialing, DTMF",Studio.Toolbox.Audio.SoundEffect.Category.Dial tone,Dial tone
+ ,Dial tone,"Studio.Toolbox.Audio.SoundEffect.Category.Smoke detector, smoke alarm","Smoke detector, smoke alarm"
+ ,"Smoke detector, smoke alarm",Studio.Toolbox.Audio.SoundEffect.Category.Steam whistle,Steam whistle
+ ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Clock,Clock
+ ,Clock,Studio.Toolbox.Audio.SoundEffect.Category.Tick,Tick
+ ,Tick,Studio.Toolbox.Audio.SoundEffect.Category.Tick-tock,Tick-tock
+ ,Tick-tock,Studio.Toolbox.Audio.SoundEffect.Category.Pulleys,Pulleys
+ ,Pulleys,Studio.Toolbox.Audio.SoundEffect.Category.Mechanical fan,Mechanical fan
+ ,Mechanical fan,Studio.Toolbox.Audio.SoundEffect.Category.Cash register,Cash register
+ ,Cash register,Studio.Toolbox.Audio.SoundEffect.Category.Printer,Printer
+ ,Printer,Studio.Toolbox.Audio.SoundEffect.Category.Camera,Camera
+ ,Camera,Studio.Toolbox.Audio.SoundEffect.Category.Single-lens reflex camera,Single-lens reflex camera
+ ,Single-lens reflex camera,Studio.Toolbox.Audio.SoundEffect.Category.Sanding,Sanding
+ ,Sanding,Studio.Toolbox.Audio.SoundEffect.Category.Pulse,Pulse
+ ,Pulse,Studio.Toolbox.Audio.SoundEffect.Category.Drill,Drill
+ ,Drill,Studio.Toolbox.Audio.SoundEffect.Category.Machine gun,Machine gun
+ ,Machine gun,Studio.Toolbox.Audio.SoundEffect.Category.Fusillade,Fusillade
+ ,Fusillade,Studio.Toolbox.Audio.SoundEffect.Category.Firecracker,Firecracker
+ ,Firecracker,Studio.Toolbox.Audio.SoundEffect.Category.Eruption,Eruption
+ ,Eruption,Studio.Toolbox.Audio.SoundEffect.Category.Boom,Boom
+ ,Boom,Studio.Toolbox.Audio.SoundEffect.Category.Chop,Chop
+ ,Chop,Studio.Toolbox.Audio.SoundEffect.Category.Crack,Crack
+ ,Crack,"Studio.Toolbox.Audio.SoundEffect.Category.Chink, clink","Chink, clink"
+ ,"Chink, clink",Studio.Toolbox.Audio.SoundEffect.Category.Liquid,Liquid
+ ,Liquid,Studio.Toolbox.Audio.SoundEffect.Category.Slosh,Slosh
+ ,Slosh,Studio.Toolbox.Audio.SoundEffect.Category.Squish,Squish
+ ,Squish,Studio.Toolbox.Audio.SoundEffect.Category.Pour,Pour
+ ,Pour,Studio.Toolbox.Audio.SoundEffect.Category.Gush,Gush
+ ,Gush,Studio.Toolbox.Audio.SoundEffect.Category.Fill (with liquid),Fill (with liquid)
+ ,Fill (with liquid),Studio.Toolbox.Audio.SoundEffect.Category.Pump (liquid),Pump (liquid)
+ ,Pump (liquid),Studio.Toolbox.Audio.SoundEffect.Category.Boiling,Boiling
+ ,Boiling,"Studio.Toolbox.Audio.SoundEffect.Category.Thump, thud","Thump, thud"
+ ,"Thump, thud",Studio.Toolbox.Audio.SoundEffect.Category.Thunk,Thunk
+ ,Thunk,Studio.Toolbox.Audio.SoundEffect.Category.Effects unit,Effects unit
+ ,Effects unit,Studio.Toolbox.Audio.SoundEffect.Category.Basketball bounce,Basketball bounce
+ ,Basketball bounce,Studio.Toolbox.Audio.SoundEffect.Category.Bang,Bang
+ ,Bang,"Studio.Toolbox.Audio.SoundEffect.Category.Slap, smack","Slap, smack"
+ ,"Slap, smack","Studio.Toolbox.Audio.SoundEffect.Category.Whack, thwack","Whack, thwack"
+ ,"Whack, thwack","Studio.Toolbox.Audio.SoundEffect.Category.Smash, crash","Smash, crash"
+ ,"Smash, crash",Studio.Toolbox.Audio.SoundEffect.Category.Bouncing,Bouncing
+ ,Bouncing,Studio.Toolbox.Audio.SoundEffect.Category.Whip,Whip
+ ,Whip,Studio.Toolbox.Audio.SoundEffect.Category.Roll,Roll
+ ,Roll,Studio.Toolbox.Audio.SoundEffect.Category.Crushing,Crushing
+ ,Crushing,Studio.Toolbox.Audio.SoundEffect.Category.Tearing,Tearing
+ ,Tearing,"Studio.Toolbox.Audio.SoundEffect.Category.Beep, bleep","Beep, bleep"
+ ,"Beep, bleep",Studio.Toolbox.Audio.SoundEffect.Category.Ping,Ping
+ ,Ping,Studio.Toolbox.Audio.SoundEffect.Category.Ding,Ding
+ ,Ding,Studio.Toolbox.Audio.SoundEffect.Category.Squeal,Squeal
+ ,Squeal,Studio.Toolbox.Audio.SoundEffect.Category.Creak,Creak
+ ,Creak,Studio.Toolbox.Audio.SoundEffect.Category.Whir,Whir
+ ,Whir,Studio.Toolbox.Audio.SoundEffect.Category.Sizzle,Sizzle
+ ,Sizzle,Studio.Toolbox.Audio.SoundEffect.Category.Rumble,Rumble
+ ,Rumble,"Studio.Toolbox.Audio.SoundEffect.Category.Jingle, tinkle","Jingle, tinkle"
+ ,"Jingle, tinkle",Studio.Toolbox.Audio.SoundEffect.Category.Crunch,Crunch
+ ,Crunch,Studio.Toolbox.Audio.SoundEffect.Category.Silence,Silence
+ ,Silence,Studio.Toolbox.Audio.SoundEffect.Category.Sine wave,Sine wave
+ ,Sine wave,Studio.Toolbox.Audio.SoundEffect.Category.Harmonic,Harmonic
+ ,Harmonic,Studio.Toolbox.Audio.SoundEffect.Category.Chirp tone,Chirp tone
+ ,Chirp tone,Studio.Toolbox.Audio.SoundEffect.Category.Sound effect,Sound effect
+ ,Sound effect,"Studio.Toolbox.Audio.SoundEffect.Category.Inside, large room or hall","Inside, large room or hall"
+ ,"Inside, large room or hall","Studio.Toolbox.Audio.SoundEffect.Category.Outside, urban or manmade","Outside, urban or manmade"
+ ,"Outside, urban or manmade",Studio.Toolbox.Audio.SoundEffect.Category.Reverberation,Reverberation
+ ,Reverberation,Studio.Toolbox.Audio.SoundEffect.Category.Echo,Echo
+ ,Echo,Studio.Toolbox.Audio.SoundEffect.Category.Noise,Noise
+ ,Noise,Studio.Toolbox.Audio.SoundEffect.Category.Environmental noise,Environmental noise
+ ,Environmental noise,Studio.Toolbox.Audio.SoundEffect.Category.Sidetone,Sidetone
+ ,Sidetone,Studio.Toolbox.Audio.SoundEffect.Category.Cacophony,Cacophony
+ ,Cacophony,Studio.Toolbox.Audio.SoundEffect.Category.Pink noise,Pink noise
+ ,Pink noise,Studio.Toolbox.Audio.SoundEffect.Category.Vibration,Vibration
+ ,Vibration,Studio.Toolbox.Audio.SoundEffect.Category.Television,Television
+ ,Television

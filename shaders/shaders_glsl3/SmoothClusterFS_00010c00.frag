@@ -22,7 +22,7 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = ((texture(AlbedoMapTexture, vec3(VARYING1.xy, VARYING2.x)).yxzw * VARYING0.x) + (texture(AlbedoMapTexture, vec3(VARYING1.zw, VARYING2.z)).yxzw * VARYING0.y)) + (texture(AlbedoMapTexture, VARYING3.xyz).yxzw * VARYING0.z);
+    vec4 f0 = ((texture(AlbedoMapTexture, vec3(VARYING1.xy, VARYING2.x)).yxzw * VARYING0.x) + (texture(AlbedoMapTexture, vec3(VARYING1.zw, VARYING2.z)).yxzw * VARYING0.y)) + (texture(AlbedoMapTexture, vec3(VARYING3.xyz)).yxzw * VARYING0.z);
     vec2 f1 = f0.yz - vec2(0.5);
     float f2 = f1.x;
     float f3 = f1.y;

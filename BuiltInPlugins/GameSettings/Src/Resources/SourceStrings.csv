@@ -2,6 +2,7 @@ Key,Source,Context,en-us
 Studio.GameSettings.General.PlayabilityHeader,Who can play this game?, ,Who can play this game?
 Studio.GameSettings.Monetization.MarketplaceFeeIs,Marketplace Fee is {1}%., ,Marketplace Fee is {1}%.
 Studio.GameSettings.General.TitleGameIcon,Game Icon, ,Game Icon
+Studio.GameSettings.Places.SocialSlotAllowedError,Allowed social slot is {socialSlot:int}., ,Allowed social slot is {socialSlot:int}.
 Studio.GameSettings.General.ErrorNameDescHttp,An error has occurred with moderating the name and description. Please try again later!, ,An error has occurred with moderating the name and description. Please try again later!
 Studio.GameSettings.General.DevSubsSubscribers,Subscribers, ,Subscribers
 Studio.GameSettings.General.DevSubsIsActive,Yes, ,Yes
@@ -17,7 +18,7 @@ Studio.GameSettings.General.ThumbnailsModeration,Items will be reviewed by moder
 Studio.GameSettings.General.PlayabilityPrivate,Private, ,Private
 Studio.GameSettings.General.DevSubsDeleteHeader,Are you sure you want to delete this subscription?, ,Are you sure you want to delete this subscription?
 Studio.GameSettings.General.PluginDescription,Update settings related to current game, ,Update settings related to current game
-Studio.GameSettings.General.GuidelinesLearnMoreLink,Learn More, ,Learn More
+Studio.GameSettings.Guidelines.LearnMoreLink,Learn More, ,Learn More
 Studio.GameSettings.General.GenreSports,Sports, ,Sports
 Studio.GameSettings.General.DevSubsIsNotActive,No, ,No
 Studio.GameSettings.General.ReplyNo,No, ,No
@@ -124,12 +125,17 @@ Studio.GameSettings.General.TitleWorldPresets,Presets, ,Presets
 Studio.GameSettings.General.ErrorNameEmpty,Name cannot be empty., ,Name cannot be empty.
 Studio.GameSettings.General.ImagePreview,Preview, ,Preview
 Studio.GameSettings.General.PreviewDialogHeader,Preview, ,Preview
-Studio.GameSettings.General.GuidelinesUnavailable,Unavailable, ,Unavailable
-Studio.GameSettings.General.GuidelinesImpactText,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines., ,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines.
+Studio.GameSettings.Guidelines.Unavailable,Unavailable, ,Unavailable
+Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game.
+Studio.GameSettings.Guidelines.SubmitQuestionnaire,Submit Questionnaire, , Submit Questionnaire
+Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing, ,Studio doesn't currently support video playing
+Studio.GameSettings.Guidelines.UpdateQuestionnaire,Update Questionnaire, , Update Questionnaire
+Studio.GameSettings.Guidelines.ImpactText,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines., ,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines.
 Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
-Studio.GameSettings.General.GuidelinesConfiguredText,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience., ,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience.
-Studio.GameSettings.General.GuidelinesExperienceQuestionnaireLink,Experience Questionnaire, ,Experience Questionnaire
-Studio.GameSettings.General.GuidelinesUnavailableNoticeText,Experiences without Guidelines are treated as "Ages 13+" for users with parental controls enabled., ,Experiences without Guidelines are treated as "Ages 13+" for users with parental controls enabled.
+Studio.GameSettings.Guidelines.ConfiguredText,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience., ,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience.
+Studio.GameSettings.Guidelines.ExperienceQuestionnaireLink,Experience Questionnaire, ,Experience Questionnaire
+Studio.GameSettings.Guidelines.UnavailableNoticeText,Experiences without Guidelines are treated as "Ages 13+" for users with parental controls enabled., ,Experiences without Guidelines are treated as "Ages 13+" for users with parental controls enabled.
+Studio.GameSettings.Guidelines.17PlusWarning,Experiences must be "Ages 17+" to contain 17+ content., ,Experiences must be "Ages 17+" to contain 17+ content.
 Studio.GameSettings.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
 Studio.GameSettings.General.GenreAll,All, ,All
 Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.
@@ -174,7 +180,6 @@ Studio.GameSettings.General.UnitsMetersPerSecondSquared1,({1} meters/second^2), 
 Studio.GameSettings.General.ContentDialogItem4,Robux Gambling, ,Robux Gambling
 Studio.GameSettings.General.ErrorDescModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.
 Studio.GameSettings.General.ContentDialogItem5,Drug Reference or Use, ,Drug Reference or Use
-Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing, ,Studio doesn't currently support video playing
 Studio.GameSettings.AvatarChat.AudioTitle,Enable Microphone, ,Enable Microphone
 Studio.GameSettings.General.PreviewDialogLink,Go to YouTube and play the video, ,Go to YouTube and play the video
 Studio.GameSettings.AccessPermissions.OwnerDescription,Owner of the game, ,Owner of the game
@@ -189,6 +194,7 @@ Studio.GameSettings.General.ShutdownDialogBody,Are you sure you want to shutdown
 Studio.GameSettings.General.DevSubsDuration6Months,6 months, ,6 months
 Studio.GameSettings.General.PrivateDialogHeader,Make Private, ,Make Private
 Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?, ,Are you sure you want to make this game private?
+Studio.GameSettings.Places.SocialSlotError,Value should be between {minRange:int} and {maxRange:int}., ,Value should be between {minRange:int} and {maxRange:int}.
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results
 Studio.GameSettings.Permissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results
 Studio.GameSettings.General.PrivateDialogBody,Making this game private will shut down any running games., ,Making this game private will shut down any running games.
@@ -344,7 +350,6 @@ Studio.GameSettings.AccessPermissions.DEPRECATED_PermissionsUpdateMessage, We've
 Studio.GameSettings.Permissions.DEPRECATED_PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!
 Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language
 Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play.
-Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game.
 Studio.GameSettings.General.AutoTranslationOnlyAvailableForEnMessage,Automatic translation is unavailable for current source language., ,Automatic translation is unavailable for current source language.
 Studio.GameSettings.Monetization.TotalVIPServers,Total: {totalVipServers:int}, ,Total: {totalVipServers:int}
 Studio.GameSettings.General.LocalizationSettingsNonLinkText, to further manage the cloud localization table for this game., , to further manage the cloud localization table for this game.

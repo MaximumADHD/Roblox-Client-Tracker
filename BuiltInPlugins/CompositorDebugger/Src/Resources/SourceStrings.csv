@@ -1,6 +1,10 @@
 Key,en-us
-Studio.CompositorDebugger.Plugin.Button,Toggle
-Studio.CompositorDebugger.Plugin.Description,Toggles the Template plugin window.
+Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details
+Studio.CompositorDebugger.LayerView.Properties,Properties
+Studio.CompositorDebugger.LayerView.State,State
+Studio.CompositorDebugger.LayerView.UserData,User Data
+Studio.CompositorDebugger.Plugin.Button,Compositor Debugger
+Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.
 Studio.CompositorDebugger.Plugin.Name,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Text,Example Text!
-Studio.CompositorDebugger.Plugin.Toolbar,Compositor Debugger
+Studio.CompositorDebugger.Plugin.Toolbar,Animation

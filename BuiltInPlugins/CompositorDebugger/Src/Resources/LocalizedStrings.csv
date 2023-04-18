@@ -1,0 +1,10 @@
+Key,Source,en-us
+Studio.CompositorDebugger.Plugin.Text,Example Text!,Example Text!
+Studio.CompositorDebugger.Plugin.Button,Compositor Debugger,Compositor Debugger
+Studio.CompositorDebugger.Plugin.Name,Compositor Debugger,Compositor Debugger
+Studio.CompositorDebugger.Plugin.Toolbar,Animation,Animation
+Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Toggles the Compositor Debugger window.
+Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details,Layer Details
+Studio.CompositorDebugger.LayerView.Properties,Properties,Properties
+Studio.CompositorDebugger.LayerView.UserData,User Data,User Data
+Studio.CompositorDebugger.LayerView.State,State,State
