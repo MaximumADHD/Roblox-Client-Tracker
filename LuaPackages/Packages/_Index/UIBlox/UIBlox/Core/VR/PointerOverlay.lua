@@ -73,7 +73,21 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 		LeftControllerModel.current:setEnabled(VRService.VREnabled)
 		RightControllerModel.current:setEnabled(VRService.VREnabled)
 		if VRService.VREnabled then
-			ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA, Enum.KeyCode.ButtonR2)
+			if UIBloxConfig.bindAllLaserPointerButtons then
+				ContextActionService:BindActivate(
+					Enum.UserInputType.Gamepad1,
+					Enum.KeyCode.ButtonA,
+					Enum.KeyCode.ButtonX,
+					Enum.KeyCode.ButtonR2,
+					Enum.KeyCode.ButtonL2
+				)
+			else
+				ContextActionService:BindActivate(
+					Enum.UserInputType.Gamepad1,
+					Enum.KeyCode.ButtonA,
+					Enum.KeyCode.ButtonR2
+				)
+			end
 		end
 	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 

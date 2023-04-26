@@ -33,8 +33,6 @@ return {
 	NetworkingAliases = require(LuaSocialLibrariesDeps.NetworkingAliases),
 	NetworkingChat = require(LuaSocialLibrariesDeps.NetworkingChat),
 	NetworkingFriends = require(LuaSocialLibrariesDeps.NetworkingFriends),
-	NetworkingFriends_221 = require(LuaSocialLibrariesDeps.NetworkingFriends_221),
-	NetworkingFriends_290 = require(LuaSocialLibrariesDeps.NetworkingFriends_290),
 	NetworkingGames = require(LuaSocialLibrariesDeps.NetworkingGames),
 	NetworkingContacts = require(LuaSocialLibrariesDeps.NetworkingContacts),
 	NetworkingShareLinks = require(LuaSocialLibrariesDeps.NetworkingShareLinks),

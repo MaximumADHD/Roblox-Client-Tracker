@@ -14,7 +14,6 @@ local xOffset = 8 * Images.ImagesResolutionScale
 local yOffset = 8 * Images.ImagesResolutionScale
 local imageCenter = Rect.new(xOffset, yOffset, imageSize.x - xOffset, imageSize.y - yOffset)
 
--- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4
 local WIDTH_FIXED = 300
 local WIDTH_MARGIN = 16
 local WIDTH_INNER_MARGIN = 24

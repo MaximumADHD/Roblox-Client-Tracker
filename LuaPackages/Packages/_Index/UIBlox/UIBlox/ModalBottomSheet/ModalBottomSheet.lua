@@ -7,7 +7,6 @@ local t = require(Packages.t)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ModalBottomSheetButton = require(script.Parent.ModalBottomSheetButton)
 
--- https://share.goabstract.com/cfe90baa-ab79-4f34-ad1b-3ef389d39da4
 local ModalBottomSheet = Roact.PureComponent:extend("ModalBottomSheet")
 
 local WIDTH_THRESHOLD = 600

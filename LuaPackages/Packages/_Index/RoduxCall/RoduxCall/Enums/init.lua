@@ -1,3 +1,3 @@
 return {
-	State = require(script.State),
+	Status = require(script.Status),
 }

@@ -1,5 +1,3 @@
--- https://share.goabstract.com/b4b09f34-438a-4d5e-ba7f-8f1f0657f4dd
-
 local Menu = script.Parent
 local App = Menu.Parent
 local UIBlox = App.Parent

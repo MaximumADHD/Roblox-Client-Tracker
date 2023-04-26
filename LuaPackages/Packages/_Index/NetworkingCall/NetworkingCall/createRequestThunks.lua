@@ -2,10 +2,10 @@
 local networkingCallTypes = require(script.Parent.networkingCallTypes)
 
 local networkRequests: any = script.Parent.networkRequests
-local createGetCallList: (networkingCallTypes.Config) -> any = require(networkRequests.createGetCallList)
+local createGetCallHistory: (networkingCallTypes.Config) -> any = require(networkRequests.createGetCallHistory)
 
 return function(config: networkingCallTypes.Config): networkingCallTypes.RequestThunks
 	return {
-		GetCallList = createGetCallList(config),
+		GetCallHistory = createGetCallHistory(config),
 	}
 end

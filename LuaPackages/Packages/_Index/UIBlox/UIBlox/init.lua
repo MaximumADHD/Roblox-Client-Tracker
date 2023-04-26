@@ -254,6 +254,8 @@ local function initializeLibrary(configs)
 			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
 			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
 			ExperienceStatsV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceStatsV2),
+			ExperienceTileV3 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV3),
+			AspectRatioModeEnum = require(script.App.Tile.SplitTile.ExperienceTile.Enum.AspectRatioMode),
 			TileContentPanel = require(script.App.Tile.SplitTile.TileContentPanel),
 			ExperienceActionRow = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow),
 			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
@@ -367,6 +369,7 @@ local function initializeLibrary(configs)
 				IconTabGroup = require(script.App.Navigation.PrimaryNavBar.IconTabGroup),
 				Types = require(script.App.Navigation.PrimaryNavBar.Types),
 			}),
+			ControllerBar = require(script.App.Navigation.ControllerBar.ControllerBar),
 		}),
 
 		SelectionImage = strict({

@@ -1,11 +1,11 @@
 local RoduxCall = script:FindFirstAncestor("RoduxCall")
 local Packages = RoduxCall.Parent
-local Rodux = require(Packages.Rodux)
+local Rodux = require(Packages.Rodux) :: any
 
-local callList = require(script.callList)
+local callHistory = require(script.callHistory)
 
 return function(config)
 	return Rodux.combineReducers({
-		callList = callList(config),
+		callHistory = callHistory(config),
 	})
 end

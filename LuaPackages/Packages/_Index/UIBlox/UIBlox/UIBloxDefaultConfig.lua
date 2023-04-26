@@ -90,6 +90,9 @@ return {
 	-- Enable fix for the image set resolution scale
 	enableImageSetResolutionScaleFix = false,
 
+	-- Bind all laser pointer buttons for left/right switching
+	bindAllLaserPointerButtons = false,
+
 	-- Enable support for the new Collectible/Limited 2.0 item restriction type
 	enableCollectibleItemRestriction = false,
 

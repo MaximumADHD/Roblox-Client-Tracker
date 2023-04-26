@@ -1,19 +1,27 @@
+export type Participant = { userId: number, displayName: string, userName: string }
+
 export type CallModel = {
-	createdUtc: number,
-	userId: number,
-	username: string,
+	callId: string,
+	callerId: number,
+	startUtc: number,
+	endUtc: number,
+	participants: { Participant },
 	status: string,
+	universeId: number,
+	placeId: number,
 }
 
-export type GetCallListSucceeded = {
+export type GetCallHistorySucceeded = {
 	responseBody: {
-		callList: {
+		callRecords: {
 			[number]: CallModel,
 		},
+		nextPageCursor: string,
+		previousPageCursor: string,
 	},
 }
 
-export type CallList = {
+export type CallHistory = {
 	[number]: CallModel,
 }
 

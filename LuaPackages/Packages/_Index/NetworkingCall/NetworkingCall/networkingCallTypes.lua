@@ -4,19 +4,33 @@ export type Config = {
 	useMockedResponse: boolean,
 }
 
+export type Participant = { userId: number, displayName: string, userName: string }
+
 export type Call = {
-	userId: number,
+	callId: string,
+	callerId: number,
+	startUtc: number,
+	endUtc: number,
+	participants: { Participant },
 	status: string,
+	universeId: number,
+	placeId: number,
 }
 
-export type GetCallListRequest = {}
+export type GetCallHistoryRequest = { universeId: number?, limit: number, cursor: string? }
 
-export type GetCallListResponse = {
-	callList: { [number]: Call },
+export type GetCallHistoryResponse = {
+	callHistory: { [number]: Call },
 }
 
 export type RequestThunks = {
-	GetCallList: GetCallListRequest,
+	GetCallHistory: GetCallHistoryRequest,
+}
+
+export type QueryArgs = {
+	universeId: number?,
+	limit: number,
+	cursor: string?,
 }
 
 return {}
