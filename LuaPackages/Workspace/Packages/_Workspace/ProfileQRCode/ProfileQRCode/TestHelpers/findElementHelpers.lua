@@ -12,7 +12,9 @@ return {
 	findTopBarTitle = findElementWithAssert({ Text = TextKeys.Title }),
 	findTopBar = findElementWithAssert({ Name = "TopBar" }),
 	findPlayerAvatar = findElementWithAssert({ Name = "PlayerAvatar" }),
-	findBackButton = findElementWithAssert(findImageSet("icons/navigation/close")),
+	-- TODO remove when cleaning up getFFlagProfileQRCodeEnable3DAvatarExperiment and experiment is fully rolled out
+	findCrossButton = findElementWithAssert(findImageSet("icons/navigation/close")),
+	findBackButton = findElementWithAssert(findImageSet("icons/navigation/pushBack")),
 	findRetryButton = findElementWithAssert(findImageSet("icons/common/refresh")),
 	findLoadingElement = findElementWithAssert({ Image = "rbxasset://textures/ui/LuaApp/graphic/shimmer.png" }),
 	findQRCodeIcon = findElementWithAssert({ Name = "QRImage" }),

@@ -8,4 +8,5 @@ return enumerate(script.Name, {
 	QRPageFriendRequestBannerShown = "QRPageFriendRequestBannerShown",
 	QRPageFriendRequestBannerAccepted = "QRPageFriendRequestBannerAccepted",
 	QRPageFriendRequestBannerDismissed = "QRPageFriendRequestBannerDismissed",
+	QRCode3DAvatarLoad = "QRCode3DAvatarLoad",
 })

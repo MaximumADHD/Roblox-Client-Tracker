@@ -19,6 +19,7 @@ local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeat
 local FFlagRvCaptureResolveReturnError = game:GetEngineFeature("RvCaptureResolveReturnError")
 local FFlagFacialAnimationStreamingPauseOnMute = game:GetEngineFeature("FacialAnimationStreamingPauseOnMute")
 local FFlagFacialAnimationStreamingServiceFixAnimatorSetup = game:DefineFastFlag("FacialAnimationStreamingServiceFixAnimatorSetup", false)
+local FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled = game:DefineFastFlag("FacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled", false)
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -568,7 +569,11 @@ end
 local function updateWithServiceState(serviceState)
 	log:trace(string.format("[updateWithServiceState] state: %s", tostring(serviceState)))
 
-	if FacialAnimationStreamingService:IsPlaceEnabled(serviceState) then
+	local isAudioOrVideoEnabled = false == FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled
+		or FacialAnimationStreamingService:IsAudioEnabled(serviceState)
+		or FacialAnimationStreamingService:IsVideoEnabled(serviceState)
+
+	if isAudioOrVideoEnabled and FacialAnimationStreamingService:IsPlaceEnabled(serviceState) then
 		if FFlagFacialAnimationStreamingServiceUsePlayerThrottling then
 			local ThrottleUpdateEvent = RobloxReplicatedStorage:WaitForChild(AvatarChatConstants.ThrottleUpdateEventName, math.huge)
 			ThrottleUpdateEvent.OnClientEvent:Connect(function(allowed, optedIn)

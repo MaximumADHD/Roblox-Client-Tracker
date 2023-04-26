@@ -58,14 +58,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local player = Players.LocalPlayer
 
 -- [[ Flags ]]
-local FFlagUserFixCameraPanAfterShiftLock
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixCameraPanAfterShiftLock")
-	end)
-	FFlagUserFixCameraPanAfterShiftLock = success and result
-end
-
 local FFlagUserCameraGamepadZoomFix
 do
 	local success, result = pcall(function()
@@ -673,13 +665,9 @@ function BaseCamera:UpdateMouseBehavior()
 		else
 			CameraUtils.restoreRotationType()
 
-			if FFlagUserFixCameraPanAfterShiftLock then
-				local rotationActivated = CameraInput.getRotationActivated()
-				if rotationActivated then
-					CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCurrentPosition)
-				else
-					CameraUtils.restoreMouseBehavior()
-				end
+			local rotationActivated = CameraInput.getRotationActivated()
+			if rotationActivated then
+				CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCurrentPosition)
 			else
 				CameraUtils.restoreMouseBehavior()
 			end

@@ -14,20 +14,16 @@ local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRKeyboard = require(RobloxGui.Modules.VR.VirtualKeyboard)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
-local GetFFlagBottomBarImproveInVR = require(RobloxGui.Modules.Flags.GetFFlagBottomBarImproveInVR)
 local GetFFlagReportBottomBarEventInVR = require(RobloxGui.Modules.Flags.GetFFlagReportBottomBarEventInVR)
 
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-local GetFFlagUIBloxVRApplyHeadScale =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
-local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
 local FFlagVRCollapseUIEndsSelection = require(RobloxGui.Modules.Flags.FFlagVRCollapseUIEndsSelection)
 
-if GetFFlagBottomBarImproveInVR() and not VRService.VREnabled then
+if not VRService.VREnabled then
 	warn("UserGui should not be required while not in VR")
 	return nil
 end
@@ -53,17 +49,8 @@ if FFlagVRLetRaycastsThroughUI then
 end
 
 -- this matches the core ui rect in ScreenGui
-local panelSizeX
-local panelSizeY
-if GetFFlagUIBloxVRApplyHeadScale() then
-	panelSizeX = 2.7978
-	panelSizeY = panelSizeX * 0.75
-else
--- ROBLOX FIXME: Should this be CurrentCamera?
-	panelSizeX = (workspace :: any).Camera.HeadScale * 2.7978
-	panelSizeY = panelSizeX * 0.75
-end
-
+local panelSizeX = 2.7978
+local panelSizeY = panelSizeX * 0.75
 local userPanelSize = Vector2.new(panelSizeX, panelSizeY)
 userGuiPanel:ResizeStuds(userPanelSize.x, userPanelSize.y, 128)
 
@@ -81,13 +68,8 @@ if EngineFeatureEnableVRUpdate3 then
 		-- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.
 		plPanel:GetPart().CanQuery = false
 	end
-		
-	if GetFFlagUIBloxVRApplyHeadScale() then
-		plPanel:ResizeStuds(newPanelSize.x, newPanelSize.y, 128)
-	else
-	local headScale = workspace.CurrentCamera and workspace.CurrentCamera.HeadScale or 1
-	plPanel:ResizeStuds(newPanelSize.x * headScale, newPanelSize.y * headScale, 128)
-	end
+
+	plPanel:ResizeStuds(newPanelSize.x, newPanelSize.y, 128)
 	plPanel:SetVisible(false)
 	plPanel.showCursor = true
 end
@@ -145,25 +127,18 @@ local function onGuiSelection()
 		-- make sure the right laser pointer hand is set
 		VRHub.LaserPointer:updateInputUserCFrame()
 
-		-- remove headScale with FFlagUIBloxVRApplyHeadScale
-		local headScale
-		if GetFFlagUIBloxVRApplyHeadScale() then
-			headScale = 1
-		else
-			headScale = workspace.CurrentCamera and workspace.CurrentCamera.HeadScale or 1
-		end
 		if VRHub.ShowTopBar then
 			UserGuiModule:SetVisible(true, plPanel) -- UI interactive on wrist
 			plPanel.initialCFLerp = 1
 			plPanel:ForcePositionUpdate(true)
-			plPanel.distance = 2.5 * headScale
+			plPanel.distance = 2.5
 
 			if not vrMenuOpen then
-				plPanel:StartLerp(newPanelSize * headScale)
+				plPanel:StartLerp(newPanelSize)
 				vrMenuOpen = true
 			end
 		else -- interaction off
-			plPanel:StartLerp(newPanelSize * 0.25 * headScale)
+			plPanel:StartLerp(newPanelSize * 0.25)
 			UserGuiModule:SetVisible(false, plPanel)
 
 			GuiService.SelectedObject = nil
@@ -176,14 +151,12 @@ if EngineFeatureEnableVRUpdate3 then
 	VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
 	GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
 	VRService.UserCFrameEnabled:Connect(onGuiSelection)
-	if FFlagFixPurchasePromptInVR then
-		GuiService.PurchasePromptShown:Connect(function()
-			-- Purchase prompt pops up while UI is hidden should force UI to show up
-			if not VRHub.ShowTopBar then
-				VRHub:SetShowTopBar(true)
-			end
-		end)
-	end
+	GuiService.PurchasePromptShown:Connect(function()
+		-- Purchase prompt pops up while UI is hidden should force UI to show up
+		if not VRHub.ShowTopBar then
+			VRHub:SetShowTopBar(true)
+		end
+	end)
 
 	local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 	local function handleAction(actionName, inputState, inputObject)
@@ -244,14 +217,12 @@ local function OnVREnabledChanged()
 			VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
 			GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
 			VRService.UserCFrameEnabled:Connect(onGuiSelection)
-			if FFlagFixPurchasePromptInVR then
-				GuiService.PurchasePromptShown:Connect(function()
-					-- Purchase prompt pops up while UI is hidden should force UI to show up
-					if not VRHub.ShowTopBar then
-						VRHub:SetShowTopBar(true)
-					end
-				end)
-			end
+			GuiService.PurchasePromptShown:Connect(function()
+				-- Purchase prompt pops up while UI is hidden should force UI to show up
+				if not VRHub.ShowTopBar then
+					VRHub:SetShowTopBar(true)
+				end
+			end)
 
 			RunService.RenderStepped:Connect(function(step)
 				if userGuiPanel.isVisible and userGuiPanel.isLookedAt then

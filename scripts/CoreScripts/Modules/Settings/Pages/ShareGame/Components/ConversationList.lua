@@ -31,6 +31,7 @@ local GetFFlagAbuseReportAnalyticsHasLaunchData =
 	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
@@ -46,9 +47,9 @@ local RobloxTranslator = getTranslator()
 local ENTRY_HEIGHT = 62
 local ENTRY_PADDING = 18
 
-local NO_RESULTS_FONT = Enum.Font.SourceSans
+local NO_RESULTS_FONT = Theme.font(Enum.Font.SourceSans)
 local NO_RESULTS_TEXTCOLOR = Constants.Color.GRAY3
-local NO_RESULTS_TEXTSIZE = 19
+local NO_RESULTS_TEXTSIZE = Theme.textSize(19)
 local NO_RESULTS_TRANSPRENCY = 0.22
 
 local PRESENCE_WEIGHTS = {

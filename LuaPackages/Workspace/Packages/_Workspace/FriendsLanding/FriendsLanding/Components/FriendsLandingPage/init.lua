@@ -35,6 +35,10 @@ local getFFlagFriendsLandingInactiveFriendsEnabled =
 	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
 local getFFlagFriendsLandingFriendPruningAlertAllowlistOn =
 	require(FriendsLanding.Flags.getFFlagFriendsLandingFriendPruningAlertAllowlistOn)
+local getFIntFriendsLandingFriendPruningUpsellMinFriends =
+	require(FriendsLanding.Flags.getFIntFriendsLandingFriendPruningUpsellMinFriends)
+local getFIntFriendsLandingFriendPruningUpsellMinInactiveFriends =
+	require(FriendsLanding.Flags.getFIntFriendsLandingFriendPruningUpsellMinInactiveFriends)
 
 local FRIEND_PRUNING_ALERT_FEATURE_NAME = "UniversalAppPruningAlertStorageKey"
 local FRIEND_PRUNING_ALERT_LOCAL_STORAGE_KEY = "FriendPruningAlertSeen"
@@ -75,8 +79,11 @@ function FriendsLandingPage:init()
 			or (
 				not userHasSeenFriendPruningAlertAndTooltip
 				and (
-					(#self.props.friends > 150 and #self.filterFriends(self.props.friends, filterStates.Inactive) >= 5)
-					or self.props.isLocalUserSoothsayer
+					(
+						#self.props.friends >= getFIntFriendsLandingFriendPruningUpsellMinFriends()
+						and #self.filterFriends(self.props.friends, filterStates.Inactive)
+							>= getFIntFriendsLandingFriendPruningUpsellMinInactiveFriends()
+					) or self.props.isLocalUserSoothsayer
 				)
 			)
 		else nil
@@ -116,9 +123,7 @@ function FriendsLandingPage:init()
 		self.props.analytics:pageLoadingTimeReport()
 	end
 
-	self.filterFriends = if getFFlagFriendsLandingInactiveFriendsEnabled()
-		then memoize(filterFriends)
-		else function() end
+	self.filterFriends = if getFFlagFriendsLandingInactiveFriendsEnabled() then memoize(filterFriends) else noOpt
 
 	self.onFewestInteractionsSelection = if getFFlagFriendsLandingInactiveFriendsEnabled()
 		then function()
@@ -136,7 +141,7 @@ function FriendsLandingPage:init()
 				end)
 			end
 		end
-		else function() end
+		else noOpt
 
 	self.onTooltipDismissal = if getFFlagFriendsLandingInactiveFriendsEnabled()
 		then function()
@@ -144,7 +149,7 @@ function FriendsLandingPage:init()
 				showFriendPruningTooltip = false,
 			})
 		end
-		else function() end
+		else noOpt
 
 	self.onUnfriend = if getFFlagFriendsLandingInactiveFriendsEnabled()
 		then memoize(function(message, icon)
@@ -157,7 +162,7 @@ function FriendsLandingPage:init()
 				},
 			})
 		end)
-		else function() end
+		else noOpt
 
 	self.onUnfriendButtonActivated = if getFFlagFriendsLandingInactiveFriendsEnabled()
 		then function(successMessage, errorMessage, targetUser)
@@ -183,7 +188,7 @@ function FriendsLandingPage:init()
 				end
 			end
 		end
-		else function() end
+		else noOpt
 
 	self.renderItem = if getFFlagFriendsLandingInactiveFriendsEnabled()
 		then function(item, index)
@@ -227,21 +232,29 @@ function FriendsLandingPage:init()
 		return width + PLAYER_TILE_TEXT_HEIGHT
 	end
 
-	self.filterButtonOnActivated = function()
-		self.props.analytics:buttonClick(ButtonClickEvents.FriendFilterPill)
-		if self.props.navigation then
-			if getFFlagFriendsLandingInactiveFriendsEnabled() then
-				self.props.navigation.navigate(EnumScreens.FilterByModal, {
-					showFriendPruningAlert = self.state.showFriendPruningAlert,
-					onFewestInteractionsSelection = self.onFewestInteractionsSelection,
-					friendCount = self.props.totalFilteredFriends,
-					inactiveFriendCount = #self.filterFriends(self.props.friends, filterStates.Inactive),
-				})
-			else
+	self.filterButtonOnActivated = if getFFlagFriendsLandingInactiveFriendsEnabled()
+		then function(friendPruningEnabled)
+			return function()
+				self.props.analytics:buttonClick(ButtonClickEvents.FriendFilterPill)
+				if self.props.navigation then
+					self.props.navigation.navigate(EnumScreens.FilterByModal, {
+						showFriendPruningAlert = friendPruningEnabled and self.state.showFriendPruningAlert,
+						onFewestInteractionsSelection = if friendPruningEnabled
+							then self.onFewestInteractionsSelection
+							else noOpt,
+						friendCount = self.props.totalFilteredFriends,
+						inactiveFriendCount = #self.filterFriends(self.props.friends, filterStates.Inactive),
+						showInactiveFilterOption = friendPruningEnabled,
+					})
+				end
+			end
+		end
+		else function()
+			self.props.analytics:buttonClick(ButtonClickEvents.FriendFilterPill)
+			if self.props.navigation then
 				self.props.navigation.navigate(EnumScreens.FilterByModal)
 			end
 		end
-	end
 
 	self.refreshPage = function()
 		return self.props.refreshPage({
@@ -305,20 +318,25 @@ function FriendsLandingPage:render()
 									),
 									isDisabled = self.props.totalFriendCount == 0,
 									layoutOrder = 2,
-									onActivated = self.filterButtonOnActivated,
-									showFriendPruningAlert = self.state.showFriendPruningAlert,
-									initialShowFriendPruningTooltip = self.state.showFriendPruningTooltip,
-									onTooltipDismissal = self.onTooltipDismissal,
+									onActivated = self.filterButtonOnActivated(self.props.friendPruningEnabled),
+									showFriendPruningAlert = self.props.friendPruningEnabled
+										and self.state.showFriendPruningAlert,
+									initialShowFriendPruningTooltip = self.props.friendPruningEnabled
+										and self.state.showFriendPruningTooltip,
+									onTooltipDismissal = if self.props.friendPruningEnabled
+										then self.onTooltipDismissal
+										else noOpt,
 								}),
-								inactiveFilterExplanationTopPadding = if self.props.filter
-										== filterStates.Inactive
+								inactiveFilterExplanationTopPadding = if self.props.friendPruningEnabled
+										and self.props.filter == filterStates.Inactive
 									then Roact.createElement("Frame", {
 										Size = UDim2.new(1, 0, 0, INACTIVE_EXPLANATION_TOP_PADDING),
 										LayoutOrder = 3,
 										BackgroundTransparency = 1,
 									})
 									else nil,
-								inactiveFilterExplanation = if self.props.filter == filterStates.Inactive
+								inactiveFilterExplanation = if self.props.friendPruningEnabled
+										and self.props.filter == filterStates.Inactive
 									then Roact.createElement(StyledTextLabel, {
 										automaticSize = Enum.AutomaticSize.Y,
 										size = UDim2.fromScale(1, 0),
@@ -331,8 +349,8 @@ function FriendsLandingPage:render()
 										layoutOrder = 4,
 									})
 									else nil,
-								inactiveFilterExplanationBottomPadding = if self.props.filter
-										== filterStates.Inactive
+								inactiveFilterExplanationBottomPadding = if self.props.friendPruningEnabled
+										and self.props.filter == filterStates.Inactive
 									then Roact.createElement("Frame", {
 										Size = UDim2.new(1, 0, 0, INACTIVE_EXPLANATION_BOTTOM_PADDING),
 										LayoutOrder = 5,

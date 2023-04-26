@@ -39,6 +39,8 @@ local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualit
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
+local Theme = require(RobloxGui.Modules.Settings.Theme)
+
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
@@ -105,8 +107,8 @@ local function Initialize()
 	{
 		Name = "LeaveGameText",
 		Text = leaveGameConfirmationText,
-		Font = Enum.Font.SourceSansBold,
-		FontSize = Enum.FontSize.Size36,
+		Font = Theme.font(Enum.Font.SourceSansBold, "Confirmation"),
+		FontSize = Theme.fontSize(Enum.FontSize.Size36, "Confirmation"),
 		TextColor3 = Color3.new(1,1,1),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1,0,0,200),

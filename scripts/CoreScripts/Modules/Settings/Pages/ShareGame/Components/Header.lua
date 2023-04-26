@@ -10,6 +10,7 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 local BackButton = require(ShareGame.Components.BackButton)
 local SearchArea = require(ShareGame.Components.SearchArea)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local getTranslator = require(ShareGame.getTranslator)
@@ -74,9 +75,9 @@ function Header:render()
 			Visible = isTitleVisible,
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Heading.InviteFriends"),
-			TextSize = layoutSpecific.PAGE_TITLE_TEXT_SIZE,
+			TextSize = Theme.textSize(layoutSpecific.PAGE_TITLE_TEXT_SIZE),
 			TextColor3 = Constants.Color.WHITE,
-			Font = Enum.Font.SourceSansSemibold,
+			Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold"),
 			ZIndex = zIndex,
 		}),
 		BackButton = Roact.createElement(BackButton, {

@@ -12,9 +12,9 @@ end
 local Roact = require(root.Packages.Roact)
 local Rodux = require(root.Packages.Rodux)
 
-local DeveloperFramework = require(root.Packages.Framework)
+local Framework = require(root.Packages.Framework)
 
-local ContextServices = DeveloperFramework.ContextServices
+local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Store = ContextServices.Store
 

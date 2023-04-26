@@ -16,6 +16,8 @@ local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
+local RoactAppExperiment = dependencies.RoactAppExperiment
+local Mock = devDependencies.Mock
 local ProfileQRCode = dependencies.ProfileQRCode
 
 local ProfileQRCodePageWrapper = require(script.Parent)
@@ -55,7 +57,11 @@ describe("ProfileQRCodePageWrapper", function()
 				Element = Roact.createElement(RoactRodux.StoreProvider, {
 					store = mockStore,
 				}, {
-					Roact.createElement(ProfileQRCodePageWrapper, {}),
+					Roact.createElement(RoactAppExperiment.Provider, {
+						value = Mock.MagicMock.new(),
+					}, {
+						Roact.createElement(ProfileQRCodePageWrapper, {}),
+					}),
 				}),
 			})
 		end
@@ -74,13 +80,17 @@ describe("ProfileQRCodePageWrapper", function()
 					},
 				},
 			}, {
-				Element = Roact.createElement(RoactRodux.StoreProvider, { store = mockStore }, {
-					Roact.createElement(ProfileQRCodePageWrapper, {
-						navigation = {
-							goBack = function()
-								onCloseSpy()
-							end,
-						},
+				Roact.createElement(RoactAppExperiment.Provider, {
+					value = Mock.MagicMock.new(),
+				}, {
+					Element = Roact.createElement(RoactRodux.StoreProvider, { store = mockStore }, {
+						Roact.createElement(ProfileQRCodePageWrapper, {
+							navigation = {
+								goBack = function()
+									onCloseSpy()
+								end,
+							},
+						}),
 					}),
 				}),
 			})

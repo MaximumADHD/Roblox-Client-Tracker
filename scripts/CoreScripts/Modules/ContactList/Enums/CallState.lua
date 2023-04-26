@@ -7,7 +7,7 @@ local dependencies = require(ContactList.dependencies)
 local enumerate = dependencies.enumerate
 
 return enumerate(script.Name, {
-	Incoming = "Incoming",
-	Outgoing = "Outgoing",
-	Missed = "Missed",
+	Finished = "CallFinished",
+	Declined = "CallDeclined",
+	Missed = "CallMissed",
 })

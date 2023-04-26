@@ -23,6 +23,7 @@ local mapStateToProps = require(ShareGame.Components.ShareInviteLinkMapStateToPr
 local RoduxShareLinks = dependencies.RoduxShareLinks
 local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local GetFFlagLuaAppNewShareSheet =
 	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
@@ -193,9 +194,9 @@ function ShareInviteLink:render()
 			LayoutOrder = 0,
 			Text = RobloxTranslator:FormatByKey("Feature.SocialShare.Label.ShareServerLink"),
 			Size = UDim2.new(1, -SHARE_BUTTON_WIDTH, 1, 0),
-			TextSize = layoutSpecific.PAGE_TITLE_TEXT_SIZE,
+			TextSize = Theme.textSize(layoutSpecific.PAGE_TITLE_TEXT_SIZE),
 			TextColor3 = Constants.Color.WHITE,
-			Font = Enum.Font.SourceSansSemibold,
+			Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold"),
 		}),
 		ShareButton = Roact.createElement(ShareButton, {
 			size = UDim2.new(0, SHARE_BUTTON_WIDTH, 1, 0),

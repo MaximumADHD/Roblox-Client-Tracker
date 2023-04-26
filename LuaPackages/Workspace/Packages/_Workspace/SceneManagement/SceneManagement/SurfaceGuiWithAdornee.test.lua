@@ -15,7 +15,8 @@ local testProps: SurfaceGuiWithAdornee.Props = {
 	name = "TestSurfaceGuiWithAdornee",
 	adorneeParent = Instance.new("Folder"),
 	surfaceGuiParent = Instance.new("Folder"),
-	children = {},
+	adorneeChildren = {},
+	surfaceGuiChildren = {},
 }
 
 it("should create and destroy without errors", function()

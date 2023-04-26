@@ -13,8 +13,6 @@ local HeaderBarCenterView = require(FriendsLanding.Components.HeaderBarCenterVie
 local HeaderBarRightView = require(FriendsLanding.Components.HeaderBarRightView)
 local GatewayComponent = require(FriendsLanding.Navigator.GatewayComponent)
 
-local getFFlagAddFriendsSearchbarWidemodeUpdate =
-	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 local getFFlagAddFriendsPageHideBottomBar = dependencies.getFFlagAddFriendsPageHideBottomBar
 
 local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
@@ -53,17 +51,6 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 						end)
 					end,
 					useSecondaryHeader = true,
-					shouldRenderSearchbarButtonInWideMode = if getFFlagAddFriendsSearchbarWidemodeUpdate()
-						then nil
-						else function()
-							return FriendsLandingContext.with(function(context)
-								if context.addFriendsPageSearchbarEnabled then
-									return true
-								else
-									return nil
-								end
-							end)
-						end,
 					tabBarVisible = if getFFlagAddFriendsPageHideBottomBar() then false else nil,
 				}
 			end,

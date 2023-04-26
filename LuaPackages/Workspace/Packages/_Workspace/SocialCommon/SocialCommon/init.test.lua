@@ -10,6 +10,14 @@ it("SHOULD have expected API", function()
 	expect(SocialCommon).toEqual({
 		["jest.config"] = expect.anything(),
 		Components = expect.any("table"),
-		Utils = expect.any("table"),
+		Utils = {
+			getMutualFriendsText = expect.any("function"),
+			getRecommendationContextualInfoDisplay = expect.any("function"),
+		},
+		Hooks = {
+			useIsWideMode = expect.any("function"),
+			useMutualFriendsText = expect.any("function"),
+			useRecommendationContextualInfoDisplay = expect.any("function"),
+		},
 	})
 end)

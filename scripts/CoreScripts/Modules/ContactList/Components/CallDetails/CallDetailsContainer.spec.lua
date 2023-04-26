@@ -20,7 +20,18 @@ return function()
 	it("should mount and unmount without errors", function()
 		local store = Rodux.Store.new(Reducer, {
 			Navigation = {
-				callDetailParticipants = { { userId = 1, username = "mockUser" } },
+				callDetailParticipants = {
+					{
+						userId = 1,
+						displayName = "testuser_0",
+						userName = "testuser_0",
+					},
+					{
+						userId = 2,
+						displayName = "testuser_1",
+						userName = "testuser_1",
+					},
+				},
 			},
 		}, {
 			Rodux.thunkMiddleware,
@@ -46,14 +57,14 @@ return function()
 			expect(participantListElement).to.be.ok()
 
 			if participantListElement then
-				local CallerElement = participantListElement:FindFirstChild("ParticipantItem1", true)
-				local LocalElement = participantListElement:FindFirstChild("LocalPlayerItem", true)
+				local FirstParticipant = participantListElement:FindFirstChild("ParticipantItem1", true)
+				local SecondParticipant = participantListElement:FindFirstChild("ParticipantItem2", true)
 
-				local CallerUsernameElement = CallerElement:FindFirstChild("Username", true) :: TextLabel
-				local LocalUsernameElement = LocalElement:FindFirstChild("Username", true) :: TextLabel
+				local FirstParticipantUsernameElement = FirstParticipant:FindFirstChild("Username", true) :: TextLabel
+				local SecondParticipantUsernameElement = SecondParticipant:FindFirstChild("Username", true) :: TextLabel
 
-				expect(CallerUsernameElement.Text).to.be.equal("mockUser")
-				expect(LocalUsernameElement.Text).to.be.equal("DummyTestUser")
+				expect(FirstParticipantUsernameElement.Text).to.be.equal("testuser_0")
+				expect(SecondParticipantUsernameElement.Text).to.be.equal("testuser_1")
 			end
 		end
 

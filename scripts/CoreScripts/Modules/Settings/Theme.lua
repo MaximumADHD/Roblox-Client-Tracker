@@ -8,8 +8,20 @@ local AppFontBaseSize = AppFont.BaseSize
 
 local ThemeEnabled = false
 
+local nominalSizeFactor = 0.833
+
+-- roughly maps SourceSans font size to Gotham using nominalSizeFactor, rounding down
+local fontSizeMap = {
+	[ Enum.FontSize.Size14 ] = Enum.FontSize.Size11,
+	[ Enum.FontSize.Size18 ]  = Enum.FontSize.Size14,
+	[ Enum.FontSize.Size24 ]  = Enum.FontSize.Size18,
+	[ Enum.FontSize.Size36 ]  = Enum.FontSize.Size28,
+}
+
 local nullColor = Color3.fromRGB(0, 0, 0);
-local nullFont = Enum.Font.SourceSans
+local nullFont: any? = Enum.Font.Gotham
+local nullFontSize: any? = fontSizeMap[Enum.FontSize.Size24]
+local nullTextSize: any? = 20
 
 local AppTheme = {
 	IGM_TabSelection = {
@@ -32,6 +44,65 @@ local AppTheme = {
 		Color = Color3.new(0.776, 0.776, 0.776),
 		Transparency = 0.0,
 	},
+}
+
+local AppFont = {
+	-- TODO Gotham is a temporary font, should be switched to new one when available
+	Confirmation_Font = {
+		Font = Enum.Font.GothamBold,
+		RelativeSize = fontSizeMap[Enum.FontSize.Size36],
+		TextSize = 36 * nominalSizeFactor,
+	},
+	Button_Font = {
+		Font = Enum.Font.GothamBold,
+		RelativeSize = fontSizeMap[Enum.FontSize.Size24],
+		TextSize = 24 * nominalSizeFactor,
+	},
+	Settings_Font = {
+		Font = Enum.Font.Gotham,
+	},
+	Help_Title_Font = {
+		Font = Enum.Font.GothamBold,
+		RelativeSize = fontSizeMap[Enum.FontSize.Size18],
+	},
+	Help_Text_Font = {
+		Font = Enum.Font.Gotham,
+		RelativeSize = fontSizeMap[Enum.FontSize.Size18],
+		TextSize = 18 * nominalSizeFactor,
+	},
+	Help_Gamepad_Font = {
+		Font = Enum.Font.GothamBold,
+	},
+	Help_Touch_Font = {
+		Font = Enum.Font.GothamBold,
+		RelativeSize = fontSizeMap[Enum.FontSize.Size14],
+	},
+	Game_Settings_Font = {
+		Font = Enum.Font.Gotham,
+		RelativeSize = fontSizeMap[Enum.FontSize.Size24],
+	},
+	Conversation_Details_Font = {
+		Font = Enum.Font.Gotham,
+		TextSize = 16 * nominalSizeFactor,
+	},
+	Utility_Text_Font = {
+		Font = Enum.Font.Gotham,
+		TextSize = 24 * nominalSizeFactor,
+	},
+	Utility_Row_Font = {
+		Font = Enum.Font.GothamBold,
+		TextSize = 16 * nominalSizeFactor,
+	},
+	Back_Button_Font = {
+		Font = Enum.Font.GothamSemibold,
+		TextSize = 24 * nominalSizeFactor,
+	},
+	Semibold_Font = {
+		Font = Enum.Font.GothamSemibold,
+	},
+	Bold_Font = {
+		Font = Enum.Font.GothamBold,
+	}
 }
 
 setmetatable(AppTheme,
@@ -67,6 +138,20 @@ local ComponentThemeKeys = {
 	ControlInputBackground = "BackgroundDefault",
 	ControlInputFocusedStroke = "IGM_TabSelection",
 
+	Confirmation = "Confirmation_Font",
+	Button = "Button_Font",
+	SettingsHub = "Settings_Font",
+	HelpTitle = "Help_Title_Font",
+	HelpText = "Help_Text_Font",
+	HelpGamepad = "Help_Gamepad_Font",
+	HelpTouch = "Help_Touch_Font",
+	GameSettings = "Game_Settings_Font",
+	ConversationDetails = "Conversation_Details_Font",
+	UtilityText = "Utility_Text_Font",
+	UtilityRow = "Utility_Row_Font",
+	BackButton = "Back_Button_Font",
+	Semibold = "Semibold_Font",
+	Bold = "Bold_Font",
 }
 
 
@@ -137,13 +222,26 @@ if ThemeEnabled then
 			key = ComponentThemeKeys[key] or key;
 			return if AppTheme[key] then AppTheme[key].Transparency else nonThemeTransparency or 0
 		end,
-		font = function(key:string, nonThemeFont:any?)
+		font = function(nonThemeFont:any?, key:string?)
+			if not key then
+				return nullFont
+			end
 			key = ComponentThemeKeys[key] or key;
-			return if AppTheme[key] then AppFont[key].Font else nonThemeFont or nullFont
+			return if AppFont[key] then AppFont[key].Font else nonThemeFont or nullFont
 		end,
-		fontSize = function(key:string, nonThemeFontSize:any?)
+		fontSize = function(nonThemeFontSize:Enum.FontSize, key:string?)
+			if not key then
+				return fontSizeMap[nonThemeFontSize]
+			end
 			key = ComponentThemeKeys[key] or key;
-			return if AppTheme[key] then (AppFont[key].RelativeSize * AppFontBaseSize) else nonThemeFontSize or 20
+			return if AppFont[key] then AppFont[key].RelativeSize else nonThemeFontSize or nullFontSize
+		end,
+		textSize = function(nonThemeTextSize:number, key:string?)
+			if not key then
+				return nonThemeTextSize * nominalSizeFactor or nullTextSize
+			end
+			key = ComponentThemeKeys[key] or key;
+			return if AppFont[key] and AppFont[key].TextSize then AppFont[key].TextSize else nonThemeTextSize * nominalSizeFactor or nullTextSize
 		end,
 		hydrateLabel = function(instance:any, colorStyle:string, fontStyle:string)
 			colorStyle = ComponentThemeKeys[colorStyle] or colorStyle;
@@ -178,11 +276,14 @@ else
 		transparency = function(_:string, nonThemeTransparency:number?)
 			return nonThemeTransparency
 		end,
-		font = function(_:string, nonThemeFont:any?)
+		font = function(nonThemeFont:any?, _:string?)
 			return nonThemeFont
 		end,
-		fontSize = function(_:string, nonThemeFontSize:any?)
+		fontSize = function(nonThemeFontSize:Enum.FontSize, _:string?)
 			return nonThemeFontSize
+		end,
+		textSize = function(nonThemeTextSize:number, _:string?)
+			return nonThemeTextSize
 		end,
 		hydrateLabel = function(instance:any, colorStyle:string, fontStyle:string)
 			-- noop

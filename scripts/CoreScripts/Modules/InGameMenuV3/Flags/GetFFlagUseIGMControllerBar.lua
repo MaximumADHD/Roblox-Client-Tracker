@@ -1,4 +1,4 @@
-game:DefineFastFlag("UseIGMControllerBar", false)
+game:DefineFastFlag("UseIGMControllerBar", true)
 
 return function()
 	return game:GetFastFlag("UseIGMControllerBar")

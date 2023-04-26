@@ -11,6 +11,7 @@ local Constants = require(ShareGame.Constants)
 local ShareGameIcons = require(ShareGame.Spritesheets.ShareGameIcons)
 local FRIENDS_ICON_FRAME = ShareGameIcons:GetFrame("friends")
 local SHARE_GAME_ICONS_IMAGE = ShareGameIcons:GetImagePath()
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local ICON_TO_SUBTITLE_PADDING = 34
 
@@ -63,9 +64,9 @@ function NoFriendsPage:render()
 			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.NoFriendsScreen"),
 			TextColor3 = Constants.Color.GRAY5,
 			TextTransparency = 0.22,
-			TextSize = 21,
+			TextSize = Theme.textSize(21),
 			TextWrapped = true,
-			Font = Enum.Font.SourceSans,
+			Font = Theme.font(Enum.Font.SourceSans),
 			LayoutOrder = incrementLayoutOrder(),
 			Size = UDim2.new(0, 280, 0, 42),
 			TextYAlignment = Enum.TextYAlignment.Top,

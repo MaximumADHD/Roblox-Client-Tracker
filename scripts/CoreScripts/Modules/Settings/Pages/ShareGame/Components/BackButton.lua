@@ -11,6 +11,7 @@ local Roact = require(CorePackages.Roact)
 
 local Constants = require(ShareGame.Constants)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
@@ -99,9 +100,9 @@ function BackButton:render()
 				TextLabel = Roact.createElement("TextLabel", {
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsBack"),
-					TextSize = BACK_BUTTON_TEXT_SIZE,
+					TextSize = Theme.textSize(BACK_BUTTON_TEXT_SIZE, "BackButton"),
 					TextColor3 = Constants.Color.WHITE,
-					Font = Enum.Font.SourceSansSemibold,
+					Font = Theme.font(Enum.Font.SourceSansSemibold, "BackButton"),
 					ZIndex = zIndex,
 				}),
 			})
@@ -126,9 +127,9 @@ function BackButton:render()
 				TextLabel = Roact.createElement("TextLabel", {
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsBack"),
-					TextSize = BACK_BUTTON_TEXT_SIZE,
+					TextSize = Theme.textSize(BACK_BUTTON_TEXT_SIZE, "BackButton"),
 					TextColor3 = Constants.Color.WHITE,
-					Font = Enum.Font.SourceSansSemibold,
+					Font = Theme.font(Enum.Font.SourceSansSemibold, "BackButton"),
 					ZIndex = zIndex,
 				}),
 			})

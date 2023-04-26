@@ -2,9 +2,11 @@ local ThemesRoot = script.Parent
 local StylesRoot = ThemesRoot.Parent
 
 local CorePackages = game:GetService("CorePackages")
+local GetFFlagUIBloxEnableRoDSDesignTokenSupport =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableRoDSDesignTokenSupport
 local GetFFlagLuaAppUseUIBloxColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
-if GetFFlagLuaAppUseUIBloxColorPalettes() then
+if GetFFlagUIBloxEnableRoDSDesignTokenSupport() or GetFFlagLuaAppUseUIBloxColorPalettes() then
 	local UIBlox = require(CorePackages.UIBlox)
 	return UIBlox.App.Style.Themes.LightTheme
 end

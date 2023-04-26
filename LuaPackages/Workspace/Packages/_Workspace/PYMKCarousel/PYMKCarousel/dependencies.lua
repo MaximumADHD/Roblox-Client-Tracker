@@ -59,7 +59,7 @@ return {
 		keyPath = RODUX_KEY .. ".Users",
 	}),
 	NetworkingFriendsEnums = LuaSocialLibrariesDeps.NetworkingFriends.Enums,
-	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends_221.config({
+	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
 	RoduxAnalytics = SocialLuaAnalytics.Analytics.RoduxAnalytics.config({

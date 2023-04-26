@@ -30,14 +30,27 @@ return function()
 			}, {
 				CallerListItem = Roact.createElement(CallerListItem, {
 					caller = {
+						callId = "test_call_id",
+						callerId = 1,
 						participants = {
 							{
 								userId = 1,
-								username = "Hello World!",
+								displayName = "testuser_0",
+								userName = "testuser_0",
+							},
+							{
+								userId = 2,
+								displayName = "testuser_1",
+								userName = "testuser_1",
 							},
 						},
-						state = "Outgoing",
+						status = "CallFinished",
+						startUtc = 1681338167883,
+						endUtc = 1681338335366,
+						universeId = 123,
+						placeId = 456,
 					},
+					localUserId = 1,
 					showDivider = true,
 					OpenCallDetails = function() end,
 				}),
@@ -49,7 +62,7 @@ return function()
 		local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 
 		expect(usernameElement).to.be.ok()
-		expect(usernameElement.Text).to.be.equal("Hello World!")
+		expect(usernameElement.Text).to.be.equal("testuser_1")
 		Roact.unmount(instance)
 	end)
 end

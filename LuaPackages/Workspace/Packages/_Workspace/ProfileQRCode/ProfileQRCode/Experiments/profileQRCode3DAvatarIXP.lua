@@ -15,7 +15,6 @@ local isExperimentEnabled = function(layers)
 	return profileQRCodeFriendRequestAlertsLayer[getFStringProfileQRCodeEnable3DAvatarExperimentKey()]
 end
 
--- TODO SACQ-556 add tests
 return {
 	isExperimentEnabled = isExperimentEnabled,
 	useIsExperimentEnabled = function(config: { enableExposureEvent: boolean? }?)

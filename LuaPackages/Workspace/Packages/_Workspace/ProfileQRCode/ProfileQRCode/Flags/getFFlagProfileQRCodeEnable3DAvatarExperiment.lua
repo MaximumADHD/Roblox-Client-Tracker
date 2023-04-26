@@ -1,5 +1,5 @@
-game:DefineFastFlag("ProfileQRCodeEnable3DAvatarExperiment_v1", false)
+game:DefineFastFlag("ProfileQRCodeEnable3DAvatarExperiment_v3", false)
 
 return function()
-	return game:GetFastFlag("ProfileQRCodeEnable3DAvatarExperiment_v1")
+	return game:GetFastFlag("ProfileQRCodeEnable3DAvatarExperiment_v3")
 end

@@ -28,8 +28,9 @@ local function TenFootUiSwitchView(props: Props)
 
 	local navigation = props.navigation
 	local state = navigation.state
+	local index = state.index
 
-	local activeKey = state.routes[state.index].key
+	local activeKey = state.routes[index].key
 
 	React.useEffect(function()
 		if not visitedScreenKeys[activeKey] then
@@ -47,6 +48,7 @@ local function TenFootUiSwitchView(props: Props)
 		if visitedScreenKeys[key] ~= nil then
 			screens[key] = React.createElement(TenFootUiSwitchViewCard, {
 				isVisible = isActiveKey,
+				index = index,
 				descriptor = descriptor,
 				adorneeParent = navigatorConfig.worldContainer,
 				surfaceGuiParent = navigatorConfig.surfaceGuiContainer,

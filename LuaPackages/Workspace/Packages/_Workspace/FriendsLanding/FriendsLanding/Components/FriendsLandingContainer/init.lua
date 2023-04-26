@@ -2,6 +2,7 @@ local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
 local Roact = dependencies.Roact
+local RoactAppExperiment = dependencies.RoactAppExperiment
 local RoactRodux = dependencies.RoactRodux
 local withLocalization = dependencies.withLocalization
 
@@ -21,6 +22,10 @@ local sortFriends = require(FriendsLanding.Friends.sortFriends)
 local Logger = dependencies.Logger
 
 local FriendsLandingContainer = Roact.PureComponent:extend("FriendsLandingContainer")
+
+local getFStringSocialFriendsLandingLayer = dependencies.getFStringSocialFriendsLandingLayer
+local getFFlagFriendsLandingInactiveFriendsEnabled =
+	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
 
 local DEFAULT_ROW_COUNT = 6
 local DEFAULT_TILE_COUNT = 2
@@ -48,10 +53,23 @@ function FriendsLandingContainer:render()
 			llama.Dictionary.join(self.props, {
 				totalFriendCount = #self.props.friends,
 				friends = self.sortFriends(self.filterFriends(self.props.friends, self.props.filter)),
+				friendPruningEnabled = self.props.friendPruningEnabled,
 				localizedStrings = localizedStrings,
 			})
 		)
 	end)
+end
+
+if getFFlagFriendsLandingInactiveFriendsEnabled() then
+	-- IXP exposure event for Social.FriendsLanding layer (Friends Landing page)
+	FriendsLandingContainer = RoactAppExperiment.connectUserLayer({
+		getFStringSocialFriendsLandingLayer(),
+	}, function(layerVariables, props)
+		local socialFriendsLandingLayer: any = layerVariables[getFStringSocialFriendsLandingLayer()] or {}
+		return {
+			friendPruningEnabled = socialFriendsLandingLayer.show_friend_pruning,
+		}
+	end)(FriendsLandingContainer)
 end
 
 return compose(

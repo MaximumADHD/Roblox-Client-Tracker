@@ -15,6 +15,9 @@ return {
 			ProfileQRCodeTopBar = React.createElement(ProfileQRCodeTopBar, {
 				layoutOrder = 1,
 				onClose = if props.onClose then props.onClose else Dash.noop,
+				isProfile3DAvatarEnabled = if props.isProfile3DAvatarEnabled
+					then props.isProfile3DAvatarEnabled
+					else false,
 			}),
 		})
 	end,

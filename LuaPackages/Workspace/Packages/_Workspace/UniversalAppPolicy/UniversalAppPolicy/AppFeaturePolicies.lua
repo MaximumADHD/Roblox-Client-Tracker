@@ -17,6 +17,8 @@ local GetFFlagVRAvatarExperienceNoLandingPage = SharedFlags.GetFFlagVRAvatarExpe
 local GetFFlagLuaAppGamePassGameDetails = SharedFlags.GetFFlagLuaAppGamePassGameDetails
 local GetFFlagUseGridPageLayoutInVR = SharedFlags.GetFFlagUseGridPageLayoutInVR
 local GetFFlagDisableCDLQrCodeForMaquettes = SharedFlags.GetFFlagDisableCDLQrCodeForMaquettes
+local GetFFlagEnableIAPEntryPointDisablePolicy = SharedFlags.GetFFlagEnableIAPEntryPointDisablePolicy
+local GetFFlagEnableMaquettesU13Block = SharedFlags.GetFFlagEnableMaquettesU13Block
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
@@ -408,6 +410,19 @@ local function AppFeaturePolicies(policy): any
 		getDisableCDLQrCodeForMaquettes = function()
 			if GetFFlagDisableCDLQrCodeForMaquettes() then
 				return policy.DisableCDLQrCodeForMaquettes
+			else
+				return false
+			end
+		end,
+		getDisableIAPEntryPoint = function()
+			if GetFFlagEnableIAPEntryPointDisablePolicy() then
+				return policy.DisableIAPEntryPoint or false
+			end
+			return false
+		end,
+		getEnforceAgeRestrictedLogin = function()
+			if GetFFlagEnableMaquettesU13Block() then
+				return policy.EnforceAgeRestrictedLogin or false
 			else
 				return false
 			end

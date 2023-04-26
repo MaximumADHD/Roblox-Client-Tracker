@@ -5,8 +5,10 @@ local Rodux = dependencies.Rodux
 local RoduxNetworking = dependencies.RoduxNetworking
 local RoduxGames = dependencies.RoduxGames
 local RoduxUserPermissions = dependencies.RoduxUserPermissions
+local RoduxAnalytics = dependencies.RoduxAnalytics
 local contactImporterWarning = require(script.contactImporterWarning)
 local ShowContactImporterParams = dependencies.ShowContactImporterParams
+local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 
 local getFFlagVerifiedBadgeInFriendsLanding = dependencies.getFFlagVerifiedBadgeInFriendsLanding
 local getFFlagFriendsLandingInactiveFriendsEnabled =
@@ -29,5 +31,6 @@ return function()
 		RequestsFromOriginSourceType = require(script.RequestsFromOriginSourceType),
 		ShowContactImporterParams = ShowContactImporterParams,
 		ContactImporterWarning = contactImporterWarning,
+		Analytics = if getFFlagAddFriendsRecommendationsEnabled() then RoduxAnalytics.installReducer() else nil,
 	})
 end

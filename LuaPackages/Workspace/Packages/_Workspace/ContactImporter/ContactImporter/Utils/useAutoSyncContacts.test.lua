@@ -8,8 +8,6 @@ local jestExpect = devDependencies.jestExpect
 local jest = devDependencies.jest
 local describe = JestGlobals.describe
 local it = JestGlobals.it
-local getFFlagAutoSyncContactsCheckPhoneVerification =
-	require(ContactImporter.Flags.getFFlagAutoSyncContactsCheckPhoneVerification)
 local useAutoSyncContacts = require(script.Parent.useAutoSyncContacts)
 
 local renderHookWithProviders = require(ContactImporter.TestHelpers.renderHookWithProviders)
@@ -63,29 +61,27 @@ describe("useAutoSyncContacts", function()
 		jestExpect(mockDispatchAutoSyncContacts).never.toHaveBeenCalled()
 	end)
 
-	if getFFlagAutoSyncContactsCheckPhoneVerification() then
-		it("SHOULD NOT call AutoSyncContacts when isPhoneVerified is false", function()
-			local mockDispatchAutoSyncContacts = jest.fn()
+	it("SHOULD NOT call AutoSyncContacts when isPhoneVerified is false", function()
+		local mockDispatchAutoSyncContacts = jest.fn()
 
-			local testStore = Rodux.Store.new(function()
-				return {
-					LocalUserId = "111",
-					ContactImporter = {
-						ShowContactImporterParams = {
-							canUploadContacts = true, -- technically an impossible set of parameters, but testing anyways
-							isPhoneVerified = false,
-						},
+		local testStore = Rodux.Store.new(function()
+			return {
+				LocalUserId = "111",
+				ContactImporter = {
+					ShowContactImporterParams = {
+						canUploadContacts = true, -- technically an impossible set of parameters, but testing anyways
+						isPhoneVerified = false,
 					},
-				}
-			end, {}, { Rodux.thunkMiddleware })
+				},
+			}
+		end, {}, { Rodux.thunkMiddleware })
 
-			local _helper = renderHookWithProviders(function()
-				useAutoSyncContacts(mockDispatchAutoSyncContacts)
-			end, {
-				store = testStore,
-			})
+		local _helper = renderHookWithProviders(function()
+			useAutoSyncContacts(mockDispatchAutoSyncContacts)
+		end, {
+			store = testStore,
+		})
 
-			jestExpect(mockDispatchAutoSyncContacts).never.toHaveBeenCalled()
-		end)
-	end
+		jestExpect(mockDispatchAutoSyncContacts).never.toHaveBeenCalled()
+	end)
 end)

@@ -7,6 +7,7 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local Roact = require(CorePackages.Roact)
 local Constants = require(ShareGame.Constants)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
@@ -40,9 +41,9 @@ function FriendsErrorPage:render()
 			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.LoadingFriendsListFailed"),
 			TextColor3 = Constants.Color.GRAY5,
 			TextTransparency = 0.22,
-			TextSize = 21,
+			TextSize = Theme.textSize(21),
 			TextWrapped = true,
-			Font = Enum.Font.SourceSans,
+			Font = Theme.font(Enum.Font.SourceSans),
 			LayoutOrder = incrementLayoutOrder(),
 			Size = UDim2.new(0, 280, 0, 42),
 			TextYAlignment = Enum.TextYAlignment.Top,

@@ -4,59 +4,42 @@
 
 	All of these are prerequisites for Avatar Chat.
 ]]
-local CorePackages = game:GetService("CorePackages")
-local HttpService = game:GetService("HttpService")
-local HttpRbxApiService = game:GetService("HttpRbxApiService")
-
-local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
-local FFlagDebugMockCameraEndpoints = game:DefineFastFlag("DebugMockCameraEndpoints", false)
+local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
+local Players = game:GetService("Players")
 
 local cachedResults
-
-local function getRequest(url, _)
-	local success, result = pcall(function()
-		local request = HttpRbxApiService:GetAsyncFullUrl(url,
-			Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
-		return HttpService:JSONDecode(request)
-	end)
-	return success and result
-end
 
 return function()
 	if cachedResults then
 		return cachedResults
 	end
 
-	-- Call the voice endpoint that contains all the data we need.
-	local result = GetShowAgeVerificationOverlay(getRequest, tostring(game.GameId), tostring(game.PlaceId))
+	if not game:IsLoaded() then
+		game.Loaded:Wait()
+	end
 
-	-- If fetching fails, default to disabled.
-	if not result then
+	if not Players.LocalPlayer then
+		return {
+			isVoiceEnabledUserSettings = false,
+			isCameraEnabledUserSettings = false,
+		}
+	end
+	local player = Players.LocalPlayer
+	assert(player, "")
+
+	local ok, playerState =
+		pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, player.UserId)
+
+	if not ok then
 		return {
 			isVoiceEnabledUserSettings = false,
 			isCameraEnabledUserSettings = false,
 		}
 	end
 
-	local userSettings = result.voiceSettings
-	local universePlaceSettings = result.universePlaceVoiceEnabledSettings
-
-	local isVoiceEnabled = universePlaceSettings and userSettings
-		and userSettings.isVoiceEnabled
-		and universePlaceSettings.isPlaceEnabledForVoice
-		and universePlaceSettings.isUniverseEnabledForVoice
-
-	local isCameraEnabled = universePlaceSettings and userSettings
-		and userSettings.isAvatarVideoEnabled
-		and universePlaceSettings.isPlaceEnabledForAvatarVideo
-		and universePlaceSettings.isUniverseEnabledForAvatarVideo
-
-	-- Debug flag for testing while endpoints are under construction. Remove when endpoint is
-	-- finished on the backend.
-	if FFlagDebugMockCameraEndpoints then
-		isVoiceEnabled = true
-		isCameraEnabled = true
-	end
+	local serviceState = FacialAnimationStreamingService.ServiceState
+	local isCameraEnabled = FacialAnimationStreamingService:IsVideoEnabled(playerState) and FacialAnimationStreamingService:IsVideoEnabled(serviceState)
+	local isVoiceEnabled = FacialAnimationStreamingService:IsAudioEnabled(playerState) and FacialAnimationStreamingService:IsAudioEnabled(serviceState)
 
 	cachedResults = {
 		isVoiceEnabledUserSettings = isVoiceEnabled,

@@ -67,8 +67,6 @@ local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMess
 local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 local FFlagPurchaseWithGamePausedFix = game:DefineFastFlag("PurchaseWithGamePausedFix", false)
 
-local FFlagFixPurchasePromptInVR = game:GetEngineFeature("FixPurchasePromptInVR")
-
 local function isRelevantRequestType(requestType, purchaseFlow)
 	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
 		return false
@@ -228,9 +226,7 @@ function ProductPurchaseContainer:didMount()
 		})
 		self.configContextActionService(self.props.windowState)
 
-		if FFlagFixPurchasePromptInVR then
-			GuiService.SetPurchasePromptIsShown(true)
-		end
+		GuiService.SetPurchasePromptIsShown(true)
 	end
 end
 
@@ -252,9 +248,7 @@ function ProductPurchaseContainer:didUpdate(prevProps, prevState)
 		})
 		self.configContextActionService(self.props.windowState)
 
-		if FFlagFixPurchasePromptInVR then
-			GuiService:SetPurchasePromptIsShown(self.props.windowState == WindowState.Shown)
-		end
+		GuiService:SetPurchasePromptIsShown(self.props.windowState == WindowState.Shown)
 	end
 end
 
@@ -507,7 +501,7 @@ function ProductPurchaseContainer:render()
 				end
 			end,
 		}),
-		OnUserGuiRenderingChanged = FFlagFixPurchasePromptInVR and Roact.createElement(ExternalEventConnection, {
+		OnUserGuiRenderingChanged = Roact.createElement(ExternalEventConnection, {
 			event = CoreGui.UserGuiRenderingChanged,
 			callback = function(enabled, guiAdornee)
 				-- Hide window if UI is not rendering on any adornee

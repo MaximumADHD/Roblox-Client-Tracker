@@ -63,6 +63,8 @@ local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatar
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt", false)
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 
+local GetFFlagDragDetectorTouchIndicator = require(RobloxGui.Modules.Flags.GetFFlagDragDetectorTouchIndicator)
+
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -210,6 +212,13 @@ coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 -- GamepadVirtualCursor
 coroutine.wrap(safeRequire)(RobloxGui.Modules.VirtualCursor.VirtualCursorMain)
 
+-- DragDetector  sunk input indicators for touch events
+if GetFFlagDragDetectorTouchIndicator() then
+	if UserInputService.TouchEnabled then
+		coroutine.wrap(safeRequire)(RobloxGui.Modules.DragDetectorTouchIndicator)
+	end
+end
+
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 
 if FFlagLuaInviteModalEnabled then
@@ -276,7 +285,7 @@ if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")
 end
 
-if game:GetEngineFeature("FacialAnimationStreaming") then
+if game:GetEngineFeature("FacialAnimationStreaming2") then
 	if game:GetEngineFeature("FacialAnimationStreamingServiceUseV2") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreamingV2", script.Parent)
 	else

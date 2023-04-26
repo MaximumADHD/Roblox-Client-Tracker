@@ -4,6 +4,7 @@ local dependencies = require(FriendsLanding.dependencies)
 local UIBlox = dependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
+local RecommendationContextType = dependencies.RoduxFriends.Enums.RecommendationContextType
 local t = dependencies.t
 local llama = dependencies.llama
 
@@ -24,6 +25,7 @@ local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.Friendshi
 
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
+local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 
 describe("getFooterRelevanceInfo", function()
 	local mockStyle = {
@@ -47,6 +49,10 @@ describe("getFooterRelevanceInfo", function()
 		followsYouText = "Follows you",
 		fromContactsText = "From Contacts",
 		foundThroughQRCode = "Sent from your QR Code",
+		mutualFriends = "mutual friends",
+		singularMutualFriend = "mutual friend",
+		frequents = "Played together",
+		friendRequests = "Friend request",
 	}
 
 	local function getFooterRelevanceInfoWrapped(props, localization)
@@ -231,4 +237,64 @@ describe("getFooterRelevanceInfo", function()
 			end)
 		end)
 	end)
+
+	if getFFlagAddFriendsRecommendationsEnabled() then
+		describe("relevanceInfo for friendRecommendations section", function()
+			it("SHOULD show incoming friend request with highest priority", function()
+				local resultedRelevancyInfo = getFooterRelevanceInfoWrapped({
+					isRecommendation = true,
+					isFriendRequest = false,
+					contextType = RecommendationContextType.Frequents,
+					mutualFriendsCount = 3,
+					hasIncomingFriendRequest = true,
+				})
+
+				expect(resultedRelevancyInfo).never.toBeNil()
+				expect(resultedRelevancyInfo.text).toEqual(mockLocalization.friendRequests)
+				expect(resultedRelevancyInfo.icon).toBeNil()
+			end)
+
+			it("SHOULD show correct text and icon for singular mutual friend", function()
+				local resultedRelevancyInfo = getFooterRelevanceInfoWrapped({
+					isRecommendation = true,
+					isFriendRequest = false,
+					contextType = RecommendationContextType.MutualFriends,
+					mutualFriendsCount = 1,
+					hasIncomingFriendRequest = false,
+				})
+
+				expect(resultedRelevancyInfo).never.toBeNil()
+				expect(resultedRelevancyInfo.text).toEqual("1 mutual friend")
+				expect(resultedRelevancyInfo.icon).toEqual(Images["icons/status/player/friend"])
+			end)
+
+			it("SHOULD show correct text and icon for multiple mutual friends", function()
+				local resultedRelevancyInfo = getFooterRelevanceInfoWrapped({
+					isRecommendation = true,
+					isFriendRequest = false,
+					contextType = RecommendationContextType.MutualFriends,
+					mutualFriendsCount = 3,
+					hasIncomingFriendRequest = false,
+				})
+
+				expect(resultedRelevancyInfo).never.toBeNil()
+				expect(resultedRelevancyInfo.text).toEqual("3 mutual friends")
+				expect(resultedRelevancyInfo.icon).toEqual(Images["icons/status/player/friend"])
+			end)
+
+			it("SHOULD show correct text and icon for frequents", function()
+				local resultedRelevancyInfo = getFooterRelevanceInfoWrapped({
+					isRecommendation = true,
+					isFriendRequest = false,
+					contextType = RecommendationContextType.Frequents,
+					mutualFriendsCount = 3,
+					hasIncomingFriendRequest = false,
+				})
+
+				expect(resultedRelevancyInfo).never.toBeNil()
+				expect(resultedRelevancyInfo.text).toEqual(mockLocalization.frequents)
+				expect(resultedRelevancyInfo.icon).toBeNil()
+			end)
+		end)
+	end
 end)

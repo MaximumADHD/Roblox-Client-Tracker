@@ -25,6 +25,7 @@ local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -110,8 +111,8 @@ local function Initialize()
 	{
 		Name = "LeaveGameText",
 		Text = leaveGameConfirmationText,
-		Font = Enum.Font.SourceSansBold,
-		FontSize = Enum.FontSize.Size36,
+		Font = Theme.font(Enum.Font.SourceSansBold, "Confirmation"),
+		FontSize = Theme.fontSize(Enum.FontSize.Size36, "Confirmation"),
 		TextColor3 = Color3.new(1,1,1),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1,0,0,200),

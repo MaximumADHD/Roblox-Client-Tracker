@@ -22,36 +22,69 @@ return function()
 	local mockState = function(currentPage, currentCall, callDetailParticipants)
 		return {
 			Call = {
-				callList = {
+				callHistory = {
 					{
-						createdUtc = 1666635183000,
+						callId = "test_call_Id",
+						callerId = 1,
 						participants = {
 							{
-								userId = 3447649029,
-								username = "jovocados",
+								userId = 1,
+								displayName = "testuser_0",
+								userName = "testuser_0",
+							},
+							{
+								userId = 2,
+								displayName = "testuser_1",
+								userName = "testuser_1",
 							},
 						},
-						state = "Outgoing",
+						status = "CallFinished",
+						startUtc = 1681338167883,
+						endUtc = 1681338335366,
+						universeId = 123,
+						placeId = 456,
 					},
 					{
-						createdUtc = 1665635183000,
+						callId = "test_call_Id",
+						callerId = 1,
 						participants = {
 							{
-								userId = 2591489824,
-								username = "corgichu8",
+								userId = 1,
+								displayName = "testuser_0",
+								userName = "testuser_0",
+							},
+							{
+								userId = 2,
+								displayName = "testuser_1",
+								userName = "testuser_1",
 							},
 						},
-						state = "Incoming",
+						status = "CallMissed",
+						startUtc = 1681338167883,
+						endUtc = 1681338335366,
+						universeId = 123,
+						placeId = 456,
 					},
 					{
-						createdUtc = 1664635183000,
+						callId = "test_call_Id",
+						callerId = 1,
 						participants = {
 							{
-								userId = 2591622000,
-								username = "hamulgg",
+								userId = 1,
+								displayName = "testuser_0",
+								userName = "testuser_0",
+							},
+							{
+								userId = 2,
+								displayName = "testuser_1",
+								userName = "testuser_1",
 							},
 						},
-						state = "Missed",
+						status = "CallDeclined",
+						startUtc = 1681338167883,
+						endUtc = 1681338335366,
+						universeId = 123,
+						placeId = 456,
 					},
 				},
 			},

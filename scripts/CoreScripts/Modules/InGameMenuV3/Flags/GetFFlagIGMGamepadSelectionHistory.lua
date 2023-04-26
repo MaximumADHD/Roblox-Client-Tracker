@@ -1,4 +1,4 @@
-game:DefineFastFlag("IGMGamepadSelectionHistory", false)
+game:DefineFastFlag("IGMGamepadSelectionHistory", true)
 local Flags = script.Parent
 local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
 

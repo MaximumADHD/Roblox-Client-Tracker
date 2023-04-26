@@ -28,7 +28,7 @@ local testState = {
 	key = testKey,
 }
 
-local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, "Default", testState)
+local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, "Default")
 
 describe("should render with props correctly", function()
 	it("should create constraint when adornee parent is a part", function()
@@ -55,11 +55,11 @@ describe("should render with props correctly", function()
 		local adornee = testAdorneeParent:FindFirstChildOfClass("Part") :: Part
 		expect(adornee).never.toBeNil()
 
-		local constrain = adornee:FindFirstChildOfClass("WeldConstraint") :: WeldConstraint
+		local constrain = adornee:FindFirstChildOfClass("RigidConstraint") :: RigidConstraint
 
 		expect(constrain).never.toBeNil()
-		expect(constrain.Part0).toEqual(testAdorneeParent)
-		expect(constrain.Part1).toEqual(adornee)
+		expect(constrain.Attachment0).toEqual(testAdorneeParent:FindFirstChildOfClass("Attachment"))
+		expect(constrain.Attachment1).toEqual(adornee:FindFirstChildOfClass("Attachment"))
 
 		root:unmount()
 	end)
@@ -88,7 +88,7 @@ describe("should render with props correctly", function()
 		local adornee = testAdorneeParent:FindFirstChildOfClass("Part") :: Part
 		expect(adornee).never.toBeNil()
 
-		local constrain = adornee:FindFirstChildOfClass("WeldConstraint") :: WeldConstraint
+		local constrain = adornee:FindFirstChildOfClass("RigidConstraint") :: RigidConstraint
 
 		expect(constrain).toBeNil()
 

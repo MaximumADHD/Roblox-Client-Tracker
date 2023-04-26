@@ -8,7 +8,12 @@ local RoduxUserPermissions = dependencies.RoduxUserPermissions
 local Users = require(script.Parent.Users)
 local Friends = require(script.Parent.Friends)
 local Presence = require(script.Parent.Presence)
-local RoduxAnalytics = require(script.Parent.RoduxAnalytics)
+
+local getFFlagFriendsCarouselRemoveRecsAdaptors =
+	require(FriendsCarousel.Flags.getFFlagFriendsCarouselRemoveRecsAdaptors)
+local RoduxAnalytics = if getFFlagFriendsCarouselRemoveRecsAdaptors()
+	then dependencies.RoduxAnalytics
+	else require(script.Parent.RoduxAnalytics)
 
 local ShowContactImporterParams = dependencies.ShowContactImporterParams
 
@@ -20,6 +25,8 @@ return function()
 		UserPermissions = RoduxUserPermissions.installReducer(),
 		NetworkStatus = RoduxNetworking.installReducer(),
 		ShowContactImporterParams = ShowContactImporterParams,
-		Analytics = RoduxAnalytics,
+		Analytics = if getFFlagFriendsCarouselRemoveRecsAdaptors()
+			then dependencies.RoduxAnalytics.installReducer()
+			else RoduxAnalytics,
 	})
 end

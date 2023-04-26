@@ -9,6 +9,9 @@ local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
 local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers)
 local validateEvent = require(ProfileQRCode.TestHelpers.validateEvent)
 local EventNames = require(script.Parent.Parent.Parent.Analytics.EventNames)
+local beforeAll = JestGlobals.beforeAll
+local afterAll = JestGlobals.afterAll
+local ReactRoblox = require(Packages.Dev.ReactRoblox)
 
 local runWhileMounted = SocialTestHelpers.TestHelpers.runWhileMounted
 local jest = JestGlobals.jest
@@ -17,6 +20,20 @@ local it = JestGlobals.it
 
 local Stories = require(script.Parent.QRCodeFriendRequestNotificationStories)
 local defaultStory = Stories.default
+
+local oldGetFFlagProfileQRCodeAlertDisableAcceptOnPress
+
+beforeAll(function()
+	oldGetFFlagProfileQRCodeAlertDisableAcceptOnPress =
+		game:SetFastFlagForTesting("ProfileQRCodeAlertDisableAcceptOnPress", true)
+end)
+
+afterAll(function()
+	game:SetFastFlagForTesting(
+		"ProfileQRCodeAlertDisableAcceptOnPress",
+		oldGetFFlagProfileQRCodeAlertDisableAcceptOnPress
+	)
+end)
 
 it("SHOULD mount correctly", function()
 	local component = createTreeWithProviders(defaultStory, {})
@@ -117,5 +134,30 @@ it("SHOULD call onAccept if accept friend", function()
 
 		expect(onAccept).toHaveBeenCalledTimes(1)
 		expect(onAccept).toHaveBeenCalledWith(DefaultTestUserId)
+	end)
+end)
+
+it("SHOULD call onAccept once with multiple presses", function()
+	local onAccept = jest.fn()
+	local component = createTreeWithProviders(defaultStory, {
+		props = {
+			onAccept = onAccept,
+			userId = DefaultTestUserId,
+		},
+	})
+
+	runWhileMounted(component, function(parent)
+		local acceptButton = findElementHelpers.findAcceptButton(parent, { assertElementExists = true })
+
+		RhodiumHelpers.clickInstance(acceptButton:getRbxInstance())
+
+		--Ensure that a render has happened
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
+
+		RhodiumHelpers.clickInstance(acceptButton:getRbxInstance())
+
+		expect(onAccept).toHaveBeenCalledTimes(1)
 	end)
 end)

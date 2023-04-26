@@ -15,7 +15,7 @@ describe("GlobalNavContainer", function()
 	it("should create and destroy without errors", function()
 		local providers, nestedMocks = mocks.makeMockProviders()
 		local providerSpecs = mapProviderListToSpecs(providers)
-		local mockTenFootUiContext = nestedMocks.globalNavMocks.mockTenFootUiContext
+		local mockTenFootUiContext = nestedMocks.mockTenFootUiContext
 
 		local element = React.createElement(ProviderContainer, { providers = providerSpecs }, {
 			GlobalNavContainer = React.createElement(GlobalNavContainer, {

@@ -73,7 +73,7 @@ return {
 	NetworkingContacts = LuaSocialLibrariesDeps.NetworkingContacts.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
-	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends_221.config({
+	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
 	NetworkingUserSettings = LuaSocialLibrariesDeps.NetworkingUserSettings.config({

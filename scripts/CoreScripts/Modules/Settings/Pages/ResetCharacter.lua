@@ -19,6 +19,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -65,8 +66,8 @@ local function Initialize()
 	{
 		Name = "ResetCharacterText",
 		Text = "Are you sure you want to reset your character?",
-		Font = Enum.Font.SourceSansBold,
-		FontSize = Enum.FontSize.Size36,
+		Font = Theme.font(Enum.Font.SourceSansBold, "Confirmation"),
+		FontSize = Theme.fontSize(Enum.FontSize.Size36, "Confirmation"),
 		TextColor3 = Color3.new(1,1,1),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1,0,0,200),

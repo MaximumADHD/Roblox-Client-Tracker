@@ -12,6 +12,7 @@ local RobloxTranslator = require(RobloxGuiModules.RobloxTranslator)
 local onBlockButtonActivated = require(script:FindFirstAncestor("Settings").onBlockButtonActivated)
 local BlockingAnalytics = require(script:FindFirstAncestor("Settings").Analytics.BlockingAnalytics)
 local Utility = require(RobloxGuiModules.Settings.Utility)
+local Theme = require(RobloxGuiModules.Settings.Theme)
 
 local localPlayer = PlayersService.LocalPlayer
 while not localPlayer do
@@ -24,9 +25,9 @@ local blockingAnalytics = BlockingAnalytics.new(
 		{ EventStream = RbxAnalyticsService }
 	)
 
-local TITLE_TEXT_SIZE = 36
-local BODY_TEXT_SIZE = 24
-local ACTION_HEADER_TEXT_SIZE = 16
+local TITLE_TEXT_SIZE = Theme.textSize(36)
+local BODY_TEXT_SIZE = Theme.textSize(24)
+local ACTION_HEADER_TEXT_SIZE = Theme.textSize(16)
 local TOP_SPACER_SIZE = 10
 local BOTTOM_SPACER_SIZE = 20
 
@@ -67,7 +68,7 @@ local function Initialize()
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Text = text,
 			TextSize = size,
-			Font = Enum.Font.SourceSansBold,
+			Font = Theme.font(Enum.Font.SourceSansBold, "Bold"),
 			TextWrap = true,
 			TextColor3 = Color3.fromRGB(255, 255, 255),
 			TextXAlignment = Enum.TextXAlignment.Center,

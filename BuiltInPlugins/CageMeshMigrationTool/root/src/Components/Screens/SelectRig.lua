@@ -6,15 +6,15 @@ local Selection = game:GetService("Selection")
 local Roact = require(root.Packages.Roact)
 local RoactRodux = require(root.Packages.RoactRodux)
 
-local DeveloperFramework = require(root.Packages.Framework)
+local Framework = require(root.Packages.Framework)
 
-local ContextServices = DeveloperFramework.ContextServices
+local ContextServices = Framework.ContextServices
 
-local Button = DeveloperFramework.UI.Button
-local TextLabel = DeveloperFramework.UI.Decoration.TextLabel
-local InstanceTreeView = DeveloperFramework.UI.InstanceTreeView
+local Button = Framework.UI.Button
+local TextLabel = Framework.UI.Decoration.TextLabel
+local InstanceTreeView = Framework.UI.InstanceTreeView
 
-local StyleKey = DeveloperFramework.Style.StyleKey
+local StyleKey = Framework.Style.StyleKey
 
 local SetEnabled = require(root.src.Actions.SetEnabled)
 local SetRig = require(root.src.Actions.SetRig)

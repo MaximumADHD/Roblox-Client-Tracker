@@ -15,6 +15,7 @@ local BackButtonController = require(RobloxGui.Modules.Settings.BackButtonContro
 
 local MenuBackButton = Roact.PureComponent:extend("MenuBackButton")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local GetFStringTeleportBackButtonSettingsHubIXPCustomFieldName =
 	require(RobloxGui.Modules.Flags.GetFStringTeleportBackButtonSettingsHubIXPCustomFieldName)
@@ -55,11 +56,11 @@ function MenuBackButton:didUpdate(oldProps)
 end
 
 function MenuBackButton:updateViewport()
-	local textSize = 24
+	local textSize = Theme.textSize(24)
 	if utility:IsSmallTouchScreen() then
-		textSize = 18
+		textSize = Theme.textSize(18)
 	elseif isTenFootInterface then
-		textSize = 36
+		textSize =Theme.textSize(36)
 	end
 
 	self.updateTextSizeConstraintBinding(textSize)
@@ -67,7 +68,7 @@ function MenuBackButton:updateViewport()
 	local isPortrait = utility:IsPortrait()
 	local buttonHeight = isTenFootInterface and 120 or 70
 	if isPortrait or utility:IsSmallTouchScreen() then
-		textSize = isPortrait and 18 or 24
+		textSize = isPortrait and Theme.textSize(18) or Theme.textSize(24)
 		buttonHeight = isPortrait and 50 or 62
 	end
 	self.updateTextSizeBinding(textSize)
@@ -183,7 +184,7 @@ function MenuBackButton:render()
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextColor3 = Color3.fromRGB(255, 255, 255),
 					TextYAlignment = Enum.TextYAlignment.Center,
-					Font = Enum.Font.SourceSansBold,
+					Font = Theme.font(Enum.Font.SourceSansBold, "Bold"),
 					TextSize = self.textSizeBinding,
 					TextScaled = true,
 					TextWrapped = true,

@@ -9,11 +9,8 @@ return function()
 	local expect = JestGlobals.expect
 
 	local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-	local GetFFlagUIBloxVRApplyHeadScale =
-		require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
-	if EngineFeatureEnableVRUpdate3 and GetFFlagUIBloxVRApplyHeadScale then
-
+	if EngineFeatureEnableVRUpdate3 then
 		describe("VRControllerModel", function()
 			it("should position controller model correctly when HeadScale is set", function()
 				local camera = workspace.CurrentCamera

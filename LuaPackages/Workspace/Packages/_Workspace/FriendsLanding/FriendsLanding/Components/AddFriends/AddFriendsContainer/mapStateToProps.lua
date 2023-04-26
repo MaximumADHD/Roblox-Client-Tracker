@@ -7,9 +7,14 @@ local RoduxPresence = dependencies.RoduxPresence
 local SocialLibraries = dependencies.SocialLibraries
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterTooltip)
+local getFriendRecommendationsFromState = require(script.Parent.getFriendRecommendationsFromState)
+local getSessionIdByKey = dependencies.RoduxAnalytics.Selectors.getSessionIdByKey
+local RECOMMENDATION_SESSION_ID_KEY = require(FriendsLanding.Common.Constants).RECOMMENDATION_SESSION_ID_KEY
+
 local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
+local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 
 local sortFunc = require(script.Parent.sortFriendRequests)
 
@@ -43,23 +48,30 @@ local getFriendRequestsFromState = function(state)
 	return sortFunc(users)
 end
 
--- TODO: SOCCONN-1557 Use correct recommendation endpoint
-local getFriendRecommendationsFromState = function(state)
-	local localUserId = state.LocalUserId
-	local userIds =
-		getDeepValue(state, string.format("FriendsLanding.Friends.recommendations.byUserId.%s", tostring(localUserId)))
+local getfriendRecommendationsSessionIdFromState = function(state)
+	return getSessionIdByKey(state)(RECOMMENDATION_SESSION_ID_KEY)
+end
 
-	if not userIds then
-		return {}
+if not getFFlagAddFriendsRecommendationsEnabled() then
+	getFriendRecommendationsFromState = function(state)
+		local localUserId = state.LocalUserId
+		local userIds = getDeepValue(
+			state,
+			string.format("FriendsLanding.Friends.recommendations.byUserId.%s", tostring(localUserId))
+		)
+
+		if not userIds then
+			return {}
+		end
+
+		local users = llama.Dictionary.map(userIds, function(userId)
+			return getDeepValue(state, string.format("FriendsLanding.Users.byUserId.%s", userId.id))
+		end)
+
+		users = llama.Dictionary.values(users)
+
+		return users
 	end
-
-	local users = llama.Dictionary.map(userIds, function(userId)
-		return getDeepValue(state, string.format("FriendsLanding.Users.byUserId.%s", userId.id))
-	end)
-
-	users = llama.Dictionary.values(users)
-
-	return users
 end
 
 return function(state)
@@ -93,8 +105,10 @@ return function(state)
 	return {
 		screenSize = state.ScreenSize,
 		localUserId = state.LocalUserId,
-		-- TODO: SOCCONN-1557 Add tests when we're using the proper recommendation endpoint
 		friendRecommendations = getFriendRecommendationsFromState(state) or {},
+		friendRecommendationsSessionId = if getFFlagAddFriendsRecommendationsEnabled()
+			then getfriendRecommendationsSessionIdFromState(state)
+			else nil,
 		friendRequests = getFriendRequestsFromState(state),
 		receivedCount = getDeepValue(state, "FriendsLanding.Friends.requests.receivedCount") or 0,
 		nextPageCursor = getDeepValue(state, "FriendsLanding.Friends.requests.nextPageCursor"),

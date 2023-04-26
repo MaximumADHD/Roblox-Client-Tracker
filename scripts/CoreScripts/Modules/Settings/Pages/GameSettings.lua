@@ -609,8 +609,8 @@ local function Initialize()
 			Name = "PerformanceStatsLabel",
 			Text = "Set by Developer",
 			TextColor3 = Color3.new(1, 1, 1),
-			Font = Enum.Font.SourceSans,
-			FontSize = Enum.FontSize.Size24,
+			Font = Theme.font(Enum.Font.SourceSans, "GameSettings"),
+			FontSize = Theme.fontSize(Enum.FontSize.Size24, "GameSettings"),
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, 200, 1, 0),
 			Position = UDim2.new(1, -350, 0, 0),
@@ -655,8 +655,8 @@ local function Initialize()
 			utility:Create "TextLabel" {
 			Name = "InformationLabel",
 			Text = "Information Loading",
-			Font = Enum.Font.SourceSans,
-			FontSize = Enum.FontSize.Size14,
+			Font = Theme.font(Enum.Font.SourceSans),
+			FontSize = Theme.fontSize(Enum.FontSize.Size14),
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, 800, 1, 0),
 			Position = UDim2.new(1, -650, 0, 20),
@@ -806,8 +806,8 @@ local function Initialize()
 					Name = "ShiftLockOverrideLabel",
 					Text = "Set by Developer",
 					TextColor3 = Color3.new(1, 1, 1),
-					Font = Enum.Font.SourceSans,
-					FontSize = Enum.FontSize.Size24,
+					Font = Theme.font(Enum.Font.SourceSans, "GameSettings"),
+					FontSize = Theme.fontSize(Enum.FontSize.Size24, "GameSettings"),
 					BackgroundTransparency = 1,
 					Size = UDim2.new(0, 200, 1, 0),
 					Position = UDim2.new(1, -350, 0, 0),
@@ -934,8 +934,8 @@ local function Initialize()
 				Name = "CameraDevOverrideLabel",
 				Text = "Set by Developer",
 				TextColor3 = Color3.new(1, 1, 1),
-				Font = Enum.Font.SourceSans,
-				FontSize = Enum.FontSize.Size24,
+				Font = Theme.font(Enum.Font.SourceSans, "GameSettings"),
+				FontSize = Theme.fontSize(Enum.FontSize.Size24, "GameSettings"),
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0.6, 0, 1, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
@@ -1069,8 +1069,8 @@ local function Initialize()
 				Name = "MovementDevOverrideLabel",
 				Text = "Set by Developer",
 				TextColor3 = Color3.new(1, 1, 1),
-				Font = Enum.Font.SourceSans,
-				FontSize = Enum.FontSize.Size24,
+				Font = Theme.font(Enum.Font.SourceSans, "GameSettings"),
+				FontSize = Theme.fontSize(Enum.FontSize.Size24, "GameSettings"),
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0.6, 0, 1, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
@@ -1796,8 +1796,8 @@ local function Initialize()
 			TextColor3 = Color3.new(1, 1, 1),
 			BorderColor3 = Color3.new(0.8, 0.8, 0.8),
 			BackgroundColor3 = Color3.new(0.2, 0.2, 0.2),
-			Font = Enum.Font.SourceSans,
-			TextSize = 18,
+			Font = Theme.font(Enum.Font.SourceSans),
+			TextSize = Theme.textSize(18),
 			Size = UDim2.new(0, textBoxWidth, 0.8, 0),
 			Position = UDim2.new(1, -2, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
@@ -1958,7 +1958,7 @@ local function Initialize()
 
 		local adjustButton, adjustText, setButtonRowRef =
 			utility:MakeStyledButton("AdjustButton", "Adjust", UDim2.new(0, 300, 1, -20), showOverscanScreen, this)
-		adjustText.Font = Enum.Font.SourceSans
+		adjustText.Font = Theme.font(Enum.Font.SourceSans)
 		adjustButton.Position = UDim2.new(1, -400, 0, 12)
 
 		if RunService:IsStudio() then
@@ -1989,7 +1989,7 @@ local function Initialize()
 
 			local devConsoleButton, devConsoleText, setButtonRowRef =
 				utility:MakeStyledButton("DevConsoleButton", "Open", UDim2.new(0, 300, 1, -20), onOpenDevConsole, this)
-			devConsoleText.Font = Enum.Font.SourceSans
+			devConsoleText.Font = Theme.font(Enum.Font.SourceSans)
 			devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
 			local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
 			if game:GetEngineFeature("VideoCaptureService") then

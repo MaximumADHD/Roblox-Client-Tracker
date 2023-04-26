@@ -23,15 +23,11 @@ local CallDetailsItem = require(ContactList.Components.CallDetails.CallDetailsIt
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
-while not localPlayer do
-	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-	localPlayer = Players.LocalPlayer
-end
 local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {}
 
-local function CallerListContainer(props: Props)
+local function CallDetailsContainer(props: Props)
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
@@ -44,7 +40,6 @@ local function CallerListContainer(props: Props)
 	local callDetailParticipants = useSelector(selectCallDetailParticipants)
 	React.useEffect(function()
 		local participantIds = {}
-		table.insert(participantIds, localUserId)
 		for _, participant in ipairs(callDetailParticipants) do
 			table.insert(participantIds, participant.userId)
 		end
@@ -63,18 +58,12 @@ local function CallerListContainer(props: Props)
 		participantList["UIListLayout"] = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 		})
-		participantList["LocalPlayerItem"] = React.createElement(CallDetailsItem, {
-			user = localPlayer and { userId = localUserId, username = localPlayer.DisplayName } or nil,
-			showDivider = true,
-			presenceModel = userPresence[tostring(localUserId)],
-			showParticipantSettings = false,
-		})
 		for idx, participant in ipairs(callDetailParticipants) do
 			participantList["ParticipantItem" .. idx] = React.createElement(CallDetailsItem, {
-				user = { userId = participant.userId, username = participant.username },
+				user = { userId = participant.userId, username = participant.userName },
 				showDivider = idx ~= #callDetailParticipants,
 				presenceModel = userPresence[tostring(participant.userId)],
-				showParticipantSettings = true,
+				showParticipantSettings = participant.userId ~= localUserId,
 			})
 		end
 		return participantList
@@ -163,4 +152,4 @@ local function CallerListContainer(props: Props)
 	})
 end
 
-return CallerListContainer
+return CallDetailsContainer

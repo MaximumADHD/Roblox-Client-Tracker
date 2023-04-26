@@ -373,6 +373,7 @@ return{
 	["CommonUI.Messages.Response.PageError"] = [[خطأ في تحميل الصفحة]],
 	["CommonUI.Messages.Label.ActionNotAvailableOnVRHeadsetDevice"] = [[هذا الإجراء غير معتمد على أجهزة سماعة الرأس بعد. الرجاء المحاولة على جهاز آخر.]],
 	["CommonUI.Messages.Label.NoRobuxPuchaseOnVRHeadSets"] = [[Robux. شراء Robux غير معتمد على أجهزة سماعة الرأس حتى الآن. الرجاء المحاولة على جهاز آخر.]],
+	["CommonUI.Messages.Label.FeatureNotAvailableForAccount"] = [[حسابك غير مؤهل لهذه الميزة.]],
 	["CommonUI.UserAgreements.Popup.Title"] = [[الاتفاقات المحدّثة]],
 	["CommonUI.UserAgreements.Popup.Message"] = [[لمواصلة اللعب على Roblox، يرجى الموافقة على شروط الخدمة المحدثة. تم إدخال تغييرات على الأقسام التالية:]],
 	["CommonUI.UserAgreements.Popup.Agree"] = [[أنا أوافق]],

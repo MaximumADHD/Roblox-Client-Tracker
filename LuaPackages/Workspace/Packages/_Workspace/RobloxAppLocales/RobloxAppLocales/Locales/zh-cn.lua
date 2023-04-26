@@ -624,6 +624,13 @@ return{
 	["Feature.AddFriends.Title.ShareQRCode"] = [[分享二维码]],
 	["Feature.AddFriends.Label.ShareQRCode"] = [[让其他人通过扫描你的二维码，快速加你为好友！]],
 	["Feature.AddFriends.Label.EmptyStatePrompt"] = [[你要和谁一起探索 Roblox？寻找新的朋友，或添加你认识的人为好友！]],
+	["Feature.AgeVerificationUpsell.Modal.Title"] = [[需要年龄验证]],
+	["Feature.AgeVerificationUpsell.Modal.ContentText"] = [[请验证你的年龄来访问此体验。
+
+1. 前往“设置”中的帐户信息
+2. 选择验证我的年龄
+3. 完成流程
+]],
 	["Feature.AgeVerificationUpsell.Button.Cancel"] = [[取消]],
 	["Feature.AgeVerificationUpsell.Button.Settings"] = [[设置]],
 	["Feature.AgeVerificationUpsell.Button.AccountInfo"] = [[帐户信息]],
@@ -1189,6 +1196,7 @@ return{
 	["Feature.Catalog.Heading.Overview"] = [[概览]],
 	["Feature.Catalog.Label.RecentlyCreated"] = [[最近创作]],
 	["Feature.Catalog.Label.ResaleFeePolicy"] = [[转卖费政策]],
+	["Feature.Catalog.Message.ResaleFeePolicy"] = [[所有商城交易的收入（包括转卖）将有 Roblox 和与交易相关的用户共享。以转卖为例，当用户接受你的价格时，你（转卖者）将会获得他人已付的 Robux 金额的 {yourSharePercent}%。Roblox 和其他用户（包括道具创作者）将获得剩余的 {robloxFeePercent}%。]],
 	["Feature.Catalog.Label.ItemOwnedCount"] = [[已拥有道具（{itemCount}）]],
 	["Feature.Catalog.Label.BuyPrice"] = [[购买价格：]],
 	["Feature.Catalog.Label.Holding"] = [[存放中]],
@@ -1212,6 +1220,7 @@ return{
 	["Feature.Catalog.Label.Tradable"] = [[可交易]],
 	["Feature.Catalog.Heading.ItemsOnSale"] = [[在售道具]],
 	["Feature.Catalog.Heading.AvailableItems"] = [[可上架道具]],
+	["Feature.Catalog.Label.PriceFromResale"] = [[转卖价 {itemPrice}]],
 	["Feature.Catalog.Label.FromPrice"] = [[自“{itemPrice}”]],
 	["Feature.Chat.Response.Sending"] = [[正在发送]],
 	["Feature.Chat.Response.ChatNameFullyModerated"] = [[群聊名称已被过滤。]],

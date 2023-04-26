@@ -25,7 +25,8 @@ return {
 	fixDropdownMenuCellTextSize = UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 	systemBarBottomAlignedItems = UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems(),
 	enableImageSetResolutionScaleFix = UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
-	vrApplyHeadScale = UIBloxFlags.GetFFlagUIBloxVRApplyHeadScale(),
+	bindAllLaserPointerButtons = UIBloxFlags.GetFFlagUIBloxBindAllLaserPointerButtons(),
+	vrApplyHeadScale = true,
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()
 		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
 	detailsTemplateUseNewGradientHeader = game:DefineFastFlag("UIBloxDetailsTemplateUseNewGradient", false),
@@ -42,6 +43,7 @@ return {
 	headerBarInjectContentPaddingRight = true,
 	updateVerticalTile = true,
 	useDetailsPageTemplateConfig = UIBloxFlags.GetFFlagUIBloxUseDetailsPageTemplateConfig(),
-	dropDownMenuUseUniqueKeys = UIBloxFlags.GetFFlagUIBloxDropDownMenuUseUniqueKeys(),
+	dropDownMenuUseUniqueKeys = true,
 	vrAlignPanel3DUnderInGamePanel = UIBloxFlags.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel(),
+	enableRoDSDesignTokenSupport = UIBloxFlags.GetFFlagUIBloxEnableRoDSDesignTokenSupport(),
 }

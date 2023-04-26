@@ -1,9 +1,12 @@
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
 local AppCommonLib = require(Packages.AppCommonLib)
-local memoize = AppCommonLib.memoize
+local ReactOtter = require(Packages.ReactOtter)
 local SceneManagement = require(Packages.SceneManagement)
+local memoize = AppCommonLib.memoize
 local calculateAdorneeProps = SceneManagement.calculateAdorneeProps
+
+type SpringOptions = ReactOtter.SpringOptions
 
 local defaultDistanceToCamera = 6
 local canvasWidth = 1920
@@ -12,6 +15,12 @@ local canvasHeight = 1080
 local topbarCanvasHeight = 126
 local topbarHeightRatio = topbarCanvasHeight / canvasHeight
 local pageContentCanvasHeight = canvasHeight - topbarCanvasHeight
+
+local xDirectioAnimationSpringConfig: SpringOptions = {
+	stiffness = 150,
+	damping = 20,
+	mass = 1,
+}
 
 local function getFullScreenDims()
 	return calculateAdorneeProps.calculateFullScreenAdorneeProps(defaultDistanceToCamera)
@@ -30,4 +39,5 @@ return {
 	PageContentCanvasSize = Vector2.new(canvasWidth, pageContentCanvasHeight),
 	GetFullScreenDims = memoize(getFullScreenDims),
 	GetPageContentDims = memoize(getPageContentDims),
+	XDirectioAnimationSpringConfig = xDirectioAnimationSpringConfig,
 }

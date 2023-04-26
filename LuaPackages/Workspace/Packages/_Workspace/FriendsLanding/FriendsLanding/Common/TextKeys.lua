@@ -13,4 +13,11 @@ return {
 	ADD_FRIENDS_TOOLTIP_TITLE = if getFFlagSocialOnboardingExperimentEnabled()
 		then "Feature.AddFriends.Title.AddFriendsTooltipTitle"
 		else nil,
+	PEOPLE_YOU_MAY_KNOW = "Feature.Friends.Label.PYMK",
+
+	--* PYMK Contextual information
+	FRIEND_REQUEST = "Feature.Friends.Label.FriendRequest",
+	MUTUAL_FRIENDS = "Feature.Friends.Label.MutualFriends",
+	MUTUAL_FRIEND_SINGULAR = "Feature.Friends.Label.SingularMutualFriend",
+	FREQUENTS = "Feature.Friends.Label.Frequent",
 }

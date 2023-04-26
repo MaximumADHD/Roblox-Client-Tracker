@@ -1,6 +1,7 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Modules = CoreGui.RobloxGui.Modules
 
@@ -15,6 +16,7 @@ local ConversationList = require(ShareGame.Components.ConversationList)
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
 local BackButton = require(ShareGame.Components.BackButton)
 local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
@@ -60,10 +62,10 @@ function ModalShareGamePageFrame:init()
 		local deviceLayout = self.props.deviceLayout
 		local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
 		local promptMessage = self.props.promptMessage
-		local promptTextSize = layoutSpecific.PAGE_TITLE_TEXT_SIZE
+		local promptTextSize = Theme.textSize(layoutSpecific.PAGE_TITLE_TEXT_SIZE)
 		self:setState({
 			promptMessageFitsFrame = promptMessage and
-				Text.GetTextWidth(promptMessage, Enum.Font.SourceSans, promptTextSize) < rbx.AbsoluteSize.X
+				Text.GetTextWidth(promptMessage, Theme.font(Enum.Font.SourceSans), promptTextSize) < rbx.AbsoluteSize.X
 		})
 	end
 	self.customTextAreaRef = Roact.createRef()
@@ -118,7 +120,7 @@ function ModalShareGamePageFrame:render()
 
 	local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
 	local promptMessage = self.props.promptMessage
-	local promptTextSize = layoutSpecific.PAGE_TITLE_TEXT_SIZE
+	local promptTextSize = Theme.textSize(layoutSpecific.PAGE_TITLE_TEXT_SIZE)
 	local displayCustomText = isNewUI and promptMessage and self.state.promptMessageFitsFrame
 	local customTextHeight = if displayCustomText then promptTextSize + HEADER_PADDING else HEADER_PADDING
 
@@ -182,7 +184,7 @@ function ModalShareGamePageFrame:render()
 				TextYAlignment = Enum.TextYAlignment.Top,
 				TextSize = promptTextSize,
 				TextColor3 = Constants.Color.WHITE,
-				Font = Enum.Font.SourceSans,
+				Font = Theme.font(Enum.Font.SourceSans),
 				BackgroundTransparency = 1,
 				Text = if displayCustomText then promptMessage else "",
 				[Roact.Change.AbsoluteSize] = self.onCustomTextAreaSizeChange,

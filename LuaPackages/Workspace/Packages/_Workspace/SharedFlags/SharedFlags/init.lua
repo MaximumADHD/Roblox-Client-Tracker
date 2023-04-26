@@ -13,6 +13,7 @@ return {
 	getFFlagRemoveVirtualEventsExperiment = require(script.getFFlagRemoveVirtualEventsExperiment),
 	getFFlagFixEventSharesheet = require(script.getFFlagFixEventSharesheet),
 	getFFlagFixEventsListGettingSquished = require(script.getFFlagFixEventsListGettingSquished),
+	getFFlagEventHostWorksForGroups = require(script.getFFlagEventHostWorksForGroups),
 
 	-- LuaApp
 	getFFlagLuaProfileShareWithDesktopPolicy = require(script.getFFlagLuaProfileShareWithDesktopPolicy),
@@ -25,7 +26,6 @@ return {
 	-- Social
 	GetFFlagLuaAppEnableSquadPage = require(script.GetFFlagLuaAppEnableSquadPage),
 	getFFlagProfileAliasEnabled = require(script.getFFlagProfileAliasEnabled),
-	getFFlagProfileAddQRCodeEventLogging = require(script.getFFlagProfileAddQRCodeEventLogging),
 	getFFlagEnableRoduxUsersRoactChat = require(script.getFFlagEnableRoduxUsersRoactChat),
 	getFFlagGameInviteShortUrlEnabled = require(script.getFFlagGameInviteShortUrlEnabled),
 	getFFlagAddFriendsQRCodeAnalytics = require(script.getFFlagAddFriendsQRCodeAnalytics),
@@ -50,10 +50,15 @@ return {
 	GetFFlagVRAvatarExperienceNoLandingPage = require(script.GetFFlagVRAvatarExperienceNoLandingPage),
 	GetFFlagFixStateMutationInVROverlay = require(script.GetFFlagFixStateMutationInVROverlay),
 	GetFFlagActivateShadowsInWorldspace = require(script.GetFFlagActivateShadowsInWorldspace),
+	GetFFlagEnableIGMv2VoiceReportFlows = require(script.GetFFlagEnableIGMv2VoiceReportFlows),
+
+	-- TenFootUI
+	GetFFlagTenFootUiDesignTokens = require(script.GetFFlagTenFootUiDesignTokens),
 
 	-- IXP Layers
 	getFStringSocialUserSearchResultsPageLayer = require(script.getFStringSocialUserSearchResultsPageLayer),
 	getFStringSocialAddFriendsPageLayer = require(script.getFStringSocialAddFriendsPageLayer),
+	getFStringSocialFriendsLandingLayer = require(script.getFStringSocialFriendsLandingLayer),
 	getFStringSocialFriendsLayer = require(script.getFStringSocialFriendsLayer),
 	getFStringSocialProfileLayer = require(script.getFStringSocialProfileLayer),
 	GetFStringLoadingScreenIxpLayer = require(script.GetFStringLoadingScreenIxpLayer),
@@ -73,7 +78,6 @@ return {
 	getFFlagOffNetworkAnalytics = require(script.getFFlagOffNetworkAnalytics),
 	getFFlagPYMKDontUseIngestService = require(script.getFFlagPYMKDontUseIngestService),
 	getFFlagSocialAddFriendshipRequestEvent = require(script.getFFlagSocialAddFriendshipRequestEvent),
-	getFFlagSocialAddMessageModal = require(script.getFFlagSocialAddMessageModal),
 	getFFlagSocialProfileShareAnalyticsEnabled = require(script.getFFlagSocialProfileShareAnalyticsEnabled),
 	getFFlagSoothsayerCheckForContactImporter = require(script.getFFlagSoothsayerCheckForContactImporter),
 	getFFlagMigrateSocialNetworking = require(script.getFFlagMigrateSocialNetworking),
@@ -81,7 +85,7 @@ return {
 	GetFFlagDisableBubbleChatForExpChat = require(script.GetFFlagDisableBubbleChatForExpChat),
 	GetFFlagShareGetPlatformTargetImpl = require(script.GetFFlagShareGetPlatformTargetImpl),
 	GetFFlagUseLoadableImageForAvatarThumbnails = require(script.GetFFlagUseLoadableImageForAvatarThumbnails),
-	GetFFlagUpgradeExpChatV3_4_2 = require(script.GetFFlagUpgradeExpChatV3_4_2),
+	GetFFlagUpgradeExpChatV3_4_4 = require(script.GetFFlagUpgradeExpChatV3_4_4),
 	GetFFlagLuaAppAddSignalToFocusArea = require(script.GetFFlagLuaAppAddSignalToFocusArea),
 	GetFFlagLuaAppUseUIBloxColorPalettes = require(script.GetFFlagLuaAppUseUIBloxColorPalettes),
 	isNewFriendsEndpointsEnabled = require(script.isNewFriendsEndpointsEnabled),
@@ -118,4 +122,6 @@ return {
 	GetFFlagDisableCDLQrCodeForMaquettes = require(script.GetFFlagDisableCDLQrCodeForMaquettes),
 	GetFFlagPipEnabled = require(script.GetFFlagPipEnabled),
 	GetFFlagPlayerBillboardReducerEnabled = require(script.GetFFlagPlayerBillboardReducerEnabled),
+	GetFFlagEnableIAPEntryPointDisablePolicy = require(script.GetFFlagEnableIAPEntryPointDisablePolicy),
+	GetFFlagEnableMaquettesU13Block = require(script.GetFFlagEnableMaquettesU13Block),
 }

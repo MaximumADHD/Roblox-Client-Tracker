@@ -7,6 +7,7 @@ local Package = require(PackageIndex["RobloxAppEnums"]["RobloxAppEnums"])
 
 export type DeviceOrientationMode = Package.DeviceOrientationMode
 export type DeviceType = Package.DeviceType
+export type UiMode = Package.UiMode
 
 
 return Package

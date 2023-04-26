@@ -1,5 +1,5 @@
-game:DefineFastFlag("MoveMutualFriendsTextToUtils", false)
+game:DefineFastFlag("MoveMutualFriendsTextToUtils_v2", false)
 
 return function()
-	return game:GetFastFlag("MoveMutualFriendsTextToUtils")
+	return game:GetFastFlag("MoveMutualFriendsTextToUtils_v2")
 end

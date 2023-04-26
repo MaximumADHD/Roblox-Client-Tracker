@@ -11,6 +11,8 @@ local defaultStory = Stories.default
 local findElementHelpers = require(ProfileQRCode.TestHelpers.findElementHelpers)
 local jest = JestGlobals.jest
 local RhodiumHelpers = require(Packages.Dev.RhodiumHelpers)
+local getFFlagProfileQRCodeEnable3DAvatarExperiment =
+	require(ProfileQRCode.Flags.getFFlagProfileQRCodeEnable3DAvatarExperiment)
 
 it("SHOULD mount correctly", function()
 	local component = createTreeWithProviders(defaultStory, {})
@@ -20,20 +22,44 @@ it("SHOULD mount correctly", function()
 	end)
 end)
 
-it("SHOULD call onClose if closed", function()
+it("SHOULD call onClose if closed when 3d avatar experiment is disabled", function()
 	local onClose = jest.fn()
 	local component = createTreeWithProviders(defaultStory, {
 		props = {
 			onClose = onClose,
+			isProfile3DAvatarEnabled = false,
 		},
 	})
 
 	runWhileMounted(component, function(parent)
-		local backButton = findElementHelpers.findBackButton(parent, { assertElementExists = true })
+		local backButton = findElementHelpers.findCrossButton(parent, { assertElementExists = true })
 
 		RhodiumHelpers.clickInstance(backButton:getRbxInstance())
 
 		-- it seems to get called twice, but this seems to be to be a test-specific thing. Rather than actual duplicate calls in real life.
 		expect(onClose).toHaveBeenCalled()
+	end)
+end)
+
+it("SHOULD call onClose if closed when 3d avatar experiment is enabled", function()
+	local onClose = jest.fn()
+	local component = createTreeWithProviders(defaultStory, {
+		props = {
+			onClose = onClose,
+			isProfile3DAvatarEnabled = true,
+		},
+	})
+
+	runWhileMounted(component, function(parent)
+		if getFFlagProfileQRCodeEnable3DAvatarExperiment() then
+			local backButton = findElementHelpers.findBackButton(parent, { assertElementExists = true })
+
+			RhodiumHelpers.clickInstance(backButton:getRbxInstance())
+
+			-- it seems to get called twice, but this seems to be to be a test-specific thing. Rather than actual duplicate calls in real life.
+			expect(onClose).toHaveBeenCalled()
+		else
+			findElementHelpers.findBackButton(parent, { assertElementExists = false })
+		end
 	end)
 end)

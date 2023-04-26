@@ -7,17 +7,10 @@ local EnumScreens = require(FriendsLanding.EnumScreens)
 local withLocalization = dependencies.withLocalization
 local SearchHeaderBar = require(FriendsLanding.Components.FriendsLandingHeaderBar.SearchHeaderBar)
 local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
-local AddFriendsSearchbarPressedEvent = require(FriendsLanding.FriendsLandingAnalytics.AddFriendsSearchbarPressedEvent)
 local PlayerSearchEvent = require(FriendsLanding.FriendsLandingAnalytics.PlayerSearchEvent)
 local SocialLibraries = dependencies.SocialLibraries
-local FormFactor = dependencies.FormFactor
 local compose = SocialLibraries.RoduxTools.compose
 local ImageSetButton = UIBlox.Core.ImageSet.Button
-local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
-local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
-
-local getFFlagAddFriendsSearchbarWidemodeUpdate =
-	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
 
 local FriendsLandingAnalytics = require(FriendsLanding.FriendsLandingAnalytics)
 local HeaderBarCenterView = Roact.PureComponent:extend("HeaderBarCenterView")
@@ -52,19 +45,11 @@ function HeaderBarCenterView:render()
 		local navigation = self.props.navigation
 		local routeName = navigation and navigation.state and navigation.state.routeName
 
-		local wideModeSearchbarButton
 		if context.addFriendsPageSearchbarEnabled then
-			wideModeSearchbarButton = if getFFlagAddFriendsSearchbarWidemodeUpdate()
-				then nil
-				else context.wideMode and (routeName == EnumScreens.AddFriends)
-
-			if not (wideModeSearchbarButton or screenTopBar.shouldRenderCenter) then
+			if not screenTopBar.shouldRenderCenter then
 				return nil
 			else
-				if
-					(routeName == EnumScreens.AddFriends)
-					and (getFFlagAddFriendsSearchbarWidemodeUpdate() or not wideModeSearchbarButton)
-				then
+				if routeName == EnumScreens.AddFriends then
 					context.setScreenTopBar(EnumScreens.FriendsLanding, {
 						shouldRenderCenter = false,
 					})
@@ -88,25 +73,6 @@ function HeaderBarCenterView:render()
 					then UDim2.new(0, TABLET_SEARCH_BAR_WIDTH, 1, 0)
 					else UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				[Roact.Event.Activated] = if getFFlagAddFriendsSearchbarWidemodeUpdate()
-					then nil
-					elseif context.addFriendsPageSearchbarEnabled and wideModeSearchbarButton then function()
-						local navParams = {
-							searchText = "",
-							shouldShowEmptyLandingPage = true,
-						}
-						self.props.navigation.navigate(EnumScreens.SearchFriends, navParams)
-						context.setScreenTopBar(EnumScreens.FriendsLanding, {
-							shouldRenderCenter = true,
-							shouldAutoFocusCenter = true,
-						})
-						AddFriendsSearchbarPressedEvent(
-							self.props.analytics,
-							{ formFactor = self.props.wideMode and FormFactor.WIDE or FormFactor.COMPACT }
-						)
-						self.props.analytics:playerSearch("open", nil, Contexts.AddFriends.rawValue())
-					end
-					else nil,
 			}, {
 				filterBox = Roact.createElement(SearchHeaderBar, {
 					analytics = self.props.analytics,
@@ -115,10 +81,6 @@ function HeaderBarCenterView:render()
 					searchPlaceholderText = localizedStrings.searchPlaceholderText,
 					captureFocusOnMount = screenTopBar.shouldAutoFocusCenter,
 					onSelectCallback = screenTopBar.closeInputBar or function() end,
-					isDisabled = if getFFlagAddFriendsSearchbarWidemodeUpdate()
-						then nil
-						elseif context.addFriendsPageSearchbarEnabled and wideModeSearchbarButton then true
-						else nil,
 
 					resetOnMount = function()
 						context.setScreenTopBar(EnumScreens.FriendsLanding, {

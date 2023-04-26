@@ -14,12 +14,12 @@ local Test = require(root.src.Thunks.Test)
 local Clean = require(root.src.Thunks.Clean)
 local FixStiffness = require(root.src.Thunks.FixStiffness)
 
-local DeveloperFramework = require(root.Packages.Framework)
+local Framework = require(root.Packages.Framework)
 
-local ContextServices = DeveloperFramework.ContextServices
+local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 
-local StudioUI = DeveloperFramework.StudioUI
+local StudioUI = Framework.StudioUI
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton
 

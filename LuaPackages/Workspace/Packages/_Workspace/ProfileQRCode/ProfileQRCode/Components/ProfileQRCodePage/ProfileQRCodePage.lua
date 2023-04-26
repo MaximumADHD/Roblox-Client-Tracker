@@ -16,6 +16,7 @@ local ProfileQRCodeTopBar = require(ProfileQRCode.Components.ProfileQRCodeTopBar
 local QRCodeFriendRequestNotification = require(ProfileQRCode.Components.QRCodeFriendRequestNotification)
 local QRCodeView = require(ProfileQRCode.Components.QRCodeView)
 local TextKeys = require(ProfileQRCode.Common.TextKeys)
+local ProfileQRCodeTopElements = require(ProfileQRCode.Components.ProfileQRCodeTopElements)
 
 local useAcceptFriendUrl = require(ProfileQRCode.Networking.useAcceptFriendUrl)
 local useAnalytics = require(ProfileQRCode.Analytics.useAnalytics)
@@ -30,6 +31,7 @@ local getFStringProfileQRCodeFriendRequestAlertsExperimentKey =
 	require(ProfileQRCode.Flags.getFStringProfileQRCodeFriendRequestAlertsExperimentKey)
 local getFStringProfileQRCodeFriendRequestAlertsLayer =
 	require(ProfileQRCode.Flags.getFStringProfileQRCodeFriendRequestAlertsLayer)
+local getFFlagProfileQRCodeExtractOutTopBar = require(ProfileQRCode.Flags.getFFlagProfileQRCodeExtractOutTopBar)
 
 -- We have a hardcoded white here as for gradients to work, you need a full white background. This colour will not show.
 local BACKGROUND_FOR_GRADIENT = Color3.new(1, 1, 1)
@@ -46,9 +48,12 @@ local REMOVE_FROM_QUEUE = "removeItemFromQueue"
 local FRIEND_ADDED_IMAGE = Images["icons/actions/friends/friendAdd"]
 local TOAST_DURATION = 3
 
+game:DefineFastFlag("ProfileQRCodeFixDescriptionBody", false)
+
 export type Props = {
 	onClose: () -> (),
 	profileQRCodeFriendRequestAlertsEnabled: boolean?,
+	isProfile3DAvatarEnabled: boolean?,
 	robloxEventReceiver: any,
 }
 
@@ -63,50 +68,55 @@ local ProfileQRCodePage = function(props: Props)
 
 	local localUserId, acceptFriendUrl, showFriendAcceptedToast, setShowFriendAcceptedToast, notificationQueue, updateNotificationQueue
 
-	local robloxEventReceiver = props.robloxEventReceiver
+	if not getFFlagProfileQRCodeExtractOutTopBar() then
+		local robloxEventReceiver = props.robloxEventReceiver
 
-	showFriendAcceptedToast, setShowFriendAcceptedToast = React.useState(false)
-	notificationQueue, updateNotificationQueue = React.useReducer(function(oldQueue, action)
-		if action.type == ADD_TO_QUEUE then
-			IXPService:LogUserLayerExposure(getFStringProfileQRCodeFriendRequestAlertsLayer())
-			-- update queue
-			return Cryo.List.join(oldQueue, { action.newUserId })
-		elseif action.type == REMOVE_FROM_QUEUE then
-			return Cryo.List.removeIndex(oldQueue, 1)
-		else
-			return oldQueue
-		end
-	end, {})
-
-	localUserId = useLocalUserId()
-	local getUsersInfoUrl = useGetUsersInfoUrl()
-	acceptFriendUrl = useAcceptFriendUrl()
-
-	local function friendshipNotificationReceived(details)
-		-- Check to make sure this is the type of friend notification we respond to
-		if
-			details.Type == "FriendshipRequested"
-			and details.EventArgs.SourceType == NetworkingFriends.Enums.FriendshipOriginSourceType.QrCode.rawValue()
-		then
-			-- get the requesting user id, each friendship request has 2 user ids the requester and the requestee.  The
-			-- requestee should be the local user so if UserId1 is the local user id then UserId2 must be the requester
-			local userId = tostring(details.EventArgs.UserId1)
-			if userId == localUserId then
-				userId = tostring(details.EventArgs.UserId2)
+		showFriendAcceptedToast, setShowFriendAcceptedToast = React.useState(false)
+		notificationQueue, updateNotificationQueue = React.useReducer(function(oldQueue, action)
+			if action.type == ADD_TO_QUEUE then
+				if not getFFlagProfileQRCodeExtractOutTopBar() then
+					IXPService:LogUserLayerExposure(getFStringProfileQRCodeFriendRequestAlertsLayer())
+				end
+				-- update queue
+				return Cryo.List.join(oldQueue, { action.newUserId })
+			elseif action.type == REMOVE_FROM_QUEUE then
+				return Cryo.List.removeIndex(oldQueue, 1)
+			else
+				return oldQueue
 			end
+		end, {})
 
-			-- Now using the requester user id we make a call to get the display name of the requesting user
-			getUsersInfoUrl(userId):andThen(function()
-				updateNotificationQueue({ type = ADD_TO_QUEUE, newUserId = userId })
-			end)
+		localUserId = useLocalUserId()
+		local getUsersInfoUrl = useGetUsersInfoUrl()
+		acceptFriendUrl = useAcceptFriendUrl()
+
+		local function friendshipNotificationReceived(details)
+			-- Check to make sure this is the type of friend notification we respond to
+			if
+				details.Type == "FriendshipRequested"
+				and details.EventArgs.SourceType
+					== NetworkingFriends.Enums.FriendshipOriginSourceType.QrCode.rawValue()
+			then
+				-- get the requesting user id, each friendship request has 2 user ids the requester and the requestee.  The
+				-- requestee should be the local user so if UserId1 is the local user id then UserId2 must be the requester
+				local userId = tostring(details.EventArgs.UserId1)
+				if userId == localUserId then
+					userId = tostring(details.EventArgs.UserId2)
+				end
+
+				-- Now using the requester user id we make a call to get the display name of the requesting user
+				getUsersInfoUrl(userId):andThen(function()
+					updateNotificationQueue({ type = ADD_TO_QUEUE, newUserId = userId })
+				end)
+			end
 		end
-	end
 
-	React.useEffect(function()
-		robloxEventReceiver:observeEvent("FriendshipNotifications", function(detail)
-			friendshipNotificationReceived(detail)
-		end)
-	end, { robloxEventReceiver })
+		React.useEffect(function()
+			robloxEventReceiver:observeEvent("FriendshipNotifications", function(detail)
+				friendshipNotificationReceived(detail)
+			end)
+		end, { robloxEventReceiver })
+	end
 
 	return React.createElement("Frame", {
 		BackgroundColor3 = BACKGROUND_FOR_GRADIENT,
@@ -115,6 +125,10 @@ local ProfileQRCodePage = function(props: Props)
 		Size = UDim2.new(1, 0, 1, 0),
 		BorderSizePixel = 0,
 	}, {
+		TopElements = if getFFlagProfileQRCodeExtractOutTopBar()
+			then React.createElement(ProfileQRCodeTopElements, props)
+			else nil,
+
 		Gradient = React.createElement("Frame", {
 			BackgroundColor3 = BACKGROUND_FOR_GRADIENT,
 			BackgroundTransparency = 0,
@@ -127,13 +141,28 @@ local ProfileQRCodePage = function(props: Props)
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
-			Padding = React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, ROOT_PADDING),
-			}),
-			TopBar = React.createElement(ProfileQRCodeTopBar, {
-				layoutOrder = 1,
-				onClose = props.onClose,
-			}),
+
+			Padding = if getFFlagProfileQRCodeExtractOutTopBar()
+				then nil
+				else React.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, ROOT_PADDING),
+				}),
+
+			TopBar = if getFFlagProfileQRCodeExtractOutTopBar()
+				then nil
+				else React.createElement(ProfileQRCodeTopBar, {
+					layoutOrder = 1,
+					onClose = props.onClose,
+				}),
+
+			Spacing = if getFFlagProfileQRCodeExtractOutTopBar()
+				then React.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 0, TOP_BAR_PADDING * -1),
+					LayoutOrder = 1,
+				})
+				else nil,
+
 			Content = React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, TOP_BAR_PADDING),
@@ -146,6 +175,7 @@ local ProfileQRCodePage = function(props: Props)
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
+
 				Padding = React.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, ROOT_PADDING),
 					PaddingRight = UDim.new(0, ROOT_PADDING),
@@ -164,7 +194,9 @@ local ProfileQRCodePage = function(props: Props)
 				Description = React.createElement(StyledTextLabel, {
 					layoutOrder = 3,
 					text = localized.description,
-					fontStyle = style.Font.Body,
+					fontStyle = if game:GetFastFlag("ProfileQRCodeFixDescriptionBody")
+						then style.Font.CaptionBody
+						else style.Font.Body,
 					lineHeight = 1,
 					colorStyle = style.Theme.TextDefault,
 					size = UDim2.new(1, 0, 0, 0),
@@ -187,7 +219,9 @@ local ProfileQRCodePage = function(props: Props)
 				}),
 			}),
 		}),
-		FriendAcceptToastFrame = if friendRequestAlertsEnabled and showFriendAcceptedToast
+		FriendAcceptToastFrame = if not getFFlagProfileQRCodeExtractOutTopBar()
+				and friendRequestAlertsEnabled
+				and showFriendAcceptedToast
 			then React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -206,7 +240,8 @@ local ProfileQRCodePage = function(props: Props)
 				}),
 			})
 			else nil,
-		FriendsInviteFrame = if friendRequestAlertsEnabled
+		FriendsInviteFrame = if not getFFlagProfileQRCodeExtractOutTopBar()
+				and friendRequestAlertsEnabled
 				and #notificationQueue > 0
 				and not showFriendAcceptedToast
 			then React.createElement("Frame", {
@@ -239,14 +274,16 @@ local ProfileQRCodePage = function(props: Props)
 	})
 end
 
-ProfileQRCodePage = RoactAppExperiment.connectUserLayer({
-	getFStringProfileQRCodeFriendRequestAlertsLayer(),
-}, function(layerVariables, props)
-	local profileQRCodeFriendRequestAlertsLayer: any = layerVariables[getFStringProfileQRCodeFriendRequestAlertsLayer()]
-		or {}
-	return {
-		profileQRCodeFriendRequestAlertsEnabled = profileQRCodeFriendRequestAlertsLayer[getFStringProfileQRCodeFriendRequestAlertsExperimentKey()],
-	}
-end, false)(ProfileQRCodePage)
+if not getFFlagProfileQRCodeExtractOutTopBar() then
+	ProfileQRCodePage = RoactAppExperiment.connectUserLayer({
+		getFStringProfileQRCodeFriendRequestAlertsLayer(),
+	}, function(layerVariables, props)
+		local profileQRCodeFriendRequestAlertsLayer: any = layerVariables[getFStringProfileQRCodeFriendRequestAlertsLayer()]
+			or {}
+		return {
+			profileQRCodeFriendRequestAlertsEnabled = profileQRCodeFriendRequestAlertsLayer[getFStringProfileQRCodeFriendRequestAlertsExperimentKey()],
+		}
+	end, false)(ProfileQRCodePage)
+end
 
 return ProfileQRCodePage

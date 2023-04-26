@@ -41,14 +41,12 @@ local TextKeys = if getFFlagAddFriendsPageMoveTextKeys()
 	then require(FriendsLanding.Common.TextKeys)
 	else ContactImporter.TextKeys
 
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 local getFFlagUpdateContactImportModalLogic = require(FriendsLanding.Flags.getFFlagUpdateContactImportModalLogic)
 local getFFlagPassEntrypointFromAddFriendsPage = require(FriendsLanding.Flags.getFFlagPassEntrypointFromAddFriendsPage)
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
-local getFFlagAddFriendsSearchbarWidemodeUpdate =
-	require(FriendsLanding.Flags.getFFlagAddFriendsSearchbarWidemodeUpdate)
+local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 local getFFlagAddFriendsMoreButtonFixed = require(FriendsLanding.Flags.getFFlagAddFriendsMoreButtonFixed)
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
@@ -59,7 +57,7 @@ local NEW_NAV_BAR_SIZE = 56
 local PLAYER_TILE_MARGIN = 12
 local CONTACT_IMPORTER_ORIGIN = "PhoneContactImporter"
 local TURN_OFF_EXPOSURE_FOR_EXPERIMENT = false
-local TABLET_SEARCH_BAR_WIDTH = if getFFlagAddFriendsSearchbarWidemodeUpdate() then 400 else nil
+local TABLET_SEARCH_BAR_WIDTH = 400
 
 local BANNER_IN_BETWEEN_PADDING = if getFFlagSocialOnboardingExperimentEnabled() then 12 else nil
 local BANNER_TOP_PADDING = if getFFlagSocialOnboardingExperimentEnabled() then 8 else nil
@@ -70,6 +68,7 @@ local noOpt = function() end
 AddFriendsPage.validateProps = t.strictInterface({
 	sourceType = t.valueOf(FriendsSourceType),
 	friendRecommendations = t.table,
+	friendRecommendationsCount = if getFFlagAddFriendsRecommendationsEnabled() then t.integer else nil,
 	friendRequests = t.table,
 	friendRequestsCount = t.integer,
 	screenSize = t.Vector2,
@@ -143,7 +142,10 @@ function AddFriendsPage:init()
 			layoutOrder = index,
 			user = user,
 			size = Vector2.new(itemWidth, itemHeight),
-			isFriendRequest = true,
+			isFriendRequest = if getFFlagAddFriendsRecommendationsEnabled()
+				then if user.isRecommendation then false else true
+				else true,
+			isRecommendation = if getFFlagAddFriendsRecommendationsEnabled() then user.isRecommendation else nil,
 			sourceType = self.props.sourceType,
 			amIFollowingUser = self.props.amIFollowingUser(user),
 			isUserFollowingMe = self.props.isUserFollowingMe(user),
@@ -337,6 +339,7 @@ function AddFriendsPage:render()
 				and self.props.showNewAddFriendsPageVariant
 			then "Feature.AddFriends.Label.ShareQRCode"
 			else nil,
+		peopleYouMayKnow = if getFFlagAddFriendsRecommendationsEnabled() then TextKeys.PEOPLE_YOU_MAY_KNOW else nil,
 	})(function(localized)
 		return withStyle(function(style)
 			local hasRequests = self.props.friendRequestsCount > 0
@@ -382,16 +385,8 @@ function AddFriendsPage:render()
 				page = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
-					BorderSizePixel = if getFFlagAddFriendsSearchbarWidemodeUpdate() then 0 else nil,
+					BorderSizePixel = 0,
 				}, {
-					SearchbarPadding = if getFFlagAddFriendsSearchbarWidemodeUpdate()
-						then nil
-						elseif
-							self.props.addFriendsPageSearchbarEnabled and not self.props.wideMode
-						then Roact.createElement("UIPadding", {
-							PaddingTop = UDim.new(0, NEW_NAV_BAR_SIZE),
-						})
-						else nil,
 					contentFrame = Roact.createElement("Frame", {
 						Size = UDim2.fromScale(1, 1),
 						LayoutOrder = 1,
@@ -483,10 +478,14 @@ function AddFriendsPage:render()
 								showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
 									then self.props.showNewAddFriendsPageVariant
 									else nil,
+								spacingIfEmpty = if getFFlagAddFriendsRecommendationsEnabled()
+										and self.props.friendRecommendationsCount > 0
+									then 0
+									else nil,
 							}),
 							recommendationSection = (
 								getFFlagAddFriendsRecommendationsEnabled()
-								and #self.props.friendRecommendations > 0
+								and self.props.friendRecommendationsCount > 0
 							)
 								and Roact.createElement(ShowMoreWrapper, {
 									listComponent = AddFriendsContentFrame,
@@ -498,11 +497,12 @@ function AddFriendsPage:render()
 										PLAYER_TILE_MARGIN
 									).itemWidth,
 									friends = self.props.friendRecommendations,
-									-- TODO: SOCCONN-1557 Handle recommendation data
+									-- TODO SOCGRAPH-820: pagination logic
 									-- overrideRenderShowMore = self.props.friendRequestsCount and self.shouldRenderShowMoreFriendRequests or nil,
 									-- handleShowMore = self.props.loadMoreRecommendations,
 									headerFrame = {
-										title = "PYMK [Need Translations]",
+										title = localized.peopleYouMayKnow,
+										iconVisible = false,
 									},
 									renderAddFriendsTile = self.renderAddFriendsTile,
 									position = UDim2.new(0, 0, 0, 0),
@@ -520,32 +520,25 @@ function AddFriendsPage:render()
 			if self.props.addFriendsPageSearchbarEnabled then
 				return Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = if getFFlagAddFriendsSearchbarWidemodeUpdate() then nil else 1,
-					BackgroundColor3 = if getFFlagAddFriendsSearchbarWidemodeUpdate()
-						then style.Theme.BackgroundDefault.Color
-						else nil,
+					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
 				}, {
-					UIListLayout = if getFFlagAddFriendsSearchbarWidemodeUpdate()
-						then Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Vertical,
-							HorizontalAlignment = Enum.HorizontalAlignment.Center,
-						})
-						else nil,
-					SearchbarButton = if getFFlagAddFriendsSearchbarWidemodeUpdate() or not self.props.wideMode
-						then Roact.createElement(ImageSetButton, {
-							BackgroundTransparency = 1,
-							Size = if self.props.wideMode
-								then UDim2.new(0, TABLET_SEARCH_BAR_WIDTH, 0, NEW_NAV_BAR_SIZE)
-								else UDim2.new(1, -2 * pageLeftRightPadding, 0, NEW_NAV_BAR_SIZE),
-							Position = UDim2.new(0, pageLeftRightPadding, 0, 0),
-							[Roact.Event.Activated] = self.onSearchbarActivated,
-						}, {
-							SearchBar = Roact.createElement(SearchHeaderBar, {
-								isDisabled = true,
-								searchPlaceholderText = localized.searchPlaceholderText,
-							}),
-						})
-						else nil,
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					}),
+					SearchbarButton = Roact.createElement(ImageSetButton, {
+						BackgroundTransparency = 1,
+						Size = if self.props.wideMode
+							then UDim2.new(0, TABLET_SEARCH_BAR_WIDTH, 0, NEW_NAV_BAR_SIZE)
+							else UDim2.new(1, -2 * pageLeftRightPadding, 0, NEW_NAV_BAR_SIZE),
+						Position = UDim2.new(0, pageLeftRightPadding, 0, 0),
+						[Roact.Event.Activated] = self.onSearchbarActivated,
+					}, {
+						SearchBar = Roact.createElement(SearchHeaderBar, {
+							isDisabled = true,
+							searchPlaceholderText = localized.searchPlaceholderText,
+						}),
+					}),
 					BottomPagePadding = if getFFlagAddFriendsMoreButtonFixed()
 						then Roact.createElement("UIPadding", {
 							PaddingBottom = UDim.new(0, NEW_NAV_BAR_SIZE),

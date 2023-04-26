@@ -19,6 +19,7 @@ local Otter = require(Packages.Otter)
 local getFFlagSocialAddFriendshipRequestEvent = require(Packages.SharedFlags).getFFlagSocialAddFriendshipRequestEvent
 local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFFlagVerifiedBadgeInFriendsLanding)
 local getFStringSocialAddFriendsPageLayer = require(Packages.SharedFlags).getFStringSocialAddFriendsPageLayer
+local getFStringSocialFriendsLandingLayer = require(Packages.SharedFlags).getFStringSocialFriendsLandingLayer
 local getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
@@ -110,6 +111,9 @@ return {
 	RoduxUserPermissions = LuaSocialLibrariesDeps.RoduxUserPermissions.config({
 		keyPath = "FriendsLanding.UserPermissions",
 	}),
+	RoduxAnalytics = SocialLuaAnalytics.Analytics.RoduxAnalytics.config({
+		keyPath = "FriendsLanding.Analytics",
+	}),
 	CoreGui = CoreGui,
 	Players = Players,
 	LocalizationService = LocalizationService,
@@ -132,6 +136,7 @@ return {
 	getFFlagSocialAddFriendshipRequestEvent = getFFlagSocialAddFriendshipRequestEvent,
 	getFFlagVerifiedBadgeInFriendsLanding = getFFlagVerifiedBadgeInFriendsLanding,
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
+	getFStringSocialFriendsLandingLayer = getFStringSocialFriendsLandingLayer,
 	getFStringSocialFriendsLayer = getFStringSocialFriendsLayer,
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,

@@ -148,7 +148,8 @@ function FilterByButton:render()
 				LayoutOrder = self.props.layoutOrder,
 				BackgroundTransparency = 1,
 			}, {
-				Button = if getFFlagFriendsLandingInactiveFriendsEnabled() and self.state.showFriendPruningTooltip
+				Button = if getFFlagFriendsLandingInactiveFriendsEnabled()
+						and self.state.showFriendPruningTooltip
 					then withStyle(function(style)
 						return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
 							-- We want to make a frame the same size as the child PillWithAlert.

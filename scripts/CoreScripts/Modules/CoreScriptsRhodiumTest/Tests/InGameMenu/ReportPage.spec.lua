@@ -20,6 +20,9 @@ local Flags = InGameMenu.Flags
 
 local TestConstants = require(script.Parent.TestConstants)
 
+local GetFFlagEnableIGMv2VoiceReportFlows =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
+
 return function()
 	beforeEach(function(c)
 		GuiService.SelectedCoreObject = nil
@@ -54,75 +57,78 @@ return function()
 		c.cleanup()
 	end)
 
-	it("should close the abuse type dropdown when you press escape", function(c)
-		local path = XPath.new(c.path)
+	-- This breaks with the new report flow, and that's ok
+	if not GetFFlagEnableIGMv2VoiceReportFlows() then
+		it("should close the abuse type dropdown when you press escape", function(c)
+			local path = XPath.new(c.path)
 
-		c.storeUpdate(SetMenuOpen(true))
-		c.storeUpdate(SetCurrentPage("Report"))
-		c.storeUpdate(OpenReportDialog(2359090420, "CosmicPulsar"))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage("Report"))
+			c.storeUpdate(OpenReportDialog(2359090420, "CosmicPulsar"))
 
-		local reportDialogPath = path:cat(XPath.new("ReportDialog"))
-		local reportDialog = Element.new(reportDialogPath)
-		reportDialog:waitForRbxInstance()
+			local reportDialogPath = path:cat(XPath.new("ReportDialog"))
+			local reportDialog = Element.new(reportDialogPath)
+			reportDialog:waitForRbxInstance()
 
-		local openDropdownButtonPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.OpenDropDownButton"))
-		local openDropdownButton = Element.new(openDropdownButtonPath)
-		openDropdownButton:waitForRbxInstance()
+			local openDropdownButtonPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.OpenDropDownButton"))
+			local openDropdownButton = Element.new(openDropdownButtonPath)
+			openDropdownButton:waitForRbxInstance()
 
-		local dropdownMenuPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.DropDownShadow"))
-		local dropdownMenu = Element.new(dropdownMenuPath)
-		dropdownMenu:waitForRbxInstance()
+			local dropdownMenuPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.DropDownShadow"))
+			local dropdownMenu = Element.new(dropdownMenuPath)
+			dropdownMenu:waitForRbxInstance()
 
-		expect(reportDialog:isDisplayed()).to.equal(true)
-		expect(dropdownMenu:isDisplayed()).to.equal(false)
+			expect(reportDialog:isDisplayed()).to.equal(true)
+			expect(dropdownMenu:isDisplayed()).to.equal(false)
 
-		act(function()
-			openDropdownButton:click()
-			VirtualInput.waitForInputEventsProcessed()
+			act(function()
+				openDropdownButton:click()
+				VirtualInput.waitForInputEventsProcessed()
+			end)
+			act(function()
+				wait()
+			end)
+
+			expect(dropdownMenu:isDisplayed()).to.equal(true)
+
+			act(function()
+				VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
+				VirtualInput.waitForInputEventsProcessed()
+			end)
+			act(function()
+				wait()
+			end)
+
+			expect(reportDialog:isDisplayed()).to.equal(false)
+			expect(dropdownMenu:isDisplayed()).to.equal(false)
+
+			c.storeUpdate(OpenReportDialog(2230941297, "jkelaty"))
+
+			expect(reportDialog:isDisplayed()).to.equal(true)
+			expect(dropdownMenu:isDisplayed()).to.equal(false)
+
+			act(function()
+				openDropdownButton:click()
+				VirtualInput.waitForInputEventsProcessed()
+			end)
+			act(function()
+				wait()
+			end)
+
+			expect(dropdownMenu:isDisplayed()).to.equal(true)
+
+			act(function()
+				VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
+				VirtualInput.waitForInputEventsProcessed()
+			end)
+			act(function()
+				wait()
+			end)
+
+			expect(reportDialog:isDisplayed()).to.equal(false)
+			expect(dropdownMenu:isDisplayed()).to.equal(false)
 		end)
-		act(function()
-			wait()
-		end)
-
-		expect(dropdownMenu:isDisplayed()).to.equal(true)
-
-		act(function()
-			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
-			VirtualInput.waitForInputEventsProcessed()
-		end)
-		act(function()
-			wait()
-		end)
-
-		expect(reportDialog:isDisplayed()).to.equal(false)
-		expect(dropdownMenu:isDisplayed()).to.equal(false)
-
-		c.storeUpdate(OpenReportDialog(2230941297, "jkelaty"))
-
-		expect(reportDialog:isDisplayed()).to.equal(true)
-		expect(dropdownMenu:isDisplayed()).to.equal(false)
-
-		act(function()
-			openDropdownButton:click()
-			VirtualInput.waitForInputEventsProcessed()
-		end)
-		act(function()
-			wait()
-		end)
-
-		expect(dropdownMenu:isDisplayed()).to.equal(true)
-
-		act(function()
-			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
-			VirtualInput.waitForInputEventsProcessed()
-		end)
-		act(function()
-			wait()
-		end)
-
-		expect(reportDialog:isDisplayed()).to.equal(false)
-		expect(dropdownMenu:isDisplayed()).to.equal(false)
-	end)
+	end
 
 	it("should switch between the page and SideNavigation", function(c)
 		local store = c.store

@@ -3,6 +3,8 @@ local Package = require(CorePackages.Packages.React)
 
 export type Object = { [string]: any }
 
+export type Binding<T> = Package.Binding<T>
+export type BindingUpdater<T> = Package.BindingUpdater<T>
 export type LazyComponent<T, P> = Package.LazyComponent<T, P>
 export type StatelessFunctionalComponent<P> = Package.StatelessFunctionalComponent<P>
 export type ComponentType<P> = Package.ComponentType<P>

@@ -74,8 +74,6 @@ local FFlagMultiTryOnPurchaseGamepadEnabled =
 local useAutomaticSizeForPeekView = GetFFlagPeekViewDeprecateFitChildren()
 	and game:GetEngineFeature("UseActualSizeToCalculateListMinSize")
 
-local FFlagPeekViewFixFullViewLoop = game:DefineFastFlag("PeekViewFixFullViewLoop", false)
-
 local BACKGROUND_SLICE_CENTER = Rect.new(9, 9, 9, 9)
 local DRAGGER_IMAGE = Images["icons/navigation/swipe"]
 
@@ -501,10 +499,8 @@ function PeekView:init()
 	end
 
 	self.goTo = function(viewType, animation)
-		if FFlagPeekViewFixFullViewLoop then
-			if self.viewType == viewType then
-				return
-			end
+		if self.viewType == viewType then
+			return
 		end
 
 		if ArgCheck.isEqual(self.isInGoToState, false, "self.isInGoToState") then
@@ -608,8 +604,6 @@ function PeekView:handleCurYFromBriefToFull(curY, inertialVelocityY, inertiaUp, 
 			else
 				self.goTo(VT_Closed)
 			end
-		elseif not FFlagPeekViewFixFullViewLoop then
-			self.goTo(VT_Full)
 		end
 	elseif self.viewType == VT_Extended then
 		if not inertiaDown or curY < briefViewY + briefToFullDistance * 0.8 or inertialVelocityY > -1 then
@@ -923,11 +917,7 @@ function PeekView:didMount()
 
 	if self.props.closeSignal then
 		self.closeSignalConnection = self.props.closeSignal:connect(function()
-			if FFlagPeekViewFixFullViewLoop then
-				if not self.isInGoToState then
-					self.goTo(VT_Closed, true)
-				end
-			else
+			if not self.isInGoToState then
 				self.goTo(VT_Closed, true)
 			end
 		end)

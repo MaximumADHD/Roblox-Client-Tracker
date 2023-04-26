@@ -94,8 +94,8 @@ local function Initialize()
 			Size = UDim2.new(1,-textIndent,0,30),
 			BackgroundTransparency = 1,
 			Text = title,
-			Font = Enum.Font.SourceSansBold,
-			FontSize = Enum.FontSize.Size18,
+			Font = Theme.font(Enum.Font.SourceSansBold, "HelpTitle"),
+			FontSize = Theme.fontSize(Enum.FontSize.Size18, "HelpTitle"),
 			TextColor3 = Color3.new(1,1,1),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			Name = "PCGroupTitle" .. tostring(title),
@@ -126,8 +126,8 @@ local function Initialize()
 				Position = UDim2.new(0,textIndent,0,0),
 				BackgroundTransparency = 1,
 				Text = actionName,
-				Font = Enum.Font.SourceSansBold,
-				FontSize = Enum.FontSize.Size18,
+				Font = Theme.font(Enum.Font.SourceSansBold, "HelpTitle"),
+				FontSize = Theme.fontSize(Enum.FontSize.Size18, "HelpTitle"),
 				TextColor3 = Color3.new(1,1,1),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Name = actionName .. "Label",
@@ -138,7 +138,7 @@ local function Initialize()
 			  };
 			  do
 				local textSizeConstraint = Instance.new("UITextSizeConstraint",nameLabel)
-				textSizeConstraint.MaxTextSize = 18
+				textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
 			  end
 
 
@@ -148,8 +148,8 @@ local function Initialize()
 				Position = UDim2.new(0.5,-4,0,0),
 				BackgroundTransparency = 1,
 				Text = inputName,
-				Font = Enum.Font.SourceSans,
-				FontSize = Enum.FontSize.Size18,
+				Font = Theme.font(Enum.Font.SourceSans, "HelpText"),
+				FontSize = Theme.fontSize(Enum.FontSize.Size18, "HelpText"),
 				TextColor3 = Color3.new(1,1,1),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Name = inputName .. "Label",
@@ -160,7 +160,7 @@ local function Initialize()
 			  };
 			  do
 				local textSizeConstraint = Instance.new("UITextSizeConstraint",inputLabel)
-				textSizeConstraint.MaxTextSize = 18
+				textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
 			  end
 
 			  count = count + 1
@@ -280,8 +280,8 @@ local function Initialize()
 		};
 		parentFrame.Size = UDim2.new(parentFrame.Size.X.Scale, parentFrame.Size.X.Offset, 0, gamepadImageLabel.Size.Y.Offset + 100)
 
-		local gamepadFontSize = isTenFootInterface and Enum.FontSize.Size36 or Enum.FontSize.Size24
-		local textVerticalSize = (gamepadFontSize == Enum.FontSize.Size36) and 36 or 24
+		local gamepadFontSize = isTenFootInterface and Theme.fontSize(Enum.FontSize.Size36) or Theme.fontSize(Enum.FontSize.Size24)
+		local textVerticalSize = (gamepadFontSize == Theme.fontSize(Enum.FontSize.Size36)) and Theme.textSize(36) or Theme.textSize(24) 
 		local function createGamepadLabel(text, position, size, rightAligned)
 			local nameLabel = nil
 			if FFlagUseNotificationsLocalization == true then
@@ -292,7 +292,7 @@ local function Initialize()
 				  Text = text,
 				  TextXAlignment = rightAligned and Enum.TextXAlignment.Right or Enum.TextXAlignment.Left,
 				  AnchorPoint = rightAligned and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
-				  Font = Enum.Font.SourceSansBold,
+				  Font = Theme.font(Enum.Font.SourceSansBold, "HelpGamepad"),
 				  FontSize = gamepadFontSize,
 				  TextColor3 = Color3.new(1,1,1),
 				  Name = text .. "Label",
@@ -309,7 +309,7 @@ local function Initialize()
 				  Text = text,
 				  TextXAlignment = rightAligned and Enum.TextXAlignment.Right or Enum.TextXAlignment.Left,
 				  AnchorPoint = rightAligned and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
-				  Font = Enum.Font.SourceSansBold,
+				  Font = Theme.font(Enum.Font.SourceSansBold, "HelpGamepad"),
 				  FontSize = gamepadFontSize,
 				  TextColor3 = Color3.new(1,1,1),
 				  Name = text .. "Label",
@@ -320,7 +320,7 @@ local function Initialize()
 
 			nameLabel.TextWrapped = true
 
-			local textSize = TextService:GetTextSize(text, textVerticalSize, Enum.Font.SourceSansBold, Vector2.new(0, 0))
+			local textSize = TextService:GetTextSize(text, textVerticalSize, Theme.font(Enum.Font.SourceSansBold, "Bold"), Vector2.new(0, 0))
 			local minSizeXOffset = textSize.X
 			local distanceToCenter = math.abs(position.X.Offset)
 			local parentGui = (gamepadImage == "rbxasset://textures/ui/Settings/Help/XboxController.png") and RobloxGui or parentFrame
@@ -462,8 +462,8 @@ local function Initialize()
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Text = text,
-				Font = Enum.Font.SourceSansBold,
-				FontSize = Enum.FontSize.Size14,
+				Font = Theme.font(Enum.Font.SourceSansBold, "HelpTouch"),
+				FontSize = Theme.fontSize(Enum.FontSize.Size14, "HelpTouch"),
 				TextColor3 = Color3.new(1,1,1),
 				Name = text .. "Label",
 				ZIndex = 3,
@@ -473,7 +473,7 @@ local function Initialize()
 			};
 
 			if not smallScreen then
-				nameLabel.FontSize = Enum.FontSize.Size18
+				nameLabel.FontSize = Theme.fontSize(Enum.FontSize.Size18, "HelpTitle")
 				nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabel.Size.X.Offset, nameLabel.Size.Y.Scale, nameLabel.Size.Y.Offset + 4)
 			end
 
@@ -491,7 +491,7 @@ local function Initialize()
 			};
 
 			local textSizeConstraint = Instance.new("UITextSizeConstraint",nameLabel)
-			textSizeConstraint.MaxTextSize = 18
+			textSizeConstraint.MaxTextSize = Theme.textSize(18, "HelpText")
 
 			return nameFrame
 		end

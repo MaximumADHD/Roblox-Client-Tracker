@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["RobloxAppHooks"]["RobloxAppHooks"])
 
+export type UiModeInfo = Package.UiModeInfo
+
+
 return Package

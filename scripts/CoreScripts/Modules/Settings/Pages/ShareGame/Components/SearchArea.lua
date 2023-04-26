@@ -11,6 +11,7 @@ local SearchBox = require(ShareGame.Components.SearchBox)
 local IconButton = require(ShareGame.Components.IconButton)
 local Constants = require(ShareGame.Constants)
 local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)
@@ -27,9 +28,9 @@ local SEARCH_ICON_SIZE = 44
 local SEARCH_BOX_WIDTH = 177
 local SEARCH_BOX_HEIGHT = 28
 
-local CANCEL_TEXT_FONT = Enum.Font.SourceSans
+local CANCEL_TEXT_FONT = Theme.font(Enum.Font.SourceSans)
 local CANCEL_TEXT_COLOR = Constants.Color.GRAY3
-local CANCEL_TEXT_SIZE = 20
+local CANCEL_TEXT_SIZE = Theme.textSize(20)
 
 local SearchArea = Roact.PureComponent:extend("SearchArea")
 

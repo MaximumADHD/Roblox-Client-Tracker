@@ -18,6 +18,9 @@ type GlobalNavConfig = TenFootUiCommon.GlobalNavConfig
 type ScreenKind = TenFootUiCommon.ScreenKind
 type NavigationState = TenFootUiCommon.NavigationState
 type RouteState = TenFootUiCommon.RouteState
+type Descriptor = TenFootUiCommon.Descriptor
+type AnimationStyle = TenFootUiCommon.AnimationStyle
+type TenFootUiContext = TenFootUiCommon.TenFootUiContext
 
 local mockAppPage = {
 	Startup = "Startup",
@@ -28,14 +31,123 @@ local mockAppPage = {
 	PurchaseRobux = "PurchaseRobux",
 }
 
-local makeMockGlobalNavMocks = function()
-	local mockTenFootUiContext = {}
+local function TestScreen()
+	return React.createElement("Frame")
+end
 
-	local mockGlobalNavConfig: GlobalNavConfig = {
+local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
+	switchRoutes = {
+		{
+			[mockAppPage.Startup] = {
+				screen = TestScreen,
+				navigationOptions = {
+					screenKind = "Default",
+					animationStyle = "None",
+				},
+			},
+		},
+		{
+			[mockAppPage.Home] = {
+				screen = TestScreen,
+				navigationOptions = {
+					screenKind = "Default",
+					animationStyle = "None",
+				},
+			},
+		},
+		{
+			[mockAppPage.AvatarExperienceRoot] = {
+				screen = TestScreen,
+				navigationOptions = {
+					screenKind = "Default",
+					animationStyle = "None",
+				},
+			},
+		},
+		{
+			[mockAppPage.SearchPage] = {
+				screen = TestScreen,
+				navigationOptions = {
+					screenKind = "Default",
+					animationStyle = "None",
+				},
+			},
+		},
+		{
+			[mockAppPage.PurchaseRobux] = {
+				screen = TestScreen,
+				navigationOptions = {
+					screenKind = "Default",
+					animationStyle = "None",
+				},
+			},
+		},
+	},
+	stackRoutes = {
+		{
+			[mockAppPage.Games] = {
+				navigationOptions = {
+					screenKind = "Default",
+					animationStyle = "None",
+				},
+				screenStack = {
+					{
+						[mockAppPage.Games] = {
+							screen = TestScreen,
+							navigationOptions = {
+								screenKind = "Default",
+								animationStyle = "None",
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+}
+
+local function makeTenFootUiContextMocks(
+	mockGlobalNavConfig: GlobalNavConfig,
+	mockNotificationService: { ActionTaken: any }
+): TenFootUiContext
+	local mockLuaAppEvents = { ReloadPage = Signal.new(), ReportMutedError = Signal.new() }
+	mockLuaAppEvents.ReloadPage.fire = jest.fn()
+	mockLuaAppEvents.ReportMutedError.fire = jest.fn()
+
+	local mockRoactAnalyticsTag = newproxy(true) :: RoactServices.Service<any>
+	local mockAnalytics = { EventStream = {} }
+
+	local mockRoactServices = {
+		[AppNotificationService] = mockNotificationService,
+		[mockRoactAnalyticsTag] = mockAnalytics,
+	}
+
+	local mockUseRoactServices = jest.fn().mockImplementation(function(tag)
+		return mockRoactServices[tag]
+	end)
+	return {
+		LuaAppEvents = mockLuaAppEvents,
+		RoactAnalytics = mockRoactAnalyticsTag,
+		buttonClick = jest.fn(),
+		globalNavConfig = mockGlobalNavConfig,
+		useRoactService = mockUseRoactServices,
+		routerConfig = routerConfig,
+	}
+end
+
+local function makeMockNotificationService()
+	return { ActionTaken = jest.fn() }
+end
+
+local function makeMockGlobalNavConfig(): GlobalNavConfig
+	return {
 		tabs = {
 			{
 				titleLocalizationKey = "CommonUI.Features.Label.Home",
 				page = mockAppPage.Home,
+				pageComponent = function()
+					return React.createElement("Frame")
+				end,
 				icon = "icons/menu/home_on",
 				actionType = nil,
 			},
@@ -68,36 +180,6 @@ local makeMockGlobalNavMocks = function()
 				actionType = nil,
 			},
 		},
-	}
-
-	local mockLuaAppEvents = { ReloadPage = Signal.new(), ReportMutedError = Signal.new() }
-	mockLuaAppEvents.ReloadPage.fire = jest.fn()
-	mockLuaAppEvents.ReportMutedError.fire = jest.fn()
-
-	local mockNotificationService = {}
-	mockNotificationService.ActionTaken = jest.fn()
-
-	local mockRoactAnalyticsTag = newproxy(true) :: RoactServices.Service<any>
-	local mockAnalytics = { EventStream = {} }
-
-	local mockRoactServices = {
-		[AppNotificationService] = mockNotificationService,
-		[mockRoactAnalyticsTag] = mockAnalytics,
-	}
-
-	local mockUseRoactServices = jest.fn().mockImplementation(function(tag)
-		return mockRoactServices[tag]
-	end)
-
-	mockTenFootUiContext.LuaAppEvents = mockLuaAppEvents
-	mockTenFootUiContext.RoactAnalytics = mockRoactAnalyticsTag
-	mockTenFootUiContext.buttonClick = jest.fn()
-	mockTenFootUiContext.globalNavConfig = mockGlobalNavConfig
-	mockTenFootUiContext.useRoactService = mockUseRoactServices
-
-	return {
-		mockTenFootUiContext = mockTenFootUiContext,
-		mockNotificationService = mockNotificationService,
 	}
 end
 
@@ -158,8 +240,10 @@ local makeMockProviders = function(config: MakeMockProvidersConfig?)
 		return "Localized:" .. key
 	end)
 
-	local globalNavMocks = makeMockGlobalNavMocks()
+	local globalNavConfig = makeMockGlobalNavConfig()
+	local mockNotificationService = makeMockNotificationService()
 	local mockNavigation = makeMockNavigation(config.navigationState)
+	local mockTenFootUiContext = makeTenFootUiContextMocks(globalNavConfig, mockNotificationService)
 
 	local providers = {
 		function(props)
@@ -179,14 +263,16 @@ local makeMockProviders = function(config: MakeMockProvidersConfig?)
 		end,
 		function(props)
 			return React.createElement(TenFootUiContext.Provider, {
-				value = config.tenFootUiContext or globalNavMocks.mockTenFootUiContext,
+				value = config.tenFootUiContext or mockTenFootUiContext,
 			} :: any, props.children)
 		end,
 	}
 
 	local nestedMocks = {
-		globalNavMocks = globalNavMocks,
+		globalNavConfig = globalNavConfig,
 		mockNavigation = mockNavigation,
+		mockTenFootUiContext = mockTenFootUiContext,
+		mockNotificationService = mockNotificationService,
 	}
 
 	return providers, nestedMocks
@@ -202,7 +288,12 @@ local function makeMockNavigationObject(navState: NavigationState)
 	}
 end
 
-local function makeMockDescriptor(key: string, screenKind: ScreenKind, navState: NavigationState)
+local function makeMockDescriptor(
+	key: string,
+	navState: NavigationState,
+	screenKind: ScreenKind,
+	animationStyle: AnimationStyle?
+)
 	local testComponentNavigationFromProp, testComponentScreenProps
 	local TestComponent = React.Component:extend("TestComponent")
 	function TestComponent:render()
@@ -210,13 +301,14 @@ local function makeMockDescriptor(key: string, screenKind: ScreenKind, navState:
 		testComponentScreenProps = self.props.screenProps
 		return nil
 	end
-	local descriptor = {
+	local descriptor: Descriptor = {
 		getComponent = function()
 			return TestComponent
 		end,
 		key = key,
 		options = {
 			screenKind = screenKind,
+			animationStyle = animationStyle,
 		},
 		navigation = makeMockNavigationObject(navState),
 		state = navState,
@@ -226,8 +318,9 @@ local function makeMockDescriptor(key: string, screenKind: ScreenKind, navState:
 end
 
 return {
-	makeMockGlobalNavMocks = makeMockGlobalNavMocks,
+	makeMockGlobalNavConfig = makeMockGlobalNavConfig,
 	makeMockProviders = makeMockProviders,
 	mockAppPage = mockAppPage,
 	makeMockDescriptor = makeMockDescriptor,
+	makeTenFootUiContextMocks = makeTenFootUiContextMocks,
 }

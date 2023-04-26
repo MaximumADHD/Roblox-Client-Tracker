@@ -14,6 +14,8 @@ local getPreviewImageUrl = require(Root.getPreviewImageUrl)
 
 local USER_OUTFIT = "UserOutfit"
 
+local GetFFlagTranslateDevProducts = require(Root.Flags.GetFFlagTranslateDevProducts)
+
 local ProductInfoReducer = Rodux.createReducer({}, {
 	[ProductInfoReceived.name] = function(state, action)
 		local productInfo = action.productInfo
@@ -26,7 +28,7 @@ local ProductInfoReducer = Rodux.createReducer({}, {
 		end
 
 		return {
-			name = productInfo.Name,
+			name = GetFFlagTranslateDevProducts() and (productInfo.DisplayName or productInfo.Name) or productInfo.Name,
 			price = productInfo.PriceInRobux or 0,
 			premiumPrice = productInfo.PremiumPriceInRobux,
 			imageUrl = getPreviewImageUrl(productInfo),

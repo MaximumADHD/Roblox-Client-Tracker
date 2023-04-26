@@ -17,7 +17,7 @@ local UIBlox = require(Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 
 local SocialCommon = require(Packages.SocialCommon)
-local useMutualFriendsText = SocialCommon.Utils.useMutualFriendsText
+local useMutualFriendsText = SocialCommon.Hooks.useMutualFriendsText
 
 local GetFFlagUserSearchNewContextExperimentEnabled =
 	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
@@ -77,6 +77,13 @@ local useContextualInfo = function(args: {
 			else nil,
 	})
 
+	local mutualFriendsCount, mutualFriendsText
+	if getFFlagMoveMutualFriendsTextToUtils() then
+		local profileInsight = args.profileInsight
+		mutualFriendsCount = profileInsight and profileInsight.mutualFriends and #profileInsight.mutualFriends or 0
+		mutualFriendsText = useMutualFriendsText(mutualFriendsCount)
+	end
+
 	if relationship.isMyself then
 		if GetFFlagUserSearchNewContextExperimentEnabled() then
 			return { text = localized.thisIsYou }, ContextualInfoTypes.IsMyself.rawValue()
@@ -124,10 +131,9 @@ local useContextualInfo = function(args: {
 	if GetFFlagUserSearchNewContextExperimentEnabled() then
 		if getFFlagMoveMutualFriendsTextToUtils() then
 			if args.profileInsight then
-				local mutualFriendsCount = args.profileInsight.mutualFriends and #args.profileInsight.mutualFriends or 0
 				if mutualFriendsCount > 0 then
-					local text = useMutualFriendsText(mutualFriendsCount)
-					return { text = text, icon = ICON_FRIEND }, ContextualInfoTypes.MutualFriends.rawValue()
+					return { text = mutualFriendsText, icon = ICON_FRIEND },
+						ContextualInfoTypes.MutualFriends.rawValue()
 				elseif args.profileInsight.isOfflineFrequents then
 					return { text = localized.frequents }, ContextualInfoTypes.Frequents.rawValue()
 				end

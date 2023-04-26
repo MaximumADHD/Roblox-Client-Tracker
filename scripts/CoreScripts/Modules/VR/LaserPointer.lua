@@ -17,14 +17,14 @@ local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 require(RobloxGui.Modules.VR.Panel3D)
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-local GetFFlagUIBloxVRApplyHeadScale =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
+local EngineFeatureVRLaserPointerTriggeredEvent = game:GetEngineFeature("VRLaserPointerTriggeredEvent")
 local EngineFeatureBindActivateAllowMultiple = game:GetEngineFeature("EngineFeatureBindActivateAllowMultiple")
 local GetFFlagUIBloxMoveBindActivate =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxMoveBindActivate
 
 local FixVRMenuAccessEngineFeature = game:GetEngineFeature("FixVRMenuAccess")
 local FFlagEnableAmbidextrousClick = game:DefineFastFlag("EnableAmbidextrousClick", false)
+local FFlagEnableAmbidextrousByDefault = game:DefineFastFlag("EnableAmbidextrousByDefault", false) and EngineFeatureVRLaserPointerTriggeredEvent
 local ContextActionService = game:GetService("ContextActionService")
 
 local LocalPlayer = Players.LocalPlayer
@@ -107,7 +107,7 @@ local LaserPointerMode = {
 	Hidden = 3
 }
 
--- The origination hand of the laser, only used while enableAmbidexterousPointer is true
+-- The origination hand of the laser
 local LaserHand = {
 	Right = 0,
 	Left = 1,
@@ -212,6 +212,7 @@ function LaserPointer.new(laserDistance)
 	self.mode = LaserPointerMode.Disabled
 	self.lastMode = self.mode
 
+	-- remove with FFlagEnableAmbidextrousByDefault
 	self.enableAmbidexterousPointer = false
 	self.laserHand = LaserHand.Right
 
@@ -335,35 +336,56 @@ function LaserPointer.new(laserDistance)
 			end
 		end)
 
-
-		if (FFlagEnableAmbidextrousClick) then
-			UserInputService.InputEnded:connect(function(input, gameProcessed)
-				if self.enableAmbidexterousPointer then
-					if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
+		if (FFlagEnableAmbidextrousByDefault) then
+			VRService.LaserPointerTriggered:connect(function(input)
+				if (input.KeyCode == Enum.KeyCode.ButtonR1 or
+					input.KeyCode == Enum.KeyCode.ButtonR2 or
+					input.KeyCode == Enum.KeyCode.ButtonR3 or
+					input.KeyCode == Enum.KeyCode.ButtonA or
+					input.KeyCode == Enum.KeyCode.ButtonB) and
+					self.laserHand ~= LaserHand.Right then
 						self.laserHand = LaserHand.Right
 						self:updateInputUserCFrame()
-						ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
-						ContextActionService:UnBindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonL2)
-					elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
+				elseif (input.KeyCode == Enum.KeyCode.ButtonL1 or
+					input.KeyCode == Enum.KeyCode.ButtonL2 or
+					input.KeyCode == Enum.KeyCode.ButtonL3 or
+					input.KeyCode == Enum.KeyCode.ButtonX or
+					input.KeyCode == Enum.KeyCode.ButtonY) and
+					self.laserHand ~= LaserHand.Left then
 						self.laserHand = LaserHand.Left
 						self:updateInputUserCFrame()
-						ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonL2)
-						ContextActionService:UnBindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
-					end
 				end
 			end)
 		else
-			UserInputService.InputBegan:connect(function(input, gameProcessed)
-				if self.enableAmbidexterousPointer then
-					if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
-						self.laserHand = LaserHand.Right
-						self:updateInputUserCFrame()
-					elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
-						self.laserHand = LaserHand.Left
-						self:updateInputUserCFrame()
+			if (FFlagEnableAmbidextrousClick) then
+				UserInputService.InputEnded:connect(function(input, gameProcessed)
+					if self.enableAmbidexterousPointer then
+						if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
+							self.laserHand = LaserHand.Right
+							self:updateInputUserCFrame()
+							ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+							ContextActionService:UnBindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonL2)
+						elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
+							self.laserHand = LaserHand.Left
+							self:updateInputUserCFrame()
+							ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonL2)
+							ContextActionService:UnBindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
+						end
 					end
-				end
-			end)
+				end)
+			else
+				UserInputService.InputBegan:connect(function(input, gameProcessed)
+					if self.enableAmbidexterousPointer then
+						if input.KeyCode == Enum.KeyCode.ButtonR2 and self.laserHand ~= LaserHand.Right then
+							self.laserHand = LaserHand.Right
+							self:updateInputUserCFrame()
+						elseif input.KeyCode == Enum.KeyCode.ButtonL2 and self.laserHand ~= LaserHand.Left then
+							self.laserHand = LaserHand.Left
+							self:updateInputUserCFrame()
+						end
+					end
+				end)
+			end
 		end
 		if not GetFFlagUIBloxMoveBindActivate() or not EngineFeatureBindActivateAllowMultiple then
 			-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
@@ -395,11 +417,11 @@ function LaserPointer.getModeName(mode)
 end
 
 function LaserPointer:updateInputUserCFrame()
-	if self.enableAmbidexterousPointer
+	if (self.enableAmbidexterousPointer or FFlagEnableAmbidextrousByDefault)
 		and VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand)
 		and self.laserHand == LaserHand.Right then
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.RightHand
-	elseif self.enableAmbidexterousPointer
+	elseif (self.enableAmbidexterousPointer or FFlagEnableAmbidextrousByDefault)
 		and VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand)
 		and self.laserHand == LaserHand.Left then
 			VRService.GuiInputUserCFrame = Enum.UserCFrame.LeftHand
@@ -456,6 +478,7 @@ function LaserPointer:setMode(mode)
 end
 
 function LaserPointer:setEnableAmbidexterousPointer(enabled)
+	-- remove with FFlagEnableAmbidextrousByDefault
 	self.enableAmbidexterousPointer = enabled
 end
 
@@ -769,20 +792,10 @@ end
 function LaserPointer:updateCursor()
 	if VRService.DidPointerHit then
 		local hitCFrame = VRService.PointerHitCFrame
-		local originCFrame
-		if GetFFlagUIBloxVRApplyHeadScale() then
-			originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
+		local originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
 
-			if self:isHeadMounted() then
-				originCFrame = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
-			end
-		else
-			local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
-			originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
-
-			if self:isHeadMounted() then
-				originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			end
+		if self:isHeadMounted() then
+			originCFrame = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
 		end
 
 		-- VRService.PointerHitCFrame is a frame behind.  To make the cursor appear at the most updated location,
@@ -840,13 +853,7 @@ function LaserPointer:update(dt)
 		self.parabola.Thickness = LASER.ARC_THICKNESS * HEAD_MOUNT_THICKNESS_MULTIPLIER
 
 		--cast ray from center of camera, then render laser going from offset point to hit point
-		local originCFrame
-		if GetFFlagUIBloxVRApplyHeadScale() then
-			originCFrame = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
-		else
-			local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
-			originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
-		end
+		local originCFrame = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
 		local originPos, originLook = originCFrame.p, originCFrame.lookVector
 
 		local laserHitPart, laserHitPoint, laserHitNormal, laserHitT = self:getLaserHit(originPos, originLook, ignore)
@@ -869,13 +876,7 @@ function LaserPointer:update(dt)
 			end
 		end
 	else
-		local originCFrame
-		if GetFFlagUIBloxVRApplyHeadScale() then
-			originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
-		else
-			local cameraSpace = (workspace.CurrentCamera :: Camera).CFrame
-			originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
-		end
+		local originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
 		local originPos, originLook = originCFrame.p, originCFrame.lookVector
 
 		local gravity = TELEPORT.G
@@ -927,11 +928,7 @@ function LaserPointer:update(dt)
 				end
 			end
 
-			if GetFFlagUIBloxVRApplyHeadScale() then
-				self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
-			else
-				self.parabola.Thickness = LASER.ARC_THICKNESS
-			end
+			self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
 			
 			if not self.forceDotActive then -- this only renders the target dot
 				self:renderAsLaser(originPos, laserHitPoint)

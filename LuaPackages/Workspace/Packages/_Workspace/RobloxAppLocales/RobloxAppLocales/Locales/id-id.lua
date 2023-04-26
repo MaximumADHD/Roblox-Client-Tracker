@@ -1966,7 +1966,7 @@ Orang tua atau wali sah kamu dapat mengubah batasan jam tambahan di Pengaturan b
 	["Feature.SettingsHub.Prompt.Connecting"] = [[Suara Masih Sedang Dihubungkan]],
 	["Feature.SettingsHub.Prompt.Subtitle.Connecting"] = [[Koneksi suara sedang berlangsung. Proses ini mungkin membutuhkan waktu beberapa saat.]],
 	["Feature.SettingsHub.Prompt.Subtitle.TemporarySuspensionAvatarChat"] = [[Karena pelanggaran terhadap Standar Komunitas, untuk sementara akses ke chat dengan suara dan chat sebagai avatar kamu dihapus hingga]],
-	["Feature.SettingsHub.Prompt.Subtitle.FutureViolations"] = [[Pelanggaran di masa mendatang dapat mengakibatkan tindakan tambahan terhadap akun..]],
+	["Feature.SettingsHub.Prompt.Subtitle.FutureViolations"] = [[Pelanggaran di masa mendatang dapat mengakibatkan tindakan tambahan terhadap akun.]],
 	["Feature.SettingsHub.Prompt.Subtitle.EffectiveUntil"] = [[Efektif hingga]],
 	["Feature.SettingsHub.Prompt.Subtitle.MicAndCamera"] = [[Sistem kami telah mendeteksi perilaku yang mungkin melanggar Standar Komunitas kami. Sebagai tindakan pencegahan, untuk sementara kami menonaktifkan akses ke chat dengan suara dan chat sebagai avatar.]],
 	["Feature.SettingsHub.Prompt.Subtitle.Microphone"] = [[Sistem kami telah mendeteksi perilaku yang mungkin melanggar Standar Komunitas kami. Sebagai tindakan pencegahan, untuk sementara kami menonaktifkan akses ke chat dengan suara.]],

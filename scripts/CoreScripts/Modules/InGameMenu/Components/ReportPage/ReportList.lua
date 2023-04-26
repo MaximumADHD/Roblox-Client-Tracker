@@ -1,6 +1,8 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -19,9 +21,12 @@ local ReportButton = require(script.Parent.ReportButton)
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
+local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local ReportList = Roact.PureComponent:extend("ReportList")
 local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
+local GetFFlagEnableIGMv2VoiceReportFlows =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
 
 game:DefineFastFlag("IGMReportListMissingBottomEntry", false)
 
@@ -34,18 +39,25 @@ local PLAYER_LABEL_HEIGHT = 70
 
 ReportList.validateProps = t.strictInterface({
 	placeName = t.string,
-	players = t.array(t.strictInterface({
+	players = if GetFFlagEnableIGMv2VoiceReportFlows() then t.array(t.union(t.instanceIsA("Player"), t.strictInterface({
+		UserId = t.integer,
+		Name = t.string
+	}))) else t.array(t.strictInterface({
 		Id = t.integer,
 		Username = t.string
 	})),
-	dispatchOpenReportDialog = t.callback,
+	dispatchOpenReportDialog = if GetFFlagEnableIGMv2VoiceReportFlows() then nil else t.callback,
 	canCaptureFocus = t.optional(t.boolean),
 	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.string) or nil,
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 })
 
 local function sortPlayers(p1, p2)
-	return p1.Username:lower() < p2.Username:lower()
+	if GetFFlagEnableIGMv2VoiceReportFlows() then
+		return p1.Name:lower() < p2.Name:lower()
+	else
+		return p1.Username:lower() < p2.Username:lower()
+	end
 end
 
 function ReportList:init()
@@ -81,7 +93,11 @@ function ReportList:renderListEntries()
 		LayoutOrder = 1,
 		[Roact.Ref] = self.reportGameRef,
 		onActivated = function()
-			self.props.dispatchOpenReportDialog()
+			if GetFFlagEnableIGMv2VoiceReportFlows() then
+				TrustAndSafety.openReportDialogForPlace(Constants.AnalyticsInGameMenuName)
+			else
+				self.props.dispatchOpenReportDialog()
+			end
 		end
 	}, {
 		ReportButton = Roact.createElement(ReportButton, {
@@ -96,21 +112,25 @@ function ReportList:renderListEntries()
 		})
 	end
 
-	for index, playerInfo in pairs(sortedPlayers) do
+	for index, player in pairs(sortedPlayers) do
 		listComponents["player_"..index] = Roact.createElement(PlayerLabel, {
-			username = playerInfo.Username,
-			userId = playerInfo.Id,
+			username = if GetFFlagEnableIGMv2VoiceReportFlows() then player.Name else player.Username,
+			userId = if GetFFlagEnableIGMv2VoiceReportFlows() then player.UserId else player.Id,
 			isOnline = true,
 			isSelected = false,
 			LayoutOrder = layoutOrder,
 
 			onActivated = function()
-				self.props.dispatchOpenReportDialog(playerInfo.Id, playerInfo.Username)
+				if GetFFlagEnableIGMv2VoiceReportFlows() then
+					TrustAndSafety.openReportDialogForPlayer(player, Constants.AnalyticsInGameMenuName)
+				else
+					self.props.dispatchOpenReportDialog(player.Id, player.Username)
+				end
 			end,
 		}, {
 			ReportButton = Roact.createElement(ReportButton, {
-				userId = playerInfo.Id,
-				userName = playerInfo.Username,
+				userId = if GetFFlagEnableIGMv2VoiceReportFlows() then player.UserId else player.Id,
+				userName = if GetFFlagEnableIGMv2VoiceReportFlows() then player.Name else player.Username,
 				LayoutOrder = 1,
 			})
 		})
@@ -155,6 +175,14 @@ function ReportList:render()
 	}, self:renderListEntries())
 end
 
+local mapDispatchToProps = if GetFFlagEnableIGMv2VoiceReportFlows() then nil else function(dispatch)
+	return {
+		dispatchOpenReportDialog = function(userId, userName)
+			dispatch(OpenReportDialog(userId, userName))
+		end,
+	}
+end
+
 return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
 		local placeName = state.gameInfo.name
@@ -172,12 +200,5 @@ return RoactRodux.UNSTABLE_connect2(
 			currentPage = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.menuPage,
 			currentZone = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.currentZone,
 		}
-	end,
-	function(dispatch)
-		return {
-			dispatchOpenReportDialog = function(userId, userName)
-				dispatch(OpenReportDialog(userId, userName))
-			end,
-		}
-	end
+	end, mapDispatchToProps
 )(ReportList)

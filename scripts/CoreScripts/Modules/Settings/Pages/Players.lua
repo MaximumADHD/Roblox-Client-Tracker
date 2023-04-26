@@ -166,8 +166,8 @@ local function Initialize()
 		if status == Enum.FriendStatus.Friend or status == Enum.FriendStatus.FriendRequestSent then
 			friendLabel = Instance.new("TextButton")
 			friendLabel.BackgroundTransparency = 1
-			friendLabel.FontSize = Enum.FontSize.Size24
-			friendLabel.Font = Enum.Font.SourceSans
+			friendLabel.FontSize = Theme.fontSize(Enum.FontSize.Size24)
+			friendLabel.Font = Theme.font(Enum.Font.SourceSans)
 			friendLabel.TextColor3 = Color3.new(1,1,1)
 			friendLabel.SelectionImageObject = fakeSelection
 			if status == Enum.FriendStatus.Friend then
@@ -649,7 +649,7 @@ local function Initialize()
 
 	utility:OnResized(buttonsContainer, function(newSize, isPortrait)
 		if isPortrait or utility:IsSmallTouchScreen() then
-			local buttonsFontSize = isPortrait and 18 or 24
+			local buttonsFontSize = isPortrait and Theme.textSize(18) or Theme.textSize(24)
 			buttonsContainer.Visible = true
 			if Theme.UIBloxThemeEnabled then
 				buttonsContainer.Size = UDim2.new(1, 0, 0, 48)
@@ -748,8 +748,8 @@ local function Initialize()
 
 		local textLabel = Instance.new("TextLabel")
 		textLabel.TextXAlignment = Enum.TextXAlignment.Left
-		textLabel.Font = Enum.Font.SourceSans
-		textLabel.FontSize = hasSecondRow and Enum.FontSize.Size36 or Enum.FontSize.Size24
+		textLabel.Font = Theme.font(Enum.Font.SourceSans)
+		textLabel.FontSize = hasSecondRow and Theme.fontSize(Enum.FontSize.Size36) or Theme.fontSize(Enum.FontSize.Size24)
 		textLabel.TextColor3 = Color3.new(1, 1, 1)
 		textLabel.BackgroundTransparency = 1
 		textLabel.Position = hasSecondRow and UDim2.new(0, 60, 0.5, -10) or UDim2.new(0, 60, .5, 0)
@@ -761,8 +761,8 @@ local function Initialize()
 			local secondRow = Instance.new("TextLabel")
 			secondRow.Name = "SecondRow"
 			secondRow.TextXAlignment = Enum.TextXAlignment.Left
-			secondRow.Font = Enum.Font.SourceSans
-			secondRow.FontSize = Enum.FontSize.Size24
+			secondRow.Font = Theme.font(Enum.Font.SourceSans)
+			secondRow.FontSize = Theme.fontSize(Enum.FontSize.Size24)
 			secondRow.TextColor3 = Color3.fromRGB(162, 162, 162)
 			secondRow.BackgroundTransparency = 1
 			secondRow.Position = UDim2.new(0, 60, .5, 12)
@@ -788,7 +788,7 @@ local function Initialize()
 			frame.AnchorPoint = Vector2.new(0, 0)
 		end
 
-		textLabel.Font = Enum.Font.SourceSansSemibold
+		textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 		textLabel.AutoLocalize = false
 		textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.InviteFriendsToPlay")
 
@@ -828,7 +828,7 @@ local function Initialize()
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
 
-		textLabel.Font = Enum.Font.SourceSansSemibold
+		textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 		textLabel.AutoLocalize = false
 		textLabel.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
 

@@ -83,7 +83,7 @@ return {
 	SocialModalsCommon = require(Packages.SocialModalsCommon),
 	RoduxNetworking = myRoduxNetworking,
 	NetworkingFriendsEnums = LuaSocialLibrariesDeps.NetworkingFriends.Enums,
-	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends_221.config({
+	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
 	NetworkingUsers = LuaSocialLibrariesDeps.NetworkingUsers.config({

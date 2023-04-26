@@ -61,7 +61,7 @@ function FriendsLandingFilter:init()
 			setFilterKeys(self.state.selectedValue)
 			self.onClose()
 			if getFFlagFriendsLandingInactiveFriendsEnabled() and self.state.selectedValue == filterStates.Inactive then
-				self.onFewestInteractionsSelection()
+				self.onFewestInteractionsSelection()()
 			end
 		end
 	end)
@@ -109,19 +109,31 @@ function FriendsLandingFilter:init()
 		end
 		else function() end
 
-	self.showFriendPruningAlert = if getFFlagFriendsLandingInactiveFriendsEnabled()
-			and self.props.navigation.getParam
-		then self.props.navigation.getParam(navigationParamKeys.ShowFriendPruningAlert)
-		else nil
+	self.showFriendPruningAlert = function()
+		return if getFFlagFriendsLandingInactiveFriendsEnabled() and self.props.navigation.getParam
+			then self.props.navigation.getParam(navigationParamKeys.ShowFriendPruningAlert)
+			else nil
+	end
 
-	self.onFewestInteractionsSelection = if getFFlagFriendsLandingInactiveFriendsEnabled()
-			and self.props.navigation.getParam
-		then self.props.navigation.getParam(navigationParamKeys.OnFewestInteractionsSelection)
-		else function() end
+	self.showInactiveFilterOption = function()
+		return if getFFlagFriendsLandingInactiveFriendsEnabled() and self.props.navigation.getParam
+			then self.props.navigation.getParam(navigationParamKeys.ShowInactiveFilterOption)
+			else nil
+	end
+
+	self.onFewestInteractionsSelection = function()
+		return if getFFlagFriendsLandingInactiveFriendsEnabled() and self.props.navigation.getParam
+			then self.props.navigation.getParam(navigationParamKeys.OnFewestInteractionsSelection)
+			else nil
+	end
 end
 
 function FriendsLandingFilter:didMount()
-	if getFFlagFriendsLandingInactiveFriendsEnabled() and self.showFriendPruningAlert then
+	if
+		getFFlagFriendsLandingInactiveFriendsEnabled()
+		and self.showInactiveFilterOption()
+		and self.showFriendPruningAlert()
+	then
 		local friendCount = if self.props.navigation and self.props.navigation.getParam
 			then self.props.navigation.getParam(navigationParamKeys.FriendCount)
 			else 0
@@ -149,7 +161,7 @@ function FriendsLandingFilter:render()
 				filterBy = "Feature.Friends.Heading.FilterBy",
 				upsellNew = "Feature.Catalog.Label.New",
 			})(function(localizedStrings)
-				local filterButtons = makeFilterButtons(localizedStrings)
+				local filterButtons = makeFilterButtons(localizedStrings, self.showInactiveFilterOption())
 				return Roact.createElement(PartialPageModal, {
 					title = localizedStrings.filterBy,
 					screenSize = self.props.screenSize,
@@ -177,7 +189,7 @@ function FriendsLandingFilter:render()
 							selectedValue = self.state.selectedValue,
 							items = filterButtons,
 						}),
-						InactiveFriendsAlert = if self.showFriendPruningAlert
+						InactiveFriendsAlert = if self.showFriendPruningAlert()
 							then Roact.createElement(Badge, {
 								position = self.getAlertPlacement(
 									filterStates.Inactive,
@@ -201,7 +213,7 @@ function FriendsLandingFilter:render()
 			offline = "Common.Presence.Label.Offline",
 			filterBy = "Feature.Friends.Heading.FilterBy",
 		})(function(localizedStrings)
-			local filterButtons = makeFilterButtons(localizedStrings)
+			local filterButtons = makeFilterButtons(localizedStrings, nil)
 			return Roact.createElement(PartialPageModal, {
 				title = localizedStrings.filterBy,
 				screenSize = self.props.screenSize,

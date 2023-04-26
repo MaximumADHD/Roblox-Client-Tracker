@@ -6,6 +6,9 @@ local createTreeWithProviders = SocialTestHelpers.TestHelpers.createTreeWithProv
 local mockAnalytics = require(script.Parent.mockAnalytics)
 local Analytics = require(ProfileQRCode.Analytics)
 local React = require(Packages.React)
+local RoactAppExperiment = require(Packages.RoactAppExperiment)
+local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
+local MagicMock = LuaSocialLibrariesDeps.Mock.MagicMock
 
 return function(element, config)
 	local mockAnalytics = mockAnalytics({
@@ -15,7 +18,11 @@ return function(element, config)
 	return React.createElement(Analytics.Context.Provider, {
 		value = if config.mockAnalytics then config.mockAnalytics else mockAnalytics.value,
 	}, {
-		Element = createTreeWithProviders(element, config),
+		React.createElement(RoactAppExperiment.Provider, {
+			value = MagicMock.new(),
+		}, {
+			Element = createTreeWithProviders(element, config),
+		}),
 	}),
 		mockAnalytics
 end

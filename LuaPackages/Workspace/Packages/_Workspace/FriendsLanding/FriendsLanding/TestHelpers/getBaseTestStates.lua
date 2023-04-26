@@ -132,6 +132,7 @@ return function(config: any?)
 							["40"] = 5,
 						},
 					},
+					recommendations = {},
 				},
 				Users = {
 					byUserId = byUserId,
@@ -158,6 +159,7 @@ return function(config: any?)
 					requests = {
 						receivedCount = 12,
 					},
+					recommendations = {},
 				},
 				Users = {
 					byUserId = byUserId,
@@ -204,6 +206,7 @@ return function(config: any?)
 						byUserId = {
 							test = recommendations,
 						},
+						bySource = {},
 					},
 					requests = {
 						receivedCount = 28,
@@ -241,6 +244,7 @@ return function(config: any?)
 						byUserId = {
 							test = recommendations,
 						},
+						bySource = {},
 					},
 				},
 				Users = {

@@ -15,6 +15,8 @@ type ScreenKind = TenFootUiCommon.ScreenKind
 export type Props = {
 	isVisible: boolean,
 	descriptor: Descriptor,
+	adorneeCFrame: CFrame?,
+	groupTransparency: number,
 	setAdornee: (Instance?) -> (),
 	setSurfaceGui: (Instance?) -> ()?,
 	adorneeParent: Instance,
@@ -36,11 +38,11 @@ local function TenFootUiBaseViewCard(props: Props)
 	local screenKind: ScreenKind = descriptor.options.screenKind or "Default"
 	local isVisible = props.isVisible
 
-	local dims: Vector3, cframe: CFrame = getScreenProps(screenKind)
+	local dims: Vector3, defaultCframe: CFrame = getScreenProps(screenKind)
 
 	return React.createElement(SurfaceGuiWithAdornee, {
 		adorneeSize = dims,
-		adorneeCFrame = cframe,
+		adorneeCFrame = props.adorneeCFrame or defaultCframe,
 		canvasSize = Constants.PageContentCanvasSize,
 		alwaysOnTop = isVisible,
 		isVisible = isVisible,
@@ -49,10 +51,19 @@ local function TenFootUiBaseViewCard(props: Props)
 		surfaceGuiParent = props.surfaceGuiParent,
 		setAdornee = props.setAdornee,
 		setSurfaceGui = props.setSurfaceGui,
-		children = React.createElement(SceneView, {
-			component = descriptor.getComponent(),
-			navigation = descriptor.navigation,
-			screenProps = props.screenProps,
+		adorneeChildren = React.createElement("Attachment"),
+		surfaceGuiChildren = React.createElement("CanvasGroup", {
+			Name = "CanvasGroup",
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			GroupTransparency = props.groupTransparency,
+		}, {
+			SceneView = React.createElement(SceneView, {
+				component = descriptor.getComponent(),
+				navigation = descriptor.navigation,
+				screenProps = props.screenProps,
+			}),
 		}),
 	})
 end

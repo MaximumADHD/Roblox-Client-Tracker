@@ -13,9 +13,12 @@ local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local StylePalette = require(script.Parent.StylePalette)
 
+local GetFFlagUIBloxEnableRoDSDesignTokenSupport =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableRoDSDesignTokenSupport
 local GetFFlagLuaAppUseUIBloxColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
-if GetFFlagLuaAppUseUIBloxColorPalettes() then
+
+if GetFFlagUIBloxEnableRoDSDesignTokenSupport() or GetFFlagLuaAppUseUIBloxColorPalettes() then
 	return UIBlox.App.Style.AppStyleProvider
 end
 

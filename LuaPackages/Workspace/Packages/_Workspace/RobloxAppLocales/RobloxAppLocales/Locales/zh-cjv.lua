@@ -374,6 +374,7 @@ return{
 	["CommonUI.Messages.Response.PageError"] = [[加载页面出错]],
 	["CommonUI.Messages.Label.ActionNotAvailableOnVRHeadsetDevice"] = [[头戴式设备尚未支持此操作，请使用其他装备尝试。]],
 	["CommonUI.Messages.Label.NoRobuxPuchaseOnVRHeadSets"] = [[Robux 不足。头戴式设备尚未支持此操作，请使用其他装备尝试。]],
+	["CommonUI.Messages.Label.FeatureNotAvailableForAccount"] = [[]],
 	["CommonUI.UserAgreements.Popup.Title"] = [[更新协议]],
 	["CommonUI.UserAgreements.Popup.Message"] = [[若要继续在罗布乐思体验，请先同意我们更新后的服务协议。改动部分如下：]],
 	["CommonUI.UserAgreements.Popup.Agree"] = [[我同意]],
@@ -624,8 +625,13 @@ return{
 	["Feature.AddFriends.Title.ShareQRCode"] = [[分享二维码]],
 	["Feature.AddFriends.Label.ShareQRCode"] = [[让其他人通过扫描你的二维码，快速加你为好友！]],
 	["Feature.AddFriends.Label.EmptyStatePrompt"] = [[你要和谁一起探索 Roblox？寻找新的朋友，或添加你认识的人为好友！]],
-	["Feature.AgeVerificationUpsell.Modal.Title"] = [[]],
-	["Feature.AgeVerificationUpsell.Modal.ContentText"] = [[]],
+	["Feature.AgeVerificationUpsell.Modal.Title"] = [[需要年龄验证]],
+	["Feature.AgeVerificationUpsell.Modal.ContentText"] = [[请验证你的年龄来访问此体验。
+
+1. 前往“设置”中的帐户信息
+2. 选择验证我的年龄
+3. 完成流程
+]],
 	["Feature.AgeVerificationUpsell.Button.Cancel"] = [[取消]],
 	["Feature.AgeVerificationUpsell.Button.Settings"] = [[设置]],
 	["Feature.AgeVerificationUpsell.Button.AccountInfo"] = [[帐户信息]],
@@ -954,6 +960,7 @@ return{
 	["Feature.Avatar.Title.YourTryOns"] = [[你的试穿]],
 	["Feature.Avatar.Action.Marketplace"] = [[商城]],
 	["Feature.Avatar.Message.R15AllAnimationsPrompt"] = [[将你的身体类型更新为 R15 以启用动画和动作表情。]],
+	["Feature.Avatar.Message.TryOnCameraHeadWarning"] = [[]],
 	["Feature.Billing.Action.UpgradeMembership"] = [[升级会员资格]],
 	["Feature.Billing.Action.JoinBuildersClub"] = [[加入 Builders Club]],
 	["Feature.Billing.Label.RenewalDate"] = [[续订日期]],
@@ -1193,7 +1200,7 @@ return{
 	["Feature.Catalog.Heading.Overview"] = [[概览]],
 	["Feature.Catalog.Label.RecentlyCreated"] = [[最近创作]],
 	["Feature.Catalog.Label.ResaleFeePolicy"] = [[转卖费政策]],
-	["Feature.Catalog.Message.ResaleFeePolicy"] = [[]],
+	["Feature.Catalog.Message.ResaleFeePolicy"] = [[所有商城交易的收入（包括转卖）将有 Roblox 和与交易相关的用户共享。以转卖为例，当用户接受你的价格时，你（转卖者）将会获得他人已付的 Robux 金额的 {yourSharePercent}%。Roblox 和其他用户（包括道具创作者）将获得剩余的 {robloxFeePercent}%。]],
 	["Feature.Catalog.Label.ItemOwnedCount"] = [[已拥有道具（{itemCount}）]],
 	["Feature.Catalog.Label.BuyPrice"] = [[购买价格：]],
 	["Feature.Catalog.Label.Holding"] = [[存放中]],
@@ -1217,7 +1224,7 @@ return{
 	["Feature.Catalog.Label.Tradable"] = [[可交易]],
 	["Feature.Catalog.Heading.ItemsOnSale"] = [[在售道具]],
 	["Feature.Catalog.Heading.AvailableItems"] = [[可上架道具]],
-	["Feature.Catalog.Label.PriceFromResale"] = [[]],
+	["Feature.Catalog.Label.PriceFromResale"] = [[转卖价 {itemPrice}]],
 	["Feature.Catalog.Label.FromPrice"] = [[From {itemPrice}]],
 	["Feature.Chat.Response.Sending"] = [[正在发送]],
 	["Feature.Chat.Response.ChatNameFullyModerated"] = [[群聊名称已被过滤。]],
@@ -1655,6 +1662,8 @@ return{
 	["Feature.Home.AddFriendHintTitle"] = [[按住这里来添加好友！]],
 	["Feature.Home.AddProviderFriendHintTitle"] = [[按下此处添加{provider}好友！]],
 	["Feature.Home.Label.AvatarItemRecommendations"] = [[为你打造虚拟形象物品]],
+	["Feature.Home.Heading.JoinYourFriends"] = [[]],
+	["Feature.Home.Button.Join"] = [[]],
 	["Feature.IdVerification.Label.PIIAgreement"] = [[PII 协议]],
 	["Feature.IdVerification.Label.PIITransfer"] = [[PII 转账]],
 	["Feature.IdVerification.Label.AgreeTerms"] = [[同意服务条款与隐私政策]],

@@ -86,8 +86,8 @@ local function Initialize()
 	{
 		Name = "Title",
 		Text = "",
-		Font = Enum.Font.SourceSansBold,
-		FontSize = Enum.FontSize.Size24,
+		Font = Theme.font(Enum.Font.SourceSansBold, "Button"),
+		FontSize = Theme.fontSize(Enum.FontSize.Size24, "Button"),
 		TextColor3 = Color3.new(1,1,1),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1.05,0,1,0), --overwritten

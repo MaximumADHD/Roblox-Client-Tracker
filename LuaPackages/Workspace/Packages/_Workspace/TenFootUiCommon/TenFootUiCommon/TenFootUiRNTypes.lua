@@ -17,6 +17,14 @@ export type OverlayScreen = {
 	absorbInput: boolean?,
 }
 
+export type AnimationStyle = "XDirection" | "ZDirection" | "None"
+
+local AnimationStyleEnum = {
+	XDirection = "XDirection" :: "XDirection",
+	ZDirection = "ZDirection" :: "ZDirection",
+	None = "None" :: "None",
+}
+
 export type RouteState = {
 	key: string,
 	routeName: string,
@@ -36,12 +44,15 @@ export type NavigationObject = {
 	dispatch: (any) -> (),
 }
 
+export type DescriptorOptions = {
+	screenKind: ScreenKind,
+	animationStyle: AnimationStyle?,
+}
+
 export type Descriptor = {
 	getComponent: () -> React.ComponentType<any>,
 	key: string,
-	options: {
-		screenKind: ScreenKind,
-	},
+	options: DescriptorOptions,
 	navigation: NavigationObject,
 	state: NavigationState,
 }
@@ -67,4 +78,6 @@ export type RouteArray = {
 	}
 }
 
-return {}
+return {
+	AnimationStyleEnum = AnimationStyleEnum,
+}

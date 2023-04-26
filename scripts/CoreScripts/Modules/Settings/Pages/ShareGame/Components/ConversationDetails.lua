@@ -7,19 +7,20 @@ local Roact = require(CorePackages.Roact)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local LIST_PADDING = 2
 
-local TITLE_FONT = Enum.Font.SourceSans
+local TITLE_FONT = Theme.font(Enum.Font.SourceSans, "ConversationDetails")
 local TITLE_COLOR = Constants.Color.WHITE
-local TITLE_TEXT_SIZE = 19
+local TITLE_TEXT_SIZE = Theme.textSize(19)
 
-local SUB_TITLE_FONT = Enum.Font.SourceSans
+local SUB_TITLE_FONT = Theme.font(Enum.Font.SourceSans, "ConversationDetails")
 local SUB_TITLE_COLOR = Constants.Color.GRAY3
-local SUB_TITLE_TEXT_SIZE = 16
+local SUB_TITLE_TEXT_SIZE = Theme.textSize(16, "ConversationDetails")
 
-local PRESENCE_FONT = Enum.Font.SourceSans
-local PRESENCE_TEXT_SIZE = 16
+local PRESENCE_FONT = Theme.font(Enum.Font.SourceSans, "ConversationDetails")
+local PRESENCE_TEXT_SIZE = Theme.textSize(16, "ConversationDetails")
 
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()

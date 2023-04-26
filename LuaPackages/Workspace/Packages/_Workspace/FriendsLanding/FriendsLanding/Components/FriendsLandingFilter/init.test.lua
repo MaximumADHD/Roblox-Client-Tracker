@@ -16,6 +16,7 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
+local navigationParamKeys = require(script.Parent.navigationParamKeys)
 local FriendsLandingFilter = require(script.Parent)
 
 local getFFlagFriendsLandingInactiveFriendsEnabled =
@@ -119,10 +120,13 @@ describe("lifecycle", function()
 			local mockNavigation = {
 				goBack = jest.fn(),
 				getParam = function(param)
-					if param == "onFewestInteractionsSelection" then
+					if param == navigationParamKeys.OnFewestInteractionsSelection then
 						return mockOnFewestInteractionsSelection
+					elseif param == navigationParamKeys.ShowInactiveFilterOption then
+						return true
+					else
+						return nil
 					end
-					return nil
 				end,
 			}
 

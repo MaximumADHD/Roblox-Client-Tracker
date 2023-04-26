@@ -65,10 +65,10 @@ local function Initialize()
 	this.Page.Name = "Record"
 
 	local function makeTextLabel(name, text, isTitle, parent, layoutOrder)
-		local leftPadding, rightPadding, bottomPadding, textSize, font = 10, 0, 10, 24, Enum.Font.SourceSans
+		local leftPadding, rightPadding, bottomPadding, textSize, font = 10, 0, 10, Theme.textSize(24), Theme.font(Enum.Font.SourceSans)
 
 		if isTitle then
-			leftPadding, rightPadding, bottomPadding, textSize, font = 10, 0, 0, 36, Enum.Font.SourceSansBold
+			leftPadding, rightPadding, bottomPadding, textSize, font = 10, 0, 0, Theme.textSize(36), Theme.font(Enum.Font.SourceSansBold, "Bold")
 		end
 
 		local container = utility:Create'Frame'

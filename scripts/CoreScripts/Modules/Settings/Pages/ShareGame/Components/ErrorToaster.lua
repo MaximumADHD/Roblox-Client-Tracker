@@ -11,6 +11,7 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local Constants = require(ShareGame.Constants)
 local StoppedToastTimer = require(ShareGame.Actions.StoppedToastTimer)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 local InviteStatus = Constants.InviteStatus
 
 local INNER_TEXT_PADDING = 6
@@ -112,11 +113,11 @@ function ErrorToaster:render()
 						"TextLabel",
 						{
 							BackgroundTransparency = 1,
-							Font = Enum.Font.SourceSansSemibold,
+							Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold"),
 							Size = UDim2.new(1, 0, 1, 0),
 							Text = RobloxTranslator:FormatByKey(errorMessageKey),
 							TextColor3 = Constants.Color.WHITE,
-							TextSize = TEXT_SIZE,
+							TextSize = Theme.textSize(TEXT_SIZE),
 							TextWrapped = true
 						}
 					)

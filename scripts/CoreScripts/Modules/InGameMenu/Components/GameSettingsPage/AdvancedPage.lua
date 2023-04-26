@@ -47,7 +47,7 @@ AdvancedPage.validateProps = t.strictInterface({
 	closeMenu = t.callback,
 	pageTitle = t.string,
 	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.string or nil,
-	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.number or nil,
+	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 })
 
 function AdvancedPage:init()

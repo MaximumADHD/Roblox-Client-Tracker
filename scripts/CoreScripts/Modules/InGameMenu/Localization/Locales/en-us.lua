@@ -92,6 +92,7 @@ return{
 	["CoreScripts.InGameMenu.InviteFriends.Search"] = [[Search]],
 	["CoreScripts.InGameMenu.GameSettings.LockedByDeveloper"] = [[Locked by Developer]],
 	["CoreScripts.InGameMenu.GameSettings.CameraTitle"] = [[CAMERA]],
+	["CoreScripts.InGameMenu.GameSettings.VrControlsTitle"] = [[VR CONTROLS]],
 	["CoreScripts.InGameMenu.GameSettings.InvertedCamera"] = [[Inverted Camera]],
 	["CoreScripts.InGameMenu.GameSettings.CameraSensitivity"] = [[Camera Sensitivity]],
 	["CoreScripts.InGameMenu.GameSettings.CameraMode"] = [[Camera Mode]],

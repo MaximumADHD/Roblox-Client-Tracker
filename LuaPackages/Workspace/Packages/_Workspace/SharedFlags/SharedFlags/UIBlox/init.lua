@@ -11,9 +11,9 @@ return {
 	GetFFlagUIBloxSliderUpdateOnDismiss = require(script.GetFFlagUIBloxSliderUpdateOnDismiss),
 	GetFFlagUIBloxSystemBarBottomAlignedItems = require(script.GetFFlagUIBloxSystemBarBottomAlignedItems),
 	GetFFlagUIBloxUseNewGenericTextLabelProps = require(script.GetFFlagUIBloxUseNewGenericTextLabelProps),
-	GetFFlagUIBloxVRApplyHeadScale = require(script.GetFFlagUIBloxVRApplyHeadScale),
 	GetUIBloxUseNewThemeColorPalettes = require(script.GetUIBloxUseNewThemeColorPalettes),
 	GetFFlagUIBloxMoveBindActivate = require(script.GetFFlagUIBloxMoveBindActivate),
+	GetFFlagUIBloxBindAllLaserPointerButtons = require(script.GetFFlagUIBloxBindAllLaserPointerButtons),
 	GetFFlagUIBloxRemovePreviewAnchor = require(script.GetFFlagUIBloxRemovePreviewAnchor),
 	GetFFlagUIBloxEnableMediaGalleryUpdate = require(script.GetFFlagUIBloxEnableMediaGalleryUpdate),
 	GetFFlagUIBloxEnableDropdownMenuUpdateSelectedValueFromPlaceholder = require(
@@ -24,6 +24,6 @@ return {
 	GetFFlagUIBloxPillGroupAutomaticSize = require(script.GetFFlagUIBloxPillGroupAutomaticSize),
 	GetFFlagUIBloxLoadableImageResponsiveThumbnails = require(script.GetFFlagUIBloxLoadableImageResponsiveThumbnails),
 	GetFFlagUIBloxUseDetailsPageTemplateConfig = require(script.GetFFlagUIBloxUseDetailsPageTemplateConfig),
-	GetFFlagUIBloxDropDownMenuUseUniqueKeys = require(script.GetFFlagUIBloxDropDownMenuUseUniqueKeys),
 	GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel = require(script.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel),
+	GetFFlagUIBloxEnableRoDSDesignTokenSupport = require(script.GetFFlagUIBloxEnableRoDSDesignTokenSupport),
 }

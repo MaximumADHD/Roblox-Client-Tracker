@@ -20,8 +20,6 @@ local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocaliz
 -- After 2 hours, disable reconnect after the failure of first try
 local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSeconds", 7200)
 
-local fflagPredictedOOMKeepPlayingLeave = game:DefineFastFlag("PredictedOOMKeepPlayingLeave", false)
-
 local fflagSanitizeKickMessageInDisconnectPrompt = game:DefineFastFlag("SanitizeKickMessageInDisconnectPrompt", false)
 local fintMaxKickMessageLength = game:DefineFastInt("MaxKickMessageLength", 200)
 
@@ -400,9 +398,7 @@ local function stateTransit(errorType, errorCode, oldState)
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
 			errorForReconnect = Enum.ConnectionError.DisconnectErrors
-			if
-				fflagPredictedOOMKeepPlayingLeave
-				and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryKeepPlayingLeave"]
+			if errorCode == Enum.ConnectionError["DisconnectOutOfMemoryKeepPlayingLeave"]
 			then
 				return ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE
 			end

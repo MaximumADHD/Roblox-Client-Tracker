@@ -10,8 +10,6 @@ local useDispatch = dependencies.useDispatch
 local useEffectOnce = dependencies.useEffectOnce
 local AutoSyncContacts = require(ContactImporter.Networking.AutoSyncContacts)
 local getContactImporterParams = require(ContactImporter.Utils.getContactImporterParams)
-local getFFlagAutoSyncContactsCheckPhoneVerification =
-	require(ContactImporter.Flags.getFFlagAutoSyncContactsCheckPhoneVerification)
 
 type contactImporterSettings = {
 	shouldFetchContactImporterData: boolean,
@@ -28,13 +26,7 @@ return function(mockDispatchAutoSyncContacts: any?)
 
 	local contactImporterInfo = useSelector(getContactImporterParams)
 
-	local canUploadContacts
-
-	if getFFlagAutoSyncContactsCheckPhoneVerification() then
-		canUploadContacts = (contactImporterInfo.canUploadContacts and contactImporterInfo.isPhoneVerified) or false
-	else
-		canUploadContacts = contactImporterInfo.canUploadContacts or false
-	end
+	local canUploadContacts = (contactImporterInfo.canUploadContacts and contactImporterInfo.isPhoneVerified) or false
 
 	local dispatchAutoSyncContacts = if mockDispatchAutoSyncContacts
 		then mockDispatchAutoSyncContacts

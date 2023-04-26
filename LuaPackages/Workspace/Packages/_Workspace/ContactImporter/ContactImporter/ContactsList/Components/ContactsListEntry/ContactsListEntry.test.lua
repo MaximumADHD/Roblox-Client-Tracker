@@ -1,6 +1,5 @@
 local ContactImporter = script:FindFirstAncestor("ContactImporter")
 local devDependencies = require(ContactImporter.devDependencies)
-local dependencies = require(ContactImporter.dependencies)
 
 local UnitTestHelpers = devDependencies.UnitTestHelpers
 local RhodiumHelpers = devDependencies.RhodiumHelpers()
@@ -18,11 +17,9 @@ local jest = JestGlobals.jest
 local createTreeWithProviders = devDependencies.createTreeWithProviders
 local mockStore = require(ContactImporter.TestHelpers.mockStore)
 local findElementHelpers = require(ContactImporter.TestHelpers.findElementHelpers)
-local Roact = dependencies.Roact
 local ContactsListEntry = require(ContactsList.Components.ContactsListEntry)
 
 local getFFlagContactImporterAvatarEnabled = require(ContactImporter.Flags.getFFlagContactImporterAvatarEnabled)
-local getFFlagContactImporterUseHasSentRequest = require(ContactImporter.Flags.getFFlagContactImporterUseHasSentRequest)
 
 describe("ContactsListEntry", function()
 	local state = {}
@@ -66,48 +63,20 @@ describe("ContactsListEntry", function()
 	end)
 
 	it("SHOULD show as sent if a message has been sent", function()
-		if getFFlagContactImporterUseHasSentRequest() then
-			local requestFriendship = jest.fn()
-			local element = createTreeWithProviders(ContactsListEntry, {
-				store = mockStore(state),
-				props = {
-					hasSentRequest = true,
-					contactName = "contactName",
-					contactId = "contactId",
-					requestFriendship = requestFriendship,
-				},
-			})
-			runWhileMounted(element, function(parent)
-				findSentButton(parent, { assertElementExists = true })
-				findSendButton(parent, { assertElementExists = false })
-			end)
-		else
-			local requestFriendship = jest.fn()
-			local element = createTreeWithProviders(ContactsListEntry, {
-				store = mockStore(state),
-				props = {
-					contactName = "contactName",
-					contactId = "contactId",
-					requestFriendship = requestFriendship,
-				},
-			})
-			runWhileMounted(element, function(parent)
-				local button = RhodiumHelpers.findFirstInstance(parent, {
-					ClassName = "ImageButton",
-					Name = "requestContactButton",
-				})
-				RhodiumHelpers.clickInstance(button)
-
-				jestExpect(requestFriendship).toHaveBeenCalledTimes(1)
-				jestExpect(requestFriendship).toHaveBeenCalledWith("contactId")
-
-				Roact.act(function()
-					task.wait(0.1)
-				end)
-				findSentButton(parent, { assertElementExists = true })
-				findSendButton(parent, { assertElementExists = false })
-			end)
-		end
+		local requestFriendship = jest.fn()
+		local element = createTreeWithProviders(ContactsListEntry, {
+			store = mockStore(state),
+			props = {
+				hasSentRequest = true,
+				contactName = "contactName",
+				contactId = "contactId",
+				requestFriendship = requestFriendship,
+			},
+		})
+		runWhileMounted(element, function(parent)
+			findSentButton(parent, { assertElementExists = true })
+			findSendButton(parent, { assertElementExists = false })
+		end)
 	end)
 
 	it("SHOULD show as sendable if a message has not been sent", function()

@@ -3,4 +3,5 @@ return {
 	InactiveFriendCount = "inactiveFriendCount",
 	OnFewestInteractionsSelection = "onFewestInteractionsSelection",
 	ShowFriendPruningAlert = "showFriendPruningAlert",
+	ShowInactiveFilterOption = "showInactiveFilterOption",
 }

@@ -25,25 +25,33 @@ local CallState = require(script.Parent.Parent.Enums.CallState)
 local CloseContactList = require(script.Parent.Parent.Actions.CloseContactList)
 local InitiateCall = require(script.Parent.Parent.Actions.InitiateCall)
 
-export type User = {
+export type Participant = {
 	userId: number,
-	username: string,
+	displayName: string,
+	userName: string,
 }
 
 export type Props = {
 	caller: {
-		participants: { User },
-		state: string,
+		callId: string,
+		callerId: number,
+		participants: { Participant },
+		status: string,
+		startUtc: number,
+		endUtc: number,
+		universeId: number,
+		placeId: number,
 	},
+	localUserId: number,
 	showDivider: boolean,
 	OpenCallDetails: () -> (),
 }
 
-local function getTextFromCallState(state)
-	if state == CallState.Incoming then
-		return "Incoming"
-	elseif state == CallState.Outgoing then
-		return "Outgoing"
+local function getTextFromCallState(status)
+	if status == CallState.Finished then
+		return "Finished"
+	elseif status == CallState.Declined then
+		return "Declined"
 	else
 		return "Missed"
 	end
@@ -51,10 +59,16 @@ end
 
 local function CallerListItem(props: Props)
 	local caller = props.caller
+
 	-- Will update this to support more participants in a follow up.
-	assert(#caller.participants == 1, "Expect a single participant in call.")
+	assert(#caller.participants == 2, "Expect a local user and single other participant in call.")
+
+	-- get the participant that is not the local user
 	local participant = caller.participants[1]
-	local state = CallState.fromRawValue(caller.state)
+	if caller.participants[1].userId == props.localUserId then
+		participant = caller.participants[2]
+	end
+	local status = CallState.fromRawValue(caller.status)
 
 	local style = useStyle()
 	local theme = style.Theme
@@ -67,7 +81,7 @@ local function CallerListItem(props: Props)
 
 	local dispatch = useDispatch()
 	local onActivated = React.useCallback(function()
-		dispatch(InitiateCall(1, participant.userId, participant.username))
+		dispatch(InitiateCall(1, participant.userId, participant.displayName))
 		dispatch(CloseContactList())
 	end, {})
 
@@ -124,7 +138,7 @@ local function CallerListItem(props: Props)
 				Font = font.Body.Font,
 				LayoutOrder = 1,
 				LineHeight = 1.25,
-				Text = participant.username,
+				Text = participant.displayName,
 				TextColor3 = theme.TextDefault.Color,
 				TextSize = font.BaseSize * font.Body.RelativeSize,
 				TextTransparency = theme.TextDefault.Transparency,
@@ -153,10 +167,10 @@ local function CallerListItem(props: Props)
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
 					LineHeight = 1.16667,
-					Text = getTextFromCallState(state) .. " • Now",
-					TextColor3 = state == CallState.Missed and theme.Alert.Color or theme.TextDefault.Color,
+					Text = getTextFromCallState(status) .. " • Now",
+					TextColor3 = status == CallState.Missed and theme.Alert.Color or theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
-					TextTransparency = state == CallState.Missed and theme.Alert.Transparency
+					TextTransparency = status == CallState.Missed and theme.Alert.Transparency
 						or theme.TextDefault.Transparency,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),

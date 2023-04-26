@@ -2,15 +2,17 @@ local root = script:FindFirstAncestor("root")
 
 local Roact = require(root.Packages.Roact)
 
-local DeveloperFramework = require(root.Packages.Framework)
+local Framework = require(root.Packages.Framework)
 
-local ContextServices = DeveloperFramework.ContextServices
+local ContextServices = Framework.ContextServices
 
-local Button = DeveloperFramework.UI.Button
-local TextLabel = DeveloperFramework.UI.Decoration.TextLabel
-local TextInput = DeveloperFramework.UI.TextInput
+local UI = Framework.UI
+local Button = UI.Button
+local TextLabel = UI.Decoration.TextLabel
+local devFrameworkDeprecateTextInput = UI.TextInput2 == nil
+local DEPRECATED_TextInput = if devFrameworkDeprecateTextInput then UI.DEPRECATED_TextInput else UI.TextInput
 
-local StyleKey = DeveloperFramework.Style.StyleKey
+local StyleKey = Framework.Style.StyleKey
 
 local constants = require(root.src.constants)
 
@@ -59,7 +61,7 @@ function InputId:render()
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Center,
 			}),
-			TextInput = Roact.createElement(TextInput, {
+			TextInput = Roact.createElement(DEPRECATED_TextInput, {
 				LayoutOrder = 2,
 				PlaceholderText = props.placeHolder,
 				Size = UDim2.new(1, 0, 0, 30),

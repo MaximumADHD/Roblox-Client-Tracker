@@ -1,5 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Packages = script:FindFirstAncestor("TenFootUiShell").Parent
+local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
+local Packages = TenFootUiShell.Parent
+local Constants = require(TenFootUiShell.Constants)
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
@@ -18,7 +20,7 @@ describe("TenFootUiContainer", function()
 	local backgroundModel
 	beforeEach(function()
 		backgroundModel = Instance.new("Model")
-		backgroundModel.Name = "TenFootUiBackgroundShapes"
+		backgroundModel.Name = Constants.BACKGROUND_MODEL_NAME
 		backgroundModel.Parent = ReplicatedStorage
 	end)
 	afterEach(function()
@@ -28,15 +30,15 @@ describe("TenFootUiContainer", function()
 	it("should create and destroy without errors", function()
 		local providers, nestedMocks = mocks.makeMockProviders()
 		local providerSpecs = mapProviderListToSpecs(providers)
-		local mockTenFootUiContext = nestedMocks.globalNavMocks.mockTenFootUiContext
+		local mockTenFootUiContext = nestedMocks.mockTenFootUiContext
 
-		local element = React.createElement(ProviderContainer, { providers = providerSpecs }, {
-			TenFootUiContainer = React.createElement(TenFootUiContainer, {
-				store = {},
+		local element = React.createElement(
+			ProviderContainer,
+			{ providers = providerSpecs },
+			React.createElement(TenFootUiContainer, {
 				dependencies = mockTenFootUiContext,
-				updateRoute = function() end,
-			}),
-		})
+			})
+		)
 
 		local container = Instance.new("Folder")
 		local root = ReactRoblox.createRoot(container)

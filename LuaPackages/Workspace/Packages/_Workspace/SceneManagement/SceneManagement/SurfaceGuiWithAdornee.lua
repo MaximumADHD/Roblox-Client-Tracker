@@ -13,7 +13,8 @@ export type Props = {
 	surfaceGuiParent: Instance,
 	setAdornee: (Instance?) -> ()?,
 	setSurfaceGui: (Instance?) -> ()?,
-	children: any?,
+	adorneeChildren: any,
+	surfaceGuiChildren: any,
 }
 
 local function SurfaceGuiWithAdornee(props: Props)
@@ -38,6 +39,7 @@ local function SurfaceGuiWithAdornee(props: Props)
 				CFrame = props.adorneeCFrame,
 				CanCollide = false,
 				CanTouch = false,
+				children = props.adorneeChildren,
 			}),
 		}, props.adorneeParent),
 		SurfaceGuiPortal = ReactRoblox.createPortal({
@@ -51,7 +53,7 @@ local function SurfaceGuiWithAdornee(props: Props)
 				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 				AlwaysOnTop = props.alwaysOnTop,
 				LightInfluence = 0,
-				children = props.children,
+				children = props.surfaceGuiChildren,
 			}),
 		}, props.surfaceGuiParent),
 	}

@@ -11,15 +11,21 @@ local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatche
 local Page = require(InGameMenu.Components.Page)
 local ReportList = require(script.ReportList)
 
+local GetFFlagEnableIGMv2VoiceReportFlows =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
+
 local function getReportablePlayers()
-	local players = {}
+	-- Replace with {[number]: Player} whem GetFFlagEnableIGMv2VoiceReportFlows is removed
+	local players:{[number]: Player} | {[number]: {Id: string, Username: string}} = {}
 
 	for _, player in ipairs(Players:GetPlayers()) do
 		if player ~= Players.LocalPlayer then
-			table.insert(players, {
-				Id = player.UserId,
-				Username = player.Name,
-			})
+			if GetFFlagEnableIGMv2VoiceReportFlows() then table.insert(players, player) else
+				table.insert(players, {
+					Id = player.UserId,
+					Username = player.Name,
+				})
+			end
 		end
 	end
 

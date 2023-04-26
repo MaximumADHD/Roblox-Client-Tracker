@@ -24,7 +24,7 @@ return {
 	disableTooltipAnimation = UIBloxFlags.GetFFlagUIBloxDisableTooltipAnimation(),
 	systemBarBottomAlignedItems = UIBloxFlags.GetFFlagUIBloxSystemBarBottomAlignedItems(),
 	enableImageSetResolutionScaleFix = UIBloxFlags.GetFFlagUIBloxEnableImageSetResolutionScaleFix(),
-	vrApplyHeadScale = UIBloxFlags.GetFFlagUIBloxVRApplyHeadScale(),
+	vrApplyHeadScale = true,
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()
 		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
 	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),

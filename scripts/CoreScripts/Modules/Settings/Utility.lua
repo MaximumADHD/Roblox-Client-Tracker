@@ -468,8 +468,8 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		Position = UDim2.new(0,0,0,0),
 		TextColor3 = Color3.fromRGB(255,255,255),
 		TextYAlignment = Enum.TextYAlignment.Center,
-		Font = Enum.Font.SourceSansBold,
-		TextSize = 24,
+		Font = Theme.font(Enum.Font.SourceSansBold, "Button"),
+		TextSize = Theme.textSize(24, "Button"),
 		Text = text,
 		TextScaled = true,
 		TextWrapped = true,
@@ -479,9 +479,9 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 	local constraint = Instance.new("UITextSizeConstraint",textLabel)
 
 	if isSmallTouchScreen() then
-		textLabel.TextSize = 18
+		textLabel.TextSize =  Theme.textSize(18)
 	elseif isTenFootInterface() then
-		textLabel.TextSize = 36
+		textLabel.TextSize =  Theme.textSize(36)
 	end
 	constraint.MaxTextSize = textLabel.TextSize
 
@@ -829,8 +829,8 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		this.SelectionInfo = {}
 
 		local vrEnabled = VRService.VREnabled
-		local font = vrEnabled and Enum.Font.SourceSansBold or Enum.Font.SourceSans
-		local textSize = vrEnabled and 36 or 24
+		local font = vrEnabled and Theme.font(Enum.Font.SourceSansBold, "Bold") or Theme.font(Enum.Font.SourceSans, "UtilityText")
+		local textSize = vrEnabled and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
 
 		local itemHeight = vrEnabled and 70 or 50
 		local itemSpacing = itemHeight + 1
@@ -1258,15 +1258,15 @@ local function CreateSelector(selectionStringTable, startPosition)
 				TextColor3 = Color3.fromRGB(255, 255, 255),
 				TextYAlignment = Enum.TextYAlignment.Center,
 				TextTransparency = 0.5,
-				Font = Enum.Font.SourceSans,
-				TextSize = 24,
+				Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
+				TextSize = Theme.textSize(24, "UtilityText"),
 				Text = v,
 				ZIndex = 2,
 				Visible = false,
 				Parent = this.SelectorFrame
 			};
 			if isTenFootInterface() then
-				nextSelection.TextSize = 36
+				nextSelection.TextSize = Theme.textSize(36)
 			end
 
 			if i == startPosition then
@@ -1376,9 +1376,9 @@ local function CreateSelector(selectionStringTable, startPosition)
 	local function onResized(viewportSize, portrait)
 		local textSize = 0
 		if portrait then
-			textSize = 16
+			textSize =  Theme.textSize(16)
 		else
-			textSize = isTenFootInterface() and 36 or 24
+			textSize = isTenFootInterface() and  Theme.textSize(36) or Theme.textSize(24, "UtilityText")
 		end
 
 		for i, selection in pairs(this.Selections) do
@@ -1454,8 +1454,8 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0.95, 0, 0.6, 0),
 		Position = UDim2.new(0.025, 0, 0.05, 0),
-		Font = Enum.Font.SourceSansBold,
-		TextSize = 36,
+		Font = Theme.font(Enum.Font.SourceSansBold, "Bold"),
+		TextSize = Theme.textSize(36),
 		Text = alertMessage,
 		TextWrapped = true,
 		TextColor3 = Color3.fromRGB(255, 255, 255),
@@ -2078,8 +2078,8 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	{
 		Name = rowDisplayName .. "Label",
 		Text = rowDisplayName,
-		Font = Enum.Font.SourceSansBold,
-		TextSize = 16,
+		Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
+		TextSize = Theme.textSize(16, "UtilityRow"),
 		TextColor3 = Color3.fromRGB(255,255,255),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		BackgroundTransparency = 1,
@@ -2095,7 +2095,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		RowLabel.TextScaled = true
 		RowLabel.TextWrapped = true
 		RowLabelTextSizeConstraint.Parent = RowLabel
-		RowLabelTextSizeConstraint.MaxTextSize = 16
+		RowLabelTextSizeConstraint.MaxTextSize =  Theme.textSize(16, "UtilityRow")
 	end
 
 	if not isARealRow then
@@ -2104,9 +2104,9 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 	local function onResized(viewportSize, portrait)
 		if portrait then
-			RowLabel.TextSize = 16
+			RowLabel.TextSize = Theme.textSize(16, "UtilityRow")
 		else
-			RowLabel.TextSize = isTenFootInterface() and 36 or 24
+			RowLabel.TextSize = isTenFootInterface() and  Theme.textSize(36) or  Theme.textSize(24, "UtilityText")
 		end
 		RowLabelTextSizeConstraint.MaxTextSize = RowLabel.TextSize
 	end
@@ -2149,8 +2149,8 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			TextYAlignment = Enum.TextYAlignment.Top,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextWrapped = true,
-			Font = Enum.Font.SourceSans,
-			TextSize = 24,
+			Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
+			TextSize = Theme.textSize(24, "UtilityText"),
 			ZIndex = 2,
 			SelectionImageObject = SelectionOverrideObject,
 			ClearTextOnFocus = false,
@@ -2232,8 +2232,8 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextWrapped = false,
-			Font = Enum.Font.SourceSans,
-			TextSize = 24,
+			Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
+			TextSize = Theme.textSize(24, "UtilityText"),
 			ZIndex = 2,
 			SelectionImageObject = SelectionOverrideObject,
 			ClearTextOnFocus = false,
@@ -2456,8 +2456,8 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 	{
 		Name = rowDisplayName .. "Label",
 		Text = rowDisplayName,
-		Font = Enum.Font.SourceSansBold,
-		TextSize = 16,
+		Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
+		TextSize = Theme.textSize(16, "UtilityRow"),
 		TextColor3 = Color3.fromRGB(255,255,255),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		BackgroundTransparency = 1,
@@ -2468,9 +2468,9 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 	};
 	local function onResized(viewportSize, portrait)
 		if portrait then
-			RowLabel.TextSize = 16
+			RowLabel.TextSize = Theme.textSize(16, "UtilityRow")
 		else
-			RowLabel.TextSize = isTenFootInterface() and 36 or 24
+			RowLabel.TextSize = isTenFootInterface() and  Theme.textSize(36) or  Theme.textSize(24, "UtilityText")
 		end
 	end
 	addOnResizedCallback(RowFrame, onResized)

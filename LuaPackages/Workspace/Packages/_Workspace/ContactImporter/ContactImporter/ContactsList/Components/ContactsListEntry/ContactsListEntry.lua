@@ -6,7 +6,6 @@ local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local getFFlagContactImporterAvatarEnabled = require(ContactImporter.Flags.getFFlagContactImporterAvatarEnabled)
-local getFFlagContactImporterUseHasSentRequest = require(ContactImporter.Flags.getFFlagContactImporterUseHasSentRequest)
 
 local Images = UIBlox.App.ImageSet.Images
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
@@ -59,9 +58,6 @@ function ContactsListEntry:init()
 	self.requestContactFriendship = function()
 		local props: Props = self.props
 		props.requestFriendship(props.contactId)
-		if not getFFlagContactImporterUseHasSentRequest() then
-			self:setState({ clicked = true })
-		end
 	end
 
 	self.openBlankProfileView = function()
@@ -78,9 +74,7 @@ end
 
 function ContactsListEntry:render()
 	local props: Props = self.props
-	local canSendRequest = if getFFlagContactImporterUseHasSentRequest()
-		then not props.hasSentRequest
-		else not self.state.clicked
+	local canSendRequest = not props.hasSentRequest
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
 			Name = props.deviceContactId,
@@ -120,14 +114,7 @@ function ContactsListEntry:render()
 					})
 					else nil,
 				middleTextGroup = Roact.createElement("TextButton", {
-					Size = UDim2.new(
-						1,
-						-HEADSHOT_SIZE
-							- ADD_BUTTON_WIDTH
-							- (if getFFlagContactImporterUseHasSentRequest() then 3 else 2) * INNER_PADDING,
-						1,
-						0
-					),
+					Size = UDim2.new(1, -HEADSHOT_SIZE - ADD_BUTTON_WIDTH - 3 * INNER_PADDING, 1, 0),
 					Text = "",
 					BackgroundTransparency = 1,
 					[Roact.Event.Activated] = self.openBlankProfileView,
@@ -189,7 +176,7 @@ function ContactsListEntry:render()
 						icon = Images["icons/actions/friends/friendpending"],
 						size = UDim2.fromOffset(ADD_BUTTON_WIDTH, ADD_BUTTON_HEIGHT),
 						onActivated = function() end,
-						isDisabled = if getFFlagContactImporterUseHasSentRequest() then true else nil,
+						isDisabled = true,
 						layoutOrder = 3,
 						[Roact.Change.AbsoluteSize] = if getFFlagContactsListEntryUpdatedTruncationFix()
 							then self.addButtonSizeChanged

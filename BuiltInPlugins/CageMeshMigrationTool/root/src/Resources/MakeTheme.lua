@@ -1,8 +1,8 @@
 local root = script:FindFirstAncestor("root")
 
-local DeveloperFramework = require(root.Packages.Framework)
+local Framework = require(root.Packages.Framework)
 
-local Style = DeveloperFramework.Style
+local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
 -- local StyleKey = Style.StyleKey
 

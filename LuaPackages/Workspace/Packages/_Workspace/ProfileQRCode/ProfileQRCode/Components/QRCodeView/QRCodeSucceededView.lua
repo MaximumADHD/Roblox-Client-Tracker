@@ -12,6 +12,7 @@ local useLocalUserId = require(Packages.RobloxAppHooks).useLocalUserId
 local useLocalUserInfo = require(ProfileQRCode.Utils.useLocalUserInfo)
 local getAvatarThumbnail = require(script.Parent.getAvatarThumbnail)
 local LightTheme = UIBlox.App.Style.Themes.LightTheme
+local getFFlagProfileQRCodeEnabledShortMode = require(ProfileQRCode.Flags.getFFlagProfileQRCodeEnabledShortMode)
 
 local THUMBNAIL_SIZE = 60
 local DROP_SHADOW_DIAMETER = THUMBNAIL_SIZE + 20
@@ -22,6 +23,7 @@ export type Props = {
 	padding: number,
 	url: string,
 	qrCodeLength: number,
+	isSmallScreen: boolean?,
 }
 
 local QRCodeSucceededView = function(props: Props)
@@ -41,12 +43,19 @@ local QRCodeSucceededView = function(props: Props)
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
-		Padding = React.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, props.padding),
-			PaddingRight = UDim.new(0, props.padding),
-			PaddingBottom = UDim.new(0, props.padding),
-			PaddingLeft = UDim.new(0, props.padding),
-		}),
+		Padding = if getFFlagProfileQRCodeEnabledShortMode()
+			then React.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, if props.isSmallScreen then props.padding / 2 else props.padding),
+				PaddingRight = UDim.new(0, props.padding),
+				PaddingBottom = UDim.new(0, if props.isSmallScreen then props.padding / 2 else props.padding),
+				PaddingLeft = UDim.new(0, props.padding),
+			})
+			else React.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, props.padding),
+				PaddingRight = UDim.new(0, props.padding),
+				PaddingBottom = UDim.new(0, props.padding),
+				PaddingLeft = UDim.new(0, props.padding),
+			}),
 		QRCodeWrapper = React.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, props.qrCodeLength, 0, props.qrCodeLength),

@@ -8,6 +8,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local EmojiEnum = UIBlox.App.Emoji.Enum.Emoji
 
+local getFFlagEventHostWorksForGroups = require(VirtualEvents.Parent.SharedFlags).getFFlagEventHostWorksForGroups
+
 local ELEMENTS_PADDING = 4
 
 export type Props = {
@@ -39,7 +41,13 @@ local function EventHostName(props: Props)
 			LayoutOrder = 1,
 			BackgroundColor3 = style.Theme.Badge.Color,
 			BackgroundTransparency = style.Theme.Badge.Transparency,
-			Image = string.format("rbxthumb://type=AvatarHeadShot&id=%i&w=150&h=150", props.host.hostId),
+			Image = if getFFlagEventHostWorksForGroups()
+				then string.format(
+					"rbxthumb://type=%s&id=%i&w=150&h=150",
+					if props.host.hostType == "group" then "GroupIcon" else "AvatarHeadShot",
+					props.host.hostId
+				)
+				else string.format("rbxthumb://type=AvatarHeadShot&id=%i&w=150&h=150", props.host.hostId),
 			Size = UDim2.fromOffset(textSize, textSize),
 		}, {
 			Corner = React.createElement("UICorner", {

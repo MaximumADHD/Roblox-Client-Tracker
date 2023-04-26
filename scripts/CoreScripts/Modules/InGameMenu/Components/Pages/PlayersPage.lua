@@ -52,6 +52,10 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
+local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
+
+local GetFFlagEnableIGMv2VoiceReportFlows =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
 
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
@@ -75,7 +79,7 @@ PlayersPage.validateProps = t.strictInterface({
 	voiceEnabled = t.optional(t.boolean),
 	inspectMenuEnabled = t.boolean,
 	friends = t.map(t.integer, t.enum(Enum.FriendStatus)),
-	dispatchOpenReportDialog = t.callback,
+	dispatchOpenReportDialog = if GetFFlagEnableIGMv2VoiceReportFlows() then nil else t.callback,
 	closeMenu = t.callback,
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
@@ -290,7 +294,11 @@ function PlayersPage:getMoreActions(localized)
 				icon = Images["icons/actions/feedback"],
 				onActivated = function()
 					local player = self.state.selectedPlayer
-					self.props.dispatchOpenReportDialog(player.UserId, player.Name)
+					if GetFFlagEnableIGMv2VoiceReportFlows() then
+						TrustAndSafety.openReportDialogForPlayer(player, Constants.AnalyticsMenuActionName)
+					else
+						self.props.dispatchOpenReportDialog(player.UserId, player.Name)
+					end
 					self:setState({
 						selectedPlayer = Roact.None,
 					})
@@ -529,10 +537,9 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	}
 end, function(dispatch)
 	return {
-		dispatchOpenReportDialog = function(userId, userName)
+		dispatchOpenReportDialog = if GetFFlagEnableIGMv2VoiceReportFlows() then nil else function(userId, userName)
 			dispatch(OpenReportDialog(userId, userName))
 		end,
-
 		closeMenu = function()
 			dispatch(CloseMenu)
 		end,

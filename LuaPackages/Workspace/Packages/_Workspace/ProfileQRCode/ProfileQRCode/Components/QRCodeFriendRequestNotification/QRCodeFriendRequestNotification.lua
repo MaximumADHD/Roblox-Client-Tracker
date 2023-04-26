@@ -15,6 +15,8 @@ local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
 local useLocalUserInfo = require(ProfileQRCode.Utils.useLocalUserInfo)
 local useAnalytics = require(ProfileQRCode.Analytics.useAnalytics)
 local EventNames = require(ProfileQRCode.Analytics.EventNames)
+local getFFlagProfileQRCodeAlertDisableAcceptOnPress =
+	require(ProfileQRCode.Flags.getFFlagProfileQRCodeAlertDisableAcceptOnPress)
 
 local QR_CODE_ICON = Images["icons/menu/scanqr"]
 local CLOSE_BUTTON_IMAGE = Images["icons/navigation/close"]
@@ -47,6 +49,8 @@ local QRCodeFriendRequestNotification = function(props: Props)
 	local style = useStyle()
 	local userInfo = useLocalUserInfo(props.userId)
 	local analytics = useAnalytics()
+
+	local isAcceptDisabled, setIsAcceptDisabled = React.useState(false)
 
 	React.useEffect(function()
 		analytics.fireEvent(EventNames.QRPageFriendRequestBannerShown, {
@@ -179,7 +183,11 @@ local QRCodeFriendRequestNotification = function(props: Props)
 			standardSize = StandardButtonSize.Small,
 			text = localized.acceptFriend,
 			fontStyle = style.Font.CaptionBody,
+			isDisabled = if getFFlagProfileQRCodeAlertDisableAcceptOnPress() then isAcceptDisabled else false,
 			onActivated = function()
+				if getFFlagProfileQRCodeAlertDisableAcceptOnPress() then
+					setIsAcceptDisabled(true)
+				end
 				props.onAccept(props.userId)
 			end,
 		}),

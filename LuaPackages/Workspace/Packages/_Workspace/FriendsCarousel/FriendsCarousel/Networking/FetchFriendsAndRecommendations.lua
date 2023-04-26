@@ -2,6 +2,8 @@ local FriendsCarousel = script.Parent.Parent
 local dependencies = require(FriendsCarousel.dependencies)
 local NetworkingFriends = dependencies.NetworkingFriends
 local NetworkingAliases = dependencies.NetworkingAliases
+local RoduxFriends = dependencies.RoduxFriends
+local RoduxAnalytics = dependencies.RoduxAnalytics
 local Promise = dependencies.Promise
 local Dash = dependencies.Dash
 local showRecommendations = require(FriendsCarousel.Utils.showRecommendations)
@@ -12,10 +14,14 @@ local setupFireEvent = Analytics.setupFireEvent
 local AnalyticsService = dependencies.AnalyticsService
 local UserSorts = require(FriendsCarousel.Common.UserSorts)
 local IXPService = dependencies.IXPService
+local Constants = require(FriendsCarousel.Common.Constants)
+local RECOMMENDATION_SESSION_ID_KEY = require(FriendsCarousel.Common.Constants).RECOMMENDATION_SESSION_ID_KEY
 
 local getFFlagProfileAliasEnabled = dependencies.getFFlagProfileAliasEnabled
 local isSubjectToDesktopPolicies = dependencies.isSubjectToDesktopPolicies
 local getFFlagFriendsCarouselCleanUpFetchExperimentCode = dependencies.getFFlagFriendsCarouselCleanUpFetchExperimentCode
+local getFFlagFriendsCarouselRemoveRecsAdaptors =
+	require(FriendsCarousel.Flags.getFFlagFriendsCarouselRemoveRecsAdaptors)
 
 game:DefineFastInt("Debug_RecommendationFetchDelay", 0)
 
@@ -91,20 +97,53 @@ return function(config: Config?): any
 								targetUserId = localUserId,
 							}))
 							:andThen(function(result: any)
-								if fireEvent then
+								if getFFlagFriendsCarouselRemoveRecsAdaptors() then
 									local recommendations = result.responseBody.data
-									local recommendationCount = recommendations and #recommendations or 0
+									local recommendationIds = Dash.map(recommendations, function(recommendation)
+										return recommendation.id
+									end)
+									store:dispatch(RoduxFriends.Actions.RecommendationSourceCreated({
+										source = Constants.RECS_SOURCE,
+										recommendationIds = recommendationIds,
+									}))
 									local recommendationSessionId = result.responseBody.recommendationRequestId
+									store:dispatch(RoduxAnalytics.Actions.SessionIdUpdated({
+										sessionKey = RECOMMENDATION_SESSION_ID_KEY,
+										sessionId = recommendationSessionId,
+									}))
+									return Promise.resolve(result):andThen(function(result: any)
+										if fireEvent then
+											local recommendations = result.responseBody.data
+											local recommendationCount = recommendations and #recommendations or 0
+											local recommendationSessionId = result.responseBody.recommendationRequestId
 
-									fireEvent(EventNames.CarouselLoadedWithUsers, {
-										friendCount = friendsCount,
-										recommendationCount = recommendationCount,
-										-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
-										recommendationLimit = true,
-										refreshCount = refreshCount,
-										fetchedRecommendations = true,
-										recommendationSessionId = recommendationSessionId,
-									})
+											fireEvent(EventNames.CarouselLoadedWithUsers, {
+												friendCount = friendsCount,
+												recommendationCount = recommendationCount,
+												-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
+												recommendationLimit = true,
+												refreshCount = refreshCount,
+												fetchedRecommendations = true,
+												recommendationSessionId = recommendationSessionId,
+											})
+										end
+									end)
+								else
+									if fireEvent then
+										local recommendations = result.responseBody.data
+										local recommendationCount = recommendations and #recommendations or 0
+										local recommendationSessionId = result.responseBody.recommendationRequestId
+
+										fireEvent(EventNames.CarouselLoadedWithUsers, {
+											friendCount = friendsCount,
+											recommendationCount = recommendationCount,
+											-- TODO SOCCONN-1723 move fixed fields to `additionalInfo`
+											recommendationLimit = true,
+											refreshCount = refreshCount,
+											fetchedRecommendations = true,
+											recommendationSessionId = recommendationSessionId,
+										})
+									end
 								end
 							end)
 					else

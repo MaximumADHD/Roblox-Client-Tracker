@@ -9,9 +9,9 @@ local SetEnabled = require(root.src.Actions.SetEnabled)
 
 local ScreenSelect = require(root.src.Components.ScreenSelect)
 
-local DeveloperFramework = require(root.Packages.Framework)
+local Framework = require(root.Packages.Framework)
 
-local StudioUI = DeveloperFramework.StudioUI
+local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
 local PluginBase = Roact.PureComponent:extend("PluginBase")

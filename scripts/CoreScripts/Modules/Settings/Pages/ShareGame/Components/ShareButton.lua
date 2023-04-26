@@ -1,8 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
-local SHARE_TEXT_FONT = Enum.Font.SourceSansSemibold
-local SHARE_TEXT_SIZE = 19
+local SHARE_TEXT_FONT = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
+local SHARE_TEXT_SIZE = Theme.textSize(19)
 local HOVERED_BACKGROUND_COLOR = Color3.fromRGB(222, 225, 227)
 local BACKGROUND_COLOR = Color3.fromRGB(255, 255, 255)
 

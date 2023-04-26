@@ -24,6 +24,10 @@ local coreEvents = {
 			shareLinkId = Dash.identity,
 		},
 	} :: GenericEvent,
+	[EventNames.QRCode3DAvatarLoad] = {
+		context = Contexts.ProfileQRCode,
+		eventType = EventTypes.PageLoad,
+	},
 	[EventNames.QRPageLoadFailed] = {
 		context = Contexts.ProfileQRCode,
 		eventType = EventTypes.PageLoadFailed,

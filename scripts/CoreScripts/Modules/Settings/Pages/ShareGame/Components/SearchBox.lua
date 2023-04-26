@@ -30,6 +30,7 @@ local SEARCH_FIELD_MARGINS = 12
 local SEARCH_BOX_TEXT_SIZE = 16
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
 
@@ -93,8 +94,8 @@ function SearchBox:render()
 			TextColor3 = Constants.Color.WHITE,
 			TextWrapped = true,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			TextSize = SEARCH_BOX_TEXT_SIZE,
-			Font = Enum.Font.SourceSans,
+			TextSize = Theme.textSize(SEARCH_BOX_TEXT_SIZE),
+			Font = Theme.font(Enum.Font.SourceSans),
 			ZIndex = zIndex,
 			[Roact.Ref] = function(rbx)
 				self.searchField = rbx

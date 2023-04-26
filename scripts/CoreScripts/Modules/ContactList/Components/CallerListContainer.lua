@@ -20,6 +20,10 @@ local Components = script.Parent
 local CallerListItem = require(Components.CallerListItem)
 local OpenCallDetails = require(Components.Parent.Actions.OpenCallDetails)
 
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local localUserId: number = localPlayer and localPlayer.UserId or 0
+
 export type Props = {}
 
 local function CallerListContainer(props: Props)
@@ -28,11 +32,11 @@ local function CallerListContainer(props: Props)
 	local theme = style.Theme
 
 	React.useEffect(function()
-		dispatch(NetworkingCall.GetCallList.API({}))
+		dispatch(NetworkingCall.GetCallHistory.API({ limit = 30 }))
 	end, {})
 
 	local selectCallers = React.useCallback(function(state: any)
-		return state.Call.callList or {}
+		return state.Call.callHistory or {}
 	end)
 	local callers = useSelector(selectCallers)
 
@@ -41,10 +45,12 @@ local function CallerListContainer(props: Props)
 		entries["UIListLayout"] = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 		})
+
 		for index, caller in ipairs(callers) do
 			entries[index] = React.createElement(CallerListItem, {
 				caller = caller,
 				showDivider = index ~= #callers,
+				localUserId = localUserId,
 				OpenCallDetails = function()
 					dispatch(OpenCallDetails(caller.participants))
 				end,

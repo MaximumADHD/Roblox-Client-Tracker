@@ -38,10 +38,12 @@ local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFrie
 local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
+local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE = 25
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE_WIDE = 50
 local SHOW_MORE_VISIBLE_ROWS = 6
+local SHOW_MORE_VISIBLE_ROWS_MULTIPLE_SECTIONS = 2
 
 local AddFriendsContainer = Roact.PureComponent:extend("AddFriendsContainer")
 
@@ -82,21 +84,49 @@ function AddFriendsContainer:init()
 	end
 
 	self.refreshPage = withToast(function()
-		return Promise.all({
-			self.props.getFriendRequestsCount(self.props.localUserId),
-			self.props
-				.getFriendRequests({
+		return if getFFlagAddFriendsRecommendationsEnabled()
+			then Promise.all({
+				self.props.getFriendRequestsCount(self.props.localUserId),
+				self.props.getFriendRequests({
 					isRefresh = true,
 					localUserId = self.props.localUserId,
 					limit = self.getLimitPerPage(),
+				}),
+				self.props.getFriendRecommendations({ localUserId = self.props.localUserId }),
+			}):andThen(function(results)
+				local friendRequestResults = results[2]
+				local friendRecommendationResults = results[3]
+				-- TODO SOCGRAPH-810: add friendRecommendationResults.responseBody.recommendationRequestId to analytics
+				self.props.analytics:pageLoadedWithArgs(
+					"friendRequestsPage",
+					AddFriendsPageLoadAnalytics(friendRequestResults)
+				)
+				local recommendations = friendRecommendationResults.responseBody.data
+				local recommendationCount = recommendations and #recommendations or 0
+				self:setState({
+					visibleRows = if recommendationCount > 0
+						then SHOW_MORE_VISIBLE_ROWS_MULTIPLE_SECTIONS
+						else SHOW_MORE_VISIBLE_ROWS,
 				})
-				:andThen(function(results)
-					self:setState({
-						visibleRows = SHOW_MORE_VISIBLE_ROWS,
+			end)
+			else Promise.all({
+				self.props.getFriendRequestsCount(self.props.localUserId),
+				self.props
+					.getFriendRequests({
+						isRefresh = true,
+						localUserId = self.props.localUserId,
+						limit = self.getLimitPerPage(),
 					})
-					self.props.analytics:pageLoadedWithArgs("friendRequestsPage", AddFriendsPageLoadAnalytics(results))
-				end),
-		})
+					:andThen(function(results)
+						self:setState({
+							visibleRows = SHOW_MORE_VISIBLE_ROWS,
+						})
+						self.props.analytics:pageLoadedWithArgs(
+							"friendRequestsPage",
+							AddFriendsPageLoadAnalytics(results)
+						)
+					end),
+			})
 	end)
 
 	self.contactImporterWarningSeen = function()
@@ -109,6 +139,7 @@ function AddFriendsContainer:init()
 
 	self.handleAcceptFriendRequest = withToast(function(_, playerId)
 		self.contactImporterWarningSeen()
+		-- TODO SOCGRAPH-810: button pressed analytics
 
 		return self.props
 			.acceptFriendRequest({
@@ -122,6 +153,7 @@ function AddFriendsContainer:init()
 
 	self.handleDeclineFriendRequest = withToast(function(_, playerId)
 		self.contactImporterWarningSeen()
+		-- TODO SOCGRAPH-810: button pressed analytics
 
 		return self.props
 			.declineFriendRequest({
@@ -229,6 +261,8 @@ function AddFriendsContainer:init()
 
 		local navigateToLuaAppPages = self.props.navigateToLuaAppPages
 		if navigateToLuaAppPages and navigateToLuaAppPages[EnumScreens.ViewUserProfile] then
+			-- TODO SOCGRAPH-810: pass analytics for recommendations via navParams
+			-- navigateToLuaAppPages[EnumScreens.ViewUserProfile](userId, navParams)
 			self.props.analytics:buttonClick(ButtonClickEvents.PlayerProfile, {
 				contextOverride = "friendRequestsPage",
 				subPage = "peekView",
@@ -298,12 +332,18 @@ function AddFriendsContainer:render()
 	local showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
 		then self.props.showNewAddFriendsPageVariant
 		else nil
+	local friendRecommendationsCount = if getFFlagAddFriendsRecommendationsEnabled()
+		then self.props.friendRecommendations and #self.props.friendRecommendations or 0
+		else nil
 	return Roact.createElement(AddFriendsPage, {
 		navigateToLuaAppPages = if getFFlagProfileQRCodeEnable3DAvatarExperiment()
 			then self.props.navigateToLuaAppPages
 			else nil,
 		screenSize = self.props.screenSize,
 		friendRecommendations = self.props.friendRecommendations,
+		friendRecommendationsCount = if getFFlagAddFriendsRecommendationsEnabled()
+			then friendRecommendationsCount
+			else nil,
 		friendRequests = self.props.friendRequests,
 		friendRequestsCount = self.props.receivedCount,
 		contactImporterWarningSeen = self.contactImporterWarningSeen,

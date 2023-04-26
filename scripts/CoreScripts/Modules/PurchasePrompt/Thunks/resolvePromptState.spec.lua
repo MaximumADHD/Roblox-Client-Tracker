@@ -22,11 +22,15 @@ return function()
 
 	local resolvePromptState = require(script.Parent.resolvePromptState)
 	local RequestType = require(Root.Enums.RequestType)
+	local GetFFlagTranslateDevProducts = require(Root.Flags.GetFFlagTranslateDevProducts)
+	local testProductName = "Test Product"
+	local testProductDisplayName = "Translated Test Product"
 
 	local function getTestProductInfo()
 		return {
 			IsForSale = true,
-			Name = "Test Product",
+			Name = testProductName,
+			DisplayName = testProductDisplayName,
 			PriceInRobux = 10,
 			MinimumMembershipLevel = 0,
 			Creator = {
@@ -70,8 +74,26 @@ return function()
 		local state = store:getState()
 
 		expect(state.productInfo.name).to.be.ok()
+		expect(state.productInfo.name).to.equal(GetFFlagTranslateDevProducts() and testProductDisplayName or testProductName)
 		expect(state.accountInfo.balance).to.be.ok()
 		expect(mockAnalytics.spies.signalProductPurchaseShown.callCount).to.equal(1)
+	end)
+
+	it("should fallback to name if display name is missing", function()
+		local store = Rodux.Store.new(Reducer, {})
+
+		local mockAnalytics = MockAnalytics.new()
+		local productInfo = getTestProductInfo()
+		productInfo.DisplayName = nil
+
+		local accountInfo = getTestAccountInfo()
+		local balanceInfo = getTestBalance()
+		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false)
+
+		local state = store:getState()
+
+		expect(state.productInfo.name).to.be.ok()
+		expect(state.productInfo.name).to.equal(testProductName)
 	end)
 
 	it("should resolve state to None if hiding 3rd party purchase failure", function()

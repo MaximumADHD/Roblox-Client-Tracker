@@ -5,8 +5,6 @@ local CorePackages	= game:GetService("CorePackages")
 
 local RobloxGui 	= CoreGui.RobloxGui
 local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
-local GetFFlagUIBloxVRApplyHeadScale =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRApplyHeadScale
 
 local MATERIAL = Enum.Material.Granite
 local SCALE = Vector3.new(3.6, 3.6, 3.6)
@@ -51,9 +49,7 @@ function IndexController.new(userCFrame)
 		TextureId = userCFrame == Enum.UserCFrame.LeftHand and "rbxassetid://9605099774" or "rbxassetid://9605114771",
 		Scale = SCALE,
 	}
-	if GetFFlagUIBloxVRApplyHeadScale() then
-		self.mesh = mesh
-	end
+	self.mesh = mesh
 	local weld = CommonUtil.Create("Weld") {
 		Parent = part,
 		Name = "Weld",

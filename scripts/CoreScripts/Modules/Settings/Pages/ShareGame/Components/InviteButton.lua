@@ -9,9 +9,10 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 local Constants = require(ShareGame.Constants)
 local RectangleButton = require(ShareGame.Components.RectangleButton)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
-local INVITE_TEXT_FONT = Enum.Font.SourceSansSemibold
-local INVITE_TEXT_SIZE = 19
+local INVITE_TEXT_FONT = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
+local INVITE_TEXT_SIZE = Theme.textSize(19)
 local InviteStatus = Constants.InviteStatus
 
 local MODERATED_TEXT = "Feature.SettingsHub.Label.Moderated"

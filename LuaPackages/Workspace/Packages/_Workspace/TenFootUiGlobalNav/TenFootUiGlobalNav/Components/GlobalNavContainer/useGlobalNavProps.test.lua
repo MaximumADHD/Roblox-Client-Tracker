@@ -44,17 +44,15 @@ describe("useGlobalNavProps", function()
 	end)
 
 	it("should localize item labels", function()
-		local tenFootUiContext = mocks.makeMockGlobalNavMocks().mockTenFootUiContext
+		local providers, nestedMocks = mocks.makeMockProviders()
 		local helper = renderHookWithProviders(function()
 			return useGlobalNavProps()
 		end, {
-			providers = mocks.makeMockProviders({
-				tenFootUiContext = tenFootUiContext,
-			}),
+			providers = providers,
 		})
 		local tabGroupItems, optionGroupItems = getNavGroupItems(helper)
-		local tabsConfig = tenFootUiContext.globalNavConfig.tabs
-		local optionsConfig = tenFootUiContext.globalNavConfig.options
+		local tabsConfig = nestedMocks.globalNavConfig.tabs
+		local optionsConfig = nestedMocks.globalNavConfig.options
 
 		expect(tabGroupItems[1].title).toEqual("Localized:" .. tabsConfig[1].titleLocalizationKey)
 		expect(optionGroupItems[1].label).toEqual("Localized:" .. optionsConfig[1].titleLocalizationKey)
@@ -114,14 +112,13 @@ describe("useGlobalNavProps", function()
 		end)
 
 		it("should fire a reload event when navigating to the same page", function()
-			local tenFootUiContext = mocks.makeMockGlobalNavMocks().mockTenFootUiContext
+			local providers, nestedMocks = mocks.makeMockProviders({
+				navigationState = { index = 2 }, -- Initial route: Home
+			})
 			local helper = renderHookWithProviders(function()
 				return useGlobalNavProps()
 			end, {
-				providers = mocks.makeMockProviders({
-					tenFootUiContext = tenFootUiContext,
-					navigationState = { index = 2 }, -- Initial route: Home
-				}),
+				providers = providers,
 			})
 			local tabGroupItems = getNavGroupItems(helper)
 
@@ -129,25 +126,23 @@ describe("useGlobalNavProps", function()
 				tabGroupItems[1].onActivated()
 			end)
 
-			expect(tenFootUiContext.LuaAppEvents.ReloadPage.fire).toHaveBeenCalledWith(
+			expect(nestedMocks.mockTenFootUiContext.LuaAppEvents.ReloadPage.fire).toHaveBeenCalledWith(
 				expect.anything(),
 				mocks.mockAppPage.Home
 			)
 		end)
 
 		it("should trigger an ActionTaken event if an actionType is provided", function()
-			local globalNavMocks = mocks.makeMockGlobalNavMocks()
+			local providers, nestedMocks = mocks.makeMockProviders()
 			local helper = renderHookWithProviders(function()
 				return useGlobalNavProps()
 			end, {
-				providers = mocks.makeMockProviders({
-					tenFootUiContext = globalNavMocks.mockTenFootUiContext,
-				}),
+				providers = providers,
 			})
 
 			local tabGroupItems = getNavGroupItems(helper)
-			local tabsConfig = globalNavMocks.mockTenFootUiContext.globalNavConfig.tabs
-			local notificationActionTakenSpy = globalNavMocks.mockNotificationService.ActionTaken
+			local tabsConfig = nestedMocks.globalNavConfig.tabs
+			local notificationActionTakenSpy = nestedMocks.mockNotificationService.ActionTaken
 
 			ReactRoblox.act(function()
 				tabGroupItems[1].onActivated()
@@ -169,23 +164,21 @@ describe("useGlobalNavProps", function()
 		end)
 
 		it("should trigger a ButtonActivated event", function()
-			local tenFootUiContext = mocks.makeMockGlobalNavMocks().mockTenFootUiContext
+			local providers, nestedMocks = mocks.makeMockProviders()
 			local helper = renderHookWithProviders(function()
 				return useGlobalNavProps()
 			end, {
-				providers = mocks.makeMockProviders({
-					tenFootUiContext = tenFootUiContext,
-				}),
+				providers = providers,
 			})
 			local tabGroupItems = getNavGroupItems(helper)
 
-			expect(tenFootUiContext.buttonClick).never.toHaveBeenCalled()
+			expect(nestedMocks.mockTenFootUiContext.buttonClick).never.toHaveBeenCalled()
 
 			ReactRoblox.act(function()
 				tabGroupItems[1].onActivated()
 			end)
 
-			expect(tenFootUiContext.buttonClick).toHaveBeenCalled()
+			expect(nestedMocks.mockTenFootUiContext.buttonClick).toHaveBeenCalled()
 		end)
 	end)
 end)

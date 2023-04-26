@@ -27,7 +27,7 @@ local testState = {
 	key = testKey,
 }
 
-local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, "Default", testState)
+local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, "Default")
 
 it("should render with props correctly", function()
 	local testAdorneeParent = Instance.new("Folder")
@@ -36,6 +36,7 @@ it("should render with props correctly", function()
 	local testIsVisible = false
 	local testProps: Props = {
 		isVisible = testIsVisible,
+		index = 1,
 		descriptor = testDescriptor,
 		adorneeParent = testAdorneeParent,
 		surfaceGuiParent = testSurfaceGuiParent,

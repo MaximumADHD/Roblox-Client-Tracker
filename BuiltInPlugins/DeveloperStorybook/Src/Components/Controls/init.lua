@@ -13,7 +13,8 @@ local Framework = require(Main.Packages.Framework)
 local UI = Framework.UI
 local Checkbox = UI.Checkbox
 local Pane = UI.Pane
-local TextInput = UI.TextInput
+local devFrameworkDeprecateTextInput = UI.TextInput2 == nil
+local DEPRECATED_TextInput = if devFrameworkDeprecateTextInput then UI.DEPRECATED_TextInput else UI.TextInput
 local SelectInput = UI.SelectInput
 local TextLabel = UI.Decoration.TextLabel
 
@@ -57,7 +58,7 @@ local function getTextInput(key: string, value: any, props: Props)
 			Text = key,
 			LayoutOrder = 1,
 		}),
-		TextInput = Roact.createElement(TextInput, {
+		TextInput = Roact.createElement(DEPRECATED_TextInput, {
 			Style = "RoundedBorder",
 			Size = UDim2.fromOffset(100, 32),
 			Text = tostring(value),
