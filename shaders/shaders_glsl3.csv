@@ -423,10 +423,14 @@ ProcessGuiFS,Fragment
 ProfilerFS,Fragment
 ProfilerVS,Vertex
 RadialBlurFS,Fragment
+SelectionOutlineActiveConstraintFixFS,Fragment
 SelectionOutlineActiveFS,Fragment
+SelectionOutlineConstraintFixFS,Fragment
 SelectionOutlineFS,Fragment
 SelectionOutlineHorizFS,Fragment
+SelectionOutlineHoverConstraintFixFS,Fragment
 SelectionOutlineHoverFS,Fragment
+SelectionOutlineTeamCreateConstraintFixFS,Fragment
 SelectionOutlineTeamCreateFS,Fragment
 SelectionOutlineVerticalFS,Fragment
 ShadowBlurFS,Fragment

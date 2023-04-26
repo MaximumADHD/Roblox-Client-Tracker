@@ -17,6 +17,7 @@ Studio.AssetImporter.EnumItem.Meter,Meter
 Studio.AssetImporter.EnumItem.None,No Rig
 Studio.AssetImporter.EnumItem.R15,R15
 Studio.AssetImporter.EnumItem.Right,Right
+Studio.AssetImporter.EnumItem.RotationsReset,Default with rotations zeroed out
 Studio.AssetImporter.EnumItem.Rthro,Rthro
 Studio.AssetImporter.EnumItem.RthroNarrow,Rthro Narrow
 Studio.AssetImporter.EnumItem.Stud,Stud
@@ -46,6 +47,7 @@ Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
 Studio.AssetImporter.Properties.AddModelToInventory,Add Model To Inventory
 Studio.AssetImporter.Properties.Anchored,Anchored
+Studio.AssetImporter.Properties.AnimationIdForRestPose,Custom Rest Pose Animation
 Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage vertices intersects clothing
 Studio.AssetImporter.Properties.CageNonManifoldPreview,Non-Manifold Geometry
 Studio.AssetImporter.Properties.CageOverlappingVerticesPreview,Coincident Vertices
@@ -71,6 +73,7 @@ Studio.AssetImporter.Properties.NoFilePath,No file provided
 Studio.AssetImporter.Properties.NormalFilePath,Normal File Path
 Studio.AssetImporter.Properties.OuterCageFarExtendedFromMeshPreview,Outer cage extends too far
 Studio.AssetImporter.Properties.PolygonCount,Polygon Count
+Studio.AssetImporter.Properties.RestPose,Rest Pose Animation
 Studio.AssetImporter.Properties.RigScale,Rig Scale
 Studio.AssetImporter.Properties.RigType,Rig Type
 Studio.AssetImporter.Properties.RoughnessFilePath,Roughness File Path
@@ -83,6 +86,7 @@ Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
 Studio.AssetImporter.PropertiesTooltip.AddModelToInventory,Whether to add the scene to your Assets inventory as a Model
 Studio.AssetImporter.PropertiesTooltip.Anchored,If this object should be anchored
+Studio.AssetImporter.PropertiesTooltip.AnimationIdForRestPose,Rest pose is inferred from first frame in the selected animation
 Studio.AssetImporter.PropertiesTooltip.CageMeshIntersectedPreview,"There are cage vertices intersecting with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.PropertiesTooltip.CageNonManifoldPreview,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
 Studio.AssetImporter.PropertiesTooltip.CageOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
@@ -106,6 +110,7 @@ Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the me
 Studio.AssetImporter.PropertiesTooltip.NormalFilePath,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting
 Studio.AssetImporter.PropertiesTooltip.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object
+Studio.AssetImporter.PropertiesTooltip.RestPose,Animation used to infer rest pose from its first frame
 Studio.AssetImporter.PropertiesTooltip.RigScale,The scale of the R15
 Studio.AssetImporter.PropertiesTooltip.RigType,The type of Rig to import
 Studio.AssetImporter.PropertiesTooltip.RoughnessFilePath,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface
@@ -116,6 +121,7 @@ Studio.AssetImporter.PropertiesTooltip.UseSceneOriginAsPivot,If the model's pivo
 Studio.AssetImporter.PropertiesTooltip.UsesCages,Find meshes with cage names and convert them to Wrap instances
 Studio.AssetImporter.PropertiesTooltip.WorldForward,The file's forward vector
 Studio.AssetImporter.PropertiesTooltip.WorldUp,The file's up vector
+Studio.AssetImporter.Sections.AnimationGeneral,Animation General
 Studio.AssetImporter.Sections.AvatarGeneral,Avatar General
 Studio.AssetImporter.Sections.FileGeneral,File General
 Studio.AssetImporter.Sections.FileGeometry,File Geometry

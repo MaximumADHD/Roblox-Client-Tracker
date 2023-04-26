@@ -1,5 +1,9 @@
-Key,en-us
-Studio.WindControl.Plugin.Button,Toggle
-Studio.WindControl.Plugin.Description,Toggles Wind Control Tool
-Studio.WindControl.Plugin.Name,WindControl
-Studio.WindControl.Plugin.Toolbar,WindControl
+Key,Source,Context,en-us
+Studio.WindControl.Plugin.Button, , ,Toggle
+Studio.WindControl.Plugin.Description, , ,Toggles Wind Control Tool
+Studio.WindControl.Plugin.Name, , ,WindControl
+Studio.WindControl.Plugin.Toolbar, , ,WindControl
+Studio.WindControl.WindspeedDisplay.Yaw,Yaw, ,Yaw
+Studio.WindControl.WindspeedDisplay.Speed,Speed, ,Speed
+Studio.WindControl.WindspeedDisplay.Pitch,Pitch, ,Pitch
+Studio.WindControl.WindspeedDisplay.sps,{1} sps,abbreviation for studs per second,{1} sps

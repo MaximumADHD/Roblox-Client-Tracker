@@ -363,6 +363,7 @@ Studio.GameSettings.Places.OptimizedDescription,Fills your server to optimize fo
 Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots, ,Customize Reserved Server Slots
 Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots., ,Friends are more likely to join players in your game if you reserve slots.
 Studio.GameSettings.Places.NumberError,Please enter a number between {minRange:int} and {maxRange:int}., ,Please enter a number between {minRange:int} and {maxRange:int}.
+Studio.GameSettings.Places.SocialSlotInvalidError,Invalid social slot., ,Invalid social slot.
 Studio.GameSettings.Monetization.FeeLabel,{1}% Fee:, ,{1}% Fee:
 Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access, ,Paid Access
 Studio.GameSettings.Monetization.Price,Price:, ,Price:

@@ -196,6 +196,12 @@
                     "$path": "../.robloxrc"
                 }
             },
+            "DragDetectorTouchIndicator": {
+                "$path": "DragDetectorTouchIndicator.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
             "ErrorPrompt": {
                 "$path": "ErrorPrompt.lua",
                 ".robloxrc": {

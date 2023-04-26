@@ -6,6 +6,9 @@ Studio.R15Migrator.Plugin.Toolbar,R15Migrator
 Studio.R15Migrator.ReplaceRulesPane.ReplacePlaceholder,Replace...
 Studio.R15Migrator.ReplaceRulesPane.Title,Replace With
 Studio.R15Migrator.ReplaceRulesPane.WithPlaceholder,With...
+Studio.R15Migrator.ScriptAnalysis.HumanoidWarning,"Humanoid.{name} found, this will return {suggestion}."
+Studio.R15Migrator.ScriptAnalysis.R6ScriptWarningCode,R6 Script Warning
+Studio.R15Migrator.ScriptAnalysis.ReplaceMessage,"{name} found, possible replacements are: "
 Studio.R15Migrator.ScriptConversion.Cancel,Cancel
 Studio.R15Migrator.ScriptConversion.Completed,Completed
 Studio.R15Migrator.ScriptConversion.Confirm,Confirm
@@ -22,3 +25,7 @@ Studio.R15Migrator.ScriptConversion.RevertWarning,Confirm reverting scripts to i
 Studio.R15Migrator.ScriptConversion.Reverted,Reverted
 Studio.R15Migrator.ScriptConversion.RevertingScripts,Reverting Scripts
 Studio.R15Migrator.ScriptConversion.UndoRevert,Undo Revert
+Studio.R15Migrator.Tabs.AnimationConversion,Animation Conversion
+Studio.R15Migrator.Tabs.ModelConversion,Model Conversion
+Studio.R15Migrator.Tabs.ReplaceRules,Replace Rules
+Studio.R15Migrator.Tabs.ScriptConversion,Script Conversion
