@@ -97133,7 +97133,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "",
+                    "Default": "Floodchecked",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
