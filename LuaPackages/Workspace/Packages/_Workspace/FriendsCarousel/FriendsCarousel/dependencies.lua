@@ -144,6 +144,5 @@ return {
 	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 
 	isSubjectToDesktopPolicies = require(Packages.SharedFlags).isSubjectToDesktopPolicies,
-	getFFlagFriendsCarouselCleanUpFetchExperimentCode = require(Packages.SharedFlags).getFFlagFriendsCarouselCleanUpFetchExperimentCode,
 	GetFFlagLuaAppFriendsCarouselExperimentCleanup = require(Packages.SharedFlags).GetFFlagLuaAppFriendsCarouselExperimentCleanup,
 }

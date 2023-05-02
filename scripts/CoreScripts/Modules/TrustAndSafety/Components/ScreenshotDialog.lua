@@ -38,7 +38,7 @@ export type Props = {
 	dismissAction: (() -> ()),
 
 	backAction: (() -> ())?,
-	reportAnythingAnalytics: typeof(ReportAnythingAnalytics)?
+	reportAnythingAnalytics: typeof(ReportAnythingAnalytics)?,
 }
 
 local function renderHeaderBarLeft(
@@ -151,7 +151,8 @@ local function ScreenshotDialog(props: Props)
 	end
 
 	-- Store the annotation clicks
-	local annotationPoints, setAnnotationPoints = React.useState(Cryo.Dictionary.join({}, props.initialAnnotationPoints or {}))
+	local annotationPoints, setAnnotationPoints =
+		React.useState(Cryo.Dictionary.join({}, props.initialAnnotationPoints or {}))
 	local annotationRedoStack, setRedoStack = React.useState({})
 
 	local function updatePointsAndRerender()
@@ -216,8 +217,6 @@ local function ScreenshotDialog(props: Props)
 		ScreenshotDialog = React.createElement(ImageSetLabel, {
 			Active = true, -- block input to the background overlay
 			Size = UDim2.fromScale(1, 1),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.fromScale(0.5, 0.5),
 			BackgroundTransparency = 1,
 			Image = Assets.Images.RoundedRect.Image,
 			ImageColor3 = theme.BackgroundUIDefault.Color,
@@ -255,7 +254,7 @@ local function ScreenshotDialog(props: Props)
 						),
 						-- Need dummy on the right to take up space for balance
 						renderRight = renderHeaderBarRight(props, annotationPoints),
-						title = "Highlight Scene",
+						title = props.titleText,
 					}),
 				}),
 				Divider = React.createElement(Divider, {
@@ -267,12 +266,10 @@ local function ScreenshotDialog(props: Props)
 					Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT - 1),
 					ZIndex = 1,
 				}, {
-					Layout = React.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					}),
 					Container = React.createElement("Frame", {
 						Size = UDim2.fromScale(1, 1),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.fromScale(0.5, 0.5),
 						BackgroundTransparency = 1,
 					}, {
 						UIAspectRatioConstraint = React.createElement("UIAspectRatioConstraint", {
@@ -281,8 +278,8 @@ local function ScreenshotDialog(props: Props)
 						Padding = React.createElement("UIPadding", {
 							PaddingTop = UDim.new(0, 16),
 							PaddingBottom = UDim.new(0, 16),
-							PaddingLeft = UDim.new(0, 32),
-							PaddingRight = UDim.new(0, 32),
+							PaddingLeft = UDim.new(0, 16),
+							PaddingRight = UDim.new(0, 16),
 						}),
 						AnnotationLayer = React.createElement("Frame", {
 							Size = UDim2.new(1, 0, 1, 0),

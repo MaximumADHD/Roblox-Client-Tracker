@@ -40,14 +40,14 @@ local details = ExperienceDetailsModel.mock()
 local mockResolvers = {
 	Query = {
 		virtualEvent = function(_root, args)
-			local virtualEvent = (VirtualEventModel.mock(args.id) :: any) :: GraphQLServer.VirtualEvent
+			local newVirtualEvent = (VirtualEventModel.mock(args.id) :: any) :: GraphQLServer.VirtualEvent
 
-			virtualEvent.eventTime = {
+			newVirtualEvent.eventTime = {
 				startUtc = DateTime.now():ToIsoDate(),
 				endUtc = DateTime.now():ToIsoDate(),
 			}
 
-			return virtualEvent
+			return newVirtualEvent
 		end,
 	},
 }

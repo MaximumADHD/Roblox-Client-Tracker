@@ -16,13 +16,12 @@ return function()
 		Font = AppFont,
 		Theme = AppDarkTheme,
 	}
-
-	it("should mount and unmount without errors", function()
+	local function createCallerListItem(callerId, status, localUserId)
 		local store = Rodux.Store.new(Reducer, nil, {
 			Rodux.thunkMiddleware,
 		})
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
+		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
@@ -31,7 +30,7 @@ return function()
 				CallerListItem = Roact.createElement(CallerListItem, {
 					caller = {
 						callId = "test_call_id",
-						callerId = 1,
+						callerId = callerId,
 						participants = {
 							{
 								userId = 1,
@@ -44,25 +43,72 @@ return function()
 								userName = "testuser_1",
 							},
 						},
-						status = "CallFinished",
+						status = status,
 						startUtc = 1681338167883,
 						endUtc = 1681338335366,
 						universeId = 123,
 						placeId = 456,
 					},
-					localUserId = 1,
+					localUserId = localUserId,
 					showDivider = true,
 					OpenCallDetails = function() end,
 				}),
 			}),
 		})
+	end
 
+	it("should mount and unmount without errors", function()
+		local element = createCallerListItem(2, "CallMissed", 1)
 		local folder = Instance.new("Folder")
 		local instance = Roact.mount(element, folder)
 		local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
-
-		expect(usernameElement).to.be.ok()
-		expect(usernameElement.Text).to.be.equal("testuser_1")
+		local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
+		expect(usernameElement.Text).to.be.equal("@testuser_1")
+		expect(displayNameElement.Text).to.be.equal("testuser_1")
 		Roact.unmount(instance)
+	end)
+
+	describe("CallerListItem - call status and context image", function()
+		it("should display correct status and context image for missed call", function()
+			local element = createCallerListItem(2, "CallMissed", 1)
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			local statusElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
+			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
+			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
+
+			expect(usernameElement.Text).to.be.equal("@testuser_1")
+			expect(displayNameElement.Text).to.be.equal("testuser_1")
+			expect(string.sub(statusElement.Text, 1, 6)).to.be.equal("Missed")
+			Roact.unmount(instance)
+		end)
+
+		it("should display correct status and context image for incoming call", function()
+			local element = createCallerListItem(2, "CallFinished", 1)
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			local statusElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
+			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
+			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
+
+			expect(usernameElement.Text).to.be.equal("@testuser_1")
+			expect(displayNameElement.Text).to.be.equal("testuser_1")
+			expect(string.sub(statusElement.Text, 1, 8)).to.be.equal("Incoming")
+			Roact.unmount(instance)
+		end)
+
+		it("should display correct status and context image for outgoing call", function()
+			local element = createCallerListItem(2, "CallFinished", 2)
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			local statusElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
+			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
+			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
+
+			expect(usernameElement.Text).to.be.equal("@testuser_0")
+			expect(displayNameElement.Text).to.be.equal("testuser_0")
+			expect(string.sub(statusElement.Text, 1, 8)).to.equal("Outgoing")
+			Roact.unmount(instance)
+		end)
 	end)
 end

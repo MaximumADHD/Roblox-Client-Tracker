@@ -42,6 +42,8 @@ export type NavigationObject = {
 	state: NavigationState,
 	getParam: (param: string, default: any) -> any,
 	dispatch: (any) -> (),
+	addListener: (event: string, (e: any) -> ()) -> { remove: () -> () },
+	_childrenNavigation: any?,
 }
 
 export type DescriptorOptions = {
@@ -63,6 +65,7 @@ export type SwitchNavigatorConfig = {
 }
 
 export type StackNavigatorConfig = {
+	initialRouteKey: string,
 	surfaceGuiContainer: Instance?,
 	worldContainer: Instance?,
 }
@@ -77,6 +80,8 @@ export type RouteArray = {
 		},
 	}
 }
+
+export type ScreenProps = { [string]: any }
 
 return {
 	AnimationStyleEnum = AnimationStyleEnum,

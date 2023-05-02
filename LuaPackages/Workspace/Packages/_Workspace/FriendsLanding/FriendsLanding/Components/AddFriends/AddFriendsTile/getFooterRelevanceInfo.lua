@@ -14,7 +14,7 @@ local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local RelevanceInfoProps = t.strictInterface({
 	-- Mutual friend list between myself and the current player.
@@ -26,14 +26,14 @@ local RelevanceInfoProps = t.strictInterface({
 	-- ExperienceName where the request is sent
 	sentFromExperienceName = t.optional(t.string),
 	isFriendRequest = t.boolean,
-	isRecommendation = if getFFlagAddFriendsRecommendationsEnabled() then t.optional(t.boolean) else nil,
+	isRecommendation = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.boolean) else nil,
 	userPresenceType = t.optional(t.userdata),
 	friendStatus = t.optional(t.enum(Enum.FriendStatus)),
 	lastLocation = t.optional(t.string),
 	originSourceType = t.optional(t.string),
-	contextType = if getFFlagAddFriendsRecommendationsEnabled() then t.optional(t.userdata) else nil,
-	mutualFriendsCount = if getFFlagAddFriendsRecommendationsEnabled() then t.optional(t.number) else nil,
-	hasIncomingFriendRequest = if getFFlagAddFriendsRecommendationsEnabled() then t.optional(t.boolean) else nil,
+	contextType = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.userdata) else nil,
+	mutualFriendsCount = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.number) else nil,
+	hasIncomingFriendRequest = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.boolean) else nil,
 })
 
 local hasMutualFriends = function(mutualFriends)
@@ -108,7 +108,7 @@ return function(props, style, localized)
 					iconSize = UDim2.new(0, 24, 0, 24),
 				}
 			or nil
-	elseif getFFlagAddFriendsRecommendationsEnabled() and props.isRecommendation then
+	elseif getFFlagAddFriendsPYMKExperimentEnabled() and props.isRecommendation then
 		local recommendation = {
 			contextType = props.contextType,
 			mutualFriendsCount = props.mutualFriendsCount,

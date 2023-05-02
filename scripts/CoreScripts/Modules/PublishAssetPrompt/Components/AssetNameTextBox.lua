@@ -35,6 +35,8 @@ AssetNameTextBox.validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
 	Position = t.optional(t.UDim2),
 	onAssetNameUpdated = t.callback, -- function(newName, isNameInvalid)
+	nameTextBoxRef = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
 })
 
 local function isNameTooLong(str: string, maxLength: number)
@@ -53,7 +55,6 @@ function AssetNameTextBox:init()
 		isNameInvalid = true,
 	})
 
-	self.textBoxRef = Roact.createRef()
 	self.wasInitiallyFocused = false
 
 	self.tryFocusTextBox = function()
@@ -61,7 +62,7 @@ function AssetNameTextBox:init()
 			return
 		end
 
-		local textbox = self.textBoxRef:getValue()
+		local textbox = self.props.nameTextBoxRef:getValue()
 		if textbox and textbox:IsDescendantOf(game) then
 			textbox:CaptureFocus()
 			self.wasInitiallyFocused = true
@@ -133,8 +134,9 @@ function AssetNameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 				OverlayNativeInput = true,
 				[Roact.Change.Text] = self.onTextChanged,
 				SelectionImageObject = getSelectionCursor(CursorKind.InputFields),
+				NextSelectionDown = self.props.NextSelectionDown,
 
-				[Roact.Ref] = self.textBoxRef,
+				[Roact.Ref] = self.props.nameTextBoxRef,
 				[Roact.Event.AncestryChanged] = self.tryFocusTextBox,
 			}),
 		}),

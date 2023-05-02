@@ -11,7 +11,8 @@ export type ContextTransferDataType = {
 	oldOwner : Player?,
 	character : Model,
 	currentState : string,
-	context : unknown	
+	context : unknown,
+	ccsmDef : unknown	
 }
 
 -- Storage for humanoidUploadTransferInProgress

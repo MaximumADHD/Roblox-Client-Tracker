@@ -18,8 +18,6 @@ local Images = UIBlox.App.ImageSet.Images
 
 local useContextualInfo = require(script.Parent.useContextualInfo)
 
-local GetFFlagUserSearchNewContextExperimentEnabled =
-	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
 local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
 
 local ICON_FRIEND = Images["icons/status/player/friend"]
@@ -39,16 +37,10 @@ describe("useContextualInfo", function()
 		end, {
 			state = mockedUsersInfo.state,
 		})
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			expect(helper.result).toEqual(
-				{ text = "Feature.PlayerSearchResults.Label.ThisIsYou" },
-				ContextualInfoTypes.IsMyself.rawValue()
-			)
-		else
-			expect(helper.result).toEqual({
-				text = "Feature.PlayerSearchResults.Label.ThisIsYou",
-			})
-		end
+		expect(helper.result).toEqual(
+			{ text = "Feature.PlayerSearchResults.Label.ThisIsYou" },
+			ContextualInfoTypes.IsMyself.rawValue()
+		)
 	end)
 
 	it("SHOULD return correct info WHEN searchKeyword matches previous user name", function()
@@ -63,28 +55,16 @@ describe("useContextualInfo", function()
 			state = mockedUsersInfo.state,
 		})
 
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			if getFFlagUserSearchContextualInfoUpdateUI() then
-				expect(helper.result).toEqual(
-					{ text = "Feature.PlayerSearchResults.Label.Previously" .. " @" .. previousUsername },
-					ContextualInfoTypes.PreviousUsername.rawValue()
-				)
-			else
-				expect(helper.result).toEqual(
-					{ text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername },
-					ContextualInfoTypes.PreviousUsername.rawValue()
-				)
-			end
+		if getFFlagUserSearchContextualInfoUpdateUI() then
+			expect(helper.result).toEqual(
+				{ text = "Feature.PlayerSearchResults.Label.Previously" .. " @" .. previousUsername },
+				ContextualInfoTypes.PreviousUsername.rawValue()
+			)
 		else
-			if getFFlagUserSearchContextualInfoUpdateUI() then
-				expect(helper.result).toEqual({
-					text = "Feature.PlayerSearchResults.Label.Previously" .. " @" .. previousUsername,
-				})
-			else
-				expect(helper.result).toEqual({
-					text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername,
-				})
-			end
+			expect(helper.result).toEqual(
+				{ text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername },
+				ContextualInfoTypes.PreviousUsername.rawValue()
+			)
 		end
 	end)
 
@@ -99,21 +79,10 @@ describe("useContextualInfo", function()
 			state = mockedUsersInfo.state,
 		})
 
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			expect(helper.result).toEqual(
-				{ text = "Feature.PlayerSearchResults.Label.YouAreFriends", icon = ICON_FRIEND },
-				ContextualInfoTypes.Friend.rawValue()
-			)
-		elseif getFFlagUserSearchContextualInfoUpdateUI() then
-			expect(helper.result).toEqual({
-				text = "Feature.PlayerSearchResults.Label.YouAreFriends",
-				icon = ICON_FRIEND,
-			})
-		else
-			expect(helper.result).toEqual({
-				text = "Feature.PlayerSearchResults.Label.YouAreFriends",
-			})
-		end
+		expect(helper.result).toEqual(
+			{ text = "Feature.PlayerSearchResults.Label.YouAreFriends", icon = ICON_FRIEND },
+			ContextualInfoTypes.Friend.rawValue()
+		)
 	end)
 
 	it("SHOULD return correct info WHEN user is followee", function()
@@ -127,57 +96,49 @@ describe("useContextualInfo", function()
 			state = mockedUsersInfo.state,
 		})
 
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			expect(helper.result).toEqual({
-				text = "Feature.PlayerSearchResults.Label.YouAreFollowing",
-				icon = ICON_FOLLOWING,
-			}, ContextualInfoTypes.Following.rawValue())
-		else
-			expect(helper.result).toEqual({
-				text = "Feature.PlayerSearchResults.Label.YouAreFollowing",
-			})
-		end
+		expect(helper.result).toEqual({
+			text = "Feature.PlayerSearchResults.Label.YouAreFollowing",
+			icon = ICON_FOLLOWING,
+		}, ContextualInfoTypes.Following.rawValue())
 	end)
 
-	if GetFFlagUserSearchNewContextExperimentEnabled() then
-		describe("With profileInsight", function()
-			it("SHOULD return correct info WHEN user is has mutual friends", function()
-				local helper = renderHookWithProviders(function()
-					return useContextualInfo({
-						userId = mockedUsersInfo.ids.mutualFriends,
-						previousUsernames = {},
-						searchKeyword = "",
-						profileInsight = PROFILE_INSIGHT_MUTUAL_FRIENDS,
-					})
-				end, {
-					state = mockedUsersInfo.state,
+	describe("With profileInsight", function()
+		it("SHOULD return correct info WHEN user is has mutual friends", function()
+			local helper = renderHookWithProviders(function()
+				return useContextualInfo({
+					userId = mockedUsersInfo.ids.mutualFriends,
+					previousUsernames = {},
+					searchKeyword = "",
+					profileInsight = PROFILE_INSIGHT_MUTUAL_FRIENDS,
 				})
+			end, {
+				state = mockedUsersInfo.state,
+			})
 
-				expect(helper.result).toEqual(
-					{ text = "1 Feature.Friends.Label.SingularMutualFriend", icon = ICON_FRIEND },
-					ContextualInfoTypes.MutualFriends.rawValue()
-				)
-			end)
-
-			it("SHOULD return correct info WHEN user has played together", function()
-				local helper = renderHookWithProviders(function()
-					return useContextualInfo({
-						userId = mockedUsersInfo.ids.frequents,
-						previousUsernames = {},
-						searchKeyword = "",
-						profileInsight = PROFILE_INSIGHT_FREQUENTS,
-					})
-				end, {
-					state = mockedUsersInfo.state,
-				})
-
-				expect(helper.result).toEqual(
-					{ text = "Feature.Friends.Label.Frequent" },
-					ContextualInfoTypes.Frequents.rawValue()
-				)
-			end)
+			expect(helper.result).toEqual(
+				{ text = "1 Feature.Friends.Label.SingularMutualFriend", icon = ICON_FRIEND },
+				ContextualInfoTypes.MutualFriends.rawValue()
+			)
 		end)
-	end
+
+		it("SHOULD return correct info WHEN user has played together", function()
+			local helper = renderHookWithProviders(function()
+				return useContextualInfo({
+					userId = mockedUsersInfo.ids.frequents,
+					previousUsernames = {},
+					searchKeyword = "",
+					profileInsight = PROFILE_INSIGHT_FREQUENTS,
+				})
+			end, {
+				state = mockedUsersInfo.state,
+			})
+
+			expect(helper.result).toEqual(
+				{ text = "Feature.Friends.Label.Frequent" },
+				ContextualInfoTypes.Frequents.rawValue()
+			)
+		end)
+	end)
 
 	it("SHOULD return nothing when user doesn't match any conditions", function()
 		local previousUsername = "testUser"

@@ -56,9 +56,7 @@ end
 
 
 function CharacterControlStateMachine:UpdateFloorDistance()
-	local stringo = ""
 	if not self.context.controllerManager or not self.context.controllerManager.GroundSensor then
-		print("X")
 		return
 	end
 	local groundOffset = self.context.controllerManager.RunningController.GroundOffset
@@ -69,14 +67,8 @@ function CharacterControlStateMachine:UpdateFloorDistance()
 	local torso = nil
 	-- TODO: not sure about these
 	if humanoid.RigType == Enum.HumanoidRigType.R6 then
-		if debug_string then
-			stringo = stringo .. "a"
-		end
 		torso = character:WaitForChild("Torso")
 	else
-		if debug_string then
-			stringo = stringo .. "b"
-		end
 		torso = character:WaitForChild("HumanoidRootPart")
 	end
 	local torsoSize = torso.Size
@@ -90,15 +82,9 @@ function CharacterControlStateMachine:UpdateFloorDistance()
 		-- If AutomaticScaling is enabled then the HumanoidRootPart will be moved to align with the leg length of the character.
 		if humanoid.AutomaticScalingEnabled then
 			-- Half size is 40% of the size, this is the remaining 10%
-			if debug_string then
-				stringo = stringo .. "c"
-			end
 			maxDistance = 0.1 * torsoSize.y
 		else
 			-- This compensates for the lower HumanoidRootPart height
-			if debug_string then
-				stringo = stringo .. "d"
-			end
 			local rigSet = -0.25 * torsoSize.y
 			halfSize.y = rigSet
 			maxDistance -= rigSet
@@ -110,65 +96,37 @@ function CharacterControlStateMachine:UpdateFloorDistance()
 		-- For R6 the scale of the HumanoidRootPart should not be added to the max size
 		-- The floor raycast is offset by the halfSize distance
 		-- This distance is 10% less than half the size of the root part so we add in that difference here
-		if debug_string then
-			stringo = stringo .. "e"
-		end
 		maxDistance = torsoSize.y * 0.1
 		characterScale = torsoSize.y / humanoidRootPartSize.y
 	end
 
 	local oldFloor = groundSensor.SensedPart
 	local hysteresis = oldFloor and 1.5 or 1.1
-	if debug_string then
-		if oldFloor then
-			stringo = stringo .. "f"
-		else
-			stringo = stringo .. "g"
-		end
-	end
 	-- TODO: haha this better be right
 	local verticalVelocity = math.abs(torso.AssemblyLinearVelocity.y)
 	verticalVelocity /= characterScale
 	-- NOTE: the 100 comes from DFInt::FreeFallFloorSearchDistanceIncreaseVelocity
 	if verticalVelocity > 100 then
-		if debug_string then
-			stringo = stringo .. "h"
-		end
 		hysteresis += verticalVelocity / 100
 	end
 
 	if humanoid.RigType == Enum.HumanoidRigType.R6 then
-		if debug_string then
-			stringo = stringo .. "i"
-		end
 		local leftLegHeight = 0
 		local rightLegHeight = 0
 
 		local leftLeg = character:WaitForChild("LeftLeg")
 		if leftLeg ~= nil then
-			if debug_string then
-				stringo = stringo .. "j"
-			end
 			leftLegHeight = leftLeg.Size.y
 		end
 
 		local rightLeg = character:WaitForChild("RightLeg")
 		if rightLeg ~= nil then
-			if debug_string then
-				stringo = stringo .. "k"
-			end
 			rightLegHeight = rightLeg.Size.y
 		end
 
 		maxDistance += hysteresis * math.max(leftLegHeight, rightLegHeight);
 	else
-		if debug_string then
-			stringo = stringo .. "l"
-		end
 		maxDistance += hysteresis * groundOffset
-	end
-	if debug_string then
-		print(stringo .. " " .. maxDistance)
 	end
 	if debug_visual then
 		debugSphere.CFrame = torso.CFrame + Vector3.yAxis * -1 * maxDistance

@@ -25,7 +25,7 @@ local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.Friendshi
 
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 describe("getFooterRelevanceInfo", function()
 	local mockStyle = {
@@ -238,7 +238,7 @@ describe("getFooterRelevanceInfo", function()
 		end)
 	end)
 
-	if getFFlagAddFriendsRecommendationsEnabled() then
+	if getFFlagAddFriendsPYMKExperimentEnabled() then
 		describe("relevanceInfo for friendRecommendations section", function()
 			it("SHOULD show incoming friend request with highest priority", function()
 				local resultedRelevancyInfo = getFooterRelevanceInfoWrapped({

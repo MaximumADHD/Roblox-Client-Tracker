@@ -4,6 +4,9 @@ local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local AppTempCommon = CorePackages.AppTempCommon
 
+local SocialLibraries = require(CorePackages.Packages.LuaSocialLibrariesDeps).SocialLibraries.config({})
+local sortFriendsByCorrectedPresenceAndRank = SocialLibraries.User.sortFriendsByCorrectedPresenceAndRank
+
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
@@ -22,6 +25,7 @@ local InviteListEntry = require(ShareGame.Components.InviteListEntry)
 local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local InviteUserIdToPlaceIdCustomized = require(ShareGame.Thunks.InviteUserIdToPlaceIdCustomized)
+local NewInviteMenuExperimentManager = require(ShareGame.NewInviteMenuExperimentManager)
 local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
 local PlayerSearchPredicate = require(CoreGui.RobloxGui.Modules.InGameMenu.Utility.PlayerSearchPredicate)
@@ -40,6 +44,7 @@ local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
+local GetFFlagInviteListRerank = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagInviteListRerank
 
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
@@ -57,6 +62,11 @@ local PRESENCE_WEIGHTS = {
 	[User.PresenceType.IN_GAME] = 2,
 	[User.PresenceType.IN_STUDIO] = 1,
 	[User.PresenceType.OFFLINE] = 0,
+}
+
+local SORT_ORDER = {
+	SORT_BY_FREQUENCY = 1,
+	SORT_BY_PRESENCE_AND_FREQUENCY = 2,
 }
 
 local ConversationList = Roact.PureComponent:extend("ConversationList")
@@ -278,9 +288,64 @@ local selectFriends = memoize(function(users)
 	return friends
 end)
 
+local selectFriendsByPresenceAndRank = memoize(function(users)
+	local allFriends = {}
+	for _, user in pairs(users) do
+		if user.isFriend then
+			allFriends[#allFriends + 1] = user
+		end
+	end
+
+	table.sort(allFriends, sortFriendsByCorrectedPresenceAndRank)
+
+	return allFriends
+end)
+
+local selectFriendsByRank = memoize(function(users)
+	local friends = {}
+	local function friendPreference(friend1, friend2)
+		local friend1Weight = tonumber(friend1.friendFrequentRank) or 0
+		local friend2Weight = tonumber(friend2.friendFrequentRank) or 0
+	
+		if friend1Weight == friend2Weight then
+			return friend1.name:lower() < friend2.name:lower()
+		else
+			return friend1Weight < friend2Weight
+		end
+	end
+
+	for _, user in pairs(users) do
+		if user.isFriend then
+			friends[#friends + 1] = user
+		end
+	end
+
+	table.sort(friends, friendPreference)
+
+	return friends
+end)
+
+local getSelectFriendsFunction = function()
+	local sortOrder = NewInviteMenuExperimentManager.default:getInviteListSortOrder() or 0
+
+	if sortOrder == SORT_ORDER.SORT_BY_FREQUENCY then
+		return selectFriendsByRank
+	elseif sortOrder == SORT_ORDER.SORT_BY_PRESENCE_AND_FREQUENCY then
+		return selectFriendsByPresenceAndRank
+	end
+
+	return selectFriends
+end
+
 local connector = RoactRodux.UNSTABLE_connect2(function(state, props)
+	local selectFriendsFunction = selectFriends
+
+	if GetFFlagInviteListRerank() then
+		selectFriendsFunction = getSelectFriendsFunction()
+	end
+
 	return {
-		friends = selectFriends(state.Users),
+		friends = selectFriendsFunction(state.Users),
 		friendsRetrievalStatus = state.Friends.retrievalStatus[tostring(Players.LocalPlayer.UserId)],
 		invites = state.Invites,
 	}

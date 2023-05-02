@@ -1,5 +1,6 @@
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
+local TestUtils = TenFootUiShell.TestUtils
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 local mocks = require(Packages.Dev.TenFootUiTesting).TestHelpers.mocks
@@ -8,6 +9,7 @@ local it = JestGlobals.it
 local expect = JestGlobals.expect
 local TenFootUiSwitchViewCard = require(script.Parent.TenFootUiSwitchViewCard)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
 
 type ScreenKind = TenFootUiCommon.ScreenKind
 type RouteState = TenFootUiCommon.RouteState
@@ -33,16 +35,15 @@ it("should render with props correctly", function()
 	local testAdorneeParent = Instance.new("Folder")
 	local testSurfaceGuiParent = Instance.new("Folder")
 
-	local testIsVisible = false
 	local testProps: Props = {
-		isVisible = testIsVisible,
+		isActiveKey = false,
 		index = 1,
 		descriptor = testDescriptor,
 		adorneeParent = testAdorneeParent,
 		surfaceGuiParent = testSurfaceGuiParent,
 	}
 
-	local element = React.createElement(TenFootUiSwitchViewCard, testProps)
+	local element = React.createElement(createTenFootUiShellTestHarness(TenFootUiSwitchViewCard), testProps)
 
 	local root = ReactRoblox.createRoot(Instance.new("Folder"))
 	ReactRoblox.act(function()

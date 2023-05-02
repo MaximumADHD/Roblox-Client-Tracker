@@ -8,6 +8,9 @@ local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.Retri
 local ApiFetchUsersFriends = require(ShareGame.Thunks.ApiFetchUsersFriends)
 
 local Constants = require(ShareGame.Constants)
+local UserSorts =  require(RobloxGui.Modules.Settings.Enum.UserSorts)
+
+local GetFFlagInviteListRerank = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagInviteListRerank
 
 return function(requestImpl, userId)
 	return function(store)
@@ -15,7 +18,8 @@ return function(requestImpl, userId)
 
 		local friendsRetrievalStatus = state.Friends.retrievalStatus[userId]
 		if friendsRetrievalStatus ~= RetrievalStatus.Fetching then
-			store:dispatch(ApiFetchUsersFriends(requestImpl, userId, Constants.ThumbnailRequest.InviteToGame))
+			store:dispatch(ApiFetchUsersFriends(requestImpl, userId, Constants.ThumbnailRequest.InviteToGame,
+				if GetFFlagInviteListRerank() then UserSorts.StatusFrequents else nil))
 		end
 	end
 end

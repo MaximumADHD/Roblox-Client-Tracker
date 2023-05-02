@@ -21,7 +21,7 @@ local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 -- FIXME: APPFDN-1925
 local FriendsLandingEntryPoint = require((script :: any).Parent["FriendsLandingEntryPoint.story"]) :: any
@@ -268,7 +268,7 @@ describe("FriendsLandingEntryPoint", function()
 		FriendsNetworking.GetFriendRequests.Mock.reply(function()
 			return { responseBody = { data = {} } }
 		end)
-		if getFFlagAddFriendsRecommendationsEnabled() then
+		if getFFlagAddFriendsPYMKExperimentEnabled() then
 			FriendsNetworking.GetFriendRecommendationsFromUserId.Mock.clear()
 			FriendsNetworking.GetFriendRecommendationsFromUserId.Mock.reply(function()
 				return { responseBody = { data = {} } }

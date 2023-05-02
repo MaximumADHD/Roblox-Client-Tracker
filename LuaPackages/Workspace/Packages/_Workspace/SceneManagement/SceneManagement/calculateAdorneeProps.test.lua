@@ -7,10 +7,11 @@ local expect = JestGlobals.expect
 local calculateAdorneeProps = require(script.Parent.calculateAdorneeProps)
 
 describe("calculateFullScreenAdorneeProps", function()
-	it("should return Vector3 and CFrame when distanceToCamera is not specified", function()
-		local dims, cframe = calculateAdorneeProps.calculateFullScreenAdorneeProps()
+	it("should return Vector3 and CFrames when distanceToCamera is not specified", function()
+		local dims, screenCFrame, centerCFrame = calculateAdorneeProps.calculateFullScreenAdorneeProps()
 		expect(typeof(dims)).toBe("Vector3")
-		expect(typeof(cframe)).toBe("CFrame")
+		expect(typeof(screenCFrame)).toBe("CFrame")
+		expect(screenCFrame).toEqual(centerCFrame)
 	end)
 
 	it("should return Vector3 and CFrame when distanceToCamera is specified", function()
@@ -66,19 +67,24 @@ describe("calculateTopBarAdorneeProps", function()
 end)
 
 describe("calculatePageContentAdorneeProps", function()
-	it("should return Vector3 and CFrame when args are valid when distanceToCamera is not specified", function()
+	it("should return Vector3 and CFrames when args are valid when distanceToCamera is not specified", function()
 		local heightRatio = 0.2
-		local dims, cframe = calculateAdorneeProps.calculatePageContentAdorneeProps(heightRatio)
+		local dims, screenCFrame, centerCFrame = calculateAdorneeProps.calculatePageContentAdorneeProps(heightRatio)
 		expect(typeof(dims)).toBe("Vector3")
-		expect(typeof(cframe)).toBe("CFrame")
+		expect(typeof(screenCFrame)).toBe("CFrame")
+		expect(typeof(centerCFrame)).toBe("CFrame")
+		expect(screenCFrame).never.toEqual(centerCFrame)
 	end)
 
 	it("should return Vector3 and CFrame when args are valid when distanceToCamera is specified", function()
 		local distanceToCamera = 3
 		local heightRatio = 0.2
-		local dims, cframe = calculateAdorneeProps.calculatePageContentAdorneeProps(heightRatio, distanceToCamera)
+		local dims, screenCFrame, centerCFrame =
+			calculateAdorneeProps.calculatePageContentAdorneeProps(heightRatio, distanceToCamera)
 		expect(typeof(dims)).toBe("Vector3")
-		expect(typeof(cframe)).toBe("CFrame")
+		expect(typeof(screenCFrame)).toBe("CFrame")
+		expect(typeof(centerCFrame)).toBe("CFrame")
+		expect(screenCFrame).never.toEqual(centerCFrame)
 	end)
 
 	it("should throw if args are out of range", function()

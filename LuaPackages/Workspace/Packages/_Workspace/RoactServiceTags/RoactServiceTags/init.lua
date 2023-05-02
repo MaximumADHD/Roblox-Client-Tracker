@@ -13,4 +13,5 @@ return {
 	AppUpdateService = require(script.AppUpdateService),
 	AppUserGameSettings = require(script.AppUserGameSettings),
 	AppUserInputService = require(script.AppUserInputService),
+	AppStartupSequenceTag = require(script.AppStartupSequenceTag),
 }

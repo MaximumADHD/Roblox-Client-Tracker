@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 return function()
 	local SetFormFactor = require(script.Parent.SetFormFactor)
 

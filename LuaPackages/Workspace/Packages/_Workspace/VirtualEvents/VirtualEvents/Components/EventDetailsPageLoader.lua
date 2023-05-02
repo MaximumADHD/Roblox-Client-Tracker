@@ -10,6 +10,8 @@ local EventDetailsPage = require(VirtualEvents.Components.EventDetailsPage)
 local requests = require(VirtualEvents.requests)
 local getRetrievalStatusFromApolloQuery = require(VirtualEvents.Common.getRetrievalStatusFromApolloQuery)
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
+local getFFlagFixFlakyTestsInVirtualEvents =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagFixFlakyTestsInVirtualEvents
 
 local useQuery = ApolloClient.useQuery
 local LoadingStateContainer = UIBlox.App.Container.LoadingStateContainer
@@ -33,9 +35,11 @@ local function EventDetailsPageLoader(props: Props)
 		else {}
 
 	if getFFlagVirtualEventsGraphQL() then
-		fetchingStatus = React.useMemo(function()
-			return getRetrievalStatusFromApolloQuery(result)
-		end, { result })
+		fetchingStatus = if getFFlagFixFlakyTestsInVirtualEvents()
+			then getRetrievalStatusFromApolloQuery(result)
+			else React.useMemo(function()
+				return getRetrievalStatusFromApolloQuery(result)
+			end, { result })
 	end
 
 	local text = useLocalization({

@@ -15,6 +15,7 @@ local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local t = require(CorePackages.Packages.t)
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local InputType = require(CorePackages.Workspace.Packages.InputType)
+local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -35,7 +36,8 @@ PublishAssetPromptApp.validateProps = t.strictInterface({
 })
 
 local function isGamepadInput(inputType)
-	return InputType[inputType] == InputType.InputTypeConstants.Gamepad
+	local inputGroup = getInputGroup(inputType)
+	return inputGroup == InputType.InputTypeConstants.Gamepad
 end
 
 function PublishAssetPromptApp:init()

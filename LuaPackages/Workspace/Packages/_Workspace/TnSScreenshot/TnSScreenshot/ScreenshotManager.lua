@@ -14,6 +14,10 @@ local contentReadyCallbacksByJobId: { [number]: ContentReadyCallback } = {}
 
 local signalListenersRegistered = false
 
+local Constants = {
+	RAABTestReason = "RAABTest",
+}
+
 -- only call this when we know we can access safety service (set up lazily)
 local registerSignalListeners = function(safetyService)
 	safetyService.ScreenshotUploaded:Connect(function(jobId, screenshotId)
@@ -61,7 +65,10 @@ function ScreenshotManager:TakeScreenshotWithCallback(
 	local safetyService = game:GetService("SafetyService")
 	local registerContent = (contentReadyCallback ~= nil) and 1 or 0
 
-	local jobId = safetyService:TakeScreenshot({ registerContent = registerContent })
+	local jobId = safetyService:TakeScreenshot({
+		registerContent = registerContent,
+		reason = Constants.RAABTestReason,
+	})
 	-- Possible that the screenshot could be taken and the signals fired in
 	-- between the above call and the setup of the callbacks. See if we actually need to
 	-- worry about this in practice given the async nature of the screenshot

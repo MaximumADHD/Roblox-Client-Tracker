@@ -40,6 +40,8 @@ AssetDescriptionTextBox.validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
 	Position = t.optional(t.UDim2),
 	onAssetDescriptionUpdated = t.callback, -- function(newDescription)
+	descriptionTextBoxRef = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
 })
 
 local function getStringLength(str: string): number
@@ -67,7 +69,6 @@ function AssetDescriptionTextBox:init()
 		textBoxWidth = DEFAULT_TEXTBOX_WIDTH,
 	})
 
-	self.textBoxRef = Roact.createRef()
 	self.wasInitiallyFocused = false
 
 	self.tryFocusTextBox = function()
@@ -75,7 +76,7 @@ function AssetDescriptionTextBox:init()
 			return
 		end
 
-		local textbox = self.textBoxRef:getValue()
+		local textbox = self.props.descriptionTextBoxRef:getValue()
 		if textbox and textbox:IsDescendantOf(game) then
 			textbox:CaptureFocus()
 			self.wasInitiallyFocused = true
@@ -209,11 +210,11 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					OverlayNativeInput = true,
-
+					NextSelectionUp = self.props.NextSelectionUp,
 					[Roact.Change.TextFits] = self.onTextFitsChanged,
 					SelectionImageObject = getSelectionCursor(CursorKind.InputFields),
 
-					[Roact.Ref] = self.textBoxRef,
+					[Roact.Ref] = self.props.descriptionTextBoxRef,
 					[Roact.Event.AncestryChanged] = self.tryFocusTextBox,
 
 					[Roact.Change.Text] = function(rbx)

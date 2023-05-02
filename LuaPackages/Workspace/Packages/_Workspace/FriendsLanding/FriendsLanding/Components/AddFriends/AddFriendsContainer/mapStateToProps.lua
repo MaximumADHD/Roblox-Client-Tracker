@@ -14,7 +14,7 @@ local RECOMMENDATION_SESSION_ID_KEY = require(FriendsLanding.Common.Constants).R
 local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local sortFunc = require(script.Parent.sortFriendRequests)
 
@@ -52,7 +52,7 @@ local getfriendRecommendationsSessionIdFromState = function(state)
 	return getSessionIdByKey(state)(RECOMMENDATION_SESSION_ID_KEY)
 end
 
-if not getFFlagAddFriendsRecommendationsEnabled() then
+if not getFFlagAddFriendsPYMKExperimentEnabled() then
 	getFriendRecommendationsFromState = function(state)
 		local localUserId = state.LocalUserId
 		local userIds = getDeepValue(
@@ -106,7 +106,7 @@ return function(state)
 		screenSize = state.ScreenSize,
 		localUserId = state.LocalUserId,
 		friendRecommendations = getFriendRecommendationsFromState(state) or {},
-		friendRecommendationsSessionId = if getFFlagAddFriendsRecommendationsEnabled()
+		friendRecommendationsSessionId = if getFFlagAddFriendsPYMKExperimentEnabled()
 			then getfriendRecommendationsSessionIdFromState(state)
 			else nil,
 		friendRequests = getFriendRequestsFromState(state),

@@ -31,11 +31,13 @@ export type StackRouteConfig = {
 	navigationOptions: {
 		screenKind: TenFootUiRNTypes.ScreenKind,
 	},
+	navigatorConfig: TenFootUiRNTypes.StackNavigatorConfig,
 }
 
 export type TenFootUiRouterConfig = {
 	switchRoutes: { [number]: SwitchRouteConfig },
 	stackRoutes: { [number]: { [string]: StackRouteConfig } },
+	commonStackRoutes: TenFootUiRNTypes.RouteArray,
 }
 
 type Symbol = typeof(newproxy(true))

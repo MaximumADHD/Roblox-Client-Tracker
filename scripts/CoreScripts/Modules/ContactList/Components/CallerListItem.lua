@@ -1,6 +1,7 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local LocalizationService = game:GetService("LocalizationService")
 
 local React = require(CorePackages.Packages.React)
 
@@ -47,18 +48,32 @@ export type Props = {
 	OpenCallDetails: () -> (),
 }
 
-local function getTextFromCallState(status)
-	if status == CallState.Finished then
-		return "Finished"
-	elseif status == CallState.Declined then
-		return "Declined"
-	else
+local function getCallStatusText(caller, localUserId)
+	if caller.status ~= "CallFinished" then
 		return "Missed"
+	elseif caller.callerId == localUserId then
+		return "Outgoing"
+	else
+		return "Incoming"
+	end
+end
+
+-- TODO: update icons to match design
+local function getCallContextImage(caller, localUserId)
+	if caller.status ~= "CallFinished" then
+		return Images["icons/status/alert"]
+	elseif caller.callerId == localUserId then
+		return Images["icons/controls/keys/arrowRight"]
+	else
+		return Images["icons/controls/keys/arrowLeft"]
 	end
 end
 
 local function CallerListItem(props: Props)
 	local caller = props.caller
+	local localUserId = props.localUserId
+	local dateString = DateTime.fromUnixTimestampMillis(caller.startUtc)
+		:FormatLocalTime("lll", LocalizationService.RobloxLocaleId)
 
 	-- Will update this to support more participants in a follow up.
 	assert(#caller.participants == 2, "Expect a local user and single other participant in call.")
@@ -96,7 +111,7 @@ local function CallerListItem(props: Props)
 
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
-		Size = UDim2.new(1, 0, 0, 64),
+		Size = UDim2.new(1, 0, 0, 92),
 		BackgroundColor3 = theme[interactableTheme].Color,
 		BackgroundTransparency = theme[interactableTheme].Transparency,
 		BorderSizePixel = 0,
@@ -109,8 +124,7 @@ local function CallerListItem(props: Props)
 		}),
 
 		ProfileImage = React.createElement(ImageSetLabel, {
-			Position = UDim2.fromOffset(0, 2),
-			Size = UDim2.fromOffset(36, 36),
+			Size = UDim2.fromOffset(68, 68),
 			Image = SocialLibraries.User.getUserAvatarImage(participant.userId),
 		}, {
 			UICorner = React.createElement("UICorner", {
@@ -120,8 +134,8 @@ local function CallerListItem(props: Props)
 
 		Content = React.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Position = UDim2.fromOffset(48, 0),
-			Size = UDim2.new(1, -48, 0, 0),
+			Position = UDim2.fromOffset(80, 2),
+			Size = UDim2.new(1, -80, 0, 0),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
@@ -130,7 +144,7 @@ local function CallerListItem(props: Props)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			Username = React.createElement("TextLabel", {
+			DisplayName = React.createElement("TextLabel", {
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Size = UDim2.new(1, 0, 0, 0),
 				BackgroundTransparency = 1,
@@ -139,8 +153,24 @@ local function CallerListItem(props: Props)
 				LayoutOrder = 1,
 				LineHeight = 1.25,
 				Text = participant.displayName,
-				TextColor3 = theme.TextDefault.Color,
+				TextColor3 = if status == CallState.Finished then theme.TextEmphasis.Color else theme.Alert.Color,
 				TextSize = font.BaseSize * font.Body.RelativeSize,
+				TextTransparency = theme.TextDefault.Transparency,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+
+			Username = React.createElement("TextLabel", {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.new(1, 0, 0, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Font = font.Body.Font,
+				LayoutOrder = 2,
+				LineHeight = 1.25,
+				Text = "@" .. participant.userName,
+				TextColor3 = theme.TextDefault.Color,
+				TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 				TextTransparency = theme.TextDefault.Transparency,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -151,14 +181,25 @@ local function CallerListItem(props: Props)
 				Size = UDim2.new(1, 0, 0, 0),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				LayoutOrder = 2,
+				LayoutOrder = 3,
 			}, {
 				UIPadding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 2),
+					PaddingTop = UDim.new(0, 8),
 				}),
 
 				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, 6),
+				}),
+
+				CallContextImage = React.createElement(ImageSetLabel, {
+					AnchorPoint = Vector2.new(0.5, 0),
+					Size = UDim2.fromOffset(18, 18),
+					Position = UDim2.fromOffset(0, 5),
+					BackgroundTransparency = 1,
+					ImageColor3 = theme.TextDefault.Color,
+					ImageTransparency = theme.TextDefault.Transparency,
+					Image = getCallContextImage(caller, localUserId),
 				}),
 
 				DetailsText = React.createElement("TextLabel", {
@@ -167,31 +208,30 @@ local function CallerListItem(props: Props)
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
 					LineHeight = 1.16667,
-					Text = getTextFromCallState(status) .. " • Now",
-					TextColor3 = status == CallState.Missed and theme.Alert.Color or theme.TextDefault.Color,
+					Text = getCallStatusText(caller, localUserId) .. " • " .. dateString,
+					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
-					TextTransparency = status == CallState.Missed and theme.Alert.Transparency
-						or theme.TextDefault.Transparency,
+					TextTransparency = theme.TextDefault.Transparency,
 					TextTruncate = Enum.TextTruncate.AtEnd,
-				}),
+				}, { UIPadding = React.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, 2),
+				}) }),
 			}),
 		}),
 
 		CallDetailsButton = React.createElement(IconButton, {
-			size = UDim2.fromOffset(16, 16),
-			iconSize = IconSize.Small,
-			position = UDim2.new(1, -40, 0, 12),
-			iconColor3 = theme.SystemPrimaryDefault.Color,
-			iconTransparency = theme.SystemPrimaryDefault.Transparency,
-			icon = Images["icons/actions/info"],
-			onActivated = function()
-				props.OpenCallDetails()
-			end,
+			size = UDim2.fromOffset(28, 28),
+			iconSize = IconSize.Large,
+			position = UDim2.new(1, -60, 0, 8),
+			iconColor3 = theme.ContextualPrimaryDefault.Color,
+			iconTransparency = theme.ContextualPrimaryDefault.Transparency,
+			icon = Images["icons/actions/accept"],
+			onActivated = onActivated,
 		}),
 
 		Divider = props.showDivider and React.createElement("Frame", {
-			Position = UDim2.new(0, 48, 1, -1),
-			Size = UDim2.new(1, -48, 0, 1),
+			Position = UDim2.new(0, 0, 1, -1),
+			Size = UDim2.new(1, 0, 0, 1),
 			BackgroundColor3 = theme.Divider.Color,
 			BackgroundTransparency = theme.Divider.Transparency,
 			BorderSizePixel = 0,

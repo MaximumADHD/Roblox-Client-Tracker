@@ -1,6 +1,6 @@
 local DEFAULT_DISTANCE_TO_CAMERA = 6
 
-local function calculateFullScreenAdorneeProps(disToCamera: number?): (Vector3, CFrame)
+local function calculateFullScreenAdorneeProps(disToCamera: number?): (Vector3, CFrame, CFrame)
 	local distanceToCamera = disToCamera or DEFAULT_DISTANCE_TO_CAMERA
 	assert(distanceToCamera == nil or distanceToCamera > 0, "distanceToCamera should be a positive number")
 	local camera = workspace.CurrentCamera :: Camera
@@ -12,7 +12,8 @@ local function calculateFullScreenAdorneeProps(disToCamera: number?): (Vector3, 
 	local center = camera.CFrame.Position + distanceToCamera * camera.CFrame.LookVector
 	local centerCFrame = CFrame.lookAt(center, camera.CFrame.Position)
 
-	return fullscreenDims, centerCFrame
+	-- page dimention, page cframe, screen center cframe
+	return fullscreenDims, centerCFrame, centerCFrame
 end
 
 local function calculateTopBarAdorneeProps(heightRatio: number, disToCamera: number?): (Vector3, CFrame)
@@ -28,7 +29,7 @@ local function calculateTopBarAdorneeProps(heightRatio: number, disToCamera: num
 	return dims, centerCFrame * offset
 end
 
-local function calculatePageContentAdorneeProps(heightRatio: number, disToCamera: number?): (Vector3, CFrame)
+local function calculatePageContentAdorneeProps(heightRatio: number, disToCamera: number?): (Vector3, CFrame, CFrame)
 	local distanceToCamera = disToCamera or DEFAULT_DISTANCE_TO_CAMERA
 	assert(distanceToCamera > 0, "distanceToCamera should be a positive number")
 	assert(heightRatio > 0 and heightRatio < 1, "heightRatio should be between 0 and 1")
@@ -37,7 +38,8 @@ local function calculatePageContentAdorneeProps(heightRatio: number, disToCamera
 	local dims = Vector3.new(fullscreenDims.X, studHeight, fullscreenDims.Z)
 
 	local offset = CFrame.new(0, studHeight / 2 - fullscreenDims.Y / 2, 0)
-	return dims, centerCFrame * offset
+	-- page dimention, page cframe, screen center cframe
+	return dims, centerCFrame * offset, centerCFrame
 end
 
 return {

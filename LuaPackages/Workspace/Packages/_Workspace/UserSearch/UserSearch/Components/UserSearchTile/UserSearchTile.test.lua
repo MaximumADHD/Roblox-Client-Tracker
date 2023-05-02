@@ -14,8 +14,6 @@ local runWhileMounted = SocialTestHelpers.runWhileMounted
 local findImageSet = SocialTestHelpers.findImageSet
 local mockedUsersInfo = require(UserSearch.TestHelpers.mockedUsersInfo)
 
-local GetFFlagUserSearchNewContextExperimentEnabled =
-	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
 local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
 
 local UserSearchTileStories = require(UserSearch.Stories.UserSearchTileStories)
@@ -129,10 +127,8 @@ describe("UserSearchTile", function()
 		runForAnyUserStory("outgoingFriendship", false)
 		runForAnyUserStory("random", false)
 		runForAnyUserStory("notFriend", false)
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			runForAnyUserStory("mutualFriends", "1 Feature.Friends.Label.SingularMutualFriend")
-			runForAnyUserStory("frequents", "Feature.Friends.Label.Frequent")
-		end
+		runForAnyUserStory("mutualFriends", "1 Feature.Friends.Label.SingularMutualFriend")
+		runForAnyUserStory("frequents", "Feature.Friends.Label.Frequent")
 	end)
 
 	describe("Button", function()
@@ -191,9 +187,7 @@ describe("UserSearchTile", function()
 		runForAnyUserStory("random", addFriendButtonIcon, "requestFriendship")
 		runForAnyUserStory("notFriend", addFriendButtonIcon, "requestFriendship")
 
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			runForAnyUserStory("mutualFriends", addFriendButtonIcon, "requestFriendship")
-			runForAnyUserStory("frequents", addFriendButtonIcon, "requestFriendship")
-		end
+		runForAnyUserStory("mutualFriends", addFriendButtonIcon, "requestFriendship")
+		runForAnyUserStory("frequents", addFriendButtonIcon, "requestFriendship")
 	end)
 end)

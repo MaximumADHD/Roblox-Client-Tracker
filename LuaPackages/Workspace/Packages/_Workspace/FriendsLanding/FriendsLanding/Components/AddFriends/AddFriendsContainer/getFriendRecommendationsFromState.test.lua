@@ -9,9 +9,10 @@ local it = JestGlobals.it
 
 local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
 local RODUX_KEY = require(FriendsLanding.Common.Constants).RODUX_KEY
-local RECS_SOURCE = require(FriendsLanding.Common.Constants).ADD_FRIENDS_PAGE_RECS_SOURCE
 local getBaseTestStates = require(FriendsLanding.TestHelpers.getBaseTestStates)
 local addFriendRecommendationsToState = require(FriendsLanding.TestHelpers.addFriendRecommendationsToState)
 
@@ -76,7 +77,7 @@ describe("getFriendRecommendationsFromState", function()
 	it("SHOULD return only recommendations with ids in addUniversalFriends source", function()
 		local state = baseTestStates.friendsAndRecommendations
 		state[RODUX_KEY].Friends.recommendations.bySource = {
-			[RECS_SOURCE] = { recom1 = true, recom4 = true },
+			[RecommendationSourceEnum.AddFriendsPage] = { recom1 = true, recom4 = true },
 		}
 		local localUserId = state.LocalUserId
 

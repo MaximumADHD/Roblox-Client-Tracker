@@ -6,6 +6,7 @@ local JestGlobals = devDependencies.JestGlobals
 local jestExpect = devDependencies.jestExpect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
+local afterEach = JestGlobals.afterEach
 
 local jest = devDependencies.jest
 local UnitTestHelpers = devDependencies.UnitTestHelpers
@@ -23,6 +24,7 @@ local RecommendationContextType = dependencies.RoduxFriends.Enums.Recommendation
 local Analytics = require(PYMKCarousel.Analytics)
 local EventNames = Analytics.EventNames
 local Constants = require(PYMKCarousel.Common.Constants)
+local getFFlagPYMKDisableButtonsOnFetch = require(PYMKCarousel.Flags.getFFlagPYMKDisableButtonsOnFetch)
 
 local PYMKCarouselUserTile = require(script.Parent.PYMKCarouselUserTile)
 
@@ -172,6 +174,11 @@ describe("PYMKCarouselUserTile should render correct UI", function()
 end)
 
 describe("When interacting with PYMKCarouselUserTile", function()
+	afterEach(function()
+		NetworkingFriends.RequestFriendshipFromUserId.Mock.clear()
+		NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
+	end)
+
 	it("SHOULD open Profile Peek View WHEN when User Tile is clicked", function()
 		local openProfilePeekViewSpy = jest.fn()
 		local component = createTreeWithProviders(PYMKCarouselUserTile, {
@@ -532,4 +539,56 @@ describe("When interacting with PYMKCarouselUserTile", function()
 			NetworkingFriends.RequestFriendshipFromUserId.Mock.clear()
 		end)
 	end)
+
+	if getFFlagPYMKDisableButtonsOnFetch() then
+		it("SHOULD not be able to request friendship if fetch is in progress", function()
+			local RequestFriendshipFromUserIdSpy = jest.fn()
+			NetworkingFriends.RequestFriendshipFromUserId.Mock.reply(function()
+				RequestFriendshipFromUserIdSpy()
+				return {}
+			end)
+			mockedRecommendationsState.PYMKCarousel.NetworkStatus = {
+				["https://friends.roblox.com//v1/users/" .. recommendationIds.mutualContextSingle .. "/request-friendship"] = "Fetching",
+			}
+			local component = createTreeWithProviders(PYMKCarouselUserTile, {
+				store = mockStore(mockedRecommendationsState),
+				props = llama.Dictionary.join(DEFAULT_PROPS, {
+					userId = recommendationIds.mutualContextSingle,
+				}),
+			})
+			runWhileMounted(component, function(parent)
+				jestExpect(#parent:GetChildren()).toEqual(1)
+				local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
+				RhodiumHelpers.clickInstance(Button)
+				jestExpect(RequestFriendshipFromUserIdSpy).never.toHaveBeenCalled()
+				NetworkingFriends.RequestFriendshipFromUserId.Mock.clear()
+				mockedRecommendationsState.PYMKCarousel.NetworkStatus = {}
+			end)
+		end)
+
+		it("SHOULD not be able to accept friendship if fetch is in progress", function()
+			local AcceptFriendRequestFromUserIdSpy = jest.fn()
+			NetworkingFriends.AcceptFriendRequestFromUserId.Mock.reply(function()
+				AcceptFriendRequestFromUserIdSpy()
+				return {}
+			end)
+			mockedRecommendationsState.PYMKCarousel.NetworkStatus = {
+				["https://friends.roblox.com//v1/users/" .. recommendationIds.incomingFriendRequest .. "/accept-friend-request"] = "Fetching",
+			}
+			local component = createTreeWithProviders(PYMKCarouselUserTile, {
+				store = mockStore(mockedRecommendationsState),
+				props = llama.Dictionary.join(DEFAULT_PROPS, {
+					userId = recommendationIds.incomingFriendRequest,
+				}),
+			})
+			runWhileMounted(component, function(parent)
+				jestExpect(#parent:GetChildren()).toEqual(1)
+				local Button = RhodiumHelpers.findFirstInstance(parent, findImageSet("icons/actions/friends/friendAdd"))
+				RhodiumHelpers.clickInstance(Button)
+				jestExpect(AcceptFriendRequestFromUserIdSpy).never.toHaveBeenCalled()
+				NetworkingFriends.AcceptFriendRequestFromUserId.Mock.clear()
+				mockedRecommendationsState.PYMKCarousel.NetworkStatus = {}
+			end)
+		end)
+	end
 end)

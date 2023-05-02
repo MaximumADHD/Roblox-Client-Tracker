@@ -1,5 +1,5 @@
 -- CharacterEmulation.lua
--- Emulate the behavior of R6 characters in an R15 character with proxy parts
+-- Emulate the behavior of R6 characters in an R15 character with adapter parts
 
 local PhysicsService = game:GetService("PhysicsService")
 
@@ -7,7 +7,7 @@ local AESTHETIC_PARTS = "AESTHETIC_PARTS"
 
 local Character = script.Parent
 
-local ProxyInstance = require(Character:WaitForChild("ProxyInstance"))
+local AdaptInstance = require(Character:WaitForChild("AdaptInstance"))
 
 local AestheticPartsGroupExists = false
 for _, group in PhysicsService:GetRegisteredCollisionGroups() do
@@ -37,7 +37,7 @@ local AestheticParts = {
 	RightHand = true,
 }
 
-local ProxyMapping = {
+local AdapterMapping = {
 	LeftUpperLeg = "Left Leg",
 	LeftLowerLeg = "Left Leg",
 	LeftFoot = "Left Leg",
@@ -159,10 +159,10 @@ local function setUpAestheticPart(part)
 	end
 end
 
-local function setProxyPart(proxiedPart)
-	local proxyName = ProxyMapping[proxiedPart.Name]
-	local proxy = Character:WaitForChild(proxyName)
-	ProxyInstance(proxiedPart, proxy)
+local function setAdapterPart(proxiedPart)
+	local adapterName = AdapterMapping[proxiedPart.Name]
+	local adapter = Character:WaitForChild(adapterName)
+	AdaptInstance(proxiedPart, adapter)
 end
 
 local function onHumanoidDied()
@@ -194,8 +194,8 @@ local function setUpDescendant(descendant)
 		setUpAestheticPart(descendant)
 	end
 
-	if descendant:IsA("BasePart") and ProxyMapping[descendant.Name] then
-		setProxyPart(descendant)
+	if descendant:IsA("BasePart") and AdapterMapping[descendant.Name] then
+		setAdapterPart(descendant)
 	end
 
 	if descendant:IsA("BasePart") and descendant.Name == "Head" then
@@ -207,10 +207,10 @@ local function setUpDescendant(descendant)
 	end
 
 	if descendant:IsA("Motor6D") and descendant.Parent.Name == "Head" and descendant.Name == "Neck" then
-		local proxy = descendant:Clone()
-		proxy.Enabled = false
-		proxy.Parent = Character:WaitForChild("Torso")
-		ProxyInstance(descendant, proxy)
+		local adapter = descendant:Clone()
+		adapter.Enabled = false
+		adapter.Parent = Character:WaitForChild("Torso")
+		AdaptInstance(descendant, adapter)
 	end
 end
 

@@ -11,11 +11,15 @@ local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 
 local NetworkingFriends = dependencies.NetworkingFriends
+local RoduxNetworking = dependencies.RoduxNetworking
+local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 
 local SocialLibraries = dependencies.SocialLibraries
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 local Analytics = require(PYMKCarousel.Analytics)
 local EventNames = Analytics.EventNames
+
+local getFFlagPYMKDisableButtonsOnFetch = require(PYMKCarousel.Flags.getFFlagPYMKDisableButtonsOnFetch)
 
 type Props = {
 	userId: string,
@@ -23,6 +27,15 @@ type Props = {
 	fireAnalyticsEvent: (name: any, args: any?) -> (),
 	absolutePosition: number,
 }
+
+type IsButtonLoading = {
+	RequestFriendshipFromUserId: boolean,
+	AcceptFriendRequestFromUserId: boolean,
+}
+
+local isRequestFetching = function(state: any, fetchEndpoint: any, userId: string): boolean
+	return fetchEndpoint.getStatus(state, userId) == NetworkStatus.Fetching
+end
 
 return function(props: Props)
 	return function()
@@ -51,6 +64,23 @@ return function(props: Props)
 			) or false
 		end)
 
+		local isButtonLoading: IsButtonLoading? = if getFFlagPYMKDisableButtonsOnFetch()
+			then useSelector(function(state)
+				return {
+					RequestFriendshipFromUserId = isRequestFetching(
+						state,
+						NetworkingFriends.RequestFriendshipFromUserId,
+						userId
+					),
+					AcceptFriendRequestFromUserId = isRequestFetching(
+						state,
+						NetworkingFriends.AcceptFriendRequestFromUserId,
+						userId
+					),
+				}
+			end)
+			else nil
+
 		return React.useMemo(function()
 			if friendshipStatus == Enum.FriendStatus.FriendRequestSent then
 				return {
@@ -65,7 +95,9 @@ return function(props: Props)
 					{
 						icon = Images["icons/actions/friends/friendAdd"],
 						isSecondary = false,
-						isDisabled = false,
+						isDisabled = if getFFlagPYMKDisableButtonsOnFetch()
+							then if isButtonLoading then isButtonLoading.AcceptFriendRequestFromUserId else false
+							else false,
 						onActivated = function()
 							props.fireAnalyticsEvent(EventNames.AcceptFriendship, {
 								recommendationContextType = recommendation.contextType,
@@ -91,7 +123,9 @@ return function(props: Props)
 					{
 						icon = Images["icons/actions/friends/friendAdd"],
 						isSecondary = false,
-						isDisabled = false,
+						isDisabled = if getFFlagPYMKDisableButtonsOnFetch()
+							then if isButtonLoading then isButtonLoading.RequestFriendshipFromUserId else false
+							else false,
 						onActivated = function()
 							props.fireAnalyticsEvent(EventNames.RequestFriendship, {
 								recommendationContextType = recommendation.contextType,

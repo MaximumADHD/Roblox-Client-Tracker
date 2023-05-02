@@ -10,6 +10,7 @@ local testProps: SurfaceGuiWithAdornee.Props = {
 	canvasSize = Vector2.new(1920, 1080),
 	adorneeSize = Vector3.one,
 	adorneeCFrame = CFrame.new(0, 0, 0),
+	adorneeAnchored = true,
 	alwaysOnTop = true,
 	isVisible = true,
 	name = "TestSurfaceGuiWithAdornee",

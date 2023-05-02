@@ -1,4 +1,6 @@
-local Packages = script:FindFirstAncestor("TenFootUiShell").Parent
+local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
+local Packages = TenFootUiShell.Parent
+local TestUtils = TenFootUiShell.TestUtils
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
@@ -7,6 +9,7 @@ local expect = JestGlobals.expect
 
 local TenFootUiSwitchView = require(script.Parent.TenFootUiSwitchView)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
 
 type ScreenKind = TenFootUiCommon.ScreenKind
 type RouteState = TenFootUiCommon.RouteState
@@ -32,7 +35,10 @@ it("should mount and pass required props and context", function()
 		state = testState,
 		dispatch = function() end,
 		getParam = function(...)
-			return nil
+			return
+		end,
+		addListener = function(_e, _fn)
+			return { remove = function() end }
 		end,
 	}
 
@@ -64,7 +70,7 @@ it("should mount and pass required props and context", function()
 		},
 	}
 
-	local element = React.createElement(TenFootUiSwitchView, {
+	local element = React.createElement(createTenFootUiShellTestHarness(TenFootUiSwitchView), {
 		screenProps = testScreenProps,
 		navigation = testNavigation,
 		navigationConfig = testNavigatorConfig,
@@ -79,7 +85,5 @@ it("should mount and pass required props and context", function()
 	expect(testComponentNavigationFromProp).toEqual(testNavigation)
 	expect(testComponentScreenProps).toEqual(expect.objectContaining(testScreenProps))
 
-	ReactRoblox.act(function()
-		root:unmount()
-	end)
+	root:unmount()
 end)

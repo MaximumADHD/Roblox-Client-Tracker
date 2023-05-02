@@ -13,9 +13,6 @@ local LocalTypes = require(UserSearch.Common.LocalTypes)
 local GraphQLServerModule = require(Packages.GraphQLServer)
 type ProfileInsights = GraphQLServerModule.ProfileInsights
 
-local GetFFlagUserSearchNewContextExperimentEnabled =
-	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
-
 export type Props = {
 	user: LocalTypes.SearchUser,
 	index: number,
@@ -36,49 +33,36 @@ local SearchUserTile = function(props: Props)
 	local user = props.user
 	local style = useStyle()
 
-	local contextualInfo = if GetFFlagUserSearchNewContextExperimentEnabled()
-		then nil
-		else useContextualInfo({
-			userId = user.id,
-			previousUsernames = user.previousUsernames,
-			searchKeyword = props.searchParameters.searchKeyword,
-		})
-
-	local contextualInfoDisplay, contextualInfoType
-	if GetFFlagUserSearchNewContextExperimentEnabled() then
-		contextualInfoDisplay, contextualInfoType = useContextualInfo({
-			userId = user.id,
-			previousUsernames = user.previousUsernames,
-			searchKeyword = props.searchParameters.searchKeyword,
-			profileInsight = props.profileInsight,
-		})
-	end
+	local contextualInfoDisplay, contextualInfoType = useContextualInfo({
+		userId = user.id,
+		previousUsernames = user.previousUsernames,
+		searchKeyword = props.searchParameters.searchKeyword,
+		profileInsight = props.profileInsight,
+	})
 
 	local onActivated = function()
 		props.luaAppNavigation.navigateToUserInfo({
 			userId = user.id,
 			index = props.index,
 			hasEmphasis = props.hasEmphasis,
-			contextualInfoType = if GetFFlagUserSearchNewContextExperimentEnabled() then contextualInfoType else nil,
-			contextualInfoDisplay = if GetFFlagUserSearchNewContextExperimentEnabled()
-				then contextualInfoDisplay
-				else nil,
+			contextualInfoType = contextualInfoType,
+			contextualInfoDisplay = contextualInfoDisplay,
 		})
 	end
 
 	local searchTileButtons = useSearchTileButtons({
 		userId = user.id,
 		index = props.index,
-		contextualInfoType = if GetFFlagUserSearchNewContextExperimentEnabled() then contextualInfoType else nil,
+		contextualInfoType = contextualInfoType,
 	}, props.luaAppNetworkingRequests)
 
-	local relevancyInfo = if GetFFlagUserSearchNewContextExperimentEnabled()
-		then contextualInfoDisplay and {
-			text = contextualInfoDisplay.text,
-			fontStyle = style.Font.CaptionBody,
-			icon = contextualInfoDisplay.icon,
-		} or nil
-		else nil
+	local relevancyInfo = contextualInfoDisplay
+			and {
+				text = contextualInfoDisplay.text,
+				fontStyle = style.Font.CaptionBody,
+				icon = contextualInfoDisplay.icon,
+			}
+		or nil
 
 	return React.createElement(PlayerTile, {
 		tileSize = props.size,
@@ -90,12 +74,7 @@ local SearchUserTile = function(props: Props)
 		onActivated = onActivated,
 		buttons = searchTileButtons,
 
-		relevancyInfo = if GetFFlagUserSearchNewContextExperimentEnabled()
-			then relevancyInfo
-			else contextualInfo and {
-				text = contextualInfo.text,
-				fontStyle = style.Font.CaptionBody,
-			} or nil,
+		relevancyInfo = relevancyInfo,
 	})
 end
 

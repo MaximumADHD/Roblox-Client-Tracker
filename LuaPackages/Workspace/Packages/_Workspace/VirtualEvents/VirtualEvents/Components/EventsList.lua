@@ -15,8 +15,6 @@ local getFStringEventsOnExperienceDetailsPageLayer =
 	require(VirtualEvents.Parent.SharedFlags).getFStringEventsOnExperienceDetailsPageLayer
 local getFFlagRemoveVirtualEventsExperiment =
 	require(VirtualEvents.Parent.SharedFlags).getFFlagRemoveVirtualEventsExperiment
-local getFFlagFixEventsListGettingSquished =
-	require(VirtualEvents.Parent.SharedFlags).getFFlagFixEventsListGettingSquished
 
 type VirtualEvent = GraphQLServer.VirtualEvent
 
@@ -161,10 +159,8 @@ local function EventsList(providedProps: Props)
 			-- Remove this wrapper when cleaning up the experiment
 			Wrapper = if virtualEventsMVPEnabled
 				then React.createElement("Frame", {
-					Size = if getFFlagFixEventsListGettingSquished() then UDim2.fromScale(1, 0) else nil,
-					AutomaticSize = if getFFlagFixEventsListGettingSquished()
-						then Enum.AutomaticSize.Y
-						else Enum.AutomaticSize.XY,
+					Size = UDim2.fromScale(1, 0),
+					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
 				}, {
 					Layout = React.createElement("UIListLayout", {

@@ -36,41 +36,44 @@ describe("GlobalNavOptionGroup", function()
 		-- Note that the child count is items + 1 here because there is also a Layout component within
 		expect(#optionsChildren).toBe(#items + 1)
 	end)
-
-	it.each({
-		{ idx = 1 },
-		{ idx = 2 },
-		{ idx = 3 },
-	})("should display the appropriate label when an option is selected", function(args)
-		local idx = args.idx
-		local items = {
-			{
-				onActivated = function() end,
-				icon = "rbxassetid://icon1",
-				label = "option 1",
-			},
-			{
-				onActivated = function() end,
-				icon = "rbxassetid://icon2",
-				label = "option 2",
-			},
-			{
-				onActivated = function() end,
-				icon = "rbxassetid://icon3",
-				label = "option 3",
-			},
+	for _, args in
+		{
+			{ idx = 1 },
+			{ idx = 2 },
+			{ idx = 3 },
 		}
-		local renderResult = render(mockStyle(React.createElement(GlobalNavOptionGroup, { items = items })))
-		local targetText = items[idx].label
+	do
+		it("should display the appropriate label when an option is selected", function()
+			local idx = args.idx
+			local items = {
+				{
+					onActivated = function() end,
+					icon = "rbxassetid://icon1",
+					label = "option 1",
+				},
+				{
+					onActivated = function() end,
+					icon = "rbxassetid://icon2",
+					label = "option 2",
+				},
+				{
+					onActivated = function() end,
+					icon = "rbxassetid://icon3",
+					label = "option 3",
+				},
+			}
+			local renderResult = render(mockStyle(React.createElement(GlobalNavOptionGroup, { items = items })))
+			local targetText = items[idx].label
 
-		local selectionTargetName = targetText .. "-" .. idx
-		local selectionTarget = (renderResult.container :: GuiObject):FindFirstChild(
-			selectionTargetName,
-			true
-		) :: GuiObject
-		GuiService.SelectedCoreObject = selectionTarget
+			local selectionTargetName = targetText .. "-" .. idx
+			local selectionTarget = (renderResult.container :: GuiObject):FindFirstChild(
+				selectionTargetName,
+				true
+			) :: GuiObject
+			GuiService.SelectedCoreObject = selectionTarget
 
-		local element = renderResult.getByText(targetText)
-		expect(element).toBeDefined()
-	end)
+			local element = renderResult.getByText(targetText)
+			expect(element).toBeDefined()
+		end)
+	end
 end)

@@ -17,11 +17,14 @@ return function()
 	local AssetNameTextBox = require(script.Parent.AssetNameTextBox)
 
 	it("should create and destroy without errors", function()
+		local ref = Roact.createRef()
+
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			AssetNameTextBox = Roact.createElement(AssetNameTextBox, {
 				onAssetNameUpdated = function() end,
+				nameTextBoxRef = ref,
 			}),
 		})
 
@@ -31,6 +34,7 @@ return function()
 
 	it("should call onAssetNameUpdated when the user enters text", function()
 		local textChangedWasCalled = false
+		local ref = Roact.createRef()
 
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
@@ -39,6 +43,7 @@ return function()
 				onAssetNameUpdated = function(newText, isNameInvalid)
 					textChangedWasCalled = true
 				end,
+				nameTextBoxRef = ref,
 			}),
 		})
 
@@ -61,6 +66,7 @@ return function()
 		local isNameInvalid = false
 		local test50Chars = "Lorem ipsum dolor sit amet consectetur adipisci ve"
 		local test51Chars = "Lorem ipsum dolor sit amet consectetur adipisci vel"
+		local ref = Roact.createRef()
 
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
@@ -71,6 +77,7 @@ return function()
 					isNameInvalid = invalid
 					textChangedWasCalled = true
 				end,
+				nameTextBoxRef = ref,
 			}),
 		})
 

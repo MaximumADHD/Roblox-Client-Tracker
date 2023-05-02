@@ -46,7 +46,7 @@ local getFFlagPassEntrypointFromAddFriendsPage = require(FriendsLanding.Flags.ge
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 local getFFlagAddFriendsMoreButtonFixed = require(FriendsLanding.Flags.getFFlagAddFriendsMoreButtonFixed)
 
 local AddFriendsContentFrame = require(script.Parent.AddFriendsContentFrame)
@@ -68,7 +68,7 @@ local noOpt = function() end
 AddFriendsPage.validateProps = t.strictInterface({
 	sourceType = t.valueOf(FriendsSourceType),
 	friendRecommendations = t.table,
-	friendRecommendationsCount = if getFFlagAddFriendsRecommendationsEnabled() then t.integer else nil,
+	friendRecommendationsCount = if getFFlagAddFriendsPYMKExperimentEnabled() then t.integer else nil,
 	friendRequests = t.table,
 	friendRequestsCount = t.integer,
 	screenSize = t.Vector2,
@@ -88,6 +88,7 @@ AddFriendsPage.validateProps = t.strictInterface({
 	contactImporterAndPYMKEnabled = t.optional(t.boolean),
 	contactImporterExperimentVariant = t.optional(t.string),
 	navigation = t.optional(t.table),
+	navigateToLuaAppPages = t.optional(t.table),
 	localUserId = t.optional(t.string),
 	shouldShowContactImporterFeature = t.optional(t.boolean),
 	shouldShowContactImporterUpsellModal = t.optional(t.boolean),
@@ -110,6 +111,9 @@ AddFriendsPage.validateProps = t.strictInterface({
 	openProfilePeekView = t.optional(t.callback),
 	fireSearchbarPressedEvent = t.optional(t.callback),
 	canUploadContacts = t.optional(t.boolean),
+	shouldShowPYMKSection = if getFFlagAddFriendsPYMKExperimentEnabled() then t.boolean else nil,
+	isProfile3DAvatarExperimentEnabled = t.optional(t.boolean),
+	isLocalUserSoothsayer = t.optional(t.boolean),
 })
 
 AddFriendsPage.defaultProps = {
@@ -142,10 +146,10 @@ function AddFriendsPage:init()
 			layoutOrder = index,
 			user = user,
 			size = Vector2.new(itemWidth, itemHeight),
-			isFriendRequest = if getFFlagAddFriendsRecommendationsEnabled()
+			isFriendRequest = if getFFlagAddFriendsPYMKExperimentEnabled()
 				then if user.isRecommendation then false else true
 				else true,
-			isRecommendation = if getFFlagAddFriendsRecommendationsEnabled() then user.isRecommendation else nil,
+			isRecommendation = if getFFlagAddFriendsPYMKExperimentEnabled() then user.isRecommendation else nil,
 			sourceType = self.props.sourceType,
 			amIFollowingUser = self.props.amIFollowingUser(user),
 			isUserFollowingMe = self.props.isUserFollowingMe(user),
@@ -339,11 +343,17 @@ function AddFriendsPage:render()
 				and self.props.showNewAddFriendsPageVariant
 			then "Feature.AddFriends.Label.ShareQRCode"
 			else nil,
-		peopleYouMayKnow = if getFFlagAddFriendsRecommendationsEnabled() then TextKeys.PEOPLE_YOU_MAY_KNOW else nil,
+		peopleYouMayKnow = if getFFlagAddFriendsPYMKExperimentEnabled() then TextKeys.PEOPLE_YOU_MAY_KNOW else nil,
 	})(function(localized)
 		return withStyle(function(style)
 			local hasRequests = self.props.friendRequestsCount > 0
 			local requestsCountText = hasRequests and " (" .. self.props.friendRequestsCount .. ")" or ""
+			local shouldShowRequestsSection = true
+			if getFFlagAddFriendsPYMKExperimentEnabled() and self.props.shouldShowPYMKSection then
+				if (not hasRequests) and (self.props.friendRecommendationsCount > 0) then
+					shouldShowRequestsSection = false
+				end
+			end
 
 			local banner = nil
 			local contactImporterBanner = nil
@@ -448,7 +458,7 @@ function AddFriendsPage:render()
 								LayoutOrder = 1,
 								BackgroundTransparency = 1,
 							}),
-							requestSection = Roact.createElement(ShowMoreWrapper, {
+							requestSection = shouldShowRequestsSection and Roact.createElement(ShowMoreWrapper, {
 								listComponent = AddFriendsContentFrame,
 								visibleRows = self.props.visibleRows,
 								handleShowMore = self.props.handleLoadMoreRequests,
@@ -478,13 +488,14 @@ function AddFriendsPage:render()
 								showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
 									then self.props.showNewAddFriendsPageVariant
 									else nil,
-								spacingIfEmpty = if getFFlagAddFriendsRecommendationsEnabled()
+								spacingIfEmpty = if getFFlagAddFriendsPYMKExperimentEnabled()
 										and self.props.friendRecommendationsCount > 0
 									then 0
 									else nil,
 							}),
 							recommendationSection = (
-								getFFlagAddFriendsRecommendationsEnabled()
+								getFFlagAddFriendsPYMKExperimentEnabled()
+								and self.props.shouldShowPYMKSection
 								and self.props.friendRecommendationsCount > 0
 							)
 								and Roact.createElement(ShowMoreWrapper, {
@@ -497,9 +508,6 @@ function AddFriendsPage:render()
 										PLAYER_TILE_MARGIN
 									).itemWidth,
 									friends = self.props.friendRecommendations,
-									-- TODO SOCGRAPH-820: pagination logic
-									-- overrideRenderShowMore = self.props.friendRequestsCount and self.shouldRenderShowMoreFriendRequests or nil,
-									-- handleShowMore = self.props.loadMoreRecommendations,
 									headerFrame = {
 										title = localized.peopleYouMayKnow,
 										iconVisible = false,

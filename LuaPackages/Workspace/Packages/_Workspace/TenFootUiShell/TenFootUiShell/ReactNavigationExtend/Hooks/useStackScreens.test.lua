@@ -3,6 +3,7 @@ local Packages = TenFootUiShell.Parent
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
+local jest = JestGlobals.jest
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 local beforeEach = JestGlobals.beforeEach
@@ -16,11 +17,17 @@ type NavigationState = TenFootUiCommon.NavigationState
 type NavigationObject = TenFootUiCommon.NavigationObject
 type ScreenKind = TenFootUiCommon.ScreenKind
 
-local function createMockNavigationState(index: number, key: string, routes: { RouteState }): NavigationState
+local function createMockNavigationState(
+	index: number,
+	key: string,
+	routes: { RouteState },
+	isTransitioning: boolean?
+): NavigationState
 	return {
 		index = index,
 		key = key,
 		routes = routes,
+		isTransitioning = isTransitioning,
 	}
 end
 
@@ -29,7 +36,10 @@ local function createMockNavigationObject(navigationState: NavigationState): Nav
 		state = navigationState,
 		dispatch = function() end,
 		getParam = function(...)
-			return nil
+			return
+		end,
+		addListener = function(_e, _fn)
+			return { remove = function() end }
 		end,
 	}
 end
@@ -76,7 +86,7 @@ local routeState3: RouteState = {
 	routeName = name3,
 }
 
-local root, cards, element, setNavStateExt
+local root, cards, element, setNavStateExt, completeTransitionSpy
 
 beforeEach(function()
 	local MockComponent = React.Component:extend("MockComponent")
@@ -84,8 +94,8 @@ beforeEach(function()
 		return nil
 	end
 
-	local completeTransition = function(toChildKey: string?) end
 	local initialNavigationState = createMockNavigationState(1, key1, { routeState1 })
+	completeTransitionSpy = jest.fn()
 
 	element = React.createElement(function()
 		local navState, setNavState = React.useState(initialNavigationState)
@@ -106,7 +116,7 @@ beforeEach(function()
 		cards = useStackScreens({
 			navigationState = navState,
 			descriptors = descriptors,
-			completeTransition = completeTransition,
+			completeTransition = completeTransitionSpy,
 		})
 		return
 	end)
@@ -117,56 +127,92 @@ beforeEach(function()
 end)
 
 afterEach(function()
-	ReactRoblox.act(function()
-		root:unmount()
-	end)
+	root:unmount()
 end)
 
 it("should handleInitialState correctly", function()
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
 	})
 end)
 
 it("should handleUpdateState correctly", function()
-	local mockNavigationState = createMockNavigationState(2, key2, {
+	local index = 2
+	local mockNavigationState = createMockNavigationState(index, key2, {
 		routeState1,
 		routeState2,
-	})
+	}, true)
 
 	ReactRoblox.act(function()
 		setNavStateExt(mockNavigationState)
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true }),
-		expect.objectContaining({ key = key2, name = name2, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opening" }),
 	})
 
-	mockNavigationState = createMockNavigationState(3, key3, {
+	ReactRoblox.act(function()
+		cards.setOpened(cards.screens[index])
+	end)
+
+	expect(completeTransitionSpy).toHaveBeenCalledTimes(1)
+	expect(cards.screens).toEqual({
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opened" }),
+	})
+
+	index = 3
+	mockNavigationState = createMockNavigationState(index, key3, {
 		routeState1,
 		routeState2,
 		routeState3,
-	})
+	}, true)
 
 	ReactRoblox.act(function()
 		setNavStateExt(mockNavigationState)
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = false }),
-		expect.objectContaining({ key = key2, name = name2, visible = false }),
-		expect.objectContaining({ key = key3, name = name3, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opening" }),
 	})
 
-	mockNavigationState = createMockNavigationState(1, key1, { routeState1 })
+	ReactRoblox.act(function()
+		cards.setOpened(cards.screens[index])
+	end)
+
+	expect(completeTransitionSpy).toHaveBeenCalledTimes(2)
+	expect(cards.screens).toEqual({
+		expect.objectContaining({ key = key1, name = name1, visible = false, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = false, viewState = "Opened" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opened" }),
+	})
+
+	index = 1
+	mockNavigationState = createMockNavigationState(index, key1, { routeState1 }, true)
 	ReactRoblox.act(function()
 		setNavStateExt(mockNavigationState)
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Closing" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Closing" }),
 	})
+
+	ReactRoblox.act(function()
+		cards.setClosed(cards.screens[3])
+	end)
+
+	expect(#cards.screens).toBe(2)
+
+	ReactRoblox.act(function()
+		cards.setClosed(cards.screens[2])
+	end)
+
+	expect(#cards.screens).toBe(1)
 end)
 
 it("should handle stack actions of init correctly", function()
@@ -181,10 +227,18 @@ it("should handle stack actions of init correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = false }),
-		expect.objectContaining({ key = key2, name = name2, visible = false }),
-		expect.objectContaining({ key = key3, name = name3, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opening" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opening" }),
 	})
+
+	ReactRoblox.act(function()
+		cards.setOpened(cards.screens[2])
+	end)
+
+	ReactRoblox.act(function()
+		cards.setOpened(cards.screens[3])
+	end)
 
 	local newKey = key1 .. "_new"
 	local newRouteState: RouteState = {
@@ -197,7 +251,10 @@ it("should handle stack actions of init correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = newKey, name = name1, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Closing" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Closing" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Closing" }),
+		expect.objectContaining({ key = newKey, name = name1, visible = true, viewState = "Opening" }),
 	})
 end)
 
@@ -213,9 +270,23 @@ it("should handle stack actions of replace correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = false }),
-		expect.objectContaining({ key = key2, name = name2, visible = false }),
-		expect.objectContaining({ key = key3, name = name3, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opening" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opening" }),
+	})
+
+	ReactRoblox.act(function()
+		cards.setOpened(cards.screens[2])
+	end)
+
+	ReactRoblox.act(function()
+		cards.setOpened(cards.screens[3])
+	end)
+
+	expect(cards.screens).toEqual({
+		expect.objectContaining({ key = key1, name = name1, visible = false, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = false, viewState = "Opened" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opened" }),
 	})
 
 	local newKey = key1 .. "_new"
@@ -233,8 +304,9 @@ it("should handle stack actions of replace correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = false }),
-		expect.objectContaining({ key = key2, name = name2, visible = false }),
-		expect.objectContaining({ key = newKey, name = name1, visible = true }),
+		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opened" }),
+		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Closing" }),
+		expect.objectContaining({ key = newKey, name = name1, visible = true, viewState = "Opening" }),
 	})
 end)

@@ -22,6 +22,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 
 local AssetNameTextBox = require(script.Parent.AssetNameTextBox)
 local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
@@ -104,6 +105,9 @@ function PublishAssetPromptSingleStep:init()
 	self.onAssetDescriptionUpdated = function(newDescription)
 		self.assetDescription = newDescription
 	end
+
+	self.nameTextBoxRef = Roact.createRef()
+	self.descriptionTextBoxRef = Roact.createRef()
 end
 
 function PublishAssetPromptSingleStep:renderMiddle(localized)
@@ -111,10 +115,10 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 		local font = style.Font
 		local theme = style.Theme
 
-		return Roact.createElement("Frame", {
+		return Roact.createElement(RoactGamepad.Focusable.Frame, {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 150),
-
+			defaultChild = self.nameTextBoxRef,
 			[Roact.Ref] = self.middleContentRef,
 		}, {
 			UISizeConstraint = Roact.createElement("UISizeConstraint", {
@@ -154,6 +158,8 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						Size = UDim2.new(1, 0, 0, 30),
 						Position = UDim2.new(0, 0, 0, LABEL_HEIGHT),
 						onAssetNameUpdated = self.onAssetNameUpdated,
+						nameTextBoxRef = self.nameTextBoxRef,
+						NextSelectionDown = self.descriptionTextBoxRef,
 					}),
 
 					DescriptionLabel = Roact.createElement("TextLabel", {
@@ -170,6 +176,8 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						Size = UDim2.new(1, 0, 0, 80),
 						Position = UDim2.new(0, 0, 0, 60 + LABEL_HEIGHT),
 						onAssetDescriptionUpdated = self.onAssetDescriptionUpdated,
+						descriptionTextBoxRef = self.descriptionTextBoxRef,
+						NextSelectionUp = self.nameTextBoxRef,
 					}),
 				}),
 			}),
@@ -215,6 +223,7 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 		end,
 		screenSize = self.props.screenSize,
 		defaultChildRef = self.props.defaultChildRef,
+		isMiddleContentFocusable = true,
 	})
 end
 

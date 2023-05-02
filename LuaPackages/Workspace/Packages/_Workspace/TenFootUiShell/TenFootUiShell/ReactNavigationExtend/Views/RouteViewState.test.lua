@@ -7,6 +7,7 @@ local expect = JestGlobals.expect
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local RouteViewState = require(script.Parent.RouteViewState)
 
+type NavigationObject = TenFootUiCommon.NavigationObject
 type Descriptor = TenFootUiCommon.Descriptor
 type RouteState = TenFootUiCommon.RouteState
 type RouteViewState = RouteViewState.RouteViewState
@@ -28,11 +29,14 @@ function TestComponent:render()
 	return nil
 end
 
-local testNavigation = {
+local testNavigation: NavigationObject = {
 	state = testState,
 	dispatch = function() end,
 	getParam = function(...)
-		return nil
+		return
+	end,
+	addListener = function(_e, _fn)
+		return { remove = function() end }
 	end,
 }
 

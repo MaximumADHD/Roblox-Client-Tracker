@@ -14,18 +14,25 @@ local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Acti
 local UserModel = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
-return function(requestImpl, userId, thumbnailRequest)
+local GetFFlagInviteListRerank = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagInviteListRerank
+
+return function(requestImpl, userId, thumbnailRequest, userSort)
 	return function(store)
 		store:dispatch(FetchUserFriendsStarted(userId))
 
-		return UsersGetFriends(requestImpl, userId):andThen(function(response)
+		return UsersGetFriends(requestImpl, userId, userSort):andThen(function(response)
 			local responseBody = response.responseBody
 
 			local userIds = {}
 			local newUsers = {}
-			for _, userData in pairs(responseBody.data) do
+			for rank, userData in pairs(responseBody.data) do
 				local id = tostring(userData.id)
 				userData.isFriend = true
+
+				if GetFFlagInviteListRerank() then
+					userData.friendRank = rank
+				end
+
 				local newUser = UserModel.fromDataTable(userData)
 
 				table.insert(userIds, id)

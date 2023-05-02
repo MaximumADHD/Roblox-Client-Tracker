@@ -9,7 +9,7 @@ local Dash = dependencies.Dash
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local devDependencies = require(FriendsLanding.devDependencies)
 local RhodiumHelpers = devDependencies.RhodiumHelpers
@@ -36,7 +36,7 @@ local function createInstance(requests, extraProps: any)
 		visibleRows = 2,
 		sourceType = FriendsSourceType.QQ,
 		friendRecommendations = {},
-		friendRecommendationsCount = if getFFlagAddFriendsRecommendationsEnabled() then 0 else nil,
+		friendRecommendationsCount = if getFFlagAddFriendsPYMKExperimentEnabled() then 0 else nil,
 		friendRequests = requests,
 		friendRequestsCount = #requests,
 		screenSize = Vector2.new(360, 780),

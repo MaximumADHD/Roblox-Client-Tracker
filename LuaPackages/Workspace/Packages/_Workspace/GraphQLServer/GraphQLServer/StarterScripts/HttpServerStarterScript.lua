@@ -13,6 +13,9 @@ HttpService.HttpEnabled = true
 
 local fetch = FetchModule.fetch
 
+local UIBlox = require(CorePackages.Packages.UIBlox)
+UIBlox.init(require(CorePackages.Workspace.Packages.RobloxAppUIBloxConfig))
+
 --[[
 	The lua implementation of GraphQL replaces the javascript null value with a singleton table
 	that stringifies to "null". This can cause some issues when using JSONEncode, which encodes

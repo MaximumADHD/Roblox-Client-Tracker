@@ -5,6 +5,7 @@ local ReactRoblox = require(Packages.ReactRoblox)
 export type Props = {
 	adorneeSize: Vector3,
 	adorneeCFrame: CFrame,
+	adorneeAnchored: boolean,
 	canvasSize: Vector2,
 	alwaysOnTop: boolean,
 	isVisible: boolean,
@@ -40,6 +41,7 @@ local function SurfaceGuiWithAdornee(props: Props)
 				CanCollide = false,
 				CanTouch = false,
 				children = props.adorneeChildren,
+				Anchored = props.adorneeAnchored,
 			}),
 		}, props.adorneeParent),
 		SurfaceGuiPortal = ReactRoblox.createPortal({

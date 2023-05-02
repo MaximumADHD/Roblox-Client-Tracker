@@ -11,7 +11,6 @@ local UIBloxEmptyState = UIBlox.App.Indicator.EmptyState
 local Colors = UIBlox.App.Style.Colors
 
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
 
 local AddFriendsEmptyState = Roact.PureComponent:extend("AddFriendsEmptyState")
 
@@ -39,10 +38,6 @@ function AddFriendsEmptyState:render()
 			then TextKeys.ADD_FRIENDS_TOOLTIP_TITLE
 			else nil,
 	})(function(localization)
-		if getFFlagAddFriendsRecommendationsEnabled() then
-			-- TODO SOCGRAPH-822: empty state for 0 requests and >0 recs
-		end
-
 		if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant then
 			return Roact.createElement(UIBloxEmptyState, {
 				-- Need iconColor = White for colored icons to show color correctly

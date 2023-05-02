@@ -12,7 +12,6 @@ function Climbing:OnStepped(stateMachine, dt)
 	local humanoid = stateMachine.context.humanoid
 
 	local moveDir = stateMachine.context.MoveDirection
-	-- print(moveDir)
 
 	if moveDir.Magnitude < 0.1 then		
 		stateMachine.context.controllerManager.MovingDirection = Vector3.zero

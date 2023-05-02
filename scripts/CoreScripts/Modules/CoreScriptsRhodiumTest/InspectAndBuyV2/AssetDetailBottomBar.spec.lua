@@ -11,8 +11,6 @@ return function()
 	local AssetDetailBottomBar = require(Modules.InGameMenuV3.Components.InspectAndBuyPage.AssetDetailBottomBar)
 
 	local FFlagInspectAndBuyV2IXPEnabledForAll = require(Modules.InGameMenuV3.Flags.FFlagInspectAndBuyV2IXPEnabledForAll)
-	local UIBloxConfig = require(Modules.UIBloxInGameConfig)
-
 
 	local wrappedComponent = withInGameMenuV3Providers(AssetDetailBottomBar)
 
@@ -37,16 +35,7 @@ return function()
 		}
 	end
 
-	local buttonContentPath
-	if UIBloxConfig.enableActionBarLayoutFix then
-		buttonContentPath = "ActionBar.Button3.Icon.ButtonContent"
-	else
-		buttonContentPath = "ActionBar.3.1.ButtonContent"
-	end
-
-	if UIBloxConfig.genericButtonInputChanges then
-		buttonContentPath = buttonContentPath .. ".ButtonMiddleContent"
-	end
+	local buttonContentPath = "ActionBar.Button3.Icon.ButtonContent.ButtonMiddleContent"
 
 	if FFlagInspectAndBuyV2IXPEnabledForAll then
 		describe("AssetDetailBottomBar", function()
@@ -65,15 +54,15 @@ return function()
 					local baseWidget = Element.new(path)
 					expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
 
-					local moreButtonPath = path:cat(XPath.new(UIBloxConfig.enableActionBarLayoutFix and "ActionBar.Button1.Icon" or "ActionBar.1.1.imageLabel"))
+					local moreButtonPath = path:cat(XPath.new("ActionBar.Button1.Icon"))
 					local moreButton = Element.new(moreButtonPath)
 					expect(moreButton:waitForRbxInstance(1)).to.be.ok()
 
-					local tryOnButtonPath = path:cat(XPath.new(UIBloxConfig.enableActionBarLayoutFix and "ActionBar.Button2.Icon" or "ActionBar.2.1.imageLabel"))
+					local tryOnButtonPath = path:cat(XPath.new("ActionBar.Button2.Icon"))
 					local tryOnButton = Element.new(tryOnButtonPath)
 					expect(tryOnButton:waitForRbxInstance(1)).to.be.ok()
 
-					local actionButtonPath = path:cat(XPath.new(UIBloxConfig.enableActionBarLayoutFix and "ActionBar.Button3.Icon" or "ActionBar.3.1.imageLabel"))
+					local actionButtonPath = path:cat(XPath.new("ActionBar.Button3.Icon"))
 					local actionButton = Element.new(actionButtonPath)
 					expect(actionButton:waitForRbxInstance(1)).to.be.ok()
 				end,

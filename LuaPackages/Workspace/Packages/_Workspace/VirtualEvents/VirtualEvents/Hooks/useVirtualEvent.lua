@@ -14,6 +14,8 @@ local NetworkingVirtualEvents = network.NetworkingVirtualEvents
 local logger = require(VirtualEvents.logger)
 local requests = require(VirtualEvents.requests)
 local getFFlagVirtualEventsGraphQL = require(VirtualEvents.Parent.SharedFlags).getFFlagVirtualEventsGraphQL
+local getFFlagFixFlakyTestsInVirtualEvents =
+	require(VirtualEvents.Parent.SharedFlags).getFFlagFixFlakyTestsInVirtualEvents
 
 local useQuery = ApolloClient.useQuery
 
@@ -25,9 +27,11 @@ local function useVirtualEvent(virtualEventId: string): (types.VirtualEvent, str
 			},
 		})
 
-		local fetchingStatus = React.useMemo(function()
-			return getRetrievalStatusFromApolloQuery(result)
-		end, { result })
+		local fetchingStatus = if getFFlagFixFlakyTestsInVirtualEvents()
+			then getRetrievalStatusFromApolloQuery(result)
+			else React.useMemo(function()
+				return getRetrievalStatusFromApolloQuery(result)
+			end, { result })
 
 		local virtualEvent = if result.data then result.data.virtualEvent else nil
 

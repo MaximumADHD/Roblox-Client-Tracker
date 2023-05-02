@@ -3,7 +3,6 @@ local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local AddFriends = FriendsLanding.AddFriends
 local dependencies = require(AddFriends.dependencies)
 local llama = dependencies.llama
-local Constants = require(FriendsLanding.Common.Constants)
 local RoduxFriends = dependencies.RoduxFriends
 local RoduxAnalytics = dependencies.RoduxAnalytics
 local FriendsNetworking = dependencies.FriendsNetworking
@@ -13,10 +12,11 @@ local NetworkingAccountInformation = dependencies.NetworkingAccountInformation
 local NetworkingUserSettings = dependencies.NetworkingUserSettings
 local ContactImporterWarningSeen = require(FriendsLanding.installReducer.Actions.ContactImporterWarningSeen)
 local RECOMMENDATION_SESSION_ID_KEY = require(FriendsLanding.Common.Constants).RECOMMENDATION_SESSION_ID_KEY
-local ADD_FRIENDS_PAGE_RECS_SOURCE = require(FriendsLanding.Common.Constants).ADD_FRIENDS_PAGE_RECS_SOURCE
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
 local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getFFlagShowContactImporterTooltipOnce)
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 -- Extract the userId and sourceUniverseId set for current batch of friend requests
 local getIdsForCurrentRequestBatch = function(friendRequestData)
@@ -86,17 +86,17 @@ return function(dispatch)
 			end)
 		end,
 		getFriendRecommendations = function(args)
-			if getFFlagAddFriendsRecommendationsEnabled() then
+			if getFFlagAddFriendsPYMKExperimentEnabled() then
 				return dispatch(FriendsNetworking.GetFriendRecommendationsFromUserId.API({
 					targetUserId = args.localUserId,
-					source = ADD_FRIENDS_PAGE_RECS_SOURCE,
+					source = RecommendationSourceEnum.AddFriendsPage,
 				})):andThen(function(response)
 					local recommendations = response.responseBody.data
 					local recommendationIds = llama.List.map(recommendations, function(recommendation)
 						return recommendation.id
 					end)
 					dispatch(RoduxFriends.Actions.RecommendationSourceCreated({
-						source = Constants.ADD_FRIENDS_PAGE_RECS_SOURCE,
+						source = RecommendationSourceEnum.AddFriendsPage,
 						recommendationIds = recommendationIds,
 					}))
 					local recommendationSessionId = response.responseBody.recommendationRequestId

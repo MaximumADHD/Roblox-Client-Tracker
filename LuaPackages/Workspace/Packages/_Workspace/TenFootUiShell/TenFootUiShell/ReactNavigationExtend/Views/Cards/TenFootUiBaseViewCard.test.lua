@@ -1,15 +1,15 @@
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
+local TestUtils = TenFootUiShell.TestUtils
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
-local LuauPolyfill = require(Packages.LuauPolyfill)
-local Object = LuauPolyfill.Object
 local mocks = require(Packages.Dev.TenFootUiTesting).TestHelpers.mocks
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 local TenFootUiBaseViewCard = require(script.Parent.TenFootUiBaseViewCard)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
 
 type ScreenKind = TenFootUiCommon.ScreenKind
 type RouteState = TenFootUiCommon.RouteState
@@ -32,25 +32,11 @@ local testState = {
 local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, "Default")
 
 it("should render with props correctly", function()
-	local adorneeExt
-	local surfaceGuiExt
-	local function wrappedElement(props: any)
-		local adornee, setAdornee = React.useState(nil)
-		local surfaceGui, setSurfaceGui = React.useState(nil)
+	local testAdorneeParent = Instance.new("Folder") :: Instance
+	local testSurfaceGuiParent = Instance.new("Folder") :: Instance
 
-		adorneeExt = adornee
-		surfaceGuiExt = surfaceGui
-
-		local newProps: Props = Object.assign({}, table.clone(props), {
-			setAdornee = setAdornee,
-			setSurfaceGui = setSurfaceGui,
-		})
-
-		return React.createElement(TenFootUiBaseViewCard, newProps)
-	end
-
-	local testAdorneeParent = Instance.new("Folder")
-	local testSurfaceGuiParent = Instance.new("Folder")
+	local adorneeExt = nil
+	local surfaceGuiExt = nil
 
 	local testIsVisible = false
 	local testProps = {
@@ -58,13 +44,18 @@ it("should render with props correctly", function()
 		descriptor = testDescriptor,
 		adorneeParent = testAdorneeParent,
 		surfaceGuiParent = testSurfaceGuiParent,
+		adorneeAnchored = true,
+		setAdornee = function(adornee)
+			adorneeExt = adornee
+		end,
+		setSurfaceGui = function(surfaceGui)
+			surfaceGuiExt = surfaceGui
+		end,
 	}
-
-	local element = React.createElement(wrappedElement, testProps)
 
 	local root = ReactRoblox.createRoot(Instance.new("Folder"))
 	ReactRoblox.act(function()
-		root:render(element)
+		root:render(React.createElement(createTenFootUiShellTestHarness(TenFootUiBaseViewCard), testProps))
 	end)
 
 	expect(testAdorneeParent:FindFirstChildOfClass("Part")).toEqual(adorneeExt)
@@ -81,9 +72,8 @@ it("should render with props correctly", function()
 	}))
 
 	testProps.isVisible = not testIsVisible
-	element = React.createElement(wrappedElement, testProps)
 	ReactRoblox.act(function()
-		root:render(element)
+		root:render(React.createElement(createTenFootUiShellTestHarness(TenFootUiBaseViewCard), testProps))
 	end)
 
 	expect(testAdorneeParent:FindFirstChildOfClass("Part")).toEqual(adorneeExt)

@@ -7,6 +7,7 @@
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 --[[ The Module ]]--
 local SafetyBubble = {}
@@ -15,9 +16,9 @@ SafetyBubble.__index = SafetyBubble
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local Util = require(RobloxGui.Modules.Settings.Utility)
 local MAX_SAFETY_DIST = require(RobloxGui.Modules.Flags.FIntSafetyBubbleRadius) -- this is using a 2d distance
 local MAX_TRANSPARENCY = require(RobloxGui.Modules.Flags.FIntSafetyBubbleTransparencyPercent) * 0.01 -- how transparent do we get
-local AFFECT_FRIENDS = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleAffectsFriends) -- are friends excluded ?
 local GetFFlagReportBottomBarEventInVR = require(RobloxGui.Modules.Flags.GetFFlagReportBottomBarEventInVR)
 
 local UPDATE_CADENCE = 0.2
@@ -27,19 +28,33 @@ function SafetyBubble.new()
 
 	self.subjects = {}
 	
-	self.enabled = true
+	self.mode = UserGameSettings.VRSafetyBubbleMode
+	self.enabled = self.mode ~= Enum.VRSafetyBubbleMode.Anyone
 	self.updateCadence = UPDATE_CADENCE
+
+	self.Toggled = Util:Create("BindableEvent")({
+		Name = "SafetyBubbleToggled",
+	})
+
+	UserGameSettings:GetPropertyChangedSignal("VRSafetyBubbleMode"):Connect(function()
+		self.mode = UserGameSettings.VRSafetyBubbleMode
+		local enabled = self.mode ~= Enum.VRSafetyBubbleMode.Anyone
+		if self.enabled ~= enabled then
+			self.enabled = enabled
+			self.Toggled:Fire()
+
+			if GetFFlagReportBottomBarEventInVR() then
+				local safetyOnOff = enabled and "On" or "Off"
+				AnalyticsService:ReportCounter("VR-SafetyBubble-"..safetyOnOff)
+			end
+		end
+	end)
 
 	return self
 end
 
 function SafetyBubble:ToggleEnabled()
-	self.enabled = not self.enabled
-
-	if GetFFlagReportBottomBarEventInVR() then
-		local safetyOnOff = self.enabled and "On" or "Off"
-		AnalyticsService:ReportCounter("VR-SafetyBubble-"..safetyOnOff)
-	end
+	UserGameSettings.VRSafetyBubbleMode = self.enabled and Enum.VRSafetyBubbleMode.Anyone or Enum.VRSafetyBubbleMode.NoOne
 end
 
 function SafetyBubble:HasToolAncestor(object)
@@ -188,6 +203,14 @@ function SafetyBubble:update(dt)
 	end
 	
 	if not self.enabled then
+		-- clean out all subjects
+		if self.subjects and #self.subjects > 0 then
+			for i = 1, #self.subjects do
+				self:TeardownTransparency(i)
+			end
+			self.subjects = {}
+		end
+		
 		return
 	end
 
@@ -206,14 +229,19 @@ function SafetyBubble:update(dt)
 		-- find closest NEW subject
 		for _, player in pairs(Players:GetPlayers()) do
 			if player.Character and player ~= Players.LocalPlayer then
-				if self:SubjectExists(player.Character) then
-					continue
+				if self.mode == Enum.VRSafetyBubbleMode.OnlyFriends and
+					Players.LocalPlayer:IsFriendsWith(player.UserId) then
+					-- Clear hidden friends if existed
+					local subIndex = self:GetSubjectIndex(player.Character)
+					if subIndex > 0 then
+						self:TeardownTransparency(subIndex)
+						table.remove(self.subjects, subIndex)
+					end
+					continue -- skip friends
 				end
 
-				if not AFFECT_FRIENDS then
-					if Players.LocalPlayer:IsFriendsWith(player.UserId) then
-						continue -- skip friends
-					end
+				if self:SubjectExists(player.Character) then
+					continue
 				end
 
 				if player.Character then

@@ -1,5 +1,8 @@
 --!nonstrict
 local Players = game:GetService("Players")
+local CorePackages = game:GetService("CorePackages")
+
+local GetFFlagInviteListRerank = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagInviteListRerank
 
 local User = {}
 
@@ -65,6 +68,10 @@ function User.fromDataTable(data)
 	self.thumbnails = nil
 	self.lastOnline = nil
 	self.hasVerifiedBadge = data.hasVerifiedBadge
+
+	if GetFFlagInviteListRerank() then
+		self.friendFrequentRank = data.friendFrequentRank
+	end
 
 	return self
 end

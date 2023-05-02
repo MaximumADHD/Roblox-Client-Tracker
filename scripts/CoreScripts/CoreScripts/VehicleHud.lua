@@ -22,8 +22,6 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local FFlagFixVehicleHudMemoryLeak = game:DefineFastFlag("FixVehicleHudMemoryLeak", false)
-
 --[[ Images ]]--
 local VEHICLE_HUD_BG = 'rbxasset://textures/ui/Vehicle/SpeedBarBKG.png'
 local SPEED_BAR_EMPTY = 'rbxasset://textures/ui/Vehicle/SpeedBarEmpty.png'
@@ -139,63 +137,45 @@ local function onSeated(active, currentSeatPart)
 	end
 end
 
-if FFlagFixVehicleHudMemoryLeak then
-	local seatedConnection
-	local childAddedConnection
+local seatedConnection
+local childAddedConnection
 
-	local function disconnectSeatedConnection()
-		if seatedConnection then
-			seatedConnection:Disconnect()
-			seatedConnection = nil
+local function disconnectSeatedConnection()
+	if seatedConnection then
+		seatedConnection:Disconnect()
+		seatedConnection = nil
+	end
+end
+
+local function disconnectChildAddedConnection()
+	if childAddedConnection then
+		childAddedConnection:Disconnect()
+		childAddedConnection = nil
+	end
+end
+
+local function characterAdded(character)
+	disconnectSeatedConnection()
+	disconnectChildAddedConnection()
+
+	local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+	if humanoid then
+		seatedConnection = humanoid.Seated:connect(onSeated)
+		return
+	end
+
+	childAddedConnection = character.ChildAdded:Connect(function(child)
+		if child:IsA("Humanoid") then
+			disconnectSeatedConnection()
+			disconnectChildAddedConnection()
+			seatedConnection = child.Seated:connect(onSeated)
 		end
-	end
-
-	local function disconnectChildAddedConnection()
-		if childAddedConnection then
-			childAddedConnection:Disconnect()
-			childAddedConnection = nil
-		end
-	end
-
-	local function characterAdded(character)
-		disconnectSeatedConnection()
-		disconnectChildAddedConnection()
-
-		local humanoid = character:FindFirstChildWhichIsA("Humanoid")
-		if humanoid then
-			seatedConnection = humanoid.Seated:connect(onSeated)
-			return
-		end
-
-		childAddedConnection = character.ChildAdded:Connect(function(child)
-			if child:IsA("Humanoid") then
-				disconnectSeatedConnection()
-				disconnectChildAddedConnection()
-				seatedConnection = child.Seated:connect(onSeated)
-			end
-		end)
-	end
-	if LocalPlayer.Character then
-		characterAdded(LocalPlayer.Character)
-	end
-	LocalPlayer.CharacterAdded:connect(function(character)
-		onSeated(false)
-		characterAdded(character)
-	end)
-else
-	local function connectSeated()
-		local humanoid = getHumanoid()
-		while not humanoid do
-			wait()
-			humanoid = getHumanoid()
-		end
-		humanoid.Seated:connect(onSeated)
-	end
-	if LocalPlayer.Character then
-		connectSeated()
-	end
-	LocalPlayer.CharacterAdded:connect(function(character)
-		onSeated(false)
-		connectSeated()
 	end)
 end
+if LocalPlayer.Character then
+	characterAdded(LocalPlayer.Character)
+end
+LocalPlayer.CharacterAdded:connect(function(character)
+	onSeated(false)
+	characterAdded(character)
+end)

@@ -19,8 +19,6 @@ local Images = UIBlox.App.ImageSet.Images
 local SocialCommon = require(Packages.SocialCommon)
 local useMutualFriendsText = SocialCommon.Hooks.useMutualFriendsText
 
-local GetFFlagUserSearchNewContextExperimentEnabled =
-	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
 local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
 local getFFlagMoveMutualFriendsTextToUtils = require(Packages.SharedFlags).getFFlagMoveMutualFriendsTextToUtils
 
@@ -66,15 +64,11 @@ local useContextualInfo = function(args: {
 			then "Feature.PlayerSearchResults.Label.Previously"
 			else nil,
 		thisIsYou = "Feature.PlayerSearchResults.Label.ThisIsYou",
-		frequents = if GetFFlagUserSearchNewContextExperimentEnabled() then "Feature.Friends.Label.Frequent" else nil,
+		frequents = "Feature.Friends.Label.Frequent",
 		mutualFriendSingular = if getFFlagMoveMutualFriendsTextToUtils()
 			then nil
-			elseif GetFFlagUserSearchNewContextExperimentEnabled() then "Feature.Friends.Label.SingularMutualFriend"
-			else nil,
-		mutualFriends = if getFFlagMoveMutualFriendsTextToUtils()
-			then nil
-			elseif GetFFlagUserSearchNewContextExperimentEnabled() then "Feature.Friends.Label.MutualFriends"
-			else nil,
+			else "Feature.Friends.Label.SingularMutualFriend",
+		mutualFriends = if getFFlagMoveMutualFriendsTextToUtils() then nil else "Feature.Friends.Label.MutualFriends",
 	})
 
 	local mutualFriendsCount, mutualFriendsText
@@ -85,85 +79,56 @@ local useContextualInfo = function(args: {
 	end
 
 	if relationship.isMyself then
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			return { text = localized.thisIsYou }, ContextualInfoTypes.IsMyself.rawValue()
-		else
-			return { text = localized.thisIsYou }
-		end
+		return { text = localized.thisIsYou }, ContextualInfoTypes.IsMyself.rawValue()
 	end
 
 	if isKnownAs(args.previousUsernames, args.searchKeyword) then
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			if getFFlagUserSearchContextualInfoUpdateUI() then
-				return { text = localized.previously .. " @" .. args.searchKeyword },
-					ContextualInfoTypes.PreviousUsername.rawValue()
-			else
-				return { text = localized.alsoKnownAs .. " " .. args.searchKeyword },
-					ContextualInfoTypes.PreviousUsername.rawValue()
-			end
+		if getFFlagUserSearchContextualInfoUpdateUI() then
+			return { text = localized.previously .. " @" .. args.searchKeyword },
+				ContextualInfoTypes.PreviousUsername.rawValue()
 		else
-			if getFFlagUserSearchContextualInfoUpdateUI() then
-				return { text = localized.previously .. " @" .. args.searchKeyword }
-			else
-				return { text = localized.alsoKnownAs .. " " .. args.searchKeyword }
-			end
+			return { text = localized.alsoKnownAs .. " " .. args.searchKeyword },
+				ContextualInfoTypes.PreviousUsername.rawValue()
 		end
 	end
 
 	if relationship.status == Enum.FriendStatus.Friend then
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			return { text = localized.youAreFriends, icon = ICON_FRIEND }, ContextualInfoTypes.Friend.rawValue()
-		elseif getFFlagUserSearchContextualInfoUpdateUI() then
-			return { text = localized.youAreFriends, icon = ICON_FRIEND }
-		else
-			return { text = localized.youAreFriends }
-		end
+		return { text = localized.youAreFriends, icon = ICON_FRIEND }, ContextualInfoTypes.Friend.rawValue()
 	end
 
 	if relationship.following == true then
-		if GetFFlagUserSearchNewContextExperimentEnabled() then
-			return { text = localized.youAreFollowing, icon = ICON_FOLLOWING }, ContextualInfoTypes.Following.rawValue()
-		else
-			return { text = localized.youAreFollowing }
-		end
+		return { text = localized.youAreFollowing, icon = ICON_FOLLOWING }, ContextualInfoTypes.Following.rawValue()
 	end
 
-	if GetFFlagUserSearchNewContextExperimentEnabled() then
-		if getFFlagMoveMutualFriendsTextToUtils() then
-			if args.profileInsight then
-				if mutualFriendsCount > 0 then
-					return { text = mutualFriendsText, icon = ICON_FRIEND },
-						ContextualInfoTypes.MutualFriends.rawValue()
-				elseif args.profileInsight.isOfflineFrequents then
-					return { text = localized.frequents }, ContextualInfoTypes.Frequents.rawValue()
-				end
-			end
-		else
-			local getMutualFriendsText = function(mutualFriends, localized): string
-				local mutualFriendsCount = #mutualFriends
-				local text = if mutualFriendsCount > 1
-					then tostring(mutualFriendsCount) .. " " .. string.lower(localized.mutualFriends)
-					else tostring(mutualFriendsCount) .. " " .. localized.mutualFriendSingular
-
-				return text
-			end
-
-			if args.profileInsight then
-				if args.profileInsight.mutualFriends and #args.profileInsight.mutualFriends > 0 then
-					local text = getMutualFriendsText(args.profileInsight.mutualFriends, localized)
-					return { text = text, icon = ICON_FRIEND }, ContextualInfoTypes.MutualFriends.rawValue()
-				elseif args.profileInsight.isOfflineFrequents then
-					return { text = localized.frequents }, ContextualInfoTypes.Frequents.rawValue()
-				end
+	if getFFlagMoveMutualFriendsTextToUtils() then
+		if args.profileInsight then
+			if mutualFriendsCount > 0 then
+				return { text = mutualFriendsText, icon = ICON_FRIEND }, ContextualInfoTypes.MutualFriends.rawValue()
+			elseif args.profileInsight.isOfflineFrequents then
+				return { text = localized.frequents }, ContextualInfoTypes.Frequents.rawValue()
 			end
 		end
-	end
-
-	if GetFFlagUserSearchNewContextExperimentEnabled() then
-		return nil, nil
 	else
-		return nil
+		local getMutualFriendsText = function(mutualFriends, localized): string
+			local mutualFriendsCount = #mutualFriends
+			local text = if mutualFriendsCount > 1
+				then tostring(mutualFriendsCount) .. " " .. string.lower(localized.mutualFriends)
+				else tostring(mutualFriendsCount) .. " " .. localized.mutualFriendSingular
+
+			return text
+		end
+
+		if args.profileInsight then
+			if args.profileInsight.mutualFriends and #args.profileInsight.mutualFriends > 0 then
+				local text = getMutualFriendsText(args.profileInsight.mutualFriends, localized)
+				return { text = text, icon = ICON_FRIEND }, ContextualInfoTypes.MutualFriends.rawValue()
+			elseif args.profileInsight.isOfflineFrequents then
+				return { text = localized.frequents }, ContextualInfoTypes.Frequents.rawValue()
+			end
+		end
 	end
+
+	return nil, nil
 end
 
 return useContextualInfo

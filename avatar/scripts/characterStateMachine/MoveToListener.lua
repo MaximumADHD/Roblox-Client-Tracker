@@ -18,7 +18,7 @@ function MoveToListener:calcDesiredDirection()
 	local moveToDirection = Vector3.zero
 	-- If walkToTarget is set then calculate world position based on walkToPoint (objectspace).
 	if self.humanoid.WalkToPart then
-		local position = self.humanoid.WalkToPart.CFrame:pointToWorldSpace(humanoid.WalkToPoint)
+		local position = self.humanoid.WalkToPart.CFrame:pointToWorldSpace(self.humanoid.WalkToPoint)
 		moveToDirection = (position - self:getHumanoidPosition()).Unit
 	else
 		moveToDirection = (self.humanoid.WalkToPoint - self:getHumanoidPosition()).Unit

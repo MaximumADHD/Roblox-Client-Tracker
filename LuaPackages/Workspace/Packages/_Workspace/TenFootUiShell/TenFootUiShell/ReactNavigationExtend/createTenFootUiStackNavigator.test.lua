@@ -1,8 +1,12 @@
-local Packages = script:FindFirstAncestor("TenFootUiShell").Parent
+local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
+local Packages = TenFootUiShell.Parent
+local TestUtils = TenFootUiShell.TestUtils
 local React = require(Packages.React)
 local RoactNavigation = require(Packages.RoactNavigation)
 local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
+local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
+
 local it = JestGlobals.it
 local describe = JestGlobals.describe
 local expect = JestGlobals.expect
@@ -18,7 +22,7 @@ describe("createTenFootUiStackNavigator", function()
 			{
 				Foo = {
 					screen = function()
-						return React.createElement("Folder", nil, {})
+						return React.createElement("Folder")
 					end,
 					navigationOptions = {
 						screenKind = "Default",
@@ -28,7 +32,7 @@ describe("createTenFootUiStackNavigator", function()
 			{
 				Bar = {
 					screen = function()
-						return React.createElement("Folder", nil, {})
+						return React.createElement("Folder")
 					end,
 					navigationOptions = {
 						screenKind = "Overlay",
@@ -36,7 +40,7 @@ describe("createTenFootUiStackNavigator", function()
 				},
 			},
 		}, {
-			initialRouteName = "Foo",
+			initialRouteKey = "Foo",
 			surfaceGuiContainer = instanceContainer,
 			worldContainer = instanceContainer,
 		})
@@ -45,13 +49,13 @@ describe("createTenFootUiStackNavigator", function()
 		expect(appContainer.router).toEqual(expect.any("table"))
 		expect(appContainer.router.childRouters).toEqual(expect.any("table"))
 		expect(appContainer.router.childRouters["Foo"]).toBeFalsy()
+		local TenFootUiTestHarness = createTenFootUiShellTestHarness(appContainer)
 
 		local root = ReactRoblox.createRoot(rootContainer)
 
 		ReactRoblox.act(function()
-			root:render(React.createElement(appContainer))
+			root:render(React.createElement(TenFootUiTestHarness))
 		end)
-
 		root:unmount()
 	end)
 end)

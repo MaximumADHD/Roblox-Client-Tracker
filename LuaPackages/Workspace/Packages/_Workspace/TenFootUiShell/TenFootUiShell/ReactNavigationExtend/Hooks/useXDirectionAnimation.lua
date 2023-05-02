@@ -36,7 +36,7 @@ type ViewState = {
 }
 
 export type Config = {
-	isVisible: boolean,
+	isActiveKey: boolean,
 	index: number,
 	screenKind: ScreenKind,
 	setScreenPropsState: (any) -> (),
@@ -51,21 +51,26 @@ export type XDirectionAnimationConfig = {
 }
 
 local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
-	local isVisible = config.isVisible
+	local isActiveKey = config.isActiveKey
 	local index = config.index
 	local screenKind: ScreenKind = config.screenKind
 	local setScreenPropsState = config.setScreenPropsState
 	local adornee = config.adornee
 	local surfaceGui = config.surfaceGui
 
-	local prevVisible, setPrevVisible = React.useState(false)
-	local prevIndex, setPrevIndex = React.useState(1)
+	local prevActiveKey: boolean, setPrevActiveKey = React.useState(false)
+	local prevIndex: number, setPrevIndex = React.useState(1)
+	local backgroundX: number, setBackgroundX = React.useState(0)
 
 	local viewState: ViewState, setViewState = React.useState({
 		animationState = SwitchViewState.Closed :: SwitchViewState,
 	})
 
 	local groupTransparencyChangedSignal: Signal = React.useMemo(function()
+		return Signal.new()
+	end, {})
+
+	local closedSignal: Signal = React.useMemo(function()
 		return Signal.new()
 	end, {})
 
@@ -77,10 +82,20 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 				next.surfaceGuiParent = surfaceGui
 				next.isVisible = viewState.animationState ~= SwitchViewState.Closed
 				next.groupTransparencyChangedSignal = groupTransparencyChangedSignal
+				next.closedSignal = closedSignal
 				return next
 			end)
 		end
-	end, { adornee, surfaceGui, viewState, groupTransparencyChangedSignal } :: { any })
+	end, { adornee, surfaceGui, viewState, groupTransparencyChangedSignal, closedSignal } :: { any })
+
+	local resetBackgroundX = React.useCallback(function()
+		local backgroundInstance = TenFootUiScene.getBackgroundInstance()
+		if backgroundInstance then
+			setBackgroundX((backgroundInstance :: PVInstance):GetPivot().Position.X)
+		else
+			warn("BackgroundInstance not exist.")
+		end
+	end, {})
 
 	React.useEffect(function()
 		-- Don't animate if there is no adornne
@@ -88,7 +103,7 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 			return
 		end
 
-		if isVisible == prevVisible then
+		if isActiveKey == prevActiveKey then
 			setPrevIndex(index)
 			return
 		end
@@ -100,20 +115,21 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 			movingDirection = XDirection.ToRight
 		end
 
-		if not movingDirection and isVisible then
+		if not movingDirection and isActiveKey then
 			setViewState({
 				animationState = SwitchViewState.Opened,
 			})
 		elseif
-			isVisible and viewState.animationState == SwitchViewState.Closed
+			isActiveKey and viewState.animationState == SwitchViewState.Closed
 			or viewState.animationState == SwitchViewState.Closing
 		then
+			resetBackgroundX()
 			setViewState({
 				animationState = SwitchViewState.Opening,
 				movingDirection = movingDirection,
 			})
 		elseif
-			not isVisible and viewState.animationState == SwitchViewState.Opened
+			not isActiveKey and viewState.animationState == SwitchViewState.Opened
 			or viewState.animationState == SwitchViewState.Opening
 		then
 			setViewState({
@@ -122,9 +138,9 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 			})
 		end
 
-		setPrevVisible(isVisible)
+		setPrevActiveKey(isActiveKey)
 		setPrevIndex(index)
-	end, { adornee, viewState, isVisible, prevVisible, index, prevIndex } :: { any })
+	end, { adornee, viewState, isActiveKey, prevActiveKey, index, prevIndex } :: { any })
 
 	local onAnimationComplete = React.useCallback(function(value)
 		if value == 1 and viewState.animationState == SwitchViewState.Opening then
@@ -135,8 +151,9 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 			setViewState({
 				animationState = SwitchViewState.Closed,
 			})
+			closedSignal:fire()
 		end
-	end, { viewState.animationState })
+	end, { viewState.animationState, closedSignal } :: { any })
 
 	local stepValue, updateStepValue = React.useBinding(0)
 
@@ -145,35 +162,33 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 			return
 		end
 
-		local offsetVector
 		if viewState.movingDirection == XDirection.ToLeft then
-			offsetVector = Vector3.new((1 - value), 0, 0)
+			TenFootUiScene.updateXPosition(backgroundX + value)
 		else
-			offsetVector = Vector3.new((value - 1), 0, 0)
+			TenFootUiScene.updateXPosition(backgroundX - value)
 		end
-		TenFootUiScene.updateBackgroundScenePosition(offsetVector)
-	end, { viewState })
+	end, { viewState, backgroundX } :: { any })
 
 	local onStep = React.useCallback(function(value)
 		updateStepValue(value)
 		updateBackgroundScenePosition(value)
-	end)
+	end, { updateStepValue, updateBackgroundScenePosition } :: { any })
 
 	local setGoal: (Goal) -> () = ReactOtter.useMotor(0, onStep, onAnimationComplete)
 
 	React.useEffect(function()
 		local goal: Goal
 		if viewState.animationState == SwitchViewState.Opening then
-			goal = ReactOtter.spring(1, Constants.XDirectioAnimationSpringConfig)
+			goal = ReactOtter.spring(1, Constants.X_DIRECTION_ANIMATION_SPRING_CONFIG)
 		elseif viewState.animationState == SwitchViewState.Closing then
-			goal = ReactOtter.spring(0, Constants.XDirectioAnimationSpringConfig)
+			goal = ReactOtter.spring(0, Constants.X_DIRECTION_ANIMATION_SPRING_CONFIG)
 		elseif viewState.animationState == SwitchViewState.Opened then
 			goal = ReactOtter.instant(1) -- reset motor
 		else -- closed
 			goal = ReactOtter.instant(0) -- reset motor
 		end
 		setGoal(goal)
-	end, { viewState })
+	end, { viewState } :: { any })
 
 	local calculateAnimationConfig = React.useCallback(function(screenWidth: number, centerX: number): (number, number)
 		local startX, targetX
@@ -211,7 +226,7 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 	local getDefaultCFrame = React.useCallback(function(): CFrame
 		local _, cframe = getScreenSizeAndCFrame()
 		return cframe
-	end, { screenKind })
+	end, { getScreenSizeAndCFrame })
 
 	local calculateAdorneeCFrame = React.useCallback(function(stepValue: number): CFrame
 		local dims: Vector3, centerCframe: CFrame = getScreenSizeAndCFrame()
@@ -246,12 +261,12 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 		end
 
 		return groupTransparency
-	end, { viewState.animationState })
+	end, { viewState.animationState, groupTransparencyChangedSignal } :: { any })
 
 	local willAnimate = adornee ~= nil and viewState.movingDirection ~= nil
 
 	return {
-		visible = if willAnimate then viewState.animationState ~= SwitchViewState.Closed else isVisible,
+		visible = if willAnimate then viewState.animationState ~= SwitchViewState.Closed else isActiveKey,
 		cframe = if willAnimate then stepValue:map(calculateAdorneeCFrame) else getDefaultCFrame(),
 		groupTransparency = if willAnimate then stepValue:map(getGroupTransparency) else 0,
 	}

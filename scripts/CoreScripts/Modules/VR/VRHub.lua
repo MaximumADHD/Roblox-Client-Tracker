@@ -250,10 +250,6 @@ VRHub.ShowTopBarChanged = Util:Create("BindableEvent")({
 	Name = "ShowTopBarChanged",
 })
 
-VRHub.SafetyBubbleToggled = Util:Create("BindableEvent")({
-	Name = "SafetyBubbleToggled",
-})
-
 function VRHub:SetShowTopBar(showTopBar)
 	if VRHub.ShowTopBar ~= showTopBar then
 		VRHub.ShowTopBar = showTopBar
@@ -264,7 +260,6 @@ end
 function VRHub:ToggleSafetyBubble()
 	if VRHub.SafetyBubble then
 		VRHub.SafetyBubble:ToggleEnabled()
-		VRHub.SafetyBubbleToggled:Fire()
 	end
 end
 

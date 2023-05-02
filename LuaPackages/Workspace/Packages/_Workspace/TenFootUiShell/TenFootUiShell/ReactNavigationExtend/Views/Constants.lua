@@ -8,13 +8,16 @@ local calculateAdorneeProps = SceneManagement.calculateAdorneeProps
 
 type SpringOptions = ReactOtter.SpringOptions
 
-local defaultDistanceToCamera = 6
-local canvasWidth = 1920
-local canvasHeight = 1080
+local DEFAULT_SCREEN_DISTANCE_TO_CAMERA = 6
+local DEFAULT_BACKGROUND_DISTANCE_TO_CAMERA = 60
+local CANVAS_WIDTH = 1920
+local CANVAS_HEIGHT = 1080
 
-local topbarCanvasHeight = 126
-local topbarHeightRatio = topbarCanvasHeight / canvasHeight
-local pageContentCanvasHeight = canvasHeight - topbarCanvasHeight
+local TOP_BAR_CANVAS_HEIGHT = 126
+local topbarHeightRatio = TOP_BAR_CANVAS_HEIGHT / CANVAS_HEIGHT
+local pageContentCanvasHeight = CANVAS_HEIGHT - TOP_BAR_CANVAS_HEIGHT
+
+local Z_DIRECTION_ZOOM_FACTOR = 0.1
 
 local xDirectioAnimationSpringConfig: SpringOptions = {
 	stiffness = 150,
@@ -22,22 +25,33 @@ local xDirectioAnimationSpringConfig: SpringOptions = {
 	mass = 1,
 }
 
+local zDirectioAnimationSpringConfig: SpringOptions = {
+	stiffness = 710,
+	damping = 40,
+	mass = 1,
+}
+
 local function getFullScreenDims()
-	return calculateAdorneeProps.calculateFullScreenAdorneeProps(defaultDistanceToCamera)
+	return calculateAdorneeProps.calculateFullScreenAdorneeProps(DEFAULT_SCREEN_DISTANCE_TO_CAMERA)
 end
 
 local function getPageContentDims()
-	return calculateAdorneeProps.calculatePageContentAdorneeProps(1 - topbarHeightRatio, defaultDistanceToCamera)
+	return calculateAdorneeProps.calculatePageContentAdorneeProps(
+		1 - topbarHeightRatio,
+		DEFAULT_SCREEN_DISTANCE_TO_CAMERA
+	)
 end
 
 return {
-	DefaultDistanceToCamera = defaultDistanceToCamera,
-	CanvasSize = Vector2.new(canvasWidth, canvasHeight),
-	TopbarHeightRatio = topbarHeightRatio,
-	TopbarCanvasSize = Vector2.new(canvasWidth, topbarCanvasHeight),
-	PageContentHeightRatio = 1 - topbarHeightRatio,
-	PageContentCanvasSize = Vector2.new(canvasWidth, pageContentCanvasHeight),
+	DEFAULT_SCREEN_DISTANCE_TO_CAMERA = DEFAULT_SCREEN_DISTANCE_TO_CAMERA,
+	DEFAULT_BACKGROUND_DISTANCE_TO_CAMERA = DEFAULT_BACKGROUND_DISTANCE_TO_CAMERA,
+	TOP_BAR_HEIGHT_RATIO = topbarHeightRatio,
+	TOP_BAR_CANVAS_SIZE = Vector2.new(CANVAS_WIDTH, TOP_BAR_CANVAS_HEIGHT),
+	PAGE_CONTENT_CANVAS_SIZE = Vector2.new(CANVAS_WIDTH, pageContentCanvasHeight),
+	X_DIRECTION_ANIMATION_SPRING_CONFIG = xDirectioAnimationSpringConfig,
+	Z_DIRECTION_ANIMATION_SPRING_CONFIG = zDirectioAnimationSpringConfig,
+	Z_DIRECTION_ZOOM_FACTOR = Z_DIRECTION_ZOOM_FACTOR,
+
 	GetFullScreenDims = memoize(getFullScreenDims),
 	GetPageContentDims = memoize(getPageContentDims),
-	XDirectioAnimationSpringConfig = xDirectioAnimationSpringConfig,
 }

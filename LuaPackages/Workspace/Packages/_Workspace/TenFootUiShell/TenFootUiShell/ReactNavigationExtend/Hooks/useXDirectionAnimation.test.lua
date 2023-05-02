@@ -1,3 +1,4 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Constants = require(TenFootUiShell.Constants)
 local Packages = TenFootUiShell.Parent
@@ -5,12 +6,12 @@ local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local expect = JestGlobals.expect
 local jest = JestGlobals.jest
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local TenFootUiScene = require(TenFootUiShell.Hooks.TenFootUiScene)
 local useXDirectionAnimation = require(script.Parent.useXDirectionAnimation)
 
 type RouteState = TenFootUiCommon.RouteState
@@ -26,7 +27,7 @@ local testCallback, defaultTestConfig: Config, backgroundModel
 beforeEach(function()
 	testCallback = jest.fn()
 	defaultTestConfig = {
-		isVisible = true,
+		isActiveKey = true,
 		index = 1,
 		screenKind = "Default",
 		setScreenPropsState = testCallback,
@@ -36,6 +37,8 @@ beforeEach(function()
 	backgroundModel = Instance.new("Model")
 	backgroundModel.Name = Constants.BACKGROUND_MODEL_NAME
 	backgroundModel.Parent = ReplicatedStorage
+
+	TenFootUiScene.initialize()
 end)
 
 afterEach(function()
@@ -67,7 +70,7 @@ it("should not animate when adornee is nil", function()
 
 	-- update
 	local updatedConfig = table.clone(initialTestConfig)
-	updatedConfig.isVisible = false
+	updatedConfig.isActiveKey = false
 	updatedConfig.index = 1
 
 	ReactRoblox.act(function()
@@ -79,9 +82,7 @@ it("should not animate when adornee is nil", function()
 	expect(ret.groupTransparency).toEqual(0)
 	expect(testCallback).never.toHaveBeenCalled()
 
-	ReactRoblox.act(function()
-		root:unmount()
-	end)
+	root:unmount()
 end)
 
 it("should animate when adornee is not nil", function()
@@ -107,7 +108,7 @@ it("should animate when adornee is not nil", function()
 
 	-- update: close
 	local updatedConfig = table.clone(defaultTestConfig)
-	updatedConfig.isVisible = false
+	updatedConfig.isActiveKey = false
 	updatedConfig.index = 2
 
 	ReactRoblox.act(function()
@@ -119,14 +120,14 @@ it("should animate when adornee is not nil", function()
 	expect(ret.groupTransparency).toEqual(expect.any("table"))
 
 	ReactRoblox.act(function()
-		wait(3) -- wait for the animation to complete
+		wait(1) -- wait for the animation to complete
 	end)
 
 	expect(ret.visible).toBeFalsy() -- should be false after animation complete
 
 	-- update: navigate to other pages
 	updatedConfig = table.clone(defaultTestConfig)
-	updatedConfig.isVisible = false
+	updatedConfig.isActiveKey = false
 	updatedConfig.index = 3
 
 	ReactRoblox.act(function()
@@ -139,7 +140,7 @@ it("should animate when adornee is not nil", function()
 
 	-- update: re-open
 	updatedConfig = table.clone(defaultTestConfig)
-	updatedConfig.isVisible = true
+	updatedConfig.isActiveKey = true
 	updatedConfig.index = 1
 
 	ReactRoblox.act(function()
@@ -152,15 +153,13 @@ it("should animate when adornee is not nil", function()
 
 	wait(1)
 
-	ReactRoblox.act(function()
-		root:unmount()
-	end)
+	root:unmount()
 end)
 
 it("should animate correctly for non default page", function()
 	local initialTestConfig = table.clone(defaultTestConfig)
 	initialTestConfig.screenKind = "FullScreen"
-	initialTestConfig.isVisible = false
+	initialTestConfig.isActiveKey = false
 
 	local setConfigExt
 	local ret: XDirectionAnimationConfig
@@ -184,7 +183,7 @@ it("should animate correctly for non default page", function()
 
 	-- update
 	local updatedConfig = table.clone(initialTestConfig)
-	updatedConfig.isVisible = true
+	updatedConfig.isActiveKey = true
 	updatedConfig.index = 2
 
 	ReactRoblox.act(function()
@@ -198,7 +197,5 @@ it("should animate correctly for non default page", function()
 
 	wait(1)
 
-	ReactRoblox.act(function()
-		root:unmount()
-	end)
+	root:unmount()
 end)

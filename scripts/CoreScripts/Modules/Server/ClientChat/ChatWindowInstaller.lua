@@ -13,8 +13,15 @@ if FFlagEnableForkedChatAnalytics then
 	SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
 end
 
+local FFlagChatWindowInstallerCheckClassName = game:DefineFastFlag("ChatWindowInstallerCheckClassName", false)
+
 local function LoadLocalScript(location, name, parent)
 	local originalModule = location:WaitForChild(name)
+	if FFlagChatWindowInstallerCheckClassName then
+		if originalModule.ClassName ~= "ModuleScript" then
+			return originalModule:Clone()
+		end
+	end
 	local script = Instance.new("LocalScript")
 	script.Name = name
 	script.Source = originalModule.Source
@@ -24,6 +31,11 @@ end
 
 local function LoadModule(location, name, parent)
 	local originalModule = location:WaitForChild(name)
+	if FFlagChatWindowInstallerCheckClassName then
+		if originalModule.ClassName ~= "ModuleScript" then
+			return originalModule:Clone()
+		end
+	end
 	local module = Instance.new("ModuleScript")
 	module.Name = name
 	module.Source = originalModule.Source

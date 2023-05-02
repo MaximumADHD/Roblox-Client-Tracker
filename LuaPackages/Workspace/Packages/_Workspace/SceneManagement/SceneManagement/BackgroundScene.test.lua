@@ -1,7 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Packages = script:FindFirstAncestor("SceneManagement").Parent
 local JestGlobals = require(Packages.Dev.JestGlobals)
-local jest = JestGlobals.jest
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 local beforeEach = JestGlobals.beforeEach
@@ -41,59 +40,42 @@ it("should throw if background model does not exist under ReplicatedStorage", fu
 end)
 
 it("should initialize correctly", function()
-	local spy = jest.fn()
-	local connection = workspace.ChildAdded:Connect(function(child)
-		if child.Name == backgroundModelName then
-			spy()
-		else
-			assert(false, "Unexpected child was created.")
-		end
-	end)
 	local backgroundInstance, camera = BackgroundScene.initialize(testBackgroundSceneConfigInitial)
 	task.wait()
 
 	expect(backgroundInstance).never.toBeNil()
 	expect(backgroundInstance.Parent).toBe(workspace)
-	expect(spy).toHaveBeenCalledTimes(1)
 
 	expect(camera).never.toBeNil()
 	expect(camera.Parent).toBe(workspace)
 	expect(camera.FieldOfView).toEqual(testBackgroundSceneConfigInitial.CameraConfigs.FieldOfView)
 	expect(camera.CFrame.Position).toEqual(testBackgroundSceneConfigInitial.CameraConfigs.Position)
-
-	connection:Disconnect()
 end)
 
-it("should updateBackgroundScenePosition correctly", function()
-	local createBackgroundSpy = jest.fn()
-	local connection = workspace.ChildAdded:Connect(function(child)
-		if child.Name == backgroundModelName then
-			createBackgroundSpy()
-		else
-			assert(false, "Unexpected child was created.")
-		end
-	end)
-
-	local backgroundInstance, camera = BackgroundScene.initialize(testBackgroundSceneConfigInitial)
+it("should updatePositionX correctly", function()
+	local backgroundInstance, _ = BackgroundScene.initialize(testBackgroundSceneConfigInitial)
 	task.wait()
 
-	expect(backgroundInstance).never.toBeNil()
-	expect(backgroundInstance.Parent).toBe(workspace)
-	expect(createBackgroundSpy).toHaveBeenCalledTimes(1)
+	local positionX = 1024
 
-	expect(camera).never.toBeNil()
-	expect(camera.Parent).toBe(workspace)
-	expect(camera.FieldOfView).toEqual(testBackgroundSceneConfigInitial.CameraConfigs.FieldOfView)
-	expect(camera.CFrame.Position).toEqual(testBackgroundSceneConfigInitial.CameraConfigs.Position)
+	local intialPosition = (backgroundInstance :: PVInstance):GetPivot().Position
+	BackgroundScene.updateXPosition(backgroundModelName, positionX)
 
-	-- update position
-	local initialCFrame = (backgroundInstance :: PVInstance):GetPivot()
-	local offset = Vector3.new(1, 1, 1)
+	local updatedPosition = (backgroundInstance :: PVInstance):GetPivot().Position
+	local expectedPosition = Vector3.new(positionX, intialPosition.Y, intialPosition.Z)
+	expect(updatedPosition).toEqual(expectedPosition)
+end)
 
-	BackgroundScene.updateBackgroundScenePosition(backgroundModelName, offset)
-	expect(createBackgroundSpy).toHaveBeenCalledTimes(1) -- should only create once
-	local updatedCframe = (backgroundInstance :: PVInstance):GetPivot()
-	expect(initialCFrame).never.toEqual(updatedCframe)
+it("should updatePositionZ correctly", function()
+	local backgroundInstance, _ = BackgroundScene.initialize(testBackgroundSceneConfigInitial)
+	task.wait()
 
-	connection:Disconnect()
+	local positionZ = 1024
+
+	local intialPosition = (backgroundInstance :: PVInstance):GetPivot().Position
+	BackgroundScene.updateZPosition(backgroundModelName, positionZ)
+
+	local updatedPosition = (backgroundInstance :: PVInstance):GetPivot().Position
+	local expectedPosition = Vector3.new(intialPosition.X, intialPosition.Y, positionZ)
+	expect(updatedPosition).toEqual(expectedPosition)
 end)

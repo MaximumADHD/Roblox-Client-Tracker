@@ -22,7 +22,7 @@ local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local AddFriendsTile = Roact.PureComponent:extend("AddFriendsTile")
 
@@ -44,8 +44,8 @@ AddFriendsTile.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	size = t.Vector2,
 	isFriendRequest = t.optional(t.boolean),
-	isRecommendation = if getFFlagAddFriendsRecommendationsEnabled() then t.optional(t.boolean) else nil,
-	hasIncomingFriendRequest = if getFFlagAddFriendsRecommendationsEnabled() then t.boolean else nil,
+	isRecommendation = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.boolean) else nil,
+	hasIncomingFriendRequest = if getFFlagAddFriendsPYMKExperimentEnabled() then t.boolean else nil,
 	sourceType = t.optional(t.valueOf(FriendsSourceType)),
 	handleNavigateDownToViewUserProfile = t.optional(t.callback),
 	handleRequestFriendship = t.optional(t.callback),
@@ -119,12 +119,12 @@ function AddFriendsTile:render()
 			foundThroughQRCode = if getFFlagProfileQRCodeFriendRequestContextInfoEnabled()
 				then TextKeys.PROFILE_QR_CODE_TILE_FOOTER
 				else nil,
-			friendRequests = if getFFlagAddFriendsRecommendationsEnabled() then TextKeys.FRIEND_REQUEST else nil,
-			mutualFriends = if getFFlagAddFriendsRecommendationsEnabled() then TextKeys.MUTUAL_FRIENDS else nil,
-			singularMutualFriend = if getFFlagAddFriendsRecommendationsEnabled()
+			friendRequests = if getFFlagAddFriendsPYMKExperimentEnabled() then TextKeys.FRIEND_REQUEST else nil,
+			mutualFriends = if getFFlagAddFriendsPYMKExperimentEnabled() then TextKeys.MUTUAL_FRIENDS else nil,
+			singularMutualFriend = if getFFlagAddFriendsPYMKExperimentEnabled()
 				then TextKeys.MUTUAL_FRIEND_SINGULAR
 				else nil,
-			frequents = if getFFlagAddFriendsRecommendationsEnabled() then TextKeys.FREQUENTS else nil,
+			frequents = if getFFlagAddFriendsPYMKExperimentEnabled() then TextKeys.FREQUENTS else nil,
 		})(function(localized)
 			local tooltipProps = {
 				headerText = localized.tooltipHeaderText,
@@ -173,18 +173,18 @@ function AddFriendsTile:render()
 							amIFollowingUser = self.props.amIFollowingUser,
 							sentFromExperienceName = self.props.sentFromExperienceName,
 							isFriendRequest = self.props.isFriendRequest,
-							isRecommendation = if getFFlagAddFriendsRecommendationsEnabled()
+							isRecommendation = if getFFlagAddFriendsPYMKExperimentEnabled()
 								then self.props.isRecommendation
 								else nil,
 							friendStatus = self.props.friendStatus,
 							userPresenceType = user.userPresenceType,
 							lastLocation = user.lastLocation,
 							originSourceType = self.props.originSourceType,
-							contextType = if getFFlagAddFriendsRecommendationsEnabled() then user.contextType else nil,
-							mutualFriendsCount = if getFFlagAddFriendsRecommendationsEnabled()
+							contextType = if getFFlagAddFriendsPYMKExperimentEnabled() then user.contextType else nil,
+							mutualFriendsCount = if getFFlagAddFriendsPYMKExperimentEnabled()
 								then user.mutualFriendsCount
 								else nil,
-							hasIncomingFriendRequest = if getFFlagAddFriendsRecommendationsEnabled()
+							hasIncomingFriendRequest = if getFFlagAddFriendsPYMKExperimentEnabled()
 								then self.props.hasIncomingFriendRequest
 								else nil,
 						}, style, localized),

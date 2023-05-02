@@ -2,25 +2,38 @@
 local CharacterStateMachineCommon = {}
 
 local replicatedStorage : ReplicatedStorage = game:GetService("ReplicatedStorage")
-local CSM = replicatedStorage:WaitForChild("CharacterStateMachine")
-local CCSMDef = require(CSM:WaitForChild("CharacterControlStateMachine"))
-local moveToListener = require(CSM:WaitForChild("MoveToListener"))
-local RunService : RunService = game:FindService("RunService")
+local characterStateMachineFolder = replicatedStorage:WaitForChild("CharacterStateMachine")
 local commonTypes = require(replicatedStorage:WaitForChild("CharacterStateMachine"):WaitForChild("CharacterStateMachineTypes"))
+local CCSMDef = require(characterStateMachineFolder:WaitForChild("CharacterControlStateMachine"))
+local moveToListener = require(characterStateMachineFolder:WaitForChild("MoveToListener"))
+local RunService : RunService = game:FindService("RunService")
+
 local debug = false
 
-function CharacterStateMachineCommon.StartStateMachine(character : Model, humanoid : Humanoid, localEvent : BindableEvent, 
+
+--[[
+	Event Types
+		RegisterHumanoidSM (client->server): Client has started a new SM for a new character
+		TransferHumanoidSM (server->client): Server is requesting shutdown of SM owned by client
+		ContextDataHumanoidSM (client->server): Context data for SM previously running on client 
+		StartHumanoidSM (server->client): Server is requesting startup of SM on client
+		ConfirmStartHumanoidSM (client->server): Client confirming start of newly transfered SM
+
+]]
+
+function CharacterStateMachineCommon.StartStateMachine(character : Model, humanoid : Humanoid, ccsmDef : any, localEvent : BindableEvent,
 	runStartUp : boolean): commonTypes.RunningStateMachineRecord? 
 
-	if character == nil or humanoid == nil then
+	if character == nil or humanoid == nil or humanoid.Parent == nil or ccsmDef == nil then
 		return nil
 	end
-
+	
+	
 	local moveToListenerObject = moveToListener.new(humanoid) 
 	local record : commonTypes.RunningStateMachineRecord = {
 		character = character,
 		humanoid = humanoid,
-		CCSM = CCSMDef.new(character),
+		CCSM = ccsmDef.new(character),
 		moveToListenerInstance = moveToListenerObject,
 		heartbeatFunc = nil
 	}
@@ -53,11 +66,16 @@ function CharacterStateMachineCommon.StartStateMachine(character : Model, humano
 	return record
 end
 
-function CharacterStateMachineCommon.ContinueStateMachine(character : Model, humanoid : Humanoid, localEvent : BindableEvent, 
+function CharacterStateMachineCommon.ContinueStateMachine(character : Model, humanoid : Humanoid, ccsmDef : any, localEvent : BindableEvent, 
 	stateName : string?, context : any): commonTypes.RunningStateMachineRecord? 
+	
+	if humanoid == nil or humanoid.Parent == nil or ccsmDef == nil then
+		return
+	end
+	
 	local record : commonTypes.RunningStateMachineRecord? = 
-		CharacterStateMachineCommon.StartStateMachine(character, humanoid, localEvent, false)
-
+		CharacterStateMachineCommon.StartStateMachine(character, humanoid, ccsmDef, localEvent, false)
+	
 	if record == nil then
 		warn("Unable to start state machine for", character)
 		return nil
@@ -92,6 +110,5 @@ function CharacterStateMachineCommon.SetState(character : Model, newState : stri
 		humanoid:SetAttribute(commonTypes.StateAttribute, newState)
 	end
 end
-
 
 return CharacterStateMachineCommon

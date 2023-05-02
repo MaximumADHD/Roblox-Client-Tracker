@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")

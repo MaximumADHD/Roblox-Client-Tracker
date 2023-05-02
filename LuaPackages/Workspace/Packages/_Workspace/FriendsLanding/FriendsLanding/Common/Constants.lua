@@ -4,5 +4,4 @@ return {
 	RODUX_KEY = "FriendsLanding",
 	FriendsLandingPageSourceName = "FriendsLanding",
 	RECOMMENDATION_SESSION_ID_KEY = "addFriendsPageRecommendationsSessionId",
-	ADD_FRIENDS_PAGE_RECS_SOURCE = "addUniversalFriends",
 }

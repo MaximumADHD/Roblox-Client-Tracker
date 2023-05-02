@@ -32,14 +32,8 @@ initify(RobloxGui.Modules)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
 
-local FFlagUseServerLeaderstatsV2 = game:DefineFastFlag("UseServerLeaderstatsV2", false)
-
 -- Leaderstat server child-order tracker
-if FFlagUseServerLeaderstatsV2 then
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstatsV2", script.Parent)
-else
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)
-end
+ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)
 
 -- Default Alternate Death Ragdoll (China only for now)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)

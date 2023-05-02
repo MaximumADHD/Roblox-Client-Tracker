@@ -2,16 +2,17 @@ local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
 local RoduxFriends = dependencies.RoduxFriends
-local Constants = require(FriendsLanding.Common.Constants)
 local RODUX_KEY = require(FriendsLanding.Common.Constants).RODUX_KEY
 local SocialLibraries = dependencies.SocialLibraries
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
 local getFriendRecommendationsFromState = function(state)
 	local localUserId = state.LocalUserId
 
 	local addFriendsPageRecommendationIds =
-		RoduxFriends.Selectors.getRecommendationIdsBySource(state)(Constants.ADD_FRIENDS_PAGE_RECS_SOURCE)
+		RoduxFriends.Selectors.getRecommendationIdsBySource(state)(RecommendationSourceEnum.AddFriendsPage)
 	local sortedRecommendationIds =
 		RoduxFriends.Selectors.getSortedByRankRecommendationIds(state)(localUserId, addFriendsPageRecommendationIds)
 

@@ -6,7 +6,6 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local Object = LuauPolyfill.Object
 local RoactUtils = require(Packages.RoactUtils)
-local dependencyArray = RoactUtils.Hooks.dependencyArray
 local usePrevious = RoactUtils.Hooks.usePrevious
 local useArrayCollection = RoactUtils.Hooks.useArrayCollection
 
@@ -59,7 +58,6 @@ local function handleUpdateState(
 	currentRouteViewStatesValues: { RouteViewState },
 	routes: { RouteState },
 	descriptors: { [string]: Descriptor },
-	completeTransition: (toChildKey: string?) -> (),
 	activeKey: string
 ): { RouteViewState }
 	local nextRouteViewStatesValues: { RouteViewState } = {}
@@ -71,19 +69,14 @@ local function handleUpdateState(
 	end
 	for _, routeViewState in currentRouteViewStatesValues do
 		local nextRouteViewState: RouteViewState? = routeViewState
+		local viewState: ViewState = routeViewState.viewState
 		if currentKeys[routeViewState.key] then
-			if routeViewState.viewState == "Closing" then
+			if viewState == "Closing" then
 				nextRouteViewState = RouteViewState.setOpening(routeViewState)
 			end
 		else
-			-- TODO: enable this when animation is done
-			-- if routeViewState.viewState == "Opening" or routeViewState.viewState == "Opened" then
-			-- 	nextRouteViewState = RouteViewState.setClosing(routeViewState, activeKey)
-			-- end
-			if routeViewState.viewState == "Opening" then
+			if viewState == "Opening" or viewState == "Opened" then
 				nextRouteViewState = RouteViewState.setClosing(routeViewState, activeKey)
-			elseif routeViewState.viewState == "Opened" then
-				nextRouteViewState = nil
 			end
 		end
 		if nextRouteViewState ~= nil then
@@ -99,9 +92,7 @@ local function handleUpdateState(
 			table.insert(nextRouteViewStatesValues, {
 				key = routeKey,
 				name = route.routeName,
-				-- TODO: enable this when animation is done
-				-- viewState = "Opening" :: "Opening",
-				viewState = "Opened" :: "Opened",
+				viewState = "Opening" :: "Opening",
 				descriptor = descriptors[routeKey],
 			})
 		end
@@ -123,24 +114,22 @@ local function useStackScreens(config: useStackScreensConfig): {
 
 	local currentRouteViewStates = useArrayCollection({} :: { RouteViewState })
 
-	React.useEffect(function()
-		local updatedRouteViewStates: { RouteViewState }
-		if previousState == nil then
-			updatedRouteViewStates = handleInitialState(navigationState, descriptors, completeTransition)
-		else
-			if areRoutesEqual(navigationState.routes, previousState.routes) then
-				return
+	React.useEffect(
+		function()
+			local updatedRouteViewStates: { RouteViewState }
+			if previousState == nil then
+				updatedRouteViewStates = handleInitialState(navigationState, descriptors, completeTransition)
+			else
+				if areRoutesEqual(navigationState.routes, previousState.routes) then
+					return
+				end
+				updatedRouteViewStates =
+					handleUpdateState(currentRouteViewStates.values, navigationState.routes, descriptors, activeKey)
 			end
-			updatedRouteViewStates = handleUpdateState(
-				currentRouteViewStates.values,
-				navigationState.routes,
-				descriptors,
-				completeTransition,
-				activeKey
-			)
-		end
-		currentRouteViewStates.set(updatedRouteViewStates)
-	end, dependencyArray(navigationState, previousState, descriptors, currentRouteViewStates, completeTransition)) -- Do we really need these many dependencies???
+			currentRouteViewStates.set(updatedRouteViewStates)
+		end,
+		{ navigationState, previousState, descriptors, currentRouteViewStates, completeTransition, activeKey } :: { any }
+	)
 
 	local cardStack: { ScreenInfo } = {}
 	local isScreenBelowVisible = true
@@ -179,7 +168,17 @@ local function useStackScreens(config: useStackScreensConfig): {
 	end
 
 	local function setClosed(route: ScreenInfo)
-		if route.destinationKey ~= nil then
+		local result = currentRouteViewStates.findFirst(function(otherRoute)
+			return otherRoute.key == route.key
+		end)
+
+		if
+			route.viewState == "Closing"
+			and route.destinationKey ~= nil
+			and result
+			and result.index
+			and currentRouteViewStates.remove(result.value)
+		then
 			if activeKey == route.destinationKey and navigationState.isTransitioning then
 				completeTransition(route.destinationKey)
 			end

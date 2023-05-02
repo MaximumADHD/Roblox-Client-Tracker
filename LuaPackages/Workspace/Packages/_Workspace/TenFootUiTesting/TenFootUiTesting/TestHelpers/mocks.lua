@@ -17,10 +17,12 @@ local Signal = AppCommonLib.Signal
 type GlobalNavConfig = TenFootUiCommon.GlobalNavConfig
 type ScreenKind = TenFootUiCommon.ScreenKind
 type NavigationState = TenFootUiCommon.NavigationState
+type NavigationObject = TenFootUiCommon.NavigationObject
 type RouteState = TenFootUiCommon.RouteState
 type Descriptor = TenFootUiCommon.Descriptor
 type AnimationStyle = TenFootUiCommon.AnimationStyle
 type TenFootUiContext = TenFootUiCommon.TenFootUiContext
+type TenFootUiRouterConfig = TenFootUiCommon.TenFootUiRouterConfig
 
 local mockAppPage = {
 	Startup = "Startup",
@@ -31,8 +33,47 @@ local mockAppPage = {
 	PurchaseRobux = "PurchaseRobux",
 }
 
-local function TestScreen()
-	return React.createElement("Frame")
+local defaultGlobalNavConfig: GlobalNavConfig = {
+	tabs = {
+		{
+			titleLocalizationKey = "CommonUI.Features.Label.Home",
+			page = mockAppPage.Home,
+			icon = "icons/menu/home_on",
+			actionType = nil,
+		},
+		{
+			titleLocalizationKey = "CommonUI.Features.Label.Discover",
+			page = mockAppPage.Games,
+			icon = "icons/menu/games_on",
+			actionType = Enum.AppShellActionType.TapGamePageTab,
+		},
+		{
+			titleLocalizationKey = "CommonUI.Features.Label.Avatar",
+			page = mockAppPage.AvatarExperienceRoot,
+			iconComponent = function()
+				return React.createElement("Frame")
+			end,
+			actionType = Enum.AppShellActionType.TapAvatarTab,
+		},
+	},
+	options = {
+		{
+			titleLocalizationKey = "Feature.Catalog.Label.Search",
+			page = mockAppPage.SearchPage,
+			icon = "icons/common/search",
+			actionType = nil,
+		},
+		{
+			titleLocalizationKey = "Feature.Home.Robux",
+			page = mockAppPage.PurchaseRobux,
+			icon = "icons/common/goldrobux",
+			actionType = nil,
+		},
+	},
+}
+
+local function TestScreen(props)
+	return React.createElement("Frame", {})
 end
 
 local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
@@ -64,6 +105,32 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 				},
 			},
 		},
+	},
+	stackRoutes = {
+		{
+			[mockAppPage.Games] = {
+				navigatorConfig = {
+					initialRouteKey = mockAppPage.Games,
+				},
+				navigationOptions = {
+					screenKind = "Default",
+					animationStyle = "None",
+				},
+				screenStack = {
+					{
+						[mockAppPage.Games] = {
+							screen = TestScreen,
+							navigationOptions = {
+								screenKind = "Default",
+								animationStyle = "None",
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+	commonStackRoutes = {
 		{
 			[mockAppPage.SearchPage] = {
 				screen = TestScreen,
@@ -83,31 +150,10 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 			},
 		},
 	},
-	stackRoutes = {
-		{
-			[mockAppPage.Games] = {
-				navigationOptions = {
-					screenKind = "Default",
-					animationStyle = "None",
-				},
-				screenStack = {
-					{
-						[mockAppPage.Games] = {
-							screen = TestScreen,
-							navigationOptions = {
-								screenKind = "Default",
-								animationStyle = "None",
-							},
-						},
-					},
-				},
-			},
-		},
-	},
 }
 
 local function makeTenFootUiContextMocks(
-	mockGlobalNavConfig: GlobalNavConfig,
+	globalNavConfig: GlobalNavConfig,
 	mockNotificationService: { ActionTaken: any }
 ): TenFootUiContext
 	local mockLuaAppEvents = { ReloadPage = Signal.new(), ReportMutedError = Signal.new() }
@@ -129,7 +175,7 @@ local function makeTenFootUiContextMocks(
 		LuaAppEvents = mockLuaAppEvents,
 		RoactAnalytics = mockRoactAnalyticsTag,
 		buttonClick = jest.fn(),
-		globalNavConfig = mockGlobalNavConfig,
+		globalNavConfig = globalNavConfig,
 		useRoactService = mockUseRoactServices,
 		routerConfig = routerConfig,
 	}
@@ -139,53 +185,14 @@ local function makeMockNotificationService()
 	return { ActionTaken = jest.fn() }
 end
 
-local function makeMockGlobalNavConfig(): GlobalNavConfig
-	return {
-		tabs = {
-			{
-				titleLocalizationKey = "CommonUI.Features.Label.Home",
-				page = mockAppPage.Home,
-				pageComponent = function()
-					return React.createElement("Frame")
-				end,
-				icon = "icons/menu/home_on",
-				actionType = nil,
-			},
-			{
-				titleLocalizationKey = "CommonUI.Features.Label.Discover",
-				page = mockAppPage.Games,
-				icon = "icons/menu/games_on",
-				actionType = Enum.AppShellActionType.TapGamePageTab,
-			},
-			{
-				titleLocalizationKey = "CommonUI.Features.Label.Avatar",
-				page = mockAppPage.AvatarExperienceRoot,
-				iconComponent = function()
-					return React.createElement("Frame")
-				end,
-				actionType = Enum.AppShellActionType.TapAvatarTab,
-			},
-		},
-		options = {
-			{
-				titleLocalizationKey = "Feature.Catalog.Label.Search",
-				page = mockAppPage.SearchPage,
-				icon = "icons/common/search",
-				actionType = nil,
-			},
-			{
-				titleLocalizationKey = "Feature.Home.Robux",
-				page = mockAppPage.PurchaseRobux,
-				icon = "icons/common/goldrobux",
-				actionType = nil,
-			},
-		},
-	}
+local function makeMockGlobalNavConfig(globalNavConfig: GlobalNavConfig?): GlobalNavConfig
+	return globalNavConfig or defaultGlobalNavConfig
 end
 
 type MockNavigationState = {
 	index: number?,
-	routes: { { routeName: string } }?,
+	routes: { { routeName: string, key: string? } }?,
+	key: string?,
 }
 
 local function makeMockNavigation(navigationState: MockNavigationState?)
@@ -210,7 +217,7 @@ local function makeMockNavigation(navigationState: MockNavigationState?)
 	end)
 	mockNavigation.getParam = jest.fn()
 	mockNavigation.navigate = jest.fn().mockImplementation(function(newRouteName: string)
-		local newIndex = Cryo.List.findWhere(mockRoutes, function(route)
+		local newIndex = Cryo.List.findWhere(mockNavigation.state.routes, function(route)
 			return route.routeName == newRouteName
 		end)
 
@@ -229,6 +236,7 @@ type MakeMockProvidersConfig = {
 	store: any?,
 	initialStoreState: any?,
 	navigationState: MockNavigationState?,
+	globalNavConfig: GlobalNavConfig?,
 }
 
 local makeMockProviders = function(config: MakeMockProvidersConfig?)
@@ -240,7 +248,7 @@ local makeMockProviders = function(config: MakeMockProvidersConfig?)
 		return "Localized:" .. key
 	end)
 
-	local globalNavConfig = makeMockGlobalNavConfig()
+	local globalNavConfig = makeMockGlobalNavConfig(config.globalNavConfig)
 	local mockNotificationService = makeMockNotificationService()
 	local mockNavigation = makeMockNavigation(config.navigationState)
 	local mockTenFootUiContext = makeTenFootUiContextMocks(globalNavConfig, mockNotificationService)
@@ -278,12 +286,15 @@ local makeMockProviders = function(config: MakeMockProvidersConfig?)
 	return providers, nestedMocks
 end
 
-local function makeMockNavigationObject(navState: NavigationState)
+local function makeMockNavigationObject(navState: NavigationState): NavigationObject
 	return {
 		state = navState,
 		dispatch = function() end,
 		getParam = function(...)
-			return nil
+			return
+		end,
+		addListener = function(_e, _fn)
+			return { remove = function() end }
 		end,
 	}
 end

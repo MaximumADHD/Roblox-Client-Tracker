@@ -8,7 +8,7 @@ local RoduxUserPermissions = dependencies.RoduxUserPermissions
 local RoduxAnalytics = dependencies.RoduxAnalytics
 local contactImporterWarning = require(script.contactImporterWarning)
 local ShowContactImporterParams = dependencies.ShowContactImporterParams
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local getFFlagVerifiedBadgeInFriendsLanding = dependencies.getFFlagVerifiedBadgeInFriendsLanding
 local getFFlagFriendsLandingInactiveFriendsEnabled =
@@ -31,6 +31,6 @@ return function()
 		RequestsFromOriginSourceType = require(script.RequestsFromOriginSourceType),
 		ShowContactImporterParams = ShowContactImporterParams,
 		ContactImporterWarning = contactImporterWarning,
-		Analytics = if getFFlagAddFriendsRecommendationsEnabled() then RoduxAnalytics.installReducer() else nil,
+		Analytics = if getFFlagAddFriendsPYMKExperimentEnabled() then RoduxAnalytics.installReducer() else nil,
 	})
 end

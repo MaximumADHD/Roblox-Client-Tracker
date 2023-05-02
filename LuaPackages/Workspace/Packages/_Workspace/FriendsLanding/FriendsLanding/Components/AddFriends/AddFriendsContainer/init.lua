@@ -28,6 +28,7 @@ local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getF
 local ImpressionEvents = require(FriendsLanding.FriendsLandingAnalytics.ImpressionEvents)
 local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterTooltip)
 local getShowNewAddFriendsPageVariant = require(FriendsLanding.Utils.getShowNewAddFriendsPageVariant)
+local getAddFriendsPagePYMKVariant = require(FriendsLanding.Utils.getAddFriendsPagePYMKVariant)
 local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
 local ProfileQRCodeExperiments = require(Packages.ProfileQRCode).Experiments
@@ -38,7 +39,7 @@ local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFrie
 local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
 local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE = 25
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE_WIDE = 50
@@ -84,7 +85,7 @@ function AddFriendsContainer:init()
 	end
 
 	self.refreshPage = withToast(function()
-		return if getFFlagAddFriendsRecommendationsEnabled()
+		return if getFFlagAddFriendsPYMKExperimentEnabled()
 			then Promise.all({
 				self.props.getFriendRequestsCount(self.props.localUserId),
 				self.props.getFriendRequests({
@@ -92,22 +93,31 @@ function AddFriendsContainer:init()
 					localUserId = self.props.localUserId,
 					limit = self.getLimitPerPage(),
 				}),
-				self.props.getFriendRecommendations({ localUserId = self.props.localUserId }),
+				if self.props.shouldShowPYMKSection
+					then self.props.getFriendRecommendations({ localUserId = self.props.localUserId })
+					else nil,
 			}):andThen(function(results)
 				local friendRequestResults = results[2]
-				local friendRecommendationResults = results[3]
+				local friendRecommendationResults = if self.props.shouldShowPYMKSection then results[3] else nil
 				-- TODO SOCGRAPH-810: add friendRecommendationResults.responseBody.recommendationRequestId to analytics
 				self.props.analytics:pageLoadedWithArgs(
 					"friendRequestsPage",
 					AddFriendsPageLoadAnalytics(friendRequestResults)
 				)
-				local recommendations = friendRecommendationResults.responseBody.data
-				local recommendationCount = recommendations and #recommendations or 0
-				self:setState({
-					visibleRows = if recommendationCount > 0
-						then SHOW_MORE_VISIBLE_ROWS_MULTIPLE_SECTIONS
-						else SHOW_MORE_VISIBLE_ROWS,
-				})
+
+				if self.props.shouldShowPYMKSection then
+					local recommendations = friendRecommendationResults.responseBody.data
+					local recommendationCount = recommendations and #recommendations or 0
+					self:setState({
+						visibleRows = if recommendationCount > 0
+							then self.props.initialRequestsRows
+							else SHOW_MORE_VISIBLE_ROWS,
+					})
+				else
+					self:setState({
+						visibleRows = SHOW_MORE_VISIBLE_ROWS,
+					})
+				end
 			end)
 			else Promise.all({
 				self.props.getFriendRequestsCount(self.props.localUserId),
@@ -204,7 +214,18 @@ function AddFriendsContainer:init()
 		local prevVisibleRows = prevState.visibleRows
 		local loadedCount = #friendRequests
 
-		local tryToShowMoreCount = friendsPerRow * (prevVisibleRows + SHOW_MORE_VISIBLE_ROWS)
+		local showMoreVisibleRows
+		if getFFlagAddFriendsPYMKExperimentEnabled() then
+			showMoreVisibleRows = if self.props.shouldShowPYMKSection
+					and self.props.friendRecommendations
+					and (#self.props.friendRecommendations > 0)
+				then SHOW_MORE_VISIBLE_ROWS_MULTIPLE_SECTIONS
+				else SHOW_MORE_VISIBLE_ROWS
+		end
+
+		local tryToShowMoreCount = if getFFlagAddFriendsPYMKExperimentEnabled()
+			then friendsPerRow * (prevVisibleRows + showMoreVisibleRows)
+			else friendsPerRow * (prevVisibleRows + SHOW_MORE_VISIBLE_ROWS)
 		local toShowMoreCount = math.min(receivedCount, tryToShowMoreCount)
 		local nextVisibleRows = math.ceil(toShowMoreCount / friendsPerRow)
 
@@ -332,7 +353,7 @@ function AddFriendsContainer:render()
 	local showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
 		then self.props.showNewAddFriendsPageVariant
 		else nil
-	local friendRecommendationsCount = if getFFlagAddFriendsRecommendationsEnabled()
+	local friendRecommendationsCount = if getFFlagAddFriendsPYMKExperimentEnabled()
 		then self.props.friendRecommendations and #self.props.friendRecommendations or 0
 		else nil
 	return Roact.createElement(AddFriendsPage, {
@@ -341,7 +362,7 @@ function AddFriendsContainer:render()
 			else nil,
 		screenSize = self.props.screenSize,
 		friendRecommendations = self.props.friendRecommendations,
-		friendRecommendationsCount = if getFFlagAddFriendsRecommendationsEnabled()
+		friendRecommendationsCount = if getFFlagAddFriendsPYMKExperimentEnabled()
 			then friendRecommendationsCount
 			else nil,
 		friendRequests = self.props.friendRequests,
@@ -393,6 +414,9 @@ function AddFriendsContainer:render()
 		fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics()
 			then self.fireProfileQRCodeBannerPressedEvent
 			else nil,
+		shouldShowPYMKSection = if getFFlagAddFriendsPYMKExperimentEnabled()
+			then self.props.shouldShowPYMKSection
+			else nil,
 	})
 end
 
@@ -418,8 +442,14 @@ AddFriendsContainer = compose(
 		getFStringSocialAddFriendsPageLayer(),
 	}, function(layerVariables, props)
 		local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
+		local shouldShowPYMKSection, initialRequestsRows
+		if getFFlagAddFriendsPYMKExperimentEnabled() then
+			shouldShowPYMKSection, initialRequestsRows = getAddFriendsPagePYMKVariant(socialAddFriendsPageLayer)
+		end
 		return {
 			addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
+			shouldShowPYMKSection = if getFFlagAddFriendsPYMKExperimentEnabled() then shouldShowPYMKSection else nil,
+			initialRequestsRows = if getFFlagAddFriendsPYMKExperimentEnabled() then initialRequestsRows else nil,
 		}
 	end)
 )(AddFriendsContainer)

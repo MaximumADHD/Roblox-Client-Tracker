@@ -60,6 +60,7 @@ local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFF
 local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlowCSWaitFrames)
 local GetFFlagReportAnythingAnnotationIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFFlagEnableReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableReportAnythingAnalytics)
+local GetFIntIGMv1ARFlowScreenshotDelayFrames = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFIntIGMv1ARFlowScreenshotDelayFrames)
 local GetFFlagEnableARFlowAnalyticsCleanup = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
 local GetFFlagEnableIGMv1ARFlowNilMoAFix = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
@@ -372,6 +373,7 @@ local function Initialize()
 		AbuseReportBuilder.setAnnotationOptionSeen(true)
 		local annotationPage = Roact.createElement(ScreenshotFlowStepHandlerContainer, {
 			screenshot = AbuseReportBuilder.getScreenshotContentId(),
+			entryPoint = if this.GameOrPlayerMode.CurrentIndex == 1 then "experience" else "player",
 			backAction = onBack,
 			dismissAction = onBack,
 			reportAction = onAnnotate,
@@ -1393,21 +1395,56 @@ do
 			if GetFFlagEnableReportAnythingAnalytics() then
 				ReportAnythingAnalytics.clear()
 			end
-			coroutine.wrap(function()
-				local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
-				AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
-				AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
-				if GetFFlagEnableReportAnythingAnalytics() then
-					ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
-				end
-			end)()
 
-			ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
-			for i = 1, (1 + GetFIntIGMv1ARFlowCSWaitFrames()) do
-				RunService.RenderStepped:Wait()
+			if GetFIntIGMv1ARFlowScreenshotDelayFrames() == 0 then
+				coroutine.wrap(function()
+					local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
+					AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
+					AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
+					if GetFFlagEnableReportAnythingAnalytics() then
+						ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
+					end
+				end)()
+
+				ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
+				for i = 1, (1 + GetFIntIGMv1ARFlowCSWaitFrames()) do
+					RunService.RenderStepped:Wait()
+				end
+				PageInstance.HubRef:SetVisibility(true, true, PageInstance, nil, Constants.AnalyticsMenuOpenTypes.ScreenshotUnhide)
+				PageInstance.isHidingForARScreenshot = false
+			else
+				local avatarIDConnection: RBXScriptConnection
+				local screenshotWaitCount = 0
+				local waitCount = 0
+				local waitConnection: RBXScriptConnection
+
+				avatarIDConnection = RunService.Heartbeat:Connect(function()
+					if screenshotWaitCount < GetFIntIGMv1ARFlowScreenshotDelayFrames() then
+						screenshotWaitCount += 1
+						return
+					end
+					local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
+					ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
+					AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
+					AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
+					if GetFFlagEnableReportAnythingAnalytics() then
+						ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
+					end
+
+					avatarIDConnection:Disconnect()
+				end)
+
+				waitConnection = RunService.Heartbeat:Connect(function()
+					if waitCount < GetFIntIGMv1ARFlowCSWaitFrames() then
+						waitCount += 1
+					else
+						PageInstance.HubRef:SetVisibility(true, true, PageInstance, nil, Constants.AnalyticsMenuOpenTypes.ScreenshotUnhide)
+						PageInstance.isHidingForARScreenshot = false
+						waitConnection:Disconnect()
+					end
+				end)
 			end
-			PageInstance.HubRef:SetVisibility(true, true, PageInstance, nil, Constants.AnalyticsMenuOpenTypes.ScreenshotUnhide)
-			PageInstance.isHidingForARScreenshot = false
+
 			return
 		end
 

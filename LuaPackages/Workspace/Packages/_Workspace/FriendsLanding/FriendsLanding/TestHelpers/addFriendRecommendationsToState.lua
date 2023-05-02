@@ -2,7 +2,8 @@ local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
 local dependencies = require(FriendsLanding.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
-local Constants = require(FriendsLanding.Common.Constants)
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
 local RODUX_KEY = require(FriendsLanding.Common.Constants).RODUX_KEY
 
@@ -18,7 +19,7 @@ local addFriendRecommendationsToState = function(state)
 	end
 
 	state[RODUX_KEY].Friends.recommendations.bySource = {
-		[Constants.ADD_FRIENDS_PAGE_RECS_SOURCE] = addFriendsPageRecommndationIds,
+		[RecommendationSourceEnum.AddFriendsPage] = addFriendsPageRecommndationIds,
 	}
 end
 

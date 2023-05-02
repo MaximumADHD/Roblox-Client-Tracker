@@ -22,6 +22,9 @@ local requiredServices = {
 	ExternalSettings,
 }
 
+-- Defining fast flag only used in this file. Will be cleaned up later.
+local GetFFlagReturnNotForSaleOnInvalidBundleId = require(Root.Flags.GetFFlagReturnNotForSaleOnInvalidBundleId)
+
 local function initiateBundlePurchase(bundleId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
@@ -34,7 +37,6 @@ local function initiateBundlePurchase(bundleId)
 		store:dispatch(RequestBundlePurchase(bundleId))
 
 		local isStudio = externalSettings.isStudio()
-
 		if not isStudio and Players.LocalPlayer.UserId <= 0 then
 			store:dispatch(ErrorOccurred(PurchaseError.Guest))
 			return nil
@@ -51,16 +53,36 @@ local function initiateBundlePurchase(bundleId)
 			balanceInfo = getBalanceInfo(network, externalSettings),
 		})
 			:andThen(function(results)
-				local bundleProductId = results.bundleDetails.product.id
-				getProductPurchasableDetails(network, bundleProductId)
-					:andThen(function(productPurchasableDetails)
-						store:dispatch(resolveBundlePromptState(
-							productPurchasableDetails,
-							results.bundleDetails,
-							results.accountInfo,
-							results.balanceInfo
-						))
-					end)
+			    -- If Fast Flag is on for the InvalidBundleId fix, use new logic
+				if GetFFlagReturnNotForSaleOnInvalidBundleId() then
+					-- Only continue the purchase if the bundleId was valid and VEP returned a valid product
+					if results.bundleDetails.product then
+						local bundleProductId = results.bundleDetails.product.id
+						getProductPurchasableDetails(network, bundleProductId)
+							:andThen(function(productPurchasableDetails)
+								store:dispatch(resolveBundlePromptState(
+									productPurchasableDetails,
+									results.bundleDetails,
+									results.accountInfo,
+									results.balanceInfo
+								))
+							end)
+					-- Otherwise, we can dispatch the NotForSale error and end early to not crash the UI
+					else
+						store:dispatch(ErrorOccurred(PurchaseError.NotForSale))
+					end
+				else
+					local bundleProductId = results.bundleDetails.product.id
+					getProductPurchasableDetails(network, bundleProductId)
+						:andThen(function(productPurchasableDetails)
+							store:dispatch(resolveBundlePromptState(
+								productPurchasableDetails,
+								results.bundleDetails,
+								results.accountInfo,
+								results.balanceInfo
+							))
+						end)
+				end
 			end)
 			:catch(function(errorReason)
 				store:dispatch(ErrorOccurred(errorReason))

@@ -1,7 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local CoreGui = game:GetService("CoreGui")
 
 local TnsModule = script.Parent.Parent
 local ScreenshotDialog = require(TnsModule.Components.ScreenshotDialog)
@@ -11,17 +10,23 @@ export type Props = ScreenshotDialog.Props & {
 	titleText: never,
 	skipAnnotationAction: () -> (),
 	restartAction: () -> (),
+	entryPoint: string,
 	-- provide optional capability for mounting menu flow to specify which page to start with
 	initialPageNumber: number?,
-	dismissAction: (() -> ())
+	dismissAction: (() -> ()),
 }
 
 local function ScreenshotFlowStepHandler(props: Props)
 	local currentPageIndex, setCurrentPageIndex =
 		React.useState(props.initialPageNumber == nil and 1 or props.initialPageNumber)
 	local imageAspectRatio, setImageAspectRatio = React.useState(16 / 9)
-	local onNextPage = React.useCallback(function() setCurrentPageIndex(2) end, {setCurrentPageIndex})
-	local onPreviousPage = React.useCallback(function() setCurrentPageIndex(1) end, {setCurrentPageIndex})
+	local viewportHeight, setviewportHeight = React.useState(800)
+	local onNextPage = React.useCallback(function()
+		setCurrentPageIndex(2)
+	end, { setCurrentPageIndex })
+	local onPreviousPage = React.useCallback(function()
+		setCurrentPageIndex(1)
+	end, { setCurrentPageIndex })
 
 	React.useEffect(function()
 		-- obtain the window aspect ratio on mounting this component
@@ -31,6 +36,7 @@ local function ScreenshotFlowStepHandler(props: Props)
 		local camera = game.Workspace.CurrentCamera
 		if camera ~= nil then
 			setImageAspectRatio(camera.ViewportSize.X / camera.ViewportSize.Y)
+			setviewportHeight(camera.ViewportSize.Y)
 		end
 	end, {})
 
@@ -38,6 +44,7 @@ local function ScreenshotFlowStepHandler(props: Props)
 	if currentPageIndex == 1 then
 		currentPageDialog = React.createElement(ScreenshotReviewDialog, {
 			imageAspectRatio = imageAspectRatio,
+			viewportHeight = viewportHeight,
 			onNextPage = onNextPage,
 			onBack = props.dismissAction,
 			onSkip = props.skipAnnotationAction,
@@ -46,8 +53,9 @@ local function ScreenshotFlowStepHandler(props: Props)
 			reportAnythingAnalytics = props.reportAnythingAnalytics,
 		}, {})
 	else
+		local title = props.entryPoint == "player" and "Select Person in Scene" or "Select Problem in Scene"
 		currentPageDialog = React.createElement(ScreenshotDialog, {
-			titleText = "Highlight What's Wrong",
+			titleText = title,
 			backAction = onPreviousPage,
 			dismissAction = props.dismissAction,
 			reportAction = props.reportAction,

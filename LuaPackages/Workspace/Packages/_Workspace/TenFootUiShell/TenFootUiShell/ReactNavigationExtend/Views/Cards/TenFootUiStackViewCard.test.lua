@@ -1,14 +1,18 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
+local TestUtils = TenFootUiShell.TestUtils
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 local mocks = require(Packages.Dev.TenFootUiTesting).TestHelpers.mocks
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
-local describe = JestGlobals.describe
+local beforeEach = JestGlobals.beforeEach
 local expect = JestGlobals.expect
+local TenFootUiScene = require(TenFootUiShell.Hooks.TenFootUiScene)
 local TenFootUiStackViewCard = require(script.Parent.TenFootUiStackViewCard)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
 
 type ScreenKind = TenFootUiCommon.ScreenKind
 type RouteState = TenFootUiCommon.RouteState
@@ -30,68 +34,84 @@ local testState = {
 
 local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, "Default")
 
-describe("should render with props correctly", function()
-	it("should create constraint when adornee parent is a part", function()
-		local testAdorneeParent = Instance.new("Part")
-		local testSurfaceGuiParent = Instance.new("Folder")
+beforeEach(function()
+	local backgroundModel = Instance.new("Model")
+	backgroundModel.Name = "TenFootUiBackgroundShapes"
+	backgroundModel.Parent = ReplicatedStorage
 
-		local testIsVisible = false
-		local testProps: Props = {
-			isVisible = testIsVisible,
-			descriptor = testDescriptor,
-			adorneeParent = testAdorneeParent,
-			surfaceGuiParent = testSurfaceGuiParent,
-		}
+	TenFootUiScene.initialize()
+end)
 
-		local element = React.createElement(TenFootUiStackViewCard, testProps)
+it("should create constraint when adornee parent is a part", function()
+	local testAdorneeParent = Instance.new("Part")
+	local testSurfaceGuiParent = Instance.new("Folder")
 
-		local root = ReactRoblox.createRoot(Instance.new("Folder"))
-		ReactRoblox.act(function()
-			root:render(element)
-		end)
+	local testIsVisible = false
+	local testProps: Props = {
+		isVisible = testIsVisible,
+		viewState = "Opened",
+		descriptor = testDescriptor,
+		adorneeParent = testAdorneeParent,
+		surfaceGuiParent = testSurfaceGuiParent,
+		screenProps = {},
+		setOpened = function() end,
+		setClosed = function() end,
+	}
+	local TenFootUiStackViewCardWithTenFootUiTestHarness = createTenFootUiShellTestHarness(TenFootUiStackViewCard)
 
-		expect(testSurfaceGuiParent:FindFirstChildOfClass("SurfaceGui")).never.toBeNil()
+	local element = React.createElement(TenFootUiStackViewCardWithTenFootUiTestHarness, testProps)
 
-		local adornee = testAdorneeParent:FindFirstChildOfClass("Part") :: Part
-		expect(adornee).never.toBeNil()
-
-		local constrain = adornee:FindFirstChildOfClass("RigidConstraint") :: RigidConstraint
-
-		expect(constrain).never.toBeNil()
-		expect(constrain.Attachment0).toEqual(testAdorneeParent:FindFirstChildOfClass("Attachment"))
-		expect(constrain.Attachment1).toEqual(adornee:FindFirstChildOfClass("Attachment"))
-
-		root:unmount()
+	local root = ReactRoblox.createRoot(Instance.new("Folder"))
+	ReactRoblox.act(function()
+		root:render(element)
 	end)
 
-	it("should not create constraint when adornee parent is a part", function()
-		local testAdorneeParent = Instance.new("Folder")
-		local testSurfaceGuiParent = Instance.new("Folder")
+	expect(testSurfaceGuiParent:FindFirstChildOfClass("SurfaceGui")).never.toBeNil()
 
-		local testIsVisible = false
-		local testProps: Props = {
-			isVisible = testIsVisible,
-			descriptor = testDescriptor,
-			adorneeParent = testAdorneeParent,
-			surfaceGuiParent = testSurfaceGuiParent,
-		}
+	local adornee = testAdorneeParent:FindFirstChildOfClass("Part") :: Part
+	expect(adornee).never.toBeNil()
 
-		local element = React.createElement(TenFootUiStackViewCard, testProps)
+	local constrain = adornee:FindFirstChildOfClass("RigidConstraint") :: RigidConstraint
 
-		local root = ReactRoblox.createRoot(Instance.new("Folder"))
-		ReactRoblox.act(function()
-			root:render(element)
-		end)
+	expect(constrain).never.toBeNil()
+	expect(constrain.Attachment0).toEqual(testAdorneeParent:FindFirstChildOfClass("Attachment"))
+	expect(constrain.Attachment1).toEqual(adornee:FindFirstChildOfClass("Attachment"))
 
-		expect(testSurfaceGuiParent:FindFirstChildOfClass("SurfaceGui")).never.toBeNil()
+	root:unmount()
+end)
 
-		local adornee = testAdorneeParent:FindFirstChildOfClass("Part") :: Part
-		expect(adornee).never.toBeNil()
+it("should not create constraint when adornee parent is a part", function()
+	local testAdorneeParent = Instance.new("Folder")
+	local testSurfaceGuiParent = Instance.new("Folder")
 
-		local constrain = adornee:FindFirstChildOfClass("RigidConstraint") :: RigidConstraint
+	local testIsVisible = false
+	local testProps: Props = {
+		isVisible = testIsVisible,
+		viewState = "Opened",
+		descriptor = testDescriptor,
+		adorneeParent = testAdorneeParent,
+		surfaceGuiParent = testSurfaceGuiParent,
+		screenProps = {},
+		setOpened = function() end,
+		setClosed = function() end,
+	}
+	local TenFootUiStackViewCardWithTenFootUiTestHarness = createTenFootUiShellTestHarness(TenFootUiStackViewCard)
 
-		expect(constrain).toBeNil()
+	local element = React.createElement(TenFootUiStackViewCardWithTenFootUiTestHarness, testProps)
 
-		root:unmount()
+	local root = ReactRoblox.createRoot(Instance.new("Folder"))
+	ReactRoblox.act(function()
+		root:render(element)
 	end)
+
+	expect(testSurfaceGuiParent:FindFirstChildOfClass("SurfaceGui")).never.toBeNil()
+
+	local adornee = testAdorneeParent:FindFirstChildOfClass("Part") :: Part
+	expect(adornee).never.toBeNil()
+
+	local constrain = adornee:FindFirstChildOfClass("RigidConstraint") :: RigidConstraint
+
+	expect(constrain).toBeNil()
+
+	root:unmount()
 end)

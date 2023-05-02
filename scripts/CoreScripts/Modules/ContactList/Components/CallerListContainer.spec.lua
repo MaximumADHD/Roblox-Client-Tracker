@@ -112,7 +112,9 @@ return function()
 			expect(#containerElement:GetChildren()).to.be.equal(4) -- Layout, and three cells.
 
 			local usernameElement: TextLabel = containerElement:FindFirstChild("Username", true) :: TextLabel
-			expect(usernameElement.Text).to.be.equal("testuser_0")
+			local displayNameElement: TextLabel = containerElement:FindFirstChild("DisplayName", true) :: TextLabel
+			expect(usernameElement.Text).to.be.equal("@testuser_0")
+			expect(displayNameElement.Text).to.be.equal("testuser_0")
 		end
 
 		Roact.unmount(instance)

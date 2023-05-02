@@ -367,6 +367,7 @@ function ReportDialog:render()
 				return React.createElement(ScreenshotFlowStepHandler, {
 					dismissAction = self.onCancel,
 					titleText = "Highlight What's Wrong",
+					entryPoint = "experience",
 					screenshot = ScreenshotHelper:GetScreenshotContentId(),
 					skipAnnotationAction = function() end,
 					restartAction = function() end,

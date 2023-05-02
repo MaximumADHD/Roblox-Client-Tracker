@@ -5,8 +5,8 @@ local SetupPhysicsParts = {}
 
 local CollectionService = game:GetService("CollectionService")
 
--- ProxyReference.rbxm is set up as { ProxyReference {Left Arm {...}, Right Arm {...},...}, CollisionHead {...} }
--- i.e. CollisionHead and ProxyReference are at then same level
+-- AdapterReference.rbxm is set up as { AdapterReference {Left Arm {...}, Right Arm {...},...}, CollisionHead {...} }
+-- i.e. CollisionHead and AdapterReference are at then same level
 local PhysicsReference = script:WaitForChild("PhysicsReference")
 PhysicsReference.Parent = nil
 
@@ -74,26 +74,26 @@ local function moveHitboxes(character: Model)
 		weld.C0 = CFrame.new()
 		weld.C1 = CFrame.new()
 
-		local partProxyPosDiff = part.Position - torso.Position
-		local partProxySizeDiff = Vector3.new()
+		local adapterPartPosDiff = part.Position - torso.Position
+		local adapterPartSizeDiff = Vector3.new()
 
 		if partName == "CollisionHead" then
-			partProxySizeDiff = Vector3.new(0, -(torso.Size.Y / 2 + part.Size.Y / 2), 0)
+			adapterPartSizeDiff = Vector3.new(0, -(torso.Size.Y / 2 + part.Size.Y / 2), 0)
 		end
 
 		if partName == "Physics Left Arm" then
-			partProxySizeDiff = Vector3.new(torso.Size.X / 2 + part.Size.X / 2, 0, 0)
+			adapterPartSizeDiff = Vector3.new(torso.Size.X / 2 + part.Size.X / 2, 0, 0)
 		elseif partName == "Physics Right Arm" then
-			partProxySizeDiff = Vector3.new(-torso.Size.X / 2 - part.Size.X / 2, 0, 0)
+			adapterPartSizeDiff = Vector3.new(-torso.Size.X / 2 - part.Size.X / 2, 0, 0)
 		end
 
 		if partName == "Physics Left Leg" then
-			partProxySizeDiff = Vector3.new(part.Size.X / 2, torso.Size.Y / 2 + part.Size.Y / 2, 0)
+			adapterPartSizeDiff = Vector3.new(part.Size.X / 2, torso.Size.Y / 2 + part.Size.Y / 2, 0)
 		elseif partName == "Physics Right Leg" then
-			partProxySizeDiff = Vector3.new(-part.Size.X / 2, torso.Size.Y / 2 + part.Size.Y / 2, 0)
+			adapterPartSizeDiff = Vector3.new(-part.Size.X / 2, torso.Size.Y / 2 + part.Size.Y / 2, 0)
 		end
 
-		weld.C0 = CFrame.new(partProxyPosDiff + partProxySizeDiff)
+		weld.C0 = CFrame.new(adapterPartPosDiff + adapterPartSizeDiff)
 	end
 end
 
@@ -117,34 +117,34 @@ local function weldParts(weldPart, weldTo)
 	return weld
 end
 
-local function setUpProxyPart(proxy)
-	local newProxy = proxy:Clone()
-	newProxy:ClearAllChildren ()
-	newProxy.Parent = Character
-    newProxy.Transparency = 1
+local function setUpAdapterPart(adapter)
+	local newAdapter = adapter:Clone()
+	newAdapter:ClearAllChildren()
+	newAdapter.Parent = Character
+	newAdapter.Transparency = 1
 
-	local proxyChildren = proxy:GetChildren()
-	for _, child in proxyChildren do
+	local adapterChildren = adapter:GetChildren()
+	for _, child in adapterChildren do
 		if child:FindFirstChildWhichIsA("Weld") then
 			local weldTo = Character:FindFirstChild(child.Name)
-			weldParts(newProxy, weldTo)
+			weldParts(newAdapter, weldTo)
 		end
 	end
-	return newProxy
+	return newAdapter
 end
 
 function SetupPhysicsParts.setupCharacter(character: Model)
 	for _, child in PhysicsReference:GetChildren() do
-		local proxy = setUpProxyPart(child)
+		local adapter = setUpAdapterPart(child)
 	end
-	
+
 	for _, part in AestheticParts do
 		setUpAestheticPart(Character[part])
 	end
 	PhysicsReference:Destroy()
-	
-	task.wait() 
-	
+
+	task.wait()
+
 	moveHitboxes(character)
 end
 

@@ -33,7 +33,6 @@ local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManage
 local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
-local FFlagFixSettingsCameraButtonUpdating = game:DefineFastFlag("FixSettingsCameraButtonUpdating", false)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
@@ -104,7 +103,7 @@ function PermissionsButtons:init()
 			allPlayersMuted = newAllPlayersMuted,
 		})
 	end
-	
+
 	-- Sets only the icon
 	self.toggleMuteAllIcon = function(allPlayersMuted)
 		local newAllPlayersMuted = allPlayersMuted
@@ -289,10 +288,10 @@ function PermissionsButtons:render()
 				callback = self.toggleMuteAllIcon,
 			})
 		else nil,
-		VideoCaptureEnabledEvent = if FFlagFixSettingsCameraButtonUpdating then Roact.createElement(ExternalEventConnection, {
+		VideoCaptureEnabledEvent = Roact.createElement(ExternalEventConnection, {
 			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 			callback = self.updateVideoCaptureEnabled,
-		}) else nil,
+		}),
 	})
 end
 

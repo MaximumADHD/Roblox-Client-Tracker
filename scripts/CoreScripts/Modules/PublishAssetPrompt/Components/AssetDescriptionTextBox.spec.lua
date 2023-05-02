@@ -17,11 +17,13 @@ return function()
 	local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
 
 	it("should create and destroy without errors", function()
+		local ref = Roact.createRef()
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
 			AssetDescriptionTextBox = Roact.createElement(AssetDescriptionTextBox, {
 				onAssetDescriptionUpdated = function() end,
+				descriptionTextBoxRef = ref,
 			}),
 		})
 
@@ -31,7 +33,7 @@ return function()
 
 	it("should call onAssetDescriptionUpdated when the user enters text", function()
 		local textChangedWasCalled = false
-
+		local ref = Roact.createRef()
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
@@ -39,6 +41,7 @@ return function()
 				onAssetDescriptionUpdated = function(newText)
 					textChangedWasCalled = true
 				end,
+				descriptionTextBoxRef = ref,
 			}),
 		})
 

@@ -457,8 +457,8 @@ function VRBottomBar:render()
 			event = GameSettings:GetPropertyChangedSignal("VRPlayMode"),
 			callback = self.updateItemListState,
 		}),
-		SafetyBubbleToggled = Roact.createElement(ExternalEventConnection, {
-			event = VRHub.SafetyBubbleToggled.Event,
+		SafetyBubbleToggled = SafetyBubbleEnabled and VRHub.SafetyBubble and Roact.createElement(ExternalEventConnection, {
+			event = VRHub.SafetyBubble.Toggled.Event,
 			callback = self.updateItemListState,
 		}),
 		BackpackItemAdded = Roact.createElement(ExternalEventConnection, {

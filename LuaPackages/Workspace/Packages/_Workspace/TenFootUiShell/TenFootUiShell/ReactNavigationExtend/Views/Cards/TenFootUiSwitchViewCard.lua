@@ -15,7 +15,7 @@ type AnimationStyle = TenFootUiCommon.AnimationStyle
 type XDirectionAnimationConfig = useXDirectionAnimation.XDirectionAnimationConfig
 
 export type Props = {
-	isVisible: boolean,
+	isActiveKey: boolean,
 	index: number,
 	descriptor: Descriptor,
 	adorneeParent: Instance,
@@ -26,15 +26,12 @@ export type Props = {
 local MemoizedTenFootUiBaseViewCard = React.memo(TenFootUiBaseViewCard)
 
 local function TenFootUiSwitchViewCard(props: Props)
-	local isVisible = props.isVisible
+	local isActiveKey = props.isActiveKey
 	local index = props.index
 	local descriptor = props.descriptor
 	local screenKind: ScreenKind = descriptor.options.screenKind or "Default"
 	local animationStyle: AnimationStyle = descriptor.options.animationStyle or AnimationStyleEnum.XDirection
 
-	-- Initialize initial screenProps
-	local screenProps: { [any]: any } = if props.screenProps then table.clone(props.screenProps) else {}
-	screenProps.isVisible = false
 	local screenPropsState, setScreenPropsState = React.useState(props.screenProps or {})
 
 	local adornee, setAdornee = React.useState(nil)
@@ -43,7 +40,7 @@ local function TenFootUiSwitchViewCard(props: Props)
 	local visible, cframe, groupTransparency
 	if animationStyle == AnimationStyleEnum.XDirection then
 		local xDirectionAnimationConfig: XDirectionAnimationConfig = useXDirectionAnimation({
-			isVisible = isVisible,
+			isActiveKey = isActiveKey,
 			index = index,
 			screenKind = screenKind,
 			setScreenPropsState = setScreenPropsState,
@@ -56,17 +53,21 @@ local function TenFootUiSwitchViewCard(props: Props)
 	elseif animationStyle == AnimationStyleEnum.ZDirection then
 		-- TODO with stack view navigation
 	else -- animationStyle == AnimationStyleEnum.None
-		visible = isVisible
+		visible = isActiveKey
 		groupTransparency = 0
 	end
+
+	local screenProps = table.clone(screenPropsState)
+	screenProps.isActiveKey = isActiveKey
 
 	local newProps = Object.assign(table.clone(props), {
 		isVisible = visible,
 		setAdornee = setAdornee,
 		setSurfaceGui = setSurfaceGui,
-		screenProps = screenPropsState,
+		screenProps = screenProps,
 		adorneeCFrame = cframe,
 		groupTransparency = groupTransparency,
+		adorneeAnchored = true,
 	})
 
 	return React.createElement(MemoizedTenFootUiBaseViewCard, newProps)

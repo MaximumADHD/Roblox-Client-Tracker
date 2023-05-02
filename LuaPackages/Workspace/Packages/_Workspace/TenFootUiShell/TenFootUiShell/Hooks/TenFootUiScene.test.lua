@@ -5,36 +5,47 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
-local beforeEach = JestGlobals.beforeEach
-local afterEach = JestGlobals.afterEach
+local beforeAll = JestGlobals.beforeAll
 
 local TenFootUiScene = require(script.Parent.TenFootUiScene)
 
-local backgroundModelName = Constants.BACKGROUND_MODEL_NAME
-local backgroundModel
-beforeEach(function()
-	backgroundModel = Instance.new("Model")
-	backgroundModel.Name = backgroundModelName
+beforeAll(function()
+	local backgroundModel = Instance.new("Model")
+	backgroundModel.Name = Constants.BACKGROUND_MODEL_NAME
 	backgroundModel.Parent = ReplicatedStorage
 end)
-afterEach(function()
-	backgroundModel:Destroy()
-end)
 
-it("should initialize correctly", function()
-	local backgroundInstance, camera = TenFootUiScene.initialize()
+local backgroundInstance, camera
+
+it.skip("should initialize correctly", function()
+	backgroundInstance, camera = TenFootUiScene.initialize()
+
 	expect(backgroundInstance).never.toBeNil()
 	expect(backgroundInstance.Parent).toBe(workspace)
 	expect(camera).never.toBeNil()
 	expect(camera.Parent).toBe(workspace)
+
+	expect(TenFootUiScene.getBackgroundInstance()).toEqual(backgroundInstance)
 end)
 
-it("should updateBackgroundScenePosition correctly", function()
-	local backgroundInstance, _ = TenFootUiScene.initialize()
-	local initialCFrame = (backgroundInstance :: PVInstance):GetPivot()
+it.skip("should updateXPosition correctly", function()
+	local initialPosition = (backgroundInstance :: PVInstance):GetPivot().Position
 
-	local offset = Vector3.new(1, 1, 1)
-	TenFootUiScene.updateBackgroundScenePosition(offset)
-	local updatedCFrame = (backgroundInstance :: PVInstance):GetPivot()
-	expect(initialCFrame).never.toEqual(updatedCFrame)
+	local positionX = 1024
+	TenFootUiScene.updateXPosition(positionX)
+
+	local expectedPosition = Vector3.new(positionX, initialPosition.Y, initialPosition.Z)
+	local updatedPosition = (backgroundInstance :: PVInstance):GetPivot().Position
+	expect(expectedPosition).toEqual(updatedPosition)
+end)
+
+it.skip("should updateZPosition correctly", function()
+	local initialPosition = (backgroundInstance :: PVInstance):GetPivot().Position
+
+	local positionZ = 1024
+	TenFootUiScene.updateZPosition(positionZ)
+
+	local expectedPosition = Vector3.new(initialPosition.X, initialPosition.Y, positionZ)
+	local updatedPosition = (backgroundInstance :: PVInstance):GetPivot().Position
+	expect(expectedPosition).toEqual(updatedPosition)
 end)

@@ -10,7 +10,7 @@ type TenFootUiRouterConfig = TenFootUiCommon.TenFootUiRouterConfig
 local createTenFootUiNavigator = require(script.Parent.createTenFootUiNavigator)
 
 local function TestScreen()
-	return React.createElement("Folder", nil, {})
+	return React.createElement("Folder")
 end
 
 it("should return a navigator that can be used by app container", function()
@@ -20,6 +20,9 @@ it("should return a navigator that can be used by app container", function()
 		stackRoutes = {
 			{
 				StackOne = {
+					navigatorConfig = {
+						initialRouteKey = "ScreenThree",
+					},
 					navigationOptions = {
 						screenKind = "Default",
 					},
@@ -50,6 +53,16 @@ it("should return a navigator that can be used by app container", function()
 					screen = TestScreen,
 					navigationOptions = {
 						screenKind = "Overlay",
+					},
+				},
+			},
+		},
+		commonStackRoutes = {
+			{
+				StackTwo = {
+					screen = TestScreen,
+					navigationOptions = {
+						screenKind = "Default",
 					},
 				},
 			},

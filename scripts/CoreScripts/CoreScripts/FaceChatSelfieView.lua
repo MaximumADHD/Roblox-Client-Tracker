@@ -44,6 +44,7 @@ local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag
 local FFlagUseLoadStreamAnimationForClone = game:DefineFastFlag("UseLoadStreamAnimationForClone", false)
 local FFlagSelfViewFixCloneOrientation = game:DefineFastFlag("SelfViewFixCloneOrientation", false)
 local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImprovements", false)
+local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -685,14 +686,37 @@ local function createViewport()
 			frame.Visible = false
 
 			if FFlagSelfViewCleanupImprovements then
-				if cloneStreamTrack then
-					cloneStreamTrack:Stop()
-					cloneStreamTrack:Destroy()
-					cloneStreamTrack = nil
-				end
-				if newTrackerStreamAnimation then
-					newTrackerStreamAnimation:Destroy()
-					newTrackerStreamAnimation = nil
+				if FFlagSelfViewCleanupOnClosing then
+					if cloneStreamTrack then
+						local onTrackStoppedConnection = nil
+						local tempCloneStreamTrack = cloneStreamTrack
+						local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
+						onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
+							tempCloneStreamTrack:Destroy()
+
+							if tempNewTrackerStreamAnimation then
+								tempNewTrackerStreamAnimation:Destroy()
+							end
+
+							onTrackStoppedConnection:Disconnect()
+						end)
+
+						cloneStreamTrack:Stop(0.0)
+						cloneStreamTrack = nil
+					elseif newTrackerStreamAnimation then
+						newTrackerStreamAnimation:Destroy()
+						newTrackerStreamAnimation = nil
+					end
+				else
+					if cloneStreamTrack then
+						cloneStreamTrack:Stop()
+						cloneStreamTrack:Destroy()
+						cloneStreamTrack = nil
+					end
+					if newTrackerStreamAnimation then
+						newTrackerStreamAnimation:Destroy()
+						newTrackerStreamAnimation = nil
+					end
 				end
 			end
 		end

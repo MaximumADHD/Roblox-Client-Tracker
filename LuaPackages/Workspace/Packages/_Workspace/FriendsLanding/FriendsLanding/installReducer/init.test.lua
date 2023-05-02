@@ -5,7 +5,7 @@ local Rodux = dependencies.Rodux
 local getFFlagVerifiedBadgeInFriendsLanding = dependencies.getFFlagVerifiedBadgeInFriendsLanding
 local getFFlagFriendsLandingInactiveFriendsEnabled =
 	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
-local getFFlagAddFriendsRecommendationsEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsRecommendationsEnabled)
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local devDependencies = require(FriendsLanding.devDependencies)
 
@@ -36,6 +36,6 @@ it("SHOULD return expected structure", function()
 		RequestsFromOriginSourceType = expect.any("table"),
 		ShowContactImporterParams = expect.any("table"),
 		ContactImporterWarning = expect.any("table"),
-		Analytics = if getFFlagAddFriendsRecommendationsEnabled() then expect.any("table") else nil,
+		Analytics = if getFFlagAddFriendsPYMKExperimentEnabled() then expect.any("table") else nil,
 	})
 end)

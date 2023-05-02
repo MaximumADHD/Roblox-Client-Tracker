@@ -3,9 +3,6 @@ local Packages = UserSearch.Parent
 local React = require(Packages.React)
 local mockedUsersInfo = require(UserSearch.TestHelpers.mockedUsersInfo)
 
-local GetFFlagUserSearchNewContextExperimentEnabled =
-	require(Packages.SharedFlags).GetFFlagUserSearchNewContextExperimentEnabled
-
 local UserSearchTile = require(UserSearch.Components.UserSearchTile)
 
 local setupStory = function(props: any)
@@ -24,7 +21,7 @@ local setupStory = function(props: any)
 					displayName = user.displayName or "DisplayName:" .. user.id,
 					previousUsernames = user.previousUsernames or {},
 				},
-				profileInsight = if GetFFlagUserSearchNewContextExperimentEnabled() then user.profileInsight else nil,
+				profileInsight = user.profileInsight,
 				searchParameters = props.searchParameters or { searchKeyword = "" },
 				luaAppNetworkingRequests = storyProps.luaAppNetworkingRequests or {
 					requestFriendship = function() end,
@@ -52,11 +49,8 @@ local stories = {
 	}),
 	random = setupStory({ user = users.random }),
 	notFriend = setupStory({ user = users.notFriend }),
+	mutualFriends = setupStory({ user = users.mutualFriends }),
+	frequents = setupStory({ user = users.frequents }),
 }
-
-if GetFFlagUserSearchNewContextExperimentEnabled() then
-	stories.mutualFriends = setupStory({ user = users.mutualFriends })
-	stories.frequents = setupStory({ user = users.frequents })
-end
 
 return stories

@@ -2,7 +2,6 @@ local TenFootUiShell = script:FindFirstAncestor("TenFootUiShell")
 local Packages = TenFootUiShell.Parent
 local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
 local React = require(Packages.React)
-
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local TenFootUiSwitchViewCard = require(ReactNavigationExtend.Views.Cards.TenFootUiSwitchViewCard)
 
@@ -47,7 +46,7 @@ local function TenFootUiSwitchView(props: Props)
 		local isActiveKey = (key == activeKey)
 		if visitedScreenKeys[key] ~= nil then
 			screens[key] = React.createElement(TenFootUiSwitchViewCard, {
-				isVisible = isActiveKey,
+				isActiveKey = isActiveKey,
 				index = index,
 				descriptor = descriptor,
 				adorneeParent = navigatorConfig.worldContainer,
