@@ -10,8 +10,6 @@ local Core = UIBlox.Core
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
-local fixDropdownMenuCellTextSize = UIBloxConfig.fixDropdownMenuCellTextSize
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -181,7 +179,7 @@ function DropdownMenuCell:render()
 						Padding = Roact.createElement("UIPadding", {
 							PaddingLeft = UDim.new(0, ELEMENT_PADDING),
 						}),
-						Text = if fixDropdownMenuCellTextSize and text
+						Text = if text
 							then Roact.createElement(GenericTextLabel, {
 								BackgroundTransparency = 1,
 								Text = text,
@@ -193,15 +191,7 @@ function DropdownMenuCell:render()
 								TextXAlignment = Enum.TextXAlignment.Left,
 								TextWrapped = false,
 							})
-							else if text
-								then Roact.createElement(GenericTextLabel, {
-									BackgroundTransparency = 1,
-									Text = text,
-									fontStyle = fontStyle,
-									colorStyle = textStyle,
-									LayoutOrder = 1,
-								})
-								else nil,
+							else nil,
 					}),
 					IconContainer = Roact.createElement("Frame", {
 						Size = UDim2.fromScale(1, 1),

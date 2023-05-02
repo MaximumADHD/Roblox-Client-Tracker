@@ -28,7 +28,7 @@ local CursorKind = require(App.SelectionImage.CursorKind)
 
 local ExperienceActionRow = require(ExperienceTileRoot.ExperienceActionRow)
 local AspectRatioModeEnum = require(ExperienceTileRoot.Enum.AspectRatioMode)
-local VerticalTileV2 = require(SplitTileRoot.VerticalTile.VerticalTileV2)
+local VerticalTile = require(SplitTileRoot.VerticalTile.VerticalTile)
 local TileContentPanel = require(SplitTileRoot.TileContentPanel)
 local VerticalTileThumbnail = require(SplitTileRoot.VerticalTile.VerticalTileThumbnail)
 local SQUARE_ASPECT_RATIO = 1
@@ -281,7 +281,7 @@ local function ExperienceTileV3(props: Props)
 		onStateChanged = updateControlState,
 		[React.Event.Activated] = props.onActivated,
 	}, {
-		VerticalTile = React.createElement(VerticalTileV2, {
+		VerticalTile = React.createElement(VerticalTile, {
 			hasBackground = true,
 			hasOutline = true,
 			isHoverEnabled = isHoverEnabled,

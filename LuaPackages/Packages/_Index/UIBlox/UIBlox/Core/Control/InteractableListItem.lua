@@ -39,13 +39,12 @@ function InteractableListItem:init()
 			self.props.setSelection(newSelection)
 		end
 	end
-	self:setState({})
 end
 
 function InteractableListItem:render()
 	local selected = Cryo.List.find(self.props.selection, self.props.id) ~= nil
 	local renderedItem, extraProps =
-		self.props.renderItem(self.props.item, self.state.interactableState, selected, self.props.id)
+		self.props.renderItem(self.props.item, self.props.interactableState, selected, self.props.id)
 
 	return Roact.createElement(
 		Interactable,

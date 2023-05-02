@@ -21,8 +21,6 @@ local withAnimation = require(UIBlox.Core.Animation.withAnimation)
 
 local Placement = require(script.Parent.Enum.Placement)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local SPRING_OPTIONS = {
 	frequency = 3,
 }
@@ -162,18 +160,14 @@ function SystemBar:renderItem(item, state, selected, order)
 	end
 
 	local hasBadge
-	if UIBloxConfig.allowSystemBarToAcceptString then
-		if item.badgeValue then
-			if item.badgeValue == BadgeStates.isEmpty then
-				hasBadge = true
-			else
-				hasBadge = (t.string(item.badgeValue) and true) or item.badgeValue > 0
-			end
+	if item.badgeValue then
+		if item.badgeValue == BadgeStates.isEmpty then
+			hasBadge = true
 		else
-			hasBadge = false
+			hasBadge = (t.string(item.badgeValue) and true) or item.badgeValue > 0
 		end
 	else
-		hasBadge = item.badgeValue and item.badgeValue > 0
+		hasBadge = false
 	end
 
 	local positionX = ICON_POSITION_X
@@ -262,7 +256,6 @@ function SystemBar:renderPortrait(frameProps, contents)
 end
 
 function SystemBar:renderLandscape(frameProps, contents, bottomAligned)
-	bottomAligned = UIBloxConfig.systemBarBottomAlignedItems and bottomAligned
 	return withAnimation({
 		offset = self.props.hidden and -TAB_SIZE_LANDSCAPE_X or 0,
 	}, function(values)
@@ -299,24 +292,20 @@ function SystemBar:renderBackground(frameProps, contents)
 	if self:isPortrait() then
 		return self:renderPortrait(frameProps, contents)
 	else
-		if UIBloxConfig.systemBarBottomAlignedItems then
-			local topItems = Cryo.List.filter(contents, function(_, index)
-				return not self.props.itemList[index].bottomAligned
-			end)
-			local bottomItems = Cryo.List.filter(contents, function(_, index)
-				return self.props.itemList[index].bottomAligned
-			end)
-			local rendered = self:renderLandscape(frameProps, topItems)
-			if #bottomItems > 0 then
-				rendered = Roact.createFragment({
-					NavBar = rendered,
-					BottomAlignedNavBar = self:renderLandscape(frameProps, bottomItems, true),
-				})
-			end
-			return rendered
-		else
-			return self:renderLandscape(frameProps, contents)
+		local topItems = Cryo.List.filter(contents, function(_, index)
+			return not self.props.itemList[index].bottomAligned
+		end)
+		local bottomItems = Cryo.List.filter(contents, function(_, index)
+			return self.props.itemList[index].bottomAligned
+		end)
+		local rendered = self:renderLandscape(frameProps, topItems)
+		if #bottomItems > 0 then
+			rendered = Roact.createFragment({
+				NavBar = rendered,
+				BottomAlignedNavBar = self:renderLandscape(frameProps, bottomItems, true),
+			})
 		end
+		return rendered
 	end
 end
 
@@ -386,7 +375,10 @@ function SystemBar:init()
 	})
 	self.onSelectionChanged = function(selection)
 		if #selection > 0 then
-			self.props.itemList[selection[1]].onActivated()
+			local item = self.props.itemList[selection[1]]
+			if item and item.onActivated then
+				item.onActivated()
+			end
 		end
 	end
 	self.onSafeAreaEvent = function(rbx)

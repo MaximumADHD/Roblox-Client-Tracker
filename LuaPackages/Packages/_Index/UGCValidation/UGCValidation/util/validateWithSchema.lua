@@ -1,4 +1,8 @@
 --!nonstrict
+
+local root = script.Parent.Parent
+local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+
 local function checkName(nameList, instanceName)
 	if type(nameList) == "table" then
 		for _, name in pairs(nameList) do
@@ -69,7 +73,9 @@ local function validateWithSchema(schema, instance)
 	if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and schema.Name ~= instance.Name) then
 		return {
 			success = false,
-			message = "Expected top-level instance to be a " .. schema.ClassName,
+			message = "Expected top-level instance to be a "
+				.. schema.ClassName
+				.. (if getFFlagUGCValidateBodyParts() and schema.Name then " named " .. schema.Name else ""),
 		}
 	end
 

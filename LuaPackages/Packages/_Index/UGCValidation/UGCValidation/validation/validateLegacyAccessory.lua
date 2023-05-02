@@ -15,11 +15,14 @@ local validateProperties = require(root.validation.validateProperties)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
+local validateCanLoad = require(root.validation.validateCanLoad)
 
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
 
-local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean): (boolean, {string}?)
+local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+
+local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean, allowUnreviewedAssets: boolean): (boolean, {string}?)
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 
 	local success: boolean, reasons: any
@@ -46,6 +49,19 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 	local attachment = getAttachment(handle, assetInfo.attachmentNames)
 
 	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
+
+	if game:GetFastFlag("UGCCheckCanLoadAssets") and game:GetEngineFeature("EnableCanLoadAssetFunction") and isServer then
+		local textureSuccess
+		local meshSuccess
+		local _canLoadFailedReason: any = {}
+		textureSuccess, _canLoadFailedReason = validateCanLoad(textureId)
+		meshSuccess, _canLoadFailedReason = validateCanLoad(meshId)
+		if not textureSuccess or not meshSuccess then
+			-- Failure to load assets should be treated as "inconclusive".
+			-- Validation didn't succeed or fail, we simply couldn't run validation because the assets couldn't be loaded.
+			error("Failed to load asset")
+		end
+	end
 
 	if game:GetFastFlag("UGCReturnAllValidations") then
 		local failedReason: any = {}
@@ -81,7 +97,11 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			validationResult = false
 		end
 
-		if not isServer then
+		local checkModeration = not isServer
+		if game:GetFastFlag("UGCCheckCanLoadAssets") and allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
 			success, failedReason = validateModeration(instance)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
@@ -93,7 +113,15 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			table.insert(reasons, "Mesh must contain valid MeshId")
 			validationResult = false
 		else
-			success, failedReason = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, boundsInfo)
+			success, failedReason = validateMeshBounds(
+				handle,
+				attachment,
+				meshId,
+				meshScale,
+				assetTypeEnum,
+				boundsInfo,
+				(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
+			)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
@@ -143,7 +171,15 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			return false, reasons
 		end
 
-		success, reasons = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, boundsInfo)
+		success, reasons = validateMeshBounds(
+			handle,
+			attachment,
+			meshId,
+			meshScale,
+			assetTypeEnum,
+			boundsInfo,
+			(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
+		)
 		if not success then
 			return false, reasons
 		end

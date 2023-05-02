@@ -7,12 +7,9 @@ local Packages = script.Parent.Parent.Parent.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
-
-local sliderUpdateOnDismiss = UIBloxConfig.sliderUpdateOnDismiss
 
 local divideTransparency = require(Packages.UIBlox.Utility.divideTransparency)
 
@@ -88,12 +85,6 @@ function SliderTextInput:render()
 					rbx:ReleaseFocus()
 				end or nil,
 				[Roact.Event.FocusLost] = function(rbx, enterPressed)
-					if not sliderUpdateOnDismiss then
-						if not enterPressed then
-							return
-						end
-					end
-
 					local newValue = tonumber(rbx.Text)
 
 					if newValue == nil then

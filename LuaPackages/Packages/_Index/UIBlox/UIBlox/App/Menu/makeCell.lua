@@ -68,9 +68,7 @@ local function makeCell(backgroundThemeKey)
 		leftPaddingOffset = t.optional(t.number),
 		layoutOrder = t.integer,
 		setButtonRef = t.optional(t.union(t.callback, t.table)),
-		cursorKind = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent and t.optional(
-			CursorKind.isEnumValue
-		) or nil,
+		cursorKind = t.optional(CursorKind.isEnumValue),
 	})
 
 	cellComponent.defaultProps = {
@@ -134,7 +132,7 @@ local function makeCell(backgroundThemeKey)
 		return imageRectSize, imageRectOffset, sliceCenter
 	end
 
-	function cellComponent:renderWithSelectionCurso(getSelectionCursor)
+	function cellComponent:renderWithSelectionCursor(getSelectionCursor)
 		return withStyle(function(stylePalette)
 			local theme = stylePalette.Theme
 			local font = stylePalette.Font
@@ -231,9 +229,7 @@ local function makeCell(backgroundThemeKey)
 						BorderSizePixel = 0,
 						[Roact.Ref] = self.props.setButtonRef,
 						[Roact.Event.Activated] = self.props.onActivated,
-						SelectionImageObject = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent
-								and getSelectionCursor(self.props.cursorKind)
-							or nil,
+						SelectionImageObject = getSelectionCursor(self.props.cursorKind),
 					},
 					children = {
 						Divider = Roact.createElement("Frame", {
@@ -364,13 +360,9 @@ local function makeCell(backgroundThemeKey)
 	end
 
 	function cellComponent:render()
-		if UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent then
-			return withSelectionCursorProvider(function(getSelectionCursor)
-				return self:renderWithSelectionCurso(getSelectionCursor)
-			end)
-		else
-			return self:renderWithSelectionCurso()
-		end
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
 	end
 
 	return cellComponent

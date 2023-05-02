@@ -11,8 +11,6 @@ local Otter = require(Packages.Otter)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local Badge = require(App.Indicator.Badge)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
@@ -162,23 +160,21 @@ function MenuTile:render()
 					Size = UDim2.fromScale(1, 1),
 					ZIndex = Z_INDEX.BACKGROUND,
 				}, {
-					RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners and Roact.createElement("UICorner", {
+					RoundedCornerUI = Roact.createElement("UICorner", {
 						CornerRadius = UDim.new(0, 8),
 					}),
 				}),
-				HoverMask = self.state.showHoverMask
-					and Roact.createElement("Frame", {
-						BackgroundColor3 = hoverStyle.Color,
-						BackgroundTransparency = self.hoverTransparency,
-						BorderSizePixel = 0,
-						Size = UDim2.fromScale(1, 1),
-						ZIndex = Z_INDEX.HOVER_MASK,
-					}, {
-						RoundedCornerUI = UIBloxConfig.useNewUICornerRoundedCorners
-							and Roact.createElement("UICorner", {
-								CornerRadius = UDim.new(0, 8),
-							}),
+				HoverMask = self.state.showHoverMask and Roact.createElement("Frame", {
+					BackgroundColor3 = hoverStyle.Color,
+					BackgroundTransparency = self.hoverTransparency,
+					BorderSizePixel = 0,
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = Z_INDEX.HOVER_MASK,
+				}, {
+					RoundedCornerUI = Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
 					}),
+				}),
 				IconAndTitleContainer = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromScale(1, 1),
@@ -242,16 +238,6 @@ function MenuTile:render()
 						value = badgeValue,
 					}),
 				}),
-				RoundedCornersMask = not UIBloxConfig.useNewUICornerRoundedCorners
-					and Roact.createElement(ImageSetComponent.Label, {
-						BackgroundTransparency = 1,
-						Image = Images["component_assets/circle_17_mask"],
-						ImageColor3 = roundedCornersStyle.Color,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = Rect.new(8, 8, 9, 9),
-						Size = UDim2.fromScale(1, 1),
-						ZIndex = Z_INDEX.ROUNDED_CORNERS_MASK,
-					}),
 			}),
 		})
 	end)

@@ -9,11 +9,10 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local validateButtonProps = require(script.Parent.validateButtonProps)
 
-local VerticalScrollViewV2 = require(App.Container.VerticalScrollViewV2)
+local VerticalScrollView = require(App.Container.VerticalScrollView)
 local Images = require(App.ImageSet.Images)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(App.SelectionImage.CursorKind)
@@ -105,7 +104,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					AnchorPoint = Vector2.new(0, 0.5),
 					ClipsDescendants = true,
 				}, {
-					ScrollingFrame = Roact.createElement(VerticalScrollViewV2, {
+					ScrollingFrame = Roact.createElement(VerticalScrollView, {
 						canvasSizeY = UDim.new(0, #props.buttonProps * ELEMENT_HEIGHT),
 					}, children),
 				}),
@@ -155,11 +154,9 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				cursorKind = CursorKind.Square
 			end
 
-			if UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent then
-				mergedProps = Cryo.Dictionary.join(mergedProps, {
-					cursorKind = cursorKind,
-				})
-			end
+			mergedProps = Cryo.Dictionary.join(mergedProps, {
+				cursorKind = cursorKind,
+			})
 
 			children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
 				return Roact.createElement(RoactGamepad.Focusable.Frame, {

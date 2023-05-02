@@ -7,13 +7,10 @@ local Packages = UIBlox.Parent
 
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local setDefault = require(UIBlox.Utility.setDefault)
-local VerticalTile = if UIBloxConfig.updateVerticalTile
-	then require(SplitTileRoot.VerticalTile.VerticalTileV2)
-	else require(SplitTileRoot.VerticalTile.VerticalTile)
+local VerticalTile = require(SplitTileRoot.VerticalTile.VerticalTile)
 local ExperienceActionRow = require(SplitTileRoot.ExperienceTile.ExperienceActionRow)
 local TileContentPanel = require(SplitTileRoot.TileContentPanel)
 local VerticalTileThumbnail = require(SplitTileRoot.VerticalTile.VerticalTileThumbnail)
@@ -86,44 +83,7 @@ local function getPanelHeight(footerHeight: number, contentHeight: number, title
 	return panelHeight
 end
 
-local function ExperienceTile_deprecated(props: Props)
-	local hasBackground = setDefault(props.hasBackground, true)
-	local hasOutline = setDefault(props.hasOutline, hasBackground)
-	local isHoverEnabled = setDefault(props.isHoverEnabled, hasBackground)
-	local isOverlayVisible = setDefault(props.isOverlayVisible, true)
-	local isActive = setDefault(props.isActive, true)
-	local footer = props.footer
-	local footerHeight = setDefault(props.footerHeight, if footer then DEFAULT_FOOTER_HEIGHT else 0)
-
-	return React.createElement(VerticalTile, {
-		titleText = props.experienceName,
-		thumbnail = props.thumbnail,
-		wideThumbnail = props.wideThumbnail,
-		actionRow = if isHoverEnabled
-			then React.createElement(ExperienceActionRow, {
-				isActionable = props.isPlayable,
-				height = ACTION_ROW_HEIGHT,
-				horizontalPadding = if hasBackground then ACTION_BUTTON_PADDING else nil,
-				verticalPadding = ACTION_BUTTON_PADDING,
-				onPlayPressed = props.onPlayPressed,
-				text = props.buttonText,
-				icon = props.buttonIcon,
-			})
-			else nil,
-		actionRowHeight = ACTION_ROW_HEIGHT,
-		footer = footer,
-		footerHeight = footerHeight,
-		hasBackground = hasBackground,
-		hasOutline = hasOutline,
-		hasWideHover = if hasBackground then true else false,
-		isHoverEnabled = isHoverEnabled,
-		isOverlayVisible = isOverlayVisible,
-		isActive = isActive,
-		onActivated = props.onActivated,
-	})
-end
-
-local function ExperienceTile(props: Props)
+local function ExperienceTileV2(props: Props)
 	local props = Cryo.Dictionary.join(defaultProps, props)
 
 	local hasBackground = props.hasBackground
@@ -223,4 +183,4 @@ local function ExperienceTile(props: Props)
 	})
 end
 
-return if UIBloxConfig.updateVerticalTile then ExperienceTile else ExperienceTile_deprecated
+return ExperienceTileV2

@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = PackageIndex["RbxDesignFoundations"]["RbxDesignFoundations"]
+local Package = PackageIndex["RbxDesignFoundations-4ac0b4ee-7c755a3c"]["RbxDesignFoundations"]
 
 return Package

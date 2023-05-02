@@ -1,5 +1,8 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
+local root = script.Parent.Parent
+local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
 local function pointInBounds(worldPos, boundsCF, boundsSize)
@@ -12,7 +15,9 @@ local function pointInBounds(worldPos, boundsCF, boundsSize)
 		and objectPos.Z <=  boundsSize.Z/2
 end
 
-local function validateMeshBounds(handle: BasePart, attachment: Attachment, meshId: string, meshScale: Vector3, assetTypeEnum: Enum.AssetType, boundsInfo: any): (boolean, {string}?)
+-- IMPORTANT: remove assetTypeEnum_deprecated param when FFlagUGCValidateBodyParts is removed
+local function validateMeshBounds(handle: BasePart, attachment: Attachment, meshId: string, meshScale: Vector3,
+	assetTypeEnum_deprecated: Enum.AssetType, boundsInfo: any, name: string): (boolean, {string}?)
 	if not game:GetFastFlag("UGCReturnAllValidations") then
 		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
 		if meshId == "" then
@@ -34,11 +39,16 @@ local function validateMeshBounds(handle: BasePart, attachment: Attachment, mesh
 		end
 
 		if not result then
-			return false, {
-				"Mesh is too large!",
-				string.format("Max size for type %s is ( %s )", assetTypeEnum.Name, tostring(boundsSize)),
-				"Use SpecialMesh.Scale if needed"
-			}
+			return false,
+				{
+					"Mesh is too large!",
+					string.format(
+						"Max size for type %s is ( %s )",
+						(getFFlagUGCValidateBodyParts() and name or assetTypeEnum_deprecated.Name),
+						tostring(boundsSize)
+					),
+					"Use SpecialMesh.Scale if needed",
+				}
 		end
 	else
 		local success, verts = pcall(function()
@@ -53,11 +63,16 @@ local function validateMeshBounds(handle: BasePart, attachment: Attachment, mesh
 		for _, vertPos in pairs(verts) do
 			local worldPos = handle.CFrame:PointToWorldSpace(vertPos * meshScale)
 			if not pointInBounds(worldPos, boundsCF, boundsSize) then
-				return false, {
-					"Mesh is too large!",
-					string.format("Max size for type %s is ( %s )", assetTypeEnum.Name, tostring(boundsSize)),
-					"Use SpecialMesh.Scale if needed"
-				}
+				return false,
+					{
+						"Mesh is too large!",
+						string.format(
+							"Max size for type %s is ( %s )",
+							(getFFlagUGCValidateBodyParts() and name or assetTypeEnum_deprecated.Name),
+							tostring(boundsSize)
+						),
+						"Use SpecialMesh.Scale if needed",
+					}
 			end
 		end
 	end

@@ -12,7 +12,6 @@ local Gamepad = require(Packages.RoactGamepad)
 local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
 
 local lerp = require(UIBloxRoot.Utility.lerp)
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 local CursorKind = require(UIBloxRoot.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(UIBloxRoot.App.SelectionImage.withSelectionCursorProvider)
 
@@ -544,9 +543,7 @@ function GenericSlider:onInputBegan(inputObject, isKnob)
 		return
 	end
 
-	-- Old touch inputs can trigger onInputBegan when they first touch a GuiElement
-	-- These are filtered by checking UserInputState
-	if UIBloxConfig.genericSliderFilterOldTouchInputs and inputObject.UserInputState ~= Enum.UserInputState.Begin then
+	if inputObject.UserInputState ~= Enum.UserInputState.Begin then
 		return
 	end
 

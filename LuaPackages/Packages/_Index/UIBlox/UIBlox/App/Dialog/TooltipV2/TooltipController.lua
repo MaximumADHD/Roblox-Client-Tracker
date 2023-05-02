@@ -9,8 +9,6 @@ local React = require(Packages.React)
 local RoactPortal = require(Packages.Roact).Portal
 local LuauPolyfill = require(Packages.LuauPolyfill)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local Types = require(TooltipPackage.Types)
 local Consts = require(TooltipPackage.Constants)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
@@ -189,9 +187,7 @@ local function TooltipController(props: Types.TooltipControllerProps)
 		})
 	end
 
-	local tooltipTree = if UIBloxConfig.disableTooltipAnimation
-		then renderWithAnimation(animationTarget)
-		else withAnimation(animationTarget, renderWithAnimation, Consts.ANIMATION_OPTIONS)
+	local tooltipTree = withAnimation(animationTarget, renderWithAnimation, Consts.ANIMATION_OPTIONS)
 
 	local triggerPointName = props.triggerPointName or "TriggerPoint"
 

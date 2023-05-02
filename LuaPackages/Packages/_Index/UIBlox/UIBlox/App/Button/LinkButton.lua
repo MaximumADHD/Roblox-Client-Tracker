@@ -20,10 +20,6 @@ local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
 local UNDERLINED_HOVER_TRANSPARENCY = 0.3
-local VERTICAL_PADDING = 11
-local HORIZONTAL_PADDING = 8
-
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local LinkButton = Roact.PureComponent:extend("LinkButton")
 LinkButton.debugProps = enumerate("debugProps", {
@@ -56,8 +52,8 @@ LinkButton.validateProps = t.strictInterface({
 	size = t.optional(t.UDim2),
 	text = t.optional(t.string),
 
-	minPaddingX = t.optional(t.number), -- Requires UIBloxConfig.enableCustomMinPaddingForLinkButton to work correctly
-	minPaddingY = t.optional(t.number), -- Requires UIBloxConfig.enableCustomMinPaddingForLinkButton to work correctly
+	minPaddingX = t.optional(t.number),
+	minPaddingY = t.optional(t.number),
 
 	-- A callback that replaces getTextSize implementation
 	[LinkButton.debugProps.getTextSize] = t.optional(t.callback),
@@ -82,8 +78,8 @@ LinkButton.defaultProps = {
 	isDisabled = false,
 	userInteractionEnabled = true,
 
-	minPaddingX = HORIZONTAL_PADDING,
-	minPaddingY = VERTICAL_PADDING,
+	minPaddingX = 8,
+	minPaddingY = 11,
 
 	[LinkButton.debugProps.getTextSize] = GetTextSize,
 	[LinkButton.debugProps.controlState] = nil,
@@ -143,10 +139,7 @@ function LinkButton:render()
 		local minPaddingX = self.props.minPaddingX
 		local minPaddingY = self.props.minPaddingY
 
-		local minSize = Vector2.new(textWidth + HORIZONTAL_PADDING * 2, fontSize + VERTICAL_PADDING * 2)
-		if UIBloxConfig.enableCustomMinPaddingForLinkButton then
-			minSize = Vector2.new(textWidth + minPaddingX * 2, fontSize + minPaddingY * 2)
-		end
+		local minSize = Vector2.new(textWidth + minPaddingX * 2, fontSize + minPaddingY * 2)
 
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,

@@ -16,7 +16,7 @@ local IconButton = require(App.Button.IconButton)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
-local VerticalScrollView = require(App.Container.VerticalScrollViewV2)
+local VerticalScrollView = require(App.Container.VerticalScrollView)
 local validateActionBarContentProps = require(App.Button.Validator.validateActionBarContentProps)
 local ActionBar = require(App.Button.ActionBar)
 local StickyActionBar = require(App.Button.StickyActionBar)
@@ -404,21 +404,12 @@ function DetailsPageTemplate:didUpdate()
 	local deviceConfig = getPlatformConfig(self.props.deviceType)
 	-- When the user haven't scroll the details page yet, set the inital starting position of the page
 	if self.scrolled == false and self.scrollingFrameRef.current then
-		local startingOffsetPosition
-		if UIBloxConfig.useDetailsPageTemplateConfig then
-			local startingOffsetProp = if self.props.startingOffsetPosition
-				then self.props.startingOffsetPosition
-				else deviceConfig.startingOffsetPosition
+		local startingOffsetProp = if self.props.startingOffsetPosition
+			then self.props.startingOffsetPosition
+			else deviceConfig.startingOffsetPosition
 
-			startingOffsetPosition =
-				math.max(0, getHeaderPaddingHeight(self.props, self.state.backgroundHeight) - startingOffsetProp)
-		else
-			local startingOffsetProp = if self.props.startingOffsetPosition
-				then self.props.startingOffsetPosition
-				else HEADER_MAX_PADDING
-			startingOffsetPosition =
-				math.max(0, getHeaderPaddingHeight(self.props, self.state.backgroundHeight) - startingOffsetProp)
-		end
+		local startingOffsetPosition =
+			math.max(0, getHeaderPaddingHeight(self.props, self.state.backgroundHeight) - startingOffsetProp)
 		self.scrollingFrameRef.current.CanvasPosition = Vector2.new(0, startingOffsetPosition)
 	end
 end

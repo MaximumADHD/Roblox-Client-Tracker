@@ -24,7 +24,6 @@ local StyleConstants = require(UIBlox.App.Style.Constants)
 local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 
 local ActionBar = Roact.PureComponent:extend("ActionBar")
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local BUTTON_PADDING = 12
 local BUTTON_HEIGHT = 48
@@ -110,14 +109,6 @@ ActionBar.defaultProps = {
 }
 
 function ActionBar:render()
-	if UIBloxConfig.enableActionBarLayoutFix then
-		return self:renderWithLayoutFix()
-	else
-		return self:renderLegacy()
-	end
-end
-
-function ActionBar:renderWithLayoutFix()
 	return withStyle(function(stylePalette)
 		local margin = getPageMargin(self.state.frameWidth)
 		local contentWidth = self.state.frameWidth - margin * 2
@@ -233,121 +224,6 @@ function ActionBar:renderWithLayoutFix()
 			[Roact.Ref] = self.frameRef,
 			[Roact.Change.AbsoluteSize] = self.updateFrameSize,
 			margin = innerMargin,
-
-			NextSelectionLeft = self.props.NextSelectionLeft,
-			NextSelectionRight = self.props.NextSelectionRight,
-			NextSelectionUp = self.props.NextSelectionUp,
-			NextSelectionDown = self.props.NextSelectionDown,
-		}, buttonTable)
-	end)
-end
-
-function ActionBar:renderLegacy()
-	return withStyle(function(stylePalette)
-		local margin = getPageMargin(self.state.frameWidth)
-		local contentWidth = self.state.frameWidth - margin * 2
-		local iconSize = IconSize.Medium
-
-		local iconNumber = 0
-		if self.props.icons and #self.props.icons then
-			iconNumber = #self.props.icons
-		end
-
-		local buttonTable = {}
-
-		if iconNumber ~= 0 then
-			for iconButtonIndex, iconButton in ipairs(self.props.icons) do
-				local newProps = {
-					layoutOrder = iconButtonIndex,
-					iconSize = iconSize,
-				}
-				local iconButtonProps = Cryo.Dictionary.join(newProps, iconButton.props)
-
-				local gamepadFrameProps = {
-					key = "Button" .. tostring(iconButtonIndex),
-					Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-					BackgroundTransparency = 1,
-					[Roact.Ref] = self.buttonRefs[iconButtonIndex],
-					NextSelectionUp = nil,
-					NextSelectionDown = nil,
-					NextSelectionLeft = iconButtonIndex > 1 and self.buttonRefs[iconButtonIndex - 1] or nil,
-					NextSelectionRight = iconButtonIndex < iconNumber and self.buttonRefs[iconButtonIndex + 1] or nil,
-					inputBindings = {
-						Activated = iconButtonProps.onActivated
-								and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, iconButtonProps.onActivated)
-							or nil,
-					},
-				}
-
-				table.insert(
-					buttonTable,
-					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-						Icon = Roact.createElement(IconButton, iconButtonProps),
-					})
-				)
-			end
-		end
-
-		if self.props.button then
-			local button = self.props.button
-
-			local buttonSize = UDim2.fromOffset(contentWidth - iconNumber * (ICON_SIZE + BUTTON_PADDING), BUTTON_HEIGHT)
-
-			local newProps = {
-				layoutOrder = iconNumber + 1,
-				size = buttonSize,
-			}
-			local buttonProps = Cryo.Dictionary.join(newProps, button.props)
-
-			local gamepadFrameProps = {
-				key = "Button" .. tostring(iconNumber + 1),
-				Size = buttonSize,
-				BackgroundTransparency = 1,
-				[Roact.Ref] = self.buttonRefs[iconNumber + 1],
-				NextSelectionUp = nil,
-				NextSelectionDown = nil,
-				NextSelectionLeft = iconNumber and self.buttonRefs[iconNumber] or nil,
-				NextSelectionRight = nil,
-				inputBindings = {
-					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, buttonProps.onActivated),
-				},
-			}
-
-			local buttonComponent = if iconNumber == 0 then PrimarySystemButton else PrimaryContextualButton
-
-			if buttonProps.buttonType then
-				buttonComponent = BUTTON_TYPE_ENUMS[buttonProps.buttonType]
-			end
-
-			table.insert(
-				buttonTable,
-				Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-					Icon = Roact.createElement(buttonComponent, buttonProps),
-				})
-			)
-		end
-
-		if self.props[Roact.Children] then
-			buttonTable = self.props[Roact.Children]
-		end
-
-		return Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
-			BackgroundTransparency = 1,
-			minimumSize = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Position = UDim2.new(0, 0, 1, 0),
-			AnchorPoint = Vector2.new(0, 1),
-			contentPadding = UDim.new(0, BUTTON_PADDING),
-			[Roact.Ref] = self.frameRef,
-			[Roact.Change.AbsoluteSize] = self.updateFrameSize,
-			margin = {
-				left = margin,
-				right = margin,
-				top = 0,
-				bottom = StyleConstants.Layout.ActionBar.PositionOffset,
-			},
 
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,

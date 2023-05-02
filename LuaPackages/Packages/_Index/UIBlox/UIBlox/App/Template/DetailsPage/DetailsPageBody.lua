@@ -4,8 +4,6 @@ local App = Template.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local ContentPositionEnum = require(DetailsPage.Enum.ContentPosition)
 local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPageComponentList)
 
@@ -159,12 +157,7 @@ function DetailsPageBody:renderDualPanel()
 end
 
 function DetailsPageBody:renderBodyContent()
-	local dualPanelBreakpoint
-	if UIBloxConfig.useDetailsPageTemplateConfig then
-		dualPanelBreakpoint = self.props.dualPanelBreakpoint or DUAL_PANEL_BREAKPOINT
-	else
-		dualPanelBreakpoint = DUAL_PANEL_BREAKPOINT
-	end
+	local dualPanelBreakpoint = self.props.dualPanelBreakpoint or DUAL_PANEL_BREAKPOINT
 
 	if self.state.containerWidth and self.props.componentList then
 		if self.state.containerWidth < dualPanelBreakpoint then
@@ -181,12 +174,7 @@ function DetailsPageBody:render()
 
 	local deviceConfig = getPlatformConfig(self.props.deviceType)
 
-	local padding
-	if UIBloxConfig.useDetailsPageTemplateConfig then
-		padding = if self.props.sideMargin then self.props.sideMargin else deviceConfig.sideMargin
-	else
-		padding = isPhone and 24 or 48
-	end
+	local padding = if self.props.sideMargin then self.props.sideMargin else deviceConfig.sideMargin
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.fromScale(1, 0),

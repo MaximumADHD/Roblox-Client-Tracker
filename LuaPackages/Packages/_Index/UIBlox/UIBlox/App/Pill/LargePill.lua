@@ -58,6 +58,8 @@ LargePill.validateProps = t.strictInterface({
 	backgroundColor = t.optional(t.Color3),
 	-- Callback function when the Pill is clicked
 	onActivated = t.callback,
+	-- Callback function on state change for Pill
+	onStateChanged = t.optional(t.callback),
 
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
@@ -85,6 +87,9 @@ function LargePill:init()
 		self:setState({
 			controlState = newState,
 		})
+		if self.props.onStateChanged then
+			self.props.onStateChanged(oldState, newState)
+		end
 	end
 end
 

@@ -157,7 +157,7 @@ function GenericButton:render()
 	local enableInputDelayed = self.props.enableInputDelayed
 	local delayInputSeconds = self.props.delayInputSeconds
 
-	if UIBloxConfig.genericButtonInputChanges and isDelayedInput then
+	if isDelayedInput then
 		return withAnimation({
 			loadingProgress = enableInputDelayed and 0 or 1.0,
 		}, function(values)
@@ -210,7 +210,7 @@ function GenericButton:renderButton(loadingProgress)
 		if inputIcon then
 			assert(colorStateMap(inputIconStateColorMap), "inputIconStateColorMap is missing or invalid.")
 		end
-		if UIBloxConfig.genericButtonInputChanges and isDelayedInput then
+		if isDelayedInput then
 			assert(delayedInputImage, "delayedInputImage is missing or invalid")
 		end
 
@@ -227,17 +227,14 @@ function GenericButton:renderButton(loadingProgress)
 		end
 
 		-- Loading image has flat edge on left side for the animation
-		local loadingImage = nil
-		if UIBloxConfig.genericButtonInputChanges then
-			loadingImage = delayedInputImage
-			if loadingProgress == 1 then
-				-- Swap to original button image to prevent flat edge peaking on the left side
-				loadingImage = buttonImage
-			end
+		local loadingImage = delayedInputImage
+		if loadingProgress == 1 then
+			-- Swap to original button image to prevent flat edge peaking on the left side
+			loadingImage = buttonImage
+		end
 
-			if isDelayedInput and loadingProgress ~= 0 then
-				userInteractionEnabled = false
-			end
+		if isDelayedInput and loadingProgress ~= 0 then
+			userInteractionEnabled = false
 		end
 
 		local buttonStyle = getContentStyle(buttonStateColorMap, currentState, style)
@@ -338,26 +335,25 @@ function GenericButton:renderButton(loadingProgress)
 							})
 						or nil,
 				}
-			if UIBloxConfig.genericButtonInputChanges then
-				-- buttonMiddleContent should never == self.props[Roact.Children] and init the standard button content
-				buttonContentLayer = self.props[Roact.Children]
-					or {
-						ButtonMiddleContent = Roact.createElement("Frame", {
-							AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
-							Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
-							BackgroundTransparency = 1,
-						}, buttonContentLayer),
-						ButtonIcon = inputIcon and Roact.createElement(ImageSetComponent.Label, {
-							AnchorPoint = Vector2.new(1, 0.5),
-							Position = UDim2.new(1, -4, 0.5, 0),
-							Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
-							BackgroundTransparency = 1,
-							Image = inputIcon,
-							ImageColor3 = inputIconStyle.Color,
-							ImageTransparency = inputIconStyle.Transparency,
-						}) or nil,
-					}
-			end
+
+			-- buttonMiddleContent should never == self.props[Roact.Children] and init the standard button content
+			buttonContentLayer = self.props[Roact.Children]
+				or {
+					ButtonMiddleContent = Roact.createElement("Frame", {
+						AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
+						Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
+						BackgroundTransparency = 1,
+					}, buttonContentLayer),
+					ButtonIcon = inputIcon and Roact.createElement(ImageSetComponent.Label, {
+						AnchorPoint = Vector2.new(1, 0.5),
+						Position = UDim2.new(1, -4, 0.5, 0),
+						Size = UDim2.new(0, getIconSize(IconSize.Medium), 0, getIconSize(IconSize.Medium)),
+						BackgroundTransparency = 1,
+						Image = inputIcon,
+						ImageColor3 = inputIconStyle.Color,
+						ImageTransparency = inputIconStyle.Transparency,
+					}) or nil,
+				}
 		end
 
 		return Roact.createElement(
@@ -423,18 +419,17 @@ function GenericButton:renderButton(loadingProgress)
 					Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
 					BackgroundTransparency = 1,
 				}, buttonContentLayer),
-				LoadingImage = (UIBloxConfig.genericButtonInputChanges and isDelayedInput)
-					and Roact.createElement(ImageSetComponent.Label, {
-						Size = UDim2.new(loadingProgress, 0, 1, 0),
-						Position = UDim2.new(1, 0, 0.5, 0),
-						AnchorPoint = Vector2.new(1, 0.5),
-						BackgroundTransparency = 1,
-						Image = loadingImage,
-						ImageColor3 = Color3.new(0, 0, 0),
-						ImageTransparency = 0.5,
-						ScaleType = Enum.ScaleType.Slice,
-						SliceCenter = self.props.SliceCenter,
-					}),
+				LoadingImage = isDelayedInput and Roact.createElement(ImageSetComponent.Label, {
+					Size = UDim2.new(loadingProgress, 0, 1, 0),
+					Position = UDim2.new(1, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(1, 0.5),
+					BackgroundTransparency = 1,
+					Image = loadingImage,
+					ImageColor3 = Color3.new(0, 0, 0),
+					ImageTransparency = 0.5,
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = self.props.SliceCenter,
+				}),
 				HoverBackground = showHoverBackground and Roact.createElement(HoverButtonBackground) or nil,
 			}
 		)

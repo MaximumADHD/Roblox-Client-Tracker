@@ -8,8 +8,6 @@ local Packages = UIBlox.Parent
 local React = require(Packages.React)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local Types = require(Tooltip.Types)
 local StyledTextLabel = require(App.Text.StyledTextLabel)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
@@ -226,8 +224,8 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		Consts.CARET_DISTANCE + math.min(0, caretOffset) + distanceOffset
 	) + props.contentOffsetVector
 
-	return React.createElement(if UIBloxConfig.disableTooltipAnimation then "Frame" else "CanvasGroup", {
-		GroupTransparency = if UIBloxConfig.disableTooltipAnimation then nil else props.transparency,
+	return React.createElement("CanvasGroup", {
+		GroupTransparency = props.transparency,
 		Position = vectorToPosition(canvasPosition),
 		Size = vectorToPosition(canvasSize),
 		AnchorPoint = getContentAnchorPoint(props.orientation),

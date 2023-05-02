@@ -25,7 +25,7 @@ local function validateCageMeshIntersection(innerCageMeshId: string, outerCageMe
 		local result = true
 		if not checkIntersection then
 			result = false
-			table.insert(reasons, "The cage intersects with the clothing mesh, which could lead to interpenetration issues.")
+			table.insert(reasons, "There are cage vertices intersect with the clothing mesh, which could lead to interpenetration issues.")
 		end
 
 		if not checkIrrelevantCageModified then

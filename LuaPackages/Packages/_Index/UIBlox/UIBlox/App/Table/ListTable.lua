@@ -7,7 +7,6 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local withStyle = require(Core.Style.withStyle)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DIVIDER_START_OFFSET = 24
 
@@ -33,7 +32,7 @@ function ListTable:render()
 		local size = self.props.size
 		local automaticSize = self.props.automaticSize
 		if not size then
-			if UIBloxConfig.fixGameDetailsAutomaticSize and automaticSize then
+			if automaticSize then
 				if automaticSize == Enum.AutomaticSize.X then
 					size = UDim2.fromScale(0, 1)
 				elseif automaticSize == Enum.AutomaticSize.Y then

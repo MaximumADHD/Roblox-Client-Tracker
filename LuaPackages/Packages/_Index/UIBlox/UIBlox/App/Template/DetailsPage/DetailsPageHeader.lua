@@ -22,8 +22,6 @@ local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 local DROP_SHADOW_IMAGE = "component_assets/dropshadow_thumbnail_28"
 local DROP_SHADOW_HEIGHT = 28
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local DetailsPageHeader = Roact.PureComponent:extend("DetailsPageHeader")
 
 local DEFAULT_HEADER_BAR_HEIGHT = 80
@@ -89,13 +87,7 @@ end
 function DetailsPageHeader:renderDesktopMode(style)
 	local thumbnailHeight = self.props.thumbnailHeight
 	local thumbnailWidth = thumbnailHeight * (self.props.thumbnailAspectRatio.X / self.props.thumbnailAspectRatio.Y)
-
-	local sideMargin
-	if UIBloxConfig.useDetailsPageTemplateConfig then
-		sideMargin = self.props.sideMargin or SIDE_MARGIN_DESKTOP
-	else
-		sideMargin = SIDE_MARGIN_DESKTOP
-	end
+	local sideMargin = self.props.sideMargin or SIDE_MARGIN_DESKTOP
 
 	return {
 		Padding = Roact.createElement("UIPadding", {
@@ -158,13 +150,7 @@ end
 function DetailsPageHeader:renderisPhone(style)
 	local thumbnailHeight = self.props.thumbnailHeight
 	local thumbnailWidth = thumbnailHeight * (self.props.thumbnailAspectRatio.X / self.props.thumbnailAspectRatio.Y)
-
-	local sideMargin
-	if UIBloxConfig.useDetailsPageTemplateConfig then
-		sideMargin = self.props.sideMargin or SIDE_MARGIN_PHONE
-	else
-		sideMargin = SIDE_MARGIN_PHONE
-	end
+	local sideMargin = self.props.sideMargin or SIDE_MARGIN_PHONE
 
 	return {
 		Padding = Roact.createElement("UIPadding", {
@@ -180,18 +166,9 @@ function DetailsPageHeader:render()
 	local isPhone = self.props.deviceType == DeviceType.Phone
 
 	local thumbnailHeight = self.props.thumbnailHeight
+	local headerBarBackgroundHeight = self.props.headerBarBackgroundHeight or DEFAULT_HEADER_BAR_HEIGHT
 
-	local headerBarBackgroundHeight
-	if UIBloxConfig.useDetailsPageTemplateConfig then
-		headerBarBackgroundHeight = self.props.headerBarBackgroundHeight or DEFAULT_HEADER_BAR_HEIGHT
-	else
-		headerBarBackgroundHeight = if isPhone then 24 else 80
-	end
-
-	local gradientHeight = (thumbnailHeight + BOTTOM_MARGIN) - headerBarBackgroundHeight
-	if UIBloxConfig.detailsTemplateUseNewGradientHeader then
-		gradientHeight += BASE_GRADIENT
-	end
+	local gradientHeight = (thumbnailHeight + BOTTOM_MARGIN) - headerBarBackgroundHeight + BASE_GRADIENT
 
 	return withStyle(function(style)
 		local theme = style.Theme
@@ -215,16 +192,11 @@ function DetailsPageHeader:render()
 			}, {
 				Gradient = Roact.createElement("UIGradient", {
 					Rotation = 270,
-					Transparency = if UIBloxConfig.detailsTemplateUseNewGradientHeader
-						then NumberSequence.new({
-							NumberSequenceKeypoint.new(0, 0),
-							NumberSequenceKeypoint.new(0.5, 0.25),
-							NumberSequenceKeypoint.new(1, 1),
-						})
-						else NumberSequence.new({
-							NumberSequenceKeypoint.new(0, 0.25),
-							NumberSequenceKeypoint.new(1, 0.9999),
-						}),
+					Transparency = NumberSequence.new({
+						NumberSequenceKeypoint.new(0, 0),
+						NumberSequenceKeypoint.new(0.5, 0.25),
+						NumberSequenceKeypoint.new(1, 1),
+					}),
 				}),
 			}),
 			BackgroundBar = Roact.createElement("Frame", {

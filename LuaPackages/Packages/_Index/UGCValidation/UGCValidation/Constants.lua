@@ -2,6 +2,8 @@
 local Root = script:FindFirstAncestor("UGCValidation").Parent
 local Cryo = require(Root.Cryo)
 
+local getFFlagUGCValidateBodyParts = require(Root.UGCValidation.flags.getFFlagUGCValidateBodyParts)
+
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
 	local result = {}
@@ -220,6 +222,380 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.RightShoeAccessory] = {
 Constants.ASSET_TYPE_INFO[Enum.AssetType.DressSkirtAccessory] = {
 	attachmentNames = { "WaistCenterAttachment" },
 }
+
+if getFFlagUGCValidateBodyParts() then
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.EyebrowAccessory] = {
+		attachmentNames = { "FaceFrontAttachment" },
+	}
+
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.EyelashAccessory] = {
+		attachmentNames = { "FaceFrontAttachment" },
+	}
+
+	--NOTE: all sizes and offsets for body parts are set-up so all current bundles between 700 and 998 would pass max size checks
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.RightArm] = {
+		isBodyPart = true,
+		subParts = {
+			RightHand = {
+				rigAttachmentToParentName = "RightWristRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.46, 1.83, 1.37),
+					offset = Vector3.new(0.03, -0.39, -0.09),
+				},
+				otherAttachments = {
+					RightGripAttachment = {
+						bounds = {
+							size = Vector3.new(1.44, 0.54, 0.71),
+							offset = Vector3.new(0.36, -0.37, -0.09),
+						},
+					},
+				},
+			},
+			RightUpperArm = {
+				rigAttachmentToParentName = "RightShoulderRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.85, 3.49, 2.33),
+					offset = Vector3.new(0.37, -0.35, -0.03),
+				},
+				otherAttachments = {
+					RightShoulderAttachment = {
+						bounds = {
+							size = Vector3.new(1.39, 3.26, 0.44),
+							offset = Vector3.new(0.18, 0.23, 0.07),
+						},
+					},
+					RightElbowRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.87, 1.62, 0.41),
+							offset = Vector3.new(0.39, -1.21, 0.00),
+						},
+					},
+				},
+			},
+			RightLowerArm = {
+				rigAttachmentToParentName = "RightElbowRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.99, 2.59, 1.57),
+					offset = Vector3.new(0.33, -0.74, -0.01),
+				},
+				otherAttachments = {
+					RightWristRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.91, 1.39, 0.66),
+							offset = Vector3.new(0.36, -0.94, -0.26),
+						},
+					},
+				},
+			},
+		},
+	}
+
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.DynamicHead] = {
+		isBodyPart = true,
+		subParts = {
+			Head = {
+				rigAttachmentToParentName = "NeckRigAttachment",
+				meshBounds = {
+					size = Vector3.new(4.17, 2.78, 2.64),
+					offset = Vector3.new(0.00, 0.88, -0.19),
+				},
+				otherAttachments = {
+					FaceFrontAttachment = {
+						bounds = {
+							size = Vector3.new(0.11, 1.12, 1.25),
+							offset = Vector3.new(-0.00, 0.53, -0.72),
+						},
+					},
+					HatAttachment = {
+						bounds = {
+							size = Vector3.new(0.11, 1.43, 0.86),
+							offset = Vector3.new(-0.00, 1.27, -0.31),
+						},
+					},
+					HairAttachment = {
+						bounds = {
+							size = Vector3.new(0.11, 1.43, 0.86),
+							offset = Vector3.new(-0.00, 1.27, -0.32),
+						},
+					},
+					FaceCenterAttachment = {
+						bounds = {
+							size = Vector3.new(0.10, 1.00, 0.83),
+							offset = Vector3.new(0.00, 0.45, -0.26),
+						},
+					},
+				},
+			},
+		},
+	}
+
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftArm] = {
+		isBodyPart = true,
+		subParts = {
+			LeftLowerArm = {
+				rigAttachmentToParentName = "LeftElbowRigAttachment",
+				meshBounds = {
+					size = Vector3.new(2.02, 2.59, 1.51),
+					offset = Vector3.new(-0.32, -0.74, -0.11),
+				},
+				otherAttachments = {
+					LeftWristRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.90, 1.43, 0.66),
+							offset = Vector3.new(-0.37, -0.96, -0.26),
+						},
+					},
+				},
+			},
+			LeftUpperArm = {
+				rigAttachmentToParentName = "LeftShoulderRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.85, 3.49, 2.33),
+					offset = Vector3.new(-0.37, -0.35, -0.03),
+				},
+				otherAttachments = {
+					LeftElbowRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.87, 1.21, 0.41),
+							offset = Vector3.new(-0.39, -1.01, 0.00),
+						},
+					},
+					LeftShoulderAttachment = {
+						bounds = {
+							size = Vector3.new(1.39, 3.26, 0.44),
+							offset = Vector3.new(-0.18, 0.23, 0.07),
+						},
+					},
+				},
+			},
+			LeftHand = {
+				rigAttachmentToParentName = "LeftWristRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.46, 2.07, 1.37),
+					offset = Vector3.new(-0.03, -0.27, -0.09),
+				},
+				otherAttachments = {
+					LeftGripAttachment = {
+						bounds = {
+							size = Vector3.new(1.44, 0.88, 0.71),
+							offset = Vector3.new(-0.36, -0.54, -0.09),
+						},
+					},
+				},
+			},
+		},
+	}
+
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.Torso] = {
+		isBodyPart = true,
+		subParts = {
+			UpperTorso = {
+				rigAttachmentToParentName = "WaistRigAttachment",
+				meshBounds = {
+					size = Vector3.new(3.53, 4.21, 3.72),
+					offset = Vector3.new(-0.00, 0.75, 0.62),
+				},
+				otherAttachments = {
+					LeftShoulderRigAttachment = {
+						bounds = {
+							size = Vector3.new(1.00, 1.88, 0.59),
+							offset = Vector3.new(-0.70, 1.47, 0.12),
+						},
+					},
+					RightCollarAttachment = {
+						bounds = {
+							size = Vector3.new(0.94, 1.81, 0.86),
+							offset = Vector3.new(0.58, 1.70, 0.00),
+						},
+					},
+					BodyBackAttachment = {
+						bounds = {
+							size = Vector3.new(0.16, 1.96, 1.14),
+							offset = Vector3.new(-0.03, 0.96, 0.61),
+						},
+					},
+					NeckRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.16, 1.68, 0.64),
+							offset = Vector3.new(-0.03, 1.78, -0.07),
+						},
+					},
+					BodyFrontAttachment = {
+						bounds = {
+							size = Vector3.new(0.10, 1.38, 0.99),
+							offset = Vector3.new(-0.00, 0.83, -0.67),
+						},
+					},
+					RightShoulderRigAttachment = {
+						bounds = {
+							size = Vector3.new(1.00, 1.88, 0.59),
+							offset = Vector3.new(0.70, 1.47, 0.12),
+						},
+					},
+					LeftCollarAttachment = {
+						bounds = {
+							size = Vector3.new(0.94, 1.81, 0.86),
+							offset = Vector3.new(-0.58, 1.70, 0.00),
+						},
+					},
+					NeckAttachment = {
+						bounds = {
+							size = Vector3.new(0.16, 1.74, 0.72),
+							offset = Vector3.new(-0.03, 1.83, -0.03),
+						},
+					},
+				},
+			},
+			LowerTorso = {
+				rigAttachmentToParentName = "RootRigAttachment",
+				meshBounds = {
+					size = Vector3.new(2.76, 3.09, 2.88),
+					offset = Vector3.new(0.01, -0.18, 0.23),
+				},
+				otherAttachments = {
+					WaistCenterAttachment = {
+						bounds = {
+							size = Vector3.new(0.10, 0.66, 0.27),
+							offset = Vector3.new(0.00, 0.28, -0.04),
+						},
+					},
+					LeftHipRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.63, 0.92, 0.34),
+							offset = Vector3.new(-0.43, -0.23, -0.05),
+						},
+					},
+					RightHipRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.63, 0.92, 0.34),
+							offset = Vector3.new(0.43, -0.23, -0.05),
+						},
+					},
+					WaistRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.10, 0.93, 0.51),
+							offset = Vector3.new(0.00, 0.54, 0.06),
+						},
+					},
+					WaistBackAttachment = {
+						bounds = {
+							size = Vector3.new(0.10, 1.11, 1.22),
+							offset = Vector3.new(0.00, 0.31, 0.64),
+						},
+					},
+					WaistFrontAttachment = {
+						bounds = {
+							size = Vector3.new(0.11, 1.23, 1.05),
+							offset = Vector3.new(-0.01, 0.24, -0.65),
+						},
+					},
+				},
+			},
+		},
+	}
+
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.RightLeg] = {
+		isBodyPart = true,
+		subParts = {
+			RightUpperLeg = {
+				rigAttachmentToParentName = "RightHipRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.65, 2.43, 1.64),
+					offset = Vector3.new(0.09, -0.76, 0.03),
+				},
+				otherAttachments = {
+					RightKneeRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.38, 1.20, 0.71),
+							offset = Vector3.new(0.02, -1.09, -0.10),
+						},
+					},
+				},
+			},
+			RightFoot = {
+				rigAttachmentToParentName = "RightAnkleRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.31, 1.41, 1.87),
+					offset = Vector3.new(0.03, -0.07, -0.28),
+				},
+				otherAttachments = {
+					RightFootAttachment = {
+						bounds = {
+							size = Vector3.new(1.65, 5.85, 0.64),
+							offset = Vector3.new(-0.23, -0.39, -0.11),
+						},
+					},
+				},
+			},
+			RightLowerLeg = {
+				rigAttachmentToParentName = "RightKneeRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.35, 2.49, 2.20),
+					offset = Vector3.new(0.04, -0.76, 0.31),
+				},
+				otherAttachments = {
+					RightAnkleRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.45, 1.46, 0.60),
+							offset = Vector3.new(0.04, -1.13, 0.24),
+						},
+					},
+				},
+			},
+		},
+	}
+
+	Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftLeg] = {
+		isBodyPart = true,
+		subParts = {
+			LeftFoot = {
+				rigAttachmentToParentName = "LeftAnkleRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.31, 1.41, 1.89),
+					offset = Vector3.new(-0.03, -0.07, -0.27),
+				},
+				otherAttachments = {
+					LeftFootAttachment = {
+						bounds = {
+							size = Vector3.new(1.08, 5.85, 0.64),
+							offset = Vector3.new(-0.10, -0.39, -0.11),
+						},
+					},
+				},
+			},
+			LeftUpperLeg = {
+				rigAttachmentToParentName = "LeftHipRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.65, 2.43, 1.64),
+					offset = Vector3.new(-0.10, -0.76, 0.04),
+				},
+				otherAttachments = {
+					LeftKneeRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.38, 1.20, 0.71),
+							offset = Vector3.new(-0.02, -1.09, -0.10),
+						},
+					},
+				},
+			},
+			LeftLowerLeg = {
+				rigAttachmentToParentName = "LeftKneeRigAttachment",
+				meshBounds = {
+					size = Vector3.new(1.35, 2.49, 2.20),
+					offset = Vector3.new(-0.04, -0.76, 0.31),
+				},
+				otherAttachments = {
+					LeftAnkleRigAttachment = {
+						bounds = {
+							size = Vector3.new(0.45, 1.46, 0.61),
+							offset = Vector3.new(-0.04, -1.13, 0.24),
+						},
+					},
+				},
+			},
+		},
+	}
+end
 
 Constants.LC_BOUNDS = {
 	size = Vector3.new(8, 8, 8),

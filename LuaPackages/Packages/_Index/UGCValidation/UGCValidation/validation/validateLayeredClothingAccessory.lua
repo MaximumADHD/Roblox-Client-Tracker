@@ -17,6 +17,7 @@ local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateHSR = require(root.validation.validateHSR)
 local validateUVSpace = require(root.validation.validateUVSpace)
+local validateCanLoad = require(root.validation.validateCanLoad)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
 local validateMisMatchUV = require(root.validation.validateMisMatchUV)
@@ -27,6 +28,8 @@ local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCag
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
 local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
+
+local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 
 local function buildAllowedAssetTypeIdSet()
 	local allowedAssetTypeIdSet = {}
@@ -39,7 +42,7 @@ local function buildAllowedAssetTypeIdSet()
 	return allowedAssetTypeIdSet
 end
 
-local function validateLayeredClothingAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean): (boolean, {string}?)
+local function validateLayeredClothingAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean, allowUnreviewedAssets: boolean): (boolean, {string}?)
 	local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
 	if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
 		return false, { "Asset type cannot be validated as Layered Clothing" }
@@ -73,6 +76,21 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 	local meshScale = handle.Size / meshSize
 	local textureId = handle.TextureID
 	local attachment = getAttachment(handle, assetInfo.attachmentNames)
+
+	if game:GetFastFlag("UGCCheckCanLoadAssets") and game:GetEngineFeature("EnableCanLoadAssetFunction") and isServer then
+		local textureSuccess = true
+		local meshSuccess
+		local _canLoadFailedReason: any = {}
+		if textureId ~= "" then
+			textureSuccess, _canLoadFailedReason = validateCanLoad(textureId)
+		end
+		meshSuccess, _canLoadFailedReason = validateCanLoad(meshId)
+		if not textureSuccess or not meshSuccess then
+			-- Failure to load assets should be treated as "inconclusive".
+			-- Validation didn't succeed or fail, we simply couldn't run validation because the assets couldn't be loaded.
+			error("Failed to load asset")
+		end
+	end
 
 	if game:GetFastFlag("UGCReturnAllValidations") then
 		local failedReason: any = {}
@@ -117,7 +135,11 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			end
 		end
 
-		if not isServer then
+		local checkModeration = not isServer
+		if game:GetFastFlag("UGCCheckCanLoadAssets") and allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
 			success, failedReason = validateModeration(instance)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
@@ -129,7 +151,15 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			table.insert(reasons, "Mesh must contain valid MeshId")
 			validationResult = false
 		else
-			success, failedReason = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, Constants.LC_BOUNDS)
+			success, failedReason = validateMeshBounds(
+				handle,
+				attachment,
+				meshId,
+				meshScale,
+				assetTypeEnum,
+				Constants.LC_BOUNDS,
+				(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
+			)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
@@ -251,7 +281,15 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			return false, reasons
 		end
 
-		success, reasons = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, Constants.LC_BOUNDS)
+		success, reasons = validateMeshBounds(
+			handle,
+			attachment,
+			meshId,
+			meshScale,
+			assetTypeEnum,
+			Constants.LC_BOUNDS,
+			(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
+		)
 		if not success then
 			return false, reasons
 		end

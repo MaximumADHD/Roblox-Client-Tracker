@@ -4,7 +4,6 @@ local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local RoactGamepad = require(Packages.RoactGamepad)
 
 local React = require(Packages.React)
@@ -209,40 +208,35 @@ function Tile:render()
 			local titleTextSize = Vector2.new(0, 0)
 			local subtitleTextHeight = 0
 
-			if UIBloxConfig.enableSubtitleOnTile then
-				-- include subtitle space even if subtitle is empty string
-				if addSubtitleSpace then
+			-- include subtitle space even if subtitle is empty string
+			if addSubtitleSpace then
+				titleTextSize = Vector2.new(0, maxTitleTextHeight)
+				subtitleTextHeight = math.ceil(font.BaseSize * font.CaptionHeader.RelativeSize)
+				footerHeight = footerHeight - subtitleTextHeight
+			else
+				if useMaxTitleHeight then
 					titleTextSize = Vector2.new(0, maxTitleTextHeight)
+				else
+					local textToMeasure = name or ""
+
+					local titleFontSize = font.BaseSize * titleFontStyle.RelativeSize
+					local titleFont = titleFontStyle.Font
+
+					if titleIcon then
+						local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale
+						textToMeasure =
+							GetWrappedTextWithIcon(textToMeasure, titleFontSize, titleFont, iconWidth, ICON_PADDING)
+					end
+					titleTextSize =
+						GetTextSize(textToMeasure, titleFontSize, titleFont, Vector2.new(tileWidth, maxTitleTextHeight))
+				end
+
+				if subtitle ~= nil and subtitle ~= "" then
 					subtitleTextHeight = math.ceil(font.BaseSize * font.CaptionHeader.RelativeSize)
 					footerHeight = footerHeight - subtitleTextHeight
-				else
-					if useMaxTitleHeight then
-						titleTextSize = Vector2.new(0, maxTitleTextHeight)
-					else
-						local textToMeasure = name or ""
-
-						local titleFontSize = font.BaseSize * titleFontStyle.RelativeSize
-						local titleFont = titleFontStyle.Font
-
-						if titleIcon then
-							local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale
-							textToMeasure =
-								GetWrappedTextWithIcon(textToMeasure, titleFontSize, titleFont, iconWidth, ICON_PADDING)
-						end
-						titleTextSize = GetTextSize(
-							textToMeasure,
-							titleFontSize,
-							titleFont,
-							Vector2.new(tileWidth, maxTitleTextHeight)
-						)
-					end
-
-					if subtitle ~= nil and subtitle ~= "" then
-						subtitleTextHeight = math.ceil(font.BaseSize * font.CaptionHeader.RelativeSize)
-						footerHeight = footerHeight - subtitleTextHeight
-					end
 				end
 			end
+
 			footerHeight = math.max(0, footerHeight)
 
 			local hasFooter = footer ~= nil or bannerText ~= nil
@@ -312,7 +306,7 @@ function Tile:render()
 					}),
 					TileInset = renderTileInset and renderTileInset() or nil,
 				}),
-				TitleArea = UIBloxConfig.enableSubtitleOnTile and React.createElement("Frame", {
+				TitleArea = React.createElement("Frame", {
 					Size = titleAreaSize,
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
@@ -348,15 +342,6 @@ function Tile:render()
 						richText = false,
 						lineHeight = 1,
 					}),
-				}) or (titleTextLineCount > 0 and tileWidth > 0) and React.createElement(TileName, {
-					titleIcon = titleIcon,
-					name = name,
-					hasVerifiedBadge = hasVerifiedBadge,
-					maxHeight = maxTitleTextHeight,
-					maxWidth = tileWidth,
-					LayoutOrder = 2,
-					useMaxHeight = useMaxTitleHeight,
-					titleFontStyle = titleFontStyle,
 				}),
 				FooterContainer = hasFooter and React.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, footerHeight),

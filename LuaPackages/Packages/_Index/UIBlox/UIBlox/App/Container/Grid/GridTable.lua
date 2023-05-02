@@ -39,35 +39,33 @@ local function useCellAbsoluteHeight(propRelativeHeight: UDim?, kind: string?)
 
 	local relativeHeight = propRelativeHeight or configRelativeHeight
 
-	return React.useCallback(function(frameAbsoluteWidth: number)
+	return React.useCallback(function(frameAbsoluteWidth: number): number?
 		if relativeHeight then
 			local cellAbsoluteWidth = (frameAbsoluteWidth - 2 * margin + gutter) / columns - gutter
 			local cellAbsoluteHeight = cellAbsoluteWidth * relativeHeight.Scale + relativeHeight.Offset
 			return math.max(cellAbsoluteHeight, 0) + verticalGutter
 		else
-			return 0
+			return nil
 		end
 	end, { columns, gutter, verticalGutter, margin, relativeHeight } :: { any })
 end
 
 return React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
-	local displayLines, setDisplayLines = React.useState(NumberRange.new(0))
+	-- TODO actual type is `NumberRange?`
+	local displayLines, setDisplayLines = React.useState(nil :: any)
 	local getCellAbsoluteHeight = useCellAbsoluteHeight(props.relativeHeight, props.kind)
 
 	local updateDisplayLines = React.useCallback(function(absolutePosition, absoluteSize)
 		if props.absoluteWindowTop and props.absoluteWindowHeight then
 			local cellAbsoluteHeight = getCellAbsoluteHeight(absoluteSize.X)
-			local windowRelativeTop = props.absoluteWindowTop - absolutePosition.Y
-			local firstLine = math.floor(math.max(windowRelativeTop, 0) / cellAbsoluteHeight) + 1
-			local lineCount = math.ceil(props.absoluteWindowHeight / cellAbsoluteHeight) + 1
-			if lineCount >= 1 then
-				setDisplayLines(NumberRange.new(firstLine, firstLine + lineCount - 1))
-			else
-				setDisplayLines(NumberRange.new(0, 0))
+			if cellAbsoluteHeight and cellAbsoluteHeight > 0 then
+				local windowRelativeTop = props.absoluteWindowTop - absolutePosition.Y
+				local firstLine = math.floor(math.max(windowRelativeTop, 0) / cellAbsoluteHeight) + 1
+				local lineCount = math.ceil(math.max(props.absoluteWindowHeight, 0) / cellAbsoluteHeight) + 1
+				return setDisplayLines(NumberRange.new(firstLine, firstLine + lineCount - 1))
 			end
-		else
-			setDisplayLines(NumberRange.new(0, 0))
 		end
+		return setDisplayLines(nil)
 	end, { getCellAbsoluteHeight, props.absoluteWindowTop, props.absoluteWindowHeight, setDisplayLines } :: { any })
 
 	local frameRef = useProperties(ref, updateDisplayLines, { "AbsolutePosition", "AbsoluteSize" })

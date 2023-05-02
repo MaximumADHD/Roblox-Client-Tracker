@@ -5,7 +5,6 @@ local FALLBACK_IMAGES = require(script.Parent.FallbackImages)
 local ImageSet = script.Parent
 local App = ImageSet.Parent
 local UIBlox = App.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local ImagesTypes = require(script.Parent.ImagesTypes)
 
 local GuiService = game:GetService("GuiService")
@@ -18,15 +17,11 @@ if not success or not CorePackages then
 end
 
 local sourceData
-if UIBloxConfig.enableImageSetResolutionScaleFix then
-	-- scale should match the exact image scale used
-	sourceData, scale = GetImageSetData(scale)
-else
-	sourceData = GetImageSetData(scale)
-end
+-- scale should match the exact image scale used
+sourceData, scale = GetImageSetData(scale)
 
 local function getPackagePath(): string?
-	local packageRoot = script.Parent
+	local packageRoot = script.Parent.Parent.Parent
 
 	if CorePackages == nil then
 		-- We're not running in CI as a core script, no internal path
@@ -48,7 +43,7 @@ local function getImagePath(packagePath: string?, imageName: string): string
 		-- fallback to an uploaded image
 		return FALLBACK_IMAGES[imageName]
 	else
-		return string.format("rbxasset://%s/ImageAtlas/%s.png", packagePath, imageName)
+		return string.format("rbxasset://%s/AppImageAtlas/%s.png", packagePath, imageName)
 	end
 end
 

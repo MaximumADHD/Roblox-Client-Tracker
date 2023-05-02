@@ -8,27 +8,6 @@ return {
 	-- default config)
 	styleRefactorConfig = false,
 
-	--useNewUICornerRoundedCorners: Uses the new roblox CornerUI Instance instead of mask-based UI corners
-	useNewUICornerRoundedCorners = false,
-
-	-- genericSliderFilterOldTouchInputs: Filters inputObjects that trigger inputBegan with a
-	-- non Enum.UserInputState.Begin UserInputState in the GenericSlider component
-	genericSliderFilterOldTouchInputs = false,
-
-	--allowSystemBarToAcceptString: Allows you to pass a string as the value for 'badgeValue'. Passing a
-	--string will show the badge even if the string is empty.
-	allowSystemBarToAcceptString = false,
-
-	-- emptyStateControllerSupport: Enables controller support for the EmptyState component.
-	emptyStateControllerSupport = false,
-
-	-- useTileThumbnailV2: Controls the usage of TileThumbnailV2
-	useTileThumbnailV2 = false,
-
-	-- enableSubtitleOnTile: Enables a subtitle label positioned below the title
-	-- that can be passed in as a prop.
-	enableSubtitleOnTile = false,
-
 	-- Warning for deprecated components.
 	-- This is not a flag but a temporary config to show a warning for using deprecated components.
 	-- current deprecated components are,
@@ -40,26 +19,11 @@ return {
 	-- props from a traditional TextLabel
 	useNewGenericTextLabelProps = false,
 
-	-- genericButtonInputChanges: Allows delayed input + input icon on buttons
-	genericButtonInputChanges = false,
-
-	-- enableAnimatedCursorForNonRoactGamepadComponent: enable animated selection cursor for contextual menu
-	-- without using RoactGamepad component in IGM
-	enableAnimatedCursorForNonRoactGamepadComponent = false,
-
-	enableCustomMinPaddingForLinkButton = false,
-
 	-- New version of vertical scroll view
 	useNewVerticalScrollView = false,
 
-	-- Adds roact-gamepad navigation support to RadioButtonList and RadioButton.
-	enableRadioButtonGamepadSupport = false,
-
 	-- Config to enable new icon sizes
 	enableNewIconSizes = false,
-
-	-- enableActionBarLayoutFix : Indicate whether the fix to update the action bar layout is enabled
-	enableActionBarLayoutFix = false,
 
 	-- config for supporting right side gadget for Menu Cell
 	enableRightSideGadgetView = false,
@@ -70,25 +34,8 @@ return {
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
-	-- if true, SliderTextInput will update its value whenever the text box loses focus,
-	-- otherwise it will only update when <enter> is pressed
-	sliderUpdateOnDismiss = false,
-
-	-- if true, the text component in DropdownMenuCell is truncated
-	-- otherwise it overflows the icon and the component boundaries if it's too long
-	fixDropdownMenuCellTextSize = false,
-
 	-- if true, uses the new refactored PlayerCount
 	useNewPlayerCount = false,
-
-	-- disable tooltip animation
-	disableTooltipAnimation = false,
-
-	-- support bottom aligns items in SystemBar
-	systemBarBottomAlignedItems = false,
-
-	-- Enable fix for the image set resolution scale
-	enableImageSetResolutionScaleFix = false,
 
 	-- Bind all laser pointer buttons for left/right switching
 	bindAllLaserPointerButtons = false,
@@ -99,20 +46,11 @@ return {
 	-- New color palettes of color system 1.1
 	useNewThemeColorPalettes = false,
 
-	detailsTemplateUseNewGradientHeader = false,
-
-	-- support updating DropdownMenu selectedValue from placeholder when the new cellDatas does not
-	-- contain the current selecteValue
-	enableDropdownMenuUpdateSelectedValueFromPlaceholder = false,
-
 	-- for new updated media gallery
 	enableMediaGalleryUpdate = false,
 
 	-- Enable auto hiding of VR Pointer Overlay when VR sessions is not visible
 	enableAutoHidingPointerOverlay = false,
-
-	-- Should we apply a fix that allows Camera.HeadScale to affect VR tracking positions
-	vrApplyHeadScale = false,
 
 	-- Use curved panels with antialiasing in VR
 	useCurvedPanel3D = false,
@@ -123,27 +61,6 @@ return {
 
 	-- Use automatic size in PillGroup to fix initial layout issues
 	pillGroupAutomaticSize = false,
-
-	-- Fix the automaticSize issues in gameDetailsScreen
-	fixGameDetailsAutomaticSize = false,
-
-	-- Optionally inject margin for HeadarBar
-	headerBarInjectMargin = false,
-
-	-- Add props for icon size and title in EmptyState component
-	emptyStateTitleAndIconSize = false,
-
-	-- Inject padding for right content for HeaderBar
-	headerBarInjectContentPaddingRight = false,
-
-	-- Enables VerticalTiles to accept render props for contents
-	updateVerticalTile = false,
-
-	-- Introduce `key` prop for DropDownMenu's cellDatas to uniquely identify entries
-	dropDownMenuUseUniqueKeys = false,
-
-	-- Enables the details template to be more configurable
-	useDetailsPageTemplateConfig = false,
 
 	-- Indicate whether design token support is enabled
 	enableRoDSDesignTokenSupport = false,

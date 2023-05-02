@@ -46,12 +46,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 			-- positions at the bottom of the screen and follow's the user's sight direction
 			userNonPrimaryHand = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 
-			local userHeadCameraCF
-			if UIBloxConfig.vrApplyHeadScale then
-				userHeadCameraCF = GetUserCFrameWorldSpace(Enum.UserCFrame.Head, VRService)
-			else
-				userHeadCameraCF = cameraCF * userNonPrimaryHand
-			end
+			local userHeadCameraCF = GetUserCFrameWorldSpace(Enum.UserCFrame.Head, VRService)
 
 			if lastLookCFrame.current == nil then
 				lastLookCFrame.current = userHeadCameraCF
@@ -69,11 +64,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 				lastLookCFrame.current = lastLookCFrame.current:Lerp(userHeadCameraCF, LERP_SPEED * deltaSeconds)
 			end
 
-			if UIBloxConfig.vrApplyHeadScale then
-				finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * cameraHeadScale * 2
-			else
-				finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * (cameraHeadScale + 1)
-			end
+			finalPosition = userHeadCameraCF.Position + lastLookCFrame.current.LookVector * cameraHeadScale * 2
 			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y, finalPosition.Z)
 
 			local alignedPanel = props.alignedPanel
@@ -95,13 +86,8 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 						-- finalPosition should be calculated by panelPart's position + an offset that's based on other panel's LookVector.
 						-- lookVectorOffset is based on finalPositions calculated in alignedPanel:EvaluatePositioning() and above,
 						-- since both finalPositions are equal to userHeadCameraCF.Position + a lookVector offset
-						local lookVectorOffset = 0
-						if UIBloxConfig.vrApplyHeadScale then
-							lookVectorOffset = (cameraHeadScale * 2)
-								- (alignedPanel.distance * cameraHeadScale + panelPart.Size.Z * 0.5)
-						else
-							lookVectorOffset = (cameraHeadScale + 1) - (alignedPanel.distance * cameraHeadScale)
-						end
+						local lookVectorOffset = (cameraHeadScale * 2)
+							- (alignedPanel.distance * cameraHeadScale + panelPart.Size.Z * 0.5)
 						local shiftedPanelPartPosition = panelPart.Position
 							+ lookVectorOffset * alignedPanel.LastFollowCF.LookVector
 
@@ -140,13 +126,7 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 		local panelCFrame = nil
 		if lastOffset.current ~= nil then
 			if props.faceCamera then
-				local vrCameraCF
-				if UIBloxConfig.vrApplyHeadScale then
-					vrCameraCF = GetUserCFrameWorldSpace(Enum.UserCFrame.Head, VRService)
-				else
-					vrCameraCF = cameraCF * VRService:GetUserCFrame(Enum.UserCFrame.Head)
-				end
-
+				local vrCameraCF = GetUserCFrameWorldSpace(Enum.UserCFrame.Head, VRService)
 				panelCFrame =
 					CFrame.new(finalPosition + lastOffset.current.Position * cameraHeadScale, vrCameraCF.Position)
 			else
@@ -158,15 +138,11 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 
 		if basePart.current ~= nil then
 			basePart.current.CFrame = panelCFrame
-			if UIBloxConfig.vrApplyHeadScale then
-				-- The smallest part size is 0.05
-				-- Don't go smaller than this otherwise there will be a discrepancy between
-				-- the physical and visual positions, and the laser pointer cursor will look off
-				basePart.current.Size =
-					Vector3.new(props.partSize.X * cameraHeadScale, props.partSize.Y * cameraHeadScale, 0.05)
-			else
-				basePart.current.Size = Vector3.new(props.partSize.X, props.partSize.Y, 0) * cameraHeadScale
-			end
+			-- The smallest part size is 0.05
+			-- Don't go smaller than this otherwise there will be a discrepancy between
+			-- the physical and visual positions, and the laser pointer cursor will look off
+			basePart.current.Size =
+				Vector3.new(props.partSize.X * cameraHeadScale, props.partSize.Y * cameraHeadScale, 0.05)
 		end
 	end, { props.anchoring, props.faceCamera, props.lerp, props.offset, props.partSize, props.alignedPanel } :: { any })
 

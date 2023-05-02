@@ -3,10 +3,10 @@ local root = script.Parent.Parent
 local validateLayeredClothingAccessory = require(root.validation.validateLayeredClothingAccessory)
 local validateLayeredClothingAccessoryMeshPartAssetFormatMatch = require(root.validation.validateLayeredClothingAccessoryMeshPartAssetFormatMatch)
 
-local function validateLayeredClothingAccessoryMeshPartAssetFormat(instances: {Instance}, specialMeshAssetFormatAccessory: Instance, assetTypeEnum: Enum.AssetType, isServer: boolean): (boolean, {string}?)
+local function validateLayeredClothingAccessoryMeshPartAssetFormat(instances: {Instance}, specialMeshAssetFormatAccessory: Instance, assetTypeEnum: Enum.AssetType, isServer: boolean, allowUnreviewedAssets: boolean): (boolean, {string}?)
 	local success: boolean, reasons: {string}?
 
-	success, reasons = validateLayeredClothingAccessory(instances, assetTypeEnum, isServer)
+	success, reasons = validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
 	if not success then
 		return false, reasons
 	end

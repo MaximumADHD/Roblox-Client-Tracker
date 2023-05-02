@@ -7,7 +7,6 @@ local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 local RoactGamepad = require(Packages.RoactGamepad)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 
@@ -74,10 +73,7 @@ function RadioButton:render()
 			fillImageSize = UDim2.new(0, 0, 0, 0)
 		end
 
-		local buttonComponent = InputButton
-		if UIBloxConfig.enableRadioButtonGamepadSupport then
-			buttonComponent = RoactGamepad.Focusable[InputButton]
-		end
+		local buttonComponent = RoactGamepad.Focusable[InputButton]
 
 		return Roact.createElement(buttonComponent, {
 			text = self.props.text,
@@ -94,21 +90,16 @@ function RadioButton:render()
 			layoutOrder = self.props.layoutOrder,
 			isDisabled = self.props.isDisabled,
 
-			[Roact.Ref] = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.forwardRef or nil,
-			NextSelectionUp = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionUp or nil,
-			NextSelectionDown = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionDown or nil,
-			NextSelectionLeft = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionLeft or nil,
-			NextSelectionRight = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionRight or nil,
-			SelectionImageObject = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.SelectionImageObject
-				or nil,
+			[Roact.Ref] = self.props.forwardRef,
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			SelectionImageObject = self.props.SelectionImageObject,
 		})
 	end)
 end
 
-if UIBloxConfig.enableRadioButtonGamepadSupport then
-	return Roact.forwardRef(function(props, ref)
-		return Roact.createElement(RadioButton, Cryo.Dictionary.join(props, { forwardRef = ref }))
-	end)
-else
-	return RadioButton
-end
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(RadioButton, Cryo.Dictionary.join(props, { forwardRef = ref }))
+end)

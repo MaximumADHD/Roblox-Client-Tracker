@@ -11,7 +11,6 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local TEXT_MAX_BOUND = 10000
 
 local ICON_SIZE = getIconSize(IconSize.Large)
@@ -63,10 +62,8 @@ function PlayerCount:render()
 				layoutOrder = 1,
 				position = UDim2.new(0, 0, 0, 0),
 				anchorPoint = Vector2.new(0, 0),
-				size = if UIBloxConfig.fixGameDetailsAutomaticSize
-					then UDim2.new(leftSectionWeight, 0, 0, 0)
-					else UDim2.new(leftSectionWeight, 0, 1, 0),
-				automaticSize = if UIBloxConfig.fixGameDetailsAutomaticSize then Enum.AutomaticSize.Y else nil,
+				size = UDim2.new(leftSectionWeight, 0, 0, 0),
+				automaticSize = Enum.AutomaticSize.Y,
 				horizontalAlignment = Enum.HorizontalAlignment.Left,
 			}, style),
 			RightSection = self:renderStatWidget({
@@ -74,10 +71,8 @@ function PlayerCount:render()
 				layoutOrder = 2,
 				position = UDim2.new(1, 0, 0, 0),
 				anchorPoint = Vector2.new(1, 0),
-				size = if UIBloxConfig.fixGameDetailsAutomaticSize
-					then UDim2.new(rightSectionWeight, 0, 0, 0)
-					else UDim2.new(rightSectionWeight, 0, 1, 0),
-				automaticSize = if UIBloxConfig.fixGameDetailsAutomaticSize then Enum.AutomaticSize.Y else nil,
+				size = UDim2.new(rightSectionWeight, 0, 0, 0),
+				automaticSize = Enum.AutomaticSize.Y,
 				horizontalAlignment = Enum.HorizontalAlignment.Right,
 			}, style),
 		})
@@ -99,7 +94,7 @@ function PlayerCount:renderStatWidget(widgetProps, style)
 		Position = position,
 		AnchorPoint = anchorPoint,
 		Size = size,
-		AutomaticSize = if UIBloxConfig.fixGameDetailsAutomaticSize then automaticSize else nil,
+		AutomaticSize = automaticSize,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {

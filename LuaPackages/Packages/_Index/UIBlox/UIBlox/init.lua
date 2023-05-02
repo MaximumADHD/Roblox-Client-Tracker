@@ -194,19 +194,18 @@ local function initializeLibrary(configs)
 			Grid = strict({
 				GridTable = require(script.App.Container.Grid.GridTable),
 			}),
-			VerticalScrollView = configs.useNewVerticalScrollView and require(
-				script.App.Container.VerticalScrollViewV2
-			) or require(script.App.Container.VerticalScrollViewWithMargin),
+			VerticalScrollView = configs.useNewVerticalScrollView and require(script.App.Container.VerticalScrollView)
+				or require(script.App.Container.VerticalScrollViewWithMargin),
 			VerticalScrollViewWithMargin = require(script.App.Container.VerticalScrollViewWithMargin),
-			VerticalScrollViewWithIndicator = require(script.App.Container.VerticalScrollViewV2),
+			VerticalScrollViewWithIndicator = require(script.App.Container.VerticalScrollView),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
 			LoadingStatePage = require(script.App.Container.LoadingStatePage),
 			FailedStatePage = require(script.App.Container.FailedStatePage),
 			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),
-			MediaGalleryPreview = require(script.App.Container.MediaGallery.Preview),
-			MediaGalleryFullScreen = require(script.App.Container.MediaGallery.FullScreen),
-			MediaGalleryHorizontal = require(script.App.Container.MediaGallery.Horizontal),
+			MediaGalleryPreview = require(script.App.Container.MediaGallery.MediaGalleryPreview),
+			MediaGalleryFullScreen = require(script.App.Container.MediaGallery.MediaGalleryFullScreen),
+			MediaGalleryHorizontal = require(script.App.Container.MediaGallery.MediaGalleryHorizontal),
 		}),
 
 		Slider = strict({
@@ -259,8 +258,11 @@ local function initializeLibrary(configs)
 			TileContentPanel = require(script.App.Tile.SplitTile.TileContentPanel),
 			ExperienceActionRow = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow),
 			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
-			VerticalTile = require(script.App.Tile.SplitTile.VerticalTile.VerticalTileV2),
+			VerticalTile = require(script.App.Tile.SplitTile.VerticalTile.VerticalTile),
 			VerticalTileThumbnail = require(script.App.Tile.SplitTile.VerticalTile.VerticalTileThumbnail),
+			ExperienceTileMetadata = {
+				CoPlayFooter = require(script.App.Tile.ExperienceTileMetadata.CoPlayFooter),
+			},
 		}),
 
 		Dialog = strict({

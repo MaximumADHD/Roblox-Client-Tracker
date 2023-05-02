@@ -15,8 +15,6 @@ local DropdownMenuCell = require(UIBlox.App.Menu.DropdownMenuCell)
 
 local bind = require(UIBlox.Utility.bind)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local BUTTON_IMAGE = "component_assets/circle_17_stroke_1"
 local COLLAPSE_IMAGE = "truncate_arrows/actions_truncationCollapse"
 local EXPAND_IMAGE = "truncate_arrows/actions_truncationExpand"
@@ -66,7 +64,7 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 		text = t.string,
 
 		-- unique identifier for each cell (defaults to `text` field if not provided)
-		key = t.optional(t.string), -- UIBloxConfig.dropDownMenuUseUniqueKeys
+		key = t.optional(t.string),
 
 		-- is the cell is disabled
 		disabled = t.optional(t.boolean),
@@ -105,8 +103,7 @@ function DropdownMenuComponent:init()
 
 	self:setState({
 		menuOpen = false,
-		selectedKey = if UIBloxConfig.dropDownMenuUseUniqueKeys then nil else nil,
-		selectedValue = if UIBloxConfig.dropDownMenuUseUniqueKeys then nil else self.props.placeholder,
+		selectedKey = nil,
 		absoluteSize = Vector2.new(0, 0),
 	})
 
@@ -122,43 +119,22 @@ function DropdownMenuComponent:init()
 		})
 	end
 
-	if UIBloxConfig.dropDownMenuUseUniqueKeys then
-		self.onSelect = function(key)
-			self:setState({
-				menuOpen = false,
-				selectedKey = key,
-			})
-			self.props.onChange(key)
-		end
-	else
-		self.onSelect = function(cell)
-			local value = cell.LeftAlignedContent.Text.text
-			self:setState({
-				menuOpen = false,
-				selectedValue = value,
-			})
-			self.props.onChange(value)
-		end
+	self.onSelect = function(key)
+		self:setState({
+			menuOpen = false,
+			selectedKey = key,
+		})
+		self.props.onChange(key)
 	end
 
 	self.mapCellData = function(cellData)
-		if UIBloxConfig.dropDownMenuUseUniqueKeys then
-			local key = getCellDataKey(cellData)
-			local functionalCell = Cryo.Dictionary.join(cellData, {
-				key = Cryo.None,
-			})
-			functionalCell.onActivated = bind(self.onSelect, key)
-			functionalCell.selected = self.state.selectedKey == key
-			return functionalCell
-		else
-			local functionalCell = {}
-			for i, v in pairs(cellData) do
-				functionalCell[i] = v
-			end
-			functionalCell.onActivated = self.onSelect
-			functionalCell.selected = self.state.selectedValue == functionalCell.text
-			return functionalCell
-		end
+		local key = getCellDataKey(cellData)
+		local functionalCell = Cryo.Dictionary.join(cellData, {
+			key = Cryo.None,
+		})
+		functionalCell.onActivated = bind(self.onSelect, key)
+		functionalCell.selected = self.state.selectedKey == key
+		return functionalCell
 	end
 
 	self.onResize = function(rbx)
@@ -169,37 +145,18 @@ function DropdownMenuComponent:init()
 end
 
 function DropdownMenuComponent.getDerivedStateFromProps(nextProps, lastState)
-	if UIBloxConfig.enableDropdownMenuUpdateSelectedValueFromPlaceholder or UIBloxConfig.dropDownMenuUseUniqueKeys then
-		local found = false
-		if UIBloxConfig.dropDownMenuUseUniqueKeys then
-			for _, cellData in nextProps.cellDatas do
-				if getCellDataKey(cellData) == lastState.selectedKey then
-					found = true
-					break
-				end
-			end
-		else
-			for i, v in nextProps.cellDatas do
-				if v.text == lastState.selectedValue then
-					found = true
-					break
-				end
-			end
+	local found = false
+	for _, cellData in nextProps.cellDatas do
+		if getCellDataKey(cellData) == lastState.selectedKey then
+			found = true
+			break
 		end
+	end
 
-		if UIBloxConfig.dropDownMenuUseUniqueKeys then
-			if not found then
-				return {
-					selectedKey = Roact.None,
-				}
-			end
-		else
-			if not found then
-				return {
-					selectedValue = nextProps.placeholder,
-				}
-			end
-		end
+	if not found then
+		return {
+			selectedKey = Roact.None,
+		}
 	end
 
 	return nil
@@ -209,16 +166,10 @@ function DropdownMenuComponent:render()
 	local cellDatas = self.props.cellDatas
 	local functionalCells = Cryo.List.map(cellDatas, self.mapCellData)
 
-	local selectedIndex
-	local selectedValue
-	if UIBloxConfig.dropDownMenuUseUniqueKeys then
-		selectedIndex = Cryo.List.findWhere(functionalCells, function(cell)
-			return cell.selected
-		end)
-		selectedValue = if selectedIndex ~= nil then functionalCells[selectedIndex].text else self.props.placeholder
-	else
-		selectedValue = self.state.selectedValue
-	end
+	local selectedIndex = Cryo.List.findWhere(functionalCells, function(cell)
+		return cell.selected
+	end)
+	local selectedValue = if selectedIndex ~= nil then functionalCells[selectedIndex].text else self.props.placeholder
 
 	local defaultState = "SecondaryDefault"
 	local hoverState = "SecondaryOnHover"
@@ -260,9 +211,7 @@ function DropdownMenuComponent:render()
 				isDisabled = self.props.isDisabled,
 				isLoading = false,
 				isActivated = self.state.menuOpen,
-				hasContent = if UIBloxConfig.dropDownMenuUseUniqueKeys
-					then selectedIndex ~= nil
-					else self.state.selectedValue ~= self.props.placeholder,
+				hasContent = selectedIndex ~= nil,
 				userInteractionEnabled = true,
 				onActivated = self.openMenu,
 			}),

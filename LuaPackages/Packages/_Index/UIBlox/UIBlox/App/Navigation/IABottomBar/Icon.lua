@@ -15,7 +15,6 @@ local Badge = require(UIBlox.App.Indicator.Badge)
 local BadgeStates = require(UIBlox.App.Indicator.Enum.BadgeStates)
 
 local Placement = require(Navigation.Enum.Placement)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Consts = require(Navigation.IABottomBar.Constants)
 
 local function Icon(item, state, selected, showNumberedBadge, iconProps) -- general icon component. used by individual nav bar item and multiple nav bar item
@@ -28,7 +27,6 @@ local function Icon(item, state, selected, showNumberedBadge, iconProps) -- gene
 	local theme = stylePalette.Theme
 
 	local pressed = state == ControlState.Pressed
-	local allowString = UIBloxConfig.allowSystemBarToAcceptString
 	-- handle badging states
 	local hasBadge = false
 
@@ -39,7 +37,7 @@ local function Icon(item, state, selected, showNumberedBadge, iconProps) -- gene
 		elseif item.badgeValue == BadgeStates.isEmpty then
 			hasBadge = true
 			item.badgeValue = 1
-		elseif t.string(item.badgeValue) and allowString then
+		elseif t.string(item.badgeValue) then
 			hasBadge = true
 			item.badgeValue = 1
 		else
@@ -52,7 +50,7 @@ local function Icon(item, state, selected, showNumberedBadge, iconProps) -- gene
 			item.badgeValue = BadgeStates.isEmpty
 		elseif item.badgeValue == BadgeStates.isEmpty then
 			hasBadge = true
-		elseif t.string(item.badgeValue) and allowString then
+		elseif t.string(item.badgeValue) then
 			hasBadge = true
 			item.badgeValue = BadgeStates.isEmpty
 		else

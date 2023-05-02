@@ -16,8 +16,6 @@ local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local ThreeSectionBar = require(UIBlox.Core.Bar.ThreeSectionBar)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local HeaderBar = Roact.PureComponent:extend("HeaderBar")
 
 local PADDING_AROUND_DIVIDER = 12
@@ -40,10 +38,10 @@ HeaderBar.validateProps = t.strictInterface({
 	title = t.optional(t.string),
 
 	-- The value for the side margins
-	margin = if UIBloxConfig.headerBarInjectMargin then t.optional(t.number) else nil,
+	margin = t.optional(t.number),
 
 	-- Padding around the items from renderRight
-	contentPaddingRight = if UIBloxConfig.headerBarInjectContentPaddingRight then t.optional(t.UDim) else nil,
+	contentPaddingRight = t.optional(t.UDim),
 
 	-- How tall the bar is
 	barHeight = t.optional(t.number),
@@ -208,18 +206,13 @@ function HeaderBar:render()
 				BackgroundTransparency = self.props.backgroundTransparency or theme.BackgroundDefault.Transparency,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				barHeight = self.props.barHeight,
-				marginLeft = if UIBloxConfig.headerBarInjectMargin
-					then self.props.margin or self.state.margin
-					else self.state.margin,
-				marginRight = if UIBloxConfig.headerBarInjectMargin
-					then self.props.margin or self.state.margin
-					else self.state.margin,
+				marginLeft = self.props.margin or self.state.margin,
+				marginRight = self.props.margin or self.state.margin,
 				renderLeft = renderLeft,
 				renderCenter = renderCenter,
 				estimatedCenterWidth = estimatedCenterWidth,
-				contentPaddingRight = if UIBloxConfig.headerBarInjectContentPaddingRight
-					then self.props.contentPaddingRight or UDim.new(0, isRoot and 0 or PADDING_AROUND_DIVIDER)
-					else UDim.new(0, isRoot and 0 or PADDING_AROUND_DIVIDER),
+				contentPaddingRight = self.props.contentPaddingRight
+					or UDim.new(0, isRoot and 0 or PADDING_AROUND_DIVIDER),
 				renderRight = renderRight,
 			}),
 		})

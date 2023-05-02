@@ -9,7 +9,6 @@ local Cryo = require(Packages.Cryo)
 
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local RadioButtonList = Roact.PureComponent:extend("RadioButtonList")
 
@@ -56,9 +55,7 @@ function RadioButtonList:init()
 		self.props.onActivated(key)
 	end
 
-	if UIBloxConfig.enableRadioButtonGamepadSupport then
-		self.gamepadRefs = RoactGamepad.createRefCache()
-	end
+	self.gamepadRefs = RoactGamepad.createRefCache()
 end
 
 function RadioButtonList:renderWithProviders(getSelectionCursor)
@@ -103,34 +100,9 @@ function RadioButtonList:renderWithProviders(getSelectionCursor)
 end
 
 function RadioButtonList:render()
-	if UIBloxConfig.enableRadioButtonGamepadSupport then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithProviders(getSelectionCursor)
-		end)
-	end
-
-	local radioButtons = {}
-	radioButtons.layout = Roact.createElement("UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-	})
-
-	for i, value in ipairs(self.props.radioButtons) do
-		radioButtons["RadioButton" .. i] = Roact.createElement(RadioButton, {
-			text = type(value) == "table" and value.label or value,
-			isSelected = i == self.state.currentValue,
-			isDisabled = self.state.disabledIndices[i],
-			onActivated = self.doLogic,
-			size = self.props.elementSize,
-			layoutOrder = i,
-			id = i,
-		})
-	end
-
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-		LayoutOrder = self.props.layoutOrder,
-	}, radioButtons)
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithProviders(getSelectionCursor)
+	end)
 end
 
 return Roact.forwardRef(function(props, ref)

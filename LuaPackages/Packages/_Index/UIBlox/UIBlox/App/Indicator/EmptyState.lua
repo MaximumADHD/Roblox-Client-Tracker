@@ -24,7 +24,7 @@ local DEFAULT_ICON = "icons/status/oof_xlarge"
 local DEFAULT_BUTTON_ICON = "icons/common/refresh"
 local ICON_TEXT_PADDING = 12
 local TEXT_BUTTON_PADDING = 24
-local TITLE_PADDING = if UIBloxConfig.emptyStateTitleAndIconSize then 14 else nil
+local TITLE_PADDING = 14
 local BUTTON_HEIGHT = 48
 local BUTTON_MAX_SIZE = 640
 
@@ -45,12 +45,10 @@ EmptyState.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	maxSizeTextLabel = t.optional(t.Vector2),
 	iconColor = t.optional(t.Color3),
-	iconSize = if UIBloxConfig.emptyStateTitleAndIconSize then t.optional(t.UDim2) else nil,
-	titleProps = if UIBloxConfig.emptyStateTitleAndIconSize
-		then t.optional(t.strictInterface({
-			titleText = t.optional(t.string),
-		}))
-		else nil,
+	iconSize = t.optional(t.UDim2),
+	titleProps = t.optional(t.strictInterface({
+		titleText = t.optional(t.string),
+	})),
 })
 
 EmptyState.defaultProps = {
@@ -59,9 +57,7 @@ EmptyState.defaultProps = {
 	position = UDim2.fromScale(0.5, 0.5),
 	anchorPoint = Vector2.new(0.5, 0.5),
 	buttonIcon = Images[DEFAULT_BUTTON_ICON],
-	iconSize = if UIBloxConfig.emptyStateTitleAndIconSize
-		then UDim2.fromOffset(getIconSize(IconSize.XLarge), getIconSize(IconSize.XLarge))
-		else nil,
+	iconSize = UDim2.fromOffset(getIconSize(IconSize.XLarge), getIconSize(IconSize.XLarge)),
 }
 
 function EmptyState:init()
@@ -79,18 +75,18 @@ end
 
 function EmptyState:render()
 	return withStyle(function(style)
-		return Roact.createElement(UIBloxConfig.emptyStateControllerSupport and RoactGamepad.Focusable.Frame or "Frame", {
+		return Roact.createElement(RoactGamepad.Focusable.Frame, {
 			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 			Size = self.props.size,
 			Position = self.props.position,
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundTransparency = 1,
-			[Roact.Ref] = UIBloxConfig.emptyStateControllerSupport and self.props.frameRef or nil,
-			NextSelectionUp = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionUp or nil,
-			NextSelectionDown = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionDown or nil,
-			NextSelectionULeft = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionLeft or nil,
-			NextSelectionRight = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionRight or nil,
-			defaultChild = UIBloxConfig.emptyStateControllerSupport and self.buttonRef or nil,
+			[Roact.Ref] = self.props.frameRef,
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+			NextSelectionULeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			defaultChild = self.buttonRef,
 		}, {
 			Content = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 187),
@@ -104,9 +100,7 @@ function EmptyState:render()
 				}),
 				Icon = Roact.createElement(ImageSetComponent.Label, {
 					AnchorPoint = Vector2.new(0.5, 0),
-					Size = if UIBloxConfig.emptyStateTitleAndIconSize
-						then self.props.iconSize
-						else UDim2.fromOffset(getIconSize(IconSize.XLarge), getIconSize(IconSize.XLarge)),
+					Size = self.props.iconSize,
 					LayoutOrder = 1,
 					Image = self.props.icon,
 					BackgroundTransparency = 1,
@@ -119,8 +113,7 @@ function EmptyState:render()
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
 				}),
-				TitleFrame = if UIBloxConfig.emptyStateTitleAndIconSize
-						and (self.props.titleProps and self.props.titleProps.titleText)
+				TitleFrame = if self.props.titleProps and self.props.titleProps.titleText
 					then Roact.createElement("Frame", {
 						Size = UDim2.fromScale(1, 0),
 						Position = UDim2.fromScale(0, 0),
@@ -153,7 +146,7 @@ function EmptyState:render()
 					Text = self.props.text,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
-					LayoutOrder = if UIBloxConfig.emptyStateTitleAndIconSize then 4 else 3,
+					LayoutOrder = 4,
 					fontStyle = style.Font.Body,
 					colorStyle = style.Theme.TextDefault,
 					maxSize = self.props.maxSizeTextLabel,
@@ -162,13 +155,13 @@ function EmptyState:render()
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Size = UDim2.fromOffset(0, TEXT_BUTTON_PADDING),
 					BackgroundTransparency = 1,
-					LayoutOrder = if UIBloxConfig.emptyStateTitleAndIconSize then 5 else 4,
+					LayoutOrder = 5,
 				}),
 				buttonFrame = self.props.onActivated and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
 					AnchorPoint = Vector2.new(0.5, 0),
 					BackgroundTransparency = 1,
-					LayoutOrder = if UIBloxConfig.emptyStateTitleAndIconSize then 6 else 5,
+					LayoutOrder = 6,
 				}, {
 					UIPadding = Roact.createElement("UIPadding", {
 						PaddingLeft = UDim.new(0, getPageMargin(self.state.absoluteSize.X)),
