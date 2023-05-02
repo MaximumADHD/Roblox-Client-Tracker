@@ -2,7 +2,7 @@ Key,en-us
 Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details
 Studio.CompositorDebugger.LayerView.Properties,Properties
 Studio.CompositorDebugger.LayerView.State,State
-Studio.CompositorDebugger.LayerView.UserData,User Data
+Studio.CompositorDebugger.LayerView.Watches,Watches
 Studio.CompositorDebugger.Plugin.Button,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.
 Studio.CompositorDebugger.Plugin.Name,Compositor Debugger

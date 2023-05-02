@@ -1,10 +1,10 @@
-Key,Source,en-us
-Studio.CompositorDebugger.Plugin.Text,Example Text!,Example Text!
-Studio.CompositorDebugger.Plugin.Button,Compositor Debugger,Compositor Debugger
-Studio.CompositorDebugger.Plugin.Name,Compositor Debugger,Compositor Debugger
-Studio.CompositorDebugger.Plugin.Toolbar,Animation,Animation
-Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Toggles the Compositor Debugger window.
-Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details,Layer Details
-Studio.CompositorDebugger.LayerView.Properties,Properties,Properties
-Studio.CompositorDebugger.LayerView.UserData,User Data,User Data
-Studio.CompositorDebugger.LayerView.State,State,State
+Key,Source,en-us,es-es,it-it,ko-kr,pt-br
+Studio.CompositorDebugger.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Testo Di Esempio!,예시 텍스트!,Texto de exemplo!
+Studio.CompositorDebugger.Plugin.Button,Compositor Debugger,Compositor Debugger,Depurador de compositor,Debug Compositore,작성자 디버거,Depurador do compositor
+Studio.CompositorDebugger.Plugin.Name,Compositor Debugger,Compositor Debugger,Depurador de compositor,Debug Compositore,작성자 디버거,Depurador do compositor
+Studio.CompositorDebugger.Plugin.Toolbar,Animation,Animation,Animación,Animazione,애니메이션,Animação
+Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Toggles the Compositor Debugger window.,Activa la ventana de depurador de compositores.,Commuta la finestra del Debug Compositore.,작성자 디버거 창을 토글합니다.,Alterna a janela do Depurador do compositor.
+Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details,Layer Details,Detalles de capa, ,레이어 세부 정보,Detalhes da camada
+Studio.CompositorDebugger.LayerView.Properties,Properties,Properties,Propiedades, ,속성,Propriedades
+Studio.CompositorDebugger.LayerView.UserData,User Data,User Data,Datos de usuario, ,사용자 데이터,Dados do usuário
+Studio.CompositorDebugger.LayerView.State,State,State,Estado, ,상태,Estado

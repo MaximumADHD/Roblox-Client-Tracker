@@ -200,10 +200,11 @@ Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function null AssetImportSession:Cancel() {RobloxScriptSecurity}
 	Function Dictionary AssetImportSession:GetCurrentStatusTable() {RobloxScriptSecurity}
 	Function string AssetImportSession:GetFilename() {RobloxScriptSecurity}
+	Function Instance AssetImportSession:GetImportTree() {RobloxScriptSecurity}
 	Function Instance AssetImportSession:GetInstance(int nodeId) {RobloxScriptSecurity}
-	Function Instance AssetImportSession:GetSettingsRoot() {RobloxScriptSecurity}
 	Function bool AssetImportSession:HasAnimation() {RobloxScriptSecurity}
 	Function bool AssetImportSession:IsAvatar() {RobloxScriptSecurity}
+	Function bool AssetImportSession:IsGltf() {RobloxScriptSecurity}
 	Function bool AssetImportSession:IsR15() {RobloxScriptSecurity}
 	Function null AssetImportSession:Upload() {RobloxScriptSecurity}
 	Function bool AssetImportSession:usesCustomRestPoseLua() {RobloxScriptSecurity}
@@ -1000,8 +1001,8 @@ Class AirController : ControllerBase [NotBrowsable]
 	Property float AirController.OrientationMaxTorque
 	Property float AirController.OrientationSpeedFactor
 	Property bool AirController.MaintainAngularMomentum
-	Property float AirController.TurningMaxTorque
-	Property float AirController.TurningSpeedFactor
+	Property float AirController.TurnMaxTorque
+	Property float AirController.TurnSpeedFactor
 Class ClimbController : ControllerBase [NotBrowsable]
 	Property float ClimbController.BalanceMaxTorque
 	Property bool ClimbController.BalanceRigidityEnabled
@@ -1040,7 +1041,6 @@ Class ControllerManager : Instance [NotBrowsable]
 	Property ControllerSensor ControllerManager.GroundSensor
 	Property Vector3 ControllerManager.FacingDirection
 	Property Vector3 ControllerManager.MovingDirection
-	Function Objects ControllerManager:GetControllers() [Deprecated]
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1838,6 +1838,7 @@ Class SurfaceGuiBase : LayerCollector [NotCreatable]
 	Property Instance SurfaceGuiBase.Adornee
 	Property Enum.NormalId SurfaceGuiBase.Face
 Class AdGui : SurfaceGuiBase
+	Property Content AdGui.FallbackImage
 	Property Enum.AdUnitStatus AdGui.Status [ReadOnly]
 	Property Enum.AdShape AdGui.AdShape
 Class SurfaceGui : SurfaceGuiBase
@@ -2811,6 +2812,8 @@ Class PlayerMouse : Mouse [NotCreatable]
 Class PluginMouse : Mouse [NotCreatable]
 	Event PluginMouse.DragEnter(Objects instances) {PluginSecurity}
 Class MouseService : Instance [NotCreatable] [Service] [NotReplicated]
+	Event MouseService.MouseEnterStudioViewport() {RobloxScriptSecurity}
+	Event MouseService.MouseLeaveStudioViewport() {RobloxScriptSecurity}
 Class MultipleDocumentInterfaceInstance : Instance [NotCreatable] [NotReplicated]
 	Property Instance MultipleDocumentInterfaceInstance.FocusedDataModelSession {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Event MultipleDocumentInterfaceInstance.DataModelSessionEnded(Instance dataModelSession) {RobloxScriptSecurity}
@@ -2892,7 +2895,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CanQuery
 	Property bool BasePart.CanTouch
 	Property string BasePart.CollisionGroup [NotReplicated]
-	Property int BasePart.CollisionGroupId [NotReplicated]
+	Property int BasePart.CollisionGroupId [NotReplicated] [Deprecated]
 	Property string BasePart.CollisionGroupReplicate {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property int BasePart.LocalSimulationValidation [Hidden] [NotScriptable]
 	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
@@ -3483,8 +3486,6 @@ Class Player : Instance
 	Property string Player.OsPlatform {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string Player.PlatformName {RobloxScriptSecurity} [Hidden]
 	Property BinaryString Player.RawJoinData {RobloxSecurity} [Hidden] [NotScriptable]
-	Property string Player.ReplicatedLocaleId [Hidden] [NotReplicated] [NotScriptable]
-	Property string Player.ReplicatedLocaleIdInternal {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property Instance Player.ReplicationFocus
 	Property SpawnLocation Player.RespawnLocation
 	Property float Player.SimulationRadius {LocalUserSecurity} [Hidden]
@@ -3887,6 +3888,7 @@ Class ReflectionMetadataProperties : Instance
 Class ReflectionMetadataYieldFunctions : Instance
 Class RemoteCursorService : Instance [NotCreatable] [Service]
 	Event RemoteCursorService.BroadcastRemoteCursorPositions(string script, string remoteCursorPosition) {RobloxSecurity} [Hidden]
+	Event RemoteCursorService.RequestAllRemoteCursorPositionForScript(string script) {RobloxSecurity} [Hidden]
 	Event RemoteCursorService.UpdateClientRemoteCursorPosition(string script, string remoteCursorPosition) {RobloxSecurity} [Hidden]
 Class RemoteDebuggerServer : Instance [NotCreatable] [Service] [NotReplicated]
 Class RemoteEvent : Instance
@@ -4086,6 +4088,7 @@ Class Selection : Instance [NotCreatable] [Service]
 	Property int Selection.SelectionLineThickness {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property float Selection.SelectionThickness [ReadOnly]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool Selection.ShowActiveInstanceHighlight {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Selection.ShowBoundingBox {RobloxScriptSecurity} [Hidden]
 	Function null Selection:Add(Objects instancesToAdd) {PluginSecurity}
 	Function null Selection:ClearTerrainSelectionHack() {RobloxScriptSecurity}
@@ -4097,7 +4100,7 @@ Class Selection : Instance [NotCreatable] [Service]
 Class SelectionHighlightManager : Instance [NotCreatable] [Service]
 Class SensorBase : Instance [NotCreatable]
 	Property Enum.SensorUpdateType SensorBase.UpdateType
-	Function null SensorBase:Sense()
+	Function null SensorBase:Sense() [Deprecated]
 	Event SensorBase.OnSensorOutputChanged()
 Class BuoyancySensor : SensorBase [NotBrowsable]
 	Property bool BuoyancySensor.FullySubmerged
@@ -4653,6 +4656,7 @@ Class StudioSdkService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function null StudioSdkService:SetSdk(Instance sdk) {RobloxScriptSecurity}
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool StudioService.DEPRECATED_ShowActiveInstanceHighlight {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioService.DraggerSolveConstraints [ReadOnly]
 	Property bool StudioService.DrawConstraintsOnTop [ReadOnly]
 	Property float StudioService.GridSize [ReadOnly]
@@ -4660,7 +4664,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool StudioService.PivotSnapToGeometry {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property float StudioService.RotateIncrement [ReadOnly]
-	Property bool StudioService.ShowActiveInstanceHighlight {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioService.ShowConstraintDetails [ReadOnly]
 	Property bool StudioService.UseLocalSpace [<📁> LoadOnly] [NotReplicated]
 	Property Instance StudioService.ActiveScript [ReadOnly]
@@ -4853,10 +4856,13 @@ Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property Color3 ChatInputBarConfiguration.TextStrokeColor3
 	Property double ChatInputBarConfiguration.TextStrokeTransparency
 	Property bool ChatInputBarConfiguration.Enabled
+	Property Enum.KeyCode ChatInputBarConfiguration.KeyboardKeyCode [Hidden]
 	Property Vector2 ChatInputBarConfiguration.AbsolutePosition [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatInputBarConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
 	Property Vector2 ChatInputBarConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatInputBarConfiguration.AbsoluteSizeWrite {RobloxScriptSecurity} [Hidden]
+	Property bool ChatInputBarConfiguration.IsFocused [ReadOnly] {🧬Unsafe}
+	Property bool ChatInputBarConfiguration.IsFocusedWrite {RobloxScriptSecurity} [Hidden]
 	Property TextChannel ChatInputBarConfiguration.TargetTextChannel
 	Property TextBox ChatInputBarConfiguration.TextBox
 Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
@@ -5950,6 +5956,8 @@ Enum ConnectionError
 	EnumItem ConnectionError.PlayerRemoved : 291
 	EnumItem ConnectionError.DisconnectOutOfMemoryKeepPlayingLeave : 292
 	EnumItem ConnectionError.DisconnectRomarkEndOfTest : 293
+	EnumItem ConnectionError.DisconnectCollaboratorPermissionRevoked : 294
+	EnumItem ConnectionError.DisconnectCollaboratorUnderage : 295
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -7399,6 +7407,10 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.MenuScrollbarHandle : 38
 	EnumItem StudioScriptEditorColorCategories.MenuBorder : 39
 	EnumItem StudioScriptEditorColorCategories.DocViewCodeBackground : 40
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayText : 41
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackground : 42
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundHover : 43
+	EnumItem StudioScriptEditorColorCategories.AICOOverlayButtonBackgroundPressed : 44
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
@@ -7525,6 +7537,10 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScriptTodo : 117
 	EnumItem StudioStyleGuideColor.ScriptBracket : 118
 	EnumItem StudioStyleGuideColor.AttributeCog : 119
+	EnumItem StudioStyleGuideColor.AICOOverlayText : 128
+	EnumItem StudioStyleGuideColor.AICOOverlayButtonBackground : 129
+	EnumItem StudioStyleGuideColor.AICOOverlayButtonBackgroundHover : 130
+	EnumItem StudioStyleGuideColor.AICOOverlayButtonBackgroundPressed : 131
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

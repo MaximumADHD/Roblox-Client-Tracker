@@ -49,9 +49,10 @@ Studio.TerrainToolsV2.BrushSettings.Advanced, ,Advanced
 Studio.TerrainToolsV2.BrushSettings.Apply, ,Apply
 Studio.TerrainToolsV2.BrushSettings.Auto, ,Auto
 Studio.TerrainToolsV2.BrushSettings.BaseSize, ,Base Size
+Studio.TerrainToolsV2.BrushSettings.BaseSizeTooltip, ,B + Move Mouse to adjust base size
 Studio.TerrainToolsV2.BrushSettings.BottomPivot, ,Bot
 Studio.TerrainToolsV2.BrushSettings.BrushMode, ,Brush Mode
-Studio.TerrainToolsV2.BrushSettings.BrushModeTooltip, ,Alt to perform opposite action
+Studio.TerrainToolsV2.BrushSettings.BrushModeTooltip, ,"Ctrl/Cmd to perform opposite action, Shift to Smooth"
 Studio.TerrainToolsV2.BrushSettings.BrushSettings, ,Brush Settings
 Studio.TerrainToolsV2.BrushSettings.CenterPivot, ,Cen
 Studio.TerrainToolsV2.BrushSettings.Edit, ,Edit
@@ -61,6 +62,7 @@ Studio.TerrainToolsV2.BrushSettings.Fill, ,Fill
 Studio.TerrainToolsV2.BrushSettings.FixedPlane, ,Fixed Plane
 Studio.TerrainToolsV2.BrushSettings.FlattenMode, ,Flatten Mode
 Studio.TerrainToolsV2.BrushSettings.Height, ,Height
+Studio.TerrainToolsV2.BrushSettings.HeightTooltip, ,Ctrl/Cmd + B + Move Mouse to adjust height
 Studio.TerrainToolsV2.BrushSettings.IgnoreParts, ,Ignore Parts
 Studio.TerrainToolsV2.BrushSettings.IgnoreWater, ,Ignore Water
 Studio.TerrainToolsV2.BrushSettings.Manual, ,Manual
@@ -79,6 +81,7 @@ Studio.TerrainToolsV2.BrushSettings.Shape, ,Shape
 Studio.TerrainToolsV2.BrushSettings.Size, ,Size
 Studio.TerrainToolsV2.BrushSettings.SnapToVoxels, ,Snap to Voxels
 Studio.TerrainToolsV2.BrushSettings.Strength, ,Strength
+Studio.TerrainToolsV2.BrushSettings.StrengthTooltip, ,Shift + B + Move Mouse to adjust strength
 Studio.TerrainToolsV2.BrushSettings.Subtract, ,Subtract
 Studio.TerrainToolsV2.BrushSettings.TopPivot, ,Top
 Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, ,Do you want to clear all terrain?
@@ -191,11 +194,15 @@ Studio.TerrainToolsV2.MaterialSettings.AutoMaterial, ,Auto Material
 Studio.TerrainToolsV2.MaterialSettings.ChooseBiome, ,Choose Biomes to apply
 Studio.TerrainToolsV2.MaterialSettings.ChooseMaterial, ,Choose a material to apply
 Studio.TerrainToolsV2.MaterialSettings.Fill, ,Fill
+Studio.TerrainToolsV2.MaterialSettings.Material, ,Material
 Studio.TerrainToolsV2.MaterialSettings.MaterialSettings, ,Material Settings
+Studio.TerrainToolsV2.MaterialSettings.MaterialTooltip, ,Alt + Click to pick material
 Studio.TerrainToolsV2.MaterialSettings.Replace, ,Replace
 Studio.TerrainToolsV2.MaterialSettings.ReplaceMaterial, ,Replace Mode
-Studio.TerrainToolsV2.MaterialSettings.SourceMaterial, ,Source material
-Studio.TerrainToolsV2.MaterialSettings.TargetMaterial, ,Target material
+Studio.TerrainToolsV2.MaterialSettings.SourceMaterial, ,Source Material
+Studio.TerrainToolsV2.MaterialSettings.SourceMaterialTooltip, ,Alt + Click to pick source material
+Studio.TerrainToolsV2.MaterialSettings.TargetMaterial, ,Target Material
+Studio.TerrainToolsV2.MaterialSettings.TargetMaterialTooltip, ,Alt + Shift + Click to pick target material
 Studio.TerrainToolsV2.MaterialSettings.UseColorMap, ,Use ColorMap
 Studio.TerrainToolsV2.Materials.Air, ,Air
 Studio.TerrainToolsV2.Materials.Asphalt, ,Asphalt

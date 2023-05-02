@@ -1,6 +1,6 @@
-Key,Source,en-us
-Studio.AvatarCompatibilityPreviewer.Plugin.Text,Example Text!,Example Text!
-Studio.AvatarCompatibilityPreviewer.Plugin.Name,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Button,Toggle,Toggle
-Studio.AvatarCompatibilityPreviewer.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
+Key,Source,en-us,es-es,ko-kr,pt-br
+Studio.AvatarCompatibilityPreviewer.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,예시 텍스트!,Texto de exemplo!
+Studio.AvatarCompatibilityPreviewer.Plugin.Name,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer
+Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer
+Studio.AvatarCompatibilityPreviewer.Plugin.Button,Toggle,Toggle,Activar,토글,Alternador
+Studio.AvatarCompatibilityPreviewer.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Activar la ventana del plugin Plantilla.,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.

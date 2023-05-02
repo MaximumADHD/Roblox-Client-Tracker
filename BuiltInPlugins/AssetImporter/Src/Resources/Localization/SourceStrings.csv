@@ -140,6 +140,7 @@ Studio.AssetImporter.Statuses.CageNoGeoParentError,"Couldn't find geometry for c
 Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
 Studio.AssetImporter.Statuses.CageUVMisMatchedWarning,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
+Studio.AssetImporter.Statuses.CantImportAvatarGltfsWarning,This file looks like it contains rigging data (Bones/Animations/Skinning). The importer does not yet support rigging in gLTF files.
 Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object.
 Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object.
 Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object.

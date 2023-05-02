@@ -1,4 +1,5 @@
-<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
   <Item class="ReflectionMetadataClasses">
     <Properties></Properties>
     <Item class="ReflectionMetadataClass">
@@ -98,11 +99,11 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">Plugin</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">86</string>
-        </Properties>
+      <Properties>
+        <string name="Name">Plugin</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">86</string>
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -137,7 +138,7 @@
         </Item>
       </Item>
       <Item class="ReflectionMetadataFunctions">
-            <Item class="ReflectionMetadataMember">
+        <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetCollection</string>
             <bool name="Deprecated">true</bool>
@@ -397,32 +398,32 @@
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">Rotation</string>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">WorldRotation</string>
-                  <bool name="Deprecated">true</bool>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">Orientation</string>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">WorldOrientation</string>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">Axis</string>
-            </Properties>
-          </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Rotation</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WorldRotation</string>
+            <bool name="Deprecated">true</bool>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Orientation</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WorldOrientation</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Axis</string>
+          </Properties>
+        </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SecondaryAxis</string>
@@ -720,22 +721,22 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Stiffness</string>
-           </Properties>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Damping</string>
-           </Properties>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">MaxTorque</string>
-           </Properties>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">MaxAngle</string>
-           </Properties>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -745,12 +746,12 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Radius</string>
-           </Properties>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Coils</string>
-           </Properties>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -838,7 +839,7 @@
       <Properties>
         <string name="Name">HingeConstraint</string>
         <string name="ClassCategory">Constraints</string>
-            <string name="ExplorerOrder">30</string>
+        <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">87</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
@@ -948,7 +949,7 @@
       </Item>
     </Item>
 
-      <Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SlidingBallConstraint</string>
         <string name="ClassCategory">Constraints</string>
@@ -1186,22 +1187,22 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">PlaneConstraint</string>
-            <string name="ClassCategory">Constraints</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">134</string>
-            <string name="PreferredParent">BasePart</string>
-        </Properties>
+      <Properties>
+        <string name="Name">PlaneConstraint</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">134</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">Plane</string>
-            <string name="ClassCategory">Constraints</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">134</string>
-            <string name="PreferredParent">BasePart</string>
-        </Properties>
+      <Properties>
+        <string name="Name">Plane</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">134</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -1211,62 +1212,62 @@
         <string name="ExplorerImageIndex">132</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Mode</string>
-                    <string name="summary">Selects the mode of the velocity constraint.  Options Line, Plane, Vector</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">LineDirection</string>
-                    <string name="summary">Direction of the line used to contraint the velocity to a line.</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">LineVelocity</string>
-                    <string name="summary">The value of the constraint velocity along a line.</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">PlanePrimaryTangent</string>
-                    <string name="summary">The primary axis in the plane.</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">PlaneSecondaryTangent</string>
-                    <string name="summary">The secondary axis in the plane.</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">PlaneVelocity</string>
-                    <string name="summary">Velocity coefficients in the constraint plane.</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Velocity</string>
-                    <string name="summary">Constraint velocity for the Vector mode.</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">MaxForce</string>
-                    <string name="summary">Maximum force magnitude that is applied to satisfy the constraint. </string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">RelativeTo</string>
-                    <string name="summary">Selects whether the velocity orientation is relative to attachment0, attachment1 or the world. </string>
-                </Properties>
-            </Item>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Mode</string>
+            <string name="summary">Selects the mode of the velocity constraint.  Options Line, Plane, Vector</string>
+          </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LineDirection</string>
+            <string name="summary">Direction of the line used to contraint the velocity to a line.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LineVelocity</string>
+            <string name="summary">The value of the constraint velocity along a line.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PlanePrimaryTangent</string>
+            <string name="summary">The primary axis in the plane.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PlaneSecondaryTangent</string>
+            <string name="summary">The secondary axis in the plane.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PlaneVelocity</string>
+            <string name="summary">Velocity coefficients in the constraint plane.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Velocity</string>
+            <string name="summary">Constraint velocity for the Vector mode.</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxForce</string>
+            <string name="summary">Maximum force magnitude that is applied to satisfy the constraint. </string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RelativeTo</string>
+            <string name="summary">Selects whether the velocity orientation is relative to attachment0, attachment1 or the world. </string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2555,7 +2556,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">PlaybackRegionsEnabled</string>
-            <bool name="FFlag">SoundLoopPointApi2</bool>
+            <bool name="FFlag">SoundLoopPointApi3</bool>
           </Properties>
         </Item>
       </Item>
@@ -3057,11 +3058,11 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">CoreGui</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">46</string>
-        </Properties>
+      <Properties>
+        <string name="Name">CoreGui</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">46</string>
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -3073,112 +3074,112 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">RobloxPluginGuiService</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">46</string>
-        </Properties>
+      <Properties>
+        <string name="Name">RobloxPluginGuiService</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">46</string>
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">PluginGuiService</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">46</string>
-        </Properties>
+      <Properties>
+        <string name="Name">PluginGuiService</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">46</string>
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">PluginDebugService</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">46</string>
-        </Properties>
+      <Properties>
+        <string name="Name">PluginDebugService</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">46</string>
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">Studio</string>
-        </Properties>
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Show Plugin GUI Service in Explorer</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Main Volume</string>
-                    <double name="UIMinimum">0</double>
-                    <double name="UIMaximum">1</double>
-                    <double name="UINumTicks">250</double>
-                </Properties>
-            </Item>
+      <Properties>
+        <string name="Name">Studio</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Show Plugin GUI Service in Explorer</string>
+          </Properties>
         </Item>
-    </Item>
-
-<Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">UIGridStyleLayout</string>
-            <string name="ClassCategory">GUI</string>
-            <string name="Browsable">false</string>
-            <string name="PreferredParent">GuiBase2d</string>
-        </Properties>
-
-        <Item class="ReflectionMetadataFunctions">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">SetCustomSortFunction</string>
-                    <bool name="Deprecated">true</bool>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">ApplyLayout</string>
-                </Properties>
-            </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Main Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">250</double>
+          </Properties>
         </Item>
-
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">SortOrder</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">FillDirection</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">HorizontalAlignment</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">VerticalAlignment</string>
-                </Properties>
-            </Item>
-        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">UIListLayout</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">26</string>
-            <string name="ClassCategory">GUI</string>
-            <string name="PreferredParent">GuiBase2d</string>
-        </Properties>
+      <Properties>
+        <string name="Name">UIGridStyleLayout</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="Browsable">false</string>
+        <string name="PreferredParent">GuiBase2d</string>
+      </Properties>
 
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Padding</string>
-                </Properties>
-            </Item>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SetCustomSortFunction</string>
+            <bool name="Deprecated">true</bool>
+          </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ApplyLayout</string>
+          </Properties>
+        </Item>
+      </Item>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SortOrder</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FillDirection</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HorizontalAlignment</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">VerticalAlignment</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">UIListLayout</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="PreferredParent">GuiBase2d</string>
+      </Properties>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Padding</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -3191,128 +3192,128 @@
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">CellSize</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">CellPadding</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">FillDirectionMaxCells</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">AbsoluteSize</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">StartCorner</string>
-                </Properties>
-            </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CellSize</string>
+          </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CellPadding</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FillDirectionMaxCells</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AbsoluteSize</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">StartCorner</string>
+          </Properties>
+        </Item>
+      </Item>
 
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">UIPageLayout</string>
-            <string name="ExplorerOrder">30</string>
-            <string name="ExplorerImageIndex">26</string>
-            <string name="ClassCategory">GUI</string>
-            <string name="PreferredParent">GuiBase2d</string>
-        </Properties>
+      <Properties>
+        <string name="Name">UIPageLayout</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="PreferredParent">GuiBase2d</string>
+      </Properties>
 
-        <Item class="ReflectionMetadataProperties">
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">CurrentPage</string>
-            </Properties>
-          </Item>
-
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">Circular</string>
-            </Properties>
-          </Item>
-
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                 <string name="Name">Padding</string>
-              </Properties>
-          </Item>
-
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">Animated</string>
-            </Properties>
-          </Item>
-
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">EasingStyle</string>
-            </Properties>
-          </Item>
-
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">EasingDirection</string>
-            </Properties>
-          </Item>
-
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">TweenTime</string>
-            </Properties>
-          </Item>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">CurrentPage</string>
+          </Properties>
         </Item>
 
-        <Item class="ReflectionMetadataFunctions">
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">Next</string>
-            </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">Previous</string>
-            </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">JumpTo</string>
-            </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">JumpToIndex</string>
-            </Properties>
-          </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Circular</string>
+          </Properties>
         </Item>
 
-        <Item class="ReflectionMetadataEvents">
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">PageEnter</string>
-            </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">PageLeave</string>
-            </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">Stopped</string>
-            </Properties>
-          </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Padding</string>
+          </Properties>
         </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Animated</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EasingStyle</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EasingDirection</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TweenTime</string>
+          </Properties>
+        </Item>
+      </Item>
+
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Next</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Previous</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">JumpTo</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">JumpToIndex</string>
+          </Properties>
+        </Item>
+      </Item>
+
+      <Item class="ReflectionMetadataEvents">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PageEnter</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PageLeave</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Stopped</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -3361,16 +3362,16 @@
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
-              <Item class="ReflectionMetadataMember">
-                  <Properties>
-                      <string name="Name">MinSize</string>
-                  </Properties>
-              </Item>
-              <Item class="ReflectionMetadataMember">
-                  <Properties>
-                      <string name="Name">MaxSize</string>
-                  </Properties>
-              </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MinSize</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxSize</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -3384,16 +3385,16 @@
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
-              <Item class="ReflectionMetadataMember">
-                  <Properties>
-                      <string name="Name">MinTextSize</string>
-                  </Properties>
-              </Item>
-              <Item class="ReflectionMetadataMember">
-                  <Properties>
-                      <string name="Name">MaxTextSize</string>
-                  </Properties>
-              </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MinTextSize</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxTextSize</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -3582,87 +3583,87 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">TweenBase</string>
-            <string name="Browsable">false</string>
-        </Properties>
+      <Properties>
+        <string name="Name">TweenBase</string>
+        <string name="Browsable">false</string>
+      </Properties>
 
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">PlaybackState</string>
-                </Properties>
-            </Item>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PlaybackState</string>
+          </Properties>
+        </Item>
+      </Item>
+
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Play</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pause</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Cancel</string>
+          </Properties>
+        </Item>
+      </Item>
+
+      <Item class="ReflectionMetadataEvents">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Completed</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">Tween</string>
+      </Properties>
+
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Instance</string>
+          </Properties>
         </Item>
 
-        <Item class="ReflectionMetadataFunctions">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Play</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Pause</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Cancel</string>
-                </Properties>
-            </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TweenInfo</string>
+          </Properties>
         </Item>
+      </Item>
+    </Item>
 
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">TweenService</string>
+      </Properties>
+
+      <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataEvents">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Completed</string>
-                </Properties>
-            </Item>
+          <Item class="ReflectionMetadataMember">
+            <Properties>
+              <string name="Name">Create</string>
+            </Properties>
+          </Item>
+          <Item class="ReflectionMetadataMember">
+            <Properties>
+              <string name="Name">GetValue</string>
+            </Properties>
+          </Item>
         </Item>
-    </Item>
-
-
-    <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">Tween</string>
-        </Properties>
-
-        <Item class="ReflectionMetadataFunctions">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Instance</string>
-                </Properties>
-            </Item>
-
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TweenInfo</string>
-                </Properties>
-            </Item>
-        </Item>
-    </Item>
-
-
-    <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">TweenService</string>
-        </Properties>
-
-        <Item class="ReflectionMetadataFunctions">
-            <Item class="ReflectionMetadataEvents">
-                <Item class="ReflectionMetadataMember">
-                    <Properties>
-                        <string name="Name">Create</string>
-                    </Properties>
-                </Item>
-                <Item class="ReflectionMetadataMember">
-                    <Properties>
-                        <string name="Name">GetValue</string>
-                    </Properties>
-                </Item>
-            </Item>
-        </Item>
+      </Item>
     </Item>
 
 
@@ -3747,7 +3748,7 @@
             <string name="Name">GetBoundActionInfo</string>
           </Properties>
         </Item>
-         <Item class="ReflectionMetadataMember">
+        <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetAllBoundActionInfo</string>
           </Properties>
@@ -4025,7 +4026,7 @@
         <string name="Name">LocalizationService</string>
         <string name="ExplorerOrder">530</string>
         <string name="ExplorerImageIndex">92</string>
-        <token name="ServiceVisibility">2</token> <!-- WithChildren -->
+        <token name="ServiceVisibility">2</token>        <!-- WithChildren -->
       </Properties>
       <Item class="ReflectionMetadataMember">
         <Properties>
@@ -4073,154 +4074,154 @@
         </Item>
       </Item>
       <Item class="ReflectionMetadataEvents">
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">PromptPurchaseFinished</string>
-            </Properties>
-          </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PromptPurchaseFinished</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">UserInputService</string>
-        </Properties>
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchEnabled</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">KeyboardEnabled</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">MouseEnabled</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">AccelerometerEnabled</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">GyroscopeEnabled</string>
-                </Properties>
-            </Item>
+      <Properties>
+        <string name="Name">UserInputService</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchEnabled</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">KeyboardEnabled</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MouseEnabled</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AccelerometerEnabled</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GyroscopeEnabled</string>
+          </Properties>
+        </Item>
+      </Item>
+
+      <Item class="ReflectionMetadataEvents">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchTap</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchPinch</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchSwipe</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchLongPress</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchRotate</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchPan</string>
+          </Properties>
         </Item>
 
-        <Item class="ReflectionMetadataEvents">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchTap</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchPinch</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchSwipe</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchLongPress</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchRotate</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchPan</string>
-                </Properties>
-            </Item>
-
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchStarted</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchMoved</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TouchEnded</string>
-                </Properties>
-            </Item>
-
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">InputBegan</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">InputChanged</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">InputEnded</string>
-                </Properties>
-            </Item>
-
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TextBoxFocused</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">TextBoxFocusReleased</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">DeviceAccelerationChanged</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">DeviceGravityChanged</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">DeviceRotationChanged</string>
-                </Properties>
-            </Item>
-
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchStarted</string>
+          </Properties>
         </Item>
-        <Item class="ReflectionMetadataFunctions">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">GetDeviceAcceleration</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">GetDeviceGravity</string>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">GetDeviceRotation</string>
-                </Properties>
-            </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchMoved</string>
+          </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TouchEnded</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InputBegan</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InputChanged</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InputEnded</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextBoxFocused</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TextBoxFocusReleased</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DeviceAccelerationChanged</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DeviceGravityChanged</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DeviceRotationChanged</string>
+          </Properties>
+        </Item>
+
+      </Item>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetDeviceAcceleration</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetDeviceGravity</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetDeviceRotation</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -4439,35 +4440,35 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">ColorCorrectionEffect</string>
-            <string name="ClassCategory">Post Processing Effects</string>
-            <string name="ExplorerOrder">20</string>
-            <string name="ExplorerImageIndex">83</string>
-        </Properties>
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Brightness</string>
-                    <double name="UIMinimum">-1</double>
-                    <double name="UIMaximum">1</double>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Contrast</string>
-                    <double name="UIMinimum">-1</double>
-                    <double name="UIMaximum">1</double>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Saturation</string>
-                    <double name="UIMinimum">-1</double>
-                    <double name="UIMaximum">1</double>
-                </Properties>
-            </Item>
+      <Properties>
+        <string name="Name">ColorCorrectionEffect</string>
+        <string name="ClassCategory">Post Processing Effects</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerImageIndex">83</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Brightness</string>
+            <double name="UIMinimum">-1</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Contrast</string>
+            <double name="UIMinimum">-1</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Saturation</string>
+            <double name="UIMinimum">-1</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -4478,19 +4479,19 @@
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Intensity</string>
-                <double name="UIMinimum">0</double>
-                <double name="UIMaximum">1</double>
-            </Properties>
+          <Properties>
+            <string name="Name">Intensity</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Threshold</string>
-                <double name="UIMinimum">0.8</double>
-                <double name="UIMaximum">4</double>
-                <double name="UINumTicks">1000</double>
-            </Properties>
+          <Properties>
+            <string name="Name">Threshold</string>
+            <double name="UIMinimum">0.8</double>
+            <double name="UIMaximum">4</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -4512,40 +4513,40 @@
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Size</string>
-                <double name="UIMinimum">0</double>
-                <double name="UIMaximum">56</double>
-                <double name="UINumTicks">56</double>
-            </Properties>
+          <Properties>
+            <string name="Name">Size</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">56</double>
+            <double name="UINumTicks">56</double>
+          </Properties>
         </Item>
       </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">Highlight</string>
-            <string name="ClassCategory">Effects</string>
-            <string name="ExplorerOrder">20</string>
-            <string name="ExplorerImageIndex">133</string>
-        </Properties>
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">FillTransparency</string>
-                    <double name="UIMinimum">0</double>
-                    <double name="UIMaximum">1</double>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">OutlineTransparency</string>
-                    <double name="UIMinimum">0</double>
-                    <double name="UIMaximum">1</double>
-                </Properties>
-            </Item>
-
+      <Properties>
+        <string name="Name">Highlight</string>
+        <string name="ClassCategory">Effects</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerImageIndex">133</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FillTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OutlineTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -4556,38 +4557,38 @@
         <string name="ExplorerImageIndex">83</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">FocusDistance</string>
-              <double name="UIMinimum">0</double>
-              <double name="UIMaximum">200.0</double>
-              <double name="UINumTicks">10000</double>
-                        </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">InFocusRadius</string>
-              <double name="UIMinimum">0</double>
-              <double name="UIMaximum">50.0</double>
-              <double name="UINumTicks">10000</double>
-                        </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">NearIntensity</string>
-              <double name="UIMinimum">0</double>
-              <double name="UIMaximum">1</double>
-              <double name="UINumTicks">10000</double>
-                        </Properties>
-          </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">FarIntensity</string>
-              <double name="UIMinimum">0</double>
-              <double name="UIMaximum">1</double>
-              <double name="UINumTicks">10000</double>
-            </Properties>
-          </Item>
+          <Properties>
+            <string name="Name">FocusDistance</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">200.0</double>
+            <double name="UINumTicks">10000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">InFocusRadius</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">50.0</double>
+            <double name="UINumTicks">10000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NearIntensity</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">10000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FarIntensity</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">10000</double>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -4598,24 +4599,24 @@
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">83</string>
       </Properties>
-        <Item class="ReflectionMetadataProperties">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Intensity</string>
-                    <double name="UIMinimum">0</double>
-                    <double name="UIMaximum">1</double>
-                    <double name="UINumTicks">1000</double>
-                </Properties>
-            </Item>
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">Spread</string>
-                    <double name="UIMinimum">0</double>
-                    <double name="UIMaximum">1</double>
-                    <double name="UINumTicks">1000</double>
-                </Properties>
-            </Item>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Intensity</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Spread</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -4645,7 +4646,7 @@
         <string name="PreferredParent">BasePart</string>
       </Properties>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ControllerManager</string>
@@ -4760,7 +4761,7 @@
           <Properties>
             <string name="Name">TargetPoint</string>
           </Properties>
-           <Properties>
+          <Properties>
             <string name="Name">Torso</string>
             <bool name="Deprecated">true</bool>
           </Properties>
@@ -4898,16 +4899,16 @@
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Pivot Offset Position</string>
-                <string name="PropertyOrder">300</string>
-            </Properties>
+          <Properties>
+            <string name="Name">Pivot Offset Position</string>
+            <string name="PropertyOrder">300</string>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Pivot Offset Orientation</string>
-                <string name="PropertyOrder">400</string>
-            </Properties>
+          <Properties>
+            <string name="Name">Pivot Offset Orientation</string>
+            <string name="PropertyOrder">400</string>
+          </Properties>
         </Item>
       </Item>
     </Item>
@@ -5341,7 +5342,7 @@
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
-         <Properties>
+          <Properties>
             <string name="Name">Force</string>
           </Properties>
         </Item>
@@ -5593,16 +5594,16 @@
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">World Pivot Position</string>
-                <string name="PropertyOrder">300</string>
-            </Properties>
+          <Properties>
+            <string name="Name">World Pivot Position</string>
+            <string name="PropertyOrder">300</string>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">World Pivot Orientation</string>
-                <string name="PropertyOrder">400</string>
-            </Properties>
+          <Properties>
+            <string name="Name">World Pivot Orientation</string>
+            <string name="PropertyOrder">400</string>
+          </Properties>
         </Item>
       </Item>
     </Item>
@@ -5629,43 +5630,43 @@
         <string name="Name">DataModel</string>
       </Properties>
 
-        <Item class="ReflectionMetadataCallbacks">
-            <Item class="ReflectionMetadataMember">
-                <Properties>
-                    <string name="Name">OnClose</string>
-                    <bool name="Deprecated">true</bool>
-                </Properties>
-            </Item>
+      <Item class="ReflectionMetadataCallbacks">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OnClose</string>
+            <bool name="Deprecated">true</bool>
+          </Properties>
         </Item>
+      </Item>
 
       <Item class="ReflectionMetadataProperties">
         <Properties>
         </Properties>
 
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">PrivateServerId</string>
-                <bool name="ServerOnly">true</bool>
-            </Properties>
+          <Properties>
+            <string name="Name">PrivateServerId</string>
+            <bool name="ServerOnly">true</bool>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">PrivateServerOwnerId</string>
-                <bool name="ServerOnly">true</bool>
-            </Properties>
+          <Properties>
+            <string name="Name">PrivateServerOwnerId</string>
+            <bool name="ServerOnly">true</bool>
+          </Properties>
         </Item>
 
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">VIPServerId</string>
-                <bool name="ServerOnly">true</bool>
-            </Properties>
+          <Properties>
+            <string name="Name">VIPServerId</string>
+            <bool name="ServerOnly">true</bool>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">VIPServerOwnerId</string>
-                <bool name="ServerOnly">true</bool>
-            </Properties>
+          <Properties>
+            <string name="Name">VIPServerOwnerId</string>
+            <bool name="ServerOnly">true</bool>
+          </Properties>
         </Item>
 
         <Item class="ReflectionMetadataMember">
@@ -5906,7 +5907,7 @@
         <string name="Name">Players</string>
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">21</string>
-        <token name="ServiceVisibility">2</token> <!-- WithChildren -->
+        <token name="ServiceVisibility">2</token>        <!-- WithChildren -->
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -6050,12 +6051,12 @@
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">ShadowSoftness</string>
-                <double name="UIMinimum">0</double>
-                <double name="UIMaximum">1</double>
-                <double name="UINumTicks">100</double>
-            </Properties>
+          <Properties>
+            <string name="Name">ShadowSoftness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -6138,7 +6139,7 @@
         <string name="Name">TestService</string>
         <string name="ExplorerOrder">1000</string>
         <string name="ExplorerImageIndex">68</string>
-        <token name="ServiceVisibility">2</token> <!-- WithChildren -->
+        <token name="ServiceVisibility">2</token>        <!-- WithChildren -->
       </Properties>
     </Item>
 
@@ -6463,9 +6464,9 @@
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">CastShadow</string>
-            </Properties>
+          <Properties>
+            <string name="Name">CastShadow</string>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -6497,32 +6498,32 @@
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Velocity</string>
-            </Properties>
-        </Item>
-      <Item class="ReflectionMetadataMember">
-        <Properties>
-          <string name="Name">Size</string>
-          <string name="PropertyOrder">50</string>
-        </Properties>
-      </Item>
-        <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Position</string>
-                <string name="PropertyOrder">100</string>
-            </Properties>
+          <Properties>
+            <string name="Name">Velocity</string>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Orientation</string>
-              <string name="PropertyOrder">200</string>
-            </Properties>
+          <Properties>
+            <string name="Name">Size</string>
+            <string name="PropertyOrder">50</string>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
-            <Properties>
-                <string name="Name">Rotation</string>
-            </Properties>
+          <Properties>
+            <string name="Name">Position</string>
+            <string name="PropertyOrder">100</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Orientation</string>
+            <string name="PropertyOrder">200</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Rotation</string>
+          </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -6712,20 +6713,20 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">StandalonePluginScripts</string>
-            <string name="ExplorerOrder">130</string>
-            <string name="ExplorerImageIndex">78</string>
-            <string name="Insertable">true</string>
-        </Properties>
+      <Properties>
+        <string name="Name">StandalonePluginScripts</string>
+        <string name="ExplorerOrder">130</string>
+        <string name="ExplorerImageIndex">78</string>
+        <string name="Insertable">true</string>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">StarterPlayerScripts</string>
-            <string name="ExplorerOrder">130</string>
-            <string name="ExplorerImageIndex">78</string>
-            <string name="Insertable">false</string>
-        </Properties>
+      <Properties>
+        <string name="Name">StarterPlayerScripts</string>
+        <string name="ExplorerOrder">130</string>
+        <string name="ExplorerImageIndex">78</string>
+        <string name="Insertable">false</string>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -7698,7 +7699,7 @@
       </Properties>
       <Item class="ReflectionMetadataMember">
         <Properties>
-        <string name="Name">Label</string>
+          <string name="Name">Label</string>
         </Properties>
       </Item>
     </Item>
@@ -7712,22 +7713,22 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
-          <string name="Name">Attachment0</string>
+            <string name="Name">Attachment0</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-          <string name="Name">Attachment1</string>
+            <string name="Name">Attachment1</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-          <string name="Name">Label</string>
+            <string name="Name">Label</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-          <string name="Name">IsBidirectional</string>
+            <string name="Name">IsBidirectional</string>
           </Properties>
         </Item>
       </Item>
@@ -7739,13 +7740,13 @@
         <string name="ExplorerImageIndex">58</string>
       </Properties>
     </Item>
-        <Item class="ReflectionMetadataClass">
-            <Properties>
-                <string name="Name">HumanoidDescription</string>
-                <string name="ExplorerOrder">22</string>
-                <string name="ExplorerImageIndex">104</string>
-            </Properties>
-        </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">HumanoidDescription</string>
+        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerImageIndex">104</string>
+      </Properties>
+    </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Folder</string>
@@ -7873,12 +7874,12 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">KeyframeMarker</string>
-            <string name="ExplorerOrder">220</string>
-            <string name="ExplorerImageIndex">60</string>
-            <string name="Insertable">false</string>
-        </Properties>
+      <Properties>
+        <string name="Name">KeyframeMarker</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">60</string>
+        <string name="Insertable">false</string>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -7912,31 +7913,31 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">Animator</string>
-            <string name="ClassCategory">Animations</string>
-            <string name="ExplorerOrder">220</string>
-			<string name="ExplorerImageIndex">60</string>
-        </Properties>
-		<Item class="ReflectionMetadataProperties">
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">EvaluationThrottled</string>
-					<string name="Description">Returns true if animation evaluation for the Animator is throttled.</string>
-					<string name="PropertyOrder">1001</string>
-					<bool name="FFlag">AnimatorIsThrottledPropertyEnabled</bool>
-				</Properties>
-			</Item>
-		</Item>
+      <Properties>
+        <string name="Name">Animator</string>
+        <string name="ClassCategory">Animations</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">60</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EvaluationThrottled</string>
+            <string name="Description">Returns true if animation evaluation for the Animator is throttled.</string>
+            <string name="PropertyOrder">1001</string>
+            <bool name="FFlag">AnimatorIsThrottledPropertyEnabled</bool>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
-        <Properties>
-            <string name="Name">IKControl</string>
-            <string name="ClassCategory">Animations</string>
-            <string name="ExplorerOrder">220</string>
-            <string name="ExplorerImageIndex">53</string>
-            <bool name="FFlag">IkControlEnabled</bool>
-        </Properties>
+      <Properties>
+        <string name="Name">IKControl</string>
+        <string name="ClassCategory">Animations</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">53</string>
+        <bool name="FFlag">IkControlEnabled</bool>
+      </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -8536,39 +8537,39 @@
         <string name="ExplorerImageIndex">65</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">WaterTransparency</string>
-                  <double name="UIMinimum">0</double>
-                  <double name="UIMaximum">1</double>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">WaterWaveSize</string>
-                  <double name="UIMinimum">0</double>
-                  <double name="UIMaximum">1</double>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">WaterWaveSpeed</string>
-                  <double name="UIMinimum">0</double>
-                  <double name="UIMaximum">100</double>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-              <Properties>
-                  <string name="Name">WaterReflectance</string>
-                  <double name="UIMinimum">0</double>
-                  <double name="UIMaximum">1</double>
-              </Properties>
-          </Item>
-          <Item class="ReflectionMetadataMember">
-            <Properties>
-              <string name="Name">Decoration</string>
-            </Properties>
-          </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaterTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaterWaveSize</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaterWaveSpeed</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WaterReflectance</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Decoration</string>
+          </Properties>
+        </Item>
       </Item>
       <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataMember">
@@ -8776,19 +8777,19 @@
   <Item class="ReflectionMetadataEnums">
     <Properties></Properties>
     <Item class="ReflectionMetadataEnum">
+      <Properties>
+        <string name="Name">ContextActionResult</string>
+      </Properties>
+      <Item class="ReflectionMetadataEnumItem">
         <Properties>
-            <string name="Name">ContextActionResult</string>
+          <string name="Name">Sink</string>
         </Properties>
-        <Item class="ReflectionMetadataEnumItem">
-            <Properties>
-                <string name="Name">Sink</string>
-            </Properties>
-        </Item>
-        <Item class="ReflectionMetadataEnumItem">
-            <Properties>
-                <string name="Name">Pass</string>
-            </Properties>
-        </Item>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Pass</string>
+        </Properties>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataEnum">
       <Properties>
@@ -8928,10 +8929,10 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataEnum">
-        <Properties>
-            <string name="Name">GearType</string>
-            <bool name="Deprecated">true</bool>
-        </Properties>
+      <Properties>
+        <string name="Name">GearType</string>
+        <bool name="Deprecated">true</bool>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataEnum">
       <Properties>

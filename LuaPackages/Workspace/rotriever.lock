@@ -40,6 +40,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "AppStartup"
+version = "0.1.0"
+dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
+
+[[package]]
 name = "AppSystemBar"
 version = "0.1.0"
 
@@ -1261,12 +1266,14 @@ dependencies = [
     "ReactOtter ReactOtter 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "Rhodium Rhodium 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "SceneManagement SceneManagement 0.1.0",
     "TenFootUiCommon TenFootUiCommon 0.1.0",
     "TenFootUiGlobalNav TenFootUiGlobalNav 0.1.0",
     "TenFootUiTesting TenFootUiTesting 0.1.0",
+    "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]

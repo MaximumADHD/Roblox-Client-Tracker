@@ -8,11 +8,11 @@ Studio.Toolbox.Audio.SoundEffect.Category.Engine_knocking,Engine knocking, ,Engi
 Studio.Toolbox.Audio.SoundEffect.Category.Walk_footsteps,"Walk, footsteps", ,"Walk, footsteps"
 Studio.Toolbox.Common.Close,Close, ,Close
 Studio.Toolbox.Common.Install,Install, ,Install
+Studio.Toolbox.Audio.SoundEffect.Category.Orchestra,Orchestra, ,Orchestra
 Studio.Toolbox.Audio.SoundEffect.Category.Clickety-clack,Clickety-clack, ,Clickety-clack
-Studio.Toolbox.General.CategoryRecentFonts,Recent Fonts, ,Recent Fonts
 Studio.Toolbox.Audio.SoundEffect.Category.Fire alarm,Fire alarm, ,Fire alarm
 Studio.Toolbox.Audio.SoundEffect.Category.Fire_alarm,Fire alarm, ,Fire alarm
-Studio.Toolbox.Audio.SoundEffect.Category.Orchestra,Orchestra, ,Orchestra
+Studio.Toolbox.General.CategoryRecentFonts,Recent Fonts, ,Recent Fonts
 Studio.Toolbox.AssetConfigCopy.MustShare,Must share with anyone on Roblox, ,Must share with anyone on Roblox
 Studio.Toolbox.Common.Insert,Insert, ,Insert
 "Studio.Toolbox.Audio.SoundEffect.Category.Bee, wasp, etc.","Bee, wasp, etc.", ,"Bee, wasp, etc."
@@ -99,10 +99,10 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Voice,Studio.Toolbox.Audio.SoundEffect.Category.Vocal music,Vocal music
  ,Vocal music,Studio.Toolbox.Audio.SoundEffect.Category.Vocal_music,Vocal music
  ,Vocal music,Studio.Toolbox.General.SortByRatings,Ratings
- ,Ratings,Studio.Toolbox.Audio.SoundEffect.Category.instruments,Instruments
- ,Instruments,Studio.Toolbox.General.CategoryFonts,Fonts
- ,Fonts,Studio.Toolbox.General.CategoryCreationsShirtAccessory,Shirt Accessories
- ,Shirt Accessories,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip,Not all roles have the same access; expand the group for details.
+ ,Ratings,Studio.Toolbox.General.CategoryCreationsShirtAccessory,Shirt Accessories
+ ,Shirt Accessories,Studio.Toolbox.General.CategoryFonts,Fonts
+ ,Fonts,Studio.Toolbox.Audio.SoundEffect.Category.instruments,Instruments
+ ,Instruments,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip,Not all roles have the same access; expand the group for details.
  ,Not all roles have the same access; expand the group for details.,Studio.Toolbox.General.CategoryMyDecals,My Images
  ,My Images,Studio.Toolbox.Audio.SoundEffect.Category.cameras,Cameras
  ,Cameras,Studio.Toolbox.AssetConfigPackage.HelpTextV2,Enables versioning and updates for this asset.
@@ -263,9 +263,7 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Preview,Studio.Toolbox.Audio.SoundEffect.Category.Telephone,Telephone
  ,Telephone,Studio.Toolbox.Audio.SoundEffect.Category.telephone,Telephone
  ,Telephone,Studio.Toolbox.General.SearchOptionsIncludeUnverifiedDescription,Assets from unverified sources add more risk of malicious behavior or damage
- ,Assets from unverified sources add more risk of malicious behavior or damage,"Studio.Toolbox.Audio.SoundEffect.Category.Ratchet, pawl","Ratchet, pawl"
- ,"Ratchet, pawl",Studio.Toolbox.Audio.SoundEffect.Category.Ratchet_pawl,"Ratchet, pawl"
- ,"Ratchet, pawl",Studio.Toolbox.General.SearchOptionsIncludeUnverifiedTooltip,Unverified creators have not confirmed their real life identity via an ID or phone
+ ,Assets from unverified sources add more risk of malicious behavior or damage,Studio.Toolbox.General.SearchOptionsIncludeUnverifiedTooltip,Unverified creators have not confirmed their real life identity via an ID or phone
  ,Unverified creators have not confirmed their real life identity via an ID or phone,Studio.Toolbox.General.SearchTagCreator,by:
  ,by:,Studio.Toolbox.General.RightClickMenuCopyTextureID,Copy Texture ID
  ,Copy Texture ID,Studio.Toolbox.Audio.SoundEffect.Category.Harp,Harp
@@ -290,7 +288,8 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,T-Shirts,Studio.Toolbox.General.CategoryCreationsShirts,Shirts
  ,Shirts,Studio.Toolbox.General.AssetTypePants,Pants
  ,Pants,Studio.Toolbox.General.CategoryCreationsPants,Pants
- ,Pants,Studio.Toolbox.General.AssetTypeHairAccessory,Hair
+ ,Pants,Studio.Toolbox.General.AssetTypeRightLeg,Right Leg
+ ,Right Leg,Studio.Toolbox.General.AssetTypeHairAccessory,Hair
  ,Hair,Studio.Toolbox.General.CategoryCreationsHair,Hair
  ,Hair,Studio.Toolbox.Audio.SoundEffect.Category.Fowl,Fowl
  ,Fowl,Studio.Toolbox.General.CategoryCreationsNeckAccessory,Neck Accessories
@@ -404,9 +403,9 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Offsale,Studio.Toolbox.General.StatusUnknown,Unknown
  ,Unknown,Studio.Toolbox.General.SalesFreePrice,"To set the asset as free, enter 0."
  ,"To set the asset as free, enter 0.",Studio.Toolbox.General.AssetTypeModel,Model
- ,Model,Studio.Toolbox.General.AssetTypeDecal,Decal
- ,Decal,Studio.Toolbox.Audio.SoundEffect.Category.Foghorn,Foghorn
- ,Foghorn,Studio.Toolbox.ThumbnailStatus.Pending,Pending
+ ,Model,Studio.Toolbox.Audio.SoundEffect.Category.Foghorn,Foghorn
+ ,Foghorn,Studio.Toolbox.General.AssetTypeDecal,Decal
+ ,Decal,Studio.Toolbox.ThumbnailStatus.Pending,Pending
  ,Pending,Studio.Toolbox.Audio.SoundEffect.Category.Child singing,Child singing
  ,Child singing,Studio.Toolbox.Audio.SoundEffect.Category.Child_singing,Child singing
  ,Child singing,Studio.Toolbox.General.AssetTypeShortsAccessory,Shorts Accessory
@@ -434,7 +433,21 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Left Shoe Accessory,Studio.Toolbox.Audio.SoundEffect.Category.beasts,Beasts
  ,Beasts,Studio.Toolbox.General.AssetTypeDressSkirtAccessory,Dress Skirt Accessory
  ,Dress Skirt Accessory,Studio.Toolbox.Audio.SoundEffect.Category.sea-animals,Sea Animals
- ,Sea Animals,Studio.Toolbox.Audio.Music.Genre.classical,Classical
+ ,Sea Animals,Studio.Toolbox.General.AssetTypeTorso,Torso
+ ,Torso,Studio.Toolbox.General.AssetTypeRightArm,Right Arm
+ ,Right Arm,Studio.Toolbox.Audio.SoundEffect.Category.beeps,Beeps
+ ,Beeps,Studio.Toolbox.General.AssetTypeLeftArm,Left Arm
+ ,Left Arm,Studio.Toolbox.Audio.SoundEffect.Category.alien,Alien
+ ,Alien,Studio.Toolbox.General.AssetTypeLeftLeg,Left Leg
+ ,Left Leg,Studio.Toolbox.Audio.SoundEffect.Category.Buzz,Buzz
+ ,Buzz,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard open or close,Cupboard open or close
+ ,Cupboard open or close,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard_open_or_close,Cupboard open or close
+ ,Cupboard open or close,Studio.Toolbox.Dropdown.ChooseOne,Choose one
+ ,Choose one,Studio.Toolbox.General.AssetTypeDynamicHead,Dynamic Head
+ ,Dynamic Head,Studio.Toolbox.General.AssetTypeEyebrowAccessory,Eyebrow Accessory
+ ,Eyebrow Accessory,Studio.Toolbox.Audio.SoundEffect.Category.Beatboxing,Beatboxing
+ ,Beatboxing,Studio.Toolbox.General.AssetTypeEyelashAccessory,Eyelash Accessory
+ ,Eyelash Accessory,Studio.Toolbox.Audio.Music.Genre.classical,Classical
  ,Classical,Studio.Toolbox.Audio.SoundEffect.Category.Moo,Moo
  ,Moo,Studio.Toolbox.Audio.SoundEffect.Category.Gospel music,Gospel music
  ,Gospel music,Studio.Toolbox.Audio.SoundEffect.Category.Gospel_music,Gospel music
@@ -681,10 +694,10 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,"Hubbub, speech noise, speech babble",Studio.Toolbox.Audio.SoundEffect.Category.Hubbub_speech_noise_speech_babble,"Hubbub, speech noise, speech babble"
  ,"Hubbub, speech noise, speech babble",Studio.Toolbox.Audio.SoundEffect.Category.Snoring,Snoring
  ,Snoring,Studio.Toolbox.Purchase.Free,FREE
- ,FREE,Studio.Toolbox.Audio.SoundEffect.Category.leather,Leather
- ,Leather,Studio.Toolbox.Audio.SoundEffect.Category.glassware,Glassware
+ ,FREE,Studio.Toolbox.Audio.SoundEffect.Category.glassware,Glassware
  ,Glassware,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}."
- ,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.",Studio.Toolbox.Audio.SoundEffect.Category.room-tone,Room Tone
+ ,"By enabling it, this asset will be put in {market} and available for any Roblox {user}.",Studio.Toolbox.Audio.SoundEffect.Category.leather,Leather
+ ,Leather,Studio.Toolbox.Audio.SoundEffect.Category.room-tone,Room Tone
  ,Room Tone,Studio.Toolbox.General.Free,Free
  ,Free,Studio.Toolbox.Audio.SoundEffect.Category.chairs,Chairs
  ,Chairs,Studio.Toolbox.General.Installing,Installing
@@ -796,11 +809,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Sound Effect,Studio.Toolbox.Audio.SoundEffect.Category.acid,Acid
  ,Acid,Studio.Toolbox.Audio.SoundEffect.Category.air,Air
  ,Air,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort
- ,Snort,Studio.Toolbox.Audio.SoundEffect.Category.alien,Alien
- ,Alien,Studio.Toolbox.Audio.SoundEffect.Category.Buzz,Buzz
- ,Buzz,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard open or close,Cupboard open or close
- ,Cupboard open or close,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard_open_or_close,Cupboard open or close
- ,Cupboard open or close,Studio.Toolbox.Audio.SoundEffect.Category.ambience,Ambience
+ ,Snort,Studio.Toolbox.Audio.SoundEffect.Category.ambience,Ambience
  ,Ambience,Studio.Toolbox.Audio.SoundEffect.Category.amphibians,Amphibians
  ,Amphibians,Studio.Toolbox.Audio.SoundEffect.Category.rocks,Rocks
  ,Rocks,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine,Answering Machine
@@ -811,8 +820,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Arrows,Studio.Toolbox.Audio.SoundEffect.Category.Turkey,Turkey
  ,Turkey,Studio.Toolbox.Audio.SoundEffect.Category.buses,Buses
  ,Buses,Studio.Toolbox.Audio.SoundEffect.Category.babies,Babies
- ,Babies,Studio.Toolbox.Audio.SoundEffect.Category.beeps,Beeps
- ,Beeps,Studio.Toolbox.Audio.SoundEffect.Category.bells,Bells
+ ,Babies,Studio.Toolbox.Audio.SoundEffect.Category.bells,Bells
  ,Bells,Studio.Toolbox.Audio.SoundEffect.Category.Bicycle bell,Bicycle bell
  ,Bicycle bell,Studio.Toolbox.Audio.SoundEffect.Category.Bicycle_bell,Bicycle bell
  ,Bicycle bell,Studio.Toolbox.Audio.SoundEffect.Category.birds,Birds
@@ -879,11 +887,11 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Jets,Studio.Toolbox.Audio.SoundEffect.Category.reptiles,Reptiles
  ,Reptiles,Studio.Toolbox.Audio.SoundEffect.Category.Vibraphone,Vibraphone
  ,Vibraphone,Studio.Toolbox.Audio.SoundEffect.Category.jungle,Jungle
- ,Jungle,Studio.Toolbox.Audio.SoundEffect.Category.Croak,Croak
- ,Croak,Studio.Toolbox.Audio.SoundEffect.Category.lasers,Lasers
- ,Lasers,Studio.Toolbox.Audio.SoundEffect.Category.knives-swords,Knives & Swords
+ ,Jungle,Studio.Toolbox.Audio.SoundEffect.Category.knives-swords,Knives & Swords
  ,Knives & Swords,Studio.Toolbox.Audio.SoundEffect.Category.land,Land
- ,Land,Studio.Toolbox.Audio.SoundEffect.Category.props,Props
+ ,Land,Studio.Toolbox.Audio.SoundEffect.Category.Croak,Croak
+ ,Croak,Studio.Toolbox.Audio.SoundEffect.Category.lasers,Lasers
+ ,Lasers,Studio.Toolbox.Audio.SoundEffect.Category.props,Props
  ,Props,Studio.Toolbox.Audio.SoundEffect.Category.Flute,Flute
  ,Flute,Studio.Toolbox.Audio.SoundEffect.Category.Ocean,Ocean
  ,Ocean,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX
@@ -1038,10 +1046,10 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Singing,Studio.Toolbox.Audio.SoundEffect.Category.Raindrop,Raindrop
  ,Raindrop,Studio.Toolbox.Audio.SoundEffect.Category.Yodeling,Yodeling
  ,Yodeling,Studio.Toolbox.Audio.SoundEffect.Category.Chant,Chant
- ,Chant,Studio.Toolbox.Audio.SoundEffect.Category.Synthetic singing,Synthetic singing
+ ,Chant,Studio.Toolbox.Audio.SoundEffect.Category.Whistle,Whistle
+ ,Whistle,Studio.Toolbox.Audio.SoundEffect.Category.Synthetic singing,Synthetic singing
  ,Synthetic singing,Studio.Toolbox.Audio.SoundEffect.Category.Synthetic_singing,Synthetic singing
- ,Synthetic singing,Studio.Toolbox.Audio.SoundEffect.Category.Whistle,Whistle
- ,Whistle,Studio.Toolbox.Audio.SoundEffect.Category.Humming,Humming
+ ,Synthetic singing,Studio.Toolbox.Audio.SoundEffect.Category.Humming,Humming
  ,Humming,Studio.Toolbox.Audio.SoundEffect.Category.Tambourine,Tambourine
  ,Tambourine,Studio.Toolbox.Audio.SoundEffect.Category.Grunt,Grunt
  ,Grunt,Studio.Toolbox.Audio.SoundEffect.Category.Tire squeal,Tire squeal
@@ -1069,8 +1077,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Finger snapping,Studio.Toolbox.Audio.SoundEffect.Category.Finger_snapping,Finger snapping
  ,Finger snapping,"Studio.Toolbox.Audio.SoundEffect.Category.Chicken, rooster","Chicken, rooster"
  ,"Chicken, rooster",Studio.Toolbox.Audio.SoundEffect.Category.Chicken_rooster,"Chicken, rooster"
- ,"Chicken, rooster",Studio.Toolbox.Audio.SoundEffect.Category.Mechanisms,Mechanisms
- ,Mechanisms,"Studio.Toolbox.Audio.SoundEffect.Category.Heart sounds, heartbeat","Heart sounds, heartbeat"
+ ,"Chicken, rooster","Studio.Toolbox.Audio.SoundEffect.Category.Heart sounds, heartbeat","Heart sounds, heartbeat"
  ,"Heart sounds, heartbeat",Studio.Toolbox.Audio.SoundEffect.Category.Heart_sounds_heartbeat,"Heart sounds, heartbeat"
  ,"Heart sounds, heartbeat",Studio.Toolbox.Audio.SoundEffect.Category.Heart murmur,Heart murmur
  ,Heart murmur,Studio.Toolbox.Audio.SoundEffect.Category.Heart_murmur,Heart murmur
@@ -1190,8 +1197,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Hip hop music,Studio.Toolbox.Audio.SoundEffect.Category.Hip_hop_music,Hip hop music
  ,Hip hop music,Studio.Toolbox.Audio.SoundEffect.Category.Happy music,Happy music
  ,Happy music,Studio.Toolbox.Audio.SoundEffect.Category.Happy_music,Happy music
- ,Happy music,Studio.Toolbox.Audio.SoundEffect.Category.Beatboxing,Beatboxing
- ,Beatboxing,Studio.Toolbox.Audio.SoundEffect.Category.Rock music,Rock music
+ ,Happy music,Studio.Toolbox.Audio.SoundEffect.Category.Rock music,Rock music
  ,Rock music,Studio.Toolbox.Audio.SoundEffect.Category.Rock_music,Rock music
  ,Rock music,Studio.Toolbox.Audio.SoundEffect.Category.Progressive rock,Progressive rock
  ,Progressive rock,Studio.Toolbox.Audio.SoundEffect.Category.Progressive_rock,Progressive rock
@@ -1233,10 +1239,10 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Flamenco,Studio.Toolbox.Audio.SoundEffect.Category.Music for children,Music for children
  ,Music for children,Studio.Toolbox.Audio.SoundEffect.Category.Music_for_children,Music for children
  ,Music for children,Studio.Toolbox.Audio.SoundEffect.Category.Afrobeat,Afrobeat
- ,Afrobeat,Studio.Toolbox.Audio.SoundEffect.Category.Christian music,Christian music
+ ,Afrobeat,Studio.Toolbox.Audio.SoundEffect.Category.Buzzer,Buzzer
+ ,Buzzer,Studio.Toolbox.Audio.SoundEffect.Category.Christian music,Christian music
  ,Christian music,Studio.Toolbox.Audio.SoundEffect.Category.Christian_music,Christian music
- ,Christian music,Studio.Toolbox.Audio.SoundEffect.Category.Buzzer,Buzzer
- ,Buzzer,Studio.Toolbox.Audio.SoundEffect.Category.Music of Asia,Music of Asia
+ ,Christian music,Studio.Toolbox.Audio.SoundEffect.Category.Music of Asia,Music of Asia
  ,Music of Asia,Studio.Toolbox.Audio.SoundEffect.Category.Music_of_Asia,Music of Asia
  ,Music of Asia,Studio.Toolbox.Audio.SoundEffect.Category.Music of Bollywood,Music of Bollywood
  ,Music of Bollywood,Studio.Toolbox.Audio.SoundEffect.Category.Music_of_Bollywood,Music of Bollywood
@@ -1332,7 +1338,10 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,"Smoke detector, smoke alarm",Studio.Toolbox.Audio.SoundEffect.Category.Smoke_detector_smoke_alarm,"Smoke detector, smoke alarm"
  ,"Smoke detector, smoke alarm",Studio.Toolbox.Audio.SoundEffect.Category.Steam whistle,Steam whistle
  ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Steam_whistle,Steam whistle
- ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Clock,Clock
+ ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Mechanisms,Mechanisms
+ ,Mechanisms,"Studio.Toolbox.Audio.SoundEffect.Category.Ratchet, pawl","Ratchet, pawl"
+ ,"Ratchet, pawl",Studio.Toolbox.Audio.SoundEffect.Category.Ratchet_pawl,"Ratchet, pawl"
+ ,"Ratchet, pawl",Studio.Toolbox.Audio.SoundEffect.Category.Clock,Clock
  ,Clock,Studio.Toolbox.Audio.SoundEffect.Category.Tick,Tick
  ,Tick,Studio.Toolbox.Audio.SoundEffect.Category.Tick-tock,Tick-tock
  ,Tick-tock,Studio.Toolbox.Audio.SoundEffect.Category.Pulleys,Pulleys
@@ -1421,5 +1430,4 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.SoundEffect.Category.Dr
  ,Pink noise,Studio.Toolbox.Audio.SoundEffect.Category.Pink_noise,Pink noise
  ,Pink noise,Studio.Toolbox.Audio.SoundEffect.Category.Vibration,Vibration
  ,Vibration,Studio.Toolbox.Audio.SoundEffect.Category.Television,Television
- ,Television,Studio.Toolbox.Dropdown.ChooseOne,Choose one
- ,Choose one
+ ,Television

@@ -52,6 +52,9 @@ Studio.Debugger.Common.stepIntoActionV2,Step Into,Step Into
 Studio.Debugger.Common.AddExpression,Add Expression,Add Expression
 Studio.Debugger.BreakpointsWindow.LogMessageColumnTooltip,The message printed to the Output when a breakpoint is triggered,The message printed to the Output when a breakpoint is triggered
 Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression
+Studio.Debugger.Common.DeleteWatch,Delete Watch Expression,Delete Watch Expression
+Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
+Studio.Debugger.Common.DeleteAllWatches,Delete All Watch Expressions,Delete All Watch Expressions
 Studio.Debugger.Common.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint
 Studio.Debugger.BreakpointsWindow.EnableAll,Enable All Breakpoints,Enable All Breakpoints
 Studio.Debugger.Common.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint
@@ -75,7 +78,6 @@ Studio.Debugger.BreakpointsWindow.DeleteAllPopupNo,No,No
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
 Studio.Debugger.Watch.Local,Local,Local
 Studio.Debugger.Watch.LocalTooltip,A local variable is accessible only within the block of code where it's declared,A local variable is accessible only within the block of code where it's declared
-Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
 Studio.Debugger.Watch.UpvalueTooltip,An upvalue is a local variable that an inner function or loop uses,An upvalue is a local variable that an inner function or loop uses
 Studio.Debugger.Watch.Global,Global,Global
 Studio.Debugger.Watch.DropdownFieldText,{NumFields:int} Scopes,{NumFields:int} Scopes

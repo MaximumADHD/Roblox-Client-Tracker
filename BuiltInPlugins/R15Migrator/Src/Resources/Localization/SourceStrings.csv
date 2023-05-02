@@ -6,6 +6,8 @@ Studio.R15Migrator.Plugin.Toolbar,R15Migrator
 Studio.R15Migrator.ReplaceRulesPane.ReplacePlaceholder,Replace...
 Studio.R15Migrator.ReplaceRulesPane.Title,Replace With
 Studio.R15Migrator.ReplaceRulesPane.WithPlaceholder,With...
+Studio.R15Migrator.ScriptAnalysis.AnimationWarning,Convert Animation to R15
+Studio.R15Migrator.ScriptAnalysis.AnimationWarningCode,Animation Warning
 Studio.R15Migrator.ScriptAnalysis.HumanoidWarning,"Humanoid.{name} found, this will return {suggestion}."
 Studio.R15Migrator.ScriptAnalysis.R6ScriptWarningCode,R6 Script Warning
 Studio.R15Migrator.ScriptAnalysis.ReplaceMessage,"{name} found, possible replacements are: "
@@ -16,6 +18,7 @@ Studio.R15Migrator.ScriptConversion.Filter,Filter
 Studio.R15Migrator.ScriptConversion.FilterNone,All
 Studio.R15Migrator.ScriptConversion.GoToScript,Go to Script
 Studio.R15Migrator.ScriptConversion.InProgress,In Progress
+Studio.R15Migrator.ScriptConversion.ReplaceRulesProgress,Replacing with Rules
 Studio.R15Migrator.ScriptConversion.ReplaceWith,Replace With {part}
 Studio.R15Migrator.ScriptConversion.ReplaceWithRules,Replace With Rules
 Studio.R15Migrator.ScriptConversion.RevertAll,Revert All Scripts

@@ -56,7 +56,7 @@ GraphQL = "github.com/Roblox/graphql-lua@15.6.1"
 QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.2.0"
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.1.1"
+UGCValidation = "github.com/roblox/ugc-validation@1.1.3"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 
 # The following packages were ported from AppTempCommon

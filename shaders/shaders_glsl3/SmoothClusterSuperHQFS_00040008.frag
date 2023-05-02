@@ -4,9 +4,9 @@
 #include <Globals.h>
 #include <LightShadowGPUTransform.h>
 uniform vec4 CB0[57];
-uniform vec4 CB8[24];
 uniform vec4 CB4[63];
 uniform vec4 CB5[63];
+uniform vec4 CB8[24];
 uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;

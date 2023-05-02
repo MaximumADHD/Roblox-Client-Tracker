@@ -2663,7 +2663,7 @@
             "Members": [
                 {
                     "Category": "animation",
-                    "Default": "\u0001",
+                    "Default": "",
                     "MemberType": "Property",
                     "Name": "articulatedJoint",
                     "Security": {
@@ -2686,7 +2686,7 @@
                 },
                 {
                     "Category": "animation",
-                    "Default": "\u0001",
+                    "Default": "",
                     "MemberType": "Property",
                     "Name": "endEffectorRotationConstraint",
                     "Security": {
@@ -2709,7 +2709,7 @@
                 },
                 {
                     "Category": "animation",
-                    "Default": "\u0001",
+                    "Default": "",
                     "MemberType": "Property",
                     "Name": "endEffectorTranslationConstraint",
                     "Security": {
@@ -2732,7 +2732,7 @@
                 },
                 {
                     "Category": "animation",
-                    "Default": "\u0001",
+                    "Default": "",
                     "MemberType": "Property",
                     "Name": "facsControl",
                     "Security": {
@@ -4220,15 +4220,8 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetInstance",
+                    "Name": "GetImportTree",
                     "Parameters": [
-                        {
-                            "Name": "nodeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
                     ],
                     "ReturnType": {
                         "Category": "Class",
@@ -4239,8 +4232,15 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetSettingsRoot",
+                    "Name": "GetInstance",
                     "Parameters": [
+                        {
+                            "Name": "nodeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Class",
@@ -4264,6 +4264,18 @@
                 {
                     "MemberType": "Function",
                     "Name": "IsAvatar",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsGltf",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -19820,7 +19832,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -19839,7 +19851,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -19868,7 +19880,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -19906,7 +19918,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -19944,7 +19956,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -19963,7 +19975,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -19982,7 +19994,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20030,7 +20042,7 @@
                     "Category": "Turn",
                     "Default": "10000",
                     "MemberType": "Property",
-                    "Name": "TurningMaxTorque",
+                    "Name": "TurnMaxTorque",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -20039,7 +20051,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20049,7 +20061,7 @@
                     "Category": "Turn",
                     "Default": "1",
                     "MemberType": "Property",
-                    "Name": "TurningSpeedFactor",
+                    "Name": "TurnSpeedFactor",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -20058,7 +20070,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20111,7 +20123,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20130,7 +20142,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20149,7 +20161,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -20168,7 +20180,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20187,7 +20199,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20254,7 +20266,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20273,7 +20285,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20292,7 +20304,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20311,7 +20323,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20330,7 +20342,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20349,7 +20361,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
@@ -20368,7 +20380,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20387,7 +20399,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20406,7 +20418,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20425,7 +20437,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20444,7 +20456,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20463,7 +20475,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20482,7 +20494,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20501,7 +20513,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20520,7 +20532,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20549,7 +20561,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20568,7 +20580,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20587,7 +20599,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20606,7 +20618,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20625,7 +20637,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20654,7 +20666,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
                         "Name": "ControllerBase"
@@ -20673,7 +20685,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20692,7 +20704,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
@@ -20711,7 +20723,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
                         "Name": "ControllerSensor"
@@ -20730,7 +20742,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
@@ -20749,7 +20761,7 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
                         "Name": "ControllerSensor"
@@ -20768,26 +20780,11 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "ThreadSafety": "LocalSafe",
+                    "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
                     }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetControllers",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Objects"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -36356,6 +36353,25 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "AdShape"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "FallbackImage",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -55642,6 +55658,22 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Event",
+                    "Name": "MouseEnterStudioViewport",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MouseLeaveStudioViewport",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "MouseService",
@@ -57275,7 +57307,12 @@
                         "CanSave": true
                     },
                     "Tags": [
-                        "NotReplicated"
+                        "NotReplicated",
+                        "Deprecated",
+                        {
+                            "PreferredDescriptorName": "CollisionGroup",
+                            "ThreadSafety": "Unknown"
+                        }
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -69897,54 +69934,6 @@
                     "Category": "Data",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
-                    "Name": "ReplicatedLocaleId",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "Default": "__api_dump_skipped_class__",
-                    "MemberType": "Property",
-                    "Name": "ReplicatedLocaleIdInternal",
-                    "Security": {
-                        "Read": "RobloxSecurity",
-                        "Write": "RobloxSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated",
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "Default": "__api_dump_skipped_class__",
-                    "MemberType": "Property",
                     "Name": "ReplicationFocus",
                     "Security": {
                         "Read": "None",
@@ -78059,6 +78048,24 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "RequestAllRemoteCursorPositionForScript",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxSecurity",
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "UpdateClientRemoteCursorPosition",
                     "Parameters": [
                         {
@@ -81684,6 +81691,29 @@
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
+                    "Name": "ShowActiveInstanceHighlight",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
                     "Name": "ShowBoundingBox",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -81868,6 +81898,9 @@
                         "Name": "null"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -92571,6 +92604,29 @@
                     "Category": "Data",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
+                    "Name": "DEPRECATED_ShowActiveInstanceHighlight",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
                     "Name": "DraggerSolveConstraints",
                     "Security": {
                         "Read": "None",
@@ -92728,29 +92784,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "Default": "__api_dump_skipped_class__",
-                    "MemberType": "Property",
-                    "Name": "ShowActiveInstanceHighlight",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -96604,6 +96637,73 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "IsFocused",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "Unsafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "IsFocusedWrite",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "KeyboardKeyCode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "KeyCode"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "Default": "0.698039, 0.698039, 0.698039",
                     "MemberType": "Property",
@@ -97133,7 +97233,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "Floodchecked",
+                    "Default": "TextFilterFailed",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
@@ -110019,6 +110119,14 @@
                     "Value": 292
                 },
                 {
+                    "Name": "DisconnectCollaboratorPermissionRevoked",
+                    "Value": 294
+                },
+                {
+                    "Name": "DisconnectCollaboratorUnderage",
+                    "Value": 295
+                },
+                {
                     "Name": "PlacelaunchErrors",
                     "Value": 512
                 },
@@ -116225,6 +116333,22 @@
                 {
                     "Name": "DocViewCodeBackground",
                     "Value": 40
+                },
+                {
+                    "Name": "AICOOverlayText",
+                    "Value": 41
+                },
+                {
+                    "Name": "AICOOverlayButtonBackground",
+                    "Value": 42
+                },
+                {
+                    "Name": "AICOOverlayButtonBackgroundHover",
+                    "Value": 43
+                },
+                {
+                    "Name": "AICOOverlayButtonBackgroundPressed",
+                    "Value": 44
                 }
             ],
             "Name": "StudioScriptEditorColorCategories"
@@ -116727,6 +116851,22 @@
                 {
                     "Name": "ScriptBracket",
                     "Value": 118
+                },
+                {
+                    "Name": "AICOOverlayText",
+                    "Value": 128
+                },
+                {
+                    "Name": "AICOOverlayButtonBackground",
+                    "Value": 129
+                },
+                {
+                    "Name": "AICOOverlayButtonBackgroundHover",
+                    "Value": 130
+                },
+                {
+                    "Name": "AICOOverlayButtonBackgroundPressed",
+                    "Value": 131
                 },
                 {
                     "Name": "AttributeCog",
