@@ -96683,7 +96683,7 @@
                 },
                 {
                     "Category": "Behavior",
-                    "Default": "",
+                    "Default": "Unknown",
                     "MemberType": "Property",
                     "Name": "KeyboardKeyCode",
                     "Security": {
