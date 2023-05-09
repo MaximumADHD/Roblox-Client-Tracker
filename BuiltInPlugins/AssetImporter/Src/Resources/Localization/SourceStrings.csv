@@ -167,6 +167,7 @@ Studio.AssetImporter.Statuses.FacsMultipleRootFaceJoints1,Multiple joints named 
 Studio.AssetImporter.Statuses.FacsNearNeutralWarning1,Control {FacsControlName} is nearly identical to Neutral.
 Studio.AssetImporter.Statuses.FacsNoAnimationStackError,No animation timeline found in FBX file.
 Studio.AssetImporter.Statuses.FacsNoAttributesError1,"{ParentNodeName}" has no "Frame#" attributes that map FACS controls to animation frames.
+Studio.AssetImporter.Statuses.FacsNoFaceControlsAllowedError,FaceControls cannot be imported.  Uncheck this item.
 Studio.AssetImporter.Statuses.FacsNoJointsErrors1,No joints were found under "{JointName}".
 Studio.AssetImporter.Statuses.FacsNoNeutralError,No frame was set to "Neutral" in animation.
 Studio.AssetImporter.Statuses.FacsNoRootFaceJoint1,No joint named "{JointName}" found as specified by extra attribute "RootFaceJoint".

@@ -61,6 +61,10 @@ name = "AvatarPolicies"
 version = "0.1.0"
 
 [[package]]
+name = "BuyRobuxPageTestSuite"
+version = "0.1.0"
+
+[[package]]
 name = "CallProtocol"
 version = "0.1.0"
 dependencies = [
@@ -237,6 +241,7 @@ dependencies = [
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "SocialCommon SocialCommon 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
@@ -349,6 +354,7 @@ dependencies = [
     "GraphQL GraphQL 0.1.0",
     "GraphqlHttpArtifacts GraphqlHttpArtifacts 0.1.0",
     "GraphqlToolsMerge GraphqlToolsMerge 0.1.0",
+    "GraphqlToolsUtils GraphqlToolsMerge 0.1.0",
     "Http Http 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
@@ -365,6 +371,10 @@ version = "0.1.0"
 
 [[package]]
 name = "GraphqlToolsMerge"
+version = "0.1.0"
+
+[[package]]
+name = "GraphqlToolsUtils"
 version = "0.1.0"
 
 [[package]]
@@ -408,6 +418,14 @@ version = "0.1.0"
 name = "InputType"
 version = "0.1.0"
 dependencies = ["SharedFlags SharedFlags 0.1.0"]
+
+[[package]]
+name = "InvisibleMode"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+]
 
 [[package]]
 name = "InviteLinkExpiredModal"
@@ -574,6 +592,7 @@ dependencies = [
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "SocialCommon SocialCommon 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
@@ -984,12 +1003,16 @@ dependencies = [
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UserLib UserLib 0.1.0",
 ]
 
 [[package]]
 name = "SocialCommonTestSuite"
 version = "0.1.0"
-dependencies = ["SocialCommon SocialCommon 0.1.0"]
+dependencies = [
+    "InvisibleMode InvisibleMode 0.1.0",
+    "SocialCommon SocialCommon 0.1.0",
+]
 
 [[package]]
 name = "SocialLuaAnalytics"
@@ -1108,7 +1131,9 @@ dependencies = ["SocialTab SocialTab 0.1.0"]
 name = "SocialTestHelpers"
 version = "0.1.0"
 dependencies = [
+    "ApolloClient ApolloClient 0.1.0",
     "Dash Dash 0.1.0",
+    "GraphQLServer GraphQLServer 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "Localization Localization 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
@@ -1225,6 +1250,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "TenFootUiControllerBar"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "React React 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "TenFootUiCommon TenFootUiCommon 0.1.0",
+    "TenFootUiTesting TenFootUiTesting 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+]
+
+[[package]]
 name = "TenFootUiGlobalNav"
 version = "0.1.0"
 dependencies = [
@@ -1271,6 +1315,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "SceneManagement SceneManagement 0.1.0",
     "TenFootUiCommon TenFootUiCommon 0.1.0",
+    "TenFootUiControllerBar TenFootUiControllerBar 0.1.0",
     "TenFootUiGlobalNav TenFootUiGlobalNav 0.1.0",
     "TenFootUiTesting TenFootUiTesting 0.1.0",
     "TestUtils TestUtils 0.1.0",

@@ -1,6 +1,6 @@
-Key,Source,en-us,es-es,ko-kr,pt-br
-Studio.AvatarCompatibilityPreviewer.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,예시 텍스트!,Texto de exemplo!
-Studio.AvatarCompatibilityPreviewer.Plugin.Name,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Button,Toggle,Toggle,Activar,토글,Alternador
-Studio.AvatarCompatibilityPreviewer.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Activar la ventana del plugin Plantilla.,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.
+Key,Source,en-us,es-es,fr-fr,it-it,ko-kr,pt-br,zh-tw
+Studio.AvatarCompatibilityPreviewer.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Exemple de texte !,Testo di esempio!,예시 텍스트!,Texto de exemplo!,範例文字！
+Studio.AvatarCompatibilityPreviewer.Plugin.Name,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,Aperçu de la compatibilité avatar,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,虛擬人偶兼容性預覽
+Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,Aperçu de la compatibilité avatar,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,AvatarCompatibilityPreviewer,虛擬人偶兼容性預覽
+Studio.AvatarCompatibilityPreviewer.Plugin.Button,Toggle,Toggle,Activar,Activer/désactiver,Attiva/disattiva,토글,Alternador,切換
+Studio.AvatarCompatibilityPreviewer.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Activar la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,Attiva/Disattiva la finestra del plugin template.,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.,切換範例外掛程式視窗。

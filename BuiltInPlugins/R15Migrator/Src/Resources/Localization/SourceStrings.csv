@@ -28,6 +28,8 @@ Studio.R15Migrator.ScriptConversion.RevertWarning,Confirm reverting scripts to i
 Studio.R15Migrator.ScriptConversion.Reverted,Reverted
 Studio.R15Migrator.ScriptConversion.RevertingScripts,Reverting Scripts
 Studio.R15Migrator.ScriptConversion.UndoRevert,Undo Revert
+Studio.R15Migrator.ScriptStatus.Complete,All script issues have been resolved.
+Studio.R15Migrator.ScriptStatus.Reverted,This script was just reverted. Reversion can be undone as long as there are no additional changes made to the script.
 Studio.R15Migrator.Tabs.AnimationConversion,Animation Conversion
 Studio.R15Migrator.Tabs.ModelConversion,Model Conversion
 Studio.R15Migrator.Tabs.ReplaceRules,Replace Rules

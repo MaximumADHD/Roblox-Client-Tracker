@@ -78844,6 +78844,25 @@
                 },
                 {
                     "Category": "RenderingTest",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "PerfTest",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "RenderingTest",
                     "Default": "0, 0, 0",
                     "MemberType": "Property",
                     "Name": "Position",
@@ -79702,6 +79721,45 @@
                         "Name": "int64"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ForceScreenshotSignal",
+                    "Parameters": [
+                        {
+                            "Name": "requestId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "playerId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "mac",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "args",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Tuple"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxSecurity",
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -81373,6 +81431,25 @@
                         "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetEditorSource",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "LuaSourceContainer"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -87080,184 +87157,6 @@
             "Members": [
                 {
                     "Category": "Data",
-                    "Default": "0",
-                    "MemberType": "Property",
-                    "Name": "ChannelCount",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated",
-                        "NotBrowsable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    }
-                },
-                {
-                    "Category": "Playback",
-                    "Default": "0",
-                    "MemberType": "Property",
-                    "Name": "PlaybackLoudness",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "double"
-                    }
-                },
-                {
-                    "Category": "Emitter",
-                    "Default": "0",
-                    "MemberType": "Property",
-                    "Name": "RollOffMaxDistance",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Emitter",
-                    "Default": "0",
-                    "MemberType": "Property",
-                    "Name": "RollOffMinDistance",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Emitter",
-                    "Default": "Inverse",
-                    "MemberType": "Property",
-                    "Name": "RollOffMode",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "RollOffMode"
-                    }
-                },
-                {
-                    "Category": "Routing",
-                    "Default": "__api_dump_no_string_value__",
-                    "MemberType": "Property",
-                    "Name": "SoundGroup",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "SoundGroup"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
-                    "MemberType": "Property",
-                    "Name": "Source",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    }
-                },
-                {
-                    "Category": "Playback",
-                    "Default": "0",
-                    "MemberType": "Property",
-                    "Name": "Volume",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                }
-            ],
-            "MemoryCategory": "Internal",
-            "Name": "Speaker",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Deprecated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
                     "Name": "FrameId",
@@ -92661,7 +92560,8 @@
                     },
                     "Tags": [
                         "ReadOnly",
-                        "NotReplicated"
+                        "NotReplicated",
+                        "Deprecated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -96683,7 +96583,7 @@
                 },
                 {
                     "Category": "Behavior",
-                    "Default": "Unknown",
+                    "Default": "Slash",
                     "MemberType": "Property",
                     "Name": "KeyboardKeyCode",
                     "Security": {
@@ -96694,9 +96594,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -97233,7 +97130,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "TextFilterFailed",
+                    "Default": "Floodchecked",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {
@@ -114281,6 +114178,20 @@
                 {
                     "Name": "Cylinder",
                     "Value": 2
+                },
+                {
+                    "Name": "Wedge",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "Value": 3
+                },
+                {
+                    "Name": "CornerWedge",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "Value": 4
                 }
             ],
             "Name": "PartType"
@@ -118295,6 +118206,23 @@
                 }
             ],
             "Name": "WaterForce"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "All",
+                    "Value": 0
+                },
+                {
+                    "Name": "None",
+                    "Value": 1
+                },
+                {
+                    "Name": "Touching",
+                    "Value": 2
+                }
+            ],
+            "Name": "WeldConstraintPreserve"
         },
         {
             "Items": [

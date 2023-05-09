@@ -17,6 +17,7 @@ Studio.ManageCollaborators.FailureMessage.SaveFailure,Failed to save Permissions
 Studio.ManageCollaborators.PermissionDescriptions.Play,Can play this game,Can play this game
 Studio.ManageCollaborators.SearchBar.AddUsersGroups,Add Users and Groups, Add Users and Groups
 Studio.ManageCollaborators.PermissionLabels.NoAccess,No Access,No Access
+Studio.ManageCollaborators.SearchBar.UnknownError,Unknown error,Unknown error
 Studio.ManageCollaborators.PermissionLabels.Play,Play,Play
 Studio.ManageCollaborators.PermissionLabels.Edit,Edit,Edit
 Studio.ManageCollaborators.PermissionLabels.Admin,Manage,Manage

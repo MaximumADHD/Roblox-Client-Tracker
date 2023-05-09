@@ -235,6 +235,8 @@ Studio.TerrainToolsV2.PartToBiome.PartToBiome, ,Part to Biome
 Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, ,Part to Terrain
 Studio.TerrainToolsV2.RegionSettings.Apply, ,Apply
 Studio.TerrainToolsV2.RegionSettings.Copy, ,Copy
+Studio.TerrainToolsV2.RegionSettings.LiveEdit, ,Live Edit
+Studio.TerrainToolsV2.RegionSettings.LiveEditTooltip, ,"When enabled, terrain updates live. For better performance, turn this off to see a rough preview which can be applied."
 Studio.TerrainToolsV2.RegionSettings.MergeEmpty, ,Merge Empty
 Studio.TerrainToolsV2.RegionSettings.MergeEmptyTooltip, ,"When enabled, air voxels in the selection will overwrite existing voxels at the destination."
 Studio.TerrainToolsV2.RegionSettings.Move, ,Move

@@ -1,6 +1,6 @@
-Key,Source,en-us,es-es,it-it,ko-kr,pt-br
-Studio.DynamicHeadExportTool.Plugin.Name,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool
-Studio.DynamicHeadExportTool.Plugin.Toolbar,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool
-Studio.DynamicHeadExportTool.Plugin.Button,Toggle,Toggle,Activar,Attiva/disattiva,토글,Alternador
-Studio.DynamicHeadExportTool.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Activar la ventana del plugin Plantilla.,Attiva/Disattiva la finestra del plugin template.,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.
-Studio.DynamicHeadExportTool.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Testo di esempio!,예시 텍스트!,Texto de exemplo!
+Key,Source,en-us,es-es,fr-fr,it-it,ko-kr,pt-br,zh-tw
+Studio.DynamicHeadExportTool.Plugin.Name,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,動態臉部匯出工具
+Studio.DynamicHeadExportTool.Plugin.Toolbar,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,DynamicHeadExportTool,動態臉部匯出工具
+Studio.DynamicHeadExportTool.Plugin.Button,Toggle,Toggle,Activar,Activer/désactiver,Attiva/disattiva,토글,Alternador,切換
+Studio.DynamicHeadExportTool.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Activar la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,Attiva/Disattiva la finestra del plugin template.,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.,切換範例外掛程式視窗。
+Studio.DynamicHeadExportTool.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Exemple de texte !,Testo di esempio!,예시 텍스트!,Texto de exemplo!,範例文字！

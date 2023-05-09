@@ -5907,7 +5907,6 @@
         <string name="Name">Players</string>
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">21</string>
-        <token name="ServiceVisibility">2</token>        <!-- WithChildren -->
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -8788,6 +8787,38 @@
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Pass</string>
+        </Properties>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataEnum">
+      <Properties>
+        <string name="Name">PartType</string>
+      </Properties>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Ball</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Block</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Cylinder</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Wedge</string>
+          <string name="FFlag">WedgesAreEnums</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">CornerWedge</string>
+          <string name="FFlag">WedgesAreEnums</string>
         </Properties>
       </Item>
     </Item>

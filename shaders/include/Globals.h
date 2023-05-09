@@ -31,8 +31,10 @@ struct Globals
     vec4 CascadeSphere1;
     vec4 CascadeSphere2;
     vec4 CascadeSphere3;
-    vec4 invViewportWH;
-    float hybridLerpDist;
+    vec2 invViewportWH;
+    float hqDist;
+    float localLightDist;
+    float sunDist;
     float hybridLerpSlope;
     float evsmPosExp;
     float evsmNegExp;

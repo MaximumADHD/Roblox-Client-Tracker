@@ -568,7 +568,7 @@
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectAll" width="16" height="16" />
           <addaction name="selectParentsAction" fflag="SelectParentsEnabled"/>
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" modernIcon="SelectChildren" />
-          <addaction name="expandAllAction" fflag="ExpandAllEnabled"/>
+          <addaction name="expandAllAction"/>
           <addaction name="collapseAllAction"/>
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" modernIcon="" width="32" height="32" />-->

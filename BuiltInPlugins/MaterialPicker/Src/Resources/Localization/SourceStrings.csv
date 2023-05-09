@@ -1,4 +1,5 @@
 Key,en-us
+Studio.MaterialPicker.MainView.Button,Click Me
 Studio.MaterialPicker.Plugin.Button,Material Picker
 Studio.MaterialPicker.Plugin.Description,Choose materials to apply to objects in the scene
 Studio.MaterialPicker.Plugin.Name,Material Picker

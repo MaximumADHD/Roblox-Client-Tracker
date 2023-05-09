@@ -72,6 +72,7 @@ Studio.AccessoryFittingTool.Flow.Generate,Generate
 Studio.AccessoryFittingTool.Flow.Next,Next
 Studio.AccessoryFittingTool.Generate.InvalidBounds,Item is not within the acceptable bounds for moderation. Please scale/position the item till it fits into the blue bounding box.
 Studio.AccessoryFittingTool.Generate.Prompt,The asset is ready.
+Studio.AccessoryFittingTool.Generate.Tooltip,Generate the final accessory item with all of your edits.
 Studio.AccessoryFittingTool.Generate.Wait,Please wait while the asset is being generated...
 Studio.AccessoryFittingTool.LatticeTool.GenerateMessageBoxText,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?
 Studio.AccessoryFittingTool.Main.Title,Accessory Fitting Tool
@@ -93,6 +94,7 @@ Studio.AccessoryFittingTool.Preview.Default,Default
 Studio.AccessoryFittingTool.Preview.FocusCamera,Focus camera on Mannequin
 Studio.AccessoryFittingTool.Preview.InvalidAdd,"Invalid instance selected. Must be a MeshPart, Accessory, Model, Animation, or Folder."
 Studio.AccessoryFittingTool.Preview.PanelBlockerAddItem,"Add a MeshPart, Accessory, Model, Animation, or Folder from the Explorer"
+Studio.AccessoryFittingTool.Preview.PanelBlockerAddItemWithEscape,"Add a MeshPart, Accessory, Model, Animation, or Folder from the Explorer. Click here or press Escape to resume editing."
 Studio.AccessoryFittingTool.Preview.Tooltip,Click to wear item in Accessory Fitting Tool Preview!
 Studio.AccessoryFittingTool.Preview.Transparency,Transparency
 Studio.AccessoryFittingTool.Reset.InnerCage,Reset Inner Cage

@@ -52,15 +52,15 @@ Studio.TagEditor.Groups.UnknownTags,Unknown Tags,Unknown Tags,Etiquetas desconoc
 Studio.TagEditor.VisualizeOptions.Box,Box,Box,Caja,Boîte,Scatola,ボックス,상자,Caixa,方块,方块,方塊
 Studio.TagEditor.IconPicker.Emoji,Emoji,Emoji,Emoji,Emoji,Emoji,絵文字,이모티콘,Emoji, , ,表情符號
 Studio.TagEditor.VisualizeOptions.Outline,Outline,Outline,Contorno,Contour,Contorno,輪郭,윤곽,Contorno, , ,輪廓
-Studio.TagEditor.IconPicker.EnterAnAssetID,Enter an asset ID or URL,Enter an asset ID or URL,Ingresa un ID de recurso o URL,Entrez un ID de contenu ou une URL,Inserisci un ID asset o un URL,アセットIDまたはURLを入力,애셋 ID 또는 URL 입력,Insira um ID ou URL de ativo, , , 
+Studio.TagEditor.IconPicker.EnterAnAssetID,Enter an asset ID or URL,Enter an asset ID or URL,Ingresa un ID de recurso o URL,Entrez un ID de contenu ou une URL,Inserisci un ID asset o un URL,アセットIDまたはURLを入力,애셋 ID 또는 URL 입력,Insira um ID ou URL de ativo, , ,輸入資產 ID 或網址
 Studio.TagEditor.Info.SettingsFor,Settings for:,Settings for:,Configuración para:,Paramètres pour :,Impostazioni per:,設定対象:,설정 대상:,Configurações para:, , ,設定對象：
 Studio.TagEditor.Info.SettingsForTag,Settings for:,Settings for:,Configuración para:,Paramètres pour :,Impostazioni per:,設定対象:,설정 대상:,Configurações para:, , ,設定對象：
 Studio.TagEditor.ColorPicker.RGB,RGB,RGB,RGB,RGB,RGB,RGB,RGB,RGB, , ,RGB
 Studio.TagEditor.ColorPicker.ChangingColorForTag,Changing Color for Tag:,Changing Color for Tag:,Cambiando color de etiqueta:,Changement de couleur pour le tag :,Cambiare colore per il Tag:,タグの色の変更:,태그 색상 변경:,Mudando cor para marcador:, , ,要變更顏色的標籤：
 Studio.TagEditor.Info.CreateNewTag,New Tag,New Tag,Nueva etiqueta,Nouveau Tag,Nuovo Tag,新規タグ,새 태그,Novo marcador, , ,新標籤
-Studio.TagEditor.Info.ColorPickerTitle,Changing Color for:,Changing Color for:,Cambiando color para:,Changer la couleur pour :,Cambiare colore per:,色を変更する対象:,색상 변경 대상:,Mudando cor para:, , ,要變更顏色的標籤：
+Studio.TagEditor.Info.ColorPickerTitle,Changing Color for:,Changing Color for:,Cambiando color para:,Changer la couleur pour :,Cambiare colore per:,色を変更する対象:,색상 변경 대상:,Mudando cor para:, , ,更改顏色為：
 Studio.TagEditor.Tooltip.WorldView,Toggle the tag visualizations in the world view. Helps find tagged instances in the world.,Toggle the tag visualizations in the world view. Helps find tagged instances in the world.,Alterna las visualizaciones de etiquetas en la vista del mundo. Ayuda a encontrar instancias etiquetadas en el mundo.,Basculer la visualisation des tags dans la vue du monde. Aide à trouver les instances taggées dans le monde.,Attiva/disattiva le visualizzazioni dei tag nella vista del mondo. Aiuta a trovare istanze tagged nel mondo.,ワールドビューでタグの視覚化を切り替え。ワールド内でタグ付けされたインスタンスを見つけるのに役立ちます。,월드 뷰에서 태그 시각화를 토글합니다. 이는 월드에서 태그가 지정된 인스턴스를 찾는 데 도움이 됩니다.,Alternar as visualizações de marcadores na visão do mundo. Ajuda a encontrar instâncias marcadas no mundo., , ,切換世界視角的標籤表示法。可以幫您在世界找到擁有標籤的個體。
 Studio.TagEditor.Tooltip.DeleteEnabled,Delete the selected Tag or Group,Delete the selected Tag or Group,Eliminar Etiqueta o Grupo seleccionados,Supprimer le tag ou le groupe sélectionné,Elimina il tag o il gruppo selezionato,選択したタグまたはグループを削除,선택한 태그 또는 그룹 삭제,Excluir o marcador ou grupo selecionados, , ,刪除選擇的標籤或群組
 Studio.TagEditor.Info.WorldView,World View,World View,Vista del mundo,Vue du monde,Vista mondiale,ワールドビュー,월드 뷰,Visão do mundo, , ,世界視角
 Studio.TagEditor.IconPicker.Icons,Icons,Icons,Íconos,Icônes,Icone,アイコン,아이콘,Ícones, , ,圖示
-Studio.TagEditor.General.Search,Search,Search,Buscar,Chercher,Cerca,サーチ,검색,Pesquisar, , , 
+Studio.TagEditor.General.Search,Search,Search,Buscar,Chercher,Cerca,サーチ,검색,Pesquisar, , ,搜尋

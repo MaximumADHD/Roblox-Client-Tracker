@@ -3929,6 +3929,7 @@ Class RenderingTest : Instance
 	Property string RenderingTest.Description
 	Property float RenderingTest.FieldOfView
 	Property Vector3 RenderingTest.Orientation [Hidden] [NotReplicated]
+	Property bool RenderingTest.PerfTest
 	Property Vector3 RenderingTest.Position [Hidden] [NotReplicated]
 	Property int RenderingTest.QualityLevel
 	Property bool RenderingTest.ShouldSkip
@@ -3986,6 +3987,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
 	Function int64 SafetyService:TakeScreenshot(Dictionary screenshotOptions) {RobloxScriptSecurity}
+	Event SafetyService.ForceScreenshotSignal(string requestId, int64 playerId, string mac, Tuple args) {RobloxSecurity} [Hidden]
 	Event SafetyService.ScreenshotContentReady(int64 screenshotJobId, Content contentId) {RobloxScriptSecurity}
 	Event SafetyService.ScreenshotUploaded(int64 screenshotJobId, string screenshotId) {RobloxScriptSecurity}
 Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
@@ -4072,6 +4074,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function null ScriptEditorService:DeregisterScriptAnalysisCallback(string name) {PluginSecurity}
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function null ScriptEditorService:ForceReloadSource(string uri, string newsrc) {RobloxScriptSecurity}
+	Function string ScriptEditorService:GetEditorSource(LuaSourceContainer script) {PluginSecurity}
 	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
 	Function Tuple ScriptEditorService:OpenScriptDocumentAsync(LuaSourceContainer script) {PluginSecurity} [Yields]
 	Function null ScriptEditorService:RegisterAutocompleteCallback(string name, int priority, Function callbackFunction) {PluginSecurity}
@@ -4374,15 +4377,6 @@ Class Sparkles : Instance
 	Property float Sparkles.TimeScale
 	Function null Sparkles:FastForward(int numFrames) {RobloxScriptSecurity}
 Class SpawnerService : Instance [NotCreatable] [Service]
-Class Speaker : Instance [NotCreatable] [Deprecated]
-	Property int Speaker.ChannelCount [ReadOnly] [NotBrowsable] [Deprecated]
-	Property Instance Speaker.Source [Deprecated]
-	Property float Speaker.RollOffMaxDistance [NotReplicated] [Deprecated]
-	Property float Speaker.RollOffMinDistance [NotReplicated] [Deprecated]
-	Property Enum.RollOffMode Speaker.RollOffMode [Deprecated]
-	Property double Speaker.PlaybackLoudness [ReadOnly] [Deprecated]
-	Property float Speaker.Volume [Deprecated]
-	Property SoundGroup Speaker.SoundGroup [Deprecated]
 Class StackFrame : Instance [NotCreatable] [NotReplicated]
 	Property int StackFrame.FrameId {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string StackFrame.FrameName {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -4658,7 +4652,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool StudioService.DEPRECATED_ShowActiveInstanceHighlight {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioService.DraggerSolveConstraints [ReadOnly]
-	Property bool StudioService.DrawConstraintsOnTop [ReadOnly]
+	Property bool StudioService.DrawConstraintsOnTop [ReadOnly] [Deprecated]
 	Property float StudioService.GridSize [ReadOnly]
 	Property Instance StudioService.HoverInstance {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string StudioService.InstalledPluginData {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -4856,7 +4850,7 @@ Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property Color3 ChatInputBarConfiguration.TextStrokeColor3
 	Property double ChatInputBarConfiguration.TextStrokeTransparency
 	Property bool ChatInputBarConfiguration.Enabled
-	Property Enum.KeyCode ChatInputBarConfiguration.KeyboardKeyCode [Hidden]
+	Property Enum.KeyCode ChatInputBarConfiguration.KeyboardKeyCode
 	Property Vector2 ChatInputBarConfiguration.AbsolutePosition [ReadOnly] {🧬Unsafe}
 	Property Vector2 ChatInputBarConfiguration.AbsolutePositionWrite {RobloxScriptSecurity} [Hidden]
 	Property Vector2 ChatInputBarConfiguration.AbsoluteSize [ReadOnly] {🧬Unsafe}
@@ -6941,6 +6935,8 @@ Enum PartType
 	EnumItem PartType.Ball : 0
 	EnumItem PartType.Block : 1
 	EnumItem PartType.Cylinder : 2
+	EnumItem PartType.Wedge : 3 [NotBrowsable]
+	EnumItem PartType.CornerWedge : 4 [NotBrowsable]
 Enum ParticleEmitterShape
 	EnumItem ParticleEmitterShape.Box : 0
 	EnumItem ParticleEmitterShape.Sphere : 1
@@ -7874,6 +7870,10 @@ Enum WaterForce
 	EnumItem WaterForce.Medium : 2
 	EnumItem WaterForce.Strong : 3
 	EnumItem WaterForce.Max : 4
+Enum WeldConstraintPreserve
+	EnumItem WeldConstraintPreserve.All : 0
+	EnumItem WeldConstraintPreserve.None : 1
+	EnumItem WeldConstraintPreserve.Touching : 2
 Enum WrapLayerAutoSkin
 	EnumItem WrapLayerAutoSkin.Disabled : 0
 	EnumItem WrapLayerAutoSkin.EnabledPreserve : 1
