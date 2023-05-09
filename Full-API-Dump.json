@@ -97130,7 +97130,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "Floodchecked",
+                    "Default": "TextFilterFailed",
                     "MemberType": "Property",
                     "Name": "Status",
                     "Security": {

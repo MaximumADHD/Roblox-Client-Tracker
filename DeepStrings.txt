@@ -65,6 +65,7 @@ AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAAAAAAAAAAAAAAAZZZZZZZZZZZZZZZZSystemInfoProtocolInfluxHundredthsPercentage
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -12066,8 +12067,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 Corporation1402
 CorrectDecelerationCompute
 Correction
@@ -14716,9 +14717,6 @@ DigestAlgorithm_init_bio
 DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crt0E
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
 DigiCertTrustedRootG4.crl0
@@ -20754,7 +20752,6 @@ HumanoidStateMachineMode
 HumanoidStateType
 HumanReadableTypeError
 HumaonidFloorAssemblyCheck
-HundredthPercent
 Hungarumlautsmall
 HungScript
 HungScriptPermyriad
@@ -26405,7 +26402,6 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -33522,6 +33518,10 @@ SecondsOverBudget
 SecondsPerBatchAwardPointsCall
 SecondsSincePreviousStreamJobStartTime
 SecondsSinceStreamJobStart
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -40358,6 +40358,7 @@ Studio.RigBuilder.RigOption.BlockRig
 Studio.RigBuilder.RigOption.ManRig
 Studio.RigBuilder.RigOption.MeshRig
 Studio.RigBuilder.RigOption.WomanRig
+Studio.RobloxPropertiesWidg
 Studio.RobloxPropertiesWidget.Category.Accessories
 Studio.RobloxPropertiesWidget.Category.Advanced
 Studio.RobloxPropertiesWidget.Category.AlignmentMode
@@ -47910,7 +47911,6 @@ WhoTriggered
 WideCharToMultiByte
 WideToNarrowScaleInHundredths
 WideView_purpleLayer.png
-Widget.Category.Material
 WidgetContainer
 WidgetContents
 WidgetContents_13
