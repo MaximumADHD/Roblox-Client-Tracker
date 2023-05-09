@@ -6,6 +6,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
+local t = require(Packages.t)
 
 local AlertButton = require(ButtonRoot.AlertButton)
 local PrimaryContextualButton = require(ButtonRoot.PrimaryContextualButton)
@@ -14,19 +15,53 @@ local SecondaryButton = require(ButtonRoot.SecondaryButton)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
+local validateButtonProps = require(ButtonRoot.validateButtonProps)
+
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 
 local ButtonType = require(ButtonRoot.Enum.ButtonType)
 
-local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
-
-local BUTTON_HEIGHT = 36
-
 local ButtonStack = Roact.PureComponent:extend("ButtonStack")
 
+ButtonStack.validateProps = t.strictInterface({
+	-- A table of button tables that contain props that PrimaryContextualButton,
+	-- AlertButton, PrimarySystemButton, or SecondaryButton allow.
+	buttons = t.array(t.strictInterface({
+		-- Determines which button to use
+		buttonType = t.optional(enumerateValidator(ButtonType)),
+		props = validateButtonProps,
+		-- Default gamepad focus to this button if true.
+		isDefaultChild = t.optional(t.boolean),
+	})),
+
+	buttonHeight = t.optional(t.numberMin(0)),
+
+	-- What fill direction to force into. If nil, then the fillDirection
+	-- will be Vertical and automatically change to Horizontal if any button's text is
+	-- too long.
+	forcedFillDirection = t.optional(t.enum(Enum.FillDirection)),
+
+	-- marginBetween: the margin between each button.
+	marginBetween = t.optional(t.numberMin(0)),
+
+	-- The minimum left and right padding used to calculate
+	-- the when the button text overflows and automatically changes fillDirection.
+	-- The overflow calculation will be if the length of the button text is over
+	-- the button size - (2 * minHorizontalButtonPadding).
+	minHorizontalButtonPadding = t.optional(t.numberMin(0)),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	frameRef = t.optional(t.table),
+})
+
 ButtonStack.defaultProps = {
-	buttonHeight = BUTTON_HEIGHT,
+	buttonHeight = 36,
 	marginBetween = 12,
 	minHorizontalButtonPadding = 8,
 }
@@ -49,8 +84,6 @@ function ButtonStack:init()
 end
 
 function ButtonStack:render()
-	assert(validateButtonStack(self.props))
-
 	return withStyle(function(stylePalette)
 		local font = stylePalette.Font
 		local textSize = font.Body.RelativeSize * font.BaseSize
@@ -139,6 +172,11 @@ function ButtonStack:render()
 	end)
 end
 
-return Roact.forwardRef(function(props, ref)
+local ButtonStackForwardRef = Roact.forwardRef(function(props, ref)
 	return Roact.createElement(ButtonStack, Cryo.Dictionary.join(props, { frameRef = ref }))
 end)
+
+-- Include validateProps on forward ref so other components can use it for validation
+ButtonStackForwardRef.validateProps = ButtonStack.validateProps
+
+return ButtonStackForwardRef

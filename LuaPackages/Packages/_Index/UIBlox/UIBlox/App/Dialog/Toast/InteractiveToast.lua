@@ -13,8 +13,8 @@ local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local SpringAnimatedItem = require(UIBloxRoot.Utility.SpringAnimatedItem)
 
 local ToastFrame = require(ToastRoot.ToastFrame)
-local validateToastIcon = require(ToastRoot.Validator.validateToastIcon)
-local validateToastText = require(ToastRoot.Validator.validateToastText)
+local ToastIcon = require(ToastRoot.ToastIcon)
+local ToastText = require(ToastRoot.ToastText)
 
 local ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
@@ -29,7 +29,7 @@ local InteractiveToast = Roact.PureComponent:extend("InteractiveToast")
 
 InteractiveToast.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
-	iconProps = t.optional(validateToastIcon),
+	iconProps = t.optional(ToastIcon.validateProps),
 	iconChildren = t.optional(t.table),
 	layoutOrder = t.optional(t.integer),
 	padding = t.optional(t.numberMin(0)),
@@ -37,9 +37,9 @@ InteractiveToast.validateProps = t.strictInterface({
 	pressed = t.optional(t.boolean),
 	pressedScale = t.number,
 	size = t.UDim2,
-	subtitleTextProps = t.optional(validateToastText),
+	subtitleTextProps = t.optional(ToastText.validateProps),
 	textFrameSize = t.optional(t.UDim2),
-	titleTextProps = validateToastText,
+	titleTextProps = ToastText.validateProps,
 })
 
 InteractiveToast.defaultProps = {

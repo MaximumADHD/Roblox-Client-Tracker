@@ -19,7 +19,15 @@ local Tile = require(TileRoot.BaseTile.Tile)
 
 local ItemTile = React.PureComponent:extend("ItemTile")
 
-local itemTileInterface = t.strictInterface({
+local function tileBannerUseValidator(props)
+	if props.bannerText and props.footer then
+		return false, "A custom footer and bannerText can't be used together"
+	end
+
+	return true
+end
+
+ItemTile.validateProps = t.strictInterface({
 	-- The footer React element.
 	footer = t.optional(t.table),
 
@@ -103,16 +111,6 @@ local itemTileInterface = t.strictInterface({
 	[React.Tag] = t.optional(t.string),
 })
 
-local function tileBannerUseValidator(props)
-	if props.bannerText and props.footer then
-		return false, "A custom footer and bannerText can't be used together"
-	end
-
-	return true
-end
-
-ItemTile.validateProps = t.intersection(itemTileInterface, tileBannerUseValidator)
-
 ItemTile.defaultProps = {
 	titleTextLineCount = 2,
 	innerPadding = 8,
@@ -124,6 +122,7 @@ ItemTile.defaultProps = {
 }
 
 function ItemTile:render()
+	assert(tileBannerUseValidator(self.props))
 	local footer = self.props.footer
 	local bannerText = self.props.bannerText
 	local hasRoundedCorners = self.props.hasRoundedCorners

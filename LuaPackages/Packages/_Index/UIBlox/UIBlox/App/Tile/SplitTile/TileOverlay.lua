@@ -14,6 +14,7 @@ local useStyle = require(Core.Style.useStyle)
 local ControlState = require(Core.Control.Enum.ControlState)
 
 local setDefault = require(UIBlox.Utility.setDefault)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local CORNER_RADIUS = UDim.new(0, 8)
 
@@ -36,6 +37,12 @@ local function TileOverlay(props: Props)
 	local isActive = setDefault(props.isActive, true)
 	local reservedBottomHeight = props.reservedBottomHeight or 0
 	local hasReservedArea = reservedBottomHeight > 0
+
+	if UIBloxConfig.enableTileOverlayFix then
+		if not isVisible and not isActive then
+			return nil
+		end
+	end
 
 	local controlState, updateControlState = useControlState()
 	local stylePalette = useStyle()

@@ -67,4 +67,7 @@ return {
 
 	-- Change how VR Panel3D aligned to the in-game panel
 	vrAlignPanel3DUnderInGamePanel = false,
+
+	-- Indicate whether fix for TileOverlay is enabled
+	enableTileOverlayFix = false,
 }

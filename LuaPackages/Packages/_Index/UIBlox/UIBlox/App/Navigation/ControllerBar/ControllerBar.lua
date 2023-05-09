@@ -12,8 +12,25 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local Types = require(script.Parent.Types)
 local Shortcut = require(script.Parent.Shortcut)
 
-export type ShortcutProps = Types.ShortcutPublicProps
-export type ControllerBarProps = Types.ControllerBarProps
+type ControllerBarProps = {
+	-- list of items to display on the context bar
+	items: {
+		[number]: Types.ShortcutPublicProps,
+	},
+
+	-- position of context bar
+	position: UDim2?,
+	-- anchor point of context bar
+	anchorPoint: Vector2?,
+
+	spacingTop: number?,
+	spacingTrailing: number?,
+	spacingBottom: number?,
+	spacingLeading: number?,
+	itemsGap: number?,
+	itemIconLabelGap: number?,
+	actionTextSpacingLeading: number?,
+}
 
 local defaultProps: ControllerBarProps = {
 	items = {},

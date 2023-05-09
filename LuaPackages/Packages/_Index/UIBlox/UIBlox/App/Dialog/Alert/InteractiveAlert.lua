@@ -24,7 +24,7 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
+local ButtonStack = require(AppRoot.Button.ButtonStack)
 
 local InteractiveAlert = Roact.PureComponent:extend("InteractiveAlert")
 
@@ -41,7 +41,7 @@ InteractiveAlert.validateProps = t.strictInterface({
 	titleContent = t.optional(t.callback),
 	bodyText = t.optional(t.string),
 	middleContent = t.optional(t.callback),
-	buttonStackInfo = validateButtonStack,
+	buttonStackInfo = ButtonStack.validateProps,
 	footerText = t.optional(t.string),
 	footerContent = t.optional(t.callback),
 

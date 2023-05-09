@@ -120,7 +120,7 @@ function PropParser._getProp(line: string, isMultiLine: boolean?): (string?, str
 
 	-- Returns propName, propType, isOptional
 	local propName, propType, optionalQualifier =
-		string.match(line, luauPropPattern .. (if isMultiLine then "" else ","))
+		string.match(line, luauPropPattern .. (if isMultiLine then "" else ",$"))
 	if propName and propType then
 		if propType == "" then
 			propType = "🤷"
@@ -129,7 +129,7 @@ function PropParser._getProp(line: string, isMultiLine: boolean?): (string?, str
 	end
 
 	-- T-style typing
-	propName, propType = string.match(line, tPropPattern .. (if isMultiLine then "" else ","))
+	propName, propType = string.match(line, tPropPattern .. (if isMultiLine then "" else ",$"))
 	if propName and propType then
 		local isOptional: boolean? = false
 		local propFormat = "%s"
@@ -146,13 +146,19 @@ function PropParser._getProp(line: string, isMultiLine: boolean?): (string?, str
 			elseif outerClassifier == "array" then
 				propType = innerPropType
 				propFormat = "Array<" .. propFormat .. ">"
+			elseif outerClassifier == "map" then
+				propType = innerPropType
+				propFormat = "Map<" .. propFormat .. ">"
 			elseif outerClassifier == "union" then
 				propType = table.concat(string.split(innerPropType, ", "), " | ")
 			elseif outerClassifier == "numberMin" then
 				propType = innerPropType
 				propFormat = "number > " .. propFormat
-			elseif outerClassifier == "enumerateValidator" or outerClassifier == "enum" then
+			elseif outerClassifier == "enumerateValidator" then
 				propType = "Enum." .. innerPropType
+			elseif outerClassifier == "enum" then
+				-- Already include enum prefix
+				propType = innerPropType
 			elseif outerClassifier == "strictInterface" or outerClassifier == "interface" then
 				propType = "🤷"
 			else

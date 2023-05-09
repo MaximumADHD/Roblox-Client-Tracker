@@ -19,7 +19,6 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getPageMargin = require(App.Container.getPageMargin)
 local validateButtonProps = require(Button.validateButtonProps)
-local validateIconButtonProps = IconButton.validateProps
 local StyleConstants = require(UIBlox.App.Style.Constants)
 local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 
@@ -77,7 +76,7 @@ ActionBar.validateProps = t.strictInterface({
 
 	-- icons: A table of button tables that contain props that IconButton allow.
 	icons = t.optional(t.array(t.strictInterface({
-		props = validateIconButtonProps,
+		props = IconButton.validateProps,
 	}))),
 
 	-- Override the internal margins
@@ -239,7 +238,7 @@ function ActionBar:didMount()
 	end
 end
 
-return Roact.forwardRef(function(props, ref)
+local ActionBarForwardRef = Roact.forwardRef(function(props, ref)
 	return Roact.createElement(
 		ActionBar,
 		Cryo.Dictionary.join(props, {
@@ -247,3 +246,7 @@ return Roact.forwardRef(function(props, ref)
 		})
 	)
 end)
+
+ActionBarForwardRef.validateProps = ActionBar.validateProps
+
+return ActionBarForwardRef

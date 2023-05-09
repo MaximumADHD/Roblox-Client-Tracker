@@ -9,7 +9,7 @@ dependencies = [
     "NetworkingAliases NetworkingAliases 1.13.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingBlocking NetworkingBlocking 1.13.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingCurrentlyWearing NetworkingCurrentlyWearing 6c92cae7 git+https://github.com/roblox/lua-profile#v4.3.7",
-    "NetworkingFriends NetworkingFriends 2.9.0 url+https://github.com/roblox/networking-friends",
+    "NetworkingFriends NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames db69cf81 git+https://github.com/roblox/networking-games#v1.1.0",
     "NetworkingPresence NetworkingPresence 31f6545b git+https://github.com/roblox/networking-presence#v1.1.1",
     "NetworkingUserInfo NetworkingUserInfo 6c92cae7 git+https://github.com/roblox/lua-profile#v4.3.7",

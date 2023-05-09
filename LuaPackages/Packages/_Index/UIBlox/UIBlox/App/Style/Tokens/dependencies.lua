@@ -7,16 +7,22 @@ local t = require(Packages.t)
 local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 local Constants = require(Style.Constants)
 
+local function getThemePackageIndex(deviceType)
+	return {
+		[Constants.ThemeName.Light] = RbxDesignFoundations.tokens[deviceType].Light,
+		[Constants.ThemeName.Dark] = RbxDesignFoundations.tokens[deviceType].Dark,
+	}
+end
+
 return {
 	TokenPackageIndexMap = {
-		[Constants.DeviceType.Desktop] = {
-			[Constants.ThemeName.Light] = RbxDesignFoundations.tokens.Desktop.Light,
-			[Constants.ThemeName.Dark] = RbxDesignFoundations.tokens.Desktop.Dark,
-		},
-		[Constants.DeviceType.Console] = {
-			[Constants.ThemeName.Light] = RbxDesignFoundations.tokens.Console.Light,
-			[Constants.ThemeName.Dark] = RbxDesignFoundations.tokens.Console.Dark,
-		},
+		[Constants.DeviceType.Console] = getThemePackageIndex("Console"),
+		[Constants.DeviceType.Desktop] = getThemePackageIndex("Desktop"),
+		[Constants.DeviceType.Tablet] = getThemePackageIndex("Desktop"),
+		[Constants.DeviceType.Phone] = getThemePackageIndex("Desktop"),
+		[Constants.DeviceType.VR] = getThemePackageIndex("Desktop"),
+		-- Fallback to the default even though it's currently unknown as long as the DeviceType is valid
+		[Constants.DeviceType.Unknown] = getThemePackageIndex("Desktop"),
 	},
 	CommonPackage = {
 		Validators = {

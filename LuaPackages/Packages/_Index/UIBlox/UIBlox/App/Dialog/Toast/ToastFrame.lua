@@ -10,22 +10,20 @@ local t = require(Packages.t)
 
 local ToastIcon = require(ToastRoot.ToastIcon)
 local ToastText = require(ToastRoot.ToastText)
-local validateToastIcon = require(ToastRoot.Validator.validateToastIcon)
-local validateToastText = require(ToastRoot.Validator.validateToastText)
 
 local ToastFrame = Roact.PureComponent:extend("ToastFrame")
 
 ToastFrame.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
-	iconProps = t.optional(validateToastIcon),
+	iconProps = t.optional(ToastIcon.validateProps),
 	iconChildren = t.optional(t.table),
 	layoutOrder = t.optional(t.integer),
 	padding = t.numberMin(0),
 	position = t.optional(t.UDim2),
 	size = t.UDim2,
-	subtitleTextProps = t.optional(validateToastText),
+	subtitleTextProps = t.optional(ToastText.validateProps),
 	textFrameSize = t.UDim2,
-	titleTextProps = validateToastText,
+	titleTextProps = ToastText.validateProps,
 })
 
 ToastFrame.defaultProps = {

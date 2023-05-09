@@ -17,7 +17,6 @@ local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
 local VerticalScrollView = require(App.Container.VerticalScrollView)
-local validateActionBarContentProps = require(App.Button.Validator.validateActionBarContentProps)
 local ActionBar = require(App.Button.ActionBar)
 local StickyActionBar = require(App.Button.StickyActionBar)
 
@@ -56,7 +55,7 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
 	renderInfoContent = t.optional(t.callback),
-	actionBarProps = t.optional(validateActionBarContentProps),
+	actionBarProps = t.optional(ActionBar.validateProps),
 
 	--Body props
 	componentList = t.optional(validateDetailsPageComponentList),

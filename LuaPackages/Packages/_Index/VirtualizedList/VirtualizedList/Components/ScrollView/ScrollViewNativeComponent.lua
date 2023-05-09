@@ -26,11 +26,18 @@ local Event = React.Event
 
 local Otter = require(Packages.Otter)
 
+local DEFAULT_ANIMATION_CONFIG = {
+	restingPositionLimit = 1,
+	restingVelocityLimit = 10,
+}
+
 local ScrollViewNativeComponent = React.Component:extend("ScrollViewNativeComponent")
 function ScrollViewNativeComponent:init(props)
 	self.props = props
 	self._nativeRef = React.createRef()
 	self.lastScrollEventTime = 0
+
+	self.animationConfig = if self.props.animationConfig then self.props.animationConfig else DEFAULT_ANIMATION_CONFIG
 
 	self.motor = Otter.createGroupMotor({
 		x = 0,
@@ -94,14 +101,8 @@ function ScrollViewNativeComponent:_startAnimatedScroll(x, y)
 	self.motor:step(0)
 
 	self.motor:setGoal({
-		x = Otter.spring(x, {
-			restingPositionLimit = 1,
-			restingVelocityLimit = 10,
-		}),
-		y = Otter.spring(y, {
-			restingPositionLimit = 1,
-			restingVelocityLimit = 10,
-		}),
+		x = Otter.spring(x, self.animationConfig),
+		y = Otter.spring(y, self.animationConfig),
 	})
 end
 

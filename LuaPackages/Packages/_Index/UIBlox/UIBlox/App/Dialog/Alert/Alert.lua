@@ -23,10 +23,7 @@ local AlertType = require(AlertRoot.Enum.AlertType)
 local AlertTitle = require(AlertRoot.AlertTitle)
 
 local BACKGROUND_IMAGE = "component_assets/circle_17"
-local MARGIN = 24
 local PADDING_BETWEEN = 24
-
-local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
 
 local Alert = Roact.PureComponent:extend("Alert")
 
@@ -44,7 +41,7 @@ Alert.validateProps = t.strictInterface({
 	title = t.string,
 	titleContent = t.optional(t.callback),
 	middleContent = t.optional(t.callback),
-	buttonStackInfo = t.optional(validateButtonStack),
+	buttonStackInfo = t.optional(ButtonStack.validateProps),
 	footerContent = t.optional(t.callback),
 
 	--Gamepad props
@@ -55,12 +52,7 @@ Alert.validateProps = t.strictInterface({
 
 Alert.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),
-	margin = {
-		top = 0,
-		bottom = MARGIN,
-		left = MARGIN,
-		right = MARGIN,
-	},
+	margin = { top = 0, bottom = 24, left = 24, right = 24 },
 	maxWidth = 400,
 	minWidth = 272,
 	position = UDim2.new(0.5, 0, 0.5, 0),

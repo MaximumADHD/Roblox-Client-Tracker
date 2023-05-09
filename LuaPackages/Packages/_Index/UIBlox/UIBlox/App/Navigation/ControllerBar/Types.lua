@@ -56,24 +56,4 @@ export type ShortcutProps = {
 	publicProps: ShortcutPublicProps,
 }
 
-export type ControllerBarProps = {
-	-- list of items to display on the context bar
-	items: {
-		[number]: ShortcutPublicProps,
-	},
-
-	-- position of context bar
-	position: UDim2?,
-	-- anchor point of context bar
-	anchorPoint: Vector2?,
-
-	spacingTop: number?,
-	spacingTrailing: number?,
-	spacingBottom: number?,
-	spacingLeading: number?,
-	itemsGap: number?,
-	itemIconLabelGap: number?,
-	actionTextSpacingLeading: number?,
-}
-
 return {}

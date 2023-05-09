@@ -12,26 +12,25 @@ local GridConfigReader = require(Grid.GridConfigReader)
 
 local GridBasicRow = Roact.PureComponent:extend("GridBasicRow")
 
-GridBasicRow.validateProps = t.intersection(
-	t.strictInterface({
-		kind = t.optional(t.string),
-		layoutOrder = t.optional(t.integer),
-		scrollable = t.optional(t.boolean),
-		pages = t.optional(t.numberPositive),
-		multiLine = t.optional(t.boolean),
-		lines = t.optional(t.intersection(t.integer, t.numberMin(0))),
-		paddingTopLines = t.optional(t.intersection(t.integer, t.numberMin(0))),
-		relativeHeight = t.optional(t.UDim),
-		[Roact.Children] = t.optional(t.table),
-		gridBasicRowRef = t.optional(t.union(t.table, t.callback)),
-	}),
-	function(props)
-		if props.multiLine and props.scrollable then
-			return false, "multiLine can't be scrollable"
-		end
-		return true
+local function multilineScrollingValidator(props)
+	if props.multiLine and props.scrollable then
+		return false, "multiLine can't be scrollable"
 	end
-)
+	return true
+end
+
+GridBasicRow.validateProps = t.strictInterface({
+	kind = t.optional(t.string),
+	layoutOrder = t.optional(t.integer),
+	scrollable = t.optional(t.boolean),
+	pages = t.optional(t.numberPositive),
+	multiLine = t.optional(t.boolean),
+	lines = t.optional(t.intersection(t.integer, t.numberMin(0))),
+	paddingTopLines = t.optional(t.intersection(t.integer, t.numberMin(0))),
+	relativeHeight = t.optional(t.UDim),
+	[Roact.Children] = t.optional(t.table),
+	gridBasicRowRef = t.optional(t.union(t.table, t.callback)),
+})
 
 GridBasicRow.defaultProps = {
 	kind = "default",
@@ -138,6 +137,7 @@ function GridBasicRow:getSize(relativeHeight, gutter, verticalGutter, margin, co
 end
 
 function GridBasicRow:render()
+	assert(multilineScrollingValidator(self.props))
 	local relativeHeight = self.props.relativeHeight
 	local scrollable = self.props.scrollable
 	local multiLine = self.props.multiLine

@@ -15,9 +15,15 @@ local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local ToastIcon = Roact.PureComponent:extend("ToastIcon")
 
 ToastIcon.validateProps = t.interface({
-	colorStyle = t.optional(validateColorInfo),
+	-- ImageSet compatible image info or image directory
 	Image = t.union(t.table, t.string),
 	Size = t.UDim2,
+
+	AnchorPoint = t.optional(t.Vector2),
+	-- The color table from the style palette
+	colorStyle = t.optional(validateColorInfo),
+	LayoutOrder = t.optional(t.integer),
+	Position = t.optional(t.UDim2),
 })
 
 ToastIcon.defaultProps = {

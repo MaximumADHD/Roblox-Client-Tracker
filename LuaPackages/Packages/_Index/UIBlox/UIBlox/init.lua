@@ -281,7 +281,7 @@ local function initializeLibrary(configs)
 				AlertType = require(script.App.Dialog.Alert.Enum.AlertType),
 				TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
 			}),
-			Toast = require(script.App.Dialog.Toast.SlideFromTopToast),
+			Toast = require(script.App.Dialog.Toast.Toast),
 			Tooltip = require(script.App.Dialog.Tooltip.Tooltip),
 			TooltipV2 = require(script.App.Dialog.TooltipV2.Controllers),
 			TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),

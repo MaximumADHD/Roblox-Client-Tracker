@@ -12,6 +12,10 @@ Constants.FontName = {
 Constants.DeviceType = {
 	Desktop = "Desktop",
 	Console = "Console",
+	Tablet = "Tablet",
+	Phone = "Phone",
+	VR = "VR",
+	Unknown = "Unknown",
 }
 
 Constants.Layout = {

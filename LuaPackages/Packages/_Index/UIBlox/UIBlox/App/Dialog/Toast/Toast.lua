@@ -9,17 +9,17 @@ local t = require(Packages.t)
 
 local SlidingDirection = require(UIBloxRoot.Core.Animation.Enum.SlidingDirection)
 local SlidingContainer = require(UIBloxRoot.Core.Animation.SlidingContainer)
+local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local StateTable = require(UIBloxRoot.StateTable.StateTable)
 
 local AnimationState = require(ToastRoot.Enum.AnimationState)
 local InformativeToast = require(ToastRoot.InformativeToast)
 local InteractiveToast = require(ToastRoot.InteractiveToast)
 local ToastContainer = require(ToastRoot.ToastContainer)
-local validateToastContent = require(ToastRoot.Validator.validateToastContent)
 
-local SlideFromTopToast = Roact.PureComponent:extend("SlideFromTopToast")
+local Toast = Roact.PureComponent:extend("Toast")
 
-SlideFromTopToast.validateProps = t.strictInterface({
+Toast.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	duration = t.optional(t.number),
 	layoutOrder = t.optional(t.integer),
@@ -27,10 +27,27 @@ SlideFromTopToast.validateProps = t.strictInterface({
 	show = t.optional(t.boolean),
 	size = t.optional(t.UDim2),
 	springOptions = t.optional(t.table),
-	toastContent = validateToastContent,
+	toastContent = t.strictInterface({
+		iconColorStyle = t.optional(validateColorInfo),
+		-- Optional image to be displayed in the toast.
+		iconImage = t.optional(t.union(t.table, t.string)),
+		iconSize = t.optional(t.Vector2),
+		iconChildren = t.optional(t.table),
+		onActivated = t.optional(t.callback),
+		onAppeared = t.optional(t.callback),
+		onDismissed = t.optional(t.callback),
+		swipeUpDismiss = t.optional(t.boolean),
+		toastSubtitle = t.optional(t.string),
+		-- optional sequence number so you can, if you want to, display the same
+		-- toast message twice in a row (Without this Toast would 'eat'
+		-- the second, matching message without notifying the caller about it being
+		-- dismissed or activated or whatever)
+		sequenceNumber = t.optional(t.integer),
+		toastTitle = t.string,
+	}),
 })
 
-SlideFromTopToast.defaultProps = {
+Toast.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0),
 	position = UDim2.new(0.5, 0, 0, 20),
 	show = true,
@@ -54,7 +71,7 @@ local function toastContentEqual(toastContent1, toastContent2)
 	return true
 end
 
-function SlideFromTopToast:init()
+function Toast:init()
 	self.isMounted = false
 
 	self.currentToastContent = self.props.toastContent
@@ -173,11 +190,11 @@ function SlideFromTopToast:init()
 	end)
 end
 
-function SlideFromTopToast:isShowing()
+function Toast:isShowing()
 	return self.state.currentState == AnimationState.Appearing or self.state.currentState == AnimationState.Appeared
 end
 
-function SlideFromTopToast:render()
+function Toast:render()
 	local onActivated = self.currentToastContent.onActivated
 	local swipeUpDismiss = self.currentToastContent.swipeUpDismiss
 	if swipeUpDismiss == nil then
@@ -208,7 +225,7 @@ function SlideFromTopToast:render()
 	})
 end
 
-function SlideFromTopToast:didMount()
+function Toast:didMount()
 	self.isMounted = true
 	if self.props.show then
 		self.stateTable.events.ForceAppear({
@@ -217,11 +234,11 @@ function SlideFromTopToast:didMount()
 	end
 end
 
-function SlideFromTopToast:willUnmount()
+function Toast:willUnmount()
 	self.isMounted = false
 end
 
-function SlideFromTopToast:didUpdate(oldProps, oldState)
+function Toast:didUpdate(oldProps, oldState)
 	if oldProps.show ~= self.props.show then
 		if self.props.show then
 			self.stateTable.events.ForceAppear({
@@ -242,4 +259,4 @@ function SlideFromTopToast:didUpdate(oldProps, oldState)
 	end
 end
 
-return SlideFromTopToast
+return Toast

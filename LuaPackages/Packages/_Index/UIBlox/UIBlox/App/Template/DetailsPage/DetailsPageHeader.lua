@@ -9,7 +9,6 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local LoadableImage = require(App.Loading.LoadableImage)
-local validateActionBarContentProps = require(App.Button.Validator.validateActionBarContentProps)
 local ActionBar = require(App.Button.ActionBar)
 
 local DeviceType = require(DetailsPage.Enum.DeviceType)
@@ -53,7 +52,7 @@ DetailsPageHeader.validateProps = t.strictInterface({
 	headerBarBackgroundHeight = t.optional(t.number),
 	sideMargin = t.optional(t.number),
 
-	actionBarProps = t.optional(validateActionBarContentProps),
+	actionBarProps = t.optional(ActionBar.validateProps),
 
 	deviceType = t.optional(t.string),
 })

@@ -23,48 +23,45 @@ local function validateWindowHeight(props)
 	return true
 end
 
-local isGridViewProps = t.intersection(
-	t.strictInterface({
-		-- A function that, given the width of grid cells, returns the height of
-		-- grid cells.
-		getItemHeight = t.callback,
-		-- A grid metrics getter function (see GridMetrics).
-		getItemMetrics = t.callback,
-		-- How much of the grid view is visible. This determines the size of cells
-		-- in the grid.
-		windowHeight = t.optional(t.numberMin(0)),
-		-- A function that, given an item, returns a Roact element representing that
-		-- item. The item should expect to fill its parent. Setting LayoutOrder is
-		-- not necessary.
-		renderItem = t.callback,
-		-- The spacing between grid cells, on each axis.
-		itemPadding = t.Vector2,
-		-- All the items that can be displayed in the grid. renderItem should be
-		-- able to use all values in this table.
-		items = t.table,
-		-- The maximum height the grid view is allowed to grow to.
-		maxHeight = t.numberMin(0),
-		-- The layout order of the grid.
-		LayoutOrder = t.optional(t.integer),
-		-- Called when the number of items per row is initially measured or changes.
-		onNumItemsPerRowChanged = t.optional(t.callback),
-
-		-- optional parameters for RoactGamepad
-		NextSelectionLeft = t.optional(t.table),
-		NextSelectionRight = t.optional(t.table),
-		NextSelectionUp = t.optional(t.table),
-		NextSelectionDown = t.optional(t.table),
-		frameRef = t.optional(t.table),
-		restorePreviousChildFocus = t.optional(t.boolean),
-		onFocusGained = t.optional(t.callback),
-
-		-- which selection will initially be selected (if using roact-gamepad)
-		defaultChildIndex = t.optional(t.numberMin(1)),
-	}),
-	validateWindowHeight
-)
-
 local DefaultMetricsGridView = Roact.PureComponent:extend("DefaultMetricsGridView")
+
+DefaultMetricsGridView.validateProps = t.strictInterface({
+	-- A function that, given the width of grid cells, returns the height of
+	-- grid cells.
+	getItemHeight = t.callback,
+	-- A grid metrics getter function (see GridMetrics).
+	getItemMetrics = t.callback,
+	-- How much of the grid view is visible. This determines the size of cells
+	-- in the grid.
+	windowHeight = t.optional(t.numberMin(0)),
+	-- A function that, given an item, returns a Roact element representing that
+	-- item. The item should expect to fill its parent. Setting LayoutOrder is
+	-- not necessary.
+	renderItem = t.callback,
+	-- The spacing between grid cells, on each axis.
+	itemPadding = t.Vector2,
+	-- All the items that can be displayed in the grid. renderItem should be
+	-- able to use all values in this table.
+	items = t.table,
+	-- The maximum height the grid view is allowed to grow to.
+	maxHeight = t.numberMin(0),
+	-- The layout order of the grid.
+	LayoutOrder = t.optional(t.integer),
+	-- Called when the number of items per row is initially measured or changes.
+	onNumItemsPerRowChanged = t.optional(t.callback),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	frameRef = t.optional(t.table),
+	restorePreviousChildFocus = t.optional(t.boolean),
+	onFocusGained = t.optional(t.callback),
+
+	-- which selection will initially be selected (if using roact-gamepad)
+	defaultChildIndex = t.optional(t.numberMin(1)),
+})
 
 DefaultMetricsGridView.defaultProps = {
 	maxHeight = math.huge,
@@ -81,7 +78,7 @@ function DefaultMetricsGridView:init()
 end
 
 function DefaultMetricsGridView:render()
-	assert(isGridViewProps(self.props))
+	assert(validateWindowHeight(self.props))
 
 	local itemMetrics = self.props.getItemMetrics(self.state.containerWidth, self.props.itemPadding.X)
 	local itemHeight = self.props.getItemHeight(itemMetrics.itemWidth)

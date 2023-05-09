@@ -66,6 +66,7 @@ export type RequestCurrentUser = {
 
 export type RequestTargetUser = {
 	targetUserId: number | string,
+	source: string?,
 }
 
 export type RequestContactUser = {

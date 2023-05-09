@@ -12,20 +12,35 @@ local useGridConfig = require(UIBlox.Core.Layout.Grid.useGridConfig)
 local useProperties = require(UIBlox.Utility.useProperties)
 
 export type Props = {
-	-- GridRow props
+	-- The type of row, determines which column count and spacing values to select from config
 	kind: string?,
+	-- Order of the row in its container
 	layoutOrder: number?,
+	-- Height of each cell, relative to its width. If not provided, `AutomaticSize` will be used.
 	relativeHeight: UDim?,
+	-- Data blob for all items. Default accessor functions try to parse it as an array of items, but customizing `getItem`/`getItemCount` allows usage of any format.
 	data: any?,
+	-- Extracts the data of one item from the data blob
 	getItem: ((data: any, index: number, context: GridRow.Context) -> any)?,
+	-- Counts the items contained in the data blob
 	getItemCount: ((data: any, context: GridRow.Context) -> number)?,
+	-- Renders an item extracted by `getItem` into a roact element
 	renderItem: ((item: any, context: GridRow.Context) -> React.ReactElement)?,
+	-- Extract a serialized key to identify the item, if an item provides a known key, it will not be rendered again.
+	-- This can improve performance.
 	keyExtractor: ((item: any, index: number, context: GridRow.Context) -> string)?,
+	-- Returns the width in columns of the item's cell.
+	-- Values for multiple breakpoints can be returned as table with breakpoint names as keys (`"default"` as fallback), and the size/order as value.
 	getCellColspan: ((item: any, context: GridRow.Context) -> number)?,
+	-- Returns the height in rows of the item's cell.
+	-- Values for multiple breakpoints can be returned as table with breakpoint names as keys (`"default"` as fallback), and the size/order as value.
 	getCellRowspan: ((item: any, context: GridRow.Context) -> number)?,
+	-- Returns the relative order of this item in the row.
+	-- Values for multiple breakpoints can be returned as table with breakpoint names as keys (`"default"` as fallback), and the size/order as value.
 	getCellOrder: ((item: any, context: GridRow.Context) -> number)?,
-	-- GridTable props
+	-- Vertical absolute position of the display window
 	absoluteWindowTop: number,
+	-- Vertical absolute height of the display window
 	absoluteWindowHeight: number,
 }
 
@@ -50,7 +65,7 @@ local function useCellAbsoluteHeight(propRelativeHeight: UDim?, kind: string?)
 	end, { columns, gutter, verticalGutter, margin, relativeHeight } :: { any })
 end
 
-return React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
+local function GridTable(props: Props, ref: React.Ref<Frame>)
 	-- TODO actual type is `NumberRange?`
 	local displayLines, setDisplayLines = React.useState(nil :: any)
 	local getCellAbsoluteHeight = useCellAbsoluteHeight(props.relativeHeight, props.kind)
@@ -87,4 +102,6 @@ return React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 		getCellOrder = props.getCellOrder,
 		ref = frameRef,
 	})
-end)
+end
+
+return React.forwardRef(GridTable)

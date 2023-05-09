@@ -15,7 +15,6 @@ local withStyle = require(Core.Style.withStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
 
 local ActionBar = require(Button.ActionBar)
-local validateActionBarContentProps = require(Button.Validator.validateActionBarContentProps)
 
 -- StickyActionBar layout parameters
 local PADDING_LEFT = 56
@@ -37,7 +36,7 @@ local StickyActionBar = Roact.PureComponent:extend("StickyActionBar")
 
 StickyActionBar.validateProps = t.strictInterface({
 	-- Props to render the ActionBar component
-	actionBarProps = t.optional(validateActionBarContentProps),
+	actionBarProps = t.optional(ActionBar.validateProps),
 	-- Info used to render the info section in the StickyActionBat. Optional.
 	infoProps = t.optional(t.strictInterface({
 		-- Title in info
