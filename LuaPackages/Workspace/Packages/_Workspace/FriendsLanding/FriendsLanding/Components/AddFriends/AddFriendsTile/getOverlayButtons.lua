@@ -1,12 +1,17 @@
-local AddFriends = script:FindFirstAncestor("FriendsLanding").AddFriends
+local FriendsLanding = script:FindFirstAncestor("FriendsLanding")
+local AddFriends = FriendsLanding.AddFriends
 local dependencies = require(AddFriends.dependencies)
 local t = dependencies.t
 local UIBlox = dependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local OverlayButtonsProps = t.strictInterface({
 	playerId = t.string,
+	-- Whether the user is in the Friend Request section
 	isFriendRequest = t.boolean,
+	-- Whether a user in the PYMK section has incoming friend request
+	hasIncomingFriendRequest = t.optional(t.boolean),
 	friendStatus = t.optional(t.enum(Enum.FriendStatus)),
 	sourceType = t.optional(t.string),
 	networking = t.optional(t.callback),
@@ -48,7 +53,15 @@ return function(props)
 		-- network errors. Though duplicate friendship request may be sent,
 		-- which is acceptable, the UI will be more friendly.
 		local status = props.friendStatus or Enum.FriendStatus.NotFriend
-		if status == Enum.FriendStatus.NotFriend then
+		if getFFlagAddFriendsPYMKExperimentEnabled() and props.hasIncomingFriendRequest then
+			table.insert(buttons, {
+				icon = Images["icons/actions/friends/friendAdd"],
+				isSecondary = false,
+				onActivated = function()
+					props.handleAcceptFriendRequest(props.networking, props.playerId)
+				end,
+			})
+		elseif status == Enum.FriendStatus.NotFriend then
 			table.insert(buttons, {
 				icon = Images["icons/actions/friends/friendAdd"],
 				isSecondary = false,
@@ -60,6 +73,7 @@ return function(props)
 			table.insert(buttons, {
 				icon = Images["icons/actions/friends/friendpending"],
 				isSecondary = false,
+				isDisabled = if getFFlagAddFriendsPYMKExperimentEnabled() then true else nil,
 				onActivated = function() end,
 			})
 		end

@@ -15,6 +15,8 @@ local expect = JestGlobals.expect
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+
 local getOverlayButtons = require(script.Parent.getOverlayButtons)
 
 describe("AddFriendsTile#getPlayerTileOverlayButtons", function()
@@ -26,11 +28,12 @@ describe("AddFriendsTile#getPlayerTileOverlayButtons", function()
 		end
 	end
 
-	local function runGetOverlayButtons(isFriendRequest, friendStatus)
+	local function runGetOverlayButtons(isFriendRequest, friendStatus, hasIncomingFriendRequest)
 		return getOverlayButtons({
 			playerId = "mock_player_id",
 			isFriendRequest = isFriendRequest,
 			friendStatus = friendStatus,
+			hasIncomingFriendRequest = hasIncomingFriendRequest,
 			networking = nil,
 			sourceType = "QQ",
 			handleRequestFriendship = wrapMockFunc(handleRequestFriendship),
@@ -73,21 +76,27 @@ describe("AddFriendsTile#getPlayerTileOverlayButtons", function()
 		shouldRequestFriendshipExist,
 		shouldAcceptExist,
 		shouldDeclineExist,
-		shouldPendingExist
+		shouldPendingExist,
+		hasIncomingFriendRequest
 	)
-		local buttons = runGetOverlayButtons(isFriendRequest, friendStatus)
+		local buttons = runGetOverlayButtons(isFriendRequest, friendStatus, hasIncomingFriendRequest)
 		if shouldRequestFriendshipExist then
 			expect(#buttons).toBe(1)
 		end
 		if shouldAcceptExist or shouldDeclineExist then
-			expect(#buttons).toBe(2)
+			if not hasIncomingFriendRequest then
+				expect(#buttons).toBe(2)
+			end
 		end
 		if shouldPendingExist then
 			expect(#buttons).toBe(1)
 		end
 		local buttonWithFriendAddIcon = findButtonWithIcon(buttons, "icons/actions/friends/friendAdd")
-		local requestFriendshipButton = #buttons == 1 and buttonWithFriendAddIcon or nil
-		local acceptButton = #buttons == 2 and buttonWithFriendAddIcon or nil
+		local requestFriendshipButton = if hasIncomingFriendRequest
+			then nil
+			else #buttons == 1 and buttonWithFriendAddIcon or nil
+		local acceptButton = (hasIncomingFriendRequest and #buttons == 1 or #buttons == 2) and buttonWithFriendAddIcon
+			or nil
 		local declineButton = findButtonWithIcon(buttons, "icons/actions/reject")
 		local pendingButton = findButtonWithIcon(buttons, "icons/actions/friends/friendpending")
 		checkButton(requestFriendshipButton, shouldRequestFriendshipExist, handleRequestFriendship)
@@ -129,4 +138,10 @@ describe("AddFriendsTile#getPlayerTileOverlayButtons", function()
 	it("SHOULD NOT show the buttons with status: Enum.FriendStatus.Unknown", function()
 		testButtonsExist(true, Enum.FriendStatus.Unknown, false, false, false, false)
 	end)
+
+	if getFFlagAddFriendsPYMKExperimentEnabled() then
+		it("SHOULD only show Accept button with hasIncomingFriendRequest", function()
+			testButtonsExist(false, Enum.FriendStatus.NotFriend, false, true, false, false, true)
+		end)
+	end
 end)

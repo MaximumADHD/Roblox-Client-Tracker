@@ -12,8 +12,6 @@ local AddFriendsGridView = require(script.Parent.AddFriendsGridView)
 local AddFriendsEmptyState = require(script.Parent.AddFriendsEmptyState)
 local IgnoreAllFriendsRequestsMenu = require(script.Parent.IgnoreAllFriendsRequestsMenu)
 
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-
 local PLAYER_TILE_MARGIN = 12
 -- Number of rows to show by default or per show-more click
 local HEADER_DROPDOWN_MENU_OFFSET = 48
@@ -43,7 +41,7 @@ AddFriendsContentFrame.validateProps = t.interface({
 	getItemMetrics = t.optional(t.callback),
 	layoutOrder = t.optional(t.integer),
 	handleIgnoreAllFriendsRequests = t.optional(t.callback),
-	showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then t.optional(t.boolean) else nil,
+	showNewAddFriendsPageVariant = t.optional(t.boolean),
 })
 
 AddFriendsContentFrame.defaultProps = {
@@ -75,13 +73,12 @@ function AddFriendsContentFrame:init()
 end
 
 function AddFriendsContentFrame:render()
-	if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant then
-		-- when cleaning flag, move this to top of file
+	if self.props.showNewAddFriendsPageVariant then
+		-- when cleaning showNewAddFriendsPageVariant, move this to top of file
 		EMPTY_STATE_OFFSET = -155
 	end
 
-	local shouldRenderHeaderFrame = if getFFlagSocialOnboardingExperimentEnabled()
-			and self.props.showNewAddFriendsPageVariant
+	local shouldRenderHeaderFrame = if self.props.showNewAddFriendsPageVariant
 		then self.props.headerFrame and #self.props.friends > 0
 		else self.props.headerFrame
 
@@ -126,8 +123,7 @@ function AddFriendsContentFrame:render()
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
 				}, {
-					EmptyState = if getFFlagSocialOnboardingExperimentEnabled()
-							and self.props.showNewAddFriendsPageVariant
+					EmptyState = if self.props.showNewAddFriendsPageVariant
 						then Roact.createElement(AddFriendsEmptyState, {
 							screenSize = self.props.screenSize,
 							showNewAddFriendsPageVariant = self.props.showNewAddFriendsPageVariant,

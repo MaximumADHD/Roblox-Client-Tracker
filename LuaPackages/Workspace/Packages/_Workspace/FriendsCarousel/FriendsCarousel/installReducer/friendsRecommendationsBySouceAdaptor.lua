@@ -5,6 +5,9 @@ local NetworkingFriends = dependencies.NetworkingFriends
 local RoduxFriends = dependencies.RoduxFriends
 local llama = dependencies.llama
 local Constants = require(FriendsCarousel.Common.Constants)
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local friendsRecommendationsBySouceAdaptor = function()
 	return {
@@ -16,7 +19,9 @@ local friendsRecommendationsBySouceAdaptor = function()
 			end)
 
 			local RecommendationSourceCreatedAction = RoduxFriends.Actions.RecommendationSourceCreated({
-				source = Constants.RECS_SOURCE,
+				source = if getFFlagSocialMoveRecsSource()
+					then RecommendationSourceEnum.HomepageFriendsCarousel
+					else Constants.RECS_SOURCE,
 				recommendationIds = recommendationIds,
 			})
 

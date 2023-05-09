@@ -14,6 +14,7 @@ it("SHOULD have expected API", function()
 		Utils = {
 			getMutualFriendsText = expect.any("function"),
 			getRecommendationContextualInfoDisplay = expect.any("function"),
+			convertLuaAppUserToSocialUser = expect.any("function"),
 		},
 		Hooks = {
 			useIsWideMode = expect.any("function"),

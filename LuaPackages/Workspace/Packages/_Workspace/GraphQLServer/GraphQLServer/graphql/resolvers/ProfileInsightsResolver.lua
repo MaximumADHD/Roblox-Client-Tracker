@@ -12,10 +12,15 @@ type Promise<T> = LuauPolyfill.Promise<T>
 
 local ProfileInsightsConnector = require(script.Parent.Parent.connectors.ProfileInsightsConnector)
 local findProfileInsightsByUserIds = ProfileInsightsConnector.findProfileInsightsByUserIds
+local findProfileInsightsByUserIdsFeed = ProfileInsightsConnector.findProfileInsightsByUserIdsFeed
+local findProfileInsightsByUserIdsTEMP = ProfileInsightsConnector.findProfileInsightsByUserIdsTEMP
+
 type ProfileInsightsPage = ProfileInsightsConnector.ProfileInsightsPage
 type UserInsightsJson = ProfileInsightsConnector.UserInsightsJson
 type InsightsJson = ProfileInsightsConnector.InsightsJson
 type MutualFriendsJson = ProfileInsightsConnector.MutualFriendsJson
+
+local getFFlagApolloClientFetchPIFeedConnector = require(Packages.SharedFlags).getFFlagApolloClientFetchPIFeedConnector
 
 local getProfileInsights = function(root: UserInsightsJson): InsightsJson?
 	--* there is always one element in profileInsights array
@@ -68,7 +73,12 @@ local resolvers = {
 
 	Query = {
 		profilesInsights = function(_root, args, context): Promise<ProfileInsightsPage>
-			return findProfileInsightsByUserIds(args.userIds, args.count, args.pageId, context.fetchImpl)
+			return if getFFlagApolloClientFetchPIFeedConnector()
+				then findProfileInsightsByUserIdsFeed(args.userIds, args.count, args.pageId, context.fetchImpl)
+				else findProfileInsightsByUserIds(args.userIds, args.count, args.pageId, context.fetchImpl)
+		end,
+		profilesInsightsByUserIds = function(_root, args, context): Promise<Array<UserInsightsJson>>
+			return findProfileInsightsByUserIdsTEMP(args.userIds, args.count, context.fetchImpl)
 		end,
 	},
 }

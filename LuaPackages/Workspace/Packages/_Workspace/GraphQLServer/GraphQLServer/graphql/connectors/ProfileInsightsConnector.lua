@@ -118,6 +118,86 @@ local function findProfileInsightsByUserIds(
 	end)
 end
 
+-- todo: temporary here, rename to findProfileInsightsByUserIds after getFFlagApolloClientFetchPIFeedConnector removed
+local findProfileInsightsByUserIdsTEMP = function(
+	ids: { string },
+	count: number?,
+	fetchImpl_: fetch?
+): Promise<Array<UserInsightsJson>>
+	local fetchImpl: fetch = if fetchImpl_ then fetchImpl_ else fetch
+
+	return Promise.new(function(resolve, reject)
+		local profileInsightsResponse = fetchImpl(profileInsightsUrlPattern(), {
+				body = HttpService:JSONEncode({
+					userIds = ids,
+					count = count or DEFAULT_COUNT,
+				}),
+				method = "POST",
+				headers = {
+					["Content-Type"] = "application/json",
+					["Accept"] = "application/json",
+				},
+			})
+			:catch(function()
+				return Response.error()
+			end)
+			:expect()
+
+		if not profileInsightsResponse.ok then
+			reject(
+				GraphQLError.new(
+					string.format("Failed to fetch profile insights. Error code: %d", profileInsightsResponse.status)
+				)
+			)
+			return
+		end
+
+		local profileInsightsJson: ProfileInsightsJson = profileInsightsResponse
+			:json()
+			:catch(function()
+				return nil
+			end)
+			:expect()
+
+		if not profileInsightsJson then
+			reject(
+				GraphQLError.new(
+					string.format(
+						"Failed to decode HTTP response as JSON for profile insights: %s.",
+						HttpService:JSONEncode(ids)
+					)
+				)
+			)
+			return
+		end
+
+		resolve(profileInsightsJson.userInsights)
+		return
+	end)
+end
+
+local function findProfileInsightsByUserIdsFeed(
+	ids: { string },
+	count: number?,
+	pageId: string?,
+	fetchImpl_: fetch?
+): Promise<ProfileInsightsPage>
+	local profileInsightsPage: Promise<ProfileInsightsPage> = findProfileInsightsByUserIdsTEMP(ids, count, fetchImpl_):andThen(
+		function(data)
+			return {
+				pageId = pageId,
+				profileInsights = data,
+			}
+		end
+	) :: any
+
+	return profileInsightsPage
+end
+
 return {
 	findProfileInsightsByUserIds = findProfileInsightsByUserIds,
+	findProfileInsightsByUserIdsFeed = findProfileInsightsByUserIdsFeed,
+
+	-- todo: temporary here, rename to findProfileInsightsByUserIds after getFFlagApolloClientFetchPIFeedConnector removed
+	findProfileInsightsByUserIdsTEMP = findProfileInsightsByUserIdsTEMP,
 }

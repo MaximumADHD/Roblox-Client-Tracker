@@ -15,6 +15,8 @@ local InviteStatus = Constants.InviteStatus
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 local PostSendExperienceInvite = Requests.PostSendExperienceInvite
 
+local GetFFlagInviteAnalyticsEventsUpdate = require(RobloxGui.Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
+
 local EMPTY_PLACE_ID = "0"
 
 return function(
@@ -51,7 +53,12 @@ return function(
 				store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Success))
 				return results
 			end, function()
-				analytics:sendEvent(trigger, InviteEvents.ErrorShown)
+				if GetFFlagInviteAnalyticsEventsUpdate() then
+					local eventData = analytics:createEventData(analytics.EventName.InvitePromptFailed)
+					analytics:sendEvent(trigger, eventData)
+				else
+					analytics:sendEvent(trigger, InviteEvents.ErrorShown)
+				end
 				store:dispatch(ReceivedUserInviteStatus(userId, InviteStatus.Failed))
 			end)
 	end

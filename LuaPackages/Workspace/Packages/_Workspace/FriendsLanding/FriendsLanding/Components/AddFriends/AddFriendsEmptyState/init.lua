@@ -10,35 +10,25 @@ local withLocalization = dependencies.withLocalization
 local UIBloxEmptyState = UIBlox.App.Indicator.EmptyState
 local Colors = UIBlox.App.Style.Colors
 
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-
 local AddFriendsEmptyState = Roact.PureComponent:extend("AddFriendsEmptyState")
 
-local EMPTY_STATE_IMAGE = if getFFlagSocialOnboardingExperimentEnabled() then "rbxassetid://12261497919" else nil
-local EMPTY_STATE_ICON_SIZE = if getFFlagSocialOnboardingExperimentEnabled() then UDim2.new(0, 255, 0, 170) else nil
+local EMPTY_STATE_IMAGE = "rbxassetid://12261497919"
+local EMPTY_STATE_ICON_SIZE = UDim2.new(0, 255, 0, 170)
 
-if getFFlagSocialOnboardingExperimentEnabled() then
-	AddFriendsEmptyState.validateProps = t.strictInterface({
-		screenSize = t.optional(t.Vector2),
-		showNewAddFriendsPageVariant = t.optional(t.boolean),
-	})
-end
+AddFriendsEmptyState.validateProps = t.strictInterface({
+	screenSize = t.optional(t.Vector2),
+	showNewAddFriendsPageVariant = t.optional(t.boolean),
+})
 
 function AddFriendsEmptyState:render()
 	return withLocalization({
-		noRequestsText = if getFFlagSocialOnboardingExperimentEnabled()
-				and self.props.showNewAddFriendsPageVariant
-			then nil
-			else "Feature.AddFriends.Label.NoRequests",
-		emptyStatePromptText = if getFFlagSocialOnboardingExperimentEnabled()
-				and self.props.showNewAddFriendsPageVariant
+		noRequestsText = "Feature.AddFriends.Label.NoRequests",
+		emptyStatePromptText = if self.props.showNewAddFriendsPageVariant
 			then TextKeys.ADD_FRIENDS_EMPTY_STATE_PROMPT_TEXT
 			else nil,
-		titleText = if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant
-			then TextKeys.ADD_FRIENDS_TOOLTIP_TITLE
-			else nil,
+		titleText = if self.props.showNewAddFriendsPageVariant then TextKeys.ADD_FRIENDS_TOOLTIP_TITLE else nil,
 	})(function(localization)
-		if getFFlagSocialOnboardingExperimentEnabled() and self.props.showNewAddFriendsPageVariant then
+		if self.props.showNewAddFriendsPageVariant then
 			return Roact.createElement(UIBloxEmptyState, {
 				-- Need iconColor = White for colored icons to show color correctly
 				iconColor = Colors.White,

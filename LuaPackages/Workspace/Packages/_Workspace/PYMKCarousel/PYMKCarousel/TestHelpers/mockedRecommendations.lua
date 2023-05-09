@@ -7,6 +7,13 @@ local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 local User = RoduxUsers.Models.User
 local Constants = require(PYMKCarousel.Common.Constants)
 local RECOMMENDATION_SESSION_ID_KEY = require(PYMKCarousel.Common.Constants).RECOMMENDATION_SESSION_ID_KEY
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
+
+local RECS_SOURCE = if getFFlagSocialMoveRecsSource()
+	then RecommendationSourceEnum.HomepagePYMKCarousel
+	else Constants.RECS_SOURCE
 
 local recommendationIds = {
 	longName = "1_longName",
@@ -40,7 +47,7 @@ local state = {
 		Friends = {
 			recommendations = {
 				bySource = {
-					[Constants.RECS_SOURCE] = {
+					[RECS_SOURCE] = {
 						[recommendationIds.longName] = true,
 						[recommendationIds.noContext] = true,
 						[recommendationIds.mutualContextPlural] = true,

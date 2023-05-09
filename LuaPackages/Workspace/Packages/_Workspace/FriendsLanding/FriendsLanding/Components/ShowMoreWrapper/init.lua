@@ -120,6 +120,7 @@ function ShowMoreWrapper:render()
 			totalFilteredFriends = #self.props.friends,
 			renderShowMore = self.renderShowMore(#self.props.friends, friendCount, self.props.overrideRenderShowMore),
 			resetShowMore = self.reset,
+			totalInactiveFriends = self.props.totalInactiveFriends,
 		})
 	)
 end

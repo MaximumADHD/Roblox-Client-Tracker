@@ -5,6 +5,8 @@ local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagIGMVRSafetyBubbleModeEntry = require(Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 
@@ -17,6 +19,7 @@ local validateProps = t.strictInterface({
 	Position = t.optional(t.UDim2),
 	Size = t.optional(t.UDim2),
 	localizationKey = t.string,
+	LayoutOrder = if GetFFlagIGMVRSafetyBubbleModeEntry() then t.optional(t.number) else nil,
 })
 
 return function(props)
@@ -30,7 +33,7 @@ return function(props)
 		return Roact.createElement(ThemedTextLabel, {
 			fontKey = "Body",
 			themeKey = "TextDefault",
-
+			LayoutOrder = if GetFFlagIGMVRSafetyBubbleModeEntry() then props.LayoutOrder else nil,
 			AnchorPoint = props.AnchorPoint or Vector2.new(0, 0.5),
 			Position = props.Position or UDim2.new(0, 0, 0.5, 0),
 			Size = props.Size or UDim2.new(1, -72, 0.5, 0),

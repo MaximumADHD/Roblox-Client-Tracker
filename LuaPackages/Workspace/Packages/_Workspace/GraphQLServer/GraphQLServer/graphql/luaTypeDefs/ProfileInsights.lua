@@ -18,6 +18,7 @@ local ProfileInsightsTypeDef = [[
 
 	type Query {
 		profilesInsights(userIds: [String]!, count: Int, pageId: String): ProfileInsightsPages
+		profilesInsightsByUserIds(userIds: [String]!, count: Int): [ProfileInsights]
 	}
 ]]
 

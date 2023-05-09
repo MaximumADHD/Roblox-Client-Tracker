@@ -20,10 +20,6 @@ local getTextHeight = require(FriendsCarousel.Utils.getTextHeight)
 local Packages = FriendsCarousel.Parent
 local Colors = require(Packages.Style).Colors
 
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-
-local ADD_FRIEND_ICON = Images["icons/menu/friends_large"]
-local FIND_FRIENDS_ICON = Images["icons/menu/findfriends_large"]
 local FIND_FRIENDS_ICON_COLORED = Images["icons/graphic/findfriends_large"]
 
 export type Props = {
@@ -31,9 +27,6 @@ export type Props = {
 	onActivated: () -> (),
 	tileSize: number,
 	labelText: string,
-
-	-- remove with getFFlagSocialOnboardingExperimentEnabled
-	isUpdatedUI: boolean?,
 }
 
 type State = {
@@ -64,7 +57,6 @@ AddFriendsTileSquare.validateProps = t.strictInterface({
 	onActivated = t.callback,
 	tileSize = t.number,
 	labelText = t.string,
-	isUpdatedUI = if getFFlagSocialOnboardingExperimentEnabled() then nil else t.optional(t.boolean),
 })
 
 function AddFriendsTileSquare:init()
@@ -107,9 +99,7 @@ function AddFriendsTileSquare:render()
 		local theme = style.Theme
 		local font = style.Font
 		local iconStyle = theme.IconEmphasis
-		local backgroundStyle = if getFFlagSocialOnboardingExperimentEnabled()
-			then theme.BackgroundUIDefault
-			else if props.isUpdatedUI then theme.UIEmphasis else theme.BackgroundUIDefault
+		local backgroundStyle = theme.BackgroundUIDefault
 		local fontSize: number = font.BaseSize * font.CaptionHeader.RelativeSize
 		local textHeight: number = self.getTextHeight(props.labelText, font.CaptionHeader.Font, fontSize)
 
@@ -144,13 +134,9 @@ function AddFriendsTileSquare:render()
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							BackgroundTransparency = 1,
 							ImageTransparency = iconTransparency,
-							ImageColor3 = if getFFlagSocialOnboardingExperimentEnabled()
-								then Colors.White
-								else iconStyle.Color,
+							ImageColor3 = Colors.White,
 
-							Image = if getFFlagSocialOnboardingExperimentEnabled()
-								then FIND_FRIENDS_ICON_COLORED
-								else if props.isUpdatedUI then FIND_FRIENDS_ICON else ADD_FRIEND_ICON,
+							Image = FIND_FRIENDS_ICON_COLORED,
 							Size = UDim2.fromOffset(UIBloxIconSize.Large, UIBloxIconSize.Large),
 							Position = UDim2.fromScale(0.5, 0.5),
 						}),

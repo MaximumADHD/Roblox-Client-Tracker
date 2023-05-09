@@ -36,6 +36,10 @@ return {
 	getFFlagLuaProfileDeps438 = require(script.getFFlagLuaProfileDeps438),
 	getFFlagMoveMutualFriendsTextToUtils = require(script.getFFlagMoveMutualFriendsTextToUtils),
 	GetFFlagLuaAppFriendsCarouselExperimentCleanup = require(script.GetFFlagLuaAppFriendsCarouselExperimentCleanup),
+	getFFlagLuaProfileEnabledDesktop = require(script.getFFlagLuaProfileEnabledDesktop),
+	getFFlagSocialMoveRecsSource = require(script.getFFlagSocialMoveRecsSource),
+	getFFlagApolloClientFetchPIFeedConnector = require(script.getFFlagApolloClientFetchPIFeedConnector),
+	getFFlagProfileMutualFriendsListFetch = require(script.getFFlagProfileMutualFriendsListFetch),
 
 	-- Notifications
 	getFFlagEnableNotificationExperienceInvite = require(script.getFFlagEnableNotificationExperienceInvite),
@@ -93,7 +97,6 @@ return {
 	GetFFlagGameInfoRowVoiceExitBetaBugFix = require(script.GetFFlagGameInfoRowVoiceExitBetaBugFix),
 	GetFFlagHideConnectPageWebViewItemsForVR = require(script.GetFFlagHideConnectPageWebViewItemsForVR),
 	GetFFlagPeekViewClipFramePositionFromBottom = require(script.GetFFlagPeekViewClipFramePositionFromBottom),
-	getFFlagPYMKUseDesktopPolicies = require(script.getFFlagPYMKUseDesktopPolicies),
 	GetFFlagDisableEditProfileForVR = require(script.GetFFlagDisableEditProfileForVR),
 	GetFFlagLuaAppInfiniteHomePage = require(script.GetFFlagLuaAppInfiniteHomePage),
 	getFFlagProfileQRCodePageEnabled = require(script.getFFlagProfileQRCodePageEnabled),
@@ -106,7 +109,6 @@ return {
 	GetFFlagPhoneVerificationWebviewShouldBeFullscreen = require(
 		script.GetFFlagPhoneVerificationWebviewShouldBeFullscreen
 	),
-	getFFlagSocialOnboardingExperimentEnabled = require(script.getFFlagSocialOnboardingExperimentEnabled),
 	GetFFlagLuaAppGamePassGameDetails = require(script.GetFFlagLuaAppGamePassGameDetails),
 	GetFFlagApolloClientFetchThumbnails = require(script.GetFFlagApolloClientFetchThumbnails),
 	GetFFlagApiFetchThumbnailsKeyMapper = require(script.GetFFlagApiFetchThumbnailsKeyMapper),

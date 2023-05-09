@@ -35,6 +35,7 @@ local GetFFlagAbuseReportAnalyticsHasLaunchData =
 	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
+local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
@@ -146,6 +147,7 @@ function ConversationList:render()
 				trigger = self.props.trigger,
 				inviteMessageId = self.props.inviteMessageId,
 				launchData = self.props.lanchData,
+				promptMessage = if GetFFlagInviteAnalyticsEventsUpdate() then self.props.promptMessage else nil,
 			})
 		else
 			children["User-" .. tostring(i)] = Roact.createElement(ConversationEntry, {
@@ -244,24 +246,48 @@ local function handleBinding(self)
 end
 
 ConversationList.didUpdate = handleBinding
-if GetFFlagEnableNewInviteSendEndpoint() then
+
+if GetFFlagInviteAnalyticsEventsUpdate() then
 	function ConversationList:didMount()
-		-- DeveloperMultiple can mount even if it's not visible.
-		-- We track it opening in InviteToGamePrompt.lua
-		if self.props.analytics and self.props.trigger == Constants.Triggers.GameMenu then
-			local isLaunchDataProvided = self.props.launchData ~= nil and self.props.launchData ~= ""
-			self.props.analytics:sendEvent(
-				self.props.trigger,
-				InviteEvents.ModalOpened,
-				if GetFFlagAbuseReportAnalyticsHasLaunchData()
-					then { isLaunchDataProvided = isLaunchDataProvided }
-					else nil
-			)
+		if GetFFlagEnableNewInviteSendEndpoint() then
+			if self.props.analytics and self.props.trigger == Constants.Triggers.GameMenu then
+				local eventData = self.props.analytics:createEventData(
+					self.props.analytics.EventName.InvitePromptShown,
+					nil,
+					self.props.analytics.EventFieldName.DefaultText
+				)
+				local isLaunchDataProvided = self.props.launchData ~= nil and self.props.launchData ~= ""
+				self.props.analytics:sendEvent(
+					self.props.trigger,
+					eventData,
+					if GetFFlagAbuseReportAnalyticsHasLaunchData()
+						then { isLaunchDataProvided = isLaunchDataProvided }
+						else nil
+				)
+			end
 		end
 		handleBinding(self)
 	end
 else
-	ConversationList.didMount = handleBinding
+	if GetFFlagEnableNewInviteSendEndpoint() then
+		function ConversationList:didMount()
+			-- DeveloperMultiple can mount even if it's not visible.
+			-- We track it opening in InviteToGamePrompt.lua
+			if self.props.analytics and self.props.trigger == Constants.Triggers.GameMenu then
+				local isLaunchDataProvided = self.props.launchData ~= nil and self.props.launchData ~= ""
+				self.props.analytics:sendEvent(
+					self.props.trigger,
+					InviteEvents.ModalOpened,
+					if GetFFlagAbuseReportAnalyticsHasLaunchData()
+						then { isLaunchDataProvided = isLaunchDataProvided }
+						else nil
+				)
+			end
+			handleBinding(self)
+		end
+	else
+		ConversationList.didMount = handleBinding
+	end
 end
 
 local selectFriends = memoize(function(users)

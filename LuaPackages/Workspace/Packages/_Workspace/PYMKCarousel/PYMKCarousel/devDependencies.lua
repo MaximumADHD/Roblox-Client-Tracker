@@ -22,5 +22,4 @@ return {
 	findImageSet = require(Packages.Dev.SocialTestHelpers).TestHelpers.findImageSet,
 	DeferredLuaHelpers = TestUtils.DeferredLuaHelpers,
 	waitUntil = TestUtils.waitUntil,
-	getFFlagSocialUpdateRoduxFriendsv316 = LuaSocialLibrariesDeps.getFFlagSocialUpdateRoduxFriendsv316,
 }

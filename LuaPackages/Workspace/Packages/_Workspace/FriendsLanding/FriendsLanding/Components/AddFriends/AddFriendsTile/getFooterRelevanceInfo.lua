@@ -25,6 +25,7 @@ local RelevanceInfoProps = t.strictInterface({
 	isUserFollowingMe = t.optional(t.boolean),
 	-- ExperienceName where the request is sent
 	sentFromExperienceName = t.optional(t.string),
+	-- Whether the user is in the Friend Request section
 	isFriendRequest = t.boolean,
 	isRecommendation = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.boolean) else nil,
 	userPresenceType = t.optional(t.userdata),
@@ -33,6 +34,7 @@ local RelevanceInfoProps = t.strictInterface({
 	originSourceType = t.optional(t.string),
 	contextType = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.userdata) else nil,
 	mutualFriendsCount = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.number) else nil,
+	-- Whether a user in the PYMK section has incoming friend request
 	hasIncomingFriendRequest = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.boolean) else nil,
 })
 
@@ -109,6 +111,12 @@ return function(props, style, localized)
 				}
 			or nil
 	elseif getFFlagAddFriendsPYMKExperimentEnabled() and props.isRecommendation then
+		-- Populate the user context info for requests from recommendations. The rules are
+		-- to show the info with the order below:
+		--  1. Incoming friend request
+		--  2. Mutual friends
+		--  3. Played together
+
 		local recommendation = {
 			contextType = props.contextType,
 			mutualFriendsCount = props.mutualFriendsCount,

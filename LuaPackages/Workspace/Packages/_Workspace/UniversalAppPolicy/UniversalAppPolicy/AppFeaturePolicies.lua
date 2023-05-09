@@ -125,6 +125,18 @@ local function AppFeaturePolicies(policy): any
 		getGameInfoShowUpdated = function()
 			return policy.GameInfoShowUpdated or false
 		end,
+		getGameInfoShowAgeRecommendation = function()
+			if policy.GameInfoShowAgeRecommendation == nil then
+				return true
+			end
+			return policy.GameInfoShowAgeRecommendation
+		end,
+		getGameInfoShowVoiceAndChatFeatures = function()
+			if policy.GameInfoShowVoiceAndChatFeatures == nil then
+				return true
+			end
+			return policy.GameInfoShowVoiceAndChatFeatures
+		end,
 		getSiteMessageBanner = function()
 			return policy.SiteMessageBanner or false
 		end,

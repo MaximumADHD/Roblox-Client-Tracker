@@ -32,6 +32,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local AutoPropertyToggleEntry = require(script.Parent.AutoPropertyToggleEntry)
+local SafetyBubbleModeEntry = require(script.Parent.SafetyBubbleModeEntry)
 local CameraModeEntry = require(script.Parent.CameraModeEntry)
 local CameraSensitivityEntry = require(script.Parent.CameraSensitivityEntry)
 local CategoryHeader = require(script.Parent.CategoryHeader)
@@ -51,6 +52,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagIGMVRSettingsPolish = require(Flags.GetFFlagIGMVRSettingsPolish)
+local GetFFlagIGMVRSafetyBubbleModeEntry = require(Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
@@ -182,6 +184,9 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				valueKey = "VREnabled",
 				subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
 				subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
+			}) else nil,
+			VRSafetyBubbleMode = if GetFFlagIGMVRSafetyBubbleModeEntry() and self.state.vrActive then Roact.createElement(SafetyBubbleModeEntry, {
+				LayoutOrder = getNextLayoutOrder(),
 			}) else nil,
 			VRControlsDivider = if GetFFlagIGMVRSettingsPolish() and self.state.vrActive then Roact.createElement(Divider, {
 				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 5,

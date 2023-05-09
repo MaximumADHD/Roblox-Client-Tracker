@@ -24,6 +24,7 @@ local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
+local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
 
 local function Install()
 	local function WaitForChildOfClass(parent, class)
@@ -45,7 +46,11 @@ local function Install()
 
 		local script = Instance.new("LocalScript")
 		script.Name = "FreecamScript"
-		script.Source = originalModule.Source
+		if ServerUtil.getFFlagServerCoreScriptSourceCode() then
+			script.Source = ServerUtil.getSourceForServerScript(originalModule)
+		else
+			script.Source = originalModule.Source
+		end
 		script.Parent = screenGui
 
 		screenGui.Parent = playerGui

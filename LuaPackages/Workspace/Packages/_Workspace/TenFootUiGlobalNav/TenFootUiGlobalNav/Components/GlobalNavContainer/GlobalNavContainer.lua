@@ -6,7 +6,6 @@ local GlobalNav = require(Root.Components.GlobalNav)
 
 local function GlobalNavContainer()
 	local globalNavProps = useGlobalNavProps()
-
 	return React.createElement(GlobalNav, globalNavProps)
 end
 

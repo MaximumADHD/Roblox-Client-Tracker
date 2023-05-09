@@ -6,6 +6,7 @@ return {
 	setupFireEvent = require(script.Parent.Analytics.setupFireEvent),
 	EventNames = require(script.Parent.Analytics.EventNames),
 	CarouselWithLoadingTimer = require(script.Parent.Analytics.CarouselWithLoadingTimer),
+	Constants = require(script.Parent.Common.Constants),
 	dependencies = require(script.Parent.dependencies),
 	["jest.config"] = script.Parent["jest.config"],
 }

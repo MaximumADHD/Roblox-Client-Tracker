@@ -9,6 +9,10 @@ local transformOmniRecommendationsToActions = require(script.Parent.transformOmn
 local OmniTypes = require(PYMKCarousel.Common.OmniTypes)
 local Constants = require(PYMKCarousel.Common.Constants)
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local isContextTypeDefined = function(contextType: string?)
 	local contextTypeEnum = RecommendationContextType.fromRawValue(contextType)
@@ -61,7 +65,9 @@ local recommendationsToSourceAction = function(
 	local recommendationIds = llama.Dictionary.keys(recommendationsMetadata or {})
 
 	return RoduxFriends.Actions.RecommendationSourceCreated({
-		source = Constants.RECS_SOURCE,
+		source = if getFFlagSocialMoveRecsSource()
+			then RecommendationSourceEnum.HomepagePYMKCarousel
+			else Constants.RECS_SOURCE,
 		recommendationIds = recommendationIds,
 	})
 end

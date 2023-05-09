@@ -3,9 +3,14 @@ local dependencies = require(FriendsCarousel.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local getDeepValue = SocialLibraries.Dictionary.getDeepValue
 local Constants = require(FriendsCarousel.Common.Constants)
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local RODUX_KEY = require(FriendsCarousel.Common.Constants).RODUX_KEY
-
+local RECS_SOURCE = if getFFlagSocialMoveRecsSource()
+	then RecommendationSourceEnum.HomepageFriendsCarousel
+	else Constants.RECS_SOURCE
 local addFriendsCarouselRecommendationIdsToState = function(state)
 	local recommendationsDict = getDeepValue(
 		state,
@@ -18,7 +23,7 @@ local addFriendsCarouselRecommendationIdsToState = function(state)
 	end
 
 	state[RODUX_KEY].Friends.recommendations.bySource = {
-		[Constants.RECS_SOURCE] = FriendsCarouselRecommndationIds,
+		[RECS_SOURCE] = FriendsCarouselRecommndationIds,
 	}
 end
 

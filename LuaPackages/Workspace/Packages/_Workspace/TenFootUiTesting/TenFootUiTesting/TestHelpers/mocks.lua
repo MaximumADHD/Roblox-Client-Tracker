@@ -231,6 +231,14 @@ local function makeMockNavigation(navigationState: MockNavigationState?)
 	return mockNavigation
 end
 
+function makeMockLocalization()
+	local mockLocalization = {}
+	mockLocalization.Format = jest.fn().mockImplementation(function(_, key, _)
+		return "Localized:" .. key
+	end)
+	return mockLocalization
+end
+
 type MakeMockProvidersConfig = {
 	tenFootUiContext: any?,
 	store: any?,
@@ -243,11 +251,7 @@ local makeMockProviders = function(config: MakeMockProvidersConfig?)
 	config = config or {} :: MakeMockProvidersConfig
 	assert(config, "Config must not be nil")
 
-	local mockLocalization = {}
-	mockLocalization.Format = jest.fn().mockImplementation(function(_, key, _)
-		return "Localized:" .. key
-	end)
-
+	local mockLocalization = makeMockLocalization()
 	local globalNavConfig = makeMockGlobalNavConfig(config.globalNavConfig)
 	local mockNotificationService = makeMockNotificationService()
 	local mockNavigation = makeMockNavigation(config.navigationState)
@@ -333,5 +337,6 @@ return {
 	makeMockProviders = makeMockProviders,
 	mockAppPage = mockAppPage,
 	makeMockDescriptor = makeMockDescriptor,
+	makeMockLocalization = makeMockLocalization,
 	makeTenFootUiContextMocks = makeTenFootUiContextMocks,
 }

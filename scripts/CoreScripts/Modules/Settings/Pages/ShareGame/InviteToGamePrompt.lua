@@ -21,6 +21,7 @@ local InviteStore = require(ShareGameDirectory.InviteStore)
 local GetFFlagEnableSharedInviteStore = require(Modules.Flags.GetFFlagEnableSharedInviteStore)
 local GetFFlagAbuseReportAnalyticsHasLaunchData =
 	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
+local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
 
 local HIDE_INVITE_CONTEXT_BIND = "hideInvitePrompt"
 
@@ -94,11 +95,24 @@ function InviteToGamePrompt:show(props: InviteCustomizationProps?)
 			then Constants.Triggers.DeveloperSingle
 			else Constants.Triggers.DeveloperMultiple
 		local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
-		self.analytics:sendEvent(
-			triggerId,
-			InviteEvents.ModalOpened,
-			if GetFFlagAbuseReportAnalyticsHasLaunchData() then { isLaunchDataProvided = isLaunchDataProvided } else nil
-		)
+		if GetFFlagInviteAnalyticsEventsUpdate() then
+			local eventData = self.analytics:createEventData(
+				self.analytics.EventName.InvitePromptShown,
+				nil,
+				if props.promptMessage then self.analytics.EventFieldName.CustomText else self.analytics.EventFieldName.DefaultText
+			)
+			self.analytics:sendEvent(
+				triggerId,
+				eventData,
+				if GetFFlagAbuseReportAnalyticsHasLaunchData() then { isLaunchDataProvided = isLaunchDataProvided } else nil
+			)
+		else
+			self.analytics:sendEvent(
+				triggerId,
+				InviteEvents.ModalOpened,
+				if GetFFlagAbuseReportAnalyticsHasLaunchData() then { isLaunchDataProvided = isLaunchDataProvided } else nil
+			)
+		end
 	end
 
 	if not self.instance then

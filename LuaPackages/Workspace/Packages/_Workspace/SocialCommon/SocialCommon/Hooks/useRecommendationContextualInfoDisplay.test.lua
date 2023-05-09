@@ -5,7 +5,7 @@ local expect = JestGlobals.expect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 
-local LuaSocialLibrariesDeps = require(Packages.Dev.LuaSocialLibrariesDeps)
+local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 local RoduxFriends = LuaSocialLibrariesDeps.RoduxFriends.config({ keyPath = "SocialCommon.Friends" })
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 

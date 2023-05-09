@@ -20,6 +20,7 @@ local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
+local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
 
 local HEADER_HEIGHT = 60
 local USER_LIST_PADDING = 10
@@ -71,6 +72,14 @@ function ModalShareGamePageFrame:init()
 	self.customTextAreaRef = Roact.createRef()
 
 	self.onClosePage = function()
+		if GetFFlagInviteAnalyticsEventsUpdate() then
+			local eventData = self.props.analytics:createEventData(
+				self.props.analytics.EventName.InvitePromptAction,
+				self.props.analytics.ButtonName.CancelInvite,
+				if self.props.promptMessage then self.props.analytics.EventFieldName.CustomText else self.props.analytics.EventFieldName.DefaultText
+			)
+			self.props.analytics:sendEvent(Constants.Triggers.DeveloperMultiple, eventData)
+		end
 		self.props.closePage()
 		if self.props.onAfterClosePage then
 			self.props.onAfterClosePage()
@@ -85,8 +94,10 @@ function ModalShareGamePageFrame:didMount()
 		end
 	end
 	if GetFFlagEnableNewInviteSendEndpoint() then
-		if self.props.promptMessage and self.props.analytics then
-			self.props.analytics:sendEvent(Constants.Triggers.DeveloperMultiple, InviteEvents.CustomTextShown)
+		if not GetFFlagInviteAnalyticsEventsUpdate() then
+			if self.props.promptMessage and self.props.analytics then
+				self.props.analytics:sendEvent(Constants.Triggers.DeveloperMultiple, InviteEvents.CustomTextShown)
+			end
 		end
 	end
 end
@@ -203,6 +214,7 @@ function ModalShareGamePageFrame:render()
 				trigger = Constants.Triggers.DeveloperMultiple,
 				inviteMessageId = self.props.inviteMessageId,
 				launchData = self.props.launchData,
+				promptMessage = if GetFFlagInviteAnalyticsEventsUpdate() then self.props.promptMessage else nil,
 			})
 		})
 	})

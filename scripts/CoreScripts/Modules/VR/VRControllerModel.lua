@@ -7,11 +7,13 @@ local CorePackages		= game:GetService("CorePackages")
 
 local RobloxGui 		= CoreGui.RobloxGui
 local ViveController 	= require(RobloxGui.Modules.VR.Controllers.ViveController)
+local TouchController 	= require(RobloxGui.Modules.VR.Controllers.TouchController)
 local RiftController 	= require(RobloxGui.Modules.VR.Controllers.RiftController)
 local IndexController 	= require(RobloxGui.Modules.VR.Controllers.IndexController)
 local VRUtil			= require(RobloxGui.Modules.VR.VRUtil)
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+local FFlagVREnableTouchControllerModels = require(RobloxGui.Modules.Flags.FFlagVREnableTouchControllerModels)
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -43,6 +45,15 @@ function VRControllerModel.new(userCFrame)
 	return self
 end
 
+function VRControllerModel:useTouchControllerModel()
+	-- TODO: Add more device names when we're ready
+	return FFlagVREnableTouchControllerModels and
+		(self.currentVRDeviceName:match("Oculus") or
+		self.currentVRDeviceName:match("Meta") or
+		self.currentVRDeviceName:match("OpenXr") or
+		self.currentVRDeviceName:match("OpenXR"))
+end
+
 -- creates the controller model and stores it in self.controllerModel
 function VRControllerModel:createControllerModel()
 	if self.currentVRDeviceName:match("Vive") then
@@ -51,6 +62,8 @@ function VRControllerModel:createControllerModel()
 		self.controllerModel = RiftController.new(self.userCFrame)
 	elseif self.currentVRDeviceName:match("Index") then
 		self.controllerModel = IndexController.new(self.userCFrame)
+	elseif self:useTouchControllerModel() then
+		self.controllerModel = TouchController.new(self.userCFrame)
 	else
 		self.controllerModel = RiftController.new(self.userCFrame)
 	end
@@ -207,6 +220,15 @@ end
 function VRControllerModel:onInputEnded(inputObject, wasProcessed)
 	if self.currentModel then
 		self.currentModel:onInputEnded(inputObject)
+	end
+end
+
+function VRControllerModel:getButtonPosition(keyCode)
+	if self.currentModel and self.currentModel.getButtonPart then
+		local buttonPart  = self.currentModel:getButtonPart(keyCode)
+		if buttonPart then
+			return buttonPart.Position
+		end
 	end
 end
 

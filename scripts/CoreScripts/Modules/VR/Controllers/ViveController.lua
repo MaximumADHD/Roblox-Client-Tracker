@@ -78,6 +78,24 @@ local PARTS_INFO = {
 		moveOffset = CFrame.new(0, -0.005, 0)
 	}
 }
+
+local KEYCODE_TO_PARTNAME = {
+	[Enum.KeyCode.ButtonL1] = "LeftGrip",
+	[Enum.KeyCode.ButtonL2] = "Trigger",
+	[Enum.KeyCode.ButtonL3] = "Trackpad",
+	[Enum.KeyCode.ButtonR1] = "RightGrip",
+	[Enum.KeyCode.ButtonR2] = "Trigger",
+	[Enum.KeyCode.ButtonR3] = "Trackpad",
+	[Enum.KeyCode.Thumbstick1] = "Trackpad",
+	[Enum.KeyCode.Thumbstick2] = "Trackpad",
+	[Enum.KeyCode.ButtonSelect] = "MenuButton",
+	[Enum.KeyCode.ButtonStart] = "MenuButton",
+	[Enum.KeyCode.ButtonA] = "ButtonA",
+	[Enum.KeyCode.ButtonB] = "ButtonB",
+	[Enum.KeyCode.ButtonX] = "ButtonX",
+	[Enum.KeyCode.ButtonY] = "ButtonY",
+}
+
 local MATERIAL = Enum.Material.Granite
 local SCALE = Vector3.new(0.033, 0.033, 0.033)
 
@@ -297,7 +315,7 @@ function ViveController:onButtonInputChanged(inputObject, depressed)
 		return
 	end
 
-	--Grips are bound to L2 or R2 depending on controller
+	--Grips are bound to L1 or R1 depending on controller
 	if 	(self.userCFrame == Enum.UserCFrame.RightHand and inputObject.KeyCode == Enum.KeyCode.ButtonR1) or
 		(self.userCFrame == Enum.UserCFrame.LeftHand and inputObject.KeyCode == Enum.KeyCode.ButtonL1) then
 		self:setButtonState("LeftGrip", depressed)
@@ -380,6 +398,14 @@ function ViveController:destroy()
 		self.onTouchpadModeChangedConn = nil
 	end
 	self.model:Destroy()
+end
+
+function ViveController:getButtonPart(keyCode)
+	local partName = KEYCODE_TO_PARTNAME[keyCode]
+	if partName then
+		return self.parts[partName]
+	end
+	return nil
 end
 
 return ViveController

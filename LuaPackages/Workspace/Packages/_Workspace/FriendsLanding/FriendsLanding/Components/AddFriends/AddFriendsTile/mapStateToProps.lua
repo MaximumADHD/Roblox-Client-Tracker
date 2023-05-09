@@ -16,8 +16,11 @@ return function(state, props)
 		) or false
 		else nil
 
+	local friendStatus = if getFFlagAddFriendsPYMKExperimentEnabled()
+		then getDeepValue(state, string.format("FriendsLanding.Friends.friendshipStatus.%s", userId)) or nil
+		else nil
 	return {
-		friendStatus = state.FriendStatuses[userId],
+		friendStatus = if getFFlagAddFriendsPYMKExperimentEnabled() then friendStatus else state.FriendStatuses[userId],
 		localUserId = state.LocalUserId,
 		screenSize = state.ScreenSize,
 		originSourceType = originSourceType[userId],

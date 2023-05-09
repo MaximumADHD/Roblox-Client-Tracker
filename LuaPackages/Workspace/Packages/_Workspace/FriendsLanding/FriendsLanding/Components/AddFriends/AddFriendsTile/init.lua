@@ -30,6 +30,11 @@ local noOpt = function()
 	return nil
 end
 
+type ContextualInfoDisplay = {
+	text: string,
+	icon: string?,
+}
+
 AddFriendsTile.validateProps = t.strictInterface({
 	-- UserId of myself
 	localUserId = t.string,
@@ -43,8 +48,10 @@ AddFriendsTile.validateProps = t.strictInterface({
 	user = t.table,
 	layoutOrder = t.integer,
 	size = t.Vector2,
+	-- Whether the user is in the Friend Request section
 	isFriendRequest = t.optional(t.boolean),
 	isRecommendation = if getFFlagAddFriendsPYMKExperimentEnabled() then t.optional(t.boolean) else nil,
+	-- Whether a user in the PYMK section has incoming friend request
 	hasIncomingFriendRequest = if getFFlagAddFriendsPYMKExperimentEnabled() then t.boolean else nil,
 	sourceType = t.optional(t.valueOf(FriendsSourceType)),
 	handleNavigateDownToViewUserProfile = t.optional(t.callback),
@@ -74,14 +81,23 @@ function AddFriendsTile:init()
 
 	self.isMounted = false
 
-	self.onActivated = function()
-		if not self.isMounted then
-			return
+	self.onActivated = if getFFlagAddFriendsPYMKExperimentEnabled()
+		then function(navParams: { profilePeekViewProps: { contextualInfoDisplay: ContextualInfoDisplay? } })
+			return function()
+				if not self.isMounted then
+					return
+				end
+				self.props.handleNavigateDownToViewUserProfile(self.props.user.id, navParams)
+			end
 		end
-		self.props.handleNavigateDownToViewUserProfile(self.props.user.id, function()
-			return
-		end)
-	end
+		else function()
+			if not self.isMounted then
+				return
+			end
+			self.props.handleNavigateDownToViewUserProfile(self.props.user.id, function()
+				return
+			end)
+		end
 
 	self.hideTooltip = function()
 		self.props.contactImporterWarningSeen()
@@ -142,6 +158,34 @@ function AddFriendsTile:render()
 				DisplayOrder = 1,
 			}
 
+			local relevancyInfo = if getFFlagAddFriendsPYMKExperimentEnabled()
+				then getFooterRelevanceInfo({
+					mutualFriends = user.mutualFriends,
+					isUserFollowingMe = self.props.isUserFollowingMe,
+					amIFollowingUser = self.props.amIFollowingUser,
+					sentFromExperienceName = self.props.sentFromExperienceName,
+					isFriendRequest = self.props.isFriendRequest,
+					isRecommendation = self.props.isRecommendation,
+					friendStatus = self.props.friendStatus,
+					userPresenceType = user.userPresenceType,
+					lastLocation = user.lastLocation,
+					originSourceType = self.props.originSourceType,
+					contextType = user.contextType,
+					mutualFriendsCount = user.mutualFriendsCount,
+					hasIncomingFriendRequest = self.props.hasIncomingFriendRequest,
+				}, style, localized)
+				else nil
+
+			local contextualInfoDisplay = if getFFlagAddFriendsPYMKExperimentEnabled()
+					and self.props.isRecommendation
+					and relevancyInfo
+					and relevancyInfo.text
+				then {
+					text = relevancyInfo.text,
+					icon = relevancyInfo.icon,
+				}
+				else nil
+
 			return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
 				return Roact.createElement("Frame", {
 					AnchorPoint = Vector2.new(1, 0.5),
@@ -166,29 +210,28 @@ function AddFriendsTile:render()
 							handleRequestFriendship = self.props.handleRequestFriendship,
 							handleAcceptFriendRequest = self.props.handleAcceptFriendRequest,
 							handleDeclineFriendRequest = self.props.handleDeclineFriendRequest,
-						}),
-						relevancyInfo = getFooterRelevanceInfo({
-							mutualFriends = user.mutualFriends,
-							isUserFollowingMe = self.props.isUserFollowingMe,
-							amIFollowingUser = self.props.amIFollowingUser,
-							sentFromExperienceName = self.props.sentFromExperienceName,
-							isFriendRequest = self.props.isFriendRequest,
-							isRecommendation = if getFFlagAddFriendsPYMKExperimentEnabled()
-								then self.props.isRecommendation
-								else nil,
-							friendStatus = self.props.friendStatus,
-							userPresenceType = user.userPresenceType,
-							lastLocation = user.lastLocation,
-							originSourceType = self.props.originSourceType,
-							contextType = if getFFlagAddFriendsPYMKExperimentEnabled() then user.contextType else nil,
-							mutualFriendsCount = if getFFlagAddFriendsPYMKExperimentEnabled()
-								then user.mutualFriendsCount
-								else nil,
 							hasIncomingFriendRequest = if getFFlagAddFriendsPYMKExperimentEnabled()
 								then self.props.hasIncomingFriendRequest
 								else nil,
-						}, style, localized),
-						onActivated = self.onActivated,
+						}),
+						relevancyInfo = if getFFlagAddFriendsPYMKExperimentEnabled()
+							then relevancyInfo
+							else getFooterRelevanceInfo({
+								mutualFriends = user.mutualFriends,
+								isUserFollowingMe = self.props.isUserFollowingMe,
+								amIFollowingUser = self.props.amIFollowingUser,
+								sentFromExperienceName = self.props.sentFromExperienceName,
+								isFriendRequest = self.props.isFriendRequest,
+								friendStatus = self.props.friendStatus,
+								userPresenceType = user.userPresenceType,
+								lastLocation = user.lastLocation,
+								originSourceType = self.props.originSourceType,
+							}, style, localized),
+						onActivated = if getFFlagAddFriendsPYMKExperimentEnabled()
+							then self.onActivated({
+								profilePeekViewProps = { contextualInfoDisplay = contextualInfoDisplay },
+							})
+							else self.onActivated,
 					}),
 				})
 			end)

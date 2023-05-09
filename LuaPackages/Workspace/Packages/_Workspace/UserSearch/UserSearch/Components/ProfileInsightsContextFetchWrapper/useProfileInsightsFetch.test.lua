@@ -12,7 +12,6 @@ local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers)
 local renderHookWithProviders = SocialTestHelpers.TestHelpers.renderHookWithProviders
 
 local ProfilesInsightsQuery = require(UserSearch.Apollo.ProfilesInsightsQuery)
-local wrapInApolloProvider = require(UserSearch.TestHelpers.wrapInApolloProvider)
 local ProfileInsightsMocks = require(UserSearch.TestHelpers.ProfileInsightsMocks)
 
 local useProfileInsightsFetch = require(script.Parent.useProfileInsightsFetch)
@@ -40,9 +39,7 @@ describe("WHEN query executed", function()
 		local helper = renderHookWithProviders(function()
 			return useProfileInsightsFetch({ "111", "222" }, twoEntriesMock.searchKeyword)
 		end, {
-			mockProvider = function(root)
-				return wrapInApolloProvider(root, client)
-			end,
+			apolloClient = client,
 		})
 		expect(helper.getResult().data).toEqual({
 			profilesInsights = {

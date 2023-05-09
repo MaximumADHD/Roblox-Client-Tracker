@@ -6,6 +6,7 @@ local OLD_SOUND_SCRIPT_NAME = "Sound"
 
 local ServerScriptService = game:GetService("ServerScriptService")
 local StarterPlayer = game:GetService("StarterPlayer")
+local ServerUtil = require(script.Parent.Parent.ServerUtil)
 
 local function HasOldSoundScripts()
 	if ServerScriptService:FindFirstChild(SOUND_DISPATCHER_NAME) then
@@ -24,7 +25,11 @@ local function LoadScript(name, parent)
 	local originalModule = script.Parent:WaitForChild(name)
 	local script = Instance.new("Script")
 	script.Name = name
-	script.Source = originalModule.Source
+	if ServerUtil.getFFlagServerCoreScriptSourceCode() then
+		script.Source = ServerUtil.getSourceForServerScript(originalModule)
+	else
+		script.Source = originalModule.Source
+	end
 	script.Parent = parent
 	return script
 end

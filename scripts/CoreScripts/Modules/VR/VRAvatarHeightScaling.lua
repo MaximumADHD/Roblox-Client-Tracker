@@ -20,6 +20,12 @@ function VRAvatarHeightScaling.new()
 	UserGameSettings:GetPropertyChangedSignal("PlayerHeight"):Connect(function()
 		self:onPlayerHeightChanged()
 	end)
+	VRService.UserCFrameChanged:Connect(function(userCFrameType, _)
+		if userCFrameType == Enum.UserCFrame.Floor then
+			self:onPlayerHeightChanged()
+		end
+	end)
+	
 	self:onScalingChanged() -- run once at the begining to set current state
 	return self
 end
@@ -36,9 +42,16 @@ function VRAvatarHeightScaling:setHeadScale(character)
 	local avatarHeight = self:GetSubjectHeight(character)
 	if not avatarHeight or avatarHeight <= 0 then return end
 	
-	local newHeadScale = avatarHeight / UserGameSettings.PlayerHeight
-	if newHeadScale <= 0 then
-		return
+	local measuredHeight = -VRService:GetUserCFrame(Enum.UserCFrame.Floor).Position.Y
+
+	local newHeadScale
+	-- if less than 80% of configured height, assume seated
+	if measuredHeight < 0.8 * UserGameSettings.PlayerHeight then
+		-- use configured height when seated
+		newHeadScale = avatarHeight / UserGameSettings.PlayerHeight
+	else
+		-- use measured height when standing to correctly align the floor position
+		newHeadScale = avatarHeight / measuredHeight
 	end
 
 	local camera = workspace.CurrentCamera
@@ -47,33 +60,32 @@ function VRAvatarHeightScaling:setHeadScale(character)
 	camera.HeadScale = newHeadScale
 end
 
--- returns the height of the subject
+-- returns the height of the subject, nil or zero if the character is invalid or has no height
 function VRAvatarHeightScaling:GetSubjectHeight(character)
 
 	local humanoid = character:FindFirstChild("Humanoid")
 	if humanoid and humanoid:GetState() == Enum.HumanoidStateType.Dead then return end
 	
+	-- measures the location of the camera to the floor. This uses the camera location from where the playerscripts
+	-- would have placed the camera instead of the actual height of the avatar, prioritizing floor location vs 
+	-- acurate avatar height
 	local rootPart = humanoid and humanoid.RootPart or character:FindFirstChild("HumanoidRootPart")
-	local lowerTorso = character:FindFirstChild("LowerTorso")
-	local upperTorso = character:FindFirstChild("UpperTorso")
-	local head = character:FindFirstChild("Head")
-	
-	-- take exact height measurements based on all the parts
-	if rootPart and lowerTorso and upperTorso and head and humanoid then
-		local rootMotor = lowerTorso:FindFirstChild("Root")
-		local waistMotor = upperTorso:FindFirstChild("Waist")
-		local neckMotor = head:FindFirstChild("Neck")
-		
-		if rootMotor and waistMotor and neckMotor then
-			-- get the CFrames of the parts with motor6D transform = 0, removes the animations
-			-- all cframes are with respect to the rootpart
-			local lowerTorsoCFrame = rootMotor.C0 * rootMotor.C1:inverse()
-			local upperTorsoCFrame = lowerTorsoCFrame * waistMotor.C0 * waistMotor.C1:inverse()
-			local headCFrame = upperTorsoCFrame * neckMotor.C0 * neckMotor.C1:inverse()
-			return headCFrame.Position.Y + head.Size.Y / 2 + rootPart.Size.Y / 2 + humanoid.HipHeight
+	if rootPart and humanoid then
+		local hipHeight = humanoid.HipHeight
+
+		if humanoid.RigType == Enum.HumanoidRigType.R6 then 
+			-- hip height is always 0 in R6
+			hipHeight = 2
+		end
+
+		if humanoid.AutomaticScalingEnabled then
+			local rootPartSizeOffset = (rootPart.Size.Y/2) + 0.5
+			return rootPart.Size.Y / 2 + hipHeight + rootPartSizeOffset + humanoid.CameraOffset.Y
+		else
+			return rootPart.Size.Y / 2 + hipHeight + 2 + humanoid.CameraOffset.Y
 		end
 	end
-	
+
 	-- use the model extents
 	return character:GetExtentsSize().Y
 end

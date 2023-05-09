@@ -7,6 +7,9 @@ local mapIdToUser = require(script.Parent.mapIdToUser)
 local showRecommendations = require(FriendsCarousel.Utils.showRecommendations)
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 local Constants = require(FriendsCarousel.Common.Constants)
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local sortRecommendationByRank = function(user1: LocalTypes.Recommendation, user2: LocalTypes.Recommendation)
 	return user1.rank < user2.rank
@@ -25,7 +28,13 @@ local getRecommendationsList = function(state, keyPath: string, props: any?): Lo
 
 	local friendsCarouselRecommendationIds = getDeepValue(
 		state,
-		string.format("%s.Friends.recommendations.bySource.%s", keyPath, Constants.RECS_SOURCE)
+		string.format(
+			"%s.Friends.recommendations.bySource.%s",
+			keyPath,
+			if getFFlagSocialMoveRecsSource()
+				then RecommendationSourceEnum.HomepageFriendsCarousel
+				else Constants.RECS_SOURCE
+		)
 	) or {}
 	recommendationsIds = llama.List.filter(recommendationsIds, function(id)
 		return friendsCarouselRecommendationIds[id]

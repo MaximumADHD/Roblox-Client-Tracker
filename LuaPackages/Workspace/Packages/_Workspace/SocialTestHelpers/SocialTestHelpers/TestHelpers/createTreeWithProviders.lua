@@ -10,6 +10,10 @@ local Mock = dependencies.Mock
 local UnitTestHelpers = dependencies.UnitTestHelpers
 local mockNavigation = UnitTestHelpers.mockNavigation
 
+local ApolloProvider = dependencies.ApolloClient.ApolloProvider
+local ApolloClientTestUtils = dependencies.GraphQLServer.ApolloClientTestUtils
+local mockApolloClient = ApolloClientTestUtils.mockApolloClient
+
 local mockLocalization = Mock.MagicMock.new({ name = "Localization" })
 mockLocalization.Format = function(_, key, _)
 	return key
@@ -39,9 +43,13 @@ local createTreeWithProviders = function(element, config)
 				localizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = mockLocalization,
 				}, {
-					myElement = if config.navigation
-						then Roact.createElement(element, config.props)
-						else mockNavigation(Roact.createElement(element, config.props)),
+					apolloClient = Roact.createElement(ApolloProvider, {
+						client = config.apolloClient or mockApolloClient({}),
+					}, {
+						myElement = if config.navigation
+							then Roact.createElement(element, config.props)
+							else mockNavigation(Roact.createElement(element, config.props)),
+					}),
 				}),
 			}),
 		}),

@@ -10,6 +10,8 @@ local t = InGameMenuDependencies.t
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagIGMVRSafetyBubbleModeEntry = require(Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 
@@ -30,6 +32,7 @@ local validateProps = t.strictInterface({
 	TextTruncate = t.optional(t.enum(Enum.TextTruncate)),
 	Visible = t.optional(t.boolean),
 	ZIndex = t.optional(t.integer),
+	AutomaticSize = if GetFFlagIGMVRSafetyBubbleModeEntry then t.optional(t.enum(Enum.AutomaticSize)) else nil,
 	[Roact.Children] = t.optional(t.table),
 })
 

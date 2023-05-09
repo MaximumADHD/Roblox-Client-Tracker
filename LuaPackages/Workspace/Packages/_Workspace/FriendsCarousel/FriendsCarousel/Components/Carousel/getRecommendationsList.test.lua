@@ -8,9 +8,14 @@ local it = JestGlobals.it
 local dependencies = require(FriendsCarousel.dependencies)
 local llama = dependencies.llama
 local baseTestStates = devDependencies.baseTestStates
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local RODUX_KEY = require(FriendsCarousel.Common.Constants).RODUX_KEY
-local RECS_SOURCE = require(FriendsCarousel.Common.Constants).RECS_SOURCE
+local RECS_SOURCE = if getFFlagSocialMoveRecsSource()
+	then RecommendationSourceEnum.HomepageFriendsCarousel
+	else require(FriendsCarousel.Common.Constants).RECS_SOURCE
 
 local addFriendsCarouselRecommendationIdsToState =
 	require(FriendsCarousel.TestHelpers.addFriendsCarouselRecommendationIdsToState)

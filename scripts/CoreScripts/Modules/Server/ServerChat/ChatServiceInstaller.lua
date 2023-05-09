@@ -6,6 +6,7 @@ local ServerScriptService = game:GetService("ServerScriptService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local FFlagEnableForkedChatAnalytics = require(RobloxGui.Modules.Common.Flags.FFlagEnableForkedChatAnalytics)
+local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
 local SendChatAnalytics
 if FFlagEnableForkedChatAnalytics then
 	SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
@@ -15,7 +16,11 @@ local function LoadScript(name, parent)
 	local originalModule = script.Parent:WaitForChild(name)
 	local script = Instance.new("Script")
 	script.Name = name
-	script.Source = originalModule.Source
+	if ServerUtil.getFFlagServerCoreScriptSourceCode() then
+		script.Source = ServerUtil.getSourceForServerScript(originalModule)
+	else
+		script.Source = originalModule.Source
+	end
 	script.Parent = parent
 	return script
 end
@@ -24,7 +29,11 @@ local function LoadModule(location, name, parent)
 	local originalModule = location:WaitForChild(name)
 	local module = Instance.new("ModuleScript")
 	module.Name = name
-	module.Source = originalModule.Source
+	if ServerUtil.getFFlagServerCoreScriptSourceCode() then
+		module.Source = ServerUtil.getSourceForServerScript(originalModule)
+	else
+		module.Source = originalModule.Source
+	end
 	module.Parent = parent
 	return module
 end

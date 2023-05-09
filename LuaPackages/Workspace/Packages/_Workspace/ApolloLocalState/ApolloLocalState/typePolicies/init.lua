@@ -10,4 +10,5 @@ return {
 	ExperienceMedia = if getFFlagVirtualEventsGraphQL() then require(script.ExperienceMedia) else nil,
 	Query = require(script.Query),
 	ProfileInsightsPages = require(script.ProfileInsightsPages),
+	ProfileInsights = require(script.ProfileInsights),
 }

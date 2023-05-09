@@ -12,4 +12,6 @@ return {
 	ReactRoblox = require(Packages.ReactRoblox),
 	LocalizationProvider = require(Packages.Localization).LocalizationProvider,
 	RobloxAppLocales = require(Packages.RobloxAppLocales),
+	GraphQLServer = require(Packages.GraphQLServer),
+	ApolloClient = require(Packages.ApolloClient),
 }

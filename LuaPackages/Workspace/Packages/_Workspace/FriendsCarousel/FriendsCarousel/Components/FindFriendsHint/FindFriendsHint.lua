@@ -10,8 +10,6 @@ local Tooltip = UIBlox.App.Dialog.Tooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local TextKeys = require(FriendsCarousel.Common.TextKeys)
 
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-
 export type Props = {
 	layoutOrder: number,
 	tileHeight: number,
@@ -31,17 +29,17 @@ FindFriendsHint.defaultProps = {
 FindFriendsHint.validateProps = t.strictInterface({
 	layoutOrder = t.number,
 	tileHeight = t.number,
-	showNewAddFriendsUIVariant = if getFFlagSocialOnboardingExperimentEnabled() then t.optional(t.boolean) else nil,
+	showNewAddFriendsUIVariant = t.optional(t.boolean),
 })
 
 function FindFriendsHint:render()
 	local props: Props = self.props
 
 	return withLocalization({
-		findFriendsTitle = if getFFlagSocialOnboardingExperimentEnabled() and props.showNewAddFriendsUIVariant
+		findFriendsTitle = if props.showNewAddFriendsUIVariant
 			then TextKeys.FindFriendsTitleV2
 			else TextKeys.FindFriendsTitle,
-		findFriendsBody = if getFFlagSocialOnboardingExperimentEnabled() and props.showNewAddFriendsUIVariant
+		findFriendsBody = if props.showNewAddFriendsUIVariant
 			then TextKeys.FindFriendsBodyV2
 			else TextKeys.FindFriendsBody,
 	})(function(localizedStrings)

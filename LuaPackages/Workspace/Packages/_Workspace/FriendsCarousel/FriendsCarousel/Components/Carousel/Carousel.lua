@@ -21,8 +21,6 @@ local LoadingTile = require(FriendsCarousel.Components.LoadingTile)
 local LocalTypes = require(FriendsCarousel.Common.LocalTypes)
 local TextKeys = require(FriendsCarousel.Common.TextKeys)
 
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-
 -- Note: Type information is not retained on lua tables, so the only way to get
 -- React _types_ is to require a module that re-exports them
 local React = require(game:GetService("CorePackages").Packages.React)
@@ -96,31 +94,18 @@ function Carousel:init()
 		local props: InternalProps = self.props
 		local tileUIProperties = self.getTileUIProperties()
 
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			return withLocalization({
-				newTextBadge = TextKeys.NewText,
-			})(function(localized)
-				return Roact.createElement(FindFriendsTile, {
-					onActivated = props.onFindFriendsTileActivated,
-					badgeValue = if getFFlagSocialOnboardingExperimentEnabled() and props.showNewBadge
-						then localized.newTextBadge
-						else nil,
-					tileSize = tileUIProperties.tileHeight,
-					onDidMount = props.onSuccessfulRender,
-
-					showNewAddFriendsUIVariant = if getFFlagSocialOnboardingExperimentEnabled()
-						then props.showNewAddFriendsUIVariant
-						else nil,
-				})
-			end)
-		else
+		return withLocalization({
+			newTextBadge = TextKeys.NewText,
+		})(function(localized)
 			return Roact.createElement(FindFriendsTile, {
 				onActivated = props.onFindFriendsTileActivated,
-				badgeValue = props.friendRequestCount,
+				badgeValue = if props.showNewBadge then localized.newTextBadge else nil,
 				tileSize = tileUIProperties.tileHeight,
 				onDidMount = props.onSuccessfulRender,
+
+				showNewAddFriendsUIVariant = props.showNewAddFriendsUIVariant,
 			})
-		end
+		end)
 	end
 
 	self.renderFindFriendsHint = function(passedProps: FindFriendsHint.Props)
@@ -132,9 +117,7 @@ function Carousel:init()
 			layoutOrder = passedProps.layoutOrder,
 			tileHeight = tileUIProperties.tileHeight,
 
-			showNewAddFriendsUIVariant = if getFFlagSocialOnboardingExperimentEnabled()
-				then props.showNewAddFriendsUIVariant
-				else nil,
+			showNewAddFriendsUIVariant = props.showNewAddFriendsUIVariant,
 		})
 	end
 

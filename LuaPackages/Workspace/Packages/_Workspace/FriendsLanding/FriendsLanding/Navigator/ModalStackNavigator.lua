@@ -12,8 +12,6 @@ local FriendsLandingContext = require(FriendsLanding.FriendsLandingContext)
 local ProfileQRCodePageWrapper = require(FriendsLanding.Navigator.ProfileQRCodePageWrapper)
 local ContactImporterNavigator = CINavigatorInFL
 
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-
 local DiscoverabilityWrapped = Roact.PureComponent:extend("DiscoverabilityWrapped")
 
 function DiscoverabilityWrapped:render()
@@ -43,13 +41,10 @@ local routeArray = {
 	{
 		[EnumScreens.DiscoverabilityOverlay] = DiscoverabilityWrapped,
 	},
-}
-
-if getFFlagSocialOnboardingExperimentEnabled() then
-	table.insert(routeArray, {
+	{
 		[EnumScreens.ProfileQRCodePage] = ProfileQRCodePageWrapper,
-	})
-end
+	},
+}
 
 local ModalStackNavigator = RoactNavigation.createRobloxStackNavigator(routeArray, {
 	defaultNavigationOptions = {

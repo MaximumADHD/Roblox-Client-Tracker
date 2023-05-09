@@ -24,7 +24,6 @@ local mockAnalytics = dependencies.SocialLuaAnalytics.TestingAnalytics.mockAnaly
 local FindFriendsTile = require(script.Parent)
 
 local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 describe("FindFriendsTile", function()
 	local state = {}
@@ -135,7 +134,7 @@ describe("FindFriendsTile", function()
 	end)
 
 	it("SHOULD render correct badge value if it passed", function()
-		if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
+		if getFFlagFriendsCarouselCircularBadge() then
 			local element = createTreeWithProviders(FindFriendsTile, {
 				store = mockStore(state),
 				props = {
@@ -158,27 +157,25 @@ describe("FindFriendsTile", function()
 	end)
 
 	it("SHOULD call analytics event when badge value is passed", function()
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			local mockedAnalytics = mockAnalytics(jest)
-			local element = createTreeWithProviders(FindFriendsTile, {
-				store = mockStore(state),
-				props = {
-					onActivated = function() end,
-					badgeValue = "badgeValue",
-				},
-				mockAnalytics = {
-					value = mockAnalyticsValue(mockedAnalytics),
-				},
-			})
-			runWhileMounted(element, function(_parent)
-				jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
-				jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
-					mockedAnalytics.EventStream,
-					validateEvent(EventNames.ContactImporterOnAddFriends, {
-						uid = "test",
-					})
-				)
-			end)
-		end
+		local mockedAnalytics = mockAnalytics(jest)
+		local element = createTreeWithProviders(FindFriendsTile, {
+			store = mockStore(state),
+			props = {
+				onActivated = function() end,
+				badgeValue = "badgeValue",
+			},
+			mockAnalytics = {
+				value = mockAnalyticsValue(mockedAnalytics),
+			},
+		})
+		runWhileMounted(element, function(_parent)
+			jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
+			jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
+				mockedAnalytics.EventStream,
+				validateEvent(EventNames.ContactImporterOnAddFriends, {
+					uid = "test",
+				})
+			)
+		end)
 	end)
 end)

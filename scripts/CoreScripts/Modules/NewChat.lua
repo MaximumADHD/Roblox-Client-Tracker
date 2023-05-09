@@ -29,9 +29,6 @@ local BubbleChatEnabled = PlayersService.BubbleChat
 local Util = require(RobloxGui.Modules.ChatUtil)
 
 local CorePackages = game:GetService("CorePackages")
-local FFlagExperienceChatShowChatOnFocusKeybind = game:DefineFastFlag("ExperienceChatShowChatOnFocusKeybind", false)
-local FFlagExperienceChatTopBarVisibilityFix = game:DefineFastFlag("ExperienceChatTopBarVisibilityFix", false)
-
 local ExperienceChat = require(CorePackages.ExperienceChat)
 
 local moduleApiTable = {}
@@ -98,9 +95,7 @@ do
 		function moduleApiTable:SetVisible(visible)
 			ChatWindowState.Visible = visible
 
-			if FFlagExperienceChatTopBarVisibilityFix then
-				ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
-			end
+			ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
 
 			local didFire = DispatchEvent("SetVisible", ChatWindowState.Visible)
 			if (not didFire) then
@@ -328,13 +323,11 @@ do
 			end
 		end
 
-		if FFlagExperienceChatShowChatOnFocusKeybind then
-			ExperienceChat.listenToDispatch(function(action)
-				if action.type == "FocusChatHotKeyActivated" then
-					moduleApiTable:SetVisible(true)
-				end
-			end)
-		end
+		ExperienceChat.listenToDispatch(function(action)
+			if action.type == "FocusChatHotKeyActivated" then
+				moduleApiTable:SetVisible(true)
+			end
+		end)
 
 		StarterGui:RegisterSetCore("CoreGuiChatConnections", RegisterCoreGuiConnections)
 end

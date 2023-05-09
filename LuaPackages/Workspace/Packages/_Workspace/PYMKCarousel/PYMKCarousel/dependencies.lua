@@ -69,6 +69,7 @@ return {
 	convertActions = require(Packages.SocialReducerAdaptors).convertActions,
 	usersActionAdaptor = require(Packages.SocialReducerAdaptors).usersActionAdaptor,
 	friendsActionAdaptor = require(Packages.SocialReducerAdaptors).friendsActionAdaptor,
+	SocialCommon = require(Packages.SocialCommon),
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	Hooks = {
 		useSelector = require(Packages.RoactUtils).Hooks.RoactRodux.useSelector,
@@ -79,4 +80,5 @@ return {
 	LocalizationProvider = require(Packages.Localization).LocalizationProvider,
 	enumerate = require(Packages.enumerate),
 	getFFlagPYMKDontUseIngestService = getFFlagPYMKDontUseIngestService,
+	getFFlagSocialMoveRecsSource = require(Packages.SharedFlags).getFFlagSocialMoveRecsSource,
 }

@@ -23,8 +23,6 @@ local getFStringSocialFriendsLandingLayer = require(Packages.SharedFlags).getFSt
 local getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer
 local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
 	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
-local getFFlagSocialOnboardingExperimentEnabled =
-	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
 local getFFlagAddFriendsPageHideBottomBar = require(Packages.SharedFlags).getFFlagAddFriendsPageHideBottomBar
@@ -139,7 +137,6 @@ return {
 	getFStringSocialFriendsLandingLayer = getFStringSocialFriendsLandingLayer,
 	getFStringSocialFriendsLayer = getFStringSocialFriendsLayer,
 	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,
-	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 	getFFlagProfileQRCodeCoreFeaturesEnabled = getFFlagProfileQRCodeCoreFeaturesEnabled,
 	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
 	getFFlagAddFriendsPageHideBottomBar = getFFlagAddFriendsPageHideBottomBar,

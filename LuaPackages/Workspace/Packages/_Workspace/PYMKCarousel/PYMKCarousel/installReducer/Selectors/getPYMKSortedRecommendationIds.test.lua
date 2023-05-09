@@ -7,8 +7,15 @@ local it = JestGlobals.it
 local RecommendationContextType = dependencies.RoduxFriends.Enums.RecommendationContextType
 local mockedRecommendations = require(PYMKCarousel.TestHelpers.mockedRecommendations)
 local Constants = require(PYMKCarousel.Common.Constants)
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 local getPYMKSortedRecommendationIds = require(script.Parent.getPYMKSortedRecommendationIds)
+
+local RECS_SOURCE = if getFFlagSocialMoveRecsSource()
+	then RecommendationSourceEnum.HomepagePYMKCarousel
+	else Constants.RECS_SOURCE
 
 it("SHOULD return empty list if there is no recommendations", function()
 	local state = mockedRecommendations.state
@@ -25,21 +32,21 @@ it("SHOULD return empty list if there is no PYMK recommendations", function()
 	local state = mockedRecommendations.state
 	local localUserId = state.LocalUserId
 
-	local oldStateRecommendations = state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE]
-	state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE] = {}
+	local oldStateRecommendations = state.PYMKCarousel.Friends.recommendations.bySource[RECS_SOURCE]
+	state.PYMKCarousel.Friends.recommendations.bySource[RECS_SOURCE] = {}
 
 	jestExpect(getPYMKSortedRecommendationIds(localUserId)(state)).toEqual({})
 
-	state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE] = oldStateRecommendations
+	state.PYMKCarousel.Friends.recommendations.bySource[RECS_SOURCE] = oldStateRecommendations
 end)
 
 it("SHOULD return sorted by rank list of PYMK recommendations only", function()
 	local state = mockedRecommendations.state
 	local localUserId = state.LocalUserId
-	local oldStateRecommendations = state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE]
+	local oldStateRecommendations = state.PYMKCarousel.Friends.recommendations.bySource[RECS_SOURCE]
 
 	local recommendationIds = mockedRecommendations.recommendationIds
-	state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE] = {
+	state.PYMKCarousel.Friends.recommendations.bySource[RECS_SOURCE] = {
 		[recommendationIds.mutualContextPlural] = true,
 		[recommendationIds.noContext] = true,
 		[recommendationIds.mutualContextSingle] = true,
@@ -66,5 +73,5 @@ it("SHOULD return sorted by rank list of PYMK recommendations only", function()
 		},
 	})
 
-	state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE] = oldStateRecommendations
+	state.PYMKCarousel.Friends.recommendations.bySource[RECS_SOURCE] = oldStateRecommendations
 end)

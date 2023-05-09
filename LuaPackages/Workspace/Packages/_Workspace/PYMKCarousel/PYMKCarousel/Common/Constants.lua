@@ -1,6 +1,6 @@
 return {
 	RODUX_KEY = "PYMKCarousel",
-	RECS_SOURCE = "PYMKCarousel",
+	RECS_SOURCE = "PYMKCarousel", -- delete when cleaning flag SocialMoveRecsSource
 	HomepagePYMKCarouselSourceName = "HomepagePYMKCarousel",
 	RECOMMENDATION_SESSION_ID_KEY = "PYMKRecommendationsSessionId",
 

@@ -10,8 +10,10 @@ local RoduxFriends = dependencies.RoduxFriends
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 local Constants = require(PYMKCarousel.Common.Constants)
 local llama = dependencies.llama
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
-local getFFlagSocialUpdateRoduxFriendsv316 = devDependencies.getFFlagSocialUpdateRoduxFriendsv316
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local installReducer = require(script.Parent)
 
@@ -23,7 +25,7 @@ local defaultState = {
 			receivedCount = 0,
 			byUserId = {},
 			mutualFriends = {},
-			originSourceType = if getFFlagSocialUpdateRoduxFriendsv316() then {} else nil,
+			originSourceType = {},
 			sentAt = {},
 			sourceUniverseIds = {},
 		},
@@ -71,7 +73,11 @@ describe("PYMKCarousel reducer", function()
 			}
 			local newState = installReducer(wrongConfig)({}, mockedAddOmniRecommendationsAction.withRecommendedFriends)
 			local emptyState = defaultStateWithSessionId
-			emptyState.Friends.recommendations.bySource[Constants.RECS_SOURCE] = {}
+			if getFFlagSocialMoveRecsSource() then
+				emptyState.Friends.recommendations.bySource[RecommendationSourceEnum.HomepagePYMKCarousel] = {}
+			else
+				emptyState.Friends.recommendations.bySource[Constants.RECS_SOURCE] = {}
+			end
 			jestExpect(newState).toEqual(emptyState)
 		end)
 
@@ -101,19 +107,27 @@ describe("PYMKCarousel reducer", function()
 					requests = {
 						receivedCount = 0,
 						byUserId = {},
-						originSourceType = if getFFlagSocialUpdateRoduxFriendsv316() then {} else nil,
+						originSourceType = {},
 						mutualFriends = {},
 						sentAt = {},
 						sourceUniverseIds = {},
 					},
 					recommendations = {
-						bySource = {
-							[Constants.RECS_SOURCE] = {
-								RecommendedFriend1 = true,
-								RecommendedFriend2 = true,
-								RecommendedFriend3 = true,
+						bySource = if getFFlagSocialMoveRecsSource()
+							then {
+								[RecommendationSourceEnum.HomepagePYMKCarousel] = {
+									RecommendedFriend1 = true,
+									RecommendedFriend2 = true,
+									RecommendedFriend3 = true,
+								},
+							}
+							else {
+								[Constants.RECS_SOURCE] = {
+									RecommendedFriend1 = true,
+									RecommendedFriend2 = true,
+									RecommendedFriend3 = true,
+								},
 							},
-						},
 						hasIncomingFriendRequest = {
 							RecommendedFriend1 = false,
 							RecommendedFriend2 = true,

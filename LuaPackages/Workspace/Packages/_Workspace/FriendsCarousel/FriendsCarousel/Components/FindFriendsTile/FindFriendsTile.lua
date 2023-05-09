@@ -13,8 +13,6 @@ local EventNames = Analytics.EventNames
 local useAnalytics = Analytics.useAnalytics
 local useEffectOnce = dependencies.Hooks.useEffectOnce
 
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
-
 export type Props = {
 	badgeValue: string | number | nil,
 	onActivated: () -> (),
@@ -38,20 +36,9 @@ local FindFriendsTile = function(props: Props)
 		end
 	end, {})
 
-	-- remove with getFFlagSocialOnboardingExperimentEnabled
-	local isUpdatedUI
-
-	if not getFFlagSocialOnboardingExperimentEnabled() then
-		isUpdatedUI = false
-	end
-
 	local badgeValue = React.useMemo(function()
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			return getBadgeVale(props.badgeValue)
-		else
-			return if isUpdatedUI then getBadgeVale(props.badgeValue) else nil
-		end
-	end, { props.badgeValue, isUpdatedUI :: any })
+		return getBadgeVale(props.badgeValue)
+	end, { props.badgeValue })
 
 	local analytics = useAnalytics()
 	local fireBadgeSeenEvent = function()
@@ -64,25 +51,17 @@ local FindFriendsTile = function(props: Props)
 		findFriendsText = TextKeys.FindFriendsText,
 	})
 
-	if getFFlagSocialOnboardingExperimentEnabled() then
-		return if props.showNewAddFriendsUIVariant
-			then Roact.createElement(AddFriendsTileSquare, {
-				badgeValue = badgeValue,
-				onActivated = props.onActivated,
-				labelText = localizedStrings.findFriendsText,
-			})
-			else Roact.createElement(AddFriendsTileCircular, {
-				onActivated = props.onActivated,
-				labelText = localizedStrings.addFriendText,
-				badgeValue = badgeValue,
-			})
-	else
-		return Roact.createElement(AddFriendsTileCircular, {
+	return if props.showNewAddFriendsUIVariant
+		then Roact.createElement(AddFriendsTileSquare, {
+			badgeValue = badgeValue,
+			onActivated = props.onActivated,
+			labelText = localizedStrings.findFriendsText,
+		})
+		else Roact.createElement(AddFriendsTileCircular, {
 			onActivated = props.onActivated,
 			labelText = localizedStrings.addFriendText,
-			badgeValue = nil,
+			badgeValue = badgeValue,
 		})
-	end
 end
 
 return FindFriendsTile

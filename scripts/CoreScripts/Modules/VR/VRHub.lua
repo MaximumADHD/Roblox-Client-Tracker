@@ -263,4 +263,20 @@ function VRHub:ToggleSafetyBubble()
 	end
 end
 
+function VRHub:GetControllerModel(userCFrame)
+	if userCFrame == Enum.UserCFrame.LeftHand then
+		return VRHub.LeftControllerModel
+	elseif userCFrame == Enum.UserCFrame.RightHand then
+		return VRHub.RightControllerModel
+	else
+		return nil
+	end
+end
+
+function VRHub:GetControllerButtonPosition(keyCode)
+	local leftControllerButtonPos = VRHub.LeftControllerModel and VRHub.LeftControllerModel:getButtonPosition(keyCode)
+	local rightControllerButtonPos = VRHub.RightControllerModel and VRHub.RightControllerModel:getButtonPosition(keyCode)
+	return leftControllerButtonPos, rightControllerButtonPos
+end
+
 return VRHub

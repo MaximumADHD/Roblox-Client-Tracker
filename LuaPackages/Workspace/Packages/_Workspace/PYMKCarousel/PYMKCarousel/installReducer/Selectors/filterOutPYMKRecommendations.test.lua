@@ -7,6 +7,10 @@ local it = JestGlobals.it
 local mockedRecommendations = require(PYMKCarousel.TestHelpers.mockedRecommendations)
 local RoduxFriends = dependencies.RoduxFriends
 local Constants = require(PYMKCarousel.Common.Constants)
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local filterOutPYMKRecommendations = require(script.Parent.filterOutPYMKRecommendations)
 
@@ -42,11 +46,20 @@ it("SHOULD return list of PYMK recommendations only", function()
 	local oldStateRecommendations = state.PYMKCarousel.Friends.recommendations
 
 	local recommendationIds = mockedRecommendations.recommendationIds
-	state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE] = {
-		[recommendationIds.mutualContextPlural] = true,
-		[recommendationIds.noContext] = true,
-		[recommendationIds.mutualContextSingle] = true,
-	}
+
+	if getFFlagSocialMoveRecsSource() then
+		state.PYMKCarousel.Friends.recommendations.bySource[RecommendationSourceEnum.HomepagePYMKCarousel] = {
+			[recommendationIds.mutualContextPlural] = true,
+			[recommendationIds.noContext] = true,
+			[recommendationIds.mutualContextSingle] = true,
+		}
+	else
+		state.PYMKCarousel.Friends.recommendations.bySource[Constants.RECS_SOURCE] = {
+			[recommendationIds.mutualContextPlural] = true,
+			[recommendationIds.noContext] = true,
+			[recommendationIds.mutualContextSingle] = true,
+		}
+	end
 
 	local recommendations = RoduxFriends.Selectors.getSortedByRankRecommendations(state, localUserId)
 	local recommendationsDict = state.PYMKCarousel.Friends.recommendations.byUserId[localUserId]

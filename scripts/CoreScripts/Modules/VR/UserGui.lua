@@ -14,7 +14,6 @@ local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRKeyboard = require(RobloxGui.Modules.VR.VirtualKeyboard)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
-local GetFFlagReportBottomBarEventInVR = require(RobloxGui.Modules.Flags.GetFFlagReportBottomBarEventInVR)
 
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -164,16 +163,12 @@ if EngineFeatureEnableVRUpdate3 then
 			if not VRHub.ShowTopBar then
 				VRHub:SetShowTopBar(true)
 
-				if GetFFlagReportBottomBarEventInVR() then
-					AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-On")
-				end
+				AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-On")
 			else
 				VRHub:SetShowTopBar(false)
 				InGameMenu.closeInGameMenu()
 
-				if GetFFlagReportBottomBarEventInVR() then
-					AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-Off")
-				end
+				AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-Off")
 			end
 		end
 

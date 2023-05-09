@@ -15,8 +15,6 @@ local maxHttpRetries = game:DefineFastInt("FriendsCarouselHttpRetryCount", 3)
 local getFFlagFriendsCarouselDontUseIngestService =
 	require(Packages.SharedFlags).getFFlagFriendsCarouselDontUseIngestService
 local getFFlagMigrateSocialNetworking = require(Packages.SharedFlags).getFFlagMigrateSocialNetworking
-local getFFlagSocialOnboardingExperimentEnabled =
-	require(Packages.SharedFlags).getFFlagSocialOnboardingExperimentEnabled
 
 local myHttpRequest = HttpRequest.config({
 	requestFunction = function(url, requestMethod, requestOptions)
@@ -81,6 +79,7 @@ return {
 
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	SocialModalsCommon = require(Packages.SocialModalsCommon),
+	SocialCommon = require(Packages.SocialCommon),
 	RoduxNetworking = myRoduxNetworking,
 	NetworkingFriendsEnums = LuaSocialLibrariesDeps.NetworkingFriends.Enums,
 	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends.config({
@@ -141,8 +140,8 @@ return {
 	getFFlagProfileAliasEnabled = require(Packages.SharedFlags).getFFlagProfileAliasEnabled,
 
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,
-	getFFlagSocialOnboardingExperimentEnabled = getFFlagSocialOnboardingExperimentEnabled,
 
 	isSubjectToDesktopPolicies = require(Packages.SharedFlags).isSubjectToDesktopPolicies,
 	GetFFlagLuaAppFriendsCarouselExperimentCleanup = require(Packages.SharedFlags).GetFFlagLuaAppFriendsCarouselExperimentCleanup,
+	getFFlagSocialMoveRecsSource = require(Packages.SharedFlags).getFFlagSocialMoveRecsSource,
 }

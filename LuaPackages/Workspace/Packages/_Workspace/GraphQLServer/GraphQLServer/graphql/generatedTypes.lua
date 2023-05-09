@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/1f080a862e/generatedTypes.ts
+-- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/d7e561ace0/generatedTypes.ts
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Array<T> = LuauPolyfill.Array<T>
@@ -192,6 +192,7 @@ export type Query = {
 	omniFeed: Maybe<OmniFeed>?,
 	omniFeedItem: Maybe<OmniFeedItem>?,
 	profilesInsights: Maybe<ProfileInsightsPages>?,
+	profilesInsightsByUserIds: Maybe<Array<Maybe<ProfileInsights>>>?,
 	refreshOmniFeedItem: Maybe<OmniFeedItemWithMetadata>?,
 	user: User,
 	virtualEvent: Maybe<VirtualEvent>?,
@@ -210,6 +211,10 @@ export type QueryOmniFeedItemArgs = { sortId: typeof((({} :: any) :: Scalars).St
 export type QueryProfilesInsightsArgs = {
 	count: InputMaybe<typeof((({} :: any) :: Scalars).Int)>?,
 	pageId: InputMaybe<typeof((({} :: any) :: Scalars).String)>?,
+	userIds: Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>,
+}
+export type QueryProfilesInsightsByUserIdsArgs = {
+	count: InputMaybe<typeof((({} :: any) :: Scalars).Int)>?,
 	userIds: Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>,
 }
 export type QueryRefreshOmniFeedItemArgs = {

@@ -19,7 +19,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Util = require(RobloxGui.Modules.Settings.Utility)
 local MAX_SAFETY_DIST = require(RobloxGui.Modules.Flags.FIntSafetyBubbleRadius) -- this is using a 2d distance
 local MAX_TRANSPARENCY = require(RobloxGui.Modules.Flags.FIntSafetyBubbleTransparencyPercent) * 0.01 -- how transparent do we get
-local GetFFlagReportBottomBarEventInVR = require(RobloxGui.Modules.Flags.GetFFlagReportBottomBarEventInVR)
 
 local UPDATE_CADENCE = 0.2
 
@@ -43,10 +42,8 @@ function SafetyBubble.new()
 			self.enabled = enabled
 			self.Toggled:Fire()
 
-			if GetFFlagReportBottomBarEventInVR() then
-				local safetyOnOff = enabled and "On" or "Off"
-				AnalyticsService:ReportCounter("VR-SafetyBubble-"..safetyOnOff)
-			end
+			local safetyOnOff = enabled and "On" or "Off"
+			AnalyticsService:ReportCounter("VR-SafetyBubble-"..safetyOnOff)
 		end
 	end)
 

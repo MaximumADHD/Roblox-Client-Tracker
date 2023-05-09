@@ -6,7 +6,6 @@ local createInstanceWithProviders = require(FriendsLanding.TestHelpers.createIns
 local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
 local Dash = dependencies.Dash
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
@@ -52,7 +51,7 @@ local function createInstance(requests, extraProps: any)
 		isDiscoverabilityUnset = false,
 		fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics() then Dash.noop else nil,
 		fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics() then Dash.noop else nil,
-		showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then Dash.noop else nil,
+		showNewAddFriendsPageVariant = Dash.noop,
 	}
 	extraProps = extraProps or {}
 	return createInstanceWithProviders(mockLocale)(AddFriendsPage, {
@@ -155,11 +154,7 @@ describe("with empty FriendsRequests", function()
 	local instance, cleanup
 
 	beforeEach(function()
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			instance, cleanup = createInstance({}, { showNewAddFriendsPageVariant = true })
-		else
-			instance, cleanup = createInstance({})
-		end
+		instance, cleanup = createInstance({}, { showNewAddFriendsPageVariant = true })
 	end)
 
 	afterEach(function()
@@ -182,15 +177,13 @@ describe("with empty FriendsRequests", function()
 		end)
 	end)
 
-	if getFFlagSocialOnboardingExperimentEnabled() then
-		it("SHOULD not render the headerFrame", function()
-			testElement(instance, function()
-				return byName(instance, "HeaderFrame")
-			end, function(headerFrame)
-				expect(headerFrame).toBeNil()
-			end)
+	it("SHOULD not render the headerFrame", function()
+		testElement(instance, function()
+			return byName(instance, "HeaderFrame")
+		end, function(headerFrame)
+			expect(headerFrame).toBeNil()
 		end)
-	end
+	end)
 end)
 
 describe("showMore button behavior", function()
@@ -214,82 +207,80 @@ describe("showMore button behavior", function()
 	end)
 end)
 
-if getFFlagSocialOnboardingExperimentEnabled() then
-	describe("QR code banner behavior", function()
-		local instance, cleanup, navigation, navigateToLuaAppPages
-		local fireProfileQRCodeBannerPressedEventSpy = jest.fn()
-		local fireProfileQRCodeBannerSeenEventSpy = jest.fn()
+describe("QR code banner behavior", function()
+	local instance, cleanup, navigation, navigateToLuaAppPages
+	local fireProfileQRCodeBannerPressedEventSpy = jest.fn()
+	local fireProfileQRCodeBannerSeenEventSpy = jest.fn()
 
-		beforeEach(function()
-			navigation = {
-				navigate = jest.fn(),
-			}
-			navigateToLuaAppPages = {
-				[EnumScreens.ProfileQRCodePage] = jest.fn(),
-			}
-			instance, cleanup = createInstance({}, {
-				navigation = navigation,
-				navigateToLuaAppPages = navigateToLuaAppPages,
-				fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics()
-					then function()
-						fireProfileQRCodeBannerPressedEventSpy()
-					end
-					else nil,
-				fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics()
-					then function()
-						fireProfileQRCodeBannerSeenEventSpy()
-					end
-					else nil,
-				showNewAddFriendsPageVariant = true,
-			})
-		end)
-
-		afterEach(function()
-			cleanup()
-		end)
-
-		if getFFlagAddFriendsQRCodeAnalytics() then
-			it("SHOULD fire QR Code analytic events", function()
-				local banner = RhodiumHelpers.findFirstInstance(instance, {
-					Name = "QRCodeBanner",
-				})
-
-				if getFFlagProfileQRCodeCoreFeaturesEnabled() then
-					expect(fireProfileQRCodeBannerSeenEventSpy).toHaveBeenCalledTimes(1)
-
-					RhodiumHelpers.clickInstance(banner)
-					expect(fireProfileQRCodeBannerPressedEventSpy).toHaveBeenCalledTimes(1)
+	beforeEach(function()
+		navigation = {
+			navigate = jest.fn(),
+		}
+		navigateToLuaAppPages = {
+			[EnumScreens.ProfileQRCodePage] = jest.fn(),
+		}
+		instance, cleanup = createInstance({}, {
+			navigation = navigation,
+			navigateToLuaAppPages = navigateToLuaAppPages,
+			fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics()
+				then function()
+					fireProfileQRCodeBannerPressedEventSpy()
 				end
-			end)
-		end
-
-		it("SHOULD render QR code banner correctly", function()
-			testElement(instance, function()
-				return RhodiumHelpers.findFirstInstance(instance, {
-					Name = "QRCodeBanner",
-				})
-			end, function(banner)
-				if getFFlagProfileQRCodeCoreFeaturesEnabled() then
-					expect(banner).never.toBeNil()
-				else
-					expect(banner).toBeNil()
+				else nil,
+			fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics()
+				then function()
+					fireProfileQRCodeBannerSeenEventSpy()
 				end
-			end)
-		end)
+				else nil,
+			showNewAddFriendsPageVariant = true,
+		})
+	end)
 
-		it("SHOULD call navigate to QR Code Page when clicked", function()
+	afterEach(function()
+		cleanup()
+	end)
+
+	if getFFlagAddFriendsQRCodeAnalytics() then
+		it("SHOULD fire QR Code analytic events", function()
 			local banner = RhodiumHelpers.findFirstInstance(instance, {
 				Name = "QRCodeBanner",
 			})
 
 			if getFFlagProfileQRCodeCoreFeaturesEnabled() then
+				expect(fireProfileQRCodeBannerSeenEventSpy).toHaveBeenCalledTimes(1)
+
 				RhodiumHelpers.clickInstance(banner)
-				expect(navigation.navigate).toHaveBeenCalledTimes(1)
-				expect(navigation.navigate).toHaveBeenCalledWith(EnumScreens.ProfileQRCodePage)
+				expect(fireProfileQRCodeBannerPressedEventSpy).toHaveBeenCalledTimes(1)
+			end
+		end)
+	end
+
+	it("SHOULD render QR code banner correctly", function()
+		testElement(instance, function()
+			return RhodiumHelpers.findFirstInstance(instance, {
+				Name = "QRCodeBanner",
+			})
+		end, function(banner)
+			if getFFlagProfileQRCodeCoreFeaturesEnabled() then
+				expect(banner).never.toBeNil()
+			else
+				expect(banner).toBeNil()
 			end
 		end)
 	end)
-end
+
+	it("SHOULD call navigate to QR Code Page when clicked", function()
+		local banner = RhodiumHelpers.findFirstInstance(instance, {
+			Name = "QRCodeBanner",
+		})
+
+		if getFFlagProfileQRCodeCoreFeaturesEnabled() then
+			RhodiumHelpers.clickInstance(banner)
+			expect(navigation.navigate).toHaveBeenCalledTimes(1)
+			expect(navigation.navigate).toHaveBeenCalledWith(EnumScreens.ProfileQRCodePage)
+		end
+	end)
+end)
 
 describe("Contact importer is visible", function()
 	local fireContactImporterAnalyticsEvents, fireContactImporterSeenEvent, navigation
@@ -313,7 +304,7 @@ describe("Contact importer is visible", function()
 			isPhoneVerified = true,
 			shouldShowContactImporterFeature = false,
 			navigation = navigation,
-			showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then true else nil,
+			showNewAddFriendsPageVariant = true,
 		})
 	end)
 
@@ -324,7 +315,7 @@ describe("Contact importer is visible", function()
 	it("SHOULD render contactImporterModal correctly", function()
 		testElement(instance, function()
 			return RhodiumHelpers.findFirstInstance(instance, {
-				Name = if getFFlagSocialOnboardingExperimentEnabled() then "ContactImporterBanner" else "Banner",
+				Name = "ContactImporterBanner",
 			})
 		end, function(banner)
 			expect(banner).never.toBeNil()
@@ -334,7 +325,7 @@ describe("Contact importer is visible", function()
 	it("SHOULD fire contactImporterSeenEvent correctly", function()
 		testElement(instance, function()
 			return RhodiumHelpers.findFirstInstance(instance, {
-				Name = if getFFlagSocialOnboardingExperimentEnabled() then "ContactImporterBanner" else "Banner",
+				Name = "ContactImporterBanner",
 			})
 		end, function(banner)
 			expect(banner).never.toBeNil()
@@ -345,19 +336,10 @@ describe("Contact importer is visible", function()
 
 	it("SHOULD fire contactImporterAnalyticsEvents events when clicked", function()
 		local banner = RhodiumHelpers.findFirstInstance(instance, {
-			Name = if getFFlagSocialOnboardingExperimentEnabled() then "ContactImporterBanner" else "Banner",
+			Name = "ContactImporterBanner",
 		})
-		local button = if getFFlagSocialOnboardingExperimentEnabled()
-			then nil
-			else RhodiumHelpers.findFirstInstance(banner, {
-				Name = "Button",
-			})
 
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			RhodiumHelpers.clickInstance(banner)
-		else
-			RhodiumHelpers.clickInstance(button)
-		end
+		RhodiumHelpers.clickInstance(banner)
 
 		expect(navigation.navigate).toHaveBeenCalledTimes(1)
 		expect(fireContactImporterAnalyticsEvents).toHaveBeenCalledTimes(1)
@@ -389,23 +371,14 @@ it("SHOULD not show contact list if clicked", function()
 		handleOpenPhoneVerificationLinkWebview = handleOpenPhoneVerificationLinkWebview,
 		handleOpenLearnMoreLink = handleOpenLearnMoreLink,
 		handleShowToastForTests = handleShowToastForTests,
-		showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then true else nil,
+		showNewAddFriendsPageVariant = true,
 	})
 
 	local banner = RhodiumHelpers.findFirstInstance(instance, {
-		Name = if getFFlagSocialOnboardingExperimentEnabled() then "ContactImporterBanner" else "Banner",
+		Name = "ContactImporterBanner",
 	})
-	local button = if getFFlagSocialOnboardingExperimentEnabled()
-		then nil
-		else RhodiumHelpers.findFirstInstance(banner, {
-			Name = "Button",
-		})
 
-	if getFFlagSocialOnboardingExperimentEnabled() then
-		RhodiumHelpers.clickInstance(banner)
-	else
-		RhodiumHelpers.clickInstance(button)
-	end
+	RhodiumHelpers.clickInstance(banner)
 
 	expect(navigation.navigate).toHaveBeenCalledWith(EnumScreens.ContactImporter, {
 		isFromAddFriendsPage = true,
@@ -451,23 +424,14 @@ describe("FFlagUpdateContactImporterModalLogic", function()
 			handleOpenPhoneVerificationLinkWebview = handleOpenPhoneVerificationLinkWebview,
 			handleOpenLearnMoreLink = handleOpenLearnMoreLink,
 			handleShowToastForTests = handleShowToastForTests,
-			showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled() then true else nil,
+			showNewAddFriendsPageVariant = true,
 		})
 
 		local banner = RhodiumHelpers.findFirstInstance(instance, {
-			Name = if getFFlagSocialOnboardingExperimentEnabled() then "ContactImporterBanner" else "Banner",
+			Name = "ContactImporterBanner",
 		})
-		local button = if getFFlagSocialOnboardingExperimentEnabled()
-			then nil
-			else RhodiumHelpers.findFirstInstance(banner, {
-				Name = "Button",
-			})
 
-		if getFFlagSocialOnboardingExperimentEnabled() then
-			RhodiumHelpers.clickInstance(banner)
-		else
-			RhodiumHelpers.clickInstance(button)
-		end
+		RhodiumHelpers.clickInstance(banner)
 
 		expect(navigation.navigate).toHaveBeenCalledWith(EnumScreens.ContactsList, {
 			isFromAddFriendsPage = true,

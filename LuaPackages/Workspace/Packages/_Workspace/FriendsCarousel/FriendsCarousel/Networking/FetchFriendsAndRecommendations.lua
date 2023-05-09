@@ -14,7 +14,10 @@ local AnalyticsService = dependencies.AnalyticsService
 local UserSorts = require(FriendsCarousel.Common.UserSorts)
 local Constants = require(FriendsCarousel.Common.Constants)
 local RECOMMENDATION_SESSION_ID_KEY = require(FriendsCarousel.Common.Constants).RECOMMENDATION_SESSION_ID_KEY
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 local getFFlagProfileAliasEnabled = dependencies.getFFlagProfileAliasEnabled
 local isSubjectToDesktopPolicies = dependencies.isSubjectToDesktopPolicies
 local getFFlagFriendsCarouselRemoveRecsAdaptors =
@@ -76,7 +79,9 @@ return function(config: Config?): any
 									return recommendation.id
 								end)
 								store:dispatch(RoduxFriends.Actions.RecommendationSourceCreated({
-									source = Constants.RECS_SOURCE,
+									source = if getFFlagSocialMoveRecsSource()
+										then RecommendationSourceEnum.HomepageFriendsCarousel
+										else Constants.RECS_SOURCE,
 									recommendationIds = recommendationIds,
 								}))
 								local recommendationSessionId = result.responseBody.recommendationRequestId

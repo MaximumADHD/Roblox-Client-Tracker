@@ -1,5 +1,5 @@
 --[[
-	Contextual information (icon and localized text) for a recommendations 
+	Contextual information (icon and localized text) for a recommendations
 	Use useRecommendationContextualInfoDisplay for new functional components,
 	this file exists for legacy components that don't support hooks
 
@@ -9,7 +9,7 @@ local SocialCommon = script:FindFirstAncestor("SocialCommon")
 local Packages = SocialCommon.Parent
 
 local getMutualFriendsText = require(SocialCommon.Utils.getMutualFriendsText)
-local LuaSocialLibrariesDeps = require(Packages.Dev.LuaSocialLibrariesDeps)
+local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 local RoduxFriends = LuaSocialLibrariesDeps.RoduxFriends.config({ keyPath = "SocialCommon.Friends" })
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 

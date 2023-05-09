@@ -30,6 +30,7 @@ local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnable
 local GetFFlagInviteListStyleFixes = require(Modules.Flags.GetFFlagInviteListStyleFixes)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
+local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
 
 local UIBlox = require(CorePackages.UIBlox)
 local PrimaryButton = UIBlox.App.Button.PrimarySystemButton
@@ -54,8 +55,10 @@ local InviteSingleUserContainer = function(props)
 	local sendingInvite, setSendingInvite = React.useState(false)
 
 	React.useEffect(function()
-		if props.promptMessage and props.analytics then
-			props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.CustomTextShown)
+		if not GetFFlagInviteAnalyticsEventsUpdate() then
+			if props.promptMessage and props.analytics then
+				props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.CustomTextShown)
+			end
 		end
 	end, {})
 
@@ -70,7 +73,16 @@ local InviteSingleUserContainer = function(props)
 	} :: { any })
 
 	local onCloseButtonActivated = React.useCallback(function()
-		props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.CancelInvite)
+		if GetFFlagInviteAnalyticsEventsUpdate() then
+			local eventData = props.analytics:createEventData(
+				props.analytics.EventName.InvitePromptAction,
+				props.analytics.ButtonName.CancelInvite,
+				if props.promptMessage then props.analytics.EventFieldName.CustomText else props.analytics.EventFieldName.DefaultText
+			)
+			props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, eventData)
+		else
+			props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.CancelInvite)
+		end
 		onClose()
 	end, {
 		onClose,
@@ -85,10 +97,22 @@ local InviteSingleUserContainer = function(props)
 		end
 
 		local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
-		analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.SendInvite, {
-			recipient = friend.id,
-			isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData() then isLaunchDataProvided else nil,
-		})
+		if GetFFlagInviteAnalyticsEventsUpdate() then
+			local eventData = analytics:createEventData(
+				analytics.EventName.InvitePromptAction,
+				analytics.ButtonName.InviteFriend,
+				if props.promptMessage then analytics.EventFieldName.CustomText else analytics.EventFieldName.DefaultText
+			)
+			analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, eventData, {
+				recipient = friend.id,
+				isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData() then isLaunchDataProvided else nil,
+			})
+		else
+			analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.SendInvite, {
+				recipient = friend.id,
+				isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData() then isLaunchDataProvided else nil,
+			})
+		end
 
 		local onSuccess = function(results)
 			setSendingInvite(false)

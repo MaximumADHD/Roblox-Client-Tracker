@@ -80,8 +80,8 @@ function FriendsLandingPage:init()
 				not userHasSeenFriendPruningAlertAndTooltip
 				and (
 					(
-						#self.props.friends >= getFIntFriendsLandingFriendPruningUpsellMinFriends()
-						and #self.filterFriends(self.props.friends, filterStates.Inactive)
+						self.props.totalFriendCount >= getFIntFriendsLandingFriendPruningUpsellMinFriends()
+						and self.props.totalInactiveFriends
 							>= getFIntFriendsLandingFriendPruningUpsellMinInactiveFriends()
 					) or self.props.isLocalUserSoothsayer
 				)
@@ -274,6 +274,30 @@ end
 
 function FriendsLandingPage:didMount()
 	self.props.analytics:pageMountingTimeReport()
+end
+
+function FriendsLandingPage:didUpdate()
+	if getFFlagFriendsLandingInactiveFriendsEnabled() then
+		local userHasSeenFriendPruningAlertAndTooltip = if game:GetEngineFeature(FRIEND_PRUNING_ALERT_FEATURE_NAME)
+			then AppStorageService:GetItem(FRIEND_PRUNING_ALERT_LOCAL_STORAGE_KEY) == "true"
+			else false
+
+		local shouldInitiallyShowFriendPruningAlertAndTooltip = self.props.devForceFriendPruningUpsellOn
+			or (
+				not userHasSeenFriendPruningAlertAndTooltip
+				and (
+					(
+						self.props.totalFriendCount >= getFIntFriendsLandingFriendPruningUpsellMinFriends()
+						and self.props.totalInactiveFriends
+							>= getFIntFriendsLandingFriendPruningUpsellMinInactiveFriends()
+					) or self.props.isLocalUserSoothsayer
+				)
+			)
+		self:setState({
+			showFriendPruningAlert = shouldInitiallyShowFriendPruningAlertAndTooltip,
+			showFriendPruningTooltip = shouldInitiallyShowFriendPruningAlertAndTooltip,
+		})
+	end
 end
 
 function FriendsLandingPage:render()

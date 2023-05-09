@@ -20,7 +20,7 @@ return function()
 		})
 	end)
 
-	it("Should resolve ProfileInsights data", function()
+	it("Should resolve ProfileInsights data for profilesInsights query", function()
 		create("profile-insights-success"):execute(function(httpService)
 			local fetch = buildFetch(httpService)
 			local server = graphqlServer.new({
@@ -62,6 +62,64 @@ return function()
 
 			jestExpect(pageId).toBeDefined()
 			jestExpect(pageId).toEqual(jestExpect.any("string"))
+
+			jestExpect(profileInsights).toBeDefined()
+			jestExpect(profileInsights).toEqual({
+				{
+					targetUserId = "9999999",
+					mutualFriends = {},
+					isOfflineFrequents = true,
+				},
+				{
+					targetUserId = "2705220939",
+					mutualFriends = {
+						{
+							id = "2326285850",
+							username = "justUser444",
+							displayName = "Displayname_olga",
+						},
+					},
+					isOfflineFrequents = false,
+				},
+			})
+		end)
+	end)
+
+	it("Should resolve ProfileInsights data for profilesInsightsByUserIds query", function()
+		create("profile-insights-success"):execute(function(httpService)
+			local fetch = buildFetch(httpService)
+			local server = graphqlServer.new({
+				fetchImpl = fetch,
+			})
+			local query = [[
+				query ProfilesInsights($userIds: [String]!, $count: Int) {
+					profilesInsightsByUserIds(userIds: $userIds, count: $count) {
+						targetUserId
+						isOfflineFrequents
+						mutualFriends {
+							id
+							username
+							displayName
+						}
+					}
+				}
+			]]
+
+			local body = HttpService:JSONEncode({
+				query = query,
+				variables = {
+					userIds = { "2705220939", "9999999" },
+				},
+			})
+
+			local result = server
+				:fetchLocal({
+					body = body,
+				})
+				:expect()
+
+			local root = result.body.data
+			local profileInsights = root.profilesInsightsByUserIds
 
 			jestExpect(profileInsights).toBeDefined()
 			jestExpect(profileInsights).toEqual({

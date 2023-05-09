@@ -19,6 +19,12 @@ local ScriptContext = game:GetService('ScriptContext')
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
+local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
+
+if ServerUtil.getFFlagServerCoreScriptSourceCode() then
+	ServerUtil.initSourceCodeFolder()
+end
+
 --[[
 	NOTE: We need to initify the instance hierarchy as early as possible
 	to avoid spurious require errors. Only call require() and

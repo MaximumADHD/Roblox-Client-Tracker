@@ -34,6 +34,7 @@ local Constants = {
 	AnalyticsInGameMenuName = "ingame_menu",
 	AnalyticsRespawnCharacterName = "respawn_character",
 	AnalyticsSettingsChangeName = "change_ingame_settings",
+	AnalyticsSettingsSafetyBubbleModeChangeName = "change_ingame_settings_safety_bubble_mode",
 	AnalyticsFullscreenModeName = "FullscreenMode",
 	AnalyticsMenuActionName = "ingame_menu_action",
 	AnalyticsMenuOpenName = "menu_open",

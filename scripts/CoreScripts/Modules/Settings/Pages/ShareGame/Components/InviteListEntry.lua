@@ -21,6 +21,7 @@ local GetFFlagAbuseReportAnalyticsHasLaunchData =
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
+local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -53,6 +54,7 @@ export type Props = {
 	trigger: string,
 	inviteMessageId: string,
 	launchData: string,
+	promptMessage: string,
 }
 
 return function(props: Props)
@@ -80,12 +82,26 @@ return function(props: Props)
 
 		if GetFFlagEnableNewInviteSendEndpoint() then
 			local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
-			analytics:sendEvent(props.trigger, InviteEvents.SendInvite, {
-				recipient = user.id,
-				isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData()
-					then isLaunchDataProvided
-					else nil,
-			})
+			if GetFFlagInviteAnalyticsEventsUpdate() then
+				local eventData = analytics:createEventData(
+					analytics.EventName.InvitePromptAction,
+					analytics.ButtonName.InviteFriend,
+					if props.promptMessage then analytics.EventFieldName.CustomText else analytics.EventFieldName.DefaultText
+				)
+				analytics:sendEvent(props.trigger, eventData, {
+					recipient = user.id,
+					isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData()
+						then isLaunchDataProvided
+						else nil,
+				})
+			else
+				analytics:sendEvent(props.trigger, InviteEvents.SendInvite, {
+					recipient = user.id,
+					isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData()
+						then isLaunchDataProvided
+						else nil,
+				})
+			end
 			inviteUser(user.id, analytics, props.trigger, props.inviteMessageId, props.launchData):andThen(
 				onSuccess,
 				function() end

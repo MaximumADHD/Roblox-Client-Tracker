@@ -12,7 +12,6 @@ local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers)
 local renderHookWithProviders = SocialTestHelpers.TestHelpers.renderHookWithProviders
 
 local ProfilesInsightsQuery = require(UserSearch.Apollo.ProfilesInsightsQuery)
-local wrapInApolloProvider = require(UserSearch.TestHelpers.wrapInApolloProvider)
 local ProfileInsightsMocks = require(UserSearch.TestHelpers.ProfileInsightsMocks)
 
 local usePaginatedProfileInsightsFetch = require(script.Parent.usePaginatedProfileInsightsFetch)
@@ -42,9 +41,7 @@ describe("WHEN endpoint is mocked", function()
 				searchKeyword = twoEntriesMock.searchKeyword,
 			})
 		end, {
-			mockProvider = function(root)
-				return wrapInApolloProvider(root, client)
-			end,
+			apolloClient = client,
 		})
 		expect(helper.getResult()).toEqual({
 			["111"] = ProfileInsightsMocks.mockProfileInsight("111"),
@@ -64,9 +61,7 @@ describe("WHEN empty array as users is passed", function()
 				searchKeyword = twoEntriesMock.searchKeyword,
 			})
 		end, {
-			mockProvider = function(root)
-				return wrapInApolloProvider(root, client)
-			end,
+			apolloClient = client,
 		})
 		expect(helper.getResult()).toEqual({})
 	end)
@@ -82,9 +77,7 @@ describe("WHEN array of users is passed", function()
 				searchKeyword = twoEntriesMock.searchKeyword,
 			})
 		end, {
-			mockProvider = function(root)
-				return wrapInApolloProvider(root, client)
-			end,
+			apolloClient = client,
 		})
 		expect(helper.getResult()).toEqual({})
 	end)
@@ -99,9 +92,7 @@ describe("WHEN array of users is passed", function()
 				searchKeyword = twoEntriesMock.searchKeyword,
 			})
 		end, {
-			mockProvider = function(root)
-				return wrapInApolloProvider(root, client)
-			end,
+			apolloClient = client,
 		})
 		expect(helper.getResult()).toEqual({
 			["111"] = ProfileInsightsMocks.mockProfileInsight("111"),
@@ -120,9 +111,7 @@ describe("WHEN array of users is passed", function()
 				users = twoEntriesMock.users,
 				searchKeyword = twoEntriesMock.searchKeyword,
 			},
-			mockProvider = function(root)
-				return wrapInApolloProvider(root, client)
-			end,
+			apolloClient = client,
 		})
 		expect(helper.getResult()).toEqual({
 			["111"] = ProfileInsightsMocks.mockProfileInsight("111"),
@@ -155,9 +144,7 @@ describe("WHEN array of users is passed", function()
 				users = twoEntriesMock.users,
 				searchKeyword = twoEntriesMock.searchKeyword,
 			},
-			mockProvider = function(root)
-				return wrapInApolloProvider(root, client)
-			end,
+			apolloClient = client,
 		})
 		expect(helper.getResult()).toEqual({
 			["111"] = ProfileInsightsMocks.mockProfileInsight("111"),

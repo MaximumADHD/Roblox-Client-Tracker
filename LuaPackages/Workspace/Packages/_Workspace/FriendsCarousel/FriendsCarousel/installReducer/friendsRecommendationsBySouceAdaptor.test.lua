@@ -12,6 +12,10 @@ local it = JestGlobals.it
 local Constants = require(FriendsCarousel.Common.Constants)
 local GetFriendRecommendationsFromUserIdActionName = NetworkingFriends.GetFriendRecommendationsFromUserId.Succeeded.name
 
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
+
 local friendsRecommendationsBySouceAdaptor = require(script.Parent.friendsRecommendationsBySouceAdaptor)
 
 it("SHOULD return table with one action", function()
@@ -47,7 +51,9 @@ it("SHOULD return expected structure", function()
 		{
 			type = RoduxFriends.Actions.RecommendationSourceCreated.name,
 			payload = {
-				source = Constants.RECS_SOURCE,
+				source = if getFFlagSocialMoveRecsSource()
+					then RecommendationSourceEnum.HomepageFriendsCarousel
+					else Constants.RECS_SOURCE,
 				recommendationIds = { 1, 2, 3 },
 			},
 		} :: any,

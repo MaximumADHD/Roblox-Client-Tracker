@@ -35,7 +35,6 @@ local NetworkingAccountInformation = dependencies.NetworkingAccountInformation
 
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
 local getFFlagFriendsCarouselCircularBadge = require(FriendsCarousel.Flags.getFFlagFriendsCarouselCircularBadge)
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local CarouselContainer = require(script.Parent.CarouselContainer)
 
@@ -155,7 +154,7 @@ describe("CarouselContainer", function()
 			it(
 				"SHOULD render CI badge and fire analytics event for it if showNewAddFriendsUIVariant and showContactImporter are true",
 				function()
-					if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
+					if getFFlagFriendsCarouselCircularBadge() then
 						local CarouselContainerElement = setup({
 							showContactImporter = true,
 							showNewAddFriendsUIVariant = true,
@@ -185,7 +184,7 @@ describe("CarouselContainer", function()
 			it(
 				"SHOULD NOT render CI badge and fire analytics event for it if showNewAddFriendsUIVariant is true and showContactImporter is false",
 				function()
-					if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
+					if getFFlagFriendsCarouselCircularBadge() then
 						local CarouselContainerElement = setup({
 							showContactImporter = false,
 							showNewAddFriendsUIVariant = true,
@@ -206,7 +205,7 @@ describe("CarouselContainer", function()
 			it(
 				"SHOULD NOT render CI badge and fire analytics event for it if showNewAddFriendsUIVariant is false and showContactImporter is true",
 				function()
-					if getFFlagFriendsCarouselCircularBadge() and getFFlagSocialOnboardingExperimentEnabled() then
+					if getFFlagFriendsCarouselCircularBadge() then
 						local CarouselContainerElement = setup({
 							showContactImporter = true,
 							showNewAddFriendsUIVariant = false,

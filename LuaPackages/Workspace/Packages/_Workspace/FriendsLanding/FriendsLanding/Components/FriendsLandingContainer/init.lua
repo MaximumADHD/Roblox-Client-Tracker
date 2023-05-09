@@ -55,6 +55,9 @@ function FriendsLandingContainer:render()
 				friends = self.sortFriends(self.filterFriends(self.props.friends, self.props.filter)),
 				friendPruningEnabled = self.props.friendPruningEnabled,
 				localizedStrings = localizedStrings,
+				totalInactiveFriends = if getFFlagFriendsLandingInactiveFriendsEnabled()
+					then #self.filterFriends(self.props.friends, "Inactive")
+					else nil,
 			})
 		)
 	end)

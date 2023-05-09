@@ -7,15 +7,28 @@ local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+
 local mapStateToProps = require(script.Parent.mapStateToProps)
 
 describe("AddFriendsTile should properly map to props", function()
-	local mockState: any = {
-		FriendStatuses = {
-			["123456"] = Enum.FriendStatus.FriendRequestReceived,
-		},
-		LocalUserId = "123456",
-	}
+	local mockState: any = if getFFlagAddFriendsPYMKExperimentEnabled()
+		then {
+			LocalUserId = "123456",
+			["FriendsLanding"] = {
+				Friends = {
+					friendshipStatus = {
+						["123456"] = Enum.FriendStatus.FriendRequestReceived,
+					},
+				},
+			},
+		}
+		else {
+			FriendStatuses = {
+				["123456"] = Enum.FriendStatus.FriendRequestReceived,
+			},
+			LocalUserId = "123456",
+		}
 
 	it("SHOULD have the expected fields", function()
 		local mockOldProps = {

@@ -15,6 +15,8 @@ InviteToGameAnalytics.__index = InviteToGameAnalytics
 InviteToGameAnalytics.ButtonName = {
 	SettingsHub = "settingsHub",
 	ModalPrompt = "modalPrompt",
+	InviteFriend = "inviteFriend",
+	CancelInvite = "cancelInvite",
 }
 
 InviteToGameAnalytics.EventName = {
@@ -22,6 +24,14 @@ InviteToGameAnalytics.EventName = {
 	EntryPoint = "inputShareGameEntryPoint",
 	LinkGenerated = "linkGenerated",
 	ShareButtonClick = "buttonClick",
+	InvitePromptShown = "invitePromptShown",
+	InvitePromptFailed = "invitePromptFailed",
+	InvitePromptAction = "invitePromptAction",
+}
+
+InviteToGameAnalytics.EventFieldName = {
+	CustomText = "customText",
+	DefaultText = "defaultText",
 }
 
 InviteToGameAnalytics.DiagCounters = {
@@ -151,6 +161,17 @@ function InviteToGameAnalytics:sendEvent(trigger, event, additionalArgs: {any}?)
 		args = Cryo.Dictionary.join(args, additionalArgs)
 	end
 	self:_getEventStream():setRBXEventStream(trigger, event.Type, args)
+end
+
+function InviteToGameAnalytics:createEventData(eventType, btn, field)
+	local eventData = {
+		Type = eventType,
+		Args = {
+			btn = btn,
+			field = field,
+		},
+	}
+	return eventData
 end
 
 function InviteToGameAnalytics:_getEventStream()

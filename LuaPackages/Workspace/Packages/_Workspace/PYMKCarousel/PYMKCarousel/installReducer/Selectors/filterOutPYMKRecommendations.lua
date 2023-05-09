@@ -8,6 +8,11 @@ local llama = dependencies.llama
 local Constants = require(PYMKCarousel.Common.Constants)
 local ModelTypes = require(PYMKCarousel.Common.ModelTypes)
 
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
+
 type RecommendationsList = {
 	[number]: ModelTypes.Recommendation,
 }
@@ -16,7 +21,13 @@ local filterOutPYMKRecommendationIds = function(recommendations: Recommendations
 	return function(state: any): RecommendationsList
 		local PYMKRecommendationIds = getDeepValue(
 			state,
-			string.format("%s.Friends.recommendations.bySource.%s", Constants.RODUX_KEY, Constants.RECS_SOURCE)
+			string.format(
+				"%s.Friends.recommendations.bySource.%s",
+				Constants.RODUX_KEY,
+				if getFFlagSocialMoveRecsSource()
+					then RecommendationSourceEnum.HomepagePYMKCarousel
+					else Constants.RECS_SOURCE
+			)
 		) or {}
 
 		return llama.List.filter(recommendations, function(recommendation)

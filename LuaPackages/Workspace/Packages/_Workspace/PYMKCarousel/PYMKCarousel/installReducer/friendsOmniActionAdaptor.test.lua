@@ -9,6 +9,10 @@ local RoduxFriends = dependencies.RoduxFriends
 local RecommendationContextType = RoduxFriends.Enums.RecommendationContextType
 local mockedAddOmniRecommendationsAction = require(PYMKCarousel.TestHelpers.mockedAddOmniRecommendationsAction)
 local Constants = require(PYMKCarousel.Common.Constants)
+local SocialCommon = dependencies.SocialCommon
+local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
+
+local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
 
 local friendsOmniActionAdaptor = require(script.Parent.friendsOmniActionAdaptor)
 
@@ -41,7 +45,9 @@ describe("friendsOmniActionAdaptor.AddOmniRecommendations", function()
 				type = RoduxFriends.Actions.RecommendationSourceCreated.name,
 				payload = {
 					recommendationIds = {},
-					source = Constants.RECS_SOURCE,
+					source = if getFFlagSocialMoveRecsSource()
+						then RecommendationSourceEnum.HomepagePYMKCarousel
+						else Constants.RECS_SOURCE,
 				},
 			},
 		})
@@ -102,7 +108,9 @@ describe("friendsOmniActionAdaptor.AddOmniRecommendations", function()
 					type = RoduxFriends.Actions.RecommendationSourceCreated.name,
 					payload = {
 						recommendationIds = { "RecommendedFriend3", "RecommendedFriend2", "RecommendedFriend1" },
-						source = Constants.RECS_SOURCE,
+						source = if getFFlagSocialMoveRecsSource()
+							then RecommendationSourceEnum.HomepagePYMKCarousel
+							else Constants.RECS_SOURCE,
 					},
 				} :: any,
 				expectedFriendsActions[3],
@@ -123,7 +131,9 @@ describe("friendsOmniActionAdaptor.AddOmniRecommendations", function()
 				type = RoduxFriends.Actions.RecommendationSourceCreated.name,
 				payload = {
 					recommendationIds = {},
-					source = Constants.RECS_SOURCE,
+					source = if getFFlagSocialMoveRecsSource()
+						then RecommendationSourceEnum.HomepagePYMKCarousel
+						else Constants.RECS_SOURCE,
 				},
 			},
 		})
@@ -142,7 +152,9 @@ describe("friendsOmniActionAdaptor.AddOmniRecommendations", function()
 					type = RoduxFriends.Actions.RecommendationSourceCreated.name,
 					payload = {
 						recommendationIds = { "RecommendedFriend3", "RecommendedFriend2", "RecommendedFriend1" },
-						source = Constants.RECS_SOURCE,
+						source = if getFFlagSocialMoveRecsSource()
+							then RecommendationSourceEnum.HomepagePYMKCarousel
+							else Constants.RECS_SOURCE,
 					},
 				},
 			})

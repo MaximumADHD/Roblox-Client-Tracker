@@ -21,7 +21,6 @@ local PresenceModel = dependencies.RoduxPresence.Models.Presence
 local RecommendationModel = dependencies.RoduxFriends.Models.Recommendation
 
 local getFFlagFriendsCarouselDontUseIngestService = dependencies.getFFlagFriendsCarouselDontUseIngestService
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 
 local CarouselContainer = Roact.PureComponent:extend("CarouselContainer")
 
@@ -87,6 +86,7 @@ CarouselContainer.validateProps = t.strictInterface({
 	navigateFromAddFriends = t.callback,
 	showNewAddFriendsUIVariant = t.optional(t.boolean),
 	showRecommendations = t.optional(t.boolean),
+	recommendationSessionId = t.optional(t.string),
 
 	navigation = t.table,
 	diagService = t.table,
@@ -248,12 +248,8 @@ function CarouselContainer:render()
 			onFindFriendsTileActivated = self.onFindFriendsTileActivated,
 			onUserTileActivated = self.onUserTileActivated,
 
-			showNewBadge = if getFFlagSocialOnboardingExperimentEnabled()
-				then props.showContactImporter and props.showNewAddFriendsUIVariant
-				else nil,
-			showNewAddFriendsUIVariant = if getFFlagSocialOnboardingExperimentEnabled()
-				then props.showNewAddFriendsUIVariant
-				else nil,
+			showNewBadge = props.showContactImporter and props.showNewAddFriendsUIVariant,
+			showNewAddFriendsUIVariant = props.showNewAddFriendsUIVariant,
 		}),
 	})
 end

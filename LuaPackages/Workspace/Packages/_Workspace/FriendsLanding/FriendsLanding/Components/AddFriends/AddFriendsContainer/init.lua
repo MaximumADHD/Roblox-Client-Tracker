@@ -28,7 +28,6 @@ local getFFlagShowContactImporterTooltipOnce = require(FriendsLanding.Flags.getF
 local ImpressionEvents = require(FriendsLanding.FriendsLandingAnalytics.ImpressionEvents)
 local contactImporterTooltip = require(FriendsLanding.Utils.contactImporterTooltip)
 local getShowNewAddFriendsPageVariant = require(FriendsLanding.Utils.getShowNewAddFriendsPageVariant)
-local getAddFriendsPagePYMKVariant = require(FriendsLanding.Utils.getAddFriendsPagePYMKVariant)
 local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
 local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
 local ProfileQRCodeExperiments = require(Packages.ProfileQRCode).Experiments
@@ -37,7 +36,6 @@ local getFFlagProfileQRCodeEnable3DAvatarExperiment =
 	ProfileQRCodeExperiments.getFFlagProfileQRCodeEnable3DAvatarExperiment
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
 local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
-local getFFlagSocialOnboardingExperimentEnabled = dependencies.getFFlagSocialOnboardingExperimentEnabled
 local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
@@ -196,15 +194,33 @@ function AddFriendsContainer:init()
 		iconImage = Images["icons/actions/reject"],
 	})
 
-	self.handleRequestFriendship = withToast(function(_, playerId, sourceType)
-		self.contactImporterWarningSeen()
+	self.handleRequestFriendship = if getFFlagAddFriendsPYMKExperimentEnabled()
+		then withToast(function(_, playerId, sourceType)
+			self.contactImporterWarningSeen()
+			-- TODO SOCGRAPH-810: button pressed analytics
 
-		return self.props.requestFriendship({
-			currentUserId = self.props.localUserId,
-			targetUserId = playerId,
-			friendshipOriginSourceType = sourceType,
+			return self.props
+				.requestFriendship({
+					currentUserId = self.props.localUserId,
+					targetUserId = playerId,
+					friendshipOriginSourceType = sourceType,
+				})
+				:andThen(function()
+					self.props.getFriendRequestsCount(self.props.localUserId)
+				end)
+		end, {
+			toastTitle = self.props.localized.requestSentText,
+			iconImage = Images["icons/actions/friends/friendAdd"],
 		})
-	end)
+		else withToast(function(_, playerId, sourceType)
+			self.contactImporterWarningSeen()
+
+			return self.props.requestFriendship({
+				currentUserId = self.props.localUserId,
+				targetUserId = playerId,
+				friendshipOriginSourceType = sourceType,
+			})
+		end)
 
 	self.getNextVisibleRows = function(prevState, props, friendsPerRow)
 		self.contactImporterWarningSeen()
@@ -277,7 +293,7 @@ function AddFriendsContainer:init()
 		end)
 	end
 
-	self.handleNavigateDownToViewUserProfile = function(userId)
+	self.handleNavigateDownToViewUserProfile = function(userId, navParams: any?)
 		self.contactImporterWarningSeen()
 
 		local navigateToLuaAppPages = self.props.navigateToLuaAppPages
@@ -290,7 +306,11 @@ function AddFriendsContainer:init()
 				page = "playerProfile",
 			})
 			self.props.analytics:navigate("ViewUserProfileAddFriends")
-			navigateToLuaAppPages[EnumScreens.ViewUserProfile](userId, {})
+			if getFFlagAddFriendsPYMKExperimentEnabled() then
+				navigateToLuaAppPages[EnumScreens.ViewUserProfile](userId, navParams)
+			else
+				navigateToLuaAppPages[EnumScreens.ViewUserProfile](userId, {})
+			end
 		end
 	end
 
@@ -350,9 +370,7 @@ end
 function AddFriendsContainer:render()
 	local contactImporterAndPYMKEnabled = self.props.contactImporterAndPYMKEnabled
 	local addFriendsPageSearchbarEnabled = self.props.addFriendsPageSearchbarEnabled
-	local showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
-		then self.props.showNewAddFriendsPageVariant
-		else nil
+	local showNewAddFriendsPageVariant = self.props.showNewAddFriendsPageVariant
 	local friendRecommendationsCount = if getFFlagAddFriendsPYMKExperimentEnabled()
 		then self.props.friendRecommendations and #self.props.friendRecommendations or 0
 		else nil
@@ -405,9 +423,7 @@ function AddFriendsContainer:render()
 		addFriendsPageSearchbarEnabled = addFriendsPageSearchbarEnabled,
 		fireSearchbarPressedEvent = self.fireSearchbarPressedEvent,
 		openProfilePeekView = self.props.openProfilePeekView,
-		showNewAddFriendsPageVariant = if getFFlagSocialOnboardingExperimentEnabled()
-			then showNewAddFriendsPageVariant
-			else nil,
+		showNewAddFriendsPageVariant = showNewAddFriendsPageVariant,
 		fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics()
 			then self.fireProfileQRCodeBannerSeenEvent
 			else nil,
@@ -442,28 +458,20 @@ AddFriendsContainer = compose(
 		getFStringSocialAddFriendsPageLayer(),
 	}, function(layerVariables, props)
 		local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
-		local shouldShowPYMKSection, initialRequestsRows
-		if getFFlagAddFriendsPYMKExperimentEnabled() then
-			shouldShowPYMKSection, initialRequestsRows = getAddFriendsPagePYMKVariant(socialAddFriendsPageLayer)
-		end
 		return {
 			addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
-			shouldShowPYMKSection = if getFFlagAddFriendsPYMKExperimentEnabled() then shouldShowPYMKSection else nil,
-			initialRequestsRows = if getFFlagAddFriendsPYMKExperimentEnabled() then initialRequestsRows else nil,
 		}
 	end)
 )(AddFriendsContainer)
 
-if getFFlagSocialOnboardingExperimentEnabled() then
-	AddFriendsContainer = compose(RoactAppExperiment.connectUserLayer({
-		getFStringSocialFriendsLayer(),
-	}, function(layerVariables, props)
-		local socialFriendsLayer = layerVariables[getFStringSocialFriendsLayer()] or {}
-		local showNewAddFriendsPageVariant = getShowNewAddFriendsPageVariant(socialFriendsLayer)
-		return {
-			showNewAddFriendsPageVariant = showNewAddFriendsPageVariant,
-		}
-	end))(AddFriendsContainer)
-end
+AddFriendsContainer = compose(RoactAppExperiment.connectUserLayer({
+	getFStringSocialFriendsLayer(),
+}, function(layerVariables, props)
+	local socialFriendsLayer = layerVariables[getFStringSocialFriendsLayer()] or {}
+	local showNewAddFriendsPageVariant = getShowNewAddFriendsPageVariant(socialFriendsLayer)
+	return {
+		showNewAddFriendsPageVariant = showNewAddFriendsPageVariant,
+	}
+end))(AddFriendsContainer)
 
 return AddFriendsContainer

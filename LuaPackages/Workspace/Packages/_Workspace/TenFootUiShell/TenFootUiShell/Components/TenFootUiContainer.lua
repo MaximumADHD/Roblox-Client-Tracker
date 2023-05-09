@@ -15,6 +15,7 @@ local GlobalNavContainer = TenFootUiGlobalNav.GlobalNavContainer
 local SceneManagement = require(Packages.SceneManagement)
 local SurfaceGuiWithAdornee = SceneManagement.SurfaceGuiWithAdornee
 local calculateTopBarAdorneeProps = SceneManagement.calculateAdorneeProps.calculateTopBarAdorneeProps
+local calculateControllerBarAdorneeProps = SceneManagement.calculateAdorneeProps.calculateControllerBarAdorneeProps
 local RnConstants = require(TenFootUiShell.ReactNavigationExtend.Views.Constants)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local TenFootUiContext = TenFootUiCommon.TenFootUiContext
@@ -27,7 +28,7 @@ local useDeRegisterFocusNavigableSurface =
 	require(TenFootUiShell.Hooks.FocusNavigableSurfaceRegistry).useDeRegisterFocusNavigableSurface
 local FocusNavigableSurfaceIdentifierEnum = require(TenFootUiShell.Types.FocusNavigableSurfaceIdentifierEnum)
 local useRootFocusNavigationBindings = require(TenFootUiShell.Hooks.useRootFocusNavigationBindings)
-
+local ControllerBarContainer = require(Packages.TenFootUiControllerBar).ControllerBarContainer
 type TenFootUiContext = TenFootUiCommon.TenFootUiContext
 type TenFootUiRouterConfig = TenFootUiCommon.TenFootUiRouterConfig
 
@@ -65,7 +66,7 @@ type GlobalNavBarSurfaceProps = {
 }
 
 --[[
-	TODO: This should be moved into a TenFootUiLayout component when we're ready
+	TODO (CLIXBOX-2718): This should be moved into a TenFootUiLayout component when we're ready
 	to refactor.
 ]]
 local function GlobalNavBarSurface(props: GlobalNavBarSurfaceProps)
@@ -103,6 +104,25 @@ local function GlobalNavBarSurface(props: GlobalNavBarSurfaceProps)
 	})
 end
 
+--[[
+	TODO (CLIXBOX-2718): This should be moved into a TenFootUiLayout component when we're ready
+	to refactor.
+]]
+local function ControllerBarSurface(props: GlobalNavBarSurfaceProps)
+	return React.createElement(SurfaceGuiWithAdornee, {
+		adorneeSize = props.adorneeSize,
+		adorneeCFrame = props.adorneeCFrame,
+		canvasSize = RnConstants.CONTROLLER_BAR_CANVAS_SIZE,
+		alwaysOnTop = true,
+		isVisible = true,
+		name = "ControllerbarSurface",
+		adorneeParent = props.adorneeParent,
+		surfaceGuiParent = props.surfaceGuiParent,
+		adorneeAnchored = true,
+		surfaceGuiChildren = React.createElement(ControllerBarContainer),
+	})
+end
+
 local function createAppContainer(routerConfig: TenFootUiRouterConfig)
 	local surfaceGuiContainer = getOrCreateSurfaceGuiContainer()
 	local workspaceContainer = getOrCreateWorkSpaceContainer()
@@ -117,6 +137,11 @@ local function createAppContainer(routerConfig: TenFootUiRouterConfig)
 
 	local topBarDims: Vector3, topBarCframe: CFrame =
 		calculateTopBarAdorneeProps(RnConstants.TOP_BAR_HEIGHT_RATIO, RnConstants.DEFAULT_SCREEN_DISTANCE_TO_CAMERA)
+
+	local controllerBarDims: Vector3, controllerBarCframe: CFrame = calculateControllerBarAdorneeProps(
+		RnConstants.CONTROLLER_BAR_HEIGHT_RATIO,
+		RnConstants.DEFAULT_SCREEN_DISTANCE_TO_CAMERA - 1
+	)
 
 	local TenFootUiRootNavigator = React.Component:extend("TenFootUiRootNavigator")
 	TenFootUiRootNavigator.router = InnerNavigator.router
@@ -133,6 +158,12 @@ local function createAppContainer(routerConfig: TenFootUiRouterConfig)
 			}),
 			React.createElement(InnerNavigator, {
 				navigation = self.props.navigation,
+			}),
+			React.createElement(ControllerBarSurface, {
+				adorneeSize = controllerBarDims,
+				adorneeCFrame = controllerBarCframe,
+				adorneeParent = workspaceContainer,
+				surfaceGuiParent = surfaceGuiContainer,
 			})
 		)
 	end
