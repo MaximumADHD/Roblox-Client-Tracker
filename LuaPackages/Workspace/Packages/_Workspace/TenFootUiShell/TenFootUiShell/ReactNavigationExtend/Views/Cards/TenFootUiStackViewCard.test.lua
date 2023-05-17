@@ -12,6 +12,7 @@ local expect = JestGlobals.expect
 local TenFootUiScene = require(TenFootUiShell.Hooks.TenFootUiScene)
 local TenFootUiStackViewCard = require(script.Parent.TenFootUiStackViewCard)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
 
 type ScreenKind = TenFootUiCommon.ScreenKind
@@ -32,7 +33,7 @@ local testState = {
 	key = testKey,
 }
 
-local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, "Default")
+local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, ScreenKind.Default)
 
 beforeEach(function()
 	local backgroundModel = Instance.new("Model")
@@ -46,9 +47,10 @@ it("should create constraint when adornee parent is a part", function()
 	local testAdorneeParent = Instance.new("Part")
 	local testSurfaceGuiParent = Instance.new("Folder")
 
-	local testIsVisible = false
 	local testProps: Props = {
-		isVisible = testIsVisible,
+		isVisible = true,
+		isFocusable = true,
+		isScreenAboveOverlay = false,
 		viewState = "Opened",
 		descriptor = testDescriptor,
 		adorneeParent = testAdorneeParent,
@@ -57,9 +59,13 @@ it("should create constraint when adornee parent is a part", function()
 		setOpened = function() end,
 		setClosed = function() end,
 	}
-	local TenFootUiStackViewCardWithTenFootUiTestHarness = createTenFootUiShellTestHarness(TenFootUiStackViewCard)
+	local TenFootUiStackViewCardWithTenFootUiTestHarness = createTenFootUiShellTestHarness()
 
-	local element = React.createElement(TenFootUiStackViewCardWithTenFootUiTestHarness, testProps)
+	local element = React.createElement(
+		TenFootUiStackViewCardWithTenFootUiTestHarness,
+		nil,
+		React.createElement(TenFootUiStackViewCard, testProps)
+	)
 
 	local root = ReactRoblox.createRoot(Instance.new("Folder"))
 	ReactRoblox.act(function()
@@ -84,9 +90,10 @@ it("should not create constraint when adornee parent is a part", function()
 	local testAdorneeParent = Instance.new("Folder")
 	local testSurfaceGuiParent = Instance.new("Folder")
 
-	local testIsVisible = false
 	local testProps: Props = {
-		isVisible = testIsVisible,
+		isVisible = true,
+		isFocusable = true,
+		isScreenAboveOverlay = false,
 		viewState = "Opened",
 		descriptor = testDescriptor,
 		adorneeParent = testAdorneeParent,
@@ -95,9 +102,13 @@ it("should not create constraint when adornee parent is a part", function()
 		setOpened = function() end,
 		setClosed = function() end,
 	}
-	local TenFootUiStackViewCardWithTenFootUiTestHarness = createTenFootUiShellTestHarness(TenFootUiStackViewCard)
+	local TenFootUiStackViewCardWithTenFootUiTestHarness = createTenFootUiShellTestHarness()
 
-	local element = React.createElement(TenFootUiStackViewCardWithTenFootUiTestHarness, testProps)
+	local element = React.createElement(
+		TenFootUiStackViewCardWithTenFootUiTestHarness,
+		nil,
+		React.createElement(TenFootUiStackViewCard, testProps)
+	)
 
 	local root = ReactRoblox.createRoot(Instance.new("Folder"))
 	ReactRoblox.act(function()

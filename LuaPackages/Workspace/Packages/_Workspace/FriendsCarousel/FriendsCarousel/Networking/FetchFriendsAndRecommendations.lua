@@ -18,7 +18,6 @@ local SocialCommon = dependencies.SocialCommon
 local RecommendationSourceEnum = SocialCommon.Enums.RecommendationSourceEnum
 
 local getFFlagSocialMoveRecsSource = dependencies.getFFlagSocialMoveRecsSource
-local getFFlagProfileAliasEnabled = dependencies.getFFlagProfileAliasEnabled
 local isSubjectToDesktopPolicies = dependencies.isSubjectToDesktopPolicies
 local getFFlagFriendsCarouselRemoveRecsAdaptors =
 	require(FriendsCarousel.Flags.getFFlagFriendsCarouselRemoveRecsAdaptors)
@@ -51,21 +50,19 @@ return function(config: Config?): any
 				local friends = result.responseBody.data
 				local friendsCount = friends and #friends or 0
 				refreshCount = if config and config.refresh then refreshCount + 1 else refreshCount
-				if getFFlagProfileAliasEnabled() then
-					local friendIds = if friends
-						then Dash.map(friends, function(friend)
-							return friend.id
-						end)
-						else {}
-					store
-						:dispatch(NetworkingAliases.GetTagsFromUserIds.API(friendIds))
-						:andThen(function()
-							return Promise.resolve()
-						end)
-						:catch(function()
-							return Promise.reject()
-						end)
-				end
+				local friendIds = if friends
+					then Dash.map(friends, function(friend)
+						return friend.id
+					end)
+					else {}
+				store
+					:dispatch(NetworkingAliases.GetTagsFromUserIds.API(friendIds))
+					:andThen(function()
+						return Promise.resolve()
+					end)
+					:catch(function()
+						return Promise.reject()
+					end)
 
 				if shouldFetchRecommendations(friendsCount) then
 					store

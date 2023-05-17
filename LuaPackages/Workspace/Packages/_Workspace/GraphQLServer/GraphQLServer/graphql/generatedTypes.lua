@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/d7e561ace0/generatedTypes.ts
+-- ROBLOX upstream: https://github.com/Roblox/lua-apps/blob/59275587bd/generatedTypes.ts
 local Packages = script:FindFirstAncestor("GraphQLServer").Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 type Array<T> = LuauPolyfill.Array<T>
@@ -126,6 +126,14 @@ export type MutualFriend = User & {
 	id: typeof((({} :: any) :: Scalars).ID),
 	username: typeof((({} :: any) :: Scalars).String),
 }
+export type Names = {
+	__typename: "Names"?,
+	alias: Maybe<typeof((({} :: any) :: Scalars).String)>?,
+	combinedName: Maybe<typeof((({} :: any) :: Scalars).String)>?,
+	contactName: Maybe<typeof((({} :: any) :: Scalars).String)>?,
+	displayName: Maybe<typeof((({} :: any) :: Scalars).String)>?,
+	username: Maybe<typeof((({} :: any) :: Scalars).String)>?,
+}
 export type OmniFeed = {
 	__typename: "OmniFeed"?,
 	isSessionExpired: Maybe<typeof((({} :: any) :: Scalars).Boolean)>?,
@@ -195,9 +203,11 @@ export type Query = {
 	profilesInsightsByUserIds: Maybe<Array<Maybe<ProfileInsights>>>?,
 	refreshOmniFeedItem: Maybe<OmniFeedItemWithMetadata>?,
 	user: User,
+	userProfiles: Array<Maybe<UserProfile>>,
 	virtualEvent: Maybe<VirtualEvent>?,
 	virtualEventsByUniverseId: Maybe<VirtualEventsPage>?,
 }
+
 export type QueryExperienceThumbnailsArgs = {
 	universeIds: Array<typeof((({} :: any) :: Scalars).String)>,
 }
@@ -223,6 +233,9 @@ export type QueryRefreshOmniFeedItemArgs = {
 	topicId: typeof((({} :: any) :: Scalars).String),
 }
 export type QueryUserArgs = { id: typeof((({} :: any) :: Scalars).ID) }
+export type QueryUserProfilesArgs = {
+	userIds: Array<InputMaybe<typeof((({} :: any) :: Scalars).String)>>,
+}
 export type QueryVirtualEventArgs = { id: typeof((({} :: any) :: Scalars).ID) }
 export type QueryVirtualEventsByUniverseIdArgs = {
 	options: InputMaybe<VirtualEventsByUniverseIdOptions>?,
@@ -253,6 +266,12 @@ exports.RsvpStatus = RsvpStatus
 export type User = {
 	displayName: typeof((({} :: any) :: Scalars).String),
 	id: typeof((({} :: any) :: Scalars).ID),
+}
+export type UserProfile = User & {
+	__typename: "UserProfile"?,
+	displayName: typeof((({} :: any) :: Scalars).String),
+	id: typeof((({} :: any) :: Scalars).ID),
+	names: Maybe<Names>?,
 }
 export type VirtualEvent = {
 	__typename: "VirtualEvent"?,

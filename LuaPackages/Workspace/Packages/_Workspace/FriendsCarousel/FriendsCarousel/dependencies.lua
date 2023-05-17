@@ -103,7 +103,7 @@ return {
 	RoduxFriends = LuaSocialLibrariesDeps.RoduxFriends.config({
 		keyPath = RODUX_KEY .. ".Friends",
 	}),
-	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence_v3.config({
+	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence.config({
 		keyPath = RODUX_KEY .. ".Presence",
 	}),
 	RoduxUserPermissions = LuaSocialLibrariesDeps.RoduxUserPermissions.config({
@@ -137,11 +137,9 @@ return {
 	-- end TODO SOCGRAPH-619
 
 	getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer,
-	getFFlagProfileAliasEnabled = require(Packages.SharedFlags).getFFlagProfileAliasEnabled,
 
 	getFFlagFriendsCarouselDontUseIngestService = getFFlagFriendsCarouselDontUseIngestService,
 
 	isSubjectToDesktopPolicies = require(Packages.SharedFlags).isSubjectToDesktopPolicies,
-	GetFFlagLuaAppFriendsCarouselExperimentCleanup = require(Packages.SharedFlags).GetFFlagLuaAppFriendsCarouselExperimentCleanup,
 	getFFlagSocialMoveRecsSource = require(Packages.SharedFlags).getFFlagSocialMoveRecsSource,
 }

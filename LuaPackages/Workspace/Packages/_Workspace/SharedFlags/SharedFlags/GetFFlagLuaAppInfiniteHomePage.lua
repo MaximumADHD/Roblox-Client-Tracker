@@ -1,5 +1,5 @@
-game:DefineFastFlag("LuaAppInfiniteHomePage2", false)
+game:DefineFastFlag("LuaAppInfiniteHomePage3", false)
 
 return function()
-	return game:GetFastFlag("LuaAppInfiniteHomePage2")
+	return game:GetFastFlag("LuaAppInfiniteHomePage3")
 end

@@ -19,7 +19,6 @@ local Images = UIBlox.App.ImageSet.Images
 local SocialCommon = require(Packages.SocialCommon)
 local useMutualFriendsText = SocialCommon.Hooks.useMutualFriendsText
 
-local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
 local getFFlagMoveMutualFriendsTextToUtils = require(Packages.SharedFlags).getFFlagMoveMutualFriendsTextToUtils
 
 local ICON_FRIEND = Images["icons/status/player/friend"]
@@ -57,12 +56,7 @@ local useContextualInfo = function(args: {
 	local localized = useLocalization({
 		youAreFriends = "Feature.PlayerSearchResults.Label.YouAreFriends",
 		youAreFollowing = "Feature.PlayerSearchResults.Label.YouAreFollowing",
-		alsoKnownAs = if getFFlagUserSearchContextualInfoUpdateUI()
-			then nil
-			else "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation",
-		previously = if getFFlagUserSearchContextualInfoUpdateUI()
-			then "Feature.PlayerSearchResults.Label.Previously"
-			else nil,
+		previously = "Feature.PlayerSearchResults.Label.Previously",
 		thisIsYou = "Feature.PlayerSearchResults.Label.ThisIsYou",
 		frequents = "Feature.Friends.Label.Frequent",
 		mutualFriendSingular = if getFFlagMoveMutualFriendsTextToUtils()
@@ -83,13 +77,8 @@ local useContextualInfo = function(args: {
 	end
 
 	if isKnownAs(args.previousUsernames, args.searchKeyword) then
-		if getFFlagUserSearchContextualInfoUpdateUI() then
-			return { text = localized.previously .. " @" .. args.searchKeyword },
-				ContextualInfoTypes.PreviousUsername.rawValue()
-		else
-			return { text = localized.alsoKnownAs .. " " .. args.searchKeyword },
-				ContextualInfoTypes.PreviousUsername.rawValue()
-		end
+		return { text = localized.previously .. " @" .. args.searchKeyword },
+			ContextualInfoTypes.PreviousUsername.rawValue()
 	end
 
 	if relationship.status == Enum.FriendStatus.Friend then

@@ -6,20 +6,16 @@ local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local TenFootUiContext = TenFootUiCommon.TenFootUiContext
 local AppNotificationService = require(Packages.RoactServiceTags).AppNotificationService
 local LocalizationRoactContext = require(Packages.Localization).LocalizationRoactContext
-local useNavigation = require(Packages.RoactUtils).Hooks.useNavigation
 local makeGlobalNavAnalytics = require(Root.Analytics.makeGlobalNavAnalytics)
-local GlobalNav = require(Root.Components.GlobalNav)
+local GlobalNavDisplayOption = TenFootUiCommon.TenFootUiRNTypes.GlobalNavDisplayOption
 
-type GlobalNavItem = TenFootUiCommon.GlobalNavItem
-type GlobalNavConfig = TenFootUiCommon.GlobalNavConfig
-
-local function useGlobalNavProps(): GlobalNav.Props
+local function useGlobalNavProps(navigation, displayOption)
 	local tenFootUiContext = React.useContext(TenFootUiContext)
 
 	assert(tenFootUiContext, "TenFootUiContext must be configured before using GlobalNav")
 
 	local localization: any = React.useContext(LocalizationRoactContext)
-	local navigation = useNavigation()
+
 	local notificationService = tenFootUiContext.useRoactService(AppNotificationService)
 	local analytics = tenFootUiContext.useRoactService(tenFootUiContext.RoactAnalytics)
 	local globalNavAnalytics = makeGlobalNavAnalytics(analytics, tenFootUiContext.buttonClick)
@@ -46,35 +42,42 @@ local function useGlobalNavProps(): GlobalNav.Props
 		globalNavAnalytics.ButtonActivated(page, currentRouteName)
 	end
 
-	local tabGroupItems = Cryo.List.map(globalNavConfig.tabs, function(tab)
-		return {
-			title = localization:Format(tab.titleLocalizationKey),
-			icon = tab.icon,
-			iconComponent = tab.iconComponent,
-			onActivated = function()
-				navigate(tab)
-			end,
-			showRoundedBackground = currentRouteName == tab.page,
-		}
-	end)
-
-	local optionGroupItems = Cryo.List.map(globalNavConfig.options, function(option)
-		return {
-			label = localization:Format(option.titleLocalizationKey),
-			icon = option.iconComponent or option.icon,
-			onActivated = function()
-				navigate(option)
-			end,
-		}
-	end)
-
-	return {
+	local tabGroupProps, optionGroupProps
+	if displayOption == GlobalNavDisplayOption.ShowAll or displayOption == GlobalNavDisplayOption.TabGroupOnly then
+		local tabGroupItems = Cryo.List.map(globalNavConfig.tabs, function(tab)
+			return {
+				title = localization:Format(tab.titleLocalizationKey),
+				icon = tab.icon,
+				iconComponent = tab.iconComponent,
+				onActivated = function()
+					navigate(tab)
+				end,
+				showRoundedBackground = currentRouteName == tab.page,
+			}
+		end)
 		tabGroupProps = {
 			items = tabGroupItems,
-		},
+		}
+	end
+
+	if displayOption == GlobalNavDisplayOption.ShowAll or displayOption == GlobalNavDisplayOption.OptionGroupOnly then
+		local optionGroupItems = Cryo.List.map(globalNavConfig.options, function(option)
+			return {
+				label = localization:Format(option.titleLocalizationKey),
+				icon = option.iconComponent or option.icon,
+				onActivated = function()
+					navigate(option)
+				end,
+			}
+		end)
 		optionGroupProps = {
 			items = optionGroupItems,
-		},
+		}
+	end
+
+	return {
+		tabGroupProps = tabGroupProps,
+		optionGroupProps = optionGroupProps,
 	}
 end
 

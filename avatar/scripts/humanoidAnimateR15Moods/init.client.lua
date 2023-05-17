@@ -1,9 +1,22 @@
+-- humanoidAnimateR15Moods.lua
+
 local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 local pose = "Standing"
 
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
+
+local userAnimateScaleRunSuccess, userAnimateScaleRunValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimateScaleRun") end)
+local userAnimateScaleRun = userAnimateScaleRunSuccess and userAnimateScaleRunValue
+
+local function getRigScale()
+	if userAnimateScaleRun then
+		return Character:GetScale()
+	else
+		return 1
+	end
+end
 
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 local HumanoidHipHeight = 2
@@ -328,7 +341,9 @@ end
 function getHeightScale()
 	if Humanoid then
 		if not Humanoid.AutomaticScalingEnabled then
-			return 1
+			-- When auto scaling is not enabled, the rig scale stands in for
+			-- a computed scale.
+			return getRigScale()
 		end
 		
 		local scale = Humanoid.HipHeight / HumanoidHipHeight
@@ -340,7 +355,7 @@ function getHeightScale()
 		end
 		return scale
 	end	
-	return 1
+	return getRigScale()
 end
 
 local function rootMotionCompensation(speed)
@@ -567,9 +582,11 @@ end
 -- STATE CHANGE HANDLERS
 
 function onRunning(speed)
+	local heightScale = if userAnimateScaleRun then getHeightScale() else 1
+	
 	local movedDuringEmote = currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
-	local speedThreshold = movedDuringEmote and Humanoid.WalkSpeed or 0.75
-	if speed > speedThreshold then
+	local speedThreshold = movedDuringEmote and (Humanoid.WalkSpeed / heightScale) or 0.75
+	if speed > speedThreshold * heightScale then
 		local scale = 16.0
 		playAnimation("walk", 0.2, Humanoid)
 		setAnimationSpeed(speed / scale)
@@ -593,6 +610,9 @@ function onJumping()
 end
 
 function onClimbing(speed)
+	if userAnimateScaleRun then
+		speed /= getHeightScale()
+	end
 	local scale = 5.0
 	playAnimation("climb", 0.1, Humanoid)
 	setAnimationSpeed(speed / scale)
@@ -626,6 +646,9 @@ end
 -------------------------------------------------------------------------------------------
 
 function onSwimming(speed)
+	if userAnimateScaleRun then
+		speed /= getHeightScale()
+	end
 	if speed > 1.00 then
 		local scale = 10.0
 		playAnimation("swim", 0.4, Humanoid)

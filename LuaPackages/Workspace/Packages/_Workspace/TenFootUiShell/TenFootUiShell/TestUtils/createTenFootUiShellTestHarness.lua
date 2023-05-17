@@ -21,32 +21,22 @@ local function createDefaultFocusNavigationService()
 	return FocusNavigationService.new(mockInterface)
 end
 
-local function createTenFootUiTestHarness<T>(
-	TestSubject: any, -- LUAU FIXME: this can take any function, but it throws with React Abstract Components (forwardRef)
-	focusNavigationService,
-	mockProvidersConfig
-)
+local function createTenFootUiShellTestHarness<T>(focusNavigationService, mockProvidersConfig)
 	local providers, nestedMocks = mocks.makeMockProviders(mockProvidersConfig)
 	local providerSpecs = mapProviderListToSpecs(providers)
 
-	return React.forwardRef(function(testSubjectProps: T, ref: React.Ref<any>)
-		local props = table.clone(testSubjectProps :: any or {})
-		props.ref = ref
+	return React.forwardRef(function(props: { [string]: any }, ref: React.Ref<any>)
 		return React.createElement(
 			ReactFocusNavigation.FocusNavigationContext.Provider,
 			{ value = focusNavigationService or createDefaultFocusNavigationService() },
 			React.createElement(
 				ProviderContainer,
 				{ providers = providerSpecs },
-				React.createElement(
-					FocusNavigableSurfaceRegistryProvider,
-					nil,
-					React.createElement(TestSubject, props :: any)
-				)
+				React.createElement(FocusNavigableSurfaceRegistryProvider, nil, props.children)
 			)
 		)
 	end),
 		nestedMocks
 end
 
-return createTenFootUiTestHarness
+return createTenFootUiShellTestHarness

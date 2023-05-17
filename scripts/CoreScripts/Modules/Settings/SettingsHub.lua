@@ -20,6 +20,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local Roact = require(CorePackages.Roact)
+local Cryo = require(CorePackages.Cryo)
 local Otter = require(CorePackages.Otter)
 
 --[[ UTILITIES ]]
@@ -38,7 +39,7 @@ local Theme = require(script.Parent.Theme)
 local SETTINGS_SHIELD_COLOR = Theme.color("SETTINGS_SHIELD", Color3.new(41/255,41/255,41/255))
 local SETTINGS_SHIELD_TRANSPARENCY = Theme.transparency("SETTINGS_SHIELD_TRANSPARENCY", 0.2)
 local SETTINGS_SHIELD_VR_TRANSPARENCY = 1
-local SETTINGS_SHIELD_INACTIVE_POSITION = UDim2.new(0,0,-1,-36)
+local SETTINGS_SHIELD_INACTIVE_POSITION = Theme.SHIELD_INACTIVE_POSITION
 local SETTINGS_BASE_ZINDEX = 2
 local DEV_CONSOLE_ACTION_NAME = "Open Dev Console"
 local QUICK_PROFILER_ACTION_NAME = "Show Quick Profiler"
@@ -65,11 +66,13 @@ local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFF
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
+local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
 local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
 local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
 local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
+local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
 local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGamePageNullCheckEnabled)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
@@ -231,6 +234,7 @@ local function CreateSettingsHub()
 	this.MenuStack = {}
 	this.TabHeaders = {}
 	this.BottomBarButtons = {}
+	this.BottomBarButtonsComponents = {}
 	this.ResizedConnection = nil
 	if GetFFlagEnableTeleportBackButton() then
 		this.BackBarVisibleConnection = nil
@@ -282,7 +286,7 @@ local function CreateSettingsHub()
 		whichPage = whichPage or this.Pages.CurrentPage
 
 		if utility:IsPortrait() or utility:IsSmallTouchScreen() then
-			return false
+			return Theme.AlwaysShowBottomBar()
 		end
 
 		return whichPage.ShouldShowBottomBar == true
@@ -354,8 +358,19 @@ local function CreateSettingsHub()
 		end
 		return image
 	end
+
+
+	local buttonHintCached = nil
 	local function updateIcon()
-		local buttonHint = this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true)
+		local buttonHint
+		if Theme.UIBloxThemeEnabled then
+			if not buttonHintCached then
+				buttonHintCached = this.BottomButtonFrame:FindFirstChild("MuteButtonButtonIcon", true)
+			end
+			buttonHint = buttonHintCached
+		else
+			buttonHint = this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true)
+		end
 		if buttonHint then
 			buttonHint.Image = pollImage()
 		end
@@ -367,17 +382,39 @@ local function CreateSettingsHub()
 			wholeButton.Visible = false
 			wholeButton:Destroy()
 		end
-		local buttonSize = if isTenFootInterface then UDim2.new(0, 320, 0, 120) else UDim2.new(0, 260, 0, 70)
+		local buttonSize = if isTenFootInterface then UDim2.new(0, 320, 0, 120) else UDim2.new(0, 260, 0, Theme.LargeButtonHeight)
 		updateButtonPosition("LeaveGame", UDim2.new(0.5, if isTenFootInterface then -160 else -130, 0.5, -25), buttonSize)
 		updateButtonPosition("ResetCharacter", UDim2.new(0.5, if isTenFootInterface then -550 else -400, 0.5, -25), buttonSize)
 		updateButtonPosition("Resume", UDim2.new(0.5, if isTenFootInterface then 200 else 140, 0.5, -25), buttonSize)
 	end
 
+
+	local IconButtonLayoutOrderCount = 0
+	local function addBottomBarIconButton(name, icon, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys)
+		local buttonName = name .. "Button"
+		local iconBtn = utility:MakeIconButton(buttonName, icon and Theme.Images[icon] or nil , text, nil, clickFunc, nil, this)
+		iconBtn.Parent = this.BottomButtonFrame
+		iconBtn.Position = position
+		iconBtn.LayoutOrder = IconButtonLayoutOrderCount
+		IconButtonLayoutOrderCount = IconButtonLayoutOrderCount + 1
+
+		local hotKeyFunc = function(contextName, inputState, inputObject)
+			if inputState == Enum.UserInputState.Begin then
+				clickFunc()
+			end
+		end
+
+		local hotKeyTable = {hotKeyFunc, hotkeys}
+		this.BottomBarButtons[#this.BottomBarButtons + 1] = {buttonName, hotKeyTable}
+		this.BottomBarButtonsComponents[#this.BottomBarButtonsComponents + 1] = iconBtn;
+	end
+
 	local function addBottomBarButtonOld(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys)
+
 		local buttonName = name .. "Button"
 		local textName = name .. "Text"
 
-		local size = UDim2.new(0,260,0,70)
+		local size = UDim2.new(0,260,0,Theme.LargeButtonHeight)
 		if isTenFootInterface then
 			size = UDim2.new(0,320,0,120)
 		end
@@ -394,17 +431,21 @@ local function CreateSettingsHub()
 		local hintLabel = nil
 
 		if not isTouchDevice then
-			if FFlagUseNotificationsLocalization then
+
+			if Theme.UIBloxThemeEnabled then
+				local hintOffset = 9 + 33
+				local rightPad = 9
+				this[textName].Size = UDim2.new(1,-(hintOffset+rightPad),1.0,0)
+				this[textName].Position = UDim2.new(1,-rightPad,0,0)
+				this[textName].AnchorPoint = Vector2.new(1,0)
+			elseif FFlagUseNotificationsLocalization then
 				this[textName].Size = UDim2.new(0.675,0,0.67,0)
 				this[textName].Position = UDim2.new(0.275,0,0.125,0)
 			else
-				if Theme.UIBloxThemeEnabled then
-					this[textName].Size = UDim2.new(0.75,-10,1.0,0)
-				else
-					this[textName].Size = UDim2.new(0.75,0,0.9,0)
-				end
+				this[textName].Size = UDim2.new(0.75,0,0.9,0)
 				this[textName].Position = UDim2.new(0.25,0,0,0)
 			end
+
 			local hintName = name .. "Hint"
 			local image = ""
 			if UserInputService:GetGamepadConnected(Enum.UserInputType.Gamepad1) or platform == Enum.Platform.XBoxOne then
@@ -422,11 +463,13 @@ local function CreateSettingsHub()
 				Parent = this[buttonName]
 			};
 
-			hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
-			hintLabel.Size = UDim2.new(0,50,0,50)
 			if Theme.UIBloxThemeEnabled then
-				hintLabel.Position = UDim2.new(0.15,0,0.5,0)
+				hintLabel.Position = UDim2.new(0,9,0.5,0)
+				hintLabel.Size = UDim2.new(0,33,0,33)
+				hintLabel.AnchorPoint = Vector2.new(0.0,0.5)
 			else
+				hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
+				hintLabel.Size = UDim2.new(0,50,0,50)
 				hintLabel.Position = UDim2.new(0.15,0,0.475,0)
 			end
 		end
@@ -558,17 +601,33 @@ local function CreateSettingsHub()
 	end
 
 	local function appendMicButton()
-		if GetFFlagMuteButtonRaceConditionFix() and this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true) then
-			return
+
+		if Theme.UIBloxThemeEnabled then
+			if GetFFlagMuteButtonRaceConditionFix() and this.BottomButtonFrame:FindFirstChild("MuteButtonButtonIcon", true) then
+				return
+			end
+		else
+			if GetFFlagMuteButtonRaceConditionFix() and this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true) then
+				return
+			end
 		end
 
-		addBottomBarButton("MuteButton", "", "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
+		if Theme.UIBloxThemeEnabled then
+			addBottomBarIconButton("MuteButton", nil, "", "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
+			pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
+			function ()
+				VoiceChatServiceManager:ToggleMic()
+			end, {})
+			updateIcon()
+		else
+			addBottomBarButton("MuteButton", "", "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
 			pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 			function ()
 				VoiceChatServiceManager:ToggleMic()
 			end, {}, UDim2.new(0,70,0,70),
 			--[[forceHintButton = ]] true
-		)
+			)
+		end
 
 		if not GetFFlagMuteButtonRaceConditionFix() then
 			VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
@@ -606,7 +665,7 @@ local function CreateSettingsHub()
 	end
 
 	local function addMuteButtonToBar()
-		local buttonSize = UDim2.new(0,235,0,70)
+		local buttonSize = UDim2.new(0,235,0,Theme.LargeButtonHeight)
 		local buttonOffset = -27.5
 		appendMicButton()
 		updateButtonPosition("LeaveGame", UDim2.new(0.5,(isTenFootInterface and -160 or -130) + buttonOffset,0.5,-25), buttonSize)
@@ -746,6 +805,7 @@ local function CreateSettingsHub()
 			LayoutOrder = -1,
 			shouldFillScreen = shouldFillScreen,
 			selfViewOpen = this.selfViewOpen,
+			useNewMenuTheme = Theme.UIBloxThemeEnabled,
 		})
 	end
 
@@ -796,7 +856,13 @@ local function CreateSettingsHub()
 			Parent = RobloxGui
 		};
 
-		this.Shield = utility:Create'Frame'
+
+		local ShieldInstanceType = "Frame"
+		if Theme.UIBloxThemeEnabled then
+			ShieldInstanceType = "ImageButton"
+		end
+
+		this.Shield = utility:Create(ShieldInstanceType)
 		{
 			Name = "SettingsShield",
 			Size = UDim2.new(1,0,1,0),
@@ -1077,6 +1143,8 @@ local function CreateSettingsHub()
 				AnalyticsService:setRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
 					defaultPlayerScripts = playerScriptStatus == "Default",
 					placeID = tostring(game.PlaceId),
+					rawValue = if GetFFlagNewEventIngestPlayerScriptsDimensions() then playerScriptStatus else nil,
+					context = if GetFFlagNewEventIngestPlayerScriptsDimensions() then "IGMv1"else nil,
 				})
 			end
 			this.OverridesPlayerScriptsLabel.Text = playerScriptsString .. playerScriptStatus
@@ -1124,15 +1192,17 @@ local function CreateSettingsHub()
 			Selectable = false
 		}
 
-		this.MenuContainer = utility:Create'Frame'
+		local menuPos = Theme.MenuContainerPosition()
+		this.MenuContainer = utility:Create(ShieldInstanceType)
 		{
 			Name = 'MenuContainer',
 			ZIndex = this.Shield.ZIndex,
 			BackgroundTransparency = Theme.transparency("MenuContainer", 1),
 			BackgroundColor3 = Theme.color("MenuContainer"),
-			Position = Theme.MenuContainerPosition.Position,
-			Size = Theme.MenuContainerPosition.Size,
-			AnchorPoint = Theme.MenuContainerPosition.AnchorPoint,
+			Position = menuPos.Position,
+			Size = menuPos.Size,
+			AnchorPoint = menuPos.AnchorPoint,
+			AutomaticSize = menuPos.AutomaticSize,
 			Parent = this.Shield
 		}
 		this.MenuContainerPadding = utility:Create'UIPadding'
@@ -1149,39 +1219,100 @@ local function CreateSettingsHub()
 			this.MenuContainerPadding.PaddingTop = UDim.new(0, paddingTop)
 		end
 
+		local menuParent = this.MenuContainer
+
 		if Theme.UIBloxThemeEnabled then
-			this.MenuContainerPadding.PaddingLeft = Theme.HubPadding.PaddingLeft
-			this.MenuContainerPadding.PaddingRight =  Theme.HubPadding.PaddingRight
-			this.MenuContainerPadding.PaddingBottom = Theme.HubPadding.PaddingBottom
-			this.MenuContainerPadding.PaddingTop = Theme.HubPadding.PaddingTop
+			local pad = Theme.HubPadding()
+			this.MenuContainer.AutoButtonColor = false
+			this.MenuContainerPadding.PaddingLeft = pad.PaddingLeft
+			this.MenuContainerPadding.PaddingRight = pad.PaddingRight
+			this.MenuContainerPadding.PaddingBottom = pad.PaddingBottom
+			this.MenuContainerPadding.PaddingTop = pad.PaddingTop
 
 			utility:Create'UICorner'
 			{
 				CornerRadius = Theme.MenuContainerCornerRadius,
 				Parent = this.MenuContainer,
 			}
+
+			if Theme.EnableVerticalBottomBar then
+
+				this.MainColumn = utility:Create'Frame'
+				{
+					Name = 'MainColumn',
+					BackgroundTransparency =1,
+					Position = menuPos.Position,
+					Size = menuPos.Size,
+					AutomaticSize =Enum.AutomaticSize.XY,
+					Parent = this.MenuContainer
+				}
+
+				menuParent = this.MainColumn
+
+				this.VerticalMenuDivider = utility:Create'Frame'
+				{
+					Name = 'VerticalMenuDivider',
+					BackgroundTransparency = Theme.transparency("Divider"),
+					BackgroundColor3 = Theme.color("Divider"),
+					Size = UDim2.new(0,1, 1, -100),
+					Visible = true,
+					Parent = this.MenuContainer
+				}
+				this.VerticalMenu = utility:Create'Frame'
+				{
+					Name = 'VerticalMenu',
+					BackgroundTransparency =1,
+					Size = UDim2.new(0, Theme.VerticalMenuWidth, 0, 100),
+					Visible = false,
+					Parent = this.MenuContainer
+				}
+				utility:Create'UIListLayout'
+				{
+					Name = "MenuListLayout",
+					Padding = UDim.new(0, 10),
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					Parent = this.VerticalMenu
+				}
+
+				this.MenuListLayout = utility:Create'UIListLayout'
+				{
+					Name = "MenuListLayout",
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Parent = this.MenuContainer
+				}
+
+			end
+
 		end
 
 		if FFlagAvatarChatCoreScriptSupport then
 			-- Create the settings buttons for audio/camera permissions.
-			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")
+			if Theme.UIBloxThemeEnabled then
+				this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.Shield, "PermissionsButtons")
+			else
+				this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")
+			end
 		end
 
 		this.MenuListLayout = utility:Create'UIListLayout'
 		{
 			Name = "MenuListLayout",
 			FillDirection = Enum.FillDirection.Vertical,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
+			VerticalAlignment = if Theme.UIBloxThemeEnabled then Enum.VerticalAlignment.Top else Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			Parent = this.MenuContainer
+			Parent = menuParent
 		}
 		this.MenuAspectRatio = utility:Create'UIAspectRatioConstraint'
 		{
 			Name = 'MenuAspectRatio',
 			AspectRatio = 800 / 600,
 			AspectType = Enum.AspectType.ScaleWithParentSize,
-			Parent = if Theme.UIBloxThemeEnabled then nil else this.MenuContainer
+			Parent = if Theme.UIBloxThemeEnabled then nil else menuParent
 		}
 
 		if Theme.UIBloxThemeEnabled then
@@ -1194,7 +1325,7 @@ local function CreateSettingsHub()
 				BorderSizePixel = 0,
 				AnchorPoint = Vector2.new(0.5, 0),
 				LayoutOrder = 0,
-				Parent = this.MenuContainer
+				Parent = menuParent
 			}
 			utility:Create'Frame'
 			{
@@ -1220,12 +1351,9 @@ local function CreateSettingsHub()
 				SliceCenter = Rect.new(4,4,6,6),
 				AnchorPoint = Vector2.new(0.5, 0),
 				LayoutOrder = 0,
-				Parent = this.MenuContainer
+				Parent = menuParent
 			}
 		end
-
-
-
 
 		this.HubBarListLayout = utility:Create'UIListLayout'
 		{
@@ -1242,7 +1370,7 @@ local function CreateSettingsHub()
 				}, {
 					Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
 			})
-			Roact.mount(this.BackBar, this.MenuContainer, "BackBar")
+			Roact.mount(this.BackBar, menuParent, "BackBar")
 		end
 
 		if utility:IsSmallTouchScreen() then
@@ -1327,7 +1455,7 @@ local function CreateSettingsHub()
 			AnchorPoint = Vector2.new(0.5, 0),
 			ClipsDescendants = true,
 			LayoutOrder = 1,
-			Parent = this.MenuContainer,
+			Parent = menuParent,
 
 			utility:Create'ImageButton'{
 				Name = 'InputCapture',
@@ -1385,8 +1513,22 @@ local function CreateSettingsHub()
 			ZIndex = this.Shield.ZIndex + 1,
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
-			Parent = this.MenuContainer
+			Parent = menuParent
 		};
+
+		if Theme.UIBloxThemeEnabled then
+			this.BottomButtonFrame.Size = UDim2.new(1,0, 0, 80)
+			this.MenuListLayout = utility:Create'UIListLayout'
+			{
+				Padding = UDim.new(0,34),
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Parent = this.BottomButtonFrame
+			}
+
+		end
 
 		local leaveGameFunc = function()
 			this:AddToMenuStack(this.Pages.CurrentPage)
@@ -1399,15 +1541,27 @@ local function CreateSettingsHub()
 			setVisibilityInternal(false)
 		end
 
+		if Theme.UIBloxThemeEnabled then
+			this.Shield.Activated:Connect(resumeFunc)
+		end
+
 		local leaveGameText = "Leave"
 		if FFlagUpdateSettingsHubGameText then
 			leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
 		end
 
-		addBottomBarButtonOld("LeaveGame", leaveGameText, "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
-			"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-			leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
-		)
+		if Theme.UIBloxThemeEnabled then
+			addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
+				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
+				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
+			)
+		else
+			addBottomBarButtonOld("LeaveGame", leaveGameText, "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
+				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
+				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
+			)
+		end
+
 
 		local resetCharFunc = function()
 			if resetEnabled then
@@ -1418,20 +1572,30 @@ local function CreateSettingsHub()
 			end
 		end
 
-		addBottomBarButtonOld("ResetCharacter", "Reset Character", "rbxasset://textures/ui/Settings/Help/YButtonLight" .. buttonImageAppend .. ".png",
-			"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
-			resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
-		)
+		if Theme.UIBloxThemeEnabled then
+			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", "Reset Character", "rbxasset://textures/ui/Settings/Help/YButtonLight" .. buttonImageAppend .. ".png",
+				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
+				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
+			)
+		else
+			addBottomBarButtonOld("ResetCharacter", "Reset Character", "rbxasset://textures/ui/Settings/Help/YButtonLight" .. buttonImageAppend .. ".png",
+				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
+				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
+			)
+		end
 
 		local resumeGameText = "Resume"
 		if FFlagUpdateSettingsHubGameText then
 			resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
 		end
 
-		addBottomBarButtonOld("Resume", resumeGameText, "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
-			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
-			resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
-		)
+		if not Theme.UIBloxThemeEnabled then
+			addBottomBarButtonOld("Resume", resumeGameText, "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
+				"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
+				resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
+			)
+		end
+
 
 
 		if Theme.UIBloxThemeEnabled or (FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies()) then
@@ -1586,6 +1750,8 @@ local function CreateSettingsHub()
 			end
 			return this.BackBarRef:getValue().Visible
 		end
+
+		local menuPos = Theme.MenuContainerPosition()
 		local largestPageSize = 600
 		local fullScreenSize = RobloxGui.AbsoluteSize.y
 		local bufferSize = (1-0.95) * fullScreenSize
@@ -1594,18 +1760,11 @@ local function CreateSettingsHub()
 		if isTenFootInterface then
 			largestPageSize = 800
 			bufferSize = 0.07 * fullScreenSize
-			this.MenuContainer.Size = UDim2.new(0.95, 0, 0.95, 0)
 		elseif utility:IsSmallTouchScreen() then
 			bufferSize = math.min(10, (1-0.99) * fullScreenSize)
-			this.MenuContainer.Size = UDim2.new(1, 0, 0.99, 0)
-		else
-			this.MenuContainer.Size = UDim2.new(0.95, 0, 0.95, 0)
 		end
 
-		if Theme.UIBloxThemeEnabled then
-			this.MenuContainer.Size = UDim2.new(0.0, 0, 0.0, 0)
-			this.MenuContainer.AutomaticSize = Enum.AutomaticSize.XY
-		end
+		this.MenuContainer.Size = menuPos.Size
 
 		local barSize = this.HubBar.Size.Y.Offset
 		local extraSpace = bufferSize*2+barSize*2
@@ -1615,13 +1774,21 @@ local function CreateSettingsHub()
 		local menuAspectRatioParent = this.MenuContainer
 		if Theme.UIBloxThemeEnabled then
 			menuAspectRatioParent = nil
+			if Theme.EnableVerticalBottomBar then
+				this.VerticalMenu.Visible = false
+				this.VerticalMenuDivider.Visible = false
+				for i = 1, #this.BottomBarButtonsComponents do
+					local button = this.BottomBarButtonsComponents[i]
+					button.Parent = this.BottomButtonFrame
+				end
+			end
 		end
 
 		if isPortrait then
 			this.MenuAspectRatio.Parent = nil
 			this.HubBar.Position = UDim2.new(0.5, 0, 0, 10)
 			if Theme.UIBloxThemeEnabled then
-				this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-40, 0, 40)
+				this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-40, 0, 54)
 			else
 				this.MenuContainer.Size = UDim2.new(1, 0, 1, 0)
 				this.HubBar.Size = UDim2.new(1, -20, 0, 40)
@@ -1632,7 +1799,17 @@ local function CreateSettingsHub()
 				this.MenuAspectRatio.Parent = menuAspectRatioParent
 			elseif utility:IsSmallTouchScreen() then
 				if Theme.UIBloxThemeEnabled then
-					this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-74, 0, 52)
+					if Theme.EnableVerticalBottomBar then
+						this.VerticalMenu.Visible = true
+						this.VerticalMenuDivider.Visible = true
+						for i = 1, #this.BottomBarButtonsComponents do
+							local button = this.BottomBarButtonsComponents[i]
+							button.Parent = this.VerticalMenu
+						end
+						this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60-Theme.VerticalMenuWidth, 0, 52)
+					else
+						this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60, 0, 52)
+					end
 				else
 					this.HubBar.Size = UDim2.new(1, -10, 0, 40)
 				end
@@ -1653,12 +1830,14 @@ local function CreateSettingsHub()
 		end
 
 		if Theme.UIBloxThemeEnabled then
-			-- redo these after the resize code above
-			barSize = this.HubBar.Size.Y.Offset
-			extraSpace = bufferSize*2+barSize*2
+			if not Theme.AlwaysShowBottomBar() then
+				barSize = this.HubBar.Size.Y.Offset
+			else
+				barSize = this.HubBar.Size.Y.Offset + this.BottomButtonFrame.Size.Y.Offset
+			end
+			extraSpace = bufferSize*2+barSize
 			extraTopPadding = (GetFFlagEnableTeleportBackButton() and getBackBarVisible() and this.BackBarRef:getValue()) and this.BackBarRef:getValue().Size.Y.Offset or 0
 		end
-
 
 		--We need to wait and let the HubBar AbsoluteSize actually update.
 		--This is in the same frame, so the delay should be very minimal.
@@ -1732,11 +1911,17 @@ local function CreateSettingsHub()
 
 		if not isTenFootInterface then
 			if utility:IsSmallTouchScreen() then
+				local backButtonExtraSize = 0
+				if Theme.UIBloxThemeEnabled then
+					backButtonExtraSize = 0
+				else
+					backButtonExtraSize = ((GetFFlagEnableTeleportBackButton() and getBackBarVisible()) and 0 or 44)
+				end
 				this.PageViewClipper.Size = UDim2.new(
 					0,
 					this.HubBar.AbsoluteSize.X,
 					0,
-					usePageSize + ((GetFFlagEnableTeleportBackButton() and getBackBarVisible()) and 0 or 44)
+					usePageSize + backButtonExtraSize
 				)
 			else
 				this.PageViewClipper.Size = UDim2.new(
@@ -1764,6 +1949,13 @@ local function CreateSettingsHub()
 		else
 			this.PageViewClipper.Position = UDim2.new(0.5, 0, 0, this.HubBar.Position.Y.Offset + this.HubBar.AbsoluteSize.Y)
 		end
+
+		if this.VerticalMenu then
+			this.VerticalMenuDivider.Size = UDim2.new(0, 1, 0, usePageSize + this.HubBar.Size.Y.Offset)
+			this.VerticalMenu.Size = UDim2.new(0, Theme.VerticalMenuWidth, 0, usePageSize + this.HubBar.Size.Y.Offset)
+		end
+
+
 	end
 
 	local function toggleQuickProfilerFromHotkey(actionName, inputState, inputObject)
@@ -2048,8 +2240,46 @@ local function CreateSettingsHub()
 		end)
 	end
 
-	function this:SwitchToPage(pageToSwitchTo, ignoreStack, direction, skipAnimation, invisibly)
+	function this:SwitchToPage(pageToSwitchTo, ignoreStack, direction, skipAnimation, invisibly, eventData)
 		if this.Pages.PageTable[pageToSwitchTo] == nil then return end
+
+		if Theme.UIBloxThemeEnabled then
+			local topExtra = UDim.new(0, 0)
+			local bottomExtra = UDim.new(0, 0)
+			local hasBottomButtons = (not (utility:IsPortrait() or utility:IsSmallTouchScreen())) or Theme.AlwaysShowBottomBar()
+
+			if this.HubBar and not shouldShowHubBar(pageToSwitchTo) then
+				topExtra = UDim.new(0, this.HubBar.AbsoluteSize.Y)
+			end
+
+			if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) then
+				bottomExtra = UDim.new(0, this.BottomButtonFrame.AbsoluteSize.Y)
+			end
+
+			local pad = Theme.HubPadding()
+			this.MenuContainerPadding.PaddingLeft = pad.PaddingLeft
+			this.MenuContainerPadding.PaddingRight =  pad.PaddingRight
+			this.MenuContainerPadding.PaddingBottom = pad.PaddingBottom + bottomExtra
+			this.MenuContainerPadding.PaddingTop = pad.PaddingTop + topExtra
+
+			local menuPos = Theme.MenuContainerPosition()
+			this.MenuContainer.Position = menuPos.Position
+			this.MenuContainer.Size = menuPos.Size
+			this.MenuContainer.AnchorPoint = menuPos.AnchorPoint
+
+			if this.VerticalMenu and not utility:IsPortrait() and utility:IsSmallTouchScreen() then
+				local visible = shouldShowHubBar(pageToSwitchTo)
+				this.VerticalMenu.Visible = visible
+				this.VerticalMenuDivider.Visible = visible
+				if visible then
+					this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60-Theme.VerticalMenuWidth, 0, 52)
+				else
+					this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60, 0, 52)
+				end
+				local cs = this.PageViewClipper.Size
+				this.PageViewClipper.Size = UDim2.new(cs.X.Scale, this.HubBar.Size.X.Offset, cs.Y.Scale, cs.Y.Offset)
+			end
+		end
 
 		-- detect direction
 		if direction == nil then
@@ -2113,6 +2343,10 @@ local function CreateSettingsHub()
 
 		local eventTable = {}
 		eventTable["universeid"] = tostring(game.GameId)
+		if GetFFlagReportAbuseMenuEntrypointAnalytics() and eventData then
+			eventTable = Cryo.Dictionary.join(eventTable, eventData)
+		end
+
 		if pageToSwitchTo then
 			if this.GameSettingsPage == pageToSwitchTo then
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)

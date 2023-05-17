@@ -1,6 +1,9 @@
 --[[
 	Display a list of available targets
 ]]
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local SelectComponent = ReplicatedStorage:FindFirstChild("SelectComponent")
+
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
@@ -21,6 +24,9 @@ local ToggleStory = require(Actions.ToggleStory)
 local Thunks = main.Src.Thunks
 local GetStories = require(Thunks.GetStories)
 
+local Util = main.Src.Util
+local ExternalEventConnection = require(Util.ExternalEventConnection)
+
 local StoryTree = Roact.PureComponent:extend("StoryTree")
 
 local function getChildren(item)
@@ -29,6 +35,19 @@ end
 
 local function getItemKey(item, index: number)
 	return item.Name .. "#" .. tostring(index)
+end
+
+local function findComponent(root, componentName)
+	for _, child in root.Children do
+		if child.Name == componentName then
+			return child
+		end
+		local result = findComponent(child, componentName)
+		if result then
+			return result
+		end
+	end
+	return nil
 end
 
 function StoryTree:init()
@@ -43,6 +62,17 @@ function StoryTree:init()
 	self.onExpansionChange = function(expansion)
 		self.props.toggleStory(expansion)
 	end
+
+	self.selectComponent = function(storybookName, componentName)
+		for _, story in ipairs(self.props.Stories) do
+			if story.Name == storybookName then
+				local component = findComponent(story, componentName)
+				if component ~= nil then
+					self.props.selectStory(component)
+				end
+			end
+		end
+	end
 end
 
 function StoryTree:didMount()
@@ -52,6 +82,13 @@ end
 function StoryTree:render()
 	local props = self.props
 	return Roact.createElement(Container, {}, {
+		ExternalEventConnection = if SelectComponent
+			then Roact.createElement(ExternalEventConnection, {
+				callback = self.selectComponent,
+				event = SelectComponent.OnClientEvent,
+			})
+			else nil,
+
 		Tree = Roact.createElement(TreeView, {
 			RowProps = {
 				GetContents = function(item)

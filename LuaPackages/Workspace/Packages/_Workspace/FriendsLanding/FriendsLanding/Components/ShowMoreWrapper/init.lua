@@ -16,6 +16,10 @@ local friendsPerLoadGroup = require(script.helpers.friendsPerLoadGroup)
 local ShowMoreButton = require(FriendsLanding.Components.ShowMoreButton)
 local ButtonClickEvents = require(FriendsLanding.FriendsLandingAnalytics.ButtonClickEvents)
 local filterStates = require(FriendsLanding.Friends.filterStates)
+local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
+local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
+local ShowMoreSectionTypeEnum = require(FriendsLanding.Enums.ShowMoreSectionTypeEnum)
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
 
 local ShowMoreWrapper = Roact.PureComponent:extend("ShowMoreWrapper")
 
@@ -33,6 +37,7 @@ ShowMoreWrapper.defaultProps = {
 	overrideRenderShowMore = nil,
 	handleShowMore = nil,
 	spacingIfEmpty = 48,
+	sectionType = if getFFlagAddFriendsImproveAnalytics() then ShowMoreSectionTypeEnum.Friends else nil,
 }
 
 function ShowMoreWrapper:init()
@@ -60,7 +65,19 @@ function ShowMoreWrapper:init()
 
 	self.showMore = function()
 		if self.props.analytics then
-			self.props.analytics:buttonClick(ButtonClickEvents.LoadMoreFriends)
+			if getFFlagAddFriendsImproveAnalytics() then
+				local contextOverride = if (self.props.sectionType == ShowMoreSectionTypeEnum.FriendRequests)
+						or (self.props.sectionType == ShowMoreSectionTypeEnum.FriendRecommendations)
+					then Contexts.AddFriends.rawValue()
+					else nil
+				self.props.analytics:buttonClick(ButtonClickEvents.LoadMoreUsers, {
+					sectionType = self.props.sectionType,
+					contextOverride = contextOverride,
+					recommendationSessionId = self.props.friendRecommendationsSessionId,
+				})
+			else
+				self.props.analytics:buttonClick(ButtonClickEvents.LoadMoreFriends)
+			end
 		end
 
 		if self.props.handleShowMore then

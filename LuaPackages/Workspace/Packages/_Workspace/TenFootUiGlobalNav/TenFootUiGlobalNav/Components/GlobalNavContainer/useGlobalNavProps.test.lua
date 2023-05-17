@@ -10,6 +10,8 @@ local mocks = TestHelpers.mocks
 local expect = JestGlobals.expect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local GlobalNavDisplayOption = TenFootUiCommon.TenFootUiRNTypes.GlobalNavDisplayOption
 
 local function getNavGroupItems(helper)
 	local tabGroupItems = helper.result.tabGroupProps.items
@@ -20,10 +22,13 @@ end
 
 describe("useGlobalNavProps", function()
 	it("should return configured tabs and options props", function()
+		local providers, nestedMocks = mocks.makeMockProviders()
+		local mockNavigation = nestedMocks.mockNavigation
+
 		local helper = renderHookWithProviders(function()
-			return useGlobalNavProps()
+			return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 		end, {
-			providers = mocks.makeMockProviders(),
+			providers = providers,
 		})
 		local tabGroupItems, optionGroupItems = getNavGroupItems(helper)
 
@@ -32,10 +37,13 @@ describe("useGlobalNavProps", function()
 	end)
 
 	it("should support items with both icon strings and icon components", function()
+		local providers, nestedMocks = mocks.makeMockProviders()
+		local mockNavigation = nestedMocks.mockNavigation
+
 		local helper = renderHookWithProviders(function()
-			return useGlobalNavProps()
+			return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 		end, {
-			providers = mocks.makeMockProviders(),
+			providers = providers,
 		})
 		local tabGroupItems = getNavGroupItems(helper)
 
@@ -45,8 +53,10 @@ describe("useGlobalNavProps", function()
 
 	it("should localize item labels", function()
 		local providers, nestedMocks = mocks.makeMockProviders()
+		local mockNavigation = nestedMocks.mockNavigation
+
 		local helper = renderHookWithProviders(function()
-			return useGlobalNavProps()
+			return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 		end, {
 			providers = providers,
 		})
@@ -63,7 +73,7 @@ describe("useGlobalNavProps", function()
 		local mockNavigation = nestedMocks.mockNavigation
 
 		local helper = renderHookWithProviders(function()
-			return useGlobalNavProps()
+			return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 		end, {
 			providers = providers,
 		})
@@ -98,7 +108,7 @@ describe("useGlobalNavProps", function()
 			local mockNavigation = nestedMocks.mockNavigation
 
 			local helper = renderHookWithProviders(function()
-				return useGlobalNavProps()
+				return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 			end, {
 				providers = providers,
 			})
@@ -115,8 +125,10 @@ describe("useGlobalNavProps", function()
 			local providers, nestedMocks = mocks.makeMockProviders({
 				navigationState = { index = 2 }, -- Initial route: Home
 			})
+			local mockNavigation = nestedMocks.mockNavigation
+
 			local helper = renderHookWithProviders(function()
-				return useGlobalNavProps()
+				return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 			end, {
 				providers = providers,
 			})
@@ -134,8 +146,10 @@ describe("useGlobalNavProps", function()
 
 		it("should trigger an ActionTaken event if an actionType is provided", function()
 			local providers, nestedMocks = mocks.makeMockProviders()
+			local mockNavigation = nestedMocks.mockNavigation
+
 			local helper = renderHookWithProviders(function()
-				return useGlobalNavProps()
+				return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 			end, {
 				providers = providers,
 			})
@@ -165,8 +179,10 @@ describe("useGlobalNavProps", function()
 
 		it("should trigger a ButtonActivated event", function()
 			local providers, nestedMocks = mocks.makeMockProviders()
+			local mockNavigation = nestedMocks.mockNavigation
+
 			local helper = renderHookWithProviders(function()
-				return useGlobalNavProps()
+				return useGlobalNavProps(mockNavigation, GlobalNavDisplayOption.ShowAll)
 			end, {
 				providers = providers,
 			})

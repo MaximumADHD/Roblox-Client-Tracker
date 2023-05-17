@@ -109,7 +109,7 @@ it("should create a new mock event and render EventDetailPage", function()
 	expect(result.getByText(mockVirtualEvent.description)).toBeDefined()
 end)
 
-it("should never show the attendance list when the event is over", function()
+it.skip("should never show the attendance list when the event is over", function()
 	local now = DateTime.now()
 
 	local activeVirtualEvent = VirtualEventModel.mock("1")

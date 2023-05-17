@@ -5,4 +5,8 @@ return {
 	ReactRoblox = require(Packages.ReactRoblox),
 	UIBlox = require(Packages.UIBlox),
 	Localization = require(Packages.Localization),
+	RobloxAppHooks = require(Packages.RobloxAppHooks),
+	RobloxAppEnums = require(Packages.RobloxAppEnums),
+	LuauPolyfill = require(Packages.LuauPolyfill),
+	t = require(Packages.t),
 }

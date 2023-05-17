@@ -41,6 +41,7 @@ local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature(
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
 local CorePackages = game:GetService("CorePackages")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Promise = require(CorePackages.Promise)
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
@@ -55,7 +56,7 @@ local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local screenGuiSize = Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("ScreenGui").AbsoluteSize
 local DEFAULT_HEIGHT = screenGuiSize.Y * 0.25
-local DEFAULT_POSITION = UDim2.new(1, -12, 0, 0)
+local DEFAULT_POSITION = UDim2.new(1, -12, 0, 88)
 local DEFAULT_SIZE = UDim2.new(0, 0, 0, DEFAULT_HEIGHT)
 local DEFAULT_BUTTONS_BAR_HEIGHT = 36
 local DEFAULT_SELF_VIEW_FRAME_COLOR = Color3.new(1, 1, 1)
@@ -65,6 +66,7 @@ local SELF_VIEW_NAME = "SelfView"
 local IS_STUDIO = RunService:IsStudio()
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
+local ToggleSelfViewBindableEvent = ReplicatedStorage:WaitForChild("ToggleSelfViewBindableEvent")
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -249,7 +251,7 @@ local function createViewport()
 	frame.Active = true
 	--setting frame size before setting it's position since the size is used in dragging position restrict to screen size evaluation
 	frame.Size = DEFAULT_SIZE
-	frame.ZIndex = 3
+	frame.ZIndex = 1
 	
 	frame.Position = DEFAULT_POSITION
 	frame.BackgroundTransparency = 1
@@ -1252,29 +1254,27 @@ end
 --StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.SelfView, false)
 
 --toggle Self View based on whether it is enabled via SetCoreGuiEnabled
-StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, newState)
-	if coreGuiType == Enum.CoreGuiType.All or (coreGuiType == Enum.CoreGuiType.SelfView) then
-		local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
+ToggleSelfViewBindableEvent.Event:Connect(function(visible)
+	local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
 
-		Analytics:reportSelfViewEnabledInCoreGuiState(shouldBeEnabledCoreGuiSetting)
+	Analytics:reportSelfViewEnabledInCoreGuiState(shouldBeEnabledCoreGuiSetting)
 
-		debugPrint("Self View: CoreGuiChangedSignal: shouldBeEnabledCoreGuiSetting: "..tostring(shouldBeEnabledCoreGuiSetting))
-		--when disable call comes in we always do it, when enable call comes in only if not visible already
-		if not newState or frame == nil or frame.Visible ~= newState then
-			if newState then
-				if initialized then
-					ReInit(Players.LocalPlayer)
-				else
-					Initialize(Players.LocalPlayer)
-				end
+	debugPrint("Self View: CoreGuiChangedSignal: shouldBeEnabledCoreGuiSetting: "..tostring(shouldBeEnabledCoreGuiSetting))
+	--when disable call comes in we always do it, when enable call comes in only if not visible already
+	if frame == nil or not frame.Visible then
+		if visible then
+			if initialized then
+				ReInit(Players.LocalPlayer)
 			else
-				if initialized then
-					debugPrint("Self View: triggering shutting down because shouldBeEnabledCoreGuiSetting is false")
-					setIsOpen(false)
-					stopRenderStepped()
-					if frame then
-						frame.Visible = false
-					end
+				Initialize(Players.LocalPlayer)
+			end
+		else
+			if initialized then
+				debugPrint("Self View: triggering shutting down because shouldBeEnabledCoreGuiSetting is false")
+				setIsOpen(false)
+				stopRenderStepped()
+				if frame then
+					frame.Visible = false
 				end
 			end
 		end

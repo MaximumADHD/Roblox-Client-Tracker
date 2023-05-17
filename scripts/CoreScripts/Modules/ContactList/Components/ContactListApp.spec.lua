@@ -23,68 +23,70 @@ return function()
 		return {
 			Call = {
 				callHistory = {
-					{
-						callId = "test_call_Id",
-						callerId = 1,
-						participants = {
-							{
-								userId = 1,
-								displayName = "testuser_0",
-								userName = "testuser_0",
+					callRecords = {
+						{
+							callId = "test_call_Id",
+							callerId = 1,
+							participants = {
+								{
+									userId = 1,
+									displayName = "testuser_0",
+									userName = "testuser_0",
+								},
+								{
+									userId = 2,
+									displayName = "testuser_1",
+									userName = "testuser_1",
+								},
 							},
-							{
-								userId = 2,
-								displayName = "testuser_1",
-								userName = "testuser_1",
-							},
+							status = "CallFinished",
+							startUtc = 1681338167883,
+							endUtc = 1681338335366,
+							universeId = 123,
+							placeId = 456,
 						},
-						status = "CallFinished",
-						startUtc = 1681338167883,
-						endUtc = 1681338335366,
-						universeId = 123,
-						placeId = 456,
-					},
-					{
-						callId = "test_call_Id",
-						callerId = 1,
-						participants = {
-							{
-								userId = 1,
-								displayName = "testuser_0",
-								userName = "testuser_0",
+						{
+							callId = "test_call_Id",
+							callerId = 1,
+							participants = {
+								{
+									userId = 1,
+									displayName = "testuser_0",
+									userName = "testuser_0",
+								},
+								{
+									userId = 2,
+									displayName = "testuser_1",
+									userName = "testuser_1",
+								},
 							},
-							{
-								userId = 2,
-								displayName = "testuser_1",
-								userName = "testuser_1",
-							},
+							status = "CallMissed",
+							startUtc = 1681338167883,
+							endUtc = 1681338335366,
+							universeId = 123,
+							placeId = 456,
 						},
-						status = "CallMissed",
-						startUtc = 1681338167883,
-						endUtc = 1681338335366,
-						universeId = 123,
-						placeId = 456,
-					},
-					{
-						callId = "test_call_Id",
-						callerId = 1,
-						participants = {
-							{
-								userId = 1,
-								displayName = "testuser_0",
-								userName = "testuser_0",
+						{
+							callId = "test_call_Id",
+							callerId = 1,
+							participants = {
+								{
+									userId = 1,
+									displayName = "testuser_0",
+									userName = "testuser_0",
+								},
+								{
+									userId = 2,
+									displayName = "testuser_1",
+									userName = "testuser_1",
+								},
 							},
-							{
-								userId = 2,
-								displayName = "testuser_1",
-								userName = "testuser_1",
-							},
+							status = "CallDeclined",
+							startUtc = 1681338167883,
+							endUtc = 1681338335366,
+							universeId = 123,
+							placeId = 456,
 						},
-						status = "CallDeclined",
-						startUtc = 1681338167883,
-						endUtc = 1681338335366,
-						universeId = 123,
-						placeId = 456,
 					},
 				},
 			},

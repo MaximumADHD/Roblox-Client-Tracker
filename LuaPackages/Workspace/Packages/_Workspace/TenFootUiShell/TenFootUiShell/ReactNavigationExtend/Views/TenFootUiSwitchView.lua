@@ -4,13 +4,15 @@ local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
 local React = require(Packages.React)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local TenFootUiSwitchViewCard = require(ReactNavigationExtend.Views.Cards.TenFootUiSwitchViewCard)
+local getCurrentRouteKey = require(script.Parent.getCurrentRouteKey)
 
 type NavigationObject = TenFootUiCommon.NavigationObject
 type SwitchNavigatorConfig = TenFootUiCommon.SwitchNavigatorConfig
 type Descriptor = TenFootUiCommon.Descriptor
+type ScreenProps = TenFootUiCommon.ScreenProps
 
 export type Props = {
-	screenProps: { [any]: any }?,
+	screenProps: ScreenProps?,
 	navigation: NavigationObject,
 	navigationConfig: SwitchNavigatorConfig,
 	descriptors: {
@@ -23,13 +25,13 @@ local function TenFootUiSwitchView(props: Props)
 
 	local descriptors = props.descriptors
 	local navigatorConfig = props.navigationConfig
-	local screenProps = props.screenProps
 
 	local navigation = props.navigation
 	local state = navigation.state
 	local index = state.index
 
 	local activeKey = state.routes[index].key
+	local currentRouteKey = getCurrentRouteKey(navigation)
 
 	React.useEffect(function()
 		if not visitedScreenKeys[activeKey] then
@@ -44,14 +46,16 @@ local function TenFootUiSwitchView(props: Props)
 	local screens = {}
 	for key, descriptor in descriptors do
 		local isActiveKey = (key == activeKey)
+		local isFocusable = currentRouteKey == descriptor.key
 		if visitedScreenKeys[key] ~= nil then
 			screens[key] = React.createElement(TenFootUiSwitchViewCard, {
 				isActiveKey = isActiveKey,
+				isFocusable = isFocusable,
 				index = index,
 				descriptor = descriptor,
 				adorneeParent = navigatorConfig.worldContainer,
 				surfaceGuiParent = navigatorConfig.surfaceGuiContainer,
-				screenProps = screenProps,
+				screenProps = props.screenProps,
 			})
 		end
 	end

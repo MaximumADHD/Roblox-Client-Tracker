@@ -14,7 +14,7 @@ return {
 	RoduxFriends = LuaSocialLibrariesDeps.RoduxFriends.config({
 		keyPath = "SharedTest.Friends",
 	}),
-	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence_v3.config({
+	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence.config({
 		keyPath = "SharedTest.Presence",
 	}),
 }

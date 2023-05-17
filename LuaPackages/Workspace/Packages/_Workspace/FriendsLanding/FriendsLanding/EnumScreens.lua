@@ -10,7 +10,6 @@ return {
 	DiscoverabilityOverlay = "DiscoverabilityOverlay",
 	ProfileQRCodePage = "ProfileQRCodePage",
 
-	-- added for now to experiment with navigation
 	AddFriends = "AddFriends",
 	SearchFriends = "SearchFriends",
 

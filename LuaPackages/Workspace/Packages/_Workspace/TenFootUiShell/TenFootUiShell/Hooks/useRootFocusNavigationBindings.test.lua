@@ -58,9 +58,9 @@ local mockGlobalNavConfig = {
 }
 
 local mockRoutes = {
-	{ key = "Home", routeName = mockAppPage.Home },
-	{ key = "Games", routeName = mockAppPage.Games },
-	{ key = "Avatar", routeName = mockAppPage.Avatar },
+	{ key = mockAppPage.Home, routeName = mockAppPage.Home },
+	{ key = mockAppPage.Games, routeName = mockAppPage.Games },
+	{ key = mockAppPage.Avatar, routeName = mockAppPage.Avatar },
 }
 
 describe("useRootFocusNavigationBindings", function()
@@ -77,14 +77,14 @@ describe("useRootFocusNavigationBindings", function()
 
 	it("should update a passed in binding", function()
 		local ref = React.createRef()
-		local TestHarness = createTenFootUiShellTestHarness(HookRenderer)
-		render(React.createElement(TestHarness, { ref = ref }))
+		local TestHarness = createTenFootUiShellTestHarness()
+		render(React.createElement(TestHarness, nil, React.createElement(HookRenderer, { ref = ref })))
 		expect(ref.current).toBeDefined()
 	end)
 
 	it("should map buttons to event handlers with types", function()
-		local TestHarness = createTenFootUiShellTestHarness(HookRenderer, focusNavigationService)
-		local renderResult = render(React.createElement(TestHarness))
+		local TestHarness = createTenFootUiShellTestHarness(focusNavigationService)
+		local renderResult = render(React.createElement(TestHarness, nil, React.createElement(HookRenderer)))
 		local element = renderResult.getByText("test")
 		act(function()
 			focusNavigationService:focusGuiObject(element)
@@ -98,21 +98,21 @@ describe("useRootFocusNavigationBindings", function()
 	end)
 	for _, args in
 		{
-			{ index = 1 },
-			{ index = 2, route = mockAppPage.Home },
-			{ index = 3, route = mockAppPage.Games },
-		} :: { { index: number, route: string? } }
+			{ currentRoute = mockAppPage.Home },
+			{ currentRoute = mockAppPage.Games, expectedRoute = mockAppPage.Home },
+			{ currentRoute = mockAppPage.Avatar, expectedRoute = mockAppPage.Games },
+		} :: { { currentRoute: string, expectedRoute: string? } }
 	do
 		it("should call navigate the left tab functionality", function()
-			local TestHarness, nestedMocks = createTenFootUiShellTestHarness(HookRenderer, focusNavigationService, {
+			local TestHarness, nestedMocks = createTenFootUiShellTestHarness(focusNavigationService, {
 				globalNavConfig = mockGlobalNavConfig,
 				navigationState = {
 					routes = mockRoutes,
-					index = args.index,
-					key = "test",
+					index = 0,
+					key = args.currentRoute,
 				},
 			})
-			local renderResult = render(React.createElement(TestHarness))
+			local renderResult = render(React.createElement(TestHarness, nil, React.createElement(HookRenderer)))
 			local element = renderResult.getByText("test")
 			act(function()
 				focusNavigationService:focusGuiObject(element)
@@ -123,8 +123,8 @@ describe("useRootFocusNavigationBindings", function()
 				gamepad:hitButton(Enum.KeyCode.ButtonL1)
 				task.wait(1)
 			end)
-			if args.route then
-				expect(nestedMocks.mockNavigation.navigate).toHaveBeenCalledWith(args.route)
+			if args.expectedRoute then
+				expect(nestedMocks.mockNavigation.navigate).toHaveBeenCalledWith(args.expectedRoute)
 			else
 				expect(nestedMocks.mockNavigation.navigate).never.toHaveBeenCalled()
 			end
@@ -132,21 +132,21 @@ describe("useRootFocusNavigationBindings", function()
 	end
 	for _, args in
 		{
-			{ index = 1, route = mockAppPage.Games },
-			{ index = 2, route = mockAppPage.Avatar },
-			{ index = 3 },
-		} :: { { index: number, route: string? } }
+			{ currentRoute = mockAppPage.Home, expectedRoute = mockAppPage.Games },
+			{ currentRoute = mockAppPage.Games, expectedRoute = mockAppPage.Avatar },
+			{ currentRoute = mockAppPage.Avatar },
+		} :: { { currentRoute: string, expectedRoute: string? } }
 	do
 		it("should bind the right tab functionality", function()
-			local TestHarness, nestedMocks = createTenFootUiShellTestHarness(HookRenderer, focusNavigationService, {
+			local TestHarness, nestedMocks = createTenFootUiShellTestHarness(focusNavigationService, {
 				globalNavConfig = mockGlobalNavConfig,
 				navigationState = {
 					routes = mockRoutes,
-					index = args.index,
-					key = "test",
+					index = 0,
+					key = args.currentRoute,
 				},
 			})
-			local renderResult = render(React.createElement(TestHarness))
+			local renderResult = render(React.createElement(TestHarness, nil, React.createElement(HookRenderer)))
 			local element = renderResult.getByText("test")
 			act(function()
 				focusNavigationService:focusGuiObject(element)
@@ -157,16 +157,16 @@ describe("useRootFocusNavigationBindings", function()
 				gamepad:hitButton(Enum.KeyCode.ButtonR1)
 				task.wait(1)
 			end)
-			if args.route then
-				expect(nestedMocks.mockNavigation.navigate).toHaveBeenCalledWith(args.route)
+			if args.expectedRoute then
+				expect(nestedMocks.mockNavigation.navigate).toHaveBeenCalledWith(args.expectedRoute)
 			else
 				expect(nestedMocks.mockNavigation.navigate).never.toHaveBeenCalled()
 			end
 		end)
 	end
 	it("should bind the search shortcut", function()
-		local TestHarness, nestedMocks = createTenFootUiShellTestHarness(HookRenderer, focusNavigationService)
-		local renderResult = render(React.createElement(TestHarness))
+		local TestHarness, nestedMocks = createTenFootUiShellTestHarness(focusNavigationService)
+		local renderResult = render(React.createElement(TestHarness, nil, React.createElement(HookRenderer)))
 		local element = renderResult.getByText("test")
 		act(function()
 			focusNavigationService:focusGuiObject(element)

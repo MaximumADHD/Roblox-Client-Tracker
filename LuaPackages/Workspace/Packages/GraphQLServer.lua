@@ -17,6 +17,7 @@ export type RsvpStatus = Package.RsvpStatus
 export type VirtualEventsPage = Package.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = Package.VirtualEventsByUniverseIdOptions
 export type ProfileInsights = Package.ProfileInsights
+export type UserProfile = Package.UserProfile
 export type MockOptions = Package.MockOptions
 export type Response = Package.Response
 

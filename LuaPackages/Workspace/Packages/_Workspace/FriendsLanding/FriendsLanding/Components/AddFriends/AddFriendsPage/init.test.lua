@@ -7,7 +7,6 @@ local dependencies = require(FriendsLanding.dependencies)
 local llama = dependencies.llama
 local Dash = dependencies.Dash
 local getFFlagProfileQRCodeCoreFeaturesEnabled = dependencies.getFFlagProfileQRCodeCoreFeaturesEnabled
-local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local devDependencies = require(FriendsLanding.devDependencies)
@@ -49,8 +48,8 @@ local function createInstance(requests, extraProps: any)
 		fireContactImporterSeenEvent = Dash.noop,
 		isPhoneVerified = true,
 		isDiscoverabilityUnset = false,
-		fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics() then Dash.noop else nil,
-		fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics() then Dash.noop else nil,
+		fireProfileQRCodeBannerSeenEvent = Dash.noop,
+		fireProfileQRCodeBannerPressedEvent = Dash.noop,
 		showNewAddFriendsPageVariant = Dash.noop,
 	}
 	extraProps = extraProps or {}
@@ -222,16 +221,12 @@ describe("QR code banner behavior", function()
 		instance, cleanup = createInstance({}, {
 			navigation = navigation,
 			navigateToLuaAppPages = navigateToLuaAppPages,
-			fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics()
-				then function()
-					fireProfileQRCodeBannerPressedEventSpy()
-				end
-				else nil,
-			fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics()
-				then function()
-					fireProfileQRCodeBannerSeenEventSpy()
-				end
-				else nil,
+			fireProfileQRCodeBannerPressedEvent = function()
+				fireProfileQRCodeBannerPressedEventSpy()
+			end,
+			fireProfileQRCodeBannerSeenEvent = function()
+				fireProfileQRCodeBannerSeenEventSpy()
+			end,
 			showNewAddFriendsPageVariant = true,
 		})
 	end)
@@ -240,20 +235,18 @@ describe("QR code banner behavior", function()
 		cleanup()
 	end)
 
-	if getFFlagAddFriendsQRCodeAnalytics() then
-		it("SHOULD fire QR Code analytic events", function()
-			local banner = RhodiumHelpers.findFirstInstance(instance, {
-				Name = "QRCodeBanner",
-			})
+	it("SHOULD fire QR Code analytic events", function()
+		local banner = RhodiumHelpers.findFirstInstance(instance, {
+			Name = "QRCodeBanner",
+		})
 
-			if getFFlagProfileQRCodeCoreFeaturesEnabled() then
-				expect(fireProfileQRCodeBannerSeenEventSpy).toHaveBeenCalledTimes(1)
+		if getFFlagProfileQRCodeCoreFeaturesEnabled() then
+			expect(fireProfileQRCodeBannerSeenEventSpy).toHaveBeenCalledTimes(1)
 
-				RhodiumHelpers.clickInstance(banner)
-				expect(fireProfileQRCodeBannerPressedEventSpy).toHaveBeenCalledTimes(1)
-			end
-		end)
-	end
+			RhodiumHelpers.clickInstance(banner)
+			expect(fireProfileQRCodeBannerPressedEventSpy).toHaveBeenCalledTimes(1)
+		end
+	end)
 
 	it("SHOULD render QR code banner correctly", function()
 		testElement(instance, function()

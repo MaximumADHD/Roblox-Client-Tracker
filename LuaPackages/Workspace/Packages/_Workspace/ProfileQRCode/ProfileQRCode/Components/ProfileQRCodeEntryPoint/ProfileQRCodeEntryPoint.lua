@@ -15,7 +15,6 @@ local useEffectOnce = require(Packages.RoactUtils).Hooks.useEffectOnce
 local ModalWindow = UIBlox.App.Dialog.Modal.ModalWindow
 local EventNames = require(ProfileQRCode.Analytics.EventNames)
 local profileQRCode3DAvatarIXP = require(ProfileQRCode.Experiments.profileQRCode3DAvatarIXP)
-local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
 local getFFlagProfileQRCodeFixDistanceFromTop = require(Packages.SharedFlags).getFFlagProfileQRCodeFixDistanceFromTop
 local getFFlagProfileQRCodeEnable3DAvatarExperiment =
 	require(ProfileQRCode.Flags.getFFlagProfileQRCodeEnable3DAvatarExperiment)
@@ -35,7 +34,7 @@ local ProfileQRCodeEntryPoint = function(props: Props)
 		analytics = if props.analyticsService then props.analyticsService else AnalyticsService,
 		infoForAllEvents = {
 			uid = useLocalUserId(),
-			source = if getFFlagAddFriendsQRCodeAnalytics() then props.source else nil,
+			source = props.source,
 		},
 	})
 	local isProfile3DAvatarEnabled

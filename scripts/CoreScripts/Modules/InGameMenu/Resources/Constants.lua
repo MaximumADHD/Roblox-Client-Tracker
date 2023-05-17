@@ -34,6 +34,7 @@ local Constants = {
 	AnalyticsInGameMenuName = "ingame_menu",
 	AnalyticsRespawnCharacterName = "respawn_character",
 	AnalyticsSettingsChangeName = "change_ingame_settings",
+	AnalyticsExplicitSettingsChangeName = "change_explicit_ingame_settings",
 	AnalyticsSettingsSafetyBubbleModeChangeName = "change_ingame_settings_safety_bubble_mode",
 	AnalyticsFullscreenModeName = "FullscreenMode",
 	AnalyticsMenuActionName = "ingame_menu_action",
@@ -60,6 +61,7 @@ local Constants = {
 	AnalyticsReportLeft = "ingame_menu_report_left",
 	AnalyticsReportSubmittedName = "ingame_menu_report_submitted",
 	AnalyticsRequestFriendName = "RequestFriendship",
+	AnalyticsRequestFriendContext = "PlayersMenu",
 	AnalyticsExamineAvatarName = "examine_avatar",
 
 	PlayerScriptStatusStrings = {

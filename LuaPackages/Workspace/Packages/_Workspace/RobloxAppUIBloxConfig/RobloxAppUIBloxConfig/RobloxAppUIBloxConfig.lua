@@ -23,4 +23,6 @@ return {
 	enableCollectibleItemRestriction = UIBloxFlags.GetFFlagUIBloxEnableCollectibleItemRestriction(),
 	vrAlignPanel3DUnderInGamePanel = UIBloxFlags.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel(),
 	enableRoDSDesignTokenSupport = UIBloxFlags.GetFFlagUIBloxEnableRoDSDesignTokenSupport(),
+	enableTileOverlayFix = UIBloxFlags.GetFFlagUIBloxEnableTileOverlayFix(),
+	usePillGroupSelectedPills = UIBloxFlags.GetFFlagUIBloxPillGroupUseSelectedPills(),
 }

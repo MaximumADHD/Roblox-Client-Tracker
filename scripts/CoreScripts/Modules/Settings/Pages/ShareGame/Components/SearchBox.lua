@@ -44,6 +44,7 @@ end
 function SearchBox:render()
 	local anchorPoint = self.props.anchorPoint
 	local onTextBoxFocusLost = self.props.onTextBoxFocusLost
+	local onTextBoxFocused = self.props.onTextBoxFocused
 	local position = self.props.position
 	local searchFieldRef = self.props.searchFieldRef
 	local size = self.props.size
@@ -104,6 +105,11 @@ function SearchBox:render()
 				-- then call it.
 				if searchFieldRef then
 					searchFieldRef(rbx)
+				end
+			end,
+			[Roact.Event.Focused] = function()
+				if onTextBoxFocused then
+					onTextBoxFocused()
 				end
 			end,
 			[Roact.Event.FocusLost] = function(rbx)

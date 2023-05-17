@@ -23,8 +23,6 @@ local fullContextInfo = withEveryFriendStatus.fullContextInfo
 local getFooterRelevanceInfo = require(script.Parent.getFooterRelevanceInfo)
 local FriendshipOriginSourceType = dependencies.NetworkingFriendsEnums.FriendshipOriginSourceType
 
-local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
-	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 describe("getFooterRelevanceInfo", function()
@@ -155,16 +153,8 @@ describe("getFooterRelevanceInfo", function()
 				originSourceType = FriendshipOriginSourceType.QrCode.rawValue(),
 			})
 			expect(resultedRelevancyInfo).never.toBeNil()
-			expect(resultedRelevancyInfo.text).toContain(
-				if getFFlagProfileQRCodeFriendRequestContextInfoEnabled()
-					then mockLocalization.foundThroughQRCode
-					else mockLocalization.followsYouText
-			)
-			if getFFlagProfileQRCodeFriendRequestContextInfoEnabled() then
-				expect(resultedRelevancyInfo.icon).toBeNil()
-			else
-				expect(resultedRelevancyInfo.icon).never.toBeNil()
-			end
+			expect(resultedRelevancyInfo.text).toContain(mockLocalization.foundThroughQRCode)
+			expect(resultedRelevancyInfo.icon).toBeNil()
 		end)
 
 		it("SHOULD not show any relevancy info when all the context info is null", function()

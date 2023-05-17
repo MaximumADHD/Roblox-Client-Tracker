@@ -6,6 +6,8 @@ local RoactNavigation = require(Packages.RoactNavigation)
 local ReactRoblox = require(Packages.ReactRoblox)
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
+local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 
 local it = JestGlobals.it
 local describe = JestGlobals.describe
@@ -25,7 +27,8 @@ describe("createTenFootUiStackNavigator", function()
 						return React.createElement("Folder")
 					end,
 					navigationOptions = {
-						screenKind = "Default",
+						screenKind = ScreenKind.Default,
+						screenWrapper = "CanvasGroup",
 					},
 				},
 			},
@@ -35,7 +38,7 @@ describe("createTenFootUiStackNavigator", function()
 						return React.createElement("Folder")
 					end,
 					navigationOptions = {
-						screenKind = "Overlay",
+						screenKind = ScreenKind.Overlay,
 					},
 				},
 			},
@@ -45,16 +48,16 @@ describe("createTenFootUiStackNavigator", function()
 			worldContainer = instanceContainer,
 		})
 
-		local appContainer = RoactNavigation.createAppContainer(navigator)
-		expect(appContainer.router).toEqual(expect.any("table"))
-		expect(appContainer.router.childRouters).toEqual(expect.any("table"))
-		expect(appContainer.router.childRouters["Foo"]).toBeFalsy()
-		local TenFootUiTestHarness = createTenFootUiShellTestHarness(appContainer)
+		local AppContainer = RoactNavigation.createAppContainer(navigator)
+		expect(AppContainer.router).toEqual(expect.any("table"))
+		expect(AppContainer.router.childRouters).toEqual(expect.any("table"))
+		expect(AppContainer.router.childRouters["Foo"]).toBeFalsy()
+		local TenFootUiTestHarness = createTenFootUiShellTestHarness()
 
 		local root = ReactRoblox.createRoot(rootContainer)
 
 		ReactRoblox.act(function()
-			root:render(React.createElement(TenFootUiTestHarness))
+			root:render(React.createElement(TenFootUiTestHarness, nil, React.createElement(AppContainer)))
 		end)
 		root:unmount()
 	end)

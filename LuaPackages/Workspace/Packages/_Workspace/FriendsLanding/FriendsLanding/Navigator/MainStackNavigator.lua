@@ -13,8 +13,6 @@ local HeaderBarCenterView = require(FriendsLanding.Components.HeaderBarCenterVie
 local HeaderBarRightView = require(FriendsLanding.Components.HeaderBarRightView)
 local GatewayComponent = require(FriendsLanding.Navigator.GatewayComponent)
 
-local getFFlagAddFriendsPageHideBottomBar = dependencies.getFFlagAddFriendsPageHideBottomBar
-
 local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 	{
 		[EnumScreens.Gateway] = {
@@ -51,7 +49,7 @@ local MainStackNavigator = RoactNavigation.createRobloxStackNavigator({
 						end)
 					end,
 					useSecondaryHeader = true,
-					tabBarVisible = if getFFlagAddFriendsPageHideBottomBar() then false else nil,
+					tabBarVisible = false,
 				}
 			end,
 		},

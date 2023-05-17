@@ -1,21 +1,6 @@
 local Packages = script:FindFirstAncestor("TenFootUiCommon").Parent
 local React = require(Packages.React)
-
-export type ScreenKind = "Default" | "FullScreen" | "Overlay"
-
-export type DefaultScreen = {
-	screenKind: "Default",
-}
-
-export type FullScreen = {
-	screenKind: "FullScreen",
-}
-
-export type OverlayScreen = {
-	screenKind: "Overlay",
-	transparency: number?,
-	absorbInput: boolean?,
-}
+local Action = require(Packages.Rodux).makeActionCreator
 
 export type AnimationStyle = "XDirection" | "ZDirection" | "None"
 
@@ -23,6 +8,15 @@ local AnimationStyleEnum = {
 	XDirection = "XDirection" :: "XDirection",
 	ZDirection = "ZDirection" :: "ZDirection",
 	None = "None" :: "None",
+}
+
+export type GlobalNavDisplayOption = "ShowAll" | "TabGroupOnly" | "OptionGroupOnly" | "HideAll"
+
+local GlobalNavDisplayOption = {
+	ShowAll = "ShowAll" :: "ShowAll",
+	TabGroupOnly = "TabGroupOnly" :: "TabGroupOnly",
+	OptionGroupOnly = "OptionGroupOnly" :: "OptionGroupOnly",
+	HideAll = "HideAll" :: "HideAll",
 }
 
 export type RouteState = {
@@ -38,18 +32,38 @@ export type NavigationState = {
 	isTransitioning: boolean?,
 }
 
+export type Action = typeof(Action(...))
+
 export type NavigationObject = {
 	state: NavigationState,
 	getParam: (param: string, default: any) -> any,
-	dispatch: (any) -> (),
+	dispatch: (Action) -> (),
 	addListener: (event: string, (e: any) -> ()) -> { remove: () -> () },
 	_childrenNavigation: any?,
 }
 
-export type DescriptorOptions = {
-	screenKind: ScreenKind,
-	animationStyle: AnimationStyle?,
+export type ScreenKind = "Default" | "FullScreen" | "Overlay"
+local ScreenKind = {
+	Default = "Default" :: "Default",
+	FullScreen = "FullScreen" :: "FullScreen",
+	Overlay = "Overlay" :: "Overlay",
 }
+
+type OverlayScreen = {
+	sizeScale: Vector2?,
+	positionOffset: Vector2?, -- relative to fullscreen canvas size
+	absorbInput: boolean?,
+	absorbInputCallback: (NavigationObject) -> ()?, -- only useful if absorbInput is true
+}
+
+export type SharedDescriptorOptions = {
+	screenKind: ScreenKind,
+	screenWrapper: React.ComponentType<any> | "CanvasGroup"?,
+	animationStyle: AnimationStyle?,
+	globalNavDisplayOption: GlobalNavDisplayOption?,
+}
+
+export type DescriptorOptions = SharedDescriptorOptions & OverlayScreen
 
 export type Descriptor = {
 	getComponent: () -> React.ComponentType<any>,
@@ -84,5 +98,7 @@ export type RouteArray = {
 export type ScreenProps = { [string]: any }
 
 return {
+	ScreenKind = ScreenKind,
 	AnimationStyleEnum = AnimationStyleEnum,
+	GlobalNavDisplayOption = GlobalNavDisplayOption,
 }

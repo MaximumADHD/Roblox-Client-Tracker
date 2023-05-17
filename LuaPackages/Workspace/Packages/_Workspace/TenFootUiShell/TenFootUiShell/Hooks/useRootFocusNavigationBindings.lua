@@ -64,8 +64,7 @@ function useRootFocusNavigationBindings(ref: React.Ref<Instance>?)
 	end, { ref })
 	local tenFootUiContext = React.useContext(TenFootUiContext)
 	local navigation = useNavigation()
-	local currentRoute = navigation.state.routes[navigation.state.index]
-	local currentRouteName = currentRoute.routeName
+	local currentRouteName = navigation.state.key or navigation.state.routes[navigation.state.index].key
 	local tabs = if tenFootUiContext then tenFootUiContext.globalNavConfig.tabs else {}
 	local previousTab = getPrevTabFromRouteName(currentRouteName, tabs)
 	local nextTab = getNextTabFromRouteName(currentRouteName, tabs)

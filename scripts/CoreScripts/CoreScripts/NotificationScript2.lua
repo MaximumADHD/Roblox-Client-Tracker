@@ -855,10 +855,7 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 		BadgeBlacklist[badgeId] = true
 		local creatorName = ""
 		if game.CreatorType == Enum.CreatorType.Group then
-			local groupInfo -- inline with FFlagBadgeNotificationsHttpFix
-
-			local success
-			success, groupInfo = pcall(function()
+			local success, groupInfo = pcall(function()
 				return GroupService:GetGroupInfoAsync(creatorId)
 			end)
 			if not success then creatorName = "" end
@@ -875,9 +872,7 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 			if not success then creatorName = "" end
 		end
 
-		local badgeInfo -- inline with FFlagBadgeNotificationHttpFix
-		local success
-		success, badgeInfo = pcall(function()
+		local success, badgeInfo = pcall(function()
 			return BadgeService:GetBadgeInfoAsync(badgeId)
 		end)
 		if not success then return end -- could not get info from network

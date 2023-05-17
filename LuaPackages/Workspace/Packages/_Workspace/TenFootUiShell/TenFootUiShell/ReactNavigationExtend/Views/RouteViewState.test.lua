@@ -5,11 +5,13 @@ local it = JestGlobals.it
 local expect = JestGlobals.expect
 
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local RouteViewState = require(script.Parent.RouteViewState)
 
 type NavigationObject = TenFootUiCommon.NavigationObject
 type Descriptor = TenFootUiCommon.Descriptor
 type RouteState = TenFootUiCommon.RouteState
+type DescriptorOptions = TenFootUiCommon.DescriptorOptions
 type RouteViewState = RouteViewState.RouteViewState
 
 local routeState: RouteState = {
@@ -46,7 +48,7 @@ local descriptor: Descriptor = {
 	end,
 	key = "foo",
 	options = {
-		screenKind = "Default",
+		screenKind = ScreenKind.Default,
 	},
 	navigation = testNavigation,
 	state = testState,

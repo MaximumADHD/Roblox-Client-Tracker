@@ -42,8 +42,11 @@ local FFlagRecordRecording = require(RobloxGui.Modules.Flags.GetFFlagRecordRecor
 local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuV3)
 local GetFFlagBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagBetaBadge)
 local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
-local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
+local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
+
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
 -- vr bottom bar
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
@@ -107,6 +110,19 @@ function TopBarApp:render()
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
 	local closeMenuButtonPosition = UDim2.new(0, 0, 0.5, 0)
 
+	local bottomBar = if FFlagVRMoveVoiceIndicatorToBottomBar then
+		Roact.createElement(VoiceStateContext.Provider, {}, {
+			VRBottomBar = VoiceStateContext.withVoiceState(function(voiceContext)
+				return Roact.createElement(VRBottomBar, {
+					voiceChatServiceManager = VoiceChatServiceManager,
+					voiceEnabled = voiceContext.voiceEnabled,
+					voiceState = voiceContext.voiceState,
+				})
+			end)
+		})
+	else
+		Roact.createElement(VRBottomBar)
+
 	return Roact.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -120,7 +136,7 @@ function TopBarApp:render()
 		Connection = Roact.createElement(Connection),
 		GamepadMenu = Roact.createElement(GamepadMenu),
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
-		VRBottomBar = EngineFeatureEnableVRUpdate3 and VRService.VREnabled and Roact.createElement(VRBottomBar) or nil,
+		VRBottomBar = EngineFeatureEnableVRUpdate3 and VRService.VREnabled and bottomBar or nil,
 
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,

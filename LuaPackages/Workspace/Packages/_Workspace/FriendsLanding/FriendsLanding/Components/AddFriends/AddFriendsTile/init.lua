@@ -8,6 +8,9 @@ local RoactRodux = dependencies.RoactRodux
 local t = dependencies.t
 local UIBlox = dependencies.UIBlox
 local PlayerTile = UIBlox.App.Tile.PlayerTile
+local Dash = dependencies.Dash
+local SocialLuaAnalytics = dependencies.SocialLuaAnalytics
+local Contexts = SocialLuaAnalytics.Analytics.Enums.Contexts
 
 local withStyle = UIBlox.Style.withStyle
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
@@ -20,9 +23,9 @@ local getFooterRelevanceInfo = require(script.getFooterRelevanceInfo)
 
 local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
-local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
-	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
+local getFFlagAddFriendsPYMKAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKAnalytics)
 
 local AddFriendsTile = Roact.PureComponent:extend("AddFriendsTile")
 
@@ -64,6 +67,8 @@ AddFriendsTile.validateProps = t.strictInterface({
 	showTooltip = t.optional(t.boolean),
 	tooltipShown = t.optional(t.callback),
 	navigation = t.optional(t.table),
+	-- Position of tile in its section starting from 0
+	position = if getFFlagAddFriendsPYMKExperimentEnabled() then t.integer else nil,
 })
 
 AddFriendsTile.defaultProps = {
@@ -87,16 +92,45 @@ function AddFriendsTile:init()
 				if not self.isMounted then
 					return
 				end
-				self.props.handleNavigateDownToViewUserProfile(self.props.user.id, navParams)
+				if getFFlagAddFriendsImproveAnalytics() then
+					local extraProps = Dash.join(navParams.profilePeekViewProps, {
+						absolutePosition = self.props.position,
+						source = Contexts.AddFriends.rawValue(),
+					})
+					if getFFlagAddFriendsPYMKAnalytics() and self.props.isRecommendation then
+						extraProps = Dash.join(extraProps, {
+							isRecommendation = self.props.isRecommendation,
+							rank = self.props.user.rank,
+							contextualInfoType = self.props.user.contextType.rawValue(),
+						})
+					end
+					self.props.handleNavigateDownToViewUserProfile(
+						self.props.user.id,
+						{ profilePeekViewProps = extraProps }
+					)
+				else
+					self.props.handleNavigateDownToViewUserProfile(self.props.user.id, navParams)
+				end
 			end
 		end
 		else function()
 			if not self.isMounted then
 				return
 			end
-			self.props.handleNavigateDownToViewUserProfile(self.props.user.id, function()
-				return
-			end)
+			if getFFlagAddFriendsImproveAnalytics() then
+				local extraProps = { absolutePosition = self.props.position, source = Contexts.AddFriends.rawValue() }
+				self.props.handleNavigateDownToViewUserProfile(
+					self.props.user.id,
+					{ profilePeekViewProps = extraProps },
+					function()
+						return
+					end
+				)
+			else
+				self.props.handleNavigateDownToViewUserProfile(self.props.user.id, function()
+					return
+				end)
+			end
 		end
 
 	self.hideTooltip = function()
@@ -132,9 +166,7 @@ function AddFriendsTile:render()
 			tooltipHeaderText = "Feature.Contacts.Heading.ContactsTooltip",
 			tooltipBodyText = "Feature.Contacts.Label.ContactsTooltip",
 			tooltipButtonText = "Feature.Avatar.Action.GotIt",
-			foundThroughQRCode = if getFFlagProfileQRCodeFriendRequestContextInfoEnabled()
-				then TextKeys.PROFILE_QR_CODE_TILE_FOOTER
-				else nil,
+			foundThroughQRCode = TextKeys.PROFILE_QR_CODE_TILE_FOOTER,
 			friendRequests = if getFFlagAddFriendsPYMKExperimentEnabled() then TextKeys.FRIEND_REQUEST else nil,
 			mutualFriends = if getFFlagAddFriendsPYMKExperimentEnabled() then TextKeys.MUTUAL_FRIENDS else nil,
 			singularMutualFriend = if getFFlagAddFriendsPYMKExperimentEnabled()
@@ -176,6 +208,7 @@ function AddFriendsTile:render()
 				}, style, localized)
 				else nil
 
+			-- Contextual information for PYMK tiles on AddFriendsPage
 			local contextualInfoDisplay = if getFFlagAddFriendsPYMKExperimentEnabled()
 					and self.props.isRecommendation
 					and relevancyInfo
@@ -203,6 +236,7 @@ function AddFriendsTile:render()
 						subtitle = "@" .. (user.externalAppDisplayName or user.username),
 						buttons = getOverlayButtons({
 							playerId = user.id,
+							position = if getFFlagAddFriendsImproveAnalytics() then self.props.position else nil,
 							isFriendRequest = self.props.isFriendRequest,
 							friendStatus = self.props.friendStatus,
 							networking = self.props.networking,

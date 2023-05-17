@@ -9,6 +9,7 @@ local it = JestGlobals.it
 local expect = JestGlobals.expect
 local TenFootUiSwitchViewCard = require(script.Parent.TenFootUiSwitchViewCard)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
 
 type ScreenKind = TenFootUiCommon.ScreenKind
@@ -29,7 +30,7 @@ local testState = {
 	key = testKey,
 }
 
-local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, "Default")
+local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, ScreenKind.Default)
 
 it("should render with props correctly", function()
 	local testAdorneeParent = Instance.new("Folder")
@@ -37,13 +38,18 @@ it("should render with props correctly", function()
 
 	local testProps: Props = {
 		isActiveKey = false,
+		isFocusable = true,
 		index = 1,
 		descriptor = testDescriptor,
 		adorneeParent = testAdorneeParent,
 		surfaceGuiParent = testSurfaceGuiParent,
 	}
 
-	local element = React.createElement(createTenFootUiShellTestHarness(TenFootUiSwitchViewCard), testProps)
+	local element = React.createElement(
+		createTenFootUiShellTestHarness(),
+		nil,
+		React.createElement(TenFootUiSwitchViewCard, testProps)
+	)
 
 	local root = ReactRoblox.createRoot(Instance.new("Folder"))
 	ReactRoblox.act(function()

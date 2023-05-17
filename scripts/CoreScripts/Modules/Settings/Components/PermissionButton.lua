@@ -14,13 +14,14 @@ PermissionButton.validateProps = t.strictInterface({
 	callback = t.callback,
 	image = t.table,
 	LayoutOrder = t.number,
+	useNewMenuTheme = t.boolean,
 })
 
 function PermissionButton:render()
 	return Roact.createElement("ImageButton", {
 		LayoutOrder = self.props.LayoutOrder,
-		Image = "rbxasset://textures/ui/dialog_white.png",
-		ImageTransparency = 0.85,
+		Image = if self.props.useNewMenuTheme then "rbxasset://textures/ui/TopBar/iconBase.png" else "rbxasset://textures/ui/dialog_white.png",
+		ImageTransparency = if self.props.useNewMenuTheme then 0 else 0.85,
 		BackgroundTransparency = 1,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = Rect.new(10, 10, 10, 10),

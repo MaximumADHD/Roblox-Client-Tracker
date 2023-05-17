@@ -21,6 +21,7 @@ local ShowMoreWrapper = require(script.Parent)
 
 local getFFlagFriendsLandingInactiveFriendsEnabled =
 	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
 
 -- FIXME: APPFDN-1925
 local fullyLoadedStory = require((script :: any).Parent["fullyLoaded.story"]) :: any
@@ -201,7 +202,13 @@ describe("ShowMoreWrapper", function()
 			RhodiumHelpers.clickInstance(showMore)
 
 			expect(mockAnalytics.buttonClick).toHaveBeenCalledTimes(1)
-			expect(mockAnalytics.buttonClick).toHaveBeenCalledWith(mockAnalytics, ButtonClickEvents.LoadMoreFriends)
+			if getFFlagAddFriendsImproveAnalytics() then
+				expect(mockAnalytics.buttonClick).toHaveBeenCalledWith(mockAnalytics, ButtonClickEvents.LoadMoreUsers, {
+					sectionType = "Friends",
+				})
+			else
+				expect(mockAnalytics.buttonClick).toHaveBeenCalledWith(mockAnalytics, ButtonClickEvents.LoadMoreFriends)
+			end
 			cleanup()
 		end)
 	end)

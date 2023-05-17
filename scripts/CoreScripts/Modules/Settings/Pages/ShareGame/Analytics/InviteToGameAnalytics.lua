@@ -27,6 +27,7 @@ InviteToGameAnalytics.EventName = {
 	InvitePromptShown = "invitePromptShown",
 	InvitePromptFailed = "invitePromptFailed",
 	InvitePromptAction = "invitePromptAction",
+	InviteSearchFocused = "inviteSearchFocused",
 }
 
 InviteToGameAnalytics.EventFieldName = {
@@ -148,6 +149,17 @@ function InviteToGameAnalytics:onShareButtonClick()
 		page = "inGameMenu",
 		subpage = "inviteFriendsPage",
 		isShortUrlEnabled = if getFFlagGameInviteShortUrlEnabled() then true else nil
+	}
+	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
+end
+
+function InviteToGameAnalytics:onSearchFocused()
+	local eventName = InviteToGameAnalytics.EventName.InviteSearchFocused
+	local eventContext = "inGame"
+	local additionalArgs = {
+		btn = self:_getButtonName(),
+		page = "inGameMenu",
+		subpage = "inviteFriendsPage",
 	}
 	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
 end

@@ -17,6 +17,7 @@ return function()
 				LayoutOrder = 1,
 				shouldFillScreen = true,
 				selfViewOpen = true,
+				useNewMenuTheme = false,
 			})
 
 			local instance = Roact.mount(element)

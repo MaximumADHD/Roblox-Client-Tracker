@@ -64,6 +64,7 @@ local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt2",
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 
 local GetFFlagDragDetectorTouchIndicator = require(RobloxGui.Modules.Flags.GetFFlagDragDetectorTouchIndicator)
+local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScriptsDev", false) -- temp placeholder, will use a common engineFeature once definedd
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
@@ -280,6 +281,10 @@ end)()
 ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/ChatEmoteUsage", script.Parent)
+
+if FFlagLuaAppEnableToastNotificationsCoreScripts then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ToastNotificationGUI", script.Parent)
+end
 
 if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")

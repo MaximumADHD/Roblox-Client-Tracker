@@ -18,8 +18,6 @@ local Images = UIBlox.App.ImageSet.Images
 
 local useContextualInfo = require(script.Parent.useContextualInfo)
 
-local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
-
 local ICON_FRIEND = Images["icons/status/player/friend"]
 local ICON_FOLLOWING = Images["icons/status/player/following"]
 
@@ -55,17 +53,10 @@ describe("useContextualInfo", function()
 			state = mockedUsersInfo.state,
 		})
 
-		if getFFlagUserSearchContextualInfoUpdateUI() then
-			expect(helper.result).toEqual(
-				{ text = "Feature.PlayerSearchResults.Label.Previously" .. " @" .. previousUsername },
-				ContextualInfoTypes.PreviousUsername.rawValue()
-			)
-		else
-			expect(helper.result).toEqual(
-				{ text = "Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation" .. " " .. previousUsername },
-				ContextualInfoTypes.PreviousUsername.rawValue()
-			)
-		end
+		expect(helper.result).toEqual(
+			{ text = "Feature.PlayerSearchResults.Label.Previously" .. " @" .. previousUsername },
+			ContextualInfoTypes.PreviousUsername.rawValue()
+		)
 	end)
 
 	it("SHOULD return correct info WHEN user is friend", function()

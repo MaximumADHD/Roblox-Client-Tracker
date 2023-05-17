@@ -265,7 +265,9 @@ function InfoPanel:getStoryDefinition(
 		end
 		if definition.stories then
 			for _, subDefinition in pairs(definition.stories) do
-				subDefinition.story = mapStory(subDefinition.story)
+				if subDefinition.story then
+					subDefinition.story = mapStory(subDefinition.story)
+				end
 			end
 		end
 	end
@@ -396,6 +398,10 @@ function InfoPanel:render()
 		sort(subStoryKeys)
 		forEach(subStoryKeys, function(key: string | number)
 			local subDefinition = definition.stories[key]
+			if not subDefinition.story then
+				print("Skipping story that is currently false:", key)
+				return
+			end
 			-- Load one host per sub-story
 			local subStory = Roact.createElement(StoryHost, {
 				StoryRef = self.storyRef,

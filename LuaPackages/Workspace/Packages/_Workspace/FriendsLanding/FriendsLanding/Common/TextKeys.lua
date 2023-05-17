@@ -6,6 +6,7 @@ return {
 	ADD_FRIENDS_EMPTY_STATE_PROMPT_TEXT = "Feature.AddFriends.Label.EmptyStatePrompt",
 	ADD_FRIENDS_TOOLTIP_TITLE = "Feature.AddFriends.Title.AddFriendsTooltipTitle",
 	PEOPLE_YOU_MAY_KNOW = "Feature.Friends.Label.PYMK",
+	ADD_FRIENDS_BTN = "Feature.Friends.Feature.Friends.Heading.AddFriends",
 
 	--* PYMK contextual information
 	FRIEND_REQUEST = "Feature.Friends.Label.FriendRequest",

@@ -1,5 +1,5 @@
-game:DefineFastFlag("FriendsLandingInactiveFriendsEnabled_v2", false)
+game:DefineFastFlag("FriendsLandingInactiveFriendsEnabled_v3", false)
 
 return function()
-	return game:GetFastFlag("FriendsLandingInactiveFriendsEnabled_v2")
+	return game:GetFastFlag("FriendsLandingInactiveFriendsEnabled_v3")
 end

@@ -12,6 +12,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local StarterGui = game:GetService("StarterGui")
+local VRService = game:GetService("VRService")
 
 local log = require(script.Parent.Parent.Logger)(script.Name)
 
@@ -43,6 +44,8 @@ local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
 
 local FFlagDebugAllowControlButtonsNoVoiceChat = game:DefineFastFlag("DebugAllowControlButtonsNoVoiceChat", false)
+
+local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -429,6 +432,11 @@ function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 
 	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
 	if isLocalPlayer then
+		-- Hide local player's bubble on VR
+		if FFlagVRMoveVoiceIndicatorToBottomBar and VRService.VREnabled then
+			return false
+		end
+		
 		-- Self View hides local player's bubble.
 		if not self.state.selfViewOpen then
 			-- Local player renders the control button even in the timed out state
@@ -477,6 +485,11 @@ function BubbleChatBillboard:render()
 	-- Self View hides the local user's bubble chat billboard.
 	if FFlagAvatarChatCoreScriptSupport and isLocalPlayer then
 		showVoiceIndicator = showVoiceIndicator and not self.state.selfViewOpen
+	end
+
+	-- Hide local user's voice indicator on VR
+	if FFlagVRMoveVoiceIndicatorToBottomBar and VRService.VREnabled and isLocalPlayer then
+		showVoiceIndicator = false
 	end
 
 	if FFlagAvatarChatCoreScriptSupport then

@@ -6,6 +6,7 @@ local React = require(Packages.React)
 local Constants = require(TenFootUiShell.Constants)
 local ReactFocusNavigation = require(Packages.ReactFocusNavigation)
 local RoactNavigation = require(Packages.RoactNavigation)
+local AppCommonLib = require(Packages.AppCommonLib)
 
 local TenFootUiScene = require(TenFootUiShell.Hooks.TenFootUiScene)
 local createTenFootUiNavigator = require(TenFootUiShell.ReactNavigationExtend.createTenFootUiNavigator)
@@ -21,19 +22,26 @@ local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local TenFootUiContext = TenFootUiCommon.TenFootUiContext
 local FocusNavigationRegistryProvider = require(TenFootUiShell.Hooks.FocusNavigableSurfaceRegistry).Provider
 local FocusNavigableWrapper = require(script.Parent.FocusNavigableWrapper)
+local useGlobalFocusHandler = require(TenFootUiShell.Hooks.useGlobalFocusHandler)
 local useFocusRegistryEntry = require(TenFootUiShell.Hooks.FocusNavigableSurfaceRegistry).useFocusRegistryEntry
 local useRegisterFocusNavigableSurface =
 	require(TenFootUiShell.Hooks.FocusNavigableSurfaceRegistry).useRegisterFocusNavigableSurface
-local useDeRegisterFocusNavigableSurface =
-	require(TenFootUiShell.Hooks.FocusNavigableSurfaceRegistry).useDeRegisterFocusNavigableSurface
 local FocusNavigableSurfaceIdentifierEnum = require(TenFootUiShell.Types.FocusNavigableSurfaceIdentifierEnum)
 local useRootFocusNavigationBindings = require(TenFootUiShell.Hooks.useRootFocusNavigationBindings)
+local useProcessNavigationStateChange =
+	require(TenFootUiShell.ReactNavigationExtend.Hooks.useProcessNavigationStateChange)
+local RnBypassAdapter = require(TenFootUiShell.ReactNavigationExtend.RnBypassAdapter)
 local ControllerBarContainer = require(Packages.TenFootUiControllerBar).ControllerBarContainer
+
 type TenFootUiContext = TenFootUiCommon.TenFootUiContext
 type TenFootUiRouterConfig = TenFootUiCommon.TenFootUiRouterConfig
+type FocusNavigationService = ReactFocusNavigation.FocusNavigationService
+type Signal = AppCommonLib.Signal
 
 local FocusNavigationService = ReactFocusNavigation.FocusNavigationService
 local CoreGuiInterface = ReactFocusNavigation.EngineInterface.CoreGui
+
+local GetFFlagMoveFocusNavigationProvider = require(Packages.SharedFlags).GetFFlagMoveFocusNavigationProvider
 
 local function getOrCreateSurfaceGuiContainer(): Instance
 	local surfaceGuiContainer: Instance = CoreGui:FindFirstChild(Constants.SURFACE_GUI_FOLDER_NAME)
@@ -72,20 +80,14 @@ type GlobalNavBarSurfaceProps = {
 local function GlobalNavBarSurface(props: GlobalNavBarSurfaceProps)
 	local onSelectDown = useFocusRegistryEntry(FocusNavigableSurfaceIdentifierEnum.RouterView)
 	local registerFocusNavigationRoot = useRegisterFocusNavigableSurface()
-	local deRegisterFocusNavigationRoot = useDeRegisterFocusNavigableSurface()
-	local ref = React.useRef(nil :: GuiObject?)
-	local rootBindingsRef: React.Ref<Instance> = useRootFocusNavigationBindings(ref :: { current: Instance? })
+	local globalNavInstance, setGlobalNavInstance = React.useState(nil :: GuiObject?)
+	local rootBindingsRef: React.Ref<Instance> = useRootFocusNavigationBindings(setGlobalNavInstance)
 
 	React.useEffect(function()
-		if ref.current then
-			registerFocusNavigationRoot(FocusNavigableSurfaceIdentifierEnum.NavBar, ref.current)
+		if globalNavInstance then
+			registerFocusNavigationRoot(FocusNavigableSurfaceIdentifierEnum.NavBar, globalNavInstance)
 		end
-		return function()
-			if ref.current then
-				deRegisterFocusNavigationRoot(FocusNavigableSurfaceIdentifierEnum.NavBar, ref.current)
-			end
-		end
-	end, { registerFocusNavigationRoot, deRegisterFocusNavigationRoot })
+	end, { registerFocusNavigationRoot, globalNavInstance } :: { any })
 
 	return React.createElement(SurfaceGuiWithAdornee, {
 		adorneeSize = props.adorneeSize,
@@ -123,7 +125,7 @@ local function ControllerBarSurface(props: GlobalNavBarSurfaceProps)
 	})
 end
 
-local function createAppContainer(routerConfig: TenFootUiRouterConfig)
+local function createAppContainer(routerConfig: TenFootUiRouterConfig, rnBypassActionSignal: Signal)
 	local surfaceGuiContainer = getOrCreateSurfaceGuiContainer()
 	local workspaceContainer = getOrCreateWorkSpaceContainer()
 
@@ -159,6 +161,9 @@ local function createAppContainer(routerConfig: TenFootUiRouterConfig)
 			React.createElement(InnerNavigator, {
 				navigation = self.props.navigation,
 			}),
+			React.createElement(RnBypassAdapter, {
+				rnBypassActionSignal = rnBypassActionSignal,
+			}),
 			React.createElement(ControllerBarSurface, {
 				adorneeSize = controllerBarDims,
 				adorneeCFrame = controllerBarCframe,
@@ -172,29 +177,54 @@ end
 
 type TenFootUiContainerProps = {
 	dependencies: TenFootUiContext,
+	rnBypassActionSignal: Signal,
 }
 
-local function TenFootUiContainer(props: TenFootUiContainerProps)
+--[[
+	TODO (CLIXBOX-2718): This should be moved into the container when we refactor the
+	providers into a parent component
+]]
+local function GlobalEffects(props)
+	useGlobalFocusHandler()
+	return React.createElement(React.Fragment, nil, props.children)
+end
+
+local function TenFootUiContainer(props: TenFootUiContainerProps): React.ReactElement
 	React.useLayoutEffect(function()
 		TenFootUiScene.initialize()
 	end, {})
 
-	local TenFootUiAppContainer = createAppContainer(props.dependencies.routerConfig)
+	local processNavigationStateChange = useProcessNavigationStateChange(props.dependencies.ApplyRoactNavigationHistory)
+
+	local TenFootUiAppContainer = createAppContainer(props.dependencies.routerConfig, props.rnBypassActionSignal)
 	local focusNav = React.useRef(FocusNavigationService.new(CoreGuiInterface))
 
-	return React.createElement(
-		ReactFocusNavigation.FocusNavigationContext.Provider,
-		{ value = focusNav.current },
+	local container = React.createElement(
+		TenFootUiContext.Provider,
+		{ value = props.dependencies },
 		React.createElement(
-			TenFootUiContext.Provider,
-			{ value = props.dependencies },
+			FocusNavigationRegistryProvider,
+			nil,
 			React.createElement(
-				FocusNavigationRegistryProvider,
+				GlobalEffects,
 				nil,
-				React.createElement(TenFootUiAppContainer, { detached = true })
+				React.createElement(TenFootUiAppContainer, {
+					detached = true,
+					onNavigationStateChange = processNavigationStateChange,
+				})
 			)
 		)
 	)
+
+	if GetFFlagMoveFocusNavigationProvider() then
+		return container
+	else
+		return React.createElement(
+			ReactFocusNavigation.FocusNavigationContext.Provider,
+			{ value = focusNav.current },
+			container
+		)
+	end
 end
 
 return TenFootUiContainer

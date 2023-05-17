@@ -12,6 +12,7 @@ local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Promise = require(CorePackages.Promise)
 local utility = require(RobloxGui.Modules.Settings.Utility)
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
@@ -110,6 +111,13 @@ function ShareGamePageFrame:render()
 	end
 
 	local isVisible = self.props.isVisible
+	local showInviteLink = self:shouldShowInviteLink(self.props.gameInfo)
+	local listHeightOffset = 0
+	local listPositionOffset = 0
+	if showInviteLink and Theme.UIBloxThemeEnabled then
+		listHeightOffset = listHeightOffset - SHARE_INVITE_LINK_HEIGHT
+		listPositionOffset = 10
+	end
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -134,9 +142,11 @@ function ShareGamePageFrame:render()
 			searchAreaActive = searchAreaActive,
 			toggleSearchIcon = toggleSearchIcon,
 			iconType = iconType,
+			analytics = analytics,
 		}),
-		ShareInviteLink = self:shouldShowInviteLink(self.props.gameInfo)
+		ShareInviteLink = showInviteLink
 			and Roact.createElement(ShareInviteLink, {
+				position = UDim2.new(0, 0, 0, listPositionOffset),
 				analytics = analytics,
 				deviceLayout = deviceLayout,
 				size = UDim2.new(1, 0, 0, SHARE_INVITE_LINK_HEIGHT),
@@ -146,9 +156,9 @@ function ShareGamePageFrame:render()
 			or nil,
 		ConversationList = Roact.createElement(ConversationList, {
 			analytics = analytics,
-			size = UDim2.new(1, 0, 1, layoutSpecific.EXTEND_BOTTOM_SIZE - USER_LIST_PADDING),
-			topPadding = self:shouldShowInviteLink(self.props.gameInfo) and USER_LIST_PADDING + SHARE_INVITE_LINK_HEIGHT or USER_LIST_PADDING,
-			layoutOrder = self:shouldShowInviteLink(self.props.gameInfo) and 2 or 1,
+			size = UDim2.new(1, 0, 1, layoutSpecific.EXTEND_BOTTOM_SIZE - USER_LIST_PADDING + listHeightOffset),
+			topPadding = showInviteLink and USER_LIST_PADDING + SHARE_INVITE_LINK_HEIGHT + listPositionOffset or USER_LIST_PADDING,
+			layoutOrder = showInviteLink and 2 or 1,
 			zIndex = zIndex,
 			searchText = searchText,
 			isVisible = isVisible,

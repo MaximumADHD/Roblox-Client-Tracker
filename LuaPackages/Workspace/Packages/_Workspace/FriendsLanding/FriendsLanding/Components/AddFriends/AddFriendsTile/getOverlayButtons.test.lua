@@ -16,6 +16,7 @@ local it = JestGlobals.it
 local jest = JestGlobals.jest
 
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
 
 local getOverlayButtons = require(script.Parent.getOverlayButtons)
 
@@ -39,6 +40,7 @@ describe("AddFriendsTile#getPlayerTileOverlayButtons", function()
 			handleRequestFriendship = wrapMockFunc(handleRequestFriendship),
 			handleAcceptFriendRequest = wrapMockFunc(handleAcceptFriendRequest),
 			handleDeclineFriendRequest = wrapMockFunc(handleDeclineFriendRequest),
+			position = if getFFlagAddFriendsImproveAnalytics() then 0 else nil,
 		})
 	end
 

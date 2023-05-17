@@ -18,6 +18,8 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
+
+local Theme = require(Modules.Settings.Theme)
 local Constants = require(ShareGame.Constants)
 local InviteEvents = require(ShareGame.Analytics.InviteEvents)
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
@@ -36,7 +38,6 @@ local GetFFlagAbuseReportAnalyticsHasLaunchData =
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
-local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
@@ -51,7 +52,7 @@ local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
 
 local ENTRY_HEIGHT = 62
-local ENTRY_PADDING = 18
+local ENTRY_PADDING = if Theme.UIBloxThemeEnabled then 16 else 18
 
 local NO_RESULTS_FONT = Theme.font(Enum.Font.SourceSans)
 local NO_RESULTS_TEXTCOLOR = Constants.Color.GRAY3
@@ -146,7 +147,7 @@ function ConversationList:render()
 				isFullRowActivatable = UserInputService.GamepadEnabled,
 				trigger = self.props.trigger,
 				inviteMessageId = self.props.inviteMessageId,
-				launchData = self.props.lanchData,
+				launchData = if GetFFlagInviteAnalyticsEventsUpdate() then self.props.launchData else self.props.lanchData,
 				promptMessage = if GetFFlagInviteAnalyticsEventsUpdate() then self.props.promptMessage else nil,
 			})
 		else

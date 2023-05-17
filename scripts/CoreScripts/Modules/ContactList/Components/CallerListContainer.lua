@@ -9,6 +9,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local NetworkingCall = dependencies.NetworkingCall
+local RoduxCall = dependencies.RoduxCall
 local UIBlox = dependencies.UIBlox
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
@@ -32,13 +33,37 @@ local function CallerListContainer(props: Props)
 	local theme = style.Theme
 
 	React.useEffect(function()
-		dispatch(NetworkingCall.GetCallHistory.API({ limit = 30 }))
+		dispatch(NetworkingCall.GetCallHistory.API({ limit = 4 }))
+
+		return function()
+			dispatch(RoduxCall.Actions.ClearCallRecords())
+		end
 	end, {})
 
-	local selectCallers = React.useCallback(function(state: any)
+	local selectCallHistoryResponse = React.useCallback(function(state: any)
 		return state.Call.callHistory or {}
 	end)
-	local callers = useSelector(selectCallers)
+
+	local callHistoryResponse = useSelector(selectCallHistoryResponse)
+	local callHistoryState, setCallHistoryState = React.useState({ callRecords = {}, nextPageCursor = "" })
+	local lastUsedCursor = React.useRef("")
+
+	local function concatArray(a, b)
+		local result = { table.unpack(a) }
+		table.move(b, 1, #b, #result + 1, result)
+		return result
+	end
+
+	React.useEffect(function()
+		setCallHistoryState(function(prevState)
+			local newState = { callRecords = {}, nextPageCursor = "" }
+			newState.nextPageCursor = callHistoryResponse.nextPageCursor
+			newState.callRecords = if callHistoryResponse.callRecords ~= nil
+				then concatArray(prevState.callRecords, callHistoryResponse.callRecords)
+				else {}
+			return newState
+		end)
+	end, { callHistoryResponse })
 
 	local children: any = React.useMemo(function()
 		local entries = {}
@@ -46,10 +71,10 @@ local function CallerListContainer(props: Props)
 			FillDirection = Enum.FillDirection.Vertical,
 		})
 
-		for index, caller in ipairs(callers) do
+		for index, caller in ipairs(callHistoryState.callRecords) do
 			entries[index] = React.createElement(CallerListItem, {
 				caller = caller,
-				showDivider = index ~= #callers,
+				showDivider = index ~= #callHistoryState.callRecords,
 				localUserId = localUserId,
 				OpenCallDetails = function()
 					dispatch(OpenCallDetails(caller.participants))
@@ -57,7 +82,7 @@ local function CallerListContainer(props: Props)
 			})
 		end
 		return entries
-	end, dependencyArray(callers))
+	end, dependencyArray(callHistoryState.callRecords))
 
 	return React.createElement("ScrollingFrame", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -67,6 +92,16 @@ local function CallerListContainer(props: Props)
 		CanvasSize = UDim2.new(),
 		BackgroundColor3 = theme.BackgroundDefault.Color,
 		BackgroundTransparency = theme.BackgroundDefault.Transparency,
+		[React.Change.CanvasPosition] = function(f)
+			if
+				f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
+				and callHistoryState.nextPageCursor ~= ""
+				and callHistoryState.nextPageCursor ~= lastUsedCursor.current
+			then
+				lastUsedCursor.current = callHistoryState.nextPageCursor
+				dispatch(NetworkingCall.GetCallHistory.API({ limit = 30, cursor = callHistoryState.nextPageCursor }))
+			end
+		end,
 	}, children)
 end
 

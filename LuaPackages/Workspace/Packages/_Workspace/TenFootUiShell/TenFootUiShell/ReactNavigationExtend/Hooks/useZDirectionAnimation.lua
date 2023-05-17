@@ -28,6 +28,7 @@ type Ref<T> = { current: T }
 
 export type Config = {
 	willAnimate: boolean,
+	isScreenAboveOverlay: boolean,
 	viewState: ViewState,
 	setOpened: (any) -> (),
 	setClosed: (any) -> (),
@@ -37,6 +38,7 @@ export type Config = {
 
 local function useZDirectionAnimation(config: Config)
 	local willAnimate = config.willAnimate
+	local isScreenAboveOverlay = config.isScreenAboveOverlay
 	local viewState = config.viewState
 	local setOpened = config.setOpened
 	local setClosed = config.setClosed
@@ -97,10 +99,13 @@ local function useZDirectionAnimation(config: Config)
 
 	local onStep = React.useCallback(function(value)
 		if willAnimate then
-			updateStepValue(value)
+			if not isScreenAboveOverlay or viewState ~= "Opened" then
+				updateStepValue(value)
+			end
+
 			animate(value)
 		end
-	end, { willAnimate, updateStepValue, animate } :: { any })
+	end, { willAnimate, isScreenAboveOverlay, viewState, updateStepValue, animate } :: { any })
 
 	local setGoal: (Goal) -> () = ReactOtter.useMotor(0, onStep, onAnimationComplete)
 
@@ -171,11 +176,14 @@ local function useZDirectionAnimation(config: Config)
 		elseif viewState == "Closing" or eventState == EventState.WillBlur then
 			setGoal(ReactOtter.spring(0, Constants.Z_DIRECTION_ANIMATION_SPRING_CONFIG))
 		elseif eventState == EventState.DidBlur then
-			setGoal(ReactOtter.instant(0))
+			-- don't reset to 0 if the screen above is an overlay
+			if not isScreenAboveOverlay or viewState ~= "Opened" then
+				setGoal(ReactOtter.instant(0))
+			end
 		else -- eventState == EventState.DidFocus or viewState == "Opened"
 			setGoal(ReactOtter.instant(1))
 		end
-	end, { viewState, eventState, willAnimate } :: { any })
+	end, { viewState, eventState, willAnimate, isScreenAboveOverlay } :: { any })
 
 	return {
 		groupTransparency = stepValue:map(function(value)

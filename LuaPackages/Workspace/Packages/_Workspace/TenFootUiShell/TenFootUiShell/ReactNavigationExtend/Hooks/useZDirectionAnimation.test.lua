@@ -11,6 +11,7 @@ local jest = JestGlobals.jest
 local describe = JestGlobals.describe
 local beforeEach = JestGlobals.beforeEach
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local TenFootUiScene = require(TenFootUiShell.Hooks.TenFootUiScene)
 local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
 local RouteViewState = require(ReactNavigationExtend.Views.RouteViewState)
@@ -35,7 +36,7 @@ local testState = {
 	key = testKey,
 }
 
-local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, "Default")
+local testDescriptor: Descriptor = mocks.makeMockDescriptor(testKey, testState, ScreenKind.Default)
 
 describe("animate", function()
 	local initialBgPosition, backgroundInstance
@@ -60,6 +61,7 @@ describe("animate", function()
 
 	local intialtestConfig: Config = {
 		willAnimate = false,
+		isScreenAboveOverlay = false,
 		viewState = "Opened" :: ViewState,
 		setOpened = setOpenedSpy,
 		setClosed = setClosedSpy,

@@ -14,17 +14,12 @@ local showRecommendations = require(FriendsCarousel.Utils.showRecommendations)
 local NetworkStatus = dependencies.RoduxNetworking.Enum.NetworkStatus
 local getSessionIdByKey = dependencies.RoduxAnalytics.Selectors.getSessionIdByKey
 
-local GetFFlagLuaAppFriendsCarouselExperimentCleanup = dependencies.GetFFlagLuaAppFriendsCarouselExperimentCleanup
-
 local mapStateToProps = function(state, props)
 	local localUserId = tostring(state.LocalUserId)
 	local friendsList = getFriendsList(state, RODUX_KEY, props)
-	local recommendationsList
-	if GetFFlagLuaAppFriendsCarouselExperimentCleanup() then
-		recommendationsList = if props.showRecommendations then getRecommendationsList(state, RODUX_KEY, props) else {}
-	else
-		recommendationsList = getRecommendationsList(state, RODUX_KEY, props)
-	end
+	local recommendationsList = if props.showRecommendations
+		then getRecommendationsList(state, RODUX_KEY, props)
+		else {}
 	local friendsAndRecList = getCarouselList(friendsList, recommendationsList)
 
 	local friendCount = getDeepValue(state, string.format("%s.Friends.countsByUserId.%s", RODUX_KEY, localUserId)) or 0

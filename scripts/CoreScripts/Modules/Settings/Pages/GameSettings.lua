@@ -11,6 +11,7 @@
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
+local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 local HttpService = game:GetService('HttpService')
 local RunService = game:GetService("RunService")
@@ -92,6 +93,7 @@ local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 local GetHasGuiHidingPermission = require(RobloxGui.Modules.Common.GetHasGuiHidingPermission)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
+local Cryo = require(CorePackages.Cryo)
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -140,6 +142,28 @@ local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoice
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 local GetFFlagDisableCameraOffSetting = require(RobloxGui.Modules.Flags.GetFFlagDisableCameraOffSetting)
+local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
+
+local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
+	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
+		return
+	end
+
+	local stringTable = {
+		universe_id = tostring(game.GameId),
+		name = fieldName,
+		old_value = tostring(oldValue),
+		new_value = tostring(newValue),
+		has_touch = UserInputService.TouchEnabled,
+		has_mouse = UserInputService.MouseEnabled,
+		has_gamepad = UserInputService.GamepadEnabled,
+	}
+	if extraData then
+		stringTable = Cryo.Dictionary.join(stringTable, extraData)
+	end
+
+	AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName, Constants.AnalyticsExplicitSettingsChangeName, stringTable)
+end
 
 local function reportSettingsForAnalytics()
 	local stringTable = {}
@@ -228,6 +252,7 @@ local function Initialize()
 
 		this.FullscreenEnabler.IndexChanged:connect(
 			function(newIndex)
+				local wasFullscreen = GameSettings:InFullScreen()
 				if newIndex == 1 then
 					if not GameSettings:InFullScreen() then
 						GuiService:ToggleFullscreen()
@@ -240,6 +265,9 @@ local function Initialize()
 					end
 				end
 				spawn(function() --fullscreen setting takes a frame to update so need to wait before reporting
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						reportSettingsChangeForAnalytics('fullscreen_enabled', wasFullscreen, GameSettings:InFullScreen())
+					end
 					reportSettingsForAnalytics()
 				end)
 			end
@@ -410,6 +438,10 @@ local function Initialize()
 			setGraphicsQualitySliderLevel(newValue)
 
 			this.mostRecentGraphicsQualityValue = newValue
+
+			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+				reportSettingsChangeForAnalytics('gfx_quality_level', oldValue, newValue)
+			end
 
 			--[[
 				The caller might want to know what effect calling this setter actually had, so we return:
@@ -621,10 +653,19 @@ local function Initialize()
 
 		this.PerformanceStatsMode.IndexChanged:connect(
 			function(newIndex)
+				local previousPerformanceStatsVisible
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					previousPerformanceStatsVisible = GameSettings.PerformanceStatsVisible
+				end
+
 				if newIndex == 1 then
 					GameSettings.PerformanceStatsVisible = true
 				else
 					GameSettings.PerformanceStatsVisible = false
+				end
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('show_performance_stats', previousPerformanceStatsVisible, GameSettings.PerformanceStatsVisible)
 				end
 				reportSettingsForAnalytics()
 			end
@@ -697,7 +738,16 @@ local function Initialize()
 					end
 			end
 
+			local microprofilerType
+			local oldValue
+			local newValue
+
 			if isMobileClient then
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					microprofilerType = 'webserver'
+					oldValue = GameSettings.MicroProfilerWebServerEnabled
+				end
+
 				if newIndex == 1 then -- Show Web Server Content Label
 					GameSettings.MicroProfilerWebServerEnabled = true
 
@@ -721,11 +771,30 @@ local function Initialize()
 				else -- Hide Web Server Content Label
 						hideContentLabel()
 				end
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					newValue = GameSettings.MicroProfilerWebServerEnabled
+				end
 			elseif isDesktopClient then
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					microprofilerType = 'regular'
+					oldValue = GameSettings.OnScreenProfilerEnabled
+				end
+
 				GameSettings.OnScreenProfilerEnabled = (newIndex == 1)
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					newValue = GameSettings.OnScreenProfilerEnabled
+				end
 			end
 
 			AnalyticsService:ReportCounter(MICROPROFILER_SETTINGS_PRESSED)
+
+			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+				reportSettingsChangeForAnalytics('microprofiler_enabled', oldValue, newValue, {
+					microprofiler_type = microprofilerType,
+				})
+			end
 			reportSettingsForAnalytics()
 		end
 
@@ -818,10 +887,19 @@ local function Initialize()
 
 				this.ShiftLockMode.IndexChanged:connect(
 					function(newIndex)
+						local oldValue
+						if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+							oldValue = GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch
+						end
+
 						if newIndex == 1 then
 							GameSettings.ControlMode = Enum.ControlMode.MouseLockSwitch
 						else
 							GameSettings.ControlMode = Enum.ControlMode.Classic
+						end
+
+						if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+							reportSettingsChangeForAnalytics('shift_lock_enabled', oldValue, GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch)
 						end
 						reportSettingsForAnalytics()
 					end
@@ -859,13 +937,26 @@ local function Initialize()
 				end
 
 				local actuallyUpdated
+				local oldValue
 
 				if UserInputService.TouchEnabled then
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						oldValue = GameSettings.TouchCameraMovementMode.Value
+					end
+
 					actuallyUpdated = GameSettings.TouchCameraMovementMode.Value ~= newEnumSetting
 					GameSettings.TouchCameraMovementMode = newEnumSetting
 				else
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						oldValue = GameSettings.ComputerCameraMovementMode.Value
+					end
+
 					actuallyUpdated = GameSettings.ComputerCameraMovementMode.Value ~= newEnumSetting
 					GameSettings.ComputerCameraMovementMode = newEnumSetting
+				end
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() and actuallyUpdated then
+					reportSettingsChangeForAnalytics('camera_mode', oldValue, newEnumSetting)
 				end
 
 				return actuallyUpdated
@@ -1094,10 +1185,22 @@ local function Initialize()
 					return
 				end
 
+				local oldValue
+
 				if UserInputService.TouchEnabled then
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						oldValue = GameSettings.TouchMovementMode
+					end
 					GameSettings.TouchMovementMode = newEnumSetting
 				else
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						oldValue = GameSettings.ComputerMovementMode
+					end
 					GameSettings.ComputerMovementMode = newEnumSetting
+				end
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('movement_mode', oldValue, newEnumSetting)
 				end
 			end
 
@@ -1684,10 +1787,19 @@ local function Initialize()
 
 		this.VolumeSlider.ValueChanged:connect(
 			function(newValue)
+				local oldValue
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					oldValue = math.floor((GameSettings.MasterVolume * 10) + 0.5)
+				end
+
 				local soundPercent = newValue / 10
 				volumeSound.Volume = soundPercent
 				volumeSound:Play()
 				GameSettings.MasterVolume = soundPercent
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('volume', oldValue, math.floor((GameSettings.MasterVolume * 10) + 0.5))
+				end
 				reportSettingsForAnalytics()
 			end
 		)
@@ -1715,10 +1827,19 @@ local function Initialize()
 
 		this.CameraInvertedSelector.IndexChanged:connect(
 			function(newIndex)
+				local oldValue
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					oldValue = GameSettings.CameraYInverted
+				end
+
 				if newIndex == 2 then
 					GameSettings.CameraYInverted = true
 				else
 					GameSettings.CameraYInverted = false
+				end
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('camera_y_inverted', oldValue, GameSettings.CameraYInverted)
 				end
 				reportSettingsForAnalytics()
 			end
@@ -1726,13 +1847,30 @@ local function Initialize()
 	end
 
 	local function setCameraSensitivity(newValue)
+		local sensitivityType
+		local oldValue
 		if UserInputService.GamepadEnabled and GameSettings.IsUsingGamepadCameraSensitivity then
+			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+				sensitivityType = 'gamepad'
+				oldValue = GameSettings.GamepadCameraSensitivity
+			end
 			GameSettings.GamepadCameraSensitivity = newValue
 		end
 		if UserInputService.MouseEnabled then
+			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+				sensitivityType = 'mouse'
+				oldValue = GameSettings.MouseSensitivityFirstPerson.X
+			end
+
 			local newVectorValue = Vector2.new(newValue, newValue)
 			GameSettings.MouseSensitivityFirstPerson = newVectorValue
 			GameSettings.MouseSensitivityThirdPerson = newVectorValue
+		end
+
+		if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+			reportSettingsChangeForAnalytics('camera_sensitivity', tonumber(string.format("%.2f", oldValue)), tonumber(string.format("%.2f", newValue)), {
+				sensitivity_type = sensitivityType
+			})
 		end
 		reportSettingsForAnalytics()
 	end
@@ -1803,8 +1941,17 @@ local function Initialize()
 			AnchorPoint = Vector2.new(0, 0.5),
 			ZIndex = 3,
 			Selectable = false,
-			Parent = this.MouseAdvancedEntry.SliderFrame
+			Parent = this.MouseAdvancedEntry.SliderFrame,
+			BorderSizePixel = if Theme.UIBloxThemeEnabled then 0 else 1,
 		}
+
+		if Theme.UIBloxThemeEnabled then
+			utility:Create'UICorner'
+			{
+				CornerRadius = Theme.DefaultCornerRadius,
+				Parent = textBox,
+			}
+		end
 
 		local maxTextBoxStringLength = 7
 		local function setTextboxText(newText)
@@ -2459,9 +2606,11 @@ local function Initialize()
 	this.TabHeader.Name = "GameSettingsTab"
 
 	if Theme.UIBloxThemeEnabled then
-		this.TabHeader.TabLabel.Icon.Image =
-		isTenFootInterface and "rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab@2x.png" or
-		"rbxasset://textures/ui/Settings/MenuBarIcons/GameSettingsTab.png"
+
+		local icon = Theme.Images["icons/common/settings"]
+		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
+		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
+		this.TabHeader.TabLabel.Icon.Image = icon.Image
 
 		this.TabHeader.TabLabel.Title.Text = "Settings"
 	else

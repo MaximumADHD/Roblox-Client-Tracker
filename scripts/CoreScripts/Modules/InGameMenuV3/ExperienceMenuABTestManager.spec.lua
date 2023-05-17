@@ -107,9 +107,37 @@ return function()
 				expect(manager:areMenuControlsEnabled()).to.equal(true)
 				expect(manager:isV2MenuEnabled()).to.equal(false)
 
+				expect(manager:shouldShowNewNavigationLayout()).to.equal(true)
 				expect(manager:shouldShowHomeButton()).to.equal(false)
-				expect(manager:shouldShowSolidCard()).to.equal(false)
-				expect(manager:shouldLeaveToHome()).to.equal(false)
+			end
+		end)
+
+		it("returns menu controls for user in the old layout controls variant", function()
+			if IsExperienceMenuABTestEnabled() then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = ExperienceMenuABTestManager.default.controlsOldLayoutVersionId() } })
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).to.be.ok()
+				expect(manager._ixpServiceWrapper).to.be.ok()
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be version controls
+				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsOldLayoutVersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsOldLayoutVersionId())
+				expect(manager:areMenuControlsEnabled()).to.equal(true)
+				expect(manager:isV2MenuEnabled()).to.equal(false)
+
+				expect(manager:shouldShowNewNavigationLayout()).to.equal(false)
+				expect(manager:shouldShowHomeButton()).to.equal(false)
 			end
 		end)
 
@@ -137,69 +165,8 @@ return function()
 				expect(manager:areMenuControlsEnabled()).to.equal(true)
 				expect(manager:isV2MenuEnabled()).to.equal(false)
 
+				expect(manager:shouldShowNewNavigationLayout()).to.equal(true)
 				expect(manager:shouldShowHomeButton()).to.equal(true)
-				expect(manager:shouldShowSolidCard()).to.equal(false)
-				expect(manager:shouldLeaveToHome()).to.equal(false)
-			end
-		end)
-
-		it("returns menu controls for user in the solid card controls variant", function()
-			if IsExperienceMenuABTestEnabled() then
-				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
-				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
-				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = ExperienceMenuABTestManager.default.controlsSolidCardVersionId() } })
-
-				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-
-				-- when ixp layers are registered, test manager is initialized
-				manager:initialize()
-
-				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsSolidCardVersionId())
-
-				-- beginning of second session
-				manager:initialize()
-
-				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsSolidCardVersionId())
-				expect(manager:areMenuControlsEnabled()).to.equal(true)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
-
-				expect(manager:shouldShowHomeButton()).to.equal(false)
-				expect(manager:shouldShowSolidCard()).to.equal(true)
-				expect(manager:shouldLeaveToHome()).to.equal(false)
-			end
-		end)
-
-		it("returns menu controls for user in the leave to home controls variant", function()
-			if IsExperienceMenuABTestEnabled() then
-				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
-				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
-				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = ExperienceMenuABTestManager.default.controlsLeaveToHomeVersionId() } })
-
-				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-
-				-- when ixp layers are registered, test manager is initialized
-				manager:initialize()
-
-				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsLeaveToHomeVersionId())
-
-				-- beginning of second session
-				manager:initialize()
-
-				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsLeaveToHomeVersionId())
-				expect(manager:areMenuControlsEnabled()).to.equal(true)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
-
-				expect(manager:shouldShowHomeButton()).to.equal(false)
-				expect(manager:shouldShowSolidCard()).to.equal(false)
-				expect(manager:shouldLeaveToHome()).to.equal(true)
 			end
 		end)
 

@@ -40,6 +40,8 @@ local getFIntFriendsLandingFriendPruningUpsellMinFriends =
 local getFIntFriendsLandingFriendPruningUpsellMinInactiveFriends =
 	require(FriendsLanding.Flags.getFIntFriendsLandingFriendPruningUpsellMinInactiveFriends)
 
+local getFFlagFriendsLandingNewEmptyPage = require(FriendsLanding.Flags.getFFlagFriendsLandingNewEmptyPage)
+
 local FRIEND_PRUNING_ALERT_FEATURE_NAME = "UniversalAppPruningAlertStorageKey"
 local FRIEND_PRUNING_ALERT_LOCAL_STORAGE_KEY = "FriendPruningAlertSeen"
 
@@ -270,6 +272,11 @@ function FriendsLandingPage:init()
 			canvasSizeY = UDim.new(1, 1),
 		}
 	end)
+
+	self.openAddFriendsPage = function()
+		-- TODO SOCGRAPH-929: add analytics
+		self.props.navigation.navigate(EnumScreens.AddFriends)
+	end
 end
 
 function FriendsLandingPage:didMount()
@@ -385,6 +392,9 @@ function FriendsLandingPage:render()
 										and Roact.createElement(EmptyResultsView, {
 											layoutOrder = 6,
 											pageLoadingTimeReport = self.pageLoadingTimeReport,
+											openAddFriendsPage = if getFFlagFriendsLandingNewEmptyPage()
+												then self.openAddFriendsPage
+												else nil,
 										})
 									or Roact.createElement(DefaultMetricsGridView, {
 										getItemHeight = self.getItemHeight,
@@ -440,6 +450,9 @@ function FriendsLandingPage:render()
 									and Roact.createElement(EmptyResultsView, {
 										layoutOrder = 3,
 										pageLoadingTimeReport = self.pageLoadingTimeReport,
+										openAddFriendsPage = if getFFlagFriendsLandingNewEmptyPage()
+											then self.openAddFriendsPage
+											else nil,
 									})
 								or Roact.createElement(DefaultMetricsGridView, {
 									getItemHeight = self.getItemHeight,

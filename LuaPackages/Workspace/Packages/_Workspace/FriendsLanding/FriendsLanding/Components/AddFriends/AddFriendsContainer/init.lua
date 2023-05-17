@@ -11,6 +11,7 @@ local RoactRodux = dependencies.RoactRodux
 local RoactAppExperiment = dependencies.RoactAppExperiment
 local UIBlox = dependencies.UIBlox
 local FormFactor = dependencies.FormFactor
+local Dash = dependencies.Dash
 local compose = SocialLibraries.RoduxTools.compose
 local Images = UIBlox.App.ImageSet.Images
 local EnumScreens = require(FriendsLanding.EnumScreens)
@@ -36,13 +37,20 @@ local getFFlagProfileQRCodeEnable3DAvatarExperiment =
 	ProfileQRCodeExperiments.getFFlagProfileQRCodeEnable3DAvatarExperiment
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
 local getFStringSocialFriendsLayer = dependencies.getFStringSocialFriendsLayer
-local getFFlagAddFriendsQRCodeAnalytics = dependencies.getFFlagAddFriendsQRCodeAnalytics
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
+local getFFlagAddFriendsMoveExposureLayer = require(FriendsLanding.Flags.getFFlagAddFriendsMoveExposureLayer)
+local getFFlagAddFriendsPYMKAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKAnalytics)
 
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE = 25
 local GET_FRIEND_REQUESTS_LIMIT_PER_PAGE_WIDE = 50
 local SHOW_MORE_VISIBLE_ROWS = 6
-local SHOW_MORE_VISIBLE_ROWS_MULTIPLE_SECTIONS = 2
+
+type OverlayButtonExtraProps = {
+	position: number?,
+	targetUserId: string,
+	isRecommendation: boolean?,
+}
 
 local AddFriendsContainer = Roact.PureComponent:extend("AddFriendsContainer")
 
@@ -97,21 +105,27 @@ function AddFriendsContainer:init()
 			}):andThen(function(results)
 				local friendRequestResults = results[2]
 				local friendRecommendationResults = if self.props.shouldShowPYMKSection then results[3] else nil
-				-- TODO SOCGRAPH-810: add friendRecommendationResults.responseBody.recommendationRequestId to analytics
-				self.props.analytics:pageLoadedWithArgs(
-					"friendRequestsPage",
-					AddFriendsPageLoadAnalytics(friendRequestResults)
-				)
 
 				if self.props.shouldShowPYMKSection then
 					local recommendations = friendRecommendationResults.responseBody.data
 					local recommendationCount = recommendations and #recommendations or 0
+					self.props.analytics:pageLoadedWithArgs(
+						"friendRequestsPage",
+						Dash.join(AddFriendsPageLoadAnalytics(friendRequestResults), {
+							recommendationSessionId = friendRecommendationResults.responseBody.recommendationRequestId,
+							recommendationCount = recommendationCount,
+						})
+					)
 					self:setState({
 						visibleRows = if recommendationCount > 0
 							then self.props.initialRequestsRows
 							else SHOW_MORE_VISIBLE_ROWS,
 					})
 				else
+					self.props.analytics:pageLoadedWithArgs(
+						"friendRequestsPage",
+						AddFriendsPageLoadAnalytics(friendRequestResults)
+					)
 					self:setState({
 						visibleRows = SHOW_MORE_VISIBLE_ROWS,
 					})
@@ -145,10 +159,20 @@ function AddFriendsContainer:init()
 		end
 	end
 
-	self.handleAcceptFriendRequest = withToast(function(_, playerId)
+	self.handleAcceptFriendRequest = withToast(function(_, playerId, extraProps: OverlayButtonExtraProps?)
 		self.contactImporterWarningSeen()
-		-- TODO SOCGRAPH-810: button pressed analytics
-
+		if getFFlagAddFriendsImproveAnalytics() then
+			self.props.analytics:buttonClick(
+				ButtonClickEvents.AcceptFriendship,
+				Dash.join(extraProps, {
+					targetUserId = playerId,
+					contextOverride = Contexts.AddFriends.rawValue(),
+					recommendationSessionId = if getFFlagAddFriendsPYMKAnalytics()
+						then self.props.friendRecommendationsSessionId
+						else nil,
+				})
+			)
+		end
 		return self.props
 			.acceptFriendRequest({
 				currentUserId = self.props.localUserId,
@@ -159,10 +183,17 @@ function AddFriendsContainer:init()
 			end)
 	end, { toastTitle = self.props.localized.friendAddedText, iconImage = Images["icons/actions/friends/friendAdd"] })
 
-	self.handleDeclineFriendRequest = withToast(function(_, playerId)
+	self.handleDeclineFriendRequest = withToast(function(_, playerId, extraProps: OverlayButtonExtraProps?)
 		self.contactImporterWarningSeen()
-		-- TODO SOCGRAPH-810: button pressed analytics
-
+		if getFFlagAddFriendsImproveAnalytics() then
+			self.props.analytics:buttonClick(
+				ButtonClickEvents.DeclineFriendship,
+				Dash.join(extraProps, {
+					targetUserId = playerId,
+					contextOverride = Contexts.AddFriends.rawValue(),
+				})
+			)
+		end
 		return self.props
 			.declineFriendRequest({
 				currentUserId = self.props.localUserId,
@@ -194,11 +225,22 @@ function AddFriendsContainer:init()
 		iconImage = Images["icons/actions/reject"],
 	})
 
-	self.handleRequestFriendship = if getFFlagAddFriendsPYMKExperimentEnabled()
-		then withToast(function(_, playerId, sourceType)
+	self.handleRequestFriendship = withToast(
+		function(_, playerId, sourceType, extraProps: OverlayButtonExtraProps?)
 			self.contactImporterWarningSeen()
-			-- TODO SOCGRAPH-810: button pressed analytics
 
+			if getFFlagAddFriendsImproveAnalytics() then
+				self.props.analytics:buttonClick(
+					ButtonClickEvents.RequestFriendship,
+					Dash.join(extraProps, {
+						targetUserId = playerId,
+						contextOverride = Contexts.AddFriends.rawValue(),
+						recommendationSessionId = if getFFlagAddFriendsPYMKAnalytics()
+							then self.props.friendRecommendationsSessionId
+							else nil,
+					})
+				)
+			end
 			return self.props
 				.requestFriendship({
 					currentUserId = self.props.localUserId,
@@ -208,19 +250,14 @@ function AddFriendsContainer:init()
 				:andThen(function()
 					self.props.getFriendRequestsCount(self.props.localUserId)
 				end)
-		end, {
-			toastTitle = self.props.localized.requestSentText,
-			iconImage = Images["icons/actions/friends/friendAdd"],
-		})
-		else withToast(function(_, playerId, sourceType)
-			self.contactImporterWarningSeen()
-
-			return self.props.requestFriendship({
-				currentUserId = self.props.localUserId,
-				targetUserId = playerId,
-				friendshipOriginSourceType = sourceType,
-			})
-		end)
+		end,
+		if getFFlagAddFriendsPYMKExperimentEnabled()
+			then {
+				toastTitle = self.props.localized.requestSentText,
+				iconImage = Images["icons/actions/friends/friendAdd"],
+			}
+			else nil
+	)
 
 	self.getNextVisibleRows = function(prevState, props, friendsPerRow)
 		self.contactImporterWarningSeen()
@@ -230,18 +267,7 @@ function AddFriendsContainer:init()
 		local prevVisibleRows = prevState.visibleRows
 		local loadedCount = #friendRequests
 
-		local showMoreVisibleRows
-		if getFFlagAddFriendsPYMKExperimentEnabled() then
-			showMoreVisibleRows = if self.props.shouldShowPYMKSection
-					and self.props.friendRecommendations
-					and (#self.props.friendRecommendations > 0)
-				then SHOW_MORE_VISIBLE_ROWS_MULTIPLE_SECTIONS
-				else SHOW_MORE_VISIBLE_ROWS
-		end
-
-		local tryToShowMoreCount = if getFFlagAddFriendsPYMKExperimentEnabled()
-			then friendsPerRow * (prevVisibleRows + showMoreVisibleRows)
-			else friendsPerRow * (prevVisibleRows + SHOW_MORE_VISIBLE_ROWS)
+		local tryToShowMoreCount = friendsPerRow * (prevVisibleRows + SHOW_MORE_VISIBLE_ROWS)
 		local toShowMoreCount = math.min(receivedCount, tryToShowMoreCount)
 		local nextVisibleRows = math.ceil(toShowMoreCount / friendsPerRow)
 
@@ -298,16 +324,35 @@ function AddFriendsContainer:init()
 
 		local navigateToLuaAppPages = self.props.navigateToLuaAppPages
 		if navigateToLuaAppPages and navigateToLuaAppPages[EnumScreens.ViewUserProfile] then
-			-- TODO SOCGRAPH-810: pass analytics for recommendations via navParams
-			-- navigateToLuaAppPages[EnumScreens.ViewUserProfile](userId, navParams)
-			self.props.analytics:buttonClick(ButtonClickEvents.PlayerProfile, {
-				contextOverride = "friendRequestsPage",
-				subPage = "peekView",
-				page = "playerProfile",
-			})
+			local profilePeekViewProps
+			if getFFlagAddFriendsImproveAnalytics() or getFFlagAddFriendsPYMKExperimentEnabled() then
+				profilePeekViewProps = navParams and navParams.profilePeekViewProps or {}
+				profilePeekViewProps.recommendationSessionId = self.props.friendRecommendationsSessionId
+			end
+			if getFFlagAddFriendsImproveAnalytics() then
+				local additionalInfo = Dash.join(profilePeekViewProps, {
+					contextOverride = "friendRequestsPage",
+					subPage = "peekView",
+					page = "playerProfile",
+					targetUserId = userId,
+					contextualInfoDisplay = Dash.None,
+					source = Dash.None,
+				})
+				self.props.analytics:buttonClick(ButtonClickEvents.PlayerTile, additionalInfo)
+			else
+				self.props.analytics:buttonClick(ButtonClickEvents.PlayerProfile, {
+					contextOverride = "friendRequestsPage",
+					subPage = "peekView",
+					page = "playerProfile",
+				})
+			end
+
 			self.props.analytics:navigate("ViewUserProfileAddFriends")
-			if getFFlagAddFriendsPYMKExperimentEnabled() then
-				navigateToLuaAppPages[EnumScreens.ViewUserProfile](userId, navParams)
+			if getFFlagAddFriendsPYMKExperimentEnabled() or getFFlagAddFriendsImproveAnalytics() then
+				navigateToLuaAppPages[EnumScreens.ViewUserProfile](
+					userId,
+					{ profilePeekViewProps = profilePeekViewProps }
+				)
 			else
 				navigateToLuaAppPages[EnumScreens.ViewUserProfile](userId, {})
 			end
@@ -349,17 +394,15 @@ function AddFriendsContainer:init()
 		PlayerSearchEvent(self.props.analytics, "open", { currentRoute = EnumScreens.AddFriends })
 	end
 
-	if getFFlagAddFriendsQRCodeAnalytics() then
-		self.fireProfileQRCodeBannerSeenEvent = function()
-			self.props.analytics:impressionEvent(ImpressionEvents.ProfileQRCodeBannerSeen)
-		end
+	self.fireProfileQRCodeBannerSeenEvent = function()
+		self.props.analytics:impressionEvent(ImpressionEvents.ProfileQRCodeBannerSeen)
+	end
 
-		self.fireProfileQRCodeBannerPressedEvent = function()
-			self.props.analytics:navigate("ProfileQRCodePage")
-			self.props.analytics:buttonClick(ButtonClickEvents.ProfileQRCode, {
-				contextOverride = Contexts.AddFriends.rawValue(),
-			})
-		end
+	self.fireProfileQRCodeBannerPressedEvent = function()
+		self.props.analytics:navigate("ProfileQRCodePage")
+		self.props.analytics:buttonClick(ButtonClickEvents.ProfileQRCode, {
+			contextOverride = Contexts.AddFriends.rawValue(),
+		})
 	end
 end
 
@@ -383,9 +426,13 @@ function AddFriendsContainer:render()
 		friendRecommendationsCount = if getFFlagAddFriendsPYMKExperimentEnabled()
 			then friendRecommendationsCount
 			else nil,
+		friendRecommendationsSessionId = if getFFlagAddFriendsPYMKAnalytics()
+			then self.props.friendRecommendationsSessionId
+			else nil,
 		friendRequests = self.props.friendRequests,
 		friendRequestsCount = self.props.receivedCount,
 		contactImporterWarningSeen = self.contactImporterWarningSeen,
+		analytics = if getFFlagAddFriendsImproveAnalytics() then self.props.analytics else nil,
 		-- value of "sourceType" will be from other data source based
 		-- on what 3rd party login type Roblox will use in the future.
 		sourceType = FriendsSourceType.QQ,
@@ -424,12 +471,8 @@ function AddFriendsContainer:render()
 		fireSearchbarPressedEvent = self.fireSearchbarPressedEvent,
 		openProfilePeekView = self.props.openProfilePeekView,
 		showNewAddFriendsPageVariant = showNewAddFriendsPageVariant,
-		fireProfileQRCodeBannerSeenEvent = if getFFlagAddFriendsQRCodeAnalytics()
-			then self.fireProfileQRCodeBannerSeenEvent
-			else nil,
-		fireProfileQRCodeBannerPressedEvent = if getFFlagAddFriendsQRCodeAnalytics()
-			then self.fireProfileQRCodeBannerPressedEvent
-			else nil,
+		fireProfileQRCodeBannerSeenEvent = self.fireProfileQRCodeBannerSeenEvent,
+		fireProfileQRCodeBannerPressedEvent = self.fireProfileQRCodeBannerPressedEvent,
 		shouldShowPYMKSection = if getFFlagAddFriendsPYMKExperimentEnabled()
 			then self.props.shouldShowPYMKSection
 			else nil,
@@ -453,15 +496,16 @@ AddFriendsContainer = compose(
 			setScreenTopBar = context.setScreenTopBar,
 		}
 	end),
-	-- This is the main exposure event for the Social.AddFriendsPage layer
-	RoactAppExperiment.connectUserLayer({
-		getFStringSocialAddFriendsPageLayer(),
-	}, function(layerVariables, props)
-		local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
-		return {
-			addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
-		}
-	end)
+	if getFFlagAddFriendsMoveExposureLayer()
+		then nil
+		else RoactAppExperiment.connectUserLayer({
+			getFStringSocialAddFriendsPageLayer(),
+		}, function(layerVariables, props)
+			local socialAddFriendsPageLayer: any = layerVariables[getFStringSocialAddFriendsPageLayer()] or {}
+			return {
+				addFriendsPageSearchbarEnabled = socialAddFriendsPageLayer.show_add_friends_page_search_bar,
+			}
+		end)
 )(AddFriendsContainer)
 
 AddFriendsContainer = compose(RoactAppExperiment.connectUserLayer({

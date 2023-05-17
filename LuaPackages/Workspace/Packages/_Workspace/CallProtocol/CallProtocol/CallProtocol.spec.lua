@@ -8,10 +8,7 @@ return function()
 	local jestExpect = JestGlobals.expect
 	local CallProtocol = require(script.Parent.CallProtocol)
 	local Constants = require(script.Parent.CallProtocolConstants)
-	local UserPresenceType = require(Root.Enums.UserPresenceType)
 	local CallStatus = require(Root.Enums.CallStatus)
-	local ParticipantStatus = require(Root.Enums.ParticipantStatus)
-	local CallNotificationType = require(Root.Enums.CallNotificationType)
 
 	describe("CallProtocol", function()
 		beforeAll(function(context: any)
@@ -20,15 +17,16 @@ return function()
 				callStatus = CallStatus.Active.rawValue(),
 				callId = "123",
 				participants = {
-					{
+					["456"] = {
 						userId = 456,
-						username = "username",
-						status = ParticipantStatus.Joined.rawValue(),
+						userName = "userName",
+						displayName = "displayName",
 					},
 				},
-				experience = {
+				experienceDetail = {
 					placeId = 789,
 					gameInstanceId = 012,
+					universeName = "universe",
 				},
 			}
 		end)
@@ -36,11 +34,12 @@ return function()
 		it("should init call with params", function(context: any)
 			local didSucceed = false
 			local conn: any = MessageBus:Subscribe(Constants.MESSAGE_INIT_CALL, function(params)
-				jestExpect(params.calleeUserId).toEqual(123)
-				jestExpect(params.callerPresenceType).toEqual(UserPresenceType.Home.rawValue())
+				jestExpect(params.calleeId).toEqual(123)
+				jestExpect(params.placeId).toEqual(456)
+				jestExpect(params.instanceId).toEqual(789)
 				didSucceed = true
 			end, true, true)
-			context.CallProtocol:initCall(123, UserPresenceType.Home.rawValue())
+			context.CallProtocol:initCall(123, 456, 789)
 			wait()
 			jestExpect(didSucceed).toEqual(true)
 			conn:Disconnect()
@@ -82,20 +81,28 @@ return function()
 			conn:Disconnect()
 		end)
 
+		it("should finish call with params", function(context: any)
+			local didSucceed = false
+			local conn: any = MessageBus:Subscribe(Constants.MESSAGE_FINISH_CALL, function(params)
+				jestExpect(params.callId).toEqual("123")
+				didSucceed = true
+			end, true, true)
+			context.CallProtocol:finishCall("123")
+			wait()
+			jestExpect(didSucceed).toEqual(true)
+			conn:Disconnect()
+		end)
+
 		it("should listen to init call response", function(context: any)
 			-- Publish first and subscribe later to make sure our process can
 			-- pick up events that has never listened from others
 			local didSucceed = false
-			MessageBus:Publish(Constants.MESSAGE_HANDLE_INIT_CALL, {
-				isSuccess = true,
-				call = context.mockCallModel,
-			})
+			MessageBus:Publish(Constants.MESSAGE_HANDLE_INIT_CALL, context.mockCallModel)
 			local conn = context.CallProtocol:listenToHandleInitCall(function(params)
-				jestExpect(params.isSuccess).toEqual(true)
-				jestExpect(params.call.callId).toEqual(context.mockCallModel.callId)
-				jestExpect(params.call.callStatus).toEqual(context.mockCallModel.callStatus)
-				jestExpect(params.call.participants[1].userId).toEqual(context.mockCallModel.participants[1].userId)
-				jestExpect(params.call.experience.placeId).toEqual(context.mockCallModel.experience.placeId)
+				jestExpect(params.callId).toEqual(context.mockCallModel.callId)
+				jestExpect(params.callStatus).toEqual(context.mockCallModel.callStatus)
+				jestExpect(params.participants["456"].userId).toEqual(context.mockCallModel.participants["456"].userId)
+				jestExpect(params.experienceDetail.placeId).toEqual(context.mockCallModel.experienceDetail.placeId)
 				didSucceed = true
 			end)
 			wait()
@@ -107,16 +114,12 @@ return function()
 			-- Publish first and subscribe later to make sure our process can
 			-- pick up events that has never listened from others
 			local didSucceed = false
-			MessageBus:Publish(Constants.MESSAGE_HANDLE_ANSWER_CALL, {
-				isSuccess = true,
-				call = context.mockCallModel,
-			})
+			MessageBus:Publish(Constants.MESSAGE_HANDLE_ANSWER_CALL, context.mockCallModel)
 			local conn = context.CallProtocol:listenToHandleAnswerCall(function(params)
-				jestExpect(params.isSuccess).toEqual(true)
-				jestExpect(params.call.callId).toEqual(context.mockCallModel.callId)
-				jestExpect(params.call.callStatus).toEqual(context.mockCallModel.callStatus)
-				jestExpect(params.call.participants[1].userId).toEqual(context.mockCallModel.participants[1].userId)
-				jestExpect(params.call.experience.placeId).toEqual(context.mockCallModel.experience.placeId)
+				jestExpect(params.callId).toEqual(context.mockCallModel.callId)
+				jestExpect(params.callStatus).toEqual(context.mockCallModel.callStatus)
+				jestExpect(params.participants["456"].userId).toEqual(context.mockCallModel.participants["456"].userId)
+				jestExpect(params.experienceDetail.placeId).toEqual(context.mockCallModel.experienceDetail.placeId)
 				didSucceed = true
 			end)
 			wait()
@@ -124,58 +127,15 @@ return function()
 			conn:Disconnect()
 		end)
 
-		it("should listen to reject call response", function(context: any)
+		it("should listen to end call response", function(context: any)
 			-- Publish first and subscribe later to make sure our process can
 			-- pick up events that has never listened from others
 			local didSucceed = false
-			MessageBus:Publish(Constants.MESSAGE_HANDLE_REJECT_CALL, {
-				call = context.mockCallModel,
+			MessageBus:Publish(Constants.MESSAGE_HANDLE_END_CALL, {
+				callStatus = CallStatus.Idle.rawValue(),
 			})
-			local conn = context.CallProtocol:listenToHandleRejectCall(function(params)
-				jestExpect(params.call.callId).toEqual(context.mockCallModel.callId)
-				jestExpect(params.call.callStatus).toEqual(context.mockCallModel.callStatus)
-				jestExpect(params.call.participants[1].userId).toEqual(context.mockCallModel.participants[1].userId)
-				jestExpect(params.call.experience.placeId).toEqual(context.mockCallModel.experience.placeId)
-				didSucceed = true
-			end)
-			wait()
-			jestExpect(didSucceed).toEqual(true)
-			conn:Disconnect()
-		end)
-
-		it("should listen to cancel call response", function(context: any)
-			-- Publish first and subscribe later to make sure our process can
-			-- pick up events that has never listened from others
-			local didSucceed = false
-			MessageBus:Publish(Constants.MESSAGE_HANDLE_CANCEL_CALL, {
-				call = context.mockCallModel,
-			})
-			local conn = context.CallProtocol:listenToHandleCancelCall(function(params)
-				jestExpect(params.call.callId).toEqual(context.mockCallModel.callId)
-				jestExpect(params.call.callStatus).toEqual(context.mockCallModel.callStatus)
-				jestExpect(params.call.participants[1].userId).toEqual(context.mockCallModel.participants[1].userId)
-				jestExpect(params.call.experience.placeId).toEqual(context.mockCallModel.experience.placeId)
-				didSucceed = true
-			end)
-			wait()
-			jestExpect(didSucceed).toEqual(true)
-			conn:Disconnect()
-		end)
-
-		it("should listen to call notification update response", function(context: any)
-			-- Publish first and subscribe later to make sure our process can
-			-- pick up events that has never listened from others
-			local didSucceed = false
-			MessageBus:Publish(Constants.MESSAGE_HANDLE_CALL_NOTIFICATION_UPDATE, {
-				notificationType = CallNotificationType.Update.rawValue(),
-				call = context.mockCallModel,
-			})
-			local conn = context.CallProtocol:listenToHandleCallNotificationUpdate(function(params)
-				jestExpect(params.notificationType).toEqual(CallNotificationType.Update.rawValue())
-				jestExpect(params.call.callId).toEqual(context.mockCallModel.callId)
-				jestExpect(params.call.callStatus).toEqual(context.mockCallModel.callStatus)
-				jestExpect(params.call.participants[1].userId).toEqual(context.mockCallModel.participants[1].userId)
-				jestExpect(params.call.experience.placeId).toEqual(context.mockCallModel.experience.placeId)
+			local conn = context.CallProtocol:listenToHandleEndCall(function(params)
+				jestExpect(params.callStatus).toEqual(CallStatus.Idle.rawValue())
 				didSucceed = true
 			end)
 			wait()

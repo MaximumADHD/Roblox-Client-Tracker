@@ -9,6 +9,7 @@ local expect = JestGlobals.expect
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local useStackScreens = require(script.Parent.useStackScreens)
 
 type RouteState = TenFootUiCommon.RouteState
@@ -106,9 +107,9 @@ beforeEach(function()
 		local descriptors = {}
 		for _, route in navState.routes do
 			local routeKey = route.key
-			local screenKind: ScreenKind = "Default" :: ScreenKind
+			local screenKind: ScreenKind = ScreenKind.Default :: ScreenKind
 			if routeKey == key2 then
-				screenKind = "Overlay" :: ScreenKind
+				screenKind = ScreenKind.Overlay :: ScreenKind
 			end
 			descriptors[routeKey] = createMockDescriptor(MockComponent, routeKey, screenKind, navObject, navState)
 		end
@@ -132,7 +133,13 @@ end)
 
 it("should handleInitialState correctly", function()
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
 	})
 end)
 
@@ -148,8 +155,20 @@ it("should handleUpdateState correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opening" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
 	})
 
 	ReactRoblox.act(function()
@@ -158,8 +177,20 @@ it("should handleUpdateState correctly", function()
 
 	expect(completeTransitionSpy).toHaveBeenCalledTimes(1)
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opened" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
 	})
 
 	index = 3
@@ -174,9 +205,27 @@ it("should handleUpdateState correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opening" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
 	})
 
 	ReactRoblox.act(function()
@@ -185,9 +234,27 @@ it("should handleUpdateState correctly", function()
 
 	expect(completeTransitionSpy).toHaveBeenCalledTimes(2)
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = false, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = false, viewState = "Opened" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opened" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = false,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = false,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
 	})
 
 	index = 1
@@ -197,9 +264,27 @@ it("should handleUpdateState correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Closing" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Closing" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Closing",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Closing",
+		}),
 	})
 
 	ReactRoblox.act(function()
@@ -227,9 +312,27 @@ it("should handle stack actions of init correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opening" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opening" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
 	})
 
 	ReactRoblox.act(function()
@@ -251,10 +354,34 @@ it("should handle stack actions of init correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Closing" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Closing" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Closing" }),
-		expect.objectContaining({ key = newKey, name = name1, visible = true, viewState = "Opening" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Closing",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Closing",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Closing",
+		}),
+		expect.objectContaining({
+			key = newKey,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
 	})
 end)
 
@@ -270,9 +397,27 @@ it("should handle stack actions of replace correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opening" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opening" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
 	})
 
 	ReactRoblox.act(function()
@@ -284,9 +429,27 @@ it("should handle stack actions of replace correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = false, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = false, viewState = "Opened" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Opened" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = false,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = false,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
 	})
 
 	local newKey = key1 .. "_new"
@@ -304,9 +467,33 @@ it("should handle stack actions of replace correctly", function()
 	end)
 
 	expect(cards.screens).toEqual({
-		expect.objectContaining({ key = key1, name = name1, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key2, name = name2, visible = true, viewState = "Opened" }),
-		expect.objectContaining({ key = key3, name = name3, visible = true, viewState = "Closing" }),
-		expect.objectContaining({ key = newKey, name = name1, visible = true, viewState = "Opening" }),
+		expect.objectContaining({
+			key = key1,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = true,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key2,
+			name = name2,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opened",
+		}),
+		expect.objectContaining({
+			key = key3,
+			name = name3,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Closing",
+		}),
+		expect.objectContaining({
+			key = newKey,
+			name = name1,
+			visible = true,
+			isScreenAboveOverlay = false,
+			viewState = "Opening",
+		}),
 	})
 end)

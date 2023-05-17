@@ -44,7 +44,7 @@ local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 local AbuseReportBuilder = require(RobloxGui.Modules.TrustAndSafety.Utility.AbuseReportBuilder)
-local ScreenshotFlowStepHandlerContainer = require(RobloxGui.Modules.TrustAndSafety.Components.ScreenshotFlowStepHandlerContainer)
+local ScreenshotFlowStepHandlerContainer = require(RobloxGui.Modules.TrustAndSafety.Components.ReportAnything.ScreenshotFlowStepHandlerContainer)
 local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustAndSafetyIXPManager).default
 local ReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Utility.ReportAnythingAnalytics)
 
@@ -55,6 +55,7 @@ local GetFFlagVoiceARRemoveOffsiteLinksForVoice = require(RobloxGui.Modules.Flag
 local GetFStringReportAbuseIXPLayer = require(RobloxGui.Modules.Flags.GetFStringReportAbuseIXPLayer)
 local GetFFlagEnableConfigurableReportAbuseIXP = require(RobloxGui.Modules.Flags.GetFFlagEnableConfigurableReportAbuseIXP)
 local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagOldAbuseReportAnalyticsDisabled)
+local GetFFlagReportAbuseMenuEntrypointAnalytics = require(Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
 local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
 local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlowCSWaitFrames)
@@ -235,11 +236,31 @@ local function Initialize()
 			this.BackButton.Visible = false
 		end
 		local twoButtonSubmit = function()
-			this.BackButton.Position = UDim2.new(0.2,0,1,5)
-			this.SubmitButton.Position = UDim2.new(0.8,0,1,5)
+
+			local submitButtonSize = UDim2.new(0,198,0,50)
+			local yOffset = 5
+			if Theme.UIBloxThemeEnabled then
+				submitButtonSize = UDim2.new(0.4,20,0,50)
+				yOffset = 15
+			end
+
+			this.BackButton.Position = UDim2.new(0.2,0,1,yOffset)
+			this.SubmitButton.Position = UDim2.new(0.8,0,1,yOffset)
+			this.SubmitButton.Size =  submitButtonSize
+
 		end
 		local oneButtonSubmit = function()
-			this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
+			if Theme.UIBloxThemeEnabled then
+				this.SubmitButton.Position = UDim2.new(0.5,0,1,15)
+			else
+				this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
+			end
+
+			local submitButtonSize = UDim2.new(0,198,0,50)
+			if Theme.UIBloxThemeEnabled then
+				submitButtonSize = UDim2.new(1,20,0,50)
+			end
+			this.SubmitButton.Size =  submitButtonSize
 		end
 		local actions: { [FormPhase]: (boolean) -> nil } = {}
 		actions[FormPhase.Init] = function(isPlayerPreselected)
@@ -708,7 +729,12 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
 	if Theme.UIBloxThemeEnabled then
-		this.TabHeader.TabLabel.Icon.Image ="rbxasset://textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png"
+
+		local icon = Theme.Images["icons/actions/feedback"]
+		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
+		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
+		this.TabHeader.TabLabel.Icon.Image = icon.Image
+
 		this.TabHeader.TabLabel.Title.Text = "Report"
 	else
 		this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/ReportAbuseTab.png"
@@ -1296,9 +1322,15 @@ local function Initialize()
 					this:ActivateFormPhase(FormPhase.Annotation)
 				end
 			end
+
+			local yOffset = 5
+			if Theme.UIBloxThemeEnabled then
+				yOffset = 15
+			end
+
 			this.NextButton, this.NextText = utility:MakeStyledButton("NextButton", "Next", UDim2.new(0,198,0,50), onNext, this)
 			this.NextButton.AnchorPoint = Vector2.new(0.5,0)
-			this.NextButton.Position = UDim2.new(0.5,0,2,5)
+			this.NextButton.Position = UDim2.new(0.5,0,2,yOffset)
 
 			this.NextButton.Parent = this.GameOrPlayerMode.Selection
 
@@ -1307,7 +1339,7 @@ local function Initialize()
 			end
 			this.BackButton, this.BackText = utility:MakeStyledButton("BackButton", "Back", UDim2.new(0,198,0,50), onBack, this)
 			this.BackButton.AnchorPoint = Vector2.new(0.5,0)
-			this.BackButton.Position = UDim2.new(-1,0,1,5)
+			this.BackButton.Position = UDim2.new(-1,0,1,yOffset)
 			this.BackButton.ZIndex = 2
 			this.BackButton.Selectable = true
 			this.BackButton.Parent = this.AbuseDescription.Selection
@@ -1359,7 +1391,11 @@ local function Initialize()
 
 		this:AddRow(nil, nil, this.AbuseDescription)
 
-		this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y)
+		if Theme.UIBloxThemeEnabled then
+			this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y + 30)
+		else
+			this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y)
+		end
 
 		-- IXP initialization is async. We need to do the following updates after getting the IXP variables.
 		local function ixpInitializationCallback()
@@ -1536,7 +1572,13 @@ do
 			if not PageInstance.HubRef:GetVisibility() then
 				PageInstance.HubRef:SetVisibility(true, false, PageInstance)
 			else
-				PageInstance.HubRef:SwitchToPage(PageInstance, false)
+				if GetFFlagReportAbuseMenuEntrypointAnalytics() then
+					PageInstance.HubRef:SwitchToPage(PageInstance, false, nil, nil, nil, {
+						entrypoint = ReportAbuseAnalytics:getAbuseReportSessionEntryPoint()
+					})
+				else
+					PageInstance.HubRef:SwitchToPage(PageInstance, false)
+				end
 			end
 		end
 	end

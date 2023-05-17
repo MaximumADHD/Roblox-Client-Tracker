@@ -1,36 +1,34 @@
 local Root = script.Parent
 local Packages = Root.Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
-local CallNotificationType = require(Root.Enums.CallNotificationType)
 local CallStatus = require(Root.Enums.CallStatus)
-local ParticipantStatus = require(Root.Enums.ParticipantStatus)
-local UserPresenceType = require(Root.Enums.UserPresenceType)
 
-type CallNotificationType = CallNotificationType.CallNotificationType
 type CallStatus = CallStatus.CallStatus
-type ParticipantStatus = ParticipantStatus.ParticipantStatus
-type UserPresenceType = UserPresenceType.UserPresenceType
 type Promise<T> = LuauPolyfill.Promise<T>
 
 export type Participant = {
-	userId: string,
-	username: string,
-	status: ParticipantStatus,
+	userId: number,
+	userName: string,
+	displayName: string,
 }
 
 export type Call = {
 	callStatus: CallStatus,
-	callId: string,
-	participants: { [number]: Participant },
-	experience: {
+	callId: string?,
+	participants: { [string]: Participant } | nil,
+	experienceDetail: {
 		placeId: number,
+		universeName: string,
 		gameInstanceId: number,
-	},
+		reservedServerAccessCode: string?,
+	} | nil,
 }
 
 export type InitCallParams = {
-	calleeUserId: number,
-	callerPresenceType: UserPresenceType,
+	calleeId: number,
+	placeId: number,
+	instanceId: number?,
+	reservedServerAccessCode: string?,
 }
 
 export type AnswerCallParams = {
@@ -45,49 +43,36 @@ export type CancelCallParams = {
 	callId: string,
 }
 
-export type HandleInitCallParams = {
-	isSuccess: boolean,
-	call: Call,
+export type FinishCallParams = {
+	callId: string,
 }
 
-export type HandleAnswerCallParams = {
-	isSuccess: boolean,
-	call: Call,
-}
+export type HandleInitCallParams = Call
 
-export type HandleRejectCallParams = {
-	call: Call,
-}
+export type HandleAnswerCallParams = Call
 
-export type HandleCancelCallParams = {
-	call: Call,
-}
+export type HandleEndCallParams = Call
 
-export type HandleCallNotificationUpdateParams = {
-	notificationType: CallNotificationType,
-	call: Call,
-}
-
-export type GetCallStateResponse = {
-	call: Call,
-}
+export type GetCallStateResponse = Call
 
 export type CallProtocol = {
-	initCall: (CallProtocol, calleeUserId: number, callerPresenceType: UserPresenceType) -> (),
+	initCall: (
+		CallProtocol,
+		calleeUserId: number,
+		placeId: number,
+		gameInstanceId: number?,
+		reservedServerAccessCode: string?
+	) -> (),
 	answerCall: (CallProtocol, callId: string) -> (),
 	rejectCall: (CallProtocol, callId: string) -> (),
 	cancelCall: (CallProtocol, callId: string) -> (),
+	finishCall: (CallProtocol, callId: string) -> (),
 
 	getCallState: (CallProtocol) -> Promise<GetCallStateResponse>,
 
 	listenToHandleInitCall: (CallProtocol, callback: (HandleInitCallParams) -> ()) -> Instance,
 	listenToHandleAnswerCall: (CallProtocol, callback: (HandleAnswerCallParams) -> ()) -> Instance,
-	listenToHandleRejectCall: (CallProtocol, callback: (HandleRejectCallParams) -> ()) -> Instance,
-	listenToHandleCancelCall: (CallProtocol, callback: (HandleCancelCallParams) -> ()) -> Instance,
-	listenToHandleCallNotificationUpdate: (
-		CallProtocol,
-		callback: (HandleCallNotificationUpdateParams) -> ()
-	) -> Instance,
+	listenToHandleEndCall: (CallProtocol, callback: (HandleEndCallParams) -> ()) -> Instance,
 }
 
 export type CallProtocolModule = CallProtocol & {

@@ -20,6 +20,7 @@ BlockingModalScreen.validateProps = t.interface({
 		UserId = t.number,
 	}),
 	translator = t.optional(t.table),
+	source = t.optional(t.string),
 })
 
 function BlockingModalScreen:render()

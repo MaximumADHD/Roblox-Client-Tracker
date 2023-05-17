@@ -8,6 +8,8 @@ local ActionModal = require(script.Parent.ActionModal)
 
 local BlockingModalContainer = Roact.PureComponent:extend("BlockingModalContainer")
 
+local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFFlagEnableBlockAnalyticsSource)
+
 BlockingModalContainer.defaultProps = {
 	screenSize = Vector2.new(1000, 1000),
 	blockingUtility = BlockingUtility,
@@ -31,6 +33,7 @@ BlockingModalContainer.validateProps = t.interface({
 	}),
 	translator = t.optional(t.table),
 	titleKey = t.optional(t.string),
+	source = t.optional(t.string),
 })
 
 function BlockingModalContainer:init()
@@ -44,6 +47,7 @@ function BlockingModalContainer:init()
 		if success then
 			self.props.analytics:action("SettingsHub", "blockUser", {
 				blockeeUserId = self.props.player.UserId,
+				source = if GetFFlagEnableBlockAnalyticsSource() then self.props.source else nil,
 			})
 		end
 

@@ -5,6 +5,7 @@
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
 local Framework = require(Main.Packages.Framework)
+local MaterialFramework = require(Main.Packages.MaterialFramework)
 
 local Dash = Framework.Dash
 local assign = Dash.assign
@@ -23,6 +24,8 @@ local sort = table.sort
 local split = string.split
 
 local SetStories = require(Main.Src.Actions.SetStories)
+
+local getFFlagMaterialFrameworkStorybook = require(Main.Src.Flags.getFFlagMaterialFrameworkStorybook)
 
 local TestLoader = require(Main.Packages.TestLoader)
 local ModuleLoader = TestLoader.ModuleLoader
@@ -226,6 +229,11 @@ local function findStorybooks()
 	local sources = collectArray(STORYBOOK_SOURCES, safeGetService)
 	local devFramework = index and index.DeveloperFramework.DeveloperFramework or Main.Parent.Framework
 	insert(sources, devFramework)
+	if getFFlagMaterialFrameworkStorybook() then
+		local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
+		insert(sources, materialFramework)
+	end
+
 	local foldersByPath: { [string]: Types.StoryItem } = {}
 	local storybookItems: Types.Array<Types.StoryItem> = {}
 

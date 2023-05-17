@@ -11,13 +11,14 @@ local useArrayCollection = RoactUtils.Hooks.useArrayCollection
 
 local RouteViewState = require(ReactNavigationExtend.Views.RouteViewState)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local areRoutesEqual = require(ReactNavigationExtend.Hooks.areRoutesEqual)
 
 type RouteState = TenFootUiCommon.RouteState
 type Descriptor = TenFootUiCommon.Descriptor
 type NavigationState = TenFootUiCommon.NavigationState
 type RouteViewState = RouteViewState.RouteViewState
-type ScreenInfo = RouteViewState & { visible: boolean }
+type ScreenInfo = RouteViewState & { visible: boolean, isScreenAboveOverlay: boolean }
 type ViewState = RouteViewState.ViewState
 
 type useStackScreensConfig = {
@@ -27,7 +28,7 @@ type useStackScreensConfig = {
 }
 
 local function isScreenTransparent(descriptor: Descriptor): boolean
-	return descriptor.options.screenKind == "Overlay"
+	return descriptor.options.screenKind == ScreenKind.Overlay
 end
 
 local function handleInitialState(
@@ -133,10 +134,17 @@ local function useStackScreens(config: useStackScreensConfig): {
 
 	local cardStack: { ScreenInfo } = {}
 	local isScreenBelowVisible = true
+	local isScreenAboveOverlay = false -- will only set to be true if screen above is visible
 
 	for i = #currentRouteViewStates.values, 1, -1 do
 		local routeViewState = currentRouteViewStates.values[i]
-		table.insert(cardStack, Object.assign({ visible = isScreenBelowVisible }, routeViewState))
+		table.insert(
+			cardStack,
+			Object.assign(
+				{ visible = isScreenBelowVisible, isScreenAboveOverlay = isScreenAboveOverlay },
+				routeViewState
+			)
+		)
 
 		if isScreenBelowVisible then
 			if
@@ -144,6 +152,7 @@ local function useStackScreens(config: useStackScreensConfig): {
 			then
 				isScreenBelowVisible = false
 			end
+			isScreenAboveOverlay = isScreenTransparent(routeViewState.descriptor)
 		end
 	end
 

@@ -59,6 +59,7 @@ PermissionsButtons.validateProps = t.strictInterface({
 	LayoutOrder = t.number,
 	shouldFillScreen = t.boolean,
 	selfViewOpen = t.boolean,
+	useNewMenuTheme = t.boolean,
 })
 
 local function createDivider(layoutOrder)
@@ -208,9 +209,10 @@ function PermissionsButtons:render()
 	local shouldShowMicButtons = self.state.hasMicPermissions
 	local shouldShowCameraButtons = self.state.hasCameraPermissions
 	local showMuteAll = if GetFFlagInvertMuteAllPermissionButton() then not self.state.allPlayersMuted else self.state.allPlayersMuted
-	local isTopCloseButton = not self.props.isPortrait
+	local isTopCloseButton = (not self.props.isPortrait
 		and not self.props.isTenFootInterface
-		and not self.props.isSmallTouchScreen
+		and not self.props.isSmallTouchScreen)
+		or self.props.useNewMenuTheme
 
 	return self:isShowingPermissionButtons() and Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -252,21 +254,25 @@ function PermissionsButtons:render()
 				LayoutOrder = 1,
 				image = if showMuteAll then MUTE_ALL_IMAGE else UNMUTE_ALL_IMAGE,
 				callback = self.toggleMuteAll,
+				useNewMenuTheme = self.props.useNewMenuTheme,
 			}),
 			ToggleMicButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 2,
 				image = if self.state.microphoneEnabled then MIC_IMAGE else MIC_OFF_IMAGE,
 				callback = self.toggleMic,
+				useNewMenuTheme = self.props.useNewMenuTheme,
 			}),
 			EnableVideoButton = shouldShowCameraButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 3,
 				image = if self.state.cameraEnabled then VIDEO_IMAGE else VIDEO_OFF_IMAGE,
 				callback = self.toggleVideo,
+				useNewMenuTheme = self.props.useNewMenuTheme,
 			}),
 			EnableSelfViewButton = self.state.showSelfView and Roact.createElement(PermissionButton, {
 				LayoutOrder = 4,
 				image = if self.state.selfViewOpen then SELF_VIEW_IMAGE else SELF_VIEW_OFF_IMAGE,
 				callback = self.toggleSelfView,
+				useNewMenuTheme = self.props.useNewMenuTheme,
 			}),
 		}),
 		Divider2 = createDivider(5),

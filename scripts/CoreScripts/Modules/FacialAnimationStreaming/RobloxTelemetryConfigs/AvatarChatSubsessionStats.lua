@@ -7,8 +7,7 @@ game:DefineFastInt("AvatarChatSubsessionStatsEventThrottleHundrethsPercent", 0)
 return {
 	eventName = "avatarChatSubsessionStats",
 	backends = {
-		LoggingProtocol.TelemetryBackends.EventIngest,
-		LoggingProtocol.TelemetryBackends.Points,
+		LoggingProtocol.TelemetryBackends.EventIngest
 	},
 	throttlingPercentage = game:GetFastInt("AvatarChatSubsessionStatsEventThrottleHundrethsPercent"),
 	lastUpdated = { 22, 10, 17 },

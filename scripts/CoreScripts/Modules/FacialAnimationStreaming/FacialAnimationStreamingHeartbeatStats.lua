@@ -14,6 +14,8 @@ local GetFIntFacialAnimationStreamingHeartbeatStatsIntervalSec = require(RobloxG
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
+local FFlagAvatarChatHeartbeatStatsReportTrackingTimes = game:DefineFastFlag("AvatarChatHeartbeatStatsReportTrackingTimes", false)
+
 local avatarChatHeartbeatStats = require(script.Parent.RobloxTelemetryConfigs.AvatarChatHeartbeatStats)
 
 local FacialAnimationStreamingHeartbeatStats = {}
@@ -27,6 +29,8 @@ local TrackingMode = {
 	AudioVideo = 3
 }
 local trackingMode = TrackingMode.None
+local trackingTimes = {}
+local lastTrackingChangedTime = nil
 
 type connectionMap = {[string]: RBXScriptConnection}
 local connections : connectionMap = {}
@@ -35,6 +39,19 @@ local Connection = {
 	VideoAnimationEnabled = "videoAnimationEnabled",
 	AudioAnimationEnabled = "audioAnimationEnabled",
 }
+
+local function updateTrackingTimes()
+	if FFlagAvatarChatHeartbeatStatsReportTrackingTimes then
+		-- Update current tracking mode elapsed time
+		local now = os.clock()
+		local elapsedTime = 0
+		if lastTrackingChangedTime then
+			elapsedTime = now - lastTrackingChangedTime
+			trackingTimes[trackingMode] += elapsedTime
+		end
+		lastTrackingChangedTime = now
+	end
+end
 
 local function reportHeartbeat()
 	local customFields = {
@@ -49,6 +66,14 @@ local function reportHeartbeat()
 	end
 
 	customFields["trackingMode"] = trackingMode
+
+	if FFlagAvatarChatHeartbeatStatsReportTrackingTimes then
+		updateTrackingTimes()
+		for mode, times in trackingTimes do
+			customFields[tostring(mode)] = times
+			trackingTimes[mode] = 0
+		end
+	end
 
 	LoggingProtocol:logRobloxTelemetryEvent(avatarChatHeartbeatStats, nil, customFields)
 end
@@ -69,6 +94,10 @@ local function startHeartbeat()
 end
 
 local function updateTrackingMode()
+	if FFlagAvatarChatHeartbeatStatsReportTrackingTimes then
+		updateTrackingTimes()
+	end
+
 	if FaceAnimatorService.VideoAnimationEnabled and FaceAnimatorService.AudioAnimationEnabled then
 		trackingMode = TrackingMode.AudioVideo
 	elseif FaceAnimatorService.VideoAnimationEnabled then
@@ -83,6 +112,12 @@ end
 function FacialAnimationStreamingHeartbeatStats.Initialize()
 	if GetFIntFacialAnimationStreamingHeartbeatStatsIntervalSec() <= 0 then
 		return
+	end
+
+	if FFlagAvatarChatHeartbeatStatsReportTrackingTimes then
+		for _, mode in TrackingMode do
+			trackingTimes[mode] = 0
+		end
 	end
 
 	connections[Connection.VideoAnimationEnabled] = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"):Connect(function()

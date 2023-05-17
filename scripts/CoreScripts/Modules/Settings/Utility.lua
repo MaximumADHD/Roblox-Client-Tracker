@@ -305,7 +305,7 @@ local gamepadSet = {
 	[Enum.UserInputType.Gamepad8] = true;
 }
 
-local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
+local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 	local SelectionOverrideObject = Util.Create'ImageLabel'
 	{
 		Image = "",
@@ -320,6 +320,10 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 		if name == "DropDownFrame" then
 			borderColor = "ControlInputStroke"
 			backgroundColor = "ControlInputBackground"
+		end
+
+		if style == "ImageButton" then
+			backgroundColor = "ImageButton"
 		end
 
 		button = Util.Create'ImageButton'
@@ -456,6 +460,163 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 	return button, setRowRef
 end
 
+local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef)
+
+	local SelectionOverrideObject = Util.Create'ImageLabel'
+	{
+		Image = "",
+		BackgroundTransparency = 1,
+	};
+
+	local iconSize = Theme.IconSize.Medium
+
+	local getSize = function(iconSizeMeasurement)
+		if size then
+			return size
+		end
+
+		local iconSizeToSizeScale = {
+			[Theme.IconSize.Small] = 1,
+			[Theme.IconSize.Medium] = 2,
+			[Theme.IconSize.Large] = 3,
+			[Theme.IconSize.XLarge] = 4,
+			[Theme.IconSize.XXLarge] = 5,
+		}
+
+		local extents = iconSizeMeasurement + 4 * iconSizeToSizeScale[iconSize]
+		return UDim2.fromOffset(extents, extents)
+	end
+
+	local iconSizeMeasurement = Theme.getIconSize(iconSize)
+
+	local size = getSize(iconSizeMeasurement)
+	local frameSize = size + UDim2.new(0,0,0,18)
+
+	local ButtonLabel =  Util.Create'Frame'
+	{
+		Name = name .. "IconButton",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = frameSize,
+	}
+
+	Util.Create'TextLabel'
+	{
+		Name = name .. "TextLabel",
+		AutomaticSize = Enum.AutomaticSize.XY,
+		AnchorPoint = Vector2.new(0.5, 1.0),
+		Position = UDim2.new(0.5, 0, 1, 0),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		TextColor3 = Color3.fromRGB(255,255,255),
+		TextYAlignment = Enum.TextYAlignment.Center,
+		Font = Enum.Font.SourceSansBold,
+		TextSize = 13,
+		Text = text,
+		Parent = ButtonLabel,
+	}
+
+	local Button = Util.Create'ImageButton'
+	{
+		Name = "Button",
+		Size = size,
+		BackgroundTransparency = 1,
+		AutoButtonColor = false,
+		SelectionImageObject = SelectionOverrideObject,
+		Parent = ButtonLabel,
+	}
+	local Background =  Util.Create'ImageLabel'
+	{
+		Name = "Background",
+		BackgroundTransparency = Theme.transparency("IconButton"),
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(1, 1),
+		BackgroundColor3 = Theme.color("IconButton"),
+		Parent = Button
+	}
+
+	Util.Create'UICorner'
+	{
+		CornerRadius = UDim.new(0, 8),
+		Parent = Background,
+	}
+
+	icon = icon or {
+		Image = "",
+		ImageRectOffset = Vector2.new(),
+		ImageRectSize = Vector2.new(),
+	}
+
+	local Icon = Util.Create'ImageLabel'
+	{
+		Name = name .. "Icon",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.5),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.fromOffset(iconSizeMeasurement, iconSizeMeasurement),
+		Image = icon.Image,
+		ImageRectOffset = icon.ImageRectOffset,
+		ImageRectSize = icon.ImageRectSize,
+		ImageColor3 = Color3.new(1,1,1),
+		Parent = Button,
+	};
+
+	local mouseOutStyle = function()
+		Background.BackgroundColor3 = Theme.color("IconButton")
+		Icon.ImageColor3 = Color3.new(1,1,1)
+	end
+
+	local mouseOverStyle = function()
+		local hub = hubRef
+		if hub == nil then
+			if pageRef then
+				hub = pageRef.HubRef
+			end
+		end
+
+		if (hub and hub.Active) or hub == nil then
+			Background.BackgroundColor3 = Theme.color("IconButtonHover")
+			Icon.ImageColor3 = Color3.new(0,0,0)
+		end
+	end
+
+	if not UserInputService.TouchEnabled then
+		addHoverState(Button, Background, mouseOutStyle, mouseOverStyle)
+	end
+
+	Button.SelectionGained:Connect(function()
+		mouseOverStyle()
+	end)
+	Button.SelectionLost:Connect(function()
+		mouseOutStyle()
+	end)
+
+	if clickFunc then
+		Button.MouseButton1Click:Connect(function()
+			clickFunc(gamepadSet[UserInputService:GetLastInputType()] or false)
+		end)
+	end
+
+	local _guiServiceCon = GuiService.Changed:Connect(function(prop)
+		if prop ~= "SelectedCoreObject" then return end
+		if not usesSelectedObject() then return end
+
+		if GuiService.SelectedCoreObject == nil or GuiService.SelectedCoreObject ~= Button then
+			mouseOutStyle()
+			return
+		end
+
+		if Button.Selectable then
+			mouseOverStyle()
+		end
+	end)
+
+
+	return ButtonLabel
+end
+
+
 local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 	local button, setRowRef = MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 
@@ -489,7 +650,16 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 end
 
 local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef, hubRef)
-	local button, setRowRef = MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
+	local button, setRowRef = MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, "ImageButton")
+
+	local imageRectOffset = nil
+	local imageRectSize = nil
+
+	if typeof(image) == "table" then
+		imageRectOffset = image.ImageRectOffset
+		imageRectSize = image.ImageRectSize
+		image = image.Image
+	end
 
 	local imageLabel = Util.Create'ImageLabel'
 	{
@@ -500,10 +670,15 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Image = image,
+		ImageRectOffset = imageRectOffset,
+		ImageRectSize = imageRectSize,
 		ZIndex = 2,
 		Parent = button
-	};
-
+	}
+	if Theme.UIBloxThemeEnabled then
+		button.Border.Thickness = 0
+		button.Border.Transparency = 1
+	end
 	return button, imageLabel, setRowRef
 end
 
@@ -526,9 +701,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	-------------------- CONSTANTS ------------------------
 	local DROPDOWN_DEFAULT_TEXT_KEY = "Feature.SettingsHub.Label.ChooseOne"
 	local SCROLLING_FRAME_PIXEL_OFFSET = 25
-	local SELECTION_TEXT_COLOR_NORMAL = Color3.fromRGB(178,178,178)
+	local SELECTION_TEXT_COLOR_NORMAL = Theme.color("SELECTION_TEXT_COLOR_NORMAL", Color3.fromRGB(178,178,178))
 	local SELECTION_TEXT_COLOR_NORMAL_VR = Color3.fromRGB(229,229,229)
-	local SELECTION_TEXT_COLOR_HIGHLIGHTED = Color3.fromRGB(255,255,255)
+	local SELECTION_TEXT_COLOR_HIGHLIGHTED = Theme.color("SELECTION_TEXT_COLOR_HIGHLIGHTED", Color3.fromRGB(255,255,255))
 
 	-------------------- VARIABLES ------------------------
 	local lastSelectedCoreObject = nil
@@ -596,16 +771,25 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local DropDownSelectionFrame = Util.Create'ImageLabel'
 	{
 		Name = "DropDownSelectionFrame",
-		Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
-		ScaleType = Enum.ScaleType.Slice,
+		Image = if Theme.UIBloxThemeEnabled then "" else "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
+		ScaleType = if Theme.UIBloxThemeEnabled then Enum.ScaleType.Stretch else Enum.ScaleType.Slice,
 		SliceCenter = Rect.new(8,6,46,44),
-		BackgroundTransparency = 1,
+		BackgroundTransparency = Theme.transparency("DropdownListBg", 1),
+		BackgroundColor3 = Theme.color("DropdownListBg"),
 		Size = UDim2.new(0.6, 0, 0.9, 0),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		ZIndex = 10,
 		Parent = DropDownFullscreenFrame
 	};
+
+	if Theme.UIBloxThemeEnabled then
+		Util.Create'UICorner'
+		{
+			CornerRadius = Theme.DefaultCornerRadius,
+			Parent = DropDownSelectionFrame,
+		}
+	end
 
 	local DropDownScrollingFrame = Util.Create'ScrollingFrame'
 	{
@@ -615,6 +799,8 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		Size = UDim2.new(1, -20, 1, -SCROLLING_FRAME_PIXEL_OFFSET),
 		Position = UDim2.new(0, 10, 0, 10),
 		ZIndex = 10,
+		ScrollBarThickness = Theme.DefaultScrollBarThickness,
+		ScrollingDirection = if Theme.UIBloxThemeEnabled then Enum.ScrollingDirection.Y else Enum.ScrollingDirection.XY,
 		Parent = DropDownSelectionFrame
 	};
 
@@ -843,8 +1029,15 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			{
 				BackgroundTransparency = 0.7,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0)
+				Size = UDim2.new(1, 0, 1, 0),
 			};
+			if Theme.UIBloxThemeEnabled then
+				Util.Create'UICorner'
+				{
+					CornerRadius = Theme.DefaultCornerRadius,
+					Parent = SelectionOverrideObject,
+				}
+			end
 
 			local text = v
 			local subtitle = ''
@@ -1020,7 +1213,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
 		Position = UDim2.new(0,0,0.5,0),
-		Size =  UDim2.new(0,50,0,50),
+		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
 		Image =  "",
 		ZIndex = 3,
 		Selectable = false,
@@ -1033,7 +1226,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1,0,0.5,0),
-		Size =  UDim2.new(0,50,0,50),
+		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
 		Image =  "",
 		ZIndex = 3,
 		Selectable = false,
@@ -1226,7 +1419,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 
 		if not interactable then
 			for i, selectionLabel in pairs(this.Selections) do
-				selectionLabel.TextColor3 = Color3.fromRGB(49, 49, 49)
+				selectionLabel.TextColor3 = Theme.color("NotInteractableSelection", Color3.fromRGB(49, 49, 49))
 			end
 			leftButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
             rightButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
@@ -1260,6 +1453,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 				TextTransparency = 0.5,
 				Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
 				TextSize = Theme.textSize(24, "UtilityText"),
+				TextWrapped = Theme.UIBloxThemeEnabled,
 				Text = v,
 				ZIndex = 2,
 				Visible = false,
@@ -1589,7 +1783,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
 		Position = UDim2.new(0,0,0.5,0),
-		Size =  UDim2.new(0,50,0,50),
+		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
 		Image =  "",
 		ZIndex = 3,
 		Selectable = false,
@@ -1603,7 +1797,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1,0,0.5,0),
-		Size =  UDim2.new(0,50,0,50),
+		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
 		Image =  "",
 		ZIndex = 3,
 		Selectable = false,
@@ -1654,42 +1848,62 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		{
 			Name = "Step" .. tostring(i),
 			BackgroundColor3 = SELECTED_COLOR,
-			BackgroundTransparency = 0.36,
+			BackgroundTransparency = if Theme.UIBloxThemeEnabled then 0 else 0.36,
 			BorderSizePixel = 0,
 			AutoButtonColor = false,
 			Active = false,
 			AnchorPoint = Vector2.new(0, 0.5),
 			Position = UDim2.new((i - 1) * stepXScale, spacing / 2, 0.5, 0),
-			Size =  UDim2.new(stepXScale,-spacing, 24 / 50, 0),
+			Size =  if Theme.UIBloxThemeEnabled then UDim2.new(stepXScale,-spacing, 0, 24) else UDim2.new(stepXScale,-spacing, 24 / 50, 0),
 			Image =  "",
 			ZIndex = 3,
 			Selectable = false,
 			ImageTransparency = 0.36,
 			Parent = this.StepsContainer,
 			SelectionImageObject = noSelectionObject
-		};
+		}
 
 		if i > currentStep then
 			nextStep.BackgroundColor3 = NON_SELECTED_COLOR
 		end
 
 		if i == 1 or i == steps then
-			nextStep.BackgroundTransparency = 1
-			nextStep.ScaleType = Enum.ScaleType.Slice
-			nextStep.SliceCenter = Rect.new(3,3,32,21)
 
-			if i <= currentStep then
-				if i == 1 then
-					nextStep.Image = SELECTED_LEFT_IMAGE
-				else
-					nextStep.Image = SELECTED_RIGHT_IMAGE
-				end
+			if Theme.UIBloxThemeEnabled then
+				Util.Create'UICorner'
+				{
+					CornerRadius = Theme.DefaultCornerRadius,
+					Parent = nextStep,
+				}
+				Util.Create'Frame'
+				{
+					Name = "Filler",
+					BackgroundColor3 = nextStep.BackgroundColor3,
+					Parent = nextStep,
+					Size = UDim2.new(0.25,0,1,0),
+					BorderSizePixel = 0,
+					Position = if i == 1 then UDim2.new(0.75,0,0,0) else UDim2.new(0,0,0,0)
+				}
 			else
-				if i == 1 then
-					nextStep.Image = NON_SELECTED_LEFT_IMAGE
+
+				nextStep.BackgroundTransparency = 1
+				nextStep.ScaleType = Enum.ScaleType.Slice
+				nextStep.SliceCenter = Rect.new(3,3,32,21)
+
+				if i <= currentStep then
+					if i == 1 then
+						nextStep.Image = SELECTED_LEFT_IMAGE
+					else
+						nextStep.Image = SELECTED_RIGHT_IMAGE
+					end
 				else
-					nextStep.Image = NON_SELECTED_RIGHT_IMAGE
+					if i == 1 then
+						nextStep.Image = NON_SELECTED_LEFT_IMAGE
+					else
+						nextStep.Image = NON_SELECTED_RIGHT_IMAGE
+					end
 				end
+
 			end
 		end
 
@@ -1701,10 +1915,16 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	local function hideSelection()
 		for i = 1, steps do
 			this.Steps[i].BackgroundColor3 = NON_SELECTED_COLOR
-			if i == 1 then
-				this.Steps[i].Image = NON_SELECTED_LEFT_IMAGE
-			elseif i == steps then
-				this.Steps[i].Image = NON_SELECTED_RIGHT_IMAGE
+			if Theme.UIBloxThemeEnabled then
+				if i == 1 or i == steps then
+					this.Steps[i].Filler.BackgroundColor3 = NON_SELECTED_COLOR
+				end
+			else
+				if i == 1 then
+					this.Steps[i].Image = NON_SELECTED_LEFT_IMAGE
+				elseif i == steps then
+					this.Steps[i].Image = NON_SELECTED_RIGHT_IMAGE
+				end
 			end
 		end
 	end
@@ -1712,19 +1932,28 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		for i = 1, steps do
 			if i > currentStep then break end
 			this.Steps[i].BackgroundColor3 = SELECTED_COLOR
-			if i == 1 then
-				this.Steps[i].Image = SELECTED_LEFT_IMAGE
-			elseif i == steps then
-				this.Steps[i].Image = SELECTED_RIGHT_IMAGE
+
+			if Theme.UIBloxThemeEnabled then
+				if i == 1 or i == steps then
+					this.Steps[i].Filler.BackgroundColor3 = SELECTED_COLOR
+				end
+			else
+				if i == 1 then
+					this.Steps[i].Image = SELECTED_LEFT_IMAGE
+				elseif i == steps then
+					this.Steps[i].Image = SELECTED_RIGHT_IMAGE
+				end
 			end
 		end
 	end
 	local function modifySelection(alpha)
-		for i = 1, steps do
-			if i == 1 or i == steps then
-				this.Steps[i].ImageTransparency = alpha
-			else
-				this.Steps[i].BackgroundTransparency = alpha
+		if not Theme.UIBloxThemeEnabled then
+			for i = 1, steps do
+				if i == 1 or i == steps then
+					this.Steps[i].ImageTransparency = alpha
+				else
+					this.Steps[i].BackgroundTransparency = alpha
+				end
 			end
 		end
 	end
@@ -2066,6 +2295,16 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		SelectionImageObject = noSelectionObject,
 		Parent = pageToAddTo.Page
 	};
+
+	if Theme.UIBloxThemeEnabled then
+		RowFrame.BackgroundColor3 = Theme.color("RowFrameBackground")
+		Util.Create'UICorner'
+		{
+			CornerRadius = Theme.DefaultCornerRadius,
+			Parent = RowFrame,
+		}
+	end
+
 	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
 
 	if RowFrame and extraSpacing then
@@ -2090,7 +2329,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	};
 
 	local RowLabelTextSizeConstraint = Instance.new("UITextSizeConstraint")
-	if FFlagUseNotificationsLocalization then
+	if FFlagUseNotificationsLocalization or Theme.UIBloxThemeEnabled then
 		RowLabel.Size = UDim2.new(0.35,0,1,0)
 		RowLabel.TextScaled = true
 		RowLabel.TextWrapped = true
@@ -2372,7 +2611,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 						if prop == "SelectedCoreObject" then
 							local selected = GuiService.SelectedCoreObject
 							if selected and (selected == RowFrame or selected:IsDescendantOf(RowFrame)) then
-								RowFrame.ImageTransparency = 0.5
+								RowFrame.ImageTransparency = Theme.transparency("RowFrameBackground", 0.5)
 								RowFrame.BackgroundTransparency = 1
 							else
 								RowFrame.ImageTransparency = 1
@@ -2396,7 +2635,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 					RowFrame.BackgroundTransparency = 1
 				else
 					RowFrame.ImageTransparency = 1
-					RowFrame.BackgroundTransparency = 0.5
+					RowFrame.BackgroundTransparency = Theme.transparency("RowFrameBackground", 0.5)
 				end
 
 				if ValueChangerInstance.HubRef then
@@ -2444,9 +2683,19 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		SelectionImageObject = noSelectionObject,
 		Parent = pageToAddTo.Page
 	};
+
+	if Theme.UIBloxThemeEnabled then
+		RowFrame.BackgroundColor3 = Theme.color("RowFrameBackground")
+		Util.Create'UICorner'
+		{
+			CornerRadius = Theme.DefaultCornerRadius,
+			Parent = RowFrame,
+		}
+	end
+
 	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
 	RowFrame.SelectionGained:Connect(function()
-		RowFrame.BackgroundTransparency = 0.5
+		RowFrame.BackgroundTransparency = Theme.transparency("RowFrameBackground", 0.5)
 	end)
 	RowFrame.SelectionLost:Connect(function()
 		RowFrame.BackgroundTransparency = 1
@@ -2498,11 +2747,11 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 
 	rowObject.SelectionGained:Connect(function()
 		if VRService.VREnabled then
-			RowFrame.ImageTransparency = 0.5
+			RowFrame.ImageTransparency =  Theme.transparency("RowFrameBackground", 0.5)
 			RowFrame.BackgroundTransparency = 1
 		else
 			RowFrame.ImageTransparency = 1
-			RowFrame.BackgroundTransparency = 0.5
+			RowFrame.BackgroundTransparency =  Theme.transparency("RowFrameBackground", 0.5)
 		end
 	end)
 	rowObject.SelectionLost:Connect(function()
@@ -2599,6 +2848,10 @@ end
 
 function moduleApiTable:IsPortrait()
 	return isPortrait()
+end
+
+function moduleApiTable:MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef)
+	return MakeIconButton(name, icon,text, size, clickFunc, pageRef, hubRef)
 end
 
 function moduleApiTable:MakeStyledButton(name, text, size, clickFunc, pageRef, hubRef)

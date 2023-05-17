@@ -13,7 +13,7 @@ local jest = JestGlobals.jest
 local SocialTestHelpers = require(Packages.Dev.SocialTestHelpers).TestHelpers
 local runWhileMounted = SocialTestHelpers.runWhileMounted
 
-local wrapInApolloProvider = require(UserSearch.TestHelpers.wrapInApolloProvider)
+local wrapInApolloProvider = SocialTestHelpers.wrapInApolloProvider
 local ProfileInsightsMocks = require(UserSearch.TestHelpers.ProfileInsightsMocks)
 
 local ProfileInsightsContextFetchWrapper = require(script.Parent.ProfileInsightsContextFetchWrapper)

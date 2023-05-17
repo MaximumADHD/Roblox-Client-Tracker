@@ -14,8 +14,6 @@ local runWhileMounted = SocialTestHelpers.runWhileMounted
 local findImageSet = SocialTestHelpers.findImageSet
 local mockedUsersInfo = require(UserSearch.TestHelpers.mockedUsersInfo)
 
-local getFFlagUserSearchContextualInfoUpdateUI = require(UserSearch.Flags.getFFlagUserSearchContextualInfoUpdateUI)
-
 local UserSearchTileStories = require(UserSearch.Stories.UserSearchTileStories)
 
 describe("UserSearchTile", function()
@@ -114,14 +112,7 @@ describe("UserSearchTile", function()
 		runForAnyUserStory("yourself", "Feature.PlayerSearchResults.Label.ThisIsYou")
 		runForAnyUserStory("following", "Feature.PlayerSearchResults.Label.YouAreFollowing")
 		runForAnyUserStory("friend", "Feature.PlayerSearchResults.Label.YouAreFriends")
-		if getFFlagUserSearchContextualInfoUpdateUI() then
-			runForAnyUserStory("previousUserName", "Feature.PlayerSearchResults.Label.Previously @searchKeyword")
-		else
-			runForAnyUserStory(
-				"previousUserName",
-				"Feature.PlayerSearchResults.Label.AlsoKnownAsAbbreviation searchKeyword"
-			)
-		end
+		runForAnyUserStory("previousUserName", "Feature.PlayerSearchResults.Label.Previously @searchKeyword")
 
 		runForAnyUserStory("incomingFriendship", false)
 		runForAnyUserStory("outgoingFriendship", false)

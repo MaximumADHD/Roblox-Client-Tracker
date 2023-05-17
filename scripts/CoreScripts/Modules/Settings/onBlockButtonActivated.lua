@@ -7,6 +7,7 @@ local Promise = require(CorePackages.Promise)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local BlockingModalScreen = require(script.Parent.Components.Blocking.BlockingModalScreen)
+local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFFlagEnableBlockAnalyticsSource)
 
 local handle
 local unmount = function()
@@ -16,9 +17,10 @@ local unmount = function()
 	end
 end
 
-return function(player, analytics, config)
+return function(player, analytics, source, config)
 	analytics:action("SettingsHub", "blockUserButtonClick", {
 		blockeeUserId = player.UserId,
+		source = if GetFFlagEnableBlockAnalyticsSource() then source else nil,
 	})
 
 	unmount()
@@ -32,6 +34,7 @@ return function(player, analytics, config)
 		end,
 		analytics = analytics,
 		translator = (config and config.RobloxTranslator) or RobloxTranslator,
+		source = if GetFFlagEnableBlockAnalyticsSource() then source else nil,
 	})
 
 	handle = Roact.mount(blockingScreen, RobloxGui, "BlockingContainer")

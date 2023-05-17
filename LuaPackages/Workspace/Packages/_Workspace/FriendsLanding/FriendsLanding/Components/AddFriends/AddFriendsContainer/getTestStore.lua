@@ -4,9 +4,12 @@ local dependencies = require(AddFriends.dependencies)
 local Rodux = dependencies.Rodux
 local llama = dependencies.llama
 local getBaseTestStates = require(FriendsLanding.TestHelpers.getBaseTestStates)
-local baseTestState = getBaseTestStates().smallNumbersOfFriends
 
-return function(hasRequests, extraState: any?)
+return function(hasRequests, hasRecommendations: boolean?, extraState: any?)
+	local baseTestState = if hasRecommendations and not hasRequests
+		then getBaseTestStates().recommendationsOnly
+		elseif hasRecommendations and hasRequests then getBaseTestStates().friendsAndRecommendations
+		else getBaseTestStates().smallNumbersOfFriends
 	local testState = baseTestState.FriendsLanding
 
 	local byUserId = {}
@@ -18,6 +21,7 @@ return function(hasRequests, extraState: any?)
 	local sourceUniverseIds = {}
 	local mutualFriends = {}
 	local showContactImporterParams = {}
+	local recommendations = {}
 	if hasRequests then
 		byUserId = testState.Users.byUserId
 		receivedCount = #llama.Dictionary.keys(testState.Users.byUserId)
@@ -49,6 +53,9 @@ return function(hasRequests, extraState: any?)
 			isDiscoverabilityUnset = false,
 		}
 	end
+	if hasRecommendations then
+		recommendations = getBaseTestStates().recommendationsOnly["FriendsLanding"].Friends.recommendations
+	end
 
 	return Rodux.Store.new(function()
 		return {
@@ -66,6 +73,7 @@ return function(hasRequests, extraState: any?)
 						sourceUniverseIds = sourceUniverseIds,
 						mutualFriends = mutualFriends,
 					},
+					recommendations = recommendations,
 				},
 				Users = testState.Users,
 				Presence = testState.Presence,

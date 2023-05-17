@@ -1,3 +1,5 @@
+-- humanoidAnimatePlayEmote.lua
+
 local Figure = script.Parent
 local Torso = Figure:WaitForChild("Torso")
 local RightShoulder = Torso:WaitForChild("Right Shoulder")
@@ -9,6 +11,17 @@ local Humanoid = Figure:WaitForChild("Humanoid")
 local pose = "Standing"
 
 local EMOTE_TRANSITION_TIME = 0.1
+
+local userAnimateScaleRunSuccess, userAnimateScaleRunValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimateScaleRun") end)
+local userAnimateScaleRun = userAnimateScaleRunSuccess and userAnimateScaleRunValue
+
+local function getRigScale()
+	if userAnimateScaleRun then
+		return Figure:GetScale()
+	else
+		return 1
+	end
+end
 
 local currentAnim = ""
 local currentAnimInstance = nil
@@ -337,6 +350,8 @@ end
 
 
 function onRunning(speed)
+	speed /= getRigScale()
+	
 	if speed > 0.01 then
 		playAnimation("walk", 0.1, Humanoid)
 		if currentAnimInstance and currentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
@@ -362,6 +377,8 @@ function onJumping()
 end
 
 function onClimbing(speed)
+	speed /= getRigScale()
+	
 	playAnimation("climb", 0.1, Humanoid)
 	setAnimationSpeed(speed / 12.0)
 	pose = "Climbing"

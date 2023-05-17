@@ -24,7 +24,6 @@ local validateEvent = require(FriendsCarousel.TestHelpers.validateEvent)
 local getFIntShowFriendRecommendationsLimit = require(FriendsCarousel.Flags.getFIntShowFriendRecommendationsLimit)
 local validateDiagEvent = require(FriendsCarousel.TestHelpers.validateDiagEvent)
 
-local getFFlagProfileAliasEnabled = dependencies.getFFlagProfileAliasEnabled
 local isSubjectToDesktopPolicies = dependencies.isSubjectToDesktopPolicies
 
 local mockedState = {
@@ -92,23 +91,19 @@ describe("FetchFriendsAndRecommendations", function()
 		end)
 
 		local GetTagsFromUserIdsSpy = jest.fn()
-		if getFFlagProfileAliasEnabled() then
-			NetworkingAliases.GetTagsFromUserIds.Mock.clear()
-			NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
-				GetTagsFromUserIdsSpy()
-				return {
-					responseBody = {
-						data = {},
-					},
-				}
-			end)
-		end
+		NetworkingAliases.GetTagsFromUserIds.Mock.clear()
+		NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
+			GetTagsFromUserIdsSpy()
+			return {
+				responseBody = {
+					data = {},
+				},
+			}
+		end)
 
 		store:dispatch(FetchFriendsAndRecommendations(config))
 		jestExpect(GetFriendsFromUserIdSpy).toHaveBeenCalledTimes(1)
-		if getFFlagProfileAliasEnabled() then
-			jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
 			mockedAnalytics.EventStream,
@@ -153,23 +148,19 @@ describe("FetchFriendsAndRecommendations", function()
 		end)
 
 		local GetTagsFromUserIdsSpy = jest.fn()
-		if getFFlagProfileAliasEnabled() then
-			NetworkingAliases.GetTagsFromUserIds.Mock.clear()
-			NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
-				GetTagsFromUserIdsSpy()
-				return {
-					responseBody = {
-						data = {},
-					},
-				}
-			end)
-		end
+		NetworkingAliases.GetTagsFromUserIds.Mock.clear()
+		NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
+			GetTagsFromUserIdsSpy()
+			return {
+				responseBody = {
+					data = {},
+				},
+			}
+		end)
 
 		store:dispatch(FetchFriendsAndRecommendations(config))
 		jestExpect(GetFriendsFromUserIdSpy).toHaveBeenCalledTimes(1)
-		if getFFlagProfileAliasEnabled() then
-			jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
 		jestExpect(GetFriendRecommendationsFromUserIdSpy).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
@@ -215,23 +206,19 @@ describe("FetchFriendsAndRecommendations", function()
 		end)
 
 		local GetTagsFromUserIdsSpy = jest.fn()
-		if getFFlagProfileAliasEnabled() then
-			NetworkingAliases.GetTagsFromUserIds.Mock.clear()
-			NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
-				GetTagsFromUserIdsSpy()
-				return {
-					responseBody = {
-						data = {},
-					},
-				}
-			end)
-		end
+		NetworkingAliases.GetTagsFromUserIds.Mock.clear()
+		NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
+			GetTagsFromUserIdsSpy()
+			return {
+				responseBody = {
+					data = {},
+				},
+			}
+		end)
 
 		store:dispatch(FetchFriendsAndRecommendations(config))
 		jestExpect(GetFriendsFromUserIdSpy).toHaveBeenCalledTimes(1)
-		if getFFlagProfileAliasEnabled() then
-			jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
 		jestExpect(GetFriendRecommendationsFromUserIdSpy).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
@@ -277,23 +264,19 @@ describe("FetchFriendsAndRecommendations", function()
 		end)
 
 		local GetTagsFromUserIdsSpy = jest.fn()
-		if getFFlagProfileAliasEnabled() then
-			NetworkingAliases.GetTagsFromUserIds.Mock.clear()
-			NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
-				GetTagsFromUserIdsSpy()
-				return {
-					responseBody = {
-						data = {},
-					},
-				}
-			end)
-		end
+		NetworkingAliases.GetTagsFromUserIds.Mock.clear()
+		NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
+			GetTagsFromUserIdsSpy()
+			return {
+				responseBody = {
+					data = {},
+				},
+			}
+		end)
 
 		store:dispatch(FetchFriendsAndRecommendations(config))
 		jestExpect(GetFriendsFromUserIdSpy).toHaveBeenCalledTimes(1)
-		if getFFlagProfileAliasEnabled() then
-			jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
 		jestExpect(GetFriendRecommendationsFromUserIdSpy).never.toHaveBeenCalled()
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
@@ -342,23 +325,19 @@ describe("FetchFriendsAndRecommendations", function()
 		end)
 
 		local GetTagsFromUserIdsSpy = jest.fn()
-		if getFFlagProfileAliasEnabled() then
-			NetworkingAliases.GetTagsFromUserIds.Mock.clear()
-			NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
-				GetTagsFromUserIdsSpy()
-				return {
-					responseBody = {
-						data = {},
-					},
-				}
-			end)
-		end
+		NetworkingAliases.GetTagsFromUserIds.Mock.clear()
+		NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
+			GetTagsFromUserIdsSpy()
+			return {
+				responseBody = {
+					data = {},
+				},
+			}
+		end)
 
 		store:dispatch(FetchFriendsAndRecommendations(config))
 		jestExpect(GetFriendsFromUserIdSpy).toHaveBeenCalledTimes(1)
-		if getFFlagProfileAliasEnabled() then
-			jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
 		jestExpect(GetFriendRecommendationsFromUserIdSpy).never.toHaveBeenCalled()
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(
@@ -393,17 +372,15 @@ describe("FetchFriendsAndRecommendations", function()
 		end)
 
 		local GetTagsFromUserIdsSpy = jest.fn()
-		if getFFlagProfileAliasEnabled() then
-			NetworkingAliases.GetTagsFromUserIds.Mock.clear()
-			NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
-				GetTagsFromUserIdsSpy()
-				return {
-					responseBody = {
-						data = {},
-					},
-				}
-			end)
-		end
+		NetworkingAliases.GetTagsFromUserIds.Mock.clear()
+		NetworkingAliases.GetTagsFromUserIds.Mock.reply(function()
+			GetTagsFromUserIdsSpy()
+			return {
+				responseBody = {
+					data = {},
+				},
+			}
+		end)
 
 		local GetFriendRecommendationsFromUserIdSpy = jest.fn()
 		NetworkingFriends.GetFriendRecommendationsFromUserId.Mock.clear()
@@ -419,9 +396,7 @@ describe("FetchFriendsAndRecommendations", function()
 
 		store:dispatch(FetchFriendsAndRecommendations(config))
 		jestExpect(GetFriendsFromUserIdSpy).toHaveBeenCalledTimes(1)
-		if getFFlagProfileAliasEnabled() then
-			jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
-		end
+		jestExpect(GetTagsFromUserIdsSpy).toHaveBeenCalledTimes(1)
 		jestExpect(GetFriendRecommendationsFromUserIdSpy).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledTimes(1)
 		jestExpect(mockedAnalytics.EventStream.setRBXEventStream).toHaveBeenCalledWith(

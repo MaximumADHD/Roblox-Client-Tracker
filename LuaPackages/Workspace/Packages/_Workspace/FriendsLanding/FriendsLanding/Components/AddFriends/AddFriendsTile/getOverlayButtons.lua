@@ -5,6 +5,8 @@ local t = dependencies.t
 local UIBlox = dependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
+local getFFlagAddFriendsPYMKAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKAnalytics)
 
 local OverlayButtonsProps = t.strictInterface({
 	playerId = t.string,
@@ -18,12 +20,22 @@ local OverlayButtonsProps = t.strictInterface({
 	handleRequestFriendship = t.optional(t.callback),
 	handleAcceptFriendRequest = t.optional(t.callback),
 	handleDeclineFriendRequest = t.optional(t.callback),
+	-- Position of tile in its section starting from 0
+	position = if getFFlagAddFriendsImproveAnalytics() then t.optional(t.integer) else nil,
 })
 
 return function(props)
 	assert(OverlayButtonsProps(props))
 
 	local buttons = {}
+	local extraProps = if getFFlagAddFriendsImproveAnalytics()
+		then {
+			position = props.position,
+			targetUserId = props.playerId,
+			isRecommendation = if getFFlagAddFriendsPYMKAnalytics() then not props.isFriendRequest else nil,
+		}
+		else nil
+
 	if props.isFriendRequest then
 		-- Fallback to Enum.FriendStatus.FriendRequestReceived status to show
 		-- the buttons. The buttons are used in the friends requests situation,
@@ -36,14 +48,22 @@ return function(props)
 				icon = Images["icons/actions/reject"],
 				isSecondary = true,
 				onActivated = function()
-					props.handleDeclineFriendRequest(props.networking, props.playerId)
+					if getFFlagAddFriendsImproveAnalytics() then
+						props.handleDeclineFriendRequest(props.networking, props.playerId, extraProps)
+					else
+						props.handleDeclineFriendRequest(props.networking, props.playerId)
+					end
 				end,
 			})
 			table.insert(buttons, {
 				icon = Images["icons/actions/friends/friendAdd"],
 				isSecondary = false,
 				onActivated = function()
-					props.handleAcceptFriendRequest(props.networking, props.playerId)
+					if getFFlagAddFriendsImproveAnalytics() then
+						props.handleAcceptFriendRequest(props.networking, props.playerId, extraProps)
+					else
+						props.handleAcceptFriendRequest(props.networking, props.playerId)
+					end
 				end,
 			})
 		end
@@ -58,7 +78,11 @@ return function(props)
 				icon = Images["icons/actions/friends/friendAdd"],
 				isSecondary = false,
 				onActivated = function()
-					props.handleAcceptFriendRequest(props.networking, props.playerId)
+					if getFFlagAddFriendsImproveAnalytics() then
+						props.handleAcceptFriendRequest(props.networking, props.playerId, extraProps)
+					else
+						props.handleAcceptFriendRequest(props.networking, props.playerId)
+					end
 				end,
 			})
 		elseif status == Enum.FriendStatus.NotFriend then
@@ -66,7 +90,11 @@ return function(props)
 				icon = Images["icons/actions/friends/friendAdd"],
 				isSecondary = false,
 				onActivated = function()
-					props.handleRequestFriendship(props.networking, props.playerId, props.sourceType)
+					if getFFlagAddFriendsImproveAnalytics() then
+						props.handleRequestFriendship(props.networking, props.playerId, props.sourceType, extraProps)
+					else
+						props.handleRequestFriendship(props.networking, props.playerId, props.sourceType)
+					end
 				end,
 			})
 		elseif status == Enum.FriendStatus.FriendRequestSent then

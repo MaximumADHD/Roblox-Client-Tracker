@@ -14,6 +14,7 @@ local ScalarResolver = require(script.Parent.ScalarResolver).default
 local VirtualEventResolver = require(script.Parent.VirtualEventResolver)
 local ExperienceResolver = require(script.Parent.ExperienceResolver)
 local ProfileInsightsResolver = require(script.Parent.ProfileInsightsResolver)
+local UserProfileResolver = require(script.Parent.UserProfileResolver)
 
 local resolvers = mergeResolvers({
 	UserResolver,
@@ -23,6 +24,7 @@ local resolvers = mergeResolvers({
 	VirtualEventResolver,
 	ExperienceResolver,
 	ProfileInsightsResolver,
+	UserProfileResolver,
 } :: Array<IResolvers<any, any>>)
 exports.default = resolvers
 

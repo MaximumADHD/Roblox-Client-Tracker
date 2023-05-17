@@ -25,8 +25,8 @@ local userForStatus = withEveryFriendStatus.userForStatus
 local baseStore = withEveryFriendStatus.baseStore
 local friendWithContextInfo = withEveryFriendStatus.friendWithContextInfo
 local fullContextInfo = withEveryFriendStatus.fullContextInfo
-local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
-	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
+
 local AddFriendsTile = require(script.Parent)
 
 local mockLocalization = {
@@ -70,6 +70,7 @@ local function createAddFriendsTileInstance(friendStatus, propsOverride)
 			handleAcceptFriendRequest = mockFunc,
 			handleDeclineFriendRequest = mockFunc,
 			handleRequestFriendship = mockFunc,
+			position = if getFFlagAddFriendsImproveAnalytics() then 0 else nil,
 		}, propsOverride),
 		store = baseStore,
 	})
@@ -263,9 +264,7 @@ describe("relevancyInfo", function()
 			Enum.FriendStatus.FriendRequestReceived,
 			friendWithContextInfo.FriendViaQRCode
 		)
-		if getFFlagProfileQRCodeFriendRequestContextInfoEnabled() then
-			expectPlayerContextContainsLabel(mockLocalization.QRCodeText)
-		end
+		expectPlayerContextContainsLabel(mockLocalization.QRCodeText)
 		expectPlayerContextContainsIcon(nil)
 	end)
 

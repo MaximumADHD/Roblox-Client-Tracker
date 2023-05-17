@@ -31,6 +31,7 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
+local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 
 local canGetCoreScriptVersion = game:GetEngineFeature("CoreScriptVersionEnabled")
@@ -65,6 +66,8 @@ local function inferPlayerScriptStatus(starterPlayerScripts)
 		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
 			defaultPlayerScripts = playerScriptStatus == Constants.PlayerScriptStatusStrings.Default,
 			placeID = tostring(game.PlaceId),
+			rawValue = if GetFFlagNewEventIngestPlayerScriptsDimensions() then playerScriptStatus else nil,
+			context = if GetFFlagNewEventIngestPlayerScriptsDimensions() then "IGMv3" else nil,
 		})
 	end
 

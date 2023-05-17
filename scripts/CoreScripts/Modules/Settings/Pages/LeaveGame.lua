@@ -59,7 +59,7 @@ local function Initialize()
 		if GetFFlagEnableSurveyImprovements() then 
 			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})	
 		end
-				
+
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
 		for i = 1, LEAVE_GAME_FRAME_WAITS do

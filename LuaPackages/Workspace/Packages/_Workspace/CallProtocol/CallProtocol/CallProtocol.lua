@@ -5,7 +5,6 @@ local Promise = require(Packages.Promise)
 
 local Constants = require(Root.CallProtocolConstants)
 local CallProtocolTypes = require(Root.CallProtocolTypes)
-local UserPresenceType = require(Root.Enums.UserPresenceType)
 
 type CallProtocol = CallProtocolTypes.CallProtocol
 type CallProtocolModule = CallProtocolTypes.CallProtocolModule
@@ -13,13 +12,11 @@ type InitCallParams = CallProtocolTypes.InitCallParams
 type AnswerCallParams = CallProtocolTypes.AnswerCallParams
 type RejectCallParams = CallProtocolTypes.RejectCallParams
 type CancelCallParams = CallProtocolTypes.CancelCallParams
+type FinishCallParams = CallProtocolTypes.FinishCallParams
 type HandleInitCallParams = CallProtocolTypes.HandleInitCallParams
 type HandleAnswerCallParams = CallProtocolTypes.HandleAnswerCallParams
-type HandleRejectCallParams = CallProtocolTypes.HandleRejectCallParams
-type HandleCancelCallParams = CallProtocolTypes.HandleCancelCallParams
-type HandleCallNotificationUpdateParams = CallProtocolTypes.HandleCallNotificationUpdateParams
+type HandleEndCallParams = CallProtocolTypes.HandleEndCallParams
 type GetCallStateResponse = CallProtocolTypes.GetCallStateResponse
-type UserPresenceType = UserPresenceType.UserPresenceType
 
 local MessageBus = game:GetService("MessageBusService")
 
@@ -31,11 +28,26 @@ function CallProtocol.new(): CallProtocol
 	return (self :: any) :: CallProtocol
 end
 
-function CallProtocol:initCall(calleeUserId: number, callerPresenceType: UserPresenceType)
-	MessageBus:Publish(Constants.MESSAGE_INIT_CALL, {
-		calleeUserId = calleeUserId,
-		callerPresenceType = callerPresenceType,
-	} :: InitCallParams)
+function CallProtocol:initCall(
+	calleeUserId: number,
+	placeId: number,
+	gameInstanceId: number?,
+	reservedServerAccessCode: string?
+)
+	local initCallParams: InitCallParams = {
+		calleeId = calleeUserId,
+		placeId = placeId,
+	}
+
+	if gameInstanceId ~= nil then
+		initCallParams.instanceId = gameInstanceId
+	end
+
+	if reservedServerAccessCode ~= nil then
+		initCallParams.reservedServerAccessCode = reservedServerAccessCode
+	end
+
+	MessageBus:Publish(Constants.MESSAGE_INIT_CALL, initCallParams)
 end
 
 function CallProtocol:answerCall(callId: string)
@@ -54,6 +66,12 @@ function CallProtocol:cancelCall(callId: string)
 	MessageBus:Publish(Constants.MESSAGE_CANCEL_CALL, {
 		callId = callId,
 	} :: CancelCallParams)
+end
+
+function CallProtocol:finishCall(callId: string)
+	MessageBus:Publish(Constants.MESSAGE_FINISH_CALL, {
+		callId = callId,
+	} :: FinishCallParams)
 end
 
 function CallProtocol:getCallState()
@@ -78,16 +96,8 @@ function CallProtocol:listenToHandleAnswerCall(callback: (HandleAnswerCallParams
 	return MessageBus:Subscribe(Constants.MESSAGE_HANDLE_ANSWER_CALL, callback, false, true)
 end
 
-function CallProtocol:listenToHandleRejectCall(callback: (HandleRejectCallParams) -> ())
-	return MessageBus:Subscribe(Constants.MESSAGE_HANDLE_REJECT_CALL, callback, false, true)
-end
-
-function CallProtocol:listenToHandleCancelCall(callback: (HandleCancelCallParams) -> ())
-	return MessageBus:Subscribe(Constants.MESSAGE_HANDLE_CANCEL_CALL, callback, false, true)
-end
-
-function CallProtocol:listenToHandleCallNotificationUpdate(callback: (HandleCallNotificationUpdateParams) -> ())
-	return MessageBus:Subscribe(Constants.MESSAGE_HANDLE_CALL_NOTIFICATION_UPDATE, callback, false, true)
+function CallProtocol:listenToHandleEndCall(callback: (HandleEndCallParams) -> ())
+	return MessageBus:Subscribe(Constants.MESSAGE_HANDLE_END_CALL, callback, false, true)
 end
 
 CallProtocol.default = CallProtocol.new()

@@ -230,6 +230,47 @@ return function(config: any?)
 			},
 			ScreenSize = Vector2.new(1000, 100),
 		},
+		recommendationsOnly = {
+			LocalUserId = "test",
+			[roduxKey] = {
+				Friends = {
+					byUserId = {},
+					countsByUserId = {},
+					recommendations = {
+						byUserId = {
+							test = recommendations,
+						},
+						bySource = {
+							["AddFriendsPage"] = {
+								["recom1"] = true,
+								["recom2"] = true,
+								["recom3"] = true,
+								["recom4"] = true,
+							},
+						},
+					},
+					requests = {
+						receivedCount = 28,
+					},
+					friendshipStatus = {
+						["recom1"] = Enum.FriendStatus.NotFriend,
+						["recom2"] = Enum.FriendStatus.NotFriend,
+						["recom3"] = Enum.FriendStatus.Unknown,
+						["recom4"] = Enum.FriendStatus.FriendRequestSent,
+					},
+				},
+				Users = {
+					byUserId = llama.Dictionary.join(byUserId, recommendationsByUserId),
+				},
+				Presence = {
+					byUserId = presenceByUserId,
+				},
+				NetworkStatus = {
+					["https://friends.roblox.com//v1/users/test/friends"] = "Done",
+				},
+			},
+			ScreenSize = Vector2.new(1000, 100),
+		},
 		manyFriendsAndRecommendations = {
 			LocalUserId = "test",
 			[roduxKey] = {

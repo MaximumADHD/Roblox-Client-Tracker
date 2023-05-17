@@ -6,8 +6,8 @@ local function calculateFullScreenAdorneeProps(disToCamera: number?): (Vector3, 
 	local camera = workspace.CurrentCamera :: Camera
 	local aspectRatio = camera.ViewportSize.X / camera.ViewportSize.Y
 	local fullScreenHeight = 2 * distanceToCamera * math.tan(math.rad(camera.FieldOfView / 2))
-	local fullScrennWidth = fullScreenHeight * aspectRatio
-	local fullscreenDims = Vector3.new(fullScrennWidth, fullScreenHeight, 0.01)
+	local fullScreenWidth = fullScreenHeight * aspectRatio
+	local fullscreenDims = Vector3.new(fullScreenWidth, fullScreenHeight, 0.01)
 
 	local center = camera.CFrame.Position + distanceToCamera * camera.CFrame.LookVector
 	local centerCFrame = CFrame.lookAt(center, camera.CFrame.Position)
@@ -41,7 +41,7 @@ end
 local function calculatePageContentAdorneeProps(heightRatio: number, disToCamera: number?): (Vector3, CFrame, CFrame)
 	local distanceToCamera = disToCamera or DEFAULT_DISTANCE_TO_CAMERA
 	assert(distanceToCamera > 0, "distanceToCamera should be a positive number")
-	assert(heightRatio > 0 and heightRatio < 1, "heightRatio should be between 0 and 1")
+	assert(heightRatio > 0 and heightRatio <= 1, "heightRatio should be > 0 and < 1")
 	local fullscreenDims, centerCFrame = calculateFullScreenAdorneeProps(distanceToCamera)
 	local studHeight = fullscreenDims.Y * heightRatio
 	local dims = Vector3.new(fullscreenDims.X, studHeight, fullscreenDims.Z)

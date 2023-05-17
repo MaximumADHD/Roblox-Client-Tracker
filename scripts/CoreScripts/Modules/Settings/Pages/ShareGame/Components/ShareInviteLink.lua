@@ -168,13 +168,15 @@ function ShareInviteLink:render()
 
 	return Roact.createElement("Frame", {
 		Size = size,
+		Position = self.props.position,
 		LayoutOrder = layoutOrder,
-		BackgroundColor3 = SHARE_INVITE_LINK_BACKGROUND,
+		BackgroundColor3 = Theme.color("PlayerRowFrame", SHARE_INVITE_LINK_BACKGROUND),
+		BackgroundTransparency = Theme.transparency("PlayerRowFrame", 0),
 		ZIndex = zIndex,
 		BorderSizePixel = 0,
 	}, {
 		Corner = Roact.createElement("UICorner", {
-			CornerRadius = UDim.new(0, 4),
+			CornerRadius = if Theme.UIBloxThemeEnabled then Theme.MenuContainerCornerRadius else UDim.new(0, 4),
 		}),
 		UIPadding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, CONTENTS_LEFT_RIGHT_PADDING),
@@ -194,7 +196,7 @@ function ShareInviteLink:render()
 			LayoutOrder = 0,
 			Text = RobloxTranslator:FormatByKey("Feature.SocialShare.Label.ShareServerLink"),
 			Size = UDim2.new(1, -SHARE_BUTTON_WIDTH, 1, 0),
-			TextSize = Theme.textSize(layoutSpecific.PAGE_TITLE_TEXT_SIZE),
+			TextSize = Theme.textSize(layoutSpecific.PAGE_TITLE_TEXT_SIZE, "ShareLinkTitle"),
 			TextColor3 = Constants.Color.WHITE,
 			Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold"),
 		}),

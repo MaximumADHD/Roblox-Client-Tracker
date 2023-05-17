@@ -2,6 +2,9 @@ local Root = script:FindFirstAncestor("TenFootUiTesting")
 local Packages = Root.Parent
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
+local SharedFlags = require(Packages.SharedFlags)
+local Style = require(Packages.Style)
+local UIBlox = require(Packages.UIBlox)
 local AppNotificationService = require(Packages.RoactServiceTags).AppNotificationService
 local AppCommonLib = require(Packages.AppCommonLib)
 local LocalizationProvider = require(Packages.Localization).LocalizationProvider
@@ -10,9 +13,13 @@ local JestGlobals = require(Packages.Dev.JestGlobals)
 local mockProviders = require(Packages.Dev.LuaProfileDeps).UnitTestHelpers.mockProviders
 local TenFootUiContext = require(Packages.TenFootUiCommon).TenFootUiContext
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
+local GetFFlagUIBloxEnableRoDSDesignTokenSupport = SharedFlags.UIBlox.GetFFlagUIBloxEnableRoDSDesignTokenSupport
+local StyleConstants = UIBlox.App.Style.Constants
 
 local jest = JestGlobals.jest
 local Signal = AppCommonLib.Signal
+local DesignTokenProvider = Style.DesignTokenProvider
 
 type GlobalNavConfig = TenFootUiCommon.GlobalNavConfig
 type ScreenKind = TenFootUiCommon.ScreenKind
@@ -82,7 +89,8 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 			[mockAppPage.Startup] = {
 				screen = TestScreen,
 				navigationOptions = {
-					screenKind = "Default",
+					screenKind = ScreenKind.Default,
+					screenWrapper = "CanvasGroup",
 					animationStyle = "None",
 				},
 			},
@@ -91,7 +99,8 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 			[mockAppPage.Home] = {
 				screen = TestScreen,
 				navigationOptions = {
-					screenKind = "Default",
+					screenKind = ScreenKind.Default,
+					screenWrapper = "CanvasGroup",
 					animationStyle = "None",
 				},
 			},
@@ -100,7 +109,8 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 			[mockAppPage.AvatarExperienceRoot] = {
 				screen = TestScreen,
 				navigationOptions = {
-					screenKind = "Default",
+					screenKind = ScreenKind.Default,
+					screenWrapper = "CanvasGroup",
 					animationStyle = "None",
 				},
 			},
@@ -113,7 +123,8 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 					initialRouteKey = mockAppPage.Games,
 				},
 				navigationOptions = {
-					screenKind = "Default",
+					screenKind = ScreenKind.Default,
+					screenWrapper = "CanvasGroup",
 					animationStyle = "None",
 				},
 				screenStack = {
@@ -121,7 +132,8 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 						[mockAppPage.Games] = {
 							screen = TestScreen,
 							navigationOptions = {
-								screenKind = "Default",
+								screenKind = ScreenKind.Default,
+								screenWrapper = "CanvasGroup",
 								animationStyle = "None",
 							},
 						},
@@ -135,7 +147,8 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 			[mockAppPage.SearchPage] = {
 				screen = TestScreen,
 				navigationOptions = {
-					screenKind = "Default",
+					screenKind = ScreenKind.Default,
+					screenWrapper = "CanvasGroup",
 					animationStyle = "None",
 				},
 			},
@@ -144,7 +157,8 @@ local routerConfig: TenFootUiCommon.TenFootUiRouterConfig = {
 			[mockAppPage.PurchaseRobux] = {
 				screen = TestScreen,
 				navigationOptions = {
-					screenKind = "Default",
+					screenKind = ScreenKind.Default,
+					screenWrapper = "CanvasGroup",
 					animationStyle = "None",
 				},
 			},
@@ -178,6 +192,11 @@ local function makeTenFootUiContextMocks(
 		globalNavConfig = globalNavConfig,
 		useRoactService = mockUseRoactServices,
 		routerConfig = routerConfig,
+		ApplyRoactNavigationHistory = jest.fn().mockImplementation(function()
+			return {
+				type = "ApplyRoactNavigationHistory",
+			}
+		end),
 	}
 end
 
@@ -215,6 +234,7 @@ local function makeMockNavigation(navigationState: MockNavigationState?)
 			remove = jest.fn(),
 		}
 	end)
+	mockNavigation.dispatch = jest.fn()
 	mockNavigation.getParam = jest.fn()
 	mockNavigation.navigate = jest.fn().mockImplementation(function(newRouteName: string)
 		local newIndex = Cryo.List.findWhere(mockNavigation.state.routes, function(route)
@@ -227,6 +247,10 @@ local function makeMockNavigation(navigationState: MockNavigationState?)
 			error("No navigated route [" .. newRouteName .. "] has been mocked")
 		end
 	end)
+	mockNavigation.getChildNavigation = jest.fn()
+	mockNavigation.router = {
+		getScreenOptions = jest.fn(),
+	}
 
 	return mockNavigation
 end
@@ -264,9 +288,27 @@ local makeMockProviders = function(config: MakeMockProvidersConfig?)
 				includeStyleProvider = true,
 				includeNavigationProvider = true,
 				store = config.store,
-				initialStoreState = config.initialStoreState,
+				initialStoreState = config.initialStoreState or {},
 				navigation = mockNavigation,
+				appStyle = {
+					themeName = StyleConstants.ThemeName.Dark,
+					fontName = StyleConstants.FontName.Gotham,
+					deviceType = if GetFFlagUIBloxEnableRoDSDesignTokenSupport() then "Console" else nil,
+				},
 			})
+		end,
+		function(props)
+			if GetFFlagUIBloxEnableRoDSDesignTokenSupport() then
+				return React.createElement(DesignTokenProvider, {
+					tokenMappers = {},
+					uiModeInfo = {
+						deviceType = "Console",
+						uiMode = "TenFoot",
+					},
+				}, props.children)
+			else
+				return React.createElement(React.Fragment, nil, props.children)
+			end
 		end,
 		function(props)
 			return React.createElement(LocalizationProvider, {
@@ -307,7 +349,11 @@ local function makeMockDescriptor(
 	key: string,
 	navState: NavigationState,
 	screenKind: ScreenKind,
-	animationStyle: AnimationStyle?
+	animationStyle: AnimationStyle?,
+	sizeScale: Vector2?,
+	positionOffset: Vector2?,
+	absorbInput: boolean?,
+	screenWrapper: React.ComponentType<any>?
 )
 	local testComponentNavigationFromProp, testComponentScreenProps
 	local TestComponent = React.Component:extend("TestComponent")
@@ -323,7 +369,11 @@ local function makeMockDescriptor(
 		key = key,
 		options = {
 			screenKind = screenKind,
+			screenWrapper = screenWrapper or "CanvasGroup" :: "CanvasGroup",
 			animationStyle = animationStyle,
+			sizeScale = sizeScale,
+			positionOffset = positionOffset,
+			absorbInput = absorbInput,
 		},
 		navigation = makeMockNavigationObject(navState),
 		state = navState,

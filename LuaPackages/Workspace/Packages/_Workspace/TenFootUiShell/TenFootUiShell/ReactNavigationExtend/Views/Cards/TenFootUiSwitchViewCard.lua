@@ -8,19 +8,22 @@ local useXDirectionAnimation = require(ReactNavigationExtend.Hooks.useXDirection
 local TenFootUiBaseViewCard = require(ReactNavigationExtend.Views.Cards.TenFootUiBaseViewCard)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local AnimationStyleEnum = TenFootUiCommon.TenFootUiRNTypes.AnimationStyleEnum
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 
 type Descriptor = TenFootUiCommon.Descriptor
 type ScreenKind = TenFootUiCommon.ScreenKind
 type AnimationStyle = TenFootUiCommon.AnimationStyle
+type ScreenProps = TenFootUiCommon.ScreenProps
 type XDirectionAnimationConfig = useXDirectionAnimation.XDirectionAnimationConfig
 
 export type Props = {
 	isActiveKey: boolean,
+	isFocusable: boolean,
 	index: number,
 	descriptor: Descriptor,
 	adorneeParent: Instance,
 	surfaceGuiParent: Instance,
-	screenProps: { [any]: any }?,
+	screenProps: ScreenProps?,
 }
 
 local MemoizedTenFootUiBaseViewCard = React.memo(TenFootUiBaseViewCard)
@@ -29,7 +32,7 @@ local function TenFootUiSwitchViewCard(props: Props)
 	local isActiveKey = props.isActiveKey
 	local index = props.index
 	local descriptor = props.descriptor
-	local screenKind: ScreenKind = descriptor.options.screenKind or "Default"
+	local screenKind: ScreenKind = descriptor.options.screenKind or ScreenKind.Default
 	local animationStyle: AnimationStyle = descriptor.options.animationStyle or AnimationStyleEnum.XDirection
 
 	local screenPropsState, setScreenPropsState = React.useState(props.screenProps or {})

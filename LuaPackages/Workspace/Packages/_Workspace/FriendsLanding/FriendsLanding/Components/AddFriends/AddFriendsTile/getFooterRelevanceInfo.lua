@@ -12,8 +12,6 @@ local getRecommendationContextualInfoDisplay = dependencies.SocialCommon.Utils.g
 
 local getFFlagContactNameOnFriendRequestEnabled =
 	require(FriendsLanding.Flags.getFFlagContactNameOnFriendRequestEnabled)
-local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
-	dependencies.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
 
 local RelevanceInfoProps = t.strictInterface({
@@ -66,10 +64,7 @@ return function(props, style, localized)
 				text = localized.fromContactsText,
 				fontStyle = style.Font.CaptionBody,
 			}
-		elseif
-			getFFlagProfileQRCodeFriendRequestContextInfoEnabled()
-			and props.originSourceType == FriendshipOriginSourceType.QrCode.rawValue()
-		then
+		elseif props.originSourceType == FriendshipOriginSourceType.QrCode.rawValue() then
 			return {
 				text = localized.foundThroughQRCode,
 				fontStyle = style.Font.CaptionBody,

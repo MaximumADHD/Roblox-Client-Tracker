@@ -11,6 +11,7 @@ local expect = JestGlobals.expect
 
 local TenFootUiStackView = require(script.Parent.TenFootUiStackView)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local createTenFootUiShellTestHarness = require(TestUtils.createTenFootUiShellTestHarness)
 local TenFootUiScene = require(TenFootUiShell.Hooks.TenFootUiScene)
 
@@ -72,19 +73,24 @@ it("should mount and pass required props and context", function()
 			end,
 			key = "foo",
 			options = {
-				screenKind = "Default" :: ScreenKind,
+				screenKind = ScreenKind.Default :: ScreenKind,
+				screenWrapper = "CanvasGroup" :: any,
 			},
 			navigation = testNavigation,
 			state = testState,
 		},
 	}
 
-	local element = React.createElement(createTenFootUiShellTestHarness(TenFootUiStackView), {
-		screenProps = testScreenProps,
-		navigation = testNavigation,
-		navigationConfig = testNavigatorConfig,
-		descriptors = testDescriptors,
-	})
+	local element = React.createElement(
+		createTenFootUiShellTestHarness(),
+		nil,
+		React.createElement(TenFootUiStackView, {
+			screenProps = testScreenProps,
+			navigation = testNavigation,
+			navigationConfig = testNavigatorConfig,
+			descriptors = testDescriptors,
+		})
+	)
 
 	local root = ReactRoblox.createRoot(Instance.new("Folder"))
 	ReactRoblox.act(function()
@@ -92,7 +98,7 @@ it("should mount and pass required props and context", function()
 	end)
 
 	expect(testComponentNavigationFromProp).toBe(testNavigation)
-	expect(testComponentScreenProps).toBe(testScreenProps)
+	expect(testComponentScreenProps).toEqual(testScreenProps)
 
 	root:unmount()
 end)

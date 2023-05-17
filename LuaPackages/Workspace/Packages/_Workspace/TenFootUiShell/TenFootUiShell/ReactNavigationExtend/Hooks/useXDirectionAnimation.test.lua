@@ -11,6 +11,7 @@ local jest = JestGlobals.jest
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local TenFootUiScene = require(TenFootUiShell.Hooks.TenFootUiScene)
 local useXDirectionAnimation = require(script.Parent.useXDirectionAnimation)
 
@@ -29,7 +30,7 @@ beforeEach(function()
 	defaultTestConfig = {
 		isActiveKey = true,
 		index = 1,
-		screenKind = "Default",
+		screenKind = ScreenKind.Default,
 		setScreenPropsState = testCallback,
 		adornee = Instance.new("Part"),
 	}
@@ -158,7 +159,7 @@ end)
 
 it("should animate correctly for non default page", function()
 	local initialTestConfig = table.clone(defaultTestConfig)
-	initialTestConfig.screenKind = "FullScreen"
+	initialTestConfig.screenKind = ScreenKind.FullScreen
 	initialTestConfig.isActiveKey = false
 
 	local setConfigExt

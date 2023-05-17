@@ -16,6 +16,8 @@ export type VirtualEventsPage = graphqlModule.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = graphqlModule.VirtualEventsByUniverseIdOptions
 export type ProfileInsights = graphqlModule.ProfileInsights
 
+export type UserProfile = graphqlModule.UserProfile
+
 export type MockOptions = ApolloClientTestUtils.MockOptions
 export type Response = ApolloClientTestUtils.Response
 
@@ -24,4 +26,5 @@ return {
 	types = generatedTypes,
 	mocks = graphqlModule.mocks,
 	ApolloClientTestUtils = ApolloClientTestUtils,
+	enums = require(script.graphql.enums),
 }

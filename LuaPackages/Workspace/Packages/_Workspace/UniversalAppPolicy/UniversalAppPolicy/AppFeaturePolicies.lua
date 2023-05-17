@@ -19,6 +19,7 @@ local GetFFlagUseGridPageLayoutInVR = SharedFlags.GetFFlagUseGridPageLayoutInVR
 local GetFFlagDisableCDLQrCodeForMaquettes = SharedFlags.GetFFlagDisableCDLQrCodeForMaquettes
 local GetFFlagEnableIAPEntryPointDisablePolicy = SharedFlags.GetFFlagEnableIAPEntryPointDisablePolicy
 local GetFFlagEnableMaquettesU13Block = SharedFlags.GetFFlagEnableMaquettesU13Block
+local GetFFlagSearchDiscoverPhonePolicy = SharedFlags.GetFFlagSearchDiscoverPhonePolicy
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagOpenCreateGamesInExternalBrowser = game:DefineFastFlag("OpenCreateGamesInExternalBrowser", false)
@@ -337,9 +338,6 @@ local function AppFeaturePolicies(policy): any
 		getCsatSurveyRestrictTextInput = function()
 			return policy.CsatSurveyRestrictTextInput or false
 		end,
-		useGridHomePage = function()
-			return policy.UseGridHomePage or false
-		end,
 		useGridPageLayout = function()
 			if IsVRAppBuild() and GetFFlagUseGridPageLayoutInVR() then
 				return getVRDefaultPolicy("UseGridPageLayout", true)
@@ -349,6 +347,16 @@ local function AppFeaturePolicies(policy): any
 			else
 				return policy.UseGridPageLayout
 			end
+		end,
+		usePhoneSearchDiscoverEntry = function()
+			if GetFFlagSearchDiscoverPhonePolicy() then
+				if policy.UsePhoneSearchDiscoverEntry == nil then
+					return not isSubjectToDesktopPolicies()
+				else
+					return policy.UsePhoneSearchDiscoverEntry
+				end
+			end
+			return nil
 		end,
 		useNewDropDown = function()
 			return policy.UseNewDropDown or false

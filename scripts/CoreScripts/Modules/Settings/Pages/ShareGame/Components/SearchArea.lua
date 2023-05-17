@@ -7,6 +7,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
+local GetFFlagShareGameSearchBoxFocusAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGameSearchBoxFocusAnalytics)
 local SearchBox = require(ShareGame.Components.SearchBox)
 local IconButton = require(ShareGame.Components.IconButton)
 local Constants = require(ShareGame.Constants)
@@ -95,6 +96,11 @@ function SearchArea:render()
 				visible = searchAreaActive,
 				modalFocused = searchAreaActive,
 				onTextChanged = setSearchText,
+				onTextBoxFocused = function()
+					if GetFFlagShareGameSearchBoxFocusAnalytics() and self.props.analytics then
+						self.props.analytics:onSearchFocused()
+					end
+				end,
 				onTextBoxFocusLost = function(text)
 					if text == "" then
 						self.props.setSearchAreaActive(false)

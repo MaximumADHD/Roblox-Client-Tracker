@@ -5,6 +5,8 @@ local JestGlobals = require(Packages.Dev.JestGlobals)
 local it = JestGlobals.it
 local expect = JestGlobals.expect
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
+
 type TenFootUiRouterConfig = TenFootUiCommon.TenFootUiRouterConfig
 
 local createTenFootUiNavigator = require(script.Parent.createTenFootUiNavigator)
@@ -24,14 +26,14 @@ it("should return a navigator that can be used by app container", function()
 						initialRouteKey = "ScreenThree",
 					},
 					navigationOptions = {
-						screenKind = "Default",
+						screenKind = ScreenKind.Default,
 					},
 					screenStack = {
 						{
 							ScreenThree = {
 								screen = TestScreen,
 								navigationOptions = {
-									screenKind = "Overlay",
+									screenKind = ScreenKind.Overlay,
 								},
 							},
 						},
@@ -44,7 +46,7 @@ it("should return a navigator that can be used by app container", function()
 				ScreenOne = {
 					screen = TestScreen,
 					navigationOptions = {
-						screenKind = "Default",
+						screenKind = ScreenKind.Default,
 					},
 				},
 			},
@@ -52,7 +54,7 @@ it("should return a navigator that can be used by app container", function()
 				ScreenTwo = {
 					screen = TestScreen,
 					navigationOptions = {
-						screenKind = "Overlay",
+						screenKind = ScreenKind.Overlay,
 					},
 				},
 			},
@@ -62,7 +64,7 @@ it("should return a navigator that can be used by app container", function()
 				StackTwo = {
 					screen = TestScreen,
 					navigationOptions = {
-						screenKind = "Default",
+						screenKind = ScreenKind.Default,
 					},
 				},
 			},

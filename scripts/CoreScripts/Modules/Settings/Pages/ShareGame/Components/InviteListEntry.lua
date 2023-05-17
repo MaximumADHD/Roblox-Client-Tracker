@@ -8,6 +8,7 @@ local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Constants = require(Modules.Common.Constants)
+local Theme = require(Modules.Settings.Theme)
 local InviteEvents = require(ShareGame.Analytics.InviteEvents)
 local ShareGameConstants = require(ShareGame.Constants)
 local PresenceUtil = require(ShareGame.PresenceUtil)
@@ -21,6 +22,7 @@ local GetFFlagAbuseReportAnalyticsHasLaunchData =
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
+local GetFFlagEnableInviteSendAnalytics = require(Modules.Flags.GetFFlagEnableInviteSendAnalytics)
 local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
@@ -74,7 +76,7 @@ return function(props: Props)
 
 			-- Pluck the userIds out of the user list
 			local participants = { user.id }
-			if Players.LocalPlayer and results.conversationId then
+			if (GetFFlagEnableInviteSendAnalytics() and Players.LocalPlayer and results) or (Players.LocalPlayer and results.conversationId) then
 				local localPlayer = Players.LocalPlayer :: Player
 				analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
 			end
@@ -114,6 +116,8 @@ return function(props: Props)
 		props.inviteStatus,
 		props.analytics,
 		user,
+		if GetFFlagInviteAnalyticsEventsUpdate() then props.promptMessage else nil,
+		if GetFFlagInviteAnalyticsEventsUpdate() then props.launchData else nil,
 	} :: { any })
 
 	if GetFFlagThrottleInviteSendEndpoint() then
@@ -127,16 +131,23 @@ return function(props: Props)
 	if not props.visible then
 		return
 	end
+
+	local UIBloxTheme = Theme.UIBloxThemeEnabled
+
 	return React.createElement("ImageButton", {
 		Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
-		Image = ENTRY_BG_IMAGE,
-		ScaleType = Enum.ScaleType.Slice,
+		Image = not UIBloxTheme and ENTRY_BG_IMAGE or nil,
+		ScaleType = not UIBloxTheme and Enum.ScaleType.Slice or Enum.ScaleType.Stretch,
 		SliceCenter = ENTRY_BG_SLICE,
-		BackgroundTransparency = 1,
+		BackgroundColor3 = Theme.color("PlayerRowFrame"),
+		BackgroundTransparency = Theme.transparency("PlayerRowFrame", 1),
 		ImageTransparency = 0.85,
 		LayoutOrder = props.layoutOrder,
 		[ReactRoblox.Event.Activated] = if props.isFullRowActivatable then onInvite else nil,
 	}, {
+		UICorner = UIBloxTheme and React.createElement("UICorner", {
+			CornerRadius = Theme.MenuContainerCornerRadius,
+		}) or nil,
 		Padding = React.createElement("UIPadding", {
 			PaddingRight = UDim.new(0, PADDING * 2),
 			PaddingLeft = UDim.new(0, PADDING),

@@ -25,6 +25,7 @@ local useStyle = UIBlox.Core.Style.useStyle
 local CallState = require(script.Parent.Parent.Enums.CallState)
 local CloseContactList = require(script.Parent.Parent.Actions.CloseContactList)
 local InitiateCall = require(script.Parent.Parent.Actions.InitiateCall)
+local OpenCallDetails = require(script.Parent.Parent.Actions.OpenCallDetails)
 
 export type Participant = {
 	userId: number,
@@ -139,6 +140,9 @@ local function CallerListItem(props: Props)
 		dispatch(InitiateCall(1, participant.userId, participant.displayName))
 		dispatch(CloseContactList())
 	end, {})
+	local onDetailsActivated = React.useCallback(function()
+		dispatch(OpenCallDetails(caller.participants))
+	end, {})
 
 	local interactableTheme
 	if controlState == ControlState.Pressed then
@@ -156,7 +160,7 @@ local function CallerListItem(props: Props)
 		BackgroundTransparency = theme[interactableTheme].Transparency,
 		BorderSizePixel = 0,
 		onStateChanged = onStateChanged,
-		[React.Event.Activated] = onCallButtonActivated,
+		[React.Event.Activated] = onDetailsActivated,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),

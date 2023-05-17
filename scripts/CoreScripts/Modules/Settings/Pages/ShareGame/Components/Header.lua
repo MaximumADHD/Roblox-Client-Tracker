@@ -7,10 +7,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Roact)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
+local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Constants = require(ShareGame.Constants)
 local BackButton = require(ShareGame.Components.BackButton)
 local SearchArea = require(ShareGame.Components.SearchArea)
-local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local getTranslator = require(ShareGame.getTranslator)
@@ -25,6 +25,7 @@ function Header:render()
 	local zIndex = self.props.zIndex
 	local closePage = self.props.closePage
 	local searchAreaActive = self.props.searchAreaActive
+	local analytics = self.props.analytics
 
 	local toggleSearchIcon
 	local iconType
@@ -69,6 +70,7 @@ function Header:render()
 		AnchorPoint = Vector2.new(0, 1),
 		LayoutOrder = layoutOrder,
 		ZIndex = zIndex,
+		Position = if Theme.UIBloxThemeEnabled then UDim2.new(0,0,0,4) else UDim2.new(0,0,0,0),
 	}, {
 		Title = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
@@ -100,6 +102,7 @@ function Header:render()
 			position = UDim2.new(1, 0, 0.5, 0),
 			size = FFlagLuaInviteModalEnabled and UDim2.new(1, -backButtonWidth, 1, 0),
 			zIndex = zIndex,
+			analytics = analytics,
 		})
 	})
 end

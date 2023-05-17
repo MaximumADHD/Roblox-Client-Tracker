@@ -37,6 +37,16 @@ local GlobalConfig = require(script.GlobalConfig)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 
+-- FTUX
+local FTUX = RobloxGui.Modules.FTUX
+local GetFFlagEnableVRFTUXExperience = require(FTUX.Flags.GetFFlagEnableVRFTUXExperience)
+local GetFFlagDebugEnableVRFTUXExperienceInStudio = require(FTUX.Flags.GetFFlagDebugEnableVRFTUXExperienceInStudio)
+local FTUXConstants = require(FTUX.Resources.FTUXConstants)
+local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild
+local PlatformEnum = require(FTUX.Enums.PlatformEnum)
+local FTUXMenu = require(script.Parent.FTUX)
+local isRunningInStudio = require(CorePackages.Workspace.Packages.AppCommonLib).isRunningInStudio
+
 local TopBar: any = {}
 TopBar.__index = TopBar
 
@@ -65,6 +75,18 @@ function TopBar.new()
 	self.store:dispatch(GetCanChat)
 
 	self.store:dispatch(GetGameName)
+
+	if GetFFlagDebugEnableVRFTUXExperienceInStudio() then
+		if isRunningInStudio() then
+			FTUXMenu.mountFtuxMenu(PlatformEnum.QuestVR)
+		end
+	end
+	
+	if GetFFlagEnableVRFTUXExperience() then
+		if IsVRAppBuild() and tostring(game.PlaceId) == FTUXConstants[PlatformEnum.QuestVR].ExperienceIds.PlaceId then
+			FTUXMenu.mountFtuxMenu(PlatformEnum.QuestVR)
+		end
+	end
 
 	if isNewInGameMenuEnabled() then
 		-- Move to top of script when removing isNewInGameMenuEnabled

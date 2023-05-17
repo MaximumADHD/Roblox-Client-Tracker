@@ -4,6 +4,7 @@ local Roact = dependencies.Roact
 local RoactAppExperiment = dependencies.RoactAppExperiment
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
 local getAddFriendsPagePYMKVariant = require(FriendsLanding.Utils.getAddFriendsPagePYMKVariant)
+local getFFlagAddFriendsMoveExposureLayer = require(FriendsLanding.Flags.getFFlagAddFriendsMoveExposureLayer)
 
 --* Component which mounts before AddFriendsContainer
 --* to fire exposure event for Social.AddFriendsPage layer and enroll user into experiment
@@ -33,6 +34,9 @@ function AddFriendsLayerExposure:render()
 		then self.props.renderChild({
 			shouldShowPYMKSection = self.props.shouldShowPYMKSection,
 			initialRequestsRows = self.props.initialRequestsRows,
+			addFriendsPageSearchbarEnabled = if getFFlagAddFriendsMoveExposureLayer()
+				then self.props.addFriendsPageSearchbarEnabled
+				else nil,
 		})
 		else nil
 end
@@ -45,5 +49,8 @@ return RoactAppExperiment.connectUserLayer({
 	return {
 		shouldShowPYMKSection = shouldShowPYMKSection,
 		initialRequestsRows = initialRequestsRows,
+		addFriendsPageSearchbarEnabled = if getFFlagAddFriendsMoveExposureLayer()
+			then socialAddFriendsPageLayer.show_add_friends_page_search_bar
+			else nil,
 	}
 end)(AddFriendsLayerExposure)

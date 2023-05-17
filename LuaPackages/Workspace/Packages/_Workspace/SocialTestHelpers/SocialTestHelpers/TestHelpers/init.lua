@@ -5,4 +5,5 @@ return {
 	renderHookWithProviders = require(script.renderHookWithProviders),
 	runWhileMounted = require(script.runWhileMounted),
 	findElementWithAssert = require(script.findElementWithAssert),
+	wrapInApolloProvider = require(script.wrapInApolloProvider),
 }

@@ -28,6 +28,10 @@ local Contexts = Enums.Contexts
 local getTestStore = require(script.Parent.getTestStore)
 local AddFriendsContainer = require(script.Parent)
 
+local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+local getFFlagAddFriendsImproveAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsImproveAnalytics)
+local getFFlagAddFriendsPYMKAnalytics = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKAnalytics)
+
 describe("AddFriendsContainer", function()
 	local navigation
 
@@ -56,6 +60,7 @@ describe("AddFriendsContainer", function()
 		friendAddedText = "Friend Added",
 		requestIgnoredText = "Request Ignored",
 		allRequestsIgnoredText = "All Requests Ignored",
+		requestSentText = "Friend Request Sent",
 	}
 
 	local function createInstanceWithRequests(
@@ -64,7 +69,11 @@ describe("AddFriendsContainer", function()
 		otherServices: { analytics: any, context: any? }?
 	)
 		return createInstanceWithProviders(mockLocale)(AddFriendsContainer, {
-			store = getTestStore(testStoreSetting.hasRequests, testStoreSetting.extraData),
+			store = getTestStore(
+				testStoreSetting.hasRequests,
+				testStoreSetting.hasRecommendations,
+				testStoreSetting.extraData
+			),
 			props = llama.Dictionary.join(extraProps, {
 				navigation = navigation,
 				localized = localized,
@@ -156,7 +165,8 @@ describe("AddFriendsContainer", function()
 			declineFriendRequestFromUserId
 		)
 
-		local instance, cleanup = createInstanceWithRequests({ hasRequests = true })
+		local analytics = { buttonClick = jest.fn() }
+		local instance, cleanup = createInstanceWithRequests({ hasRequests = true }, nil, { analytics = analytics })
 
 		ReactRoblox.act(function()
 			wait(0.3)
@@ -178,9 +188,65 @@ describe("AddFriendsContainer", function()
 				},
 			},
 		})
-
+		if getFFlagAddFriendsImproveAnalytics() then
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.DeclineFriendship, {
+				contextOverride = "addUniversalFriends",
+				position = 0,
+				targetUserId = "1",
+				isRecommendation = if getFFlagAddFriendsPYMKAnalytics() then false else nil,
+			})
+		end
 		cleanup()
 	end)
+
+	if getFFlagAddFriendsPYMKExperimentEnabled() then
+		it("SHOULD trigger RequestFriendshipFromUserId action when request button is clicked", function()
+			local requestFriendshipFromUserId = jest.fn()
+			mockRequestWithCallback(
+				dependencies.FriendsNetworking.RequestFriendshipFromUserId,
+				requestFriendshipFromUserId
+			)
+
+			local analytics = { buttonClick = jest.fn() }
+			local instance, cleanup = createInstanceWithRequests(
+				{ hasRequests = false, hasRecommendations = true },
+				{ shouldShowPYMKSection = true },
+				{ analytics = analytics }
+			)
+
+			ReactRoblox.act(function()
+				wait(0.3)
+			end)
+
+			local requestButton =
+				RhodiumHelpers.findFirstInstance(instance, findImageSet("icons/actions/friends/friendAdd"))
+
+			waitUntil(function()
+				RhodiumHelpers.clickInstance(requestButton)
+				return #requestFriendshipFromUserId.mock.calls > 0
+			end)
+
+			expect(requestFriendshipFromUserId).toHaveBeenCalled()
+			expect(navigation.navigate).toHaveBeenCalledWith(EnumScreens.GenericToast, {
+				toastProps = {
+					toastContent = {
+						toastTitle = localized.requestSentText,
+						iconImage = findImageSet("icons/actions/friends/friendAdd"),
+					},
+				},
+			})
+			if getFFlagAddFriendsImproveAnalytics() then
+				expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.RequestFriendship, {
+					contextOverride = "addUniversalFriends",
+					position = 0,
+					targetUserId = "recom2",
+					isRecommendation = if getFFlagAddFriendsPYMKAnalytics() then true else nil,
+				})
+			end
+
+			cleanup()
+		end)
+	end
 
 	it("SHOULD trigger AcceptFriendRequestFromUserId action when accept button is clicked", function()
 		local acceptFriendRequestFromUserId = jest.fn()
@@ -189,7 +255,8 @@ describe("AddFriendsContainer", function()
 			acceptFriendRequestFromUserId
 		)
 
-		local instance, cleanup = createInstanceWithRequests({ hasRequests = true })
+		local analytics = { buttonClick = jest.fn() }
+		local instance, cleanup = createInstanceWithRequests({ hasRequests = true }, nil, { analytics = analytics })
 
 		ReactRoblox.act(function()
 			wait(0.3)
@@ -211,6 +278,14 @@ describe("AddFriendsContainer", function()
 				},
 			},
 		})
+		if getFFlagAddFriendsImproveAnalytics() then
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.AcceptFriendship, {
+				contextOverride = "addUniversalFriends",
+				position = 0,
+				targetUserId = "1",
+				isRecommendation = if getFFlagAddFriendsPYMKAnalytics() then false else nil,
+			})
+		end
 
 		cleanup()
 	end)
@@ -290,11 +365,21 @@ describe("AddFriendsContainer", function()
 		end)
 
 		expect(viewUserProfile).toHaveBeenCalled()
-		expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PlayerProfile, {
-			contextOverride = "friendRequestsPage",
-			subPage = "peekView",
-			page = "playerProfile",
-		})
+		if getFFlagAddFriendsImproveAnalytics() then
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PlayerTile, {
+				contextOverride = "friendRequestsPage",
+				subPage = "peekView",
+				page = "playerProfile",
+				absolutePosition = 0,
+				targetUserId = "1",
+			})
+		else
+			expect(analytics.buttonClick).toHaveBeenCalledWith(analytics, ButtonClickEvents.PlayerProfile, {
+				contextOverride = "friendRequestsPage",
+				subPage = "peekView",
+				page = "playerProfile",
+			})
+		end
 		expect(analytics.navigate).toHaveBeenCalledWith(analytics, "ViewUserProfileAddFriends")
 
 		cleanup()

@@ -106,12 +106,12 @@ local function Initialize()
 	else
 		title.Parent = icon
 	end
-	
+
 	if utility:IsSmallTouchScreen() then
-		title.FontSize = Enum.FontSize.Size18
+		title.FontSize =  Theme.fontSize(Enum.FontSize.Size18)
 		titleTextSizeConstraint.MaxTextSize = 18
 	elseif isTenFootInterface then
-		title.FontSize = Enum.FontSize.Size48
+		title.FontSize =  Theme.fontSize(Enum.FontSize.Size48)
 		titleTextSizeConstraint.MaxTextSize = 48
 	end
 
@@ -141,7 +141,7 @@ local function Initialize()
 
 		utility:Create'UIListLayout'
 		{
-			Name = "CenterLayout",
+			Name = "Layout",
 			FillDirection = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -172,16 +172,11 @@ local function Initialize()
 		if Theme.UIBloxThemeEnabled then
 			if utility:IsSmallTouchScreen() then
 				icon.Size = UDim2.new(0,34,0,28)
-				--this.TabHeader.Icon.Position = UDim2.new(0,10,0.5,-14)
-				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
 			elseif isTenFootInterface then
 				icon.Size = UDim2.new(0,88,0,74)
-				--this.TabHeader.Icon.Position = UDim2.new(0,0,0.5,0)
-				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0.5)
 			else
-				icon.Size = UDim2.new(0,22,0,22)
-				--this.TabHeader.Icon.Position = UDim2.new(0,15,0.5,-9)
-				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+				local iconSize = Theme.getIconSize(Theme.IconSize.Medium)
+				icon.Size = UDim2.fromOffset(iconSize, iconSize)
 			end
 		else
 			if utility:IsSmallTouchScreen() then
@@ -202,14 +197,20 @@ local function Initialize()
 
 		local isPortrait = utility:IsPortrait()
 		if Theme.UIBloxThemeEnabled then
+			local layout = tabLabel.Layout
 			if isPortrait then
-				--this.TabHeader.Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-				--this.TabHeader.Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-				icon.Size = UDim2.new(0.5, 0, 0.5, 0)
-				title.Visible = false
-
+				if utility:IsSmallTouchScreen() then
+					title.FontSize =  Theme.fontSize(Enum.FontSize.Size14)
+				end
+				icon.Size = UDim2.new(0,22,0,22)
+				layout.FillDirection = Enum.FillDirection.Vertical
+				layout.Padding = UDim.new(0, 0)
 			else
-				title.Visible = true
+				if utility:IsSmallTouchScreen() then
+					title.FontSize =  Theme.fontSize(Enum.FontSize.Size18)
+				end
+				layout.FillDirection = Enum.FillDirection.Horizontal
+				layout.Padding = UDim.new(0, 10)
 			end
 		else
 

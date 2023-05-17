@@ -8,11 +8,14 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
+local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local VRService = game:GetService("VRService")
 
+local Cryo = require(CorePackages.Cryo)
 local Otter = require(CorePackages.Otter)
+local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
@@ -35,6 +38,7 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 
 local VRBottomBar = Roact.PureComponent:extend("TopBarApp")
 local VRBarSeparator = require(script.Parent.VRBarSeparator)
+local VRBarVoiceIcon = require(script.Parent.VRBarVoiceIcon)
 
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackScript = require(RobloxGui.Modules.BackpackScript)
@@ -48,6 +52,7 @@ local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("
 local FFlagUserVRPlaySeatedStanding = require(RobloxGui.Modules.Flags.FFlagUserVRPlaySeatedStanding)
 local GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel
+local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 
 -- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
 local function safeRequire(moduleScript)
@@ -273,6 +278,25 @@ function VRBottomBar:init()
 	self.backpackHasItems = false
 	self.emotesLoaded = false
 
+	self.getVoiceIcon = function()
+		return {
+			iconImageComponent = function(props)
+				return React.createElement(VRBarVoiceIcon, Cryo.Dictionary.join(props, {
+					userId = tostring((Players.LocalPlayer :: Player).UserId),
+					iconStyle = "MicLight",
+				}))
+			end,
+			onActivated = function()
+				-- Make sure VoiceChatState exists since it's not available in the test runner
+				if self.props.voiceState == (Enum::any).VoiceChatState.Failed then
+					self.props.voiceChatServiceManager:RejoinPreviousChannel()
+				else
+					self.props.voiceChatServiceManager:ToggleMic()
+				end
+			end,
+		}
+	end
+
 	self:setState({
 		itemList = { MainMenu, SeparatorIcon, ToggleGui, SeparatorIcon, LeaveGame }
 	})
@@ -370,6 +394,10 @@ function VRBottomBar:updateItems()
 		end
 	end
 
+	if FFlagVRMoveVoiceIndicatorToBottomBar and self.props.voiceEnabled then
+		table.insert(enabledItems, self.getVoiceIcon())
+	end
+
 	table.insert(enabledItems, SeparatorIcon)
 
 	if SafetyBubbleEnabled then
@@ -463,7 +491,7 @@ function VRBottomBar:render()
 	})
 end
 
-function VRBottomBar:didUpdate(_, prevState)
+function VRBottomBar:didUpdate(prevProps, prevState)
 	if prevState.lookAway ~= self.state.lookAway or prevState.vrMenuOpen ~= self.state.vrMenuOpen then
 		local fadeOut = not self.state.vrMenuOpen and self.state.lookAway
 		if fadeOut then
@@ -471,6 +499,10 @@ function VRBottomBar:didUpdate(_, prevState)
 		else
 			self.fadeTransparencyMotor:setGoal(Otter.spring(0, SpringOptions.Default))
 		end
+	end
+
+	if FFlagVRMoveVoiceIndicatorToBottomBar and prevProps.voiceEnabled ~= self.props.voiceEnabled then
+		self.updateItemListState()
 	end
 end
 

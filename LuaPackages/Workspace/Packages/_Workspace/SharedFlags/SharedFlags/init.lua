@@ -10,7 +10,6 @@ return {
 	getFFlagHorizontalMediaOnEventDetailsPage = require(script.getFFlagHorizontalMediaOnEventDetailsPage),
 	getFStringEventsOnExperienceDetailsPageLayer = require(script.getFStringEventsOnExperienceDetailsPageLayer),
 	getFFlagRemoveVirtualEventsExperiment = require(script.getFFlagRemoveVirtualEventsExperiment),
-	getFFlagFixEventSharesheet = require(script.getFFlagFixEventSharesheet),
 	getFFlagFixFlakyTestsInVirtualEvents = require(script.getFFlagFixFlakyTestsInVirtualEvents),
 	getFFlagEventHostWorksForGroups = require(script.getFFlagEventHostWorksForGroups),
 
@@ -21,21 +20,18 @@ return {
 	ConvertUniverseIdToString = require(script.ConvertUniverseIdToString),
 	FFlagMultiTryOnPurchaseGamepadEnabled = require(script.FFlagMultiTryOnPurchaseGamepadEnabled),
 	GetFFlagUseExperienceDetailsPageSelector = require(script.GetFFlagUseExperienceDetailsPageSelector),
+	GetFFlagMoveFocusNavigationProvider = require(script.GetFFlagMoveFocusNavigationProvider),
 
 	-- Social
 	GetFFlagLuaAppEnableSquadPage = require(script.GetFFlagLuaAppEnableSquadPage),
-	getFFlagProfileAliasEnabled = require(script.getFFlagProfileAliasEnabled),
 	getFFlagEnableRoduxUsersRoactChat = require(script.getFFlagEnableRoduxUsersRoactChat),
 	getFFlagGameInviteShortUrlEnabled = require(script.getFFlagGameInviteShortUrlEnabled),
-	getFFlagAddFriendsQRCodeAnalytics = require(script.getFFlagAddFriendsQRCodeAnalytics),
 	getFFlagProfileQRCodeCoreFeaturesEnabled = require(script.getFFlagProfileQRCodeCoreFeaturesEnabled),
 	getFFlagProfileQRCodeFixDistanceFromTop = require(script.getFFlagProfileQRCodeFixDistanceFromTop),
 	getFFlagReEnableAutoSyncContacts = require(script.getFFlagReEnableAutoSyncContacts),
 	getFFlagEnableDeeplinkForContactsList = require(script.getFFlagEnableDeeplinkForContactsList),
-	getFFlagAddFriendsPageHideBottomBar = require(script.getFFlagAddFriendsPageHideBottomBar),
 	getFFlagLuaProfileDeps438 = require(script.getFFlagLuaProfileDeps438),
 	getFFlagMoveMutualFriendsTextToUtils = require(script.getFFlagMoveMutualFriendsTextToUtils),
-	GetFFlagLuaAppFriendsCarouselExperimentCleanup = require(script.GetFFlagLuaAppFriendsCarouselExperimentCleanup),
 	getFFlagLuaProfileEnabledDesktop = require(script.getFFlagLuaProfileEnabledDesktop),
 	getFFlagSocialMoveRecsSource = require(script.getFFlagSocialMoveRecsSource),
 	getFFlagApolloClientFetchPIFeedConnector = require(script.getFFlagApolloClientFetchPIFeedConnector),
@@ -84,7 +80,7 @@ return {
 	GetFFlagDisableBubbleChatForExpChat = require(script.GetFFlagDisableBubbleChatForExpChat),
 	GetFFlagShareGetPlatformTargetImpl = require(script.GetFFlagShareGetPlatformTargetImpl),
 	GetFFlagUseLoadableImageForAvatarThumbnails = require(script.GetFFlagUseLoadableImageForAvatarThumbnails),
-	GetFFlagUpgradeExpChatV3_4_4 = require(script.GetFFlagUpgradeExpChatV3_4_4),
+	GetFFlagUpgradeExpChatV3_4_5 = require(script.GetFFlagUpgradeExpChatV3_4_5),
 	GetFFlagLuaAppAddSignalToFocusArea = require(script.GetFFlagLuaAppAddSignalToFocusArea),
 	GetFFlagLuaAppUseUIBloxColorPalettes = require(script.GetFFlagLuaAppUseUIBloxColorPalettes),
 	isNewFriendsEndpointsEnabled = require(script.isNewFriendsEndpointsEnabled),
@@ -99,11 +95,7 @@ return {
 	GetFFlagPeekViewClipFramePositionFromBottom = require(script.GetFFlagPeekViewClipFramePositionFromBottom),
 	GetFFlagDisableEditProfileForVR = require(script.GetFFlagDisableEditProfileForVR),
 	GetFFlagLuaAppInfiniteHomePage = require(script.GetFFlagLuaAppInfiniteHomePage),
-	getFFlagProfileQRCodePageEnabled = require(script.getFFlagProfileQRCodePageEnabled),
 	getFFlagProfileQRCodePageSoothsayerAccessEnabled = require(script.getFFlagProfileQRCodePageSoothsayerAccessEnabled),
-	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = require(
-		script.getFFlagProfileQRCodeFriendRequestContextInfoEnabled
-	),
 	getFFlagLuaNativeUtilEnableSMSHandling = require(script.getFFlagLuaNativeUtilEnableSMSHandling),
 	GetFFlagEnableTopBarVRPolicyOverride = require(script.GetFFlagEnableTopBarVRPolicyOverride),
 	GetFFlagPhoneVerificationWebviewShouldBeFullscreen = require(
@@ -122,4 +114,5 @@ return {
 	GetFFlagEnableIAPEntryPointDisablePolicy = require(script.GetFFlagEnableIAPEntryPointDisablePolicy),
 	GetFFlagEnableMaquettesU13Block = require(script.GetFFlagEnableMaquettesU13Block),
 	GetFFlagInviteListRerank = require(script.GetFFlagInviteListRerank),
+	GetFFlagSearchDiscoverPhonePolicy = require(script.GetFFlagSearchDiscoverPhonePolicy),
 }

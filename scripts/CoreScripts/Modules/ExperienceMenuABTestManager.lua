@@ -32,9 +32,8 @@ local MENU_VERSION_V3 = "v3"..TEST_VERSION
 
 local MENU_VERSION_CONTROLS_ENUM = {
 	BASELINE = "v4.1"..TEST_VERSION,
-	HOME_BUTTON = "v4.2"..TEST_VERSION,
-	SOLID_CARD = "v4.3"..TEST_VERSION,
-	LEAVE_TO_HOME = "v4.4"..TEST_VERSION,
+	OLD_LAYOUT = "v4.2"..TEST_VERSION,
+	HOME_BUTTON = "v4.3"..TEST_VERSION,
 }
 
 local validVersion = {
@@ -42,9 +41,8 @@ local validVersion = {
 	[MENU_VERSION_V2] = true,
 	[MENU_VERSION_V3] = true,
 	[MENU_VERSION_CONTROLS_ENUM.BASELINE] = true,
+	[MENU_VERSION_CONTROLS_ENUM.OLD_LAYOUT] = true,
 	[MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON] = true,
-	[MENU_VERSION_CONTROLS_ENUM.SOLID_CARD] = true,
-	[MENU_VERSION_CONTROLS_ENUM.LEAVE_TO_HOME] = true,
 }
 
 local ExperienceMenuABTestManager = {}
@@ -85,16 +83,12 @@ function ExperienceMenuABTestManager.controlsBaselineVersionId()
 	return MENU_VERSION_CONTROLS_ENUM.BASELINE
 end
 
+function ExperienceMenuABTestManager.controlsOldLayoutVersionId()
+	return MENU_VERSION_CONTROLS_ENUM.OLD_LAYOUT
+end
+
 function ExperienceMenuABTestManager.controlsHomeButtonVersionId()
 	return MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
-end
-
-function ExperienceMenuABTestManager.controlsSolidCardVersionId()
-	return MENU_VERSION_CONTROLS_ENUM.SOLID_CARD
-end
-
-function ExperienceMenuABTestManager.controlsLeaveToHomeVersionId()
-	return MENU_VERSION_CONTROLS_ENUM.LEAVE_TO_HOME
 end
 
 function parseCountData(data)
@@ -208,16 +202,12 @@ function ExperienceMenuABTestManager:areMenuControlsEnabled()
 	return false
 end
 
+function ExperienceMenuABTestManager:shouldShowNewNavigationLayout()
+	return self:getVersion() == MENU_VERSION_CONTROLS_ENUM.BASELINE or self:getVersion() == MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
+end
+
 function ExperienceMenuABTestManager:shouldShowHomeButton()
 	return self:getVersion() == MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
-end
-
-function ExperienceMenuABTestManager:shouldShowSolidCard()
-	return self:getVersion() == MENU_VERSION_CONTROLS_ENUM.SOLID_CARD
-end
-
-function ExperienceMenuABTestManager:shouldLeaveToHome()
-	return self:getVersion() == MENU_VERSION_CONTROLS_ENUM.LEAVE_TO_HOME
 end
 
 -- this is called on the assumption that IXP layers are initialized

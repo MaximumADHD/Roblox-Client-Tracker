@@ -5,4 +5,5 @@ return {
 	require(script.Media),
 	require(script.OmniFeed),
 	require(script.VirtualEvent),
+	require(script.UserProfile),
 }

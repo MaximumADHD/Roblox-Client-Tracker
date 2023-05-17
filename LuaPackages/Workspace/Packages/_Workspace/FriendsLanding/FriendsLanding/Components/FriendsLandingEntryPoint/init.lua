@@ -22,8 +22,6 @@ local FriendsLandingEntryPoint = Roact.PureComponent:extend("FriendsLandingEntry
 local noOpt = function() end
 
 local getFStringSocialAddFriendsPageLayer = dependencies.getFStringSocialAddFriendsPageLayer
-local getFFlagFriendsLandingPagesMaskBottomInset =
-	require(FriendsLanding.Flags.getFFlagFriendsLandingPagesMaskBottomInset)
 local getFFlagFriendsLandingInactiveFriendsEnabled =
 	require(FriendsLanding.Flags.getFFlagFriendsLandingInactiveFriendsEnabled)
 
@@ -156,9 +154,7 @@ function FriendsLandingEntryPoint:render()
 					getFriendRequestsCount = self.props.getFriendRequestsCount,
 				}),
 				androidBackButtonNavigationHandler = androidBackButtonNavigationHandler,
-				BottomInsetBackground = if getFFlagFriendsLandingPagesMaskBottomInset()
-					then Roact.createElement(BottomInsetBackground)
-					else nil,
+				BottomInsetBackground = Roact.createElement(BottomInsetBackground),
 			}),
 		})
 	end)

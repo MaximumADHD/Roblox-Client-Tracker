@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Workspace
 
-local Package = require(PackageIndex["GraphqlToolsMerge"]["GraphqlToolsMerge"])
+local Package = require(PackageIndex["GraphqlToolsUtils"]["GraphqlToolsUtils"])
 
 return Package

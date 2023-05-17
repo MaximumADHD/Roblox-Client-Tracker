@@ -8,6 +8,7 @@ local StackActions = RoactNavigation.StackActions
 local TenFootUiStackViewCard = require(ReactNavigationExtend.Views.Cards.TenFootUiStackViewCard)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local useStackScreens = require(ReactNavigationExtend.Hooks.useStackScreens)
+local getCurrentRouteKey = require(script.Parent.getCurrentRouteKey)
 type NavigationObject = TenFootUiCommon.NavigationObject
 type StackNavigatorConfig = TenFootUiCommon.StackNavigatorConfig
 type Descriptor = TenFootUiCommon.Descriptor
@@ -25,9 +26,9 @@ export type Props = {
 local function TenFootUiStackView(props: Props)
 	local descriptors = props.descriptors
 	local navigatorConfig = props.navigationConfig
-	local screenProps: ScreenProps = props.screenProps or {}
+	local screenProps: ScreenProps = if props.screenProps then props.screenProps else {}
+	local currentRouteKey = getCurrentRouteKey(props.navigation)
 	local isStackActive = screenProps.isActiveKey
-
 	local navigation = props.navigation
 	local state = navigation.state
 
@@ -44,9 +45,8 @@ local function TenFootUiStackView(props: Props)
 		navigationState = state,
 		descriptors = descriptors,
 		completeTransition = completeTransition,
-		isStackActive = screenProps.isActiveKey,
+		isStackActive = isStackActive,
 	})
-
 	-- If stack is not active, don't update the visibliblity
 	React.useEffect(function()
 		if isStackActive then
@@ -68,6 +68,7 @@ local function TenFootUiStackView(props: Props)
 	for _, screenInfo in cardStack.screens do
 		local cardKey = screenInfo.key
 		local descriptor = screenInfo.descriptor
+		local isFocusable = currentRouteKey == descriptor.key and isStackActive
 
 		local isVisible
 		if screenProps.isActiveKey then
@@ -97,11 +98,13 @@ local function TenFootUiStackView(props: Props)
 			table.insert(cards, {
 				[cardKey] = React.createElement(TenFootUiStackViewCard, {
 					isVisible = isVisible,
+					isFocusable = isFocusable,
 					viewState = screenInfo.viewState,
 					descriptor = descriptor,
 					adorneeParent = adorneeParent,
 					surfaceGuiParent = surfaceGuiParent,
 					screenProps = screenProps,
+					isScreenAboveOverlay = screenInfo.isScreenAboveOverlay,
 					setOpened = function()
 						cardStack.setOpened(screenInfo)
 					end,

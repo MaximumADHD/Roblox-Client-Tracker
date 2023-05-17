@@ -21,11 +21,7 @@ local getFFlagVerifiedBadgeInFriendsLanding = require(FriendsLanding.Flags.getFF
 local getFStringSocialAddFriendsPageLayer = require(Packages.SharedFlags).getFStringSocialAddFriendsPageLayer
 local getFStringSocialFriendsLandingLayer = require(Packages.SharedFlags).getFStringSocialFriendsLandingLayer
 local getFStringSocialFriendsLayer = require(Packages.SharedFlags).getFStringSocialFriendsLayer
-local getFFlagProfileQRCodeFriendRequestContextInfoEnabled =
-	require(Packages.SharedFlags).getFFlagProfileQRCodeFriendRequestContextInfoEnabled
 local getFFlagProfileQRCodeCoreFeaturesEnabled = require(Packages.SharedFlags).getFFlagProfileQRCodeCoreFeaturesEnabled
-local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
-local getFFlagAddFriendsPageHideBottomBar = require(Packages.SharedFlags).getFFlagAddFriendsPageHideBottomBar
 
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local myHttpRequest = HttpRequest.config({
@@ -136,10 +132,7 @@ return {
 	getFStringSocialAddFriendsPageLayer = getFStringSocialAddFriendsPageLayer,
 	getFStringSocialFriendsLandingLayer = getFStringSocialFriendsLandingLayer,
 	getFStringSocialFriendsLayer = getFStringSocialFriendsLayer,
-	getFFlagProfileQRCodeFriendRequestContextInfoEnabled = getFFlagProfileQRCodeFriendRequestContextInfoEnabled,
 	getFFlagProfileQRCodeCoreFeaturesEnabled = getFFlagProfileQRCodeCoreFeaturesEnabled,
-	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
-	getFFlagAddFriendsPageHideBottomBar = getFFlagAddFriendsPageHideBottomBar,
 
 	FindFriendsModal = ContactImporter.FindFriendsModal,
 	ContactsList = ContactImporter.ContactsList,

@@ -5,6 +5,7 @@ local ReactOtter = require(Packages.ReactOtter)
 local TenFootUiCommon = require(Packages.TenFootUiCommon)
 local AppCommonLib = require(Packages.AppCommonLib)
 
+local ScreenKind = TenFootUiCommon.TenFootUiRNTypes.ScreenKind
 local ReactNavigationExtend = TenFootUiShell.ReactNavigationExtend
 local Constants = require(ReactNavigationExtend.Views.Constants)
 local Signal = AppCommonLib.Signal
@@ -216,7 +217,7 @@ local function useXDirectionAnimation(config: Config): XDirectionAnimationConfig
 	end, { screenKind, viewState } :: { any })
 
 	local getScreenSizeAndCFrame = React.useCallback(function(): (Vector3, CFrame)
-		if screenKind == "FullScreen" :: ScreenKind then
+		if screenKind == ScreenKind.FullScreen :: ScreenKind then
 			return Constants.GetFullScreenDims()
 		else
 			return Constants.GetPageContentDims()

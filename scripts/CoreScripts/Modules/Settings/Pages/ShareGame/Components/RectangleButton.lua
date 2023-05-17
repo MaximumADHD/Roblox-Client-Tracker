@@ -8,6 +8,9 @@ local BUTTON_IMAGE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.p
 local BUTTON_IMAGE_ACTIVE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png"
 local BUTTON_SLICE = Rect.new(8, 6, 46, 44)
 
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Theme = require(Modules.Settings.Theme)
+
 local DROPSHADOW_SIZE = {
 	Left = 4, Right = 4,
 	Top = 2, Bottom = 6,
@@ -50,6 +53,19 @@ function RectangleButton:render()
 		PaddingBottom = UDim.new(0, DROPSHADOW_SIZE.Bottom),
 	})
 
+	if Theme.UIBloxThemeEnabled then
+		local borderColor = "DefaultButtonStroke"
+
+		children["Border"] = Roact.createElement("UIStroke", {
+			Color = Theme.color(borderColor),
+			Transparency = Theme.transparency(borderColor),
+			Thickness = Theme.DefaultStokeThickness,
+		})
+		children["UICorner"] = Roact.createElement("UICorner", {
+			CornerRadius = Theme.DefaultCornerRadius,
+		})
+	end
+
 	local isSelectable = false
 
 	return Roact.createElement("ImageButton", {
@@ -77,7 +93,7 @@ function RectangleButton:render()
 			end
 		end,
 	}, {
-		ButtonBackground = Roact.createElement("ImageLabel", {
+		ButtonBackground = not Theme.UIBloxThemeEnabled and Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(
 				0, -DROPSHADOW_SIZE.Left,
@@ -90,6 +106,19 @@ function RectangleButton:render()
 			Image = buttonImage,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = BUTTON_SLICE,
+			ZIndex = zIndex,
+		}, children),
+		ButtonBackgroundUIBlox = Theme.UIBloxThemeEnabled and Roact.createElement("ImageLabel", {
+			BackgroundColor3 = Theme.color(if self.state.isHovering then "DefaultButtonHover" else "DefaultButton"),
+			BackgroundTransparency = Theme.transparency(if self.state.isHovering then "DefaultButtonHover" else "DefaultButton"),
+			Position = UDim2.new(
+				0,0,
+				0,0
+			),
+			Size = UDim2.new(
+				1, 0,
+				1, 0
+			),
 			ZIndex = zIndex,
 		}, children),
 	})

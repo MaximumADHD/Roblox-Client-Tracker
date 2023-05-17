@@ -1,15 +1,13 @@
 local Root = script.Parent
 local Packages = Root.Parent
+local Cryo = require(Packages.Cryo)
 local React = require(Packages.Dev.React)
 
 export type Provider = any
 export type Providers = { Provider }
 
 return function(element: React.ReactElement<any, any>, providers: Providers)
-	local accumulator = element
-	for _, Factory in pairs(providers) do
-		accumulator = React.createElement(Factory, nil, { ProviderChildren = accumulator })
-	end
-
-	return accumulator
+	return Cryo.List.foldRight(providers, function(accumulator, Provider)
+		return React.createElement(Provider, nil, { ProviderChildren = accumulator })
+	end, element)
 end

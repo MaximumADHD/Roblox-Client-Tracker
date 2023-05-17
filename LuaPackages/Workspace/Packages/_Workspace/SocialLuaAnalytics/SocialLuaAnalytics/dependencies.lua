@@ -4,12 +4,10 @@ local Packages = SocialLuaAnalytics.Parent
 local LuaSocialLibrariesDeps = require(Packages.LuaSocialLibrariesDeps)
 local SocialLibrariesPackage = LuaSocialLibrariesDeps.SocialLibraries.config({})
 
-local getFFlagAddFriendsQRCodeAnalytics = require(Packages.SharedFlags).getFFlagAddFriendsQRCodeAnalytics
-
 return {
 	t = require(Packages.t),
 	tutils = require(Packages.tutils),
-	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence_v3.config({
+	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence.config({
 		keyPath = "SocialLuaAnalytics.Presence",
 	}),
 	llama = LuaSocialLibrariesDeps.llama,
@@ -19,6 +17,4 @@ return {
 	Rodux = require(Packages.Rodux),
 	RoactRodux = require(Packages.RoactRodux),
 	Dash = require(Packages.Dash),
-
-	getFFlagAddFriendsQRCodeAnalytics = getFFlagAddFriendsQRCodeAnalytics,
 }

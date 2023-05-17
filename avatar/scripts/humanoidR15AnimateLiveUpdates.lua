@@ -1,3 +1,5 @@
+-- humanoidR15AnimateLiveUpdates.lua
+
 local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 local pose = "Standing"
@@ -6,6 +8,9 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local userNoUpdateOnLoopSuccess, userNoUpdateOnLoopValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserNoUpdateOnLoop") end)
 local userNoUpdateOnLoop = userNoUpdateOnLoopSuccess and userNoUpdateOnLoopValue
+
+local userAnimateScaleRunSuccess, userAnimateScaleRunValue = pcall(function() return UserSettings():IsUserFeatureEnabled("UserAnimateScaleRun") end)
+local userAnimateScaleRun = userAnimateScaleRunSuccess and userAnimateScaleRunValue
 
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 local HumanoidHipHeight = 2
@@ -31,7 +36,7 @@ local currentAnimSpeed = 1.0
 local PreloadedAnims = {}
 
 local animTable = {}
-local animNames = { 
+local animNames = {
 	idle = 	{
 		{ id = "http://www.roblox.com/asset/?id=507766666", weight = 1 },
 		{ id = "http://www.roblox.com/asset/?id=507766951", weight = 1 },
@@ -296,7 +301,7 @@ function scriptChildModified(child)
 			animNames[child.Name] = {}
 			configureAnimationSet(child.Name, animNames[child.Name])
 		end
-	end	
+	end
 end
 
 script.ChildAdded:connect(scriptChildModified)
@@ -375,10 +380,20 @@ function stopAllAnimations()
 	return oldAnim
 end
 
+local function getRigScale()
+	if userAnimateScaleRun then
+		return Character:GetScale()
+	else
+		return 1
+	end
+end
+
 function getHeightScale()
 	if Humanoid then
 		if not Humanoid.AutomaticScalingEnabled then
-			return 1
+			-- When auto scaling is not enabled, the rig scale stands in for
+			-- a computed scale.
+			return getRigScale()
 		end
 
 		local scale = Humanoid.HipHeight / HumanoidHipHeight
@@ -390,7 +405,7 @@ function getHeightScale()
 		end
 		return scale
 	end
-	return 1
+	return getRigScale()
 end
 
 
@@ -403,7 +418,7 @@ local function get2DWeight(px, p1, p2, sx, s1, s2)
 	local avgLength = 0.5 * (s1 + s2)
 
 	local p_1 = {x = (sx - s1)/avgLength, y = (angleWeight * signedAngle(p1, px))}
-	local p12 = {x = (s2 - s1)/avgLength, y = (angleWeight * signedAngle(p1, p2))}	
+	local p12 = {x = (s2 - s1)/avgLength, y = (angleWeight * signedAngle(p1, p2))}
 	local denom = smallButNotZero + (p12.x*p12.x + p12.y*p12.y)
 	local numer = p_1.x * p12.x + p_1.y * p12.y
 	local r = math.clamp(1.0 - numer/denom, 0.0, 1.0)
@@ -411,6 +426,12 @@ local function get2DWeight(px, p1, p2, sx, s1, s2)
 end
 
 local function blend2D(targetVelo, targetSpeed)
+	if userAnimateScaleRun then
+		local heightScale = getHeightScale()
+		targetVelo /= heightScale
+		targetSpeed /= heightScale
+	end
+
 	local h = {}
 	local sum = 0.0
 	for n,v1 in pairs(locomotionMap) do
@@ -452,7 +473,9 @@ local function blend2D(targetVelo, targetSpeed)
 		animSpeed = 0
 	end
 
-	animSpeed = animSpeed / getHeightScale()
+	if not userAnimateScaleRun then
+		animSpeed = animSpeed / getHeightScale()
+	end
 	local groupTimePosition = 0
 	for n,v in pairs(locomotionMap) do
 		if v.track.IsPlaying then
@@ -463,7 +486,7 @@ local function blend2D(targetVelo, targetSpeed)
 	for n,v in pairs(locomotionMap) do
 		-- if not loco
 		if h[n] > 0.0 then
-			if not v.track.IsPlaying then 
+			if not v.track.IsPlaying then
 				v.track:Play(runBlendtime)
 				v.track.TimePosition = groupTimePosition
 			end
@@ -543,7 +566,7 @@ local function updateVelocity(currentTime)
 			cachedRunningSpeed = humanoidSpeed
 			lastBlendTime = currentTime
 			blend2D(cachedLocalDirection, cachedRunningSpeed)
-		end 
+		end
 	else
 		if math.abs(humanoidSpeed - cachedRunningSpeed) > 0.01 or currentTime - lastBlendTime > 1 then
 			cachedRunningSpeed = humanoidSpeed
@@ -598,7 +621,7 @@ function rollAnimation(animName)
 end
 
 local function switchToAnim(anim, animName, transitionTime, humanoid)
-	-- switch animation		
+	-- switch animation
 	if (anim ~= currentAnimInstance) then
 
 		if (currentAnimTrack ~= nil) then
@@ -623,7 +646,7 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 			currentAnimTrack = humanoid:LoadAnimation(anim)
 			currentAnimTrack.Priority = Enum.AnimationPriority.Core
 
-			currentAnimTrack:Play(transitionTime)	
+			currentAnimTrack:Play(transitionTime)
 
 			-- set up keyframe name triggers
 			currentAnimKeyframeHandler = currentAnimTrack.KeyframeReached:connect(keyFrameReachedFunc)
@@ -709,10 +732,12 @@ end
 -- STATE CHANGE HANDLERS
 
 function onRunning(speed)
+	local heightScale = if userAnimateScaleRun then getHeightScale() else 1
+
 	local movedDuringEmote = currentlyPlayingEmote and Humanoid.MoveDirection == Vector3.new(0, 0, 0)
-	local speedThreshold = movedDuringEmote and Humanoid.WalkSpeed or 0.75
+	local speedThreshold = movedDuringEmote and (Humanoid.WalkSpeed / heightScale) or 0.75
 	humanoidSpeed = speed
-	if speed > speedThreshold then
+	if speed > speedThreshold * heightScale then
 		playAnimation("walk", 0.2, Humanoid)
 		if pose ~= "Running" then
 			pose = "Running"
@@ -740,6 +765,9 @@ function onJumping()
 end
 
 function onClimbing(speed)
+	if userAnimateScaleRun then
+		speed /= getHeightScale()
+	end
 	local scale = 5.0
 	playAnimation("climb", 0.1, Humanoid)
 	setAnimationSpeed(speed / scale)
@@ -773,6 +801,9 @@ end
 -------------------------------------------------------------------------------------------
 
 function onSwimming(speed)
+	if userAnimateScaleRun then
+		speed /= getHeightScale()
+	end
 	if speed > 1.00 then
 		local scale = 10.0
 		playAnimation("swim", 0.4, Humanoid)

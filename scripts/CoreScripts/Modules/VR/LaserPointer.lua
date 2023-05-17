@@ -18,9 +18,6 @@ require(RobloxGui.Modules.VR.Panel3D)
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local EngineFeatureVRLaserPointerTriggeredEvent = game:GetEngineFeature("VRLaserPointerTriggeredEvent")
-local EngineFeatureBindActivateAllowMultiple = game:GetEngineFeature("EngineFeatureBindActivateAllowMultiple")
-local GetFFlagUIBloxMoveBindActivate =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxMoveBindActivate
 
 local FixVRMenuAccessEngineFeature = game:GetEngineFeature("FixVRMenuAccess")
 local FFlagEnableAmbidextrousClick = game:DefineFastFlag("EnableAmbidextrousClick", false)
@@ -386,11 +383,6 @@ function LaserPointer.new(laserDistance)
 					end
 				end)
 			end
-		end
-		if not GetFFlagUIBloxMoveBindActivate() or not EngineFeatureBindActivateAllowMultiple then
-			-- TODO: Should bind A, L2 and R2 buttons for VR controller point and click function.
-			-- However binding multiple buttons at the same is currently not supported: NFDN-2448
-			ContextActionService:BindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
 		end
 	end
 

@@ -113,12 +113,21 @@ local function Initialize()
 			  {
 				Size = UDim2.new(1,0,0,frameHeight),
 				Position = UDim2.new(0,0,0, offset + ((frameHeight + spacing) * count)),
-				BackgroundTransparency = 0.65,
+				BackgroundTransparency = Theme.transparency("InputActionBackground",0.65),
 				BorderSizePixel = 0,
 				ZIndex = 2,
 				Name = "ActionInputBinding" .. tostring(actionName),
 				Parent = pcGroupFrame
 			  };
+
+			  if Theme.UIBloxThemeEnabled then
+				actionInputFrame.BackgroundColor3 = Theme.color("InputActionBackground")
+				utility:Create'UICorner'
+				{
+					CornerRadius = UDim.new(0, 3),
+					Parent = actionInputFrame,
+				}
+			  end
 
 			  local nameLabel = utility:Create'TextLabel'
 			  {
@@ -281,7 +290,7 @@ local function Initialize()
 		parentFrame.Size = UDim2.new(parentFrame.Size.X.Scale, parentFrame.Size.X.Offset, 0, gamepadImageLabel.Size.Y.Offset + 100)
 
 		local gamepadFontSize = isTenFootInterface and Theme.fontSize(Enum.FontSize.Size36) or Theme.fontSize(Enum.FontSize.Size24)
-		local textVerticalSize = (gamepadFontSize == Theme.fontSize(Enum.FontSize.Size36)) and Theme.textSize(36) or Theme.textSize(24) 
+		local textVerticalSize = (gamepadFontSize == Theme.fontSize(Enum.FontSize.Size36)) and Theme.textSize(36) or Theme.textSize(24)
 		local function createGamepadLabel(text, position, size, rightAligned)
 			local nameLabel = nil
 			if FFlagUseNotificationsLocalization == true then
@@ -603,7 +612,11 @@ local function Initialize()
 			local size = givenSize or GuiService:GetScreenResolution()
 			local ySize = size.y - 350
 			if smallScreen then
-			  ySize = size.y - 100
+				if Theme.UIBloxThemeEnabled then
+					ySize = size.y - 120
+				else
+					ySize = size.y - 100
+				end
 			end
 			this.HelpPages[TOUCH_TAG].Size = UDim2.new(1,0,0,ySize)
 			updateTouchLayout(scheme)
@@ -615,6 +628,12 @@ local function Initialize()
 
 	if Theme.UIBloxThemeEnabled then
 		this.TabHeader.TabLabel.Icon.Image ="rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
+
+		local icon = Theme.Images["icons/menu/help"]
+		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
+		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
+		this.TabHeader.TabLabel.Icon.Image = icon.Image
+
 		this.TabHeader.TabLabel.Title.Text = "Help"
 	else
 		this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"

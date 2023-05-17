@@ -14,16 +14,19 @@ local useZDirectionAnimation = require(ReactNavigationExtend.Hooks.useZDirection
 
 type Descriptor = TenFootUiCommon.Descriptor
 type ScreenKind = TenFootUiCommon.ScreenKind
+type ScreenProps = TenFootUiCommon.ScreenProps
 type Signal = AppCommonLib.Signal
 type ViewState = RouteViewState.ViewState
 
 export type Props = {
 	isVisible: boolean,
+	isFocusable: boolean,
+	isScreenAboveOverlay: boolean,
 	viewState: ViewState,
 	descriptor: Descriptor,
 	adorneeParent: Instance,
 	surfaceGuiParent: Instance,
-	screenProps: { [any]: any },
+	screenProps: ScreenProps?,
 	setOpened: (any) -> (),
 	setClosed: (any) -> (),
 }
@@ -34,7 +37,9 @@ local function TenFootUiStackViewCard(props: Props)
 	local viewState: ViewState = props.viewState
 	local descriptor = props.descriptor
 	local adorneeParent = props.adorneeParent
-	local screenProps = props.screenProps
+	local screenProps: ScreenProps = props.screenProps or {}
+	local isScreenAboveOverlay = props.isScreenAboveOverlay
+
 	local setOpened = props.setOpened
 	local setClosed = props.setClosed
 
@@ -82,6 +87,7 @@ local function TenFootUiStackViewCard(props: Props)
 
 	local animationConfig = useZDirectionAnimation({
 		willAnimate = screenProps.isActiveKey,
+		isScreenAboveOverlay = isScreenAboveOverlay,
 		viewState = viewState,
 		setOpened = setOpened,
 		setClosed = setClosed,

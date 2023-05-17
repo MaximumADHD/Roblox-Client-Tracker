@@ -4,7 +4,6 @@ return {
 	),
 	GetFFlagUIBloxUseNewGenericTextLabelProps = require(script.GetFFlagUIBloxUseNewGenericTextLabelProps),
 	GetUIBloxUseNewThemeColorPalettes = require(script.GetUIBloxUseNewThemeColorPalettes),
-	GetFFlagUIBloxMoveBindActivate = require(script.GetFFlagUIBloxMoveBindActivate),
 	GetFFlagUIBloxBindAllLaserPointerButtons = require(script.GetFFlagUIBloxBindAllLaserPointerButtons),
 	GetFFlagUIBloxRemovePreviewAnchor = require(script.GetFFlagUIBloxRemovePreviewAnchor),
 	GetFFlagUIBloxEnableMediaGalleryUpdate = require(script.GetFFlagUIBloxEnableMediaGalleryUpdate),
@@ -14,4 +13,6 @@ return {
 	GetFFlagUIBloxLoadableImageResponsiveThumbnails = require(script.GetFFlagUIBloxLoadableImageResponsiveThumbnails),
 	GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel = require(script.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel),
 	GetFFlagUIBloxEnableRoDSDesignTokenSupport = require(script.GetFFlagUIBloxEnableRoDSDesignTokenSupport),
+	GetFFlagUIBloxEnableTileOverlayFix = require(script.GetFFlagUIBloxEnableTileOverlayFix),
+	GetFFlagUIBloxPillGroupUseSelectedPills = require(script.GetFFlagUIBloxPillGroupUseSelectedPills),
 }

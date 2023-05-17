@@ -70,7 +70,7 @@ local function installStorybookEmbed(parent: Instance)
 		oldRoot:Destroy()
 	end
 
-	local root = Instance.new("LocalScript")
+	local root = Instance.new("Script")
 	root.Name = "RunStorybook"
 	root.Source = Main.Src.Util.RunStorybook.Source
 
@@ -83,6 +83,7 @@ local function installStorybookEmbed(parent: Instance)
 	local SrcFolder = Main.Src:Clone()
 	SrcFolder.Name = "Src"
 	SrcFolder.Parent = StorybookFolder
+
 	local SrcPackages = getDeepFolder({ "Packages" }, StorybookFolder)
 	createPackageLink("Cryo", SrcPackages)
 	createPackageLink("Framework", SrcPackages)
@@ -91,6 +92,9 @@ local function installStorybookEmbed(parent: Instance)
 	createPackageLink("RoactRodux", SrcPackages)
 	createPackageLink("Rodux", SrcPackages)
 	createPackageLink("TestLoader", SrcPackages)
+
+	-- Disable StorybookLocal - will be enabled by runner
+	SrcFolder.Util.StorybookLocal.Enabled = false
 
 	root.Parent = parent
 	return root

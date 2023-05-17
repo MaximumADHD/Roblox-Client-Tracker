@@ -20,6 +20,7 @@ export type RsvpStatus = generatedTypes.RsvpStatus
 export type VirtualEventsPage = generatedTypes.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = generatedTypes.VirtualEventsByUniverseIdOptions
 export type ProfileInsights = generatedTypes.ProfileInsights
+export type UserProfile = generatedTypes.UserProfile
 
 type DocumentNode = graphqlModule.DocumentNode
 

@@ -15,7 +15,7 @@ type RegisteredPayload = { name: string, guiObject: GuiObject }
 
 type DeRegisteredPayload = { name: string, guiObject: GuiObject }
 
-type State = { [string]: { [number]: GuiObject } }
+type State = { [string]: GuiObject }
 
 type Action = {
 	type: "registered",
@@ -32,16 +32,12 @@ type FocusNavigableSurfaceRegistry = { state: State, dispatch: Dispatcher }
 local actions = {
 	registered = function(state: State, payload: RegisteredPayload)
 		local newState = table.clone(state)
-		local registryEntry = if newState[payload.name] then table.clone(newState[payload.name]) else {}
-		table.insert(registryEntry, payload.guiObject)
-		newState[payload.name] = registryEntry
+		newState[payload.name] = payload.guiObject
 		return newState
 	end,
 	deRegistered = function(state: State, payload: DeRegisteredPayload)
 		local newState = table.clone(state)
-		local registryEntry = if newState[payload.name] then table.clone(newState[payload.name]) else {}
-		table.remove(registryEntry, table.find(registryEntry, payload.guiObject))
-		newState[payload.name] = registryEntry
+		newState[payload.name] = payload.guiObject
 		return newState
 	end,
 }
@@ -72,7 +68,7 @@ local function useRegistryEntry(name: string): GuiObject?
 	if registryEntry == nil then
 		return nil
 	end
-	return registryEntry[#registryEntry]
+	return registryEntry
 end
 
 local function useRegisterFocusNavigableSurface()

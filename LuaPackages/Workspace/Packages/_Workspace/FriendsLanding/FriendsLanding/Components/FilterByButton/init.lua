@@ -46,6 +46,7 @@ function FilterByButton:init()
 	self.state = if getFFlagFriendsLandingInactiveFriendsEnabled()
 		then {
 			showFriendPruningTooltip = self.props.initialShowFriendPruningTooltip,
+			hasDismissedFriendPruningTooltip = false,
 		}
 		else nil
 
@@ -86,6 +87,7 @@ function FilterByButton:init()
 		then function()
 			self:setState({
 				showFriendPruningTooltip = false,
+				hasDismissedFriendPruningTooltip = true,
 			})
 			self.props.onTooltipDismissal()
 		end
@@ -100,6 +102,15 @@ function FilterByButton:didMount()
 				inactiveFriendCount = tostring(self.props.inactiveFriendCount),
 			})
 		end
+	end
+end
+
+function FilterByButton:didUpdate()
+	if getFFlagFriendsLandingInactiveFriendsEnabled() then
+		self:setState({
+			showFriendPruningTooltip = self.props.initialShowFriendPruningTooltip
+				and not self.state.hasDismissedFriendPruningTooltip,
+		})
 	end
 end
 

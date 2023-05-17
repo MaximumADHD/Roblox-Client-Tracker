@@ -8,6 +8,7 @@ local AddFriendsContainer = require(script.Parent.AddFriendsContainer)
 local AddFriendsLayerExposure = require(script.Parent.AddFriendsLayerExposure)
 local AddFriendsScreen = Roact.PureComponent:extend("AddFriendsScreen")
 local getFFlagAddFriendsPYMKExperimentEnabled = require(FriendsLanding.Flags.getFFlagAddFriendsPYMKExperimentEnabled)
+local getFFlagAddFriendsMoveExposureLayer = require(FriendsLanding.Flags.getFFlagAddFriendsMoveExposureLayer)
 
 function AddFriendsScreen:render()
 	return withLocalization({
@@ -20,7 +21,7 @@ function AddFriendsScreen:render()
 			else nil,
 	})(function(localized)
 		return FriendsLandingContext.with(function(context)
-			return if getFFlagAddFriendsPYMKExperimentEnabled()
+			return if getFFlagAddFriendsPYMKExperimentEnabled() or getFFlagAddFriendsMoveExposureLayer()
 				then Roact.createElement(AddFriendsLayerExposure, {
 					renderChild = function(layerProps)
 						return Roact.createElement(

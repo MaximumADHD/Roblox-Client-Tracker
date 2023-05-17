@@ -9,11 +9,9 @@ local compose = dependencies.SocialLibraries.RoduxTools.compose
 local Analytics = require(FriendsCarousel.Analytics)
 local EventNames = Analytics.EventNames
 local withLoadingTimer = require(FriendsCarousel.Analytics.withLoadingTimer)
-local RetrievalStatus = dependencies.RetrievalStatus
 
 local getFIntFriendsCarouselLoadingTimeThresholdSec =
 	require(FriendsCarousel.Flags.getFIntFriendsCarouselLoadingTimeThresholdSec)
-local GetFFlagLuaAppFriendsCarouselExperimentCleanup = dependencies.GetFFlagLuaAppFriendsCarouselExperimentCleanup
 
 export type InternalProps = {
 	fireEvent: (name: any, args: any?) -> (),
@@ -27,10 +25,6 @@ export type InternalProps = {
 
 	-- from withLoadingTimer
 	loadingTimerProps: withLoadingTimer.InjectedProps,
-
-	--todo: clean up with GetFFlagLuaAppFriendsCarouselExperimentCleanup
-	isLegacyCarousel: boolean?,
-	IXPFetchingStatus: string?,
 }
 
 type EventValues = {
@@ -43,10 +37,6 @@ local getReportEvent = function(props: InternalProps, values: EventValues)
 		{
 			friendsFetchingStatus = props.friendsFetchingStatus,
 			recommendationFetchingStatus = props.recommendationFetchingStatus,
-			experimentLayerStatus = if GetFFlagLuaAppFriendsCarouselExperimentCleanup()
-				then nil
-				else props.IXPFetchingStatus,
-			isLegacyCarousel = if GetFFlagLuaAppFriendsCarouselExperimentCleanup() then nil else props.isLegacyCarousel,
 			loadingThreshold = getFIntFriendsCarouselLoadingTimeThresholdSec(),
 
 			loadingTime = values.loadingTime,
@@ -54,39 +44,11 @@ local getReportEvent = function(props: InternalProps, values: EventValues)
 		}
 end
 
-local isIXPFetching = function(IXPFetchingStatus)
-	return not IXPFetchingStatus
-		or (IXPFetchingStatus == RetrievalStatus.NotStarted or IXPFetchingStatus == RetrievalStatus.Fetching)
-end
-
-local hasIXPFetched = function(IXPFetchingStatus)
-	return IXPFetchingStatus
-		and (IXPFetchingStatus == RetrievalStatus.Done or IXPFetchingStatus == RetrievalStatus.Failed)
-end
-
 local CarouselWithLoadingTimer = Roact.Component:extend("CarouselWithLoadingTimer")
 
 function CarouselWithLoadingTimer:init()
-	self._legacyCarouselReported = if GetFFlagLuaAppFriendsCarouselExperimentCleanup() then nil else false
-
 	self.onSuccessfulRender = function()
 		local props: InternalProps = self.props
-
-		if not GetFFlagLuaAppFriendsCarouselExperimentCleanup() then
-			-- legacy carousel can render first while IXP is fetching experiment value
-			-- we want to track this time and track time of new carousel if experiment is enabled
-			-- for this reason we don't stop stop timer
-			if isIXPFetching(props.IXPFetchingStatus) and props.isLegacyCarousel then
-				self._legacyCarouselReported = true
-
-				local getLoadingTime = props.loadingTimerProps.getLoadingTime
-				props.fireEvent(getReportEvent(props, {
-					reachedThreshold = false,
-					loadingTime = getLoadingTime(),
-				}))
-				return
-			end
-		end
 
 		props.loadingTimerProps.stopTimer()
 	end
@@ -102,16 +64,6 @@ function CarouselWithLoadingTimer:willUnmount()
 	local props: InternalProps = self.props
 
 	props.loadingTimerProps.resetTimer()
-end
-
-function CarouselWithLoadingTimer:didUpdate()
-	local props: InternalProps = self.props
-
-	if not GetFFlagLuaAppFriendsCarouselExperimentCleanup() then
-		if props.isLegacyCarousel and hasIXPFetched(props.IXPFetchingStatus) and self._legacyCarouselReported then
-			props.loadingTimerProps.cancelThreshold()
-		end
-	end
 end
 
 function CarouselWithLoadingTimer:render()

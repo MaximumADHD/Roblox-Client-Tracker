@@ -1,5 +1,6 @@
 local HttpService = game:GetService("HttpService")
-local Packages = script:FindFirstAncestor("GraphQLServer").Parent
+local GraphQLServer = script:FindFirstAncestor("GraphQLServer")
+local Packages = GraphQLServer.Parent
 
 local JestGlobals = require(Packages.Dev.JestGlobals)
 local expect = JestGlobals.expect
@@ -11,22 +12,9 @@ local ProfileInsightsConnector = require(script.Parent.ProfileInsightsConnector)
 local findProfileInsightsByUserIds = ProfileInsightsConnector.findProfileInsightsByUserIds
 local findProfileInsightsByUserIdsFeed = ProfileInsightsConnector.findProfileInsightsByUserIdsFeed
 local findProfileInsightsByUserIdsTEMP = ProfileInsightsConnector.findProfileInsightsByUserIdsTEMP
+local makeHttpServiceMock = require(GraphQLServer.TestHelpers.makeHttpServiceMock)
 
 local getFFlagApolloClientFetchPIFeedConnector = require(Packages.SharedFlags).getFFlagApolloClientFetchPIFeedConnector
-
-local function makeHttpServiceMock(mockSuccess, mockResponse): HttpService
-	local HttpServiceMock = {
-		RequestInternal = function(_options)
-			return {
-				Start = function(_self, callback)
-					callback(mockSuccess, mockResponse)
-				end,
-			}
-		end,
-	}
-
-	return HttpServiceMock :: any
-end
 
 return function()
 	local create = nil
