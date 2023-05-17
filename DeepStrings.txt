@@ -65,6 +65,7 @@ AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAAAAAAAAAAAAAAAZZZZZZZZZZZZZZZZSystemInfoProtocolInfluxHundredthsPercentage
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -7612,6 +7613,7 @@ AVUGCValidationService
 AVUGCValidationServiceProp
 AVUi_RBXMainWindow
 AVUi_TeamCreate
+AVUIAspectRatioC
 AVUIAspectRatioConstraint
 AVUIAspectRatioConstraintProp
 AVUIBaseProp
@@ -12138,8 +12140,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 Corporation1402
 CorrectDecelerationCompute
 Correction
@@ -14788,9 +14790,6 @@ DigestAlgorithm_init_bio
 DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crt0E
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
 DigiCertTrustedRootG4.crl0
@@ -26571,7 +26570,6 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -33738,6 +33736,10 @@ SecondsOverBudget
 SecondsPerBatchAwardPointsCall
 SecondsSincePreviousStreamJobStartTime
 SecondsSinceStreamJobStart
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -37156,6 +37158,7 @@ Studio.App.ExternalLoginDialog.ReloadLoginPage
 Studio.App.ExternalLoginDialog.RobloxLogin
 Studio.App.ExternalLoginDialog.StudioWillClose
 Studio.App.ExternalLoginDialog.WindowTitle
+Studio.App.FBXAnimatedHeadImport
 Studio.App.FBXAnimatedHeadImporter.CorrectiveDupe2
 Studio.App.FBXAnimatedHeadImporter.DupeControl3
 Studio.App.FBXAnimatedHeadImporter.FailureException1
