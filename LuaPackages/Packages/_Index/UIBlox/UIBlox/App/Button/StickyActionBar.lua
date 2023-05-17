@@ -35,28 +35,27 @@ local TEXT_MAX_BOUND = 10000
 local StickyActionBar = Roact.PureComponent:extend("StickyActionBar")
 
 StickyActionBar.validateProps = t.strictInterface({
-	-- Props to render the ActionBar component
+	-- Props to render the ActionBar component.
+	-- See [ActionBar](ActionBar.md) for more information.
 	actionBarProps = t.optional(ActionBar.validateProps),
-	-- Info used to render the info section in the StickyActionBat. Optional.
+	-- Info used to render the info section in the `StickyActionBar`.
 	infoProps = t.optional(t.strictInterface({
 		-- Title in info
 		title = t.string,
 		-- Image uri for icon in info section
 		icon = t.optional(validateImage),
-		-- Indicate whether info section should be rendered at the start of StickyActionBar or not.
-		--
-		-- By default, the info will always stay at the right side of the StickyActionBar and get aligned to Center
+		-- Indicate whether info section should be rendered at the start of `StickyActionBar` or not.
+		-- By default, the info will always stay at the right side of the `StickyActionBar` and get aligned to Center
 		-- of the whole component horizontally. With `enableInfoAtStart` specified as true, the info section will be rendered
-		-- at the left side of the StickyActionBar and get aligned to Left of the infoSection instead.
+		-- at the left side of the `StickyActionBar` and get aligned to Left of the infoSection instead.
 		enableInfoAtStart = t.optional(t.boolean),
 		-- The width of the info section.
-		--
-		-- By default, the info section will always occupy the full space of the right side of StickyActionBar.
+		-- By default, the info section will always occupy the full space of the right side of `StickyActionBar`.
 		infoSectionWidth = t.optional(t.integer),
 	})),
-	-- Width of the component. The component will fit the parent container size by default if not specified.
+	-- Width of the `StickyActionBar` component in parent container
 	width = t.optional(t.integer),
-	-- LayoutOrder of the component in parent container
+	-- LayoutOrder of the `StickyActionBar` component in parent container
 	layoutOrder = t.optional(t.integer),
 })
 

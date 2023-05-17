@@ -20,13 +20,27 @@ local function multilineScrollingValidator(props)
 end
 
 GridBasicRow.validateProps = t.strictInterface({
+	-- The type of row, determines which column count and spacing values to select from config
 	kind = t.optional(t.string),
+	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
+	-- \[Experimental\] Enables scrolling in the row.
+	-- Requires `relativeHeight`, disallows `multiLine`.
 	scrollable = t.optional(t.boolean),
+	selectable = t.optional(t.boolean),
 	pages = t.optional(t.numberPositive),
+	-- Enables multi line mode in the row, wrapping extra contents, and allowing cells to have multi-row height.
+	-- Requires `relativeHeight`, disallows `scrollable`.
 	multiLine = t.optional(t.boolean),
+	-- Total height in lines when row is multi line.
+	-- Ignored if `multiLine` is false. If not provided, `AutomaticSize` will be used.
 	lines = t.optional(t.intersection(t.integer, t.numberMin(0))),
+	-- Top padding in lines when row is multi line.
+	-- This can be used to reserve empty unrendered space (e.g. inside a scrolling view).
+	-- Ignored if `multiLine` is false. If not provided, no vertical padding will be added.
 	paddingTopLines = t.optional(t.intersection(t.integer, t.numberMin(0))),
+	-- Height of each cell, relative to its width.
+	-- If not provided, `AutomaticSize` will be used.
 	relativeHeight = t.optional(t.UDim),
 	[Roact.Children] = t.optional(t.table),
 	gridBasicRowRef = t.optional(t.union(t.table, t.callback)),
@@ -35,6 +49,7 @@ GridBasicRow.validateProps = t.strictInterface({
 GridBasicRow.defaultProps = {
 	kind = "default",
 	scrollable = false,
+	selectable = false,
 	multiLine = false,
 }
 
@@ -100,6 +115,7 @@ function GridBasicRow:renderChildren(scrollable, margin, gutter, verticalGutter)
 				]]
 				CanvasSize = UDim2.new(canvasWidth, (canvasWidth - 1) * (gutter - 2 * margin), 1, 0),
 				AutomaticCanvasSize = self.props.pages and Enum.AutomaticSize.None or Enum.AutomaticSize.X,
+				Selectable = self.props.selectable,
 			}, children),
 		}
 	else

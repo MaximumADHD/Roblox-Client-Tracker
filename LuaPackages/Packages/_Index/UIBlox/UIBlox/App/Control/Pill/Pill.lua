@@ -29,12 +29,17 @@ local MAX_BUTTON_HEIGHT = 28
 local Pill = Roact.PureComponent:extend("Pill")
 
 Pill.validateProps = t.strictInterface({
+	-- Text of the pill button
 	text = t.optional(t.string),
+	-- Highlights the pill, becomes selected
 	isSelected = t.optional(t.boolean),
+	-- Deactivates pill button, unable to be pressed
 	isDisabled = t.optional(t.boolean),
+	-- Sets the pill to a loading shimmer
 	isLoading = t.optional(t.boolean),
+	-- Icons inside the pill button, can have an unlimited amount
 	icon = t.union(t.string, validateImageSetData),
-
+	-- Callback for the activated event
 	onActivated = t.callback,
 })
 

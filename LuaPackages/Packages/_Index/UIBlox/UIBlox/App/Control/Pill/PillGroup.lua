@@ -31,17 +31,27 @@ local Pill = require(PillRoot.Pillv2)
 export type OnSelectionChanged = (selectedPills: { string }) -> ()
 
 export type Props = {
+	-- The list of pills to show
 	pills: { string },
+	-- The list of pills that are currently selected (typically, parent components will
+	-- pass back the same selection given to them via `onSelectionChanged` but this prop
+	-- also allows them to clear or update the selection from outside the component).
+	selectedPills: { string }?,
 	isLoading: boolean?,
+	-- Callback function invoked when the Pill selection changes
 	onSelectionChanged: OnSelectionChanged?,
+	-- Position in an ordered layout
 	layoutOrder: number?,
 	leftPadding: number?,
 	rightPadding: number?,
 
-	-- optional parameters for RoactGamepad
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionLeft: any,
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionRight: any,
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionUp: any,
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionDown: any,
 	forwardRef: any,
 }
@@ -67,7 +77,12 @@ local function PillGroup(props: Props)
 	local leftPadding = props.leftPadding or DEFAULT_LEFT_RIGHT_PADDING
 	local rightPadding = props.rightPadding or DEFAULT_LEFT_RIGHT_PADDING
 
-	local selectedPills, setSelectedPills = React.useState({})
+	local selectedPills, setSelectedPills
+	if UIBloxConfig.usePillGroupSelectedPills then
+		selectedPills = props.selectedPills or {}
+	else
+		selectedPills, setSelectedPills = React.useState({})
+	end
 
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
@@ -81,7 +96,10 @@ local function PillGroup(props: Props)
 	local pillRefs = RoactGamepad.useRefCache()
 
 	local clearPills = React.useCallback(function()
-		setSelectedPills({})
+		if not UIBloxConfig.usePillGroupSelectedPills then
+			setSelectedPills({})
+		end
+
 		if props.onSelectionChanged then
 			props.onSelectionChanged({})
 		end
@@ -118,12 +136,12 @@ local function PillGroup(props: Props)
 
 	for i, pill in sortedPills do
 		local function onActivated()
-			setSelectedPills(function(oldPills)
-				local wasSelected = Cryo.List.find(oldPills, pill) ~= nil
+			if UIBloxConfig.usePillGroupSelectedPills then
+				local wasSelected = Cryo.List.find(selectedPills, pill) ~= nil
 
 				local newPills = if wasSelected
-					then Cryo.List.removeValue(oldPills, pill)
-					else Cryo.List.join(oldPills, { pill })
+					then Cryo.List.removeValue(selectedPills, pill)
+					else Cryo.List.join(selectedPills, { pill })
 
 				if not wasSelected then
 					scrollToStart()
@@ -132,8 +150,24 @@ local function PillGroup(props: Props)
 				if props.onSelectionChanged then
 					props.onSelectionChanged(newPills)
 				end
-				return newPills
-			end)
+			else
+				setSelectedPills(function(oldPills)
+					local wasSelected = Cryo.List.find(oldPills, pill) ~= nil
+
+					local newPills = if wasSelected
+						then Cryo.List.removeValue(oldPills, pill)
+						else Cryo.List.join(oldPills, { pill })
+
+					if not wasSelected then
+						scrollToStart()
+					end
+
+					if props.onSelectionChanged then
+						props.onSelectionChanged(newPills)
+					end
+					return newPills
+				end)
+			end
 		end
 
 		local isSelected = i <= #selectedPills

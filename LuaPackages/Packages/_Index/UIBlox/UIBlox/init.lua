@@ -6,6 +6,7 @@ local Fonts = require(script.App.Style.Fonts)
 local ImagesTypes = require(script.App.ImageSet.ImagesTypes)
 local StyleTypes = require(script.App.Style.StyleTypes)
 local GridConfigReader = require(script.Core.Layout.Grid.GridConfigReader)
+local DialogOverlay = require(script.App.Dialog.Overlay.Overlay)
 
 export type Font = Fonts.Font
 export type FontPalette = Fonts.FontPalette
@@ -18,6 +19,8 @@ export type ThemeItem = StyleTypes.ThemeItem
 export type AppStyle = StyleTypes.AppStyle
 
 export type GridConfig<T = number> = GridConfigReader.Config<T>
+
+export type GradientDirection = DialogOverlay.GradientDirection
 
 local function initializeLibrary(configs)
 	local strict = require(script.Utility.strict)
@@ -95,6 +98,7 @@ local function initializeLibrary(configs)
 			useLazyRef = require(script.Utility.useLazyRef),
 			useInitializedValue = require(script.Utility.useInitializedValue),
 			useForwardRef = require(script.Utility.useForwardRef),
+			useProperties = require(script.Utility.useProperties),
 		}),
 	})
 
@@ -252,17 +256,22 @@ local function initializeLibrary(configs)
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
 			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
 			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
-			ExperienceStatsV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceStatsV2),
+			-- ExperienceStatsV2 is renamed, please use the new name App.Indicator.StatGroup
+			ExperienceStatsV2 = require(script.App.Indicator.StatGroup),
 			ExperienceTileV3 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV3),
 			AspectRatioModeEnum = require(script.App.Tile.SplitTile.ExperienceTile.Enum.AspectRatioMode),
+			getExperienceTileHeight = require(script.App.Tile.SplitTile.ExperienceTile.getExperienceTileHeight),
 			TileContentPanel = require(script.App.Tile.SplitTile.TileContentPanel),
 			ExperienceActionRow = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow),
 			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
+			ActionTile = require(script.App.Tile.SplitTile.ActionTile.ActionTile),
 			VerticalTile = require(script.App.Tile.SplitTile.VerticalTile.VerticalTile),
 			VerticalTileThumbnail = require(script.App.Tile.SplitTile.VerticalTile.VerticalTileThumbnail),
-			ExperienceTileMetadata = {
+			ExperienceTileMetadata = strict({
+				SocialProofFooter = require(script.App.Tile.ExperienceTileMetadata.SocialProofFooter),
 				CoPlayFooter = require(script.App.Tile.ExperienceTileMetadata.CoPlayFooter),
-			},
+				TextFooter = require(script.App.Tile.ExperienceTileMetadata.TextFooter),
+			}),
 		}),
 
 		Dialog = strict({
@@ -285,6 +294,7 @@ local function initializeLibrary(configs)
 			Tooltip = require(script.App.Dialog.Tooltip.Tooltip),
 			TooltipV2 = require(script.App.Dialog.TooltipV2.Controllers),
 			TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
+			Overlay = DialogOverlay,
 		}),
 
 		Constant = strict({
@@ -327,6 +337,7 @@ local function initializeLibrary(configs)
 				else require(script.App.Indicator.PlayerCount),
 			RateCount = require(script.App.Indicator.RateCount),
 			StatWidget = require(script.App.Indicator.StatWidget),
+			StatGroup = require(script.App.Indicator.StatGroup),
 		}),
 
 		Menu = strict({
@@ -388,6 +399,8 @@ local function initializeLibrary(configs)
 					DeviceType = require(script.App.Template.DetailsPage.Enum.DeviceType),
 				},
 				DetailsPageTemplate = require(script.App.Template.DetailsPage.DetailsPageTemplate),
+				DetailsPageTenfootTemplate = require(script.App.Template.DetailsPage.DetailsPageTenfootTemplate),
+				DetailsPageSelector = require(script.App.Template.DetailsPage.DetailsPageSelector),
 			},
 		}),
 

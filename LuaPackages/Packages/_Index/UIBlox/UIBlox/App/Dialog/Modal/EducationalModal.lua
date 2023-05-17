@@ -26,27 +26,41 @@ local BODY_CONTENTS_MARGIN = 36
 local EducationalModal = Roact.PureComponent:extend("EducationalModal")
 
 EducationalModal.validateProps = t.strictInterface({
+	-- Array of contents
 	bodyContents = t.array(t.strictInterface({
+		-- Icon that goes above the title. It can take either an rbxasset address recognized by Roblox Studio	or an imageSet table.
 		icon = t.optional(t.union(t.string, t.table)),
 		text = t.string,
 		layoutOrder = t.optional(t.integer),
+		-- Uses the system menu icon. Overrides the `icon` property above.
 		isSystemMenuIcon = t.optional(t.boolean),
 	})),
+	-- Whether or not the modal should include a "Don't Show Again" toggle
 	hasDoNotShow = t.optional(t.boolean),
-
+	-- Text on secondary button
 	cancelText = t.string,
+	-- Text on primary button
 	confirmText = t.string,
+	-- Text on the checkbox for toggling the modal's permanent dismissal
 	doNotShowText = t.optional(t.string),
+	-- Title text of the `Modal
 	titleText = t.optional(t.string),
+	-- Title background image of the `Modal`
 	titleBackgroundImageProps = t.strictInterface({
+		-- Title background image ID
 		image = t.string,
+		-- Title background image height
 		imageHeight = t.number,
+		-- Rich text content centered in the background image.  Can replace `titleText`.
 		text = t.optional(t.string),
 	}),
+	-- Size of the container housing the `Modal`. This is necessary to dynamically scale the modal's width.
 	screenSize = t.Vector2,
-
+	-- A function that is called when the X button in the Title has been clicked
 	onDismiss = t.callback,
+	-- A function that is called when the secondary button has been clicked
 	onCancel = t.callback,
+	-- A function that is called when the primary button has been clicked
 	onConfirm = t.callback,
 })
 

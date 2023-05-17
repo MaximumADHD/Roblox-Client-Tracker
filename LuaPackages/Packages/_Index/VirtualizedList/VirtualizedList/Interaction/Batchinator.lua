@@ -18,9 +18,7 @@ local clearTimeout = LuauPolyfill.clearTimeout
 -- local InteractionManager = require("./InteractionManager")
 local InteractionManager = {
 	runAfterInteractions = function(_self, fn: () -> ())
-		if _G.__DEV__ then
-			warn("InteractionManager not implemented")
-		end
+		-- ROBLOX comment: "Interactions are not handled by the interaction manager"
 		fn()
 		return nil
 	end,

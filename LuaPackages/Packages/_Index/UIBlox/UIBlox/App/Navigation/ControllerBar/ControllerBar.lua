@@ -13,22 +13,25 @@ local Types = require(script.Parent.Types)
 local Shortcut = require(script.Parent.Shortcut)
 
 type ControllerBarProps = {
-	-- list of items to display on the context bar
-	items: {
-		[number]: Types.ShortcutPublicProps,
-	},
-
-	-- position of context bar
+	-- Array of shortcut items to display
+	items: { [number]: Types.ShortcutPublicProps },
+	-- Position of `ControllerBar`
 	position: UDim2?,
-	-- anchor point of context bar
+	-- Anchor point of `ControllerBar`
 	anchorPoint: Vector2?,
-
+	-- Top padding in `ControllerBar`
 	spacingTop: number?,
+	-- Trailing padding in `ControllerBar`
 	spacingTrailing: number?,
+	-- Bottom padding in `ControllerBar`
 	spacingBottom: number?,
+	-- Leading padding in `ControllerBar`
 	spacingLeading: number?,
+	-- Spacing between shortcut items in `ControllerBar`
 	itemsGap: number?,
+	-- Spacing between shortcut item icon and label in `ControllerBar`
 	itemIconLabelGap: number?,
+	-- Leading padding before `actionText` in ControllerBar` shortcut item
 	actionTextSpacingLeading: number?,
 }
 

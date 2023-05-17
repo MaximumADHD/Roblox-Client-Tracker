@@ -25,14 +25,18 @@ local Types = require(script.Parent.Types)
 -- Constants
 local Constants = require(script.Parent.Constants)
 
-type Props = Types.IconTabGroupProps
+type Props = {
+	selection: { number }?,
+	-- List of `IconTab`s to display on the IconTabGroup
+	items: { [number]: Types.IconTabItem },
+}
 
 local defaultProps: Props = {
 	selection = { 1 },
 	items = {},
 }
 
-return function(providedProps: Props)
+local function IconTabGroup(providedProps: Props)
 	local props: Props = Object.assign({}, defaultProps, providedProps)
 	local selectionCursor = useSelectionCursor(CursorKind.XLargePill)
 	return HorizontalContainer({
@@ -80,3 +84,5 @@ return function(providedProps: Props)
 		}),
 	})
 end
+
+return IconTabGroup

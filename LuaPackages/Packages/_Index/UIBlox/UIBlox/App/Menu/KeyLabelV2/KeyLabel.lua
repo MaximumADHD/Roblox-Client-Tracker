@@ -21,18 +21,21 @@ export type FlexibleKeyCode = Enum.KeyCode | { key: Enum.KeyCode, axis: Axis }
 type Image = Images.ImageSetImage
 
 type KeyLabelProps = {
+	-- KeyCode to display visual representation of.
 	-- note: keycodes may not be the best interface here as we cannot distinguish between certain keys
 	-- for example, Alt and Opt share a keycode, and Cmd and Windows key share a keycode
 	keyCode: FlexibleKeyCode,
 
-	-- Theme for the icon (border icon for keyboard KeyCodes, button icon for gamepad icons)
+	-- the theme of the label's icon (keyboard border/gamepad button
 	iconThemeKey: string?,
-	-- Theme for keyboard KeyCode text (unused for gamepad KeyCodes)
+	-- the theme of the label's text (keyboard key's text)
 	textThemeKey: string?,
 
-	-- the following props are passed on to the background frame
+	-- the anchor point of the label
 	AnchorPoint: Vector2?,
+	-- the position of the menu
 	Position: UDim2?,
+	-- the layout order of the label
 	LayoutOrder: number?,
 	ZIndex: number?,
 	[typeof(React.Change.AbsoluteSize)]: (rbx: GuiObject) -> ()?,

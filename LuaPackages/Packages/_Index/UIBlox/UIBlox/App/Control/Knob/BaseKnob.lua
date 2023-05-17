@@ -49,20 +49,23 @@ local ShadowImageMap = {
 }
 
 BaseKnob.validateProps = t.interface({
-	-- The state change callback for the button
+	-- Triggered when style state changes
 	onStateChanged = t.optional(t.callback),
 
-	-- Is the button visually disabled
+	-- If this component is in disabled state & disabled style
 	isDisabled = t.optional(t.boolean),
 
-	--A Boolean value that determines whether user events are ignored and sink input
+	-- A Boolean value that determines whether user events are ignored and sink input
+	-- If user can interact with this component
 	userInteractionEnabled = t.optional(t.boolean),
 
-	-- The activated callback for the button
+	-- Triggered when user activate this component with mouse / touch / gamepad
 	onActivated = t.optional(t.callback),
-
+	-- The anchor point of the circle, default to its center
 	anchorPoint = t.optional(t.Vector2),
+	-- The layout order number for UIListLayout
 	layoutOrder = t.optional(t.number),
+	-- The position of this component, use with anchor point together
 	position = t.optional(t.UDim2),
 
 	colorMap = t.strictInterface({
@@ -74,17 +77,20 @@ BaseKnob.validateProps = t.interface({
 		[ControlState.SelectedPressed] = validateColor,
 	}),
 
+	-- Gamepad support related props
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	controlRef = t.optional(t.table),
 })
+
 BaseKnob.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),
 	userInteractionEnabled = true,
 	isDisabled = false,
 }
+
 function BaseKnob:init()
 	self:setState({
 		controlState = ControlState.Initialize,

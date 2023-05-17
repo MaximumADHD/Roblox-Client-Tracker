@@ -23,22 +23,36 @@ Cell.debugProps = enumerate("debugProps", {
 })
 
 Cell.validateProps = t.strictInterface({
+	-- The component as the head for the cell.
+	head = t.table,
+	-- The component as the tail for the cell.
+	-- If it's not set, the cell is not interactable.
+	tail = t.optional(t.table),
+	-- The component as the customized background for the cell.
+	background = t.optional(t.table),
+
+	-- The LayoutOrder of the cell.
 	layoutOrder = t.optional(t.union(t.integer, bindingValidator(t.number))),
+	-- The Size of the cell.
+	-- If it's no set, the cell will size itself to the parent container.
 	size = t.optional(t.UDim2),
+	-- The AnchorPoint of the cell.
 	anchorPoint = t.optional(t.Vector2),
+	-- The Position of the cell.
 	position = t.optional(t.UDim2),
 	horizontalPadding = t.optional(t.number),
 
+	-- A Boolean value that determines whether the cell is disabled.
 	isDisabled = t.optional(t.boolean),
+	-- A Boolean value that determines whether the cell is interactable.
 	userInteractionEnabled = t.optional(t.boolean),
 
+	-- The state change callback for the cell.
 	onStateChanged = t.optional(t.callback),
+	-- Callback for the activated event of the cell.
 	onActivated = t.optional(t.callback),
+	-- Callback for the tapped event of the cell.
 	onTouchTapped = t.optional(t.callback),
-
-	head = t.table,
-	tail = t.optional(t.table),
-	background = t.optional(t.table),
 
 	-- Override the default controlState
 	[Cell.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),

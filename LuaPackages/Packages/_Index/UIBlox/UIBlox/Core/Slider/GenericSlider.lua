@@ -28,9 +28,9 @@ local STICK_SPEED = 12 -- In increments per second
 local GenericSlider = Roact.PureComponent:extend("GenericSlider")
 
 GenericSlider.validateProps = t.strictInterface({
-	--value of the first knob if the slider has two knobs, otherwise value of the only knob
+	-- Value of the first knob if the slider has two knobs, otherwise value of the only knob
 	lowerValue = t.number,
-	--value of the second knob if the slider has two knobs
+	-- Value of the second knob if the slider has two knobs
 	upperValue = t.optional(t.number),
 	min = t.number,
 	max = t.number,
@@ -38,9 +38,9 @@ GenericSlider.validateProps = t.strictInterface({
 	isDisabled = t.optional(t.boolean),
 
 	onValueChanged = t.callback,
-	--drag start function for first knob if the slider has two knobs, otherwise function for only knob
+	-- Drag start function for first knob if the slider has two knobs, otherwise function for only knob
 	onDragStartLower = t.optional(t.callback),
-	--drag start function of the second knob if the slider has two knobs
+	-- Drag start function of the second knob if the slider has two knobs
 	onDragStartUpper = t.optional(t.callback),
 	onDragEnd = t.optional(t.callback),
 
@@ -56,18 +56,18 @@ GenericSlider.validateProps = t.strictInterface({
 	trackFillSliceCenter = t.optional(t.Rect),
 
 	knobImage = t.union(t.string, t.table),
-	--knob color value of the first knob if the slider has two knobs, otherwise value of the only knob
+	-- Knob color value of the first knob if the slider has two knobs, otherwise value of the only knob
 	knobColorLower = t.union(t.Color3, t.table),
-	--knob color value of the second knob if the slider has two knobs
+	-- Knob color value of the second knob if the slider has two knobs
 	knobColorUpper = t.optional(t.union(t.Color3, t.table)),
 	knobTransparency = t.union(t.number, t.table),
 
 	knobImagePadding = t.optional(t.numberMin(0)),
 
 	knobShadowImage = t.union(t.string, t.table),
-	--knob shadow transparency value of the first knob if the slider has two knobs, otherwise value of the only knob
+	-- Knob shadow transparency value of the first knob if the slider has two knobs, otherwise value of the only knob
 	knobShadowTransparencyLower = t.union(t.number, t.table),
-	--knob shadow transparency value of the second knob if the slider has two knobs
+	-- Knob shadow transparency value of the second knob if the slider has two knobs
 	knobShadowTransparencyUpper = t.optional(t.union(t.number, t.table)),
 
 	width = t.optional(t.UDim),
@@ -713,7 +713,7 @@ function GenericSlider:processTwoKnobDrag(x)
 	local upperValue = self.props.upperValue
 
 	if not self.lowerKnobDrag and not self.upperKnobDrag then
-		--Set which knob is being dragged (both if they are at the same position)
+		-- Set which knob is being dragged (both if they are at the same position)
 		if steppedValue == lowerValue then
 			self.lowerKnobDrag = true
 		end
@@ -721,7 +721,7 @@ function GenericSlider:processTwoKnobDrag(x)
 			self.upperKnobDrag = true
 		end
 	elseif self.lowerKnobDrag and self.upperKnobDrag then
-		--decides which knob to actually drag and change the value of when both are atop one another
+		-- Decides which knob to actually drag and change the value of when both are atop one another
 		if steppedValue - self.props.stepInterval >= upperValue then
 			self.upperKnobDrag = true
 			self.lowerKnobDrag = false
@@ -732,12 +732,12 @@ function GenericSlider:processTwoKnobDrag(x)
 			lowerValue = steppedValue
 		end
 	elseif self.lowerKnobDrag then
-		--drag the left knob (but not sofar as to surpass the right knob)
+		-- Drag the left knob (but not sofar as to surpass the right knob)
 		if steppedValue <= upperValue then
 			lowerValue = steppedValue
 		end
 	elseif self.upperKnobDrag then
-		--drag the right knob (but not sofar as to surpass the left knob)
+		-- Drag the right knob (but not sofar as to surpass the left knob)
 		if steppedValue >= lowerValue then
 			upperValue = steppedValue
 		end

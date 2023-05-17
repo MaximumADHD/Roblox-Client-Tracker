@@ -20,21 +20,30 @@ local FullPageModal = Roact.PureComponent:extend("FullPageModal")
 local MARGIN = 24
 
 FullPageModal.validateProps = t.strictInterface({
+	-- Size of the container housing the `Modal`. This is necessary to dynamically scale the modal's width
 	screenSize = t.Vector2,
 	[Roact.Children] = t.table,
 
+	-- Position of `Modal` in the whole page. Depending on the screensize that houses it, the position and anchor of the modal will change.
+	-- If the width is less than the max size of the `Modal` (540px), then it will be anchored at the bottom of the screen, otherwise it will be positioned at the center.
+	-- This is just for the ease of seeing the final state of the window, the window should be animated in and out.
 	position = t.optional(t.UDim2),
+	-- Title text of the `Modal`. Title can be a maximum of 2 lines long before it is cut off
 	title = t.optional(t.string),
+	-- Used to set the left/right margin's of the middle content in the modal
 	marginSize = t.optional(t.number),
-
-	buttonStackProps = t.optional(t.table), -- Button stack validates the contents
-
+	-- Button stack validates the contents.
+	-- See [ButtonStack](../../Button/ButtonStack.md) for more information.
+	buttonStackProps = t.optional(t.table),
+	-- A function that is called when the X button in the Title has been clicked
 	onCloseClicked = t.optional(t.callback),
+	-- The modal does not inherently account for safe zone areas at the top, such as device-specific status bars.
+	-- This value repositions the top of the modal by this pixel value from the top of the screen.
 	distanceFromTop = t.optional(t.number),
 })
 
 FullPageModal.defaultProps = {
-	marginSize = MARGIN,
+	marginSize = 24,
 	distanceFromTop = 0,
 }
 

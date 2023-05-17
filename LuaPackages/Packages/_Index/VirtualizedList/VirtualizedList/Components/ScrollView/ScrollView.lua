@@ -34,27 +34,19 @@ type ReadOnlyArray<T> = Array<T>
 local AnimatedImplementation = {
 	Value = {
 		new = function(...)
-			if _G.__DEV__ then
-				warn("AnimatedImplementation.Value.new not implemented")
-			end
+			-- ROBLOX comment: "AnimatedImplementation.Value.new not implemented")
 			return {
 				setOffset = function(_self, value)
-					if _G.__DEV__ then
-						warn("Value.setOffset not implemented")
-					end
+					-- ROBLOX comment: "Value.setOffset not implemented"
 				end,
 				interpolate = function(_self, ...)
-					if _G.__DEV__ then
-						warn("Value.interpolate not implemented")
-					end
+					-- ROBLOX comment: "Value.interpolate not implemented"
 				end,
 			}
 		end,
 	},
 	attachNativeEvent = function(...)
-		if _G.__DEV__ then
-			warn("AnimatedImplementation.attachNativeEvent not implemented")
-		end
+		-- ROBLOX comment: "AnimatedImplementation.attachNativeEvent not implemented"
 		return nil
 	end,
 }
@@ -63,9 +55,7 @@ type AnimatedImplementation_Value = any
 -- local Dimensions = require(script.Parent.Parent.Parent.Utilities.Dimensions).default
 local Dimensions = {
 	get = function(...)
-		if _G.__DEV__ then
-			warn("Dimensions not implemented")
-		end
+		-- ROBLOX comment: "Dimensions not implemented"
 		return { height = 100 }
 	end,
 }
@@ -91,7 +81,7 @@ type React_Ref<ElementType> = React.Ref<ElementType>
 -- local ReactNative = require(script.Parent.Parent.Parent.Renderer.shims.ReactNative).default
 local ReactNative = {
 	findNodeHandle = function(...)
-		warn("ReactNative.findNodeHandle not implemented")
+		-- ROBLOX comment: "ReactNative.findNodeHandle not implemented"
 		return nil
 	end,
 }
@@ -110,15 +100,13 @@ local View = "Frame"
 -- local UIManager = require(script.Parent.Parent.Parent.ReactNative.UIManager).default
 local UIManager = {
 	measureLayout = function(...)
-		warn("UIManager.measureLayout not implemented")
+		-- ROBLOX comment: "UIManager.measureLayout not implemented"
 	end,
 }
 -- local Keyboard = require(script.Parent.Parent.Keyboard.Keyboard).default
 local Keyboard = {
 	addListener = function(...)
-		if _G.__DEV__ then
-			warn("Keyboard.addListener not implemented")
-		end
+		-- ROBLOX comment: warn("Keyboard.addListener not implemented")
 		return nil
 	end,
 }
@@ -151,7 +139,7 @@ local dismissKeyboard = function()
 end
 -- local flattenStyle = require(script.Parent.Parent.Parent.StyleSheet.flattenStyle).default
 local flattenStyle = function(style)
-	warn("flattenStyle not implemented")
+	-- ROBLOX comment: "flattenStyle not implemented"
 	return style
 end
 -- ROBLOX deviation END
@@ -161,7 +149,7 @@ local processDecelerationRate = require(script.Parent.processDecelerationRate)
 -- ROBLOX deviation START: mocking missing module
 -- local splitLayoutProps = require(script.Parent.Parent.Parent.StyleSheet.splitLayoutProps).default
 local splitLayoutProps = function(style)
-	warn("splitLayoutProps not implemented")
+	-- ROBLOX comment: "splitLayoutProps not implemented"
 	return { outer = style, inner = style }
 end
 -- ROBLOX deviation END

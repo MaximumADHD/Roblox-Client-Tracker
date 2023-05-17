@@ -14,10 +14,16 @@ local validateButton = t.strictInterface({
 })
 
 CheckboxList.validateProps = t.strictInterface({
+	-- The options to the checkbox menu. Each string corresponds to one `checkbox`.
+	-- You can either pass in a string value which defaults the checkbox to unchecked and clickable, or pass in `isSelected` and `isDisabled` to modify the checkbox accordingly.
 	checkboxes = t.array(t.union(t.string, validateButton)),
+	-- This function is called when a `checkbox` is clicked. The value passed in is the selection state of the button.
 	onActivated = t.callback,
+	-- This is the size of an individual `checkbox` component
 	elementSize = t.UDim2,
+	-- The maximum number of `checkbox`s that can be selected at any given time
 	atMost = t.optional(t.number),
+	-- The `layoutOrder` of this component, to be used in `UIListLayout`.
 	layoutOrder = t.optional(t.number),
 })
 

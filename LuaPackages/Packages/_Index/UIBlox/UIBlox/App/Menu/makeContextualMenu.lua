@@ -45,26 +45,35 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 	local contextualMenuComponent = Roact.PureComponent:extend("ContextualMenuFor" .. backgroundThemeKey)
 
 	contextualMenuComponent.validateProps = t.strictInterface({
+		-- The properties for each cell. It is an array that contains multiple tables of button props.
 		buttonProps = validateButtonProps,
 
 		zIndex = t.optional(t.integer),
+		-- Whether the menu is open or not
 		open = t.boolean,
+		-- The direction the menu should slide in from, either MenuDirection.Up or MenuDirection.Down
 		menuDirection = t.optional(enumerateValidator(MenuDirection)),
+		-- The Y position of the menu when open
 		openPositionY = t.UDim,
 
 		closeBackgroundVisible = t.optional(t.boolean),
+		-- The total size of the screen, used for the dismiss background
 		screenSize = t.Vector2,
 		stayOnActivated = t.optional(t.boolean),
-
+		-- A function to be called when the menu is dismissed
 		onDismiss = t.optional(t.callback),
 		setFrameRef = t.optional(t.union(t.callback, t.table)),
 		setFirstItemRef = t.optional(t.union(t.callback, t.table)),
+		-- A method of overriding motor options for animation
 		motorOverrideOptions = t.optional(t.strictInterface({
 			motorCallback = t.callback,
+			-- whether the menu is open or not
 			open = validateMotorOptionProps,
 			close = validateMotorOptionProps,
 		})),
+		-- The horizontal alignment of the menu in its parent
 		horizontalAlignment = t.optional(t.enum(Enum.HorizontalAlignment)),
+		-- The X position of the menu when open
 		openPositionX = t.optional(t.UDim),
 
 		contextMenuWidthOverride = t.optional(t.UDim),

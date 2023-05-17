@@ -120,25 +120,25 @@ function RobuxBalance:init()
 end
 
 RobuxBalance.validateProps = t.strictInterface({
-	--The text of the button
+	-- The text of the button
 	displayText = t.optional(t.string),
 
-	--The text of the tooltip when hovered over 2 seconds
+	-- The text of the tooltip when hovered on for 2 seconds
 	fullText = t.optional(t.string),
 
-	--The position of this component
+	-- The position of this component
 	position = t.optional(t.UDim2),
 
-	--The activated callback for the button
+	-- The activated callback for the button
 	onActivated = t.optional(t.callback),
 
-	--The state change callback for the button
+	-- The state change callback for the button
 	onStateChanged = t.optional(t.callback),
 
-	--The state change callback for the button
+	-- The position for tooltip to appear at
 	tooltipPosition = t.optional(t.UDim2),
 
-	--A Boolean value that determines whether user events are ignored and sink input
+	-- A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
 })
 

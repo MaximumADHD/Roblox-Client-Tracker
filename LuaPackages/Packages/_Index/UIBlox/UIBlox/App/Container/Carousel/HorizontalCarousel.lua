@@ -23,8 +23,6 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
-local DEFAULT_ITEM_PADDING = 12
-
 local LEFT_ICON = Images["icons/actions/cycleLeft"]
 local RIGHT_ICON = Images["icons/actions/cycleRight"]
 
@@ -95,7 +93,7 @@ HorizontalCarousel.validateProps = t.strictInterface({
 
 HorizontalCarousel.defaultProps = {
 	itemSize = Vector2.new(1, 1),
-	itemPadding = DEFAULT_ITEM_PADDING,
+	itemPadding = 12,
 	maxNumOfItemsVisible = 0,
 }
 

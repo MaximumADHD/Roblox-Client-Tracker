@@ -6,6 +6,7 @@ local Utils = require(Packages.Utils)
 local createSignal = Utils.createSignal
 local shallowEqual = Utils.shallowEqual
 local getAncestors = Utils.getAncestors
+local warn = Utils.mockableWarn
 
 local types = require(script.Parent.types)
 type EventMap = types.EventMap
@@ -104,10 +105,7 @@ function FocusNavigationService:_fireInputEvent(focusedGuiObject: GuiObject, inp
 			Delta = input.Delta,
 			KeyCode = input.KeyCode,
 			Position = input.Position,
-			-- TODO: We may need to do this differently somehow, depending on
-			-- how deferred lua solutions change
 			UserInputState = input.UserInputState,
-			-- TODO: Should we simplify this, or provide it as is?
 			UserInputType = input.UserInputType,
 		}, false)
 	end
@@ -188,9 +186,19 @@ end
 function FocusNavigationService:registerEventMap(guiObject: GuiObject, eventMap: EventMap)
 	local updatedEventMap: EventMap = self._eventMapByInstance[guiObject] or {}
 	for keyCode, name in eventMap do
-		-- TODO: Warnings
-		-- if updatedEventMap[keyCode] and updatedEventMap[keyCode] ~= name then
-		-- end
+		if updatedEventMap[keyCode] and updatedEventMap[keyCode] ~= name then
+			if _G.__DEV__ then
+				warn(
+					string.format(
+						"New event will replace existing registered event mapped to %s:"
+							.. "\n\t     new event: %s\n\texisting event: %s",
+						tostring(keyCode),
+						name,
+						updatedEventMap[keyCode]
+					)
+				)
+			end
+		end
 		updatedEventMap[keyCode] = name
 	end
 	self._eventMapByInstance[guiObject] = updatedEventMap
@@ -202,9 +210,18 @@ function FocusNavigationService:deregisterEventMap(guiObject: GuiObject, eventMa
 	for keyCode, name in eventMap do
 		if updatedEventMap[keyCode] == name then
 			updatedEventMap[keyCode] = nil
-			-- TODO: warnings
-			-- else
-			-- warn("cannot deregister non-matching event...")
+		else
+			if _G.__DEV__ then
+				warn(
+					string.format(
+						"Cannot deregister non-matching event input %s:"
+							.. "\n\t  provided event: %s\n\tregistered event: %s",
+						tostring(keyCode),
+						name,
+						updatedEventMap[keyCode]
+					)
+				)
+			end
 		end
 	end
 	self._eventMapByInstance[guiObject] = updatedEventMap
@@ -242,9 +259,6 @@ function FocusNavigationService:deregisterEventHandlers(guiObject: GuiObject, ev
 end
 
 function FocusNavigationService:focusGuiObject(guiObject: GuiObject?, silent: boolean)
-	-- TODO: Should we warn if trying to focus something that's not under the
-	-- correct gui target? e.g. warn/error when trying to focus something under
-	-- PlayerGui if core ui is enabled?
 	if silent then
 		-- If we've silenced the event, we need to identify which guiObjects
 		-- we're going to and from so that we can respond accordingly

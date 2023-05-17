@@ -28,27 +28,44 @@ local function makeAppTwoKnobSlider(trackFillThemeKey)
 	local twoKnobAppSliderComponent = Roact.PureComponent:extend("TwoKnobAppSliderFor" .. trackFillThemeKey)
 	local appSliderComponent = makeAppSlider(trackFillThemeKey, true)
 	local twoKnobSliderInterface = t.strictInterface({
-		--value of the first knob (must be less than or equal to upperValue)
+		-- The current value of the knob of lesser value on the slider.
+		-- Must be greater than or equal to `min`, less than or equal to `max`, and less than or equal to `upperValue`
 		lowerValue = t.number,
-		--value of the second knob (must be greater than or equal to lowerValue)
+		-- The current value of the knob of higher value on the slider.
+		-- Must be greater than or equal to `min`, less than or equal to `max`, and greater than or equal to `lowerValue`.
 		upperValue = t.number,
+		-- The minimum value of the slider. Must be less than `max`
 		min = t.number,
+		-- The maximum value of the slider. Must be greater than `min`
 		max = t.number,
+		-- The step interval of the slider. Values will be rounded to this. Must be a positive number
 		stepInterval = t.optional(t.numberPositive),
+		-- A callback that will be invoked whenever the value of the slider is changed by user input.
+		-- You should update the `lowerValue` and `upperValue` props in response to this callback.
 		onValueChanged = t.callback,
+		-- A callback that will be invoked when the lower slider knob is pressed
 		onDragStartLower = t.optional(t.callback),
+		-- A callback that will be invoked when the upper slider knob is pressed
 		onDragStartUpper = t.optional(t.callback),
+		-- A callback that will be invoked when the slider knob stops being pressed
 		onDragEnd = t.optional(t.callback),
+		-- Whether the slider is disabled or not
 		isDisabled = t.optional(t.boolean),
-
+		-- The width of the slider. Sliders have a fixed height of 36px
 		width = t.optional(t.UDim),
+		-- The position of the slider
 		position = t.optional(t.UDim2),
+		-- The anchor point of the slider
 		anchorPoint = t.optional(t.Vector2),
+		-- The layout order of the slider
 		layoutOrder = t.optional(t.integer),
 
 		forwardedRef = t.optional(t.table),
+		-- Navigation parameter for RoactGamepad support
 		NextSelectionUp = t.optional(t.table),
+		-- Navigation parameter for RoactGamepad support
 		NextSelectionDown = t.optional(t.table),
+		-- focusController for RoactGamepad support
 		focusController = t.optional(t.table),
 
 		--Internal Only - Don't Pass In

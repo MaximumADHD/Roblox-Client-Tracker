@@ -9,6 +9,25 @@ local t = require(Packages.t)
 local getPageMargin = require(script.Parent.getPageMargin)
 
 local PageMargin = Roact.Component:extend("PageMargin")
+
+PageMargin.validateProps = t.interface({
+	-- The anchorPoint of the component
+	anchorPoint = t.optional(t.Vector2),
+	-- The position of the component
+	position = t.optional(t.UDim2),
+	-- The background color for the page
+	backgroundColor3 = t.optional(t.Color3),
+	-- The backgroundTransparency of the component
+	backgroundTransparency = t.optional(t.number),
+	-- The layoutOrder of the component
+	layoutOrder = t.optional(t.number),
+	-- The extents of the component
+	size = t.optional(t.UDim2),
+	-- If true, will automatically size in the Y-direction
+	useAutomaticSizing = t.optional(t.boolean),
+	zIndex = t.optional(t.number),
+})
+
 PageMargin.defaultProps = {
 	anchorPoint = Vector2.new(0, 0),
 	position = UDim2.new(),
@@ -17,16 +36,6 @@ PageMargin.defaultProps = {
 	layoutOrder = 0,
 	useAutomaticSizing = false,
 }
-PageMargin.validateProps = t.interface({
-	anchorPoint = t.optional(t.Vector2),
-	position = t.optional(t.UDim2),
-	backgroundColor3 = t.optional(t.Color3),
-	backgroundTransparency = t.optional(t.number),
-	layoutOrder = t.optional(t.number),
-	size = t.optional(t.UDim2),
-	useAutomaticSizing = t.optional(t.boolean),
-	zIndex = t.optional(t.number),
-})
 
 function PageMargin:init()
 	self.state = {}

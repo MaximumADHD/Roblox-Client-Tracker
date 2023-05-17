@@ -28,25 +28,38 @@ local PADDING_BETWEEN = 24
 local Alert = Roact.PureComponent:extend("Alert")
 
 Alert.validateProps = t.strictInterface({
+	-- The type of alert to display. Used for stylizing purposes
 	alertType = enumerateValidator(AlertType),
 	maxWidth = t.optional(t.number),
 	minWidth = t.optional(t.number),
 	margin = t.optional(t.table),
+	-- Anchor point of the modal
 	anchorPoint = t.optional(t.Vector2),
+	-- A function that is called when the `Alert` is mounted
 	onMounted = t.optional(t.callback),
+	-- A function that is called when the `Alert` AbsoluteSize is changed
 	onAbsoluteSizeChanged = t.optional(t.callback),
+	-- Position of `Alert` in the whole page
 	position = t.optional(t.UDim2),
+	-- Size of the container housing the `Alert`. This is necessary to dynamically scale the alert's width
 	screenSize = t.Vector2,
-
+	-- Title text of the `Alert`. Title can be a maximum of 2 lines long before it is cut off
 	title = t.string,
+	-- Function that returns a Roact element to render
 	titleContent = t.optional(t.callback),
+	-- Function that returns a Roact element to render. Use this for checkboxes and other custom components.
+	-- The content will render between the bodyText (if any) and buttons (if any)
 	middleContent = t.optional(t.callback),
+	-- Array of buttons. See [ButtonStack](../../Button/ButtonStack) for more info.
 	buttonStackInfo = t.optional(ButtonStack.validateProps),
+	-- Function that returns a Roact element to render
 	footerContent = t.optional(t.callback),
 
 	--Gamepad props
 	defaultChildRef = t.optional(t.table),
+	-- Boolean to determine if the middle content is focusable with a gamepad
 	isMiddleContentFocusable = t.optional(t.boolean),
+	-- Boolean to determine if the footer content is focusable with a gamepad
 	isFooterContentFocusable = t.optional(t.boolean),
 })
 

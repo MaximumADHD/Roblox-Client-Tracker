@@ -24,31 +24,81 @@ local BIG_VECTOR = Vector2.new(math.huge, math.huge)
 local GridCarousel = Roact.PureComponent:extend("GridCarousel")
 
 GridCarousel.validateProps = t.strictInterface({
+	-- Header text for the carousel
 	headerText = t.string,
+	-- Text for the "See All" button.
+	-- If not provided, the button will not be displayed.
+	-- Ignored if `onButtonClick` and `onSeeAll` are not provided.
 	buttonText = t.optional(t.string),
+	-- Activation action for the "See All" button.
+	-- If not provided, the button will not be displayed.
+	-- Ignored if `buttonText` is not provided.
 	onButtonClick = t.optional(t.callback),
+	-- Order of the carousel within its container
 	layoutOrder = t.optional(t.number),
 
-	-- inherited from GridRow, passed down to row, take precedence
+	-- Row kind for the carousel's `GridRow` instances
 	kind = t.optional(t.string),
+	-- \[experimental\] Enables scrolling in the row.
+	-- Requires `relativeHeight`.
+	-- See `GridRow` for details.
 	scrollable = t.optional(t.boolean),
+	-- Whether or not the row can be selected by a gamepad
+	selectable = t.optional(t.boolean),
+	-- Height of each cell, relative to its width.
+	-- See `GridRow` for details.
 	relativeHeight = t.optional(t.UDim),
+	-- Data blob for all items.
+	-- See `GridRow` for details.
 	data = t.optional(t.any),
+	-- Extracts the data of one item from the data blob.
+	-- See `GridRow` for details.
 	getItem = t.optional(t.callback),
+	-- Counts the items contained in the data blob.
+	-- See `GridRow` for details.
 	getItemCount = t.optional(t.callback),
+	-- Renders an item extracted by `getItem` into a roact element.
+	-- See `GridRow` for details.
 	renderItem = t.optional(t.callback),
+	-- Extract a serialized key to identify the item.
+	-- See `GridRow` for details.
 	keyExtractor = t.optional(t.callback),
+	-- Returns the width in columns of the item's cell.
+	-- See `GridRow` for details.
 	getCellColspan = t.optional(t.callback),
+	-- Returns the relative order of this item in the row.
+	-- See `GridRow` for details.
 	getCellOrder = t.optional(t.callback),
 
-	-- inherited from FreeFlowCarousel, for backwards compatibility
+	-- Alternative to `onButtonClick` for backwards compatibility.
+	-- Ignored if `buttonText` is not provided.
+	-- See `FreeFlowCarousel` for details.
 	onSeeAll = t.optional(t.callback),
+	-- Alternative to `relativeHeight` for backwards compatibility.
+	-- Only the Y component is considered, as the width always fills the available space.
+	-- See `FreeFlowCarousel` for details.
 	itemSize = t.optional(t.Vector2),
+	-- Alternative to `data` for backwards compatibility.
+	-- See `FreeFlowCarousel` for details.
 	itemList = t.optional(t.array(t.any)),
+	-- Alternative to `keyExtractor` for backwards compatibility.
+	-- See `FreeFlowCarousel` for details.
 	identifier = t.optional(t.callback),
+	-- Ignored, as spacing is controlled by the grid layout.
+	-- Allowed for backwards compatibility only.
+	-- See `FreeFlowCarousel` for details.
 	itemPadding = t.optional(t.number),
+	-- Ignored, as spacing is controlled by the grid layout.
+	-- Allowed for backwards compatibility only.
+	-- See `FreeFlowCarousel` for details.
 	carouselMargin = t.optional(t.number),
+	-- Ignored, as spacing is controlled by the grid layout.
+	-- Allowed for backwards compatibility only.
+	-- See `FreeFlowCarousel` for details.
 	innerPadding = t.optional(t.number),
+	-- Ignored, as dynamic loading is not available yet.
+	-- Allowed for backwards compatibility only.
+	-- See `FreeFlowCarousel` for details.
 	loadNext = t.optional(t.callback),
 
 	carouselRef = t.optional(t.table),
@@ -172,6 +222,7 @@ function GridCarousel:render()
 				layoutOrder = 2,
 				kind = self.props.kind,
 				scrollable = self.props.scrollable,
+				selectable = self.props.selectable,
 				relativeHeight = relativeHeight,
 				data = if self.props.data ~= nil then self.props.data else self.props.itemList,
 				getItem = self.props.getItem,

@@ -29,24 +29,40 @@ end
 local function makeAppOneKnobSlider(trackFillThemeKey)
 	local oneKnobAppSliderComponent = Roact.PureComponent:extend("OneKnobAppSliderFor" .. trackFillThemeKey)
 	local appSliderComponent = makeAppSlider(trackFillThemeKey, false)
-	oneKnobAppSliderComponent.validateProps = t.strictInterface({
-		value = t.number,
-		min = t.number,
-		max = t.number,
-		onValueChanged = t.callback,
-		onDragStart = t.optional(t.callback),
-		onDragEnd = t.optional(t.callback),
-		stepInterval = t.optional(t.numberPositive),
-		textInputEnabled = t.optional(t.boolean),
-		isDisabled = t.optional(t.boolean),
 
+	oneKnobAppSliderComponent.validateProps = t.strictInterface({
+		-- The current value of the slider. Must be greater than or equal to `min` and less than or equal to `max`.
+		value = t.number,
+		-- The minimum value of the slider. Must be less than `max`.
+		min = t.number,
+		-- The maximum value of the slider. Must be greater than `min`.
+		max = t.number,
+		-- A callback that will be invoked whenever the value of the slider is changed by the user, either by dragging it or by typing a value into its input field.
+		-- You should update the `value` prop in response to this callback.
+		onValueChanged = t.callback,
+		-- A callback that will be invoked when the slider knob is pressed
+		onDragStart = t.optional(t.callback),
+		-- A callback that will be invoked when the slider knob stops being pressed
+		onDragEnd = t.optional(t.callback),
+		-- The step interval of the slider. Values will be rounded to this. Must be a positive number.
+		stepInterval = t.optional(t.numberPositive),
+		-- Whether to show a text input field next to the slider
+		textInputEnabled = t.optional(t.boolean),
+		-- Whether the slider is disabled or not
+		isDisabled = t.optional(t.boolean),
+		-- The width of the slider. Sliders have a fixed height of 36px.
 		width = t.optional(t.UDim),
+		-- The position of the slider
 		position = t.optional(t.UDim2),
+		-- The anchor point of the slider
 		anchorPoint = t.optional(t.Vector2),
+		-- The layout order of the slider
 		layoutOrder = t.optional(t.integer),
 
 		forwardedRef = t.optional(t.table),
+		-- Navigation parameter for RoactGamepad support
 		NextSelectionUp = t.optional(t.table),
+		-- Navigation parameter for RoactGamepad support
 		NextSelectionDown = t.optional(t.table),
 
 		customTrack = t.optional(t.table),
@@ -55,7 +71,7 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 		customKnobHeight = t.optional(t.number),
 		customKnobBorderSize = t.optional(t.number),
 		customKnobBorderColor = t.optional(t.Color3),
-		--Internal Only - Don't Pass In
+		-- Internal Only - Don't Pass In
 		style = validateStyle,
 	})
 

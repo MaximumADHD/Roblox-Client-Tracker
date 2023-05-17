@@ -93,7 +93,7 @@ DropdownMenuCell.validateProps = t.interface({
 	--The theme color class mapping for different icon tates
 	iconStateColorMap = t.optional(colorStateMap),
 
-	--Is the button disabled
+	-- A Boolean value that determines whether the cell is disabled
 	isDisabled = t.optional(t.boolean),
 
 	--Is the button activated
@@ -105,13 +105,13 @@ DropdownMenuCell.validateProps = t.interface({
 	--Is the button loading
 	isLoading = t.optional(t.boolean),
 
-	--The activated callback for the button
+	-- Callback for the activated event of the cell
 	onActivated = t.callback,
 
-	--THe state change callback for the button
+	-- The state change callback for the cell
 	onStateChanged = t.optional(t.callback),
 
-	--A Boolean value that determines whether user events are ignored and sink input
+	-- A Boolean value that determines whether the cell is interactable
 	userInteractionEnabled = t.optional(t.boolean),
 
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance

@@ -20,14 +20,18 @@ local MOTOR_OPTIONS = {
 }
 
 ModalBottomSheet.validateProps = t.strictInterface({
+	-- the main bulk of this component. It is an array that contains multiple tables of the following format
 	buttonModels = t.array(t.table),
-	-- this is screenWidth of the app, and is only used to calculate whether the MBS width is fixed or not
+	-- this is the width of `ModalBottomSheet`'s parent element.
+	-- This number is used to determine whether or not the `ModalBottomSheet` stretches to fit the screen, or remains a fixed length.
+	-- At screen widths under 600px, the `ModalBottomSheet` should fill the screen. Otherwise, it should remain at a fixed width of 300px.
 	screenWidth = t.number,
 	-- a callback that when fired should result in this component no longer being rendered
-	-- this should probably relate to closeCentralOverlay in CI
+	-- this function is called when the `ModalBottomSheet` should disappear. However, its implementation must be passed in by the caller who renders it
 	onDismiss = t.callback,
-
+	-- if this flag is set to true, images will not render regardless of the values within `buttonModels
 	showImages = t.optional(t.boolean),
+	-- the number of pixels between the bottom of `ModalBottomSheet` and the bottom of the screen
 	bottomGap = t.optional(t.number),
 	sheetContentXSize = t.optional(t.UDim),
 	sheetContentXPosition = t.optional(t.UDim),

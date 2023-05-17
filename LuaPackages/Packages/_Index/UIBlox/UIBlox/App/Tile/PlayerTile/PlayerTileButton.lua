@@ -15,9 +15,12 @@ local PlayerTileButton = Roact.PureComponent:extend("PlayerTileButton")
 PlayerTileButton.validateProps = t.strictInterface({
 	buttonHeight = t.optional(t.number),
 	buttonWidth = t.optional(t.number),
+	-- The icon of the button. A Image is either a ImageSetData or URL string
 	icon = t.union(t.string, t.table),
+	-- Callback for the activated event
 	onActivated = t.optional(t.callback),
 	isSecondary = t.optional(t.boolean),
+	-- Is the button disabled
 	isDisabled = t.optional(t.boolean),
 	tileSize = t.optional(t.UDim2),
 	mouseEnter = t.optional(t.callback),

@@ -40,10 +40,11 @@ IconButton.validateProps = t.strictInterface({
 	-- The state change callback for the button
 	onStateChanged = t.optional(isCallable),
 
-	-- Is the button visually disabled
+	-- Is the button disabled
 	isDisabled = t.optional(t.boolean),
-
+	-- A string that determines visual styling in default state
 	colorStyleDefault = t.optional(t.string),
+	-- A string that determines visual styling in hover state
 	colorStyleHover = t.optional(t.string),
 
 	-- color overrides for the icon default
@@ -51,25 +52,40 @@ IconButton.validateProps = t.strictInterface({
 	-- color overrides for the icon hover
 	colorHover = t.optional(validateColorInfo),
 
-	--A Boolean value that determines whether user events are ignored and sink input
+	-- A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
 
-	-- The activated callback for the button
+	-- Callback for the activated event
 	onActivated = t.optional(isCallable),
 
 	-- Callback called when the position of the button changes
 	onAbsolutePositionChanged = t.optional(isCallable),
-
+	-- The AnchorPoint of the button
 	anchorPoint = t.optional(t.Vector2),
+	-- The LayoutOrder of the button
 	layoutOrder = t.optional(t.number),
-	position = t.optional(t.union(t.UDim2, t.table)), -- accept Roact binding as well as UDim2
+	-- The Position of the button
+	position = t.optional(t.union(t.UDim2, t.table)),
+	-- When set, this influences the size of the button, though the size cannot be smaller than the size of the icon.
+	-- When nil, the size of the component will derive from the `.iconSize` prop
 	size = t.optional(t.union(t.UDim2, t.table)),
+	-- The icon of the button
 	icon = t.optional(validateImage),
+	-- The icon size to be used. Will automatically set the size of the component to compensate
 	iconSize = t.optional(enumerateValidator(IconSize)),
+	-- When set, will override the icon's ImageColor3 properly.
+	-- When nil, this property will be derived from the colorStyleDefault and colorStyleHover properties.
 	iconColor3 = t.optional(t.Color3),
+	-- When set, will override the icon's ImageTransparency properly.
+	-- When nil, this property will be derived from the colorStyleDefault and colorStyleHover properties.
 	iconTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
+	-- A Boolean value that determines whether the button has a background
 	showBackground = t.optional(t.boolean),
+	-- A theme color that determines visual styling of background. Its value should be in DarkTheme or LightTheme.
+	-- Default theme color is `UIMuted`.
 	backgroundColor = t.optional(validateColorInfo),
+	-- When set, will override the background's BackgroundTransparency properly.
+	-- When nil, this property will be derived from the backgroundColor's properties.
 	backgroundTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 
 	[Roact.Children] = t.optional(t.table),

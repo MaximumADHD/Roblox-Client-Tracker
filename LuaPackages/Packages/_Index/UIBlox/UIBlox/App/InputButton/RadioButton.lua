@@ -11,19 +11,27 @@ local RoactGamepad = require(Packages.RoactGamepad)
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 
 RadioButton.validateProps = t.strictInterface({
+	-- The text that is displayed beside the RadioButton option
 	text = t.string,
 	isSelected = t.optional(t.boolean),
+	-- Is the RadioButton disabled
 	isDisabled = t.optional(t.boolean),
+	-- Callback for the activated event
 	onActivated = t.callback,
+	-- The size of the RadioButton
 	size = t.UDim2,
+	-- The layoutOrder of the RadioButton
 	layoutOrder = t.optional(t.number),
 	id = t.number,
 
-	-- optional parameters for RoactGamepad
-	NextSelectionLeft = t.optional(t.table),
-	NextSelectionRight = t.optional(t.table),
-	NextSelectionUp = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionDown
 	NextSelectionDown = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionUp
+	NextSelectionUp = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionLeft
+	NextSelectionLeft = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionRight
+	NextSelectionRight = t.optional(t.table),
 	SelectionImageObject = t.optional(t.table),
 	forwardRef = t.optional(t.table),
 })

@@ -60,7 +60,7 @@ type ViewabilityHelper = ViewabilityHelper.ViewabilityHelper
 -- ROBLOX deviation: not implemented
 -- local flattenStyle = require("../StyleSheet/flattenStyle")
 local flattenStyle = function(...)
-	warn("flattenStyle is not implemented")
+	-- ROBLOX comment: "flattenStyle is not implemented"
 	return {} :: Object
 end
 local infoLog = require(srcWorkspace.Utilities.infoLog)
@@ -2677,8 +2677,7 @@ function CellRenderer:render()
 		then if horizontal then { styles.rowReverse, inversionStyle } else { styles.columnReverse, inversionStyle }
 		else if horizontal then { styles.row, inversionStyle } else inversionStyle
 	local result = if not Boolean.toJSBoolean(CellRendererComponent)
-		then
-			--[[ $FlowFixMe[incompatible-type-arg] (>=0.89.0 site=react_native_fb) *
+		then --[[ $FlowFixMe[incompatible-type-arg] (>=0.89.0 site=react_native_fb) *
       This comment suppresses an error found when Flow v0.89 was deployed. *
       To see the error, delete this comment and run Flow. ]]
 			React.createElement(

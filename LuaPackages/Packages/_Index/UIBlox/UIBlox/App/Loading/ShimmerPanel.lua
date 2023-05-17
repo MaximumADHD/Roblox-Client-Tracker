@@ -15,15 +15,16 @@ ShimmerPanel.validateProps = t.strictInterface({
 	AnchorPoint = t.optional(t.Vector2),
 	LayoutOrder = t.optional(t.integer),
 	Position = t.optional(t.UDim2),
+	-- The size of the shimmer panel
 	Size = t.UDim2,
 
-	-- The corner radius of the image's rounded corners. Defaults to UDim(0, 0) for corners with no rounding.
+	-- The corner radius of the image, shimmer, and failed image's rounded corners
 	cornerRadius = t.optional(t.UDim),
 
-	-- The loading image that will move across the panel
+	-- The image that will move across the panel
 	Image = t.optional(t.string),
 
-	-- The pixel dimensions of the moving image
+	-- The pixel dimensions of the moving image, if provided
 	imageDimensions = t.optional(t.Vector2),
 
 	-- The scale of the moving image

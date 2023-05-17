@@ -1,11 +1,12 @@
 local RoduxCall = script:FindFirstAncestor("RoduxCall")
 local Root = RoduxCall.Parent
 local Rodux = require(Root.Rodux) :: any
-local CallModel = require(RoduxCall.Models).CallModel :: any
+local CallRecordModel = require(RoduxCall.Models).CallRecordModel :: any
+local ClearCallRecords = require(RoduxCall.Actions).ClearCallRecords :: any
 
 local roduxCallTypes = require(script.Parent.Parent.roduxCallTypes)
 
-local DEFAULT_STATE: roduxCallTypes.CallHistory = {}
+local DEFAULT_STATE: roduxCallTypes.CallHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" }
 
 return function(options)
 	local NetworkingCall = options.NetworkingCall
@@ -15,14 +16,24 @@ return function(options)
 			_: roduxCallTypes.CallHistory,
 			action: roduxCallTypes.GetCallHistorySucceeded
 		)
-			local callHistory = action.responseBody.callRecords
+			local callHistory: roduxCallTypes.CallHistory =
+				{ callRecords = {}, nextPageCursor = "", previousPageCursor = "" }
+			local callRecords = action.responseBody.callRecords
 
-			local callModelList = {}
-			for _, call in ipairs(callHistory) do
-				callModelList[#callModelList + 1] = CallModel.format(call)
+			local callRecordModelList = {}
+			for _, call in ipairs(callRecords) do
+				callRecordModelList[#callRecordModelList + 1] = CallRecordModel.format(call)
 			end
 
-			return callModelList
+			callHistory.nextPageCursor = action.responseBody.nextPageCursor
+			callHistory.previousPageCursor = action.responseBody.previousPageCursor
+			callHistory.callRecords = callRecordModelList
+
+			return callHistory
+		end,
+
+		[ClearCallRecords.name] = function(_: roduxCallTypes.CallHistory, _)
+			return DEFAULT_STATE
 		end,
 	})
 end

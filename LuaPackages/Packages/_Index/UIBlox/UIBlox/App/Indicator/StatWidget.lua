@@ -16,29 +16,42 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local useStyle = require(UIBlox.Core.Style.useStyle)
 
 export type StyleProps = {
+	-- Padding left of container
 	containerPaddingLeft: number?,
+	-- Padding right of container
 	containerPaddingRight: number?,
+	-- Spacing between number and label in container
 	containerGap: number?,
-
+	-- Size of icon
 	iconSize: number?,
+	-- Color of icon
 	iconContentColor: StyleTypes.ThemeItem?,
-
+	-- Spacing between number and label
 	dataGap: number?,
+	-- Color of data number
 	dataContentColor: StyleTypes.ThemeItem?,
+	-- Color of data label
 	dataLabelContentColor: StyleTypes.ThemeItem?,
 }
 
 export type Props = {
+	-- The icon to display with this stat
 	icon: ImagesTypes.ImageSetImage,
+	-- Text representing the count for this stat
 	countText: string,
+	-- The label text for this stat
 	labelText: string,
-
+	-- Position of the stat widget
 	position: UDim2?,
+	-- AnchorPoint of the stat widget
 	anchorPoint: Vector2?,
+	-- Position of the stat widget
 	size: UDim2?,
+	-- HorizontalAlignment within the stat widget
 	horizontalAlignment: Enum.HorizontalAlignment?,
+	-- LayoutOrder of the stat widget in parent container
 	layoutOrder: number?,
-
+	-- Props to style the component
 	styleProps: StyleProps?,
 }
 

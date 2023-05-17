@@ -13,21 +13,21 @@ local FailedStatePage = require(UIBlox.App.Container.FailedStatePage)
 local LoadingStateContainer = Roact.PureComponent:extend("LoadingStateContainer")
 
 LoadingStateContainer.validateProps = t.strictInterface({
-	-- The dataStatus is a retrieval status enum
+	-- dataStatus determines the loading state
 	dataStatus = RetrievalStatus.isEnumValue,
 
-	-- The renderOnLoaded is rendered if loading state is LoadingStateEnum.Loaded
+	-- renderOnLoaded is what is loaded when loading state is loaded
 	renderOnLoaded = t.callback,
 
-	-- The renderOnFailed is rendered if loading state is LoadingStateEnum.Failed
+	-- renderOnFailed is rendered if dataStatus is RetrievalStatus.Failed
 	renderOnFailed = t.optional(t.callback),
-	-- The onRetry function is called when a button is pressed
+	-- onRetry renders a button callback for the default reload button failed state
 	onRetry = t.optional(t.callback),
 
-	-- The renderOnLoading is rendered if loading state is LoadingStateEnum.Loading will use LoadingStatePage if nil
+	-- renderOnLoading is called to overwrite the default loading page
 	renderOnLoading = t.optional(t.callback),
 
-	-- The renderOnLoaded is rendered if loading state is LoadingStateEnum.Empty will use LoadingStatePage if nil
+	-- renderOnEmpty is rendered if dataStatus is RetrievalStatus.NotStarted
 	renderOnEmpty = t.optional(t.callback),
 })
 

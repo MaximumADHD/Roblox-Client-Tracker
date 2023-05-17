@@ -27,22 +27,35 @@ local ICON_VOTE_UP_OFF = Images["icons/actions/vote/voteUpOff"]
 local ICON_VOTE_UP_ON = Images["icons/actions/vote/voteUpOn"]
 
 export type StyleProps = {
+	-- Padding top of container
 	containerSpacingTop: number?,
+	-- Padding right of container
 	containerSpacingTrailing: number?,
+	-- Padding bottom of container
 	containerSpacingBottom: number?,
+	-- Padding left of container
 	containerSpacingLeading: number?,
+	-- Corner radius of container
 	containerBorderRadius: number?,
+	-- Color of container background
 	containerBackgroundColor: StyleTypes.ThemeItem?,
+	-- Spacing between stat widget and vote buttons in container
 	containerGap: number?,
-
+	-- Spacing between icon and data in stat widget
 	statWidgetContainerGap: number?,
+	-- Size of stat widget icon
 	statWidgetIconSize: number?,
+	-- Color of stat widget icon
 	statWidgetIconContentColor: StyleTypes.ThemeItem?,
+	-- Spacing between number and label in stat widget
 	statWidgetDataGap: number?,
+	-- Color of stat widget number
 	statWidgetDataContentColor: StyleTypes.ThemeItem?,
+	-- Color of stat widget label
 	statWidgetDataLabelContentColor: StyleTypes.ThemeItem?,
-
+	-- Spacing between vote buttons
 	buttonGroupGap: number?,
+	-- Size of vote buttons
 	buttonSize: number?,
 }
 
@@ -70,29 +83,55 @@ RateCount.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	width = t.optional(t.integer),
 	height = t.optional(t.integer),
+	-- The text to show rate information of the experience (rate percentage, etc)
 	rateText = t.optional(t.string),
+	-- The text to show extra rate information of the experience (votes count, etc)
 	rateLabel = t.optional(t.string),
-	voteState = t.optional(enumerateValidator(VoteStates)),
-	onVoteDownActivated = t.optional(t.callback),
-	onVoteUpActivated = t.optional(t.callback),
+	--[[
+		The state to determine how the button shows
 
+			* `VoteStates.notVoted`: both VoteDown and VoteUp button are in off state
+			* `VoteStates.votedDown`: VoteDown button is on and VoteUp button is off
+			* `VoteStates.votedUp`: VoteDown button is off and VoteUp button is on
+	]]
+	voteState = t.optional(enumerateValidator(VoteStates)),
+	-- A callback function for the click event on vote down button
+	onVoteDownActivated = t.optional(t.callback),
+	-- A callback function for the click event on vote up button
+	onVoteUpActivated = t.optional(t.callback),
+	-- Props to style the component
 	styleProps = t.optional(t.strictInterface({
+		-- Padding top of container.
 		containerSpacingTop = t.optional(t.integer),
+		-- Padding right of container.
 		containerSpacingTrailing = t.optional(t.integer),
+		-- Padding bottom of container.
 		containerSpacingBottom = t.optional(t.integer),
+		-- Padding left of container.
 		containerSpacingLeading = t.optional(t.integer),
+		-- Corner radius of container.
 		containerBorderRadius = t.optional(t.integer),
+		-- Color of container background.
 		containerBackgroundColor = t.optional(validateColorInfo),
+		-- Spacing between stat widget and vote buttons in container.
 		containerGap = t.optional(t.integer),
 
+		-- Spacing between icon and data in stat widget.
 		statWidgetContainerGap = t.optional(t.integer),
+		-- Size of stat widget icon.
 		statWidgetIconSize = t.optional(t.integer),
+		-- Color of stat widget icon.
 		statWidgetIconContentColor = t.optional(validateColorInfo),
+		-- Spacing between number and label in stat widget.
 		statWidgetDataGap = t.optional(t.integer),
+		-- Color of stat widget number.
 		statWidgetDataContentColor = t.optional(validateColorInfo),
+		-- Color of stat widget label.
 		statWidgetDataLabelContentColor = t.optional(validateColorInfo),
 
+		-- Spacing between vote buttons.
 		buttonGroupGap = t.optional(t.integer),
+		-- Size of vote buttons.
 		buttonSize = t.optional(t.integer),
 	})),
 })

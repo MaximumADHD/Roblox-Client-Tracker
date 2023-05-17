@@ -17,7 +17,7 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local ScrollButton = Roact.PureComponent:extend("ScrollButton")
 
 ScrollButton.validateProps = t.strictInterface({
-	-- The icon of the button
+	-- The icon of the button. An Image is either a ImageSetData or URL string
 	icon = t.table,
 
 	-- Callback action

@@ -63,62 +63,73 @@ end
 local ExperienceHoverTile = Roact.PureComponent:extend("ExperienceHoverTile")
 
 ExperienceHoverTile.validateProps = t.strictInterface({
-	-- Experience's name or title
+	-- Experience's title name
 	experienceName = t.optional(t.string),
 
 	-- Function called when tile panel is clicked
 	onPanelClick = t.optional(t.callback),
 
-	-- Function called when tile thumbnail is clicked; ignored if isPlayable is false
+	-- Function called when tile thumbnail is clicked. Will be ignored if `isPlayable` is false.
 	onThumbnailClick = t.optional(t.callback),
 
-	-- Function called when an experience is favorited; uses current isFavorite value as parameter
+	-- Function called when an experience is favorited; uses current `isFavorite` value as parameter.
 	onToggleFavorite = t.optional(t.callback),
 
 	-- Whether or not the experience is favorited
 	isFavorite = t.boolean,
 
-	-- Whether or not the experience can be played
+	-- Whether or not the experience can be played.
+	-- If false, friends menu will be inaccessible and the tile thumbnail will be considered part of the title panel.
 	isPlayable = t.boolean,
 
-	-- List of props for the action row "friends menu" buttons
+	-- Text describing the Invite menu item
 	inviteText = t.string,
+	-- Text describing the Create Private menu item
 	createPrivateText = t.string,
+	-- Text describing the Join menu item
 	joinText = t.string,
+	-- Callback activated when Invite menu item clicked
 	onInvite = t.callback,
+	-- Callback activated when Create Private menu item clicked
 	onCreatePrivate = t.callback,
+	-- Callback activated when Join menu item clicked
 	onJoin = t.callback,
 
-	-- List of props for the action row "more menu" buttons
+	-- Text describing the Follow menu item
 	followText = t.string,
+	-- Text describing the Share menu item
 	shareText = t.string,
+	-- Text describing the Report menu item
 	reportText = t.string,
+	-- Callback activated when Follow menu item clicked
 	onFollow = t.callback,
+	-- Callback activated when Share menu item clicked
 	onShare = t.callback,
+	-- Callback activated when Report menu item clicked
 	onReport = t.callback,
 
 	-- Callback which returns TileMenuState enum representing which menu was toggled
 	onToggleMenu = t.optional(t.callback),
 
-	-- Enum of TileMenu which is currently open; no menu will be shown if nil
+	-- Enum of the currently open menu in the hover tile. Should come from the returned value of `onMenuToggle()`. If nil, no menu will be rendered.
 	openedMenu = t.optional(enumerateValidator(TileMenuState)),
 
-	-- The image to represent the tile's experience; will show a loading state if nil
+	-- The image to display to represent the experience; will show a shimmer loading state if nil
 	thumbnail = t.optional(t.string),
 
-	-- String containing game rating; should include "%" appended
+	-- String containing game rating; should include "%" appended. If nil, no ratings footer will be rendered.
 	ratingText = t.optional(t.string),
 
-	-- String containing number of users playing; should be formatted using abbreviateCount()
+	-- String containing number of users playing; should be formatted using abbreviateCount(). If nil, no ratings footer will be rendered.
 	playingCountText = t.optional(t.string),
 
-	-- Boolean indicating if Age Rating should be shown on hover
+	-- Boolean indicating if Age Rating should be shown on hover. Otherwise Stats (rating & active users) will be displayed.
 	showAgeRating = t.optional(t.boolean),
 
-	-- Boolean indicating if Age Rating should be shown on hover with experience stats
+	-- Boolean indicating if Age Rating should be shown along with Experience Stats
 	showAgeRatingWithStats = t.optional(t.boolean),
 
-	-- Text for age rating
+	-- String for Age Rating text, if using `showAgeRating` or `showAgeRatingWithStats`
 	ageRatingText = t.optional(t.string),
 })
 

@@ -34,12 +34,15 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 	local baseMenuComponent = Roact.PureComponent:extend("BaseMenuFor" .. backgroundThemeKey)
 
 	baseMenuComponent.validateProps = t.strictInterface({
+		-- The properties for each cell. It is an array that contains multiple tables of button props.
 		buttonProps = validateButtonProps,
-
+		-- The width of the menu
 		width = t.optional(t.UDim),
-		-- The position can either be passed as a UDim2 or a Roact binding.
+		-- The position of the menu
 		position = t.optional(t.union(t.UDim2, t.table)),
+		-- The anchor point of the menu
 		anchorPoint = t.optional(t.Vector2),
+		-- The layout order of the menu
 		layoutOrder = t.optional(t.number),
 		topElementRounded = t.optional(t.boolean),
 		bottomElementRounded = t.optional(t.boolean),

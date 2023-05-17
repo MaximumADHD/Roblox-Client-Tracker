@@ -16,43 +16,46 @@ local TileContentPanel = require(TileRoot.SplitTile.TileContentPanel)
 local VerticalTileThumbnail = require(TileRoot.SplitTile.VerticalTile.VerticalTileThumbnail)
 
 local BOTTOM_CONTENT_HEIGHT = 60
-local FOOTER_HEIGHT = 22
 local CORNER_RADIUS = UDim.new(0, 8)
 local OUTLINE_THICKNESS = 1
 
 local ExperienceTile = Roact.PureComponent:extend("ExperienceTile")
 
 ExperienceTile.validateProps = t.strictInterface({
-	-- The experience's name that will show a loading state if nil
+	-- The title name for the the experience tile. Will not render text if nil or empty.
 	experienceName = t.optional(t.string),
 
-	-- The experience's thumbnail that will show a loading state if nil
+	-- The experience's thumbnail that will show a loading state if nil.
+	-- Will be rounded if no name is provided.
 	thumbnail = t.optional(t.string),
 
-	-- Footer to be shown below the experience title
+	-- A footer to be displayed below the experience's title.
+	-- Size is fixed vertically and scales horizontally.
 	footer = t.optional(t.table),
 
-	-- The height of the footer. If nil, a default height of 22 is used
+	-- The height of the tile's footer.å
 	footerHeight = t.optional(t.number),
 
-	-- Whether or not the tile should use a background
+	-- Whether or not the tile has an opaque background.
+	-- When false, all corners of thumbnail will be rounded and title name will float underneath.
 	hasBackground = t.optional(t.boolean),
 
-	-- Whether or not the tile should show a border outline
+	-- Whether or not the tile has a border.
+	-- When `isBackground` is false, the border will only outline the tile's thumbnail.
 	hasOutline = t.optional(t.boolean),
 
-	-- Whether or not the tile should show a stateful overlay
+	-- Whether or not the tile should show a stateful overlay when isActive is true.
 	isOverlayVisible = t.optional(t.boolean),
 
-	-- Whether or not the tile should render its hovered state
+	-- Whether or not the tile can is active and can receive user input
 	isActive = t.optional(t.boolean),
 
-	-- The function that gets called when an ExperienceTile is clicked
+	-- A function that fires when the tile is pressed
 	onActivated = t.optional(t.callback),
 })
 
 ExperienceTile.defaultProps = {
-	footerHeight = FOOTER_HEIGHT,
+	footerHeight = 22,
 	hasBackground = true,
 	hasOutline = true,
 	isOverlayVisible = true,

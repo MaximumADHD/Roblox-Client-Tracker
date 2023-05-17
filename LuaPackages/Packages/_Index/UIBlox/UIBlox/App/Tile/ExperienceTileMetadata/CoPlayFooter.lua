@@ -22,7 +22,7 @@ export type StyleProps = {
 
 	-- Color of face icon background
 	faceBackgroundColor: StyleTypes.ThemeItem?,
-	-- Border width of face icon
+	-- Border thickness of face icon
 	faceBorderWidth: number?,
 	-- Color of face icon border
 	faceBorderColor: StyleTypes.ThemeItem?,
@@ -55,19 +55,22 @@ export type StyleProps = {
 }
 
 export type Props = {
-	-- List of user IDs used to show faces
+	-- A list of user IDs that are used to get avatars to show
 	users: { [number]: string },
-	-- Text in label
+	-- Text to be displayed in label
 	labelText: string?,
 
 	-- Number of faces to be displayed
 	faceGroupCount: number?,
 	-- Max number to be displayed in badge
 	maxBadgeDisplayNumber: number?,
-
+	-- Size of FacePile
 	size: UDim2?,
+	-- Position of FacePile
 	position: UDim2?,
+	-- AnchorPoint of FacePile
 	anchorPoint: Vector2?,
+	-- LayoutOrder of FacePile
 	layoutOrder: number?,
 
 	-- Style props for component

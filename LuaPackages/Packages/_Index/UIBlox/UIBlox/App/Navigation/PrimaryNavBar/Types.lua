@@ -4,42 +4,25 @@ local App = Navigation.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local React = require(Packages.React)
-local ImagesTypes = require(App.ImageSet.ImagesTypes)
-
-export type ContextBarProps = {
-	-- position of context bar
-	position: UDim2?,
-	-- anchor point of context bar
-	anchorPoint: Vector2?,
-	-- list of items to display on the context bar
-	items: {
-		[number]: {
-			-- icon of the shortcut
-			icon: string | ImagesTypes.ImageSetImage,
-			-- shortcut description
-			text: string,
-		},
-	},
-}
 
 export type IconTabItem = {
+	-- Title of the IconTab
 	title: string,
+	-- Icon url string to show image, such as Home, Chat.
 	icon: string,
+	-- Action when clicking on this item
 	onActivated: (() -> any)?,
+	-- Either a functional or stateful component. Used instead of icon, such as Avatar
+	-- Will be passed the following props:
+	-- 	placement : Placement (enum)
+	-- 	hovered : boolean
+	-- 	selected : boolean
+	-- 	pressed : boolean
 	iconComponent: any?,
+	-- IconTab has a 0.8 transparency background in 'Selected' state by default. (overrides background if provided)
 	showRoundedBackground: boolean?,
+	-- IconTab has a 50% overlay in 'Pressed' state by default. (overrides overlay if provided)
 	showOverlay: boolean?,
-}
-
-export type IconTabItemProps = {
-	item: IconTabItem,
-	selected: boolean,
-	controlState: number?,
-}
-
-export type IconTabGroupProps = {
-	selection: { number }?,
-	items: { [number]: IconTabItem },
 }
 
 export type ContainerProps = {

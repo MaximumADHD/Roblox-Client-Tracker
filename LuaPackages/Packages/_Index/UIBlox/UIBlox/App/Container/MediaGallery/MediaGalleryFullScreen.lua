@@ -26,16 +26,25 @@ local ARROW_WIDTH = 96
 local MediaGalleryFullScreen = Roact.Component:extend("MediaGalleryFullScreen")
 
 MediaGalleryFullScreen.validateProps = t.strictInterface({
+	-- The LayoutOrder of the cell
 	layoutOrder = t.optional(t.integer),
+	-- The Size of the cell.
+	-- If it's no set, the cell will size itself to the parent container
 	size = t.optional(t.UDim2),
+	-- The AnchorPoint of the cell
 	anchorPoint = t.optional(t.Vector2),
+	-- The Position of the cell
 	position = t.optional(t.UDim2),
-
+	-- Array of items to be rendered
 	items = t.array(t.interface({
+		-- URL of image to be rendered
 		imageId = t.string,
+		-- A Boolean value that determines whether this item is a video
 		isVideo = t.optional(t.boolean),
 	})),
+	-- The number of image to be displayed first
 	showIndex = t.optional(t.integer),
+	-- Callback for clicking the video item or the play button on it
 	onVideoPlayActivated = t.optional(t.callback),
 })
 

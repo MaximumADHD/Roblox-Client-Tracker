@@ -38,12 +38,17 @@ local MOTOR_OPTIONS = {
 local FullscreenTitleBar = Roact.PureComponent:extend("FullscreenTitleBar")
 
 FullscreenTitleBar.validateProps = t.strictInterface({
+	-- The title text for the title bar
 	title = t.string,
+	-- Whether the title bar is currently showing
 	isTriggered = t.optional(t.boolean),
+	-- The callback for hiding title bar
 	onDisappear = t.optional(t.callback),
+	-- The callback when mouse entered the title bar
 	onHover = t.optional(t.callback),
-
+	-- The callback for exit button
 	exitFullscreen = t.optional(t.callback),
+	-- The callback for close button
 	closeRoblox = t.optional(t.callback),
 })
 

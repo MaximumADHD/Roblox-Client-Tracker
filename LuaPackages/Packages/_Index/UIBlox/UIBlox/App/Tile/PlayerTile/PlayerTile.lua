@@ -26,21 +26,22 @@ local PlayerTile = Roact.PureComponent:extend("PlayerTile")
 
 local imageType = t.union(t.string, validateImageSetData)
 PlayerTile.validateProps = t.strictInterface({
+	-- The title text for the the player tile
 	title = t.string,
-
+	-- The subtitle text for the player tile
 	subtitle = t.string,
 
 	hasVerifiedBadge = t.optional(t.boolean),
-
+	-- The image that represents the Player
 	thumbnail = t.optional(t.union(t.string, t.table)),
-
+	-- When `buttons` is present, the tile will create interactive buttons within the Tile
 	buttons = t.optional(t.array(t.strictInterface({
 		icon = t.optional(imageType),
 		onActivated = t.optional(t.callback),
 		isSecondary = t.optional(t.boolean),
 		isDisabled = t.optional(t.boolean),
 	}))),
-
+	-- When `relevancyInfo` is present, the tile will use the information to format the bottom area of the Tile
 	relevancyInfo = t.strictInterface({
 		text = t.optional(t.string),
 		icon = t.optional(t.union(t.string, t.table)),
@@ -50,9 +51,9 @@ PlayerTile.validateProps = t.strictInterface({
 		onActivated = t.optional(t.callback),
 		fontStyle = t.optional(validateFontInfo),
 	}),
-
+	-- The size of the tile
 	tileSize = t.optional(t.UDim2),
-
+	-- A function that fires when the tile is pressed
 	onActivated = t.optional(t.callback),
 	forwardedRef = t.optional(t.table),
 })

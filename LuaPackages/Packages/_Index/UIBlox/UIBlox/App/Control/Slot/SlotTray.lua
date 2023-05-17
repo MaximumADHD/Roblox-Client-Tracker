@@ -56,29 +56,53 @@ local validateProps = t.strictInterface({
 })
 
 export type Slot = {
+	-- the label for the display test on the slot [Empty Mode
 	displayText: string?,
+	-- the image dir of the thumbnail [Filled Mode]
 	thumbnail: string?,
+	-- if the slot is disabled or not
 	isDisabled: boolean?,
+	-- if the slot is loading or not
 	isLoading: boolean?,
 }
 
 export type Props = {
-	slots: { Slot },
-	onChange: (selectedIndex: number) -> (),
-	defaultSelectedSlotIndex: number?,
-	width: number?,
-	darken: boolean?,
+	--[[
+		The properties for each slot. It is an array that contains multiple tables of the following format.
+		Exactly _one_ of the following props is required for each slot (depending on empty/filled mode):
 
+			* `displayText : string` the label for the display test on the slot [Empty Mode]
+			* `thumbnail : string` the image dir of the thumbnail [Filled Mode]
+			* `isLoading? : boolean` if the slot is loading or not
+			* `isDisabled? : boolean` if the slot is disabled or not
+	]]
+	slots: { Slot },
+	-- A function to be called when an item is selected, passing the selected item as a parameter
+	onChange: (selectedIndex: number) -> (),
+	-- The initial selected slot index, the default value is 1
+	defaultSelectedSlotIndex: number?,
+	-- The width of the `SlotTray`, the default value is 360
+	width: number?,
+	-- Darkens all but the selected slot when true (for gamepad navigation), default is false
+	darken: boolean?,
+	-- Invoked when user starts interacting with the `SlotTray`
 	onInputBegan: ((instance: GuiBase2d, input: InputObject) -> ())?,
+	-- Invoked when user finishes interacting with the `SlotTray`
 	onInputEnded: ((instance: GuiBase2d, input: InputObject) -> ())?,
 
-	-- optional parameters for RoactGamepad
+	-- Ref that will be passed to the `SlotTray` ScrollingFrame
 	scrollingFrameRef: any?,
+	-- Invoked when the `SlotTray` gains or loses gamepad focus
 	onFocusChanged: ((isFocused: boolean) -> ())?,
+	-- RoactGamepad Input bindings to assign when the `SlotTray` has focus
 	inputBindings: any?,
+	-- Next selection for gamepad focus
 	NextSelectionLeft: any?,
+	-- Next selection for gamepad focus
 	NextSelectionRight: any?,
+	-- Next selection for gamepad focus
 	NextSelectionUp: any?,
+	-- Next selection for gamepad focus
 	NextSelectionDown: any?,
 }
 

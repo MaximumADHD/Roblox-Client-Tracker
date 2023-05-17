@@ -24,19 +24,41 @@ export type Context = {
 local GridRow = Roact.PureComponent:extend("GridRow")
 
 GridRow.validateProps = t.strictInterface({
+	-- The type of row, determines which column count and spacing values to select from config
 	kind = t.optional(t.string),
+	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
+	-- \[experimental\] Enables scrolling in the row.
+	-- Requires `relativeHeight`, disallows `multiLine
 	scrollable = t.optional(t.boolean),
+	-- whether or not the row can be selected by a gamepad
+	selectable = t.optional(t.boolean),
+	-- Enables multi line mode in the row, wrapping extra contents, and allowing cells to have multi-row height
+	-- Requires `relativeHeight`, disallows `scrollable
 	multiLine = t.optional(t.boolean),
+	-- Retricts displayed items to a range of lines, with empty padding for the remaining space
+	-- Ignored if `multiLine` is false. If not provided, all items will be displayed.
 	displayLines = t.optional(t.NumberRange),
+	-- Height of each cell, relative to its width. If not provided, `AutomaticSize` will be used
 	relativeHeight = t.optional(t.UDim),
+	-- Data blob for all items. Default accessor functions try to parse it as an array of items, but customizing `getItem`/`getItemCount` allows usage of any format.
 	data = t.optional(t.any),
+	-- Extracts the data of one item from the data blob
 	getItem = t.optional(t.callback),
+	-- Counts the items contained in the data blob
 	getItemCount = t.optional(t.callback),
+	-- Renders an item extracted by `getItem` into a roact element
 	renderItem = t.optional(t.callback),
+	-- Extract a serialized key to identify the item, if an item provides a known key, it will not be rendered again. This can improve performance.
 	keyExtractor = t.optional(t.callback),
+	-- Returns the width in columns of the item's cell.
+	-- Values for multiple breakpoints can be returned as table with breakpoint names as keys (`"default"` as fallback), and the size/order as value.
 	getCellColspan = t.optional(t.callback),
+	-- Returns the height in rows of the item's cell. Only used if `multiLine`
+	-- Values for multiple breakpoints can be returned as table with breakpoint names as keys (`"default"` as fallback), and the size/order as value.
 	getCellRowspan = t.optional(t.callback),
+	-- Returns the relative order of this item in the row.
+	-- Values for multiple breakpoints can be returned as table with breakpoint names as keys (`"default"` as fallback), and the size/order as value.
 	getCellOrder = t.optional(t.callback),
 	forwardedRef = t.optional(t.union(t.table, t.callback)),
 })
@@ -242,6 +264,7 @@ function GridRow:render()
 				kind = self.props.kind,
 				layoutOrder = self.props.layoutOrder,
 				scrollable = self.props.scrollable,
+				selectable = self.props.selectable,
 				pages = pages,
 				multiLine = self.props.multiLine,
 				lines = lines,

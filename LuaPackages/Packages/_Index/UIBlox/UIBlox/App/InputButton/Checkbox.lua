@@ -14,16 +14,28 @@ local withSelectionCursorProvider = require(Packages.UIBlox.App.SelectionImage.w
 local Checkbox = Roact.PureComponent:extend("Checkbox")
 
 Checkbox.validateProps = t.strictInterface({
+	-- The text that is displayed beside the textbox option
 	text = t.string,
+	-- Whether the Checkbox is currently selected
 	isSelected = t.optional(t.boolean),
+	-- Whether the Checkbox is disabled. When `true`, the `onActivated` callback
+	-- will not be invoked, even if the user interacts with the toggle.
 	isDisabled = t.optional(t.boolean),
+	-- A function that will be called whenever the toggle is activated
 	onActivated = t.callback,
+	-- The size of the checkbox. If the size is not provided, the checkbox
+	-- will be sized based on the width of it's parent and the height of it's text.
 	size = t.optional(t.UDim2),
+	-- The layout order of the Checkbox, if it is being laid out by a UI layout
 	layoutOrder = t.optional(t.number),
 	frameRef = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionDown
 	NextSelectionDown = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionUp
 	NextSelectionUp = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionLeft
 	NextSelectionLeft = t.optional(t.table),
+	-- An Instance for gamepad NextSelectionRight
 	NextSelectionRight = t.optional(t.table),
 })
 

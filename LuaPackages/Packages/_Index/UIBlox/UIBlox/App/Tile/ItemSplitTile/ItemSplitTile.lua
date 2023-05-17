@@ -29,36 +29,38 @@ local MIN_TILE_WIDTH = 146
 local MIN_TILE_HEIGHT = MIN_TILE_WIDTH + MIN_PANEL_HEIGHT
 
 local DROP_SHADOW = "component_assets/dropshadow_24_6"
-local UNKNOWN_STRING = "--"
 
 local ItemSplitTile = Roact.PureComponent:extend("ItemSplitTile")
 
 ItemSplitTile.validateProps = t.strictInterface({
-	-- Name of the item shown in tile
+	-- The name of the item shown in the tile.
 	itemName = t.optional(t.string),
 
-	-- Text representing the price of the item
+	-- The price of the item shown in the tile.
+	-- Will show different icons, or none, depending on the value.
 	priceText = t.optional(t.string),
 
-	-- Whether or not the item is already owned by the current user
+	-- Whether or not the item shown in the tile is already owned by the current user.
+	-- Will affect which item is shown in the tile's footer.
 	isOwned = t.optional(t.boolean),
 
-	-- Whether or not the tile should use a background
+	-- Whether or not the tile has a background and border.
+	-- When false, all corners of thumbnail will round, and the item's name and price will float underneath.
 	hasBackground = t.optional(t.boolean),
 
 	-- Whether or not the tile should show its hovered state
 	isHovered = t.optional(t.boolean),
 
-	-- The function that gets called when an ItemSplitTile is clicked
+	-- A function that fires when the tile is pressed
 	onActivated = t.optional(t.callback),
 
-	-- Thumbnail of the item shown in the tile. Will show a loading state if nil
+	-- The item's thumbnail that will show a loading state if nil
 	thumbnail = t.optional(t.string),
 })
 
 ItemSplitTile.defaultProps = {
-	itemName = UNKNOWN_STRING,
-	priceText = UNKNOWN_STRING,
+	itemName = "--",
+	priceText = "--",
 	hasBackground = true,
 	isHovered = false,
 }

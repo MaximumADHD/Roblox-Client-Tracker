@@ -67,48 +67,59 @@ local ITEM_PADDING_LANDSCAPE_Y = TAB_PADDING_LANDSCAPE_Y + (TAB_SIZE_LANDSCAPE_Y
 local SystemBar = Roact.PureComponent:extend("SystemBar")
 
 SystemBar.validateProps = t.strictInterface({
-	-- list of system bar items
+	-- List of system bar items
 	itemList = t.array(t.strictInterface({
-		-- icon if the item is currently selected
+		-- Icon if the item is currently selected
 		iconOn = t.optional(validateImageSetData),
-		-- icon if the item is not selected
+		-- Icon if the item is not selected
 		iconOff = t.optional(validateImageSetData),
-		-- icon component to use if not using iconOn or iconOff
+		-- Icon image component to replace ImageLabel component for iconOn and iconOff
+		iconImageComponent = t.optional(t.union(t.table, t.callback)),
+		--[[
+			Either a functional or stateful component. Used instead of iconOn and iconOff. Will be passed the following props:
+
+				* placement : Placement (enum)
+				* hovered : boolean
+				* selected : boolean
+				* pressed : boolean
+				* badgeValue : string or number
+		]]
 		iconComponent = t.optional(t.union(t.table, t.callback)),
-		-- action when clicking on this item
+		-- Action when clicking on this item
 		onActivated = t.callback,
-		-- number to display as badge next to the icon
+		-- Number to display as badge next to the icon
 		badgeValue = t.optional(t.union(t.integer, t.string, BadgeStates.isEnumValue)),
-		-- size of icons being passed to itemlist
+		-- Size of icons being passed to itemlist
 		itemSize = t.optional(t.UDim2),
-		-- aligns icon to the bottom in landscape mode
+		-- Aligns the item to the bottom when in Left placement mode, no effect in Bottom placement.
+		-- Bottom aligned icons will be placed after all other icons, order is preserved otherwise.
 		bottomAligned = t.optional(t.boolean),
 	})),
-	-- index of the currently selected item
+	-- Index of the currently selected item
 	selection = t.optional(t.integer),
-	-- display style: Left, Bottom, Auto (based on screen size)
+	-- Display style: Left, Bottom, Auto (based on screen size)
 	placement = t.optional(Placement.isEnumValue),
-	-- hides the system bar (with animation) when true
+	-- Hides the system bar (with animation) when true
 	hidden = t.optional(t.boolean),
 	-- function({Position, AbsolutePosition, Size, AbsoluteSize}) called when the safe area is resized
 	onSafeAreaChanged = t.optional(t.callback),
-	--- options for the main Frame (contains both systembar and safe area)
+	-- Options for the main Frame (contains both systembar and safe area)
 	size = t.optional(t.UDim2),
 	position = t.optional(t.UDim2),
 	layoutOrder = t.optional(t.integer),
-	-- offset icon layout positions
+	-- Offset icon layout positions
 	layoutPaddingOffset = t.optional(t.UDim),
 	firstItemPaddingOffset = t.optional(t.UDim),
 	lastItemPaddingOffset = t.optional(t.UDim),
-	-- children are placed in a Frame occupying the safe area
+	-- Children are placed in a Frame occupying the safe area
 	[Roact.Children] = t.optional(t.any),
-	-- rounds the corners of the bar / buttons
+	-- Rounds the corners of the bar / buttons
 	roundCorners = t.optional(t.boolean),
-	-- adds outline to the buttons
+	-- Adds outline to the buttons
 	buttonStroke = t.optional(t.boolean),
-	-- sets background transparency
+	-- Sets background transparency
 	bgTransparency = t.optional(t.integer),
-	-- item list sort order
+	-- Item list sort order
 	sortOrder = t.optional(t.enum(Enum.SortOrder)),
 })
 
@@ -131,8 +142,8 @@ end
 
 function SystemBar:renderItem(item, state, selected, order)
 	assert(
-		(item.iconOn ~= nil and item.iconOff ~= nil) or item.iconComponent ~= nil,
-		"items must define either iconOn and iconOff or iconComponent"
+		(item.iconOn ~= nil and item.iconOff ~= nil) or item.iconImageComponent ~= nil or item.iconComponent ~= nil,
+		"items must define either iconOn and iconOff or iconImageComponent or iconComponent"
 	)
 
 	local pressed = state == ControlState.Pressed
@@ -185,7 +196,7 @@ function SystemBar:renderItem(item, state, selected, order)
 	}, function(values)
 		return withStyle(function(stylePalette)
 			local theme = stylePalette.Theme
-			return Roact.createElement(ImageSetComponent.Label, {
+			return Roact.createElement(item.iconImageComponent or ImageSetComponent.Label, {
 				Position = UDim2.fromOffset(math.floor(values.positionX + 0.5), math.floor(values.positionY + 0.5)),
 				Size = UDim2.fromOffset(ICON_SIZE_X, ICON_SIZE_Y),
 				BackgroundTransparency = self.props.buttonStroke and 0.99 or 1,

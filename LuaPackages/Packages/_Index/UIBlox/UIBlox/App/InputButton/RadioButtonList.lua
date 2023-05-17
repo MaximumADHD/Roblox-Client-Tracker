@@ -18,15 +18,21 @@ local validateButton = t.strictInterface({
 })
 
 RadioButtonList.validateProps = t.strictInterface({
+	-- The options to the radio button menu. Each string corresponds to one `radioButton`.
+	-- Optionally, you can pass in a table with the field `isDisabled` to indicate that the option is disabled.
 	radioButtons = t.array(t.union(t.string, validateButton)),
+	-- This function is called when a `radioButton` is clicked. The value passed in is the index of the button.
 	onActivated = t.callback,
+	-- This is the size of an individual `radioButton` component
 	elementSize = t.UDim2,
+	-- The index of the initially selected `radioButton`
 	selectedValue = t.optional(t.number),
+	-- The `layoutOrder` of this component, to be used in `UIListLayout`
 	layoutOrder = t.optional(t.number),
 	padding = t.optional(t.UDim),
 	automaticSize = t.optional(t.boolean),
 
-	-- optional parameters for RoactGamepad
+	-- Optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),

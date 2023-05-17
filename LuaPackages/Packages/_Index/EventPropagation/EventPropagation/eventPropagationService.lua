@@ -1,6 +1,8 @@
 --!strict
 local Packages = script.Parent.Parent
-local getAncestors = require(Packages.Utils).getAncestors
+local Utils = require(Packages.Utils)
+local getAncestors = Utils.getAncestors
+local warn = Utils.mockableWarn
 
 local eventPropagationEvent = require(script.Parent.eventPropagationEvent)
 local Event = eventPropagationEvent
@@ -103,6 +105,10 @@ type EventPropagationServiceStatics = {
 
 local DEFAULT_PHASE: EventPhase = "Bubble"
 
+local function describeFunction(fn: (...any) -> (...any)): string
+	return table.concat(table.pack(debug.info(fn, "sln")), " ")
+end
+
 local function getEventsFromRegistry<T>(registry: EventHandlerRegistry<T>, instance: Instance): EventHandlersByName<T>?
 	return registry[instance]
 end
@@ -142,6 +148,21 @@ function EventPropagationService:registerEventHandler(
 	local resolvedPhase: EventPhase = phase or DEFAULT_PHASE
 	self.eventHandlerRegistry[instance] = self.eventHandlerRegistry[instance] or {}
 	self.eventHandlerRegistry[instance][eventName] = self.eventHandlerRegistry[instance][eventName] or {}
+	if _G.__DEV__ then
+		local existing = self.eventHandlerRegistry[instance][eventName][resolvedPhase]
+		if existing then
+			warn(
+				string.format(
+					"New handler bound to the %s phase of '%s' will override an existing handler:"
+						.. "\n\tprevious handler: %s\n\t     new handler: %s",
+					resolvedPhase,
+					eventName,
+					describeFunction(eventHandler),
+					describeFunction(existing)
+				)
+			)
+		end
+	end
 	self.eventHandlerRegistry[instance][eventName][resolvedPhase] = eventHandler
 end
 
@@ -174,8 +195,33 @@ function EventPropagationService:deregisterEventHandler(
 	end
 	local resolvedPhase: EventPhase = phase or DEFAULT_PHASE
 	local eventPhases = getEventPhasesFromRegistry(self.eventHandlerRegistry, instance, eventName)
-	if eventPhases and eventPhases[resolvedPhase] == handler then
+	if eventPhases and eventPhases[resolvedPhase] then
+		if _G.__DEV__ then
+			local existing = eventPhases[resolvedPhase]
+			if existing ~= handler then
+				warn(
+					string.format(
+						"Deregistering non-matching event handler bound to the %s phase of '%s':"
+							.. "\n\tprevious handler: %s\n\t     new handler: %s",
+						resolvedPhase,
+						eventName,
+						if type(handler) == "function" then describeFunction(handler) else tostring(handler),
+						if type(existing) == "function" then describeFunction(existing) else tostring(existing)
+					)
+				)
+			end
+		end
 		eventPhases[resolvedPhase] = nil
+	else
+		if _G.__DEV__ then
+			warn(
+				string.format(
+					"Cannot deregister unregistered event handler bound to the %s phase of '%s'",
+					resolvedPhase,
+					eventName
+				)
+			)
+		end
 	end
 end
 

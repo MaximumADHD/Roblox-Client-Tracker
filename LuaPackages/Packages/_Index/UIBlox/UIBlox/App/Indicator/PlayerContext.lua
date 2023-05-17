@@ -27,17 +27,21 @@ local EMPHASIS_CONTENT_STATE_COLOR = {
 	[ControlState.Hover] = "IconDefault",
 }
 
-local RELEVANCY_ICON_SIZE = getIconSize(IconSize.Small)
 local RELEVANCY_TEXT_HEIGHT = 28
 local RELEVANCY_PADDING = 4
-local ICON_FRAME_SIZE = RELEVANCY_ICON_SIZE + RELEVANCY_PADDING * 2
+local ICON_FRAME_SIZE = getIconSize(IconSize.Small) + RELEVANCY_PADDING * 2
 
 PlayerContext.validateProps = t.strictInterface({
 	text = t.optional(t.string),
+	-- The icon that represents the player status
 	icon = t.optional(t.union(t.string, t.table)),
+	-- The size of the icon
 	iconSize = t.optional(t.UDim2),
+	-- The color of the icon
 	iconColor = t.optional(t.Color3),
+	-- The transparency setting of the icon
 	iconTransparency = t.optional(t.number),
+	-- A function that fires when the text is pressed
 	onActivated = t.optional(t.callback),
 	fontStyle = t.optional(validateFontInfo),
 })
@@ -45,7 +49,7 @@ PlayerContext.validateProps = t.strictInterface({
 PlayerContext.defaultProps = {
 	text = "",
 	icon = nil,
-	iconSize = UDim2.fromOffset(RELEVANCY_ICON_SIZE, RELEVANCY_ICON_SIZE),
+	iconSize = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
 }
 
 function PlayerContext:init()

@@ -148,9 +148,49 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 
 	React.useEffect(function()
 		if props.anchoring ~= Constants.AnchoringTypes.World then
+			local cameraCFrameChangedConn
+			local alignedPartCFrameChangedConn
+			local currentCameraChangedConn
+			local function onCurrentCameraChanged()
+				if cameraCFrameChangedConn then
+					cameraCFrameChangedConn:Disconnect()
+				end
+				if workspace.CurrentCamera then
+					cameraCFrameChangedConn = (workspace.CurrentCamera :: Camera)
+						:GetPropertyChangedSignal("CFrame")
+						:Connect(function()
+							renderSteppedCallback(0)
+						end)
+				end
+			end
+			if UIBloxConfig.vrFixUIJitter then
+				currentCameraChangedConn =
+					workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
+				onCurrentCameraChanged()
+
+				if props.alignedPanel then
+					local panelPart = props.alignedPanel:GetPart()
+					if panelPart then
+						alignedPartCFrameChangedConn = panelPart:GetPropertyChangedSignal("CFrame"):Connect(function()
+							renderSteppedCallback(0)
+						end)
+					end
+				end
+			end
+
 			local connection = props.movementUpdateEvent:Connect(renderSteppedCallback)
+
 			return function()
 				connection:Disconnect()
+				if UIBloxConfig.vrFixUIJitter then
+					currentCameraChangedConn:Disconnect()
+					if cameraCFrameChangedConn then
+						cameraCFrameChangedConn:Disconnect()
+					end
+					if alignedPartCFrameChangedConn then
+						alignedPartCFrameChangedConn:Disconnect()
+					end
+				end
 			end
 		end
 		return function() end -- FIXME Luau: ERROR: Not all codepaths in this function return '() -> ()'

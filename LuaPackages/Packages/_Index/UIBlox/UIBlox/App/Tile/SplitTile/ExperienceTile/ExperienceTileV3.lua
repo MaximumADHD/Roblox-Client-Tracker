@@ -26,37 +26,17 @@ local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 local AnimatedGradient = require(App.SelectionImage.Components.AnimatedGradient)
 local CursorKind = require(App.SelectionImage.CursorKind)
 
+local Constants = require(ExperienceTileRoot.Constants)
 local ExperienceActionRow = require(ExperienceTileRoot.ExperienceActionRow)
 local AspectRatioModeEnum = require(ExperienceTileRoot.Enum.AspectRatioMode)
+local getAspectRatio = require(ExperienceTileRoot.getAspectRatio)
 local VerticalTile = require(SplitTileRoot.VerticalTile.VerticalTile)
 local TileContentPanel = require(SplitTileRoot.TileContentPanel)
 local VerticalTileThumbnail = require(SplitTileRoot.VerticalTile.VerticalTileThumbnail)
-local SQUARE_ASPECT_RATIO = 1
-local WIDE_ASPECT_RATIO = 0.5625
-local DEFAULT_FOOTER_HEIGHT = 22
 
 export type AspectRatioMode = AspectRatioModeEnum.AspectRatioMode
 
-export type StyleProps = {
-	-- Color for the background
-	backgroundColor: StyleTypes.ThemeItem,
-	-- Border config
-	border: StyleTypes.BorderItem,
-	-- Drop shadow config
-	dropShadow: StyleTypes.DropShadowItem,
-	-- Padding for TopContent which is to mainly host the Thumbnail.
-	topContentPadding: StyleTypes.PaddingItem,
-	-- Padding for BottomContent which is to mainly host the Content and Footer.
-	bottomContentPadding: StyleTypes.PaddingItem,
-	-- Color for the overlay handling the control states
-	overlayColors: StyleTypes.ControlStateColors,
-	-- Padding for the gamepad selection cursor
-	selectionCursorPadding: StyleTypes.PaddingItem,
-	-- Padding between the content text and footer
-	contentTitlePadding: number,
-	-- The Font type of the title
-	contentTitleFont: Fonts.Font,
-}
+export type StyleProps = Constants.StyleProps
 
 export type Props = {
 	-- The experience's name that will show a loading state if nil
@@ -71,7 +51,7 @@ export type Props = {
 	contentTextLineCount: number,
 	-- Footer to be shown below the experience title
 	footer: React.ReactElement?,
-	-- The height of the footer. If nil, a default height of 22 is used
+	-- The height of the footer. If nil, a default height of 22 is used.
 	footerHeight: number?,
 	-- Whether or not hover mode is enabled for the tile
 	isHoverEnabled: boolean?,
@@ -80,24 +60,16 @@ export type Props = {
 	-- Function called when tile panel is clicked
 	onActivated: (() -> any)?,
 	-- Overlay rendered over the top content section
-	renderTopContentOverlay: ((isHovered: boolean) -> ({ [any]: React.ReactElement? })?)?,
+	renderTopContentOverlay: (
+		(isHovered: boolean, border: StyleTypes.BorderItem?) -> ({ [any]: React.ReactElement? })?
+	)?,
 	-- Override for BottomContent section
-	renderBottomContent: ((isHovered: boolean) -> React.ReactElement?)?,
+	renderBottomContent: ((isHovered: boolean, border: StyleTypes.BorderItem?) -> React.ReactElement?)?,
 	-- Override for ActionRow section
 	renderActionRow: (() -> React.ReactElement?)?,
 	-- Props to styling the component
-	styleProps: StyleProps,
+	styleProps: StyleProps?,
 }
-
-local function getAspectRatio(mode: AspectRatioMode): number
-	if mode == AspectRatioModeEnum.Wide then
-		return WIDE_ASPECT_RATIO
-	elseif mode == AspectRatioModeEnum.Square then
-		return SQUARE_ASPECT_RATIO
-	else
-		error("Unkown aspect ratio " .. tostring(mode))
-	end
-end
 
 local function renderContentWithPadding(
 	component: typeof(Interactable) | string,
@@ -141,19 +113,20 @@ end
 
 local function ExperienceTileV3(props: Props)
 	local style = useStyle()
-	local footerHeight: number = setDefault(props.footerHeight, DEFAULT_FOOTER_HEIGHT)
+	local footerHeight: number = setDefault(props.footerHeight, Constants.DEFAULT_FOOTER_HEIGHT)
 	local isHoverEnabled = setDefault(props.isHoverEnabled, false)
-	-- Add default props fallback after design token decouple solution is finalized
-	assert(props.styleProps ~= nil, "StyleProps must be specified in order to style the component correctly")
-	local backgroundColor: StyleTypes.ThemeItem = props.styleProps.backgroundColor
-	local border: StyleTypes.BorderItem = props.styleProps.border
-	local dropShadow: StyleTypes.DropShadowItem = props.styleProps.dropShadow
-	local topContentPadding: StyleTypes.PaddingItem = props.styleProps.topContentPadding
-	local bottomContentPadding: StyleTypes.PaddingItem = props.styleProps.bottomContentPadding
-	local overlayColors: StyleTypes.ControlStateColors = props.styleProps.overlayColors
-	local selectionCursorPadding: StyleTypes.PaddingItem = props.styleProps.selectionCursorPadding
-	local contentTitlePadding: number = props.styleProps.contentTitlePadding
-	local contentTitleFont: Fonts.Font = props.styleProps.contentTitleFont
+	local defaultStyleProps: StyleProps = Constants.getDefaultStyleProps(style)
+	local styleProps = Cryo.Dictionary.join(defaultStyleProps, props.styleProps or {})
+	local backgroundColor: StyleTypes.ThemeItem = styleProps.backgroundColor
+	local border: StyleTypes.BorderItem = styleProps.border
+	local dropShadow: StyleTypes.DropShadowItem = styleProps.dropShadow
+	local topContentPadding: StyleTypes.PaddingItem = styleProps.topContentPadding
+	local bottomContentPadding: StyleTypes.PaddingItem = styleProps.bottomContentPadding
+	local overlayColors: StyleTypes.ControlStateColors = styleProps.overlayColors
+	local selectionCursorPadding: StyleTypes.PaddingItem = styleProps.selectionCursorPadding
+	local contentTitlePadding: number = styleProps.contentTitlePadding
+	local contentTitleFont: Fonts.Font = styleProps.contentTitleFont
+	local contentTextLineCount: number = setDefault(props.contentTextLineCount, Constants.DEFAULT_TEXT_LINE_COUNT)
 	-- Validate the thumbnail override here. When thumbnail is override as Wide mode, there
 	-- won't be enough space to host the additional ExperienceActionRow in hovermode, thus is not allowed.
 	assert(
@@ -181,7 +154,7 @@ local function ExperienceTileV3(props: Props)
 				thumbnail = finalThumbnail,
 			}),
 			TopContentOverlay = if props.renderTopContentOverlay ~= nil
-				then Roact.createFragment(props.renderTopContentOverlay(isHoverContent) :: any)
+				then Roact.createFragment(props.renderTopContentOverlay(isHoverContent, border) :: any)
 				else nil,
 		})
 	end, {
@@ -194,9 +167,8 @@ local function ExperienceTileV3(props: Props)
 	} :: { any })
 
 	local renderBottomContent = React.useCallback(function(isHovered: boolean): React.ReactElement?
-		local tileContentPanelHeight = math.floor(
-			props.contentTextLineCount * contentTitleFont.RelativeSize * style.Font.BaseSize + contentTitlePadding
-		)
+		local tileContentPanelHeight =
+			math.floor(contentTextLineCount * contentTitleFont.RelativeSize * style.Font.BaseSize + contentTitlePadding)
 		local bottomHeight = tileContentPanelHeight
 			+ footerHeight
 			+ bottomContentPadding.Top
@@ -205,7 +177,7 @@ local function ExperienceTileV3(props: Props)
 			return renderContentWithPadding("Frame", bottomContentPadding, {
 				Size = UDim2.new(1, 0, 0, bottomHeight),
 			}, {
-				BottomContent = props.renderBottomContent(isHovered),
+				BottomContent = props.renderBottomContent(isHovered, border),
 			})
 		else
 			return React.createElement(TileContentPanel, {
@@ -213,7 +185,7 @@ local function ExperienceTileV3(props: Props)
 				panelHeight = UDim.new(0, bottomHeight),
 				outerPadding = bottomContentPadding,
 				footerHeight = UDim.new(0, footerHeight),
-				textLineCount = props.contentTextLineCount,
+				textLineCount = contentTextLineCount,
 				titleFont = contentTitleFont,
 				titlePadding = contentTitlePadding,
 				contentFooter = if isHovered then props.footer else nil,
@@ -222,13 +194,14 @@ local function ExperienceTileV3(props: Props)
 		end
 	end, {
 		props.experienceName,
-		props.contentTextLineCount,
 		props.renderBottomContent,
 		props.footer,
+		contentTextLineCount,
 		contentTitlePadding,
 		bottomContentPadding,
 		footerHeight,
 		contentTitleFont,
+		border,
 		style,
 	} :: { any })
 

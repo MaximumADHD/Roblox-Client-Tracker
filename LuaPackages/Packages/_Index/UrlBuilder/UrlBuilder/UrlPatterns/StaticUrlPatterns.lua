@@ -13,7 +13,7 @@ return function(UrlBuilder)
 		inventory = UrlBuilder.fromString("www:users/inventory"),
 		messages = UrlBuilder.fromString("www:my/messages"),
 		feed = UrlBuilder.fromString("www:feeds/inapp"),
-		develop = UrlBuilder.fromString("www:develop/landing"),
+		develop = UrlBuilder.fromString("www:develop"),
 		blog = UrlBuilder.fromString("blog:"),
 		giftCards = UrlBuilder.fromString("www:giftcards"),
 		amazonStore = UrlBuilder.fromString("https://www.amazon.com/roblox"),

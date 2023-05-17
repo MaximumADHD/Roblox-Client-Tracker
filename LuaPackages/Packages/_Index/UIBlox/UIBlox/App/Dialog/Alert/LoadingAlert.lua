@@ -25,13 +25,17 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local LoadingAlert = Roact.PureComponent:extend("LoadingAlert")
 
 LoadingAlert.validateProps = t.strictInterface({
+	-- Anchor point of the modal
 	anchorPoint = t.optional(t.Vector2),
+	-- Position of `Alert` in the whole page
 	position = t.optional(t.UDim2),
+	-- Size of the container housing the `Alert`. This is necessary to dynamically scale the alert's width
 	screenSize = t.Vector2,
-
+	-- A function that is called when the `Alert` is mounted
 	onMounted = t.optional(t.callback),
 
 	titleIcon = t.optional(t.union(t.table, t.string)),
+	-- Title text of the `Alert`. Title can be a maximum of 2 lines long before it is cut off
 	title = t.string,
 })
 

@@ -68,6 +68,12 @@ return {
 	-- Change how VR Panel3D aligned to the in-game panel
 	vrAlignPanel3DUnderInGamePanel = false,
 
+	-- Fix Panel3D frame-behind issues when positioned relative to the camera
+	vrFixUIJitter = false,
+
 	-- Indicate whether fix for TileOverlay is enabled
 	enableTileOverlayFix = false,
+
+	-- Use a selectedPills prop in PillGroup, rather than tracking selection internally
+	usePillGroupSelectedPills = false,
 }

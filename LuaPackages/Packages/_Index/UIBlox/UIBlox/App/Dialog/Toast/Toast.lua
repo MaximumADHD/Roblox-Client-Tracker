@@ -20,29 +20,53 @@ local ToastContainer = require(ToastRoot.ToastContainer)
 local Toast = Roact.PureComponent:extend("Toast")
 
 Toast.validateProps = t.strictInterface({
+	-- AnchorPoint of the `ToastContainer`.
 	anchorPoint = t.optional(t.Vector2),
+	-- Toast duration before auto-disappear, `nil` will make the toast keep showing until `show` is `false`.
 	duration = t.optional(t.number),
+	-- LayoutOrder of toast page.
 	layoutOrder = t.optional(t.integer),
+	-- Position of `ToastContainer` in the whole page.
 	position = t.optional(t.UDim2),
+	-- Control if we want to force toast to show or hide immediately. Could be used when we want the toast to slide up for some reason.
+	-- For example when route changes or user interacts with other components, etc. And also could control the toast to slide down and show up again.
 	show = t.optional(t.boolean),
+	-- Size of `ToastContainer`, height is dynamic based on text length.
 	size = t.optional(t.UDim2),
 	springOptions = t.optional(t.table),
+	-- A table of information in the Toast. This prop has only one required field: toastTile.
 	toastContent = t.strictInterface({
+		-- Icon image color style, will be assigned with default one in `ToastIcon` if unspecified here.
+		-- This prop change will trigger toast to slide up and update the content then slide down.
 		iconColorStyle = t.optional(validateColorInfo),
-		-- Optional image to be displayed in the toast.
+		-- Icon image in the toast, could be nil if we want the toast without icon. Support both ImageSet compatible table or string directory.
+		-- This prop change will trigger toast to slide up and update the content then slide down.
 		iconImage = t.optional(t.union(t.table, t.string)),
+		-- Size of the icon image in the toast. This prop change will trigger toast to slide up and update the content then slide down.
 		iconSize = t.optional(t.Vector2),
+		-- A Roact children table of icon image to customize toast icon.
 		iconChildren = t.optional(t.table),
+		-- Callback when toast is Activated. Would be called when toast is activated and sliding up animation is done.
+		-- This prop change will trigger toast to slide up and update the content then slide down.
 		onActivated = t.optional(t.callback),
+		-- Callback when toast is Appeared. Would be called when sliding down animation is done.
+		-- This prop change will trigger toast to slide up and update the content then slide down.
 		onAppeared = t.optional(t.callback),
+		-- Callback when toast is dismissed. Would be called when sliding up animation is done. Wouldn't be called if the toast is activated.
+		-- This prop change will trigger toast to slide up and update the content then slide down.
 		onDismissed = t.optional(t.callback),
+		-- Control if toast would be dismissed when user swipes up. Default is true.
+		-- This prop change will trigger toast to slide up and update the content then slide down.
 		swipeUpDismiss = t.optional(t.boolean),
+		-- Subtitle text to display in the toast. Subtitle TextLabel won't be rendered if the string is `nil`.
+		-- This prop change will trigger toast to slide up and update the content then slide down.
 		toastSubtitle = t.optional(t.string),
 		-- optional sequence number so you can, if you want to, display the same
 		-- toast message twice in a row (Without this Toast would 'eat'
 		-- the second, matching message without notifying the caller about it being
 		-- dismissed or activated or whatever)
 		sequenceNumber = t.optional(t.integer),
+		-- Title text to display in the toast. Should be localized. This prop change will trigger toast to slide up and update the content then slide down.
 		toastTitle = t.string,
 	}),
 })

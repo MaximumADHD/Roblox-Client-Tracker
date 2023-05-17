@@ -66,6 +66,7 @@ end
 
 ActionBar.validateProps = t.strictInterface({
 	-- buttons: A table of button tables that contain props that PrimaryContextualButton allow.
+	-- See [Button](Button.md) for more information.
 	button = t.optional(t.strictInterface({
 		props = validateButtonProps,
 	})),
@@ -79,7 +80,7 @@ ActionBar.validateProps = t.strictInterface({
 		props = IconButton.validateProps,
 	}))),
 
-	-- Override the internal margins
+	-- Overrides the inner margins of the action bar
 	marginOverride = t.optional(t.strictInterface({
 		left = t.number,
 		right = t.number,
@@ -87,7 +88,7 @@ ActionBar.validateProps = t.strictInterface({
 		bottom = t.number,
 	})),
 
-	-- override horizontal alignment
+	-- Overrides the horizontal alignment of the action bar contents.
 	horizontalAlignment = t.optional(t.enum(Enum.HorizontalAlignment)),
 
 	onAbsoluteSizeChanged = t.optional(t.callback),

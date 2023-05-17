@@ -11,7 +11,6 @@ return {
 	RoduxUsers_v13 = require(LuaSocialLibrariesDeps.RoduxUsers_v13),
 	RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
-	RoduxPresence_v3 = require(LuaSocialLibrariesDeps.RoduxPresence_v3),
 	RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),
 	RoduxContacts = require(LuaSocialLibrariesDeps.RoduxContacts),
 	RoduxUserPermissions = require(LuaSocialLibrariesDeps.RoduxUserPermissions),

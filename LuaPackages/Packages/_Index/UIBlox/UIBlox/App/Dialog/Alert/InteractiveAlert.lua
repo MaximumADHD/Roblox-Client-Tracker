@@ -29,25 +29,37 @@ local ButtonStack = require(AppRoot.Button.ButtonStack)
 local InteractiveAlert = Roact.PureComponent:extend("InteractiveAlert")
 
 InteractiveAlert.validateProps = t.strictInterface({
+	-- Anchor point of the modal
 	anchorPoint = t.optional(t.Vector2),
+	-- Position of `Alert` in the whole page
 	position = t.optional(t.UDim2),
+	-- Size of the container housing the `Alert`. This is necessary to dynamically scale the alert's width
 	screenSize = t.Vector2,
-
+	-- A function that is called when the `Alert` is mounted
 	onMounted = t.optional(t.callback),
+	-- A function that is called when the `Alert` AbsoluteSize is changed
 	onAbsoluteSizeChanged = t.optional(t.callback),
-
+	-- Title text of the `Alert`. Title can be a maximum of 2 lines long before it is cut off
 	title = t.string,
 	titleIcon = t.optional(t.union(t.table, t.string)),
+	-- Function that returns a Roact element to render
 	titleContent = t.optional(t.callback),
+	-- Body message text of the `Alert`
 	bodyText = t.optional(t.string),
+	-- Function that returns a Roact element to render. Use this for checkboxes and other custom components.
+	-- The content will render between the bodyText (if any) and buttons (if any)
 	middleContent = t.optional(t.callback),
+	-- Array of buttons
 	buttonStackInfo = ButtonStack.validateProps,
 	footerText = t.optional(t.string),
+	-- Function that returns a Roact element to render
 	footerContent = t.optional(t.callback),
 
 	--Gamepad props
 	defaultChildRef = t.optional(t.table),
+	-- Boolean to determine if the middle content is focusable with a gamepad
 	isMiddleContentFocusable = t.optional(t.boolean),
+	-- Boolean to determine if the footer content is focusable with a gamepad
 	isFooterContentFocusable = t.optional(t.boolean),
 })
 

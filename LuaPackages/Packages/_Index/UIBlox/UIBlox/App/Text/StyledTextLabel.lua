@@ -18,22 +18,29 @@ local DEFAULT_LINE_HEIGHT = 1.4
 local StyledTextLabel = Roact.PureComponent:extend("StyledTextLabel")
 
 StyledTextLabel.validateProps = t.strictInterface({
+	-- Determines the string rendered by the UI element
 	text = t.string,
+	-- The Font table from the style palette
 	fontStyle = validateFontInfo,
+	-- The color table from the style palette
 	colorStyle = validateColorInfo,
-
+	-- Controls the truncation of the text displayed in this text label
 	textTruncate = t.optional(t.EnumItem),
+	-- Determines the horizontal alignment of rendered text
 	textXAlignment = t.optional(t.EnumItem),
+	-- Determines the vertical alignment of rendered text
 	textYAlignment = t.optional(t.EnumItem),
-
+	-- Determine the pixel and scalar size of the text label. By default it will size to the text string.
 	size = t.optional(t.UDim2),
-
+	-- The max size available for the textbox
 	maxSize = t.optional(t.Vector2),
-
+	-- Determines whether the TextLabel renders the `text` prop string using rich text formatting
 	richText = t.optional(t.boolean),
+	-- The layout order of this component
 	layoutOrder = t.optional(t.number),
+	-- Whether the TextLabel is Fluid Sizing between the font's min and default sizes
 	fluidSizing = t.optional(t.boolean),
-
+	-- Determines whether resizing occurs based on child content
 	automaticSize = t.optional(t.EnumItem),
 	lineHeight = t.optional(t.number),
 })

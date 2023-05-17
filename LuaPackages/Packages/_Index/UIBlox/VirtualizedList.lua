@@ -8,6 +8,7 @@ local Package = require(PackageIndex["VirtualizedList"]["VirtualizedList"])
 export type ViewabilityConfigCallbackPair = Package.ViewabilityConfigCallbackPair
 export type ViewabilityConfig = Package.ViewabilityConfig
 export type BidirectionalFlatListProps<T> = Package.BidirectionalFlatListProps<T> 
+export type AnimatedFlatListProps<T> = Package.AnimatedFlatListProps<T> 
 
 
 return Package

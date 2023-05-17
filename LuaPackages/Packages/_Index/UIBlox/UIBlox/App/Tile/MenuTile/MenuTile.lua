@@ -55,15 +55,20 @@ MenuTile.defaultProps = {
 }
 
 MenuTile.validateProps = t.strictInterface({
-	-- Frame Props
+	-- Size of the menu tile.
 	size = t.optional(t.UDim2),
+	-- Position of the menu tile.
 	position = t.optional(t.UDim2),
+	-- The layout order of the menu tile.
 	layoutOrder = t.optional(t.number),
 
-	-- Menu Tile specific props
+	-- Value displayed in the badge.
 	badgeValue = t.optional(t.union(t.string, t.number)),
+	-- Image that will be shown in the middle of the menu tile.
 	icon = t.optional(validateImage),
+	-- Text displayed below the image.
 	title = t.string,
+	-- Function to call when user activates the menu tile.
 	onActivated = t.callback,
 })
 

@@ -36,12 +36,18 @@ local KNOB_SHADOW_IMAGE_ID = "component_assets/dropshadow_28"
 local Toggle = Roact.PureComponent:extend("Toggle")
 
 Toggle.validateProps = t.strictInterface({
+	-- Whether the toggle is currently selected
 	isSelected = t.optional(t.boolean),
+	-- Whether the toggle is disabled. When `true`, the `onActivated` callback
+	-- will not be invoked, even if the user interacts with the toggle.
 	isDisabled = t.optional(t.boolean),
+	-- A function that will be called whenever the toggle is activated
 	onActivated = t.callback,
-
+	-- The layout order of the toggle, if it is being laid out by a UI layout
 	layoutOrder = t.optional(t.integer),
+	-- The anchor point of the toggle. Ignored if the toggle is being laid out by a UI layout.
 	anchorPoint = t.optional(t.Vector2),
+	-- The position of the toggle. Ignored if the toggle is being laid out by a UI layout.
 	position = t.optional(t.UDim2),
 })
 

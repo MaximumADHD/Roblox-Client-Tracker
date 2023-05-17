@@ -25,52 +25,52 @@ local function getCellDataKey(cellData)
 	return if cellData.key ~= nil then cellData.key else cellData.text
 end
 
-local DropdownMenuComponent = Roact.Component:extend("DropdownMenuComponent")
+local DropdownMenu = Roact.Component:extend("DropdownMenu")
 
-DropdownMenuComponent.validateProps = t.strictInterface({
-	-- Texts shown by the DropdownCell when no value is selected, i.e. the initial state.
+DropdownMenu.validateProps = t.strictInterface({
+	-- Text to be shown by the component when no value is selected, i.e. the initial state
 	placeholder = t.string,
 
-	-- The callback function when a value is selected, passing the selected value as the parameter.
+	-- A function to be called when a Cell is clicked, passing the value as a parameter.
+	-- This will be called even if the value is the same with the previous one.
 	onChange = t.callback,
 
 	-- Height of the DropdownCell.
 	height = t.UDim,
 
-	-- Size of the display area, used to determine the position for dropdown menu and the size of dismiss layer.
+	-- The total size of the screen, used for the dismiss background and the DropdownMenuList's position on the compact width
 	screenSize = t.Vector2,
 
-	-- Shadow Effect of the DropdownMenuList's Frame
+	-- If the DropdownMenu's DropdownMenuList's frame has shadow effect
 	showDropShadow = t.optional(t.boolean),
 
-	-- Set Fixed DropdownMenuList's Height
+	-- If the DropdownMenu's DropdownMenuList's height with fixed number
 	fixedListHeight = t.optional(t.number),
 
-	-- If the component is in error state (shows the error style).
+	-- If the DropdownMenu is in the error state
 	errorState = t.optional(t.boolean),
 
-	-- If the component is disabled.
+	-- If the DropdownMenu is disabled
 	isDisabled = t.optional(t.boolean),
 
 	-- Callback triggers on menu open/close events. A single boolean will be passed with the open state of the menu.
 	onMenuOpenChange = t.optional(t.callback),
 
-	-- Array of datas for menu cells
+	-- The properties for each cell. It is an array that contains multiple tables of the following format:
 	cellDatas = t.array(t.strictInterface({
-		-- Icon can either be an Image in a ImageSet or a regular image asset
+		-- An rbxasset address recognized by Roblox Studio or an ImageSet Image
 		icon = t.optional(t.union(t.table, t.string)),
 
-		-- value of the cell, also the text displayed in this cell
+		-- The label for the specific button
 		text = t.string,
 
-		-- unique identifier for each cell (defaults to `text` field if not provided)
+		-- Unique identifier for each cell (defaults to `text` field if not provided)
 		key = t.optional(t.string),
 
-		-- is the cell is disabled
+		-- If the cell is disabled or not
 		disabled = t.optional(t.boolean),
 
-		-- A KeyCode to display a keycode hint for, the display string based on
-		-- the users keyboard or gamepad button is displayed.
+		-- A keycode to display a button hint for on the right side of the button
 		keyCodeLabel = t.optional(t.union(
 			t.enum(Enum.KeyCode),
 			t.strictInterface({
@@ -79,26 +79,26 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 			})
 		)),
 
-		-- the color to override the default icon color
+		-- A Color3 value to override the Icon ImageColor with
 		iconColorOverride = t.optional(t.Color3),
 
-		-- the color to override the default text color
+		-- A Color3 value to override the Text TextColor with
 		textColorOverride = t.optional(t.Color3),
 	})),
 })
 
-DropdownMenuComponent.defaultProps = {
+DropdownMenu.defaultProps = {
 	showDropShadow = false,
 	fixedListHeight = nil,
 }
 
-function DropdownMenuComponent:didUpdate(prevProps, prevState)
+function DropdownMenu:didUpdate(prevProps, prevState)
 	if self.props.onMenuOpenChange and self.state.menuOpen ~= prevState.menuOpen then
 		self.props.onMenuOpenChange(self.state.menuOpen)
 	end
 end
 
-function DropdownMenuComponent:init()
+function DropdownMenu:init()
 	self.rootRef = Roact.createRef()
 
 	self:setState({
@@ -144,7 +144,7 @@ function DropdownMenuComponent:init()
 	end
 end
 
-function DropdownMenuComponent.getDerivedStateFromProps(nextProps, lastState)
+function DropdownMenu.getDerivedStateFromProps(nextProps, lastState)
 	local found = false
 	for _, cellData in nextProps.cellDatas do
 		if getCellDataKey(cellData) == lastState.selectedKey then
@@ -162,7 +162,7 @@ function DropdownMenuComponent.getDerivedStateFromProps(nextProps, lastState)
 	return nil
 end
 
-function DropdownMenuComponent:render()
+function DropdownMenu:render()
 	local cellDatas = self.props.cellDatas
 	local functionalCells = Cryo.List.map(cellDatas, self.mapCellData)
 
@@ -236,4 +236,4 @@ function DropdownMenuComponent:render()
 	})
 end
 
-return DropdownMenuComponent
+return DropdownMenu

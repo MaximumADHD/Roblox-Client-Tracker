@@ -36,18 +36,22 @@ local INNER_CIRCLE_IMAGE = Images["component_assets/circle_21"]
 local Badge = Roact.PureComponent:extend("Badge")
 
 Badge.validateProps = t.strictInterface({
+	-- The position of the button
 	position = t.optional(t.UDim2),
+	-- The anchor point of the button
 	anchorPoint = t.optional(t.Vector2),
-
+	-- Is the badge disabled
 	disabled = t.optional(t.boolean),
+	-- Does the badge have a drop shadow
 	hasShadow = t.optional(t.boolean),
+	-- Badge text to be shown. If `BadgeStates.isEmpty` is passed in, the badge
+	-- will become smaller (12x12 outer and 8x8 inner) with no contents.
 	value = t.union(t.string, t.integer, BadgeStates.isEnumValue),
 })
 
 Badge.defaultProps = {
 	position = UDim2.new(0, 0, 0, 0),
 	anchorPoint = Vector2.new(0, 0),
-
 	disabled = false,
 	hasShadow = false,
 }

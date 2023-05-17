@@ -43,21 +43,24 @@ local MAX_BUTTON_WIDTH = 240
 export type Props = {
 	-- Position in an ordered layout
 	layoutOrder: number?,
-	-- Text shown in the Pill
+	-- Text of the `Pill` button
 	text: string?,
-	-- Flag that indicates that the Pill is selected (background is filled)
+	-- Highlights the `Pill`, becomes selected with a close icon
 	isSelected: boolean?,
-	-- Flag that indicates that the Pill is still loading
+	-- Sets the `Pill` to a loading shimmer
 	isLoading: boolean?,
-	-- Flag that indicates that the Pill is disabled
+	-- Deactivates `Pill`, unable to be pressed
 	isDisabled: boolean?,
-	-- Callback function when the Pill is clicked
+	-- Callback function invoked when the `Pill` is clicked
 	onActivated: (() -> ())?,
 
-	-- optional parameters for RoactGamepad
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionLeft: any,
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionRight: any,
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionUp: any,
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionDown: any,
 	controlRef: any,
 }

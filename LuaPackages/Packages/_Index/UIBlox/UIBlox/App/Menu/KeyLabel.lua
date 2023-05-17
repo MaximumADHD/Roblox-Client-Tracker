@@ -92,16 +92,16 @@ local KEYBOARD_OVERRIDE_MAP = {
 
 local KeyLabel = Roact.PureComponent:extend("KeyLabel")
 
+local keyInterface = t.strictInterface({
+	key = t.enum(Enum.KeyCode),
+	-- Used for thumbsticks KeyCodes
+	axis = t.optional(t.string),
+})
+
 KeyLabel.validateProps = t.strictInterface({
-	-- KeyCode OR a table with a KeyCode and some metadata for differentiating
+	-- KeyCode or a table with a KeyCode and some metadata for differentiating
 	-- between multiple states of a single KeyCode
-	keyCode = t.union(
-		t.enum(Enum.KeyCode),
-		t.strictInterface({
-			key = t.enum(Enum.KeyCode),
-			axis = t.optional(t.string), -- Used for thumbsticks KeyCodes
-		})
-	),
+	keyCode = t.union(t.enum(Enum.KeyCode), keyInterface),
 
 	-- Theme for the icon (border icon for keyboard KeyCodes, button icon for gamepad icons)
 	iconThemeKey = t.optional(t.string),

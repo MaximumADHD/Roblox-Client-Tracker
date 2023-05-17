@@ -10,14 +10,28 @@ local Object = LuauPolyfill.Object
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local IconSize = require(App.ImageSet.Enum.IconSize)
+local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local getIconSize = require(App.ImageSet.getIconSize)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 
 local Constants = require(script.Parent.Constants)
-local Types = require(script.Parent.Types)
 
-type Props = Types.ContextBarProps
+type Props = {
+	-- Position of context bar
+	position: UDim2?,
+	-- Anchor point of context bar
+	anchorPoint: Vector2?,
+	-- List of items to display on the context bar
+	items: {
+		[number]: {
+			-- Icon of the shortcut
+			icon: string | ImagesTypes.ImageSetImage,
+			-- Shortcut description
+			text: string,
+		},
+	},
+}
 
 local defaultProps: Props = {
 	items = {},

@@ -18,22 +18,25 @@ local SmallRadioButtonCell = require(UIBlox.App.Cell.Small.SelectionGroup.SmallR
 local SmallRadioButtonGroup = Roact.PureComponent:extend("SmallRadioButtonGroup")
 
 local buttonInterface = t.strictInterface({
+	-- Text to display in the cell
 	text = t.string,
 	id = t.string,
+	-- Boolean to represent if this cell is disabled
 	isDisabled = t.optional(t.boolean),
 })
 
 SmallRadioButtonGroup.validateProps = t.strictInterface({
-	-- List of text, identifier pairs that will be used for each radio button.
+	-- A list of cells to create
 	items = t.optional(t.array(t.tuple(buttonInterface))),
 
-	-- Which identifier is currently selected.
+	-- Selected value in the group of cells
 	selectedValue = t.optional(t.string),
 
 	-- Callback for when a cell is activated.
+	-- The value passed to this callback function is whatever key used to create this cell.
 	onActivated = t.callback,
 
-	-- Layout order for this component.
+	-- LayoutOrder of the `SmallRadioButtonGroup`
 	layoutOrder = t.optional(t.number),
 
 	-- If this cell should use the default control state

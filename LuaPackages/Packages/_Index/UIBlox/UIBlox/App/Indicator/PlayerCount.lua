@@ -26,8 +26,11 @@ local StatWidgetPropsInterface = t.strictInterface({
 local PlayerCount = Roact.PureComponent:extend("PlayerCount")
 
 PlayerCount.validateProps = t.strictInterface({
+	-- LayoutOrder of the LogoTray component in parent container
 	layoutOrder = t.integer,
+	-- Info for widget that will be rendered at left side of the component
 	countLeft = StatWidgetPropsInterface,
+	-- Info for widget that will be rendered at right side of the component
 	countRight = StatWidgetPropsInterface,
 })
 

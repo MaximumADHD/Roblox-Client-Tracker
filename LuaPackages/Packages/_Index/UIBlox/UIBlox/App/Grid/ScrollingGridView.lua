@@ -11,17 +11,24 @@ local VerticalScrollView = require(App.Container.VerticalScrollViewWithMargin)
 local ScrollingGridView = Roact.PureComponent:extend("ScrollingGridView")
 
 ScrollingGridView.validateProps = t.strictInterface({
+	-- The array of items that will be rendered
 	items = t.table,
+	-- The render callback function
 	renderItem = t.callback,
+	-- The size of each item in the grid
 	itemSize = t.Vector2,
+	-- Position of the scroll view
 	size = t.optional(t.UDim2),
+	-- Size of the scroll view
 	itemPadding = t.optional(t.Vector2),
+	-- Inner UIPadding for the scroll view
 	innerUIPadding = t.optional(t.strictInterface({
 		PaddingTop = t.optional(t.UDim),
 		PaddingBottom = t.optional(t.UDim),
 		PaddingLeft = t.optional(t.UDim),
 		PaddingRight = t.optional(t.UDim),
 	})),
+	-- The horizontal alignment of the grid
 	horizontalAlignment = t.optional(t.EnumItem),
 })
 

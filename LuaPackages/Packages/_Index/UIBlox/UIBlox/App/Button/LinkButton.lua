@@ -31,28 +31,37 @@ LinkButton.validateProps = t.strictInterface({
 	-- The state change callback for the button
 	onStateChanged = t.optional(t.callback),
 
-	-- Is the button visually disabled
+	-- Is the button disabled
 	isDisabled = t.optional(t.boolean),
-
+	-- A string that determines how the font will be styled
 	fontStyle = t.optional(t.string),
+	-- A string that determines visual styling in default state
 	colorStyleDefault = t.optional(t.string),
+	-- A string that determines visual styling in hover state
 	colorStyleHover = t.optional(t.string),
+	-- Is a background shown when hover state is active
 	hoverBackgroundEnabled = t.optional(t.boolean),
+	-- Is a permanent underline enabled for this button. By default, an underline is only applied on hover
 	underlineAlwaysEnabled = t.optional(t.boolean),
 
-	--A Boolean value that determines whether user events are ignored and sink input
+	-- A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
 
-	-- The activated callback for the button
+	-- Callback for the activated event
 	onActivated = t.optional(t.callback),
-
+	-- The AnchorPoint of the button
 	anchorPoint = t.optional(t.Vector2),
+	-- The LayoutOrder of the button
 	layoutOrder = t.optional(t.number),
+	-- The Position of the button
 	position = t.optional(t.UDim2),
+	-- The Size of the button
 	size = t.optional(t.UDim2),
+	-- The Text of the button
 	text = t.optional(t.string),
-
+	-- Custom min padding X
 	minPaddingX = t.optional(t.number),
+	-- Custom min padding Y
 	minPaddingY = t.optional(t.number),
 
 	-- A callback that replaces getTextSize implementation

@@ -23,10 +23,13 @@ local BidirectionalFlatListModule = require(Lists.BidirectionalFlatList)
 local BidirectionalFlatList = BidirectionalFlatListModule.BidirectionalFlatList
 local View = require(Components.View.View)
 local ViewabilityHelper = require(Lists.ViewabilityHelper)
+local Hooks = require(Lists.Hooks)
+local AnimatedFlatList = require(Lists.AnimatedFlatList)
 
 export type ViewabilityConfigCallbackPair = ViewabilityHelper.ViewabilityConfigCallbackPair
 export type ViewabilityConfig = ViewabilityHelper.ViewabilityConfig
 export type BidirectionalFlatListProps<T> = BidirectionalFlatListModule.Props<T>
+export type AnimatedFlatListProps<T> = AnimatedFlatList.Props<T>
 
 return {
 	ScrollView = ScrollView,
@@ -35,4 +38,6 @@ return {
 	FlatList = FlatList,
 	BidirectionalFlatList = BidirectionalFlatList,
 	View = View,
+	AnimatedFlatList = AnimatedFlatList,
+	Hooks = Hooks,
 }

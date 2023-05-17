@@ -31,7 +31,7 @@ local LogoTray = Roact.Component:extend("LogoTray")
 
 LogoTray.validateProps = t.strictInterface({
 	-- List of items to be rendered. Note that we specifically make it a List here
-	-- so the order of the items could be preserved.
+	-- so the order of the items could be preserved
 	itemList = t.array(t.strictInterface({
 		-- Key for current logo. Note that this will be used as the child element name in InteractableList
 		-- so it shall be unique.
@@ -39,10 +39,11 @@ LogoTray.validateProps = t.strictInterface({
 		-- Logo image.
 		logo = validateImage,
 	})),
+	-- LayoutOrder of the LogoTray component in parent container
 	layoutOrder = t.integer,
-	-- Padding of the LogoTray
+	-- Padding of the LogoTray component
 	padding = t.optional(t.UDim),
-	-- A callback function for the click event on a Logo item.
+	-- A callback function for the click event on a Logo item
 	handleItemClick = t.optional(t.callback),
 })
 

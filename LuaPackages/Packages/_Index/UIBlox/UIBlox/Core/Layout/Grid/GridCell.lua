@@ -13,11 +13,18 @@ local GridConfigReader = require(Grid.GridConfigReader)
 local GridCell = Roact.PureComponent:extend("GridCell")
 
 GridCell.validateProps = t.interface({
+	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
+	-- Width in columns of the item's cell.
+	-- Values for multiple breakpoint can be returned as table, see format above.
 	colspan = t.optional(t.union(t.integer, t.table)),
+	-- Height in rows of the item's cell. Only used if `multiLine`.
+	-- Values for multiple breakpoint can be returned as table, see format above.
 	rowspan = t.optional(t.union(t.integer, t.table)),
+	-- Relative order of this item in the row.
+	-- Values for multiple breakpoint can be returned as table, see format above.
 	order = t.optional(t.union(t.integer, t.table)),
-	-- also allows props of the forms colspan_*/rowspan_*/order_*
+	-- Also allows props of the forms colspan_*/rowspan_*/order_*
 	[Roact.Children] = t.optional(t.table),
 	gridCellRef = t.optional(t.union(t.table, t.callback)),
 })

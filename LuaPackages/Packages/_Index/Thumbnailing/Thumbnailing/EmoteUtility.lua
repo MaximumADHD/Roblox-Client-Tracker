@@ -9,10 +9,10 @@ local AnimationClipProvider = game:GetService("AnimationClipProvider")
 local InsertService = game:GetService("InsertService")
 local FStringEmoteUtilityFallbackPoseAssetId = game:DefineFastString("EmoteUtilityFallbackPoseAssetId", "10921261056")
 local FFlagEmoteUtilityNoLuaCaching = game:DefineFastFlag("EmoteUtilityNoLuaCaching", false)
-local FFlagEmoteUtilityCorrectlyIdRCC = game:DefineFastFlag("EmoteUtilityCorrectlyIdRCC", false)
+local FFlagEmoteUtilityDontUseC1ToPose = game:DefineFastFlag("EmoteUtilityDontUseC1ToPose", false)
+local FFlagEmoteUtilityRefactorYieldingWork = game:DefineFastFlag("EmoteUtilityRefactorYieldingWork", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-local RunService = game:GetService("RunService")
 
 local module = {}
 
@@ -37,20 +37,26 @@ local cachedAnimationClip = nil
 local cachedAnimationClipId = nil
 local cachedPoseAssetIsIdleAnim = nil
 
+module.debugLoadAssetsFromFiles = false
+
+--[[
+	In tests, we don't want to actually hit backends to load assets.
+	Sometimes we make a bunch of requests and get throttled.
+]]
+module.SetDebugLoadAssetsFromFiles = function(debugLoadAssetsFromFiles: boolean)
+	module.debugLoadAssetsFromFiles = debugLoadAssetsFromFiles
+end
+
 local function isOnRCC()
-	if FFlagEmoteUtilityCorrectlyIdRCC then
-		-- FIXME(dbanks)
-		-- I'd like to just call RunService:IsClient but there's a bug where this returns 'true' on RCC:
-		-- https://jira.rbx.com/browse/AVBURST-10987
-		-- Once this issue is resolved, change this to call RunService:IsClient.
-		-- For now, we settle for a bit of a hacky (but correct) workaround.
-		local success, isRCC = pcall(function()
-			return game:GetService("ThumbnailGenerator") ~= nil
-		end)
-		return success and isRCC
-	else
-		return RunService:IsServer() and not RunService:IsClient()
-	end
+	-- FIXME(dbanks)
+	-- I'd like to just call RunService:IsClient but there's a bug where this returns 'true' on RCC:
+	-- https://jira.rbx.com/browse/AVBURST-10987
+	-- Once this issue is resolved, change this to call RunService:IsClient.
+	-- For now, we settle for a bit of a hacky (but correct) workaround.
+	local success, isRCC = pcall(function()
+		return game:GetService("ThumbnailGenerator") ~= nil
+	end)
+	return success and isRCC
 end
 
 -- Helper for assembling & sending a report counter.
@@ -72,6 +78,16 @@ local function reportCounter(actionName, success)
 	RbxAnalyticsService:ReportCounter(counterName)
 end
 
+local loadAsset = function(poseAssetId: string): Model
+	if module.debugLoadAssetsFromFiles then
+		-- load local asset.
+		local url = "rbxasset://" .. tostring(poseAssetId) .. ".rbxm"
+		return InsertService:LoadLocalAsset(url)
+	else
+		return InsertService:LoadAsset(poseAssetId)
+	end
+end
+
 -- poseAssetIdOrUrl identifies the pose asset we want to load.
 -- If it's a number, it's an assetId: e.g. 10300116892
 -- If it's a string, it's a url including an asset hash: e.g.
@@ -89,7 +105,7 @@ local function getPoseAsset(poseAssetIdOrUrl)
 	local actionName
 	if typeof(poseAssetIdOrUrl) == "number" then
 		success, asset = pcall(function()
-			return InsertService:LoadAsset(poseAssetIdOrUrl):GetChildren()[1]
+			return loadAsset(poseAssetIdOrUrl):GetChildren()[1]
 		end)
 		actionName = "EmoteUtility_LoadAsset"
 	else
@@ -146,16 +162,29 @@ end
 
 -- Note, this is a yielding function.
 -- May return nil if we have problems fetching animation clip.
-local function getAnimationClip(animationClipId)
+local function getAnimationClip(animationClipId: string): Model?
 	if not FFlagEmoteUtilityNoLuaCaching then
 		if animationClipId == cachedAnimationClipId then
 			return cachedAnimationClip
 		end
 	end
 
-	local success, animationClip = pcall(function()
-		return AnimationClipProvider:GetAnimationClipAsync(animationClipId)
-	end)
+	local success, animationClip
+	if module.debugLoadAssetsFromFiles then
+		local assetId
+		for v in string.gmatch(animationClipId, ".*id=([0-9]+)") do
+			assetId = v
+		end
+		assert(assetId, "assetId should be non-nil")
+
+		success, animationClip = pcall(function()
+			return loadAsset(assetId)
+		end)
+	else
+		success, animationClip = pcall(function()
+			return AnimationClipProvider:GetAnimationClipAsync(animationClipId)
+		end)
+	end
 
 	reportCounter("EmoteUtility_GetAnimationClipAsync", success)
 
@@ -196,10 +225,45 @@ module.GetJointBetween = function(part0, part1)
 	return nil
 end
 
-local jointBlacklist = {}
+-- We may call applyPoseInner a number of times: pose face, pose for tool, pose whole body based on emote, etc.
+-- We keep track of "joints we have already posed".
+-- We do this because single call may be applying a tool, an emote, and a face pose.
+-- When applying the face pose, which has nothing useful to say about, say,
+-- the position of the knees, we don't want to override the position of something we already
+-- positioned earlier.
+-- So as we position joints we add them to blacklist: later poses can't reposition these joints.
+-- (So you want to do 'highest priority' posing first)
+-- Note: since this is a global, it is important to call clearJointBlacklist right before calling your ApplyPoses,
+-- then call ApplyPoses with no yielding work in between, then call clearJointBlacklist when you're done.
+local jointBlacklist: { [Instance]: boolean } = {}
 
 local function clearJointBlacklist()
 	jointBlacklist = {}
+end
+
+local function blacklistJoint(joint: Instance)
+	jointBlacklist[joint] = true
+end
+
+local function jointIsBlacklisted(joint: Instance): boolean
+	if not jointBlacklist[joint] then
+		return false
+	end
+	return true
+end
+
+--[[
+	Experience suggests that on RCC, if just change the "Transform" on a joint, the avatar doesn't move.
+	We have to play the animation a bit to get things to jump into place.
+]]
+local function forceAnimationToStep(character: Model)
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if humanoid then
+		local animator = humanoid:FindFirstChildOfClass("Animator")
+		if animator then
+			animator:StepAnimations(0.1)
+		end
+	end
 end
 
 -- It's possible that a Keyframe contains invalid NumberPoses (e.g APIs not yet enabled)
@@ -265,15 +329,33 @@ end
 	Subsequent calls to ApplyPose may opt to 'respect blacklist'.  In that case
 	we will not pose any joints that are already in the blacklist.
 ]]
-module.ApplyPose = function(character, poseKeyframe, generateBlacklist, respectBlacklist)
+local function applyPoseInner(
+	character,
+	poseKeyframe,
+	DEPRECATED_generateBlacklist: boolean,
+	DEPRECATED_respectBlacklist: boolean
+)
 	local function recurApplyPoses(parentPose, poseObject)
 		if parentPose and poseObject:IsA("Pose") then
 			local part0, part1 = character:FindFirstChild(parentPose.Name), character:FindFirstChild(poseObject.Name)
 			local joint = module.GetJointBetween(part0, part1)
-			if joint and (not respectBlacklist or not jointBlacklist[joint]) then
-				joint.C1 = joint.C1 * poseObject.CFrame:Inverse()
-				if generateBlacklist then
-					jointBlacklist[joint] = true
+
+			local shouldPositionJoint
+			if FFlagEmoteUtilityDontUseC1ToPose then
+				shouldPositionJoint = joint and not jointIsBlacklisted(joint)
+			else
+				shouldPositionJoint = joint and (not DEPRECATED_respectBlacklist or not jointBlacklist[joint])
+			end
+
+			if shouldPositionJoint then
+				if FFlagEmoteUtilityDontUseC1ToPose then
+					joint.Transform = poseObject.CFrame
+					blacklistJoint(joint)
+				else
+					joint.C1 = joint.C1 * poseObject.CFrame:Inverse()
+					if DEPRECATED_generateBlacklist then
+						jointBlacklist[joint] = true
+					end
 				end
 			end
 		end
@@ -296,7 +378,25 @@ module.ApplyPose = function(character, poseKeyframe, generateBlacklist, respectB
 	end
 end
 
-module.GetNumberValueWithDefault = function(poseAsset, name, defaultValue)
+--[[
+	When applying a pose to a character, we build blacklist : record every joint we position.
+	Later on, if something else tries to position same joint, ignore that.
+]]
+module.ApplyPose =
+	function(character, poseKeyframe, DEPRECATED_generateBlacklist: boolean, DEPRECATED_respectBlacklist: boolean)
+		if FFlagEmoteUtilityDontUseC1ToPose then
+			clearJointBlacklist()
+		end
+		applyPoseInner(character, poseKeyframe, DEPRECATED_generateBlacklist, DEPRECATED_respectBlacklist)
+		if FFlagEmoteUtilityDontUseC1ToPose then
+			clearJointBlacklist()
+			if isOnRCC() then
+				forceAnimationToStep(character)
+			end
+		end
+	end
+
+module.GetNumberValueWithDefault = function(poseAsset, name: string, defaultValue: number): number
 	local finalValue = defaultValue
 	local numberValue = poseAsset:FindFirstChild(name)
 	if numberValue and numberValue:IsA("NumberValue") then
@@ -339,7 +439,11 @@ local function getRotatedKeyframe(keyframe, rotationDegrees)
 	return rotatedKeyframe
 end
 
-module.GetThumbnailKeyframe = function(thumbnailKeyframeNumber, emoteKeyframeSequence, rotationDegrees)
+module.GetThumbnailKeyframe = function(
+	thumbnailKeyframeNumber: number,
+	emoteKeyframeSequence: KeyframeSequence,
+	rotationDegrees: number
+): Keyframe
 	local emoteKeyframes = emoteKeyframeSequence:GetKeyframes()
 
 	local thumbnailKeyframe
@@ -380,7 +484,7 @@ end
 
 -- Samples a CurveAnimation at a given time to create an equivalent Keyframe
 -- Default for thumbnailTime is half the length of the CurveAnimation
-function module.GetThumbnailKeyframeFromCurve(thumbnailTime, curveAnimation, rotationDegrees)
+function module.GetThumbnailKeyframeFromCurve(thumbnailTime, curveAnimation, rotationDegrees: number): Keyframe
 	local animationTimeLength = module.GetCurveAnimationTimeLength(curveAnimation)
 
 	if not thumbnailTime or thumbnailTime < 0 or thumbnailTime > animationTimeLength then
@@ -511,30 +615,34 @@ local function doR15ToolPose(
 	if suggestedKeyframeFromTool then
 		-- If it's the pose suggested by tool, do not respect blacklist (blacklist shouldn't exist
 		-- anyway).  Tool knows exactly how to pose each joint.
-		module.ApplyPose(
+		applyPoseInner(
 			character,
-			suggestedKeyframeFromTool, --[[generateBlacklist =]]
-			true, --[[applyBlacklist=]]
+			suggestedKeyframeFromTool,
+			--[[generateBlacklist =]]
+			true,
+			--[[applyBlacklist=]]
 			false
 		)
 		-- Then apply the user-selected pose.
-		module.ApplyPose(character, poseKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
+		applyPoseInner(character, poseKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
 	else
 		-- If it's the pose passed in, selected by user, first do the 'default' tool pose (raising)
 		-- the arm, and generating blacklist: we don't want the selected pose to re-position the joints
 		-- involved in the tool pose.
 		if defaultToolKeyframe then
-			module.ApplyPose(character, defaultToolKeyframe, --[[generateBlacklist =]] true, --[[applyBlacklist =]] false)
+			applyPoseInner(character, defaultToolKeyframe, --[[generateBlacklist =]] true, --[[applyBlacklist =]] false)
 		end
 		-- Now apply the user-selected pose.
 		-- Do this iff the user-selected pose was explicitly set with a poseAssetId.  If not, it's a a pose based
 		-- on idle animation, and we don't want to do arbitrary idle animation + tool because for some gear that doesn't look
 		-- right.
 		if poseAssetId ~= nil then
-			module.ApplyPose(character, poseKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
+			applyPoseInner(character, poseKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
 		end
 	end
-	clearJointBlacklist()
+	if not FFlagEmoteUtilityDontUseC1ToPose then
+		clearJointBlacklist()
+	end
 
 	-- Sort out attaching the tool to the avatar.
 	attachToolToCharacter(character, humanoid, tool)
@@ -699,7 +807,7 @@ end
 
 -- Check for cases where we can quickly/easily resolve pose, with no async complications.
 -- If we find one, return true.
-module.SetPlayerCharacterPoseEasyOut = function(character, humanoid)
+module.SetPlayerCharacterPoseEasyOut = function(character: Model, humanoid: Humanoid)
 	if not humanoid then
 		return true
 	end
@@ -730,7 +838,14 @@ end
 	-- defaultToolKeyframe: user is holding tool but tool doesn't tell us how to pose avatar.  Some default "hold up your arm" pose
 	   for holding a tool.
 ]]
-module.doYieldingWorkToLoadPoseInfo = function(character, poseAssetId, ignoreRotationInPoseAsset)
+-- FIXME(dbanks)
+-- 2023/05/04
+-- Once FFlagEmoteUtilityRefactorYieldingWork is on for good, remove the second return arg: don't need it.
+local function doYieldingWorkToLoadPoseInfo(
+	character: Model,
+	poseAssetId: number?,
+	ignoreRotationInPoseAsset: boolean?
+): (Keyframe?, Tool?, Keyframe?, Tool?)
 	local poseKeyframe
 	local givenPoseTrumpsToolPose
 
@@ -744,7 +859,7 @@ module.doYieldingWorkToLoadPoseInfo = function(character, poseAssetId, ignoreRot
 		return nil, nil, nil, nil
 	end
 
-	-- If user is holding a tool, that may affecet how we pose.  Sort that out.
+	-- If user is holding a tool, that may affect how we pose.  Sort that out.
 	-- Note: this is also a yielding call.
 	-- I considered trying to run getToolKeyframes and getMainThumbnailKeyframe in parallel, but
 	-- running getMainThumbnailKeyframe first gives us givenPoseTrumpsToolPose, which is an input to getToolKeyframes.
@@ -807,6 +922,150 @@ module.SetPlayerCharacterFace = function(character, poseAssetIdOrUrl, confirmPro
 end
 
 --[[
+	Experimentation suggests that just calling "humanoid:BuildRigFromAttachments()"
+	isn't good enough to get the avatar in neutral t-pose: we also have to go through
+	and clear out each Transform on each Motor6D.
+]]
+module.SetPlayerCharacterNeutralPose = function(character)
+	module.ClearPlayerCharacterFace(character)
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	humanoid:BuildRigFromAttachments()
+
+	local function recurResetJoint(instance: Instance)
+		if instance:IsA("Motor6D") then
+			local motor6D = instance :: Motor6D
+			motor6D.Transform = CFrame.new()
+		end
+
+		local children = instance:GetChildren()
+		for _, c in children do
+			recurResetJoint(c)
+		end
+	end
+
+	recurResetJoint(character)
+end
+
+--[[
+	Load what we need to load for this character/pose/mood combo.
+	Do not apply anything to the character.
+	Yielding.
+]]
+export type KeyframesForPose = {
+	poseAssetId: number?,
+	poseKeyframe: Keyframe?,
+	moodKeyframe: Keyframe?,
+	defaultToolKeyframe: Keyframe?,
+	suggestedKeyframeFromTool: Keyframe?,
+}
+
+module.LoadKeyframesForPose = function(
+	character: Model,
+	poseAssetId: number?,
+	moodAssetId: number?,
+	ignoreRotationInPoseAsset: boolean?
+): KeyframesForPose
+	local keyframesForPose: KeyframesForPose = {}
+	keyframesForPose.poseAssetId = poseAssetId
+
+	assert(character, "character should be non-nil")
+	if poseAssetId ~= nil then
+		assert(
+			typeof(poseAssetId) == "number",
+			"EmoteUtility.LoadKeyframesForPose expects poseAssetId to be a number or nil"
+		)
+		assert(
+			poseAssetId > 0,
+			"EmoteUtility.LoadKeyframesForPose expects poseAssetId to be a real asset ID (positive number)"
+		)
+	end
+	if moodAssetId ~= nil then
+		assert(
+			typeof(moodAssetId) == "number",
+			"EmoteUtility.LoadKeyframesForPose expects moodAssetId to be a number or nil"
+		)
+	end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+		-- Only R15 avatars can be posed: there are no asset ids to load.
+		return keyframesForPose
+	end
+
+	local poseKeyframe, _, suggestedKeyframeFromTool, defaultToolKeyframe =
+		doYieldingWorkToLoadPoseInfo(character, poseAssetId, ignoreRotationInPoseAsset)
+
+	local moodKeyframe
+	local poseKeyframeHasFaceAnimation = module.PoseKeyframeHasFaceAnimation(poseKeyframe)
+	if not poseKeyframeHasFaceAnimation and moodAssetId and moodAssetId ~= 0 then
+		-- Get the face keyframes.
+		-- Note: this is yielding function.  I considered making it parallel with doYieldingWorkToLoadPoseInfo, but
+		-- doYieldingWorkToLoadPoseInfo gives us poseKeyframe which in turn tells us poseKeyframeHasFaceAnimation.
+		-- Depending on the results of doYieldingWorkToLoadPoseInfo we might not even need to make this call.
+		moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true)
+	end
+
+	keyframesForPose.poseKeyframe = poseKeyframe
+	keyframesForPose.moodKeyframe = moodKeyframe
+	keyframesForPose.defaultToolKeyframe = defaultToolKeyframe
+	keyframesForPose.suggestedKeyframeFromTool = suggestedKeyframeFromTool
+
+	return keyframesForPose
+end
+
+--[[
+	Apply KeyframesForPose to the character.
+	This does actually pose the character.
+	Not yielding.
+]]
+module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: KeyframesForPose)
+	assert(character, "character should be non-nil")
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+	-- Un-pose avatar to neutral face/body.
+	if FFlagEmoteUtilityDontUseC1ToPose then
+		module.SetPlayerCharacterNeutralPose(character)
+	else
+		humanoid:BuildRigFromAttachments()
+		module.ClearPlayerCharacterFace(character)
+	end
+
+	if FFlagEmoteUtilityDontUseC1ToPose then
+		clearJointBlacklist()
+	end
+
+	-- Apply body pose.
+	local tool = character:FindFirstChildOfClass("Tool")
+
+	if tool then
+		doR15ToolPose(
+			character,
+			humanoid,
+			tool,
+			keyframesForPose.poseAssetId,
+			keyframesForPose.poseKeyframe,
+			keyframesForPose.defaultToolKeyframe,
+			keyframesForPose.suggestedKeyframeFromTool
+		)
+	else
+		applyPoseInner(character, keyframesForPose.poseKeyframe, false, false)
+	end
+
+	-- Apply face pose.
+	if keyframesForPose.moodKeyframe then
+		applyPoseInner(character, keyframesForPose.moodKeyframe, false, false)
+	end
+
+	if FFlagEmoteUtilityDontUseC1ToPose then
+		clearJointBlacklist()
+		if isOnRCC() then
+			forceAnimationToStep(character)
+		end
+	end
+end
+
+--[[
 	Pose the given character based on the given asset ids.
 
 	If the poseAssetId contains details that pose the face, ignore moodAssetId.
@@ -817,7 +1076,7 @@ end
 	with particular names/structure to indicate a pose.
 	Otherwise we fall back to some constant value.  NOTE this constant value will only
 	work on production (hardwired asset id).
-	* If poseAssetId is provided, the caller is assuemd to care about exactly what pose
+	* If poseAssetId is provided, the caller is assumed to care about exactly what pose
 	we are getting.  Since this function has async yield in it, hit the provided
 	confirmProceedAfterYield callback after all the yielding stuff to confirm we still
 	really want to do this.
@@ -831,8 +1090,30 @@ end
 	part of the pose.  If true, ignore "ThumbnailCharacterRotation" NumberValue on
 	pose asset.
 ]]
-module.SetPlayerCharacterPoseWithMoodFallback =
-	function(character, poseAssetId, moodAssetId, ignoreRotationInPoseAsset, confirmProceedAfterYield)
+-- FIXME(dbanks)
+-- 2023/05/08
+-- Remove DEPRECATED_confirmProceedAfterYield with FFlagEmoteUtilityRefactorYieldingWork
+module.SetPlayerCharacterPoseWithMoodFallback = function(
+	character: Model,
+	poseAssetId: number?,
+	moodAssetId: number?,
+	ignoreRotationInPoseAsset: boolean,
+	DEPRECATED_confirmProceedAfterYield: (number?, number?) -> boolean
+)
+	if FFlagEmoteUtilityRefactorYieldingWork then
+		local humanoid = character:FindFirstChildOfClass("Humanoid")
+		if module.SetPlayerCharacterPoseEasyOut(character, humanoid) then
+			return
+		end
+		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+			return
+		end
+
+		local keyframesForPose =
+			module.LoadKeyframesForPose(character, poseAssetId, moodAssetId, ignoreRotationInPoseAsset)
+
+		module.ApplyKeyframesForPose(character, keyframesForPose)
+	else
 		if poseAssetId ~= nil then
 			assert(
 				typeof(poseAssetId) == "number",
@@ -851,16 +1132,16 @@ module.SetPlayerCharacterPoseWithMoodFallback =
 		end
 
 		local humanoid = character:FindFirstChildOfClass("Humanoid")
+
 		if module.SetPlayerCharacterPoseEasyOut(character, humanoid) then
 			return
 		end
-
 		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
 			return
 		end
 
 		local poseKeyframe, tool, suggestedKeyframeFromTool, defaultToolKeyframe =
-			module.doYieldingWorkToLoadPoseInfo(character, poseAssetId, ignoreRotationInPoseAsset)
+			doYieldingWorkToLoadPoseInfo(character, poseAssetId, ignoreRotationInPoseAsset)
 
 		-- If we failed to get info on how to pose the body, just quit.
 		if not poseKeyframe then
@@ -879,13 +1160,23 @@ module.SetPlayerCharacterPoseWithMoodFallback =
 
 		-- We have called some yielding functions (and now we are done, no more yielding functions).
 		-- Do we still want to do this?
-		if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetId, moodAssetId) then
+		if
+			DEPRECATED_confirmProceedAfterYield and not DEPRECATED_confirmProceedAfterYield(poseAssetId, moodAssetId)
+		then
 			return
 		end
 
 		-- Un-pose avatar to neutral face/body.
-		humanoid:BuildRigFromAttachments()
-		module.ClearPlayerCharacterFace(character)
+		if FFlagEmoteUtilityDontUseC1ToPose then
+			module.SetPlayerCharacterNeutralPose(character)
+		else
+			humanoid:BuildRigFromAttachments()
+			module.ClearPlayerCharacterFace(character)
+		end
+
+		if FFlagEmoteUtilityDontUseC1ToPose then
+			clearJointBlacklist()
+		end
 
 		-- Apply body pose.
 		if tool then
@@ -899,78 +1190,90 @@ module.SetPlayerCharacterPoseWithMoodFallback =
 				suggestedKeyframeFromTool
 			)
 		else
-			module.ApplyPose(character, poseKeyframe, false, false)
+			applyPoseInner(character, poseKeyframe, false, false)
 		end
 
 		-- Apply face pose.
 		if moodKeyframe then
-			module.ApplyPose(character, moodKeyframe, false, false)
+			applyPoseInner(character, moodKeyframe, false, false)
+		end
+
+		if FFlagEmoteUtilityDontUseC1ToPose then
+			clearJointBlacklist()
+			if isOnRCC() then
+				forceAnimationToStep(character)
+			end
 		end
 	end
+end
 
 --[[
-	Very similar to SetPlayerCharacterPoseWithMoodFallback, except there's no option to set the mood before setting the emote.
-	Rendered obsolete by SetPlayerCharacterPoseWithMoodFallback.  Remove once RCC and client are both using
-	SetPlayerCharacterPoseWithMoodFallback for good.
+	Very similar to SetPlayerCharacterPoseWithMoodFallback, except there's no option to set the mood before setting
+	the emote.
+	Rendered obsolete by SetPlayerCharacterPoseWithMoodFallback.
+	Remove with FFlagEmoteUtilityDontUseC1ToPose.
+	I'd like to rename to "DEPRECATED_SetPlayerCharacterPose" but things get all confusing with multiple repos depending
+	on this, easier to just leave as-is.
 ]]
-module.SetPlayerCharacterPose = function(character, poseAssetId, confirmProceedAfterYield, ignoreRotationInPoseAsset)
-	if poseAssetId ~= nil then
-		assert(
-			typeof(poseAssetId) == "number",
-			"EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a number or nil"
-		)
-		assert(
-			poseAssetId > 0,
-			"EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a real asset ID (positive number)"
-		)
+module.SetPlayerCharacterPose =
+	function(character: Model, poseAssetId: number, confirmProceedAfterYield, ignoreRotationInPoseAsset: boolean)
+		if poseAssetId ~= nil then
+			assert(
+				typeof(poseAssetId) == "number",
+				"EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a number or nil"
+			)
+			assert(
+				poseAssetId > 0,
+				"EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a real asset ID (positive number)"
+			)
+		end
+
+		local humanoid = character:FindFirstChildOfClass("Humanoid")
+		if module.SetPlayerCharacterPoseEasyOut(character, humanoid) then
+			return
+		end
+
+		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+			return
+		end
+
+		local poseKeyframe, tool, suggestedKeyframeFromTool, defaultToolKeyframe =
+			doYieldingWorkToLoadPoseInfo(character, poseAssetId, ignoreRotationInPoseAsset)
+
+		-- If we failed to get info on how to pose the body, just quit.
+		if not poseKeyframe then
+			return
+		end
+
+		-- We have called some yielding functions (and now we are done, no more yielding functions).
+		-- Do we still want to do this?
+		if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetId) then
+			return
+		end
+
+		-- Un-pose to stock 'at attention' stance.
+		humanoid:BuildRigFromAttachments()
+
+		-- Iff this is going to pose the face, first unpose the face.
+		-- (If it's not going to pose the face then leave it alone: before this function was called we may have already
+		-- moved face into a pose we like based on mood, say by applying CharacterAppearance to Player.
+		if module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
+			module.ClearPlayerCharacterFace(character)
+		end
+
+		if tool then
+			doR15ToolPose(
+				character,
+				humanoid,
+				tool,
+				poseAssetId,
+				poseKeyframe,
+				defaultToolKeyframe,
+				suggestedKeyframeFromTool
+			)
+		else
+			module.ApplyPose(character, poseKeyframe, false, false)
+		end
 	end
-
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if module.SetPlayerCharacterPoseEasyOut(character, humanoid) then
-		return
-	end
-
-	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-		return
-	end
-
-	local poseKeyframe, tool, suggestedKeyframeFromTool, defaultToolKeyframe =
-		module.doYieldingWorkToLoadPoseInfo(character, poseAssetId, ignoreRotationInPoseAsset)
-
-	-- If we failed to get info on how to pose the body, just quit.
-	if not poseKeyframe then
-		return
-	end
-
-	-- We have called some yielding functions (and now we are done, no more yielding functions).
-	-- Do we still want to do this?
-	if confirmProceedAfterYield and not confirmProceedAfterYield(poseAssetId) then
-		return
-	end
-
-	-- Un-pose to stock 'at attention' stance.
-	humanoid:BuildRigFromAttachments()
-
-	-- Iff this is going to pose the face, first unpose the face.
-	-- (If it's not going to pose the face then leave it alone: before this function was called we may have already
-	-- moved face into a pose we like based on mood, say by applying CharacterAppearance to Player.
-	if module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
-		module.ClearPlayerCharacterFace(character)
-	end
-
-	if tool then
-		doR15ToolPose(
-			character,
-			humanoid,
-			tool,
-			poseAssetId,
-			poseKeyframe,
-			defaultToolKeyframe,
-			suggestedKeyframeFromTool
-		)
-	else
-		module.ApplyPose(character, poseKeyframe, false, false)
-	end
-end
 
 return module

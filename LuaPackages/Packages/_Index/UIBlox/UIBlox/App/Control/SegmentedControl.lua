@@ -53,11 +53,11 @@ local ICON_STATE_COLOR = {
 
 local limitedLengthTabArray = function(array)
 	local typeChecker, typeCheckerMessage = t.array(t.strictInterface({
-		-- The name and ID for this tab
+		-- the name and ID for this tab
 		tabName = t.string,
-		-- If this tab is disabled.
+		-- If this tab is disabled
 		isDisabled = t.optional(t.boolean),
-		-- icon for each tab
+		-- String or ImageSetImage to be used as a icon image displayed next to text in tab
 		icon = t.optional(t.table),
 	}))(array)
 
@@ -81,21 +81,24 @@ end
 local SegmentedControl = Roact.Component:extend("SegmentedControl")
 
 SegmentedControl.validateProps = t.strictInterface({
+	-- tabs that displayed in this control
 	tabs = limitedLengthTabArray,
-	-- Width for this component
-	-- Will be restricted by the component's size constraint.
+	-- Width for this component. Will be restricted by the component's size constraint
 	width = t.UDim,
 
-	-- Prop for controlling which tab is selected
+	-- sets which tab is currently selected
 	selectedTabIndex = t.number,
 
 	-- Callback for when a tab is selected
 	onTabActivated = t.callback,
 
-	-- optional parameters for RoactGamepad
+	-- parameters for RoactGamepad support
 	NextSelectionLeft = t.optional(t.table),
+	-- parameters for RoactGamepad support
 	NextSelectionRight = t.optional(t.table),
+	-- parameters for RoactGamepad support
 	NextSelectionUp = t.optional(t.table),
+	-- parameters for RoactGamepad support
 	NextSelectionDown = t.optional(t.table),
 
 	-- layout

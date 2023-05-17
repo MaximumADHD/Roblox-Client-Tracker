@@ -26,14 +26,19 @@ local INITIAL_REQUIRED_SPACE = (SCREENSIDE_PADDING * 2) + MINIMUM_DIST_BETWEEN_L
 local ControllerBar = Roact.PureComponent:extend("ControllerBar")
 
 local hintValidation = t.strictInterface({
+	-- Key to trigger animation
 	keyCode = t.enum(Enum.KeyCode),
+	-- Shortcut description
 	text = t.string,
 })
 
 ControllerBar.validateProps = t.strictInterface({
-	-- Left side button (usually 'Back button') text
+	-- A `hint` struct which specifies a keyImage (a Enum.Keycode for a gamepad button icon)
+	-- and the text to display next to that image
 	leftHint = hintValidation,
-	-- Button hints
+	-- The bar takes a `hints` parameter which is a list of 'hints'.
+	-- Each hint is a table which specifies a keyCode (a Enum.Keycode for a gamepad button icon)
+	-- and the text to display next to that image
 	rightHints = t.optional(t.map(t.number, hintValidation)),
 })
 

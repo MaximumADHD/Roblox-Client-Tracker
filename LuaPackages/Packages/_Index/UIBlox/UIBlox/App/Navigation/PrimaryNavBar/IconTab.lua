@@ -19,17 +19,22 @@ local HorizontalContainer = require(script.Parent.HorizontalContainer)
 
 -- Types
 local Types = require(script.Parent.Types)
-type Props = Types.IconTabItemProps
 
 -- Constants
 local Constants = require(script.Parent.Constants)
+
+type Props = {
+	item: Types.IconTabItem,
+	selected: boolean,
+	controlState: number?,
+}
 
 local defaultProps: Props = {
 	controlState = ControlState.Default,
 	selected = false,
 }
 
-return function(providedProps: Props)
+local function IconTab(providedProps: Props)
 	local props: Props = Object.assign({}, defaultProps, providedProps)
 	local item: Types.IconTabItem = props.item
 	local pressed = props.controlState == ControlState.SelectedPressed
@@ -96,3 +101,5 @@ return function(providedProps: Props)
 		}),
 	})
 end
+
+return IconTab

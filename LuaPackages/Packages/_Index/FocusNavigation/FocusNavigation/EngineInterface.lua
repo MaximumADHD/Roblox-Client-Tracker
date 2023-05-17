@@ -2,11 +2,20 @@
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
+local Packages = script.Parent.Parent
+local Utils = require(Packages.Utils)
+
+local warn = Utils.mockableWarn
+
 local types = require(script.Parent.types)
 type EngineInterface = types.EngineInterface
 
 local canAccessCore, coreSignal = pcall(function()
 	return GuiService:GetPropertyChangedSignal("SelectedCoreObject")
+end)
+
+local canAccessCoreGui, CoreGui = pcall(function()
+	return game:GetService("CoreGui")
 end)
 
 local throwOnConnect = (
@@ -22,6 +31,18 @@ local CoreInterface: EngineInterface = {
 		return GuiService.SelectedCoreObject
 	end,
 	setSelection = function(guiObject)
+		if _G.__DEV__ and canAccessCoreGui then
+			if guiObject ~= nil and not guiObject:IsDescendantOf(CoreGui) then
+				warn(
+					string.format(
+						"Attempting to focus non-CoreGui descendant '%s' from a CoreGui FocusNavigationService "
+							.. "instance. Consider creating this FocusNavigationService with "
+							.. "`FocusNavigation.EnginInterface.PlayerGui` instead",
+						guiObject:GetFullName()
+					)
+				)
+			end
+		end
 		if guiObject and not guiObject.Selectable then
 			GuiService:Select(guiObject)
 		else
@@ -40,6 +61,18 @@ local PlayerGuiInterface: EngineInterface = {
 		return GuiService.SelectedObject
 	end,
 	setSelection = function(guiObject)
+		if _G.__DEV__ and canAccessCoreGui then
+			if guiObject ~= nil and guiObject:IsDescendantOf(CoreGui) then
+				warn(
+					string.format(
+						"Attempting to focus CoreGui descendant '%s' from a non-CoreGui FocusNavigationService instance."
+							.. "Consider creating this FocusNavigationService with "
+							.. "`FocusNavigation.EnginInterface.CoreGui` instead",
+						guiObject:GetFullName()
+					)
+				)
+			end
+		end
 		if guiObject and not guiObject.Selectable then
 			GuiService:Select(guiObject)
 		else

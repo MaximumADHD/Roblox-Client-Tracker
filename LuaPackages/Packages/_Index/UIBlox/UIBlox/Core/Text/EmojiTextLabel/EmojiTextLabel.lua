@@ -21,12 +21,19 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local MAX_BOUND = 10000
 
 type Props = {
+	-- the string to render within GenericTextLabel
 	Text: string,
+	-- the Font table from the style palette
 	fontStyle: validateFontInfo.FontInfo,
+	-- the color table from the style palette
 	colorStyle: validateColorInfo.ColorInfo,
+	-- the size available for the textbox
 	maxSize: Vector2?,
+	-- whether the TextLabel has Fluid Sizing between the font's min and default sizes
 	fluidSizing: boolean?,
+	-- the string of the emoji's unique UTF-8 character
 	emoji: string?,
+	-- the function that is called when the emoji button is activated
 	emojiOnActivated: (() -> ())?,
 }
 

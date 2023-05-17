@@ -18,12 +18,19 @@ local DIVIDER_START_OFFSET = 24
 local ListTable = Roact.PureComponent:extend("ListTable")
 
 ListTable.validateProps = t.strictInterface({
+	-- The LayoutOrder of the list table
 	layoutOrder = t.optional(t.integer),
+	-- The Size of the list table.
+	-- If it's no set, the list table will size itself to the parent container.
 	size = t.optional(t.UDim2),
+	-- The AnchorPoint of the list table
 	anchorPoint = t.optional(t.Vector2),
+	-- The Position of the list table
 	position = t.optional(t.UDim2),
+	-- The AutomaticSize setting of the list table.
+	-- Determines if the size of the list table is calculated automatically based on the size of cells.
 	automaticSize = t.optional(t.enum(Enum.AutomaticSize)),
-
+	-- Array of cell components
 	cells = t.array(t.table),
 })
 

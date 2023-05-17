@@ -24,17 +24,35 @@ local Utils = require(Control.HorizontalNav.Utils)
 local useIsMouseAndKeyboard = require(UIBlox.Utility.useIsMouseAndKeyboard)
 
 export type Props = {
+	-- Callback that returns the scrolling list children
 	getScollingListContent: () -> any,
+	-- Height of the horizontal scrolling list
 	listHeight: number,
+	-- Padding between buttons.
+	-- NOTE: Either buttonRefs or both buttonWidth and numButtons must be provided
+	-- (but none of them are individually required).
 	buttonPadding: number,
+	-- Ref to assign to the scrolling frame
 	scrollingFrameRef: any,
+	-- Refs for each of the scrolling list children (buttons).
+	-- NOTE: Must not be RoactGamepad ref cache because it needs to be iterated over.
+	-- This prop will only be used of `buttonWidth` and `numButtons` are not provided.
 	buttonRefs: { [any]: any }?,
+	-- Whether to use an intro scroll animation to indicate to the user
+	-- that there are more items
 	useIntroScroll: boolean?,
+	-- Index that represents the current scrolling content. Whenever it
+	-- changes, the intro scroll animation will play again.
 	childWidgetIndex: number?,
+	-- Width of each button in the list
 	buttonWidth: number?,
+	-- Number of buttons in the list
 	numButtons: number?,
+	-- Whether to pad before and after the list buttons
 	padOutsideEdges: boolean?,
+	-- Optional width for the scrolling list
 	canvasWidth: number?,
+	-- Will hide the right and left gradients unless arrows will be shown
 	hideGradient: boolean?,
 	clipsDescendants: boolean?,
 }

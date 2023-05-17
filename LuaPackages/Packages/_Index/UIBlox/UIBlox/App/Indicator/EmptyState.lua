@@ -20,8 +20,6 @@ local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
 local SecondaryButton = require(App.Button.SecondaryButton)
 
-local DEFAULT_ICON = "icons/status/oof_xlarge"
-local DEFAULT_BUTTON_ICON = "icons/common/refresh"
 local ICON_TEXT_PADDING = 12
 local TEXT_BUTTON_PADDING = 24
 local TITLE_PADDING = 14
@@ -31,12 +29,18 @@ local BUTTON_MAX_SIZE = 640
 local EmptyState = Roact.PureComponent:extend("EmptyState")
 
 EmptyState.validateProps = t.strictInterface({
+	-- Text displayed under icon
 	text = t.string,
+	-- Icon is the image displayed above the text
 	icon = t.optional(validateImage),
 	size = t.optional(t.UDim2),
+	-- The position of the button
 	position = t.optional(t.UDim2),
+	-- The anchor point of the button.
 	anchorPoint = t.optional(t.Vector2),
+	-- Icon displayed inside the button
 	buttonIcon = t.optional(validateImage),
+	-- Passing in the callback function will render a button
 	onActivated = t.optional(t.callback),
 	frameRef = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
@@ -52,11 +56,11 @@ EmptyState.validateProps = t.strictInterface({
 })
 
 EmptyState.defaultProps = {
-	icon = Images[DEFAULT_ICON],
+	icon = Images["icons/status/oof_xlarge"],
 	size = UDim2.fromScale(1, 1),
 	position = UDim2.fromScale(0.5, 0.5),
 	anchorPoint = Vector2.new(0.5, 0.5),
-	buttonIcon = Images[DEFAULT_BUTTON_ICON],
+	buttonIcon = Images["icons/common/refresh"],
 	iconSize = UDim2.fromOffset(getIconSize(IconSize.XLarge), getIconSize(IconSize.XLarge)),
 }
 

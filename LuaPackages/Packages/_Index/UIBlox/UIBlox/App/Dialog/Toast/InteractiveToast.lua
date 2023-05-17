@@ -28,14 +28,19 @@ local TOAST_SLICE_CENTER = Rect.new(10, 10, 11, 11)
 local InteractiveToast = Roact.PureComponent:extend("InteractiveToast")
 
 InteractiveToast.validateProps = t.strictInterface({
+	-- AnchorPoint of the `ToastContainer`
 	anchorPoint = t.optional(t.Vector2),
 	iconProps = t.optional(ToastIcon.validateProps),
+	-- A Roact children table of icon image to customize toast icon
 	iconChildren = t.optional(t.table),
+	-- LayoutOrder of toast page
 	layoutOrder = t.optional(t.integer),
 	padding = t.optional(t.numberMin(0)),
+	-- Position of `ToastContainer` in the whole page
 	position = t.optional(t.UDim2),
 	pressed = t.optional(t.boolean),
 	pressedScale = t.number,
+	-- Size of `ToastContainer`, height is dynamic based on text length
 	size = t.UDim2,
 	subtitleTextProps = t.optional(ToastText.validateProps),
 	textFrameSize = t.optional(t.UDim2),

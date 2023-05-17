@@ -31,25 +31,22 @@ local SPRING_PARAMETERS = {
 
 local VerticalScrollView = Roact.Component:extend("VerticalScrollView")
 
-VerticalScrollView.defaultProps = {
-	-- Frame Props
-	size = UDim2.new(1, 0, 1, 0),
-	-- ScrollingFrame Props
-	canvasSizeY = UDim.new(2, 0),
-	useAutomaticCanvasSize = false,
-	isGamepadFocusable = false,
-}
-
 VerticalScrollView.validateProps = t.strictInterface({
-	-- Frame Props
+	-- Size of the scroll view
 	size = t.optional(t.UDim2),
+	-- Position of the scroll view
 	position = t.optional(t.UDim2),
+	-- Determines how elastic scrolling behaves for touch input
 	elasticBehavior = t.optional(t.EnumItem),
 
-	-- ScrollingFrame Props
+	-- Canvas Size Y of the scroll view
 	canvasSizeY = t.optional(t.UDim),
+	-- When true, automatically detects Canvas Size Y based on its child elements
 	useAutomaticCanvasSize = t.optional(t.boolean),
+	-- Width of the left and right padding. Minimum 12 points.
+	-- If not given, VerticalScrollView will use [dynamic margins](https://confluence.rbx.com/pages/viewpage.action?pageId=153532381)
 	paddingHorizontal = t.optional(t.number),
+	-- If the vertical scrolling list should be focusable by gamepad or not
 	isGamepadFocusable = t.optional(t.boolean),
 
 	-- Optional passthrough props for the scrolling frame
@@ -57,15 +54,25 @@ VerticalScrollView.validateProps = t.strictInterface({
 	[Roact.Change.CanvasSize] = t.optional(t.callback),
 	scrollingFrameRef = t.optional(t.table),
 
-	-- Optional gamepad props
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionLeft = t.optional(t.table),
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionRight = t.optional(t.table),
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionUp = t.optional(t.table),
+	-- Navigation parameter for RoactGamepad support
 	NextSelectionDown = t.optional(t.table),
 
 	-- Children
 	[Roact.Children] = t.optional(t.table),
 })
+
+VerticalScrollView.defaultProps = {
+	size = UDim2.new(1, 0, 1, 0),
+	canvasSizeY = UDim.new(2, 0),
+	useAutomaticCanvasSize = false,
+	isGamepadFocusable = false,
+}
 
 function VerticalScrollView:init()
 	self:setState({

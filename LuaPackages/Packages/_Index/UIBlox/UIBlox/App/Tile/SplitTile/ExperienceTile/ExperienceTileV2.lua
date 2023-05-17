@@ -30,51 +30,55 @@ local MIN_HEIGHT = 228
 
 local ACTION_BUTTON_PADDING = 6
 
-local defaultProps = {
+export type Props = {
+	-- The title name for the tile's experience. Will not render text if nil or empty.
+	experienceName: string?,
+	-- The experience's thumbnail that will show a loading state if nil
+	thumbnail: string?,
+	-- A wide, 16:9 aspect-ratio thumbnail for the tile's experience.
+	-- It will replace the standard thumbnail when hovered or show a loading shimmer if nil.
+	wideThumbnail: string?,
+	-- A footer to be displayed at the bottom of the tile by default, or below the experience's title when hovered.
+	-- Its size is fixed vertically and scales horizontally.
+	footer: table?,
+	-- The height of the tile's footer. If nil, a default height of 22px is used.
+	footerHeight: number?,
+	-- Whether or not the tile has an opaque background.
+	-- When false, all corners of thumbnail will be rounded and the tile's contents will float underneath of it.
+	hasBackground: boolean?,
+	-- Whether or not the tile has a border outline.
+	-- When isBackground is false, the border will only outline the tile's thumbnail.
+	hasOutline: boolean?,
+	-- Whether or not the tile will react to hover user input
+	isHoverEnabled: boolean?,
+	-- Whether or not the tile should show a stateful overlay when isActive is true
+	isOverlayVisible: boolean?,
+	-- Whether or not the tile's experience is playable and can be launched via its action row play button
+	isPlayable: boolean?,
+	-- Whether or not the tile can is active and can receive user input
+	isActive: boolean?,
+	-- A function that fires when the tile's panel is pressed
+	onActivated: (() -> ())?,
+	-- A function that fires when the tile's action row play button is pressed
+	onPlayPressed: (() -> ())?,
+	-- Optional custom text for the play button, default empty
+	buttonText: string?,
+	-- Optional custom icon for the play button, default based on isPlayable
+	buttonIcon: ImagesTypes.ImageSetImage?,
+	-- Render prop for content to fill the top half of the tile. Defaults to a `VerticalTileThumbnail`.
+	renderTopContent: ((isHovered: boolean) -> table)?,
+	-- Render prop for content to fill the bottom half of the tile. Defaults to a `TileContentPanel`.
+	renderBottomContent: ((isHovered: boolean) -> table)?,
+	-- Content which contains actions a user can take which is displayed at bottom of tile on hover
+	renderActionRow: ((isHovered: boolean) -> table)?,
+}
+
+local defaultProps: Props = {
 	hasBackground = true,
 	hasOutline = true,
 	isHoverEnabled = true,
 	isOverlayVisible = true,
 	isActive = true,
-}
-
-export type Props = {
-	-- The experience's name that will show a loading state if nil
-	experienceName: string?,
-	-- The experience's thumbnail that will show a loading state if nil
-	thumbnail: string?,
-	-- The experience's thumbnail to be shown when in a wide aspect ratio
-	wideThumbnail: string?,
-	-- Footer to be shown below the experience title
-	footer: table?,
-	-- The height of the footer. If nil, a default height of 22 is used
-	footerHeight: number?,
-	-- Whether or not the tile should use a background
-	hasBackground: boolean?,
-	-- Whether or not the tile should show a border outline
-	hasOutline: boolean?,
-	-- Whether or not hover mode is enabled for the tile
-	isHoverEnabled: boolean?,
-	-- Whether or not the tile should show a stateful overlay
-	isOverlayVisible: boolean?,
-	-- Whether or not the experience can be launched
-	isPlayable: boolean?,
-	-- Whether or not the tile should render its hovered state and accept input
-	isActive: boolean?,
-	-- Function called when tile panel is clicked
-	onActivated: (() -> ())?,
-	-- Function called when hover play button is pressed
-	onPlayPressed: (() -> ())?,
-	-- custom text for the play button, default empty
-	buttonText: string?,
-	-- custom icon for the play button, default based on isPlayable
-	buttonIcon: ImagesTypes.ImageSetImage?,
-	-- Content to fill the top portion of the tile which can vary based on hover state
-	renderTopContent: ((isHovered: boolean) -> table)?,
-	-- Content to fill the bottom portion of the tile which can vary based on hover state
-	renderBottomContent: ((isHovered: boolean) -> table)?,
-	-- Content which contains actions a user can take which is displayed at bottom of tile on hover
-	renderActionRow: ((isHovered: boolean) -> table)?,
 }
 
 local function getPanelHeight(footerHeight: number, contentHeight: number, title: string)

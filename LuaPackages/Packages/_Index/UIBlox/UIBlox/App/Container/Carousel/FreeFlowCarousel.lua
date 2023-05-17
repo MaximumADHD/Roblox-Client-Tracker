@@ -15,16 +15,12 @@ local HorizontalCarousel = require(Carousel.HorizontalCarousel)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
-local DEFAULT_INNER_PADDING = 12
-local DEFAULT_ITEM_PADDING = 12
-local DEFAULT_MARGIN = 24
-
 local FreeFlowCarousel = Roact.PureComponent:extend("FreeFlowCarousel")
 
 FreeFlowCarousel.validateProps = t.strictInterface({
 	-- A function to uniquely identify list items. Calling this on the same item twice
 	-- should give the same result according to ==.
-	-- See infinite scroller for more details.
+	-- See infinite scroller for more details [here](https://github.com/Roblox/infinite-scroller/blob/master/docs/Reference/stateful.md#clearing-state)
 	identifier = t.optional(t.callback),
 
 	-- The header text for the carousel
@@ -36,7 +32,7 @@ FreeFlowCarousel.validateProps = t.strictInterface({
 	-- The list for the items in the carousel
 	itemList = t.array(t.any),
 
-	-- A callback function, called with each visible item in the itemList when the list is rendered.
+	-- A callback function, called with each visible item in the itemList when the list is rendered
 	renderItem = t.callback,
 
 	-- The size of the item
@@ -55,7 +51,7 @@ FreeFlowCarousel.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 
 	-- A callback function, called when the infinite scroll reaches the leading end of the itemList (index
-	-- #itemList).
+	-- #itemList)
 	loadNext = t.optional(t.callback),
 
 	-- Set up initial maxNumOfItemsVisible without waiting for resize triegger to do it, used for testing
@@ -76,9 +72,9 @@ FreeFlowCarousel.validateProps = t.strictInterface({
 
 FreeFlowCarousel.defaultProps = {
 	headerText = "",
-	innerPadding = DEFAULT_INNER_PADDING,
-	itemPadding = DEFAULT_ITEM_PADDING,
-	carouselMargin = DEFAULT_MARGIN,
+	innerPadding = 12,
+	itemPadding = 12,
+	carouselMargin = 24,
 }
 
 function FreeFlowCarousel:render()

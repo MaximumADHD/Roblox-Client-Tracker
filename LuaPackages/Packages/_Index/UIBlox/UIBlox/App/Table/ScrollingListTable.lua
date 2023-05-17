@@ -11,11 +11,18 @@ local withStyle = require(Core.Style.withStyle)
 local DIVIDER_START_OFFSET = 24
 
 type ListTableProps = {
+	-- The LayoutOrder of the list table
 	layoutOrder: number?,
+	-- The Size of the list table.
+	-- If it's no set, the list table will size itself to the parent container.
 	size: UDim2?,
+	-- The AnchorPoint of the list table
 	anchorPoint: Vector2?,
+	-- The Position of the list table
 	position: UDim2?,
+	-- The name passed to the ScrollingFrame Instance
 	Name: string?,
+	-- Array of cell components
 	cells: Array<any>,
 }
 

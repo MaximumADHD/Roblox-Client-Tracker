@@ -78,7 +78,7 @@ return function()
 			local xPart2 = makeTestPart(model, partSize, Vector3.new(1, 0, 0), "Part")
 			local yPart2 = makeTestPart(model, partSize, Vector3.new(0, 1, 0), "Part")
 			local zPart2 = makeTestPart(model, partSize, Vector3.new(0, 0, 1), "MeshPart")
-			local allParts = {centerPart, xPart1, xPart2, yPart1, yPart2, zPart1, zPart2}
+			local allParts = { centerPart, xPart1, xPart2, yPart1, yPart2, zPart1, zPart2 }
 
 			local function testGivenParts(parts, expectedMin, expectedMax)
 				local minExtent, maxExtent = CharacterUtility.CalculateBodyPartsExtents(CFrame.new(), parts)
@@ -92,10 +92,10 @@ return function()
 			end
 
 			testGivenParts(allParts, Vector3.new(-2, -2, -2), Vector3.new(2, 2, 2))
-			testGivenParts({centerPart}, Vector3.new(-1, -1, -1), Vector3.new(1, 1, 1))
-			testGivenParts({xPart1, xPart2}, Vector3.new(-2, -1, -1), Vector3.new(2, 1, 1))
-			testGivenParts({yPart1, yPart2}, Vector3.new(-1, -2, -1), Vector3.new(1, 2, 1))
-			testGivenParts({zPart1, zPart2}, Vector3.new(-1, -1, -2), Vector3.new(1, 1, 2))
+			testGivenParts({ centerPart }, Vector3.new(-1, -1, -1), Vector3.new(1, 1, 1))
+			testGivenParts({ xPart1, xPart2 }, Vector3.new(-2, -1, -1), Vector3.new(2, 1, 1))
+			testGivenParts({ yPart1, yPart2 }, Vector3.new(-1, -2, -1), Vector3.new(1, 2, 1))
+			testGivenParts({ zPart1, zPart2 }, Vector3.new(-1, -1, -2), Vector3.new(1, 1, 2))
 		end)
 	end)
 

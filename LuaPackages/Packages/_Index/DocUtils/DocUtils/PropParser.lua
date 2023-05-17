@@ -29,7 +29,10 @@
 local Types = require(script.Parent.Types)
 local PropParser = {}
 
-local commentPattern = "%s*%-%-%s*(.*)$"
+local commentPrefix = "(%s*)%-%-"
+local commentSuffix = "%s*(.*)$"
+local multilineCommentPattern = commentPrefix .. "%[%["
+local commentPattern = commentPrefix .. commentSuffix
 function PropParser.parseProps(props: string, defaultProps: string?)
 	local result: Types.Props = {}
 
@@ -44,22 +47,45 @@ function PropParser.parseProps(props: string, defaultProps: string?)
 
 	local currentComment: string? = nil
 	local depth = 0
+	local isMultilineComment = false
+	local multilineWhitespace = ""
 
 	local lines = props:gsub("\r", ""):split("\n")
 	for _, line in ipairs(lines) do
 		if string.match(line, "^%s*$") then
+			if isMultilineComment and currentComment ~= nil then
+				currentComment ..= "\n"
+			end
 			continue
 		end
 
-		local comment = string.match(line, "^" .. commentPattern)
-		if comment then
+		if string.match(line, "^%s*%]%]$") then
+			isMultilineComment = false
+			multilineWhitespace = ""
+			continue
+		end
+
+		local _, comment = string.match(line, "^" .. commentPattern)
+		local multilineCommentWhitespace = string.match(line, multilineCommentPattern)
+		if multilineCommentWhitespace then
+			isMultilineComment = true
+			multilineWhitespace = multilineCommentWhitespace
+		elseif comment then
 			if currentComment == nil then
 				currentComment = comment
 			else
 				currentComment ..= " " .. comment
 			end
+		elseif isMultilineComment then
+			local multilineComment = string.match(line, multilineWhitespace .. "	(.*)$")
+			if currentComment == nil then
+				currentComment = multilineComment
+			else
+				-- Preserve formatting / newlines for multiline comments.
+				currentComment ..= "\n" .. multilineComment
+			end
 		else
-			local endingComment = string.match(line, commentPattern)
+			local _, endingComment = string.match(line, commentPattern)
 			if endingComment then
 				currentComment = endingComment
 			end
@@ -67,6 +93,7 @@ function PropParser.parseProps(props: string, defaultProps: string?)
 			if depth > 0 and string.match(line, "^%s*%p*,$") then
 				-- Ending of a multi-line type definition
 				depth -= 1
+				currentComment = nil
 				continue
 			end
 
@@ -151,6 +178,8 @@ function PropParser._getProp(line: string, isMultiLine: boolean?): (string?, str
 				propFormat = "Map<" .. propFormat .. ">"
 			elseif outerClassifier == "union" then
 				propType = table.concat(string.split(innerPropType, ", "), " | ")
+			elseif outerClassifier == "intersection" then
+				propType = table.concat(string.split(innerPropType, ", "), " & ")
 			elseif outerClassifier == "numberMin" then
 				propType = innerPropType
 				propFormat = "number > " .. propFormat

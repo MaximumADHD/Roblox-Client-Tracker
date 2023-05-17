@@ -31,7 +31,6 @@ local GetEngineFeatureSafe = require(Core.Utility.GetEngineFeatureSafe)
 local LOAD_FAILED_RETRY_COUNT = 3
 local LOAD_TIMED_OUT_RETRY_COUNT = 5
 local RETRY_TIME_MULTIPLIER = 1.5
-local DEFAULT_IMAGE_AWAIT_TIMEOUT_IN_SECONDS = 30
 
 local decal = Instance.new("Decal")
 local inf = math.huge
@@ -64,11 +63,11 @@ local LoadableImage = Roact.PureComponent:extend("LoadableImage")
 LoadableImage.validateProps = t.strictInterface({
 	-- The anchor point of the final and loading image
 	AnchorPoint = t.optional(t.Vector2),
-	-- The background color of the final image. Defaults to placeholder background color.
+	-- The background color of the final image. Defaults to placeholder background color
 	BackgroundColor3 = t.optional(t.Color3),
-	-- The background transparency of the final image. Defaults to placeholder transparency.
+	-- The background transparency of the final image. Defaults to placeholder transparency
 	BackgroundTransparency = t.optional(t.number),
-	-- The corner radius of the image, shimmer, and failed image's rounded corners.
+	-- The corner radius of the image, shimmer, and failed image's rounded corners
 	cornerRadius = t.optional(t.UDim),
 	-- The final image.
 	-- It could be a string referring to an image URI, or it could be an ImageSet.
@@ -85,9 +84,9 @@ LoadableImage.validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 	-- The loading image which shows if useShimmerAnimationWhileLoading is false
 	loadingImage = t.optional(t.union(t.string, t.table)),
-	-- The timing when image starts loading (Eager = on component, Default = leave up to game engine to decide)
+	-- The timing when image starts loading (Eager = on component mount, Default = leave up to game engine to decide)
 	loadingStrategy = t.optional(LoadingStrategy.isEnumValue),
-	-- The maximum time in seconds to wait for the image to load by game engine before it's considered an error.
+	-- The maximum time in seconds to wait for the image to load by game engine before it fails
 	loadingTimeout = t.optional(t.numberPositive),
 	-- A render function to run while loading (overrides useShimmerAnimationWhileLoading and loadingImage)
 	renderOnLoading = t.optional(t.callback),
@@ -97,13 +96,13 @@ LoadableImage.validateProps = t.strictInterface({
 	MaxSize = t.optional(t.Vector2),
 	-- The min size of all images shown
 	MinSize = t.optional(t.Vector2),
-	-- The function to call when loading is complete
+	-- A function to call when loading is complete
 	onLoaded = t.optional(t.callback),
 	-- The position point of the loading image
 	Position = t.optional(t.UDim2),
-	-- The scale type of the final and loading image
+	-- Scale type of the final and loading image
 	ScaleType = t.optional(t.enum(Enum.ScaleType)),
-	-- The size point of the loading image
+	-- The size of the image
 	Size = t.UDim2,
 	-- Whether or not to show a static image or the shimmer animation while loading
 	useShimmerAnimationWhileLoading = t.optional(t.boolean),
@@ -129,7 +128,7 @@ LoadableImage.defaultProps = {
 	useShimmerAnimationWhileLoading = false,
 	showFailedStateWhenLoadingFailed = false,
 	loadingStrategy = LoadingStrategy.Eager,
-	loadingTimeout = DEFAULT_IMAGE_AWAIT_TIMEOUT_IN_SECONDS,
+	loadingTimeout = 30,
 	shouldHandleReloads = if loadableImageResponsiveThumbnails then false else nil,
 }
 

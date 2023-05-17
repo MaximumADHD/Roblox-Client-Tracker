@@ -10,6 +10,7 @@ local t = require(Packages.t)
 
 local useStyle = require(Core.Style.useStyle)
 local LoadableImage = require(App.Loading.LoadableImage)
+local StyleTypes = require(App.Style.StyleTypes)
 
 local CORNER_RADIUS = UDim.new(0, 8)
 
@@ -22,6 +23,8 @@ export type VerticalTileThumbnailProps = {
 	isBottomRounded: boolean,
 	-- The image to display in the tile
 	thumbnail: string?,
+	-- Border config
+	border: StyleTypes.BorderItem?,
 }
 
 local function VerticalTileThumbnail(props: VerticalTileThumbnailProps)
@@ -29,9 +32,11 @@ local function VerticalTileThumbnail(props: VerticalTileThumbnailProps)
 	local isTopRounded = props.isTopRounded
 	local isBottomRounded = props.isBottomRounded
 	local thumbnail = props.thumbnail
+	local border = props.border
 
 	local roundAll = isTopRounded and isBottomRounded
 	local isSplit = not roundAll and (isTopRounded or isBottomRounded)
+	local borderRadius = if border ~= nil then border.CornerRadius else CORNER_RADIUS
 
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
@@ -52,7 +57,7 @@ local function VerticalTileThumbnail(props: VerticalTileThumbnailProps)
 				Image = thumbnail,
 				Position = UDim2.fromScale(0, 0),
 				Size = UDim2.fromScale(1, if not isSplit then 1 else 2),
-				cornerRadius = if roundAll or isTopRounded then CORNER_RADIUS else nil,
+				cornerRadius = if roundAll or isTopRounded then borderRadius else nil,
 				showFailedStateWhenLoadingFailed = true,
 				useShimmerAnimationWhileLoading = true,
 			}),
@@ -69,7 +74,7 @@ local function VerticalTileThumbnail(props: VerticalTileThumbnailProps)
 					Image = thumbnail,
 					Position = UDim2.fromScale(0, -1),
 					Size = UDim2.fromScale(1, 2),
-					cornerRadius = if roundAll or isBottomRounded then CORNER_RADIUS else nil,
+					cornerRadius = if roundAll or isBottomRounded then borderRadius else nil,
 					showFailedStateWhenLoadingFailed = true,
 					useShimmerAnimationWhileLoading = true,
 				}),

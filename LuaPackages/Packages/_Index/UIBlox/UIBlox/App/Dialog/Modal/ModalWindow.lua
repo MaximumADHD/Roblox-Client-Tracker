@@ -22,11 +22,19 @@ local FLOATING_BACKGROUND_IMAGE = "component_assets/circle_17"
 local ModalWindow = Roact.PureComponent:extend("ModalWindow")
 
 ModalWindow.validateProps = t.strictInterface({
+	-- Determine if the ModalWindow will have a Frame extending the full height
+	-- of the screenSize or fit component to dynamically size around the middleContent.
 	isFullHeight = t.boolean,
+	-- Size of the container housing the `ModalWindow`. This is necessary to dynamically scale the alert's width.
 	screenSize = t.Vector2,
 	[Roact.Children] = t.table,
+	-- Position of `ModalWindow` in the whole page. Depending on the screensize that houses it, the position and anchor of the modal will change.
+	-- If the width is less than the max size of the `Modal` (540px), then it will be anchored at the bottom of the screen, otherwise it will be positioned at the center.
+	-- This is just for the ease of seeing the final state of the window, the window should be animated in and out.
 	position = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
+	-- The modal does not inherently account for safe zone areas at the top, such as device-specific status bars.
+	-- This value repositions the top of the modal by this pixel value from the top of the screen.
 	distanceFromTop = t.optional(t.number),
 })
 

@@ -16,16 +16,35 @@ local TooltipOrientation = require(TooltipRoot.Enum.TooltipOrientation)
 local Tooltip = Roact.PureComponent:extend("Tooltip")
 
 Tooltip.validateProps = t.strictInterface({
+	-- AbsolutePosition of trigger point
 	triggerPosition = t.Vector2,
+	-- AbsoluteSize of trigger point
 	triggerSize = t.Vector2,
+	-- Tooltip body content
 	bodyText = t.string,
+	-- Tooltip header content
 	headerText = t.optional(t.string),
+	-- Callback to dismiss tooltip
 	onDismiss = t.optional(t.callback),
-	screenSize = t.optional(t.Vector2), --the app screen size
+	-- App screen size. Used with `triggerPosition` and `triggerSize` together to calculate tooltip's responsiveness.
+	-- If `screenSize` is not available, pass `position` prop to set manually.
+	screenSize = t.optional(t.Vector2),
+	-- Alternative to set the position of tooltip if `screenSize` is not available
 	position = t.optional(t.UDim2),
+	-- Tooltip orientation
 	orientation = t.optional(enumerateValidator(TooltipOrientation)),
+	--[[
+		There are 2 methods to activate tooltip:
+
+			1.	Clicking / tapping trigger point
+			2.	Hovering over a trigger point over 2.0 seconds
+
+			Method 1 by default, set it to `true` to use hovering.
+	]]
 	triggerOnHover = t.optional(t.boolean),
+	-- Force user to click on the trigger point to dismiss tooltip.
 	forceClickTriggerPoint = t.optional(t.boolean),
+	-- If tooltip renders as a direct child of trigger point, set it to `true` to make sure position calculation correct.
 	isDirectChild = t.optional(t.boolean),
 })
 

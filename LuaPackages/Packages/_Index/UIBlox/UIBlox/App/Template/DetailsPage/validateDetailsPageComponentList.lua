@@ -12,9 +12,13 @@ local t = require(Packages.t)
 return t.map(
 	t.string,
 	t.strictInterface({
+		-- The layout of the component in single panel portrait mode.
 		portraitLayoutOrder = t.integer,
+		-- The layout of the component in dual panel landscape mode.
 		landscapeLayoutOrder = t.integer,
+		-- The position of the component in dual panel landscape mode.
 		landscapePosition = enumerateValidator(ContentPositionEnum),
+		-- render function for the component.
 		renderComponent = t.callback,
 	})
 )

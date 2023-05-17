@@ -37,7 +37,9 @@ local function makeCell(backgroundThemeKey)
 	cellComponent.validateProps = t.strictInterface({
 		-- Icon can either be an Image in a ImageSet or a regular image asset
 		icon = t.optional(t.union(t.table, t.string)),
+		-- Label for the specific button
 		text = t.string,
+		-- The function that fires when the button is clicked
 		onActivated = t.callback,
 
 		-- A KeyCode to display a keycode hint for, the display string based on
@@ -49,9 +51,12 @@ local function makeCell(backgroundThemeKey)
 				axis = t.optional(t.string),
 			})
 		)),
+		-- If the cell is selected or not
 		selected = t.optional(t.boolean),
 
+		-- A Color3 value to override the Text TextColor with
 		iconColorOverride = t.optional(t.Color3),
+		-- A Color3 value to override the Icon ImageColor with
 		textColorOverride = t.optional(t.Color3),
 
 		elementHeight = t.integer,
@@ -59,6 +64,7 @@ local function makeCell(backgroundThemeKey)
 		hasRoundBottom = t.boolean,
 
 		hasDivider = t.boolean,
+		-- If the cell is disabled or not
 		disabled = t.optional(t.boolean),
 		stayOnActivated = t.optional(t.boolean),
 

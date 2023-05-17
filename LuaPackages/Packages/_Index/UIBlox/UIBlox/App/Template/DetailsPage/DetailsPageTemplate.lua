@@ -42,41 +42,56 @@ local MOBILE_ACTION_BAR_GRADIENT = 24
 
 local MOBILE_ACTION_BAR_HEIGHT = 72
 
+DetailsPageTemplate.validateProps = t.strictInterface({
+	-- URL for the thumbnail
+	thumbnailImageUrl = t.optional(t.string),
+	-- The height of the thumbnail image
+	thumbnailHeight = t.optional(t.number),
+	-- Aspect ratio of the thumbnail
+	thumbnailAspectRatio = t.optional(t.Vector2),
+	-- Title text of the details page. It can be turned off if nil is passed through.
+	titleText = t.optional(t.string),
+	-- Sub title text of the details page. It can be turned off if nil is passed through.
+	subTitleText = t.optional(t.string),
+	-- A custom Roact component to be rendered in the header
+	renderInfoContent = t.optional(t.callback),
+
+	-- Props for the embedded action bar component.
+	-- See [ActionBar](../../Button/ActionBar.md) for more information.
+	actionBarProps = t.optional(ActionBar.validateProps),
+
+	-- The table of props for the content of the details page
+	componentList = t.optional(validateDetailsPageComponentList),
+	-- The dual panel breakpoint
+	dualPanelBreakpoint = t.optional(t.number),
+	-- The side margin of the body components
+	sideMargin = t.optional(t.number),
+	bodyClipsDescendants = t.optional(t.boolean),
+
+	-- Starting scrolling position of the details page
+	startingOffsetPosition = t.optional(t.number),
+	-- The height of the header bar
+	headerBarBackgroundHeight = t.optional(t.number),
+	onClose = t.callback,
+	-- Custom gradient props for the background gradient banner
+	bannerPlaceholderGradient = t.optional(t.table),
+	-- URL of the background banner image
+	bannerImageUrl = t.optional(t.string),
+	-- Enable fullscreen mode
+	isFullscreen = t.optional(t.boolean),
+	-- A custom Roact component to be rendered when in fullscreen mode
+	renderFullscreenContent = t.optional(t.callback),
+	-- Device type
+	deviceType = t.optional(t.string),
+
+	-- deprecated Prop
+	isMobile = t.optional(t.boolean),
+})
+
 DetailsPageTemplate.defaultProps = {
 	deviceType = DeviceType.Desktop,
 	isFullscreen = false,
 }
-
-DetailsPageTemplate.validateProps = t.strictInterface({
-	--Header props
-	thumbnailImageUrl = t.optional(t.string),
-	thumbnailHeight = t.optional(t.number),
-	thumbnailAspectRatio = t.optional(t.Vector2),
-	titleText = t.optional(t.string),
-	subTitleText = t.optional(t.string),
-	renderInfoContent = t.optional(t.callback),
-	actionBarProps = t.optional(ActionBar.validateProps),
-
-	--Body props
-	componentList = t.optional(validateDetailsPageComponentList),
-	dualPanelBreakpoint = t.optional(t.number),
-	sideMargin = t.optional(t.number),
-	bodyClipsDescendants = t.optional(t.boolean),
-
-	--Template props
-	startingOffsetPosition = t.optional(t.number),
-	headerBarBackgroundHeight = t.optional(t.number),
-	onClose = t.callback,
-	bannerPlaceholderGradient = t.optional(t.table),
-	bannerImageUrl = t.optional(t.string),
-	isFullscreen = t.optional(t.boolean),
-	renderFullscreenContent = t.optional(t.callback),
-
-	deviceType = t.optional(t.string),
-
-	--deprecated Prop
-	isMobile = t.optional(t.boolean),
-})
 
 local function getHeaderPaddingHeight(props, backgroundHeight)
 	local deviceConfig = getPlatformConfig(props.deviceType)

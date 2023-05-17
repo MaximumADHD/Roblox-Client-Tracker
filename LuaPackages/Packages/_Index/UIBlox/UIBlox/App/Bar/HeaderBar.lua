@@ -34,7 +34,7 @@ HeaderBar.renderLeft = {
 }
 
 HeaderBar.validateProps = t.strictInterface({
-	-- The title of the screen
+	-- The title text for the title bar
 	title = t.optional(t.string),
 
 	-- The value for the side margins
@@ -43,19 +43,19 @@ HeaderBar.validateProps = t.strictInterface({
 	-- Padding around the items from renderRight
 	contentPaddingRight = t.optional(t.UDim),
 
-	-- How tall the bar is
+	-- The height of the bar
 	barHeight = t.optional(t.number),
 
 	-- A function that returns a Roact Component, used for customizing buttons on the right side of the bar
 	renderRight = t.optional(t.callback),
 
-	-- A function that returns a Roact Component, used for customizing, e.g. back button, on the left side of the bar
+	-- A function that returns a Roact Component, used for customizing, e.g. back button, on the left side of the bar. If this does not exist, the bar will appear as a root HeaderBar and will increase the size of the title and place it to the left
 	renderLeft = t.optional(t.callback),
 
 	-- A function that returns a Roact Component, used for containing, e.g. search bar, on the center of the bar
 	renderCenter = t.optional(t.callback),
 
-	-- Background transparency
+	-- Background transparency of the bar
 	backgroundTransparency = t.optional(t.number),
 
 	-- Add an invisible button to the bar to capture click event

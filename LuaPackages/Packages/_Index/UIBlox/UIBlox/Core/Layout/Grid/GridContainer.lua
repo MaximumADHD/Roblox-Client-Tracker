@@ -15,8 +15,11 @@ local GridConfigReader = require(Grid.GridConfigReader)
 local GridContainer = Roact.PureComponent:extend("GridContainer")
 
 GridContainer.validateProps = t.strictInterface({
+	-- Grid configuration, see below for details
 	config = t.optional(t.table),
+	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
+	-- Vertical padding between rows, relative to container height
 	padding = t.optional(t.UDim),
 	[Roact.Children] = t.optional(t.table),
 })
