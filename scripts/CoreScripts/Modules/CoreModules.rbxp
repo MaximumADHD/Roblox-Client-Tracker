@@ -109,6 +109,9 @@
             "TopBar": {
                 "$path": "TopBar"
             },
+            "FTUX": {
+                "$path": "FTUX"
+            },
             "TrustAndSafety": {
                 "$path": "TrustAndSafety"
             },

@@ -25,6 +25,7 @@ Studio.GameSettings.General.ReplyNo,No, ,No
 Studio.GameSettings.Monetization.VIPServersActive,There are currently {totalVipServers:int} VIP Servers active for this place., ,There are currently {totalVipServers:int} VIP Servers active for this place.
 Studio.GameSettings.General.ContentDialogHeader,Content Agreement, ,Content Agreement
 Studio.GameSettings.General.SettingOff,Off, ,Off
+Studio.GameSettings.AvatarChat.VideoBody,Enabling camera allows eligible users to animate their avatar with their movement in your experience. [link], ,Enabling camera allows eligible users to animate their avatar with their movement in your experience. [link]
 Studio.GameSettings.General.GameIconPrompt,Add Game Icon, ,Add Game Icon
 Studio.GameSettings.General.ReplyOK,OK, ,OK
 Studio.GameSettings.General.PartHead,Head, ,Head
@@ -49,6 +50,7 @@ Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit th
 Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game
 Studio.GameSettings.General.ButtonSubmit,Submit, ,Submit
 Studio.GameSettings.General.TitleStudioApiServices,Enable Studio Access to API Services, ,Enable Studio Access to API Services
+Studio.GameSettings.VRPrompt.DialogItem2,If you overwrote default PlayerScripts please test your camera in VR., ,If you overwrote default PlayerScripts please test your camera in VR.
 Studio.GameSettings.General.ButtonDiscard,Discard, ,Discard
 Studio.GameSettings.General.GameIconChange,Change, ,Change
 Studio.GameSettings.General.CategoryPlaces,Places, ,Places
@@ -90,6 +92,7 @@ Studio.GameSettings.General.TitleThumbnails,Screenshots & Videos, ,Screenshots &
 Studio.GameSettings.Places.ConfigurePlace,Configure Place, ,Configure Place
 Studio.GameSettings.General.CategoryLocalization,Localization, ,Localization
 Studio.GameSettings.General.TitleGenre,Genre, ,Genre
+Studio.GameSettings.VRPrompt.DialogItem4,Ensure your experience is performant - low FPS can make players sick., ,Ensure your experience is performant - low FPS can make players sick.
 Studio.GameSettings.General.TitleHttp,Allow HTTP Requests, ,Allow HTTP Requests
 Studio.GameSettings.General.ClothingPants,Pants ID, ,Pants ID
 Studio.GameSettings.General.TitleOptInLocations,Opt-In Locations, ,Opt-In Locations
@@ -159,6 +162,7 @@ Studio.GameSettings.General.DeviceComputer,Computer, ,Computer
 Studio.GameSettings.General.DevicePhone,Phone, ,Phone
 Studio.GameSettings.General.DeviceTablet,Tablet, ,Tablet
 Studio.GameSettings.General.DeviceConsole,Console, ,Console
+Studio.GameSettings.General.DeviceVR,VR, ,VR
 Studio.GameSettings.General.LocationChina,China, ,China
 Studio.GameSettings.General.HttpDesc,Allow game server to issue requests to remote servers., ,Allow game server to issue requests to remote servers.
 Studio.GameSettings.Places.MaximumTitle,Maximum, ,Maximum
@@ -234,6 +238,7 @@ Studio.GameSettings.General.AvatarTypeR6,R6, ,R6
 Studio.GameSettings.General.PartRightLeg,Right Leg, ,Right Leg
 Studio.GameSettings.General.PresetDefault,Default, ,Default
 Studio.GameSettings.General.PresetClassicScale,Classic Scale, ,Classic Scale
+Studio.GameSettings.VRPrompt.Title,VR Experience Agreement, ,VR Experience Agreement
 Studio.GameSettings.General.AnimationPlayerChoice,Player Choice, ,Player Choice
 Studio.GameSettings.General.AvatarTypePlayerChoice,Player Choice, ,Player Choice
 Studio.GameSettings.General.PresetPlayerChoice,Player Choice, ,Player Choice
@@ -374,6 +379,8 @@ Studio.GameSettings.Monetization.ProductID,Product ID, ,Product ID
 Studio.GameSettings.Monetization.ProductIcon,Product Icon, ,Product Icon
 Studio.GameSettings.Monetization.UnsavedDevProductName1,Developer Product {1}, ,Developer Product {1}
 Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.
+Studio.GameSettings.VRPrompt.DialogItem1,Ensure your experience has been tested in VR and works as expected., ,Ensure your experience has been tested in VR and works as expected.
+Studio.GameSettings.VRPrompt.Header,Only turn this option on if you want your experience to be available on Virtual Reality headsets., ,Only turn this option on if you want your experience to be available on Virtual Reality headsets.
 Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000)
 Studio.GameSettings.Monetization.Free,Free, ,Free
 Studio.GameSettings.Monetization.PaidAccessHint,"Private Servers must not be enabled, and the game must be public to enable Paid Access.", ,"Private Servers must not be enabled, and the game must be public to enable Paid Access."
@@ -405,5 +412,5 @@ Studio.GameSettings.General.VoiceChatText,Enabling Spatial Voice allows voice-el
 Studio.GameSettings.General.VoiceChatBody,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience. [link], ,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience. [link]
 Studio.GameSettings.General.GameNameWasModerated,Game name was moderated, ,Game name was moderated
 Studio.GameSettings.AvatarChat.VideoTitle,Enable Camera, ,Enable Camera
-Studio.GameSettings.AvatarChat.VideoBody,Enabling camera allows an eligible user to animate their avatar using their movements in your experience. [link], ,Enabling camera allows an eligible user to animate their avatar using their movements in your experience. [link]
 Studio.GameSettings.AvatarChat.AudioBody,Enabling microphone allows an eligible user to chat with their voice in your experience. [link], ,Enabling microphone allows an eligible user to chat with their voice in your experience. [link]
+Studio.GameSettings.VRPrompt.DialogItem3,If you overwrote laserpointer/controller code please test your controls in VR., ,If you overwrote laserpointer/controller code please test your controls in VR.

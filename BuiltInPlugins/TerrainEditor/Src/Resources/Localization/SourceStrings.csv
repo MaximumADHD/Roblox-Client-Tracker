@@ -1,13 +1,50 @@
 Key,en-us
-Studio.TerrainEditor.BaseTool.BrushDeform,Deform
-Studio.TerrainEditor.BaseTool.BrushFlatten,Flatten
-Studio.TerrainEditor.BaseTool.BrushPaint,Paint
-Studio.TerrainEditor.BaseTool.BrushSculpt,Sculpt
-Studio.TerrainEditor.BaseTool.BrushSmooth,Smooth
-Studio.TerrainEditor.BaseTool.RegionFill,Fill
-Studio.TerrainEditor.BaseTool.RegionGenerate,Generate
-Studio.TerrainEditor.BaseTool.RegionImport,Import
-Studio.TerrainEditor.BaseTool.RegionTransform,Transform
+Studio.TerrainEditor.BaseTool.Draw,Draw
+Studio.TerrainEditor.BaseTool.Fill,Fill
+Studio.TerrainEditor.BaseTool.Flatten,Flatten
+Studio.TerrainEditor.BaseTool.Generate,Generate
+Studio.TerrainEditor.BaseTool.Import,Import
+Studio.TerrainEditor.BaseTool.Paint,Paint
+Studio.TerrainEditor.BaseTool.Sculpt,Sculpt
+Studio.TerrainEditor.BaseTool.Smooth,Smooth
+Studio.TerrainEditor.BaseTool.Transform,Transform
+Studio.TerrainEditor.BrushMode.Add,Add
+Studio.TerrainEditor.BrushMode.Subtract,Subtract
+Studio.TerrainEditor.BrushSettings.BaseHeight,Base Height
+Studio.TerrainEditor.BrushSettings.BaseSize,Base Size
+Studio.TerrainEditor.BrushSettings.BrushShape,Brush Shape
+Studio.TerrainEditor.BrushSettings.FixedPlane,Fixed Plane
+Studio.TerrainEditor.BrushSettings.FlattenMode,Flatten Mode
+Studio.TerrainEditor.BrushSettings.IgnoreParts,Ignore Parts
+Studio.TerrainEditor.BrushSettings.IgnoreWater,Ignore Water
+Studio.TerrainEditor.BrushSettings.PivotPosition,Pivot Position
+Studio.TerrainEditor.BrushSettings.PlaneLock,Plane Lock
+Studio.TerrainEditor.BrushSettings.PlanePosition,Plane Position
+Studio.TerrainEditor.BrushSettings.SnapToVoxels,Snap to Voxels
+Studio.TerrainEditor.BrushSettings.Strength,Strength
+Studio.TerrainEditor.BrushShape.Cube,Cube
+Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
+Studio.TerrainEditor.BrushShape.Sphere,Sphere
+Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
+Studio.TerrainEditor.Categories.MaterialSettings,Material Settings
+Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode
+Studio.TerrainEditor.EditorEnum.BrushShape,Brush Shape
+Studio.TerrainEditor.EditorEnum.FlattenMode,Flatten Mode
+Studio.TerrainEditor.EditorEnum.PivotPosition,Pivot Position
+Studio.TerrainEditor.EditorEnum.PlaneLock,Plane Lock
+Studio.TerrainEditor.FlattenMode.Both,Both
+Studio.TerrainEditor.FlattenMode.Over,Over
+Studio.TerrainEditor.FlattenMode.Under,Under
+Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material
+Studio.TerrainEditor.MaterialSettings.ReplaceMaterial,Replace Material
+Studio.TerrainEditor.MaterialSettings.SourceMaterial,Source Material
+Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material
+Studio.TerrainEditor.PivotPosition.Bottom,Bottom
+Studio.TerrainEditor.PivotPosition.Center,Center
+Studio.TerrainEditor.PivotPosition.Top,Top
+Studio.TerrainEditor.PlaneLock.Auto,Auto
+Studio.TerrainEditor.PlaneLock.Manual,Manual
+Studio.TerrainEditor.PlaneLock.Off,Off
 Studio.TerrainEditor.Plugin.Button,Toggle
 Studio.TerrainEditor.Plugin.Description,Toggles the Template plugin window.
 Studio.TerrainEditor.Plugin.Name,Terrain Editor

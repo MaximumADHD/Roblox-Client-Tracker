@@ -27,5 +27,6 @@ Studio.MaterialGenerator.Plugin.Button,Material Generator
 Studio.MaterialGenerator.Plugin.Description,Generate materials from text using AI
 Studio.MaterialGenerator.Plugin.Name,Material Generator
 Studio.MaterialGenerator.Plugin.Toolbar,MaterialGenerator
+Studio.MaterialGenerator.TextureBrowser.GenerateVariations,Generate Variations
 Studio.MaterialGenerator.TextureBrowser.Remove,Discard
 Studio.MaterialGenerator.TextureBrowser.RemoveAll,Discard All

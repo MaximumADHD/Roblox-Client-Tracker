@@ -43,7 +43,7 @@ void main()
     vec4 f14 = vec4(normalize(((mix(vec3(VARYING6.z, 0.0, -VARYING6.x), vec3(-VARYING6.y, VARYING6.x, 0.0), f13) * f11.x) + (mix(vec3(0.0, 1.0, 0.0), vec3(0.0, -VARYING6.z, VARYING6.y), f13) * f11.y)) + (VARYING6.xyz * sqrt(clamp(1.0 + dot(vec2(1.0) - f10, f11), 0.0, 1.0)))), f12);
     vec3 f15 = f14.xyz;
     vec3 f16 = mix(VARYING6.xyz, f15, vec3(0.25));
-    vec3 f17 = normalize(VARYING7.xyz);
+    vec3 f17 = VARYING7.xyz / vec3(sqrt(dot(VARYING7.xyz, VARYING7.xyz)));
     vec3 f18 = -f17;
     vec3 f19 = reflect(f18, f16);
     vec3 f20 = f15 * f15;

@@ -14,6 +14,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property BinaryString Instance.Tags {RobloxSecurity} [Hidden] [NotScriptable]
 	Property UniqueId Instance.UniqueId {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property int Instance.numExpectedDirectChildren [Hidden] [NotScriptable]
+	Function null Instance:AddTag(string tag)
 	Function null Instance:ClearAllChildren()
 	Function Instance Instance:Clone()
 	Function null Instance:Destroy()
@@ -33,10 +34,13 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Array Instance:GetDescendants() [CustomLuaState] {🧬Safe}
 	Function string Instance:GetFullName() {🧬Safe}
 	Function RBXScriptSignal Instance:GetPropertyChangedSignal(string property)
+	Function Array Instance:GetTags() {🧬Safe}
+	Function bool Instance:HasTag(string tag) {🧬Safe}
 	Function bool Instance:IsA(string className) [CustomLuaState] {🧬Safe}
 	Function bool Instance:IsAncestorOf(Instance descendant) {🧬Safe}
 	Function bool Instance:IsDescendantOf(Instance ancestor) {🧬Safe}
 	Function null Instance:Remove() [Deprecated]
+	Function null Instance:RemoveTag(string tag)
 	Function null Instance:SetAttribute(string attribute, Variant value)
 	Function Instance Instance:WaitForChild(string childName, double timeOut) [CustomLuaState] [CanYield]
 	Function Objects Instance:children() [Deprecated]
@@ -123,6 +127,7 @@ Class AnimationRigData : Instance
 	Property BinaryString AnimationRigData.articulatedJoint [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.endEffectorRotationConstraint [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.endEffectorTranslationConstraint [Hidden] [NotScriptable]
+	Property BinaryString AnimationRigData.endEffectorWeight [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.facsControl [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.label [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.name [Hidden] [NotScriptable]
@@ -284,6 +289,7 @@ Class Attachment : Instance
 	Property Vector3 Attachment.Position [Hidden] [NotReplicated]
 	Property Vector3 Attachment.Rotation [Hidden] [NotReplicated] [Deprecated]
 	Function Vector3 Attachment:GetAxis() [Deprecated]
+	Function Objects Attachment:GetConstraints()
 	Function Vector3 Attachment:GetSecondaryAxis() [Deprecated]
 	Function null Attachment:SetAxis(Vector3 axis) [Deprecated]
 	Function null Attachment:SetSecondaryAxis(Vector3 axis) [Deprecated]
@@ -720,6 +726,42 @@ Class ClickDetector : Instance
 	Event ClickDetector.MouseHoverEnter(Player playerWhoHovered)
 	Event ClickDetector.MouseHoverLeave(Player playerWhoHovered)
 	Event ClickDetector.RightMouseClick(Player playerWhoClicked)
+Class DragDetector : ClickDetector [NotBrowsable]
+	Property Enum.DragDetectorDragStyle DragDetector.DragStyle
+	Property bool DragDetector.Enabled
+	Property Enum.DragDetectorResponseStyle DragDetector.ResponseStyle
+	Property bool DragDetector.RunLocally
+	Property float DragDetector.TrackballRadialPullFactor
+	Property float DragDetector.TrackballRollFactor
+	Property Instance DragDetector.ReferenceInstance
+	Property Vector3 DragDetector.Axis [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 DragDetector.Orientation
+	Property Vector3 DragDetector.SecondaryAxis [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 DragDetector.WorldAxis [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 DragDetector.WorldSecondaryAxis [<📁> LoadOnly] [NotReplicated]
+	Property float DragDetector.MaxDragAngle
+	Property Vector3 DragDetector.MaxDragTranslation
+	Property float DragDetector.MinDragAngle
+	Property Vector3 DragDetector.MinDragTranslation
+	Property CFrame DragDetector.DragFrame
+	Property Instance DragDetector.PhysicalDragClickedPart [Hidden] [NotScriptable]
+	Property Vector3 DragDetector.PhysicalDragHitPoint [Hidden] [NotScriptable]
+	Property CFrame DragDetector.PhysicalDragTargetFrame [Hidden] [NotScriptable]
+	Property Enum.KeyCode DragDetector.GamepadModeSwitchKeyCode
+	Property Enum.KeyCode DragDetector.KeyboardModeSwitchKeyCode
+	Property Enum.KeyCode DragDetector.VRSwitchKeyCode
+	Property bool DragDetector.ApplyAtCenterOfMass
+	Property float DragDetector.MaxForce
+	Property float DragDetector.MaxTorque
+	Property float DragDetector.Responsiveness
+	Function null DragDetector:AddConstraintFunction(string name, int priority, Function function)
+	Function CFrame DragDetector:GetReferenceFrame()
+	Function null DragDetector:RemoveConstraintFunction(string name)
+	Function null DragDetector:RestartDrag()
+	Function null DragDetector:SetDragStyleFunction(Function function)
+	Event DragDetector.DragContinue(Player playerWhoDragged, Ray cursorRay, CFrame viewFrame, OptionalCoordinateFrame vrInputFrame, bool isModeSwitchKeyDown)
+	Event DragDetector.DragEnd(Player playerWhoDragged)
+	Event DragDetector.DragStart(Player playerWhoDragged, Ray cursorRay, CFrame viewFrame, CFrame hitFrame, BasePart clickedPart, OptionalCoordinateFrame vrInputFrame, bool isModeSwitchKeyDown)
 Class Clouds : Instance
 	Property float Clouds.Cover
 	Property float Clouds.Density
@@ -2125,6 +2167,7 @@ Class Humanoid : Instance
 	Property float Humanoid.HealthDisplayDistance
 	Property Enum.HumanoidHealthDisplayType Humanoid.HealthDisplayType
 	Property Vector3 Humanoid.InternalBodyScale [Hidden] [NotReplicated] [NotScriptable]
+	Property string Humanoid.InternalDisplayName {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property float Humanoid.InternalHeadScale [Hidden] [NotReplicated] [NotScriptable]
 	Property float Humanoid.InternalOriginalHipHeight [Hidden] [NotScriptable]
 	Property BasePart Humanoid.LeftLeg [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
@@ -2335,6 +2378,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function null InsertService:Insert(Instance instance) [Deprecated]
 	Function Instance InsertService:LoadAsset(int64 assetId) [Yields]
 	Function Instance InsertService:LoadAssetVersion(int64 assetVersionId) [Yields]
+	Function Objects InsertService:LoadAssetWithFormat(int64 assetId, string format) {RobloxScriptSecurity} [Yields]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAssetAsync(Content url) {RobloxScriptSecurity} [Yields]
@@ -2454,6 +2498,7 @@ Class LiveScriptingService : Instance [NotCreatable] [Service]
 	Event LiveScriptingService.BeginEdit(string guid) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.EndEdit(string script) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.FailedToOpen(string guid) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.KickFromEdit(string script) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.OpenedWithSource(string script, string source) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.SendOperation(string script, string op) {RobloxSecurity} [Hidden]
 Class LocalStorageService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2872,7 +2917,7 @@ Class NotificationService : Instance [NotCreatable] [Service]
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property CFrame PVInstance.Pivot Offset [NotReplicated] [NotScriptable]
 	Property CFrame PVInstance.Origin [NotReplicated] [NotScriptable]
-	Function CFrame PVInstance:GetPivot()
+	Function CFrame PVInstance:GetPivot() {🧬Safe}
 	Function null PVInstance:PivotTo(CFrame targetCFrame)
 Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BrickColor BasePart.BrickColor [<📁> LoadOnly] [NotReplicated]
@@ -2956,6 +3001,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function null BasePart:BreakJoints() [Deprecated]
 	Function bool BasePart:CanCollideWith(BasePart part) {🧬Safe}
 	Function Tuple BasePart:CanSetNetworkOwnership()
+	Function Vector3 BasePart:GetClosestPointOnSurface(Vector3 position)
 	Function Objects BasePart:GetConnectedParts(bool recursive = false) {🧬Safe}
 	Function Objects BasePart:GetJoints() {🧬Safe}
 	Function float BasePart:GetMass() {🧬Safe}
@@ -3148,6 +3194,7 @@ Class Model : PVInstance
 	Function Vector3 Model:GetExtentsSize()
 	Function CFrame Model:GetModelCFrame() [Deprecated]
 	Function Vector3 Model:GetModelSize() [Deprecated]
+	Function Objects Model:GetPersistentPlayers()
 	Function CFrame Model:GetPrimaryPartCFrame() [Deprecated]
 	Function float Model:GetScale()
 	Function null Model:MakeJoints() [Deprecated]
@@ -3344,6 +3391,7 @@ Class ParticleEmitter : Instance
 	Property bool ParticleEmitter.LockedToPart
 	Property float ParticleEmitter.TimeScale
 	Property float ParticleEmitter.VelocityInheritance
+	Property bool ParticleEmitter.WindAffectsDrag
 	Function null ParticleEmitter:Clear()
 	Function null ParticleEmitter:Emit(int particleCount = 16)
 	Function null ParticleEmitter:FastForward(int numFrames) {RobloxScriptSecurity}
@@ -3450,7 +3498,7 @@ Class Player : Instance
 	Property Enum.CameraMode Player.CameraMode
 	Property Enum.DevCameraOcclusionMode Player.DevCameraOcclusionMode
 	Property Enum.DevComputerCameraMovementMode Player.DevComputerCameraMode
-	Property bool Player.DevEnableMouseLock
+	Property bool Player.DevEnableMouseLock [Deprecated]
 	Property Enum.DevTouchCameraMovementMode Player.DevTouchCameraMode
 	Property float Player.HealthDisplayDistance
 	Property float Player.NameDisplayDistance
@@ -3718,6 +3766,7 @@ Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
 	Property string PluginDragEvent.Sender [ReadOnly]
 Class PluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PluginManagementService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function int64 PluginManagementService:GetOTAPluginVersion(string pluginName = "") {RobloxScriptSecurity} [Yields]
 	Function null PluginManagementService:SetAutoUpdate(int64 pluginId, bool state) {RobloxScriptSecurity}
 Class PluginManager : Instance [NotCreatable]
 	Function Instance PluginManager:CreatePlugin() {PluginSecurity} [Deprecated] [CustomLuaState]
@@ -4001,10 +4050,11 @@ Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
 	Property bool ScreenshotHud.Visible
 Class ScriptBuilder : Instance [NotCreatable] [NotReplicated]
 Class SyncScriptBuilder : ScriptBuilder [NotCreatable] [NotReplicated]
+	Property Enum.CompileTarget SyncScriptBuilder.CompileTarget
 	Property bool SyncScriptBuilder.CoverageInfo
 	Property bool SyncScriptBuilder.DebugInfo
 	Property bool SyncScriptBuilder.PackAsSource
-	Property bool SyncScriptBuilder.RawBytecode
+	Property bool SyncScriptBuilder.RawBytecode [Deprecated]
 Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptAdded(LuaSourceContainer script) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptBeingRemoved(LuaSourceContainer script) {RobloxScriptSecurity}
@@ -4427,7 +4477,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property bool StarterPlayer.CharacterUseJumpPower
 	Property Enum.DevComputerMovementMode StarterPlayer.DevComputerMovementMode
 	Property Enum.DevTouchMovementMode StarterPlayer.DevTouchMovementMode
-	Property bool StarterPlayer.EnableMouseLockOption
+	Property bool StarterPlayer.EnableMouseLockOption [Deprecated]
 	Property Enum.HumanoidStateMachineMode StarterPlayer.HumanoidStateMachineMode [NotBrowsable]
 	Property float StarterPlayer.HealthDisplayDistance
 	Property float StarterPlayer.NameDisplayDistance
@@ -4517,6 +4567,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Delete Closing Brackets and Quotes
 	Property Enum.AutoIndentRule Studio.Auto Indent Rule
 	Property bool Studio.Automatically commit locked scripts when you save or publish to Roblox {RobloxScriptSecurity}
+	Property bool Studio.Automatically trigger AI Code Completion {RobloxScriptSecurity}
 	Property bool Studio.Enable Autocomplete
 	Property bool Studio.Enable Autocomplete Doc View {RobloxScriptSecurity}
 	Property bool Studio.Enable Script Analysis {RobloxScriptSecurity}
@@ -4902,7 +4953,12 @@ Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
 	Function string TextFilterResult:GetNonChatStringForBroadcastAsync() [Yields]
 	Function string TextFilterResult:GetNonChatStringForUserAsync(int64 toUserId) [Yields]
+Class TextFilterTranslatedResult : Instance [NotCreatable] [NotReplicated]
+	Property string TextFilterTranslatedResult.SourceLanguage [ReadOnly]
+	Property TextFilterResult TextFilterTranslatedResult.SourceText [ReadOnly]
+	Function Dictionary TextFilterTranslatedResult:GetTranslations()
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance TextService:FilterAndTranslateStringAsync(string stringToFilter, int64 fromUserId, Array targetLocales, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
 	Function Dictionary TextService:GetFamilyInfoAsync(Content assetId) [Yields]
 	Function Dictionary TextService:GetFontMemoryData() {RobloxScriptSecurity}
@@ -4990,13 +5046,10 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:CanLoadAsset(string assetId) {RobloxScriptSecurity} [Yields]
 	Function Objects UGCValidationService:FetchAssetWithFormat(Content url, string assetFormat) {RobloxScriptSecurity} [Yields]
 	Function int UGCValidationService:GetMeshTriCount(string meshId) {RobloxScriptSecurity} [Yields]
-	Function int UGCValidationService:GetMeshTriCountSync(string meshId) {RobloxScriptSecurity}
 	Function Array UGCValidationService:GetMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
 	Function Array UGCValidationService:GetMeshVerts(string meshId) {RobloxScriptSecurity} [Yields]
-	Function Array UGCValidationService:GetMeshVertsSync(string meshId) {RobloxScriptSecurity}
 	Function Variant UGCValidationService:GetPropertyValue(Instance instance, string property) {RobloxScriptSecurity}
 	Function Vector2 UGCValidationService:GetTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
-	Function Vector2 UGCValidationService:GetTextureSizeSync(string textureId) {RobloxScriptSecurity}
 	Function null UGCValidationService:ResetCollisionFidelity(Instance meshPart) {RobloxScriptSecurity}
 	Function null UGCValidationService:SetMeshIdBlocking(Instance meshPart, string meshId) {RobloxScriptSecurity}
 	Function Tuple UGCValidationService:ValidateCageMeshIntersection(string innerCageMeshId, string outerCageMeshId, string refMeshId) {RobloxScriptSecurity} [Yields]
@@ -5006,6 +5059,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:ValidateMeshTriangles(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMisMatchUV(string innerCageMeshId, string outerCageMeshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateNumTextureChannels(string textureId, int numChannelsRequired) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateOverlappingVertices(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
@@ -5096,7 +5150,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum.CustomCameraMode UserGameSettings.CameraMode {RobloxScriptSecurity}
 	Property Enum.ComputerCameraMovementMode UserGameSettings.ComputerCameraMovementMode
 	Property Enum.ComputerMovementMode UserGameSettings.ComputerMovementMode
-	Property Enum.ControlMode UserGameSettings.ControlMode
+	Property Enum.ControlMode UserGameSettings.ControlMode [Deprecated]
 	Property Enum.RotationType UserGameSettings.RotationType
 	Property Enum.TouchCameraMovementMode UserGameSettings.TouchCameraMovementMode
 	Property Enum.TouchMovementMode UserGameSettings.TouchMovementMode
@@ -5405,6 +5459,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity}
+	Property bool VoiceChatService.UseNewJoinFlow {RobloxSecurity}
 	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [Hidden]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
@@ -5863,6 +5918,11 @@ Enum CollisionFidelity
 Enum CommandPermission
 	EnumItem CommandPermission.Plugin : 0
 	EnumItem CommandPermission.LocalUser : 1
+Enum CompileTarget
+	EnumItem CompileTarget.Client : 0
+	EnumItem CompileTarget.CoreScript : 1
+	EnumItem CompileTarget.Studio : 2
+	EnumItem CompileTarget.CoreScriptRaw : 3
 Enum CompletionItemKind
 	EnumItem CompletionItemKind.Text : 1
 	EnumItem CompletionItemKind.Method : 2
@@ -6131,6 +6191,20 @@ Enum DraftStatusCode
 	EnumItem DraftStatusCode.DraftOutdated : 1
 	EnumItem DraftStatusCode.ScriptRemoved : 2
 	EnumItem DraftStatusCode.DraftCommitted : 3
+Enum DragDetectorDragStyle
+	EnumItem DragDetectorDragStyle.TranslateLine : 0
+	EnumItem DragDetectorDragStyle.TranslatePlane : 1
+	EnumItem DragDetectorDragStyle.TranslatePlaneOrLine : 2
+	EnumItem DragDetectorDragStyle.TranslateLineOrPlane : 3
+	EnumItem DragDetectorDragStyle.TranslateViewPlane : 4
+	EnumItem DragDetectorDragStyle.RotateAxis : 5
+	EnumItem DragDetectorDragStyle.RotateTrackball : 6
+	EnumItem DragDetectorDragStyle.Scriptable : 7
+	EnumItem DragDetectorDragStyle.BestForDevice : 8
+Enum DragDetectorResponseStyle
+	EnumItem DragDetectorResponseStyle.Geometric : 0
+	EnumItem DragDetectorResponseStyle.Physical : 1
+	EnumItem DragDetectorResponseStyle.Custom : 2
 Enum DraggerCoordinateSpace
 	EnumItem DraggerCoordinateSpace.Object : 0
 	EnumItem DraggerCoordinateSpace.World : 1

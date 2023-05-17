@@ -1,8 +1,30 @@
 Key,en-us
+Studio.R15Migrator.AnimationConversion.ChooseAvatarPlaceholder,Choose avatar...
+Studio.R15Migrator.AnimationConversion.ConvertingAnimations,converting
+Studio.R15Migrator.AnimationConversion.DefaultAvatar,Default Avatar
+Studio.R15Migrator.AnimationConversion.Done,done
+Studio.R15Migrator.AnimationConversion.Issues,Issues
+Studio.R15Migrator.AnimationConversion.NotStarted,notStarted
+Studio.R15Migrator.AnimationConversion.Ready,Ready
+Studio.R15Migrator.AnimationConversion.Replace,Replace
+Studio.R15Migrator.AnimationConversion.ScanningScripts,scanning scripts
+Studio.R15Migrator.AnimationConversion.ScanningWorkspace,scanning workspace
+Studio.R15Migrator.AnimationConversion.SelectAvatar,Select Avatar
+Studio.R15Migrator.AnimationConversion.Upload,Upload
+Studio.R15Migrator.ConversionResult.AutoConvert,{count} lines were updated automatically.
+Studio.R15Migrator.ConversionResult.ReplaceFailed,{count} scripts need attention.
+Studio.R15Migrator.ConversionResult.ReplaceSuccess,{count} scripts were successfully updated with rules.
+Studio.R15Migrator.ConversionResult.Revert,{count} scripts were successfully reverted.
+Studio.R15Migrator.ConversionResult.Script,Script {name} was updated.
+Studio.R15Migrator.ConversionResult.UndoRevert,{count} scripts were restored to their state before reversion.
 Studio.R15Migrator.Plugin.Button,Migrate Avatars
 Studio.R15Migrator.Plugin.Description,Tools to migrate avatars to R15
 Studio.R15Migrator.Plugin.Name,R15Migrator
 Studio.R15Migrator.Plugin.Toolbar,R15Migrator
+Studio.R15Migrator.ProgressBar.AutoConvert,Automatically Converting Scripts
+Studio.R15Migrator.ProgressBar.ReplaceWithRules,Replacing with Rules
+Studio.R15Migrator.ProgressBar.Revert,Reverting Scripts
+Studio.R15Migrator.ProgressBar.UndoRevert,Undoing Reverted Scripts
 Studio.R15Migrator.ReplaceRulesPane.ReplacePlaceholder,Replace...
 Studio.R15Migrator.ReplaceRulesPane.Title,Replace With
 Studio.R15Migrator.ReplaceRulesPane.WithPlaceholder,With...
@@ -11,14 +33,15 @@ Studio.R15Migrator.ScriptAnalysis.AnimationWarningCode,Animation Warning
 Studio.R15Migrator.ScriptAnalysis.HumanoidWarning,"Humanoid.{name} found, this will return {suggestion}."
 Studio.R15Migrator.ScriptAnalysis.R6ScriptWarningCode,R6 Script Warning
 Studio.R15Migrator.ScriptAnalysis.ReplaceMessage,"{name} found, possible replacements are: "
+Studio.R15Migrator.ScriptConversion.Automatically,automatically
 Studio.R15Migrator.ScriptConversion.Cancel,Cancel
 Studio.R15Migrator.ScriptConversion.Completed,Completed
 Studio.R15Migrator.ScriptConversion.Confirm,Confirm
+Studio.R15Migrator.ScriptConversion.Convert,Convert
 Studio.R15Migrator.ScriptConversion.Filter,Filter
 Studio.R15Migrator.ScriptConversion.FilterNone,All
 Studio.R15Migrator.ScriptConversion.GoToScript,Go to Script
 Studio.R15Migrator.ScriptConversion.InProgress,In Progress
-Studio.R15Migrator.ScriptConversion.ReplaceRulesProgress,Replacing with Rules
 Studio.R15Migrator.ScriptConversion.ReplaceWith,Replace With {part}
 Studio.R15Migrator.ScriptConversion.ReplaceWithRules,Replace With Rules
 Studio.R15Migrator.ScriptConversion.RevertAll,Revert All Scripts
@@ -27,10 +50,12 @@ Studio.R15Migrator.ScriptConversion.RevertScripts,Revert Scripts
 Studio.R15Migrator.ScriptConversion.RevertWarning,Confirm reverting scripts to initial state? You will lose all of your current changes for the selected scripts.
 Studio.R15Migrator.ScriptConversion.Reverted,Reverted
 Studio.R15Migrator.ScriptConversion.RevertingScripts,Reverting Scripts
+Studio.R15Migrator.ScriptConversion.TotalLines,{total} issues can be updated
+Studio.R15Migrator.ScriptConversion.TotalScripts,Found {total} scripts with R6 References.
 Studio.R15Migrator.ScriptConversion.UndoRevert,Undo Revert
 Studio.R15Migrator.ScriptStatus.Complete,All script issues have been resolved.
 Studio.R15Migrator.ScriptStatus.Reverted,This script was just reverted. Reversion can be undone as long as there are no additional changes made to the script.
-Studio.R15Migrator.Tabs.AnimationConversion,Animation Conversion
+Studio.R15Migrator.Tabs.AnimationConversion,Animation
 Studio.R15Migrator.Tabs.ModelConversion,Model Conversion
 Studio.R15Migrator.Tabs.ReplaceRules,Replace Rules
 Studio.R15Migrator.Tabs.ScriptConversion,Script Conversion

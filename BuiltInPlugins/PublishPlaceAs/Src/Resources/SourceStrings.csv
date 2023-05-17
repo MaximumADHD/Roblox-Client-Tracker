@@ -63,6 +63,7 @@ Studio.PublishPlaceAs.GroupDropdown.MyGames,My Games, ,My Games
 Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info, ,Basic Info
 Studio.PublishPlaceAs.Devices.Phone,Phone, ,Phone
 Studio.PublishPlaceAs.Devices.Console,Console, ,Console
+Studio.PublishPlaceAs.Devices.VR,VR, ,VR
 Studio.PublishPlaceAs.PageTitle.Name,Name, ,Name
 Studio.PublishPlaceAs.Genre.Fantasy,Medieval, ,Medieval
 Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
@@ -112,5 +113,11 @@ Studio.PublishPlaceAs.OptInLocations.EmailSubmitFailure,Failed to submit email f
 Studio.PublishPlaceAs.TeamCreate.Title,Team Create, ,Team Create
 Studio.PublishPlaceAs.TeamCreate.LinkDescription,Enables collaboration and autosave to cloud [link]  , ,Enables collaboration and autosave to cloud [link]  
 Studio.PublishPlaceAs.TeamCreate.LinkText,Learn More, ,Learn more
+Studio.PublishPlaceAs.VRPrompt.DialogItem1,Ensure your experience has been tested in VR and works as expected., ,Ensure your experience has been tested in VR and works as expected.
+Studio.PublishPlaceAs.VRPrompt.Header,Only turn this option on if you want your experience to be available on Virtual Reality headsets., ,Only turn this option on if you want your experience to be available on Virtual Reality headsets.
 Studio.PublishPlaceAs.TcToggleCallout.Title,New! Team Create, ,New! Team Create
 Studio.PublishPlaceAs.TcToggleCallout.Description,Team Create enables collaboration and autosave to cloud!, ,Team Create enables collaboration and autosave to cloud!
+Studio.PublishPlaceAs.VRPrompt.Title,VR Experience Agreement, ,VR Experience Agreement
+Studio.PublishPlaceAs.VRPrompt.DialogItem2,If you overwrote default PlayerScripts please test your camera in VR., ,If you overwrote default PlayerScripts please test your camera in VR.
+Studio.PublishPlaceAs.VRPrompt.DialogItem3,If you overwrote laserpointer/controller code please test your controls in VR., ,If you overwrote laserpointer/controller code please test your controls in VR.
+Studio.PublishPlaceAs.VRPrompt.DialogItem4,Ensure your experience is performant - low FPS can make players sick., ,Ensure your experience is performant - low FPS can make players sick.
