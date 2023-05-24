@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoactRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/roact-rodux/src"
+    }
+  }
+}

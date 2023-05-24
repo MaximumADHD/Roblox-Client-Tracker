@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "IAPExperience",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/iap-experience/src"
+    }
+  }
+}

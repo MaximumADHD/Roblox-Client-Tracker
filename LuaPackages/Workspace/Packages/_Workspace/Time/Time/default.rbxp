@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Time",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/time/src"
+    }
+  }
+}

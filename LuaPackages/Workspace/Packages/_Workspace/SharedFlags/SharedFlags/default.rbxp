@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SharedFlags",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/shared-flags/src"
+    }
+  }
+}

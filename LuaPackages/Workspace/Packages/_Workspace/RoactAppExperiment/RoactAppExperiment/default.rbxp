@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoactAppExperiment",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/roact-app-experiment/src"
+    }
+  }
+}

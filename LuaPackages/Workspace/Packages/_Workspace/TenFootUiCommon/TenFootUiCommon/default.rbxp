@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TenFootUiCommon",
+    "tree": {
+      "$path": "../../../../../../../modules/ten-foot-ui/ten-foot-ui-common/src"
+    }
+  }
+}

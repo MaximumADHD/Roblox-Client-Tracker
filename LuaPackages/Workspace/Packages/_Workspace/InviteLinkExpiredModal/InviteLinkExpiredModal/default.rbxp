@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "InviteLinkExpiredModal",
+    "tree": {
+      "$path": "../../../../../../../modules/social/invite-link-expired-modal/src"
+    }
+  }
+}

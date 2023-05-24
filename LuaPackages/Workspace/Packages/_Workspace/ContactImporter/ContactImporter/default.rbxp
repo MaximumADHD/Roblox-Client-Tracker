@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ContactImporter",
+    "tree": {
+      "$path": "../../../../../../../modules/social/contact-importer/src"
+    }
+  }
+}

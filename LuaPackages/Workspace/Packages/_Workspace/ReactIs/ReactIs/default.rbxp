@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ReactIs",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/react-is/src"
+    }
+  }
+}

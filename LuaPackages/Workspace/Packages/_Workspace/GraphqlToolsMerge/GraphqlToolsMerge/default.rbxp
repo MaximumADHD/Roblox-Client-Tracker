@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GraphqlToolsMerge",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/graphql-tools-merge/src"
+    }
+  }
+}

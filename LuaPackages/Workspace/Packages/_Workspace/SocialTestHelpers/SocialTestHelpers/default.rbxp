@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SocialTestHelpers",
+    "tree": {
+      "$path": "../../../../../../../modules/social/social-test-helpers/src"
+    }
+  }
+}

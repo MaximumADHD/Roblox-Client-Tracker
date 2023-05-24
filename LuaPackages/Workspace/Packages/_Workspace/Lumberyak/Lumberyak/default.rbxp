@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Lumberyak",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/lumberyak/src"
+    }
+  }
+}

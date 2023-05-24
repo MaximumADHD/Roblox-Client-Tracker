@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TemplatePackage",
+    "tree": {
+      "$path": "../../../../../../../modules/template-packages/template-package/src"
+    }
+  }
+}

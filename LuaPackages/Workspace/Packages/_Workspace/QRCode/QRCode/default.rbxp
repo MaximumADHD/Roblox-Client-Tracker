@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "QRCode",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/qr-code/src"
+    }
+  }
+}

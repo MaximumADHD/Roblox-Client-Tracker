@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Http",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/http/src"
+    }
+  }
+}

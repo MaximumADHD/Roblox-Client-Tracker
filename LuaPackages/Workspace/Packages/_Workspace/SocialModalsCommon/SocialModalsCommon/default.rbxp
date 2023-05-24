@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SocialModalsCommon",
+    "tree": {
+      "$path": "../../../../../../../modules/social/social-modals-common/src"
+    }
+  }
+}

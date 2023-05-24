@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoduxGames",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/rodux-games/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "LuaProfileDeps",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/lua-profile-deps/src"
+    }
+  }
+}

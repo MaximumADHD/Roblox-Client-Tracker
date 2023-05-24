@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UnitTestHelpers",
+    "tree": {
+      "$path": "../../../../../../../modules/not-for-production-use/unit-test-helpers/src"
+    }
+  }
+}

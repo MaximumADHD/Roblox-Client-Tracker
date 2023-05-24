@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SceneManagement",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/scene-management/src"
+    }
+  }
+}

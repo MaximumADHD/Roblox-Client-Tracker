@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "JestConfigs",
+    "tree": {
+      "$path": "../../../../../../../modules/not-for-production-use/jest-configs/src"
+    }
+  }
+}

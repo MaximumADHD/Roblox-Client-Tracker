@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserLib",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/user-lib/src"
+    }
+  }
+}

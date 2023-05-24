@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SocialReducerAdaptors",
+    "tree": {
+      "$path": "../../../../../../../modules/social/social-reducer-adaptors/src"
+    }
+  }
+}

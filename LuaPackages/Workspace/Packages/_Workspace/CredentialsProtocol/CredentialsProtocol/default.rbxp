@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CredentialsProtocol",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/credentials/src"
+    }
+  }
+}

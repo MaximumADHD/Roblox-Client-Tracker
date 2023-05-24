@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SetAlias",
+    "tree": {
+      "$path": "../../../../../../../modules/social/set-alias/src"
+    }
+  }
+}

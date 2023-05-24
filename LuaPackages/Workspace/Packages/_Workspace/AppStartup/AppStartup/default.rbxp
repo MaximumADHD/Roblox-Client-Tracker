@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AppStartup",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/app-startup/src"
+    }
+  }
+}

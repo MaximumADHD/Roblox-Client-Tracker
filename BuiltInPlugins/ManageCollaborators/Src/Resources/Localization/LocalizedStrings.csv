@@ -14,7 +14,7 @@ Studio.ManageCollaborators.SearchBar.NoResultsText,There were no results,There w
 Studio.ManageCollaborators.Buttons.Cancel,Cancel,Cancel,Cancelar,Annuler,Annulla,キャンセル,취소,Cancelar,取消,取消,取消
 Studio.ManageCollaborators.SearchBar.TooManyResultsText,You cannot add more than {maxNumCollaborators:int} collaborators,You cannot add more than {maxNumCollaborators:int} collaborators,No puedes añadir más de {maxNumCollaborators:int} colaboradores,Tu ne peux pas ajouter plus de {maxNumCollaborators:int} collaborateurs,Non puoi aggiungere più di {maxNumCollaborators:int} collaboratori,共同制作者は {maxNumCollaborators:int} 人以上、追加できません,공동 작업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,Você não pode adicionar mais do que {maxNumCollaborators:int} colaboradores,无法添加超过 {maxNumCollaborators:int} 位的协作者,无法添加超过 {maxNumCollaborators:int} 位的协作者,無法增加超過 {maxNumCollaborators:int} 名合夥人
 Studio.ManageCollaborators.PermissionLabels.NoAccess,No Access,No Access,Sin acceso,Pas d'accès,Nessuna Accesso,アクセスできません,액세스 권한 없음,Sem acesso,无法访问,无法访问,無存取權限
-Studio.ManageCollaborators.SearchBar.UnknownError,Unknown error,Unknown error, , ,Errore imprevisto, , , , , , 
+Studio.ManageCollaborators.SearchBar.UnknownError,Unknown error,Unknown error,Error desconocido,Erreur inconnue,Errore imprevisto,不明なエラー,알 수 없는 오류,Erro desconhecido, , , 
 Studio.ManageCollaborators.SearchBar.AgeNotVerifiedLabel,Age not verified,Age not verified,Edad no verificada,Âge non vérifié,Età non verificata,年齢が未確認です,나이 인증 미완료,Idade não verificada, , , 
 Studio.ManageCollaborators.PermissionLabels.Play,Play,Play,Jugar,Jouer,Play,プレイ,플레이,Jogar,开始游戏,开始游戏,遊玩
 Studio.ManageCollaborators.PermissionLabels.Edit,Edit,Edit,Editar,Modifier,Modifica,編集,편집,Editar,编辑,编辑,編輯

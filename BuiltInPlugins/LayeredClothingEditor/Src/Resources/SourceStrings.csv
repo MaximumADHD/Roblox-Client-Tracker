@@ -69,8 +69,11 @@ Studio.AccessoryFittingTool.Editor.Select,Select
 Studio.AccessoryFittingTool.EditorErrors.OpenedWhileRunning,Layered Clothing Editor cannot be used while game is running!
 Studio.AccessoryFittingTool.Flow.Back,Back
 Studio.AccessoryFittingTool.Flow.Generate,Generate
+Studio.AccessoryFittingTool.Flow.GenerateLegacyAcc,Generate Legacy Accessory
+Studio.AccessoryFittingTool.Flow.GenerateMeshPartAcc,Generate MeshPart Accessory
 Studio.AccessoryFittingTool.Flow.Next,Next
 Studio.AccessoryFittingTool.Generate.InvalidBounds,Item is not within the acceptable bounds for moderation. Please scale/position the item till it fits into the blue bounding box.
+Studio.AccessoryFittingTool.Generate.InvalidBoundsUGC,This item will fail UGC Validation when uploading to the marketplace due to not properly fitting into the required bounds. Please scale/position the item till it fits into the blue bounding box.
 Studio.AccessoryFittingTool.Generate.Prompt,The asset is ready.
 Studio.AccessoryFittingTool.Generate.Tooltip,Generate the final accessory item with all of your edits.
 Studio.AccessoryFittingTool.Generate.Wait,Please wait while the asset is being generated...

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "VirtualEvents",
+    "tree": {
+      "$path": "../../../../../../../modules/ecosystems/virtual-events/src"
+    }
+  }
+}

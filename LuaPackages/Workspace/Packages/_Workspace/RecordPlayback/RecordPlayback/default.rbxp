@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RecordPlayback",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/record-playback/src"
+    }
+  }
+}

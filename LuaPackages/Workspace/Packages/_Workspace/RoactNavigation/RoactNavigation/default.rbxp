@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoactNavigation",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/roact-navigation/src"
+    }
+  }
+}

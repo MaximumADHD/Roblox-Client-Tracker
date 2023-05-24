@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "enumerate",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/enumerate/src"
+    }
+  }
+}

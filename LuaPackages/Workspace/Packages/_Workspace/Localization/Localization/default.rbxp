@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Localization",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/localization/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AmpUpsell",
+    "tree": {
+      "$path": "../../../../../../../modules/account-identity/amp-upsell/src"
+    }
+  }
+}

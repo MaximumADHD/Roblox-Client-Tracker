@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SocialTab",
+    "tree": {
+      "$path": "../../../../../../../modules/social/social-tab/src"
+    }
+  }
+}

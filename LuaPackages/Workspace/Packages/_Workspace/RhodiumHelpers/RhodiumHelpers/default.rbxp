@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RhodiumHelpers",
+    "tree": {
+      "$path": "../../../../../../../modules/not-for-production-use/rhodium-helpers/src"
+    }
+  }
+}

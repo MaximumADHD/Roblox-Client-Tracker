@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "PremiumUpsellDeps",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/premium-upsell-deps/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DiscoverabilityModal",
+    "tree": {
+      "$path": "../../../../../../../modules/social/discoverability-modal/src"
+    }
+  }
+}

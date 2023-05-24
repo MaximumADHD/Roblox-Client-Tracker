@@ -9,3 +9,6 @@ Studio.CompositorDebugger.LayerView.Properties,Properties,Properties,Propiedades
 Studio.CompositorDebugger.LayerView.State,State,State,Estado,État,Stato,状況,상태,Estado,狀態
 Studio.CompositorDebugger.LayerView.UserData,User Data,User Data,Datos de usuario,Données de l'utilisateur,Dati utente,ユーザーデータ,사용자 데이터,Dados do usuário,使用者資料
 Studio.CompositorDebugger.LayerView.Watches,Watches,Watches,Inspecciones,Surveillances,Ispezioni,観察,조사식,Observações, 
+Studio.CompositorDebugger.LayerPanel.LayerData,Layer Data,Layer Data, , , , , , , 
+Studio.CompositorDebugger.LayerPanel.Visualization,Visualization,Visualization, , , , , , , 
+Studio.CompositorDebugger.LayerPanel.RawData,Raw Data,Raw Data, , , , , , , 

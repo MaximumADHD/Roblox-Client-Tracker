@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "VirtualizedList",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/virtualized-list/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserSearch",
+    "tree": {
+      "$path": "../../../../../../../modules/social/user-search/src"
+    }
+  }
+}

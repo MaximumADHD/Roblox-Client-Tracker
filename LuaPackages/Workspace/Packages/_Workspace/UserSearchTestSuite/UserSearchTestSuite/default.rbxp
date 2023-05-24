@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserSearchTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/social/test-suites/user-search-test-suite/src"
+    }
+  }
+}

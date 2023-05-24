@@ -65,7 +65,6 @@ Class Accessory : Accoutrement
 	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
 Class Hat : Accoutrement [Deprecated]
 Class AdPortal : Instance
-	Property Enum.AdPortalStatus AdPortal.PortalStatus [ReadOnly] [Deprecated]
 	Property Enum.AdPortalType AdPortal.PortalType [Hidden] [NotScriptable] [Deprecated]
 	Property Enum.AdUnitStatus AdPortal.Status [ReadOnly]
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
@@ -202,6 +201,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportSession AssetImportService:StartSessionWithPath(string filePath) {RobloxScriptSecurity}
 	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
+	Function null AssetImportSession:ApplySettings() {RobloxScriptSecurity}
 	Function null AssetImportSession:Cancel() {RobloxScriptSecurity}
 	Function Dictionary AssetImportSession:GetCurrentStatusTable() {RobloxScriptSecurity}
 	Function string AssetImportSession:GetFilename() {RobloxScriptSecurity}
@@ -613,7 +613,6 @@ Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BulkImportService.AssetImported(Enum.AssetType assetType, string name, int64 id) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportFinished(int state) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportStarted() {RobloxScriptSecurity}
-Class CSGOptions : Instance
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class HSRDataContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
@@ -636,6 +635,7 @@ Class Camera : Instance [NotReplicated]
 	Property bool Camera.HeadLocked
 	Property float Camera.HeadScale
 	Property float Camera.NearPlaneZ [ReadOnly]
+	Property bool Camera.VRTiltAndRollEnabled
 	Property Vector2 Camera.ViewportSize [ReadOnly]
 	Function float Camera:GetLargestCutoffDistance(Objects ignoreList) [Deprecated]
 	Function float Camera:GetPanSpeed()
@@ -3166,9 +3166,9 @@ Class VehicleSeat : BasePart
 	Property bool VehicleSeat.HeadsUpDisplay
 	Property float VehicleSeat.MaxSpeed
 	Property Humanoid VehicleSeat.Occupant [ReadOnly]
-	Property int VehicleSeat.Steer
+	Property int VehicleSeat.Steer [NotReplicated]
 	Property float VehicleSeat.SteerFloat
-	Property int VehicleSeat.Throttle
+	Property int VehicleSeat.Throttle [NotReplicated]
 	Property float VehicleSeat.ThrottleFloat
 	Property float VehicleSeat.Torque
 	Property float VehicleSeat.TurnSpeed
@@ -3983,6 +3983,7 @@ Class RenderingTest : Instance
 	Property int RenderingTest.QualityLevel
 	Property bool RenderingTest.ShouldSkip
 	Property string RenderingTest.Ticket
+	Property int RenderingTest.Timeout
 	Function null RenderingTest:RenderdocTriggerCapture()
 Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Function bool ReplicatedFirst:IsDefaultLoadingGuiRemoved() {RobloxScriptSecurity}
@@ -4036,7 +4037,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
 	Function int64 SafetyService:TakeScreenshot(Dictionary screenshotOptions) {RobloxScriptSecurity}
-	Event SafetyService.ForceScreenshotSignal(string requestId, int64 playerId, string mac, Tuple args) {RobloxSecurity} [Hidden]
+	Event SafetyService.FSTriggeredSignal(string requestId, int64 playerId, string mac, Tuple args) {RobloxSecurity} [Hidden]
 	Event SafetyService.ScreenshotContentReady(int64 screenshotJobId, Content contentId) {RobloxScriptSecurity}
 	Event SafetyService.ScreenshotUploaded(int64 screenshotJobId, string screenshotId) {RobloxScriptSecurity}
 Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
@@ -4063,6 +4064,7 @@ Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptSourceChanged(LuaSourceContainer script) {RobloxScriptSecurity}
 Class ScriptCloneWatcher : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptCloneWatcherHelper : Instance [NotCreatable] [Service] [NotReplicated]
+Class ScriptCommitService : Instance [NotCreatable] [Service]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function null ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -4298,10 +4300,17 @@ Class SmoothVoxelsUpgraderService : Instance [NotCreatable] [Service] [NotReplic
 Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool SocialService:CanSendGameInviteAsync(Instance player, int64 recipientId = 0) [Yields]
+	Function bool SocialService:CanSendIrisInviteAsync(Instance player) [Yields]
 	Function null SocialService:InvokeGameInvitePromptClosed(Instance player, Array recipientIds) {RobloxScriptSecurity}
+	Function null SocialService:InvokeIrisInvite(Instance player, string tag, Array irisParticipantIds) {RobloxScriptSecurity}
+	Function null SocialService:InvokeIrisInvitePromptClosed(Instance player) {RobloxScriptSecurity}
 	Function null SocialService:PromptGameInvite(Instance player, Instance experienceInviteOptions = nil)
+	Function null SocialService:PromptIrisInvite(Instance player, string tag)
 	Event SocialService.GameInvitePromptClosed(Instance player, Array recipientIds)
+	Event SocialService.IrisInvitePromptClosed(Instance player)
 	Event SocialService.PromptInviteRequested(Instance player, Instance experienceInviteOptions) {RobloxScriptSecurity}
+	Event SocialService.PromptIrisInviteRequested(Instance player, string tag) {RobloxScriptSecurity}
+	Callback Instance SocialService.OnIrisInviteInvoked(string tag, Array irisParticipantIds)
 Class Sound : Instance
 	Property int Sound.ChannelCount {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
 	Property bool Sound.IsLoaded [ReadOnly]
@@ -4509,13 +4518,11 @@ Class RunningAverageItemInt : StatsItem [NotCreatable]
 Class RunningAverageTimeIntervalItem : StatsItem [NotCreatable]
 Class TotalCountTimeIntervalItem : StatsItem [NotCreatable]
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool Studio.Display Team Create toggle when creating a new experience
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Http Sandboxing
 	Property bool Studio.Enable Internal Beta Features
 	Property bool Studio.Enable Internal Features
-	Property bool Studio.File > New creates a place with Team Create off
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Search Content For Core Scripts
 	Property bool Studio.Set Pivot of Imported Parts
@@ -4749,6 +4756,17 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.SaveLocallyAsComplete(bool success) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum.StudioStyleGuideColor styleguideitem, Enum.StudioStyleGuideModifier modifier = "Default") {PluginSecurity}
+Class StyleBase : Instance [NotCreatable]
+Class StyleRule : StyleBase
+	Property int StyleRule.Index [Hidden] [NotScriptable]
+	Property BinaryString StyleRule.PropertiesSerialize [Hidden] [NotScriptable]
+	Property string StyleRule.Selector
+	Property string StyleRule.SelectorError [ReadOnly]
+Class StyleSheet : StyleBase
+Class StyleDerive : Instance
+	Property int StyleDerive.Index [Hidden] [NotScriptable]
+Class StyleLink : Instance
+Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SurfaceAppearance : Instance
 	Property Enum.AlphaMode SurfaceAppearance.AlphaMode {PluginSecurity}
 	Property Content SurfaceAppearance.ColorMap {PluginSecurity}
@@ -4777,8 +4795,6 @@ Class TeamCreatePublishService : Instance [NotCreatable] [Service]
 	Event TeamCreatePublishService.TeamCreateReplicatedMessage(Enum.MessageType messageType, string failureMessage, int statusCode, bool isPublish, string authorName) {RobloxSecurity} [Hidden]
 	Event TeamCreatePublishService.TeamCreateSaveResult(bool saveSuccessful, int statusCode, string errMessage, string rawMessage) {RobloxSecurity} [Hidden]
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function null TeamCreateService:SendUnarchiveUniverseAsync(int64 universeId) {RobloxScriptSecurity}
-	Function null TeamCreateService:SendUnarchiveUniverseWithReasonAsync(int64 universeId, string reason) {RobloxScriptSecurity}
 	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
 Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
@@ -5510,10 +5526,6 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
-Enum AdPortalStatus
-	EnumItem AdPortalStatus.Invalid : 0
-	EnumItem AdPortalStatus.Inactive : 1
-	EnumItem AdPortalStatus.Active : 2
 Enum AdPortalType
 	EnumItem AdPortalType.Forward : 0
 	EnumItem AdPortalType.Return : 1
@@ -7801,6 +7813,7 @@ Enum TrackerError
 	EnumItem TrackerError.NoAudio : 7
 	EnumItem TrackerError.AudioError : 8
 	EnumItem TrackerError.AudioNoPermission : 9
+	EnumItem TrackerError.UnsupportedDevice : 10
 Enum TrackerExtrapolationFlagMode
 	EnumItem TrackerExtrapolationFlagMode.ForceDisabled : 0
 	EnumItem TrackerExtrapolationFlagMode.ExtrapolateFacsAndPose : 1

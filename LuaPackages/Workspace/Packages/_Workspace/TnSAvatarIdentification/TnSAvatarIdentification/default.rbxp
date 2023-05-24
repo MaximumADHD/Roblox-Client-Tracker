@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TnSAvatarIdentification",
+    "tree": {
+      "$path": "../../../../../../../modules/trust-and-safety/avatar-identification/src"
+    }
+  }
+}

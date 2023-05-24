@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TenFootUiSharedComponents",
+    "tree": {
+      "$path": "../../../../../../../modules/ten-foot-ui/ten-foot-ui-shared-components/src"
+    }
+  }
+}

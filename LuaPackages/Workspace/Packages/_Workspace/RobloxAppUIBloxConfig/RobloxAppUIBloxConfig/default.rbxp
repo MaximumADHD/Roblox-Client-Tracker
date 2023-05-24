@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RobloxAppUIBloxConfig",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/uiblox-roblox-app-config/src"
+    }
+  }
+}

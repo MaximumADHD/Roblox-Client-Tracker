@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TenFootUiShell",
+    "tree": {
+      "$path": "../../../../../../../modules/ten-foot-ui/ten-foot-ui-shell/src"
+    }
+  }
+}

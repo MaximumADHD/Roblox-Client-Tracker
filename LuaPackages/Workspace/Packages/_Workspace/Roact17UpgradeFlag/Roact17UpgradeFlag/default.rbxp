@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Roact17UpgradeFlag",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/roact17-upgrade-flag/src"
+    }
+  }
+}

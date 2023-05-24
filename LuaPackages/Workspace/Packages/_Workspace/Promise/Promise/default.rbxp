@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Promise",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/promise/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Cryo",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/cryo/src"
+    }
+  }
+}

@@ -1193,29 +1193,6 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
-                    "MemberType": "Property",
-                    "Name": "PortalStatus",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "AdPortalStatus"
-                    }
-                },
-                {
                     "Category": "State",
                     "MemberType": "Property",
                     "Name": "PortalVersion",
@@ -3324,6 +3301,18 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "ApplySettings",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Function",
                     "Name": "Cancel",
@@ -11171,13 +11160,6 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
-            "Name": "CSGOptions",
-            "Superclass": "Instance"
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
             "Name": "CacheableContentProvider",
             "Superclass": "Instance",
             "Tags": [
@@ -11569,6 +11551,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "VRTiltAndRollEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -56234,6 +56234,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -56270,6 +56273,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -70657,6 +70663,24 @@
                     }
                 },
                 {
+                    "Category": "RenderingTest",
+                    "MemberType": "Property",
+                    "Name": "Timeout",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "RenderdocTriggerCapture",
                     "Parameters": [
@@ -71852,6 +71876,17 @@
                 "NotCreatable",
                 "Service",
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ScriptCommitService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -76143,6 +76178,58 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "InvokeIrisInvite",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "tag",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "irisParticipantIds",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InvokeIrisInvitePromptClosed",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptGameInvite",
                     "Parameters": [
                         {
@@ -76158,6 +76245,32 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptIrisInvite",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "tag",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -76199,6 +76312,28 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "CanSendIrisInviteAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Event",
                     "Name": "GameInvitePromptClosed",
                     "Parameters": [
@@ -76214,6 +76349,21 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Array"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "IrisInvitePromptClosed",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -76240,6 +76390,54 @@
                         }
                     ],
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptIrisInviteRequested",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "tag",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Callback",
+                    "Name": "OnIrisInviteInvoked",
+                    "Parameters": [
+                        {
+                            "Name": "tag",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "irisParticipantIds",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -80434,24 +80632,6 @@
                     }
                 },
                 {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "Display Team Create toggle when creating a new experience",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
                     "Category": "General",
                     "MemberType": "Property",
                     "Name": "DisplayLanguage",
@@ -80784,24 +80964,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
-                    }
-                },
-                {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "File > New creates a place with Team Create off",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -84237,6 +84399,96 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "StyleBase",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Selector",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SelectorError",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "StyleRule",
+            "Superclass": "StyleBase"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "StyleSheet",
+            "Superclass": "StyleBase"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "StyleDerive",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "StyleLink",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "StylingService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
@@ -84619,51 +84871,6 @@
         },
         {
             "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "SendUnarchiveUniverseAsync",
-                    "Parameters": [
-                        {
-                            "Name": "universeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SendUnarchiveUniverseWithReasonAsync",
-                    "Parameters": [
-                        {
-                            "Name": "universeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "reason",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
                 {
                     "MemberType": "Event",
                     "Name": "ToggleManageCollaborators",
@@ -97401,23 +97608,6 @@
         {
             "Items": [
                 {
-                    "Name": "Invalid",
-                    "Value": 0
-                },
-                {
-                    "Name": "Inactive",
-                    "Value": 1
-                },
-                {
-                    "Name": "Active",
-                    "Value": 2
-                }
-            ],
-            "Name": "AdPortalStatus"
-        },
-        {
-            "Items": [
-                {
                     "Name": "Forward",
                     "Value": 0
                 },
@@ -107131,6 +107321,10 @@
                 {
                     "Name": "AudioNoPermission",
                     "Value": 9
+                },
+                {
+                    "Name": "UnsupportedDevice",
+                    "Value": 10
                 }
             ],
             "Name": "TrackerError"

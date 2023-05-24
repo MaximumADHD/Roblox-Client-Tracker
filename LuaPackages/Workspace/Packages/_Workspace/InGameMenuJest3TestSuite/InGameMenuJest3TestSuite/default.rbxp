@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "InGameMenuJest3TestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/core-scripts/in-game-menu-test-suite/src"
+    }
+  }
+}

@@ -11,6 +11,10 @@ Studio.R15Migrator.AnimationConversion.ScanningScripts,scanning scripts
 Studio.R15Migrator.AnimationConversion.ScanningWorkspace,scanning workspace
 Studio.R15Migrator.AnimationConversion.SelectAvatar,Select Avatar
 Studio.R15Migrator.AnimationConversion.Upload,Upload
+Studio.R15Migrator.CharacterConversion.Convert,Convert
+Studio.R15Migrator.CharacterConversion.Converted,Converted
+Studio.R15Migrator.CharacterConversion.Issues,Issues
+Studio.R15Migrator.CharacterConversion.Revert,Revert
 Studio.R15Migrator.ConversionResult.AutoConvert,{count} lines were updated automatically.
 Studio.R15Migrator.ConversionResult.ReplaceFailed,{count} scripts need attention.
 Studio.R15Migrator.ConversionResult.ReplaceSuccess,{count} scripts were successfully updated with rules.
@@ -25,9 +29,12 @@ Studio.R15Migrator.ProgressBar.AutoConvert,Automatically Converting Scripts
 Studio.R15Migrator.ProgressBar.ReplaceWithRules,Replacing with Rules
 Studio.R15Migrator.ProgressBar.Revert,Reverting Scripts
 Studio.R15Migrator.ProgressBar.UndoRevert,Undoing Reverted Scripts
+Studio.R15Migrator.ReplaceRulesPane.Instructions,"Select an R15 Part for each corresponding R6 part. These rules will be applied when using the Replace With Rules or with Convert, if an automatic replacement cannot be determined for you."
+Studio.R15Migrator.ReplaceRulesPane.R15Avatar,R15 Avatar
+Studio.R15Migrator.ReplaceRulesPane.R6Avatar,R6 Avatar
 Studio.R15Migrator.ReplaceRulesPane.ReplacePlaceholder,Replace...
-Studio.R15Migrator.ReplaceRulesPane.Title,Replace With
-Studio.R15Migrator.ReplaceRulesPane.WithPlaceholder,With...
+Studio.R15Migrator.ReplaceRulesPane.SaveRules,Save Rules
+Studio.R15Migrator.ReplaceRulesPane.WithPlaceholder,Select Part...
 Studio.R15Migrator.ScriptAnalysis.AnimationWarning,Convert Animation to R15
 Studio.R15Migrator.ScriptAnalysis.AnimationWarningCode,Animation Warning
 Studio.R15Migrator.ScriptAnalysis.HumanoidWarning,"Humanoid.{name} found, this will return {suggestion}."
@@ -35,13 +42,13 @@ Studio.R15Migrator.ScriptAnalysis.R6ScriptWarningCode,R6 Script Warning
 Studio.R15Migrator.ScriptAnalysis.ReplaceMessage,"{name} found, possible replacements are: "
 Studio.R15Migrator.ScriptConversion.Automatically,automatically
 Studio.R15Migrator.ScriptConversion.Cancel,Cancel
-Studio.R15Migrator.ScriptConversion.Completed,Completed
+Studio.R15Migrator.ScriptConversion.Completed,Converted
 Studio.R15Migrator.ScriptConversion.Confirm,Confirm
 Studio.R15Migrator.ScriptConversion.Convert,Convert
 Studio.R15Migrator.ScriptConversion.Filter,Filter
 Studio.R15Migrator.ScriptConversion.FilterNone,All
 Studio.R15Migrator.ScriptConversion.GoToScript,Go to Script
-Studio.R15Migrator.ScriptConversion.InProgress,In Progress
+Studio.R15Migrator.ScriptConversion.InProgress,Issues
 Studio.R15Migrator.ScriptConversion.ReplaceWith,Replace With {part}
 Studio.R15Migrator.ScriptConversion.ReplaceWithRules,Replace With Rules
 Studio.R15Migrator.ScriptConversion.RevertAll,Revert All Scripts
@@ -56,6 +63,6 @@ Studio.R15Migrator.ScriptConversion.UndoRevert,Undo Revert
 Studio.R15Migrator.ScriptStatus.Complete,All script issues have been resolved.
 Studio.R15Migrator.ScriptStatus.Reverted,This script was just reverted. Reversion can be undone as long as there are no additional changes made to the script.
 Studio.R15Migrator.Tabs.AnimationConversion,Animation
-Studio.R15Migrator.Tabs.ModelConversion,Model Conversion
+Studio.R15Migrator.Tabs.CharacterConversion,Character
 Studio.R15Migrator.Tabs.ReplaceRules,Replace Rules
-Studio.R15Migrator.Tabs.ScriptConversion,Script Conversion
+Studio.R15Migrator.Tabs.ScriptConversion,Scripts

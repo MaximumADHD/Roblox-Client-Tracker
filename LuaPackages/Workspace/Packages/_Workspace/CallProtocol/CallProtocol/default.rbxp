@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CallProtocol",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/call/src"
+    }
+  }
+}

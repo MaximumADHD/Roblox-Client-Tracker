@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoactUtils",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/roact-utils/src"
+    }
+  }
+}

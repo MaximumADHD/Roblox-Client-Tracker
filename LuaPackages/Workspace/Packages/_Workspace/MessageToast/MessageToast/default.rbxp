@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "MessageToast",
+    "tree": {
+      "$path": "../../../../../../../modules/social/message-toast/src"
+    }
+  }
+}

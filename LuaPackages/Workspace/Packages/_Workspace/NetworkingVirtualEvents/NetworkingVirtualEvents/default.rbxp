@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "NetworkingVirtualEvents",
+    "tree": {
+      "$path": "../../../../../../../modules/ecosystems/networking-virtual-events/src"
+    }
+  }
+}

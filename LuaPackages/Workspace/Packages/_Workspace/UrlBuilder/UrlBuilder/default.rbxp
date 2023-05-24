@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UrlBuilder",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/url-builder/src"
+    }
+  }
+}

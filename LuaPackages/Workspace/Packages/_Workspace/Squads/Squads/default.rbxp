@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Squads",
+    "tree": {
+      "$path": "../../../../../../../modules/social/squads/src"
+    }
+  }
+}

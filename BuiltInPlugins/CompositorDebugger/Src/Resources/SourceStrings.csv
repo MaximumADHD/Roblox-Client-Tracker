@@ -1,4 +1,7 @@
 Key,en-us
+Studio.CompositorDebugger.LayerPanel.LayerData,Layer Data
+Studio.CompositorDebugger.LayerPanel.RawData,Raw Data
+Studio.CompositorDebugger.LayerPanel.Visualization,Visualization
 Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details
 Studio.CompositorDebugger.LayerView.Properties,Properties
 Studio.CompositorDebugger.LayerView.State,State

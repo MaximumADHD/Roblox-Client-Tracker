@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DataLoader",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/data-loader/src"
+    }
+  }
+}

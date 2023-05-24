@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Thumbnailing",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/thumbnailing/src"
+    }
+  }
+}

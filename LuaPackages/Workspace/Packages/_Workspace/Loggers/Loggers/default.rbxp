@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Loggers",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/loggers/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "InputType",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/InputType/src"
+    }
+  }
+}

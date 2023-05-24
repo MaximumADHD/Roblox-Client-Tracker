@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "MessageBus",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/message-bus/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "NetworkingFriends",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/networking-friends/src"
+    }
+  }
+}

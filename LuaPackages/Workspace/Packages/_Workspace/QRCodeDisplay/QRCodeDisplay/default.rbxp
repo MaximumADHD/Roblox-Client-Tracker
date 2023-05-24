@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "QRCodeDisplay",
+    "tree": {
+      "$path": "../../../../../../../modules/social/qr-code-display/src"
+    }
+  }
+}

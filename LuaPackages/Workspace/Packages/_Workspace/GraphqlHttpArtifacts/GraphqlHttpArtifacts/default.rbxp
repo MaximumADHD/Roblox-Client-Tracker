@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GraphqlHttpArtifacts",
+    "tree": {
+      "$path": "../../../../../../../modules/graphql/http-artifacts/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Analytics",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/analytics/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "VerifiedBadges",
+    "tree": {
+      "$path": "../../../../../../../modules/ecosystems/verified-badges/src"
+    }
+  }
+}

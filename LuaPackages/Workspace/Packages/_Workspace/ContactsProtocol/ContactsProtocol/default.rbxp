@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ContactsProtocol",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/contacts/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoactGamepad",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/roact-gamepad/src"
+    }
+  }
+}

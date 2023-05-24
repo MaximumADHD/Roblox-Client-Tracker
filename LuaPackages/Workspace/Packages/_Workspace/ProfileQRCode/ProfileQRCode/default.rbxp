@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ProfileQRCode",
+    "tree": {
+      "$path": "../../../../../../../modules/social/profile-qr-code/src"
+    }
+  }
+}

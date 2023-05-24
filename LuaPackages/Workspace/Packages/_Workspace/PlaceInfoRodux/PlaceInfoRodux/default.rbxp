@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "PlaceInfoRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/place-info-rodux/src"
+    }
+  }
+}

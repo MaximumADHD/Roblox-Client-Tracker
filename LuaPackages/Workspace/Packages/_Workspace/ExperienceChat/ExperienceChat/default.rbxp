@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ExperienceChat",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/experience-chat/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Style",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/style/src"
+    }
+  }
+}

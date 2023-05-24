@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UIBlox",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/uiblox/src"
+    }
+  }
+}

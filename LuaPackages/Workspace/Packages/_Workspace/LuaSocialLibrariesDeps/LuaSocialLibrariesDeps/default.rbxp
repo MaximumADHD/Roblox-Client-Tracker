@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "LuaSocialLibrariesDeps",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/lua-social-libraries-deps/src"
+    }
+  }
+}

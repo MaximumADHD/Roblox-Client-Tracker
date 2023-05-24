@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "PolicyProvider",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/policy-provider/src"
+    }
+  }
+}

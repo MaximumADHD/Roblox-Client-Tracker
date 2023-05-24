@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "BuyRobuxPageTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/economy/test-suites/buy-robux/src"
+    }
+  }
+}

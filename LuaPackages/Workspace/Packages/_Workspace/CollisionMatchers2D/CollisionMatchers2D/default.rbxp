@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CollisionMatchers2D",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/collision-matchers-2d/src"
+    }
+  }
+}

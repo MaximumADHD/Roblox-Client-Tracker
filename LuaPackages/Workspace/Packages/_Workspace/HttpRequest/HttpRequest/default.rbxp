@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "HttpRequest",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/http-request/src"
+    }
+  }
+}

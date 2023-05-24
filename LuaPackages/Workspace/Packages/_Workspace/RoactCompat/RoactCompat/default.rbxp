@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoactCompat",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/roact-compat/src"
+    }
+  }
+}

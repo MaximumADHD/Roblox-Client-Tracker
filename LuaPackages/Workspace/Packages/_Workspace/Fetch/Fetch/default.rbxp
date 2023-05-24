@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Fetch",
+    "tree": {
+      "$path": "../../../../../../../modules/graphql/fetch/src"
+    }
+  }
+}

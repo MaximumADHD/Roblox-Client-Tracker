@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SocialPolicies",
+    "tree": {
+      "$path": "../../../../../../../modules/social/social-policies/src"
+    }
+  }
+}

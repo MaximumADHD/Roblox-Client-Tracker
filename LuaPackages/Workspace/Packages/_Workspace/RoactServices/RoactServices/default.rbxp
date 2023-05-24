@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoactServices",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/roact-services/src"
+    }
+  }
+}

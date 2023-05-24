@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ApolloClient",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/apollo-client/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AvatarExperienceDeps",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/avatar-experience-deps/src"
+    }
+  }
+}

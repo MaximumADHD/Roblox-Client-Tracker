@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "QRCodeTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/social/test-suites/qr-code-test-suite/src"
+    }
+  }
+}

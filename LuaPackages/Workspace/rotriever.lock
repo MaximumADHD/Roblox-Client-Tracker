@@ -6,8 +6,17 @@ lockfile_format_version = 4
 name = "AmpUpsell"
 version = "0.1.0"
 dependencies = [
+    "Analytics Analytics 0.1.0",
+    "Cryo Cryo 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "UIBlox UIBlox 0.1.0",
 ]
 
 [[package]]
@@ -431,8 +440,27 @@ dependencies = ["SharedFlags SharedFlags 0.1.0"]
 name = "InvisibleMode"
 version = "0.1.0"
 dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "Dash Dash 0.1.0",
+    "Enumerate enumerate 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "Otter Otter 0.1.0",
+    "Promise Promise 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "UIBlox UIBlox 0.1.0",
 ]
 
 [[package]]
@@ -476,11 +504,6 @@ version = "0.1.0"
 [[package]]
 name = "JestGlobals3"
 version = "0.1.0"
-
-[[package]]
-name = "LegacyIntegrationsTestSuite"
-version = "0.1.0"
-dependencies = ["SocialReducerAdaptors SocialReducerAdaptors 0.1.0"]
 
 [[package]]
 name = "Localization"
@@ -1020,6 +1043,7 @@ version = "0.1.0"
 dependencies = [
     "InvisibleMode InvisibleMode 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
+    "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "UserProfiles UserProfiles 0.1.0",
 ]
 
@@ -1102,6 +1126,7 @@ dependencies = [
     "FitFrame FitFrame 0.1.0",
     "GameProtocol GameProtocol 0.1.0",
     "Http Http 0.1.0",
+    "InvisibleMode InvisibleMode 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
@@ -1280,6 +1305,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "TenFootUiEngagementScreen"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "Style Style 0.1.0",
+    "TenFootUiTesting TenFootUiTesting 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+]
+
+[[package]]
 name = "TenFootUiGlobalNav"
 version = "0.1.0"
 dependencies = [
@@ -1307,6 +1351,27 @@ dependencies = [
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UniversalAppPolicy UniversalAppPolicy 0.1.0",
+]
+
+[[package]]
+name = "TenFootUiSharedComponents"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "Style Style 0.1.0",
+    "TenFootUiCommon TenFootUiCommon 0.1.0",
+    "TenFootUiTesting TenFootUiTesting 0.1.0",
+    "TestUtils TestUtils 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
 
 [[package]]
@@ -1352,6 +1417,7 @@ dependencies = [
     "RoactServiceTags RoactServiceTags 0.1.0",
     "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppLocales RobloxAppLocales 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "TenFootUiCommon TenFootUiCommon 0.1.0",
@@ -1383,6 +1449,7 @@ version = "0.1.0"
 name = "ToastNotification"
 version = "0.1.0"
 dependencies = [
+    "Cryo Cryo 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
@@ -1394,9 +1461,19 @@ dependencies = [
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
+    "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "t t 0.1.0",
+]
+
+[[package]]
+name = "ToastNotificationsProtocol"
+version = "0.1.0"
+dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "Promise Promise 0.1.0",
 ]
 
 [[package]]
@@ -1440,6 +1517,7 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialPolicies SocialPolicies 0.1.0",
+    "Style Style 0.1.0",
 ]
 
 [[package]]
