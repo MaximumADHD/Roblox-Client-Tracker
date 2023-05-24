@@ -8,7 +8,9 @@ export type CallInfo = {
 
 -- Models
 
-export type ParticipantModel = { userId: number, displayName: string, userName: string }
+export type HistoricalParticipantModel = { userId: number, displayName: string, userName: string }
+
+export type ParticipantModel = { userId: number, displayName: string }
 
 export type ExperienceDetailModel = {
 	experienceName: string,
@@ -22,7 +24,7 @@ export type CallRecordModel = {
 	callerId: number,
 	startUtc: number,
 	endUtc: number,
-	participants: { ParticipantModel },
+	participants: { HistoricalParticipantModel },
 	status: string,
 	universeId: number,
 	placeId: number,
@@ -50,23 +52,23 @@ export type CallHistory = {
 	previousPageCursor: string,
 }
 
-export type CallActivatedAction = {
+export type StartCallAction = {
 	payload: {
 		callInfo: CallInfo,
 	},
 }
 
-export type CallEndedAction = {
+export type EndCallAction = {
 	payload: nil,
 }
 
-export type CallInitializedAction = {
+export type ConnectingCallAction = {
 	payload: {
 		callInfo: CallInfo,
 	},
 }
 
-export type CallUpdatedAction = {
+export type UpdateCallAction = {
 	payload: {
 		call: CallModel,
 	},

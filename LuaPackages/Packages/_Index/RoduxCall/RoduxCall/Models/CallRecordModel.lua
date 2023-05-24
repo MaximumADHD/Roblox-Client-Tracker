@@ -1,7 +1,7 @@
 local RoduxCall = script:FindFirstAncestor("RoduxCall")
 local Packages = RoduxCall.Parent
 
-local ParticipantModel = require(script.Parent.ParticipantModel)
+local HistoricalParticipantModel = require(script.Parent.HistoricalParticipantModel)
 
 local t = require(Packages.t) :: any
 
@@ -27,7 +27,7 @@ function CallRecordModel.mock(mergeTable: any)
 		callerId = mergeTable.callerId or 12345,
 		startUtc = mergeTable.startUtc or 1666635183,
 		endUtc = mergeTable.endUtc or 1666635183,
-		participants = { ParticipantModel.mock(mergeTable.members) },
+		participants = { HistoricalParticipantModel.mock(mergeTable.members) },
 		status = mergeTable.status or "CallMissed",
 		universeId = mergeTable.universeId or 12345,
 		placeId = mergeTable.placeId or 12345,
@@ -56,7 +56,7 @@ CallRecordModel.isValid = t.strictInterface({
 	callerId = t.number,
 	startUtc = t.number, -- Milliseconds
 	endUtc = t.number, -- Milliseconds
-	participants = t.array(ParticipantModel.isValid),
+	participants = t.array(HistoricalParticipantModel.isValid),
 	status = t.string,
 	universeId = t.number,
 	placeId = t.number,

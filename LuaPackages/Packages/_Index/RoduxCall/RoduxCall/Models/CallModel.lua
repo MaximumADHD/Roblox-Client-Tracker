@@ -63,20 +63,8 @@ end
 CallModel.isValid = t.strictInterface({
 	status = t.string,
 	callId = t.string,
-	participants = t.map(
-		t.string,
-		t.strictInterface({
-			userId = t.number,
-			displayName = t.string,
-			userName = t.string,
-		})
-	),
-	experienceDetail = t.strictInterface({
-		placeId = t.number,
-		universeName = t.string,
-		gameInstanceId = t.optional(t.number),
-		reservedServerAccessCode = t.optional(t.string),
-	}),
+	participants = t.map(t.string, ParticipantModel.isValid),
+	experienceDetail = ExperienceDetailModel.isValid,
 })
 
 return CallModel

@@ -1,13 +1,13 @@
 local ClearCallRecords = require(script.ClearCallRecords)
-local CallActivated = require(script.CallActivated)
-local CallEnded = require(script.CallEnded)
-local CallUpdated = require(script.CallUpdated)
-local CallInitialized = require(script.CallInitialized)
+local StartCall = require(script.StartCall)
+local EndCall = require(script.EndCall)
+local UpdateCall = require(script.UpdateCall)
+local ConnectingCall = require(script.ConnectingCall)
 
 return {
 	ClearCallRecords = ClearCallRecords,
-	CallActivated = CallActivated,
-	CallEnded = CallEnded,
-	CallUpdated = CallUpdated,
-	CallInitialized = CallInitialized,
+	StartCall = StartCall,
+	EndCall = EndCall,
+	UpdateCall = UpdateCall,
+	ConnectingCall = ConnectingCall,
 }

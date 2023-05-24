@@ -6,5 +6,5 @@ source = "git+https://github.com/roblox/lua-chat-deps#master"
 dependencies = [
     "AssetCard roblox/asset-card 103b2a57 git+https://github.com/roblox/asset-card#v1.0.3",
     "InfiniteScroller <patched> InfiniteScroller 0.9.5 url+https://github.com/roblox/infinite-scroller",
-    "UIBlox UIBlox bd13f6e1 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5e0aa1be git+https://github.com/roblox/uiblox#master",
 ]

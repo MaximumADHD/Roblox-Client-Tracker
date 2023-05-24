@@ -37,6 +37,7 @@ local defaultProps: Props = {
 	parent = workspace,
 	hidden = false,
 	curvature = 1, -- On by default to obtain anti-aliasing, disable with 0
+	zOffset = 0,
 }
 
 local function Panel3D(providedProps: Props)
@@ -84,6 +85,7 @@ local function Panel3D(providedProps: Props)
 				then Enum.SurfaceGuiShape.CurvedHorizontally
 				else nil,
 			HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
+			ZOffset = props.zOffset,
 		}),
 	})
 end

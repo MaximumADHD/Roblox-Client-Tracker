@@ -1,5 +1,6 @@
 --!strict
-local SplitTile = script.Parent.Parent
+local ActionTile = script.Parent
+local SplitTile = ActionTile.Parent
 local Tile = SplitTile.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
@@ -21,6 +22,7 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local Images = require(App.ImageSet.Images)
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
+local Constants = require(ActionTile.Constants)
 
 local VerticalTile = require(SplitTile.VerticalTile.VerticalTile)
 
@@ -28,30 +30,7 @@ local defaultProps = {
 	isHoverEnabled = false,
 }
 
-export type StyleProps = {
-	-- Color for the background
-	backgroundColor: StyleTypes.ThemeItem,
-	-- Border config
-	border: StyleTypes.BorderItem,
-	-- Drop shadow config
-	dropShadow: StyleTypes.DropShadowItem,
-	-- Padding for TopContent
-	topContentPadding: StyleTypes.PaddingItem,
-	-- Color for the overlay handling the control states
-	overlayColors: StyleTypes.ControlStateColors,
-	-- Padding for the gamepad selection cursor
-	selectionCursorPadding: StyleTypes.PaddingItem,
-	-- Gap between content list's icon and text
-	contentGap: number,
-	-- The Font type of text
-	titleFont: Fonts.Font,
-	-- Color for title's text
-	titleTextColor: StyleTypes.ThemeItem,
-	-- The length of icon size
-	iconSize: number,
-	-- Color for icon's image
-	iconImageColor: StyleTypes.ThemeItem,
-}
+export type StyleProps = Constants.StyleProps
 
 export type Props = {
 	-- The title string
@@ -63,7 +42,7 @@ export type Props = {
 	-- Function called when tile panel is activated
 	onActivated: (() -> any)?,
 	-- Props to styling the component
-	styleProps: StyleProps,
+	styleProps: StyleProps?,
 }
 
 local function renderContentWithPadding(
@@ -84,21 +63,21 @@ local function renderContentWithPadding(
 end
 
 local function ActionTile(props: Props)
-	-- Add default props fallback after design token decouple solution is finalized
-	assert(props.styleProps ~= nil, "StyleProps must be specified in order to style the component correctly")
-	local props: Props = Cryo.Dictionary.join(defaultProps, props)
-	local backgroundColor: StyleTypes.ThemeItem = props.styleProps.backgroundColor
-	local border: StyleTypes.BorderItem = props.styleProps.border
-	local dropShadow: StyleTypes.DropShadowItem = props.styleProps.dropShadow
-	local topContentPadding: StyleTypes.PaddingItem = props.styleProps.topContentPadding
-	local overlayColors: StyleTypes.ControlStateColors = props.styleProps.overlayColors
-	local selectionCursorPadding: StyleTypes.PaddingItem = props.styleProps.selectionCursorPadding
-	local contentGap: number = props.styleProps.contentGap
-	local titleFont: Fonts.Font = props.styleProps.titleFont
-	local iconSize: number = props.styleProps.iconSize
-	local iconImageColor: StyleTypes.ThemeItem = props.styleProps.iconImageColor
-	local titleTextColor: StyleTypes.ThemeItem = props.styleProps.titleTextColor
 	local style = useStyle()
+	local defaultStyleProps: StyleProps = Constants.getDefaultStyleProps(style)
+	local styleProps = Cryo.Dictionary.join(defaultStyleProps, props.styleProps or {})
+	local backgroundColor: StyleTypes.ThemeItem = styleProps.backgroundColor
+	local border: StyleTypes.BorderItem = styleProps.border
+	local dropShadow: StyleTypes.DropShadowItem = styleProps.dropShadow
+	local topContentPadding: StyleTypes.PaddingItem = styleProps.topContentPadding
+	local overlayColors: StyleTypes.ControlStateColors = styleProps.overlayColors
+	local selectionCursorPadding: StyleTypes.PaddingItem = styleProps.selectionCursorPadding
+	local contentGap: number = styleProps.contentGap
+	local titleFont: Fonts.Font = styleProps.titleFont
+	local iconSize: number = styleProps.iconSize
+	local iconImageColor: StyleTypes.ThemeItem = styleProps.iconImageColor
+	local titleTextColor: StyleTypes.ThemeItem = styleProps.titleTextColor
+	local props: Props = Cryo.Dictionary.join(defaultProps, props)
 	local textOneLineSizeY
 	if props.title then
 		textOneLineSizeY = titleFont.RelativeSize * style.Font.BaseSize

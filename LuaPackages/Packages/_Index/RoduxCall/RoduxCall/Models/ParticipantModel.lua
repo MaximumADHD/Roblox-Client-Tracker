@@ -23,7 +23,6 @@ function ParticipantModel.mock(mergeTable: any)
 	local self = ParticipantModel.new({
 		userId = mergeTable.userId or 12345,
 		displayName = mergeTable.displayName or "displayName",
-		userName = mergeTable.userName or "username",
 	})
 
 	return self
@@ -33,7 +32,6 @@ function ParticipantModel.format(participantData)
 	local self = ParticipantModel.new({
 		userId = participantData.userId,
 		displayName = participantData.displayName,
-		userName = participantData.userName,
 	})
 
 	return self
@@ -42,7 +40,6 @@ end
 ParticipantModel.isValid = t.strictInterface({
 	userId = t.number,
 	displayName = t.string,
-	userName = t.string,
 })
 
 return ParticipantModel

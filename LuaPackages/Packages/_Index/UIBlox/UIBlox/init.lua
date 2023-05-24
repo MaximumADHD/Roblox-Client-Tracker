@@ -185,6 +185,9 @@ local function initializeLibrary(configs)
 		}),
 
 		Container = strict({
+			Enum = strict({
+				ScrollBarType = require(script.App.Container.Enum.ScrollBarType),
+			}),
 			Carousel = strict({
 				GridCarousel = require(script.App.Container.Carousel.GridCarousel),
 				FreeFlowCarousel = require(script.App.Container.Carousel.FreeFlowCarousel),
@@ -210,6 +213,8 @@ local function initializeLibrary(configs)
 			MediaGalleryPreview = require(script.App.Container.MediaGallery.MediaGalleryPreview),
 			MediaGalleryFullScreen = require(script.App.Container.MediaGallery.MediaGalleryFullScreen),
 			MediaGalleryHorizontal = require(script.App.Container.MediaGallery.MediaGalleryHorizontal),
+			MediaGalleryExpandableView = require(script.App.Container.MediaGallery.MediaGalleryExpandableView),
+			CrossFadeAnimatedView = require(script.App.Container.MediaGallery.CrossFadeAnimatedView),
 		}),
 
 		Slider = strict({
@@ -342,6 +347,7 @@ local function initializeLibrary(configs)
 
 		Menu = strict({
 			BaseMenu = require(script.App.Menu.BaseMenu),
+			ContrastBaseMenu = require(script.App.Menu.ContrastBaseMenu),
 			OverlayBaseMenu = require(script.App.Menu.OverlayBaseMenu),
 			GameContextualMenu = require(script.App.Menu.GameContextualMenu),
 			ContextualMenu = require(script.App.Menu.ContextualMenu),

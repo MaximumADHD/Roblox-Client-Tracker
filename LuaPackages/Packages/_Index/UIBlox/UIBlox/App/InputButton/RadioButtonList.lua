@@ -26,7 +26,10 @@ RadioButtonList.validateProps = t.strictInterface({
 	-- This is the size of an individual `radioButton` component
 	elementSize = t.UDim2,
 	-- The index of the initially selected `radioButton`
-	selectedValue = t.optional(t.number),
+	initialValue = t.optional(t.number),
+	-- The index of the currently selected `radioButton`
+	-- will override the one specified in the internal state
+	currentValue = t.optional(t.number),
 	-- The `layoutOrder` of this component, to be used in `UIListLayout`
 	layoutOrder = t.optional(t.number),
 	padding = t.optional(t.UDim),
@@ -42,7 +45,7 @@ RadioButtonList.validateProps = t.strictInterface({
 
 function RadioButtonList:init()
 	self.state = {
-		currentValue = self.props.selectedValue or 0,
+		currentValue = self.props.initialValue or 0,
 	}
 
 	local disabledIndices = {}
@@ -74,7 +77,9 @@ function RadioButtonList:renderWithProviders(getSelectionCursor)
 	for i, value in ipairs(self.props.radioButtons) do
 		radioButtons["RadioButton" .. i] = Roact.createElement(RoactGamepad.Focusable[RadioButton], {
 			text = type(value) == "table" and value.label or value,
-			isSelected = i == self.state.currentValue,
+			isSelected = if self.props.currentValue ~= nil
+				then i == self.props.currentValue
+				else i == self.state.currentValue,
 			isDisabled = self.state.disabledIndices[i],
 			onActivated = self.doLogic,
 			size = self.props.elementSize,

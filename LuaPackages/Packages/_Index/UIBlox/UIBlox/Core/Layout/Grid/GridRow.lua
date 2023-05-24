@@ -31,6 +31,8 @@ GridRow.validateProps = t.strictInterface({
 	-- \[experimental\] Enables scrolling in the row.
 	-- Requires `relativeHeight`, disallows `multiLine
 	scrollable = t.optional(t.boolean),
+	-- Optionally disable descendant clipping
+	clipsDescendants = t.optional(t.boolean),
 	-- whether or not the row can be selected by a gamepad
 	selectable = t.optional(t.boolean),
 	-- Enables multi line mode in the row, wrapping extra contents, and allowing cells to have multi-row height
@@ -264,6 +266,7 @@ function GridRow:render()
 				kind = self.props.kind,
 				layoutOrder = self.props.layoutOrder,
 				scrollable = self.props.scrollable,
+				clipsDescendants = self.props.clipsDescendants,
 				selectable = self.props.selectable,
 				pages = pages,
 				multiLine = self.props.multiLine,

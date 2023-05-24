@@ -58,29 +58,39 @@ end
 function Config:set(configValues)
 	-- Validate values without changing any configuration.
 	-- We only want to apply this configuration if it's valid!
+	local invalidKeys = {}
+	local invalidTypes = {}
+
 	for key, value in pairs(configValues) do
 		if self.defaultConfig[key] == nil then
-			local message = ("Invalid global configuration key %q (type %s). Valid configuration keys are: %s"):format(
-				tostring(key),
-				typeof(key),
-				table.concat(self.defaultConfigKeys, ", ")
-			)
-
-			error(message, 3)
+			table.insert(invalidKeys, key)
+			continue
 		end
 
 		-- Right now, all configuration values must be boolean.
 		if typeof(value) ~= "boolean" then
-			local message = ("Invalid value %q (type %s) for global configuration key %q. Valid values are: true, false"):format(
-				tostring(value),
-				typeof(value),
-				tostring(key)
-			)
-
-			error(message, 3)
+			table.insert(invalidTypes, tostring(key) .. " (type " .. typeof(value) .. ")")
+			continue
 		end
 
 		self._currentConfig[key] = value
+	end
+
+	if next(invalidKeys) ~= nil then
+		local message = ("Invalid global configuration keys %s. Valid configuration keys are: %s"):format(
+			table.concat(invalidKeys, ", "),
+			table.concat(self.defaultConfigKeys, ", ")
+		)
+
+		error(message, 3)
+	end
+
+	if next(invalidTypes) ~= nil then
+		local message = ("Invalid global configuration types for keys %s. All configuration values must be boolean."):format(
+			table.concat(invalidTypes, ", ")
+		)
+
+		error(message, 3)
 	end
 end
 

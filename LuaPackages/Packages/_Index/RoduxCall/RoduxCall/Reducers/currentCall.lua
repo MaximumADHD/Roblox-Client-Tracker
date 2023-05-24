@@ -3,10 +3,10 @@ local Root = RoduxCall.Parent
 local Rodux = require(Root.Rodux) :: any
 local Status = require(RoduxCall.Enums).Status :: any
 local CallModel = require(RoduxCall.Models).CallModel :: any
-local CallActivated = require(RoduxCall.Actions).CallActivated :: any
-local CallEnded = require(RoduxCall.Actions).CallEnded :: any
-local CallInitialized = require(RoduxCall.Actions).CallInitialized :: any
-local CallUpdated = require(RoduxCall.Actions).CallUpdated :: any
+local StartCall = require(RoduxCall.Actions).StartCall :: any
+local EndCall = require(RoduxCall.Actions).EndCall :: any
+local ConnectingCall = require(RoduxCall.Actions).ConnectingCall :: any
+local UpdateCall = require(RoduxCall.Actions).UpdateCall :: any
 
 local roduxCallTypes = require(script.Parent.Parent.roduxCallTypes)
 
@@ -14,23 +14,23 @@ local DEFAULT_STATE: roduxCallTypes.CurrentCall = nil
 
 return function()
 	return Rodux.createReducer(DEFAULT_STATE, {
-		[CallActivated.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.CallActivatedAction)
+		[StartCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.StartCallAction)
 			local call = action.payload.callInfo :: roduxCallTypes.CallModel
 			call.status = Status.Active.rawValue()
 			return CallModel.format(call)
 		end,
 
-		[CallInitialized.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.CallInitializedAction)
+		[ConnectingCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.ConnectingCallAction)
 			local call = action.payload.callInfo :: roduxCallTypes.CallModel
 			call.status = Status.Connecting.rawValue()
 			return CallModel.format(call)
 		end,
 
-		[CallEnded.name] = function(_: roduxCallTypes.CurrentCall, _: roduxCallTypes.CallEndedAction)
+		[EndCall.name] = function(_: roduxCallTypes.CurrentCall, _: roduxCallTypes.EndCallAction)
 			return nil
 		end,
 
-		[CallUpdated.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.CallUpdatedAction)
+		[UpdateCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.UpdateCallAction)
 			local call = action.payload.call
 			if call.status == Status.Active.rawValue() then
 				return CallModel.format(call)

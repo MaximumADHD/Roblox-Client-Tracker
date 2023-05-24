@@ -4,6 +4,7 @@ local Template = DetailsPage.Parent
 local App = Template.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local Cryo = require(Packages.Cryo)
 local VirtualizedListModule = require(Packages.VirtualizedList)
 local AnimatedFlatList = VirtualizedListModule.AnimatedFlatList
 type AnimatedFlatListProps = VirtualizedListModule.AnimatedFlatListProps<any>
@@ -25,8 +26,11 @@ type DetailsPageTenfootTokens = {
 	animationConfig: SpringOptions,
 	itemPadding: number,
 	safeAreaSize: Vector2,
-	aspectRatio: number,
 	trailingWhitespace: number,
+	thumbnailShadowHeight: number?,
+	thumbnailMargin: number?,
+	headerGradientHeight: number?,
+	headerBottomMargin: number?,
 }
 
 local React = require(Packages.React)
@@ -51,26 +55,27 @@ export type Props = {
 	renderInfoContent: () -> React.React_Node,
 
 	-- 	Props for the embedded action bar component.
-	-- See [ActionBar](ActionBar.md) for required and optional props.
+	-- See [ActionBar](../../Button/ActionBar.md) for required and optional props.
 	actionBarProps: { button: any, icons: { any }, enableButtonAtStart: boolean? },
+	--[[
+	The table of props for the content of the details page.
 
-	-- The table of props for the content of the details page.
+	* `key: string`
+	Name of the component.
 
-	-- * `key: string`
-	-- Name of the component.
+		* `portraitLayoutOrder: integer`
+		The layout of the component in single panel portrait mode.
 
-	-- 	* `portraitLayoutOrder: integer`
-	-- 	The layout of the component in single panel portrait mode.
+		* `landscapePosition: enum`
+		Type: App.Template.DetailsPage.Enum.ContentPosition
+		The position of the component in dual panel landscape mode.
 
-	-- 	* `landscapePosition: enum`
-	-- 	Type: App.Template.DetailsPage.Enum.ContentPosition
-	-- 	The position of the component in dual panel landscape mode.
+		* `landscapeLayoutOrder: integer`
+		The layout of the component in dual panel landscape mode.
 
-	-- 	* `landscapeLayoutOrder: integer`
-	-- 	The layout of the component in dual panel landscape mode.
-
-	-- 	* `componentRender: callback`
-	-- 	render function for the component.
+		* `componentRender: callback`
+		render function for the component.
+	]]
 	componentList: ComponentList,
 
 	-- The side margin of the body components.
@@ -116,7 +121,6 @@ export type Props = {
 local SAFE_AREA = Vector2.new(96, 144)
 local ITEM_PADDING = 36
 local TRAILING_WHITESPACE = 3000
-local DISPLAY_ASPECT_RATIO = 16 / 9
 local SPRING_CONFIG = {
 	dampingRatio = 1,
 	frequency = 3,
@@ -126,13 +130,15 @@ local defaultTokens = {
 	animationConfig = SPRING_CONFIG,
 	itemPadding = ITEM_PADDING,
 	safeAreaSize = SAFE_AREA,
-	aspectRatio = DISPLAY_ASPECT_RATIO,
 	trailingWhitespace = TRAILING_WHITESPACE,
 }
 
 local function DetailsPageTenfootTemplate(props: Props)
 	-- Configure style props
-	local tokens: DetailsPageTenfootTokens = if props.tokens then props.tokens else defaultTokens
+	local tokens: DetailsPageTenfootTokens = defaultTokens
+	if props.tokens then
+		tokens = Cryo.Dictionary.join(tokens, props.tokens)
+	end
 
 	-- Item Focus Animation
 	local showGradient, setShowGradient = React.useState(true)
@@ -154,7 +160,7 @@ local function DetailsPageTenfootTemplate(props: Props)
 	end, {})
 
 	local thumbnailHeight = if props.thumbnailHeight then props.thumbnailHeight else deviceConfig.thumbnailHeight
-	local headerBarBackgroundHeight = if props.headerBarBackgroundHeight
+	local headerBarBackgroundHeight = if props.headerBarBackgroundHeight ~= nil
 		then props.headerBarBackgroundHeight
 		else deviceConfig.headerBarBackgroundHeight
 	local sideMargin = if props.sideMargin then props.sideMargin else deviceConfig.sideMargin
@@ -178,6 +184,10 @@ local function DetailsPageTenfootTemplate(props: Props)
 			sideMargin = sideMargin,
 			headerBarBackgroundHeight = headerBarBackgroundHeight,
 			deviceType = props.deviceType,
+			thumbnailShadowHeight = tokens.thumbnailShadowHeight,
+			gradientHeight = tokens.headerGradientHeight,
+			itemPadding = tokens.thumbnailMargin,
+			bottomMargin = tokens.headerBottomMargin,
 		})
 	end, {
 		props.thumbnailImageUrl,
@@ -190,6 +200,10 @@ local function DetailsPageTenfootTemplate(props: Props)
 		sideMargin,
 		headerBarBackgroundHeight,
 		props.deviceType,
+		tokens.thumbnailShadowHeight,
+		tokens.headerGradientHeight,
+		tokens.thumbnailMargin,
+		tokens.headerBottomMargin,
 	} :: { any })
 
 	-- FlatList props
@@ -233,13 +247,10 @@ local function DetailsPageTenfootTemplate(props: Props)
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 		}, {
-			UIAspectRatioConstraint = React.createElement("UIAspectRatioConstraint", {
-				AspectRatio = tokens.aspectRatio,
-			}),
 			BackgroundImage = React.createElement(LoadableImage, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
-				Size = UDim2.new(0, containerSize.X, 1, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 				Image = props.bannerImageUrl,
 				ScaleType = Enum.ScaleType.Crop,
 			}),

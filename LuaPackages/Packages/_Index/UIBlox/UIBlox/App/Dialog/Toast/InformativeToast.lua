@@ -16,12 +16,17 @@ local ToastText = require(ToastRoot.ToastText)
 local InformativeToast = Roact.PureComponent:extend("InformativeToast")
 
 InformativeToast.validateProps = t.strictInterface({
+	-- AnchorPoint of the `ToastContainer`
 	anchorPoint = t.optional(t.Vector2),
 	iconProps = t.optional(ToastIcon.validateProps),
+	-- A Roact children table of icon image to customize toast icon
 	iconChildren = t.optional(t.table),
+	-- LayoutOrder of toast page
 	layoutOrder = t.optional(t.integer),
 	padding = t.optional(t.numberMin(0)),
+	-- Position of `ToastContainer` in the whole page
 	position = t.optional(t.UDim2),
+	-- Size of `ToastContainer`, height is dynamic based on text length
 	size = t.UDim2,
 	subtitleTextProps = t.optional(ToastText.validateProps),
 	textFrameSize = t.optional(t.UDim2),

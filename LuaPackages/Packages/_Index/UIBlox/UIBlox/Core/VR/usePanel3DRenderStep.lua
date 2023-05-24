@@ -117,6 +117,13 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 			return
 		end
 
+		if props.offsetCallback then
+			finalPosition = props.offsetCallback({
+				finalPosition = finalPosition,
+				cameraHeadScale = cameraHeadScale,
+			})
+		end
+
 		if props.lerp and lastOffset.current ~= nil then
 			lastOffset.current = lastOffset.current:Lerp(props.offset, LERP_SPEED * deltaSeconds)
 		else
@@ -136,6 +143,13 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 			end
 		end
 
+		if props.tiltCallback then
+			panelCFrame = props.tiltCallback({
+				panelCFrame = panelCFrame,
+				cameraHeadScale = cameraHeadScale,
+			})
+		end
+
 		if basePart.current ~= nil then
 			basePart.current.CFrame = panelCFrame
 			-- The smallest part size is 0.05
@@ -144,7 +158,16 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 			basePart.current.Size =
 				Vector3.new(props.partSize.X * cameraHeadScale, props.partSize.Y * cameraHeadScale, 0.05)
 		end
-	end, { props.anchoring, props.faceCamera, props.lerp, props.offset, props.partSize, props.alignedPanel } :: { any })
+	end, {
+		props.anchoring,
+		props.faceCamera,
+		props.lerp,
+		props.offset,
+		props.partSize,
+		props.alignedPanel,
+		props.offsetCallback,
+		props.tiltCallback,
+	} :: { any })
 
 	React.useEffect(function()
 		if props.anchoring ~= Constants.AnchoringTypes.World then

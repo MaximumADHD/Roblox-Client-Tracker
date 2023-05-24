@@ -27,6 +27,8 @@ GridBasicRow.validateProps = t.strictInterface({
 	-- \[Experimental\] Enables scrolling in the row.
 	-- Requires `relativeHeight`, disallows `multiLine`.
 	scrollable = t.optional(t.boolean),
+	-- Optionally disable descendant clipping
+	clipsDescendants = t.optional(t.boolean),
 	selectable = t.optional(t.boolean),
 	pages = t.optional(t.numberPositive),
 	-- Enables multi line mode in the row, wrapping extra contents, and allowing cells to have multi-row height.
@@ -50,6 +52,7 @@ GridBasicRow.defaultProps = {
 	kind = "default",
 	scrollable = false,
 	selectable = false,
+	clipsDescendants = true,
 	multiLine = false,
 }
 
@@ -116,6 +119,7 @@ function GridBasicRow:renderChildren(scrollable, margin, gutter, verticalGutter)
 				CanvasSize = UDim2.new(canvasWidth, (canvasWidth - 1) * (gutter - 2 * margin), 1, 0),
 				AutomaticCanvasSize = self.props.pages and Enum.AutomaticSize.None or Enum.AutomaticSize.X,
 				Selectable = self.props.selectable,
+				ClipsDescendants = self.props.clipsDescendants,
 			}, children),
 		}
 	else

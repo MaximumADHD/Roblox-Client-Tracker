@@ -27,16 +27,24 @@ local EMPHASIS_CONTENT_STATE_COLOR = {
 	[ControlState.Hover] = "IconDefault",
 }
 
-local RELEVANCY_TEXT_HEIGHT = 28
 local RELEVANCY_PADDING = 4
-local ICON_FRAME_SIZE = getIconSize(IconSize.Small) + RELEVANCY_PADDING * 2
+local RELEVANCY_TEXT_HEIGHT = 28
+
+local function doesNotUseScale(value)
+	if value.X.Scale ~= 0 or value.Y.Scale ~= 0 then
+		return false, "Only Offset values are allowed"
+	end
+
+	return true
+end
 
 PlayerContext.validateProps = t.strictInterface({
 	text = t.optional(t.string),
 	-- The icon that represents the player status
 	icon = t.optional(t.union(t.string, t.table)),
 	-- The size of the icon
-	iconSize = t.optional(t.UDim2),
+	-- TODO: This should be a Vector2, not a UDim2, as only Offset is supported
+	iconSize = t.optional(t.intersection(t.UDim2, doesNotUseScale)),
 	-- The color of the icon
 	iconColor = t.optional(t.Color3),
 	-- The transparency setting of the icon
@@ -84,6 +92,9 @@ function PlayerContext:render()
 			iconColor = activatedStyle.Color
 		end
 
+		local iconFrameWidth = iconSize.X.Offset + RELEVANCY_PADDING * 2
+		local iconFrameHeight = iconSize.Y.Offset + RELEVANCY_PADDING * 2
+
 		local fontStyle = self.props.fontStyle or style.Font.CaptionHeader
 		return Roact.createElement("ImageButton", {
 			Size = UDim2.new(1, 0, 0, RELEVANCY_TEXT_HEIGHT),
@@ -99,7 +110,7 @@ function PlayerContext:render()
 				Padding = UDim.new(0, RELEVANCY_PADDING),
 			}),
 			IconFrame = icon and Roact.createElement("Frame", {
-				Size = UDim2.fromOffset(ICON_FRAME_SIZE, ICON_FRAME_SIZE),
+				Size = UDim2.fromOffset(iconFrameWidth, iconFrameHeight),
 				BackgroundTransparency = 1,
 			}, {
 				layout = Roact.createElement("UIListLayout", {
@@ -117,7 +128,7 @@ function PlayerContext:render()
 			}),
 			Text = text and Roact.createElement(GenericTextLabel, {
 				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, -ICON_FRAME_SIZE - RELEVANCY_PADDING, 1, 0),
+				Size = UDim2.new(1, -iconFrameWidth - RELEVANCY_PADDING, 1, 0),
 				Text = text,
 				TextWrapped = true,
 				TextXAlignment = Enum.TextXAlignment.Left,

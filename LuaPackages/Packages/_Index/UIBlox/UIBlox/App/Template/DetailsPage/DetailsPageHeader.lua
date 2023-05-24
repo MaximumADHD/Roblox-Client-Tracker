@@ -51,13 +51,17 @@ DetailsPageHeader.validateProps = t.strictInterface({
 
 	headerBarBackgroundHeight = t.optional(t.number),
 	sideMargin = t.optional(t.number),
+	itemPadding = t.optional(t.number),
+	bottomMargin = t.optional(t.number),
+	gradientHeight = t.optional(t.number),
+	thumbnailShadowHeight = t.optional(t.number),
 
 	actionBarProps = t.optional(ActionBar.validateProps),
 
 	deviceType = t.optional(t.string),
 })
 
-function DetailsPageHeader:renderThumbnail(style, thumbnailWidth, thumbnailHeight)
+function DetailsPageHeader:renderThumbnail(style, shadowHeight, thumbnailWidth, thumbnailHeight)
 	return Roact.createElement("Frame", {
 		Size = UDim2.fromOffset(thumbnailWidth, thumbnailHeight),
 		LayoutOrder = 1,
@@ -70,16 +74,18 @@ function DetailsPageHeader:renderThumbnail(style, thumbnailWidth, thumbnailHeigh
 			Size = UDim2.fromScale(1, 1),
 			Image = self.props.thumbnailImageUrl,
 		}),
-		DropShadow = Roact.createElement(ImageSetLabel, {
-			Size = UDim2.new(1, 0, 0, DROP_SHADOW_HEIGHT),
-			Position = UDim2.fromScale(0, 1),
-			BackgroundTransparency = 1,
-			Image = Images[DROP_SHADOW_IMAGE],
-			ImageColor3 = style.Theme.DropShadow.Color,
-			ImageTransparency = style.Theme.DropShadow.Transparency,
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(32, 0, 33, 28),
-		}),
+		DropShadow = if shadowHeight > 0
+			then Roact.createElement(ImageSetLabel, {
+				Size = UDim2.new(1, 0, 0, DROP_SHADOW_HEIGHT),
+				Position = UDim2.fromScale(0, 1),
+				BackgroundTransparency = 1,
+				Image = Images[DROP_SHADOW_IMAGE],
+				ImageColor3 = style.Theme.DropShadow.Color,
+				ImageTransparency = style.Theme.DropShadow.Transparency,
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(32, 0, 33, 28),
+			})
+			else nil,
 	})
 end
 
@@ -87,6 +93,11 @@ function DetailsPageHeader:renderDesktopMode(style)
 	local thumbnailHeight = self.props.thumbnailHeight
 	local thumbnailWidth = thumbnailHeight * (self.props.thumbnailAspectRatio.X / self.props.thumbnailAspectRatio.Y)
 	local sideMargin = self.props.sideMargin or SIDE_MARGIN_DESKTOP
+	local itemPadding = self.props.itemPadding or ITEM_PADDING
+	local thumbnailShadowHeight = DROP_SHADOW_HEIGHT
+	if self.props.thumbnailShadowHeight ~= nil then
+		thumbnailShadowHeight = self.props.thumbnailShadowHeight
+	end
 
 	return {
 		Padding = Roact.createElement("UIPadding", {
@@ -98,9 +109,9 @@ function DetailsPageHeader:renderDesktopMode(style)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Bottom,
-			Padding = UDim.new(0, ITEM_PADDING),
+			Padding = UDim.new(0, itemPadding),
 		}),
-		ThumbnailTileFrame = self:renderThumbnail(style, thumbnailWidth, thumbnailHeight),
+		ThumbnailTileFrame = self:renderThumbnail(style, thumbnailShadowHeight, thumbnailWidth, thumbnailHeight),
 		InfoFrame = Roact.createElement("Frame", {
 			Size = UDim2.new(1, -(thumbnailWidth + sideMargin * 2), 1, 0),
 			BackgroundTransparency = 1,
@@ -167,7 +178,9 @@ function DetailsPageHeader:render()
 	local thumbnailHeight = self.props.thumbnailHeight
 	local headerBarBackgroundHeight = self.props.headerBarBackgroundHeight or DEFAULT_HEADER_BAR_HEIGHT
 
-	local gradientHeight = (thumbnailHeight + BOTTOM_MARGIN) - headerBarBackgroundHeight + BASE_GRADIENT
+	local gradientHeight = self.props.gradientHeight
+		or ((thumbnailHeight + BOTTOM_MARGIN) - headerBarBackgroundHeight + BASE_GRADIENT)
+	local bottomMargin = self.props.bottomMargin
 
 	return withStyle(function(style)
 		local theme = style.Theme
@@ -210,6 +223,13 @@ function DetailsPageHeader:render()
 				style,
 				thumbnailHeight
 			)),
+			Padding = if bottomMargin
+				then Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, bottomMargin),
+					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+				})
+				else nil,
 		})
 	end)
 end

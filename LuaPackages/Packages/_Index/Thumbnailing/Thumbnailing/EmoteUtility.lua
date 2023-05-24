@@ -38,14 +38,23 @@ local cachedAnimationClipId = nil
 local cachedPoseAssetIsIdleAnim = nil
 
 module.debugLoadAssetsFromFiles = false
+module.debugLoadAssetsFromFilesInSubdir = ""
 
 --[[
 	In tests, we don't want to actually hit backends to load assets.
-	Sometimes we make a bunch of requests and get throttled.
+	Sometimes we make a bunch of requests and get throttled.  Plus backends go up & down ->
+	flaky test.
+	If some third party (e.g. lua app) is using this and we want to customize where to look for local
+	files, pass in debugLoadAssetsFromFilesInSubdir, e.g. if rbxassets are normally loaded from
+	dir "content" and our files are in content/animations, pass in debugLoadAssetsFromFilesInSubdir = "animations/"
 ]]
-module.SetDebugLoadAssetsFromFiles = function(debugLoadAssetsFromFiles: boolean)
-	module.debugLoadAssetsFromFiles = debugLoadAssetsFromFiles
-end
+module.SetDebugLoadAssetsFromFiles =
+	function(debugLoadAssetsFromFiles: boolean, debugLoadAssetsFromFilesInSubdir: string?)
+		module.debugLoadAssetsFromFiles = debugLoadAssetsFromFiles
+		if debugLoadAssetsFromFilesInSubdir then
+			module.debugLoadAssetsFromFilesInSubdir = debugLoadAssetsFromFilesInSubdir
+		end
+	end
 
 local function isOnRCC()
 	-- FIXME(dbanks)
@@ -81,7 +90,7 @@ end
 local loadAsset = function(poseAssetId: string): Model
 	if module.debugLoadAssetsFromFiles then
 		-- load local asset.
-		local url = "rbxasset://" .. tostring(poseAssetId) .. ".rbxm"
+		local url = "rbxasset://" .. module.debugLoadAssetsFromFilesInSubdir .. tostring(poseAssetId) .. ".rbxm"
 		return InsertService:LoadLocalAsset(url)
 	else
 		return InsertService:LoadAsset(poseAssetId)
@@ -1275,5 +1284,49 @@ module.SetPlayerCharacterPose =
 			module.ApplyPose(character, poseKeyframe, false, false)
 		end
 	end
+
+local function getCameraOffset(fov: number, extentsSize: Vector3): number
+	local xSize, ySize, zSize = extentsSize.X, extentsSize.Y, extentsSize.Z
+
+	local maxSize = math.sqrt(xSize ^ 2 + ySize ^ 2 + zSize ^ 2)
+	local fovMultiplier = 1 / math.tan(math.rad(fov) / 2)
+
+	local halfSize = maxSize / 2
+	return halfSize * fovMultiplier
+end
+
+--[[
+	This function calculates the camera CFrame for Emote thumbnailing. All parameters beside the model are normally provided within the Emote.
+]]
+module.ThumbnailZoomExtents = function(
+	model: Model,
+	thumbnailCameraFOV: number,
+	horizontalOffset: number,
+	verticalOffset: number,
+	thumbnailZoom: number
+): CFrame
+	local modelCFrame = model:GetModelCFrame()
+	local lookVector = modelCFrame.LookVector
+
+	local humanoidRootPart = model:FindFirstChild("HumanoidRootPart")
+	if humanoidRootPart then
+		lookVector = humanoidRootPart.CFrame.LookVector
+	end
+
+	local initialCameraCFrame = CFrame.new(modelCFrame.Position + (lookVector * 5), modelCFrame.Position)
+
+	local position = modelCFrame.Position
+	position = position + Vector3.new(horizontalOffset, -verticalOffset, 0)
+
+	local extentsSize: Vector3 = model:GetExtentsSize()
+	local cameraOffset = getCameraOffset(thumbnailCameraFOV, extentsSize)
+
+	local zoomFactor = 1 / thumbnailZoom
+	cameraOffset = cameraOffset * zoomFactor
+
+	local cameraRotation = initialCameraCFrame - initialCameraCFrame.Position
+	local newCameraCFrame = cameraRotation + position + (lookVector * cameraOffset)
+	return newCameraCFrame
+end
 
 return module

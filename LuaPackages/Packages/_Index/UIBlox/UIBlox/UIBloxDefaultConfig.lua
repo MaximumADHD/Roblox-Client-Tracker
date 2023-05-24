@@ -76,4 +76,7 @@ return {
 
 	-- Use a selectedPills prop in PillGroup, rather than tracking selection internally
 	usePillGroupSelectedPills = false,
+
+	-- Use new scroll bar in VerticalScrollView
+	useNewScrollBar = false,
 }

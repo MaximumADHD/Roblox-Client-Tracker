@@ -23,7 +23,7 @@ function ExperienceDetailModel.mock(mergeTable: any)
 	local self = ExperienceDetailModel.new({
 		universeName = mergeTable.universeName or "Iris",
 		placeId = mergeTable.placeId or 11402255591,
-		gameInstanceId = mergeTable.gameInstanceId or 123456,
+		gameInstanceId = mergeTable.gameInstanceId or "123456",
 		reservedServerAccessCode = mergeTable.reservedServerAccessCode or "12345",
 	})
 
@@ -44,7 +44,7 @@ end
 ExperienceDetailModel.isValid = t.strictInterface({
 	universeName = t.string,
 	placeId = t.number,
-	gameInstanceId = t.optional(t.number),
+	gameInstanceId = t.string,
 	reservedServerAccessCode = t.optional(t.string),
 })
 

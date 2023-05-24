@@ -24,8 +24,9 @@ local BIG_VECTOR = Vector2.new(math.huge, math.huge)
 local GridCarousel = Roact.PureComponent:extend("GridCarousel")
 
 GridCarousel.validateProps = t.strictInterface({
-	-- Header text for the carousel
-	headerText = t.string,
+	-- Header text for the carousel or render prop callback
+	-- for providing a custom header component
+	headerText = t.union(t.string, t.callback),
 	-- Text for the "See All" button.
 	-- If not provided, the button will not be displayed.
 	-- Ignored if `onButtonClick` and `onSeeAll` are not provided.
@@ -43,6 +44,8 @@ GridCarousel.validateProps = t.strictInterface({
 	-- Requires `relativeHeight`.
 	-- See `GridRow` for details.
 	scrollable = t.optional(t.boolean),
+	-- Optionally disable descendant clipping
+	clipsDescendants = t.optional(t.boolean),
 	-- Whether or not the row can be selected by a gamepad
 	selectable = t.optional(t.boolean),
 	-- Height of each cell, relative to its width.
@@ -213,15 +216,18 @@ function GridCarousel:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, HEADER_PADDING),
 			}),
-			GridCarouselHeader = self:renderHeader({
-				layoutOrder = 1,
-				margin = gridConfig.margin,
-				width = gridConfig.width,
-			}),
+			GridCarouselHeader = if type(self.props.headerText) == "function"
+				then self.props.headerText(gridConfig)
+				else self:renderHeader({
+					layoutOrder = 1,
+					margin = gridConfig.margin,
+					width = gridConfig.width,
+				}),
 			GridCarouselRow = Roact.createElement(GridRow, {
 				layoutOrder = 2,
 				kind = self.props.kind,
 				scrollable = self.props.scrollable,
+				clipsDescendants = self.props.clipsDescendants,
 				selectable = self.props.selectable,
 				relativeHeight = relativeHeight,
 				data = if self.props.data ~= nil then self.props.data else self.props.itemList,

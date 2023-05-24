@@ -3,4 +3,5 @@ return {
 	CallRecordModel = require(script.CallRecordModel),
 	ExperienceDetailModel = require(script.ExperienceDetailModel),
 	ParticipantModel = require(script.ParticipantModel),
+	HistoricalParticipantModel = require(script.HistoricalParticipantModel),
 }

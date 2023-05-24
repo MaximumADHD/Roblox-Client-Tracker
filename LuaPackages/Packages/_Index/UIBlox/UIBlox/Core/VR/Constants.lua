@@ -28,6 +28,9 @@ export type Panel3DProps = {
 	hidden: boolean, -- whether to hide the panel
 	curvature: number,
 	alignedPanel: any?, -- aligned to another in-game panel
+	zOffset: number, -- zOffset of the SurfaceGui
+	offsetCallback: ((arg: any) -> Vector3)?, -- callback to tweak final position in each frame
+	tiltCallback: ((arg: any) -> CFrame)?, -- callback to tweak final rotation in each frame
 }
 
 return {

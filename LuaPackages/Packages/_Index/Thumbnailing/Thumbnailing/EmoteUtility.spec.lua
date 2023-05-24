@@ -340,4 +340,23 @@ return function()
 			end)
 		end)
 	end
+
+	describe("Calculate Thumbnail Zoom Extents", function()
+		it("SHOULD return a function", function()
+			expect(EmoteUtility.ThumbnailZoomExtents).to.be.a("function")
+		end)
+		it("SHOULD produce a particular CFrame for a set of parameters", function()
+			local mockCharacter, originalMockCharacter = setupMockR15Characters()
+			local cameraCFrame = EmoteUtility.ThumbnailZoomExtents(
+				mockCharacter, -- character
+				20, -- FOV
+				1, -- horizontalOffset
+				2, -- verticalOffset
+				0.5 -- thumbnailZoom
+			)
+			-- TODO within this test we might consider checking every of the parameters below (as for the third one there might be a rounding problem)
+			-- currently leaving this as is to avoid 9 lines of comparison.
+			expect(cameraCFrame).to.equal(CFrame.new(1, -2, -26.2599335, -1, 0, -0, -0, 1, -0, -0, 0, -1))
+		end)
+	end)
 end
