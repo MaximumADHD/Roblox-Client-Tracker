@@ -21,10 +21,8 @@ local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibili
 
 local PlayerListSwitcher = Roact.PureComponent:extend("PlayerListSwitcher")
 
-local FFlagVRCoreGuiDefaultOff = require(RobloxGui.Modules.Flags.FFlagVRCoreGuiDefaultOff)
-
 function PlayerListSwitcher:didMount()
-	self.props.setPlayerListVisible(not self.props.isSmallTouchDevice and (not FFlagVRCoreGuiDefaultOff or not VRService.VREnabled))
+	self.props.setPlayerListVisible(not self.props.isSmallTouchDevice and not VRService.VREnabled)
 end
 
 function PlayerListSwitcher:render()

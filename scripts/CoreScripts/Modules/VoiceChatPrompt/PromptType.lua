@@ -6,6 +6,7 @@ return {
 	Permission = "Permission",
 	Retry = "Retry",
 	VoiceChatSuspendedTemporary = "VoiceChatSuspendedTemporary",
+	VoiceChatSuspendedTemporaryAvatarChat = "VoiceChatSuspendedTemporaryAvatarChat",
 	VoiceChatSuspendedPermanent = "VoiceChatSuspendedPermanent",
 	VoiceLoading = "VoiceLoading",
 }

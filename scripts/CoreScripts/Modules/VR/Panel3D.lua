@@ -18,8 +18,8 @@ local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 local CorePackages = game:GetService("CorePackages")
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
-local FFlagVRImproveCameraFlight = require(RobloxGui.Modules.Flags.FFlagVRImproveCameraFlight)
+local GetFFlagUIBloxVRFixUIJitter =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -217,6 +217,9 @@ function Panel.new(name)
 	self.isClosest = true
 
 	self.localCF = CFrame.new()
+	if GetFFlagUIBloxVRFixUIJitter() then
+		self.originCF = CFrame.new()
+	end
 	self.angleFromHorizon = false
 	self.angleFromForward = false
 	self.distance = 0
@@ -251,7 +254,7 @@ function Panel:GetPart()
 			Transparency = 1,
 
 			CanCollide = false,
-			CanTouch = if FFlagVRLetRaycastsThroughUI then false else nil,
+			CanTouch = false,
 			Anchored = true,
 
 			Size = Vector3.new(1, 1, partThickness),
@@ -406,13 +409,11 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 			self.LastFollowCF = userHeadCameraCF
 		end
 		
-		if FFlagVRImproveCameraFlight then
-			-- is camera moving ?
-			if (self.LastCameraPos - cameraCF.Position).Magnitude > 0.1 then
-				self.LastFollowCF = userHeadCameraCF
-			end
-			self.LastCameraPos = cameraCF.Position
+		-- is camera moving ?
+		if (self.LastCameraPos - cameraCF.Position).Magnitude > 0.1 then
+			self.LastFollowCF = userHeadCameraCF
 		end
+		self.LastCameraPos = cameraCF.Position
 		
 		if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) < 0.85 then
 			self.FollowView = true
@@ -1210,12 +1211,36 @@ local function onHeadScaleChanged()
 	end
 end
 
+local cameraCFrameChangedConn = nil
+local function onCameraCFrameChanged()
+	local camera = workspace.CurrentCamera :: Camera
+	local cameraCF = camera.CFrame
+	local cameraRenderCF = camera:GetRenderCFrame()
+	local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+	local lookRay = Ray.new(cameraRenderCF.p, cameraRenderCF.lookVector)
+
+	local inputUserCFrame = VRService.GuiInputUserCFrame
+	local inputCF = cameraCF * VRService:GetUserCFrame(inputUserCFrame)
+	local pointerRay = Ray.new(inputCF.p, inputCF.lookVector)
+
+	for i, v in pairs(panels) do
+		v:Update(cameraCF, cameraRenderCF, userHeadCF, lookRay, pointerRay, 0)
+	end
+end
+
 local function onCurrentCameraChanged()
 	onHeadScaleChanged()
 	if headscaleChangedConn then
 		headscaleChangedConn:disconnect()
 	end
 	headscaleChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("HeadScale"):Connect(onHeadScaleChanged)
+
+	if GetFFlagUIBloxVRFixUIJitter() then
+		if cameraCFrameChangedConn then
+			cameraCFrameChangedConn:disconnect()
+		end
+		cameraCFrameChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("CFrame"):Connect(onCameraCFrameChanged)
+	end
 
 	if VRService.VREnabled and isCameraReady then
 		putFoldersIn(workspace.CurrentCamera)

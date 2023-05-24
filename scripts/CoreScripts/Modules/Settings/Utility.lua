@@ -500,20 +500,34 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		Size = frameSize,
 	}
 
+	Util.Create'UIListLayout'
+	{
+		Name = "MenuListLayout",
+		Padding = UDim.new(0, 2),
+		FillDirection = Enum.FillDirection.Vertical,
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
+		Parent = ButtonLabel
+	}
+
 	Util.Create'TextLabel'
 	{
 		Name = name .. "TextLabel",
-		AutomaticSize = Enum.AutomaticSize.XY,
+		AutomaticSize = Enum.AutomaticSize.Y,
 		AnchorPoint = Vector2.new(0.5, 1.0),
 		Position = UDim2.new(0.5, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		TextColor3 = Color3.fromRGB(255,255,255),
 		TextYAlignment = Enum.TextYAlignment.Center,
-		Font = Enum.Font.SourceSansBold,
-		TextSize = 13,
+		TextWrapped = true,
+		Size = UDim2.new(1.5, 0, 0, 0),
+		Font = Theme.font(Enum.Font.SourceSansBold, "Bold_Font"),
+		TextSize = Theme.textSize(14),
+		LineHeight = 0.8,
 		Text = text,
 		Parent = ButtonLabel,
+		LayoutOrder = 2,
 	}
 
 	local Button = Util.Create'ImageButton'
@@ -649,8 +663,11 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 	return button, textLabel, setRowRef
 end
 
-local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef, hubRef)
-	local button, setRowRef = MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, "ImageButton")
+local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef, hubRef, style)
+	if not style then
+		style = "ImageButton"
+	end
+	local button, setRowRef = MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 
 	local imageRectOffset = nil
 	local imageRectSize = nil
@@ -675,7 +692,7 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		ZIndex = 2,
 		Parent = button
 	}
-	if Theme.UIBloxThemeEnabled then
+	if Theme.UIBloxThemeEnabled and style == "ImageButton" then
 		button.Border.Thickness = 0
 		button.Border.Transparency = 1
 	end
@@ -2858,8 +2875,8 @@ function moduleApiTable:MakeStyledButton(name, text, size, clickFunc, pageRef, h
 	return MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 end
 
-function moduleApiTable:MakeStyledImageButton(name, image, size, imageSize, clickFunc, pageRef, hubRef)
-	return MakeImageButton(name, image, size, imageSize, clickFunc, pageRef, hubRef)
+function moduleApiTable:MakeStyledImageButton(name, image, size, imageSize, clickFunc, pageRef, hubRef, style)
+	return MakeImageButton(name, image, size, imageSize, clickFunc, pageRef, hubRef, style)
 end
 
 function moduleApiTable:AddButtonRow(pageToAddTo, name, text, size, clickFunc, hubRef)

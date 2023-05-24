@@ -40,6 +40,7 @@ local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags
 local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged)
 local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
+local GetFFlagAvatarChatBanMessage = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatBanMessage)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 
@@ -474,7 +475,10 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 			else
 				self.bannedUntil = userSettings.bannedUntil
-				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+				self:showPrompt(if GetFFlagAvatarChatBanMessage() and userSettings.isAvatarVideoEligible
+					then VoiceChatPromptType.VoiceChatSuspendedTemporaryAvatarChat
+					else VoiceChatPromptType.VoiceChatSuspendedTemporary
+				)
 			end
 		end
 	elseif GetFFlagVoiceChatStudioErrorToasts() and self.runService:IsStudio() and userSettings and not userSettings.isVoiceEnabled then
@@ -512,7 +516,10 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage()
 			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 		else
 			self.bannedUntil = userSettings.bannedUntil
-			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+			self:showPrompt(if GetFFlagAvatarChatBanMessage() and userSettings.isAvatarVideoEligible
+				then VoiceChatPromptType.VoiceChatSuspendedTemporaryAvatarChat
+				else VoiceChatPromptType.VoiceChatSuspendedTemporary
+			)
 		end
 	end
 end

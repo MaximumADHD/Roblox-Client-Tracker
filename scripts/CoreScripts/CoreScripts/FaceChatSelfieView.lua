@@ -44,7 +44,9 @@ local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag
 local FFlagUseLoadStreamAnimationForClone = game:DefineFastFlag("UseLoadStreamAnimationForClone", false)
 local FFlagSelfViewFixCloneOrientation = game:DefineFastFlag("SelfViewFixCloneOrientation", false)
 local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImprovements", false)
+local FFlagSelfViewDontHideOnSwapCharacter = game:DefineFastFlag("SelfViewDontHideOnSwapCharacter", false)
 local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
+local FFlagSelfViewCatchVCMInitFail = game:DefineFastFlag("SelfViewCatchVCMInitFail", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -92,10 +94,11 @@ local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
 local FFlagSelfViewMicAddStatusIndicators = game:DefineFastFlag("SelfViewMicAddStatusIndicators2", false)
+local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 
 local renderSteppedConnection = nil
-local playerCharacterAddedConnection
-local playerCharacterRemovingConnection
+local playerCharacterAddedConnection = nil
+local playerCharacterRemovingConnection = nil
 local serviceStateSingalConnection = nil
 local trackStoppedConnections = {}
 local videoAnimationPropertyChangedSingalConnection = nil
@@ -151,7 +154,7 @@ local toggleSelfViewSignalConnection
 local noDynamicHeadEquippedInfoShown = false
 local localPlayerHasDynamicHead = nil
 
-log:trace("Self View 04-03-2023__1!!")
+log:trace("Self View 05-12-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -877,17 +880,37 @@ if FFlagSelfViewMicAddStatusIndicators then
 			[(Enum::any).VoiceChatState.Failed] = VoiceChatServiceManager.VOICE_STATE.ERROR,
 		}
 
-		VoiceChatServiceManager:asyncInit():andThen(function()
-			local voiceService = VoiceChatServiceManager:getService()
-			if voiceService then
-				voiceService.StateChanged:Connect(function(_oldState, newState)
-					local voiceManagerState = LOCAL_STATE_MAP[newState]
-					if voiceManagerState then
-						updateMicIcon(voiceManagerState, cachedLevel)
+		if FFlagSelfViewCatchVCMInitFail then
+			VoiceChatServiceManager:asyncInit()
+				:andThen(function()
+					local voiceService = VoiceChatServiceManager:getService()
+					if voiceService then
+						voiceService.StateChanged:Connect(function(_oldState, newState)
+							local voiceManagerState = LOCAL_STATE_MAP[newState]
+							if voiceManagerState then
+								updateMicIcon(voiceManagerState, cachedLevel)
+							end
+						end)
 					end
 				end)
-			end
-		end)
+				:catch(function()
+					if GetFFlagVoiceChatUILogging() then
+						log:warning("Failed to init VoiceChatServiceManager")
+					end
+				end)
+		else
+			VoiceChatServiceManager:asyncInit():andThen(function()
+				local voiceService = VoiceChatServiceManager:getService()
+				if voiceService then
+					voiceService.StateChanged:Connect(function(_oldState, newState)
+						local voiceManagerState = LOCAL_STATE_MAP[newState]
+						if voiceManagerState then
+							updateMicIcon(voiceManagerState, cachedLevel)
+						end
+					end)
+				end
+			end)
+		end
 	end
 end
 
@@ -1496,10 +1519,14 @@ local function onCharacterAdded(character)
 	ReInit(Players.LocalPlayer)
 end
 
+--we don't want Self View to get closed when just swapping avatars
+--(it still auto hides hwne no usabled avatar found for some time)
 local function onCharacterRemoved(player)
-	debugPrint("Self View: onCharacterRemoved()")
-	setIsOpen(false)
-	playerCharacterRemovingConnection:Disconnect()
+	if not FFlagSelfViewDontHideOnSwapCharacter then
+		debugPrint("Self View: onCharacterRemoved()")
+		setIsOpen(false)
+		playerCharacterRemovingConnection:Disconnect()
+	end
 end
 
 --not making this a local function, else on respawn of avatar the function is not available yet when wanting to call it again from the ReInit function
@@ -1522,9 +1549,11 @@ function playerAdded(player)
 		--handle respawn:
 		playerCharacterAddedConnection = player.CharacterAdded:Connect(onCharacterAdded)
 
-		playerCharacterRemovingConnection = player.CharacterRemoving:Connect(function()
-			onCharacterRemoved(player)
-		end)
+		if not FFlagSelfViewDontHideOnSwapCharacter then
+			playerCharacterRemovingConnection = player.CharacterRemoving:Connect(function()
+				onCharacterRemoved(player)
+			end)
+		end
 
 		characterAdded(currentCharacter)
 

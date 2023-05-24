@@ -1,5 +1,7 @@
 return function()
+	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 	local LocalizationService = game:GetService("LocalizationService")
 	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -19,7 +21,8 @@ return function()
 
 	describe("FTUXPanel", function()
 		it("should create and destroy without errors for QuestVR", function()
-			local FTUXPanel = require(script.Parent.FTUXPanel)
+			local FTUX = RobloxGui.Modules.FTUX
+			local FTUXPanel = require(FTUX.Components.FTUXPanel)
 
 			local ftuxTree = Roact.createElement(LocalizationProvider, {
 				localization = Localization.new(LocalizationService.RobloxLocaleId),
@@ -35,7 +38,7 @@ return function()
 				}),
 			})
 
-			local instance = Roact.mount(ftuxTree)
+			local instance = Roact.mount(ftuxTree, CoreGui, "FTUXMenu")
 			Roact.unmount(instance)
 		end)
 	end)

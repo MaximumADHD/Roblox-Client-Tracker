@@ -327,4 +327,8 @@ return{
 	["CoreScripts.InGameMenu.Label.Copied"] = [[Copiato]],
 	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[Vista Personale]],
 	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[Telecamera]],
+	["CoreScripts.InGameMenu.Header.NearbyPlayers"] = [[GIOCATORI VICINI]],
+	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[Altezza del giocatore]],
+	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[ACCESSIBILITÀ]],
+	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[Trasparenza]],
 }

@@ -56,7 +56,7 @@ local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local screenGuiSize = Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("ScreenGui").AbsoluteSize
 local DEFAULT_HEIGHT = screenGuiSize.Y * 0.25
-local DEFAULT_POSITION = UDim2.new(1, -12, 0, 88)
+local DEFAULT_POSITION = UDim2.new(0, 20, 1, -20)
 local DEFAULT_SIZE = UDim2.new(0, 0, 0, DEFAULT_HEIGHT)
 local DEFAULT_BUTTONS_BAR_HEIGHT = 36
 local DEFAULT_SELF_VIEW_FRAME_COLOR = Color3.new(1, 1, 1)
@@ -255,7 +255,7 @@ local function createViewport()
 	
 	frame.Position = DEFAULT_POSITION
 	frame.BackgroundTransparency = 1
-	frame.AnchorPoint = Vector2.new(1, 0)
+	frame.AnchorPoint = Vector2.new(0, 1)
 	frame.Visible = false
 	
 	local aspectRatioConstraint = Instance.new("UIAspectRatioConstraint")

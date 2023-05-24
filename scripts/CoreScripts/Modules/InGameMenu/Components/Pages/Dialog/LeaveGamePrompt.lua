@@ -18,6 +18,10 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
+local GetFFlagEnableVRFTUXExperience = require(RobloxGui.Modules.FTUX.Flags.GetFFlagEnableVRFTUXExperience)
+local IsFTUXExperience = require(RobloxGui.Modules.FTUX.Utility.IsFTUXExperience)
+local PlatformEnum = require(RobloxGui.Modules.FTUX.Enums.PlatformEnum)
+
 local LeaveGamePrompt = Roact.PureComponent:extend("LeaveGamePrompt")
 
 LeaveGamePrompt.validateProps = t.strictInterface({
@@ -41,7 +45,9 @@ end
 function LeaveGamePrompt:render()
 	return withLocalization({
 		titleText = "CoreScripts.InGameMenu.Prompt.LeaveGameTitle",
-		bodyText = "CoreScripts.InGameMenu.Prompt.LeaveGameBodyText",
+		bodyText = if (GetFFlagEnableVRFTUXExperience() and IsFTUXExperience(PlatformEnum.QuestVR)) 
+			then "CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"
+			else "CoreScripts.InGameMenu.Prompt.LeaveGameBodyText",
 		confirmText = "CoreScripts.InGameMenu.Prompt.LeaveGame",
 		cancelText = "CoreScripts.InGameMenu.Prompt.ResumeGame",
 	})(function(localized)

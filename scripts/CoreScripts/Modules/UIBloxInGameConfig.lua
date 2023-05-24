@@ -16,5 +16,6 @@ return {
 		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
 	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),
 	vrAlignPanel3DUnderInGamePanel = UIBloxFlags.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel(),
+	vrFixUIJitter = UIBloxFlags.GetFFlagUIBloxVRFixUIJitter(),
 	usePillGroupSelectedPills = UIBloxFlags.GetFFlagUIBloxPillGroupUseSelectedPills(),
 }

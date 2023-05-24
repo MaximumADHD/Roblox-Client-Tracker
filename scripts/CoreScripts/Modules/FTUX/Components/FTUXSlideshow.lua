@@ -14,6 +14,8 @@ local Title = require(FTUX.Components.Slideshow.Title)
 local Description = require(FTUX.Components.Slideshow.Description)
 local EndItem = require(FTUX.Components.Slideshow.EndItem)
 
+local EventHandler = require(FTUX.Events.EventHandler)
+
 type Platform = PlatformEnum.Platform
 type Props = {
 	platform: Platform,
@@ -34,6 +36,14 @@ local function FTUXSlideshow(props: Props)
 
 	local increaseCurrentIndex = React.useCallback(function()
 		setCurrentIndex(currentIndex + 1)
+	end, { currentIndex })
+
+	React.useEffect(function()
+		EventHandler.StartEvents(platform :: Platform, currentIndex, increaseCurrentIndex)
+
+		return function()
+			EventHandler.StopEvents(platform :: Platform, currentIndex)
+		end
 	end, { currentIndex })
 
 	return React.createElement("Frame", {

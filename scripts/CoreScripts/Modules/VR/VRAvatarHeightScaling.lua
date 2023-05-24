@@ -5,7 +5,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local Players = game:GetService("Players")
-local AvatarUtil = require(RobloxGui.Modules.VR.AvatarUtil)
+local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
 
 local VRAvatarHeightScaling = {}
 VRAvatarHeightScaling.__index = VRAvatarHeightScaling

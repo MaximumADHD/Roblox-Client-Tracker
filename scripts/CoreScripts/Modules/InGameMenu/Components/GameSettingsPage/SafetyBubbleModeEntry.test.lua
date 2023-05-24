@@ -16,14 +16,14 @@ local InGameMenuDependencies
 local Roact
 local UIBlox
 
-local InGameMenu
+local InGameMenu = script.Parent.Parent.Parent
 local Localization
 local LocalizationProvider
 
 local AppDarkTheme
 local AppFont
 
-local GetFFlagEnableIGMv2VoiceReportFlows = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
+local GetFFlagIGMVRSafetyBubbleModeEntry = require(InGameMenu.Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
 local appStyle
 
@@ -55,15 +55,15 @@ local function resetModules()
 
 	SafetyBubbleModeEntry = require(script.Parent.SafetyBubbleModeEntry)
 
-	GetFFlagEnableIGMv2VoiceReportFlows = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
+	GetFFlagIGMVRSafetyBubbleModeEntry = require(InGameMenu.Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 end
 
--- TODO Remove when GetFFlagEnableIGMv2VoiceReportFlows is removed
-it("Only runs when GetFFlagEnableIGMv2VoiceReportFlows is active", function()
+-- TODO Remove when GetFFlagIGMVRSafetyBubbleModeEntry is removed
+it("Only runs when GetFFlagIGMVRSafetyBubbleModeEntry is active", function()
 	-- Because there seems to be no way to inject globals through jest 3 while code is running as part of a test,
 	-- And because these tests do depend on some fixes in AppStyleProvider.lua, DarkTheme.lua and LightTheme.lua
 	-- I'm flagging the entire test to only run when those fixes are in place. The old version of these tests is also
-	-- flagged to only run when GetFFlagEnableIGMv2VoiceReportFlows is off, so to be removed together with the flag.
+	-- flagged to only run when GetFFlagIGMVRSafetyBubbleModeEntry is off, so to be removed together with the flag.
 
 	-- Furthermore, because running an empty test in Jest 3 fails with "Your test suite must contain at least one test."
 	-- Here is a fake test doing nothing:
@@ -71,7 +71,7 @@ it("Only runs when GetFFlagEnableIGMv2VoiceReportFlows is active", function()
 	expect(true).toBe(true)
 end)
 
-if GetFFlagEnableIGMv2VoiceReportFlows() then
+if GetFFlagIGMVRSafetyBubbleModeEntry() then
 	local function getMountableTreeAndStore(props)
 		return Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -84,7 +84,7 @@ if GetFFlagEnableIGMv2VoiceReportFlows() then
 			})
 	end
 
-	describe("In-Game Menu Report List", function()
+	describe("SafetyBubble widget in IGMv2 VR Settings", function()
 		-- Need this to skip an afterEach hook within the RoactTestingLibrary
 		-- that is not necessary if we are resetting the modules ourselves
 		beforeAll(function()

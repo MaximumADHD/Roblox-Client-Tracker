@@ -1,4 +1,5 @@
 return function()
+	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
 
 	local Roact = require(CorePackages.Roact)
@@ -9,8 +10,13 @@ return function()
 	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+	local ContactList = RobloxGui.Modules.ContactList
+	local dependencies = require(ContactList.dependencies)
+	local RoduxCall = dependencies.RoduxCall
+
 	local ContactListApp = require(script.Parent.ContactListApp)
-	local OutgoingCallState = require(script.Parent.Parent.Enums.OutgoingCallState)
 	local Reducer = require(script.Parent.Parent.Reducer)
 	local Pages = require(script.Parent.Parent.Enums.Pages)
 
@@ -89,8 +95,8 @@ return function()
 						},
 					},
 				},
+				currentCall = currentCall,
 			},
-			CurrentCall = currentCall,
 			Navigation = {
 				currentPage = currentPage,
 				callDetailParticipants = callDetailParticipants,
@@ -122,8 +128,8 @@ return function()
 		local callerListContainerElement = folder:FindFirstChild("CallerListContainer", true)
 		expect(callerListContainerElement).never.to.be.ok()
 
-		local notificationElement = folder:FindFirstChild("CallerNotificationContainer", true)
-		expect(notificationElement).never.to.be.ok()
+		local callBarElement = folder:FindFirstChild("CallBarContainer", true)
+		expect(callBarElement).never.to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -177,15 +183,29 @@ return function()
 		end)
 	end)
 
-	describe("CallerNotification", function()
-		it("should mount and unmount without errors when caller notification visible", function()
+	describe("CallBar", function()
+		it("should mount and unmount without errors when call bar visible", function()
 			local store = Rodux.Store.new(
 				Reducer,
-				mockState(
-					nil,
-					{ callId = 1, userId = 123, username = "TestUser", state = OutgoingCallState.Calling },
-					nil
-				),
+				mockState(nil, {
+					callId = "123456",
+					status = RoduxCall.Enums.Status.Active.rawValue(),
+					participants = {
+						["11111111"] = {
+							userId = 11111111,
+							displayName = "Display Name 1",
+						},
+						["12345678"] = {
+							userId = 12345678,
+							displayName = "Display Name 2",
+						},
+					},
+					experienceDetail = {
+						placeId = 0,
+						gameInstanceId = "gameId",
+						universeName = "Universe Name",
+					},
+				}, nil),
 				{
 					Rodux.thunkMiddleware,
 				}
@@ -203,8 +223,8 @@ return function()
 
 			local folder = Instance.new("Folder")
 			local instance = Roact.mount(element, folder)
-			local notificationElement = folder:FindFirstChild("CallerNotificationContainer", true)
-			expect(notificationElement).to.be.ok()
+			local callBarElement = folder:FindFirstChild("CallBarContainer", true)
+			expect(callBarElement).to.be.ok()
 			Roact.unmount(instance)
 		end)
 	end)

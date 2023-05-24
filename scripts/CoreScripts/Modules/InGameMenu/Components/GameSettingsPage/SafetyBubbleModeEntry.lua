@@ -117,7 +117,7 @@ function SafetyBubbleModeEntry:render()
 							onActivated = function(value)
 								setSafetyBubbleModeByIndex(value)
 							end,
-							selectedValue = self.state.selectedMode,
+							currentValue = self.state.selectedMode,
 							automaticSize = true,
 							padding = UDim.new(0, 20),
 							elementSize = UDim2.new(0, 0, 0, 20),

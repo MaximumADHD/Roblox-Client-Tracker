@@ -327,4 +327,8 @@ return{
 	["CoreScripts.InGameMenu.Label.Copied"] = [[已複製]],
 	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[個人視角]],
 	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[相機]],
+	["CoreScripts.InGameMenu.Header.NearbyPlayers"] = [[附近玩家]],
+	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[玩家身高]],
+	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[無障礙]],
+	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[透明度]],
 }

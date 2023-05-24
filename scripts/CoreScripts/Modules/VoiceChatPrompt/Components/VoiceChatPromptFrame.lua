@@ -31,6 +31,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local GetFFlagVoiceChatStudioErrorToasts = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatStudioErrorToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
+local GetFFlagAvatarChatBanMessage = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatBanMessage)
 
 local RobloxTranslator
 if FFlagEnableVoiceChatStorybookFix() then
@@ -58,7 +59,10 @@ local PromptTitle = {
 	[PromptType.Retry] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Permission"),
 	[PromptType.Place] = "Exceeds Max Players",
 	[PromptType.User] = "Not Eligible for Voice",
-	[PromptType.VoiceChatSuspendedTemporary] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
+	[PromptType.VoiceChatSuspendedTemporaryAvatarChat] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicAndCameraUseSuspended"),
+	[PromptType.VoiceChatSuspendedTemporary] = if GetFFlagAvatarChatBanMessage()
+		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicUseSuspended")
+		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
 	[PromptType.VoiceChatSuspendedPermanent] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
 	[PromptType.VoiceLoading] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Connecting"),
 }
@@ -69,7 +73,10 @@ local PromptSubTitle = {
 	[PromptType.Retry] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Retry"),
 	[PromptType.Place] = "Spatial voice is only available for places with Max Players of 30 or less.",
 	[PromptType.User] = "This account is not eligible to use Spatial Voice.",
-	[PromptType.VoiceChatSuspendedTemporary] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.TemporarySuspension"),
+	[PromptType.VoiceChatSuspendedTemporary] = if GetFFlagAvatarChatBanMessage()
+		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Microphone")
+		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
+	[PromptType.VoiceChatSuspendedTemporaryAvatarChat] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.MicAndCamera"),
 	[PromptType.VoiceChatSuspendedPermanent] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Revoked"),
 	[PromptType.VoiceLoading] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Connecting"),
 }
@@ -82,7 +89,20 @@ if GetFFlagVoiceChatStudioErrorToasts() and runService:IsStudio() then
 end
 
 local voiceChatSuspendedRespect = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Respect")
+local voiceChatFutureViolations = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.FutureViolations")
+local bannedLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.EffectiveUntil")
 local voiceChatSuspendedUnderstand = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Understand")
+
+local function PromptTypeIsBan(promptType)
+	return promptType == PromptType.VoiceChatSuspendedPermanent or
+		promptType == PromptType.VoiceChatSuspendedTemporary or
+		promptType == PromptType.VoiceChatSuspendedTemporaryAvatarChat
+end
+
+local function ShouldShowBannedUntil(promptType)
+	return promptType == PromptType.VoiceChatSuspendedTemporary or
+		promptType == PromptType.VoiceChatSuspendedTemporaryAvatarChat
+end
 
 local VoiceChatPromptFrame = Roact.PureComponent:extend("VoiceChatPromptFrame")
 VoiceChatPromptFrame.validateProps = t.strictInterface({
@@ -127,17 +147,10 @@ function VoiceChatPromptFrame:init()
 	end
 
 	self.promptSignalCallback = function(promptType)
-		if self.props.Analytics and (promptType == PromptType.VoiceChatSuspendedPermanent or promptType == PromptType.VoiceChatSuspendedTemporary) then
+		if self.props.Analytics and PromptTypeIsBan(promptType) then
 			self.props.Analytics:reportBanMessageEvent("Shown")
 		end
-		if promptType == PromptType.NotAudible or
-			promptType == PromptType.Permission or
-			promptType == PromptType.Retry or
-			promptType == PromptType.User or
-			promptType == PromptType.Place or
-			promptType == PromptType.VoiceChatSuspendedTemporary or
-			promptType == PromptType.VoiceChatSuspendedPermanent or
-			promptType == PromptType.VoiceLoading then
+		if promptType and promptType ~= PromptType.None then
 			self:setState({
 				promptType = promptType,
 				toastContent = {
@@ -147,7 +160,7 @@ function VoiceChatPromptFrame:init()
 					onDismissed = function() end,
 				},
 			})
-			if promptType == PromptType.VoiceChatSuspendedTemporary then
+			if ShouldShowBannedUntil(promptType) then
 				self:setState({
 					banEnd = " "..self.props.bannedUntil.."."
 				})
@@ -182,9 +195,7 @@ end
 
 function VoiceChatPromptFrame:render()
 	local errorText = GetFFlagEnableVoicePromptReasonText() and self.props.errorText or nil
-	if self.state.promptType == PromptType.VoiceChatSuspendedTemporary or 
-		self.state.promptType == PromptType.VoiceChatSuspendedPermanent then
-
+	if PromptTypeIsBan(self.state.promptType) then
 		local titleText = self.state.toastContent.toastTitle
 		local titleFont = self.promptStyle.Font.Header1.Font
 		local titleFontSize = self.promptStyle.Font.Header1.RelativeSize * self.promptStyle.Font.BaseSize
@@ -196,7 +207,11 @@ function VoiceChatPromptFrame:render()
 		).Y
 		local titleTextContainerHeight = PADDING + titleTextHeight
 		
-		local bodyText = errorText or (self.state.toastContent.toastSubtitle .. self.state.banEnd)
+		local successText = if GetFFlagAvatarChatBanMessage() and self.state.banEnd ~= ""
+			-- Design asked for inline bold here
+			then "<b>" .. (bannedLabel .. self.state.banEnd) .. "</b><br />" .. self.state.toastContent.toastSubtitle
+			else self.state.toastContent.toastSubtitle .. self.state.banEnd
+		local bodyText = errorText or successText
 		local bodyFont = self.promptStyle.Font.Body.Font
 		local bodyFontSize = self.promptStyle.Font.Body.RelativeSize * self.promptStyle.Font.BaseSize
 		local bodyTextHeight = TextService:GetTextSize(
@@ -207,7 +222,7 @@ function VoiceChatPromptFrame:render()
 		).Y
 		local bodyTextContainerHeight = PADDING + bodyTextHeight
 
-		local subBodyText = voiceChatSuspendedRespect
+		local subBodyText = if GetFFlagAvatarChatBanMessage() then voiceChatFutureViolations else voiceChatSuspendedRespect
 		local subTextHeight = TextService:GetTextSize(
 			subBodyText,
 			bodyFontSize,

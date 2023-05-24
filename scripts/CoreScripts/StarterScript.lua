@@ -311,7 +311,7 @@ if FFlagAvatarChatCoreScriptSupport then
 end
 
 if FFlagVRAvatarGestures then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.AvatarGesturesController)
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.VRAvatarGesturesController)
 end
 
 if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix3") then

@@ -47,7 +47,7 @@ ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", sc
 local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
 if FFlagVRAvatarGestures then
 	-- make the avatars match controller movement when the player is in VR
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerAvatarGesturesController", script.Parent)
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerVRAvatarGesturesController", script.Parent)
 end
 
 -- FFlag for admin freecam (for easy disabling in case of security breach)

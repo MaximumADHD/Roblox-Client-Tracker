@@ -29,7 +29,7 @@ local function Header(props: Props)
 	local CONTENT_WIDTH_RATIO = 1 - 2 * CONTENT_PADDING_RATIO
 
 	return withLocalization({
-		headerText = "CoreScripts.VRFTUX.Slideshow.Header",
+		headerText = "CoreScripts.VRFTUX.Heading.Header",
 	})(function(localized)
 		return React.createElement("Frame", {
 			BackgroundColor3 = HEADER_BACKGROUND_COLOR,
@@ -56,8 +56,6 @@ local function Header(props: Props)
 						colorStyle = theme.TextEmphasis,
 						textXAlignment = Enum.TextXAlignment.Left,
 						size = UDim2.new(1, 0, 1, 0),
-						position = UDim2.new(0, 0, 0, 0),
-						LayoutOrder = 0,
 						fluidSizing = true,
 						automaticSize = Enum.AutomaticSize.XY,
 					}),

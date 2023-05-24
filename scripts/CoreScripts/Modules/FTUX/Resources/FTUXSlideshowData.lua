@@ -7,38 +7,38 @@ type Button = ButtonEnum.Button
 local FTUXSlideshowData = {
 	[PlatformEnum.QuestVR :: Platform] = {
 		{
-			title = "CoreScripts.VRFTUX.Slideshow.Perspective.Title",
+			title = "CoreScripts.VRFTUX.Heading.Perspective",
 			text = {
-				"CoreScripts.VRFTUX.Slideshow.Perspective.Body1",
-				"CoreScripts.VRFTUX.Slideshow.Perspective.Body2",
+				"CoreScripts.VRFTUX.Description.Perspective.Body1",
+				"CoreScripts.VRFTUX.Description.Perspective.Body2",
 			},
 			image = "rbxassetid://13251804809",
 			button = ButtonEnum.SkipButton :: Button,
 		},
 		{
-			title = "CoreScripts.VRFTUX.Slideshow.Movement.Title",
+			title = "CoreScripts.VRFTUX.Heading.Movement",
 			text = {
-				"CoreScripts.VRFTUX.Slideshow.Movement.Body1",
-				"CoreScripts.VRFTUX.Slideshow.Movement.Body2",
-				"CoreScripts.VRFTUX.Slideshow.Movement.Body3",
+				"CoreScripts.VRFTUX.Description.Movement.Body1",
+				"CoreScripts.VRFTUX.Description.Movement.Body2",
+				"CoreScripts.VRFTUX.Description.Movement.Body3",
 			},
 			image = "rbxassetid://13251750527",
 			button = ButtonEnum.SkipButton :: Button,
 		},
 		{
-			title = "CoreScripts.VRFTUX.Slideshow.SafetyBubble.Title",
+			title = "CoreScripts.VRFTUX.Heading.SafetyBubble.Title",
 			text = {
-				"CoreScripts.VRFTUX.Slideshow.SafetyBubble.Body1",
-				"CoreScripts.VRFTUX.Slideshow.SafetyBubble.Body2",
+				"CoreScripts.VRFTUX.Description.SafetyBubble.Body1",
+				"CoreScripts.VRFTUX.Description.SafetyBubble.Body2",
 			},
 			image = "rbxassetid://13251806846",
 			button = ButtonEnum.NextButton :: Button,
 		},
 		{
-			title = "CoreScripts.VRFTUX.Slideshow.OtherSettings.Title",
+			title = "CoreScripts.VRFTUX.Heading.OtherSettings.Title",
 			text = {
-				"CoreScripts.VRFTUX.Slideshow.OtherSettings.Body1",
-				"CoreScripts.VRFTUX.Slideshow.OtherSettings.Body2",
+				"CoreScripts.VRFTUX.Description.OtherSettings.Body1",
+				"CoreScripts.VRFTUX.Description.OtherSettings.Body2",
 			},
 			image = "",
 			button = ButtonEnum.NextButton :: Button,

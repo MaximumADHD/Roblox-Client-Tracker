@@ -29,8 +29,8 @@ local function Button(props: Props)
 	local buttonType = slideshowData[currentIndex].button
 
 	return withLocalization({
-		skip = "CoreScripts.VRFTUX.Slideshow.Skip",
-		next = "CoreScripts.VRFTUX.Slideshow.Next",
+		skip = "CoreScripts.VRFTUX.Action.Skip",
+		next = "CoreScripts.VRFTUX.Action.Next",
 	})(function(localized)
 		return (
 			buttonType == ButtonEnum.NextButton

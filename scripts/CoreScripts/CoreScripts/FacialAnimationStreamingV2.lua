@@ -20,6 +20,7 @@ local FFlagRvCaptureResolveReturnError = game:GetEngineFeature("RvCaptureResolve
 local FFlagFacialAnimationStreamingPauseOnMute = game:GetEngineFeature("FacialAnimationStreamingPauseOnMute")
 local FFlagFacialAnimationStreamingServiceFixAnimatorSetup = game:DefineFastFlag("FacialAnimationStreamingServiceFixAnimatorSetup", false)
 local FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled = game:DefineFastFlag("FacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled", false)
+local FFlagFacialAnimationStreamingClearTrackImprovements = game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovements", false)
 
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
@@ -99,15 +100,40 @@ end
 local function clearCharacterAnimations(player)
 	playerTrace("clearCharacterAnimations", player)
 	if playerAnimations[player.UserId] then
-		if playerAnimations[player.UserId].animation then
-			playerAnimations[player.UserId].animation:Destroy()
-			playerAnimations[player.UserId].animation = nil
+		if FFlagFacialAnimationStreamingClearTrackImprovements then
+			if playerAnimations[player.UserId].animationTrack then
+				local onTrackStoppedConnection = nil
+				local track = playerAnimations[player.UserId].animationTrack
+				local animation = playerAnimations[player.UserId].animation
+				onTrackStoppedConnection = playerAnimations[player.UserId].animationTrack.Stopped:Connect(function()
+					track:Destroy()
+					if animation then
+						animation:Destroy()
+						-- only remove from map if reference didn't change
+						if animation == playerAnimations[player.UserId].animation then
+							playerAnimations[player.UserId].animation = nil
+						end
+					end
+					onTrackStoppedConnection:Disconnect()
+				end)
+				playerAnimations[player.UserId].animationTrack:Stop(0.0)
+				playerAnimations[player.UserId].animationTrack = nil
+			elseif playerAnimations[player.UserId].animation then
+				playerAnimations[player.UserId].animation:Destroy()
+				playerAnimations[player.UserId].animation = nil
+			end
+		else
+			if playerAnimations[player.UserId].animation then
+				playerAnimations[player.UserId].animation:Destroy()
+				playerAnimations[player.UserId].animation = nil
+			end
+			if playerAnimations[player.UserId].animationTrack then
+				playerAnimations[player.UserId].animationTrack:Stop(0)
+				playerAnimations[player.UserId].animationTrack:Destroy()
+				playerAnimations[player.UserId].animationTrack = nil
+			end
 		end
-		if playerAnimations[player.UserId].animationTrack then
-			playerAnimations[player.UserId].animationTrack:Stop(0)
-			playerAnimations[player.UserId].animationTrack:Destroy()
-			playerAnimations[player.UserId].animationTrack = nil
-		end
+
 		playerAnimations[player.UserId] = nil
 	end
 end

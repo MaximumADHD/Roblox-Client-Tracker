@@ -14,6 +14,7 @@ type AccumulatedParameters = {
 	annotationUndoCount: number,
 	annotationRedoCount: number,
 	abandonedForRetake: boolean,
+	isPortraitMode: boolean,
 }
 
 local Constants = {
@@ -32,7 +33,8 @@ local createZeroAccumulatedParameters = function(): AccumulatedParameters
 		annotationPlaceCount = 0,
 		annotationUndoCount = 0,
 		annotationRedoCount = 0,
-		abandonedForRetake = false
+		abandonedForRetake = false,
+		isPortraitMode = false
 	}
 end
 
@@ -65,6 +67,10 @@ return {
 	setAbandonedForRetake = function()
 		accumulatedParameters.abandonedForRetake = true
 	end,
+	setIsPortraitMode = function()
+		accumulatedParameters.isPortraitMode = true
+	end,
+
 	getAccumulatedParameters = function()
 		return accumulatedParameters
 	end,

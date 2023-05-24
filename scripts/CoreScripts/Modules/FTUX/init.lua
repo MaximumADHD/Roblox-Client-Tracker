@@ -30,7 +30,9 @@ return {
 		local ftuxTree = Roact.createElement(LocalizationProvider, {
 			localization = Localization.new(LocalizationService.RobloxLocaleId),
 		}, {
-			Roact.createElement("ScreenGui", {}, {
+			Roact.createElement("ScreenGui", {
+				Name = "FTUXMenu",
+			}, {
 				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 					style = appStyle,
 				}, {

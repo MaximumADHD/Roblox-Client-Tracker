@@ -13,14 +13,11 @@ local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRKeyboard = require(RobloxGui.Modules.VR.VirtualKeyboard)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
-local FFlagVRLetRaycastsThroughUI = require(CoreGuiModules.Flags.FFlagVRLetRaycastsThroughUI)
 
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-
-local FFlagVRCollapseUIEndsSelection = require(RobloxGui.Modules.Flags.FFlagVRCollapseUIEndsSelection)
 
 if not VRService.VREnabled then
 	warn("UserGui should not be required while not in VR")
@@ -43,9 +40,7 @@ local vrMenuOpen = false
 
 local userGuiPanel = Panel3D.Get(UserGuiModule.ModuleName)
 userGuiPanel:SetType(Panel3D.Type.NewStandard)
-if FFlagVRLetRaycastsThroughUI then
-	userGuiPanel:GetPart().CanQuery = false
-end
+userGuiPanel:GetPart().CanQuery = false
 
 -- this matches the core ui rect in ScreenGui
 local panelSizeX = 2.7978
@@ -62,11 +57,9 @@ local plPanel = nil
 if EngineFeatureEnableVRUpdate3 then
 	plPanel = Panel3D.Get("PositionLocked")
 	plPanel:SetType(Panel3D.Type.PositionLocked)
-	if FFlagVRLetRaycastsThroughUI then
-		-- This panel doesn't use a SurfaceGui, so it doesn't need raycasts to interact with it.
-		-- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.
-		plPanel:GetPart().CanQuery = false
-	end
+	-- This panel doesn't use a SurfaceGui, so it doesn't need raycasts to interact with it.
+	-- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.
+	plPanel:GetPart().CanQuery = false
 
 	plPanel:ResizeStuds(newPanelSize.x, newPanelSize.y, 128)
 	plPanel:SetVisible(false)
@@ -242,9 +235,7 @@ local function OnVREnabledChanged()
 						userGuiTimeout = 1
 					else
 						GuiService:SetMenuIsOpen(false, VR_MENU_KEY)
-						if FFlagVRCollapseUIEndsSelection then
-							GuiService.SelectedObject = nil
-						end
+						GuiService.SelectedObject = nil
 					end
 				end
 			end

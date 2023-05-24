@@ -41,9 +41,8 @@ local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFla
 local FTUX = RobloxGui.Modules.FTUX
 local GetFFlagEnableVRFTUXExperience = require(FTUX.Flags.GetFFlagEnableVRFTUXExperience)
 local GetFFlagDebugEnableVRFTUXExperienceInStudio = require(FTUX.Flags.GetFFlagDebugEnableVRFTUXExperienceInStudio)
-local FTUXConstants = require(FTUX.Resources.FTUXConstants)
-local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild
 local PlatformEnum = require(FTUX.Enums.PlatformEnum)
+local IsFTUXExperience = require(FTUX.Utility.IsFTUXExperience)
 local FTUXMenu = require(script.Parent.FTUX)
 local isRunningInStudio = require(CorePackages.Workspace.Packages.AppCommonLib).isRunningInStudio
 
@@ -83,7 +82,7 @@ function TopBar.new()
 	end
 	
 	if GetFFlagEnableVRFTUXExperience() then
-		if IsVRAppBuild() and tostring(game.PlaceId) == FTUXConstants[PlatformEnum.QuestVR].ExperienceIds.PlaceId then
+		if IsFTUXExperience(PlatformEnum.QuestVR) then
 			FTUXMenu.mountFtuxMenu(PlatformEnum.QuestVR)
 		end
 	end

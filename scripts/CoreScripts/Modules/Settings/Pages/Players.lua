@@ -685,15 +685,18 @@ local function Initialize()
 	end
 
 	local function updateButtonRow()
-		local buttonPadding = 6;
-		if Theme.UIBloxThemeEnabled then
-			buttonPadding = 12
-		end
+		local buttonPaddingY = 6
+		local buttonPaddingX = 0
+
 		local newButtonSize = 2 / 7
+		if Theme.UIBloxThemeEnabled then
+			buttonPaddingY = 0
+			buttonPaddingX = 12
+		end
 		local oldButtonContainerSize = 6 / 7
-		updateButtonPosition("ResumeButton", UDim2.new(1 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -buttonPadding), Vector2.new(1, 0))
-		updateButtonPosition("ResetButton", UDim2.new(0.5 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -buttonPadding), Vector2.new(0.5, 0))
-		updateButtonPosition("LeaveButton", UDim2.new(0 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, 0, 1, -buttonPadding), Vector2.new(0, 0))
+		updateButtonPosition("ResumeButton", UDim2.new(1 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY), Vector2.new(1, 0))
+		updateButtonPosition("ResetButton", UDim2.new(0.5 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY), Vector2.new(0.5, 0))
+		updateButtonPosition("LeaveButton", UDim2.new(0 * oldButtonContainerSize, 0, 0, 0), UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY), Vector2.new(0, 0))
 	end
 
 	local function updateIcon()
@@ -711,15 +714,30 @@ local function Initialize()
 			GetFFlagPauseMuteFix() and UDim2.new(1, 0, 1, 0) or UDim2.new(1 / 5, -5, 4 / 5, 0),
 			GetFFlagPauseMuteFix() and UDim2.new(1, -6, 1, -4) or UDim2.new(0.5, -6, 0.65, -4),
 			function ()
+				VoiceChatServiceManager:ToggleMic()
 				if voiceAnalytics then
 					voiceAnalytics:onToggleMuteSelf(isLocalPlayerMutedState)
 				end
-				VoiceChatServiceManager:ToggleMic()
 			end
+			,nil, nil, "DefaultButton"
 		)
+
+		if Theme.UIBloxThemeEnabled then
+			muteButton.Position = UDim2.new(1, 0, 0, 0)
+			muteButton.Size = UDim2.new(1 / 7, -12, 1, 0)
+			imageLabel.Size = UDim2.new(1, -6, 1, -4)
+			utility:Create'UIAspectRatioConstraint'
+			{
+				AspectRatio = 1,
+				Parent = imageLabel
+			}
+		else
+			muteButton.Position = UDim2.new(1, 0, 0, 0)
+			muteButton.Size = UDim2.new(1 / 7, 0, 1, -6)
+		end
+
 		muteButton.AnchorPoint = Vector2.new(1, 0)
-		muteButton.Position = UDim2.new(1, 0, 0, 0)
-		muteButton.Size = UDim2.new(1 / 7, 0, 1, -6)
+
 		if GetFFlagPauseMuteFix() then
 			imageLabel.SizeConstraint = Enum.SizeConstraint.RelativeYY
 		end

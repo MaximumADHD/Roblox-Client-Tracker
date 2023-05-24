@@ -291,7 +291,7 @@ return{
 	["CoreScripts.InGameMenu.EduToolTip.SideNav.Header"] = [[Novas abas de menu]],
 	["CoreScripts.InGameMenu.EduToolTip.SideNav.Body"] = [[Aqui você pode encontrar pessoas, informações da experiência, configurações e voltar para a página inicial.]],
 	["CoreScripts.InGameMenu.EduToolTip.QuickActionMenu.Header"] = [[Novas ações rápidas]],
-	["CoreScripts.InGameMenu.EduToolTip.QuickActionMenu.Body"] = [[Movemos o Regenerar & Denunciar para o novo Menu de ações rápidas.]],
+	["CoreScripts.InGameMenu.EduToolTip.QuickActionMenu.Body"] = [[Movemos o Regenerar & Denunciar para o novo menu de ações rápidas.]],
 	["CoreScripts.InGameMenu.EduToolTip.Button.Confirm"] = [[Entendi]],
 	["CoreScripts.InGameMenu.Report.Category.Header.Other"] = [[Outros]],
 	["CoreScripts.InGameMenu.Report.Category.Header.Voice"] = [[Chat de voz]],
@@ -327,4 +327,8 @@ return{
 	["CoreScripts.InGameMenu.Label.Copied"] = [[Copiado]],
 	["CoreScripts.InGameMenu.QuickActions.SelfView"] = [[Auto visualização]],
 	["CoreScripts.InGameMenu.QuickActions.Camera"] = [[Câmera]],
+	["CoreScripts.InGameMenu.Header.NearbyPlayers"] = [[JOGADORES PRÓXIMOS]],
+	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[Altura do jogador]],
+	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[ACESSIBILIDADE]],
+	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[Transparência]],
 }

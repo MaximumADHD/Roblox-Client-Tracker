@@ -7,6 +7,15 @@
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local FFlagUserClampClassicThumbstick do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserClampClassicThumbstick")
+	end)
+	FFlagUserClampClassicThumbstick = success and result
+end
+
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
@@ -121,7 +130,11 @@ function TouchThumbstick:Create(parentFrame)
 		if inputAxisMagnitude < deadZone then
 			currentMoveVector = Vector3.new()
 		else
-			currentMoveVector = currentMoveVector.unit * ((inputAxisMagnitude - deadZone) / (1 - deadZone))
+			if FFlagUserClampClassicThumbstick then
+				currentMoveVector = currentMoveVector.unit * math.min(1, (inputAxisMagnitude - deadZone) / (1 - deadZone))
+			else
+				currentMoveVector = currentMoveVector.unit * ((inputAxisMagnitude - deadZone) / (1 - deadZone))
+			end
 			-- NOTE: Making currentMoveVector a unit vector will cause the player to instantly go max speed
 			-- must check for zero length vector is using unit
 			currentMoveVector = Vector3.new(currentMoveVector.X, 0, currentMoveVector.Y)

@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["CallProtocol"]["CallProtocol"])
 
+export type CallProtocolModule = Package.CallProtocolModule
+
+
 return Package

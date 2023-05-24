@@ -10,6 +10,7 @@ local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui.RobloxGui
 local Util = require(RobloxGui.Modules.Settings.Utility)
@@ -21,7 +22,8 @@ local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 local SafetyBubble = require(script.Parent.SafetyBubble)
 local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
 	or game:GetEngineFeature("EnableMaquettesSupport")
-local BindR2AsCoreActivate = game:GetEngineFeature("BindR2AsCoreActicateInVR")
+local GetFFlagUIBloxVRFixUIJitter =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
 local GetFFlagEnableVRHubStateListener = require(RobloxGui.Modules.Flags.GetFFlagEnableVRHubStateListener)
 
 local VRHub = {}
@@ -103,6 +105,40 @@ local function onRenderSteppedLast()
 	end
 end
 
+if GetFFlagUIBloxVRFixUIJitter() then
+
+	local function onCameraCFrameChanged()
+		-- We normally update the position of the controllers and laser pointer in RenderStepped.
+		-- If a developer moves the camera after that, for example using TweenService, the controllers and pointer
+		-- will always be a frame behind and the user will notice a severe jitter.  This can be fixed by
+		-- calling the update functions again after the camera moves, passing in a deltaTime of zero.
+
+		if VRHub.LaserPointer then
+			VRHub.LaserPointer:update(0)
+		end
+		if VRHub.LeftControllerModel then
+			VRHub.LeftControllerModel:update(0)
+		end
+		if VRHub.RightControllerModel then
+			VRHub.RightControllerModel:update(0)
+		end
+	end
+
+	local cameraCFrameChangedConn = nil
+	local function onCurrentCameraChanged()
+		if cameraCFrameChangedConn then
+			cameraCFrameChangedConn:disconnect()
+		end
+		if workspace.CurrentCamera then
+			cameraCFrameChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("CFrame"):Connect(onCameraCFrameChanged)
+		end
+	end
+
+	workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
+	onCurrentCameraChanged()
+
+end
+
 local function onVREnabledChanged()
 	if VRService.VREnabled then
 		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
@@ -129,9 +165,7 @@ local function onVREnabledChanged()
 		VRHub.SafetyBubble = SafetyBubbleEnabled and SafetyBubble.new() or nil
 
 		-- this is the equivalent of MouseButton1 in VR
-		if BindR2AsCoreActivate then
-			ContextActionService:BindCoreActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
-		end
+		ContextActionService:BindCoreActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
 	else
 		if VRHub.LaserPointer then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)

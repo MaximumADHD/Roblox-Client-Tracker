@@ -27,7 +27,7 @@ local function EndItem(props: Props)
 	local slideshowData = slideshowData[props.platform :: Platform]
 
 	return withLocalization({
-		footerText = "CoreScripts.VRFTUX.Slideshow.Footer",
+		footerText = "CoreScripts.VRFTUX.Label.Footer",
 	})(function(localized)
 		return (
 			props.currentIndex ~= #slideshowData

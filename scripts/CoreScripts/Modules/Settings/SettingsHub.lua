@@ -15,6 +15,7 @@ local Symbol = require(CorePackages.Symbol)
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local IXPService = game:GetService("IXPService")
+local LocalizationService = game:GetService("LocalizationService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -77,6 +78,7 @@ local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
+local GetFFlagVoiceChatToggleMuteAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagVoiceChatToggleMuteAnalytics)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -124,6 +126,7 @@ local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfV
 
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
@@ -246,6 +249,11 @@ local function CreateSettingsHub()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 
+	local voiceAnalytics
+	if GetFFlagVoiceChatToggleMuteAnalytics() then
+		voiceAnalytics = VoiceAnalytics.new(AnalyticsService)
+	end
+
 	if GetFFlagVoiceRecordingIndicatorsEnabled() then
 		this.isMuted = nil
 		this.lastVoiceRecordingIndicatorTextUpdated = nil
@@ -359,20 +367,63 @@ local function CreateSettingsHub()
 		return image
 	end
 
+	local IGMLocalizationStrings = {}
+	local VoiceStateStrings = {
+		Loading = "",
+		MicOff = "",
+		MicOn = "",
+	}
+
+	local function pollVoiceTextLabel()
+		-- Lazy load and cache strings from IGMv3
+		local localeId = LocalizationService.RobloxLocaleId
+		if not IGMLocalizationStrings[localeId] then
+			local Localization = require(RobloxGui.Modules.InGameMenuV3.Localization.Localization)
+			IGMLocalizationStrings[localeId] = Localization.new(localeId)
+			local strings = IGMLocalizationStrings[localeId]
+			VoiceStateStrings.Loading = strings:Format("CoreScripts.InGameMenu.QuickActions.Connecting")
+			VoiceStateStrings.MicOff = strings:Format("CoreScripts.InGameMenu.QuickActions.UnmuteSelf")
+			VoiceStateStrings.MicOn = strings:Format("CoreScripts.InGameMenu.QuickActions.MuteSelf")
+		end
+
+		-- Return string based on local microphone state
+		local newMuted = VoiceChatServiceManager.localMuted
+
+		local out = ""
+		if newMuted == nil then
+			out = VoiceStateStrings.Loading
+		elseif newMuted then
+			out = VoiceStateStrings.MicOff
+		elseif VoiceChatServiceManager.isTalking then
+			out = VoiceStateStrings.MicOn
+		else
+			out = VoiceStateStrings.MicOn
+		end
+
+		return out
+	end
+
 
 	local buttonHintCached = nil
+	local voiceButtonTextCached = nil
+
 	local function updateIcon()
-		local buttonHint
+		local buttonHint, buttonLabel
 		if Theme.UIBloxThemeEnabled then
 			if not buttonHintCached then
 				buttonHintCached = this.BottomButtonFrame:FindFirstChild("MuteButtonButtonIcon", true)
+				voiceButtonTextCached = this.BottomButtonFrame:FindFirstChild("MuteButtonButtonTextLabel", true)
 			end
 			buttonHint = buttonHintCached
+			buttonLabel = voiceButtonTextCached
 		else
 			buttonHint = this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true)
 		end
 		if buttonHint then
 			buttonHint.Image = pollImage()
+		end
+		if buttonLabel then
+			buttonLabel.Text = pollVoiceTextLabel()
 		end
 	end
 
@@ -617,6 +668,9 @@ local function CreateSettingsHub()
 			pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 			function ()
 				VoiceChatServiceManager:ToggleMic()
+				if voiceAnalytics then
+					voiceAnalytics:onToggleMuteSelf(this.isMuted)
+				end
 			end, {})
 			updateIcon()
 		else

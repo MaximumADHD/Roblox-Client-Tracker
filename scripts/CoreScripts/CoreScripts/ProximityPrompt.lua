@@ -10,7 +10,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
-local FFlagFixDestroyedPromptHangingAround = game:DefineFastFlag("FixDestroyedPromptHangingAround", false)
 
 local LocalPlayer = Players.LocalPlayer
 while LocalPlayer == nil do
@@ -556,21 +555,17 @@ local function onLoad()
 
 		local cleanupFunction = createPrompt(prompt, inputType, gui)
 
-		if FFlagFixDestroyedPromptHangingAround then
-			-- Wait for either the prompt being hidden or destroyed
-			local yield = Instance.new("BindableEvent")
-			local con = prompt.PromptHidden:Connect(function()
-				yield:Fire()
-			end)
-			local con2 = prompt.Destroying:Connect(function()
-				yield:Fire()
-			end)
-			yield.Event:Wait()
-			con:Disconnect()
-			con2:Disconnect()
-		else
-			prompt.PromptHidden:Wait()
-		end
+		-- Wait for either the prompt being hidden or destroyed
+		local yield = Instance.new("BindableEvent")
+		local con = prompt.PromptHidden:Connect(function()
+			yield:Fire()
+		end)
+		local con2 = prompt.Destroying:Connect(function()
+			yield:Fire()
+		end)
+		yield.Event:Wait()
+		con:Disconnect()
+		con2:Disconnect()
 
 		cleanupFunction()
     end)

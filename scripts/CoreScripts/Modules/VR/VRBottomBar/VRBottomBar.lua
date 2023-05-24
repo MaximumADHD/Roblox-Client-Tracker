@@ -53,6 +53,12 @@ local FFlagUserVRPlaySeatedStanding = require(RobloxGui.Modules.Flags.FFlagUserV
 local GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
+local FFlagVRBottomBarUsePositionConfig = require(RobloxGui.Modules.Flags.FFlagVRBottomBarUsePositionConfig)
+local FFlagVRBottomBarDebugPositionConfig = require(RobloxGui.Modules.Flags.FFlagVRBottomBarDebugPositionConfig)
+local FIntVRBottomBarPositionOffsetVerticalNumber = require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetVerticalNumber)
+local FIntVRBottomBarPositionOffsetDepthNumber = require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetDepthNumber)
+
+local UsePositionConfig = FFlagVRBottomBarUsePositionConfig or FFlagVRBottomBarDebugPositionConfig
 
 -- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
 local function safeRequire(moduleScript)
@@ -65,6 +71,13 @@ local function safeRequire(moduleScript)
 end
 
 local LOOKAWAY_Y_THRESHOLD = -0.2
+
+local OFFSET = {
+	Y = UsePositionConfig and FIntVRBottomBarPositionOffsetVerticalNumber/100 or -1.7,
+	Z = UsePositionConfig and FIntVRBottomBarPositionOffsetDepthNumber/100 or -0.2
+}
+
+local BASE_PART_SIZE = 0.2 + OFFSET.Z/10
 
 local SpringOptions = {
 	Default = {
@@ -267,9 +280,16 @@ local SeparatorIcon =
 	itemSize = UDim2.new(0, 28, 0, 44),
 }
 
+-- Remove when remove FFlagVRBottomBarDebugPositionConfig
+local function roundOffset(x)
+	return x >= 0 and math.floor(x * 10 + 0.5)/10 or math.ceil(x * 10 - 0.5)/10
+end
+
 -- default bar init
 function VRBottomBar:init()
 	self:setState({
+		yOffset = OFFSET.Y, -- Remove when remove FFlagVRBottomBarDebugPositionConfig
+		zOffset = OFFSET.Z, -- Remove when remove FFlagVRBottomBarDebugPositionConfig
 		vrMenuOpen = true,
 		lookAway = false, -- whether player looks away from VRBottomBar
 		userGui = VRService.VREnabled and safeRequire(RobloxGui.Modules.VR.UserGui) or Roact.None
@@ -294,6 +314,79 @@ function VRBottomBar:init()
 					self.props.voiceChatServiceManager:ToggleMic()
 				end
 			end,
+		}
+	end
+
+	-- Remove when remove FFlagVRBottomBarDebugPositionConfig
+	self.getDebugYOffsetUp = function()
+		return {
+			iconOn = "rbxasset://textures/ui/MenuBar/arrow_up.png",
+			iconOff = "rbxasset://textures/ui/MenuBar/arrow_up.png",
+			onActivated = function()
+				self:setState({
+					yOffset = self.state.yOffset + 0.1,
+				})
+			end,
+		}
+	end
+
+	-- Remove when remove FFlagVRBottomBarDebugPositionConfig
+	self.getDebugYOffsetDown = function()
+		return {
+			iconOn = "rbxasset://textures/ui/MenuBar/arrow_down.png",
+			iconOff = "rbxasset://textures/ui/MenuBar/arrow_down.png",
+			onActivated = function()
+				self:setState({
+					yOffset = self.state.yOffset - 0.1,
+				})
+			end,
+		}
+	end
+
+	-- Remove when remove FFlagVRBottomBarDebugPositionConfig
+	self.getDebugZOffsetUp = function()
+		return {
+			iconOn = "rbxasset://textures/ui/MenuBar/arrow_left.png",
+			iconOff = "rbxasset://textures/ui/MenuBar/arrow_left.png",
+			onActivated = function()
+				self:setState({
+					zOffset = self.state.zOffset + 0.1,
+				})
+			end,
+		}
+	end
+
+	-- Remove when remove FFlagVRBottomBarDebugPositionConfig
+	self.getDebugZOffsetDown = function()
+		return {
+			iconOn = "rbxasset://textures/ui/MenuBar/arrow_right.png",
+			iconOff = "rbxasset://textures/ui/MenuBar/arrow_right.png",
+			onActivated = function()
+				self:setState({
+					zOffset = self.state.zOffset - 0.1,
+				})
+			end,
+		}
+	end
+
+	-- Remove when remove FFlagVRBottomBarDebugPositionConfig
+	self.getDebugTextLabel = function()
+		return {
+			iconComponent = function(props)
+				local yOffset = roundOffset(self.state.yOffset)
+				local zOffset = roundOffset(self.state.zOffset)
+				local text = "Y "..yOffset..", Z "..zOffset
+				return Roact.createElement("TextLabel", {
+					BackgroundTransparency = 1,
+					Text = text,
+					TextColor3 = Color3.new(1, 1, 1),
+					TextWrapped = true,
+					TextScaled = true,
+					Size = UDim2.fromScale(1,1),
+					[Roact.Children] = props[Roact.Children],
+				})
+			end,
+			itemSize = UDim2.new(0, 44, 0, 44),
 		}
 	end
 
@@ -342,8 +435,6 @@ function VRBottomBar:init()
 	end
 
 	self.onRenderStepped = function()
-		local currentCamera = workspace.CurrentCamera :: Camera
-		local cameraCF = currentCamera.CFrame
 		local userHeadCameraCF = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
 		local lookAway = userHeadCameraCF.LookVector.Y > LOOKAWAY_Y_THRESHOLD
 		if self.state.lookAway ~= lookAway then
@@ -357,6 +448,40 @@ function VRBottomBar:init()
 	self.fadeTransparencyMotor = Otter.createSingleMotor(self.fadeTransparency:getValue())
 	self.fadeTransparencyMotor:onStep(self.setFadeTransparency)
 	self.fadeTransparencyMotor:setGoal(Otter.spring(0, SpringOptions.Default))
+
+	self.getAlignedPanelPart = function()
+		local userGuiPanel = if self.state.userGui then self.state.userGui:getPanel() else nil
+		local userGuiPanelPart = userGuiPanel and userGuiPanel:GetPart()
+		local shouldAlignToPanel = userGuiPanelPart
+			and userGuiPanel:IsPositionLockedType()
+			and (userGuiPanel:IsVisible() or userGuiPanel.alwaysUpdatePosition)
+		if shouldAlignToPanel then
+			return userGuiPanelPart
+		end
+	end
+
+	self.bottomBarPanelOffsetCallback = function(args)
+		-- Called in RenderStepped each frame to align position inside bottom bar Panel3D
+		local finalPosition = args.finalPosition
+		local cameraHeadScale = args.cameraHeadScale
+		local userGuiPanelPart = self.getAlignedPanelPart()
+		
+		if userGuiPanelPart then
+			local yOffset = self.state.yOffset -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
+			local zOffset = self.state.zOffset -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
+			-- finalPosition should be calculated according to userGuiPanelPart's position and camera height
+			local userHeadCameraCF = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
+			local zOffsetCFrame = CFrame.new(0, 0, zOffset * cameraHeadScale - userGuiPanelPart.Size.Z * 0.5)
+			local shiftedCFrame = userGuiPanelPart.CFrame:ToWorldSpace(zOffsetCFrame)
+			-- Use userGuiPanelPart.Position.Y to calculate finalPosition will cause issue in UI collapsing/expanding animation
+			finalPosition = Vector3.new(
+				shiftedCFrame.Position.X,
+				userHeadCameraCF.Position.Y + yOffset * cameraHeadScale,
+				shiftedCFrame.Position.Z
+			)
+		end
+		return finalPosition
+	end
 end
 
 function VRBottomBar:didMount()
@@ -373,6 +498,21 @@ function VRBottomBar:updateItems()
 	local playerListEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
 	
 	local enabledItems = { MainMenu, SeparatorIcon, ToggleGui }
+	
+	if FFlagVRBottomBarDebugPositionConfig then
+		enabledItems = {
+			self.getDebugYOffsetUp(),
+			self.getDebugYOffsetDown(),
+			self.getDebugZOffsetUp(),
+			self.getDebugZOffsetDown(),
+			self.getDebugTextLabel(),
+			SeparatorIcon,
+			MainMenu,
+			SeparatorIcon,
+			ToggleGui
+		}
+	end
+
 	if emotesEnabled and not (StarterPlayer.UserEmotesEnabled and self.emotesLoaded == false) then
 		table.insert(enabledItems, Emotes)
 	end
@@ -416,39 +556,47 @@ end
 -- VRBottomBar implements two UIBlox components
 function VRBottomBar:render()
 	local basePartSize = GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel() and 0.2 or 0.15
+	if UsePositionConfig then
+		basePartSize = 0.2 + self.state.zOffset/10  -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
+	end
 
-	return Roact.createElement(Panel3D,  {
-		alignedPanel = if self.state.userGui then self.state.userGui:getPanel() else nil,
-		panelName = "BottomBar",
-		partSize = Vector2.new((#self.state.itemList - 1) * basePartSize, basePartSize),
-		virtualScreenSize = Vector2.new((#self.state.itemList - 1) * 50, 50),
-		offset = self.state.vrMenuOpen and CFrame.new(0, -1.5, 0) or CFrame.new(0, -2, 0),
-		lerp = true,
-		tilt = 0,
-		anchoring = VRConstants.AnchoringTypes.Head,
-		faceCamera = true,
-		alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
-		parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
-	}, {
-		CanvasGroup = Roact.createElement("CanvasGroup", {
-			BackgroundTransparency =  1,
-			BorderSizePixel = 0,
-			GroupTransparency = self.fadeTransparency,
-			Size = UDim2.new(1, 0, 1, 0),
+	local itemList = self.state.itemList
+
+	return Roact.createFragment({
+		BottomBarPanel3D = Roact.createElement(Panel3D,  {
+			alignedPanel = if self.state.userGui and not UsePositionConfig then self.state.userGui:getPanel() else nil,
+			panelName = "BottomBar",
+			partSize = Vector2.new((#itemList - 1) * basePartSize, basePartSize),
+			virtualScreenSize = Vector2.new((#itemList - 1) * 50, 50),
+			offset = self.state.vrMenuOpen and CFrame.new(0, UsePositionConfig and 0 or -1.5, 0) or CFrame.new(0, UsePositionConfig and -0.5 or -2, 0),
+			offsetCallback = UsePositionConfig and self.bottomBarPanelOffsetCallback or nil,
+			lerp = true,
+			tilt = 0,
+			anchoring = VRConstants.AnchoringTypes.Head,
+			faceCamera = true,
+			alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
+			parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
 		}, {
-			SystemBar = Roact.createElement(SystemBar, {
-				itemList = self.state.itemList,
-				selection = self.state.vrMenuOpen and 1 or 3,
-				placement = Placement.Bottom,
-				hidden = false,
-				onSafeAreaChanged = function() end,
-				size = UDim2.new(1, 0, 1, 0),
-				position = UDim2.new(),
-				layoutOrder = 1,
-				roundCorners = true,
-				buttonStroke = true,
-				bgTransparency = 0,
-				sortOrder = Enum.SortOrder.LayoutOrder,
+			CanvasGroup = Roact.createElement("CanvasGroup", {
+				BackgroundTransparency =  1,
+				BorderSizePixel = 0,
+				GroupTransparency = self.fadeTransparency,
+				Size = UDim2.new(1, 0, 1, 0),
+			}, {
+				SystemBar = Roact.createElement(SystemBar, {
+					itemList = itemList,
+					selection = self.state.vrMenuOpen and 1 or 3,
+					placement = Placement.Bottom,
+					hidden = false,
+					onSafeAreaChanged = function() end,
+					size = UDim2.new(1, 0, 1, 0),
+					position = UDim2.new(),
+					layoutOrder = 1,
+					roundCorners = true,
+					buttonStroke = true,
+					bgTransparency = 0,
+					sortOrder = Enum.SortOrder.LayoutOrder,
+				}),
 			}),
 		}),
 
@@ -502,6 +650,9 @@ function VRBottomBar:didUpdate(prevProps, prevState)
 	end
 
 	if FFlagVRMoveVoiceIndicatorToBottomBar and prevProps.voiceEnabled ~= self.props.voiceEnabled then
+		self.updateItemListState()
+	elseif UsePositionConfig and (prevState.yOffset ~= self.state.yOffset or prevState.zOffset ~= self.state.zOffset) then
+		-- Remove state.yOffset and state.zOffset when remove FFlagVRBottomBarDebugPositionConfig
 		self.updateItemListState()
 	end
 end

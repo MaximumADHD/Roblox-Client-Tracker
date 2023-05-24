@@ -15,7 +15,7 @@ local useSelector = dependencies.Hooks.useSelector
 local Components = script.Parent
 local CallerListContainer = require(Components.CallerListContainer)
 local CallDetailsContainer = require(Components.CallDetails.CallDetailsContainer)
-local CallerNotificationContainer = require(Components.CallerNotificationContainer)
+local CallBarContainer = require(Components.CallBarContainer)
 local CloseContactList = require(Components.Parent.Actions.CloseContactList)
 local OpenContactList = require(Components.Parent.Actions.OpenContactList)
 
@@ -57,6 +57,6 @@ return function(props: Props)
 
 	return React.createElement("Folder", {}, {
 		Container = currentContainer,
-		CallerNotificationContainer = React.createElement(CallerNotificationContainer),
+		CallBarContainer = React.createElement(CallBarContainer),
 	})
 end

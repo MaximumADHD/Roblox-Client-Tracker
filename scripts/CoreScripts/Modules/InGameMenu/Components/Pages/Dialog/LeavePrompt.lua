@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -23,6 +24,10 @@ local FocusHandler = require(Components.Connection.FocusHandler)
 local ZonePortal = require(Components.ZonePortal)
 
 local Direction = require(InGameMenu.Enums.Direction)
+
+local GetFFlagEnableVRFTUXExperience = require(RobloxGui.Modules.FTUX.Flags.GetFFlagEnableVRFTUXExperience)
+local IsFTUXExperience = require(RobloxGui.Modules.FTUX.Utility.IsFTUXExperience)
+local PlatformEnum = require(RobloxGui.Modules.FTUX.Enums.PlatformEnum)
 
 local LEAVE_CONFIRM_ACTION = "LeavePromptConfirm"
 
@@ -82,7 +87,9 @@ function LeavePrompt:render()
 				fontKey = "Body",
 				themeKey = "TextDefault",
 				LayoutOrder = 3,
-				Size = UDim2.fromOffset(BUTTON_WIDTH, 2 * (font.Body.RelativeSize * font.BaseSize + 4)),
+				Size = if (GetFFlagEnableVRFTUXExperience() and IsFTUXExperience(PlatformEnum.QuestVR))
+					then UDim2.fromOffset(BUTTON_WIDTH, 4 * (font.Body.RelativeSize * font.BaseSize + 4))
+					else UDim2.fromOffset(BUTTON_WIDTH, 2 * (font.Body.RelativeSize * font.BaseSize + 4)),
 				Text = self.props.bodyText,
 				TextWrapped = true,
 			}),
