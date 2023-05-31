@@ -279,15 +279,27 @@ function VRHub:KeepVRTopbarOpen()
 end
 
 VRHub.ShowTopBar = true
+VRHub.ShowMoreMenu = false
 
 VRHub.ShowTopBarChanged = Util:Create("BindableEvent")({
 	Name = "ShowTopBarChanged",
+})
+
+VRHub.ShowMoreMenuChanged = Util:Create("BindableEvent")({
+	Name = "ShowMoreMenuChanged",
 })
 
 function VRHub:SetShowTopBar(showTopBar)
 	if VRHub.ShowTopBar ~= showTopBar then
 		VRHub.ShowTopBar = showTopBar
 		VRHub.ShowTopBarChanged:Fire()
+	end
+end
+
+function VRHub:SetShowMoreMenu(showMoreMenu)
+	if VRHub.ShowMoreMenu ~= showMoreMenu then
+		VRHub.ShowMoreMenu = showMoreMenu
+		VRHub.ShowMoreMenuChanged:Fire()
 	end
 end
 

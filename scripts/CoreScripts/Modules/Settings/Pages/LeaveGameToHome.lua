@@ -23,7 +23,6 @@ local CorePackages = game:GetService("CorePackages")
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
@@ -32,7 +31,6 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
@@ -103,9 +101,6 @@ local function Initialize()
 	this.ShouldShowHubBar = false
 
 	local leaveGameConfirmationText = "Are you sure you want to leave the experience?"
-	if FFlagUpdateSettingsHubGameText then
-		leaveGameConfirmationText = RobloxTranslator:FormatByKey("InGame.HelpMenu.ConfirmLeaveGame")
-	end
 
 	local leaveGameText =  utility:Create'TextLabel'
 	{

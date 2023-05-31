@@ -51,7 +51,7 @@ local TouchJump = require(script:WaitForChild("TouchJump"))
 
 local VehicleController = require(script:WaitForChild("VehicleController"))
 
-local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
+local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
 
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {

@@ -37,7 +37,6 @@ end
 
 debugPrint("Self View 10-25-2022__2")
 
-local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
 local CorePackages = game:GetService("CorePackages")
@@ -984,38 +983,34 @@ function startRenderStepped(player)
 	end)
 end
 
-if EngineFeatureFacialAnimationStreamingServiceUseV2 then	
-	function triggerAnalyticsReportExperienceSettings(serviceState)
-		local experienceSettings_placeEnabled = FacialAnimationStreamingService:IsPlaceEnabled(serviceState)
-		--local experienceSettings_serverEnabled = FacialAnimationStreamingService:IsServerEnabled(serviceState) --this one is only for throttling, won't send for now
-		local experienceSettings_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(serviceState)
-		local experienceSettings_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(serviceState)
+function triggerAnalyticsReportExperienceSettings(serviceState)
+	local experienceSettings_placeEnabled = FacialAnimationStreamingService:IsPlaceEnabled(serviceState)
+	--local experienceSettings_serverEnabled = FacialAnimationStreamingService:IsServerEnabled(serviceState) --this one is only for throttling, won't send for now
+	local experienceSettings_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(serviceState)
+	local experienceSettings_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(serviceState)
 
-		Analytics:reportExperienceSettings(experienceSettings_placeEnabled, experienceSettings_videoEnabled, experienceSettings_audioEnabled)
-		
-		--[[
-		--TODO: product decision to be made whether we won't show Self View if not voice or video on for experience, if so, comment this in
-		if EngineFeatureFacialAnimationStreamingServiceUseV2 then	
-			if not experienceSettings_placeEnabled and not experienceSettings_videoEnabled and not experienceSettings_audioEnabled and not IS_STUDIO and not debug then
-				showSelfView(false)
-			end
+	Analytics:reportExperienceSettings(experienceSettings_placeEnabled, experienceSettings_videoEnabled, experienceSettings_audioEnabled)
+	
+	--[[
+	--TODO: product decision to be made whether we won't show Self View if not voice or video on for experience, if so, comment this in
+	if not experienceSettings_placeEnabled and not experienceSettings_videoEnabled and not experienceSettings_audioEnabled and not IS_STUDIO and not debug then
+		showSelfView(false)
+	end
+	]]
+end
+
+function triggerAnalyticsReportUserAccountSettings(userId)
+	return Promise.new(function(resolve, reject)
+		local ok, state = pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
+
+		if ok then
+
+			local userAccount_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(state)
+			local userAccount_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(state)
+
+			Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
 		end
-		]]
-	end
-
-	function triggerAnalyticsReportUserAccountSettings(userId)
-		return Promise.new(function(resolve, reject)
-			local ok, state = pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
-
-			if ok then
-
-				local userAccount_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(state)
-				local userAccount_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(state)
-
-				Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
-			end
-		end)
-	end
+	end)
 end
 
 function Initialize(player)
@@ -1026,15 +1021,13 @@ function Initialize(player)
 
 	if not shouldBeEnabledCoreGuiSetting and not debug then return end
 
-	if EngineFeatureFacialAnimationStreamingServiceUseV2 then	
-		-- Listen for service state (info whether enabled for place/experience)
-		serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState"):Connect(function()
-			triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
-		end)
+	-- Listen for service state (info whether enabled for place/experience)
+	serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState"):Connect(function()
 		triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
+	end)
+	triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
 
-		triggerAnalyticsReportUserAccountSettings(player.UserId)
-	end	
+	triggerAnalyticsReportUserAccountSettings(player.UserId)
 
 	createViewport()
 

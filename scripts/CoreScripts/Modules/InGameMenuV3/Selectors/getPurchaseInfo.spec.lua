@@ -26,7 +26,7 @@ local dummyState = {
 return function()
 	describe("getPurchaseInfo", function()
 		it("should get info for owned items from the store", function()
-			local purchaseInfo = getPurchaseInfo(dummyState)
+			local purchaseInfo = getPurchaseInfo(dummyState :: any)
 
 			expect(purchaseInfo.owned).toEqual(true)
 			expect(purchaseInfo.isLoading).toEqual(false)
@@ -41,7 +41,7 @@ return function()
 				isForSale = true,
 				bundlesAssetIsIn = {},
 			}
-			local purchaseInfo = getPurchaseInfo(dummyState, assetOverride)
+			local purchaseInfo = getPurchaseInfo(dummyState :: any, assetOverride)
 
 			expect(purchaseInfo.owned).toEqual(false)
 			expect(purchaseInfo.isLoading).toEqual(false)
@@ -56,7 +56,7 @@ return function()
 				isForSale = false,
 				bundlesAssetIsIn = {"123"},
 			}
-			local purchaseInfo = getPurchaseInfo(dummyState, assetOverride)
+			local purchaseInfo = getPurchaseInfo(dummyState :: any, assetOverride :: any)
 
 			expect(purchaseInfo.owned).toEqual(false)
 			expect(purchaseInfo.isLoading).toEqual(false)

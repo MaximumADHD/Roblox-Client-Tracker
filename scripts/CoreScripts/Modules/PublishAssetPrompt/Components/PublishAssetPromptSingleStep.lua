@@ -11,6 +11,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local ExperienceAuthService = game:GetService("ExperienceAuthService")
+local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -24,6 +25,8 @@ local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 
+local LocalPlayer = Players.LocalPlayer
+
 local AssetNameTextBox = require(script.Parent.AssetNameTextBox)
 local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
 local ObjectViewport = require(script.Parent.ObjectViewport)
@@ -31,7 +34,7 @@ local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
 
 local INPUT_FIELDS_WIDTH_PERCENT = 0.6
 local VIEWPORT_WIDTH_PERCENT = 1 - INPUT_FIELDS_WIDTH_PERCENT
-local DISCLAIMER_HEIGHT_PIXELS = 30
+local DISCLAIMER_HEIGHT_PIXELS = 50
 local MINIMUM_MIDDLE_SIZE_PIXELS = 200
 local LABEL_HEIGHT = 15
 local LABEL_TEXT_SIZE = 12
@@ -74,7 +77,20 @@ PublishAssetPromptSingleStep.validateProps = t.strictInterface({
 	closePrompt = t.callback,
 })
 
+function PublishAssetPromptSingleStep:getDefaultText()
+	if self.props.assetType == Enum.AssetType.Model then
+		return RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.PackagesDefaultName", {
+			RBX_NAME = LocalPlayer and LocalPlayer.Name or "",
+		})
+	else
+		return ""
+	end
+end
+
 function PublishAssetPromptSingleStep:init()
+	self.assetName = self:getDefaultText()
+	self.assetDescription = self:getDefaultText()
+
 	self.closePrompt = function()
 		self.props.closePrompt()
 	end
@@ -160,6 +176,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						onAssetNameUpdated = self.onAssetNameUpdated,
 						nameTextBoxRef = self.nameTextBoxRef,
 						NextSelectionDown = self.descriptionTextBoxRef,
+						defaultName = self.assetName,
 					}),
 
 					DescriptionLabel = Roact.createElement("TextLabel", {
@@ -178,6 +195,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						onAssetDescriptionUpdated = self.onAssetDescriptionUpdated,
 						descriptionTextBoxRef = self.descriptionTextBoxRef,
 						NextSelectionUp = self.nameTextBoxRef,
+						defaultDescription = self.assetDescription,
 					}),
 				}),
 			}),

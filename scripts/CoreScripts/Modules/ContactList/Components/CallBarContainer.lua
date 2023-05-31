@@ -44,6 +44,10 @@ local function CallBarContainer(passedProps: Props)
 			dispatch(RoduxCall.Actions.StartCall(params))
 		end)
 
+		local endCallConn = props.callProtocol:listenToHandleEndCall(function(params)
+			dispatch(RoduxCall.Actions.EndCall())
+		end)
+
 		props.callProtocol:getCallState():andThen(function(params)
 			dispatch(RoduxCall.Actions.UpdateCall(params))
 		end)
@@ -51,6 +55,7 @@ local function CallBarContainer(passedProps: Props)
 		return function()
 			connectingCallConn:Disconnect()
 			activeCallConn:Disconnect()
+			endCallConn:Disconnect()
 		end
 	end, { props.callProtocol })
 

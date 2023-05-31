@@ -125,8 +125,8 @@ return function()
 		local callDetailsContainerElement = folder:FindFirstChild("CallDetailsContainer", true)
 		expect(callDetailsContainerElement).never.to.be.ok()
 
-		local callerListContainerElement = folder:FindFirstChild("CallerListContainer", true)
-		expect(callerListContainerElement).never.to.be.ok()
+		local callHistoryContainerElement = folder:FindFirstChild("CallHistoryContainer", true)
+		expect(callHistoryContainerElement).never.to.be.ok()
 
 		local callBarElement = folder:FindFirstChild("CallBarContainer", true)
 		expect(callBarElement).never.to.be.ok()
@@ -159,9 +159,33 @@ return function()
 		end)
 	end)
 
-	describe("CallerListContainer", function()
-		it("should mount and unmount without errors when caller list visible", function()
-			local store = Rodux.Store.new(Reducer, mockState(Pages.CallerList, nil, nil), {
+	describe("CallHistoryContainer", function()
+		it("should mount and unmount without errors when call history visible", function()
+			local store = Rodux.Store.new(Reducer, mockState(Pages.CallHistory, nil, nil), {
+				Rodux.thunkMiddleware,
+			})
+
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
+			}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+					style = appStyle,
+				}, {
+					ContactListApp = Roact.createElement(ContactListApp),
+				}),
+			})
+
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			local containerElement = folder:FindFirstChild("Container", true)
+			expect(containerElement).to.be.ok()
+			Roact.unmount(instance)
+		end)
+	end)
+
+	describe("FriendListContainer", function()
+		it("should mount and unmount without errors when friend list visible", function()
+			local store = Rodux.Store.new(Reducer, mockState(Pages.FriendList, nil, nil), {
 				Rodux.thunkMiddleware,
 			})
 
@@ -188,23 +212,14 @@ return function()
 			local store = Rodux.Store.new(
 				Reducer,
 				mockState(nil, {
-					callId = "123456",
 					status = RoduxCall.Enums.Status.Active.rawValue(),
-					participants = {
-						["11111111"] = {
-							userId = 11111111,
-							displayName = "Display Name 1",
-						},
-						["12345678"] = {
-							userId = 12345678,
-							displayName = "Display Name 2",
-						},
-					},
-					experienceDetail = {
-						placeId = 0,
-						gameInstanceId = "gameId",
-						universeName = "Universe Name",
-					},
+					callerId = 11111111,
+					calleeId = 12345678,
+					placeId = 789,
+					callId = "123456",
+					callerDisplayName = "Display Name 1",
+					calleeDisplayName = "Display Name 2",
+					gameInstanceId = "gameId",
 				}, nil),
 				{
 					Rodux.thunkMiddleware,

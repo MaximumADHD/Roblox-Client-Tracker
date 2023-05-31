@@ -44,7 +44,6 @@ local DEFAULT_DELAY_TIME = 0.4
 
 local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
@@ -55,7 +54,7 @@ MenuIcon.validateProps = t.strictInterface({
 
 function MenuIcon:init()
 	self:setState({
-		vrShowMenuIcon = VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3,
+		vrShowMenuIcon = false,
 		showTooltip = false,
 		isHovering = false,
 		enableFlashingDot = false
@@ -144,7 +143,7 @@ function MenuIcon:init()
 	end
 
 	self.showTopBarCallback = function()
-		local vrShowMenuIcon = VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) and not EngineFeatureEnableVRUpdate3
+		local vrShowMenuIcon = false
 		if self.state.vrShowMenuIcon ~= vrShowMenuIcon then
 			self:setState({
 				vrShowMenuIcon = vrShowMenuIcon,

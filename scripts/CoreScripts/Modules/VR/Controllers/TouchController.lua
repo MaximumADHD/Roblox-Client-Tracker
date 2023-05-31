@@ -6,6 +6,8 @@ local CorePackages	= game:GetService("CorePackages")
 local RobloxGui 	= CoreGui.RobloxGui
 local CommonUtil	= require(RobloxGui.Modules.Common.CommonUtil)
 
+local FIntVRTouchControllerTransparency = require(RobloxGui.Modules.Flags.FIntVRTouchControllerTransparency)
+
 local PARTS_INFO = {
 	[Enum.UserCFrame.RightHand] = {
 		Body = {
@@ -151,6 +153,7 @@ function TouchController.new(userCFrame)
 			Size = partInfo.size or Vector3.new(0.05, 0.05, 0.05),
 			CFrame = self.origin.CFrame * partInfo.offset,
 			CanCollide = false,
+			Transparency = FIntVRTouchControllerTransparency/100,
 		}
 		local mesh = CommonUtil.Create("SpecialMesh") {
 			Parent = part,

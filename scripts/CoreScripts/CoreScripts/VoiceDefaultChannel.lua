@@ -1,6 +1,7 @@
 --!nonstrict
 
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local NotificationService = game:GetService("NotificationService")
 local Players = game:GetService("Players")
 
@@ -11,6 +12,7 @@ local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChan
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaulChannelDontWaitOnCharacter = game:DefineFastFlag("DefaultChannelDontWaitOnCharacter", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
+local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
@@ -28,7 +30,12 @@ local function initializeDefaultChannel()
 
 	log:info("Joining default channel")
 
-	local success = VoiceChatService:JoinByGroupIdToken("default", FFlagDebugDefaultChannelStartMuted)
+	local success
+	if GetFFlagIrisSettingsEnabled() then
+		success = VoiceChatService:JoinByGroupIdToken("default", false)
+	else
+		success = VoiceChatService:JoinByGroupIdToken("default", FFlagDebugDefaultChannelStartMuted)
+	end
 	
 	if GetFFlagEnableLuaVoiceChatAnalytics() then
 		if success then

@@ -55,7 +55,6 @@ local GetFFlagIGMVRSettingsPolish = require(Flags.GetFFlagIGMVRSettingsPolish)
 local GetFFlagIGMVRSafetyBubbleModeEntry = require(Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
@@ -171,7 +170,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				instance = UserGameSettings,
 				valueKey = "VignetteEnabled",
 			}) else nil,
-			VRSmoothRotationEnabled = if self.state.vrActive and EngineFeatureEnableVRUpdate3 then Roact.createElement(AutoPropertyToggleEntry, {
+			VRSmoothRotationEnabled = if self.state.vrActive then Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 18,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VRSmoothRotationEnabled",
 				instance = UserGameSettings,

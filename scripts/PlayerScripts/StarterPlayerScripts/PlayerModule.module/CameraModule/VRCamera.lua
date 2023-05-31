@@ -22,13 +22,6 @@ local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
 local VRCamera = setmetatable({}, VRBaseCamera)
 VRCamera.__index = VRCamera
 
-local FFlagUserFlagEnableVRUpdate3 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableVRUpdate3")
-	end)
-	FFlagUserFlagEnableVRUpdate3 = success and result
-end
-
 local FFlagUserVRPlaySeatedStanding do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserVRPlaySeatedStanding")
@@ -163,7 +156,7 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	-- step rotate in 1st person
 	local rotateInput = CameraInput.getRotation()
 	local yawDelta = 0
-	if FFlagUserFlagEnableVRUpdate3 and UserGameSettings.VRSmoothRotationEnabled then
+	if UserGameSettings.VRSmoothRotationEnabled then
 		yawDelta = rotateInput.X
 	else
 		if self.stepRotateTimeout <= 0.0 and math.abs(rotateInput.X) > 0.03 then
@@ -229,7 +222,7 @@ function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCame
 
 			-- compute offset for 3rd person camera rotation
 			local rotateInput = CameraInput.getRotation()
-			local userCameraPan = FFlagUserFlagEnableVRUpdate3 and rotateInput ~= Vector2.new()
+			local userCameraPan = rotateInput ~= Vector2.new()
 			local panUpdate = false
 			if userCameraPan then
 				if rotateInput.X ~= 0 then
@@ -294,7 +287,7 @@ function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCame
 				-- compute new cframe at height level to subject
 				local lookAtPos = Vector3.new(newCameraFocus.Position.X, newCameraPos.Y, newCameraFocus.Position.Z)
 
-				if FFlagUserFlagEnableVRUpdate3 and self.cameraOffsetRotation ~= 0 then
+				if self.cameraOffsetRotation ~= 0 then
 					local tempCF = CFrame.new(newCameraPos, lookAtPos)
 					tempCF = tempCF * CFrame.fromAxisAngle(Vector3.new(0,1,0), self.cameraOffsetRotationDiscrete)
 					newCameraPos = lookAtPos - (tempCF.LookVector * (lookAtPos - newCameraPos).Magnitude)

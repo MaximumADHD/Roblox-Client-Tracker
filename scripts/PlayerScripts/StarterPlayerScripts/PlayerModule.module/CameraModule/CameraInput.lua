@@ -9,7 +9,7 @@ local StarterGui = game:GetService("StarterGui")
 
 local player = Players.LocalPlayer
 
-local CAMERA_INPUT_PRIORITY = Enum.ContextActionPriority.Default.Value
+local CAMERA_INPUT_PRIORITY = Enum.ContextActionPriority.Medium.Value
 local MB_TAP_LENGTH = 0.3 -- (s) length of time for a short mouse button tap to be registered
 
 local ROTATION_SPEED_KEYS = math.rad(120) -- (rad/s)

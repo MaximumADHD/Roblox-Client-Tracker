@@ -27,23 +27,14 @@ return function()
 
 	beforeAll(function(c: any)
 		c.mockCurrentCall = {
-			callId = "123456",
 			status = RoduxCall.Enums.Status.Active.rawValue(),
-			participants = {
-				["11111111"] = {
-					userId = 11111111,
-					displayName = "Display Name 1",
-				},
-				["12345678"] = {
-					userId = 12345678,
-					displayName = "Display Name 2",
-				},
-			},
-			experienceDetail = {
-				placeId = 0,
-				gameInstanceId = "gameId",
-				universeName = "Universe Name",
-			},
+			callerId = 11111111,
+			calleeId = 12345678,
+			placeId = 789,
+			callId = "123456",
+			callerDisplayName = "Display Name 1",
+			calleeDisplayName = "Display Name 2",
+			gameInstanceId = "gameId",
 		}
 	end)
 

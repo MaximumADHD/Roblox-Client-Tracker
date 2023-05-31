@@ -55,7 +55,6 @@ local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScr
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
-local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)()
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
@@ -72,6 +71,7 @@ local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlag
 local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
 local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
+local FFlagFixMouseIconSettingsMenuWithDeferredEvents = game:DefineFastFlag("FixMouseIconSettingsMenuWithDeferredEvents", false)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
 local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGamePageNullCheckEnabled)
@@ -128,6 +128,8 @@ local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 
+local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
+
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
@@ -164,7 +166,7 @@ end
 --[[ Localization Fixes for Version Labels]]
 local shouldTryLocalizeVersionLabels = FFlagLocalizeVersionLabels or shouldLocalize
 local RobloxTranslator = nil
-if shouldTryLocalizeVersionLabels or FFlagUpdateSettingsHubGameText or GetFFlagVoiceRecordingIndicatorsEnabled() then
+if shouldTryLocalizeVersionLabels or GetFFlagVoiceRecordingIndicatorsEnabled() then
 	RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 end
 local function tryTranslate(key, defaultString)
@@ -1600,9 +1602,6 @@ local function CreateSettingsHub()
 		end
 
 		local leaveGameText = "Leave"
-		if FFlagUpdateSettingsHubGameText then
-			leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
-		end
 
 		if Theme.UIBloxThemeEnabled then
 			addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
@@ -1639,9 +1638,6 @@ local function CreateSettingsHub()
 		end
 
 		local resumeGameText = "Resume"
-		if FFlagUpdateSettingsHubGameText then
-			resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
-		end
 
 		if not Theme.UIBloxThemeEnabled then
 			addBottomBarButtonOld("Resume", resumeGameText, "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
@@ -2427,6 +2423,12 @@ local function CreateSettingsHub()
 	end
 
 	function setOverrideMouseIconBehavior()
+		if FFlagFixMouseIconSettingsMenuWithDeferredEvents then
+			if not this.Visible then
+				return
+			end
+		end
+
 		if UserInputService:GetLastInputType() == Enum.UserInputType.Gamepad1 or VRService.VREnabled then
 			MouseIconOverrideService.push(SETTINGS_HUB_MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceHide)
 		else
@@ -2906,14 +2908,23 @@ local function CreateSettingsHub()
 		end
 	end
 
+	if Screenshots.Flags.FFlagInGameMenuScreenshotsTabEnabled then
+		this.ScreenshotsApp = Screenshots.App.createApp(this.PageViewClipper)
+
+		this.ShotsPage = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
+		this.ShotsPage:ConnectHubToApp(this, this.ScreenshotsApp)
+	end
+
 	-- page registration
 	this:AddPage(this.PlayersPage)
 	this:AddPage(this.ResetCharacterPage)
 	this:AddPage(this.LeaveGamePage)
 	this:AddPage(this.GameSettingsPage)
-	if this.CapturePage then
-		this:AddPage(this.CapturePage)
+
+	if this.ShotsPage then
+		this:AddPage(this.ShotsPage)
 	end
+
 	if this.ReportAbusePage then
 		this:AddPage(this.ReportAbusePage)
 	end
@@ -2925,7 +2936,7 @@ local function CreateSettingsHub()
 	end
 
 	this:AddPage(this.HelpPage)
-	if this.RecordPage then
+	if this.RecordPage and not this.ShotsPage then
 		this:AddPage(this.RecordPage)
 	end
 	if this.ExitModalPage then

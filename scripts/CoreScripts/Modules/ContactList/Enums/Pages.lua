@@ -6,7 +6,10 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local enumerate = dependencies.enumerate
 
+export type PagesType = "CallHistory" | "CallDetails" | "FriendList"
+
 return enumerate(script.Name, {
-	CallerList = "CallerList",
+	CallHistory = "CallHistory",
 	CallDetails = "CallDetails",
+	FriendList = "FriendList",
 })

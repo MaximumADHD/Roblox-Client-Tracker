@@ -426,7 +426,7 @@ function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 	end
 
 	-- If voice isn't enabled, never render buttons
-	if not self.props.voiceEnabled and not FFlagDebugAllowControlButtonsNoVoiceChat then
+	if not self.props.voiceEnabled and not FFlagDebugAllowControlButtonsNoVoiceChat and not FFlagAvatarChatCoreScriptSupport then
 		return false
 	end
 

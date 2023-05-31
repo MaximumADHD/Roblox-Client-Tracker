@@ -37,7 +37,6 @@ end
 
 local newTrackerStreamAnimation = nil
 local cloneStreamTrack = nil
-local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
@@ -46,7 +45,6 @@ local FFlagSelfViewFixCloneOrientation = game:DefineFastFlag("SelfViewFixCloneOr
 local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImprovements", false)
 local FFlagSelfViewDontHideOnSwapCharacter = game:DefineFastFlag("SelfViewDontHideOnSwapCharacter", false)
 local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
-local FFlagSelfViewCatchVCMInitFail = game:DefineFastFlag("SelfViewCatchVCMInitFail", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -80,7 +78,6 @@ local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
-local MIC_IMAGE = Images["icons/controls/microphone"]
 local MIC_OFF_IMAGE = Images["icons/controls/microphoneMute"]
 local MIC_NAME = "MicButton"
 local CAM_NAME = "CamButton"
@@ -93,7 +90,6 @@ local UPDATE_CLONE_CD = 0.35
 local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
-local FFlagSelfViewMicAddStatusIndicators = game:DefineFastFlag("SelfViewMicAddStatusIndicators2", false)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 
 local renderSteppedConnection = nil
@@ -112,7 +108,6 @@ local cloneAnimationTracks = {}
 local orgAnimationTracks = {}
 local cachedHeadColor = nil
 local cachedHeadSize = nil
-local cachedAudioEnabled = nil
 local currentTrackerMode = nil
 local cachedMode = nil
 local viewportFrame = nil
@@ -148,7 +143,6 @@ local hasCameraPermissions = false
 local hasMicPermissions = false
 local cachedHasCameraPermissions = false
 local cachedHasMicPermissions = false
-local lastReportedMicState = false
 local lastReportedCamState = false
 local toggleSelfViewSignalConnection
 local noDynamicHeadEquippedInfoShown = false
@@ -254,6 +248,99 @@ function updateSelfViewButtonVisibility()
 
 end
 
+local LOCAL_STATE_MAP = {
+	[(Enum::any).VoiceChatState.Joining] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
+	[(Enum::any).VoiceChatState.JoiningRetry] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
+	[(Enum::any).VoiceChatState.Joined] = VoiceChatServiceManager.VOICE_STATE.MUTED,
+	[(Enum::any).VoiceChatState.Leaving] = VoiceChatServiceManager.VOICE_STATE.MUTED,
+	[(Enum::any).VoiceChatState.Failed] = VoiceChatServiceManager.VOICE_STATE.ERROR,
+}
+
+--[[
+	If the user has Microphone permissions, init Voice Chat Service Manager
+	and respective listeners.
+]]
+function initVoiceChatServiceManager()
+	do
+		local cachedMicState = VoiceChatServiceManager.VOICE_STATE.MUTED
+		local cachedLevel = 0
+	
+		local function updateMicIcon(state, level)
+			if state == cachedMicState and level == cachedLevel then
+				return
+			end
+	
+			cachedMicState = state
+			cachedLevel = level
+	
+			if state == VoiceChatServiceManager.VOICE_STATE.MUTED then
+				micIcon.Size = UDim2.fromOffset(32, 32)
+				micIcon.Image = MIC_OFF_IMAGE.Image
+				micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
+				micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
+			else
+				local icon = VoiceChatServiceManager:VoiceStateToIcon(state, level, "New")
+				micIcon.Size = UDim2.fromOffset(16, 20)
+				micIcon.Image = icon
+				micIcon.ImageRectOffset = Vector2.new(0, 0)
+				micIcon.ImageRectSize = Vector2.new(0, 0)
+			end
+		end
+
+		local voiceIndicatorRenderSteppedBound = false
+		local function updateVoiceIndicatorRenderStepped(isMuted)
+			if isMuted then
+				if voiceIndicatorRenderSteppedBound then
+					RunService:UnbindFromRenderStep("SelfViewVoiceIndicatorRenderStepped")
+					voiceIndicatorRenderSteppedBound = false
+				end
+			else
+				if not voiceIndicatorRenderSteppedBound then
+					-- Generate a fake volume level for now
+					RunService:BindToRenderStep("SelfViewVoiceIndicatorRenderStepped", Enum.RenderPriority.First.Value + 1, function()
+						updateMicIcon(cachedMicState, math.random())
+					end)
+					voiceIndicatorRenderSteppedBound = true
+				end
+			end
+		end
+
+		VoiceChatServiceManager.talkingChanged.Event:Connect(function(isTalking)
+			if isTalking then
+				updateMicIcon(VoiceChatServiceManager.VOICE_STATE.TALKING, cachedLevel)
+			else
+				updateMicIcon(VoiceChatServiceManager.VOICE_STATE.INACTIVE, cachedLevel)
+			end
+		end)
+
+		VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+			updateVoiceIndicatorRenderStepped(muted)
+			debugPrint("Self View: VoiceChatServiceManager.muteChanged.Event, muted: " .. tostring(muted))
+			local voiceState = muted and VoiceChatServiceManager.VOICE_STATE.MUTED or VoiceChatServiceManager.VOICE_STATE.INACTIVE
+			updateMicIcon(voiceState, cachedLevel)
+		end)
+
+		VoiceChatServiceManager:asyncInit()
+			:andThen(function()
+				local voiceService = VoiceChatServiceManager:getService()
+				if voiceService then
+					voiceService.StateChanged:Connect(function(_oldState, newState)
+						local voiceManagerState = LOCAL_STATE_MAP[newState]
+						if voiceManagerState then
+							updateMicIcon(voiceManagerState, cachedLevel)
+						end
+					end)
+				end
+			end)
+			:catch(function()
+				if GetFFlagVoiceChatUILogging() then
+					log:warning("Failed to init VoiceChatServiceManager")
+				end
+			end)
+		end
+	end
+
+local vCInitialized = false
 -- Check that the user's device has given Roblox mic and camera permissions.
 function getPermissions()
 	debugPrint("Self View: getPermissions()")
@@ -262,6 +349,11 @@ function getPermissions()
 		hasCameraPermissions = response.hasCameraPermissions
 		hasMicPermissions = response.hasMicPermissions
 		updateSelfViewButtonVisibility()
+
+		if hasMicPermissions and not vCInitialized then
+			initVoiceChatServiceManager()
+			vCInitialized = true
+		end
 	end
 	getCamMicPermissions(callback)
 end
@@ -413,9 +505,15 @@ local function createViewport()
 		frame:Destroy()
 	end
 
+	local inExperienceCoreGui = Instance.new("ScreenGui")
+	inExperienceCoreGui.Name = "InExperienceCoreGui"
+	inExperienceCoreGui.Parent = CoreGui
+	--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
+	inExperienceCoreGui.DisplayOrder = -2
+
 	frame = Instance.new("Frame")
 	frame.Name = SELF_VIEW_NAME
-	frame.Parent = RobloxGui
+	frame.Parent = inExperienceCoreGui
 	--setting frame active so one doesn't accidentally use mobile touch dpad or cam controls on mobile while dragging Self View around
 	frame.Active = true
 	--setting frame size before setting it's position since the size is used in dragging position restrict to screen size evaluation
@@ -504,8 +602,6 @@ local function createViewport()
 		if voiceService and hasMicPermissions then
 			VoiceChatServiceManager:ToggleMic()
 			Analytics:setLastCtx("SelfView")
-		elseif not FFlagSelfViewMicAddStatusIndicators then
-			updateAudioButton(false)
 		end
 	end)
 
@@ -794,126 +890,6 @@ function toggleIndicator(mode)
 	end
 end
 
--- Remove with FFlagSelfViewMicAddStatusIndicators
-function updateAudioButton(enabled)
-	if enabled then
-		if micIcon then
-			micIcon.Image = MIC_IMAGE.Image
-			micIcon.ImageRectOffset = MIC_IMAGE.ImageRectOffset
-			micIcon.ImageRectSize = MIC_IMAGE.ImageRectSize
-		end
-	else
-		if micIcon then
-			micIcon.Image = MIC_OFF_IMAGE.Image
-			micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
-			micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
-		end
-	end
-end
-
-
-if FFlagSelfViewMicAddStatusIndicators then
-	do
-		local cachedMicState = VoiceChatServiceManager.VOICE_STATE.MUTED
-		local cachedLevel = 0
-
-		local function updateMicIcon(state, level)
-			if state == cachedMicState and level == cachedLevel then
-				return
-			end
-
-			cachedMicState = state
-			cachedLevel = level
-
-			if state == VoiceChatServiceManager.VOICE_STATE.MUTED then
-				micIcon.Size = UDim2.fromOffset(32, 32)
-				micIcon.Image = MIC_OFF_IMAGE.Image
-				micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
-				micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
-			else
-				local icon = VoiceChatServiceManager:VoiceStateToIcon(state, level, "New")
-				micIcon.Size = UDim2.fromOffset(16, 20)
-				micIcon.Image = icon
-				micIcon.ImageRectOffset = Vector2.new(0, 0)
-				micIcon.ImageRectSize = Vector2.new(0, 0)
-			end
-		end
-
-		local voiceIndicatorRenderSteppedBound = false
-		local function updateVoiceIndicatorRenderStepped(isMuted)
-			if isMuted then
-				if voiceIndicatorRenderSteppedBound then
-					RunService:UnbindFromRenderStep("SelfViewVoiceIndicatorRenderStepped")
-					voiceIndicatorRenderSteppedBound = false
-				end
-			else
-				if not voiceIndicatorRenderSteppedBound then
-					-- Generate a fake volume level for now
-					RunService:BindToRenderStep("SelfViewVoiceIndicatorRenderStepped", Enum.RenderPriority.First.Value + 1, function()
-						updateMicIcon(cachedMicState, math.random())
-					end)
-					voiceIndicatorRenderSteppedBound = true
-				end
-			end
-		end
-
-		VoiceChatServiceManager.talkingChanged.Event:Connect(function(isTalking)
-			if isTalking then
-				updateMicIcon(VoiceChatServiceManager.VOICE_STATE.TALKING, cachedLevel)
-			else
-				updateMicIcon(VoiceChatServiceManager.VOICE_STATE.INACTIVE, cachedLevel)
-			end
-		end)
-
-		VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-			updateVoiceIndicatorRenderStepped(muted)
-			debugPrint("Self View: VoiceChatServiceManager.muteChanged.Event, muted: " .. tostring(muted))
-			local voiceState = muted and VoiceChatServiceManager.VOICE_STATE.MUTED or VoiceChatServiceManager.VOICE_STATE.INACTIVE
-			updateMicIcon(voiceState, cachedLevel)
-		end)
-
-		local LOCAL_STATE_MAP = {
-			[(Enum::any).VoiceChatState.Joining] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
-			[(Enum::any).VoiceChatState.JoiningRetry] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
-			[(Enum::any).VoiceChatState.Joined] = VoiceChatServiceManager.VOICE_STATE.MUTED,
-			[(Enum::any).VoiceChatState.Leaving] = VoiceChatServiceManager.VOICE_STATE.MUTED,
-			[(Enum::any).VoiceChatState.Failed] = VoiceChatServiceManager.VOICE_STATE.ERROR,
-		}
-
-		if FFlagSelfViewCatchVCMInitFail then
-			VoiceChatServiceManager:asyncInit()
-				:andThen(function()
-					local voiceService = VoiceChatServiceManager:getService()
-					if voiceService then
-						voiceService.StateChanged:Connect(function(_oldState, newState)
-							local voiceManagerState = LOCAL_STATE_MAP[newState]
-							if voiceManagerState then
-								updateMicIcon(voiceManagerState, cachedLevel)
-							end
-						end)
-					end
-				end)
-				:catch(function()
-					if GetFFlagVoiceChatUILogging() then
-						log:warning("Failed to init VoiceChatServiceManager")
-					end
-				end)
-		else
-			VoiceChatServiceManager:asyncInit():andThen(function()
-				local voiceService = VoiceChatServiceManager:getService()
-				if voiceService then
-					voiceService.StateChanged:Connect(function(_oldState, newState)
-						local voiceManagerState = LOCAL_STATE_MAP[newState]
-						if voiceManagerState then
-							updateMicIcon(voiceManagerState, cachedLevel)
-						end
-					end)
-				end
-			end)
-		end
-	end
-end
-
 function showNoDynamicHeadInfoIfNeeded()
 	--show prompt when no facecontrols
 	if noDynamicHeadEquippedInfoShown then
@@ -1019,37 +995,11 @@ local onUpdateTrackerMode = function()
 			Analytics:reportCamState(newReportedCamState)
 			lastReportedCamState = newReportedCamState
 		end
-
-		if not FFlagSelfViewMicAddStatusIndicators then
-			local audioEnabled = false
-			local voiceService = VoiceChatServiceManager:getService()
-			if voiceService and VoiceChatServiceManager.localMuted ~= nil then
-				audioEnabled = not VoiceChatServiceManager.localMuted
-
-				if cachedAudioEnabled ~= audioEnabled then
-					local newReportedMicState = audioEnabled
-					if lastReportedMicState ~= newReportedMicState then
-						Analytics:reportMicState(newReportedMicState)
-						lastReportedMicState = newReportedMicState
-					end
-
-					updateAudioButton(audioEnabled)
-					cachedAudioEnabled = audioEnabled
-				end
-			end
-		end
 	end
 
 	cachedHasCameraPermissions = hasCameraPermissions
 	cachedHasMicPermissions = hasMicPermissions
 	cachedMode = currentTrackerMode
-end
-
-if not FFlagSelfViewMicAddStatusIndicators then
-	VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-		debugPrint("Self View: VoiceChatServiceManager.muteChanged.Event, muted: " .. tostring(muted))
-		updateAudioButton(not muted)
-	end)
 end
 
 local function clearObserver(observerId)
@@ -1111,7 +1061,6 @@ local function clearClone()
 	end
 
 	foundStreamTrack = nil
-	cachedAudioEnabled = nil
 	cachedMode = nil
 	cloneAnimator = nil
 	cloneAnimationTracks = {}
@@ -1904,42 +1853,38 @@ function startRenderStepped(player)
 	end)
 end
 
-if EngineFeatureFacialAnimationStreamingServiceUseV2 then
-	function triggerAnalyticsReportExperienceSettings(serviceState)
-		local experienceSettings_placeEnabled = FacialAnimationStreamingService:IsPlaceEnabled(serviceState)
-		--local experienceSettings_serverEnabled = FacialAnimationStreamingService:IsServerEnabled(serviceState) --this one is only for throttling, won't send for now
-		local experienceSettings_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(serviceState)
-		local experienceSettings_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(serviceState)
+function triggerAnalyticsReportExperienceSettings(serviceState)
+	local experienceSettings_placeEnabled = FacialAnimationStreamingService:IsPlaceEnabled(serviceState)
+	--local experienceSettings_serverEnabled = FacialAnimationStreamingService:IsServerEnabled(serviceState) --this one is only for throttling, won't send for now
+	local experienceSettings_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(serviceState)
+	local experienceSettings_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(serviceState)
 
-		Analytics:reportExperienceSettings(
-			experienceSettings_placeEnabled,
-			experienceSettings_videoEnabled,
-			experienceSettings_audioEnabled
-		)
+	Analytics:reportExperienceSettings(
+		experienceSettings_placeEnabled,
+		experienceSettings_videoEnabled,
+		experienceSettings_audioEnabled
+	)
 
-		--[[
-		--TODO: product decision to be made whether we won't show Self View if not voice or video on for experience, if so, comment this in
-		if EngineFeatureFacialAnimationStreamingServiceUseV2 then
-			if not experienceSettings_placeEnabled and not experienceSettings_videoEnabled and not experienceSettings_audioEnabled and not IS_STUDIO and not debug then
-				showSelfView(false)
-			end
+	--[[
+	--TODO: product decision to be made whether we won't show Self View if not voice or video on for experience, if so, comment this in
+	if not experienceSettings_placeEnabled and not experienceSettings_videoEnabled and not experienceSettings_audioEnabled and not IS_STUDIO and not debug then
+		showSelfView(false)
+	end
+	]]
+end
+
+function triggerAnalyticsReportUserAccountSettings(userId)
+	return Promise.new(function(resolve, reject)
+		local ok, state =
+			pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
+
+		if ok then
+			local userAccount_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(state)
+			local userAccount_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(state)
+
+			Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
 		end
-		]]
-	end
-
-	function triggerAnalyticsReportUserAccountSettings(userId)
-		return Promise.new(function(resolve, reject)
-			local ok, state =
-				pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
-
-			if ok then
-				local userAccount_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(state)
-				local userAccount_audioEnabled = FacialAnimationStreamingService:IsAudioEnabled(state)
-
-				Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
-			end
-		end)
-	end
+	end)
 end
 
 function Initialize(player)
@@ -1951,16 +1896,14 @@ function Initialize(player)
 		return
 	end
 
-	if EngineFeatureFacialAnimationStreamingServiceUseV2 then
-		-- Listen for service state (info whether enabled for place/experience)
-		serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState")
-			:Connect(function()
-				triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
-			end)
+	-- Listen for service state (info whether enabled for place/experience)
+	serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState")
+	:Connect(function()
 		triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
+	end)
+	triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
 
-		triggerAnalyticsReportUserAccountSettings(player.UserId)
-	end
+	triggerAnalyticsReportUserAccountSettings(player.UserId)
 
 	getPermissions()
 	createViewport()

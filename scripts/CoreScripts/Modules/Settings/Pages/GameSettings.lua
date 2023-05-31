@@ -1867,7 +1867,7 @@ local function Initialize()
 			GameSettings.MouseSensitivityThirdPerson = newVectorValue
 		end
 
-		if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+		if GetFFlagEnableExplicitSettingsChangeAnalytics() and typeof(oldValue) == "number" and typeof(newValue) == "number" then
 			reportSettingsChangeForAnalytics('camera_sensitivity', tonumber(string.format("%.2f", oldValue)), tonumber(string.format("%.2f", newValue)), {
 				sensitivity_type = sensitivityType
 			})

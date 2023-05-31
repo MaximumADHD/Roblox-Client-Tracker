@@ -76,7 +76,7 @@ function RecordingIndicator:render()
 	return Roact.createElement("TextLabel", {
 		Text = if self.props.micOn then MicOn else MicOff,
 		AutomaticSize = Enum.AutomaticSize.XY,
-		Visible = true,
+		Visible = self.props.hasMicPermissions,
 		TextSize = if self.props.isSmallTouchScreen then 10 else 12,
 		Font = Enum.Font.GothamMedium,
 		TextXAlignment = Enum.TextXAlignment.Left,

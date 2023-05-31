@@ -6,7 +6,6 @@
 ]]
 
 local FORCE_IS_CONSOLE = false
-local FORCE_IS_VR = false
 
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -24,8 +23,6 @@ local ClassicChatEnabled = Players.ClassicChat
 local BubbleChatEnabled = Players.BubbleChat
 
 local VRService = game:GetService("VRService")
-
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 local useModule = nil
 
@@ -154,9 +151,8 @@ local function ConnectSignals(useModule, interface, sigName)
 end
 
 local isConsole = GuiService:IsTenFootInterface() or FORCE_IS_CONSOLE
-local isVR = UserInputService.VREnabled or FORCE_IS_VR
 
-if ( not isConsole and (not isVR or EngineFeatureEnableVRUpdate3)) then
+if (not isConsole) then
 	coroutine.wrap(function()
 		useModule = require(RobloxGui.Modules.NewChat)
 

@@ -27,7 +27,13 @@ local getVoiceCameraAccountSettings = require(CoreGui.RobloxGui.Modules.Settings
 local getPlaceVoiceCameraEnabled = require(CoreGui.RobloxGui.Modules.Settings.getPlaceVoiceCameraEnabled)
 local Promise = require(CorePackages.Promise)
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
+local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
+
 local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+-- Defaulting to true since this file is behind another flag.
+local FFlagAvatarChatLuaCameraToast = game:DefineFastFlag("AvatarChatLuaCameraToast", true)
 
 type Table = { [any]: any }
 type Array<T> = { T }
@@ -114,6 +120,11 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 					hasCameraPermissions = hasCameraPermissions,
 					hasMicPermissions = hasMicPermissions,
 				}
+
+				-- Remove with AVBURST-12354 once the C++ side fixes this.
+				if FFlagAvatarChatLuaCameraToast and checkingCamera and not hasCameraPermissions then
+					TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
+				end
 
 				callback(response)
 				inProgress = false

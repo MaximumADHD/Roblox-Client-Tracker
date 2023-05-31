@@ -17,7 +17,7 @@ local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
+local FFlagVRShowUIOnGuiSelection = game:DefineFastFlag("VRShowUIOnGuiSelection", false)
 
 if not VRService.VREnabled then
 	warn("UserGui should not be required while not in VR")
@@ -53,18 +53,15 @@ userGuiPanel:SetVisible(false)
 local userGuiTimeout = 0
 
 -- new panel that is semi-attached to the camera orientation
-local plPanel = nil
-if EngineFeatureEnableVRUpdate3 then
-	plPanel = Panel3D.Get("PositionLocked")
-	plPanel:SetType(Panel3D.Type.PositionLocked)
-	-- This panel doesn't use a SurfaceGui, so it doesn't need raycasts to interact with it.
-	-- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.
-	plPanel:GetPart().CanQuery = false
+local plPanel = Panel3D.Get("PositionLocked")
+plPanel:SetType(Panel3D.Type.PositionLocked)
+-- This panel doesn't use a SurfaceGui, so it doesn't need raycasts to interact with it.
+-- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.
+plPanel:GetPart().CanQuery = false
 
-	plPanel:ResizeStuds(newPanelSize.x, newPanelSize.y, 128)
-	plPanel:SetVisible(false)
-	plPanel.showCursor = true
-end
+plPanel:ResizeStuds(newPanelSize.x, newPanelSize.y, 128)
+plPanel:SetVisible(false)
+plPanel.showCursor = true
 
 VRHub.ModuleOpened.Event:connect(function(moduleName)
 	if moduleName ~= UserGuiModule.ModuleName then
@@ -80,12 +77,8 @@ local GuiVisible = false
 
 function UserGuiModule:SetVisible(visible, panel)
 	GuiVisible = visible
-	if EngineFeatureEnableVRUpdate3 then
-		if panel then
-			panel:SetVisible(GuiVisible)
-		end
-	else 
-		userGuiPanel:SetVisible(visible)
+	if panel then
+		panel:SetVisible(GuiVisible)
 	end
 	
 	if GuiVisible then
@@ -96,11 +89,7 @@ function UserGuiModule:SetVisible(visible, panel)
 
 	-- We need to hide the UserGui when typing on the keyboard so that the textbox doesn't sink events from the keyboard
 	local showGui = GuiVisible and not KeyboardOpen
-	if EngineFeatureEnableVRUpdate3 then
-		CoreGui:SetUserGuiRendering(true, showGui and panel and panel:GetPart() or nil, Enum.NormalId.Front)
-	else
-		CoreGui:SetUserGuiRendering(true, showGui and userGuiPanel and userGuiPanel:GetPart() or nil, Enum.NormalId.Front)
-	end
+	CoreGui:SetUserGuiRendering(true, showGui and panel and panel:GetPart() or nil, Enum.NormalId.Front)
 end
 
 
@@ -115,133 +104,86 @@ end
 -- this function picks the target UI panel based on the setup/controls
 local function onGuiSelection()
 	-- we are using a expanding/collapsing panel that is following the camera orientation
-	if EngineFeatureEnableVRUpdate3 then
-		-- make sure the right laser pointer hand is set
-		VRHub.LaserPointer:updateInputUserCFrame()
+	-- make sure the right laser pointer hand is set
+	VRHub.LaserPointer:updateInputUserCFrame()
 
-		if VRHub.ShowTopBar then
-			UserGuiModule:SetVisible(true, plPanel) -- UI interactive on wrist
-			plPanel.initialCFLerp = 1
-			plPanel:ForcePositionUpdate(true)
-			plPanel.distance = 2.5
+	if VRHub.ShowTopBar then
+		UserGuiModule:SetVisible(true, plPanel) -- UI interactive on wrist
+		plPanel.initialCFLerp = 1
+		plPanel:ForcePositionUpdate(true)
+		plPanel.distance = 2.5
 
-			if not vrMenuOpen then
-				plPanel:StartLerp(newPanelSize)
-				vrMenuOpen = true
-			end
-		else -- interaction off
-			plPanel:StartLerp(newPanelSize * 0.25)
-			UserGuiModule:SetVisible(false, plPanel)
-
-			GuiService.SelectedObject = nil
-			vrMenuOpen = false
+		if not vrMenuOpen then
+			plPanel:StartLerp(newPanelSize)
+			vrMenuOpen = true
 		end
+	else -- interaction off
+		plPanel:StartLerp(newPanelSize * 0.25)
+		UserGuiModule:SetVisible(false, plPanel)
+
+		GuiService.SelectedObject = nil
+		vrMenuOpen = false
 	end
 end 
 
-if EngineFeatureEnableVRUpdate3 then
-	VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
-	GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
-	VRService.UserCFrameEnabled:Connect(onGuiSelection)
-	GuiService.PurchasePromptShown:Connect(function()
-		-- Purchase prompt pops up while UI is hidden should force UI to show up
+VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
+GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
+VRService.UserCFrameEnabled:Connect(onGuiSelection)
+GuiService.PurchasePromptShown:Connect(function()
+	-- Purchase prompt pops up while UI is hidden should force UI to show up
+	if not VRHub.ShowTopBar then
+		VRHub:SetShowTopBar(true)
+	end
+end)
+
+if FFlagVRShowUIOnGuiSelection then
+	local function onGuiSelectedObjectChanged(newObject)
+		if (GuiService.SelectedObject or GuiService.SelectedCoreObject) and not VRHub.ShowTopBar then
+			VRHub:SetShowTopBar(true)
+		end
+		GuiService.SelectedObject = nil
+		GuiService.SelectedCoreObject = nil
+	end
+
+	GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(onGuiSelectedObjectChanged)
+	GuiService:GetPropertyChangedSignal("SelectedObject"):Connect(onGuiSelectedObjectChanged)
+end
+
+local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+local function handleAction(actionName, inputState, inputObject)
+	if actionName == "OpenVRMenu" and inputState == Enum.UserInputState.Begin then
+		if not VRHub.ShowTopBar then
+			VRHub:SetShowTopBar(true)
+
+			AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-On")
+		else
+			VRHub:SetShowTopBar(false)
+			InGameMenu.closeInGameMenu()
+
+			AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-Off")
+		end
+	end
+
+	if actionName == "OpenIGMenu" and inputState == Enum.UserInputState.Begin then
 		if not VRHub.ShowTopBar then
 			VRHub:SetShowTopBar(true)
 		end
-	end)
 
-	local InGameMenu = require(RobloxGui.Modules.InGameMenu)
-	local function handleAction(actionName, inputState, inputObject)
-		if actionName == "OpenVRMenu" and inputState == Enum.UserInputState.Begin then
-			if not VRHub.ShowTopBar then
-				VRHub:SetShowTopBar(true)
-
-				AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-On")
-			else
-				VRHub:SetShowTopBar(false)
-				InGameMenu.closeInGameMenu()
-
-				AnalyticsService:ReportCounter("VR-BindAction-ToggleGui-Off")
-			end
-		end
-
-		if actionName == "OpenIGMenu" and inputState == Enum.UserInputState.Begin then
-			if not VRHub.ShowTopBar then
-				VRHub:SetShowTopBar(true)
-			end
-
-			if not InGameMenu.getOpen() then
-				InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
-			end
+		if not InGameMenu.getOpen() then
+			InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 		end
 	end
-	ContextActionService:BindAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
-	ContextActionService:BindAction("OpenIGMenu", handleAction, false, Enum.KeyCode.ButtonStart)
 end
+ContextActionService:BindAction("OpenVRMenu", handleAction, false, Enum.KeyCode.ButtonSelect)
+ContextActionService:BindAction("OpenIGMenu", handleAction, false, Enum.KeyCode.ButtonStart)
 
 local function OnVREnabledChanged()
 	if not VRService.VREnabled then
 		userGuiPanel:SetVisible(false)
 		CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front)
 	else
-		if EngineFeatureEnableVRUpdate3 then
-			UserGuiModule:SetVisible(false, userGuiPanel)
-			UserGuiModule:SetVisible(true, plPanel)
-		else
-			-- this function picks the target UI panel based on the setup/controls
-			local function onGuiSelection()
-				-- make sure the right laser pointer hand is set
-				VRHub.LaserPointer:updateInputUserCFrame()
-
-				-- the new VR System using a wand instead of the gamepad to interact with the 2D UI on a 3D panel
-				if VRHub.ShowTopBar then
-					UserGuiModule:SetVisible(true) -- UI fixed in front of camera
-				else -- interaction off
-					UserGuiModule:SetVisible(false) 
-					CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front) -- go back to "normal" ui rendering
-				end
-			end
-
-			VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
-			GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
-			VRService.UserCFrameEnabled:Connect(onGuiSelection)
-			GuiService.PurchasePromptShown:Connect(function()
-				-- Purchase prompt pops up while UI is hidden should force UI to show up
-				if not VRHub.ShowTopBar then
-					VRHub:SetShowTopBar(true)
-				end
-			end)
-
-			RunService.RenderStepped:Connect(function(step)
-				if userGuiPanel.isVisible and userGuiPanel.isLookedAt then
-					userGuiTimeout = 0.5
-				end
-
-				if not (userGuiPanel.isVisible and userGuiPanel.isLookedAt) then
-					if userGuiTimeout > 0 then
-						userGuiTimeout -= step
-					else
-						GuiService:SetMenuIsOpen(false, VR_MENU_KEY)
-					end
-				end
-
-				VRHub:SetShowTopBar(GuiService.MenuIsOpen)
-			end)
-
-			local function handleAction(actionName, inputState, inputObject)
-				if actionName == "VrOpenMenu" and inputState == Enum.UserInputState.Begin then
-					if GuiService.MenuIsOpen == false then
-						GuiService:SetMenuIsOpen(true, VR_MENU_KEY)
-						userGuiTimeout = 1
-					else
-						GuiService:SetMenuIsOpen(false, VR_MENU_KEY)
-						GuiService.SelectedObject = nil
-					end
-				end
-			end
-			ContextActionService:BindCoreAction("VrOpenMenu", handleAction, false, Enum.KeyCode.ButtonStart, Enum.KeyCode.ButtonSelect)
-		end
-		
+		UserGuiModule:SetVisible(false, userGuiPanel)
+		UserGuiModule:SetVisible(true, plPanel)		
 		VRHub:SetShowTopBar(true)
 	end
 end
@@ -258,17 +200,11 @@ VRKeyboard.ClosedEvent:connect(function()
 	UserGuiModule:Update()
 end)
 
-if EngineFeatureEnableVRUpdate3 then
-	VRHub:SetShowTopBar(true)
-	onGuiSelection()
-end
+VRHub:SetShowTopBar(true)
+onGuiSelection()
 
 function UserGuiModule:getPanel()
-	if EngineFeatureEnableVRUpdate3 then
-		return plPanel
-	else
-		return userGuiPanel
-	end
+	return plPanel
 end
 
 return UserGuiModule

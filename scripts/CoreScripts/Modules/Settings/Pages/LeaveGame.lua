@@ -23,7 +23,6 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 
 ------------ Variables -------------------
@@ -31,7 +30,6 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local GetFFlagEnableSurveyImprovements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSurveyImprovements
 
@@ -56,8 +54,8 @@ local function Initialize()
 		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
 											Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
 
-		if GetFFlagEnableSurveyImprovements() then 
-			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})	
+		if GetFFlagEnableSurveyImprovements() then
+			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})
 		end
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
@@ -99,9 +97,6 @@ local function Initialize()
 	this.ShouldShowHubBar = false
 
 	local leaveGameConfirmationText = "Are you sure you want to leave the experience?"
-	if FFlagUpdateSettingsHubGameText then
-		leaveGameConfirmationText = RobloxTranslator:FormatByKey("InGame.HelpMenu.ConfirmLeaveGame")
-	end
 
 	local leaveGameText =  utility:Create'TextLabel'
 	{

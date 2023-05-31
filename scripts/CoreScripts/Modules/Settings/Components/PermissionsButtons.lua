@@ -278,6 +278,7 @@ function PermissionsButtons:render()
 		Divider2 = createDivider(5),
 		RecordingIndicator = Roact.createElement(RecordingIndicator, {
 			micOn = self.state.microphoneEnabled,
+			hasMicPermissions = self.state.hasMicPermissions,
 			isSmallTouchScreen = self.props.isSmallTouchScreen,
 		}),
 		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {

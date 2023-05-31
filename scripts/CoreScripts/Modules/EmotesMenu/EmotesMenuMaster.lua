@@ -9,8 +9,6 @@ local StarterGui = game:GetService("StarterGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-
 -- Wait for LocalPlayer to exist
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -152,9 +150,7 @@ end
 
 function EmotesMenuMaster:_onNumberEmotesLoadedChanged(newNumberEmotesLoaded)
 	self.store:dispatch(NumberEmotesLoadedChanged(newNumberEmotesLoaded))
-	if EngineFeatureEnableVRUpdate3 then
-		self.EmotesLoaded:Fire(newNumberEmotesLoaded > 0)
-	end
+	self.EmotesLoaded:Fire(newNumberEmotesLoaded > 0)
 end
 
 function EmotesMenuMaster:_onHumanoidDescriptionChanged(humanoidDescription)

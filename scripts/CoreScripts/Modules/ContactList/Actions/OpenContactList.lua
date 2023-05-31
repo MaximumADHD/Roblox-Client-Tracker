@@ -2,6 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 
 local Action = require(CorePackages.AppTempCommon.Common.Action)
 
-return Action(script.Name, function()
-	return {}
+return Action(script.Name, function(tag)
+	return {
+		tag = tag,
+	}
 end)

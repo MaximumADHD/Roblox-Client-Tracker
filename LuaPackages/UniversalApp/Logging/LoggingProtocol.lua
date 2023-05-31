@@ -5,7 +5,6 @@ local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local Types = require(script.Parent.LoggingProtocolTypes)
-local FFlagLoggingProtocolUseCallOnce = game:DefineFastFlag("LoggingProtocolUseCallOnce", false)
 local callOnce = require(CorePackages.Workspace.Packages.AppCommonLib).callOnce
 
 type MessageBus = MessageBusPackage.MessageBus
@@ -133,16 +132,9 @@ end
 function LoggingProtocol:logEventOnce(eventName: string, metadata: Table?): ()
 	ArgCheck.isType(eventName, "string", "eventName")
 
-	if FFlagLoggingProtocolUseCallOnce then
-		callOnce(string.format("logging_protocol_key-%s", eventName), function()
-			self:logEvent(eventName, metadata)
-		end)
-	else
-		if loggedOnce[eventName] == nil then
-			loggedOnce[eventName] = true
-			self:logEvent(eventName, metadata)
-		end
-	end	
+	callOnce(string.format("logging_protocol_key-%s", eventName), function()
+		self:logEvent(eventName, metadata)
+	end)
 end
 
 -- timestamp is ms

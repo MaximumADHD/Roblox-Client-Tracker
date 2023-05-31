@@ -8,7 +8,7 @@
 local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 
 local CONTEXT_ACTION_NAME = "MouseLockSwitchAction"
-local MOUSELOCK_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
+local MOUSELOCK_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")

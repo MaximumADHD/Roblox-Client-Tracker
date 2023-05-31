@@ -69,15 +69,16 @@ local function CallBar(passedProps: Props)
 	local callStatus = useSelector(selectCallStatus)
 
 	local selectOtherEndParticipant = React.useCallback(function(state: any)
-		if state.Call.currentCall then
-			for _, participant in pairs(state.Call.currentCall.participants) do
-				if localUserId ~= participant.userId then
-					return participant
-				end
+		local currentCall = state.Call.currentCall
+		if currentCall then
+			if localUserId == currentCall.callerId then
+				return { userId = currentCall.calleeId, displayName = currentCall.calleeDisplayName }
+			else
+				return { userId = currentCall.callerId, displayName = currentCall.callerDisplayName }
 			end
 		end
 
-		return nil
+		return nil :: any
 	end)
 	local otherEndParticipant = useSelector(selectOtherEndParticipant)
 

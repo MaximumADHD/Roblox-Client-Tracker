@@ -22,13 +22,6 @@ local MAX_COREGUI_CONNECTION_ATTEMPTS = 10
 local ClientChatModules = ChatService:WaitForChild("ClientChatModules")
 local ChatSettings = require(ClientChatModules:WaitForChild("ChatSettings"))
 
-local FFlagUserFlagEnableVRUpdate3 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableVRUpdate3")
-	end)
-	FFlagUserFlagEnableVRUpdate3 = success and result
-end
-
 local function DoEverything()
 	local Chat = require(script:WaitForChild("ChatMain"))
 
@@ -146,7 +139,7 @@ function checkBothChatTypesDisabled()
 	return false
 end
 
-if (not GuiService:IsTenFootInterface()) and (not game:GetService('UserInputService').VREnabled or FFlagUserFlagEnableVRUpdate3) then
+if (not GuiService:IsTenFootInterface()) then
 	if not checkBothChatTypesDisabled() then
 		DoEverything()
 	else

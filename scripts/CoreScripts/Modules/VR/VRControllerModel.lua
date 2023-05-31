@@ -12,7 +12,6 @@ local RiftController 	= require(RobloxGui.Modules.VR.Controllers.RiftController)
 local IndexController 	= require(RobloxGui.Modules.VR.Controllers.IndexController)
 local VRUtil			= require(RobloxGui.Modules.VR.VRUtil)
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local FFlagVREnableTouchControllerModels = require(RobloxGui.Modules.Flags.FFlagVREnableTouchControllerModels)
 
 local LocalPlayer = Players.LocalPlayer
@@ -29,7 +28,7 @@ function VRControllerModel.new(userCFrame)
 	self.userCFrame = userCFrame
 	self.enabled = false
 	self.currentModel = nil
-	self.currentVRDeviceName = EngineFeatureEnableVRUpdate3 and VRService.VRDeviceName or nil
+	self.currentVRDeviceName = VRService.VRDeviceName
 	self.modelIsInWorkspace = false
 
 	self.onVRDeviceChangedConn = nil
@@ -69,28 +68,6 @@ function VRControllerModel:createControllerModel()
 	end
 end
 
-function VRControllerModel:setModelType(vrDeviceName)
-	if not EngineFeatureEnableVRUpdate3 and vrDeviceName ~= self.currentVRDeviceName then
-		self.currentVRDeviceName = vrDeviceName
-
-		if self.currentModel then
-			self.currentModel:destroy()
-			self.currentModel = nil
-		end
-		if self.currentVRDeviceName:match("Vive") then
-			self.currentModel = ViveController.new(self.userCFrame)
-		elseif self.currentVRDeviceName:match("Oculus") then
-			--todo: add an Oculus touch controller model
-			--self.currentModel = OculusTouchController.new(self.userCFrame)
-		end
-
-		--If the controller is enabled, put the model into the workspace
-		if self.enabled then
-			self:setModelInWorkspace(VRService:GetUserCFrameEnabled(self.userCFrame))
-		end
-	end
-end
-
 -- sets currentModel based on VRDeviceName
 function VRControllerModel:setCurrentModel()
 	-- if current model, remove from workspace (but not destroyed)
@@ -116,26 +93,14 @@ function VRControllerModel:setModelInWorkspace(inWorkspace)
 
 	if inWorkspace ~= self.modelIsInWorkspace then
 		self.modelIsInWorkspace = inWorkspace
-		if EngineFeatureEnableVRUpdate3 then
-			if self.currentModel.model then
-				if self.modelIsInWorkspace then
-					self.currentModel.model.Parent = workspace
-				else
-					self.currentModel.model.Parent = nil
-				end
-			else
-				self.currentModel:setInWorkspace(inWorkspace)
-			end
-		else
+		if self.currentModel.model then
 			if self.modelIsInWorkspace then
-				local camera = workspace.CurrentCamera
-				local folder = camera:FindFirstChild("VRCoreEffectParts")
-				if folder then
-					self.currentModel.model.Parent = folder
-				end
+				self.currentModel.model.Parent = workspace
 			else
 				self.currentModel.model.Parent = nil
 			end
+		else
+			self.currentModel:setInWorkspace(inWorkspace)
 		end
 	end
 end
@@ -145,15 +110,7 @@ function VRControllerModel:setEnabled(enabled)
 		self.enabled = enabled
 		
 		if self.enabled then
-			if EngineFeatureEnableVRUpdate3 then
-				self:setCurrentModel()
-			else
-				--Connect events
-				self.onVRDeviceChangedConn = VRService:GetPropertyChangedSignal("VRDeviceName"):connect(function()
-					self:setModelType(VRService.VRDeviceName)
-				end)
-				self:setModelType(VRService.VRDeviceName)
-			end
+			self:setCurrentModel()
 
 			self.onCurrentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 				self:setModelInWorkspace(VRService:GetUserCFrameEnabled(self.userCFrame))

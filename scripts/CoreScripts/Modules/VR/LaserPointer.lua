@@ -16,9 +16,8 @@ local CorePackages = game:GetService("CorePackages")
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 require(RobloxGui.Modules.VR.Panel3D)
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-
 local FFlagVRFixCursorJitterLua = game:DefineFastFlag("VRFixCursorJitterLua", false)
+local FFlagVRLaserPointerOptimization = game:DefineFastFlag("VRLaserPointerOptimization", false)
 local ContextActionService = game:GetService("ContextActionService")
 
 local LocalPlayer = Players.LocalPlayer
@@ -193,15 +192,7 @@ LaserPointer.Mode = LaserPointerMode
 function LaserPointer.new(laserDistance)
 	local self = setmetatable({}, LaserPointer)
 
-	if EngineFeatureEnableVRUpdate3 then
-		self.laserMaxDistance = VRService.LaserDistance
-	else
-		if laserDistance then
-			self.laserMaxDistance = laserDistance
-		else
-			self.laserMaxDistance = LASER.MAX_DISTANCE
-		end
-	end
+	self.laserMaxDistance = VRService.LaserDistance
 
 	self.mode = LaserPointerMode.Disabled
 	self.lastMode = self.mode
@@ -418,6 +409,13 @@ function LaserPointer:onModeChanged(newMode)
 end
 
 function LaserPointer:setMode(mode)
+	if FFlagVRLaserPointerOptimization then
+		-- We no longer support navigation mode
+		if mode == LaserPointerMode.Navigation then
+			mode = LaserPointerMode.Pointer
+		end
+	end
+	
 	if mode == self.mode then
 		return
 	end
@@ -537,18 +535,6 @@ function LaserPointer:renderAsLaser(laserOriginPos, laserEndpoint)
 	self.parabola.Range = (laserEndpoint - laserOriginPos).magnitude
 end
 
-function LaserPointer:getArcHit(pos, look, ignore)
-	if self.parabola.A == 0 then
-		--Just skip the parabola since this is effectively a line without the x^2 term
-		return self:getLaserHit(pos, look, ignore)
-	end
-
-	self:renderAsParabola(pos, look)
-
-	local parabHitPart, parabHitPoint, parabHitNormal, _, t = self.parabola:FindPartOnParabola(ignore)
-	return parabHitPart, parabHitPoint, parabHitNormal, t
-end
-
 function LaserPointer:getLaserHit(pos, look, ignore)
 	local ray = Ray.new(pos, (look * self.laserMaxDistance))
 	local laserHitPart, laserHitPoint, laserHitNormal, laserHitMaterial = workspace:FindPartOnRayWithIgnoreList(
@@ -594,60 +580,6 @@ function LaserPointer:checkHeadMountedMode(laserHitPart)
 	else
 		self:setMode(LaserPointerMode.Navigation)
 	end
-end
-
-function LaserPointer:checkMode(originPos, parabHitPart, parabHitPoint, laserHitPart, laserHitPoint)
-	if self:shouldForcePointer() then
-		self:setMode(LaserPointerMode.Pointer)
-		return
-	end
-
-	local angleBetween = 0
-
-	--only check the angle between these two if the hit points aren't exactly equal
-	if parabHitPoint ~= laserHitPoint then
-		local toParabHit = (parabHitPoint - originPos).unit
-		local toLaserHit = (laserHitPoint - originPos).unit
-		angleBetween = math.acos(toParabHit:Dot(toLaserHit))
-	end
-
-	--todo: update this when we move the parts; also update it so that it can work with user surfaceguis
-	--we may need to be more creative about that since we can't easily tell if a part has a surfacegui from Lua
-	local coreGuiPartContainer = GuiService.CoreGuiFolder
-	local laserHitGui = laserHitPart
-	local parabHitGui = laserHitGui
-	--only check parab hit part if it's not the same as the laser hit part
-	if parabHitPart ~= laserHitPart then
-		parabHitGui = parabHitPart and parabHitPart:IsDescendantOf(coreGuiPartContainer)
-	end
-
-	local newMode = self.mode
-
-	if laserHitGui then
-		self.lastLaserModeHit = tick()
-	end
-
-	--If we are navigating and the parabola hits a gui part, we switch to laser pointer if the laser pointer is close enough
-	--If we are navigating and the laser hits a gui part, we switch to laser pointer regardless of where the parabola is
-	if self.mode ~= LaserPointerMode.Pointer and laserHitGui then
-		if self:isHeadMounted() or ((parabHitGui and angleBetween < LASER.SWITCH_AIM_THRESHOLD) or laserHitGui) then
-			newMode = LaserPointerMode.Pointer
-		end
-	end
-
-	--If we are in laser pointer mode but neither the parabola nor the laser hit any gui parts, we switch back to navigation or hidden mode.
-	if
-		self.mode == LaserPointerMode.Pointer
-		and not laserHitGui
-		and not parabHitGui
-		and tick() - self.lastLaserModeHit > 0.2
-	then
-		if self.lastMode == LaserPointerMode.Navigation or self.lastMode == LaserPointerMode.Hidden then
-			newMode = self.lastMode
-		end
-	end
-
-	self:setMode(newMode)
 end
 
 function LaserPointer:setNavigationValidState(valid)
@@ -802,7 +734,7 @@ function LaserPointer:updateCursor_DEPRECATED()
 	self.cursorSurfaceGui.Enabled = VRService.DidPointerHit
 end
 
-function LaserPointer:update(dt)
+function LaserPointer:update_DEPRECATED(dt)
 	if self.mode == LaserPointerMode.Disabled and not self.forceDotActive then
 		return
 	end
@@ -863,23 +795,19 @@ function LaserPointer:update(dt)
 
 		self:setArcLaunchParams(launchAngle, launchVelocity, gravity, desiredRange)
 
-		--Always check for both parabola and laser hits so we can use it to judge when to transition
-		local parabHitPart, parabHitPoint, parabHitNormal, parabHitT
-		if not EngineFeatureEnableVRUpdate3 then -- this work is done in-engine now
-			ignore[6] = GuiService.CoreGuiFolder
-			parabHitPart, parabHitPoint, parabHitNormal, parabHitT = self:getArcHit(originPos, originLook, ignore)
-		end
+		-- TODO: remove navigation mode and clean these up.
+		-- These values were received from a parabola arc cast.  We no longer support navigation mode so these won't be used.
+		local parabHitPart = nil
+		local parabHitPoint = nil
+		local parabHitNormal = nil
+		local parabHitT = nil
 
 		--Clear the gui folder out of our ignore table and cast so we might hit SurfaceGuis with the laser
 		ignore[6] = nil
 		local laserHitPart, laserHitPoint, laserHitNormal, laserHitT = self:getLaserHit(originPos, originLook, ignore)
 
-		if not EngineFeatureEnableVRUpdate3 then
-			self:checkMode(originPos, parabHitPart, parabHitPoint, laserHitPart, laserHitPoint)
-		else
-			if not self.forceDotActive then
-				self:setMode(LaserPointerMode.Pointer)
-			end
+		if not self.forceDotActive then
+			self:setMode(LaserPointerMode.Pointer)
 		end
 
 		if self.mode == LaserPointerMode.Navigation then
@@ -890,21 +818,19 @@ function LaserPointer:update(dt)
 			self.parabola.Thickness = LASER.ARC_THICKNESS
 			self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
 
-			if EngineFeatureEnableVRUpdate3 then
-				if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
-					self.parabola.Color3 = LASER.ARC_COLOR_BAD -- item equipped means RT action bound
-				end
+			if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+				self.parabola.Color3 = LASER.ARC_COLOR_BAD -- item equipped means RT action bound
+			end
 
-				if VRService.DidPointerHit then
-					if FFlagVRFixCursorJitterLua then
-						local laserLength = (VRService.PointerHitCFrame.Position - originPos).magnitude
-						laserHitPoint = originPos + originLook * laserLength
-					else
-						laserHitPoint = VRService.PointerHitCFrame.Position
-					end
+			if VRService.DidPointerHit then
+				if FFlagVRFixCursorJitterLua then
+					local laserLength = (VRService.PointerHitCFrame.Position - originPos).magnitude
+					laserHitPoint = originPos + originLook * laserLength
 				else
-					laserHitPoint = originPos + originLook * self.laserMaxDistance
+					laserHitPoint = VRService.PointerHitCFrame.Position
 				end
+			else
+				laserHitPoint = originPos + originLook * self.laserMaxDistance
 			end
 
 			self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
@@ -918,6 +844,43 @@ function LaserPointer:update(dt)
 			end
 		end
 	end
+end
+
+function LaserPointer:update(dt)
+	if not FFlagVRLaserPointerOptimization then
+		self:update_DEPRECATED(dt)
+		return
+	end
+
+	if self.mode ~= LaserPointerMode.Pointer then
+		return
+	end
+
+	self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
+
+	if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+		self.parabola.Color3 = LASER.ARC_COLOR_BAD -- item equipped means RT action bound
+	else
+		self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
+	end
+
+	local originCFrame = VRUtil.GetUserCFrameWorldSpace(self.inputUserCFrame)
+	local originPos, originLook = originCFrame.p, originCFrame.lookVector
+
+	local laserHitPoint
+
+	if VRService.DidPointerHit then
+		local laserLength = (VRService.PointerHitCFrame.Position - originPos).magnitude
+		laserHitPoint = originPos + originLook * laserLength
+	else
+		laserHitPoint = originPos + originLook * self.laserMaxDistance
+	end
+
+	if self:isHeadMounted() then
+		originPos = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
+	end
+
+	self:renderAsLaser(originPos, laserHitPoint)
 end
 
 return LaserPointer

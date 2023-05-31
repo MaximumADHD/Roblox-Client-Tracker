@@ -741,14 +741,19 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 	local function showPrompt()
 		local userEligible = GetFFlagEnableVoiceMicPromptToastFix() and self.userEligible
 		if self.voiceEnabled or userEligible then
-			return self.PermissionsService:hasPermissions({
-				PermissionsProtocol.Permissions.MICROPHONE_ACCESS
-			}):andThen(function (permissionResponse)
-				if permissionResponse and
-					permissionResponse.status == PermissionsProtocol.Status.DENIED then
-					self:showPrompt(VoiceChatPromptType.Permission)
-				end
-			end)
+			-- we already checked and requested permissions above. If we got here then Mic permissions were denied.
+			if FFlagAvatarChatCoreScriptSupport then
+				self:showPrompt(VoiceChatPromptType.Permission)
+			else
+				return self.PermissionsService:hasPermissions({
+					PermissionsProtocol.Permissions.MICROPHONE_ACCESS
+				}):andThen(function (permissionResponse)
+					if permissionResponse and
+						permissionResponse.status == PermissionsProtocol.Status.DENIED then
+						self:showPrompt(VoiceChatPromptType.Permission)
+					end
+				end)
+			end
 		end
 		return Promise.resolve()
 	end

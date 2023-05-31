@@ -11,6 +11,7 @@ local OpenCallDetails = require(script.Parent.Parent.Actions.OpenCallDetails)
 
 return Rodux.createReducer({
 	currentPage = nil,
+	currentTag = "",
 	callDetailParticipants = nil,
 }, {
 	[OpenCallDetails.name] = function(state, action)
@@ -21,18 +22,29 @@ return Rodux.createReducer({
 	end,
 	[CloseCallDetails.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			currentPage = Pages.CallerList,
+			currentPage = Pages.CallHistory,
 			callDetailParticipants = Cryo.None,
 		})
 	end,
 	[OpenContactList.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			currentPage = Pages.CallerList,
+			currentPage = Pages.FriendList,
+			currentTag = action.tag,
 		})
 	end,
 	[CloseContactList.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			currentPage = Cryo.None,
+			currentTag = "",
 		})
 	end,
+} :: {
+	[string]: (
+		string,
+		any
+	) -> {
+		currentPage: Pages.PagesType | nil,
+		currentTag: string,
+		callDetailParticipants: {} | nil,
+	},
 })

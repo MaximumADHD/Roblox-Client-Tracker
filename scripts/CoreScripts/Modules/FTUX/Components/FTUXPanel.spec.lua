@@ -11,7 +11,9 @@ return function()
 	local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
 	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
-	local PlatformEnum = require(script.Parent.Parent.Enums.PlatformEnum)
+	local FTUX = RobloxGui.Modules.FTUX
+	local MockFTUXStyleAndLocalization = require(FTUX.Utility.MockFTUXStyleAndLocalizationComponent)
+	local PlatformEnum = require(FTUX.Enums.PlatformEnum)
 	type Platform = PlatformEnum.Platform
 
 	local appStyle = {
@@ -21,21 +23,12 @@ return function()
 
 	describe("FTUXPanel", function()
 		it("should create and destroy without errors for QuestVR", function()
-			local FTUX = RobloxGui.Modules.FTUX
 			local FTUXPanel = require(FTUX.Components.FTUXPanel)
 
-			local ftuxTree = Roact.createElement(LocalizationProvider, {
-				localization = Localization.new(LocalizationService.RobloxLocaleId),
-			}, {
-				Roact.createElement("ScreenGui", {}, {
-					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-						style = appStyle,
-					}, {
-						FtuxPanel = Roact.createElement(FTUXPanel, {
-							platform = PlatformEnum.QuestVR,
-						}, {}),
-					}),
-				}),
+			local ftuxTree = MockFTUXStyleAndLocalization({
+				FtuxPanel = Roact.createElement(FTUXPanel, {
+					platform = PlatformEnum.QuestVR,
+				}, {}),
 			})
 
 			local instance = Roact.mount(ftuxTree, CoreGui, "FTUXMenu")

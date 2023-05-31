@@ -17,9 +17,9 @@ local GamepadService = game:GetService("GamepadService")
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 local CorePackages = game:GetService("CorePackages")
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local GetFFlagUIBloxVRFixUIJitter =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
+local FFlagVRFreeUIPanel = game:DefineFastFlag("VRFreeUIPanel", false)
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -231,7 +231,11 @@ function Panel.new(name)
 	
 	self.FollowView = true
 	self.LastFollowCF = nil
+	-- remove LastCamerPos with FFlagVRFreeUIPanel
 	self.LastCameraPos = Vector3.new(0,0,0)
+	self.followYawView = CFrame.new()
+	self.userHeadRecentered = false
+	self.lastHeadYaw = 0
 	
 	--self.wristLockPosition = false
 	self.wristTargetPosition = Vector3.new()
@@ -404,39 +408,78 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		end
 	elseif self.panelType == Panel3D.Type.PositionLocked then
 		local userHeadCameraCF = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
-		
-		if not self.LastFollowCF then
-			self.LastFollowCF = userHeadCameraCF
-		end
-		
-		-- is camera moving ?
-		if (self.LastCameraPos - cameraCF.Position).Magnitude > 0.1 then
-			self.LastFollowCF = userHeadCameraCF
-		end
-		self.LastCameraPos = cameraCF.Position
-		
-		if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) < 0.85 then
-			self.FollowView = true
-		else
-			if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) > 0.99 then
+
+		if FFlagVRFreeUIPanel then
+			local cameraOrientation = cameraCF - cameraCF.p
+
+			local headInCameraSpace = userHeadCameraCF * cameraOrientation:Inverse()
+			local _, headYaw, _ = headInCameraSpace:ToEulerAnglesYXZ()
+			local headYawCFrameInCameraSpace = CFrame.fromEulerAnglesYXZ(0,headYaw,0)
+
+			if self.userHeadRecentered then
+				local recenterYawChange = headYaw - self.lastHeadYaw
+				local _, followYawViewYaw, _ = self.followYawView:ToEulerAnglesYXZ()
+				followYawViewYaw = followYawViewYaw + recenterYawChange
+				self.followYawView = CFrame.fromEulerAnglesYXZ(0,followYawViewYaw,0)
+				self.userHeadRecentered = false
+			end
+			
+			if self.followYawView.LookVector:Dot(headYawCFrameInCameraSpace.LookVector) < 0.85 then
+				self.FollowView = true
+			elseif self.followYawView.LookVector:Dot(headYawCFrameInCameraSpace.LookVector) > 0.99 then
 				self.FollowView = false
 			end
+			
+			if self.FollowView then
+				self.followYawView = self.followYawView:Lerp(headYawCFrameInCameraSpace, dt * 3)
+			end
+			
+			local finalOrientation = cameraOrientation * self.followYawView
+			
+			local finalPosition = userHeadCameraCF.Position +
+				finalOrientation.LookVector * (self.distance * (workspace.CurrentCamera :: Camera).HeadScale) -
+				finalOrientation.UpVector * (0.5 * (workspace.CurrentCamera :: Camera).HeadScale)
+			local finalCFrame = finalOrientation + finalPosition
+			self:SetPartCFrame(finalCFrame)
+			
+			self.LastFollowCF = finalCFrame
+			self.lastHeadYaw = headYaw
+		else
+
+			if not self.LastFollowCF then
+				self.LastFollowCF = userHeadCameraCF
+			end
+		
+			-- is camera moving ?
+			if (self.LastCameraPos - cameraCF.Position).Magnitude > 0.1 then
+				self.LastFollowCF = userHeadCameraCF
+			end
+			self.LastCameraPos = cameraCF.Position
+
+			if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) < 0.85 then
+				self.FollowView = true
+			else
+				if self.LastFollowCF.LookVector:Dot(userHeadCameraCF.LookVector) > 0.99 then
+					self.FollowView = false
+				end
+			end
+		
+			if self.FollowView then
+				self.LastFollowCF = self.LastFollowCF:Lerp(userHeadCameraCF, 0.1)
+			end
+
+			local finalPosition = userHeadCameraCF.Position + self.LastFollowCF.LookVector * (self.distance * (workspace.CurrentCamera :: Camera).HeadScale + partThickness * 0.5)
+			finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y - 0.5 * (workspace.CurrentCamera :: Camera).HeadScale, finalPosition.Z)
+
+			-- don't angle up/down
+			local targetPosition = Vector3.new(userHeadCameraCF.Position.x, finalPosition.y, userHeadCameraCF.Position.z)
+
+			-- face the VR camera from the wrist
+			local facingCF = CFrame.new(finalPosition, targetPosition)
+
+			self:GetPart().CFrame = facingCF
 		end
-	
-		if self.FollowView then
-			self.LastFollowCF = self.LastFollowCF:Lerp(userHeadCameraCF, 0.1)
-		end
 
-		local finalPosition = userHeadCameraCF.Position + self.LastFollowCF.LookVector * (self.distance * (workspace.CurrentCamera :: Camera).HeadScale + partThickness * 0.5)
-		finalPosition = Vector3.new(finalPosition.X, userHeadCameraCF.Position.Y - 0.5 * (workspace.CurrentCamera :: Camera).HeadScale, finalPosition.Z)
-
-		-- don't angle up/down
-		local targetPosition = Vector3.new(userHeadCameraCF.Position.x, finalPosition.y, userHeadCameraCF.Position.z)
-
-		-- face the VR camera from the wrist
-		local facingCF = CFrame.new(finalPosition, targetPosition)
-
-		self:GetPart().CFrame = facingCF
 	end
 	
 	-- optional lerp
@@ -454,6 +497,10 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 			self:ResizeStuds(newSize.x, newSize.y, self.pixelsPerStud)
 		end
 	end
+end
+
+function Panel:OnRecentered()
+	self.userHeadRecentered = true
 end
 
 function Panel:SetLookedAt(lookedAt)
@@ -1186,7 +1233,7 @@ local function onRenderStep()
 		v:OnUpdate(dt)
 	end
 	
-	if currentClosest and EngineFeatureEnableVRUpdate3 then
+	if currentClosest then
 		local x, y = currentCursorPos.X, currentCursorPos.Y
 		local pixelScale = currentClosest:GetPixelScale()
 		cursor.Size = UDim2.new(0, cursorSize * pixelScale, 0, cursorSize * pixelScale)
@@ -1249,6 +1296,7 @@ end
 
 local currentCameraChangedConn = nil
 local renderStepFuncBound = false
+local cframeChangedConnection = nil
 local function onVREnabledChanged()
 	if VRService.VREnabled then
 		while not isCameraReady do
@@ -1266,10 +1314,26 @@ local function onVREnabledChanged()
 			RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, onRenderStep)
 			renderStepFuncBound = true
 		end
+
+		if FFlagVRFreeUIPanel then
+			-- When the floor position changes, we know a recenter occurred
+			cframeChangedConnection = VRService.UserCFrameChanged:Connect(function(userCFrameType, _)
+				if userCFrameType == Enum.UserCFrame.Floor then
+					for i, v in pairs(panels) do
+						v:OnRecentered()
+					end
+				end
+			end)
+		end
+
 	else
 		if currentCameraChangedConn then
 			currentCameraChangedConn:disconnect()
 			currentCameraChangedConn = nil
+		end
+		if FFlagVRFreeUIPanel and cframeChangedConnection then
+			cframeChangedConnection:disconnect()
+			cframeChangedConnection = nil
 		end
 		putFoldersIn(nil)
 

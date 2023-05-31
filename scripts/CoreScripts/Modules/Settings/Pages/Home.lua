@@ -15,7 +15,6 @@ local GuiService = game:GetService("GuiService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
@@ -23,8 +22,6 @@ local PageInstance = nil
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-
-local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 
 ----------- CLASS DECLARATION --------------
 
@@ -60,9 +57,6 @@ local function Initialize()
 	end
 
 	local resumeGameText = "Resume"
-	if FFlagUpdateSettingsHubGameText then
-		resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
-	end
 
 	this.ResumeButton = utility:MakeStyledButton("ResumeButton", resumeGameText, UDim2.new(0, 200, 0, 50), resumeGameFunc)
 	this.ResumeButton.Position = UDim2.new(0.5,-100,0,BUTTON_OFFSET)
@@ -81,9 +75,6 @@ local function Initialize()
 	end
 
 	local leaveGameText = "Leave"
-	if FFlagUpdateSettingsHubGameText then
-		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
-	end
 
 	local leaveButton = utility:MakeStyledButton("LeaveButton", leaveGameText, UDim2.new(0, 200, 0, 50), leaveGameFunc)
 	leaveButton.Position = UDim2.new(0.5,-100,0,resetButton.AbsolutePosition.Y + resetButton.AbsoluteSize.Y + BUTTON_SPACING)

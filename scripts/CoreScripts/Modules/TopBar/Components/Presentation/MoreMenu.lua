@@ -67,8 +67,6 @@ local EMOTES_ICON_OFF = Images["icons/controls/emoteOff"]
 
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-
 MoreMenu.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 
@@ -195,7 +193,7 @@ function MoreMenu:render()
 	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and not VRService.VREnabled
 
 	return Roact.createElement("Frame", {
-		Visible = moreButtonVisible or (self.state.vrShowMenuIcon and not EngineFeatureEnableVRUpdate3),
+		Visible = moreButtonVisible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, MORE_BUTTON_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,

@@ -9,7 +9,6 @@ end
 
 debugPrint("Self View Analytics 10-19-2022__1")
 
-local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local FFlagUpdatePlaySessionIdSelfView = game:DefineFastFlag("UpdatePlaySessionIdSelfView", false) and EngineFeatureRbxAnalyticsServiceExposePlaySessionId
 
@@ -179,30 +178,26 @@ function Analytics:reportSelfViewSessionStopped()
 end
 
 function Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
-	if EngineFeatureFacialAnimationStreamingServiceUseV2 then
-		debugPrint("Self View: Analytics:reportUserAccountSettings,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",userAccount_videoEnabled: "..tostring(userAccount_videoEnabled)..",userAccount_audioEnabled: "..tostring(userAccount_audioEnabled))
-		self:_report("SelfView", "userAccountSettings", "true", {
-			universeid = tostring(game.GameId),
-			pid = tostring(game.PlaceId),
-			sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
-			videoenabled = tostring(userAccount_videoEnabled),
-			audioenabled = tostring(userAccount_audioEnabled),
-		})
-	end	
+	debugPrint("Self View: Analytics:reportUserAccountSettings,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",userAccount_videoEnabled: "..tostring(userAccount_videoEnabled)..",userAccount_audioEnabled: "..tostring(userAccount_audioEnabled))
+	self:_report("SelfView", "userAccountSettings", "true", {
+		universeid = tostring(game.GameId),
+		pid = tostring(game.PlaceId),
+		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		videoenabled = tostring(userAccount_videoEnabled),
+		audioenabled = tostring(userAccount_audioEnabled),
+	})
 end
 
 function Analytics:reportExperienceSettings(experienceSettings_placeEnabled, experienceSettings_videoEnabled, experienceSettings_audioEnabled)
-	if EngineFeatureFacialAnimationStreamingServiceUseV2 then
-		debugPrint("Self View: Analytics:reportExperienceSettings,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",experienceSettings_placeEnabled: "..tostring(experienceSettings_placeEnabled)..",experienceSettings_videoEnabled: "..tostring(experienceSettings_videoEnabled)..",experienceSettings_audioEnabled: "..tostring(experienceSettings_audioEnabled))
-		self:_report("SelfView", "experienceSettings", "true", {
-			universeid = tostring(game.GameId),
-			pid = tostring(game.PlaceId),
-			sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
-			placeenabled = tostring(experienceSettings_placeEnabled),
-			videoenabled = tostring(experienceSettings_videoEnabled),
-			audioenabled = tostring(experienceSettings_audioEnabled),
-		})
-	end	
+	debugPrint("Self View: Analytics:reportExperienceSettings,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",experienceSettings_placeEnabled: "..tostring(experienceSettings_placeEnabled)..",experienceSettings_videoEnabled: "..tostring(experienceSettings_videoEnabled)..",experienceSettings_audioEnabled: "..tostring(experienceSettings_audioEnabled))
+	self:_report("SelfView", "experienceSettings", "true", {
+		universeid = tostring(game.GameId),
+		pid = tostring(game.PlaceId),
+		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		placeenabled = tostring(experienceSettings_placeEnabled),
+		videoenabled = tostring(experienceSettings_videoEnabled),
+		audioenabled = tostring(experienceSettings_audioEnabled),
+	})
 end
 
 function Analytics:setLastCtx(ctx)

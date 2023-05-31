@@ -155,6 +155,7 @@ local function getIgnoreList(): {Model}
 		return CurrentIgnoreList
 	end
 	CurrentIgnoreList = {}
+	assert(CurrentIgnoreList, "")
 	table.insert(CurrentIgnoreList, GetCharacter())
 	return CurrentIgnoreList
 end

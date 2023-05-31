@@ -60,7 +60,7 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListEnabled = require(RobloxGui.Modules.Flags.GetFFlagContactListEnabled)
 local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
-local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt2", false)
+local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt4", false)
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 
 local GetFFlagDragDetectorTouchIndicator = require(RobloxGui.Modules.Flags.GetFFlagDragDetectorTouchIndicator)
@@ -291,11 +291,7 @@ if GetFFlagRtMessaging() then
 end
 
 if game:GetEngineFeature("FacialAnimationStreaming2") then
-	if game:GetEngineFeature("FacialAnimationStreamingServiceUseV2") then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreamingV2", script.Parent)
-	else
-		ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
-	end
+	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 end
 
 if FFlagAvatarChatCoreScriptSupport then
@@ -311,7 +307,7 @@ if FFlagAvatarChatCoreScriptSupport then
 end
 
 if FFlagVRAvatarGestures then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.VRAvatarGesturesController)
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.AvatarGesturesController)
 end
 
 if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix3") then

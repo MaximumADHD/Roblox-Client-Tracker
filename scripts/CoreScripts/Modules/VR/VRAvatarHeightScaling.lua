@@ -5,7 +5,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local Players = game:GetService("Players")
-local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
+local AvatarUtil = require(RobloxGui.Modules.VR.AvatarUtil)
 
 local VRAvatarHeightScaling = {}
 VRAvatarHeightScaling.__index = VRAvatarHeightScaling
@@ -86,8 +86,8 @@ function VRAvatarHeightScaling:GetSubjectHeight(character)
 		end
 	end
 
-	-- use the model extents
-	return character:GetExtentsSize().Y
+	-- character is invalid, we can't scale
+	return nil
 end
 
 function VRAvatarHeightScaling:onPlayerHeightChanged()

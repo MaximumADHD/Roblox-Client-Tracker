@@ -61,13 +61,13 @@ local function FTUXSlideshow(props: Props)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 		Header = React.createElement(Header, { platform = platform :: Platform }),
-		Content = React.createElement("Frame", {
+		ContentFrame = React.createElement("Frame", {
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, CONTENT_HEIGHT_RATIO, 0),
 			Position = UDim2.new(0, 0, 0, 0),
 		}, {
-			React.createElement("Frame", {
+			Content = React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(CONTENT_WIDTH_RATIO, 0, 1, 0),
 				Position = UDim2.new(CONTENT_PADDING_RATIO, 0, 0, 0),
@@ -86,13 +86,13 @@ local function FTUXSlideshow(props: Props)
 					platform = platform :: Platform,
 					currentIndex = currentIndex,
 				}),
-				Image = React.createElement("Frame", {
+				ImageFrame = React.createElement("Frame", {
 					LayoutOrder = 3,
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1.2, 0, 0.4, 0),
 					Position = UDim2.new(0, 0, 0, 0),
 				}, {
-					React.createElement("ImageLabel", {
+					Image = React.createElement("ImageLabel", {
 						Image = currentSlide.image,
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 1, 0),
@@ -102,13 +102,13 @@ local function FTUXSlideshow(props: Props)
 				}),
 			}),
 		}),
-		Footer = React.createElement("Frame", {
+		FooterFrame = React.createElement("Frame", {
 			LayoutOrder = 3,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, FOOTER_HEIGHT_RATIO, 0),
 			Position = UDim2.new(0, 0, 0, 0),
 		}, {
-			React.createElement("Frame", {
+			Footer = React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(CONTENT_WIDTH_RATIO, 0, 1, 0),
 				Position = UDim2.new(CONTENT_PADDING_RATIO, 0, 0, 0),

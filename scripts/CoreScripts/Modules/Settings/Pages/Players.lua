@@ -98,7 +98,6 @@ end
 ------------ FAST FLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local getFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
@@ -415,7 +414,7 @@ local function Initialize()
 		local function blockUser()
 			if GetFFlagEnableBlockAnalyticsSource() then
 				onBlockButtonActivated(player, blockingAnalytics, Constants.AnalyticsInGameMenuName):andThen(updateBlockButton)
-			else 
+			else
 				onBlockButtonActivated(player, blockingAnalytics):andThen(updateBlockButton)
 			end
 		end
@@ -602,9 +601,6 @@ local function Initialize()
 	end
 
 	local leaveGameText = "Leave"
-	if FFlagUpdateSettingsHubGameText then
-		leaveGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Leave")
-	end
 
 	local leaveButton, leaveLabel = utility:MakeStyledButton("LeaveButton", leaveGameText, UDim2.new(1 / 3, -buttonPadding, 1, 0), leaveGameFunc)
 	leaveButton.AnchorPoint = Vector2.new(0, 0)
@@ -638,9 +634,6 @@ local function Initialize()
 	end
 
 	local resumeGameText = "Resume"
-	if FFlagUpdateSettingsHubGameText then
-		resumeGameText = RobloxTranslator:FormatByKey("InGame.HelpMenu.Resume")
-	end
 
 	local resumeButton, resumeLabel = utility:MakeStyledButton("ResumeButton", resumeGameText, UDim2.new(1 / 3, -buttonPadding, 1, 0), resumeGameFunc)
 	resumeButton.AnchorPoint = Vector2.new(1, 0)

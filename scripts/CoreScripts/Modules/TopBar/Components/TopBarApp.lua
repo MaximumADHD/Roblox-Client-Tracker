@@ -49,7 +49,6 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
 -- vr bottom bar
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 local VRBottomBar = require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
 
 local CLOSE_MENU_ICON_SIZE = 30
@@ -136,7 +135,7 @@ function TopBarApp:render()
 		Connection = Roact.createElement(Connection),
 		GamepadMenu = Roact.createElement(GamepadMenu),
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
-		VRBottomBar = EngineFeatureEnableVRUpdate3 and VRService.VREnabled and bottomBar or nil,
+		VRBottomBar = VRService.VREnabled and bottomBar or nil,
 
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,

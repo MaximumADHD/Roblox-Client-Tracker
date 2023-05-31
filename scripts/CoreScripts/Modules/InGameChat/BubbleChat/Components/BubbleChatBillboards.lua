@@ -6,6 +6,7 @@
 
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -19,6 +20,7 @@ local log = require(script.Parent.Parent.Logger)(script.Name)
 local BubbleChatBillboard = require(script.Parent.BubbleChatBillboard)
 
 local GetFFlagBubbleVoiceIndicatorSetting = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicatorSetting)
+local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 
 local ChatBillboards = Roact.Component:extend("ChatBillboards")
 
@@ -52,8 +54,8 @@ function ChatBillboards:init()
 end
 
 function ChatBillboards:render()
-	if not self.props.voiceEnabled and not self.props.bubbleChatEnabled then
-		-- No voice or bubble chat, so nothing to render
+	if not self.props.voiceEnabled and not self.props.bubbleChatEnabled and not FFlagAvatarChatCoreScriptSupport then
+		-- No voice, camera or bubble chat, so nothing to render
 		return
 	end
 
@@ -67,6 +69,12 @@ function ChatBillboards:render()
 		if userState ~= Constants.VOICE_STATE.HIDDEN then
 			userIds[userId] = true
 		end
+	end
+
+	-- Render the bubble chat billboard for the local player in case
+	-- Avatar Chat camera is available.
+	if FFlagAvatarChatCoreScriptSupport then
+		userIds[tostring(Players.LocalPlayer.UserId)] = true
 	end
 
 	local billboards = {}

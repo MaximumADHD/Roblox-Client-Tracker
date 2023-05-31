@@ -6,7 +6,9 @@
 ]]
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
+local InGameMenu = script.Parent.Parent
 local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
+local AssetInfo = require(InGameMenu.Models.AssetInfo)
 
 local getPurchaseInfoHelper = memoize(function(asset, bundles)
 	local itemInfo = asset
@@ -39,7 +41,7 @@ local getPurchaseInfoHelper = memoize(function(asset, bundles)
 	}
 end)
 
-local function getPurchaseInfo(state, overrideAsset)
+local function getPurchaseInfo(state, overrideAsset: AssetInfo.AssetInfo?)
 	local selectedItem = overrideAsset or state.inspectAndBuy.SelectedItem
 	local bundles = state.inspectAndBuy.Bundles
 

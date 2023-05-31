@@ -6,6 +6,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -37,6 +38,8 @@ AssetNameTextBox.validateProps = t.strictInterface({
 	onAssetNameUpdated = t.callback, -- function(newName, isNameInvalid)
 	nameTextBoxRef = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
+	assetType = t.optional(t.enum(Enum.AssetType)),
+	defaultName = t.optional(t.string),
 })
 
 local function isNameTooLong(str: string, maxLength: number)
@@ -50,9 +53,9 @@ end
 
 function AssetNameTextBox:init()
 	self:setState({
-		assetName = "",
+		assetName = self.props.defaultName or "",
 		lastValidName = "",
-		isNameInvalid = true,
+		isNameInvalid = false,
 	})
 
 	self.wasInitiallyFocused = false
@@ -118,7 +121,7 @@ function AssetNameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 			SliceCenter = BACKGROUND_9S_CENTER,
 		}, {
 			Textbox = Roact.createElement(Focusable.TextBox, {
-				Text = "",
+				Text = self.state.assetName,
 				BackgroundTransparency = 1,
 				ClearTextOnFocus = false,
 				Font = font.CaptionBody.Font,
@@ -169,4 +172,10 @@ function AssetNameTextBox:didMount()
 	self.tryFocusTextBox()
 end
 
-return AssetNameTextBox
+local function mapStateToProps(state)
+	return {
+		assetType = state.promptRequest.promptInfo.assetType,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps)(AssetNameTextBox)

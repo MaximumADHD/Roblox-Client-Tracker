@@ -43,7 +43,7 @@ return {
 		useMockedResponse = true,
 	}),
 	RoduxCall = LuaSocialLibrariesDeps.RoduxCall.config({
-		keyPath = "ContactList.Call",
+		keyPath = "Call",
 	}),
 	RoduxFriends = LuaSocialLibrariesDeps.RoduxFriends.config({
 		keyPath = "Friends",
@@ -51,8 +51,17 @@ return {
 	RoduxPresence = LuaSocialLibrariesDeps.RoduxPresence.config({
 		keyPath = "Presence",
 	}),
+	RoduxUsers = LuaSocialLibrariesDeps.RoduxUsers.config({
+		keyPath = "Users",
+	}),
 	RoduxNetworking = myRoduxNetworking,
 	NetworkingPresence = LuaSocialLibrariesDeps.NetworkingPresence.config({
+		roduxNetworking = myRoduxNetworking,
+	}),
+	NetworkingUsers = LuaSocialLibrariesDeps.NetworkingUsers.config({
+		roduxNetworking = myRoduxNetworking,
+	}),
+	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),

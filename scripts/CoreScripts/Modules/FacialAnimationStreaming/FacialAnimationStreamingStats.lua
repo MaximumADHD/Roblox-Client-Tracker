@@ -44,7 +44,6 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
-local EngineFeatureFacialAnimationStreamingServiceUseV2 = game:GetEngineFeature("FacialAnimationStreamingServiceUseV2")
 local EngineFeatureVoiceChatServiceExposesSessionId = game:GetEngineFeature("VoiceChatServiceExposesSessionId")
 local EngineFeatureVoiceChatServiceExposesVoiceExperienceId = game:GetEngineFeature("VoiceChatServiceExposesVoiceExperienceId")
 local FFlagFacialStreamingStatsReportVoiceSessionIdExperienceId = game:DefineFastFlag("FacialStreamingStatsReportVoiceSessionIdExperienceId", false)

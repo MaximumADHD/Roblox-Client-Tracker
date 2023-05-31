@@ -42,8 +42,6 @@ local PlayerGui
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
-
 function EmotesMenu:init()
 	self.savedSelectedCoreObject = nil
 	self.savedSelectedObject = nil
@@ -176,7 +174,7 @@ function EmotesMenu:didMount()
 	self:currentCameraChanged()
 
 	self.menuOpenedConn = GuiService.MenuOpened:Connect(function()
-		if self.props.displayOptions.menuVisible and not (EngineFeatureEnableVRUpdate3 and VRService.VREnabled) then
+		if self.props.displayOptions.menuVisible and not VRService.VREnabled then
 			self.props.hideMenu()
 			if EnableInGameMenuV3() then
 				self.shouldResumeEmotes = true
@@ -205,7 +203,7 @@ function EmotesMenu:didMount()
 		local inputType = input.UserInputType
 		if
 			(inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch)
-			and not (EngineFeatureEnableVRUpdate3 and VRService.VREnabled)
+			and not VRService.VREnabled
 		then
 			-- Don't close the emotes menu when interacting with the game outside of the menu with
 			-- the new emotes flag on

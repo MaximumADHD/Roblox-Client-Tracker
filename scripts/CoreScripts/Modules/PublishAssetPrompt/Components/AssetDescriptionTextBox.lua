@@ -9,6 +9,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -42,6 +43,8 @@ AssetDescriptionTextBox.validateProps = t.strictInterface({
 	onAssetDescriptionUpdated = t.callback, -- function(newDescription)
 	descriptionTextBoxRef = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
+	assetType = t.optional(t.enum(Enum.AssetType)),
+	defaultDescription = t.optional(t.string),
 })
 
 local function getStringLength(str: string): number
@@ -60,7 +63,7 @@ end
 function AssetDescriptionTextBox:init()
 	self:setState({
 		lastValidDescription = "",
-		assetDescription = "",
+		assetDescription = self.props.defaultDescription or "",
 		descriptionLength = 0,
 		scrollingFrameHeight = SCROLL_FRAME_HEIGHT,
 		canvasHeight = MIN_CANVAS_HEIGHT,
@@ -192,7 +195,7 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 				end,
 			}, {
 				Textbox = Roact.createElement(Focusable.TextBox, {
-					Text = "",
+					Text = self.state.assetDescription,
 					BackgroundTransparency = 1,
 					ClearTextOnFocus = false,
 					Font = font.Header2.Font,
@@ -265,4 +268,10 @@ function AssetDescriptionTextBox:didMount()
 	self.tryFocusTextBox()
 end
 
-return AssetDescriptionTextBox
+local function mapStateToProps(state)
+	return {
+		assetType = state.promptRequest.promptInfo.assetType,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps)(AssetDescriptionTextBox)

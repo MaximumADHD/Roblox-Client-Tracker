@@ -53,7 +53,6 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
-local EngineFeatureEnableVRUpdate3 = game:GetEngineFeature("EnableVRUpdate3")
 
 local platform = UserInputService:GetPlatform()
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
@@ -255,7 +254,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
 						subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
 					}),
-				VRSmoothRotationEnabled = self.state.vrActive and EngineFeatureEnableVRUpdate3 and Roact.createElement(AutoPropertyToggleEntry, {
+				VRSmoothRotationEnabled = self.state.vrActive and Roact.createElement(AutoPropertyToggleEntry, {
 					LayoutOrder = 17,
 					labelKey = "CoreScripts.InGameMenu.GameSettings.VRSmoothRotationEnabled",
 					instance = UserGameSettings,
