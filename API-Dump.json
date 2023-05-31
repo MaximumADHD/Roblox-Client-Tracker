@@ -3227,6 +3227,82 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetAllTemplates",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Map"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTemplate",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Map"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveTemplate",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SaveTemplate",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "importTemplate",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "StartSessionWithPath",
                     "Parameters": [
                         {
@@ -5331,6 +5407,188 @@
         {
             "Members": [
                 {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "ClientFeatures",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "ClientFeaturesInitialized",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "ServerFeatures",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "mask",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "feature",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarChatServiceFeature"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsPlaceEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsUniverseEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PollClientFeatures",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PollServerFeatures",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetClientFeaturesAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetServerFeaturesAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AvatarChatService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "GetAccessoryType",
                     "Parameters": [
@@ -6189,6 +6447,28 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "AvatarItemType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetOutfitDetails",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
                             }
                         }
                     ],
@@ -14893,6 +15173,63 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Compliance",
+                    "MemberType": "Property",
+                    "Name": "ForceLimitMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ForceLimitMode"
+                    }
+                },
+                {
+                    "Category": "Compliance",
+                    "MemberType": "Property",
+                    "Name": "ForceRelativeTo",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ActuatorRelativeTo"
+                    }
+                },
+                {
+                    "Category": "Compliance",
+                    "MemberType": "Property",
+                    "Name": "MaxAxesForce",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
                     }
                 },
                 {
@@ -26535,6 +26872,17 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "FacialAnimationStreamingSubsessionStats",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -29649,7 +29997,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Selection",
                     "MemberType": "Property",
                     "Name": "Selected",
                     "Security": {
@@ -62343,9 +62691,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -64808,7 +65153,6 @@
                         "CanSave": true
                     },
                     "Tags": [
-                        "NotReplicated",
                         "NotScriptable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -73337,6 +73681,50 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DEPRECATED_ShowBoundingBox",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RenderMode",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SelectionRenderMode"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "SelectionBoxThickness",
@@ -73419,27 +73807,6 @@
                     "Tags": [
                         "Hidden",
                         "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "ShowBoundingBox",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -78978,9 +79345,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -84399,6 +84763,63 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetStyleRules",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InsertStyleRule",
+                    "Parameters": [
+                        {
+                            "Name": "rule",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "StyleRule"
+                            }
+                        },
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int?"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetStyleRules",
+                    "Parameters": [
+                        {
+                            "Name": "rules",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Gui",
             "Name": "StyleBase",
@@ -84448,6 +84869,113 @@
                         "Category": "Primitive",
                         "Name": "string"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetProperties",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPropertiesResolved",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetProperty",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPropertyResolved",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetProperties",
+                    "Parameters": [
+                        {
+                            "Name": "table",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetProperty",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Gui",
@@ -84456,6 +84984,37 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetDerives",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetDerives",
+                    "Parameters": [
+                        {
+                            "Name": "derives",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Gui",
             "Name": "StyleSheet",
@@ -84463,6 +85022,24 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "StyleSheet",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "StyleSheet"
+                    }
+                }
             ],
             "MemoryCategory": "Gui",
             "Name": "StyleDerive",
@@ -84470,6 +85047,24 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "StyleSheet",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "StyleSheet"
+                    }
+                }
             ],
             "MemoryCategory": "Gui",
             "Name": "StyleLink",
@@ -84477,6 +85072,82 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAppliedStyles",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetStyleInfo",
+                    "Parameters": [
+                        {
+                            "Name": "style",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "StyleRule"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetStyleSheetDerivesChain",
+                    "Parameters": [
+                        {
+                            "Name": "styleSheet",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "StyleSheet"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetStyleSheetInfo",
+                    "Parameters": [
+                        {
+                            "Name": "styleSheet",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "StyleSheet"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Gui",
             "Name": "StylingService",
@@ -88136,6 +88807,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetTranslationForLocale",
+                    "Parameters": [
+                        {
+                            "Name": "locale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "TextFilterResult"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetTranslations",
                     "Parameters": [
                     ],
@@ -91571,9 +92261,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -98469,6 +99156,47 @@
         {
             "Items": [
                 {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "UniverseAudio",
+                    "Value": 1
+                },
+                {
+                    "Name": "UniverseVideo",
+                    "Value": 2
+                },
+                {
+                    "Name": "PlaceAudio",
+                    "Value": 4
+                },
+                {
+                    "Name": "PlaceVideo",
+                    "Value": 8
+                },
+                {
+                    "Name": "UserAudioEligible",
+                    "Value": 16
+                },
+                {
+                    "Name": "UserAudio",
+                    "Value": 32
+                },
+                {
+                    "Name": "UserVideoEligible",
+                    "Value": 64
+                },
+                {
+                    "Name": "UserVideo",
+                    "Value": 128
+                }
+            ],
+            "Name": "AvatarChatServiceFeature"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Friend",
                     "Value": 0
                 },
@@ -99661,6 +100389,10 @@
                 {
                     "Name": "DisconnectClientRequest",
                     "Value": 285
+                },
+                {
+                    "Name": "DisconnectPrivateServerKickout",
+                    "Value": 286
                 },
                 {
                     "Name": "DisconnectModeratedGame",
@@ -101085,6 +101817,19 @@
                 }
             ],
             "Name": "FontWeight"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Magnitude",
+                    "Value": 0
+                },
+                {
+                    "Name": "PerAxis",
+                    "Value": 1
+                }
+            ],
+            "Name": "ForceLimitMode"
         },
         {
             "Items": [
@@ -103906,16 +104651,10 @@
                 },
                 {
                     "Name": "Wedge",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 3
                 },
                 {
                     "Name": "CornerWedge",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 4
                 }
             ],
@@ -105456,6 +106195,23 @@
                 }
             ],
             "Name": "SelectionBehavior"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Outlines",
+                    "Value": 0
+                },
+                {
+                    "Name": "BoundingBoxes",
+                    "Value": 1
+                },
+                {
+                    "Name": "Both",
+                    "Value": 2
+                }
+            ],
+            "Name": "SelectionRenderMode"
         },
         {
             "Items": [

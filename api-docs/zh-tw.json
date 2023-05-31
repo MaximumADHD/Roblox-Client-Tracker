@@ -30497,9 +30497,110 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal localPlayer = Players.LocalPlayer\nlocal mouse = localPlayer:GetMouse()\n    \nmouse.Move:Connect(function()\n\tprint(\"mouse screen position: \", mouse.X, mouse.Y)\nend)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "",
-    "keys": {},
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地切割為自己的執行緒的程式碼容器。",
+    "keys": {
+      "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
+      "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
+      "SendMessage": "@roblox/globaltype/Actor.SendMessage"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessage/param/0": {
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地切割為自己的執行緒的程式碼容器。"
+  },
+  "@roblox/globaltype/Actor.BindToMessage/param/1": {
+    "documentation": "將 en-us 翻譯成 zh-tw，但請勿翻譯標籤：The topic used to identify the type of message.  （注意：該句為標題或說明，非要翻譯成完整的句子）"
+  },
+  "@roblox/globaltype/Actor.BindToMessage/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessage/return/0": {
+    "documentation": "這個連線物件可用於斷開 Luau 回調接收訊息的連線。"
+  },
+  "@roblox/globaltype/Actor.BindToMessage": {
+    "documentation": "將一個 Luau 回呼綁定到指定主題的訊息。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Actor.BindToMessage/param/0"
+      },
+      {
+        "name": "topic",
+        "documentation": "@roblox/globaltype/Actor.BindToMessage/param/1"
+      },
+      {
+        "name": "function",
+        "documentation": "@roblox/globaltype/Actor.BindToMessage/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Actor.BindToMessage/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#BindToMessage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地切割為自己的執行緒的程式碼容器。"
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
+    "documentation": "將 \"The topic used to identify the type of message.\" 從 en-us 翻譯成 zh-tw，但不要翻譯標籤。"
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
+    "documentation": "這個連線物件可用於斷開 Luau 回呼從接收訊息。"
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel": {
+    "documentation": "將 Luau 回調設置綁定到指定主題的訊息中。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Actor.BindToMessageParallel/param/0"
+      },
+      {
+        "name": "topic",
+        "documentation": "@roblox/globaltype/Actor.BindToMessageParallel/param/1"
+      },
+      {
+        "name": "function",
+        "documentation": "@roblox/globaltype/Actor.BindToMessageParallel/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Actor.BindToMessageParallel/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#BindToMessageParallel",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Actor.SendMessage/param/0": {
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地切割為自己的執行緒的程式碼容器。"
+  },
+  "@roblox/globaltype/Actor.SendMessage/param/1": {
+    "documentation": "將 \"The topic used to identify the message being sent.\" 從 en-us 翻譯成 zh-tw 且請勿翻譯標籤：該主題用於識別要發送的訊息。"
+  },
+  "@roblox/globaltype/Actor.SendMessage/param/2": {
+    "documentation": "不要翻譯標籤: The contents of the message to send to the Actor. 將訊息內容發送給演員。"
+  },
+  "@roblox/globaltype/Actor.SendMessage": {
+    "documentation": "傳送一則訊息給演員。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Actor.SendMessage/param/0"
+      },
+      {
+        "name": "topic",
+        "documentation": "@roblox/globaltype/Actor.SendMessage/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/Actor.SendMessage/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#SendMessage",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings": {

@@ -645,6 +645,7 @@ SelectionOutlineConstraintFixFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineHoverConstraintFixFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineHoverFS,Fragment,✔,✔,✔,✔,✔,✔
+SelectionOutlineTeamCreateConstraintFixFillAlphaClampFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineTeamCreateConstraintFixFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineTeamCreateFS,Fragment,✔,✔,✔,✔,✔,✔
 ShadowBlurFS,Fragment,✔,✔,✔,✔,✔,✔

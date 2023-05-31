@@ -157,12 +157,6 @@
                     "$path": "../.robloxrc"
                 }
             },
-            "BusinessLogic": {
-                "$path": "BusinessLogic.lua",
-                ".robloxrc": {
-                    "$path": "../.robloxrc"
-                }
-            },
             "CaptureMaster": {
                 "$path": "CaptureMaster.lua",
                 ".robloxrc": {

@@ -30504,9 +30504,110 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal localPlayer = Players.LocalPlayer\nlocal mouse = localPlayer:GetMouse()\n    \nmouse.Move:Connect(function()\n\tprint(\"mouse screen position: \", mouse.X, mouse.Y)\nend)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "",
-    "keys": {},
+    "documentation": "<code>Actor</code> - это контейнер для кода, который можно безопасно разделить на отдельный поток.",
+    "keys": {
+      "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
+      "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
+      "SendMessage": "@roblox/globaltype/Actor.SendMessage"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessage/param/0": {
+    "documentation": "<code>Actor</code> - это контейнер для кода, который можно безопасно разделить на отдельный поток."
+  },
+  "@roblox/globaltype/Actor.BindToMessage/param/1": {
+    "documentation": "Тема используется для идентификации типа сообщения. (Note: The tag \"The topic used to identify the type of message.\" should not be translated)"
+  },
+  "@roblox/globaltype/Actor.BindToMessage/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessage/return/0": {
+    "documentation": "Этот объект подключения может быть использован для отключения Luau обратного вызова от получения сообщений."
+  },
+  "@roblox/globaltype/Actor.BindToMessage": {
+    "documentation": "Привязывает функцию Luau к сообщению с указанной темой.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Actor.BindToMessage/param/0"
+      },
+      {
+        "name": "topic",
+        "documentation": "@roblox/globaltype/Actor.BindToMessage/param/1"
+      },
+      {
+        "name": "function",
+        "documentation": "@roblox/globaltype/Actor.BindToMessage/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Actor.BindToMessage/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#BindToMessage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
+    "documentation": "<code>Actor</code> - это контейнер для кода, который можно безопасно разделить на отдельный поток."
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
+    "documentation": "Тема используется для определения типа сообщения. (Tag не переводится.)"
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
+    "documentation": "Этот объект подключения может быть использован для отключения Luau-колбэка от получения сообщений."
+  },
+  "@roblox/globaltype/Actor.BindToMessageParallel": {
+    "documentation": "Привязывает Luau-коллбэк к сообщению с указанной темой.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Actor.BindToMessageParallel/param/0"
+      },
+      {
+        "name": "topic",
+        "documentation": "@roblox/globaltype/Actor.BindToMessageParallel/param/1"
+      },
+      {
+        "name": "function",
+        "documentation": "@roblox/globaltype/Actor.BindToMessageParallel/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Actor.BindToMessageParallel/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#BindToMessageParallel",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Actor.SendMessage/param/0": {
+    "documentation": "<code>Actor</code> - это контейнер для кода, который можно безопасно разделить на отдельный поток."
+  },
+  "@roblox/globaltype/Actor.SendMessage/param/1": {
+    "documentation": "Перевести с en-us на ru-ru и не переводить тег: The topic used to identify the message being sent."
+  },
+  "@roblox/globaltype/Actor.SendMessage/param/2": {
+    "documentation": "Содержание сообщения для отправки актеру."
+  },
+  "@roblox/globaltype/Actor.SendMessage": {
+    "documentation": "Отправляет сообщение актеру.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Actor.SendMessage/param/0"
+      },
+      {
+        "name": "topic",
+        "documentation": "@roblox/globaltype/Actor.SendMessage/param/1"
+      },
+      {
+        "name": "message",
+        "documentation": "@roblox/globaltype/Actor.SendMessage/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#SendMessage",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings": {

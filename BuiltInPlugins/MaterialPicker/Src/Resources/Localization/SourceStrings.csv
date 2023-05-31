@@ -1,5 +1,9 @@
 Key,en-us
+Studio.MaterialPicker.Filters.AppliedInPlace,Applied In Place
+Studio.MaterialPicker.Filters.BaseMaterials,Base Materials
+Studio.MaterialPicker.Filters.Recents,Recents
 Studio.MaterialPicker.MainView.Button,Click Me
+Studio.MaterialPicker.MainView.NewMaterial,New Material
 Studio.MaterialPicker.Plugin.Button,Material Picker
 Studio.MaterialPicker.Plugin.Description,Choose materials to apply to objects in the scene
 Studio.MaterialPicker.Plugin.Name,Material Picker

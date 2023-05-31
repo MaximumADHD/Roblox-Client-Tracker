@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "PaymentsProtocol",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/payments/src"
+    }
+  }
+}

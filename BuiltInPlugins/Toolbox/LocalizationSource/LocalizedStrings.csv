@@ -290,7 +290,8 @@ Niño cantando,Enfant qui chante,Canto bambino,子どもの歌声,어린이 노�
 Sombrero,Chapeau,Cappello,帽子,모자,Chapéu,Головной убор,帽子,帽子,帽子,Studio.Toolbox.Audio.SoundEffect.Category.A capella,A capella, ,A capella
 A capella,A capella,A capella,アカペラ,아카펠라,À capella, , , ,阿卡貝拉,Studio.Toolbox.Audio.SoundEffect.Category.A_capella,A capella, ,A capella
 A capella,A capella,A capella,アカペラ,아카펠라,À capella, , , ,阿卡貝拉,Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt, ,T-Shirt
-Camiseta,T-Shirt,Maglietta,Tシャツ,티셔츠,Camiseta,Футболка,T 恤,T 恤,T 恤,Studio.Toolbox.General.AssetTypeShirt,Shirt, ,Shirt
+Camiseta,T-Shirt,Maglietta,Tシャツ,티셔츠,Camiseta,Футболка,T 恤,T 恤,T 恤,Studio.Toolbox.AssetConfig.ValidationSuccess,Validation Succeeded, ,Validation Succeeded
+ , , , , , , , , , ,Studio.Toolbox.General.AssetTypeShirt,Shirt, ,Shirt
 Camisa,Chemise,Camicia,シャツ,셔츠,Camisa,Рубашка,上衣,上衣,上衣,Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory, ,Face Accessory
 Accesorio para la cara,Accessoire visage,Accessorio faccia,顔用アクセサリ,얼굴 장신구,Acessório de rosto,Лицо: аксессуары,脸部配件,脸部配件,臉部飾品,Studio.Toolbox.ScriptWarning.InstructionText2,You can disable scripts by right-clicking in Explorer., ,You can disable scripts by right-clicking in Explorer.
 Puedes desactivar los scripts haciendo clic derecho en el Explorador.,Faites un clic droit dans l'explorateur pour désactiver les scripts.,Puoi disabilitare gli script facendo clic destro in Esploratore.,エクスプローラで右クリックするとスクリプトを無効にできます。,탐색기에서 마우스 오른쪽 버튼을 클릭하면 스크립트를 비활성화할 수 있습니다.,Você pode desativar scripts clicando com o botão direito no Explorer., ,您可以在项目管理器中通过点按右键来禁用脚本。,您可以在项目管理器中通过点按右键来禁用脚本。,您可以在總管點擊右鍵停用指令碼。,"Studio.Toolbox.Audio.SoundEffect.Category.Burping, eructation","Burping, eructation", ,"Burping, eructation"
@@ -312,7 +313,8 @@ Grabación de campo,Enregistrement sur le terrain,Registrazione sul campo,野外
 Accesorio trasero,Accessoire dos,Accessorio posteriore,背面用アクセサリ,후면 장신구,Acessório das costas,Спина: аксессуары,背面配件,背面配件,背部飾品,Studio.Toolbox.Audio.SoundEffect.Category.Engine starting,Engine starting, ,Engine starting
 Arranque del motor,Démarrage du moteur,Avvio del motore,エンジン発進音,엔진 시동,Motor ligando, , , ,啟動引擎,Studio.Toolbox.Audio.SoundEffect.Category.Engine_starting,Engine starting, ,Engine starting
 Arranque del motor,Démarrage du moteur,Avvio del motore,エンジン発進音,엔진 시동,Motor ligando, , , ,啟動引擎,Studio.Toolbox.Audio.SoundEffect.Category.reverse,Reverse, ,Reverse
-Invertir,Inversé,Inverso,リバース,역방향,Inverter, ,翻转,翻转,倒轉,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories, ,Group Neck Accessories
+Invertir,Inversé,Inverso,リバース,역방향,Inverter, ,翻转,翻转,倒轉,Studio.Toolbox.AssetConfig.PayAndConfirmHeading,Are you sure you want to submit "{name}"?, ,Are you sure you want to submit "{name}"?
+ , , , , , , , , , ,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories, ,Group Neck Accessories
 Accesorios para el cuello del grupo,Accessoires pour le cou du groupe,Accessori collo del gruppo,グループの首用アクセサリ,그룹 목 장신구,Acessórios de pescoço de grupo, ,群组颈部配件,群组颈部配件,群組頸部飾品,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, ,Waist Accessory
 Accesorio para la cintura,Accessoire taille,Accessorio vita,腰用アクセサリ,허리 장신구,Acessório de cintura,Пояс: аксессуары,腰部配件,腰部配件,腰部飾品,Studio.Toolbox.Audio.Music.Genre.classical,Classical, ,Classical
 Clásica,Classique,Classica,クラシック,클래식,Clássico,Классика,古典,古典,古典,Studio.Toolbox.Subcategory.AudioMusicClassical,Classical, ,Classical
@@ -329,7 +331,8 @@ Bloque de madera,Bloc de bois,Blocco di legno,ウッドブロック,우드 블�
 "Arrugar, crujir","Froissement, chiffonnage","Stropicciare, accartocciare",クシャクシャ音,구김,Amassando, , , ,倒下、縮成一團,Studio.Toolbox.General.Description,Description, ,Description
 Descripción,Description,Descrizione,詳細,설명,Descrição,Описание,描述,描述,說明,Studio.Toolbox.General.Title,Title, ,Title
 Título,Titre,Titolo,題名,제목,Título,Название,标题,标题,名稱,Studio.Toolbox.General.Tags,Tags, ,Tags
-Etiquetas,Étiquettes,Etichette,タグ,태그,Marcadores,Теги,标签,标签,標籤,Studio.Toolbox.General.Genre,Genre, ,Genre
+Etiquetas,Étiquettes,Etichette,タグ,태그,Marcadores,Теги,标签,标签,標籤,Studio.Toolbox.AudioView.Genre,Genre, ,Genre
+ , , , , , , , , , ,Studio.Toolbox.General.Genre,Genre, ,Genre
 Género,Genres,Genere,ジャンル,장르,Gênero,Жанр,主题,主题,類別,Studio.Toolbox.Audio.Music.Genre.dance-traditional,Dance Traditional, ,Dance Traditional
 Baile tradicional,Danse traditionnelle,Dance tradizionale,フォークダンス,댄스 트래디셔널,Dance tradicional,Традиционная танцевальная,传统舞蹈,传统舞蹈,傳統舞蹈,Studio.Toolbox.Subcategory.AudioMusicDanceTraditional,Dance Traditional, ,Dance Traditional
 Baile tradicional,Danse traditionnelle,Dance tradizionale,フォークダンス,댄스 트래디셔널,Dance tradicional, ,传统舞蹈,传统舞蹈,傳統舞蹈,Studio.Toolbox.General.Copy,Allow Copying, ,Allow Copying
@@ -377,7 +380,8 @@ Lloriqueo,Gémissement,Piagnucolare,シクシク,훌쩍거림,Lamúria, ,呜咽,
 Lluvia,Pluie,Pioggia,雨,비,Chuva, ,雨,雨,雨,"Studio.Toolbox.Audio.SoundEffect.Category.Bird flight, flapping wings","Bird flight, flapping wings", ,"Bird flight, flapping wings"
 "Vuelo de aves, aleteo de alas","Vol d'oiseau, battements d'ailes","Volo d’uccello, ali sbattute",鳥が羽ばたく音,"조류 비행, 퍼덕이는 날개","Voo de pássaro, batendo asas", , , ,鳥類飛行、拍翅聲,Studio.Toolbox.Audio.SoundEffect.Category.Bird_flight_flapping_wings,"Bird flight, flapping wings", ,"Bird flight, flapping wings"
 "Vuelo de aves, aleteo de alas","Vol d'oiseau, battements d'ailes","Volo d’uccello, ali sbattute",鳥が羽ばたく音,"조류 비행, 퍼덕이는 날개","Voo de pássaro, batendo asas", , , ,鳥類飛行、拍翅聲,Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}, ,Asset ID: {assetId}
-ID del recurso: {assetId},Identifiant contenu : {assetId},ID risorsa: {assetId},アセットID: {assetId},애셋 ID: {assetId},ID do ativo: {assetId},ID ресурса: {assetId},素材 ID: {assetId},素材 ID: {assetId},素材 ID：{assetId},Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus}
+ID del recurso: {assetId},Identifiant contenu : {assetId},ID risorsa: {assetId},アセットID: {assetId},애셋 ID: {assetId},ID do ativo: {assetId},ID ресурса: {assetId},素材 ID: {assetId},素材 ID: {assetId},素材 ID：{assetId},Studio.Toolbox.General.AssetCategory, Asset Category, , Asset Category
+ , , , , , , , , , ,Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}, ,Status: {assetStatus}
 Estado: {assetStatus},Status : {assetStatus},Stato: {assetStatus},状況: {assetStatus},상태: {assetStatus},Estado: {assetStatus},Статус: {assetStatus},状态: {assetStatus},状态: {assetStatus},狀態：{assetStatus},Studio.Toolbox.General.InstallSuccess,Success!, ,Success!
 ¡Hecho!,Succès !,Successo!,完了！,성공!,Sucesso!,Успешно!,成功!,成功!,成功！,Studio.Toolbox.Audio.SoundEffect.Category.Cap gun,Cap gun, ,Cap gun
 Pistola de casquillos,Pistolet à bille,Pistola a pallini,おもちゃのピストル,장난감 총,Arma de brinquedo, , , ,開瓶槍,Studio.Toolbox.Audio.SoundEffect.Category.Cap_gun,Cap gun, ,Cap gun
@@ -426,7 +430,8 @@ Roedores,Rongeurs,Roditori,ネズミ,설치류,Roedores, ,啮齿动物,啮齿动
 Diapasón,Fourchettes d'accord,Diapason,音叉,소리굽쇠,Diapasão, , , ,腳踏車車鈴,Studio.Toolbox.Audio.SoundEffect.Category.Tuning_fork,Tuning fork, ,Tuning fork
 Diapasón,Fourchettes d'accord,Diapason,音叉,소리굽쇠,Diapasão, , , ,腳踏車車鈴,Studio.Toolbox.Audio.SoundEffect.Category.burps,Burps, ,Burps
 Eructos,Rots,Rutti,げっぷ,트림,Arrotos, ,打嗝,打嗝,打嗝,Studio.Toolbox.Audio.SoundEffect.Category.plastic,Plastic, ,Plastic
-Plástico,Plastique,Plastica,プラスチック,플라스틱,Plástico, ,塑料,塑料,塑膠,Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, ,Use & View
+Plástico,Plastique,Plastica,プラスチック,플라스틱,Plástico, ,塑料,塑料,塑膠,Studio.Toolbox.AssetConfig.AvatarItem,Avatar Item, ,Avatar Item
+ , , , , , , , , , ,Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, ,Use & View
 Usar y ver,Utiliser et voir,Usa e visualizza,使って表示,사용 및 보기,Usar e visualizar,Использование и Просмотр,使用和查看,使用和查看,使用和檢視,Studio.Toolbox.HomeView.Village,Village, ,Village
 Pueblo,Village,Paese,村,마을,Vila, ,村庄,村庄,村鎮,Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit, ,Edit
 Editar,Modifier,Modifica,編集,편집,Editar,Изменить,编辑,编辑,編輯,Studio.Toolbox.Audio.Music.Genre.country,Country, ,Country
@@ -947,7 +952,7 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  ,号角,号角,號角,Studio.Toolbox.Audio.SoundEffect.Category.Rattle (instrument),Rattle (instrument), ,Rattle (instrument),Sonaja (instrumento),Hochet (instrument),Sattolo (strumento),ラトル（楽器）,래틀(악기),Chocalho (instrumento)
  , , ,波浪鼓 (樂器),Studio.Toolbox.Audio.SoundEffect.Category.Rattle_(instrument),Rattle (instrument), ,Rattle (instrument),Sonaja (instrumento),Hochet (instrument),Sattolo (strumento),ラトル（楽器）,래틀(악기),Chocalho (instrumento)
  , , ,波浪鼓 (樂器),Studio.Toolbox.Audio.SoundEffect.Category.instruments,Instruments, ,Instruments,Instrumentos,Instruments,Strumenti,楽器,악기,instrumentos
- ,乐器,乐器,樂器,Studio.Toolbox.General.CategoryFonts,Fonts, ,Fonts,Tipo de letra,Polices,Caratteri,フォント,글꼴,Fontes
+ ,乐器,乐器,樂器,Studio.Toolbox.General.CategoryFonts,Fonts, ,Fonts,Tipo de letra,Polices,Caratteri,フォント,폰트,Fontes
  ,字体,字体,字型,Studio.Toolbox.Audio.SoundEffect.Category.jets,Jets, ,Jets,Jets,Jets,Jets,ジェット,제트,Jatos
  ,喷射机,喷射机,噴射,Studio.Toolbox.Audio.SoundEffect.Category.reptiles,Reptiles, ,Reptiles,Reptiles,Reptiles,Rettili,爬虫類,파충류,Répteis
  ,爬行动物,爬行动物,爬蟲動物,Studio.Toolbox.Audio.SoundEffect.Category.Vibraphone,Vibraphone, ,Vibraphone,Vibráfono,Vibraphone,Vibrafono,ヴィブラフォン,비브라폰,Vibrafone
@@ -1109,12 +1114,12 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  , , ,管樂器、木管樂器,Studio.Toolbox.General.SalesMaxPrice,The maximum price for this item type is {maxPrice}, ,The maximum price for this item type is {maxPrice},El precio máximo para este tipo de objecto es de {maxPrice},Le prix maximum pour ce type d'article est de {maxPrice},Il prezzo minimo per questo tipo di articolo è {maxPrice},このアイテムタイプの最高価格は {maxPrice} です,이 아이템류의 최대 가격은 {maxPrice}입니다,O preço máximo para este tipo de item é {maxPrice}
  ,此道具类型的最高价格为 {maxPrice}。,此道具类型的最高价格为 {maxPrice}。,此道具類型的最高價格為 {maxPrice}。,Studio.Toolbox.General.UnverifiedCreatorBadgeTooltipText,Creator is unverified, ,Creator is unverified,El creador no está verificado,Le créateur n'est pas vérifié,Creatore non è verificato,クリエーターが未認証です,크리에이터 본인 인증 미완료,O criador não foi verificado
  ,创作者未通过验证,创作者未通过验证,創作者未經過 ID 驗證,Studio.Toolbox.AssetConfigPackage.Non3DRoot3DDescendentsWarning,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.", ,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.","Este objeto tiene contenido 3D, pero no es un Modelo, por lo que moverlo o girarlo implicará la modificación del paquete.","Cet objet a un contenu 3D mais n'est pas un Modèle, donc le déplacer ou la faire pivoter comptera comme une modification de package.","Questo oggetto ha contenuto 3D ma non è un Modello, quindi spostandolo o ruotandolo conterà come modificando il pacchetto.",このオブジェクトには、3Dコンテンツがありますがモデルではありません。そのため移動や回転はパッケージの修正と見なされます。,이 개체에는 3D 콘텐츠가 있지만 모델은 아닙니다. 따라서 이를 이동하거나 회전하면 패키지를 수정한 것으로 간주됩니다.,"Este objeto tem conteúdo 3D, mas não é um modelo, então movê-lo ou girá-lo contará como modificação do pacote."
- ,此对象含有不属于模型的 3D 内容，移动或旋转对象都将视为修改包的行为。,此对象含有不属于模型的 3D 内容，移动或旋转对象都将视为修改包的行为。,此物件含有 3D 內容但不是 Model，移動或旋轉物件將視為修改套件。,Studio.Toolbox.General.CategoryMyFonts,My Fonts, ,My Fonts,Mis tipos de letra,Mes polices,I Miei Caratteri,マイフォント,내 글꼴,Minhas fontes
+ ,此对象含有不属于模型的 3D 内容，移动或旋转对象都将视为修改包的行为。,此对象含有不属于模型的 3D 内容，移动或旋转对象都将视为修改包的行为。,此物件含有 3D 內容但不是 Model，移動或旋轉物件將視為修改套件。,Studio.Toolbox.General.CategoryMyFonts,My Fonts, ,My Fonts,Mis tipos de letra,Mes polices,I Miei Caratteri,マイフォント,내 폰트,Minhas fontes
  ,我的字体,我的字体,我的字型,Studio.Toolbox.Audio.SoundEffect.Category.Orchestra,Orchestra, ,Orchestra,Orquesta,Orchestre,Orchestra,オーケストラ,오케스트라,Orquestra
  , , ,管弦樂器,Studio.Toolbox.Audio.SoundEffect.Category.Clickety-clack,Clickety-clack, ,Clickety-clack,"Claqueteo, traqueteo",Clack de clics,Click-clack,カタカタ音,짤깍짤깍 쏘리,Clic-clac
  , , ,喀嚓聲,Studio.Toolbox.Audio.SoundEffect.Category.Fire alarm,Fire alarm, ,Fire alarm,Alarma de incendios,Alarme incendie,Allarme antincendio,火災報知器,화재 경보,Alarme de incêndio
  , , ,火災警報器,Studio.Toolbox.Audio.SoundEffect.Category.Fire_alarm,Fire alarm, ,Fire alarm,Alarma de incendios,Alarme incendie,Allarme antincendio,火災報知器,화재 경보,Alarme de incêndio
- , , ,火災警報器,Studio.Toolbox.General.CategoryRecentFonts,Recent Fonts, ,Recent Fonts,Tipos de letra recientes,Polices récentes,Caratteri Recenti,最近使ったフォント,최근 글꼴,Fontes recentes
+ , , ,火災警報器,Studio.Toolbox.General.CategoryRecentFonts,Recent Fonts, ,Recent Fonts,Tipos de letra recientes,Polices récentes,Caratteri Recenti,最近使ったフォント,최근 폰트,Fontes recentes
  ,最近使用的字体,最近使用的字体,近期字型,Studio.Toolbox.AssetConfigAdditionalImages.SelectLimit,You can select up to {limit} screenshots, ,You can select up to {limit} screenshots,Puedes seleccionar hasta {limit} capturas de pantalla,Tu peux sélectionner jusqu'à {limit} captures d'écran,Puoi selezionare fino a {limit} screenshot,最大 {limit} 件のスクリーンショットを選択できます,최대 {limit}개의 스크린샷을 선택할 수 있습니다,Você pode selecionar até {limit} capturas de tela
  ,你最多可以选择 {limit} 张屏幕截图,你最多可以选择 {limit} 张屏幕截图,最多可選擇 {limit} 個截圖,Studio.Toolbox.Audio.SoundEffect.Category.Carnatic music,Carnatic music, ,Carnatic music,Música carnática,Musique carnatique,Musica carnatica,カルナティック音楽,카르나티크 음악,Música carnática
  , , ,印度音樂,Studio.Toolbox.Audio.SoundEffect.Category.Carnatic_music,Carnatic music, ,Carnatic music,Música carnática,Musique carnatique,Musica carnatica,カルナティック音楽,카르나티크 음악,Música carnática
@@ -1165,7 +1170,8 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  , , ,合成歌曲,Studio.Toolbox.Audio.SoundEffect.Category.Humming,Humming, ,Humming,Tararear,Chantonner,Ronzio,ハミング,콧노래,Cantarolando
  ,哼唱,哼唱,哼唱,Studio.Toolbox.Audio.SoundEffect.Category.Gasp,Gasp, ,Gasp,Grito ahogado,Inspirer bruyamment,Sussulto,息をのむ音,헐떡거림,Arfada
  ,喘气,喘气,喘氣,Studio.Toolbox.Audio.SoundEffect.Category.Cough,Cough, ,Cough,Tos,Tousser,Tosse,せき,기침,Tosse
- ,咳嗽,咳嗽,咳嗽,Studio.Toolbox.Audio.SoundEffect.Category.Sniff,Sniff, ,Sniff,Olfateo,Sniffer,Annusare,クンクン,킁킁,Fungado
+ ,咳嗽,咳嗽,咳嗽,Studio.Toolbox.AssetConfigFooter.UploadFeeWithRobuxIcon,Submit for {price}, ,Submit for {price}, , , , , , 
+ , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Sniff,Sniff, ,Sniff,Olfateo,Sniffer,Annusare,クンクン,킁킁,Fungado
  ,嗅,嗅,聞嗅,Studio.Toolbox.Audio.SoundEffect.Category.Run,Run, ,Run,Carrera,Courir,Corri,走る音,달림,Corrida
  ,奔跑,奔跑,奔跑,Studio.Toolbox.Audio.SoundEffect.Category.Skidding,Skidding, ,Skidding,Derrapar,Dérapage,Slittamento,スリップ音,스키드,Derrapando
  , , ,打滑聲,Studio.Toolbox.Audio.SoundEffect.Category.Flap,Flap, ,Flap,Aleteo,Flap,Sbattere,はためく音,퍼덕임,Bater de asas
@@ -1299,7 +1305,8 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  , , ,搖滾樂,Studio.Toolbox.Audio.SoundEffect.Category.Reggae,Reggae, ,Reggae,Reggae,Reggae,Reggae,レゲエ,레게,Reggae
  , , ,雷鬼,Studio.Toolbox.Audio.SoundEffect.Category.Swing music,Swing music, ,Swing music,Música swing,Swing music,Swing,スウィング音楽,스윙 음악,Swing
  , , ,搖擺樂,Studio.Toolbox.Audio.SoundEffect.Category.Swing_music,Swing music, ,Swing music,Música swing,Swing music,Swing,スウィング音楽,스윙 음악,Swing
- , , ,搖擺樂,Studio.Toolbox.Audio.SoundEffect.Category.Scratch,Scratch, ,Scratch,Rasguño,Scratch,Graffio,ひっかく,할큄,Arranhão
+ , , ,搖擺樂,Studio.Toolbox.General.PayAndSubmit,Pay & Submit, ,Pay & Submit, , , , , , 
+ , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Scratch,Scratch, ,Scratch,Rasguño,Scratch,Graffio,ひっかく,할큄,Arranhão
  , , ,刮擦聲,Studio.Toolbox.Audio.SoundEffect.Category.Bluegrass,Bluegrass, ,Bluegrass,Bluegrass,Bluegrass,Bluegrass,ブルーグラス,블루그래스,Bluegrass
  , , ,藍草音樂,Studio.Toolbox.Audio.SoundEffect.Category.Chorus effect,Chorus effect, ,Chorus effect,Efecto coro,Effet de chorus,Effetto coro,合唱のエフェクト,코러스 효과,Efeito de coral
  , , ,和聲效果,Studio.Toolbox.Audio.SoundEffect.Category.Chorus_effect,Chorus effect, ,Chorus effect,Efecto coro,Effet de chorus,Effetto coro,合唱のエフェクト,코러스 효과,Efeito de coral
@@ -1425,7 +1432,8 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  , , ,電動牙刷,Studio.Toolbox.Audio.SoundEffect.Category.Electric_toothbrush,Electric toothbrush, ,Electric toothbrush,Cepillo de dientes eléctrico,Brosse à dents électrique,Spazzolino elettrico,電動歯ブラシ,전동 칫솔,Escova de dentes elétrica
  , , ,電動牙刷,Studio.Toolbox.Audio.SoundEffect.Category.Zipper (clothing),Zipper (clothing), ,Zipper (clothing),Zíper (ropa),Fermeture éclair (vêtements),Cerniera (vestito),チャック（洋服）,지퍼(의류),Zíper (roupa)
  , , ,拉鍊 (衣服),Studio.Toolbox.Audio.SoundEffect.Category.Zipper_(clothing),Zipper (clothing), ,Zipper (clothing),Zíper (ropa),Fermeture éclair (vêtements),Cerniera (vestito),チャック（洋服）,지퍼(의류),Zíper (roupa)
- , , ,拉鍊 (衣服),Studio.Toolbox.Audio.SoundEffect.Category.Computer keyboard,Computer keyboard, ,Computer keyboard,Teclado de computadora,Clavier de l'ordinateur,Tastiera computer,パソコンのキーボード,컴퓨터 키보드,Teclado de computador
+ , , ,拉鍊 (衣服),Studio.Toolbox.AssetConfig.ValidationErrorSingular,{errorCount:int} Error, ,{errorCount:int} Error, , , , , , 
+ , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Computer keyboard,Computer keyboard, ,Computer keyboard,Teclado de computadora,Clavier de l'ordinateur,Tastiera computer,パソコンのキーボード,컴퓨터 키보드,Teclado de computador
  , , ,電腦鍵盤,Studio.Toolbox.Audio.SoundEffect.Category.Computer_keyboard,Computer keyboard, ,Computer keyboard,Teclado de computadora,Clavier de l'ordinateur,Tastiera computer,パソコンのキーボード,컴퓨터 키보드,Teclado de computador
  , , ,電腦鍵盤,Studio.Toolbox.Audio.SoundEffect.Category.Writing,Writing, ,Writing,Escribir,Écriture,Scrittura,執筆,쓰기,Escrevendo
  , , ,寫作,Studio.Toolbox.Audio.SoundEffect.Category.Telephone bell ringing,Telephone bell ringing, ,Telephone bell ringing,Timbre del teléfono,Sonnerie du téléphone,Squillo del telefono,電話の鳴る音,전화벨 울림,Toque de telefone
@@ -1504,7 +1512,7 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  , , ,咬嚼聲,Studio.Toolbox.Audio.SoundEffect.Category.Silence,Silence, ,Silence,Silencio,Silence,Silenzio,沈黙,침묵,Silêncio
  , , ,安靜,Studio.Toolbox.Audio.SoundEffect.Category.Sine wave,Sine wave, ,Sine wave,Onda sinusoidal,Onde de choc,Onda sinusoidale,純音,사인파,Onda sinusoidal
  , , ,正弦波,Studio.Toolbox.Audio.SoundEffect.Category.Sine_wave,Sine wave, ,Sine wave,Onda sinusoidal,Onde de choc,Onde sinusoide,純音,사인파,Onda sinusoidal
- , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Harmonic,Harmonic, ,Harmonic,Armónica,Harmonique,Armonica,和音,고조파,Harmônico
+ , , ,正弦波,Studio.Toolbox.Audio.SoundEffect.Category.Harmonic,Harmonic, ,Harmonic,Armónica,Harmonique,Armonica,和音,고조파,Harmônico
  , , ,口琴,Studio.Toolbox.Audio.SoundEffect.Category.Chirp tone,Chirp tone, ,Chirp tone,Tono de chirrido,Tonalité Chirp,Tono di chirp,ピーピー音,처프 톤,Tom de piado
  , , ,啾啾聲,Studio.Toolbox.Audio.SoundEffect.Category.Chirp_tone,Chirp tone, ,Chirp tone,Tono de chirrido,Tonalité Chirp,Tono di chirp,ピーピー音,처프 톤,Tom de piado
  , , ,啾啾聲,Studio.Toolbox.Audio.SoundEffect.Category.Sound effect,Sound effect, ,Sound effect,Efecto de sonido,Effet sonore,Effetto sonoro,効果音,음향 효과,Efeito sonoro
@@ -1523,12 +1531,23 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  , , ,雜音,Studio.Toolbox.Audio.SoundEffect.Category.Pink noise,Pink noise, ,Pink noise,Ruido rosa,Bruit rose,Rumore rosa,ピンクノイズ,핑크 노이즈,Ruído rosa
  , , ,粉紅噪音,Studio.Toolbox.Audio.SoundEffect.Category.Pink_noise,Pink noise, ,Pink noise,Ruido rosa,Bruit rose,Rumore rosa,ピンクノイズ,핑크 노이즈,Ruído rosa
  , , ,粉紅噪音,Studio.Toolbox.Audio.SoundEffect.Category.Vibration,Vibration, ,Vibration,Vibración,Vibration,Vibrazioni,振動,진동,Vibração
- , , ,震動,Studio.Toolbox.General.AssetTypeDynamicHead,Dynamic Head, ,Dynamic Head,Cabeza dinámica,Tête dynamique,Testa Dinamica,ダイナミックヘッド,다이내믹 헤드,Cabeça dinâmica
+ , , ,震動,Studio.Toolbox.AssetConfig.PayAndConfirmDescription,Your Roblox account will be charged {amount}., ,Your Roblox account will be charged {amount}., , , , , , 
+ , , , ,Studio.Toolbox.General.AssetTypeDynamicHead,Dynamic Head, ,Dynamic Head,Cabeza dinámica,Tête dynamique,Testa Dinamica,ダイナミックヘッド,다이내믹 헤드,Cabeça dinâmica
  , , ,動態臉部,Studio.Toolbox.Dropdown.ChooseOne,Choose one, ,Choose one,Elegir uno,En choisir un(e),Scegline uno,一つ選ぶ,선택하세요,Escolha um
  , , ,請擇一,Studio.Toolbox.General.AssetTypeTorso,Torso, ,Torso,Torso,Torse,Torso,胴体,몸통,Tronco
  , , ,軀幹,Studio.Toolbox.General.AssetTypeRightArm,Right Arm, ,Right Arm,Brazo derecho,Bras droit,Braccio destro,右腕,오른팔,Braço direito
  , , ,右臂,Studio.Toolbox.General.AssetTypeEyelashAccessory,Eyelash Accessory, ,Eyelash Accessory,Accesorio de pestaña,Accessoire cils,Accessorio Ciglia,まつげ用アクセサリ,속눈썹 장신구,Acessório de cílio
  , , ,睫毛配件,Studio.Toolbox.HomeView.top,Top, ,Top,Mejores,Au top,Superiore,トップ,인기,Mais populares
- , , , ,Studio.Toolbox.Homeview.genres,Genres, ,Genres,Géneros,Genres,Generi,ジャンル,장르,Gêneros
- , , , ,Studio.Toolbox.HomeView.vibes,Vibes, ,Vibes,Vibras,Ondes,Vibrazioni,バイブス,분위기,Vibes
+ , , ,熱門,Studio.Toolbox.Homeview.genres,Genres, ,Genres,Géneros,Genres,Generi,ジャンル,장르,Gêneros
+ , , ,大類,Studio.Toolbox.HomeView.vibes,Vibes, ,Vibes,Vibras,Ondes,Vibrazioni,バイブス,분위기,Vibes
+ , , ,氛圍,Studio.Toolbox.General.AssetTypeAnimation,Animation, ,Animation, , , , , , 
+ , , , ,Studio.Toolbox.General.ContentType,Content Type, ,Content Type, , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.DevelopmentItem,Development Item, ,Development Item, , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.ValidatingInProgress,Validating..., ,Validating..., , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.ValidationErrorPlural,{errorCount:int} Errors, ,{errorCount:int} Errors, , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.ValidationErrorUnknown,Unknown error, ,Unknown error, , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.AvatarItemsErrorTitle,Avatar Item Category Errors, ,Avatar Item Category Errors, , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.AvatarItemsErrorTextSingular,{errorCount:int} error found when validating Avatar Item Category, ,{errorCount:int} error found when validating Avatar Item Category, , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.AvatarItemsErrorTextPlural,{errorCount:int} errors found when validating Avatar Item Category, ,{errorCount:int} errors found when validating Avatar Item Category, , , , , , 
+ , , , ,Studio.Toolbox.AssetConfig.AssetConfigOutputErrorHeading,"{errorCount:int} Error Asset Configuration, Avatar Item Category", ,"{errorCount:int} Error Asset Configuration, Avatar Item Category", , , , , , 
  , , , 

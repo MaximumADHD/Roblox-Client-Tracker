@@ -196,8 +196,12 @@ Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int AssetDeliveryProxy.Port
 	Property bool AssetDeliveryProxy.StartServer
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Map AssetImportService:GetAllTemplates() {RobloxScriptSecurity}
+	Function Map AssetImportService:GetTemplate(string name) {RobloxScriptSecurity}
 	Function string AssetImportService:PickFileWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function Array AssetImportService:PickMultipleFilesWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function null AssetImportService:RemoveTemplate(string name) {RobloxScriptSecurity}
+	Function null AssetImportService:SaveTemplate(string name, Dictionary importTemplate) {RobloxScriptSecurity}
 	Function AssetImportSession AssetImportService:StartSessionWithPath(string filePath) {RobloxScriptSecurity}
 	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
@@ -307,6 +311,18 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property string AudioSearchParams.SearchKeyword
 	Property string AudioSearchParams.Tag
 	Property string AudioSearchParams.Title
+Class AvatarChatService : Instance [NotCreatable] [Service]
+	Property int AvatarChatService.ClientFeatures {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int AvatarChatService.ClientFeaturesInitialized {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int AvatarChatService.ServerFeatures {RobloxScriptSecurity} {✏️RobloxSecurity} [Hidden]
+	Function int AvatarChatService:GetClientFeaturesAsync() {RobloxScriptSecurity} [Yields]
+	Function int AvatarChatService:GetServerFeaturesAsync() {RobloxScriptSecurity} [Yields]
+	Function bool AvatarChatService:IsEnabled(int mask, Enum.AvatarChatServiceFeature feature) {RobloxScriptSecurity}
+	Function bool AvatarChatService:IsPlaceEnabled() {RobloxScriptSecurity}
+	Function bool AvatarChatService:IsUniverseEnabled() {RobloxScriptSecurity}
+	Function int AvatarChatService:PollClientFeatures() {RobloxScriptSecurity}
+	Function int AvatarChatService:PollServerFeatures() {RobloxScriptSecurity}
+	Event AvatarChatService.OnClientFeatures(int features) {RobloxSecurity} [Hidden]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
 	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) [Yields]
@@ -316,6 +332,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum.AvatarItemType itemType) [Yields]
 	Function InventoryPages AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum.AvatarItemType itemType) [Yields]
+	Function Dictionary AvatarEditorService:GetOutfitDetails(int64 outfitId) [Yields]
 	Function OutfitPages AvatarEditorService:GetOutfits(Enum.OutfitSource outfitSource = "All", Enum.OutfitType outfitType = "All") [Yields]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
@@ -825,6 +842,9 @@ Class AlignPosition : Constraint
 	Property Vector3 AlignPosition.Position
 	Property bool AlignPosition.ReactionForceEnabled
 	Property bool AlignPosition.RigidityEnabled
+	Property Enum.ForceLimitMode AlignPosition.ForceLimitMode [NotBrowsable]
+	Property Enum.ActuatorRelativeTo AlignPosition.ForceRelativeTo
+	Property Vector3 AlignPosition.MaxAxesForce
 	Property float AlignPosition.MaxForce
 	Property float AlignPosition.MaxVelocity
 	Property float AlignPosition.Responsiveness
@@ -1452,6 +1472,7 @@ Class FacialAnimationStreamingServiceV2 : Instance [NotCreatable] [Service]
 	Function bool FacialAnimationStreamingServiceV2:IsServerEnabled(int mask) {RobloxScriptSecurity}
 	Function bool FacialAnimationStreamingServiceV2:IsVideoEnabled(int mask) {RobloxScriptSecurity}
 	Function int FacialAnimationStreamingServiceV2:ResolveStateForUser(int64 userId) {RobloxScriptSecurity} [Yields]
+Class FacialAnimationStreamingSubsessionStats : Instance [NotCreatable] [NotReplicated]
 Class Feature : Instance [NotCreatable]
 	Property Enum.NormalId Feature.FaceId
 	Property Enum.InOut Feature.InOut
@@ -1631,7 +1652,6 @@ Class Frame : GuiObject
 Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Property bool GuiButton.AutoButtonColor
 	Property bool GuiButton.Modal
-	Property bool GuiButton.Selected
 	Property Enum.ButtonStyle GuiButton.Style
 	Property int GuiButton.MouseButton1ClickConnectionCount [Hidden] [NotScriptable]
 	Property int GuiButton.MouseButton1DownConnectionCount [Hidden] [NotScriptable]
@@ -1639,6 +1659,7 @@ Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Property int GuiButton.MouseButton2ClickConnectionCount [Hidden] [NotScriptable]
 	Property int GuiButton.MouseButton2DownConnectionCount [Hidden] [NotScriptable]
 	Property int GuiButton.MouseButton2UpConnectionCount [Hidden] [NotScriptable]
+	Property bool GuiButton.Selected
 	Event GuiButton.Activated(InputObject inputObject, int clickCount)
 	Event GuiButton.MouseButton1Click()
 	Event GuiButton.MouseButton1Down(int x, int y)
@@ -3498,7 +3519,7 @@ Class Player : Instance
 	Property Enum.CameraMode Player.CameraMode
 	Property Enum.DevCameraOcclusionMode Player.DevCameraOcclusionMode
 	Property Enum.DevComputerCameraMovementMode Player.DevComputerCameraMode
-	Property bool Player.DevEnableMouseLock [Deprecated]
+	Property bool Player.DevEnableMouseLock
 	Property Enum.DevTouchCameraMovementMode Player.DevTouchCameraMode
 	Property float Player.HealthDisplayDistance
 	Property float Player.NameDisplayDistance
@@ -3642,7 +3663,7 @@ Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Event PlayerScripts.TouchMovementModeRegistered() {RobloxScriptSecurity}
 Class Players : Instance [NotCreatable] [Service]
 	Property bool Players.CharacterAutoLoads [NotReplicated]
-	Property bool Players.UseStrafingAnimations [NotReplicated] [NotScriptable]
+	Property bool Players.UseStrafingAnimations [NotScriptable]
 	Property bool Players.BubbleChat [ReadOnly]
 	Property bool Players.ClassicChat [ReadOnly]
 	Property Player Players.LocalPlayer [ReadOnly]
@@ -4143,8 +4164,9 @@ Class Selection : Instance [NotCreatable] [Service]
 	Property int Selection.SelectionLineThickness {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property float Selection.SelectionThickness [ReadOnly]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool Selection.DEPRECATED_ShowBoundingBox {RobloxScriptSecurity} [Hidden]
+	Property Enum.SelectionRenderMode Selection.RenderMode {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Selection.ShowActiveInstanceHighlight {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property bool Selection.ShowBoundingBox {RobloxScriptSecurity} [Hidden]
 	Function null Selection:Add(Objects instancesToAdd) {PluginSecurity}
 	Function null Selection:ClearTerrainSelectionHack() {RobloxScriptSecurity}
 	Function Objects Selection:Get() {PluginSecurity}
@@ -4486,7 +4508,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property bool StarterPlayer.CharacterUseJumpPower
 	Property Enum.DevComputerMovementMode StarterPlayer.DevComputerMovementMode
 	Property Enum.DevTouchMovementMode StarterPlayer.DevTouchMovementMode
-	Property bool StarterPlayer.EnableMouseLockOption [Deprecated]
+	Property bool StarterPlayer.EnableMouseLockOption
 	Property Enum.HumanoidStateMachineMode StarterPlayer.HumanoidStateMachineMode [NotBrowsable]
 	Property float StarterPlayer.HealthDisplayDistance
 	Property float StarterPlayer.NameDisplayDistance
@@ -4757,16 +4779,33 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum.StudioStyleGuideColor styleguideitem, Enum.StudioStyleGuideModifier modifier = "Default") {PluginSecurity}
 Class StyleBase : Instance [NotCreatable]
+	Function Objects StyleBase:GetStyleRules()
+	Function null StyleBase:InsertStyleRule(StyleRule rule, int? index)
+	Function null StyleBase:SetStyleRules(Objects rules)
 Class StyleRule : StyleBase
 	Property int StyleRule.Index [Hidden] [NotScriptable]
 	Property BinaryString StyleRule.PropertiesSerialize [Hidden] [NotScriptable]
 	Property string StyleRule.Selector
 	Property string StyleRule.SelectorError [ReadOnly]
+	Function Dictionary StyleRule:GetProperties()
+	Function Dictionary StyleRule:GetPropertiesResolved() {RobloxScriptSecurity}
+	Function Variant StyleRule:GetProperty(string name)
+	Function Variant StyleRule:GetPropertyResolved(string name) {RobloxScriptSecurity}
+	Function null StyleRule:SetProperties(Dictionary table)
+	Function null StyleRule:SetProperty(string name, Variant value)
 Class StyleSheet : StyleBase
+	Function Objects StyleSheet:GetDerives()
+	Function null StyleSheet:SetDerives(Objects derives)
 Class StyleDerive : Instance
+	Property StyleSheet StyleDerive.StyleSheet
 	Property int StyleDerive.Index [Hidden] [NotScriptable]
 Class StyleLink : Instance
+	Property StyleSheet StyleLink.StyleSheet
 Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Array StylingService:GetAppliedStyles(Instance instance) {RobloxScriptSecurity}
+	Function Dictionary StylingService:GetStyleInfo(StyleRule style) {RobloxScriptSecurity}
+	Function Objects StylingService:GetStyleSheetDerivesChain(StyleSheet styleSheet) {RobloxScriptSecurity}
+	Function Dictionary StylingService:GetStyleSheetInfo(StyleSheet styleSheet) {RobloxScriptSecurity}
 Class SurfaceAppearance : Instance
 	Property Enum.AlphaMode SurfaceAppearance.AlphaMode {PluginSecurity}
 	Property Content SurfaceAppearance.ColorMap {PluginSecurity}
@@ -4972,6 +5011,7 @@ Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 Class TextFilterTranslatedResult : Instance [NotCreatable] [NotReplicated]
 	Property string TextFilterTranslatedResult.SourceLanguage [ReadOnly]
 	Property TextFilterResult TextFilterTranslatedResult.SourceText [ReadOnly]
+	Function TextFilterResult TextFilterTranslatedResult:GetTranslationForLocale(string locale)
 	Function Dictionary TextFilterTranslatedResult:GetTranslations()
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterAndTranslateStringAsync(string stringToFilter, int64 fromUserId, Array targetLocales, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
@@ -5166,7 +5206,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum.CustomCameraMode UserGameSettings.CameraMode {RobloxScriptSecurity}
 	Property Enum.ComputerCameraMovementMode UserGameSettings.ComputerCameraMovementMode
 	Property Enum.ComputerMovementMode UserGameSettings.ComputerMovementMode
-	Property Enum.ControlMode UserGameSettings.ControlMode [Deprecated]
+	Property Enum.ControlMode UserGameSettings.ControlMode
 	Property Enum.RotationType UserGameSettings.RotationType
 	Property Enum.TouchCameraMovementMode UserGameSettings.TouchCameraMovementMode
 	Property Enum.TouchMovementMode UserGameSettings.TouchMovementMode
@@ -5733,6 +5773,16 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.EyelashAccessory : 77
 	EnumItem AvatarAssetType.MoodAnimation : 78
 	EnumItem AvatarAssetType.DynamicHead : 79
+Enum AvatarChatServiceFeature
+	EnumItem AvatarChatServiceFeature.None : 0
+	EnumItem AvatarChatServiceFeature.UniverseAudio : 1
+	EnumItem AvatarChatServiceFeature.UniverseVideo : 2
+	EnumItem AvatarChatServiceFeature.PlaceAudio : 4
+	EnumItem AvatarChatServiceFeature.PlaceVideo : 8
+	EnumItem AvatarChatServiceFeature.UserAudioEligible : 16
+	EnumItem AvatarChatServiceFeature.UserAudio : 32
+	EnumItem AvatarChatServiceFeature.UserVideoEligible : 64
+	EnumItem AvatarChatServiceFeature.UserVideo : 128
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -6017,6 +6067,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectBlockedIP : 282
 	EnumItem ConnectionError.DisconnectClientFailure : 284
 	EnumItem ConnectionError.DisconnectClientRequest : 285
+	EnumItem ConnectionError.DisconnectPrivateServerKickout : 286
 	EnumItem ConnectionError.DisconnectModeratedGame : 287
 	EnumItem ConnectionError.ReplicatorTimeout : 290
 	EnumItem ConnectionError.PlayerRemoved : 291
@@ -6355,6 +6406,9 @@ Enum FontWeight
 	EnumItem FontWeight.Bold : 700
 	EnumItem FontWeight.ExtraBold : 800
 	EnumItem FontWeight.Heavy : 900
+Enum ForceLimitMode
+	EnumItem ForceLimitMode.Magnitude : 0
+	EnumItem ForceLimitMode.PerAxis : 1
 Enum FormFactor
 	EnumItem FormFactor.Symmetric : 0
 	EnumItem FormFactor.Brick : 1
@@ -7021,8 +7075,8 @@ Enum PartType
 	EnumItem PartType.Ball : 0
 	EnumItem PartType.Block : 1
 	EnumItem PartType.Cylinder : 2
-	EnumItem PartType.Wedge : 3 [NotBrowsable]
-	EnumItem PartType.CornerWedge : 4 [NotBrowsable]
+	EnumItem PartType.Wedge : 3
+	EnumItem PartType.CornerWedge : 4
 Enum ParticleEmitterShape
 	EnumItem ParticleEmitterShape.Box : 0
 	EnumItem ParticleEmitterShape.Sphere : 1
@@ -7370,6 +7424,10 @@ Enum ScrollingDirection
 Enum SelectionBehavior
 	EnumItem SelectionBehavior.Escape : 0
 	EnumItem SelectionBehavior.Stop : 1
+Enum SelectionRenderMode
+	EnumItem SelectionRenderMode.Outlines : 0
+	EnumItem SelectionRenderMode.BoundingBoxes : 1
+	EnumItem SelectionRenderMode.Both : 2
 Enum SensorMode
 	EnumItem SensorMode.Floor : 0
 	EnumItem SensorMode.Ladder : 1

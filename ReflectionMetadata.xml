@@ -1140,6 +1140,15 @@
         <string name="ExplorerImageIndex">99</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+            <Properties>
+                <string name="Name">ForceLimitMode</string>
+                <string name="summary">Selects the mode for force limit. Options Uniform or Per-component</string>
+                <bool name="FFlag">SimAlignPositionVectorForceLimit</bool>
+            </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -7314,7 +7323,6 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SliceCenter</string>
-            <string name="EditorType">9Slice</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -7659,7 +7667,6 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SliceCenter</string>
-            <string name="EditorType">9Slice</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

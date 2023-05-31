@@ -13,11 +13,13 @@ Studio.ManageCollaborators.Plugin.Title,Manage Collaborators, Manage Collaborato
 Studio.ManageCollaborators.Buttons.No,No,No
 Studio.ManageCollaborators.General.TitleCollaborators,Collaborators,Collaborators
 Studio.ManageCollaborators.SearchBar.AddUsers,Add Users,Add Users
+Studio.ManageCollaborators.SearchBar.AgeWarningGroups,This experience is restricted to age-verified 17+ creators.,This experience is restricted to age-verified 17+ creators.
 Studio.ManageCollaborators.FailureMessage.SaveFailure,Failed to save Permissions. Please try again.,Failed to save Permissions. Please try again.
 Studio.ManageCollaborators.PermissionDescriptions.Play,Can play this game,Can play this game
 Studio.ManageCollaborators.SearchBar.AddUsersGroups,Add Users and Groups, Add Users and Groups
 Studio.ManageCollaborators.PermissionLabels.NoAccess,No Access,No Access
 Studio.ManageCollaborators.SearchBar.UnknownError,Unknown error,Unknown error
+Studio.ManageCollaborators.PermissionDescriptions.RoleHasEditPerms,Role has Edit-level permissions to group-owned experiences, Role has Edit-level permissions to group-owned experiences
 Studio.ManageCollaborators.PermissionLabels.Play,Play,Play
 Studio.ManageCollaborators.PermissionLabels.Edit,Edit,Edit
 Studio.ManageCollaborators.PermissionLabels.Admin,Manage,Manage
@@ -35,14 +37,16 @@ Studio.ManageCollaborators.Buttons.SeeOneMoreRole,See 1 more role, See 1 more ro
 Studio.ManageCollaborators.PermissionDescriptions.Owner,Owner of the game,Owner of the game
 Studio.ManageCollaborators.Title.TurnOnTcConfirmation,Team Create will be turned on,Team Create will be turned on 
 Studio.ManageCollaborators.PermissionDescriptions.CannotViewGroupRoles,You don't have permission to view the access levels of group roles,You don't have permission to view the access levels of group roles 
+Studio.ManageCollaborators.PermissionDescriptions.GroupOwnerToEdit,Only group-owner can edit permissions, Only group-owner can edit permissions
+Studio.ManageCollaborators.Description.SaveEnableTcCurrentEditors,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.
+Studio.ManageCollaborators.Buttons.SaveToRoblox,Save to Roblox,Save to Roblox
+Studio.ManageCollaborators.PermissionDescriptions.GameOwnerToEdit,Only game-owner can edit permissions, Only game-owner can edit permissions
+Studio.ManageCollaborators.PermissionDescriptions.UsersOnlyPlayLevel,Users can only be granted Play-level permissions to group-owned experiences, Users can only be granted Play-level permissions to group-owned experiences
 Studio.ManageCollaborators.Title.RobloxStudio,Roblox Studio,Roblox Studio
 Studio.ManageCollaborators.CollaboratorTypes.Users,Users,Users
 Studio.ManageCollaborators.Buttons.TurnOn,Turn On,Turn On
 Studio.ManageCollaborators.Buttons.Save,Save,Save
 Studio.ManageCollaborators.Buttons.Yes,Yes,Yes
-Studio.ManageCollaborators.SearchBar.AgeWarning,Only users who are age verified as 17+ can be added as collaborators.,Only users who are age verified as 17+ can be added as collaborators.
-Studio.ManageCollaborators.Description.SaveEnableTcCurrentEditors,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.
-Studio.ManageCollaborators.Buttons.SaveToRoblox,Save to Roblox,Save to Roblox
 Studio.ManageCollaborators.Buttons.SeeMoreRoles,See {count} more roles, See {count} more roles
 Studio.ManageCollaborators.Buttons.HideRoles,Hide {count} roles, Hide {count} roles
 Studio.ManageCollaborators.Description.SaveToRoblox,Save your game to Roblox to start collaborating.,Save your game to Roblox to start collaborating.
@@ -51,3 +55,4 @@ Studio.ManageCollaborators.Description.TurnOnTcConfirmation,"To enable your coll
 Studio.ManageCollaborators.Description.FriendsEditAccess,(only friends can have edit access),(only friends can have edit access)
 Studio.ManageCollaborators.Description.SaveEnableTC,Saving these changes will turn on Team Create,Saving these changes will turn on Team Create
 Studio.ManageCollaborators.FailureMessage.LoadFailure,Failed to load Permissions. Please try again.,Failed to load Permissions. Please try again.
+Studio.ManageCollaborators.SearchBar.AgeWarningUsers,Only friends can have edit access. This experience is restricted to age-verified 17+ creators.,Only friends can have edit access. This experience is restricted to age-verified 17+ creators.

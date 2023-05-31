@@ -136,8 +136,7 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png" modernIcon="Client"
             width="32"
             height="32"/>
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
+        <addaction name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings" modernIcon="GameSettings" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32">
@@ -171,10 +170,10 @@
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
         <addseparator visible="false"/>
-        <addspinbox fflag="!StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox fflag="!StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
-        <addspinbox fflag="StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox fflag="StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+        <addspinbox fflag="!StudioDraggerFixGridBox" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
+        <addspinbox fflag="!StudioDraggerFixGridBox" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+        <addspinbox fflag="StudioDraggerFixGridBox" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
+        <addspinbox fflag="StudioDraggerFixGridBox" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
       <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup" modernIcon="EditPivot" icon=":/RibbonBar/images/RibbonIcons/Home/PivotEditor.png" width="32" height="32">
         <addaction name="editPivotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.EditPivot" tooltip="Studio.App.RobloxRibbonMainWindow.EditPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/PivotEditor.png" modernIcon="EditPivot" width="32" height="32" />
@@ -359,10 +358,10 @@
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
         <addseparator visible="false"/>
-        <addspinbox fflag="!StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox fflag="!StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
-        <addspinbox fflag="StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
-        <addspinbox fflag="StudioDraggerUnboundGridSize2" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+        <addspinbox fflag="!StudioDraggerFixGridBox" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="9999" minumumWidth="100" step="5" suffix=" °"/>
+        <addspinbox fflag="!StudioDraggerFixGridBox" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="1024" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+        <addspinbox fflag="StudioDraggerFixGridBox" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
+        <addspinbox fflag="StudioDraggerFixGridBox" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
       <Group name="Accessory" fflag="EnableAccessoryTool" text="Studio.Common.Action.Accessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" width="32" height="32">
         <addaction name="layeredClothingEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip" width="32" height="32" />
@@ -398,10 +397,8 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png" modernIcon=""
             width="32"
             height="32"/>
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
+        <addaction name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
+        <addaction name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Clients and Servers" text="Studio.App.RobloxRibbonMainWindow.ClientsAndServers" modernIcon="StartServerAndClient" icon=":/RibbonBar/images/RibbonIcons/Test/Start-Server.png" width="32" height="32">
@@ -450,9 +447,6 @@
         <addaction name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis"/>
         <addaction fflag="CodeSnippet_Alpha4" name="toggleCodeSnippetsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet"/>
         <addaction name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="CommandBar" tooltip="Studio.App.RBXMainWindow.ViewCommandBar" text="Studio.App.RBXMainWindow.CommandBar"/>
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" debugOnly="true" name="breakpointsDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" modernIcon="Breakpoints" tooltip="Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints"/>
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" debugOnly="true" name="callStackDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" modernIcon="CallStack" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack"/>
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" debugOnly="true" name="watchDockWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" modernIcon="Watch" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables"/>
         <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png" modernIcon="Performance"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo"/>
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" modernIcon="TaskScheduler" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat"/>
@@ -471,9 +465,9 @@
         <addaction fflag="COLLAB2928StudioInternalDebugWidget2" name="toggleStudioInternalDebuggerDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioInternalDebugWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioInternalDebugWidgetTooltip" icon=":/RibbonBar/images/RibbonIcons/View/Buggaroo.png" modernIcon="Buggaroo" ischeckable="true" />
         
         <addaction fflag="EnableTagEditorPluginRibbonButton" name="toggleTagEditorDockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TagEditor" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="TagEditor"   tooltip="Studio.App.RobloxRibbonMainWindow.TagEditorTooltip"/>
-		<addaction fflag="StudioDebuggerOverhaul_Dev" debugOnly="true" name="callStackDockWidgetActionV2" type="plugin" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" modernIcon="CallStack" text="Studio.App.CallStack.CallStack" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack"/>
-		<addaction fflag="StudioDebuggerOverhaul_Dev" debugOnly="true" name="breakpointsDockWidgetActionV2" type="plugin" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" modernIcon="Breakpoints" text="Studio.App.Breakpoints.Breakpoints" tooltip="Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints"/>
-		<addaction fflag="StudioDebuggerOverhaul_Dev" debugOnly="true" name="watchDockWidgetActionV2" type="plugin" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" modernIcon="Watch" text="Studio.App.Watch.Watch" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables"/>
+		<addaction debugOnly="true" name="callStackDockWidgetActionV2" type="plugin" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" modernIcon="CallStack" text="Studio.App.CallStack.CallStack" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack"/>
+		<addaction debugOnly="true" name="breakpointsDockWidgetActionV2" type="plugin" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Breakpoint.png" modernIcon="Breakpoints" text="Studio.App.Breakpoints.Breakpoints" tooltip="Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints"/>
+		<addaction debugOnly="true" name="watchDockWidgetActionV2" type="plugin" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/Test/Watch-Window.png" modernIcon="Watch" text="Studio.App.Watch.Watch" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables"/>
 		<addaction fflag="DebugStudioAssetProxy" name="remoteDebugDockWidgetAction" style="textbesideicon" text="Studio.App.RemoteDebugger.Title" tooltip="Studio.App.RemoteDebugger.Title"/>
       </Group>
       <Group fflag="StudioDockLayoutManager" name="Layouts" text="Studio.App.RobloxRibbonMainWindow.Layout" modernIcon="LayoutSelector">
@@ -496,7 +490,14 @@
         <addaction name="toggleWireframeRenderingAction" style="textundericon" text="Studio.App.RBXMainWindow.WireframeRendering" icon=":/RibbonBar/images/RibbonIcons/View/Wireframe-Box.png" modernIcon="WireframeRendering" tooltip="Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering" height="32" width="32"/>
         <addaction fflag="AddUIToggleToRibbon" name="toggleUIVisibilityAction" style="textundericon" text="Studio.App.RBXMainWindow.UIVisibility" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/UIOff.png" modernIcon="UIOff" tooltip="Studio.App.RobloxRibbonMainWindow.EnableUIVisibility" height="32" width="32"/>
         <MenuButton name="switchWindowsMenu" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SwitchWindows" icon=":/RibbonBar/images/RibbonIcons/View/Switch-Windows.png" modernIcon="SwitchWindows" tooltip="Studio.App.RobloxRibbonMainWindow.SwitchDifferentWindow" ischeckable="false" width="32" height="32"/>
-        <addaction fflag="OutlineSelection1" name="toggleBoundingBoxVisibilityAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" tooltip="Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip" height="32" width="32"/>
+        <addaction fflag="!SelectionImprovementsRenderMode"  name="DEPRECATED_toggleBoundingBoxVisibilityAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" tooltip="Studio.App.RobloxRibbonMainWindow.DEPRECATEDBoundingBoxesTooltip" height="32" width="32"/>
+        <MenuPopupButton fflag="SelectionImprovementsRenderMode" name="selectionRenderModeGroup" handleIconChange="true" setting="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SelectionRendering" tooltip="Studio.App.RobloxRibbonMainWindow.SelectionRenderingTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" >
+          <ActionGroup name="setSelectionRenderModeAction" style="textbesideicon" ischeckable="false">
+            <addaction name="viewOutlinesAction" text="Studio.App.RobloxRibbonMainWindow.Outlines" value="Outlines" tooltip="Studio.App.RobloxRibbonMainWindow.OutlinesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="Part_Sphere" width="32" height="32" />
+            <addaction name="viewBoundingBoxesAction" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" value="BoundingBoxes" tooltip="Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" />
+            <addaction name="viewBothAction" text="Studio.App.RobloxRibbonMainWindow.ViewBoth" value="Both" tooltip="Studio.App.RobloxRibbonMainWindow.ViewBothTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" />
+          </ActionGroup>
+        </MenuPopupButton>
       </Group>
       <Group name="Stats" text="Studio.App.RBXMainWindow.Stats">
         <addaction name="testStatsAction" action="testStudio.App.RBXMainWindow.StatsAction" text="Studio.App.RBXMainWindow.Stats" style="textbesideicon" />
@@ -591,24 +592,14 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png" modernIcon="Client"
             width="32"
             height="32"/>
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" name="simulationResumeAction" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
+        <addaction name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
+        <addaction name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true" modernIcon="StepInto" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32">
-        <!--<addaction name="toggleAllBreakpointsStateAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Toggle-Breakpoints.png" modernIcon="" tooltip="Enabled/Disable all breakpoints" width="32" height="32"/>-->
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" name="stepIntoAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" modernIcon="StepInto" width="32" height="32"/>
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="stepIntoActionV2" text="Studio.App.RBXMainWindow.StepInto" tooltip="Studio.App.RBXMainWindow.StepInto" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" modernIcon="StepInto" width="32" height="32"/>
-
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" name="stepOverAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" modernIcon="StepOver" width="32" height="32"/>
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="stepOverActionV2" text="Studio.App.RBXMainWindow.StepOver" tooltip="Studio.App.RBXMainWindow.StepOver" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" modernIcon="StepOver" width="32" height="32"/>
-
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" name="stepOutAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" modernIcon="StepOut" width="32" height="32"/>
-        <addaction fflag="StudioDebuggerOverhaul_Dev" name="stepOutActionV2" text="Studio.App.RBXMainWindow.StepOut" tooltip="Studio.App.RBXMainWindow.StepOut" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" modernIcon="StepOut" width="32" height="32"/>
-
-        <addaction fflag="!StudioDebuggerOverhaul_Dev" name="addWatchAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Add-Watch.png" modernIcon="AddWatch" tooltip="Studio.App.RobloxRibbonMainWindow.WatchTheHighlightedVariables" width="32" height="32"/>
+        <addaction name="stepIntoActionV2" text="Studio.App.RBXMainWindow.StepInto" tooltip="Studio.App.RBXMainWindow.StepInto" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" modernIcon="StepInto" width="32" height="32"/>
+        <addaction name="stepOverActionV2" text="Studio.App.RBXMainWindow.StepOver" tooltip="Studio.App.RBXMainWindow.StepOver" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" modernIcon="StepOver" width="32" height="32"/>
+        <addaction name="stepOutActionV2" text="Studio.App.RBXMainWindow.StepOut" tooltip="Studio.App.RBXMainWindow.StepOut" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" modernIcon="StepOut" width="32" height="32"/>
       </Group>
       <Group debugOnly="true" name="Debug Errors" text="Studio.App.RobloxRibbonMainWindow.DebugErrors">
         <addaction type="radio" name="neverBreakOnScriptErrorsAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Never" tooltip="Studio.App.RBXMainWindow.NeverBreakErrorsIntoDebugger"/>
