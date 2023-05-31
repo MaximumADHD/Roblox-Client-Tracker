@@ -1,3 +1,4 @@
+--!nocheck
 local IABottomBarFolder = script.Parent
 local Navigation = script.Parent.Parent
 local App = Navigation.Parent

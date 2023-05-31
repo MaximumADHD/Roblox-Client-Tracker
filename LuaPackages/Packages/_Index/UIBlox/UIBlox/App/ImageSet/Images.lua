@@ -1,10 +1,6 @@
---!strict
 -- This file just provides a convenient interface to query for images
 local GetImageSetData = require(script.Parent.GetImageSetData)
 local FALLBACK_IMAGES = require(script.Parent.FallbackImages)
-local ImageSet = script.Parent
-local App = ImageSet.Parent
-local UIBlox = App.Parent
 local ImagesTypes = require(script.Parent.ImagesTypes)
 
 local GuiService = game:GetService("GuiService")

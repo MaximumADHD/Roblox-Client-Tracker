@@ -1,4 +1,3 @@
---!strict
 local UIBlox = script:FindFirstAncestor("UIBlox")
 local Packages = UIBlox.Parent
 local React = require(Packages.React)

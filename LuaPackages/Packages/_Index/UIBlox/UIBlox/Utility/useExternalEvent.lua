@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A hook that connects to a Roblox event.
 ]]

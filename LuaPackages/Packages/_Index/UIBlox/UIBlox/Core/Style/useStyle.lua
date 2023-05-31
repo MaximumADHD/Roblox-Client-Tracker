@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A hook used to consume the UIBlox Style.
 ]]

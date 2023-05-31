@@ -1,4 +1,3 @@
---!strict
 local DetailsPage = script.Parent
 local Template = DetailsPage.Parent
 local App = Template.Parent
@@ -17,7 +16,11 @@ export type Props = {
 	detailsPageProps: DetailsPageTenfootTemplate.Props,
 }
 
-local DeviceTypeMap = {
+type DeviceTypeMap = {
+	[DeviceType.DeviceType]: any,
+}
+
+local DeviceTypeMap: DeviceTypeMap = {
 	[DeviceType.Console] = DetailsPageTenfootTemplate,
 	[DeviceType.Phone] = DetailsPageDefaultTemplate,
 	[DeviceType.Desktop] = DetailsPageDefaultTemplate,

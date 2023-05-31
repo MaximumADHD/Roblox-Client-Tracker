@@ -1,3 +1,4 @@
+--!nonstrict
 local Knob = script.Parent
 local Control = Knob.Parent
 local App = Control.Parent

@@ -1,4 +1,3 @@
---!strict
 local VRRoot = script.Parent
 local CoreRoot = VRRoot.Parent
 local UIBlox = CoreRoot.Parent

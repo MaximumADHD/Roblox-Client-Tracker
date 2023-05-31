@@ -1,3 +1,4 @@
+--!nonstrict
 local BaseTile = script.Parent
 local TileRoot = BaseTile.Parent
 local App = TileRoot.Parent

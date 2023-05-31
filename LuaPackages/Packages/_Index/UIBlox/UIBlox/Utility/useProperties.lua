@@ -1,4 +1,3 @@
---!strict
 --[[
 	Allows safely using a property value from a ref
 	the update function will be called every time one of the watched properties change

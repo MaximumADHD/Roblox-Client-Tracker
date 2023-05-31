@@ -1,3 +1,4 @@
+--!nocheck
 --[[
 	small hook to easily read a value from the grid config
 	reads a single value from context with an optional kind

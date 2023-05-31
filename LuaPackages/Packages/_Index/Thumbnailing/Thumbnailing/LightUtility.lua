@@ -11,7 +11,23 @@ local Lighting = game:GetService("Lighting")
 local ColorUtility = require(script.Parent.ColorUtility)
 local VectorUtility = require(script.Parent.VectorUtility)
 
-module.AddLight = function(lightDesc, index)
+export type LightDescType = {
+	color: Color3,
+	worldPos: Vector3,
+}
+
+export type JsonLightDescType = {
+	color: string,
+	pos: string,
+}
+
+export type LightExtraParamsType = {
+	pointLights: { JsonLightDescType }?,
+	clockTime: number?,
+	brightness: number?,
+}
+
+module.AddLight = function(lightDesc: LightDescType, index: number)
 	local part = Instance.new("Part")
 	part.Anchored = true
 	part.Transparency = 1
@@ -31,7 +47,7 @@ module.AddLight = function(lightDesc, index)
 	part.Position = lightDesc.worldPos
 end
 
-module.AddLightsFromExtraParams = function(extraParams, targetCFrame)
+module.AddLightsFromExtraParams = function(extraParams: LightExtraParamsType?, targetCFrame: CFrame): boolean
 	local changedSomething = false
 	local epLights = extraParams and extraParams.pointLights
 
@@ -65,7 +81,7 @@ end
 -- humanoid root part's cframe.
 local DefaultPointLightRelativePosition = Vector3.new(-5, 7, -5)
 
-module.AddDefaultPointLightRelativeTo = function(cFrame)
+module.AddDefaultPointLightRelativeTo = function(cFrame: CFrame)
 	local worldPos = cFrame * DefaultPointLightRelativePosition
 	local lightDesc = {
 		color = Color3.new(1, 1, 1),

@@ -11,7 +11,6 @@ local makeAppSlider = require(Slider.makeAppSlider)
 local SliderTextInput = require(Slider.SliderTextInput)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateStyle = require(App.Style.Validator.validateStyle)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local function wrapStyleAndRef(component)
 	return Roact.forwardRef(function(props, ref)

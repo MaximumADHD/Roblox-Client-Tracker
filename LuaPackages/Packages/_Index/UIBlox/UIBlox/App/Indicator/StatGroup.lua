@@ -1,4 +1,3 @@
---!strict
 local Indicator = script.Parent
 local App = Indicator.Parent
 local UIBlox = App.Parent

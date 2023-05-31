@@ -9,9 +9,15 @@ return function()
 		it("SHOULD add a point light", function()
 			LightUtility.AddDefaultPointLightRelativeTo(CFrame.new())
 			local parent = workspace:FindFirstChild("ThumbnailLightAnchor_0")
-			local light = parent:FindFirstChild("PointLight_0")
-			expect(typeof(parent)).to.equal("Instance")
-			expect(typeof(light)).to.equal("Instance")
+			expect(parent).never.to.equal(nil)
+			if parent then
+				local light = parent:FindFirstChild("PointLight_0")
+				expect(light).never.to.equal(nil)
+				if light then
+					expect(typeof(parent)).to.equal("Instance")
+					expect(typeof(light)).to.equal("Instance")
+				end
+			end
 		end)
 	end)
 
@@ -42,7 +48,7 @@ return function()
 				},
 			}, CFrame.new())
 			expect(changedSomething).to.equal(true)
-			local parent = workspace:FindFirstChild("ThumbnailLightAnchor_1")
+			local parent = workspace:FindFirstChild("ThumbnailLightAnchor_1") :: Part
 			local light = parent:FindFirstChild("PointLight_1")
 			expect(typeof(parent)).to.equal("Instance")
 			expect(typeof(light)).to.equal("Instance")

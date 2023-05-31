@@ -1,6 +1,6 @@
 local CharacterUtility = require(script.Parent.CharacterUtility)
 
-local function addHat(yOffset, hatSize, model, head)
+local function addHat(yOffset: number, hatSize: number, model: Model, head: Part)
 	local hatAccoutrement = Instance.new("Accoutrement")
 	hatAccoutrement.Name = "TestHat"
 	hatAccoutrement.Parent = model
@@ -20,7 +20,7 @@ local function addHat(yOffset, hatSize, model, head)
 	headHatAttachment.Parent = head
 end
 
-local function makeTestPart(parent, size: Vector3, position: Vector3, type: string)
+local function makeTestPart(parent: Instance, size: Vector3, position: Vector3, type: string): BasePart
 	local part = Instance.new(type)
 	if parent then
 		part.Parent = parent

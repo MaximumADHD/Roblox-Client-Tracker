@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A hook used to obtain the selection cursor of the given type.
 ]]

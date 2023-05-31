@@ -1,4 +1,3 @@
---!strict
 local UserInputService = game:GetService("UserInputService")
 
 local Container = script.Parent

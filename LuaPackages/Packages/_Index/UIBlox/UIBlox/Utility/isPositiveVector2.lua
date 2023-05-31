@@ -1,3 +1,4 @@
+--!nonstrict
 local UtilityRoot = script.Parent
 local UIBloxRoot = UtilityRoot.Parent
 

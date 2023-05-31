@@ -1,3 +1,4 @@
+--!nonstrict
 local SelectionGroup = script.Parent
 local Small = SelectionGroup.Parent
 local Cell = Small.Parent

@@ -2,13 +2,10 @@ local SplitTileRoot = script.Parent.Parent
 local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
 local UIBlox = App.Parent
-local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
-local t = require(Packages.t)
 
-local useStyle = require(Core.Style.useStyle)
 local LoadableImage = require(App.Loading.LoadableImage)
 local StyleTypes = require(App.Style.StyleTypes)
 
@@ -37,9 +34,6 @@ local function VerticalTileThumbnail(props: VerticalTileThumbnailProps)
 	local roundAll = isTopRounded and isBottomRounded
 	local isSplit = not roundAll and (isTopRounded or isBottomRounded)
 	local borderRadius = if border ~= nil then border.CornerRadius else CORNER_RADIUS
-
-	local stylePalette = useStyle()
-	local theme = stylePalette.Theme
 
 	return React.createElement("Frame", {
 		Size = if aspectRatio then UDim2.new(1, 0, aspectRatio, 0) else UDim2.new(1, 0, 1, 0),

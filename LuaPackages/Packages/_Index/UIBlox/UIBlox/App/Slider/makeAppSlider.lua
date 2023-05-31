@@ -1,3 +1,4 @@
+--!nonstrict
 local Slider = script.Parent
 local App = Slider.Parent
 local UIBlox = App.Parent
@@ -9,7 +10,6 @@ local Otter = require(Packages.Otter)
 local Colors = require(App.Style.Colors)
 local GenericSlider = require(UIBlox.Core.Slider.GenericSlider)
 local Images = require(App.ImageSet.Images)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local SPRING_PARAMETERS = {
 	frequency = 5,

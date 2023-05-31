@@ -1,4 +1,3 @@
---!strict
 local Grid = script.Parent
 local UIBlox = Grid.Parent.Parent.Parent
 local Packages = UIBlox.Parent

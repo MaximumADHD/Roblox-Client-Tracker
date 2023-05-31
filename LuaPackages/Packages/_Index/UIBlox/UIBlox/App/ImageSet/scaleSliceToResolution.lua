@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Takes in a table of ImageLabel properties and returns those properties
 	with the SliceCenter and SliceScale scaled based on the provided resolution scale

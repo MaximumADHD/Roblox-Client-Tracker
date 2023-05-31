@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Creates a background square that shows up behind buttons when hovered.
 ]]

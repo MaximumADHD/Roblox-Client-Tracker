@@ -1,3 +1,4 @@
+--!nonstrict
 local Carousel = script.Parent
 local Container = Carousel.Parent
 local App = Container.Parent

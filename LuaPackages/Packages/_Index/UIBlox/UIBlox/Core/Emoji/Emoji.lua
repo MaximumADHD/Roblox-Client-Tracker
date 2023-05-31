@@ -1,3 +1,4 @@
+--!nocheck
 local EmojiRoot = script.Parent
 local Core = EmojiRoot.Parent
 local UIBlox = Core.Parent

@@ -1,3 +1,4 @@
+--!nonstrict
 local Button = script.Parent
 local App = Button.Parent
 local UIBlox = App.Parent
@@ -124,39 +125,45 @@ function StickyActionBar:init()
 		return GetTextSize(text, fontSize, fontStyle.Font, bounds).X
 	end
 
-	self.getLayoutConfig =
-		function(containerWidth, hasActionBar, infoProps, infoIconSize, infoText, infoTextStyle, style)
-			local enableInfoAtStart = (self.props.infoProps and self.props.infoProps.enableInfoAtStart) and true
-				or false
-			local infoContentWidth = getTextWidth(infoText, infoTextStyle, style)
-				+ infoIconSize
-				+ (infoIconSize > 0 and INFO_SPACING_ICON_TEXT or 0)
-			local layoutOrder = enableInfoAtStart and {
-				infoSection = 1,
-				actionBarSection = 2,
-			} or {
-				infoSection = 2,
-				actionBarSection = 1,
-			}
-			return {
-				layoutOrder = layoutOrder,
-				infoHorizontalAlignment = Enum.HorizontalAlignment.Left,
-				infoSectionWidth = getInfoSectionWidth(containerWidth, hasActionBar, infoProps),
-				infoSectionPadding = getInfoSectionPadding(
-					containerWidth,
-					infoContentWidth,
-					hasActionBar,
-					enableInfoAtStart
-				),
-				actionBarSectionSize = getActionBarSectionSize(),
-				actionBarSectionMarginOverride = {
-					left = 0,
-					right = 0,
-					top = 0,
-					bottom = 0,
-				},
-			}
-		end
+	self.getLayoutConfig = function(
+		containerWidth,
+		hasActionBar,
+		infoProps,
+		infoIconSize,
+		infoText,
+		infoTextStyle,
+		style
+	)
+		local enableInfoAtStart = (self.props.infoProps and self.props.infoProps.enableInfoAtStart) and true or false
+		local infoContentWidth = getTextWidth(infoText, infoTextStyle, style)
+			+ infoIconSize
+			+ (infoIconSize > 0 and INFO_SPACING_ICON_TEXT or 0)
+		local layoutOrder = enableInfoAtStart and {
+			infoSection = 1,
+			actionBarSection = 2,
+		} or {
+			infoSection = 2,
+			actionBarSection = 1,
+		}
+		return {
+			layoutOrder = layoutOrder,
+			infoHorizontalAlignment = Enum.HorizontalAlignment.Left,
+			infoSectionWidth = getInfoSectionWidth(containerWidth, hasActionBar, infoProps),
+			infoSectionPadding = getInfoSectionPadding(
+				containerWidth,
+				infoContentWidth,
+				hasActionBar,
+				enableInfoAtStart
+			),
+			actionBarSectionSize = getActionBarSectionSize(),
+			actionBarSectionMarginOverride = {
+				left = 0,
+				right = 0,
+				top = 0,
+				bottom = 0,
+			},
+		}
+	end
 end
 
 function StickyActionBar:render()

@@ -1,4 +1,3 @@
---!strict
 --[[
 	The is a wrapper for the style provider for apps.
 ]]

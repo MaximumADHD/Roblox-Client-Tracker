@@ -1,4 +1,3 @@
---!strict
 --[[
 	Allows safely using the value from a forwarded ref
 	the update function will be called every time the ref instance changes, including on mount

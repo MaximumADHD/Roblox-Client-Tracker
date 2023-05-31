@@ -10,7 +10,6 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconSize = require(App.ImageSet.Enum.IconSize)

@@ -52,8 +52,8 @@ return {
 	-- Enable auto hiding of VR Pointer Overlay when VR sessions is not visible
 	enableAutoHidingPointerOverlay = false,
 
-	-- Use curved panels with antialiasing in VR
-	useCurvedPanel3D = false,
+	-- Enable rendering the offhand VR laser pointer
+	dualVRLaserPointers = false,
 
 	-- Removes central AnchorPoint and Position from ExperienceDetails media gallery Preview
 	-- to avoid layout bug related to AutomaticSize

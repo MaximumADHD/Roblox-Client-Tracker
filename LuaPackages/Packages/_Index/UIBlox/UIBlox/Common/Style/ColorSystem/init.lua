@@ -1,4 +1,3 @@
---!strict
 --[[
     Implementation of the Unified Color System.
     See: https://www.figma.com/file/afPf1YESNBS6BWiyzgPdlM/Color-System-(Core)?node-id=945%3A1

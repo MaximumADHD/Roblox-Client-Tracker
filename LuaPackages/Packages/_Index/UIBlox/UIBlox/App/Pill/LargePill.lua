@@ -1,3 +1,4 @@
+--!nonstrict
 local Pill = script.Parent
 local App = Pill.Parent
 local UIBlox = App.Parent

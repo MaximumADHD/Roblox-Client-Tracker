@@ -1,3 +1,4 @@
+--!nonstrict
 local EmojiTextLabelRoot = script.Parent
 local Text = EmojiTextLabelRoot.Parent
 local App = Text.Parent

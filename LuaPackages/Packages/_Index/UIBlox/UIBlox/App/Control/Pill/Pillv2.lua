@@ -1,4 +1,3 @@
---!strict
 --[[
 	Button-like component that is used for filtering.
 

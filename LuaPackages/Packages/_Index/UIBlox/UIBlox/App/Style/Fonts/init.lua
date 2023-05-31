@@ -1,5 +1,3 @@
---!strict
-
 export type Font = {
 	Font: Enum.Font,
 	RelativeSize: number,

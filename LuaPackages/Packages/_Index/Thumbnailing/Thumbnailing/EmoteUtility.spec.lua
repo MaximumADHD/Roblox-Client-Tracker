@@ -1,22 +1,104 @@
 return function()
-	local InsertService = game:GetService("InsertService")
 	local EmoteUtility = require(script.Parent.EmoteUtility)
-	local FFlagEmoteUtilityDontUseC1ToPose = game:GetFastFlag("EmoteUtilityDontUseC1ToPose")
+	local FFlagEmoteUtilityDontUseC1ToPose2 = game:GetFastFlag("EmoteUtilityDontUseC1ToPose2")
 
-	EmoteUtility.SetDebugLoadAssetsFromFiles(true)
+	-- Note: this emote has face built in.
+	local HELLO_EMOTE_ASSET_ID = 3576686446
+	local HELLO_KEYFRAME_SEQUENCE_ASSET_ID = 10714359093
+	local TOOL_HOLD_ANIMATION_ASSET_ID = 8675309
+	local TOOL_HOLD_KEYFRAME_SEQUENCE_ASSET_ID = 507768375
+	local COUNTRY_LINE_DANCE_EMOTE_ASSET_ID = 5915780563
+	local COUNTRY_LINE_DANCE_KEYFRAME_SEQUENCE_ASSET_ID = 5915712534
+	local DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID = 10687293613
+	local DYLAN_DEFAULT_KEYFRAME_SEQUENCE_MOOD_ASSET_ID = 10789320410
 
-	-- 'Hello' anim https://www.roblox.com/catalog/3576686446/Hello
-	-- Note: this asset has face animation built in.
-	local EMOTE_ASSET_ID = 3576686446
-	local TOOL_HOLD_ASSET_ID = 507768375
+	type FaceControlsPropName =
+		"ChinRaiserUpperLip"
+		| "ChinRaiser"
+		| "FlatPucker"
+		| "Funneler"
+		| "LowerLipSuck"
+		| "LipPresser"
+		| "LipsTogether"
+		| "MouthLeft"
+		| "MouthRight"
+		| "Pucker"
+		| "UpperLipSuck"
+		| "LeftCheekPuff"
+		| "LeftDimpler"
+		| "LeftLipCornerDown"
+		| "LeftLowerLipDepressor"
+		| "LeftLipCornerPuller"
+		| "LeftLipStretcher"
+		| "LeftUpperLipRaiser"
+		| "RightCheekPuff"
+		| "RightDimpler"
+		| "RightLipCornerDown"
+		| "RightLowerLipDepressor"
+		| "RightLipCornerPuller"
+		| "RightLipStretcher"
+		| "RightUpperLipRaiser"
+		| "JawDrop"
+		| "JawLeft"
+		| "JawRight"
+		| "Corrugator"
+		| "LeftBrowLowerer"
+		| "LeftOuterBrowRaiser"
+		| "LeftNoseWrinkler"
+		| "LeftInnerBrowRaiser"
+		| "RightBrowLowerer"
+		| "RightOuterBrowRaiser"
+		| "RightInnerBrowRaiser"
+		| "RightNoseWrinkler"
+		| "EyesLookDown"
+		| "EyesLookLeft"
+		| "EyesLookUp"
+		| "EyesLookRight"
+		| "LeftCheekRaiser"
+		| "LeftEyeUpperLidRaiser"
+		| "LeftEyeClosed"
+		| "RightCheekRaiser"
+		| "RightEyeUpperLidRaiser"
+		| "RightEyeClosed"
+		| "TongueDown"
+		| "TongueOut"
+		| "TongueUp"
 
-	local function loadAsset(assetId: number)
-		local url = "rbxasset://" .. tostring(assetId) .. ".rbxm"
-		return InsertService:LoadLocalAsset(url)
+	local function mapAssetIdToFileName(assetId: number): string
+		if assetId == tonumber(EmoteUtility.FallbackKeyframeSequenceAssetId) then
+			return "fallbackKeyframeSequence.rbxm"
+		end
+		if assetId == HELLO_EMOTE_ASSET_ID then
+			return "helloEmote.rbxm"
+		end
+		if assetId == HELLO_KEYFRAME_SEQUENCE_ASSET_ID then
+			return "helloKeyframeSequence.rbxm"
+		end
+		if assetId == TOOL_HOLD_ANIMATION_ASSET_ID then
+			return "toolHoldAnimation.rbxm"
+		end
+		if assetId == TOOL_HOLD_KEYFRAME_SEQUENCE_ASSET_ID then
+			return "toolHoldKeyframeSequence.rbxm"
+		end
+		if assetId == COUNTRY_LINE_DANCE_EMOTE_ASSET_ID then
+			return "countryLineDanceEmote.rbxm"
+		end
+		if assetId == COUNTRY_LINE_DANCE_KEYFRAME_SEQUENCE_ASSET_ID then
+			return "countryLineDanceKeyframeSequence.rbxm"
+		end
+		if assetId == DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID then
+			return "dylanDefaultMoodAnimation.rbxm"
+		end
+		if assetId == DYLAN_DEFAULT_KEYFRAME_SEQUENCE_MOOD_ASSET_ID then
+			return "dylanDefaultMoodKeyframeSequence.rbxm"
+		end
+		return assetId .. ".rbxm"
 	end
 
-	local function addJointsForKeyframe(character, keyframe)
-		local function recurAddJoints(parentPose, poseObject)
+	EmoteUtility.SetDebugLoadAssetsFromFiles(true, mapAssetIdToFileName)
+
+	local function addJointsForKeyframe(character: Model, keyframe: Keyframe)
+		local function recurAddJoints(parentPose: Pose?, poseObject: Pose)
 			if not character:FindFirstChild(poseObject.Name) then
 				local part = Instance.new("Part")
 				part.Name = poseObject.Name
@@ -24,29 +106,31 @@ return function()
 			end
 			if parentPose then
 				local jointName = parentPose.Name .. "_" .. poseObject.Name
-				if character[poseObject.Name]:FindFirstChild(jointName) == nil then
+				-- Type checker doesn't like dynamic prop lookups. Cast to any to make it shut up.
+				local anyCharacter = character :: any
+				if anyCharacter[poseObject.Name]:FindFirstChild(jointName) == nil then
 					local joint = Instance.new("Motor6D")
 					joint.Name = jointName
-					joint.Part0 = character[parentPose.Name]
-					joint.Part1 = character[poseObject.Name]
-					joint.Parent = character[poseObject.Name]
-					if not FFlagEmoteUtilityDontUseC1ToPose then
+					joint.Part0 = anyCharacter[parentPose.Name]
+					joint.Part1 = anyCharacter[poseObject.Name]
+					joint.Parent = anyCharacter[poseObject.Name]
+					if not FFlagEmoteUtilityDontUseC1ToPose2 then
 						joint.C1 = CFrame.new(1, 2, 3)
 					end
 				end
 			end
 
 			for _, subPose in pairs(poseObject:GetSubPoses()) do
-				recurAddJoints(poseObject, subPose)
+				recurAddJoints(poseObject, subPose :: Pose)
 			end
 		end
 
 		for _, poseObj in pairs(keyframe:GetPoses()) do
-			recurAddJoints(nil, poseObj)
+			recurAddJoints(nil, poseObj :: Pose)
 		end
 	end
 
-	local function getMockR15Character()
+	local function getMockR15Character(): Model
 		local mockModel = Instance.new("Model")
 
 		local mockHumanoid = Instance.new("Humanoid")
@@ -62,7 +146,8 @@ return function()
 		mockFaceControls.Name = "FaceControls"
 		mockFaceControls.Parent = mockHead
 
-		local toolHoldAnim = loadAsset(TOOL_HOLD_ASSET_ID):GetChildren()[1]
+		local _, model = EmoteUtility.LoadAsset(TOOL_HOLD_ANIMATION_ASSET_ID)
+		local toolHoldAnimation = model:GetChildren()[1] :: Animation
 
 		local animate = Instance.new("LocalScript")
 		animate.Name = "Animate"
@@ -72,13 +157,13 @@ return function()
 		toolnone.Name = "toolnone"
 		toolnone.Parent = animate
 
-		toolHoldAnim.Parent = toolnone
-		toolHoldAnim.Name = "ToolNoneAnim"
+		toolHoldAnimation.Parent = toolnone
+		toolHoldAnimation.Name = "ToolNoneAnim"
 
 		return mockModel
 	end
 
-	local function getMockR6Character()
+	local function getMockR6Character(): Model
 		local mockModel = Instance.new("Model")
 
 		local mockHumanoid = Instance.new("Humanoid")
@@ -97,23 +182,24 @@ return function()
 		return mockModel
 	end
 
-	local function addTool(character)
+	local function addTool(character: Model)
 		local tool = Instance.new("Tool")
 		tool.Parent = character
 	end
 
 	-- FIXME(dbanks)
 	-- 2023/05/01
-	-- Remove with FFlagEmoteUtilityDontUseC1ToPose.
-	local function DEPRECATED_jointsMatch(char1, char2)
+	-- Remove with FFlagEmoteUtilityDontUseC1ToPose2.
+	local function DEPRECATED_jointsMatch(char1: Model, char2: Model): boolean
 		for _, part in ipairs(char1:GetChildren()) do
 			local name = part.Name
 			if part and part.ClassName == "Part" then
 				local char1Part = part
-				local char2Part = char2[name]
+				-- Type checker doesn't like dynamic prop lookups. Cast to any to make it shut up.
+				local char2Part = (char2 :: any)[name]
 				if #(char1Part:GetChildren()) > 0 then
-					local joint1 = char1Part:GetChildren()[1]
-					local joint2 = char2Part:GetChildren()[1]
+					local joint1 = char1Part:GetChildren()[1] :: Motor6D
+					local joint2 = char2Part:GetChildren()[1] :: Motor6D
 					if joint1.C1 ~= joint2.C1 then
 						return false
 					end
@@ -123,18 +209,23 @@ return function()
 		return true
 	end
 
-	local function jointsMatch(char1, char2)
+	local function motor6DsMatch(char1: Model, char2: Model): boolean
 		for _, part in ipairs(char1:GetChildren()) do
 			local name = part.Name
 			if part and part.ClassName == "Part" then
 				local char1Part = part
-				local char2Part = char2[name]
-				if #(char1Part:GetChildren()) > 0 then
-					local joint1 = char1Part:GetChildren()[1]
-					local joint2 = char2Part:GetChildren()[1]
-					if joint1.Transform ~= joint2.Transform then
-						return false
+				-- Type checker doesn't like dynamic prop lookups. Cast to any to make it shut up.
+				local char2Part = char2:FindFirstChild(name)
+				if char2Part then
+					if #(char1Part:GetChildren()) > 0 then
+						local motor6D1 = char1Part:FindFirstChildWhichIsA("Motor6D") :: Motor6D
+						local motor6D2 = char2Part:FindFirstChildWhichIsA("Motor6D") :: Motor6D
+						if motor6D1.Transform ~= motor6D2.Transform then
+							return false
+						end
 					end
+				else
+					return false
 				end
 			end
 		end
@@ -192,17 +283,19 @@ return function()
 		"TongueOut",
 		"TongueUp",
 		"UpperLipSuck",
-	}
+	} :: { FaceControlsPropName }
 
-	local function facesMatch(char1, char2)
+	local function facesMatch(char1: Model, char2: Model): boolean
 		local faceControls1 = char1:FindFirstChildWhichIsA("FaceControls", true)
 		local faceControls2 = char2:FindFirstChildWhichIsA("FaceControls", true)
 		assert(faceControls1, "faceControls1 should not be null")
 		assert(faceControls2, "faceControls2 should not be null")
 
 		for _, propName in faceControlsPropNames do
-			local v1 = faceControls1[propName]
-			local v2 = faceControls2[propName]
+			propName = propName :: FaceControlsPropName
+			-- Type checker doesn't like dynamic prop lookups. Cast to any to make it shut up.
+			local v1 = (faceControls1 :: any)[propName]
+			local v2 = (faceControls2 :: any)[propName]
 			assert(v1, "v1 should not be null")
 			assert(v2, "v2 should not be null")
 			if v1 ~= v2 then
@@ -213,11 +306,16 @@ return function()
 		return true
 	end
 
-	local function setupMockR15Characters(shouldAddTool)
-		local emoteAnim = loadAsset(EMOTE_ASSET_ID):GetChildren()[1]
-		local thumbnailKeyframeNumber = EmoteUtility.GetNumberValueWithDefault(emoteAnim, "ThumbnailKeyframe", nil)
-		local rotationDegrees = EmoteUtility.GetNumberValueWithDefault(emoteAnim, "ThumbnailCharacterRotation", 0)
-		local emoteKeyframeSequence = EmoteUtility.GetEmoteAnimationClip(emoteAnim)
+	local function setupMockR15Characters(shouldAddTool: boolean?): (Model, Model)
+		local _, model = EmoteUtility.LoadAsset(HELLO_EMOTE_ASSET_ID)
+		local emoteAnimation = model:GetChildren()[1] :: Animation
+		local thumbnailKeyframeNumber = EmoteUtility.GetNumberValueWithDefault(emoteAnimation, "ThumbnailKeyframe", nil)
+		local rotationDegrees =
+			EmoteUtility.GetNumberValueWithDefault(emoteAnimation, "ThumbnailCharacterRotation", 0) :: number
+		local emoteAnimationClip = EmoteUtility.GetAnimationClip(emoteAnimation)
+		assert(emoteAnimationClip, "emoteAnimationClip should be non-nil. Silence type checker.")
+		assert(emoteAnimationClip:IsA("KeyframeSequence"), "emoteAnimationClip should be a KeyframeSequence")
+		local emoteKeyframeSequence = emoteAnimationClip :: KeyframeSequence
 		local thumbnailKeyframe =
 			EmoteUtility.GetThumbnailKeyframe(thumbnailKeyframeNumber, emoteKeyframeSequence, rotationDegrees)
 
@@ -227,8 +325,12 @@ return function()
 		addJointsForKeyframe(originalMockCharacter, thumbnailKeyframe)
 
 		if shouldAddTool then
-			local toolHoldAnim = loadAsset(TOOL_HOLD_ASSET_ID):GetChildren()[1]
-			local toolKeyframeSequence = EmoteUtility.GetEmoteAnimationClip(toolHoldAnim)
+			local _, toolModel = EmoteUtility.LoadAsset(TOOL_HOLD_ANIMATION_ASSET_ID)
+			local toolHoldAnimation = toolModel:GetChildren()[1] :: Animation
+			local toolAnimationClip = EmoteUtility.GetAnimationClip(toolHoldAnimation)
+			assert(toolAnimationClip, "toolAnimationClip should be non-nil. Silence type checker.")
+			assert(toolAnimationClip:IsA("KeyframeSequence"), "toolAnimationClip should be a KeyframeSequence")
+			local toolKeyframeSequence = toolAnimationClip :: KeyframeSequence
 			local toolKeyframe = EmoteUtility.GetThumbnailKeyframe(nil, toolKeyframeSequence, 0)
 
 			addTool(mockCharacter)
@@ -251,21 +353,21 @@ return function()
 		return mockCharacter, originalMockCharacter
 	end
 
-	if not FFlagEmoteUtilityDontUseC1ToPose then
+	if not FFlagEmoteUtilityDontUseC1ToPose2 then
 		describe("SetPlayerCharacterPose", function()
 			it("SHOULD return a function", function()
 				expect(EmoteUtility.SetPlayerCharacterPose).to.be.a("function")
 			end)
 			it("SHOULD apply animation and lead to a different pose", function()
 				local mockCharacter, originalMockCharacter = setupMockR15Characters()
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, EMOTE_ASSET_ID, function()
+				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
 					return true
 				end)
 				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 			end)
 			it("SHOULD apply animation and lead to a different pose when character has tool", function()
 				local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, EMOTE_ASSET_ID, function()
+				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
 					return true
 				end)
 				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
@@ -275,18 +377,19 @@ return function()
 				EmoteUtility.SetPlayerCharacterPose(mockCharacter, nil, function()
 					return true
 				end)
+				-- We pose with fallback pose.
 				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 			end)
 			it("SHOULD leave an R6 avatar with no tool completely alone", function()
 				local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, EMOTE_ASSET_ID, function()
+				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
 					return true
 				end)
 				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 			end)
 			it("SHOULD move arm of R6 avatar with tool", function()
 				local mockCharacter, originalMockCharacter = setupMockR6Characters(true)
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, EMOTE_ASSET_ID, function()
+				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
 					return true
 				end)
 				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
@@ -294,25 +397,65 @@ return function()
 		end)
 	end
 
-	if FFlagEmoteUtilityDontUseC1ToPose then
+	if FFlagEmoteUtilityDontUseC1ToPose2 then
 		describe("SetPlayerCharacterPoseWithMoodFallback", function()
 			it("SHOULD return a function", function()
 				expect(EmoteUtility.SetPlayerCharacterPoseWithMoodFallback).to.be.a("function")
 			end)
 			it("SHOULD apply animation and lead to a different pose and face", function()
 				local mockCharacter, originalMockCharacter = setupMockR15Characters()
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, EMOTE_ASSET_ID, nil, true, function()
-					return true
-				end)
-				expect(jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+					mockCharacter,
+					HELLO_EMOTE_ASSET_ID,
+					nil,
+					true,
+					function()
+						return true
+					end
+				)
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			end)
+			it("SHOULD apply animation and lead to a different pose but same face", function()
+				local mockCharacter, originalMockCharacter = setupMockR15Characters()
+				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+					mockCharacter,
+					COUNTRY_LINE_DANCE_EMOTE_ASSET_ID,
+					nil,
+					true,
+					function()
+						return true
+					end
+				)
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+			end)
+			it("SHOULD apply animation with mood animation to lead to a different pose but and face", function()
+				local mockCharacter, originalMockCharacter = setupMockR15Characters()
+				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+					mockCharacter,
+					COUNTRY_LINE_DANCE_EMOTE_ASSET_ID,
+					DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID,
+					true,
+					function()
+						return true
+					end
+				)
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 			end)
 			it("SHOULD apply animation and lead to a different pose and face when character has tool", function()
 				local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, EMOTE_ASSET_ID, nil, true, function()
-					return true
-				end)
-				expect(jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+					mockCharacter,
+					HELLO_EMOTE_ASSET_ID,
+					nil,
+					true,
+					function()
+						return true
+					end
+				)
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 			end)
 			it("SHOULD work with nil asset ids", function()
@@ -320,23 +463,35 @@ return function()
 				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, nil, nil, true, function()
 					return true
 				end)
-				-- Nothing changes...
-				expect(jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+				-- Body poses with fallback.  Face does not move.
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 			end)
 			it("SHOULD leave an R6 avatar with no tool completely alone", function()
 				local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, EMOTE_ASSET_ID, nil, true, function()
-					return true
-				end)
-				expect(jointsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+					mockCharacter,
+					HELLO_EMOTE_ASSET_ID,
+					nil,
+					true,
+					function()
+						return true
+					end
+				)
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 			end)
 			it("SHOULD move arm of R6 avatar with tool", function()
 				local mockCharacter, originalMockCharacter = setupMockR6Characters(true)
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, EMOTE_ASSET_ID, nil, true, function()
-					return true
-				end)
-				expect(jointsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+					mockCharacter,
+					HELLO_EMOTE_ASSET_ID,
+					nil,
+					true,
+					function()
+						return true
+					end
+				)
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 			end)
 		end)
 	end
@@ -346,7 +501,7 @@ return function()
 			expect(EmoteUtility.ThumbnailZoomExtents).to.be.a("function")
 		end)
 		it("SHOULD produce a particular CFrame for a set of parameters", function()
-			local mockCharacter, originalMockCharacter = setupMockR15Characters()
+			local mockCharacter, _originalMockCharacter = setupMockR15Characters()
 			local cameraCFrame = EmoteUtility.ThumbnailZoomExtents(
 				mockCharacter, -- character
 				20, -- FOV

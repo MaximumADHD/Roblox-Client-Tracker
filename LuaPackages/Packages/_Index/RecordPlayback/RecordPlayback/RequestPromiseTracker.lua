@@ -6,6 +6,9 @@ local SharedUtils = require(Packages.SharedUtils)
 local HttpServiceMock = require(Packages.HttpServiceMock)
 local PrettyFormat = require(Packages.PrettyFormat)
 
+local ImmediateSignal = require(root.ImmediateSignal)
+type ImmediateSignal<T...> = ImmediateSignal.ImmediateSignal<T...>
+
 type Request = HttpServiceMock.Request
 type PromiseStatus =
 	typeof(Promise.Status.Started)
@@ -21,7 +24,7 @@ type RequestPromiseTrackerMembers<T> = {
 	_rejections: { any },
 	_promises: { [Promise<T>]: boolean },
 	_warn: <U...>(U...) -> (),
-	_onClose: BindableEvent,
+	_onClose: ImmediateSignal<()>,
 }
 export type RequestPromiseTrackerMethods = {
 	makeRequest: <T>(
@@ -52,7 +55,7 @@ local RequestPromiseTrackerMetatable = { __index = RequestPromiseTracker }
 function RequestPromiseTracker.new<T>(
 	makeRequest: (Request, source: string) -> T,
 	testSource: string
-): RequestPromiseTrackerMethods & RequestPromiseTrackerMembers<T>
+): RequestPromiseTracker<T>
 	return setmetatable({
 		_makeRequest = makeRequest,
 		_running = true,
@@ -60,7 +63,7 @@ function RequestPromiseTracker.new<T>(
 		_rejections = {},
 		_promises = {},
 		_warn = warn,
-		_onClose = Instance.new("BindableEvent"),
+		_onClose = ImmediateSignal.new(),
 	}, RequestPromiseTrackerMetatable) :: any
 end
 
@@ -96,10 +99,14 @@ function RequestPromiseTracker:makeRequest<T>(request: Request, source: string):
 				error = message,
 			}
 		elseif result.type == "suspend" then
-			return Promise.fromEvent(self._onClose.Event):andThenReturn({
-				type = "error",
-				error = "request was delayed until the record-playback logic ended",
-			})
+			return Promise.new(function(resolve, _reject)
+				self._onClose:connect(function()
+					resolve({
+						type = "error",
+						error = "request was delayed until the record-playback logic ended",
+					})
+				end)
+			end)
 		end
 
 		return result
@@ -129,8 +136,11 @@ function RequestPromiseTracker:getRunningPromises<T>(): { Promise<T> }
 end
 
 function RequestPromiseTracker:close<T>()
+	if not self._running then
+		error("Attempt to close an already closed promise tracker")
+	end
 	self._running = false
-	self._onClose:Fire()
+	self._onClose:fire()
 end
 
 return RequestPromiseTracker

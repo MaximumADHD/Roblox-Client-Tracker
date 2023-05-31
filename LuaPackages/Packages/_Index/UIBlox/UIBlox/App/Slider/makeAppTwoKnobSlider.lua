@@ -1,3 +1,4 @@
+--!nonstrict
 local Slider = script.Parent
 local App = Slider.Parent
 local UIBlox = App.Parent

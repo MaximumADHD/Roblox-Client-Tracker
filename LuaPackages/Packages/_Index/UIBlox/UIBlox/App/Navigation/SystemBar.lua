@@ -1,3 +1,4 @@
+--!nonstrict
 local Navigation = script.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent

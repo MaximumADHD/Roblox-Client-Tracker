@@ -1,3 +1,4 @@
+--!nonstrict
 local Packages = script.Parent.Parent.Parent
 
 local Otter = require(Packages.Otter)

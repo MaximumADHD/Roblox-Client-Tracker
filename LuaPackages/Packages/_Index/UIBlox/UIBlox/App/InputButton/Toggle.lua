@@ -1,3 +1,4 @@
+--!nonstrict
 local InputButton = script.Parent
 local App = InputButton.Parent
 local UIBlox = App.Parent
@@ -5,7 +6,6 @@ local Packages = UIBlox.Parent
 
 local Otter = require(Packages.Otter)
 local Roact = require(Packages.Roact)
-local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)

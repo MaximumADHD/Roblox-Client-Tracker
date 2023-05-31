@@ -5,8 +5,6 @@ local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 local Cryo = require(Packages.Cryo)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
-local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
-local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local useSelectionCursor = require(UIBlox.App.SelectionImage.useSelectionCursor)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
@@ -107,25 +105,48 @@ local function MediaGalleryExpandableView(providedProps: Props)
 	} :: { any })
 
 	-- gamepad' selection change to update expandable status
-	local onSelectionChanged = React.useCallback(function(amI: any, status: boolean, old: any, new: any)
-		if new and amI then
-			-- expand when gains selecation
-			if new:IsDescendantOf(amI) and not isExpanded then
+	local onSelectionChanged = React.useCallback(
+		function(
+			mediaGalleryInstance: ScrollingFrame?,
+			_status: boolean,
+			oldSelection: GuiObject?,
+			newSelection: GuiObject?
+		)
+			if not mediaGalleryInstance then
+				return nil
+			end
+
+			local isSelected = newSelection ~= nil
+				and newSelection:isDescendantOf(mediaGalleryInstance :: ScrollingFrame)
+			local wasSelected = oldSelection ~= nil
+				and oldSelection:IsDescendantOf(mediaGalleryInstance :: ScrollingFrame)
+			local gainedSelection = isSelected and not wasSelected
+			local lostSelection = not isSelected and wasSelected
+
+			if gainedSelection then
+				-- expand when gains selection
 				setExpanded(true)
 				props.mediaGalleryGainFocused(true)
-			-- collapse when cursor moves up, not moves down
-			elseif not new:IsDescendantOf(amI) and isExpanded and new.AbsolutePosition.Y < old.AbsolutePosition.Y then
-				setExpanded(false)
-				-- force exit fullscreen mode
+				return nil
+			end
+
+			if lostSelection then
+				-- collapse when cursor moves up, not moves down
+				local shouldStayExpanded = newSelection ~= nil
+					and newSelection.AbsolutePosition.Y > (oldSelection :: GuiObject).AbsolutePosition.Y
+				setExpanded(shouldStayExpanded)
 				props.exitFullscreen()
 				props.mediaGalleryGainFocused(false)
+				return nil
 			end
-		end
-	end, {
-		isExpanded,
-		props.exitFullscreen,
-		props.mediaGalleryGainFocused,
-	} :: { any })
+
+			return nil
+		end,
+		{
+			props.exitFullscreen,
+			props.mediaGalleryGainFocused,
+		} :: { any }
+	)
 
 	local itemsArray = React.useMemo(function()
 		local newItems = {}

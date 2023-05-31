@@ -1,7 +1,5 @@
 return {
-	CallModel = require(script.CallModel),
+	CallStateModel = require(script.CallStateModel),
 	CallRecordModel = require(script.CallRecordModel),
-	ExperienceDetailModel = require(script.ExperienceDetailModel),
-	ParticipantModel = require(script.ParticipantModel),
 	HistoricalParticipantModel = require(script.HistoricalParticipantModel),
 }

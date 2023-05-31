@@ -1,4 +1,3 @@
---!strict
 local Font = require(script.Parent)
 
 local baseSize = 16

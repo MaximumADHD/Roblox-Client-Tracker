@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Creates a Roact component which will automatically animate.
 	The animations are created with Otter springs.

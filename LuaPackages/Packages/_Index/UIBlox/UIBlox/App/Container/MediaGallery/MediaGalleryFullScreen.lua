@@ -1,3 +1,4 @@
+--!nonstrict
 local UserInputService = game:GetService("UserInputService")
 
 local MediaGallery = script.Parent

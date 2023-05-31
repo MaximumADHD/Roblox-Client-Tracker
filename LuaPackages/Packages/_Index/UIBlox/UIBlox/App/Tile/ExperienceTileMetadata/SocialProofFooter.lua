@@ -1,4 +1,3 @@
---!strict
 local ExperienceTileMetadata = script.Parent
 local Tile = ExperienceTileMetadata.Parent
 local App = Tile.Parent

@@ -1,3 +1,4 @@
+--!nocheck
 local ImageTextLabelRoot = script.Parent
 local Text = ImageTextLabelRoot.Parent
 local App = Text.Parent

@@ -1,3 +1,4 @@
+--!nonstrict
 local UIBloxRoot = script.Parent.Parent
 local Cryo = require(UIBloxRoot.Parent.Cryo)
 

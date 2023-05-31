@@ -1,3 +1,4 @@
+--!nocheck
 local Carousel = script.Parent
 local Container = Carousel.Parent
 local App = Container.Parent
@@ -11,8 +12,6 @@ local Images = require(App.ImageSet.Images)
 
 local ScrollButton = require(Carousel.ScrollButton)
 
-local Core = UIBlox.Core
-local Scroller = require(Core.InfiniteScroller).Scroller
 local isCallable = require(UIBlox.Utility.isCallable)
 
 local VirtualizedList = require(Packages.VirtualizedList)
@@ -21,17 +20,8 @@ local BidirectionalFlatList = VirtualizedList.BidirectionalFlatList
 local Promise = require(Packages.Promise)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local LEFT_ICON = Images["icons/actions/cycleLeft"]
 local RIGHT_ICON = Images["icons/actions/cycleRight"]
-
-local MOTOR_OPTIONS = {
-	frequency = 2,
-	dampingRatio = 0.9,
-	restingPositionLimit = 0.5,
-	restingVelocityLimit = 0.1,
-}
 
 local INITIAL_NUM_TO_RENDER = 10
 local WINDOW_SIZE = 5
@@ -308,7 +298,6 @@ function HorizontalCarousel:render()
 
 	local itemList = props.itemList
 	local itemSize = props.itemSize
-	local renderItem = props.renderItem
 	local itemPadding = props.itemPadding
 
 	local carouselMargin = props.carouselMargin

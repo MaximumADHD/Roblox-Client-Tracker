@@ -1,4 +1,3 @@
---!strict
 local DetailsPage = script.Parent
 local Template = DetailsPage.Parent
 local App = Template.Parent

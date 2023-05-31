@@ -1,3 +1,4 @@
+--!nonstrict
 local App = script:FindFirstAncestor("App")
 local UIBlox = App.Parent
 local Core = UIBlox.Core
@@ -18,7 +19,6 @@ local PlayerTileButton = require(App.Tile.PlayerTile.PlayerTileButton)
 local PlayerContext = require(App.Indicator.PlayerContext)
 local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Tile = require(App.Tile.BaseTile.Tile)
 

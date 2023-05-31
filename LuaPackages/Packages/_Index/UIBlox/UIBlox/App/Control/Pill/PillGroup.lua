@@ -1,14 +1,11 @@
---!strict
 local PillRoot = script.Parent
 local Control = PillRoot.Parent
 local App = Control.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local Core = UIBlox.Core
 
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
-local t = require(Packages.t)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Focusable = RoactGamepad.Focusable
 local FitFrame = require(Packages.FitFrame)
@@ -19,9 +16,6 @@ local Images = require(App.ImageSet.Images)
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local IconButton = require(UIBlox.App.Button.IconButton)
-local InputButton = require(UIBlox.Core.InputButton.InputButton)
-local isCallable = require(UIBlox.Utility.isCallable)
-local useInitializedValue = require(UIBlox.Utility.useInitializedValue)
 local useIsGamepad = require(UIBlox.Utility.useIsGamepad)
 local ScrollingListWithArrowsAndGradient = require(Control.HorizontalNav.ScrollingListWithArrowsAndGradient)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
@@ -129,8 +123,6 @@ local function PillGroup(props: Props)
 			NextSelectionRight = pillRefs[1],
 		}) or nil,
 	}
-	local nextSelectionLeft = nil
-	local nextSelectionRight = nil
 
 	local allPillsLoading = props.isLoading
 

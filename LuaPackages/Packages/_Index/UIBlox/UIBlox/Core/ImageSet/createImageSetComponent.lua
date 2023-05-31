@@ -1,3 +1,4 @@
+--!nonstrict
 local ImageSet = script.Parent
 local Core = ImageSet.Parent
 local UIBlox = Core.Parent

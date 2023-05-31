@@ -1,3 +1,4 @@
+--!nocheck
 local Config = require(script.Parent.Config)
 
 local function trimTrailingNewline(str)

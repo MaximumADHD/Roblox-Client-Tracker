@@ -1,3 +1,4 @@
+--!nonstrict
 local SplitTileRoot = script.Parent
 local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
@@ -6,7 +7,6 @@ local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
-local Cryo = require(Packages.Cryo)
 
 local Interactable = require(Core.Control.Interactable)
 local useControlState = require(Core.Control.useControlState)

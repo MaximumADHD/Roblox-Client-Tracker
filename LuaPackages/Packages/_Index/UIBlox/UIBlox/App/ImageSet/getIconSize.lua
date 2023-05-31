@@ -1,4 +1,3 @@
---!strict
 local ImageSet = script.Parent
 
 local App = ImageSet.Parent

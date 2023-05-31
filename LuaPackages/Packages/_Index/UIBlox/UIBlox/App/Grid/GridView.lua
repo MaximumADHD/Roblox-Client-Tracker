@@ -1,3 +1,4 @@
+--!nonstrict
 local GridRoot = script.Parent
 local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent

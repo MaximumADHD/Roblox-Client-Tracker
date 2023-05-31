@@ -1,6 +1,6 @@
+--!nocheck
 local makeConfigurable = require(script.Core.Config.makeConfigurable)
 local UIBloxDefaultConfig = require(script.UIBloxDefaultConfig)
-local Packages = script.Parent
 
 local Fonts = require(script.App.Style.Fonts)
 local ImagesTypes = require(script.App.ImageSet.ImagesTypes)
@@ -89,8 +89,6 @@ local function initializeLibrary(configs)
 			GetWrappedTextWithIcon = require(script.Core.Text.GetWrappedTextWithIcon),
 			EmojiTextLabel = require(script.Core.Text.EmojiTextLabel.EmojiTextLabel),
 		}),
-
-		InfiniteScroller = strict(require(Packages.InfiniteScroller)),
 
 		Hooks = strict({
 			useExternalEvent = require(script.Utility.useExternalEvent),

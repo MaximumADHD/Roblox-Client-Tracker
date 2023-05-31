@@ -1,3 +1,4 @@
+--!nonstrict
 local Carousel = script.Parent
 local UIBlox = Carousel.Parent.Parent.Parent
 local Packages = UIBlox.Parent

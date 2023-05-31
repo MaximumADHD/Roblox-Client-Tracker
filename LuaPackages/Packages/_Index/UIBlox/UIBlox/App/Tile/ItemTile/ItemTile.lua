@@ -1,3 +1,4 @@
+--!nonstrict
 local ItemTileRoot = script.Parent
 local TileRoot = ItemTileRoot.Parent
 local App = TileRoot.Parent
@@ -8,7 +9,6 @@ local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ItemRestrictionStatus = require(ItemTileRoot.ItemRestrictionStatus)

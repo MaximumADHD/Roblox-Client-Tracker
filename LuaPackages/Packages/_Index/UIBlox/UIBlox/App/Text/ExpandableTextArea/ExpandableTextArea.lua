@@ -1,3 +1,4 @@
+--!nonstrict
 local ExpandableTextAreaRoot = script.Parent
 local Text = ExpandableTextAreaRoot.Parent
 local App = Text.Parent

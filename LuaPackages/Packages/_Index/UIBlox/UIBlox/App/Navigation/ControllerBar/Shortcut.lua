@@ -1,4 +1,3 @@
---!strict
 local ControllerBar = script.Parent
 local Navigation = ControllerBar.Parent
 local App = Navigation.Parent

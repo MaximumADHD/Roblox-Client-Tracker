@@ -1,3 +1,4 @@
+--!nonstrict
 local GenericTextLabelRoot = script.Parent
 local Text = GenericTextLabelRoot.Parent
 local App = Text.Parent

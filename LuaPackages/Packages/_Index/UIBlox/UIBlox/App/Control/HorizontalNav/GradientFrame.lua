@@ -1,3 +1,4 @@
+--!nocheck
 --[[
 	Frame used for showing gradients on the left and right of a scrolling list.
 

@@ -1,3 +1,4 @@
+--!nocheck
 local RunService = game:GetService("RunService")
 local ContextActionService = game:GetService("ContextActionService")
 local VRRoot = script.Parent
@@ -64,7 +65,9 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 	local VREnabledCallback = React.useCallback(function()
 		if not LaserPointer.current then
 			LaserPointer.current = LaserPointerComponent.new()
-			LaserPointer.current:setMode(LaserPointer.current.Mode["Pointer"])
+			LaserPointer.current:setMode(
+				LaserPointer.current.Mode[if UIBloxConfig.dualVRLaserPointers then "DualPointer" else "Pointer"]
+			)
 			LaserPointer.current:setEnableAmbidexterousPointer(true)
 			LeftControllerModel.current = VRControllerModel.new(Enum.UserCFrame.LeftHand)
 			RightControllerModel.current = VRControllerModel.new(Enum.UserCFrame.RightHand)
@@ -110,7 +113,9 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 		)
 		if LaserPointer.current then
 			if overlayEnabeld then
-				LaserPointer.current:setMode(LaserPointer.current.Mode["Pointer"])
+				LaserPointer.current:setMode(
+					LaserPointer.current.Mode[if UIBloxConfig.dualVRLaserPointers then "DualPointer" else "Pointer"]
+				)
 			else
 				LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
 			end

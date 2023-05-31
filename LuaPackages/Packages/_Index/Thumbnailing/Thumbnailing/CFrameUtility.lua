@@ -6,7 +6,7 @@ local module = {}
 	We can use this for other things than a head, but I am going to talk
 	through it with head as running example because it's easier to picture.
 ]]
-module.CalculateTargetCFrame = function(baseCFrame)
+module.CalculateTargetCFrame = function(baseCFrame: CFrame): CFrame
 	local targetLookVector
 	if math.abs(baseCFrame.LookVector.Y) > 0.9 then
 		-- The head is positioned so that it is looking almost straight down.
@@ -19,6 +19,14 @@ module.CalculateTargetCFrame = function(baseCFrame)
 	targetLookVector = Vector3.new(targetLookVector.X, 0, targetLookVector.Z).Unit
 	-- Make a cframe with same position, just using new Look vector as look vector.
 	return CFrame.lookAt(baseCFrame.Position, baseCFrame.Position + targetLookVector)
+end
+
+module.AdjustTargetCFrameWithExtents = function(targetCFrame: CFrame, minExtent: Vector3, maxExtent: Vector3): CFrame
+	local adjustment = (minExtent + maxExtent) / 2
+	local tmpCFrame = targetCFrame - targetCFrame.Position
+	adjustment = tmpCFrame * adjustment
+	targetCFrame = targetCFrame + adjustment
+	return targetCFrame
 end
 
 --[[
@@ -36,17 +44,9 @@ end
 		  Then maxExtent = (headSizeX/2, headSizeY/2 + hatSizeY, headSizeZ/2) and
 		  Adjustment to CFrame position is +hatSizeY/2.
 ]]
-module.CalculateTargetCFrameWithExtents = function(baseCFrame, minExtent, maxExtent)
+module.CalculateTargetCFrameWithExtents = function(baseCFrame: CFrame, minExtent: Vector3, maxExtent: Vector3): CFrame
 	local targetCFrame = module.CalculateTargetCFrame(baseCFrame)
 	return module.AdjustTargetCFrameWithExtents(targetCFrame, minExtent, maxExtent)
-end
-
-module.AdjustTargetCFrameWithExtents = function(targetCFrame, minExtent, maxExtent)
-	local adjustment = (minExtent + maxExtent) / 2
-	local tmpCFrame = targetCFrame - targetCFrame.Position
-	adjustment = tmpCFrame * adjustment
-	targetCFrame = targetCFrame + adjustment
-	return targetCFrame
 end
 
 return module

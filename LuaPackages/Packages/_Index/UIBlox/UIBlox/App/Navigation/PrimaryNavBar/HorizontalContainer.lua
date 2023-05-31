@@ -1,3 +1,4 @@
+--!nocheck
 local Navigation = script.Parent.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent
@@ -10,7 +11,6 @@ local Object = LuauPolyfill.Object
 
 -- UIBlox Core
 local useStyle = require(UIBlox.Core.Style.useStyle)
-local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 
 -- Constants
 local Constants = require(script.Parent.Constants)

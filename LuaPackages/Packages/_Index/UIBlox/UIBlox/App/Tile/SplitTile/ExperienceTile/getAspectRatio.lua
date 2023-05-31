@@ -1,4 +1,3 @@
---!strict
 local ExperienceTileRoot = script.Parent
 local AspectRatioModeEnum = require(ExperienceTileRoot.Enum.AspectRatioMode)
 

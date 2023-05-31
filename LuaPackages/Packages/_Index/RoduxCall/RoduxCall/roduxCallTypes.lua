@@ -1,23 +1,8 @@
 -- Shared
 
-export type CallInfo = {
-	callId: string,
-	participants: { [string]: ParticipantModel },
-	experienceDetail: ExperienceDetailModel,
-}
-
 -- Models
 
 export type HistoricalParticipantModel = { userId: number, displayName: string, userName: string }
-
-export type ParticipantModel = { userId: number, displayName: string }
-
-export type ExperienceDetailModel = {
-	experienceName: string,
-	placeId: string,
-	gameInstanceId: string?,
-	reservedServerAccessCode: string?,
-}
 
 export type CallRecordModel = {
 	callId: string,
@@ -30,9 +15,18 @@ export type CallRecordModel = {
 	placeId: number,
 }
 
-export type CallModel = {
+export type CallStateModel = {
 	status: string,
-} & CallInfo
+	callerId: number,
+	calleeId: number,
+	placeId: number?,
+	reservedServerAccessCode: string?;
+	callId: string?,
+	callerDisplayName: string?,
+	calleeDisplayName: string?,
+	gameInstanceId: string?,
+	launchParamsString: string?,
+}
 
 -- Reducer
 
@@ -54,7 +48,7 @@ export type CallHistory = {
 
 export type StartCallAction = {
 	payload: {
-		callInfo: CallInfo,
+		call: CallStateModel,
 	},
 }
 
@@ -64,16 +58,16 @@ export type EndCallAction = {
 
 export type ConnectingCallAction = {
 	payload: {
-		callInfo: CallInfo,
+		call: CallStateModel,
 	},
 }
 
 export type UpdateCallAction = {
 	payload: {
-		call: CallModel,
+		call: CallStateModel,
 	},
 }
 
-export type CurrentCall = CallModel | nil
+export type CurrentCall = CallStateModel | nil
 
 return {}

@@ -1,3 +1,4 @@
+--!nonstrict
 local ModalRoot = script.Parent
 local DialogRoot = ModalRoot.Parent
 local AppRoot = DialogRoot.Parent

@@ -1,3 +1,4 @@
+--!nonstrict
 local Tokens = script.Parent
 local Style = Tokens.Parent
 local Core = Style.Parent

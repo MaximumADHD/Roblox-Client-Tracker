@@ -1,4 +1,3 @@
---!strict
 local Themes = script.Parent
 local Styles = Themes.Parent
 local App = Styles.Parent

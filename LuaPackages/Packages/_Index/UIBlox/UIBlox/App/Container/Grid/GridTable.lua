@@ -1,4 +1,3 @@
---!strict
 local Grid = script.Parent
 local App = Grid.Parent.Parent
 local UIBlox = App.Parent
@@ -6,7 +5,6 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 
-local VerticalScrollView = require(App.Container.VerticalScrollViewWithMargin)
 local GridRow = require(UIBlox.Core.Layout.Grid.GridRow)
 local useGridConfig = require(UIBlox.Core.Layout.Grid.useGridConfig)
 local useProperties = require(UIBlox.Utility.useProperties)

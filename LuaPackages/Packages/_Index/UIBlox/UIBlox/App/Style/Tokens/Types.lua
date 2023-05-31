@@ -1,12 +1,10 @@
+--!nocheck
 local dependencies = require(script.Parent.dependencies)
-local Types = dependencies.CommonPackage.Types
-local ComponentType = Types.ComponentType
-local SemanticType = Types.SemanticType
-local GlobalType = Types.GlobalType
+local _Types = dependencies.CommonPackage.Types
 
-export type ComponentTokens = ComponentType.TYPE
-export type SemanticTokens = SemanticType.TYPE
-export type GlobalTokens = GlobalType.TYPE
+export type ComponentTokens = _Types.ComponentType
+export type SemanticTokens = _Types.SemanticType
+export type GlobalTokens = _Types.GlobalType
 
 export type Tokens = {
 	Global: GlobalTokens,

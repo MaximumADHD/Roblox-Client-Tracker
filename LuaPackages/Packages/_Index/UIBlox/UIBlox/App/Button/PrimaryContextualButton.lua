@@ -13,7 +13,6 @@ local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCurs
 local validateButtonProps = require(Button.validateButtonProps)
 local GenericButton = require(UIBlox.Core.Button.GenericButton)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local PrimaryContextualButton = React.PureComponent:extend("PrimaryContextualButton")
 

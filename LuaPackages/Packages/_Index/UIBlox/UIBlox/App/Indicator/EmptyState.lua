@@ -1,3 +1,4 @@
+--!nonstrict
 local Indicator = script.Parent
 local App = Indicator.Parent
 local UIBlox = App.Parent
@@ -8,11 +9,9 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local RoactGamepad = require(Packages.RoactGamepad)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
-local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local getPageMargin = require(App.Container.getPageMargin)
 local IconSize = require(App.ImageSet.Enum.IconSize)

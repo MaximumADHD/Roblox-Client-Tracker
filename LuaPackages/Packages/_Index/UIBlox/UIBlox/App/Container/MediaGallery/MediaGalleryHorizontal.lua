@@ -1,7 +1,7 @@
+--!nonstrict
 local UIBlox = script:FindFirstAncestor("UIBlox")
 
 local Cryo = require(UIBlox.Parent.Cryo)
-local Otter = require(UIBlox.Parent.Otter)
 local React = require(UIBlox.Parent.React)
 local MediaGallerySingle = require(script.Parent.MediaGallerySingle)
 local MediaGalleryCarousel = require(script.Parent.MediaGalleryCarousel)

@@ -1,4 +1,3 @@
---!strict
 local Fonts = require(script.Parent.Fonts)
 local LightTheme = require(script.Parent.Themes.LightTheme)
 local LightThemeNew = require(script.Parent.Themes.LightThemeNew)

@@ -1,3 +1,4 @@
+--!nonstrict
 local GuiService = game:GetService("GuiService")
 
 local Menu = script.Parent

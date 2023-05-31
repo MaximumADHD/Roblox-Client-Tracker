@@ -1,8 +1,8 @@
+--!nocheck
 local UIBloxRoot = script.Parent.Parent.Parent.Parent
 local Packages = UIBloxRoot.Parent
 
 local Roact = require(Packages.Roact)
-local t = require(Packages.t)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 
 local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)

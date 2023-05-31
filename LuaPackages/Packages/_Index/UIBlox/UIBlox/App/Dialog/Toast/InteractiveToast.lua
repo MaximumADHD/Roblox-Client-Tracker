@@ -1,3 +1,4 @@
+--!nonstrict
 local ToastRoot = script.Parent
 local DialogRoot = ToastRoot.Parent
 local AppRoot = DialogRoot.Parent

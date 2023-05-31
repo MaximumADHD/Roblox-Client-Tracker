@@ -1,3 +1,4 @@
+--!nonstrict
 local TextService = game:GetService("TextService")
 
 local Control = script.Parent.Parent

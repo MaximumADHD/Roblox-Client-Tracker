@@ -13,14 +13,11 @@ local isCallable = require(UIBlox.Utility.isCallable)
 local CarouselHeader = require(Carousel.CarouselHeader)
 local HorizontalCarousel = require(Carousel.HorizontalCarousel)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local FreeFlowCarousel = Roact.PureComponent:extend("FreeFlowCarousel")
 
 FreeFlowCarousel.validateProps = t.strictInterface({
 	-- A function to uniquely identify list items. Calling this on the same item twice
 	-- should give the same result according to ==.
-	-- See infinite scroller for more details [here](https://github.com/Roblox/infinite-scroller/blob/master/docs/Reference/stateful.md#clearing-state)
 	identifier = t.optional(t.callback),
 
 	-- The header text for the carousel

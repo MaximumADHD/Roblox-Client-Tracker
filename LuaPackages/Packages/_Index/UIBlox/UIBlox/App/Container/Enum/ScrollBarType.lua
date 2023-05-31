@@ -1,4 +1,3 @@
---!strict
 export type ScrollBarType = "Compact" | "Gamepad" | "Wide"
 
 local ScrollBarType = {

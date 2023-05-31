@@ -9,7 +9,6 @@ local Control = script.Parent.Parent
 local App = Control.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local Core = UIBlox.Core
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)

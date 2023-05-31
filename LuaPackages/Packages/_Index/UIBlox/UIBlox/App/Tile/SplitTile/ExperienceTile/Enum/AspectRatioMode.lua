@@ -1,4 +1,3 @@
---!strict
 export type AspectRatioMode = "Wide" | "Square"
 
 local AspectRatioModeEnum = {

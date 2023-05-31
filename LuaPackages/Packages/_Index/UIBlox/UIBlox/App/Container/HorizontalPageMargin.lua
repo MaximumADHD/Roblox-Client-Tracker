@@ -1,3 +1,4 @@
+--!nonstrict
 local Container = script.Parent
 local App = Container.Parent
 local UIBlox = App.Parent

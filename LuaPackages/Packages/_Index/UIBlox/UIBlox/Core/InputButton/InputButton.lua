@@ -1,3 +1,4 @@
+--!nonstrict
 local Packages = script.Parent.Parent.Parent.Parent
 local TextService = game:GetService("TextService")
 

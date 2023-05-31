@@ -1,3 +1,4 @@
+--!nonstrict
 local Loading = script.Parent
 local App = Loading.Parent
 local UIBlox = App.Parent

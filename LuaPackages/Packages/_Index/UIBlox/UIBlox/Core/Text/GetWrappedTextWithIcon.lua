@@ -1,3 +1,4 @@
+--!nonstrict
 local GetTextSize = require(script.Parent.GetTextSize)
 
 --[[

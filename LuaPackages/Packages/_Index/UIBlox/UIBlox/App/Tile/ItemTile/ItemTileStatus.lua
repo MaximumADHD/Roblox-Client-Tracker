@@ -1,3 +1,4 @@
+--!nonstrict
 local ItemTileRoot = script.Parent
 local TileRoot = ItemTileRoot.Parent
 local App = TileRoot.Parent

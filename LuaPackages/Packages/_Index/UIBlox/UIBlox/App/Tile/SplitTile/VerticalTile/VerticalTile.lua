@@ -1,3 +1,4 @@
+--!nocheck
 local VerticalTileRoot = script.Parent
 local SplitTileRoot = VerticalTileRoot.Parent
 local TileRoot = SplitTileRoot.Parent
@@ -9,7 +10,6 @@ local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 
-local setDefault = require(UIBlox.Utility.setDefault)
 local useStyle = require(Core.Style.useStyle)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local Images = require(App.ImageSet.Images)
@@ -58,7 +58,7 @@ export type Props = {
 local function VerticalTile(props: Props)
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
-	local props = Cryo.Dictionary.join({
+	local joinedProps = Cryo.Dictionary.join({
 		hasBackground = true,
 		hasOutline = true,
 		isHoverEnabled = true,
@@ -88,8 +88,8 @@ local function VerticalTile(props: Props)
 			SliceCenter = Rect.new(18, 18, 18, 18),
 		},
 	}, props)
-	local hasBackground = props.hasBackground
-	local isHoverEnabled = props.isHoverEnabled
+	local hasBackground = joinedProps.hasBackground
+	local isHoverEnabled = joinedProps.isHoverEnabled
 	local isHovered, setHovered = React.useState(false)
 	local onHoverChanged = React.useCallback(function(isHovered: boolean)
 		return function()
@@ -97,15 +97,15 @@ local function VerticalTile(props: Props)
 		end
 	end, {})
 	local showHoverState = isHovered and isHoverEnabled
-	local tileBackgroundColor = if hasBackground then props.backgroundColor.Color else nil
-	local tileBackgroundTransparency = if hasBackground then props.backgroundColor.Transparency else 1
+	local tileBackgroundColor = if hasBackground then joinedProps.backgroundColor.Color else nil
+	local tileBackgroundTransparency = if hasBackground then joinedProps.backgroundColor.Transparency else 1
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 	}, {
-		UISizeConstraint = if props.minTileSize
+		UISizeConstraint = if joinedProps.minTileSize
 			then React.createElement("UISizeConstraint", {
-				MinSize = props.minTileSize,
+				MinSize = joinedProps.minTileSize,
 			})
 			else nil,
 		TileContent = React.createElement("Frame", {
@@ -118,7 +118,7 @@ local function VerticalTile(props: Props)
 			ZIndex = 1,
 		}, {
 			UICorner = React.createElement("UICorner", {
-				CornerRadius = props.border.CornerRadius,
+				CornerRadius = joinedProps.border.CornerRadius,
 			}),
 			Panel = React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
@@ -130,51 +130,53 @@ local function VerticalTile(props: Props)
 					SortOrder = Enum.SortOrder.Name,
 				}),
 				-- content list items ordered by name
-				Content1 = if props.renderTopContent then props.renderTopContent(showHoverState) else nil,
-				Content2 = if props.renderBottomContent then props.renderBottomContent(showHoverState) else nil,
+				Content1 = if joinedProps.renderTopContent then joinedProps.renderTopContent(showHoverState) else nil,
+				Content2 = if joinedProps.renderBottomContent
+					then joinedProps.renderBottomContent(showHoverState)
+					else nil,
 			}),
-			FooterRow = if props.renderFooterRow then props.renderFooterRow(showHoverState) else nil,
+			FooterRow = if joinedProps.renderFooterRow then joinedProps.renderFooterRow(showHoverState) else nil,
 			Overlay = React.createElement(TileOverlay, {
-				reservedBottomHeight = props.reservedBottomHeight,
-				isVisible = props.isOverlayVisible,
-				isActive = props.isActive,
-				onActivated = props.onActivated,
+				reservedBottomHeight = joinedProps.reservedBottomHeight,
+				isVisible = joinedProps.isOverlayVisible,
+				isActive = joinedProps.isActive,
+				onActivated = joinedProps.onActivated,
 				zIndex = 3,
 			}),
 		}),
-		BorderFrame = if props.hasOutline
+		BorderFrame = if joinedProps.hasOutline
 			then React.createElement("Frame", {
-				Size = UDim2.new(1, -2 * props.border.Width, 1, -2 * props.border.Width),
+				Size = UDim2.new(1, -2 * joinedProps.border.Width, 1, -2 * joinedProps.border.Width),
 				AnchorPoint = if hasBackground then Vector2.new(0.5, 0.5) else nil,
 				Position = if hasBackground
 					then UDim2.fromScale(0.5, 0.5)
-					else UDim2.fromOffset(props.border.Width, props.border.Width),
+					else UDim2.fromOffset(joinedProps.border.Width, joinedProps.border.Width),
 				BackgroundTransparency = 1,
 				SizeConstraint = if not hasBackground then Enum.SizeConstraint.RelativeXX else nil,
 				ZIndex = 4,
 			}, {
 				UIStroke = React.createElement("UIStroke", {
-					Color = props.border.BorderColor.Color,
-					Transparency = props.border.BorderColor.Transparency,
-					Thickness = props.border.Width,
+					Color = joinedProps.border.BorderColor.Color,
+					Transparency = joinedProps.border.BorderColor.Transparency,
+					Thickness = joinedProps.border.Width,
 				}),
 				UICorner = React.createElement("UICorner", {
-					CornerRadius = props.border.CornerRadius,
+					CornerRadius = joinedProps.border.CornerRadius,
 				}),
 			})
 			else nil,
 		HoverShadow = if showHoverState and hasBackground
 			then React.createElement(ImageSetComponent.Label, {
 				ZIndex = 0,
-				Position = props.dropShadow.Position,
-				AnchorPoint = props.dropShadow.AnchorPoint,
+				Position = joinedProps.dropShadow.Position,
+				AnchorPoint = joinedProps.dropShadow.AnchorPoint,
 				BackgroundTransparency = 1,
-				Size = props.dropShadow.Size,
-				Image = Images[props.dropShadow.ImageAssetName],
-				ImageColor3 = props.dropShadow.ImageColor.Color,
-				ImageTransparency = props.dropShadow.ImageColor.Transparency,
+				Size = joinedProps.dropShadow.Size,
+				Image = Images[joinedProps.dropShadow.ImageAssetName],
+				ImageColor3 = joinedProps.dropShadow.ImageColor.Color,
+				ImageTransparency = joinedProps.dropShadow.ImageColor.Transparency,
 				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = props.dropShadow.SliceCenter,
+				SliceCenter = joinedProps.dropShadow.SliceCenter,
 			})
 			else nil,
 	})

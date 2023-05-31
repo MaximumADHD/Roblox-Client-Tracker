@@ -2,7 +2,7 @@ local RoduxCall = script:FindFirstAncestor("RoduxCall")
 local Root = RoduxCall.Parent
 local Rodux = require(Root.Rodux) :: any
 local Status = require(RoduxCall.Enums).Status :: any
-local CallModel = require(RoduxCall.Models).CallModel :: any
+local CallStateModel = require(RoduxCall.Models).CallStateModel :: any
 local StartCall = require(RoduxCall.Actions).StartCall :: any
 local EndCall = require(RoduxCall.Actions).EndCall :: any
 local ConnectingCall = require(RoduxCall.Actions).ConnectingCall :: any
@@ -15,15 +15,15 @@ local DEFAULT_STATE: roduxCallTypes.CurrentCall = nil
 return function()
 	return Rodux.createReducer(DEFAULT_STATE, {
 		[StartCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.StartCallAction)
-			local call = action.payload.callInfo :: roduxCallTypes.CallModel
+			local call = action.payload.call :: roduxCallTypes.CallStateModel
 			call.status = Status.Active.rawValue()
-			return CallModel.format(call)
+			return CallStateModel.format(call)
 		end,
 
 		[ConnectingCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.ConnectingCallAction)
-			local call = action.payload.callInfo :: roduxCallTypes.CallModel
+			local call = action.payload.call :: roduxCallTypes.CallStateModel
 			call.status = Status.Connecting.rawValue()
-			return CallModel.format(call)
+			return CallStateModel.format(call)
 		end,
 
 		[EndCall.name] = function(_: roduxCallTypes.CurrentCall, _: roduxCallTypes.EndCallAction)
@@ -32,13 +32,11 @@ return function()
 
 		[UpdateCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.UpdateCallAction)
 			local call = action.payload.call
-			if call.status == Status.Active.rawValue() then
-				return CallModel.format(call)
-			elseif call.status == Status.Connecting.rawValue() then
-				return CallModel.format(call)
+			if call.status == Status.Idle.rawValue() then
+				return nil
+			else
+				return CallStateModel.format(call)
 			end
-
-			return nil
 		end,
 	} :: {
 		[string]: (roduxCallTypes.CurrentCall, any) -> roduxCallTypes.CurrentCall,

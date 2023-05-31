@@ -1,3 +1,4 @@
+--!nonstrict
 local GetTextHeight = require(script.Parent.Parent.GetTextHeight)
 
 local function getExpandableTextHeights(font, frameWidth, textContent, compactNumberOfLines)

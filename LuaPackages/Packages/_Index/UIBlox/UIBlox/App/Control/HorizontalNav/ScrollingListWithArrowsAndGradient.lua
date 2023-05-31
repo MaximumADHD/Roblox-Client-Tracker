@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	A component for horizontal scrolling.
 	It makes a horizontal scroll widget, along with some nice UI features:
@@ -9,13 +10,8 @@ local Control = script.Parent.Parent
 local App = Control.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local Core = UIBlox.Core
 
 local React = require(Packages.React)
-local t = require(Packages.t)
-local Cryo = require(Packages.Cryo)
-local withStyle = require(UIBlox.Core.Style.withStyle)
-local Otter = require(Packages.Otter)
 
 local IntroScroll = require(Control.HorizontalNav.IntroScroll)
 local GradientFrame = require(Control.HorizontalNav.GradientFrame)

@@ -1,4 +1,3 @@
---!strict
 -- This file just provides a convenient interface to query for images
 export type ImageSetImage = {
 	ImageRectOffset: Vector2,

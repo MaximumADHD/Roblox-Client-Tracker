@@ -1,4 +1,3 @@
---!strict
 local ExperienceTileRoot = script.Parent
 local SplitTileRoot = ExperienceTileRoot.Parent
 local TileRoot = SplitTileRoot.Parent

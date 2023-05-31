@@ -1,3 +1,4 @@
+--!nonstrict
 local MediaGallery = script.Parent
 local Container = MediaGallery.Parent
 local App = Container.Parent

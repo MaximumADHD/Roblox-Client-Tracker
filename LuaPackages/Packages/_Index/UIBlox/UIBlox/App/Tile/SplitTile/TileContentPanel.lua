@@ -1,3 +1,4 @@
+--!nocheck
 local SplitTileRoot = script.Parent
 local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
@@ -6,7 +7,6 @@ local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
-local t = require(Packages.t)
 local useStyle = require(Core.Style.useStyle)
 
 local Fonts = require(UIBlox.App.Style.Fonts)

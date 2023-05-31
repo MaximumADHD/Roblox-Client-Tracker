@@ -1,3 +1,4 @@
+--!nonstrict
 local Slot = script.Parent
 local Control = Slot.Parent
 local App = Control.Parent

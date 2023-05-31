@@ -1,9 +1,9 @@
+--!nonstrict
 local UIBlox = script:FindFirstAncestor("UIBlox")
 
 local Cryo = require(UIBlox.Parent.Cryo)
 local Otter = require(UIBlox.Parent.Otter)
 local React = require(UIBlox.Parent.React)
-local usePrevious = require(UIBlox.Utility.usePrevious)
 
 local defaultProps = {
 	itemAspectRatio = 16 / 9,
@@ -45,10 +45,10 @@ local function MediaGallerySingle(providedProps: Props)
 	local nearestItemIndex = 1 + math.round(canvasPosition.X / itemWidth)
 
 	local getNextItemIndexInDirection = React.useCallback(function(direction: DragDirection)
-		local nextIndex: number
 		if direction == "Right" then
 			return nearestItemIndex + 1
-		elseif direction == "Left" then
+		else
+			-- direction == "Left"
 			return nearestItemIndex - 1
 		end
 	end)

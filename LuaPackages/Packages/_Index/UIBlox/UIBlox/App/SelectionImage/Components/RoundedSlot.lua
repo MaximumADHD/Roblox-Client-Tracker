@@ -1,3 +1,4 @@
+--!nonstrict
 local UIBloxRoot = script.Parent.Parent.Parent.Parent
 local Packages = UIBloxRoot.Parent
 

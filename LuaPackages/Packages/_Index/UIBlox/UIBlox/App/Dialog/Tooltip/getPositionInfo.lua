@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Calculate absolute position of tooltip, as well as caret position / point direction, etc
 	return:

@@ -1,3 +1,4 @@
+--!nocheck
 --[[
 	Exposes an interface to set global configuration values for a package.
 

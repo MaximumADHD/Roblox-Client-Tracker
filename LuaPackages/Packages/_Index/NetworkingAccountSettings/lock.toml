@@ -3,4 +3,4 @@ name = "NetworkingAccountSettings"
 version = "1.13.0"
 commit = "530bc000ff1dbe198d921d1300ab14e19868a443"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.13.0 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.15.0 url+https://github.com/roblox/lua-app-networking"]

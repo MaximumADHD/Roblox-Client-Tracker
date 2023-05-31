@@ -1,4 +1,3 @@
---!strict
 local dependencies = require(script.dependencies)
 local Style = script.Parent
 local Core = Style.Parent

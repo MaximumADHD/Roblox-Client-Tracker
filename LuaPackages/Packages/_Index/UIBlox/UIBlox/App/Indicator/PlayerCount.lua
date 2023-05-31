@@ -1,3 +1,4 @@
+--!nonstrict
 local App = script:FindFirstAncestor("App")
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent

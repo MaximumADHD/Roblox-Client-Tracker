@@ -1,4 +1,3 @@
---!strict
 local KeyLabelRoot = script.Parent
 local Menu = KeyLabelRoot.Parent
 local App = Menu.Parent

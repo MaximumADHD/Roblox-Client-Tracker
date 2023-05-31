@@ -1,4 +1,3 @@
---!strict
 local TooltipPackage = script.Parent
 local Dialog = TooltipPackage.Parent
 local App = Dialog.Parent

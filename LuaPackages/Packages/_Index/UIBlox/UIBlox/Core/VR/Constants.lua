@@ -1,4 +1,3 @@
---!strict
 export type Anchoring = "Head" | "Wrist" | "World"
 local AnchoringTypes = {
 	Head = "Head" :: Anchoring,

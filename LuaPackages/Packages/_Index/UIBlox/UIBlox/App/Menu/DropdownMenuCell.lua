@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Create a generic button that can be themed for different state the background and content.
 ]]

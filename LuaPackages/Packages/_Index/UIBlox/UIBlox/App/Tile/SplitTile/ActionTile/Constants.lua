@@ -1,4 +1,3 @@
---!strict
 local ActionTile = script.Parent
 local SplitTileRoot = ActionTile.Parent
 local TileRoot = SplitTileRoot.Parent

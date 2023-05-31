@@ -1,3 +1,4 @@
+--!nonstrict
 local RbxAnalyticsService
 -- Wrapped in pcall because RbxAnalyticsService is not available at some security levels,
 -- UIBlox scripts may be run at those lower levels (e.g. storybooks)

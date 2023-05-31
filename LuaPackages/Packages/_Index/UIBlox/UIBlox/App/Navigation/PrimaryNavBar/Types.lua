@@ -1,10 +1,3 @@
---!strict
-local Navigation = script.Parent.Parent
-local App = Navigation.Parent
-local UIBlox = App.Parent
-local Packages = UIBlox.Parent
-local React = require(Packages.React)
-
 export type IconTabItem = {
 	-- Title of the IconTab
 	title: string,

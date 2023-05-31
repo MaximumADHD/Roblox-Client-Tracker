@@ -1,3 +1,4 @@
+--!nonstrict
 local ExperienceTileRoot = script.Parent
 local TileRoot = ExperienceTileRoot.Parent
 local App = TileRoot.Parent
@@ -9,8 +10,6 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local withStyle = require(Core.Style.withStyle)
-local Interactable = require(Core.Control.Interactable)
-local LoadableImage = require(App.Loading.LoadableImage)
 local TileOverlay = require(TileRoot.SplitTile.TileOverlay)
 local TileContentPanel = require(TileRoot.SplitTile.TileContentPanel)
 local VerticalTileThumbnail = require(TileRoot.SplitTile.VerticalTile.VerticalTileThumbnail)

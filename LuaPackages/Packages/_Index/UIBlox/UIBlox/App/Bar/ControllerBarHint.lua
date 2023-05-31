@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 		Creates a component with a button image and hint text
 ]]

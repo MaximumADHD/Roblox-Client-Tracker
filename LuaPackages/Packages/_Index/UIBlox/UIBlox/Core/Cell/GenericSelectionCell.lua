@@ -1,3 +1,4 @@
+--!nonstrict
 local Cell = script.Parent
 local Core = Cell.Parent
 local UIBlox = Core.Parent

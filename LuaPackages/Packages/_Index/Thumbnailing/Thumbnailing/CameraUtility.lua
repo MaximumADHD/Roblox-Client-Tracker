@@ -17,13 +17,25 @@ module.XRotForFullBody = 15.0
 module.XRotForCloseup = 0.0
 module.DistanceScaleForFullBody = 1.0
 
+export type CameraOptions = {
+	optFieldOfView: number?,
+	optFieldOfViewForDistanceScale: number?,
+	minExtent: Vector3,
+	maxExtent: Vector3,
+	extentScale: number,
+	optCameraDistanceScale: number?,
+	targetCFrame: CFrame,
+	optCameraXRot: number?,
+	optCameraYRot: number?,
+}
+
 --[[
 	Determine a position by applying targetCFrame to relativePos.
 	Return CFrame looking from that pos back towards target.
 ]]
-module.GetCameraCFrame = function(targetCFrame, relativePos)
+module.GetCameraCFrame = function(targetCFrame: CFrame, relativePos: Vector3): CFrame
 	local cameraPos = targetCFrame * relativePos
-	return CFrame.lookAt(cameraPos, targetCFrame.p)
+	return CFrame.lookAt(cameraPos, targetCFrame.Position)
 end
 
 --[[
@@ -33,13 +45,14 @@ end
 	  the interesting stuff in the scene.
 	Call this to get into scenario 1, a camera we control/can edit from lua.
 ]]
-module.CreateThumbnailCamera = function()
+module.CreateThumbnailCamera = function(): Camera
 	-- The thumbnailer will look for a child of first child of
 	-- workspace called "Thumbnail Camera".  If it finds that, will
 	-- use it.
-	local camera = Instance.new("Camera", workspace:GetChildren()[1])
+	local camera = Instance.new("Camera")
 	camera.Name = "ThumbnailCamera"
 	camera.CameraType = Enum.CameraType.Scriptable
+	camera.Parent = workspace:GetChildren()[1]
 	return camera
 end
 
@@ -48,7 +61,12 @@ end
 	on screen, plus a margin expressed as scale.
 	How far back should we position the camera to capture everything?
 ]]
-module.CalculateBaseDistanceToCamera = function(fieldOfViewRad, minExtent, maxExtent, marginScale)
+module.CalculateBaseDistanceToCamera = function(
+	fieldOfViewRad: number,
+	minExtent: Vector3,
+	maxExtent: Vector3,
+	marginScale: number
+): number
 	local offsetFromCenter = math.max((maxExtent.X - minExtent.X) / 2, (maxExtent.Y - minExtent.Y) / 2)
 	local t = math.tan(fieldOfViewRad / 2)
 	return (offsetFromCenter * marginScale) / t
@@ -74,7 +92,7 @@ end
 			minExtent, maxExtent - extents of thing we want to view.  Relative to targetCFrame.
 			extentScale - scale to apply to extents to provide some margin around thing we're looking at.
 ]]
-module.SetupCamera = function(camera, cameraOptions)
+module.SetupCamera = function(camera: Camera, cameraOptions: CameraOptions)
 	if cameraOptions.optFieldOfView then
 		camera.FieldOfView = cameraOptions.optFieldOfView
 	end

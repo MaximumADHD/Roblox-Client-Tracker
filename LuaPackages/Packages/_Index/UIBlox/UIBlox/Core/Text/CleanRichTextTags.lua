@@ -1,4 +1,3 @@
---!strict
 -- This function cleans RichText tags from string and returns plain text
 -- RichText does not have this function yet, ex. for getTextLength(RichText)
 local function cleanRichTextTags(text: string): string

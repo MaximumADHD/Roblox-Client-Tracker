@@ -1,6 +1,5 @@
---!strict
-local ActionTile = script.Parent
-local SplitTile = ActionTile.Parent
+local ActionTileFolder = script.Parent
+local SplitTile = ActionTileFolder.Parent
 local Tile = SplitTile.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
@@ -9,7 +8,6 @@ local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local Roact = require(Packages.Roact)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local getControlStateColor = require(UIBlox.Utility.getControlStateColor)
 local useStyle = require(Core.Style.useStyle)
 local Interactable = require(Core.Control.Interactable)
@@ -20,9 +18,8 @@ local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
-local Images = require(App.ImageSet.Images)
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
-local Constants = require(ActionTile.Constants)
+local Constants = require(ActionTileFolder.Constants)
 
 local VerticalTile = require(SplitTile.VerticalTile.VerticalTile)
 
@@ -77,7 +74,7 @@ local function ActionTile(props: Props)
 	local iconSize: number = styleProps.iconSize
 	local iconImageColor: StyleTypes.ThemeItem = styleProps.iconImageColor
 	local titleTextColor: StyleTypes.ThemeItem = styleProps.titleTextColor
-	local props: Props = Cryo.Dictionary.join(defaultProps, props)
+	props = Cryo.Dictionary.join(defaultProps, props)
 	local textOneLineSizeY
 	if props.title then
 		textOneLineSizeY = titleFont.RelativeSize * style.Font.BaseSize

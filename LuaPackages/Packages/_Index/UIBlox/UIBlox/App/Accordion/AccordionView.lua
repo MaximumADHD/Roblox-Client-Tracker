@@ -1,3 +1,4 @@
+--!nonstrict
 local AccordionRoot = script.Parent
 local AppRoot = AccordionRoot.Parent
 local UIBloxRoot = AppRoot.Parent

@@ -1,3 +1,4 @@
+--!nonstrict
 local Bar = script.Parent
 local App = Bar.Parent
 local UIBlox = App.Parent

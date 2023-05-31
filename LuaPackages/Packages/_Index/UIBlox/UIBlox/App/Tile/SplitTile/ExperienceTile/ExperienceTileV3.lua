@@ -1,4 +1,3 @@
---!strict
 local ExperienceTileRoot = script.Parent
 local SplitTileRoot = ExperienceTileRoot.Parent
 local TileRoot = SplitTileRoot.Parent
@@ -6,24 +5,19 @@ local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
-local RoactGamepad = require(Packages.RoactGamepad)
-local Focusable = RoactGamepad.Focusable
 
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local Roact = require(Packages.Roact)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local getControlStateColor = require(UIBlox.Utility.getControlStateColor)
 local setDefault = require(UIBlox.Utility.setDefault)
 
 local useStyle = require(Core.Style.useStyle)
 local Interactable = require(Core.Control.Interactable)
-local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local useControlState = require(Core.Control.useControlState)
 local StyleTypes = require(App.Style.StyleTypes)
 local Fonts = require(App.Style.Fonts)
 local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
-local AnimatedGradient = require(App.SelectionImage.Components.AnimatedGradient)
 local CursorKind = require(App.SelectionImage.CursorKind)
 
 local Constants = require(ExperienceTileRoot.Constants)
@@ -60,9 +54,7 @@ export type Props = {
 	-- Function called when tile panel is clicked
 	onActivated: (() -> any)?,
 	-- Overlay rendered over the top content section
-	renderTopContentOverlay: (
-		(isHovered: boolean, border: StyleTypes.BorderItem?) -> ({ [any]: React.ReactElement? })?
-	)?,
+	renderTopContentOverlay: ((isHovered: boolean, border: StyleTypes.BorderItem?) -> { [any]: React.ReactElement? }?)?,
 	-- Override for BottomContent section
 	renderBottomContent: ((isHovered: boolean, border: StyleTypes.BorderItem?) -> React.ReactElement?)?,
 	-- Override for ActionRow section
@@ -134,7 +126,6 @@ local function ExperienceTileV3(props: Props)
 		"Not allowed to override AspectRatioMode as Wide with hover enabled!"
 	)
 	local renderTopContent = React.useCallback(function(isHoverContent: boolean): React.ReactElement?
-		local isWideHover = isHoverContent
 		local finalAspetRatioMode: AspectRatioMode =
 			getFinalAspectRatioMode(props.thumbnailAspectRatioOverride, isHoverContent)
 		local finalAspetRatio = getAspectRatio(finalAspetRatioMode)

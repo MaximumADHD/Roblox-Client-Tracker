@@ -1,3 +1,4 @@
+--!nonstrict
 local TooltipRoot = script.Parent
 local DialogRoot = TooltipRoot.Parent
 local AppRoot = DialogRoot.Parent

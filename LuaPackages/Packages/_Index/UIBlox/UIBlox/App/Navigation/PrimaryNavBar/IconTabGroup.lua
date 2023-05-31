@@ -1,3 +1,4 @@
+--!nocheck
 local Navigation = script.Parent.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent
@@ -12,7 +13,6 @@ local Object = LuauPolyfill.Object
 -- UIBlox Core
 local InteractableList = require(UIBlox.Core.Control.InteractableList)
 local SelectionMode = require(UIBlox.Core.Control.Enum.SelectionMode)
-local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 

@@ -1,4 +1,3 @@
---!strict
 local Style = script.Parent
 local App = Style.Parent
 local UIBlox = App.Parent

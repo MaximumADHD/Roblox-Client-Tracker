@@ -1,3 +1,4 @@
+--!nonstrict
 local RunService = game:GetService("RunService")
 local Loading = script.Parent
 local App = Loading.Parent

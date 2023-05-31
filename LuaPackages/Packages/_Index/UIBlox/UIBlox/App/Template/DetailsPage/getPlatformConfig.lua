@@ -1,3 +1,4 @@
+--!nocheck
 --[[
 	This is a temporary layer to abstract the constants and configuration for different platform.
 		It will be replaced by design tokens in the near future.

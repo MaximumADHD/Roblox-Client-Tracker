@@ -1,9 +1,7 @@
---!strict
 local App = script:FindFirstAncestor("App")
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local t = require(Packages.t)
 local React = require(Packages.React)
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local IconSize = require(App.ImageSet.Enum.IconSize)

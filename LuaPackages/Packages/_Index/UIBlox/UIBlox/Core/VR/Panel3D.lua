@@ -1,4 +1,3 @@
---!strict
 local RunService = game:GetService("RunService")
 
 local VRRoot = script.Parent
@@ -12,13 +11,12 @@ local React = require(Packages.React)
 local Roact = require(Packages.Roact)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GetEngineFeatureSafe = require(UIBlox.Core.Utility.GetEngineFeatureSafe)
 
 -- Storybooks
 local DEFAULT_VR_PANEL_SIZE_X = 10
 local DEFAULT_VR_PANEL_SIZE_Y = 10
-local useCurvedPanel = GetEngineFeatureSafe("CurvedSurfaceGuisEnabled") and UIBloxConfig.useCurvedPanel3D
+local useCurvedPanel = GetEngineFeatureSafe("CurvedSurfaceGuisEnabled")
 
 type Props = Constants.Panel3DProps
 

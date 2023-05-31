@@ -1,3 +1,4 @@
+--!nocheck
 local ExperienceTileRoot = script.Parent
 local SplitTileRoot = ExperienceTileRoot.Parent
 local TileRoot = SplitTileRoot.Parent
@@ -25,10 +26,6 @@ local HOVER_PADDING = 12
 
 local SQUARE_ASPECT_RATIO = 1
 local WIDE_ASPECT_RATIO = 0.5625
-local MIN_WIDTH = 146
-local MIN_HEIGHT = 228
-
-local ACTION_BUTTON_PADDING = 6
 
 export type Props = {
 	-- The title name for the tile's experience. Will not render text if nil or empty.
@@ -88,7 +85,7 @@ local function getPanelHeight(footerHeight: number, contentHeight: number, title
 end
 
 local function ExperienceTileV2(props: Props)
-	local props = Cryo.Dictionary.join(defaultProps, props)
+	props = Cryo.Dictionary.join(defaultProps, props)
 
 	local hasBackground = props.hasBackground
 	local experienceName = props.experienceName

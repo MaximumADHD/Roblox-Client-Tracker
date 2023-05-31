@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Creates a Roact wrapper component that tracks state based on Roact input events to a UI control component.
 ]]

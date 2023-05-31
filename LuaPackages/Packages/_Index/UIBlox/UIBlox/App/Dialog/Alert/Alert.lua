@@ -1,3 +1,4 @@
+--!nonstrict
 local AlertRoot = script.Parent
 local DialogRoot = AlertRoot.Parent
 local AppRoot = DialogRoot.Parent

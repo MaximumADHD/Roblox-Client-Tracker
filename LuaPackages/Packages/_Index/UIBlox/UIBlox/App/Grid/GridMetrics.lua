@@ -1,3 +1,4 @@
+--!nonstrict
 --[[
 	Documentation:
 	https://confluence.roblox.com/display/DESIGN/Grid+Systems

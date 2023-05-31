@@ -1,3 +1,4 @@
+--!nonstrict
 local ExperienceTileRoot = script.Parent
 local TileRoot = ExperienceTileRoot.Parent
 local App = TileRoot.Parent
@@ -288,9 +289,6 @@ end
 
 function ExperienceHoverTile:renderBottomContent(stylePalette)
 	local experienceName = self.props.experienceName
-	local ratingText = self.props.ratingText
-	local playingCountText = self.props.playingCountText
-	local hasStats = playingCountText and ratingText
 	local titleTextLineCount = TEXT_LINE_COUNT
 	local font = stylePalette.Font
 	local theme = stylePalette.Theme

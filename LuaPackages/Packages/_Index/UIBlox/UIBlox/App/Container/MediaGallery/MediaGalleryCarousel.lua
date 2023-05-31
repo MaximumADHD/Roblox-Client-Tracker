@@ -1,3 +1,4 @@
+--!nonstrict
 local UIBlox = script:FindFirstAncestor("UIBlox")
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBlox.App.ImageSet.Images)

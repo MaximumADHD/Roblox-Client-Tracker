@@ -1,3 +1,4 @@
+--!nonstrict
 local TextService = game:GetService("TextService")
 
 local MenuTileRoot = script.Parent
@@ -14,7 +15,6 @@ local t = require(Packages.t)
 local Badge = require(App.Indicator.Badge)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
-local Images = require(App.ImageSet.Images)
 
 local ControlState = require(Core.Control.Enum.ControlState)
 local Interactable = require(Core.Control.Interactable)
@@ -110,7 +110,6 @@ function MenuTile:render()
 
 		local backgroundStyle = theme.BackgroundUIDefault
 		local iconStyle = theme.IconDefault
-		local roundedCornersStyle = theme.BackgroundDefault
 		local hoverStyle = theme.BackgroundOnHover
 
 		local titleStyle = theme.TextDefault

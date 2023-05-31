@@ -1,3 +1,4 @@
+--!nonstrict
 -- Specialized TextBox for handling the text boxes that sliders can have.
 
 local UserInputService = game:GetService("UserInputService")
