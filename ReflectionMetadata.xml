@@ -1797,7 +1797,6 @@
         <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">145</string>
         <string name="PreferredParent">GuiBase2d</string>
-        <bool name="FFlag">AdGuiEnabled3</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -1807,7 +1806,6 @@
         <string name="ExplorerOrder">200</string>
         <string name="ExplorerImageIndex">146</string>
         <string name="PreferredParent">Part</string>
-        <bool name="FFlag">AdPortalEnabled3</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "IdentityProtocol",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/Identity/src"
+    }
+  }
+}

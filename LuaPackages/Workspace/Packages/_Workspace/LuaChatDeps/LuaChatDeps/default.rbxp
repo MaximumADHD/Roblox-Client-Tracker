@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "LuaChatDeps",
-    "tree": {
-      "$path": "../../../../../../../modules/proxy-packages/lua-chat-deps/src"
-    }
-  }
-}

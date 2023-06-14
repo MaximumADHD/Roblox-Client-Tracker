@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RobloxApolloClient",
+    "tree": {
+      "$path": "../../../../../../../modules/graphql/roblox-apollo-client/src"
+    }
+  }
+}

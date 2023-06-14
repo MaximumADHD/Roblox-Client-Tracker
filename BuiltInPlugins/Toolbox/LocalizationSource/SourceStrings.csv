@@ -20,7 +20,8 @@ Studio.Toolbox.Audio.SoundEffect.Category.Bee_wasp_etc.,"Bee, wasp, etc.", ,"Bee
 Studio.Toolbox.AssetConfigFooter.UploadWithFee,Submit for,{price:int} Robux, 
 Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,White,Studio.Toolbox.General.CategoryRecentVideos,Recent Videos
- ,Recent Videos,Studio.Toolbox.AudioView.Name,Name
+ ,Recent Videos,Studio.Toolbox.AssetTable.Name,Name
+ ,Name,Studio.Toolbox.AudioView.Name,Name
  ,Name,Studio.Toolbox.General.CategoryGroupDecals,Group Images
  ,Group Images,Studio.Toolbox.Audio.SoundEffect.Category.Arrow,Arrow
  ,Arrow,Studio.Toolbox.Common.InsertAborted,Not inserting asset {assetId} because it is invalid.
@@ -60,7 +61,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Search for users,Studio.Toolbox.General.CreatorDashboardLinkMessage,You can place this item on sale and configure it on your {creatorDashboardLink}.
 A message displayed to the user if they try to put an avatar item on sale and this message directs them to the Creator Dashboard instead.,You can place this item on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.Audio.SoundEffect.Category.debris,Debris
  ,Debris,Studio.Toolbox.Audio.SoundEffect.Category.Drip,Drip
- ,Drip,Studio.Toolbox.Audio.SoundEffect.Category.whispers,Whispers
+ ,Drip,Studio.Toolbox.AssetTable.DateUpdated,Date Updated
+ ,Date Updated,Studio.Toolbox.Audio.SoundEffect.Category.whispers,Whispers
  ,Whispers,Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory
  ,Front Accessory,Studio.Toolbox.Audio.SoundEffect.Category.sports,Sports
  ,Sports,Studio.Toolbox.Common.No,No
@@ -182,13 +184,13 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Classical music,Studio.Toolbox.Audio.SoundEffect.Category.Classical_music,Classical music
  ,Classical music,Studio.Toolbox.General.SuggestionsIntroText,Try searching for:
  ,Try searching for:,Studio.Toolbox.Audio.SoundEffect.Category.Hands,Hands
- ,Hands,Studio.Toolbox.General.AssetTypeTShirtAccessory,T-Shirt Accessory
+ ,Hands,Studio.Toolbox.Audio.SoundEffect.Category.Vacuum cleaner,Vacuum cleaner
+ ,Vacuum cleaner,Studio.Toolbox.Audio.SoundEffect.Category.Vacuum_cleaner,Vacuum cleaner
+ ,Vacuum cleaner,Studio.Toolbox.General.AssetTypeTShirtAccessory,T-Shirt Accessory
  ,T-Shirt Accessory,Studio.Toolbox.Audio.SoundEffect.Category.Whoop,Whoop
  ,Whoop,Studio.Toolbox.Audio.SoundEffect.Category.Car alarm,Car alarm
  ,Car alarm,Studio.Toolbox.Audio.SoundEffect.Category.Car_alarm,Car alarm
- ,Car alarm,Studio.Toolbox.Audio.SoundEffect.Category.Vacuum cleaner,Vacuum cleaner
- ,Vacuum cleaner,Studio.Toolbox.Audio.SoundEffect.Category.Vacuum_cleaner,Vacuum cleaner
- ,Vacuum cleaner,Studio.Toolbox.General.CategoryCreationsGroupHair,Group Hair
+ ,Car alarm,Studio.Toolbox.General.CategoryCreationsGroupHair,Group Hair
  ,Group Hair,Studio.Toolbox.General.SuggestionsNPC,NPC
  ,NPC,Studio.Toolbox.Audio.SoundEffect.Category.Saxophone,Saxophone
  ,Saxophone,Studio.Toolbox.Audio.SoundEffect.Category.Vehicle,Vehicle
@@ -239,7 +241,8 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,< All {assetType} /,Studio.Toolbox.General.SearchOptionsAllViews,All Views
  ,All Views,Studio.Toolbox.Audio.SoundEffect.Category.Bird,Bird
  ,Bird,Studio.Toolbox.General.SearchResultsClearAll,Clear
- ,Clear,Studio.Toolbox.General.Ownership,Creator
+ ,Clear,Studio.Toolbox.AssetTable.Creator,Creator
+ ,Creator,Studio.Toolbox.General.Ownership,Creator
  ,Creator,Studio.Toolbox.General.SearchOptionCreator,Creator
  ,Creator,Studio.Toolbox.General.SearchOptionSort,Sort By
  ,Sort By,Studio.Toolbox.General.SearchOptionsApply,Apply
@@ -710,10 +713,10 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Aircraft,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
  ,Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
  ,You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Retry,Retry
- ,Retry,Studio.Toolbox.Audio.SoundEffect.Category.Glass,Glass
+ ,Retry,Studio.Toolbox.Purchase.Buy,Buy
+ ,Buy,Studio.Toolbox.Audio.SoundEffect.Category.Glass,Glass
  ,Glass,Studio.Toolbox.Audio.SoundEffect.Category.glass,Glass
- ,Glass,Studio.Toolbox.Purchase.Buy,Buy
- ,Buy,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin
+ ,Glass,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin
  ,Buy & Install Plugin,Studio.Toolbox.Audio.SoundEffect.Category.Hammer,Hammer
  ,Hammer,Studio.Toolbox.Purchase.FailedHeader,Purchase failed
  ,Purchase failed,"Studio.Toolbox.Audio.SoundEffect.Category.Hubbub, speech noise, speech babble","Hubbub, speech noise, speech babble"
@@ -740,7 +743,8 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Recommended image size: {width}x{height} px,Studio.Toolbox.Audio.SoundEffect.Category.Music of Africa,Music of Africa
  ,Music of Africa,Studio.Toolbox.Audio.SoundEffect.Category.Music_of_Africa,Music of Africa
  ,Music of Africa,Studio.Toolbox.AssetConfigAdditionalImages.SelectLimit,You can select up to {limit} screenshots
- ,You can select up to {limit} screenshots,Studio.Toolbox.Audio.SoundEffect.Category.Traditional music,Traditional music
+ ,You can select up to {limit} screenshots,Studio.Toolbox.AssetTable.DateCreated,Date Created
+ ,Date Created,Studio.Toolbox.Audio.SoundEffect.Category.Traditional music,Traditional music
  ,Traditional music,Studio.Toolbox.Audio.SoundEffect.Category.Traditional_music,Traditional music
  ,Traditional music,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
  ,We encountered some problems:,Studio.Toolbox.AssetConfigPackagePermissions.SearchbarDefault,Search for Friends

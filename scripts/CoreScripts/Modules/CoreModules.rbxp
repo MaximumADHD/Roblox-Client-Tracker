@@ -10,6 +10,9 @@
     // This code can be removed once Packagification cleanup is done
     "instanceHierarchy": {
         "tree": {
+            "ApolloClient": {
+                "$path": "ApolloClient"
+            },
             "AvatarContextMenu": {
                 "$path": "AvatarContextMenu"
             },
@@ -84,6 +87,9 @@
             },
             "PurchasePrompt": {
                 "$path": "PurchasePrompt"
+            },
+            "Screenshots": {
+                "$path": "Screenshots"
             },
             "Server": {
                 "$path": "Server"

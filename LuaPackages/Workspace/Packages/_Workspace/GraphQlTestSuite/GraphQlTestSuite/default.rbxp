@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GraphQlTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/graphql/graphql-test-suite/src"
+    }
+  }
+}

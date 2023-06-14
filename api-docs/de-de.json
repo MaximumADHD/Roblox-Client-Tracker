@@ -30504,7 +30504,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal localPlayer = Players.LocalPlayer\nlocal mouse = localPlayer:GetMouse()\n    \nmouse.Move:Connect(function()\n\tprint(\"mouse screen position: \", mouse.X, mouse.Y)\nend)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "Ein <code>Actor</code> ist ein Container für Code, der sicher in seinen eigenen Thread aufgeteilt werden kann.",
+    "documentation": "Eine <code>Actor</code> ist ein Container für Code, der sicher in einen eigenen Thread aufgeteilt werden kann.",
     "keys": {
       "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
       "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
@@ -30514,16 +30514,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/param/0": {
-    "documentation": "Ein <code>Actor</code> ist ein Container für Code, der sicher in seinen eigenen Thread aufgeteilt werden kann."
+    "documentation": "Eine <code>Actor</code> ist ein Container für Code, der sicher in einen eigenen Thread aufgeteilt werden kann."
   },
   "@roblox/globaltype/Actor.BindToMessage/param/1": {
-    "documentation": "Das Thema wird verwendet, um den Typ der Nachricht zu identifizieren."
+    "documentation": "Das Thema, mit dem die Art der Nachricht identifiziert wurde."
   },
   "@roblox/globaltype/Actor.BindToMessage/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/return/0": {
-    "documentation": "Dieses Verbindungsobjekt kann verwendet werden, um den Luau-Callback von der Empfangen von Nachrichten abzutrennen."
+    "documentation": "Dieses Verbindungsobjekt kann verwendet werden, um das Luau-Callback von der Empfangen von Nachrichten zu trennen."
   },
   "@roblox/globaltype/Actor.BindToMessage": {
     "documentation": "Bindet einen Luau-Callback an eine Nachricht mit dem angegebenen Thema.",
@@ -30548,16 +30548,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
-    "documentation": "Ein <code>Actor</code> ist ein Container für Code, der sicher in seinen eigenen Thread aufgeteilt werden kann."
+    "documentation": "Eine <code>Actor</code> ist ein Container für Code, der sicher in einen eigenen Thread aufgeteilt werden kann."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
-    "documentation": "Das Thema, das verwendet wird, um den Nachrichtentyp zu identifizieren."
+    "documentation": "Das Thema, mit dem die Art der Nachricht identifiziert wurde."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
-    "documentation": "Dieses Verbindungsobjekt kann verwendet werden, um den Luau-Callback davon abzuschalten, Nachrichten zu empfangen."
+    "documentation": "Dieses Verbindungsobjekt kann verwendet werden, um die Luau-Rückruffunktion von der Empfangung von Nachrichten zu trennen."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel": {
     "documentation": "Bindet einen Luau-Callback an eine Nachricht mit dem angegebenen Thema.",
@@ -30582,16 +30582,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
-    "documentation": "Ein <code>Actor</code> ist ein Container für Code, der sicher in seinen eigenen Thread aufgeteilt werden kann."
+    "documentation": "Eine <code>Actor</code> ist ein Container für Code, der sicher in einen eigenen Thread aufgeteilt werden kann."
   },
   "@roblox/globaltype/Actor.SendMessage/param/1": {
-    "documentation": "Das Thema, das verwendet wird, um die gesendete Nachricht zu identifizieren."
+    "documentation": "Das Thema, mit dem die gesendete Nachricht identifiziert wird."
   },
   "@roblox/globaltype/Actor.SendMessage/param/2": {
-    "documentation": "Die Inhalte der Nachricht, die an den Schauspieler gesendet werden soll."
+    "documentation": "Der Inhalt der Nachricht, die an den Schauspieler gesendet werden soll."
   },
   "@roblox/globaltype/Actor.SendMessage": {
-    "documentation": "Sends a message to an Actor. (Bitte das Tag nicht übersetzen)",
+    "documentation": "Sendet eine Nachricht an einen Schauspieler.",
     "params": [
       {
         "name": "self",

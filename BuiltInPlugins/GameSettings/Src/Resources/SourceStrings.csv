@@ -133,6 +133,9 @@ Studio.GameSettings.Guidelines.LearnMoreLink,Learn More, ,Learn More
 Studio.GameSettings.Guidelines.Unavailable,Unavailable, ,Unavailable
 Studio.GameSettings.General.DevicePhone,Phone, ,Phone
 Studio.GameSettings.Guidelines.NotSubmitted,Not Submitted, ,Not Submitted
+Studio.GameSettings.General.PresetRthro,Rthro, ,Rthro
+Studio.GameSettings.General.ContentDialogItem2,Intense Violence, ,Intense Violence
+Studio.GameSettings.Guidelines.Pending,Pending..., ,Pending...
 Studio.GameSettings.Guidelines.SubmitQuestionnaire,Fill Out Questionnaire, , Fill Out Questionnaire
 Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing, ,Studio doesn't currently support video playing
 Studio.GameSettings.Guidelines.UpdateQuestionnaire,Update Questionnaire, , Update Questionnaire
@@ -179,8 +182,6 @@ Studio.GameSettings.General.PartTorso,Torso, ,Torso
 Studio.GameSettings.General.AllowCopyingDesc,This option grants every user of Roblox the right to use (in various ways) the content you are not sharing. For more information about sharing content please review the Terms of Use., ,This option grants every user of Roblox the right to use (in various ways) the content you are not sharing. For more information about sharing content please review the Terms of Use.
 Studio.GameSettings.General.ContentDialogBody,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?
 Studio.GameSettings.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore
-Studio.GameSettings.General.PresetRthro,Rthro, ,Rthro
-Studio.GameSettings.General.ContentDialogItem2,Intense Violence, ,Intense Violence
 Studio.GameSettings.General.ContentDialogItem3,Strong Language (Swearing), ,Strong Language (Swearing)
 Studio.GameSettings.General.UnitsMetersPerSecondSquared1,({1} meters/second^2), ,({1} meters/second^2)
 Studio.GameSettings.General.ContentDialogItem4,Robux Gambling, ,Robux Gambling

@@ -217,6 +217,7 @@ ImageProcessLQNeonBlurBloomFS,Fragment
 ImageProcessLQNeonBlurBloomLinearFS,Fragment
 ImageProcessLQNeonBlurFS,Fragment
 ImageProcessLQNeonFS,Fragment
+ImGui2DArrayFS,Fragment
 ImGui3DFS,Fragment
 ImGuiCubeFS,Fragment
 ImGuiFS,Fragment

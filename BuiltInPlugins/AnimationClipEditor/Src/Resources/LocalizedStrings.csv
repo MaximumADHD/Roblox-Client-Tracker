@@ -15,7 +15,7 @@ Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe,Add Reset Keyframe Here,
 Studio.AnimationClipEditor.ContextMenu.CutEvents,Cut Selected, ,Cut Selected,Cortar seleccionado,Couper Sélectionné,Taglia selezionato,選択済みを切り抜き,선택 항목 잘라내기,Cortar seleção,Вырезать выбранное,剪切选定项,剪切选定项,剪下選取項目
 Studio.AnimationClipEditor.ContextMenu.CutSelected,Cut Selected, ,Cut Selected,Cortar seleccionado,Couper Sélectionné,Taglia selezionato,選択済みを切り抜き,선택 항목 잘라내기,Cortar seleção,Вырезать выбранное,剪切选定项,剪切选定项,剪下選取項目
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox,Change scrubber time, ,Change scrubber time,Cambia la barra de tiempo,Changer la barre de temps,Modifica tempo scrubber,スクラバーの時間を変更,스크러버 시간 변경,Mudar a barra de tempo,Изменить время ползунка,更改进度条时间,更改进度条时间,變更進度條時間
-Studio.AnimationClipEditor.Title.Parameter,Parameter, ,Parameter,Parámetro,Paramètre,Parametro,パラメータ,매개변수,Parâmetro,Параметр,参数,参数,參數
+Studio.AnimationClipEditor.Title.Parameter,Parameter, ,Parameter,Parámetro,Paramètre,Parametro,パラメータ,매개 변수,Parâmetro,Параметр,参数,参数,參數
 Studio.AnimationClipEditor.AnimationFromVideo.Processing,Your video is processing..., ,Your video is processing...,Tu video se está procesando...,Ta vidéo est en cours de traitement...,Il tuo video sta elaborando...,ビデオを処理しています...,비디오를 처리하고 있습니다...,Seu vídeo está processando..., ,你的视频正在处理中...,你的视频正在处理中...,影片處理中……
 Studio.AnimationClipEditor.IKMenu.FullBody,Full Body, ,Full Body,Cuerpo entero,Corps entier,Corpo intero,全体,전신,Corpo inteiro,Все тело,全体,全体,全身
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe,Add Keyframe, ,Add Keyframe,Añadir fotograma clave,Ajouter une image-clé,Aggiungi key frame,キーフレームを追加,키프레임 추가,Adicionar keyframe,Добавить ключевой кадр,添加关键帧,添加关键帧,增加關鍵格
