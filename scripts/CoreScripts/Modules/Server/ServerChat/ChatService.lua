@@ -348,6 +348,43 @@ function methods:InternalApplyRobloxFilter(speakerName, message, toSpeakerName) 
 end
 
 --// Return values: bool filterSuccess, bool resultIsFilterObject, variant result
+function methods:InternalApplyRobloxFilterAndTranslate(speakerName, listOfTargetLanguages, message, textFilterContext)
+	local alwaysRunFilter = false
+	local runFilter = RunService:IsServer() and not RunService:IsStudio()
+	if (alwaysRunFilter or runFilter) then
+		local fromSpeaker = self:GetSpeaker(speakerName)
+		if fromSpeaker == nil then
+			return false, nil, nil
+		end
+
+		local fromPlayerObj = fromSpeaker:GetPlayer()
+		if fromPlayerObj == nil then
+			return true, false, message
+		end
+
+		if allSpaces(message) then
+			return true, false, message
+		end
+
+		local success, filterResult = pcall(function()
+			local ts = game:GetService("TextService")
+			local result = ts:FilterAndTranslateStringAsync(message, fromPlayerObj.UserId, listOfTargetLanguages, textFilterContext)
+			return result
+		end)
+		if (success) then
+			return true, true, filterResult
+		else
+			warn("Error filtering and translating message", message, filterResult)
+			self:InternalNotifyFilterIssue()
+			return false, nil, nil
+		end
+	end
+
+	wait()
+	return true, false, message
+end
+
+--// Return values: bool filterSuccess, bool resultIsFilterObject, variant result
 function methods:InternalApplyRobloxFilterNewAPI(speakerName, message, textFilterContext) --// USES FFLAG
 	local alwaysRunFilter = false
 	local runFilter = RunService:IsServer() and not RunService:IsStudio()

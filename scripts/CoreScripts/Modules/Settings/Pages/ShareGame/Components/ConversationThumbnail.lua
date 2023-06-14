@@ -1,15 +1,23 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
-
 local Roact = require(CorePackages.Roact)
-
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
+
+local GetFFlagUseRbxthumbForAllThumbnailUrls =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseRbxthumbForAllThumbnailUrls
+local GetFFlagUseRbxthumbForLocalThumbnailUrls =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseRbxthumbForLocalThumbnailUrls
+local getTypedUserAvatarImageWithSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getTypedUserAvatarImageWithSizeAndOptions
 
 local BORDER_SIZE = 1
 local BORDER_COLOR = Constants.Color.GRAY3
 
+-- FIXME(dbanks)
+-- 2023/05/31
+-- Remove with GetFFlagUseRbxthumbForAllThumbnailUrls
+local DEPRECATED_THUMBNAIL_IMAGE_SIZE = Constants.DEPRECATED_InviteAvatarThumbnailSize
+local DEPRECATED_THUMBNAIL_IMAGE_TYPE = Constants.DEPRECATED_InviteAvatarThumbnailType
 local THUMBNAIL_IMAGE_SIZE = Constants.InviteAvatarThumbnailSize
 local THUMBNAIL_IMAGE_TYPE = Constants.InviteAvatarThumbnailType
 local DEFAULT_THUMBNAIL_ICON = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png"
@@ -122,6 +130,33 @@ function ConversationThumbnail:render()
 	for i, user in ipairs(users) do
 		local layoutData = IMAGE_LAYOUT[numUsers][i]
 
+		local thumbnailImage
+		if user then
+			if GetFFlagUseRbxthumbForAllThumbnailUrls() then
+				-- Use rbxthumb for all users.
+				thumbnailImage = getTypedUserAvatarImageWithSizeAndOptions(user.id, THUMBNAIL_IMAGE_TYPE, THUMBNAIL_IMAGE_SIZE)
+			elseif GetFFlagUseRbxthumbForLocalThumbnailUrls() then
+				-- Only use rbx thumb for local user: this allows the thumbnail to update if the user changes clothes or something.
+				local localUserId
+				local localPlayer = game:GetService("Players").LocalPlayer
+				if localPlayer then
+					localUserId = tostring(localPlayer.UserId)
+				end
+				if localUserId and user.id == localUserId then
+					thumbnailImage = getTypedUserAvatarImageWithSizeAndOptions(user.id, THUMBNAIL_IMAGE_TYPE, THUMBNAIL_IMAGE_SIZE)
+				else
+					thumbnailImage = user.thumbnails and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE]
+						and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE][DEPRECATED_THUMBNAIL_IMAGE_SIZE]
+				end
+			else
+				thumbnailImage = user.thumbnails and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE]
+				and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE][DEPRECATED_THUMBNAIL_IMAGE_SIZE]
+			end
+		end
+		if not thumbnailImage then
+			thumbnailImage = DEFAULT_THUMBNAIL_ICON
+		end
+
 		-- Render the avatar inside a clipping container
 		thumbnailContents["AvatarHolder-"..i] = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -134,8 +169,7 @@ function ConversationThumbnail:render()
 				BackgroundTransparency = 1,
 				Size = layoutData.Size,
 				Position = layoutData.Position,
-				Image = user and user.thumbnails and user.thumbnails[THUMBNAIL_IMAGE_TYPE]
-					and user.thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE] or DEFAULT_THUMBNAIL_ICON,
+				Image = thumbnailImage,
 				ZIndex = zIndex,
 			})
 		})

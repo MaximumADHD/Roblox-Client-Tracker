@@ -331,4 +331,11 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[Hauteur du joueur]],
 	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[ACCESSIBILITÉ]],
 	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[Transparence]],
+	["CoreScripts.InGameMenu.GameSettings.VrControlsTitle"] = [[CONTRÔLES RV]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeTitle"] = [[Bulle de sécurité]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeDescription"] = [[Décide qui peut s'approcher de toi sans avoir à s'effacer]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeNoOne"] = [[Personne]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[Seulement des amis]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[Tout le monde]],
+	["CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"] = [[Êtes-vous sûr de vouloir quitter l'expérience ? Vous pouvez accéder à nouveau au tutoriel à partir de « Plus ».]],
 }

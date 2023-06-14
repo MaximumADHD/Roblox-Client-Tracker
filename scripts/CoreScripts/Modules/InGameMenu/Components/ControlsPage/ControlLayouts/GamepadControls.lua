@@ -13,6 +13,7 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local Assets = require(InGameMenu.Resources.Assets)
 local Controls = require(InGameMenu.Resources.Controls)
+local React = require(CorePackages.Workspace.Packages.React)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -81,6 +82,7 @@ local function GamepadControls(props)
 			Size = UDim2.new(0, GAMEPAD_IMAGE_WIDTH, 0, GAMEPAD_IMAGE_HEIGHT),
 			Position = UDim2.new(0.5, GAMEPAD_ICONS_WIDTH/2, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
+			[React.Tag] = "data-testid=GamepadInstructions",
 		}, {
 			LeftControlsList = Roact.createElement(verticalControlsList, {
 				TextXAlignment = Enum.TextXAlignment.Right,

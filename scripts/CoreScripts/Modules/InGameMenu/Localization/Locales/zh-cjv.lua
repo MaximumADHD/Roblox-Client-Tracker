@@ -338,4 +338,10 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[]],
 	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[]],
 	["CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"] = [[]],
+	["CoreScripts.InGameMenu.Controls.ResetCameraLabel"] = [[]],
+	["CoreScripts.InGameMenu.Controls.MenuLabel"] = [[]],
+	["CoreScripts.InGameMenu.Controls.SelectItemLabel"] = [[]],
+	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[]],
+	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[]],
+	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[]],
 }

@@ -17,5 +17,6 @@ return {
 	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),
 	vrAlignPanel3DUnderInGamePanel = UIBloxFlags.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel(),
 	vrFixUIJitter = UIBloxFlags.GetFFlagUIBloxVRFixUIJitter(),
+	dualVRLaserPointers = UIBloxFlags.GetFFlagUIBloxVRDualLaserPointers(),
 	usePillGroupSelectedPills = UIBloxFlags.GetFFlagUIBloxPillGroupUseSelectedPills(),
 }

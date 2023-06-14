@@ -128,6 +128,8 @@ function ViveController.new(userCFrame)
 		Transparency = 1,
 		Size = Vector3.new(0.05, 0.05, 0.05),
 		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
 	}
 	
 	self.scale = 1
@@ -147,6 +149,8 @@ function ViveController.new(userCFrame)
 			Size = partInfo.size or Vector3.new(0.05, 0.05, 0.05),
 			CFrame = self.origin.CFrame * partInfo.offset,
 			CanCollide = false,
+			CanQuery = false,
+			CanTouch = false,
 		}
 		local mesh = CommonUtil.Create("SpecialMesh") {
 			Parent = part,
@@ -176,6 +180,8 @@ function ViveController.new(userCFrame)
 		Transparency = 1,
 		Size = Vector3.new(0.05, 0.05, 0.05),
 		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
 	}
 	CommonUtil.Create("Weld") {
 		Parent = trackpadIndicator,

@@ -17,6 +17,14 @@ end
 
 local FFlagChatWindowInstallerCheckClassName = game:DefineFastFlag("ChatWindowInstallerCheckClassName", false)
 
+local userIsChatTranslationEnabled = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+	end)
+	userIsChatTranslationEnabled = success and value
+end
+
 local function LoadLocalScript(location, name, parent)
 	local originalModule = location:WaitForChild(name)
 	if FFlagChatWindowInstallerCheckClassName then
@@ -84,6 +92,13 @@ local function Install()
 		LoadModule(script.Parent.Parent.Parent.Common, "ObjectPool", ChatMain)
 		LoadModule(script.Parent, "MessageSender", ChatMain)
 		LoadModule(script.Parent, "CurveUtil", ChatMain)
+		
+		if userIsChatTranslationEnabled then
+			local chatTranslationEnabled = Instance.new("BoolValue")
+			chatTranslationEnabled.Name = "ChatTranslationEnabled"
+			chatTranslationEnabled.Value = false
+			chatTranslationEnabled.Parent = ChatMain
+		end
 	elseif FFlagEnableForkedChatAnalytics then
 		eventTable[runnerScriptName] = "True"
 	end

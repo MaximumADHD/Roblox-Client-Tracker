@@ -52,7 +52,6 @@ local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEna
 
 local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("EnableVRBottomBarWorksBehindObjects")
 
-local FFlagUserVRPlaySeatedStanding = require(RobloxGui.Modules.Flags.FFlagUserVRPlaySeatedStanding)
 local GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
@@ -61,6 +60,7 @@ local FFlagVRBottomBarDebugPositionConfig = require(RobloxGui.Modules.Flags.FFla
 local FIntVRBottomBarPositionOffsetVerticalNumber = require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetVerticalNumber)
 local FIntVRBottomBarPositionOffsetDepthNumber = require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetDepthNumber)
 local FFlagVRBottomBarEnableMoreMenu = require(RobloxGui.Modules.Flags.FFlagVRBottomBarEnableMoreMenu)
+local FFlagVRBottomBarHighlightedLeaveGameIcon = require(RobloxGui.Modules.Flags.FFlagVRBottomBarHighlightedLeaveGameIcon)
 
 local UsePositionConfig = FFlagVRBottomBarUsePositionConfig or FFlagVRBottomBarDebugPositionConfig or FFlagVRBottomBarEnableMoreMenu
 
@@ -215,34 +215,6 @@ local Chat =
 	end,
 }
 
-local Seated
-local Standing
-if FFlagUserVRPlaySeatedStanding then
-	local changeVRPlayMode = function()
-		if GameSettings.VRPlayMode == Enum.VRPlayMode.Seated then
-			GameSettings.VRPlayMode = Enum.VRPlayMode.Standing
-		else
-			GameSettings.VRPlayMode = Enum.VRPlayMode.Seated
-		end
-
-		AnalyticsService:ReportCounter("VR-BottomBar-VRPlayMode")
-	end
-
-	Standing =
-	{
-		iconOn = "rbxasset://textures/ui/MenuBar/icon_standing.png",
-		iconOff = "rbxasset://textures/ui/MenuBar/icon_standing.png",
-		onActivated = changeVRPlayMode,
-	}
-
-	Seated =
-	{
-		iconOn = "rbxasset://textures/ui/MenuBar/icon_seated.png",
-		iconOff = "rbxasset://textures/ui/MenuBar/icon_seated.png",
-		onActivated = changeVRPlayMode,
-	}
-end
-
 local SafetyOn = 
 {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_safety_on.png",
@@ -284,6 +256,14 @@ local LeaveGame =
 
 		AnalyticsService:ReportCounter("VR-BottomBar-LeaveGame")
 	end,
+}
+
+local LeaveGameHighlighted = 
+{
+	-- TODO: replace with Highlighted Leave Icon
+	iconOn = "rbxasset://textures/ui/MenuBar/icon_leaderboard.png",
+	iconOff = "rbxasset://textures/ui/MenuBar/icon_leaderboard.png",
+	onActivated = LeaveGame.onActivated,
 }
 
 local MoreButton = 
@@ -631,14 +611,6 @@ function VRBottomBar:updateItems()
 		table.insert(enabledItems, PlayerList)
 	end
 
-	if FFlagUserVRPlaySeatedStanding then
-		if GameSettings.VRPlayMode == Enum.VRPlayMode.Seated then
-			table.insert(enabledItems, Seated)
-		else
-			table.insert(enabledItems, Standing)
-		end
-	end
-
 	if FFlagVRMoveVoiceIndicatorToBottomBar and self.props.voiceEnabled then
 		table.insert(enabledItems, self.getVoiceIcon())
 	end
@@ -652,8 +624,16 @@ function VRBottomBar:updateItems()
 			table.insert(enabledItems, SafetyOff)
 		end
 	end
-
-	table.insert(enabledItems, LeaveGame)
+	
+	if FFlagVRBottomBarHighlightedLeaveGameIcon then
+		if VRHub.ShowHighlightedLeaveGameIcon then
+			table.insert(enabledItems, LeaveGameHighlighted)
+		else
+			table.insert(enabledItems, LeaveGame)
+		end
+	else
+		table.insert(enabledItems, LeaveGame)
+	end
 	
 	local enabledMoreItems = {}
 	if FFlagVRBottomBarEnableMoreMenu then
@@ -764,6 +744,10 @@ function VRBottomBar:render()
 			})
 		}),
 
+		ShowHighlightedLeaveGameIconToggled = FFlagVRBottomBarHighlightedLeaveGameIcon and Roact.createElement(ExternalEventConnection, {
+			event = VRHub.ShowHighlightedLeaveGameIconToggled.Event,
+			callback = self.updateItemListState,
+		}),
 		ShowTopBarChanged = Roact.createElement(ExternalEventConnection, {
 			event = VRHub.ShowTopBarChanged.Event,
 			callback = self.onShowTopBarChanged,
@@ -774,10 +758,6 @@ function VRBottomBar:render()
 		}),
 		CoreGuiChanged = Roact.createElement(ExternalEventConnection, {
 			event = StarterGui.CoreGuiChangedSignal,
-			callback = self.updateItemListState,
-		}),
-		VRPlayModeChanged = FFlagUserVRPlaySeatedStanding and Roact.createElement(ExternalEventConnection, {
-			event = GameSettings:GetPropertyChangedSignal("VRPlayMode"),
 			callback = self.updateItemListState,
 		}),
 		SafetyBubbleToggled = SafetyBubbleEnabled and VRHub.SafetyBubble and Roact.createElement(ExternalEventConnection, {

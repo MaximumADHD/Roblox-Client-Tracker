@@ -68,13 +68,13 @@ local function FriendListContainer(passedProps: Props)
 	end, { friendUserIds })
 
 	return React.createElement("ScrollingFrame", {
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.fromScale(0.5, 0.5),
+		Size = UDim2.new(1, 0, 1, 0),
 		AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		CanvasSize = UDim2.new(),
+		ScrollingDirection = Enum.ScrollingDirection.Y,
 		BackgroundColor3 = theme.BackgroundDefault.Color,
 		BackgroundTransparency = theme.BackgroundDefault.Transparency,
+		BorderSizePixel = 0,
 	}, friendList)
 end
 

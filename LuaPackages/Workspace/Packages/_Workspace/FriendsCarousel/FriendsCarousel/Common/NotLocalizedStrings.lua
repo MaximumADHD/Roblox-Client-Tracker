@@ -1,3 +1,0 @@
-return {
-	StudioPresenceTextGlobal = "Roblox Studio",
-}

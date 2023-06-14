@@ -1,16 +1,24 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local VRService = require(RobloxGui.Modules.VR.VRServiceWrapper)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 
+local InGameMenu = script:FindFirstAncestor("InGameMenu")
+local Constants = require(InGameMenu.Resources.Constants)
+
+local GetFFlagIGMVRQuestControlsInstructions =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
+
 local BlurredModalPortal = Roact.PureComponent:extend("BlurredModalPortal")
 
 BlurredModalPortal.validateProps = t.strictInterface({
 	Enabled = t.boolean,
-	[Roact.Children] = t.optional(t.table)
+	[Roact.Children] = t.optional(t.table),
 })
 
 function BlurredModalPortal:render()
@@ -22,11 +30,20 @@ function BlurredModalPortal:render()
 			OnTopOfCoreBlur = true,
 			Enabled = self.props.Enabled,
 			IgnoreGuiInset = true,
-		}, self.props[Roact.Children])
+			DisplayOrder = if GetFFlagIGMVRQuestControlsInstructions()
+				then Constants.DisplayOrder.BlurredModalPortal
+				else nil,
+		}, self.props[Roact.Children]),
 	})
 end
 
 function BlurredModalPortal:didUpdate(prevProps)
+	if GetFFlagIGMVRQuestControlsInstructions() then
+		if VRService.VREnabled then
+			return
+		end
+	end
+
 	local wasEnabled = prevProps.Enabled
 	local enabled = self.props.Enabled
 

@@ -20,8 +20,11 @@ local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
+local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2)
+
 local function MarketplaceServiceEventConnector(props)
 	local onPurchaseRequest = props.onPurchaseRequest
+	local onPurchaseRequestV2 = props.onPurchaseRequestV2
 	local onProductPurchaseRequest = props.onProductPurchaseRequest
 	local onPurchaseGamePassRequest = props.onPurchaseGamePassRequest
 	local onServerPurchaseVerification = props.onServerPurchaseVerification
@@ -29,11 +32,21 @@ local function MarketplaceServiceEventConnector(props)
 	local onPremiumPurchaseRequest = props.onPremiumPurchaseRequest
 	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
 
-	return Roact.createFragment({
-		Roact.createElement(ExternalEventConnection, {
+	local promptPurchaseConnection;
+	if (GetFFlagEnablePromptPurchaseRequestedV2()) then
+		promptPurchaseConnection = Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptPurchaseRequestedV2,
+			callback = onPurchaseRequestV2,
+		})
+	else
+		promptPurchaseConnection = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptPurchaseRequested,
 			callback = onPurchaseRequest,
-		}),
+		})
+	end
+
+	return Roact.createFragment({
+		promptPurchaseConnection,
 		RobloxPurchase = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptRobloxPurchaseRequested,
 			callback = onRobloxPurchaseRequest,
@@ -65,7 +78,13 @@ MarketplaceServiceEventConnector = connectToStore(nil,
 function(dispatch)
 	local function onPurchaseRequest(player, assetId, equipIfPurchased, currencyType)
 		if player == Players.LocalPlayer then
-			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased, false))
+			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased, false, '', ''))
+		end
+	end
+
+	local function onPurchaseRequestV2(player, assetId, equipIfPurchased, currencyType, idempotencyKey, purchaseAuthToken)
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased, false, idempotencyKey, purchaseAuthToken))
 		end
 	end
 
@@ -114,6 +133,7 @@ function(dispatch)
 
 	return {
 		onPurchaseRequest = onPurchaseRequest,
+		onPurchaseRequestV2 = onPurchaseRequestV2,
 		onRobloxPurchaseRequest = onRobloxPurchaseRequest,
 		onProductPurchaseRequest = onProductPurchaseRequest,
 		onPurchaseGamePassRequest = onPurchaseGamePassRequest,

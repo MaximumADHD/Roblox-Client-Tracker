@@ -29,6 +29,11 @@ local VOICE_STATE = {
 	HIDDEN = "Hidden",
 }
 
+-- If any of the sequence numbers for these namespaces are missed, VoiceChatServiceManager will rejoin the call
+local WATCHED_NAMESPACES = { VoiceNotifications=true }
+export type WatchedMessageTypes = "ParticipantModeratedFromVoice"
+local WATCHED_MESSAGE_TYPES: {WatchedMessageTypes} = { "ParticipantModeratedFromVoice" }
+
 return {
 	VOICE_STATE = VOICE_STATE,
 	SKIP_VOICE_CHECK_KEY = SKIP_VOICE_CHECK_KEY,
@@ -40,4 +45,6 @@ return {
 	MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED = MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED,
 	VOICE_CHAT_AVAILABILITY = VOICE_CHAT_AVAILABILITY,
 	VOICE_CHAT_DEVICE_TYPE = VOICE_CHAT_DEVICE_TYPE,
+	WATCHED_NAMESPACES = WATCHED_NAMESPACES,
+	WATCHED_MESSAGE_TYPES = WATCHED_MESSAGE_TYPES,
 }

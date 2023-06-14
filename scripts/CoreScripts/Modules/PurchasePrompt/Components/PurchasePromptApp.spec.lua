@@ -8,6 +8,9 @@ return function()
 	local PurchasePromptApp = require(script.Parent.PurchasePromptApp)
 
 	it("should create and destroy without errors", function()
+		-- Remove this once MarketplaceService signature is updated with PromptPurchaseRequestedV2 event
+        game:SetFastFlagForTesting("EnablePromptPurchaseRequestedV2", false)
+
 		local element = Roact.createElement(PurchasePromptApp)
 
 		local instance = Roact.mount(element)

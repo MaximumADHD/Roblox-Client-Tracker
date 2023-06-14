@@ -3,7 +3,8 @@ local AppTempCommon = CorePackages.AppTempCommon
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
-
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
+local UserLibConstants = UserLib.Utils.Constants
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local DeviceLayout = {
@@ -140,13 +141,15 @@ local Constants = {
 	}
 }
 
-Constants.InviteAvatarThumbnailType = Constants.AvatarThumbnailTypes.HeadShot
-Constants.InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes.Size150x150
+Constants.DEPRECATED_InviteAvatarThumbnailType = Constants.AvatarThumbnailTypes.HeadShot
+Constants.DEPRECATED_InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes.Size150x150
+Constants.InviteAvatarThumbnailSize = 150
+Constants.InviteAvatarThumbnailType = UserLibConstants.RbxThumbTypes.AvatarHeadShot
 
 Constants.ThumbnailRequest = {
 	InviteToGame = {ThumbnailRequest.fromData(
-		Constants.InviteAvatarThumbnailType,
-		Constants.InviteAvatarThumbnailSize
+		Constants.DEPRECATED_InviteAvatarThumbnailType,
+		Constants.DEPRECATED_InviteAvatarThumbnailSize
 	)},
 }
 

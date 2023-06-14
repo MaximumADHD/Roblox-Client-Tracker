@@ -25,6 +25,10 @@ local EmoteThumbnailView = Roact.PureComponent:extend("EmoteThumbnailView")
 EmoteThumbnailView.validateProps = t.strictInterface({
 	animationClip = t.instanceIsA("AnimationClip"),
 	thumbnailParameters = EmoteThumbnailParameters.validate,
+
+	position = t.optional(t.UDim2),
+	anchorPoint = t.optional(t.Vector2),
+	size = t.optional(t.UDim2),
 })
 
 -- delete with FFlagEmoteUtilityDontUseC1ToPose flag
@@ -160,9 +164,9 @@ end
 function EmoteThumbnailView:render()
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 0,
-		Position = UDim2.fromScale(0, 0),
-		AnchorPoint = Vector2.new(0, 0),
-		Size = UDim2.fromScale(1, 1),
+		Position = self.props.position or UDim2.fromScale(0, 0),
+		AnchorPoint = self.props.anchorPoint or Vector2.new(0, 0),
+		Size = self.props.size or UDim2.fromScale(1, 1),
 		-- this is the thumbnail's background color
 		BackgroundColor3 = Color3.fromRGB(200, 200, 200),
 	}, {

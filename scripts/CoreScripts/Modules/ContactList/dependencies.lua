@@ -67,4 +67,6 @@ return {
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	UIBlox = require(CorePackages.UIBlox),
 	enumerate = require(CorePackages.enumerate),
+	getStandardUserAvatarHeadShotImage = require(CorePackages.Workspace.Packages.UserLib).Utils.getStandardUserAvatarHeadShotImage,
+	FFlagLuaAppUnifyCodeToGenerateRbxThumb = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyCodeToGenerateRbxThumb,
 }

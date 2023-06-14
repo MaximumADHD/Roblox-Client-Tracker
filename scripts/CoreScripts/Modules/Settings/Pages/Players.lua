@@ -112,8 +112,9 @@ local GetFFlagRequestFriendshipAnalyticsSwitch = require(RobloxGui.Modules.Flags
 local GetFFlagEnableInspectFriendsAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInspectFriendsAnalytics)
 local GetFFlagVoiceChatToggleMuteAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagVoiceChatToggleMuteAnalytics)
 local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFFlagEnableBlockAnalyticsSource)
+local GetFFlagFixMutePlayerAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFixMutePlayerAnalytics)
+local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
-local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 
@@ -546,7 +547,11 @@ local function Initialize()
 					local status = VoiceChatServiceManager.participants[tostring(playerStatus.userId)]
 					if status.subscriptionCompleted then
 						if voiceAnalytics then
-							voiceAnalytics:onToggleMutePlayer(not playerStatus.isMutedLocally, playerStatus.userId)
+							if GetFFlagFixMutePlayerAnalytics() then
+								voiceAnalytics:onToggleMutePlayer(playerStatus.userId, not status.isMutedLocally)
+							else
+								voiceAnalytics:onToggleMutePlayer(not playerStatus.isMutedLocally, playerStatus.userId)
+							end
 						end
 						VoiceChatServiceManager:ToggleMutePlayer(
 							playerStatus.userId
@@ -631,6 +636,14 @@ local function Initialize()
 
 	local resumeGameFunc = function()
 		this.HubRef:SetVisibility(false)
+		if GetFFlagEnableLeaveHomeResumeAnalytics() then
+			AnalyticsService:SetRBXEventStream(
+				Constants.AnalyticsTargetName,
+				Constants.AnalyticsResumeGameName,
+				Constants.AnalyticsMenuActionName,
+				{ source = Constants.AnalyticsResumeButtonSource }
+			)
+		end
 	end
 
 	local resumeGameText = "Resume"
@@ -1079,62 +1092,8 @@ local function Initialize()
 		return frame
 	end
 
-	--Clean up with EngineTruncationEnabledForIngameSettingsV2
 	-- Manage cutting off a players name if it is too long when switching into portrait mode.
 	local function managePlayerNameCutoff(frame, player)
-		local wasIsPortrait = nil
-		local reportFlagAddedConnection = nil
-		local function reportFlagChanged(reportFlag, prop)
-			if prop == "AbsolutePosition" and wasIsPortrait then
-				local maxPlayerNameSize = reportFlag.AbsolutePosition.X - 20 - frame.NameLabel.AbsolutePosition.X
-				frame.NameLabel.Text = "@" .. player.Name
-				frame.DisplayNameLabel.Text = player.DisplayName
-
-				local newDisplayNameLength = utf8.len(player.DisplayName)
-				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
-					local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
-					frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
-					newDisplayNameLength = newDisplayNameLength - 1
-				end
-
-				local playerNameText = "@" .. player.Name
-				local newNameLength = string.len(playerNameText)
-				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newNameLength > 0 do
-					frame.NameLabel.Text = string.sub(playerNameText, 1, newNameLength) .. "..."
-					newNameLength = newNameLength - 1
-				end
-			end
-		end
-
-		if not isEngineTruncationEnabledForIngameSettings() then
-			utility:OnResized(frame.NameLabel, function(newSize, isPortrait)
-				if wasIsPortrait ~= nil and wasIsPortrait == isPortrait then
-					return
-				end
-				local leftMostButton = "Inspect"
-				isPortrait = isPortrait and not useOptimizedPortraitLayout()
-				wasIsPortrait = isPortrait
-				if isPortrait then
-					if reportFlagAddedConnection == nil then
-						reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
-							if child.Name == leftMostButton then
-								child.Changed:connect(function(prop) reportFlagChanged(child, prop) end)
-								reportFlagChanged(child, "AbsolutePosition")
-							end
-						end)
-					end
-					local reportFlag = frame.RightSideButtons:FindFirstChild(leftMostButton)
-					if reportFlag then
-						reportFlag.Changed:connect(function(prop) reportFlagChanged(reportFlag, prop) end)
-						reportFlagChanged(reportFlag, "AbsolutePosition")
-					end
-				else
-					frame.NameLabel.Text = "@" .. player.Name
-					frame.DisplayNameLabel.Text = player.DisplayName
-				end
-			end)
-		end
-
 		local function getNearestRightSideButtonXPosition()
 			local furthestLeftPos = nil
 
@@ -1172,14 +1131,12 @@ local function Initialize()
 			frame.DisplayNameLabel.Text = player.DisplayName
 		end
 
-		if isEngineTruncationEnabledForIngameSettings() then
-			reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
-				rightSideButtonsChanged()
-				child:GetPropertyChangedSignal("AbsolutePosition"):Connect(rightSideButtonsChanged)
-			end)
-
+		frame.RightSideButtons.ChildAdded:connect(function(child)
 			rightSideButtonsChanged()
-		end
+			child:GetPropertyChangedSignal("AbsolutePosition"):Connect(rightSideButtonsChanged)
+		end)
+
+		rightSideButtonsChanged()
 	end
 
 	local function canShareCurrentGame()
@@ -1340,10 +1297,8 @@ local function Initialize()
 				-- extra index room for shareGameButton
 				frame.LayoutOrder = index + 1
 
-				if isEngineTruncationEnabledForIngameSettings() then
-					frame.NameLabel.TextTruncate = Enum.TextTruncate.AtEnd
-					frame.DisplayNameLabel.TextTruncate = Enum.TextTruncate.AtEnd
-				end
+				frame.NameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+				frame.DisplayNameLabel.TextTruncate = Enum.TextTruncate.AtEnd
 
 				managePlayerNameCutoff(frame, player)
 

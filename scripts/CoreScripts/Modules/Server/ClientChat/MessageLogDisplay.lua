@@ -10,6 +10,14 @@ local UserFlagRemoveMessageOnTextFilterFailures do
 	UserFlagRemoveMessageOnTextFilterFailures = success and value
 end
 
+local userIsChatTranslationEnabled = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+	end)
+	userIsChatTranslationEnabled = success and value
+end
+
 local module = {}
 module.ScrollBarThickness = 4
 
@@ -96,10 +104,42 @@ function methods:UpdateMessageFiltered(messageData)
 	end
 end
 
+function methods:RefreshMessagePlacement(messageData)
+	local messageObject = nil
+	local searchIndex = 1
+	local searchTable = self.MessageObjectLog
+
+	while (#searchTable >= searchIndex) do
+		local obj = searchTable[searchIndex]
+
+		if obj.ID == messageData.ID then
+			messageObject = obj
+			break
+		end
+
+		searchIndex = searchIndex + 1
+	end
+
+	if messageObject then
+		self:PositionMessageLabelInWindow(messageObject, searchIndex)
+	end
+end
+
+
 function methods:AddMessage(messageData)
 	self:WaitUntilParentedCorrectly()
+	
+	local messageObject
+	if userIsChatTranslationEnabled then
+		local refreshCallback = function()
+			self:RefreshMessagePlacement(messageData)
+		end
+		
+		messageObject = MessageLabelCreator:CreateMessageLabel_Chat(messageData, self.CurrentChannelName, refreshCallback)
+	else
+		messageObject = MessageLabelCreator:CreateMessageLabel(messageData, self.CurrentChannelName)
+	end
 
-	local messageObject = MessageLabelCreator:CreateMessageLabel(messageData, self.CurrentChannelName)
 	if messageObject == nil then
 		return
 	end
@@ -120,7 +160,17 @@ function methods:RemoveMessageAtIndex(index)
 end
 
 function methods:AddMessageAtIndex(messageData, index)
-	local messageObject = MessageLabelCreator:CreateMessageLabel(messageData, self.CurrentChannelName)
+	local messageObject
+	if userIsChatTranslationEnabled then
+		local refreshCallback = function()
+			self:RefreshMessagePlacement(messageData)
+		end
+		
+		messageObject = MessageLabelCreator:CreateMessageLabel_Chat(messageData, self.CurrentChannelName, refreshCallback)
+	else
+		messageObject = MessageLabelCreator:CreateMessageLabel(messageData, self.CurrentChannelName)
+	end
+	
 	if messageObject == nil then
 		return
 	end

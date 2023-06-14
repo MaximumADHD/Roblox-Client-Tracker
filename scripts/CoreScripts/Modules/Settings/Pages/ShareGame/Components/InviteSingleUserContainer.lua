@@ -1,3 +1,4 @@
+local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
@@ -31,6 +32,7 @@ local GetFFlagInviteListStyleFixes = require(Modules.Flags.GetFFlagInviteListSty
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
 local GetFFlagInviteAnalyticsEventsUpdate = require(Modules.Settings.Flags.GetFFlagInviteAnalyticsEventsUpdate)
+local GetFFlagSingleUserInvitePageKeybind = require(Modules.Settings.Flags.GetFFlagSingleUserInvitePageKeybind)
 
 local UIBlox = require(CorePackages.UIBlox)
 local PrimaryButton = UIBlox.App.Button.PrimarySystemButton
@@ -38,6 +40,9 @@ local SecondaryButton = UIBlox.App.Button.SecondaryButton
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local useStyle = UIBlox.Core.Style.useStyle
+
+local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
+local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
 -- Color 41/41/41 comes from the SettingsShield background color
 local BACKGROUND_COLOR = Color3.fromRGB(41, 41, 41)
@@ -140,6 +145,32 @@ local InviteSingleUserContainer = function(props)
 		friend,
 		onClose,
 	} :: { any })
+
+	if GetFFlagSingleUserInvitePageKeybind() then
+		React.useEffect(function(): (() -> ())?
+			if props.isVisible then
+				ContextActionService:BindCoreAction(CONFIRM_BUTTON_BIND, function(_, inputState, _)
+					if inputState == Enum.UserInputState.Begin then
+						onInvite()
+					end
+				end, false, Enum.KeyCode.ButtonA)
+				ContextActionService:BindCoreAction(CANCEL_BUTTON_BIND, function(_, inputState, _)
+					if inputState == Enum.UserInputState.Begin then
+						onCloseButtonActivated()
+					end
+				end, false, Enum.KeyCode.ButtonB)
+				return function()
+					ContextActionService:UnbindCoreAction(CONFIRM_BUTTON_BIND)
+					ContextActionService:UnbindCoreAction(CANCEL_BUTTON_BIND)
+				end
+			end
+			return nil
+		end, {
+			props.isVisible,
+			onInvite,
+			onCloseButtonActivated,
+		} :: {any})
+	end
 
 	if GetFFlagThrottleInviteSendEndpoint() then
 		-- Roact doesn't immediately block clicking the button, so we introduce

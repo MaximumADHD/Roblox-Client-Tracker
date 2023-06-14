@@ -70,13 +70,10 @@ local function CallDetailsContainer(props: Props)
 	end, { localPlayer, callDetailParticipants } :: { any })
 
 	return React.createElement("ScrollingFrame", {
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.fromScale(0.5, 0.5),
+		Size = UDim2.fromScale(1, 1),
 		AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		CanvasSize = UDim2.new(),
-		BackgroundColor3 = theme.BackgroundDefault.Color,
-		BackgroundTransparency = theme.BackgroundDefault.Transparency,
+		BackgroundTransparency = 1,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, 54),

@@ -27,8 +27,6 @@ local UserGameSettings = Settings:GetService("UserGameSettings")
 local Url = require(RobloxGui.Modules.Common.Url)
 local VoiceChatService = nil
 
-local GetFFlagXboxEnableGraphicsQuality = require(RobloxGui.Modules.Flags.GetFFlagXboxEnableGraphicsQuality)
-
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 
@@ -83,6 +81,18 @@ local CAMERA_DEVICE_GUID_KEY = "CameraDeviceGuids"
 local CAMERA_DEVICE_SELECTOR_KEY = "CameraDeviceSelector"
 local CAMERA_DEVICE_FRAME_KEY = "CameraDeviceFrame"
 local CAMERA_DEVICE_INFO_KEY = "CameraDeviceInfo"
+
+-------- CHAT TRANSLATION ----------
+local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+
+local localPlayer = Players.LocalPlayer
+
+local PlayerScripts
+local ChatTranslationEnabled = nil
+
+local GetFFlagUserIsChatTranslationEnabled = require(RobloxGui.Modules.Flags.GetFFlagUserIsChatTranslationEnabled)
+
+local GetFStringChatTranslationLayerName = require(RobloxGui.Modules.Flags.GetFStringChatTranslationLayerName)
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -1114,6 +1124,90 @@ local function Initialize()
 
 		------------------------------------------------------
 		------------------
+		------------------------- Chat Translation -----------
+		local function createChatTranslationOption()
+			if not ChatTranslationEnabled then
+				return
+			end
+
+			local chatTranslationEnabled = if ChatTranslationEnabled.Value then 1 else 2
+
+			local ChatTranslationSetting = RobloxTranslator:FormatByKey("Feature.SettingsHub.Chat.TranslationEnabled")
+
+			this.ChatTranslationFrame, this.ChatTranslationLabel, this.ChatTranslationEnabler =
+				utility:AddNewRow(this, ChatTranslationSetting, "Selector", {"On", "Off"}, chatTranslationEnabled)
+			this.ChatTranslationFrame.LayoutOrder = 5
+
+			this.ChatTranslationEnabler.IndexChanged:connect(
+				function(newIndex)
+					local newSettingsValue = if newIndex == 1 then true else false
+					local oldSettingsValue = ChatTranslationEnabled.Value
+					ChatTranslationEnabled.Value = newSettingsValue
+					reportSettingsChangeForAnalytics("chat_translation", oldSettingsValue, newSettingsValue, {
+						locale_id = localPlayer.LocaleId
+					})
+				end
+			)
+		end
+
+		local function userEnrolledInChatTranslation()
+			local layerName = GetFStringChatTranslationLayerName()
+
+			if not layerName or layerName == "" then
+				return false
+			end
+
+			-- Override layer name for channel testing
+			if (layerName == "override") then
+				ChatTranslationEnabled.Value = true
+				return true
+			end
+
+			local layerSuccess, layerData = pcall(function()
+				return IXPServiceWrapper:GetLayerData(layerName)
+			end)
+
+			if not layerSuccess then
+				return false
+			end
+
+			if layerData and (layerData.chatTranslationEnabled == true) then
+				ChatTranslationEnabled.Value = true
+				return true
+			end
+
+			return false
+		end
+
+		if GetFFlagUserIsChatTranslationEnabled() then
+			PlayerScripts = localPlayer:WaitForChild("PlayerScripts")
+			if PlayerScripts then
+				local chatScript = PlayerScripts:FindFirstChild("ChatScript")
+
+				if chatScript then
+					ChatTranslationEnabled = chatScript:FindFirstChild("ChatTranslationEnabled", true)
+					
+					if ChatTranslationEnabled and ChatTranslationEnabled:IsA("BoolValue") and userEnrolledInChatTranslation() then
+						createChatTranslationOption()
+					end
+				else
+					local playerScriptSignal
+					playerScriptSignal = PlayerScripts.ChildAdded:Connect(function(child)
+						if child.Name == "ChatScript" then
+							ChatTranslationEnabled = child:FindFirstChild("ChatTranslationEnabled", true)
+
+							if ChatTranslationEnabled and ChatTranslationEnabled:IsA("BoolValue") and userEnrolledInChatTranslation() then
+								createChatTranslationOption()
+							end
+							playerScriptSignal:Disconnect()
+						end
+					end)
+				end
+			end
+		end
+
+		------------------------------------------------------
+		------------------
 		------------------ Movement Mode ---------------------
 		local movementModes = {}
 
@@ -1778,7 +1872,7 @@ local function Initialize()
 		local startVolumeLevel = math.floor(GameSettings.MasterVolume * 10)
 		this.VolumeFrame, this.VolumeLabel, this.VolumeSlider =
 			utility:AddNewRow(this, "Volume", "Slider", 10, startVolumeLevel)
-		this.VolumeFrame.LayoutOrder = 6
+		this.VolumeFrame.LayoutOrder = if GetFFlagUserIsChatTranslationEnabled() then 7 else 6
 
 		-- ROBLOX FIXME: We should express the "Sounds" folder statically in the project config
 		local volumeSound = Instance.new("Sound", (game:GetService("CoreGui").RobloxGui :: any).Sounds)
@@ -1908,7 +2002,7 @@ local function Initialize()
 
 		this.MouseAdvancedFrame, this.MouseAdvancedLabel, this.MouseAdvancedEntry =
 			utility:AddNewRow(this, "Camera Sensitivity", "Slider", AdvancedMouseSteps, startMouseLevel)
-		this.MouseAdvancedFrame.LayoutOrder = 5
+		this.MouseAdvancedFrame.LayoutOrder = if GetFFlagUserIsChatTranslationEnabled() then 6 else 5
 		settingsDisabledInVR[this.MouseAdvancedFrame] = true
 
 		this.MouseAdvancedEntry.SliderFrame.Size =
@@ -2563,13 +2657,7 @@ local function Initialize()
 	end
 
 	createVolumeOptions()
-
-	-- we disable quality slider on Xbox since it has FRM disabled and forced to max quality level so the slider is useless
-	if platform ~= Enum.Platform.XBoxOne then
-		createGraphicsOptions()
-	elseif GetFFlagXboxEnableGraphicsQuality() then
-		createGraphicsOptions()
-	end
+	createGraphicsOptions()
 
 	local canShowPerfStats =  not PolicyService:IsSubjectToChinaPolicies()
 

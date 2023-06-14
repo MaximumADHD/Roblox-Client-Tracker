@@ -11,11 +11,15 @@ local Cryo = require(CorePackages.Cryo)
 
 local OpenPublishAssetPrompt = require(Root.Actions.OpenPublishAssetPrompt)
 local CloseOpenPrompt = require(Root.Actions.CloseOpenPrompt)
+local OpenResultModal = require(Root.Actions.OpenResultModal)
+local CloseResultModal = require(Root.Actions.CloseResultModal)
 
 local EMPTY_STATE = {
 	promptInfo = {}, -- Contains all data required by the prompt that is currently being shown
 	queue = {}, -- A queue of promptInfos
 }
+
+type ReducerType = { [string]: (state: any, action: any) -> any }
 
 local PromptRequestReducer = Rodux.createReducer(EMPTY_STATE, {
 	[OpenPublishAssetPrompt.name] = function(state, action: OpenPublishAssetPrompt.Action)
@@ -43,6 +47,19 @@ local PromptRequestReducer = Rodux.createReducer(EMPTY_STATE, {
 			queue = Cryo.List.removeIndex(state.queue, 1),
 		})
 	end,
-})
+
+	[OpenResultModal.name] = function(state, action: OpenResultModal.Action)
+		-- We don't care about the queue of pending prompts; this modal should appear on top.
+		return Cryo.Dictionary.join(state, {
+			resultModalType = action.resultType,
+		})
+	end,
+
+	[CloseResultModal.name] = function(state, _action)
+		return Cryo.Dictionary.join(state, {
+			resultModalType = Cryo.None,
+		})
+	end,
+} :: ReducerType)
 
 return PromptRequestReducer

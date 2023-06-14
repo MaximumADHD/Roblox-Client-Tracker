@@ -12,6 +12,7 @@ local BUTTON_SPACING = 10
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -21,7 +22,9 @@ local Theme = require(RobloxGui.Modules.Settings.Theme)
 local PageInstance = nil
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 local FFlagUseNotificationsLocalization = success and result
+local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
 ----------- CLASS DECLARATION --------------
 
@@ -54,6 +57,14 @@ local function Initialize()
 	this.Page.Name = "Home"
 	local resumeGameFunc = function()
 		this.HubRef:SetVisibility(false)
+		if GetFFlagEnableLeaveHomeResumeAnalytics() then
+			AnalyticsService:SetRBXEventStream(
+				Constants.AnalyticsTargetName,
+				Constants.AnalyticsResumeGameName,
+				Constants.AnalyticsMenuActionName,
+				{ source = Constants.AnalyticsResumeButtonSource }
+			)
+		end
 	end
 
 	local resumeGameText = "Resume"

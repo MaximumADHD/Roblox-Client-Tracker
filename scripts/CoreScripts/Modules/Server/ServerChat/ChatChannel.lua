@@ -16,6 +16,14 @@ local UserFlagRemoveMessageOnTextFilterFailures do
 	UserFlagRemoveMessageOnTextFilterFailures = success and value
 end
 
+local userIsChatTranslationEnabled = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+	end)
+	userIsChatTranslationEnabled = success and value
+end
+
 local module = {}
 
 local modulesFolder = script.Parent
@@ -361,6 +369,16 @@ function methods:InternalDoProcessCommands(speakerName, message, channel)
 	return false
 end
 
+function getLanguageCodeFromLocale(localeId)
+	-- Get every match of not a "-"
+	local codeMatch = string.gmatch(localeId, "[^-]+")()
+	if codeMatch then
+		return codeMatch
+	else
+		return "en"
+	end
+end
+
 function methods:InternalPostMessage(fromSpeaker, message, extraData)
 	if (self:InternalDoProcessCommands(fromSpeaker.Name, message, self.Name)) then return false end
 
@@ -424,21 +442,60 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 	end
 
 	local textFilterContext = self.Private and Enum.TextFilterContext.PrivateChat or Enum.TextFilterContext.PublicChat
-	local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
-		messageObj.FromSpeaker,
-		message,
-		textFilterContext
-	)
-	if (filterSuccess) then
-		messageObj.FilterResult = filteredMessage
-		messageObj.IsFilterResult = isFilterResult
-	else
-		if UserFlagRemoveMessageOnTextFilterFailures then
-			messageObj.IsFilterResult = false
-			messageObj.FilterResult = ""
-			messageObj.MessageLength = 0
+	local translations = nil
+	if userIsChatTranslationEnabled then
+		local listOfTargets = {}
+		local targetsSet = {}
+		for i, speaker in pairs(self.Speakers) do
+			local languageCode = getLanguageCodeFromLocale(speaker:GetPlayer().LocaleId)
+			targetsSet[languageCode] = true
+		end
+		for k,v in targetsSet do
+			table.insert(listOfTargets, k)
+		end
+
+		local filterSuccess, isFilterResult, translationFilterResults = self.ChatService:InternalApplyRobloxFilterAndTranslate(
+			messageObj.FromSpeaker,
+			listOfTargets,
+			message,
+			textFilterContext
+		)
+		if filterSuccess then
+			if isFilterResult then
+				messageObj.FilterResult = translationFilterResults.SourceText
+			else
+				messageObj.FilterResult = translationFilterResults
+			end
+			messageObj.IsFilterResult = isFilterResult
+			if isFilterResult then
+				translations = translationFilterResults
+			end
 		else
-			return false
+			if UserFlagRemoveMessageOnTextFilterFailures then
+				messageObj.IsFilterResult = false
+				messageObj.FilterResult = ""
+				messageObj.MessageLength = 0
+			else
+				return false
+			end
+		end
+	else
+		local filterSuccess, isFilterResult, filteredMessage = self.ChatService:InternalApplyRobloxFilterNewAPI(
+			messageObj.FromSpeaker,
+			message,
+			textFilterContext
+		)
+		if (filterSuccess) then
+			messageObj.FilterResult = filteredMessage
+			messageObj.IsFilterResult = isFilterResult
+		else
+			if UserFlagRemoveMessageOnTextFilterFailures then
+				messageObj.IsFilterResult = false
+				messageObj.FilterResult = ""
+				messageObj.MessageLength = 0
+			else
+				return false
+			end
 		end
 	end
 	messageObj.IsFiltered = true
@@ -446,8 +503,13 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 
 	for _, speakerName in pairs(sentToList) do
 		local speaker = self.Speakers[speakerName]
-		if (speaker) then
-			speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
+		if speaker then
+			-- If the sender is not the same as the receiver and chat translation is turned on, translate the message before sending
+			if userIsChatTranslationEnabled and translations and (fromSpeaker:GetPlayer().LocaleId ~= speaker:GetPlayer().LocaleId) then
+				speaker:InternalSendFilteredMessageWithTranslatedFilterResult(messageObj, self.Name, translations)
+			else
+				speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)
+			end
 		end
 	end
 

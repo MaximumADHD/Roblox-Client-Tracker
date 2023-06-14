@@ -5,37 +5,20 @@
 local LEADERSTATS_NAME = "leaderstats"
 local REPLICATED_ATTRIBUTE_NAME = "LeaderstatsOrder"
 
+local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-
-local FFlagFallbackLeaderstatOrdering = game:DefineFastFlag("FallbackLeaderstatOrdering", false)
 
 local statOrder = {}
 local statCount = 0
 
-local updateStats
-do
-	if FFlagFallbackLeaderstatOrdering then
-		-- We should never need to enable this code.
-		-- It is a fallback in-case there is an issue
-		-- using attributes.
+-- StringValue for leaderstat order
+local valueInstance = Instance.new("StringValue")
+valueInstance.Name = REPLICATED_ATTRIBUTE_NAME
+valueInstance.Parent = RobloxReplicatedStorage
 
-		-- StringValue Fallback
-		local HttpService = game:GetService("HttpService")
-		local valueInstance = Instance.new("StringValue")
-
-		valueInstance.Name = REPLICATED_ATTRIBUTE_NAME
-		valueInstance.Parent = RobloxReplicatedStorage
-
-		function updateStats()
-			valueInstance.Value = HttpService:JSONEncode(statOrder)
-		end
-	else
-		-- Attributes
-		function updateStats()
-			RobloxReplicatedStorage:SetAttribute(REPLICATED_ATTRIBUTE_NAME, statOrder)
-		end
-	end
+function updateStats()
+	valueInstance.Value = HttpService:JSONEncode(statOrder)
 end
 
 updateStats()

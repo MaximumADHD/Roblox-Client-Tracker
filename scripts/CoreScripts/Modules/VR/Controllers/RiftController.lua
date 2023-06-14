@@ -28,6 +28,8 @@ function RiftController.new(userCFrame)
 		Transparency = 1,
 		Size = Vector3.new(0.05, 0.05, 0.05),
 		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
 	}
 	
 	self.parts = {}
@@ -41,6 +43,8 @@ function RiftController.new(userCFrame)
 		Transparency = 0.25,
 		CFrame = self.origin.CFrame,
 		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
 	}
 	local mesh = CommonUtil.Create("SpecialMesh") {
 		Parent = part,

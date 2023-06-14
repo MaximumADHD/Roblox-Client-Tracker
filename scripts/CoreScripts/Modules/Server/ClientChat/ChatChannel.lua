@@ -10,6 +10,14 @@ local UserFlagRemoveMessageFromMessageLog do
 	UserFlagRemoveMessageFromMessageLog = success and value
 end
 
+local userIsChatTranslationEnabled = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+	end)
+	userIsChatTranslationEnabled = success and value
+end
+
 local module = {}
 --////////////////////////////// Include
 --//////////////////////////////////////
@@ -18,6 +26,21 @@ local clientChatModules = Chat:WaitForChild("ClientChatModules")
 local modulesFolder = script.Parent
 
 local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
+
+local chatTranslationEnabled = nil
+if userIsChatTranslationEnabled then
+	chatTranslationEnabled = modulesFolder:FindFirstChild("ChatTranslationEnabled")
+	if chatTranslationEnabled == nil then
+		local chatTranslationSettingSignal
+		chatTranslationSettingSignal = modulesFolder.ChildAdded:Connect(function(child)
+			if child.Name == "ChatTranslationEnabled" then
+				chatTranslationEnabled = child
+
+				chatTranslationSettingSignal:Disconnect()
+			end
+		end)
+	end
+end
 
 --////////////////////////////// Methods
 --//////////////////////////////////////
@@ -61,6 +84,10 @@ function methods:UpdateMessageFiltered(messageData)
 	if messageObj then
 		messageObj.Message = messageData.Message
 		messageObj.IsFiltered = true
+		if userIsChatTranslationEnabled and chatTranslationEnabled ~= nil and chatTranslationEnabled.Value then
+			messageObj.TranslatedMessage = messageData.TranslatedMessage
+			messageObj.ShowTranslated = true
+		end
 		if self.Active then
 			if UserFlagRemoveMessageFromMessageLog then
 				if messageObj.Message == "" then

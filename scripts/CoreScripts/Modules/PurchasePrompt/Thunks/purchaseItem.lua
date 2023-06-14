@@ -56,6 +56,7 @@ local function purchaseItem()
 		local infoType = state.promptRequest.infoType
 		local equipIfPurchased = state.promptRequest.equipIfPurchased
 		local isRobloxPurchase = state.promptRequest.isRobloxPurchase
+		local purchaseAuthToken = state.promptRequest.purchaseAuthToken
 		local idempotencyKey = state.promptRequest.idempotencyKey
 
 		local isPlayerPremium = state.accountInfo.membershipType == 4
@@ -69,7 +70,7 @@ local function purchaseItem()
 
 		analytics.signalProductPurchaseConfirmed(productId, state.requestType)
 
-		return performPurchase(network, infoType, productId, salePrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey)
+		return performPurchase(network, infoType, productId, salePrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken)
 			:andThen(function(result)
 				--[[
 					If the purchase was successful, we signal success,

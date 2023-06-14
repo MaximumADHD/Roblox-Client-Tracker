@@ -37,6 +37,7 @@ end
 
 local newTrackerStreamAnimation = nil
 local cloneStreamTrack = nil
+
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
@@ -73,6 +74,8 @@ local IS_STUDIO = RunService:IsStudio()
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
+local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -91,6 +94,7 @@ local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
+local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
 
 local renderSteppedConnection = nil
 local playerCharacterAddedConnection = nil
@@ -141,6 +145,13 @@ local cachedViewSessionStarted = false
 local cloneCamUpdatePosEvery = 1
 local hasCameraPermissions = false
 local hasMicPermissions = false
+local function getShouldShowMicButton()
+	if GetFFlagUpdateSelfieViewOnBan() then
+		return hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
+	else
+		return hasMicPermissions
+	end
+end
 local cachedHasCameraPermissions = false
 local cachedHasMicPermissions = false
 local lastReportedCamState = false
@@ -228,7 +239,7 @@ function updateSelfViewButtonVisibility()
 	if hasCameraPermissions then
 		numButtonsShowing += 1
 	end
-	if hasMicPermissions then
+	if getShouldShowMicButton() then
 		numButtonsShowing += 1
 	end
 
@@ -239,13 +250,12 @@ function updateSelfViewButtonVisibility()
 
 	if micButton then
 		micButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
-		micButton.Visible = hasMicPermissions
+		micButton.Visible = getShouldShowMicButton()
 	end
 	if camButton then
 		camButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
 		camButton.Visible = hasCameraPermissions
 	end
-
 end
 
 local LOCAL_STATE_MAP = {
@@ -328,6 +338,8 @@ function initVoiceChatServiceManager()
 						local voiceManagerState = LOCAL_STATE_MAP[newState]
 						if voiceManagerState then
 							updateMicIcon(voiceManagerState, cachedLevel)
+						elseif GetFFlagUpdateSelfieViewOnBan() and newState == (Enum::any).VoiceChatState.Ended then
+							updateSelfViewButtonVisibility()
 						end
 					end)
 				end
@@ -497,7 +509,7 @@ local function createViewport()
 	if hasCameraPermissions then
 		numButtonsShowing += 1
 	end
-	if hasMicPermissions then
+	if getShouldShowMicButton() then
 		numButtonsShowing += 1
 	end
 
@@ -510,6 +522,7 @@ local function createViewport()
 	inExperienceCoreGui.Parent = CoreGui
 	--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
 	inExperienceCoreGui.DisplayOrder = -2
+	inExperienceCoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	frame = Instance.new("Frame")
 	frame.Name = SELF_VIEW_NAME
@@ -590,7 +603,7 @@ local function createViewport()
 	micButton.BackgroundTransparency = 1
 	micButton.LayoutOrder = 0
 	micButton.ZIndex = 2
-	micButton.Visible = hasMicPermissions
+	micButton.Visible = getShouldShowMicButton()
 	micButton.Activated:Connect(function()
 		local voiceService = VoiceChatServiceManager:getService()
 		debugPrint(
@@ -599,7 +612,7 @@ local function createViewport()
 				.. ",hasMicPermissions:"
 				.. tostring(hasMicPermissions)
 		)
-		if voiceService and hasMicPermissions then
+		if voiceService and getShouldShowMicButton() then
 			VoiceChatServiceManager:ToggleMic()
 			Analytics:setLastCtx("SelfView")
 		end
@@ -874,7 +887,7 @@ function toggleIndicator(mode)
 	if indicatorCircle then
 		indicatorCircle.Visible = (
 			(mode == Enum.TrackerMode.Audio or mode == Enum.TrackerMode.AudioVideo)
-			and hasMicPermissions
+			and getShouldShowMicButton()
 			and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible))
 		)
 			or (
@@ -1853,7 +1866,7 @@ function startRenderStepped(player)
 	end)
 end
 
-function triggerAnalyticsReportExperienceSettings(serviceState)
+function triggerAnalyticsReportExperienceSettings_deprecated(serviceState)
 	local experienceSettings_placeEnabled = FacialAnimationStreamingService:IsPlaceEnabled(serviceState)
 	--local experienceSettings_serverEnabled = FacialAnimationStreamingService:IsServerEnabled(serviceState) --this one is only for throttling, won't send for now
 	local experienceSettings_videoEnabled = FacialAnimationStreamingService:IsVideoEnabled(serviceState)
@@ -1873,7 +1886,7 @@ function triggerAnalyticsReportExperienceSettings(serviceState)
 	]]
 end
 
-function triggerAnalyticsReportUserAccountSettings(userId)
+function triggerAnalyticsReportUserAccountSettings_deprecated(userId)
 	return Promise.new(function(resolve, reject)
 		local ok, state =
 			pcall(FacialAnimationStreamingService.ResolveStateForUser, FacialAnimationStreamingService, userId)
@@ -1887,6 +1900,17 @@ function triggerAnalyticsReportUserAccountSettings(userId)
 	end)
 end
 
+function triggerAnalyticsReportExperienceSettings(settings)
+	Analytics:reportExperienceSettings(
+		true,
+		AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UniverseVideo) and AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.PlaceVideo),
+		AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UniverseAudio) and AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.PlaceAudio))
+
+	Analytics:reportUserAccountSettings(
+		AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserVideo),
+		AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserAudio))
+end
+
 function Initialize(player)
 	local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
 
@@ -1896,14 +1920,26 @@ function Initialize(player)
 		return
 	end
 
-	-- Listen for service state (info whether enabled for place/experience)
-	serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState")
-	:Connect(function()
-		triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
-	end)
-	triggerAnalyticsReportExperienceSettings(FacialAnimationStreamingService.ServiceState)
+	if GetFFlagAvatarChatServiceEnabled() then
+		if AvatarChatService.ClientFeaturesInitialized then
+			triggerAnalyticsReportExperienceSettings(AvatarChatService.ClientFeatures)
+		else
+			local clientFeaturesChangedListener
+			clientFeaturesChangedListener = AvatarChatService:GetPropertyChangedSignal("ClientFeatures"):Connect(function()
+				triggerAnalyticsReportExperienceSettings(AvatarChatService.ClientFeatures)
+				clientFeaturesChangedListener:Disconnect()
+			end)
+		end
+	else
+		-- Listen for service state (info whether enabled for place/experience)
+		serviceStateSingalConnection = FacialAnimationStreamingService:GetPropertyChangedSignal("ServiceState")
+			:Connect(function()
+				triggerAnalyticsReportExperienceSettings_deprecated(FacialAnimationStreamingService.ServiceState)
+			end)
+		triggerAnalyticsReportExperienceSettings_deprecated(FacialAnimationStreamingService.ServiceState)
 
-	triggerAnalyticsReportUserAccountSettings(player.UserId)
+		triggerAnalyticsReportUserAccountSettings_deprecated(player.UserId)
+	end
 
 	getPermissions()
 	createViewport()

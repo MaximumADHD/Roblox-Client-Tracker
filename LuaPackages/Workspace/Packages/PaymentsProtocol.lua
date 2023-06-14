@@ -6,6 +6,9 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["PaymentsProtocol"]["PaymentsProtocol"])
 
 export type PaymentsProtocol = Package.PaymentsProtocol
+export type NativeProduct = Package.NativeProduct
+export type IAPEventType = Package.IAPEventType
+export type ListNativeProductsResponse = Package.ListNativeProductsResponse
 
 
 return Package

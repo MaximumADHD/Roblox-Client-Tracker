@@ -16,6 +16,8 @@ local CorePackages = game:GetService("CorePackages")
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 require(RobloxGui.Modules.VR.Panel3D)
 
+local FFlagUIBloxVRDualLaserPointers =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRDualLaserPointers()
 local FFlagVRFixCursorJitterLua = game:DefineFastFlag("VRFixCursorJitterLua", false)
 local FFlagVRLaserPointerOptimization = game:DefineFastFlag("VRLaserPointerOptimization", false)
 local ContextActionService = game:GetService("ContextActionService")
@@ -90,6 +92,7 @@ end
 
 local HEAD_MOUNT_OFFSET = Vector3.new(0.5, 0.5, 0)
 local HEAD_MOUNT_THICKNESS_MULTIPLIER = 0.25
+local OFFHAND_LASER_LENGTH = 3
 
 local BUTTON_LONG_PRESS_TIME = 0.75
 
@@ -97,7 +100,8 @@ local LaserPointerMode = {
 	Disabled = 0,
 	Pointer = 1,
 	Navigation = 2,
-	Hidden = 3
+	Hidden = 3,
+	DualPointer = 4
 }
 
 -- The origination hand of the laser
@@ -242,6 +246,32 @@ function LaserPointer.new(laserDistance)
 			Transparency = 1,
 		})
 		self.parabola.Adornee = self.originPart
+
+		if FFlagUIBloxVRDualLaserPointers then
+			self.parabolaOffhand = Utility:Create("ParabolaAdornment")({
+				Name = "LaserPointerparabolaOffhand",
+				Parent = CoreGui,
+				A = 0,
+				B = 1e-6,
+				C = 0,
+				Color3 = Color3.new(1, 1, 1),
+				Transparency = 0.5,
+				Thickness = TELEPORT.ARC_THICKNESS,
+				Visible = false,
+			})
+
+			self.originPartOffhand = Utility:Create("Part")({
+				Name = "LaserPointerOriginOffhand",
+				Anchored = true,
+				CanCollide = false,
+				TopSurface = Enum.SurfaceType.SmoothNoOutlines,
+				BottomSurface = Enum.SurfaceType.SmoothNoOutlines,
+				Material = Enum.Material.SmoothPlastic,
+				Size = minimumPartSize,
+				Transparency = 1,
+			})
+			self.parabolaOffhand.Adornee = self.originPartOffhand
+		end
 
 		self.plopPart = Utility:Create("Part")({
 			Name = "LaserPointerTeleportPlop",
@@ -388,18 +418,40 @@ function LaserPointer:onModeChanged(newMode)
 	if newMode == LaserPointerMode.Disabled or newMode == LaserPointerMode.Hidden then
 		-- this enabled the target dot only
 		addPartsToGame(self.originPart, self.cursorPart)
-		removePartsFromGame(self.plopPart, self.plopBall)
+		if FFlagUIBloxVRDualLaserPointers then
+			removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
+		else
+			removePartsFromGame(self.plopPart, self.plopBall)
+		end
 		self.forceDotActive = true
 		self.parabola.Visible = false
+		if FFlagUIBloxVRDualLaserPointers then
+			self.parabolaOffhand.Visible = false
+		end
 		self:setNavigationActionEnabled(false)
-		--Pointer mode
+	--Pointer mode
 	elseif newMode == LaserPointerMode.Pointer then
 		addPartsToGame(self.originPart, self.cursorPart)
-		removePartsFromGame(self.plopPart, self.plopBall)
+		if FFlagUIBloxVRDualLaserPointers then
+			removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
+		else
+			removePartsFromGame(self.plopPart, self.plopBall)
+		end
 		self.parabola.Visible = true
+		if FFlagUIBloxVRDualLaserPointers then
+			self.parabolaOffhand.Visible = false
+		end
 		self:setNavigationActionEnabled(false)
 		self.forceDotActive = false
-		--Navigation mode
+	--Pointer mode
+	elseif FFlagUIBloxVRDualLaserPointers and newMode == LaserPointerMode.DualPointer then
+		addPartsToGame(self.originPart, self.originPartOffhand, self.cursorPart)
+		removePartsFromGame(self.plopPart, self.plopBall)
+		self.parabola.Visible = true
+		self.parabolaOffhand.Visible = true
+		self:setNavigationActionEnabled(false)
+		self.forceDotActive = false
+	--Navigation mode
 	elseif newMode == LaserPointerMode.Navigation then
 		addPartsToGame(self.originPart, self.plopPart, self.plopBall, self.cursorPart)
 		self.parabola.Visible = true
@@ -533,6 +585,11 @@ function LaserPointer:renderAsLaser(laserOriginPos, laserEndpoint)
 	self.parabola.B = 1e-6
 	self.parabola.C = 0
 	self.parabola.Range = (laserEndpoint - laserOriginPos).magnitude
+end
+
+function LaserPointer:renderOffhandLaser(laserOriginPos, laserEndpoint)
+	self.originPartOffhand.CFrame = CFrame.new(laserOriginPos, laserEndpoint) * CFrame.Angles(0, math.pi / 2, 0)
+	self.parabolaOffhand.Range = (laserEndpoint - laserOriginPos).magnitude
 end
 
 function LaserPointer:getLaserHit(pos, look, ignore)
@@ -852,11 +909,14 @@ function LaserPointer:update(dt)
 		return
 	end
 
-	if self.mode ~= LaserPointerMode.Pointer then
+	if self.mode ~= LaserPointerMode.Pointer and (not FFlagUIBloxVRDualLaserPointers or self.mode ~= LaserPointerMode.DualPointer) then
 		return
 	end
 
 	self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
+	if FFlagUIBloxVRDualLaserPointers then
+		self.parabolaOffhand.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
+	end
 
 	if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
 		self.parabola.Color3 = LASER.ARC_COLOR_BAD -- item equipped means RT action bound
@@ -876,11 +936,32 @@ function LaserPointer:update(dt)
 		laserHitPoint = originPos + originLook * self.laserMaxDistance
 	end
 
-	if self:isHeadMounted() then
-		originPos = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
+	if FFlagUIBloxVRDualLaserPointers then
+		if self:isHeadMounted() then
+			self.parabola.Visible = false
+		else
+			self.parabola.Visible = true
+			self:renderAsLaser(originPos, laserHitPoint)
+		end
+	else
+		if self:isHeadMounted() then
+			originPos = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
+		end
+		self:renderAsLaser(originPos, laserHitPoint)
 	end
 
-	self:renderAsLaser(originPos, laserHitPoint)
+	if FFlagUIBloxVRDualLaserPointers and self.mode == LaserPointerMode.DualPointer then
+		if self:isHeadMounted() then
+			self.parabolaOffhand.Visible = false
+		else
+			self.parabolaOffhand.Visible = true
+			local offHand = if self.inputUserCFrame == Enum.UserCFrame.RightHand then Enum.UserCFrame.LeftHand else Enum.UserCFrame.RightHand
+			local originCFrameOffhand = VRUtil.GetUserCFrameWorldSpace(offHand)
+			local originPosOffhand, originLookOffhand = originCFrameOffhand.p, originCFrameOffhand.lookVector
+			local laserHitPointOffhand = originPosOffhand + originLookOffhand * OFFHAND_LASER_LENGTH
+			self:renderOffhandLaser(originPosOffhand, laserHitPointOffhand)
+		end
+	end
 end
 
 return LaserPointer

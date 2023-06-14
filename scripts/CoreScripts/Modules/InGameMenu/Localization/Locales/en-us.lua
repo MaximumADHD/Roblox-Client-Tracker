@@ -338,4 +338,10 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[Only Friends]],
 	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[Anyone]],
 	["CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"] = [[Are you sure you want to leave the experience? You can access the tutorial again from “More”.]],
+	["CoreScripts.InGameMenu.Controls.ResetCameraLabel"] = [[Move / Reset Camera]],
+	["CoreScripts.InGameMenu.Controls.MenuLabel"] = [[Menu]],
+	["CoreScripts.InGameMenu.Controls.SelectItemLabel"] = [[Select Item]],
+	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[Back / Exit]],
+	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(Click) FP / TP Camera]],
+	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[Jump / Select]],
 }

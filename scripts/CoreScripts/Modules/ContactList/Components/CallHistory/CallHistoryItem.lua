@@ -2,7 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
-local SocialService = game:GetService("SocialService")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 local React = require(CorePackages.Packages.React)
 
@@ -15,6 +15,8 @@ local UIBlox = dependencies.UIBlox
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Images = UIBlox.App.ImageSet.Images
+local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
@@ -158,6 +160,13 @@ local function CallHistoryItem(props: Props)
 		interactableTheme = "BackgroundDefault"
 	end
 
+	local image
+	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
+		image = getStandardUserAvatarHeadShotImage(tostring(participant.userId))
+	else
+		image = SocialLibraries.User.getUserAvatarImage(participant.userId)
+	end
+
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, 92),
@@ -174,7 +183,7 @@ local function CallHistoryItem(props: Props)
 
 		ProfileImage = React.createElement(ImageSetLabel, {
 			Size = UDim2.fromOffset(68, 68),
-			Image = SocialLibraries.User.getUserAvatarImage(participant.userId),
+			Image = image,
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
@@ -278,12 +287,13 @@ local function CallHistoryItem(props: Props)
 				icon = Images["icons/actions/accept"],
 				onActivated = function()
 					if localPlayer then
-						SocialService:InvokeIrisInvite(
-							localPlayer,
-							tag,
-							{ localPlayer.UserId, tonumber(props.caller.callerId) }
-						)
-						SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+						coroutine.wrap(function()
+							local invokeIrisInviteRemoteEvent = RobloxReplicatedStorage:WaitForChild(
+								"ContactListInvokeIrisInvite",
+								math.huge
+							) :: RemoteEvent
+							invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId))
+						end)()
 					end
 				end,
 			})

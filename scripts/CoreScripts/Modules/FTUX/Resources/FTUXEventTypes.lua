@@ -12,6 +12,7 @@ local FTUXEventTypes = {
 		JumpEvent = "JumpEvent",
 		PerspectiveTooltipEvent = "PerspectiveTooltipEvent",
 		MovementTooltipEvent = "MovementTooltipEvent",
+		LeaveGameIconHighlightEvent = "LeaveGameIconHighlightEvent",
 	},
 }
 

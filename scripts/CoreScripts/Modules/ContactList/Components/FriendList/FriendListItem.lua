@@ -1,7 +1,7 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local SocialService = game:GetService("SocialService")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -11,6 +11,8 @@ local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
+local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local GetPresencesFromUserIds = dependencies.NetworkingPresence.GetPresencesFromUserIds
 local GetUserV2FromUserId = dependencies.NetworkingUsers.GetUserV2FromUserId
@@ -88,6 +90,13 @@ local function FriendListItem(props: Props)
 	end, {})
 	local tag = useSelector(selectTag)
 
+	local image
+	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
+		image = getStandardUserAvatarHeadShotImage(tostring(props.userId))
+	else
+		image = SocialLibraries.User.getUserAvatarImage(props.userId)
+	end
+
 	return React.createElement("Frame", {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, 92),
@@ -102,7 +111,7 @@ local function FriendListItem(props: Props)
 
 		ProfileImage = React.createElement(ImageSetLabel, {
 			Size = UDim2.fromOffset(68, 68),
-			Image = SocialLibraries.User.getUserAvatarImage(props.userId),
+			Image = image,
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
@@ -191,8 +200,13 @@ local function FriendListItem(props: Props)
 				icon = Images["icons/actions/accept"],
 				onActivated = function()
 					if localPlayer then
-						SocialService:InvokeIrisInvite(localPlayer, tag, { localPlayer.UserId, tonumber(props.userId) })
-						SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+						coroutine.wrap(function()
+							local invokeIrisInviteRemoteEvent = RobloxReplicatedStorage:WaitForChild(
+								"ContactListInvokeIrisInvite",
+								math.huge
+							) :: RemoteEvent
+							invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
+						end)()
 					end
 				end,
 			})

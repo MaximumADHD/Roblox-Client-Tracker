@@ -7,6 +7,7 @@ local JumpEvent = require(FTUX.Events.VR.JumpEvent)
 local MoveToGoalEvent = require(FTUX.Events.VR.MoveToGoalEvent)
 local PerspectiveTooltipEvent = require(FTUX.Events.VR.PerspectiveTooltipEvent)
 local MovementTooltipEvent = require(FTUX.Events.VR.MovementTooltipEvent)
+local LeaveGameIconHighlightEvent = require(FTUX.Events.VR.LeaveGameIconHighlightEvent)
 
 local PlatformEnum = require(FTUX.Enums.PlatformEnum)
 local FTUXEventTypes = require(FTUX.Resources.FTUXEventTypes)
@@ -38,6 +39,8 @@ function VRFTUXEventHandler.StartEvent(eventName, increaseCurrentIndex: () -> ()
 		task.spawn(SoundFeedbackEvent.StartEvent)
 	elseif eventName == VREventTypes.HapticFeedbackTwiceEvent then
 		task.spawn(HapticFeedbackTwiceEvent.StartEvent)
+	elseif eventName == VREventTypes.LeaveGameIconHighlightEvent then
+		task.spawn(LeaveGameIconHighlightEvent.StartEvent)
 	else
 		warn("Unmapped VRFTUX event type: " .. tostring(eventName))
 	end
@@ -54,6 +57,8 @@ function VRFTUXEventHandler.StopEvent(eventName)
 		task.spawn(PerspectiveTooltipEvent.StopEvent)
 	elseif eventName == VREventTypes.MovementTooltipEvent then
 		task.spawn(MovementTooltipEvent.StopEvent)
+	elseif eventName == VREventTypes.LeaveGameIconHighlightEvent then
+		task.spawn(LeaveGameIconHighlightEvent.StopEvent)
 	elseif eventName == VREventTypes.HapticFeedbackTwiceEvent then
 		-- No Stop Event
 	elseif eventName == VREventTypes.HapticFeedbackEvent then

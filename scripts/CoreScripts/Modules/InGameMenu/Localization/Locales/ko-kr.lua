@@ -331,4 +331,11 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[플레이어의 키]],
 	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[접근성]],
 	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[투명성]],
+	["CoreScripts.InGameMenu.GameSettings.VrControlsTitle"] = [[VR 컨트롤]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeTitle"] = [[안전 영역]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeDescription"] = [[가까이 와도 사라지지 않고 나에게 다가올 수 있는 사람을 지정하세요]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeNoOne"] = [[없음]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[친구만]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[모두]],
+	["CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"] = [[체험에서 정말 나갈까요? '더 보기'에서 튜토리얼을 다시 이용할 수 있습니다.]],
 }

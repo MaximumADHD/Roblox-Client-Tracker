@@ -5,4 +5,12 @@ local PackageIndex = script.Parent._Index
 
 local Package = require(PackageIndex["Thumbnailing"]["Thumbnailing"])
 
+export type KeyframesForPose = Package.KeyframesForPose
+export type MapAssetIdToFileNameType = Package.MapAssetIdToFileNameType
+export type CameraOptions = Package.CameraOptions
+export type LightDescType = Package.LightDescType
+export type JsonLightDescType = Package.JsonLightDescType
+export type LightExtraParamsType = Package.LightExtraParamsType
+
+
 return Package

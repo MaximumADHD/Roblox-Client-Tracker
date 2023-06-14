@@ -33,6 +33,7 @@ local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManage
 local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
@@ -207,6 +208,9 @@ end
 
 function PermissionsButtons:render()
 	local shouldShowMicButtons = self.state.hasMicPermissions
+	if GetFFlagUpdateSelfieViewOnBan() then
+		shouldShowMicButtons = self.state.hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
+	end
 	local shouldShowCameraButtons = self.state.hasCameraPermissions
 	local showMuteAll = if GetFFlagInvertMuteAllPermissionButton() then not self.state.allPlayersMuted else self.state.allPlayersMuted
 	local isTopCloseButton = (not self.props.isPortrait
@@ -250,12 +254,19 @@ function PermissionsButtons:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, if self.props.isSmallTouchScreen then SMALL_PADDING_SIZE else PADDING_SIZE),
 			}),
-			MuteAllButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
-				LayoutOrder = 1,
-				image = if showMuteAll then MUTE_ALL_IMAGE else UNMUTE_ALL_IMAGE,
-				callback = self.toggleMuteAll,
-				useNewMenuTheme = self.props.useNewMenuTheme,
-			}),
+			if GetFFlagUpdateSelfieViewOnBan()
+					then shouldShowMicButtons and Roact.createElement(PermissionButton, {
+						LayoutOrder = 1,
+						image = if showMuteAll then MUTE_ALL_IMAGE else UNMUTE_ALL_IMAGE,
+						callback = self.toggleMuteAll,
+						useNewMenuTheme = self.props.useNewMenuTheme,
+					})
+					else Roact.createElement(PermissionButton, {
+						LayoutOrder = 1,
+						image = if showMuteAll then MUTE_ALL_IMAGE else UNMUTE_ALL_IMAGE,
+						callback = self.toggleMuteAll,
+						useNewMenuTheme = self.props.useNewMenuTheme,
+					}),
 			ToggleMicButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 2,
 				image = if self.state.microphoneEnabled then MIC_IMAGE else MIC_OFF_IMAGE,
@@ -276,7 +287,7 @@ function PermissionsButtons:render()
 			}),
 		}),
 		Divider2 = createDivider(5),
-		RecordingIndicator = Roact.createElement(RecordingIndicator, {
+		RecordingIndicator = shouldShowMicButtons and Roact.createElement(RecordingIndicator, {
 			micOn = self.state.microphoneEnabled,
 			hasMicPermissions = self.state.hasMicPermissions,
 			isSmallTouchScreen = self.props.isSmallTouchScreen,

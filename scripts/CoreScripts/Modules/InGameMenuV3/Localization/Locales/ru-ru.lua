@@ -331,4 +331,9 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[Высота игрока]],
 	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[ДОСТУПНОСТЬ]],
 	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[Прозрачность]],
+	["CoreScripts.InGameMenu.GameSettings.VrControlsTitle"] = [[КОНТРОЛЬ VR]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeTitle"] = [[Пузырь безопасности]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeNoOne"] = [[Никто]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[Только друзья]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[Все]],
 }

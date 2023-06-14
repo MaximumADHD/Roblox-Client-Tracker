@@ -1,7 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local Common = CorePackages.AppTempCommon.Common
 
-local Action = require(Common.Action)
+local Action = require(CorePackages.Rodux).makeActionCreator
 
 return Action(script.Name, function(count)
 	return {

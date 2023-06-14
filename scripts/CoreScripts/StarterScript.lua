@@ -58,13 +58,15 @@ local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustA
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
-local GetFFlagContactListEnabled = require(RobloxGui.Modules.Flags.GetFFlagContactListEnabled)
+local GetFFlagContactListEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListEnabled)
 local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
-local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt4", false)
+local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt5", false)
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
+local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
+local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 
 local GetFFlagDragDetectorTouchIndicator = require(RobloxGui.Modules.Flags.GetFFlagDragDetectorTouchIndicator)
-local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScriptsDev", false) -- temp placeholder, will use a common engineFeature once definedd
+local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts", false)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
@@ -83,6 +85,8 @@ if FFlagAvatarChatCoreScriptSupport then
 	local ExperienceChat = require(CorePackages.ExperienceChat)
 	ExperienceChat.GlobalFlags.AvatarChatEnabled = true
 end
+
+local FFlagScreenshotsFeaturesEnabledForAll = require(CorePackages.Workspace.Packages.Screenshots).Flags.FFlagScreenshotsFeaturesEnabledForAll
 
 -- Since prop validation can be expensive in certain scenarios, you can enable
 -- this flag locally to validate props to Roact components.
@@ -207,6 +211,11 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
+-- Screenshots
+if FFlagScreenshotsFeaturesEnabledForAll then
+	coroutine.wrap(safeRequire)(RobloxGui.Modules.Screenshots.ScreenshotsApp)
+end
+
 initify(CoreGuiModules.AvatarEditorPrompts)
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 
@@ -330,7 +339,15 @@ if GetFFlagEnableSoundTelemetry() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SoundTelemetry", script.Parent)
 end
 
+if getFFlagEnableApolloClientInExperience() then
+	coroutine.wrap(safeRequire)(CoreGuiModules.ApolloClient)
+end
+
 if GetFFlagContactListEnabled() then
 	initify(CoreGuiModules.ContactList)
 	coroutine.wrap(safeRequire)(CoreGuiModules.ContactList)
+end
+
+if isCharacterNameHandlerEnabled() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/CharacterNameHandler", script.Parent)
 end

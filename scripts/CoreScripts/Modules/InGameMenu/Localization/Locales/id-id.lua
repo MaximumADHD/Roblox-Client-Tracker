@@ -331,4 +331,11 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[Tinggi Pemain]],
 	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[AKSESIBILITAS]],
 	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[Transparansi]],
+	["CoreScripts.InGameMenu.GameSettings.VrControlsTitle"] = [[KONTROL VR]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeTitle"] = [[Gelembung Keamanan]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeDescription"] = [[Tentukan siapa yang dapat mendekati kamu tanpa memudar]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeNoOne"] = [[Tidak Siapa pun]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[Hanya Teman]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[Siapa pun]],
+	["CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"] = [[Kamu yakin ingin meninggalkan pengalaman virtual ini? Kamu dapat mengakses tutorial lagi dari menu "Lainnya".]],
 }

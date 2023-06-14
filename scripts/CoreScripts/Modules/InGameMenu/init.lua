@@ -106,7 +106,7 @@ return {
 		local menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
-			DisplayOrder = 1,
+			DisplayOrder = Constants.DisplayOrder.RootMenu,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			AutoLocalize = false,
 			[Roact.Change.AbsoluteSize] = function(rbx)

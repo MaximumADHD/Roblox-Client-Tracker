@@ -32,6 +32,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local GetFFlagEnableSurveyImprovements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSurveyImprovements
+local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
@@ -50,9 +51,19 @@ local function Initialize()
 			PerfUtils.leavingGame()
 		end
 		GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
-
-		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-											Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
+			
+		AnalyticsService:SetRBXEventStream(
+			Constants.AnalyticsTargetName,
+			Constants.AnalyticsInGameMenuName,
+			Constants.AnalyticsLeaveGameName,
+			{
+				confirmed = Constants.AnalyticsConfirmedName,
+				universeid = tostring(game.GameId),
+				source = if GetFFlagEnableLeaveHomeResumeAnalytics()
+					then Constants.AnalyticsLeaveGameSource
+					else nil,
+			}
+		)
 
 		if GetFFlagEnableSurveyImprovements() then
 			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})
@@ -73,8 +84,18 @@ local function Initialize()
 			this.HubRef:PopMenu(isUsingGamepad, true)
 		end
 
-		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-											Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
+		AnalyticsService:SetRBXEventStream(
+			Constants.AnalyticsTargetName,
+			Constants.AnalyticsInGameMenuName,
+			Constants.AnalyticsLeaveGameName,
+			{
+				confirmed = Constants.AnalyticsCancelledName,
+				universeid = tostring(game.GameId),
+				source = if GetFFlagEnableLeaveHomeResumeAnalytics()
+					then Constants.AnalyticsLeaveGameSource
+					else nil,
+			}
+		)
 	end
 	this.DontLeaveFromHotkey = function(name, state, input)
 		if state == Enum.UserInputState.Begin then

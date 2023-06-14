@@ -86,6 +86,31 @@ function methods:WrapIntoMessageObject(messageData, createdMessageObject)
 	return obj
 end
 
+function methods:CreateMessageLabel_Chat(messageData, currentChannelName, refreshCallback)
+	messageData.Channel = currentChannelName
+	local extraDeveloperFormatTable
+	pcall(function()
+		extraDeveloperFormatTable = Chat:InvokeChatCallback(Enum.ChatCallbackType.OnClientFormattingMessage, messageData)
+	end)
+	messageData.ExtraData = messageData.ExtraData or {}
+	mergeProps(extraDeveloperFormatTable, messageData.ExtraData)
+
+	local messageType = messageData.MessageType
+	if self.MessageCreators[messageType] then
+		local createdMessageObject = self.MessageCreators[messageType](messageData, currentChannelName, refreshCallback)
+		if createdMessageObject then
+			return self:WrapIntoMessageObject(messageData, createdMessageObject)
+		end
+	elseif self.DefaultCreatorType then
+		local createdMessageObject = self.MessageCreators[self.DefaultCreatorType](messageData, currentChannelName, refreshCallback)
+		if createdMessageObject then
+			return self:WrapIntoMessageObject(messageData, createdMessageObject)
+		end
+	else
+		error("No message creator available for message type: " ..messageType)
+	end
+end
+
 function methods:CreateMessageLabel(messageData, currentChannelName)
 
 	messageData.Channel = currentChannelName

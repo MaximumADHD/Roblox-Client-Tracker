@@ -13,6 +13,8 @@ local IndexController 	= require(RobloxGui.Modules.VR.Controllers.IndexControlle
 local VRUtil			= require(RobloxGui.Modules.VR.VRUtil)
 
 local FFlagVREnableTouchControllerModels = require(RobloxGui.Modules.Flags.FFlagVREnableTouchControllerModels)
+local GetFFlagIGMVRQuestControlsInstructions =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -44,27 +46,46 @@ function VRControllerModel.new(userCFrame)
 	return self
 end
 
-function VRControllerModel:useTouchControllerModel()
-	-- TODO: Add more device names when we're ready
-	return FFlagVREnableTouchControllerModels and
-		(self.currentVRDeviceName:match("Oculus") or
-		self.currentVRDeviceName:match("Meta") or
-		self.currentVRDeviceName:match("OpenXr") or
-		self.currentVRDeviceName:match("OpenXR"))
-end
+if not GetFFlagIGMVRQuestControlsInstructions() then
+	function VRControllerModel:useTouchControllerModel()
+		-- TODO: Add more device names when we're ready
+		return FFlagVREnableTouchControllerModels and
+			(self.currentVRDeviceName:match("Oculus") or
+			self.currentVRDeviceName:match("Meta") or
+			self.currentVRDeviceName:match("OpenXr") or
+			self.currentVRDeviceName:match("OpenXR"))
+	end
 
--- creates the controller model and stores it in self.controllerModel
-function VRControllerModel:createControllerModel()
-	if self.currentVRDeviceName:match("Vive") then
-		self.controllerModel = ViveController.new(self.userCFrame)
-	elseif self.currentVRDeviceName:match("Rift") then
-		self.controllerModel = RiftController.new(self.userCFrame)
-	elseif self.currentVRDeviceName:match("Index") then
-		self.controllerModel = IndexController.new(self.userCFrame)
-	elseif self:useTouchControllerModel() then
-		self.controllerModel = TouchController.new(self.userCFrame)
-	else
-		self.controllerModel = RiftController.new(self.userCFrame)
+	-- creates the controller model and stores it in self.controllerModel
+	function VRControllerModel:createControllerModel()
+		if self.currentVRDeviceName:match("Vive") then
+			self.controllerModel = ViveController.new(self.userCFrame)
+		elseif self.currentVRDeviceName:match("Rift") then
+			self.controllerModel = RiftController.new(self.userCFrame)
+		elseif self.currentVRDeviceName:match("Index") then
+			self.controllerModel = IndexController.new(self.userCFrame)
+		elseif self:useTouchControllerModel() then
+			self.controllerModel = TouchController.new(self.userCFrame)
+		else
+			self.controllerModel = RiftController.new(self.userCFrame)
+		end
+	end
+else
+	-- creates the controller model and stores it in self.controllerModel
+	function VRControllerModel:createControllerModel()
+		local controllerType = VRUtil.getCurrentControllerType()
+
+		if controllerType == "Vive" then
+			self.controllerModel = ViveController.new(self.userCFrame)
+		elseif controllerType == "Rift" then
+			self.controllerModel = RiftController.new(self.userCFrame)
+		elseif controllerType == "Index" then
+			self.controllerModel = IndexController.new(self.userCFrame)
+		elseif controllerType == "Touch" then
+			self.controllerModel = TouchController.new(self.userCFrame)
+		else
+			self.controllerModel = RiftController.new(self.userCFrame)
+		end
 	end
 end
 
@@ -108,7 +129,7 @@ end
 function VRControllerModel:setEnabled(enabled)
 	if enabled ~= self.enabled then
 		self.enabled = enabled
-		
+
 		if self.enabled then
 			self:setCurrentModel()
 

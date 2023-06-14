@@ -35,6 +35,9 @@ local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags
 -- Defaulting to true since this file is behind another flag.
 local FFlagAvatarChatLuaCameraToast = game:DefineFastFlag("AvatarChatLuaCameraToast", true)
 
+local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local AvatarChatService : any = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
+
 type Table = { [any]: any }
 type Array<T> = { T }
 
@@ -65,6 +68,13 @@ local function removePermissionsBasedOnUserSetting(allowedSettings: AllowedSetti
 end
 
 local function requestPermissions(allowedSettings : AllowedSettings, callback, invokeNextRequest, permsToCheck)
+	local cacheCamera = true
+	local cacheMic = true
+	if FFlagAvatarChatCoreScriptSupport then
+		cacheCamera = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
+		cacheMic = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
+	end
+
 	local permissionsToCheck = removePermissionsBasedOnUserSetting(allowedSettings, permsToCheck)
 	local checkingCamera = Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
 	local checkingMic = Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
@@ -102,8 +112,8 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 					local hasMicPermissionsResponse = checkingMic and (requestPermissionsResult.status == PermissionsProtocol.Status.AUTHORIZED
 						or not Cryo.List.find(requestPermissionsResult.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS))
 
-					hasCameraPermissions = hasCameraPermissionsResponse
-					hasMicPermissions = hasMicPermissionsResponse
+					hasCameraPermissions = if cacheCamera then hasCameraPermissionsResponse else nil
+					hasMicPermissions = if cacheMic then hasMicPermissionsResponse else nil
 				else
 					-- If all permissions were authorized
 					if requestPermissionsResult == PermissionsProtocol.Status.AUTHORIZED then
@@ -117,8 +127,8 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 				end
 
 				local response = {
-					hasCameraPermissions = hasCameraPermissions,
-					hasMicPermissions = hasMicPermissions,
+					hasCameraPermissions = hasCameraPermissions or false,
+					hasMicPermissions = hasMicPermissions or false,
 				}
 
 				-- Remove with AVBURST-12354 once the C++ side fixes this.
@@ -134,6 +144,33 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 			end)
 		end
 	end)
+end
+
+type CachedResult = {
+	hasCameraPermissions : boolean,
+	hasMicPermissions : boolean,
+}
+
+local function tryGetCachedResults(permsToCheck) : CachedResult?
+	if hasCameraPermissions == nil or hasMicPermissions == nil then
+		return nil
+	end
+
+	local hasOtherPermissions = false
+	for _, permission in permsToCheck do
+		if permission ~= PermissionsProtocol.Permissions.MICROPHONE_ACCESS and permission ~= PermissionsProtocol.Permissions.CAMERA_ACCESS then
+			hasOtherPermissions = true
+		end
+	end
+
+	if hasOtherPermissions then
+		return nil
+	end
+
+	return {
+		hasCameraPermissions = hasCameraPermissions or false,
+		hasMicPermissions = hasMicPermissions or false,
+	}
 end
 
 -- TODO Make callback required with removal of FFlagUpdateCamMicPermissioning
@@ -157,6 +194,15 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 		end
 	end
 
+	if FFlagAvatarChatCoreScriptSupport then
+		local cachedResults = tryGetCachedResults(permsToCheck)
+		if cachedResults then
+			callback(cachedResults)
+			invokeNextRequest()
+			return
+		end
+	end
+
 	-- A request is already in progress. Queue up another call to this function.
 	if inProgress then
 		table.insert(requestPermissionsQueue, {
@@ -170,41 +216,65 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 	inProgress = true
 
 	if FFlagAvatarChatCoreScriptSupport then
-		local placeSettingsPromise = Promise.new(function(resolve, _)
-			-- Check that the game has enabled camera and microphone in game settings
-			local placeSettings = getPlaceVoiceCameraEnabled()
-			local allowedSettings : AllowedSettings = {
-				isVoiceEnabled = placeSettings.isVoiceEnabledPlaceSettings,
-				isCameraEnabled = placeSettings.isCameraEnabledPlaceSettings,
-			}
-			resolve(allowedSettings)
-		end)
+		if GetFFlagAvatarChatServiceEnabled() then
+			return Promise.new(function(resolve, _)
+				if AvatarChatService.ClientFeaturesInitialized then
+					local combinedAllowedSettings : AllowedSettings = {
+						isVoiceEnabled = AvatarChatService:IsEnabled(AvatarChatService.ClientFeatures, Enum.AvatarChatServiceFeature.UserAudio),
+						isCameraEnabled = AvatarChatService:IsEnabled(AvatarChatService.ClientFeatures, Enum.AvatarChatServiceFeature.UserVideo)
+					}
+					resolve(combinedAllowedSettings)
+				else
+					local clientFeaturesChangedListener
+					clientFeaturesChangedListener = AvatarChatService:GetPropertyChangedSignal("ClientFeatures"):Connect(function()
+						clientFeaturesChangedListener:Disconnect()
+						local combinedAllowedSettings : AllowedSettings = {
+							isVoiceEnabled = AvatarChatService:IsEnabled(AvatarChatService.ClientFeatures, Enum.AvatarChatServiceFeature.UserAudio),
+							isCameraEnabled = AvatarChatService:IsEnabled(AvatarChatService.ClientFeatures, Enum.AvatarChatServiceFeature.UserVideo)
+						}
+						resolve(combinedAllowedSettings)
+					end)
+				end
+			end):andThen(function(allowedSettings)
+				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck)
+			end)
+		else
+			local placeSettingsPromise = Promise.new(function(resolve, _)
+				-- Check that the game has enabled camera and microphone in game settings
+				local placeSettings = getPlaceVoiceCameraEnabled()
+				local allowedSettings : AllowedSettings = {
+					isVoiceEnabled = placeSettings.isVoiceEnabledPlaceSettings,
+					isCameraEnabled = placeSettings.isCameraEnabledPlaceSettings,
+				}
+				resolve(allowedSettings)
+			end)
 
-		local userSettingsPromise = Promise.new(function(resolve, _)
-			-- Check that the user has enabled voice/camera on their roblox account,
-			-- and that the universe and place has it enabled as well.
-			local userSettings = getVoiceCameraAccountSettings()
-			local allowedSettings : AllowedSettings = {
-				isVoiceEnabled = userSettings.isVoiceEnabledUserSettings,
-				isCameraEnabled = userSettings.isCameraEnabledUserSettings,
-			}
-			resolve(allowedSettings)
-		end)
+			local userSettingsPromise = Promise.new(function(resolve, _)
+				-- Check that the user has enabled voice/camera on their roblox account,
+				-- and that the universe and place has it enabled as well.
+				local userSettings = getVoiceCameraAccountSettings()
+				local allowedSettings : AllowedSettings = {
+					isVoiceEnabled = userSettings.isVoiceEnabledUserSettings,
+					isCameraEnabled = userSettings.isCameraEnabledUserSettings,
+				}
+				resolve(allowedSettings)
+			end)
 
-		return Promise.all({
-			placeSettingsPromise,
-			userSettingsPromise,
-		}):andThen(function(results)
-			local placeSettingsResult = results[1] :: AllowedSettings
-			local userSettingsResult = results[2] :: AllowedSettings
-			local combinedAllowedSettings : AllowedSettings = {
-				isVoiceEnabled = placeSettingsResult.isVoiceEnabled and userSettingsResult.isVoiceEnabled,
-				isCameraEnabled = placeSettingsResult.isCameraEnabled and userSettingsResult.isCameraEnabled,
-			}
-			return combinedAllowedSettings
-		end):andThen(function(allowedSettings)
-			requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck)
-		end)
+			return Promise.all({
+				placeSettingsPromise,
+				userSettingsPromise,
+			}):andThen(function(results)
+				local placeSettingsResult = results[1] :: AllowedSettings
+				local userSettingsResult = results[2] :: AllowedSettings
+				local combinedAllowedSettings : AllowedSettings = {
+					isVoiceEnabled = placeSettingsResult.isVoiceEnabled and userSettingsResult.isVoiceEnabled,
+					isCameraEnabled = placeSettingsResult.isCameraEnabled and userSettingsResult.isCameraEnabled,
+				}
+				return combinedAllowedSettings
+			end):andThen(function(allowedSettings)
+				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck)
+			end)
+		end
 	else
 		return Promise.new(function(resolve, _)
 			-- First check that the user has enabled voice/camera on their roblox account,

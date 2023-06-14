@@ -64,6 +64,7 @@ local GetFFlagEnableReportAnythingAnalytics = require(RobloxGui.Modules.TrustAnd
 local GetFIntIGMv1ARFlowScreenshotDelayFrames = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFIntIGMv1ARFlowScreenshotDelayFrames)
 local GetFFlagEnableARFlowAnalyticsCleanup = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
 local GetFFlagEnableIGMv1ARFlowNilMoAFix = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
+local GetFFlagReportAnythingFixDefaultAnalytics = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingFixDefaultAnalytics)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -780,10 +781,16 @@ local function Initialize()
 		this.WhichPlayerFrame.LayoutOrder = 2
 
 		local typeOfAbuseText = "Reason for Abuse?"
+		if GetFFlagReportAnythingFixDefaultAnalytics() then 
+			this.TypeOfAbuseFrame,
+			this.TypeOfAbuseLabel,
+			this.TypeOfAbuseMode = utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME)
+		else 
+			this.TypeOfAbuseFrame,
+			this.TypeOfAbuseLabel,
+			this.TypeOfAbuseMode = utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME, 1)
+		end
 
-		this.TypeOfAbuseFrame,
-		this.TypeOfAbuseLabel,
-		this.TypeOfAbuseMode = utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME, 1)
 		this.TypeOfAbuseFrame.LayoutOrder = 3
 
 		if Theme.UIBloxThemeEnabled then
@@ -1032,6 +1039,11 @@ local function Initialize()
 				this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_GAME)
 
 				this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_GAME > 1)
+
+				if GetFFlagReportAnythingFixDefaultAnalytics() then
+					this.TypeOfAbuseMode:SetSelectionIndex(1)
+				end
+
 				this.TypeOfAbuseLabel.ZIndex = (#ABUSE_TYPES_GAME > 1 and 2 or 1)
 
 				this.WhichPlayerMode:SetInteractable(false)
@@ -1509,6 +1521,12 @@ do
 				local abuseReasonSelected = if PageInstance.TypeOfAbuseMode.CurrentIndex then true else false
 				local abuserSelected = if PageInstance.WhichPlayerMode.CurrentIndex then true else false
 				local commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" then true else false
+				
+				if GetFFlagReportAnythingFixDefaultAnalytics() then 
+					commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" and 
+						PageInstance.AbuseDescription.Selection.Text ~= DEFAULT_ABUSE_DESC_TEXT then true else false	
+				end
+
 				local methodOfAbuseSelected = false
 				local reportContentType
 

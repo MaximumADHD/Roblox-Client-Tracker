@@ -134,8 +134,10 @@ function TouchController.new(userCFrame)
 		Transparency = 1,
 		Size = Vector3.new(0.05, 0.05, 0.05),
 		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
 	}
-	
+
 	self.scale = 1
 	self.parts = {}
 
@@ -153,6 +155,8 @@ function TouchController.new(userCFrame)
 			Size = partInfo.size or Vector3.new(0.05, 0.05, 0.05),
 			CFrame = self.origin.CFrame * partInfo.offset,
 			CanCollide = false,
+			CanQuery = false,
+			CanTouch = false,
 			Transparency = FIntVRTouchControllerTransparency/100,
 		}
 		local mesh = CommonUtil.Create("SpecialMesh") {
@@ -199,7 +203,7 @@ function TouchController:setCFrameAndScale(cframe, scale)
 				if partInfo.scale then
 					partScale = partScale * partInfo.scale
 				end
-	
+
 				local mesh = part:FindFirstChild("Mesh")
 				local weld = part:FindFirstChild("Weld")
 

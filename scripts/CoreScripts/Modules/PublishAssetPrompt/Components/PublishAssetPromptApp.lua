@@ -22,6 +22,7 @@ local LocalPlayer = Players.LocalPlayer
 local Components = script.Parent
 local PromptType = require(Components.Parent.PromptType)
 local PublishAssetPromptSingleStep = require(Components.PublishAssetPromptSingleStep)
+local ResultModal = require(Components.ResultModal)
 
 --Displays behind the in-game menu so that developers can't block interaction with the InGameMenu by constantly prompting.
 --The in-game menu displays at level 0, to render behind it we need to display at level -1.
@@ -62,7 +63,13 @@ end
 
 function PublishAssetPromptApp:render()
 	local promptElement
-	if self.props.assetInstance then
+
+	-- If there is a result modal ("publish succeeded/failed"), we should show that.
+	if self.props.resultModalType then
+		promptElement = Roact.createElement(ResultModal, {
+			screenSize = self.state.screenSize,
+		})
+	elseif self.props.assetInstance then
 		if self.props.promptType == PromptType.PublishAssetSingleStep then
 			promptElement = Roact.createElement(PublishAssetPromptSingleStep, {
 				screenSize = self.state.screenSize,
@@ -144,6 +151,7 @@ end
 
 local function mapStateToProps(state)
 	return {
+		resultModalType = state.promptRequest.resultModalType,
 		promptType = state.promptRequest.promptInfo.promptType,
 		assetInstance = state.promptRequest.promptInfo.assetInstance,
 		assetType = state.promptRequest.promptInfo.assetType,

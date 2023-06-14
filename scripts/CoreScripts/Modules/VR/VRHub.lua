@@ -278,6 +278,19 @@ function VRHub:KeepVRTopbarOpen()
 	return false
 end
 
+VRHub.ShowHighlightedLeaveGameIcon = false
+
+VRHub.ShowHighlightedLeaveGameIconToggled = Util:Create("BindableEvent")({
+	Name = "ShowHighlightedLeaveGameIconToggled",
+})
+
+function VRHub:SetShowHighlightedLeaveGameIconToggled(showHighlightedLeaveGameIcon)
+	if VRHub.ShowHighlightedLeaveGameIcon ~= showHighlightedLeaveGameIcon then
+		VRHub.ShowHighlightedLeaveGameIcon = showHighlightedLeaveGameIcon	
+		VRHub.ShowHighlightedLeaveGameIconToggled:Fire()
+	end
+end
+
 VRHub.ShowTopBar = true
 VRHub.ShowMoreMenu = false
 

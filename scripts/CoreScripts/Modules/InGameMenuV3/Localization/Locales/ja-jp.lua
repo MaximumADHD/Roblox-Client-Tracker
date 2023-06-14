@@ -331,4 +331,11 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.VRPlayerHeight"] = [[プレイヤーの身長]],
 	["CoreScripts.InGameMenu.GameSettings.AccessibilityTitle"] = [[アクセシビリティ]],
 	["CoreScripts.InGameMenu.GameSettings.Transparency"] = [[透明性]],
+	["CoreScripts.InGameMenu.GameSettings.VrControlsTitle"] = [[VR コントロール]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeTitle"] = [[安全バブル]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeDescription"] = [[フェードアウトしないで近づける人を設定]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeNoOne"] = [[なし]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[友達だけ]],
+	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[全員]],
+	["CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"] = [[仮想空間から退出しますか？「もっと」からチュートリアルにまたアクセスできます。]],
 }

@@ -3,6 +3,14 @@
 --	// Written by: TheGamer101
 --	// Description: Create a message label for a standard chat message.
 
+local userIsChatTranslationEnabled = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+	end)
+	userIsChatTranslationEnabled = success and value
+end
+
 local PlayersService = game:GetService("Players")
 
 local clientChatModules = script.Parent.Parent
@@ -30,7 +38,7 @@ function AppendVerifiedBadge(str)
 	return str .. VERIFIED_EMOJI
 end
 
-function CreateMessageLabel(messageData, channelName)
+function CreateMessageLabel(messageData, channelName, refreshCallback)
 
 	local fromSpeaker = messageData.FromSpeaker
 	local speakerName
@@ -40,7 +48,7 @@ function CreateMessageLabel(messageData, channelName)
 	else
 		speakerName = fromSpeaker
 	end
-	
+
 	local speakerUserId = messageData.SpeakerUserId
 	if IsPlayerVerified(speakerUserId) then
 		speakerName = AppendVerifiedBadge(speakerName)
@@ -59,6 +67,7 @@ function CreateMessageLabel(messageData, channelName)
 	local formatUseName = string.format("[%s]:", speakerName)
 	local speakerNameSize = util:GetStringTextBounds(formatUseName, useFont, useTextSize)
 	local numNeededSpaces = util:GetNumberOfSpaces(formatUseName, useFont, useTextSize) + 1
+	local translationButtonSpaces = 6
 
 	local BaseFrame, BaseMessage = util:CreateBaseMessage("", useFont, useTextSize, useChatColor)
 	local NameButton = util:AddNameButtonToBaseMessage(BaseMessage, useNameColor, formatUseName, fromSpeaker)
@@ -89,13 +98,92 @@ function CreateMessageLabel(messageData, channelName)
 
 	NameButton.Position = guiObjectSpacing
 
-	local function UpdateTextFunction(messageObject)
+	local isTranslated = false
+	local TranslationButton = nil
+	if userIsChatTranslationEnabled then
+		-- util:AddTranslationButtonToBaseMessage may not exist because of a forked util file so make our best attempt
+		pcall(function()
+			TranslationButton = util:AddTranslationButtonToBaseMessage(BaseMessage)
+			guiObjectSpacing = guiObjectSpacing + UDim2.new(0, NameButton.Size.X.Offset + 2, 0, 0)
+			TranslationButton.Position = guiObjectSpacing
+		end)
+	end
+
+	local function useOriginalText(messageObject)	
+		isTranslated = false
 		if messageData.IsFiltered then
 			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. messageObject.Message
 		else
 			local messageLength = messageObject.MessageLengthUtf8 or messageObject.MessageLength
 			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. string.rep("_", messageLength)
 		end
+	end
+
+	local function useTranslatedText(messageObject)
+		if TranslationButton == nil then
+			return
+		end
+
+		if TranslationButton.Visible == false then
+			numNeededSpaces = numNeededSpaces + translationButtonSpaces
+		end
+		
+		TranslationButton.Visible = true
+		isTranslated = true
+
+		if messageObject.TranslatedMessage == "" then
+			useOriginalText(messageObject)
+			return
+		end
+
+		BaseMessage.Text = string.rep(" ", numNeededSpaces) .. messageObject.TranslatedMessage
+	end
+
+	local function UpdateTextFunction_Chat(messageObject)
+		messageData.TranslatedMessage = messageObject.TranslatedMessage
+		if messageObject.TranslatedMessage then
+			useTranslatedText(messageObject)
+		else
+			useOriginalText(messageObject)
+		end
+	end
+
+	local function UpdateTextFunction(messageObject)
+		if userIsChatTranslationEnabled then
+			UpdateTextFunction_Chat(messageObject)
+			return
+		end
+		if messageData.IsFiltered then
+			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. messageObject.Message
+		else
+			local messageLength = messageObject.MessageLengthUtf8 or messageObject.MessageLength
+			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. string.rep("_", messageLength)
+		end
+	end
+
+	local function toggleTranslation()
+		if not isTranslated and messageData.TranslatedMessage then
+			useTranslatedText(messageData)
+		else
+			useOriginalText(messageData)
+		end
+		if refreshCallback then
+			refreshCallback()
+		end
+	end
+
+	if userIsChatTranslationEnabled and TranslationButton ~= nil then
+		local clickedConn = TranslationButton.MouseButton1Click:connect(function()
+			toggleTranslation()
+		end)
+
+		local changedConn = nil
+		changedConn = TranslationButton.Changed:connect(function(prop)
+			if prop == "Parent" then
+				clickedConn:Disconnect()
+				changedConn:Disconnect()
+			end
+		end)
 	end
 
 	UpdateTextFunction(messageData)
@@ -109,6 +197,12 @@ function CreateMessageLabel(messageData, channelName)
 		TextTransparency = {FadedIn = 0, FadedOut = 1},
 		TextStrokeTransparency = {FadedIn = 0.75, FadedOut = 1}
 	}
+
+	if userIsChatTranslationEnabled and TranslationButton ~= nil then
+		FadeParmaters[TranslationButton] = {
+			ImageTransparency = {FadedIn = 0, FadedOut = 1},
+		}
+	end
 
 	FadeParmaters[BaseMessage] = {
 		TextTransparency = {FadedIn = 0, FadedOut = 1},

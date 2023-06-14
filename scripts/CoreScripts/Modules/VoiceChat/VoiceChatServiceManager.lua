@@ -15,7 +15,6 @@ local NotificationService = game:GetService("NotificationService")
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagEnableVoiceChatRejoinOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatRejoinOnBlock)
-local GetFFlagStopFacialAnimationOnBan = require(RobloxGui.Modules.Flags.GetFFlagStopFacialAnimationOnBan)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceCheckLocalNetworkSet = require(RobloxGui.Modules.Flags.GetFFlagVoiceCheckLocalNetworkSet)
 local GetFIntEnableVoiceChatRejoinOnBlockDelay = require(RobloxGui.Modules.Flags.GetFIntEnableVoiceChatRejoinOnBlockDelay)
@@ -41,8 +40,12 @@ local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged = require(Roblox
 local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
 local GetFFlagAvatarChatBanMessage = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatBanMessage)
+local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagVoiceChatServiceManagerUseAvatarChat = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
+local GetFFlagLuaConsumePlayerModerated = require(RobloxGui.Modules.Flags.GetFFlagLuaConsumePlayerModerated)
+local GetFFlagUseLuaSignalrConsumer = require(RobloxGui.Modules.Flags.GetFFlagUseLuaSignalrConsumer)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -64,8 +67,28 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
 local StarterGui = game:GetService("StarterGui")
 
--- If any of the sequence numbers for these namespaces are missed, VoiceChatServiceManager will rejoin the call
-local WATCHED_NAMESPACES = { VoiceNotifications=true }
+local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
+
+type VoiceChatPlaceSettings = {
+	isUniverseEnabledForVoice: boolean,
+	isPlaceEnabledForVoice: boolean,
+	isUniverseEnabledForAvatarVideo: boolean,
+	isPlaceEnabledForAvatarVideo: boolean,
+}
+
+type VoiceChatUserSettings = {
+	isUserEligible: boolean,
+	isVoiceEnabled: boolean,
+	isAvatarVideoEligible: boolean,
+	isAvatarVideoEnabled: boolean,
+	isBanned: boolean,
+	bannedUntil: any,
+}
+
+type VoiceChatPlaceAndUserSettings = {
+	universePlaceVoiceEnabledSettings: VoiceChatPlaceSettings,
+	voiceSettings: VoiceChatUserSettings
+}
 
 local VOICE_STATE = Constants.VOICE_STATE
 local VOICE_CHAT_DEVICE_TYPE = Constants.VOICE_CHAT_DEVICE_TYPE
@@ -75,6 +98,10 @@ local PLACE_INELIGIBLE_WARNING = Constants.PLACE_INELIGIBLE_WARNING
 local VOICE_CHAT_AVAILABILITY = Constants.VOICE_CHAT_AVAILABILITY
 local MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY = Constants.MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY
 local MIN_VOICE_CHAT_API_VERSION = Constants.MIN_VOICE_CHAT_API_VERSION
+local WATCHED_NAMESPACES = Constants.WATCHED_NAMESPACES
+local WATCHED_MESSAGE_TYPES = Constants.WATCHED_MESSAGE_TYPES
+type WatchedMessageTypes = Constants.WatchedMessageTypes
+type EventTable = { [WatchedMessageTypes]: BindableEvent }
 
 local VoiceChatServiceManager = {
 	available = nil,
@@ -98,6 +125,7 @@ local VoiceChatServiceManager = {
 	muteChanged = Instance.new("BindableEvent"),
 	muteAllChanged = if GetFFlagMuteAllEvent() then Instance.new("BindableEvent") else nil,
 	talkingChanged = Instance.new("BindableEvent"),
+	SignalREventTable = {} :: EventTable,
 	service = nil,
 	voiceEnabled = false,
 	VOICE_STATE = VOICE_STATE,
@@ -108,6 +136,7 @@ local VoiceChatServiceManager = {
 	_mutedAnyone = false,
 	VOICE_CHAT_DEVICE_TYPE = VOICE_CHAT_DEVICE_TYPE,
 	getPermissionsFunction = getCamMicPermissions,
+	AvatarChatService = AvatarChatService,
 }
 
 function getIconSrc(name, folder)
@@ -133,7 +162,7 @@ end
 
 VoiceChatServiceManager.__index = VoiceChatServiceManager
 
-function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, PermissionsService, BlockStatusChanged, AnalyticsService, NotificationService, getPermissionsFunction)
+function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, PermissionsService, BlockStatusChanged, AnalyticsService, NotificationService, getPermissionsFunction, AvatarChatService)
 	local self = setmetatable({
 		service = VoiceChatService,
 		HttpRbxApiService = HttpRbxApiService,
@@ -142,8 +171,16 @@ function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, Permis
 		BlockStatusChanged = BlockStatusChanged,
 		Analytics = Analytics.new(AnalyticsService),
 		getPermissionsFunction = if getPermissionsFunction then getPermissionsFunction else getCamMicPermissions,
+		AvatarChatService = AvatarChatService,
 		SequenceNumbers = {},
+		SignalREventTable = {} :: EventTable,
 	}, VoiceChatServiceManager)
+
+	if GetFFlagUseLuaSignalrConsumer() then
+		for _, v in WATCHED_MESSAGE_TYPES do
+			self.SignalREventTable[v :: WatchedMessageTypes] = Instance.new("BindableEvent")
+		end
+	end
 
 	local iconStyle = if GetFFlagOldMenuUseSpeakerIcons() then "SpeakerLight" else "MicLight"
 
@@ -344,6 +381,13 @@ function VoiceChatServiceManager:watchSignalR()
 			end
 
 			local detail = jsonDecode(eventData.detail)
+
+			if GetFFlagUseLuaSignalrConsumer() then
+				local matchingEvent = self.SignalREventTable[detail["type"]]
+				if matchingEvent then
+					matchingEvent:Fire(detail)
+				end
+			end
 			local seqNum = detail.SequenceNumber
 			log:trace("SignalR message {}: {}", namespace, seqNum)
 
@@ -442,6 +486,45 @@ function VoiceChatServiceManager:voicePermissionGranted(permissionResponse)
 	return permissionGranted
 end
 
+function VoiceChatServiceManager:GetSignalREvent(type: WatchedMessageTypes): RBXScriptSignal
+	local matchingEvent = self.SignalREventTable[type]
+	return matchingEvent.Event
+end
+
+-- Map AvatarChatService feature mask to VoiceChat structs.
+function VoiceChatServiceManager:avatarChatUserAndPlaceSettingsValueOfClientFeatures(clientFeatures)
+	local placeSettings : VoiceChatPlaceSettings = {
+		isUniverseEnabledForVoice = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UniverseAudio),
+		isPlaceEnabledForVoice = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.PlaceAudio),
+		isUniverseEnabledForAvatarVideo = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UniverseVideo),
+		isPlaceEnabledForAvatarVideo = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.PlaceVideo)
+	}
+
+	local userSettings : VoiceChatUserSettings = {
+		isUserEligible = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudioEligible),
+		isVoiceEnabled = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudio),
+		isAvatarVideoEligible = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideoEligible),
+		isAvatarVideoEnabled = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideo),
+		isBanned = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserBanned),
+		bannedUntil = nil
+	}
+
+	return {
+		universePlaceVoiceEnabledSettings = placeSettings,
+		voiceSettings = userSettings
+	}
+end
+
+function VoiceChatServiceManager:resolveAvatarChatUserAndPlaceSettings()
+	local ok, clientFeatures = pcall(AvatarChatService.GetClientFeaturesAsync, self.AvatarChatService)
+
+	if not ok then
+		return nil
+	end
+
+	return self:avatarChatUserAndPlaceSettingsValueOfClientFeatures(clientFeatures)
+end
+
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	if GetFFlagSkipRedundantVoiceCheck()
 		and MemStorageService:GetItem(SKIP_VOICE_CHECK_UNIVERSE_KEY) == tostring(game.GameId)
@@ -452,7 +535,7 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 		MemStorageService:RemoveItem(SKIP_VOICE_CHECK_UNIVERSE_KEY)
 		return false
 	end
-	local result = GetShowAgeVerificationOverlay(bind(self, 'GetRequest'), tostring(game.GameId), tostring(game.PlaceId))
+	local result : VoiceChatPlaceAndUserSettings = if GetFFlagAvatarChatServiceEnabled() and GetFFlagVoiceChatServiceManagerUseAvatarChat() then self:resolveAvatarChatUserAndPlaceSettings() else GetShowAgeVerificationOverlay(bind(self, 'GetRequest'), tostring(game.GameId), tostring(game.PlaceId))
 	if not result then
 		self:_reportJoinFailed("invalidResponse", Analytics.ERROR)
 		return false
@@ -471,14 +554,19 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	if userSettings and userSettings.isBanned then
 		local informedOfBanResult = GetInformedOfBan(bind(self, 'GetRequest'))
 		if informedOfBanResult and not informedOfBanResult.informedOfBan then
-			if userSettings.bannedUntil == nil then
-				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
+			-- AvatarChatService currently cant provide more than flags, hence we still need an additional request here for banned users.
+			if GetFFlagAvatarChatServiceEnabled() and GetFFlagVoiceChatServiceManagerUseAvatarChat() and userSettings.bannedUntil == nil then
+				self:ShowPlayerModeratedMessage()
 			else
-				self.bannedUntil = userSettings.bannedUntil
-				self:showPrompt(if GetFFlagAvatarChatBanMessage() and userSettings.isAvatarVideoEligible
-					then VoiceChatPromptType.VoiceChatSuspendedTemporaryAvatarChat
-					else VoiceChatPromptType.VoiceChatSuspendedTemporary
-				)
+				if userSettings.bannedUntil == nil then
+					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
+				else
+					self.bannedUntil = userSettings.bannedUntil
+					self:showPrompt(if GetFFlagAvatarChatBanMessage() and userSettings.isAvatarVideoEligible
+						then VoiceChatPromptType.VoiceChatSuspendedTemporaryAvatarChat
+						else VoiceChatPromptType.VoiceChatSuspendedTemporary
+					)
+				end
 			end
 		end
 	elseif GetFFlagVoiceChatStudioErrorToasts() and self.runService:IsStudio() and userSettings and not userSettings.isVoiceEnabled then
@@ -976,16 +1064,20 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				end
 			end)
 		end
-
+		
+		if GetFFlagLuaConsumePlayerModerated() then
+			local playerModeratedEvent = self:GetSignalREvent("ParticipantModeratedFromVoice")
+			self.playerModeratedConnection = playerModeratedEvent:Connect(function()
+				log:debug("User Moderated")
+				self:ShowPlayerModeratedMessage()
+				self.service:Leave()
+			end)
 		-- This is controlled by DFFlagVoiceChatEnablePlayerModeratedSignal
-		if game:GetEngineFeature("VoiceChatServicePlayerModeratedEvent") then
+		elseif game:GetEngineFeature("VoiceChatServicePlayerModeratedEvent") then
 			self.playerModeratedConnection = self.service.LocalPlayerModerated:connect(function()
 				log:debug("User Moderated")
 				self:ShowPlayerModeratedMessage()
 				self.service:Leave()
-				if GetFFlagStopFacialAnimationOnBan() then
-					FaceAnimatorService:Stop()
-				end
 			end)
 		end
 
@@ -1203,6 +1295,15 @@ function VoiceChatServiceManager:VoiceChatAvailable()
 	return (service and true or false)
 		and self.version >= MIN_VOICE_CHAT_API_VERSION
 		and self.available == VOICE_CHAT_AVAILABILITY.Available
+end
+
+function VoiceChatServiceManager:VoiceChatEnded()
+	if self.service then
+		local state = self.service.VoiceChatState
+		return state == (Enum::any).VoiceChatState.Ended or state == (Enum::any).VoiceChatState.Idle
+	end
+	-- If VoiceChatService isn't initiated, we still count the call as ended even though it technically never began.
+	return true
 end
 
 function VoiceChatServiceManager:UnmountPrompt()

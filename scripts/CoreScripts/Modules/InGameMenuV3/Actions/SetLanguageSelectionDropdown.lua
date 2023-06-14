@@ -1,6 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local Action = require(CorePackages.AppTempCommon.Common.Action)
+local Action = require(CorePackages.Rodux).makeActionCreator
 
 --[[
     selectionMapping: table, indexed starting from 1, with each value having

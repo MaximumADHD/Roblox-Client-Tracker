@@ -5,11 +5,12 @@
 	on startup. This prevents a potential bug where prompts would not open if triggered early.
 	More info here: https://jira.rbx.com/browse/AVBURST-10955
 ]]
-
+local AssetService = game:GetService("AssetService")
 local ExpAuthSvc = game:GetService("ExperienceAuthService")
 
 local PublishAssetPrompt = script.Parent
 local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
+local OpenResultModal = require(PublishAssetPrompt.Thunks.OpenResultModal)
 
 local function ConnectAssetServiceEvents(store)
 	local connections = {}
@@ -29,6 +30,15 @@ local function ConnectAssetServiceEvents(store)
 			end)
 		)
 	end
+
+	-- Event that fires when the publish flow succeeds or fails and we want to inform the user.
+	-- Examples: publish success, bad name/description, server error.
+	table.insert(
+		connections,
+		AssetService.OpenPublishResultModal:Connect(function(statusCode)
+			store:dispatch(OpenResultModal(statusCode))
+		end)
+	)
 
 	return connections
 end

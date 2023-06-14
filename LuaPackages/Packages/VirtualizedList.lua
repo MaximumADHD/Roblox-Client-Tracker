@@ -9,6 +9,9 @@ export type ViewabilityConfigCallbackPair = Package.ViewabilityConfigCallbackPai
 export type ViewabilityConfig = Package.ViewabilityConfig
 export type BidirectionalFlatListProps<T> = Package.BidirectionalFlatListProps<T> 
 export type AnimatedFlatListProps<T> = Package.AnimatedFlatListProps<T> 
+export type AnimatedScrollConfig<T> = Package.AnimatedScrollConfig<T> 
+export type VirtualizedListProps = Package.VirtualizedListProps
+export type RenderItemProps<T> = Package.RenderItemProps<T> 
 
 
 return Package

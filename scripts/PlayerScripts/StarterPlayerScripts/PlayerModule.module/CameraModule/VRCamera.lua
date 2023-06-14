@@ -22,20 +22,6 @@ local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
 local VRCamera = setmetatable({}, VRBaseCamera)
 VRCamera.__index = VRCamera
 
-local FFlagUserVRPlaySeatedStanding do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRPlaySeatedStanding")
-	end)
-	FFlagUserVRPlaySeatedStanding = success and result
-end
-
-local FFlagUserVRFirstPersonRecenter do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRFirstPersonRecenter")
-	end)
-	FFlagUserVRFirstPersonRecenter = success and result
-end
-
 function VRCamera.new()
 	local self = setmetatable(VRBaseCamera.new(), VRCamera)
 
@@ -128,9 +114,6 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	-- transition from TP to FP
 	if self.needsReset then
 		self:StartFadeFromBlack()
-		if FFlagUserVRFirstPersonRecenter then
-			VRService:RecenterUserHeadCFrame()
-		end
 		self.needsReset = false
 		self.stepRotateTimeout = 0.25
 		self.VRCameraFocusFrozen = true
@@ -171,21 +154,7 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	local newLookVector = self:CalculateNewLookVectorFromArg(cameraLookVector, Vector2.new(yawDelta, 0))
 	newCameraCFrame = CFrame.new(cameraFocusP - (FP_ZOOM * newLookVector), cameraFocusP)
 
-	if FFlagUserVRPlaySeatedStanding then 
-		-- If stand mode, then update the Y value so that the floor is in the correct spot
-		local avatarFloorSpot = self:GetAvatarFeetWorldYValue()
-		if UserGameSettings.VRPlayMode == Enum.VRPlayMode.Standing and avatarFloorSpot and VRService:GetUserCFrameEnabled(Enum.UserCFrame.Floor) then
-			local camera = workspace.CurrentCamera
-			local floorCameraOffset = VRService:GetUserCFrame(Enum.UserCFrame.Floor).Position.Y * camera.HeadScale
-			-- same x, z and rotation, but the y is based on the floor position
-			newCameraCFrame = CFrame.new(newCameraCFrame.Position.X, avatarFloorSpot - floorCameraOffset, newCameraCFrame.Position.Z)
-			* newCameraCFrame.Rotation
-		end
-
-		return newCameraCFrame, newCameraCFrame * CFrame.new(0, 0, -FP_ZOOM) -- focus should always be in front of the camera
-	else
-		return newCameraCFrame, newCameraFocus
-	end
+	return newCameraCFrame, newCameraFocus
 end
 
 function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
@@ -304,29 +273,12 @@ end
 function VRCamera:EnterFirstPerson()
 	self.inFirstPerson = true
 	
-	if FFlagUserVRFirstPersonRecenter then
-		self.needsReset = true
-
-		-- First person VR camera needs to recenter if the player changed play modes
-		self.vrPlayModeChangedConnection = UserGameSettings:GetPropertyChangedSignal("VRPlayMode"):Connect(function()
-			self.needsReset = true
-		end)
-	end
-	
 	self:UpdateMouseBehavior()
 end
 
 function VRCamera:LeaveFirstPerson()
 	self.inFirstPerson = false
 	self.needsReset = true
-	
-	if FFlagUserVRFirstPersonRecenter then 
-		-- remove first person reset connections
-		if self.vrPlayModeChangedConnection then
-			self.vrPlayModeChangedConnection:Disconnect()
-			self.vrPlayModeChangedConnection = nil
-		end
-	end
 	
 	self:UpdateMouseBehavior()
 	

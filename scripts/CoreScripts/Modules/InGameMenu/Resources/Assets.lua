@@ -27,6 +27,7 @@ return {
 
 		Gamepad = "rbxasset://textures/ui/InGameMenu/GenericController.png",
 		GamepadXbox = "rbxasset://textures/ui/InGameMenu/XboxController.png",
+		GamepadQuest = "rbxassetid://13262267483",
 
 		KeyBorder = Images["InGameMenu/Icons/KeyBorder"],
 

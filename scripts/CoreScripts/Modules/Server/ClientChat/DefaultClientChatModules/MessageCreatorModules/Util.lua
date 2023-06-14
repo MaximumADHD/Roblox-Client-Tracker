@@ -140,6 +140,23 @@ function methods:AddNameButtonToBaseMessage(BaseMessage, nameColor, formatName, 
 	return NameButton
 end
 
+function methods:AddTranslationButtonToBaseMessage(BaseMessage)
+	local buttonSize = math.floor(BaseMessage.TextSize * 0.9)
+	local translationButtonSize = Vector2.new(buttonSize, buttonSize)
+	local TranslationButton = self:GetFromObjectPool("ImageButton")
+	TranslationButton.Selectable = false
+	TranslationButton.Size = UDim2.new(0, translationButtonSize.X, 0, translationButtonSize.Y)
+	TranslationButton.Position = UDim2.new(0, 0, 0, 0)
+	TranslationButton.BackgroundTransparency = 1
+	TranslationButton.Visible = false
+	TranslationButton.Parent = BaseMessage
+	TranslationButton.Image = "rbxasset://textures/translateIcon.png"
+	TranslationButton.HoverImage = "rbxasset://textures/translateIconDark.png"
+	TranslationButton.PressedImage = "rbxasset://textures/translateIconDark.png"
+	
+	return TranslationButton
+end
+
 function methods:AddChannelButtonToBaseMessage(BaseMessage, channelColor, formatChannelName, channelName)
 	local channelNameSize = self:GetStringTextBounds(formatChannelName, BaseMessage.Font, BaseMessage.TextSize)
 	local ChannelButton = self:GetFromObjectPool("TextButton")

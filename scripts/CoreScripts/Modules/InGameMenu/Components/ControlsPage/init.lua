@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local CoreGui = game:GetService("CoreGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -12,7 +13,18 @@ local Controls = require(InGameMenu.Resources.Controls)
 
 local KeyboardControls = require(script.ControlLayouts.KeyboardControls)
 local GamepadControls = require(script.ControlLayouts.GamepadControls)
--- local TouchControls = require(InGameMenu.Components.ControlLayouts.TouchControls)
+local VRGamepadControls = require(script.ControlLayouts.VRGamepadControls)
+
+local RobloxGui = CoreGui.RobloxGui
+local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
+
+local GetFFlagIGMVRQuestControlsInstructions =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
+
+local VRService = game:GetService("VRService")
+if GetFFlagIGMVRQuestControlsInstructions() then
+	VRService = require(RobloxGui.Modules.VR.VRServiceWrapper)
+end
 
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 
@@ -36,22 +48,28 @@ function ControlsPage:render()
 	if controlLayout == Controls.ControlLayouts.KEYBOARD then
 		return Roact.createElement(KeyboardControls)
 	elseif controlLayout == Controls.ControlLayouts.GAMEPAD then
-		return Roact.createFragment({
-			GamepadControls = Roact.createElement(GamepadControls, {
-				closeButtonRef = self.closeButtonRef,
-			}),
-			FocusHandler = Roact.createElement(FocusHandler, {
-				isFocused = self.props.canCaptureFocus,
-				didFocus = function()
-					local buttonRef = self.closeButtonRef:getValue()
-					GuiService:AddSelectionParent(CLOSE_BUTTON_SELECTION_GROUP_NAME, buttonRef)
-					GuiService.SelectedCoreObject = buttonRef
-				end,
-				didBlur = function()
-					GuiService:RemoveSelectionGroup(CLOSE_BUTTON_SELECTION_GROUP_NAME)
-				end,
-			}),
-		})
+		if GetFFlagIGMVRQuestControlsInstructions()
+			and VRService.VREnabled
+			and VRUtil.getCurrentControllerType() == "Touch" then -- For now we only have a page for these
+				return Roact.createElement(VRGamepadControls)
+		else
+			return Roact.createFragment({
+				GamepadControls = Roact.createElement(GamepadControls, {
+					closeButtonRef = self.closeButtonRef,
+				}),
+				FocusHandler = Roact.createElement(FocusHandler, {
+					isFocused = self.props.canCaptureFocus,
+					didFocus = function()
+						local buttonRef = self.closeButtonRef:getValue()
+						GuiService:AddSelectionParent(CLOSE_BUTTON_SELECTION_GROUP_NAME, buttonRef)
+						GuiService.SelectedCoreObject = buttonRef
+					end,
+					didBlur = function()
+						GuiService:RemoveSelectionGroup(CLOSE_BUTTON_SELECTION_GROUP_NAME)
+					end,
+				}),
+			})
+		end
 	else
 		return nil
 	end

@@ -27,6 +27,9 @@ local Assets = require(InGameMenu.Resources.Assets)
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
+local GetFFlagIGMVRQuestControlsInstructions =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
+
 local HEADER_HEIGHT = 132
 
 local HEADER_SIDE_PADDING = 95
@@ -52,7 +55,10 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = style.Theme.Overlay.Color,
-				BackgroundTransparency = style.Theme.Overlay.Transparency,
+				-- This is only used in VR, where the blur effect does not work, so let's use solid backgrounds
+				BackgroundTransparency = if GetFFlagIGMVRQuestControlsInstructions()
+					then 0
+					else style.Theme.Overlay.Transparency,
 				Active = true,
 			}, {
 

@@ -41,12 +41,13 @@ local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamin
 
 local CorePackages = game:GetService("CorePackages")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
 local Promise = require(CorePackages.Promise)
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local FaceAnimatorService = game:FindService("FaceAnimatorService")
@@ -243,9 +244,14 @@ local function createViewport()
 
 	isOpen = true
 
+	local SelfViewGui = Instance.new("ScreenGui")
+	SelfViewGui.Name = "SelfViewGui"
+	SelfViewGui.Parent = PlayerGui
+	SelfViewGui.DisplayOrder = 8
+
 	frame = Instance.new("Frame")
 	frame.Name = SELF_VIEW_NAME
-	frame.Parent = RobloxGui
+	frame.Parent = SelfViewGui
 	--setting frame active so one doesn't accidentally use mobile touch dpad or cam controls on mobile while dragging Self View around
 	frame.Active = true
 	--setting frame size before setting it's position since the size is used in dragging position restrict to screen size evaluation
@@ -1254,7 +1260,7 @@ ToggleSelfViewBindableEvent.Event:Connect(function(visible)
 
 	debugPrint("Self View: CoreGuiChangedSignal: shouldBeEnabledCoreGuiSetting: "..tostring(shouldBeEnabledCoreGuiSetting))
 	--when disable call comes in we always do it, when enable call comes in only if not visible already
-	if frame == nil or not frame.Visible then
+	if not visible or frame == nil or not frame.Visible then
 		if visible then
 			if initialized then
 				ReInit(Players.LocalPlayer)

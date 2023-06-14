@@ -36,6 +36,14 @@ do
 	end
 end
 
+local FFlagUserIsChatTranslationEnabled = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+	end)
+	FFlagUserIsChatTranslationEnabled = success and value
+end
+
 local FILTER_MESSAGE_TIMEOUT = 60
 
 local RunService = game:GetService("RunService")
@@ -56,6 +64,21 @@ local ChatLocalization = nil
 -- ROBLOX FIXME: Can we define ClientChatModules statically in the project config
 pcall(function() ChatLocalization = require((game:GetService("Chat") :: any).ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
+
+local chatTranslationEnabled = nil
+if FFlagUserIsChatTranslationEnabled then
+	chatTranslationEnabled = script:FindFirstChild("ChatTranslationEnabled")
+	if chatTranslationEnabled == nil then
+		local chatTranslationSettingSignal
+		chatTranslationSettingSignal = script.ChildAdded:Connect(function(child)
+			if child.Name == "ChatTranslationEnabled" then
+				chatTranslationEnabled = child
+
+				chatTranslationSettingSignal:Disconnect()
+			end
+		end)
+	end
+end
 
 local numChildrenRemaining = 10 -- #waitChildren returns 0 because it's a dictionary
 local waitChildren = {
@@ -881,6 +904,25 @@ function HandleChannelJoined(channel, welcomeMessage, messageLog, channelNameCol
 					end
 				end
 			end
+		end
+
+		local translationOnboardingMessage = ChatLocalization:Get("GameChat_ChatMain_ChatTranslationOnboarding", "Text chat will be translated into your language. Tap the symbol in front of the message to see the original. You can turn off translations in the Settings menu.")
+
+		if (FFlagUserIsChatTranslationEnabled and translationOnboardingMessage ~= "" and channel == ChatSettings.GeneralChannelName and chatTranslationEnabled ~= nil and chatTranslationEnabled.Value) then
+			local translationOnboardingMessageObject = {
+				ID = -2,
+				FromSpeaker = nil,
+				SpeakerUserId = 0,
+				OriginalChannel = channel,
+				IsFiltered = true,
+				MessageLength = string.len(translationOnboardingMessage),
+				MessageLengthUtf8 = utf8.len(utf8.nfcnormalize(translationOnboardingMessage)),
+				Message = trimTrailingSpaces(translationOnboardingMessage),
+				MessageType = ChatConstants.MessageTypeWelcome,
+				Time = os.time(),
+				ExtraData = nil,
+			}
+			channelObj:AddMessageToChannel(translationOnboardingMessageObject)
 		end
 
 		DoFadeInFromNewInformation()

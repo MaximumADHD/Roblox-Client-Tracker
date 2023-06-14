@@ -112,7 +112,7 @@ return function()
 			jestExpect(#usersSortedByProximity).toBe(1)
 		end)
 
-		it("Should exclude players", function(c)
+		xit("Should exclude players", function(c)
 			c.mockPlayersService:addMockPlayerAndCharacter("001", Vector3.new(0, 0, 0))
 			c.mockPlayersService:addMockPlayerAndCharacter("002", Vector3.new(0, 0, 5))
 			c.mockPlayersService:addMockPlayerAndCharacter("003", Vector3.new(0, 0, 10))

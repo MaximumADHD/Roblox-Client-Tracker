@@ -205,6 +205,7 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectDuplicatePlayer] = true,
 	[Enum.ConnectionError.DisconnectCloudEditKick] = true,
 	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
+	[Enum.ConnectionError.DisconnectPrivateServerKickout] = true,
 	[Enum.ConnectionError.DisconnectRaknetErrors] = true,
 	[Enum.ConnectionError.PlacelaunchFlooded] = true,
 	[Enum.ConnectionError.PlacelaunchHashException] = true,

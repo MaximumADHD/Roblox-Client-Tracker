@@ -33,6 +33,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
+local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
@@ -54,8 +55,18 @@ local function Initialize()
 		GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
 
 		if FFlagCollectAnalyticsForSystemMenu then
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
+			AnalyticsService:SetRBXEventStream(
+				Constants.AnalyticsTargetName,
+				Constants.AnalyticsInGameMenuName,
+				Constants.AnalyticsLeaveGameName,
+				{
+					confirmed = Constants.AnalyticsConfirmedName,
+					universeid = tostring(game.GameId),
+					source = if GetFFlagEnableLeaveHomeResumeAnalytics()
+						then Constants.AnalyticsLeaveToHomeSource
+						else nil,
+				}
+			)
 		end
 
 		LinkingProtocol.default:detectURL("roblox://navigation/home")
@@ -76,8 +87,18 @@ local function Initialize()
 		end
 
 		if FFlagCollectAnalyticsForSystemMenu then
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
+			AnalyticsService:SetRBXEventStream(
+				Constants.AnalyticsTargetName,
+				Constants.AnalyticsInGameMenuName,
+				Constants.AnalyticsLeaveGameName,
+				{
+					confirmed = Constants.AnalyticsCancelledName,
+					universeid = tostring(game.GameId),
+					source = if GetFFlagEnableLeaveHomeResumeAnalytics()
+						then Constants.AnalyticsLeaveToHomeSource
+						else nil,
+				}
+			)								
 		end
 	end
 	this.DontLeaveFromHotkey = function(name, state, input)

@@ -18,13 +18,18 @@ local EMPTY_STATE = { requestType = RequestType.None }
 
 local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 	[RequestAssetPurchase.name] = function(state, action)
+		local idempotencyKey = action.idempotencyKey
+		if idempotencyKey == nil or idempotencyKey == '' then
+			idempotencyKey = HttpService:GenerateGUID(false)
+		end
 		return {
 			id = action.id,
 			infoType = Enum.InfoType.Asset,
 			requestType = RequestType.Asset,
 			equipIfPurchased = action.equipIfPurchased,
 			isRobloxPurchase = action.isRobloxPurchase,
-			idempotencyKey = HttpService:GenerateGUID(false),
+			idempotencyKey = idempotencyKey,
+			purchaseAuthToken = action.purchaseAuthToken or '',
 		}
 	end,
 	[RequestGamepassPurchase.name] = function(state, action)

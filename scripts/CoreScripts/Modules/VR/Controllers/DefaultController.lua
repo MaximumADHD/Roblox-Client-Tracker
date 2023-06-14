@@ -26,7 +26,9 @@ function DefaultController.new(userCFrame)
 		Anchored = true,
 		Transparency = 1,
 		Size = Vector3.new(0.05, 0.05, 0.05),
-		CanCollide = false
+		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
 	}
 
 	self.parts = {}
@@ -36,6 +38,8 @@ function DefaultController.new(userCFrame)
 		Name = partName,
 		Anchored = false,
 		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
 		Material = MATERIAL,
 		Size = Vector3.new(0.05, 0.05, 0.05),
 		Transparency = 0.5,

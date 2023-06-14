@@ -9,6 +9,8 @@ local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
 local UIBlox = dependencies.UIBlox
+local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
@@ -57,6 +59,15 @@ local function CallDetailsItem(props: Props)
 		interactableTheme = "BackgroundDefault"
 	end
 
+	local image
+	if user then
+		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
+			image = getStandardUserAvatarHeadShotImage(tostring(user.userId))
+		else
+			image = SocialLibraries.User.getUserAvatarImage(user.userId)
+		end
+	end
+
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, 48),
@@ -73,7 +84,7 @@ local function CallDetailsItem(props: Props)
 		ProfileImage = React.createElement(ImageSetLabel, {
 			Position = UDim2.fromOffset(0, 0),
 			Size = UDim2.fromOffset(36, 36),
-			Image = user and SocialLibraries.User.getUserAvatarImage(user.userId),
+			Image = image,
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),

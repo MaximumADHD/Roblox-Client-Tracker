@@ -19,6 +19,8 @@ local serializeTable = require(Root.Utils.serializeTable)
 
 local EngineFeatureEnablePlayerOwnsBundleApi = game:GetEngineFeature("EnablePlayerOwnsBundleApi")
 
+local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2)
+
 -- This is the approximate strategy for URL building that we use elsewhere
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
 BASE_URL = string.gsub(BASE_URL, "http:", "https:")
@@ -121,8 +123,11 @@ local function getPlayerOwns(player, id, infoType)
 	return false
 end
 
-local function performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey)
+local function performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken)
 	local success, result = pcall(function()
+		if (GetFFlagEnablePromptPurchaseRequestedV2()) then
+			return MarketplaceService:PerformPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken)
+		end
 		return MarketplaceService:PerformPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey)
 	end)
 

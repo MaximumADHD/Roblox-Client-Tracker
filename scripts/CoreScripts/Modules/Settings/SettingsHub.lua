@@ -79,6 +79,7 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local GetFFlagVoiceChatToggleMuteAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagVoiceChatToggleMuteAnalytics)
+local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -129,6 +130,7 @@ local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameA
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
+local ScreenshotsApp = require(RobloxGui.Modules.Screenshots.ScreenshotsApp)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
@@ -1595,6 +1597,14 @@ local function CreateSettingsHub()
 
 		local resumeFunc = function()
 			setVisibilityInternal(false)
+			if GetFFlagEnableLeaveHomeResumeAnalytics() then
+				AnalyticsService:SetRBXEventStream(
+					Constants.AnalyticsTargetName,
+					Constants.AnalyticsResumeGameName,
+					Constants.AnalyticsMenuActionName,
+					{ source = if Theme.UIBloxThemeEnabled then Constants.AnalyticsResumeShieldSource else Constants.AnalyticsResumeButtonSource }
+				)
+			end
 		end
 
 		if Theme.UIBloxThemeEnabled then
@@ -2908,11 +2918,14 @@ local function CreateSettingsHub()
 		end
 	end
 
-	if Screenshots.Flags.FFlagInGameMenuScreenshotsTabEnabled then
-		this.ScreenshotsApp = Screenshots.App.createApp(this.PageViewClipper)
+	if Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll then
+		local ShotsPageWrapper = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
 
-		this.ShotsPage = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
-		this.ShotsPage:ConnectHubToApp(this, this.ScreenshotsApp)
+		this.ScreenshotsApp = ScreenshotsApp
+		this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, Theme)
+
+		this.ShotsPage = ShotsPageWrapper
+		this.ShotsPage:ConnectHubToApp(this, this.PageViewClipper, this.ScreenshotsApp)
 	end
 
 	-- page registration

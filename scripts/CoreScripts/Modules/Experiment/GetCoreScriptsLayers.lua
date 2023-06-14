@@ -9,6 +9,8 @@ local GetFFlagEnableTeleportBackButton = require(script.Parent.Parent.Flags.GetF
 local GetFStringTeleportBackButtonIXPCustomLayerName = require(script.Parent.Parent.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
 local GetFFlagReportAnythingAnnotationIXP = require(script.Parent.Parent.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFStringReportAnythingAnnotationIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
+local GetFStringChatTranslationLayerName = require(script.Parent.Parent.Flags.GetFStringChatTranslationLayerName)
+local GetFFlagUserIsChatTranslationEnabled = require(script.Parent.Parent.Flags.GetFFlagUserIsChatTranslationEnabled)
 
 return function()
 	local layers = {
@@ -36,6 +38,10 @@ return function()
 
 	if GetFFlagReportAnythingAnnotationIXP() then
 		table.insert(layers, GetFStringReportAnythingAnnotationIXPLayerName())
+	end
+
+	if GetFFlagUserIsChatTranslationEnabled() and #GetFStringChatTranslationLayerName() > 0 then
+		table.insert(layers, GetFStringChatTranslationLayerName())
 	end
 
 	return layers

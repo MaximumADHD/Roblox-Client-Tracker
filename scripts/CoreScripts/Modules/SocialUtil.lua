@@ -6,13 +6,15 @@
 ]]
 local SocialUtil = {}
 
+local CorePackages = game:GetService("CorePackages")
+
+local getTypedUserAvatarImageWithSizeAndOptions =
+	require(CorePackages.Workspace.Packages.UserLib).Utils.getTypedUserAvatarImageWithSizeAndOptions
+local UserLibConstants = require(CorePackages.Workspace.Packages.UserLib).Utils.Constants
+local FFlagLuaAppUnifyCodeToGenerateRbxThumb =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyCodeToGenerateRbxThumb
+
 --[[ Services ]]--
-local Players = game:GetService("Players")
-local CoreGui = game:GetService("CoreGui")
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local CoreGuiModules = RobloxGui:WaitForChild("Modules")
-
 local DEFAULT_THUMBNAIL_SIZE = Enum.ThumbnailSize.Size100x100
 local DEFAULT_THUMBNAIL_TYPE = Enum.ThumbnailType.AvatarThumbnail
 
@@ -34,7 +36,11 @@ function SocialUtil.GetPlayerImage(userId, thumbnailSize, thumbnailType, timeOut
 		else
 			size = 150
 		end
-		return "rbxthumb://type=AvatarHeadShot&id=" .. userId .."&w=" .. size .. "&h=" .. size
+		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
+			return getTypedUserAvatarImageWithSizeAndOptions(userId, UserLibConstants.RbxThumbTypes.AvatarHeadShot, size)
+		else
+			return "rbxthumb://type=AvatarHeadShot&id=" .. userId .."&w=" .. size .. "&h=" .. size
+		end
 	--Valid sizes for type Avatar are 100x100, 352x352, 720x720
 	elseif thumbnailType == Enum.ThumbnailType.AvatarThumbnail then
 		if thumbnailSize == Enum.ThumbnailSize.Size48x48 or
@@ -48,7 +54,11 @@ function SocialUtil.GetPlayerImage(userId, thumbnailSize, thumbnailType, timeOut
 		elseif thumbnailSize == Enum.ThumbnailSize.Size420x420 then
 				size = 720
 		end
-		return "rbxthumb://type=Avatar&id=" .. userId .."&w=" .. size .. "&h=" .. size
+		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
+			return getTypedUserAvatarImageWithSizeAndOptions(userId, UserLibConstants.RbxThumbTypes.Avatar, size)
+		else
+			return "rbxthumb://type=Avatar&id=" .. userId .."&w=" .. size .. "&h=" .. size
+		end
 	end
 
 	return "ThumbnailErrorForSocialUtil.GetPlayerImage"

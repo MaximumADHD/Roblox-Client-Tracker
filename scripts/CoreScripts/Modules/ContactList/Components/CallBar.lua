@@ -13,12 +13,16 @@ local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
 local RoduxCall = dependencies.RoduxCall
+local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
+
+local GetUserV2FromUserId = dependencies.NetworkingUsers.GetUserV2FromUserId
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
@@ -82,6 +86,29 @@ local function CallBar(passedProps: Props)
 	end)
 	local otherEndParticipant = useSelector(selectOtherEndParticipant)
 
+	local image
+	if otherEndParticipant then
+		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
+			image = getStandardUserAvatarHeadShotImage(otherEndParticipant.userId)
+		else
+			image = SocialLibraries.User.getUserAvatarImage(otherEndParticipant.userId)
+		end
+	end
+
+	-- TODO (joshli): Remove once the server provides name.
+	local selectOtherEndUser = React.useCallback(function(state: any)
+		if otherEndParticipant then
+			local user = state.Users.byUserId[tostring(otherEndParticipant.userId)]
+			if not user then
+				dispatch(GetUserV2FromUserId.API(otherEndParticipant.userId))
+			end
+			return state.Users.byUserId[tostring(otherEndParticipant.userId)]
+		else
+			return nil :: any
+		end
+	end, { otherEndParticipant })
+	local otherEndUser = useSelector(selectOtherEndUser)
+
 	return React.createElement("Frame", {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, 68),
@@ -110,9 +137,7 @@ local function CallBar(passedProps: Props)
 		ProfileImage = React.createElement(ImageSetLabel, {
 			Position = UDim2.fromOffset(0, 0),
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
-			Image = if otherEndParticipant
-				then SocialLibraries.User.getUserAvatarImage(otherEndParticipant.userId)
-				else nil,
+			Image = image,
 			LayoutOrder = 1,
 		}, {
 			UICorner = React.createElement("UICorner", {
@@ -140,7 +165,7 @@ local function CallBar(passedProps: Props)
 				Font = font.Header2.Font,
 				LayoutOrder = 1,
 				LineHeight = 1.25,
-				Text = if otherEndParticipant then otherEndParticipant.displayName else "",
+				Text = if otherEndUser then otherEndUser.displayName else "",
 				TextColor3 = theme.TextEmphasis.Color,
 				TextSize = font.BaseSize * font.Header2.RelativeSize,
 				TextTransparency = theme.TextEmphasis.Transparency,

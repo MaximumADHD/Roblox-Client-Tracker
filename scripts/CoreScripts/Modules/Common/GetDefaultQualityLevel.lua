@@ -4,12 +4,9 @@ local GetFFlagActivateShadowsInWorldspace = require(CorePackages.Workspace.Packa
 local UserInputService = game:GetService("UserInputService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagXboxEnableGraphicsQuality = require(RobloxGui.Modules.Flags.GetFFlagXboxEnableGraphicsQuality)
 
 return function()
-	if not GetFFlagXboxEnableGraphicsQuality() and Enum.Platform.XBoxOne == UserInputService:GetPlatform() then
-		return Enum.QualityLevel.Level21
-	elseif IsVRAppBuild() then
+	if IsVRAppBuild() then
 		if GetFFlagActivateShadowsInWorldspace() then
 			return Enum.QualityLevel.Level07 -- This is when shadows kick-in on the Quest's FRM
 		else

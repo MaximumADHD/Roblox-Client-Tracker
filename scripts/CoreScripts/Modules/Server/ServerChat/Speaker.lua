@@ -19,6 +19,14 @@ local UserFlagRemoveMessageOnTextFilterFailures do
 	UserFlagRemoveMessageOnTextFilterFailures = success and value
 end
 
+local userIsChatTranslationEnabled = false
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+	end)
+	userIsChatTranslationEnabled = success and value
+end
+
 --////////////////////////////// Methods
 --//////////////////////////////////////
 local function ShallowCopy(table)
@@ -295,6 +303,52 @@ function methods:InternalSendFilteredMessage(messageObj, channelName)
 	end)
 	if not success and err then
 		print("Error sending internal filtered message: " ..err)
+	end
+end
+
+--// This method is to be used with the new filter API. This method takes the
+--// TextFilterResult objects and converts them into the appropriate string
+--// messages for each player. This also translates message for player.
+function methods:InternalSendFilteredMessageWithTranslatedFilterResult(inMessageObj, channelName, translations)
+	local messageObj = ShallowCopy(inMessageObj)
+
+	local oldFilterResult = messageObj.FilterResult
+	local player = self:GetPlayer()
+
+	local translationFilterResult = translations:GetTranslationForLocale(player.LocaleId)
+
+	local message = ""
+	local translatedMessage = nil
+	pcall(function()
+		if (messageObj.IsFilterResult) then
+			if (player) then
+				message = oldFilterResult:GetChatForUserAsync(player.UserId)
+				if translationFilterResult then translatedMessage = translationFilterResult:GetChatForUserAsync(player.UserId) end
+			else
+				message = oldFilterResult:GetNonChatStringForBroadcastAsync()
+				if translationFilterResult then translatedMessage = translationFilterResult:GetNonChatStringForBroadcastAsync() end
+			end
+		else
+			message = oldFilterResult
+		end
+	end)
+
+	--// Messages of 0 length are the result of two users not being allowed
+	--// to chat, or GetChatForUserAsync() failing. In both of these situations,
+	--// messages with length of 0 should not be sent.
+
+	if UserFlagRemoveMessageOnTextFilterFailures then
+		messageObj.Message = message
+		if translatedMessage then messageObj.TranslatedMessage = translatedMessage end
+		messageObj.FilterResult = nil
+		self:InternalSendFilteredMessage(messageObj, channelName)
+	else
+		if (#message > 0) then
+			messageObj.Message = message
+			if translatedMessage then messageObj.TranslatedMessage = translatedMessage end
+			messageObj.FilterResult = nil
+			self:InternalSendFilteredMessage(messageObj, channelName)
+		end
 	end
 end
 

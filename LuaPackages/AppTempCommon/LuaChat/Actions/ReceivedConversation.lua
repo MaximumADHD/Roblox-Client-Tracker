@@ -1,6 +1,6 @@
-local Modules = game:GetService("CorePackages").AppTempCommon
-local Common = Modules.Common
-local Action = require(Common.Action)
+local CorePackages = game:GetService("CorePackages")
+
+local Action = require(CorePackages.Rodux).makeActionCreator
 
 return Action(script.Name, function(convo)
 	return {

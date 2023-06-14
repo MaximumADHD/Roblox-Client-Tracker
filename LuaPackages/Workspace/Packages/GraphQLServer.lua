@@ -20,6 +20,7 @@ export type ProfileInsights = Package.ProfileInsights
 export type UserProfile = Package.UserProfile
 export type MockOptions = Package.MockOptions
 export type Response = Package.Response
+export type ServerOptions = Package.ServerOptions
 
 
 return Package

@@ -3,6 +3,7 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local Roact = InGameMenuDependencies.Roact
 	local Rodux = InGameMenuDependencies.Rodux
 	local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -12,7 +13,6 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
-	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -90,7 +90,9 @@ return function()
 
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 		textBox.Text = "Hello world!"
-		waitForEvents.act()
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
 
 		expect(textChangedWasCalled).to.equal(true)
 
@@ -131,8 +133,10 @@ return function()
 
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 		textBox.Text = "Hello world!"
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
 
-		waitForEvents.act()
 		expect(textChangedTo).to.equal("Hello")
 
 		Roact.unmount(instance)
@@ -172,7 +176,10 @@ return function()
 
 		local textBox = folder:FindFirstChildWhichIsA("TextBox", true)
 		textBox.Text = "罗布乐思是世界最大的多人在线游戏"
-		waitForEvents.act()
+		ReactRoblox.act(function()
+			task.wait(0.1)
+		end)
+
 		expect(textChangedTo).to.equal("罗布乐思")
 
 		Roact.unmount(instance)

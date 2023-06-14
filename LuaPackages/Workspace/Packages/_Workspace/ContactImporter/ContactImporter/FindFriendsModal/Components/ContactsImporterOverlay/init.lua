@@ -1,4 +1,0 @@
-local ContactsImporterOverlayContainer = require(script.ContactsImporterOverlayContainer)
-export type Props = ContactsImporterOverlayContainer.Props
-
-return ContactsImporterOverlayContainer

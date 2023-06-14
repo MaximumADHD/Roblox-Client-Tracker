@@ -10,12 +10,9 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local NetworkingCall = dependencies.NetworkingCall
 local RoduxCall = dependencies.RoduxCall
-local UIBlox = dependencies.UIBlox
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
-
-local useStyle = UIBlox.Core.Style.useStyle
 
 local CallHistoryItem = require(ContactList.Components.CallHistory.CallHistoryItem)
 local OpenCallDetails = require(ContactList.Actions.OpenCallDetails)
@@ -27,9 +24,7 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 export type Props = {}
 
 local function CallHistoryContainer(props: Props)
-	local style = useStyle()
 	local dispatch = useDispatch()
-	local theme = style.Theme
 
 	React.useEffect(function()
 		dispatch(NetworkingCall.GetCallHistory.API({ limit = 4 }))
@@ -84,13 +79,10 @@ local function CallHistoryContainer(props: Props)
 	end, dependencyArray(callHistoryState.callRecords))
 
 	return React.createElement("ScrollingFrame", {
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.fromScale(0.5, 0.5),
+		Size = UDim2.fromScale(1, 1),
 		AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		CanvasSize = UDim2.new(),
-		BackgroundColor3 = theme.BackgroundDefault.Color,
-		BackgroundTransparency = theme.BackgroundDefault.Transparency,
+		BackgroundTransparency = 1,
 		[React.Change.CanvasPosition] = function(f)
 			if
 				f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
