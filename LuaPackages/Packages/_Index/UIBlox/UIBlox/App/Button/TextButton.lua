@@ -17,13 +17,16 @@ local GetTextSize = require(Core.Text.GetTextSize)
 local cleanRichTextTags = require(Core.Text.CleanRichTextTags)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(App.SelectionImage.CursorKind)
 
+local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
-local VERTICAL_PADDING = 8
-local HORIZONTAL_PADDING = 11
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local EnableTextButtonsInActionBar = UIBloxConfig.enableTextButtonsInActionBar
 
 local TextButton = Roact.PureComponent:extend("TextButton")
 TextButton.debugProps = enumerate("debugProps", {
@@ -49,6 +52,14 @@ TextButton.validateProps = t.strictInterface({
 	hoverBackgroundEnabled = t.optional(t.boolean),
 	-- Is richText enabled for this button
 	richText = t.optional(t.boolean),
+	-- Is a background shown by default (matches IconButton)
+	showBackground = t.optional(t.boolean),
+	--backgroundColor
+	backgroundColor = t.optional(validateColorInfo),
+	-- The Horizontal Padding of the button
+	horizontalPadding = t.optional(t.number),
+	--The Vertical Padding of the button
+	verticalPadding = t.optional(t.number),
 
 	-- A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
@@ -80,6 +91,10 @@ TextButton.defaultProps = {
 	size = UDim2.fromScale(0, 0),
 	text = "",
 
+	verticalPadding = 11,
+	horizontalPadding = 8,
+	showBackground = false,
+
 	fontStyle = "Header2",
 	colorStyleDefault = "SystemPrimaryDefault",
 	colorStyleHover = "SystemPrimaryDefault",
@@ -109,55 +124,85 @@ function TextButton:init()
 end
 
 function TextButton:render()
+	if EnableTextButtonsInActionBar then
+		return withStyle(function(style)
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return self:renderWithProviders(style, getSelectionCursor)
+			end)
+		end)
+	end
 	return withStyle(function(style)
-		local currentState = self.props[TextButton.debugProps.controlState] or self.state.controlState
-
-		local textStateColorMap = {
-			[ControlState.Default] = self.props.colorStyleDefault,
-			[ControlState.Hover] = self.props.colorStyleHover,
-		}
-
-		local textStyle = getContentStyle(textStateColorMap, currentState, style)
-		local fontStyle = style.Font[self.props.fontStyle]
-
-		local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
-		local getTextSize = self.props[TextButton.debugProps.getTextSize]
-
-		local manipulatedText = self.props.richText and cleanRichTextTags(self.props.text) or self.props.text
-		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
-
-		return Roact.createElement(Interactable, {
-			[React.Tag] = self.props[React.Tag],
-			AnchorPoint = self.props.anchorPoint,
-			LayoutOrder = self.props.layoutOrder,
-			Position = self.props.position,
-			Size = self.props.size,
-
-			isDisabled = self.props.isDisabled,
-			onStateChanged = self.onStateChanged,
-			userInteractionEnabled = self.props.userInteractionEnabled,
-			BackgroundTransparency = 1,
-			AutoButtonColor = false,
-
-			[Roact.Event.Activated] = self.props.onActivated,
-		}, {
-			sizeConstraint = Roact.createElement("UISizeConstraint", {
-				MinSize = Vector2.new(textWidth + VERTICAL_PADDING * 2, fontSize + HORIZONTAL_PADDING * 2),
-			}),
-			textLabel = Roact.createElement(GenericTextLabel, {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				BackgroundTransparency = 1,
-				Text = self.props.text,
-				fontStyle = fontStyle,
-				colorStyle = textStyle,
-				RichText = self.props.richText,
-			}),
-			background = self.props.hoverBackgroundEnabled
-				and currentState == ControlState.Hover
-				and Roact.createElement(HoverButtonBackground),
-		})
+		return self:renderWithProviders(style)
 	end)
+end
+
+function TextButton:renderWithProviders(style, getSelectionCursor)
+	local currentState = self.props[TextButton.debugProps.controlState] or self.state.controlState
+
+	local textStateColorMap = {
+		[ControlState.Default] = self.props.colorStyleDefault,
+		[ControlState.Hover] = self.props.colorStyleHover,
+	}
+
+	local textStyle = getContentStyle(textStateColorMap, currentState, style)
+	local fontStyle = style.Font[self.props.fontStyle]
+
+	local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
+	local getTextSize = self.props[TextButton.debugProps.getTextSize]
+
+	local manipulatedText = self.props.richText and cleanRichTextTags(self.props.text) or self.props.text
+	local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
+
+	local showBackground = EnableTextButtonsInActionBar and self.props.showBackground
+	local backgroundColor = if EnableTextButtonsInActionBar
+		then (self.props.backgroundColor or style.Theme["UIMuted"])
+		else nil
+
+	local verticalPadding = self.props.verticalPadding
+	local horizontalPadding = self.props.horizontalPadding
+
+	return Roact.createElement(Interactable, {
+		[React.Tag] = self.props[React.Tag],
+		AnchorPoint = self.props.anchorPoint,
+		LayoutOrder = self.props.layoutOrder,
+		Position = self.props.position,
+		Size = self.props.size,
+
+		isDisabled = self.props.isDisabled,
+		onStateChanged = self.onStateChanged,
+		userInteractionEnabled = self.props.userInteractionEnabled,
+		BackgroundTransparency = 1,
+		AutoButtonColor = false,
+
+		SelectionImageObject = getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset),
+		[Roact.Event.Activated] = self.props.onActivated,
+	}, {
+		sizeConstraint = Roact.createElement("UISizeConstraint", {
+			MinSize = Vector2.new(textWidth + horizontalPadding * 2, fontSize + verticalPadding * 2),
+		}),
+		textLabel = Roact.createElement(GenericTextLabel, {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			BackgroundTransparency = 1,
+			Text = self.props.text,
+			fontStyle = fontStyle,
+			colorStyle = textStyle,
+			RichText = self.props.richText,
+		}),
+		hoverBackground = self.props.hoverBackgroundEnabled
+			and currentState == ControlState.Hover
+			and Roact.createElement(HoverButtonBackground),
+		background = showBackground and Roact.createElement("Frame", {
+			Size = UDim2.fromScale(1, 1),
+			BackgroundColor3 = backgroundColor.Color,
+			BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
+			ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -10 else 0,
+		}, {
+			corner = Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0, 8),
+			}),
+		}) or nil,
+	})
 end
 
 return TextButton

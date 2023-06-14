@@ -7,17 +7,24 @@ local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
 local function pointInBounds(worldPos, boundsCF, boundsSize)
 	local objectPos = boundsCF:PointToObjectSpace(worldPos)
-	return  objectPos.X >= -boundsSize.X/2
-		and objectPos.X <=  boundsSize.X/2
-		and objectPos.Y >= -boundsSize.Y/2
-		and objectPos.Y <=  boundsSize.Y/2
-		and objectPos.Z >= -boundsSize.Z/2
-		and objectPos.Z <=  boundsSize.Z/2
+	return objectPos.X >= -boundsSize.X / 2
+		and objectPos.X <= boundsSize.X / 2
+		and objectPos.Y >= -boundsSize.Y / 2
+		and objectPos.Y <= boundsSize.Y / 2
+		and objectPos.Z >= -boundsSize.Z / 2
+		and objectPos.Z <= boundsSize.Z / 2
 end
 
 -- IMPORTANT: remove assetTypeEnum_deprecated param when FFlagUGCValidateBodyParts is removed
-local function validateMeshBounds(handle: BasePart, attachment: Attachment, meshId: string, meshScale: Vector3,
-	assetTypeEnum_deprecated: Enum.AssetType, boundsInfo: any, name: string): (boolean, {string}?)
+local function validateMeshBounds(
+	handle: BasePart,
+	attachment: Attachment,
+	meshId: string,
+	meshScale: Vector3,
+	assetTypeEnum_deprecated: Enum.AssetType,
+	boundsInfo: any,
+	name: string
+): (boolean, { string }?)
 	if not game:GetFastFlag("UGCReturnAllValidations") then
 		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
 		if meshId == "" then
@@ -31,7 +38,13 @@ local function validateMeshBounds(handle: BasePart, attachment: Attachment, mesh
 
 	if game:GetFastFlag("UGCLCQualityReplaceLua") then
 		local success, result = pcall(function()
-			return UGCValidationService:ValidateMeshBounds(meshId, meshScale, boundsOffset, attachment.CFrame, handle.CFrame)
+			return UGCValidationService:ValidateMeshBounds(
+				meshId,
+				meshScale,
+				boundsOffset,
+				attachment.CFrame,
+				handle.CFrame
+			)
 		end)
 
 		if not success then
@@ -47,7 +60,10 @@ local function validateMeshBounds(handle: BasePart, attachment: Attachment, mesh
 						(getFFlagUGCValidateBodyParts() and name or assetTypeEnum_deprecated.Name),
 						tostring(boundsSize)
 					),
-					"Use SpecialMesh.Scale if needed",
+					(
+						getFFlagUGCValidateBodyParts() and "Use SpecialMesh.Scale if using SpecialMeshes"
+						or "Use SpecialMesh.Scale if needed"
+					),
 				}
 		end
 	else
@@ -59,7 +75,6 @@ local function validateMeshBounds(handle: BasePart, attachment: Attachment, mesh
 			return false, { "Failed to read mesh" }
 		end
 
-		
 		for _, vertPos in pairs(verts) do
 			local worldPos = handle.CFrame:PointToWorldSpace(vertPos * meshScale)
 			if not pointInBounds(worldPos, boundsCF, boundsSize) then
@@ -71,7 +86,10 @@ local function validateMeshBounds(handle: BasePart, attachment: Attachment, mesh
 							(getFFlagUGCValidateBodyParts() and name or assetTypeEnum_deprecated.Name),
 							tostring(boundsSize)
 						),
-						"Use SpecialMesh.Scale if needed",
+						(
+							getFFlagUGCValidateBodyParts() and "Use SpecialMesh.Scale if using SpecialMeshes"
+							or "Use SpecialMesh.Scale if needed"
+						),
 					}
 			end
 		end

@@ -57,8 +57,17 @@ local function CrossFadeAnimatedView(providedProps: Props)
 	local stylePalette = useStyle()
 
 	local onAnimationComplete = React.useCallback(function()
-		props.crossAnim.setCrossFade(false)
-	end, { props.crossAnim })
+		if props.crossAnim.isCrossFade then
+			props.crossAnim.setCrossFade(false)
+			props.crossAnim.setCurrentIndex(props.crossAnim.nextIndex)
+		end
+	end, {
+		props.crossAnim.isCrossFade,
+		props.crossAnim.nextIndex,
+		props.crossAnim.setCrossFade,
+		props.crossAnim.setCurrentIndex,
+	} :: { any })
+
 	local currentTransparency, setCurrentTransparency = ReactOtter.useAnimatedBinding(0, onAnimationComplete)
 	React.useEffect(function()
 		-- Requires at leat 2 items size for cross fade animations
@@ -69,12 +78,11 @@ local function CrossFadeAnimatedView(providedProps: Props)
 			setCurrentTransparency(ReactOtter.spring(1, props.animationConfig))
 		else
 			setCurrentTransparency(ReactOtter.instant(0) :: any)
-			props.crossAnim.setCurrentIndex(props.crossAnim.nextIndex)
 		end
 	end, {
+		props.crossAnim.isCrossFade,
 		props.crossAnim.nextIndex,
 		props.animationConfig,
-		props.crossAnim.isCrossFade,
 	} :: { any })
 
 	return React.createElement("ImageLabel", {

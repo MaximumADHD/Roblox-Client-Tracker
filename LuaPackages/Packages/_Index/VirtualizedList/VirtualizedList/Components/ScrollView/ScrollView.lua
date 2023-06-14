@@ -27,6 +27,7 @@ local HttpService = game:GetService("HttpService")
 -- ROBLOX deviation START: missing types
 type ReadOnly<T> = T
 type ReadOnlyArray<T> = Array<T>
+type NativeEventCallback = (rbx: ScrollingFrame) -> ()
 -- ROBLOX deviation END
 
 -- ROBLOX deviation START: mocking missing modules
@@ -94,7 +95,7 @@ local ScrollViewStickyHeader = require(script.Parent.ScrollViewStickyHeader)
 local StyleSheet = require(srcWorkspace.StyleSheet.StyleSheet)
 
 -- ROBLOX deviation: using Frame instead of View
-local View = "Frame"
+local View = require(script.Parent.Parent.View.View)
 
 -- ROBLOX deviation START: mocking modules
 -- local UIManager = require(script.Parent.Parent.Parent.ReactNative.UIManager).default
@@ -182,7 +183,6 @@ type ScrollEvent = Object
 type HostComponent<T> = any
 -- local ViewPropTypesModule = require(script.Parent.Parent.View.ViewPropTypes)
 -- type ViewProps = ViewPropTypesModule.ViewProps
-type ViewProps = Object
 local ScrollViewContextModule = require(script.Parent.ScrollViewContext)
 local ScrollViewContext = ScrollViewContextModule.default
 local HORIZONTAL = ScrollViewContextModule.HORIZONTAL
@@ -203,6 +203,7 @@ local AndroidHorizontalScrollViewNativeComponent = "Frame"
 
 local ScrollContentViewNativeComponent = require(script.Parent.ScrollContentViewNativeComponent)
 local ScrollViewNativeComponent = require(script.Parent.ScrollViewNativeComponent)
+type ViewProps = View.Props & ScrollViewNativeComponent.Props
 
 -- ROBLOX deviation: predefine variables
 local styles
@@ -677,7 +678,7 @@ export type Props = ReadOnly<
    * Called when the user stops dragging the scroll view and it either stops
    * or begins to glide.
    ]]
-		onScrollEndDrag: ((event: ScrollEvent) -> ())?,
+		onScrollEndDrag: ((rbx: ScrollingFrame, event: InputObject) -> ())?,
 		--[[*
    * Called when scrollable content view of the ScrollView changes.
    *
@@ -807,6 +808,12 @@ export type Props = ReadOnly<
    * measure, measureLayout, etc.
    ]]
 		scrollViewRef: React_Ref<any>, -- ROBLOX deviation: no typeof ScrollViewNativeComponent & ScrollViewImperativeMethods
+		-- ROBLOX deviation START: Accept layout style prop
+		--[[
+			Options for setting horizontal, inverted, and vertical layout.
+		]]
+		layoutStyle: Object,
+		-- ROBLOX deviation END
 	}
 >
 
@@ -940,7 +947,7 @@ type ScrollView = ScrollViewImperativeMethods & {
 	) -> (),
 }
 
-local ScrollView = React.Component:extend("ScrollView")
+local ScrollView: React.React_Component<Props, State> & ScrollView = React.Component:extend("ScrollView")
 ScrollView.Context = ScrollViewContext
 
 function ScrollView:init(props: Props)
@@ -1246,7 +1253,8 @@ function ScrollView:init(props: Props)
 		end
 		self._observedScrollSinceBecomingResponder = true
 		if self.props.onScroll then
-			self.props.onScroll(rbx)
+			-- ROBLOX FIXME Luau: cast to callback should be inferred
+			(self.props.onScroll :: NativeEventCallback)(rbx)
 		end
 	end
 
@@ -1255,7 +1263,8 @@ function ScrollView:init(props: Props)
 			self:setState({ layoutHeight = rbx.AbsoluteWindowSize.Y })
 		end
 		if self.props.onLayout then
-			self.props.onLayout(rbx)
+			-- ROBLOX FIXME Luau: cast to callback should be inferred
+			(self.props.onLayout :: NativeEventCallback)(rbx)
 		end
 	end
 
@@ -1656,11 +1665,11 @@ function ScrollView:init(props: Props)
 	   *
 	   * @param {PressEvent} e Event.
 	   ]]
-	self._handleTouchCancel = function(e: PressEvent)
+	self._handleTouchCancel = function(rbx, input: InputObject)
 		self._isTouching = false
 
 		if self.props.onTouchCancel then
-			self.props.onTouchCancel(e)
+			self.props.onTouchCancel(rbx, input)
 		end
 	end
 
@@ -1828,7 +1837,9 @@ function ScrollView:render()
 	if _G.__DEV__ and self.props.style ~= nil then
 		local style = flattenStyle(self.props.style)
 		local childLayoutProps = Array.filter({ "alignItems", "justifyContent" }, function(prop)
-			return Boolean.toJSBoolean(style) and style[prop] ~= nil
+			-- ROBLOX deviation START: remove Boolean.toJSBoolean
+			return type(style) == "table" and style[prop] ~= nil
+			-- ROBLOX deviation END
 		end)
 		invariant(
 			#childLayoutProps == 0,
@@ -1843,10 +1854,11 @@ function ScrollView:render()
 		else { onLayout = self._handleContentOnLayout }
 
 	local stickyHeaderIndices = self.props.stickyHeaderIndices
-	local children = self.props.children
+	-- ROBLOX deviation START: additional annotations for iterating over props.children
+	local children = self.props.children :: React_Node
 
 	if stickyHeaderIndices ~= nil and #stickyHeaderIndices > 0 then
-		local childArray = React.Children.toArray(self.props.children)
+		local childArray = React.Children.toArray(self.props.children :: React_Node)
 
 		children = Array.map(childArray, function(child, index)
 			local indexOfIndex = if Boolean.toJSBoolean(child) then Array.indexOf(stickyHeaderIndices, index) else -1
@@ -1871,12 +1883,13 @@ function ScrollView:render()
 					inverted = self.props.invertStickyHeaders,
 					hiddenOnScroll = self.props.stickyHeaderHiddenOnScroll,
 					scrollViewHeight = self.state.layoutHeight,
-				}, child)
+				}, child) :: React.React_Element<any>
 			else
 				return child
 			end
 		end)
 	end
+	-- ROBLOX deviation END
 
 	children = React.createElement(
 		ScrollViewContext.Provider,
@@ -1905,7 +1918,7 @@ function ScrollView:render()
 		children
 	)
 
-	local hasStickyHeaders = Array.isArray(stickyHeaderIndices) and #stickyHeaderIndices > 0
+	local hasStickyHeaders = Array.isArray(stickyHeaderIndices) and #(stickyHeaderIndices :: ReadOnlyArray<number>) > 0
 
 	local contentContainer = React.createElement(
 		NativeDirectionalScrollContentView,
@@ -1981,7 +1994,8 @@ function ScrollView:render()
 	local decelerationRate = self.props.decelerationRate
 
 	if decelerationRate ~= nil then
-		props.decelerationRate = processDecelerationRate(decelerationRate)
+		-- ROBLOX FIXME Luau: cast to DecelerationRateType should be inferred
+		props.decelerationRate = processDecelerationRate(decelerationRate :: DecelerationRateType)
 	end
 
 	local refreshControl = self.props.refreshControl
@@ -2007,7 +2021,7 @@ function ScrollView:render()
 				outer, inner = ref.outer, ref.inner
 			end
 			return React.cloneElement(
-				refreshControl,
+				refreshControl :: React_Element, -- ROBLOX FIXME Luau: cast to React_Element should be inferred
 				Object.assign({ style = StyleSheet.compose(baseStyle, outer) }),
 				React.createElement(
 					NativeDirectionalScrollView,

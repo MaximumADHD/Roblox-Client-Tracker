@@ -23,7 +23,7 @@ local React = require(Packages.React)
 local FlatList = require(script.Parent.Parent.FlatList)
 type FlatList<T> = FlatList.FlatList<T>
 
-type ScrollConfig<T> = {
+export type ScrollConfig<T> = {
 	listRef: React.Ref<FlatList<T>>,
 	onSelectedIndexChanged: ((index: number) -> ())?,
 	initialIndex: number?,

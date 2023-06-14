@@ -1,13 +1,20 @@
 export type Prop = {
 	Name: string,
-	Type: string,
+	Type: string | PropType,
 	IsOptional: boolean,
 	Default: any?,
 	Comment: string?,
 }
 
-export type Array<T> = { [number]: T }
+local PropTypeQualifiers = { Array = "Array", Interface = "Interface" }
+export type PropTypeQualifier = typeof(PropTypeQualifiers.Array) | typeof(PropTypeQualifiers.Interface)
 
-export type Props = Array<Prop>
+export type PropType = { Qualifier: PropTypeQualifier, Props: { Prop } }
 
-return {}
+local Typecheckers = { T = "T", Luau = "Luau" }
+export type Typechecking = typeof(Typecheckers.T) | typeof(Typecheckers.Luau)
+
+return {
+	PropTypeQualifiers = PropTypeQualifiers,
+	Typecheckers = Typecheckers,
+}

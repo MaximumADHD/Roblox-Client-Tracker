@@ -52,6 +52,13 @@ return function(initializeLibrary, name, defaultConfig)
 			)
 		end
 
+		-- If we're measuring component usage, we need to preserve the metatable
+		-- established by the UsageTracker utility; this should be fine, since
+		-- we only lose out on warnings about non-existent components
+		if _G.__UIBLOX_TRACK_USAGE__ then
+			return setmetatable(Library, getmetatable(contents))
+		end
+
 		return setmetatable(Library, {
 			__index = function(self, key)
 				local message = ("%q (%s) is not a valid member of %s"):format(tostring(key), typeof(key), name)

@@ -15,6 +15,8 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local useStyle = require(Core.Style.useStyle)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local Fonts = require(App.Style.Fonts)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local RATING_ICON = "icons/status/games/rating_small"
 local PLAYERS_ICON = "icons/status/games/people-playing_small"
@@ -44,7 +46,7 @@ local defaultStyleProps: StyleProps = {
 	statIconSize = getIconSize(IconSize.Small),
 }
 
-local function renderStatItem(containerProps, icon, text, stylePalette, styleProps: StyleProps)
+local function renderStatItem(containerProps, icon, text, stylePalette, styleProps: StyleProps, textWidth: number?)
 	local theme = stylePalette.Theme
 	local font: Fonts.FontPalette = stylePalette.Font
 
@@ -70,8 +72,8 @@ local function renderStatItem(containerProps, icon, text, stylePalette, stylePro
 			AnchorPoint = Vector2.new(0, 0.5),
 		}),
 		Label = React.createElement("TextLabel", {
-			Size = UDim2.new(0, 0, 1, 0),
-			AutomaticSize = Enum.AutomaticSize.X,
+			Size = UDim2.new(0, if textWidth then textWidth else 0, 1, 0),
+			AutomaticSize = if textWidth then nil else Enum.AutomaticSize.X,
 			BackgroundTransparency = 1,
 			Text = text,
 			Font = font.Body.Font,
@@ -89,11 +91,30 @@ local function renderStatItem(containerProps, icon, text, stylePalette, stylePro
 	})
 end
 
+local function useTextWidth(text, font: Fonts.FontPalette)
+	local textWidth = React.useMemo(function()
+		local textSize = GetTextSize(
+			text,
+			font.BaseSize * font.Body.RelativeSize,
+			font.Body.Font,
+			Vector2.new(RATING_ITEM_WIDTH, math.huge)
+		)
+		return textSize.X
+	end, { text, font } :: { any })
+	return textWidth
+end
+
 local function StatGroup(props: Props)
 	local stylePalette = useStyle()
 
 	local styleProps = Cryo.Dictionary.join(defaultStyleProps, props.styleProps or {})
 	local spacingGap = styleProps.spacingGap
+
+	local ratingTextWidth, playingTextWidth
+	if UIBloxConfig.useStatGroupManualSize then
+		ratingTextWidth = useTextWidth(props.ratingText, stylePalette.Font)
+		playingTextWidth = useTextWidth(props.playingText, stylePalette.Font)
+	end
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -110,14 +131,14 @@ local function StatGroup(props: Props)
 			AutomaticSize = Enum.AutomaticSize.X,
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
-		}, RATING_ICON, props.ratingText, stylePalette, styleProps),
+		}, RATING_ICON, props.ratingText, stylePalette, styleProps, ratingTextWidth),
 
 		PlayingStats = renderStatItem({
 			Size = UDim2.new(0, 0, 1, 0),
 			AutomaticSize = Enum.AutomaticSize.X,
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
-		}, PLAYERS_ICON, props.playingText, stylePalette, styleProps),
+		}, PLAYERS_ICON, props.playingText, stylePalette, styleProps, playingTextWidth),
 	})
 end
 

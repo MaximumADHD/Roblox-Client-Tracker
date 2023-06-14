@@ -8,7 +8,7 @@ local TokenPackageIndexMap = dependencies.TokenPackageIndexMap
 local Validators = dependencies.CommonPackage.Validators
 local Types = require(script.Types)
 
-local function getTokenPacakgeIndex(deviceType: string?, themeName: string, defaultThemeName: string)
+local function getTokenPackageIndex(deviceType: string?, themeName: string, defaultThemeName: string)
 	local platformModule = TokenPackageIndexMap[deviceType]
 	-- Since design token support is a new feature, we don't want to offer fallback for the platform variant
 	assert(platformModule ~= nil, "Wrong platform specified!")
@@ -22,7 +22,7 @@ end
 
 return {
 	getTokens = function(deviceType: string?, themeName: string, defaultThemeName: string): Types.Tokens
-		local packageIndex = getTokenPacakgeIndex(deviceType, themeName, defaultThemeName)
+		local packageIndex = getTokenPackageIndex(deviceType, themeName, defaultThemeName)
 		return {
 			Global = require(packageIndex.Global),
 			Semantic = require(packageIndex.Semantic),

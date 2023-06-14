@@ -59,7 +59,7 @@ export type EventPropagationService<T> = {
 		instance: Instance,
 		eventName: string,
 		eventData: T,
-		silent: boolean
+		silent: boolean?
 	) -> (),
 }
 
@@ -95,7 +95,7 @@ type EventPropagationServicePrivate = {
 		instance: Instance,
 		eventName: string,
 		eventData: any,
-		silent: boolean
+		silent: boolean?
 	) -> (),
 }
 
@@ -239,7 +239,7 @@ function EventPropagationService:getRegisteredEventHandlers(instance: Instance):
 	return nil
 end
 
-function EventPropagationService:propagateEvent(instance: Instance, eventName: string, eventData: any, silent: boolean)
+function EventPropagationService:propagateEvent(instance: Instance, eventName: string, eventData: any, silent: boolean?)
 	local function runEventHandler(currentAncestor: Instance, phase: EventPhase)
 		local eventHandler = getEventHandler(self.eventHandlerRegistry, currentAncestor, eventName, phase)
 		if eventHandler then

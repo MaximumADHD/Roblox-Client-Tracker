@@ -30,19 +30,19 @@ GridRow.validateProps = t.strictInterface({
 	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
 	-- \[experimental\] Enables scrolling in the row.
-	-- Requires `relativeHeight`, disallows `multiLine
+	-- Requires `relativeHeight`, disallows `multiLine`.
 	scrollable = t.optional(t.boolean),
 	-- Optionally disable descendant clipping
 	clipsDescendants = t.optional(t.boolean),
 	-- whether or not the row can be selected by a gamepad
 	selectable = t.optional(t.boolean),
-	-- Enables multi line mode in the row, wrapping extra contents, and allowing cells to have multi-row height
-	-- Requires `relativeHeight`, disallows `scrollable
+	-- Enables multi line mode in the row, wrapping extra contents, and allowing cells to have multi-row height.
+	-- Requires `relativeHeight`, disallows `scrollable`.
 	multiLine = t.optional(t.boolean),
-	-- Retricts displayed items to a range of lines, with empty padding for the remaining space
+	-- Retricts displayed items to a range of lines, with empty padding for the remaining space.
 	-- Ignored if `multiLine` is false. If not provided, all items will be displayed.
 	displayLines = t.optional(t.NumberRange),
-	-- Height of each cell, relative to its width. If not provided, `AutomaticSize` will be used
+	-- Height of each cell, relative to its width. If not provided, `AutomaticSize` will be used.
 	relativeHeight = t.optional(t.UDim),
 	-- Data blob for all items. Default accessor functions try to parse it as an array of items, but customizing `getItem`/`getItemCount` allows usage of any format.
 	data = t.optional(t.any),

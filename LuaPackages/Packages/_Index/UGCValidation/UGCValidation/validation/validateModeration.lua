@@ -1,8 +1,12 @@
 --!nonstrict
 local root = script.Parent.Parent
 
+local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+
 local Constants = require(root.Constants)
 local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
+local ParseContentIds = require(root.util.ParseContentIds)
+local Types = require(root.util.Types)
 
 -- rbxassetid://1234
 local function getRbxAssetId(contentId)
@@ -13,9 +17,13 @@ end
 -- http(s)://www.(sitetest1.)roblox(labs).com/asset/?id=1234
 local function getAssetUrlId(contentId)
 	contentId = string.match(contentId, "^https?://www%.(.+)")
-	if not contentId then return nil end
+	if not contentId then
+		return nil
+	end
 	contentId = string.match(contentId, "^sitetest%d%.robloxlabs(.+)") or string.match(contentId, "^roblox(.+)")
-	if not contentId then return nil end
+	if not contentId then
+		return nil
+	end
 	local id = string.match(contentId, "^%.com/asset/%?id=(%d+)$")
 	return id
 end
@@ -23,9 +31,13 @@ end
 -- http(s)://assetdelivery.(sitetest1.)roblox(labs).com/v1/asset/?id=1234
 local function getAssetDeliveryAssetUrlId(contentId)
 	contentId = string.match(contentId, "^https?://assetdelivery%.(.+)")
-	if not contentId then return nil end
+	if not contentId then
+		return nil
+	end
 	contentId = string.match(contentId, "^sitetest%d%.robloxlabs(.+)") or string.match(contentId, "^roblox(.+)")
-	if not contentId then return nil end
+	if not contentId then
+		return nil
+	end
 	local id = string.match(contentId, "^%.com/v1/asset/%?id=(%d+)$")
 	return id
 end
@@ -79,7 +91,7 @@ local function parseContentId(contentIds, contentIdMap, object, fieldName)
 	return true
 end
 
-local function parseDescendantContentIds(contentIds, contentIdMap, object)
+local function parseDescendantContentIds_DEPRECATED(contentIds, contentIdMap, object)
 	for _, descendant in pairs(object:GetDescendants()) do
 		local contentIdFields = Constants.CONTENT_ID_FIELDS[descendant.ClassName]
 		if contentIdFields then
@@ -96,12 +108,53 @@ local function parseDescendantContentIds(contentIds, contentIdMap, object)
 	return true
 end
 
+local function validateUser(
+	restrictedUserIds: Types.RestrictedUserIds,
+	endPointResponse: any,
+	contentIdMap: any
+): (boolean, { string }?)
+	-- if there are no users to validate against, we assume, it's not needed
+	if not restrictedUserIds or #restrictedUserIds == 0 then
+		return true
+	end
+
+	local idsHashTable = {}
+	for _, entry in ipairs(restrictedUserIds) do
+		idsHashTable[tonumber(entry.id)] = true
+	end
+
+	for _, individualAssetResponse in ipairs(endPointResponse) do
+		if not idsHashTable[tonumber(individualAssetResponse.creatorTargetId)] then
+			local mapped = contentIdMap[tostring(individualAssetResponse.assetId)]
+			assert(mapped)
+			return false,
+				{
+					string.format(
+						"%s.%s ( %s ) is not owned by the developer",
+						mapped.instance:GetFullName(),
+						mapped.fieldName,
+						tostring(individualAssetResponse.assetId)
+					),
+				}
+		end
+	end
+	return true
+end
+
 -- ensures accessory content ids have all passed moderation review
-local function validateModeration(instance: Instance): (boolean, {string}?)
+local function validateModeration(
+	instance: Instance,
+	restrictedUserIds: Types.RestrictedUserIds
+): (boolean, { string }?)
 	local contentIdMap = {}
 	local contentIds = {}
 
-	local parseSuccess, parseReasons = parseDescendantContentIds(contentIds, contentIdMap, instance)
+	local parseSuccess, parseReasons
+	if getFFlagUGCValidateBodyParts() then
+		parseSuccess, parseReasons = ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance)
+	else
+		parseSuccess, parseReasons = parseDescendantContentIds_DEPRECATED(contentIds, contentIdMap, instance)
+	end
 	if not parseSuccess then
 		return false, parseReasons
 	end
@@ -112,19 +165,28 @@ local function validateModeration(instance: Instance): (boolean, {string}?)
 
 	if not success or #response ~= #contentIds then
 		if game:GetFastFlag("UGCBetterModerationErrorText") then
-			return false, {
-				"Could not fetch moderation details for assets.",
-				"Make sure all assets are created by the current user.",
-			}
+			return false,
+				{
+					"Could not fetch moderation details for assets.",
+					"Make sure all assets are created by the current user.",
+				}
 		else
 			return false, { "Could not fetch details for assets" }
 		end
 	end
 
+	if getFFlagUGCValidateBodyParts() then
+		local passedUserCheck, reasons = validateUser(restrictedUserIds, response, contentIdMap)
+		if not passedUserCheck then
+			return passedUserCheck, reasons
+		end
+	end
+
 	for _, details in pairs(response) do
-		if details.status == Constants.ASSET_STATUS.UNKNOWN
-		or details.status == Constants.ASSET_STATUS.REVIEW_PENDING
-		or details.status == Constants.ASSET_STATUS.MODERATED
+		if
+			details.status == Constants.ASSET_STATUS.UNKNOWN
+			or details.status == Constants.ASSET_STATUS.REVIEW_PENDING
+			or details.status == Constants.ASSET_STATUS.MODERATED
 		then
 			table.insert(moderatedIds, details.assetId)
 		end
@@ -135,12 +197,8 @@ local function validateModeration(instance: Instance): (boolean, {string}?)
 		for idx, id in pairs(moderatedIds) do
 			local mapped = contentIdMap[id]
 			if mapped then
-				moderationMessages[idx] = string.format(
-					"%s.%s ( %s )",
-					mapped.instance:GetFullName(),
-					mapped.fieldName,
-					id
-				)
+				moderationMessages[idx] =
+					string.format("%s.%s ( %s )", mapped.instance:GetFullName(), mapped.fieldName, id)
 			else
 				moderationMessages[idx] = id
 			end

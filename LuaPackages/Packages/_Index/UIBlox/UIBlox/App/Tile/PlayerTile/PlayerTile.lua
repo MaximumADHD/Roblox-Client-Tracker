@@ -18,6 +18,8 @@ local getContentStyle = require(Core.Button.getContentStyle)
 local PlayerTileButton = require(App.Tile.PlayerTile.PlayerTileButton)
 local PlayerContext = require(App.Indicator.PlayerContext)
 local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 
 local Tile = require(App.Tile.BaseTile.Tile)
@@ -27,9 +29,9 @@ local PlayerTile = Roact.PureComponent:extend("PlayerTile")
 local imageType = t.union(t.string, validateImageSetData)
 PlayerTile.validateProps = t.strictInterface({
 	-- The title text for the the player tile
-	title = t.string,
+	title = t.optional(t.string),
 	-- The subtitle text for the player tile
-	subtitle = t.string,
+	subtitle = t.optional(t.string),
 
 	hasVerifiedBadge = t.optional(t.boolean),
 	-- The image that represents the Player
@@ -63,8 +65,8 @@ PlayerTile.defaultProps = {
 	relevancyInfo = {},
 	tileSize = UDim2.new(0, 150, 0, 150),
 	onActivated = function() end,
-	title = "",
-	subtitle = "",
+	title = if UIBloxConfig.removeDefaultValueForPlayerTileName then nil else "",
+	subtitle = if UIBloxConfig.removeDefaultValueForPlayerTileName then nil else "",
 }
 
 local ANIMATION_SPRING_SETTINGS = {

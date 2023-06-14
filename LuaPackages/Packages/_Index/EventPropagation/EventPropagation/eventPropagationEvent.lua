@@ -8,6 +8,8 @@ export type Event<T> = {
 	targetInstance: Instance,
 	eventName: string,
 	eventData: T,
+
+	cancel: (self: Event<T>) -> (),
 }
 
 local Event = {}

@@ -25,6 +25,7 @@
 					Default = UDim2.new(0, 100, 0, 100)
 				},
 			},
+			Typechecking = "Luau",
 		}
 ]]
 
@@ -43,7 +44,7 @@ end)
 if not canAccessScriptSource then
 	warn(
 		"🔌 DocParser is being used in a mode that cannot access script source."
-			.. " Features relying on access to plugin source will not function as expected."
+			.. " Features relying on access to plugin source may not function as expected."
 	)
 end
 
@@ -112,10 +113,11 @@ end
 
 -- Using a component's defined props / interface, generate documentation for the component.
 local tableVarContentsPattern = "%s+=%s+%{\n(.-)\n%}"
-local tInterfacePattern = "s?t?r?i?c?t?[iI]nterface"
+local tInterfacePattern = "t%.s?t?r?i?c?t?[iI]nterface"
 function DocParser:parse()
 	local result = {
-		Props = nil :: Types.Props?,
+		Props = nil :: { Types.Prop }?,
+		Typechecking = nil :: Types.Typechecking?,
 	}
 
 	local script: ModuleScript = self.script
@@ -127,7 +129,7 @@ function DocParser:parse()
 	local source = script.Source
 
 	local propsPattern, defaultPropsPattern
-	if string.find(source, "t%." .. tInterfacePattern) then
+	if string.find(source, tInterfacePattern) then
 		-- Warn files with t. style typing
 		warn(
 			"🦖 Props for files with t.interface style typing are not recommended. Update "
@@ -135,13 +137,10 @@ function DocParser:parse()
 				.. ".lua to use Luau types 🌼🌸🌺"
 		)
 
-		-- Strip out t. from everywhere, makes things complicated.
-		source = source:gsub("[^%w]t%.", function(s)
-			return s:sub(0, 1)
-		end)
-
-		propsPattern = "validateProps%s+=%s+" .. tInterfacePattern .. "%(%{\n(.-)\n%}%)"
+		propsPattern = ".validateProps%s+=%s+" .. tInterfacePattern .. "%(%{\n(.-)\n%}%)"
 		defaultPropsPattern = script.Name .. "%.defaultProps" .. tableVarContentsPattern
+
+		result.Typechecking = Types.Typecheckers.T
 	end
 
 	local propsTypePattern = "local function " .. script.Name .. "%(%w-[pP]rops: (%w+)"
@@ -149,6 +148,8 @@ function DocParser:parse()
 	if propsType then
 		propsPattern = "type%s+" .. propsType .. tableVarContentsPattern
 		defaultPropsPattern = "defaultProps:%s+" .. propsType .. tableVarContentsPattern
+
+		result.Typechecking = Types.Typecheckers.Luau
 	elseif propsPattern == nil then
 		-- TODO: Handle file requires better
 		print("📝 Unable to find props definition in " .. script.Name)
@@ -160,12 +161,12 @@ function DocParser:parse()
 
 	local defaultProps = string.match(source, defaultPropsPattern)
 
-	if not props then
+	if not result.Typechecking or not props then
 		print("💔 Couldn't find props for " .. script.Name)
 		return result
 	end
 
-	result.Props = PropParser.parseProps(props, defaultProps)
+	result.Props = PropParser.parseProps(result.Typechecking, props, defaultProps)
 	return result
 end
 

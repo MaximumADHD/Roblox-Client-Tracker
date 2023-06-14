@@ -20,7 +20,8 @@ local validateMeshPartAccessory = require(root.validation.validateMeshPartAccess
 local isLayeredClothing = require(root.util.isLayeredClothing)
 local validateLayeredClothingAccessory = require(root.validation.validateLayeredClothingAccessory)
 local validateLegacyAccessory = require(root.validation.validateLegacyAccessory)
-local validateLayeredClothingAccessoryMeshPartAssetFormat = require(root.validation.validateLayeredClothingAccessoryMeshPartAssetFormat)
+local validateLayeredClothingAccessoryMeshPartAssetFormat =
+	require(root.validation.validateLayeredClothingAccessoryMeshPartAssetFormat)
 local validateLegacyAccessoryMeshPartAssetFormat = require(root.validation.validateLegacyAccessoryMeshPartAssetFormat)
 
 local validateLimbsAndTorso = require(root.validation.validateLimbsAndTorso)
@@ -28,7 +29,14 @@ local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynami
 local validateDynamicHeadSpecialMeshFormat = require(root.validation.validateDynamicHeadSpecialMeshFormat)
 local validateDynamicHeadAllFormats = require(root.validation.validateDynamicHeadAllFormats)
 
-local function validateBodyPartInternal(isAsync, instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+local function validateBodyPartInternal(
+	isAsync,
+	instances,
+	assetTypeEnum,
+	isServer,
+	allowUnreviewedAssets,
+	restrictedUserIds
+)
 	assert(ConstantsInterface.isBodyPart(assetTypeEnum)) --checking in the calling function, so must be true
 
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
@@ -37,12 +45,26 @@ local function validateBodyPartInternal(isAsync, instances, assetTypeEnum, isSer
 		assert(isServer)
 		return validateDynamicHeadSpecialMeshFormat(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
 	end
-	return validateLimbsAndTorso(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+	return validateLimbsAndTorso(instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds)
 end
 
-local function validateInternal(isAsync, instances, assetTypeEnum, isServer, allowUnreviewedAssets): (boolean, {string}?)
+local function validateInternal(
+	isAsync,
+	instances,
+	assetTypeEnum,
+	isServer,
+	allowUnreviewedAssets,
+	restrictedUserIds
+): (boolean, { string }?)
 	if getFFlagUGCValidateBodyParts() and ConstantsInterface.isBodyPart(assetTypeEnum) then
-		return validateBodyPartInternal(isAsync, instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+		return validateBodyPartInternal(
+			isAsync,
+			instances,
+			assetTypeEnum,
+			isServer,
+			allowUnreviewedAssets,
+			restrictedUserIds
+		)
 	end
 
 	if isLayeredClothing(instances[1]) then
@@ -54,27 +76,70 @@ end
 
 local UGCValidation = {}
 
-function UGCValidation.validate(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
-	local success, reasons = validateInternal(--[[ isAsync = ]] false, instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+function UGCValidation.validate(instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds)
+	local success, reasons = validateInternal(
+		false, --[[ isAsync = ]]
+		instances,
+		assetTypeEnum,
+		isServer,
+		allowUnreviewedAssets,
+		restrictedUserIds
+	)
 	return success, reasons
 end
 
-function UGCValidation.validateAsync(instances, assetTypeEnum, callback, isServer, allowUnreviewedAssets)
+function UGCValidation.validateAsync(
+	instances,
+	assetTypeEnum,
+	callback,
+	isServer,
+	allowUnreviewedAssets,
+	restrictedUserIds
+)
 	coroutine.wrap(function()
-		callback(validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, isServer, allowUnreviewedAssets))
+		callback(
+			validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds)
+		)
 	end)()
 end
 
-function UGCValidation.validateAsyncMeshPartFormat(instances, assetTypeEnum, callback, isServer, allowUnreviewedAssets)
+function UGCValidation.validateMeshPartFormat(
+	instances,
+	assetTypeEnum,
+	isServer,
+	allowUnreviewedAssets,
+	restrictedUserIds
+)
+	-- the Toolbox only calls this function for DynamicHeads. For Accessories UGC creators upload the SpecialMesh version
+	-- but for DynamicHeads they upload the MeshPart version
+	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
+	return validateDynamicHeadMeshPartFormat(instances, isServer, allowUnreviewedAssets, restrictedUserIds)
+end
+
+function UGCValidation.validateAsyncMeshPartFormat(
+	instances,
+	assetTypeEnum,
+	callback,
+	isServer,
+	allowUnreviewedAssets,
+	restrictedUserIds
+)
 	-- the Toolbox only calls this function for DynamicHeads. For Accessories UGC creators upload the SpecialMesh version
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 	coroutine.wrap(function()
-		callback(validateDynamicHeadMeshPartFormat(instances, isServer, allowUnreviewedAssets))
+		callback(validateDynamicHeadMeshPartFormat(instances, isServer, allowUnreviewedAssets, restrictedUserIds))
 	end)()
 end
 
-function UGCValidation.validateMeshPartAssetFormat2(instances, specialMeshAccessory, assetTypeEnum, isServer, allowUnreviewedAssets)
+function UGCValidation.validateMeshPartAssetFormat2(
+	instances,
+	specialMeshAccessory,
+	assetTypeEnum,
+	isServer,
+	allowUnreviewedAssets,
+	restrictedUserIds
+)
 	if getFFlagUGCValidateBodyParts() then
 		if Enum.AssetType.DynamicHead == assetTypeEnum then
 			return validateDynamicHeadAllFormats(
@@ -82,21 +147,35 @@ function UGCValidation.validateMeshPartAssetFormat2(instances, specialMeshAccess
 				{ specialMeshAccessory },
 				assetTypeEnum,
 				isServer,
-				allowUnreviewedAssets
+				allowUnreviewedAssets,
+				restrictedUserIds
 			)
 		end
 		assert(not ConstantsInterface.isBodyPart(assetTypeEnum))
 	end
 
 	if isLayeredClothing(instances[1]) then
-		return validateLayeredClothingAccessoryMeshPartAssetFormat(instances, specialMeshAccessory, assetTypeEnum, isServer, allowUnreviewedAssets)
+		return validateLayeredClothingAccessoryMeshPartAssetFormat(
+			instances,
+			specialMeshAccessory,
+			assetTypeEnum,
+			isServer,
+			allowUnreviewedAssets
+		)
 	else
 		return validateLegacyAccessoryMeshPartAssetFormat(instances, specialMeshAccessory, assetTypeEnum, isServer)
 	end
 end
 
 -- assumes specialMeshAccessory has already passed through UGCValidation.validate()
-function UGCValidation.validateMeshPartAssetFormat(specialMeshAccessory, meshPartAccessory, assetTypeEnum, isServer, allowUnreviewedAssets)
+function UGCValidation.validateMeshPartAssetFormat(
+	specialMeshAccessory,
+	meshPartAccessory,
+	assetTypeEnum,
+	isServer,
+	allowUnreviewedAssets,
+	restrictedUserIds
+)
 	if getFFlagUGCValidateBodyParts() then
 		if Enum.AssetType.DynamicHead == assetTypeEnum then
 			return validateDynamicHeadAllFormats(
@@ -104,7 +183,8 @@ function UGCValidation.validateMeshPartAssetFormat(specialMeshAccessory, meshPar
 				{ specialMeshAccessory },
 				assetTypeEnum,
 				isServer,
-				allowUnreviewedAssets
+				allowUnreviewedAssets,
+				restrictedUserIds
 			)
 		end
 		assert(not ConstantsInterface.isBodyPart(assetTypeEnum))
@@ -112,7 +192,7 @@ function UGCValidation.validateMeshPartAssetFormat(specialMeshAccessory, meshPar
 
 	-- layered clothing assets should be the same binary for source and avatar_meshpart_accesory
 	if specialMeshAccessory and isLayeredClothing(specialMeshAccessory) then
-		return UGCValidation.validate({ specialMeshAccessory }, assetTypeEnum, isServer, allowUnreviewedAssets)
+		return UGCValidation.validate({ specialMeshAccessory }, assetTypeEnum, isServer, allowUnreviewedAssets, {})
 	end
 
 	local success, reasons

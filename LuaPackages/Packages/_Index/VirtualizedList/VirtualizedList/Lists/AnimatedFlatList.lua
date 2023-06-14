@@ -22,7 +22,9 @@ local Object = LuauPolyfill.Object
 local FlatList = require(script.Parent.FlatList)
 type FlatListProps<ItemT> = FlatList.Props<ItemT>
 
-local useFocusNavigationScrolling = require(script.Parent.Hooks).useFocusNavigationScrolling
+local hooks = require(script.Parent.Hooks)
+local useFocusNavigationScrolling = hooks.useFocusNavigationScrolling
+type AnimatedScrollConfig<T> = hooks.AnimatedScrollConfig<T>
 
 type AnimatedProps<ItemT> = {
 	onSelectedIndexChanged: ((item: ItemT) -> ())?,

@@ -24,8 +24,21 @@ type Object = LuauPolyfill.Object
 local React = require(Packages.React)
 local Change = React.Change
 
+export type Props = {
+	style: (Object | { Object })?,
+	Name: string?,
+	Size: UDim2?,
+	AutomaticSize: Enum.AutomaticSize?,
+	ZIndex: number?,
+	LayoutOrder: number?,
+	BorderSizePixel: number?,
+	BackgroundTransparency: number,
+	onLayout: (Frame) -> (),
+	nativeRef: React.Ref<Frame>?,
+}
+
 local View = React.Component:extend("View")
-function View:init(props)
+function View:init(props: Props)
 	self.props = props
 	self._nativeRef = self.props.nativeRef or React.createRef()
 end

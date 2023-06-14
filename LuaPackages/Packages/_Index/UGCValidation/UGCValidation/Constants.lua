@@ -82,11 +82,9 @@ if game:GetFastFlag("UGCExtraBannedNames") then
 	end
 end
 
-Constants.BANNED_NAMES = convertArrayToTable(Cryo.Dictionary.join(
-	Constants.R6_BODY_PARTS,
-	Constants.R15_BODY_PARTS,
-	Constants.EXTRA_BANNED_NAMES
-))
+Constants.BANNED_NAMES = convertArrayToTable(
+	Cryo.Dictionary.join(Constants.R6_BODY_PARTS, Constants.R15_BODY_PARTS, Constants.EXTRA_BANNED_NAMES)
+)
 
 Constants.ASSET_STATUS = {
 	UNKNOWN = "Unknown",
@@ -184,7 +182,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.WaistAccessory] = {
 		WaistBackAttachment = WAIST_BOUNDS,
 		WaistFrontAttachment = WAIST_BOUNDS,
 		WaistCenterAttachment = WAIST_BOUNDS,
-	}
+	},
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.TShirtAccessory] = {
@@ -239,14 +237,14 @@ if getFFlagUGCValidateBodyParts() then
 			RightHand = {
 				rigAttachmentToParentName = "RightWristRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.46, 1.83, 1.37),
-					offset = Vector3.new(0.03, -0.39, -0.09),
+					size = Vector3.new(2, 2.5, 2),
+					offset = Vector3.new(0.25, -0.5, -0.25),
 				},
 				otherAttachments = {
 					RightGripAttachment = {
 						bounds = {
-							size = Vector3.new(1.44, 0.54, 0.71),
-							offset = Vector3.new(0.36, -0.37, -0.09),
+							size = Vector3.new(2, 1, 1),
+							offset = Vector3.new(0.5, -0.5, -0.25),
 						},
 					},
 				},
@@ -254,20 +252,20 @@ if getFFlagUGCValidateBodyParts() then
 			RightUpperArm = {
 				rigAttachmentToParentName = "RightShoulderRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.85, 3.49, 2.33),
-					offset = Vector3.new(0.37, -0.35, -0.03),
+					size = Vector3.new(2.5, 4, 2.5),
+					offset = Vector3.new(0.5, -0.5, 0),
 				},
 				otherAttachments = {
 					RightShoulderAttachment = {
 						bounds = {
-							size = Vector3.new(1.39, 3.26, 0.44),
-							offset = Vector3.new(0.18, 0.23, 0.07),
+							size = Vector3.new(1.5, 3.5, 0.5),
+							offset = Vector3.new(0.25, 0.25, 0),
 						},
 					},
 					RightElbowRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.87, 1.62, 0.41),
-							offset = Vector3.new(0.39, -1.21, 0.00),
+							size = Vector3.new(1.5, 2, 0.5),
+							offset = Vector3.new(0.5, -1.25, 0),
 						},
 					},
 				},
@@ -275,14 +273,14 @@ if getFFlagUGCValidateBodyParts() then
 			RightLowerArm = {
 				rigAttachmentToParentName = "RightElbowRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.99, 2.59, 1.57),
-					offset = Vector3.new(0.33, -0.74, -0.01),
+					size = Vector3.new(2.5, 3, 2),
+					offset = Vector3.new(0.5, -0.75, -0.25),
 				},
 				otherAttachments = {
 					RightWristRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.91, 1.39, 0.66),
-							offset = Vector3.new(0.36, -0.94, -0.26),
+							size = Vector3.new(1.5, 1.5, 1),
+							offset = Vector3.new(0.5, -1, -0.25),
 						},
 					},
 				},
@@ -296,32 +294,32 @@ if getFFlagUGCValidateBodyParts() then
 			Head = {
 				rigAttachmentToParentName = "NeckRigAttachment",
 				meshBounds = {
-					size = Vector3.new(4.17, 2.78, 2.64),
-					offset = Vector3.new(0.00, 0.88, -0.19),
+					size = Vector3.new(4.5, 3, 3),
+					offset = Vector3.new(0, 1, -0.25),
 				},
 				otherAttachments = {
 					FaceFrontAttachment = {
 						bounds = {
-							size = Vector3.new(0.11, 1.12, 1.25),
-							offset = Vector3.new(-0.00, 0.53, -0.72),
+							size = Vector3.new(0.5, 1.5, 1.5),
+							offset = Vector3.new(0, 0.75, -0.75),
 						},
 					},
 					HatAttachment = {
 						bounds = {
-							size = Vector3.new(0.11, 1.43, 0.86),
-							offset = Vector3.new(-0.00, 1.27, -0.31),
+							size = Vector3.new(0.5, 1.5, 1),
+							offset = Vector3.new(0, 1.25, -0.25),
 						},
 					},
 					HairAttachment = {
 						bounds = {
-							size = Vector3.new(0.11, 1.43, 0.86),
-							offset = Vector3.new(-0.00, 1.27, -0.32),
+							size = Vector3.new(0.5, 1.5, 1),
+							offset = Vector3.new(0, 1.25, -0.25),
 						},
 					},
 					FaceCenterAttachment = {
 						bounds = {
-							size = Vector3.new(0.10, 1.00, 0.83),
-							offset = Vector3.new(0.00, 0.45, -0.26),
+							size = Vector3.new(0.5, 1, 1),
+							offset = Vector3.new(0, 0.5, -0.25),
 						},
 					},
 				},
@@ -335,14 +333,14 @@ if getFFlagUGCValidateBodyParts() then
 			LeftLowerArm = {
 				rigAttachmentToParentName = "LeftElbowRigAttachment",
 				meshBounds = {
-					size = Vector3.new(2.02, 2.59, 1.51),
-					offset = Vector3.new(-0.32, -0.74, -0.11),
+					size = Vector3.new(2.5, 3, 2),
+					offset = Vector3.new(-0.5, -0.75, -0.25),
 				},
 				otherAttachments = {
 					LeftWristRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.90, 1.43, 0.66),
-							offset = Vector3.new(-0.37, -0.96, -0.26),
+							size = Vector3.new(1.5, 1.5, 1),
+							offset = Vector3.new(-0.5, -1, -0.25),
 						},
 					},
 				},
@@ -350,20 +348,20 @@ if getFFlagUGCValidateBodyParts() then
 			LeftUpperArm = {
 				rigAttachmentToParentName = "LeftShoulderRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.85, 3.49, 2.33),
-					offset = Vector3.new(-0.37, -0.35, -0.03),
+					size = Vector3.new(2.5, 4, 2.5),
+					offset = Vector3.new(-0.5, -0.5, 0),
 				},
 				otherAttachments = {
 					LeftElbowRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.87, 1.21, 0.41),
-							offset = Vector3.new(-0.39, -1.01, 0.00),
+							size = Vector3.new(1.5, 2, 0.5),
+							offset = Vector3.new(-0.5, -1.25, 0),
 						},
 					},
 					LeftShoulderAttachment = {
 						bounds = {
-							size = Vector3.new(1.39, 3.26, 0.44),
-							offset = Vector3.new(-0.18, 0.23, 0.07),
+							size = Vector3.new(1.5, 3.5, 0.5),
+							offset = Vector3.new(-0.25, 0.25, 0),
 						},
 					},
 				},
@@ -371,14 +369,14 @@ if getFFlagUGCValidateBodyParts() then
 			LeftHand = {
 				rigAttachmentToParentName = "LeftWristRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.46, 2.07, 1.37),
-					offset = Vector3.new(-0.03, -0.27, -0.09),
+					size = Vector3.new(2, 2.5, 2),
+					offset = Vector3.new(-0.25, -0.5, -0.25),
 				},
 				otherAttachments = {
 					LeftGripAttachment = {
 						bounds = {
-							size = Vector3.new(1.44, 0.88, 0.71),
-							offset = Vector3.new(-0.36, -0.54, -0.09),
+							size = Vector3.new(2, 1, 1),
+							offset = Vector3.new(-0.5, -0.5, -0.25),
 						},
 					},
 				},
@@ -392,56 +390,56 @@ if getFFlagUGCValidateBodyParts() then
 			UpperTorso = {
 				rigAttachmentToParentName = "WaistRigAttachment",
 				meshBounds = {
-					size = Vector3.new(3.53, 4.21, 3.72),
-					offset = Vector3.new(-0.00, 0.75, 0.62),
+					size = Vector3.new(3.5, 4.5, 4),
+					offset = Vector3.new(0, 0.75, 0.75),
 				},
 				otherAttachments = {
 					LeftShoulderRigAttachment = {
 						bounds = {
-							size = Vector3.new(1.00, 1.88, 0.59),
-							offset = Vector3.new(-0.70, 1.47, 0.12),
+							size = Vector3.new(1.5, 2, 1),
+							offset = Vector3.new(-0.75, 1.5, 0.25),
 						},
 					},
 					RightCollarAttachment = {
 						bounds = {
-							size = Vector3.new(0.94, 1.81, 0.86),
-							offset = Vector3.new(0.58, 1.70, 0.00),
+							size = Vector3.new(1, 2, 1),
+							offset = Vector3.new(0.5, 1.75, 0),
 						},
 					},
 					BodyBackAttachment = {
 						bounds = {
-							size = Vector3.new(0.16, 1.96, 1.14),
-							offset = Vector3.new(-0.03, 0.96, 0.61),
+							size = Vector3.new(0.5, 2, 1.5),
+							offset = Vector3.new(0, 1, 0.75),
 						},
 					},
 					NeckRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.16, 1.68, 0.64),
-							offset = Vector3.new(-0.03, 1.78, -0.07),
+							size = Vector3.new(0.5, 2, 1),
+							offset = Vector3.new(0, 1.75, -0.25),
 						},
 					},
 					BodyFrontAttachment = {
 						bounds = {
-							size = Vector3.new(0.10, 1.38, 0.99),
-							offset = Vector3.new(-0.00, 0.83, -0.67),
+							size = Vector3.new(0.5, 1.5, 1.5),
+							offset = Vector3.new(0, 0.75, -0.75),
 						},
 					},
 					RightShoulderRigAttachment = {
 						bounds = {
-							size = Vector3.new(1.00, 1.88, 0.59),
-							offset = Vector3.new(0.70, 1.47, 0.12),
+							size = Vector3.new(1.5, 2, 1),
+							offset = Vector3.new(0.75, 1.5, 0.25),
 						},
 					},
 					LeftCollarAttachment = {
 						bounds = {
-							size = Vector3.new(0.94, 1.81, 0.86),
-							offset = Vector3.new(-0.58, 1.70, 0.00),
+							size = Vector3.new(1, 2, 1),
+							offset = Vector3.new(-0.5, 1.75, 0),
 						},
 					},
 					NeckAttachment = {
 						bounds = {
-							size = Vector3.new(0.16, 1.74, 0.72),
-							offset = Vector3.new(-0.03, 1.83, -0.03),
+							size = Vector3.new(0.5, 2, 1),
+							offset = Vector3.new(0, 2, 0),
 						},
 					},
 				},
@@ -449,44 +447,44 @@ if getFFlagUGCValidateBodyParts() then
 			LowerTorso = {
 				rigAttachmentToParentName = "RootRigAttachment",
 				meshBounds = {
-					size = Vector3.new(2.76, 3.09, 2.88),
-					offset = Vector3.new(0.01, -0.18, 0.23),
+					size = Vector3.new(3, 3.5, 3),
+					offset = Vector3.new(0, -0.25, 0.25),
 				},
 				otherAttachments = {
 					WaistCenterAttachment = {
 						bounds = {
-							size = Vector3.new(0.10, 0.66, 0.27),
-							offset = Vector3.new(0.00, 0.28, -0.04),
+							size = Vector3.new(0.5, 1, 0.5),
+							offset = Vector3.new(0, 0.25, 0),
 						},
 					},
 					LeftHipRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.63, 0.92, 0.34),
-							offset = Vector3.new(-0.43, -0.23, -0.05),
+							size = Vector3.new(1, 1, 0.5),
+							offset = Vector3.new(-0.5, -0.25, 0),
 						},
 					},
 					RightHipRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.63, 0.92, 0.34),
-							offset = Vector3.new(0.43, -0.23, -0.05),
+							size = Vector3.new(1, 1, 0.5),
+							offset = Vector3.new(0.5, -0.25, 0),
 						},
 					},
 					WaistRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.10, 0.93, 0.51),
-							offset = Vector3.new(0.00, 0.54, 0.06),
+							size = Vector3.new(0.5, 1, 1),
+							offset = Vector3.new(0, 0.5, 0.25),
 						},
 					},
 					WaistBackAttachment = {
 						bounds = {
-							size = Vector3.new(0.10, 1.11, 1.22),
-							offset = Vector3.new(0.00, 0.31, 0.64),
+							size = Vector3.new(0.5, 1.5, 1.5),
+							offset = Vector3.new(0, 0.5, 0.75),
 						},
 					},
 					WaistFrontAttachment = {
 						bounds = {
-							size = Vector3.new(0.11, 1.23, 1.05),
-							offset = Vector3.new(-0.01, 0.24, -0.65),
+							size = Vector3.new(0.5, 1.5, 1.5),
+							offset = Vector3.new(0, 0.25, -0.75),
 						},
 					},
 				},
@@ -500,14 +498,14 @@ if getFFlagUGCValidateBodyParts() then
 			RightUpperLeg = {
 				rigAttachmentToParentName = "RightHipRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.65, 2.43, 1.64),
-					offset = Vector3.new(0.09, -0.76, 0.03),
+					size = Vector3.new(2, 2.5, 2),
+					offset = Vector3.new(0.25, -0.75, 0),
 				},
 				otherAttachments = {
 					RightKneeRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.38, 1.20, 0.71),
-							offset = Vector3.new(0.02, -1.09, -0.10),
+							size = Vector3.new(0.5, 1.5, 1),
+							offset = Vector3.new(0, -1.25, -0.25),
 						},
 					},
 				},
@@ -515,14 +513,14 @@ if getFFlagUGCValidateBodyParts() then
 			RightFoot = {
 				rigAttachmentToParentName = "RightAnkleRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.31, 1.41, 1.87),
-					offset = Vector3.new(0.03, -0.07, -0.28),
+					size = Vector3.new(1.5, 1.5, 2),
+					offset = Vector3.new(0, 0, -0.25),
 				},
 				otherAttachments = {
 					RightFootAttachment = {
 						bounds = {
-							size = Vector3.new(1.65, 5.85, 0.64),
-							offset = Vector3.new(-0.23, -0.39, -0.11),
+							size = Vector3.new(2, 6, 1),
+							offset = Vector3.new(-0.25, -0.5, -0.25),
 						},
 					},
 				},
@@ -530,14 +528,14 @@ if getFFlagUGCValidateBodyParts() then
 			RightLowerLeg = {
 				rigAttachmentToParentName = "RightKneeRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.35, 2.49, 2.20),
-					offset = Vector3.new(0.04, -0.76, 0.31),
+					size = Vector3.new(1.5, 3, 2.5),
+					offset = Vector3.new(0, -1, 0.5),
 				},
 				otherAttachments = {
 					RightAnkleRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.45, 1.46, 0.60),
-							offset = Vector3.new(0.04, -1.13, 0.24),
+							size = Vector3.new(0.5, 2, 1),
+							offset = Vector3.new(0, -1.25, 0.25),
 						},
 					},
 				},
@@ -551,14 +549,14 @@ if getFFlagUGCValidateBodyParts() then
 			LeftFoot = {
 				rigAttachmentToParentName = "LeftAnkleRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.31, 1.41, 1.89),
-					offset = Vector3.new(-0.03, -0.07, -0.27),
+					size = Vector3.new(1.5, 1.5, 2),
+					offset = Vector3.new(0, 0, -0.25),
 				},
 				otherAttachments = {
 					LeftFootAttachment = {
 						bounds = {
-							size = Vector3.new(1.08, 5.85, 0.64),
-							offset = Vector3.new(-0.10, -0.39, -0.11),
+							size = Vector3.new(2, 6, 1),
+							offset = Vector3.new(0.25, -0.5, -0.25),
 						},
 					},
 				},
@@ -566,14 +564,14 @@ if getFFlagUGCValidateBodyParts() then
 			LeftUpperLeg = {
 				rigAttachmentToParentName = "LeftHipRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.65, 2.43, 1.64),
-					offset = Vector3.new(-0.10, -0.76, 0.04),
+					size = Vector3.new(2, 2.5, 2),
+					offset = Vector3.new(-0.25, -0.75, 0),
 				},
 				otherAttachments = {
 					LeftKneeRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.38, 1.20, 0.71),
-							offset = Vector3.new(-0.02, -1.09, -0.10),
+							size = Vector3.new(0.5, 1.5, 1),
+							offset = Vector3.new(0, -1.25, -0.25),
 						},
 					},
 				},
@@ -581,19 +579,25 @@ if getFFlagUGCValidateBodyParts() then
 			LeftLowerLeg = {
 				rigAttachmentToParentName = "LeftKneeRigAttachment",
 				meshBounds = {
-					size = Vector3.new(1.35, 2.49, 2.20),
-					offset = Vector3.new(-0.04, -0.76, 0.31),
+					size = Vector3.new(1.5, 3, 2.5),
+					offset = Vector3.new(0, -1, 0.5),
 				},
 				otherAttachments = {
 					LeftAnkleRigAttachment = {
 						bounds = {
-							size = Vector3.new(0.45, 1.46, 0.61),
-							offset = Vector3.new(-0.04, -1.13, 0.24),
+							size = Vector3.new(0.5, 2, 1),
+							offset = Vector3.new(0, -1.25, 0.25),
 						},
 					},
 				},
 			},
 		},
+	}
+
+	--NOTE: tolerances specified here mean that all current bundles between 700 and 998 would pass render mesh vs WrapTarget mesh comparison checks
+	Constants.RenderVsWrapMeshComparison = {
+		lowerTol = -0.5, --a render mesh max extent on any axis cannot be more than this amount smaller than the Wraptarget mesh
+		upperTol = 1.5, --a render mesh max extent on any axis cannot be more than this amount larger than the Wraptarget mesh
 	}
 end
 
@@ -666,5 +670,70 @@ Constants.CONTENT_ID_FIELDS = {
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
 	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
 }
+
+if getFFlagUGCValidateBodyParts() then
+	Constants.CONTENT_ID_FIELDS["WrapTarget"] = { "CageMeshId" }
+
+	Constants.CONTENT_ID_REQUIRED_FIELDS = {
+		SpecialMesh = { MeshId = true, TextureId = true },
+		MeshPart = { MeshId = true },
+		SurfaceAppearance = { ColorMap = true },
+		WrapTarget = { CageMeshId = true },
+	}
+
+	Constants.MESH_CONTENT_ID_FIELDS = {
+		SpecialMesh = { "MeshId" },
+		MeshPart = { "MeshId" },
+		WrapTarget = { "CageMeshId" },
+	}
+
+	Constants.TEXTURE_CONTENT_ID_FIELDS = {
+		SpecialMesh = { "TextureId" },
+		MeshPart = { "TextureID" },
+		SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
+	}
+
+	Constants.TEXTURE_CHANNELS = {
+		SpecialMesh = { TextureId = 3 },
+		MeshPart = { TextureID = 3 },
+		SurfaceAppearance = { ColorMap = 3, MetalnessMap = 1, NormalMap = 3, RoughnessMap = 1 },
+	}
+
+	Constants.RENDER_MESH_MAX_TRIANGLES = {
+		Head = 1500,
+		LeftUpperArm = 416,
+		LeftLowerArm = 416,
+		LeftHand = 416,
+		RightUpperArm = 416,
+		RightLowerArm = 416,
+		RightHand = 416,
+		UpperTorso = 875,
+		LowerTorso = 875,
+		LeftUpperLeg = 416,
+		LeftLowerLeg = 416,
+		LeftFoot = 416,
+		RightUpperLeg = 416,
+		RightLowerLeg = 416,
+		RightFoot = 416,
+	}
+
+	Constants.WRAP_TARGET_CAGE_MESH_VERTS = {
+		Head = 335,
+		LeftUpperArm = 70,
+		LeftLowerArm = 70,
+		LeftHand = 63,
+		RightUpperArm = 70,
+		RightLowerArm = 70,
+		RightHand = 63,
+		UpperTorso = 231,
+		LowerTorso = 92,
+		LeftUpperLeg = 80,
+		LeftLowerLeg = 80,
+		LeftFoot = 64,
+		RightUpperLeg = 80,
+		RightLowerLeg = 80,
+		RightFoot = 64,
+	}
+end
 
 return Constants

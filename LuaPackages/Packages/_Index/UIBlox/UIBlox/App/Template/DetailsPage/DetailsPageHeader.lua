@@ -19,6 +19,9 @@ local t = require(Packages.t)
 
 local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local EnableTextButtonsInActionBar = UIBloxConfig.enableTextButtonsInActionBar
+
 local DROP_SHADOW_IMAGE = "component_assets/dropshadow_thumbnail_28"
 local DROP_SHADOW_HEIGHT = 28
 
@@ -144,6 +147,7 @@ function DetailsPageHeader:renderDesktopMode(style)
 				ActionBar = self.props.actionBarProps and Roact.createElement(ActionBar, {
 					button = self.props.actionBarProps.button,
 					icons = self.props.actionBarProps.icons,
+					textButtons = if EnableTextButtonsInActionBar then self.props.actionBarProps.textButtons else nil,
 					enableButtonAtStart = true,
 					marginOverride = {
 						left = 0,

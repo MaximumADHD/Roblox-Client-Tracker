@@ -745,13 +745,6 @@ module.GetMotor6DBetween = function(part0: Part?, part1: Part?): Motor6D?
 	return nil
 end
 
--- FIXME(dbanks)
--- 2023/05/22
--- Once this is all checked in and rotrieved delete this and just have GetMotor6DBetween
-module.GetJointBetween = function(part0: Part?, part1: Part?): Motor6D?
-	return module.GetMotor6DBetween(part0, part1)
-end
-
 --[[
 	Does this poseKeyframe pose the face?
 ]]
@@ -829,13 +822,6 @@ module.GetAnimationClip = function(keyframeSequenceOrAnimation: KeyframeSequence
 		error("Unknown keyframeSequenceOrAnimation type:" .. keyframeSequenceOrAnimation.ClassName)
 		return nil
 	end
-end
-
--- FIXME(dbanks)
--- 2023/05/22
--- Remove once this is checked in and all references to GetEmoteAnimationClip are gone.
-module.GetEmoteAnimationClip = function(keyframeSequenceOrAnimation: KeyframeSequence | Animation): AnimationClip?
-	return module.GetAnimationClip(keyframeSequenceOrAnimation)
 end
 
 module.GetThumbnailKeyframe = function(

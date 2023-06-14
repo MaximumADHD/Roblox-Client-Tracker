@@ -23,6 +23,7 @@ local function createIndividualBodyPartSchema(assetTypeEnum: Enum.AssetType, sub
 			{
 				Name = "SurfaceAppearance",
 				ClassName = "SurfaceAppearance",
+				_optional = true,
 			},
 		},
 	}

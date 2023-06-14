@@ -14,6 +14,7 @@ local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DetailsPageBody = Roact.PureComponent:extend("DetailsPageBody")
 
@@ -46,7 +47,18 @@ DetailsPageBody.defaultProps = {
 function DetailsPageBody:init()
 	self.state = { containerWidth = nil }
 	self.containerFrameRef = Roact.createRef()
+
+	if UIBloxConfig.useNewScrollBar then
+		self.mounted = false
+	end
+
 	self.onContainerSizeChange = function(rbx)
+		if UIBloxConfig.useNewScrollBar then
+			if not self.mounted then
+				return
+			end
+		end
+
 		self:setState(function(prevState, props)
 			if prevState.containerWidth ~= rbx.AbsoluteSize.x then
 				return {
@@ -222,8 +234,18 @@ function DetailsPageBody:render()
 end
 
 function DetailsPageBody:didMount()
+	if UIBloxConfig.useNewScrollBar then
+		self.mounted = true
+	end
+
 	if self.containerFrameRef.current then
 		self.onContainerSizeChange(self.containerFrameRef.current)
+	end
+end
+
+function DetailsPageBody:willUnmount()
+	if UIBloxConfig.useNewScrollBar then
+		self.mounted = false
 	end
 end
 

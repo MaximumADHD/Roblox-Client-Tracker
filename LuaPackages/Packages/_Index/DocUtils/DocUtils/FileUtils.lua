@@ -16,7 +16,7 @@ local Types = require(script.Parent.Types)
 local FileUtils = {}
 
 local REQUIRE_SUFFIX = "!require"
-function FileUtils.getImportPath(file: ModuleScript, importName: string): Types.Array<string> | nil
+function FileUtils.getImportPath(file: ModuleScript, importName: string): { string } | nil
 	local importStatement = file.Source:match("local%s+" .. importName .. '%s+=%s+([%w%.%(%):"]-)\n')
 	if importStatement == nil then
 		return nil
@@ -70,7 +70,7 @@ end
 			-> {"script", "Parent", "Parent", "Packages", "UIBlox", "App", "Button", "IconButton"}
 ]]
 
-function FileUtils.constructPathForImport(file: ModuleScript, importName: string): Types.Array<string> | nil
+function FileUtils.constructPathForImport(file: ModuleScript, importName: string): { string } | nil
 	local path = FileUtils.getImportPath(file, importName)
 	if path == nil then
 		return nil

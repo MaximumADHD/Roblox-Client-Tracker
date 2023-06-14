@@ -13,6 +13,10 @@
 	* limitations under the License.
 ]]
 
+local useFocusNavigationScrolling = require(script.useFocusNavigationScrolling)
+
+export type AnimatedScrollConfig<T> = useFocusNavigationScrolling.ScrollConfig<T>
+
 return {
-	useFocusNavigationScrolling = require(script.useFocusNavigationScrolling),
+	useFocusNavigationScrolling = useFocusNavigationScrolling,
 }

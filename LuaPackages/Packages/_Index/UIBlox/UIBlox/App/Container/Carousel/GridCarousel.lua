@@ -28,6 +28,11 @@ GridCarousel.validateProps = t.strictInterface({
 	-- Header text for the carousel or render prop callback
 	-- for providing a custom header component
 	headerText = t.union(t.string, t.callback),
+	-- Optional header height. Used when `headerText` is not a simple
+	-- string but a custom render method is provided
+	headerHeight = t.optional(t.number),
+	-- Optional padding between the header and the row
+	headerPadding = t.optional(t.number),
 	-- Text for the "See All" button.
 	-- If not provided, the button will not be displayed.
 	-- Ignored if `onButtonClick` and `onSeeAll` are not provided.
@@ -110,6 +115,8 @@ GridCarousel.validateProps = t.strictInterface({
 
 GridCarousel.defaultProps = {
 	kind = "default",
+	headerHeight = HEADER_HEIGHT,
+	headerPadding = HEADER_PADDING,
 }
 
 function GridCarousel:init()
@@ -126,7 +133,7 @@ function GridCarousel:getButtonSize(style)
 	local buttonTextStyle = style.Font.CaptionHeader
 	local buttonFontSize = buttonTextStyle.RelativeSize * style.Font.BaseSize
 	local buttonTextSize = GetTextSize(self.props.buttonText, buttonFontSize, buttonTextStyle.Font, BIG_VECTOR)
-	return UDim2.fromOffset(buttonTextSize.X + BUTTON_PADDING * 2, HEADER_HEIGHT)
+	return UDim2.fromOffset(buttonTextSize.X + BUTTON_PADDING * 2, self.props.headerHeight)
 end
 
 function GridCarousel:renderHeader(headerProps)
@@ -134,8 +141,9 @@ function GridCarousel:renderHeader(headerProps)
 		local onButtonClick = self.props.onButtonClick or self.props.onSeeAll
 		local shouldShowButton = if onButtonClick and self.props.buttonText then true else false
 		local buttonSize = if shouldShowButton then self:getButtonSize(style) else UDim2.new()
+
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+			Size = UDim2.new(1, 0, 0, self.props.headerHeight),
 			BackgroundTransparency = 1,
 			LayoutOrder = headerProps.layoutOrder,
 		}, {
@@ -145,11 +153,11 @@ function GridCarousel:renderHeader(headerProps)
 			}),
 			GridCarouselHeaderMaxWidth = if headerProps.width > 0
 				then Roact.createElement("UISizeConstraint", {
-					MaxSize = Vector2.new(headerProps.width, HEADER_HEIGHT),
+					MaxSize = Vector2.new(headerProps.width, self.props.headerHeight),
 				})
 				else nil,
 			GridCarouselTitle = Roact.createElement(GenericTextLabel, {
-				Size = UDim2.new(1, -buttonSize.X.Offset - HEADER_PADDING, 1, 0),
+				Size = UDim2.new(1, -buttonSize.X.Offset - self.props.headerPadding, 1, 0),
 				Text = self.props.headerText,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
@@ -199,7 +207,7 @@ function GridCarousel:render()
 				gridConfig.columns,
 				gridConfig.gutter,
 				gridConfig.margin,
-				relativeHeight + UDim.new(0, HEADER_HEIGHT + HEADER_PADDING)
+				relativeHeight + UDim.new(0, self.props.headerHeight + self.props.headerPadding)
 			)
 			else UDim.new(0, 0)
 
@@ -215,7 +223,7 @@ function GridCarousel:render()
 				FillDirection = Enum.FillDirection.Vertical,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, HEADER_PADDING),
+				Padding = UDim.new(0, self.props.headerPadding),
 			}),
 			GridCarouselHeader = if type(self.props.headerText) == "function"
 				then self.props.headerText(gridConfig)

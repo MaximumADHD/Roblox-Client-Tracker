@@ -25,14 +25,39 @@ local Change = React.Change
 local Event = React.Event
 
 local Otter = require(Packages.Otter)
+type SpringOptions = Otter.SpringOptions
 
 local DEFAULT_ANIMATION_CONFIG = {
 	restingPositionLimit = 1,
 	restingVelocityLimit = 10,
 }
 
+export type Props = {
+	animationConfig: SpringOptions,
+	style: Object | { Object },
+	scrollEnabled: boolean?,
+	CanvasPosition: Vector2?,
+	CanvasSize: UDim2?,
+	AutomaticCanvasSize: Enum.AutomaticSize?,
+	horizontal: boolean?,
+	showsHorizontalScrollIndicator: boolean?,
+	showsVerticalScrollIndicator: boolean?,
+	onLayout: ((rbx: ScrollingFrame) -> ())?,
+	scrollEventThrottle: number?,
+	onScroll: ((rbx: ScrollingFrame) -> ())?,
+	onTouchStart: (rbx: ScrollingFrame, input: InputObject) -> (),
+	onTouchEnd: (rbx: ScrollingFrame, input: InputObject) -> (),
+	onTouchMove: (rbx: ScrollingFrame, input: InputObject) -> (),
+	onTouchCancel: (rbx: ScrollingFrame, input: InputObject) -> (),
+	onResponderGrant: (e: Object) -> (),
+	onResponderRelease: (e: Object) -> (),
+	inverted: boolean?,
+	getItemLayout: any,
+	children: React.React_Node,
+}
+
 local ScrollViewNativeComponent = React.Component:extend("ScrollViewNativeComponent")
-function ScrollViewNativeComponent:init(props)
+function ScrollViewNativeComponent:init(props: Props)
 	self.props = props
 	self._nativeRef = React.createRef()
 	self.lastScrollEventTime = 0

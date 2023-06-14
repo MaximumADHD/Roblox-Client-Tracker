@@ -2,12 +2,10 @@
 
 local root = script.Parent.Parent
 
-local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
-local validateBodyPartChildAttachmentBounds = require(root.validation.validateBodyPartChildAttachmentBounds)
+local validateMeshPartBodyPart = require(root.validation.validateMeshPartBodyPart)
 
-local validateWithSchema = require(root.util.validateWithSchema)
 local createLimbsAndTorsoSchema = require(root.util.createLimbsAndTorsoSchema)
-local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local Types = require(root.util.Types)
 
 local function getInstance(instances: { Instance }, name: string): Instance?
 	for _, inst in pairs(instances) do
@@ -18,6 +16,19 @@ local function getInstance(instances: { Instance }, name: string): Instance?
 	return nil
 end
 
+local function areTopLevelFoldersCorrect(allSelectedInstances: { Instance }, requiredTopLevelFolders: { string })
+	local topLevelFoldersAreGood = #allSelectedInstances == #requiredTopLevelFolders
+	if not topLevelFoldersAreGood then
+		return false
+	end
+	for _, folderName in requiredTopLevelFolders do
+		if not getInstance(allSelectedInstances, folderName) then
+			return false
+		end
+	end
+	return true
+end
+
 local R15ArtistIntentFolderName = "R15ArtistIntent"
 local R15FixedFolderName = "R15Fixed"
 
@@ -25,57 +36,33 @@ local function validateLimbsAndTorso(
 	allSelectedInstances: { Instance },
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean,
-	allowUnreviewedAssets: boolean
+	allowUnreviewedAssets: boolean,
+	restrictedUserIds: Types.RestrictedUserIds
 ): (boolean, { string }?)
 	local requiredTopLevelFolders: { string } = {
 		R15ArtistIntentFolderName,
 		(isServer and R15FixedFolderName or nil) :: string, -- in Studio this folder is automatically added just before upload
 	}
 
-	local topLevelFoldersAreGood = #allSelectedInstances == #requiredTopLevelFolders
-	if topLevelFoldersAreGood then
-		for _, folderName in pairs(requiredTopLevelFolders) do
-			local inst = getInstance(allSelectedInstances, folderName)
-			if not inst then
-				topLevelFoldersAreGood = false
-				break
-			end
-			local validationResult =
-				validateWithSchema(createLimbsAndTorsoSchema(assetTypeEnum, folderName), inst :: Instance)
-			if validationResult.success == false then
-				return false, { validationResult.message }
-			end
-		end
-	end
-	if not topLevelFoldersAreGood then
+	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
 		return false,
 			{ "Incorrect hierarchy selection, folders required: " .. table.concat(requiredTopLevelFolders, ", ") }
 	end
 
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	if
-		not reasonsAccumulator:updateReasons(
-			validateBodyPartMeshBounds(
-				getInstance(allSelectedInstances, R15ArtistIntentFolderName) :: Instance,
-				assetTypeEnum
-			)
+	for _, folderName in requiredTopLevelFolders do
+		local result, reasons = validateMeshPartBodyPart(
+			getInstance(allSelectedInstances, folderName) :: Instance,
+			createLimbsAndTorsoSchema(assetTypeEnum, folderName),
+			assetTypeEnum,
+			isServer,
+			allowUnreviewedAssets,
+			restrictedUserIds
 		)
-	then
-		return reasonsAccumulator:getFinalResults()
+		if not result then
+			return result, reasons
+		end
 	end
-
-	if
-		not reasonsAccumulator:updateReasons(
-			validateBodyPartChildAttachmentBounds(
-				getInstance(allSelectedInstances, R15ArtistIntentFolderName) :: Instance,
-				assetTypeEnum
-			)
-		)
-	then
-		return reasonsAccumulator:getFinalResults()
-	end
-	return reasonsAccumulator:getFinalResults()
+	return true
 end
 
 return validateLimbsAndTorso

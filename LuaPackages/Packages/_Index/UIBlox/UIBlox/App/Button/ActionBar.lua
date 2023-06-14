@@ -16,6 +16,7 @@ local PrimaryContextualButton = require(Button.PrimaryContextualButton)
 local PrimarySystemButton = require(Button.PrimarySystemButton)
 local SecondaryButton = require(Button.SecondaryButton)
 local IconButton = require(Button.IconButton)
+local TextButton = require(Button.TextButton)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getPageMargin = require(App.Container.getPageMargin)
@@ -24,6 +25,8 @@ local StyleConstants = require(UIBlox.App.Style.Constants)
 local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 
 local ActionBar = Roact.PureComponent:extend("ActionBar")
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local EnableTextButtonsInActionBar = UIBloxConfig.enableTextButtonsInActionBar
 
 local BUTTON_PADDING = 12
 local BUTTON_HEIGHT = 48
@@ -103,6 +106,13 @@ ActionBar.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	frameRef = t.optional(t.table),
+
+	-- textButtons: A table of button tables that contain props that TextButton allow.
+	textButtons = if EnableTextButtonsInActionBar
+		then t.optional(t.array(t.strictInterface({
+			props = TextButton.validateProps,
+		})))
+		else nil,
 })
 
 ActionBar.defaultProps = {
@@ -131,9 +141,16 @@ function ActionBar:render()
 			iconNumber = #self.props.icons
 		end
 
+		local textNumber = 0
+		if EnableTextButtonsInActionBar then
+			if self.props.textButtons and #self.props.textButtons then
+				textNumber = #self.props.textButtons
+			end
+		end
+
 		local buttonNumber = self.props.button ~= nil and 1 or 0
 		local isButtonAtStart = self.props.enableButtonAtStart == true and buttonNumber ~= 0
-		local buttonRefNumber = iconNumber + buttonNumber
+		local buttonRefNumber = textNumber + iconNumber + buttonNumber
 		local buttonTable = {}
 
 		if iconNumber ~= 0 then
@@ -165,6 +182,41 @@ function ActionBar:render()
 					buttonTable,
 					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
 						Icon = Roact.createElement(IconButton, iconButtonProps),
+					})
+				)
+			end
+		end
+
+		if EnableTextButtonsInActionBar and (textNumber ~= 0) then
+			for textButtonKey, textButton in ipairs(self.props.textButtons) do
+				local textButtonIndex = (if isButtonAtStart then textButtonKey + buttonNumber else textButtonKey)
+					+ iconNumber
+				local newProps = {
+					layoutOrder = textButtonIndex,
+				}
+				local textButtonProps = Cryo.Dictionary.join(newProps, textButton.props)
+
+				local gamepadFrameProps = {
+					key = "Button" .. tostring(textButtonIndex),
+					Size = UDim2.fromOffset(0, ICON_SIZE),
+					AutomaticSize = Enum.AutomaticSize.X,
+					BackgroundTransparency = 1,
+					[Roact.Ref] = self.buttonRefs[textButtonIndex],
+					NextSelectionUp = nil,
+					NextSelectionDown = nil,
+					NextSelectionLeft = self.getGamepadNextSelectionLeft(textButtonIndex, buttonRefNumber),
+					NextSelectionRight = self.getGamepadNextSelectionRight(textButtonIndex, buttonRefNumber),
+					inputBindings = {
+						Activated = textButtonProps.onActivated
+								and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, textButtonProps.onActivated)
+							or nil,
+					},
+				}
+
+				table.insert(
+					buttonTable,
+					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
+						TextButton = Roact.createElement(TextButton, textButtonProps),
 					})
 				)
 			end

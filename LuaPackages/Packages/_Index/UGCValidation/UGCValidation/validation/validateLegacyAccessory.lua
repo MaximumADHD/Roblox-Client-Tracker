@@ -102,7 +102,7 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			checkModeration = false
 		end
 		if checkModeration then
-			success, failedReason = validateModeration(instance)
+			success, failedReason = validateModeration(instance, {})
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
@@ -209,7 +209,7 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 		end
 
 		if not isServer then
-			success, reasons = validateModeration(instance)
+			success, reasons = validateModeration(instance, {})
 			if not success then
 				return false, reasons
 			end

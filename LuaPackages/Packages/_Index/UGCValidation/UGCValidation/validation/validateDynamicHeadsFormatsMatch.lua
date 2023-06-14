@@ -11,15 +11,25 @@ local function doMeshIdsMatch(meshPartHead: MeshPart, specialMeshHead: SpecialMe
 		return true
 	end
 	return false,
-		{ meshPartHead.Name .. "MeshPart.MeshId did not match " .. specialMeshHead.Name .. " SpecialMesh.MeshId" }
+		{ meshPartHead.Name .. " MeshPart.MeshId did not match " .. specialMeshHead.Name .. " SpecialMesh.MeshId" }
+end
+
+local function getTextureID(meshPartDynamicHead: MeshPart): string
+	local surfaceApp = meshPartDynamicHead:FindFirstChild("SurfaceAppearance")
+	if surfaceApp then
+		return (surfaceApp :: SurfaceAppearance).ColorMap
+	end
+	return meshPartDynamicHead.TextureID
 end
 
 local function doTextureIdsMatch(meshPartHead: MeshPart, specialMeshHead: SpecialMesh): (boolean, { string }?)
-	if meshPartHead.TextureID == specialMeshHead.TextureId then
+	if getTextureID(meshPartHead) == specialMeshHead.TextureId then
 		return true
 	end
 	return false,
-		{ meshPartHead.Name .. "MeshPart.TextureID did not match " .. specialMeshHead.Name .. " SpecialMesh.TextureId" }
+		{
+			`MeshPart {meshPartHead.Name}.TextureID or {meshPartHead.Name}.SurfaceAppearance.ColorMap did not match SpecialMesh {specialMeshHead.Name}.TextureId`,
+		}
 end
 
 local function doScaleTypesMatch(meshPartHead: MeshPart, specialMeshHead: SpecialMesh): (boolean, { string }?)

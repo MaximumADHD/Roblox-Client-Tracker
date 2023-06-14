@@ -30,6 +30,9 @@ export type ViewabilityConfigCallbackPair = ViewabilityHelper.ViewabilityConfigC
 export type ViewabilityConfig = ViewabilityHelper.ViewabilityConfig
 export type BidirectionalFlatListProps<T> = BidirectionalFlatListModule.Props<T>
 export type AnimatedFlatListProps<T> = AnimatedFlatList.Props<T>
+export type AnimatedScrollConfig<T> = Hooks.AnimatedScrollConfig<T>
+export type VirtualizedListProps = VirtualizedList.Props
+export type RenderItemProps<T> = VirtualizedList.RenderItemProps<T>
 
 return {
 	ScrollView = ScrollView,

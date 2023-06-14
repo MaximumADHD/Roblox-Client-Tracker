@@ -79,4 +79,19 @@ return {
 
 	-- Use new scroll bar in VerticalScrollView
 	useNewScrollBar = false,
+
+	-- Link button use uiblox selecton image
+	linkButtonUseSelectionImage = false,
+
+	-- Removes default value for player tile name
+	removeDefaultValueForPlayerTileName = false,
+
+	-- Work around automatic size bug in StatGroup
+	useStatGroupManualSize = false,
+
+	-- Allow UIBlox TextButtons to be shown after Icon Buttons in the ActionBar
+	enableTextButtonsInActionBar = false,
+
+	-- Enable the overrideAutomaticCanvasSize prop for DetailsPageTenfootTemplate
+	useDetailsPageTemplateManualSize = false,
 }

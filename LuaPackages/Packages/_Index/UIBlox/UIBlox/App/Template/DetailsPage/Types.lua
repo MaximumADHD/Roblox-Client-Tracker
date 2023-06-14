@@ -11,6 +11,7 @@ export type DetailsPageRenderItem = {
 	key: string,
 	showCornerGradient: boolean?,
 	renderComponent: () -> React.React_Node,
+	useSelectionBumper: boolean?,
 }
 
 export type ComponentList = {
@@ -20,6 +21,7 @@ export type ComponentList = {
 		landscapePosition: any,
 		renderComponent: () -> React.React_Node,
 		showCornerGradient: boolean?,
+		useSelectionBumper: boolean?,
 	},
 }
 

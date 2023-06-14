@@ -21,6 +21,8 @@ export type GetCallHistoryRequest = { universeId: number?, limit: number, cursor
 
 export type GetCallHistoryResponse = {
 	callHistory: { [number]: Call },
+	nextPageCursor: string,
+	previousPageCursor: string,
 }
 
 export type RequestThunks = {

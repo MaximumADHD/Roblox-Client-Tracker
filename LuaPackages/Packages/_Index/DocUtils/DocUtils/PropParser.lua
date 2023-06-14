@@ -30,22 +30,19 @@ local Types = require(script.Parent.Types)
 local PropParser = {}
 
 local commentPrefix = "(%s*)%-%-"
-local commentSuffix = "%s*(.*)$"
+local commentSuffix = "%s*([^\n]*)$"
 local multilineCommentPattern = commentPrefix .. "%[%["
 local commentPattern = commentPrefix .. commentSuffix
-function PropParser.parseProps(props: string, defaultProps: string?)
-	local result: Types.Props = {}
+function PropParser.parseProps(typechecking: Types.Typechecking, props: string, defaultProps: string?)
+	local result: { Types.Prop } = {}
 
-	-- If either input is missing a trailing newline, add it
-	if not props:match("\n$") then
-		props ..= "\n"
-	end
-
-	if defaultProps and not defaultProps:match("\n$") then
-		defaultProps ..= "\n"
+	props = PropParser._sanitizeProps(typechecking, props)
+	if defaultProps ~= nil then
+		defaultProps = PropParser._sanitizeProps(typechecking, defaultProps)
 	end
 
 	local currentComment: string? = nil
+	local multilinePropType: string? = nil
 	local depth = 0
 	local isMultilineComment = false
 	local multilineWhitespace = ""
@@ -65,22 +62,52 @@ function PropParser.parseProps(props: string, defaultProps: string?)
 			continue
 		end
 
+		if depth > 0 and string.match(line, "^%s*%p+,$") then
+			-- Ending of a multi-line type definition
+			depth -= 1
+			if multilinePropType then
+				multilinePropType ..= "\n" .. line:gsub("^" .. multilineWhitespace, "")
+			end
+			if depth > 0 then
+				continue
+			end
+		end
+
+		if string.match(line, "[{%(]$") then
+			depth += 1
+			-- Beginning of a multi-line type definition
+			if depth > 1 then
+				if multilinePropType then
+					multilinePropType ..= "\n" .. line:gsub("^" .. multilineWhitespace, "")
+				end
+			else
+				multilineWhitespace = line:match("^(%s*)") or ""
+				multilinePropType = line:gsub("^" .. multilineWhitespace, "")
+			end
+			continue
+		elseif depth > 0 then
+			assert(multilinePropType ~= nil)
+			-- Contents of a multi-line type definition
+			multilinePropType ..= "\n" .. line:gsub("^" .. multilineWhitespace, "")
+			continue
+		end
+
 		local _, comment = string.match(line, "^" .. commentPattern)
 		local multilineCommentWhitespace = string.match(line, multilineCommentPattern)
 		if multilineCommentWhitespace then
 			isMultilineComment = true
 			multilineWhitespace = multilineCommentWhitespace
 		elseif comment then
-			if currentComment == nil then
+			if currentComment == nil or depth > 0 then
 				currentComment = comment
-			else
+			elseif depth == 0 then
 				currentComment ..= " " .. comment
 			end
 		elseif isMultilineComment then
 			local multilineComment = string.match(line, multilineWhitespace .. "	(.*)$")
-			if currentComment == nil then
+			if currentComment == nil or depth > 0 then
 				currentComment = multilineComment
-			else
+			elseif depth == 0 then
 				-- Preserve formatting / newlines for multiline comments.
 				currentComment ..= "\n" .. multilineComment
 			end
@@ -90,25 +117,11 @@ function PropParser.parseProps(props: string, defaultProps: string?)
 				currentComment = endingComment
 			end
 
-			if depth > 0 and string.match(line, "^%s*%p*,$") then
-				-- Ending of a multi-line type definition
-				depth -= 1
-				currentComment = nil
-				continue
-			end
+			local propName, propType, isOptional = PropParser._getProp(
+				typechecking,
+				if depth == 0 and multilinePropType then multilinePropType else line
+			)
 
-			if string.match(line, "[{%(]$") then
-				depth += 1
-				-- Beginning of a multi-line type definition
-				if depth > 1 then
-					continue
-				end
-			elseif depth > 0 then
-				-- Contents of a multi-line type definition
-				continue
-			end
-
-			local propName, propType, isOptional = PropParser._getProp(line, depth > 0)
 			if propName == nil or propType == nil then
 				print("🤏  Unable to parse prop definition: " .. line)
 			else
@@ -128,17 +141,36 @@ function PropParser.parseProps(props: string, defaultProps: string?)
 			end
 
 			currentComment = nil
+			multilinePropType = nil
 		end
 	end
 
 	return result
 end
 
--- TODO: Support multi-line type definitions and custom interfaces
+function PropParser._sanitizeProps(typechecking: Types.Typechecking, props: string)
+	if typechecking == Types.Typecheckers.T then
+		-- Strip out t. from everywhere, makes things complicated.
+		props = props:gsub("[^%w]t%.", function(s)
+			return s:sub(0, 1)
+		end)
+	end
 
-local luauPropPattern = "^%s*(%w+):%s+(.-)(%??)"
+	-- If either input is missing a trailing newline, add it
+	if not props:match("\n$") then
+		props ..= "\n"
+	end
+
+	return props
+end
+
+local tInterfacePattern = "s?t?r?i?c?t?[iI]nterface"
+local luauPropPattern = "^%s*(%[?%w+%]?):%s+(.*)"
+local luauKeyPattern = "^%s*%[(%w+)%]: %{\n(.*)\n%s*%}"
 local tPropPattern = "^%s*%[?([%w%.]+)%]?%s=%s(.*)"
-function PropParser._getProp(line: string, isMultiLine: boolean?): (string?, string?, boolean?)
+function PropParser._getProp(typechecking: Types.Typechecking, line: string): (string?, string | Types.PropType | nil, boolean)
+	local isMultiline = string.match(line, "\n")
+
 	-- Strip trailing whitespace
 	line = line:gsub("%s+$", "")
 
@@ -146,68 +178,113 @@ function PropParser._getProp(line: string, isMultiLine: boolean?): (string?, str
 	line = line:gsub(commentPattern, "")
 
 	-- Returns propName, propType, isOptional
-	local propName, propType, optionalQualifier =
-		string.match(line, luauPropPattern .. (if isMultiLine then "" else ",$"))
+	local propName, propType = string.match(line, luauPropPattern .. (if isMultiline then "" else ",$"))
 	if propName and propType then
+		assert(typechecking == Types.Typecheckers.Luau)
+		local optionalQualifier = string.match(propType, "(%??)$")
+		propType = propType:gsub("(%??)$", "")
+		if isMultiline then
+			local propTypeQualifier = Types.PropTypeQualifiers.Interface
+			
+			-- Strip out surrounding brackets
+			local multilinePropType = string.match(propType, "^%s*%{(.*)%s*%},*")
+			if multilinePropType and string.match(multilinePropType, luauKeyPattern) then
+				local key
+				key, propType = string.match(multilinePropType, luauKeyPattern)
+				if key == "number" then
+					propTypeQualifier = Types.PropTypeQualifiers.Array
+				else
+					-- Maps are not yet supported
+					-- propTypeQualifier = Types.PropTypeQualifiers.Map
+				end
+			end
+
+			return propName,
+				{
+					Qualifier = propTypeQualifier,
+					Props = PropParser.parseProps(typechecking, propType),
+				},
+				optionalQualifier ~= ""
+		end
+
 		if propType == "" then
 			propType = "🤷"
 		end
+
+		propType = propType:gsub("^%{ %[number%]: (.-)%s*%}$", function(s)
+			return "Array<" .. s .. ">"
+		end)
+
 		return propName, propType, optionalQualifier ~= ""
 	end
 
-	-- T-style typing
-	propName, propType = string.match(line, tPropPattern .. (if isMultiLine then "" else ",$"))
-	if propName and propType then
-		local isOptional: boolean? = false
-		local propFormat = "%s"
+	if typechecking == Types.Typecheckers.T then
+		propName, propType = string.match(line, tPropPattern .. (if isMultiline then "" else ",$"))
+		if propName and propType then
+			local isOptional: boolean = false
+			local propFormat = "%s"
 
-		local i = 0
-		local innerPropPattern = "^(%w+)%((.+)" .. (if isMultiLine then "" else "%)$")
-		local outerClassifier, innerPropType = string.match(propType, innerPropPattern)
-		while outerClassifier and innerPropType and i < 20 do
-			assert(outerClassifier ~= nil, "outerClassifier cannot be nil in this codepath")
-			assert(innerPropType ~= nil, "innerPropType cannot be nil in this codepath")
-			if outerClassifier == "optional" then
-				propType = innerPropType
-				isOptional = true
-			elseif outerClassifier == "array" then
-				propType = innerPropType
-				propFormat = "Array<" .. propFormat .. ">"
-			elseif outerClassifier == "map" then
-				propType = innerPropType
-				propFormat = "Map<" .. propFormat .. ">"
-			elseif outerClassifier == "union" then
-				propType = table.concat(string.split(innerPropType, ", "), " | ")
-			elseif outerClassifier == "intersection" then
-				propType = table.concat(string.split(innerPropType, ", "), " & ")
-			elseif outerClassifier == "numberMin" then
-				propType = innerPropType
-				propFormat = "number > " .. propFormat
-			elseif outerClassifier == "enumerateValidator" then
-				propType = "Enum." .. innerPropType
-			elseif outerClassifier == "enum" then
-				-- Already include enum prefix
-				propType = innerPropType
-			elseif outerClassifier == "strictInterface" or outerClassifier == "interface" then
-				propType = "🤷"
-			else
-				print("🍵 Unhandled classifier: " .. outerClassifier)
-				propType = innerPropType
+			local i = 0
+			local propTypeQualifier = nil
+			local innerPropPattern = "^(%w+)%((.+)" .. (if isMultiline then "\n" else "%)$")
+			local outerClassifier, innerPropType = string.match(propType, innerPropPattern)
+			while outerClassifier and innerPropType and i < 20 do
+				assert(outerClassifier ~= nil, "outerClassifier cannot be nil in this codepath")
+				assert(innerPropType ~= nil, "innerPropType cannot be nil in this codepath")
+				if outerClassifier == "optional" then
+					propType = innerPropType
+					isOptional = true
+				elseif outerClassifier == "array" then
+					propTypeQualifier = Types.PropTypeQualifiers.Array
+					propType = innerPropType
+					propFormat = "Array<" .. propFormat .. ">"
+				elseif outerClassifier == "map" then
+					propType = innerPropType
+					propFormat = "Map<" .. propFormat .. ">"
+				elseif outerClassifier == "union" then
+					propType = table.concat(string.split(innerPropType, ", "), " | ")
+				elseif outerClassifier == "intersection" then
+					propType = table.concat(string.split(innerPropType, ", "), " & ")
+				elseif outerClassifier == "numberMin" then
+					propType = innerPropType
+					propFormat = "number > " .. propFormat
+				elseif outerClassifier == "enumerateValidator" then
+					propType = "Enum." .. innerPropType
+				elseif outerClassifier == "enum" then
+					-- Already include enum prefix
+					propType = innerPropType
+				elseif outerClassifier == "strictInterface" or outerClassifier == "interface" then
+					propType = "🤷"
+				else
+					print("🍵 Unhandled classifier: " .. outerClassifier)
+					propType = innerPropType
+				end
+
+				outerClassifier, innerPropType = string.match(propType, innerPropPattern)
+				i += 1
 			end
 
-			outerClassifier, innerPropType = string.match(propType, innerPropPattern)
-			i += 1
-		end
+			if isMultiline then
+				local propsPattern = tInterfacePattern .. "%(%{\n(.*)\n%s*%}%).*"
+				local props = string.match(line, propsPattern)
+				return propName,
+					{
+						Qualifier = propTypeQualifier or Types.PropTypeQualifiers.Interface,
+						Props = PropParser.parseProps(typechecking, props),
+					},
+					isOptional
+			end
 
-		if i == 20 then
-			warn("⌛ Exceeded iterations for parsing " .. line)
-		end
+			if i == 20 then
+				warn("⌛ Exceeded iterations for parsing " .. line)
+			end
 
-		return propName, string.format(propFormat, propType), isOptional
+			return propName, string.format(propFormat, propType), isOptional
+		end
 	end
 
 	print("📛 Unable to find name or type: " .. line)
-	return nil, nil, nil
+	return nil, nil, true
 end
 
 return PropParser

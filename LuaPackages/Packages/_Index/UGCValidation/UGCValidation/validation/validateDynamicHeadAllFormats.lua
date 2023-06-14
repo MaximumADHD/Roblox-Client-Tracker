@@ -3,6 +3,7 @@
 local root = script.Parent.Parent
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local Types = require(root.util.Types)
 
 local validateDynamicHeadSpecialMeshFormat = require(root.validation.validateDynamicHeadSpecialMeshFormat)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
@@ -13,7 +14,8 @@ local function validateDynamicHeadAllFormats(
 	specialMeshInstances: { Instance },
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean,
-	allowUnreviewedAssets: boolean
+	allowUnreviewedAssets: boolean,
+	restrictedUserIds: Types.RestrictedUserIds
 ): (boolean, { string }?)
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 
@@ -29,7 +31,7 @@ local function validateDynamicHeadAllFormats(
 
 	if
 		not reasonsAccumulator:updateReasons(
-			validateDynamicHeadMeshPartFormat(meshPartInstances, isServer, allowUnreviewedAssets)
+			validateDynamicHeadMeshPartFormat(meshPartInstances, isServer, allowUnreviewedAssets, restrictedUserIds)
 		)
 	then
 		return reasonsAccumulator:getFinalResults()

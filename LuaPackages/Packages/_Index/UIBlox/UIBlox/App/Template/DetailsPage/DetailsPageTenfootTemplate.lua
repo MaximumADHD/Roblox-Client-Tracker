@@ -14,6 +14,7 @@ local useAnimateFullscreen = require(DetailsPage.Hooks.useAnimateFullscreen)
 local DetailsPageRenderItem = require(DetailsPage.DetailsPageRenderItem)
 local Overlay = require(App.Dialog.Overlay.Overlay)
 local LoadableImage = require(App.Loading.LoadableImage)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ReactOtter = require(Packages.ReactOtter)
 type SpringOptions = ReactOtter.SpringOptions
@@ -289,6 +290,7 @@ local function DetailsPageTenfootTemplate(props: Props)
 			},
 			animationConfig = tokens.animationConfig,
 			UNSTABLE_forceSiblingLayoutUpdate = true,
+			overrideAutomaticCanvasSize = if UIBloxConfig.useDetailsPageTemplateManualSize then true else nil,
 		} :: AnimatedFlatListProps),
 		Fullscreen = React.createElement("CanvasGroup", {
 			Size = UDim2.fromScale(1, 1),

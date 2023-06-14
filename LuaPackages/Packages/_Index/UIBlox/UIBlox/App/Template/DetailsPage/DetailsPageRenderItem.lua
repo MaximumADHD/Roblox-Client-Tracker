@@ -3,6 +3,9 @@ local Template = DetailsPage.Parent
 local App = Template.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local GuiService = game:GetService("GuiService")
+local useSelectionCursor = require(UIBlox.App.SelectionImage.useSelectionCursor)
+local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 
 local DetailsPageTypes = require(DetailsPage.Types)
 type DetailsPageRenderItem = DetailsPageTypes.DetailsPageRenderItem
@@ -11,13 +14,17 @@ local React = require(Packages.React)
 
 local TRANSPARENCY_ERROR = 1
 
-export type DetailsPageRenderItemProps = {
-	items: { DetailsPageRenderItem },
+export type Props = {
+	item: DetailsPageRenderItem,
 	safeArea: Vector2,
 	itemPadding: number,
 }
 
-local function DetailsPageRenderItem(props)
+local function onSelectionGained(canvas: CanvasGroup)
+	GuiService:Select(canvas)
+end
+
+local function DetailsPageRenderItem(props: Props)
 	local item = props.item
 	local safeArea = props.safeArea
 	local itemPadding = props.itemPadding
@@ -46,6 +53,8 @@ local function DetailsPageRenderItem(props)
 		return nil
 	end, { safeArea, itemPadding } :: { any })
 
+	local cursor = useSelectionCursor(CursorKind.Invisible)
+
 	return React.createElement("CanvasGroup", {
 		key = item.key,
 		Size = UDim2.new(1, 0, 0, 0),
@@ -54,6 +63,9 @@ local function DetailsPageRenderItem(props)
 		[React.Change.AbsolutePosition] = onAbsolutePositionChanged,
 		GroupTransparency = groupTransparency,
 		BackgroundTransparency = 1,
+		Selectable = item.useSelectionBumper,
+		SelectionImageObject = cursor,
+		[React.Event.SelectionGained] = onSelectionGained,
 	}, {
 		Padding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, safeArea.X),

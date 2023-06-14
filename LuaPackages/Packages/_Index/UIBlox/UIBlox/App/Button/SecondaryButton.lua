@@ -58,6 +58,7 @@ function SecondaryButton:render()
 			buttonImage = image,
 			buttonStateColorMap = BUTTON_STATE_COLOR,
 			contentStateColorMap = CONTENT_STATE_COLOR,
+			buttonTextOverride = self.props.buttonTextOverride,
 
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,

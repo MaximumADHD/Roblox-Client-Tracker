@@ -20,5 +20,9 @@ return t.map(
 		landscapePosition = enumerateValidator(ContentPositionEnum),
 		-- render function for the component.
 		renderComponent = t.callback,
+		-- 10ft UI only, hides the background gradient when set to false.
+		showCornerGradient = t.optional(t.boolean),
+		-- 10ft UI only, adds focus navigation bumpers to ensure consistent gamepad navigation
+		useSelectionBumper = t.optional(t.boolean),
 	})
 )

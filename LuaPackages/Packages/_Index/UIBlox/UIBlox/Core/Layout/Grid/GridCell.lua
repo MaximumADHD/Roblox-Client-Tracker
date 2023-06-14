@@ -88,7 +88,7 @@ function GridCell:getSize(colspan, rowspan, context)
 	else
 		local columns = GridConfigReader.getValue(context, "columns") or 1
 		if context.scrollable then
-			columns *= context.pages
+			columns *= math.max(context.pages, 1)
 		end
 		--[[
 			split last gutter between cols = colspan * (columns - 1) / columns * gutter

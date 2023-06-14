@@ -266,7 +266,6 @@ local function initializeLibrary(configs)
 			getExperienceTileHeight = require(script.App.Tile.SplitTile.ExperienceTile.getExperienceTileHeight),
 			TileContentPanel = require(script.App.Tile.SplitTile.TileContentPanel),
 			ExperienceActionRow = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow),
-			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
 			ActionTile = require(script.App.Tile.SplitTile.ActionTile.ActionTile),
 			VerticalTile = require(script.App.Tile.SplitTile.VerticalTile.VerticalTile),
 			VerticalTileThumbnail = require(script.App.Tile.SplitTile.VerticalTile.VerticalTileThumbnail),
@@ -362,7 +361,6 @@ local function initializeLibrary(configs)
 		Control = strict({
 			Knob = require(script.App.Control.Knob.Knob),
 			SegmentedControl = require(script.App.Control.SegmentedControl),
-			RobuxBalance = require(script.App.Control.RobuxBalance),
 			Pill = require(script.App.Control.Pill.Pill),
 			Pillv2 = require(script.App.Control.Pill.Pillv2),
 			Slot = strict({
@@ -403,7 +401,6 @@ local function initializeLibrary(configs)
 					DeviceType = require(script.App.Template.DetailsPage.Enum.DeviceType),
 				},
 				DetailsPageTemplate = require(script.App.Template.DetailsPage.DetailsPageTemplate),
-				DetailsPageTenfootTemplate = require(script.App.Template.DetailsPage.DetailsPageTenfootTemplate),
 				DetailsPageSelector = require(script.App.Template.DetailsPage.DetailsPageSelector),
 			},
 		}),
@@ -474,6 +471,12 @@ local function initializeLibrary(configs)
 	}
 
 	-- END DEPRECATED SECTION
+
+	if _G.__UIBLOX_TRACK_USAGE__ then
+		local UsageTracker = require(script.Parent.UsageTracker)
+
+		UIBlox = UsageTracker.trackMemberAccess("UIBlox", UIBlox, UsageTracker.isReactComponent)
+	end
 
 	return UIBlox
 end

@@ -22,6 +22,7 @@ local function useDetailsPageRenderItems(
 				index = component.portraitLayoutOrder + 1,
 				renderComponent = component.renderComponent,
 				showCornerGradient = component.showCornerGradient,
+				useSelectionBumper = component.useSelectionBumper,
 				key = key,
 			})
 		end

@@ -138,6 +138,13 @@ GenericButton.validateProps = t.interface({
 	--If true: button just wide enough to fit its text. If false: default to the full width of its container.
 	fitContent = t.optional(t.boolean),
 
+	-- Override for the button text
+	buttonTextOverride = t.optional(t.strictInterface({
+		TextWrapped = t.optional(t.boolean),
+		TextTruncate = t.optional(t.enum(Enum.TextTruncate)),
+		TextXAlignment = t.optional(t.enum(Enum.TextXAlignment)),
+	})),
+
 	forwardedRef = t.optional(t.table),
 
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
@@ -320,20 +327,23 @@ function GenericButton:renderButton(loadingProgress)
 						LayoutOrder = 1,
 					}) or nil,
 					Text = text
-							and Roact.createElement(GenericTextLabel, {
-								BackgroundTransparency = 1,
-								Text = text,
-								fontStyle = fontStyle,
-								colorStyle = textStyle,
-								LayoutOrder = 2,
-								maxSize = maxSize,
-								-- For standard buttons, text should truncate with ... and never wrap onto 2 lines
-								TextWrapped = if standardSize then false else nil,
-								TextTruncate = if standardSize then Enum.TextTruncate.AtEnd else nil,
-								-- For standard buttons, if there's an icon, left-align the text to avoid a big gap
-								-- between icon and text, especially in cases where the text is truncated
-								TextXAlignment = if standardSize and icon then Enum.TextXAlignment.Left else nil,
-							})
+							and Roact.createElement(
+								GenericTextLabel,
+								Cryo.Dictionary.join({
+									BackgroundTransparency = 1,
+									Text = text,
+									fontStyle = fontStyle,
+									colorStyle = textStyle,
+									LayoutOrder = 2,
+									maxSize = maxSize,
+									-- For standard buttons, text should truncate with ... and never wrap onto 2 lines
+									TextWrapped = if standardSize then false else nil,
+									TextTruncate = if standardSize then Enum.TextTruncate.AtEnd else nil,
+									-- For standard buttons, if there's an icon, left-align the text to avoid a big gap
+									-- between icon and text, especially in cases where the text is truncated
+									TextXAlignment = if standardSize and icon then Enum.TextXAlignment.Left else nil,
+								}, self.props.buttonTextOverride or {})
+							)
 						or nil,
 				}
 
@@ -383,6 +393,7 @@ function GenericButton:renderButton(loadingProgress)
 				standardSize = Cryo.None,
 				maxWidth = Cryo.None,
 				fitContent = Cryo.None,
+				buttonTextOverride = Cryo.None,
 				[Roact.Children] = Cryo.None,
 
 				Size = size,

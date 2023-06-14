@@ -71,12 +71,12 @@ local defaultKeyExtractor = VirtualizeUtilsModule.keyExtractor
 local computeWindowedRenderLimits = VirtualizeUtilsModule.computeWindowedRenderLimits
 
 local React = require(Packages.React)
-type React_ComponentType<P> = React.ComponentType<P>
 -- ROBLOX deviation: using typescript type for React Element
 type React_Element<P = Object, T = any> = React.ReactElement<P, T>
 type React_ElementConfig<T> = React.ElementConfig<T>
 type React_ElementRef<C> = React.ElementRef<C>
-type React_Node = React.Node
+type React_Node = React.ReactElement<any, any> | React.React_Node
+type React_ComponentType<P> = ((props: P) -> React.ReactElement<P, any>) | React.ComponentClass<P>
 
 local ScrollViewModule = require(srcWorkspace.Components.ScrollView.ScrollView)
 type ScrollResponderType = ScrollViewModule.ScrollResponderType
@@ -380,7 +380,7 @@ type OptionalProps = {
 	UNSTABLE_forceSiblingLayoutUpdate: boolean?,
 }
 
-type Props = React_ElementConfig<typeof(ScrollView)> & RequiredProps & OptionalProps
+export type Props = React_ElementConfig<typeof(ScrollView)> & RequiredProps & OptionalProps
 
 local _usedIndexForKey = false
 local _keylessItemComponentName: string = ""
@@ -624,6 +624,8 @@ type VirtualizedList = {
 	_invertedCanvasLength: number,
 }
 
+type VirtualizedListComponent = React.React_Component<Props, State> & VirtualizedList
+
 --[[*
  * Base implementation for the more convenient [`<FlatList>`](https://reactnative.dev/docs/flatlist)
  * and [`<SectionList>`](https://reactnative.dev/docs/sectionlist) components, which are also better
@@ -653,7 +655,7 @@ type VirtualizedList = {
  * - As an effort to remove defaultProps, use helper functions when referencing certain props
  *
  ]]
-local VirtualizedList = React.PureComponent:extend("VirtualizedList")
+local VirtualizedList: VirtualizedListComponent = React.PureComponent:extend("VirtualizedList")
 VirtualizedList.contextType = VirtualizedListContext
 
 function VirtualizedList:init(props: Props)
@@ -819,7 +821,7 @@ function VirtualizedList:init(props: Props)
 			if newState ~= nil and newState.first == state.first and newState.last == state.last then
 				newState = nil :: any
 			end
-			return newState
+			return newState :: State
 		end)
 	end
 	self._updateCellsToRenderBatcher = Batchinator.new(
@@ -1023,7 +1025,7 @@ function VirtualizedList:init(props: Props)
 			width > 0
 			and height > 0
 			and self.props.initialScrollIndex ~= nil
-			and self.props.initialScrollIndex > 1
+			and (self.props.initialScrollIndex :: number) > 1
 			and not self._hasDoneInitialScroll
 		then
 			if self.props.contentOffset == nil then

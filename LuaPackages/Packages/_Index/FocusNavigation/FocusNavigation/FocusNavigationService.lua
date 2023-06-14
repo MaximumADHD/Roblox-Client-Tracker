@@ -49,7 +49,8 @@ type FocusNavigationServicePrivate = {
 
 	_connectToInputEvents: (FocusNavigationServicePrivate) -> (),
 	_fireInputEvent: (FocusNavigationServicePrivate, GuiObject, InputObject) -> (),
-	_updateActiveEventMap: (FocusNavigationServicePrivate) -> (),
+	_updateActiveEventMap: (FocusNavigationServicePrivate, GuiObject?) -> (),
+	_cancelHandler: (FocusNavigationServicePrivate, GuiObject, string) -> (),
 
 	registerEventMap: (self: FocusNavigationServicePrivate, GuiObject, EventMap) -> (),
 	deregisterEventMap: (self: FocusNavigationServicePrivate, GuiObject, EventMap) -> (),
@@ -138,21 +139,31 @@ function FocusNavigationService:_connectToInputEvents()
 			self._silentBlurTarget = nil
 		end
 		self._fireFocusedGuiObjectSignal(nextFocus)
-		self:_updateActiveEventMap()
 		if nextFocus then
 			local silent = nextFocus == self._silentFocusTarget
 			self._eventPropagationService:propagateEvent(nextFocus, "focus", nil, silent)
 			self._silentFocusTarget = nil
 		end
+		self:_updateActiveEventMap(previousFocus)
 	end
 	table.insert(self._engineEventConnections, self._engineInterface.SelectionChanged:Connect(onFocusChanged))
 end
 
-function FocusNavigationService:_updateActiveEventMap()
+function FocusNavigationService:_cancelHandler(target, eventName)
+	if eventName ~= "blur" and eventName ~= "focus" then
+		self._eventPropagationService:propagateEvent(target, eventName, {
+			KeyCode = Enum.KeyCode.Unknown,
+			UserInputType = Enum.UserInputType.None,
+			UserInputState = Enum.UserInputState.Cancel,
+		}, false)
+	end
+end
+
+function FocusNavigationService:_updateActiveEventMap(previousFocus: GuiObject?)
 	local activeEventMap = {}
-	local focused = self._engineInterface.getSelection()
-	if focused then
-		local ancestorList = getAncestors(focused)
+	local currentFocus = self._engineInterface.getSelection()
+	if currentFocus then
+		local ancestorList = getAncestors(currentFocus)
 
 		local mappedEvents = {}
 		for i = #ancestorList, 1, -1 do
@@ -179,6 +190,15 @@ function FocusNavigationService:_updateActiveEventMap()
 
 	local lastEventMap = self.activeEventMap:getValue()
 	if not shallowEqual(lastEventMap, activeEventMap) then
+		-- trigger "cancel" callbacks on deactivated event handlers that still
+		-- exist, including events registered on unfocused GuiObjects
+		if previousFocus then
+			for key, eventName in lastEventMap do
+				if not activeEventMap[key] then
+					self:_cancelHandler(previousFocus, eventName)
+				end
+			end
+		end
 		self._fireActiveEventMapSignal(activeEventMap)
 	end
 end
@@ -225,7 +245,7 @@ function FocusNavigationService:deregisterEventMap(guiObject: GuiObject, eventMa
 		end
 	end
 	self._eventMapByInstance[guiObject] = updatedEventMap
-	self:_updateActiveEventMap()
+	self:_updateActiveEventMap(self.focusedGuiObject:getValue())
 end
 
 function FocusNavigationService:registerEventHandler(
@@ -244,8 +264,11 @@ function FocusNavigationService:deregisterEventHandler(
 	eventHandler: EventHandler,
 	phase: EventPhase?
 )
+	-- Send cancel event preemptively, otherwise it won't be in the event map
+	-- when we want to call it
+	self:_cancelHandler(guiObject, eventName)
 	self._eventPropagationService:deregisterEventHandler(guiObject, eventName, eventHandler, phase)
-	self:_updateActiveEventMap()
+	self:_updateActiveEventMap(self.focusedGuiObject:getValue())
 end
 
 function FocusNavigationService:registerEventHandlers(guiObject: GuiObject, eventHandlers: EventHandlerMap)
@@ -254,8 +277,14 @@ function FocusNavigationService:registerEventHandlers(guiObject: GuiObject, even
 end
 
 function FocusNavigationService:deregisterEventHandlers(guiObject: GuiObject, eventHandlers: EventHandlerMap)
+	-- Send cancel event preemptively, otherwise it won't be in the event map
+	-- when we want to call it
+	for eventName, _ in eventHandlers do
+		self:_cancelHandler(guiObject, eventName)
+	end
+
 	self._eventPropagationService:deregisterEventHandlers(guiObject, eventHandlers)
-	self:_updateActiveEventMap()
+	self:_updateActiveEventMap(self.focusedGuiObject:getValue())
 end
 
 function FocusNavigationService:focusGuiObject(guiObject: GuiObject?, silent: boolean)

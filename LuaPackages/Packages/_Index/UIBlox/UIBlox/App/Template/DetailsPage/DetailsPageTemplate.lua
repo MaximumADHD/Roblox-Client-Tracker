@@ -87,6 +87,9 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 
 	-- deprecated Prop
 	isMobile = t.optional(t.boolean),
+
+	-- design tokens
+	tokens = t.optional(t.table),
 })
 
 DetailsPageTemplate.defaultProps = {

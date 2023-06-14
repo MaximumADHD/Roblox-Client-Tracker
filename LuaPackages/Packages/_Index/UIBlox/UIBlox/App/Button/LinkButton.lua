@@ -20,6 +20,11 @@ local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
+local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local UNDERLINED_HOVER_TRANSPARENCY = 0.3
 
 local LinkButton = Roact.PureComponent:extend("LinkButton")
@@ -64,7 +69,8 @@ LinkButton.validateProps = t.strictInterface({
 	minPaddingX = t.optional(t.number),
 	-- Custom min padding Y
 	minPaddingY = t.optional(t.number),
-
+	-- Custom selection cursor kind
+	selectionCursorKind = t.optional(t.table),
 	-- A callback that replaces getTextSize implementation
 	[LinkButton.debugProps.getTextSize] = t.optional(t.callback),
 
@@ -115,6 +121,12 @@ function LinkButton:init()
 end
 
 function LinkButton:render()
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursorProvider(getSelectionCursor)
+	end)
+end
+
+function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor)
 	return withStyle(function(style)
 		local currentState = self.props[LinkButton.debugProps.controlState] or self.state.controlState
 
@@ -151,6 +163,13 @@ function LinkButton:render()
 
 		local minSize = Vector2.new(textWidth + minPaddingX * 2, fontSize + minPaddingY * 2)
 
+		local selectionCursor = nil
+		if self.props.selectionCursorKind ~= nil then
+			selectionCursor = getSelectionCursor(self.props.selectionCursorKind)
+		elseif UIBloxConfig.linkButtonUseSelectionImage then
+			selectionCursor = getSelectionCursor(CursorKind.RoundedRectNoInset)
+		end
+
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,
 			LayoutOrder = self.props.layoutOrder,
@@ -162,7 +181,7 @@ function LinkButton:render()
 			userInteractionEnabled = self.props.userInteractionEnabled,
 			BackgroundTransparency = 1,
 			AutoButtonColor = false,
-
+			SelectionImageObject = selectionCursor,
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
 			sizeConstraint = Roact.createElement("UISizeConstraint", {
