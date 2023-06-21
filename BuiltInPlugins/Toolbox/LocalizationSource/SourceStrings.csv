@@ -210,7 +210,11 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Independent music,Studio.Toolbox.General.VotingVotesText,votes
  ,votes,Studio.Toolbox.Audio.SoundEffect.Category.mechanical,Mechanical
  ,Mechanical,Studio.Toolbox.General.FooterButtonBlackName,Black
- ,Black,Studio.Toolbox.General.FooterButtonNoneName,None
+ ,Black,Studio.Toolbox.Audio.SoundEffect.Category.Static,Static
+ ,Static,Studio.Toolbox.Audio.SoundEffect.Category.static,Static
+ ,Static,Studio.Toolbox.Audio.SoundEffect.Category.Honk,Honk
+ ,Honk,Studio.Toolbox.AssetThumbnailPreview.PreviewTooBig,This instance has too many descendants. We have hidden the preview for performance.
+ ,This instance has too many descendants. We have hidden the preview for performance.,Studio.Toolbox.General.FooterButtonNoneName,None
  ,None,Studio.Toolbox.General.SalesOnsale,Onsale
  ,Onsale,Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item
  ,Marked as a high-quality item,Studio.Toolbox.General.VerifiedCreatorBadgeTooltipText,Creator is ID verified
@@ -433,7 +437,8 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Back Accessory,Studio.Toolbox.General.AssetTypeShirtAccessory,Shirt Accessory
  ,Shirt Accessory,Studio.Toolbox.General.AssetTypePantsAccessory,Pants Accessory
  ,Pants Accessory,Studio.Toolbox.General.AssetTypeJacketAccessory,Jacket Accessory
- ,Jacket Accessory,Studio.Toolbox.AssetConfigSharing.VerifyCurrentLimit,Current limit: {quotaText}
+ ,Jacket Accessory,Studio.Toolbox.AssetConfig.ValidationErrorBadSelectionCount,Select exactly one item.
+ ,Select exactly one item.,Studio.Toolbox.AssetConfigSharing.VerifyCurrentLimit,Current limit: {quotaText}
  ,Current limit: {quotaText},Studio.Toolbox.General.AssetTypeSweaterAccessory,Sweater Accessory
  ,Sweater Accessory,Studio.Toolbox.General.AssetTypeLeftShoeAccessory,Left Shoe Accessory
  ,Left Shoe Accessory,Studio.Toolbox.Audio.SoundEffect.Category.beasts,Beasts
@@ -684,7 +689,8 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Diesel,Studio.Toolbox.AssetConfig.PublishAssetDialogHeading,This model contains private assets
  ,This model contains private assets,Studio.Toolbox.Audio.SoundEffect.Category.Theremin,Theremin
  ,Theremin,Studio.Toolbox.AssetConfig.PublishAssetDialogDescription,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish."
- ,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish.",Studio.Toolbox.AssetConfig.PublishAssetDialogPublish,Publish
+ ,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish.",Studio.Toolbox.AssetConfig.ValidationErrorItemNotDetected,"{itemName} not detected. Please check naming, rigging, and attachments."
+ ,"{itemName} not detected. Please check naming, rigging, and attachments.",Studio.Toolbox.AssetConfig.PublishAssetDialogPublish,Publish
  ,Publish,Studio.Toolbox.Audio.SoundEffect.Category.cloth,Cloth
  ,Cloth,Studio.Toolbox.AssetConfig.PublishPluginHeader,Publish as Plugin
  , Publish as Plugin,Studio.Toolbox.AssetConfig.ModelPublishWarning,Any private audio in your model will not be playable.
@@ -708,7 +714,11 @@ Creator Dashboard is the name of the web interface for managing user generated c
  ,Drum,Studio.Toolbox.GrantAssetPermission.GrantButton,Grant
  ,Grant,Studio.Toolbox.AssetConfig.AvatarItemsErrorTextPlural,{errorCount:int} errors found when validating Avatar Item Category
  ,{errorCount:int} errors found when validating Avatar Item Category,Studio.Toolbox.AssetConfig.AssetConfigOutputErrorHeading,"{errorCount:int} Error Asset Configuration, Avatar Item Category"
- ,"{errorCount:int} Error Asset Configuration, Avatar Item Category",Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
+ ,"{errorCount:int} Error Asset Configuration, Avatar Item Category",Studio.Toolbox.Audio.SoundEffect.Category.Steam whistle,Steam whistle
+ ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Steam_whistle,Steam whistle
+ ,Steam whistle,Studio.Toolbox.AssetConfig.UGCBodyBundleName,Body
+ ,Body,Studio.Toolbox.AssetConfig.UGCBundleCategoryName,Body
+ ,Body,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
  ,Aircraft,Studio.Toolbox.Audio.SoundEffect.Category.aircraft,Aircraft
  ,Aircraft,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
  ,Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
@@ -821,8 +831,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.FindTracks,Find Tracks 
  ,Laughter,Studio.Toolbox.Audio.SoundEffect.Category.tonalities,Tonalities
  ,Tonalities,Studio.Toolbox.Audio.Music.Genre.marches-military,Marches & Military
  ,Marches & Military,Studio.Toolbox.Audio.SoundEffect.Category.modern-cars,Modern Cars
- ,Modern Cars,Studio.Toolbox.Audio.SoundEffect.Category.footsteps,Footsteps
- ,Footsteps,Studio.Toolbox.Audio.Music.Genre.pop,Pop
+ ,Modern Cars,Studio.Toolbox.Audio.Music.Genre.pop,Pop
  ,Pop,"Studio.Toolbox.Audio.SoundEffect.Category.Outside, rural or natural","Outside, rural or natural"
  ,"Outside, rural or natural",Studio.Toolbox.Audio.SoundEffect.Category.Outside_rural_or_natural,"Outside, rural or natural"
  ,"Outside, rural or natural",Studio.Toolbox.Audio.SoundEffect.Category.Mantra,Mantra
@@ -884,7 +893,8 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.FindTracks,Find Tracks 
  ,Rhythm and blues,Studio.Toolbox.Audio.SoundEffect.Category.Rhythm_and_blues,Rhythm and blues
  ,Rhythm and blues,Studio.Toolbox.Audio.SoundEffect.Category.farm,Farm
  ,Farm,Studio.Toolbox.Audio.SoundEffect.Category.farts,Farts
- ,Farts,Studio.Toolbox.Audio.SoundEffect.Category.foreign,Foreign
+ ,Farts,Studio.Toolbox.Audio.SoundEffect.Category.footsteps,Footsteps
+ ,Footsteps,Studio.Toolbox.Audio.SoundEffect.Category.foreign,Foreign
  ,Foreign,Studio.Toolbox.Audio.SoundEffect.Category.metal,Metal
  ,Metal,Studio.Toolbox.Audio.SoundEffect.Category.Power tool,Power tool
  ,Power tool,Studio.Toolbox.Audio.SoundEffect.Category.Power_tool,Power tool
@@ -967,10 +977,10 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.FindTracks,Find Tracks 
  ,Throat clearing,Studio.Toolbox.Audio.SoundEffect.Category.rollers,Rollers
  ,Rollers,Studio.Toolbox.Audio.SoundEffect.Category.scrapes,Scrapes
  ,Scrapes,Studio.Toolbox.Audio.SoundEffect.Category.rolling,Rolling
- ,Rolling,Studio.Toolbox.Audio.SoundEffect.Category.rowboats,Rowboats
- ,Rowboats,Studio.Toolbox.Audio.SoundEffect.Category.Toilet flush,Toilet flush
+ ,Rolling,Studio.Toolbox.Audio.SoundEffect.Category.Toilet flush,Toilet flush
  ,Toilet flush,Studio.Toolbox.Audio.SoundEffect.Category.Toilet_flush,Toilet flush
- ,Toilet flush,Studio.Toolbox.Audio.SoundEffect.Category.rumbles,Rumbles
+ ,Toilet flush,Studio.Toolbox.Audio.SoundEffect.Category.rowboats,Rowboats
+ ,Rowboats,Studio.Toolbox.Audio.SoundEffect.Category.rumbles,Rumbles
  ,Rumbles,Studio.Toolbox.Audio.SoundEffect.Category.rural,Rural
  ,Rural,"Studio.Toolbox.Audio.SoundEffect.Category.Inside, small room","Inside, small room"
  ,"Inside, small room",Studio.Toolbox.Audio.SoundEffect.Category.Inside_small_room,"Inside, small room"
@@ -989,10 +999,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.FindTracks,Find Tracks 
  ,Snow,Studio.Toolbox.Audio.SoundEffect.Category.splashes,Splashes
  ,Splashes,Studio.Toolbox.Audio.SoundEffect.Category.Spray,Spray
  ,Spray,Studio.Toolbox.Audio.SoundEffect.Category.spray,Spray
- ,Spray,Studio.Toolbox.Audio.SoundEffect.Category.Static,Static
- ,Static,Studio.Toolbox.Audio.SoundEffect.Category.static,Static
- ,Static,Studio.Toolbox.Audio.SoundEffect.Category.Honk,Honk
- ,Honk,Studio.Toolbox.Audio.SoundEffect.Category.stings,Stings
+ ,Spray,Studio.Toolbox.Audio.SoundEffect.Category.stings,Stings
  ,Stings,Studio.Toolbox.Audio.SoundEffect.Category.submarines,Submarines
  ,Submarines,Studio.Toolbox.Audio.SoundEffect.Category.subway,Subway
  ,Subway,Studio.Toolbox.Audio.SoundEffect.Category.Doorbell,Doorbell
@@ -1358,9 +1365,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.FindTracks,Find Tracks 
  ,Civil defense siren,Studio.Toolbox.Audio.SoundEffect.Category.Civil_defense_siren,Civil defense siren
  ,Civil defense siren,"Studio.Toolbox.Audio.SoundEffect.Category.Smoke detector, smoke alarm","Smoke detector, smoke alarm"
  ,"Smoke detector, smoke alarm",Studio.Toolbox.Audio.SoundEffect.Category.Smoke_detector_smoke_alarm,"Smoke detector, smoke alarm"
- ,"Smoke detector, smoke alarm",Studio.Toolbox.Audio.SoundEffect.Category.Steam whistle,Steam whistle
- ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Steam_whistle,Steam whistle
- ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Mechanisms,Mechanisms
+ ,"Smoke detector, smoke alarm",Studio.Toolbox.Audio.SoundEffect.Category.Mechanisms,Mechanisms
  ,Mechanisms,"Studio.Toolbox.Audio.SoundEffect.Category.Ratchet, pawl","Ratchet, pawl"
  ,"Ratchet, pawl",Studio.Toolbox.Audio.SoundEffect.Category.Ratchet_pawl,"Ratchet, pawl"
  ,"Ratchet, pawl",Studio.Toolbox.Audio.SoundEffect.Category.Clock,Clock

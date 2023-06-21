@@ -1,13 +1,15 @@
 Key,en-us
-Studio.MaterialGenerator.Errors.AccountingFailedDecrement,Useage is limited during beta. Wait a moment and try again.
+Studio.MaterialGenerator.Errors.AccountingFailedDecrement,Usage is limited during beta. Wait a moment and try again.
 Studio.MaterialGenerator.Errors.FailedToGenerateMaps,Generation error. Please try again.
+Studio.MaterialGenerator.Errors.FailedToSetImage,Failed to set image. Please try again.
 Studio.MaterialGenerator.Errors.NoSelectedMaterial,Please choose a base material.
 Studio.MaterialGenerator.Errors.NoSession,Generation error. Please try again.
 Studio.MaterialGenerator.Errors.ServerError500,"Server error, please try again."
 Studio.MaterialGenerator.Errors.ServerError504,"Server error, please try again."
 Studio.MaterialGenerator.Errors.TextFullyFiltered,Your text is fully filtered. Please try a different prompt.
-Studio.MaterialGenerator.Errors.TooManyRequests,Useage is limited during beta. Wait a moment and try again.
+Studio.MaterialGenerator.Errors.TooManyRequests,Usage is limited during beta. Wait a moment and try again.
 Studio.MaterialGenerator.Errors.UnknownGenerationError,Generation error. Please try again.
+Studio.MaterialGenerator.Header.AddImageTooltip,Add base image
 Studio.MaterialGenerator.Header.BudgetErrorFormat,"Generation error, please try again."
 Studio.MaterialGenerator.Header.ErrorQueryingBudget,"Generation error, please try again."
 Studio.MaterialGenerator.Header.GenerateButton,Generate

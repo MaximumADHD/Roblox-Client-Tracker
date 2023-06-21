@@ -11072,6 +11072,28 @@
                     }
                 },
                 {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "RemoveOnHit",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Script",
@@ -19170,6 +19192,24 @@
         {
             "Members": [
                 {
+                    "Category": "Balance",
+                    "MemberType": "Property",
+                    "Name": "BalanceRigidityEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Movement",
                     "MemberType": "Property",
                     "Name": "MoveSpeedFactor",
@@ -19185,24 +19225,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
-                    "Name": "RigidityEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 }
             ],
@@ -19231,24 +19253,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
-                    "Name": "BalanceRigidityEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -19342,42 +19346,6 @@
                     }
                 },
                 {
-                    "Category": "Orientation",
-                    "MemberType": "Property",
-                    "Name": "OrientationMaxTorque",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Orientation",
-                    "MemberType": "Property",
-                    "Name": "OrientationSpeedFactor",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
                     "Category": "Turn",
                     "MemberType": "Property",
                     "Name": "TurnMaxTorque",
@@ -19411,29 +19379,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Movement",
-                    "MemberType": "Property",
-                    "Name": "VectorForce",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Vector3"
                     }
                 }
             ],
@@ -19485,24 +19430,6 @@
                 {
                     "Category": "Balance",
                     "MemberType": "Property",
-                    "Name": "BalanceRigidityEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
                     "Name": "BalanceSpeed",
                     "Security": {
                         "Read": "None",
@@ -19522,42 +19449,6 @@
                     "Category": "Movement",
                     "MemberType": "Property",
                     "Name": "MoveMaxForce",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
-                    "Name": "OrientationMaxTorque",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
-                    "Name": "OrientationSpeedFactor",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -19621,42 +19512,6 @@
                 {
                     "Category": "Balance",
                     "MemberType": "Property",
-                    "Name": "AlignSpeed",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
-                    "Name": "AlignTorque",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
                     "Name": "BalanceMaxTorque",
                     "Security": {
                         "Read": "None",
@@ -19670,24 +19525,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Balance",
-                    "MemberType": "Property",
-                    "Name": "BalanceRigidityEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -19820,24 +19657,6 @@
                     "Category": "Movement",
                     "MemberType": "Property",
                     "Name": "TurnSpeedFactor",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Movement",
-                    "MemberType": "Property",
-                    "Name": "TurningFactor",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -27898,6 +27717,17 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Geometry",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "CalculateConstraintsToPreserve",
@@ -27917,17 +27747,10 @@
                             }
                         },
                         {
-                            "Name": "tolerance",
+                            "Name": "options",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "float"
-                            }
-                        },
-                        {
-                            "Name": "weldConstraintPreserve",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "WeldConstraintPreserve"
+                                "Category": "Group",
+                                "Name": "Variant"
                             }
                         }
                     ],
@@ -28048,7 +27871,7 @@
                 }
             ],
             "MemoryCategory": "Instances",
-            "Name": "Geometry",
+            "Name": "GeometryService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -30923,6 +30746,24 @@
                 {
                     "Category": "Text",
                     "MemberType": "Property",
+                    "Name": "TextDirection",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TextDirection"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
                     "Name": "TextFits",
                     "Security": {
                         "Read": "None",
@@ -31653,6 +31494,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "TextDirection",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TextDirection"
                     }
                 },
                 {
@@ -32744,6 +32603,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "TextDirection",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TextDirection"
                     }
                 },
                 {
@@ -50612,6 +50489,28 @@
                     }
                 },
                 {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "RemoveOnHit",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Script",
@@ -52515,6 +52414,18 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "OpenCloudService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Transform",
                     "MemberType": "Property",
@@ -53153,6 +53064,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "EnableFluidForces",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -58860,6 +58789,24 @@
         {
             "Members": [
                 {
+                    "Category": "AirProperties",
+                    "MemberType": "Property",
+                    "Name": "AirDensity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "AllowThirdPartySales",
@@ -58964,6 +58911,24 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "EnableFluidForces",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "FallenPartsDestroyHeight",
                     "Security": {
                         "Read": "None",
@@ -59057,6 +59022,27 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "HumanoidOnlySetCollisionsOnStateChange"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "IKControlConstraintSupport",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "IKControlConstraintSupport"
                     }
                 },
                 {
@@ -62182,6 +62168,24 @@
                     "Security": {
                         "Read": "None",
                         "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Display",
+                    "MemberType": "Property",
+                    "Name": "AreCollisionCostsShown",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -69514,6 +69518,63 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreateAssetAndWaitForAssetId",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "operationId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "creatorId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "description",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PublishCageMeshAsync",
                     "Parameters": [
                         {
@@ -71532,6 +71593,29 @@
                 "NotCreatable",
                 "Service",
                 "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "EndRemoteRomarkTest",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RomarkService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -91113,6 +91197,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ValidateDynamicHeadMesh",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ValidateFullBodyCageDeletion",
                     "Parameters": [
                         {
@@ -91288,6 +91394,28 @@
                 {
                     "MemberType": "Function",
                     "Name": "ValidateOverlappingVertices",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateSkinnedMesh",
                     "Parameters": [
                         {
                             "Name": "meshId",
@@ -93499,28 +93627,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Control",
-                    "MemberType": "Property",
-                    "Name": "VRPlayMode",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "VRPlayMode"
                     }
                 },
                 {
@@ -103193,6 +103299,23 @@
         {
             "Items": [
                 {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "IKControlConstraintSupport"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Transform",
                     "Value": 0
                 },
@@ -108324,6 +108447,23 @@
         {
             "Items": [
                 {
+                    "Name": "Auto",
+                    "Value": 0
+                },
+                {
+                    "Name": "LeftToRight",
+                    "Value": 1
+                },
+                {
+                    "Name": "RightToLeft",
+                    "Value": 2
+                }
+            ],
+            "Name": "TextDirection"
+        },
+        {
+            "Items": [
+                {
                     "Name": "PublicChat",
                     "Value": 1
                 },
@@ -109006,19 +109146,6 @@
                 }
             ],
             "Name": "UserInputType"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "Seated",
-                    "Value": 0
-                },
-                {
-                    "Name": "Standing",
-                    "Value": 1
-                }
-            ],
-            "Name": "VRPlayMode"
         },
         {
             "Items": [

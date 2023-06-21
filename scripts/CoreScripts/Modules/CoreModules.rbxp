@@ -22,6 +22,9 @@
             "Common": {
                 "$path": "Common/CommonCoreModules.rbxp"
             },
+            "Chrome": {
+                "$path": "Chrome",
+            },
             "ContactList": {
                 "$path": "ContactList",
             },

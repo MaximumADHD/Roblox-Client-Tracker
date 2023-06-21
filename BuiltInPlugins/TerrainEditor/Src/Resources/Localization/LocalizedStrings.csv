@@ -90,6 +90,7 @@ Studio.TerrainEditor.Materials.Pavement,Pavement,Gehweg,Pavement,Pavimento,Chaus
 Studio.TerrainEditor.Brush.BrushSettings,Brush Settings,Pinseleinstellungen,Brush Settings,Configuración del pincel,Paramètres brosse,Impostazioni pennello,ブラシ設定,브러시 설정,Configurações do pincel,Параметры кисти,笔刷设置,笔刷设置,筆刷設定
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings, ,Brush Settings,Configuración del pincel,Paramètres du pinceau,Impostazioni pennello,ブラシ設定,브러시 설정,Configurações do pincel, ,涂刷设置,涂刷设置,筆刷設定
 Studio.TerrainEditor.Brush.Size,Size,Größe,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho,Размер,尺寸,尺寸,大小
+Studio.TerrainEditor.SelectionSettings.Size,Size, ,Size, , , , , , , , , , 
 Studio.TerrainEditor.Brush.MaterialSettings,Material Settings,Materialeinstellungen,Material Settings,Configuración del material,Paramètres matériaux,Impostazioni materiale,素材の設定,재질 설정,Configurações do material,Свойства материала,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings, ,Material Settings,Configuración del material,Paramètres matériel,Impostazioni materiale,素材の設定,재질 설정,Configurações do material, ,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Brush.Advanced,Advanced,Fortgeschritten,Advanced,Avanzado,Avancé,Avanzato,詳細設定,고급,Avançado,Расширенные настройки,高级,高级,進階
@@ -106,6 +107,7 @@ Studio.TerrainEditor.BaseTool.Import,Import, ,Import,Importar,Importer,Importa,�
 Studio.TerrainEditor.BaseTool.RegionImport,Import, ,Import,Importar,Importer,Importa,インポートする,가져오기,Importar, ,导入,导入,匯入
 Studio.TerrainEditor.MainButtons.Import,Import, ,Import,Importar,Importer,Importa,インポート,가져오기,Importar,Импорт,导入,导入,匯入
 Studio.TerrainEditor.MainButtons.ImportTooltip,Import a HeightMap and ColorMap., ,Import a HeightMap and ColorMap.,Importa HeightMap y ColorMap,Importer une HeightMap et une ColorMap.,Importa una HeightMap e una ColorMap.,HeightMap と ColorMapをインポート。,HeightMap과 ColorMap을 가져옵니다.,Importar um HeightMap e ColorMap.,Импортировать HeightMap и ColorMap.,导入 HeightMap 和 ColorMap。,导入 HeightMap 和 ColorMap。,匯入 HeightMap 與 ColorMap。
+Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings, ,Selection Settings, , , , , , , , , , 
 Studio.TerrainEditor.FlattenMode.Both,Both, ,Both,Ambos,Les deux,Entrambi,両方,양쪽 모두,Ambos, ,两者皆是,两者皆是,兩者
 Studio.TerrainEditor.MainButtons.ClearTooltip,Clear all Terrain., ,Clear all Terrain.,Eliminar todos los terrenos,Déblayer tout le terrain.,Cancella tutti i terreni.,すべての地形を消す。,모든 지형을 삭제합니다.,Limpar todos os terrenos.,Очистить весь рельеф.,清除所有地形。,清除所有地形。,清除所有地形。
 Studio.TerrainEditor.Plugin.Button,Toggle, ,Toggle,Activar,Activer/désactiver,Attiva/disattiva,切り換え,토글,Alternador, ,切换,切换,切換
@@ -119,6 +121,7 @@ Studio.TerrainEditor.BaseTool.Fill,Fill, ,Fill,Llenar,Remplir,Riempi,埋める,�
 Studio.TerrainEditor.BaseTool.RegionFill,Fill, ,Fill,Llenar,Remplir,Riempi,埋める,채우기,Preencher, ,填充,填充,填滿
 Studio.TerrainEditor.BaseTool.RegionTransform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, ,转变,转变,變形
 Studio.TerrainEditor.BaseTool.Transform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, ,转变,转变,變形
+Studio.TerrainEditor.SelectionSettings.Transform,Transform, ,Transform, , , , , , , , , , 
 Studio.TerrainEditor.BaseTool.Draw,Draw, ,Draw,Dibujar,Dessiner,Disegno,描画,그리기,Desenhar, ,绘制,绘制,繪製
 Studio.TerrainEditor.BrushShape.Sphere,Sphere, ,Sphere,Esfera,Sphère,Sfera,球体,구,Esfera, ,球体,球体,球體
 Studio.TerrainEditor.BrushShape.Cube,Cube, ,Cube,Cubo,Cube,Cubo,立方体,큐브,Cubo, ,立方体,立方体,立方體
@@ -145,3 +148,6 @@ Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material, ,Auto Material
 Studio.TerrainEditor.MaterialSettings.ReplaceMaterial,Replace Material, ,Replace Material,Reemplazar material,Remplacer le matériel,Sostituisci materiale,素材を置き換え,재질 바꾸기,Substituir material, ,替换材质,替换材质,取代材質
 Studio.TerrainEditor.MaterialSettings.SourceMaterial,Source Material, ,Source Material,Material de origen,Matériel source,Materiale sorgente,ソース素材,소스 재질,Material de origem, ,来源材质,来源材质,來源材質
 Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material, ,Target Material,Material meta,Matériel cible,Materiale target,対象素材,대상 재질,Material alvo, ,目标材质,目标材质,目標材質
+Studio.TerrainEditor.BaseTool.Select,Select, ,Select, , , , , , , , , , 
+Studio.TerrainEditor.SelectionSettings.Position,Position, ,Position, , , , , , , , , , 
+Studio.TerrainEditor.SelectionSettings.Rotation,Rotation, ,Rotation, , , , , , , , , , 

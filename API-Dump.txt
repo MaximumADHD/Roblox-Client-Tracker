@@ -611,6 +611,7 @@ Class Breakpoint : Instance [NotReplicated]
 	Property string Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool Breakpoint.RemoveOnHit {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.Verified {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1057,35 +1058,25 @@ Class SkateboardController : Controller
 	Event SkateboardController.AxisChanged(string axis)
 Class VehicleController : Controller
 Class ControllerBase : Instance [NotCreatable]
-	Property bool ControllerBase.RigidityEnabled
+	Property bool ControllerBase.BalanceRigidityEnabled
 	Property float ControllerBase.MoveSpeedFactor
 Class AirController : ControllerBase [NotBrowsable]
 	Property float AirController.BalanceMaxTorque
-	Property bool AirController.BalanceRigidityEnabled
 	Property float AirController.BalanceSpeed
 	Property Vector3 AirController.LinearImpulse
 	Property bool AirController.MaintainLinearMomentum
 	Property float AirController.MoveMaxForce
-	Property Vector3 AirController.VectorForce [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
-	Property float AirController.OrientationMaxTorque
-	Property float AirController.OrientationSpeedFactor
 	Property bool AirController.MaintainAngularMomentum
 	Property float AirController.TurnMaxTorque
 	Property float AirController.TurnSpeedFactor
 Class ClimbController : ControllerBase [NotBrowsable]
 	Property float ClimbController.BalanceMaxTorque
-	Property bool ClimbController.BalanceRigidityEnabled
 	Property float ClimbController.BalanceSpeed
-	Property float ClimbController.OrientationMaxTorque
-	Property float ClimbController.OrientationSpeedFactor
 	Property float ClimbController.AccelerationTime
 	Property float ClimbController.MoveMaxForce
 Class GroundController : ControllerBase [NotBrowsable]
 	Property float GroundController.AccelerationLean
-	Property float GroundController.AlignSpeed
-	Property float GroundController.AlignTorque
 	Property float GroundController.BalanceMaxTorque
-	Property bool GroundController.BalanceRigidityEnabled
 	Property float GroundController.BalanceSpeed
 	Property float GroundController.AccelerationTime
 	Property float GroundController.DecelerationTime
@@ -1095,7 +1086,6 @@ Class GroundController : ControllerBase [NotBrowsable]
 	Property float GroundController.StandForce
 	Property float GroundController.StandSpeed
 	Property float GroundController.TurnSpeedFactor
-	Property float GroundController.TurningFactor
 Class SwimController : ControllerBase [NotBrowsable]
 	Property float SwimController.PitchMaxTorque
 	Property float SwimController.PitchSpeedFactor
@@ -1549,10 +1539,11 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
 	Event GamepadService.GamepadThumbstick1Changed(Vector2 event) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
-	Function Dictionary Geometry:CalculateConstraintsToPreserve(Instance source, Objects destination, float tolerance, Enum.WeldConstraintPreserve weldConstraintPreserve)
-	Function Objects Geometry:IntersectAsync(Instance part, Objects parts, Variant options) [Yields]
-	Function Objects Geometry:SubtractAsync(Instance part, Objects parts, Variant options) [Yields]
-	Function Objects Geometry:UnionAsync(Instance part, Objects parts, Variant options) [Yields]
+Class GeometryService : Instance [NotCreatable] [Service]
+	Function Dictionary GeometryService:CalculateConstraintsToPreserve(Instance source, Objects destination, Variant options)
+	Function Objects GeometryService:IntersectAsync(Instance part, Objects parts, Variant options) [Yields]
+	Function Objects GeometryService:SubtractAsync(Instance part, Objects parts, Variant options) [Yields]
+	Function Objects GeometryService:UnionAsync(Instance part, Objects parts, Variant options) [Yields]
 Class GetTextBoundsParams : Instance [NotReplicated]
 	Property Font GetTextBoundsParams.Font
 	Property float GetTextBoundsParams.Size
@@ -1707,6 +1698,7 @@ Class TextButton : GuiButton
 	Property Vector2 TextButton.TextBounds [ReadOnly]
 	Property BrickColor TextButton.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 TextButton.TextColor3
+	Property Enum.TextDirection TextButton.TextDirection
 	Property bool TextButton.TextFits [ReadOnly]
 	Property bool TextButton.TextScaled
 	Property float TextButton.TextSize
@@ -1748,6 +1740,7 @@ Class TextLabel : GuiLabel
 	Property Vector2 TextLabel.TextBounds [ReadOnly]
 	Property BrickColor TextLabel.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 TextLabel.TextColor3
+	Property Enum.TextDirection TextLabel.TextDirection
 	Property bool TextLabel.TextFits [ReadOnly]
 	Property bool TextLabel.TextScaled
 	Property float TextLabel.TextSize
@@ -1810,6 +1803,7 @@ Class TextBox : GuiObject
 	Property Vector2 TextBox.TextBounds [ReadOnly]
 	Property BrickColor TextBox.TextColor [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 TextBox.TextColor3
+	Property Enum.TextDirection TextBox.TextDirection
 	Property bool TextBox.TextFits [ReadOnly]
 	Property bool TextBox.TextScaled
 	Property float TextBox.TextSize
@@ -2845,6 +2839,7 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool MetaBreakpoint.RemoveOnHit {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool MetaBreakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Dictionary MetaBreakpoint:GetContextBreakpoints() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
@@ -2950,6 +2945,7 @@ Class OmniRecommendationsService : Instance [NotCreatable] [Service] [NotReplica
 	Function void OmniRecommendationsService:ClearSessionId() {RobloxScriptSecurity}
 	Function string OmniRecommendationsService:GetSessionId() {RobloxScriptSecurity}
 	Function HttpRequest OmniRecommendationsService:MakeRequest(string nextPageToken) {RobloxScriptSecurity}
+Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property CFrame PVInstance.Pivot Offset [NotReplicated] [NotScriptable]
 	Property CFrame PVInstance.Origin [NotReplicated] [NotScriptable]
@@ -2971,6 +2967,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property float BasePart.AssemblyMass [ReadOnly]
 	Property BasePart BasePart.AssemblyRootPart [ReadOnly]
 	Property bool BasePart.DraggingV1 [Hidden] [NotScriptable]
+	Property bool BasePart.EnableFluidForces
 	Property Enum.NetworkOwnership BasePart.NetworkOwnershipRule [Hidden] [NotScriptable]
 	Property bool BasePart.CanCollide
 	Property bool BasePart.CanQuery
@@ -3168,6 +3165,7 @@ Class MeshPart : TriangleMeshPart
 	Property Enum.RenderFidelity MeshPart.RenderFidelityReplicate {✏️PluginSecurity} [Hidden] [NotScriptable]
 	Property Content MeshPart.TextureID
 	Property int MeshPart.VertexCount {RobloxSecurity} [Hidden] [NotScriptable]
+	Property SharedString MeshPart.AeroMeshData {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Vector3 MeshPart.InitialSize {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Vector3 MeshPart.JointOffset {✏️NotAccessibleSecurity} [Hidden]
 	Property BinaryString MeshPart.PhysicsData {RobloxSecurity} [Hidden] [NotScriptable]
@@ -3303,18 +3301,21 @@ Class WorldRoot : Model [NotCreatable]
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 	Function RaycastResult WorldRoot:Spherecast(Vector3 position, float radius, Vector3 direction, RaycastParams params = RaycastParams.new()) {🧬Safe}
 Class Workspace : WorldRoot [NotCreatable] [Service]
+	Property float Workspace.AirDensity
 	Property bool Workspace.AllowThirdPartySales [NotReplicated]
 	Property Enum.AvatarUnificationMode Workspace.AvatarUnificationMode [NotScriptable]
 	Property Enum.ClientAnimatorThrottlingMode Workspace.ClientAnimatorThrottling
 	Property BinaryString Workspace.CollisionGroupData {RobloxSecurity} [Hidden] [NotScriptable]
 	Property string Workspace.CollisionGroups [<📁> LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
 	Property int Workspace.DataModelPlaceVersion [Hidden] [NotScriptable]
+	Property bool Workspace.EnableFluidForces
 	Property bool Workspace.ExplicitAutoJoints [Hidden] [NotScriptable]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Vector3 Workspace.GlobalWind
 	Property float Workspace.Gravity
 	Property Enum.HumanoidOnlySetCollisionsOnStateChange Workspace.HumanoidOnlySetCollisionsOnStateChange [NotScriptable]
+	Property Enum.IKControlConstraintSupport Workspace.IKControlConstraintSupport [NotScriptable]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
@@ -3499,6 +3500,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreAssembliesShown
 	Property bool PhysicsSettings.AreAwakePartsHighlighted
 	Property bool PhysicsSettings.AreBodyTypesShown
+	Property bool PhysicsSettings.AreCollisionCostsShown {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreConstraintForcesShownForSelectedOrHoveredInstances {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreConstraintTorquesShownForSelectedOrHoveredInstances {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreContactForcesShownForSelectedOrHoveredAssemblies {RobloxScriptSecurity}
@@ -3915,6 +3917,7 @@ Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Event ProximityPromptService.PromptTriggerEnded(ProximityPrompt prompt, Player playerWhoTriggered)
 	Event ProximityPromptService.PromptTriggered(ProximityPrompt prompt, Player playerWhoTriggered)
 Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function int64 PublishService:CreateAssetAndWaitForAssetId(Instance instance, string operationId, int64 creatorId, string assetType, string name, string description) {RobloxScriptSecurity} [Yields]
 	Function Content PublishService:PublishCageMeshAsync(Instance wrap, Enum.CageType cageType) {RobloxScriptSecurity} [Yields]
 	Function bool PublishService:PublishDescendantAssets(Instance instance) {RobloxScriptSecurity}
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
@@ -4034,6 +4037,9 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
+Class RomarkService : Instance [NotCreatable] [Service]
+	Function void RomarkService:EndRemoteRomarkTest() {RobloxScriptSecurity}
+	Event RomarkService.RomarkEndOfTest() {RobloxScriptSecurity} [Hidden]
 Class RotationCurve : Instance
 	Property int RotationCurve.Length [ReadOnly]
 	Property BinaryString RotationCurve.ValuesAndTimes [Hidden] [NotScriptable]
@@ -5137,6 +5143,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void UGCValidationService:SetMeshIdBlocking(Instance meshPart, string meshId) {RobloxScriptSecurity}
 	Function Tuple UGCValidationService:ValidateCageMeshIntersection(string innerCageMeshId, string outerCageMeshId, string refMeshId) {RobloxScriptSecurity} [Yields]
 	Function Tuple UGCValidationService:ValidateCageNonManifoldAndHoles(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateDynamicHeadMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateFullBodyCageDeletion(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshBounds(string meshId, Vector3 meshScale, Vector3 boundsOffset, CFrame attachmentCF, CFrame handleCF) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshTriangles(string meshId) {RobloxScriptSecurity} [Yields]
@@ -5144,6 +5151,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:ValidateMisMatchUV(string innerCageMeshId, string outerCageMeshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateNumTextureChannels(string textureId, int numChannelsRequired) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateOverlappingVertices(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateSkinnedMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
 Class UIBase : Instance [NotCreatable]
@@ -5237,7 +5245,6 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum.RotationType UserGameSettings.RotationType
 	Property Enum.TouchCameraMovementMode UserGameSettings.TouchCameraMovementMode
 	Property Enum.TouchMovementMode UserGameSettings.TouchMovementMode
-	Property Enum.VRPlayMode UserGameSettings.VRPlayMode {✏️RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Enum.VRSafetyBubbleMode UserGameSettings.VRSafetyBubbleMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.AllTutorialsDisabled {RobloxScriptSecurity}
 	Property bool UserGameSettings.CameraYInverted {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -5549,6 +5556,8 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [Hidden]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
+	Event VoiceChatService.JoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventClientToServer(int64 tag, string value) {RobloxSecurity} [Hidden]
@@ -6608,6 +6617,10 @@ Enum IKCollisionsMode
 	EnumItem IKCollisionsMode.NoCollisions : 0
 	EnumItem IKCollisionsMode.OtherMechanismsAnchored : 1
 	EnumItem IKCollisionsMode.IncludeContactedMechanisms : 2
+Enum IKControlConstraintSupport
+	EnumItem IKControlConstraintSupport.Default : 0
+	EnumItem IKControlConstraintSupport.Disabled : 1
+	EnumItem IKControlConstraintSupport.Enabled : 2
 Enum IKControlType
 	EnumItem IKControlType.Transform : 0
 	EnumItem IKControlType.Position : 1
@@ -7813,6 +7826,10 @@ Enum TextChatMessageStatus
 	EnumItem TextChatMessageStatus.InvalidPrivacySettings : 6
 	EnumItem TextChatMessageStatus.InvalidTextChannelPermissions : 7
 	EnumItem TextChatMessageStatus.MessageTooLong : 8
+Enum TextDirection
+	EnumItem TextDirection.Auto : 0
+	EnumItem TextDirection.LeftToRight : 1
+	EnumItem TextDirection.RightToLeft : 2
 Enum TextFilterContext
 	EnumItem TextFilterContext.PublicChat : 1
 	EnumItem TextFilterContext.PrivateChat : 2
@@ -7975,9 +7992,6 @@ Enum UserInputType
 	EnumItem UserInputType.TextInput : 20
 	EnumItem UserInputType.InputMethod : 21
 	EnumItem UserInputType.None : 22
-Enum VRPlayMode
-	EnumItem VRPlayMode.Seated : 0
-	EnumItem VRPlayMode.Standing : 1
 Enum VRSafetyBubbleMode
 	EnumItem VRSafetyBubbleMode.NoOne : 0
 	EnumItem VRSafetyBubbleMode.OnlyFriends : 1

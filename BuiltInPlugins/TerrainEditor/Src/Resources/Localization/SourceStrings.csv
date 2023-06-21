@@ -6,6 +6,7 @@ Studio.TerrainEditor.BaseTool.Generate,Generate
 Studio.TerrainEditor.BaseTool.Import,Import
 Studio.TerrainEditor.BaseTool.Paint,Paint
 Studio.TerrainEditor.BaseTool.Sculpt,Sculpt
+Studio.TerrainEditor.BaseTool.Select,Select
 Studio.TerrainEditor.BaseTool.Smooth,Smooth
 Studio.TerrainEditor.BaseTool.Transform,Transform
 Studio.TerrainEditor.BrushMode.Add,Add
@@ -27,6 +28,7 @@ Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
 Studio.TerrainEditor.BrushShape.Sphere,Sphere
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings
+Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings
 Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode
 Studio.TerrainEditor.EditorEnum.BrushShape,Brush Shape
 Studio.TerrainEditor.EditorEnum.FlattenMode,Flatten Mode
@@ -50,3 +52,7 @@ Studio.TerrainEditor.Plugin.Description,Toggles the Template plugin window.
 Studio.TerrainEditor.Plugin.Name,Terrain Editor
 Studio.TerrainEditor.Plugin.Text,Example Text!
 Studio.TerrainEditor.Plugin.Toolbar,Terrain Editor
+Studio.TerrainEditor.SelectionSettings.Position,Position
+Studio.TerrainEditor.SelectionSettings.Rotation,Rotation
+Studio.TerrainEditor.SelectionSettings.Size,Size
+Studio.TerrainEditor.SelectionSettings.Transform,Transform

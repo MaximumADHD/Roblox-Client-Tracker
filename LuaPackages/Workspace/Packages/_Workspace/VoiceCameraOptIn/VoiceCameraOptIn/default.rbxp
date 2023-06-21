@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "VoiceCameraOptIn",
+    "tree": {
+      "$path": "../../../../../../../modules/avatar/voice-camera-opt-in/src"
+    }
+  }
+}

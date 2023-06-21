@@ -3836,6 +3836,7 @@
         <string name="Name">Chat</string>
         <string name="ExplorerOrder">510</string>
         <string name="ExplorerImageIndex">33</string>
+        <token name="ServiceVisibility">2</token>        <!-- WithChildren -->
       </Properties>
     </Item>
 

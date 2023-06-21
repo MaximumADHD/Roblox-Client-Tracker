@@ -8,3 +8,4 @@ Studio.MaterialPicker.Plugin.Button,Material Picker
 Studio.MaterialPicker.Plugin.Description,Choose materials to apply to objects in the scene
 Studio.MaterialPicker.Plugin.Name,Material Picker
 Studio.MaterialPicker.Plugin.Toolbar,MaterialPicker
+Studio.MaterialPicker.SearchBar.SearchMaterials,Search Materials
