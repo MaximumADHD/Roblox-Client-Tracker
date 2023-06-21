@@ -228,7 +228,8 @@ local function ExperienceTileV3(props: Props)
 	} :: { any })
 
 	local controlState, updateControlState = useControlState()
-	local selectionCursor = useSelectionCursor(CursorKind.LargePill)
+	-- TODO: Use RoundedRect here until the selection cursor for ExperienceTileV3 is ready, as it's currently the only type of cursor with additional outter spacing.
+	local selectionCursor = useSelectionCursor(CursorKind.RoundedRect)
 	local colorForCurrentControlState: StyleTypes.ThemeItem? = getControlStateColor(controlState, overlayColors)
 	local overlayColor: Color3 | nil
 	local overlayTransparency: number

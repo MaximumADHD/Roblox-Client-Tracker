@@ -6,8 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.Text.Test"] = [[اختبار النص]],
-    ["IAPExperience.Text.Test2"] = [[اختبار النص 2]],
     ["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[الأموال غير كافية]],
     ["IAPExperience.RobuxUpsell.Text.BuyRobuxQuestion"] = [[هل ترغب في الشراء]],
     ["IAPExperience.RobuxUpsell.Text.DisclosurePayment"] = [[سيتم فرض رسوم على طريقة الدفع الخاصة بك.]],

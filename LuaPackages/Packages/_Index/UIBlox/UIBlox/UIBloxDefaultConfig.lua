@@ -19,9 +19,6 @@ return {
 	-- props from a traditional TextLabel
 	useNewGenericTextLabelProps = false,
 
-	-- New version of vertical scroll view
-	useNewVerticalScrollView = false,
-
 	-- Config to enable new icon sizes
 	enableNewIconSizes = false,
 
@@ -73,9 +70,6 @@ return {
 
 	-- Indicate whether fix for TileOverlay is enabled
 	enableTileOverlayFix = false,
-
-	-- Use a selectedPills prop in PillGroup, rather than tracking selection internally
-	usePillGroupSelectedPills = false,
 
 	-- Use new scroll bar in VerticalScrollView
 	useNewScrollBar = false,

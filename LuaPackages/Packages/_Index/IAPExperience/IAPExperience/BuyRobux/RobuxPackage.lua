@@ -74,8 +74,12 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 		local theme = stylePalette.Theme
 		local fonts = stylePalette.Font
 
-		local showGradient = props.selected and theme == DarkTheme
 		local balanceTextHeight = 64 * props.scale
+
+		local tileBackground = if theme == DarkTheme then Color3.fromRGB(25, 27, 29) else Color3.fromRGB(242, 244, 245)
+		if props.selected then
+			tileBackground = if theme == DarkTheme then Color3.fromRGB(57, 59, 61) else Color3.fromRGB(255, 255, 255)
+		end
 
 		return Roact.createElement(RoactGamepad.Focusable[ImageSetButton], {
 			LayoutOrder = props.layoutOrder,
@@ -103,6 +107,9 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 			[Roact.Event.Activated] = function()
 				props.onActivated(props.packageId)
 			end,
+			[Roact.Event.MouseMoved] = function()
+				props.onHover(props.forwardRef, true)
+			end,
 			[Roact.Event.MouseEnter] = function()
 				props.onHover(props.forwardRef, true)
 			end,
@@ -116,9 +123,7 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 			Outline = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
-				BackgroundColor3 = if showGradient
-					then Color3.fromRGB(255, 255, 255)
-					else theme.BackgroundUIContrast.Color,
+				BackgroundColor3 = tileBackground,
 				BackgroundTransparency = 0,
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, -3, 1, -3),
@@ -126,19 +131,6 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 				Corner = Roact.createElement("UICorner", {
 					CornerRadius = UDim.new(0, CORNER_SIZE),
 				}),
-				Gradient = if showGradient
-					then Roact.createElement("UIGradient", {
-						Color = ColorSequence.new({
-							ColorSequenceKeypoint.new(0, theme.UIDefault.Color),
-							ColorSequenceKeypoint.new(1, theme.BackgroundDefault.Color),
-						}),
-						Transparency = NumberSequence.new({
-							NumberSequenceKeypoint.new(0, theme.UIDefault.Transparency),
-							NumberSequenceKeypoint.new(1, theme.BackgroundDefault.Transparency),
-						}),
-						Rotation = 90,
-					})
-					else nil,
 				MiddleContent = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -254,7 +246,7 @@ return function(props: Props)
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			moreRobux = {
-				key = LOC_KEY:format("Text.MoreRobux"),
+				key = LOC_KEY:format("Text.MoreRobux2"),
 				params = {
 					robux = formatNumber(LocalizationService.RobloxLocaleId, props.robuxMoreAmount or 0),
 				},

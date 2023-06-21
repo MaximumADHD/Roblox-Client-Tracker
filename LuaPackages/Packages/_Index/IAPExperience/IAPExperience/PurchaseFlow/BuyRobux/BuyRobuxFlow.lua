@@ -25,6 +25,8 @@ type Props = {
 	screenSize: Vector2,
 	isConsoleSize: boolean?,
 	shouldAnimate: boolean?,
+	showBackground: boolean?,
+	showCloseButton: boolean?,
 
 	robuxBalance: number?,
 	robuxPackages: table?,
@@ -39,6 +41,7 @@ type Props = {
 	cancelPurchase: () -> any?,
 
 	onAnalyticEvent: (string, table) -> any?,
+	onPageClose: () -> any,
 }
 
 type State = {
@@ -124,6 +127,8 @@ function BuyRobuxFlow:render()
 		BackgroundTransparency = 1,
 	}, {
 		BuyRobuxFrame = Roact.createElement(BuyRobuxPage, {
+			showCloseButton = props.showCloseButton,
+			showBackground = props.showBackground,
 			isConsoleSize = props.isConsoleSize,
 
 			robuxBalance = props.robuxBalance,
@@ -133,6 +138,7 @@ function BuyRobuxFlow:render()
 				self:reportUserInput("Confirm")
 				props.purchaseRobux(packageId)
 			end,
+			onPageClose = props.onPageClose
 		}),
 		LoadingOverlay = Roact.createElement(LoadingOverlay, {
 			shouldAnimate = false,

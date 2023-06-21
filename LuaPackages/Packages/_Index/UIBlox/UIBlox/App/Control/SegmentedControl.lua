@@ -25,9 +25,6 @@ local FRAME_PADDING = 4
 local MIN_TAB_WIDTH = 108
 local MAX_WIDTH = 640
 local ICON_WIDTH = getIconSize(IconSize.Medium)
-local INTERACTION_HEIGHT = 44
-local BACKGROUND_HEIGHT = 36
-local TAB_HEIGHT = 28
 local SPRING_PARAMS = {
 	frequency = 10,
 	dampingRatio = 1,
@@ -86,6 +83,8 @@ SegmentedControl.validateProps = t.strictInterface({
 	tabs = limitedLengthTabArray,
 	-- Width for this component. Will be restricted by the component's size constraint
 	width = t.UDim,
+	-- optionally specifies the height of this component.
+	height = t.optional(t.number),
 
 	-- sets which tab is currently selected
 	selectedTabIndex = t.number,
@@ -105,6 +104,10 @@ SegmentedControl.validateProps = t.strictInterface({
 	-- layout
 	layoutOrder = t.optional(t.number),
 })
+
+SegmentedControl.defaultProps = {
+	height = 44,
+}
 
 function SegmentedControl:init()
 	self.rootRef = Roact.createRef()
@@ -151,6 +154,10 @@ function SegmentedControl:render()
 		local dropshadowStyle = getContentStyle(DROPSHADOW_COLOR_STATE_MAP, currentState, style)
 		local tabWidth = self.state.tabWidth
 		local iconWidth = if self.props.icon then ICON_WIDTH else 0 -- if icon is specified, budget space for it, otherwise don't.
+
+		local INTERACTION_HEIGHT = self.props.height
+		local BACKGROUND_HEIGHT = self.props.height - 12
+		local TAB_HEIGHT = self.props.height - 16
 
 		-- dividers between tabs
 		local dividers = {}

@@ -25,16 +25,16 @@ return {
 		-- Fallback to the default even though it's currently unknown as long as the DeviceType is valid
 		[Constants.DeviceType.Unknown] = getThemePackageIndex("Desktop"),
 	},
-	CommonPackage = {
+	SchemaPackage = {
 		Validators = {
-			Global = require(RbxDesignFoundations.tokens.Common.Validators.validateGlobal)(t),
-			Semantic = require(RbxDesignFoundations.tokens.Common.Validators.validateSemantic)(t),
-			Component = require(RbxDesignFoundations.tokens.Common.Validators.validateComponent)(t),
+			Global = require(RbxDesignFoundations.tokens.Schema.Validators.validateGlobal)(t),
+			Semantic = require(RbxDesignFoundations.tokens.Schema.Validators.validateSemantic)(t),
+			Component = require(RbxDesignFoundations.tokens.Schema.Validators.validateComponent)(t),
 		},
 		Types = {
-			GlobalType = require(RbxDesignFoundations.tokens.Common.Types.GlobalType),
-			SemanticType = require(RbxDesignFoundations.tokens.Common.Types.SemanticType),
-			ComponentType = require(RbxDesignFoundations.tokens.Common.Types.ComponentType),
+			GlobalType = require(RbxDesignFoundations.tokens.Schema.Types.GlobalType),
+			SemanticType = require(RbxDesignFoundations.tokens.Schema.Types.SemanticType),
+			ComponentType = require(RbxDesignFoundations.tokens.Schema.Types.ComponentType),
 		},
 	},
 }

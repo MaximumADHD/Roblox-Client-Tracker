@@ -71,12 +71,7 @@ local function PillGroup(props: Props)
 	local leftPadding = props.leftPadding or DEFAULT_LEFT_RIGHT_PADDING
 	local rightPadding = props.rightPadding or DEFAULT_LEFT_RIGHT_PADDING
 
-	local selectedPills, setSelectedPills
-	if UIBloxConfig.usePillGroupSelectedPills then
-		selectedPills = props.selectedPills or {}
-	else
-		selectedPills, setSelectedPills = React.useState({})
-	end
+	local selectedPills = props.selectedPills or {}
 
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
@@ -90,10 +85,6 @@ local function PillGroup(props: Props)
 	local pillRefs = RoactGamepad.useRefCache()
 
 	local clearPills = React.useCallback(function()
-		if not UIBloxConfig.usePillGroupSelectedPills then
-			setSelectedPills({})
-		end
-
 		if props.onSelectionChanged then
 			props.onSelectionChanged({})
 		end
@@ -128,37 +119,18 @@ local function PillGroup(props: Props)
 
 	for i, pill in sortedPills do
 		local function onActivated()
-			if UIBloxConfig.usePillGroupSelectedPills then
-				local wasSelected = Cryo.List.find(selectedPills, pill) ~= nil
+			local wasSelected = Cryo.List.find(selectedPills, pill) ~= nil
 
-				local newPills = if wasSelected
-					then Cryo.List.removeValue(selectedPills, pill)
-					else Cryo.List.join(selectedPills, { pill })
+			local newPills = if wasSelected
+				then Cryo.List.removeValue(selectedPills, pill)
+				else Cryo.List.join(selectedPills, { pill })
 
-				if not wasSelected then
-					scrollToStart()
-				end
+			if not wasSelected then
+				scrollToStart()
+			end
 
-				if props.onSelectionChanged then
-					props.onSelectionChanged(newPills)
-				end
-			else
-				setSelectedPills(function(oldPills)
-					local wasSelected = Cryo.List.find(oldPills, pill) ~= nil
-
-					local newPills = if wasSelected
-						then Cryo.List.removeValue(oldPills, pill)
-						else Cryo.List.join(oldPills, { pill })
-
-					if not wasSelected then
-						scrollToStart()
-					end
-
-					if props.onSelectionChanged then
-						props.onSelectionChanged(newPills)
-					end
-					return newPills
-				end)
+			if props.onSelectionChanged then
+				props.onSelectionChanged(newPills)
 			end
 		end
 

@@ -58,10 +58,10 @@ local function getDefaultStyleProps(style: StyleTypes.AppStyle): StyleProps
 		},
 		overlayColors = {},
 		selectionCursorPadding = {
-			Left = style.Tokens.Global.Space_100,
-			Right = style.Tokens.Global.Space_100,
-			Top = style.Tokens.Global.Space_100,
-			Bottom = style.Tokens.Global.Space_100,
+			Left = 0,
+			Right = 0,
+			Top = 0,
+			Bottom = 0,
 		},
 		-- TODO: We don't have the drop shadow token yet
 		dropShadow = {

@@ -5,7 +5,7 @@ local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local TokenPackageIndexMap = dependencies.TokenPackageIndexMap
-local Validators = dependencies.CommonPackage.Validators
+local Validators = dependencies.SchemaPackage.Validators
 local Types = require(script.Types)
 
 local function getTokenPackageIndex(deviceType: string?, themeName: string, defaultThemeName: string)

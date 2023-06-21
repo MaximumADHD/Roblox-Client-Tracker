@@ -6,8 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.Text.Test"] = [[测试文本]],
-    ["IAPExperience.Text.Test2"] = [[测试文本 2]],
     ["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[资金不足]],
     ["IAPExperience.RobuxUpsell.Text.BuyRobuxQuestion"] = [[你想要购买吗]],
     ["IAPExperience.RobuxUpsell.Text.DisclosurePayment"] = [[我们会从你的支付方式中扣除费用。]],
@@ -80,8 +78,8 @@ LuaApp]],
     ["IAPExperience.PurchaseError.Text.Error"] = [[发生错误。]],
     ["IAPExperience.PurchaseError.Text.PurchaseLimit"] = [[你目前已经到达购买上限，无法完成本次交易。请在 24 至 72 小时后再次尝试交易。若无法成功交易，你可能需要等到下个月才能再次购买。购买上限无法进行更改或移除。]],
     ["IAPExperience.PurchaseError.Text.ParentalLimit"] = [[由于帐户拥有人的家长已经到达月度购买上限，无法完成本次交易。除非家长控制设置更改，你在下个月前将无法完成新的购买。]],
-    ["IAPExperience.PurchaseError.Title.RobuxPurchaseFailed"] = [[]],
-    ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[]],
+    ["IAPExperience.PurchaseError.Title.RobuxPurchaseFailed"] = [[无法获取 Robux]],
+    ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[你的购买未成功，你没有被收取费用，请重试。]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[正在购买 Robux...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[正在购买道具...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[正在等待购买...]],
@@ -268,4 +266,5 @@ LuaApp]],
     ["IAPExperience.BuyRobux.Banner.Text"] = [[Roblox 允许你在体验中为你的虚拟形象购买升级内容或特殊技能。]],
     ["IAPExperience.BuyRobux.Banner.Title"] = [[获取罗宝]],
     ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[额外 {robux} Robux]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux2"] = [[]],
 }

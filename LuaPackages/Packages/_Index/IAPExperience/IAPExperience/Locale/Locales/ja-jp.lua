@@ -6,8 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.Text.Test"] = [[テスト用テキスト]],
-    ["IAPExperience.Text.Test2"] = [[テスト用テキスト2]],
     ["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[資金が足りません]],
     ["IAPExperience.RobuxUpsell.Text.BuyRobuxQuestion"] = [[以下を購入しますか：]],
     ["IAPExperience.RobuxUpsell.Text.DisclosurePayment"] = [[あなたの支払い方法に課金されます。]],
@@ -79,6 +77,8 @@
     ["IAPExperience.PurchaseError.Text.Error"] = [[エラーが発生しました。]],
     ["IAPExperience.PurchaseError.Text.PurchaseLimit"] = [[購入額が上限に達したため、購入処理を完了できませんでした。24〜72時間以内にもう1度購入してみてください。もし、できない場合は、新規購入するためには、来月まで待つ必要があるかもしれません。購入限度額を変更したり削除したりすることはできません。]],
     ["IAPExperience.PurchaseError.Text.ParentalLimit"] = [[保護者の方かアカウント所有者が設定した月ごとの購入限度額があるため、購入処理を完了できませんでした。保護者コントロールの設定内容が変更されない限り、来月まで何かを新規購入することはできません。]],
+    ["IAPExperience.PurchaseError.Title.RobuxPurchaseFailed"] = [[Robuxをゲットできません]],
+    ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[購入できませんでした。課金されていません。もう一度お試しください。]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Robuxを購入中...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[アイテムを購入中...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[購入まで待機中...]],

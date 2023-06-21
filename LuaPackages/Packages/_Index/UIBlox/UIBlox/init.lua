@@ -32,8 +32,6 @@ local function initializeLibrary(configs)
 			Grid = strict({
 				GridProvider = require(script.Core.Layout.Grid.GridProvider),
 				GridContainer = require(script.Core.Layout.Grid.GridContainer),
-				GridBasicRow = require(script.Core.Layout.Grid.GridBasicRow),
-				GridCell = require(script.Core.Layout.Grid.GridCell),
 				GridRow = require(script.Core.Layout.Grid.GridRow),
 				withGridConfig = require(script.Core.Layout.Grid.withGridConfig),
 				useGridConfig = require(script.Core.Layout.Grid.useGridConfig),
@@ -41,12 +39,7 @@ local function initializeLibrary(configs)
 		}),
 
 		Animation = strict({
-			SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
 			withAnimation = require(script.Core.Animation.withAnimation),
-		}),
-
-		Bar = strict({
-			ThreeSection = require(script.Core.Bar.ThreeSectionBar),
 		}),
 
 		ImageSet = strict({
@@ -63,14 +56,9 @@ local function initializeLibrary(configs)
 				SelectionMode = require(script.Core.Control.Enum.SelectionMode),
 			}),
 			Interactable = require(script.Core.Control.Interactable),
-			InteractableList = require(script.Core.Control.InteractableList),
 		}),
 
 		Style = strict({
-			Validator = strict({
-				validateFontInfo = require(script.Core.Style.Validator.validateFontInfo),
-				validateColorInfo = require(script.Core.Style.Validator.validateColorInfo),
-			}),
 			Provider = require(script.Core.Style.StyleProvider),
 			withStyle = require(script.Core.Style.withStyle),
 			useStyle = require(script.Core.Style.useStyle),
@@ -121,10 +109,6 @@ local function initializeLibrary(configs)
 			}),
 		}),
 
-		Accordion = strict({
-			AccordionView = require(script.App.Accordion.AccordionView),
-		}),
-
 		Bar = strict({
 			HeaderBar = require(script.App.Bar.HeaderBar),
 			FullscreenTitleBar = require(script.App.Bar.FullscreenTitleBar),
@@ -145,7 +129,6 @@ local function initializeLibrary(configs)
 			LinkButton = require(script.App.Button.LinkButton),
 			IconButton = require(script.App.Button.IconButton),
 			ActionBar = require(script.App.Button.ActionBar),
-			StickyActionBar = require(script.App.Button.StickyActionBar),
 			LogoTray = require(script.App.Button.LogoTray),
 		}),
 
@@ -199,10 +182,8 @@ local function initializeLibrary(configs)
 			Grid = strict({
 				GridTable = require(script.App.Container.Grid.GridTable),
 			}),
-			VerticalScrollView = configs.useNewVerticalScrollView and require(script.App.Container.VerticalScrollView)
-				or require(script.App.Container.VerticalScrollViewWithMargin),
+			VerticalScrollView = require(script.App.Container.VerticalScrollView),
 			VerticalScrollViewWithMargin = require(script.App.Container.VerticalScrollViewWithMargin),
-			VerticalScrollViewWithIndicator = require(script.App.Container.VerticalScrollView),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
 			LoadingStatePage = require(script.App.Container.LoadingStatePage),
@@ -233,7 +214,6 @@ local function initializeLibrary(configs)
 			GridView = require(script.App.Grid.GridView),
 			GridMetrics = require(script.App.Grid.GridMetrics),
 			DefaultMetricsGridView = require(script.App.Grid.DefaultMetricsGridView),
-			ScrollingGridView = require(script.App.Grid.ScrollingGridView),
 		}),
 
 		Pill = strict({
@@ -242,20 +222,7 @@ local function initializeLibrary(configs)
 		}),
 
 		Tile = strict({
-			Enum = strict({
-				ItemTileEnums = require(script.App.Tile.Enum.ItemTileEnums),
-			}),
-			SaveTile = require(script.App.Tile.SaveTile.SaveTile),
-			ItemTile = require(script.App.Tile.ItemTile.ItemTile),
-			ItemTileFooter = require(script.App.Tile.ItemTile.ItemTileFooter),
-			ItemSplitTile = require(script.App.Tile.ItemSplitTile.ItemSplitTile),
 			MenuTile = require(script.App.Tile.MenuTile.MenuTile),
-			Experimental = strict({
-				-- BaseTile should not be officially exposed.
-				-- Currently it's used for experimental LuaApp PlayerTile.
-				-- Remove the exposure of BaseTile when the PlayerTile design is firm.
-				BaseTile = require(script.App.Tile.BaseTile.Tile),
-			}),
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
 			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
 			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
@@ -264,7 +231,6 @@ local function initializeLibrary(configs)
 			ExperienceTileV3 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV3),
 			AspectRatioModeEnum = require(script.App.Tile.SplitTile.ExperienceTile.Enum.AspectRatioMode),
 			getExperienceTileHeight = require(script.App.Tile.SplitTile.ExperienceTile.getExperienceTileHeight),
-			TileContentPanel = require(script.App.Tile.SplitTile.TileContentPanel),
 			ExperienceActionRow = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow),
 			ActionTile = require(script.App.Tile.SplitTile.ActionTile.ActionTile),
 			VerticalTile = require(script.App.Tile.SplitTile.VerticalTile.VerticalTile),
@@ -295,6 +261,7 @@ local function initializeLibrary(configs)
 			Toast = require(script.App.Dialog.Toast.Toast),
 			Tooltip = require(script.App.Dialog.Tooltip.Tooltip),
 			TooltipV2 = require(script.App.Dialog.TooltipV2.Controllers),
+			TooltipCallout = require(script.App.Dialog.TooltipV2.Tooltip),
 			TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
 			Overlay = DialogOverlay,
 		}),
@@ -305,13 +272,6 @@ local function initializeLibrary(configs)
 		}),
 
 		Style = strict({
-			Validator = strict({
-				validateFont = require(script.App.Style.Validator.validateFont),
-				validateTheme = if configs.useNewThemeColorPalettes
-					then require(script.App.Style.Validator.validateThemeNew)
-					else require(script.App.Style.Validator.validateTheme),
-				validateStyle = require(script.App.Style.Validator.validateStyle),
-			}),
 			AppStyleProvider = require(script.App.Style.AppStyleProvider),
 			Colors = require(script.App.Style.Colors),
 			Constants = require(script.App.Style.Constants),
@@ -345,7 +305,6 @@ local function initializeLibrary(configs)
 		Menu = strict({
 			BaseMenu = require(script.App.Menu.BaseMenu),
 			ContrastBaseMenu = require(script.App.Menu.ContrastBaseMenu),
-			OverlayBaseMenu = require(script.App.Menu.OverlayBaseMenu),
 			GameContextualMenu = require(script.App.Menu.GameContextualMenu),
 			ContextualMenu = require(script.App.Menu.ContextualMenu),
 			OverlayContextualMenu = require(script.App.Menu.OverlayContextualMenu),
@@ -359,7 +318,6 @@ local function initializeLibrary(configs)
 		}),
 
 		Control = strict({
-			Knob = require(script.App.Control.Knob.Knob),
 			SegmentedControl = require(script.App.Control.SegmentedControl),
 			Pill = require(script.App.Control.Pill.Pill),
 			Pillv2 = require(script.App.Control.Pill.Pillv2),
@@ -419,10 +377,6 @@ local function initializeLibrary(configs)
 	}
 
 	UIBlox.Style = {
-		-- These redirect to Core, which ultimately redirect back to original.
-		-- If we do it this, switching to `UIBlox.Core.Style` is a separate step
-		-- from deprecating `UIBlox.Style`, and the latter is just an API naming
-		-- change with no other consequences
 		Provider = UIBlox.Core.Style.Provider,
 		withStyle = UIBlox.Core.Style.withStyle,
 		Validator = {
@@ -441,33 +395,29 @@ local function initializeLibrary(configs)
 		Context = require(script.Style.StyleContext),
 	}
 
-	-- DEPRECATED SECTION
-
-	-- DEPRECATED: This is kept for compatibility. Use App.Accordion.AccordionView instead.
 	UIBlox.AccordionView = require(script.App.Accordion.AccordionView)
+
+	UIBlox.Tile = {
+		SaveTile = require(script.App.Tile.SaveTile.SaveTile),
+		ItemTile = require(script.App.Tile.ItemTile.ItemTile),
+		ItemTileEnums = require(script.App.Tile.Enum.ItemTileEnums),
+	}
+
+	UIBlox.Utility = {
+		ExternalEventConnection = require(script.Utility.ExternalEventConnection),
+		SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
+	}
+
+	-- DEPRECATED SECTION
 
 	-- DEPRECATED: This is kept for compatibility. This should not be used because it is an old design.
 	-- Use ContextualMenu instead
 	UIBlox.ModalBottomSheet = require(script.ModalBottomSheet.ModalBottomSheet)
 
-	-- DEPRECATED: This is kept for compatibility.
-	UIBlox.Utility = {
-		ExternalEventConnection = require(script.Utility.ExternalEventConnection),
-		--Use Core.Animation.SpringAnimatedItem instead
-		SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
-	}
-
 	-- DEPRECATED: use Core.Loading instead.
 	UIBlox.Loading = {
 		LoadableImage = require(script.App.Loading.LoadableImage),
 		ShimmerPanel = require(script.App.Loading.ShimmerPanel),
-	}
-
-	-- DEPRECATED: use App.Tile instead.
-	UIBlox.Tile = {
-		SaveTile = require(script.App.Tile.SaveTile.SaveTile),
-		ItemTile = require(script.App.Tile.ItemTile.ItemTile),
-		ItemTileEnums = require(script.App.Tile.Enum.ItemTileEnums),
 	}
 
 	-- END DEPRECATED SECTION

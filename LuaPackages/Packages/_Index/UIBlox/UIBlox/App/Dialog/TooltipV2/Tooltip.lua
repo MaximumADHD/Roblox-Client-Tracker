@@ -228,7 +228,9 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		Position = vectorToPosition(canvasPosition),
 		Size = vectorToPosition(canvasSize),
 		AnchorPoint = getContentAnchorPoint(props.orientation),
-		BackgroundTransparency = 1,
+		BackgroundTransparency = if props.canvasBackground then props.canvasBackground.Transparency else 1,
+		BackgroundColor3 = if props.canvasBackground then props.canvasBackground.Color else nil,
+		BorderSizePixel = 0,
 	}, {
 		Caret = React.createElement(ImageSetLabel, {
 			Image = Consts.CARET_IMAGE,

@@ -11,11 +11,15 @@ local Otter = require(Packages.Otter)
 local RoactGamepad = require(Packages.RoactGamepad)
 
 local UIBlox = require(Packages.UIBlox)
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local FreeFlowCarousel = UIBlox.App.Container.Carousel.FreeFlowCarousel
 local Images = UIBlox.App.ImageSet.Images
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
+local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
 
 local RoactFitComponents = require(Packages.RoactFitComponents)
 local FitFrameHorizontal = RoactFitComponents.FitFrameHorizontal
@@ -42,9 +46,13 @@ local ROBUX_IMAGES = {
 	Images["icons/graphic/robuxcoin5_xxlarge"],
 	Images["icons/graphic/robuxcoin6_xxlarge"],
 }
+local CLOSE_ICON = Images["icons/navigation/close"];
+local DARK_BACKGROUND = "rbxasset://textures/AvatarEditorImages/AvatarEditor.png"
+local LIGHT_BACKGROUND = "rbxasset://textures/AvatarEditorImages/AvatarEditor_LightTheme.png"
 
 local PRICE_ICON_PADDING = 4
-local SIDE_PADDING = 95.45
+local SIDE_PADDING = 96
+local ROBUX_PACKAGE_LIST_PADDING = 16
 
 local SPRING_CONFIG = {
 	dampingRatio = 1,
@@ -52,12 +60,15 @@ local SPRING_CONFIG = {
 }
 
 type Props = {
+	showBackground: boolean?,
+	showCloseButton: boolean?,
 	isConsoleSize: number,
 
 	robuxBalance: number,
 	robuxPackages: table?,
 
 	robuxPackageActivated: (string) -> any,
+	onPageClose: () -> any,
 }
 
 type State = {
@@ -135,12 +146,14 @@ function BuyRobuxPage:render()
 			},
 		},
 		render = function(locMap: { [string]: string })
-			return self:renderWithLocale(locMap)
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return self:renderWithLocale(locMap, getSelectionCursor)
+			end)
 		end,
 	})
 end
 
-function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
+function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectionCursor)
 	local props: Props = self.props
 
 	return withStyle(function(stylePalette)
@@ -153,13 +166,18 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
 		local balanceTextHeight = 32 * self:getScale()
 
 		local RobuxPackageChildren = {
-			Roact.createElement("UIListLayout", {
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			StartingPadding = Roact.createElement("Frame", {
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, (SIDE_PADDING - ROBUX_PACKAGE_LIST_PADDING) * self:getScale(), 0, 1),
+			}),
+			RobuxPackageChildren = Roact.createElement("UIListLayout", {
+				HorizontalAlignment = Enum.HorizontalAlignment.Left, -- Using Center Alignment is hard to control the alignment with other components
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				FillDirection = Enum.FillDirection.Horizontal,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, 16),
-			}),
+				Padding = UDim.new(0, ROBUX_PACKAGE_LIST_PADDING * self:getScale()),
+			})
 		}
 
 		for i = 1, numOfPackages do
@@ -187,6 +205,8 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
 				onHover = function(ref: React.Ref<any>, didHover: boolean)
 					if didHover then
 						self:setState({ selectedPackage = ref:getValue() })
+					else
+						self:setState({ selectedPackage = "" })
 					end
 				end,
 			})
@@ -197,6 +217,42 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
 			BackgroundTransparency = 0.8,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
+			BuyRobuxPageBackground = Roact.createElement('Frame', {
+				BackgroundTransparency = 0,
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				Visible = self.props.showBackground,
+				ZIndex = 0
+			}, {
+				BackgroundImage = Roact.createElement('ImageLabel', {
+					BackgroundTransparency = 1,
+					ImageTransparency = 0,
+					Image = if theme == DarkTheme then DARK_BACKGROUND else LIGHT_BACKGROUND,
+					Size = UDim2.new(1, 0, 1, 0)
+				}),
+				Backdrop = Roact.createElement("Frame", {
+					BackgroundTransparency = if theme == DarkTheme then 0.5 else 0.7,
+					BackgroundColor3 = Color3.new(0, 0, 0),
+					Size = UDim2.new(1, 0, 1, 0)
+				}),
+			}),
+			CloseButton = Roact.createElement(ImageSetButton, {
+				Position = UDim2.new(0, SIDE_PADDING / 2 * self:getScale(), 0, 48 * self:getScale()),
+				AnchorPoint = Vector2.new(0, 0),
+				Size = UDim2.new(0, 36, 0, 36),
+
+				Image = CLOSE_ICON,
+
+				BackgroundColor3 = Color3.new(0, 0, 0),
+				BackgroundTransparency = 0.7,
+				BorderSizePixel = 0,
+
+				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+
+				Visible = self.props.showCloseButton,
+
+				[Roact.Event.Activated] = props.onPageClose
+			}),
 			RobuxBalanceFrame = Roact.createElement(FitFrameHorizontal, {
 				Position = UDim2.new(1, -1 * SIDE_PADDING * self:getScale(), 0, 48 * self:getScale()),
 				AnchorPoint = Vector2.new(1, 0),
@@ -229,7 +285,7 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
 						else "",
 
 					Font = fonts.Header1.Font,
-					TextColor3 = theme.TextEmphasis.Color,
+					TextColor3 = if props.showBackground then Color3.new(255, 255, 255) else theme.TextEmphasis.Color,
 					TextTransparency = theme.TextEmphasis.Transparency,
 					TextSize = balanceTextHeight,
 					BackgroundTransparency = 1,
@@ -259,7 +315,7 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
 					Font = fonts.Title.Font,
 					Text = locMap.BannerTitle,
 					TextSize = 46 * self:getScale(),
-					TextColor3 = theme.TextEmphasis.Color,
+					TextColor3 = if props.showBackground then Color3.new(255, 255, 255) else theme.TextEmphasis.Color,
 				}),
 				BannerText = Roact.createElement("TextLabel", {
 					LayoutOrder = 1,
@@ -272,7 +328,7 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
 					Font = fonts.Header1.Font,
 					Text = locMap.BannerText,
 					TextSize = 38 * self:getScale(),
-					TextColor3 = theme.TextEmphasis.Color,
+					TextColor3 = if props.showBackground then Color3.new(255, 255, 255) else theme.TextEmphasis.Color,
 				}),
 			}),
 			RobuxPackageTilesFrame = Roact.createElement("ScrollingFrame", {
@@ -282,6 +338,7 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string })
 				ScrollingEnabled = hasPackageData,
 				ScrollingDirection = Enum.ScrollingDirection.X,
 				ScrollBarImageTransparency = 1,
+				Selectable = false,
 				BackgroundTransparency = 1,
 			}, RobuxPackageChildren),
 		})

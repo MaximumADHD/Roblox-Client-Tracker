@@ -6,8 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.Text.Test"] = [[Test Text]],
-    ["IAPExperience.Text.Test2"] = [[Test Text 2]],
     ["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[Insufficient Funds]],
     ["IAPExperience.RobuxUpsell.Text.BuyRobuxQuestion"] = [[Would you like to buy]],
     ["IAPExperience.RobuxUpsell.Text.DisclosurePayment"] = [[Your payment method will be charged.]],
@@ -267,4 +265,5 @@ LuaApp]],
     ["IAPExperience.BuyRobux.Banner.Text"] = [[Robux allows you to purchase upgrades for your avatar or buy special abilities in experiences]],
     ["IAPExperience.BuyRobux.Banner.Title"] = [[Get Robux]],
     ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[{robux} Robux More]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux2"] = [[{robux} More Robux]],
 }

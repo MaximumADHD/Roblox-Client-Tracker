@@ -1,6 +1,6 @@
 --!nocheck
 local dependencies = require(script.Parent.dependencies)
-local _Types = dependencies.CommonPackage.Types
+local _Types = dependencies.SchemaPackage.Types
 
 export type ComponentTokens = _Types.ComponentType
 export type SemanticTokens = _Types.SemanticType

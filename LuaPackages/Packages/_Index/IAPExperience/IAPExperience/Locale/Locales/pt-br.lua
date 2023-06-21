@@ -6,8 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.Text.Test"] = [[Test Text]],
-    ["IAPExperience.Text.Test2"] = [[Test Text 2]],
     ["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[Saldo insuficiente]],
     ["IAPExperience.RobuxUpsell.Text.BuyRobuxQuestion"] = [[Gostaria de comprar]],
     ["IAPExperience.RobuxUpsell.Text.DisclosurePayment"] = [[Seu método de pagamento será mudado.]],
@@ -79,6 +77,8 @@
     ["IAPExperience.PurchaseError.Text.Error"] = [[Ocorreu um erro.]],
     ["IAPExperience.PurchaseError.Text.PurchaseLimit"] = [[Não foi possível concluir sua transação, pois você atingiu um limite de compra. Tente realizar a transação novamente daqui a 24–72 horas. Se não conseguir, você pode ter que aguardar até o mês que vem para efetuar uma nova compra. Não é possível alterar nem remover limites de compra.]],
     ["IAPExperience.PurchaseError.Text.ParentalLimit"] = [[Sua transação não pode ser concluída devido ao limite de compra mensal definido pelo responsável pelo proprietário da conta. Você só poderá fazer uma nova compra no próximo mês, a menos que as configurações de controle dos pais sejam alteradas.]],
+    ["IAPExperience.PurchaseError.Title.RobuxPurchaseFailed"] = [[Não foi possível obter Robux]],
+    ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[Sua compra não foi finalizada e você não recebeu nenhuma cobrança. Tente novamente.]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Comprando Robux...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[Comprando item...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[Aguardando compra...]],

@@ -6,8 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.Text.Test"] = [[測試文字]],
-    ["IAPExperience.Text.Test2"] = [[測試文字 2]],
     ["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[資金不足]],
     ["IAPExperience.RobuxUpsell.Text.BuyRobuxQuestion"] = [[購買]],
     ["IAPExperience.RobuxUpsell.Text.DisclosurePayment"] = [[我們會向您選擇的付款方式收費。]],
@@ -79,6 +77,8 @@
     ["IAPExperience.PurchaseError.Text.Error"] = [[發生錯誤。]],
     ["IAPExperience.PurchaseError.Text.PurchaseLimit"] = [[您已到達購買上限，無法完成交易。請在 24 到 72 小時候重新嘗試交易。若仍然無法完成交易，您最久可能要到隔月才可以進行新的購買。購買上限無法變更或移除。]],
     ["IAPExperience.PurchaseError.Text.ParentalLimit"] = [[無法完成交易，帳號所有者的家長已設定單月購買上限。除非家長監護設定變更，您在下個月前將無法完成新的購買。]],
+    ["IAPExperience.PurchaseError.Title.RobuxPurchaseFailed"] = [[無法取得 Robux]],
+    ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[您購買失敗，且您未支付任何費用。請再試一次。]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[正在購買 Robux ……]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[正在購買道具……]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[正在等待購買……]],

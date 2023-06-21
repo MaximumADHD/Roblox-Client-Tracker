@@ -7,6 +7,7 @@ local Packages = UIBlox.Parent
 local React = require(Packages.React)
 
 local KeyLabel = require(App.Menu.KeyLabelV2)
+local StyleTypes = require(App.Style.StyleTypes)
 
 -- props supplied by user
 export type TooltipPublicProps = {
@@ -26,6 +27,8 @@ export type TooltipPublicProps = {
 	ref: React.Ref<GuiObject>?,
 	-- if true, use the large 73px dropshadow otherwise use the regular 25px dropshadow
 	useLargeDropShadow: boolean?,
+	-- background of the CanvasGroup the Tooltip is on, transparent if left empty
+	canvasBackground: StyleTypes.ThemeItem?,
 
 	-- padding for the tooltip box (relative padding is not supported due to AutomaticSize)
 	PaddingTop: number?,

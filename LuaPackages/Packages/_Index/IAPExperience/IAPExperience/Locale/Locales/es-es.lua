@@ -6,8 +6,6 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
-    ["IAPExperience.Text.Test"] = [[Test Text]],
-    ["IAPExperience.Text.Test2"] = [[Test Text 2]],
     ["IAPExperience.RobuxUpsell.Title.InsufficientFunds"] = [[Fondos insuficientes]],
     ["IAPExperience.RobuxUpsell.Text.BuyRobuxQuestion"] = [[¿Quieres comprar]],
     ["IAPExperience.RobuxUpsell.Text.DisclosurePayment"] = [[Se te cobrará con el método de pago que elegiste.]],
@@ -80,6 +78,8 @@ LuaApp]],
     ["IAPExperience.PurchaseError.Text.Error"] = [[Se produjo un error.]],
     ["IAPExperience.PurchaseError.Text.PurchaseLimit"] = [[Tu transacción no se puede completar porque has alcanzado el número límite de compras. Vuelve a intentarlo en 24 a 72 horas. Si esta no se procesa, es posible que tengas que esperar hasta el próximo mes para realizar una nueva compra. El número límite de compras no se puede cambiar o eliminar.]],
     ["IAPExperience.PurchaseError.Text.ParentalLimit"] = [[Tu transacción no puede completarse debido al límite de compras mensuales establecido por uno de los padres del propietario de la cuenta. No podrás realizar una nueva compra hasta el mes que viene a menos que se modifique la configuración en Controles parentales.]],
+    ["IAPExperience.PurchaseError.Title.RobuxPurchaseFailed"] = [[No se puede obtener Robux]],
+    ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[Tu compra no se realizó y no se te cobró. Inténtalo de nuevo.]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Comprando Robux...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[Comprando el objeto...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[Esperando compra...]],
