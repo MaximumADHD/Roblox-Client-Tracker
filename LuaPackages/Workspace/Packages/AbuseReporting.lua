@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Workspace
 
-local Package = require(PackageIndex["LuaProfileDeps"]["LuaProfileDeps"])
+local Package = require(PackageIndex["AbuseReporting"]["AbuseReporting"])
 
 return Package

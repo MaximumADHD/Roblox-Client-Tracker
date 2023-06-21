@@ -18,8 +18,6 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagEnableIGMv2VoiceReportFlows =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
 
 return function()
 	beforeEach(function(c)
@@ -83,60 +81,5 @@ return function()
 			c.gamepadInput(Enum.KeyCode.ButtonR1)
 			expect(store:getState().currentZone).to.equal(1)
 		end)
-
-		-- New report flow has its own tests under TrustAndSafety
-		if GetFFlagIGMGamepadSelectionHistory() and not GetFFlagEnableIGMv2VoiceReportFlows() then
-			it("Should not remember the last highligted element when opened", function(c)
-				local store = c.store
-
-
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Players
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Friends
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Settings
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Report
-
-				c.gamepadInput(Enum.KeyCode.ButtonA) -- Open Report
-				c.gamepadInput(Enum.KeyCode.ButtonA) -- Report game
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("TextBox")
-
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("CancelButton")
-
-				c.gamepadInput(Enum.KeyCode.ButtonB) -- Close dialog
-				c.gamepadInput(Enum.KeyCode.ButtonA) -- Report game
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("TextBox")
-			end)
-		end
-
-		-- New report flow has its own tests under TrustAndSafety
-		if GetFFlagIGMGamepadSelectionHistory() and not GetFFlagEnableIGMv2VoiceReportFlows() then
-			it("Should remember the last highligted element when coming back from another dialog", function(c)
-				local store = c.store
-
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Players
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Friends
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Settings
-				c.gamepadInput(Enum.KeyCode.DPadDown) -- Report
-
-				c.gamepadInput(Enum.KeyCode.ButtonA) -- Open Report
-				c.gamepadInput(Enum.KeyCode.ButtonA) -- Report game
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("TextBox")
-
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("CancelButton")
-
-				c.gamepadInput(Enum.KeyCode.ButtonY) -- Respawn dialog
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("ConfirmButton")
-
-				c.gamepadInput(Enum.KeyCode.ButtonB) -- Report game
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("CancelButton")
-			end)
-		end
 	end)
 end

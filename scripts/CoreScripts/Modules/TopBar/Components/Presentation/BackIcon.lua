@@ -39,9 +39,7 @@ BackIcon.validateProps = t.strictInterface({
 
 function BackIcon:init()
 	self.backIconActivated = function()
-		if BackButtonController.EngineFeatureEnableBackButton then
-			BackButtonController.initiateBackButtonTeleport((Enum :: any).AdTeleportMethod.UIBackButton)
-		end
+		BackButtonController.initiateBackButtonTeleport((Enum :: any).AdTeleportMethod.UIBackButton)
 	end
 	self:setState({
 		tooltipActive = false,

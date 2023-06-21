@@ -94,8 +94,6 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
 local Util = require(RobloxGui.Modules.Settings.Utility)
 
-local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
 	local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
@@ -106,7 +104,6 @@ pcall(function()
 end)
 
 local TopbarEnabled = true
-local ShouldResumeBackpack = false
 
 if IsTenFootInterface then
 	ICON_SIZE = 100
@@ -244,7 +241,7 @@ local function AdjustHotbarFrames()
 			slot.Frame.Visible = false
 		end
 	end
-	
+
 	OpenInventoryButton.Visible = not inventoryOpen and (hotbarIsVisible or not isInventoryEmpty()) and not VRService.VREnabled
 	OpenInventoryButton.Position = UDim2.new(0.5, -15, 1, hotbarIsVisible and -110 or -50)
 	BackpackScript.IsHotbarVisible = hotbarIsVisible
@@ -979,7 +976,7 @@ local function OnChildAdded(child) -- To Character or Backpack
 			end
 		end
 	end
-	
+
 	BackpackScript.BackpackItemAdded:Fire()
 end
 
@@ -1011,7 +1008,7 @@ local function OnChildRemoved(child) -- From Character or Backpack
 	if tool == ActiveHopper then --NOTE: HopperBin
 		ActiveHopper = nil
 	end
-	
+
 	BackpackScript.BackpackItemRemoved:Fire()
 	if isInventoryEmpty() then
 		BackpackScript.BackpackEmpty:Fire()
@@ -1920,28 +1917,8 @@ OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
 GuiService.MenuOpened:Connect(function()
 	if BackpackScript.IsOpen then
 		BackpackScript.OpenClose()
-		if EnableInGameMenuV3() then
-			ShouldResumeBackpack = true
-		end
-	end
-	if EnableInGameMenuV3() then
-		if BackpackScript.IsHotbarVisible then
-			HotbarFrame.Visible = false
-		end
 	end
 end)
-	
-if EnableInGameMenuV3() then
-	GuiService.MenuClosed:Connect(function()
-		if BackpackScript.IsHotbarVisible then
-			HotbarFrame.Visible = true
-		end
-		if ShouldResumeBackpack then
-			ShouldResumeBackpack = false
-			BackpackScript.OpenClose()
-		end
-	end)
-end
 
 local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil
 local function OnVREnabled()

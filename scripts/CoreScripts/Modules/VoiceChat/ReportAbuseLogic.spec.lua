@@ -4,9 +4,7 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
-	local jest = JestGlobals.jest
 
-	local noop = function() end
 	local stub = function(val)
 		return function()
 			return val

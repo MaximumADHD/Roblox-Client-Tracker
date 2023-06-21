@@ -15,15 +15,9 @@ local SlideFromTopToast = UIBlox.App.Dialog.Toast
 local Images = UIBlox.App.ImageSet.Images
 
 local PromptType = require(script.Parent.Parent.PromptType)
-local EnableInGameMenuV3 = require(script.Parent.Parent.Parent.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local InGameMenuPolicy = require(script.Parent.Parent.Parent.InGameMenu.InGameMenuPolicy)
 
-local Assets
-if EnableInGameMenuV3() then
-	Assets = require(script.Parent.Parent.Parent.InGameMenuV3.Resources.Assets)
-else
-	Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
-end
+local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
 
 local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")
@@ -206,7 +200,7 @@ function VoiceChatPromptFrame:render()
 			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
 		).Y
 		local titleTextContainerHeight = PADDING + titleTextHeight
-		
+
 		local successText = if GetFFlagAvatarChatBanMessage() and self.state.banEnd ~= ""
 			-- Design asked for inline bold here
 			then "<b>" .. (bannedLabel .. self.state.banEnd) .. "</b><br />" .. self.state.toastContent.toastSubtitle
@@ -230,7 +224,7 @@ function VoiceChatPromptFrame:render()
 			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
 		).Y
 		local subBodyTextContainerHeight = PADDING + subTextHeight
-	
+
 		return Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = self.promptStyle,
 		}, {

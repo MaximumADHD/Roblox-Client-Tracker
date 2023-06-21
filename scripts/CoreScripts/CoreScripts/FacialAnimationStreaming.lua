@@ -1,5 +1,7 @@
 --!nonstrict
 
+local VRService = game:GetService("VRService")
+
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
@@ -23,6 +25,7 @@ local FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnable
 local DFFlagSystemUtilCheckSSE41 = game:GetEngineFeature("SystemUtilCheckSSE41")
 local FFlagFacialAnimationStreamingClearTrackImprovementsV2 = game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovementsV2", false)
 local FFlagFacialAnimationStreamingPauseTrackWhenAllOff = game:DefineFastFlag("FacialAnimationStreamingPauseTrackWhenAllOff", false)
+local FFlagFacialAnimationStreamingDisableLipsyncForVRUser = game:DefineFastFlag("FacialAnimationStreamingDisableLipsyncForVRUser", false)
 local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
@@ -333,6 +336,18 @@ local function playerUpdate(player)
 	local setupPlayer = playerJoinedGame[player.UserId] and ( isLocal or joinedVoiceChat )
 
 	clearAllConnections(player)
+
+	if FFlagFacialAnimationStreamingDisableLipsyncForVRUser then
+		--not doing lipsync for local player for now if he/she is in VR as we currently have an issue in nexus vr places for users in VR
+		--and overall need to test in VR more.
+		if VRService.VREnabled then
+			if player.UserId == Players.LocalPlayer.UserId then
+				log:trace("no lipsync for user in VR for now")
+				return
+			end
+		end
+	end
+
 
 	if setupPlayer then
 		if FFlagFacialAnimationStreamingServiceFixAnimatorSetup and playerAnimations[player.UserId] then

@@ -6,6 +6,7 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["Screenshots"]["Screenshots"])
 
 export type ScreenshotsApp = Package.ScreenshotsApp
+export type Capture = Package.Capture
 
 
 return Package

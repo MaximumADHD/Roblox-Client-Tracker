@@ -167,9 +167,7 @@ function MenuBackButton:render()
 				end
 			end,
 			[Roact.Event.Activated] = function(rbx)
-				if BackButtonController.EngineFeatureEnableBackButton then
-					BackButtonController.initiateBackButtonTeleport((Enum :: any).AdTeleportMethod.InGameMenuBackButton)
-				end
+				BackButtonController.initiateBackButtonTeleport((Enum :: any).AdTeleportMethod.InGameMenuBackButton)
 			end,
 		}, {
 			UICorner = Theme.UIBloxThemeEnabled and Roact.createElement("UICorner", {

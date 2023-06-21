@@ -11,10 +11,8 @@ local InGameMenu = RobloxGui.Modules.InGameMenu
 local loggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol).default
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local EnableInGameMenuV3 = require(InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 local SendAnalytics = require(InGameMenuV3.Utility.SendAnalytics)
 local Constants = require(script.Parent.Constants)
-local ConstantsV3 = require(InGameMenuV3.Resources.Constants)
 local ConstantsV1 = require(InGameMenu.Resources.Constants)
 
 local FFlagEnableInGameMenuDurationLogger = require(script.Parent.Flags.GetFFlagEnableInGameMenuDurationLogger)()
@@ -28,18 +26,12 @@ local RenderAverage = if FrameRateManager
 
 local function getCurrentMenuVersion()
 	if isNewInGameMenuEnabled() then
-		if EnableInGameMenuV3() then
-			return 3
-		end
 		return 2
 	end
 	return 1
 end
 
 local function getMenuAnimationTime(isOpening)
-	if EnableInGameMenuV3() then
-		return ConstantsV3.MenuOpenTweenTime
-	end
 	if isOpening then
 		return ConstantsV1.ShieldOpenAnimationTweenTime
 	end

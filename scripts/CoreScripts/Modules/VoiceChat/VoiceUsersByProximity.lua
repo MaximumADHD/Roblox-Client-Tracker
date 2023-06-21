@@ -1,6 +1,4 @@
 --!nonstrict
-local CorePackages = game:GetService("CorePackages")
-
 local VCSM = require(script.Parent.VoiceChatServiceManager)
 
 local function getPlayerPrimaryPart(

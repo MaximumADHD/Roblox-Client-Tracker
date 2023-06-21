@@ -21,8 +21,6 @@ return function()
 		Theme = AppDarkTheme,
 	}
 
-	local camera = workspace.CurrentCamera :: Camera
-
 	local mockState = function(currentPage, currentCall, callDetailParticipants)
 		return {
 			Call = {
@@ -113,9 +111,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				ContactListContainer = Roact.createElement(ContactListContainer, {
-					camera = camera,
-				}),
+				ContactListContainer = Roact.createElement(ContactListContainer),
 			}),
 		})
 
@@ -150,9 +146,7 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 					style = appStyle,
 				}, {
-					ContactListApp = Roact.createElement(ContactListContainer, {
-						camera = camera,
-					}),
+					ContactListApp = Roact.createElement(ContactListContainer),
 				}),
 			})
 
@@ -176,9 +170,7 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 					style = appStyle,
 				}, {
-					ContactListContainer = Roact.createElement(ContactListContainer, {
-						camera = camera,
-					}),
+					ContactListContainer = Roact.createElement(ContactListContainer),
 				}),
 			})
 
@@ -202,9 +194,7 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 					style = appStyle,
 				}, {
-					ContactListContainer = Roact.createElement(ContactListContainer, {
-						camera = camera,
-					}),
+					ContactListContainer = Roact.createElement(ContactListContainer),
 				}),
 			})
 
@@ -228,9 +218,7 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 					style = appStyle,
 				}, {
-					ContactListContainer = Roact.createElement(ContactListContainer, {
-						camera = camera,
-					}),
+					ContactListContainer = Roact.createElement(ContactListContainer),
 				}),
 			})
 
@@ -239,6 +227,7 @@ return function()
 			local containerElement = folder:FindFirstChild("ContentContainer", true)
 			expect(containerElement).never.toBeNull()
 			local peekView = folder:FindFirstChild("PeekView")
+			-- Expect to be nil because default screen size in testing is not small
 			expect(peekView).toBeNull()
 			Roact.unmount(instance)
 		end)

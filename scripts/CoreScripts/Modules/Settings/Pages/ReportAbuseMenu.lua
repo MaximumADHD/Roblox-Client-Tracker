@@ -60,7 +60,6 @@ local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1AR
 local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
 local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlowCSWaitFrames)
 local GetFFlagReportAnythingAnnotationIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
-local GetFFlagEnableReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableReportAnythingAnalytics)
 local GetFIntIGMv1ARFlowScreenshotDelayFrames = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFIntIGMv1ARFlowScreenshotDelayFrames)
 local GetFFlagEnableARFlowAnalyticsCleanup = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
 local GetFFlagEnableIGMv1ARFlowNilMoAFix = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
@@ -1210,7 +1209,7 @@ local function Initialize()
 							typeOfAbuse = abuseReason,
 						}
 
-						if GetFFlagEnableReportAnythingAnalytics() and TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
+						if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
 							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 							submittedParameters = Cryo.Dictionary.join(
 								submittedParameters,
@@ -1267,7 +1266,7 @@ local function Initialize()
 							typeOfAbuse = abuseReason,
 						}
 
-						if GetFFlagEnableReportAnythingAnalytics() and TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then
+						if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then
 							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 							submittedParameters = Cryo.Dictionary.join(
 								submittedParameters,
@@ -1440,18 +1439,14 @@ do
 
 			AbuseReportBuilder.clear()
 
-			if GetFFlagEnableReportAnythingAnalytics() then
-				ReportAnythingAnalytics.clear()
-			end
+			ReportAnythingAnalytics.clear()
 
 			if GetFIntIGMv1ARFlowScreenshotDelayFrames() == 0 then
 				coroutine.wrap(function()
 					local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
 					AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
 					AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
-					if GetFFlagEnableReportAnythingAnalytics() then
-						ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
-					end
+					ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
 				end)()
 
 				ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
@@ -1475,9 +1470,7 @@ do
 					ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
 					AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
 					AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
-					if GetFFlagEnableReportAnythingAnalytics() then
-						ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
-					end
+					ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
 
 					avatarIDConnection:Disconnect()
 				end)
@@ -1548,7 +1541,7 @@ do
 					methodOfAbuseSelected = methodOfAbuseSelected,
 				}
 
-				if GetFFlagEnableReportAnythingAnalytics() and TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
 					local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 					abandonedParameters = Cryo.Dictionary.join(
 						abandonedParameters,

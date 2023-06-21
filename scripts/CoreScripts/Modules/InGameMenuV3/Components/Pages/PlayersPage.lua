@@ -21,7 +21,7 @@ local IconButton = UIBlox.App.Button.IconButton
 local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 local Images = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
-local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 
 local InGameMenu = script.Parent.Parent.Parent
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
@@ -683,7 +683,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, self.state.heightOffset),
 			}, {
-				PlayerList = Roact.createElement(VerticalScrollViewWithIndicator, {
+				PlayerList = Roact.createElement(VerticalScrollView, {
 					position = UDim2.new(0, 0, 0, 0),
 					size = UDim2.new(1, 0, 1, 0),
 					canvasSizeY = UDim.new(0, 0),

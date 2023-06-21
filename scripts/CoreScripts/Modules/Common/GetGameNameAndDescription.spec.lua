@@ -9,7 +9,6 @@ local StatusCodes = require(CorePackages.Workspace.Packages.Http).StatusCodes
 local Promise = require(CorePackages.Promise)
 
 local GetGameNameAndDescription = require(script.Parent.GetGameNameAndDescription)
-local EnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local testName = "Test Name"
 local testDescription = "Test Description"
@@ -30,20 +29,6 @@ return function()
 		}
 
 		local mockNetworking = MockRequest.simpleSuccessRequest(responseBody)
-
-		if EnableInGameMenuV3() then
-			it("should return a promise that resolves with the name, description and creator", function()
-				local testGameId = 1818
-				local resultPromise = GetGameNameAndDescription(mockNetworking, testGameId)
-
-				local success, result = resultPromise:timeout(5):await()
-
-				expect(success).to.equal(true)
-				expect(result.Name).to.equal(testName)
-				expect(result.Description).to.equal(testDescription)
-				expect(result.Creator).to.equal(testCreator)
-			end)
-		end
 
 		it("should return a promise that resolves with the name and description", function()
 			local testGameId = 1818

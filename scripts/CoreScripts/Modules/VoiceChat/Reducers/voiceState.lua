@@ -18,8 +18,6 @@ local ParticipantRemoved = require(script.Parent.Parent.Actions.ParticipantRemov
 local VoiceStateChanged = require(script.Parent.Parent.Actions.VoiceStateChanged)
 local VoiceEnabledChanged = require(script.Parent.Parent.Actions.VoiceEnabledChanged)
 
-local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-
 local voiceState = Rodux.createReducer({
 	-- [userId] = voiceChatState,
 }, {

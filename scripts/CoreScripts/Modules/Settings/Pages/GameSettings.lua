@@ -212,6 +212,12 @@ local function reportSettingsForAnalytics()
 	stringTable["microprofiler_enabled"] = tostring(GameSettings.OnScreenProfilerEnabled)
 	stringTable["microprofiler_webserver_enabled"] = tostring(GameSettings.MicroProfilerWebServerEnabled)
 
+	if game:GetEngineFeature("EnableAccessibilitySettingsInExperienceMenu") then
+		stringTable["reduced_motion"] = tostring(GameSettings.ReducedMotion)
+		stringTable["preferred_transparency"] = tostring(GameSettings.PreferredTransparency)
+		stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
+	end
+
 	stringTable["universeid"] = tostring(game.GameId)
 	AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName, Constants.AnalyticsSettingsChangeName, stringTable)
 end
@@ -626,6 +632,82 @@ local function Initialize()
 		end
 	end -- of createGraphicsOptions
 
+	local function createReducedMotionOptions()
+		local startIndex = 2
+		if GameSettings.ReducedMotion then
+			startIndex = 1
+		end
+
+		local reducedMotionLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.ReducedMotion") 
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On") 
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off") 
+
+		this.ReducedMotionFrame, this.ReducedMotionLabel, this.ReducedMotionMode = 
+			utility:AddNewRow(this, reducedMotionLabel, "Selector", {onLabel, offLabel}, startIndex)
+		this.ReducedMotionFrame.LayoutOrder = 11
+		
+		this.ReducedMotionMode.IndexChanged:connect(
+			function(newIndex)
+				local oldValue = GameSettings.ReducedMotion
+				GameSettings.ReducedMotion = newIndex == 1
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('reduced_motion', oldValue, GameSettings.ReducedMotion)
+				end
+				reportSettingsForAnalytics()
+			end
+		)
+	end
+
+	local function createPreferredTransparencyOptions()
+		local startValue = math.clamp(math.floor(GameSettings.PreferredTransparency * 10 + 0.5), 0, 10)
+
+		local preferredTransparencyLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PreferredTransparency") 
+		this.PreferredTransparencyFrame, this.PreferredTransparencyLabel, this.PreferredTransparencySlider = 
+			utility:AddNewRow(this, preferredTransparencyLabel, "Slider", 10, startValue)
+		this.PreferredTransparencyFrame.LayoutOrder = 12
+		
+		this.PreferredTransparencySlider.ValueChanged:connect(
+			function(newValue)
+				newValue = math.clamp(math.floor(newValue), 0, 10) / 10
+				local oldValue = GameSettings.PreferredTransparency
+				GameSettings.PreferredTransparency = newValue
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('preferred_transparency', oldValue, GameSettings.PreferredTransparency)
+				end
+				reportSettingsForAnalytics()
+			end
+		)
+	end
+
+	local function createUiNavigationKeyBindOptions()
+		local startIndex = 2
+		if GameSettings.UiNavigationKeyBindEnabled then
+			startIndex = 1
+		end
+
+		local uiNavigationKeyBindLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.UiNavigationKeyBind") 
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On") 
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off") 
+
+		this.UiNavigationKeyBindEnabledFrame, this.UiNavigationKeyBindEnabledLabel, this.UiNavigationKeyBindEnabledMode = 
+			utility:AddNewRow(this, uiNavigationKeyBindLabel, "Selector", {onLabel, offLabel}, startIndex)
+		this.UiNavigationKeyBindEnabledFrame.LayoutOrder = 13
+		
+		this.UiNavigationKeyBindEnabledMode.IndexChanged:connect(
+			function(newIndex)
+				local oldValue = GameSettings.UiNavigationKeyBindEnabled
+				GameSettings.UiNavigationKeyBindEnabled = newIndex == 1
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('ui_navigation_key_bind_enabled', oldValue, GameSettings.UiNavigationKeyBindEnabled)
+				end
+				reportSettingsForAnalytics()
+			end
+		)
+	end
+
 	local function createPerformanceStatsOptions()
 		------------------
 		------------------ Performance Stats -----------------
@@ -644,7 +726,7 @@ local function Initialize()
 
 		this.PerformanceStatsFrame, this.PerformanceStatsLabel, this.PerformanceStatsMode =
 			utility:AddNewRow(this, "Performance Stats", "Selector", {"On", "Off"}, startIndex)
-		this.PerformanceStatsFrame.LayoutOrder = 11
+		this.PerformanceStatsFrame.LayoutOrder = 14
 
 		this.PerformanceStatsOverrideText =
 			utility:Create "TextLabel" {
@@ -832,7 +914,7 @@ local function Initialize()
 		local microProfilerLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MicroProfiler")
 		this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode =
 				utility:AddNewRow(this, microProfilerLabel, "Selector", {"On", "Off"}, webServerIndex) -- This can be set to override defualt micro profiler state
-		this.MicroProfilerFrame.LayoutOrder = 12
+		this.MicroProfilerFrame.LayoutOrder = 15
 
 		tryContentLabel()
 
@@ -1096,7 +1178,7 @@ local function Initialize()
 
 				this.VREnabledFrame, this.VREnabledLabel, this.VREnabledSelector =
 					utility:AddNewRow(this, "VR", "Selector", optionNames, GameSettings.VREnabled and 1 or 2)
-				this.VREnabledFrame.LayoutOrder = 14
+				this.VREnabledFrame.LayoutOrder = 17
 
 				this.VREnabledSelector.IndexChanged:connect(
 					function(newIndex)
@@ -1916,7 +1998,7 @@ local function Initialize()
 
 		this.CameraInvertedFrame, _, this.CameraInvertedSelector =
 			utility:AddNewRow(this, "Camera Inverted", "Selector", {"Off", "On"}, initialIndex)
-		this.CameraInvertedFrame.LayoutOrder = 13
+		this.CameraInvertedFrame.LayoutOrder = 16
 		settingsDisabledInVR[this.CameraInvertedFrame] = true
 
 		this.CameraInvertedSelector.IndexChanged:connect(
@@ -2234,9 +2316,9 @@ local function Initialize()
 			devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
 			local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
 			if game:GetEngineFeature("VideoCaptureService") then
-				row.LayoutOrder = 16
+				row.LayoutOrder = 19
 			else
-				row.LayoutOrder = 15
+				row.LayoutOrder = 18
 			end
 			setButtonRowRef(row)
 		end
@@ -2404,7 +2486,7 @@ local function Initialize()
 		local deviceLabel = VideoPromptVideoCamera
 		this[CAMERA_DEVICE_FRAME_KEY], _, this[CAMERA_DEVICE_SELECTOR_KEY] =
 				utility:AddNewRow(this, deviceLabel, "Selector", options, selectedIndex)
-		this[CAMERA_DEVICE_FRAME_KEY].LayoutOrder = 15
+		this[CAMERA_DEVICE_FRAME_KEY].LayoutOrder = 18
 
 		this[CAMERA_DEVICE_INFO_KEY] = {
 			Name = selectedIndex > 0 and options[selectedIndex] or nil,
@@ -2658,6 +2740,12 @@ local function Initialize()
 
 	createVolumeOptions()
 	createGraphicsOptions()
+
+	if game:GetEngineFeature("EnableAccessibilitySettingsInExperienceMenu") then
+		createReducedMotionOptions()
+		createPreferredTransparencyOptions()
+		createUiNavigationKeyBindOptions()
+	end
 
 	local canShowPerfStats =  not PolicyService:IsSubjectToChinaPolicies()
 

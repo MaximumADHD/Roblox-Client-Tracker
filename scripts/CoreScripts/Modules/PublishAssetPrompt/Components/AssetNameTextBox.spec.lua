@@ -84,7 +84,7 @@ return function()
 	it("should handle when new text exceeds max length or is invalid", function()
 		local updatedText
 		local textChangedWasCalled = false
-		local isNameInvalid = false
+		local isNameValid = true
 		local test50Chars = "Lorem ipsum dolor sit amet consectetur adipisci ve"
 		local test51Chars = "Lorem ipsum dolor sit amet consectetur adipisci vel"
 		local ref = Roact.createRef()
@@ -100,9 +100,9 @@ return function()
 				style = appStyle,
 			}, {
 				AssetNameTextBox = Roact.createElement(AssetNameTextBox, {
-					onAssetNameUpdated = function(newName, invalid)
+					onAssetNameUpdated = function(newName, valid)
 						updatedText = newName
-						isNameInvalid = invalid
+						isNameValid = valid
 						textChangedWasCalled = true
 					end,
 					nameTextBoxRef = ref,
@@ -120,21 +120,21 @@ return function()
 		expect(textChangedWasCalled).to.equal(true)
 		expect(textBox.Text).to.equal(test50Chars)
 		expect(updatedText).to.equal(test50Chars)
-		expect(isNameInvalid).to.equal(false)
+		expect(isNameValid).to.equal(true)
 
 		textBox.Text = test51Chars
 		waitForEvents.act()
 
 		expect(textBox.Text).to.equal(test50Chars)
 		expect(updatedText).to.equal(test50Chars)
-		expect(isNameInvalid).to.equal(false)
+		expect(isNameValid).to.equal(true)
 
 		local invalidName = "InvalidName!" -- Special characters are invalid
 		textBox.Text = invalidName
 		waitForEvents.act()
 
 		expect(updatedText).to.equal(invalidName)
-		expect(isNameInvalid).to.equal(true)
+		expect(isNameValid).to.equal(false)
 
 		Roact.unmount(instance)
 	end)

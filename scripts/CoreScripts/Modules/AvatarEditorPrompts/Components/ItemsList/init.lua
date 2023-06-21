@@ -8,7 +8,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
-local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
+local VerticalScrollViewWithMargin = UIBlox.App.Container.VerticalScrollViewWithMargin
 local withStyle = UIBlox.Style.withStyle
 local ShimmerPanel = UIBlox.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
@@ -246,7 +246,7 @@ function ItemsList:renderItemsList()
 				}),
 			}),
 
-			ScrollView = Roact.createElement(VerticalScrollView, {
+			ScrollView = Roact.createElement(VerticalScrollViewWithMargin, {
 				size = UDim2.fromScale(1, 1),
 				canvasSizeY = UDim.new(0, self.state.canvasSizeY),
 			}, list),

@@ -40,6 +40,7 @@ return {
 		Enum.ConnectionError.DisconnectNewSecurityKeyMismatch,
 		Enum.ConnectionError.DisconnectOnRemoteSysStats,
 		Enum.ConnectionError.DisconnectPlayerless,
+		Enum.ConnectionError.DisconnectPrivateServerKickout,
 		Enum.ConnectionError.DisconnectProtocolMismatch,
 		Enum.ConnectionError.DisconnectRaknetErrors,
 		Enum.ConnectionError.DisconnectReceivePacketError,

@@ -16,7 +16,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
-local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 
 local DevConsoleMaster = require(CoreGui.RobloxGui.Modules.DevConsoleMaster)
 
@@ -149,7 +149,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 					GuiService.SelectedCoreObject = previousSelection or self.performanceToggleRef:getValue()
 				end,
 			}),
-			PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
+			PageContents = Roact.createElement(VerticalScrollView, {
 				position = self.props.position,
 				size = UDim2.new(1, 0, 1, 0),
 				useAutomaticCanvasSize = true,

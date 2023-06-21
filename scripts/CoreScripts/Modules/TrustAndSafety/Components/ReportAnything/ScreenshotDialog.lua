@@ -21,7 +21,6 @@ local ScreenshotDialogLandscapeModeHeader =
 	require(TnsModule.Components.ReportAnything.ScreenshotDialogLandscapeModeHeader)
 local AbuseReportBuilder = require(TnsModule.Utility.AbuseReportBuilder)
 local ReportAnythingAnalytics = require(TnsModule.Utility.ReportAnythingAnalytics)
-local GetFFlagEnableReportAnythingAnalytics = require(TnsModule.Flags.GetFFlagEnableReportAnythingAnalytics)
 
 local Divider = require(Dependencies.Divider)
 
@@ -85,13 +84,11 @@ end
 
 local function ScreenshotDialog(props: Props)
 	-- TODO(bcwong): Handle size change?
-	if GetFFlagEnableReportAnythingAnalytics() then
-		React.useEffect(function()
-			if props.reportAnythingAnalytics then
-				props.reportAnythingAnalytics.incrementAnnotationPageSeen()
-			end
-		end, {})
-	end
+	React.useEffect(function()
+		if props.reportAnythingAnalytics then
+			props.reportAnythingAnalytics.incrementAnnotationPageSeen()
+		end
+	end, {})
 
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
@@ -124,7 +121,7 @@ local function ScreenshotDialog(props: Props)
 	end
 
 	local handleAnnotationPoints = function(points: { Vector2 })
-		if GetFFlagEnableReportAnythingAnalytics() and props.reportAnythingAnalytics then
+		if props.reportAnythingAnalytics then
 			props.reportAnythingAnalytics.incrementAnnotationPlace()
 		end
 		-- TODO(bcwong): Update the selectedAvatars here
@@ -135,7 +132,7 @@ local function ScreenshotDialog(props: Props)
 
 	local undoAnnotationPoints = function()
 		if #annotationPoints > 0 then
-			if GetFFlagEnableReportAnythingAnalytics() and props.reportAnythingAnalytics then
+			if props.reportAnythingAnalytics then
 				props.reportAnythingAnalytics.incrementAnnotationUndo()
 			end
 			-- only perform undo when annotationPoints is non-empty
@@ -147,7 +144,7 @@ local function ScreenshotDialog(props: Props)
 
 	local redoAnnotationPoints = function()
 		if #annotationRedoStack > 0 then
-			if GetFFlagEnableReportAnythingAnalytics() and props.reportAnythingAnalytics then
+			if props.reportAnythingAnalytics then
 				props.reportAnythingAnalytics.incrementAnnotationRedo()
 			end
 			-- only perform redo when redoStack is non-epty

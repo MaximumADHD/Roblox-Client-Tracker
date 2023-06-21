@@ -7,6 +7,7 @@ local expect = JestGlobals.expect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 local beforeEach = JestGlobals.beforeEach
+local beforeAll = JestGlobals.beforeAll
 local jest = JestGlobals.jest
 local ReactTestingLibrary = require(CorePackages.Workspace.Packages.ReactTestingLibrary)
 local render = ReactTestingLibrary.render
@@ -35,6 +36,10 @@ local GetFFlagIGMVRQuestControlsInstructions =
 local appStyle
 
 local ControlsPage
+
+beforeAll(function()
+	_G.RTL_SKIP_AUTO_CLEANUP = true
+end)
 
 local function resetModules()
 	jest.resetModules()
@@ -111,7 +116,7 @@ if GetFFlagIGMVRQuestControlsInstructions() and game:GetEngineFeature("EnableVRU
 				}),
 			}),
 		}),
-			store
+		store
 	end
 
 	describe("In-Game Menu Controls Page", function()

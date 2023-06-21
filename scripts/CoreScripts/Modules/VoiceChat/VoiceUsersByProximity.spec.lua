@@ -4,7 +4,6 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
-	local jest = JestGlobals.jest
 
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
@@ -16,7 +15,6 @@ return function()
 	local VoiceChatServiceStub = VCSS.VoiceChatServiceStub
 	local makeMockUser = VCSS.makeMockUser
 
-	local VoiceChatServiceManager
 	beforeAll(function(c)
 		c.fflagClearUserFromRecentVoiceDataOnLeave = game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", false)
 		c.fintVoiceUsersInteractionExpiryTimeSeconds = game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", 600)

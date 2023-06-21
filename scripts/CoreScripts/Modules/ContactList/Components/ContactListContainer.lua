@@ -6,6 +6,7 @@ local SocialService = game:GetService("SocialService")
 local React = require(CorePackages.Packages.React)
 local PeekView = require(CorePackages.Workspace.Packages.PeekView).PeekView
 local PeekViewState = require(CorePackages.Workspace.Packages.PeekView).PeekViewState
+local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -16,10 +17,9 @@ local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
 
 local UIBlox = dependencies.UIBlox
-local IconButton = UIBlox.App.Button.IconButton
-local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local useStyle = UIBlox.Core.Style.useStyle
 
+local ContactListHeader = require(ContactList.Components.ContactListHeader)
 local CallHistoryContainer = require(ContactList.Components.CallHistory.CallHistoryContainer)
 local CallDetailsContainer = require(ContactList.Components.CallDetails.CallDetailsContainer)
 local FriendListContainer = require(ContactList.Components.FriendList.FriendListContainer)
@@ -30,16 +30,16 @@ local OpenContactList = require(ContactList.Actions.OpenContactList)
 local Pages = require(ContactList.Enums.Pages)
 
 local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer
+local localPlayer = Players.LocalPlayer :: Player
+local currentCamera = workspace.CurrentCamera :: Camera
 
 local EnableSocialServiceIrisInvite = game:GetEngineFeature("EnableSocialServiceIrisInvite")
 
-export type Props = {
-	camera: Camera,
-}
+export type Props = {}
 
 local HEADER_HEIGHT = 48
-local TOP_PADDING = 12
+local PADDING = 12
+local DOCKED_WIDTH = 376
 
 local function ContactListContainer(props: Props)
 	local style = useStyle()
@@ -47,22 +47,9 @@ local function ContactListContainer(props: Props)
 
 	local dispatch = useDispatch()
 
-	local isSmallScreen, setIsSmallScreen = React.useState(props.camera.ViewportSize.X < 640)
-
-	-- Listen for screen size changes
-	React.useEffect(function()
-		local conn = props.camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-			if props.camera.ViewportSize.X < 640 then
-				setIsSmallScreen(true)
-			else
-				setIsSmallScreen(false)
-			end
-		end)
-
-		return function()
-			conn:Disconnect()
-		end
-	end, { props.camera })
+	local contactListContainerRef = React.useRef(nil :: Frame?)
+	local isSmallScreen, setIsSmallScreen = React.useState(currentCamera.ViewportSize.X < 640)
+	local closePeekViewSignal = Signal.new()
 
 	if EnableSocialServiceIrisInvite then
 		React.useEffect(function()
@@ -98,7 +85,59 @@ local function ContactListContainer(props: Props)
 	elseif currentPage == Pages.CallDetails then
 		currentContainer = React.createElement(CallDetailsContainer) :: any
 	elseif currentPage == Pages.FriendList then
-		currentContainer = React.createElement(FriendListContainer) :: any
+		currentContainer = React.createElement(FriendListContainer, {
+			isDevMode = localPlayer:GetAttribute("DevMode"),
+		}) :: any
+	end
+
+	-- Listen for screen size changes
+	React.useEffect(function()
+		local conn = currentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+			if currentCamera.ViewportSize.X < 640 then
+				setIsSmallScreen(true)
+			else
+				setIsSmallScreen(false)
+			end
+		end)
+
+		return function()
+			conn:Disconnect()
+		end
+	end, {})
+
+	React.useEffect(function()
+		if currentPage and not isSmallScreen and contactListContainerRef.current then
+			pcall(function()
+				contactListContainerRef.current:TweenPosition(
+					UDim2.new(0, PADDING, 0, PADDING),
+					Enum.EasingDirection.In,
+					Enum.EasingStyle.Quad,
+					0.3,
+					true
+				)
+			end)
+		end
+	end, { isSmallScreen, currentPage })
+
+	local dismissCallback = function()
+		if localPlayer then
+			if not isSmallScreen and contactListContainerRef.current then
+				pcall(function()
+					contactListContainerRef.current:TweenPosition(
+						UDim2.new(0, -DOCKED_WIDTH, 0, PADDING),
+						Enum.EasingDirection.Out,
+						Enum.EasingStyle.Quad,
+						0.3,
+						true,
+						function()
+							SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+						end
+					)
+				end)
+			else
+				closePeekViewSignal:fire()
+			end
+		end
 	end
 
 	local viewStateChanged = function(viewState, prevViewState)
@@ -111,50 +150,56 @@ local function ContactListContainer(props: Props)
 
 	local contactListContainerContent = function()
 		return React.createElement("Frame", {
-			Size = if isSmallScreen then UDim2.new(1, 0, 1, -TOP_PADDING) else UDim2.new(0, 376, 1, -TOP_PADDING),
-			Position = UDim2.new(0, 0, 0, TOP_PADDING),
-			BackgroundColor3 = theme.BackgroundDefault.Color,
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			[React.Event.InputBegan] = function(_, inputObject)
+				if
+					inputObject.UserInputType == Enum.UserInputType.MouseButton1
+					or inputObject.UserInputType == Enum.UserInputType.Touch
+				then
+					dismissCallback()
+				end
+			end,
 		}, {
-			Layout = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-			UICorner = React.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 12),
-			}),
-			Header = React.createElement("Frame", {
-				LayoutOrder = 1,
-				Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
-				BackgroundTransparency = 1,
+			-- Use an ImageButton here so that it acts as a click sink
+			ContactList = React.createElement("ImageButton", {
+				Size = if isSmallScreen
+					then UDim2.new(1, 0, 1, -PADDING)
+					else UDim2.new(0, DOCKED_WIDTH, 1, -PADDING * 2),
+				Position = if isSmallScreen
+					then UDim2.new(0, 0, 0, PADDING)
+					else UDim2.new(0, -DOCKED_WIDTH, 0, PADDING),
+				AutoButtonColor = false,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				ref = contactListContainerRef,
 			}, {
-				DismissButton = if EnableSocialServiceIrisInvite
-					then React.createElement(IconButton, {
-						size = UDim2.fromOffset(28, 28),
-						iconSize = IconSize.Large,
-						position = UDim2.new(0, 8, 0, 0),
-						iconColor3 = theme.ContextualPrimaryDefault.Color,
-						iconTransparency = theme.ContextualPrimaryDefault.Transparency,
-						icon = "rbxassetid://12716504880",
-						onActivated = function()
-							if localPlayer then
-								SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-							end
-						end,
-					})
-					else nil,
+				Layout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, 12),
+				}),
+				Header = React.createElement(ContactListHeader, {
+					currentPage = currentPage,
+					headerHeight = HEADER_HEIGHT,
+					layoutOrder = 1,
+					dismissCallback = dismissCallback,
+				}),
+				ContentContainer = React.createElement("Frame", {
+					LayoutOrder = 2,
+					Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + PADDING)),
+					BackgroundTransparency = 1,
+				}, currentContainer),
 			}),
-
-			ContentContainer = React.createElement("Frame", {
-				LayoutOrder = 2,
-				Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + TOP_PADDING)),
-				BackgroundTransparency = 1,
-			}, currentContainer),
 		})
 	end
 
 	return if currentPage and isSmallScreen
 		then React.createElement(PeekView, {
 			briefViewContentHeight = UDim.new(0.5, 0),
+			canDragFullViewToBrief = true,
+			closeSignal = closePeekViewSignal,
 			viewStateChanged = viewStateChanged,
 		}, {
 			Content = contactListContainerContent(),

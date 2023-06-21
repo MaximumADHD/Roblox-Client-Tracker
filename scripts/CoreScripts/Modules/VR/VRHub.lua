@@ -24,7 +24,6 @@ local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEna
 	or game:GetEngineFeature("EnableMaquettesSupport")
 local GetFFlagUIBloxVRFixUIJitter =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
-local GetFFlagEnableVRHubStateListener = require(RobloxGui.Modules.Flags.GetFFlagEnableVRHubStateListener)
 
 local VRHub = {}
 local RegisteredModules = {}
@@ -208,13 +207,8 @@ local function onVRPropertyChanged(property)
 	end
 end
 
-if GetFFlagEnableVRHubStateListener then
-	onVREnabledChanged()
-	VRService.Changed:connect(onVRPropertyChanged)
-else
-	onVREnabled("VREnabled")
-	VRService.Changed:connect(onVREnabled)
-end
+onVREnabledChanged()
+VRService.Changed:connect(onVRPropertyChanged)
 
 --VRHub API
 function VRHub:RegisterModule(module)

@@ -90,12 +90,17 @@ end
 function PublishAssetPromptSingleStep:init()
 	self.assetName = self:getDefaultText()
 	self.assetDescription = self:getDefaultText()
+	self.isNameValid = true
 
 	self.closePrompt = function()
 		self.props.closePrompt()
 	end
 
 	self.confirmAndUpload = function()
+		if not self.isNameValid then
+			return
+		end
+
 		local metadata = {}
 		metadata["assetName"] = self.assetName
 		metadata["assetDescription"] = self.assetDescription
@@ -112,9 +117,12 @@ function PublishAssetPromptSingleStep:init()
 		end
 	end
 
-	self.onAssetNameUpdated = function(newName, isNameInvalid)
-		if not isNameInvalid then
+	self.onAssetNameUpdated = function(newName, isNameValid)
+		if isNameValid then
 			self.assetName = newName
+			self.isNameValid = true
+		else
+			self.isNameValid = false
 		end
 	end
 

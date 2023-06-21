@@ -16,7 +16,7 @@ local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 
 local CategoryHeader = require(script.Parent.Parent.GameSettingsPage.CategoryHeader)
 local Constants = require(InGameMenu.Resources.Constants)
-local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 
 local LanguageSelectionEntry = require(script.Parent.LanguageSelectionEntry)
 
@@ -70,7 +70,7 @@ function BasicPage:render()
                     end
                 end,
             }),
-            PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
+            PageContents = Roact.createElement(VerticalScrollView, {
                 position = self.props.position,
                 size = UDim2.new(1, 0, 1, 0),
                 useAutomaticCanvasSize = true,

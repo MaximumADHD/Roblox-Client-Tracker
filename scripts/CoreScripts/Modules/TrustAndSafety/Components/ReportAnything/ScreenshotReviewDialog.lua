@@ -19,7 +19,6 @@ local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
 local RestartScreenshotDialog = require(TnsModule.Components.ReportAnything.RestartScreenshotDialog)
 local ReportAnythingAnalytics = require(TnsModule.Utility.ReportAnythingAnalytics)
-local GetFFlagEnableReportAnythingAnalytics = require(TnsModule.Flags.GetFFlagEnableReportAnythingAnalytics)
 
 local Divider = require(Dependencies.Divider)
 
@@ -40,13 +39,11 @@ export type Props = {
 }
 
 local function ScreenshotReviewDialog(props: Props)
-	if GetFFlagEnableReportAnythingAnalytics() then
-		React.useEffect(function()
-			if props.reportAnythingAnalytics then
-				props.reportAnythingAnalytics.incrementAnnotationOptionSeen()
-			end
-		end, {})
-	end
+	React.useEffect(function()
+		if props.reportAnythingAnalytics then
+			props.reportAnythingAnalytics.incrementAnnotationOptionSeen()
+		end
+	end, {})
 
 	local isShowRestartDialog, setShowRestartDialog = React.useState(false)
 	local stylePalette = useStyle()

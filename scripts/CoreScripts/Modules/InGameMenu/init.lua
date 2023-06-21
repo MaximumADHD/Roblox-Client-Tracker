@@ -29,7 +29,6 @@ local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 local Localization = require(script.Localization.Localization)
 
 local SetLocaleId = require(script.Actions.SetLocaleId)
-local OpenReportDialog = require(script.Actions.OpenReportDialog)
 local SetInspectMenuEnabled = require(script.Actions.SetInspectMenuEnabled)
 local SetCurrentPage = require(script.Actions.SetCurrentPage)
 local SetScreenSize = require(script.Actions.SetScreenSize)
@@ -43,8 +42,6 @@ local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
 
 local GetFFlagIGMGamepadSelectionHistory = require(script.Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagEnableIGMv2VoiceReportFlows =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -162,13 +159,10 @@ return {
 		CloseMenu(menuStore)
 	end,
 
-	openReportDialog = function(player)
+	openReportDialog = function(player, componentName)
 		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered, Constants.ReportDialogKey))
-		if GetFFlagEnableIGMv2VoiceReportFlows() then
-			TrustAndSafety.openReportDialogForPlayer(player, Constants.AnalyticsInGameMenuName)
-		else
-			menuStore:dispatch(OpenReportDialog(player.UserId, player.Name))
-		end
+		local source = if componentName ~= nil then componentName else Constants.AnalyticsInGameMenuName
+		TrustAndSafety.openReportDialogForPlayer(player, source)
 	end,
 
 	openGameSettingsPage = function()

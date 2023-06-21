@@ -20,6 +20,11 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 CoreGuiModules:WaitForChild("TenFootInterface")
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
+local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local formatUsername = UserProfiles.Formatters.formatUsername
+local getCombinedNameFromId = UserProfiles.Selectors.getCombinedNameFromId
+local Cryo = require(CorePackages.Cryo)
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 
@@ -100,6 +105,8 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local getFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
+local getFFlagPlayerListApolloClientEnabled = require(RobloxGui.Modules.Flags.getFFlagPlayerListApolloClientEnabled)
+local getIsUserProfileOnPlayersListEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnPlayersListEnabled)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
@@ -117,6 +124,7 @@ local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.G
 
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
+local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
 
 if GetFFlagOldMenuNewIcons() then
 	MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
@@ -1127,8 +1135,21 @@ local function Initialize()
 
 			frame.NameLabel.Size = nameLabelSize
 			frame.DisplayNameLabel.Size = nameLabelSize
-			frame.NameLabel.Text = "@" .. player.Name
-			frame.DisplayNameLabel.Text = player.DisplayName
+			frame.NameLabel.Text = if FFlagPlayerListRefactorUsernameFormatting then formatUsername(player.Name) else "@" .. player.Name
+			if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+				ApolloClient:query({
+					query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+					variables = {
+						userIds = { tostring(player.UserId) },
+					},
+				}):andThen(function(result)
+					frame.DisplayNameLabel.Text = getCombinedNameFromId(result.data, player.UserId)
+				end):catch(function()
+					frame.DisplayNameLabel.Text = player.DisplayName
+				end)
+			else
+				frame.DisplayNameLabel.Text = player.DisplayName
+			end
 		end
 
 		frame.RightSideButtons.ChildAdded:connect(function(child)
@@ -1290,8 +1311,11 @@ local function Initialize()
 					math.max(1, player.UserId), Enum.ThumbnailSize.Size100x100, Enum.ThumbnailType.AvatarThumbnail)
 				frame.Icon.Image = imageUrl
 
-				frame.DisplayNameLabel.Text = player.DisplayName
-				frame.NameLabel.Text = "@" .. player.Name
+				if not getFFlagPlayerListApolloClientEnabled() or not getIsUserProfileOnPlayersListEnabled() then
+					frame.DisplayNameLabel.Text = player.DisplayName
+				end
+
+				frame.NameLabel.Text = if FFlagPlayerListRefactorUsernameFormatting then formatUsername(player.Name) else "@" .. player.Name
 
 				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
 				-- extra index room for shareGameButton
@@ -1382,6 +1406,31 @@ local function Initialize()
 
 				reportAbuseButtonCreate(frame, player)
 			end
+		end
+
+		if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+			local playerIds = Cryo.List.map(sortedPlayers, function(player)
+				return tostring(sortedPlayers.UserId)
+			end)
+
+			ApolloClient:query({
+				query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+				variables = {
+					userIds = playerIds,
+				},
+			}):andThen(function(response)
+				Cryo.List.map(response.data.userProfiles, function(userProfile)
+					local labelFrame = existingPlayerLabels[userProfile.names.username]
+					if labelFrame then
+						labelFrame.DisplayNameLabel.Text = result.combinedName
+					end
+				end)
+			end):catch(function()
+				Cryo.List.map(sortedPlayers, function(player)
+					local labelFrame = existingPlayerLabels[player.Name]
+					labelFrame.DisplayNameLabel.Text = player.DisplayName
+				end)
+			end)
 		end
 
 		local frame = 0

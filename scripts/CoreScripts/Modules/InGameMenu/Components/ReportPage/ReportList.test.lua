@@ -36,7 +36,6 @@ local AppDarkTheme
 local AppFont
 
 local GetFFlagIGMGamepadSelectionHistory
-local GetFFlagEnableIGMv2VoiceReportFlows = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
 
 local appStyle
 
@@ -75,179 +74,163 @@ local function resetModules()
 	ReportList = require(script.Parent.ReportList)
 
 	GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
-	GetFFlagEnableIGMv2VoiceReportFlows = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
 end
 
--- TODO Remove when GetFFlagEnableIGMv2VoiceReportFlows is removed
-it("Only runs when GetFFlagEnableIGMv2VoiceReportFlows is active", function()
-	-- Because there seems to be no way to inject globals through jest 3 while code is running as part of a test,
-	-- And because these tests do depend on some fixes in AppStyleProvider.lua, DarkTheme.lua and LightTheme.lua
-	-- I'm flagging the entire test to only run when those fixes are in place. The old version of these tests is also
-	-- flagged to only run when GetFFlagEnableIGMv2VoiceReportFlows is off, so to be removed together with the flag.
+local function getMountableTreeAndStore(props)
+	local store = Rodux.Store.new(reducer, {
+		currentZone = 1,
+	})
 
-	-- Furthermore, because running an empty test in Jest 3 fails with "Your test suite must contain at least one test."
-	-- Here is a fake test doing nothing:
-
-	expect(true).toBe(true)
-end)
-
-if GetFFlagEnableIGMv2VoiceReportFlows() then
-	local function getMountableTreeAndStore(props)
-		local store = Rodux.Store.new(reducer, {
-			currentZone = 1,
-		})
-
-		local testPlayers = {
-				{
-					UserId = 2231221,
-					Name = "TheGamer101"
-				},
-				{
-					UserId = 1,
-					Name = "Roblox",
-				},
-				{
-					UserId = 2,
-					Name = "Jonah",
-				},
-				{
-					UserId = 3,
-					Name = "Simeon",
-				},
-				{
-					UserId = 4,
-					Name = "Elias",
-				}
+	local testPlayers = {
+			{
+				UserId = 2231221,
+				Name = "TheGamer101"
+			},
+			{
+				UserId = 1,
+				Name = "Roblox",
+			},
+			{
+				UserId = 2,
+				Name = "Jonah",
+			},
+			{
+				UserId = 3,
+				Name = "Simeon",
+			},
+			{
+				UserId = 4,
+				Name = "Elias",
 			}
+		}
 
-		local reportList = Roact.createElement(ReportList, Cryo.Dictionary.join(props or {}, {
-			placeName = "Crossroads",
-			players = testPlayers
-		}))
+	local reportList = Roact.createElement(ReportList, Cryo.Dictionary.join(props or {}, {
+		placeName = "Crossroads",
+		players = testPlayers
+	}))
 
-		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
+	return Roact.createElement(RoactRodux.StoreProvider, {
+		store = store,
+	}, {
+		ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+			style = appStyle,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
+			LocalizationProvider = Roact.createElement(LocalizationProvider, {
+				localization = Localization.new("en-us"),
 			}, {
-				LocalizationProvider = Roact.createElement(LocalizationProvider, {
-					localization = Localization.new("en-us"),
-				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-						ReportList = reportList,
-					}) or nil,
-					ReportList = not GetFFlagIGMGamepadSelectionHistory() and reportList or nil,
-				}),
+				FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					ReportList = reportList,
+				}) or nil,
+				ReportList = not GetFFlagIGMGamepadSelectionHistory() and reportList or nil,
 			}),
 		}),
-			store
-	end
+	}),
+		store
+end
 
-	describe("In-Game Menu Report List", function()
-		beforeEach(function()
-			resetModules()
-		end)
+describe("In-Game Menu Report List", function()
+	beforeEach(function()
+		resetModules()
+	end)
 
-		describe("Mount/unmount", function()
-			it("should create with correct children, and destroy without errors", function()
-				local element = getMountableTreeAndStore()
+	describe("Mount/unmount", function()
+		it("should create with correct children, and destroy without errors", function()
+			local element = getMountableTreeAndStore()
 
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-				expect(#Players.LocalPlayer.PlayerGui:GetChildren()).toEqual(1)
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			expect(#Players.LocalPlayer.PlayerGui:GetChildren()).toEqual(1)
 
-				-- check for a few things we expect to find at various places in the tree
-				expect(Players.LocalPlayer.PlayerGui:FindFirstChild("GameIcon", true)).toBeDefined()
-				expect(Players.LocalPlayer.PlayerGui:FindFirstChild("PlayerIcon", true)).toBeDefined()
-				expect(Players.LocalPlayer.PlayerGui:FindFirstChild("ContentsScrollingFrame", true)).toBeDefined()
+			-- check for a few things we expect to find at various places in the tree
+			expect(Players.LocalPlayer.PlayerGui:FindFirstChild("GameIcon", true)).toBeDefined()
+			expect(Players.LocalPlayer.PlayerGui:FindFirstChild("PlayerIcon", true)).toBeDefined()
+			expect(Players.LocalPlayer.PlayerGui:FindFirstChild("ContentsScrollingFrame", true)).toBeDefined()
 
 
-				local count = 0
-				for _, inst in pairs(Players.LocalPlayer.PlayerGui:FindFirstChild("ContentsScrollingFrame", true)[1]:GetChildren()) do
-					if inst.ClassName == "TextButton" then
-						count += 1
-					end
+			local count = 0
+			for _, inst in pairs(Players.LocalPlayer.PlayerGui:FindFirstChild("ContentsScrollingFrame", true)[1]:GetChildren()) do
+				if inst.ClassName == "TextButton" then
+					count += 1
 				end
+			end
 
-				-- 5 players + 1 game
-				expect(count).toEqual(6)
+			-- 5 players + 1 game
+			expect(count).toEqual(6)
 
-				Roact.unmount(instance)
-			end)
-		end)
-
-		describe("Gamepad support", function()
-			it("Should not gain focus when gamepad is not the last used device", function()
-				local element, store = getMountableTreeAndStore()
-				expect(Players.LocalPlayer.PlayerGui).toBeDefined()
-
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-				act(function()
-					store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
-					store:dispatch(SetCurrentPage("Report"))
-					store:flush()
-				end)
-
-				expect(GuiService.SelectedCoreObject).toBeNil()
-
-				Roact.unmount(instance)
-			end)
-
-			it("Should gain focus only when gamepad was used", function()
-				local element, store = getMountableTreeAndStore()
-				expect(Players.LocalPlayer.PlayerGui).toBeDefined()
-
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-				act(function()
-					store:dispatch(SetInputType(Constants.InputType.Gamepad))
-					store:dispatch(SetCurrentPage("Report"))
-					store:flush()
-				end)
-
-				expect(GuiService.SelectedCoreObject).toBeDefined()
-
-				Roact.unmount(instance)
-				GuiService.SelectedCoreObject = nil
-			end)
-		end)
-
-		describe("Voice Abuse Report", function()
-			it("Should start report user flow when reporting a user", function()
-				local openReportDialogForPlayerMock = jest.fn()
-				local openReportDialogForPlaceMock = jest.fn()
-				jest.mock(RobloxGui.Modules.TrustAndSafety, function()
-					return {
-						openReportDialogForPlayer = openReportDialogForPlayerMock,
-						openReportDialogForPlace = openReportDialogForPlaceMock,
-					}
-				end)
-
-				jest.mock(InGameMenu.Components.BarOnTopScrollingFrame, function()
-					return function(props)
-						props.CanvasSize = nil
-						return Roact.createElement("Frame", props)
-					end
-				end)
-
-				resetModules()
-				local element = getMountableTreeAndStore()
-					local result = render(element)
-
-				local playerButton = result.getByText("TheGamer101").Parent
-				expect(playerButton).toBeDefined()
-				expect(#openReportDialogForPlayerMock.mock.calls).toEqual(0)
-				fireEvent.click(playerButton)
-				expect(#openReportDialogForPlayerMock.mock.calls).toEqual(1)
-
-				-- Since there isn't yet many usage examples of these new testing tools
-				-- I'm using test-id here to add to the variety, for whoever reads this
-				-- later while in search of testing examples.
-				local experienceButton = result.getByTestId("experienceLabel")
-				expect(experienceButton).toBeDefined()
-				expect(#openReportDialogForPlaceMock.mock.calls).toEqual(0)
-				fireEvent.click(experienceButton)
-				expect(#openReportDialogForPlaceMock.mock.calls).toEqual(1)
-			end)
+			Roact.unmount(instance)
 		end)
 	end)
-end
+
+	describe("Gamepad support", function()
+		it("Should not gain focus when gamepad is not the last used device", function()
+			local element, store = getMountableTreeAndStore()
+			expect(Players.LocalPlayer.PlayerGui).toBeDefined()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
+				store:dispatch(SetCurrentPage("Report"))
+				store:flush()
+			end)
+
+			expect(GuiService.SelectedCoreObject).toBeNil()
+
+			Roact.unmount(instance)
+		end)
+
+		it("Should gain focus only when gamepad was used", function()
+			local element, store = getMountableTreeAndStore()
+			expect(Players.LocalPlayer.PlayerGui).toBeDefined()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.Gamepad))
+				store:dispatch(SetCurrentPage("Report"))
+				store:flush()
+			end)
+
+			expect(GuiService.SelectedCoreObject).toBeDefined()
+
+			Roact.unmount(instance)
+			GuiService.SelectedCoreObject = nil
+		end)
+	end)
+
+	describe("Voice Abuse Report", function()
+		it("Should start report user flow when reporting a user", function()
+			local openReportDialogForPlayerMock = jest.fn()
+			local openReportDialogForPlaceMock = jest.fn()
+			jest.mock(RobloxGui.Modules.TrustAndSafety, function()
+				return {
+					openReportDialogForPlayer = openReportDialogForPlayerMock,
+					openReportDialogForPlace = openReportDialogForPlaceMock,
+				}
+			end)
+
+			jest.mock(InGameMenu.Components.BarOnTopScrollingFrame, function()
+				return function(props)
+					props.CanvasSize = nil
+					return Roact.createElement("Frame", props)
+				end
+			end)
+
+			resetModules()
+			local element = getMountableTreeAndStore()
+				local result = render(element)
+
+			local playerButton = result.getByText("TheGamer101").Parent
+			expect(playerButton).toBeDefined()
+			expect(#openReportDialogForPlayerMock.mock.calls).toEqual(0)
+			fireEvent.click(playerButton)
+			expect(#openReportDialogForPlayerMock.mock.calls).toEqual(1)
+
+			-- Since there isn't yet many usage examples of these new testing tools
+			-- I'm using test-id here to add to the variety, for whoever reads this
+			-- later while in search of testing examples.
+			local experienceButton = result.getByTestId("experienceLabel")
+			expect(experienceButton).toBeDefined()
+			expect(#openReportDialogForPlaceMock.mock.calls).toEqual(0)
+			fireEvent.click(experienceButton)
+			expect(#openReportDialogForPlaceMock.mock.calls).toEqual(1)
+		end)
+	end)
+end)

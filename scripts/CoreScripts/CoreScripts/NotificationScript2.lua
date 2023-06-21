@@ -39,7 +39,6 @@ end)
 local FFlagUseNotificationsLocalization = success and result
 
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
-local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
@@ -357,14 +356,14 @@ local function createNotification(title, text, image)
 		notificationText.Size = UDim2.new(1, -leftPadding - rightPadding, 0, notificationText.Size.Y.Offset)
 		notificationText.Position = UDim2.new(0, leftPadding, notificationText.Position.Y.Scale, notificationText.Position.Y.Offset)
 		notificationText.TextXAlignment = Enum.TextXAlignment.Left
-		
+
 		if not notificationTitle.TextFits then
 			updateNotificationForMultiLineTitle()
 
 			-- Allow one full line of notificationText next to image
 			local subtractHeight = notificationText.TextSize
 			notificationText.Size = notificationText.Size - UDim2.new(0, 0, 0, subtractHeight)
-			
+
 			-- Slight vertical offset for consistent placement with 2 line notificationText
 			local verticalOffset = 4
 			notificationTitle.Position = notificationTitle.Position + UDim2.new(0, 0, 0, subtractHeight / 2 - verticalOffset / 2)
@@ -400,7 +399,7 @@ local function createNotification(title, text, image)
 					Vector2.new(notificationText2.AbsoluteSize.X, 1000)
 				)
 				local addHeight = math.min(textSize.Y, NOTIFICATION_TEXT_HEIGHT_MAX - notificationText.Size.Y.Offset)
-				
+
 				notificationText2.Size =
 					UDim2.new(notificationText2.Size.X.Scale, notificationText2.Size.X.Offset, 0, addHeight)
 				notificationTitle.Position = notificationTitle.Position - UDim2.new(0, 0, 0, addHeight / 2)
@@ -420,7 +419,7 @@ local function createNotification(title, text, image)
 		end
 	end
 
-	if isTitleMultipleLines and notificationText.TextFits then 
+	if isTitleMultipleLines and notificationText.TextFits then
 		-- Ensure that notificationText's height is the minimum height required
 		local textSize = TextService:GetTextSize(
 			notificationText.Text,
@@ -957,7 +956,7 @@ local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
 
 if allowScreenshots then
 	-- Otherwise game.ScreenshotSavedToAlbum signal will be fired, handling in CaptureNotification.lua
-	if not shouldSaveScreenshotToAlbum() and not EnableInGameMenuV3() then
+	if not shouldSaveScreenshotToAlbum() then
 		game.ScreenshotReady:Connect(function(path)
 			local titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
 			local descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")

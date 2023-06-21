@@ -23,10 +23,6 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local PlayerList = script.Parent
 
-local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-local BackpackScript = require(RobloxGui.Modules.BackpackScript)
-local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
-
 local PlayerListApp = require(PlayerList.Components.Presentation.PlayerListApp)
 local Reducer = require(PlayerList.Reducers.Reducer)
 local GlobalConfig = require(PlayerList.GlobalConfig)
@@ -182,24 +178,6 @@ function PlayerListMaster.new()
 
 	self.SetVisibleChangedEvent = Instance.new("BindableEvent")
 
-	if EnableInGameMenuV3() then
-		BackpackScript.StateChanged.Event:Connect(function(isBackpackOpen)
-			if isBackpackOpen then
-				if self:GetVisibility() then
-					self:SetVisibility(false)
-				end
-			end
-		end)
-	
-		EmotesMenuMaster.EmotesMenuToggled.Event:Connect(function(isEmotesOpen)
-			if isEmotesOpen then
-				if self:GetVisibility() then
-					self:SetVisibility(false)
-				end
-			end
-		end)
-	end
-
 	self.store.changed:connect(function(newState, oldState)
 		if newState.displayOptions.setVisible ~= oldState.displayOptions.setVisible then
 			self.SetVisibleChangedEvent:Fire(newState.displayOptions.setVisible)
@@ -250,14 +228,6 @@ function PlayerListMaster:GetSetVisibleChangedEvent()
 end
 
 function PlayerListMaster:SetVisibility(value)
-	if EnableInGameMenuV3() and value then
-		if BackpackScript.IsOpen then
-			BackpackScript:OpenClose()
-		end
-		if EmotesMenuMaster:isOpen() then
-			EmotesMenuMaster:close()
-		end
-	end
 	self.store:dispatch(SetPlayerListVisibility(value))
 end
 

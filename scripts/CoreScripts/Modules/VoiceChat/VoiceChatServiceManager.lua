@@ -1,7 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local MemStorageService = game:GetService("MemStorageService")
-local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local PlayersService = game:GetService("Players")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
@@ -46,6 +45,7 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local GetFFlagLuaConsumePlayerModerated = require(RobloxGui.Modules.Flags.GetFFlagLuaConsumePlayerModerated)
 local GetFFlagUseLuaSignalrConsumer = require(RobloxGui.Modules.Flags.GetFFlagUseLuaSignalrConsumer)
+local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -64,8 +64,6 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
 -- We require here because one of the side effects of BlockingUtility.lua sets up PlayerBlockedEvent
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
-
-local StarterGui = game:GetService("StarterGui")
 
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
@@ -93,8 +91,6 @@ type VoiceChatPlaceAndUserSettings = {
 local VOICE_STATE = Constants.VOICE_STATE
 local VOICE_CHAT_DEVICE_TYPE = Constants.VOICE_CHAT_DEVICE_TYPE
 local MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED = Constants.MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED
-local USER_INELIGIBLE_WARNING = Constants.USER_INELIGIBLE_WARNING
-local PLACE_INELIGIBLE_WARNING = Constants.PLACE_INELIGIBLE_WARNING
 local VOICE_CHAT_AVAILABILITY = Constants.VOICE_CHAT_AVAILABILITY
 local MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY = Constants.MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY
 local MIN_VOICE_CHAT_API_VERSION = Constants.MIN_VOICE_CHAT_API_VERSION
@@ -783,7 +779,7 @@ function VoiceChatServiceManager:ensureInitialized(action)
 end
 
 function VoiceChatServiceManager:createPromptInstance(onReadyForSignal)
-	if not self.voiceChatPromptInstance then
+	if not self.voiceChatPromptInstance or GetFFlagAlwaysMountVoicePrompt() then
 		if self.promptSignal then
 			self.promptSignal:Destroy()
 			self.promptSignal = nil
@@ -814,7 +810,7 @@ function VoiceChatServiceManager:showPrompt(promptType, errorText)
 	if GetFFlagEnableVoicePromptReasonText() then
 		self.errorText = errorText or nil
 	end
-	if not self.voiceChatPromptInstance then
+	if not self.voiceChatPromptInstance or GetFFlagAlwaysMountVoicePrompt() then
 		self:createPromptInstance(function()
 			log:debug("Show Prompt: {}", promptType)
 			self.promptSignal:fire(promptType)

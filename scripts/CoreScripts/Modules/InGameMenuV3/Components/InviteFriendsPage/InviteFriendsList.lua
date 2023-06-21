@@ -13,7 +13,7 @@ local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 
 local IconButton = UIBlox.App.Button.IconButton
 local Images = UIBlox.App.ImageSet.Images
-local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 
 local InGameMenu = script.Parent.Parent.Parent
@@ -287,7 +287,7 @@ function InviteFriendsList:render()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 1, 0),
 	}, {
-		List = Roact.createElement(VerticalScrollViewWithIndicator, {
+		List = Roact.createElement(VerticalScrollView, {
 			position = UDim2.new(0, 0, 0, 0),
 			size = UDim2.new(1, 0, 1, 0),
 			canvasSizeY = UDim.new(0, 0),

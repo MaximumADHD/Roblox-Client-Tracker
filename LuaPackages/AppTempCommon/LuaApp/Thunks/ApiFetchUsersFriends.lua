@@ -11,6 +11,8 @@ local FetchUserFriendsFailed = require(CorePackages.AppTempCommon.LuaApp.Actions
 local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsCompleted)
 local UserModel = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
+local GetFFlagDontWriteUserThumbsIntoStore =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDontWriteUserThumbsIntoStore
 
 return function(requestImpl, userId, thumbnailRequest, userSort): any
 	return function(store)
@@ -34,8 +36,10 @@ return function(requestImpl, userId, thumbnailRequest, userSort): any
 
 			return fetchedUserIds
 		end):andThen(function(userIds)
-			-- Asynchronously fetch friend thumbnails so we don't block display of UI
-			store:dispatch(ApiFetchUsersThumbnail.Fetch(requestImpl, userIds, thumbnailRequest))
+			if not GetFFlagDontWriteUserThumbsIntoStore() then
+				-- Asynchronously fetch friend thumbnails so we don't block display of UI
+				store:dispatch(ApiFetchUsersThumbnail.Fetch(requestImpl, userIds, thumbnailRequest))
+			end
 
 			return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))
 		end):andThen(

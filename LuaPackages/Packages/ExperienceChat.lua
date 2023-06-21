@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ExperienceChat-7e0b3461-6fe1d946"]["ExperienceChat"])
+local Package = require(PackageIndex["ExperienceChat-b187cb60-f41b3d99"]["ExperienceChat"])
 
 return Package

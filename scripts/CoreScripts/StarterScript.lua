@@ -60,13 +60,13 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListEnabled)
 local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
-local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt5", false)
+local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 
 local GetFFlagDragDetectorTouchIndicator = require(RobloxGui.Modules.Flags.GetFFlagDragDetectorTouchIndicator)
-local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts", false)
+local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts2", false)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
@@ -125,6 +125,9 @@ end
 
 -- In-game notifications script
 ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
+
+
+initify(CoreGuiModules.Chrome)
 
 -- TopBar
 initify(CoreGuiModules.TopBar)
@@ -323,9 +326,7 @@ if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag(
 	ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarMood", script.Parent)
 end
 
-if game:GetEngineFeature("AdPortal") then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
 
 if GetFFlagPipEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PipInitialize", RobloxGui)

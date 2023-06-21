@@ -20,13 +20,10 @@ local GameLabel = require(script.Parent.GameLabel)
 local ReportButton = require(script.Parent.ReportButton)
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 
-local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local ReportList = Roact.PureComponent:extend("ReportList")
 local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagEnableIGMv2VoiceReportFlows =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableIGMv2VoiceReportFlows
 
 game:DefineFastFlag("IGMReportListMissingBottomEntry", false)
 
@@ -39,25 +36,17 @@ local PLAYER_LABEL_HEIGHT = 70
 
 ReportList.validateProps = t.strictInterface({
 	placeName = t.string,
-	players = if GetFFlagEnableIGMv2VoiceReportFlows() then t.array(t.union(t.instanceIsA("Player"), t.strictInterface({
+	players = t.array(t.union(t.instanceIsA("Player"), t.strictInterface({
 		UserId = t.integer,
 		Name = t.string
-	}))) else t.array(t.strictInterface({
-		Id = t.integer,
-		Username = t.string
-	})),
-	dispatchOpenReportDialog = if GetFFlagEnableIGMv2VoiceReportFlows() then nil else t.callback,
+	}))),
 	canCaptureFocus = t.optional(t.boolean),
 	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.string) or nil,
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 })
 
 local function sortPlayers(p1, p2)
-	if GetFFlagEnableIGMv2VoiceReportFlows() then
-		return p1.Name:lower() < p2.Name:lower()
-	else
-		return p1.Username:lower() < p2.Username:lower()
-	end
+	return p1.Name:lower() < p2.Name:lower()
 end
 
 function ReportList:init()
@@ -93,11 +82,7 @@ function ReportList:renderListEntries()
 		LayoutOrder = 1,
 		[Roact.Ref] = self.reportGameRef,
 		onActivated = function()
-			if GetFFlagEnableIGMv2VoiceReportFlows() then
-				TrustAndSafety.openReportDialogForPlace(Constants.AnalyticsInGameMenuName)
-			else
-				self.props.dispatchOpenReportDialog()
-			end
+			TrustAndSafety.openReportDialogForPlace(Constants.AnalyticsInGameMenuName)
 		end
 	}, {
 		ReportButton = Roact.createElement(ReportButton, {
@@ -114,23 +99,19 @@ function ReportList:renderListEntries()
 
 	for index, player in pairs(sortedPlayers) do
 		listComponents["player_"..index] = Roact.createElement(PlayerLabel, {
-			username = if GetFFlagEnableIGMv2VoiceReportFlows() then player.Name else player.Username,
-			userId = if GetFFlagEnableIGMv2VoiceReportFlows() then player.UserId else player.Id,
+			username = player.Name,
+			userId = player.UserId,
 			isOnline = true,
 			isSelected = false,
 			LayoutOrder = layoutOrder,
 
 			onActivated = function()
-				if GetFFlagEnableIGMv2VoiceReportFlows() then
-					TrustAndSafety.openReportDialogForPlayer(player, Constants.AnalyticsInGameMenuName)
-				else
-					self.props.dispatchOpenReportDialog(player.Id, player.Username)
-				end
+				TrustAndSafety.openReportDialogForPlayer(player, Constants.AnalyticsInGameMenuName)
 			end,
 		}, {
 			ReportButton = Roact.createElement(ReportButton, {
-				userId = if GetFFlagEnableIGMv2VoiceReportFlows() then player.UserId else player.Id,
-				userName = if GetFFlagEnableIGMv2VoiceReportFlows() then player.Name else player.Username,
+				userId = player.UserId,
+				userName = player.Name,
 				LayoutOrder = 1,
 			})
 		})
@@ -175,14 +156,6 @@ function ReportList:render()
 	}, self:renderListEntries())
 end
 
-local mapDispatchToProps = if GetFFlagEnableIGMv2VoiceReportFlows() then nil else function(dispatch)
-	return {
-		dispatchOpenReportDialog = function(userId, userName)
-			dispatch(OpenReportDialog(userId, userName))
-		end,
-	}
-end
-
 return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
 		local placeName = state.gameInfo.name
@@ -200,5 +173,5 @@ return RoactRodux.UNSTABLE_connect2(
 			currentPage = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.menuPage,
 			currentZone = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.currentZone,
 		}
-	end, mapDispatchToProps
+	end
 )(ReportList)

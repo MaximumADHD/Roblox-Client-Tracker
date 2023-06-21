@@ -24,8 +24,6 @@ local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 
-local GetFFlagEnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-
 local TopBar = Modules.TopBar
 local Presentation = TopBar.Components.Presentation
 local MoreMenu = require(Presentation.MoreMenu)
@@ -165,10 +163,7 @@ return function()
 				wait()
 			end)
 
-			if not GetFFlagEnableInGameMenuV3() then
-				jestExpect(EmotesMenuMaster:isOpen()).toBeTruthy()
-			end
-
+			jestExpect(EmotesMenuMaster:isOpen()).toBeTruthy()
 			Roact.unmount(handle)
 		end)
 	end)

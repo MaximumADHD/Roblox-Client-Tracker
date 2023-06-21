@@ -115,6 +115,12 @@ function ObjectViewport:didMount()
 	end
 end
 
+function ObjectViewport:willUnmount()
+	if self.props.model then
+		self.props.model.Parent = nil
+	end
+end
+
 function ObjectViewport:didUpdate(prevProps)
 	local modelChanged = self.props.model ~= prevProps.model
 	if modelChanged then

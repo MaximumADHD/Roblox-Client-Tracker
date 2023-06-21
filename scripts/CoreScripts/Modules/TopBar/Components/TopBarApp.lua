@@ -6,7 +6,6 @@ local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
@@ -25,7 +24,14 @@ local GamepadMenu = require(Presentation.GamepadMenu)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
 local BadgeOver13 = require(Presentation.BadgeOver13)
-local RecordingPill = require(Presentation.RecordingPill)
+
+local Chrome = script.Parent.Parent.Parent.Chrome
+
+local ChromeEnabled = require(Chrome.Enabled)
+local Unibar
+if ChromeEnabled() then
+	Unibar = require(Chrome.Unibar)
+end
 
 local Connection = require(script.Parent.Connection)
 
@@ -36,10 +42,6 @@ local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local GetFFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
-local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
-local FFlagRecordRecording = require(RobloxGui.Modules.Flags.GetFFlagRecordRecording)
-local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuV3)
 local GetFFlagBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagBetaBadge)
 local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
@@ -56,12 +58,6 @@ local CLOSE_MENU_ICON_SIZE = 30
 local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
 end
-local function MenuOpenWatcher(props)
-	local menuOpen = useSelector(selectMenuOpen)
-	if props.onChange then
-		props.onChange(menuOpen)
-	end
-end
 
 local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 
@@ -72,27 +68,7 @@ TopBarApp.validateProps = t.strictInterface({
 	setScreenSize = t.callback,
 })
 
-function TopBarApp:init(props)
-	self.fullScreenFrameRef = Roact.createRef()
-	self.topBarFrameRef = Roact.createRef()
-
-	local function updateVisible(rbx, visible)
-		if rbx then
-			rbx.Visible = visible
-		end
-	end
-
-	self.menuOpenChanged = function(menuOpen)
-		local visible = not menuOpen
-		updateVisible(self.fullScreenFrameRef:getValue(), visible)
-		updateVisible(self.topBarFrameRef:getValue(), visible)
-	end
-	self.recordEnabled = FFlagEnableInGameMenuV3 and FFlagRecordRecording and GameSettings.VideoCaptureEnabled or false
-end
-
 function TopBarApp:render()
-	local v3Menu = GetFFlagEnableInGameMenuV3()
-
 	local screenSideOffset = Constants.ScreenSideOffset
 	local topBarHeight = Constants.TopBarHeight
 	if TenFootInterface:IsEnabled() then
@@ -101,9 +77,6 @@ function TopBarApp:render()
 	end
 
 	local isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
-	if v3Menu then
-		isTopBarVisible = nil
-	end
 	local topBarFramePosition = UDim2.new(0, 0, 0, 0)
 	local topBarLeftFramePosition = UDim2.new(0, screenSideOffset, 0, 0)
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
@@ -140,7 +113,6 @@ function TopBarApp:render()
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
-			[Roact.Ref] = v3Menu and self.fullScreenFrameRef or nil,
 			Visible = isTopBarVisible,
 		}, {
 			HurtOverlay = Roact.createElement(HurtOverlay),
@@ -171,7 +143,6 @@ function TopBarApp:render()
 		TopBarFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, topBarHeight),
-			[Roact.Ref] = v3Menu and self.topBarFrameRef or nil,
 			Visible = isTopBarVisible,
 			Position = topBarFramePosition,
 		}, {
@@ -193,7 +164,7 @@ function TopBarApp:render()
 				MenuIcon = Roact.createElement(MenuIcon, {
 					layoutOrder = 1,
 				}),
-				
+
 				BackIcon = GetFFlagEnableTeleportBackButton() and Roact.createElement(BackIcon, {
 					layoutOrder = 2,
 				}) or nil,
@@ -218,10 +189,6 @@ function TopBarApp:render()
 						Analytics = Analytics.new(),
 					})
 					else nil,
-
-				RecordingPill = self.recordEnabled and Roact.createElement(RecordingPill, {
-					layoutOrder = 5,
-				}) or nil,
 			}),
 
 			RightFrame = Roact.createElement("Frame", {
@@ -245,9 +212,18 @@ function TopBarApp:render()
 				MoreMenu = not TenFootInterface:IsEnabled() and Roact.createElement(MoreMenu, {
 					layoutOrder = 2,
 				}),
-			}),
-			MenuOpenWatcher = v3Menu and Roact.createElement(MenuOpenWatcher, {
-				onChange = self.menuOpenChanged,
+
+				UnibarHolder = Unibar and Roact.createElement("Frame", {
+					LayoutOrder = 1,
+					Size = UDim2.new(0, 0, 1, 0),
+					AutomaticSize = Enum.AutomaticSize.X,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+				}, {
+					Unibar = Roact.createElement(Unibar, {
+						layoutOrder = 1,
+					}),
+				}) or nil
 			}),
 		}),
 	})
@@ -270,8 +246,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if GetFFlagEnableInGameMenuV3() then
-	return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(TopBarApp)
-else
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(TopBarApp)
-end
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(TopBarApp)

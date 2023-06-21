@@ -14,7 +14,7 @@ local React = require(CorePackages.Packages.React)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
-local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 
 local InGameMenu = script.Parent.Parent
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
@@ -138,7 +138,7 @@ function MainPage:render()
 					targetZone = 0,
 					direction = Direction.Left,
 				}),
-				PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
+				PageContents = Roact.createElement(VerticalScrollView, {
 					size = UDim2.new(1, 0, 1, self.state.heightOffset),
 					useAutomaticCanvasSize = true,
 					canvasSizeY = UDim.new(0, 0),  -- no minmum size

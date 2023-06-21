@@ -43,6 +43,7 @@ local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamin
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
 local FFlagUseLoadStreamAnimationForClone = game:DefineFastFlag("UseLoadStreamAnimationForClone", false)
 local FFlagSelfViewFixCloneOrientation = game:DefineFastFlag("SelfViewFixCloneOrientation", false)
+local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent", false)
 local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImprovements", false)
 local FFlagSelfViewDontHideOnSwapCharacter = game:DefineFastFlag("SelfViewDontHideOnSwapCharacter", false)
 local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
@@ -159,7 +160,7 @@ local toggleSelfViewSignalConnection
 local noDynamicHeadEquippedInfoShown = false
 local localPlayerHasDynamicHead = nil
 
-log:trace("Self View 05-12-2023__1!!")
+log:trace("Self View 06-14-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -1260,6 +1261,14 @@ local function updateClone(player)
 			if part:IsA("Motor6D") then
 				part.C0 = CFrame.new(part.C0.Position)
 				part.C1 = CFrame.new(part.C1.Position)
+			end
+		end
+	end
+
+	if FFlagSelfViewMakeClonePartsNonTransparent then
+		for _, part in ipairs( clone:GetDescendants()) do
+			if part:IsA("MeshPart") or part:IsA("Decal") then
+				part.Transparency = 0
 			end
 		end
 	end

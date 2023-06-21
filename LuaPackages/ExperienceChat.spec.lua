@@ -20,6 +20,9 @@ return function()
 	end)
 
 	it("within lua-apps, ExperienceChat should mount without issue", function(c)
+		game:DefineFastFlag("TextChatServiceBubbleAdded", false)
+		game:SetFastFlagForTesting("TextChatServiceBubbleAdded", false)
+
 		local success, message = pcall(function()
 			ExperienceChat.mountClientApp({
 				defaultTargetTextChannel = Instance.new("TextChannel"),

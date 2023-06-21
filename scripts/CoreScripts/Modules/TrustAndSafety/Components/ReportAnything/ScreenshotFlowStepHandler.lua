@@ -5,7 +5,6 @@ local React = require(CorePackages.Packages.React)
 local TnsModule = script.Parent.Parent.Parent
 local ScreenshotDialog = require(TnsModule.Components.ReportAnything.ScreenshotDialog)
 local ScreenshotReviewDialog = require(TnsModule.Components.ReportAnything.ScreenshotReviewDialog)
-local GetFFlagEnableReportAnythingAnalytics = require(TnsModule.Flags.GetFFlagEnableReportAnythingAnalytics)
 
 export type Props = ScreenshotDialog.Props & {
 	titleText: never,
@@ -42,10 +41,8 @@ local function ScreenshotFlowStepHandler(props: Props)
 			setviewportHeight(viewportSize.Y)
 			setIsSmallPortraitMode(viewportSize.X < viewportSize.Y and viewportSize.X < 800)
 
-			if GetFFlagEnableReportAnythingAnalytics() then
-				if props.reportAnythingAnalytics and viewportSize.X < viewportSize.Y then
-					props.reportAnythingAnalytics.setIsPortraitMode()
-				end
+			if props.reportAnythingAnalytics and viewportSize.X < viewportSize.Y then
+				props.reportAnythingAnalytics.setIsPortraitMode()
 			end
 		end
 	end, {})

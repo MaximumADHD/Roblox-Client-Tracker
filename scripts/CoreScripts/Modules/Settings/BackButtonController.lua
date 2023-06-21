@@ -13,18 +13,14 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
 
-local EngineFeatureEnableBackButton = game:GetEngineFeature("EnableBackButton")
-
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local GetFStringTeleportBackButtonIXPCustomLayerName =
 	require(RobloxGui.Modules.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
 
 local ReturnDestinationUniverseId = 0
-if EngineFeatureEnableBackButton then
-	local sourceUniverseId, destinationUniverseId = AdService:GetAdTeleportInfo()
-	if sourceUniverseId > 0 and (destinationUniverseId == 0 or destinationUniverseId == game.GameId) then
-		ReturnDestinationUniverseId = sourceUniverseId
-	end
+local sourceUniverseId, destinationUniverseId = AdService:GetAdTeleportInfo()
+if sourceUniverseId > 0 and (destinationUniverseId == 0 or destinationUniverseId == game.GameId) then
+	ReturnDestinationUniverseId = sourceUniverseId
 end
 
 local ReturnDestinationPlaceName = nil
@@ -40,8 +36,6 @@ local ReturnDestinationPlaceNamePromise = Promise.defer(function(resolve)
 end)
 
 local BackButtonController = {}
-
-BackButtonController.EngineFeatureEnableBackButton = EngineFeatureEnableBackButton
 
 BackButtonController.getTooltipText = function()
 	if ReturnDestinationPlaceName == nil then
@@ -73,14 +67,11 @@ BackButtonController.getMenuText = function()
 end
 
 BackButtonController.initiateBackButtonTeleport = function(teleportMethod)
-	if EngineFeatureEnableBackButton then
 		AdService:ReturnToPublisherExperience(teleportMethod)
-	end
 end
 
 BackButtonController.connectExperimentUserLayer = function(component, enabledPropName, fieldName)
-	local enabled = EngineFeatureEnableBackButton
-		and GetFFlagEnableTeleportBackButton()
+	local enabled = GetFFlagEnableTeleportBackButton()
 		and (ReturnDestinationUniverseId > 0)
 	return RoactAppExperiment.connectUserLayer({
 		GetFStringTeleportBackButtonIXPCustomLayerName(),

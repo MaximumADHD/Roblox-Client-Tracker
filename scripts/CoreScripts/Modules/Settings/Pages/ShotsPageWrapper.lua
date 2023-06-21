@@ -7,17 +7,12 @@
 --]]
 
 local CoreGui = game:GetService("CoreGui")
-local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules 
 
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local Theme = require(Modules.Settings.Theme)
-
-local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
-
-local Constants = Screenshots.Constants 
 
 local FFlagUseNotificationsLocalization do
 	local flagSuccess, flagResult = pcall(function()
@@ -72,7 +67,7 @@ function this:ConnectHubToApp(settingsHub, pageViewClipper, screenshotsApp)
 
 	local display = this.Display
 	function this:Display(...)
-		screenshotsApp.openMenu(Constants.PageRoute.SettingsHub)
+		screenshotsApp.openMenu()
 		display(this, ...)
 	end
 

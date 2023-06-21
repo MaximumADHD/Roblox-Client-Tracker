@@ -50,7 +50,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
-local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 
@@ -138,7 +138,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					end
 				end,
 			}),
-			PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
+			PageContents = Roact.createElement(VerticalScrollView, {
 				position = self.props.position,
 				size = UDim2.new(1, 0, 1, self.state.heightOffset),
 				useAutomaticCanvasSize = true,

@@ -35,7 +35,7 @@ local AssetNameTextBox = Roact.PureComponent:extend("AssetNameTextBox")
 AssetNameTextBox.validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
 	Position = t.optional(t.UDim2),
-	onAssetNameUpdated = t.callback, -- function(newName, isNameInvalid)
+	onAssetNameUpdated = t.callback, -- function(newName, isNameValid)
 	nameTextBoxRef = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	assetType = t.optional(t.enum(Enum.AssetType)),
@@ -55,7 +55,7 @@ function AssetNameTextBox:init()
 	self:setState({
 		assetName = self.props.defaultName or "",
 		lastValidName = "",
-		isNameInvalid = false,
+		isNameValid = true,
 	})
 
 	self.wasInitiallyFocused = false
@@ -81,29 +81,48 @@ function AssetNameTextBox:init()
 			rbx.Text = assetName
 		end
 
-		local isNameInvalid = not string.match(assetName, "^[0-9a-zA-Z%s]+$")
+		local isNameValid = self:checkIsNameValid(assetName)
 
 		local lastValidName = self.state.lastValidName
-		if not isNameInvalid then
+		if isNameValid then
 			lastValidName = rbx.Text
 		end
 
 		self:setState({
 			lastValidName = lastValidName,
-			isNameInvalid = isNameInvalid,
+			isNameValid = isNameValid,
 			assetName = assetName,
 		})
 
-		self.props.onAssetNameUpdated(assetName, isNameInvalid)
+		self.props.onAssetNameUpdated(assetName, isNameValid)
 	end
+end
+
+function AssetNameTextBox:checkIsNameValid(assetName)
+	--Name can only be made of alphanumeric, spaces, apostraphes, underscores
+	if not string.match(assetName, "[0-9a-zA-Z_'%s]+$") then
+		return false
+	end
+
+	-- no leading spaces
+	if string.sub(assetName, 1, 1) == " " then
+		return false
+	end
+
+	--no names of only spaces
+	if string.match(assetName, "^%s*$") then
+		return false
+	end
+
+	return true
 end
 
 function AssetNameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 	local font = stylePalette.Font
 	local theme = stylePalette.Theme
 
-	local isNameInvalid = self.state.isNameInvalid
-	local showWarningText = isNameInvalid and self.state.assetName ~= ""
+	local isNameValid = self.state.isNameValid
+	local showWarningText = not isNameValid
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,

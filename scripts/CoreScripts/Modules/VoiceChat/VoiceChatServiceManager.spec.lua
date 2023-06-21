@@ -21,6 +21,8 @@ return function()
 
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
+	local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
+
 	local noop = function() end
 	local stub = function(val)
 		return function()
@@ -63,14 +65,9 @@ return function()
 		}
 	end
 
-
-	local lastLogMessage = ""
-
 	log:addSink({
 		maxLevel = log.Levels.Warning,
-		log = function(self, message, context)
-			lastLogMessage = message
-		end,
+		log = function(self, message, context) end,
 	})
 
 	local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
@@ -332,28 +329,30 @@ return function()
 				-- jestExpect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).toBe("Microphone use Suspended")
 			end)
 
-			it("Show place prompt if place is not enabled for voice", function ()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
-				VoiceChatServiceManager.policyMapper = mockPolicyMapper
-				isStudio = true
-				VoiceChatServiceManager.runService = runServiceStub
-				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
-					universePlaceVoiceEnabledSettings = {
-						isUniverseEnabledForVoice = true,
-						isPlaceEnabledForVoice = false,
-					},
-					voiceSettings = {
-						isVoiceEnabled = true
-					},
-				})
-				-- We need to create the prop instance before connecting events so that we can use VoiceChatServiceManager.promptSignal
-				VoiceChatServiceManager:createPromptInstance(noop)
-				local mock, mockFn = jest.fn()
-				VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
-				jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).toBe(false)
-				waitForEvents.act()
-				jestExpect(mock).toHaveBeenCalledWith(VoiceChatPromptType.Place)
-			end)
+			if not GetFFlagAlwaysMountVoicePrompt() then
+				it("Show place prompt if place is not enabled for voice", function ()
+					VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+					VoiceChatServiceManager.policyMapper = mockPolicyMapper
+					isStudio = true
+					VoiceChatServiceManager.runService = runServiceStub
+					HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
+						universePlaceVoiceEnabledSettings = {
+							isUniverseEnabledForVoice = true,
+							isPlaceEnabledForVoice = false,
+						},
+						voiceSettings = {
+							isVoiceEnabled = true
+						},
+					})
+					-- We need to create the prop instance before connecting events so that we can use VoiceChatServiceManager.promptSignal
+					VoiceChatServiceManager:createPromptInstance(noop)
+					local mock, mockFn = jest.fn()
+					VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
+					jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).toBe(false)
+					waitForEvents.act()
+					jestExpect(mock).toHaveBeenCalledWith(VoiceChatPromptType.Place)
+				end)
+			end
 
 			it("Doesn't show place prompt if universe is not enabled for voice", function ()
 				local earlyOutFlag = game:SetFastFlagForTesting("VCPromptEarlyOut", true)

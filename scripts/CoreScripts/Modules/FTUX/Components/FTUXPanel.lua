@@ -11,6 +11,8 @@ local FTUXConstants = require(FTUX.Resources.FTUXConstants)
 local PlatformEnum = require(FTUX.Enums.PlatformEnum)
 type Platform = PlatformEnum.Platform
 
+local FIntFTUXPanelXOffset = game:DefineFastInt("FTUXPanelXOffset", 50)
+
 type Props = {
 	platform: Platform,
 }
@@ -33,7 +35,7 @@ local function FTUXPanel(props: Props)
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 1, 0),
-		Position = UDim2.new(0, 0, 0, 0),
+		Position = UDim2.new(0, FIntFTUXPanelXOffset, 0, 0),
 	}, {
 		Slideshow = React.createElement("Frame", {
 			BackgroundColor3 = PANEL_BACKGROUND_COLOR,

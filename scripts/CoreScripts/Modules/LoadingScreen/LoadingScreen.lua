@@ -32,7 +32,6 @@ local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
-local FFlagXboxJoinStringDisplay = game:DefineFastFlag("FixXboxJoinStringDisplay", false)
 
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
@@ -676,12 +675,10 @@ function LoadingScreen:init()
 		})
 	end
 
-	if FFlagXboxJoinStringDisplay then
-		if (GuiService:GetUiMessage() ~= "") then
-			self:setState({
-				serverStatusText = GuiService:GetUiMessage()
-			})
-		end
+	if (GuiService:GetUiMessage() ~= "") then
+		self:setState({
+			serverStatusText = GuiService:GetUiMessage()
+		})
 	end
 
 	GuiService.UiMessageChanged:Connect(function(type, newMessage)
