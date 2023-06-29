@@ -24,6 +24,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "AbuseReports"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "RoactServices RoactServices 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+]
+
+[[package]]
 name = "AmpUpsell"
 version = "0.1.0"
 dependencies = [
@@ -269,8 +282,11 @@ version = "0.1.0"
 name = "FocusNavigationUtils"
 version = "0.1.0"
 dependencies = [
+    "InputHandlers InputHandlers 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
 ]
 
 [[package]]
@@ -532,6 +548,10 @@ version = "0.1.0"
 
 [[package]]
 name = "InGameMenuJest3TestSuite"
+version = "0.1.0"
+
+[[package]]
+name = "InputHandlers"
 version = "0.1.0"
 
 [[package]]
@@ -1503,10 +1523,12 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
+    "TenFootUiCommon TenFootUiCommon 0.1.0",
     "TenFootUiSharedComponents TenFootUiSharedComponents 0.1.0",
     "TenFootUiTesting TenFootUiTesting 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UniversalAppPolicy UniversalAppPolicy 0.1.0",
 ]
 
 [[package]]
@@ -1567,6 +1589,7 @@ dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "Cryo Cryo 0.1.0",
     "FocusNavigationUtils FocusNavigationUtils 0.1.0",
+    "InputHandlers InputHandlers 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",

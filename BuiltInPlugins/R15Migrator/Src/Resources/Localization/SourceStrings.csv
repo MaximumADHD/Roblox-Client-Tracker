@@ -1,5 +1,5 @@
 Key,en-us
-Studio.R15Migrator.AnimationConversion.Animations,Animation List
+Studio.R15Migrator.AnimationConversion.Animations,Animations
 Studio.R15Migrator.AnimationConversion.ChooseAvatarPlaceholder,Choose avatar...
 Studio.R15Migrator.AnimationConversion.Convert,Convert
 Studio.R15Migrator.AnimationConversion.Converted,Converted
@@ -7,6 +7,7 @@ Studio.R15Migrator.AnimationConversion.ConvertingAnimations,Converting animation
 Studio.R15Migrator.AnimationConversion.DefaultAvatar,Default Avatar
 Studio.R15Migrator.AnimationConversion.Done,done
 Studio.R15Migrator.AnimationConversion.NotStarted,notStarted
+Studio.R15Migrator.AnimationConversion.Preview,Preview
 Studio.R15Migrator.AnimationConversion.ScanningScripts,Scanning scripts in progress...
 Studio.R15Migrator.AnimationConversion.ScanningWorkspace,Scanning workspace in progress...
 Studio.R15Migrator.AnimationConversion.SelectAvatar,Select Avatar
@@ -14,9 +15,8 @@ Studio.R15Migrator.CharacterConversion.Convert,Convert
 Studio.R15Migrator.CharacterConversion.Converted,Converted
 Studio.R15Migrator.CharacterConversion.Issues,Issues
 Studio.R15Migrator.CharacterConversion.Revert,Revert
-Studio.R15Migrator.ConversionResult.AutoConvert,{count} lines were updated automatically.
-Studio.R15Migrator.ConversionResult.ReplaceFailed,{count} lines were skipped because no rules were set.
-Studio.R15Migrator.ConversionResult.ReplaceSuccess,{count} scripts were successfully updated.
+Studio.R15Migrator.ConversionResult.Complete,{count} references were successfully updated.
+Studio.R15Migrator.ConversionResult.Error,{count} references were skipped because no replacement rules were set for them.
 Studio.R15Migrator.ConversionResult.Revert,{count} scripts were successfully reverted.
 Studio.R15Migrator.ConversionResult.Script,Script {name} was updated.
 Studio.R15Migrator.ConversionResult.UndoRevert,{count} scripts were restored to their state before reversion.
@@ -55,7 +55,7 @@ Studio.R15Migrator.ScriptConversion.HeaderMessage,{scriptCount} Scripts {issueCo
 Studio.R15Migrator.ScriptConversion.InProgress,Issues
 Studio.R15Migrator.ScriptConversion.ReplaceWith,Replace With {part}
 Studio.R15Migrator.ScriptConversion.ReplaceWithRules,Replace With Rules
-Studio.R15Migrator.ScriptConversion.RevertAll,Revert All Scripts
+Studio.R15Migrator.ScriptConversion.Revert,Revert
 Studio.R15Migrator.ScriptConversion.RevertScript,Revert Script
 Studio.R15Migrator.ScriptConversion.RevertScripts,Revert Scripts
 Studio.R15Migrator.ScriptConversion.RevertWarning,Confirm reverting scripts to initial state? You will lose all of your current changes for the selected scripts.

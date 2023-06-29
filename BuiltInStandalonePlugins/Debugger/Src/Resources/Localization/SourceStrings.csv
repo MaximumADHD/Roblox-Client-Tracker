@@ -27,6 +27,7 @@ Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter con
 Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.
 Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack
 Studio.Debugger.Common.stepOutActionV2,Step Out,Step Out
+Studio.Debugger.BreakpointsWindow.RemoveOnHitColumn,Remove on Hit,Remove on Hit
 Studio.Debugger.Common.stepOverActionV2,Step Over,Step Over
 Studio.Debugger.BreakpointsWindow.AllColumns,All Columns,All Columns
 Studio.Debugger.Callstack.AllColumns,All Columns,All Columns
@@ -75,6 +76,7 @@ Studio.Debugger.BreakpointsWindow.DeleteAll,Delete All Breakpoints,Delete All Br
 Studio.Debugger.BreakpointsWindow.DeleteAllPopupText,Do you want to delete all breakpoints?,Do you want to delete all breakpoints?
 Studio.Debugger.BreakpointsWindow.DeleteAllPopupYes,Yes,Yes
 Studio.Debugger.BreakpointsWindow.DeleteAllPopupNo,No,No
+Studio.Debugger.BreakpointsWindow.RemoveOnHitColumnTooltip,Removes the breakpoint when it pauses execution,Removes the breakpoint when it pauses execution
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
 Studio.Debugger.Watch.Local,Local,Local
 Studio.Debugger.Watch.LocalTooltip,A local variable is accessible only within the block of code where it's declared,A local variable is accessible only within the block of code where it's declared

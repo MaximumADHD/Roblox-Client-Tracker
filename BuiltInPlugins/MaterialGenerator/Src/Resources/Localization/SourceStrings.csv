@@ -1,4 +1,16 @@
 Key,en-us
+Studio.MaterialGenerator.Browser.GenerateVariations,Generate Variations
+Studio.MaterialGenerator.Browser.Remove,Discard
+Studio.MaterialGenerator.Browser.RemoveAll,Discard All
+Studio.MaterialGenerator.Editor.ApplyVariant,Apply Variant
+Studio.MaterialGenerator.Editor.BaseMaterial,Base Material
+Studio.MaterialGenerator.Editor.BaseMaterialNotGivenError,Required
+Studio.MaterialGenerator.Editor.BaseMaterialPlaceholderText,None
+Studio.MaterialGenerator.Editor.MaterialPattern,Pattern
+Studio.MaterialGenerator.Editor.MaterialPatternOrganic,Organic
+Studio.MaterialGenerator.Editor.Name,Name
+Studio.MaterialGenerator.Editor.SaveAndApplyVariant,Save & Apply Variant
+Studio.MaterialGenerator.Editor.StudsPerTile,Studs Per Tile
 Studio.MaterialGenerator.Errors.AccountingFailedDecrement,Usage is limited during beta. Wait a moment and try again.
 Studio.MaterialGenerator.Errors.FailedToGenerateMaps,Generation error. Please try again.
 Studio.MaterialGenerator.Errors.FailedToSetImage,Failed to set image. Please try again.

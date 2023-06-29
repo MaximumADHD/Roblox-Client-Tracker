@@ -209,6 +209,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function void AssetImportSession:ApplySettings() {RobloxScriptSecurity}
+	Function void AssetImportSession:ApplyTemplate(Dictionary template) {RobloxScriptSecurity}
 	Function void AssetImportSession:Cancel() {RobloxScriptSecurity}
 	Function Dictionary AssetImportSession:GetCurrentStatusTable() {RobloxScriptSecurity}
 	Function string AssetImportSession:GetFilename() {RobloxScriptSecurity}
@@ -218,6 +219,7 @@ Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function bool AssetImportSession:IsAvatar() {RobloxScriptSecurity}
 	Function bool AssetImportSession:IsGltf() {RobloxScriptSecurity}
 	Function bool AssetImportSession:IsR15() {RobloxScriptSecurity}
+	Function void AssetImportSession:Reset() {RobloxScriptSecurity}
 	Function void AssetImportSession:Upload() {RobloxScriptSecurity}
 	Function bool AssetImportSession:usesCustomRestPoseLua() {RobloxScriptSecurity}
 	Event AssetImportSession.UploadComplete(Dictionary results)
@@ -408,6 +410,7 @@ Class BaseImportData : Instance [NotCreatable] [NotReplicated]
 	Property string BaseImportData.Id [ReadOnly]
 	Property string BaseImportData.ImportName
 	Property bool BaseImportData.ShouldImport
+	Function Map BaseImportData:CreateTemplateFromData() {RobloxScriptSecurity}
 	Function Dictionary BaseImportData:GetStatuses() {RobloxScriptSecurity}
 Class AnimationImportData : BaseImportData [NotCreatable] [NotReplicated]
 Class FacsImportData : BaseImportData [NotCreatable] [NotReplicated]
@@ -628,6 +631,12 @@ Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BrowserService.BrowserWindowClosed() {RobloxScriptSecurity}
 	Event BrowserService.BrowserWindowWillNavigate(string url) {RobloxScriptSecurity}
 	Event BrowserService.JavaScriptCallback(string content) {RobloxScriptSecurity}
+Class BubbleChatMessageProperties : Instance
+	Property Color3 BubbleChatMessageProperties.BackgroundColor3
+	Property double BubbleChatMessageProperties.BackgroundTransparency
+	Property Font BubbleChatMessageProperties.FontFace
+	Property Color3 BubbleChatMessageProperties.TextColor3
+	Property int64 BubbleChatMessageProperties.TextSize
 Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BulkImportService:LaunchBulkImport(int assetTypeToImport) {RobloxScriptSecurity}
 	Function void BulkImportService:ShowBulkImportView() {RobloxScriptSecurity}
@@ -659,11 +668,11 @@ Class Camera : Instance [NotReplicated]
 	Property bool Camera.VRTiltAndRollEnabled
 	Property Vector2 Camera.ViewportSize [ReadOnly]
 	Function float Camera:GetLargestCutoffDistance(Objects ignoreList) [Deprecated]
-	Function float Camera:GetPanSpeed()
+	Function float Camera:GetPanSpeed() [Deprecated]
 	Function Objects Camera:GetPartsObscuringTarget(Array castPoints, Objects ignoreList)
 	Function CFrame Camera:GetRenderCFrame()
 	Function float Camera:GetRoll()
-	Function float Camera:GetTiltSpeed()
+	Function float Camera:GetTiltSpeed() [Deprecated]
 	Function void Camera:Interpolate(CFrame endPos, CFrame endFocus, float duration) [Deprecated]
 	Function void Camera:PanUnits(int units) [Deprecated]
 	Function Ray Camera:ScreenPointToRay(float x, float y, float depth = 0) {🧬Safe}
@@ -898,7 +907,10 @@ Class LineForce : Constraint
 	Property float LineForce.MaxForce
 	Property bool LineForce.ReactionForceEnabled
 Class LinearVelocity : Constraint
+	Property Enum.ForceLimitMode LinearVelocity.ForceLimitMode
+	Property Vector3 LinearVelocity.MaxAxesForce
 	Property float LinearVelocity.MaxForce
+	Property Vector2 LinearVelocity.MaxPlanarAxesForce
 	Property Vector3 LinearVelocity.LineDirection
 	Property float LinearVelocity.LineVelocity
 	Property Enum.ActuatorRelativeTo LinearVelocity.RelativeTo
@@ -1137,6 +1149,27 @@ Class CylinderMesh : BevelMesh [Deprecated]
 Class FileMesh : DataModelMesh
 	Property Content FileMesh.MeshId
 	Property Content FileMesh.TextureId
+Class DynamicMesh : FileMesh
+	Function int DynamicMesh:AddTriangle(int vertexId0, int vertexId1, int vertexId2)
+	Function int DynamicMesh:AddVertex(Vector3 p)
+	Function void DynamicMesh:Clear()
+	Function MeshPart DynamicMesh:CreateMeshPartAsync(Enum.CollisionFidelity collisionFidelity) [Yields]
+	Function Vector3 DynamicMesh:GetPosition(int vertexId)
+	Function Tuple DynamicMesh:GetTriangleVertices(int triangleId)
+	Function Array DynamicMesh:GetTriangles()
+	Function Vector2 DynamicMesh:GetUV(int vertexId)
+	Function Color3 DynamicMesh:GetVertexColor(int vertexId)
+	Function float DynamicMesh:GetVertexColorAlpha(int vertexId)
+	Function Vector3 DynamicMesh:GetVertexNormal(int vertexId)
+	Function Array DynamicMesh:GetVertices()
+	Function void DynamicMesh:InitializeFromMeshIdAsync(Content meshId)
+	Function void DynamicMesh:InitializeFromMeshPartAsync(Instance meshPart)
+	Function void DynamicMesh:RemoveTriangle(int triangleId)
+	Function void DynamicMesh:SetPosition(int vertexId, Vector3 p)
+	Function void DynamicMesh:SetUV(int vertexId, Vector2 uv)
+	Function void DynamicMesh:SetVertexColor(int vertexId, Color3 color)
+	Function void DynamicMesh:SetVertexColorAlpha(int vertexId, float alpha)
+	Function void DynamicMesh:SetVertexNormal(int vertexId, Vector3 vnormal)
 Class SpecialMesh : FileMesh
 	Property Enum.MeshType SpecialMesh.MeshType
 Class DataModelPatchService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2343,10 +2376,10 @@ Class IKControl : Instance
 	Property float IKControl.Weight
 	Function int IKControl:GetChainCount()
 	Function float IKControl:GetChainLength()
-	Function CFrame IKControl:GetNodeLocalCFrame(int index) [NotBrowsable]
-	Function CFrame IKControl:GetNodeWorldCFrame(int index) [NotBrowsable]
-	Function CFrame IKControl:GetRawFinalTarget() [NotBrowsable]
-	Function CFrame IKControl:GetSmoothedFinalTarget() [NotBrowsable]
+	Function CFrame IKControl:GetNodeLocalCFrame(int index)
+	Function CFrame IKControl:GetNodeWorldCFrame(int index)
+	Function CFrame IKControl:GetRawFinalTarget()
+	Function CFrame IKControl:GetSmoothedFinalTarget()
 Class ILegacyStudioBridge : Instance [NotCreatable] [Service]
 Class LegacyStudioBridge : ILegacyStudioBridge [NotCreatable] [Service] [NotReplicated]
 Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2593,6 +2626,7 @@ Class LodDataEntity : Instance [NotCreatable]
 	Property Instance LodDataEntity.EntitySource [Hidden] [NotScriptable]
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LogService : Instance [NotCreatable] [Service]
+	Function void LogService:ClearOutput()
 	Function void LogService:ExecuteScript(string source) {RobloxScriptSecurity}
 	Function Array LogService:GetHttpResultHistory() {RobloxScriptSecurity}
 	Function Array LogService:GetLogHistory()
@@ -2848,6 +2882,7 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetEnabled(bool enabled) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
+	Function void MetaBreakpoint:SetRemoveOnHit(bool enabled) {RobloxScriptSecurity}
 Class MetaBreakpointContext : Instance [NotCreatable] [NotReplicated]
 	Property string MetaBreakpointContext.ContextDataInternal [Hidden] [NotScriptable]
 Class MetaBreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3141,10 +3176,12 @@ Class Terrain : BasePart [NotCreatable]
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState] {🧬Safe}
 	Function void Terrain:ReplaceMaterial(Region3 region, float resolution, Enum.Material sourceMaterial, Enum.Material targetMaterial)
 	Function void Terrain:ReplaceMaterialInTransform(CFrame cframe, Vector3 size, Enum.Material sourceMaterial, Enum.Material targetMaterial) {RobloxScriptSecurity}
+	Function void Terrain:ReplaceMaterialInTransformSubregion(CFrame cframe, Vector3 size, Enum.Material sourceMaterial, Enum.Material targetMaterial, Region3int16 targetRegion) {RobloxScriptSecurity}
 	Function void Terrain:SetCell(int x, int y, int z, Enum.CellMaterial material, Enum.CellBlock block, Enum.CellOrientation orientation) [Deprecated]
 	Function void Terrain:SetCells(Region3int16 region, Enum.CellMaterial material, Enum.CellBlock block, Enum.CellOrientation orientation) [Deprecated]
 	Function void Terrain:SetMaterialColor(Enum.Material material, Color3 value)
 	Function void Terrain:SetMaterialInTransform(CFrame cframe, Vector3 size, Enum.Material targetMaterial) {RobloxScriptSecurity}
+	Function void Terrain:SetMaterialInTransformSubregion(CFrame cframe, Vector3 size, Enum.Material targetMaterial, Region3int16 targetRegion) {RobloxScriptSecurity}
 	Function void Terrain:SetWaterCell(int x, int y, int z, Enum.WaterForce force, Enum.WaterDirection direction) [Deprecated]
 	Function Tuple Terrain:SmoothRegion(Region3 region, float resolution, float strength) {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
 	Function Vector3 Terrain:WorldToCell(Vector3 position)
@@ -4108,7 +4145,7 @@ Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptSourceChanged(LuaSourceContainer script) {RobloxScriptSecurity}
 Class ScriptCloneWatcher : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptCloneWatcherHelper : Instance [NotCreatable] [Service] [NotReplicated]
-Class ScriptCommitService : Instance [NotCreatable] [Service]
+Class ScriptCommitService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -4378,7 +4415,7 @@ Class Sound : Instance
 	Property bool Sound.IsPlaying [Hidden] [ReadOnly]
 	Property bool Sound.Looped
 	Property double Sound.PlaybackLoudness [ReadOnly]
-	Property bool Sound.PlaybackRegionsEnabled [NotBrowsable]
+	Property bool Sound.PlaybackRegionsEnabled
 	Property float Sound.PlaybackSpeed [NotReplicated]
 	Property bool Sound.Playing [NotReplicated]
 	Property float Sound.RollOffGain {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -4591,6 +4628,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property QDir Studio.IconOverrideDir {RobloxScriptSecurity}
 	Property QDir Studio.LocalAssetsFolder {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
+	Property bool Studio.ReloadBuiltinPluginsOnChange {RobloxSecurity}
+	Property bool Studio.ReloadLocalPluginsOnChange {RobloxSecurity}
 	Property bool Studio.Show Core GUI in Explorer while Playing
 	Property bool Studio.Show FileSyncService
 	Property bool Studio.Show Hidden Objects in Explorer
@@ -4749,7 +4788,7 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Event StudioPublishService.GameNameUpdated(string name) {RobloxScriptSecurity}
 	Event StudioPublishService.GamePublishCancelled() {RobloxScriptSecurity}
-	Event StudioPublishService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
+	Event StudioPublishService.GamePublishFinished(bool success, int64 gameId, string message) {RobloxScriptSecurity}
 	Event StudioPublishService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioSdkService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4916,6 +4955,7 @@ Class TerrainRegion : Instance
 	Property Vector3 TerrainRegion.SizeInCells [ReadOnly]
 	Property BinaryString TerrainRegion.SmoothGrid [Hidden] [NotReplicated] [NotScriptable]
 	Function void TerrainRegion:ApplyTransform(CFrame rotation, Vector3 size) {RobloxScriptSecurity}
+	Function TerrainRegion TerrainRegion:ApplyTransformSubregion(CFrame rotation, Vector3 size, Region3int16 region) {RobloxScriptSecurity}
 	Function void TerrainRegion:ConvertToSmooth() {PluginSecurity} [Deprecated]
 	Function Array TerrainRegion:GetRegionWireframe() {RobloxScriptSecurity}
 Class TestService : Instance [Service]
@@ -5119,6 +5159,9 @@ Class Translator : Instance [NotCreatable] [NotReplicated]
 	Function string Translator:FormatByKey(string key, Variant args)
 	Function string Translator:RobloxOnlyTranslate(Instance context, string text) {RobloxScriptSecurity}
 	Function string Translator:Translate(Instance context, string text)
+Class TutorialService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void TutorialService:PromptCloseStudio() {RobloxScriptSecurity}
+	Function bool TutorialService:ShouldLaunchTutorial() {RobloxScriptSecurity}
 Class TweenBase : Instance [NotCreatable] [NotBrowsable]
 	Property Enum.PlaybackState TweenBase.PlaybackState [ReadOnly]
 	Function void TweenBase:Cancel()
@@ -5131,6 +5174,7 @@ Class Tween : TweenBase
 Class TweenService : Instance [NotCreatable] [Service]
 	Function Tween TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
 	Function float TweenService:GetValue(float alpha, Enum.EasingStyle easingStyle, Enum.EasingDirection easingDirection)
+Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:CanLoadAsset(string assetId) {RobloxScriptSecurity} [Yields]
 	Function Objects UGCValidationService:FetchAssetWithFormat(Content url, string assetFormat) {RobloxScriptSecurity} [Yields]
@@ -5556,7 +5600,9 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [Hidden]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
+	Event VoiceChatService.ClientRetryJoin() {RobloxScriptSecurity} [Hidden]
 	Event VoiceChatService.JoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.ReJoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(Enum.MuteState muteState) {RobloxSecurity} [Hidden]

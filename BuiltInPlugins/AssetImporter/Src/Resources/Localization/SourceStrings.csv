@@ -2,6 +2,7 @@ Key,en-us
 Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s
 Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %d %s
 Studio.AssetImporter.AssetImportTree.Errors,error(s)
+Studio.AssetImporter.AssetImportTree.RightClickApplyToAll,Apply To All
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s)
 Studio.AssetImporter.EnumItem.Back,Back
 Studio.AssetImporter.EnumItem.Bottom,Bottom

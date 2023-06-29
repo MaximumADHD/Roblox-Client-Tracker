@@ -136,15 +136,16 @@ Studio.GameSettings.Guidelines.NotSubmitted,Not Submitted, ,Not Submitted
 Studio.GameSettings.General.PresetRthro,Rthro, ,Rthro
 Studio.GameSettings.General.ContentDialogItem2,Intense Violence, ,Intense Violence
 Studio.GameSettings.Guidelines.Pending,Pending..., ,Pending...
-Studio.GameSettings.Guidelines.SubmitQuestionnaire,Fill Out Questionnaire, , Fill Out Questionnaire
+Studio.GameSettings.Guidelines.SubmitQuestionnaire,Fill Out Questionnaire, ,Fill Out Questionnaire
 Studio.GameSettings.General.PreviewDialogBody,Studio doesn't currently support video playing, ,Studio doesn't currently support video playing
-Studio.GameSettings.Guidelines.UpdateQuestionnaire,Update Questionnaire, , Update Questionnaire
+Studio.GameSettings.Guidelines.UpdateQuestionnaire,Update Questionnaire, ,Update Questionnaire
 Studio.GameSettings.Guidelines.ImpactText,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines., ,Guidelines impact experience discovery and access. You can take the [link] to generate Guidelines.
 Studio.GameSettings.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
 Studio.GameSettings.Guidelines.ConfiguredText,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience., ,Guidelines impact experience discovery and access. You must make sure your submission of the [link] accurately reflects the current content in your experience.
 Studio.GameSettings.Guidelines.ExperienceQuestionnaireLink,Experience Questionnaire, ,Experience Questionnaire
 Studio.GameSettings.Guidelines.GetAnAgeRecommendation,Get an age recommendation to ensure your experience is available to the right audience., ,Get an age recommendation to ensure your experience is available to the right audience.
-Studio.GameSettings.Guidelines.RetakeQuestionnaire,Retake questionnaire whenever the content to the experience has been changed., ,Retake questionnaire whenever the content to the experience has been changed.
+Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?, ,Are you sure you want to make this game private?
+Studio.GameSettings.Guidelines.RetakeQuestionnaire,Retake the questionnaire whenever the content to the experience has been changed., ,Retake the questionnaire whenever the content to the experience has been changed.
 Studio.GameSettings.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
 Studio.GameSettings.General.GenreAll,All, ,All
 Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.
@@ -200,7 +201,6 @@ Studio.GameSettings.General.ShutdownDialogHeader,Shutdown all servers, ,Shutdown
 Studio.GameSettings.General.ShutdownDialogBody,Are you sure you want to shutdown all servers for this game?, ,Are you sure you want to shutdown all servers for this game?
 Studio.GameSettings.General.DevSubsDuration6Months,6 months, ,6 months
 Studio.GameSettings.General.PrivateDialogHeader,Make Private, ,Make Private
-Studio.GameSettings.General.PrivateDialogPrompt,Are you sure you want to make this game private?, ,Are you sure you want to make this game private?
 Studio.GameSettings.Places.SocialSlotError,Value should be between {minRange:int} and {maxRange:int}., ,Value should be between {minRange:int} and {maxRange:int}.
 Studio.GameSettings.AccessPermissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results
 Studio.GameSettings.Permissions.CollaboratorSearchbarNoResultsText,There were no results, ,There were no results

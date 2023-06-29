@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "InputHandlers",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/input-handlers/src"
+    }
+  }
+}

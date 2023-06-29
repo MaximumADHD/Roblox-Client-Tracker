@@ -1,7 +1,5 @@
 Key,Source,en-us
 Studio.TerrainToolsV2.SeaLevel.End,{1:int},Replace Complete: {1:int} seconds.
-Studio.TerrainToolsV2.Warning.MaximumSize,{1:int},Size cannot be greater than {1:int}.
-Studio.TerrainToolsV2.Warning.MinimumSize,{1:int},Size cannot be less than {1:int}.
 Studio.TerrainToolsV2.Action.Apply, ,Apply
 Studio.TerrainToolsV2.Action.Back, ,Back
 Studio.TerrainToolsV2.Action.Cancel, ,Cancel
@@ -110,6 +108,8 @@ Studio.TerrainToolsV2.EditPlaneAction.Text, ,Edit Plane
 Studio.TerrainToolsV2.EditSettings.EditSettings, ,Edit Settings
 Studio.TerrainToolsV2.EditSettings.MergeEmpty, ,Merge Empty
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, ,"An unexpected thing happened, try again"
+Studio.TerrainToolsV2.Fill.Description, ,Filling with %s.
+Studio.TerrainToolsV2.Fill.Title, ,Fill
 Studio.TerrainToolsV2.Generate.AssigningColormap, ,Assigning Colormap...
 Studio.TerrainToolsV2.Generate.BaseLevel, ,Base Level
 Studio.TerrainToolsV2.Generate.BiomeArctic, ,Arctic
@@ -235,6 +235,7 @@ Studio.TerrainToolsV2.PartToBiome.PartToBiome, ,Part to Biome
 Studio.TerrainToolsV2.PartToTerrain.PartToTerrain, ,Part to Terrain
 Studio.TerrainToolsV2.RegionSettings.Apply, ,Apply
 Studio.TerrainToolsV2.RegionSettings.Copy, ,Copy
+Studio.TerrainToolsV2.RegionSettings.ForcePreviewMode, ,The volume of the terrain being processed is too large for live edit mode.
 Studio.TerrainToolsV2.RegionSettings.LiveEdit, ,Live Edit
 Studio.TerrainToolsV2.RegionSettings.LiveEditTooltip, ,"When enabled, terrain updates live. For better performance, turn this off to see a rough preview which can be applied."
 Studio.TerrainToolsV2.RegionSettings.MergeEmpty, ,Merge Empty
@@ -250,6 +251,7 @@ Studio.TerrainToolsV2.RegionSettings.TransformMode, ,Transform Mode
 Studio.TerrainToolsV2.Regions.EditTools, ,Edit Tools
 Studio.TerrainToolsV2.Regions.FillSelection, ,Fill Selection
 Studio.TerrainToolsV2.Regions.Tools, ,Tools
+Studio.TerrainToolsV2.Replace.Description, ,Replacing %s with %s.
 Studio.TerrainToolsV2.Replace.MaterialSettings, ,Material Settings
 Studio.TerrainToolsV2.Replace.Replace, ,Replace
 Studio.TerrainToolsV2.Replace.ReplaceMaterial, ,Replace Material
@@ -257,6 +259,7 @@ Studio.TerrainToolsV2.Replace.ReplaceProgressTitle, ,Replace Terrain
 Studio.TerrainToolsV2.Replace.Replacing, ,Replacing voxels...
 Studio.TerrainToolsV2.Replace.SourceMaterial, ,Source material
 Studio.TerrainToolsV2.Replace.TargetMaterial, ,Target material
+Studio.TerrainToolsV2.Replace.Title, ,Replace
 Studio.TerrainToolsV2.ReplaceMode.Box, ,Box
 Studio.TerrainToolsV2.ReplaceMode.Brush, ,Brush
 Studio.TerrainToolsV2.SeaLevel.Create, ,Create
@@ -311,7 +314,9 @@ Studio.TerrainToolsV2.TransformAction.ApplyStatusTip, ,Apply Region Transform
 Studio.TerrainToolsV2.TransformAction.ApplyText, ,Apply
 Studio.TerrainToolsV2.TransformAction.CancelStatusTip, ,Cancel Region Transform
 Studio.TerrainToolsV2.TransformAction.CancelText, ,Cancel
+Studio.TerrainToolsV2.TransformAction.Description, ,Transforming voxels to target region.
 Studio.TerrainToolsV2.TransformAction.PressEnter, ,Press Enter
+Studio.TerrainToolsV2.TransformAction.Title, ,Transform
 Studio.TerrainToolsV2.TransformSettings.TransformSettings, ,Transform Settings
 Studio.TerrainToolsV2.UpgradeShorelines.ActionButton, ,Upgrade
 Studio.TerrainToolsV2.UpgradeShorelines.Description, ,Click Upgrade to improve the way water joins with terrain at the shores.
@@ -337,6 +342,8 @@ Studio.TerrainToolsV2.Warning.InvalidHeightMap, ,Valid HeightMap required to beg
 Studio.TerrainToolsV2.Warning.InvalidNumber, ,Input not a valid Number.
 Studio.TerrainToolsV2.Warning.InvalidPosition, ,Position has invalid input.
 Studio.TerrainToolsV2.Warning.InvalidSize, ,Size has invalid input.
+Studio.TerrainToolsV2.Warning.MaximumSize, ,Size cannot be greater than {1:int}.
+Studio.TerrainToolsV2.Warning.MinimumSize, ,Size cannot be less than {1:int}.
 Studio.TerrainToolsV2.Warning.MissingTerrain, ,Terrain instance could not be found.
 Studio.TerrainToolsV2.Warning.Moderated, ,Asset has been moderated.
 Studio.TerrainToolsV2.Warning.NoColormapProvided, ,No colormap was provided.

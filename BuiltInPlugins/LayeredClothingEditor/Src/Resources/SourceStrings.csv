@@ -21,12 +21,16 @@ Studio.AccessoryFittingTool.AssetType.Hair,Hair
 Studio.AccessoryFittingTool.AssetType.Hat,Hat
 Studio.AccessoryFittingTool.AssetType.Jacket,Jacket
 Studio.AccessoryFittingTool.AssetType.LeftCollar,Left Collar
+Studio.AccessoryFittingTool.AssetType.LeftFoot,Left Foot
+Studio.AccessoryFittingTool.AssetType.LeftGrip,Left Grip
 Studio.AccessoryFittingTool.AssetType.LeftShoe,LeftShoe
 Studio.AccessoryFittingTool.AssetType.LeftShoulder,Left Shoulder
 Studio.AccessoryFittingTool.AssetType.Neck,Neck
 Studio.AccessoryFittingTool.AssetType.Pants,Pants
 Studio.AccessoryFittingTool.AssetType.Prompt,Select the asset type:
 Studio.AccessoryFittingTool.AssetType.RightCollar,Right Collar
+Studio.AccessoryFittingTool.AssetType.RightFoot,Right Foot
+Studio.AccessoryFittingTool.AssetType.RightGrip,Right Grip
 Studio.AccessoryFittingTool.AssetType.RightShoe,RightShoe
 Studio.AccessoryFittingTool.AssetType.RightShoulder,Right Shoulder
 Studio.AccessoryFittingTool.AssetType.Shirt,Shirt

@@ -640,14 +640,9 @@ ProfilerFS,Fragment,✔,✔,✔,✔,✔,✔
 ProfilerVS,Vertex,✔,✔,✔,✔,✔,✔
 RadialBlurFS,Fragment,✔,✔,✔,✔,✔,✔
 ReprojectFilterFS,Fragment,❌,❌,✔,❌,❌,✔
-SelectionOutlineActiveConstraintFixFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineActiveFS,Fragment,✔,✔,✔,✔,✔,✔
-SelectionOutlineConstraintFixFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineFS,Fragment,✔,✔,✔,✔,✔,✔
-SelectionOutlineHoverConstraintFixFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineHoverFS,Fragment,✔,✔,✔,✔,✔,✔
-SelectionOutlineTeamCreateConstraintFixFillAlphaClampFS,Fragment,✔,✔,✔,✔,✔,✔
-SelectionOutlineTeamCreateConstraintFixFS,Fragment,✔,✔,✔,✔,✔,✔
 SelectionOutlineTeamCreateFS,Fragment,✔,✔,✔,✔,✔,✔
 ShadowBlurFS,Fragment,✔,✔,✔,✔,✔,✔
 ShadowBlurMarkFS,Fragment,✔,✔,✔,✔,✔,✔
