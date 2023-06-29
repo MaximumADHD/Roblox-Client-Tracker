@@ -1,3 +1,4 @@
+?? ::_Ref_count<class RBX::ScreenshotHud>
 _com_error
 `anonymous namespace'::AbnormalTerminateMessageBox
 `anonymous namespace'::AdapterEncodedImageCallback
