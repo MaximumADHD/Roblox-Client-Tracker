@@ -1,8 +1,4 @@
 --!nonstrict
--- FIXME(dbanks)
--- 2023/06/07
--- Remove with FFlagDontWriteUserThumbsIntoStore
-
 local CorePackages = game:GetService("CorePackages")
 
 local Cryo = require(CorePackages.Cryo)

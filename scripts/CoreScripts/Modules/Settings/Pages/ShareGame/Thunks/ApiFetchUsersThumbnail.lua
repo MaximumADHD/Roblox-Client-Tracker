@@ -1,6 +1,3 @@
--- FIXME(dbanks)
--- 2023/06/07
--- Remove with FFlagDontWriteUserThumbsIntoStore
 local CorePackages = game:GetService("CorePackages")
 
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests

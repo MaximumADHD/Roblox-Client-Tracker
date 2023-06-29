@@ -169,9 +169,9 @@ function TopBarApp:render()
 					layoutOrder = 2,
 				}) or nil,
 
-				ChatIcon = Roact.createElement(ChatIcon, {
+				ChatIcon = not ChromeEnabled() and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,
-				}),
+				}) or nil,
 
 				BadgeOver13 = if FFlagTopBarUseNewBadge
 					then Roact.createElement(BadgeOver13, {
@@ -209,7 +209,7 @@ function TopBarApp:render()
 					layoutOrder = 1,
 				}),
 
-				MoreMenu = not TenFootInterface:IsEnabled() and Roact.createElement(MoreMenu, {
+				MoreMenu = not TenFootInterface:IsEnabled() and not ChromeEnabled() and Roact.createElement(MoreMenu, {
 					layoutOrder = 2,
 				}),
 

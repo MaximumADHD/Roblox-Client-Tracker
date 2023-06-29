@@ -122,6 +122,7 @@ local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagFixMutePlayerAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFixMutePlayerAnalytics)
 local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
+local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
@@ -1100,8 +1101,62 @@ local function Initialize()
 		return frame
 	end
 
+	--Clean up with EngineTruncationEnabledForIngameSettingsV2
 	-- Manage cutting off a players name if it is too long when switching into portrait mode.
 	local function managePlayerNameCutoff(frame, player)
+		local wasIsPortrait = nil
+		local reportFlagAddedConnection = nil
+		local function reportFlagChanged(reportFlag, prop)
+			if prop == "AbsolutePosition" and wasIsPortrait then
+				local maxPlayerNameSize = reportFlag.AbsolutePosition.X - 20 - frame.NameLabel.AbsolutePosition.X
+				frame.NameLabel.Text = "@" .. player.Name
+				frame.DisplayNameLabel.Text = player.DisplayName
+
+				local newDisplayNameLength = utf8.len(player.DisplayName)
+				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
+					local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
+					frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
+					newDisplayNameLength = newDisplayNameLength - 1
+				end
+
+				local playerNameText = "@" .. player.Name
+				local newNameLength = string.len(playerNameText)
+				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newNameLength > 0 do
+					frame.NameLabel.Text = string.sub(playerNameText, 1, newNameLength) .. "..."
+					newNameLength = newNameLength - 1
+				end
+			end
+		end
+
+		if not isEngineTruncationEnabledForIngameSettings() then
+			utility:OnResized(frame.NameLabel, function(newSize, isPortrait)
+				if wasIsPortrait ~= nil and wasIsPortrait == isPortrait then
+					return
+				end
+				local leftMostButton = "Inspect"
+				isPortrait = isPortrait and not useOptimizedPortraitLayout()
+				wasIsPortrait = isPortrait
+				if isPortrait then
+					if reportFlagAddedConnection == nil then
+						reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
+							if child.Name == leftMostButton then
+								child.Changed:connect(function(prop) reportFlagChanged(child, prop) end)
+								reportFlagChanged(child, "AbsolutePosition")
+							end
+						end)
+					end
+					local reportFlag = frame.RightSideButtons:FindFirstChild(leftMostButton)
+					if reportFlag then
+						reportFlag.Changed:connect(function(prop) reportFlagChanged(reportFlag, prop) end)
+						reportFlagChanged(reportFlag, "AbsolutePosition")
+					end
+				else
+					frame.NameLabel.Text = "@" .. player.Name
+					frame.DisplayNameLabel.Text = player.DisplayName
+				end
+			end)
+		end
+
 		local function getNearestRightSideButtonXPosition()
 			local furthestLeftPos = nil
 
@@ -1152,12 +1207,14 @@ local function Initialize()
 			end
 		end
 
-		frame.RightSideButtons.ChildAdded:connect(function(child)
-			rightSideButtonsChanged()
-			child:GetPropertyChangedSignal("AbsolutePosition"):Connect(rightSideButtonsChanged)
-		end)
+		if isEngineTruncationEnabledForIngameSettings() then
+			reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
+				rightSideButtonsChanged()
+				child:GetPropertyChangedSignal("AbsolutePosition"):Connect(rightSideButtonsChanged)
+			end)
 
-		rightSideButtonsChanged()
+			rightSideButtonsChanged()
+		end
 	end
 
 	local function canShareCurrentGame()
@@ -1321,8 +1378,10 @@ local function Initialize()
 				-- extra index room for shareGameButton
 				frame.LayoutOrder = index + 1
 
-				frame.NameLabel.TextTruncate = Enum.TextTruncate.AtEnd
-				frame.DisplayNameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+				if isEngineTruncationEnabledForIngameSettings() then
+					frame.NameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+					frame.DisplayNameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+				end
 
 				managePlayerNameCutoff(frame, player)
 

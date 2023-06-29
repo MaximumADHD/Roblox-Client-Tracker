@@ -15,8 +15,6 @@ local UserModel = require(CorePackages.Workspace.Packages.UserLib).Models.UserMo
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
 local GetFFlagInviteListRerank = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagInviteListRerank
-local GetFFlagDontWriteUserThumbsIntoStore =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDontWriteUserThumbsIntoStore
 
 return function(requestImpl, userId, thumbnailRequest, userSort)
 	return function(store)
@@ -44,10 +42,8 @@ return function(requestImpl, userId, thumbnailRequest, userSort)
 
 			return userIds
 		end):andThen(function(userIds)
-			if not GetFFlagDontWriteUserThumbsIntoStore() then
-				-- Asynchronously fetch friend thumbnails so we don't block display of UI
-				store:dispatch(ApiFetchUsersThumbnail(requestImpl, userIds, thumbnailRequest))
-			end
+			-- Asynchronously fetch friend thumbnails so we don't block display of UI
+			store:dispatch(ApiFetchUsersThumbnail(requestImpl, userIds, thumbnailRequest))
 
 			return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))
 		end):andThen(

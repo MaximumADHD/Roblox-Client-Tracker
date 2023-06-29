@@ -57,16 +57,10 @@ local Constants = {
 		SHARE_GAME = "SHARE_GAME",
 	},
 
-	-- FIXME(dbanks)
-	-- 2023/06/07
-	-- Remove with FFlagDontWriteUserThumbsIntoStore
 	AvatarThumbnailTypes = {
 		AvatarThumbnail = "AvatarThumbnail",
 		HeadShot = "HeadShot",
 	},
-	-- FIXME(dbanks)
-	-- 2023/06/07
-	-- Remove with FFlagDontWriteUserThumbsIntoStore
 	AvatarThumbnailSizes = {
 		Size48x48 = "Size48x48",
 		Size60x60 = "Size60x60",
@@ -147,9 +141,6 @@ local Constants = {
 	}
 }
 
--- FIXME(dbanks)
--- 2023/06/07
--- Remove with FFlagDontWriteUserThumbsIntoStore
 Constants.DEPRECATED_InviteAvatarThumbnailType = Constants.AvatarThumbnailTypes.HeadShot
 Constants.DEPRECATED_InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes.Size150x150
 Constants.InviteAvatarThumbnailSize = 150

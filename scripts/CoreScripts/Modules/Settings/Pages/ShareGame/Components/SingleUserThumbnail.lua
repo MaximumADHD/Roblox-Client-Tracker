@@ -4,17 +4,12 @@ local React = require(CorePackages.Packages.React)
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Colors = require(Modules.Common.Constants).COLORS
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
-local GetFFlagUseRbxthumbForAllThumbnailUrls =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseRbxthumbForAllThumbnailUrls
 local GetFFlagUseRbxthumbForLocalThumbnailUrls =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseRbxthumbForLocalThumbnailUrls
 
 local getTypedUserAvatarImageWithSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getTypedUserAvatarImageWithSizeAndOptions
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 
--- FIXME(dbanks)
--- 2023/05/31
--- Remove with GetFFlagUseRbxthumbForAllThumbnailUrls
 local DEPRECATED_THUMBNAIL_IMAGE_SIZE = Constants.DEPRECATED_InviteAvatarThumbnailSize
 local DEPRECATED_THUMBNAIL_IMAGE_TYPE = Constants.DEPRECATED_InviteAvatarThumbnailType
 local THUMBNAIL_IMAGE_SIZE = Constants.InviteAvatarThumbnailSize
@@ -37,9 +32,7 @@ return function(props: Props)
 	local thumbnailImage
 
 	if user then
-		if GetFFlagUseRbxthumbForAllThumbnailUrls() then
-			thumbnailImage = getTypedUserAvatarImageWithSizeAndOptions(user.id, THUMBNAIL_IMAGE_TYPE, THUMBNAIL_IMAGE_SIZE)
-		elseif GetFFlagUseRbxthumbForLocalThumbnailUrls() then
+		if GetFFlagUseRbxthumbForLocalThumbnailUrls() then
 			local localUserId
 			local localPlayer = game:GetService("Players").LocalPlayer
 			if localPlayer then
