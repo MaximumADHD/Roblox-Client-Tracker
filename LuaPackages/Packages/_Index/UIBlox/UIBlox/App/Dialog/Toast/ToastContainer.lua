@@ -10,17 +10,25 @@ local t = require(Packages.t)
 
 local GetTextSize = require(UIBloxRoot.Core.Text.GetTextSize)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
+local memoize = require(UIBloxRoot.Utility.memoize)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local DEFAULT_PADDING = 12
 local DEFAULT_ICON_SIZE = Vector2.new(36, 36)
+
+local BUTTON_MAX_WIDTH = 200
+local BUTTON_PADDING = 30
+local BUTTON_OFFSET = 10
 
 local MAX_WIDTH = 400
 local MIN_WIDTH = 24
 local MIN_HEIGHT = 60
 
 local MAX_BOUND = 10000
+
+local LARGE_WIDTH_THRESHOLD = 325
 
 local function getTextHeight(text, font, fontSize, widthCap)
 	local bounds = Vector2.new(widthCap, MAX_BOUND)
@@ -32,6 +40,7 @@ local ToastContainer = Roact.PureComponent:extend("ToastContainer")
 
 ToastContainer.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
+	buttonText = t.optional(t.string),
 	fitHeight = t.optional(t.boolean),
 	iconColorStyle = t.optional(validateColorInfo),
 	-- Optional image to be displayed in the toast.
@@ -117,6 +126,7 @@ function ToastContainer:init()
 	self.getTextHeights = function(stylePalette)
 		local iconImage = self.props.iconImage
 		local iconSize = self.getIconSize()
+		local buttonText = if UIBloxConfig.enableToastButton then self.props.buttonText else nil
 		local padding = self.props.padding
 		local toastSubtitle = self.props.toastSubtitle
 		local toastTitle = self.props.toastTitle
@@ -128,6 +138,10 @@ function ToastContainer:init()
 		local textFrameWidth = self.state.containerWidth - padding * 2
 		if iconImage then
 			textFrameWidth = textFrameWidth - iconSize.X - padding
+		end
+
+		if buttonText and not self.showCompactToast() then
+			textFrameWidth = textFrameWidth - self.getButtonDimensions(stylePalette).X
 		end
 
 		local titleFont = titleStyle.Font
@@ -143,6 +157,38 @@ function ToastContainer:init()
 
 		return subtitleHeight, titleHeight
 	end
+
+	self.showCompactToast = function()
+		return self.state.containerWidth < LARGE_WIDTH_THRESHOLD
+	end
+
+	self.showPressed = function()
+		if not self.props.buttonText and self.props.onActivated then
+			return self.state.pressed
+		end
+
+		return nil
+	end
+
+	self.getButtonDimensions = memoize(function(stylePalette)
+		local buttonText = self.props.buttonText
+		local onActivated = self.props.onActivated
+		if not buttonText or not onActivated then
+			return Vector2.new(0, 0)
+		end
+
+		local primarySystemButtonFont = stylePalette.Font.Header2.Font
+		local primarySystemButtonFontSize = stylePalette.Font.Header2.RelativeSize * stylePalette.Font.BaseSize
+		local dimensions = Vector2.new(BUTTON_PADDING, BUTTON_PADDING)
+			+ Vector2.new(BUTTON_OFFSET, BUTTON_OFFSET)
+			+ GetTextSize(buttonText, primarySystemButtonFontSize, primarySystemButtonFont, Vector2.new(1000, 1000))
+
+		if not self.showCompactToast() then
+			return dimensions
+		else
+			return Vector2.new(math.min(dimensions.X, BUTTON_MAX_WIDTH), dimensions.Y)
+		end
+	end)
 end
 
 function ToastContainer:render()
@@ -155,10 +201,20 @@ function ToastContainer:render()
 	return withStyle(function(stylePalette)
 		local subtitleHeight, titleHeight = self.getTextHeights(stylePalette)
 		local textFrameHeight = titleHeight + subtitleHeight
+		local buttonDimensions = if UIBloxConfig.enableToastButton then self.getButtonDimensions(stylePalette) else nil
+		local buttonHeight = if UIBloxConfig.enableToastButton then buttonDimensions.Y else nil
 
 		local size = self.props.size
 		if self.props.fitHeight then
-			local containerHeight = math.max(iconSize.Y, textFrameHeight) + padding * 2
+			local containerHeight = math.max(iconSize.Y, textFrameHeight)
+				+ padding * 2
+				+ (
+					if UIBloxConfig.enableToastButton
+							and self.showCompactToast()
+							and self.props.buttonText
+						then buttonHeight
+						else 0
+				)
 			size = UDim2.new(size.X.Scale, size.X.Offset, 0, containerHeight)
 		end
 
@@ -181,7 +237,9 @@ function ToastContainer:render()
 					})
 				end
 			end,
-			[Roact.Event.Activated] = self.props.onActivated,
+			[Roact.Event.Activated] = if UIBloxConfig.enableToastButton
+				then if not self.props.buttonText then self.props.onActivated else nil
+				else self.props.onActivated,
 			[Roact.Event.InputBegan] = self.onButtonInputBegan,
 			[Roact.Event.InputEnded] = self.onButtonInputEnded,
 			[Roact.Event.TouchSwipe] = self.props.onTouchSwipe,
@@ -189,14 +247,30 @@ function ToastContainer:render()
 		}, {
 			UISizeConstraint = Roact.createElement("UISizeConstraint", self.props.sizeConstraint),
 			Toast = self.props.renderToast({
+				buttonProps = if UIBloxConfig.enableToastButton
+					then if self.props.buttonText and self.props.onActivated
+						then {
+							buttonDimensions = self.getButtonDimensions(stylePalette),
+							buttonText = self.props.buttonText,
+							onActivated = self.props.onActivated,
+						}
+						else nil
+					else nil,
 				iconProps = iconImage and {
 					colorStyle = self.props.iconColorStyle,
 					Image = iconImage,
 					Size = UDim2.new(0, iconSize.X, 0, iconSize.Y),
 				} or nil,
 				iconChildren = self.props.iconChildren,
+				-- The `self.props.buttonText and self.props.onActivated` predicate exists because passing in
+				-- `isCompact` into the `InformativeToast` component otherwise would cause a validation error
+				isCompact = if UIBloxConfig.enableToastButton
+					then if self.props.buttonText and self.props.onActivated then self.showCompactToast() else nil
+					else nil,
 				padding = padding,
-				pressed = self.props.onActivated and self.state.pressed or nil,
+				pressed = if UIBloxConfig.enableToastButton
+					then self.showPressed()
+					else self.props.onActivated and self.state.pressed or nil,
 				pressedScale = self.props.pressedScale,
 				subtitleTextProps = toastSubtitle and {
 					colorStyle = theme.TextEmphasis,

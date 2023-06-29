@@ -12,6 +12,7 @@ local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local SpringAnimatedItem = require(UIBloxRoot.Utility.SpringAnimatedItem)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local ToastFrame = require(ToastRoot.ToastFrame)
 local ToastIcon = require(ToastRoot.ToastIcon)
@@ -31,9 +32,20 @@ local InteractiveToast = Roact.PureComponent:extend("InteractiveToast")
 InteractiveToast.validateProps = t.strictInterface({
 	-- AnchorPoint of the `ToastContainer`
 	anchorPoint = t.optional(t.Vector2),
+	-- A button with text buttonText and callback onActivated will appear if passed in
+	buttonProps = t.optional(t.strictInterface({
+		-- Dimensions of the button
+		buttonDimensions = t.Vector2,
+		-- Text of the button
+		buttonText = t.string,
+		-- Callback of the button
+		onActivated = t.callback,
+	})),
 	iconProps = t.optional(ToastIcon.validateProps),
 	-- A Roact children table of icon image to customize toast icon
 	iconChildren = t.optional(t.table),
+	-- Whether a toast with a button should have a compact view
+	isCompact = t.optional(t.boolean),
 	-- LayoutOrder of toast page
 	layoutOrder = t.optional(t.integer),
 	padding = t.optional(t.numberMin(0)),
@@ -96,8 +108,10 @@ function InteractiveToast:render()
 				SliceCenter = TOAST_SLICE_CENTER,
 			}),
 			ToastFrame = Roact.createElement(ToastFrame, {
+				buttonProps = if UIBloxConfig.enableToastButton then self.props.buttonProps else nil,
 				iconProps = self.props.iconProps,
 				iconChildren = self.props.iconChildren,
+				isCompact = if UIBloxConfig.enableToastButton then self.props.isCompact else nil,
 				padding = self.props.padding,
 				subtitleTextProps = self.props.subtitleTextProps,
 				textFrameSize = self.props.textFrameSize,

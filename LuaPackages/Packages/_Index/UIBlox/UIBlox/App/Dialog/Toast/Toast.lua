@@ -12,6 +12,7 @@ local SlidingDirection = require(UIBloxRoot.Core.Animation.Enum.SlidingDirection
 local SlidingContainer = require(UIBloxRoot.Core.Animation.SlidingContainer)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local StateTable = require(UIBloxRoot.StateTable.StateTable)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local AnimationState = require(ToastRoot.Enum.AnimationState)
 local InformativeToast = require(ToastRoot.InformativeToast)
@@ -37,6 +38,9 @@ Toast.validateProps = t.strictInterface({
 	springOptions = t.optional(t.table),
 	-- A table of information in the Toast. This prop has only one required field: toastTile.
 	toastContent = t.strictInterface({
+		-- Text of the button.
+		-- This prop will cause the accompanying `onActivated` prop to be triggered on button press rather than on toast press.
+		buttonText = t.optional(t.string),
 		-- Icon image color style, will be assigned with default one in `ToastIcon` if unspecified here.
 		-- This prop change will trigger toast to slide up and update the content then slide down.
 		iconColorStyle = t.optional(validateColorInfo),
@@ -234,6 +238,7 @@ function Toast:render()
 	}, {
 		ToastContainer = Roact.createElement(ToastContainer, {
 			anchorPoint = self.props.anchorPoint,
+			buttonText = if UIBloxConfig.enableToastButton then self.currentToastContent.buttonText else nil,
 			position = self.props.position,
 			size = self.props.size,
 			-- Toast content props

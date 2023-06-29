@@ -88,4 +88,7 @@ return {
 
 	-- Enable the overrideAutomaticCanvasSize prop for DetailsPageTenfootTemplate
 	useDetailsPageTemplateManualSize = false,
+
+	-- Enable the option to add a button to the Toast component
+	enableToastButton = false,
 }
