@@ -1,0 +1,45 @@
+Key,Context,Source,en-us
+Studio.App.NamedViewCmd.IMPORTSNIPPETPACK,,Import Snippet Pack...,Import Snippet Pack...
+Studio.App.NamedViewCmd.IMPORTSNIPPETPACKTooltip,,Import snippet pack from json file as user snippet pack.,Import snippet pack from json file as user snippet pack.
+Studio.App.NamedViewCmd.TOGGLESNIPPETSETTING,,Toggle Snippet Setting,Toggle Snippet Setting
+Studio.App.NamedViewCmd.TOGGLESNIPPETSETTINGTooltip,,Toggle snippet or snippet pack in autocomplete menu,Toggle snippet or snippet pack in autocomplete menu
+Studio.App.NamedViewCmd.ADDSNIPPET,,Create New Snippet,Create New Snippet
+Studio.App.NamedViewCmd.ADDSNIPPETTooltip,,Create new snippet in selected pack,Create new snippet in selected pack
+Studio.App.NamedViewCmd.SNIPPETADDUSERPACK,,Create New Snippet Pack,Create New Snippet Pack
+Studio.App.NamedViewCmd.SNIPPETADDUSERPACKTooltip,,Create new snippet pack.,Create new snippet pack.
+Studio.App.NamedViewCmd.SNIPPETDELETE,,Delete Snippet,Delete Snippet
+Studio.App.NamedViewCmd.SNIPPETDELETETooltip,,Delete selected snippet from pack.,Delete selected snippet from pack.
+Studio.App.NamedViewCmd.SNIPPETDELETEPACK,,Delete Snippet Pack,Delete Snippet Pack
+Studio.App.NamedViewCmd.SNIPPETDELETEPACKTooltip,,Delete selected snippet pack.,Delete selected snippet pack.
+Studio.App.NamedViewCmd.SNIPPETEXPORTPACK,,Export Snippet Pack...,Export Snippet Pack...
+Studio.App.NamedViewCmd.SNIPPETEXPORTPACKTooltip,,Export snippet pack to file.,Export snippet pack to file.
+Studio.App.NamedViewCmd.TOGGLEDISPLAYONLYCURRENTSCRIPT,,Display only current script,Display only current script
+Studio.App.NamedViewCmd.TOGGLEDISPLAYONLYCURRENTSCRIPTTooltip,,Display only the current script in the Script Analysis widget,Display only the current script in the Script Analysis widget
+Studio.App.NamedViewCmd.TOGGLEDISPLAYERRORSTooltip,,Display errors in the Script Analysis widget,Display errors in the Script Analysis widget
+Studio.App.NamedViewCmd.TOGGLEDISPLAYWARNINGSTooltip,,Display warnings in the Script Analysis widget,Display warnings in the Script Analysis widget
+Studio.App.NamedViewCmd.TOGGLEDISPLAYINFORMATIONTooltip,,Display information in the Script Analysis widget,Display information in the Script Analysis widget
+Studio.App.NamedViewCmd.NoProxyModelError,,ScriptingAnalysisProxyModel cannot be null,ScriptingAnalysisProxyModel cannot be null
+Studio.App.NamedViewCmd.TOGGLEDISPLAYHINTSTooltip,,Display hints in the Script Analysis widget,Display hints in the Script Analysis widget
+Studio.App.CmdSnippetImportPack.InvalidPath,,Invalid file path.,Invalid file path.
+Studio.App.CmdSnippetImportPack.FailToOpenFile,,Fail to open file from path.,Fail to open file from path.
+Studio.App.CmdSnippetImportPack.JsonFormatInvalid,,This is not valid snippet pack json file.,This is not valid snippet pack json file.
+Studio.App.CmdSnippetExportPack.FailToOpenFileToWriteFmt1,,Fail to open file %1 to write.,Fail to open file %1 to write.
+Studio.App.CmdSnippetExportPack.FailToWriteFileFmt1,,Fail to write file to %1.,Fail to write file to %1.
+Studio.App.SnippetWidget.ShowInAutocomplete,,Show in Autocomplete,Show in Autocomplete
+Studio.App.SnippetWidget.SnippetPackName,,Pack Name,Pack Name
+Studio.App.SnippetWidget.SnippetName,,Snippet Name,Snippet Name
+Studio.App.SnippetWidget.Prefix,,Prefix,Prefix
+Studio.App.SnippetWidget.Description,,Description,Description
+Studio.App.SnippetWidget.Snippet,,Snippet,Snippet
+Studio.App.SnippetWidget.BuiltinSnippet,,Built-in Snippets,Built-in Snippets
+Studio.App.SnippetWidget.MySnippetPacks,,My Snippet Packs,My Snippet Packs
+Studio.App.SnippetWidget.NewSnippetName,,Snippet,Snippet
+Studio.App.SnippetWidget.NewSnippetPackName,,Snippet Pack,Snippet Pack
+Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current script,Display only current script
+Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
+Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
+Studio.App.ScriptAnalysisWidget.NumInformationTextFmt2,,%1 of %2 Information,%1 of %2 Information
+Studio.App.ScriptAnalysisWidget.NumHintsTextFmt2,,%1 of %2 Hints,%1 of %2 Hints
+Studio.App.ScriptDocument.DisabledPrefix,,[Disabled] ,[Disabled] 
+Studio.App.ScriptDocument.DeletedPrefix,,[DELETED] ,[DELETED] 
+Studio.App.ScriptDocument.EditingSuffixFmt1,, (%1 Editing), (%1 Editing)

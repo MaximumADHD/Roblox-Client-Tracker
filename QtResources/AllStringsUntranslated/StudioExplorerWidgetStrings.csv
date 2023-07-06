@@ -1,0 +1,12 @@
+Key,Context,Source,en-us
+Studio.App.RobloxExplorerWidget.FilterPlaceholder1,,Filter workspace %1,Filter workspace %1
+Studio.App.RobloxExplorerWidget.ExplorerHeaderResults1,,%1 matches,%1 matches
+Studio.App.RobloxExplorerWidget.ExplorerHeaderResult.Singular,,1 match,1 match
+Studio.App.ExplorerFilterPicker.Properties,,Properties,Properties
+Studio.App.ExplorerFilterPicker.Reference,The header for the syntax guide wiki article--reference as in a source of information.,Reference,Reference
+Studio.App.ExplorerFilterPicker.SyntaxGuide,,Syntax Guide,Syntax Guide
+Studio.App.RobloxExplorerWidget.SelectPreviousMatch1,%1 is the hotkey,Select Previous Match (%1),Select Previous Match (%1)
+Studio.App.RobloxExplorerWidget.SelectNextMatch1,%1 is the hotkey,Select Next Match (%1),Select Next Match (%1)
+Studio.App.RobloxExplorerWidget.SelectAllMatches1,%1 is the hotkey,Select All Matches (%1),Select All Matches (%1)
+Studio.App.RobloxExplorerWidget.SelectRefreshResults,,Refresh Results,Refresh Results
+Studio.App.RobloxExplorerWidget.HasCustomizations1,Tooltip shown when hovering the original package name,Is customized configuration of package %1,Is customized configuration of package %1

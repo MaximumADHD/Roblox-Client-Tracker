@@ -1,0 +1,20 @@
+Key,Context,Source,en-us
+Studio.App.ExplorerFiltering.IncompleteOr1,User typed a search like 'Barrier or',expected something to '%1' with,expected something to '%1' with
+Studio.App.ExplorerFiltering.WildcardInProperty,User typed a search like Position.* = 3,wildcards are not supported in property checks,wildcards are not supported in property checks
+Studio.App.ExplorerFiltering.IncompleteParenthesis3,User typed a search like (Barrier,"expected '%1' to balance '%2', received '%3'","expected '%1' to balance '%2', received '%3'"
+Studio.App.ExplorerFiltering.UnexpectedToken2,User typed a search like Locked=$ -- the $ is an example of a character that is not allowed.,unexpected '%1' after '%2',unexpected '%1' after '%2'
+Studio.App.ExplorerFiltering.UnknownBespokeFilter1,,unknown special filter name '%1',unknown special filter name '%1'
+Studio.App.ExplorerFiltering.BadBespokeFilter4,,"unexpected '%1' after '%2%3', expected a value for filter, such as %4","unexpected '%1' after '%2%3', expected a value for filter, such as %4"
+Studio.App.ExplorerFiltering.UnexpectedNameIndex2,User typed a search like Foo.$,"expected a name after '%1', received %2","expected a name after '%1', received %2"
+Studio.App.ExplorerFiltering.BadName2,,"unexpected '%1'. if you are trying to search for a name instead, try ""%2"" (with quotes)","unexpected '%1'. if you are trying to search for a name instead, try ""%2"" (with quotes)"
+Studio.App.ExplorerFiltering.PropertyDoesNotExist1,User typed a search like 'ThisPropertyDoesNotExist=1','%1' does not exist,'%1' does not exist
+Studio.App.ExplorerFiltering.PropertyInvalidField2,User typed a search like Position.What = true -- Position does not have a 'What' field,'%1' is not a valid field for '%2','%1' is not a valid field for '%2'
+Studio.App.ExplorerFiltering.PropertyUnsupportedFields2,"User typed a search like Locked.What = true -- Locked does not have fields, like 'What'","'%1' does not support fields, like '%2'","'%1' does not support fields, like '%2'"
+Studio.App.ExplorerFiltering.PropertyBadOperator4,User typed a search like Locked>true -- the > should instead be an equals sign,"'%1' cannot be used to compare '%2', try '%3' or '%4'","'%1' cannot be used to compare '%2', try '%3' or '%4'"
+Studio.App.ExplorerFiltering.PropertyInvalidValue2,"User typed a search like Locked=100 -- Locked is only true or false, it cannot be 100",'%1' is not a valid value for '%2','%1' is not a valid value for '%2'
+Studio.App.ExplorerFiltering.PropertyUnsupported1,,'%1' is unsupported. please file a feature request if you believe it to be useful.,'%1' is unsupported. please file a feature request if you believe it to be useful.
+Studio.App.ExplorerFiltering.BackslashNotEscapingAnything,,backslash not escaping anything,backslash not escaping anything
+Studio.App.ExplorerFiltering.InvalidTilde,,'%1' is invalid other than for '%2','%1' is invalid other than for '%2'
+Studio.App.ExplorerFiltering.UnfinishedQuote,,"unfinished quote, you forgot a %1","unfinished quote, you forgot a %1"
+Studio.App.ExplorerFiltering.UnfinishedBinaryOperator1,,"unfinished search, you need something after the '%1'","unfinished search, you need something after the '%1'"
+Studio.App.ExplorerFiltering.InvalidDoubleStar2,,don't use %1 after %2,don't use %1 after %2

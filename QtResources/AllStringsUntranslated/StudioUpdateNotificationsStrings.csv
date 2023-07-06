@@ -1,0 +1,14 @@
+Key,Context,Source,en-us
+Studio.UpdateNotifications.Ribbon.WhatsNewTooltip,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!
+Studio.UpdateNotifications.Ribbon.UpdateAvailableButton,,Update Available,Update Available
+Studio.UpdateNotifications.OSVersionWarning.MacOS1012,"Dialog shown to Users on Deprecated Mac Platforms.  When translating <a href=""https://support.apple.com/en-us/HT211683"">Please upgrade to MacOS 10.13 or higher</a>, only translate 'Please upgrade to MacOS 10.13 or higher'.  Do not touch any of the quotation marks, backslashes, or angular brackets.","Starting at the end of May 2022 we will be discontinuing support for OS X 10.11 and MacOS 10.12.  <a href=""https://support.apple.com/en-us/HT211683"">Please upgrade to MacOS 10.13 or higher</a> to continue to use Roblox Studio.","Starting at the end of May 2022 we will be discontinuing support for OS X 10.11 and MacOS 10.12.  <a href=""https://support.apple.com/en-us/HT211683"">Please upgrade to MacOS 10.13 or higher</a> to continue to use Roblox Studio."
+Studio.App.UpdateNotifications.InChannel,,In Channel,In Channel
+Studio.App.UpdateNotifications.InChannelToolTipFmt1,,Channel: %1,Channel: %1
+Studio.App.WhatsNewWindow.SeeAllUpdates,,See All,See All
+Studio.App.WhatsNewWindow.PopupTitle,,What's New?,What's New?
+Studio.App.WhatsNewWindow.PopupDescription,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!
+Studio.App.OSVersionWarning.MacOS1010,,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.
+Studio.App.Updates.UpdateAvailableTitle,,Update Available,Update Available
+Studio.App.Updates.UpdateAvailableMessage,,Do you want to restart Studio and update now?,Do you want to restart Studio and update now?
+Studio.App.Updates.UpdateNowButton,,Update Now,Update Now
+Studio.App.Updates.SnoozeButton,,Snooze,Snooze

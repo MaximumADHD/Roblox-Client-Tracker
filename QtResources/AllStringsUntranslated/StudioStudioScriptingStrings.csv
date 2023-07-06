@@ -1,0 +1,22 @@
+Key,Context,Source,en-us
+Studio.App.ScriptingCmd.RELOADSCRIPT,,Reload Script,Reload Script
+Studio.App.ScriptingCmd.RELOADSCRIPTTooltip,,"Reload a script after modifying it, while playing","Reload a script after modifying it, while playing"
+Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
+Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
+Studio.App.RobloxScriptDoc.LockTakenInactivity,,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
+Studio.App.RobloxScriptDoc.OtherChangesReverted1,,"%1 is currently modifying this script, your changes will be reverted","%1 is currently modifying this script, your changes will be reverted"
+Studio.App.RobloxScriptDoc.ScriptDeleted1,,%1 has been deleted from the server,%1 has been deleted from the server
+Studio.App.RobloxScriptDoc.ShowInExplorer,,Show in Explorer,Show in Explorer
+Studio.App.RobloxScriptDoc.DockTab,,Dock Tab,Dock Tab
+Studio.App.PlayModifiedScriptController.AlwaysSave,,Always Save,Always Save
+Studio.App.PlayModifiedScriptController.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
+Studio.App.ScriptingHostAppServices.UsageExceeded,,Daily AI Code completion usage exceeded. Please try again tomorrow.,Daily AI Code completion usage exceeded. Please try again tomorrow.
+Studio.App.ScriptingHostAppServices.ResponseChatFiltered,,No code suggestion received. Response was caught by the text filter.,No code suggestion received. Response was caught by the text filter.
+Studio.App.ScriptingHostAppServices.NoSuggestionReceivedServerError1,,No code suggestion received. Server Error code: %1.,No code suggestion received. Server Error code: %1.
+Studio.App.ScriptPickerDialog.CreateNewLinkedsource,,Create new LinkedSource,Create new LinkedSource
+Studio.App.ScriptPickerDialog.LinkedsourceDescriptionLabel,,"LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time.","LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time."
+Studio.App.ScriptPickerDialog.CanNotBeEmpty,,Name cannot be empty,Name cannot be empty
+Studio.App.ScriptPickerDialog.AlreadyTaken,,Name already taken (not case sensitive),Name already taken (not case sensitive)
+Studio.App.StudioScriptEditor.AICOLegalToast,,"<a href='#'>AI coding is available</a>, agree to the terms and conditions to try it out!","<a href='#'>AI coding is available</a>, agree to the terms and conditions to try it out!"
+Studio.App.ScriptingCmd.EVALUATEATCURSOR,,Evaluate at Cursor,Evaluate at Cursor
+Studio.App.ScriptingCmd.EVALUATEATCURSORTooltip,,"Evaluate at the current cursor location, while playing","Evaluate at the current cursor location, while playing"

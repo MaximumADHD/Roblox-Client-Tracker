@@ -1,0 +1,204 @@
+Key,Context,Source,en-us
+Studio.App.AddImageDialog.Image,,Image:,Image:
+Studio.App.AddImageDialog.ChooseFile,,Choose File,Choose File
+Studio.App.AddImageDialog.ImageFileRequired,,Image file is required,Image file is required
+Studio.App.AddImageDialog.FileDoesNotExist,,File does not exist,File does not exist
+Studio.App.AddImageDialog.ChooseImageUpload,,Choose image to upload,Choose image to upload
+Studio.App.AddImageDialog.CreateAssetName,,Creating asset name...,Creating asset name...
+Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
+Studio.App.GradientEditor.Time,,Time,Time
+Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
+Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
+Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
+Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
+Studio.App.Properties.UnknownAttribute,Displayed when an unhandled exception occurs.,Unknown attributes runtime error.,Unknown attributes runtime error.
+Studio.App.Properties.Button.FontFamily.Bold.Label,"Label for the button, not normally shown.",Bold,Bold
+Studio.App.Properties.Button.FontFamily.Bold.ToolTip,Tooltip for a button that toggles bold on/off in TextLabel/etc objects.,Whether the text should be displayed emboldened.,Whether the text should be displayed emboldened.
+Studio.App.Properties.Button.FontFamily.Italic.Label,"Label for the button, not normally shown.",Italic,Italic
+Studio.App.Properties.Button.FontFamily.Italic.ToolTip,Tooltip for a button that toggles italic on/off in TextLabel/etc objects.,Whether the text should be displayed in an italicized font.,Whether the text should be displayed in an italicized font.
+Studio.App.Properties.CustomizedAttributeTooltip,Title/text for Add Attribute button/dialog,This attribute is customized. Its value will be retained when updating to a new version. Publishing the package makes the customization the new default.,This attribute is customized. Its value will be retained when updating to a new version. Publishing the package makes the customization the new default.
+Studio.App.PopupImagePicker.Url,Displayed as a label in the popup image picker,URL:,URL:
+Studio.App.PopupImagePicker.Search,Displayed as a label in the popup image picker,Search:,Search:
+Studio.App.AddAttributeDialog.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
+Studio.App.AddAttributeDialog.AttributeType,Displayed to the left of attribute type combo box,Type,Type
+Studio.App.AddAttributeDialog.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
+Studio.App.AddAttributeDialog.AttributeCantStartWithRBX,Displayed when adding a new attribute in the Add Attribute dialog.,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.AddAttributeDialog.ContainsIllegalCharacter,Displayed when an attribute contains special characters or an underscore,Contains illegal character(s).,Contains illegal character(s).
+Studio.App.AttributeRenameDialog.AttributeTryDifferentName,Displayed when editing an attribute and entering a name that exists.,Try to use a different name.,Try to use a different name.
+Studio.App.AttributeRenameDialog.AttributeNameAlreadyExists,Displayed when renaming an attribute and entering a name that exists.,Attribute name already exists.,Attribute name already exists.
+Studio.App.AttributeRenameDialog.AttributeNameCantStartWithRBX,Displayed when editing and trying to add RBX at the beginning.,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
+Studio.App.AttributeRenameDialog.AttributeNameExceeds1,Displayed when exceeding maximum charecters while editing.,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
+Studio.App.AttributeRenameDialog.AttributeLengthAndSuggestion2,"Displayed when exceeding maximum characters while editing, along with AttributeNameExceeds1",Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
+Studio.App.AttributeRenameDialog.AttributeNameCantBeEmpty,Displayed when trying to commit an empty attribute while editing.,Attribute name cannot be empty.,Attribute name cannot be empty.
+Studio.App.AttributeRenameDialog.AttributeContainsIllegalCharacters,Displayed when entering an illegal character while renaming an attribute,Attribute contains illegal character(s).,Attribute contains illegal character(s).
+Studio.App.AttributeRenameDialog.AttributeAlphanumberic,Displayed when entering an illegal character while renaming an attribute,Attributes can only contain alphanumeric characters and underscores.,Attributes can only contain alphanumeric characters and underscores.
+Studio.App.RBXMainWindow.GoToReferenceObject,,Go To Reference Object,Go To Reference Object
+Studio.App.RBXMainWindow.ChooseReferenceObject,,Choose Reference Object,Choose Reference Object
+Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
+Studio.App.InstanceSelectionEditor.SelectValue,,Select Value,Select Value
+Studio.App.RobloxPropertiesWidget.ItemCount1,,%1 items,%1 items
+Studio.App.RobloxPropertiesWidget.FilterPlaceholder1,,Filter Properties %1,Filter Properties %1
+Studio.App.PropertyItems.UpdatingMesh,Message which displays in the bottom left of the screen when a MeshPart's mesh is being updated,Updating mesh...,Updating mesh...
+Studio.App.PropertyItems.BrickColorPropertyCannotBeEdited,Warning message that displays in the Studio Output window when a user tries to alter the BrickColor property of a part while the Studio Lua Debugger is paused at a breakpoint.,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor property cannot be edited. Please make sure debugger is not paused.
+Studio.App.PropertyItems.ClickToExpand,Short message that appears in the Terrain.MaterialColors property in the Properties widget to let the user know that they can expand the property to see all the individual color values of each terrain material,[Click to expand],[Click to expand]
+Studio.App.PropertyItems.Color,Label for the color of a terrain material,Color,Color
+Studio.App.PropertyItems.Material,Label for a terrain material,Material,Material
+Studio.App.PropertyItems.UnableToLoadTerrainIcon1,Error message that appears in the Studio output window if Studio cannot locate a terrian icon. The argument is the supposed path to said icon.,Unable to load terrain icon %1,Unable to load terrain icon %1
+Studio.App.PropertyItems.LogInRequired,Title of error message shown to users who try to import meshes while not logged in.,Log in required,Log in required
+Studio.App.PropertyItems.YouMustLogInToCreateMeshes,Body of error message shown to users to try to import meshes while not logged in.,You must log in to create meshes.,You must log in to create meshes.
+Studio.App.PropertyItems.MaterialOverride.None,Item text for the default value of the combobox created by MaterialVariantPropertyItem.,<None>,<None>
+Studio.App.PropertyItems.MaterialVariant.InvalidOverride,No material was found for the override.,Unable to find a MaterialVariant matching the name and override material in MaterialService.,Unable to find a MaterialVariant matching the name and override material in MaterialService.
+Studio.App.PropertyItems.MaterialVariant.InvalidVariant,No material was found as a variant.,Unable to find a MaterialVariant matching the name and base material in MaterialService.,Unable to find a MaterialVariant matching the name and base material in MaterialService.
+Studio.App.PropertyItems.MaterialVariant.DuplicateOverride,Multiple MaterialVariants match the given name and override.,"Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime.","Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime."
+Studio.App.PropertyItems.MaterialVariant.DuplicateVariant,Multiple MaterialVariants match the given name and variant.,"Found multiple MaterialVariants matching the name and base material in MaterialService, this may cause unexpected behavior at runtime.","Found multiple MaterialVariants matching the name and base material in MaterialService, this may cause unexpected behavior at runtime."
+Studio.App.PropertyItems.FlipbookLayout.IncompatibleTexture,Particle flipbooks require a square image.,"Flipbook only supports particle Textures of sizes 8x8, 16x16, 32x32, 64x64, 128x128, 256x256, 512x512 or 1024x1024.","Flipbook only supports particle Textures of sizes 8x8, 16x16, 32x32, 64x64, 128x128, 256x256, 512x512 or 1024x1024."
+Studio.App.RobloxPropertiesWidget.ItemsCount2,,%1 - %2 items,%1 - %2 items
+Studio.App.RobloxPropertiesWidget.ItemsCount3,,"%1 ""%2"" - %3 items","%1 ""%2"" - %3 items"
+Studio.App.RobloxMainWindow.OpenMeshFile,,Open Mesh File,Open Mesh File
+Studio.App.SplineEditor.Envelope,,Envelope,Envelope
+Studio.App.SplineEditor.Time,,Time,Time
+Studio.RobloxPropertiesWidget.Category.Accessories,,Accessories,Accessories
+Studio.RobloxPropertiesWidget.Category.Advanced,,Advanced,Advanced
+Studio.RobloxPropertiesWidget.Category.Aerodynamics,,Aerodynamics,Aerodynamics
+Studio.RobloxPropertiesWidget.Category.AirProperties,,AirProperties,AirProperties
+Studio.RobloxPropertiesWidget.Category.AlignOrientation,,AlignOrientation,AlignOrientation
+Studio.RobloxPropertiesWidget.Category.AlignPosition,,AlignPosition,AlignPosition
+Studio.RobloxPropertiesWidget.Category.AlignmentMode,,AlignmentMode,AlignmentMode
+Studio.RobloxPropertiesWidget.Category.AngularLimits,,AngularLimits,AngularLimits
+Studio.RobloxPropertiesWidget.Category.AngularMotor,,AngularMotor,AngularMotor
+Studio.RobloxPropertiesWidget.Category.AngularServo,,AngularServo,AngularServo
+Studio.RobloxPropertiesWidget.Category.Animatable,,Animatable,Animatable
+Studio.RobloxPropertiesWidget.Category.Animation,,Animation,Animation
+Studio.RobloxPropertiesWidget.Category.Appearance,,Appearance,Appearance
+Studio.RobloxPropertiesWidget.Category.Assembly,,Assembly,Assembly
+Studio.RobloxPropertiesWidget.Category.Asset,,Asset,Asset
+Studio.RobloxPropertiesWidget.Category.Attachments,,Attachments,Attachments
+Studio.RobloxPropertiesWidget.Category.Attributes,,Attributes,Attributes
+Studio.RobloxPropertiesWidget.Category.Audio,,Audio,Audio
+Studio.RobloxPropertiesWidget.Category.AutoRecovery,,Auto-Recovery,Auto-Recovery
+Studio.RobloxPropertiesWidget.Category.Axes,,Axes,Axes
+Studio.RobloxPropertiesWidget.Category.Balance,,Balance,Balance
+Studio.RobloxPropertiesWidget.Category.BallSocket,,BallSocket,BallSocket
+Studio.RobloxPropertiesWidget.Category.Behavior,,Behavior,Behavior
+Studio.RobloxPropertiesWidget.Category.Benchmarking,,Benchmarking,Benchmarking
+Studio.RobloxPropertiesWidget.Category.BodyColors,,Body Colors,Body Colors
+Studio.RobloxPropertiesWidget.Category.BodyParts,,Body Parts,Body Parts
+Studio.RobloxPropertiesWidget.Category.Brows,,Brows,Brows
+Studio.RobloxPropertiesWidget.Category.Browsing,,Browsing,Browsing
+Studio.RobloxPropertiesWidget.Category.Cache,,Cache,Cache
+Studio.RobloxPropertiesWidget.Category.Camera,,Camera,Camera
+Studio.RobloxPropertiesWidget.Category.Character,,Character,Character
+Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,Character Jump Settings,Character Jump Settings
+Studio.RobloxPropertiesWidget.Category.Clothes,,Clothes,Clothes
+Studio.RobloxPropertiesWidget.Category.Collision,,Collision,Collision
+Studio.RobloxPropertiesWidget.Category.Compliance,,Compliance,Compliance
+Studio.RobloxPropertiesWidget.Category.Configuration,,Configuration,Configuration
+Studio.RobloxPropertiesWidget.Category.Control,,Control,Control
+Studio.RobloxPropertiesWidget.Category.Controls,,Controls,Controls
+Studio.RobloxPropertiesWidget.Category.Cylinder,,Cylinder,Cylinder
+Studio.RobloxPropertiesWidget.Category.Data,,Data,Data
+Studio.RobloxPropertiesWidget.Category.Debug,,Debug,Debug
+Studio.RobloxPropertiesWidget.Category.Debugging,,Debugging,Debugging
+Studio.RobloxPropertiesWidget.Category.Derived,,Derived,Derived
+Studio.RobloxPropertiesWidget.Category.DerivedData,,Derived Data,Derived Data
+Studio.RobloxPropertiesWidget.Category.DerivedWorldData,,Derived World Data,Derived World Data
+Studio.RobloxPropertiesWidget.Category.Diagnostics,,Diagnostics,Diagnostics
+Studio.RobloxPropertiesWidget.Category.Directories,,Directories,Directories
+Studio.RobloxPropertiesWidget.Category.Display,,Display,Display
+Studio.RobloxPropertiesWidget.Category.DragDirections,,Drag Directions,Drag Directions
+Studio.RobloxPropertiesWidget.Category.DraggedAmount,,Dragged Amount,Dragged Amount
+Studio.RobloxPropertiesWidget.Category.DragLimits,,Drag Limits,Drag Limits
+Studio.RobloxPropertiesWidget.Category.Emission,,Emission,Emission
+Studio.RobloxPropertiesWidget.Category.Emitter,,Emitter,Emitter
+Studio.RobloxPropertiesWidget.Category.EmitterShape,,EmitterShape,EmitterShape
+Studio.RobloxPropertiesWidget.Category.Errors,,Errors,Errors
+Studio.RobloxPropertiesWidget.Category.Explorer,,Explorer,Explorer
+Studio.RobloxPropertiesWidget.Category.Exposure,,Exposure,Exposure
+Studio.RobloxPropertiesWidget.Category.Eyes,,Eyes,Eyes
+Studio.RobloxPropertiesWidget.Category.Flipbook,,Flipbook,Flipbook
+Studio.RobloxPropertiesWidget.Category.Fog,,Fog,Fog
+Studio.RobloxPropertiesWidget.Category.Forcefield,,Forcefield,Forcefield
+Studio.RobloxPropertiesWidget.Category.Friction,,Friction,Friction
+Studio.RobloxPropertiesWidget.Category.Game,,Game,Game
+Studio.RobloxPropertiesWidget.Category.General,,General,General
+Studio.RobloxPropertiesWidget.Category.Goals,,Goals,Goals
+Studio.RobloxPropertiesWidget.Category.Hinge,,Hinge,Hinge
+Studio.RobloxPropertiesWidget.Category.Image,,Image,Image
+Studio.RobloxPropertiesWidget.Category.Input,,Input,Input
+Studio.RobloxPropertiesWidget.Category.Internal,,Internal,Internal
+Studio.RobloxPropertiesWidget.Category.Jaw,,Jaw,Jaw
+Studio.RobloxPropertiesWidget.Category.JobInfo,,JobInfo,JobInfo
+Studio.RobloxPropertiesWidget.Category.JumpSettings,,Jump Settings,Jump Settings
+Studio.RobloxPropertiesWidget.Category.Limits,,Limits,Limits
+Studio.RobloxPropertiesWidget.Category.Line,,Line,Line
+Studio.RobloxPropertiesWidget.Category.LineForce,,LineForce,LineForce
+Studio.RobloxPropertiesWidget.Category.Link,,Link,Link
+Studio.RobloxPropertiesWidget.Category.Localization,,Localization,Localization
+Studio.RobloxPropertiesWidget.Category.LuaDebugger,,Lua Debugger,Lua Debugger
+Studio.RobloxPropertiesWidget.Category.Material,,Material,Material
+Studio.RobloxPropertiesWidget.Category.MaterialOverrides,,Material Overrides,Material Overrides
+Studio.RobloxPropertiesWidget.Category.MaterialPack,,Material Pack,Material Pack
+Studio.RobloxPropertiesWidget.Category.Mobile,,Mobile,Mobile
+Studio.RobloxPropertiesWidget.Category.Mode,,Mode,Mode
+Studio.RobloxPropertiesWidget.Category.ModeSwitching,DragDetector mode switching property section,Mode Switching,Mode Switching
+Studio.RobloxPropertiesWidget.Category.Motion,,Motion,Motion
+Studio.RobloxPropertiesWidget.Category.Motor,,Motor,Motor
+Studio.RobloxPropertiesWidget.Category.Mouth,,Mouth,Mouth
+Studio.RobloxPropertiesWidget.Category.Movement,,Movement,Movement
+Studio.RobloxPropertiesWidget.Category.Networking,,Networking,Networking
+Studio.RobloxPropertiesWidget.Category.Orientation,,Orientation,Orientation
+Studio.RobloxPropertiesWidget.Category.Output,,Output,Output
+Studio.RobloxPropertiesWidget.Category.Part,,Part,Part
+Studio.RobloxPropertiesWidget.Category.Particles,,Particles,Particles
+Studio.RobloxPropertiesWidget.Category.Parts,,Parts,Parts
+Studio.RobloxPropertiesWidget.Category.Performance,,Performance,Performance
+Studio.RobloxPropertiesWidget.Category.Physics,,Physics,Physics
+Studio.RobloxPropertiesWidget.Category.PhysicsResponse,,Physics Response,Physics Response
+Studio.RobloxPropertiesWidget.Category.Pivot,,Pivot,Pivot
+Studio.RobloxPropertiesWidget.Category.Plane,,Plane,Plane
+Studio.RobloxPropertiesWidget.Category.Playback,,Playback,Playback
+Studio.RobloxPropertiesWidget.Category.PrimaryPart,,Primary Part,Primary Part
+Studio.RobloxPropertiesWidget.Category.Profile,,Profile,Profile
+Studio.RobloxPropertiesWidget.Category.ProxySettings,,Proxy Settings,Proxy Settings
+Studio.RobloxPropertiesWidget.Category.Reflection,,Reflection,Reflection
+Studio.RobloxPropertiesWidget.Category.Regions,,Regions,Regions
+Studio.RobloxPropertiesWidget.Category.RenderingTest,,RenderingTest,RenderingTest
+Studio.RobloxPropertiesWidget.Category.Results,,Results,Results
+Studio.RobloxPropertiesWidget.Category.Rod,,Rod,Rod
+Studio.RobloxPropertiesWidget.Category.Rope,,Rope,Rope
+Studio.RobloxPropertiesWidget.Category.Routing,,Routing,Routing
+Studio.RobloxPropertiesWidget.Category.Scale,,Scale,Scale
+Studio.RobloxPropertiesWidget.Category.ScriptEditor,,Script Editor,Script Editor
+Studio.RobloxPropertiesWidget.Category.ScriptEditorColors,,Script Editor Colors,Script Editor Colors
+Studio.RobloxPropertiesWidget.Category.Scrolling,,Scrolling,Scrolling
+Studio.RobloxPropertiesWidget.Category.Selection,,Selection,Selection
+Studio.RobloxPropertiesWidget.Category.Servo,,Servo,Servo
+Studio.RobloxPropertiesWidget.Category.Settings,,Settings,Settings
+Studio.RobloxPropertiesWidget.Category.Shape,,Shape,Shape
+Studio.RobloxPropertiesWidget.Category.Sizing,,Sizing,Sizing
+Studio.RobloxPropertiesWidget.Category.Slider,,Slider,Slider
+Studio.RobloxPropertiesWidget.Category.Spring,,Spring,Spring
+Studio.RobloxPropertiesWidget.Category.State,,State,State
+Studio.RobloxPropertiesWidget.Category.Streaming,,Streaming,Streaming
+Studio.RobloxPropertiesWidget.Category.Surface,,Surface,Surface
+Studio.RobloxPropertiesWidget.Category.SurfaceInputs,,Surface Inputs,Surface Inputs
+Studio.RobloxPropertiesWidget.Category.Tags,,Tags,Tags
+Studio.RobloxPropertiesWidget.Category.TargetOrientation,,TargetOrientation,TargetOrientation
+Studio.RobloxPropertiesWidget.Category.Team,,Team,Team
+Studio.RobloxPropertiesWidget.Category.Teams,,Teams,Teams
+Studio.RobloxPropertiesWidget.Category.Text,,Text,Text
+Studio.RobloxPropertiesWidget.Category.Thrust,,Thrust,Thrust
+Studio.RobloxPropertiesWidget.Category.Tongue,,Tongue,Tongue
+Studio.RobloxPropertiesWidget.Category.Tools,,Tools,Tools
+Studio.RobloxPropertiesWidget.Category.Torque,,Torque,Torque
+Studio.RobloxPropertiesWidget.Category.Transform,,Transform,Transform
+Studio.RobloxPropertiesWidget.Category.Tuning,,Tuning,Tuning
+Studio.RobloxPropertiesWidget.Category.Turn,,Turn,Turn
+Studio.RobloxPropertiesWidget.Category.TwistLimits,,TwistLimits,TwistLimits
+Studio.RobloxPropertiesWidget.Category.Undo,,Undo,Undo
+Studio.RobloxPropertiesWidget.Category.Universal,,Universal,Universal
+Studio.RobloxPropertiesWidget.Category.Vector,,Vector,Vector
+Studio.RobloxPropertiesWidget.Category.VectorForce,,VectorForce,VectorForce
+Studio.RobloxPropertiesWidget.Category.Video,,Video,Video
+Studio.RobloxPropertiesWidget.Category.Visualization,,Visualization,Visualization
+Studio.RobloxPropertiesWidget.Category.Winch,,Winch,Winch

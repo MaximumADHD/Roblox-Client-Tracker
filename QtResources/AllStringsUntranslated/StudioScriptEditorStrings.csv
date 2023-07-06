@@ -1,0 +1,103 @@
+Key,Context,Source,en-us
+Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
+Studio.App.MLCodeAssistanceController.EmptyCodeSuggestionReceived,,Empty code suggestion received.,Empty code suggestion received.
+Studio.App.MLCodeAssistanceController.NoCodeSuggestionReceived,,No code suggestion received.,No code suggestion received.
+Studio.App.MLCodeAssistanceController.InsufficientLinesPrompt,,"Code Assist can save you time!
+Start by writing some code to set the context, and you will get suggestions when you stop typing.","Code Assist can save you time!
+Start by writing some code to set the context, and you will get suggestions when you stop typing."
+Studio.App.MLCodeAssistanceController.InsufficientLinesPromptShortcutFmt1,,You can also use %1 at any time to request a suggestion.,You can also use %1 at any time to request a suggestion.
+Studio.App.SnippetVerifier.PackNameTooLongFmt2,,"Snippet pack name (%1) is too long, shouldn't be longer than %2","Snippet pack name (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.PackDespTooLongFmt2,,"Snippet pack description (%1) is too long, shouldn't be longer than %2","Snippet pack description (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.SnippetIdTooLongFmt2,,"Snippet name (%1) is too long, shouldn't be longer than %2","Snippet name (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.SnippetDespTooLongFmt2,,"Snippet description (%1) is too long, shouldn't be longer than %2","Snippet description (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.SnippetPrefixTooLongFmt2,,"Snippet prefix (%1) is too long, shouldn't be longer than %2","Snippet prefix (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.SnippetPrefixInvalidCharFmt1,,"Invalid character in prefix (%1), it can only be  '_', number, or letter.","Invalid character in prefix (%1), it can only be  '_', number, or letter."
+Studio.App.ScriptingCmd.REPLACE,,Replace Text,Replace Text
+Studio.App.ScriptingCmd.INVOKEMLCOMPLETION,,Invoke AI-assisted scripting,Invoke AI-assisted scripting
+Studio.App.ScriptingCmd.INVOKEMLCOMPLETIONTooltip,,Attempt to generate autocompleted code using machine learning,Attempt to generate autocompleted code using machine learning
+Studio.App.ScriptingCmd.DISPLAYCHATPROMPT,,AI Code Assistance,AI Code Assistance
+Studio.App.ScriptingCmd.DISPLAYCHATPROMPTTooltip,,Ask our chatbot a question about your code,Ask our chatbot a question about your code
+Studio.App.ScriptingCmd.REPLACETooltip,,Replace text in an open script,Replace text in an open script
+Studio.App.ScriptingCmd.SELECTALLOCCURRENCES,,Select all occurrences,Select all occurrences
+Studio.App.ScriptingCmd.SELECTALLOCCURRENCESTooltip,,Add a cursor to all occurrences of the current selection,Add a cursor to all occurrences of the current selection
+Studio.App.ScriptingCmd.SELECTNEXTOCCURRENCE,,Select next occurrence,Select next occurrence
+Studio.App.ScriptingCmd.SELECTNEXTOCCURRENCETooltip,,"Selects the word at the cursor, or the next occurrence of the current selection","Selects the word at the cursor, or the next occurrence of the current selection"
+Studio.App.ScriptingCmd.SELECTPREVIOUSOCCURRENCE,,Select previous occurrence,Select previous occurrence
+Studio.App.ScriptingCmd.SELECTPREVIOUSOCCURRENCETooltip,,Select previous occurrence of current selection,Select previous occurrence of current selection
+Studio.App.ScriptingCmd.ADDCURSORABOVE,,Add cursor above,Add cursor above
+Studio.App.ScriptingCmd.ADDCURSORABOVETooltip,,Insert new cursor above current cursors,Insert new cursor above current cursors
+Studio.App.ScriptingCmd.ADDCURSORBELOW,,Add cursor below,Add cursor below
+Studio.App.ScriptingCmd.ADDCURSORBELOWTooltip,,Insert new cursor below current cursors,Insert new cursor below current cursors
+Studio.App.ScriptingCmd.SPLITSELECTIONSINTOLINES,,Add Cursor to Selected Line Ends and Selection End,Add Cursor to Selected Line Ends and Selection End
+Studio.App.ScriptingCmd.SPLITSELECTIONSINTOLINESTooltip,,Place cursors at the the end of each line in a multi-line selection and at the end of the selection.,Place cursors at the the end of each line in a multi-line selection and at the end of the selection.
+Studio.App.ScriptingCmd.CONFIG,,Config Script Editor,Config Script Editor
+Studio.App.ScriptingCmd.CONFIGTooltip,,Configure the Script Editor,Configure the Script Editor
+Studio.App.ScriptingCmd.INSERT,,Insert Text,Insert Text
+Studio.App.ScriptingCmd.INSERTTooltip,,Insert text at the given position,Insert text at the given position
+Studio.App.ScriptingCmd.SELECT,,Select Text,Select Text
+Studio.App.ScriptingCmd.SELECTTooltip,,Select text at the given position,Select text at the given position
+Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle Code Fold,Toggle Code Fold
+Studio.App.ScriptingCmd.FOLDTOGGLETooltip,,Toggle a folded code block,Toggle a folded code block
+Studio.App.ScriptingCmd.GOTOLINE,,Go to Line,Go to Line
+Studio.App.ScriptingCmd.GOTOLINETooltip,,Go to a line in the script,Go to a line in the script
+Studio.App.ScriptingCmd.GOTOPOS,,Go to Position,Go to Position
+Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to a position in the script,Go to a position in the script
+Studio.App.ScriptingCmd.GOTODECL,,Go to Declaration,Go to Declaration
+Studio.App.ScriptingCmd.GOTODECLTooltip,,Go to variable declaration,Go to variable declaration
+Studio.App.ScriptingCmd.GOTOERR,,Go to Script Error,Go to Script Error
+Studio.App.ScriptingCmd.GOTOERRTooltip,,Focus view on script error,Focus view on script error
+Studio.App.ScriptingCmd.INVOKESYMBOLS,,Open Script Function Filter,Open Script Function Filter
+Studio.App.ScriptingCmd.INVOKESYMBOLSTooltip,,Open the Script Function Filter,Open the Script Function Filter
+Studio.App.ScriptingCmd.DUPLICATESELECTION,,Duplicate Selection,Duplicate Selection
+Studio.App.ScriptingCmd.DUPLICATESELECTIONTooltip,,Duplicate current line or selection,Duplicate current line or selection
+Studio.App.ScriptingCmd.DELETELINES,,Delete Lines,Delete Lines
+Studio.App.ScriptingCmd.DELETELINESTooltip,,Delete selected line(s),Delete selected line(s)
+Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to Start of Line,Delete to Start of Line
+Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,Delete to the start of the current line,Delete to the start of the current line
+Studio.App.ScriptingCmd.FORMATALL,,Format Document,Format Document
+Studio.App.ScriptingCmd.FORMATALLTooltip,,Format the entire document,Format the entire document
+Studio.App.ScriptingCmd.INDENT,,Indent,Indent
+Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
+Studio.App.ScriptingCmd.INVOKECOMPLETIONS,,Invoke Autocomplete,Invoke Autocomplete
+Studio.App.ScriptingCmd.INVOKECOMPLETIONSTooltip,,Invoke the Autocomplete tooltip,Invoke the Autocomplete tooltip
+Studio.App.ScriptingCmd.INVOKEHOVER,,Invoke Hover,Invoke Hover
+Studio.App.ScriptingCmd.INVOKEHOVERTooltip,,Invoke the type hover tooltip,Invoke the type hover tooltip
+Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
+Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,Move selected line(s) downwards,Move selected line(s) downwards
+Studio.App.ScriptingCmd.MOVELINESUP,,Move Lines Up,Move Lines Up
+Studio.App.ScriptingCmd.MOVELINESUPTooltip,,Move selected line(s) upwards,Move selected line(s) upwards
+Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
+Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current line,Insert a newline above the current line
+Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
+Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
+Studio.App.ScriptingCmd.UNFOLDALL,,Expand All Folds,Expand All Folds
+Studio.App.ScriptingCmd.UNINDENT,,Unindent,Unindent
+Studio.App.ScriptingCmd.UNINDENTTooltip,,Unindent selected line(s),Unindent selected line(s)
+Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
+Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
+Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
+Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Select the word under the cursor
+Studio.App.ScriptingCmd.FINDCURRENTWORD,,Find Current Word,Find Current Word
+Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,Find the current word,Find the current word
+Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,Find Current Word Backwards,Find Current Word Backwards
+Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,"Find the current word, searching backwards through the doc","Find the current word, searching backwards through the doc"
+Studio.App.ScriptingCmd.INVOKESIGNATUREHELP,,Invoke Signature Help,Invoke Signature Help
+Studio.App.ScriptingCmd.INVOKECOLOR3PICKER,,Invoke Color3 Picker,Invoke Color3 Picker
+Studio.App.ScriptingCmd.INVOKECOLOR3PICKERTooltip,,Invoke the Color3 Picker widget,Invoke the Color3 Picker widget
+Studio.App.ScriptingCmd.FOLDBLOCK,,Fold Code Block,Fold Code Block
+Studio.App.ScriptingCmd.FOLDBLOCKTooltip,,Fold a block of code in the script,Fold a block of code in the script
+Studio.App.ScriptingCmd.REMOVELASTCURSOR,,Remove last cursor,Remove last cursor
+Studio.App.ScriptingCmd.REMOVELASTCURSORTooltip,,Remove the most recently added cursor,Remove the most recently added cursor
+Studio.App.ScriptingCmd.UNFOLDBLOCK,,Unfold Code Block,Unfold Code Block
+Studio.App.ScriptingCmd.UNFOLDBLOCKTooltip,,Unfold a block of code in the script,Unfold a block of code in the script
+Studio.App.RBXMainWindow.GoToLine,,Go to line,Go to line
+Studio.App.RBXMainWindow.FilterScriptFunctions,,Open Script Function Filter,Open Script Function Filter
+Studio.App.RBXMainWindow.FilterScriptFunctionsNoFunctions,,No functions to filter,No functions to filter
+Studio.App.DocumentationView.Overload,,+1 overload,+1 overload
+Studio.App.DocumentationView.Overload.Plural1,%1 is an integer. example '+2 overloads',+%1 overloads,+%1 overloads
+Studio.App.DocumentationView.Copied,,Copied!,Copied!
+Studio.App.DocumentationView.ShowCodeSample,,Show Code Example,Show Code Example
+Studio.App.DocumentationView.HideCodeSample,,Hide Code Example,Hide Code Example
+Studio.App.FindDialog.LineNumber1,,Line number (1-%1):,Line number (1-%1):
+Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
+Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor

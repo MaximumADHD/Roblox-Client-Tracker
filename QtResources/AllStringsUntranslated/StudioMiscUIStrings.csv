@@ -1,0 +1,45 @@
+Key,Context,Source,en-us
+Studio.App.MainWindow.AboutRobloxStudio,Main Window,About Roblox Studio,About Roblox Studio
+Studio.App.MainWindow.CopyrightRobloxCorporation2,Main Window,%1%2 Roblox Corporation. ,%1%2 Roblox Corporation. 
+Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
+Studio.App.MainWindow.32BitParens,Main Window, (32bit), (32bit)
+Studio.App.MainWindow.64BitParens,Main Window, (64bit), (64bit)
+Studio.App.MainWindow.ThirdpartyNotices,About Dialog,Third Party Notices,Third Party Notices
+Studio.App.MainWindow.ThirdpartyUses2,About Dialog,Uses '%1' from '%2',Uses '%1' from '%2'
+Studio.App.AutoSave.AutoSaveRecovery,,Auto-Save Recovery,Auto-Save Recovery
+Studio.App.ClientServerToggleFTUE.ToggleClientServerMode,,Click on the icon to toggle between client and server mode while testing,Click on the icon to toggle between client and server mode while testing
+Studio.App.ClientServerToggleFTUE.ClientServerToggle,,Client/Server Toggle,Client/Server Toggle
+Studio.App.ShareModalController.CheckOutMyGame,,Check out my game!,Check out my game!
+Studio.App.ShareModalController.CheckOutThisGame,,Check out this game!,Check out this game!
+Studio.App.ShareModalController.Offline,,Offline,Offline
+Studio.App.ShareModalController.Online,,Online,Online
+Studio.App.AutoSaveDialog.ConfirmTitle,,Confirm Auto-Recovery Delete,Confirm Auto-Recovery Delete
+Studio.App.AutoSaveDialog.ConfirmMessageSingular,,Do you want to delete all auto-recovery files?  There is 1 file.,Do you want to delete all auto-recovery files?  There is 1 file.
+Studio.App.AutoSaveDialog.ConfirmMessage1,,Do you want to delete all auto-recovery files?  There are %1 files.,Do you want to delete all auto-recovery files?  There are %1 files.
+Studio.App.AutoSaveDialog.Title,,Auto-Recovery,Auto-Recovery
+Studio.App.AutoSaveDialog.FileDetected,,An auto-recovered file was detected!,An auto-recovered file was detected!
+Studio.App.AutoSaveDialog.NotShutProperly,,This means that Roblox Studio was not shut down properly and <u><i>may not have saved your data</i></u>!,This means that Roblox Studio was not shut down properly and <u><i>may not have saved your data</i></u>!
+Studio.App.AutoSaveDialog.WantToLoad,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?
+Studio.App.AutoSaveDialog.OpenStart1,,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.
+Studio.App.AutoSaveDialog.OpenEnd,,"Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name.","Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name."
+Studio.App.AutoSaveDialog.Ignore1,,"<font size=%1><b><i>Ignore</i></b></font> will continue and leave the files alone.  However, the next time Roblox Studio is run, this message box will pop up again.","<font size=%1><b><i>Ignore</i></b></font> will continue and leave the files alone.  However, the next time Roblox Studio is run, this message box will pop up again."
+Studio.App.AutoSaveDialog.Delete1,,<font size=%1><b><i>Delete</i></b></font> will confirm that you want to delete all auto-recovery files.,<font size=%1><b><i>Delete</i></b></font> will confirm that you want to delete all auto-recovery files.
+Studio.App.AboutStudioDialog.AmongRegisteredTrademarks,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks2 without contact us hyper link,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries."
+Studio.App.AboutStudioDialog.ContactUs,Hyper link for contacting Roblox support,Contact Us,Contact Us
+Studio.App.AboutStudioDialog.PrivacyPolicy,Hyper link for privacy policy,Privacy Policy,Privacy Policy
+Studio.App.AboutStudioDialog.UpdatesNotAvailableForBuild,,Updates not available for this build,Updates not available for this build
+Studio.Common.Action.Ignore,,Ignore,Ignore
+Studio.App.StartPage.PublishYourGame,,"Publish your game and make it public to share it
+Go to File > Publish to Roblox","Publish your game and make it public to share it
+Go to File > Publish to Roblox"
+Studio.App.StartPage.ShareYourGame,,Share your game,Share your game
+Studio.App.StartPage.ClickShareIcon,,Click the share icon to share your game with Roblox friends or on social media,Click the share icon to share your game with Roblox friends or on social media
+Studio.App.ShareModal.By1,,By %1,By %1
+Studio.App.ShareModal.CopyLink,,Copy Link,Copy Link
+Studio.App.ShareModal.LinkCopied,,Link Copied,Link Copied
+Studio.App.ShareModal.Failed,,Failed,Failed
+Studio.App.ShareModal.ShareGame,,Share Game,Share Game
+Studio.App.ShareModal.ShareWithRobloxFriends,,Share with Roblox Friends,Share with Roblox Friends
+Studio.App.ShareModal.Shared,,Shared,Shared
+Studio.App.ShareModal.SearchPlaceholderText,,Search for friends,Search for friends
+Studio.App.ShareModalInfoBox.MakeGamePublicToShare,,Make your game public to share it,Make your game public to share it

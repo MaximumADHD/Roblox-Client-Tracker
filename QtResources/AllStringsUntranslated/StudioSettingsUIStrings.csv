@@ -1,0 +1,184 @@
+Key,Context,Source,en-us
+Studio.App.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
+Studio.App.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
+Studio.App.BetaFeatures.Details,,Details,Details
+Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
+Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in Beta Channel
+Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
+Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
+Studio.App.PropertyEnum.Client,,Client,Client
+Studio.App.PropertyEnum.Server,,Server,Server
+Studio.App.PropertyEnum.Absolute,,Absolute,Absolute
+Studio.App.PropertyEnum.Aggregate,,Aggregate,Aggregate
+Studio.App.PropertyEnum.Always,,Always,Always
+Studio.App.PropertyEnum.Auto,,Auto,Auto
+Studio.App.PropertyEnum.Automatic,,Automatic,Automatic
+Studio.App.PropertyEnum.Benchmark,,Benchmark,Benchmark
+Studio.App.PropertyEnum.DefaultAuto,,Default Auto,Default Auto
+Studio.App.PropertyEnum.Direct3D11,,Direct3D11,Direct3D11
+Studio.App.PropertyEnum.Direct3D9,,Direct3D9,Direct3D9
+Studio.App.PropertyEnum.Disabled,,Disabled,Disabled
+Studio.App.PropertyEnum.DontReport,,Don't Report,Don't Report
+Studio.App.PropertyEnum.Enabled,,Enabled,Enabled
+Studio.App.PropertyEnum.Fast,,Fast,Fast
+Studio.App.PropertyEnum.Game,,Game,Game
+Studio.App.PropertyEnum.HighResolution,,High Resolution,High Resolution
+Studio.App.PropertyEnum.Horizontal,,Horizontal,Horizontal
+Studio.App.PropertyEnum.Hybrid,,Hybrid,Hybrid
+Studio.App.PropertyEnum.Level00,,Level 00,Level 00
+Studio.App.PropertyEnum.Level01,,Level 01,Level 01
+Studio.App.PropertyEnum.Level02,,Level 02,Level 02
+Studio.App.PropertyEnum.Level03,,Level 03,Level 03
+Studio.App.PropertyEnum.Level04,,Level 04,Level 04
+Studio.App.PropertyEnum.Level05,,Level 05,Level 05
+Studio.App.PropertyEnum.Level06,,Level 06,Level 06
+Studio.App.PropertyEnum.Level07,,Level 07,Level 07
+Studio.App.PropertyEnum.Level08,,Level 08,Level 08
+Studio.App.PropertyEnum.Level09,,Level 09,Level 09
+Studio.App.PropertyEnum.Level10,,Level 10,Level 10
+Studio.App.PropertyEnum.Level11,,Level 11,Level 11
+Studio.App.PropertyEnum.Level12,,Level 12,Level 12
+Studio.App.PropertyEnum.Level13,,Level 13,Level 13
+Studio.App.PropertyEnum.Level14,,Level 14,Level 14
+Studio.App.PropertyEnum.Level15,,Level 15,Level 15
+Studio.App.PropertyEnum.Level16,,Level 16,Level 16
+Studio.App.PropertyEnum.Level17,,Level 17,Level 17
+Studio.App.PropertyEnum.Level18,,Level 18,Level 18
+Studio.App.PropertyEnum.Level19,,Level 19,Level 19
+Studio.App.PropertyEnum.Level20,,Level 20,Level 20
+Studio.App.PropertyEnum.Level21,,Level 21,Level 21
+Studio.App.PropertyEnum.LowResolution,,Low Resolution,Low Resolution
+Studio.App.PropertyEnum.Medium,,Medium,Medium
+Studio.App.PropertyEnum.MediumResolution,,Medium Resolution,Medium Resolution
+Studio.App.PropertyEnum.Metal,,Metal,Metal
+Studio.App.PropertyEnum.Muted,,Muted,Muted
+Studio.App.PropertyEnum.NoGraphics,,No Graphics,No Graphics
+Studio.App.PropertyEnum.On,,On,On
+Studio.App.PropertyEnum.OnlineGame,,Online Game,Online Game
+Studio.App.PropertyEnum.OpenGL,,OpenGL,OpenGL
+Studio.App.PropertyEnum.PerCore1,,Per Core 1,Per Core 1
+Studio.App.PropertyEnum.PerCore2,,Per Core 2,Per Core 2
+Studio.App.PropertyEnum.PerCore3,,Per Core 3,Per Core 3
+Studio.App.PropertyEnum.PerCore4,,Per Core 4,Per Core 4
+Studio.App.PropertyEnum.PerEdge,,Per Edge,Per Edge
+Studio.App.PropertyEnum.PerIsland,,Per Island,Per Island
+Studio.App.PropertyEnum.Precise,,Precise,Precise
+Studio.App.PropertyEnum.Prompt,,Prompt,Prompt
+Studio.App.PropertyEnum.Report,,Report,Report
+Studio.App.PropertyEnum.Relative,,Relative,Relative
+Studio.App.PropertyEnum.Roblox,,Roblox,Roblox
+Studio.App.PropertyEnum.RobloxGame,,Roblox Game,Roblox Game
+Studio.App.PropertyEnum.RobloxScript,,Roblox Script,Roblox Script
+Studio.App.PropertyEnum.Skip16,,Skip 16,Skip 16
+Studio.App.PropertyEnum.Skip2,,Skip 2,Skip 2
+Studio.App.PropertyEnum.Skip4,,Skip 4,Skip 4
+Studio.App.PropertyEnum.Skip8,,Skip 8,Skip 8
+Studio.App.PropertyEnum.Slow,,Slow,Slow
+Studio.App.PropertyEnum.Snapshot,,Snapshot,Snapshot
+Studio.App.PropertyEnum.Studio,,Studio,Studio
+Studio.App.PropertyEnum.Threads1,,Threads 1,Threads 1
+Studio.App.PropertyEnum.Threads16,,Threads 16,Threads 16
+Studio.App.PropertyEnum.Threads2,,Threads 2,Threads 2
+Studio.App.PropertyEnum.Threads3,,Threads 3,Threads 3
+Studio.App.PropertyEnum.Threads4,,Threads 4,Threads 4
+Studio.App.PropertyEnum.Threads8,,Threads 8,Threads 8
+Studio.App.PropertyEnum.Vertical,,Vertical,Vertical
+Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
+Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
+Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
+Studio.App.PropertyEnum.DistanceBased,,DistanceBased,DistanceBased
+Studio.App.PropertyEnum.RobloxDefault,The default Script Editor Syntax Highlighting Text Color Preset,Default,Default
+Studio.App.PropertyEnum.Extra1,An additional Script Editor Syntax Highlighting Text Color Preset,Extra 1,Extra 1
+Studio.App.PropertyEnum.Extra2,A second additional Script Editor Syntax Highlighting Text Color Preset,Extra 2,Extra 2
+Studio.App.PropertyEnum.Custom,A fully custom Script Editor Syntax Highlighting Preset,Custom,Custom
+Studio.App.PropertyEnum.Light,Application theme with brighter tones and colors,Light,Light
+Studio.App.PropertyEnum.Dark,Application theme with darker tones and colors,Dark,Dark
+Studio.App.Property.BasicObjectsDisplayMode,,Basic Objects Display Mode,Basic Objects Display Mode
+Studio.App.Property.Language,,Language,Language
+Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
+Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
+Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer
+Studio.App.Property.QualityLevel,,Quality Level,Quality Level
+Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path
+Studio.App.Property.AutoSaveEnabled,,Auto-Save Enabled,Auto-Save Enabled
+Studio.App.Property.AutoSaveIntervalMinutes,,Auto-Save Interval (Minutes),Auto-Save Interval (Minutes)
+Studio.App.Property.AttachDebuggerTo,,Attach Debugger To,Attach Debugger To
+Studio.App.Property.ArePhysicsRejectionsReported,,Are Physics Rejections Reported,Are Physics Rejections Reported
+Studio.App.Property.AutoIndent,,Auto Indent,Auto Indent
+Studio.App.Property.ClientPhysicsSendRate,,Client Physics Send Rate,Client Physics Send Rate
+Studio.App.Property.DataGCRate,,Data GC Rate,Data GC Rate
+Studio.App.Property.DataMtuAdjust,,Data Mtu Adjust,Data Mtu Adjust
+Studio.App.Property.DataSendRate,,Data Send Rate,Data Send Rate
+Studio.App.Property.DisableAccuratePlaySolo,,Disable Accurate Play Solo,Disable Accurate Play Solo
+Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
+Studio.App.Property.GfxCard,,Gfx Card,Gfx Card
+Studio.App.Property.IsFmodProfilingEnabled,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled
+Studio.App.Property.IsQueueErrorComputed,,Is Queue Error Computed,Is Queue Error Computed
+Studio.App.Property.NetworkOwnerRate,,Network Owner Rate,Network Owner Rate
+Studio.App.Property.OsIs64Bit,,Os Is 64 Bit,Os Is 64 Bit
+Studio.App.Property.OsPlatform,,Os Platform,Os Platform
+Studio.App.Property.OsPlatformId,,Os Platform Id,Os Platform Id
+Studio.App.Property.OsVer,,Os Ver,Os Ver
+Studio.App.Property.PhysicsMtuAdjust,,Physics Mtu Adjust,Physics Mtu Adjust
+Studio.App.Property.PhysicsSendRate,,Physics Send Rate,Physics Send Rate
+Studio.App.Property.PreferredClientPort,,Preferred Client Port,Preferred Client Port
+Studio.App.Property.PrintBits,,Print Bits,Print Bits
+Studio.App.Property.PrintEvents,,Print Events,Print Events
+Studio.App.Property.PrintInstances,,Print Instances,Print Instances
+Studio.App.Property.PrintProperties,,Print Properties,Print Properties
+Studio.App.Property.PrintSplitMessage,,Print Split Message,Print Split Message
+Studio.App.Property.ReceiveRate,,Receive Rate,Receive Rate
+Studio.App.Property.RobloxProductName,,Roblox Product Name,Roblox Product Name
+Studio.App.Property.SIMD,,SIMD,SIMD
+Studio.App.Property.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
+Studio.App.Property.SystemProductName,,System Product Name,System Product Name
+Studio.App.Property.TouchSendRate,,Touch Send Rate,Touch Send Rate
+Studio.App.Property.UsePhysicsPacketCache,,Use Physics Packet Cache,Use Physics Packet Cache
+Studio.App.Property.VideoMemory,,Video Memory,Video Memory
+Studio.App.Category.AutoSave,,Auto-Save,Auto-Save
+Studio.App.Category.Advanced,,Advanced,Advanced
+Studio.App.Category.Appearance,,Appearance,Appearance
+Studio.App.Category.Audio,,Audio,Audio
+Studio.App.Category.AutoRecovery,,Auto-Recovery,Auto-Recovery
+Studio.App.Category.Benchmarking,,Benchmarking,Benchmarking
+Studio.App.Category.Browsing,,Browsing,Browsing
+Studio.App.Category.Cache,,Cache,Cache
+Studio.App.Category.Camera,,Camera,Camera
+Studio.App.Category.Configuration,,Configuration,Configuration
+Studio.App.Category.Data,,Data,Data
+Studio.App.Category.Debug,,Debug,Debug
+Studio.App.Category.Diagnostics,,Diagnostics,Diagnostics
+Studio.App.Category.Directories,,Directories,Directories
+Studio.App.Category.Display,,Display,Display
+Studio.App.Category.Errors,,Errors,Errors
+Studio.App.Category.Explorer,,Explorer,Explorer
+Studio.App.Category.GarbageCollection,,Garbage Collection,Garbage Collection
+Studio.App.Category.General,,General,General
+Studio.App.Category.Input,,Input,Input
+Studio.App.Category.Limits,,Limits,Limits
+Studio.App.Category.LuaDebugger,,Lua Debugger,Lua Debugger
+Studio.App.Category.Network,,Network,Network
+Studio.App.Category.Online,,Online,Online
+Studio.App.Category.Output,,Output,Output
+Studio.App.Category.Performance,,Performance,Performance
+Studio.App.Category.Physics,,Physics,Physics
+Studio.App.Category.PrimaryPart,,Primary Part,Primary Part
+Studio.App.Category.Profile,,Profile,Profile
+Studio.App.Category.ProxySettings,,Proxy Settings,Proxy Settings
+Studio.App.Category.Script,,Script,Script
+Studio.App.Category.ScriptEditor,,Script Editor,Script Editor
+Studio.App.Category.ScriptEditorColors,,Script Editor Colors,Script Editor Colors
+Studio.App.Category.Settings,,Settings,Settings
+Studio.App.Category.Sound,,Sound,Sound
+Studio.App.Category.Tools,,Tools,Tools
+Studio.App.Category.Undo,,Undo,Undo
+Studio.App.Category.Video,,Video,Video
+Studio.App.Category.Visualization,,Visualization,Visualization
+Studio.App.PropertyItems.MaterialOverride.Disabled,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant that is not a descendant of MaterialService.",<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>,<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>
+Studio.App.PropertyItems.MaterialOverride.Invalid,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant whose BaseMaterial does not equal to the Material it is supposed to be overriding.",<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>
+Studio.App.PropertyItems.MaterialOverride.Missing,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant that has been deleted.",<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>
+Studio.App.RobloxInputConfigDialog.YouHaveMadeChangesToYourSettings,,You have made changes to your settings.,You have made changes to your settings.
+Studio.App.RobloxInputConfigDialog.DoYouWantToKeepYourChanges,,Do you want to keep your changes?,Do you want to keep your changes?
+Studio.App.RobloxInputConfigDialog.KeyboardAndMouse,,Keyboard and Mouse,Keyboard and Mouse
+Studio.App.RobloxInputConfigDialog.Keyboard,,Keyboard,Keyboard
+Studio.App.RobloxInputConfigDialog.Mouse,,Mouse,Mouse

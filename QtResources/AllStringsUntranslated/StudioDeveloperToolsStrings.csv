@@ -1,0 +1,113 @@
+Key,Context,Source,en-us
+Studio.App.EmulatorMainWidget.FitToWindow,,Fit to Window,Fit to Window
+Studio.App.EmulatorMainWidget.PhysicalSize,,Physical Size,Physical Size
+Studio.App.EmulatorMainWidget.CalibratePhysicalScaling,,Calibrate Physical Scaling,Calibrate Physical Scaling
+Studio.App.EmulatorMainWidget.ActualResolution,,Actual Resolution,Actual Resolution
+Studio.App.EmulatorMainWidget.RotateMobileDeviceOrientation,,Rotate mobile device orientation,Rotate mobile device orientation
+Studio.App.EmulatorMainWidget.RotatePhonesTablets,,You can only rotate phones and tablets,You can only rotate phones and tablets
+Studio.App.EmulatorMainWidget.MockAndroidBackButton,,Simulate a click on the Android Back button,Simulate a click on the Android Back button
+Studio.App.EmulatorMainWidget.ConsoleSectionName,,Console,Console
+Studio.App.EmulatorMainWidget.DesktopSectionName,,Desktop,Desktop
+Studio.App.EmulatorMainWidget.TabletSectionName,,Tablet,Tablet
+Studio.App.EmulatorMainWidget.PhoneSectionName,,Phone,Phone
+Studio.App.EmulatorMainWidget.CustomDeviceSectionName,,Custom Device,Custom Device
+Studio.App.EmulatorMainWidget.ManageDevices,,Manage Devices,Manage Devices
+Studio.App.EmulatorMainWidget.ModeNotEnabledTitle,,%1 Not Enabled,%1 Not Enabled
+Studio.App.EmulatorMainWidget.StarterGuiModeNotEnabledMessage1,,%1 mode is not enabled for your game.,%1 mode is not enabled for your game.
+Studio.App.EmulatorMainWidget.StarterGuiEnabledModeMessage3,,"To enable it, stop the experience if running, and set the %1 setting of %2 to one of the following: %3","To enable it, stop the experience if running, and set the %1 setting of %2 to one of the following: %3"
+Studio.App.EmulatorMainWidget.StarterGui,,StarterGui,StarterGui
+Studio.App.EmulatorMainWidget.ScreenOrientation,,ScreenOrientation,ScreenOrientation
+Studio.App.EmulatorMainWidget.Landscape,,Landscape,Landscape
+Studio.App.EmulatorMainWidget.LandscapeRightSpace,,Landscape Right,Landscape Right
+Studio.App.EmulatorMainWidget.LandscapeRight,,LandscapeRight,LandscapeRight
+Studio.App.EmulatorMainWidget.LandscapeLeftSpace,,Landscape Left,Landscape Left
+Studio.App.EmulatorMainWidget.LandscapeLeft,,LandscapeLeft,LandscapeLeft
+Studio.App.EmulatorMainWidget.LandscapeSensor,,LandscapeSensor,LandscapeSensor
+Studio.App.EmulatorMainWidget.Sensor,,Sensor,Sensor
+Studio.App.EmulatorMainWidget.Portrait,,Portrait,Portrait
+Studio.App.EmulatorMainWidget.Windows,,Windows,Windows
+Studio.App.EmulatorMainWidget.OSX,,OSX,OSX
+Studio.App.EmulatorMainWidget.iOS,,iOS,iOS
+Studio.App.EmulatorMainWidget.Android,,Android,Android
+Studio.App.EmulatorMainWidget.XBoxOne,,XBoxOne,XBoxOne
+Studio.App.EmulatorMainWidget.PS4,,PS4,PS4
+Studio.App.EmulatorMainWidget.PS3,,PS3,PS3
+Studio.App.EmulatorMainWidget.XBox360,,XBox360,XBox360
+Studio.App.EmulatorMainWidget.WiiU,,WiiU,WiiU
+Studio.App.EmulatorMainWidget.NX,,NX,NX
+Studio.App.EmulatorMainWidget.Ouya,,Ouya,Ouya
+Studio.App.EmulatorMainWidget.AndroidTV,,AndroidTV,AndroidTV
+Studio.App.EmulatorMainWidget.Chromecast,,Chromecast,Chromecast
+Studio.App.EmulatorMainWidget.Linux,,Linux,Linux
+Studio.App.EmulatorMainWidget.SteamOS,,SteamOS,SteamOS
+Studio.App.EmulatorMainWidget.WebOS,,WebOS,WebOS
+Studio.App.EmulatorMainWidget.DOS,,DOS,DOS
+Studio.App.EmulatorMainWidget.BeOS,,BeOS,BeOS
+Studio.App.EmulatorMainWidget.UWP,,UWP,UWP
+Studio.App.EmulatorMainWidget.None,,None,None
+Studio.App.EmulatorMainWidget.CustomDevicesSectionName,,Custom Devices,Custom Devices
+Studio.App.EmulatorMainWidget.StandardDevicesSectionName,,Standard Devices,Standard Devices
+Studio.App.CalibrateDeviceScalingDialog.CalibrateDeviceScaling,,Calibrate Device Scaling,Calibrate Device Scaling
+Studio.App.CalibrateDeviceScalingDialog.DecreaseImageSize,,Decrease image size,Decrease image size
+Studio.App.CalibrateDeviceScalingDialog.IncreaseImageSize,,Increase image size,Increase image size
+Studio.App.CalibrateDeviceScalingDialog.EstimateScreenSize,,"To accurately scale to physical size, we need to get an estimate of your screen size.","To accurately scale to physical size, we need to get an estimate of your screen size."
+Studio.App.ManageEmulationDeviceDialog.EmulationDeviceManager,,Emulation Device Manager,Emulation Device Manager
+Studio.App.ManageEmulationDeviceDialog.CloneDevice,,Clone Device,Clone Device
+Studio.App.ManageEmulationDeviceDialog.NewDevicePrefix,,newDevice,newDevice
+Studio.App.AddEmulationDeviceDialog.Platform,,Platform,Platform
+Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form,Device Form
+Studio.App.AddEmulationDeviceDialog.KeyboardSettings,,Keyboard Settings,Keyboard Settings
+Studio.App.AddEmulationDeviceDialog.PortraitKeyboardHeight,,Keyboard Height (Portrait),Keyboard Height (Portrait)
+Studio.App.AddEmulationDeviceDialog.LandscapeKeyboardHeight,,Keyboard Height (Landscape),Keyboard Height (Landscape)
+Studio.App.AddEmulationDeviceDialog.KeyboardAnimationDuration,,Keyboard Animation Duration (s),Keyboard Animation Duration (s)
+Studio.App.AddEmulationDeviceDialog.ResolutionDpi,,Resolution (DPI),Resolution (DPI)
+Studio.App.AddEmulationDeviceDialog.ResolutionScale,,Resolution Scaling,Resolution Scaling
+Studio.App.AddEmulationDeviceDialog.DeviceMemoryMB,,Simulated Memory (MB),Simulated Memory (MB)
+Studio.App.AddEmulationDeviceDialog.NameAlreadyInUse1,Error message that is displayed if the user tries to set the name of a new custom emulation device to one that already exists.,"The name ""%1"" is already in use.","The name ""%1"" is already in use."
+Studio.App.AddEmulationDeviceDialog.NameIsReserved1,"Error message that is displayed if the user tries to set the name of a new custom emulation device to one that is used internally, and unavailable for the user. The name is reserved by the system.","The name ""%1"" is reserved.","The name ""%1"" is reserved."
+Studio.App.AddEmulationDeviceDialog.PortraitSafeZoneOffsets,,SafeZoneOffsets (Portrait),SafeZoneOffsets (Portrait)
+Studio.App.AddEmulationDeviceDialog.LandscapeSafeZoneOffsets,,SafeZoneOffsets (Landscape),SafeZoneOffsets (Landscape)
+Studio.App.AddEmulationDeviceDialog.TopSafeZoneOffset,,Top,Top
+Studio.App.AddEmulationDeviceDialog.BottomSafeZoneOffset,,Bottom,Bottom
+Studio.App.AddEmulationDeviceDialog.LeftSafeZoneOffset,,Left,Left
+Studio.App.AddEmulationDeviceDialog.RightSafeZoneOffset,,Right,Right
+Studio.App.AddEmulationDeviceDialog.userAgentString,,User Agent String,User Agent String
+Studio.App.CalibrateDeviceScalingDialog.AdjustTheSlider,,Adjust the slider so that the image below is about the size of a student ID or library card (8.56 cm or 3.37 inches wide).,Adjust the slider so that the image below is about the size of a student ID or library card (8.56 cm or 3.37 inches wide).
+Studio.App.StudioDeviceEmulatorService.CannotChangeEmulationDevice,,Can't set emulation device in current game state.,Can't set emulation device in current game state.
+Studio.App.StudioDeviceEmulatorService.InvalidOrientation1,,Can't set orientation to '%1'.,Can't set orientation to '%1'.
+Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,Device ID '%1' doesn't exist.,Device ID '%1' doesn't exist.
+Studio.Common.Action.Height,,Height,Height
+Studio.Common.Action.Width,,Width,Width
+Studio.App.EmulatorMainWidget.Default,Emulation devices,Default,Default
+Studio.App.EmulatorMainWidget.IPad2,Emulation devices,iPad 2,iPad 2
+Studio.App.EmulatorMainWidget.IPadMini1stGeneration,Emulation devices,iPad Mini 1st Generation,iPad Mini 1st Generation
+Studio.App.EmulatorMainWidget.IPad6thGeneration,Emulation devices,iPad 6th Generation,iPad 6th Generation
+Studio.App.EmulatorMainWidget.IPad7thGeneration,Emulation devices,iPad 7th Generation,iPad 7th Generation
+Studio.App.EmulatorMainWidget.IPadPro3rdGeneration,Emulation devices,iPad Pro 3rd Generation,iPad Pro 3rd Generation
+Studio.App.EmulatorMainWidget.IPhone4s,Emulation devices,iPhone 4S,iPhone 4S
+Studio.App.EmulatorMainWidget.IPhone5,Emulation devices,iPhone 5,iPhone 5
+Studio.App.EmulatorMainWidget.IPhone6,Emulation devices,iPhone 6,iPhone 6
+Studio.App.EmulatorMainWidget.IPhone6Plus,Emulation devices,iPhone 6 Plus,iPhone 6 Plus
+Studio.App.EmulatorMainWidget.IPhone7,Emulation devices,iPhone 7,iPhone 7
+Studio.App.EmulatorMainWidget.IPhone7Plus,Emulation devices,iPhone 7 Plus,iPhone 7 Plus
+Studio.App.EmulatorMainWidget.IPhoneX,Emulation devices,iPhone X,iPhone X
+Studio.App.EmulatorMainWidget.IPhoneXFullscreen,Emulation devices,iPhone X Fullscreen,iPhone X Fullscreen
+Studio.App.EmulatorMainWidget.IPhoneXR,Emulation devices,iPhone XR,iPhone XR
+Studio.App.EmulatorMainWidget.IPhoneXRFullscreen,Emulation devices,iPhone XR Fullscreen,iPhone XR Fullscreen
+Studio.App.EmulatorMainWidget.iPodTouch6thGeneration,Emulation devices,iPod Touch 6th Generation,iPod Touch 6th Generation
+Studio.App.EmulatorMainWidget.SamsungTabA2015,Emulation devices,Samsung Tab A (2015),Samsung Tab A (2015)
+Studio.App.EmulatorMainWidget.SamsungTabA20198,Emulation devices,"Samsung Tab A (2019, 8.0)","Samsung Tab A (2019, 8.0)"
+Studio.App.EmulatorMainWidget.SamsungTabA2019101,Emulation devices,"Samsung Tab A (2019, 10.1)","Samsung Tab A (2019, 10.1)"
+Studio.App.EmulatorMainWidget.AmazonFire102019,Emulation devices,Amazon Fire HD 10 (2019),Amazon Fire HD 10 (2019)
+Studio.App.EmulatorMainWidget.SamsungGtN5110,Emulation devices,Samsung GT-N5110,Samsung GT-N5110
+Studio.App.EmulatorMainWidget.SamsungGalaxyS3,Emulation devices,Samsung Galaxy S3,Samsung Galaxy S3
+Studio.App.EmulatorMainWidget.SamsungGalaxyS7,Emulation devices,Samsung Galaxy S7,Samsung Galaxy S7
+Studio.App.EmulatorMainWidget.Xbox,Emulation devices,Xbox One,Xbox One
+Studio.App.EmulatorMainWidget.AverageLaptop,Emulation devices,Average Laptop,Average Laptop
+Studio.App.EmulatorMainWidget.HD720,"Emulation devices, an average high definition (HD) 1280x720 screen",HD 720,HD 720
+Studio.App.EmulatorMainWidget.HD1080,"Emulation devices, an average high definition (HD) 1920x1080 screen",HD 1080,HD 1080
+Studio.App.EmulatorMainWidget.VGA,Emulation devices,VGA,VGA
+Studio.App.EmulatorMainWidget.UnkownDevice,Emulation devices,Unknown Device,Unknown Device
+Studio.App.EmulatorMainWidget.SamsungGalaxyA51,Emulation devices,Samsung Galaxy A51,Samsung Galaxy A51
+Studio.App.EmulatorMainWidget.XiaomiRedmiNote9,Emulation devices,Xiaomi Redmi Note 9,Xiaomi Redmi Note 9
+Studio.App.EmulatorMainWidget.IPhone14Pro,Emulation devices,iPhone 14 Pro,iPhone 14 Pro

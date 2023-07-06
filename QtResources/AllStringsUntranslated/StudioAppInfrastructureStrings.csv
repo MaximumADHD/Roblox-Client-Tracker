@@ -1,0 +1,169 @@
+Key,Context,Source,en-us
+Studio.App.Debugger.PausedForDebugging,,Rendering is paused for debugging...,Rendering is paused for debugging...
+Studio.App.IdeDoc.AudioDisabledGoToServerAudioBehaviorToChange,Roblox IDE Doc,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.
+Studio.App.IdeDoc.AutoRecoveryFileCreated1,Roblox IDE Doc,%1 auto-recovery file was created,%1 auto-recovery file was created
+Studio.App.IdeDoc.AutoSaving,Roblox IDE Doc,Auto-Saving,Auto-Saving
+Studio.App.IdeDoc.Cancel,Roblox IDE Doc,Cancel,Cancel
+Studio.App.IdeDoc.CannotLoadPublishedPlace,Roblox IDE Doc,Cannot load published place,Cannot load published place
+Studio.App.IdeDoc.DisconnectedFromTeamTestServer,Roblox IDE Doc,You have been disconnected from the team test server.,You have been disconnected from the team test server.
+Studio.App.IdeDoc.Discard,Roblox IDE Doc,Discard,Discard
+Studio.App.IdeDoc.DownloadACopy,Roblox IDE Doc,Download a Copy,Download a Copy
+Studio.App.IdeDoc.ErrorLoadingPlacePleaseClosePlacetryAgain,Roblox IDE Doc,"An error has occurred while loading the place. Please close the place and try again. If this error persists, contact Customer Support.","An error has occurred while loading the place. Please close the place and try again. If this error persists, contact Customer Support."
+Studio.App.IdeDoc.ExportFailure,Roblox IDE Doc,Export Failure,Export Failure
+Studio.App.IdeDoc.ExportingPlace,Roblox IDE Doc,Exporting Place,Exporting Place
+Studio.App.IdeDoc.ExportingSelection,Roblox IDE Doc,Exporting Selection,Exporting Selection
+Studio.App.IdeDoc.ExportPlace,Roblox IDE Doc,Export Place,Export Place
+Studio.App.IdeDoc.ExportSelection,Roblox IDE Doc,Export Selection,Export Selection
+Studio.App.IdeDoc.FailedToExportObjContactSupport,Roblox IDE Doc,Failed to export obj. Please try again or contact support if problem persists,Failed to export obj. Please try again or contact support if problem persists
+Studio.App.IdeDoc.NotSavingChanges,Roblox IDE Doc,Not Saving Changes,Not Saving Changes
+Studio.App.IdeDoc.ObjFiletypeExpected1,Roblox IDE Doc,Obj filetype expected. '%1' received.,Obj filetype expected. '%1' received.
+Studio.App.IdeDoc.OpeningPlace,Roblox IDE Doc,Opening Place,Opening Place
+Studio.App.IdeDoc.OpenPlaceFileReadOnly,Roblox IDE Doc,File is in use or is not writable. Opened for read-only.,File is in use or is not writable. Opened for read-only.
+Studio.App.IdeDoc.PasteInto,Roblox IDE Doc,Paste Into,Paste Into
+Studio.App.IdeDoc.PasteIntoSelected,Roblox IDE Doc,Paste Into Selected,Paste Into Selected
+Studio.App.IdeDoc.PasteIntoAtOriginalLocation,Roblox IDE Doc,Paste Into At Original Location,Paste Into At Original Location
+Studio.App.IdeDoc.PasteIntoSelectedAtOriginalLocation,Roblox IDE Doc,Paste Into Selected At Original Location,Paste Into Selected At Original Location
+Studio.App.IdeDoc.PlayGame,Roblox IDE Doc,Play Game,Play Game
+Studio.App.IdeDoc.RequestedAssetTypeNotSupported,Roblox IDE Doc,Requested asset type is not supported.,Requested asset type is not supported.
+Studio.App.IdeDoc.SaveFileFailure,Roblox IDE Doc,Save File Failure,Save File Failure
+Studio.App.IdeDoc.DoNotUseReservedAutoSavePath1,Roblox IDE Doc,"This file path ""%1"" is reserved for auto-recovery. Try again with a different name","This file path ""%1"" is reserved for auto-recovery. Try again with a different name"
+Studio.App.IdeDoc.SavingScripts,Roblox IDE Doc,Saving scripts...,Saving scripts...
+Studio.App.IdeDoc.SavingServerPlaceFailed1,Roblox IDE Doc,Saving Server Place Failed: %1,Saving Server Place Failed: %1
+Studio.App.IdeDoc.Server,Roblox IDE Doc,Server,Server
+Studio.App.IdeDoc.SorryPublishedPlaceCannotBeLoaded1,Roblox IDE Doc,"Sorry, this place could not be loaded.
+
+Details: ""%1""","Sorry, this place could not be loaded.
+
+Details: ""%1"""
+Studio.App.IdeDoc.StartServer,Roblox IDE Doc,Start Server,Start Server
+Studio.App.IdeDoc.SuccessfullyDownloadedCopyTo1,Roblox IDE Doc,Successfully downloaded a copy to '%1',Successfully downloaded a copy to '%1'
+Studio.App.IdeDoc.TestingModeAnyChangesYouMakeWillBeLost,Roblox IDE Doc,"You are in testing mode, any changes you make will be lost when you press the stop button","You are in testing mode, any changes you make will be lost when you press the stop button"
+Studio.App.IdeDoc.UserNotLoggedIn,Roblox IDE Doc,User not logged in.,User not logged in.
+Studio.App.IdeDoc.VerbNotFound1,Roblox IDE Doc,%1 verb not found.,%1 verb not found.
+Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
+Studio.App.IdeDoc.UncommittedScriptChangesNotSaved,Roblox IDE Doc,Your uncommitted script changes have not been saved.,Your uncommitted script changes have not been saved.
+Studio.App.IdeDoc.UncommittedScriptChangesNotPublished,Roblox IDE Doc,Your uncommitted script changes have not been published.,Your uncommitted script changes have not been published.
+Studio.App.IdeDoc.UncommittedScriptChangesSavedToNewPlace,Roblox IDE Doc,Your uncommitted script changes have been saved to the new place.,Your uncommitted script changes have been saved to the new place.
+Studio.App.IdeDoc.UncommittedScriptChangesPublishedToNewPlace,Roblox IDE Doc,Your uncommitted script changes have been published to the new place.,Your uncommitted script changes have been published to the new place.
+Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish failed.
+Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
+Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
+Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
+Studio.App.IdeDoc.SavedToLocalFile1,Message displayed when a user successfully saves a place to a file. %1 is the file path.,"Saved to ""%1""","Saved to ""%1"""
+Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.
+Studio.App.MainWindow.ClearTerrainTitle,Main Window,No terrain to clear,No terrain to clear
+Studio.App.MainWindow.UnableToLockFileForOpen,Main Window,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.
+Studio.App.MainWindow.UnableToCreateAutoSaveFile1,Main Window,"Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1"".","Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1""."
+Studio.App.MainWindow.DbarFatalBugNotice1,,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...
+Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
+Studio.App.Restart.RestartLater,restart studio later,Restart Later,Restart Later
+Studio.App.Restart.RestartNow,restart studio right now,Restart,Restart
+Studio.App.RBXMainWindow.EnableScripts,,Enable Scripts,Enable Scripts
+Studio.App.RBXMainWindow.EnableScriptsTooltip,,Enable all Script and LocalScript instances,Enable all Script and LocalScript instances
+Studio.App.RBXMainWindow.DisableScripts,,Disable Scripts,Disable Scripts
+Studio.App.RBXMainWindow.DisableScriptsTooltip,,Disable all Script and LocalScript instances,Disable all Script and LocalScript instances
+Studio.App.RBXMainWindow.CantSaveAndReloadLuaTitle,,Cannot Save And Reload,Cannot Save And Reload
+Studio.App.RBXMainWindow.CantSaveAndReloadLua,,The original plugin was a .lua file.  The plugin in its current form cannot be saved out as a single lua file.,The original plugin was a .lua file.  The plugin in its current form cannot be saved out as a single lua file.
+Studio.App.RBXMainWindow.CantSaveEmptyPluginTitle,,Cannot Save Empty Plugin,Cannot Save Empty Plugin
+Studio.App.RBXMainWindow.CantSaveEmptyPlugin,,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.
+Studio.App.Error.Publishing.Dependancies,,Error publishing asset dependancies,Error publishing asset dependancies
+Studio.App.RBXMainWindow.HideOrientationIndicator,,Hide Orientation Indicator,Hide Orientation Indicator
+Studio.App.RobloxRibbonMainWindow.CurrentServer,,Current: Server,Current: Server
+Studio.App.UpdateUIManager.PublishTcDocToDiffSlot,,Publish Team Create Document to a different slot,Publish Team Create Document to a different slot
+Studio.App.UpdateUIManager.SaveTcDocToDiffSlot,,Save Team Create Document to a different slot,Save Team Create Document to a different slot
+Studio.App.UpdateUIManager.Scheduler,Object used to schedule jobs,Scheduler,Scheduler
+Studio.App.UpdateUIManager.Cores,CPU Core Count,Cores,Cores
+Studio.App.CorruptedInstallationDialog.DefaultMessage,,Some Studio files are missing or corrupted. Please reinstall Studio by following the instructions at https://en.help.roblox.com/hc/en-us/articles/203312910?fromStudio=true,Some Studio files are missing or corrupted. Please reinstall Studio by following the instructions at https://en.help.roblox.com/hc/en-us/articles/203312910?fromStudio=true
+Studio.App.RobloxStudioVerbs.NotAllScriptsAreSaved,,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride
+Studio.App.RobloxStudioVerbs.UnableToBuildPluginProject,,Studio is unable to build and load this Plugin. Please contact #ride,Studio is unable to build and load this Plugin. Please contact #ride
+Studio.App.RobloxStudioVerbs.PackageLinkCut,,Cannot cut selection(s) with PackageLink included!,Cannot cut selection(s) with PackageLink included!
+Studio.App.RobloxStudioVerbs.PackageLinkCopy,,Cannot copy selection(s) with PackageLink included!,Cannot copy selection(s) with PackageLink included!
+Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!
+Studio.App.RobloxStudioVerbs.InsertOpenFile,,Open file to Insert,Open file to Insert
+Studio.App.RobloxStudioVerbs.InsertOpenModel,,Open Roblox Model,Open Roblox Model
+Studio.App.RobloxStudioVerbs.LoadCSVFile,,Open LocalizationTable CSV,Open LocalizationTable CSV
+Studio.App.RobloxStudioVerbs.LinkedSource,,"Unable to create LinkedSource, see output for details.","Unable to create LinkedSource, see output for details."
+Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
+Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
+Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
+Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
+Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
+Studio.App.RobloxStudioVerbs.IntersectFailed,,Intersect failed,Intersect failed
+Studio.App.RobloxStudioVerbs.ShouldUnscale,,"This nonuniformly scaled union contains parts which can't be exactly represented separately, before separating:
+Reset the scale to make re-unioning easier, or Apply the scale as closely as possible.","This nonuniformly scaled union contains parts which can't be exactly represented separately, before separating:
+Reset the scale to make re-unioning easier, or Apply the scale as closely as possible."
+Studio.App.RobloxStudioVerbs.ResetScale,Remove the 3d scale that an object had resetting it back to its original size.,Reset Scale,Reset Scale
+Studio.App.RobloxStudioVerbs.ApplyScale,Apply the 3d scale that on object had to all of its children instead.,Apply Scale,Apply Scale
+Studio.App.RobloxStudioVerbs.NegationFailed,,Negation failed,Negation failed
+Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
+Studio.App.RobloxStudioVerbs.SaveAsPlugin,,Save As Plugin,Save As Plugin
+Studio.App.RobloxStudioVerbs.SavingTo,,Saving to Roblox...,Saving to Roblox...
+Studio.App.RobloxStudioVerbs.StartingPlayers,,Starting players,Starting players
+Studio.App.RobloxStudioVerbs.ScreenshotSaved,,Screenshot saved! Click here to open screenshot folder.,Screenshot saved! Click here to open screenshot folder.
+Studio.App.RobloxViewStudio.SelectUILayer1,,"Select UI Layer ""%1""","Select UI Layer ""%1"""
+Studio.App.RobloxViewStudio.ExitUiLayer,,Exit UI Layer,Exit UI Layer
+Studio.App.RobloxViewStudio.SelectUiLayer,,Select UI Layer,Select UI Layer
+Studio.App.RobloxViewStudio.UseWorldSpace,,Use World Space,Use World Space
+Studio.App.RobloxViewStudio.UseLocalSpace,,Use Local Space,Use Local Space
+Studio.App.StudioSerializerHelper.ErrorSavingFile2,,Error saving file '%1' - %2,Error saving file '%1' - %2
+Studio.App.LocalSaveHelper.InvalidFilename,,Invalid filename for saving.,Invalid filename for saving.
+Studio.App.LocalSaveHelper.FailedToLock1,,"Failed to obtain a file lock on '%1'.
+
+Make sure this file is not opened by another Studio instance, or pick a different file name.","Failed to obtain a file lock on '%1'.
+
+Make sure this file is not opened by another Studio instance, or pick a different file name."
+Studio.App.LocalSaveHelper.FailedToWrite1,,"Failed to write to file '%1'.
+
+Make sure this file is not set to read-only.","Failed to write to file '%1'.
+
+Make sure this file is not set to read-only."
+Studio.App.LocalSaveHelper.DataModelError,,Failed to save the DataModel.,Failed to save the DataModel.
+Studio.App.LocalSaveHelper.TempFileError1,,"Failed to open temporary file while saving.
+
+Make sure the path '%1' is writeble and there is enough disk space.","Failed to open temporary file while saving.
+
+Make sure the path '%1' is writeble and there is enough disk space."
+Studio.App.LocalSaveHelper.FileSystemError1,,"Error in writing data to file '%1'.
+
+Make sure that you have sufficient permissions to the path and that there is no file system error.","Error in writing data to file '%1'.
+
+Make sure that you have sufficient permissions to the path and that there is no file system error."
+Studio.App.LocalSaveHelper.FailedToRename2,,"Failed to save to file '%1'.
+
+Existing data has not been overwritten. New data is temporarily saved in '%2'.","Failed to save to file '%1'.
+
+Existing data has not been overwritten. New data is temporarily saved in '%2'."
+Studio.App.IDEPermissionsResolutionLinkDefinition.ExperienceSuccessMessage1,Message that's output after user sucessfully grants their experience permission to use asset,Successfully granted the experience permission to use asset %1,Successfully granted the experience permission to use asset %1
+Studio.App.LocalPlacePublishRequestMediator.Saving,,saving,saving
+Studio.App.LocalPlacePublishRequestMediator.SentMessageToServerToPublish,,Sent message to server to publish.,Sent message to server to publish.
+Studio.App.LocalPlacePublishRequestMediator.Unarchiving1,,"""%1"" has been moved to your game list.”","""%1"" has been moved to your game list.”"
+Studio.App.LocalPlacePublishRequestMediator.ErrorWhileSaving1,,Error while publishing: %1,Error while publishing: %1
+Studio.App.LocalPlacePublishRequestMediator.PublishInProgress,,A Place Publish / Save is already in progress,A Place Publish / Save is already in progress
+Studio.App.LocalPlacePublishRequestMediator.FetchActivePlayersInTCFailureTitle,Title of the pop up dialog,Overwrite Place,Overwrite Place
+Studio.App.LocalPlacePublishRequestMediator.FetchActivePlayersInTCFailureText2,Display text for error message,"Unable to check active Team Create Session for place '%1'.
+Error Message: '%2'","Unable to check active Team Create Session for place '%1'.
+Error Message: '%2'"
+Studio.App.LocalPlacePublishRequestMediator.UnexpectedDataFormat,Display this message when fetched result has unexpected format,Unexpected data format.,Unexpected data format.
+Studio.App.LocalPlacePublishRequestMediator.UnableToSaveToExperience,Display when saving fails. %1 is replaced by the experience name.,Unable to save changes to %1,Unable to save changes to %1
+Studio.App.LocalPlacePublishRequestMediator.UnableToPublishToExperience,Display when publishing fails. %1 is replaced by the experience name.,Unable to publish changes to %1,Unable to publish changes to %1
+Studio.App.LocalPlacePublishRequestMediator.NoLongerHaveAccess17Plus,,You no longer have access to this experience because its age recommendation was updated to Ages 17+.,You no longer have access to this experience because its age recommendation was updated to Ages 17+.
+Studio.App.LocalPlacePublishRequestMediator.PublishConflictError,Displays when a user's place fails to upload.,Server is busy and unable to process your upload request. Please try again in a couple minutes.,Server is busy and unable to process your upload request. Please try again in a couple minutes.
+Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.FileSizeViolation,Roblox IDE Doc,The place is too large.,The place is too large.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NotFound,Roblox IDE Doc,Place upload server/endpoint not found.,Place upload server/endpoint not found.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Flooded,Roblox IDE Doc,"Too many upload requests, please wait before retrying.","Too many upload requests, please wait before retrying."
+Studio.App.IdeDoc.PlaceUploadErrorMessage.BadRequest,Roblox IDE Doc,Attempted to upload invalid content.,Attempted to upload invalid content.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Forbidden,Roblox IDE Doc,User does not have the correct permissions to manage this experience.,User does not have the correct permissions to manage this experience.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Unauthorized,Roblox IDE Doc,This operation requires an authenticated user.,This operation requires an authenticated user.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Conflict,Roblox IDE Doc,"Attempted to upload to a Team Create place, but Team Create is not enabled.","Attempted to upload to a Team Create place, but Team Create is not enabled."
+Studio.App.IdeDoc.PlaceUploadErrorMessage.PublishAllDescendants,Roblox IDE Doc,Place upload failed when attempting to publish descendant assets.,Place upload failed when attempting to publish descendant assets.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NoUsersInServer,Roblox IDE Doc,No valid user in the Team Create session.,No valid user in the Team Create session.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.MissingUserId,Roblox IDE Doc,Failed due to missing user id.,Failed due to missing user id.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Success,Roblox IDE Doc,Place uploaded successfully.,Place uploaded successfully.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Unknown,Roblox IDE Doc,Internal server error.,Internal server error.
+Studio.App.IdeDoc.SavedToRobloxSuccess1,"Message displayed when a user successfully saves a place to Roblox, %1 is save initiator name.",%1 successfully saved new changes to Roblox.,%1 successfully saved new changes to Roblox.
+Studio.App.IdeDoc.SavedToRobloxSuccess,Message displayed when a user successfully saves a place to Roblox.,Team Create user successfully saved new changes to Roblox.,Team Create user successfully saved new changes to Roblox.
+Studio.App.IdeDoc.PublishedToRobloxSuccess1,"Message displayed when a user successfully publishes a place to Roblox, %1 is publish initiator name.",%1 successfully published new changes to Roblox.,%1 successfully published new changes to Roblox.
+Studio.App.IdeDoc.PublishedToRobloxSuccess,Message displayed when a user successfully publishes a place to Roblox.,Team Create user successfully published new changes to Roblox.,Team Create user successfully published new changes to Roblox.
+Studio.App.IdeDoc.AutoSaveFailure1,Message displayed when auto-save for a place fails.,Auto-Save Error: %1,Auto-Save Error: %1
+Studio.App.IdeDoc.AutoSavePublishFailure1,Message displayed when auto-save publish for a place fails.,Auto-Save Publish Error: %1,Auto-Save Publish Error: %1

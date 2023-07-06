@@ -1,0 +1,316 @@
+Key,Context,Source,en-us
+Studio.App.Watch.Watch,,Watch,Watch
+Studio.App.Breakpoints.Breakpoints,,Breakpoints,Breakpoints
+Studio.App.MainWindow.StudsSuffix,, studs, studs
+Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
+Studio.App.UIEditor.TextButton,ui editor menu,Text Button,Text Button
+Studio.App.UIEditor.TextLabel,ui editor menu,Text Label,Text Label
+Studio.App.RobloxRibbonMainWindow.ScrollingFrameTooltip,,"A container object used to layout other GUI objects, and allows for scrolling","A container object used to layout other GUI objects, and allows for scrolling"
+Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
+Studio.App.RobloxRibbonMainWindow.Layout,,Layouts,Layouts
+Studio.App.RobloxRibbonMainWindow.LayoutManager,,Layout Manager,Layout Manager
+Studio.App.RobloxRibbonMainWindow.SwitchLayouts,,Manage and Switch Layouts,Manage and Switch Layouts
+Studio.App.RBXMainWindow.ViewSelectorTooltip,,Show view selector,Show view selector
+Studio.App.RobloxRibbonMainWindow.GlobalWindControl,,Wind Direction,Wind Direction
+Studio.App.RobloxRibbonMainWindow.GlobalWindControlTooltip,,Show Wind Direction,Show Wind Direction
+Studio.App.RBXMainWindow.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
+Studio.App.RBXMainWindow.UIVisibility,,UI Visibility,UI Visibility
+Studio.App.RBXMainWindow.DraggerModeLabel,,Mode:,Mode:
+Studio.App.RBXMainWindow.DraggerModeGeometric,,Geometric,Geometric
+Studio.App.RBXMainWindow.EnabledFullScreenMode,,Enabled Full Screen mode,Enabled Full Screen mode
+Studio.App.RBXMainWindow.ViewCommandBar,,View Command Bar,View Command Bar
+Studio.App.RBXMainWindow.GroupShort,"Group together a set of Instances under a Model, shorter text to be used in the ribbon bar to save space",Group,Group
+Studio.App.RBXMainWindow.Sandbox,,Drafts,Drafts
+Studio.App.RBXMainWindow.ViewSandbox,,View Drafts,View Drafts
+Studio.App.RobloxRibbonMainWindow.0Player,,0 Player,0 Player
+Studio.App.RobloxRibbonMainWindow.16Studs,,16 Studs,16 Studs
+Studio.App.RobloxRibbonMainWindow.1Player,,1 Player,1 Player
+Studio.App.RobloxRibbonMainWindow.2Players,,2 Players,2 Players
+Studio.App.RobloxRibbonMainWindow.2Studs,,2 Studs,2 Studs
+Studio.App.RobloxRibbonMainWindow.3Players,,3 Players,3 Players
+Studio.App.RobloxRibbonMainWindow.4Players,,4 Players,4 Players
+Studio.App.RobloxRibbonMainWindow.4Studs,,4 Studs,4 Studs
+Studio.App.RobloxRibbonMainWindow.5Players,,5 Players,5 Players
+Studio.App.RobloxRibbonMainWindow.6Players,,6 Players,6 Players
+Studio.App.RobloxRibbonMainWindow.7Players,,7 Players,7 Players
+Studio.App.RobloxRibbonMainWindow.8Players,,8 Players,8 Players
+Studio.App.RobloxRibbonMainWindow.ContainerLayoutTooltip,,A container object used to layout other GUI objects,A container object used to layout other GUI objects
+Studio.App.RobloxRibbonMainWindow.AGUIButtonContainingAnImage,,A GUI button containing an Image,A GUI button containing an Image
+Studio.App.RobloxRibbonMainWindow.AGUIButtonContainingText,,A GUI button containing text,A GUI button containing text
+Studio.App.RobloxRibbonMainWindow.AGUIObjectContainingText,,A GUI object containing text,A GUI object containing text
+Studio.App.RobloxRibbonMainWindow.ATextEntryBox,,A text entry box,A text entry box
+Studio.App.RobloxRibbonMainWindow.ActionsAsTools,,Actions as Tools,Actions as Tools
+Studio.App.RobloxRibbonMainWindow.Advanced,,Advanced,Advanced
+Studio.App.RobloxRibbonMainWindow.AlignOrientation,,Align Orientation,Align Orientation
+Studio.App.RobloxRibbonMainWindow.AlignPosition,,Align Position,Align Position
+Studio.App.RobloxRibbonMainWindow.Anchor,,Anchor ,Anchor 
+Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,Anchor/Unanchor the selected parts,Anchor/Unanchor the selected parts
+Studio.App.RobloxRibbonMainWindow.Attachment,,Attachment,Attachment
+Studio.App.RobloxRibbonMainWindow.Audio,,Audio,Audio
+Studio.App.RobloxRibbonMainWindow.BallInSocket,,Ball in Socket,Ball in Socket
+Studio.App.RobloxRibbonMainWindow.RigidConstraint,,Rigid Constraint,Rigid Constraint
+Studio.App.RobloxRibbonMainWindow.Block,,Block,Block
+Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,Click here to add a spawn point into your game,Click here to add a spawn point into your game
+Studio.App.RobloxRibbonMainWindow.OpenSaveManageDoc,,"Click here to open, save or publish, and to see everything else you can do with the document","Click here to open, save or publish, and to see everything else you can do with the document"
+Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,Click on parts to lock/unlock,Click on parts to lock/unlock
+Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,Clients and Servers,Clients and Servers
+Studio.App.RobloxRibbonMainWindow.Clipboard,,Clipboard,Clipboard
+Studio.App.RobloxRibbonMainWindow.CollisionGroups,,Collision Groups,Collision Groups
+Studio.App.RobloxRibbonMainWindow.Collisions,,Collisions,Collisions
+Studio.App.RobloxRibbonMainWindow.ColorActionAsTool,,Color Action as Tool,Color Action as Tool
+Studio.App.RobloxRibbonMainWindow.ConstraintDetails,,Constraint Details,Constraint Details
+Studio.App.RobloxRibbonMainWindow.ConstraintGizmoScale,,Constraint widget scale (Alt+Scroll Wheel),Constraint widget scale (Alt+Scroll Wheel)
+Studio.App.RobloxRibbonMainWindow.Constraints,,Constraints,Constraints
+Studio.App.RobloxRibbonMainWindow.CopySelectedText,,Copy selected text,Copy selected text
+Studio.App.RobloxRibbonMainWindow.CreateAlignOrientation,,Create align orientation,Create align orientation
+Studio.App.RobloxRibbonMainWindow.CreateAlignPosition,,Create align position,Create align position
+Studio.App.RobloxRibbonMainWindow.CreateBallInSocket,,Create ball in socket,Create ball in socket
+Studio.App.RobloxRibbonMainWindow.CreateRigidConstraint,,Create rigid constraint,Create rigid constraint
+Studio.App.RobloxRibbonMainWindow.CreateBeamToolTip,,Create beam,Create beam
+Studio.App.RobloxRibbonMainWindow.CreateCylindricalConstraint,,Create cylindrical constraint,Create cylindrical constraint
+Studio.App.RobloxRibbonMainWindow.CreateExplosionToolTip,,Create explosion,Create explosion
+Studio.App.RobloxRibbonMainWindow.CreateFireToolTip,,Create fire,Create fire
+Studio.App.RobloxRibbonMainWindow.CreateUniversalConstraint,,Create universal constraint,Create universal constraint
+Studio.App.RobloxRibbonMainWindow.CreateHinge,,Create hinge,Create hinge
+Studio.App.RobloxRibbonMainWindow.CreateLineForce,,Create line force,Create line force
+Studio.App.RobloxRibbonMainWindow.CreateParticleEmitterToolTip,,Create particle emitter,Create particle emitter
+Studio.App.RobloxRibbonMainWindow.CreatePointLightToolTip,,Create point light,Create point light
+Studio.App.RobloxRibbonMainWindow.CreatePrismaticConstraint,,Create prismatic constraint,Create prismatic constraint
+Studio.App.RobloxRibbonMainWindow.CreateRodConstraint,,Create rod constraint,Create rod constraint
+Studio.App.RobloxRibbonMainWindow.CreateRopeConstraint,,Create rope constraint,Create rope constraint
+Studio.App.RobloxRibbonMainWindow.CreateSmokeToolTip,,Create smoke,Create smoke
+Studio.App.RobloxRibbonMainWindow.CreateSparklesToolTip,,Create sparkles,Create sparkles
+Studio.App.RobloxRibbonMainWindow.CreateSpotLightToolTip,,Create spot light,Create spot light
+Studio.App.RobloxRibbonMainWindow.CreateSpringConstraint,,Create spring constraint,Create spring constraint
+Studio.App.RobloxRibbonMainWindow.CreateSurfaceLightToolTip,,Create surface light,Create surface light
+Studio.App.RobloxRibbonMainWindow.CreateTorsionSpringConstraint,,Create torsion spring constraint,Create torsion spring constraint
+Studio.App.RobloxRibbonMainWindow.CreateTorque,,Create torque,Create torque
+Studio.App.RobloxRibbonMainWindow.CreateTrailToolTip,,Create trail,Create trail
+Studio.App.RobloxRibbonMainWindow.CreateVectorForce,,Create vector force,Create vector force
+Studio.App.RobloxRibbonMainWindow.CreatePlaneConstraint,,Create plane constraint,Create plane constraint
+Studio.App.RobloxRibbonMainWindow.CreateWeldConstraint,,Create weld constraint,Create weld constraint
+Studio.App.RobloxRibbonMainWindow.CreateLinearVelocityConstraint,,Create linear velocity constraint,Create linear velocity constraint
+Studio.App.RobloxRibbonMainWindow.LinearVelocity,,Linear Velocity,Linear Velocity
+Studio.App.RobloxRibbonMainWindow.CustomizeQuickAccessBar,,Customize Quick Access Bar,Customize Quick Access Bar
+Studio.App.RobloxRibbonMainWindow.CutSelectedText,,Cut selected text,Cut selected text
+Studio.App.RobloxRibbonMainWindow.Cylindrical,,Cylindrical,Cylindrical
+Studio.App.RobloxRibbonMainWindow.DebugErrors,,Debug Errors,Debug Errors
+Studio.App.RobloxRibbonMainWindow.DiffMenu,,Diff Menu,Diff Menu
+Studio.App.RobloxRibbonMainWindow.GridOnYPlane,,Display a 3D grid on the y=0 plane,Display a 3D grid on the y=0 plane
+Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts,,Display grid material on Parts,Display grid material on Parts
+Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering,,Enable Wireframe Rendering,Enable Wireframe Rendering
+Studio.App.RobloxRibbonMainWindow.EnableUIVisibility,,Toggles visibility of UI in the 3D View,Toggles visibility of UI in the 3D View
+Studio.App.RobloxRibbonMainWindow.SelectionRendering,,Selection Style,Selection Style
+Studio.App.RobloxRibbonMainWindow.SelectionRenderingTooltip,,Sets render style of user selections,Sets render style of user selections
+Studio.App.RobloxRibbonMainWindow.Outlines,,Outlines,Outlines
+Studio.App.RobloxRibbonMainWindow.OutlinesTooltip,,Sets selection rendering mode to outlines,Sets selection rendering mode to outlines
+Studio.App.RobloxRibbonMainWindow.BoundingBoxes,,Bounding Boxes,Bounding Boxes
+Studio.App.RobloxRibbonMainWindow.DEPRECATEDBoundingBoxesTooltip,,Toggles visibility of bounding boxes for the selection,Toggles visibility of bounding boxes for the selection
+Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip,,Sets selection rendering mode to bounding boxes,Sets selection rendering mode to bounding boxes
+Studio.App.RobloxRibbonMainWindow.ViewBoth,,Both,Both
+Studio.App.RobloxRibbonMainWindow.ViewBothTooltip,,Sets selection rendering mode to outlines and bounding boxes,Sets selection rendering mode to outlines and bounding boxes
+Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints, attachments and welds on top","Draw constraints, attachments and welds on top"
+Studio.App.RobloxRibbonMainWindow.DrawOnTop,,Draw On Top,Draw On Top
+Studio.App.RobloxRibbonMainWindow.EditCollisionGroups,,Edit collision groups,Edit collision groups
+Studio.App.RobloxRibbonMainWindow.Effects,,Effects,Effects
+Studio.App.RobloxRibbonMainWindow.Emulation,,Emulation,Emulation
+Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,Device,Device
+Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,Player,Player
+Studio.App.RobloxRibbonMainWindow.ExecuteLuaCodeFromAFile,,Execute Lua code from a file,Execute Lua code from a file
+Studio.App.RobloxRibbonMainWindow.ExitGame,,Exit Game,Exit Game
+Studio.App.RobloxRibbonMainWindow.ExitTeamTest,,Exit Team Test,Exit Team Test
+Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps,,Find text and replace with...,Find text and replace with...
+Studio.App.RobloxRibbonMainWindow.FindTextElps,,Find text...,Find text...
+Studio.App.RobloxRibbonMainWindow.Frame,,Frame,Frame
+Studio.App.RobloxRibbonMainWindow.FusePartsTogether,,Fuse parts together to make a single part,Fuse parts together to make a single part
+Studio.App.RobloxRibbonMainWindow.IntersectParts,,Replace parts with only the area where they overlap,Replace parts with only the area where they overlap
+Studio.App.RobloxRibbonMainWindow.Fwd,,Fwd,Fwd
+Studio.App.RobloxRibbonMainWindow.Gameplay,,Gameplay,Gameplay
+Studio.App.RobloxRibbonMainWindow.GoToNextChange,,Go to next change,Go to next change
+Studio.App.RobloxRibbonMainWindow.GoToPreviousChange,,Go to previous change,Go to previous change
+Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel,,Group the selected parts into a new Model,Group the selected parts into a new Model
+Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder,,Group the selected Instances into a new Folder,Group the selected Instances into a new Folder
+Studio.App.RobloxRibbonMainWindow.Hinge,,Hinge,Hinge
+Studio.App.RobloxRibbonMainWindow.ImageButton,,Image Button,Image Button
+Studio.App.RobloxRibbonMainWindow.ImageLabel,,Image Label,Image Label
+Studio.App.RobloxRibbonMainWindow.InsertALocalScript,,Insert a local script,Insert a local script
+Studio.App.RobloxRibbonMainWindow.InsertAModelFromLocalFiles,,Insert a model from local files,Insert a model from local files
+Studio.App.RobloxRibbonMainWindow.InsertAModuleScript,,Insert a module script,Insert a module script
+Studio.App.RobloxRibbonMainWindow.InsertAScript,,Insert a script,Insert a script
+Studio.App.RobloxRibbonMainWindow.InsertAttachment,,Insert attachment,Insert attachment
+Studio.App.RobloxRibbonMainWindow.InsertBlockPart,,Insert block part,Insert block part
+Studio.App.RobloxRibbonMainWindow.InsertCylinderPart,,Insert cylinder part,Insert cylinder part
+Studio.App.RobloxRibbonMainWindow.InsertCornerWedge,,Insert CornerWedgePart,Insert CornerWedgePart
+Studio.App.RobloxRibbonMainWindow.InsertItemsFromTheToolbox,,Insert items from the toolbox,Insert items from the toolbox
+Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,View list of insertable objects,View list of insertable objects
+Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection,,Insert service from a service selection,Insert service from a service selection
+Studio.App.RobloxRibbonMainWindow.InsertSpherePart,,Insert sphere part,Insert sphere part
+Studio.App.RobloxRibbonMainWindow.InsertWedgePart,,Insert wedge part,Insert wedge part
+Studio.App.RobloxRibbonMainWindow.JumpToNextScriptLocation,,Jump to next script location,Jump to next script location
+Studio.App.RobloxRibbonMainWindow.JumpToPreviousScriptLocation,,Jump to previous script location,Jump to previous script location
+Studio.App.RobloxRibbonMainWindow.LineForce,,Line Force,Line Force
+Studio.App.RobloxRibbonMainWindow.LocalServer,,Local Server,Local Server
+Studio.App.RobloxRibbonMainWindow.LockTool,,Lock Tool,Lock Tool
+Studio.App.RobloxRibbonMainWindow.ManageCloudPlugins,,Manage installed plugins,Manage installed plugins
+Studio.App.RobloxRibbonMainWindow.MaterialManager,,Material Manager,Material Manager
+Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip,,"Manage, select, and apply materials","Manage, select, and apply materials"
+Studio.App.RobloxRibbonMainWindow.MaterialGenerator,,Material Generator,Material Generator
+Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip,,Create AI generated materials through a text prompt,Create AI generated materials through a text prompt
+Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor,,Accessory Fitting Tool,Accessory Fitting Tool
+Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip,,Edit and Preview Cage Mesh for Clothing and Accessories.,Edit and Preview Cage Mesh for Clothing and Accessories.
+Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Accessory
+Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip,,Select one or multiple Models to convert into Accessories,Select one or multiple Models to convert into Accessories
+Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories,,Bulk Create Accessories,Bulk Create Accessories
+Studio.App.RobloxRibbonMainWindow.BulkCreateAccessoriesTooltip,,Bulk Create Accessories from Imported Model,Bulk Create Accessories from Imported Model
+Studio.App.RobloxRibbonMainWindow.AvatarImporter,,Avatar Importer,Avatar Importer
+Studio.App.RobloxRibbonMainWindow.AvatarImporterTooltip,,Import an Avatar with a .fbx file,Import an Avatar with a .fbx file
+Studio.App.RobloxRibbonMainWindow.Import3D,,Import 3D,Import 3D
+Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
+Studio.App.RobloxRibbonMainWindow.RigBuilder,,Rig Builder,Rig Builder
+Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip,,Insert rigs to animate,Insert rigs to animate
+Studio.App.RobloxRibbonMainWindow.AnimationEditor,,Animation Editor,Animation Editor
+Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish Animation clips","Create, preview, and publish Animation clips"
+Studio.App.RobloxRibbonMainWindow.R15Migrator,,R15 Migrator,R15 Migrator
+Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip,,Tools to migrate avatars and scripts to R15,Tools to migrate avatars and scripts to R15
+Studio.App.RobloxRibbonMainWindow.RobloxClassic,,Roblox Classic,Roblox Classic
+Studio.App.RobloxRibbonMainWindow.RobloxClassicTooltip,,Tools to create Roblox Classic experiences,Tools to create Roblox Classic experiences
+Studio.App.RobloxRibbonMainWindow.Model,,Model,Model
+Studio.App.RobloxRibbonMainWindow.Move,,Move,Move
+Studio.App.RobloxRibbonMainWindow.MoveAnObject,,Move an Object,Move an Object
+Studio.App.RobloxRibbonMainWindow.Mute,,Mute,Mute
+Studio.App.RobloxRibbonMainWindow.Navigate,,Navigate,Navigate
+Studio.App.RobloxRibbonMainWindow.NegatePartsForMakingHoles,,Negate parts for making holes,Negate parts for making holes
+Studio.App.RobloxRibbonMainWindow.Network,,Network,Network
+Studio.App.RobloxRibbonMainWindow.None,,None,None
+Studio.App.RobloxRibbonMainWindow.OpenTheLocalPluginsFolder,,Open the local plugins folder,Open the local plugins folder
+Studio.App.RobloxRibbonMainWindow.Part,,Part,Part
+Studio.App.RobloxRibbonMainWindow.PlacePartWorkspace,,Place a part into the workspace,Place a part into the workspace
+Studio.App.RobloxRibbonMainWindow.Parts,,Parts,Parts
+Studio.App.RobloxRibbonMainWindow.PasteItemInClipboard,,Paste item in clipboard,Paste item in clipboard
+Studio.App.RobloxRibbonMainWindow.Physics,,Physics,Physics
+Studio.App.RobloxRibbonMainWindow.PlacePart,,Place part,Place part
+Studio.App.RobloxRibbonMainWindow.PlayTheGameInsideTheWindow,,Play the game inside the window,Play the game inside the window
+Studio.App.RobloxRibbonMainWindow.PluginsFolder,,Plugins Folder,Plugins Folder
+Studio.App.RobloxRibbonMainWindow.Plugins,,Plugins,Plugins
+Studio.App.RobloxRibbonMainWindow.Avatar,,Avatar,Avatar
+Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject,,Precisely manipulate an object,Precisely manipulate an object
+Studio.App.RobloxRibbonMainWindow.Prismatic,,Prismatic,Prismatic
+Studio.App.RobloxRibbonMainWindow.PushScriptTCServer,,Push the current edits to a script to the Team Create server,Push the current edits to a script to the Team Create server
+Studio.App.RobloxRibbonMainWindow.RecentGames,,Recent Games,Recent Games
+Studio.App.RobloxRibbonMainWindow.RecordAVideo,,Record a video,Record a video
+Studio.App.RobloxRibbonMainWindow.Render,,Render,Render
+Studio.App.RobloxRibbonMainWindow.ResizeAnObject,,Resize an Object,Resize an Object
+Studio.App.RobloxRibbonMainWindow.ResizeGridToFourStuds,,Resize grid to four studs,Resize grid to four studs
+Studio.App.RobloxRibbonMainWindow.ResizeGridToSixteenStuds,,Resize grid to sixteen studs,Resize grid to sixteen studs
+Studio.App.RobloxRibbonMainWindow.ResizeGridToTwoStuds,,Resize grid to two studs,Resize grid to two studs
+Studio.App.RobloxRibbonMainWindow.Rod,,Rod,Rod
+Studio.App.RobloxRibbonMainWindow.Rope,,Rope,Rope
+Studio.App.RobloxRibbonMainWindow.RotateAnObject,,Rotate an Object,Rotate an Object
+Studio.App.RobloxRibbonMainWindow.RunScript,,Run Script,Run Script
+Studio.App.RobloxRibbonMainWindow.Scale,,Scale,Scale
+Studio.App.RobloxRibbonMainWindow.ScreenGUI,,ScreenGUI,ScreenGUI
+Studio.App.RobloxRibbonMainWindow.ScreenShot,,Screen Shot,Screen Shot
+Studio.App.RobloxRibbonMainWindow.Script,,Script,Script
+Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts,,See the output feed of your scripts,See the output feed of your scripts
+Studio.App.RobloxRibbonMainWindow.SelectAndClickForEffects,,Select a part and then click here to add effects,Select a part and then click here to add effects
+Studio.App.RobloxRibbonMainWindow.SelectAnObject,,Select an Object,Select an Object
+Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts,,Select color and apply to parts,Select color and apply to parts
+Studio.App.RobloxRibbonMainWindow.SelectTextElps,,Select text...,Select text...
+Studio.App.RobloxRibbonMainWindow.Service,,Service,Service
+Studio.App.RobloxRibbonMainWindow.Show,,Show,Show
+Studio.App.RobloxRibbonMainWindow.Actions,,Actions,Actions
+Studio.App.RobloxRibbonMainWindow.ShowConstraintDetails,,Show constraint details,Show constraint details
+Studio.App.RobloxRibbonMainWindow.ShowGrid,,Show Grid,Show Grid
+Studio.App.RobloxRibbonMainWindow.ShowTabNamesRibbon,,Show only the tab names on the Ribbon,Show only the tab names on the Ribbon
+Studio.App.RobloxRibbonMainWindow.ShowTabNamesRibbonTitle,,Toggle ribbon visiblity,Toggle ribbon visiblity
+Studio.App.RobloxRibbonMainWindow.ShowWelds,,Show Welds,Show Welds
+Studio.App.RobloxRibbonMainWindow.Simulation,,Simulation,Simulation
+Studio.App.RobloxRibbonMainWindow.SnapToGrid,,Snap to Grid,Snap to Grid
+Studio.App.RobloxRibbonMainWindow.SolidModeling,,Solid Modeling,Solid Modeling
+Studio.App.RobloxRibbonMainWindow.Spawn,,Spawn,Spawn
+Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display
+Studio.App.RobloxRibbonMainWindow.Spring,,Spring,Spring
+Studio.App.RobloxRibbonMainWindow.TorsionSpring,,Torsion Spring,Torsion Spring
+Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers,,Start server and players,Start server and players
+Studio.App.RobloxRibbonMainWindow.Summary,,Summary,Summary
+Studio.App.RobloxRibbonMainWindow.SwitchDifferentWindow,,Switch to a different Studio window,Switch to a different Studio window
+Studio.App.RobloxRibbonMainWindow.SwitchWindows,,Switch Windows,Switch Windows
+Studio.App.RobloxRibbonMainWindow.TagEditor,,Tag Editor,Tag Editor
+Studio.App.RobloxRibbonMainWindow.TagEditorTooltip,,Create and manage groupings of instances.,Create and manage groupings of instances.
+Studio.App.RobloxRibbonMainWindow.TakeAScreenshot,,Take a screenshot,Take a screenshot
+Studio.App.RobloxRibbonMainWindow.Terrain,,Terrain,Terrain
+Studio.App.RobloxRibbonMainWindow.Test,,Test,Test
+Studio.App.RobloxRibbonMainWindow.TextBox,,Text Box,Text Box
+Studio.App.RobloxRibbonMainWindow.CoreGuiObject,,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay
+Studio.App.RobloxRibbonMainWindow.AngularVelocity,,Angular Velocity,Angular Velocity
+Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip,,Create angular velocity constraint,Create angular velocity constraint
+Studio.App.RobloxRibbonMainWindow.NoCollisionConstraint,,No Collision,No Collision
+Studio.App.RobloxRibbonMainWindow.NoCollisionConstraintTooltip,,Create a no collision constraint,Create a no collision constraint
+Studio.App.RobloxRibbonMainWindow.TheSnapGrid,,The grid move and resize tools will snap to,The grid move and resize tools will snap to
+Studio.App.RobloxRibbonMainWindow.TheRotateGrid,,The grid that rotate tools will snap to,The grid that rotate tools will snap to
+Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds,,Toggle Game Audio Sounds,Toggle Game Audio Sounds
+Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool,,Toggle material action as tool,Toggle material action as tool
+Studio.App.RobloxRibbonMainWindow.TogglesGridSnap,,Toggle move and resize tools snapping to grid,Toggle move and resize tools snapping to grid
+Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap,,Toggle rotate tools snapping to grid,Toggle rotate tools snapping to grid
+Studio.App.RobloxRibbonMainWindow.Tools,,Tools,Tools
+Studio.App.RobloxRibbonMainWindow.Torque,,Torque,Torque
+Studio.App.RobloxRibbonMainWindow.Transform,,Transform,Transform
+Studio.App.RobloxRibbonMainWindow.UngroupModel,,Ungroup the model into the original parts,Ungroup the model into the original parts
+Studio.App.RobloxRibbonMainWindow.Universal,,Universal,Universal
+Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,Update settings related to current game,Update settings related to current game
+Studio.App.RobloxRibbonMainWindow.VectorForce,,Vector Force,Vector Force
+Studio.App.RobloxRibbonMainWindow.Plane,,Plane,Plane
+Studio.App.RobloxRibbonMainWindow.View,,View,View
+Studio.App.RobloxRibbonMainWindow.ViewObjectsInWorkspace,,View a list of objects in the workspace,View a list of objects in the workspace
+Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack,,View current call stack,View current call stack
+Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,View currently watched variables,View currently watched variables
+Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,View diagnostic information of your game,View diagnostic information of your game
+Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints,,View existing breakpoints,View existing breakpoints
+Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects,,View Lua API objects that can be accessed through scripting,View Lua API objects that can be accessed through scripting
+Studio.App.RobloxRibbonMainWindow.ViewPropertiesOfObjects,,View properties of objects,View properties of objects
+Studio.App.RobloxRibbonMainWindow.ViewRecoveredScripts,,View Recovered Scripts,View Recovered Scripts
+Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis,,View Script Analysis,View Script Analysis
+Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet,,View Code Snippet,View Code Snippet
+Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat,,View script performance information,View script performance information
+Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation,,View task execution information,View task execution information
+Studio.App.RobloxRibbonMainWindow.WatchTheHighlightedVariables,,Watch the highlighted variable's value,Watch the highlighted variable's value
+Studio.App.RobloxRibbonMainWindow.Wedge,,Wedge,Wedge
+Studio.App.RobloxRibbonMainWindow.Weld,,Weld,Weld
+Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment,,Place a constraint or an attachment,Place a constraint or an attachment
+Studio.App.RobloxRibbonMainWindow.JoinSurfaces,,Join Surfaces,Join Surfaces
+Studio.App.RobloxRibbonMainWindow.PivotGroup,,Pivot,Pivot
+Studio.App.RobloxRibbonMainWindow.EditPivot,,Edit Pivot,Edit Pivot
+Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates
+Studio.App.RobloxRibbonMainWindow.ClearPivot,Button to reset the pivot of the selected objects,Reset,Reset
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,Reset the pivots of the selected objects,Reset the pivots of the selected objects
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnap,Whether the pivot tool snaps the pivot to the corners of objects,Snap,Snap
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnapTooltip,,"Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?","Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?"
+Studio.App.RobloxRibbonMainWindow.AlignToolGroup,,Alignment,Alignment
+Studio.App.RobloxRibbonMainWindow.AlignTool,,Align Tool,Align Tool
+Studio.App.RobloxRibbonMainWindow.AlignToolTooltip,,Align the selected parts and models,Align the selected parts and models
+Studio.App.RobloxQuickAccessConfig.AdvancedCustomization,,Advanced Customization,Advanced Customization
+Studio.App.RobloxQuickAccessConfig.SomeAlreadyAvailable,,One or more of the selected actions are already available in the Quick Access Bar and could not be re-added.,One or more of the selected actions are already available in the Quick Access Bar and could not be re-added.
+Studio.App.RobloxQuickAccessConfig.ChangesToSettings,,"You have made changes to your settings.
+Do you want to keep your changes?","You have made changes to your settings.
+Do you want to keep your changes?"
+Studio.App.RobloxQuickAccessConfig.AllActions,,All Actions,All Actions
+Studio.App.RobloxQuickAccessConfig.QuickAccessBarActions,,Quick Access Bar Actions,Quick Access Bar Actions
+Studio.App.RobloxQuickAccessConfig.Add,,Add >>,Add >>
+Studio.App.RobloxQuickAccessConfig.SearchActions,,Search Actions,Search Actions
+Studio.App.RobloxQuickAccessConfig.CustomizeQuickAccessToolbar,,Customize Quick Access Toolbar,Customize Quick Access Toolbar
+Studio.App.Shapes.Sphere,,Sphere,Sphere
+Studio.App.Shapes.Cylinder,,Cylinder,Cylinder
+Studio.App.Shapes.CornerWedge,,Corner Wedge,Corner Wedge
+Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,Roblox Internal - Beta,Roblox Internal - Beta
+Studio.App.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
+Studio.Common.Action.Back,,Back,Back
+Studio.Common.Action.Clear,,Clear,Clear
+Studio.Common.Action.Accessory,,Accessory,Accessory
+Studio.Common.Action.Rig,,Rig,Rig
+Studio.Common.Action.Animation,,Animation,Animation
+Studio.Common.Action.AvatarUnification,,Avatar Unification,Avatar Unification
+Studio.Common.Action.File,,File,File
+Studio.Common.Action.Home,,Home,Home
+Studio.Common.Action.Next,,Next,Next
+Studio.Common.Action.Previous,,Previous,Previous
+Studio.Common.Action.Select,,Select,Select

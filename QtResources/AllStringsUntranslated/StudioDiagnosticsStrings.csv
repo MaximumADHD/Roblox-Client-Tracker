@@ -1,0 +1,5 @@
+Key,Context,Source,en-us
+Studio.App.Diagnostics.LowOnMemory,This is shown as title text for a dialog that is displayed to the user when Studio is running low on memory.,Studio is low on memory.,Studio is low on memory.
+Studio.App.Diagnostics.LowOnMemoryAction,This is shown as a description for a dialog that is displayed to the user when Studio is running low on memory to tell them to close Studio and try again.,Please restart Studio and try again.,Please restart Studio and try again.
+Studio.App.Diagnostics.Restart,This is text for a button that is shown to the user to let them restart Studio,Restart,Restart
+Studio.App.Diagnostics.Cancel,This is text for a button that is shown to the user to let them cancel and not restart Studio,Cancel,Cancel

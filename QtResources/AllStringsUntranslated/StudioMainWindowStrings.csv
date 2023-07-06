@@ -1,0 +1,339 @@
+Key,Context,Source,en-us
+Studio.App.MainWindow.AboutToLogOutNewLine,Main Window,"Roblox Studio is about to log out.
+
+","Roblox Studio is about to log out.
+
+"
+Studio.App.MainWindow.FailedConnectRemoteServers,Main Window,"Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode.","Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode."
+Studio.App.MainWindow.FailedToAutoSave,Main Window,Failed to AutoSave,Failed to AutoSave
+Studio.App.MainWindow.FailedToAutoSaveTemporarilyDisable,Main Window,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
+Studio.App.MainWindow.FailedToLoadSettings,Main Window,Failed to load settings,Failed to load settings
+Studio.App.MainWindow.FailedToOpenObjectBrowser,Main Window,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
+Studio.App.MainWindow.FileSetToReadOnlyNewLine1,Main Window,"%1
+This file is set to read-only.
+Try again with a different name","%1
+This file is set to read-only.
+Try again with a different name"
+Studio.App.MainWindow.LogInToCreateNewFiles,Main Window,You must log in to create new files.,You must log in to create new files.
+Studio.App.MainWindow.LogInToOpenFiles,Main Window,You must log in to open files.,You must log in to open files.
+Studio.App.MainWindow.NoLocalFFlagsLoaded,Main Window,No local Fast Flags were loaded. ClientAppSettings.json may be incorrectly formatted or corrupted.,No local Fast Flags were loaded. ClientAppSettings.json may be incorrectly formatted or corrupted.
+Studio.App.MainWindow.NoLongerLoggedInNewLine,Main Window,"Roblox Studio is no longer logged in.
+
+","Roblox Studio is no longer logged in.
+
+"
+Studio.App.MainWindow.NoTextFromOutputWidget,Main Window,Could not get text from Output widget,Could not get text from Output widget
+Studio.App.MainWindow.OpenExistingLocalFile,Main Window,Open an existing local file,Open an existing local file
+Studio.App.MainWindow.OpenFromFilePrompt,Main Window,Open from File...,Open from File...
+Studio.App.MainWindow.OpenFromRobloxPrompt,Main Window,Open from Roblox...,Open from Roblox...
+Studio.App.MainWindow.OpenRecentGameRoblox,Main Window,Open a recent Game from Roblox,Open a recent Game from Roblox
+Studio.App.MainWindow.OpenRobloxFile,Main Window,Open Roblox File,Open Roblox File
+Studio.App.MainWindow.RobloxInternalChannelError,Main Window,ROBLOX INTERNAL: Please check if you or an existing user in this Team Create session are in a channel. All users in a Team Create session must be on the same RCC channel.,ROBLOX INTERNAL: Please check if you or an existing user in this Team Create session are in a channel. All users in a Team Create session must be on the same RCC channel.
+Studio.App.MainWindow.SaveActiveLocalFile,Main Window,Save the active local file,Save the active local file
+Studio.App.MainWindow.SaveActiveLocalFileNewName,Main Window,Save the active local file with a new name,Save the active local file with a new name
+Studio.App.MainWindow.SaveChangesTo1,Main Window,Save changes to %1?,Save changes to %1?
+Studio.App.MainWindow.SaveToFile,Main Window,Save to File,Save to File
+Studio.App.MainWindow.SaveToFileAsPrompt,Main Window,Save to File As...,Save to File As...
+Studio.App.MainWindow.ClosePlace,Main Window,Close Place,Close Place
+Studio.App.MainWindow.ClosePlaceStatusTip,Main Window,Close the open place,Close the open place
+Studio.App.MainWindow.CloseTab,Main Window,Close Tab,Close Tab
+Studio.App.MainWindow.CloseTabStatusTip,Main Window,Close the active tab,Close the active tab
+Studio.App.MainWindow.UnableToOpenDeletedFile1,Main Window,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists."
+Studio.App.MainWindow.WeCouldNotJoinTeamCreatePlaceId2,Main Window,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2
+Studio.App.MainWindow.WeCouldNotOpenPlaceName2,Main Window,"We could not open the place ""%1"". %2","We could not open the place ""%1"". %2"
+Studio.App.MainWindow.WeCouldNotOpenPlaceId2,Main Window,We could not open the place [%1]. %2,We could not open the place [%1]. %2
+Studio.App.MainWindow.UploadingPlaceQuitCommitAuto,Main Window,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
+Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
+Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
+Studio.App.TeamCreate.ShutdownWarning,,<b>Are you sure you want to quit Roblox Studio?</b>,<b>Are you sure you want to quit Roblox Studio?</b>
+Studio.App.TeamCreate.SyncProgressTitle,,<b>Data Sync Progress</b>,<b>Data Sync Progress</b>
+Studio.App.TeamCreate.SyncTerrainProgressTitle,,<b>Terrain Sync Progress</b>,<b>Terrain Sync Progress</b>
+Studio.App.TeamCreate.SyncProgress,,Replication Queue %1 of %2,Replication Queue %1 of %2
+Studio.App.TeamCreate.SyncComplete,,Sync has been completed.,Sync has been completed.
+Studio.App.TeamCreate.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
+Studio.App.TeamCreate.SyncingGenericWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.
+Studio.App.RBXMainWindow.RenamesSelectedObject,,Renames selected object,Renames selected object
+Studio.App.RBXMainWindow.ResetScriptZoom,,Reset Script Zoom,Reset Script Zoom
+Studio.App.RBXMainWindow.InsertBreakpoint,,Insert Breakpoint,Insert Breakpoint
+Studio.App.RBXMainWindow.InsertContextDependentBreakpoint,,Insert Contextual Breakpoint,Insert Contextual Breakpoint
+Studio.App.RBXMainWindow.DeleteContextDependentBreakpoint,,Delete Contextual Breakpoint,Delete Contextual Breakpoint
+Studio.App.RBXMainWindow.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
+Studio.App.RBXMainWindow.Rename,,Rename,Rename
+Studio.App.RBXMainWindow.ClearStats,,Clear Stats,Clear Stats
+Studio.App.RBXMainWindow.ResetsFontSize,,Reset font size,Reset font size
+Studio.App.RBXMainWindow.SelectChildren,,Select Children,Select Children
+Studio.App.RBXMainWindow.SelectParents,,Select Parent(s),Select Parent(s)
+Studio.App.RBXMainWindow.CollapseChildren,,Collapse All,Collapse All
+Studio.App.RBXMainWindow.ExpandAllDescendants,,Expand All,Expand All
+Studio.App.RBXMainWindow.TakeScreenshot,,Take Screenshot,Take Screenshot
+Studio.App.RBXMainWindow.DiffPrevious,,Diff Previous,Diff Previous
+Studio.App.RBXMainWindow.PublishAsPluginElps,,Publish as Plugin...,Publish as Plugin...
+Studio.App.RBXMainWindow.GoToPreviousDiffHunk,,Go to previous diff hunk,Go to previous diff hunk
+Studio.App.RBXMainWindow.CollapseAll,,Collapse All,Collapse All
+Studio.App.RBXMainWindow.DiffNext,,Diff Next,Diff Next
+Studio.App.RBXMainWindow.ExpandAllDiffResults,,Expand all diff results,Expand all diff results
+Studio.App.RBXMainWindow.GoToNextDiffHunk,,Go to next diff hunk,Go to next diff hunk
+Studio.App.RBXMainWindow.SetGridSizeTo16Studs,,Set Grid Size to 16 Studs,Set Grid Size to 16 Studs
+Studio.App.RBXMainWindow.ToggleLocalSpace,,Toggle Local Space,Toggle Local Space
+Studio.App.RBXMainWindow.GridSize16Studs,,Grid Size - 16 Studs,Grid Size - 16 Studs
+Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsText,,Align Dragged Objects,Align Dragged Objects
+Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsTooltip,,Rotate dragged objects to align them with the target surface,Rotate dragged objects to align them with the target surface
+Studio.App.RBXMainWindow.CloseAllScripts,,Close All Scripts,Close All Scripts
+Studio.App.RBXMainWindow.SetGridSizeTo4Studs,,Set Grid Size to 4 Studs,Set Grid Size to 4 Studs
+Studio.App.RBXMainWindow.ResetView,,Reset View,Reset View
+Studio.App.RBXMainWindow.GridSize4Studs,,Grid Size - 4 Studs,Grid Size - 4 Studs
+Studio.App.RBXMainWindow.GridSize2Studs,,Grid Size - 2 studs,Grid Size - 2 studs
+Studio.App.RBXMainWindow.ResetWidgetToolbarPos,,Reset Widget and Toolbar position,Reset Widget and Toolbar position
+Studio.App.RBXMainWindow.SetGridSizeTo2Studs,,Set Grid Size to 2 Studs,Set Grid Size to 2 Studs
+Studio.App.RBXMainWindow.ShowListOfShortcutCommands,,Show list of shortcut commands,Show list of shortcut commands
+Studio.App.RBXMainWindow.ViewScriptPerformanceElps,,View Script Performance...,View Script Performance...
+Studio.App.RBXMainWindow.ShowScriptInExplorer,,Show in Explorer,Show in Explorer
+Studio.App.RBXMainWindow.ShowScriptInExplorerTooltip,,Select this script in the explorer,Select this script in the explorer
+Studio.App.RBXMainWindow.ScriptPerformance,,Script Performance,Script Performance
+Studio.App.RBXMainWindow.TaskScheduler,,Task Scheduler,Task Scheduler
+Studio.App.RBXMainWindow.ViewTaskSchedulerElps,,View Task Scheduler...,View Task Scheduler...
+Studio.App.RBXMainWindow.Explorer,,Explorer,Explorer
+Studio.App.RBXMainWindow.OutputWindow,,Output Window,Output Window
+Studio.App.RBXMainWindow.ViewObjectExplorer,,View Object Explorer,View Object Explorer
+Studio.App.RBXMainWindow.ViewPropertiesElps,,View Properties...,View Properties...
+Studio.App.RBXMainWindow.ViewPerformanceDiagnosticsElps,,View Performance Diagnostics...,View Performance Diagnostics...
+Studio.App.RBXMainWindow.3DGrid,,3D Grid,3D Grid
+Studio.App.RBXMainWindow.Performance,,Performance,Performance
+Studio.App.RBXMainWindow.ShowViewSelector,,Show View Selector,Show View Selector
+Studio.App.RBXMainWindow.ShowsHides3DGrid,,Shows/Hides 3D Grid,Shows/Hides 3D Grid
+Studio.App.RBXMainWindow.TogglesVideoRecord,,Toggles video record,Toggles video record
+Studio.App.RBXMainWindow.ShowsHidesGridMaterial,,Shows/Hides Grid Material,Shows/Hides Grid Material
+Studio.App.RBXMainWindow.VideoRecord,,Video Record,Video Record
+Studio.App.RBXMainWindow.ViewOutputWindowElps,,View Output Window...,View Output Window...
+Studio.App.RBXMainWindow.UnlockAll,,Unlock All,Unlock All
+Studio.App.RBXMainWindow.ClearOutputWindow,,Clear Output Window,Clear Output Window
+Studio.App.RBXMainWindow.OpenPluginsFolder,,Open Plugins Folder,Open Plugins Folder
+Studio.App.RBXMainWindow.ConstraintCheck,,Constraint Check,Constraint Check
+Studio.App.RBXMainWindow.ToggleConstraintCheck,,Enable/disable a Constraint Check,Enable/disable a Constraint Check
+Studio.App.RBXMainWindow.JoinSurfacesCheck,,Join Surfaces Check,Join Surfaces Check
+Studio.App.RBXMainWindow.ToggleJoinSurfacesCheck,,Enable/disable a Join Surfaces Check,Enable/disable a Join Surfaces Check
+Studio.App.RBXMainWindow.CustomizeShortcutsElps,,Customize Shortcuts...,Customize Shortcuts...
+Studio.App.RBXMainWindow.CollapseAllDiffResults,,Collapse all diff results,Collapse all diff results
+Studio.App.RBXMainWindow.FindPreviousItem,,Find previous item,Find previous item
+Studio.App.RBXMainWindow.ToggleCollisionCheck,,Enable or disable a Collision Check,Enable or disable a Collision Check
+Studio.App.RBXMainWindow.CollisionCheck,,Collision Check,Collision Check
+Studio.App.RBXMainWindow.ToggleFSAndWindow,,Toggles between full screen and windowed views,Toggles between full screen and windowed views
+Studio.App.RBXMainWindow.PlaySoloCameraSpawn,,"Start Solo Play, spawning the character from the Camera Position","Start Solo Play, spawning the character from the Camera Position"
+Studio.App.RBXMainWindow.SelectConnections,,Select Connections,Select Connections
+Studio.App.RBXMainWindow.SelectAttachmentConstraintConnections,,Select connections of the attachment or constraint,Select connections of the attachment or constraint
+Studio.App.RBXMainWindow.DownloadActiveDocument,,Download a copy of the active document,Download a copy of the active document
+Studio.App.RBXMainWindow.CalibratePhysicalSizeScaling,,Calibrate Physical Size scaling for your screen,Calibrate Physical Size scaling for your screen
+Studio.App.RBXMainWindow.DownloadACopyElps,,Download a Copy...,Download a Copy...
+Studio.App.RBXMainWindow.CalibrateScalingElps,,Calibrate scaling...,Calibrate scaling...
+Studio.App.RBXMainWindow.ManageDevicesElps,,Manage Devices...,Manage Devices...
+Studio.App.RBXMainWindow.ManageEmulatedDevices,,Manage emulated devices,Manage emulated devices
+Studio.App.RBXMainWindow.ShowHelpForSelectedObject,,Show help for selected object,Show help for selected object
+Studio.App.RBXMainWindow.OpenAutoSaves,,Open Auto Saves,Open Auto Saves
+Studio.App.RBXMainWindow.OpenAutoSavesFolder,,Open Auto Saves Folder,Open Auto Saves Folder
+Studio.App.RBXMainWindow.ClearSelection,,Clear selection,Clear selection
+Studio.App.RBXMainWindow.GoToPreviousScriptLocation,,Go to previous script location,Go to previous script location
+Studio.App.RBXMainWindow.ClearTheCurrentSelection,,Clear the current selection,Clear the current selection
+Studio.App.RBXMainWindow.Escape,,Escape,Escape
+Studio.App.RBXMainWindow.Command,,Command,Command
+Studio.App.RBXMainWindow.GoToNextScriptLocation,,Go to next script location,Go to next script location
+Studio.App.RBXMainWindow.PropertyFilter,,Property Filter,Property Filter
+Studio.App.RBXMainWindow.SwitchBothAttachments,,Swap both attachments on the constraint,Swap both attachments on the constraint
+Studio.App.RBXMainWindow.Select1AttachmentOrPart,,Select Attachment1 of a constraint or Part1 of a weld,Select Attachment1 of a constraint or Part1 of a weld
+Studio.App.RBXMainWindow.Select0AttachmentOrPart,,Select Attachment0 of a constraint or Part0 of a weld,Select Attachment0 of a constraint or Part0 of a weld
+Studio.App.RBXMainWindow.SwapAttachments,,Swap Attachments,Swap Attachments
+Studio.App.RBXMainWindow.ToggleDeviceEmulator,,Toggle Device Emulator,Toggle Device Emulator
+Studio.App.RBXMainWindow.TogglePlayerEmulator,,Toggle Player Emulator,Toggle Player Emulator
+Studio.App.RBXMainWindow.EmulateAMobileDevice,,Emulate a mobile device ,Emulate a mobile device 
+Studio.App.RBXMainWindow.EmulateDevice,,Emulate Device,Emulate Device
+Studio.App.RBXMainWindow.ExplorerFilter,,Explorer Filter,Explorer Filter
+Studio.App.RBXMainWindow.ExportSelectionElps,,Export Selection...,Export Selection...
+Studio.App.RBXMainWindow.Duplicate,,Duplicate,Duplicate
+Studio.App.RBXMainWindow.ExportSelection,,Export Selection,Export Selection
+Studio.App.RBXMainWindow.EnableDisableAllBreakpoints,,Enable/disable all breakpoints,Enable/disable all breakpoints
+Studio.App.RBXMainWindow.ExportAsObj,,Export as Obj,Export as Obj
+Studio.App.RBXMainWindow.ToggleAllBreakpoints,,Toggle All Breakpoints,Toggle All Breakpoints
+Studio.App.RBXMainWindow.InsertObjectsWidgetExplorer,,Open insert objects widget in explorer,Open insert objects widget in explorer
+Studio.App.RBXMainWindow.InsertObjectsWidgetMenu,,Open insert object menu,Open insert object menu
+Studio.App.RBXMainWindow.EnableDisableUninstallPlugins,,"Enable, Disable, and Uninstall Plugins","Enable, Disable, and Uninstall Plugins"
+Studio.App.RBXMainWindow.ApplyEdits,,Apply Edits,Apply Edits
+Studio.App.RBXMainWindow.AssetManager,,Asset Manager,Asset Manager
+Studio.App.RBXMainWindow.DuplicatesCurrentSelection,,Duplicate current selection,Duplicate current selection
+Studio.App.RBXMainWindow.ToggleGameAudio,,Toggle Game Audio,Toggle Game Audio
+Studio.App.RBXMainWindow.ViewScriptAnalysisElps,,View Script Analysis...,View Script Analysis...
+Studio.App.RBXMainWindow.ViewCodeSnippetElps,,View Code Snippet...,View Code Snippet...
+Studio.App.RBXMainWindow.TeamCreate,,Team Create,Team Create
+Studio.App.RBXMainWindow.ScriptRecovery,,Script Recovery,Script Recovery
+Studio.App.RBXMainWindow.ViewRecoveredScriptsElps,,View Recovered Scripts...,View Recovered Scripts...
+Studio.App.RBXMainWindow.CustomizeQuickAccess,,Customize Quick Access,Customize Quick Access
+Studio.App.RBXMainWindow.CustomizeElps,,Customize...,Customize...
+Studio.App.RBXMainWindow.GameExplorer,,Game Explorer,Game Explorer
+Studio.App.RBXMainWindow.ViewGameExplorerElps,,View Game Explorer...,View Game Explorer...
+Studio.App.RBXMainWindow.UnionSelection,,Union Selection,Union Selection
+Studio.App.RBXMainWindow.IntersectSelection,,Intersect Selection,Intersect Selection
+Studio.App.RBXMainWindow.Negate,,Negate,Negate
+Studio.App.RBXMainWindow.NegateSelection,,Negate Selection,Negate Selection
+Studio.App.RBXMainWindow.TogglesTheDragGridSnapping,,Toggles the drag grid snapping,Toggles the drag grid snapping
+Studio.App.RBXMainWindow.RotateObjects,,Rotate objects,Rotate objects
+Studio.App.RBXMainWindow.MoveObjectsDown,,Move objects down,Move objects down
+Studio.App.RBXMainWindow.Tilt,,Tilt,Tilt
+Studio.App.RBXMainWindow.TiltObjects,,Tilt objects,Tilt objects
+Studio.App.RBXMainWindow.TestPlay,,Test - play,Test - play
+Studio.App.RBXMainWindow.MoveDown,,Move Down,Move Down
+Studio.App.RBXMainWindow.Group,,Group As a Model,Group As a Model
+Studio.App.RBXMainWindow.GroupFolder,,Group As a Folder,Group As a Folder
+Studio.App.RBXMainWindow.MoveObjectsUp,,Move objects up,Move objects up
+Studio.App.RBXMainWindow.GroupPartsOrModels,,Group the selected Instances under a new Model,Group the selected Instances under a new Model
+Studio.App.RBXMainWindow.GroupUnderFolder,,Group the selected Instances under a new Folder,Group the selected Instances under a new Folder
+Studio.App.RBXMainWindow.MoveUp,,Move Up,Move Up
+Studio.App.RBXMainWindow.MoveUpBrick,,Move Up Brick,Move Up Brick
+Studio.App.RBXMainWindow.UngroupModelsOrParts,,Ungroup models or parts,Ungroup models or parts
+Studio.App.RBXMainWindow.Ungroup,,Ungroup,Ungroup
+Studio.App.RBXMainWindow.TestRun,,Test - run,Test - run
+Studio.App.RBXMainWindow.StopsAndReloadsTheDocument,,Stop and reload the document,Stop and reload the document
+Studio.App.RBXMainWindow.ResumesExecution,,Resume execution after pausing,Resume execution after pausing
+Studio.App.RBXMainWindow.MoveToggle,,Move - Toggle,Move - Toggle
+Studio.App.RBXMainWindow.RotateCustomIncrement,,Set the rotate grid to a custom increment,Set the rotate grid to a custom increment
+Studio.App.RBXMainWindow.ResizeCustomIncrement,,Set the resize grid to a custom increment,Set the resize grid to a custom increment
+Studio.App.RBXMainWindow.MoveEdit,,Move - Edit,Move - Edit
+Studio.App.RBXMainWindow.RotateEdit,,Rotate - Edit,Rotate - Edit
+Studio.App.RBXMainWindow.SummaryStats,,Summary Stats,Summary Stats
+Studio.App.RBXMainWindow.ToggleClientServer,,Click to toggle between client and server mode,Click to toggle between client and server mode
+Studio.App.RBXMainWindow.Dummy,,dummy,dummy
+Studio.App.RBXMainWindow.PausesTheRun,,Pause the run,Pause the run
+Studio.App.RBXMainWindow.PhysicsStats,,Physics Stats,Physics Stats
+Studio.App.RBXMainWindow.RenderStats,,Render Stats,Render Stats
+Studio.App.RBXMainWindow.NetworkStats,,Network Stats,Network Stats
+Studio.App.RBXMainWindow.SelectAll,,Select All,Select All
+Studio.App.RBXMainWindow.EraseTheSelection,,Erase the selection,Erase the selection
+Studio.App.RBXMainWindow.RedoThePreviouslyUndo,,Redo the previously undone action,Redo the previously undone action
+Studio.App.RBXMainWindow.SelectTheEntireDocument,,Select the entire document,Select the entire document
+Studio.App.RBXMainWindow.AnchorPreventMoving,,Anchor - prevent moving,Anchor - prevent moving
+Studio.App.RBXMainWindow.Anchor,,Anchor,Anchor
+Studio.App.RBXMainWindow.LockObjects,,Lock objects,Lock objects
+Studio.App.RBXMainWindow.LockPreventSelection,,Lock - prevent selection,Lock - prevent selection
+Studio.App.RBXMainWindow.UndoTheLastAction,,Undo the last action,Undo the last action
+Studio.App.RBXMainWindow.AnchorObjects,,Anchor objects,Anchor objects
+Studio.App.RBXMainWindow.OpenSelectedScript,,Open selected script,Open selected script
+Studio.App.RBXMainWindow.PanLeft,,Pan Left,Pan Left
+Studio.App.RBXMainWindow.CutSelectionToClipboard,,Cut the selection and put it on the Clipboard,Cut the selection and put it on the Clipboard
+Studio.App.RBXMainWindow.CopyTheSelectionAndPutItOn,,Copy the selection and put it on the Clipboard,Copy the selection and put it on the Clipboard
+Studio.App.RBXMainWindow.InsertClipboardContents,,Insert Clipboard contents,Insert Clipboard contents
+Studio.App.RBXMainWindow.PanRight,,Pan Right,Pan Right
+Studio.App.RBXMainWindow.RotateParts,,Rotate Parts,Rotate Parts
+Studio.App.RBXMainWindow.TiltDown,,Tilt Down,Tilt Down
+Studio.App.RBXMainWindow.RotateTool,,Rotate Tool,Rotate Tool
+Studio.App.RBXMainWindow.MoveParts,,Move Parts,Move Parts
+Studio.App.RBXMainWindow.MoveTool,,Move Tool,Move Tool
+Studio.App.RBXMainWindow.TiltUp,,Tilt Up,Tilt Up
+Studio.App.RBXMainWindow.ZoomIn,,Zoom In,Zoom In
+Studio.App.RBXMainWindow.ZoomOut,,Zoom Out,Zoom Out
+Studio.App.RBXMainWindow.InsertObjectsFromWeb,,Insert Objects from Web,Insert Objects from Web
+Studio.App.RBXMainWindow.LaunchStudioInPlayerMode,,Launch Studio in Player Mode,Launch Studio in Player Mode
+Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
+Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
+Studio.App.RBXMainWindow.ViewScriptChangesElps,,View Script Changes...,View Script Changes...
+Studio.App.RBXMainWindow.ActiveInstancesInOutputWindow,,Display active Studio instances in Output Window,Display active Studio instances in Output Window
+Studio.App.RBXMainWindow.SaveAndReloadPlugin,,Save and Reload Plugin,Save and Reload Plugin
+Studio.App.RBXMainWindow.ReloadPlugin,,Reload Plugin,Reload Plugin
+Studio.App.RBXMainWindow.FocusOnCommandBar,,Focus on Command Bar,Focus on Command Bar
+Studio.App.RBXMainWindow.FocusOnCommandBarTooltip,,Set keyboard focus to Command Bar,Set keyboard focus to Command Bar
+Studio.App.RBXMainWindow.SaveAndReloadAllPlugins,,Save and Reload All Plugins in Debugger,Save and Reload All Plugins in Debugger
+Studio.App.RBXMainWindow.SaveBuildAndReloadPlugins,,Build Plugin from Source and Reload in the Debugger,Build Plugin from Source and Reload in the Debugger
+Studio.App.RBXMainWindow.SaveAndReloadPluginTooltip,,Save plugin back to disk. Stop plugin execution. Reload from disk.,Save plugin back to disk. Stop plugin execution. Reload from disk.
+Studio.App.RBXMainWindow.ReloadPluginTooltip,,Stop plugin execution and reload from disk (Note: this will lose any changes you may have made to the Plugin under Plugin Debug Service),Stop plugin execution and reload from disk (Note: this will lose any changes you may have made to the Plugin under Plugin Debug Service)
+Studio.App.RBXMainWindow.SaveAndReloadAllPluginsTooltip,,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.,Save all plugins in debugger back to disk. Stop execution of those plugins. Reload them from disk.
+Studio.App.RBXMainWindow.SaveBuildAndReloadPluginsTooltip,,"Stop execution of the plugin, save modified scripts with FileSyncService, build rbxm from plugin project and reload it","Stop execution of the plugin, save modified scripts with FileSyncService, build rbxm from plugin project and reload it"
+Studio.App.RBXMainWindow.PublishChangesToPackage,,Publish Changes to Package,Publish Changes to Package
+Studio.App.RBXMainWindow.PublishToPackage,,Publish to Package,Publish to Package
+Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
+Studio.App.RBXMainWindow.ConvertToPackageElps,,Convert to Package...,Convert to Package...
+Studio.App.RBXMainWindow.LaunchStudioInServerMode,,Launch Studio in Server Mode,Launch Studio in Server Mode
+Studio.App.RBXMainWindow.AboutRobloxStudio,,About Roblox Studio,About Roblox Studio
+Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
+Studio.App.RBXMainWindow.OnlineHelpElps,,Online Help...,Online Help...
+Studio.App.RBXMainWindow.UndoChangesToPackage,,Undo Changes to Package,Undo Changes to Package
+Studio.App.RBXMainWindow.UndoChangesToSelectedPackages,,Undo Changes to Selected Packages,Undo Changes to Selected Packages
+Studio.App.RBXMainWindow.ServiceElps,,Service...,Service...
+Studio.App.RBXMainWindow.InsertServices,,Insert Services.,Insert Services.
+Studio.App.RBXMainWindow.OpenFlagEditor,,Open Flag Editor,Open Flag Editor
+Studio.App.RBXMainWindow.Toolbox,,Toolbox,Toolbox
+Studio.App.RBXMainWindow.TerrainEditor,,Terrain Editor,Terrain Editor
+Studio.App.RBXMainWindow.Editor,,Editor,Editor
+Studio.App.RBXMainWindow.AddUIElements,,Add UI elements,Add UI elements
+Studio.App.RBXMainWindow.AddRemoveAndModifyTerrain,,"Add, remove, and modify terrain","Add, remove, and modify terrain"
+Studio.App.RBXMainWindow.PublishTheSelectionToRoblox,,Publish the Selection to Roblox,Publish the Selection to Roblox
+Studio.App.RBXMainWindow.PublishSelectionToRobloxElps,,Save to Roblox...,Save to Roblox...
+Studio.App.RBXMainWindow.GetLatestForSelectedPackages,,Get Latest For Selected Packages,Get Latest For Selected Packages
+Studio.App.RBXMainWindow.GetLatestPackage,,Get Latest Package,Get Latest Package
+Studio.App.RBXMainWindow.SelectAllModifiedPackages,,Select All Modified Packages,Select All Modified Packages
+Studio.App.RBXMainWindow.SaveNormalizedPackageToXML,,Save Normalized Package[Internal Feature],Save Normalized Package[Internal Feature]
+Studio.App.RBXMainWindow.Drag,,Drag,Drag
+Studio.App.RBXMainWindow.ArrowTool,,Arrow Tool,Arrow Tool
+Studio.App.RBXMainWindow.RotateToggle,,Rotate - Toggle,Rotate - Toggle
+Studio.App.RBXMainWindow.ZoomTo,,Zoom to,Zoom to
+Studio.App.RBXMainWindow.ExecuteScript,,Execute Script,Execute Script
+Studio.App.RBXMainWindow.SaveTheActivePlace,,Save the active place to the location currently open in Studio,Save the active place to the location currently open in Studio
+Studio.App.RBXMainWindow.ExecuteScriptElps,,Execute Script...,Execute Script...
+Studio.App.RBXMainWindow.CreateANewDocument,,Create a new document,Create a new document
+Studio.App.RBXMainWindow.QuitApplication,,Quit the application; prompts to save documents,Quit the application; prompts to save documents
+Studio.App.RBXMainWindow.ResizeTool,,Resize Tool,Resize Tool
+Studio.App.RBXMainWindow.PicksUpAColorFromAPart,,Picks up a color from a part,Picks up a color from a part
+Studio.App.RBXMainWindow.GridOff,,Grid Off,Grid Off
+Studio.App.RBXMainWindow.OneStudGrid,,One Stud Grid,One Stud Grid
+Studio.App.RBXMainWindow.TogglesRotateSnapping,,Toggles the rotate grid snapping,Toggles the rotate grid snapping
+Studio.App.RBXMainWindow.15StudGrid,,1/5 Stud Grid,1/5 Stud Grid
+Studio.App.RBXMainWindow.PickColor,,Pick Color,Pick Color
+Studio.App.RBXMainWindow.ResizeObject,,Resize Object,Resize Object
+Studio.App.RBXMainWindow.Dropper,,Dropper,Dropper
+Studio.App.RBXMainWindow.SaveAsLocalPluginElps,,Save as Local Plugin...,Save as Local Plugin...
+Studio.App.RBXMainWindow.LoadLocalizationTableFromCSV,,Load LocalizationTable from CSV file...,Load LocalizationTable from CSV file...
+Studio.App.RBXMainWindow.SaveSelectionAsModel,,Save the selection as a Model to a file,Save the selection as a Model to a file
+Studio.App.RBXMainWindow.SaveToFileElps,,Save to File...,Save to File...
+Studio.App.RBXMainWindow.LoadLocalizationTableEntriesFromCSV,,Load LocalizationTable entries from a CSV file,Load LocalizationTable entries from a CSV file
+Studio.App.RBXMainWindow.SaveSelectionToFileElps,,Save selection to file...,Save selection to file...
+Studio.App.RBXMainWindow.ExportForUploadElps,,(INTERNAL) Export for upload...,(INTERNAL) Export for upload...
+Studio.App.RBXMainWindow.ExportSelectionForUploadElps,,(INTERNAL) Export selection for upload...,(INTERNAL) Export selection for upload...
+Studio.App.RBXMainWindow.ExportSelectionForUpload,,(INTERNAL) Export selection for upload via admin site,(INTERNAL) Export selection for upload via admin site
+Studio.App.RBXMainWindow.CreatePluginFromScript,,Create a local plugin from this script,Create a local plugin from this script
+Studio.App.RBXMainWindow.SaveDocToRoblox,,Publish the active document to the Roblox website,Publish the active document to the Roblox website
+Studio.App.RBXMainWindow.InsertFromFileElps,,Insert from File...,Insert from File...
+Studio.App.RBXMainWindow.PublishActiveDocumentToRoblox,,Publish active document to Roblox,Publish active document to Roblox
+Studio.App.RBXMainWindow.SaveActiveDocumentToRoblox,,Save active document to Roblox,Save active document to Roblox
+Studio.App.RBXMainWindow.SaveToRoblox,,Save to Roblox,Save to Roblox
+Studio.App.RBXMainWindow.SaveLocalizationTable,,Save the selected LocalizationTable to a CSV file,Save the selected LocalizationTable to a CSV file
+Studio.App.RBXMainWindow.SaveLocalizationTableElps,,Save LocalizationTable to CSV file...,Save LocalizationTable to CSV file...
+Studio.App.RBXMainWindow.LoadFromCSVElps,,Load from CSV...,Load from CSV...
+Studio.App.RBXMainWindow.SaveAsCSVElps,,Save as CSV...,Save as CSV...
+Studio.App.RBXMainWindow.OpenPreviousTab,,Open Previous Tab,Open Previous Tab
+Studio.App.RBXMainWindow.ModelElps,,Model...,Model...
+Studio.App.RBXMainWindow.PasteInto,,Paste Into,Paste Into
+Studio.App.RBXMainWindow.PasteAtOriginalLocation,,Paste At Original Location,Paste At Original Location
+Studio.App.RBXMainWindow.PasteIntoAtOriginalLocation,,Paste At Original Location,Paste At Original Location
+Studio.App.RBXMainWindow.InsertModels,,Insert Models,Insert Models
+Studio.App.RBXMainWindow.InsertBasicObjects,,Insert Basic Objects,Insert Basic Objects
+Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...
+Studio.App.RBXMainWindow.ShowOrientationIndicatorTooltip,,Display surface direction information for objects,Display surface direction information for objects
+Studio.App.RBXMainWindow.Baseplate,,Baseplate,Baseplate
+Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
+Studio.App.PackageContextMenu.PackageDetails,,Package Details,Package Details
+Studio.App.PackageContextMenu.MassUpdatePackage,,Update All,Update All
+Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
+Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance,Sync Instance
+Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Actions
+Studio.App.RobloxMainWindow.OpenScriptFile,,Open Script File,Open Script File
+Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History
+Studio.App.PlaceVersionHistoryDialog.ViewHistory,,View History,View History
+Studio.App.RobloxMainWindow.InternalFeaturesMessageBoxContent,,"Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features.","Your account is associated with an @roblox.com email address or has Soothsayer permissions. You also have internal-only features turned on.
+Do you want to disable Internal Features? This will make your Studio experience identical to developers.
+You can go to Settings > Studio > Advanced to re-enable Internal Features."
+Studio.App.RobloxMainWindow.InternalFeaturesRestart,,Restart Roblox Studio,Restart Roblox Studio
+Studio.App.RobloxMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features
+Studio.App.RobloxMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history
+Studio.App.RobloxMainWindow.DocHistoryBackwards,,Step backwards through tab history,Step backwards through tab history
+Studio.App.RBXMainWindow.StoreScriptCloud,,Store this script in the cloud so that you can easily re-use it,Store this script in the cloud so that you can easily re-use it
+Studio.App.RBXMainWindow.CreateNewLinkedSourceElps,,Create new LinkedSource...,Create new LinkedSource...
+Studio.Common.Action.Cut,,Cut,Cut
+Studio.Common.Action.Paste,,Paste,Paste
+Studio.Common.Action.Resize,,Resize,Resize

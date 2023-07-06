@@ -1,0 +1,153 @@
+Key,Context,Source,en-us
+Studio.App.StartPage.MyGames,Look at all my published games,My Games,My Games
+Studio.App.StartPage.Recent,Look at recent games,Recent,Recent
+Studio.App.StartPage.Archive,Look at archived games,Archive,Archive
+Studio.App.StartPage.PublishYourGame,,"Publish your game and make it public to share it
+Go to File > Publish to Roblox","Publish your game and make it public to share it
+Go to File > Publish to Roblox"
+Studio.App.StartPage.ShareYourGame,,Share your game,Share your game
+Studio.App.StartPage.ClickShareIcon,,Click the share icon to share your game with Roblox friends or on social media,Click the share icon to share your game with Roblox friends or on social media
+Studio.App.StartPage.CreateNew,,Create new,Create new
+Studio.App.StartPage.Owner,,Owner,Owner
+Studio.App.StartPage.OwnerMe,,Me,Me
+Studio.App.StartPage.GotIt,,Got it,Got it
+Studio.App.StartPage.By1,The game was written by whom?,By %1,By %1
+Studio.App.StartPage.RestrictedExperience,,This experience is not accessible due to age restrictions.,This experience is not accessible due to age restrictions.
+Studio.App.StartPage.RestrictedExperienceUpsell,,"Verify your age to access this experience.
+
+ 1. Go to Account Info > Verify My Age 
+ 2. Complete the verification process","Verify your age to access this experience.
+
+ 1. Go to Account Info > Verify My Age 
+ 2. Complete the verification process"
+Studio.App.StartPage.RestrictedExperienceTitle,,Age Restricted,Age Restricted
+Studio.App.StartPage.RestrictedExperienceUpsellTitle,,Age Verification Required,Age Verification Required
+Studio.App.StartPage.RestrictedExperienceUpsellLink,,Verify my age,Verify my age
+Studio.App.StartPage.RestrictedExperienceTooltip,,Restricted to age-verified 17+ creators,Restricted to age-verified 17+ creators
+Studio.App.StartPage.MakingPublic,,Making public,Making public
+Studio.App.StartPage.MakingPrivate,,Making private,Making private
+Studio.App.StartPage.ShareOnTwitter,,Share on Twitter,Share on Twitter
+Studio.App.StartPage.ShareOnFacebook,,Share on Facebook,Share on Facebook
+Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templates
+Studio.App.TemplatesPage.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.ExperienceName,The name of my game,Experience Name,Experience Name
+Studio.App.ListView.Description,,Description,Description
+Studio.App.ListView.DateCreated,,Date Created,Date Created
+Studio.App.ListView.Playability,,Playability,Playability
+Studio.App.ListView.Type,,Type,Type
+Studio.App.ListView.TypeLocal,,Local File,Local File
+Studio.App.ListView.TypeCloud,,Cloud,Cloud
+Studio.App.ListView.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.TeamCreateOn,,On,On
+Studio.App.ListView.TeamCreateOff,,Off,Off
+Studio.App.ListView.Owner,,Owner,Owner
+Studio.App.ListView.Owner.You,,You,You
+Studio.App.ListView.ToolTipLoadingComplete,,Loading complete!,Loading complete!
+Studio.App.ListView.ToolTipPleaseWait1,,Please wait... %1 games loaded.,Please wait... %1 games loaded.
+Studio.App.ListView.ShowPlaces1,,View %1 Places,View %1 Places
+Studio.App.ListView.AgeVerified,Shows users age verification status.  This should ideally stay as 3 max 4 characters if translated to something else.,17+,17+
+Studio.App.MyGamesPage.GroupGames,,Group Games,Group Games
+Studio.App.MyGamesPage.GamesInvitedToEdit,,"Games that you have
+been invited to edit","Games that you have
+been invited to edit"
+Studio.App.MyGamesPage.SharedWithMe,,Shared With Me,Shared With Me
+Studio.App.CreateNewGameWidget.GroupHasNoArchivedGames,,This group doesn't have any archived games,This group doesn't have any archived games
+Studio.App.CreateNewGameWidget.LearnMore,,Learn More,Learn More
+Studio.App.CreateNewGameWidget.NoArchivedGames,,You don't have any archived games,You don't have any archived games
+Studio.App.CreateNewGameWidget.NoGamesFound,,No games found,No games found
+Studio.App.CreateNewGameWidget.GroupHasNoGames,,This group doesn't have any games,This group doesn't have any games
+Studio.App.CreateNewGameWidget.NoRecentEditedGames,,You haven't edited any games recently,You haven't edited any games recently
+Studio.App.CreateNewGameWidget.NoEditInvitations,,You haven't been invited to edit any games,You haven't been invited to edit any games
+Studio.App.CreateNewGameWidget.NoArchivedGamesFound,,No archived games found,No archived games found
+Studio.App.CreateNewGameWidget.YouDontHaveAnyGames,,You don't have any games,You don't have any games
+Studio.App.CreateNewGameWidget.CreateNewGame,,Create New Game,Create New Game
+Studio.App.CurrentlyEditingWindow.CurrentlyEditing,,Currently Editing,Currently Editing
+Studio.App.GameWidget.Public,,Public,Public
+Studio.App.GameWidget.Private,,Private,Private
+Studio.App.GameWidget.LocalFile,,Local File,Local File
+Studio.App.GameWidget.TemplateHasInstruction,,This template contains instructions about how to get started in Studio,This template contains instructions about how to get started in Studio
+Studio.App.GameWidget.ExperienceAgeRestricted,Title for column inicating if place is restricted to 17+ aged users.,Ages 17+,Ages 17+
+Studio.App.GameGridViewWithHeader.Sort,,Sort:,Sort:
+Studio.App.GameGridViewWithHeader.Refresh,,Refresh,Refresh
+Studio.App.GameGridViewWithHeader.Owner,,Owner:,Owner:
+Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
+Studio.App.TemplatePage.Theme,,Theme,Theme
+Studio.App.StartPageLogin.Username,,Username,Username
+Studio.App.StartPageLogin.Password,,Password,Password
+Studio.App.StartPageLogin.NotAMemberYet,,Not a member yet?,Not a member yet?
+Studio.App.StartPageLogin.SignUp,,Sign up,Sign up
+Studio.App.StartPageLogin.PrivacyPolicy,,Privacy Policy,Privacy Policy
+Studio.App.StartPageLogin.LogIn,,Log In,Log In
+Studio.App.StartPageLogin.StartCreatingOwnGames,,Start creating your own experiences!,Start creating your own experiences!
+Studio.App.StartPageLogin.OpeningPlaceElps,,Opening place...,Opening place...
+Studio.App.StartPageLogin.LoggingOutElps,,Logging out...,Logging out...
+Studio.App.StartPageLogin.LoggingInElps,,Logging in...,Logging in...
+Studio.App.StartPageLogin.ForgotPassword,,Forgot Password?,Forgot Password?
+Studio.App.StartPageLogin.WeChatQQLogin,,WeChat / QQ Login,WeChat / QQ Login
+Studio.App.TeamCreate.MultipleUsers,,Multiple Users,Multiple Users
+Studio.App.ContextMenuDropdown.ConfigureGame,,Configure game,Configure game
+Studio.App.ContextMenuDropdown.ConfigurePlace,,Configure place,Configure place
+Studio.App.ContextMenuDropdown.MakePublic,,Make public,Make public
+Studio.App.ContextMenuDropdown.MakePrivate,,Make private,Make private
+Studio.App.ContextMenuDropdown.OpenPlacePage,,Open place page,Open place page
+Studio.App.ContextMenuDropdown.Restore,,Restore,Restore
+Studio.App.ContextMenuDropdown.Archive,Archive a game,Archive,Archive
+Studio.App.ContextMenuDropdown.RemoveFromList,,Remove from list,Remove from list
+Studio.App.RecentGamesPage.RecentGames,,Recent Games,Recent Games
+Studio.App.ShareModal.By1,,By %1,By %1
+Studio.App.ShareModal.CopyLink,,Copy Link,Copy Link
+Studio.App.ShareModal.LinkCopied,,Link Copied,Link Copied
+Studio.App.ShareModal.Failed,,Failed,Failed
+Studio.App.ShareModal.ShareGame,,Share Game,Share Game
+Studio.App.ShareModal.ShareWithRobloxFriends,,Share with Roblox Friends,Share with Roblox Friends
+Studio.App.ShareModal.Shared,,Shared,Shared
+Studio.App.ShareModal.SearchPlaceholderText,,Search for friends,Search for friends
+Studio.App.ShareModalInfoBox.MakeGamePublicToShare,,Make your game public to share it,Make your game public to share it
+Studio.App.TabTooltip.ReplaceTooltipText,,"Replace tooltip text by
+setting text property","Replace tooltip text by
+setting text property"
+Studio.App.TemplatePageController.Baseplate,,Baseplate,Baseplate
+Studio.App.GamesPageController.MakingGamePrivate,,Making game private,Making game private
+Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
+Studio.App.GamesPageController.ArchiveGame,,Archive Game,Archive Game
+Studio.App.GamesPageController.CantOpenArchivedGame,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.
+Studio.App.GamesPageController.Archived,,Archived,Archived
+Studio.App.GamesPageController.ArchiveGameFail,,Failed to archive game,Failed to archive game
+Studio.App.GamesPageController.ArchivingAGameMakesItPrivate1,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
+Studio.App.GamesPageController.Restored,,Restored,Restored
+Studio.App.GamesPageController.RestoreGameFail,,Failed to restore game,Failed to restore game
+Studio.App.GamesPageController.FailedToMakeGamePublic,,Failed to make game public,Failed to make game public
+Studio.App.GamesPageController.ConfirmRemoveSelf,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.
+Studio.App.GamesPageController.FailedToLeaveTeamCreateGame,,Failed to leave team create game.,Failed to leave team create game.
+Studio.App.GamesPageController.PromptUserForMakingGamePrivate,"Do not translate 
+","Are you sure you want to make this game private?
+This will shutdown all running servers.","Are you sure you want to make this game private?
+This will shutdown all running servers."
+Studio.App.GamesPageController.Alphabetical,,Alphabetical,Alphabetical
+Studio.App.GamesPageController.DateCreatedDescending,,Date Created (Descending),Date Created (Descending)
+Studio.App.GamesPageController.DateCreated,,Date Created,Date Created
+Studio.App.GamesPageController.LastModified,,Last Modified,Last Modified
+Studio.App.GamesPageController.No.Edit.Permission,,You no longer have edit permission to the selected place. It will be removed from this list.,You no longer have edit permission to the selected place. It will be removed from this list.
+Studio.App.TutorialPage.Title,Tutorial Tab in Start Page,Tutorial,Tutorial
+Studio.App.TutorialPage.HeaderText,,Learn the fundamentals of Roblox Studio,Learn the fundamentals of Roblox Studio
+Studio.App.TutorialPage.SubHeaderText,,Quickly master the basic skills of 3D building to build games and creations for Roblox.,Quickly master the basic skills of 3D building to build games and creations for Roblox.
+Studio.App.TutorialPage.OpenTemplate,,Start with a Template instead,Start with a Template instead
+Studio.App.TutorialPage.StartTour,,Start Tour,Start Tour
+Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
+Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
+Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.
+Studio.App.LoginRequest.NullPasswordError,Start page login,Unable to log in via username / password. Please use your WeChat / QQ account to log in.,Unable to log in via username / password. Please use your WeChat / QQ account to log in.
+Studio.App.LoginRequest.PasswordResetRequiredError,Start page login,Account has been locked. Please request a password reset.,Account has been locked. Please request a password reset.
+Studio.App.LoginRequest.UnknownError,Start page login,"Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>","Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>"
+Studio.App.LoginRequest.UserIdError,Start page login,Could not get user id from server.,Could not get user id from server.
+Studio.App.LoginRequest.ErrorResponseParseError,Start page login,Could not parse error response from server.,Could not parse error response from server.
+Studio.App.Login.UnableToLogin,,Unable to log in,Unable to log in
+Studio.App.Login.EnterUsernameAndPassword,,Please enter your username and password.,Please enter your username and password.
+Studio.App.Login.EnterUsername,,Please enter your username.,Please enter your username.
+Studio.App.Login.EnterPassword,,Please enter your password.,Please enter your password.
+Studio.App.Login.IncorrectUsernamePassword,,Incorrect username or password. Please try again.,Incorrect username or password. Please try again.
+Studio.App.Login.StudioVersion1,,Roblox Studio Version %1,Roblox Studio Version %1
+Studio.App.StartPageDocumentPanel.StartPage,,Start Page,Start Page
+Studio.Common.Action.Okay,,Okay,Okay
+Studio.Common.Action.Remove,,Remove,Remove
+Studio.App.Login.UnableToConnect,This error is shown to users when Studio fails initially because Studio could not connect.,Studio is unable to connect. Please check your internet connection and try again.,Studio is unable to connect. Please check your internet connection and try again.

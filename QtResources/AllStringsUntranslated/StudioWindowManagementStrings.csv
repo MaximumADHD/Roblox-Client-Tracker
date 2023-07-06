@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.RobloxStudioVerbs.RemoteDebug,,Remote Debug,Remote Debug
+Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
+Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs
+Studio.App.ResetLayoutSettingsTitle,,Reset Layout Settings,Reset Layout Settings
+Studio.App.ResetLayoutSettingsText,,Resetting layout requires restarting Studio,Resetting layout requires restarting Studio
+Studio.App.ForceResetLayoutSettingsTitle,,Dock Layout Error,Dock Layout Error
+Studio.App.ForceResetLayoutSettingsBody,,"An unexpected problem has occurred with the docking layout. The current layout will be reset and Studio must be restarted.
+We are investigating this issue further and apologize for the inconvenience.","An unexpected problem has occurred with the docking layout. The current layout will be reset and Studio must be restarted.
+We are investigating this issue further and apologize for the inconvenience."
+Studio.App.DumpQtitanVisualHierarchyToLog,,Dump Visual Qtitan Hierarchy To Log,Dump Visual Qtitan Hierarchy To Log

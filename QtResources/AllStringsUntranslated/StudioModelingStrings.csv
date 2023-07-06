@@ -1,0 +1,17 @@
+Key,Context,Source,en-us
+Studio.App.MeshPartLODNotification.Message,MeshPart renderFidelity property selector,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.
+Studio.App.MeshPartLODNotification.Dismiss,MeshPart renderFidelity property selector,Do not show again,Do not show again
+Studio.App.MeshPartLOD.FidelityWarning1,MeshPart renderFidelity property selector,Failed to change renderFidelity for asset id %1,Failed to change renderFidelity for asset id %1
+Studio.App.MeshPartLOD.NotEnoughFacesInfo1,MeshPart renderFidelity property selector,Asset id %1 has too few triangles for renderFidelity to be set to Automatic or Performance,Asset id %1 has too few triangles for renderFidelity to be set to Automatic or Performance
+Studio.App.BaseDataModel.MigrateOneUnionTitle,,One union is being reinterpreted,One union is being reinterpreted
+Studio.App.BaseDataModel.MigrateOneUnionBody,,"Do you want Studio to perform a one-time migration resizing one union to retain its original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature.","Do you want Studio to perform a one-time migration resizing one union to retain its original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature."
+Studio.App.BaseDataModel.MigrateUnionsTitle1,,%1 unions are being reinterpreted,%1 unions are being reinterpreted
+Studio.App.BaseDataModel.MigrateUnionsBody1,,"Do you want Studio to perform a one-time migration resizing %1 unions to retain their original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature.","Do you want Studio to perform a one-time migration resizing %1 unions to retain their original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature."
