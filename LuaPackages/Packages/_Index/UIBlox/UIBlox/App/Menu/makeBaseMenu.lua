@@ -6,9 +6,12 @@ local Packages = UIBlox.Parent
 
 local RoactGamepad = require(Packages.RoactGamepad)
 local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local useStyle = require(UIBlox.Core.Style.useStyle)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
 local validateButtonProps = require(script.Parent.validateButtonProps)
@@ -17,15 +20,18 @@ local VerticalScrollView = require(App.Container.VerticalScrollView)
 local Images = require(App.ImageSet.Images)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(App.SelectionImage.CursorKind)
+local setDefault = require(UIBlox.Utility.setDefault)
+
+local RoundedFrame = require(script.Parent.RoundedFrame)
+local StyleDefaults = require(script.Parent.StyleDefaults)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DROP_SHADOW_ASSET = Images["component_assets/dropshadow_17_8"]
 local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
-local ELEMENT_HEIGHT = 56
 local MAXIMUM_ELEMENTS = 7
-local MAXIMUM_HEIGHT = ELEMENT_HEIGHT * (MAXIMUM_ELEMENTS + 0.5)
 
-local ROUNDED_CORNER_SIZE = 4
 local FIX_HEIGHT_ROUNDED_CORNER_SIZE = 8
 local SHADOW_SLICE = 16
 
@@ -53,6 +59,18 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		maxHeight = t.optional(t.number),
 		showDropShadow = t.optional(t.boolean),
 		fixedListHeight = t.optional(t.number),
+		-- If the background asset behind the element is visible or not
+		isElementBackgroundVisible = t.optional(t.boolean),
+		-- If the divider is visible between all elements in the menu
+		isElementDividerVisible = t.optional(t.boolean),
+		-- Height of each element
+		elementHeight = t.optional(t.number),
+		-- Size of border rounded corner
+		borderCornerRadius = t.optional(t.integer),
+		-- Background of the menu
+		background = t.optional(validateColorInfo),
+		-- Indicate whether design override is enabled
+		enableTokenOverride = t.optional(t.boolean),
 	})
 
 	baseMenuComponent.defaultProps = {
@@ -62,6 +80,11 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		bottomElementRounded = true,
 		showDropShadow = false,
 		fixedListHeight = nil,
+		isElementBackgroundVisible = true,
+		isElementDividerVisible = true,
+		elementHeight = 56,
+		borderCornerRadius = 4,
+		enableTokenOverride = true,
 	}
 
 	function baseMenuComponent:init()
@@ -109,7 +132,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					ClipsDescendants = true,
 				}, {
 					ScrollingFrame = Roact.createElement(VerticalScrollView, {
-						canvasSizeY = UDim.new(0, #props.buttonProps * ELEMENT_HEIGHT),
+						canvasSizeY = UDim.new(0, #props.buttonProps * props.elementHeight),
 					}, children),
 				}),
 			}),
@@ -117,34 +140,38 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 	end
 
 	function baseMenuComponent:render()
-		local menuHeight = #self.props.buttonProps * ELEMENT_HEIGHT
+		local maximumHeight = self.props.elementHeight * (MAXIMUM_ELEMENTS + 0.5)
+		local menuHeight = #self.props.buttonProps * self.props.elementHeight
 		local needsScrollbar = false
-		if menuHeight >= MAXIMUM_HEIGHT then
-			menuHeight = MAXIMUM_HEIGHT
+		if menuHeight >= maximumHeight then
+			menuHeight = maximumHeight
 			needsScrollbar = true
 		end
 
 		local maxHeightOverride = self.props.maxHeight
 		if maxHeightOverride and maxHeightOverride > 0 and menuHeight > maxHeightOverride then
-			local availableHeight = maxHeightOverride - (ELEMENT_HEIGHT * 0.5)
-			local rows = math.floor(availableHeight / ELEMENT_HEIGHT)
+			local availableHeight = maxHeightOverride - (self.props.elementHeight * 0.5)
+			local rows = math.floor(availableHeight / self.props.elementHeight)
 			rows = math.max(rows, 1)
-			menuHeight = (rows + 0.5) * ELEMENT_HEIGHT
+			menuHeight = (rows + 0.5) * self.props.elementHeight
 			needsScrollbar = true
 		end
 
 		local children = {}
 		for index, cellProps in ipairs(self.props.buttonProps) do
 			local mergedProps = Cryo.Dictionary.join(cellProps, {
-				elementHeight = ELEMENT_HEIGHT,
+				elementHeight = self.props.elementHeight,
 				hasRoundTop = self.props.topElementRounded and index == 1 and not needsScrollbar,
 				hasRoundBottom = self.props.bottomElementRounded
 					and index == #self.props.buttonProps
 					and not needsScrollbar,
-				hasDivider = index < #self.props.buttonProps,
+				hasDivider = if self.props.isElementDividerVisible then index < #self.props.buttonProps else false,
 				layoutOrder = index,
 				inputBindingKey = Cryo.None,
 				setButtonRef = (index == 1 and self.props.setFirstItemRef) or nil,
+				isElementBackgroundVisible = self.props.isElementBackgroundVisible,
+				borderCornerRadius = self.props.borderCornerRadius,
+				background = self.props.background,
 			})
 
 			local cursorKind
@@ -164,7 +191,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 
 			children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
 				return Roact.createElement(RoactGamepad.Focusable.Frame, {
-					Size = UDim2.new(self.props.width, UDim.new(0, ELEMENT_HEIGHT)),
+					Size = UDim2.new(self.props.width, UDim.new(0, self.props.elementHeight)),
 					BackgroundTransparency = 1,
 					LayoutOrder = index,
 
@@ -191,6 +218,11 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 
 		return withStyle(function(stylePalette)
 			local theme = stylePalette.Theme
+			local defaultBackgroundColor = theme[backgroundThemeKey]
+			local baseMenuBackground = setDefault(self.props.background, {
+				Color = defaultBackgroundColor.Color,
+				Transparency = defaultBackgroundColor.Transparency,
+			})
 
 			local imageSize = MENU_BACKGROUND_ASSET.ImageRectSize
 			local imageOffset = MENU_BACKGROUND_ASSET.ImageRectOffset
@@ -198,8 +230,11 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 			local imageRectOffset = imageOffset
 			local imageWidth = imageSize.X
 			local halfImageWidth = imageWidth / 2
-			local needsTopRoundedBar = needsScrollbar and self.props.topElementRounded
-			local needsBottomRoundedBar = needsScrollbar and self.props.bottomElementRounded
+			local isElementBackgroundVisible = self.props.isElementBackgroundVisible
+			local needsTopRoundedBar = needsScrollbar and self.props.topElementRounded and isElementBackgroundVisible
+			local needsBottomRoundedBar = needsScrollbar
+				and self.props.bottomElementRounded
+				and isElementBackgroundVisible
 			local roundedBarCount = (needsTopRoundedBar and 1 or 0) + (needsBottomRoundedBar and 1 or 0)
 
 			if self.props.fixedListHeight then
@@ -226,28 +261,49 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					SliceCenter = Rect.new(16, 16, 16, 16),
 				}) or nil,
 
-				TopRoundedCorner = needsTopRoundedBar and Roact.createElement("ImageLabel", {
-					ZIndex = 3,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, ROUNDED_CORNER_SIZE),
-					Position = UDim2.fromScale(0, 0),
+				Background = if UIBloxConfig.enableNewMenuLayout
+						and (needsTopRoundedBar or needsBottomRoundedBar)
+					then Roact.createElement(RoundedFrame, {
+						zIndex = -1,
+						background = baseMenuBackground,
+						topCornerRadius = if needsTopRoundedBar
+							then UDim.new(0, self.props.borderCornerRadius)
+							else nil,
+						bottomCornerRadius = if needsBottomRoundedBar
+							then UDim.new(0, self.props.borderCornerRadius)
+							else nil,
+					})
+					else nil,
 
-					Image = MENU_BACKGROUND_ASSET.Image,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceScale = 0.5 / Images.ImagesResolutionScale,
-					SliceCenter = Rect.new(halfImageWidth - 1, halfImageWidth - 1, halfImageWidth + 1, halfImageWidth),
-					ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
-					ImageRectOffset = imageRectOffset,
+				TopRoundedCorner = if (needsTopRoundedBar and not UIBloxConfig.enableNewMenuLayout)
+					then Roact.createElement("ImageLabel", {
+						ZIndex = 3,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, self.props.borderCornerRadius),
+						Position = UDim2.fromScale(0, 0),
 
-					ImageTransparency = theme[backgroundThemeKey].Transparency,
-					ImageColor3 = theme[backgroundThemeKey].Color,
-				}),
+						Image = MENU_BACKGROUND_ASSET.Image,
+						ScaleType = Enum.ScaleType.Slice,
+						SliceScale = 0.5 / Images.ImagesResolutionScale,
+						SliceCenter = Rect.new(
+							halfImageWidth - 1,
+							halfImageWidth - 1,
+							halfImageWidth + 1,
+							halfImageWidth
+						),
+						ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
+						ImageRectOffset = imageRectOffset,
+
+						ImageTransparency = baseMenuBackground.Transparency,
+						ImageColor3 = baseMenuComponent.Color,
+					})
+					else nil,
 
 				-- We turn off ClipsDescendants on the ScrollingFrame to allow the scroll bar to be offset over the contents.
 				ClippingFrame = Roact.createElement("Frame", {
 					ZIndex = 3,
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, -(ROUNDED_CORNER_SIZE * roundedBarCount)),
+					Size = UDim2.new(1, 0, 1, -(self.props.borderCornerRadius * roundedBarCount)),
 					Position = UDim2.fromScale(0, needsTopRoundedBar and 0.5 or 0),
 					AnchorPoint = Vector2.new(0, needsTopRoundedBar and 0.5 or 0),
 					ClipsDescendants = true,
@@ -262,33 +318,56 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 						ScrollBarImageColor3 = theme.UIEmphasis.Color,
 						ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
 						ScrollingDirection = Enum.ScrollingDirection.Y,
-						CanvasSize = UDim2.new(1, 0, 0, #self.props.buttonProps * ELEMENT_HEIGHT),
+						CanvasSize = UDim2.new(1, 0, 0, #self.props.buttonProps * self.props.elementHeight),
 						ClipsDescendants = false,
 					}, children),
 				}),
 
-				BottomRoundedCorner = needsBottomRoundedBar and Roact.createElement("ImageLabel", {
-					ZIndex = 2,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, ROUNDED_CORNER_SIZE),
-					Position = UDim2.fromScale(0, 1),
-					AnchorPoint = Vector2.new(0, 1),
+				BottomRoundedCorner = if (needsBottomRoundedBar and not UIBloxConfig.enableNewMenuLayout)
+					then Roact.createElement("ImageLabel", {
+						ZIndex = 2,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, self.props.borderCornerRadius),
+						Position = UDim2.fromScale(0, 1),
+						AnchorPoint = Vector2.new(0, 1),
 
-					Image = MENU_BACKGROUND_ASSET.Image,
-					ScaleType = Enum.ScaleType.Slice,
-					SliceScale = 0.5 / Images.ImagesResolutionScale,
-					SliceCenter = Rect.new(halfImageWidth - 1, 0, halfImageWidth + 1, 1),
-					ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
-					ImageRectOffset = imageOffset + Vector2.new(0, halfImageWidth),
+						Image = MENU_BACKGROUND_ASSET.Image,
+						ScaleType = Enum.ScaleType.Slice,
+						SliceScale = 0.5 / Images.ImagesResolutionScale,
+						SliceCenter = Rect.new(halfImageWidth - 1, 0, halfImageWidth + 1, 1),
+						ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
+						ImageRectOffset = imageOffset + Vector2.new(0, halfImageWidth),
 
-					ImageTransparency = theme[backgroundThemeKey].Transparency,
-					ImageColor3 = theme[backgroundThemeKey].Color,
-				}),
+						ImageTransparency = baseMenuBackground.Transparency,
+						ImageColor3 = baseMenuBackground.Color,
+					})
+					else nil,
 			})
 		end)
 	end
 
-	return baseMenuComponent
+	if UIBloxConfig.enableNewMenuLayout then
+		local function baseMenuComponentFn(props)
+			local propsWithOverride = props
+			if props.enableTokenOverride then
+				local style = useStyle()
+				local buttonPropsWithToken = {}
+				for index, cellProps in ipairs(props.buttonProps) do
+					buttonPropsWithToken[index] =
+						Cryo.Dictionary.join(cellProps, StyleDefaults.getCellDefaultTokens(style))
+				end
+				propsWithOverride =
+					Cryo.Dictionary.join(propsWithOverride, StyleDefaults.getBaseMenuDefaultTokens(style), {
+						buttonProps = buttonPropsWithToken,
+					})
+			end
+			return React.createElement(baseMenuComponent, propsWithOverride)
+		end
+
+		return baseMenuComponentFn
+	else
+		return baseMenuComponent
+	end
 end
 
 return makeBaseMenu

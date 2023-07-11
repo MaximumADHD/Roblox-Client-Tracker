@@ -7,5 +7,6 @@ return enumerate(script.Name, {
 	Accepting = "Accepting",
 	Initializing = "Initializing",
 	Connecting = "Connecting",
+	Teleporting = "Teleporting",
 	Active = "Active",
 })

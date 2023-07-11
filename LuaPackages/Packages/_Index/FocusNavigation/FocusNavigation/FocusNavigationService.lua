@@ -48,7 +48,7 @@ type FocusNavigationServicePrivate = {
 	_fireFocusedGuiObjectSignal: Utils.FireSignal<GuiObject?>,
 
 	_connectToInputEvents: (FocusNavigationServicePrivate) -> (),
-	_fireInputEvent: (FocusNavigationServicePrivate, GuiObject, InputObject) -> (),
+	_fireInputEvent: (FocusNavigationServicePrivate, GuiObject, InputObject, boolean?) -> (),
 	_updateActiveEventMap: (FocusNavigationServicePrivate, GuiObject?) -> (),
 	_cancelHandler: (FocusNavigationServicePrivate, GuiObject, string) -> (),
 
@@ -98,7 +98,7 @@ function FocusNavigationService.new(engineInterface: EngineInterface)
 	return self
 end
 
-function FocusNavigationService:_fireInputEvent(focusedGuiObject: GuiObject, input: InputObject)
+function FocusNavigationService:_fireInputEvent(focusedGuiObject: GuiObject, input: InputObject, wasProcessed: boolean?)
 	local event = self.activeEventMap:getValue()[input.KeyCode]
 
 	if event then
@@ -108,19 +108,17 @@ function FocusNavigationService:_fireInputEvent(focusedGuiObject: GuiObject, inp
 			Position = input.Position,
 			UserInputState = input.UserInputState,
 			UserInputType = input.UserInputType,
-		}, false)
+			wasProcessed = wasProcessed,
+		} :: EventData, false)
 	end
 end
 
 function FocusNavigationService:_connectToInputEvents()
 	-- Connect to UserInputService.InputBegan/Changed/Ended
 	local function forwardInputEvent(input, wasProcessed)
-		-- TODO: I don't think we want to be listening to any already-captured
-		-- events (like the left click from clicking a button with a mouse), but
-		-- maybe the user needs more control?
 		local currentFocus = self._engineInterface.getSelection()
-		if currentFocus and not wasProcessed then
-			self:_fireInputEvent(currentFocus, input)
+		if currentFocus then
+			self:_fireInputEvent(currentFocus, input, wasProcessed)
 		end
 	end
 	table.insert(self._engineEventConnections, self._engineInterface.InputBegan:Connect(forwardInputEvent))

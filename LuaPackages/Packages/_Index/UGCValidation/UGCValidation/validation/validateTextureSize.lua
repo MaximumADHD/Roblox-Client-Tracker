@@ -4,7 +4,13 @@ local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 
-local function validateTextureSize(textureId: string, allowNoTexture: boolean?): (boolean, {string}?)
+local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+
+local function validateTextureSize(
+	textureId: string,
+	allowNoTexture: boolean?,
+	isServer: boolean?
+): (boolean, { string }?)
 	if textureId == "" then
 		if allowNoTexture then
 			return true
@@ -19,6 +25,14 @@ local function validateTextureSize(textureId: string, allowNoTexture: boolean?):
 		end)
 
 		if not success then
+			if getFFlagUGCValidateBodyParts() then
+				if nil ~= isServer and isServer then
+					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
+					-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
+					-- which would mean the asset failed validation
+					error("Failed to execute validateTextureSize check")
+				end
+			end
 			return false, { "Failed to execute validateTextureSize check" }
 		end
 
@@ -31,17 +45,26 @@ local function validateTextureSize(textureId: string, allowNoTexture: boolean?):
 		end)
 
 		if not success then
-			return false, { "Failed to load texture data", imageSize } :: {any}
+			if getFFlagUGCValidateBodyParts() then
+				if nil ~= isServer and isServer then
+					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
+					-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
+					-- which would mean the asset failed validation
+					error("Failed to load texture data " .. tostring(imageSize))
+				end
+			end
+			return false, { "Failed to load texture data", imageSize } :: { any }
 		elseif imageSize.X > Constants.MAX_TEXTURE_SIZE or imageSize.Y > Constants.MAX_TEXTURE_SIZE then
-			return false, {
-				string.format(
-					"Texture size is %dx%d px, but the limit is %dx%d px",
-					imageSize.X,
-					imageSize.Y,
-					Constants.MAX_TEXTURE_SIZE,
-					Constants.MAX_TEXTURE_SIZE
-				)
-			}
+			return false,
+				{
+					string.format(
+						"Texture size is %dx%d px, but the limit is %dx%d px",
+						imageSize.X,
+						imageSize.Y,
+						Constants.MAX_TEXTURE_SIZE,
+						Constants.MAX_TEXTURE_SIZE
+					),
+				}
 		end
 	end
 

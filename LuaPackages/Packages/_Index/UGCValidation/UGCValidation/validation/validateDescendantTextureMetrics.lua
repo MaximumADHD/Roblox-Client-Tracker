@@ -61,7 +61,7 @@ local function validateDescendantTextureMetrics(rootInstance: Instance, isServer
 	local texturesMap = ParseContentIds.parse(rootInstance, Constants.TEXTURE_CONTENT_ID_FIELDS)
 
 	for textureAssetId, data in pairs(texturesMap) do
-		if not reasonsAccumulator:updateReasons(validateTextureSize(data.instance[data.fieldName])) then
+		if not reasonsAccumulator:updateReasons(validateTextureSize(data.instance[data.fieldName], nil, isServer)) then
 			return reasonsAccumulator:getFinalResults()
 		end
 

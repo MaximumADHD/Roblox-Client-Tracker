@@ -12,6 +12,7 @@ local Otter = require(Packages.Otter)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local MenuDirection = require(script.Parent.MenuDirection)
 local validateButtonProps = require(script.Parent.validateButtonProps)
@@ -79,6 +80,24 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 
 		contextMenuWidthOverride = t.optional(t.UDim),
 		anchorPointOverride = t.optional(t.Vector2),
+
+		-- If the top element should have top corners rounded
+		topElementRounded = t.optional(t.boolean),
+		-- If the bottom element should have bottom corners rounded
+		bottomElementRounded = t.optional(t.boolean),
+		-- If the background asset behind the element is visible or not
+		isElementBackgroundVisible = t.optional(t.boolean),
+
+		-- If the divider is visible between all elements in the menu
+		isElementDividerVisible = t.optional(t.boolean),
+		-- Height of each element
+		elementHeight = t.optional(t.number),
+		-- Size of border rounded corner
+		borderCornerRadius = t.optional(t.integer),
+		-- Background of the menu
+		background = t.optional(validateColorInfo),
+		-- Indicate whether design override is enabled
+		enableTokenOverride = t.optional(t.boolean),
 	})
 
 	contextualMenuComponent.defaultProps = {
@@ -233,6 +252,14 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 							end
 						end),
 						anchorPoint = anchorPoint,
+						topElementRounded = self.props.topElementRounded,
+						bottomElementRounded = self.props.bottomElementRounded,
+						isElementBackgroundVisible = self.props.isElementBackgroundVisible,
+						isElementDividerVisible = self.props.isElementDividerVisible,
+						elementHeight = self.props.elementHeight,
+						borderCornerRadius = self.props.borderCornerRadius,
+						background = self.props.background,
+						enableTokenOverride = self.props.enableTokenOverride,
 					}),
 				}),
 			})

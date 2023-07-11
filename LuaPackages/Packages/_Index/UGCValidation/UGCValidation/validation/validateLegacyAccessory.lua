@@ -10,17 +10,18 @@ local validateMaterials = require(root.validation.validateMaterials)
 local validateTags = require(root.validation.validateTags)
 local validateMeshBounds = require(root.validation.validateMeshBounds)
 local validateTextureSize = require(root.validation.validateTextureSize)
-local validateHandleSize = require(root.validation.validateHandleSize)
 local validateProperties = require(root.validation.validateProperties)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateCanLoad = require(root.validation.validateCanLoad)
+local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 
 local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean, allowUnreviewedAssets: boolean): (boolean, {string}?)
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
@@ -50,7 +51,7 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 
 	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
 
-	if game:GetFastFlag("UGCCheckCanLoadAssets") and game:GetEngineFeature("EnableCanLoadAssetFunction") and isServer then
+	if isServer then
 		local textureSuccess
 		local meshSuccess
 		local _canLoadFailedReason: any = {}
@@ -97,8 +98,16 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			validationResult = false
 		end
 
+		if getFFlagUGCValidateThumbnailConfiguration() then
+			success, failedReason = validateThumbnailConfiguration(instance, handle)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+
 		local checkModeration = not isServer
-		if game:GetFastFlag("UGCCheckCanLoadAssets") and allowUnreviewedAssets then
+		if allowUnreviewedAssets then
 			checkModeration = false
 		end
 		if checkModeration then
@@ -125,14 +134,6 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
-			end
-
-			if game:GetFastFlag("UGCValidateHandleSize") then
-				success, failedReason = validateHandleSize(handle, meshId, meshScale)
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
 			end
 
 			success, failedReason = validateMeshTriangles(meshId)
@@ -189,8 +190,8 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			return false, reasons
 		end
 
-		if game:GetFastFlag("UGCValidateHandleSize") then
-			success, reasons = validateHandleSize(handle, meshId, meshScale)
+		if getFFlagUGCValidateThumbnailConfiguration() then
+			success, reasons = validateThumbnailConfiguration(instance, handle)
 			if not success then
 				return false, reasons
 			end

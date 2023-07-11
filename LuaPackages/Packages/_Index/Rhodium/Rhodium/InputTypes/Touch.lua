@@ -1,31 +1,33 @@
-local VirtualInputUtils = require(script.Parent.Parent.VirtualInputUtils)
-
+--!strict
 local VirtualInputManager = game:GetService("VirtualInputManager")
+
+local Rhodium = script:FindFirstAncestor("Rhodium")
+local VirtualInputUtils = require(Rhodium.VirtualInputUtils)
 
 local Touch = {}
 local defaultTouchId = 123456
 
-function Touch.SendTouchEvent(touchId, state, x, y)
+function Touch.SendTouchEvent(touchId: number, state, x: number, y: number)
 	x, y = VirtualInputUtils.__handleGuiInset(x, y)
 	VirtualInputManager:SendTouchEvent(touchId, state, x, y)
 end
 
-function Touch.touchStart(vec2, multitouchId)
+function Touch.touchStart(vec2: Vector2, multitouchId: number?)
 	local touchId = defaultTouchId + (multitouchId or 0)
-	Touch.SendTouchEvent(touchId, 0, vec2.x, vec2.y)
+	Touch.SendTouchEvent(touchId, 0, vec2.X, vec2.Y)
 end
 
-function Touch.touchMove(vec2, multitouchId)
+function Touch.touchMove(vec2: Vector2, multitouchId: number?)
 	local touchId = defaultTouchId + (multitouchId or 0)
-	Touch.SendTouchEvent(touchId, 1, vec2.x, vec2.y)
+	Touch.SendTouchEvent(touchId, 1, vec2.X, vec2.Y)
 end
 
-function Touch.touchStop(vec2, multitouchId)
+function Touch.touchStop(vec2: Vector2, multitouchId: number?)
 	local touchId = defaultTouchId + (multitouchId or 0)
-	Touch.SendTouchEvent(touchId, 2, vec2.x, vec2.y)
+	Touch.SendTouchEvent(touchId, 2, vec2.X, vec2.Y)
 end
 
-local function smoothSwipe(posFrom, posTo, duration, multitouchId)
+local function smoothSwipe(posFrom: Vector2, posTo: Vector2, duration: number, multitouchId: number?)
 	local passed = 0
 	local started = false
 	local touchId = defaultTouchId + (multitouchId or 0)
@@ -49,7 +51,7 @@ local function smoothSwipe(posFrom, posTo, duration, multitouchId)
 	end
 end
 
-function Touch.swipe(posFrom, posTo, duration, async, multitouchId)
+function Touch.swipe(posFrom: Vector2, posTo: Vector2, duration: number, async: boolean?, multitouchId: number?)
 	local touchId = defaultTouchId + (multitouchId or 0)
 	if async == true then
 		VirtualInputUtils.__asyncRun(smoothSwipe(posFrom, posTo, duration, touchId))
@@ -58,14 +60,22 @@ function Touch.swipe(posFrom, posTo, duration, async, multitouchId)
 	end
 end
 
-function Touch.touchScroll(startPos, xOffset, yOffset, duration, async, multitouchId)
+function Touch.touchScroll(
+	startPos: Vector2,
+	xOffset: number,
+	yOffset: number,
+	duration: number,
+	async: boolean?,
+	multitouchId: number?
+)
 	local posTo = startPos + Vector2.new(xOffset, yOffset)
 	Touch.swipe(startPos, posTo, duration, async, multitouchId)
 end
 
-function Touch.tap(vec2)
+function Touch.tap(vec2: Vector2)
 	Touch.touchStart(vec2)
 	Touch.touchStop(vec2)
+	VirtualInputUtils.waitForInputEventsProcessed()
 end
 
 return Touch

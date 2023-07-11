@@ -3,6 +3,9 @@ local root = script.Parent.Parent
 
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
 local validateWithSchema = require(root.util.validateWithSchema)
+local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
+
+local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 
 local function validateMeshPartAccessory(specialMeshAccessory, meshPartAccessory)
 	if not meshPartAccessory then
@@ -30,6 +33,13 @@ local function validateMeshPartAccessory(specialMeshAccessory, meshPartAccessory
 
 	if meshPartHandle.TextureID ~= specialMesh.TextureId then
 		return false, { "MeshPart.TextureID did not match SpecialMesh.TextureId" }
+	end
+
+	if getFFlagUGCValidateThumbnailConfiguration() then
+		local success, reasons = validateThumbnailConfiguration(meshPartAccessory, meshPartHandle)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	return true

@@ -113,11 +113,7 @@ local function validateDependencies(
 		return false, parseReasons
 	end
 
-	if
-		game:GetFastFlag("UGCCheckCanLoadAssets")
-		and game:GetEngineFeature("EnableCanLoadAssetFunction")
-		and isServer
-	then
+	if isServer then
 		validateExistance(contentIdMap)
 	end
 
@@ -132,7 +128,7 @@ local function validateDependencies(
 	end
 
 	local checkModeration = not isServer
-	if game:GetFastFlag("UGCCheckCanLoadAssets") and allowUnreviewedAssets then
+	if allowUnreviewedAssets then
 		checkModeration = false
 	end
 	if checkModeration then

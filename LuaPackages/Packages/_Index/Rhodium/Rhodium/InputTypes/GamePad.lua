@@ -1,6 +1,8 @@
-local VirtualInputUtils = require(script.Parent.Parent.VirtualInputUtils)
-
+--!strict
 local VirtualInputManager = game:GetService("VirtualInputManager")
+
+local Rhodium = script:FindFirstAncestor("Rhodium")
+local VirtualInputUtils = require(Rhodium.VirtualInputUtils)
 
 local GamePad = {}
 GamePad.__index = GamePad
@@ -28,10 +30,14 @@ GamePad.KeyCode = {
 }
 
 function GamePad.new()
-	local self = {deviceId = gamePadDeviceId}
+	local self = {
+		deviceId = gamePadDeviceId,
+	}
 	gamePadDeviceId = gamePadDeviceId + 1
 	setmetatable(self, GamePad)
+
 	VirtualInputManager:HandleGamepadConnect(self.deviceId)
+
 	return self
 end
 
@@ -39,24 +45,25 @@ function GamePad:disconnect()
 	VirtualInputManager:HandleGamepadDisconnect(self.deviceId)
 end
 
-function GamePad:pressButton(button)
-	VirtualInputManager:HandleGamepadButtonInput(self.deviceId, button, 1);
+function GamePad:pressButton(button: Enum.KeyCode)
+	VirtualInputManager:HandleGamepadButtonInput(self.deviceId, button, 1)
 end
 
-function GamePad:releaseButton(button)
-	VirtualInputManager:HandleGamepadButtonInput(self.deviceId, button, 0);
+function GamePad:releaseButton(button: Enum.KeyCode)
+	VirtualInputManager:HandleGamepadButtonInput(self.deviceId, button, 0)
 end
 
-function GamePad:hitButton(button)
+function GamePad:hitButton(button: Enum.KeyCode)
 	self:pressButton(button)
 	self:releaseButton(button)
+	VirtualInputUtils.waitForInputEventsProcessed()
 end
 
-function GamePad:moveStickTo(stick, vec2)
-	VirtualInputManager:HandleGamepadAxisInput(self.deviceId, stick, vec2.x, vec2.y, 0)
+function GamePad:moveStickTo(stick: Enum.KeyCode, vec2: Vector2)
+	VirtualInputManager:HandleGamepadAxisInput(self.deviceId, stick, vec2.X, vec2.Y, 0)
 end
 
-function GamePad:smoothMoveStickTo(stick, from, to, duration)
+function GamePad:smoothMoveStickTo(stick: Enum.KeyCode, from: Vector2, to: Vector2, duration: number)
 	duration = duration or 0
 	if duration == 0 then
 		self:moveStickTo(stick, to)
@@ -78,27 +85,31 @@ function GamePad:smoothMoveStickTo(stick, from, to, duration)
 	VirtualInputUtils.__syncRun(run)
 end
 
-function GamePad:swingStick(stick, pos, duration)
+function GamePad:swingStick(stick: Enum.KeyCode, pos: Vector2, duration: number?)
 	duration = duration or 0
+
+	-- selene: allow(incorrect_standard_library_use)
+	assert(duration)
+
 	local origin = Vector2.new(0, 0)
 	self:moveStickTo(stick, origin)
 	self:smoothMoveStickTo(stick, origin, pos, duration / 2)
 	self:smoothMoveStickTo(stick, pos, origin, duration / 2)
 end
 
-function GamePad:swingLeft(stick, duration)
+function GamePad:swingLeft(stick: Enum.KeyCode, duration: number?)
 	self:swingStick(stick, Vector2.new(-1, 0), duration)
 end
 
-function GamePad:swingRight(stick, duration)
+function GamePad:swingRight(stick: Enum.KeyCode, duration: number?)
 	self:swingStick(stick, Vector2.new(1, 0), duration)
 end
 
-function GamePad:swingTop(stick, duration)
+function GamePad:swingTop(stick: Enum.KeyCode, duration: number?)
 	self:swingStick(stick, Vector2.new(0, 1), duration)
 end
 
-function GamePad:swingDown(stick, duration)
+function GamePad:swingDown(stick: Enum.KeyCode, duration: number?)
 	self:swingStick(stick, Vector2.new(0, -1), duration)
 end
 

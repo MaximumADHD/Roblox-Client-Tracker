@@ -30,6 +30,7 @@ local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEventData)
 local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 local formatNumber = require(IAPExperienceRoot.Utility.formatNumber)
+local Animator = require(IAPExperienceRoot.Generic.Animator)
 
 local RobuxPackage = require(BuyRobuxRoot.RobuxPackage)
 
@@ -38,6 +39,7 @@ local BuyRobuxPage = Roact.Component:extend(script.Name)
 local LOC_KEY = "IAPExperience.BuyRobux.%s"
 
 local ROBUX_ICON = Images["icons/common/goldrobux"]
+local ROBLOX_LOGO = Images["icons/logo/block"]
 local ROBUX_IMAGES = {
 	Images["icons/graphic/robuxcoin1_xxlarge"],
 	Images["icons/graphic/robuxcoin2_xxlarge"],
@@ -62,10 +64,12 @@ local SPRING_CONFIG = {
 type Props = {
 	showBackground: boolean?,
 	showCloseButton: boolean?,
-	isConsoleSize: number,
+	isConsoleSize: boolean?,
+	hasNativePurchaseSucceeded: boolean?,
 
 	robuxBalance: number,
 	robuxPackages: table?,
+	shouldAnimate: boolean?,
 
 	robuxPackageActivated: (string) -> any,
 	onPageClose: () -> any,
@@ -78,6 +82,7 @@ type State = {
 function BuyRobuxPage:init()
 	self.state = {
 		selectedPackage = nil,
+		showMessageBanner = false
 	}
 
 	self.buttonRefs = RoactGamepad.createRefCache()
@@ -117,6 +122,19 @@ function BuyRobuxPage:didMount()
 	self.initSelectionChangedListener()
 end
 
+function BuyRobuxPage:didUpdate(prevProps: Props, prevState: State)
+	local props: Props = self.props
+
+	if prevProps.hasNativePurchaseSucceeded ~= props.hasNativePurchaseSucceeded then
+		if props.hasNativePurchaseSucceeded then
+			self:setState({ showMessageBanner = true })
+			task.delay(3, function()
+				self:setState({ showMessageBanner = false })
+			end)
+		end
+	end
+end
+
 function BuyRobuxPage:willUnmount()
 	-- Disconnect any existing listeners
 	if self.selectionListener ~= nil then
@@ -144,6 +162,9 @@ function BuyRobuxPage:render()
 			BannerTitle = {
 				key = LOC_KEY:format("Banner.Title"),
 			},
+			SuccessfulMessage = {
+				key = LOC_KEY:format("Alert.SuccessfulMessage"),
+			}
 		},
 		render = function(locMap: { [string]: string })
 			return withSelectionCursorProvider(function(getSelectionCursor)
@@ -204,7 +225,9 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 				end,
 				onHover = function(ref: React.Ref<any>, didHover: boolean)
 					if didHover then
-						self:setState({ selectedPackage = ref:getValue() })
+						if (self.state.selectedPackage ~= ref:getValue()) then -- make sure it won't trigger re-rendering when mouse moves
+							self:setState({ selectedPackage = ref:getValue() })
+						end
 					else
 						self:setState({ selectedPackage = "" })
 					end
@@ -252,6 +275,60 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 				Visible = self.props.showCloseButton,
 
 				[Roact.Event.Activated] = props.onPageClose
+			}, {
+				UICorner = Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(0, 16 * self:getScale()),
+				}),
+			}),
+			MessageBannerAnimator = Roact.createElement(Animator, {
+				shouldAnimate = props.shouldAnimate,
+				shouldShow = self.state.showMessageBanner,
+				animateDown = true,
+				ZIndex = 10,
+				renderChildren = function()
+					return Roact.createElement("Frame", {
+						AnchorPoint = Vector2.new(0, 0),
+
+						BackgroundTransparency = 0,
+						BackgroundColor3 = if theme == DarkTheme then Color3.fromRGB(17, 18, 20) else Color3.fromRGB(198, 203, 206),
+
+						Position = UDim2.fromOffset(SIDE_PADDING / 2 * self:getScale(), 40 * self:getScale()),
+						Size = UDim2.new(1, -1 * SIDE_PADDING * self:getScale(), 0, balanceTextHeight * 2),
+					}, {
+						UICorner = Roact.createElement("UICorner", {
+							CornerRadius = UDim.new(0, 16 * self:getScale()),
+						}),
+						Icon = Roact.createElement(ImageSetLabel, {
+							AnchorPoint = Vector2.new(0, 0.5),
+							BackgroundTransparency = 1,
+
+							LayoutOrder = 1,
+
+							Image = ROBLOX_LOGO,
+							ImageColor3 = theme.TextEmphasis.Color,
+							ImageTransparency = 0,
+
+							Position = UDim2.fromOffset(24 * self:getScale(), balanceTextHeight),
+							Size = UDim2.fromOffset(36 * self:getScale(), 36 * self:getScale()),
+						}),
+						AlertMessage = Roact.createElement(FitTextLabel, {
+							AnchorPoint = Vector2.new(0, 0.5),
+							Position = UDim2.fromOffset(80 * self:getScale(), balanceTextHeight),
+
+							LayoutOrder = 2,
+
+							width = FitTextLabel.Width.FitToText,
+							Text = locMap.SuccessfulMessage,
+
+							Font = fonts.Header1.Font,
+							TextColor3 = theme.TextEmphasis.Color,
+							TextTransparency = theme.TextEmphasis.Transparency,
+							TextSize = balanceTextHeight,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							BackgroundTransparency = 1,
+						}),
+					})
+				end,
 			}),
 			RobuxBalanceFrame = Roact.createElement(FitFrameHorizontal, {
 				Position = UDim2.new(1, -1 * SIDE_PADDING * self:getScale(), 0, 48 * self:getScale()),

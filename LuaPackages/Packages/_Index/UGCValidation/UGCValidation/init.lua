@@ -1,14 +1,10 @@
-game:DefineFastFlag("UGCValidateHandleSize", false)
 game:DefineFastFlag("UGCExtraBannedNames", false)
 game:DefineFastFlag("UGCValidateMeshVertColors", false)
 game:DefineFastString("UGCLCAllowedAssetTypeIds", "")
-game:DefineFastFlag("UGCValidateHSR", false)
-game:DefineFastFlag("UGCFixModerationCheck", false)
 game:DefineFastFlag("UGCBetterModerationErrorText", false)
 game:DefineFastFlag("UGCLCQualityValidation", false)
 game:DefineFastFlag("UGCLCQualityReplaceLua", false)
 game:DefineFastFlag("UGCReturnAllValidations", false)
-game:DefineFastFlag("UGCCheckCanLoadAssets", false)
 
 local root = script
 

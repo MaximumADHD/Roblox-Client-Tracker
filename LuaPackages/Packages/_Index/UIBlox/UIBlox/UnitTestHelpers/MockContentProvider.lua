@@ -7,10 +7,13 @@
 	local ultimatelyTimedOutContentIds = {
 		<list of uris that will try loading for a while then time out>
 	}
-	MockContentProvider.new(ultimatelySuccessfulContentIds, ultimatelyTimedOutContentIds)
+	local ultimatelyFailedContentIds = {
+		<list of uris that will try loading for a while then fail>
+	}
+	MockContentProvider.new(ultimatelySuccessfulContentIds, ultimatelyTimedOutContentIds, ultimatelyFailedContentIds)
 
 	Now you can call PreloadAsync.
-	If a uri is in neither ultimatelySuccessfulContentIds or ultimatelyTimedOutContentIds, it will
+	If a uri is in none of ultimatelySuccessfulContentIds, ultimatelyTimedOutContentIds, or ultimatelyFailedContentIds, it will
 	immediately call back with success.
 	Otherwise call proceedWithLoad to hit the next loading state:
 	* first call will put content into "Loading" state.
@@ -86,7 +89,11 @@ end
 ]]
 local MockContentProvider = {}
 MockContentProvider.__index = MockContentProvider
-function MockContentProvider.new(ultimatelySuccessfulContentIds, ultimatelyTimedOutContentIds)
+function MockContentProvider.new(
+	ultimatelySuccessfulContentIds,
+	ultimatelyTimedOutContentIds,
+	ultimatelyFailedContentIds
+)
 	local self = {}
 
 	setmetatable(self, {
@@ -100,12 +107,14 @@ function MockContentProvider.new(ultimatelySuccessfulContentIds, ultimatelyTimed
 	self.isMock = true
 	self.ultimatelySuccessfulContentIds = ultimatelySuccessfulContentIds or {}
 	self.ultimatelyTimedOutContentIds = ultimatelyTimedOutContentIds or {}
+	self.ultimatelyFailedContentIds = ultimatelyFailedContentIds or {}
 	return self
 end
 
-function MockContentProvider:mockReload(contentId)
+function MockContentProvider:mockReload(contentId, finalStatus)
 	self.mockContentProviderProceedWithLoad = false
-	self:_staggeredProgress(nil, contentId, Enum.AssetFetchStatus.Success)
+	finalStatus = finalStatus or Enum.AssetFetchStatus.Success
+	self:_staggeredProgress(nil, contentId, finalStatus)
 end
 
 function MockContentProvider:proceedWithLoad()
@@ -176,6 +185,8 @@ function MockContentProvider:PreloadAsync(assets, callback)
 			self:_staggeredProgress(callback, contentId, Enum.AssetFetchStatus.Success)
 		elseif self.ultimatelyTimedOutContentIds[contentId] then
 			self:_staggeredProgress(callback, contentId, Enum.AssetFetchStatus.TimedOut)
+		elseif self.ultimatelyFailedContentIds[contentId] then
+			self:_staggeredProgress(callback, contentId, Enum.AssetFetchStatus.Failure)
 		else
 			task.delay(0, function()
 				self:_setAssetFetchStatus(contentId, Enum.AssetFetchStatus.Success)

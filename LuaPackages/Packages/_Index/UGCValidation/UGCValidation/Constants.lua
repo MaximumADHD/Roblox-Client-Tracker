@@ -223,65 +223,122 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.DressSkirtAccessory] = {
 
 if getFFlagUGCValidateBodyParts() then
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.EyebrowAccessory] = {
-		attachmentNames = { "FaceFrontAttachment" },
+		attachmentNames = { "FaceFrontAttachment", "FaceCenterAttachment" },
+		layeredClothingBounds = {
+			FaceFrontAttachment = {
+				size = Vector3.new(1.5, 0.5, 0.5),
+			},
+			FaceCenterAttachment = {
+				size = Vector3.new(1.5, 0.5, 0.5),
+			},
+		},
 	}
 
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.EyelashAccessory] = {
-		attachmentNames = { "FaceFrontAttachment" },
+		attachmentNames = { "FaceFrontAttachment", "FaceCenterAttachment" },
+		layeredClothingBounds = {
+			FaceFrontAttachment = {
+				size = Vector3.new(1.5, 0.5, 0.5),
+			},
+			FaceCenterAttachment = {
+				size = Vector3.new(1.5, 0.5, 0.5),
+			},
+		},
 	}
 
-	--NOTE: all sizes and offsets for body parts are set-up so all current bundles between 700 and 998 would pass max size checks
+	Constants.AvatarPartScaleTypes = {
+		Classic = true,
+		ProportionsSlender = true,
+		ProportionsNormal = true,
+	}
+
+	local meshTol = Vector3.new(0.01, 0.01, 0.01)
+	local meshDivision = 0.5
+	local fullMesh = {
+		min = Vector3.new(-1, -1, -1) - meshTol,
+		max = Vector3.new(1, 1, 1) + meshTol,
+	}
+
+	local leftMesh = {
+		min = Vector3.new(-1, -1, -1) - meshTol,
+		max = Vector3.new(-meshDivision, 1, 1) + meshTol,
+	}
+
+	local rightMesh = {
+		min = Vector3.new(meshDivision, -1, -1) - meshTol,
+		max = Vector3.new(1, 1, 1) + meshTol,
+	}
+
+	local topMesh = {
+		min = Vector3.new(-1, meshDivision, -1) - meshTol,
+		max = Vector3.new(1, 1, 1) + meshTol,
+	}
+
+	local bottomMesh = {
+		min = Vector3.new(-1, -1, -1) - meshTol,
+		max = Vector3.new(1, -meshDivision, 1) + meshTol,
+	}
+
+	local frontMesh = {
+		min = Vector3.new(-1, -1, -1) - meshTol,
+		max = Vector3.new(1, 1, -meshDivision) + meshTol,
+	}
+
+	local backMesh = {
+		min = Vector3.new(-1, -1, meshDivision) - meshTol,
+		max = Vector3.new(1, 1, 1) + meshTol,
+	}
+
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.RightArm] = {
 		isBodyPart = true,
+		bounds = {
+			Classic = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 3, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(1.5, 4, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 4.5, 2),
+			},
+		},
 		subParts = {
 			RightHand = {
-				rigAttachmentToParentName = "RightWristRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2, 2.5, 2),
-					offset = Vector3.new(0.25, -0.5, -0.25),
+				rigAttachmentToParent = {
+					name = "RightWristRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					RightGripAttachment = {
-						bounds = {
-							size = Vector3.new(2, 1, 1),
-							offset = Vector3.new(0.5, -0.5, -0.25),
-						},
+						bounds = fullMesh,
 					},
 				},
 			},
 			RightUpperArm = {
-				rigAttachmentToParentName = "RightShoulderRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2.5, 4, 2.5),
-					offset = Vector3.new(0.5, -0.5, 0),
+				rigAttachmentToParent = {
+					name = "RightShoulderRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					RightShoulderAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 3.5, 0.5),
-							offset = Vector3.new(0.25, 0.25, 0),
-						},
+						bounds = topMesh,
 					},
 					RightElbowRigAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 2, 0.5),
-							offset = Vector3.new(0.5, -1.25, 0),
-						},
+						bounds = bottomMesh,
 					},
 				},
 			},
 			RightLowerArm = {
-				rigAttachmentToParentName = "RightElbowRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2.5, 3, 2),
-					offset = Vector3.new(0.5, -0.75, -0.25),
+				rigAttachmentToParent = {
+					name = "RightElbowRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					RightWristRigAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 1.5, 1),
-							offset = Vector3.new(0.5, -1, -0.25),
-						},
+						bounds = bottomMesh,
 					},
 				},
 			},
@@ -290,37 +347,38 @@ if getFFlagUGCValidateBodyParts() then
 
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.DynamicHead] = {
 		isBodyPart = true,
+		bounds = {
+			Classic = {
+				minSize = Vector3.new(0.5, 0.5, 0.5),
+				maxSize = Vector3.new(1.5, 1.75, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.5, 0.5, 0.5),
+				maxSize = Vector3.new(2, 2, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.5, 0.5, 0.5),
+				maxSize = Vector3.new(3, 2, 2),
+			},
+		},
 		subParts = {
 			Head = {
-				rigAttachmentToParentName = "NeckRigAttachment",
-				meshBounds = {
-					size = Vector3.new(4.5, 3, 3),
-					offset = Vector3.new(0, 1, -0.25),
+				rigAttachmentToParent = {
+					name = "NeckRigAttachment",
+					bounds = bottomMesh,
 				},
 				otherAttachments = {
 					FaceFrontAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1.5),
-							offset = Vector3.new(0, 0.75, -0.75),
-						},
+						bounds = frontMesh,
 					},
 					HatAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1),
-							offset = Vector3.new(0, 1.25, -0.25),
-						},
+						bounds = topMesh,
 					},
 					HairAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1),
-							offset = Vector3.new(0, 1.25, -0.25),
-						},
+						bounds = topMesh,
 					},
 					FaceCenterAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1, 1),
-							offset = Vector3.new(0, 0.5, -0.25),
-						},
+						bounds = fullMesh,
 					},
 				},
 			},
@@ -329,55 +387,54 @@ if getFFlagUGCValidateBodyParts() then
 
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftArm] = {
 		isBodyPart = true,
+		bounds = {
+			Classic = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 3, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(1.5, 4, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 1.5, 0.25),
+				maxSize = Vector3.new(2, 4.5, 2),
+			},
+		},
 		subParts = {
 			LeftLowerArm = {
-				rigAttachmentToParentName = "LeftElbowRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2.5, 3, 2),
-					offset = Vector3.new(-0.5, -0.75, -0.25),
+				rigAttachmentToParent = {
+					name = "LeftElbowRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					LeftWristRigAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 1.5, 1),
-							offset = Vector3.new(-0.5, -1, -0.25),
-						},
+						bounds = bottomMesh,
 					},
 				},
 			},
 			LeftUpperArm = {
-				rigAttachmentToParentName = "LeftShoulderRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2.5, 4, 2.5),
-					offset = Vector3.new(-0.5, -0.5, 0),
+				rigAttachmentToParent = {
+					name = "LeftShoulderRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					LeftElbowRigAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 2, 0.5),
-							offset = Vector3.new(-0.5, -1.25, 0),
-						},
+						bounds = bottomMesh,
 					},
 					LeftShoulderAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 3.5, 0.5),
-							offset = Vector3.new(-0.25, 0.25, 0),
-						},
+						bounds = topMesh,
 					},
 				},
 			},
 			LeftHand = {
-				rigAttachmentToParentName = "LeftWristRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2, 2.5, 2),
-					offset = Vector3.new(-0.25, -0.5, -0.25),
+				rigAttachmentToParent = {
+					name = "LeftWristRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					LeftGripAttachment = {
-						bounds = {
-							size = Vector3.new(2, 1, 1),
-							offset = Vector3.new(-0.5, -0.5, -0.25),
-						},
+						bounds = fullMesh,
 					},
 				},
 			},
@@ -386,106 +443,76 @@ if getFFlagUGCValidateBodyParts() then
 
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.Torso] = {
 		isBodyPart = true,
+		bounds = {
+			Classic = {
+				minSize = Vector3.new(1, 2, 1),
+				maxSize = Vector3.new(3.5, 3.25, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(1, 2, 1),
+				maxSize = Vector3.new(2.5, 3, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(1, 2, 1),
+				maxSize = Vector3.new(4, 3, 2.25),
+			},
+		},
 		subParts = {
 			UpperTorso = {
-				rigAttachmentToParentName = "WaistRigAttachment",
-				meshBounds = {
-					size = Vector3.new(3.5, 4.5, 4),
-					offset = Vector3.new(0, 0.75, 0.75),
+				rigAttachmentToParent = {
+					name = "WaistRigAttachment",
+					bounds = bottomMesh,
 				},
 				otherAttachments = {
 					LeftShoulderRigAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 2, 1),
-							offset = Vector3.new(-0.75, 1.5, 0.25),
-						},
+						bounds = leftMesh,
 					},
 					RightCollarAttachment = {
-						bounds = {
-							size = Vector3.new(1, 2, 1),
-							offset = Vector3.new(0.5, 1.75, 0),
-						},
+						bounds = rightMesh,
 					},
 					BodyBackAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 2, 1.5),
-							offset = Vector3.new(0, 1, 0.75),
-						},
+						bounds = backMesh,
 					},
 					NeckRigAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 2, 1),
-							offset = Vector3.new(0, 1.75, -0.25),
-						},
+						bounds = topMesh,
 					},
 					BodyFrontAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1.5),
-							offset = Vector3.new(0, 0.75, -0.75),
-						},
+						bounds = frontMesh,
 					},
 					RightShoulderRigAttachment = {
-						bounds = {
-							size = Vector3.new(1.5, 2, 1),
-							offset = Vector3.new(0.75, 1.5, 0.25),
-						},
+						bounds = rightMesh,
 					},
 					LeftCollarAttachment = {
-						bounds = {
-							size = Vector3.new(1, 2, 1),
-							offset = Vector3.new(-0.5, 1.75, 0),
-						},
+						bounds = leftMesh,
 					},
 					NeckAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 2, 1),
-							offset = Vector3.new(0, 2, 0),
-						},
+						bounds = topMesh,
 					},
 				},
 			},
 			LowerTorso = {
-				rigAttachmentToParentName = "RootRigAttachment",
-				meshBounds = {
-					size = Vector3.new(3, 3.5, 3),
-					offset = Vector3.new(0, -0.25, 0.25),
+				rigAttachmentToParent = {
+					name = "RootRigAttachment",
+					bounds = fullMesh,
 				},
 				otherAttachments = {
 					WaistCenterAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1, 0.5),
-							offset = Vector3.new(0, 0.25, 0),
-						},
+						bounds = fullMesh,
 					},
 					LeftHipRigAttachment = {
-						bounds = {
-							size = Vector3.new(1, 1, 0.5),
-							offset = Vector3.new(-0.5, -0.25, 0),
-						},
+						bounds = leftMesh,
 					},
 					RightHipRigAttachment = {
-						bounds = {
-							size = Vector3.new(1, 1, 0.5),
-							offset = Vector3.new(0.5, -0.25, 0),
-						},
+						bounds = rightMesh,
 					},
 					WaistRigAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1, 1),
-							offset = Vector3.new(0, 0.5, 0.25),
-						},
+						bounds = topMesh,
 					},
 					WaistBackAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1.5),
-							offset = Vector3.new(0, 0.5, 0.75),
-						},
+						bounds = backMesh,
 					},
 					WaistFrontAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1.5),
-							offset = Vector3.new(0, 0.25, -0.75),
-						},
+						bounds = frontMesh,
 					},
 				},
 			},
@@ -494,49 +521,51 @@ if getFFlagUGCValidateBodyParts() then
 
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.RightLeg] = {
 		isBodyPart = true,
+		bounds = {
+			Classic = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 2.75, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 3, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 3, 2),
+			},
+		},
 		subParts = {
 			RightUpperLeg = {
-				rigAttachmentToParentName = "RightHipRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2, 2.5, 2),
-					offset = Vector3.new(0.25, -0.75, 0),
+				rigAttachmentToParent = {
+					name = "RightHipRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					RightKneeRigAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1),
-							offset = Vector3.new(0, -1.25, -0.25),
-						},
+						bounds = bottomMesh,
 					},
 				},
 			},
 			RightFoot = {
-				rigAttachmentToParentName = "RightAnkleRigAttachment",
-				meshBounds = {
-					size = Vector3.new(1.5, 1.5, 2),
-					offset = Vector3.new(0, 0, -0.25),
+				rigAttachmentToParent = {
+					name = "RightAnkleRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					RightFootAttachment = {
-						bounds = {
-							size = Vector3.new(2, 6, 1),
-							offset = Vector3.new(-0.25, -0.5, -0.25),
-						},
+						bounds = fullMesh,
 					},
 				},
 			},
 			RightLowerLeg = {
-				rigAttachmentToParentName = "RightKneeRigAttachment",
-				meshBounds = {
-					size = Vector3.new(1.5, 3, 2.5),
-					offset = Vector3.new(0, -1, 0.5),
+				rigAttachmentToParent = {
+					name = "RightKneeRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					RightAnkleRigAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 2, 1),
-							offset = Vector3.new(0, -1.25, 0.25),
-						},
+						bounds = bottomMesh,
 					},
 				},
 			},
@@ -545,49 +574,51 @@ if getFFlagUGCValidateBodyParts() then
 
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftLeg] = {
 		isBodyPart = true,
+		bounds = {
+			Classic = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 2.75, 2),
+			},
+			ProportionsSlender = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 3, 2),
+			},
+			ProportionsNormal = {
+				minSize = Vector3.new(0.25, 2, 0.5),
+				maxSize = Vector3.new(1.5, 3, 2),
+			},
+		},
 		subParts = {
 			LeftFoot = {
-				rigAttachmentToParentName = "LeftAnkleRigAttachment",
-				meshBounds = {
-					size = Vector3.new(1.5, 1.5, 2),
-					offset = Vector3.new(0, 0, -0.25),
+				rigAttachmentToParent = {
+					name = "LeftAnkleRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					LeftFootAttachment = {
-						bounds = {
-							size = Vector3.new(2, 6, 1),
-							offset = Vector3.new(0.25, -0.5, -0.25),
-						},
+						bounds = fullMesh,
 					},
 				},
 			},
 			LeftUpperLeg = {
-				rigAttachmentToParentName = "LeftHipRigAttachment",
-				meshBounds = {
-					size = Vector3.new(2, 2.5, 2),
-					offset = Vector3.new(-0.25, -0.75, 0),
+				rigAttachmentToParent = {
+					name = "LeftHipRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					LeftKneeRigAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 1.5, 1),
-							offset = Vector3.new(0, -1.25, -0.25),
-						},
+						bounds = bottomMesh,
 					},
 				},
 			},
 			LeftLowerLeg = {
-				rigAttachmentToParentName = "LeftKneeRigAttachment",
-				meshBounds = {
-					size = Vector3.new(1.5, 3, 2.5),
-					offset = Vector3.new(0, -1, 0.5),
+				rigAttachmentToParent = {
+					name = "LeftKneeRigAttachment",
+					bounds = topMesh,
 				},
 				otherAttachments = {
 					LeftAnkleRigAttachment = {
-						bounds = {
-							size = Vector3.new(0.5, 2, 1),
-							offset = Vector3.new(0, -1.25, 0.25),
-						},
+						bounds = bottomMesh,
 					},
 				},
 			},
@@ -677,7 +708,6 @@ if getFFlagUGCValidateBodyParts() then
 	Constants.CONTENT_ID_REQUIRED_FIELDS = {
 		SpecialMesh = { MeshId = true, TextureId = true },
 		MeshPart = { MeshId = true },
-		SurfaceAppearance = { ColorMap = true },
 		WrapTarget = { CageMeshId = true },
 	}
 
@@ -699,22 +729,13 @@ if getFFlagUGCValidateBodyParts() then
 		SurfaceAppearance = { ColorMap = 3, MetalnessMap = 1, NormalMap = 3, RoughnessMap = 1 },
 	}
 
-	Constants.RENDER_MESH_MAX_TRIANGLES = {
-		Head = 1500,
-		LeftUpperArm = 416,
-		LeftLowerArm = 416,
-		LeftHand = 416,
-		RightUpperArm = 416,
-		RightLowerArm = 416,
-		RightHand = 416,
-		UpperTorso = 875,
-		LowerTorso = 875,
-		LeftUpperLeg = 416,
-		LeftLowerLeg = 416,
-		LeftFoot = 416,
-		RightUpperLeg = 416,
-		RightLowerLeg = 416,
-		RightFoot = 416,
+	Constants.ASSET_RENDER_MESH_MAX_TRIANGLES = {
+		DynamicHead = 4000,
+		LeftArm = 1248,
+		RightArm = 1248,
+		Torso = 1750,
+		LeftLeg = 1248,
+		RightLeg = 1248,
 	}
 
 	Constants.WRAP_TARGET_CAGE_MESH_VERTS = {

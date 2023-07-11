@@ -19,7 +19,7 @@ LoadingSpinner.validateProps = t.strictInterface({
 	-- The anchor point of the spinner
 	anchorPoint = t.optional(t.Vector2),
 	-- The rotation rate of the spinner, in degrees	per second.
-	-- Positive numbers are clockwise, negative numbers are	counterclockwise.
+	-- Positive numbers are clockwise, negative numbers are counterclockwise.
 	rotationRate = t.optional(t.number),
 })
 

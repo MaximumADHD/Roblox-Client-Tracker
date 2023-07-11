@@ -140,6 +140,8 @@ GenericButton.validateProps = t.interface({
 
 	-- Override for the button text
 	buttonTextOverride = t.optional(t.strictInterface({
+		Size = t.optional(t.UDim2),
+		TextSize = t.optional(t.number),
 		TextWrapped = t.optional(t.boolean),
 		TextTruncate = t.optional(t.enum(Enum.TextTruncate)),
 		TextXAlignment = t.optional(t.enum(Enum.TextXAlignment)),

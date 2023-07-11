@@ -10,10 +10,6 @@ export type StyleProps = {
 	borderRadius: UDim,
 	-- Gutter of carousel
 	gutter: number,
-	-- Content's trailing margin
-	marginLeading: number,
-	-- Content's trailing margin
-	marginTrailing: number,
 	-- Gap between content list's icon and text
 	contentGap: number,
 	-- The Font type of text
@@ -28,8 +24,6 @@ local function getDefaultStyleProps(style: StyleTypes.AppStyle): StyleProps
 		borderRadius = UDim.new(0, style.Tokens.Component.VerticalTile.Base.Container.BorderRadius.LeadingTop),
 		contentGap = style.Tokens.Global.Space_150,
 		gutter = style.Tokens.Global.Space_300,
-		marginLeading = style.Tokens.Global.Space_800,
-		marginTrailing = style.Tokens.Global.Space_800,
 		titleFont = style.Font.Header1,
 		titleTextColor = {
 			Color = style.Tokens.Semantic.Color.Text.Emphasis.Color3,

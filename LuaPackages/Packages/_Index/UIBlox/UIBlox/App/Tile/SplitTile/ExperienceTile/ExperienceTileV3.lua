@@ -28,6 +28,8 @@ local VerticalTile = require(SplitTileRoot.VerticalTile.VerticalTile)
 local TileContentPanel = require(SplitTileRoot.TileContentPanel)
 local VerticalTileThumbnail = require(SplitTileRoot.VerticalTile.VerticalTileThumbnail)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 export type AspectRatioMode = AspectRatioModeEnum.AspectRatioMode
 
 export type StyleProps = Constants.StyleProps
@@ -47,8 +49,18 @@ export type Props = {
 	footer: React.ReactElement?,
 	-- The height of the footer. If nil, a default height of 22 is used.
 	footerHeight: number?,
+	-- Whether or not the tile has an opaque background.
+	-- When false, all corners of thumbnail will be rounded and the tile's contents will float underneath of it.
+	hasBackground: boolean?,
+	-- Whether or not the tile has a border outline.
+	-- When isBackground is false, the border will only outline the tile's thumbnail.
+	hasOutline: boolean?,
 	-- Whether or not hover mode is enabled for the tile
 	isHoverEnabled: boolean?,
+	-- Delay in seconds before the tile will react to hover user input
+	hoverDelay: number?,
+	-- Callback that fires when the tile's hover state changes
+	onHoverChanged: (() -> ())?,
 	-- Props for ExperienceActionRow
 	actionRowProps: ExperienceActionRow.Props?,
 	-- Function called when tile panel is clicked
@@ -247,9 +259,13 @@ local function ExperienceTileV3(props: Props)
 		[React.Event.Activated] = props.onActivated,
 	}, {
 		VerticalTile = React.createElement(VerticalTile, {
-			hasBackground = true,
-			hasOutline = true,
+			hasBackground = if UIBloxConfig.experienceTileHoverDelay
+				then setDefault(props.hasBackground, true)
+				else true,
+			hasOutline = if UIBloxConfig.experienceTileHoverDelay then setDefault(props.hasOutline, true) else true,
 			isHoverEnabled = isHoverEnabled,
+			hoverDelay = if UIBloxConfig.experienceTileHoverDelay then props.hoverDelay else nil,
+			onHoverChanged = if UIBloxConfig.experienceTileHoverDelay then props.onHoverChanged else nil,
 			isOverlayVisible = false,
 			isActive = false,
 			renderTopContent = renderTopContent,

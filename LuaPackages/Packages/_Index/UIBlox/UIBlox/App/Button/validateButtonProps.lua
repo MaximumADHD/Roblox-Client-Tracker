@@ -85,6 +85,9 @@ return t.strictInterface({
 	--A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
 
+	-- Contains override props for the text label
+	buttonTextOverride = t.optional(t.table),
+
 	-- Gamepad Support props
 	NextSelectionDown = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),

@@ -266,4 +266,5 @@ LuaApp]],
     ["IAPExperience.BuyRobux.Banner.Title"] = [[Get Robux]],
     ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[{robux} Robux More]],
     ["IAPExperience.BuyRobux.Text.MoreRobux2"] = [[{robux} More Robux]],
+    ["IAPExperience.BuyRobux.Alert.SuccessfulMessage"] = [[You have purchased Robux successfully!]],
 }

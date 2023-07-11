@@ -5,4 +5,5 @@ return enumerate(script.Name, {
 	Unset = "Unset",
 	ExperienceInvite = "ExperienceInvite",
 	FriendInvite = "FriendInvite",
+	ScreenshotInvite = "ScreenshotInvite",
 })

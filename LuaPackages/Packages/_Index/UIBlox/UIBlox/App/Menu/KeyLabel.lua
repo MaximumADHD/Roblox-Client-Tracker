@@ -10,6 +10,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(UIBlox.App.ImageSet.Images)
 
@@ -24,50 +25,55 @@ local OFF_CENTER_PADDING = 9
 
 local TEXT_CENTER_OFFSET = -1
 
-local DEFAULT_KEY_LABEL_SIZE = require(script.Parent.MenuConstants).DefaultKeyLabelSize
+local DEFAULT_KEY_LABEL_SIZE = require(Menu.MenuConstants).DefaultKeyLabelSize
+local platformIconMap = require(Menu.platformIconMap)
 
 -- Big and small font sizes for key text.
 local BIG = "CaptionHeader"
 local SMALL = "Footer"
 
-local GAMEPAD_AXIS_OVERRIDE_MAP = {
-	[Enum.KeyCode.Thumbstick1] = {
-		directional = Images["icons/controls/keys/xboxLSDirectional"],
-		horizontal = Images["icons/controls/keys/xboxLSHorizontal"],
-		vertical = Images["icons/controls/keys/xboxLSVertical"],
-	},
-	[Enum.KeyCode.Thumbstick2] = {
-		directional = Images["icons/controls/keys/xboxRSDirectional"],
-		horizontal = Images["icons/controls/keys/xboxRSHorizontal"],
-		vertical = Images["icons/controls/keys/xboxRSVertical"],
-	},
-}
+local GAMEPAD_AXIS_OVERRIDE_MAP = if UIBloxConfig.usePlatformContentKeyLabels
+	then platformIconMap.DIRECTIONAL_GAMEPAD_ICONS
+	else {
+		[Enum.KeyCode.Thumbstick1] = {
+			directional = Images["icons/controls/keys/xboxLSDirectional"],
+			horizontal = Images["icons/controls/keys/xboxLSHorizontal"],
+			vertical = Images["icons/controls/keys/xboxLSVertical"],
+		},
+		[Enum.KeyCode.Thumbstick2] = {
+			directional = Images["icons/controls/keys/xboxRSDirectional"],
+			horizontal = Images["icons/controls/keys/xboxRSHorizontal"],
+			vertical = Images["icons/controls/keys/xboxRSVertical"],
+		},
+	}
 
-local GAMEPAD_OVERRIDE_MAP = {
-	[Enum.KeyCode.ButtonX] = Images["icons/controls/keys/xboxX"],
-	[Enum.KeyCode.ButtonY] = Images["icons/controls/keys/xboxY"],
-	[Enum.KeyCode.ButtonA] = Images["icons/controls/keys/xboxA"],
-	[Enum.KeyCode.ButtonB] = Images["icons/controls/keys/xboxB"],
+local GAMEPAD_OVERRIDE_MAP = if UIBloxConfig.usePlatformContentKeyLabels
+	then platformIconMap.GAMEPAD_ICONS
+	else {
+		[Enum.KeyCode.ButtonX] = Images["icons/controls/keys/xboxX"],
+		[Enum.KeyCode.ButtonY] = Images["icons/controls/keys/xboxY"],
+		[Enum.KeyCode.ButtonA] = Images["icons/controls/keys/xboxA"],
+		[Enum.KeyCode.ButtonB] = Images["icons/controls/keys/xboxB"],
 
-	[Enum.KeyCode.DPadLeft] = Images["icons/controls/keys/dpadLeft"],
-	[Enum.KeyCode.DPadRight] = Images["icons/controls/keys/dpadRight"],
-	[Enum.KeyCode.DPadUp] = Images["icons/controls/keys/dpadUp"],
-	[Enum.KeyCode.DPadDown] = Images["icons/controls/keys/dpadDown"],
+		[Enum.KeyCode.DPadLeft] = Images["icons/controls/keys/dpadLeft"],
+		[Enum.KeyCode.DPadRight] = Images["icons/controls/keys/dpadRight"],
+		[Enum.KeyCode.DPadUp] = Images["icons/controls/keys/dpadUp"],
+		[Enum.KeyCode.DPadDown] = Images["icons/controls/keys/dpadDown"],
 
-	[Enum.KeyCode.ButtonStart] = Images["icons/controls/keys/xboxmenu"],
-	[Enum.KeyCode.ButtonSelect] = Images["icons/controls/keys/xboxView"],
+		[Enum.KeyCode.ButtonStart] = Images["icons/controls/keys/xboxmenu"],
+		[Enum.KeyCode.ButtonSelect] = Images["icons/controls/keys/xboxView"],
 
-	[Enum.KeyCode.ButtonR1] = Images["icons/controls/keys/xboxRB"],
-	[Enum.KeyCode.ButtonL1] = Images["icons/controls/keys/xboxLB"],
-	[Enum.KeyCode.ButtonR2] = Images["icons/controls/keys/xboxRT"],
-	[Enum.KeyCode.ButtonL2] = Images["icons/controls/keys/xboxLT"],
-	[Enum.KeyCode.ButtonR3] = Images["icons/controls/keys/xboxRS"],
-	[Enum.KeyCode.ButtonL3] = Images["icons/controls/keys/xboxLS"],
+		[Enum.KeyCode.ButtonR1] = Images["icons/controls/keys/xboxRB"],
+		[Enum.KeyCode.ButtonL1] = Images["icons/controls/keys/xboxLB"],
+		[Enum.KeyCode.ButtonR2] = Images["icons/controls/keys/xboxRT"],
+		[Enum.KeyCode.ButtonL2] = Images["icons/controls/keys/xboxLT"],
+		[Enum.KeyCode.ButtonR3] = Images["icons/controls/keys/xboxRS"],
+		[Enum.KeyCode.ButtonL3] = Images["icons/controls/keys/xboxLS"],
 
-	-- Thumbstick defaults
-	[Enum.KeyCode.Thumbstick1] = GAMEPAD_AXIS_OVERRIDE_MAP[Enum.KeyCode.Thumbstick1].directional,
-	[Enum.KeyCode.Thumbstick2] = GAMEPAD_AXIS_OVERRIDE_MAP[Enum.KeyCode.Thumbstick2].directional,
-}
+		-- Thumbstick defaults
+		[Enum.KeyCode.Thumbstick1] = GAMEPAD_AXIS_OVERRIDE_MAP[Enum.KeyCode.Thumbstick1].directional,
+		[Enum.KeyCode.Thumbstick2] = GAMEPAD_AXIS_OVERRIDE_MAP[Enum.KeyCode.Thumbstick2].directional,
+	}
 
 local KEYBOARD_OVERRIDE_MAP = {
 	[Enum.KeyCode.Escape] = { text = "ESC", fontKey = SMALL, width = 36 },

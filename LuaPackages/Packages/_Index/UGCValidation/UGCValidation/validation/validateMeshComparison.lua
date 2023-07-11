@@ -1,44 +1,9 @@
 --!strict
 
-local UGCValidationService = game:GetService("UGCValidationService")
-
 local root = script.Parent.Parent
 
 local ParseContentIds = require(root.util.ParseContentIds)
-
-local function getVerts(id: string): (boolean, { string }?, any?)
-	local success, verts = pcall(function()
-		return UGCValidationService:GetMeshVerts(id)
-	end)
-
-	if (not success) or not verts or (0 == #verts) then
-		return false, { "Failed to read mesh: " .. tostring(id) }
-	end
-	return true, nil, verts
-end
-
-local function calculateMinMax(currMin, currMax, candidateMin, candidateMax)
-	local function compare(a, b, func)
-		if a and b then
-			return Vector3.new(func(b.X, a.X), func(b.Y, a.Y), func(b.Z, a.Z))
-		end
-		return a or b
-	end
-	return compare(currMin, candidateMin, math.min), compare(currMax, candidateMax, math.max)
-end
-
-local function getBoundsInfo(verts: any, scale: Vector3)
-	assert(verts and #verts > 0)
-
-	local min = nil
-	local max = nil
-
-	for _, vertPos in pairs(verts) do
-		local scaledVert = vertPos * scale
-		min, max = calculateMinMax(min, max, scaledVert, scaledVert)
-	end
-	return min, max
-end
+local getMeshMinMax = require(root.util.getMeshMinMax)
 
 -- mesh and otherMesh are both {id: string, scale: Vector3, errorContext: string}
 --
@@ -56,20 +21,23 @@ local function validateMeshComparison(
 	mesh: MeshInputData,
 	otherMesh: MeshInputData,
 	lowerTol: number,
-	upperTol: number
+	upperTol: number,
+	isServer: boolean
 ): (boolean, { string }?)
-	local success, failureReasons, resultMesh = getVerts(mesh.id)
-	if (not success) or not resultMesh then
+	local success, failureReasons, meshMinOpt, meshMaxOpt = getMeshMinMax(mesh.id, isServer, mesh.scale)
+	if not success then
 		return success, failureReasons
 	end
+	local meshMin = meshMinOpt :: Vector3
+	local meshMax = meshMaxOpt :: Vector3
 
-	local successOther, failureReasonsOther, resultOtherMesh = getVerts(otherMesh.id)
-	if (not successOther) or not resultOtherMesh then
+	local successOther, failureReasonsOther, meshMinOptOther, meshMaxOptOther =
+		getMeshMinMax(otherMesh.id, isServer, otherMesh.scale)
+	if not successOther then
 		return successOther, failureReasonsOther
 	end
-
-	local meshMin, meshMax = getBoundsInfo(resultMesh, mesh.scale)
-	local otherMeshMin, otherMeshMax = getBoundsInfo(resultOtherMesh, otherMesh.scale)
+	local otherMeshMin = meshMinOptOther :: Vector3
+	local otherMeshMax = meshMaxOptOther :: Vector3
 
 	for _, dimension in pairs({ "X", "Y", "Z" }) do
 		local function format()

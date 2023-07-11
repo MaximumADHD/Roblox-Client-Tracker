@@ -1,19 +1,12 @@
 return {
-	-- Changes to UIBlox's LoadableImage so that it takes advantage of new ContentProvider APIs that give better feedback
-	-- on loading/pending/resolved state of content.
-	loadableImageResponsiveThumbnails = false,
+	-- fixLoadableImageLoadingFailed: when true, we correctly assess if a loadable image attempt
+	-- to load an asset has failed.
+	fixLoadableImageLoadingFailed = false,
 
 	-- styleRefactorConfig: DEPRECATED: this is a no-op, but is left in so that it's easier to upgrade consumers of
 	-- UIBlox that try to assign a value to it (the config layer will throw if assigning to a value that's not in the
 	-- default config)
 	styleRefactorConfig = false,
-
-	-- Warning for deprecated components.
-	-- This is not a flag but a temporary config to show a warning for using deprecated components.
-	-- current deprecated components are,
-	-- src\App\Loading\Enum\LoadingState.lua
-	-- src\App\Loading\Enum\ReloadingStyle.lua
-	devHasDeprecationWarning = false,
 
 	-- useNewGenericTextLabelProps: when false, GenericTextLabel component supports AutomaticSize, TextSize, and Size
 	-- props from a traditional TextLabel
@@ -33,6 +26,9 @@ return {
 
 	-- if true, uses the new refactored PlayerCount
 	useNewPlayerCount = false,
+
+	-- if true, uses the new KeyLabelV2
+	useNewKeyLabel = false,
 
 	-- Bind all laser pointer buttons for left/right switching
 	bindAllLaserPointerButtons = false,
@@ -91,4 +87,16 @@ return {
 
 	-- Enable the option to add a button to the Toast component
 	enableToastButton = false,
+
+	-- Allow to pass buttonText and buttonType to EmptyState component
+	buttonPropsForEmptyState = false,
+
+	-- Add hover delay support for ExperienceTileV3
+	experienceTileHoverDelay = false,
+
+	-- Enable alternate platform content icon map for KeyLabel
+	usePlatformContentKeyLabels = false,
+
+	-- Indicate whether to enable the new layout for menu/cell
+	enableNewMenuLayout = false,
 }

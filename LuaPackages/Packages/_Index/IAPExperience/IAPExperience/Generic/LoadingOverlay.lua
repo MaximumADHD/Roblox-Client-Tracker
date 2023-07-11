@@ -112,11 +112,24 @@ function LoadingOverlay:renderAlert(locMap: { [string]: string })
 				end
 			end),
 			Size = UDim2.new(1, 0, 1, 0),
+			Visible = props.showOverlay,
 		}, {
+			-- because the frame has a known-long-existing bug which it could be click-through,
+			-- thus we add the stop propagation overlay to prevent the click-through
+			StopPropagationOverlay = Roact.createElement("TextButton", {
+				Active = false,
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				Selectable = false,
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = "",
+				ZIndex = 0,
+			}),
 			MiddleContent = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
+				ZIndex = 1,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,

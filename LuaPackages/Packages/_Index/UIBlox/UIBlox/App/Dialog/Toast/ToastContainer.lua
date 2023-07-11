@@ -28,8 +28,6 @@ local MIN_HEIGHT = 60
 
 local MAX_BOUND = 10000
 
-local LARGE_WIDTH_THRESHOLD = 325
-
 local function getTextHeight(text, font, fontSize, widthCap)
 	local bounds = Vector2.new(widthCap, MAX_BOUND)
 	local textSize = GetTextSize(text, fontSize, font, bounds)
@@ -159,7 +157,7 @@ function ToastContainer:init()
 	end
 
 	self.showCompactToast = function()
-		return self.state.containerWidth < LARGE_WIDTH_THRESHOLD
+		return self.state.containerWidth < MAX_WIDTH
 	end
 
 	self.showPressed = function()

@@ -19,7 +19,7 @@ function APIUtil.getBaseDomain()
 	return string.sub(baseUrl, prefixEnd :: number + 1)
 end
 
-local MAX_RETRIES = 5
+local MAX_RETRIES = 2
 local function requestAndRetry(func: () -> any, attempt: number?)
 	if attempt == nil then
 		attempt = 0

@@ -19,6 +19,8 @@ local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
 local SecondaryButton = require(App.Button.SecondaryButton)
 
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+
 local ICON_TEXT_PADDING = 12
 local TEXT_BUTTON_PADDING = 24
 local TITLE_PADDING = 14
@@ -37,8 +39,12 @@ EmptyState.validateProps = t.strictInterface({
 	position = t.optional(t.UDim2),
 	-- The anchor point of the button.
 	anchorPoint = t.optional(t.Vector2),
-	-- Icon displayed inside the button
+	-- Icon displayed inside the button (pass empty string if you don't want icon to be rendered)
 	buttonIcon = t.optional(validateImage),
+	-- Button text
+	buttonText = t.optional(t.string),
+	-- Button type from App.Button
+	buttonType = t.optional(t.table),
 	-- Passing in the callback function will render a button
 	onActivated = t.optional(t.callback),
 	frameRef = t.optional(t.table),
@@ -62,6 +68,10 @@ EmptyState.defaultProps = {
 	buttonIcon = Images["icons/common/refresh"],
 	iconSize = UDim2.fromOffset(getIconSize(IconSize.XLarge), getIconSize(IconSize.XLarge)),
 }
+
+local function getCorrectedIconValue(icon: validateImage.Image)
+	return if icon == "" then nil else icon
+end
 
 function EmptyState:init()
 	self:setState({
@@ -173,14 +183,22 @@ function EmptyState:render()
 					UISizeConstraint = Roact.createElement("UISizeConstraint", {
 						MaxSize = Vector2.new(BUTTON_MAX_SIZE, BUTTON_HEIGHT),
 					}),
-					Button = Roact.createElement(SecondaryButton, {
-						size = UDim2.fromScale(1, 1),
-						position = UDim2.fromScale(0.5, 0.5),
-						anchorPoint = Vector2.new(0.5, 0.5),
-						onActivated = self.props.onActivated,
-						icon = self.props.buttonIcon,
-						[Roact.Ref] = self.buttonRef,
-					}),
+					Button = Roact.createElement(
+						if UIBloxConfig.buttonPropsForEmptyState
+							then self.props.buttonType or SecondaryButton
+							else SecondaryButton,
+						{
+							size = UDim2.fromScale(1, 1),
+							position = UDim2.fromScale(0.5, 0.5),
+							anchorPoint = Vector2.new(0.5, 0.5),
+							onActivated = self.props.onActivated,
+							icon = if UIBloxConfig.buttonPropsForEmptyState
+								then getCorrectedIconValue(self.props.buttonIcon)
+								else self.props.buttonIcon,
+							text = if UIBloxConfig.buttonPropsForEmptyState then self.props.buttonText else nil,
+							[Roact.Ref] = self.buttonRef,
+						}
+					),
 				}),
 			}),
 		})

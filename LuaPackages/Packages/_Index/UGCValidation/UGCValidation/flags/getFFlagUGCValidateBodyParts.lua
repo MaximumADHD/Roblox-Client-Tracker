@@ -1,7 +1,7 @@
 --!strict
 
-game:DefineFastFlag("UGCValidateBodyParts4", false)
+game:DefineFastFlag("UGCValidateBodyParts8", false)
 
 return function()
-	return game:GetFastFlag("UGCValidateBodyParts4")
+	return game:GetFastFlag("UGCValidateBodyParts8")
 end

@@ -148,9 +148,6 @@ local function initializeLibrary(configs)
 		Loading = strict({
 			Enum = strict({
 				RetrievalStatus = require(script.App.Loading.Enum.RetrievalStatus),
-				LoadingState = require(script.App.Loading.Enum.LoadingState),
-				RenderOnFailedStyle = require(script.App.Loading.Enum.RenderOnFailedStyle),
-				ReloadingStyle = require(script.App.Loading.Enum.ReloadingStyle),
 				LoadingStrategy = require(script.App.Loading.Enum.LoadingStrategy),
 			}),
 			LoadableImage = require(script.App.Loading.LoadableImage),
@@ -186,8 +183,6 @@ local function initializeLibrary(configs)
 			VerticalScrollViewWithMargin = require(script.App.Container.VerticalScrollViewWithMargin),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
-			LoadingStatePage = require(script.App.Container.LoadingStatePage),
-			FailedStatePage = require(script.App.Container.FailedStatePage),
 			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),
 			MediaGalleryPreview = require(script.App.Container.MediaGallery.MediaGalleryPreview),
 			MediaGalleryFullScreen = require(script.App.Container.MediaGallery.MediaGalleryFullScreen),
@@ -226,8 +221,6 @@ local function initializeLibrary(configs)
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
 			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
 			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
-			-- ExperienceStatsV2 is renamed, please use the new name App.Indicator.StatGroup
-			ExperienceStatsV2 = require(script.App.Indicator.StatGroup),
 			ExperienceTileV3 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV3),
 			AspectRatioModeEnum = require(script.App.Tile.SplitTile.ExperienceTile.Enum.AspectRatioMode),
 			getExperienceTileHeight = require(script.App.Tile.SplitTile.ExperienceTile.getExperienceTileHeight),
@@ -313,8 +306,9 @@ local function initializeLibrary(configs)
 
 			DropdownMenu = require(script.App.Menu.DropdownMenu),
 
-			KeyLabel = require(script.App.Menu.KeyLabel),
-			KeyLabelV2 = require(script.App.Menu.KeyLabelV2),
+			KeyLabel = if configs.useNewKeyLabel
+				then require(script.App.Menu.KeyLabelV2)
+				else require(script.App.Menu.KeyLabel),
 		}),
 
 		Control = strict({
@@ -342,7 +336,7 @@ local function initializeLibrary(configs)
 				IconTabGroup = require(script.App.Navigation.PrimaryNavBar.IconTabGroup),
 				Types = require(script.App.Navigation.PrimaryNavBar.Types),
 			}),
-			ControllerBar = require(script.App.Navigation.ControllerBar.ControllerBar),
+			ShortcutBar = require(script.App.Navigation.ShortcutBar.ShortcutBar),
 		}),
 
 		SelectionImage = strict({
@@ -413,12 +407,6 @@ local function initializeLibrary(configs)
 	-- DEPRECATED: This is kept for compatibility. This should not be used because it is an old design.
 	-- Use ContextualMenu instead
 	UIBlox.ModalBottomSheet = require(script.ModalBottomSheet.ModalBottomSheet)
-
-	-- DEPRECATED: use Core.Loading instead.
-	UIBlox.Loading = {
-		LoadableImage = require(script.App.Loading.LoadableImage),
-		ShimmerPanel = require(script.App.Loading.ShimmerPanel),
-	}
 
 	-- END DEPRECATED SECTION
 

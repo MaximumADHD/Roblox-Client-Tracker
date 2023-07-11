@@ -29,7 +29,7 @@ local function createIndividualBodyPartSchema(assetTypeEnum: Enum.AssetType, sub
 	}
 
 	table.insert(individualBodyPartSchema._children, {
-		Name = validationData.rigAttachmentToParentName,
+		Name = validationData.rigAttachmentToParent.name,
 		ClassName = "Attachment",
 	})
 

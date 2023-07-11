@@ -1,31 +1,11 @@
-local RemoteRhodium = {}
+--!strict
 local HttpService = game:GetService("HttpService")
 
-local rootPath = nil
+local rootPath: Instance
 
-local function split(s, delimiter)
-	local result = {};
-	while(s:len()>0) do
-		local pos, stop = string.find(s,delimiter,1,true)
-		if pos == nil then
-			table.insert(result,s)
-			s = ""
-		else
-			table.insert(result,string.sub(s,1,pos-1))
-			s = string.sub(s,stop+1)
-			if s == "" then table.insert(result,"") end
-		end
-	end
-	return result
-end
+local RemoteRhodium = {}
 
-function RemoteRhodium.setCommandPath(p)
-	rootPath = p
-end
-
-local function onCommand(command)
-	assert(type(command) == "string", "command should be a string")
-
+local function onCommand(command: string)
 	local op = command:find("(", 1, true)
 	local cp = command:reverse():find(")", 1, true)
 	if cp ~= nil then
@@ -34,43 +14,48 @@ local function onCommand(command)
 
 	local args = {}
 	if op then
-		assert(cp, "invalid syntex, expecting \")\"")
-		local argStr = command:sub(op+1, cp-1)
+		assert(cp, 'invalid syntex, expecting ")"')
+		local argStr = command:sub(op + 1, cp - 1)
 		if #argStr > 0 then
-			args = HttpService:JSONDecode("["..argStr.."]")
+			args = HttpService:JSONDecode("[" .. argStr .. "]")
 		end
-		command = command:sub(1, op-1)
+		command = command:sub(1, op - 1)
 	end
 
-	local subPathTab = split(command, ".")
+	local subPathTab = command:split(".")
 
 	local instance = rootPath
 	for i = 1, #subPathTab do
-		local p = subPathTab[i]
-		instance = instance[p]
-		if instance == nil then
-			error("can not find " .. p)
-		end
-		if type(instance) == "userdata" and instance.ClassName == "ModuleScript" then
-			instance = require(instance)
+		local part = subPathTab[i]
+		instance = instance:FindFirstChild(part) :: Instance
+
+		assert(instance, "can not find " .. part)
+
+		if instance and instance:IsA("ModuleScript") then
+			-- Typecasting to `any` to suppress "Unknown require: unsupported path"
+			local module = require(instance) :: (...any) -> ...any
+
+			assert(typeof(module) == "function", "target is not a function")
+
+			return module(unpack(args))
 		end
 	end
-	if type(instance) ~= "function" then
-		error("target is not a function")
-	end
-	return instance(unpack(args))
+
+	return nil
 end
 
-function RemoteRhodium.setCommandPath(p)
-	rootPath = p
+function RemoteRhodium.setCommandPath(path: Instance)
+	rootPath = path
 end
 
 local success, RhodiumService = pcall(function()
-		return game:GetService("RhodiumService")
-	end)
+	-- luau linting is not aware of RhodiumService
+	-- selene: allow(incorrect_standard_library_use)
+	return game:GetService("RhodiumService" :: any)
+end)
 
 if success then
-	RhodiumService.onCommand = onCommand
+	(RhodiumService :: any).onCommand = onCommand
 end
 
 return RemoteRhodium

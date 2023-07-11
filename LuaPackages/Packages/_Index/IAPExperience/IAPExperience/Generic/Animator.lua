@@ -22,6 +22,8 @@ type Props = {
 	onHidden: () -> any?,
 
 	renderChildren: () -> any,
+
+	ZIndex: number?,
 }
 
 function Animator:init()
@@ -88,6 +90,7 @@ function Animator:render()
 					return UDim2.new(0, 0, 1 * value, 0)
 				end
 			end),
+			ZIndex = props.ZIndex,
 		}, self.state.shouldRenderChildren and props.renderChildren() or nil)
 	else
 		if props.shouldShow then

@@ -69,17 +69,17 @@ function GenericTextLabel:render()
 		end
 
 		-- can inline once useNewGenericTextLabelProps is removed
-		local Size
-		local TextSize
-		local AutomaticSize
+		local size
+		local textSize
+		local automaticSize
 
 		if useNewGenericTextLabelProps then
-			Size = not self.props.AutomaticSize and textboxSize or nil
-			TextSize = self.props.TextSize or fontSizeMax
-			AutomaticSize = self.props.AutomaticSize or nil
+			size = not self.props.AutomaticSize and textboxSize or nil
+			textSize = self.props.TextSize or fontSizeMax
+			automaticSize = self.props.AutomaticSize or nil
 		else
-			Size = textboxSize
-			TextSize = fontSizeMax
+			size = textboxSize
+			textSize = fontSizeMax
 		end
 
 		local newProps = Cryo.Dictionary.join(self.props, {
@@ -88,11 +88,11 @@ function GenericTextLabel:render()
 			fontStyle = Cryo.None,
 			colorStyle = Cryo.None,
 			maxSize = Cryo.None,
-			Size = Size,
+			Size = size,
 			Text = text,
 			Font = textFont,
-			TextSize = TextSize,
-			AutomaticSize = AutomaticSize,
+			TextSize = textSize,
+			AutomaticSize = automaticSize,
 			TextColor3 = textColor,
 			TextTransparency = textTransparency,
 			TextWrapped = self.props.TextWrapped == nil and true or self.props.TextWrapped,

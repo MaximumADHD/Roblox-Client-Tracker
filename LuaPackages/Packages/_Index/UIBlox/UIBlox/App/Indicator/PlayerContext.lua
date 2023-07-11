@@ -15,6 +15,7 @@ local getIconSize = require(App.ImageSet.getIconSize)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local PlayerContext = Roact.PureComponent:extend("PlayerContext")
 
@@ -53,12 +54,24 @@ PlayerContext.validateProps = t.strictInterface({
 	-- A function that fires when the text is pressed
 	onActivated = t.optional(t.callback),
 	fontStyle = t.optional(validateFontInfo),
+
+	-- The text height which determines component height
+	textHeight = t.optional(t.number),
+	-- The color style of text, including color and transparency
+	textColorStyle = t.optional(validateColorInfo),
+	-- The padding between icon and its parent frame
+	iconPadding = t.optional(t.number),
+	-- The padding between icon and text
+	iconTextSpacing = t.optional(t.number),
 })
 
 PlayerContext.defaultProps = {
 	text = "",
 	icon = nil,
 	iconSize = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
+	textHeight = RELEVANCY_TEXT_HEIGHT,
+	iconPadding = RELEVANCY_PADDING,
+	iconTextSpacing = RELEVANCY_PADDING,
 }
 
 function PlayerContext:init()
@@ -93,12 +106,18 @@ function PlayerContext:render()
 			iconColor = activatedStyle.Color
 		end
 
-		local iconFrameWidth = iconSize.X.Offset + RELEVANCY_PADDING * 2
-		local iconFrameHeight = iconSize.Y.Offset + RELEVANCY_PADDING * 2
+		local textHeight = self.props.textHeight
+		local textColorStyle = self.props.textColorStyle
+			or (if onActivated then emphasisContentStyle else secondaryContentStyle)
+		local iconPadding = self.props.iconPadding
+		local iconTextSpacing = self.props.iconTextSpacing
+
+		local iconFrameWidth = iconSize.X.Offset + iconPadding * 2
+		local iconFrameHeight = iconSize.Y.Offset + iconPadding * 2
 
 		local fontStyle = self.props.fontStyle or style.Font.CaptionHeader
 		return Roact.createElement("ImageButton", {
-			Size = UDim2.new(1, 0, 0, RELEVANCY_TEXT_HEIGHT),
+			Size = UDim2.new(1, 0, 0, textHeight),
 			BackgroundTransparency = 1,
 			Active = onActivated and true or false,
 			[Roact.Event.Activated] = onActivated,
@@ -108,7 +127,7 @@ function PlayerContext:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, RELEVANCY_PADDING),
+				Padding = UDim.new(0, iconTextSpacing),
 			}),
 			IconFrame = icon and Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(iconFrameWidth, iconFrameHeight),
@@ -129,12 +148,12 @@ function PlayerContext:render()
 			}),
 			Text = text and Roact.createElement(GenericTextLabel, {
 				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, -iconFrameWidth - RELEVANCY_PADDING, 1, 0),
+				Size = UDim2.new(1, -iconFrameWidth - iconTextSpacing, 1, 0),
 				Text = text,
 				TextWrapped = true,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				fontStyle = fontStyle,
-				colorStyle = onActivated and emphasisContentStyle or secondaryContentStyle,
+				colorStyle = textColorStyle,
 				LayoutOrder = 2,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),

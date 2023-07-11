@@ -82,7 +82,7 @@ local function doAttachmentPositionsMatch(meshPartHead: MeshPart, specialMeshHea
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if not reasonsAccumulator:updateReasons(doPositionsMatch(validationData.rigAttachmentToParentName)) then
+	if not reasonsAccumulator:updateReasons(doPositionsMatch(validationData.rigAttachmentToParent.name)) then
 		return reasonsAccumulator:getFinalResults()
 	end
 

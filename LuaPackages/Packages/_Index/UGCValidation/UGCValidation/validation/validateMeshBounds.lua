@@ -15,6 +15,14 @@ local function pointInBounds(worldPos, boundsCF, boundsSize)
 		and objectPos.Z <= boundsSize.Z / 2
 end
 
+local function getErrors(name: string, v: Vector3, attachment: Attachment): { string }
+	return {
+		"Mesh is too large!",
+		string.format("Max size for type %s is [%.2f, %.2f, %.2f] from %s", name, v.X, v.Y, v.Z, attachment.Name),
+		"Use SpecialMesh.Scale if using SpecialMeshes",
+	}
+end
+
 -- IMPORTANT: remove assetTypeEnum_deprecated param when FFlagUGCValidateBodyParts is removed
 local function validateMeshBounds(
 	handle: BasePart,
@@ -23,7 +31,8 @@ local function validateMeshBounds(
 	meshScale: Vector3,
 	assetTypeEnum_deprecated: Enum.AssetType,
 	boundsInfo: any,
-	name: string
+	name: string,
+	isServer: boolean?
 ): (boolean, { string }?)
 	if not game:GetFastFlag("UGCReturnAllValidations") then
 		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
@@ -48,23 +57,32 @@ local function validateMeshBounds(
 		end)
 
 		if not success then
+			if getFFlagUGCValidateBodyParts() then
+				if nil ~= isServer and isServer then
+					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
+					-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
+					-- which would mean the asset failed validation
+					error("Failed to execute validateMeshBounds check")
+				end
+			end
 			return false, { "Failed to execute validateMeshBounds check" }
 		end
 
 		if not result then
-			return false,
-				{
-					"Mesh is too large!",
-					string.format(
-						"Max size for type %s is ( %s )",
-						(getFFlagUGCValidateBodyParts() and name or assetTypeEnum_deprecated.Name),
-						tostring(boundsSize)
-					),
-					(
-						getFFlagUGCValidateBodyParts() and "Use SpecialMesh.Scale if using SpecialMeshes"
-						or "Use SpecialMesh.Scale if needed"
-					),
-				}
+			if getFFlagUGCValidateBodyParts() then
+				return false, getErrors(name, boundsSize, attachment)
+			else
+				return false,
+					{
+						"Mesh is too large!",
+						string.format(
+							"Max size for type %s is ( %s )",
+							assetTypeEnum_deprecated.Name,
+							tostring(boundsSize)
+						),
+						"Use SpecialMesh.Scale if needed",
+					}
+			end
 		end
 	else
 		local success, verts = pcall(function()
@@ -72,25 +90,34 @@ local function validateMeshBounds(
 		end)
 
 		if not success then
+			if getFFlagUGCValidateBodyParts() then
+				if nil ~= isServer and isServer then
+					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
+					-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
+					-- which would mean the asset failed validation
+					error("Failed to read mesh")
+				end
+			end
 			return false, { "Failed to read mesh" }
 		end
 
 		for _, vertPos in pairs(verts) do
 			local worldPos = handle.CFrame:PointToWorldSpace(vertPos * meshScale)
 			if not pointInBounds(worldPos, boundsCF, boundsSize) then
-				return false,
-					{
-						"Mesh is too large!",
-						string.format(
-							"Max size for type %s is ( %s )",
-							(getFFlagUGCValidateBodyParts() and name or assetTypeEnum_deprecated.Name),
-							tostring(boundsSize)
-						),
-						(
-							getFFlagUGCValidateBodyParts() and "Use SpecialMesh.Scale if using SpecialMeshes"
-							or "Use SpecialMesh.Scale if needed"
-						),
-					}
+				if getFFlagUGCValidateBodyParts() then
+					return false, getErrors(name, boundsSize, attachment)
+				else
+					return false,
+						{
+							"Mesh is too large!",
+							string.format(
+								"Max size for type %s is ( %s )",
+								assetTypeEnum_deprecated.Name,
+								tostring(boundsSize)
+							),
+							"Use SpecialMesh.Scale if needed",
+						}
+				end
 			end
 		end
 	end

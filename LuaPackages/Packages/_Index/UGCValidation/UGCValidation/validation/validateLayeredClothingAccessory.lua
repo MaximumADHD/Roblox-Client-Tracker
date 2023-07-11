@@ -10,7 +10,6 @@ local validateMaterials = require(root.validation.validateMaterials)
 local validateTags = require(root.validation.validateTags)
 local validateMeshBounds = require(root.validation.validateMeshBounds)
 local validateTextureSize = require(root.validation.validateTextureSize)
-local validateHandleSize = require(root.validation.validateHandleSize)
 local validateProperties = require(root.validation.validateProperties)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
@@ -18,6 +17,7 @@ local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateHSR = require(root.validation.validateHSR)
 local validateUVSpace = require(root.validation.validateUVSpace)
 local validateCanLoad = require(root.validation.validateCanLoad)
+local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
 local validateMisMatchUV = require(root.validation.validateMisMatchUV)
@@ -30,6 +30,7 @@ local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 
 local function buildAllowedAssetTypeIdSet()
 	local allowedAssetTypeIdSet = {}
@@ -42,7 +43,12 @@ local function buildAllowedAssetTypeIdSet()
 	return allowedAssetTypeIdSet
 end
 
-local function validateLayeredClothingAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean, allowUnreviewedAssets: boolean): (boolean, {string}?)
+local function validateLayeredClothingAccessory(
+	instances: { Instance },
+	assetTypeEnum: Enum.AssetType,
+	isServer: boolean,
+	allowUnreviewedAssets: boolean
+): (boolean, { string }?)
 	local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
 	if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
 		return false, { "Asset type cannot be validated as Layered Clothing" }
@@ -77,7 +83,15 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 	local textureId = handle.TextureID
 	local attachment = getAttachment(handle, assetInfo.attachmentNames)
 
-	if game:GetFastFlag("UGCCheckCanLoadAssets") and game:GetEngineFeature("EnableCanLoadAssetFunction") and isServer then
+	local boundsInfo = nil
+	if getFFlagUGCValidateBodyParts() then
+		boundsInfo = Constants.LC_BOUNDS
+		if assetInfo.layeredClothingBounds and assetInfo.layeredClothingBounds[attachment.Name] then
+			boundsInfo = assetInfo.layeredClothingBounds[attachment.Name]
+		end
+	end
+
+	if isServer then
 		local textureSuccess = true
 		local meshSuccess
 		local _canLoadFailedReason: any = {}
@@ -126,17 +140,31 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			validationResult = false
 		end
 
-		if game:GetFastFlag("UGCValidateHSR") then
-			local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
-			success, failedReason = validateHSR(wrapLayer)
+		if getFFlagUGCValidateThumbnailConfiguration() then
+			success, failedReason = validateThumbnailConfiguration(instance, handle)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
 			end
 		end
 
+		do
+			local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
+
+			if getFFlagUGCValidateBodyParts() and wrapLayer == nil then
+				table.insert(reasons, "Could not find WrapLayer!")
+				validationResult = false
+			else
+				success, failedReason = validateHSR(wrapLayer)
+				if not success then
+					table.insert(reasons, table.concat(failedReason, "\n"))
+					validationResult = false
+				end
+			end
+		end
+
 		local checkModeration = not isServer
-		if game:GetFastFlag("UGCCheckCanLoadAssets") and allowUnreviewedAssets then
+		if allowUnreviewedAssets then
 			checkModeration = false
 		end
 		if checkModeration then
@@ -157,20 +185,12 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 				meshId,
 				meshScale,
 				assetTypeEnum,
-				Constants.LC_BOUNDS,
+				if getFFlagUGCValidateBodyParts() then boundsInfo else Constants.LC_BOUNDS,
 				(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
 			)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
-			end
-
-			if game:GetFastFlag("UGCValidateHandleSize") then
-				success, failedReason = validateHandleSize(handle, meshId, meshScale)
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
 			end
 
 			success, failedReason = validateMeshTriangles(meshId)
@@ -194,7 +214,6 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 					validationResult = false
 				end
 			end
-
 		end
 
 		if game:GetFastFlag("UGCLCQualityValidation") then
@@ -202,7 +221,7 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			local innerCageId = wrapLayer.ReferenceMeshId
 			local outerCageId = wrapLayer.CageMeshId
 
-			if innerCageId == ""  then
+			if innerCageId == "" then
 				table.insert(reasons, "InnerCages must contain valid MeshId.")
 				validationResult = false
 			elseif outerCageId == "" then
@@ -229,7 +248,7 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 
 				success, failedReason = validateCageMeshIntersection(innerCageId, outerCageId, meshId)
 				if not success then
-					table.insert(reasons, ""..table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
+					table.insert(reasons, "" .. table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
 					validationResult = false
 				end
 
@@ -287,7 +306,7 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			meshId,
 			meshScale,
 			assetTypeEnum,
-			Constants.LC_BOUNDS,
+			if getFFlagUGCValidateBodyParts() then boundsInfo else Constants.LC_BOUNDS,
 			(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
 		)
 		if not success then
@@ -299,8 +318,8 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			return false, reasons
 		end
 
-		if game:GetFastFlag("UGCValidateHandleSize") then
-			success, reasons = validateHandleSize(handle, meshId, meshScale)
+		if getFFlagUGCValidateThumbnailConfiguration() then
+			success, reasons = validateThumbnailConfiguration(instance, handle)
 			if not success then
 				return false, reasons
 			end
@@ -318,11 +337,16 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 			end
 		end
 
-		if game:GetFastFlag("UGCValidateHSR") then
+		do
 			local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
-			success, reasons = validateHSR(wrapLayer)
-			if not success then
-				return false, reasons
+
+			if getFFlagUGCValidateBodyParts() and wrapLayer == nil then
+				return false, { "Could not find WrapLayer!" }
+			else
+				success, reasons = validateHSR(wrapLayer)
+				if not success then
+					return false, reasons
+				end
 			end
 		end
 
@@ -387,7 +411,6 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 
 		return true
 	end
-
 end
 
 return validateLayeredClothingAccessory

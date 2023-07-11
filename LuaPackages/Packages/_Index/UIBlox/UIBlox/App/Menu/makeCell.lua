@@ -7,28 +7,25 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
+local StyleTypes = require(UIBlox.App.Style.StyleTypes)
+local setDefault = require(UIBlox.Utility.setDefault)
 
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
+local validateFontInfo = require(Packages.UIBlox.Core.Style.Validator.validateFontInfo)
 
 local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 
 local KeyLabel = require(script.Parent.KeyLabel)
+local RoundedFrame = require(script.Parent.RoundedFrame)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
-local TEXT_ONLY_PADDING = 24 --Text only padding at the start and end of cells
-local ELEMENT_PADDING = 12 --Padding between elements
-local SELECTED_ICON_PADDING = 24 --Padding for selected icons at the end of cells
-local KEYLABEL_PADDING = 16 --Padding for key labels at the end of cells
-
-local ICON_SIZE = 36
-local SELECTED_ICON_SIZE = 16
 
 local CELL_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
@@ -76,6 +73,37 @@ local function makeCell(backgroundThemeKey)
 		layoutOrder = t.integer,
 		setButtonRef = t.optional(t.union(t.callback, t.table)),
 		cursorKind = t.optional(CursorKind.isEnumValue),
+		-- If the background asset behind the element is visible or not
+		isElementBackgroundVisible = t.optional(t.boolean),
+		-- Add offset to the left of the divider separating cells
+		dividerOffset = t.optional(t.number),
+		-- Size of the divider
+		dividerSize = t.optional(t.number),
+		-- The font style for the element text
+		fontStyle = t.optional(t.union(t.string, validateFontInfo)),
+		-- Size of the icon
+		iconSize = t.optional(t.integer),
+		-- Size of the SelectedIcon
+		selectedIconSize = t.optional(t.integer),
+		-- Padding at the left side of the Icon
+		iconPaddingLeft = t.optional(t.integer),
+		-- Padding of the text frame
+		textPadding = t.optional(t.strictInterface({
+			-- Padding at the left side of the text frame
+			left = t.integer,
+			-- Padding at the right side of the text frame
+			right = t.integer,
+		})),
+		-- Padding at the right side of the SelectedIcon
+		selectedIconPaddingRight = t.optional(t.integer),
+		-- Padding at the right side of the keyLabel
+		keyLabelPaddingRight = t.optional(t.integer),
+		-- Left/right padding for the container when there's only text in the cell
+		textOnlyPadding = t.optional(t.integer),
+		-- Size of border rounded corner
+		borderCornerRadius = t.optional(t.integer),
+		-- Background of the cell
+		background = t.optional(validateColorInfo),
 	})
 
 	cellComponent.defaultProps = {
@@ -83,6 +111,20 @@ local function makeCell(backgroundThemeKey)
 		disabled = false,
 		rightSideGadgetSize = Vector2.new(0, 0),
 		leftPaddingOffset = 0,
+		isElementBackgroundVisible = true,
+		dividerOffset = 0,
+		dividerSize = 1,
+		iconSize = 36,
+		selectedIconSize = 16,
+		iconPaddingLeft = 12,
+		textPadding = {
+			left = 12,
+			right = 12,
+		},
+		selectedIconPaddingRight = 24,
+		textOnlyPadding = 24,
+		keyLabelPaddingRight = 16,
+		borderCornerRadius = 4,
 	}
 
 	function cellComponent:init()
@@ -139,21 +181,33 @@ local function makeCell(backgroundThemeKey)
 		return imageRectSize, imageRectOffset, sliceCenter
 	end
 
+	if UIBloxConfig.enableNewMenuLayout then
+		function cellComponent:renderRoundedBackground(zIndex: number, background: StyleTypes.ThemeItem)
+			local borderRadius = UDim.new(0, self.props.borderCornerRadius)
+			return Roact.createElement(RoundedFrame, {
+				zIndex = zIndex,
+				background = background,
+				topCornerRadius = if self.props.hasRoundTop then borderRadius else nil,
+				bottomCornerRadius = if self.props.hasRoundBottom then borderRadius else nil,
+			})
+		end
+	end
+
 	function cellComponent:renderWithSelectionCursor(getSelectionCursor)
 		return withStyle(function(stylePalette)
 			local theme = stylePalette.Theme
 			local font = stylePalette.Font
 
-			local leftPadding = TEXT_ONLY_PADDING
+			local leftPadding = self.props.textOnlyPadding
 			if self.props.icon then
-				leftPadding = ELEMENT_PADDING
+				leftPadding = self.props.iconPaddingLeft
 			end
 			leftPadding = leftPadding + self.props.leftPaddingOffset
 			local rightPadding = 0
 			if self.props.keyCodeLabel then
-				rightPadding = KEYLABEL_PADDING
+				rightPadding = self.props.keyLabelPaddingRight
 			elseif self.props.selected then
-				rightPadding = SELECTED_ICON_PADDING
+				rightPadding = self.props.selectedIconPaddingRight
 			end
 
 			local overlayTheme = {
@@ -173,29 +227,34 @@ local function makeCell(backgroundThemeKey)
 			local textOnly = true
 
 			if UIBloxConfig.enableRightSideGadgetView and self.props.rightSideGadgetSize ~= nil then
-				textLengthOffset = self.props.rightSideGadgetSize.X + ELEMENT_PADDING * 2 + ICON_SIZE
+				textLengthOffset = self.props.rightSideGadgetSize.X
+					+ self.props.iconPaddingLeft
+					+ self.props.iconSize
+					+ self.props.textPadding.left
 			else
 				if self.props.icon then
 					textOnly = false
-					leftPadding = ELEMENT_PADDING
-					textLengthOffset = ELEMENT_PADDING + ICON_SIZE
+					leftPadding = self.props.iconPaddingLeft
+					textLengthOffset = self.props.iconPaddingLeft + self.props.iconSize
 				end
 
 				if self.props.selected then
 					textOnly = false
-					textLengthOffset = textLengthOffset + SELECTED_ICON_SIZE + SELECTED_ICON_PADDING
+					textLengthOffset = textLengthOffset
+						+ self.props.selectedIconSize
+						+ self.props.selectedIconPaddingRight
 				end
 
 				if self.props.keyCodeLabel then
 					textOnly = false
-					textLengthOffset = textLengthOffset + KEYLABEL_PADDING + self.state.keyLabelWidth
+					textLengthOffset = textLengthOffset + self.props.keyLabelPaddingRight + self.state.keyLabelWidth
 				end
 
 				-- Add start and end padding for text.
 				if textOnly then
-					textLengthOffset = textLengthOffset + TEXT_ONLY_PADDING * 2
+					textLengthOffset = textLengthOffset + self.props.textOnlyPadding * 2
 				else
-					textLengthOffset = textLengthOffset + ELEMENT_PADDING * 2
+					textLengthOffset = textLengthOffset + self.props.textPadding.left + self.props.textPadding.right
 				end
 			end
 
@@ -213,7 +272,14 @@ local function makeCell(backgroundThemeKey)
 				}
 			end
 
-			local cellStyle = theme[backgroundThemeKey]
+			local defaultBackgroundColor = theme[backgroundThemeKey]
+			local cellStyle = setDefault(self.props.background, {
+				Color = defaultBackgroundColor.Color,
+				Transparency = defaultBackgroundColor.Transparency,
+			})
+			local isElementBackgroundVisible = self.props.isElementBackgroundVisible
+			-- When UIBloxConfig.enableNewMenuLayout is enabled, we will use the `RoundedFrame` instead of image asset for background
+			local isImageAssetBackgroundVisible = isElementBackgroundVisible and not UIBloxConfig.enableNewMenuLayout
 
 			return Roact.createElement(Controllable, {
 				controlComponent = {
@@ -222,14 +288,13 @@ local function makeCell(backgroundThemeKey)
 						Size = UDim2.new(1, 0, 0, self.props.elementHeight),
 						BackgroundTransparency = 1,
 
-						Image = CELL_BACKGROUND_ASSET.Image,
+						Image = if UIBloxConfig.enableNewMenuLayout then nil else CELL_BACKGROUND_ASSET.Image,
 						ScaleType = Enum.ScaleType.Slice,
 						SliceCenter = sliceCenter,
 						ImageRectSize = imageRectSize,
 						ImageRectOffset = imageRectOffset,
 						SliceScale = 1 / Images.ImagesResolutionScale,
-
-						ImageTransparency = cellStyle.Transparency,
+						ImageTransparency = if isImageAssetBackgroundVisible then cellStyle.Transparency else 1,
 						ImageColor3 = cellStyle.Color,
 						AutoButtonColor = false,
 						LayoutOrder = self.props.layoutOrder,
@@ -239,32 +304,39 @@ local function makeCell(backgroundThemeKey)
 						SelectionImageObject = getSelectionCursor(self.props.cursorKind),
 					},
 					children = {
+
+						Background = if UIBloxConfig.enableNewMenuLayout and isElementBackgroundVisible
+							then self:renderRoundedBackground(-1, cellStyle)
+							else nil,
+
 						Divider = Roact.createElement("Frame", {
 							BackgroundColor3 = theme.Divider.Color,
 							BackgroundTransparency = theme.Divider.Transparency,
 							BorderSizePixel = 0,
-							Size = UDim2.new(1, 0, 0, 1),
-							Position = UDim2.fromScale(0, 1),
+							Size = UDim2.new(1, -self.props.dividerOffset, 0, self.props.dividerSize),
+							Position = UDim2.new(0, self.props.dividerOffset, 1, 0),
 							AnchorPoint = Vector2.new(0, 1),
 							Visible = self.props.hasDivider,
 						}),
 
-						StateOverlay = Roact.createElement("ImageLabel", {
-							BackgroundTransparency = 1,
+						StateOverlay = if UIBloxConfig.enableNewMenuLayout
+							then self:renderRoundedBackground(2, overlayTheme)
+							else Roact.createElement("ImageLabel", {
+								BackgroundTransparency = 1,
 
-							Image = CELL_BACKGROUND_ASSET.Image,
-							ScaleType = Enum.ScaleType.Slice,
-							SliceCenter = sliceCenter,
-							ImageRectSize = imageRectSize,
-							ImageRectOffset = imageRectOffset,
-							SliceScale = 1 / Images.ImagesResolutionScale,
+								Image = CELL_BACKGROUND_ASSET.Image,
+								ScaleType = Enum.ScaleType.Slice,
+								SliceCenter = sliceCenter,
+								ImageRectSize = imageRectSize,
+								ImageRectOffset = imageRectOffset,
+								SliceScale = 1 / Images.ImagesResolutionScale,
 
-							ImageColor3 = overlayTheme.Color,
-							ImageTransparency = overlayTheme.Transparency,
-							BorderSizePixel = 0,
-							Size = UDim2.fromScale(1, 1),
-							ZIndex = 2,
-						}),
+								ImageColor3 = overlayTheme.Color,
+								ImageTransparency = overlayTheme.Transparency,
+								BorderSizePixel = 0,
+								Size = UDim2.fromScale(1, 1),
+								ZIndex = 2,
+							}),
 
 						LeftAlignedContent = Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
@@ -275,7 +347,7 @@ local function makeCell(backgroundThemeKey)
 								VerticalAlignment = Enum.VerticalAlignment.Center,
 								FillDirection = Enum.FillDirection.Horizontal,
 								SortOrder = Enum.SortOrder.LayoutOrder,
-								Padding = UDim.new(0, ELEMENT_PADDING),
+								Padding = UDim.new(0, self.props.textPadding.left),
 							}),
 
 							LeftPadding = Roact.createElement("UIPadding", {
@@ -284,7 +356,7 @@ local function makeCell(backgroundThemeKey)
 
 							Icon = self.props.icon and Roact.createElement(ImageSetComponent.Label, {
 								Image = self.props.icon,
-								Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+								Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
 								BackgroundTransparency = 1,
 								ImageColor3 = self.props.iconColorOverride or theme.IconEmphasis.Color,
 								ImageTransparency = divideTransparency(
@@ -295,7 +367,7 @@ local function makeCell(backgroundThemeKey)
 							}),
 
 							Text = Roact.createElement(GenericTextLabel, {
-								fontStyle = font.Header2,
+								fontStyle = self.props.fontStyle or font.Header2,
 								colorStyle = textTheme,
 								BackgroundTransparency = 1,
 								Size = UDim2.new(1, -textLengthOffset, 1, 0),
@@ -316,7 +388,7 @@ local function makeCell(backgroundThemeKey)
 								VerticalAlignment = Enum.VerticalAlignment.Center,
 								FillDirection = Enum.FillDirection.Horizontal,
 								SortOrder = Enum.SortOrder.LayoutOrder,
-								Padding = UDim.new(0, ELEMENT_PADDING),
+								Padding = UDim.new(0, self.props.textPadding.right),
 							}),
 
 							RightPadding = Roact.createElement("UIPadding", {
@@ -347,7 +419,10 @@ local function makeCell(backgroundThemeKey)
 
 									SelectedIcon = Roact.createElement(ImageSetComponent.Label, {
 										Image = Images["icons/status/success_small"],
-										Size = UDim2.fromOffset(SELECTED_ICON_SIZE, SELECTED_ICON_SIZE),
+										Size = UDim2.fromOffset(
+											self.props.selectedIconSize,
+											self.props.selectedIconSize
+										),
 										LayoutOrder = 1,
 										BackgroundTransparency = 1,
 										ImageColor3 = theme.IconEmphasis.Color,

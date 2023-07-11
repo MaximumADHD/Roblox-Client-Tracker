@@ -1,9 +1,10 @@
+--!strict
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 
 local runSet = {}
-local signals = {}
+local signals: { [BindableEvent]: boolean } = {}
 
 RunService.Heartbeat:Connect(function(dt)
 	local finishedList = {}
@@ -19,7 +20,7 @@ RunService.Heartbeat:Connect(function(dt)
 	end
 
 	for signal, _ in pairs(signals) do
-		if signal == false then
+		if signals[signal] == false then
 			signals[signal] = nil
 		else
 			signal:Fire(dt)
@@ -29,39 +30,41 @@ end)
 
 local VirtualInputUtils = {}
 
-local currentWindow = nil
+local currentWindow: PluginGui?
 
-function VirtualInputUtils.setCurrentWindow(window)
+function VirtualInputUtils.setCurrentWindow(window: PluginGui?): PluginGui?
 	local old = currentWindow
-    currentWindow = window
+	currentWindow = window
 	return old
 end
 
 function VirtualInputUtils.getCurrentWindow()
-    return currentWindow
+	return currentWindow
 end
 
 function VirtualInputUtils.waitForInputEventsProcessed()
-	VirtualInputManager:waitForInputEventsProcessed()
+	VirtualInputManager:WaitForInputEventsProcessed()
 end
 
-function VirtualInputUtils.__asyncRun(runable)
+function VirtualInputUtils.__asyncRun(runable: (number) -> boolean)
 	runSet[runable] = true
 end
 
-function VirtualInputUtils.__syncRun(runable)
+function VirtualInputUtils.__syncRun(runable: (number) -> boolean)
 	local signal = Instance.new("BindableEvent")
 	signals[signal] = true
 	local dt = 0
 	while true do
 		local finished = runable(dt)
-		if finished then break end
+		if finished then
+			break
+		end
 		dt = signal.Event:Wait()
 	end
 	signals[signal] = false
 end
 
-function VirtualInputUtils.__handleGuiInset(x, y)
+function VirtualInputUtils.__handleGuiInset(x: number, y: number): (number, number)
 	local guiOffset, _ = GuiService:GetGuiInset()
 	return x + guiOffset.X, y + guiOffset.Y
 end

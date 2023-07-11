@@ -69,8 +69,6 @@ local function MediaGalleryExpandableView(providedProps: Props)
 	local styleProps = Cryo.Dictionary.join(defaultStyleProps, props.styleProps or {})
 	local borderRadius: UDim = styleProps.borderRadius
 	local gutter: number = styleProps.gutter
-	local marginLeading: number = styleProps.marginLeading
-	local marginTrailing: number = styleProps.marginTrailing
 	local contentGap: number = styleProps.contentGap
 	local titleFont: Fonts.Font = styleProps.titleFont
 	local titleTextColor: StyleTypes.ThemeItem = styleProps.titleTextColor
@@ -93,13 +91,11 @@ local function MediaGalleryExpandableView(providedProps: Props)
 	-- calculate itemSize from absoluteSize, itemAspectRatio and numItemsShown
 	local itemSize, setItemSize = React.useState(Vector2.zero)
 	local onAbsoluteSizeChanged = React.useCallback(function(rbx: any, status: boolean, old: any, new: any)
-		local totalPaddings = gutter * (props.numItemsShown - 1) + marginLeading + marginTrailing
+		local totalPaddings = gutter * (props.numItemsShown - 1)
 		local itemWidth = (rbx.AbsoluteSize.X - totalPaddings) / props.numItemsShown
 		setItemSize(Vector2.new(itemWidth, itemWidth / props.itemAspectRatio))
 	end, {
 		gutter,
-		marginLeading,
-		marginTrailing,
 		props.itemAspectRatio,
 		props.numItemsShown,
 	} :: { any })
@@ -148,6 +144,7 @@ local function MediaGalleryExpandableView(providedProps: Props)
 		} :: { any }
 	)
 
+	local selectionCursor = useSelectionCursor(props.selectionCursor)
 	local itemsArray = React.useMemo(function()
 		local newItems = {}
 		for index, item in props.items do
@@ -158,7 +155,7 @@ local function MediaGalleryExpandableView(providedProps: Props)
 				ScaleType = Enum.ScaleType.Crop,
 				BackgroundTransparency = 1,
 				AutoButtonColor = false,
-				SelectionImageObject = useSelectionCursor(props.selectionCursor),
+				SelectionImageObject = selectionCursor,
 				[React.Event.Activated] = function()
 					props.onActivated(index)
 				end,
@@ -176,8 +173,8 @@ local function MediaGalleryExpandableView(providedProps: Props)
 		itemSize,
 		props.items,
 		props.onActivated,
-		props.selectionCursor,
 		props.onSelectionGained,
+		selectionCursor,
 		borderRadius,
 	} :: { any })
 	local textOneLineSizeY = titleFont.RelativeSize * stylePalette.Font.BaseSize
@@ -187,10 +184,6 @@ local function MediaGalleryExpandableView(providedProps: Props)
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 	}, {
-		UIPadding = React.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, marginLeading),
-			PaddingRight = UDim.new(0, marginTrailing),
-		}),
 		UIListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			SortOrder = Enum.SortOrder.LayoutOrder,
@@ -204,7 +197,7 @@ local function MediaGalleryExpandableView(providedProps: Props)
 			LayoutOrder = 1,
 		}),
 		Title = React.createElement(GenericTextLabel, {
-			Size = UDim2.fromOffset(1, textOneLineSizeY),
+			Size = UDim2.new(1, 0, 0, textOneLineSizeY),
 			Text = props.titleText,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			colorStyle = titleTextColor,
@@ -212,13 +205,12 @@ local function MediaGalleryExpandableView(providedProps: Props)
 			LayoutOrder = 2,
 		}),
 		MediaGallery = React.createElement("ScrollingFrame", {
-			Size = UDim2.fromScale(1, 0),
+			Size = UDim2.new(1, 0, 0, itemSize.Y),
 			BackgroundTransparency = 1,
-			AutomaticSize = Enum.AutomaticSize.Y,
 			AutomaticCanvasSize = Enum.AutomaticSize.XY,
 			ScrollBarImageTransparency = 1,
+			ScrollBarThickness = 0,
 			ScrollingDirection = Enum.ScrollingDirection.X,
-			ClipsDescendants = false,
 			Selectable = false,
 			LayoutOrder = 3,
 			[React.Change.AbsoluteSize] = onAbsoluteSizeChanged,

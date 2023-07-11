@@ -87,7 +87,7 @@ local function parseContentId(contentIds, contentIdMap, object, fieldName, isReq
 	end
 
 	-- do not check the same asset ID multiple times
-	if not game:GetFastFlag("UGCFixModerationCheck") or contentIdMap[id] == nil then
+	if contentIdMap[id] == nil then
 		contentIdMap[id] = {
 			fieldName = fieldName,
 			instance = object,

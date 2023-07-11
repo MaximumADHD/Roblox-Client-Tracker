@@ -24,8 +24,7 @@ export type CallStateModel = {
 	callId: string?,
 	callerDisplayName: string?,
 	calleeDisplayName: string?,
-	gameInstanceId: string?,
-	launchParamsString: string?,
+	instanceId: string?,
 }
 
 -- Reducer

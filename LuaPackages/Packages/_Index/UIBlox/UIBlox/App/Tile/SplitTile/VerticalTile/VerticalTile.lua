@@ -15,6 +15,9 @@ local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local Images = require(App.ImageSet.Images)
 local TileOverlay = require(TileRoot.SplitTile.TileOverlay)
 local StyleTypes = require(App.Style.StyleTypes)
+local useDebouncedState = require(UIBlox.Utility.useDebouncedState)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local OUTLINE_THICKNESS = 1
 local CORNER_RADIUS = UDim.new(0, 8)
@@ -33,6 +36,10 @@ export type Props = {
 	hasOutline: boolean?,
 	-- Whether or not hover mode is enabled for the tile
 	isHoverEnabled: boolean?,
+	-- Delay in seconds before the tile will react to hover user input
+	hoverDelay: number?,
+	-- Callback that fires when the tile's hover state changes
+	onHoverChanged: (() -> ())?,
 	-- Whether or not the tile should show a stateful overlay
 	isOverlayVisible: boolean?,
 	-- Whether or not the tile should render its hovered state and accept input
@@ -54,6 +61,24 @@ export type Props = {
 	-- Drop shadow config
 	dropShadow: DropShadowItem?,
 }
+
+local function useIsHoveredState(hoverDelay: number?, onHoverChanged: (() -> ())?)
+	if UIBloxConfig.experienceTileHoverDelay then
+		local isHovered, setIsHovered = useDebouncedState(false, hoverDelay)
+
+		React.useLayoutEffect(function()
+			if onHoverChanged ~= nil then
+				onHoverChanged(isHovered)
+			end
+		end, { onHoverChanged, isHovered })
+
+		return isHovered, setIsHovered
+	else
+		local isHovered, setIsHovered = React.useState(false)
+
+		return isHovered, setIsHovered
+	end
+end
 
 local function VerticalTile(props: Props)
 	local stylePalette = useStyle()
@@ -90,10 +115,10 @@ local function VerticalTile(props: Props)
 	}, props)
 	local hasBackground = joinedProps.hasBackground
 	local isHoverEnabled = joinedProps.isHoverEnabled
-	local isHovered, setHovered = React.useState(false)
+	local isHovered, setIsHovered = useIsHoveredState(joinedProps.hoverDelay, joinedProps.onHoverChanged)
 	local onHoverChanged = React.useCallback(function(isHovered: boolean)
 		return function()
-			setHovered(isHovered)
+			setIsHovered(isHovered)
 		end
 	end, {})
 	local showHoverState = isHovered and isHoverEnabled

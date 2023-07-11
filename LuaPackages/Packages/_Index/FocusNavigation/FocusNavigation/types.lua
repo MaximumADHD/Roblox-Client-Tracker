@@ -14,6 +14,7 @@ export type InputEvent = {
 	UserInputType: Enum.UserInputType,
 	Position: Vector3?,
 	Delta: Vector3?,
+	wasProcessed: boolean?,
 }
 
 -- TODO: Union with whatever data we end up using for focus/blur events

@@ -15,18 +15,14 @@ local LoadingStateContainer = Roact.PureComponent:extend("LoadingStateContainer"
 LoadingStateContainer.validateProps = t.strictInterface({
 	-- dataStatus determines the loading state
 	dataStatus = RetrievalStatus.isEnumValue,
-
 	-- renderOnLoaded is what is loaded when loading state is loaded
 	renderOnLoaded = t.callback,
-
 	-- renderOnFailed is rendered if dataStatus is RetrievalStatus.Failed
 	renderOnFailed = t.optional(t.callback),
 	-- onRetry renders a button callback for the default reload button failed state
 	onRetry = t.optional(t.callback),
-
 	-- renderOnLoading is called to overwrite the default loading page
 	renderOnLoading = t.optional(t.callback),
-
 	-- renderOnEmpty is rendered if dataStatus is RetrievalStatus.NotStarted
 	renderOnEmpty = t.optional(t.callback),
 })

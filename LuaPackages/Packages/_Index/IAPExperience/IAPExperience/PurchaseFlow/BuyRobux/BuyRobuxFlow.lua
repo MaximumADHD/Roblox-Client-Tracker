@@ -138,11 +138,13 @@ function BuyRobuxFlow:render()
 				self:reportUserInput("Confirm")
 				props.purchaseRobux(packageId)
 			end,
-			onPageClose = props.onPageClose
+			onPageClose = props.onPageClose,
+			hasNativePurchaseSucceeded = purchaseState == BuyRobuxFlowState.Succeed,
+			shouldAnimate = props.shouldAnimate,
 		}),
 		LoadingOverlay = Roact.createElement(LoadingOverlay, {
 			shouldAnimate = false,
-			showOverlay = false,
+			showOverlay = loadingOverlayState ~= nil,
 			loadingState = loadingOverlayState,
 		}),
 		U13ConfirmPromptAnimator = Roact.createElement(Animator, {

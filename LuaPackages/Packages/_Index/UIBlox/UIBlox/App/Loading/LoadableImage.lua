@@ -15,7 +15,6 @@ local Core = UIBlox.Core
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ShimmerPanel = require(Loading.ShimmerPanel)
 local DebugProps = require(Loading.Enum.DebugProps)
@@ -27,37 +26,13 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImageSetData = require(Core.ImageSet.Validator.validateImageSetData)
 
 local ContentProviderContext = require(UIBlox.App.Context.ContentProvider)
-local GetEngineFeatureSafe = require(Core.Utility.GetEngineFeatureSafe)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local LOAD_FAILED_RETRY_COUNT = 3
 local LOAD_TIMED_OUT_RETRY_COUNT = 5
 local RETRY_TIME_MULTIPLIER = 1.5
 
-local decal = Instance.new("Decal")
 local inf = math.huge
-
-local loadableImageResponsiveThumbnails = UIBloxConfig.loadableImageResponsiveThumbnails
--- This can never be on without the supporting engine feature.
-loadableImageResponsiveThumbnails = loadableImageResponsiveThumbnails
-	and GetEngineFeatureSafe("EnableResponsiveThumbnails")
-
--- Remove with loadableImageResponsiveThumbnails.
--- Also note, this is an incorrect name: we index this by props.Image, which could be
--- either a URI or an ImageSet.
-local DEPRECATED_loadedImagesByUri = {}
-
--- Remove with loadableImageResponsiveThumbnails
-local DEPRECATED_LoadingState = {
-	InProgress = "InProgress",
-	Failed = "Failed",
-	Loaded = "Loaded",
-	TimedOut = "TimedOut",
-}
-
--- Remove with loadableImageResponsiveThumbnails
-local function DEPRECATED_shouldLoadImage(image)
-	return image ~= nil and DEPRECATED_loadedImagesByUri[image] == nil
-end
 
 local LoadableImage = Roact.PureComponent:extend("LoadableImage")
 
@@ -113,7 +88,7 @@ LoadableImage.validateProps = t.strictInterface({
 	ZIndex = t.optional(t.integer),
 	-- Do we expect this image to be updated while being displayed (e.g. it's a thumbnail of local avatar
 	-- and he changes clothes)
-	shouldHandleReloads = if loadableImageResponsiveThumbnails then t.optional(t.boolean) else nil,
+	shouldHandleReloads = t.optional(t.boolean),
 
 	contentProvider = t.union(t.instanceOf("ContentProvider"), t.table),
 
@@ -130,27 +105,17 @@ LoadableImage.defaultProps = {
 	showFailedStateWhenLoadingFailed = false,
 	loadingStrategy = LoadingStrategy.Eager,
 	loadingTimeout = 30,
-	shouldHandleReloads = if loadableImageResponsiveThumbnails then false else nil,
+	shouldHandleReloads = false,
 }
 
 function LoadableImage:init()
-	if loadableImageResponsiveThumbnails then
-		self.currentImageLoadIndex = 0
-		self:setState({
-			eagerRetrying = false,
-		})
-	else
-		self.state = {
-			DEPRECATED_loadingState = DEPRECATED_loadedImagesByUri[self.props.Image] and DEPRECATED_LoadingState.Loaded
-				or DEPRECATED_LoadingState.InProgress,
-		}
-	end
+	self.currentImageLoadIndex = 0
+	self:setState({
+		eagerRetrying = false,
+	})
 
 	self.imageRef = Roact.createRef()
 	self._isMounted = false
-
-	-- Remove with loadableImageResponsiveThumbnails
-	self.DEPRECATED_hasStartedLoading = false
 end
 
 function LoadableImage:renderShimmer(theme, sizeConstraint)
@@ -238,15 +203,6 @@ function LoadableImage:isLoadingComplete(state)
 	return true
 end
 
--- Remove with loadableImageResponsiveThumbnails.
-function LoadableImage:DEPRECATED_isLoadingComplete(image)
-	if image == Roact.None or image == nil then
-		return false
-	else
-		return self.state.DEPRECATED_loadingState ~= DEPRECATED_LoadingState.InProgress
-	end
-end
-
 function LoadableImage:render()
 	local anchorPoint = self.props.AnchorPoint
 	local layoutOrder = self.props.LayoutOrder
@@ -270,13 +226,13 @@ function LoadableImage:render()
 	local loadingStrategy = self.props.loadingStrategy
 	local useShimmerAnimationWhileLoading = self.props.useShimmerAnimationWhileLoading
 	local showFailedStateWhenLoadingFailed = self.props.showFailedStateWhenLoadingFailed
-	local loadingComplete
-	if loadableImageResponsiveThumbnails then
-		loadingComplete = self:isImageNonNil() and self:isLoadingComplete(self.state)
-	else
-		loadingComplete = self:DEPRECATED_isLoadingComplete(imageUriOrImageSet)
+	local loadingComplete = self:isImageNonNil() and self:isLoadingComplete(self.state)
+
+	local loadingFailed = false
+	if UIBloxConfig.fixLoadableImageLoadingFailed then
+		loadingFailed = self:getCurrentImageAssetFetchStatus(self.state) == Enum.AssetFetchStatus.Failure
 	end
-	local loadingFailed = loadingComplete and self.state.DEPRECATED_loadingState == DEPRECATED_LoadingState.Failed
+
 	local hasUISizeConstraint = false
 
 	if self.props[DebugProps.forceLoading] then
@@ -368,62 +324,23 @@ function LoadableImage:maybeCallOnLoaded(oldState)
 end
 
 function LoadableImage:didUpdate(oldProps, oldState)
-	if loadableImageResponsiveThumbnails then
-		if oldProps.Image ~= self.props.Image then
-			self:loadImage()
-		end
-		self:maybeCallOnLoaded(oldState)
-	else
-		if oldProps.Image ~= self.props.Image then
-			self:DEPRECATED_loadImage()
-		end
+	if oldProps.Image ~= self.props.Image then
+		self:loadImage()
 	end
+	self:maybeCallOnLoaded(oldState)
 end
 
 function LoadableImage:didMount()
 	self._isMounted = true
 
-	if loadableImageResponsiveThumbnails then
-		-- Load image will setState with the latest assetFetchStats -> trigger didUpdate -> call to maybeCallOnLoaded.
-		-- We don't need to call maybeCallOnLoaded here.
-		self:loadImage()
-	else
-		self:DEPRECATED_loadImage()
-	end
+	-- Load image will setState with the latest assetFetchStats -> trigger didUpdate -> call to maybeCallOnLoaded.
+	-- We don't need to call maybeCallOnLoaded here.
+	self:loadImage()
 end
 
 function LoadableImage:willUnmount()
 	self._isMounted = false
-
-	if loadableImageResponsiveThumbnails then
-		self:dropConnections()
-	end
-end
-
--- Remove with loadableImageResponsiveThumbnails
-function LoadableImage:DEPRECATED_awaitImageLoaded()
-	if self.imageRef then
-		local image = self.imageRef:getValue()
-		if image then
-			image.Changed:Connect(function(prop)
-				if prop == "IsNotOccluded" and image.IsNotOccluded and not self._hasStartedLoading then
-					-- Image became visible for the first time
-					self._hasStartedLoading = true
-				end
-			end)
-
-			while not self._hasStartedLoading do
-				task.wait()
-			end
-
-			local timeoutAt = os.clock() + self.props.loadingTimeout
-			while not image.IsLoaded and os.clock() < timeoutAt do
-				task.wait()
-			end
-			return image.IsLoaded
-		end
-	end
-	return nil
+	self:dropConnections()
 end
 
 function LoadableImage:isTerminalStatus(assetFetchStatus)
@@ -541,88 +458,6 @@ function LoadableImage:preloadImageWithRetryLogic(thisImageId)
 	self:setState({
 		eagerRetrying = false,
 	})
-end
-
--- Remove with loadableImageResponsiveThumbnails
-function LoadableImage:DEPRECATED_preloadAsyncImage()
-	local imageUriOrImageSet = self.props.Image
-	local retryCount = 0
-	local loadingFailed
-
-	while DEPRECATED_loadedImagesByUri[imageUriOrImageSet] == nil and retryCount <= LOAD_FAILED_RETRY_COUNT do
-		if retryCount > 0 then
-			task.wait(RETRY_TIME_MULTIPLIER * math.pow(2, retryCount - 1))
-		end
-
-		loadingFailed = false
-		decal.Texture = imageUriOrImageSet
-
-		self.props.contentProvider:PreloadAsync({ decal }, function(contentId, assetFetchStatus)
-			if contentId == imageUriOrImageSet and assetFetchStatus == Enum.AssetFetchStatus.Failure then
-				loadingFailed = true
-			end
-		end)
-
-		-- Image load succeeded, no retry required
-		if not loadingFailed then
-			break
-		end
-
-		retryCount = retryCount + 1
-	end
-
-	return loadingFailed
-end
-
--- Remove with loadableImageResponsiveThumbnails
-function LoadableImage:DEPRECATED_loadImage()
-	local imageUriOrImageSet = self.props.Image
-	local loadingStrategy = self.props.loadingStrategy
-
-	if DEPRECATED_shouldLoadImage(imageUriOrImageSet) then
-		self:setState({
-			DEPRECATED_loadingState = DEPRECATED_LoadingState.InProgress,
-		})
-	else
-		if DEPRECATED_loadedImagesByUri[imageUriOrImageSet] then
-			self:setState({
-				DEPRECATED_loadingState = DEPRECATED_LoadingState.Loaded,
-			})
-		elseif DEPRECATED_loadedImagesByUri[imageUriOrImageSet] == false then
-			self:setState({
-				DEPRECATED_loadingState = DEPRECATED_LoadingState.Failed,
-			})
-		end
-		return
-	end
-
-	-- Synchronization/Batching work should be done in engine for performance improvements
-	-- related ticket: CLIPLAYEREX-1764
-	coroutine.wrap(function()
-		local loadingFailed
-		if loadingStrategy == LoadingStrategy.Eager then
-			loadingFailed = self:DEPRECATED_preloadAsyncImage()
-		elseif loadingStrategy == LoadingStrategy.Default then
-			loadingFailed = not self:DEPRECATED_awaitImageLoaded()
-		end
-
-		if loadingFailed == nil then
-			loadingFailed = not DEPRECATED_loadedImagesByUri[imageUriOrImageSet]
-		else
-			DEPRECATED_loadedImagesByUri[imageUriOrImageSet] = not loadingFailed
-		end
-
-		if self._isMounted and self.props.Image == imageUriOrImageSet then
-			self:setState({
-				DEPRECATED_loadingState = loadingFailed and DEPRECATED_LoadingState.Failed
-					or DEPRECATED_LoadingState.Loaded,
-			})
-
-			if self.props.onLoaded then
-				self.props.onLoaded()
-			end
-		end
-	end)()
 end
 
 function LoadableImage:getAssetFetchStatusStateKey(imageLoadIndex)

@@ -20,7 +20,7 @@ local function createDynamicHeadSpecialMeshSchema()
 	}
 
 	table.insert(individualBodyPartSchema._children, {
-		Name = validationData.rigAttachmentToParentName,
+		Name = validationData.rigAttachmentToParent.name,
 		ClassName = "Vector3Value",
 	})
 

@@ -31,8 +31,7 @@ function CallStateModel.mock(mergeTable: any)
 		callId = mergeTable.callId or nil,
 		callerDisplayName = mergeTable.callerDisplayName or nil,
 		calleeDisplayName = mergeTable.calleeDisplayName or nil,
-		gameInstanceId = mergeTable.gameInstanceId or nil,
-		launchParamsString = mergeTable.launchParamsString or nil,
+		instanceId = mergeTable.instanceId or nil,
 	})
 
 	return self
@@ -48,8 +47,7 @@ function CallStateModel.format(CallStateData)
 		callId = CallStateData.callId,
 		callerDisplayName = CallStateData.callerDisplayName,
 		calleeDisplayName = CallStateData.calleeDisplayName,
-		gameInstanceId = CallStateData.gameInstanceId,
-		launchParamsString = CallStateData.launchParamsString,
+		instanceId = CallStateData.instanceId,
 	})
 
 	return self
@@ -64,8 +62,7 @@ CallStateModel.isValid = t.strictInterface({
 	callId = t.optional(t.string),
 	callerDisplayName = t.optional(t.string),
 	calleeDisplayName = t.optional(t.string),
-	gameInstanceId = t.optional(t.string),
-	launchParamsString = t.optional(t.string),
+	instanceId = t.optional(t.string),
 })
 
 return CallStateModel
