@@ -8,8 +8,9 @@ Rectangle {
     property var startPage: null
     property var pageNumber: null
 
-    property var leftMargin: 48 
+    property var leftMargin: 64 
     property var verticalMargin: 24
+    property var topMargin: 100
     property var tourButtonWidth : 180
     property var tourButtonHeight : 32
 
@@ -28,16 +29,16 @@ Rectangle {
     }
     PlainText {
         id: headerText
-        text:  qsTr("Studio.App.TutorialPage.HeaderText")
+        text:  qsTr("Studio.App.TutorialPage.Header")
         width: parent.width / 1.8
         color: "white"
         anchors.left: parent.left
         anchors.top : parent.top
         anchors.leftMargin: leftMargin
-        anchors.topMargin: verticalMargin
+        anchors.topMargin: topMargin
         wrapMode: Text.Wrap
         font.pixelSize: 48
-        font.weight: userPreferences.theme.style("CommonStyle fontWeight")
+        font.bold: true
         renderType: userPreferences.theme.style("CommonStyle textRenderType")
     }
     PlainText {

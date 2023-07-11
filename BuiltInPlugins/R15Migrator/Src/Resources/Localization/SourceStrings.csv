@@ -1,20 +1,20 @@
 Key,en-us
 Studio.R15Migrator.AnimationConversion.Animations,Animations
-Studio.R15Migrator.AnimationConversion.ChooseAvatarPlaceholder,Choose avatar...
 Studio.R15Migrator.AnimationConversion.Convert,Convert
-Studio.R15Migrator.AnimationConversion.Converted,Converted
 Studio.R15Migrator.AnimationConversion.ConvertingAnimations,Converting animations in progress...
-Studio.R15Migrator.AnimationConversion.DefaultAvatar,Default Avatar
-Studio.R15Migrator.AnimationConversion.Done,done
-Studio.R15Migrator.AnimationConversion.NotStarted,notStarted
 Studio.R15Migrator.AnimationConversion.Preview,Preview
+Studio.R15Migrator.AnimationConversion.Replace,Replace
 Studio.R15Migrator.AnimationConversion.ScanningScripts,Scanning scripts in progress...
 Studio.R15Migrator.AnimationConversion.ScanningWorkspace,Scanning workspace in progress...
-Studio.R15Migrator.AnimationConversion.SelectAvatar,Select Avatar
+Studio.R15Migrator.AvatarSelection.ChooseAvatarPlaceholder,Choose avatar...
+Studio.R15Migrator.AvatarSelection.DefaultAvatar,Default Avatar
+Studio.R15Migrator.AvatarSelection.SelectAvatar,Select Avatar
 Studio.R15Migrator.CharacterConversion.Convert,Convert
 Studio.R15Migrator.CharacterConversion.Converted,Converted
 Studio.R15Migrator.CharacterConversion.Issues,Issues
 Studio.R15Migrator.CharacterConversion.Revert,Revert
+Studio.R15Migrator.CharacterConversion.Success,This character can be successfully converted to R15.
+Studio.R15Migrator.CharacterConversion.Warning,We cannot find exact R15 replacement for this character and have provided parts from a default R15 character instead. Find more choices by using the Toolbox.
 Studio.R15Migrator.ConversionResult.Complete,{count} references were successfully updated.
 Studio.R15Migrator.ConversionResult.Error,{count} references were skipped because no replacement rules were set for them.
 Studio.R15Migrator.ConversionResult.Revert,{count} scripts were successfully reverted.
@@ -31,6 +31,8 @@ Studio.R15Migrator.ProgressBar.Convert,Converting Scripts
 Studio.R15Migrator.ProgressBar.ReplaceWithRules,Replacing with Rules
 Studio.R15Migrator.ProgressBar.Revert,Reverting Scripts
 Studio.R15Migrator.ProgressBar.UndoRevert,Undoing Reverted Scripts
+Studio.R15Migrator.ReplaceResult.ReplacementSuccess,Animations replaced succesfully.
+Studio.R15Migrator.ReplaceResult.ScriptAnimationsNotReplaced,Not all animations were replaced. Please use the Script Converter to complete replacement.
 Studio.R15Migrator.ReplaceRulesPane.Instructions,Define auto-replacement rules.
 Studio.R15Migrator.ReplaceRulesPane.R15Avatar,R15 Avatar
 Studio.R15Migrator.ReplaceRulesPane.R6Avatar,R6 Avatar
@@ -43,6 +45,8 @@ Studio.R15Migrator.ScriptAnalysis.HumanoidWarning,"Humanoid.{name} found, this w
 Studio.R15Migrator.ScriptAnalysis.R6ReferenceError,Reference to R6 Avatar found with {name}
 Studio.R15Migrator.ScriptAnalysis.R6ScriptErrorCode,R6 Script Error
 Studio.R15Migrator.ScriptAnalysis.R6ScriptWarningCode,R6 Script Warning
+Studio.R15Migrator.ScriptAnalysis.RigTypeWarning,"{name} found, consider changing to {suggestion}."
+Studio.R15Migrator.ScriptAnalysis.VariableReferenceWarning,Variable must reference {suggestion}.
 Studio.R15Migrator.ScriptConversion.AutoConvert,Auto Convert
 Studio.R15Migrator.ScriptConversion.Cancel,Cancel
 Studio.R15Migrator.ScriptConversion.Completed,Converted
@@ -70,3 +74,7 @@ Studio.R15Migrator.Tabs.AnimationConversion,Animation
 Studio.R15Migrator.Tabs.CharacterConversion,Character
 Studio.R15Migrator.Tabs.ReplaceRules,Edit Rules
 Studio.R15Migrator.Tabs.ScriptConversion,Scripts
+Studio.R15Migrator.UploadAnimation.FailedSerialization,Serialization failed
+Studio.R15Migrator.UploadAnimation.FailedToGetProductInfo,Failed to get product info for asset
+Studio.R15Migrator.UploadAnimation.FailedWithErrorCode,Upload failed: HTTP error code %d
+Studio.R15Migrator.UploadAnimation.RobloxOwnedAnimation,Uploaded animation created by Roblox

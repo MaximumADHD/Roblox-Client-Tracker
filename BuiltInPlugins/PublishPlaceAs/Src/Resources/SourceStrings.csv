@@ -89,7 +89,6 @@ Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add thi
 Studio.PublishPlaceAs.ScreenHeader.ChooseGameNew,Choose a game to add this place to., ,Choose a game to add this place to.
 Studio.PublishPlaceAs.ScreenHeader.17PlusWarning,17+ content should only be saved to experiences with Ages 17+ guidelines., ,17+ content should only be saved to experiences with Ages 17+ guidelines.
 Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1},Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
-Studio.PublishPlaceAs.ScreenHeader.PublishManagement,How would you like to release the overwrite to {1} under {2}?, ,How would you like to release the overwrite to {1} under {2}?
 Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,Successfully published!
 Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!, ,Successfully saved!
 Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1},Substituted with game name to tell user where their place has been published to,You may find this place in {1}

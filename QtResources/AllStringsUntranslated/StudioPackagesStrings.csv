@@ -10,6 +10,7 @@ There is also a new version available.","Are you sure you want to publish your c
 There is also a new version available."
 Studio.App.PackageManagementVerbs.ConfirmGetLatest,,Are you sure you want to get the latest version of this package?,Are you sure you want to get the latest version of this package?
 Studio.App.PackageManagementVerbs.GetLatest,,Get Latest,Get Latest
+Studio.App.PackageManagementVerbs.PackageViewChanges1,,Package View Changes error: %1,Package View Changes error: %1
 Studio.App.PackageManagementVerbs.PublishNoop,,The package instance matched the newest version; no new version was created.,The package instance matched the newest version; no new version was created.
 Studio.App.PackageService.PublishPackageError1,,Package publish error: %1,Package publish error: %1
 Studio.App.PackageService.SetPackageVersionError1,,Set package version error: %1,Set package version error: %1

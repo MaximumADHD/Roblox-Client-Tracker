@@ -1,6 +1,7 @@
 Key,Context,Source,en-us
 Studio.SettingsDialog.Property.IconOverrideDir,User can specify a folder on their machine containing custom icons to use instead of default Roblox Studio icons,Custom Icon Dir,Custom Icon Dir
-Studio.App.RobloxSettingsDialog.RestartForSettingsChanges,,Some setting changes will not take effect until you restart Roblox,Some setting changes will not take effect until you restart Roblox
+Studio.App.RobloxSettingsDialog.RestartForSettingsChanges,,Some of these setting changes will not take effect until you restart Roblox,Some of these setting changes will not take effect until you restart Roblox
+Studio.App.RobloxSettingsDialog.ReopenForSettingsChanges,,Some of these setting changes will not take effect until you reopen the place file,Some of these setting changes will not take effect until you reopen the place file
 Studio.App.RobloxSettingsDialog.ResetAllSettings,,Reset All Settings,Reset All Settings
 Studio.App.RobloxSettingsDialog.ResetSettingsTitle,,Reset Settings,Reset Settings
 Studio.App.RobloxSettingsDialog.ResetSettingsText,,Resetting settings will not take effect until you restart Roblox,Resetting settings will not take effect until you restart Roblox
@@ -84,8 +85,6 @@ Studio.App.Property.BoundingBoxMoveHandles,,Use Bounding Box Move Handles,Use Bo
 Studio.App.PropertyTooltip.BoundingBoxMoveHandles,,Position Move handles at the edges of the bounding box instead of at the pivot.,Position Move handles at the edges of the bounding box instead of at the pivot.
 Studio.App.Property.PivotSnapToGeometryColor,,Pivot Snap To Geometry Color,Pivot Snap To Geometry Color
 Studio.App.PropertyTooltip.PivotSnapToGeometryColor,,"When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?","When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?"
-Studio.App.Property.DEPRECATEDSelectionThickness,,Selection Box Thickness,Selection Box Thickness
-Studio.App.PropertyTooltip.DEPRECATEDSelectionThickness,,How thick is the box shown around the selected Instances?,How thick is the box shown around the selected Instances?
 Studio.App.Property.HoverBoxThickness,,Hover Box Thickness,Hover Box Thickness
 Studio.App.PropertyTooltip.HoverThickness,,How thick is the box shown around the item your mouse is hovering over?,How thick is the box shown around the item your mouse is hovering over?
 Studio.App.Property.SelectionBoxThickness,,Selection Box Thickness,Selection Box Thickness

@@ -128,9 +128,10 @@ Studio.App.GamesPageController.DateCreatedDescending,,Date Created (Descending),
 Studio.App.GamesPageController.DateCreated,,Date Created,Date Created
 Studio.App.GamesPageController.LastModified,,Last Modified,Last Modified
 Studio.App.GamesPageController.No.Edit.Permission,,You no longer have edit permission to the selected place. It will be removed from this list.,You no longer have edit permission to the selected place. It will be removed from this list.
-Studio.App.TutorialPage.Title,Tutorial Tab in Start Page,Tutorial,Tutorial
-Studio.App.TutorialPage.HeaderText,,Learn the fundamentals of Roblox Studio,Learn the fundamentals of Roblox Studio
-Studio.App.TutorialPage.SubHeaderText,,Quickly master the basic skills of 3D building to build games and creations for Roblox.,Quickly master the basic skills of 3D building to build games and creations for Roblox.
+Studio.App.TutorialPage.Title,Tutorial Tab in Start Page,Tour,Tour
+Studio.App.TutorialPage.TabTitle,Tour Tab in Start Page,Tour,Tour
+Studio.App.TutorialPage.Header,,Learn the fundamentals of Studio,Learn the fundamentals of Studio
+Studio.App.TutorialPage.SubHeaderText,,Learn the Studio interface and main controls in a few easy steps to start creating on Roblox!,Learn the Studio interface and main controls in a few easy steps to start creating on Roblox!
 Studio.App.TutorialPage.OpenTemplate,,Start with a Template instead,Start with a Template instead
 Studio.App.TutorialPage.StartTour,,Start Tour,Start Tour
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.

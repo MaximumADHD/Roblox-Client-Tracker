@@ -142,8 +142,8 @@ Rectangle {
                     objectName: "Archive"
                 }
                 ListElement {
-                    icon: "Tutorials"
-                    text: qsTr("Studio.App.TutorialPage.Title")
+                    icon: "Tour"
+                    text: qsTr("Studio.App.TutorialPage.TabTitle")
                     objectName: "NewUser"
                 }
             }

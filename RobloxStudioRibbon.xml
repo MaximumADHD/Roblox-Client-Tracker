@@ -287,8 +287,7 @@
         <addaction name="showWeldsAction" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.ShowWelds" tooltip="Studio.App.RobloxRibbonMainWindow.ShowWelds" icon=":/RibbonBar/images/RibbonIcons/Physics/weld-32x32.png" modernIcon="ShowWelds" width="16" height="16"/>
         <addaction name="showConstraintDetailsAction" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.ConstraintDetails" tooltip="Studio.App.RobloxRibbonMainWindow.ShowConstraintDetails" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" modernIcon="ConstraintDetails" width="16" height="16"/>
         <addaction name="constraintDrawOnTopAction" iscommonslot="true" ischeckable="true" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.DrawOnTop" icon=":/RibbonBar/images/RibbonIcons/Home/Join.png" modernIcon="DrawOnTop" tooltip="Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop" width="16" height="16" fflag="!SimRemoveConstraintDrawOnTop"/>
-        <addspinbox name="constraintGizmoScaleAction" type="spinbox" keyboardTracking="true" tooltip="Studio.App.RobloxRibbonMainWindow.ConstraintGizmoScale" decimals="2" text="Studio.App.RobloxRibbonMainWindow.Scale" minimum="0.1" minumumWidth="30" step=".5" suffix=" x" fflag="!StudioDisableSpinBoxKeyboardTracking"/>
-        <addspinbox name="constraintGizmoScaleAction" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.ConstraintGizmoScale" decimals="2" text="Studio.App.RobloxRibbonMainWindow.Scale" minimum="0.1" maximum="60" minumumWidth="30" step=".5" suffix=" x" fflag="StudioDisableSpinBoxKeyboardTracking"/>
+        <addspinbox name="constraintGizmoScaleAction" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.ConstraintGizmoScale" decimals="2" text="Studio.App.RobloxRibbonMainWindow.Scale" minimum="0.1" maximum="60" minumumWidth="30" step=".5" suffix=" x"/>
       </Group>
       <Group name="Gameplay" text="Studio.App.RobloxRibbonMainWindow.Gameplay" modernIcon="Effects" icon=":/RibbonBar/images/RibbonIcons/Insert/Effects.png" width="32" height="32">
         <MenuButton name="actionParticleEffects" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Effects" tooltip="Studio.App.RobloxRibbonMainWindow.SelectAndClickForEffects" icon=":/RibbonBar/images/RibbonIcons/Insert/Effects.png" modernIcon="Effects" width="32" height="32" >
@@ -339,7 +338,7 @@
     <!--
       RIBBON BAR AVATAR TAB
     -->
-    <TabPage name="Avatar" text="Studio.App.RobloxRibbonMainWindow.Avatar" fflag="AvatarPluginsTab3">
+    <TabPage name="Avatar" text="Studio.App.RobloxRibbonMainWindow.Avatar">
       <Group name="Tools" text="Studio.App.RobloxRibbonMainWindow.Tools" modernIcon="Select" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" width="32" height="32">
         <addaction name="advArrowToolAction" style="textundericon" text="Studio.Common.Action.Select"  tooltip="Studio.App.RobloxRibbonMainWindow.SelectAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Drag.png" modernIcon="Select" width="32" height="32" />
         <addaction name="advTranslateAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.Move" tooltip="Studio.App.RobloxRibbonMainWindow.MoveAnObject" icon=":/RibbonBar/images/RibbonIcons/Home/Translate.png" modernIcon="Translate" width="32" height="32" />
@@ -472,9 +471,6 @@
 
         <addaction fflag="AICOChatBot" name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" icon=":/images/code_assist.png" ischeckable="true" />
       </Group>
-      <Group fflag="StudioDockLayoutManager" name="Layouts" text="Studio.App.RobloxRibbonMainWindow.Layout" modernIcon="LayoutSelector">
-        <MenuButton fflag="StudioDockLayoutManager" name="layoutMenu" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.LayoutManager" icon=":/RibbonBar/images/RibbonIcons/View/Layout-Manager.png" modernIcon="LayoutManager" tooltip="Studio.App.RobloxRibbonMainWindow.SwitchLayouts" ischeckable="false" width="32" height="32"/>
-      </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions" modernIcon="ViewSelector" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32">
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" modernIcon="ViewSelector" width="32" height="32"/>
         <addaction fflag="EnableWindControlRibbonButton" name="toggleGlobalWindControlDockAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.GlobalWindControl" tooltip="Studio.App.RobloxRibbonMainWindow.GlobalWindControlTooltip" type="plugin" modernIcon="GlobalWindControl" width="32" height="32"/>
@@ -492,8 +488,7 @@
         <addaction name="toggleWireframeRenderingAction" style="textundericon" text="Studio.App.RBXMainWindow.WireframeRendering" icon=":/RibbonBar/images/RibbonIcons/View/Wireframe-Box.png" modernIcon="WireframeRendering" tooltip="Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering" height="32" width="32"/>
         <addaction fflag="AddUIToggleToRibbon" name="toggleUIVisibilityAction" style="textundericon" text="Studio.App.RBXMainWindow.UIVisibility" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/UIOff.png" modernIcon="UIOff" tooltip="Studio.App.RobloxRibbonMainWindow.EnableUIVisibility" height="32" width="32"/>
         <MenuButton name="switchWindowsMenu" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SwitchWindows" icon=":/RibbonBar/images/RibbonIcons/View/Switch-Windows.png" modernIcon="SwitchWindows" tooltip="Studio.App.RobloxRibbonMainWindow.SwitchDifferentWindow" ischeckable="false" width="32" height="32"/>
-        <addaction fflag="!SelectionImprovementsRenderMode"  name="DEPRECATED_toggleBoundingBoxVisibilityAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" tooltip="Studio.App.RobloxRibbonMainWindow.DEPRECATEDBoundingBoxesTooltip" height="32" width="32"/>
-        <MenuPopupButton fflag="SelectionImprovementsRenderMode" name="selectionRenderModeGroup" handleIconChange="true" setting="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SelectionRendering" tooltip="Studio.App.RobloxRibbonMainWindow.SelectionRenderingTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" >
+        <MenuPopupButton name="selectionRenderModeGroup" handleIconChange="true" setting="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SelectionRendering" tooltip="Studio.App.RobloxRibbonMainWindow.SelectionRenderingTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" >
           <ActionGroup name="setSelectionRenderModeAction" style="textbesideicon" ischeckable="false">
             <addaction name="viewOutlinesAction" text="Studio.App.RobloxRibbonMainWindow.Outlines" value="Outlines" tooltip="Studio.App.RobloxRibbonMainWindow.OutlinesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="Part_Sphere" width="32" height="32" />
             <addaction name="viewBoundingBoxesAction" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" value="BoundingBoxes" tooltip="Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" />
@@ -569,7 +564,7 @@
         <addaction name="replaceAction" text="Studio.Common.Action.Replace" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" modernIcon="Replace" width="32" height="32" />
         <MenuButton name="actionSelectMenu" text="Studio.Common.Action.Select" tooltip="Studio.App.RobloxRibbonMainWindow.SelectTextElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectText" width="32" height="32" >
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectAll" width="16" height="16" />
-          <addaction name="selectParentsAction" fflag="SelectParentsEnabled"/>
+          <addaction name="selectParentsAction"/>
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" modernIcon="SelectChildren" />
           <addaction name="expandAllAction"/>
           <addaction name="collapseAllAction"/>

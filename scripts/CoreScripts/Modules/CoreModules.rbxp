@@ -109,6 +109,9 @@
                     "$path": "../.robloxrc"
                 }
             },
+            "SelfieView": {
+                "$path": "SelfieView"
+            },
             "Tracker": {
                 "$path": "Tracker"
             },
@@ -150,6 +153,12 @@
             },
             "ActionBindingsTab": {
                 "$path": "ActionBindingsTab.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "AggregatedData": {
+                "$path": "AggregatedData.lua",
                 ".robloxrc": {
                     "$path": "../.robloxrc"
                 }
@@ -198,12 +207,6 @@
             },
             "DevConsoleMaster": {
                 "$path": "DevConsoleMaster.lua",
-                ".robloxrc": {
-                    "$path": "../.robloxrc"
-                }
-            },
-            "DragDetectorTouchIndicator": {
-                "$path": "DragDetectorTouchIndicator.lua",
                 ".robloxrc": {
                     "$path": "../.robloxrc"
                 }
@@ -300,6 +303,12 @@
             },
             "PlayerPermissionsModule": {
                 "$path": "PlayerPermissionsModule.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "PlayingSounds": {
+                "$path": "PlayingSounds.lua",
                 ".robloxrc": {
                     "$path": "../.robloxrc"
                 }

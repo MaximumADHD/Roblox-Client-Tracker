@@ -105,7 +105,6 @@ Studio.App.RobloxRibbonMainWindow.SelectionRenderingTooltip,,Sets render style o
 Studio.App.RobloxRibbonMainWindow.Outlines,,Outlines,Outlines
 Studio.App.RobloxRibbonMainWindow.OutlinesTooltip,,Sets selection rendering mode to outlines,Sets selection rendering mode to outlines
 Studio.App.RobloxRibbonMainWindow.BoundingBoxes,,Bounding Boxes,Bounding Boxes
-Studio.App.RobloxRibbonMainWindow.DEPRECATEDBoundingBoxesTooltip,,Toggles visibility of bounding boxes for the selection,Toggles visibility of bounding boxes for the selection
 Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip,,Sets selection rendering mode to bounding boxes,Sets selection rendering mode to bounding boxes
 Studio.App.RobloxRibbonMainWindow.ViewBoth,,Both,Both
 Studio.App.RobloxRibbonMainWindow.ViewBothTooltip,,Sets selection rendering mode to outlines and bounding boxes,Sets selection rendering mode to outlines and bounding boxes
@@ -311,6 +310,5 @@ Studio.Common.Action.Animation,,Animation,Animation
 Studio.Common.Action.AvatarUnification,,Avatar Unification,Avatar Unification
 Studio.Common.Action.File,,File,File
 Studio.Common.Action.Home,,Home,Home
-Studio.Common.Action.Next,,Next,Next
 Studio.Common.Action.Previous,,Previous,Previous
 Studio.Common.Action.Select,,Select,Select

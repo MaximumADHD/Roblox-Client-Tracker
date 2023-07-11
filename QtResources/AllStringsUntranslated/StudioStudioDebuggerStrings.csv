@@ -1,0 +1,3 @@
+Key,Context,Source,en-us
+Studio.App.ScriptingCmd.RUNTOCURSOR,,Run to Cursor,Run to Cursor
+Studio.App.ScriptingCmd.RUNTOCURSORTooltip,,Continue execution to the current text cursor position,Continue execution to the current text cursor position

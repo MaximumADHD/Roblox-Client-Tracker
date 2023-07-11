@@ -1,9 +1,9 @@
 Key,Source,en-us
 Studio.Tutorials.StudioTour.panCamera_Description,Use the <b>E</b> and <b>Q</b> keys to pan up and down.,Use the <b>E</b> and <b>Q</b> keys to pan up and down.
 Studio.Tutorials.Plugin.Name,Tutorials,Tutorials
+Studio.Tutorials.Completed.Title,You completed the %s!,You completed the %s!
 Studio.Tutorials.StudioTour.parts_Title,Parts,Parts
 Studio.Tutorials.Plugin.Button,Toggle,Toggle
-Studio.Tutorials.Completed.Title,You completed %s!,You completed %s!
 Studio.Tutorials.StudioTour.material_Description,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material.,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material.
 Studio.Tutorials.StudioTour.select_Title,Select Part,Select Part
 Studio.Tutorials.StudioTour.rotateCamera_Description,"Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around.","Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around"
@@ -12,13 +12,14 @@ Studio.Tutorials.Plugin.Start,Start,Start
 Studio.Tutorials.Tutorial.StepSkipped,Step Skipped,Step Skipped
 Studio.Tutorials.Plugin.Welcome,"Welcome to Roblox Studio, %s!","Welcome to Roblox Studio, %s!"
 Studio.Tutorials.Plugin.Next,Next,Next
-Studio.Tutorials.Tutorial.Next,Next,Next
 Studio.Tutorials.Plugin.Title,Want to learn the basics? Start the tour to make your first experience.,Want to learn the basics? Start the tour to make your first experience.
 Studio.Tutorials.StudioTour.color_Description,Click this button to choose a new color for your part.,Click this button to choose a new color for your part.
 Studio.Tutorials.Completed.Description,Continue building here or visit the Dashboard to choose a different template place.,Continue building here or visit the Dashboard to choose a different template place.
 Studio.Tutorials.Completed.Back,Dashboard,Dashboard
 Studio.Tutorials.Tutorial.QuitTutorial,Quit Tutorial,Quit Tutorial
 Studio.Tutorials.Completed.Continue,Continue,Continue
+Studio.Tutorials.StudioTour.material_Title,Change Material,Change Material
+Studio.Tutorials.Tutorial.Begin,Begin,Begin
 Studio.Tutorials.Tutorial.SkipStep,Skip Step,Skip Step
 Studio.Tutorials.StudioTour.playtest_Title,Playtest,Playtest
 Studio.Tutorials.Tutorial.StopPlaytest_Title,Playtest,Playtest
@@ -44,4 +45,3 @@ Studio.Tutorials.StudioTour.workspace_Title,Workspace, Workspace
 Studio.Tutorials.StudioTour.workspace_Description,The Workspace service displays everything in your 3D world.,The Workspace service displays everything in your 3D world.
 Studio.Tutorials.StudioTour.focus_Title,Focus,Focus
 Studio.Tutorials.StudioTour.focus_Description,Press F to focus the camera on the part while it's selected.,Press F to focus the camera on the part while it's selected.
-Studio.Tutorials.StudioTour.material_Title,Change Material,Change Material

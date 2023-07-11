@@ -3072,7 +3072,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">HumanoidStateMachineMode</string>
-            <string name="FFlag">EnableStateMachineModes</string>
+            <string name="FFlag">EnableStateMachineModes2</string>
           </Properties>
         </Item>
       </Item>
@@ -3950,7 +3950,6 @@
         <string name="Name">BubbleChatConfiguration</string>
         <string name="ClassCategory">Text Chat</string>
         <string name="ExplorerOrder">12</string>
-        <string name="FFlag">EnableBubbleChatConfigurationV2</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4031,6 +4030,7 @@
         <string name="Name">VoiceChatService</string>
         <string name="ExplorerOrder">520</string>
         <string name="ExplorerImageIndex">136</string>
+        <token name="ServiceVisibility">1</token>        <!-- Off -->
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4775,6 +4775,13 @@
             <string name="Name">GetBodyPartR15</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetMoveVelocity</string>
+            <string name="Description">Returns the movement velocity based on the player input.</string>
+            <string name="FFlag">EnableGetMoveVelocity2</string>
+          </Properties>
+        </Item>
       </Item>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4810,7 +4817,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">EvaluateStateMachine</string>
-            <string name="FFlag">EnableEvaluateStateMachine</string>
+            <string name="FFlag">EnableEvaluateStateMachine2</string>
           </Properties>
         </Item>
       </Item>

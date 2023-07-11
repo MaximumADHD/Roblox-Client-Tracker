@@ -317,6 +317,7 @@ Studio.App.RBXMainWindow.Baseplate,,Baseplate,Baseplate
 Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
 Studio.App.PackageContextMenu.PackageDetails,,Package Details,Package Details
 Studio.App.PackageContextMenu.MassUpdatePackage,,Update All,Update All
+Studio.App.PackageContextMenu.ShowPackagesDiff,,View Changes,View Changes
 Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
 Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance,Sync Instance
 Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Actions

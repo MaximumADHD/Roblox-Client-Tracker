@@ -1,27 +1,43 @@
 Key,en-us
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Back,Back
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Emotions,Emotions
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Face,Face
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Front,Front
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Head,Head
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.HeadBodyPart,Head
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Jackets,Jackets
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.LeftArm,Left Arm
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.LeftLeg,Left Leg
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Locomotion,Locomotion
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Neck,Neck
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Pants,Pants
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.RightArm,Right Arm
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.RightLeg,Right Leg
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shirts,Shirts
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shoes,Shoes
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shorts,Shorts
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shoulder,Shoulder
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Skin,Skin
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Skirts,Skirts
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Sweaters,Sweaters
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Torso,Torso
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Waist,Waist
 Studio.AvatarCompatibilityPreviewer.Categories.accessories,Accessories
 Studio.AvatarCompatibilityPreviewer.Categories.animations,Animations
 Studio.AvatarCompatibilityPreviewer.Categories.body,Body
 Studio.AvatarCompatibilityPreviewer.Categories.clothing,Clothing
 Studio.AvatarCompatibilityPreviewer.Categories.face,Face
+Studio.AvatarCompatibilityPreviewer.CheckFace.DynamicHeadNotice,This avatar does not have a dynamic head.
 Studio.AvatarCompatibilityPreviewer.DummyPreview.RevertToDefault,Revert to Default
 Studio.AvatarCompatibilityPreviewer.DummyPreview.Textured,Textured
-Studio.AvatarCompatibilityPreviewer.Plugin.Button,Toggle
-Studio.AvatarCompatibilityPreviewer.Plugin.Description,Toggles the Template plugin window.
-Studio.AvatarCompatibilityPreviewer.Plugin.Name,AvatarCompatibilityPreviewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar,AvatarCompatibilityPreviewer
+Studio.AvatarCompatibilityPreviewer.EquippedItemContextMenu.OpenPalette,Open {palette}
+Studio.AvatarCompatibilityPreviewer.Plugin.Button,Preview Avatar
+Studio.AvatarCompatibilityPreviewer.Plugin.Description,Opens the Avatar Previewer
+Studio.AvatarCompatibilityPreviewer.Plugin.Name,Avatar Previewer
+Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar,Avatar Previewer
 Studio.AvatarCompatibilityPreviewer.SelectScreen.CurrentPlace,Current Place
-Studio.AvatarCompatibilityPreviewer.SelectScreen.ImportCharacterFrom,Import Character From
+Studio.AvatarCompatibilityPreviewer.SelectScreen.ImportCharacterFrom,Select Character From
 Studio.AvatarCompatibilityPreviewer.Stages.CheckBody,Check Body
 Studio.AvatarCompatibilityPreviewer.Stages.CheckFace,Check Face
+Studio.AvatarCompatibilityPreviewer.Stages.Publish,Publish
+Studio.AvatarCompatibilityPreviewer.Stages.Test,Test in Experience

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TnSAdIdentification",
+    "tree": {
+      "$path": "../../../../../../../modules/trust-and-safety/ad-identification/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "LinkingProtocol",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/linking/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "LoggingProtocol",
+    "tree": {
+      "$path": "../../../../../../../modules/protocols/logging/src"
+    }
+  }
+}

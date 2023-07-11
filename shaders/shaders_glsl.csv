@@ -239,10 +239,10 @@ ParticleCurveCrazySparklesFS,Fragment
 ParticleCurveModulateFS,Fragment
 ParticleCurveVS,Vertex
 ParticleCustomFS,Fragment
-ParticleCustomLerpFixFS,Fragment
 ParticleCustomVS,Vertex
 ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
+PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
 PassThroughFS,Fragment
 PassThroughLodFS,Fragment
@@ -272,6 +272,9 @@ SkyLinearFS,Fragment
 SkyVS,Vertex
 SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex
+SmoothClusterFeedback2FS,Fragment
+SmoothClusterFeedbackFS,Fragment
+SmoothClusterFeedbackVS,Vertex
 SmoothClusterFS_00008000,Fragment
 SmoothClusterFS_00008400,Fragment
 SmoothClusterFS_00010000,Fragment
@@ -344,6 +347,13 @@ SmoothClusterVS_00020000,Vertex
 SmoothClusterVS_00020400,Vertex
 SmoothClusterVS_00040000,Vertex
 SmoothClusterVS_00040400,Vertex
+SmoothClusterVTFS_00000000,Fragment
+SmoothClusterVTFS_00000400,Fragment
+SmoothClusterVTHQFS_00000000,Fragment
+SmoothClusterVTHQVS_00000000,Vertex
+SmoothClusterVTSuperHQFS_00000000,Fragment
+SmoothClusterVTSuperHQVS_00000000,Vertex
+SmoothClusterVTVS_00000000,Vertex
 SmoothWaterFS_00000000,Fragment
 SmoothWaterHQFS_00000000,Fragment
 SmoothWaterHQVS_00000000,Vertex
