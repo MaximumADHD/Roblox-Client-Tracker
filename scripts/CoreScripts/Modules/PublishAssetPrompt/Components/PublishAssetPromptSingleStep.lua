@@ -62,6 +62,10 @@ local LayeredAssetTypes = {
 	[Enum.AssetType.HairAccessory] = true,
 }
 
+local PublishAssetPrompt = script.Parent.Parent
+local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
+local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
+
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
 
 PublishAssetPromptSingleStep.validateProps = t.strictInterface({
@@ -91,14 +95,34 @@ function PublishAssetPromptSingleStep:init()
 	self.assetName = self:getDefaultText()
 	self.assetDescription = self:getDefaultText()
 	self.isNameValid = true
+	self.isDescriptionValid = true
 
 	self.closePrompt = function()
 		self.props.closePrompt()
 	end
 
+	self.denyAndClose = function()
+		-- We should never get to this point if this engine feature is off (see ConnectAssetServiceEvents.lua), but just in case:
+		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
+			ExperienceAuthService:ScopeCheckUIComplete(
+				self.props.guid,
+				self.props.scopes,
+				Enum.ScopeCheckResult.ConsentDenied,
+				{} -- empty metadata
+			)
+		end
+		self.closePrompt()
+	end
+
 	self.confirmAndUpload = function()
 		if not self.isNameValid then
 			return
+		end
+
+		if GetFFlagValidateDescription() then
+			if not self.isDescriptionValid then
+				return
+			end
 		end
 
 		local metadata = {}
@@ -126,8 +150,9 @@ function PublishAssetPromptSingleStep:init()
 		end
 	end
 
-	self.onAssetDescriptionUpdated = function(newDescription)
+	self.onAssetDescriptionUpdated = function(newDescription, isDescriptionValid)
 		self.assetDescription = newDescription
+		self.isDescriptionValid = isDescriptionValid
 	end
 
 	self.nameTextBoxRef = Roact.createRef()
@@ -229,7 +254,7 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 			buttons = {
 				{
 					props = {
-						onActivated = self.closePrompt,
+						onActivated = if FFlagSendConsentDeniedOnCancel then self.denyAndClose else self.closePrompt,
 						text = localized[CANCEL_TEXT],
 					},
 					isDefaultChild = true,

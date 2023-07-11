@@ -4,7 +4,15 @@
 
 -- This can be replaced if we eventually overhaul the settings API to provide arbitrary metadata.
 
+local FFlagDevConsoleCollisionPerfVisualization = game:DefineFastFlag("DevConsoleCollisionPerfVisualization", false)
+
 return {
+	["AreCollisionCostsShown"] = if FFlagDevConsoleCollisionPerfVisualization then {
+		name = "AreCollisionCostsShown",
+		description="Highlights assemblies in the world with color from green to red based on how costly the collision computation is.",
+		tags = {"Performance", "Collision"},
+		type = "Box"
+	} else nil,
 	["AreAnchorsShown"] = {
 		name = "AreAnchorsShown",
 		description="When set to true, parts that are BasePart.Anchored will show a gray surface outline on the surface of the part’s bounding box that is currently facing the ground.",

@@ -30,9 +30,9 @@ local VOICE_STATE = {
 }
 
 -- If any of the sequence numbers for these namespaces are missed, VoiceChatServiceManager will rejoin the call
-local WATCHED_NAMESPACES = { VoiceNotifications=true }
-export type WatchedMessageTypes = "ParticipantModeratedFromVoice"
-local WATCHED_MESSAGE_TYPES: {WatchedMessageTypes} = { "ParticipantModeratedFromVoice" }
+local WATCHED_NAMESPACES = { VoiceNotifications=true, VoiceModeration=true }
+export type WatchedMessageTypes = "ParticipantModeratedFromVoice" | "VoiceToxicityModal" | "VoiceToxicityToast"
+local WATCHED_MESSAGE_TYPES: {WatchedMessageTypes} = { "ParticipantModeratedFromVoice", "VoiceToxicityModal", "VoiceToxicityToast" }
 
 return {
 	VOICE_STATE = VOICE_STATE,

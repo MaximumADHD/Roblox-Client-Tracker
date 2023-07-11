@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol)
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
 type TelemetryEventConfig = LoggingProtocol.TelemetryEventConfig
 game:DefineFastInt("AvatarChatHeartbeatStatsEventThrottleHundrethsPercent", 0)

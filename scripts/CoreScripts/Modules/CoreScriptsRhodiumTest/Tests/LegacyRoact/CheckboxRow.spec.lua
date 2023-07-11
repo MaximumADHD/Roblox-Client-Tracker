@@ -26,7 +26,7 @@ return function()
 
 			c.jestExpect(button).never.toBeNil()
 
-			c.RhodiumHelpers.clickInstance(button)
+			c.RhodiumHelpers.clickInstance(button, true)
 
 			c.jestExpect(c.checkboxActivatedMockSpy).toHaveBeenCalledTimes(1)
 		end)

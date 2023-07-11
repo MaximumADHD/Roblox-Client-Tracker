@@ -1,7 +1,7 @@
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 
-local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
+local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact

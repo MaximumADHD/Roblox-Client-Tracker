@@ -8,7 +8,7 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local Promise = require(CorePackages.Promise)
 
-local ShimmerPanel = UIBlox.Loading.ShimmerPanel
+local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")

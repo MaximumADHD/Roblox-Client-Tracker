@@ -65,8 +65,7 @@ local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).
 local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 
-local GetFFlagDragDetectorTouchIndicator = require(RobloxGui.Modules.Flags.GetFFlagDragDetectorTouchIndicator)
-local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts3", false)
+local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
@@ -125,6 +124,10 @@ end
 
 -- In-game notifications script
 ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
+
+-- SelfieView
+initify(CoreGuiModules.SelfieView)
+coroutine.wrap(safeRequire)(CoreGuiModules.SelfieView)
 
 
 initify(CoreGuiModules.Chrome)
@@ -224,13 +227,6 @@ coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 
 -- GamepadVirtualCursor
 coroutine.wrap(safeRequire)(RobloxGui.Modules.VirtualCursor.VirtualCursorMain)
-
--- DragDetector  sunk input indicators for touch events
-if GetFFlagDragDetectorTouchIndicator() then
-	if UserInputService.TouchEnabled then
-		coroutine.wrap(safeRequire)(RobloxGui.Modules.DragDetectorTouchIndicator)
-	end
-end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 

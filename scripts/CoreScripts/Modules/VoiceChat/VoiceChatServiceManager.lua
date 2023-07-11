@@ -45,6 +45,7 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local GetFFlagLuaConsumePlayerModerated = require(RobloxGui.Modules.Flags.GetFFlagLuaConsumePlayerModerated)
 local GetFFlagUseLuaSignalrConsumer = require(RobloxGui.Modules.Flags.GetFFlagUseLuaSignalrConsumer)
+local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceNudge)
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
@@ -778,7 +779,7 @@ function VoiceChatServiceManager:ensureInitialized(action)
 	end
 end
 
-function VoiceChatServiceManager:createPromptInstance(onReadyForSignal)
+function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptType)
 	if not self.voiceChatPromptInstance or GetFFlagAlwaysMountVoicePrompt() then
 		if self.promptSignal then
 			self.promptSignal:Destroy()
@@ -801,7 +802,12 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal)
 			policyMapper = self.policyMapper,
 			errorText = errorText,
 			onReadyForSignal = onReadyForSignal,
-			onContinueFunc = function() PostInformedOfBan(bind(self, 'PostRequest'), true) end
+			onContinueFunc = if promptType == VoiceChatPromptType.VoiceChatSuspendedTemporary
+				then function() PostInformedOfBan(bind(self, 'PostRequest'), true) end
+				else nil,
+			onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
+				then function() self:ShowVoiceToxicityFeedbackToast() end
+				else nil,
 		}), CoreGui, "RobloxVoiceChatPromptGui")
 	end
 end
@@ -814,7 +820,7 @@ function VoiceChatServiceManager:showPrompt(promptType, errorText)
 		self:createPromptInstance(function()
 			log:debug("Show Prompt: {}", promptType)
 			self.promptSignal:fire(promptType)
-		end)
+		end, promptType)
 	else
 		log:debug("Show Prompt: {}", promptType)
 		self.promptSignal:fire(promptType)
@@ -867,6 +873,11 @@ function VoiceChatServiceManager:InitialJoinFailedPrompt()
 	log:debug("JoinByGroupIdToken returns false")
 
 	self:showPrompt(VoiceChatPromptType.Retry)
+end
+
+function VoiceChatServiceManager:ShowVoiceToxicityFeedbackToast()
+	log:debug("Sending feedback toast")
+	self:showPrompt(VoiceChatPromptType.VoiceToxicityFeedbackToast)
 end
 
 function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
@@ -1071,9 +1082,23 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		-- This is controlled by DFFlagVoiceChatEnablePlayerModeratedSignal
 		elseif game:GetEngineFeature("VoiceChatServicePlayerModeratedEvent") then
 			self.playerModeratedConnection = self.service.LocalPlayerModerated:connect(function()
-				log:debug("User Moderated")
+				log:debug("User Moderated old")
 				self:ShowPlayerModeratedMessage()
 				self.service:Leave()
+			end)
+		end
+		if GetFFlagEnableVoiceNudge() then
+			log:trace('Setting up voice nudge handlers')
+			local voiceToxicityModalConnection = self:GetSignalREvent("VoiceToxicityModal")
+			self.voiceToxicityModalConnection = voiceToxicityModalConnection:Connect(function()
+				log:debug("Showing Voice Toxicity Modal")
+				self:showPrompt(VoiceChatPromptType.VoiceToxicityModal)
+			end)
+
+			local VoiceToxicityToastConnection = self:GetSignalREvent("VoiceToxicityToast")
+			self.VoiceToxicityToastConnection = VoiceToxicityToastConnection:Connect(function()
+				log:debug("Showing Voice Toxicity Toast")
+				self:showPrompt(VoiceChatPromptType.VoiceToxicityToast)
 			end)
 		end
 
@@ -1126,6 +1151,16 @@ function VoiceChatServiceManager:Disconnect()
 		self.playerModeratedConnection:Disconnect()
 		self.playerModeratedConnection = nil
 	end
+
+	if self.voiceToxicityModalConnection then
+		self.voiceToxicityModalConnection:Disconnect()
+		self.voiceToxicityModalConnection = nil
+	end
+
+	if self.VoiceToxicityToastConnection then
+		self.VoiceToxicityToastConnection:Disconnect()
+		self.VoiceToxicityToastConnection = nil
+	end
 end
 
 function VoiceChatServiceManager:ToggleMic()
@@ -1163,7 +1198,7 @@ function VoiceChatServiceManager:RejoinCurrentChannel()
 				self.participants = {}
 				self.participantsUpdate:Fire(self.participants)
 			end
-			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted)
+			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
 			if not joinInProgress then
 				VoiceChatServiceManager:InitialJoinFailedPrompt()
 			end
@@ -1179,7 +1214,7 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 	pcall(function()
 		if groupId and groupId ~= "" then
 			self.service:Leave()
-			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted)
+			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
 			if not joinInProgress then
 				VoiceChatServiceManager:InitialJoinFailedPrompt()
 			end

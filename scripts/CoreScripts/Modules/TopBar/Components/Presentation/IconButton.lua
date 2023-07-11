@@ -2,6 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
+local React = require(CorePackages.Packages.React)
+
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
@@ -10,16 +12,17 @@ local withStyle = UIBlox.Core.Style.withStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Images = UIBlox.App.ImageSet.Images
+local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local FlashingDot = require(script.Parent.FlashingDot)
 local FlashingDotV2 = require(script.Parent.FlashingDotV2)
 local GetFFlagFlashingDotUseAsyncInit = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFlashingDotUseAsyncInit)
-
-
+local ChromeEnabled = require(CoreGui.RobloxGui.Modules.Chrome.Enabled)()
+local Constants = require(script.Parent.Parent.Parent.Constants)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
-local BACKGROUND_SIZE = 32
+local BACKGROUND_SIZE = if ChromeEnabled then (Constants.TopBarHeight - 4) else 32
 
 local OVERLAY_ASSET = Images["component_assets/circle_17"]
 
@@ -27,11 +30,36 @@ IconButton.validateProps = t.strictInterface({
 	icon = t.union(t.string, t.table),
 	iconSize = t.integer,
 	enableFlashingDot = t.optional(t.boolean),
-
+	useIconScaleAnimation = t.optional(t.boolean),
 	onActivated = t.callback,
 	onHover = t.optional(t.callback),
 	onHoverEnd = t.optional(t.callback),
 })
+
+function AnimatedScaleIcon(props)
+	local sizeTransition, setSizeTransition = ReactOtter.useAnimatedBinding(props.iconSize)
+
+	React.useEffect(function()
+		setSizeTransition(ReactOtter.spring(props.iconSize, {
+			dampingRatio = 1,
+			frequency = 1 / 0.35,
+		}))
+		return function() end
+	end, { props.iconSize })
+
+	return Roact.createElement(ImageSetLabel, {
+		Size = sizeTransition:map(function(v)
+			return UDim2.fromOffset(v, v)
+		end),
+		Position = UDim2.fromScale(0.5, 0.5),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		BackgroundTransparency = 1,
+		Image = props.icon,
+		ImageColor3 = props.style.Theme.IconEmphasis.Color,
+		ImageTransparency = props.style.Theme.IconEmphasis.Transparency,
+		ZIndex = 1,
+	})
+end
 
 function IconButton:init()
 	self:setState({
@@ -41,7 +69,11 @@ function IconButton:init()
 	self.controlStateUpdated = function(oldControlState, newControlState)
 		if self.props.onHover and newControlState == ControlState.Hover then
 			self.props.onHover()
-		elseif self.props.onHoverEnd and oldControlState == ControlState.Hover and newControlState ~= ControlState.Hover then
+		elseif
+			self.props.onHoverEnd
+			and oldControlState == ControlState.Hover
+			and newControlState ~= ControlState.Hover
+		then
 			self.props.onHoverEnd()
 		end
 		self:setState({
@@ -67,15 +99,20 @@ function IconButton:render()
 			onStateChanged = self.controlStateUpdated,
 
 			ZIndex = 1,
-			BackgroundTransparency = 1,
-			Position = UDim2.fromScale(0, 1),
-			AnchorPoint = Vector2.new(0, 1),
+			BackgroundTransparency = if ChromeEnabled then style.Theme.BackgroundUIContrast.Transparency else 1,
+			Position = UDim2.fromScale(0, if ChromeEnabled then 0.5 else 1),
+			AnchorPoint = Vector2.new(0, if ChromeEnabled then 0.5 else 1),
 			Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),
-			Image = "rbxasset://textures/ui/TopBar/iconBase.png",
-
+			Image = if not ChromeEnabled then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
+			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
-			Icon = Roact.createElement(ImageSetLabel, {
+
+			UICorner = ChromeEnabled and Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(1, 0),
+			}) or nil,
+
+			Icon = not self.props.useIconScaleAnimation and Roact.createElement(ImageSetLabel, {
 				Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -86,24 +123,39 @@ function IconButton:render()
 				ZIndex = 1,
 			}),
 
-			FlashingDot = if self.props.enableFlashingDot then Roact.createElement(
-				if GetFFlagFlashingDotUseAsyncInit()
-					then FlashingDotV2
-					else FlashingDot
-			) else nil,
+			ScalingIcon = self.props.useIconScaleAnimation and Roact.createElement(AnimatedScaleIcon, {
+				icon = self.props.icon,
+				iconSize = self.props.iconSize,
+				style = style :: any,
+			}) :: any,
 
-			StateOverlay = Roact.createElement(ImageSetLabel, {
+			FlashingDot = if self.props.enableFlashingDot
+				then Roact.createElement(if GetFFlagFlashingDotUseAsyncInit() then FlashingDotV2 else FlashingDot)
+				else nil,
+
+			StateOverlayRound = ChromeEnabled and Roact.createElement("Frame", {
+				BackgroundTransparency = overlayTheme.Transparency,
+				BackgroundColor3 = overlayTheme.Color,
+				Size = UDim2.fromScale(1, 1),
+				ZIndex = 2,
+			}, {
+				UICorner = ChromeEnabled and Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(1, 0),
+				}) or nil,
+			}) or nil,
+
+			StateOverlay = not ChromeEnabled and Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
 
 				Image = OVERLAY_ASSET,
 				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter =  Rect.new(8, 8, 8, 8),
+				SliceCenter = Rect.new(8, 8, 8, 8),
 
 				ImageColor3 = overlayTheme.Color,
 				ImageTransparency = overlayTheme.Transparency,
 				Size = UDim2.fromScale(1, 1),
 				ZIndex = 2,
-			}),
+			}) or nil,
 		})
 	end)
 end

@@ -1,4 +1,8 @@
 local ChromeService = require(script.Parent.Parent.Service)
+local ChromeTypes = require(script.Parent.Parent.Service.Types)
+local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
+local MappedSignal = ChromeUtils.MappedSignal
+
 local CommonIcon = require(script.Parent.CommonIcon)
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
@@ -8,7 +12,7 @@ local StarterGui = game:GetService("StarterGui")
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
 
-function setCoreGuiAvailability(integration, coreGui)
+function setCoreGuiAvailability(integration: ChromeTypes.IntegrationProps, coreGui)
 	local function updateAvailable()
 		local available = StarterGui:GetCoreGuiEnabled(coreGui)
 		if available then
@@ -23,6 +27,10 @@ function setCoreGuiAvailability(integration, coreGui)
 	return disconnect
 end
 
+local leaderboardVisibility = MappedSignal.new(PlayerListMaster:GetSetVisibleChangedEvent().Event, function()
+	return PlayerListMaster:GetSetVisible()
+end)
+
 local leaderboard = ChromeService:register({
 	id = "leaderboard",
 	label = "Leaderboard",
@@ -36,12 +44,19 @@ local leaderboard = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("rbxasset://textures/ui/TopBar/leaderboardOff.png")
+			return CommonIcon(
+				"rbxasset://textures/ui/TopBar/leaderboardOff.png",
+				"rbxasset://textures/ui/TopBar/leaderboardOn.png",
+				leaderboardVisibility
+			)
 		end,
 	},
 })
 setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
 
+local emotesVisibility = MappedSignal.new(EmotesMenuMaster.EmotesMenuToggled.Event, function()
+	return EmotesMenuMaster:isOpen()
+end)
 local emotes = ChromeService:register({
 	id = "emotes",
 	label = "Emotes",
@@ -58,12 +73,15 @@ local emotes = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/controls/emoteOff")
+			return CommonIcon("icons/controls/emoteOff", "icons/controls/emoteOn", emotesVisibility)
 		end,
 	},
 })
 setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu)
 
+local backpackVisibility = MappedSignal.new(BackpackModule.StateChanged.Event, function()
+	return BackpackModule.IsOpen
+end)
 local backpack = ChromeService:register({
 	id = "backpack",
 	label = "Inventory",
@@ -72,19 +90,30 @@ local backpack = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("rbxasset://textures/ui/TopBar/inventoryOff.png")
+			return CommonIcon(
+				"rbxasset://textures/ui/TopBar/inventoryOff.png",
+				"rbxasset://textures/ui/TopBar/inventoryOn.png",
+				backpackVisibility
+			)
 		end,
 	},
 })
 setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
 
+-- todo: reduce external boilerplate for a signal sourced directly from ChromeService
+local currentSubMenu = ChromeService:currentSubMenu()
+local submenuVisibility = MappedSignal.new(currentSubMenu:signal(), function()
+	return currentSubMenu:get() == "nine_dot"
+end)
+
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
+	notification = ChromeService:subMenuNotifications("nine_dot"),
 	id = "nine_dot",
 	label = "Overflow Menu",
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/more_off")
+			return CommonIcon("icons/menu/more_off", "icons/menu/more_on", submenuVisibility)
 		end,
 	},
 })

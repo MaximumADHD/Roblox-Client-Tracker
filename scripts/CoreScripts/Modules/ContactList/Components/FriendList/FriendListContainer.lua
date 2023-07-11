@@ -25,6 +25,7 @@ local localPlayer = Players.LocalPlayer :: Player
 export type Props = {
 	localUserId: number?,
 	isDevMode: boolean?,
+	dismissCallback: () -> (),
 }
 
 local defaultProps = {
@@ -85,6 +86,7 @@ local function FriendListContainer(passedProps: Props)
 		for index, friendUserId in ipairs(friendUserIds) do
 			friends[index] = React.createElement(FriendListItem, {
 				userId = friendUserId,
+				dismissCallback = props.dismissCallback,
 			})
 		end
 
@@ -141,6 +143,7 @@ local function FriendListContainer(passedProps: Props)
 			numPlayers = numPlayers + 1
 			friends[friendUserId] = React.createElement(FriendListItem, {
 				userId = friendUserId,
+				dismissCallback = props.dismissCallback,
 			})
 		end
 

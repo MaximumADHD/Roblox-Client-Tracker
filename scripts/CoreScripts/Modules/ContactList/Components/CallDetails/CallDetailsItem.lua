@@ -9,7 +9,7 @@ local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
 local UIBlox = dependencies.UIBlox
-local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local IconButton = UIBlox.App.Button.IconButton
@@ -62,7 +62,7 @@ local function CallDetailsItem(props: Props)
 	local image
 	if user then
 		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-			image = getStandardUserAvatarHeadShotImage(tostring(user.userId))
+			image = getStandardSizeAvatarHeadShotRbxthumb(tostring(user.userId))
 		else
 			image = SocialLibraries.User.getUserAvatarImage(user.userId)
 		end

@@ -13,7 +13,7 @@ end
 local userIsChatTranslationEnabled = false
 do
 	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled2")
 	end)
 	userIsChatTranslationEnabled = success and value
 end

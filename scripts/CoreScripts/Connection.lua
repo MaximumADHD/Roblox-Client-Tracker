@@ -20,7 +20,6 @@ local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocaliz
 -- After 2 hours, disable reconnect after the failure of first try
 local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSeconds", 7200)
 
-local fflagSanitizeKickMessageInDisconnectPrompt = game:DefineFastFlag("SanitizeKickMessageInDisconnectPrompt", false)
 local fintMaxKickMessageLength = game:DefineFastInt("MaxKickMessageLength", 200)
 
 local FFlagRefactorReconnectUnblockTeleport = game:DefineFastFlag("RefactorReconnectUnblockTeleport", false)
@@ -464,12 +463,10 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 	end
 
 	if errorCode == Enum.ConnectionError.DisconnectLuaKick then
-		if fflagSanitizeKickMessageInDisconnectPrompt then
-			-- Collapse all whitespace to single spaces, destroying any newlines.
-			errorMsg = errorMsg:gsub("%s+", " ")
-			-- Limit final message length to a reasonable value
-			errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
-		end
+		-- Collapse all whitespace to single spaces, destroying any newlines.
+		errorMsg = errorMsg:gsub("%s+", " ")
+		-- Limit final message length to a reasonable value
+		errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
 
 		if noHardcodedStringInLuaKickMessage then
 			-- errorMsg is dev message

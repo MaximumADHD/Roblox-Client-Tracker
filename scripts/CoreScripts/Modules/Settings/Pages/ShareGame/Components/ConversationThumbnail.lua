@@ -3,16 +3,15 @@ local CorePackages = game:GetService("CorePackages")
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(CorePackages.Roact)
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
+local UserLibConstants = require(CorePackages.Workspace.Packages.UserLib).Utils.Constants
 
 local GetFFlagUseRbxthumbForLocalThumbnailUrls =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseRbxthumbForLocalThumbnailUrls
-local getTypedUserAvatarImageWithSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getTypedUserAvatarImageWithSizeAndOptions
+local getRbxthumbWithTypeSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getRbxthumbWithTypeSizeAndOptions
 
 local BORDER_SIZE = 1
 local BORDER_COLOR = Constants.Color.GRAY3
 
-local DEPRECATED_THUMBNAIL_IMAGE_SIZE = Constants.DEPRECATED_InviteAvatarThumbnailSize
-local DEPRECATED_THUMBNAIL_IMAGE_TYPE = Constants.DEPRECATED_InviteAvatarThumbnailType
 local THUMBNAIL_IMAGE_SIZE = Constants.InviteAvatarThumbnailSize
 local THUMBNAIL_IMAGE_TYPE = Constants.InviteAvatarThumbnailType
 local DEFAULT_THUMBNAIL_ICON = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png"
@@ -135,14 +134,15 @@ function ConversationThumbnail:render()
 					localUserId = tostring(localPlayer.UserId)
 				end
 				if localUserId and user.id == localUserId then
-					thumbnailImage = getTypedUserAvatarImageWithSizeAndOptions(user.id, THUMBNAIL_IMAGE_TYPE, THUMBNAIL_IMAGE_SIZE)
+					local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
+					thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
 				else
-					thumbnailImage = user.thumbnails and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE]
-						and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE][DEPRECATED_THUMBNAIL_IMAGE_SIZE]
+					thumbnailImage = user.thumbnails and user.thumbnails[THUMBNAIL_IMAGE_TYPE]
+						and user.thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
 				end
 			else
-				thumbnailImage = user.thumbnails and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE]
-				and user.thumbnails[DEPRECATED_THUMBNAIL_IMAGE_TYPE][DEPRECATED_THUMBNAIL_IMAGE_SIZE]
+				thumbnailImage = user.thumbnails and user.thumbnails[THUMBNAIL_IMAGE_TYPE]
+				and user.thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
 			end
 		end
 		if not thumbnailImage then

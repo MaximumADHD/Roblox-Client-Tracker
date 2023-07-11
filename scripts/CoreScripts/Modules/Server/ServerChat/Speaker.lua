@@ -22,7 +22,7 @@ end
 local userIsChatTranslationEnabled = false
 do
 	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled2")
 	end)
 	userIsChatTranslationEnabled = success and value
 end
@@ -315,7 +315,7 @@ function methods:InternalSendFilteredMessageWithTranslatedFilterResult(inMessage
 	local oldFilterResult = messageObj.FilterResult
 	local player = self:GetPlayer()
 
-	local translationFilterResult = translations:GetTranslationForLocale(player.LocaleId)
+	local translationFilterResult = if player ~= nil then translations:GetTranslationForLocale(player.LocaleId) else nil
 
 	local message = ""
 	local translatedMessage = nil

@@ -12,6 +12,8 @@ local PublishAssetPrompt = script.Parent
 local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
 local OpenResultModal = require(PublishAssetPrompt.Thunks.OpenResultModal)
 
+local FFlagInExperiencePublishDeserializeAsset = game:DefineFastFlag("InExperiencePublishDeserializeAsset", false)
+
 local function ConnectAssetServiceEvents(store)
 	local connections = {}
 
@@ -23,9 +25,18 @@ local function ConnectAssetServiceEvents(store)
 			ExpAuthSvc.OpenAuthPrompt:Connect(function(guid, scopes, metadata)
 				-- Check scopes; we only want to show the publish prompt for the CreatorAssetsCreate scope
 				if #scopes == 1 and scopes[1] == Enum.ExperienceAuthScope.CreatorAssetsCreate then
-					store:dispatch(
-						OpenPublishAssetPrompt(metadata["instanceToPublish"], metadata["assetType"], guid, scopes)
-					)
+					if
+						game:GetEngineFeature("AssetServiceDeserializeInstance")
+						and FFlagInExperiencePublishDeserializeAsset
+					then
+						local instance = AssetService:DeserializeInstance(metadata["serializedInstance"])
+
+						store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
+					else
+						store:dispatch(
+							OpenPublishAssetPrompt(metadata["instanceToPublish"], metadata["assetType"], guid, scopes)
+						)
+					end
 				end
 			end)
 		)

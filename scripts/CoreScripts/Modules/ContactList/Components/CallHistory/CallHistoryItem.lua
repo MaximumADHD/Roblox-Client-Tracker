@@ -15,7 +15,7 @@ local UIBlox = dependencies.UIBlox
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Images = UIBlox.App.ImageSet.Images
-local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local useDispatch = dependencies.Hooks.useDispatch
@@ -162,7 +162,7 @@ local function CallHistoryItem(props: Props)
 
 	local image
 	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-		image = getStandardUserAvatarHeadShotImage(tostring(participant.userId))
+		image = getStandardSizeAvatarHeadShotRbxthumb(tostring(participant.userId))
 	else
 		image = SocialLibraries.User.getUserAvatarImage(participant.userId)
 	end

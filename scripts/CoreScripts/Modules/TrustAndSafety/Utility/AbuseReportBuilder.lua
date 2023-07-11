@@ -63,6 +63,7 @@ local Constants = {
 	Variant = {
 		CS = "ra/cs",
 		Sampling = "ra/sampling",
+		E1 = "ra/e1",
 		Unknown = "ra/unknown"
 	}
 }

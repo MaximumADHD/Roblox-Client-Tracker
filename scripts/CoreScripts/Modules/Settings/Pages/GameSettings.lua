@@ -64,7 +64,6 @@ local VOICE_CHAT_DEVICE_TYPE = {
 	Output = "Output",
 }
 
-local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
 local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Dynamic Thumbstick)" or "Default (Keyboard)"
@@ -119,7 +118,6 @@ local RenderSettings
 local SendNotification
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
-local VideoPromptOff = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.Off")
 local VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
 local VideoPromptVideoCamera = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
 
@@ -151,8 +149,9 @@ local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flag
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local GetFFlagDisableCameraOffSetting = require(RobloxGui.Modules.Flags.GetFFlagDisableCameraOffSetting)
+local GetFFlagEnableAudioOutputDevice = require(RobloxGui.Modules.Flags.GetFFlagEnableAudioOutputDevice)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
+local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -212,7 +211,7 @@ local function reportSettingsForAnalytics()
 	stringTable["microprofiler_enabled"] = tostring(GameSettings.OnScreenProfilerEnabled)
 	stringTable["microprofiler_webserver_enabled"] = tostring(GameSettings.MicroProfilerWebServerEnabled)
 
-	if game:GetEngineFeature("EnableAccessibilitySettingsInExperienceMenu") then
+	if GetFFlagEnableAccessibilitySettingsInExperienceMenu() then
 		stringTable["reduced_motion"] = tostring(GameSettings.ReducedMotion)
 		stringTable["preferred_transparency"] = tostring(GameSettings.PreferredTransparency)
 		stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
@@ -2429,6 +2428,11 @@ local function Initialize()
 		end
 	end
 
+	local function SwitchOutputDevice(deviceName, deviceGuid)
+		SoundService:SetOutputDevice(deviceName, deviceGuid)
+		log:info("[SwitchOutputDevice] Setting SS Speaker Device To {} {}", deviceName, deviceGuid)
+	end
+
 	local function createDeviceOptions(deviceType)
 		local selectedIndex = this[deviceType.."DeviceIndex"] or 0
 		local options = this[deviceType.."DeviceNames"] or {}
@@ -2472,7 +2476,11 @@ local function Initialize()
 					local deviceName = this[deviceType.."DeviceInfo"].Name
 					local deviceGuid = this[deviceType.."DeviceInfo"].Guid
 
-					VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid)
+					if this.VoiceChatOptionsEnabled then
+						VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid)
+					elseif GetFFlagEnableAudioOutputDevice() then
+						SwitchOutputDevice(deviceName, deviceGuid)
+					end
 				end
 			end
 		)
@@ -2510,6 +2518,39 @@ local function Initialize()
 				UserGameSettings.DefaultCameraID = deviceGuid
 			end
 		)
+	end
+
+	local function updateAudioOutputDevices()
+		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
+			return SoundService:GetOutputDevices()
+		end)
+
+		local deviceType = VOICE_CHAT_DEVICE_TYPE.Output
+
+		if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
+			this[deviceType.."DeviceNames"] = deviceNames
+			this[deviceType.."VCSDeviceNames"] = deviceNames
+			this[deviceType.."VCSDeviceGuids"] = deviceGuids
+			this[deviceType.."DeviceGuids"] = deviceGuids
+			this[deviceType.."DeviceIndex"] = selectedIndex
+		else
+
+			if GetFFlagVoiceChatUILogging() then
+				log:warning("Errors in get {} device info", deviceType)
+			end
+			this[deviceType.."DeviceNames"] = {}
+			this[deviceType.."DeviceGuids"] = {}
+			this[deviceType.."VCSDeviceNames"] = {}
+			this[deviceType.."VCSDeviceGuids"] = {}
+			this[deviceType.."DeviceIndex"] = 0
+		end
+
+		if not this[deviceType.."DeviceSelector"] then
+			createDeviceOptions(deviceType)
+		else
+			this[deviceType.."DeviceSelector"]:UpdateOptions(deviceNames)
+			this[deviceType.."DeviceSelector"]:SetSelectionIndex(selectedIndex)
+		end
 	end
 
 	local function updateVoiceChatDevices(deviceType)
@@ -2567,14 +2608,6 @@ local function Initialize()
 		local deviceNames = {}
 		local deviceGuids = {}
 		local selectedIndex = 1
-		if not GetFFlagDisableCameraOffSetting() then
-			-- Set to default device in case UserGameSettings.DefaultCameraID is not available (in search below)
-			if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
-				selectedIndex = 2
-			end
-			table.insert(deviceNames, VideoPromptOff)
-			table.insert(deviceGuids, "{NullDeviceGuid}")
-		end
 		table.insert(deviceNames, VideoPromptSystemDefault)
 		table.insert(deviceGuids, "{DefaultDeviceGuid}")
 		for guid, name in pairs(devs) do
@@ -2600,16 +2633,20 @@ local function Initialize()
 	local deviceChangedConnection = nil
 	local videoCameraDeviceChangedConnection = nil
 
-	local function updateVoiceChatOptions()
-		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
-		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
+	local function updateAudioOptions()
+		if this.VoiceChatOptionsEnabled then			
+			updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
+			updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
+		elseif GetFFlagEnableAudioOutputDevice() then
+			updateAudioOutputDevices()
+		end
 	end
 
 	local function setupDeviceChangedListener()
 		if SoundService.DeviceListChanged then
 			deviceChangedConnection = SoundService.DeviceListChanged:Connect(function()
 				if this.PageOpen then
-					updateVoiceChatOptions()
+					updateAudioOptions()
 				end
 			end)
 		end
@@ -2741,7 +2778,7 @@ local function Initialize()
 	createVolumeOptions()
 	createGraphicsOptions()
 
-	if game:GetEngineFeature("EnableAccessibilitySettingsInExperienceMenu") then
+	if GetFFlagEnableAccessibilitySettingsInExperienceMenu() then
 		createReducedMotionOptions()
 		createPreferredTransparencyOptions()
 		createUiNavigationKeyBindOptions()
@@ -2812,10 +2849,10 @@ local function Initialize()
 
 	this.OpenSettingsPage = function()
 		this.PageOpen = true
-		if this.VoiceChatOptionsEnabled then
+		if this.VoiceChatOptionsEnabled or GetFFlagEnableAudioOutputDevice() then
 			-- Update device info each time user opens the menu
 			-- TODO: This should be simplified by new API
-			updateVoiceChatOptions()
+			updateAudioOptions()
 			setupDeviceChangedListener()
 			this.startVolume = GameSettings.MasterVolume
 		end

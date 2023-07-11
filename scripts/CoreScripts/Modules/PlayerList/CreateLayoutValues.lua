@@ -5,6 +5,9 @@ local Images = UIBlox.App.ImageSet.Images
 
 local SCREEN_SIDE_PADDING = 4
 
+local TopBarAppConstants = require(script.Parent.Parent.TopBar.Constants)
+local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
+
 return function(isTenFoot)
 	local LayoutValues = {}
 
@@ -129,7 +132,11 @@ return function(isTenFoot)
 		LayoutValues.ScrollBarSize = 8
 	end
 
-	LayoutValues.TopBarOffset = 36
+	if ChromeEnabled() then
+		LayoutValues.TopBarOffset = TopBarAppConstants.TopBarHeight
+	else
+		LayoutValues.TopBarOffset = 36
+	end
 
 	LayoutValues.PlayerDropDownSizeXMobile = 327
 	LayoutValues.ScrollBarSizeMobile = 2

@@ -12,7 +12,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
-local ShimmerPanel = UIBlox.Loading.ShimmerPanel
+local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 

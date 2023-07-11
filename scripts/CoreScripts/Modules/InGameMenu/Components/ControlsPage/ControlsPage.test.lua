@@ -7,16 +7,18 @@ local expect = JestGlobals.expect
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 local beforeEach = JestGlobals.beforeEach
+local afterEach = JestGlobals.afterEach
 local beforeAll = JestGlobals.beforeAll
 local jest = JestGlobals.jest
-local ReactTestingLibrary = require(CorePackages.Workspace.Packages.ReactTestingLibrary)
-local render = ReactTestingLibrary.render
+local ReactTestingLibrary
+local render
+local cleanup
 
 local InGameMenuDependencies
+local UIBlox
 local Roact
 local Rodux
 local RoactRodux
-local UIBlox
 
 local InGameMenu
 local Constants
@@ -38,6 +40,9 @@ local appStyle
 local ControlsPage
 
 beforeAll(function()
+	-- Disable auto-cleanup, since RTL attempts to inject it at require time;
+	-- this is all a weird chicken-and-egg problem that ultimately comes down to
+	-- UIBlox.init being unfriendly to module resetting
 	_G.RTL_SKIP_AUTO_CLEANUP = true
 end)
 
@@ -46,6 +51,7 @@ local function resetModules()
 	-- All the ReactTestingLibrary stuff needs to be re-imported
 	ReactTestingLibrary = require(CorePackages.Workspace.Packages.ReactTestingLibrary)
 	render = ReactTestingLibrary.render
+	cleanup = ReactTestingLibrary.cleanup
 
 	InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	UIBlox = InGameMenuDependencies.UIBlox
@@ -122,6 +128,9 @@ if GetFFlagIGMVRQuestControlsInstructions() and game:GetEngineFeature("EnableVRU
 	describe("In-Game Menu Controls Page", function()
 		beforeEach(function()
 			resetModules()
+		end)
+		afterEach(function()
+			cleanup()
 		end)
 
 		it("Should render VR gamepad in VR when last input is gamepad", function()

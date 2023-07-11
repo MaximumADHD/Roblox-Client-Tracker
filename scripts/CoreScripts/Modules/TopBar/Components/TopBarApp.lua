@@ -8,8 +8,10 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local Interactable = UIBlox.Core.Control.Interactable
+local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
-
+local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images
 
@@ -53,7 +55,7 @@ local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 -- vr bottom bar
 local VRBottomBar = require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
 
-local CLOSE_MENU_ICON_SIZE = 30
+local CLOSE_MENU_ICON_SIZE = if Unibar then (Constants.TopBarHeight - 4) else 30
 
 local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
@@ -68,32 +70,46 @@ TopBarApp.validateProps = t.strictInterface({
 	setScreenSize = t.callback,
 })
 
+function TopBarApp:init()
+	self.closeButtonState, self.setCloseButtonState = Roact.createBinding(false)
+	self.onCloseBtnStateChange = function(_, newControlState)
+		self.setCloseButtonState(newControlState)
+	end
+end
+
 function TopBarApp:render()
+	return withStyle(function(style)
+		return self:renderWithStyle(style)
+	end)
+end
+
+function TopBarApp:renderWithStyle(style)
+	local chromeEnabled = ChromeEnabled()
+
 	local screenSideOffset = Constants.ScreenSideOffset
 	local topBarHeight = Constants.TopBarHeight
 	if TenFootInterface:IsEnabled() then
 		screenSideOffset = Constants.ScreenSideOffsetTenFoot
 		topBarHeight = Constants.TopBarHeightTenFoot
 	end
-
 	local isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
 	local topBarFramePosition = UDim2.new(0, 0, 0, 0)
 	local topBarLeftFramePosition = UDim2.new(0, screenSideOffset, 0, 0)
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
 	local closeMenuButtonPosition = UDim2.new(0, 0, 0.5, 0)
 
-	local bottomBar = if FFlagVRMoveVoiceIndicatorToBottomBar then
-		Roact.createElement(VoiceStateContext.Provider, {}, {
+	local bottomBar = if FFlagVRMoveVoiceIndicatorToBottomBar
+		then Roact.createElement(VoiceStateContext.Provider, {}, {
 			VRBottomBar = VoiceStateContext.withVoiceState(function(voiceContext)
 				return Roact.createElement(VRBottomBar, {
 					voiceChatServiceManager = VoiceChatServiceManager,
 					voiceEnabled = voiceContext.voiceEnabled,
 					voiceState = voiceContext.voiceState,
 				})
-			end)
+			end),
 		})
-	else
-		Roact.createElement(VRBottomBar)
+		else Roact.createElement(VRBottomBar)
+
 
 	return Roact.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
@@ -118,14 +134,91 @@ function TopBarApp:render()
 			HurtOverlay = Roact.createElement(HurtOverlay),
 		}),
 
+		MenuIconHolder = Unibar and Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0, screenSideOffset, 0, 0),
+			Size = UDim2.new(1, 0, 0, topBarHeight),
+		}, {
+			MenuIcon = Roact.createElement(MenuIcon, {
+				iconScale = if self.props.menuOpen then 1.25 else 1,
+				layoutOrder = 1,
+			}),
+		}),
+
 		--Remove with isNewInGameMenuEnabled
-		LegacyCloseMenu = not isNewInGameMenuEnabled() and Roact.createElement("Frame", {
+		LegacyCloseMenu = not Unibar and not isNewInGameMenuEnabled() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, screenSideOffset, 0, 0),
 			Size = UDim2.new(1, 0, 0, topBarHeight),
 			Visible = self.props.menuOpen,
 		}, {
-			CloseMenuButton = Roact.createElement(ImageSetButton, {
+			-- Backup  Unibar Impl
+			CloseMenuButtonRound = Unibar and Roact.createElement(Interactable, {
+				onStateChanged = self.onCloseBtnStateChange,
+				Visible = not TenFootInterface:IsEnabled(),
+				BackgroundTransparency = style.Theme.Overlay.Transparency,
+				Position = closeMenuButtonPosition,
+				AnchorPoint = Vector2.new(0, 0.5),
+				Size = UDim2.new(0, CLOSE_MENU_ICON_SIZE, 0, CLOSE_MENU_ICON_SIZE),
+				BackgroundColor3 = style.Theme.Overlay.Color,
+				[Roact.Event.Activated] = function()
+					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+					SettingsHub:ToggleVisibility()
+				end,
+			}, {
+
+				UICorner = chromeEnabled and Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(1, 0),
+				}) or nil,
+
+				Line1 = Roact.createElement("Frame", {
+					Name = "TopLine",
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0),
+					Size = UDim2.new(0, 16, 0, 2),
+					BorderSizePixel = 0,
+					BackgroundColor3 = Color3.new(1, 1, 1),
+					Rotation = 45,
+				}) :: any,
+				Line2 = Roact.createElement("Frame", {
+					Name = "BottomLine",
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0),
+					Size = UDim2.new(0, 16, 0, 2),
+					BorderSizePixel = 0,
+					BackgroundColor3 = Color3.new(1, 1, 1),
+					Rotation = -45,
+				}) :: any,
+
+				StateOverlayRound = not chromeEnabled and Roact.createElement("Frame", {
+					BackgroundTransparency = self.closeButtonState:map(function(controlState)
+						if controlState == ControlState.Pressed then
+							return style.Theme.BackgroundOnPress.Transparency
+						elseif controlState == ControlState.Hover then
+							return style.Theme.BackgroundOnHover.Transparency
+						else
+							return 1
+						end
+					end),
+					BackgroundColor3 = self.closeButtonState:map(function(controlState)
+						if controlState == ControlState.Pressed then
+							return style.Theme.BackgroundOnPress.Color
+						elseif controlState == ControlState.Hover then
+							return style.Theme.BackgroundOnHover.Color
+						end
+
+						return Color3.new(1, 1, 1)
+					end),
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = 2,
+				}, {
+					UICorner = chromeEnabled and Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					}) or nil,
+				}) or nil,
+			}) or nil,
+
+			CloseMenuButton = not Unibar and Roact.createElement(ImageSetButton, {
 				Visible = not TenFootInterface:IsEnabled(),
 				BackgroundTransparency = 1,
 				Position = closeMenuButtonPosition,
@@ -137,8 +230,37 @@ function TopBarApp:render()
 					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 					SettingsHub:ToggleVisibility()
 				end,
-			}),
+			}) or nil,
 		}),
+
+		UnibarRightFrame = Unibar and Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, topBarHeight),
+			Position = topBarRightFramePosition,
+			AnchorPoint = Vector2.new(1, 0),
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, 2),
+				PaddingBottom = UDim.new(0, 2),
+			}),
+
+			Layout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, Constants.Padding),
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			HealthBar = Roact.createElement(HealthBar, {
+				layoutOrder = 1,
+			}),
+			VoiceStateContext = Roact.createElement(VoiceStateContext.Provider, {}, {
+				Unibar = Roact.createElement(Unibar, {
+					layoutOrder = 2,
+				}),
+			})
+		}) or nil,
 
 		TopBarFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -161,7 +283,13 @@ function TopBarApp:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
-				MenuIcon = Roact.createElement(MenuIcon, {
+				Blank = chromeEnabled and Roact.createElement("Frame", {
+					LayoutOrder = 1,
+					Size = UDim2.new(0, (Constants.TopBarHeight - 4), 0, 1),
+					BackgroundTransparency = 1,
+				}),
+
+				MenuIcon = not chromeEnabled and Roact.createElement(MenuIcon, {
 					layoutOrder = 1,
 				}),
 
@@ -169,7 +297,7 @@ function TopBarApp:render()
 					layoutOrder = 2,
 				}) or nil,
 
-				ChatIcon = not ChromeEnabled() and Roact.createElement(ChatIcon, {
+				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,
 				}) or nil,
 
@@ -191,7 +319,7 @@ function TopBarApp:render()
 					else nil,
 			}),
 
-			RightFrame = Roact.createElement("Frame", {
+			RightFrame = not Unibar and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0.5, -screenSideOffset, 1, 0),
 				Position = topBarRightFramePosition,
@@ -209,22 +337,10 @@ function TopBarApp:render()
 					layoutOrder = 1,
 				}),
 
-				MoreMenu = not TenFootInterface:IsEnabled() and not ChromeEnabled() and Roact.createElement(MoreMenu, {
+				MoreMenu = not TenFootInterface:IsEnabled() and Roact.createElement(MoreMenu, {
 					layoutOrder = 2,
 				}),
-
-				UnibarHolder = Unibar and Roact.createElement("Frame", {
-					LayoutOrder = 1,
-					Size = UDim2.new(0, 0, 1, 0),
-					AutomaticSize = Enum.AutomaticSize.X,
-					BorderSizePixel = 0,
-					BackgroundTransparency = 1,
-				}, {
-					Unibar = Roact.createElement(Unibar, {
-						layoutOrder = 1,
-					}),
-				}) or nil
-			}),
+			}) or nil,
 		}),
 	})
 end

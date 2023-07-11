@@ -74,6 +74,25 @@ local function ContactListContainer(props: Props)
 		end, {})
 	end
 
+	local dismissCallback = function()
+		if not isSmallScreen and contactListContainerRef.current then
+			pcall(function()
+				contactListContainerRef.current:TweenPosition(
+					UDim2.new(0, -DOCKED_WIDTH, 0, PADDING),
+					Enum.EasingDirection.Out,
+					Enum.EasingStyle.Quad,
+					0.3,
+					true,
+					function()
+						SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+					end
+				)
+			end)
+		else
+			closePeekViewSignal:fire()
+		end
+	end
+
 	local selectCurrentPage = React.useCallback(function(state: any)
 		return state.Navigation.currentPage
 	end, {})
@@ -85,8 +104,20 @@ local function ContactListContainer(props: Props)
 	elseif currentPage == Pages.CallDetails then
 		currentContainer = React.createElement(CallDetailsContainer) :: any
 	elseif currentPage == Pages.FriendList then
+		local ReplicatedStorage = game:GetService("ReplicatedStorage")
+		local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
+		local isDevMode
+		if SharedRS then
+			local IsUserInDevModeRemoteFunction =
+				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
+			isDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
+		else
+			isDevMode = false
+		end
+
 		currentContainer = React.createElement(FriendListContainer, {
-			isDevMode = localPlayer:GetAttribute("DevMode"),
+			isDevMode = isDevMode,
+			dismissCallback = dismissCallback,
 		}) :: any
 	end
 
@@ -118,27 +149,6 @@ local function ContactListContainer(props: Props)
 			end)
 		end
 	end, { isSmallScreen, currentPage })
-
-	local dismissCallback = function()
-		if localPlayer then
-			if not isSmallScreen and contactListContainerRef.current then
-				pcall(function()
-					contactListContainerRef.current:TweenPosition(
-						UDim2.new(0, -DOCKED_WIDTH, 0, PADDING),
-						Enum.EasingDirection.Out,
-						Enum.EasingStyle.Quad,
-						0.3,
-						true,
-						function()
-							SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-						end
-					)
-				end)
-			else
-				closePeekViewSignal:fire()
-			end
-		end
-	end
 
 	local viewStateChanged = function(viewState, prevViewState)
 		if viewState == PeekViewState.Closed then

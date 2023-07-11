@@ -19,7 +19,7 @@ local t = InGameMenuDependencies.t
 
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local withStyle = UIBlox.Core.Style.withStyle
-local ShimmerPanel = UIBlox.Loading.ShimmerPanel
+local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 
 local InGameMenu = script.Parent.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)

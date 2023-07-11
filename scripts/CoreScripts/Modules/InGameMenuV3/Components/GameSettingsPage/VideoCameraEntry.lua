@@ -20,11 +20,7 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local VideoCameraEntry = Roact.PureComponent:extend("VideoCameraEntry")
-local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
-local GetFFlagUseVideoCaptureServiceEvents = require(RobloxGui.Modules.Flags.GetFFlagUseVideoCaptureServiceEvents)
-local GetFFlagDisableCameraOffSetting = require(RobloxGui.Modules.Flags.GetFFlagDisableCameraOffSetting)
 
-local VideoPromptOff = "Off"
 local VideoPromptSystemDefault = "System Default"
 local VideoPromptVideoCamera =  "Video Camera"
 
@@ -40,7 +36,6 @@ VideoCameraEntry.defaultProps = {
 function VideoCameraEntry:init()
 
 	pcall(function()
-		VideoPromptOff = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.Off")
 		VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
 		VideoPromptVideoCamera =  RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
 	end)
@@ -121,20 +116,16 @@ function VideoCameraEntry:render()
 			onNavigateTo = function()
 				self.onSettingsPage = true
 				self:updateDevicesList()
-				if GetFFlagUseVideoCaptureServiceEvents() then
-					self.connection = VideoCaptureService.DevicesChanged:Connect(function()
-						if self.onSettingsPage then
-							self:updateDevicesList()
-						end
-					end)
-				end
+				self.connection = VideoCaptureService.DevicesChanged:Connect(function()
+					if self.onSettingsPage then
+						self:updateDevicesList()
+					end
+				end)
 			end,
 			onNavigateAway = function()
 				self.onSettingsPage = false
-				if GetFFlagUseVideoCaptureServiceEvents() then
-					if self.connection then
-						self.connection:Disconnect()
-					end
+				if self.connection then
+					self.connection:Disconnect()
 				end
 			end,
 		}),
@@ -148,15 +139,6 @@ function VideoCameraEntry:updateDevicesList()
 		local deviceGuids = {}
 		local selectedIndex = 1
 
-		if not GetFFlagDisableCameraOffSetting() then
-			-- Set to default device in case UserGameSettings.DefaultCameraID is not available (in search below)
-			if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
-				selectedIndex = 2
-			end
-
-			table.insert(deviceNames, VideoPromptOff)
-			table.insert(deviceGuids, "{NullDeviceGuid}")
-		end
 		table.insert(deviceNames, VideoPromptSystemDefault)
 		table.insert(deviceGuids, "{DefaultDeviceGuid}")
 

@@ -2,6 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -11,7 +12,7 @@ local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
-local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local GetPresencesFromUserIds = dependencies.NetworkingPresence.GetPresencesFromUserIds
@@ -29,10 +30,11 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
 local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer
+local localPlayer = Players.LocalPlayer :: Player
 
 export type Props = {
 	userId: number | string,
+	dismissCallback: () -> (),
 }
 
 local ICON_SIZE = 10
@@ -92,7 +94,7 @@ local function FriendListItem(props: Props)
 
 	local image
 	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-		image = getStandardUserAvatarHeadShotImage(tostring(props.userId))
+		image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
 	else
 		image = SocialLibraries.User.getUserAvatarImage(props.userId)
 	end
@@ -199,15 +201,36 @@ local function FriendListItem(props: Props)
 				iconTransparency = theme.ContextualPrimaryDefault.Transparency,
 				icon = Images["icons/actions/accept"],
 				onActivated = function()
-					if localPlayer then
-						coroutine.wrap(function()
-							local invokeIrisInviteRemoteEvent = RobloxReplicatedStorage:WaitForChild(
-								"ContactListInvokeIrisInvite",
-								math.huge
-							) :: RemoteEvent
-							invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
-						end)()
+					-- TODO (timothyhsu): Remove check that callee and caller need to be in same mode when Call API is completed
+					local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
+						:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
+					local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
+					if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(props.userId) then
+						if isLocalUserDevMode then
+							coroutine.wrap(function()
+								local invokeIrisInviteRemoteEvent = RobloxReplicatedStorage:WaitForChild(
+									"ContactListInvokeIrisInvite",
+									math.huge
+								) :: RemoteEvent
+								invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
+							end)()
+						else
+							local CallRequestedEvent = ReplicatedStorage:WaitForChild("Shared")
+								:WaitForChild("CallRequestedEvent") :: RemoteEvent
+							CallRequestedEvent:FireServer(props.userId)
+						end
+					else
+						local SharedRS = ReplicatedStorage:WaitForChild("Shared")
+						local ShowGenericDialogBindableEvent =
+							SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
+						ShowGenericDialogBindableEvent:Fire(
+							"Error",
+							"Cannot call another user that isn't in the same mode as you. Toggle your dev mode and try again.",
+							true
+						)
 					end
+
+					props.dismissCallback()
 				end,
 			})
 			else nil,

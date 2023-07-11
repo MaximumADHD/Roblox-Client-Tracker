@@ -167,7 +167,7 @@ function VersionReporter:render()
 				LayoutOrder = 2,
 				Size = UDim2.new(1, -24, 0, 14),
 			}, {
-				not haveServerVersion and Roact.createElement(UIBlox.Loading.ShimmerPanel, {
+				not haveServerVersion and Roact.createElement(UIBlox.App.Loading.ShimmerPanel, {
 					Size = UDim2.new(1, 0, 1, 0),
 					shimmerSpeed = 2,
 				}),

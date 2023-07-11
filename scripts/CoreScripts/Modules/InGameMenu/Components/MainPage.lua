@@ -12,7 +12,7 @@ local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
-local VideoProtocol = require(CorePackages.UniversalApp.Video.VideoProtocol)
+local VideoProtocol = require(CorePackages.Workspace.Packages.VideoProtocol)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox

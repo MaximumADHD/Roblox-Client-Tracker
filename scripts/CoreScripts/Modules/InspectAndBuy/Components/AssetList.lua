@@ -8,7 +8,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local AssetCard = require(InspectAndBuyFolder.Components.AssetCard)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
-local ShimmerPanel = UIBlox.Loading.ShimmerPanel
+local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 
 local AssetList = Roact.PureComponent:extend("AssetList")
 

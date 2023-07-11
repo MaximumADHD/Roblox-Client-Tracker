@@ -26,6 +26,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local act = require(Modules.act)
 
 local Flags = InGameMenu.Flags
+local UIBloxFlags = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagSideNavControllerBar = require(Flags.GetFFlagSideNavControllerBar)
@@ -64,9 +65,13 @@ return function()
 			end)
 		end
 
-		c.mouseClick = function(target)
+		c.mouseClick = function(target, skipValidation: boolean?)
 			act(function()
-				target:click()
+				if skipValidation then
+					target:clickWithoutValidation()
+				else
+					target:click()
+				end
 				VirtualInput.waitForInputEventsProcessed()
 			end)
 			act(function()
@@ -259,7 +264,6 @@ return function()
 
 	describe("MainPage's 'more' menu", function(c)
 		it("Should open/close with mouse clicks", function(c)
-			local store = c.store
 			local path = c.path
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
@@ -284,8 +288,10 @@ return function()
 			c.mouseClick(moreMenuButtonElement)
 			expect(contextualMenu.Visible).to.equal(true)
 
-			-- Close the menu
-			c.mouseClick(moreMenuButtonElement)
+			-- Close the menu - disable click validation since this may
+			-- _actually_ click the background of the ContextualMenu (which has
+			-- the same effect of dismissing it)
+			c.mouseClick(moreMenuButtonElement, true)
 
 			local DELAY_FOR_ANIMATION_AND_REFOCUS = 1 -- closing menu takes longer to animate
 			act(function()
@@ -717,19 +723,31 @@ return function()
 
 		c.gamepadInput(Enum.KeyCode.DPadDown)
 
-		local ButtonX = Images["icons/controls/keys/xboxX"]
-		local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
-		expect(leaveGameKeyLabel).to.be.ok()
-		expect(leaveGameKeyLabel.Image).to.equal(ButtonX.Image)
-		expect(leaveGameKeyLabel.ImageRectOffset).to.equal(ButtonX.ImageRectOffset)
-		expect(leaveGameKeyLabel.ImageRectSize).to.equal(ButtonX.ImageRectSize)
-
-		local ButtonY = Images["icons/controls/keys/xboxY"]
-		local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
-		expect(respawnKeyLabel).to.be.ok()
-		expect(respawnKeyLabel.Image).to.equal(ButtonY.Image)
-		expect(respawnKeyLabel.ImageRectOffset).to.equal(ButtonY.ImageRectOffset)
-		expect(respawnKeyLabel.ImageRectSize).to.equal(ButtonY.ImageRectSize)
+		if UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels() then
+			local ButtonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX.png"
+			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
+			expect(leaveGameKeyLabel).to.be.ok()
+			expect(leaveGameKeyLabel.Image).to.equal(ButtonX)
+	
+			local ButtonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY.png"
+			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
+			expect(respawnKeyLabel).to.be.ok()
+			expect(respawnKeyLabel.Image).to.equal(ButtonY)
+		else
+			local ButtonX = Images["icons/controls/keys/xboxX"]
+			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
+			expect(leaveGameKeyLabel).to.be.ok()
+			expect(leaveGameKeyLabel.Image).to.equal(ButtonX.Image)
+			expect(leaveGameKeyLabel.ImageRectOffset).to.equal(ButtonX.ImageRectOffset)
+			expect(leaveGameKeyLabel.ImageRectSize).to.equal(ButtonX.ImageRectSize)
+	
+			local ButtonY = Images["icons/controls/keys/xboxY"]
+			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
+			expect(respawnKeyLabel).to.be.ok()
+			expect(respawnKeyLabel.Image).to.equal(ButtonY.Image)
+			expect(respawnKeyLabel.ImageRectOffset).to.equal(ButtonY.ImageRectOffset)
+			expect(respawnKeyLabel.ImageRectSize).to.equal(ButtonY.ImageRectSize)
+		end
 
 		c.keyboardInput(Enum.KeyCode.A)
 

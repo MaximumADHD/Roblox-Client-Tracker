@@ -115,11 +115,11 @@ return function()
 				c.jestExpect(doneButton).never.toBeNil()
 
 				c.act(function()
-					c.RhodiumHelpers.clickInstance(muteCheckbox)
+					c.RhodiumHelpers.clickInstance(muteCheckbox, true)
 				end)
 
 				c.act(function()
-					c.RhodiumHelpers.clickInstance(blockCheckbox)
+					c.RhodiumHelpers.clickInstance(blockCheckbox, true)
 				end)
 
 				c.act(function()
@@ -168,7 +168,7 @@ return function()
 				c.jestExpect(doneButton).never.toBeNil()
 
 				c.act(function()
-					c.RhodiumHelpers.clickInstance(muteCheckbox)
+					c.RhodiumHelpers.clickInstance(muteCheckbox, true)
 				end)
 
 				c.act(function()
@@ -268,11 +268,11 @@ return function()
 
 				--Unblocking/muting action
 				c.act(function()
-					c.RhodiumHelpers.clickInstance(blockCheckbox)
+					c.RhodiumHelpers.clickInstance(blockCheckbox, true)
 				end)
 
 				c.act(function()
-					c.RhodiumHelpers.clickInstance(muteCheckbox)
+					c.RhodiumHelpers.clickInstance(muteCheckbox, true)
 				end)
 
 				c.act(function()

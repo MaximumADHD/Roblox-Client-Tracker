@@ -2,7 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
-local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
+local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 
 local Components = script.Parent.Parent.Parent.Components
 local BannerButton = require(Components.BannerButton)

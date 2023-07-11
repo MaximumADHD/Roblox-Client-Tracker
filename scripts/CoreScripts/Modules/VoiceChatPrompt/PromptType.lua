@@ -9,4 +9,7 @@ return {
 	VoiceChatSuspendedTemporaryAvatarChat = "VoiceChatSuspendedTemporaryAvatarChat",
 	VoiceChatSuspendedPermanent = "VoiceChatSuspendedPermanent",
 	VoiceLoading = "VoiceLoading",
+	VoiceToxicityModal = "VoiceToxicityModal",
+	VoiceToxicityToast = "VoiceToxicityToast",
+	VoiceToxicityFeedbackToast = "VoiceToxicityFeedbackToast",
 }

@@ -33,6 +33,7 @@ if Theme.UIBloxThemeEnabled then
 	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
 	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
 	
+	-- TODO: SACQ-753 - Localization
 	this.TabHeader.TabLabel.Title.Text = "Shots"
 else
 	this.TabHeader.Icon.Image = icon.Image
@@ -40,8 +41,10 @@ else
 	this.TabHeader.Icon.ImageRectSize = icon.ImageRectSize
 
 	if FFlagUseNotificationsLocalization then
+		-- TODO: SACQ-753 - Localization
 		this.TabHeader.Title.Text = "Shots"
 	else
+		-- TODO: SACQ-753 - Localization
 		this.TabHeader.Icon.Title.Text = "Shots"
 	end
 end

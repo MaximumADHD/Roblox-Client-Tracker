@@ -64,6 +64,7 @@ local GetFIntIGMv1ARFlowScreenshotDelayFrames = require(RobloxGui.Modules.TrustA
 local GetFFlagEnableARFlowAnalyticsCleanup = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
 local GetFFlagEnableIGMv1ARFlowNilMoAFix = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
 local GetFFlagReportAnythingFixDefaultAnalytics = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingFixDefaultAnalytics)
+local GetFFlagEnableMOAForNonVoiceUsers = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableMOAForNonVoiceUsers)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -151,6 +152,10 @@ local function shouldDoARScreenshot()
 	return TrustAndSafetyIXPManager:getReportAnythingEnabled()
 end
 
+local function shouldShowMethodOfAbuseForAll()
+	return GetFFlagEnableMOAForNonVoiceUsers() and TrustAndSafetyIXPManager:getTypeofAbuseEnabled()
+end
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -182,6 +187,11 @@ local function Initialize()
 					return nil
 				end
 				voiceAllowed = this:shouldVoiceMOABeAvailable()
+			elseif shouldShowMethodOfAbuseForAll() then
+				if currentIndex == nil then
+					return "Chat"
+				end
+				voiceAllowed = this:shouldVoiceMOABeAvailable() -- stable 
 			else
 				if GetFFlagEnableIGMv1ARFlowNilMoAFix() then
 					if currentIndex == nil then
@@ -592,6 +602,14 @@ local function Initialize()
 			else
 				PageInstance.MethodOfAbuseMode:SetSelectionIndex(1)
 			end
+
+		elseif shouldShowMethodOfAbuseForAll() then
+			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
+				-- Note that we're using the index property of the TypeOfAbuseOption,
+				-- not the index of the AbuseOption in the dropdown list
+				return item.index ~= MethodOfAbuseOptions[MethodsOfAbuse.voice].index
+			end))
+			this.MethodOfAbuseMode:SetSelectionByValue(RobloxTranslator:FormatByKey(MethodOfAbuseOptions["text"].title))
 		end
 	end
 
@@ -906,7 +924,7 @@ local function Initialize()
 			end
 
 			local function TnSIXPInitializationCallback()
-				if not TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+				if not (TrustAndSafetyIXPManager:getReportAnythingEnabled() or shouldShowMethodOfAbuseForAll()) then
 					this:updateVoiceLayout()
 					updateMethodOfAbuseVisibility()
 				end
@@ -1178,7 +1196,11 @@ local function Initialize()
 								end
 							end)
 						end)
-					elseif (TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() and this:isOtherReportSelected()) then
+					elseif ((TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowMethodOfAbuseForAll()) and this:isOtherReportSelected()) then
+						local variant = AbuseReportBuilder.Constants.Variant.Sampling
+						if shouldShowMethodOfAbuseForAll() then
+							variant = AbuseReportBuilder.Constants.Variant.E1
+						end
 						pcall(function()
 							task.spawn(function()
 								local request = AbuseReportBuilder.buildOtherReportRequest({
@@ -1187,9 +1209,8 @@ local function Initialize()
 									abuseComment = this.AbuseDescription.Selection.Text,
 									abuseReason = abuseReason,
 									menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
-									variant = AbuseReportBuilder.Constants.Variant.Sampling
+									variant = variant
 								})
-
 								PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 								if #AbuseReportBuilder.getSelectedAbusers() > 0 or not currentAbusingPlayer then
 									isReportSentEnabled = false -- disable new page that needs to be passed one specific player
@@ -1416,6 +1437,12 @@ local function Initialize()
 				updateSubmitButton()
 				setReportAnythingNextAndBackNav()
 				this:ActivateFormPhase(FormPhase.Init)
+			end
+			
+			if shouldShowMethodOfAbuseForAll() then
+				this:updateRALayout()
+				updateMethodOfAbuseVisibility()
+				updateSubmitButton()
 			end
 		end
 

@@ -12,6 +12,8 @@ debugPrint("Self View Analytics 10-19-2022__1")
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local FFlagUpdatePlaySessionIdSelfView = game:DefineFastFlag("UpdatePlaySessionIdSelfView", false) and EngineFeatureRbxAnalyticsServiceExposePlaySessionId
 
+local FFlagAvatarChatIncludeSelfViewOnTelemetry = game:DefineFastFlag("AvatarChatIncludeSelfViewOnTelemetry", false)
+
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -166,6 +168,10 @@ function Analytics:reportSelfViewSessionStarted(x, y, width, height, x_relative,
 		width_relative = tostring(width_relative),
 		height_relative = tostring(height_relative),
 	})
+
+	if FFlagAvatarChatIncludeSelfViewOnTelemetry then
+		RbxAnalyticsService:AddGlobalPointsField("feature/avatarChat/selfViewOn", 1)
+	end
 end
 
 function Analytics:reportSelfViewSessionStopped()
@@ -175,6 +181,10 @@ function Analytics:reportSelfViewSessionStopped()
 		pid = tostring(game.PlaceId),
 		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
 	})
+
+	if FFlagAvatarChatIncludeSelfViewOnTelemetry then
+		RbxAnalyticsService:AddGlobalPointsField("feature/avatarChat/selfViewOn", 0)
+	end	
 end
 
 function Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)

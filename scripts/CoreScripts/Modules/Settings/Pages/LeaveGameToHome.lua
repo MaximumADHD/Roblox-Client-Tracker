@@ -23,7 +23,7 @@ local CorePackages = game:GetService("CorePackages")
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
+local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------

@@ -10,7 +10,7 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local VerticalScrollViewWithMargin = UIBlox.App.Container.VerticalScrollViewWithMargin
 local withStyle = UIBlox.Style.withStyle
-local ShimmerPanel = UIBlox.Loading.ShimmerPanel
+local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
 
 local ListSection = require(script.ListSection)

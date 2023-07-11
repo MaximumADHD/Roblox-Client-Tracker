@@ -260,9 +260,8 @@ local LeaveGame =
 
 local LeaveGameHighlighted = 
 {
-	-- TODO: replace with Highlighted Leave Icon
-	iconOn = "rbxasset://textures/ui/MenuBar/icon_leaderboard.png",
-	iconOff = "rbxasset://textures/ui/MenuBar/icon_leaderboard.png",
+	iconOn = "rbxasset://textures/ui/MenuBar/icon_leave_highlighted.png",
+	iconOff = "rbxasset://textures/ui/MenuBar/icon_leave_highlighted.png",
 	onActivated = LeaveGame.onActivated,
 }
 

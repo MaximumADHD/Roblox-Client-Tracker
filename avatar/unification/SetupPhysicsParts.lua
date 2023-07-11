@@ -1,9 +1,6 @@
 -- SetupPhysicsParts.lua
 -- Setup Physics Parts on R6 Characters
--- The character will have
 local SetupPhysicsParts = {}
-
-local CollectionService = game:GetService("CollectionService")
 
 -- AdapterReference.rbxm is set up as { AdapterReference {Left Arm {...}, Right Arm {...},...}, CollisionHead {...} }
 -- i.e. CollisionHead and AdapterReference are at then same level
@@ -48,17 +45,112 @@ local function setUpAestheticPart(part)
 	part["CanQuery"] = false
 end
 
-local function moveHitboxes(character: Model)
-	local torso = character["Physics Torso"]
-	local torsoWeld = torso:FindFirstChildWhichIsA("Weld")
+local PartToAttachmentMapping = {
+	["LowerTorso"] = {
+		Part0 = "HumanoidRootPart",
+		Part1 = "LowerTorso",
+		Attachment = "RootRigAttachment",
+	},
+	["UpperTorso"] = {
+		Part0 = "LowerTorso",
+		Part1 = "UpperTorso",
+		Attachment = "WaistRigAttachment",
+	},
+	["CollisionHead"] = {
+		Part0 = "UpperTorso",
+		Part1 = "Head",
+		Attachment = "NeckRigAttachment",
+		SizeDiffFunction = function(torsoSize, partSize)
+			return Vector3.new(0, -(torsoSize.Y + partSize.Y) / 2, 0)
+		end,
+	},
+	["Physics Left Arm"] = {
+		Part0 = "UpperTorso",
+		Part1 = "LeftUpperArm",
+		Attachment = "LeftShoulderRigAttachment",
+		SizeDiffFunction = function(torsoSize, partSize)
+			return Vector3.new((torsoSize.X + partSize.X) / 2, 0, 0)
+		end,
+	},
+	["Physics Right Arm"] = {
+		Part0 = "UpperTorso",
+		Part1 = "RightUpperArm",
+		Attachment = "RightShoulderRigAttachment",
+		SizeDiffFunction = function(torsoSize, partSize)
+			return Vector3.new(-(torsoSize.X + partSize.X) / 2, 0, 0)
+		end,
+	},
+	["Physics Left Leg"] = {
+		Part0 = "LowerTorso",
+		Part1 = "LeftUpperLeg",
+		Attachment = "LeftHipRigAttachment",
+		SizeDiffFunction = function(torsoSize, partSize)
+			return Vector3.new(partSize.X / 2, (torsoSize.Y + partSize.Y) / 2, 0)
+		end,
+	},
+	["Physics Right Leg"] = {
+		Part0 = "LowerTorso",
+		Part1 = "RightUpperLeg",
+		Attachment = "RightHipRigAttachment",
+		SizeDiffFunction = function(torsoSize, partSize)
+			return Vector3.new(-partSize.X / 2, (torsoSize.Y + partSize.Y) / 2, 0)
+		end,
+	},
+}
+local function getPartRelativePosition(character, part)
+	local part0 = character:FindFirstChild(PartToAttachmentMapping[part].Part0)
+	local part1 = character:FindFirstChild(PartToAttachmentMapping[part].Part1)
+	if not part0 or not part1 then
+		return nil
+	end
 
+	local part0Attachment = part0:FindFirstChild(PartToAttachmentMapping[part].Attachment)
+	local part1Attachment = part1:FindFirstChild(PartToAttachmentMapping[part].Attachment)
+	if not part0Attachment or not part1Attachment then
+		return nil
+	end
+
+	--gets the relative position of the part depending on the previous one
+	local partPosition = part0Attachment.Position - part1Attachment.Position
+	return partPosition
+end
+
+local function getPartSizeDiff(partName, partSize, torsoSize)
+	local sizeDiffFunction = PartToAttachmentMapping[partName].SizeDiffFunction
+	if sizeDiffFunction then
+		return sizeDiffFunction(torsoSize, partSize)
+	else
+		return Vector3.new()
+	end
+end
+
+local function moveHitboxes(character: Model)
+	local torso = character:FindFirstChild("Physics Torso")
+	local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+
+	if not humanoidRootPart or not torso then
+		return
+	end
+
+	local torsoWeld = torso:FindFirstChildWhichIsA("Weld")
 	if torsoWeld then
 		torsoWeld.C0 = CFrame.new()
 		torsoWeld.C1 = CFrame.new()
+	else
+		return
 	end
 
-	local torsoOffset = torso.Position - character.HumanoidRootPart.Position
-	torsoWeld.C0 = CFrame.new(torsoOffset)
+	local lowerTorsoPosition = getPartRelativePosition(character, "LowerTorso")
+	if not lowerTorsoPosition then
+		return
+	end
+
+	local upperTorsoPosition = getPartRelativePosition(character, "UpperTorso")
+	if not upperTorsoPosition then
+		return
+	end
+	upperTorsoPosition = lowerTorsoPosition + upperTorsoPosition
+	torsoWeld.C0 = CFrame.new(upperTorsoPosition)
 
 	for _, partName in PhysicsParts do
 		local part = character:FindFirstChild(partName)
@@ -74,26 +166,17 @@ local function moveHitboxes(character: Model)
 		weld.C0 = CFrame.new()
 		weld.C1 = CFrame.new()
 
-		local adapterPartPosDiff = part.Position - torso.Position
-		local adapterPartSizeDiff = Vector3.new()
-
-		if partName == "CollisionHead" then
-			adapterPartSizeDiff = Vector3.new(0, -(torso.Size.Y / 2 + part.Size.Y / 2), 0)
+		local physicsPartPosDiff = getPartRelativePosition(character, partName)
+		if not physicsPartPosDiff then
+			continue
 		end
-
-		if partName == "Physics Left Arm" then
-			adapterPartSizeDiff = Vector3.new(torso.Size.X / 2 + part.Size.X / 2, 0, 0)
-		elseif partName == "Physics Right Arm" then
-			adapterPartSizeDiff = Vector3.new(-torso.Size.X / 2 - part.Size.X / 2, 0, 0)
+		local physicsPartSizeDiff = getPartSizeDiff(partName, part.Size, torso.Size)
+		if partName == "CollisionHead" or partName == "Physics Left Arm" or partName == "Physics Right Arm" then
+			physicsPartPosDiff = physicsPartPosDiff + upperTorsoPosition
+		elseif partName == "Physics Left Leg" or partName == "Physics Right Leg" then
+			physicsPartPosDiff = physicsPartPosDiff + lowerTorsoPosition
 		end
-
-		if partName == "Physics Left Leg" then
-			adapterPartSizeDiff = Vector3.new(part.Size.X / 2, torso.Size.Y / 2 + part.Size.Y / 2, 0)
-		elseif partName == "Physics Right Leg" then
-			adapterPartSizeDiff = Vector3.new(-part.Size.X / 2, torso.Size.Y / 2 + part.Size.Y / 2, 0)
-		end
-
-		weld.C0 = CFrame.new(adapterPartPosDiff + adapterPartSizeDiff)
+		weld.C0 = CFrame.new(physicsPartPosDiff + physicsPartSizeDiff)
 	end
 end
 
@@ -111,8 +194,8 @@ local function weldParts(weldPart, weldTo)
 	weld.Name = weldName
 	weld.Part0 = weldPart
 	weld.Part1 = weldTo
-	weld.C0 = CFrame.new(0, weldPart.Size.Y / 2, 0)
-	weld.C1 = CFrame.new(0, weldTo.Size.Y / 2, 0)
+	weld.C0 = CFrame.new()
+	weld.C1 = CFrame.new()
 	weld.Parent = weldPart
 	return weld
 end
@@ -130,20 +213,17 @@ local function setUpAdapterPart(adapter)
 			weldParts(newAdapter, weldTo)
 		end
 	end
-	return newAdapter
 end
 
 function SetupPhysicsParts.setupCharacter(character: Model)
 	for _, child in PhysicsReference:GetChildren() do
-		local adapter = setUpAdapterPart(child)
+		setUpAdapterPart(child)
 	end
 
 	for _, part in AestheticParts do
 		setUpAestheticPart(Character[part])
 	end
 	PhysicsReference:Destroy()
-
-	task.wait()
 
 	moveHitboxes(character)
 end

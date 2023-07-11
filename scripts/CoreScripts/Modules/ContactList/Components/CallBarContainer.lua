@@ -1,7 +1,6 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -36,48 +35,13 @@ local function CallBarContainer(passedProps: Props)
 	end)
 	local currentCall = useSelector(selectCurrentCall)
 
-	local currentCallStatus = nil
-	local currentCallPlaceId = nil
-	local currentCallInstanceId = nil
-	local currentCallReservedServerAccessCode = nil
-	local currentCallLaunchParamsString = nil
-	if currentCall ~= nil then
-		currentCallStatus = currentCall.status
-		currentCallPlaceId = currentCall.placeId
-		currentCallInstanceId = currentCall.instanceId
-		currentCallReservedServerAccessCode = currentCall.reservedServerAccessCode
-		currentCallLaunchParamsString = currentCall.launchParamsString
-	end
-
-	React.useEffect(function()
-		if
-			currentCallStatus == RoduxCall.Enums.Status.Active.rawValue()
-			and currentCallLaunchParamsString == nil
-			and currentCallInstanceId ~= game.JobId
-		then
-			coroutine.wrap(function()
-				-- If we get this far, instance id will exist. Launch params
-				-- string will not exist for people we should teleport.
-				local irisInviteTeleportRemoteEvent =
-					RobloxReplicatedStorage:WaitForChild("ContactListIrisInviteTeleport", math.huge) :: RemoteEvent
-				irisInviteTeleportRemoteEvent:FireServer(
-					currentCallPlaceId,
-					currentCallInstanceId,
-					currentCallReservedServerAccessCode
-				)
-			end)()
-		end
-	end, {
-		currentCallStatus,
-		currentCallPlaceId,
-		currentCallInstanceId,
-		currentCallReservedServerAccessCode,
-		currentCallLaunchParamsString,
-	})
-
 	React.useEffect(function()
 		local connectingCallConn = props.callProtocol:listenToHandleConnectingCall(function(params)
 			dispatch(RoduxCall.Actions.ConnectingCall(params))
+		end)
+
+		local teleportingCallConn = props.callProtocol:listenToHandleTeleportingCall(function(params)
+			dispatch(RoduxCall.Actions.UpdateCall(params))
 		end)
 
 		local activeCallConn = props.callProtocol:listenToHandleActiveCall(function(params)
@@ -94,6 +58,7 @@ local function CallBarContainer(passedProps: Props)
 
 		return function()
 			connectingCallConn:Disconnect()
+			teleportingCallConn:Disconnect()
 			activeCallConn:Disconnect()
 			endCallConn:Disconnect()
 		end
@@ -106,9 +71,7 @@ local function CallBarContainer(passedProps: Props)
 			BorderSizePixel = 0,
 		}, {
 			UIPadding = React.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 16),
-				PaddingTop = UDim.new(0, 16),
-				PaddingRight = UDim.new(0, 16),
+				PaddingTop = UDim.new(0, 4),
 			}),
 			CallBar = React.createElement(CallBar),
 		})

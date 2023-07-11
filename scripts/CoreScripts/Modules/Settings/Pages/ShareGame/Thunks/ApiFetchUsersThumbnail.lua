@@ -1,3 +1,6 @@
+-- FIXME(dbanks)
+-- 2023/06/15
+-- Remove with FFlagWriteRbxthumbsIntoStore
 local CorePackages = game:GetService("CorePackages")
 
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
@@ -7,7 +10,7 @@ local UsersGetThumbnail = Requests.UsersGetThumbnail
 local SetUserThumbnail = require(CorePackages.Workspace.Packages.UserLib).Actions.SetUserThumbnail
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 
-local function fetchThumbnailsBatch(networkImpl, userIds, thumbnailRequest)
+local function fetchThumbnailsBatch(userIds, thumbnailRequest)
 	local fetchedPromises = {}
 
 	for _, userId in pairs(userIds) do
@@ -27,7 +30,7 @@ return function(networkImpl, userIds, thumbnailRequests)
 		local fetchedPromises = {}
 		for _, thumbnailRequest in pairs(thumbnailRequests) do
 			table.insert(fetchedPromises,
-				fetchThumbnailsBatch(networkImpl, userIds, thumbnailRequest):andThen(function(result)
+				fetchThumbnailsBatch(userIds, thumbnailRequest):andThen(function(result)
 					for _, data in pairs(result) do
 						store:dispatch(SetUserThumbnail(data.id, data.image, data.thumbnailType, data.thumbnailSize))
 					end

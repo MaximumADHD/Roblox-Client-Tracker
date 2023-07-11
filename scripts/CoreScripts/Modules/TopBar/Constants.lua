@@ -1,5 +1,7 @@
+local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
+
 return {
-	TopBarHeight = 36,
+	TopBarHeight = if ChromeEnabled() then 48 else 36,
 	TopBarHeightTenFoot = 72,
 
 	ScreenSideOffset = 16,

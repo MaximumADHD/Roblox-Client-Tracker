@@ -60,7 +60,7 @@ return function()
 				style = appStyle,
 			}, {
 				TextEntryField = Roact.createElement(AssetDescriptionTextBox, {
-					onAssetDescriptionUpdated = function(newText)
+					onAssetDescriptionUpdated = function(newText, isDescriptionValid)
 						textChangedWasCalled = true
 					end,
 					descriptionTextBoxRef = ref,

@@ -25,6 +25,13 @@ local RunService = game:GetService("RunService")
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
+local FFlagUserVRRotationUpdate do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRRotationUpdate")
+	end)
+	FFlagUserVRRotationUpdate = success and result
+end
+
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local VRBaseCamera = setmetatable({}, BaseCamera)
@@ -45,8 +52,17 @@ function VRBaseCamera.new()
 	-- initialize vr specific variables
 	self.gamepadResetConnection = nil
 	self.needsReset = true
-
+	
+	-- timer for step rotation
+	if FFlagUserVRRotationUpdate then
+		self:Reset()
+	end
+	
 	return self
+end
+
+function VRBaseCamera:Reset()
+	self.stepRotateTimeout = 0
 end
 
 function VRBaseCamera:GetModuleName()
@@ -69,6 +85,9 @@ function VRBaseCamera:GamepadZoomPress()
 end
 
 function VRBaseCamera:GamepadReset()
+	if FFlagUserVRRotationUpdate then
+		self.stepRotateTimeout = 0
+	end
 	self.needsReset = true
 end
 
@@ -336,6 +355,40 @@ function VRBaseCamera:GetSubjectPosition(): Vector3?
 	self.lastSubjectPosition = result
 
 	return result
+end
+
+-- gets the desired rotation accounting for smooth rotation. Manages fades and resets resulting 
+-- from rotation
+function VRBaseCamera:getRotation(dt)
+	local rotateInput = CameraInput.getRotation()
+	local yawDelta = 0
+	
+	if UserGameSettings.VRSmoothRotationEnabled then
+		yawDelta = rotateInput.X * 40 * dt
+	else
+		
+		if math.abs(rotateInput.X) > 0.03 then
+			if self.stepRotateTimeout > 0 then
+				self.stepRotateTimeout -= dt
+			end
+			
+			if self.stepRotateTimeout <= 0 then
+				yawDelta = 1
+				if rotateInput.X < 0 then
+					yawDelta = -1
+				end
+				
+				yawDelta *= math.rad(60)
+				self:StartFadeFromBlack()
+				self.stepRotateTimeout = 0.25
+			end
+		elseif math.abs(rotateInput.X) < 0.02 then
+			self.stepRotateTimeout = 0 -- allow fast rotation when spamming input
+		end
+	end
+	
+	return yawDelta
+
 end
 
 -----------------------------

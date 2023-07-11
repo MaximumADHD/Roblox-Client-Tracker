@@ -26,6 +26,8 @@ local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEn
 local GetFFlagVoiceChatStudioErrorToasts = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatStudioErrorToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
 local GetFFlagAvatarChatBanMessage = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatBanMessage)
+local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceNudge)
+local GetFIntVoiceToxicityToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 
 local RobloxTranslator
 if FFlagEnableVoiceChatStorybookFix() then
@@ -59,6 +61,9 @@ local PromptTitle = {
 		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
 	[PromptType.VoiceChatSuspendedPermanent] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
 	[PromptType.VoiceLoading] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Connecting"),
+	[PromptType.VoiceToxicityModal] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.RememberRules"),
+	[PromptType.VoiceToxicityToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.RememberRules"),
+	[PromptType.VoiceToxicityFeedbackToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.ThankYouForFeedback"),
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -73,6 +78,9 @@ local PromptSubTitle = {
 	[PromptType.VoiceChatSuspendedTemporaryAvatarChat] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.MicAndCamera"),
 	[PromptType.VoiceChatSuspendedPermanent] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Revoked"),
 	[PromptType.VoiceLoading] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Connecting"),
+	[PromptType.VoiceToxicityModal] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.VoiceToxicityModal"),
+	[PromptType.VoiceToxicityToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.VoiceToxicityToast"),
+	[PromptType.VoiceToxicityFeedbackToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.ThankYouForFeedback"),
 }
 
 if GetFFlagVoiceChatStudioErrorToasts() and runService:IsStudio() then
@@ -86,11 +94,21 @@ local voiceChatSuspendedRespect = RobloxTranslator:FormatByKey("Feature.Settings
 local voiceChatFutureViolations = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.FutureViolations")
 local bannedLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.EffectiveUntil")
 local voiceChatSuspendedUnderstand = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Understand")
+local voiceChatGotIt = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GotIt")
+local incorrectNudge = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.IncorrectNudge")
 
 local function PromptTypeIsBan(promptType)
 	return promptType == PromptType.VoiceChatSuspendedPermanent or
 		promptType == PromptType.VoiceChatSuspendedTemporary or
 		promptType == PromptType.VoiceChatSuspendedTemporaryAvatarChat
+end
+
+local function IsModalNudge(promptType)
+	return promptType == PromptType.VoiceToxicityModal
+end
+
+local function PromptTypeIsModal(promptType)
+	return PromptTypeIsBan(promptType) or IsModalNudge(promptType)
 end
 
 local function ShouldShowBannedUntil(promptType)
@@ -104,6 +122,8 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	errorText = t.optional(t.string),
 	bannedUntil = t.optional(t.string),
 	onContinueFunc = t.optional(t.callback),
+	onPrimaryActivated = t.optional(t.callback),
+	onSecondaryActivated = t.optional(t.callback),
 	onReadyForSignal = t.optional(t.callback),
 	Analytics = t.optional(t.table),
 	showNewContent = t.optional(t.boolean),
@@ -146,6 +166,7 @@ function VoiceChatPromptFrame:init()
 		end
 		if promptType and promptType ~= PromptType.None then
 			self:setState({
+				showPrompt = true,
 				promptType = promptType,
 				toastContent = {
 					iconImage = Images["icons/status/alert"],
@@ -185,11 +206,28 @@ function VoiceChatPromptFrame:init()
 			self.closeVoiceBanPrompt()
 		end
 	end
+
+	self.handlePrimayActivated = function()
+		self.closeVoiceBanPrompt()
+		if self.props.onPrimaryActivated then
+			self.props.onPrimaryActivated()
+		end
+	end
+
+	self.handleSecondaryActivated = function()
+		self.closeVoiceBanPrompt()
+		if self.props.onSecondaryActivated then
+			self.props.onSecondaryActivated()
+		end
+	end
 end
 
 function VoiceChatPromptFrame:render()
 	local errorText = GetFFlagEnableVoicePromptReasonText() and self.props.errorText or nil
-	if PromptTypeIsBan(self.state.promptType) then
+	local isNudgeModal = IsModalNudge(self.state.promptType)
+	local isNudgeToast = self.state.promptType == PromptType.VoiceToxicityToast
+	local automaticSize = if GetFFlagEnableVoiceNudge() then Enum.AutomaticSize.Y else Enum.AutomaticSize.None
+	if PromptTypeIsModal(self.state.promptType) then
 		local titleText = self.state.toastContent.toastTitle
 		local titleFont = self.promptStyle.Font.Header1.Font
 		local titleFontSize = self.promptStyle.Font.Header1.RelativeSize * self.promptStyle.Font.BaseSize
@@ -255,6 +293,7 @@ function VoiceChatPromptFrame:render()
 							Position = UDim2.new(0.5, 0, 0.5, 0),
 							ScaleType = Assets.Images.RoundedRect.ScaleType,
 							Size = UDim2.new(0, OVERLAY_WIDTH, 0, ICON_SIZE + titleTextContainerHeight + DIVIDER + bodyTextContainerHeight + 2 * EXTRA_PADDING_HEIGHT + subBodyTextContainerHeight + BUTTON_CONTAINER_SIZE + 2 * PADDING),
+							AutomaticSize = automaticSize,
 							SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 						}, {
 							Padding = Roact.createElement("UIPadding", {
@@ -281,6 +320,7 @@ function VoiceChatPromptFrame:render()
 								BackgroundTransparency = 1,
 								LayoutOrder = 2,
 								Size = UDim2.new(1, 0, 0, titleTextContainerHeight),
+								AutomaticSize = automaticSize,
 							}, {
 								TitleText = Roact.createElement(UIBlox.App.Text.StyledTextLabel, {
 									fontStyle = self.promptStyle.Font.Header1,
@@ -320,10 +360,11 @@ function VoiceChatPromptFrame:render()
 								LayoutOrder = 6,
 								Size = UDim2.new(1, 0, 0, EXTRA_PADDING_HEIGHT),
 							}),
-							SubBodyTextContainer = Roact.createElement("Frame", {
+							SubBodyTextContainer = not isNudgeModal and Roact.createElement("Frame", {
 								BackgroundTransparency = 1,
 								LayoutOrder = 7,
 								Size = UDim2.new(1, 0, 0, subBodyTextContainerHeight),
+								AutomaticSize = automaticSize,
 							}, {
 								BodyText = Roact.createElement(UIBlox.App.Text.StyledTextLabel, {
 									fontStyle = self.promptStyle.Font.Body,
@@ -342,9 +383,12 @@ function VoiceChatPromptFrame:render()
 								BackgroundTransparency = 1,
 								LayoutOrder = 9,
 								Size = UDim2.new(1, 0, 0, BUTTON_CONTAINER_SIZE),
+								AutomaticSize = automaticSize,
 							}, {
 								Layout = Roact.createElement("UIListLayout", {
-									FillDirection = Enum.FillDirection.Horizontal,
+									FillDirection = if GetFFlagEnableVoiceNudge()
+										then Enum.FillDirection.Vertical
+										else Enum.FillDirection.Horizontal,
 									HorizontalAlignment = Enum.HorizontalAlignment.Center,
 									Padding = UDim.new(0, PADDING),
 									SortOrder = Enum.SortOrder.LayoutOrder,
@@ -352,9 +396,23 @@ function VoiceChatPromptFrame:render()
 								}),
 								ConfirmButton = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
 									layoutOrder = 1,
-									size = UDim2.new(1, -5, 1, 0),
-									text = voiceChatSuspendedUnderstand,
-									onActivated = self.closeVoiceBanPrompt,
+									size = if GetFFlagEnableVoiceNudge()
+										then UDim2.new(1, -5, 0, 48)
+										else UDim2.new(1, -5, 1, 0),
+									text = if isNudgeModal
+										then voiceChatGotIt
+										else voiceChatSuspendedUnderstand,
+									onActivated = if GetFFlagEnableVoiceNudge()
+										then self.handlePrimayActivated
+										else self.closeVoiceBanPrompt,
+								}),
+								SecondaryButton = isNudgeModal and Roact.createElement(UIBlox.App.Button.LinkButton, {
+									layoutOrder = 1,
+									size = UDim2.new(1, -5, 0, BUTTON_CONTAINER_SIZE),
+									text = incorrectNudge,
+									colorStyleDefault = "TextMuted",
+									colorStyleHover = "TextMuted",
+									onActivated = self.handleSecondaryActivated
 								}),
 							}),
 						}),
@@ -371,7 +429,9 @@ function VoiceChatPromptFrame:render()
 				[Roact.Change.AbsoluteSize] = self.onScreenSizeChanged,
 			}, {
 				Toast = self.state.promptType ~= PromptType.None and Roact.createElement(SlideFromTopToast, {
-					duration = TOAST_DURATION,
+					duration = if isNudgeToast
+						then GetFIntVoiceToxicityToastDurationSeconds()
+						else TOAST_DURATION,
 					toastContent = self.state.toastContent,
 				}),
 				EventConnection = self.props.promptSignal and Roact.createElement(ExternalEventConnection, {

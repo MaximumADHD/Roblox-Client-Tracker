@@ -129,7 +129,7 @@ return function()
 		expect(updatedText).to.equal(test50Chars)
 		expect(isNameValid).to.equal(true)
 
-		local invalidName = "InvalidName!" -- Special characters are invalid
+		local invalidName = "      " -- Empty name is invalid
 		textBox.Text = invalidName
 		waitForEvents.act()
 

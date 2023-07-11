@@ -35,7 +35,7 @@ local LocalizationService = game:GetService("LocalizationService")
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
-local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
+local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 local Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
 local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics)
 local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)

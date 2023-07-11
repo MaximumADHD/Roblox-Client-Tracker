@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
-local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
+local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local Signal = SignalLib.Signal
 
 local AvailabilitySignalState = {
 	Unavailable = 0,
@@ -8,117 +9,206 @@ local AvailabilitySignalState = {
 	Pinned = 3,
 }
 
+export type AvailabilitySignal = {
+	new: (initialAvailability: number) -> AvailabilitySignal,
+	connect: (AvailabilitySignal, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
+	set: (AvailabilitySignal, number) -> (),
+	get: (AvailabilitySignal) -> number,
+	available: (AvailabilitySignal) -> (),
+	loading: (AvailabilitySignal) -> (),
+	unavailable: (AvailabilitySignal) -> (),
+	pinned: (AvailabilitySignal) -> (),
+}
+
 local AvailabilitySignal = {}
 AvailabilitySignal.__index = AvailabilitySignal
 
-function AvailabilitySignal.new(initialAvailability)
+function AvailabilitySignal.new(initialAvailability: number): AvailabilitySignal
 	local self = {
-		_state = initialAvailability or AvailabilitySignalState.Unavailable,
+		_state = (initialAvailability or AvailabilitySignalState.Unavailable) :: number,
 		_changeSignal = Signal.new(),
 	}
-	setmetatable(self, AvailabilitySignal)
-	return self
+	return (setmetatable(self, AvailabilitySignal) :: any) :: AvailabilitySignal
 end
 
-function AvailabilitySignal.connect(self, callback)
+function AvailabilitySignal:connect(callback)
 	return self._changeSignal:connect(callback)
 end
 
-function AvailabilitySignal.set(self, newState)
+function AvailabilitySignal:set(newState: number)
 	if self._state ~= newState then
 		self._state = newState
-		self._changeSignal:fire(newState)
+		self._changeSignal:fire(newState :: any?)
 	end
 end
 
-function AvailabilitySignal.get(self)
+function AvailabilitySignal:get(): number
 	return self._state
 end
 
-function AvailabilitySignal.available(self)
+function AvailabilitySignal:available()
 	self:set(AvailabilitySignalState.Available)
 end
 
-function AvailabilitySignal.loading(self)
+function AvailabilitySignal:loading()
 	self:set(AvailabilitySignalState.Loading)
 end
 
-function AvailabilitySignal.unavailable(self)
+function AvailabilitySignal:unavailable()
 	self:set(AvailabilitySignalState.Unavailable)
 end
 
-function AvailabilitySignal.pinned(self)
+function AvailabilitySignal:pinned()
 	self:set(AvailabilitySignalState.Pinned)
 end
+
+export type NotifyData = { [string]: any? }
+
+export type NotifySignal = {
+	new: (excludeFromTotalCounts: boolean?) -> NotifySignal,
+	connect: (NotifySignal, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
+	set: (NotifySignal, number) -> (),
+	get: (NotifySignal) -> NotifyData,
+	clear: (NotifySignal) -> (),
+	fireCount: (NotifySignal, number) -> (),
+	setExcludeFromTotalCounts: (NotifySignal, boolean) -> (),
+	excludeFromTotalCounts: (NotifySignal) -> boolean,
+}
 
 local NotifySignal = {}
 NotifySignal.__index = NotifySignal
 
-function NotifySignal.new()
+function NotifySignal.new(excludeFromTotalCounts: boolean?): NotifySignal
 	local self = {
-		_value = { type = "empty", value = nil },
-		_changeSignal = Signal.new(),
+		_value = { type = "empty", value = nil } :: NotifyData,
+		_changeSignal = Signal.new() :: any,
+		_excludeFromTotalCounts = excludeFromTotalCounts or false,
 	}
-	setmetatable(self, NotifySignal)
-	return self
+	return (setmetatable(self, NotifySignal) :: any) :: NotifySignal
 end
 
-function NotifySignal.connect(self, callback)
+function NotifySignal:setExcludeFromTotalCounts(exclude: boolean)
+	self._excludeFromTotalCounts = exclude
+end
+
+function NotifySignal:excludeFromTotalCounts(): boolean
+	return self._excludeFromTotalCounts
+end
+
+function NotifySignal:connect(callback: () -> ())
 	return self._changeSignal:connect(callback)
 end
 
-function NotifySignal.get(self)
+function NotifySignal:get()
 	return self._value
 end
 
-function NotifySignal.clear(self)
-	if self._value ~= nil then
-		self._value = nil
-		self._changeSignal:fire(nil)
+function NotifySignal:clear()
+	if self._value and self._value.type ~= "empty" then
+		self._value = { type = "empty", value = nil } :: NotifyData
+		self._changeSignal:fire(self._value :: any?)
 	end
 end
 
-function NotifySignal.fireCount(self, count)
-	local notification = { type = "count", value = count }
+function NotifySignal:fireCount(count: number)
+	local notification: NotifyData = { type = "count", value = count }
 	if self._value ~= notification then
 		self._value = notification
-		self._changeSignal:fire(notification)
+		self._changeSignal:fire(self._value :: any?)
 	end
 end
 
 -- Generic Observable Value
 
--- todo: find the correct OOP style for AvailabilitySignal to inherit ObservableValue
+export type ObservableValue<T> = {
+	new: (T) -> ObservableValue<T>,
+	connect: (ObservableValue<T>, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
+	set: (ObservableValue<T>, T) -> (),
+	get: (ObservableValue<T>) -> T,
+	signal: (ObservableValue<T>) -> SignalLib.Signal,
+}
 
 local ObservableValue = {}
 ObservableValue.__index = ObservableValue
 
-function ObservableValue.new(value: any?)
-	local self = {
-		_value = value,
-		_changeSignal = Signal.new(),
-	}
-	setmetatable(self, ObservableValue)
-	return self
+function ObservableValue.new<T>(value: T): ObservableValue<T>
+	local self = {}
+	self._value = value
+	self._changeSignal = Signal.new()
+	return (setmetatable(self, ObservableValue) :: any) :: ObservableValue<T>
 end
 
-function ObservableValue.get(self)
+function ObservableValue:get<T>(): T
 	return self._value
 end
 
-function ObservableValue.set(self, value: any?)
+function ObservableValue.set<T>(self, value: T)
 	-- todo: consider a different path for table equailiy
 	if self._value ~= value then
 		self._value = value
-		self._changeSignal:fire()
+		self._changeSignal:fire(value)
 	end
 end
 
-function ObservableValue.connect(self, callback)
+function ObservableValue:signal()
+	return self._changeSignal
+end
+
+function ObservableValue:connect(callback)
 	return self._changeSignal:connect(callback)
 end
 
+-- MappedSignals provide a common interface for a value and a the signal notifying that the value changed
+--[[
+
+local foo = MappedSignal.new(MyModule.FooChangedSignal, function()
+	return MyModule:GetFoo()
+end)
+
+foo:get() -- returns current value
+foo:connect(function(value)
+	-- runs when value changes
+end)
+
+--]]
+
+export type MappedSignal<T> = {
+	new: (SignalLib.Signal, () -> T) -> MappedSignal<T>,
+	connect: (MappedSignal<T>, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
+	get: (MappedSignal<T>) -> T,
+}
+
+local MappedSignal = {}
+MappedSignal.__index = MappedSignal
+function MappedSignal.new<T>(signal, fetchMapFunction)
+	if not signal then
+		error("No signal provided to MappedSignal")
+	end
+	if not fetchMapFunction then
+		error("No fetchMapFunction provided to MappedSignal")
+	end
+	local self = {}
+	self._signal = signal
+	self._fetchMapFunction = fetchMapFunction
+	return (setmetatable(self, MappedSignal) :: any) :: MappedSignal<T>
+end
+
+function MappedSignal:connect(handler)
+	if not self._signal then
+		warn("MappedSignal: Missing signal")
+		return function() end
+	end
+	return self._signal:connect(function()
+		handler(self._fetchMapFunction())
+	end)
+end
+
+function MappedSignal:get<T>(): T
+	return self._fetchMapFunction()
+end
+
 return {
+	MappedSignal = MappedSignal,
 	AvailabilitySignal = AvailabilitySignal,
 	AvailabilitySignalState = AvailabilitySignalState,
 	NotifySignal = NotifySignal,

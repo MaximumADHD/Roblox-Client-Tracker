@@ -3,7 +3,11 @@ local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local ApiFetchUsersPresences = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersPresences)
+-- FIXME(dbanks)
+-- 2023/06/15
+-- Remove with FFlagWriteRbxthumbsIntoStore
 local ApiFetchUsersThumbnail = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersThumbnail)
+local PreloadAndStoreUsersThumbnail = require(CorePackages.AppTempCommon.LuaApp.Thunks.PreloadAndStoreUsersThumbnail)
 local UsersGetFriends = Requests.UsersGetFriends
 
 local FetchUserFriendsStarted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsStarted)
@@ -11,6 +15,8 @@ local FetchUserFriendsFailed = require(CorePackages.AppTempCommon.LuaApp.Actions
 local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Actions.FetchUserFriendsCompleted)
 local UserModel = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
+
+local FFlagWriteRbxthumbsIntoStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagWriteRbxthumbsIntoStore
 
 return function(requestImpl, userId, thumbnailRequest, userSort): any
 	return function(store)
@@ -35,8 +41,13 @@ return function(requestImpl, userId, thumbnailRequest, userSort): any
 			return fetchedUserIds
 		end):andThen(function(userIds)
 			-- Asynchronously fetch friend thumbnails so we don't block display of UI
-			store:dispatch(ApiFetchUsersThumbnail.Fetch(requestImpl, userIds, thumbnailRequest))
-
+			if FFlagWriteRbxthumbsIntoStore then
+				store:dispatch(
+					PreloadAndStoreUsersThumbnail(userIds, thumbnailRequest)
+				)
+			else
+				store:dispatch(ApiFetchUsersThumbnail.Fetch(requestImpl, userIds, thumbnailRequest))
+			end
 			return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))
 		end):andThen(
 			function(result)

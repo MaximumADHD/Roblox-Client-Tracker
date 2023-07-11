@@ -279,14 +279,16 @@ local function createHead()
 
 	local headChildren = CollisionHead:GetChildren()
 	for _, child in headChildren do
+		--the only child under the CollisionHead is the Head. I only kept this formatting due to the AdapterReference
+		local part = Character:FindFirstChild(child.Name)
+		if not part	then
+			continue
+		end
 		if child:FindFirstChildWhichIsA("Weld") then
 			local weldTo = Character:FindFirstChild(child.Name)
 			weldParts(newHead, weldTo)
 		end
-		maintainPropertyValue(child, "Massless", true)
-		maintainPropertyValue(child, "CanCollide", false)
-		maintainPropertyValue(child, "CanTouch", false)
-		maintainPropertyValue(child, "CanQuery", false)
+		setUpAestheticPart(part)
 	end
 	CollectionService:AddTag(newHead, ALWAYS_TRANSPARENT_PART_TAG)
 end

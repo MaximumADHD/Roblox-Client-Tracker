@@ -5,7 +5,9 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["UserLib"]["UserLib"])
 
-export type RbxThumbType = Package.RbxThumbType
+export type RbxAvatarThumbnailTypeFromEnum = Package.RbxAvatarThumbnailTypeFromEnum
+export type RbxthumbType = Package.RbxthumbType
+export type RbxThumbnailSize = Package.RbxThumbnailSize
 
 
 return Package

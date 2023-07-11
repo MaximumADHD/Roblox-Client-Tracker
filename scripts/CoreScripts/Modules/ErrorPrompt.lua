@@ -14,6 +14,7 @@ local Constants = require(RobloxGui.Modules.Common.Constants)
 local Shimmer = require(RobloxGui.Modules.Shimmer)
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
+local FFlagFixGamepadDisconnectHighlight = game:DefineFastFlag("FixGamepadDisconnectHighlight", false)
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
@@ -247,7 +248,16 @@ function ErrorPrompt:_open(errorMsg, errorCode)
 		else
 			self._frame.PromptScale.Scale = 1
 		end
-		if VRService.VREnabled or GuiService:IsTenFootInterface() then
+		
+		if not FFlagFixGamepadDisconnectHighlight then
+			if VRService.VREnabled or GuiService:IsTenFootInterface() then
+				GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+			end
+		end
+	end
+
+	if FFlagFixGamepadDisconnectHighlight then
+		if self.isOpen and (VRService.VREnabled or GuiService:IsTenFootInterface()) then
 			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
 		end
 	end

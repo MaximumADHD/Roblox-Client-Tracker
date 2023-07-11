@@ -1,2 +1,3 @@
 local ChromeService = require(script.ChromeService)
-return ChromeService.new()
+local instance: ChromeService.ChromeService = ChromeService.new()
+return instance

@@ -1,6 +1,7 @@
 local Root = script.Parent.Parent
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
+local GetFFlagEnablePalisadesPaymentsPlatform = require(Root.Flags.GetFFlagEnablePalisadesPaymentsPlatform)
 
 -- To add a new payment platform. Also update the Modules.LuaApp.Util.getPaymentFromPlatform for LuaApp.
 return function(platform, isLuobu, isAmazon, isMaquettes)
@@ -27,6 +28,9 @@ return function(platform, isLuobu, isAmazon, isMaquettes)
 		end
 	elseif platform == Enum.Platform.UWP then
 		return PaymentPlatform.UWP
+	-- TODO(UBIQUITY-852): Remove the implementation based on solutions in UBIQUITY-852.
+	elseif GetFFlagEnablePalisadesPaymentsPlatform() then
+		return PaymentPlatform.Palisades
 	else
 		return PaymentPlatform.None
 	end

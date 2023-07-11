@@ -1,5 +1,5 @@
 local success, flagValue = pcall(function ()
-    return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+    return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled2")
 end)
 
 return function()

@@ -38,7 +38,7 @@ end
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local LoadingScreen = require(Modules.LoadingScreen.LoadingScreen)
 local LoadingScreenReducer = require(Modules.LoadingScreen.Reducers.LoadingScreenReducer)
-local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol)
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
 --FFlags
 local FFlagReportFirstGameInteractive = game:DefineFastFlag("ReportFirstGameInteractive", false)

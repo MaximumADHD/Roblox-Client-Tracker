@@ -10,7 +10,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
-local LoadableImage = UIBlox.Loading.LoadableImage
+local LoadableImage = UIBlox.App.Loading.LoadableImage
 
 local InGameMenu = script.Parent.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)

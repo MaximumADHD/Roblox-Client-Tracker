@@ -31,6 +31,7 @@ local BACKGROUND_9S_CENTER = Rect.new(8, 8, 8, 8)
 local WARNING_TEXT_SIZE = 12
 
 local AssetNameTextBox = Roact.PureComponent:extend("AssetNameTextBox")
+local FFlagRemoveNameRegex = game:DefineFastFlag("RemoveNameRegex", false)
 
 AssetNameTextBox.validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
@@ -99,16 +100,17 @@ function AssetNameTextBox:init()
 end
 
 function AssetNameTextBox:checkIsNameValid(assetName)
-	--Name can only be made of alphanumeric, spaces, apostraphes, underscores
-	if not string.match(assetName, "[0-9a-zA-Z_'%s]+$") then
-		return false
-	end
+	if not FFlagRemoveNameRegex then
+		--Name can only be made of alphanumeric, spaces, apostraphes, underscores
+		if not string.match(assetName, "[0-9a-zA-Z_'%s]+$") then
+			return false
+		end
 
-	-- no leading spaces
-	if string.sub(assetName, 1, 1) == " " then
-		return false
+		-- no leading spaces
+		if string.sub(assetName, 1, 1) == " " then
+			return false
+		end
 	end
-
 	--no names of only spaces
 	if string.match(assetName, "^%s*$") then
 		return false

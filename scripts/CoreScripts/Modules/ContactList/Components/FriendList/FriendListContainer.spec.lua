@@ -73,6 +73,7 @@ return function()
 				FriendListContainer = Roact.createElement(FriendListContainer, {
 					localUserId = 12345678,
 					isDevMode = true,
+					dismissCallback = function() end,
 				}),
 			}),
 		})

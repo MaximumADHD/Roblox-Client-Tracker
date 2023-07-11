@@ -7,6 +7,8 @@ local GamepadService = game:GetService("GamepadService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+local UIBlox = require(CorePackages.UIBlox)
+local UIBloxImages = UIBlox.App.ImageSet.Images
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -39,10 +41,12 @@ local ICON_SIZE = 24
 local DEFAULT_DELAY_TIME = 0.4
 
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	setGamepadMenuOpen = t.callback,
+	iconScale = t.optional(t.number),
 })
 
 function MenuIcon:init()
@@ -115,11 +119,14 @@ function MenuIcon:render()
 		Visible = visible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
-		LayoutOrder = self.props.layoutOrder
+		LayoutOrder = self.props.layoutOrder,
 	}, {
 		Background = Roact.createElement(IconButton, {
-			icon = "rbxasset://textures/ui/TopBar/coloredlogo.png",
-			iconSize = ICON_SIZE,
+			icon = if ChromeEnabled()
+				then UIBloxImages["icons/status/player/admin"]
+				else "rbxasset://textures/ui/TopBar/coloredlogo.png",
+			iconSize = ICON_SIZE * (self.props.iconScale or 1),
+			useIconScaleAnimation = ChromeEnabled(),
 			onActivated = self.menuIconActivated,
 			onHover = self.menuIconOnHover,
 			enableFlashingDot = self.state.enableFlashingDot,

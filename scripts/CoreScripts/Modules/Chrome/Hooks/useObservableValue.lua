@@ -1,7 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
+local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 
-return function(observableValue)
+return function<T>(observableValue: ChromeUtils.ObservableValue<T>): T | nil
 	if not observableValue then
 		warn("observableValue undefined")
 		return nil

@@ -17,6 +17,13 @@ local FP_ZOOM = 0.5
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 
+local FFlagUserVRRotationUpdate do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRRotationUpdate")
+	end)
+	FFlagUserVRRotationUpdate = success and result
+end
+
 --[[ The Module ]]--
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
 local VRCamera = setmetatable({}, VRBaseCamera)
@@ -37,9 +44,13 @@ function VRCamera:Reset()
 	self.motionDetTime = 0.0
 	self.blackOutTimer = 0
 	self.lastCameraResetPosition = nil
-	self.stepRotateTimeout = 0.0
-	self.cameraOffsetRotation = 0
-	self.cameraOffsetRotationDiscrete = 0
+	if not FFlagUserVRRotationUpdate then
+		self.stepRotateTimeout = 0.0
+		self.cameraOffsetRotation = 0
+		self.cameraOffsetRotationDiscrete = 0
+	else
+		VRBaseCamera.Reset(self)
+	end
 end
 
 function VRCamera:Update(timeDelta)
@@ -115,10 +126,12 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	if self.needsReset then
 		self:StartFadeFromBlack()
 		self.needsReset = false
-		self.stepRotateTimeout = 0.25
-		self.VRCameraFocusFrozen = true
-		self.cameraOffsetRotation = 0
-		self.cameraOffsetRotationDiscrete = 0
+		if not FFlagUserVRRotationUpdate then
+			self.stepRotateTimeout = 0.25
+			self.VRCameraFocusFrozen = true
+			self.cameraOffsetRotation = 0
+			self.cameraOffsetRotationDiscrete = 0
+		end
 	end
 
 	-- blur screen edge during movement
@@ -132,22 +145,28 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	local cameraLookVector = self:GetCameraLookVector()
 	cameraLookVector = Vector3.new(cameraLookVector.X, 0, cameraLookVector.Z).Unit
 
-	if self.stepRotateTimeout > 0 then
-		self.stepRotateTimeout -= timeDelta
-	end
+	local yawDelta -- inline with FFlagVRRotationUpdate
+	if FFlagUserVRRotationUpdate then
 
-	-- step rotate in 1st person
-	local rotateInput = CameraInput.getRotation()
-	local yawDelta = 0
-	if UserGameSettings.VRSmoothRotationEnabled then
-		yawDelta = rotateInput.X
+		yawDelta = self:getRotation(timeDelta)
 	else
-		if self.stepRotateTimeout <= 0.0 and math.abs(rotateInput.X) > 0.03 then
-			yawDelta = 0.5
-			if rotateInput.X < 0 then
-				yawDelta = -0.5
+		if self.stepRotateTimeout > 0 then
+			self.stepRotateTimeout -= timeDelta
+		end
+	
+		-- step rotate in 1st person
+		local rotateInput = CameraInput.getRotation()
+		yawDelta = 0
+		if UserGameSettings.VRSmoothRotationEnabled then
+			yawDelta = rotateInput.X
+		else
+			if self.stepRotateTimeout <= 0.0 and math.abs(rotateInput.X) > 0.03 then
+				yawDelta = 0.5
+				if rotateInput.X < 0 then
+					yawDelta = -0.5
+				end
+				self.needsReset = true
 			end
-			self.needsReset = true
 		end
 	end
 
@@ -190,79 +209,112 @@ function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCame
 			local subjectMoved = self.lastCameraResetPosition == nil or (subjectPosition - self.lastCameraResetPosition).Magnitude > 1
 
 			-- compute offset for 3rd person camera rotation
-			local rotateInput = CameraInput.getRotation()
-			local userCameraPan = rotateInput ~= Vector2.new()
-			local panUpdate = false
-			if userCameraPan then
-				if rotateInput.X ~= 0 then
-					local tempRotation = self.cameraOffsetRotation + rotateInput.X;
-					if(tempRotation < -math.pi) then
-						tempRotation = math.pi - (tempRotation + math.pi) 
-					else
-						if (tempRotation > math.pi) then
-							tempRotation = -math.pi + (tempRotation - math.pi) 
+			if FFlagUserVRRotationUpdate then
+				local yawDelta = self:getRotation(timeDelta)
+				if math.abs(yawDelta) > 0 then
+					local cameraOffset = newCameraFocus:ToObjectSpace(newCameraCFrame)
+					local rotatedFocus = newCameraFocus * CFrame.Angles(0, yawDelta, 0)
+					newCameraCFrame = rotatedFocus * cameraOffset
+				end
+
+				-- recenter the camera on teleport
+				if (self.VRCameraFocusFrozen and subjectMoved) or self.needsReset then
+					VRService:RecenterUserHeadCFrame()
+
+					self.VRCameraFocusFrozen = false
+					self.needsReset = false
+					self.lastCameraResetPosition = subjectPosition
+
+					self:ResetZoom()
+					self:StartFadeFromBlack()
+
+					-- get player facing direction
+					local humanoid = self:GetHumanoid()
+					local forwardVector = humanoid.Torso and humanoid.Torso.CFrame.lookVector or Vector3.new(1,0,0)
+					-- adjust camera height
+					local vecToCameraAtHeight = Vector3.new(forwardVector.X, 0, forwardVector.Z)
+					local newCameraPos = newCameraFocus.Position - vecToCameraAtHeight * zoom
+					-- compute new cframe at height level to subject
+					local lookAtPos = Vector3.new(newCameraFocus.Position.X, newCameraPos.Y, newCameraFocus.Position.Z)
+
+					newCameraCFrame = CFrame.new(newCameraPos, lookAtPos)
+				end
+
+			else
+				local rotateInput = CameraInput.getRotation()
+				local userCameraPan = rotateInput ~= Vector2.new()
+				local panUpdate = false
+				if userCameraPan then
+					if rotateInput.X ~= 0 then
+						local tempRotation = self.cameraOffsetRotation + rotateInput.X;
+						if(tempRotation < -math.pi) then
+							tempRotation = math.pi - (tempRotation + math.pi) 
+						else
+							if (tempRotation > math.pi) then
+								tempRotation = -math.pi + (tempRotation - math.pi) 
+							end
+						end
+						self.cameraOffsetRotation = math.clamp(tempRotation, -math.pi, math.pi)
+						if UserGameSettings.VRSmoothRotationEnabled then
+							self.cameraOffsetRotationDiscrete = self.cameraOffsetRotation
+	
+							-- get player facing direction
+							local humanoid = self:GetHumanoid()
+							local forwardVector = humanoid.Torso and humanoid.Torso.CFrame.lookVector or Vector3.new(1,0,0)
+							-- adjust camera height
+							local vecToCameraAtHeight = Vector3.new(forwardVector.X, 0, forwardVector.Z)
+							local newCameraPos = newCameraFocus.Position - vecToCameraAtHeight * zoom
+							-- compute new cframe at height level to subject
+							local lookAtPos = Vector3.new(newCameraFocus.Position.X, newCameraPos.Y, newCameraFocus.Position.Z)
+	
+							local tempCF = CFrame.new(newCameraPos, lookAtPos)
+							tempCF = tempCF * CFrame.fromAxisAngle(Vector3.new(0,1,0), self.cameraOffsetRotationDiscrete)
+							newCameraPos = lookAtPos - (tempCF.LookVector * (lookAtPos - newCameraPos).Magnitude)
+	
+							newCameraCFrame = CFrame.new(newCameraPos, lookAtPos)
+						else
+							local tempRotDisc = math.floor(self.cameraOffsetRotation * 12 / 12)
+							if tempRotDisc ~= self.cameraOffsetRotationDiscrete then
+								self.cameraOffsetRotationDiscrete = tempRotDisc
+								panUpdate = true
+							end
 						end
 					end
-					self.cameraOffsetRotation = math.clamp(tempRotation, -math.pi, math.pi)
-					if UserGameSettings.VRSmoothRotationEnabled then
-						self.cameraOffsetRotationDiscrete = self.cameraOffsetRotation
+				end
 
-						-- get player facing direction
-						local humanoid = self:GetHumanoid()
-						local forwardVector = humanoid.Torso and humanoid.Torso.CFrame.lookVector or Vector3.new(1,0,0)
-						-- adjust camera height
-						local vecToCameraAtHeight = Vector3.new(forwardVector.X, 0, forwardVector.Z)
-						local newCameraPos = newCameraFocus.Position - vecToCameraAtHeight * zoom
-						-- compute new cframe at height level to subject
-						local lookAtPos = Vector3.new(newCameraFocus.Position.X, newCameraPos.Y, newCameraFocus.Position.Z)
+				-- recenter the camera on teleport
+				if (self.VRCameraFocusFrozen and subjectMoved) or self.needsReset or panUpdate then
+					if not panUpdate then
+						self.cameraOffsetRotationDiscrete = 0
+						self.cameraOffsetRotation = 0
+					end
 
+					VRService:RecenterUserHeadCFrame()
+
+					self.VRCameraFocusFrozen = false
+					self.needsReset = false
+					self.lastCameraResetPosition = subjectPosition
+
+					self:ResetZoom()
+					self:StartFadeFromBlack()
+
+					-- get player facing direction
+					local humanoid = self:GetHumanoid()
+					local forwardVector = humanoid.Torso and humanoid.Torso.CFrame.lookVector or Vector3.new(1,0,0)
+					-- adjust camera height
+					local vecToCameraAtHeight = Vector3.new(forwardVector.X, 0, forwardVector.Z)
+					local newCameraPos = newCameraFocus.Position - vecToCameraAtHeight * zoom
+					-- compute new cframe at height level to subject
+					local lookAtPos = Vector3.new(newCameraFocus.Position.X, newCameraPos.Y, newCameraFocus.Position.Z)
+
+					if self.cameraOffsetRotation ~= 0 then
 						local tempCF = CFrame.new(newCameraPos, lookAtPos)
 						tempCF = tempCF * CFrame.fromAxisAngle(Vector3.new(0,1,0), self.cameraOffsetRotationDiscrete)
 						newCameraPos = lookAtPos - (tempCF.LookVector * (lookAtPos - newCameraPos).Magnitude)
-
-						newCameraCFrame = CFrame.new(newCameraPos, lookAtPos)
-					else
-						local tempRotDisc = math.floor(self.cameraOffsetRotation * 12 / 12)
-						if tempRotDisc ~= self.cameraOffsetRotationDiscrete then
-							self.cameraOffsetRotationDiscrete = tempRotDisc
-							panUpdate = true
-						end
 					end
+
+					newCameraCFrame = CFrame.new(newCameraPos, lookAtPos)
 				end
-			end
-
-			-- recenter the camera on teleport
-			if (self.VRCameraFocusFrozen and subjectMoved) or self.needsReset or panUpdate then
-				if not panUpdate then
-					self.cameraOffsetRotationDiscrete = 0
-					self.cameraOffsetRotation = 0
-				end
-
-				VRService:RecenterUserHeadCFrame()
-
-				self.VRCameraFocusFrozen = false
-				self.needsReset = false
-				self.lastCameraResetPosition = subjectPosition
-
-				self:ResetZoom()
-				self:StartFadeFromBlack()
-
-				-- get player facing direction
-				local humanoid = self:GetHumanoid()
-				local forwardVector = humanoid.Torso and humanoid.Torso.CFrame.lookVector or Vector3.new(1,0,0)
-				-- adjust camera height
-				local vecToCameraAtHeight = Vector3.new(forwardVector.X, 0, forwardVector.Z)
-				local newCameraPos = newCameraFocus.Position - vecToCameraAtHeight * zoom
-				-- compute new cframe at height level to subject
-				local lookAtPos = Vector3.new(newCameraFocus.Position.X, newCameraPos.Y, newCameraFocus.Position.Z)
-
-				if self.cameraOffsetRotation ~= 0 then
-					local tempCF = CFrame.new(newCameraPos, lookAtPos)
-					tempCF = tempCF * CFrame.fromAxisAngle(Vector3.new(0,1,0), self.cameraOffsetRotationDiscrete)
-					newCameraPos = lookAtPos - (tempCF.LookVector * (lookAtPos - newCameraPos).Magnitude)
-				end
-
-				newCameraCFrame = CFrame.new(newCameraPos, lookAtPos)
 			end
 		end
 	end

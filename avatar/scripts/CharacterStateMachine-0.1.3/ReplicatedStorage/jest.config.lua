@@ -1,0 +1,3 @@
+return {
+    testMatch = { "**/CharacterStateMachine/**/*.spec" }
+}

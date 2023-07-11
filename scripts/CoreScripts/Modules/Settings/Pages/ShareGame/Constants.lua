@@ -57,11 +57,17 @@ local Constants = {
 		SHARE_GAME = "SHARE_GAME",
 	},
 
-	AvatarThumbnailTypes = {
+	-- FIXME(dbanks)
+	-- 2023/06/27
+	-- Remove with FFlagDeprecateDuplicateThumbnailConstants
+	DEPRECATED_AvatarThumbnailTypes = {
 		AvatarThumbnail = "AvatarThumbnail",
 		HeadShot = "HeadShot",
 	},
-	AvatarThumbnailSizes = {
+	-- FIXME(dbanks)
+	-- 2023/06/27
+	-- Remove with FFlagDeprecateDuplicateThumbnailConstants
+	DEPRECATED_AvatarThumbnailSizes = {
 		Size48x48 = "Size48x48",
 		Size60x60 = "Size60x60",
 		Size100x100 = "Size100x100",
@@ -141,15 +147,14 @@ local Constants = {
 	}
 }
 
-Constants.DEPRECATED_InviteAvatarThumbnailType = Constants.AvatarThumbnailTypes.HeadShot
-Constants.DEPRECATED_InviteAvatarThumbnailSize = Constants.AvatarThumbnailSizes.Size150x150
-Constants.InviteAvatarThumbnailSize = 150
-Constants.InviteAvatarThumbnailType = UserLibConstants.RbxThumbTypes.AvatarHeadShot
+Constants.InviteAvatarThumbnailType = UserLibConstants.RbxAvatarThumbnailTypesFromEnum.HeadShot :: UserLib.RbxAvatarThumbnailTypeFromEnum
+Constants.InviteAvatarThumbnailSize = UserLibConstants.RbxThumbnailSizes.Size150x150 :: UserLib.RbxThumbnailSize
+Constants.InviteAvatarRbxthumbType = UserLibConstants.RbxthumbTypes.AvatarHeadShot :: UserLib.RbxthumbType
 
 Constants.ThumbnailRequest = {
 	InviteToGame = {ThumbnailRequest.fromData(
-		Constants.DEPRECATED_InviteAvatarThumbnailType,
-		Constants.DEPRECATED_InviteAvatarThumbnailSize
+		Constants.InviteAvatarThumbnailType,
+		Constants.InviteAvatarThumbnailSize
 	)},
 }
 

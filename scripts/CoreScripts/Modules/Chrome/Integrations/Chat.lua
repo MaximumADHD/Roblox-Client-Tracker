@@ -6,10 +6,17 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
 local ChromeService = require(script.Parent.Parent.Service)
+local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
+local MappedSignal = ChromeUtils.MappedSignal
 local CommonIcon = require(script.Parent.CommonIcon)
+
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 
 local unreadMessages = 0
+
+local chatVisibility = MappedSignal.new(ChatSelector.VisibilityStateChanged, function()
+	return ChatSelector:GetVisibility()
+end)
 
 local chatChromeIntegration = ChromeService:register({
 	id = "chat",
@@ -17,7 +24,7 @@ local chatChromeIntegration = ChromeService:register({
 	activated = function(self)
 		ChatSelector:ToggleVisibility()
 		if ChatSelector:GetVisibility() then
-			if unreadMessages then
+			if unreadMessages and self.notification then
 				unreadMessages = 0
 				self.notification:clear()
 			end
@@ -25,16 +32,34 @@ local chatChromeIntegration = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/chat_off")
+			return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibility)
 		end,
 	},
+	--[[ testing secondary action
+	secondaryAction = {
+		label = "Click here!",
+		activated = function(self)
+			self.activated()
+		end,
+	},
+	--]]
 })
 
 chatChromeIntegration.notification:fireCount(unreadMessages)
-
 TextChatService.MessageReceived:Connect(function()
-	unreadMessages = unreadMessages + 1
-	chatChromeIntegration.notification:fireCount(unreadMessages)
+	if not ChatSelector:GetVisibility() then
+		unreadMessages += 1
+		chatChromeIntegration.notification:fireCount(unreadMessages)
+	end
+end)
+
+local lastMessagesChangedValue = 0
+ChatSelector.MessagesChanged:connect(function(messages: number)
+	if not ChatSelector:GetVisibility() then
+		unreadMessages += messages - lastMessagesChangedValue
+		chatChromeIntegration.notification:fireCount(unreadMessages)
+	end
+	lastMessagesChangedValue = messages
 end)
 
 coroutine.wrap(function()
@@ -52,7 +77,7 @@ coroutine.wrap(function()
 		canChat = success and localUserCanChat
 	end
 
-	if canChat then
+	if canChat and chatChromeIntegration.availability then
 		chatChromeIntegration.availability:available()
 	end
 end)()

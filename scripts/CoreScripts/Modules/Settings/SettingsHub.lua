@@ -142,6 +142,7 @@ local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuN
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
+local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 local MuteStatusIcons = {
 	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
@@ -655,6 +656,20 @@ local function CreateSettingsHub()
 		buttonImageAppend = "@2x"
 	end
 
+	local buttonB
+	local buttonX
+	local buttonY
+
+	if GetFFlagUseDesignSystemGamepadIcons() then
+		buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB" .. buttonImageAppend .. ".png"
+		buttonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX" .. buttonImageAppend .. ".png"
+		buttonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY" .. buttonImageAppend .. ".png"
+	else
+		buttonB = "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png"
+		buttonX = "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png"
+		buttonY = "rbxasset://textures/ui/Settings/Help/YButtonLight" .. buttonImageAppend .. ".png"
+	end
+
 	local function appendMicButton()
 
 		if Theme.UIBloxThemeEnabled then
@@ -668,8 +683,7 @@ local function CreateSettingsHub()
 		end
 
 		if Theme.UIBloxThemeEnabled then
-			addBottomBarIconButton("MuteButton", nil, "", "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
-			pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
+			addBottomBarIconButton("MuteButton", nil, "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 			function ()
 				VoiceChatServiceManager:ToggleMic()
 				if voiceAnalytics then
@@ -678,8 +692,7 @@ local function CreateSettingsHub()
 			end, {})
 			updateIcon()
 		else
-			addBottomBarButton("MuteButton", "", "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
-			pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
+			addBottomBarButton("MuteButton", "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 			function ()
 				VoiceChatServiceManager:ToggleMic()
 			end, {}, UDim2.new(0,70,0,70),
@@ -1614,12 +1627,12 @@ local function CreateSettingsHub()
 		local leaveGameText = "Leave"
 
 		if Theme.UIBloxThemeEnabled then
-			addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
+			addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, buttonX,
 				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
 				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
 			)
 		else
-			addBottomBarButtonOld("LeaveGame", leaveGameText, "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png",
+			addBottomBarButtonOld("LeaveGame", leaveGameText, buttonX,
 				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
 				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
 			)
@@ -1636,12 +1649,12 @@ local function CreateSettingsHub()
 		end
 
 		if Theme.UIBloxThemeEnabled then
-			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", "Reset Character", "rbxasset://textures/ui/Settings/Help/YButtonLight" .. buttonImageAppend .. ".png",
+			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", "Reset Character", buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
 				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
 			)
 		else
-			addBottomBarButtonOld("ResetCharacter", "Reset Character", "rbxasset://textures/ui/Settings/Help/YButtonLight" .. buttonImageAppend .. ".png",
+			addBottomBarButtonOld("ResetCharacter", "Reset Character", buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
 				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
 			)
@@ -1650,7 +1663,7 @@ local function CreateSettingsHub()
 		local resumeGameText = "Resume"
 
 		if not Theme.UIBloxThemeEnabled then
-			addBottomBarButtonOld("Resume", resumeGameText, "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
+			addBottomBarButtonOld("Resume", resumeGameText, buttonB,
 				"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
 				resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
 			)

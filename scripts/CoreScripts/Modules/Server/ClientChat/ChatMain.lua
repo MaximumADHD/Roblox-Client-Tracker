@@ -39,7 +39,7 @@ end
 local FFlagUserIsChatTranslationEnabled = false
 do
 	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled2")
 	end)
 	FFlagUserIsChatTranslationEnabled = success and value
 end

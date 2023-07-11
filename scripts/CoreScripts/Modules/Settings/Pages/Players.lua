@@ -1106,16 +1106,29 @@ local function Initialize()
 	local function managePlayerNameCutoff(frame, player)
 		local wasIsPortrait = nil
 		local reportFlagAddedConnection = nil
-		local function reportFlagChanged(reportFlag, prop)
+		local function reportFlagChanged(reportFlag, prop, combinedName)
 			if prop == "AbsolutePosition" and wasIsPortrait then
 				local maxPlayerNameSize = reportFlag.AbsolutePosition.X - 20 - frame.NameLabel.AbsolutePosition.X
 				frame.NameLabel.Text = "@" .. player.Name
 				frame.DisplayNameLabel.Text = player.DisplayName
+				if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() and combinedName then
+					frame.DisplayNameLabel.Text = combinedName
+				end
+
 
 				local newDisplayNameLength = utf8.len(player.DisplayName)
+				if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() and combinedName then
+					newDisplayNameLength = utf8.len(combinedName)
+				end
+
 				while frame.NameLabel.TextBounds.X > maxPlayerNameSize and newDisplayNameLength > 0 do
-					local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
-					frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
+					if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() and combinedName then
+						local offset = utf8.offset(combinedName, newDisplayNameLength)
+						frame.NameLabel.Text = string.sub(combinedName, 1, offset) .. "..."
+					else
+						local offset = utf8.offset(player.DisplayName, newDisplayNameLength)
+						frame.NameLabel.Text = string.sub(player.DisplayName, 1, offset) .. "..."
+					end
 					newDisplayNameLength = newDisplayNameLength - 1
 				end
 
@@ -1126,6 +1139,19 @@ local function Initialize()
 					newNameLength = newNameLength - 1
 				end
 			end
+		end
+
+		local function reportFlagChangedWithCombinedName(reportFlag, prop, combinedName)
+			ApolloClient:query({
+				query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+				variables = {
+					userIds = { tostring(player.UserId) },
+				},
+			}):andThen(function(result)
+				reportFlagChanged(reportFlag, "AbsolutePosition", getCombinedNameFromId(result.data, player.UserId))
+			end):catch(function()
+				reportFlagChanged(reportFlag, "AbsolutePosition")
+			end)
 		end
 
 		if not isEngineTruncationEnabledForIngameSettings() then
@@ -1140,19 +1166,53 @@ local function Initialize()
 					if reportFlagAddedConnection == nil then
 						reportFlagAddedConnection = frame.RightSideButtons.ChildAdded:connect(function(child)
 							if child.Name == leftMostButton then
-								child.Changed:connect(function(prop) reportFlagChanged(child, prop) end)
-								reportFlagChanged(child, "AbsolutePosition")
+								child.Changed:connect(function(prop)
+									if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+										reportFlagChangedWithCombinedName(child, "AbsolutePosition")
+									else
+										reportFlagChanged(child, "AbsolutePosition")
+									end
+								end)
+								if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+									reportFlagChangedWithCombinedName(child, "AbsolutePosition")
+								else
+									reportFlagChanged(child, "AbsolutePosition")
+								end
 							end
 						end)
 					end
 					local reportFlag = frame.RightSideButtons:FindFirstChild(leftMostButton)
 					if reportFlag then
-						reportFlag.Changed:connect(function(prop) reportFlagChanged(reportFlag, prop) end)
-						reportFlagChanged(reportFlag, "AbsolutePosition")
+						reportFlag.Changed:connect(function(prop)
+							if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+								reportFlagChangedWithCombinedName(reportFlag, prop)
+							else
+								reportFlagChanged(reportFlag, prop)
+							end
+						 end)
+
+						 if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+							reportFlagChangedWithCombinedName(reportFlag, "AbsolutePosition")
+						else
+							reportFlagChanged(reportFlag, "AbsolutePosition")
+						end
 					end
 				else
 					frame.NameLabel.Text = "@" .. player.Name
-					frame.DisplayNameLabel.Text = player.DisplayName
+					if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+						ApolloClient:query({
+							query = UserProfiles.Queries.userProfilesAllNamesByUserIds,
+							variables = {
+								userIds = { tostring(player.UserId) },
+							},
+						}):andThen(function(result)
+							frame.DisplayNameLabel.Text = getCombinedNameFromId(result.data, player.UserId)
+						end):catch(function()
+							frame.DisplayNameLabel.Text = player.DisplayName
+						end)
+					else
+						frame.DisplayNameLabel.Text = player.DisplayName
+					end
 				end
 			end)
 		end

@@ -2,7 +2,7 @@ local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
-local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
+local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 

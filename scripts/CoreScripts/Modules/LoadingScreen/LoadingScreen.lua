@@ -32,6 +32,7 @@ local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
+local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
@@ -67,6 +68,14 @@ local ICON_SIZE_RANGE = {150, 256}
 local connectionHealthCloseEvent = nil
 local numberOfTaps = 0
 local lastTapTime = math.huge
+
+local buttonB
+
+if GetFFlagUseDesignSystemGamepadIcons() then
+	buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB@2x.png"
+else
+	buttonB = 'rbxasset://textures/ui/Controls/xboxB.png'
+end
 
 -- helper functions
 local function getPadding(isPortrait)
@@ -521,7 +530,7 @@ function LoadingScreen:renderTenFootCancelBtn(style)
 	}, {
 		CancelIcon = Roact.createElement("ImageLabel", {
 			Name = 'TenfootCancel',
-			Image = 'rbxasset://textures/ui/Controls/xboxB.png',
+			Image = buttonB,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(24, 24),
 			Active = false,

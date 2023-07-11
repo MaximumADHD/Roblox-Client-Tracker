@@ -8,8 +8,8 @@ local SocialUtil = {}
 
 local CorePackages = game:GetService("CorePackages")
 
-local getTypedUserAvatarImageWithSizeAndOptions =
-	require(CorePackages.Workspace.Packages.UserLib).Utils.getTypedUserAvatarImageWithSizeAndOptions
+local getRbxthumbWithTypeSizeAndOptions =
+	require(CorePackages.Workspace.Packages.UserLib).Utils.getRbxthumbWithTypeSizeAndOptions
 local UserLibConstants = require(CorePackages.Workspace.Packages.UserLib).Utils.Constants
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyCodeToGenerateRbxThumb
@@ -37,7 +37,7 @@ function SocialUtil.GetPlayerImage(userId, thumbnailSize, thumbnailType, timeOut
 			size = 150
 		end
 		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-			return getTypedUserAvatarImageWithSizeAndOptions(userId, UserLibConstants.RbxThumbTypes.AvatarHeadShot, size)
+			return getRbxthumbWithTypeSizeAndOptions(userId, UserLibConstants.RbxthumbTypes.AvatarHeadShot, size)
 		else
 			return "rbxthumb://type=AvatarHeadShot&id=" .. userId .."&w=" .. size .. "&h=" .. size
 		end
@@ -55,7 +55,7 @@ function SocialUtil.GetPlayerImage(userId, thumbnailSize, thumbnailType, timeOut
 				size = 720
 		end
 		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-			return getTypedUserAvatarImageWithSizeAndOptions(userId, UserLibConstants.RbxThumbTypes.Avatar, size)
+			return getRbxthumbWithTypeSizeAndOptions(userId, UserLibConstants.RbxthumbTypes.Avatar, size)
 		else
 			return "rbxthumb://type=Avatar&id=" .. userId .."&w=" .. size .. "&h=" .. size
 		end

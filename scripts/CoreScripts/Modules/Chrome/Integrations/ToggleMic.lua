@@ -8,6 +8,8 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
 
 local ChromeService = require(script.Parent.Parent.Service)
+local RedVoiceDot = require(script.Parent.RedVoiceDot)
+
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
@@ -20,11 +22,19 @@ local muteSelf = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return React.createElement(VoiceIndicator, {
-				userId = tostring((Players.LocalPlayer :: Player).UserId),
-				hideOnError = false,
-				iconStyle = "MicLight",
-				size = ICON_SIZE,
+			return React.createElement("Frame", {
+				Size = ICON_SIZE,
+				BackgroundTransparency = 1,
+			}, {
+				React.createElement(VoiceIndicator, {
+					userId = tostring((Players.LocalPlayer :: Player).UserId),
+					hideOnError = false,
+					iconStyle = "MicLight",
+					size = ICON_SIZE,
+				}) :: any,
+				React.createElement(RedVoiceDot, {
+					position = UDim2.new(1, -7, 1, -7),
+				}) :: any,
 			})
 		end,
 	},
@@ -33,9 +43,9 @@ local muteSelf = ChromeService:register({
 local function updateVoiceState(_, voiceState)
 	local voiceEnabled = voiceState ~= (Enum :: any).VoiceChatState.Ended
 	if voiceEnabled then
-		muteSelf.availability.available()
+		muteSelf.availability:available()
 	else
-		muteSelf.availability.unavailable()
+		muteSelf.availability:unavailable()
 	end
 end
 

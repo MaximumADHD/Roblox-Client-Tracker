@@ -5,7 +5,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local UIBloxFlags = SharedFlags.UIBlox
 
 return {
-	loadableImageResponsiveThumbnails = UIBloxFlags.GetFFlagUIBloxLoadableImageResponsiveThumbnails(),
+	fixLoadableImageLoadingFailed = UIBloxFlags.GetFFlagFixLoadableImageLoadingFailed(),
 	useNewGenericTextLabelProps = UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableRightSideGadgetView = UIBloxFlags.GetFFlagUIBloxUseRightSideGadget(),
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()
@@ -14,4 +14,7 @@ return {
 	vrAlignPanel3DUnderInGamePanel = UIBloxFlags.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel(),
 	vrFixUIJitter = UIBloxFlags.GetFFlagUIBloxVRFixUIJitter(),
 	dualVRLaserPointers = UIBloxFlags.GetFFlagUIBloxVRDualLaserPointers(),
+	useNewPlayerCount = UIBloxFlags.GetFFlagUIBloxUseNewPlayerCount(),
+	enableToastButton = UIBloxFlags.GetFFlagUIBloxEnableToastButton(),
+	usePlatformContentKeyLabels = UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels(),
 }

@@ -12,7 +12,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images
-local VideoProtocol = require(CorePackages.UniversalApp.Video.VideoProtocol)
+local VideoProtocol = require(CorePackages.Workspace.Packages.VideoProtocol)
 local RECORD_UPDATE_STEP = 0.2
 local GameSettings = (settings() :: any):WaitForChild("Game Options")
 

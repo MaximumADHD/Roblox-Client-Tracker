@@ -1,4 +1,7 @@
 --!nonstrict
+-- FIXME(dbanks)
+-- 2015/06/15
+-- Remove with FFlagWriteRbxthumbsIntoStore
 local CorePackages = game:GetService("CorePackages")
 
 local Cryo = require(CorePackages.Cryo)
@@ -9,22 +12,35 @@ local PromiseUtilities = require(CorePackages.Workspace.Packages.AppCommonLib).U
 local ThumbnailsGetAvatar = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatar
 local ThumbnailsGetAvatarHeadshot = require(CorePackages.Workspace.Packages.Http).Requests.ThumbnailsGetAvatarHeadshot
 
-local AvatarThumbnailTypes = require(CorePackages.Workspace.Packages.UserLib).Enum.AvatarThumbnailTypes
+local DEPRECATED_AvatarThumbnailTypes = require(CorePackages.Workspace.Packages.UserLib).Enum.DEPRECATED_AvatarThumbnailTypes
 
 local SetUserThumbnail = require(CorePackages.Workspace.Packages.UserLib).Actions.SetUserThumbnail
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
+local UserLibConstants = UserLib.Utils.Constants
+local FFlagDeprecateDuplicateThumbnailConstants =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagDeprecateDuplicateThumbnailConstants
 
 local RETRY_MAX_COUNT = math.max(0, tonumber(settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries")) or 0)
 local RETRY_TIME_MULTIPLIER = math.max(0, tonumber(settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier")) or 0)
 
 local MAX_REQUEST_COUNT = 100
 
-local ThumbnailsTypeToApiMap = {
-	[AvatarThumbnailTypes.AvatarThumbnail] = ThumbnailsGetAvatar,
-	[AvatarThumbnailTypes.HeadShot] = ThumbnailsGetAvatarHeadshot,
-}
+local ThumbnailsTypeToApiMap
+
+if FFlagDeprecateDuplicateThumbnailConstants then
+	ThumbnailsTypeToApiMap = {
+		[UserLibConstants.RbxAvatarThumbnailTypesFromEnum.AvatarThumbnail] = ThumbnailsGetAvatar,
+		[UserLibConstants.RbxAvatarThumbnailTypesFromEnum.HeadShot] = ThumbnailsGetAvatarHeadshot,
+	}
+else
+	ThumbnailsTypeToApiMap = {
+		[DEPRECATED_AvatarThumbnailTypes.AvatarThumbnail] = ThumbnailsGetAvatar,
+		[DEPRECATED_AvatarThumbnailTypes.HeadShot] = ThumbnailsGetAvatarHeadshot,
+	}
+end
 
 local function subdivideEntries(entries, limit)
 	local subArrays = {}

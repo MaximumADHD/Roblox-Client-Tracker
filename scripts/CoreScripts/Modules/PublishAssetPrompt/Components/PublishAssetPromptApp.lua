@@ -29,6 +29,7 @@ local ResultModal = require(Components.ResultModal)
 local DISPLAY_ORDER = -1
 
 local PublishAssetPromptApp = Roact.PureComponent:extend("PublishAssetPromptApp")
+local FFlagFixFocusOnResultModal = game:DefineFastFlag("FixFocusOnResultModal", false)
 
 PublishAssetPromptApp.validateProps = t.strictInterface({
 	--Dispatch
@@ -125,8 +126,18 @@ function PublishAssetPromptApp:revertSelectedGuiObject()
 end
 
 function PublishAssetPromptApp:didUpdate(prevProps, prevState)
-	local shouldCaptureFocus = self.state.isGamepad and self.props.assetInstance ~= nil
-	local lastShouldCaptureFocus = prevState.isGamepad and prevProps.assetInstance ~= nil
+	local shouldCaptureFocus
+	local lastShouldCaptureFocus
+
+	if FFlagFixFocusOnResultModal then
+		shouldCaptureFocus = self.state.isGamepad
+			and (self.props.assetInstance ~= nil or self.props.resultModalType ~= nil)
+		lastShouldCaptureFocus = prevState.isGamepad
+			and (prevProps.assetInstance ~= nil or prevProps.resultModalType ~= nil)
+	else
+		shouldCaptureFocus = self.state.isGamepad and self.props.assetInstance ~= nil
+		lastShouldCaptureFocus = prevState.isGamepad and prevProps.assetInstance ~= nil
+	end
 
 	if shouldCaptureFocus ~= lastShouldCaptureFocus then
 		if shouldCaptureFocus then

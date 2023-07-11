@@ -34,13 +34,18 @@ local MIN_CANVAS_HEIGHT = 100
 local SCROLL_FRAME_HEIGHT = 100
 local DEFAULT_TEXTBOX_WIDTH = 100
 local LENGTH_COUNTER_HEIGHT = 15
+local WARNING_TEXT_SIZE = 12
+local WARNING_TEXT_HEIGHT = 15
+
+local PublishAssetPrompt = script.Parent.Parent
+local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
 
 local AssetDescriptionTextBox = Roact.PureComponent:extend("AssetDescriptionTextBox")
 
 AssetDescriptionTextBox.validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
 	Position = t.optional(t.UDim2),
-	onAssetDescriptionUpdated = t.callback, -- function(newDescription)
+	onAssetDescriptionUpdated = t.callback, -- function(newDescription, isDescriptionValid)
 	descriptionTextBoxRef = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	assetType = t.optional(t.enum(Enum.AssetType)),
@@ -70,6 +75,7 @@ function AssetDescriptionTextBox:init()
 		canvasPosition = 0,
 		cursorPosition = 0,
 		textBoxWidth = DEFAULT_TEXTBOX_WIDTH,
+		isDescriptionValid = true,
 	})
 
 	self.wasInitiallyFocused = false
@@ -127,6 +133,7 @@ function AssetDescriptionTextBox:onTextChanged(
 	textFont: { Font: Enum.Font, RelativeSize: number, RelativeMinSize: number }
 )
 	local assetDescription = rbx.Text
+	local isDescriptionValid = if GetFFlagValidateDescription() and assetDescription == "" then false else true
 
 	local lastValidDescription = self.state.lastValidDescription
 	if isDescriptionTooLong(assetDescription, MAX_DESCRIPTION_LENGTH) then
@@ -147,15 +154,17 @@ function AssetDescriptionTextBox:onTextChanged(
 		assetDescription = assetDescription,
 		descriptionLength = descriptionLength,
 		canvasHeight = math.max(MIN_CANVAS_HEIGHT, textSize.Y),
+		isDescriptionValid = isDescriptionValid,
 	})
 
-	self.props.onAssetDescriptionUpdated(assetDescription)
+	self.props.onAssetDescriptionUpdated(assetDescription, isDescriptionValid)
 end
 
 function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 	local font = stylePalette.Font
 	local fontType = font.CaptionBody
 	local theme = stylePalette.Theme
+	local showWarningText = if GetFFlagValidateDescription() then not self.state.isDescriptionValid else false
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -244,7 +253,7 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 		-- Only display the description length if it's above a certain amount.
 		LengthDisplay = if self.state.descriptionLength / MAX_DESCRIPTION_LENGTH > 0.9
 			then Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 0, LENGTH_COUNTER_HEIGHT),
+				Size = UDim2.new(GetFFlagValidateDescription() and 0.2 or 1, 0, 0, LENGTH_COUNTER_HEIGHT),
 				AnchorPoint = Vector2.new(1, 1),
 				Position = UDim2.fromScale(1, 1),
 				Text = self.state.descriptionLength .. "/" .. MAX_DESCRIPTION_LENGTH,
@@ -253,6 +262,18 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 				BackgroundTransparency = 1,
 			})
 			else nil,
+		WarningText = (GetFFlagValidateDescription() and showWarningText) and Roact.createElement("TextLabel", {
+			Position = UDim2.new(0, 0, 1, -WARNING_TEXT_HEIGHT),
+			BackgroundTransparency = 1,
+			Text = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidDescription"),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			Size = UDim2.new(0.8, 0, 0, 20),
+			TextColor3 = theme.Alert.Color,
+			TextWrapped = true,
+			Font = font.Body.Font,
+			TextSize = WARNING_TEXT_SIZE,
+		}),
 	})
 end
 

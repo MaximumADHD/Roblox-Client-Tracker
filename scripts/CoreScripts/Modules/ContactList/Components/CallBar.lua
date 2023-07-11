@@ -1,6 +1,7 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -13,9 +14,10 @@ local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
 local RoduxCall = dependencies.RoduxCall
-local getStandardUserAvatarHeadShotImage = dependencies.getStandardUserAvatarHeadShotImage
+local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
+local Colors = UIBlox.App.Style.Colors
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
@@ -34,9 +36,10 @@ export type Props = {
 
 local PROFILE_SIZE = 36
 local BUTTON_SIZE = 36
-local PADDING_TOP_BOTTOM = 16
-local PADDING_LEFT_RIGHT = 24
+local PADDING_TOP_BOTTOM = 4
+local PADDING_LEFT_RIGHT = 4
 local PADDING_IN_BETWEEN = 12
+local CALL_BAR_SIZE = Vector2.new(232, 44)
 
 local defaultProps = {
 	callProtocol = CallProtocol.CallProtocol.default,
@@ -45,7 +48,9 @@ local defaultProps = {
 local function getTextFromCallStatus(status)
 	-- TODO (joshli): Need to translate these.
 	if status == RoduxCall.Enums.Status.Connecting.rawValue() then
-		return "Waiting..."
+		return "Waiting…"
+	elseif status == RoduxCall.Enums.Status.Teleporting.rawValue() then
+		return "Teleporting…"
 	elseif status == RoduxCall.Enums.Status.Active.rawValue() then
 		return "Roblox Call"
 	else
@@ -59,6 +64,8 @@ local function CallBar(passedProps: Props)
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
+
+	local callBarRef = React.useRef(nil)
 
 	local dispatch = useDispatch()
 
@@ -89,11 +96,48 @@ local function CallBar(passedProps: Props)
 	local image
 	if otherEndParticipant then
 		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-			image = getStandardUserAvatarHeadShotImage(otherEndParticipant.userId)
+			image = getStandardSizeAvatarHeadShotRbxthumb(otherEndParticipant.userId)
 		else
 			image = SocialLibraries.User.getUserAvatarImage(otherEndParticipant.userId)
 		end
 	end
+
+	React.useEffect(function()
+		if callBarRef and callBarRef.current then
+			pcall(function()
+				callBarRef.current:TweenPosition(
+					UDim2.new(0.5, 0, 0, -GuiService:GetGuiInset().Y),
+					Enum.EasingDirection.Out,
+					Enum.EasingStyle.Quad,
+					0.3,
+					true
+				)
+			end)
+		end
+	end, {})
+
+	local endButtonCallback = React.useCallback(function()
+		if callBarRef and callBarRef.current then
+			pcall(function()
+				callBarRef.current:TweenPosition(
+					UDim2.new(0.5, 0, 0, -(CALL_BAR_SIZE.Y + GuiService:GetGuiInset().Y)),
+					Enum.EasingDirection.In,
+					Enum.EasingStyle.Quad,
+					0.3,
+					true,
+					function()
+						if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
+							props.callProtocol:finishCall(callId)
+						elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
+							props.callProtocol:cancelCall(callId)
+						end
+
+						dispatch(RoduxCall.Actions.EndCall())
+					end
+				)
+			end)
+		end
+	end, { callStatus, props.callProtocol })
 
 	-- TODO (joshli): Remove once the server provides name.
 	local selectOtherEndUser = React.useCallback(function(state: any)
@@ -110,14 +154,16 @@ local function CallBar(passedProps: Props)
 	local otherEndUser = useSelector(selectOtherEndUser)
 
 	return React.createElement("Frame", {
-		Position = UDim2.fromOffset(0, 0),
-		Size = UDim2.new(1, 0, 0, 68),
+		Size = UDim2.fromOffset(CALL_BAR_SIZE.X, CALL_BAR_SIZE.Y),
+		Position = UDim2.new(0.5, 0, 0, -(CALL_BAR_SIZE.Y + GuiService:GetGuiInset().Y)),
+		AnchorPoint = Vector2.new(0.5, 0),
 		BackgroundColor3 = theme.BackgroundMuted.Color,
 		BackgroundTransparency = theme.BackgroundMuted.Transparency,
 		BorderSizePixel = 0,
+		ref = callBarRef,
 	}, {
 		UICorner = React.createElement("UICorner", {
-			CornerRadius = UDim.new(0, 8),
+			CornerRadius = UDim.new(0.5, 0),
 		}),
 
 		UIListLayout = React.createElement("UIListLayout", {
@@ -162,12 +208,12 @@ local function CallBar(passedProps: Props)
 				Size = UDim2.new(1, 0, 0, 0),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Font = font.Header2.Font,
+				Font = font.CaptionHeader.Font,
 				LayoutOrder = 1,
 				LineHeight = 1.25,
 				Text = if otherEndUser then otherEndUser.displayName else "",
 				TextColor3 = theme.TextEmphasis.Color,
-				TextSize = font.BaseSize * font.Header2.RelativeSize,
+				TextSize = font.BaseSize * font.CaptionHeader.RelativeSize,
 				TextTransparency = theme.TextEmphasis.Transparency,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -188,12 +234,12 @@ local function CallBar(passedProps: Props)
 					AutomaticSize = Enum.AutomaticSize.XY,
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Font = font.CaptionBody.Font,
+					Font = font.Footer.Font,
 					LineHeight = 1.16667,
 					Text = getTextFromCallStatus(callStatus),
-					TextColor3 = theme.UIDefault.Color,
-					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
-					TextTransparency = theme.UIDefault.Transparency,
+					TextColor3 = Colors.White,
+					TextSize = font.BaseSize * font.Footer.RelativeSize,
+					TextTransparency = 0.4,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				}),
 			}),
@@ -208,15 +254,7 @@ local function CallBar(passedProps: Props)
 			BackgroundColor3 = style.Theme.UIMuted.Color,
 			BorderSizePixel = 0,
 			Image = "rbxassetid://12788429603",
-			[React.Event.Activated] = function()
-				if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
-					props.callProtocol:finishCall(callId)
-				elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
-					props.callProtocol:cancelCall(callId)
-				end
-
-				dispatch(RoduxCall.Actions.EndCall())
-			end,
+			[React.Event.Activated] = endButtonCallback,
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(0, BUTTON_SIZE),

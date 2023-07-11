@@ -8,7 +8,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InGameMenuV3 = RobloxGui.Modules.InGameMenuV3
 local InGameMenu = RobloxGui.Modules.InGameMenu
 
-local loggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol).default
+local loggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local SendAnalytics = require(InGameMenuV3.Utility.SendAnalytics)

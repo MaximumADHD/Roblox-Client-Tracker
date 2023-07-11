@@ -1,3 +1,3 @@
-game:DefineFastFlag("VRBottomBarHighlightedLeaveGameIcon", false)
+game:DefineFastFlag("VRBottomBarHighlightedLeaveGameIconV2", false)
 
-return game:GetFastFlag("VRBottomBarHighlightedLeaveGameIcon")
+return game:GetFastFlag("VRBottomBarHighlightedLeaveGameIconV2")

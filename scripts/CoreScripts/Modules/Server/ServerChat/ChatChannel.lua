@@ -19,7 +19,7 @@ end
 local userIsChatTranslationEnabled = false
 do
 	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled")
+		return UserSettings():IsUserFeatureEnabled("UserIsChatTranslationEnabled2")
 	end)
 	userIsChatTranslationEnabled = success and value
 end
@@ -447,8 +447,11 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 		local listOfTargets = {}
 		local targetsSet = {}
 		for i, speaker in pairs(self.Speakers) do
-			local languageCode = getLanguageCodeFromLocale(speaker:GetPlayer().LocaleId)
-			targetsSet[languageCode] = true
+			local speakerPlayer = speaker:GetPlayer()
+			if speakerPlayer ~= nil and speakerPlayer.LocaleId ~= nil then
+				local languageCode = getLanguageCodeFromLocale(speakerPlayer.LocaleId)
+				targetsSet[languageCode] = true
+			end
 		end
 		for k,v in targetsSet do
 			table.insert(listOfTargets, k)
@@ -504,8 +507,11 @@ function methods:InternalPostMessage(fromSpeaker, message, extraData)
 	for _, speakerName in pairs(sentToList) do
 		local speaker = self.Speakers[speakerName]
 		if speaker then
+			local shouldTranslate = userIsChatTranslationEnabled and translations
+				and fromSpeaker:GetPlayer() ~= nil and speaker:GetPlayer() ~= nil
+				and (fromSpeaker:GetPlayer().LocaleId ~= speaker:GetPlayer().LocaleId)
 			-- If the sender is not the same as the receiver and chat translation is turned on, translate the message before sending
-			if userIsChatTranslationEnabled and translations and (fromSpeaker:GetPlayer().LocaleId ~= speaker:GetPlayer().LocaleId) then
+			if shouldTranslate then
 				speaker:InternalSendFilteredMessageWithTranslatedFilterResult(messageObj, self.Name, translations)
 			else
 				speaker:InternalSendFilteredMessageWithFilterResult(messageObj, self.Name)

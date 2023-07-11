@@ -17,5 +17,13 @@ return function()
 		end
 	end
 
+	-- add whitelisted users from menu modernization to chrome
+	local forcedUserIdsControls = game:GetFastString("InGameMenuControlsForcedUserIds")
+	for forcedUserIdString in forcedUserIdsControls:gmatch("%d+") do
+		if localPlayer and tonumber(forcedUserIdString) == localPlayer.UserId then
+			return true
+		end
+	end
+
 	return game:GetFastFlag("EnableInGameMenuChrome")
 end

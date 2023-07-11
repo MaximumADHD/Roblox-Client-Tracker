@@ -5,4 +5,8 @@ local PackageIndex = script.Parent.Parent._Index
 
 local Package = require(PackageIndex["Rhodium"]["Rhodium"])
 
+export type Element = Package.Element
+export type XPath = Package.XPath
+
+
 return Package

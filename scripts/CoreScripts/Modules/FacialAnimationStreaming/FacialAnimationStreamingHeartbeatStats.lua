@@ -4,7 +4,7 @@ local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local LoggingProtocol = require(CorePackages.UniversalApp.Logging.LoggingProtocol).default
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 

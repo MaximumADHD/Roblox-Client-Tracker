@@ -24,6 +24,9 @@ local Components = script.Parent
 local PublishAssetPromptFolder = Components.Parent
 local CloseResultModal = require(PublishAssetPromptFolder.Thunks.CloseResultModal)
 
+local PublishAssetPrompt = script.Parent.Parent
+local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
+
 local ResultModal = Roact.PureComponent:extend("ResultModal")
 
 ResultModal.validateProps = t.strictInterface({
@@ -79,7 +82,9 @@ function ResultModal:render()
 					buttonType = ButtonType.PrimarySystem,
 					props = {
 						onActivated = self.props.closeResultModal,
-						text = RobloxTranslator:FormatByKey("InGame.CommonUI.Button.Ok"),
+						text = if GetFFlagValidateDescription()
+							then RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.ResultModalOk")
+							else RobloxTranslator:FormatByKey("InGame.CommonUI.Button.Ok"),
 						inputIcon = self.state.isGamepad and XBOX_A_ICON or nil,
 					},
 				},
