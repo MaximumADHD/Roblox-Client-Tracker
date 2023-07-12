@@ -27448,6 +27448,7 @@ OSSL_STORE_SEARCH_by_alias
 OSSL_STORE_SEARCH_by_issuer_serial
 OSSL_STORE_SEARCH_by_key_fingerprint
 OSSL_STORE_SEARCH_by_name
+OStudio.App.Tooltip.Variadic
 OSVersionWin32
 Oswald.json
 OTAData.json
@@ -49884,6 +49885,7 @@ WithSHA384
 WithSHA512
 WithUniverseAndPlaceId]
 WithUniverseAndPlaceSettings]
+WLifecycleManager
 WMCreateProfileManager
 WMCreateSyncReader
 WmfAudioDecoder
