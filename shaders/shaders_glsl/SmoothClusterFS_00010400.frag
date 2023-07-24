@@ -2,8 +2,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
+#include <ExtraData.h>
 uniform vec4 CB0[57];
-uniform vec4 layerScale_tanFovY_maxMip[1];
+uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -20,7 +21,7 @@ varying vec4 VARYING8;
 
 void main()
 {
-    vec4 f0 = ((texture2D(AlbedoMapTexture, (fract(VARYING1.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.xy).yxzw * VARYING0.x) + (texture2D(AlbedoMapTexture, (fract(VARYING1.zw) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.zw).yxzw * VARYING0.y)) + (texture2D(AlbedoMapTexture, (fract(VARYING3.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING3.zw).yxzw * VARYING0.z);
+    vec4 f0 = ((texture2D(AlbedoMapTexture, (fract(VARYING1.xy) * CB3[0].xy) + VARYING2.xy).yxzw * VARYING0.x) + (texture2D(AlbedoMapTexture, (fract(VARYING1.zw) * CB3[0].xy) + VARYING2.zw).yxzw * VARYING0.y)) + (texture2D(AlbedoMapTexture, (fract(VARYING3.xy) * CB3[0].xy) + VARYING3.zw).yxzw * VARYING0.z);
     vec2 f1 = f0.yz - vec2(0.5);
     float f2 = f1.x;
     float f3 = f1.y;

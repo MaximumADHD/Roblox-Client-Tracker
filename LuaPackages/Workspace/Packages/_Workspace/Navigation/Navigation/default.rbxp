@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Navigation",
+    "tree": {
+      "$path": "../../../../../../../modules/navigation/src"
+    }
+  }
+}

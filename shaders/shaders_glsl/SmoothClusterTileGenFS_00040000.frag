@@ -1,7 +1,9 @@
 #version 110
 #extension GL_ARB_shader_texture_lod : require
 
-uniform vec4 layerScale_tanFovY_maxMip[1];
+#extension GL_ARB_shading_language_include : require
+#include <ExtraData.h>
+uniform vec4 CB3[1];
 uniform vec4 CB4[63];
 uniform sampler2D SpecularMapTexture;
 uniform sampler2D NormalMapTexture;
@@ -17,12 +19,12 @@ varying vec3 VARYING6;
 
 void main()
 {
-    vec2 f0 = (fract(VARYING1.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.xy;
-    vec2 f1 = (fract(VARYING1.zw) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.zw;
-    vec2 f2 = (fract(VARYING3.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING3.zw;
-    vec2 f3 = VARYING1.xy * layerScale_tanFovY_maxMip[0].xy;
-    vec2 f4 = VARYING1.zw * layerScale_tanFovY_maxMip[0].xy;
-    vec2 f5 = VARYING3.xy * layerScale_tanFovY_maxMip[0].xy;
+    vec2 f0 = (fract(VARYING1.xy) * CB3[0].xy) + VARYING2.xy;
+    vec2 f1 = (fract(VARYING1.zw) * CB3[0].xy) + VARYING2.zw;
+    vec2 f2 = (fract(VARYING3.xy) * CB3[0].xy) + VARYING3.zw;
+    vec2 f3 = VARYING1.xy * CB3[0].xy;
+    vec2 f4 = VARYING1.zw * CB3[0].xy;
+    vec2 f5 = VARYING3.xy * CB3[0].xy;
     vec2 f6 = (((texture2DGradARB(NormalMapTexture, f0, dFdx(f3), dFdy(f3)) * VARYING0.x) + (texture2DGradARB(NormalMapTexture, f1, dFdx(f4), dFdy(f4)) * VARYING0.y)) + (texture2DGradARB(NormalMapTexture, f2, dFdx(f5), dFdy(f5)) * VARYING0.z)).wy * 2.0;
     vec2 f7 = f6 - vec2(1.0);
     vec3 f8 = vec3(dot(VARYING5, VARYING0.xyz));

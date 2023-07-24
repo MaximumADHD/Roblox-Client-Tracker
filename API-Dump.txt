@@ -67,7 +67,6 @@ Class Accessory : Accoutrement
 	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
 Class Hat : Accoutrement [Deprecated]
 Class AdPortal : Instance
-	Property Enum.AdPortalType AdPortal.PortalType [Hidden] [NotScriptable] [Deprecated]
 	Property Enum.AdUnitStatus AdPortal.Status [ReadOnly]
 	Property string AdPortal.PortalInvalidReason [ReadOnly] [NotScriptable]
 	Property int64 AdPortal.PortalVersion {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -80,7 +79,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function void AdService:ShowVideoAd() [Deprecated]
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
-	Event AdService.PortalPrompt(int64 destinationId, Player player, Instance portal) {RobloxScriptSecurity}
+	Event AdService.PortalPrompt(int64 destinationId, Instance portal, bool requiresNoButton) {RobloxScriptSecurity}
 	Event AdService.ReportImpressionSignal(string ad_instance_name, string encrypted_ad_tracking_data, string encryption_metadata) {RobloxSecurity} [Hidden]
 	Event AdService.ReportTeleportSignal(string ad_instance_name, string encrypted_ad_tracking_data, string encryption_metadata, string teleport_type, int64 teleport_source_universe_id, int64 teleport_source_place_id, int64 teleport_dest_place_id) {RobloxSecurity} [Hidden]
 	Event AdService.ServeAdResponseSignal(string uuid, string response, bool isError) {RobloxSecurity} [Hidden]
@@ -277,9 +276,10 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:GetCreatorAssetID(int64 creationID) [Yields] [Deprecated]
 	Function Instance AssetService:GetGamePlacesAsync() [Yields]
 	Function DynamicImage AssetService:LoadImageAsync(Content textureId) [Yields]
-	Function Tuple AssetService:PromptPublishAssetAsync(Player player, Instance instance, Enum.AssetType assetType) [Yields]
+	Function Tuple AssetService:PromptCreateAssetAsync(Player player, Instance instance, Enum.AssetType assetType) [Yields]
 	Function void AssetService:SavePlaceAsync() [Yields]
 	Function AudioPages AssetService:SearchAudio(AudioSearchParams searchParameters) [Yields]
+	Event AssetService.OpenCreateResultModal(Enum.PromptCreateAssetResult resultType) {RobloxScriptSecurity}
 	Event AssetService.OpenPublishResultModal(Enum.PromptPublishAssetResult resultType) {RobloxScriptSecurity}
 Class Atmosphere : Instance
 	Property float Atmosphere.Density
@@ -467,6 +467,7 @@ Class RootImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property Enum.RestPose RootImportData.RestPose
 	Property Enum.RigScale RootImportData.RigScale
 	Property Enum.RigType RootImportData.RigType
+	Property bool RootImportData.RigVisualization
 	Property Enum.MeshScaleUnit RootImportData.ScaleUnit
 	Property bool RootImportData.UseSceneOriginAsCFrame
 	Property bool RootImportData.UseSceneOriginAsPivot
@@ -693,8 +694,10 @@ Class Camera : Instance [NotReplicated]
 	Event Camera.FirstPersonTransition(bool entering) {LocalUserSecurity}
 	Event Camera.InterpolationFinished()
 Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Vector2 CaptureService:GetCaptureSizeAsync(Content captureContentId) {RobloxScriptSecurity} [Yields]
 	Function Array CaptureService:RetrieveCaptures() {RobloxScriptSecurity}
 	Function void CaptureService:SaveScreenshotCapture() {RobloxScriptSecurity}
+	Event CaptureService.CaptureSaved(Dictionary captureInfo) {RobloxScriptSecurity}
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function void ChangeHistoryService:FinishRecording(string identifier, Enum.FinishRecordingOperation operation, Dictionary? finalOptions) {PluginSecurity}
 	Function Tuple ChangeHistoryService:GetCanRedo() {PluginSecurity}
@@ -1156,14 +1159,15 @@ Class BevelMesh : DataModelMesh [NotCreatable] [NotBrowsable] [Deprecated]
 	Property float BevelMesh.Bulge [Hidden] [NotScriptable] [Deprecated]
 Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
-Class FileMesh : DataModelMesh
-	Property Content FileMesh.MeshId
-	Property Content FileMesh.TextureId
-Class DynamicMesh : FileMesh
+Class DynamicMesh : DataModelMesh
 	Function int DynamicMesh:AddTriangle(int vertexId0, int vertexId1, int vertexId2)
 	Function int DynamicMesh:AddVertex(Vector3 p)
-	Function void DynamicMesh:Clear()
 	Function MeshPart DynamicMesh:CreateMeshPartAsync(Enum.CollisionFidelity collisionFidelity) [Yields]
+	Function Tuple DynamicMesh:FindClosestPointOnSurface(Vector3 point)
+	Function int DynamicMesh:FindClosestVertex(Vector3 toThisPoint)
+	Function Array DynamicMesh:FindVerticesWithinSphere(Vector3 center, float radius)
+	Function Array DynamicMesh:GetAdjacentTriangles(int triangleId)
+	Function Array DynamicMesh:GetAdjacentVertices(int vertexId)
 	Function Vector3 DynamicMesh:GetPosition(int vertexId)
 	Function Tuple DynamicMesh:GetTriangleVertices(int triangleId)
 	Function Array DynamicMesh:GetTriangles()
@@ -1174,12 +1178,17 @@ Class DynamicMesh : FileMesh
 	Function Array DynamicMesh:GetVertices()
 	Function void DynamicMesh:InitializeFromMeshIdAsync(Content meshId)
 	Function void DynamicMesh:InitializeFromMeshPartAsync(Instance meshPart)
+	Function Tuple DynamicMesh:Raycast(Vector3 origin, Vector3 direction)
 	Function void DynamicMesh:RemoveTriangle(int triangleId)
+	Function void DynamicMesh:RemoveVertex(int vertexId)
 	Function void DynamicMesh:SetPosition(int vertexId, Vector3 p)
 	Function void DynamicMesh:SetUV(int vertexId, Vector2 uv)
 	Function void DynamicMesh:SetVertexColor(int vertexId, Color3 color)
 	Function void DynamicMesh:SetVertexColorAlpha(int vertexId, float alpha)
 	Function void DynamicMesh:SetVertexNormal(int vertexId, Vector3 vnormal)
+Class FileMesh : DataModelMesh
+	Property Content FileMesh.MeshId
+	Property Content FileMesh.TextureId
 Class SpecialMesh : FileMesh
 	Property Enum.MeshType SpecialMesh.MeshType
 Class DataModelPatchService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1395,6 +1404,7 @@ Class DynamicImage : Instance [NotCreatable]
 	Function Array DynamicImage:ReadPixels(Vector2 position, Vector2 size) [CustomLuaState]
 	Function void DynamicImage:Resize(Vector2 newSize)
 	Function void DynamicImage:Rotate(float degrees, bool resizeCanvas = true)
+	Function void DynamicImage:WritePixels(Vector2 position, Vector2 size, Array pixels) [CustomLuaState]
 Class EulerRotationCurve : Instance
 	Property Enum.RotationOrder EulerRotationCurve.RotationOrder
 	Function Array EulerRotationCurve:GetAnglesAtTime(float time)
@@ -1970,8 +1980,6 @@ Class SurfaceGui : SurfaceGuiBase
 	Property Vector2 SurfaceGui.CanvasSize
 	Property float SurfaceGui.PixelsPerStud
 	Property Enum.SurfaceGuiSizingMode SurfaceGui.SizingMode
-Class TextureGuiExperimental : LayerCollector [NotCreatable]
-	Property Vector2 TextureGuiExperimental.Size
 Class GuiBase3d : GuiBase [NotCreatable]
 	Property BrickColor GuiBase3d.Color [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property Color3 GuiBase3d.Color3
@@ -2139,6 +2147,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:SetUiMessage(Enum.UiMessageType msgType, string uiMessage = "errorCode") {LocalUserSecurity}
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) {RobloxScriptSecurity}
 	Function void GuiService:ToggleFullscreen() {RobloxScriptSecurity}
+	Function void GuiService:ToggleGuiIsVisibleForCaptures(Enum.GuiType guiType) {RobloxScriptSecurity}
 	Function void GuiService:ToggleGuiIsVisibleIfAllowed(Enum.GuiType guiType) {RobloxScriptSecurity}
 	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.CloseInspectMenuRequest() {RobloxScriptSecurity}
@@ -2704,12 +2713,15 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum.InfoType infoType = "Asset") [Yields]
 	Function int MarketplaceService:GetRobuxBalance() {RobloxScriptSecurity} [Yields]
-	Function bool MarketplaceService:IsPlayerSubscribed(Instance player, int64 subscriptionId) [Yields]
+	Function bool MarketplaceService:IsPlayerSubscribed(Instance player, int64 subscriptionId) [Yields] [Deprecated]
 	Function Dictionary MarketplaceService:PerformPurchase(Enum.InfoType infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase, string collectibleItemId = "", string collectibleProductId = "", string idempotencyKey = "", string purchaseAuthToken = "") {RobloxScriptSecurity} [Yields]
+	Function Dictionary MarketplaceService:PerformPurchaseV2(Enum.InfoType infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase, Dictionary collectiblesProductDetails) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
 	Function bool MarketplaceService:PlayerOwnsBundle(Player player, int64 bundleId) [Yields]
+	Function void MarketplaceService:PrepareCollectiblesPurchase(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId)
+	Function void MarketplaceService:PromptCollectiblesPurchase(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int64 gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptNativePurchaseWithLocalPlayer(string productId) {RobloxScriptSecurity}
@@ -2717,8 +2729,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function void MarketplaceService:PromptProductPurchase(Instance player, int64 productId, bool equipIfPurchased = true, Enum.CurrencyType currencyType = "Default")
 	Function void MarketplaceService:PromptPurchase(Instance player, int64 assetId, bool equipIfPurchased = true, Enum.CurrencyType currencyType = "Default")
 	Function void MarketplaceService:PromptRobloxPurchase(int64 assetId, bool equipIfPurchased) {RobloxScriptSecurity}
-	Function void MarketplaceService:PromptSubscriptionCancellation(Instance player, int64 subscriptionId)
-	Function void MarketplaceService:PromptSubscriptionPurchase(Instance player, int64 subscriptionId)
+	Function void MarketplaceService:PromptSubscriptionCancellation(Instance player, int64 subscriptionId) [Deprecated]
+	Function void MarketplaceService:PromptSubscriptionPurchase(Instance player, int64 subscriptionId) [Deprecated]
 	Function void MarketplaceService:PromptThirdPartyPurchase(Instance player, string productId) {LocalUserSecurity}
 	Function void MarketplaceService:ReportAssetSale(string assetId, int robuxAmount) {RobloxScriptSecurity}
 	Function void MarketplaceService:ReportRobuxUpsellStarted() {RobloxScriptSecurity}
@@ -2743,8 +2755,10 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.MockPurchaseSubscription(Instance player, int64 subscriptionId) {RobloxScriptSecurity} [Hidden]
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) {RobloxScriptSecurity}
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(string productId, bool wasPurchased) {RobloxScriptSecurity}
+	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptBundlePurchaseFinished(Instance player, int64 bundleId, bool wasPurchased)
 	Event MarketplaceService.PromptBundlePurchaseRequested(Instance player, int64 bundleId) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptCollectiblesPurchaseRequested(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice, string idempotencyKey, string purchaseAuthToken) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool wasPurchased)
 	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int64 gamePassId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptNativePurchaseRequested(Instance player, string productId) {RobloxSecurity} [Hidden]
@@ -2757,9 +2771,9 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptPurchaseRequested(Instance player, int64 assetId, bool equipIfPurchased, Enum.CurrencyType currencyType) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptPurchaseRequestedV2(Instance player, int64 assetId, bool equipIfPurchased, Enum.CurrencyType currencyType, string idempotencyKey, string purchaseAuthToken) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptRobloxPurchaseRequested(int64 assetId, bool equipIfPurchased) {RobloxScriptSecurity}
-	Event MarketplaceService.PromptSubscriptionCancellationFinished(Instance player, int64 subscriptionId, bool wasCanceled)
+	Event MarketplaceService.PromptSubscriptionCancellationFinished(Instance player, int64 subscriptionId, bool wasCanceled) [Deprecated]
 	Event MarketplaceService.PromptSubscriptionCancellationRequested(Instance player, int64 subscriptionId) {RobloxScriptSecurity}
-	Event MarketplaceService.PromptSubscriptionPurchaseFinished(Instance player, int64 subscriptionId, bool wasPurchased)
+	Event MarketplaceService.PromptSubscriptionPurchaseFinished(Instance player, int64 subscriptionId, bool wasPurchased) [Deprecated]
 	Event MarketplaceService.PromptSubscriptionPurchaseRequested(Instance player, int64 subscriptionId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptThirdPartyPurchaseRequested(Instance player, string productId) {RobloxSecurity} [Hidden]
 	Event MarketplaceService.ServerPurchaseVerification(Dictionary serverResponseTable) {RobloxScriptSecurity}
@@ -2815,7 +2829,7 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Function void MaterialService:SetBaseMaterialOverride(Enum.Material material, string name)
 	Event MaterialService.OverrideStatusChanged(Enum.Material material) {RobloxScriptSecurity}
 Class MaterialVariant : Instance
-	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
+	Property Enum.Material MaterialVariant.BaseMaterial {✏️PluginSecurity}
 	Property Content MaterialVariant.ColorMap {PluginSecurity}
 	Property Enum.MaterialPattern MaterialVariant.MaterialPattern
 	Property Content MaterialVariant.MetalnessMap {PluginSecurity}
@@ -2989,6 +3003,8 @@ Class OmniRecommendationsService : Instance [NotCreatable] [Service] [NotReplica
 	Function string OmniRecommendationsService:GetSessionId() {RobloxScriptSecurity}
 	Function HttpRequest OmniRecommendationsService:MakeRequest(string nextPageToken) {RobloxScriptSecurity}
 Class OpenCloudApiV1 : Instance [NotCreatable] [NotReplicated]
+	Function OpenCloudModel OpenCloudApiV1:CreateModel(string name) [CustomLuaState]
+	Function OpenCloudModel OpenCloudApiV1:CreateUserNotificationAsync(string user, OpenCloudModel userNotification) [Yields]
 Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function OpenCloudApiV1 OpenCloudService:GetApiV1()
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
@@ -3357,10 +3373,10 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property BinaryString Workspace.CollisionGroupData {RobloxSecurity} [Hidden] [NotScriptable]
 	Property string Workspace.CollisionGroups [<📁> LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
 	Property int Workspace.DataModelPlaceVersion [Hidden] [NotScriptable]
-	Property bool Workspace.EnableFluidForces
 	Property bool Workspace.ExplicitAutoJoints [Hidden] [NotScriptable]
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
+	Property Enum.FluidForces Workspace.FluidForces [NotScriptable]
 	Property Vector3 Workspace.GlobalWind
 	Property float Workspace.Gravity
 	Property Enum.HumanoidOnlySetCollisionsOnStateChange Workspace.HumanoidOnlySetCollisionsOnStateChange [NotScriptable]
@@ -3568,6 +3584,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreUnalignedPartsShown
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
+	Property bool PhysicsSettings.DisableCSGv3ForPlugins
 	Property bool PhysicsSettings.ForceCSGv2 [Hidden] [NotReplicated]
 	Property float PhysicsSettings.ForceDrawScale {RobloxScriptSecurity}
 	Property bool PhysicsSettings.IsInterpolationThrottleShown
@@ -3850,6 +3867,8 @@ Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.StatusTip [ReadOnly]
 	Property string PluginAction.Text [ReadOnly]
 	Event PluginAction.Triggered() {PluginSecurity}
+Class PluginCapabilities : Instance
+	Property string PluginCapabilities.Manifest {RobloxScriptSecurity}
 Class PluginDebugService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
 	Property string PluginDragEvent.Data [ReadOnly]
@@ -3969,7 +3988,7 @@ Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Event ProximityPromptService.PromptTriggerEnded(ProximityPrompt prompt, Player playerWhoTriggered)
 	Event ProximityPromptService.PromptTriggered(ProximityPrompt prompt, Player playerWhoTriggered)
 Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function int64 PublishService:CreateAssetAndWaitForAssetId(Instance instance, string operationId, int64 creatorId, string assetType, string name, string description) {RobloxScriptSecurity} [Yields]
+	Function int64 PublishService:CreateAssetAndWaitForAssetId(Objects instances, string operationId, int64 creatorId, string assetType, string name, string description) {RobloxScriptSecurity} [Yields]
 	Function Content PublishService:PublishCageMeshAsync(Instance wrap, Enum.CageType cageType) {RobloxScriptSecurity} [Yields]
 	Function bool PublishService:PublishDescendantAssets(Instance instance) {RobloxScriptSecurity}
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
@@ -4056,6 +4075,7 @@ Class RenderSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool RenderSettings.ReloadAssets
 	Property bool RenderSettings.RenderCSGTrianglesDebug
 	Property bool RenderSettings.ShowBoundingBoxes
+	Property Enum.ViewMode RenderSettings.ViewMode
 	Property bool RenderSettings.ExportMergeByMaterial
 	Property Enum.FramerateManagerMode RenderSettings.FrameRateManager
 	Property Enum.GraphicsMode RenderSettings.GraphicsMode
@@ -4089,6 +4109,7 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
+Class RobloxServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
 Class RomarkService : Instance [NotCreatable] [Service]
 	Function void RomarkService:EndRemoteRomarkTest() {RobloxScriptSecurity}
 	Event RomarkService.RomarkEndOfTest() {RobloxScriptSecurity} [Hidden]
@@ -4348,6 +4369,7 @@ Class UserSettings : GenericSettings [NotCreatable]
 	Function void UserSettings:SaveState() {RobloxScriptSecurity}
 Class ServiceVisibilityService : Instance [NotCreatable] [Service]
 	Property BinaryString ServiceVisibilityService.VisibleServices {RobloxSecurity}
+	Property BinaryString ServiceVisibilityService.HiddenServices {RobloxSecurity}
 Class SessionService : Instance [NotCreatable] [Service]
 	Function int64 SessionService:GetCreatedTimestampUtcMs(string sid) {RobloxScriptSecurity}
 	Function Variant SessionService:GetMetadata(string sid, string key) {RobloxScriptSecurity}
@@ -4559,8 +4581,10 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property Enum.DevComputerCameraMovementMode StarterPlayer.DevComputerCameraMovementMode
 	Property Enum.DevTouchCameraMovementMode StarterPlayer.DevTouchCameraMovementMode
 	Property bool StarterPlayer.AllowCustomAnimations {✏️RobloxScriptSecurity} [Hidden]
+	Property Enum.AvatarJointUpgrade StarterPlayer.AvatarJointUpgrade [NotBrowsable]
 	Property float StarterPlayer.CharacterMaxSlopeAngle
 	Property float StarterPlayer.CharacterWalkSpeed
+	Property Enum.DeathStyle StarterPlayer.DeathStyle [NotBrowsable]
 	Property Enum.LoadDynamicHeads StarterPlayer.EnableDynamicHeads [NotScriptable]
 	Property int64 StarterPlayer.GameSettingsAssetIDFace {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int64 StarterPlayer.GameSettingsAssetIDHead {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -4631,7 +4655,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Set Pivot of Imported Parts
 	Property bool Studio.Show Diagnostics Bar
-	Property bool Studio.Show QT warnings in output
 	Property float Studio.Main Volume {RobloxScriptSecurity}
 	Property bool Studio.Only Play Audio from Window in Focus
 	Property Enum.ServerAudioBehavior Studio.Server Audio Behavior
@@ -4894,8 +4917,8 @@ Class StyleSheet : StyleBase
 	Function Objects StyleSheet:GetDerives()
 	Function void StyleSheet:SetDerives(Objects derives)
 Class StyleDerive : Instance
-	Property StyleSheet StyleDerive.StyleSheet
 	Property int StyleDerive.Index [Hidden] [NotScriptable]
+	Property StyleSheet StyleDerive.StyleSheet
 Class StyleLink : Instance
 	Property StyleSheet StyleLink.StyleSheet
 Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5084,6 +5107,7 @@ Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property Enum.HorizontalAlignment ChatWindowConfiguration.HorizontalAlignment {🧬Unsafe}
 	Property Enum.VerticalAlignment ChatWindowConfiguration.VerticalAlignment {🧬Unsafe}
 Class TextChatMessage : Instance [NotCreatable]
+	Property BubbleChatMessageProperties TextChatMessage.BubbleChatMessageProperties
 	Property string TextChatMessage.MessageId
 	Property string TextChatMessage.Metadata
 	Property string TextChatMessage.PrefixText
@@ -5102,12 +5126,13 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function bool TextChatService:CanUserChatAsync(int64 userId) [Yields]
 	Function bool TextChatService:CanUsersChatAsync(int64 userIdFrom, int64 userIdTo) [Yields]
 	Function void TextChatService:DisplayBubble(Instance partOrCharacter, string message)
-	Event TextChatService.BubbleDisplayed(Instance part, string message)
+	Event TextChatService.BubbleDisplayed(Instance partOrCharacter, TextChatMessage textChatMessage)
 	Event TextChatService.ClientToServerMessageReplicateSignal(string text, string prefixText, string metadata, string messageId, TextSource textSource, TextChannel textChannel, Enum.TextChatMessageStatus status) {RobloxSecurity} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(string text, string metadata, string messageId, TextSource textSource, TextChannel textChannel) {RobloxSecurity} [Hidden]
 	Event TextChatService.MessageReceived(TextChatMessage textChatMessage)
 	Event TextChatService.SendingMessage(TextChatMessage textChatMessage)
 	Event TextChatService.ServerToClientMessageReplicateSignal(string text, string prefixText, string metadata, string messageId, TextSource textSource, TextChannel textChannel, int64 timestamp, Enum.TextChatMessageStatus status) {RobloxSecurity} [Hidden]
+	Callback Tuple TextChatService.OnBubbleAdded(TextChatMessage message, Instance adornee)
 	Callback Tuple TextChatService.OnIncomingMessage(TextChatMessage message)
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
@@ -5138,8 +5163,6 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int ThirdPartyUserService:RegisterActiveUser(Enum.UserInputType gamepadId) {RobloxScriptSecurity} [Yields]
 	Function void ThirdPartyUserService:ReturnToEngagement() {RobloxScriptSecurity}
 	Function void ThirdPartyUserService:ShowAccountPicker() {RobloxScriptSecurity}
-	Event ThirdPartyUserService.ActiveGamepadAdded() {RobloxScriptSecurity}
-	Event ThirdPartyUserService.ActiveGamepadRemoved() {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveUserSignedOut(int signOutStatus) {RobloxScriptSecurity}
 Class ThreadState : Instance [NotCreatable] [NotReplicated]
 	Property int ThreadState.FrameCount {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -5212,6 +5235,7 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function float TweenService:GetValue(float alpha, Enum.EasingStyle easingStyle, Enum.EasingDirection easingDirection)
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function int UGCValidationService:CalculateUniqueUVCount(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:CanLoadAsset(string assetId) {RobloxScriptSecurity} [Yields]
 	Function Objects UGCValidationService:FetchAssetWithFormat(Content url, string assetFormat) {RobloxScriptSecurity} [Yields]
 	Function int UGCValidationService:GetMeshTriCount(string meshId) {RobloxScriptSecurity} [Yields]
@@ -5234,6 +5258,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:ValidateSkinnedMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateUniqueUVCount(string meshId, int numRequired) {RobloxScriptSecurity} [Yields]
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
 Class UIConstraint : UIComponent [NotCreatable]
@@ -5483,6 +5508,7 @@ Class VRService : Instance [NotCreatable] [Service]
 	Event VRService.TouchpadModeChanged(Enum.VRTouchpad pad, Enum.VRTouchpadMode mode)
 	Event VRService.UserCFrameChanged(Enum.UserCFrame type, CFrame value)
 	Event VRService.UserCFrameEnabled(Enum.UserCFrame type, bool enabled)
+Class VRStatusService : Instance [NotCreatable] [Service]
 Class ValueBase : Instance [NotCreatable]
 Class BinaryStringValue : ValueBase
 	Property BinaryString BinaryStringValue.Value [Hidden] [NotScriptable]
@@ -5633,7 +5659,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity}
-	Property bool VoiceChatService.UseNewJoinFlow {RobloxSecurity}
+	Property bool VoiceChatService.UseNewJoinFlow {RobloxSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [Hidden]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
@@ -5690,17 +5716,13 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
-Enum AdPortalType
-	EnumItem AdPortalType.Forward : 0
-	EnumItem AdPortalType.Return : 1
 Enum AdShape
 	EnumItem AdShape.HorizontalRectangle : 1
 Enum AdTeleportMethod
 	EnumItem AdTeleportMethod.Undefined : 0
 	EnumItem AdTeleportMethod.PortalForward : 1
-	EnumItem AdTeleportMethod.PortalReturn : 2
-	EnumItem AdTeleportMethod.InGameMenuBackButton : 3
-	EnumItem AdTeleportMethod.UIBackButton : 4
+	EnumItem AdTeleportMethod.InGameMenuBackButton : 2
+	EnumItem AdTeleportMethod.UIBackButton : 3
 Enum AdUnitStatus
 	EnumItem AdUnitStatus.Inactive : 0
 	EnumItem AdUnitStatus.Active : 1
@@ -5916,6 +5938,10 @@ Enum AvatarContextMenuOption
 Enum AvatarItemType
 	EnumItem AvatarItemType.Asset : 1
 	EnumItem AvatarItemType.Bundle : 2
+Enum AvatarJointUpgrade
+	EnumItem AvatarJointUpgrade.Default : 0
+	EnumItem AvatarJointUpgrade.Enabled : 1
+	EnumItem AvatarJointUpgrade.Disabled : 2
 Enum AvatarPromptResult
 	EnumItem AvatarPromptResult.Success : 1
 	EnumItem AvatarPromptResult.PermissionDenied : 2
@@ -6271,6 +6297,11 @@ Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetSortedAsync : 3
 	EnumItem DataStoreRequestType.SetIncrementSortedAsync : 4
 	EnumItem DataStoreRequestType.OnUpdate : 5
+Enum DeathStyle
+	EnumItem DeathStyle.Default : 0
+	EnumItem DeathStyle.ClassicBreakApart : 1
+	EnumItem DeathStyle.NonGraphic : 2
+	EnumItem DeathStyle.Scriptable : 3
 Enum DebuggerEndReason
 	EnumItem DebuggerEndReason.ClientRequest : 0
 	EnumItem DebuggerEndReason.Timeout : 1
@@ -6453,6 +6484,9 @@ Enum FinishRecordingOperation
 	EnumItem FinishRecordingOperation.Cancel : 0
 	EnumItem FinishRecordingOperation.Commit : 1
 	EnumItem FinishRecordingOperation.Append : 2
+Enum FluidForces
+	EnumItem FluidForces.Default : 0
+	EnumItem FluidForces.Experimental : 1
 Enum Font
 	EnumItem Font.Legacy : 0
 	EnumItem Font.Arial : 1
@@ -7329,6 +7363,13 @@ Enum ProductLocationRestriction
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1
+Enum PromptCreateAssetResult
+	EnumItem PromptCreateAssetResult.Success : 1
+	EnumItem PromptCreateAssetResult.PermissionDenied : 2
+	EnumItem PromptCreateAssetResult.Timeout : 3
+	EnumItem PromptCreateAssetResult.UploadFailed : 4
+	EnumItem PromptCreateAssetResult.NoUserInput : 5
+	EnumItem PromptCreateAssetResult.UnknownFailure : 6
 Enum PromptPublishAssetResult
 	EnumItem PromptPublishAssetResult.Success : 1
 	EnumItem PromptPublishAssetResult.PermissionDenied : 2
@@ -8123,6 +8164,11 @@ Enum VibrationMotor
 	EnumItem VibrationMotor.RightTrigger : 3
 	EnumItem VibrationMotor.LeftHand : 4
 	EnumItem VibrationMotor.RightHand : 5
+Enum ViewMode
+	EnumItem ViewMode.None : 0
+	EnumItem ViewMode.GeometryComplexity : 1
+	EnumItem ViewMode.Transparent : 2
+	EnumItem ViewMode.Decal : 3
 Enum VirtualCursorMode
 	EnumItem VirtualCursorMode.Default : 0
 	EnumItem VirtualCursorMode.Disabled : 1

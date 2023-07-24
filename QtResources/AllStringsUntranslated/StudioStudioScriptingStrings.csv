@@ -20,3 +20,4 @@ Studio.App.ScriptPickerDialog.AlreadyTaken,,Name already taken (not case sensiti
 Studio.App.StudioScriptEditor.AICOLegalToast,,"<a href='#'>AI coding is available</a>, agree to the terms and conditions to try it out!","<a href='#'>AI coding is available</a>, agree to the terms and conditions to try it out!"
 Studio.App.ScriptingCmd.EVALUATEATCURSOR,,Evaluate at Cursor,Evaluate at Cursor
 Studio.App.ScriptingCmd.EVALUATEATCURSORTooltip,,"Evaluate at the current cursor location, while playing","Evaluate at the current cursor location, while playing"
+Studio.App.StudioScriptEditor.PerformanceBanner,,We have disabled certain language features because the script is too long and it's affecting system performance.,We have disabled certain language features because the script is too long and it's affecting system performance.

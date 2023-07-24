@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "PersonalizationTestHelpers",
+    "tree": {
+      "$path": "../../../../../../../modules/personalization/test-helpers/src"
+    }
+  }
+}

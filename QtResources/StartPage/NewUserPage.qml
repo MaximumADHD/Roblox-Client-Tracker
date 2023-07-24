@@ -63,7 +63,7 @@ Rectangle {
         anchors.top : subheaderText.bottom
         anchors.leftMargin: leftMargin
         anchors.topMargin: verticalMargin
-        text: qsTr("Studio.App.TutorialPage.StartTour")
+        text: FFlagStudioTourTextUpdate && newUserPageController.hasCompletedTutorial() ? qsTr("Studio.App.TutorialPage.RestartTour") : qsTr("Studio.App.TutorialPage.StartTour")
         onClicked: {
             newUserPageController.startTutorial();
         }

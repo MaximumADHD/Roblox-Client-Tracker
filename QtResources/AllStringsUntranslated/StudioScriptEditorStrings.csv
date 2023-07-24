@@ -44,6 +44,8 @@ Studio.App.ScriptingCmd.GOTOPOS,,Go to Position,Go to Position
 Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to a position in the script,Go to a position in the script
 Studio.App.ScriptingCmd.GOTODECL,,Go to Declaration,Go to Declaration
 Studio.App.ScriptingCmd.GOTODECLTooltip,,Go to variable declaration,Go to variable declaration
+Studio.App.ScriptingCmd.RENAMEDOCSYMBOL,,Rename Document Symbol,Rename Document Symbol
+Studio.App.ScriptingCmd.RENAMEDOCSYMBOLTooltip,,Rename the unique identifier for this type,Rename the unique identifier for this type
 Studio.App.ScriptingCmd.GOTOERR,,Go to Script Error,Go to Script Error
 Studio.App.ScriptingCmd.GOTOERRTooltip,,Focus view on script error,Focus view on script error
 Studio.App.ScriptingCmd.INVOKESYMBOLS,,Open Script Function Filter,Open Script Function Filter

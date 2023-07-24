@@ -10,6 +10,9 @@
     // This code can be removed once Packagification cleanup is done
     "instanceHierarchy": {
         "tree": {
+            "Ads": {
+                "$path": "Ads"
+            },
             "ApolloClient": {
                 "$path": "ApolloClient"
             },

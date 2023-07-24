@@ -372,11 +372,16 @@
       <Group name="Rig" text="Studio.Common.Action.Rig" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" width="32" height="32">
         <addaction name="rigBuilderAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.RigBuilder" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip" width="32" height="32" />
       </Group>
+      <Group name="Preview" fflag="AvatarPreviewerToolbarButton" text="Studio.Common.Action.Preview" modernIcon="AvatarPreviewer" width="32" height="32">
+        <addaction name="avatarPreviewerAction" fflag="AvatarPreviewerToolbarButton" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AvatarPreviewer" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
+      </Group>
       <Group name="Animation" text="Studio.Common.Action.Animation" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" width="32" height="32">
         <addaction name="animationEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AnimationEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip" width="32" height="32" />
       </Group>
-      <Group name="AvatarUnification" fflag="AvatarUnificationToolbar" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
+      <Group name="AvatarUnification" fflag="DebugR15MigratorPlugin" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
         <addaction name="r15migratorAction" fflag="DebugR15MigratorPlugin" type="plugin" text="Studio.App.RobloxRibbonMainWindow.R15Migrator" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip" width="32" height="32" />
+      </Group>
+      <Group name="AvatarUnification" fflag="DebugRobloxClassicPlugin" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
         <addaction name="robloxClassicAction" fflag="DebugRobloxClassicPlugin" type="plugin" text="Studio.App.RobloxRibbonMainWindow.RobloxClassic" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.RobloxClassicTooltip" width="32" height="32" />
       </Group>
     </TabPage>
@@ -460,8 +465,8 @@
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png" modernIcon="TerrainEditor"/>
         <addaction name="toggleDraftsDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.Sandbox" tooltip="Studio.App.RBXMainWindow.ViewSandbox" icon=":/RibbonBar/images/RibbonIcons/View/Drafts.png" modernIcon="Draft" ischeckable="true" />
 
-        <addaction fflag="COLLAB3580RedoChatWidgetDockOwnership2" name="toggleChatDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewTeamChat" tooltip="Studio.App.RBXMainWindow.ViewTeamChatTooltip" icon=":/RibbonBar/images/RibbonIcons/View/Chat.png" modernIcon="Chat" ischeckable="true" />
-        <addaction fflag="COLLAB2928StudioInternalDebugWidget2" name="toggleStudioInternalDebuggerDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioInternalDebugWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioInternalDebugWidgetTooltip" icon=":/RibbonBar/images/RibbonIcons/View/Buggaroo.png" modernIcon="Buggaroo" ischeckable="true" />
+        <addaction name="toggleChatDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewTeamChat" tooltip="Studio.App.RBXMainWindow.ViewTeamChatTooltip" icon=":/RibbonBar/images/RibbonIcons/View/Chat.png" modernIcon="Chat" ischeckable="true" />
+        <addaction name="toggleStudioInternalDebuggerDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioInternalDebugWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioInternalDebugWidgetTooltip" icon=":/RibbonBar/images/RibbonIcons/View/Buggaroo.png" modernIcon="Buggaroo" ischeckable="true" />
 
         <addaction fflag="EnableTagEditorPluginRibbonButton" name="toggleTagEditorDockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TagEditor" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="TagEditor"   tooltip="Studio.App.RobloxRibbonMainWindow.TagEditorTooltip"/>
         <addaction debugOnly="true" name="callStackDockWidgetActionV2" type="plugin" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Call-Stack.png" modernIcon="CallStack" text="Studio.App.CallStack.CallStack" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCurrentCallStack"/>
@@ -486,13 +491,13 @@
         <addaction name="toggle3DGridAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.ShowGrid" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid.png" modernIcon="ShowGrid" tooltip="Studio.App.RobloxRibbonMainWindow.GridOnYPlane" height="32" width="32"/>
         <addaction name="toggleGridMaterialAction" style="textundericon" text="Studio.App.RBXMainWindow.GridMaterial" icon=":/RibbonBar/images/RibbonIcons/View/Show-Grid2.png" modernIcon="GridMaterial" tooltip="Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts" height="32" width="32"/>
         <addaction name="toggleWireframeRenderingAction" style="textundericon" text="Studio.App.RBXMainWindow.WireframeRendering" icon=":/RibbonBar/images/RibbonIcons/View/Wireframe-Box.png" modernIcon="WireframeRendering" tooltip="Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering" height="32" width="32"/>
-        <addaction fflag="AddUIToggleToRibbon" name="toggleUIVisibilityAction" style="textundericon" text="Studio.App.RBXMainWindow.UIVisibility" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/UIOff.png" modernIcon="UIOff" tooltip="Studio.App.RobloxRibbonMainWindow.EnableUIVisibility" height="32" width="32"/>
+        <addaction name="toggleUIVisibilityAction" style="textundericon" text="Studio.App.RBXMainWindow.UIVisibility" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/UIOff.png" modernIcon="UIOff" tooltip="Studio.App.RobloxRibbonMainWindow.EnableUIVisibility" height="32" width="32"/>
         <MenuButton name="switchWindowsMenu" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SwitchWindows" icon=":/RibbonBar/images/RibbonIcons/View/Switch-Windows.png" modernIcon="SwitchWindows" tooltip="Studio.App.RobloxRibbonMainWindow.SwitchDifferentWindow" ischeckable="false" width="32" height="32"/>
         <MenuPopupButton name="selectionRenderModeGroup" handleIconChange="true" setting="true" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.SelectionRendering" tooltip="Studio.App.RobloxRibbonMainWindow.SelectionRenderingTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" >
           <ActionGroup name="setSelectionRenderModeAction" style="textbesideicon" ischeckable="false">
-            <addaction name="viewOutlinesAction" text="Studio.App.RobloxRibbonMainWindow.Outlines" value="Outlines" tooltip="Studio.App.RobloxRibbonMainWindow.OutlinesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="Part_Sphere" width="32" height="32" />
-            <addaction name="viewBoundingBoxesAction" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" value="BoundingBoxes" tooltip="Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" />
-            <addaction name="viewBothAction" text="Studio.App.RobloxRibbonMainWindow.ViewBoth" value="Both" tooltip="Studio.App.RobloxRibbonMainWindow.ViewBothTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="ShowBoundingBoxes" width="32" height="32" />
+            <addaction name="viewOutlinesAction" text="Studio.App.RobloxRibbonMainWindow.Outlines" value="Outlines" tooltip="Studio.App.RobloxRibbonMainWindow.OutlinesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="Outline" width="32" height="32" />
+            <addaction name="viewBoundingBoxesAction" text="Studio.App.RobloxRibbonMainWindow.BoundingBoxes" value="BoundingBoxes" tooltip="Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="BoundingBox" width="32" height="32" />
+            <addaction name="viewBothAction" text="Studio.App.RobloxRibbonMainWindow.ViewBoth" value="Both" tooltip="Studio.App.RobloxRibbonMainWindow.ViewBothTooltip" icon=":/RibbonBar/images/RibbonIcons/View/LightTheme/BoundingBoxOff.png" modernIcon="OutlineBoundingBox" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
       </Group>

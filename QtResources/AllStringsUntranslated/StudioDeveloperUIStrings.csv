@@ -106,6 +106,7 @@ Studio.App.VersionHistoryDialog.FailedToEditScriptErrorMessage,,Failed to edit s
 Studio.App.VersionHistoryDialog.FailedToEditBatchErrorMessage,,Failed to edit scripts from the selected batch. Please try again.,Failed to edit scripts from the selected batch. Please try again.
 Studio.App.VersionHistoryDialog.NoPublishNoVersionHistory,,Publish Place to begin tracking script history.,Publish Place to begin tracking script history.
 Studio.App.VersionHistoryDialog.VersionHistoryHashMismatch,,Current Source does not match latest commit.,Current Source does not match latest commit.
+Studio.App.ObjectBrowserManager.FailedToOpenObjectBrowser,,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.PlaceVersionHistoryDialog.Empty,,No Place Versions found,No Place Versions found
 Studio.App.PlaceVersionHistoryDialog.HelpLink,,More information,More information
 Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,Published,Published

@@ -53,7 +53,7 @@ Studio.App.Property.IsTreeShown,,Is Tree Shown,Is Tree Shown
 Studio.App.Property.IsInterpolationThrottleShown,,Is Interpolation Throttle Shown,Is Interpolation Throttle Shown
 Studio.App.Property.ShowDecompositionGeometry,,Show Decomposition Geometry,Show Decomposition Geometry
 Studio.App.Property.AreCollisionCostsShown,,Show Collision Performance,Show Collision Performance
-Studio.App.Property.DisableCSGv2,,Enable Legacy CSG,Enable Legacy CSG
+Studio.App.Property.DisableCSGv2,,Enable Legacy CSG for Roblox Tools,Enable Legacy CSG for Roblox Tools
 Studio.App.Property.AreTimestepsShown,,Are Timesteps Shown,Are Timesteps Shown
 Studio.App.SettingsHeader.Studio,,Studio,Studio
 Studio.App.SettingsCategory.StudioCamera,,Camera,Camera
@@ -246,6 +246,11 @@ Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge
 Studio.App.Property.FrameRateManager,,Frame Rate Manager,Frame Rate Manager
 Studio.App.SettingsCategory.RenderingCache,,Cache,Cache
 Studio.App.Property.MeshCacheSize,,Mesh Cache Size,Mesh Cache Size
+Studio.App.Property.ViewMode,,View Mode,View Mode
+Studio.App.PropertyEnum.None,,None,None
+Studio.App.PropertyEnum.GeometryComplexity,,GeometryComplexity,GeometryComplexity
+Studio.App.PropertyEnum.Transparent,,Transparent,Transparent
+Studio.App.PropertyEnum.Decal,,Decal,Decal
 Studio.App.SettingsHeader.TaskScheduler,,Task Scheduler,Task Scheduler
 Studio.App.SettingsCategory.TaskSchedulerDiagnostics,,Diagnostics,Diagnostics
 Studio.App.Property.ThreadPoolSize,,Thread Pool Size,Thread Pool Size
@@ -290,3 +295,4 @@ Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.SettingsHeader.ScriptEditor,,Script Editor,Script Editor
 Studio.App.SettingsCategory.General,,General,General
 Studio.App.SettingsCategory.Theme,,Theme,Theme
+Studio.App.Property.DisableCSGv3ForPlugins,,Enable Legacy CSG for Plugins,Enable Legacy CSG for Plugins

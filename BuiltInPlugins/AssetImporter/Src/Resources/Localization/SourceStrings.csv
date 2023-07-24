@@ -77,6 +77,7 @@ Studio.AssetImporter.Properties.PolygonCount,Polygon Count
 Studio.AssetImporter.Properties.RestPose,Rest Pose Animation
 Studio.AssetImporter.Properties.RigScale,Rig Scale
 Studio.AssetImporter.Properties.RigType,Rig Type
+Studio.AssetImporter.Properties.RigVisualization,Rig Visualization
 Studio.AssetImporter.Properties.RoughnessFilePath,Roughness File Path
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit
 Studio.AssetImporter.Properties.UseImportedPivot,Use Imported Pivot

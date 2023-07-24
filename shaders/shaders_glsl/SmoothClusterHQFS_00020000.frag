@@ -3,8 +3,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
+#include <ExtraData.h>
 uniform vec4 CB0[57];
-uniform vec4 layerScale_tanFovY_maxMip[1];
+uniform vec4 CB3[1];
 uniform vec4 CB4[63];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -24,12 +25,12 @@ varying vec3 VARYING9;
 
 void main()
 {
-    vec2 f0 = (fract(VARYING1.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.xy;
-    vec2 f1 = (fract(VARYING1.zw) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.zw;
-    vec2 f2 = (fract(VARYING3.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING3.zw;
-    vec2 f3 = VARYING1.xy * layerScale_tanFovY_maxMip[0].xy;
-    vec2 f4 = VARYING1.zw * layerScale_tanFovY_maxMip[0].xy;
-    vec2 f5 = VARYING3.xy * layerScale_tanFovY_maxMip[0].xy;
+    vec2 f0 = (fract(VARYING1.xy) * CB3[0].xy) + VARYING2.xy;
+    vec2 f1 = (fract(VARYING1.zw) * CB3[0].xy) + VARYING2.zw;
+    vec2 f2 = (fract(VARYING3.xy) * CB3[0].xy) + VARYING3.zw;
+    vec2 f3 = VARYING1.xy * CB3[0].xy;
+    vec2 f4 = VARYING1.zw * CB3[0].xy;
+    vec2 f5 = VARYING3.xy * CB3[0].xy;
     vec2 f6 = dFdx(f3);
     vec2 f7 = dFdy(f3);
     vec2 f8 = dFdx(f4);

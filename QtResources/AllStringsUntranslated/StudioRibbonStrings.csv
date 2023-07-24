@@ -167,6 +167,7 @@ Studio.App.RobloxRibbonMainWindow.Import3D,,Import 3D,Import 3D
 Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
 Studio.App.RobloxRibbonMainWindow.RigBuilder,,Rig Builder,Rig Builder
 Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip,,Insert rigs to animate,Insert rigs to animate
+Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Preview,Avatar Preview
 Studio.App.RobloxRibbonMainWindow.AnimationEditor,,Animation Editor,Animation Editor
 Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish Animation clips","Create, preview, and publish Animation clips"
 Studio.App.RobloxRibbonMainWindow.R15Migrator,,R15 Migrator,R15 Migrator
@@ -306,6 +307,7 @@ Studio.Common.Action.Back,,Back,Back
 Studio.Common.Action.Clear,,Clear,Clear
 Studio.Common.Action.Accessory,,Accessory,Accessory
 Studio.Common.Action.Rig,,Rig,Rig
+Studio.Common.Action.Preview,,Preview,Preview
 Studio.Common.Action.Animation,,Animation,Animation
 Studio.Common.Action.AvatarUnification,,Avatar Unification,Avatar Unification
 Studio.Common.Action.File,,File,File

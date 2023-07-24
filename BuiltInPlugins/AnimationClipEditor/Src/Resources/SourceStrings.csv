@@ -84,6 +84,7 @@ Studio.AnimationClipEditor.Dialog.PromotePrompt1, ,This will copy your KeyframeS
 Studio.AnimationClipEditor.Dialog.RenameAllPrompt_Migrated, ,Do you want to change all {name} to {newName}?
 Studio.AnimationClipEditor.Dialog.Save, ,Save
 Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig > AnimSaves in Explorer
+Studio.AnimationClipEditor.Dialog.Skip, ,Skip
 Studio.AnimationClipEditor.Dialog.Yes, ,Yes
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip, ,Create New Clip
 Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning, ,Animation Editor cannot be used while game is running!
@@ -156,6 +157,12 @@ Studio.AnimationClipEditor.Menu.Save, ,Save
 Studio.AnimationClipEditor.Menu.SaveAs, ,Save As
 Studio.AnimationClipEditor.Menu.SetPriority, ,Set Animation Priority
 Studio.AnimationClipEditor.Menu.Tongue, ,Tongue
+Studio.AnimationClipEditor.Migration.AnimationClip, ,Animation Clip
+Studio.AnimationClipEditor.Migration.Delete, ,Delete
+Studio.AnimationClipEditor.Migration.Ignore, ,Ignore
+Studio.AnimationClipEditor.Migration.LearnMore, ,Learn more
+Studio.AnimationClipEditor.Migration.Migrate, ,Migrate
+Studio.AnimationClipEditor.Migration.MigrateAnimations, ,The Animation Clip Editor now stores animations in ServerStorage. The following animations have been found attached to your rig and should either be deleted or migrated to the new location.
 Studio.AnimationClipEditor.OptimizeKeyframes.Keyframes, ,Keyframes:
 Studio.AnimationClipEditor.Plugin.Button, ,Animation Editor
 Studio.AnimationClipEditor.Plugin.Description, ,"Create, preview, and publish Animation clips"
@@ -226,6 +233,7 @@ Studio.AnimationClipEditor.Title.IK, ,IK
 Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
 Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
 Studio.AnimationClipEditor.Title.MaxPBSParam, ,Maximum playback speed is {speed}x
+Studio.AnimationClipEditor.Title.MigrateAnimations, ,Migrate Animation Clips
 Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
 Studio.AnimationClipEditor.Title.MinPBSParam, ,Minimum playback speed is {speed}x
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration

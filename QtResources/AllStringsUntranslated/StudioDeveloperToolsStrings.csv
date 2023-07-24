@@ -107,7 +107,7 @@ Studio.App.EmulatorMainWidget.AverageLaptop,Emulation devices,Average Laptop,Ave
 Studio.App.EmulatorMainWidget.HD720,"Emulation devices, an average high definition (HD) 1280x720 screen",HD 720,HD 720
 Studio.App.EmulatorMainWidget.HD1080,"Emulation devices, an average high definition (HD) 1920x1080 screen",HD 1080,HD 1080
 Studio.App.EmulatorMainWidget.VGA,Emulation devices,VGA,VGA
-Studio.App.EmulatorMainWidget.UnkownDevice,Emulation devices,Unknown Device,Unknown Device
+Studio.App.EmulatorMainWidget.UnknownDevice,Emulation devices,Unknown Device,Unknown Device
 Studio.App.EmulatorMainWidget.SamsungGalaxyA51,Emulation devices,Samsung Galaxy A51,Samsung Galaxy A51
 Studio.App.EmulatorMainWidget.XiaomiRedmiNote9,Emulation devices,Xiaomi Redmi Note 9,Xiaomi Redmi Note 9
 Studio.App.EmulatorMainWidget.IPhone14Pro,Emulation devices,iPhone 14 Pro,iPhone 14 Pro

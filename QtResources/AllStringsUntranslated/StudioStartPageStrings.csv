@@ -134,6 +134,7 @@ Studio.App.TutorialPage.Header,,Learn the fundamentals of Studio,Learn the funda
 Studio.App.TutorialPage.SubHeaderText,,Learn the Studio interface and main controls in a few easy steps to start creating on Roblox!,Learn the Studio interface and main controls in a few easy steps to start creating on Roblox!
 Studio.App.TutorialPage.OpenTemplate,,Start with a Template instead,Start with a Template instead
 Studio.App.TutorialPage.StartTour,,Start Tour,Start Tour
+Studio.App.TutorialPage.RestartTour,,Restart Tour,Restart Tour
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
 Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.

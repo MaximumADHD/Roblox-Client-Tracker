@@ -3,8 +3,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
+#include <ExtraData.h>
 uniform vec4 CB0[57];
-uniform vec4 layerScale_tanFovY_maxMip[1];
+uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -23,12 +24,12 @@ varying vec4 VARYING9;
 
 void main()
 {
-    vec2 f0 = (fract(VARYING1.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.xy;
-    vec2 f1 = (fract(VARYING1.zw) * layerScale_tanFovY_maxMip[0].xy) + VARYING2.zw;
-    vec2 f2 = (fract(VARYING3.xy) * layerScale_tanFovY_maxMip[0].xy) + VARYING3.zw;
-    vec2 f3 = VARYING1.xy * layerScale_tanFovY_maxMip[0].xy;
-    vec2 f4 = VARYING1.zw * layerScale_tanFovY_maxMip[0].xy;
-    vec2 f5 = VARYING3.xy * layerScale_tanFovY_maxMip[0].xy;
+    vec2 f0 = (fract(VARYING1.xy) * CB3[0].xy) + VARYING2.xy;
+    vec2 f1 = (fract(VARYING1.zw) * CB3[0].xy) + VARYING2.zw;
+    vec2 f2 = (fract(VARYING3.xy) * CB3[0].xy) + VARYING3.zw;
+    vec2 f3 = VARYING1.xy * CB3[0].xy;
+    vec2 f4 = VARYING1.zw * CB3[0].xy;
+    vec2 f5 = VARYING3.xy * CB3[0].xy;
     vec4 f6 = ((texture2DGradARB(SpecularMapTexture, f0, dFdx(f3), dFdy(f3)) * VARYING0.x) + (texture2DGradARB(SpecularMapTexture, f1, dFdx(f4), dFdy(f4)) * VARYING0.y)) + (texture2DGradARB(SpecularMapTexture, f2, dFdx(f5), dFdy(f5)) * VARYING0.z);
     vec3 f7 = normalize(VARYING6);
     vec4 f8 = ((texture2DGradARB(AlbedoMapTexture, f0, dFdx(f3), dFdy(f3)).yxzw * VARYING0.x) + (texture2DGradARB(AlbedoMapTexture, f1, dFdx(f4), dFdy(f4)).yxzw * VARYING0.y)) + (texture2DGradARB(AlbedoMapTexture, f2, dFdx(f5), dFdy(f5)).yxzw * VARYING0.z);

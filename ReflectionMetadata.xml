@@ -1206,6 +1206,13 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">PluginCapabilities</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="PrefferedParent">Plugin</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Plane</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
@@ -3069,6 +3076,18 @@
         <string name="ExplorerImageIndex">79</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DeathStyle</string>
+            <string name="FFlag">AvatarJointUpgrade</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AvatarJointUpgrade</string>
+            <string name="FFlag">AvatarJointUpgrade</string>
+          </Properties>
+        </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">HumanoidStateMachineMode</string>
@@ -7970,7 +7989,6 @@
         <string name="ClassCategory">Animations</string>
         <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">53</string>
-        <bool name="FFlag">IkControlEnabled</bool>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -8056,28 +8074,24 @@
           <Properties>
             <string name="Name">GetNodeWorldCFrame</string>
             <string name="Description">Returns the CFrame of the node with the given index in world space.</string>
-            <string name="FFlag">IkControlNewInternalsApi</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetNodeLocalCFrame</string>
             <string name="Description">Returns the CFrame of the node with the given index in local space.</string>
-            <string name="FFlag">IkControlNewInternalsApi</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetRawFinalTarget</string>
             <string name="Description">Returns the CFrame of the raw final target in world space.</string>
-            <string name="FFlag">IkControlNewInternalsApi</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">GetSmoothedFinalTarget</string>
             <string name="Description">Returns the CFrame of the smoothed final target in world space.</string>
-            <string name="FFlag">IkControlNewInternalsApi</string>
           </Properties>
         </Item>
       </Item>
@@ -8847,13 +8861,11 @@
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Wedge</string>
-          <string name="FFlag">WedgesAreEnums</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">CornerWedge</string>
-          <string name="FFlag">WedgesAreEnums</string>
         </Properties>
       </Item>
     </Item>

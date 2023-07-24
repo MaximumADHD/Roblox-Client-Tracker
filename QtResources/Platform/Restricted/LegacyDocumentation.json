@@ -1742,6 +1742,9 @@
         "LocalScript": {
             "summary": "A script that runs on clients, NOT servers.  LocalScripts can only run when parented under one of the following:\n        1) A player's Backpack.\n        2) A player's Character model.\n        3) A player's PlayerGui.\n        4) A player's PlayerScripts.\n        5) The ReplicatedFirst service.\n      "
         },
+        "PluginCapabilities": {
+            "summary": "An instance to be added to a plugin to act as the plugin manifest. Enables configuration of plugin capabilities."
+        },
         "RenderingTest": {
             "summary": "dummy summary"
         },
@@ -2094,7 +2097,7 @@
                 "AirDensity": {
                     "summary": "The ground level (y=0) air density in RMU/stud^3, used to calculate the force. The default corresponds to realistic sea-level air density at standard temperature and pressure."
                 },
-                "EnableFluidForces": {
+                "FluidForces": {
                     "summary": "Global opt-in/opt-out for the fluid/aero force model."
                 }
             }
@@ -2201,7 +2204,7 @@
                 "TouchEnded": {
                     "summary": "Fired when the part stops touching another part"
                 },
-                "EnableFluidForces" : {
+                "EnableFluidForces": {
                     "summary": "When true AND workspace.EnableFluidForces is true, the physics engine includes the aerodynamic forces on the part (and its parent assembly) during the physics timestep."
                 }
             }

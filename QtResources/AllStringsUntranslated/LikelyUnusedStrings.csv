@@ -168,6 +168,7 @@ Studio.App.RBXMainWindow.Game,,Game,Game
 Studio.App.RBXMainWindow.OutputWindowTitle,,Output - Network Simulator Enabled,Output - Network Simulator Enabled
 Studio.App.RBXMainWindow.JumpsToVariable,,Go to declaration of variable,Go to declaration of variable
 Studio.App.RBXMainWindow.GoToDeclaration,,Go to declaration,Go to declaration
+Studio.App.RBXMainWindow.RenameDocumentSymbol,,Rename Document Symbol,Rename Document Symbol
 Studio.App.RBXMainWindow.ViewFindResults,,View Find results,View Find results
 Studio.App.RBXMainWindow.FindResults,,Find Results,Find Results
 Studio.App.RBXMainWindow.FindResultsWindow,,Find results window,Find results window

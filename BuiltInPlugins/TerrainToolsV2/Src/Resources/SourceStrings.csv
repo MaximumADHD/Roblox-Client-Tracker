@@ -110,6 +110,8 @@ Studio.TerrainToolsV2.EditSettings.MergeEmpty, ,Merge Empty
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, ,"An unexpected thing happened, try again"
 Studio.TerrainToolsV2.Fill.Description, ,Filling with %s.
 Studio.TerrainToolsV2.Fill.Title, ,Fill
+Studio.TerrainToolsV2.FillCallout.Description, ,"The sea level and replace region tools have moved here. Perform sea level operations by replacing air with water, or water with air."
+Studio.TerrainToolsV2.FillCallout.Title, ,Fill Tool
 Studio.TerrainToolsV2.Generate.AssigningColormap, ,Assigning Colormap...
 Studio.TerrainToolsV2.Generate.BaseLevel, ,Base Level
 Studio.TerrainToolsV2.Generate.BiomeArctic, ,Arctic
@@ -171,6 +173,8 @@ Studio.TerrainToolsV2.ImportWarning.ColorMapOutOfRangeIconTooltip, ,The imported
 Studio.TerrainToolsV2.ImportWarning.ImageTooSmall, ,"Image resolution ({1:int}x{2:int}) is too low for the target Size values (X {3:int}, Z {4:int}). For best results, decrease the size or import a new Heightmap."
 Studio.TerrainToolsV2.ImportWarning.MainTextColormapRGBOutOfRange, ,Colormap RGB values are out of range.
 Studio.TerrainToolsV2.ImportWarning.SubTextColormapRGBOutOfRange, ,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.
+Studio.TerrainToolsV2.LiveEditCallout.Description, ,Live Edit is disabled automatically if the volume you're working with is too large. You can still choose whether you prefer it be turned on or off.
+Studio.TerrainToolsV2.LiveEditCallout.Title, ,Live Edit
 Studio.TerrainToolsV2.LocalImageSelector.NoImageSelected, ,No image selected
 Studio.TerrainToolsV2.Main.Title, ,Terrain Editor
 Studio.TerrainToolsV2.Main.ToolbarButton, ,Editor
