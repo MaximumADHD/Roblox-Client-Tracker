@@ -91,10 +91,10 @@ function CreateMessageLabel(messageData, channelName)
 
 	local function UpdateTextFunction(messageObject)
 		if messageData.IsFiltered then
-			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. messageObject.Message
+			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. messageObject.Message
 		else
 			local messageLength = messageObject.MessageLengthUtf8 or messageObject.MessageLength
-			BaseMessage.Text = string.rep(" ", numNeededSpaces) .. string.rep("_", messageLength)
+			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. string.rep("_", messageLength)
 		end
 	end
 

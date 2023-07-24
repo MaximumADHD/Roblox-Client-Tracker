@@ -18,7 +18,15 @@ CarouselScreenGui.ResetOnSpawn = false
 CarouselScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 CarouselScreenGui.Parent = CoreGui
 
+local OverlayScreenGui = Instance.new("ScreenGui")
+OverlayScreenGui.DisplayOrder = Screenshots.Constants.OverlayDisplayOrder
+OverlayScreenGui.Name = Screenshots.Constants.OverlayName
+OverlayScreenGui.ResetOnSpawn = false
+OverlayScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+OverlayScreenGui.Parent = CoreGui
+
 ScreenshotsApp.mountCarousel(CarouselScreenGui)
 ScreenshotsApp.mountCoreUI(RobloxGui)
+ScreenshotsApp.mountCaptureOverlay(OverlayScreenGui)
 
 return ScreenshotsApp

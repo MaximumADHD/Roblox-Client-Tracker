@@ -49,7 +49,9 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				CallBar = Roact.createElement(CallBar, {}),
+				CallBar = Roact.createElement(CallBar, {
+					size = Vector2.new(200, 44),
+				}),
 			}),
 		})
 

@@ -20,7 +20,9 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Pane = UI.Pane
-local TextLabel = UI.Decoration.TextLabel
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
 
 local PanelEntry = Roact.PureComponent:extend("InfoPanel")
 

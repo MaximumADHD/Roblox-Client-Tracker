@@ -15,8 +15,6 @@ local t = require(CorePackages.Packages.t)
 
 local EmoteThumbnailParameters = require(script.Parent.EmoteThumbnailParameters)
 
-local FFlagEmoteUtilityDontUseC1ToPose = game:GetFastFlag("EmoteUtilityDontUseC1ToPose2")
-
 local THUMBNAIL_CAMERA_FOV = 20 -- this parameter is matching the one in AnimationSilhouette which is responsible for creating emote icons on RCC
 local MANNEQUIN_OUTFIT_ID = 1342485078 -- this is an outfitId of Mannequin-Blocky bundle that is used to create emote thumbnails https://www.roblox.com/bundles/515/Mannequin-Blocky
 
@@ -30,41 +28,6 @@ EmoteThumbnailView.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	size = t.optional(t.UDim2),
 })
-
--- delete with FFlagEmoteUtilityDontUseC1ToPose flag
-local function getOriginalC1(joint: Motor): CFrame
-	local c1Value = joint:FindFirstChild("OriginalC1Value") :: CFrameValue
-	if c1Value == nil then
-		c1Value = Instance.new("CFrameValue") :: CFrameValue
-		c1Value.Name = "OriginalC1Value"
-		c1Value.Value = joint.C1
-		c1Value.Parent = joint
-	end
-
-	return c1Value.Value
-end
-
--- delete with FFlagEmoteUtilityDontUseC1ToPose flag
-function EmoteThumbnailView:resetC1sToOriginalValues(character)
-	EmoteUtility.ClearPlayerCharacterFace(character)
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	humanoid:BuildRigFromAttachments()
-
-	local function recurResetJoint(instance: Instance)
-		if instance:IsA("Motor6D") then
-			local motor6D = instance :: Motor6D
-			local c1: CFrame = getOriginalC1(motor6D)
-			motor6D.C1 = c1
-		end
-
-		local children = instance:GetChildren()
-		for _, c in children do
-			recurResetJoint(c)
-		end
-	end
-
-	recurResetJoint(character)
-end
 
 function EmoteThumbnailView:updateCameraAndCharacterPose()
 	if self.character == nil then
@@ -93,14 +56,10 @@ function EmoteThumbnailView:updateCameraAndCharacterPose()
 	end
 
 	-- reset all joints as keyframe's pose can alter just a subset of joints
-	if FFlagEmoteUtilityDontUseC1ToPose then
-		EmoteUtility.SetPlayerCharacterNeutralPose(model)
-	else
-		self:resetC1sToOriginalValues(model)
-	end
+	EmoteUtility.SetPlayerCharacterNeutralPose(model)
 
 	-- two last parameters are deprecated and not used but here just to satisfy the roblox-cli
-	EmoteUtility.ApplyKeyframe(model, thumbnailKeyframe, false, false)
+	EmoteUtility.ApplyKeyframe(model, thumbnailKeyframe)
 
 	task.spawn(function()
 		-- this wait for the animation to make sure the pose is updated

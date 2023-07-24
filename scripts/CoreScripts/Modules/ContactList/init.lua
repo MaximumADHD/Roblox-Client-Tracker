@@ -11,7 +11,9 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
+local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 
+local initCall = require(script.initCall)
 local Reducer = require(script.Reducer)
 local ContactListApp = require(script.Components.ContactListApp)
 
@@ -21,6 +23,10 @@ ContactList.__index = ContactList
 function ContactList.new()
 	local self = setmetatable({}, ContactList)
 
+	-- Init call
+	initCall(CallProtocol.CallProtocol.default :: CallProtocol.CallProtocolModule)
+
+	-- Mount component
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,
 	})

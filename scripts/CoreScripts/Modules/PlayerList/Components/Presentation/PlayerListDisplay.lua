@@ -19,6 +19,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local PlayerEntry = require(script.Parent.PlayerEntry)
 local TeamEntry = require(script.Parent.TeamEntry)
@@ -299,6 +300,10 @@ function PlayerListDisplay:render()
 					scrollingFrameMaxSizeY = scrollingFrameMaxSizeY - layoutValues.TitleBarSizeY
 				end
 
+				local backgroundColor = if ChromeEnabled()
+					then style.Theme.BackgroundUIContrast.Color
+					else style.Theme.BackgroundContrast.Color
+
 				local transparencyBinding = self.minimizedBinding:map(function(value)
 					local defaultTransparency = layoutValues.OverrideBackgroundTransparency
 					local fadedTransparency = layoutValues.FadedBackgroundTransparency
@@ -338,7 +343,7 @@ function PlayerListDisplay:render()
 							LayoutOrder = 1,
 							BackgroundTransparency = 1,
 							Image = "rbxasset://textures/ui/TopRoundedRect8px.png",
-							ImageColor3 = style.Theme.BackgroundContrast.Color,
+							ImageColor3 = backgroundColor,
 							ImageTransparency = transparencyBinding,
 							ScaleType = Enum.ScaleType.Slice,
 							SliceCenter = Rect.new(8, 8, 24, 16),
@@ -359,7 +364,7 @@ function PlayerListDisplay:render()
 							LayoutOrder = 3,
 							Position = UDim2.new(0, 0, 0, 0),
 							Size = UDim2.new(1, 0, 0, math.min(canvasSizeY, scrollingFrameMaxSizeY)),
-							BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+							BackgroundColor3 = backgroundColor,
 							BackgroundTransparency = transparencyBinding,
 							BorderSizePixel = 0,
 
@@ -392,25 +397,31 @@ function PlayerListDisplay:render()
 									ClipsDescendants = false,
 									ScrollingEnabled = not self.props.dropDownVisible,
 									Selectable = false,
-									CanvasPosition = self.props.dropDownVisible and canvasPositionOverride or self.state.lastCanvasPosition,
+									CanvasPosition = self.props.dropDownVisible and canvasPositionOverride
+										or self.state.lastCanvasPosition,
 
 									[Roact.Change.CanvasPosition] = self.canvasPositionChanged,
 
 									[Roact.Ref] = self.scrollingFrameRef,
 								}, {
 									OffsetUndoFrame = Roact.createElement("Frame", {
-										Size = UDim2.new(1, layoutValues.ScrollBarOffset + layoutValues.ScrollBarSize, 0, canvasSizeY),
+										Size = UDim2.new(
+											1,
+											layoutValues.ScrollBarOffset + layoutValues.ScrollBarSize,
+											0,
+											canvasSizeY
+										),
 										BackgroundTransparency = 1,
-									}, childElements)
+									}, childElements),
 								}),
-							})
+							}),
 						}),
 
 						BottomRoundedRect = Roact.createElement("ImageLabel", {
 							LayoutOrder = 4,
 							BackgroundTransparency = 1,
 							Image = "rbxasset://textures/ui/BottomRoundedRect8px.png",
-							ImageColor3 = style.Theme.BackgroundContrast.Color,
+							ImageColor3 = backgroundColor,
 							ImageTransparency = transparencyBinding,
 							ScaleType = Enum.ScaleType.Slice,
 							SliceCenter = Rect.new(8, 8, 24, 16),

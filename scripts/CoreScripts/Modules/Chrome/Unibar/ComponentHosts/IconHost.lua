@@ -1,8 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
 local React = require(CorePackages.Packages.React)
-local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
-local Focusable = RoactGamepad.Focusable
 
 local UIBlox = require(CorePackages.UIBlox)
 local Badge = UIBlox.App.Indicator.Badge
@@ -22,6 +21,35 @@ local useTimeHysteresis = require(script.Parent.Parent.Parent.Hooks.useTimeHyste
 
 local BADGE_OFFSET_X = 18
 local BADGE_OFFSET_Y = 2
+
+type TooltipState = {
+	displaying: boolean,
+	time: number,
+}
+
+-- module scoped variable
+local GroupTooltipState: { [ChromeTypes.IntegrationId]: TooltipState } = {}
+
+function areTooltipsDisplaying()
+	-- True if another IconHost is displaying tooltip or very recently displayed a tooltip
+	local now = tick()
+	for _, tooltipState in GroupTooltipState do
+		if tooltipState.displaying or (now - tooltipState.time) < 0.15 then
+			return true
+		end
+	end
+	return false
+end
+
+function logTooltipState(id: ChromeTypes.IntegrationId, displaying: boolean)
+	-- Log the time and displaying state when displaying state changes
+	if not GroupTooltipState[id] or GroupTooltipState[id].displaying ~= displaying then
+		GroupTooltipState[id] = {
+			displaying = displaying,
+			time = tick(),
+		}
+	end
+end
 
 export type IconHostProps = {
 	integration: ChromeTypes.IntegrationComponentProps,
@@ -80,6 +108,19 @@ type TooltipButtonProps = {
 
 function TooltipButton(props: TooltipButtonProps)
 	local secondaryAction = props.integration.integration.secondaryAction
+	local draggable: boolean = props.integration.integration.draggable or false
+	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
+
+	-- If the icon is unmounted and the local connection is active clear it.
+	-- The touch ended is not called when the WindowHost is opened by dragging
+	React.useEffect(function()
+		return function()
+			if connection.current then
+				connection.current:Disconnect()
+				connection.current = nil
+			end
+		end
+	end, {})
 
 	-- isHovered is a delayed icon hover state to drive tooltip
 	local isHovered, setHovered
@@ -98,14 +139,58 @@ function TooltipButton(props: TooltipButtonProps)
 	local hoverHandler = React.useCallback(function(_, newState)
 		local hovered = newState ~= ControlState.Default
 		props.setHovered(hovered)
-		setHovered(hovered, hovered and isTooltipHovered)
+		setHovered(hovered, (hovered and isTooltipHovered) or areTooltipsDisplaying())
 		if not hovered then
 			setClicked(false)
 		end
 	end, { props.setHovered :: any, setHovered, setClicked, isTooltipHovered })
 
+	local touchBegan = React.useCallback(function(_rbx: Frame, inputObj: InputObject)
+		if not draggable then
+			return
+		end
+		if
+			inputObj.UserInputType == Enum.UserInputType.MouseButton1
+			or inputObj.UserInputType == Enum.UserInputType.Touch
+		then
+			local dragStartPosition = inputObj.Position
+			setClicked(true, true)
+
+			if not connection.current then
+				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
+					local inputPosition = inputChangedObj.Position
+
+					-- Calculate the magnitude of the drag so far to determine whether to activate the integration
+					local magnitude = math.abs((dragStartPosition - inputPosition).Magnitude)
+
+					if magnitude > Constants.DRAG_MAGNITUDE_THRESHOLD then
+						props.integration.activated()
+
+						ChromeService:gesture(props.integration.id, connection)
+					end
+				end)
+			end
+		end
+	end, { draggable })
+	local touchEnded = React.useCallback(function(_: Frame, inputObj: InputObject)
+		if not draggable then
+			return
+		end
+		if
+			inputObj.UserInputType == Enum.UserInputType.MouseButton1
+			or inputObj.UserInputType == Enum.UserInputType.Touch
+		then
+			setClicked(false)
+			if connection.current then
+				connection.current:Disconnect()
+				connection.current = nil
+				ChromeService:gesture(props.integration.id, nil)
+			end
+		end
+	end, { draggable })
+
 	local renderTooltipComponent = React.useCallback(function(triggerPointChanged)
-		return React.createElement(Focusable[Interactable], {
+		return React.createElement(Interactable, {
 			Name = "IconHitArea",
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
@@ -113,12 +198,20 @@ function TooltipButton(props: TooltipButtonProps)
 			onStateChanged = hoverHandler,
 			[React.Change.AbsolutePosition] = triggerPointChanged,
 			[React.Change.AbsoluteSize] = triggerPointChanged,
+			[React.Event.InputBegan] = touchBegan,
+			[React.Event.InputEnded] = touchEnded,
 			[React.Event.Activated] = function()
 				setClicked(true, true)
 				props.integration.activated()
+
+				if connection.current then
+					connection.current:Disconnect()
+					connection.current = nil
+					ChromeService:gesture(props.integration.id, nil)
+				end
 			end,
 		})
-	end, { hoverHandler :: any, setHovered, setClicked })
+	end, { hoverHandler :: any, setHovered, setClicked, touchBegan, touchEnded })
 
 	-- tooltipRefHandler attached mouse events to the tooltip in order to keep it open while the mouse is over
 	-- this is only used in the event we have a secondaryAction
@@ -162,6 +255,9 @@ function TooltipButton(props: TooltipButtonProps)
 		end
 	end, { setTooltipHovered })
 
+	local displayTooltip = (isHovered or isTooltipHovered) and not clickLatched
+	logTooltipState(props.integration.id, displayTooltip)
+
 	return withTooltip({
 		headerText = props.integration.integration.label,
 		hotkeyCodes = props.integration.integration.hotkeyCodes,
@@ -176,7 +272,7 @@ function TooltipButton(props: TooltipButtonProps)
 			else nil,
 		ref = if secondaryAction then tooltipRefHandler else nil,
 	}, {
-		active = (isHovered or isTooltipHovered) and not clickLatched,
+		active = displayTooltip,
 		guiTarget = CoreGui,
 		DisplayOrder = 10,
 	}, renderTooltipComponent)

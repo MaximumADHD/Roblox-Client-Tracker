@@ -68,36 +68,46 @@ local function FriendListContainer(passedProps: Props)
 		end, { props.localUserId })
 
 		local selectFriends = React.useCallback(function(state: any)
-			local selectFriends = {}
+			local friendIds = {}
 			if props.localUserId then
-				selectFriends = state.Friends.byUserId[tostring(props.localUserId)] or {}
+				friendIds = state.Friends.byUserId[tostring(props.localUserId)] or {}
 			end
 
-			return selectFriends
+			local list = {}
+			for _, friendId in ipairs(friendIds) do
+				local friend = state.Users.byUserId[tostring(friendId)]
+				if friend then
+					list[#list + 1] = friend
+				end
+			end
+
+			return list
 		end)
 
-		local friendUserIds = useSelector(selectFriends)
+		local friendsList = useSelector(selectFriends)
 
 		local friends = {}
 		friends["UIListLayout"] = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 		})
 
-		for index, friendUserId in ipairs(friendUserIds) do
+		for index, friend in ipairs(friendsList) do
 			friends[index] = React.createElement(FriendListItem, {
-				userId = friendUserId,
+				userId = friend.id,
+				userName = friend.username,
+				displayName = friend.displayName,
 				dismissCallback = props.dismissCallback,
 			})
 		end
 
 		local friendList: any = React.useMemo(function()
-			if #friendUserIds == 0 then
+			if #friendsList == 0 then
 				-- TODO (timothyhsu): Localization
 				friends["NoFriendsText"] = noFriendsText
 			end
 
 			return friends
-		end, { friendUserIds })
+		end, { friendsList })
 
 		return React.createElement("ScrollingFrame", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -113,8 +123,7 @@ local function FriendListContainer(passedProps: Props)
 
 		React.useEffect(function()
 			local playerAddedConn = Players.PlayerAdded:Connect(function(player)
-				local userId = player.UserId
-				setAllPlayers(Cryo.Dictionary.join(allPlayers, { userId = userId }))
+				setAllPlayers(Cryo.Dictionary.join(allPlayers, { userId = player }))
 			end)
 
 			local playerRemovingConn = Players.PlayerRemoving:Connect(function(player)
@@ -129,7 +138,7 @@ local function FriendListContainer(passedProps: Props)
 
 		for i, player in ipairs(Players:GetPlayers()) do
 			if player.UserId ~= localPlayer.UserId then
-				allPlayers[player.UserId] = player.UserId
+				allPlayers[player.UserId] = player
 			end
 		end
 
@@ -139,10 +148,12 @@ local function FriendListContainer(passedProps: Props)
 		})
 
 		local numPlayers = 0
-		for _, friendUserId in pairs(allPlayers) do
+		for _, player in pairs(allPlayers) do
 			numPlayers = numPlayers + 1
-			friends[friendUserId] = React.createElement(FriendListItem, {
-				userId = friendUserId,
+			friends[player.UserId] = React.createElement(FriendListItem, {
+				userId = player.UserId,
+				userName = player.Name,
+				displayName = player.DisplayName,
 				dismissCallback = props.dismissCallback,
 			})
 		end
@@ -153,7 +164,7 @@ local function FriendListContainer(passedProps: Props)
 			end
 
 			return friends
-		end, { allPlayers })
+		end, { numPlayers })
 
 		return React.createElement("ScrollingFrame", {
 			Size = UDim2.new(1, 0, 1, 0),

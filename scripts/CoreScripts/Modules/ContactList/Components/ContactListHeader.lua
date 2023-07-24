@@ -6,11 +6,14 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local Pages = require(ContactList.Enums.Pages)
+local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
 
+local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
 local Colors = UIBlox.App.Style.Colors
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
+local Images = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 
 local BUTTON_SIZE = 36
@@ -23,12 +26,13 @@ export type Props = {
 	headerHeight: number,
 	currentPage: Pages.PagesType,
 	dismissCallback: () -> (),
+	isDevMode: boolean?,
 }
 
 -- TODO (timothyhsu): Localization
 local getTitleFromPage = function(currentPage)
 	if currentPage == Pages.FriendList then
-		return "Friends List"
+		return "Start New Call"
 	elseif currentPage == Pages.CallHistory then
 		return "Recent Calls"
 	elseif currentPage == Pages.CallDetails then
@@ -40,8 +44,17 @@ end
 
 local ContactListHeader = function(props: Props)
 	local style = useStyle()
+	local dispatch = useDispatch()
 	local theme = style.Theme
 	local font = style.Font
+
+	local navigateToCallHistory = React.useCallback(function()
+		dispatch(SetCurrentPage(Pages.CallHistory))
+	end, {})
+
+	local navigateToNewCall = React.useCallback(function()
+		dispatch(SetCurrentPage(Pages.FriendList))
+	end)
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, props.headerHeight),
@@ -62,11 +75,17 @@ local ContactListHeader = function(props: Props)
 		}),
 		DismissButton = React.createElement(IconButton, {
 			size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-			iconSize = IconSize.Small,
+			icon = if not props.isDevMode or props.currentPage == Pages.CallHistory
+				then Images["icons/navigation/close"]
+				else Images["icons/navigation/pushBack"],
+			iconSize = if not props.isDevMode or props.currentPage == Pages.CallHistory
+				then IconSize.Small
+				else IconSize.Medium,
 			iconColor3 = Colors.White,
-			icon = "rbxassetid://12716504880",
 			layoutOrder = 1,
-			onActivated = props.dismissCallback,
+			onActivated = if not props.isDevMode or props.currentPage == Pages.CallHistory
+				then props.dismissCallback
+				else navigateToCallHistory,
 		}),
 		Divider = React.createElement("Frame", {
 			Size = UDim2.new(0, DIVIDER_WIDTH, 1, 0),
@@ -75,7 +94,7 @@ local ContactListHeader = function(props: Props)
 			LayoutOrder = 2,
 		}),
 		HeaderText = React.createElement("TextLabel", {
-			Size = UDim2.new(1, -(PADDING.X * 2 + IN_BETWEEN_PADDING * 2 + DIVIDER_WIDTH + BUTTON_SIZE), 0, 0),
+			Size = UDim2.new(1, -(IN_BETWEEN_PADDING * 3 + DIVIDER_WIDTH + BUTTON_SIZE * 2), 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Font = font.Header1.Font,
@@ -86,6 +105,16 @@ local ContactListHeader = function(props: Props)
 			TextTransparency = theme.TextEmphasis.Transparency,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
+		NewCallButton = if props.currentPage == Pages.CallHistory
+			then React.createElement(IconButton, {
+				size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
+				icon = Images["icons/actions/edit/add"],
+				iconSize = IconSize.Medium,
+				iconColor3 = Colors.White,
+				layoutOrder = 4,
+				onActivated = navigateToNewCall,
+			})
+			else nil,
 	})
 end
 

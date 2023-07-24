@@ -19,12 +19,13 @@ local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
-local ContrastBaseMenu = UIBlox.App.Menu.ContrastBaseMenu
+local BaseMenu = UIBlox.App.Menu.BaseMenu
 local SystemBar = UIBlox.App.Navigation.SystemBar
 local Placement = UIBlox.App.Navigation.Enum.Placement
 local Panel3D = UIBlox.Core.VR.Panel3D
 local VRConstants = UIBlox.Core.VR.Constants
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local withStyle = UIBlox.Core.Style.withStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -63,6 +64,10 @@ local FFlagVRBottomBarEnableMoreMenu = require(RobloxGui.Modules.Flags.FFlagVRBo
 local FFlagVRBottomBarHighlightedLeaveGameIcon = require(RobloxGui.Modules.Flags.FFlagVRBottomBarHighlightedLeaveGameIcon)
 
 local UsePositionConfig = FFlagVRBottomBarUsePositionConfig or FFlagVRBottomBarDebugPositionConfig or FFlagVRBottomBarEnableMoreMenu
+
+-- this var moves the gui and bottom bar together
+local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
+local scaleGuiDistance = GetFIntVRScaleGuiDistance() * 0.01
 
 -- This can be useful in cases where a flag configuration issue causes requiring a CoreScript to fail
 local function safeRequire(moduleScript)
@@ -320,8 +325,8 @@ end
 -- default bar init
 function VRBottomBar:init()
 	self:setState({
-		yOffset = OFFSET.Y, -- Remove when remove FFlagVRBottomBarDebugPositionConfig
-		zOffset = OFFSET.Z, -- Remove when remove FFlagVRBottomBarDebugPositionConfig
+		yOffset = OFFSET.Y * scaleGuiDistance, -- Remove when remove FFlagVRBottomBarDebugPositionConfig
+		zOffset = OFFSET.Z * scaleGuiDistance, -- Remove when remove FFlagVRBottomBarDebugPositionConfig
 		moreMenuOpen = false,
 		vrMenuOpen = true,
 		lookAway = false, -- whether player looks away from VRBottomBar
@@ -654,11 +659,12 @@ function VRBottomBar:updateItems()
 end
 
 -- VRBottomBar implements two UIBlox components
-function VRBottomBar:render()
+function VRBottomBar:renderWithStyle(style)
 	local basePartSize = GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel() and 0.2 or 0.15
 	if UsePositionConfig then
 		basePartSize = 0.2 + self.state.zOffset/10  -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
 	end
+	basePartSize = basePartSize * scaleGuiDistance
 
 	local itemList = self.state.itemList
 	local moreItemList = self.state.moreItemList
@@ -727,10 +733,11 @@ function VRBottomBar:render()
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 			}, {
-				MoreMenu = Roact.createElement(ContrastBaseMenu, {
+				MoreMenu = Roact.createElement(BaseMenu, {
 					anchorPoint = Vector2.new(0.5, 1),
 					buttonProps = moreItemList,
 					position = UDim2.new(0.5, 0, 1, -8),
+					background = style.Theme.BackgroundContrast,
 				}),
 				Caret = Roact.createElement(ImageSetLabel, {
 					AnchorPoint = Vector2.new(0.5, 1),
@@ -784,6 +791,12 @@ function VRBottomBar:render()
 			callback = self.onVREnabledChanged,
 		}),
 	})
+end
+
+function VRBottomBar:render()
+	return withStyle(function(style)
+		return self:renderWithStyle(style)
+	end)
 end
 
 function VRBottomBar:didUpdate(prevProps, prevState)

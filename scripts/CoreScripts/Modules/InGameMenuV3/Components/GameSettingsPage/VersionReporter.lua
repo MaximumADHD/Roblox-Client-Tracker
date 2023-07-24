@@ -30,8 +30,8 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
-local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
+local GetFFlagNewEventIngestPlayerScriptsDimensions =
+	require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 
 local canGetCoreScriptVersion = game:GetEngineFeature("CoreScriptVersionEnabled")
@@ -62,14 +62,17 @@ local function inferPlayerScriptStatus(starterPlayerScripts)
 		end
 	end
 
-	if GetFFlagEventIngestDefaultPlayerScripts() then
-		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
+	AnalyticsService:SetRBXEventStream(
+		Constants.AnalyticsTargetName,
+		"player_scripts_status",
+		"player_scripts_status_action",
+		{
 			defaultPlayerScripts = playerScriptStatus == Constants.PlayerScriptStatusStrings.Default,
 			placeID = tostring(game.PlaceId),
 			rawValue = if GetFFlagNewEventIngestPlayerScriptsDimensions() then playerScriptStatus else nil,
 			context = if GetFFlagNewEventIngestPlayerScriptsDimensions() then "IGMv3" else nil,
-		})
-	end
+		}
+	)
 
 	return playerScriptStatus
 end
@@ -127,7 +130,7 @@ function VersionReporter:render()
 		coreScriptVersion = canGetCoreScriptVersion and {
 			"CoreScripts.InGameMenu.GameSettings.ClientCoreScriptVersion",
 			CLIENT_CORESCRIPT_VERSION = self.state.coreScriptVersion,
-		} or nil
+		} or nil,
 	})(function(localized)
 		local clientVersion = localized.clientVersion
 
@@ -215,7 +218,7 @@ function VersionReporter:render()
 						placeVersion = game.PlaceVersion,
 					})
 				end,
-			})
+			}),
 		})
 	end)
 end
@@ -224,7 +227,8 @@ function VersionReporter:didMount()
 	self.mounted = true
 
 	coroutine.wrap(function()
-		local serverVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge) :: RemoteFunction
+		local serverVersionRemote =
+			RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge) :: RemoteFunction
 		local version = serverVersionRemote:InvokeServer()
 
 		if self.mounted then

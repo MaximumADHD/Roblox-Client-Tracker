@@ -1,4 +1,5 @@
 local Main = script.Parent.Parent.Parent
+local Types = require(Main.Src.Types)
 local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
@@ -10,17 +11,19 @@ local Dash = Framework.Dash
 local findIndex = Dash.findIndex
 
 local UI = Framework.UI
-local Decoration = UI.Decoration
 local Button = UI.Button
 local Checkbox = UI.Checkbox
 local Pane = UI.Pane
 local SelectInput = UI.SelectInput
+local Slider = UI.Slider
 local Tooltip = UI.Tooltip
-local TextLabel = UI.Decoration.TextLabel
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local Image = if FFlagDevFrameworkBetterInit then UI.Image else UI.Decoration.Image
+local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
+local SearchBar = if FFlagDevFrameworkBetterInit then UI.SearchBar else Framework.StudioUI.SearchBar
 
 local StyleModifier = Framework.Util.StyleModifier
-local StudioUI = Framework.StudioUI
-local SearchBar = StudioUI.SearchBar
 
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
@@ -30,6 +33,7 @@ local SelectTheme = require(Actions.SelectTheme)
 local SelectPlatform = require(Actions.SelectPlatform)
 local SetSearch = require(Actions.SetSearch)
 local SetLive = require(Actions.SetLive)
+local SetSettings = require(Actions.SetSettings)
 local EmbedStorybook = require(Thunks.EmbedStorybook)
 local GetStories = require(Thunks.GetStories)
 
@@ -54,6 +58,23 @@ function TopBar:init()
 	self.onToggleLive = function()
 		self.props.setLive(not self.props.Live)
 	end
+
+	self.onToggleReducedMotion = function()
+		local settings = {
+			reducedMotion = not self.props.Settings.reducedMotion,
+			preferredTransparency = self.props.Settings.preferredTransparency,
+		}
+		self.props.setSettings(settings)
+	end
+
+	self.onPreferredTransparencyChanged = function(value: number)
+		local settings = {
+			reducedMotion = self.props.Settings.reducedMotion,
+			preferredTransparency = value,
+		}
+		self.props.setSettings(settings)
+	end
+
 	self.onEmbedStorybook = function()
 		local isEmbedded = script:FindFirstAncestor("RunStorybook")
 		if not isEmbedded then
@@ -99,7 +120,7 @@ function TopBar:render()
 			Tooltip = Roact.createElement(Tooltip, {
 				Text = "Collapse all stories",
 			}),
-			Icon = Roact.createElement(Decoration.Image, {
+			Icon = Roact.createElement(Image, {
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -117,7 +138,7 @@ function TopBar:render()
 			Tooltip = Roact.createElement(Tooltip, {
 				Text = "Embed Storybook in the place",
 			}),
-			Icon = Roact.createElement(Decoration.Image, {
+			Icon = Roact.createElement(Image, {
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -138,11 +159,11 @@ function TopBar:render()
 		}),
 		SelectTheme = Roact.createElement(Pane, {
 			AnchorPoint = Vector2.new(1, 0),
-			Size = UDim2.new(0, sizes.SelectTheme, 1, 0),
+			Size = UDim2.new(0, sizes.SelectInput, 1, 0),
 			LayoutOrder = 8,
 		}, {
 			Input = Roact.createElement(SelectInput, {
-				Width = sizes.SelectTheme,
+				Width = sizes.SelectInput,
 				SelectedIndex = findIndex(THEMES, function(theme)
 					return theme == props.CurrentTheme
 				end) or 1,
@@ -158,16 +179,41 @@ function TopBar:render()
 		}),
 		SelectPlatform = Roact.createElement(Pane, {
 			AnchorPoint = Vector2.new(1, 0),
-			Size = UDim2.new(0, sizes.SelectTheme, 1, 0),
+			Size = UDim2.new(0, sizes.SelectInput, 1, 0),
 			LayoutOrder = 10,
 		}, {
 			Input = Roact.createElement(SelectInput, {
-				Width = sizes.SelectTheme,
+				Width = sizes.SelectInput,
 				SelectedIndex = findIndex(PLATFORMS, function(platform)
 					return platform == props.Platform
 				end) or 1,
 				Items = PLATFORMS,
 				OnItemActivated = props.selectPlatform,
+			}),
+		}),
+		ReducedMotion = Roact.createElement(Checkbox, {
+			LayoutOrder = 11,
+			Checked = props.Settings.reducedMotion,
+			OnClick = self.onToggleReducedMotion,
+			Text = "Reduced Motion",
+		}),
+		PreferredTransparencyLabel = Roact.createElement(TextLabel, {
+			Text = "Preferred Transparency:",
+			AutomaticSize = Enum.AutomaticSize.XY,
+			AnchorPoint = Vector2.new(0, 0),
+			LayoutOrder = 12,
+		}),
+		PreferredTransparencySlider = Roact.createElement(Pane, {
+			AnchorPoint = Vector2.new(1, 0),
+			Size = UDim2.new(0, sizes.Slider, 1, 0),
+			LayoutOrder = 13,
+		}, {
+			Slider = Roact.createElement(Slider, {
+				Min = 0,
+				Max = 1,
+				Value = props.Settings.preferredTransparency,
+				OnValueChanged = self.onPreferredTransparencyChanged,
+				ShowInput = true,
 			}),
 		}),
 	})
@@ -183,6 +229,7 @@ return RoactRodux.connect(function(state, props)
 		CurrentTheme = state.Stories.theme,
 		Live = state.Stories.live,
 		Platform = state.Stories.platform,
+		Settings = state.Stories.settings,
 	}
 end, function(dispatch)
 	return {
@@ -198,6 +245,9 @@ end, function(dispatch)
 		end,
 		setLive = function(live: boolean)
 			dispatch(SetLive(live))
+		end,
+		setSettings = function(settings: Types.Settings)
+			dispatch(SetSettings(settings))
 		end,
 		embedStorybook = function()
 			dispatch(EmbedStorybook())

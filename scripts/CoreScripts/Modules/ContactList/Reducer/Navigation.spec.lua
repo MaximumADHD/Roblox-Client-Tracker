@@ -20,7 +20,7 @@ return function()
 			local oldState = Navigation(nil, {})
 			local openState = Navigation(oldState, OpenContactList("tag"))
 			expect(oldState).to.never.equal(openState)
-			expect(openState.currentPage).to.equal(Pages.FriendList)
+			expect(openState.currentPage).to.equal(Pages.CallHistory)
 			expect(openState.currentTag).to.equal("tag")
 
 			local closeState = Navigation(openState, CloseContactList())

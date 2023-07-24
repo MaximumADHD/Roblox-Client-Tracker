@@ -25,8 +25,6 @@ local ANON_LABEL = "<anonymous>"
 
 local ProfilerViewEntry = Roact.PureComponent:extend("ProfilerViewEntry")
 
-local FFlagScriptProfilerDefaultExpandRoot = game:DefineFastFlag("ScriptProfilerDefaultExpandRoot", false)
-
 type BorderedCellLabelProps = {
 	text: string,
 	size: UDim2,
@@ -53,7 +51,7 @@ end
 function ProfilerViewEntry:init()
 
 	self.state = {
-		expanded = FFlagScriptProfilerDefaultExpandRoot and (self.props.depth == 0),
+		expanded = self.props.depth == 0,
 		showTooltip = false,
 		tooltipPos = UDim2.fromOffset(0, 0)
 	}

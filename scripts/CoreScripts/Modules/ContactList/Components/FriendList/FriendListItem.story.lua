@@ -15,6 +15,8 @@ return {
 		FriendListItem = function(props)
 			return React.createElement(FriendListItem, {
 				userId = "12345678",
+				userName = "user name",
+				displayName = "display name",
 				dismissCallback = function() end,
 			})
 		end,

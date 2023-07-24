@@ -11,6 +11,7 @@ export type ChatPolicies = Package.ChatPolicies
 export type SharePolicies = Package.SharePolicies
 export type ShareTargetGamePolicies = Package.ShareTargetGamePolicies
 export type Policies = Package.Policies
+export type MorePageLayout = Package.MorePageLayout
 
 
 return Package

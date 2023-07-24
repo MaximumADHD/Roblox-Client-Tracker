@@ -55,6 +55,8 @@ local myStandardizedFields = {
 local MIN_MUSIC_LENGTH = 6 -- Sounds with length greater than 6 seconds are considered as "Music" (vs Sound Effect)
 local trackedSounds : { [Sound] : { any } } = {} -- Tracks ALL sounds, including sound effects.
 
+local enableThrottledTelemetry = GetFFlagEnableSoundTelemetry() and (math.random(0, 10000)) < GetFIntSoundTelemetryThrottlingPercentage()
+
 -- Only consider developer-uploaded sounds, not ambient experience sounds (eg. footfalls from walking around)
 local function isRbxAssetId(soundId: string)
 	return soundId:find("rbxassetid://")
@@ -133,7 +135,7 @@ end
 
 local function logTelemetryEvent(sound: Sound, eventName: string, numTimesLooped: number?)
 	-- Throttle number of clients sending events
-	if GetFFlagEnableSoundTelemetry() and (math.random(0, 10000)) < GetFIntSoundTelemetryThrottlingPercentage() then
+	if enableThrottledTelemetry then
 		if isMusic(sound) then
 			local groupVolume = if sound.SoundGroup then sound.SoundGroup.Volume else 1 -- 1 if not part of a group
 			local loopCount = if eventName == "DidLoop" then numTimesLooped else 0 -- 0 if not looped
@@ -261,23 +263,27 @@ local function unhookSoundEvents(sound: Sound)
 	trackedSounds[sound] = nil
 end
 
-for _, instance in ipairs(game:GetDescendants()) do
-	if instance:IsA("Sound") and not trackedSounds[instance] then
-		hookupSoundEvents(instance)
+local shouldHookupSoundEvents = GetFFlagEnableSoundSessionTelemetry() or enableThrottledTelemetry
+
+if shouldHookupSoundEvents then 
+	for _, instance in ipairs(game:GetDescendants()) do
+		if instance:IsA("Sound") and not trackedSounds[instance] then
+			hookupSoundEvents(instance)
+		end
 	end
+
+	game.DescendantAdded:Connect(function(instance)
+		if instance:IsA("Sound") and not trackedSounds[instance] then
+			hookupSoundEvents(instance)
+		end
+	end)
+
+	game.DescendantRemoving:Connect(function(instance)
+		if instance:IsA("Sound") and trackedSounds[instance] then
+			unhookSoundEvents(instance)
+		end
+	end)
 end
-
-game.DescendantAdded:Connect(function(instance)
-	if instance:IsA("Sound") and not trackedSounds[instance] then
-		hookupSoundEvents(instance)
-	end
-end)
-
-game.DescendantRemoving:Connect(function(instance)
-	if instance:IsA("Sound") and trackedSounds[instance] then
-		unhookSoundEvents(instance)
-	end
-end)
 
 if GetFFlagEnableSoundSessionTelemetry() then
 	game.Close:Connect(function() 

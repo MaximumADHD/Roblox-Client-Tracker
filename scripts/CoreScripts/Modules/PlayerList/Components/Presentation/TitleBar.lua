@@ -17,6 +17,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local TitleBar = Roact.PureComponent:extend("TitleBar")
 
@@ -92,12 +93,15 @@ function TitleBar:render()
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				})
 			end
+			local backgroundColor = if ChromeEnabled()
+				then style.Theme.BackgroundUIContrast.Color
+				else style.Theme.BackgroundContrast.Color
 
 			return Roact.createElement("Frame", {
 				Size = self.props.Size,
 				LayoutOrder = self.props.LayoutOrder,
 				BackgroundTransparency = self.props.backgroundTransparency,
-				BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+				BackgroundColor3 = backgroundColor,
 				BorderSizePixel = 0,
 			}, {
 				Divider = Roact.createElement("Frame", {

@@ -44,6 +44,30 @@ function DebugCanvas:render()
 			})
 		end
 	end
+	
+	for adId, v in pairs(self.props.identifiedAds) do
+		local bb = v.boundingBox
+		children[#children + 1] = React.createElement("Frame", {
+			Position = UDim2.fromScale(bb.min.X, bb.min.Y),
+			Size = UDim2.fromScale(bb.max.X - bb.min.X, bb.max.Y - bb.min.Y),
+			BackgroundTransparency = 0.8,
+			BackgroundColor3 = Color3.fromRGB(20, 0, 255),
+		})
+		local hulls = v.visibleRegions 
+		for _, hull in hulls do 
+			local lhp = #hull.convexHull
+			for ihp, hp in hull.convexHull do
+				children[#children + 1] = React.createElement("Frame", {
+					Position = UDim2.new(hp.X, POINT_OFFSET, hp.Y, POINT_OFFSET),
+					Size = UDim2.fromOffset(POINT_SIZE, POINT_SIZE),
+					BackgroundTransparency = 0.2,
+					BackgroundColor3 = Color3.fromHSV(ihp / lhp, 1, 0.65),
+				})
+				
+			end
+		end
+		
+	end
 	return React.createElement("Frame", {
 		BackgroundTransparency = 0.9,
 		Size = UDim2.fromScale(1, 1),

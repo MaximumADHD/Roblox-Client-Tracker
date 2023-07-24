@@ -27,7 +27,7 @@ local function CallHistoryContainer(props: Props)
 	local dispatch = useDispatch()
 
 	React.useEffect(function()
-		dispatch(NetworkingCall.GetCallHistory.API({ limit = 4 }))
+		dispatch(NetworkingCall.GetCallHistory.API({ limit = 8 }))
 
 		return function()
 			dispatch(RoduxCall.Actions.ClearCallRecords())

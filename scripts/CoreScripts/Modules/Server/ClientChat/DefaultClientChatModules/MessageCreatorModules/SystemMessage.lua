@@ -39,7 +39,7 @@ function CreateSystemMessageLabel(messageData, channelName)
 		end
 		ChannelButton = util:AddChannelButtonToBaseMessage(BaseMessage, useChannelColor, formatChannelName, messageData.OriginalChannel)
 		local numNeededSpaces = util:GetNumberOfSpaces(formatChannelName, useFont, useTextSize) + 1
-		BaseMessage.Text = string.rep(" ", numNeededSpaces) .. message
+		BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. message
 	end
 
 	local function GetHeightFunction(xSize)

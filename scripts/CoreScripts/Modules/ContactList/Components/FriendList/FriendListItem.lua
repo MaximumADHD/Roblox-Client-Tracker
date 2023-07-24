@@ -16,7 +16,6 @@ local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatar
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local GetPresencesFromUserIds = dependencies.NetworkingPresence.GetPresencesFromUserIds
-local GetUserV2FromUserId = dependencies.NetworkingUsers.GetUserV2FromUserId
 
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
 local UIBlox = dependencies.UIBlox
@@ -34,6 +33,8 @@ local localPlayer = Players.LocalPlayer :: Player
 
 export type Props = {
 	userId: number | string,
+	userName: string,
+	displayName: string,
 	dismissCallback: () -> (),
 }
 
@@ -77,15 +78,6 @@ local function FriendListItem(props: Props)
 		return state.Presence.byUserId[tostring(props.userId)]
 	end, { props.userId })
 	local presence = useSelector(selectUserPresence)
-
-	local selectUser = React.useCallback(function(state: any)
-		local user = state.Users.byUserId[tostring(props.userId)]
-		if not user then
-			dispatch(GetUserV2FromUserId.API(props.userId))
-		end
-		return state.Users.byUserId[tostring(props.userId)]
-	end, { props.userId })
-	local user = useSelector(selectUser)
 
 	local selectTag = React.useCallback(function(state: any)
 		return state.Navigation.currentTag
@@ -140,7 +132,7 @@ local function FriendListItem(props: Props)
 				Font = font.Body.Font,
 				LayoutOrder = 1,
 				LineHeight = 1.25,
-				Text = if user then user.displayName else "",
+				Text = props.displayName,
 				TextColor3 = theme.TextEmphasis.Color,
 				TextSize = font.BaseSize * font.Body.RelativeSize,
 				TextTransparency = theme.TextDefault.Transparency,
@@ -156,7 +148,7 @@ local function FriendListItem(props: Props)
 				Font = font.Body.Font,
 				LayoutOrder = 2,
 				LineHeight = 1.25,
-				Text = if user then "@" .. user.username else "",
+				Text = "@" .. props.userName,
 				TextColor3 = theme.TextDefault.Color,
 				TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 				TextTransparency = theme.TextDefault.Transparency,

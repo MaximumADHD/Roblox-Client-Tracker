@@ -1,7 +1,10 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+	local Rodux = require(CorePackages.Rodux)
+	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
+	local Reducer = require(script.Parent.Parent.Reducer)
 	local ContactListHeader = require(script.Parent.ContactListHeader)
 	local Pages = require(script.Parent.Parent.Enums.Pages)
 	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
@@ -14,14 +17,31 @@ return function()
 		Theme = AppDarkTheme,
 	}
 
+	local mockState = function(currentPage, callDetailParticipants)
+		return {
+			Navigation = {
+				currentPage = currentPage,
+				callDetailParticipants = callDetailParticipants,
+			},
+		}
+	end
+
 	it("should mount and unmount without errors hidden", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
+		local store = Rodux.Store.new(Reducer, mockState(nil, nil), {
+			Rodux.thunkMiddleware,
+		})
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
 		}, {
-			ContactListHeader = Roact.createElement(ContactListHeader, {
-				headerHeight = 48,
-				currentPage = Pages.FriendList,
-				dismissCallback = function() end,
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				ContactListHeader = Roact.createElement(ContactListHeader, {
+					headerHeight = 48,
+					currentPage = Pages.FriendList,
+					dismissCallback = function() end,
+				}),
 			}),
 		})
 

@@ -1,4 +1,8 @@
 --!strict
-local SelfieViewIcon = require(script.Components.SelfieViewIcon)
+local Icon = require(script.Components.Icon)
+local Window = require(script.Components.Window)
 
-return SelfieViewIcon
+return {
+	Icon = Icon,
+	Window = Window,
+}

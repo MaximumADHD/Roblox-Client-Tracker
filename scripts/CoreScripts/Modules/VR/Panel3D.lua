@@ -20,6 +20,7 @@ local CorePackages = game:GetService("CorePackages")
 local GetFFlagUIBloxVRFixUIJitter =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
 local FFlagVRFreeUIPanel = game:DefineFastFlag("VRFreeUIPanel", false)
+local FFlagVRHeadLockedFixUIPosition = game:DefineFastFlag("VRHeadLockedFixUIPosition", false)
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -410,7 +411,14 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		local userHeadCameraCF = VRUtil.GetUserCFrameWorldSpace(Enum.UserCFrame.Head)
 
 		if FFlagVRFreeUIPanel then
-			local cameraOrientation = cameraCF - cameraCF.p
+			local cameraOrientation
+			if FFlagVRHeadLockedFixUIPosition and not (workspace.CurrentCamera :: Camera).HeadLocked then
+				local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+				cameraOrientation = cameraCF * userHeadCF:Inverse()
+				cameraOrientation = cameraOrientation - cameraOrientation.p
+			else
+				cameraOrientation = cameraCF - cameraCF.p
+			end
 
 			local headInCameraSpace = userHeadCameraCF * cameraOrientation:Inverse()
 			local _, headYaw, _ = headInCameraSpace:ToEulerAnglesYXZ()

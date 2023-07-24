@@ -21,12 +21,48 @@ local UI = Framework.UI
 local Pane = UI.Pane
 
 local PanelEntry = require(Main.Src.Components.PanelEntry)
+local Types = require(Main.Src.Types)
 
 local PropsList = Roact.PureComponent:extend("PropsList")
 
+function formatCustomType(propName)
+	return propName:gsub("^%l", string.upper)
+end
+
+local arrayFormat = "Array<%s>"
+function PropsList:renderPropType(
+	propName: string,
+	propType: string | Types.PropType,
+	layoutOrder: number,
+	textStyle: any
+)
+	local text = ""
+	if typeof(propType) == "string" then
+		text = propType
+	else
+		-- If the type is not a string, this is a complex prop type so we make a custom type name.
+		-- In the future we should support showing the full details of the complex prop type.
+		-- https://roblox.atlassian.net/browse/STUDIOPLAT-31697
+		local customType = formatCustomType(propName)
+		text = if propType.Qualifier == Types.PropTypeQualifiers.Array
+			then string.format(arrayFormat, customType)
+			else customType
+	end
+
+	return Roact.createElement("TextLabel", {
+		AutomaticSize = Enum.AutomaticSize.XY,
+		Text = text,
+		Font = textStyle.Mono.Font,
+		TextSize = textStyle.Mono.Size,
+		TextColor3 = textStyle.Type.Color,
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+	})
+end
+
 function PropsList:renderProp(
-	name: string,
-	type: string,
+	propName: string,
+	propType: string | Types.PropType,
 	isOptional: boolean?,
 	default: any?,
 	comment: string?,
@@ -54,33 +90,23 @@ function PropsList:renderProp(
 		}, {
 			Name = Roact.createElement("TextLabel", {
 				AutomaticSize = Enum.AutomaticSize.XY,
-				Text = name .. if isOptional then "?" else "",
+				Text = propName .. if isOptional then "?" else "",
 				Font = Enum.Font.SourceSans,
 				TextSize = text.Type.Size,
 				TextColor3 = text.Header.Color,
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
 			}),
-			Type = Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Text = type,
-				Font = text.Mono.Font,
-				TextSize = text.Mono.Size,
-				TextColor3 = text.Type.Color,
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}),
+			Type = self:renderPropType(propName, propType, 2, text),
 			Default = default and Roact.createElement("TextLabel", {
 				AutomaticSize = Enum.AutomaticSize.XY,
-				Text = '(default: <font face="'
-					.. text.Mono.Font.Name
-					.. '" weight="'
-					.. text.Default.Weight.Name
-					.. '" size="'
-					.. tostring(text.Mono.Size)
-					.. '">'
-					.. tostring(default)
-					.. "</font>)",
+				Text = string.format(
+					'(default: <font face="%s" weight="%s" size="%s">%s</font>)',
+					text.Mono.Font.Name,
+					text.Default.Weight.Name,
+					tostring(text.Mono.Size),
+					tostring(default)
+				),
 				Font = Enum.Font.SourceSans,
 				TextSize = text.Type.Size,
 				TextColor3 = text.Default.Color,

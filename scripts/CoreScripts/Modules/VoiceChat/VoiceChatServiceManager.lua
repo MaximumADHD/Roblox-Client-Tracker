@@ -11,6 +11,7 @@ local runService = game:GetService('RunService')
 local SoundService = game:GetService("SoundService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local NotificationService = game:GetService("NotificationService")
+local LocalizationService = game:GetService("LocalizationService")
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagEnableVoiceChatRejoinOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatRejoinOnBlock)
@@ -47,6 +48,8 @@ local GetFFlagLuaConsumePlayerModerated = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagUseLuaSignalrConsumer = require(RobloxGui.Modules.Flags.GetFFlagUseLuaSignalrConsumer)
 local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceNudge)
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
+local GetFFlagEnableNudgeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableNudgeAnalytics)
+local GetFFlagVoiceBanPromptShowSeconds = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanPromptShowSeconds)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -793,8 +796,14 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 
 		local banEnd = ""
 		if self.bannedUntil ~= nil then
-			banEnd = os.date("%x", self.bannedUntil.Seconds)
+			banEnd = if GetFFlagVoiceBanPromptShowSeconds()
+			then DateTime.fromUnixTimestamp(self.bannedUntil.Seconds):FormatLocalTime("l LT", LocalizationService.RobloxLocaleId)
+			else os.date("%x", self.bannedUntil.Seconds)
+			print(banEnd)
 		end
+		local isNudge = GetFFlagEnableNudgeAnalytics() and (
+			promptType == VoiceChatPromptType.VoiceToxicityModal or promptType == VoiceChatPromptType.VoiceToxicityToast
+		)
 		self.voiceChatPromptInstance = Roact.mount(Roact.createElement(VoiceChatPrompt, {
 			Analytics = Analytics.new(),
 			promptSignal = self.promptSignal.Event,
@@ -803,12 +812,30 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 			errorText = errorText,
 			onReadyForSignal = onReadyForSignal,
 			onContinueFunc = if promptType == VoiceChatPromptType.VoiceChatSuspendedTemporary
-				then function() PostInformedOfBan(bind(self, 'PostRequest'), true) end
-				else nil,
-			onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
-				then function() self:ShowVoiceToxicityFeedbackToast() end
-				else nil,
-		}), CoreGui, "RobloxVoiceChatPromptGui")
+					then function()
+						PostInformedOfBan(bind(self, "PostRequest"), true)
+					end
+					elseif isNudge then function()
+						self.Analytics:reportClosedNudge(self:GetNudgeAnalyticsData())
+					end
+					else nil,
+				onPrimaryActivated = if isNudge
+					then function()
+						self.Analytics:reportAcknowledgedNudge(self:GetNudgeAnalyticsData())
+					end
+					else nil,
+				onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
+					then function()
+						self:ShowVoiceToxicityFeedbackToast()
+					end
+					elseif isNudge then function()
+						self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
+					end
+					else nil,
+			}),
+			CoreGui,
+			"RobloxVoiceChatPromptGui"
+		)
 	end
 end
 
@@ -878,6 +905,10 @@ end
 function VoiceChatServiceManager:ShowVoiceToxicityFeedbackToast()
 	log:debug("Sending feedback toast")
 	self:showPrompt(VoiceChatPromptType.VoiceToxicityFeedbackToast)
+end
+
+function VoiceChatServiceManager:GetNudgeAnalyticsData()
+	return PlayersService.LocalPlayer.UserId, self.service:GetSessionId()
 end
 
 function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
@@ -1090,13 +1121,19 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		if GetFFlagEnableVoiceNudge() then
 			log:trace('Setting up voice nudge handlers')
 			local voiceToxicityModalConnection = self:GetSignalREvent("VoiceToxicityModal")
-			self.voiceToxicityModalConnection = voiceToxicityModalConnection:Connect(function()
+			self.voiceToxicityModalConnection = voiceToxicityModalConnection:Connect(function(detail)
+				if GetFFlagEnableNudgeAnalytics() then
+					self.Analytics:reportReceivedNudge(detail, self:GetNudgeAnalyticsData())
+				end
 				log:debug("Showing Voice Toxicity Modal")
 				self:showPrompt(VoiceChatPromptType.VoiceToxicityModal)
 			end)
 
 			local VoiceToxicityToastConnection = self:GetSignalREvent("VoiceToxicityToast")
-			self.VoiceToxicityToastConnection = VoiceToxicityToastConnection:Connect(function()
+			self.VoiceToxicityToastConnection = VoiceToxicityToastConnection:Connect(function(detail)
+				if GetFFlagEnableNudgeAnalytics() then
+					self.Analytics:reportReceivedNudge(detail, self:GetNudgeAnalyticsData())
+				end
 				log:debug("Showing Voice Toxicity Toast")
 				self:showPrompt(VoiceChatPromptType.VoiceToxicityToast)
 			end)

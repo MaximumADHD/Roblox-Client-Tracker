@@ -4,13 +4,23 @@ local React = require(CorePackages.Packages.React)
 local ChromeService = require(script.Parent.Parent.Service)
 local CommonIcon = require(script.Parent.CommonIcon)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
+local WindowSizeSignal = require(script.Parent.Parent.Service.WindowSizeSignal)
 
-return ChromeService:register({
+local UIBlox = require(CorePackages.UIBlox)
+local Images = UIBlox.App.ImageSet.Images
+local IconButton = UIBlox.App.Button.IconButton
+
+local sizeIcon = Images["icons/navigation/cycleUp"]
+local isLargeSize = false
+local windowSize = WindowSizeSignal.new(Constants.DEFAULT_WIDTH, Constants.DEFAULT_HEIGHT)
+
+local dummyWindowIntegraton = ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "dummy_window",
 	label = "Window",
-	startingWindowSize = UDim2.new(0, Constants.DEFAULT_WIDTH, 0, Constants.DEFAULT_HEIGHT),
-	startingWindowPosition = UDim2.new(1, -20, 0, 10),
+	draggable = true,
+	startingWindowPosition = UDim2.new(1, -95, 0, 165),
+	windowSize = windowSize,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/avatar_on")
@@ -20,10 +30,28 @@ return ChromeService:register({
 				BackgroundTransparency = 0,
 				Size = UDim2.new(1, 0, 1, 0),
 			}, {
-				corner = React.createElement("UICorner", {
+				Corner = React.createElement("UICorner", {
 					CornerRadius = Constants.CORNER_RADIUS,
+				}),
+				SizeIcon = React.createElement(IconButton, {
+					icon = sizeIcon,
+					iconSize = Constants.CLOSE_ICON_SIZE,
+					anchorPoint = Vector2.new(0.5, 1),
+					position = UDim2.new(0.5, 0, 1, 0),
+					backgroundTransparency = 0.5,
+					onActivated = function()
+						if isLargeSize then
+							windowSize:requestSize(Constants.DEFAULT_WIDTH, Constants.DEFAULT_HEIGHT)
+							isLargeSize = false
+						else
+							windowSize:requestSize(Constants.DEFAULT_WIDTH_LARGE, Constants.DEFAULT_HEIGHT_LARGE)
+							isLargeSize = true
+						end
+					end,
 				}),
 			})
 		end,
 	},
 })
+
+return dummyWindowIntegraton

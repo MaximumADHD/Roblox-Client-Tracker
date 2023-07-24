@@ -9,8 +9,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
 	id = "dummy_window_2",
 	label = "Window",
-	startingWindowSize = UDim2.new(0, Constants.DEFAULT_WIDTH_SMALL, 0, Constants.DEFAULT_HEIGHT_SMALL),
-	startingWindowPosition = UDim2.new(1, -200, 0, 10),
+	startingWindowPosition = UDim2.new(1, -245, 0, 95),
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/home_on")
@@ -20,7 +19,7 @@ return ChromeService:register({
 				BackgroundTransparency = 0,
 				Size = UDim2.new(1, 0, 1, 0),
 			}, {
-				corner = React.createElement("UICorner", {
+				Corner = React.createElement("UICorner", {
 					CornerRadius = Constants.CORNER_RADIUS,
 				}),
 			})

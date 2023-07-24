@@ -23,6 +23,7 @@ local SetStories = require(Main.Src.Actions.SetStories)
 local ToggleEmbedded = require(Main.Src.Actions.ToggleEmbedded)
 local SetSearch = require(Main.Src.Actions.SetSearch)
 local SetLive = require(Main.Src.Actions.SetLive)
+local SetSettings = require(Main.Src.Actions.SetSettings)
 local CollapseTree = require(Main.Src.Actions.CollapseTree)
 
 -- Copy the input tree of children, returning a filtered tree of items whose names match the filter
@@ -54,6 +55,7 @@ end
 export type State = {
 	theme: string?,
 	platform: string,
+	settings: Types.Settings,
 	embedded: boolean,
 	searchFilter: string,
 	searchStories: Types.Array<Types.StoryItem>,
@@ -70,6 +72,10 @@ return Rodux.createReducer({
 	searchStories = {},
 	theme = nil,
 	platform = "Default",
+	settings = {
+		reducedMotion = false,
+		preferredTransparency = 1,
+	},
 	expandedSearchStories = {},
 	stories = {},
 	selectedStory = nil,
@@ -135,6 +141,11 @@ return Rodux.createReducer({
 	[SetLive.name] = function(state: State, action: SetLive.Props): State
 		return join(state, {
 			live = action.live,
+		})
+	end,
+	[SetSettings.name] = function(state: State, action: SetSettings.Props): State
+		return join(state, {
+			settings = action.settings,
 		})
 	end,
 })

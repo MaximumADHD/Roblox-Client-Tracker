@@ -67,6 +67,8 @@ local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.Sh
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 
+local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
+
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -323,6 +325,12 @@ if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag(
 end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/PortalTeleportGUI", RobloxGui)
+
+if game:GetEngineFeature("PortalAdPrompt") then
+	if FFlagAdPortalTeleportPromptLua then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/AdTeleportPrompt", RobloxGui)
+	end
+end
 
 if GetFFlagPipEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PipInitialize", RobloxGui)

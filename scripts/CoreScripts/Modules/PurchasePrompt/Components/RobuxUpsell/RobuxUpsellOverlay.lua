@@ -6,6 +6,8 @@ local ContextActionService = game:GetService("ContextActionService")
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local UIBlox = PurchasePromptDeps.UIBlox
 local Images = UIBlox.App.ImageSet.Images
@@ -28,6 +30,7 @@ local XBOX_A_ICON = "icons/controls/keys/xboxA"
 local XBOX_B_ICON = "icons/controls/keys/xboxB"
 
 local GetFFlagDisablePurchasePromptFunctionForMaquettes = require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForMaquettes)
+local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
@@ -255,6 +258,12 @@ function RobuxUpsellOverlay:render()
 	local props: Props = self.props
 	local externalSettings = ExternalSettings.new()
 
+	local BUTTON_A_ICON = if GetFFlagUseDesignSystemGamepadIcons()
+		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
+		else Images[XBOX_A_ICON]
+	local BUTTON_B_ICON = if GetFFlagUseDesignSystemGamepadIcons()
+		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonB.png"
+		else Images[XBOX_B_ICON]
 	return Roact.createElement(RobuxUpsellFlow, {
 		screenSize = props.screenSize,
 
@@ -273,10 +282,10 @@ function RobuxUpsellOverlay:render()
 		u13ConfirmType = self:getU13ConfirmType(),
 
 		acceptControllerIcon = if props.isGamepadEnabled
-			then Images[XBOX_A_ICON]
+			then BUTTON_A_ICON
 			else nil,
 		cancelControllerIcon = if props.isGamepadEnabled
-			then Images[XBOX_B_ICON]
+			then BUTTON_B_ICON
 			else nil,
 
 		purchaseRobux = self.dispatchFetchPurchaseWarning,

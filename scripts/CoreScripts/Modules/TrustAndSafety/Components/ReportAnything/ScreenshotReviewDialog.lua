@@ -216,7 +216,7 @@ local function ScreenshotReviewDialog(props: Props)
 							}),
 						}),
 						Description = React.createElement("TextLabel", {
-							Text = "If the problem is not in this scene, you can “Retake”\nthe screenshot, or “Describe Scene” instead.",
+							Text = "If the problem is not in this scene, you can “Retake”\nthe screenshot.",
 							Font = font.Header1.Font,
 							LayoutOrder = 2,
 							TextColor3 = theme.TextEmphasis.Color,
@@ -257,7 +257,7 @@ local function ScreenshotReviewDialog(props: Props)
 									buttonType = ButtonType.Secondary,
 									props = {
 										onActivated = props.onSkip,
-										text = "Describe Scene",
+										text = "Attach Screenshot",
 									},
 								},
 								{

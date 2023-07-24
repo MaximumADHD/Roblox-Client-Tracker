@@ -55,10 +55,12 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				FriendListItem = Roact.createElement(
-					FriendListItem,
-					{ userId = "12345678", dismissCallback = function() end }
-				),
+				FriendListItem = Roact.createElement(FriendListItem, {
+					userId = "12345678",
+					userName = "user name",
+					displayName = "display name",
+					dismissCallback = function() end,
+				}),
 			}),
 		})
 

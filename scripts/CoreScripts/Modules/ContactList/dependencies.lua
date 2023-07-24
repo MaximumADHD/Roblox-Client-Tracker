@@ -58,9 +58,6 @@ return {
 	NetworkingPresence = LuaSocialLibrariesDeps.NetworkingPresence.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
-	NetworkingUsers = LuaSocialLibrariesDeps.NetworkingUsers.config({
-		roduxNetworking = myRoduxNetworking,
-	}),
 	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
 	}),

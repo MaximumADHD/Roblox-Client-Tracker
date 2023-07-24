@@ -1,4 +1,10 @@
+local CorePackages = game:GetService("CorePackages")
+
+local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+
 local utils = require(script.Parent.ChromeUtils)
+local ViewportUtil = require(script.Parent.ViewportUtil)
+local WindowSizeSignal = require(script.Parent.WindowSizeSignal)
 local ObservableValue = utils.ObservableValue
 local NotifySignal = utils.NotifySignal
 local AvailabilitySignal = utils.AvailabilitySignal
@@ -7,7 +13,7 @@ local Types = require(script.Parent.Types)
 -- todo: Consider how ChromeService could support multiple UI at the same time, not only the Unibar
 --       Does there need to be another layer "IntegrationsService" that ChromeService can pull from?
 
-local ChromeService = {}
+local ChromeService = {} :: ChromeService
 ChromeService.__index = ChromeService
 
 ChromeService.AvailabilitySignal = utils.AvailabilitySignalState
@@ -23,9 +29,13 @@ export type ObservableMenuList = utils.ObservableValue<Types.MenuList>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 
+export type ObservableDragConnection = utils.ObservableValue<{ current: RBXScriptConnection? }?>
+
 function noop() end
 
 export type ChromeService = {
+	__index: ChromeService,
+
 	Key: { [string]: string },
 	IntegrationStatus: { [string]: number },
 	MenuStatus: { [string]: number },
@@ -38,6 +48,7 @@ export type ChromeService = {
 	status: (ChromeService) -> ObservableMenuStatus,
 	menuList: (ChromeService) -> ObservableMenuList,
 	windowList: (ChromeService) -> ObservableWindowList,
+	dragConnection: (ChromeService, componentId: Types.IntegrationId) -> { current: RBXScriptConnection? }?,
 	register: (ChromeService, Types.IntegrationRegisterProps) -> Types.IntegrationProps,
 	updateMenuList: (ChromeService) -> (),
 	availabilityChanged: (ChromeService, Types.IntegrationProps) -> (),
@@ -47,7 +58,7 @@ export type ChromeService = {
 	configureReset: (ChromeService) -> (),
 	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
 	configureSubMenu: (ChromeService, parent: Types.IntegrationId, menuConfig: Types.IntegrationIdList) -> (),
-	gesture: (ChromeService, componentId: Types.IntegrationId) -> (),
+	gesture: (ChromeService, componentId: Types.IntegrationId, connection: { current: RBXScriptConnection? }?) -> (),
 	withinCurrentTopLevelMenu: (ChromeService, componentId: Types.IntegrationId) -> Types.IntegrationComponentProps?,
 	withinCurrentSubmenu: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	isMostRecentlyUsed: (ChromeService, componentId: Types.IntegrationId) -> boolean,
@@ -55,6 +66,25 @@ export type ChromeService = {
 	activate: (ChromeService, componentId: Types.IntegrationId) -> (),
 	toggleWindow: (ChromeService, componentId: Types.IntegrationId) -> (),
 	isWindowOpen: (ChromeService, componentId: Types.IntegrationId) -> boolean,
+	updateWindowSizeSignals: (ChromeService) -> (),
+	updateScreenSize: (ChromeService, screenSize: Vector2, isMobileDevice: boolean) -> (),
+
+	_status: ObservableMenuStatus,
+	_currentSubMenu: ObservableSubMenu,
+
+	_integrations: Types.IntegrationList,
+	_integrationsConnections: { [Types.IntegrationId]: { SignalLib.SignalHandle } },
+	_integrationsStatus: { [Types.IntegrationId]: number },
+	_menuConfig: Types.MenuConfig,
+	_subMenuConfig: { [Types.IntegrationId]: Types.IntegrationIdList },
+	_subMenuNotifications: { [Types.IntegrationId]: utils.NotifySignal },
+	_menuList: ObservableMenuList,
+	_dragConnection: { [Types.IntegrationId]: { current: RBXScriptConnection? }? },
+	_windowList: ObservableWindowList,
+	_totalNotifications: utils.NotifySignal,
+	_mostRecentlyUsedFullRecord: { Types.IntegrationId },
+	_mostRecentlyUsed: Types.IntegrationIdList,
+	_mostRecentlyUsedLimit: number,
 }
 
 local DummyIntegration = {
@@ -80,10 +110,79 @@ function ChromeService.new(): ChromeService
 	self._subMenuNotifications = {}
 	self._menuList = ObservableValue.new({})
 	self._windowList = ObservableValue.new({})
+	self._dragConnection = {}
 	self._totalNotifications = NotifySignal.new(true)
+	self._mostRecentlyUsedFullRecord = {}
 	self._mostRecentlyUsed = {}
 	self._mostRecentlyUsedLimit = 1
-	return (setmetatable(self, ChromeService) :: any) :: ChromeService
+
+	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
+
+	-- todo: Consider moving this outside of ChromeService to reduce dependency on Roblox instances
+	ViewportUtil.screenSize:connect(function(screenSize)
+		service:updateScreenSize(screenSize, ViewportUtil.mobileDevice:get())
+	end, true)
+
+	return service
+end
+
+function ChromeService:updateScreenSize(screenSize: Vector2, isMobileDevice: boolean)
+	-- Upon screen viewport resize:
+
+	-- 1) Configured the number of most recently used slots
+
+	local isPortrait = screenSize.Y > screenSize.X
+	local smallPortraitLimitPx = 375
+	local isTinyPortrait = isPortrait and screenSize.X < smallPortraitLimitPx
+
+	local mostRecentlyUsedSlots = 0
+
+	if isMobileDevice then
+		if isTinyPortrait then
+			mostRecentlyUsedSlots = 0
+		elseif isPortrait then
+			mostRecentlyUsedSlots = 1
+		else
+			mostRecentlyUsedSlots = 2
+		end
+	else
+		mostRecentlyUsedSlots = 4
+	end
+
+	-- 2) Repopulate most recently list if the slot count changes
+
+	if mostRecentlyUsedSlots ~= self._mostRecentlyUsedLimit then
+		-- only run if slot count changes; limit updates
+
+		self._mostRecentlyUsedLimit = mostRecentlyUsedSlots
+		table.clear(self._mostRecentlyUsed)
+
+		local i = #self._mostRecentlyUsedFullRecord
+		if i > 0 then
+			-- slice a subset of the full record to repopulate slots
+			table.move(
+				self._mostRecentlyUsedFullRecord, -- src
+				math.max(1, i - mostRecentlyUsedSlots + 1), -- src start index
+				i, -- src end index
+				1, -- dst insert index
+				self._mostRecentlyUsed -- dst
+			)
+		end
+
+		self:updateMenuList()
+		self:updateNotificationTotals()
+	end
+
+	-- 3) Update window size signals
+	self:updateWindowSizeSignals()
+end
+
+function ChromeService:updateWindowSizeSignals()
+	for i, v in self._integrations do
+		if v.windowSize then
+			v.windowSize:updateConstraints()
+		end
+	end
 end
 
 function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
@@ -159,6 +258,14 @@ function ChromeService:windowList()
 	return self._windowList
 end
 
+function ChromeService:dragConnection(componentId: Types.IntegrationId)
+	if self._integrations[componentId] then
+		return self._dragConnection[componentId]
+	else
+		return nil
+	end
+end
+
 -- Register an integration to be shown within Chrome UIs
 -- The Chrome service will monitor any changes to integration availability and notifications
 function ChromeService:register(component: Types.IntegrationRegisterProps): Types.IntegrationProps
@@ -191,7 +298,7 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 
 	if component.availability then
 		conns[#conns + 1] = component.availability:connect(function()
-			self:availabilityChanged(component)
+			self:availabilityChanged(component :: Types.IntegrationProps)
 		end)
 	end
 
@@ -199,6 +306,11 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 		conns[#conns + 1] = component.notification:connect(function()
 			self:updateNotificationTotals()
 		end)
+	end
+
+	-- Add a windowSize signal for integrations with windows if missing
+	if component.windowSize == nil and component.components and component.components.Window then
+		component.windowSize = WindowSizeSignal.new()
 	end
 
 	local populatedComponent = component :: Types.IntegrationProps
@@ -286,7 +398,7 @@ function ChromeService:updateMenuList()
 	end
 
 	local function collectMenu(
-		items: Types.MenuConfig | Types.MenuList,
+		items: Types.MenuConfig | Types.MenuList | Types.IntegrationIdList,
 		parent: any,
 		windowList: Types.WindowList,
 		recentlyUsedItem: boolean?
@@ -304,25 +416,31 @@ function ChromeService:updateMenuList()
 				if collectMenu(v, parent, windowList) > 0 then
 					table.insert(parent.children, divider(divId))
 				end
-			elseif self._subMenuConfig[v] then
-				-- This item has a sub-menu configured, populate the children
-				if valid(v) then
-					local child = iconProps(v, recentlyUsedItem)
-					validIconCount += 1
-					collectMenu(self._subMenuConfig[v], child, windowList)
-					if #child.children > 0 then
-						table.insert(parent.children, child)
-					end
-				end
 			else
-				-- Standard item addition, check for valid and add depending on integration type
-				if valid(v) then
-					local isWindowOpen = self:isWindowOpen(v)
-					if isWindowOpen then
-						table.insert(windowList, windowProps(v))
-					else
-						table.insert(parent.children, iconProps(v))
+				if typeof(v) ~= "string" then
+					error(`Only tables or strings should be passed into the items list, received {v} (at key {k})`)
+				end
+
+				if self._subMenuConfig[v] then
+					-- This item has a sub-menu configured, populate the children
+					if valid(v) then
+						local child = iconProps(v, recentlyUsedItem)
 						validIconCount += 1
+						collectMenu(self._subMenuConfig[v], child, windowList)
+						if #child.children > 0 then
+							table.insert(parent.children, child)
+						end
+					end
+				else
+					-- Standard item addition, check for valid and add depending on integration type
+					if valid(v) then
+						local isWindowOpen = self:isWindowOpen(v)
+						if isWindowOpen then
+							table.insert(windowList, windowProps(v))
+						else
+							table.insert(parent.children, iconProps(v))
+							validIconCount += 1
+						end
 					end
 				end
 			end
@@ -371,7 +489,8 @@ function ChromeService:updateNotificationTotals()
 		then
 			local notification = v.notification:get()
 			if notification and notification.type == "count" then
-				total += notification.value
+				assert(typeof(notification.value) == "number", "Expected count value to be number")
+				total += notification.value :: any
 			end
 		end
 	end
@@ -394,7 +513,8 @@ function ChromeService:updateNotificationTotals()
 				then
 					local notification = child.integration.notification:get()
 					if notification and notification.type == "count" then
-						total += notification.value
+						assert(typeof(notification.value) == "number", "Expected count value to be number")
+						total += notification.value :: any
 					end
 				end
 			end
@@ -403,7 +523,6 @@ function ChromeService:updateNotificationTotals()
 	end
 end
 
--- TODO update window list accordingly in below functions
 function ChromeService:configureReset()
 	self._menuConfig = {}
 	self._subMenuConfig = {}
@@ -426,9 +545,9 @@ function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig:
 	self:updateMenuList()
 end
 
-function ChromeService:gesture(componentId: Types.IntegrationId)
+function ChromeService:gesture(componentId: Types.IntegrationId, connection: { current: RBXScriptConnection? }?)
 	if self._integrations[componentId] then
-		-- show expand tab if there is a window component available
+		self._dragConnection[componentId] = connection
 	end
 end
 
@@ -478,11 +597,19 @@ end
 function ChromeService:setRecentlyUsed(componentId: Types.IntegrationId, force: boolean?)
 	if force or (self:withinCurrentSubmenu(componentId) and not self:isMostRecentlyUsed(componentId)) then
 		table.insert(self._mostRecentlyUsed, componentId)
-		while self._mostRecentlyUsedLimit > 0 and #self._mostRecentlyUsed > self._mostRecentlyUsedLimit do
+		while self._mostRecentlyUsedLimit >= 0 and #self._mostRecentlyUsed > self._mostRecentlyUsedLimit do
 			table.remove(self._mostRecentlyUsed, 1)
 		end
 		self:updateMenuList()
 		self:updateNotificationTotals()
+
+		-- In addition to updating the current slots, we also need to update the full (unbounded) record
+		-- This is used to repopulate slots if the number of slots grows or shrinks
+		local idx = table.find(self._mostRecentlyUsedFullRecord, componentId)
+		if idx then
+			table.remove(self._mostRecentlyUsedFullRecord, idx)
+		end
+		table.insert(self._mostRecentlyUsedFullRecord, componentId)
 	end
 end
 
@@ -494,11 +621,13 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 		--is part of current sub-menu
 		self:setRecentlyUsed(componentId)
 
-		if self._integrations[componentId].activated then
+		local integrationActivated = self._integrations[componentId].activated
+
+		if integrationActivated then
 			-- override default
 
 			local success, err = pcall(function()
-				self._integrations[componentId].activated(self._integrations[componentId])
+				integrationActivated(self._integrations[componentId])
 			end)
 			if not success then
 				warn("ChromeService: activate error thrown for " .. componentId)

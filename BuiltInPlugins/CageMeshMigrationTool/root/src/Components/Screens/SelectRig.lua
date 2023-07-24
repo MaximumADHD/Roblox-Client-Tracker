@@ -10,9 +10,12 @@ local Framework = require(root.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 
-local Button = Framework.UI.Button
-local TextLabel = Framework.UI.Decoration.TextLabel
-local InstanceTreeView = Framework.UI.InstanceTreeView
+local UI = Framework.UI
+local Button = UI.Button
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
+local InstanceTreeView = UI.InstanceTreeView
 
 local StyleKey = Framework.Style.StyleKey
 

@@ -28,6 +28,7 @@ local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
@@ -126,9 +127,13 @@ function PlayerEntry:init()
 end
 
 function PlayerEntry:getBackgroundStyle(layoutValues, style)
+	local backgroundColor = if ChromeEnabled()
+		then style.Theme.BackgroundUIContrast.Color
+		else style.Theme.BackgroundContrast.Color
+
 	if not layoutValues.IsTenFoot then
 		return {
-			Color = style.Theme.BackgroundContrast.Color,
+			Color = backgroundColor,
 			Transparency = 1,
 		}
 	end

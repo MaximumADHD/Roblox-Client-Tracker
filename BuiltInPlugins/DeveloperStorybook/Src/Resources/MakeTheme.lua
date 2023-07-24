@@ -13,7 +13,8 @@ local style = {
 	ErrorColor = StyleKey.WarningText,
 
 	Sizes = {
-		SelectTheme = 100,
+		SelectInput = 100,
+		Slider = 200,
 		SearchBar = 300,
 		TopBar = 42,
 		Gutter = 400,

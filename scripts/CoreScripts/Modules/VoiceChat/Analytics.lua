@@ -47,6 +47,10 @@ type AnalyticsWrapperMeta = {
 	reportBanMessageEvent: (AnalyticsWrapper, string) -> (),
 	reportReconnectDueToMissedSequence: (AnalyticsWrapper) -> (),
 	reportOutOfOrderSequence: (AnalyticsWrapper) -> (),
+	reportReceivedNudge: (AnalyticsWrapper, { type: string, deliveryTime: string }, number, string) -> (),
+	reportClosedNudge: (AnalyticsWrapper, number, string) -> (),
+	reportAcknowledgedNudge: (AnalyticsWrapper, number, string) -> (),
+	reportDeniedNudge: (AnalyticsWrapper, number, string) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -60,6 +64,9 @@ Analytics.WARNING = "warning"
 Analytics.ERROR = "error"
 
 type LogLevel = "info" | "warning" | "error"
+
+type NudgeCloseType = "ACKNOWLEDGED" | "CLOSED" | "DENIED"
+local closedNudgeType = "closedNudge"
 
 function Analytics.new(impl: AnalyticsService?)
 	if not impl then
@@ -137,6 +144,46 @@ function Analytics:reportOutOfOrderSequence()
 	if GetFFlagVoiceChatReportOutOfOrderSequence() then
 		self._impl:ReportCounter("voiceChat-outOfOrderSequence", 1)
 	end
+end
+
+function Analytics:reportReceivedNudge(report: { type: string, deliveryTime: string }, userId: number, voiceSessionId: string)
+	local deliveryTime = (DateTime.fromIsoDate(report.deliveryTime)::DateTime).UnixTimestampMillis
+	local durationInMs = DateTime.now().UnixTimestampMillis - deliveryTime
+	self._impl:ReportCounter("voicechat-receivednudge", 1)
+	self._impl:ReportCounter("voicechat-receivednudgeduration", durationInMs)
+	self._impl:SendEventDeferred("client", "voiceChat", "receivedNudge", {
+		type = report.type,
+		durationInMs = durationInMs,
+		userId = userId,
+		voiceSessionId = voiceSessionId,
+	})
+end
+
+function Analytics:reportClosedNudge(userId: number, voiceSessionId: string)
+	self._impl:ReportCounter("voicechat-closednudge", 1)
+	self._impl:SendEventDeferred("client", "voiceChat", closedNudgeType, {
+		userId = userId,
+		voiceSessionId = voiceSessionId,
+		closeType = "CLOSED" :: NudgeCloseType
+	})
+end
+
+function Analytics:reportAcknowledgedNudge(userId: number, voiceSessionId: string)
+	self._impl:ReportCounter("voicechat-acknowledgednudge", 1)
+	self._impl:SendEventDeferred("client", "voiceChat", closedNudgeType, {
+		userId = userId,
+		voiceSessionId = voiceSessionId,
+		closeType = "ACKNOWLEDGED" :: NudgeCloseType
+	})
+end
+
+function Analytics:reportDeniedNudge(userId: number, voiceSessionId: string)
+	self._impl:ReportCounter("voicechat-deniednudge", 1)
+	self._impl:SendEventDeferred("client", "voiceChat", closedNudgeType, {
+		userId = userId,
+		voiceSessionId = voiceSessionId,
+		closeType = "DENIED" :: NudgeCloseType
+	})
 end
 
 return Analytics

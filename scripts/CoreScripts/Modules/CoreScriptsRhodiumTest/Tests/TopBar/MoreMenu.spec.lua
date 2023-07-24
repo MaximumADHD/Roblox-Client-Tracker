@@ -68,7 +68,7 @@ return function()
 			local baseWidget = Element.new(path)
 			jestExpect(baseWidget:waitForRbxInstance(1)).toBeDefined()
 
-			local menuPath = path:cat(XPath.new("MoreMenuContainer.OverlayContextualMenu.PositionFrame.BaseMenu"))
+			local menuPath = path:cat(XPath.new("MoreMenuContainer.ContextualMenu.PositionFrame.BaseMenu"))
 			local menuElement = Element.new(menuPath)
 			jestExpect(menuElement:waitForRbxInstance(1)).toBeDefined()
 
@@ -149,7 +149,7 @@ return function()
 			jestExpect(baseWidget:waitForRbxInstance(1)).toBeDefined()
 
 			local childContainerPath = path:cat(
-				XPath.new("MoreMenu.MoreMenuContainer.OverlayContextualMenu.PositionFrame.BaseMenu.ClippingFrame.ScrollingFrame"))
+				XPath.new("MoreMenu.MoreMenuContainer.ContextualMenu.PositionFrame.BaseMenu.ClippingFrame.ScrollingFrame"))
 			local childContainerElement = Element.new(childContainerPath)
 			jestExpect(childContainerElement:waitForRbxInstance(1)).toBeDefined()
 

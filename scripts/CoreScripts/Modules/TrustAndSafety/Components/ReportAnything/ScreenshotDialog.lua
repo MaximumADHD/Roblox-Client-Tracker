@@ -250,6 +250,7 @@ local function ScreenshotDialog(props: Props)
 							}, {}),
 							DebugCanvas = React.createElement(DebugCanvas, {
 								identifiedAvatars = AbuseReportBuilder.getIdentifiedAvatars(),
+								identifiedAds = AbuseReportBuilder.getIdentifiedAds(),
 								ZIndex = 2,
 							}),
 							Highlighter = React.createElement(ScreenshotHighlighter, {

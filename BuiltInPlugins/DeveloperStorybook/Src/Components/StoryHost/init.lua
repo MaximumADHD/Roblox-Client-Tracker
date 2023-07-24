@@ -20,7 +20,9 @@ local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UI = Framework.UI
-local TextLabel = UI.Decoration.TextLabel
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
 local Pane = UI.Pane
 
 local Dash = Framework.Dash
@@ -39,6 +41,7 @@ type Props = {
 	StoryProps: Types.StoryProps,
 	ThemeName: string,
 	Platform: string,
+	Settings: Types.Settings,
 	Focus: any,
 	Stylizer: any,
 	Plugin: any,
@@ -136,6 +139,7 @@ function StoryHost:didUpdate(prevProps: Props)
 		props.StoryProps == prevProps.StoryProps
 		and props.ThemeName == prevProps.ThemeName
 		and props.Platform == prevProps.Platform
+		and props.Settings == prevProps.Settings
 	then
 		return
 	end
@@ -189,6 +193,7 @@ function StoryHost:getStoryProps(): Types.StoryProps
 		focus = props.Focus:get(),
 		theme = props.ThemeName,
 		platform = props.Platform,
+		settings = props.Settings,
 	})
 end
 

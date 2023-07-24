@@ -79,7 +79,29 @@ export type StoryProps = {
 
 export type ValueArray = Array<string | number>
 
+export type Settings = {
+	reducedMotion: boolean,
+	preferredTransparency: number,
+}
+
 -- Story controls are UI control components which display above your story and be used to control the incoming props to the story
 export type StoryControls = Record<string, boolean | number | string | ValueArray>
 
-return {}
+-- These are kept in sync with DocUtils prop type definition
+-- This package does not have a dependency on DocUtils so the types need to be redefined.
+export type Prop = {
+	Name: string,
+	Type: string | PropType,
+	IsOptional: boolean,
+	Default: any?,
+	Comment: string?,
+}
+
+local PropTypeQualifiers = { Array = "Array", Interface = "Interface" }
+export type PropTypeQualifier = typeof(PropTypeQualifiers.Array) | typeof(PropTypeQualifiers.Interface)
+
+export type PropType = { Qualifier: PropTypeQualifier, Props: { Prop } }
+
+return {
+	PropTypeQualifiers = PropTypeQualifiers,
+}

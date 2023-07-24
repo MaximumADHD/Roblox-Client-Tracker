@@ -16,8 +16,6 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local RoduxCall = dependencies.RoduxCall
 
-local isCurrentServer = require(ContactList.isCurrentServer)
-
 local ContactListContainer = require(ContactList.Components.ContactListContainer)
 local CallBarContainer = require(ContactList.Components.CallBarContainer)
 
@@ -51,7 +49,7 @@ return function(passedProps: Props)
 				and params.callerId == Players.LocalPlayer.UserId
 			then
 				coroutine.wrap(function()
-					if isCurrentServer(params.instanceId, false) then
+					if params.instanceId == game.JobId then
 						-- In the correct server, consider the teleport a
 						-- "success" to make call active.
 						props.callProtocol:teleportSuccessCall(params.callId)
@@ -68,32 +66,6 @@ return function(passedProps: Props)
 						)
 					end
 				end)()
-			end
-		end)
-
-		props.callProtocol:getCallState():andThen(function(params)
-			if
-				params.status == RoduxCall.Enums.Status.Teleporting.rawValue()
-				and Players.LocalPlayer
-				and params.callerId == Players.LocalPlayer.UserId
-			then
-				if isCurrentServer(params.instanceId, true) then
-					props.callProtocol:teleportSuccessCall(params.callId)
-				else
-					-- Caller has joined teleported to another server. End the call.
-					props.callProtocol:finishCall(params.callId)
-				end
-			elseif
-				params.status == RoduxCall.Enums.Status.Accepting.rawValue()
-				and Players.LocalPlayer
-				and params.calleeId == Players.LocalPlayer.UserId
-			then
-				if isCurrentServer(params.instanceId, true) then
-					props.callProtocol:answerSuccessCall(params.callId)
-				else
-					-- Callee has joined another server. Reject the call.
-					props.callProtocol:rejectCall(params.callId)
-				end
 			end
 		end)
 

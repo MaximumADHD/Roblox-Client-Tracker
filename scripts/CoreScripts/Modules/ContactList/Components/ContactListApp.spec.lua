@@ -5,7 +5,6 @@ return function()
 	local Players = game:GetService("Players")
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
-	local Promise = require(CorePackages.Promise)
 	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
@@ -120,17 +119,8 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	local function createMockCallProtocol(state: string)
+	local function createMockCallProtocol(state: string, instanceId: string)
 		local MockCallProtocol = {}
-
-		function MockCallProtocol:getCallState()
-			return Promise.resolve({
-				status = state,
-				callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
-				calleeId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
-				callId = "CALL_ID",
-			})
-		end
 
 		function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
 			-- Stub
@@ -145,162 +135,107 @@ return function()
 		return MockCallProtocol
 	end
 
-	it("should indicate the answer call was successful when joining the correct server", function(c: any)
-		local received = false
+	it(
+		"should not teleport the caller when the call becomes teleporting and caller is in correct private server",
+		function(c: any)
+			local received = false
+			local RemoteIrisInviteTeleport =
+				RobloxReplicatedStorage:FindFirstChild("ContactListIrisInviteTeleport") :: any
+			local connection = RemoteIrisInviteTeleport.OnServerEvent:Connect(function()
+				received = true
+			end)
 
-		local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Accepting.rawValue()) :: any
+			-- Blank instance id will match game.JobId.
+			local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Connecting.rawValue(), "") :: any
 
-		function MockCallProtocol:answerSuccessCall(callId: string)
-			received = callId == "CALL_ID"
-		end
+			function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
+				return MessageBus:Subscribe("TeleportTest", callback, false, true)
+			end
 
-		local store = Rodux.Store.new(Reducer, {
-			Call = {
-				callHistory = {
-					callRecords = {},
-				},
-				currentCall = {},
-			},
-			Navigation = {
-				currentPage = Pages.FriendList,
-				callDetailParticipants = { { userId = 1, username = "TestUser" } },
-			},
-		}, {
-			Rodux.thunkMiddleware,
-		})
+			local store = Rodux.Store.new(Reducer, {}, { Rodux.thunkMiddleware })
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
 			}, {
-				ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
-			}),
-		})
-		local folder = Instance.new("Folder")
-		local root = ReactRoblox.createRoot(folder)
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+					style = appStyle,
+				}, {
+					ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
+				}),
+			})
+			local folder = Instance.new("Folder")
+			local root = ReactRoblox.createRoot(folder)
 
-		act(function()
-			root:render(element)
-		end)
+			act(function()
+				root:render(element)
+			end)
 
-		expect(received).toBe(true)
+			MessageBus:Publish("TeleportTest", {
+				status = RoduxCall.Enums.Status.Teleporting.rawValue(),
+				callId = "123456",
+				callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
+				instanceId = "",
+			})
+			wait()
 
-		ReactRoblox.act(function()
-			root:unmount()
-		end)
-	end)
+			expect(received).toBe(false)
 
-	it("should indicate the teleport call was successful when joining the correct server", function(c: any)
-		local received = false
-
-		local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Teleporting.rawValue()) :: any
-
-		function MockCallProtocol:teleportSuccessCall(callId: string)
-			received = callId == "CALL_ID"
+			ReactRoblox.act(function()
+				connection:disconnect()
+				root:unmount()
+			end)
 		end
+	)
 
-		local store = Rodux.Store.new(Reducer, {
-			Call = {
-				callHistory = {
-					callRecords = {},
-				},
-				currentCall = {},
-			},
-			Navigation = {
-				currentPage = Pages.FriendList,
-				callDetailParticipants = { { userId = 1, username = "TestUser" } },
-			},
-		}, {
-			Rodux.thunkMiddleware,
-		})
+	it(
+		"should teleport the caller when the call becomes teleporting and caller is in incorrect private server",
+		function(c: any)
+			local received = false
+			local RemoteIrisInviteTeleport =
+				RobloxReplicatedStorage:FindFirstChild("ContactListIrisInviteTeleport") :: any
+			local connection = RemoteIrisInviteTeleport.OnServerEvent:Connect(function()
+				received = true
+			end)
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
+			local MockCallProtocol =
+				createMockCallProtocol(RoduxCall.Enums.Status.Connecting.rawValue(), "WRONG_GAME_INSTANCE_ID") :: any
+
+			function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
+				return MessageBus:Subscribe("TeleportTest", callback, false, true)
+			end
+
+			local store = Rodux.Store.new(Reducer, {}, { Rodux.thunkMiddleware })
+
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = store,
 			}, {
-				ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
-			}),
-		})
-		local folder = Instance.new("Folder")
-		local root = ReactRoblox.createRoot(folder)
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+					style = appStyle,
+				}, {
+					ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
+				}),
+			})
+			local folder = Instance.new("Folder")
+			local root = ReactRoblox.createRoot(folder)
 
-		act(function()
-			root:render(element)
-		end)
+			act(function()
+				root:render(element)
+			end)
 
-		expect(received).toBe(true)
+			MessageBus:Publish("TeleportTest", {
+				status = RoduxCall.Enums.Status.Teleporting.rawValue(),
+				callId = "123456",
+				callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
+				instanceId = "WRONG_GAME_INSTANCE_ID",
+			})
+			wait()
 
-		ReactRoblox.act(function()
-			root:unmount()
-		end)
-	end)
+			expect(received).toBe(true)
 
-	it("should teleport the caller when the call becomes teleporting and caller is in wrong server", function(c: any)
-		local received = false
-		local RemoteIrisInviteTeleport = RobloxReplicatedStorage:FindFirstChild("ContactListIrisInviteTeleport") :: any
-		local connection = RemoteIrisInviteTeleport.OnServerEvent:Connect(function()
-			received = true
-		end)
-
-		local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Connecting.rawValue()) :: any
-
-		function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
-			return MessageBus:Subscribe("TeleportTest", callback, false, true)
+			ReactRoblox.act(function()
+				connection:disconnect()
+				root:unmount()
+			end)
 		end
-
-		local store = Rodux.Store.new(Reducer, {
-			Call = {
-				callHistory = {
-					callRecords = {},
-				},
-				currentCall = {
-					status = RoduxCall.Enums.Status.Teleporting.rawValue(),
-					placeId = 789,
-					callId = "123456",
-					callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
-					instanceId = "INSTANCE_ID",
-				},
-			},
-			Navigation = {
-				currentPage = Pages.FriendList,
-				callDetailParticipants = { { userId = 1, username = "TestUser" } },
-			},
-		}, {
-			Rodux.thunkMiddleware,
-		})
-
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
-				ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
-			}),
-		})
-		local folder = Instance.new("Folder")
-		local root = ReactRoblox.createRoot(folder)
-
-		act(function()
-			root:render(element)
-		end)
-
-		MessageBus:Publish("TeleportTest", {
-			status = RoduxCall.Enums.Status.Teleporting.rawValue(),
-			callId = "123456",
-			callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
-		})
-		wait()
-
-		expect(received).toBe(true)
-
-		ReactRoblox.act(function()
-			connection:disconnect()
-			root:unmount()
-		end)
-	end)
+	)
 end

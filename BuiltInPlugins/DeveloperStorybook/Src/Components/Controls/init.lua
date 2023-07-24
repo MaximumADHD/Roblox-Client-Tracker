@@ -16,7 +16,9 @@ local Pane = UI.Pane
 local devFrameworkDeprecateTextInput = UI.TextInput2 == nil
 local DEPRECATED_TextInput = if devFrameworkDeprecateTextInput then UI.DEPRECATED_TextInput else UI.TextInput
 local SelectInput = UI.SelectInput
-local TextLabel = UI.Decoration.TextLabel
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
 
 local Dash = Framework.Dash
 local keys = Dash.keys

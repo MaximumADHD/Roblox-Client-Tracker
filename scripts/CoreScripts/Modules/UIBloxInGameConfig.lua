@@ -17,4 +17,5 @@ return {
 	useNewPlayerCount = UIBloxFlags.GetFFlagUIBloxUseNewPlayerCount(),
 	enableToastButton = UIBloxFlags.GetFFlagUIBloxEnableToastButton(),
 	usePlatformContentKeyLabels = UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels(),
+	enableNewMenuLayout = UIBloxFlags.GetFFlagUIBloxEnableNewMenuLayout(),
 }

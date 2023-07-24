@@ -12,12 +12,19 @@ local getIconSize = UIBlox.App.ImageSet.getIconSize
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
 local EnableInGameMenuControls = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuControls)
+local EnableInGameMenuModernization = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernization)
+local EnableInGameMenuModernizationBigText = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationBigText)
+local EnableInGameMenuModernizationStickyBar = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationStickyBar)
 local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 
 local AppFontBaseSize = AppFont.BaseSize
 
-local ThemeEnabled = EnableInGameMenuControls()
-local UseBottomButtonBarOnMobile = ExperienceMenuABTestManager.default:shouldShowNewNavigationLayout()
+local ThemeEnabled = EnableInGameMenuControls() or EnableInGameMenuModernization()
+
+local UseBiggerText = EnableInGameMenuModernizationBigText()
+local UseStickyBar = EnableInGameMenuModernizationStickyBar()
+local UseIconButtons = false
+local UseBottomButtonBarOnMobile = false
 
 local nominalSizeFactor = 0.833
 
@@ -82,7 +89,7 @@ local AppFont = {
 		TextSize = 18,
 	},
 	Username = {
-		RelativeSize = Enum.FontSize.Size14,
+		RelativeSize = if UseBiggerText then fontSizeMap[Enum.FontSize.Size24] else fontSizeMap[Enum.FontSize.Size18],
 	},
 	DisplayName = {
 		RelativeSize = Enum.FontSize.Size18,
@@ -165,14 +172,17 @@ local ComponentThemeKeys = {
 	HubBarHomeButtonTransparency = "IGM_Background",
 	HubBarHomeButtonTransparencyHover = "IGM_Background",
 
+	DarkenBackground = "Overlay",
+
 	PlayerRowFrame = "BackgroundDefault",
 	TabSelection = "IGM_TabSelection",
 
 	DefaultButton = "IGM_Button",
 	DefaultButtonHover = "IGM_ButtonHover",
-	DefaultButtonStroke = "IGM_Stroke",
+	DefaultButtonStroke = "SecondaryDefault",
+	WhiteButtonText = "SecondaryContent",
 
-	MenuContainer = "BackgroundContrast",
+	MenuContainer = "BackgroundUIContrast",
 
 	ControlInputText = "SystemPrimaryDefault",
 	ControlInputStroke = "Divider",
@@ -184,7 +194,7 @@ local ComponentThemeKeys = {
 	IconButton = "UIDefault",
 	IconButtonHover = "BackgroundOnHover",
 
-	ImageButton = "UIMuted",
+	ImageButton = "Divider",
 
 	RowFrameBackground = "BackgroundDefault",
 
@@ -195,7 +205,7 @@ local ComponentThemeKeys = {
 	SELECTED_COLOR = "IGM_Selected",
 	NON_SELECTED_COLOR = "BackgroundUIDefault",
 
-	NotInteractableSelection = "UIDefault",
+	NotInteractableSelection = "UIEmphasis",
 
 	Confirmation = "Confirmation_Font",
 	Button = "Button_Font",
@@ -309,10 +319,12 @@ if ThemeEnabled then
 			end
 		end,
 		UIBloxThemeEnabled = true,
-
+		UseIconButtons = UseIconButtons,
 		ShowHomeButton = ExperienceMenuABTestManager.default:shouldShowHomeButton(),
 		EnableVerticalBottomBar = UseBottomButtonBarOnMobile,
-
+		UseBiggerText = UseBiggerText,
+		UseStickyBar = UseStickyBar,
+		EnableDarkenBackground = true,
 		TabHeaderIconPadding = 5,
 		HubPadding =  function()
 			if IsSmallTouchScreen then
@@ -397,10 +409,14 @@ else
 		AlwaysShowBottomBar = function()
 			return false
 		end,
+		UseIconButtons = false,
 		UIBloxThemeEnabled = false,
 		EnableVerticalBottomBar = false,
 		DefaultStokeThickness = 1,
 		ShowHomeButton = true,
+		UseBiggerText = false,
+		UseStickyBar = false,
+		EnableDarkenBackground = false,
 		TabHeaderIconPadding = 0,
 		HubPadding =  function()
 			if IsSmallTouchScreen then

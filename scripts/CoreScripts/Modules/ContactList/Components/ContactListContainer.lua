@@ -26,6 +26,7 @@ local FriendListContainer = require(ContactList.Components.FriendList.FriendList
 
 local CloseContactList = require(ContactList.Actions.CloseContactList)
 local OpenContactList = require(ContactList.Actions.OpenContactList)
+local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
 
 local Pages = require(ContactList.Enums.Pages)
 
@@ -51,12 +52,31 @@ local function ContactListContainer(props: Props)
 	local isSmallScreen, setIsSmallScreen = React.useState(currentCamera.ViewportSize.X < 640)
 	local closePeekViewSignal = Signal.new()
 
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
+
+	local getIsDevMode = function()
+		if SharedRS then
+			local IsUserInDevModeRemoteFunction =
+				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
+			return IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
+		end
+
+		return false
+	end
+
+	local isDevMode = getIsDevMode()
+
 	if EnableSocialServiceIrisInvite then
 		React.useEffect(function()
 			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
 				function(player: any, tag: string)
 					if localPlayer and localPlayer.UserId == player.UserId then
-						dispatch(OpenContactList(tag))
+						if not getIsDevMode() then
+							dispatch(SetCurrentPage(Pages.FriendList))
+						else
+							dispatch(OpenContactList(tag))
+						end
 					end
 				end
 			)
@@ -104,17 +124,6 @@ local function ContactListContainer(props: Props)
 	elseif currentPage == Pages.CallDetails then
 		currentContainer = React.createElement(CallDetailsContainer) :: any
 	elseif currentPage == Pages.FriendList then
-		local ReplicatedStorage = game:GetService("ReplicatedStorage")
-		local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
-		local isDevMode
-		if SharedRS then
-			local IsUserInDevModeRemoteFunction =
-				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-			isDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
-		else
-			isDevMode = false
-		end
-
 		currentContainer = React.createElement(FriendListContainer, {
 			isDevMode = isDevMode,
 			dismissCallback = dismissCallback,
@@ -195,6 +204,7 @@ local function ContactListContainer(props: Props)
 					headerHeight = HEADER_HEIGHT,
 					layoutOrder = 1,
 					dismissCallback = dismissCallback,
+					isDevMode = isDevMode,
 				}),
 				ContentContainer = React.createElement("Frame", {
 					LayoutOrder = 2,

@@ -40,13 +40,16 @@ local cloneStreamTrack = nil
 
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
+local VRService = game:GetService("VRService")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
 local FFlagUseLoadStreamAnimationForClone = game:DefineFastFlag("UseLoadStreamAnimationForClone", false)
 local FFlagSelfViewFixCloneOrientation = game:DefineFastFlag("SelfViewFixCloneOrientation", false)
 local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent", false)
+local FFlagSelfViewMakeClonePartsNonTransparent2 = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent2", false)
 local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImprovements", false)
 local FFlagSelfViewDontHideOnSwapCharacter = game:DefineFastFlag("SelfViewDontHideOnSwapCharacter", false)
 local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
+local FFlagAvatarChatSelfViewShowDefaultCursor = game:DefineFastFlag("AvatarChatSelfViewShowDefaultCursor", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -54,6 +57,9 @@ local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RunService = game:GetService("RunService")
+local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
+local Symbol = require(CorePackages.Symbol)
+local INGAME_SELFVIEW_CUSOR_OVERRIDE_KEY = Symbol.named("SelfieViewCursorOverride")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local AppStorageService = game:GetService("AppStorageService")
@@ -142,6 +148,7 @@ local initialized = false
 local cloneCamUpdateCounter = 0
 local selfViewSessionStarted = false
 local cachedViewSessionStarted = false
+local didOverrideMouse = false
 --TODO: increase cloneCamUpdatePosEvery once we add easing to the cam framing code
 local cloneCamUpdatePosEvery = 1
 local hasCameraPermissions = false
@@ -159,8 +166,35 @@ local lastReportedCamState = false
 local toggleSelfViewSignalConnection
 local noDynamicHeadEquippedInfoShown = false
 local localPlayerHasDynamicHead = nil
+local r15bodyPartsToShow = {
+	"Head",
+	"UpperTorso",
+	"LowerTorso",
+	"Torso",
+	"LeftFoot",
+	"LeftLowerLeg",
+	"LeftUpperLeg",
+	"RightFoot",
+	"RightLowerLeg",
+	"RightUpperLeg",
+	"LeftHand",
+	"LeftLowerArm",
+	"LeftUpperArm",
+	"RightHand",
+	"RightLowerArm",
+	"RightUpperArm",
+}
 
-log:trace("Self View 06-14-2023__1!!")
+local r6bodyPartsToShow = {
+	"Head",
+	"Left Arm",
+	"Left Leg",
+	"Right Arm",
+	"Right Leg",
+	"Torso",
+}
+
+log:trace("Self View 07-17-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -423,9 +457,26 @@ local function processDrag(frame, inputPosition, dragStartPosition, frameStartPo
 	frame.Position = constrainTargetPositionToScreen(frame, screenSize, newPosition)
 end
 
+local function mouseEntered()
+	if FFlagAvatarChatSelfViewShowDefaultCursor then
+		if not VRService.VREnabled then
+			didOverrideMouse = true
+			MouseIconOverrideService.push(INGAME_SELFVIEW_CUSOR_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
+		end
+	end
+end
+
+local function mouseLeft()
+	if didOverrideMouse then
+		didOverrideMouse = false
+		MouseIconOverrideService.pop(INGAME_SELFVIEW_CUSOR_OVERRIDE_KEY)
+	end
+end
+
 -- Listen for drag input from the user
 local function inputBegan(frame, inputObj)
 	local inputType = inputObj.UserInputType
+
 	-- We only care about left clicks / touches
 	if inputType ~= Enum.UserInputType.MouseButton1 and inputType ~= Enum.UserInputType.Touch then
 		return
@@ -554,6 +605,14 @@ local function createViewport()
 	frame.InputBegan:Connect(function(input)
 		inputBegan(frame, input)
 	end)
+	if FFlagAvatarChatSelfViewShowDefaultCursor then
+		frame.MouseEnter:Connect(function()
+			mouseEntered()
+		end)
+		frame.MouseLeave:Connect(function()
+			mouseLeft()
+		end)
+	end
 	-- TODO AVBURST-10067 Disconnect event when applicable.
 	--gets enabled once we have a usable avatar
 	frame.Visible = false
@@ -1265,10 +1324,25 @@ local function updateClone(player)
 		end
 	end
 
-	if FFlagSelfViewMakeClonePartsNonTransparent then
+	if FFlagSelfViewMakeClonePartsNonTransparent and not FFlagSelfViewMakeClonePartsNonTransparent2 then
 		for _, part in ipairs( clone:GetDescendants()) do
 			if part:IsA("MeshPart") or part:IsA("Decal") then
 				part.Transparency = 0
+			end
+		end
+	end
+	if FFlagSelfViewMakeClonePartsNonTransparent and FFlagSelfViewMakeClonePartsNonTransparent2 then
+		for _, part in ipairs(clone:GetDescendants()) do
+			if part:IsA("Decal") then
+				part.Transparency = 0
+			elseif part:IsA("MeshPart") then
+				if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
+					part.Transparency = 0
+				end
+			elseif part:IsA("Part") then
+				if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r6bodyPartsToShow, part.Name)) then
+					part.Transparency = 0
+				end
 			end
 		end
 	end

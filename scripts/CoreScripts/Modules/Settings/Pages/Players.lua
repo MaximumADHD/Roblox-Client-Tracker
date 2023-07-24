@@ -774,6 +774,9 @@ local function Initialize()
 
 		if (isPortrait or utility:IsSmallTouchScreen()) and (not Theme.AlwaysShowBottomBar()) then
 			local buttonsFontSize = isPortrait and Theme.textSize(18) or Theme.textSize(24)
+			if Theme.UIBloxThemeEnabled and Theme.UseBiggerText then
+				buttonsFontSize = Theme.textSize(20)
+			end
 			buttonsContainer.Visible = not Theme.UIBloxThemeEnabled or not Theme.EnableVerticalBottomBar
 			if Theme.UIBloxThemeEnabled then
 				buttonsContainer.Size = UDim2.new(1, 0, 0, Theme.ButtonHeight)

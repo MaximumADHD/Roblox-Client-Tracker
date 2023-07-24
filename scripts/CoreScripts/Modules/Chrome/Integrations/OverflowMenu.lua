@@ -106,6 +106,10 @@ local submenuVisibility = MappedSignal.new(currentSubMenu:signal(), function()
 	return currentSubMenu:get() == "nine_dot"
 end)
 
+submenuVisibility:connect(function(menuVisible)
+	PlayerListMaster:SetMinimized(menuVisible)
+end)
+
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	notification = ChromeService:subMenuNotifications("nine_dot"),

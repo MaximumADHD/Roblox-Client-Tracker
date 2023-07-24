@@ -65,7 +65,6 @@ local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagO
 local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFFlagMuteButtonRaceConditionFix)
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
-local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
 local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
 local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
@@ -414,7 +413,7 @@ local function CreateSettingsHub()
 
 	local function updateIcon()
 		local buttonHint, buttonLabel
-		if Theme.UIBloxThemeEnabled then
+		if Theme.UseIconButtons then
 			if not buttonHintCached then
 				buttonHintCached = this.BottomButtonFrame:FindFirstChild("MuteButtonButtonIcon", true)
 				voiceButtonTextCached = this.BottomButtonFrame:FindFirstChild("MuteButtonButtonTextLabel", true)
@@ -520,6 +519,10 @@ local function CreateSettingsHub()
 			};
 
 			if Theme.UIBloxThemeEnabled then
+				if image == keyboardImage then
+					hintLabel.ImageColor3 = Theme.color("WhiteButtonText", Color3.new(1,1,1))
+					hintLabel.ImageTransparency = Theme.transparency("WhiteButtonText", 1)
+				end
 				hintLabel.Position = UDim2.new(0,9,0.5,0)
 				hintLabel.Size = UDim2.new(0,33,0,33)
 				hintLabel.AnchorPoint = Vector2.new(0.0,0.5)
@@ -672,7 +675,7 @@ local function CreateSettingsHub()
 
 	local function appendMicButton()
 
-		if Theme.UIBloxThemeEnabled then
+		if Theme.UseIconButtons then
 			if GetFFlagMuteButtonRaceConditionFix() and this.BottomButtonFrame:FindFirstChild("MuteButtonButtonIcon", true) then
 				return
 			end
@@ -682,7 +685,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if Theme.UIBloxThemeEnabled then
+		if Theme.UseIconButtons then
 			addBottomBarIconButton("MuteButton", nil, "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 			function ()
 				VoiceChatServiceManager:ToggleMic()
@@ -695,7 +698,7 @@ local function CreateSettingsHub()
 			addBottomBarButton("MuteButton", "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 			function ()
 				VoiceChatServiceManager:ToggleMic()
-			end, {}, UDim2.new(0,70,0,70),
+			end, {}, UDim2.new(0,Theme.LargeButtonHeight,0,Theme.LargeButtonHeight),
 			--[[forceHintButton = ]] true
 			)
 		end
@@ -1210,14 +1213,13 @@ local function CreateSettingsHub()
 
 			local playerScriptStatus = getOverridesPlayerScripts()
 
-			if GetFFlagEventIngestDefaultPlayerScripts() then
-				AnalyticsService:setRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
-					defaultPlayerScripts = playerScriptStatus == "Default",
-					placeID = tostring(game.PlaceId),
-					rawValue = if GetFFlagNewEventIngestPlayerScriptsDimensions() then playerScriptStatus else nil,
-					context = if GetFFlagNewEventIngestPlayerScriptsDimensions() then "IGMv1"else nil,
-				})
-			end
+			AnalyticsService:setRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
+				defaultPlayerScripts = playerScriptStatus == "Default",
+				placeID = tostring(game.PlaceId),
+				rawValue = if GetFFlagNewEventIngestPlayerScriptsDimensions() then playerScriptStatus else nil,
+				context = if GetFFlagNewEventIngestPlayerScriptsDimensions() then "IGMv1"else nil,
+			})
+
 			this.OverridesPlayerScriptsLabel.Text = playerScriptsString .. playerScriptStatus
 			this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
 			addSizeToLabel(this.OverridesPlayerScriptsLabel)
@@ -1262,6 +1264,18 @@ local function CreateSettingsHub()
 			Parent = this.Shield,
 			Selectable = false
 		}
+
+		if Theme.EnableDarkenBackground then
+			this.DarkenBackground = utility:Create("Frame")
+			{
+				Name = 'DarkenBackground',
+				ZIndex = this.Shield.ZIndex-1,
+				BackgroundTransparency = 1,
+				BackgroundColor3 = Theme.color("DarkenBackground"),
+				Size = UDim2.new(1,0,1,0),
+				Parent = this.ClippingShield,
+			}
+		end
 
 		local menuPos = Theme.MenuContainerPosition()
 		this.MenuContainer = utility:Create(ShieldInstanceType)
@@ -1591,7 +1605,7 @@ local function CreateSettingsHub()
 			this.BottomButtonFrame.Size = UDim2.new(1,0, 0, 80)
 			this.MenuListLayout = utility:Create'UIListLayout'
 			{
-				Padding = UDim.new(0,34),
+				Padding = UDim.new(0, 12),
 				FillDirection = Enum.FillDirection.Horizontal,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -1626,7 +1640,7 @@ local function CreateSettingsHub()
 
 		local leaveGameText = "Leave"
 
-		if Theme.UIBloxThemeEnabled then
+		if Theme.UseIconButtons then
 			addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, buttonX,
 				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
 				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
@@ -1648,7 +1662,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if Theme.UIBloxThemeEnabled then
+		if Theme.UseIconButtons then
 			addBottomBarIconButton("ResetCharacter", "icons/actions/respawn", "Reset Character", buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
 				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
@@ -1661,15 +1675,10 @@ local function CreateSettingsHub()
 		end
 
 		local resumeGameText = "Resume"
-
-		if not Theme.UIBloxThemeEnabled then
-			addBottomBarButtonOld("Resume", resumeGameText, buttonB,
-				"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
-				resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
-			)
-		end
-
-
+		addBottomBarButtonOld("Resume", resumeGameText, buttonB,
+			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
+			resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
+		)
 
 		if Theme.UIBloxThemeEnabled or (FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies()) then
 			if Theme.UIBloxThemeEnabled then
@@ -2236,6 +2245,16 @@ local function CreateSettingsHub()
 		RemoveHeader(pageToRemove:GetTabHeader())
 	end
 
+	
+	function this:animateInBottomBar()
+		--placeholder for animating in the bottom bar
+	end
+
+
+	function this:animateOutBottomBar()
+		--placeholder for animating out the bottom bar
+	end
+
 	function this:HideBar()
 		this.HubBar.Visible = false
 		this.PageViewClipper.Visible = false
@@ -2519,6 +2538,9 @@ local function CreateSettingsHub()
 
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
 				this.Shield.Position = UDim2.new(0, 0, 0, 0)
+				if this.DarkenBackground then
+					this.DarkenBackground.BackgroundTransparency = Theme.transparency("DarkenBackground")
+				end
 			else
 				local movementTime: number = 0
 				if NotchSupportExperiment.enabled() then
@@ -2539,6 +2561,17 @@ local function CreateSettingsHub()
 						end
 					end
 				)
+
+				if this.DarkenBackground then
+					local tweenInfo = TweenInfo.new(
+						movementTime,
+						Enum.EasingStyle.Quad,
+						Enum.EasingDirection.Out
+					)
+
+					local tween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = Theme.transparency("DarkenBackground")})
+					tween:Play()
+				end
 
 				if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
 					local tweenInfo = TweenInfo.new(movementTime,
@@ -2612,6 +2645,9 @@ local function CreateSettingsHub()
 					this.FullscreenGui.Enabled = false
 					this.FullscreenBackgroundCover.Visible = false
 				end
+				if this.DarkenBackground then
+					this.DarkenBackground.BackgroundTransparency = 1
+				end
 			else
 				local movementTime: number = 0
 				local fadeTime: number = 0
@@ -2644,6 +2680,17 @@ local function CreateSettingsHub()
 						end
 					end
 				)
+
+				if this.DarkenBackground then
+					local tweenInfo = TweenInfo.new(
+						movementTime,
+						Enum.EasingStyle.Quart,
+						Enum.EasingDirection.Out
+					)
+
+					local tween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = 1})
+					tween:Play()
+				end
 
 				if NotchSupportExperiment.enabled() then
 					local tweenInfo = TweenInfo.new(fadeTime,

@@ -19,6 +19,9 @@ local Colors = require(CorePackages.Workspace.Packages.Style).Colors
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Images = UIBlox.App.ImageSet.Images
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
@@ -73,8 +76,12 @@ end
 function DropDownButton:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
+			local backgroundColor = if ChromeEnabled()
+				then style.Theme.BackgroundUIContrast.Color
+				else style.Theme.BackgroundContrast.Color
+
 			local backgroundStyle = {
-				Color = style.Theme.BackgroundContrast.Color,
+				Color = backgroundColor,
 				Transparency = layoutValues.OverrideBackgroundTransparency,
 			}
 			local overlayStyle = {

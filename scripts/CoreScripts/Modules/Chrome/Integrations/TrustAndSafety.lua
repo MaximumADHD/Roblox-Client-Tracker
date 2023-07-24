@@ -2,13 +2,13 @@ local ChromeService = require(script.Parent.Parent.Service)
 local CommonIcon = require(script.Parent.CommonIcon)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "trust_and_safty",
 	label = "Report",
 	activated = function(self)
+		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		if SettingsHub:GetVisibility() then
 			SettingsHub:SetVisibility(false)
 		else

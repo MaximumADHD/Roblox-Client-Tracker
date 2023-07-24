@@ -32,6 +32,7 @@ local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
 local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.FFlagSelfieViewEnabled)
 -- Defaulting to true since this file is behind another flag.
 local FFlagAvatarChatLuaCameraToast = game:DefineFastFlag("AvatarChatLuaCameraToast", true)
 
@@ -70,7 +71,7 @@ end
 local function requestPermissions(allowedSettings : AllowedSettings, callback, invokeNextRequest, permsToCheck)
 	local cacheCamera = true
 	local cacheMic = true
-	if FFlagAvatarChatCoreScriptSupport then
+	if FFlagAvatarChatCoreScriptSupport or FFlagSelfieViewEnabled then
 		cacheCamera = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
 		cacheMic = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
 	end
@@ -194,7 +195,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 		end
 	end
 
-	if FFlagAvatarChatCoreScriptSupport then
+	if FFlagAvatarChatCoreScriptSupport or FFlagSelfieViewEnabled then
 		local cachedResults = tryGetCachedResults(permsToCheck)
 		if cachedResults then
 			callback(cachedResults)
@@ -215,7 +216,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 
 	inProgress = true
 
-	if FFlagAvatarChatCoreScriptSupport then
+	if FFlagAvatarChatCoreScriptSupport or FFlagSelfieViewEnabled then
 		if GetFFlagAvatarChatServiceEnabled() then
 			return Promise.new(function(resolve, _)
 				if AvatarChatService.ClientFeaturesInitialized then

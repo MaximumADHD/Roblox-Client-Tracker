@@ -21,6 +21,7 @@ local Roact = require(CorePackages.Roact)
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics.new(AnalyticsService)
 local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 local AvatarIdentification = require(CorePackages.Workspace.Packages.TnSAvatarIdentification).AvatarIdentification
+local AdIdentification = require(CorePackages.Workspace.Packages.TnSAdIdentification).AdIdentification
 local ScreenshotManager = require(CorePackages.Workspace.Packages.TnSScreenshot).ScreenshotManager
 local Workspace = game:GetService("Workspace")
 
@@ -44,29 +45,45 @@ local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 local AbuseReportBuilder = require(RobloxGui.Modules.TrustAndSafety.Utility.AbuseReportBuilder)
-local ScreenshotFlowStepHandlerContainer = require(RobloxGui.Modules.TrustAndSafety.Components.ReportAnything.ScreenshotFlowStepHandlerContainer)
+local ScreenshotFlowStepHandlerContainer =
+	require(RobloxGui.Modules.TrustAndSafety.Components.ReportAnything.ScreenshotFlowStepHandlerContainer)
 local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustAndSafetyIXPManager).default
 local ReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Utility.ReportAnythingAnalytics)
 
 local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
-local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled = require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
-local GetFFlagVoiceARRemoveOffsiteLinksForVoice = require(RobloxGui.Modules.Flags.GetFFlagVoiceARRemoveOffsiteLinksForVoice)
+local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled =
+	require(RobloxGui.Modules.Flags.GetFFlagAddVoiceTagsToAllARSubmissionsEnabled)
+local GetFFlagVoiceARRemoveOffsiteLinksForVoice =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceARRemoveOffsiteLinksForVoice)
 local GetFStringReportAbuseIXPLayer = require(RobloxGui.Modules.Flags.GetFStringReportAbuseIXPLayer)
 local GetFFlagEnableConfigurableReportAbuseIXP = require(RobloxGui.Modules.Flags.GetFFlagEnableConfigurableReportAbuseIXP)
-local GetFFlagOldAbuseReportAnalyticsDisabled = require(Settings.Flags.GetFFlagOldAbuseReportAnalyticsDisabled)
 local GetFFlagReportAbuseMenuEntrypointAnalytics = require(Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
-local GetFFlagIGMv1ARFlowSessionEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 local GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled = require(Settings.Flags.GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled)
 local GetFIntIGMv1ARFlowCSWaitFrames = require(Settings.Flags.GetFIntIGMv1ARFlowCSWaitFrames)
-local GetFFlagReportAnythingAnnotationIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
-local GetFIntIGMv1ARFlowScreenshotDelayFrames = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFIntIGMv1ARFlowScreenshotDelayFrames)
-local GetFFlagEnableARFlowAnalyticsCleanup = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
-local GetFFlagEnableIGMv1ARFlowNilMoAFix = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
-local GetFFlagReportAnythingFixDefaultAnalytics = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingFixDefaultAnalytics)
-local GetFFlagEnableMOAForNonVoiceUsers = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableMOAForNonVoiceUsers)
+local GetFFlagReportAnythingAnnotationIXP =
+	require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
+local GetFIntIGMv1ARFlowScreenshotDelayFrames =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFIntIGMv1ARFlowScreenshotDelayFrames)
+local GetFFlagEnableARFlowAnalyticsCleanup =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
+local GetFFlagEnableIGMv1ARFlowNilMoAFix =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
+local GetFFlagReportAnythingFixDefaultAnalytics =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingFixDefaultAnalytics)
+local GetFFlagEnableMOAForNonVoiceUsers =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableMOAForNonVoiceUsers)
+local GetFFlagReportAnythingEnableAdReport =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
+local GetFFlagFixReportMenu = require(Settings.Flags.GetFFlagFixReportMenu)
+local GetFFlagEnableOptionalScreenshotButton = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableOptionalScreenshotButton)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
+
+local ATTACH_SCREENSHOT_LABEL = {
+	ATTACH_SCREENSHOT = "Capture Scene",
+	SCREENSHOT_ATTACHED = "Scene Captured"
+}
 
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
@@ -92,7 +109,7 @@ local ABUSE_TYPES_PLAYER_VOICE = {
 local abuseTypePlayerList = ABUSE_TYPES_PLAYER
 
 local ABUSE_TYPES_GAME = {
-	"Inappropriate Content"
+	"Inappropriate Content",
 }
 
 local AbuseVectorIndex = enumerate("AbuseVectorIndex", {
@@ -116,20 +133,25 @@ pcall(function()
 	end
 end)
 
-type FormPhase = "Init" | "Annotation"
+type FormPhase = "Init" | "Annotation" | "AttachScreenshot" | "AttachScreenshotInit"
 local FormPhase = {
 	Init = "Init" :: "Init",
 	Annotation = "Annotation" :: "Annotation",
+	AttachScreenshot = "AttachScreenshot" :: "AttachScreenshot",
+	AttachScreenshotInit = "AttachScreenshotInit" :: "AttachScreenshotInit"
 }
 
 local PageInstance = nil
 
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local success, result = pcall(function()
+	return settings():GetFFlag("UseNotificationsLocalization")
+end)
 local FFlagUseNotificationsLocalization = success and result
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local MIN_GAME_REPORT_TEXT_LENGTH = 5
+
 local timeEntered
 local inSortingExperiment = true
 local inEntryExperiment = true
@@ -137,30 +159,42 @@ local inEntryExperiment = true
 type MethodOfAbuse = ReportAbuseLogic.MethodOfAbuse
 local MethodsOfAbuse = ReportAbuseLogic.MethodsOfAbuse
 
-type MOAOption = { title: string, subtitle: string, index: number}
+type MOAOption = { title: string, subtitle: string, index: number }
 local MethodOfAbuseOptions: {
 	["voice"]: MOAOption,
 	["text"]: MOAOption,
 	["other"]: MOAOption,
 } = {
-	[MethodsOfAbuse.voice] = {title = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Subtitle", index = 1},
-	[MethodsOfAbuse.text] = {title = "Feature.SettingsHub.MethodOfAbuse.Text.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Text.Subtitle", index = 2},
-	[MethodsOfAbuse.other] = {title = "Feature.SettingsHub.MethodOfAbuse.Other.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Other.Subtitle", index = 3}
+	[MethodsOfAbuse.voice] = {
+		title = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Title",
+		subtitle = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Subtitle",
+		index = 1,
+	},
+	[MethodsOfAbuse.text] = {
+		title = "Feature.SettingsHub.MethodOfAbuse.Text.Title",
+		subtitle = "Feature.SettingsHub.MethodOfAbuse.Text.Subtitle",
+		index = 2,
+	},
+	[MethodsOfAbuse.other] = {
+		title = "Feature.SettingsHub.MethodOfAbuse.Other.Title",
+		subtitle = "Feature.SettingsHub.MethodOfAbuse.Other.Subtitle",
+		index = 3,
+	},
 }
-
-local function shouldDoARScreenshot()
-	return TrustAndSafetyIXPManager:getReportAnythingEnabled()
-end
 
 local function shouldShowMethodOfAbuseForAll()
 	return GetFFlagEnableMOAForNonVoiceUsers() and TrustAndSafetyIXPManager:getTypeofAbuseEnabled()
+end
+
+local function shouldShowOptionalScreenshot()
+	return GetFFlagEnableOptionalScreenshotButton() and TrustAndSafetyIXPManager:getOptionalScreenshotEnabled()
 end
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
-	this.previousFormPhase = FormPhase.Init
+	this.previousFormPhase = FormPhase.AttachScreenshotInit
 
 	local playerNames = {}
 	local sortedUserIds = {}
@@ -169,29 +203,25 @@ local function Initialize()
 	local nextPlayerToReport = nil
 
 	local voiceChatEnabled = false
+	
+	this.isAnnotationComplete = false
 
 	this.isHidingForARScreenshot = false
-
-	if GetFFlagIGMv1ARFlowSessionEnabled() then
-		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(EventIngest.new(EventIngestService), Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
-	else
-		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics.EventStream, Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
+	if GetFFlagFixReportMenu() then
+		this.submitButtonActive = false
 	end
+
+	this.reportAbuseAnalytics = ReportAbuseAnalytics.new(EventIngest.new(EventIngestService), Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
 
 	function this:GetSelectedMethodOfAbuse()
 		if this.MethodOfAbuseMode then
 			local currentIndex = this.MethodOfAbuseMode.CurrentIndex
 			local voiceAllowed = false
-			if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
-				if currentIndex == nil then
-					return nil
-				end
-				voiceAllowed = this:shouldVoiceMOABeAvailable()
-			elseif shouldShowMethodOfAbuseForAll() then
+			if shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot() then
 				if currentIndex == nil then
 					return "Chat"
 				end
-				voiceAllowed = this:shouldVoiceMOABeAvailable() -- stable 
+				voiceAllowed = this:shouldVoiceMOABeAvailable() -- stable
 			else
 				if GetFFlagEnableIGMv1ARFlowNilMoAFix() then
 					if currentIndex == nil then
@@ -220,7 +250,7 @@ local function Initialize()
 		return Cryo.List.map(Cryo.Dictionary.values(MethodOfAbuseOptions), function(item: MOAOption)
 			return Cryo.Dictionary.join(item, {
 				title = RobloxTranslator:FormatByKey(item.title),
-				subtitle = RobloxTranslator:FormatByKey(item.subtitle)
+				subtitle = RobloxTranslator:FormatByKey(item.subtitle),
 			})
 		end)
 	end
@@ -234,93 +264,43 @@ local function Initialize()
 	function this:ActivateFormPhase(newFormPhase, isPlayerPreselected)
 		local normalFormVisibility = function()
 			this.GameOrPlayerFrame.Visible = true
-			this.MethodOfAbuseFrame.Visible = true
-			if this.GameOrPlayerMode.CurrentIndex == 1 then -- game mode
-				this.TypeOfAbuseFrame.Visible = false
-			else
-				this.TypeOfAbuseFrame.Visible = true
-			end
 			this.WhichPlayerFrame.Visible = true
 			this.AbuseDescriptionFrame.Visible = true
 			this.SubmitButton.Visible = true
-			this.BackButton.Visible = false
-		end
-		local twoButtonSubmit = function()
 
-			local submitButtonSize = UDim2.new(0,198,0,50)
-			local yOffset = 5
-			if Theme.UIBloxThemeEnabled then
-				submitButtonSize = UDim2.new(0.4,20,0,50)
-				yOffset = 15
-			end
-
-			this.BackButton.Position = UDim2.new(0.2,0,1,yOffset)
-			this.SubmitButton.Position = UDim2.new(0.8,0,1,yOffset)
-			this.SubmitButton.Size =  submitButtonSize
+			-- show type of abuse dropdown for both modes, and also update method of abuse visibility
+			this.MethodOfAbuseFrame.Visible = this.GameOrPlayerMode.CurrentIndex == 2
 
 		end
 		local oneButtonSubmit = function()
 			if Theme.UIBloxThemeEnabled then
-				this.SubmitButton.Position = UDim2.new(0.5,0,1,15)
+				this.SubmitButton.Position = UDim2.new(0.5, 0, 1, 15)
 			else
-				this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
+				this.SubmitButton.Position = UDim2.new(0.5, 0, 1, 5)
 			end
 
-			local submitButtonSize = UDim2.new(0,198,0,50)
+			local submitButtonSize = UDim2.new(0, 198, 0, 50)
 			if Theme.UIBloxThemeEnabled then
-				submitButtonSize = UDim2.new(1,20,0,50)
+				submitButtonSize = UDim2.new(1, 20, 0, 50)
 			end
-			this.SubmitButton.Size =  submitButtonSize
+			this.SubmitButton.Size = submitButtonSize
 		end
 		local actions: { [FormPhase]: (boolean) -> nil } = {}
-		actions[FormPhase.Init] = function(isPlayerPreselected)
-			if isPlayerPreselected then
-				-- show everything including the submit button
-				normalFormVisibility()
-				oneButtonSubmit()
-			else
-				if this.MethodOfAbuseMode and this.GameOrPlayerMode.CurrentIndex ~= 1 then
-					this.MethodOfAbuseFrame.Visible = true
-				end
-				this.NextButton.Visible = true
-				this:updateNextButton()
-				this.GameOrPlayerFrame.Visible = true
-
-				this.TypeOfAbuseFrame.Visible = false
-				this.WhichPlayerFrame.Visible = false
-				this.AbuseDescriptionFrame.Visible = false
-				this.SubmitButton.Visible = false
-			end
-			this.previousFormPhase = FormPhase.Init
+		actions[FormPhase.AttachScreenshotInit] = function(isPlayerPreselected)
+			-- we want to show the entire form regardless is a player is selected or not
+			normalFormVisibility()
+			oneButtonSubmit()
+			this.isAnnotationComplete = false
+			this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
+			this.previousFormPhase = FormPhase.AttachScreenshotInit
 		end
-		actions[FormPhase.Annotation] = function(isPlayerPreselected)
-			this.GameOrPlayerFrame.Visible = false
-			if this.MethodOfAbuseMode then
-				this.MethodOfAbuseFrame.Visible = false
-			end
-			this.WhichPlayerFrame.Visible = false
-			this.NextButton.Visible = false
-
-			this.TypeOfAbuseFrame.Visible = true
-			this.AbuseDescriptionFrame.Visible = true
-			this.BackButton.Visible = true
-			this.SubmitButton.Visible = true
-			twoButtonSubmit()
-			if this.GameOrPlayerMode.CurrentIndex == 1 then
-				this.previousFormPhase = FormPhase.Annotation
+		actions[FormPhase.AttachScreenshot] = function(isPlayerPreselected)			
+			if this.GameOrPlayerMode.CurrentIndex == 1 or this:GetSelectedMethodOfAbuse() == "Other" then
+				this.previousFormPhase = FormPhase.AttachScreenshotInit
 				this:mountAnnotationPage()
 				return
 			end
-			local selectedMethodOfAbuse = this:GetSelectedMethodOfAbuse()
-			if selectedMethodOfAbuse == "Other" then
-				this.previousFormPhase = FormPhase.Annotation
-				this:mountAnnotationPage()
-				return
-			else -- Chat, Voice, and MoA not selected
-				-- Allow selection of alleged abuser via dropdown
-				this.WhichPlayerFrame.Visible = true
-			end
-			this.previousFormPhase = FormPhase.Init
+			this.previousFormPhase = FormPhase.AttachScreenshotInit
 		end
 		actions[newFormPhase](isPlayerPreselected)
 	end
@@ -330,7 +310,7 @@ local function Initialize()
 			this:ActivateFormPhase(this.previousFormPhase)
 			return
 		end
-		this:ActivateFormPhase(FormPhase.Init)
+		this:ActivateFormPhase(FormPhase.AttachScreenshotInit)
 	end
 
 	function this:unmountAnnotationPage()
@@ -353,34 +333,36 @@ local function Initialize()
 				DisplayOrder = 7,
 				Enabled = true,
 				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				Parent = RobloxGui
+				Parent = RobloxGui,
 			})
 			this.annotationPageFrame = utility:Create("Frame")({
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0,0,0,-topCornerInset.Y),
-				Size = UDim2.new(1,0,1,topCornerInset.Y),
-				Parent = this.annotationPageScreenGui
+				Position = UDim2.new(0, 0, 0, -topCornerInset.Y),
+				Size = UDim2.new(1, 0, 1, topCornerInset.Y),
+				Parent = this.annotationPageScreenGui,
 			})
 		end
 
 		local shouldShowPlayerDropdownPostAnnotation = function()
-			return #AbuseReportBuilder.getSelectedAbusers() == 0 and
-				this:GetSelectedMethodOfAbuse() == "Other" and
-				this.GameOrPlayerMode.CurrentIndex == 2 -- Player mode
+			return #AbuseReportBuilder.getSelectedAbusers() == 0
+				and this:GetSelectedMethodOfAbuse() == "Other"
+				and this.GameOrPlayerMode.CurrentIndex == 2 -- Player mode
 		end
 
 		local onBack = function()
 			this:unmountAnnotationPage()
 			AbuseReportBuilder.clearAnnotationPoints()
-			this:ActivateFormPhase(FormPhase.Init)
+			this:ActivatePreviousFormPhase()
 		end
 
-		local onAnnotate = function(points: {Vector2})
+		local onAnnotate = function(points: { Vector2 })
 			AbuseReportBuilder.setAnnotationPoints(points)
 			if shouldShowPlayerDropdownPostAnnotation() then
 				-- select manually from dropdown if no annotated players
 				this.WhichPlayerFrame.Visible = true
 			end
+			this.isAnnotationComplete = true 
+			this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 			this:unmountAnnotationPage()
 		end
 
@@ -390,6 +372,8 @@ local function Initialize()
 			if shouldShowPlayerDropdownPostAnnotation() then
 				this.WhichPlayerFrame.Visible = true
 			end
+			this.isAnnotationComplete = true 
+			this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 			this:unmountAnnotationPage()
 		end
 
@@ -413,7 +397,7 @@ local function Initialize()
 			-- populated if they open the flow by going back from last page
 			initialAnnotationPoints = AbuseReportBuilder.getAnnotationPoints(),
 			initialPageNumber = if AbuseReportBuilder.getAnnotationPageSeen() then 2 else 1,
-			reportAnythingAnalytics = ReportAnythingAnalytics
+			reportAnythingAnalytics = ReportAnythingAnalytics,
 		})
 		this.annotationPageHandle = Roact.mount(annotationPage, this.annotationPageFrame, "AnnotationPage")
 	end
@@ -447,8 +431,8 @@ local function Initialize()
 		nextPlayerToReport = player
 		currentSelectedPlayer = player
 		this:SetDefaultMethodOfAbuse(nextPlayerToReport)
-		if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
-			this:ActivateFormPhase(FormPhase.Init, true)
+		if shouldShowOptionalScreenshot() then
+			this:ActivateFormPhase(FormPhase.AttachScreenshotInit, true)
 		end
 	end
 
@@ -499,16 +483,22 @@ local function Initialize()
 			else
 				selectedMethodOfAbuse = "other"
 			end
-
+			
+			if shouldShowOptionalScreenshot() then 
+				this:updateScreenshotButton(selectedMethodOfAbuse)
+			end
+			
 			this:updateNextButton()
 			if GetFFlagVoiceARRemoveOffsiteLinksForVoice() then
-				abuseTypePlayerList = if selectedMethodOfAbuse == "voice" then ABUSE_TYPES_PLAYER_VOICE else ABUSE_TYPES_PLAYER
+				abuseTypePlayerList = if selectedMethodOfAbuse == "voice"
+					then ABUSE_TYPES_PLAYER_VOICE
+					else ABUSE_TYPES_PLAYER
 				this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
 				this.TypeOfAbuseMode:SetInteractable(#abuseTypePlayerList > 1)
 			end
 
 			this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
-				field = 'MethodOfAbuse',
+				field = "MethodOfAbuse",
 				methodOfAbuse = selectedMethodOfAbuse,
 			})
 		end
@@ -528,11 +518,13 @@ local function Initialize()
 				local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
 				if Cryo.isEmpty(recentVoicePlayers) or not this:isVoiceReportMethodActive() then
 					-- Remove "Voice" option if we don't have any players to show
-					this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
-						-- Note that we're using the index property of the TypeOfAbuseOption,
-						-- not the index of the AbuseOption in the dropdown list
-						return item.index ~= MethodOfAbuseOptions[MethodsOfAbuse.voice].index
-					end))
+					this.MethodOfAbuseMode:UpdateDropDownList(
+						Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
+							-- Note that we're using the index property of the TypeOfAbuseOption,
+							-- not the index of the AbuseOption in the dropdown list
+							return item.index ~= MethodOfAbuseOptions[MethodsOfAbuse.voice].index
+						end)
+					)
 				else
 					this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
 				end
@@ -558,13 +550,15 @@ local function Initialize()
 				end
 
 				if GetFFlagVoiceARRemoveOffsiteLinksForVoice() then
-					abuseTypePlayerList = if selectedMethodOfAbuse == "voice" then ABUSE_TYPES_PLAYER_VOICE else ABUSE_TYPES_PLAYER
+					abuseTypePlayerList = if selectedMethodOfAbuse == "voice"
+						then ABUSE_TYPES_PLAYER_VOICE
+						else ABUSE_TYPES_PLAYER
 					this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
 					this.TypeOfAbuseMode:SetInteractable(#abuseTypePlayerList > 1)
 				end
 
 				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
-					field = 'MethodOfAbuse',
+					field = "MethodOfAbuse",
 					methodOfAbuse = selectedMethodOfAbuse,
 				})
 			end
@@ -598,12 +592,14 @@ local function Initialize()
 			if inEntryExperiment then
 				local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(player, VoiceChatServiceManager)
 				-- We need to use getSortedMethodOfAbuseList because MethodOfAbuseOptions doesn't have the translated title
-				PageInstance.MethodOfAbuseMode:SetSelectionByValue(getSortedMethodOfAbuseList()[MethodOfAbuseOptions[AbuseType].index].title)
+				PageInstance.MethodOfAbuseMode:SetSelectionByValue(
+					getSortedMethodOfAbuseList()[MethodOfAbuseOptions[AbuseType].index].title
+				)
 			else
 				PageInstance.MethodOfAbuseMode:SetSelectionIndex(1)
 			end
 
-		elseif shouldShowMethodOfAbuseForAll() then
+		elseif shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot() then
 			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
 				-- Note that we're using the index property of the TypeOfAbuseOption,
 				-- not the index of the AbuseOption in the dropdown list
@@ -618,7 +614,10 @@ local function Initialize()
 			return false
 		end
 		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
-		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
+		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer
+				and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)]
+			then true
+			else false
 		return not currentSelectedPlayer or isCurrentSelectedPlayerVoice
 	end
 
@@ -711,11 +710,17 @@ local function Initialize()
 
 		if this.GameOrPlayerMode.CurrentIndex == 1 then
 			this.WhichPlayerMode:SetInteractable(false)
+			if GetFFlagFixReportMenu() then
+				this.WhichPlayerFrame.Visible = false
+			end
 			this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_GAME)
 			this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_GAME > 1)
 		else
 			this.WhichPlayerLabel.ZIndex = 2
 			this.WhichPlayerMode:SetInteractable(index > 1)
+			if GetFFlagFixReportMenu() then
+				this.WhichPlayerFrame.Visible = index > 1
+			end
 
 			if this.MethodOfAbuseMode then
 				this.MethodOfAbuseMode:SetInteractable(index > 1)
@@ -747,7 +752,6 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
 	if Theme.UIBloxThemeEnabled then
-
 		local icon = Theme.Images["icons/actions/feedback"]
 		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
 		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
@@ -762,7 +766,6 @@ local function Initialize()
 			this.TabHeader.Icon.Title.Text = "Report"
 		end
 	end
-
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ReportAbusePage"
@@ -779,84 +782,98 @@ local function Initialize()
 		end)
 
 		if utility:IsSmallTouchScreen() then
-			this.GameOrPlayerFrame,
-			this.GameOrPlayerLabel,
-			this.GameOrPlayerMode = utility:AddNewRow(this, "Experience or Person?", "Selector", {"Experience", "Person"}, 2)
+			this.GameOrPlayerFrame, this.GameOrPlayerLabel, this.GameOrPlayerMode =
+				utility:AddNewRow(this, "Experience or Person?", "Selector", { "Experience", "Person" }, 2)
 		else
-			this.GameOrPlayerFrame,
-			this.GameOrPlayerLabel,
-			this.GameOrPlayerMode = utility:AddNewRow(this, "Experience or Person?", "Selector", {"Experience", "Person"}, 2, 3)
+			this.GameOrPlayerFrame, this.GameOrPlayerLabel, this.GameOrPlayerMode =
+				utility:AddNewRow(this, "Experience or Person?", "Selector", { "Experience", "Person" }, 2, 3)
 		end
 		this.GameOrPlayerMode.Selection.LayoutOrder = 1
 
 		local whichPlayerText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.WhichPlayer")
 		this.WhichPlayerFrame, this.WhichPlayerLabel, this.WhichPlayerMode =
-			utility:AddNewRow(this, whichPlayerText, "DropDown", {"update me"})
+			utility:AddNewRow(this, whichPlayerText, "DropDown", { "update me" })
 		this.WhichPlayerMode:SetInteractable(false)
+		if GetFFlagFixReportMenu() then
+			this.WhichPlayerFrame.Visible = false
+		end
 		this.WhichPlayerMode:SetAutoLocalize(false)
 		this.WhichPlayerLabel.ZIndex = 1
 		this.WhichPlayerFrame.LayoutOrder = 2
 
 		local typeOfAbuseText = "Reason for Abuse?"
-		if GetFFlagReportAnythingFixDefaultAnalytics() then 
-			this.TypeOfAbuseFrame,
-			this.TypeOfAbuseLabel,
-			this.TypeOfAbuseMode = utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME)
-		else 
-			this.TypeOfAbuseFrame,
-			this.TypeOfAbuseLabel,
-			this.TypeOfAbuseMode = utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME, 1)
+		if GetFFlagReportAnythingFixDefaultAnalytics() then
+			this.TypeOfAbuseFrame, this.TypeOfAbuseLabel, this.TypeOfAbuseMode =
+				utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME)
+		else
+			this.TypeOfAbuseFrame, this.TypeOfAbuseLabel, this.TypeOfAbuseMode =
+				utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME, 1)
 		end
 
 		this.TypeOfAbuseFrame.LayoutOrder = 3
 
 		if Theme.UIBloxThemeEnabled then
-			this.AbuseDescriptionFrame,
-			this.AbuseDescriptionLabel,
-			this.AbuseDescription = utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 1)
+			if GetFFlagFixReportMenu() then
+				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+					utility:AddNewRow(this, "", "TextBox", nil, nil, 1)
+				this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
+			else
+				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+					utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 1)
+				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
+			end
 
 			this.AbuseDescriptionLabel.Text = "Abuse Description"
 			this.AbuseDescriptionFrame.Size = UDim2.new(1, 0, 0, 100)
 			this.AbuseDescriptionLabel.TextYAlignment = Enum.TextYAlignment.Top
 
-			utility:Create'UICorner'
-			{
+			utility:Create("UICorner")({
 				CornerRadius = Theme.MenuContainerCornerRadius,
 				Parent = this.AbuseDescription.Selection,
-			}
+			})
 
-			utility:Create'UIPadding'
-			{
+			utility:Create("UIPadding")({
 				PaddingTop = UDim.new(0, 4),
 				PaddingLeft = UDim.new(0, 10),
 				PaddingRight = UDim.new(0, 10),
 				PaddingBottom = UDim.new(0, 0),
 				Parent = this.AbuseDescription.Selection,
-			}
+			})
 
-			utility:Create'UIStroke'
-			{
+			utility:Create("UIStroke")({
 				Name = "Border",
 				Color = Theme.color("ControlInputStroke"), -- overwritten
 				Transparency = Theme.transparency("ControlInputStroke"), -- overwritten
 				Thickness = Theme.DefaultStokeThickness, -- overwritten
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 				Parent = this.AbuseDescription.Selection,
-			}
+			})
 
 			this.AbuseDescription.Selection.BackgroundColor3 = Theme.color("ControlInputBackground")
 			this.AbuseDescription.Selection.BackgroundTransparency = Theme.transparency("ControlInputBackground")
 			this.AbuseDescription.Selection.TextColor3 = Theme.color("ControlInputText")
 		elseif utility:IsSmallTouchScreen() then
-			this.AbuseDescriptionFrame,
-			this.AbuseDescriptionLabel,
-			this.AbuseDescription = utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
+			if GetFFlagFixReportMenu() then
+				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+					utility:AddNewRow(this, "", "TextBox", nil, nil, 5)
+				this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
+			else
+				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+					utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
+				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
+			end
 
 			this.AbuseDescriptionLabel.Text = "Abuse Description"
 		else
-			this.AbuseDescriptionFrame,
-			this.AbuseDescriptionLabel,
-			this.AbuseDescription = utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
+			if GetFFlagFixReportMenu() then
+				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+					utility:AddNewRow(this, "", "TextBox", nil, nil, 5)
+				this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
+			else
+				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+					utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
+				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
+			end
 
 			this.AbuseDescriptionFrame.Size = UDim2.new(1, -10, 0, 100)
 			this.AbuseDescription.Selection.Size = UDim2.new(1, 0, 1, 0)
@@ -865,8 +882,10 @@ local function Initialize()
 		this.AbuseDescriptionFrame.LayoutOrder = 4
 
 		this.AbuseDescription.Selection.FocusLost:connect(function()
-			if this.AbuseDescription.Selection.Text == "" then
-				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
+			if GetFFlagFixReportMenu() == false then
+				if this.AbuseDescription.Selection.Text == "" then
+					this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
+				end
 			end
 			if Theme.UIBloxThemeEnabled then
 				local Border = this.AbuseDescription.Selection.Border
@@ -891,66 +910,83 @@ local function Initialize()
 			end
 		end
 
-		VoiceChatServiceManager:asyncInit():andThen(function()
-			local layerData = nil
-			if GetFFlagEnableConfigurableReportAbuseIXP() then
-				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, GetFStringReportAbuseIXPLayer())
-				layerData = IXPServiceWrapper:GetLayerData(GetFStringReportAbuseIXPLayer())
-			else
-				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, "Social.VoiceAbuseReport.ReportAbuseMenu.V1")
-				layerData = IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
-			end
+		VoiceChatServiceManager:asyncInit()
+			:andThen(function()
+				local layerData = nil
+				if GetFFlagEnableConfigurableReportAbuseIXP() then
+					IXPServiceWrapper:InitializeAsync(
+						PlayersService.LocalPlayer.UserId,
+						GetFStringReportAbuseIXPLayer()
+					)
+					layerData = IXPServiceWrapper:GetLayerData(GetFStringReportAbuseIXPLayer())
+				else
+					IXPServiceWrapper:InitializeAsync(
+						PlayersService.LocalPlayer.UserId,
+						"Social.VoiceAbuseReport.ReportAbuseMenu.V1"
+					)
+					layerData = IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
+				end
 
-			if layerData then
-				inSortingExperiment = layerData.VoiceAbuseReportProximitySort
-				inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
+				if layerData then
+					inSortingExperiment = layerData.VoiceAbuseReportProximitySort
+					inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
 
-				if not GetFFlagEnableConfigurableReportAbuseIXP() then
-					if layerData.VoiceAbuseReportDisabled == nil then
-						voiceChatEnabled = false
+					if not GetFFlagEnableConfigurableReportAbuseIXP() then
+						if layerData.VoiceAbuseReportDisabled == nil then
+							voiceChatEnabled = false
+						else
+							voiceChatEnabled = not layerData.VoiceAbuseReportDisabled
+						end
 					else
-						voiceChatEnabled = not layerData.VoiceAbuseReportDisabled
+						voiceChatEnabled = true
 					end
 				else
-					voiceChatEnabled = true
+					-- We default to NOT showing the method of abuse if IXP is down and everything else is working
+					voiceChatEnabled = false
 				end
-			else
-				-- We default to NOT showing the method of abuse if IXP is down and everything else is working
-				voiceChatEnabled = false
-			end
-			log:debug("Voice Chat {}. In Sorting Experiment {}, In Entry Experiment {}.", voiceChatEnabled, inSortingExperiment, inEntryExperiment)
-			if game:GetFastFlag("ReportAbuseExtraAnalytics") then
-				log:debug("IXP Result {} for user {}", HttpService:JSONEncode(layerData), PlayersService.LocalPlayer.UserId)
-			end
+				log:debug(
+					"Voice Chat {}. In Sorting Experiment {}, In Entry Experiment {}.",
+					voiceChatEnabled,
+					inSortingExperiment,
+					inEntryExperiment
+				)
+				if game:GetFastFlag("ReportAbuseExtraAnalytics") then
+					log:debug(
+						"IXP Result {} for user {}",
+						HttpService:JSONEncode(layerData),
+						PlayersService.LocalPlayer.UserId
+					)
+				end
 
-			local function TnSIXPInitializationCallback()
-				if not (TrustAndSafetyIXPManager:getReportAnythingEnabled() or shouldShowMethodOfAbuseForAll()) then
+				local function TnSIXPInitializationCallback()
+					if not (shouldShowMethodOfAbuseForAll() 
+						or shouldShowOptionalScreenshot()) then
+						this:updateVoiceLayout()
+						updateMethodOfAbuseVisibility()
+					end
+				end
+
+				if GetFFlagReportAnythingAnnotationIXP() then
+					-- Let RA layout run instead if eligible. Voice layout will run
+					-- if RA is not eligible. Register this callback here since at
+					-- this point we know if Voice is enabled or not, whereas we
+					-- don't know yet in the other callback as TnS IXP is
+					-- initialized before Voice IXP.
+					TrustAndSafetyIXPManager:waitForInitialization(TnSIXPInitializationCallback)
+				else
 					this:updateVoiceLayout()
 					updateMethodOfAbuseVisibility()
 				end
-			end
+			end)
+			:catch(function()
+				voiceChatEnabled = false
+				log:warning("ReportAbuseMenu: Failed to init VoiceChatServiceManager")
+			end)
 
-			if GetFFlagReportAnythingAnnotationIXP() then
-				-- Let RA layout run instead if eligible. Voice layout will run
-				-- if RA is not eligible. Register this callback here since at
-				-- this point we know if Voice is enabled or not, whereas we
-				-- don't know yet in the other callback as TnS IXP is
-				-- initialized before Voice IXP.
-				TrustAndSafetyIXPManager:waitForInitialization(TnSIXPInitializationCallback)
-			else
-				this:updateVoiceLayout()
-				updateMethodOfAbuseVisibility()
-			end
-		end):catch(function()
-			voiceChatEnabled = false
-			log:warning("ReportAbuseMenu: Failed to init VoiceChatServiceManager")
-		end)
-
-		local _SelectionOverrideObject = utility:Create'ImageLabel'
-		{
+		local _SelectionOverrideObject = utility:Create("ImageLabel")({
 			Image = "",
-			BackgroundTransparency = 1
-		};
+			BackgroundTransparency = 1,
+		})
 
 		this.SubmitButton, this.SubmitText = nil, nil
 
@@ -958,12 +994,22 @@ local function Initialize()
 			this.SubmitButton.ZIndex = 2
 			this.SubmitButton.Selectable = true
 			this.SubmitText.ZIndex = 2
+			if GetFFlagFixReportMenu() then
+				this.SubmitButton.ImageTransparency = 0
+				this.SubmitText.TextTransparency = 0
+				this.submitButtonActive = true
+			end
 		end
 
 		local function makeSubmitButtonInactive()
 			this.SubmitButton.ZIndex = 1
 			this.SubmitButton.Selectable = false
 			this.SubmitText.ZIndex = 1
+			if GetFFlagFixReportMenu() then
+				this.SubmitButton.ImageTransparency = 0.75
+				this.SubmitText.TextTransparency = 0.75
+				this.submitButtonActive = false
+			end
 		end
 
 		this.NextButton, this.NextText, this.NextEnabled = nil, nil, false
@@ -981,35 +1027,114 @@ local function Initialize()
 			this.NextText.ZIndex = 1
 			this.NextEnabled = false
 		end
+		
+		function this:resetScreenshot()
+			AbuseReportBuilder.clearAnnotationPoints()
+			this.isAnnotationComplete = false 
+		end
+		
+		function this:updateScreenshotButton(selectedMethodOfAbuse) 
+			if this.GameOrPlayerMode.CurrentIndex == 1 or 
+				(selectedMethodOfAbuse and 
+					(selectedMethodOfAbuse == "other" or selectedMethodOfAbuse == "Other")) then 
+				this.AttachScreenshotRow.Visible = true
+			else 
+				this.AttachScreenshotRow.Visible = false 
+			end
+			
+			if this.isAnnotationComplete then 
+				this.ScreenshotText.Text = ATTACH_SCREENSHOT_LABEL.SCREENSHOT_ATTACHED
+				this.ScreenshotButton.ImageTransparency = 1
+				this.ScreenshotButton.Selectable = false
+				this.ScreenshotButton.Active = false
+				this.hintLabel.Image = "rbxasset://textures/ui/PlayerList/Accept.png"
+			else 
+				this.ScreenshotText.Text = ATTACH_SCREENSHOT_LABEL.ATTACH_SCREENSHOT
+				this.ScreenshotButton.ImageTransparency = 0
+				this.ScreenshotButton.Selectable = true
+				this.ScreenshotButton.Active = true
+				this.hintLabel.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/CaptureTab.png"
+			end
+		end
+		
+		local function onAttachScreenshot()
+			if not this.isAnnotationComplete then
+				this:ActivateFormPhase(FormPhase.AttachScreenshot)
+			end
+		end
+		
+		function this:initOptionalScreenshotButton() 	
+			local button_width = if utility:IsSmallTouchScreen() then 200 else 250 
+			local label = if utility:IsSmallTouchScreen() then "Attach Screenshot?\n(optional)" else "Attach Screenshot? (optional)"
+			local icon_size = 40
+			local icon_end = icon_size / (button_width * 0.8)
+			local text_start = icon_end
+			
+			local attachScreenshotButtonsize = UDim2.new(0,button_width,0,50)
+			if Theme.UIBloxThemeEnabled then
+				attachScreenshotButtonsize = UDim2.new(0,button_width,0,50)
+			end
+			local screenshotImage = "rbxasset://textures/ui/Settings/MenuBarIcons/CaptureTab.png"
+			
+			this.ScreenshotButton, this.ScreenshotText = utility:MakeStyledButton(
+				"ScreenshotButton", 
+				ATTACH_SCREENSHOT_LABEL.ATTACH_SCREENSHOT,
+				attachScreenshotButtonsize, 
+				onAttachScreenshot, 
+				this
+			)
+			
+			this.ScreenshotButton.AnchorPoint = Vector2.new(0.5,0)
+			if Theme.UIBloxThemeEnabled then
+				local hintOffset = 9 + 33
+				local rightPad = 9
+				this.ScreenshotButton.Position = UDim2.new(1, -button_width / 2, 0, 0)
+				this.ScreenshotText.Size = UDim2.new(1,-(hintOffset+rightPad),1.0,0)
+				this.ScreenshotText.Position = UDim2.new(1,-rightPad,0,0)
+				this.ScreenshotText.AnchorPoint = Vector2.new(1,0)
+			else
+				this.ScreenshotButton.Position = UDim2.new(1, -button_width / 2, 0, 0)
+				this.ScreenshotText.Size = UDim2.new(0.75,0,0.9,0)
+				this.ScreenshotText.Position = UDim2.new(text_start,0,0,0)
+			end	
+			
+			this.ScreenshotButtonInnerFrame = utility:Create'Frame'{
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0.5,0,0.5,0),
+				Size = UDim2.new(0.80,0,1,0),
+				Parent = this.ScreenshotButton
+			}
+			this.ScreenshotButtonInnerFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+			this.hintLabel = utility:Create'ImageLabel'
+			{
+				Name = "ScreenshotImage",
+				ZIndex = 1,
+				BackgroundTransparency = 1,
+				Image = screenshotImage,
+				Parent = this.ScreenshotButtonInnerFrame
+			};
+			this.ScreenshotText.Parent = this.ScreenshotButtonInnerFrame
+			if Theme.UIBloxThemeEnabled then
+				this.hintLabel.AnchorPoint = Vector2.new(0.0,0.5)
+				this.hintLabel.Position = UDim2.new(0,9,0.5,0)
+				this.hintLabel.Size = UDim2.new(0,33,0,33)
+			else
+				this.hintLabel.AnchorPoint = Vector2.new(0,0.5)
+				this.hintLabel.Position = UDim2.new(0,0,0.45,0)
+				this.hintLabel.Size = UDim2.new(0,icon_size,0,icon_size)
+			end
+			
+			this.AttachScreenshotRow = utility:AddNewRowObject(this, label, this.ScreenshotButton)
+			this.AttachScreenshotRow.LayoutOrder = 4
+			this:updateScreenshotButton()
+		end
 
 		function this:isPlayerModeSubmissionAllowed()
-			if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
-				local methodOfAbuseSelected = this:GetSelectedMethodOfAbuse()
-				if methodOfAbuseSelected == "Other" then
-					-- When player select is hidden, this report went through
-					-- the annotation flow where an abuser may not be directly
-					-- selected, but submission should still be allowed. If
-					-- player select is visible then they did not go through the
-					-- annotation flow, or didn't annotate anyone during the
-					-- flow, and should select a player normally.
-					if this.TypeOfAbuseMode:GetSelectedIndex() and (
-						not this.WhichPlayerFrame.Visible -- found a player via annotation
-						or (this.WhichPlayerFrame.Visible and this.WhichPlayerMode:GetSelectedIndex())
-					) then
-						return true
-					end
-				elseif this.WhichPlayerMode:GetSelectedIndex() then
-					if this.TypeOfAbuseMode:GetSelectedIndex() then
-						return true
-					end
-				end
-			else
-				-- previous behavior in player mode branch of
-				-- updateSubmitButton, moved here.
-				if this.WhichPlayerMode:GetSelectedIndex() then
-					if this.TypeOfAbuseMode:GetSelectedIndex() then
-						return true
-					end
+			-- previous behavior in player mode branch of
+			-- updateSubmitButton, moved here.
+			if this.WhichPlayerMode:GetSelectedIndex() then
+				if this.TypeOfAbuseMode:GetSelectedIndex() then
+					return true
 				end
 			end
 			return false
@@ -1017,10 +1142,18 @@ local function Initialize()
 
 		local function updateSubmitButton()
 			if this.GameOrPlayerMode.CurrentIndex == 1 then -- 1 is Report Game
-				if this.AbuseDescription.Selection.Text ~= DEFAULT_ABUSE_DESC_TEXT then
-					if utf8.len(utf8.nfcnormalize(this.AbuseDescription.Selection.Text)) > MIN_GAME_REPORT_TEXT_LENGTH then
-						makeSubmitButtonActive()
-						return
+				if GetFFlagFixReportMenu() then
+					makeSubmitButtonActive()
+					return
+				else
+					if this.AbuseDescription.Selection.Text ~= "" then
+						if
+							utf8.len(utf8.nfcnormalize(this.AbuseDescription.Selection.Text))
+							> MIN_GAME_REPORT_TEXT_LENGTH
+						then
+							makeSubmitButtonActive()
+							return
+						end
 					end
 				end
 			else
@@ -1052,6 +1185,7 @@ local function Initialize()
 			this.WhichPlayerMode:ResetSelectionIndex()
 			this.TypeOfAbuseMode:ResetSelectionIndex()
 			updateMethodOfAbuseVisibility()
+			this:resetScreenshot()
 			if this.GameOrPlayerMode.CurrentIndex == 1 then
 				this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_GAME)
 
@@ -1064,15 +1198,16 @@ local function Initialize()
 				this.TypeOfAbuseLabel.ZIndex = (#ABUSE_TYPES_GAME > 1 and 2 or 1)
 
 				this.WhichPlayerMode:SetInteractable(false)
+				if GetFFlagFixReportMenu() then
+					this.WhichPlayerFrame.Visible = false
+				end
 				this.WhichPlayerLabel.ZIndex = 1
 
 				updateSubmitButton()
-				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
-					-- clear out preselected player options
+				if shouldShowOptionalScreenshot() then 
 					currentSelectedPlayer = nil
 					nextPlayerToReport = nil
-					this:ActivateFormPhase(FormPhase.Init)
-					this:updateNextButton()
+					this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 				end
 			else
 				this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
@@ -1081,16 +1216,21 @@ local function Initialize()
 
 				if #playerNames > 0 then
 					this.WhichPlayerMode:SetInteractable(true)
+					if GetFFlagFixReportMenu() then
+						this.WhichPlayerFrame.Visible = true
+					end
 					this.WhichPlayerLabel.ZIndex = 2
 				else
 					this.WhichPlayerMode:SetInteractable(false)
+					if GetFFlagFixReportMenu() then
+						this.WhichPlayerFrame.Visible = false
+					end
 					this.WhichPlayerLabel.ZIndex = 1
 				end
 
 				updateSubmitButton()
-				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
-					this:ActivateFormPhase(FormPhase.Init, currentSelectedPlayer and true or false)
-					this:updateNextButton()
+				if shouldShowOptionalScreenshot() then 
+					this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 				end
 			end
 
@@ -1113,33 +1253,24 @@ local function Initialize()
 					abuseType = abuseType,
 				})
 			end
-
 		end
 
 		local function cleanupReportAbuseMenu()
 			updateAbuseDropDown(false)
-			this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
-			-- animation enabled for deferred lua workaround
-			this.HubRef:SetVisibility(false, not shouldDoARScreenshot())
-		end
-
-		local function reportAnalytics(reportType, id)
-			if not GetFFlagOldAbuseReportAnalyticsDisabled() then
-				local stringTable = {}
-				stringTable[#stringTable + 1] = "report_type=" .. tostring(reportType)
-				stringTable[#stringTable + 1] = "report_source=ingame"
-				stringTable[#stringTable + 1] = "reported_entity_id=" .. tostring(id)
-
-				local infoString = table.concat(stringTable,"&")
-
-				local eventTable = {}
-				eventTable["universeid"] = tostring(game.GameId)
-
-				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsReportSubmittedName, infoString, eventTable)
+			if GetFFlagFixReportMenu() == false then
+				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
 			end
+			-- animation enabled for deferred lua workaround
+			this.HubRef:SetVisibility(false, not shouldShowOptionalScreenshot())
 		end
 
 		local function onReportSubmitted()
+			if GetFFlagFixReportMenu() then
+				if this.submitButtonActive == false then
+					return
+				end
+			end
+
 			local abuseReason = nil
 			local methodOfAbuse = nil
 			local reportSucceeded = false
@@ -1155,7 +1286,7 @@ local function Initialize()
 				local currentAbusingPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 				local shouldProceedWithReport = currentAbusingPlayer and abuseReason
 
-				if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
+				if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowOptionalScreenshot() then
 					shouldProceedWithReport = this:isPlayerModeSubmissionAllowed()
 				end
 
@@ -1164,7 +1295,9 @@ local function Initialize()
 					showReportSentAlert = true
 					local layerData = IXPServiceWrapper:GetLayerData("AbuseReports")
 					local dialogVariant = layerData.thankYouDialog
-					isReportSentEnabled = self.HubRef.ReportSentPage and GetFFlagAbuseReportEnableReportSentPage() and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
+					isReportSentEnabled = self.HubRef.ReportSentPage
+						and GetFFlagAbuseReportEnableReportSentPage()
+						and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
 
 					if this.MethodOfAbuseMode then
 						methodOfAbuse = PageInstance:GetSelectedMethodOfAbuse()
@@ -1176,7 +1309,10 @@ local function Initialize()
 						end
 					end
 
-					if ((GetFFlagAddVoiceTagsToAllARSubmissionsEnabled() and this.MethodOfAbuseMode) or this:isVoiceReportSelected()) then
+					if
+						(GetFFlagAddVoiceTagsToAllARSubmissionsEnabled() and this.MethodOfAbuseMode)
+						or this:isVoiceReportSelected()
+					then
 						pcall(function()
 							task.spawn(function()
 								local request = createVoiceAbuseReportRequest(PlayersService, VoiceChatServiceManager, {
@@ -1184,23 +1320,27 @@ local function Initialize()
 									abuserUserId = currentAbusingPlayer.UserId,
 									abuseComment = this.AbuseDescription.Selection.Text,
 									abuseReason = abuseReason,
-									inExpMenuOpenedUnixMilli = math.floor(this:getReportTimestamp()*1000), --milliseconds conversion
+									inExpMenuOpenedUnixMilli = math.floor(this:getReportTimestamp() * 1000), --milliseconds conversion
 									sortedPlayerListUserIds = sortedUserIds,
 									abuseVector = string.lower(methodOfAbuse),
 								})
 								if game:GetEngineFeature("AbuseReportV3") then
 									PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 								else
-									local fullUrl = Url.APIS_URL.."/abuse-reporting/v2/abuse-report"
+									local fullUrl = Url.APIS_URL .. "/abuse-reporting/v2/abuse-report"
 									HttpRbxApiService:PostAsyncFullUrl(fullUrl, request)
 								end
 							end)
 						end)
-					elseif ((TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowMethodOfAbuseForAll()) and this:isOtherReportSelected()) then
+					elseif ((TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot()) and this:isOtherReportSelected()) then
 						local variant = AbuseReportBuilder.Constants.Variant.Sampling
 						if shouldShowMethodOfAbuseForAll() then
 							variant = AbuseReportBuilder.Constants.Variant.E1
 						end
+
+						if shouldShowOptionalScreenshot() then 
+							variant = AbuseReportBuilder.Constants.Variant.E2
+						end 
 						pcall(function()
 							task.spawn(function()
 								local request = AbuseReportBuilder.buildOtherReportRequest({
@@ -1209,7 +1349,7 @@ local function Initialize()
 									abuseComment = this.AbuseDescription.Selection.Text,
 									abuseReason = abuseReason,
 									menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
-									variant = variant
+									variant = variant,
 								})
 								PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 								if #AbuseReportBuilder.getSelectedAbusers() > 0 or not currentAbusingPlayer then
@@ -1221,7 +1361,6 @@ local function Initialize()
 					else
 						spawn(function()
 							PlayersService:ReportAbuse(currentAbusingPlayer, abuseReason, this.AbuseDescription.Selection.Text)
-							reportAnalytics("user", currentAbusingPlayer.UserId)
 						end)
 					end
 
@@ -1230,7 +1369,7 @@ local function Initialize()
 							typeOfAbuse = abuseReason,
 						}
 
-						if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() then
+						if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowOptionalScreenshot() then
 							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 							submittedParameters = Cryo.Dictionary.join(
 								submittedParameters,
@@ -1241,7 +1380,11 @@ local function Initialize()
 							ReportAnythingAnalytics.clear()
 						end
 
-						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, methodOfAbuse or "Chat", submittedParameters)
+						this.reportAbuseAnalytics:reportFormSubmitted(
+							timeToComplete,
+							methodOfAbuse or "Chat",
+							submittedParameters
+						)
 					end
 
 					if GetFFlagReportSentPageV2Enabled() and this:isVoiceReportSelected() then
@@ -1257,29 +1400,46 @@ local function Initialize()
 				if abuseReason then
 					reportSucceeded = true
 					showReportSentAlert = true
-					if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then
+					local variant = nil
+					if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then 
+						variant = AbuseReportBuilder.Constants.Variant.Sampling
+					end 
+
+					if shouldShowOptionalScreenshot() then 
+						variant = AbuseReportBuilder.Constants.Variant.E2
+					end 
+
+					if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() or shouldShowOptionalScreenshot() then
 						local request = AbuseReportBuilder.buildExperienceReportRequest({
 							localUserId = PlayersService.LocalPlayer.UserId,
 							placeId = game.PlaceId,
 							abuseComment = this.AbuseDescription.Selection.Text,
 							abuseReason = abuseReason,
 							menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
-							variant = if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then AbuseReportBuilder.Constants.Variant.Sampling else nil
+							variant = variant
 						})
 						PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 					else
 						spawn(function()
-							local placeId,placeName,placeDescription = tostring(game.PlaceId), "N/A", "N/A"
+							local placeId, placeName, placeDescription = tostring(game.PlaceId), "N/A", "N/A"
 							local abuseDescription = this.AbuseDescription.Selection.Text
 							pcall(function()
 								local productInfo = MarketplaceService:GetProductInfo(game.PlaceId, Enum.InfoType.Asset)
 								placeName = productInfo.Name
 								placeDescription = productInfo.Description
 							end)
-							local formattedText = string.format("User Report: \n    %s \n".."Place Title: \n    %s \n".."PlaceId: \n    %s \n".."Place Description: \n    %s \n",abuseDescription, placeName, placeId, placeDescription)
+							local formattedText = string.format(
+								"User Report: \n    %s \n"
+									.. "Place Title: \n    %s \n"
+									.. "PlaceId: \n    %s \n"
+									.. "Place Description: \n    %s \n",
+								abuseDescription,
+								placeName,
+								placeId,
+								placeDescription
+							)
 
 							PlayersService:ReportAbuse(nil, abuseReason, formattedText)
-							reportAnalytics("game", game.GameId)
 						end)
 					end
 					if GetFFlagIGMv1ARFlowExpandedAnalyticsEnabled() then
@@ -1287,7 +1447,7 @@ local function Initialize()
 							typeOfAbuse = abuseReason,
 						}
 
-						if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then
+						if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() or shouldShowOptionalScreenshot() then
 							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 							submittedParameters = Cryo.Dictionary.join(
 								submittedParameters,
@@ -1304,17 +1464,23 @@ local function Initialize()
 			end
 
 			if showReportSentAlert then
-				local alertText = "Thanks for your report! Our moderators will review the chat logs and evaluate what happened."
+				local alertText =
+					"Thanks for your report! Our moderators will review the chat logs and evaluate what happened."
 
-				if abuseReason == 'Cheating/Exploiting' then
+				if abuseReason == "Cheating/Exploiting" then
 					alertText = "Thanks for your report! We've recorded your report for evaluation."
-				elseif abuseReason == 'Inappropriate Username' then
+				elseif abuseReason == "Inappropriate Username" then
 					alertText = "Thanks for your report! Our moderators will evaluate the username."
-				elseif abuseReason == "Bad Model or Script" or  abuseReason == "Inappropriate Content" or abuseReason == "Offsite Link" or abuseReason == "Offsite Links" then
+				elseif
+					abuseReason == "Bad Model or Script"
+					or abuseReason == "Inappropriate Content"
+					or abuseReason == "Offsite Link"
+					or abuseReason == "Offsite Links"
+				then
 					alertText = "Thanks for your report! Our moderators will review the place and make a determination."
 				end
 
-				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+				if shouldShowOptionalScreenshot() then
 					alertText = "We’ve received your report and will take action soon if needed. Your feedback helps keep our community safe."
 				end
 
@@ -1323,60 +1489,32 @@ local function Initialize()
 
 			if reportSucceeded then
 				this.LastSelectedObject = nil
-				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+				if shouldShowOptionalScreenshot() then
 					AbuseReportBuilder.clear()
-					this:ActivateFormPhase(FormPhase.Init)
+					this:ActivateFormPhase(FormPhase.AttachScreenshotInit)
 				end
 			end
 		end
 
-		local submitButtonSize = UDim2.new(0,198,0,50)
+		local submitButtonSize = UDim2.new(0, 198, 0, 50)
 		if Theme.UIBloxThemeEnabled then
-			submitButtonSize = UDim2.new(1,20,0,50)
+			submitButtonSize = UDim2.new(1, 20, 0, 50)
 		end
 
-		this.SubmitButton, this.SubmitText = utility:MakeStyledButton("SubmitButton", "Submit", submitButtonSize, onReportSubmitted, this)
-		this.SubmitButton.AnchorPoint = Vector2.new(0.5,0)
+		this.SubmitButton, this.SubmitText =
+			utility:MakeStyledButton("SubmitButton", "Submit", submitButtonSize, onReportSubmitted, this)
+		this.SubmitButton.AnchorPoint = Vector2.new(0.5, 0)
 
 		if Theme.UIBloxThemeEnabled then
-			this.SubmitButton.Position = UDim2.new(0.5,0,1,15)
+			this.SubmitButton.Position = UDim2.new(0.5, 0, 1, 15)
 		else
-			this.SubmitButton.Position = UDim2.new(0.5,0,1,5)
+			this.SubmitButton.Position = UDim2.new(0.5, 0, 1, 5)
 		end
 
 		updateSubmitButton()
 
 		this.SubmitButton.Parent = this.AbuseDescription.Selection
 
-		local function setReportAnythingNextAndBackNav()
-			local onNext = function()
-				if this.NextEnabled then
-					this:ActivateFormPhase(FormPhase.Annotation)
-				end
-			end
-
-			local yOffset = 5
-			if Theme.UIBloxThemeEnabled then
-				yOffset = 15
-			end
-
-			this.NextButton, this.NextText = utility:MakeStyledButton("NextButton", "Next", UDim2.new(0,198,0,50), onNext, this)
-			this.NextButton.AnchorPoint = Vector2.new(0.5,0)
-			this.NextButton.Position = UDim2.new(0.5,0,2,yOffset)
-
-			this.NextButton.Parent = this.GameOrPlayerMode.Selection
-
-			local onBack = function()
-				this:ActivatePreviousFormPhase()
-			end
-			this.BackButton, this.BackText = utility:MakeStyledButton("BackButton", "Back", UDim2.new(0,198,0,50), onBack, this)
-			this.BackButton.AnchorPoint = Vector2.new(0.5,0)
-			this.BackButton.Position = UDim2.new(-1,0,1,yOffset)
-			this.BackButton.ZIndex = 2
-			this.BackButton.Selectable = true
-			this.BackButton.Parent = this.AbuseDescription.Selection
-			this.BackText.ZIndex = 2
-		end
 
 		this.SubmitButton.Parent = this.AbuseDescription.Selection
 
@@ -1404,6 +1542,9 @@ local function Initialize()
 		this.WhichPlayerMode.IndexChanged:connect(playerSelectionChanged)
 
 		local function typeOfAbuseChanged(newIndex)
+			if shouldShowOptionalScreenshot() then 
+				this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
+			end
 			updateSubmitButton()
 		end
 		this.TypeOfAbuseMode.IndexChanged:connect(typeOfAbuseChanged)
@@ -1424,25 +1565,22 @@ local function Initialize()
 		this:AddRow(nil, nil, this.AbuseDescription)
 
 		if Theme.UIBloxThemeEnabled then
-			this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y + 30)
+			this.Page.Size =
+				UDim2.new(1, 0, 0, this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y + 30)
 		else
-			this.Page.Size = UDim2.new(1,0,0,this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y)
+			this.Page.Size = UDim2.new(1, 0, 0, this.SubmitButton.AbsolutePosition.Y + this.SubmitButton.AbsoluteSize.Y)
 		end
 
 		-- IXP initialization is async. We need to do the following updates after getting the IXP variables.
 		local function ixpInitializationCallback()
-			if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+			if shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot() then
 				this:updateRALayout()
 				updateMethodOfAbuseVisibility()
 				updateSubmitButton()
-				setReportAnythingNextAndBackNav()
-				this:ActivateFormPhase(FormPhase.Init)
-			end
-			
-			if shouldShowMethodOfAbuseForAll() then
-				this:updateRALayout()
-				updateMethodOfAbuseVisibility()
-				updateSubmitButton()
+				
+				if shouldShowOptionalScreenshot() then 
+					this:initOptionalScreenshotButton()
+				end
 			end
 		end
 
@@ -1460,7 +1598,7 @@ do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
-		if shouldDoARScreenshot() and not PageInstance.isHidingForARScreenshot then
+		if (shouldShowOptionalScreenshot()) and not PageInstance.isHidingForARScreenshot then
 			PageInstance.isHidingForARScreenshot = true
 			PageInstance.HubRef:SetVisibility(false, true)
 
@@ -1468,50 +1606,50 @@ do
 
 			ReportAnythingAnalytics.clear()
 
-			if GetFIntIGMv1ARFlowScreenshotDelayFrames() == 0 then
-				coroutine.wrap(function()
-					local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
-					AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
-					AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
-					ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
-				end)()
+			local avatarIDConnection: RBXScriptConnection
+			local screenshotWaitCount = 0
+			local waitCount = 0
+			local waitConnection: RBXScriptConnection
 
-				ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
-				for i = 1, (1 + GetFIntIGMv1ARFlowCSWaitFrames()) do
-					RunService.RenderStepped:Wait()
+			avatarIDConnection = RunService.Heartbeat:Connect(function()
+				if screenshotWaitCount < GetFIntIGMv1ARFlowScreenshotDelayFrames() then
+					screenshotWaitCount += 1
+					return
 				end
-				PageInstance.HubRef:SetVisibility(true, true, PageInstance, nil, Constants.AnalyticsMenuOpenTypes.ScreenshotUnhide)
-				PageInstance.isHidingForARScreenshot = false
-			else
-				local avatarIDConnection: RBXScriptConnection
-				local screenshotWaitCount = 0
-				local waitCount = 0
-				local waitConnection: RBXScriptConnection
+				local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
+				ScreenshotManager:TakeScreenshotWithCallback(
+					AbuseReportBuilder.setScreenshotId,
+					AbuseReportBuilder.setScreenshotContentId
+				)
+				AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
+				AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
+				ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
 
-				avatarIDConnection = RunService.Heartbeat:Connect(function()
-					if screenshotWaitCount < GetFIntIGMv1ARFlowScreenshotDelayFrames() then
-						screenshotWaitCount += 1
-						return
-					end
-					local identifiedAvatars, avatarIDStats = AvatarIdentification.getVisibleAvatars()
-					ScreenshotManager:TakeScreenshotWithCallback(AbuseReportBuilder.setScreenshotId, AbuseReportBuilder.setScreenshotContentId)
-					AbuseReportBuilder.setAvatarIDStats(avatarIDStats)
-					AbuseReportBuilder.setIdentifiedAvatars(identifiedAvatars)
-					ReportAnythingAnalytics.emitAvatarsIdentifiedStats(avatarIDStats)
+				if GetFFlagReportAnythingEnableAdReport() then
+					local identifiedAds, adIDStats = AdIdentification.getVisibleAds()
+					AbuseReportBuilder.setAdIDStats(adIDStats)
+					AbuseReportBuilder.setIdentifiedAds(identifiedAds)
+				end
 
-					avatarIDConnection:Disconnect()
-				end)
+				avatarIDConnection:Disconnect()
+			end)
 
-				waitConnection = RunService.Heartbeat:Connect(function()
-					if waitCount < GetFIntIGMv1ARFlowCSWaitFrames() then
-						waitCount += 1
-					else
-						PageInstance.HubRef:SetVisibility(true, true, PageInstance, nil, Constants.AnalyticsMenuOpenTypes.ScreenshotUnhide)
-						PageInstance.isHidingForARScreenshot = false
-						waitConnection:Disconnect()
-					end
-				end)
-			end
+			waitConnection = RunService.Heartbeat:Connect(function()
+				if waitCount < GetFIntIGMv1ARFlowCSWaitFrames() then
+					waitCount += 1
+				else
+					PageInstance.HubRef:SetVisibility(
+						true,
+						true,
+						PageInstance,
+						nil,
+						Constants.AnalyticsMenuOpenTypes.ScreenshotUnhide
+					)
+					PageInstance.isHidingForARScreenshot = false
+					PageInstance.isAnnotationComplete = false
+					waitConnection:Disconnect()
+				end
+			end)
 
 			return
 		end
@@ -1519,7 +1657,6 @@ do
 		timeEntered = DateTime.now()
 		open = true
 		PageInstance.hasBeenSubmitted = false
-
 		-- This is the only start... call if the user opens the report page by
 		-- going to it directly.
 		-- For a prepopulated player report, start... is called inside
@@ -1531,20 +1668,21 @@ do
 
 	PageInstance.Hidden.Event:connect(function()
 		if open then
-			if shouldDoARScreenshot() and PageInstance.isHidingForARScreenshot then
+			if (shouldShowOptionalScreenshot()) 
+				and PageInstance.isHidingForARScreenshot then
 				open = false
 				return
 			end
 
 			if not PageInstance.hasBeenSubmitted then
+				PageInstance.isAnnotationComplete = false
 				local timeToExit = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
 				local abuseReasonSelected = if PageInstance.TypeOfAbuseMode.CurrentIndex then true else false
 				local abuserSelected = if PageInstance.WhichPlayerMode.CurrentIndex then true else false
 				local commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" then true else false
-				
-				if GetFFlagReportAnythingFixDefaultAnalytics() then 
-					commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" and 
-						PageInstance.AbuseDescription.Selection.Text ~= DEFAULT_ABUSE_DESC_TEXT then true else false	
+
+				if GetFFlagReportAnythingFixDefaultAnalytics() then
+					commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" then true else false
 				end
 
 				local methodOfAbuseSelected = false
@@ -1568,7 +1706,7 @@ do
 					methodOfAbuseSelected = methodOfAbuseSelected,
 				}
 
-				if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+				if shouldShowOptionalScreenshot() then
 					local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 					abandonedParameters = Cryo.Dictionary.join(
 						abandonedParameters,
@@ -1581,10 +1719,10 @@ do
 				PageInstance.reportAbuseAnalytics:reportFormAbandoned(timeToExit, abandonedParameters)
 			end
 
-			if TrustAndSafetyIXPManager:getReportAnythingEnabled() then
+			if shouldShowOptionalScreenshot() then
 				PageInstance:unmountAnnotationPage()
 				if AbuseReportBuilder.getAnnotationOptionSeen() then
-					PageInstance:ActivateFormPhase(FormPhase.Init)
+					PageInstance:ActivateFormPhase(FormPhase.AttachScreenshotInit)
 				end
 				AbuseReportBuilder.clear() -- opening the AR flow again will replace anything in here anyway.
 			end
@@ -1612,7 +1750,7 @@ do
 			else
 				if GetFFlagReportAbuseMenuEntrypointAnalytics() then
 					PageInstance.HubRef:SwitchToPage(PageInstance, false, nil, nil, nil, {
-						entrypoint = ReportAbuseAnalytics:getAbuseReportSessionEntryPoint()
+						entrypoint = ReportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
 					})
 				else
 					PageInstance.HubRef:SwitchToPage(PageInstance, false)
@@ -1621,6 +1759,5 @@ do
 		end
 	end
 end
-
 
 return PageInstance

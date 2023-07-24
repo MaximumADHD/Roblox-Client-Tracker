@@ -8,9 +8,10 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
-local OverlayContextualMenu = UIBlox.App.Menu.OverlayContextualMenu
+local ContextualMenu = UIBlox.App.Menu.ContextualMenu
 local MenuDirection = UIBlox.App.Menu.MenuDirection
 local Images = UIBlox.App.ImageSet.Images
+local withStyle = UIBlox.Core.Style.withStyle
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
@@ -101,7 +102,7 @@ function MoreMenu:init()
 	end
 end
 
-function MoreMenu:render()
+function MoreMenu:renderWithStyle(style)
 	local menuOptions = {}
 	local hasOptions = false
 
@@ -213,13 +214,14 @@ function MoreMenu:render()
 			Size = moreMenuSize,
 			AnchorPoint = Vector2.new(1, 0),
 		}, {
-			OverlayContextualMenu = Roact.createElement(OverlayContextualMenu, {
+			ContextualMenu = Roact.createElement(ContextualMenu, {
 				buttonProps = menuOptions,
 
 				open = self.props.moreMenuOpen,
 				menuDirection = MenuDirection.Down,
 				openPositionY = UDim.new(0, Constants.TopBarHeight + MENU_GAP),
 
+				background = style.Theme.BackgroundUIContrast,
 				closeBackgroundVisible = false,
 				screenSize = self.props.screenSize,
 
@@ -238,6 +240,12 @@ function MoreMenu:render()
 			end,
 		})
 	})
+end
+
+function MoreMenu:render()
+	return withStyle(function(style)
+		return self:renderWithStyle(style)
+	end)
 end
 
 function MoreMenu:updateActionBound()

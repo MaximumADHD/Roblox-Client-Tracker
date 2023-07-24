@@ -75,7 +75,7 @@ function Unibar(props)
 	-- Tree of menu items to display
 	local menuItems = useChromeMenuItems()
 
-	-- todo: Consider moving globally usful items such as animations into a Context (vs prop pushing)
+	-- todo: Consider moving globally useful items such as animations into a Context (vs prop pushing)
 	-- Animation for menu open(toggleTransition = 1), closed(toggleTransition = 0) status
 	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(0)
 

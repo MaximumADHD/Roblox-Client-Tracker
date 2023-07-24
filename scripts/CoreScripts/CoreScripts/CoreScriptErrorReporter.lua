@@ -16,6 +16,11 @@ local PiiFilter = require(RobloxGui.Modules.ErrorReporting.PiiFilter)
 local BacktraceReporter = require(CorePackages.ErrorReporters.Backtrace.BacktraceReporter)
 local React = require(CorePackages.Packages.React)
 
+-- This flag is permanent; please do not remove it. It serves as a way to
+-- quickly turn off error reporting if it proves to be problematic, so that we
+-- can disable uploads directly rather than tweaking the throttling parameters
+-- below.
+game:DefineFastFlag("DisableCorescriptBacktraceReporting", false)
 game:DefineFastString("CoreScriptBacktraceErrorUploadToken", "")
 
 game:DefineFastInt("CoreScriptBacktracePIIFilterEraseTimeoutSeconds", 5 * 60)
@@ -33,7 +38,10 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTent
 
 -- We don't have a default for this fast string, so if it's the empty string we
 -- know we're at the default and we can't do error reports.
-if game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" then
+if
+	not game:GetFastFlag("DisableCorescriptBacktraceReporting")
+	and game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= ""
+then
 	local staticAttributes = {
 		LocalVersion = RunService:GetRobloxVersion(),
 		BaseUrl = ContentProvider.BaseUrl,
@@ -75,7 +83,10 @@ if game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" then
 	})
 
 	local function handleErrorDetailed(message, stack, offendingScript, details)
-		if offendingScript ~= nil and (offendingScript:IsDescendantOf(CoreGui) or offendingScript:IsDescendantOf(CorePackages)) then
+		if
+			offendingScript ~= nil
+			and (offendingScript:IsDescendantOf(CoreGui) or offendingScript:IsDescendantOf(CorePackages))
+		then
 			local reactError, reactRethrow = React.unstable_parseReactError(message)
 			-- if unstable_parseReactError receives a non-react error, it will
 			-- just use it as the message in its output
@@ -110,11 +121,11 @@ if game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= "" then
 	end
 
 	ScriptContext.ErrorDetailed:Connect(function(...)
-        local success, message = pcall(handleErrorDetailed, ...)
+		local success, message = pcall(handleErrorDetailed, ...)
 
-        if not success then
-            warn(("CoreScript error reporter failed to handle an error:\n%s"):format(message))
-        end
+		if not success then
+			warn(("CoreScript error reporter failed to handle an error:\n%s"):format(message))
+		end
 	end)
 
 	local serverVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge)

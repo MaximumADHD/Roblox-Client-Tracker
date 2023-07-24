@@ -122,7 +122,7 @@ end
 
 export type ObservableValue<T> = {
 	new: (T) -> ObservableValue<T>,
-	connect: (ObservableValue<T>, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
+	connect: (ObservableValue<T>, SignalLib.SignalCallback, callCallback: boolean?) -> SignalLib.SignalHandle,
 	set: (ObservableValue<T>, T) -> (),
 	get: (ObservableValue<T>) -> T,
 	signal: (ObservableValue<T>) -> SignalLib.Signal,
@@ -154,8 +154,13 @@ function ObservableValue:signal()
 	return self._changeSignal
 end
 
-function ObservableValue:connect(callback)
-	return self._changeSignal:connect(callback)
+function ObservableValue:connect(callback, callCallback)
+	local con = self._changeSignal:connect(callback)
+	if callCallback == true then
+		-- convenience to trigger callback on connect
+		callback(self._value)
+	end
+	return con
 end
 
 -- MappedSignals provide a common interface for a value and a the signal notifying that the value changed

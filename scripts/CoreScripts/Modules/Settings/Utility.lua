@@ -9,20 +9,20 @@
 
 ------------------ CONSTANTS --------------------
 local Theme = require(script.Parent.Theme)
+local Settings = script.Parent
 
-local SELECTED_COLOR = Theme.color("SELECTED_COLOR", Color3.fromRGB(0,162,255))
-local NON_SELECTED_COLOR = Theme.color("NON_SELECTED_COLOR", Color3.fromRGB(78,84,96))
+local SELECTED_COLOR = Theme.color("SELECTED_COLOR", Color3.fromRGB(0, 162, 255))
+local NON_SELECTED_COLOR = Theme.color("NON_SELECTED_COLOR", Color3.fromRGB(78, 84, 96))
 
 local ARROW_COLOR = Theme.color("ARROW_COLOR", Color3.fromRGB(204, 204, 204))
 local ARROW_COLOR_HOVER = Theme.color("ARROW_COLOR_HOVER", Color3.fromRGB(255, 255, 255))
 local ARROW_COLOR_TOUCH = ARROW_COLOR_HOVER
 local ARROW_COLOR_INACTIVE = Theme.color("ARROW_COLOR_INACTIVE", Color3.fromRGB(150, 150, 150))
 
-
 local SELECTED_LEFT_IMAGE = "rbxasset://textures/ui/Settings/Slider/SelectedBarLeft.png"
 local NON_SELECTED_LEFT_IMAGE = "rbxasset://textures/ui/Settings/Slider/BarLeft.png"
 local SELECTED_RIGHT_IMAGE = "rbxasset://textures/ui/Settings/Slider/SelectedBarRight.png"
-local NON_SELECTED_RIGHT_IMAGE= "rbxasset://textures/ui/Settings/Slider/BarRight.png"
+local NON_SELECTED_RIGHT_IMAGE = "rbxasset://textures/ui/Settings/Slider/BarRight.png"
 
 local CONTROLLER_SCROLL_DELTA = 0.2
 local CONTROLLER_THUMBSTICK_DEADZONE = 0.8
@@ -47,9 +47,12 @@ local Workspace = game:GetService("Workspace")
 
 --------------- FLAGS ----------------
 
-local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
+local success, result = pcall(function()
+	return settings():GetFFlag("UseNotificationsLocalization")
+end)
 local FFlagUseNotificationsLocalization = success and result
 
+local GetFFlagFixReportMenu = require(Settings.Flags.GetFFlagFixReportMenu)
 
 ------------------ Modules --------------------
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
@@ -65,9 +68,9 @@ do
 			local obj = Instance.new(instanceType)
 			local parent = nil
 			for k, v in pairs(data) do
-				if type(k) == 'number' then
+				if type(k) == "number" then
 					v.Parent = obj
-				elseif k == 'Parent' then
+				elseif k == "Parent" then
 					parent = v
 				else
 					obj[k] = v
@@ -82,15 +85,13 @@ do
 end
 
 local onResizedCallbacks = {}
-setmetatable(onResizedCallbacks, { __mode = 'k' })
+setmetatable(onResizedCallbacks, { __mode = "k" })
 
 -- used by several guis to show no selection adorn
-local noSelectionObject = Util.Create'ImageLabel'
-{
+local noSelectionObject = Util.Create("ImageLabel")({
 	Image = "",
-	BackgroundTransparency = 1
-};
-
+	BackgroundTransparency = 1,
+})
 
 -- MATH --
 function clamp(low, high, input)
@@ -103,7 +104,7 @@ local function Linear(t, b, c, d)
 		return b + c
 	end
 
-	return c*t/d + b
+	return c * t / d + b
 end
 
 local function EaseOutQuad(t, b, c, d)
@@ -111,8 +112,8 @@ local function EaseOutQuad(t, b, c, d)
 		return b + c
 	end
 
-	t = t/d
-	return b - c*t*(t - 2)
+	t = t / d
+	return b - c * t * (t - 2)
 end
 
 local function EaseInOutQuad(t, b, c, d)
@@ -120,11 +121,11 @@ local function EaseInOutQuad(t, b, c, d)
 		return b + c
 	end
 
-	t = t/d
-	if t < 1/2 then
-		return 2*c*t*t + b
+	t = t / d
+	if t < 1 / 2 then
+		return 2 * c * t * t + b
 	end
-	return b + c*(2*(2 - t)*t - 1)
+	return b + c * (2 * (2 - t) * t - 1)
 end
 
 function PropertyTweener(instance, prop, start, final, duration, easingFunc, cbFunc)
@@ -196,19 +197,21 @@ end
 local function CreateSignal()
 	local sig = {}
 
-	local mSignaler = Instance.new('BindableEvent')
+	local mSignaler = Instance.new("BindableEvent")
 
 	local mArgData = nil
 	local mArgDataCount = nil
 
 	function sig:fire(...)
-		mArgData = {...}
-		mArgDataCount = select('#', ...)
+		mArgData = { ... }
+		mArgDataCount = select("#", ...)
 		mSignaler:Fire()
 	end
 
 	function sig:connect(f)
-		if not f then error("connect(nil)", 2) end
+		if not f then
+			error("connect(nil)", 2)
+		end
 		return mSignaler.Event:Connect(function()
 			f(unpack(mArgData, 1, mArgDataCount))
 		end)
@@ -238,8 +241,10 @@ local function getViewportSize()
 
 	-- ViewportSize is initally set to 1, 1 in Camera.cpp constructor.
 	-- Also check against 0, 0 incase this is changed in the future.
-	while (workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(0,0) or
-		(workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(1,1) do
+	while
+		(workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(0, 0)
+		or (workspace.CurrentCamera :: Camera).ViewportSize == Vector2.new(1, 1)
+	do
 		(workspace.CurrentCamera :: Camera).Changed:Wait()
 	end
 
@@ -262,23 +267,27 @@ end
 
 local function usesSelectedObject()
 	--VR does not use selected objects (in the same way as gamepad)
-	if VRService.VREnabled then return false end
+	if VRService.VREnabled then
+		return false
+	end
 	--Touch does not use selected objects unless there's also a gamepad
-	if UserInputService.TouchEnabled and not UserInputService.GamepadEnabled then return false end
+	if UserInputService.TouchEnabled and not UserInputService.GamepadEnabled then
+		return false
+	end
 	--PC with gamepad, console... does use selected objects
 	return true
 end
 
 local function addHoverState(button, instance, onNormalButtonState, onHoverButtonState)
 	local function onNormalButtonStateCallback()
-        if button.Active then
-            onNormalButtonState(instance)
-        end
+		if button.Active then
+			onNormalButtonState(instance)
+		end
 	end
 	local function onHoverButtonStateCallback()
-        if button.Active then
-            onHoverButtonState(instance)
-        end
+		if button.Active then
+			onHoverButtonState(instance)
+		end
 	end
 
 	button.MouseEnter:Connect(onHoverButtonStateCallback)
@@ -295,28 +304,26 @@ local function addOnResizedCallback(key, callback)
 end
 
 local gamepadSet = {
-	[Enum.UserInputType.Gamepad1] = true;
-	[Enum.UserInputType.Gamepad2] = true;
-	[Enum.UserInputType.Gamepad3] = true;
-	[Enum.UserInputType.Gamepad4] = true;
-	[Enum.UserInputType.Gamepad5] = true;
-	[Enum.UserInputType.Gamepad6] = true;
-	[Enum.UserInputType.Gamepad7] = true;
-	[Enum.UserInputType.Gamepad8] = true;
+	[Enum.UserInputType.Gamepad1] = true,
+	[Enum.UserInputType.Gamepad2] = true,
+	[Enum.UserInputType.Gamepad3] = true,
+	[Enum.UserInputType.Gamepad4] = true,
+	[Enum.UserInputType.Gamepad5] = true,
+	[Enum.UserInputType.Gamepad6] = true,
+	[Enum.UserInputType.Gamepad7] = true,
+	[Enum.UserInputType.Gamepad8] = true,
 }
 
 local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
-	local SelectionOverrideObject = Util.Create'ImageLabel'
-	{
+	local SelectionOverrideObject = Util.Create("ImageLabel")({
 		Image = "",
 		BackgroundTransparency = 1,
-	};
+	})
 
 	local button
 	local borderColor = "DefaultButtonStroke"
 	local backgroundColor = "DefaultButton"
 	if Theme.UIBloxThemeEnabled then
-
 		if name == "DropDownFrame" then
 			borderColor = "ControlInputStroke"
 			backgroundColor = "ControlInputBackground"
@@ -326,52 +333,45 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 			backgroundColor = "ImageButton"
 		end
 
-		button = Util.Create'ImageButton'
-		{
+		button = Util.Create("ImageButton")({
 			Name = name .. "Button",
 			AutoButtonColor = false,
 			BackgroundColor3 = Theme.color(backgroundColor),
 			BackgroundTransparency = Theme.transparency(backgroundColor),
 			Size = size,
 			ZIndex = 2,
-			SelectionImageObject = SelectionOverrideObject
-		};
-		Util.Create'UICorner'
-		{
+			SelectionImageObject = SelectionOverrideObject,
+		})
+		Util.Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = button,
-		}
-		Util.Create'UIStroke'
-		{
+		})
+		Util.Create("UIStroke")({
 			Name = "Border",
 			Color = Theme.color(borderColor),
 			Transparency = Theme.transparency(borderColor),
 			Thickness = Theme.DefaultStokeThickness,
 			Parent = button,
-		}
+		})
 	else
-		button = Util.Create'ImageButton'
-		{
+		button = Util.Create("ImageButton")({
 			Name = name .. "Button",
 			Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
 			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(8,6,46,44),
+			SliceCenter = Rect.new(8, 6, 46, 44),
 			AutoButtonColor = false,
 			BackgroundTransparency = 1,
 			Size = size,
 			ZIndex = 2,
-			SelectionImageObject = SelectionOverrideObject
-		};
+			SelectionImageObject = SelectionOverrideObject,
+		})
 	end
 
-
-
-	local _enabled = Util.Create'BoolValue'
-	{
-		Name = 'Enabled',
+	local _enabled = Util.Create("BoolValue")({
+		Name = "Enabled",
 		Parent = button,
-		Value = true
-	}
+		Value = true,
+	})
 
 	if clickFunc then
 		button.MouseButton1Click:Connect(function()
@@ -380,7 +380,8 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 	end
 
 	local function isPointerInput(inputObject)
-		return inputObject.UserInputType == Enum.UserInputType.MouseMovement or inputObject.UserInputType == Enum.UserInputType.Touch
+		return inputObject.UserInputType == Enum.UserInputType.MouseMovement
+			or inputObject.UserInputType == Enum.UserInputType.Touch
 	end
 
 	local rowRef = nil
@@ -397,7 +398,6 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 		end
 
 		if (hub and hub.Active) or hub == nil then
-
 			if Theme.UIBloxThemeEnabled then
 				button.BackgroundColor3 = Theme.color("DefaultButtonHover")
 				button.BackgroundTransparency = Theme.transparency("DefaultButtonHover")
@@ -435,7 +435,6 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 		end
 	end)
 
-
 	button.SelectionGained:Connect(function()
 		selectButton()
 	end)
@@ -444,8 +443,12 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 	end)
 
 	local _guiServiceCon = GuiService.Changed:Connect(function(prop)
-		if prop ~= "SelectedCoreObject" then return end
-		if not usesSelectedObject() then return end
+		if prop ~= "SelectedCoreObject" then
+			return
+		end
+		if not usesSelectedObject() then
+			return
+		end
 
 		if GuiService.SelectedCoreObject == nil or GuiService.SelectedCoreObject ~= button then
 			deselectButton()
@@ -461,12 +464,10 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 end
 
 local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef)
-
-	local SelectionOverrideObject = Util.Create'ImageLabel'
-	{
+	local SelectionOverrideObject = Util.Create("ImageLabel")({
 		Image = "",
 		BackgroundTransparency = 1,
-	};
+	})
 
 	local iconSize = Theme.IconSize.Medium
 
@@ -490,35 +491,32 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 	local iconSizeMeasurement = Theme.getIconSize(iconSize)
 
 	local size = getSize(iconSizeMeasurement)
-	local frameSize = size + UDim2.new(0,0,0,18)
+	local frameSize = size + UDim2.new(0, 0, 0, 18)
 
-	local ButtonLabel =  Util.Create'Frame'
-	{
+	local ButtonLabel = Util.Create("Frame")({
 		Name = name .. "IconButton",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Size = frameSize,
-	}
+	})
 
-	Util.Create'UIListLayout'
-	{
+	Util.Create("UIListLayout")({
 		Name = "MenuListLayout",
 		Padding = UDim.new(0, 2),
 		FillDirection = Enum.FillDirection.Vertical,
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
-		Parent = ButtonLabel
-	}
+		Parent = ButtonLabel,
+	})
 
-	Util.Create'TextLabel'
-	{
+	Util.Create("TextLabel")({
 		Name = name .. "TextLabel",
 		AutomaticSize = Enum.AutomaticSize.Y,
 		AnchorPoint = Vector2.new(0.5, 1.0),
 		Position = UDim2.new(0.5, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		TextColor3 = Color3.fromRGB(255,255,255),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
 		TextYAlignment = Enum.TextYAlignment.Center,
 		TextWrapped = true,
 		Size = UDim2.new(1.5, 0, 0, 0),
@@ -528,32 +526,29 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		Text = text,
 		Parent = ButtonLabel,
 		LayoutOrder = 2,
-	}
+	})
 
-	local Button = Util.Create'ImageButton'
-	{
+	local Button = Util.Create("ImageButton")({
 		Name = "Button",
 		Size = size,
 		BackgroundTransparency = 1,
 		AutoButtonColor = false,
 		SelectionImageObject = SelectionOverrideObject,
 		Parent = ButtonLabel,
-	}
-	local Background =  Util.Create'ImageLabel'
-	{
+	})
+	local Background = Util.Create("ImageLabel")({
 		Name = "Background",
 		BackgroundTransparency = Theme.transparency("IconButton"),
 		BorderSizePixel = 0,
 		Size = UDim2.fromScale(1, 1),
 		BackgroundColor3 = Theme.color("IconButton"),
-		Parent = Button
-	}
+		Parent = Button,
+	})
 
-	Util.Create'UICorner'
-	{
+	Util.Create("UICorner")({
 		CornerRadius = UDim.new(0, 8),
 		Parent = Background,
-	}
+	})
 
 	icon = icon or {
 		Image = "",
@@ -561,8 +556,7 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		ImageRectSize = Vector2.new(),
 	}
 
-	local Icon = Util.Create'ImageLabel'
-	{
+	local Icon = Util.Create("ImageLabel")({
 		Name = name .. "Icon",
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
@@ -572,13 +566,13 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		Image = icon.Image,
 		ImageRectOffset = icon.ImageRectOffset,
 		ImageRectSize = icon.ImageRectSize,
-		ImageColor3 = Color3.new(1,1,1),
+		ImageColor3 = Color3.new(1, 1, 1),
 		Parent = Button,
-	};
+	})
 
 	local mouseOutStyle = function()
 		Background.BackgroundColor3 = Theme.color("IconButton")
-		Icon.ImageColor3 = Color3.new(1,1,1)
+		Icon.ImageColor3 = Color3.new(1, 1, 1)
 	end
 
 	local mouseOverStyle = function()
@@ -591,7 +585,7 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 
 		if (hub and hub.Active) or hub == nil then
 			Background.BackgroundColor3 = Theme.color("IconButtonHover")
-			Icon.ImageColor3 = Color3.new(0,0,0)
+			Icon.ImageColor3 = Color3.new(0, 0, 0)
 		end
 	end
 
@@ -613,8 +607,12 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 	end
 
 	local _guiServiceCon = GuiService.Changed:Connect(function(prop)
-		if prop ~= "SelectedCoreObject" then return end
-		if not usesSelectedObject() then return end
+		if prop ~= "SelectedCoreObject" then
+			return
+		end
+		if not usesSelectedObject() then
+			return
+		end
 
 		if GuiService.SelectedCoreObject == nil or GuiService.SelectedCoreObject ~= Button then
 			mouseOutStyle()
@@ -626,22 +624,20 @@ local function MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef
 		end
 	end)
 
-
 	return ButtonLabel
 end
-
 
 local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 	local button, setRowRef = MakeDefaultButton(name, size, clickFunc, pageRef, hubRef)
 
-	local textLabel = Util.Create'TextLabel'
-	{
+	local textLabel = Util.Create("TextLabel")({
 		Name = name .. "TextLabel",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Size = Theme.UIBloxThemeEnabled and UDim2.new(1, 0, 1, 0) or UDim2.new(1, 0, 1, -8),
 		Position = UDim2.new(0,0,0,0),
-		TextColor3 = Color3.fromRGB(255,255,255),
+		TextColor3 = Theme.color("WhiteButtonText", Color3.fromRGB(255, 255, 255)),
+		TextTransparency = Theme.transparency("WhiteButtonText", 0),
 		TextYAlignment = Enum.TextYAlignment.Center,
 		Font = Theme.font(Enum.Font.SourceSansBold, "Button"),
 		TextSize = Theme.textSize(24, "Button"),
@@ -649,14 +645,19 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		TextScaled = true,
 		TextWrapped = true,
 		ZIndex = 2,
-		Parent = button
-	};
-	local constraint = Instance.new("UITextSizeConstraint",textLabel)
+		Parent = button,
+	})
+	local constraint = Instance.new("UITextSizeConstraint", textLabel)
 
 	if isSmallTouchScreen() then
-		textLabel.TextSize =  Theme.textSize(18)
+		-- Special case to increase max size for 1 row of buttons
+		if Theme.UIBloxThemeEnabled and Theme.UseBiggerText and (name == "ResumeButton" or name == "ResetButton" or name == "LeaveButton") then
+			textLabel.TextSize = Theme.textSize(20)
+		else
+			textLabel.TextSize = Theme.textSize(18)
+		end
 	elseif isTenFootInterface() then
-		textLabel.TextSize =  Theme.textSize(36)
+		textLabel.TextSize = Theme.textSize(36)
 	end
 	constraint.MaxTextSize = textLabel.TextSize
 
@@ -678,8 +679,7 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		image = image.Image
 	end
 
-	local imageLabel = Util.Create'ImageLabel'
-	{
+	local imageLabel = Util.Create("ImageLabel")({
 		Name = name .. "ImageLabel",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -690,8 +690,8 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		ImageRectOffset = imageRectOffset,
 		ImageRectSize = imageRectSize,
 		ZIndex = 2,
-		Parent = button
-	}
+		Parent = button,
+	})
 	if Theme.UIBloxThemeEnabled and style == "ImageButton" then
 		button.Border.Thickness = 0
 		button.Border.Transparency = 1
@@ -701,13 +701,12 @@ end
 
 local function AddButtonRow(pageToAddTo, name, text, size, clickFunc, hubRef)
 	local button, textLabel, setRowRef = MakeButton(name, text, size, clickFunc, pageToAddTo, hubRef)
-	local row = Util.Create'Frame'
-	{
+	local row = Util.Create("Frame")({
 		Name = name .. "Row",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, size.Y.Scale, size.Y.Offset),
-		Parent = pageToAddTo.Page
-	}
+		Parent = pageToAddTo.Page,
+	})
 	button.Parent = row
 	button.AnchorPoint = Vector2.new(1, 0)
 	button.Position = UDim2.new(1, -20, 0, 0)
@@ -718,9 +717,10 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	-------------------- CONSTANTS ------------------------
 	local DROPDOWN_DEFAULT_TEXT_KEY = "Feature.SettingsHub.Label.ChooseOne"
 	local SCROLLING_FRAME_PIXEL_OFFSET = 25
-	local SELECTION_TEXT_COLOR_NORMAL = Theme.color("SELECTION_TEXT_COLOR_NORMAL", Color3.fromRGB(178,178,178))
-	local SELECTION_TEXT_COLOR_NORMAL_VR = Color3.fromRGB(229,229,229)
-	local SELECTION_TEXT_COLOR_HIGHLIGHTED = Theme.color("SELECTION_TEXT_COLOR_HIGHLIGHTED", Color3.fromRGB(255,255,255))
+	local SELECTION_TEXT_COLOR_NORMAL = Theme.color("SELECTION_TEXT_COLOR_NORMAL", Color3.fromRGB(178, 178, 178))
+	local SELECTION_TEXT_COLOR_NORMAL_VR = Color3.fromRGB(229, 229, 229)
+	local SELECTION_TEXT_COLOR_HIGHLIGHTED =
+		Theme.color("SELECTION_TEXT_COLOR_HIGHLIGHTED", Color3.fromRGB(255, 255, 255))
 
 	-------------------- VARIABLES ------------------------
 	local lastSelectedCoreObject = nil
@@ -749,20 +749,19 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local lastStringTable = dropDownStringTable
 
 	----------------- GUI SETUP ------------------------
-	local DropDownFullscreenFrame = Util.Create'ImageButton'
-	{
+	local DropDownFullscreenFrame = Util.Create("ImageButton")({
 		Name = "DropDownFullscreenFrame",
 		BackgroundTransparency = DROPDOWN_BG_TRANSPARENCY,
 		BorderSizePixel = 0,
 		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundColor3 = Color3.fromRGB(0,0,0),
+		BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 		ZIndex = 10,
 		Active = true,
 		Visible = false,
 		Selectable = false,
 		AutoButtonColor = false,
-		Parent = CoreGui.RobloxGui
-	};
+		Parent = CoreGui.RobloxGui,
+	})
 
 	local function onVREnabled(prop)
 		if prop ~= "VREnabled" then
@@ -785,31 +784,28 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	VRService.Changed:Connect(onVREnabled)
 	onVREnabled("VREnabled")
 
-	local DropDownSelectionFrame = Util.Create'ImageLabel'
-	{
+	local DropDownSelectionFrame = Util.Create("ImageLabel")({
 		Name = "DropDownSelectionFrame",
 		Image = if Theme.UIBloxThemeEnabled then "" else "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
 		ScaleType = if Theme.UIBloxThemeEnabled then Enum.ScaleType.Stretch else Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(8,6,46,44),
+		SliceCenter = Rect.new(8, 6, 46, 44),
 		BackgroundTransparency = Theme.transparency("DropdownListBg", 1),
 		BackgroundColor3 = Theme.color("DropdownListBg"),
 		Size = UDim2.new(0.6, 0, 0.9, 0),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		ZIndex = 10,
-		Parent = DropDownFullscreenFrame
-	};
+		Parent = DropDownFullscreenFrame,
+	})
 
 	if Theme.UIBloxThemeEnabled then
-		Util.Create'UICorner'
-		{
+		Util.Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = DropDownSelectionFrame,
-		}
+		})
 	end
 
-	local DropDownScrollingFrame = Util.Create'ScrollingFrame'
-	{
+	local DropDownScrollingFrame = Util.Create("ScrollingFrame")({
 		Name = "DropDownScrollingFrame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -818,13 +814,15 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		ZIndex = 10,
 		ScrollBarThickness = Theme.DefaultScrollBarThickness,
 		ScrollingDirection = if Theme.UIBloxThemeEnabled then Enum.ScrollingDirection.Y else Enum.ScrollingDirection.XY,
-		Parent = DropDownSelectionFrame
-	};
+		Parent = DropDownSelectionFrame,
+	})
 
 	local guiServiceChangeCon = nil
 	local active = false
 	local hideDropDownSelection = function(name, inputState)
-		if name ~= nil and inputState ~= Enum.UserInputState.Begin then return end
+		if name ~= nil and inputState ~= Enum.UserInputState.Begin then
+			return
+		end
 		this.DropDownFrame.Selectable = interactable
 
 		--Make sure to set the hub to Active again so selecting the
@@ -835,7 +833,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			GuiService.SelectedCoreObject = lastSelectedCoreObject
 		end
 		DropDownFullscreenFrame.Visible = false
-		if guiServiceChangeCon then guiServiceChangeCon:Disconnect() end
+		if guiServiceChangeCon then
+			guiServiceChangeCon:Disconnect()
+		end
 		ContextActionService:UnbindCoreAction(guid .. "Action")
 		ContextActionService:UnbindCoreAction(guid .. "FreezeAction")
 
@@ -850,7 +850,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local noOpFunc = function() end
 
 	local DropDownFrameClicked = function()
-		if not interactable then return end
+		if not interactable then
+			return
+		end
 
 		this.DropDownFrame.Selectable = false
 		active = true
@@ -873,13 +875,26 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 				if GuiService.SelectedCoreObject == this.Selections[i] then
 					this.Selections[i].TextColor3 = SELECTION_TEXT_COLOR_HIGHLIGHTED
 				else
-					this.Selections[i].TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL
+					this.Selections[i].TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR
+						or SELECTION_TEXT_COLOR_NORMAL
 				end
 			end
 		end)
 
-		ContextActionService:BindCoreAction(guid .. "FreezeAction", noOpFunc, false, Enum.UserInputType.Keyboard, Enum.UserInputType.Gamepad1)
-		ContextActionService:BindCoreAction(guid .. "Action", hideDropDownSelection, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Escape)
+		ContextActionService:BindCoreAction(
+			guid .. "FreezeAction",
+			noOpFunc,
+			false,
+			Enum.UserInputType.Keyboard,
+			Enum.UserInputType.Gamepad1
+		)
+		ContextActionService:BindCoreAction(
+			guid .. "Action",
+			hideDropDownSelection,
+			false,
+			Enum.KeyCode.ButtonB,
+			Enum.KeyCode.Escape
+		)
 
 		settingsHub:SetActive(false)
 
@@ -892,8 +907,8 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	if Theme.UIBloxThemeEnabled then
 		dropDownFrameSize = UDim2.new(0.6, 0, 0, 40)
 	end
-	this.DropDownFrame = MakeButton("DropDownFrame", dropDownDefaultText,
-		dropDownFrameSize, DropDownFrameClicked, nil, settingsHub)
+	this.DropDownFrame =
+		MakeButton("DropDownFrame", dropDownDefaultText, dropDownFrameSize, DropDownFrameClicked, nil, settingsHub)
 	this.DropDownFrame.Position = UDim2.new(1, 0, 0.5, 0)
 	this.DropDownFrame.AnchorPoint = Vector2.new(1, 0.5)
 
@@ -907,19 +922,17 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	end
 	selectedTextLabel.ClipsDescendants = true
 	selectedTextLabel.TextXAlignment = Enum.TextXAlignment.Left
-	local dropDownImage = Util.Create'ImageLabel'
-	{
+	local dropDownImage = Util.Create("ImageLabel")({
 		Name = "DropDownImage",
 		Image = "rbxasset://textures/ui/Settings/DropDown/DropDown.png",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 0.5),
-		Size = UDim2.new(0,15,0,10),
-		Position = UDim2.new(1,-12,0.5,0),
+		Size = UDim2.new(0, 15, 0, 10),
+		Position = UDim2.new(1, -12, 0.5, 0),
 		ZIndex = 2,
-		Parent = this.DropDownFrame
-	};
+		Parent = this.DropDownFrame,
+	})
 	this.DropDownImage = dropDownImage
-
 
 	---------------------- FUNCTIONS -----------------------------------
 	local function setSelection(index)
@@ -967,7 +980,6 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		end
 	end
 
-
 	--------------------- PUBLIC FACING FUNCTIONS -----------------------
 	this.IndexChanged = indexChangedEvent.Event
 
@@ -1013,6 +1025,15 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		end
 
 		dropDownButtonEnabled.Value = value and not active
+
+		if GetFFlagFixReportMenu() then
+			this.DropDownImage.Visible = value
+			if value then
+				this.DropDownFrame.ImageTransparency = 0
+			else
+				this.DropDownFrame.ImageTransparency = 0.5
+			end
+		end
 	end
 
 	function this:SetAutoLocalize(autoLocalize)
@@ -1032,7 +1053,8 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		this.SelectionInfo = {}
 
 		local vrEnabled = VRService.VREnabled
-		local font = vrEnabled and Theme.font(Enum.Font.SourceSansBold, "Bold") or Theme.font(Enum.Font.SourceSans, "UtilityText")
+		local font = vrEnabled and Theme.font(Enum.Font.SourceSansBold, "Bold")
+			or Theme.font(Enum.Font.SourceSans, "UtilityText")
 		local textSize = vrEnabled and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
 
 		local itemHeight = vrEnabled and 70 or 50
@@ -1041,24 +1063,22 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		local dropDownWidth = vrEnabled and 600 or 400
 		local subtitleTotalOffset = 0
 
-		for i,v in pairs(dropDownStringTable) do
-			local SelectionOverrideObject =	Util.Create'Frame'
-			{
+		for i, v in pairs(dropDownStringTable) do
+			local SelectionOverrideObject = Util.Create("Frame")({
 				BackgroundTransparency = 0.7,
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, 0),
-			};
+			})
 			if Theme.UIBloxThemeEnabled then
-				Util.Create'UICorner'
-				{
+				Util.Create("UICorner")({
 					CornerRadius = Theme.DefaultCornerRadius,
 					Parent = SelectionOverrideObject,
-				}
+				})
 			end
 
 			local text = v
-			local subtitle = ''
-			local UseSubtitle = typeof(v) == 'table'
+			local subtitle = ""
+			local UseSubtitle = typeof(v) == "table"
 			if UseSubtitle then
 				text = v.title
 				subtitle = v.subtitle
@@ -1068,57 +1088,54 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			local nextSelection
 
 			if UseSubtitle then
-				nextSelection = Util.Create'TextButton'
-				{
+				nextSelection = Util.Create("TextButton")({
 					Name = "Selection" .. tostring(i),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					AutoButtonColor = false,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					Size = UDim2.new(1, -28, 0, itemHeight + DROPDOWN_SUBTITLE_OFFSET),
-					Position = UDim2.new(0,14,0, (i - 1) * (itemSpacing + DROPDOWN_SUBTITLE_OFFSET)),
+					Position = UDim2.new(0, 14, 0, (i - 1) * (itemSpacing + DROPDOWN_SUBTITLE_OFFSET)),
 					TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL,
 					Font = font,
 					TextSize = textSize,
 					Text = text,
 					ZIndex = 10,
 					SelectionImageObject = SelectionOverrideObject,
-					Parent = DropDownScrollingFrame
-				}
+					Parent = DropDownScrollingFrame,
+				})
 
 				local subtitleSize = 0.8
 				local subtitlePadding = 15
-				local _Subtitle = Util.Create'TextLabel'
-				{
+				local _Subtitle = Util.Create("TextLabel")({
 					Name = "Subtitle" .. tostring(i),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, -28, 0, itemHeight * subtitleSize),
-					Position = UDim2.new(0,14,0, subtitlePadding),
+					Position = UDim2.new(0, 14, 0, subtitlePadding),
 					TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL,
 					Font = font,
 					TextSize = textSize * subtitleSize,
 					Text = subtitle,
 					ZIndex = 10,
-					Parent = nextSelection
-				}
+					Parent = nextSelection,
+				})
 			else
-				nextSelection = Util.Create'TextButton'
-				{
+				nextSelection = Util.Create("TextButton")({
 					Name = "Selection" .. tostring(i),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					AutoButtonColor = false,
 					Size = UDim2.new(1, -28, 0, itemHeight),
-					Position = UDim2.new(0,14,0, (i - 1) * itemSpacing),
+					Position = UDim2.new(0, 14, 0, (i - 1) * itemSpacing),
 					TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL,
 					Font = font,
 					TextSize = textSize,
 					Text = v,
 					ZIndex = 10,
 					SelectionImageObject = SelectionOverrideObject,
-					Parent = DropDownScrollingFrame
-				}
+					Parent = DropDownScrollingFrame,
+				})
 			end
 
 			if i == startPosition then
@@ -1145,25 +1162,32 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			end)
 
 			this.Selections[i] = nextSelection
-			this.SelectionInfo[nextSelection] = {Clicked = clicked}
+			this.SelectionInfo[nextSelection] = { Clicked = clicked }
 		end
 
 		GuiService:RemoveSelectionGroup(guid)
 		GuiService:AddSelectionTuple(guid, unpack(this.Selections))
 
-		DropDownScrollingFrame.CanvasSize = UDim2.new(1,-20,0,#dropDownStringTable * itemSpacing + subtitleTotalOffset)
+		DropDownScrollingFrame.CanvasSize =
+			UDim2.new(1, -20, 0, #dropDownStringTable * itemSpacing + subtitleTotalOffset)
 
 		local function updateDropDownSize()
 			if DropDownScrollingFrame.CanvasSize.Y.Offset < (DropDownFullscreenFrame.AbsoluteSize.Y - 10) then
-				DropDownSelectionFrame.Size = UDim2.new(0, dropDownWidth,
-														0,DropDownScrollingFrame.CanvasSize.Y.Offset + SCROLLING_FRAME_PIXEL_OFFSET)
+				DropDownSelectionFrame.Size = UDim2.new(
+					0,
+					dropDownWidth,
+					0,
+					DropDownScrollingFrame.CanvasSize.Y.Offset + SCROLLING_FRAME_PIXEL_OFFSET
+				)
 			else
 				DropDownSelectionFrame.Size = UDim2.new(0, dropDownWidth, 0.9, 0)
 			end
 		end
 
 		DropDownFullscreenFrame.Changed:Connect(function(prop)
-			if prop ~= "AbsoluteSize" then return end
+			if prop ~= "AbsoluteSize" then
+				return
+			end
 			updateDropDownSize()
 		end)
 
@@ -1184,9 +1208,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	return this
 end
 
-
 local function CreateSelector(selectionStringTable, startPosition)
-
 	-------------------- VARIABLES ------------------------
 	local lastInputDirection = 0
 	local TweenTime = 0.15
@@ -1209,98 +1231,99 @@ local function CreateSelector(selectionStringTable, startPosition)
 	this.CurrentIndex = 0
 
 	----------------- GUI SETUP ------------------------
-	this.SelectorFrame = Util.Create'ImageButton'
-	{
+	this.SelectorFrame = Util.Create("ImageButton")({
 		Name = "Selector",
 		Image = "",
 		AutoButtonColor = false,
 		NextSelectionLeft = this.SelectorFrame,
 		NextSelectionRight = this.SelectorFrame,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0.6,0,0,50),
+		Size = UDim2.new(0.6, 0, 0, 50),
 		Position = UDim2.new(1, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(1, 0.5),
 		ZIndex = 2,
-		SelectionImageObject = noSelectionObject
-	};
+		SelectionImageObject = noSelectionObject,
+	})
 
-	local leftButton = Util.Create'ImageButton'
-	{
+	local leftButton = Util.Create("ImageButton")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
-		Position = UDim2.new(0,0,0.5,0),
-		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
-		Image =  "",
+		Position = UDim2.new(0, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
 		ZIndex = 3,
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
-		Parent = this.SelectorFrame
-	};
-	local rightButton = Util.Create'ImageButton'
-	{
+		Parent = this.SelectorFrame,
+	})
+	local rightButton = Util.Create("ImageButton")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 0.5),
-		Position = UDim2.new(1,0,0.5,0),
-		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
-		Image =  "",
+		Position = UDim2.new(1, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
 		ZIndex = 3,
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
-		Parent = this.SelectorFrame
-	};
+		Parent = this.SelectorFrame,
+	})
 
-	local leftButtonImage = Util.Create'ImageLabel'
-	{
+	local leftButtonImage = Util.Create("ImageLabel")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5,0,0.5,0),
-		Size =  UDim2.new(0,18,0,30),
-		Image =  "rbxasset://textures/ui/Settings/Slider/Left.png",
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 18, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/Left.png",
 		ImageColor3 = ARROW_COLOR,
 		ZIndex = 4,
-		Parent = leftButton
-	};
-	local rightButtonImage = Util.Create'ImageLabel'
-	{
+		Parent = leftButton,
+	})
+	local rightButtonImage = Util.Create("ImageLabel")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5,0,0.5,0),
-		Size =  UDim2.new(0,18,0,30),
-		Image =  "rbxasset://textures/ui/Settings/Slider/Right.png",
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 18, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/Right.png",
 		ImageColor3 = ARROW_COLOR,
 		ZIndex = 4,
-		Parent = rightButton
-	};
+		Parent = rightButton,
+	})
 	if not UserInputService.TouchEnabled then
 		local applyNormal, applyHover =
-			function(instance) instance.ImageColor3 = ARROW_COLOR end,
-			function(instance) instance.ImageColor3 = ARROW_COLOR_HOVER end
+			function(instance)
+				instance.ImageColor3 = ARROW_COLOR
+			end, function(instance)
+				instance.ImageColor3 = ARROW_COLOR_HOVER
+			end
 		addHoverState(leftButton, leftButtonImage, applyNormal, applyHover)
 		addHoverState(rightButton, rightButtonImage, applyNormal, applyHover)
 	end
-
 
 	this.Selections = {}
 	local isSelectionLabelVisible = {}
 	local isAutoSelectButton = {}
 
-	local autoSelectButton = Util.Create'ImageButton'{
-		Name = 'AutoSelectButton',
+	local autoSelectButton = Util.Create("ImageButton")({
+		Name = "AutoSelectButton",
 		BackgroundTransparency = 1,
-		Image = '',
+		Image = "",
 		Position = UDim2.new(0, leftButton.Size.X.Offset, 0, 0),
 		Size = UDim2.new(1, leftButton.Size.X.Offset * -2, 1, 0),
 		Parent = this.SelectorFrame,
 		ZIndex = 2,
-		SelectionImageObject = noSelectionObject
-	}
+		SelectionImageObject = noSelectionObject,
+	})
 	autoSelectButton.MouseButton1Click:Connect(function()
-		if not interactable then return end
-		if #this.Selections <= 1 then return end
+		if not interactable then
+			return
+		end
+		if #this.Selections <= 1 then
+			return
+		end
 		local newIndex = this.CurrentIndex + 1
 		if newIndex > #this.Selections then
 			newIndex = 1
@@ -1317,15 +1340,15 @@ local function CreateSelector(selectionStringTable, startPosition)
 		for i, selectionLabel in pairs(this.Selections) do
 			local isSelected = (i == index)
 
-			local leftButtonUDim = UDim2.new(0,leftButton.Size.X.Offset,0,0)
-			local tweenPos = UDim2.new(0,leftButton.Size.X.Offset * direction * 3,0,0)
+			local leftButtonUDim = UDim2.new(0, leftButton.Size.X.Offset, 0, 0)
+			local tweenPos = UDim2.new(0, leftButton.Size.X.Offset * direction * 3, 0, 0)
 
 			if isSelectionLabelVisible[selectionLabel] then
-				tweenPos = UDim2.new(0,leftButton.Size.X.Offset * -direction * 3,0,0)
+				tweenPos = UDim2.new(0, leftButton.Size.X.Offset * -direction * 3, 0, 0)
 			end
 
 			if tweenPos.X.Offset < 0 then
-				tweenPos = UDim2.new(0,tweenPos.X.Offset + (selectionLabel.AbsoluteSize.X/4),0,0)
+				tweenPos = UDim2.new(0, tweenPos.X.Offset + (selectionLabel.AbsoluteSize.X / 4), 0, 0)
 			end
 
 			if isSelected then
@@ -1334,7 +1357,13 @@ local function CreateSelector(selectionStringTable, startPosition)
 				selectionLabel.Visible = true
 				PropertyTweener(selectionLabel, "TextTransparency", 1, 0, TweenTime * 1.1, EaseOutQuad)
 				if selectionLabel:IsDescendantOf(game) then
-					selectionLabel:TweenPosition(leftButtonUDim, Enum.EasingDirection.In, Enum.EasingStyle.Quad, TweenTime, true)
+					selectionLabel:TweenPosition(
+						leftButtonUDim,
+						Enum.EasingDirection.In,
+						Enum.EasingStyle.Quad,
+						TweenTime,
+						true
+					)
 				else
 					selectionLabel.Position = leftButtonUDim
 				end
@@ -1344,7 +1373,13 @@ local function CreateSelector(selectionStringTable, startPosition)
 				isSelectionLabelVisible[selectionLabel] = false
 				PropertyTweener(selectionLabel, "TextTransparency", 0, 1, TweenTime * 1.1, EaseOutQuad)
 				if selectionLabel:IsDescendantOf(game) then
-					selectionLabel:TweenPosition(tweenPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, TweenTime * 0.9, true)
+					selectionLabel:TweenPosition(
+						tweenPos,
+						Enum.EasingDirection.Out,
+						Enum.EasingStyle.Quad,
+						TweenTime * 0.9,
+						true
+					)
 				else
 					selectionLabel.Position = tweenPos
 				end
@@ -1353,12 +1388,21 @@ local function CreateSelector(selectionStringTable, startPosition)
 	end
 
 	local function stepFunc(inputObject, step)
-		if not interactable then return end
+		if not interactable then
+			return
+		end
 
-		if inputObject ~= nil and inputObject.UserInputType ~= Enum.UserInputType.MouseButton1 and
-			inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 and inputObject.UserInputType ~= Enum.UserInputType.Gamepad2 and
-			inputObject.UserInputType ~= Enum.UserInputType.Gamepad3 and inputObject.UserInputType ~= Enum.UserInputType.Gamepad4 and
-			inputObject.UserInputType ~= Enum.UserInputType.Keyboard then return end
+		if
+			inputObject ~= nil
+			and inputObject.UserInputType ~= Enum.UserInputType.MouseButton1
+			and inputObject.UserInputType ~= Enum.UserInputType.Gamepad1
+			and inputObject.UserInputType ~= Enum.UserInputType.Gamepad2
+			and inputObject.UserInputType ~= Enum.UserInputType.Gamepad3
+			and inputObject.UserInputType ~= Enum.UserInputType.Gamepad4
+			and inputObject.UserInputType ~= Enum.UserInputType.Keyboard
+		then
+			return
+		end
 
 		if usesSelectedObject() then
 			GuiService.SelectedCoreObject = this.SelectorFrame
@@ -1434,37 +1478,41 @@ local function CreateSelector(selectionStringTable, startPosition)
 		leftButton.Active = interactable
 		rightButton.Active = interactable
 
+		if GetFFlagFixReportMenu() then
+			leftButton.Visible = interactable
+			rightButton.Visible = interactable
+		end
+
 		if not interactable then
 			for i, selectionLabel in pairs(this.Selections) do
-				selectionLabel.TextColor3 = Theme.color("NotInteractableSelection", Color3.fromRGB(49, 49, 49))
+				selectionLabel.TextColor3 = Theme.color("NotInteractableSelection", Color3.fromRGB(255, 255, 255))
 			end
 			leftButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
-            rightButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
+			rightButtonImage.ImageColor3 = ARROW_COLOR_INACTIVE
 		else
 			for i, selectionLabel in pairs(this.Selections) do
 				selectionLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 			end
 			leftButtonImage.ImageColor3 = ARROW_COLOR
-            rightButtonImage.ImageColor3 = ARROW_COLOR
+			rightButtonImage.ImageColor3 = ARROW_COLOR
 		end
 	end
 
 	function this:UpdateOptions(selectionStringTable)
-		for i,v in pairs(this.Selections) do
+		for i, v in pairs(this.Selections) do
 			v:Destroy()
 		end
 
 		isSelectionLabelVisible = {}
 		this.Selections = {}
 
-		for i,v in pairs(selectionStringTable) do
-			local nextSelection = Util.Create'TextLabel'
-			{
+		for i, v in pairs(selectionStringTable) do
+			local nextSelection = Util.Create("TextLabel")({
 				Name = "Selection" .. tostring(i),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1,leftButton.Size.X.Offset * -2, 1, 0),
-				Position = UDim2.new(1,0,0,0),
+				Size = UDim2.new(1, leftButton.Size.X.Offset * -2, 1, 0),
+				Position = UDim2.new(1, 0, 0, 0),
 				TextColor3 = Color3.fromRGB(255, 255, 255),
 				TextYAlignment = Enum.TextYAlignment.Center,
 				TextTransparency = 0.5,
@@ -1474,15 +1522,15 @@ local function CreateSelector(selectionStringTable, startPosition)
 				Text = v,
 				ZIndex = 2,
 				Visible = false,
-				Parent = this.SelectorFrame
-			};
+				Parent = this.SelectorFrame,
+			})
 			if isTenFootInterface() then
 				nextSelection.TextSize = Theme.textSize(36)
 			end
 
 			if i == startPosition then
 				this.CurrentIndex = i
-				nextSelection.Position = UDim2.new(0,leftButton.Size.X.Offset,0,0)
+				nextSelection.Position = UDim2.new(0, leftButton.Size.X.Offset, 0, 0)
 				nextSelection.Visible = true
 
 				isSelectionLabelVisible[nextSelection] = true
@@ -1536,38 +1584,72 @@ local function CreateSelector(selectionStringTable, startPosition)
 	this:UpdateOptions(selectionStringTable)
 
 	UserInputService.InputBegan:Connect(function(inputObject)
-		if not interactable then return end
-		if not isInTree then return end
+		if not interactable then
+			return
+		end
+		if not isInTree then
+			return
+		end
 
-		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 and inputObject.UserInputType ~= Enum.UserInputType.Keyboard then return end
-		if GuiService.SelectedCoreObject ~= this.SelectorFrame then return end
+		if
+			inputObject.UserInputType ~= Enum.UserInputType.Gamepad1
+			and inputObject.UserInputType ~= Enum.UserInputType.Keyboard
+		then
+			return
+		end
+		if GuiService.SelectedCoreObject ~= this.SelectorFrame then
+			return
+		end
 
-		if inputObject.KeyCode == Enum.KeyCode.DPadLeft or inputObject.KeyCode == Enum.KeyCode.Left or inputObject.KeyCode == Enum.KeyCode.A then
+		if
+			inputObject.KeyCode == Enum.KeyCode.DPadLeft
+			or inputObject.KeyCode == Enum.KeyCode.Left
+			or inputObject.KeyCode == Enum.KeyCode.A
+		then
 			stepFunc(inputObject, -1)
-		elseif inputObject.KeyCode == Enum.KeyCode.DPadRight or inputObject.KeyCode == Enum.KeyCode.Right or inputObject.KeyCode == Enum.KeyCode.D then
+		elseif
+			inputObject.KeyCode == Enum.KeyCode.DPadRight
+			or inputObject.KeyCode == Enum.KeyCode.Right
+			or inputObject.KeyCode == Enum.KeyCode.D
+		then
 			stepFunc(inputObject, 1)
 		end
 	end)
 
 	UserInputService.InputChanged:Connect(function(inputObject)
-		if not interactable then return end
+		if not interactable then
+			return
+		end
 		if not isInTree then
 			lastInputDirection = 0
 			return
 		end
 
-		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 then return end
+		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 then
+			return
+		end
 
 		local selected = GuiService.SelectedCoreObject
-		if not selected or not selected:IsDescendantOf(this.SelectorFrame.Parent) then return end
+		if not selected or not selected:IsDescendantOf(this.SelectorFrame.Parent) then
+			return
+		end
 
-		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
+		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then
+			return
+		end
 
-
-		if inputObject.Position.X > CONTROLLER_THUMBSTICK_DEADZONE and inputObject.Delta.X > 0 and lastInputDirection ~= 1 then
+		if
+			inputObject.Position.X > CONTROLLER_THUMBSTICK_DEADZONE
+			and inputObject.Delta.X > 0
+			and lastInputDirection ~= 1
+		then
 			lastInputDirection = 1
 			stepFunc(inputObject, lastInputDirection)
-		elseif inputObject.Position.X < -CONTROLLER_THUMBSTICK_DEADZONE and inputObject.Delta.X < 0 and lastInputDirection ~= -1 then
+		elseif
+			inputObject.Position.X < -CONTROLLER_THUMBSTICK_DEADZONE
+			and inputObject.Delta.X < 0
+			and lastInputDirection ~= -1
+		then
 			lastInputDirection = -1
 			stepFunc(inputObject, lastInputDirection)
 		elseif math.abs(inputObject.Position.X) < CONTROLLER_THUMBSTICK_DEADZONE then
@@ -1578,7 +1660,9 @@ local function CreateSelector(selectionStringTable, startPosition)
 	this.SelectorFrame.AncestryChanged:Connect(function(child, parent)
 		isInTree = parent
 		if not isInTree then
-			if guiServiceCon then guiServiceCon:Disconnect() end
+			if guiServiceCon then
+				guiServiceCon:Disconnect()
+			end
 		else
 			connectToGuiService()
 		end
@@ -1587,9 +1671,9 @@ local function CreateSelector(selectionStringTable, startPosition)
 	local function onResized(viewportSize, portrait)
 		local textSize = 0
 		if portrait then
-			textSize =  Theme.textSize(16)
+			textSize = Theme.textSize(16)
 		else
-			textSize = isTenFootInterface() and  Theme.textSize(36) or Theme.textSize(24, "UtilityText")
+			textSize = isTenFootInterface() and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
 		end
 
 		for i, selection in pairs(this.Selections) do
@@ -1605,7 +1689,9 @@ end
 
 local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc, hasBackground)
 	local parent = CoreGui.RobloxGui
-	if parent:FindFirstChild("AlertViewFullScreen") then return end
+	if parent:FindFirstChild("AlertViewFullScreen") then
+		return
+	end
 
 	--Declare AlertViewBacking so onVREnabled can take it as an upvalue
 	local AlertViewBacking = nil
@@ -1613,7 +1699,9 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 	--Handle VR toggle while alert is open
 	--Future consideration: maybe rebuild gui when VR toggles mid-game; right now only subpaneling is handled rather than visual style
 	local function onVREnabled(prop)
-		if prop ~= "VREnabled" then return end
+		if prop ~= "VREnabled" then
+			return
+		end
 		local Panel3D, settingsPanel = nil, nil
 		if VRService.VREnabled then
 			Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
@@ -1631,20 +1719,19 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 	end
 	local vrEnabledConn = VRService.Changed:Connect(onVREnabled)
 
-	AlertViewBacking = Util.Create'ImageLabel'
-	{
+	AlertViewBacking = Util.Create("ImageLabel")({
 		Name = "AlertViewBacking",
 		Image = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png",
 		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(8,6,46,44),
+		SliceCenter = Rect.new(8, 6, 46, 44),
 		BackgroundTransparency = 1,
 
 		ImageTransparency = 1,
 		Size = UDim2.new(0, 400, 0, 350),
 		Position = UDim2.new(0.5, -200, 0.5, -175),
 		ZIndex = 9,
-		Parent = parent
-	};
+		Parent = parent,
+	})
 	onVREnabled("VREnabled")
 	if hasBackground or VRService.VREnabled then
 		AlertViewBacking.ImageTransparency = 0
@@ -1654,13 +1741,21 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 	end
 
 	if CoreGui.RobloxGui.AbsoluteSize.Y <= AlertViewBacking.Size.Y.Offset then
-		AlertViewBacking.Size = UDim2.new(AlertViewBacking.Size.X.Scale, AlertViewBacking.Size.X.Offset,
-											AlertViewBacking.Size.Y.Scale, CoreGui.RobloxGui.AbsoluteSize.Y)
-		AlertViewBacking.Position = UDim2.new(AlertViewBacking.Position.X.Scale, -AlertViewBacking.Size.X.Offset/2, 0.5, -AlertViewBacking.Size.Y.Offset/2)
+		AlertViewBacking.Size = UDim2.new(
+			AlertViewBacking.Size.X.Scale,
+			AlertViewBacking.Size.X.Offset,
+			AlertViewBacking.Size.Y.Scale,
+			CoreGui.RobloxGui.AbsoluteSize.Y
+		)
+		AlertViewBacking.Position = UDim2.new(
+			AlertViewBacking.Position.X.Scale,
+			-AlertViewBacking.Size.X.Offset / 2,
+			0.5,
+			-AlertViewBacking.Size.Y.Offset / 2
+		)
 	end
 
-	local _AlertViewText = Util.Create'TextLabel'
-	{
+	local _AlertViewText = Util.Create("TextLabel")({
 		Name = "AlertViewText",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0.95, 0, 0.6, 0),
@@ -1673,19 +1768,21 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextYAlignment = Enum.TextYAlignment.Center,
 		ZIndex = 10,
-		Parent = AlertViewBacking
-	};
+		Parent = AlertViewBacking,
+	})
 
-	local _SelectionOverrideObject = Util.Create'ImageLabel'
-	{
+	local _SelectionOverrideObject = Util.Create("ImageLabel")({
 		Image = "",
-		BackgroundTransparency = 1
-	};
+		BackgroundTransparency = 1,
+	})
 
 	local removeId = HttpService:GenerateGUID(false)
 
 	local destroyAlert = function(actionName, inputState)
-		if VRService.VREnabled and (inputState == Enum.UserInputState.Begin or inputState == Enum.UserInputState.Cancel) then
+		if
+			VRService.VREnabled
+			and (inputState == Enum.UserInputState.Begin or inputState == Enum.UserInputState.Cancel)
+		then
 			return
 		end
 		if not AlertViewBacking then
@@ -1717,7 +1814,8 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		AlertViewButtonPosition = UDim2.new(0.5, -100, 0.65, 0)
 	end
 
-	local AlertViewButton, AlertViewText = MakeButton("AlertViewButton", okButtonText, AlertViewButtonSize, destroyAlert)
+	local AlertViewButton, AlertViewText =
+		MakeButton("AlertViewButton", okButtonText, AlertViewButtonSize, destroyAlert)
 	AlertViewButton.Position = AlertViewButtonPosition
 	AlertViewButton.NextSelectionLeft = AlertViewButton
 	AlertViewButton.NextSelectionRight = AlertViewButton
@@ -1733,7 +1831,14 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 
 	GuiService.SelectedCoreObject = AlertViewButton
 
-	ContextActionService:BindCoreAction(removeId, destroyAlert, false, Enum.KeyCode.Escape, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonA)
+	ContextActionService:BindCoreAction(
+		removeId,
+		destroyAlert,
+		false,
+		Enum.KeyCode.Escape,
+		Enum.KeyCode.ButtonB,
+		Enum.KeyCode.ButtonA
+	)
 
 	if settingsHub and not VRService.VREnabled then
 		settingsHub:HideBar()
@@ -1761,7 +1866,10 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	startStep = ""
 
 	if steps <= 0 then
-		error("CreateNewSlider failed because numOfSteps (first arg) is 0 or negative, please supply a positive integer", 2)
+		error(
+			"CreateNewSlider failed because numOfSteps (first arg) is 0 or negative, please supply a positive integer",
+			2
+		)
 		return
 	end
 
@@ -1769,8 +1877,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	valueChangedEvent.Name = "ValueChanged"
 
 	----------------- GUI SETUP ------------------------
-	this.SliderFrame = Util.Create'ImageButton'
-	{
+	this.SliderFrame = Util.Create("ImageButton")({
 		Name = "Slider",
 		Image = "",
 		AutoButtonColor = false,
@@ -1781,76 +1888,74 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		Position = UDim2.new(1, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(1, 0.5),
 		SelectionImageObject = noSelectionObject,
-		ZIndex = 2
-	};
+		ZIndex = 2,
+	})
 
-	this.StepsContainer = Util.Create "Frame"
-	{
+	this.StepsContainer = Util.Create("Frame")({
 		Name = "StepsContainer",
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		Size = UDim2.new(1, -100, 1, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		BackgroundTransparency = 1,
 		Parent = this.SliderFrame,
-	}
+	})
 
-	local leftButton = Util.Create'ImageButton'
-	{
+	local leftButton = Util.Create("ImageButton")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
-		Position = UDim2.new(0,0,0.5,0),
-		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
-		Image =  "",
+		Position = UDim2.new(0, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
 		ZIndex = 3,
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
 		Active = true,
-		Parent = this.SliderFrame
-	};
-	local rightButton = Util.Create'ImageButton'
-	{
+		Parent = this.SliderFrame,
+	})
+	local rightButton = Util.Create("ImageButton")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(1, 0.5),
-		Position = UDim2.new(1,0,0.5,0),
-		Size =  UDim2.new(0,Theme.SelectorArrowButtonWidth,0,50),
-		Image =  "",
+		Position = UDim2.new(1, 0, 0.5, 0),
+		Size = UDim2.new(0, Theme.SelectorArrowButtonWidth, 0, 50),
+		Image = "",
 		ZIndex = 3,
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
 		Active = true,
-		Parent = this.SliderFrame
-	};
+		Parent = this.SliderFrame,
+	})
 
-	local leftButtonImage = Util.Create'ImageLabel'
-	{
+	local leftButtonImage = Util.Create("ImageLabel")({
 		Name = "LeftButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5,0,0.5,0),
-		Size =  UDim2.new(0,30,0,30),
-		Image =  "rbxasset://textures/ui/Settings/Slider/Less.png",
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 30, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/Less.png",
 		ZIndex = 4,
 		Parent = leftButton,
-		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR
-	};
-	local rightButtonImage = Util.Create'ImageLabel'
-	{
+		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR,
+	})
+	local rightButtonImage = Util.Create("ImageLabel")({
 		Name = "RightButton",
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5,0,0.5,0),
-		Size =  UDim2.new(0,30,0,30),
-		Image =  "rbxasset://textures/ui/Settings/Slider/More.png",
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 30, 0, 30),
+		Image = "rbxasset://textures/ui/Settings/Slider/More.png",
 		ZIndex = 4,
 		Parent = rightButton,
-		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR
-	};
+		ImageColor3 = UserInputService.TouchEnabled and ARROW_COLOR_TOUCH or ARROW_COLOR,
+	})
 	if not UserInputService.TouchEnabled then
 		local onNormalButtonState, onHoverButtonState =
-			function(instance) instance.ImageColor3 = ARROW_COLOR end,
-			function(instance) instance.ImageColor3 = ARROW_COLOR_HOVER end
+			function(instance)
+				instance.ImageColor3 = ARROW_COLOR
+			end, function(instance)
+				instance.ImageColor3 = ARROW_COLOR_HOVER
+			end
 
 		addHoverState(leftButton, leftButtonImage, onNormalButtonState, onHoverButtonState)
 		addHoverState(rightButton, rightButtonImage, onNormalButtonState, onHoverButtonState)
@@ -1861,8 +1966,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	local stepXScale = 1 / steps
 
 	for i = 1, steps do
-		local nextStep = Util.Create'ImageButton'
-		{
+		local nextStep = Util.Create("ImageButton")({
 			Name = "Step" .. tostring(i),
 			BackgroundColor3 = SELECTED_COLOR,
 			BackgroundTransparency = if Theme.UIBloxThemeEnabled then 0 else 0.36,
@@ -1871,41 +1975,39 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 			Active = false,
 			AnchorPoint = Vector2.new(0, 0.5),
 			Position = UDim2.new((i - 1) * stepXScale, spacing / 2, 0.5, 0),
-			Size =  if Theme.UIBloxThemeEnabled then UDim2.new(stepXScale,-spacing, 0, 24) else UDim2.new(stepXScale,-spacing, 24 / 50, 0),
-			Image =  "",
+			Size = if Theme.UIBloxThemeEnabled
+				then UDim2.new(stepXScale, -spacing, 0, 24)
+				else UDim2.new(stepXScale, -spacing, 24 / 50, 0),
+			Image = "",
 			ZIndex = 3,
 			Selectable = false,
 			ImageTransparency = 0.36,
 			Parent = this.StepsContainer,
-			SelectionImageObject = noSelectionObject
-		}
+			SelectionImageObject = noSelectionObject,
+		})
 
 		if i > currentStep then
 			nextStep.BackgroundColor3 = NON_SELECTED_COLOR
 		end
 
 		if i == 1 or i == steps then
-
 			if Theme.UIBloxThemeEnabled then
-				Util.Create'UICorner'
-				{
+				Util.Create("UICorner")({
 					CornerRadius = Theme.DefaultCornerRadius,
 					Parent = nextStep,
-				}
-				Util.Create'Frame'
-				{
+				})
+				Util.Create("Frame")({
 					Name = "Filler",
 					BackgroundColor3 = nextStep.BackgroundColor3,
 					Parent = nextStep,
-					Size = UDim2.new(0.25,0,1,0),
+					Size = UDim2.new(0.25, 0, 1, 0),
 					BorderSizePixel = 0,
-					Position = if i == 1 then UDim2.new(0.75,0,0,0) else UDim2.new(0,0,0,0)
-				}
+					Position = if i == 1 then UDim2.new(0.75, 0, 0, 0) else UDim2.new(0, 0, 0, 0),
+				})
 			else
-
 				nextStep.BackgroundTransparency = 1
 				nextStep.ScaleType = Enum.ScaleType.Slice
-				nextStep.SliceCenter = Rect.new(3,3,32,21)
+				nextStep.SliceCenter = Rect.new(3, 3, 32, 21)
 
 				if i <= currentStep then
 					if i == 1 then
@@ -1920,13 +2022,11 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 						nextStep.Image = NON_SELECTED_RIGHT_IMAGE
 					end
 				end
-
 			end
 		end
 
 		this.Steps[#this.Steps + 1] = nextStep
 	end
-
 
 	------------------- FUNCTIONS ---------------------
 	local function hideSelection()
@@ -1947,7 +2047,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	end
 	local function showSelection()
 		for i = 1, steps do
-			if i > currentStep then break end
+			if i > currentStep then
+				break
+			end
 			this.Steps[i].BackgroundColor3 = SELECTED_COLOR
 
 			if Theme.UIBloxThemeEnabled then
@@ -1976,7 +2078,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	end
 
 	local function setCurrentStep(newStepPosition)
-		if not minStep then minStep = 0 end
+		if not minStep then
+			minStep = 0
+		end
 
 		leftButton.Visible = true
 		rightButton.Visible = true
@@ -1990,7 +2094,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 			rightButton.Visible = false
 		end
 
-		if currentStep == newStepPosition then return end
+		if currentStep == newStepPosition then
+			return
+		end
 
 		currentStep = newStepPosition
 
@@ -2002,15 +2108,28 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	end
 
 	local function isActivateEvent(inputObject)
-		if not inputObject then return false end
-		return inputObject.UserInputType == Enum.UserInputType.MouseButton1 or inputObject.UserInputType == Enum.UserInputType.Touch or (inputObject.UserInputType == Enum.UserInputType.Gamepad1 and inputObject.KeyCode == Enum.KeyCode.ButtonA)
+		if not inputObject then
+			return false
+		end
+		return inputObject.UserInputType == Enum.UserInputType.MouseButton1
+			or inputObject.UserInputType == Enum.UserInputType.Touch
+			or (
+				inputObject.UserInputType == Enum.UserInputType.Gamepad1
+				and inputObject.KeyCode == Enum.KeyCode.ButtonA
+			)
 	end
 	local function mouseDownFunc(inputObject, newStepPos, repeatAction)
-		if not interactable then return end
+		if not interactable then
+			return
+		end
 
-		if inputObject == nil then return end
+		if inputObject == nil then
+			return
+		end
 
-		if not isActivateEvent(inputObject) then return end
+		if not isActivateEvent(inputObject) then
+			return
+		end
 
 		if usesSelectedObject() and not VRService.VREnabled then
 			GuiService.SelectedCoreObject = this.SliderFrame
@@ -2026,7 +2145,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 				local mouseInputEndedCon = nil
 
 				mouseInputMovedCon = UserInputService.InputChanged:Connect(function(inputObject)
-					if inputObject.UserInputType ~= Enum.UserInputType.MouseMovement then return end
+					if inputObject.UserInputType ~= Enum.UserInputType.MouseMovement then
+						return
+					end
 
 					local mousePos = inputObject.Position.X
 					for i = 1, steps do
@@ -2045,7 +2166,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 					end
 				end)
 				mouseInputEndedCon = UserInputService.InputEnded:Connect(function(inputObject)
-					if not isActivateEvent(inputObject) then return end
+					if not isActivateEvent(inputObject) then
+						return
+					end
 
 					lastInputDirection = 0
 					mouseInputEndedCon:Disconnect()
@@ -2060,8 +2183,12 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	end
 
 	local function mouseUpFunc(inputObject)
-		if not interactable then return end
-		if not isActivateEvent(inputObject) then return end
+		if not interactable then
+			return
+		end
+		if not isActivateEvent(inputObject) then
+			return
+		end
 
 		lastInputDirection = 0
 	end
@@ -2116,10 +2243,18 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 
 	--------------------- SETUP -----------------------
 
-	leftButton.InputBegan:Connect(function(inputObject) mouseDownFunc(inputObject, currentStep - 1, true) end)
-	leftButton.InputEnded:Connect(function(inputObject) mouseUpFunc(inputObject) end)
-	rightButton.InputBegan:Connect(function(inputObject) mouseDownFunc(inputObject, currentStep + 1, true) end)
-	rightButton.InputEnded:Connect(function(inputObject) mouseUpFunc(inputObject) end)
+	leftButton.InputBegan:Connect(function(inputObject)
+		mouseDownFunc(inputObject, currentStep - 1, true)
+	end)
+	leftButton.InputEnded:Connect(function(inputObject)
+		mouseUpFunc(inputObject)
+	end)
+	rightButton.InputBegan:Connect(function(inputObject)
+		mouseDownFunc(inputObject, currentStep + 1, true)
+	end)
+	rightButton.InputEnded:Connect(function(inputObject)
+		mouseUpFunc(inputObject)
+	end)
 
 	local function onVREnabled(prop)
 		if prop ~= "VREnabled" then
@@ -2152,27 +2287,33 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 			mouseDownFunc(inputObject, i)
 		end)
 		this.Steps[i].InputEnded:Connect(function(inputObject)
-		 mouseUpFunc(inputObject) end)
+			mouseUpFunc(inputObject)
+		end)
 	end
 
 	this.SliderFrame.InputBegan:Connect(function(inputObject)
 		if VRService.VREnabled then
 			local selected = GuiService.SelectedCoreObject
-			if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then return end
+			if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then
+				return
+			end
 		end
 		mouseDownFunc(inputObject, currentStep)
 	end)
 	this.SliderFrame.InputEnded:Connect(function(inputObject)
 		if VRService.VREnabled then
 			local selected = GuiService.SelectedCoreObject
-			if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then return end
+			if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then
+				return
+			end
 		end
 		mouseUpFunc(inputObject)
 	end)
 
-
 	local stepSliderFunc = function()
-		if timeAtLastInput == nil then return end
+		if timeAtLastInput == nil then
+			return
+		end
 
 		local currentTime = tick()
 		local timeSinceLastInput = currentTime - timeAtLastInput
@@ -2193,15 +2334,26 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		[Enum.KeyCode.Right] = navigateRight,
 		[Enum.KeyCode.A] = navigateLeft,
 		[Enum.KeyCode.D] = navigateRight,
-		[Enum.KeyCode.ButtonA] = true --buttonA can be either direction
+		[Enum.KeyCode.ButtonA] = true, --buttonA can be either direction
 	}
 	UserInputService.InputBegan:Connect(function(inputObject)
-		if not interactable then return end
-		if not isInTree then return end
+		if not interactable then
+			return
+		end
+		if not isInTree then
+			return
+		end
 
-		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 and inputObject.UserInputType ~= Enum.UserInputType.Keyboard then return end
+		if
+			inputObject.UserInputType ~= Enum.UserInputType.Gamepad1
+			and inputObject.UserInputType ~= Enum.UserInputType.Keyboard
+		then
+			return
+		end
 		local selected = GuiService.SelectedCoreObject
-		if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then return end
+		if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then
+			return
+		end
 
 		if navigationKeyCodes[inputObject.KeyCode] == navigateLeft then
 			lastInputDirection = -1
@@ -2213,11 +2365,20 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 	end)
 
 	UserInputService.InputEnded:Connect(function(inputObject)
-		if not interactable then return end
+		if not interactable then
+			return
+		end
 
-		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 and inputObject.UserInputType ~= Enum.UserInputType.Keyboard then return end
+		if
+			inputObject.UserInputType ~= Enum.UserInputType.Gamepad1
+			and inputObject.UserInputType ~= Enum.UserInputType.Keyboard
+		then
+			return
+		end
 		local selected = GuiService.SelectedCoreObject
-		if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then return end
+		if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then
+			return
+		end
 
 		if navigationKeyCodes[inputObject.KeyCode] then --detect any keycode considered a navigation key
 			lastInputDirection = 0
@@ -2234,15 +2395,29 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 			return
 		end
 
-		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 then return end
+		if inputObject.UserInputType ~= Enum.UserInputType.Gamepad1 then
+			return
+		end
 		local selected = GuiService.SelectedCoreObject
-		if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then return end
-		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then return end
+		if not selected or not selected:IsDescendantOf(this.SliderFrame.Parent) then
+			return
+		end
+		if inputObject.KeyCode ~= Enum.KeyCode.Thumbstick1 then
+			return
+		end
 
-		if inputObject.Position.X > CONTROLLER_THUMBSTICK_DEADZONE and inputObject.Delta.X > 0 and lastInputDirection ~= 1 then
+		if
+			inputObject.Position.X > CONTROLLER_THUMBSTICK_DEADZONE
+			and inputObject.Delta.X > 0
+			and lastInputDirection ~= 1
+		then
 			lastInputDirection = 1
 			setCurrentStep(currentStep + 1)
-		elseif inputObject.Position.X < -CONTROLLER_THUMBSTICK_DEADZONE and inputObject.Delta.X < 0 and lastInputDirection ~= -1 then
+		elseif
+			inputObject.Position.X < -CONTROLLER_THUMBSTICK_DEADZONE
+			and inputObject.Delta.X < 0
+			and lastInputDirection ~= -1
+		then
 			lastInputDirection = -1
 			setCurrentStep(currentStep - 1)
 		elseif math.abs(inputObject.Position.X) < CONTROLLER_THUMBSTICK_DEADZONE then
@@ -2252,7 +2427,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 
 	local isBound = false
 	GuiService.Changed:Connect(function(prop)
-		if prop ~= "SelectedCoreObject" then return end
+		if prop ~= "SelectedCoreObject" then
+			return
+		end
 
 		local selected = GuiService.SelectedCoreObject
 		local isThisSelected = selected and selected:IsDescendantOf(this.SliderFrame.Parent)
@@ -2282,20 +2459,21 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 end
 
 local ROW_HEIGHT = 50
-if isTenFootInterface() then ROW_HEIGHT = 90 end
+if isTenFootInterface() then
+	ROW_HEIGHT = 90
+end
 
 local nextPosTable = {}
 local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing)
 	local nextRowPositionY = 0
-	local isARealRow = selectionType ~= 'TextBox' -- Textboxes are constructed in this function - they don't have an associated class.
+	local isARealRow = selectionType ~= "TextBox" -- Textboxes are constructed in this function - they don't have an associated class.
 
 	if nextPosTable[pageToAddTo] then
 		nextRowPositionY = nextPosTable[pageToAddTo]
 	end
 
 	local RowFrame = nil
-	RowFrame = Util.Create'ImageButton'
-	{
+	RowFrame = Util.Create("ImageButton")({
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -2305,64 +2483,66 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ImageTransparency = 1,
 		Active = false,
 		AutoButtonColor = false,
-		Size = UDim2.new(1,0,0,ROW_HEIGHT),
-		Position = UDim2.new(0,0,0,nextRowPositionY),
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+		Position = UDim2.new(0, 0, 0, nextRowPositionY),
 		ZIndex = 2,
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
-		Parent = pageToAddTo.Page
-	};
+		Parent = pageToAddTo.Page,
+	})
 
 	if Theme.UIBloxThemeEnabled then
 		RowFrame.BackgroundColor3 = Theme.color("RowFrameBackground")
-		Util.Create'UICorner'
-		{
+		Util.Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = RowFrame,
-		}
+		})
 	end
 
 	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
 
 	if RowFrame and extraSpacing then
-		RowFrame.Position = UDim2.new(RowFrame.Position.X.Scale,RowFrame.Position.X.Offset,
-			RowFrame.Position.Y.Scale,RowFrame.Position.Y.Offset + extraSpacing)
+		RowFrame.Position = UDim2.new(
+			RowFrame.Position.X.Scale,
+			RowFrame.Position.X.Offset,
+			RowFrame.Position.Y.Scale,
+			RowFrame.Position.Y.Offset + extraSpacing
+		)
 	end
 
 	local RowLabel = nil
-	RowLabel = Util.Create'TextLabel'
-	{
+	RowLabel = Util.Create("TextLabel")({
 		Name = rowDisplayName .. "Label",
 		Text = rowDisplayName,
 		Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
 		TextSize = Theme.textSize(16, "UtilityRow"),
-		TextColor3 = Color3.fromRGB(255,255,255),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0,200,1,0),
-		Position = UDim2.new(0,10,0,0),
+		Size = UDim2.new(0, 200, 1, 0),
+		Position = UDim2.new(0, 10, 0, 0),
 		ZIndex = 2,
-		Parent = RowFrame
-	};
+		Parent = RowFrame,
+	})
 
 	local RowLabelTextSizeConstraint = Instance.new("UITextSizeConstraint")
 	if FFlagUseNotificationsLocalization or Theme.UIBloxThemeEnabled then
-		RowLabel.Size = UDim2.new(0.35,0,1,0)
+		RowLabel.Size = UDim2.new(0.35, 0, 1, 0)
 		RowLabel.TextScaled = true
 		RowLabel.TextWrapped = true
 		RowLabelTextSizeConstraint.Parent = RowLabel
-		RowLabelTextSizeConstraint.MaxTextSize =  Theme.textSize(16, "UtilityRow")
+		RowLabelTextSizeConstraint.MaxTextSize = Theme.textSize(16, "UtilityRow")
 	end
 
 	if not isARealRow then
-		RowLabel.Text = ''
+		RowLabel.Text = ""
 	end
 
 	local function onResized(viewportSize, portrait)
 		if portrait then
 			RowLabel.TextSize = Theme.textSize(16, "UtilityRow")
 		else
-			RowLabel.TextSize = isTenFootInterface() and  Theme.textSize(36) or  Theme.textSize(24, "UtilityText")
+			RowLabel.TextSize = isTenFootInterface() and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
 		end
 		RowLabelTextSizeConstraint.MaxTextSize = RowLabel.TextSize
 	end
@@ -2384,20 +2564,18 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		ValueChangerInstance.DropDownFrame.Parent = RowFrame
 		ValueChangerSelection = ValueChangerInstance.DropDownFrame
 	elseif selectionType == "TextBox" then
-		local SelectionOverrideObject = Util.Create'ImageLabel'
-		{
+		local SelectionOverrideObject = Util.Create("ImageLabel")({
 			Image = "",
 			BackgroundTransparency = 1,
-		};
+		})
 
 		ValueChangerInstance = {}
 		ValueChangerInstance.HubRef = nil
 
-		local box = Util.Create'TextBox'
-		{
+		local box = Util.Create("TextBox")({
 			AnchorPoint = Vector2.new(1, 0.5),
-			Size = UDim2.new(0.6,0,1,0),
-			Position = UDim2.new(1,0,0.5,0),
+			Size = UDim2.new(0.6, 0, 1, 0),
+			Position = UDim2.new(1, 0, 0.5, 0),
 			Text = rowDisplayName,
 			TextColor3 = Color3.fromRGB(49, 49, 49),
 			BackgroundTransparency = Theme.transparency("ControlInputBackground", 0.5),
@@ -2410,8 +2588,8 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			ZIndex = 2,
 			SelectionImageObject = SelectionOverrideObject,
 			ClearTextOnFocus = false,
-			Parent = RowFrame
-		};
+			Parent = RowFrame,
+		})
 		ValueChangerSelection = box
 
 		box.Focused:Connect(function()
@@ -2424,8 +2602,12 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		if extraSpacing then
-			box.Position = UDim2.new(box.Position.X.Scale,box.Position.X.Offset,
-				box.Position.Y.Scale,box.Position.Y.Offset + extraSpacing)
+			box.Position = UDim2.new(
+				box.Position.X.Scale,
+				box.Position.X.Offset,
+				box.Position.Y.Scale,
+				box.Position.Y.Offset + extraSpacing
+			)
 		end
 
 		ValueChangerSelection.SelectionGained:Connect(function()
@@ -2445,11 +2627,19 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 		local setRowSelection = function()
 			local fullscreenDropDown = CoreGui.RobloxGui:FindFirstChild("DropDownFullscreenFrame")
-			if fullscreenDropDown and fullscreenDropDown.Visible then return end
+			if fullscreenDropDown and fullscreenDropDown.Visible then
+				return
+			end
 
 			local valueFrame = ValueChangerSelection
 
-			if valueFrame and valueFrame.Visible and valueFrame.ZIndex > 1 and usesSelectedObject() and pageToAddTo.Active then
+			if
+				valueFrame
+				and valueFrame.Visible
+				and valueFrame.ZIndex > 1
+				and usesSelectedObject()
+				and pageToAddTo.Active
+			then
 				GuiService.SelectedCoreObject = valueFrame
 			end
 		end
@@ -2465,22 +2655,19 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		box.MouseEnter:Connect(setRowSelection)
 
 		UserInputService.InputBegan:Connect(processInput)
-
 	elseif selectionType == "TextEntry" then
-		local SelectionOverrideObject = Util.Create'ImageLabel'
-		{
+		local SelectionOverrideObject = Util.Create("ImageLabel")({
 			Image = "",
 			BackgroundTransparency = 1,
-		};
+		})
 
 		ValueChangerInstance = {}
 		ValueChangerInstance.HubRef = nil
 
-		local box = Util.Create'TextBox'
-		{
+		local box = Util.Create("TextBox")({
 			AnchorPoint = Vector2.new(1, 0.5),
-			Size = UDim2.new(0.4,-10,0,40),
-			Position = UDim2.new(1,0,0.5,0),
+			Size = UDim2.new(0.4, -10, 0, 40),
+			Position = UDim2.new(1, 0, 0.5, 0),
 			Text = rowDisplayName,
 			TextColor3 = Color3.fromRGB(178, 178, 178),
 			BackgroundTransparency = 1.0,
@@ -2493,8 +2680,8 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			ZIndex = 2,
 			SelectionImageObject = SelectionOverrideObject,
 			ClearTextOnFocus = false,
-			Parent = RowFrame
-		};
+			Parent = RowFrame,
+		})
 		ValueChangerSelection = box
 
 		box.Focused:Connect(function()
@@ -2507,8 +2694,12 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			end
 		end)
 		if extraSpacing then
-			box.Position = UDim2.new(box.Position.X.Scale,box.Position.X.Offset,
-										box.Position.Y.Scale,box.Position.Y.Offset + extraSpacing)
+			box.Position = UDim2.new(
+				box.Position.X.Scale,
+				box.Position.X.Offset,
+				box.Position.Y.Scale,
+				box.Position.Y.Offset + extraSpacing
+			)
 		end
 
 		ValueChangerSelection.SelectionGained:Connect(function()
@@ -2528,11 +2719,19 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 
 		local setRowSelection = function()
 			local fullscreenDropDown = CoreGui.RobloxGui:FindFirstChild("DropDownFullscreenFrame")
-			if fullscreenDropDown and fullscreenDropDown.Visible then return end
+			if fullscreenDropDown and fullscreenDropDown.Visible then
+				return
+			end
 
 			local valueFrame = ValueChangerSelection
 
-			if valueFrame and valueFrame.Visible and valueFrame.ZIndex > 1 and usesSelectedObject() and pageToAddTo.Active then
+			if
+				valueFrame
+				and valueFrame.Visible
+				and valueFrame.ZIndex > 1
+				and usesSelectedObject()
+				and pageToAddTo.Active
+			then
 				GuiService.SelectedCoreObject = valueFrame
 			end
 		end
@@ -2554,10 +2753,10 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		function ValueChangerInstance:SetInteractable(interactable)
 			box.Selectable = interactable
 			if not interactable then
-				box.TextColor3 = Color3.fromRGB(49,49,49)
+				box.TextColor3 = Color3.fromRGB(49, 49, 49)
 				box.ZIndex = 1
 			else
-				box.TextColor3 = Color3.fromRGB(178,178,178)
+				box.TextColor3 = Color3.fromRGB(178, 178, 178)
 				box.ZIndex = 2
 			end
 		end
@@ -2598,7 +2797,9 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	if isARealRow then
 		local setRowSelection = function()
 			local fullscreenDropDown = CoreGui.RobloxGui:FindFirstChild("DropDownFullscreenFrame")
-			if fullscreenDropDown and fullscreenDropDown.Visible then return end
+			if fullscreenDropDown and fullscreenDropDown.Visible then
+				return
+			end
 
 			local valueFrame = ValueChangerInstance.SliderFrame
 			if not valueFrame then
@@ -2611,7 +2812,13 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 				valueFrame = ValueChangerInstance.SelectorFrame
 			end
 
-			if valueFrame and valueFrame.Visible and valueFrame.ZIndex > 1 and usesSelectedObject() and pageToAddTo.Active then
+			if
+				valueFrame
+				and valueFrame.Visible
+				and valueFrame.ZIndex > 1
+				and usesSelectedObject()
+				and pageToAddTo.Active
+			then
 				GuiService.SelectedCoreObject = valueFrame
 			end
 		end
@@ -2682,32 +2889,30 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		nextRowPositionY = nextPosTable[pageToAddTo]
 	end
 
-	local RowFrame = Util.Create'ImageButton'
-	{
+	local RowFrame = Util.Create("ImageButton")({
 		Name = rowDisplayName .. "Frame",
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Image = "rbxasset://textures/ui/VR/rectBackgroundWhite.png",
 		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(10,10,10,10),
+		SliceCenter = Rect.new(10, 10, 10, 10),
 		ImageTransparency = 1,
 		Active = false,
 		AutoButtonColor = false,
-		Size = UDim2.new(1,0,0,ROW_HEIGHT),
-		Position = UDim2.new(0,0,0,nextRowPositionY),
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+		Position = UDim2.new(0, 0, 0, nextRowPositionY),
 		ZIndex = 2,
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
-		Parent = pageToAddTo.Page
-	};
+		Parent = pageToAddTo.Page,
+	})
 
 	if Theme.UIBloxThemeEnabled then
 		RowFrame.BackgroundColor3 = Theme.color("RowFrameBackground")
-		Util.Create'UICorner'
-		{
+		Util.Create("UICorner")({
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = RowFrame,
-		}
+		})
 	end
 
 	RowFrame.ImageColor3 = RowFrame.BackgroundColor3
@@ -2718,32 +2923,35 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		RowFrame.BackgroundTransparency = 1
 	end)
 
-	local RowLabel = Util.Create'TextLabel'
-	{
+	local RowLabel = Util.Create("TextLabel")({
 		Name = rowDisplayName .. "Label",
 		Text = rowDisplayName,
 		Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
 		TextSize = Theme.textSize(16, "UtilityRow"),
-		TextColor3 = Color3.fromRGB(255,255,255),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(0,200,1,0),
-		Position = UDim2.new(0,10,0,0),
+		Size = UDim2.new(0, 200, 1, 0),
+		Position = UDim2.new(0, 10, 0, 0),
 		ZIndex = 2,
-		Parent = RowFrame
-	};
+		Parent = RowFrame,
+	})
 	local function onResized(viewportSize, portrait)
 		if portrait then
 			RowLabel.TextSize = Theme.textSize(16, "UtilityRow")
 		else
-			RowLabel.TextSize = isTenFootInterface() and  Theme.textSize(36) or  Theme.textSize(24, "UtilityText")
+			RowLabel.TextSize = isTenFootInterface() and Theme.textSize(36) or Theme.textSize(24, "UtilityText")
 		end
 	end
 	addOnResizedCallback(RowFrame, onResized)
 
 	if extraSpacing then
-		RowFrame.Position = UDim2.new(RowFrame.Position.X.Scale,RowFrame.Position.X.Offset,
-			RowFrame.Position.Y.Scale,RowFrame.Position.Y.Offset + extraSpacing)
+		RowFrame.Position = UDim2.new(
+			RowFrame.Position.X.Scale,
+			RowFrame.Position.X.Offset,
+			RowFrame.Position.Y.Scale,
+			RowFrame.Position.Y.Offset + extraSpacing
+		)
 	end
 
 	nextRowPositionY = nextRowPositionY + ROW_HEIGHT
@@ -2764,11 +2972,11 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 
 	rowObject.SelectionGained:Connect(function()
 		if VRService.VREnabled then
-			RowFrame.ImageTransparency =  Theme.transparency("RowFrameBackground", 0.5)
+			RowFrame.ImageTransparency = Theme.transparency("RowFrameBackground", 0.5)
 			RowFrame.BackgroundTransparency = 1
 		else
 			RowFrame.ImageTransparency = 1
-			RowFrame.BackgroundTransparency =  Theme.transparency("RowFrameBackground", 0.5)
+			RowFrame.BackgroundTransparency = Theme.transparency("RowFrameBackground", 0.5)
 		end
 	end)
 	rowObject.SelectionLost:Connect(function()
@@ -2790,9 +2998,9 @@ function moduleApiTable:Create(instanceType)
 		local obj = Instance.new(instanceType)
 		local parent = nil
 		for k, v in pairs(data) do
-			if type(k) == 'number' then
+			if type(k) == "number" then
 				v.Parent = obj
-			elseif k == 'Parent' then
+			elseif k == "Parent" then
 				parent = v
 			else
 				obj[k] = v
@@ -2868,7 +3076,7 @@ function moduleApiTable:IsPortrait()
 end
 
 function moduleApiTable:MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef)
-	return MakeIconButton(name, icon,text, size, clickFunc, pageRef, hubRef)
+	return MakeIconButton(name, icon, text, size, clickFunc, pageRef, hubRef)
 end
 
 function moduleApiTable:MakeStyledButton(name, text, size, clickFunc, pageRef, hubRef)
@@ -2887,7 +3095,7 @@ function moduleApiTable:CreateSignal()
 	return CreateSignal()
 end
 
-function  moduleApiTable:UsesSelectedObject()
+function moduleApiTable:UsesSelectedObject()
 	return usesSelectedObject()
 end
 
@@ -2932,6 +3140,5 @@ function moduleApiTable:IsExperienceOlderThanOneWeek(gameInfo)
 
 	return false
 end
-
 
 return moduleApiTable

@@ -21,10 +21,7 @@ local Colors = UIBlox.App.Style.Colors
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
-local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
-
-local GetUserV2FromUserId = dependencies.NetworkingUsers.GetUserV2FromUserId
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
@@ -32,14 +29,15 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
 	callProtocol: CallProtocol.CallProtocolModule | nil,
+	size: Vector2,
+	callBarRef: { current: GuiObject? } | nil,
 }
 
 local PROFILE_SIZE = 36
 local BUTTON_SIZE = 36
 local PADDING_TOP_BOTTOM = 4
 local PADDING_LEFT_RIGHT = 4
-local PADDING_IN_BETWEEN = 12
-local CALL_BAR_SIZE = Vector2.new(232, 44)
+local PADDING_IN_BETWEEN = 8
 
 local defaultProps = {
 	callProtocol = CallProtocol.CallProtocol.default,
@@ -53,6 +51,8 @@ local function getTextFromCallStatus(status)
 		return "Teleporting…"
 	elseif status == RoduxCall.Enums.Status.Active.rawValue() then
 		return "Roblox Call"
+	elseif status == RoduxCall.Enums.Status.Failed.rawValue() then
+		return "Call Ended"
 	else
 		return "Error"
 	end
@@ -64,10 +64,6 @@ local function CallBar(passedProps: Props)
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
-
-	local callBarRef = React.useRef(nil)
-
-	local dispatch = useDispatch()
 
 	local selectCallId = React.useCallback(function(state: any)
 		return if state.Call.currentCall then state.Call.currentCall.callId else ""
@@ -102,65 +98,26 @@ local function CallBar(passedProps: Props)
 		end
 	end
 
-	React.useEffect(function()
-		if callBarRef and callBarRef.current then
-			pcall(function()
-				callBarRef.current:TweenPosition(
-					UDim2.new(0.5, 0, 0, -GuiService:GetGuiInset().Y),
-					Enum.EasingDirection.Out,
-					Enum.EasingStyle.Quad,
-					0.3,
-					true
-				)
-			end)
-		end
-	end, {})
+	local callStatusText = getTextFromCallStatus(callStatus)
+	local showEndButton = callStatus == RoduxCall.Enums.Status.Active.rawValue()
+		or callStatus == RoduxCall.Enums.Status.Connecting.rawValue()
 
 	local endButtonCallback = React.useCallback(function()
-		if callBarRef and callBarRef.current then
-			pcall(function()
-				callBarRef.current:TweenPosition(
-					UDim2.new(0.5, 0, 0, -(CALL_BAR_SIZE.Y + GuiService:GetGuiInset().Y)),
-					Enum.EasingDirection.In,
-					Enum.EasingStyle.Quad,
-					0.3,
-					true,
-					function()
-						if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
-							props.callProtocol:finishCall(callId)
-						elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
-							props.callProtocol:cancelCall(callId)
-						end
-
-						dispatch(RoduxCall.Actions.EndCall())
-					end
-				)
-			end)
+		if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
+			props.callProtocol:finishCall(callId)
+		elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
+			props.callProtocol:cancelCall(callId)
 		end
 	end, { callStatus, props.callProtocol })
 
-	-- TODO (joshli): Remove once the server provides name.
-	local selectOtherEndUser = React.useCallback(function(state: any)
-		if otherEndParticipant then
-			local user = state.Users.byUserId[tostring(otherEndParticipant.userId)]
-			if not user then
-				dispatch(GetUserV2FromUserId.API(otherEndParticipant.userId))
-			end
-			return state.Users.byUserId[tostring(otherEndParticipant.userId)]
-		else
-			return nil :: any
-		end
-	end, { otherEndParticipant })
-	local otherEndUser = useSelector(selectOtherEndUser)
-
 	return React.createElement("Frame", {
-		Size = UDim2.fromOffset(CALL_BAR_SIZE.X, CALL_BAR_SIZE.Y),
-		Position = UDim2.new(0.5, 0, 0, -(CALL_BAR_SIZE.Y + GuiService:GetGuiInset().Y)),
+		Size = UDim2.fromOffset(props.size.X, props.size.Y),
+		Position = UDim2.new(0.5, 0, 0, -(props.size.Y + GuiService:GetGuiInset().Y)),
 		AnchorPoint = Vector2.new(0.5, 0),
 		BackgroundColor3 = theme.BackgroundMuted.Color,
 		BackgroundTransparency = theme.BackgroundMuted.Transparency,
 		BorderSizePixel = 0,
-		ref = callBarRef,
+		ref = props.callBarRef,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0.5, 0),
@@ -211,7 +168,7 @@ local function CallBar(passedProps: Props)
 				Font = font.CaptionHeader.Font,
 				LayoutOrder = 1,
 				LineHeight = 1.25,
-				Text = if otherEndUser then otherEndUser.displayName else "",
+				Text = if otherEndParticipant then otherEndParticipant.displayName else "",
 				TextColor3 = theme.TextEmphasis.Color,
 				TextSize = font.BaseSize * font.CaptionHeader.RelativeSize,
 				TextTransparency = theme.TextEmphasis.Transparency,
@@ -236,7 +193,7 @@ local function CallBar(passedProps: Props)
 					BorderSizePixel = 0,
 					Font = font.Footer.Font,
 					LineHeight = 1.16667,
-					Text = getTextFromCallStatus(callStatus),
+					Text = callStatusText,
 					TextColor3 = Colors.White,
 					TextSize = font.BaseSize * font.Footer.RelativeSize,
 					TextTransparency = 0.4,
@@ -245,21 +202,23 @@ local function CallBar(passedProps: Props)
 			}),
 		}),
 
-		EndButton = React.createElement("ImageButton", {
-			Position = UDim2.fromOffset(0, 0),
-			AnchorPoint = Vector2.new(1, 1),
-			LayoutOrder = 3,
-			Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-			BackgroundTransparency = style.Theme.UIMuted.Transparency,
-			BackgroundColor3 = style.Theme.UIMuted.Color,
-			BorderSizePixel = 0,
-			Image = "rbxassetid://12788429603",
-			[React.Event.Activated] = endButtonCallback,
-		}, {
-			UICorner = React.createElement("UICorner", {
-				CornerRadius = UDim.new(0, BUTTON_SIZE),
-			}),
-		}),
+		EndButton = if showEndButton
+			then React.createElement("ImageButton", {
+				Position = UDim2.fromOffset(0, 0),
+				AnchorPoint = Vector2.new(1, 1),
+				LayoutOrder = 3,
+				Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
+				BackgroundTransparency = style.Theme.UIMuted.Transparency,
+				BackgroundColor3 = style.Theme.UIMuted.Color,
+				BorderSizePixel = 0,
+				Image = "rbxassetid://12788429603",
+				[React.Event.Activated] = endButtonCallback,
+			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, BUTTON_SIZE),
+				}),
+			})
+			else nil,
 	})
 end
 

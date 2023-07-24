@@ -1,12 +1,26 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local AvatarIdentificationModule = require(CorePackages.Workspace.Packages.TnSAvatarIdentification)
+local AdIdentificationModule = require(CorePackages.Workspace.Packages.TnSAdIdentification)
+
 local HttpService = game:GetService("HttpService")
 
 local getAvatarsForPoint = AvatarIdentificationModule.AvatarIdentification.getAvatarsForPoint
 type AvatarIDResults = AvatarIdentificationModule.AvatarIDResults
 type AvatarIDStats = AvatarIdentificationModule.AvatarIDStats
 
+local getAdsForPoint = AdIdentificationModule.AdIdentification.getAdsForPoint
+type AdIDResults = AdIdentificationModule.AdIDResults
+type VisibleAd = AdIdentificationModule.VisibleAd
+type AdIDStats = AdIdentificationModule.AdIDStats
+
 type SerializedVector2 = {number}
+
+local GetFFlagReportAnythingEnableAdReport = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
+local GetFFlagGetHumanoidDescription = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagGetHumanoidDescription)
+
+local getHumanoidDescription = require(script.Parent.GetHumanoidDescription).getHumanoidDescription
 
 type IdentifiedAvatar = {
 	userId: string,
@@ -21,15 +35,32 @@ type IdentifiedAvatar = {
 	convexHull: {SerializedVector2}
 }
 
+type IdentifiedAd = {
+	assetId: string, 
+	distance: number,
+	boundingBox: {
+		minX: number,
+		maxX: number,
+		minY: number,
+		maxY: number
+	},
+	adUnitName: string, 
+	encryptedAdTrackingData: string,
+	encryptionMetadata: string,
+}
+
 type AbuseReportBuilderState = {
 	screenshotId: string,
 	identifiedAvatars: AvatarIDResults,
 	avatarIDStats: AvatarIDStats?,
+	identifiedAds: AdIDResults,
+	adIDStats: AdIDStats?,
 	screenshotContentId: string,
 	annotationPoints: {Vector2},
 	annotationOptionSeen: boolean,
 	annotationPageSeen: boolean,
-	selectedAbusers: {Player}
+	selectedAbusers: {Player},
+	selectedAds: {VisibleAd}
 }
 
 type TagValue = {
@@ -52,11 +83,14 @@ local builderState: AbuseReportBuilderState = {
 	screenshotId = "",
 	identifiedAvatars = {},
 	avatarIDStats = nil,
+	identifiedAds = {},
+	adIDStats = nil,
 	screenshotContentId = "",
 	annotationPoints = {},
 	annotationOptionSeen = false,
 	annotationPageSeen = false,
-	selectedAbusers = {}
+	selectedAbusers = {},
+	selectedAds = {}
 }
 
 local Constants = {
@@ -64,6 +98,7 @@ local Constants = {
 		CS = "ra/cs",
 		Sampling = "ra/sampling",
 		E1 = "ra/e1",
+		E2 = "ra/e2",
 		Unknown = "ra/unknown"
 	}
 }
@@ -74,6 +109,27 @@ local transformVectorArray = function(vectorArray: {Vector2})
 		output[#output + 1] = {v.X, v.Y}
 	end
 	return output
+end
+
+local transformIdentifiedAds = function(identifiedAds: AdIDResults)
+	local outputArray: {IdentifiedAd} = {}
+	for id, identifiedAd in pairs(identifiedAds) do 
+		outputArray[#outputArray + 1] = {
+			assetId = identifiedAd.assetId,
+			distance = identifiedAd.distance,
+			boundingBox = {
+				minX = identifiedAd.boundingBox.min.X,
+				minY = identifiedAd.boundingBox.min.Y,
+				maxX = identifiedAd.boundingBox.max.X,
+				maxY = identifiedAd.boundingBox.max.Y
+			},
+			adUnitName = identifiedAd.adUnitName,
+			encryptedAdTrackingData = identifiedAd.encryptedAdTrackingData,
+			encryptionMetadata = identifiedAd.encryptionMetadata
+		}
+	end
+
+	return outputArray
 end
 
 local transformIdentifiedAvatars = function(identifiedAvatars: AvatarIDResults)
@@ -105,6 +161,16 @@ local addBuilderStateToRequest = function(request: AbuseReportRequest)
 		hasIdentifiedAvatars = true
 		break
 	end
+	
+	local hasIdentifiedAds = false 
+
+	if GetFFlagReportAnythingEnableAdReport() then 
+		for adId, _ in pairs(builderState.identifiedAds) do 
+			hasIdentifiedAds = true 
+			break
+		end
+	end 
+	
 	if hasIdentifiedAvatars then
 		request.tags.IDENTIFIED_AVATARS = {
 			valueList = {
@@ -112,11 +178,28 @@ local addBuilderStateToRequest = function(request: AbuseReportRequest)
 			}
 		}
 	end
+	
 
 	if builderState.avatarIDStats then
 		request.tags.AVATAR_ID_STATS = {
 			valueList = {
 				{ data = HttpService:JSONEncode(builderState.avatarIDStats) }
+			}
+		}
+	end
+	
+	if hasIdentifiedAds and GetFFlagReportAnythingEnableAdReport() then 
+		request.tags.IDENTIFIED_ADS = {
+			valueList = {
+				{ data = HttpService:JSONEncode(transformIdentifiedAds(builderState.identifiedAds))}
+			}
+		}
+	end
+	
+	if builderState.adIDStats and GetFFlagReportAnythingEnableAdReport() then 
+		request.tags.AD_ID_STATS = {
+			valueList = {
+				{ data = HttpService:JSONEncode(builderState.adIDStats)}
 			}
 		}
 	end
@@ -213,6 +296,14 @@ local buildExperienceReportRequest = function(reportData: ExperienceReportData)
 	}
 	addBuilderStateToRequest(request)
 
+	if #builderState.selectedAds > 0 and GetFFlagReportAnythingEnableAdReport() then 
+		request.tags.REPORT_TARGET_ADS = {
+			valueList = {
+				{ data = HttpService:JSONEncode(transformIdentifiedAds(builderState.selectedAds))}
+			}
+		}
+	end
+
 	return HttpService:JSONEncode(request)
 end
 
@@ -278,6 +369,22 @@ local buildOtherReportRequest = function(reportData: OtherReportData)
 		for _, player in ipairs(builderState.selectedAbusers) do
 			selectedAbuserIds[#selectedAbuserIds + 1] = tostring(player.UserId)
 		end
+		
+		if GetFFlagGetHumanoidDescription() then 
+			local humanoidDescription, outputMessage = getHumanoidDescription(builderState.selectedAbusers[1].UserId)
+			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION = {
+				valueList = {
+					{data = HttpService:JSONEncode(humanoidDescription)}
+				}
+			}
+			
+			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION_STATUS = {
+				valueList = {
+					{ data = outputMessage }
+				}
+			}
+		end
+		
 		request.tags.REPORT_TARGET_USER_ID = {
 			valueList = {
 				{ data = tostring(allegedAbuserId) },
@@ -293,6 +400,22 @@ local buildOtherReportRequest = function(reportData: OtherReportData)
 		-- chose the abuser from the regular form dropdown.
 		-- or: Went through annotation flow but did not have any annotations
 		-- that found a user.
+		
+		if GetFFlagGetHumanoidDescription() then 
+			local humanoidDescription, outputMessage = getHumanoidDescription(reportData.formSelectedAbuserUserId)
+			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION = {
+				valueList = {
+					{ data = HttpService:JSONEncode(humanoidDescription)}
+				}
+			}
+			
+			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION_STATUS = {
+				valueList = {
+					{ data = outputMessage }
+				}
+			}
+		end
+
 		request.tags.REPORT_TARGET_USER_ID = {
 			valueList = {
 				{ data = tostring(reportData.formSelectedAbuserUserId) },
@@ -306,8 +429,11 @@ end
 -- responsible for setting selectedAbusers
 local interpretAnnotations = function()
 	local addedUserIds: { [number]: boolean } = {} -- "set" type
+	local addedAdsIds: { [number]: boolean } = {} -- "set" type
+
 	-- the same order in which the annotations are selected 
 	local orderedResults: {Player} = {}
+	local orderedAdRresults: {VisibleAd} = {}
 	for _, annotationPoint in ipairs(builderState.annotationPoints) do
 		-- pick closest player out of the players under the point
 		local avatarsHit = getAvatarsForPoint(builderState.identifiedAvatars, annotationPoint)
@@ -321,18 +447,47 @@ local interpretAnnotations = function()
 				closestPlayerId = userId
 			end
 		end
+		
+		local closestAdId = nil
+
+		if GetFFlagReportAnythingEnableAdReport() then 
+			local adsHit = getAdsForPoint(builderState.identifiedAds, annotationPoint)
+			minDistance = math.huge
+			for adId, ad in pairs(adsHit) do
+				local distance = builderState.identifiedAds[adId].distance
+				if distance < minDistance then
+					minDistance = distance
+					closestAdId = adId
+				end
+			end
+		end
+
 		if closestPlayerId ~= nil and not addedUserIds[closestPlayerId] then
 			addedUserIds[closestPlayerId] = true
 			orderedResults[#orderedResults + 1] = builderState.identifiedAvatars[closestPlayerId].player
+		else
+			if GetFFlagReportAnythingEnableAdReport() then 
+				if closestAdId ~= nil and not addedAdsIds[closestAdId] then 
+					addedAdsIds[closestAdId] = true 
+					orderedAdRresults[#orderedAdRresults + 1] = builderState.identifiedAds[closestAdId]
+				end
+			end
 		end
 	end
 
 	builderState.selectedAbusers = orderedResults
+	builderState.selectedAds = orderedAdRresults
 end
 
 return {
 	setScreenshotId = function(screenshotId: string)
 		builderState.screenshotId = screenshotId
+	end,
+	setIdentifiedAds = function(identifiedAds: AdIDResults)
+		builderState.identifiedAds = identifiedAds
+	end,
+	getIdentifiedAds = function()
+		return builderState.identifiedAds
 	end,
 	setIdentifiedAvatars = function(identifiedAvatars: AvatarIDResults)
 		builderState.identifiedAvatars = identifiedAvatars
@@ -342,6 +497,9 @@ return {
 	end,
 	setAvatarIDStats = function(stats: AvatarIDStats)
 		builderState.avatarIDStats = stats
+	end,
+	setAdIDStats = function(stats: AdIDStats)
+		builderState.adIDStats = stats
 	end,
 	setScreenshotContentId = function(contentId: string)
 		builderState.screenshotContentId = contentId
@@ -362,9 +520,16 @@ return {
 	getSelectedAbusers = function()
 		return builderState.selectedAbusers
 	end,
+	getSelectedAds = function()
+		return builderState.selectedAds
+	end,
 	clearAnnotationPoints = function()
 		builderState.annotationPoints = {}
 		builderState.selectedAbusers = {}
+		
+		if GetFFlagReportAnythingEnableAdReport() then 
+			builderState.selectedAds = {}
+		end
 		builderState.annotationOptionSeen = false
 		builderState.annotationPageSeen = false
 	end,
@@ -390,11 +555,14 @@ return {
 			screenshotId = "",
 			identifiedAvatars = {},
 			avatarIDStats = nil,
+			identifiedAds = {},
+			adIDStats = nil,
 			screenshotContentId = "",
 			annotationPoints = {},
 			annotationOptionSeen = false,
 			annotationPageSeen = false,
-			selectedAbusers = {}
+			selectedAbusers = {},
+			selectedAds = {}
 		}
 	end,
 	getAnalyticsParameters = function(): FinalParameters

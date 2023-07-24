@@ -16,6 +16,7 @@ local FFlagEnableSyncAudioWithVoiceChatMuteState = game:DefineFastFlag("EnableSy
 local FFlagEnableFacialAnimationKickPlayerWhenServerDisabled = game:DefineFastFlag("EnableFacialAnimationKickPlayerWhenServerDisabled", false)
 local FFlagFacialAnimationStreamingServiceUsePlayerThrottling = game:GetEngineFeature("FacialAnimationStreamingServiceUsePlayerThrottling")
 local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
+local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry = game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
 local FFlagFaceAnimatorDisableVideoByDefault = game:DefineFastFlag("FaceAnimatorDisableVideoByDefault", false)
 local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
 local FFlagRvCaptureResolveReturnError = game:GetEngineFeature("RvCaptureResolveReturnError")
@@ -29,7 +30,6 @@ local FFlagFacialAnimationStreamingDisableLipsyncForVRUser = game:DefineFastFlag
 local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
-
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
@@ -238,6 +238,13 @@ local function onAnimatorAdded(player, animator)
 		local playerAnimation = {}
 		playerAnimation.animation = Instance.new("TrackerStreamAnimation")
 		playerAnimation.animationTrack = animator:LoadStreamAnimation(playerAnimation.animation)
+
+		if FFlagLoadStreamAnimationReplaceErrorsWithTelemetry then
+			if not playerAnimation.animationTrack then
+				return
+			end
+		end
+
 		playerAnimation.animationTrack.Priority = Enum.AnimationPriority.Idle
 		playerAnimation.animationTrack:Play(0.1, 1)
 

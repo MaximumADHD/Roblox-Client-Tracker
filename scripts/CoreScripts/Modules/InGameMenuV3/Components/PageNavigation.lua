@@ -13,7 +13,8 @@ local UrlBuilder = UrlBuilderPackage.UrlBuilder
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
-local GameContextualMenu = UIBlox.App.Menu.GameContextualMenu
+local BaseMenu = UIBlox.App.Menu.BaseMenu
+local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -76,46 +77,49 @@ function renderMenu(props, actions)
 		labelStrings[index] = (page.actionKey and actions[page.actionKey] and actions[page.actionKey].selected and page.titleOn) or page.title
 	end
 
-	return withLocalization(labelStrings)(function(localized)
-		local buttonProps = {}
-		for index, page in ipairs(Pages.pagesByIndex) do
-			if page.parentPage == Constants.MainPagePageKey then
-				if
-					GetFFlagShareInviteLinkContextMenuV3Enabled()
-					and page.key == "ShareServerLink"
-					and not shouldShowShareInviteLink(props.gameInfo, props.serverType)
-				then
-					continue
+	return withStyle(function(style)
+		return withLocalization(labelStrings)(function(localized)
+			local buttonProps = {}
+			for index, page in ipairs(Pages.pagesByIndex) do
+				if page.parentPage == Constants.MainPagePageKey then
+					if
+						GetFFlagShareInviteLinkContextMenuV3Enabled()
+						and page.key == "ShareServerLink"
+						and not shouldShowShareInviteLink(props.gameInfo, props.serverType)
+					then
+						continue
+					end
+
+					buttonProps[#buttonProps + 1]  = {
+						layoutOrder = index,
+						text = localized[index],
+						icon = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
+						leftPaddingOffset = 7,
+						disabled = if page.actionKey
+								and actions[page.actionKey]
+							then
+								actions[page.actionKey].disabled
+							else
+								nil,
+						onActivated = function()
+							if page.actionKey and actions[page.actionKey] then
+								actions[page.actionKey].onActivated()
+							else
+								props.setCurrentPage(page.key)
+							end
+						end,
+					}
 				end
-
-				buttonProps[#buttonProps + 1]  = {
-					layoutOrder = index,
-					text = localized[index],
-					icon = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
-					leftPaddingOffset = 7,
-					disabled = if page.actionKey
-							and actions[page.actionKey]
-						then
-							actions[page.actionKey].disabled
-						else
-							nil,
-					onActivated = function()
-						if page.actionKey and actions[page.actionKey] then
-							actions[page.actionKey].onActivated()
-						else
-							props.setCurrentPage(page.key)
-						end
-					end,
-				}
 			end
-		end
 
-		return Roact.createElement(GameContextualMenu, {
-			buttonProps = buttonProps,
-			width = UDim.new(1, 0),
-			topElementRounded = false,
-			bottomElementRounded = false,
-		})
+			return Roact.createElement(BaseMenu, {
+				buttonProps = buttonProps,
+				width = UDim.new(1, 0),
+				topElementRounded = false,
+				bottomElementRounded = false,
+				background = style.Theme.BackgroundDefault,
+			})
+		end)
 	end)
 end
 

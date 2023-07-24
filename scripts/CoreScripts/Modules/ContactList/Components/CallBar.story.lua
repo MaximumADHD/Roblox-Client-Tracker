@@ -13,7 +13,9 @@ local RoduxCall = dependencies.RoduxCall
 return {
 	stories = {
 		CallBar = function(props)
-			return React.createElement(CallBar, {})
+			return React.createElement(CallBar, {
+				size = Vector2.new(200, 44),
+			})
 		end,
 	},
 	controls = {},

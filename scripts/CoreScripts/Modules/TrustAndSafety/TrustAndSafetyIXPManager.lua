@@ -9,6 +9,7 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local REPORT_ANYTHING_ENABLED = "ReportAnythingEnabled"
 local TYPE_OF_ABUSE_ENABLED = "TypeofAbuseEnabled"
+local OPTIONAL_SCREENSHOT_ENABLED = "OptionalScreenshotEnabled"
 
 local TrustAndSafetyIXPManager = {}
 TrustAndSafetyIXPManager.__index = TrustAndSafetyIXPManager
@@ -20,6 +21,7 @@ function TrustAndSafetyIXPManager.new(serviceWrapper: any): any
 		_ixpInitialized = false, -- We're done calling IXP
 		_reportAnythingEnabled = false,
 		_typeofAbuseEnabled = false,
+		_optionalScreenshotEnabled = false,
 		_callbacks = {},
 	}
 	setmetatable(manager, TrustAndSafetyIXPManager)
@@ -32,6 +34,10 @@ end
 
 function TrustAndSafetyIXPManager:getTypeofAbuseEnabled() 
 	return self._typeofAbuseEnabled
+end
+
+function TrustAndSafetyIXPManager:getOptionalScreenshotEnabled() 
+	return self._optionalScreenshotEnabled
 end
 
 -- The experiment definition doesn't have separate variables for "other" vs
@@ -78,6 +84,7 @@ function TrustAndSafetyIXPManager:initialize()
 		if layerData then
 			self._reportAnythingEnabled = layerData[REPORT_ANYTHING_ENABLED] or false
 			self._typeofAbuseEnabled = layerData[TYPE_OF_ABUSE_ENABLED] or false
+			self._optionalScreenshotEnabled = layerData[OPTIONAL_SCREENSHOT_ENABLED] or false
 		end
 
 		log:debug("ReportAnything enabled? {}. Invoking {} callbacks.", self._reportAnythingEnabled, #self._callbacks)

@@ -24,7 +24,7 @@ local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSAT
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
-local TEST_VERSION = "t4" -- bump on new A/B campaigns
+local TEST_VERSION = "t5" -- bump on new A/B campaigns
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -36,13 +36,22 @@ local MENU_VERSION_CONTROLS_ENUM = {
 	HOME_BUTTON = "v4.3"..TEST_VERSION,
 }
 
+local MENU_VERSION_MODERNIZATION_ENUM = {
+	MODERNIZED = "v5.1"..TEST_VERSION,
+	BIG_TEXT = "v5.2"..TEST_VERSION,
+	STICKY_BAR = "v5.3"..TEST_VERSION,
+}
+
 local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
-	[MENU_VERSION_V2] = true,
-	[MENU_VERSION_V3] = true,
-	[MENU_VERSION_CONTROLS_ENUM.BASELINE] = true,
-	[MENU_VERSION_CONTROLS_ENUM.OLD_LAYOUT] = true,
-	[MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON] = true,
+	[MENU_VERSION_V2] = false,
+	[MENU_VERSION_V3] = false,
+	[MENU_VERSION_CONTROLS_ENUM.BASELINE] = false,
+	[MENU_VERSION_CONTROLS_ENUM.OLD_LAYOUT] = false,
+	[MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON] = false,
+	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
+	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = true,
+	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = true,
 }
 
 local ExperienceMenuABTestManager = {}
@@ -89,6 +98,18 @@ end
 
 function ExperienceMenuABTestManager.controlsHomeButtonVersionId()
 	return MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
+end
+
+function ExperienceMenuABTestManager.modernizationModernizedVersionId()
+	return MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED
+end
+
+function ExperienceMenuABTestManager.modernizationBigTextVersionId()
+	return MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT
+end
+
+function ExperienceMenuABTestManager.modernizationStickyBarVersionId()
+	return MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR
 end
 
 function parseCountData(data)
@@ -208,6 +229,24 @@ end
 
 function ExperienceMenuABTestManager:shouldShowHomeButton()
 	return self:getVersion() == MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON
+end
+
+function ExperienceMenuABTestManager:isMenuModernizationEnabled()
+	for _, version in pairs(MENU_VERSION_MODERNIZATION_ENUM) do 
+		if(self:getVersion() == version) then
+			return true
+		end
+	end
+
+	return false
+end
+
+function ExperienceMenuABTestManager:shouldShowBiggerText()
+	return self:getVersion() == MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT
+end
+
+function ExperienceMenuABTestManager:shouldShowStickyBar()
+	return self:getVersion() == MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR
 end
 
 -- this is called on the assumption that IXP layers are initialized

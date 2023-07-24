@@ -1,9 +1,9 @@
 --[[
-	Wrapper page for Shots page in the SettingsHub
+	Wrapper page for Captures page in the SettingsHub
 
-	The Shots page is implemented in Roact, so this page acts as a container for the Roact portal.
+	The Captures page is implemented in Roact, so this page acts as a container for the Roact portal.
 
-	Shots is the tab in the in-game menu that contains screenshots taken in game.
+	Captures is the tab in the in-game menu that contains screenshots (and potentially video captures) taken in game.
 --]]
 
 local CoreGui = game:GetService("CoreGui")
@@ -11,6 +11,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules 
 
+local RobloxTranslator = require(Modules.RobloxTranslator)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local Theme = require(Modules.Settings.Theme)
 
@@ -32,20 +33,20 @@ if Theme.UIBloxThemeEnabled then
 	this.TabHeader.TabLabel.Icon.Image = icon.Image
 	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
 	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-	
-	-- TODO: SACQ-753 - Localization
-	this.TabHeader.TabLabel.Title.Text = "Shots"
+
+	this.TabHeader.TabLabel.Title.AutoLocalize = false
+	this.TabHeader.TabLabel.Title.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Captures")
 else
 	this.TabHeader.Icon.Image = icon.Image
 	this.TabHeader.Icon.ImageRectOffset = icon.ImageRectOffset
 	this.TabHeader.Icon.ImageRectSize = icon.ImageRectSize
 
 	if FFlagUseNotificationsLocalization then
-		-- TODO: SACQ-753 - Localization
-		this.TabHeader.Title.Text = "Shots"
+		this.TabHeader.Title.AutoLocalize = false
+		this.TabHeader.Title.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Captures")
 	else
-		-- TODO: SACQ-753 - Localization
-		this.TabHeader.Icon.Title.Text = "Shots"
+		this.TabHeader.Icon.Title.AutoLocalize = false
+		this.TabHeader.Icon.Title.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Captures")
 	end
 end
 
@@ -55,6 +56,13 @@ this.ShouldShowHubBar = true
 
 this.Page.Name = "Shots"
 this.Page.Size = UDim2.fromScale(1, 0)
+
+-- When Theme.UIBloxThemeEnabled is true there is a padding element added
+-- This isn't needed for the Captures page, which has its own padding
+local paddingInstance = this.Page:FindFirstChildWhichIsA("UIPadding")
+if paddingInstance then
+	paddingInstance:Destroy()
+end
 
 local SETTINGS_HUB_PADDING = 20
 

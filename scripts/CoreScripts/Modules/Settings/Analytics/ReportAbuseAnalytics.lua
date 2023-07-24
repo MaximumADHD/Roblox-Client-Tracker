@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local SessionService = game:GetService("SessionService")
 
 local Cryo = require(CorePackages.Cryo)
-local GetFFlagIGMv1ARFlowSessionEnabled = require(script.Parent.Parent.Flags.GetFFlagIGMv1ARFlowSessionEnabled)
 
 local ReportAbuseAnalytics = {}
 ReportAbuseAnalytics.__index = ReportAbuseAnalytics
@@ -130,9 +129,6 @@ end
 
 -- 
 function ReportAbuseAnalytics:startAbuseReportSession(entryPoint)
-	if not GetFFlagIGMv1ARFlowSessionEnabled() then
-		return
-	end
 	local sessionExists = SessionService:SessionExists(ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport)
 
 	if not sessionExists then
@@ -164,10 +160,6 @@ function ReportAbuseAnalytics:startAbuseReportSession(entryPoint)
 end
 
 function ReportAbuseAnalytics:getAbuseReportSessionEntryPoint()
-	if not GetFFlagIGMv1ARFlowSessionEnabled() then
-		return ""
-	end
-
 	local sessionExists = SessionService:SessionExists(ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport)
 	if sessionExists then
 		local storedEntryPoint = SessionService:GetMetadata(
@@ -181,9 +173,6 @@ function ReportAbuseAnalytics:getAbuseReportSessionEntryPoint()
 end
 	
 function ReportAbuseAnalytics:endAbuseReportSession()
-	if not GetFFlagIGMv1ARFlowSessionEnabled() then
-		return
-	end
 	local sessionExists = SessionService:SessionExists(ReportAbuseAnalytics.SessionConstants.StructuralIdentifier.AbuseReport)
 
 	if sessionExists then

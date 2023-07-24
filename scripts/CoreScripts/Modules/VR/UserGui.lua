@@ -19,6 +19,10 @@ local RunService = game:GetService("RunService")
 
 local FFlagVRShowUIOnGuiSelection = game:DefineFastFlag("VRShowUIOnGuiSelection", false)
 
+-- this var moves the gui and bottom bar together
+local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
+local scaleGuiDistance = GetFIntVRScaleGuiDistance() * 0.01
+
 if not VRService.VREnabled then
 	warn("UserGui should not be required while not in VR")
 	return nil
@@ -34,7 +38,7 @@ VRHub:RegisterModule(UserGuiModule)
 
 local VR_MENU_KEY = "VRMenu"
 local userPanelSize = Vector2.new(4, 3)
-local newPanelSize = Vector2.new(2.66, 2)
+local newPanelSize = Vector2.new(2.66 * scaleGuiDistance, 2 * scaleGuiDistance)
 
 local vrMenuOpen = false
 
@@ -111,7 +115,7 @@ local function onGuiSelection()
 		UserGuiModule:SetVisible(true, plPanel) -- UI interactive on wrist
 		plPanel.initialCFLerp = 1
 		plPanel:ForcePositionUpdate(true)
-		plPanel.distance = 2.5
+		plPanel.distance = 2.5 * scaleGuiDistance
 
 		if not vrMenuOpen then
 			plPanel:StartLerp(newPanelSize)

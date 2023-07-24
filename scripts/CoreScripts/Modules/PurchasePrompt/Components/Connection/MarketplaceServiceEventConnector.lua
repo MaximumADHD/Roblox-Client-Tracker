@@ -21,6 +21,7 @@ local connectToStore = require(Root.connectToStore)
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2)
+local GetFFlagEnablePromptPurchaseRequestedV2Take2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2Take2)
 
 local function MarketplaceServiceEventConnector(props)
 	local onPurchaseRequest = props.onPurchaseRequest
@@ -32,8 +33,12 @@ local function MarketplaceServiceEventConnector(props)
 	local onPremiumPurchaseRequest = props.onPremiumPurchaseRequest
 	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
 
+	local function checkNewEventExists()
+		return MarketplaceService.PromptPurchaseRequestedV2;
+	end
+
 	local promptPurchaseConnection;
-	if (GetFFlagEnablePromptPurchaseRequestedV2()) then
+	if (GetFFlagEnablePromptPurchaseRequestedV2() or (GetFFlagEnablePromptPurchaseRequestedV2Take2() and pcall(checkNewEventExists))) then
 		promptPurchaseConnection = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptPurchaseRequestedV2,
 			callback = onPurchaseRequestV2,
@@ -74,8 +79,7 @@ local function MarketplaceServiceEventConnector(props)
 	})
 end
 
-MarketplaceServiceEventConnector = connectToStore(nil,
-function(dispatch)
+MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 	local function onPurchaseRequest(player, assetId, equipIfPurchased, currencyType)
 		if player == Players.LocalPlayer then
 			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased, false, '', ''))

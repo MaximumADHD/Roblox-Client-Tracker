@@ -19,9 +19,11 @@ local Framework = require(root.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 
-local StudioUI = Framework.StudioUI
-local PluginToolbar = StudioUI.PluginToolbar
-local PluginButton = StudioUI.PluginButton
+local UI = Framework.UI
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local PluginButton = if FFlagDevFrameworkBetterInit then UI.PluginButton else Framework.StudioUI.PluginButton
+local PluginToolbar = if FFlagDevFrameworkBetterInit then UI.PluginToolbar else Framework.StudioUI.PluginToolbar
 
 local PluginWrapper = Roact.PureComponent:extend("PluginWrapper")
 

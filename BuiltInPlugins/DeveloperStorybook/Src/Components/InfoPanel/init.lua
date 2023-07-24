@@ -25,12 +25,11 @@ local sort = table.sort
 
 local UI = Framework.UI
 local ScrollingFrame = UI.ScrollingFrame
-local Decoration = UI.Decoration
 local Pane = UI.Pane
-local TextLabel = Decoration.TextLabel
-
-local StudioUI = Framework.StudioUI
-local StyledDialog = StudioUI.StyledDialog
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
+local StyledDialog = if FFlagDevFrameworkBetterInit then UI.StyledDialog else Framework.StudioUI.StyledDialog
 
 local SetLive = require(Main.Src.Actions.SetLive)
 
@@ -388,6 +387,7 @@ function InfoPanel:render()
 			StoryProps = definitelyStoryProps,
 			ThemeName = ThemeSwitcher.getThemeName(),
 			Platform = props.Platform,
+			Settings = props.Settings,
 			FixedSize = definitelyStoryProps.storybook.fixedSize,
 		})
 	end
@@ -415,6 +415,7 @@ function InfoPanel:render()
 				}),
 				ThemeName = ThemeSwitcher.getThemeName(),
 				Platform = props.Platform,
+				Settings = props.Settings,
 			})
 			children["Story " .. key] = subStory
 		end)
@@ -520,6 +521,7 @@ InfoPanel = RoactRodux.connect(function(state)
 		CurrentTheme = state.Stories.theme,
 		SelectedStory = state.Stories.selectedStory,
 		Live = state.Stories.live,
+		Settings = state.Stories.settings,
 	}
 end, function(dispatch)
 	return {

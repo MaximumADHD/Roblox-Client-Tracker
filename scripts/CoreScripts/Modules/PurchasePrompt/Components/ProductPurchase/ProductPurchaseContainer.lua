@@ -66,6 +66,7 @@ local DELAYED_INPUT_SEC = 2.5
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
 local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 local FFlagPurchaseWithGamePausedFix = game:DefineFastFlag("PurchaseWithGamePausedFix", false)
+local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 local function isRelevantRequestType(requestType, purchaseFlow)
 	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
@@ -338,6 +339,12 @@ function ProductPurchaseContainer:render()
 	local isTestPurchase = self.props.isTestPurchase
 
 	local prompt
+	local BUTTON_A_ICON = if GetFFlagUseDesignSystemGamepadIcons()
+		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
+		else Images[XBOX_A_ICON]
+	local BUTTON_B_ICON = if GetFFlagUseDesignSystemGamepadIcons()
+		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonB.png"
+		else Images[XBOX_B_ICON]
 	if promptState == PromptState.None or not isRelevantRequestType(requestType, purchaseFlow) then
 		--[[
 			When the prompt is hidden, we'd rather not keep unused Roblox
@@ -359,8 +366,8 @@ function ProductPurchaseContainer:render()
 			isDelayedInput = self.hasDelayedInput(),
 			enableInputDelayed = self.isWindowShowAndDoneAnimating(),
 
-			buyItemControllerIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
-			cancelControllerIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
+			buyItemControllerIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
+			cancelControllerIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
 
 			buyItemActivated = FFlagPauseGameExploitFix
 				and self.confirmButtonPressed
@@ -386,8 +393,8 @@ function ProductPurchaseContainer:render()
 			isDelayedInput = self.hasDelayedInput(),
 			enableInputDelayed = self.isWindowShowAndDoneAnimating(),
 
-			buyItemControllerIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
-			cancelControllerIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
+			buyItemControllerIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
+			cancelControllerIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
 
 			buyItemActivated = FFlagPauseGameExploitFix
 				and self.confirmButtonPressed
@@ -413,7 +420,7 @@ function ProductPurchaseContainer:render()
 										and self.cancelButtonPressed
 										or self.getCancelButtonAction(promptState, requestType),
 									text = localeMap.cancelText,
-									inputIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
+									inputIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
 								},
 							},
 							{
@@ -423,7 +430,7 @@ function ProductPurchaseContainer:render()
 										and self.confirmButtonPressed
 										or self.getConfirmButtonAction(promptState, requestType, purchaseError),
 									text = localeMap.okText,
-									inputIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
+									inputIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
 								},
 							},
 						},
@@ -449,7 +456,7 @@ function ProductPurchaseContainer:render()
 										and self.confirmButtonPressed
 										or self.getConfirmButtonAction(promptState, requestType, purchaseError),
 									text = localeMap.okText,
-									inputIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
+									inputIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
 								},
 							},
 						},

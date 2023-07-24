@@ -1,3 +1,5 @@
+local FFlagStudioFixPluginWidgetLocalizedIds = game:GetFastFlag("StudioFixPluginWidgetLocalizedIds")
+
 local root = script:FindFirstAncestor("root")
 
 local Roact = require(root.Packages.Roact)
@@ -11,8 +13,10 @@ local ScreenSelect = require(root.src.Components.ScreenSelect)
 
 local Framework = require(root.Packages.Framework)
 
-local StudioUI = Framework.StudioUI
-local DockWidget = StudioUI.DockWidget
+local UI = Framework.UI
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local DockWidget = if FFlagDevFrameworkBetterInit then UI.DockWidget else Framework.StudioUI.DockWidget
 
 local PluginBase = Roact.PureComponent:extend("PluginBase")
 
@@ -20,6 +24,7 @@ function PluginBase:render()
 	local props = self.props
 
 	return Roact.createElement(DockWidget, {
+		Id = if FFlagStudioFixPluginWidgetLocalizedIds then "CageMeshMigration" else nil,
 		Title = constants.TITLE,
 		Enabled = props.enabled,
 		Size = constants.WINDOW_SIZE,

@@ -1,4 +1,5 @@
 local ChromeUtils = require(script.Parent.ChromeUtils)
+local WindowSizeSignal = require(script.Parent.WindowSizeSignal)
 
 export type IntegrationComponents = {
 	Icon: any?,
@@ -18,12 +19,13 @@ export type IntegrationProps = {
 	label: string,
 	initialAvailability: number,
 	availability: ChromeUtils.AvailabilitySignal,
+	draggable: boolean?,
 	components: IntegrationComponents,
 	activated: (IntegrationProps) -> ()?,
 	notification: ChromeUtils.NotifySignal,
 	hideNotificationCountWhileOpen: boolean,
-	startingWindowSize: UDim2?,
 	startingWindowPosition: UDim2?,
+	windowSize: WindowSizeSignal.WindowSizeSignal?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,
 }
@@ -33,11 +35,12 @@ export type IntegrationRegisterProps = {
 	label: string,
 	initialAvailability: number?,
 	availability: ChromeUtils.AvailabilitySignal?,
+	draggable: boolean?,
 	components: IntegrationComponents?,
 	activated: (IntegrationProps) -> ()?,
 	notification: ChromeUtils.NotifySignal?,
 	hideNotificationCountWhileOpen: boolean?,
-	startingWindowSize: UDim2?,
+	windowSize: WindowSizeSignal.WindowSizeSignal?,
 	startingWindowPosition: UDim2?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,

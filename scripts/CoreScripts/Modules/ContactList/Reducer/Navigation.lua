@@ -8,6 +8,7 @@ local CloseContactList = require(script.Parent.Parent.Actions.CloseContactList)
 local OpenContactList = require(script.Parent.Parent.Actions.OpenContactList)
 local CloseCallDetails = require(script.Parent.Parent.Actions.CloseCallDetails)
 local OpenCallDetails = require(script.Parent.Parent.Actions.OpenCallDetails)
+local SetCurrentPage = require(script.Parent.Parent.Actions.SetCurrentPage)
 
 return Rodux.createReducer({
 	currentPage = nil,
@@ -28,8 +29,13 @@ return Rodux.createReducer({
 	end,
 	[OpenContactList.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			currentPage = Pages.FriendList,
+			currentPage = Pages.CallHistory,
 			currentTag = action.tag,
+		})
+	end,
+	[SetCurrentPage.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			currentPage = action.page,
 		})
 	end,
 	[CloseContactList.name] = function(state, action)
