@@ -4,7 +4,6 @@ local routersModule = script.Parent
 local RoactNavigationModule = routersModule.Parent
 local Packages = RoactNavigationModule.Parent
 
-local Cryo = require(Packages.Cryo)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local Object = LuauPolyfill.Object
@@ -44,15 +43,15 @@ function exports.getParamsFromPath(inputParams, pathMatch, pathMatchKeys)
 				if success then
 					decodedMatchResult = result
 				else
-					-- // ignore `URIError: malformed URI`
+					-- ignore `URIError: malformed URI`
 				end
 			end
 
 			paramsOut[paramName] = decodedMatchResult or matchResult
 			return paramsOut
 		end,
-		-- // start with the input(query string) params, which will get overridden by path params
-		Cryo.Dictionary.join({}, inputParams)
+		-- start with the input(query string) params, which will get overridden by path params
+		table.clone(inputParams)
 	)
 	return params
 end
@@ -72,7 +71,7 @@ local function determineDelimiter(uri, uriPrefix)
 		if #uriPrefix == 1 then
 			return uriPrefix[1]
 		end
-		for _, prefix in ipairs(uriPrefix) do
+		for _, prefix in uriPrefix do
 			if String.startsWith(uri, prefix) then
 				return prefix
 			end
@@ -85,14 +84,14 @@ end
 
 function exports.urlToPathAndParams(url, uriPrefix)
 	local searchMatch = RegExp("^(.*)\\?(.*)$"):exec(url)
-	local urlWithoutQuery = searchMatch and searchMatch[2] or url
-	local query = searchMatch and searchMatch[3] or {}
+	local urlWithoutQuery = if searchMatch then searchMatch[2] else url
+	local query = if searchMatch then searchMatch[3] else {}
 	local params = queryString.parse(query)
 	local delimiter = determineDelimiter(urlWithoutQuery, uriPrefix)
 	if delimiter == nil or delimiter == "" then
 		delimiter = "://"
 	end
-	local path = urlWithoutQuery:split(delimiter)[2]
+	local path = string.split(urlWithoutQuery, delimiter)[2]
 
 	if path == nil then
 		path = urlWithoutQuery
@@ -100,8 +99,8 @@ function exports.urlToPathAndParams(url, uriPrefix)
 	if path == "/" then
 		path = ""
 	end
-	if path:sub(-1, -1) == "/" then
-		path = path:sub(1, -2)
+	if string.sub(path, -1, -1) == "/" then
+		path = string.sub(path, 1, -2)
 	end
 
 	return {
@@ -117,7 +116,7 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 	local paths = {}
 
 	-- // Build pathsByRouteNames, which includes a regex to match paths for each route. Keep in mind, the regex will pass for the route and all child routes. The code that uses pathsByRouteNames will need to also verify that the child router produces an action, in the case of isPathMatchable false (a null path).
-	for _, routeName in ipairs(Cryo.Dictionary.keys(childRouters)) do
+	for routeName in childRouters do
 		local pathPattern = nil
 
 		-- // First check for paths on the router, then check the route config
@@ -126,7 +125,7 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 		else
 			-- deviation: Lua can't index functions, so we make sure it's a table before trying
 			-- to get the `path` field
-			if typeof(routeConfigs[routeName]) == "table" then
+			if type(routeConfigs[routeName]) == "table" then
 				pathPattern = routeConfigs[routeName].path
 			end
 		end
@@ -143,7 +142,7 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 
 		invariant(
 			-- deviation: we treat null path as empty string instead
-			pathPattern == NullPathSymbol or typeof(pathPattern) == "string",
+			pathPattern == NullPathSymbol or type(pathPattern) == "string",
 			"Route path for %s must be specified as a string, or RoactNavigation.NoPath.",
 			routeName
 		)
@@ -161,10 +160,8 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 		-- deviation: we are using a more recent pathToRegexp version, so the syntax
 		-- is not quite exactly the same. For a wildcard match, we need to specify `.*`
 		-- instead of only `*`
-		local extendedPathRe = pathToRegexp(
-			isWildcard and "(.*)" or ("%s/(.*)"):format(pathPattern),
-			extendedPathReKeys
-		)
+		local extendedPathRe =
+			pathToRegexp(if isWildcard then "(.*)" else ("%s/(.*)"):format(pathPattern), extendedPathReKeys)
 
 		pathsByRouteNames[routeName] = {
 			exactRe = exactRe,
@@ -172,11 +169,9 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 			extendedPathRe = extendedPathRe,
 			extendedPathReKeys = extendedPathReKeys,
 			isWildcard = isWildcard,
-			toPath = pathPattern == NullPathSymbol
-				and function()
-					return ""
-				end
-				or compile(pathPattern),
+			toPath = pathPattern == NullPathSymbol and function()
+				return ""
+			end or compile(pathPattern),
 		}
 	end
 
@@ -191,7 +186,7 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 			inputParams = {}
 		end
 
-		for _, entry in ipairs(paths) do
+		for _, entry in paths do
 			local routeName = entry[1]
 			local path = entry[2]
 			local exactRe = path.exactRe
@@ -208,10 +203,7 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 
 				if extendedMatch and childRouter then
 					local restOfPath = getRestOfPath(extendedMatch, extendedPathReKeys)
-					childAction = childRouter.getActionForPathAndParams(
-						restOfPath,
-						inputParams
-					)
+					childAction = childRouter.getActionForPathAndParams(restOfPath, inputParams)
 				end
 
 				return NavigationActions.navigate({
@@ -222,7 +214,7 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 			end
 		end
 
-		for _, entry in ipairs(paths) do
+		for _, entry in paths do
 			local routeName = entry[1]
 			local path = entry[2]
 			local extendedPathRe = path.extendedPathRe
@@ -262,15 +254,12 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 		local subPath = toPath(params)
 		local nonPathParams = {}
 		if params then
-			local filteredPaths = Cryo.List.filter(
-				Cryo.Dictionary.keys(params),
-				function(paramName)
-					return not Array.find(exactReKeys, function(k)
-						return k.name == paramName
-					end)
-				end
-			)
-			for _, paramName in ipairs(filteredPaths) do
+			local filteredPaths = Array.filter(Object.keys(params), function(paramName)
+				return not Array.find(exactReKeys, function(k)
+					return k.name == paramName
+				end)
+			end)
+			for _, paramName in filteredPaths do
 				nonPathParams[paramName] = params[paramName]
 			end
 		end
@@ -284,12 +273,8 @@ function exports.createPathParser(childRouters, routeConfigs, config)
 			-- // If it doesn't have router it's an ordinary React component.
 			local child = childRouter.getPathAndParamsForState(route)
 			return {
-				path = (subPath and subPath ~= "")
-					and ("%s/%s"):format(subPath, child.path)
-					or child.path,
-				params = child.params
-					and Cryo.Dictionary.join(nonPathParams, child.params)
-					or nonPathParams,
+				path = if subPath and subPath ~= "" then ("%s/%s"):format(subPath, child.path) else child.path,
+				params = if child.params then Object.assign(nonPathParams, child.params) else nonPathParams,
 			}
 		end
 

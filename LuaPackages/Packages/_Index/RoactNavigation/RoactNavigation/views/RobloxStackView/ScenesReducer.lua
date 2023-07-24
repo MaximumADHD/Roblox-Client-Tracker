@@ -1,6 +1,8 @@
 local root = script.Parent.Parent.Parent
 local Packages = root.Parent
-local Cryo = require(Packages.Cryo)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
+local Object = LuauPolyfill.Object
 local TableUtilities = require(root.utils.TableUtilities)
 local invariant = require(root.utils.invariant)
 
@@ -36,18 +38,18 @@ end
 
 local function scenesAreShallowEqual(a, b)
 	return
-		a.key == b.key and
-		a.index == b.index and
-		a.isStale == b.isStale and
-		a.isActive == b.isActive and
-		routesAreShallowEqual(a, b)
+		a.key == b.key
+			and a.index == b.index
+			and a.isStale == b.isStale
+			and a.isActive == b.isActive
+			and routesAreShallowEqual(a, b)
 end
 
 return function(scenes, nextState, prevState, descriptors)
 	-- Always update descriptors. See react-navigation's bug, here:
 	-- https://github.com/react-navigation/react-navigation/issues/4271
 	-- TODO: Do we need this? Can we do a real fix?
-	for _, scene in ipairs(scenes) do
+	for _, scene in scenes do
 		local route = scene.route
 		if descriptors and descriptors[route.key] then
 			scene.descriptor = descriptors[route.key]
@@ -64,7 +66,7 @@ return function(scenes, nextState, prevState, descriptors)
 	local staleScenes = {}
 
 	-- previously stale scenes should be marked stale
-	for _, scene in ipairs(scenes) do
+	for _, scene in scenes do
 		local key = scene.key
 		if scene.isStale then
 			staleScenes[key] = scene
@@ -80,12 +82,12 @@ return function(scenes, nextState, prevState, descriptors)
 	-- Clip nextRoutes to stop at index because index is top of stack!
 	if nextRoutesLength > nextState.index then
 		print("Warning: StackRouter provided invalid state. Index should always be the top route")
-		nextRoutes = Cryo.List.removeRange(nextRoutes, nextState.index, nextRoutesLength)
+		nextRoutes = Array.slice(nextRoutes, 1, nextState.index)
 	end
 
-	for index, route in ipairs(nextRoutes) do
+	for index, route in nextRoutes do
 		local key = SCENE_KEY_PREFIX .. route.key
-		local descriptor = descriptors and descriptors[route.key] or nil
+		local descriptor = if descriptors then descriptors[route.key] else nil
 
 		local scene = {
 			index = index,
@@ -113,16 +115,16 @@ return function(scenes, nextState, prevState, descriptors)
 		local prevRoutesLength = #prevRoutes
 		if prevRoutesLength > prevState.index then
 			print("StackRouter provided invalid state. Index should always be the top route.")
-			prevRoutes = Cryo.List.removeRange(prevRoutes, prevState.index, prevRoutesLength)
+			prevRoutes = Array.slice(prevRoutes, 1, prevState.index)
 		end
 
 		-- Search previous routes and mark any removed scenes as stale
-		for index, route in ipairs(prevRoutes) do
+		for index, route in prevRoutes do
 			local key = SCENE_KEY_PREFIX .. route.key
 			-- Skip any refreshed scenes
 			if not freshScenes[key] then
 				local lastScene = nil
-				for _, scene in ipairs(scenes) do
+				for _, scene in scenes do
 					if scene.route.key == route.key then
 						lastScene = scene
 						break
@@ -161,21 +163,21 @@ return function(scenes, nextState, prevState, descriptors)
 		end
 	end
 
-	for _, scene in pairs(staleScenes) do
+	for _, scene in staleScenes do
 		mergeScene(scene)
 	end
 
-	for _, scene in pairs(freshScenes) do
+	for _, scene in freshScenes do
 		mergeScene(scene)
 	end
 
 	table.sort(nextScenes, compareScenes)
 
 	local activeScenesCount = 0
-	for index, scene in ipairs(nextScenes) do
+	for index, scene in nextScenes do
 		local isActive = not scene.isStale and scene.index == nextState.index
 		if isActive ~= scene.isActive then
-			nextScenes[index] = Cryo.Dictionary.join(scene, {
+			nextScenes[index] = Object.assign(table.clone(scene), {
 				isActive = isActive,
 			})
 		end
@@ -192,7 +194,7 @@ return function(scenes, nextState, prevState, descriptors)
 		return nextScenes
 	end
 
-	for index, scene in ipairs(nextScenes) do
+	for index, scene in nextScenes do
 		if not scenesAreShallowEqual(scenes[index], scene) then
 			return nextScenes
 		end

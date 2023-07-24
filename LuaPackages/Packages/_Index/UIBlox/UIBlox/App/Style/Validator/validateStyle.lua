@@ -7,6 +7,7 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 
 local validateFont = require(Validator.validateFont)
+local validateSettings = require(Validator.validateSettings)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local validateTheme = if UIBloxConfig.useNewThemeColorPalettes
@@ -19,12 +20,14 @@ if UIBloxConfig.enableRoDSDesignTokenSupport then
 		Theme = validateTheme,
 		Font = validateFont,
 		Tokens = t.optional(validateTokens),
+		Settings = t.optional(validateSettings),
 	})
 	return StylePalette
 else
 	local StylePalette = t.strictInterface({
 		Theme = validateTheme,
 		Font = validateFont,
+		Settings = t.optional(validateSettings),
 	})
 	return StylePalette
 end

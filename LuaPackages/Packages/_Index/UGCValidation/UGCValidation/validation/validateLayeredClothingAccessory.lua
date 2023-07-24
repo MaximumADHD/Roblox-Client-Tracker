@@ -200,7 +200,7 @@ local function validateLayeredClothingAccessory(
 			end
 
 			if game:GetFastFlag("UGCValidateMeshVertColors") then
-				success, failedReason = validateMeshVertColors(meshId)
+				success, failedReason = validateMeshVertColors(meshId, false)
 				if not success then
 					table.insert(reasons, table.concat(failedReason, "\n"))
 					validationResult = false
@@ -331,7 +331,7 @@ local function validateLayeredClothingAccessory(
 		end
 
 		if game:GetFastFlag("UGCValidateMeshVertColors") then
-			success, reasons = validateMeshVertColors(meshId)
+			success, reasons = validateMeshVertColors(meshId, false)
 			if not success then
 				return false, reasons
 			end

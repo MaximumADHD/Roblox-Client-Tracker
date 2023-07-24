@@ -1,6 +1,5 @@
 return function()
 	local EmoteUtility = require(script.Parent.EmoteUtility)
-	local FFlagEmoteUtilityDontUseC1ToPose2 = game:GetFastFlag("EmoteUtilityDontUseC1ToPose2")
 
 	-- Note: this emote has face built in.
 	local HELLO_EMOTE_ASSET_ID = 3576686446
@@ -114,9 +113,6 @@ return function()
 					joint.Part0 = anyCharacter[parentPose.Name]
 					joint.Part1 = anyCharacter[poseObject.Name]
 					joint.Parent = anyCharacter[poseObject.Name]
-					if not FFlagEmoteUtilityDontUseC1ToPose2 then
-						joint.C1 = CFrame.new(1, 2, 3)
-					end
 				end
 			end
 
@@ -185,28 +181,6 @@ return function()
 	local function addTool(character: Model)
 		local tool = Instance.new("Tool")
 		tool.Parent = character
-	end
-
-	-- FIXME(dbanks)
-	-- 2023/05/01
-	-- Remove with FFlagEmoteUtilityDontUseC1ToPose2.
-	local function DEPRECATED_jointsMatch(char1: Model, char2: Model): boolean
-		for _, part in ipairs(char1:GetChildren()) do
-			local name = part.Name
-			if part and part.ClassName == "Part" then
-				local char1Part = part
-				-- Type checker doesn't like dynamic prop lookups. Cast to any to make it shut up.
-				local char2Part = (char2 :: any)[name]
-				if #(char1Part:GetChildren()) > 0 then
-					local joint1 = char1Part:GetChildren()[1] :: Motor6D
-					local joint2 = char2Part:GetChildren()[1] :: Motor6D
-					if joint1.C1 ~= joint2.C1 then
-						return false
-					end
-				end
-			end
-		end
-		return true
 	end
 
 	local function motor6DsMatch(char1: Model, char2: Model): boolean
@@ -353,148 +327,62 @@ return function()
 		return mockCharacter, originalMockCharacter
 	end
 
-	if not FFlagEmoteUtilityDontUseC1ToPose2 then
-		describe("SetPlayerCharacterPose", function()
-			it("SHOULD return a function", function()
-				expect(EmoteUtility.SetPlayerCharacterPose).to.be.a("function")
-			end)
-			it("SHOULD apply animation and lead to a different pose", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters()
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
-					return true
-				end)
-				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-			end)
-			it("SHOULD apply animation and lead to a different pose when character has tool", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
-					return true
-				end)
-				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-			end)
-			it("SHOULD work with nil asset id", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, nil, function()
-					return true
-				end)
-				-- We pose with fallback pose.
-				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-			end)
-			it("SHOULD leave an R6 avatar with no tool completely alone", function()
-				local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
-					return true
-				end)
-				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
-			end)
-			it("SHOULD move arm of R6 avatar with tool", function()
-				local mockCharacter, originalMockCharacter = setupMockR6Characters(true)
-				EmoteUtility.SetPlayerCharacterPose(mockCharacter, HELLO_EMOTE_ASSET_ID, function()
-					return true
-				end)
-				expect(DEPRECATED_jointsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
-			end)
+	describe("SetPlayerCharacterPoseWithMoodFallback", function()
+		it("SHOULD return a function", function()
+			expect(EmoteUtility.SetPlayerCharacterPoseWithMoodFallback).to.be.a("function")
 		end)
-	end
-
-	if FFlagEmoteUtilityDontUseC1ToPose2 then
-		describe("SetPlayerCharacterPoseWithMoodFallback", function()
-			it("SHOULD return a function", function()
-				expect(EmoteUtility.SetPlayerCharacterPoseWithMoodFallback).to.be.a("function")
-			end)
-			it("SHOULD apply animation and lead to a different pose and face", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters()
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
-					mockCharacter,
-					HELLO_EMOTE_ASSET_ID,
-					nil,
-					true,
-					function()
-						return true
-					end
-				)
-				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-			end)
-			it("SHOULD apply animation and lead to a different pose but same face", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters()
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
-					mockCharacter,
-					COUNTRY_LINE_DANCE_EMOTE_ASSET_ID,
-					nil,
-					true,
-					function()
-						return true
-					end
-				)
-				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
-			end)
-			it("SHOULD apply animation with mood animation to lead to a different pose but and face", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters()
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
-					mockCharacter,
-					COUNTRY_LINE_DANCE_EMOTE_ASSET_ID,
-					DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID,
-					true,
-					function()
-						return true
-					end
-				)
-				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-			end)
-			it("SHOULD apply animation and lead to a different pose and face when character has tool", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
-					mockCharacter,
-					HELLO_EMOTE_ASSET_ID,
-					nil,
-					true,
-					function()
-						return true
-					end
-				)
-				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-			end)
-			it("SHOULD work with nil asset ids", function()
-				local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, nil, nil, true, function()
-					return true
-				end)
-				-- Body poses with fallback.  Face does not move.
-				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
-				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
-			end)
-			it("SHOULD leave an R6 avatar with no tool completely alone", function()
-				local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
-					mockCharacter,
-					HELLO_EMOTE_ASSET_ID,
-					nil,
-					true,
-					function()
-						return true
-					end
-				)
-				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
-			end)
-			it("SHOULD move arm of R6 avatar with tool", function()
-				local mockCharacter, originalMockCharacter = setupMockR6Characters(true)
-				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
-					mockCharacter,
-					HELLO_EMOTE_ASSET_ID,
-					nil,
-					true,
-					function()
-						return true
-					end
-				)
-				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
-			end)
+		it("SHOULD apply animation and lead to a different pose and face", function()
+			local mockCharacter, originalMockCharacter = setupMockR15Characters()
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 		end)
-	end
+		it("SHOULD apply animation and lead to a different pose but same face", function()
+			local mockCharacter, originalMockCharacter = setupMockR15Characters()
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+				mockCharacter,
+				COUNTRY_LINE_DANCE_EMOTE_ASSET_ID,
+				nil,
+				true
+			)
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+		end)
+		it("SHOULD apply animation with mood animation to lead to a different pose but and face", function()
+			local mockCharacter, originalMockCharacter = setupMockR15Characters()
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+				mockCharacter,
+				COUNTRY_LINE_DANCE_EMOTE_ASSET_ID,
+				DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID,
+				true
+			)
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+		end)
+		it("SHOULD apply animation and lead to a different pose and face when character has tool", function()
+			local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+		end)
+		it("SHOULD work with nil asset ids", function()
+			local mockCharacter, originalMockCharacter = setupMockR15Characters(true)
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, nil, nil, true)
+			-- Body poses with fallback.  Face does not move.
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+		end)
+		it("SHOULD leave an R6 avatar with no tool completely alone", function()
+			local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+		end)
+		it("SHOULD move arm of R6 avatar with tool", function()
+			local mockCharacter, originalMockCharacter = setupMockR6Characters(true)
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+		end)
+	end)
 
 	describe("Calculate Thumbnail Zoom Extents", function()
 		it("SHOULD return a function", function()

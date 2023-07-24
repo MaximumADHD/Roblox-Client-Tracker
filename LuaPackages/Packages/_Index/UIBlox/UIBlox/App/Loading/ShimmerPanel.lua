@@ -1,4 +1,5 @@
 --!nonstrict
+local RunService = game:GetService("RunService")
 local Loading = script.Parent
 local App = Loading.Parent
 local UIBlox = App.Parent
@@ -9,6 +10,11 @@ local t = require(Packages.t)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local TextureScroller = require(script.Parent.TextureScroller)
+local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
+local lerp = require(Packages.UIBlox.Utility.lerp)
+
+local PULSATE_TRANSPARENCY_DELTA = 0.1
+local PULSATE_ANIM_TIME = 2.5
 
 local ShimmerPanel = Roact.PureComponent:extend("ShimmerPanel")
 
@@ -43,6 +49,31 @@ ShimmerPanel.defaultProps = {
 	shimmerSpeed = 4,
 }
 
+--[[ 
+	lerpValue increases linearly from 0 to PULSATE_ANIM_TIME (2.5) sec
+	We then make the value go from 0 to 1 and then back to 0 so the animation fades in and then out
+ 	And then we use a easeInOutCubic curve on the value to make the animation appear smoother 
+	easeInOutCubic curve is from https://gizma.com/easing/#easeInOutCubic
+]]
+local function lerpValueToAnimCurve(lerpValue: number)
+	lerpValue = math.abs(lerpValue - 1)
+	if lerpValue > 1 then
+		return 1
+	elseif lerpValue < 0.5 then
+		return 4 * math.pow(lerpValue, 3)
+	else
+		return 1 - math.pow(-2 * lerpValue + 2, 3) / 2
+	end
+end
+
+function ShimmerPanel:init()
+	self.state = {
+		lerpValue = 0,
+	}
+	self.frameRef = Roact.createRef()
+	self.lerpValue = 0
+end
+
 function ShimmerPanel:render()
 	local anchorPoint = self.props.AnchorPoint
 	local layoutOrder = self.props.LayoutOrder
@@ -63,6 +94,46 @@ function ShimmerPanel:render()
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
+		local settings = stylePalette.Settings
+
+		local renderSteppedCallback = function(dt)
+			local backgroundOnHover = theme.BackgroundOnHover
+			local newLerpValue = self.lerpValue + dt
+
+			if newLerpValue > PULSATE_ANIM_TIME then
+				newLerpValue = 0
+			end
+
+			self.lerpValue = newLerpValue
+			if self.frameRef.current then
+				local anim = lerpValueToAnimCurve(self.lerpValue)
+				self.frameRef.current.BackgroundColor3 = backgroundOnHover.Color:Lerp(backgroundOnHover.Color, anim)
+				self.frameRef.current.BackgroundTransparency = lerp(
+					backgroundOnHover.Transparency,
+					backgroundOnHover.Transparency - PULSATE_TRANSPARENCY_DELTA,
+					anim
+				)
+			end
+		end
+
+		if settings.ReducedMotion then
+			return Roact.createElement("Frame", {
+				AnchorPoint = anchorPoint,
+				LayoutOrder = layoutOrder,
+				BorderSizePixel = 0,
+				Position = position,
+				Size = size,
+				[Roact.Ref] = self.frameRef,
+			}, {
+				UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
+					CornerRadius = cornerRadius,
+				}) or nil,
+				renderStepped = Roact.createElement(ExternalEventConnection, {
+					callback = renderSteppedCallback,
+					event = RunService.renderStepped,
+				}),
+			})
+		end
 
 		return Roact.createElement(TextureScroller, {
 			anchorPoint = anchorPoint,

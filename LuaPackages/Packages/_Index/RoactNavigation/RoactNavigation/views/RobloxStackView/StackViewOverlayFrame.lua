@@ -1,15 +1,16 @@
-local Roact = require(script.Parent.Parent.Parent.Parent.Roact)
-local lerp = require(script.Parent.Parent.Parent.utils.lerp)
+local RobloxStackView = script.Parent
+local root = RobloxStackView.Parent.Parent
+local Packages = root.Parent
 
-local StackViewOverlayFrame = Roact.Component:extend("StackViewOverlayFrame")
+local React = require(Packages.React)
+local lerp = require(root.utils.lerp)
+
+local StackViewOverlayFrame = React.Component:extend("StackViewOverlayFrame")
 
 function StackViewOverlayFrame:init()
 	self._signalDisconnect = nil
 
-	local selfRef = Roact.createRef()
-	self._getRef = function()
-		return self.props[Roact.Ref] or selfRef
-	end
+	self._ref = React.createRef()
 end
 
 function StackViewOverlayFrame:render()
@@ -18,12 +19,12 @@ function StackViewOverlayFrame:render()
 
 	local overlayTransparency = lerp(1, navigationOptions.overlayTransparency, initialTransitionValue)
 
-	return Roact.createElement("Frame", {
+	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = navigationOptions.overlayColor3,
 		BackgroundTransparency = overlayTransparency,
 		BorderSizePixel = 0,
-		[Roact.Ref] = self:_getRef(),
+		ref = self._ref,
 	})
 end
 
@@ -61,11 +62,10 @@ function StackViewOverlayFrame:_transitionChanged(value)
 		return
 	end
 
-	local myRef = self:_getRef()
-	if myRef.current then
+	if self._ref.current then
 		local navigationOptions = self.props.navigationOptions
 		local overlayTransparency = lerp(1, navigationOptions.overlayTransparency, value)
-		myRef.current.BackgroundTransparency = overlayTransparency
+		self._ref.current.BackgroundTransparency = overlayTransparency
 	end
 end
 

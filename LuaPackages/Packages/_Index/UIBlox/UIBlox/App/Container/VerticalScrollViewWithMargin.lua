@@ -46,8 +46,11 @@ VerticalScrollView.validateProps = t.strictInterface({
 	-- Width of the left and right padding. Minimum 12 points.
 	-- If not given, VerticalScrollView will use [dynamic margins](https://confluence.rbx.com/pages/viewpage.action?pageId=153532381)
 	paddingHorizontal = t.optional(t.number),
-	-- If the vertical scrolling list should be focusable by gamepad or not
+	-- Whether or not the component should be wrapped in a RoactGamepad.Focusable.
+	-- If it's true, it may also accept some other props related to focus that are documented in the RoactGamepad library.
 	isGamepadFocusable = t.optional(t.boolean),
+	-- Whether it's gamepad/keyboard selectable or not. It's using the engine GuiObject Selectable property.
+	Selectable = t.optional(t.boolean),
 
 	-- Optional passthrough props for the scrolling frame
 	[Roact.Change.CanvasPosition] = t.optional(t.callback),
@@ -72,6 +75,7 @@ VerticalScrollView.defaultProps = {
 	canvasSizeY = UDim.new(2, 0),
 	useAutomaticCanvasSize = false,
 	isGamepadFocusable = false,
+	Selectable = true,
 }
 
 function VerticalScrollView:init()
@@ -206,6 +210,8 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			onFocusGained = isGamepadFocusable and self.onGamepadFocused or nil,
 			onFocusLost = isGamepadFocusable and self.onGamepadFocusLost or nil,
+
+			Selectable = self.props.Selectable,
 
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,

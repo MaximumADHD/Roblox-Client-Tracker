@@ -16,24 +16,24 @@ local function TypeError(message)
 end
 
 local function splitOnFirst(string, separator)
-    if not (typeof(string) == "string" and typeof(separator) == "string") then
-        error(TypeError("Expected the arguments to be of type `string`"))
-    end
+	if not (type(string) == "string" and type(separator) == "string") then
+		error(TypeError("Expected the arguments to be of type `string`"))
+	end
 
-    if separator == "" then
-        return {string}
-    end
+	if separator == "" then
+		return { string }
+	end
 
-    local separatorIndex = string:find(separator, 1, true)
+	local separatorIndex = string:find(separator, 1, true)
 
-    if separatorIndex == nil then
-        return {string}
-    end
+	if separatorIndex == nil then
+		return { string }
+	end
 
-    return {
-        string:sub(1, separatorIndex - 1),
-        string:sub(separatorIndex + separator:len()),
-    }
+	return {
+		string:sub(1, separatorIndex - 1),
+		string:sub(separatorIndex + separator:len()),
+	}
 end
 
 return splitOnFirst

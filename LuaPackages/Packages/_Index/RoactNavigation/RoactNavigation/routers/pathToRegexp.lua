@@ -26,7 +26,6 @@ THE SOFTWARE.
 --!nolint LocalShadow
 local root = script.Parent.Parent
 local Packages = root.Parent
-local Cryo = require(Packages.Cryo)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local RegExp = require(Packages.RegExp)
@@ -47,7 +46,7 @@ local flags
  * Tokenizer results.
  ]]
 type LexToken = {
-  type: string,
+	type: string,
 	-- | "OPEN"
 	-- | "CLOSE"
 	-- | "PATTERN"
@@ -56,8 +55,8 @@ type LexToken = {
 	-- | "ESCAPED_CHAR"
 	-- | "MODIFIER"
 	-- | "END",
-  index: number,
-  value: string,
+	index: number,
+	value: string,
 }
 
 --[[
@@ -76,13 +75,13 @@ local function lexer(str: string): { LexToken }
 	end
 	-- Roblox deviation: use this function to translate `str[n]` directly
 	local function getChar(n)
-		return str:sub(n, n)
+		return string.sub(str, n, n)
 	end
 
-	local strLength = str:len()
+	local strLength = string.len(str)
 
 	while i <= strLength do
-		local char = str:sub(i, i)
+		local char = string.sub(str, i, i)
 
 		if char == "*" or char == "+" or char == "?" then
 			table.insert(tokens, {
@@ -133,17 +132,17 @@ local function lexer(str: string): { LexToken }
 			end
 
 			while j <= strLength do
-				local code = str:byte(j)
+				local code = string.byte(str, j)
 
 				if
 					-- // `0-9`
-					(code >= 48 and code <= 57) or
+					(code >= 48 and code <= 57)
 					-- // `A-Z`
-					(code >= 65 and code <= 90) or
+					or (code >= 65 and code <= 90)
 					-- // `a-z`
-					(code >= 97 and code <= 122) or
+					or (code >= 97 and code <= 122)
 					-- // `_`
-					code == 95
+					or code == 95
 				then
 					name = name .. getChar(preIncrement_j(j))
 					continue
@@ -258,7 +257,7 @@ function exports.parse(str: string, optionalOptions: ParseOptions?): { Token }
 	if options.prefixes ~= nil and options.prefixes ~= "" then
 		prefixes = options.prefixes
 	end
-	local defaultPattern = ("[^%s]+?"):format(escapeString(options.delimiter or "/#?"))
+	local defaultPattern = string.format("[^%s]+?", escapeString(options.delimiter or "/#?"))
 	local result: { Token } = {}
 	local key = 0
 	local i = 1
@@ -320,7 +319,7 @@ function exports.parse(str: string, optionalOptions: ParseOptions?): { Token }
 		if (name and name ~= "") or (pattern and pattern ~= "") then
 			local prefix = char or ""
 
-			if prefixes:find(prefix) == nil then
+			if string.find(prefixes, prefix) == nil then
 				path = path .. prefix
 				prefix = ""
 			end
@@ -414,14 +413,11 @@ export type TokensToFunctionOptions = {
 --[[
  * Compile a string to a template function for the path.
  ]]
-function exports.compile(
-	str: string,
-	options: (ParseOptions & TokensToFunctionOptions)?
-)
+function exports.compile(str: string, options: (ParseOptions & TokensToFunctionOptions)?)
 	return exports.tokensToFunction(exports.parse(str, options), options)
 end
 
-export type PathFunction<P> = (P?) -> string;
+export type PathFunction<P> = (P?) -> string
 
 --[[
  * Expose a method for transforming tokens into the path function.
@@ -440,9 +436,9 @@ function exports.tokensToFunction(tokens: { Token }, optionalOptions: TokensToFu
 		validate = true
 	end
 
-	-- // Compile all the tokens into regexps.
-	local matches = Cryo.List.map(tokens, function(token)
-		if typeof(token) == "table" then
+	-- Compile all the tokens into regexps.
+	local matches = Array.map(tokens, function(token)
+		if type(token) == "table" then
 			return RegExp(("^(?:%s)$"):format(token.pattern), reFlags)
 		end
 		return nil
@@ -451,25 +447,21 @@ function exports.tokensToFunction(tokens: { Token }, optionalOptions: TokensToFu
 	return function(data: Record<string, any>?)
 		local path = ""
 
-		for i = 1, #tokens do
-			local token = tokens[i]
-
-			if typeof(token) == "string" then
+		for i, token in tokens do
+			if type(token) == "string" then
 				path ..= token
 				continue
 			end
 
 			-- Roblox deviation: in JavaScript, indexing an object with a number will coerce the number
 			-- value into a string
-			local value = data and data[tostring(token.name)] or nil
+			local value = if data then data[tostring(token.name)] else nil
 			local optional = token.modifier == "?" or token.modifier == "*"
 			local repeat_ = token.modifier == "*" or token.modifier == "+"
 
 			if Array.isArray(value) then
 				if not repeat_ then
-					error(TypeError(
-						('Expected "%s" to not repeat, but got an array'):format(token.name)
-					))
+					error(TypeError(('Expected "%s" to not repeat, but got an array'):format(token.name)))
 				end
 
 				if #value == 0 then
@@ -480,17 +472,19 @@ function exports.tokensToFunction(tokens: { Token }, optionalOptions: TokensToFu
 					error(TypeError(('Expected "%s" to not be empty'):format(token.name)))
 				end
 
-				for j=1, #value do
-					local segment = encode(value[j], token)
+				for _, element in value do
+					local segment = encode(element, token)
 
 					if validate and not matches[i]:test(segment) then
-						error(TypeError(
-							('Expected all "%s" to match "%s", but got "%s"'):format(
-								token.name,
-								token.pattern,
-								segment
+						error(
+							TypeError(
+								('Expected all "%s" to match "%s", but got "%s"'):format(
+									token.name,
+									token.pattern,
+									segment
+								)
 							)
-						))
+						)
 					end
 
 					path ..= token.prefix .. segment .. token.suffix
@@ -499,11 +493,16 @@ function exports.tokensToFunction(tokens: { Token }, optionalOptions: TokensToFu
 				continue
 			end
 
-			if typeof(value) == "string" or typeof(value) == "number" then
+			local valueType = type(value)
+			if valueType == "string" or valueType == "number" then
 				local segment = encode(tostring(value), token)
 
 				if validate and not matches[i]:test(segment) then
-					error(TypeError(('Expected "%s" to match "%s", but got "%s"'):format(token.name, token.pattern, segment)))
+					error(
+						TypeError(
+							('Expected "%s" to match "%s", but got "%s"'):format(token.name, token.pattern, segment)
+						)
+					)
 				end
 
 				path ..= token.prefix .. segment .. token.suffix
@@ -514,7 +513,7 @@ function exports.tokensToFunction(tokens: { Token }, optionalOptions: TokensToFu
 				continue
 			end
 
-			local typeOfMessage = repeat_ and "an array" or "a string"
+			local typeOfMessage = if repeat_ then "an array" else "a string"
 			error(TypeError(('Expected "%s" to be %s'):format(tostring(token.name), typeOfMessage)))
 		end
 
@@ -523,31 +522,31 @@ function exports.tokensToFunction(tokens: { Token }, optionalOptions: TokensToFu
 end
 
 export type RegexpToFunctionOptions = {
-  --[[
+	--[[
    * Function for decoding strings for params.
    ]]
-  decode: nil | (string, Key) -> string,
+	decode: nil | (string, Key) -> string,
 }
 
 --[[
  * A match result contains data about the path match.
  ]]
 export type MatchResult<P> = {
-  path: string,
-  index: number,
-  params: P,
+	path: string,
+	index: number,
+	params: P,
 }
 
 --[[
  * A match is either `false` (no match) or a match result.
  ]]
 -- export type Match<P> = false | MatchResult<P>
-export type Match<P> = boolean | MatchResult<P>;
+export type Match<P> = boolean | MatchResult<P>
 
 --[[
  * The match function takes a string and returns whether it matched the path.
  ]]
-export type MatchFunction<P> = (string) -> Match<P>;
+export type MatchFunction<P> = (string) -> Match<P>
 
 --[[
  * Create path match function from `path-to-regexp` spec.
@@ -590,12 +589,9 @@ function exports.regexpToFunction(re: any, keys: { Key }, options: RegexpToFunct
 			-- so the loop starts at index 2 (index 1 is the full matched string)
 			local key = keys[i - 1]
 			if key.modifier == "*" or key.modifier == "+" then
-				params[key.name] = Cryo.List.map(
-					matches[i]:split(key.prefix .. key.suffix),
-					function(value)
-						return decode(value, key)
-					end
-				)
+				params[key.name] = Array.map(string.split(matches[i], key.prefix .. key.suffix), function(value)
+					return decode(value, key)
+				end)
 			else
 				params[key.name] = decode(matches[i], key)
 			end
@@ -613,7 +609,7 @@ end
  * Escape a regular expression string.
  ]]
 function escapeString(str: string)
-	return str:gsub("[%.%+%*%?=%^!:${}%(%)%[%]|/\\]", function(match)
+	return string.gsub(str, "[%.%+%*%?=%^!:${}%(%)%[%]|/\\]", function(match)
 		return "\\" .. match
 	end)
 end
@@ -633,17 +629,17 @@ end
  * Metadata about a key.
  ]]
 export type Key = {
-  name: string | number,
-  prefix: string,
-  suffix: string,
-  pattern: string,
-  modifier: string,
+	name: string | number,
+	prefix: string,
+	suffix: string,
+	pattern: string,
+	modifier: string,
 }
 
 --[[
  * A token is a string (nothing special) or key metadata (capture group).
  ]]
-export type Token = string | Key;
+export type Token = string | Key
 
 -- Roblox deviation: this functionality is not required so it has been omitted
 --[[
@@ -692,7 +688,7 @@ local function arrayToRegexp(
 	keys: { Key }?,
 	options: (TokensToRegexpOptions & ParseOptions)?
 ): string
-	local parts = Cryo.List.map(paths, function(path)
+	local parts = Array.map(paths, function(path)
 		return exports.pathToRegexp(path, keys, options).source
 	end)
 
@@ -740,11 +736,7 @@ export type TokensToRegexpOptions = {
 --[[
    * Expose a function for taking tokens and returning a RegExp.
  ]]
-function exports.tokensToRegexp(
-	tokens: { Token },
-	keys: { Key }?,
-	optionalOptions: TokensToRegexpOptions?
-)
+function exports.tokensToRegexp(tokens: { Token }, keys: { Key }?, optionalOptions: TokensToRegexpOptions?)
 	local options = {}
 	if optionalOptions ~= nil then
 		options = optionalOptions
@@ -765,14 +757,13 @@ function exports.tokensToRegexp(
 		return x
 	end
 	-- Roblox deviation: our Lua regex implementation does not support empty character class
-	local endsWith = options.endsWith and ("[%s]|$"):format(escapeString(options.endsWith or "")) or "$"
+	local endsWith = if options.endsWith then ("[%s]|$"):format(escapeString(options.endsWith or "")) else "$"
 	local delimiter = ("[%s]"):format(escapeString(options.delimiter or "/#?"))
-	local route = start and "^" or ""
+	local route = if start then "^" else ""
 
 	-- // Iterate over the tokens and create our regexp string.
-	for i = 1, #tokens do
-		local token = tokens[i]
-		if typeof(token) == "string" then
+	for _, token in tokens do
+		if type(token) == "string" then
 			route ..= escapeString(encode(token))
 		else
 			local prefix = escapeString(encode(token.prefix))
@@ -785,7 +776,7 @@ function exports.tokensToRegexp(
 
 				if (prefix and prefix ~= "") or (suffix and suffix ~= "") then
 					if token.modifier == "+" or token.modifier == "*" then
-						local mod = token.modifier == "*" and "?" or ""
+						local mod = if token.modifier == "*" then "?" else ""
 						route ..= ("(?:%s((?:%s)(?:%s%s(?:%s))*)%s)%s"):format(
 							prefix,
 							token.pattern,
@@ -820,15 +811,15 @@ function exports.tokensToRegexp(
 	else
 		local endToken = tokens[#tokens]
 		local isEndDelimited = endToken == nil
-		if typeof(endToken) == "string" then
-			isEndDelimited = delimiter:find(endToken:sub(-1)) ~= nil
+		if type(endToken) == "string" then
+			isEndDelimited = string.find(delimiter, endToken:sub(-1)) ~= nil
 		end
 
 		if not strict then
-			route ..= ("(?:%s(?=%s))?"):format(delimiter, endsWith)
+			route ..= string.format("(?:%s(?=%s))?", delimiter, endsWith)
 		end
 		if not isEndDelimited then
-			route ..= ("(?=%s|%s)"):format(delimiter, endsWith)
+			route ..= string.format("(?=%s|%s)", delimiter, endsWith)
 		end
 	end
 
@@ -838,7 +829,7 @@ end
 --[[
  * Supported `path-to-regexp` input types.
  ]]
-export type Path = string | { string };
+export type Path = string | { string }
 
 --[[
  * Normalize the given path string, returning a regular expression.
@@ -847,14 +838,10 @@ export type Path = string | { string };
  * placeholder key descriptions. For example, using `/user/:id`, `keys` will
  * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
  ]]
-function exports.pathToRegexp(
-	path: Path,
-	keys: { Key }?,
-	options: (TokensToRegexpOptions & ParseOptions)?
-)
+function exports.pathToRegexp(path: Path, keys: { Key }?, options: (TokensToRegexpOptions & ParseOptions)?)
 	-- if (path instanceof RegExp) return regexpToRegexp(path, keys);
 	if Array.isArray(path) then
-		return arrayToRegexp(path :: {string}, keys, options)
+		return arrayToRegexp(path :: { string }, keys, options)
 	end
 	return stringToRegexp(path, keys, options)
 end

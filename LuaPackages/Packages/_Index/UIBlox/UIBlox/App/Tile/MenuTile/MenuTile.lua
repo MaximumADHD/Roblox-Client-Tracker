@@ -15,6 +15,8 @@ local t = require(Packages.t)
 local Badge = require(App.Indicator.Badge)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(App.SelectionImage.CursorKind)
 
 local ControlState = require(Core.Control.Enum.ControlState)
 local Interactable = require(Core.Control.Interactable)
@@ -72,6 +74,14 @@ MenuTile.validateProps = t.strictInterface({
 	onActivated = t.callback,
 })
 
+local function withProviders(renderCallback)
+	return withStyle(function(stylePalette)
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return renderCallback(stylePalette, getSelectionCursor)
+		end)
+	end)
+end
+
 function MenuTile:init()
 	self.hoverTransparency, self.updateHoverTransparency = Roact.createBinding(FULLY_TRANSPARENT)
 	self.hoverTransparencyMotor = Otter.createSingleMotor(FULLY_TRANSPARENT)
@@ -105,7 +115,7 @@ function MenuTile:render()
 	local size = self.props.size
 	local title = self.props.title
 
-	return withStyle(function(stylePalette)
+	return withProviders(function(stylePalette, getSelectionCursor)
 		local theme = stylePalette.Theme
 
 		local backgroundStyle = theme.BackgroundUIDefault
@@ -117,6 +127,8 @@ function MenuTile:render()
 		local titleFontSize = titleFont.RelativeSize * stylePalette.Font.BaseSize
 		local titleTextOneLineSizeY =
 			TextService:GetTextSize(title, titleFontSize, titleFont.Font, Vector2.new(100, titleFontSize)).Y
+
+		local selectionCursor = getSelectionCursor(CursorKind.RoundedRect)
 
 		local function onStateChanged(oldState, newState)
 			if newState == ControlState.Hover then
@@ -149,6 +161,7 @@ function MenuTile:render()
 			Size = size,
 			Position = position,
 			BackgroundTransparency = 1, -- Default is 0
+			SelectionImageObject = selectionCursor,
 			LayoutOrder = layoutOrder,
 			onStateChanged = onStateChanged,
 			[Roact.Event.Activated] = onActivated,

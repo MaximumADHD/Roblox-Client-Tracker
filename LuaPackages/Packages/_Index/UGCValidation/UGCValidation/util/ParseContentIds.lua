@@ -68,7 +68,7 @@ local function tryGetAssetIdFromContentIdInternal(contentId)
 	return nil
 end
 
-local function parseContentId(contentIds, contentIdMap, object, fieldName, isRequired)
+local function parseContentId(contentIds, contentIdMap, allResults, object, fieldName, isRequired)
 	local contentId = object[fieldName]
 
 	if contentId == "" then
@@ -95,14 +95,15 @@ local function parseContentId(contentIds, contentIdMap, object, fieldName, isReq
 		table.insert(contentIds, id)
 	end
 
+	-- if you need to know all the instances that reference an assetid
+	if allResults then
+		table.insert(allResults, { fieldName = fieldName, instance = object, id = id })
+	end
+
 	return true
 end
 
-function ParseContentIds.tryGetAssetIdFromContentId(contentId: string): string
-	return tryGetAssetIdFromContentIdInternal(contentId)
-end
-
-function ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, object, allFields, requiredFields)
+local function parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields, requiredFields)
 	allFields = allFields or Constants.CONTENT_ID_FIELDS
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -117,7 +118,7 @@ function ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, object, a
 				local isRequired = requiredFieldsForClassType and requiredFieldsForClassType[field]
 				if
 					not reasonsAccumulator:updateReasons(
-						parseContentId(contentIds, contentIdMap, descendant, field, isRequired)
+						parseContentId(contentIds, contentIdMap, allResults, descendant, field, isRequired)
 					)
 				then
 					return reasonsAccumulator:getFinalResults()
@@ -129,11 +130,21 @@ function ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, object, a
 	return reasonsAccumulator:getFinalResults()
 end
 
+function ParseContentIds.tryGetAssetIdFromContentId(contentId: string): string
+	return tryGetAssetIdFromContentIdInternal(contentId)
+end
+
+function ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, object, allFields, requiredFields)
+	return parseWithErrorCheckInternal(contentIds, contentIdMap, nil, object, allFields, requiredFields)
+end
+
 function ParseContentIds.parse(object, allFields)
 	local contentIdMap = {}
 	local contentIds = {}
-	ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, object, allFields)
-	return contentIdMap
+	local allResults = {}
+	local success = parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields)
+	assert(success)
+	return allResults
 end
 
 return ParseContentIds

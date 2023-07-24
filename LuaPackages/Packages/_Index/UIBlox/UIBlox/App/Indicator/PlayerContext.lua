@@ -53,6 +53,9 @@ PlayerContext.validateProps = t.strictInterface({
 	iconTransparency = t.optional(t.number),
 	-- A function that fires when the text is pressed
 	onActivated = t.optional(t.callback),
+	-- Whether it's gamepad/keyboard selectable or not
+	Selectable = t.optional(t.boolean),
+
 	fontStyle = t.optional(validateFontInfo),
 
 	-- The text height which determines component height
@@ -63,15 +66,19 @@ PlayerContext.validateProps = t.strictInterface({
 	iconPadding = t.optional(t.number),
 	-- The padding between icon and text
 	iconTextSpacing = t.optional(t.number),
+	-- The layoutOrder of PlayerContext
+	layoutOrder = t.optional(t.number),
 })
 
 PlayerContext.defaultProps = {
 	text = "",
 	icon = nil,
+	Selectable = true,
 	iconSize = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
 	textHeight = RELEVANCY_TEXT_HEIGHT,
 	iconPadding = RELEVANCY_PADDING,
 	iconTextSpacing = RELEVANCY_PADDING,
+	layoutOrder = 1,
 }
 
 function PlayerContext:init()
@@ -119,7 +126,9 @@ function PlayerContext:render()
 		return Roact.createElement("ImageButton", {
 			Size = UDim2.new(1, 0, 0, textHeight),
 			BackgroundTransparency = 1,
+			Selectable = self.props.Selectable,
 			Active = onActivated and true or false,
+			LayoutOrder = self.props.layoutOrder,
 			[Roact.Event.Activated] = onActivated,
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {

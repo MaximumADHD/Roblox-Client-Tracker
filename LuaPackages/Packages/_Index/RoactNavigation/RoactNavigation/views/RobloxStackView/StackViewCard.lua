@@ -1,5 +1,10 @@
-local Roact = require(script.Parent.Parent.Parent.Parent.Roact)
-local invariant = require(script.Parent.Parent.Parent.utils.invariant)
+local RobloxStackView = script.Parent
+local views = RobloxStackView.Parent
+local root = views.Parent
+local Packages = root.Parent
+
+local React = require(Packages.React)
+local invariant = require(root.utils.invariant)
 
 --[[
 	Render a scene as a card for use in a StackView. This component is
@@ -20,7 +25,7 @@ local invariant = require(script.Parent.Parent.Parent.utils.invariant)
 		transparent			-- Card allows underlying content to show through (default: false).
 		cardColor3			-- Color of the card background if it's not transparent (default: white).
 ]]
-local StackViewCard = Roact.Component:extend("StackViewCard")
+local StackViewCard = React.Component:extend("StackViewCard")
 
 StackViewCard.defaultProps = {
 	transparent = false,
@@ -33,10 +38,7 @@ function StackViewCard:init()
 	self._isMounted = false
 	self._positionLastValue = currentNavIndex
 
-	local selfRef = Roact.createRef()
-	self._getRef = function()
-		return self.props[Roact.Ref] or selfRef
-	end
+	self._ref = React.createRef()
 end
 
 function StackViewCard:render()
@@ -49,15 +51,15 @@ function StackViewCard:render()
 
 	invariant(type(renderScene) == "function", "renderScene must be a function")
 
-	return Roact.createElement("Frame", {
+	return React.createElement("Frame", {
 		Position = initialPosition,
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = cardColor3,
-		BackgroundTransparency = transparent and 1 or nil,
+		BackgroundTransparency = if transparent then 1 else nil,
 		BorderSizePixel = 0,
 		ClipsDescendants = false,
 		Visible = not forceHidden,
-		[Roact.Ref] = self:_getRef(),
+		ref = self._ref,
 	}, {
 		Content = renderScene(scene),
 	})
@@ -107,7 +109,7 @@ function StackViewCard:_onPositionStep(value)
 	local positionStep = self.props.positionStep
 
 	if positionStep then
-		positionStep(self:_getRef(), value)
+		positionStep(self._ref, value)
 	end
 
 	self._positionLastValue = value

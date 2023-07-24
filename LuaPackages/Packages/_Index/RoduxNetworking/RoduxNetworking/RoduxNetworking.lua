@@ -1,5 +1,6 @@
 local GET = require(script.Parent.GET)
 local POST = require(script.Parent.POST)
+local PATCH = require(script.Parent.PATCH)
 
 local RoduxNetworking = {}
 RoduxNetworking.__index = RoduxNetworking
@@ -24,6 +25,10 @@ end
 
 function RoduxNetworking:POST(...)
 	return POST(self.options)(...)
+end
+
+function RoduxNetworking:PATCH(...)
+	return PATCH(self.options)(...)
 end
 
 function RoduxNetworking:getNetworkImpl()

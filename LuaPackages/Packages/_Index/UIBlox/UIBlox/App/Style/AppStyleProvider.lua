@@ -30,6 +30,7 @@ local validateTokens = TokenPackage.validateTokens
 
 type AppStyle = StyleTypes.AppStyle
 type Tokens = StyleTypes.Tokens
+type Settings = StyleTypes.Settings
 
 local DEFAULT_FONT = Constants.FontName.Gotham
 local FONT_MAP = {
@@ -46,6 +47,7 @@ export type StyleProps = {
 	themeName: string,
 	fontName: string,
 	deviceType: string?,
+	settings: Settings?,
 }
 
 export type Props = {
@@ -58,6 +60,7 @@ local defaultProps: Props = {
 		themeName = DEFAULT_THEME,
 		fontName = DEFAULT_FONT,
 		deviceType = DEFAULT_DEVICE_TYPE,
+		settings = Constants.DefaultSettings,
 	},
 }
 
@@ -71,6 +74,12 @@ local function AppStyleProvider(props: Props)
 		Font = getFontFromName(style.fontName, DEFAULT_FONT, FONT_MAP),
 		Theme = getThemeFromName(themeName, DEFAULT_THEME, THEME_MAP),
 		Tokens = tokens,
+		Settings = if style.settings
+			then {
+				PreferredTransparency = style.settings.preferredTransparency,
+				ReducedMotion = style.settings.reducedMotion,
+			}
+			else Constants.DefaultSettings,
 	}
 	local isMountedRef = React.useRef(false)
 	React.useEffect(function()

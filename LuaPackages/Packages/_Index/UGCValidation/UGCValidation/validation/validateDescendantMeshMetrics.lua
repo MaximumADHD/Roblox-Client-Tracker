@@ -11,7 +11,7 @@ local root = script.Parent.Parent
 local Constants = require(root.Constants)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
-local validateCageVertices = require(root.validation.validateCageVertices)
+local validateCageUVs = require(root.validation.validateCageUVs)
 local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCageDeletion)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 
@@ -60,7 +60,7 @@ local function validateIsSkinned(obj: MeshPart, isServer: boolean): (boolean, { 
 end
 
 local function validateTotalAssetTriangles(
-	meshesMap: any,
+	allMeshes: any,
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean
 ): (boolean, { string }?)
@@ -68,17 +68,18 @@ local function validateTotalAssetTriangles(
 
 	local function calculateTotalAssetTriangles(): (boolean, string?, number?)
 		local result = 0
-		for meshId, data in meshesMap do
+		for _, data in allMeshes do
 			if data.instance.ClassName ~= "MeshPart" then
 				continue
 			end
+			assert(data.fieldName == "MeshId")
 
 			local success, triangles = pcall(function()
 				return UGCValidationService:GetMeshTriCount(data.instance[data.fieldName])
 			end)
 
 			if not success then
-				return false, `Failed to load mesh data for {data.instance.Name}.{data.fieldName} ({meshId})`
+				return false, `Failed to load mesh data for {data.instance.Name}.{data.fieldName} ({data.id})`
 			end
 			result = result + triangles
 		end
@@ -110,10 +111,10 @@ local function validateMeshIsAtOrigin(obj: MeshPart, isServer: boolean): (boolea
 
 	local meshMin = meshMinOpt :: Vector3
 	local meshMax = meshMaxOpt :: Vector3
-	local meshHalfSize = Vector3.new(meshMax.X - meshMin.X, meshMax.Y - meshMin.Y, meshMax.Z - meshMin.Z) / 2
+	local meshHalfSize = (meshMax - meshMin) / 2
 	local meshCenter = meshMin + meshHalfSize
 
-	local Tol = 0.01
+	local Tol = 0.001
 	if meshCenter.Magnitude > Tol then
 		return false, { `Mesh for MeshPart {obj.Name} has been built too far from the origin` }
 	end
@@ -127,22 +128,26 @@ local function validateDescendantMeshMetrics(
 ): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	local meshesMap = ParseContentIds.parse(rootInstance, Constants.MESH_CONTENT_ID_FIELDS)
+	local allMeshes = ParseContentIds.parse(rootInstance, Constants.MESH_CONTENT_ID_FIELDS)
 
-	if not reasonsAccumulator:updateReasons(validateTotalAssetTriangles(meshesMap, assetTypeEnum, isServer)) then
+	if not reasonsAccumulator:updateReasons(validateTotalAssetTriangles(allMeshes, assetTypeEnum, isServer)) then
 		return reasonsAccumulator:getFinalResults()
 	end
 
-	for meshId, data in pairs(meshesMap) do
-		local errorString = string.format("%s.%s ( %s )", data.instance:GetFullName(), data.fieldName, meshId)
+	for _, data in allMeshes do
+		local errorString = string.format("%s.%s ( %s )", data.instance:GetFullName(), data.fieldName, data.id)
 
 		if data.instance.ClassName == "MeshPart" then
+			assert(data.fieldName == "MeshId")
+
 			if not reasonsAccumulator:updateReasons(validateMeshIsAtOrigin(data.instance :: MeshPart, isServer)) then
 				return reasonsAccumulator:getFinalResults()
 			end
 
 			if
-				not reasonsAccumulator:updateReasons(validateMeshVertColors(data.instance[data.fieldName], isServer))
+				not reasonsAccumulator:updateReasons(
+					validateMeshVertColors(data.instance[data.fieldName], true, isServer)
+				)
 			then
 				return reasonsAccumulator:getFinalResults()
 			end
@@ -151,6 +156,8 @@ local function validateDescendantMeshMetrics(
 				return reasonsAccumulator:getFinalResults()
 			end
 		elseif data.instance.ClassName == "WrapTarget" then
+			assert(data.fieldName == "CageMeshId")
+
 			if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
 				if
 					not reasonsAccumulator:updateReasons(
@@ -163,7 +170,7 @@ local function validateDescendantMeshMetrics(
 
 			if
 				not reasonsAccumulator:updateReasons(
-					validateCageVertices(
+					validateCageUVs(
 						data.instance[data.fieldName],
 						data.instance :: WrapTarget,
 						data.fieldName,

@@ -25,8 +25,8 @@ local function invariant(condition: boolean, format: string?, ...)
 	if not condition then
 		if format == nil then
 			error(
-				"Minified exception occurred; use the non-minified dev environment " ..
-					"for the full error message and additional helpful warnings.",
+				"Minified exception occurred; use the non-minified dev environment "
+					.. "for the full error message and additional helpful warnings.",
 				2
 			)
 		else

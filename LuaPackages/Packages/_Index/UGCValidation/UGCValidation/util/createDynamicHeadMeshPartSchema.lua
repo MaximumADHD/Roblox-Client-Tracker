@@ -8,7 +8,7 @@ local function createDynamicHeadMeshPartSchema()
 	local headBodyPartSchema = createIndividualBodyPartSchema(Enum.AssetType.DynamicHead, "Head")
 
 	table.insert(headBodyPartSchema._children, {
-		Name = "FaceControls",
+		Name = { "FaceControls" },
 		ClassName = "FaceControls",
 	})
 	return headBodyPartSchema

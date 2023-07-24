@@ -18,6 +18,12 @@ export type AppStyle = {
 	Theme: Theme,
 	Font: Fonts.FontPalette,
 	Tokens: Tokens?,
+	Settings: Settings?,
+}
+
+export type Settings = {
+	preferredTransparency: number?,
+	reducedMotion: boolean?,
 }
 
 export type DropShadowItem = {
@@ -59,6 +65,18 @@ export type ControlStateColors = {
 	Selected: ThemeItem?,
 	SelectedPressed: ThemeItem?,
 	Disabled: ThemeItem?,
+}
+
+export type ColorItem = {
+	Color3: Color3,
+	Transparency: number,
+}
+
+export type TypographyItem = {
+	Font: Enum.Font,
+	FontSize: number,
+	LineHeight: number,
+	LetterSpacing: number,
 }
 
 return {}

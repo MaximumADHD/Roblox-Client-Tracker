@@ -4,10 +4,12 @@ local SplitTileRoot = ExperienceTileRoot.Parent
 local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
 local UIBlox = App.Parent
+local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
+local useStyle = require(Core.Style.useStyle)
 
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local setDefault = require(UIBlox.Utility.setDefault)
@@ -33,7 +35,7 @@ export type Props = {
 	-- The experience's thumbnail that will show a loading state if nil
 	thumbnail: string?,
 	-- A wide, 16:9 aspect-ratio thumbnail for the tile's experience.
-	-- It will replace the standard thumbnail when hovered or show a loading shimmer if nil.
+	-- It will replace the standard thumbnail when hovered if `ReducedMotion` is false, or show a loading shimmer if nil.
 	wideThumbnail: string?,
 	-- A footer to be displayed at the bottom of the tile by default, or below the experience's title when hovered.
 	-- Its size is fixed vertically and scales horizontally.
@@ -85,6 +87,9 @@ local function getPanelHeight(footerHeight: number, contentHeight: number, title
 end
 
 local function ExperienceTileV2(props: Props)
+	local style = useStyle()
+	local settings = style.Settings
+
 	props = Cryo.Dictionary.join(defaultProps, props)
 
 	local hasBackground = props.hasBackground
@@ -92,11 +97,15 @@ local function ExperienceTileV2(props: Props)
 	local footer = props.footer
 	local footerHeight = setDefault(props.footerHeight, if footer then DEFAULT_FOOTER_HEIGHT else 0)
 
+	local function isWideHover(isHoverContent)
+		return isHoverContent and hasBackground and not settings.ReducedMotion
+	end
+
 	local renderTopContent = React.useCallback(function(isHoverContent: boolean)
 		if props.renderTopContent then
 			return props.renderTopContent(isHoverContent)
 		else
-			local isWideHover = isHoverContent and hasBackground
+			local isWideHover = isWideHover(isHoverContent)
 			return React.createElement(VerticalTileThumbnail, {
 				aspectRatio = if isWideHover then WIDE_ASPECT_RATIO else SQUARE_ASPECT_RATIO,
 				isTopRounded = true,
@@ -104,16 +113,17 @@ local function ExperienceTileV2(props: Props)
 				thumbnail = if isWideHover then props.wideThumbnail else props.thumbnail,
 			})
 		end
-	end, { props.renderTopContent, props.wideThumbnail, props.thumbnail, hasBackground })
+	end, { props.renderTopContent, props.wideThumbnail, props.thumbnail, hasBackground, settings.ReducedMotion })
 
 	local renderBottomContent = React.useCallback(function(isHoverContent: boolean)
 		if props.renderBottomContent then
 			return props.renderBottomContent(isHoverContent)
 		else
+			local isWideHover = isWideHover(isHoverContent)
 			local panelHeight = if isHoverContent
 				then getPanelHeight(footerHeight, HOVER_CONTENT_HEIGHT, experienceName)
 				else getPanelHeight(footerHeight, STANDARD_CONTENT_HEIGHT, experienceName)
-			local contentPadding = if isHoverContent and hasBackground then HOVER_PADDING else STANDARD_PADDING
+			local contentPadding = if isWideHover then HOVER_PADDING else STANDARD_PADDING
 			return React.createElement(TileContentPanel, {
 				outerPadding = contentPadding,
 				innerPadding = if isHoverContent then STANDARD_PADDING else nil,
@@ -124,10 +134,11 @@ local function ExperienceTileV2(props: Props)
 				hasSidePadding = hasBackground,
 			})
 		end
-	end, { props.renderBottomContent, footer, footerHeight, experienceName, hasBackground })
+	end, { props.renderBottomContent, footer, footerHeight, experienceName, hasBackground, settings.ReducedMotion })
 
 	local renderFooterRow = React.useCallback(function(isHovered: boolean?)
-		local contentPadding = if isHovered and hasBackground then HOVER_PADDING else STANDARD_PADDING
+		local isWideHover = isWideHover(isHovered)
+		local contentPadding = if isWideHover then HOVER_PADDING else STANDARD_PADDING
 		if props.isHoverEnabled and isHovered then
 			if props.renderActionRow then
 				return props.renderActionRow(isHovered)
@@ -168,6 +179,7 @@ local function ExperienceTileV2(props: Props)
 		footer,
 		footerHeight,
 		hasBackground,
+		settings.ReducedMotion,
 	})
 
 	return React.createElement(VerticalTile, {

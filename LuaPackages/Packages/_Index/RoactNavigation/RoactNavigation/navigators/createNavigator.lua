@@ -2,13 +2,15 @@
 
 local root = script.Parent.Parent
 local Packages = root.Parent
-local Roact = require(Packages.Roact)
-local Cryo = require(Packages.Cryo)
+local React = require(Packages.React)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
+local Array = LuauPolyfill.Array
 local invariant = require(root.utils.invariant)
 local NavigationFocusEvents = require(root.views.NavigationFocusEvents)
 
 return function(navigatorViewComponent, router, navigationConfig)
-	local Navigator = Roact.Component:extend("Navigator")
+	local Navigator = React.Component:extend("Navigator")
 
 	-- These statics need to be accessible to routers
 	Navigator.router = router
@@ -20,6 +22,8 @@ return function(navigatorViewComponent, router, navigationConfig)
 
 		self.state = {
 			descriptors = {},
+			-- ROBLOX deviation: Cache transitioning descriptors
+			transitioningDescriptors = {},
 			screenProps = screenProps,
 			-- deviation: no theme support
 		}
@@ -27,25 +31,33 @@ return function(navigatorViewComponent, router, navigationConfig)
 
 	function Navigator.getDerivedStateFromProps(nextProps, prevState)
 		local prevDescriptors = prevState.descriptors
+		-- ROBLOX deviation: Cache transitioning descriptors
+		local prevTransitioningDescriptors = prevState.transitioningDescriptors
 		local navigation = nextProps.navigation
 		local screenProps = nextProps.screenProps
 
-		invariant(navigation ~= nil, "The navigation prop is missing for this navigator. " ..
-			"In react-navigation v3 and v4 you must set up your app container directly. " ..
-			"More info: https://reactnavigation.org/docs/en/app-containers.html")
+		invariant(
+			navigation ~= nil,
+			"The navigation prop is missing for this navigator. "
+				.. "In react-navigation v3 and v4 you must set up your app container directly. "
+				.. "More info: https://reactnavigation.org/docs/en/app-containers.html"
+		)
 
 		local routes = navigation.state.routes
 
-		invariant(type(routes) == "table", 'No "routes" found in navigation state. ' ..
-			"Did you try to pass the navigation prop of a React component to a Navigator child? " ..
-			"See https://reactnavigation.org/docs/en/custom-navigators.html#navigator-navigation-prop")
+		invariant(
+			type(routes) == "table",
+			'No "routes" found in navigation state. '
+				.. "Did you try to pass the navigation prop of a React component to a Navigator child? "
+				.. "See https://reactnavigation.org/docs/en/custom-navigators.html#navigator-navigation-prop"
+		)
 
-		local descriptors = Cryo.List.foldLeft(routes, function(descriptors, route)
+		local descriptors = Array.reduce(routes, function(descriptors, route)
 			if
-				prevDescriptors and
-				prevDescriptors[route.key] and
-				route == prevDescriptors[route.key].state and
-				screenProps == prevState.screenProps
+				prevDescriptors
+				and prevDescriptors[route.key]
+				and route == prevDescriptors[route.key].state
+				and screenProps == prevState.screenProps
 				-- deviation: no theme support
 			then
 				descriptors[route.key] = prevDescriptors[route.key]
@@ -69,8 +81,26 @@ return function(navigatorViewComponent, router, navigationConfig)
 			return descriptors
 		end, {})
 
+		-- ROBLOX deviation START: Cache previous descriptors during transition to emit focus events for removed screens
+		local transitioningDescriptors = {}
+
+		if navigation.state.isTransitioning then
+			transitioningDescriptors = Object.assign(
+				{},
+				prevTransitioningDescriptors,
+				prevDescriptors,
+				Array.reduce(routes, function(filteredDescriptors, route)
+					filteredDescriptors[route.key] = Object.None
+					return filteredDescriptors
+				end, {})
+			)
+		end
+		-- ROBLOX deviation END
+
 		return {
 			descriptors = descriptors,
+			-- ROBLOX deviation: Cache transitioning descriptors
+			transitioningDescriptors = transitioningDescriptors,
 			screenProps = screenProps,
 			-- deviation: no theme support
 		}
@@ -82,22 +112,31 @@ return function(navigatorViewComponent, router, navigationConfig)
 		local navigation = self.props.navigation
 		local screenProps = self.state.screenProps
 		local descriptors = self.state.descriptors
+		-- ROBLOX deviation: Cache transitioning descriptors
+		local transitioningDescriptors = self.state.transitioningDescriptors
 
-		return Roact.createFragment({
-			Events = Roact.createElement(NavigationFocusEvents, {
+		return React.createElement(React.Fragment, {}, {
+			Events = React.createElement(NavigationFocusEvents, {
 				navigation = navigation,
 				onEvent = function(target, type_, data)
 					if descriptors[target] then
-						descriptors[target].navigation.emit(type_, data);
+						descriptors[target].navigation.emit(type_, data)
+					-- ROBLOX deviation START: Emit focus events for screens removed during a transition
+					elseif transitioningDescriptors[target] then
+						transitioningDescriptors[target].navigation.emit(type_, data)
 					end
+					-- ROBLOX deviation END
 				end,
 			}),
-			View = Roact.createElement(navigatorViewComponent, Cryo.Dictionary.join(self.props, {
-				screenProps = screenProps,
-				navigation = navigation,
-				navigationConfig = navigationConfig,
-				descriptors = descriptors,
-			}))
+			View = React.createElement(
+				navigatorViewComponent,
+				Object.assign(table.clone(self.props), {
+					screenProps = screenProps,
+					navigation = navigation,
+					navigationConfig = navigationConfig,
+					descriptors = descriptors,
+				})
+			),
 		})
 	end
 

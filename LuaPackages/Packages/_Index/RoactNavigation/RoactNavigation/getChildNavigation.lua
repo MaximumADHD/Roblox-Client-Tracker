@@ -1,6 +1,9 @@
 -- upstream https://github.com/react-navigation/react-navigation/blob/72e8160537954af40f1b070aa91ef45fc02bba69/packages/core/src/getChildNavigation.js
 
-local Cryo = require(script.Parent.Parent.Cryo)
+local Packages = script.Parent.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
+local Object = LuauPolyfill.Object
 local getEventManager = require(script.Parent.getEventManager)
 local getChildRouter = require(script.Parent.getChildRouter)
 local getNavigationActionCreators = require(script.Parent.routers.getNavigationActionCreators)
@@ -21,11 +24,11 @@ end
 local function getChildNavigation(navigation, childKey, getCurrentParentNavigation)
 	local children = getChildrenNavigationCache(navigation)
 
-	local childRouteIndex = Cryo.List.findWhere(navigation.state.routes, function(route)
+	local childRouteIndex = Array.findIndex(navigation.state.routes, function(route)
 		return route.key == childKey
 	end)
 
-	if not childRouteIndex then
+	if childRouteIndex < 1 then
 		return nil
 	end
 	local childRoute = navigation.state.routes[childRouteIndex]
@@ -47,35 +50,36 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 		focusedGrandChildRoute = childRoute.routes[childRoute.index]
 	end
 
-	local childRouterActionCreators = childRouter and
-		childRouter.getActionCreators(focusedGrandChildRoute, childRoute.key) or {}
+	local childRouterActionCreators = childRouter
+			and childRouter.getActionCreators(focusedGrandChildRoute, childRoute.key)
+		or {}
 
-	local actionCreators = Cryo.Dictionary.join(
-		navigation.actions or {},
+	local actionCreators = Object.assign(
+		if navigation.actions then table.clone(navigation.actions) else {},
 		navigation.router.getActionCreators(childRoute, navigation.state.key) or {},
 		childRouterActionCreators or {},
 		getNavigationActionCreators(childRoute) or {}
 	)
 
 	local actionHelpers = {}
-	for actionName, actionCreator in pairs(actionCreators) do
+	for actionName, actionCreator in actionCreators do
 		actionHelpers[actionName] = function(...)
 			local action = actionCreator(...)
 			return navigation.dispatch(action)
 		end
 	end
 
-	local isFirstRouteInParent = true;
+	local isFirstRouteInParent = true
 
-	local parentNavigation = getCurrentParentNavigation();
+	local parentNavigation = getCurrentParentNavigation()
 
 	if parentNavigation then
-		isFirstRouteInParent = Cryo.List.find(parentNavigation.state.routes, childRoute) == 1;
+		isFirstRouteInParent = Array.indexOf(parentNavigation.state.routes, childRoute) == 1
 	end
 
 	if requestedChild and requestedChild.isFirstRouteInParent() == isFirstRouteInParent then
 		-- Update cache value for requestedChild because child's state has changed
-		children[childKey] = Cryo.Dictionary.join(requestedChild, actionHelpers, {
+		children[childKey] = Object.assign(table.clone(requestedChild), actionHelpers, {
 			state = childRoute,
 			router = childRouter,
 			actions = actionCreators,
@@ -87,7 +91,7 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 		-- No cached value for requestedChild. Create a new entry.
 		local childSubscriber = getEventManager(childKey)
 
-		children[childKey] = Cryo.Dictionary.join(actionHelpers, {
+		children[childKey] = Object.assign(table.clone(actionHelpers), {
 			state = childRoute,
 			router = childRouter,
 			actions = actionCreators,
@@ -95,7 +99,7 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 			getChildNavigation = function(grandChildKey)
 				return getChildNavigation(children[childKey], grandChildKey, function()
 					local nav = getCurrentParentNavigation()
-					return nav and nav.getChildNavigation(childKey) or nil
+					return if nav then nav.getChildNavigation(childKey) else nil
 				end)
 			end,
 			isFocused = function()

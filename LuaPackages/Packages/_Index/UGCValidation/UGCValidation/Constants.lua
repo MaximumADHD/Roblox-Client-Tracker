@@ -3,6 +3,10 @@ local Root = script:FindFirstAncestor("UGCValidation").Parent
 local Cryo = require(Root.Cryo)
 
 local getFFlagUGCValidateBodyParts = require(Root.UGCValidation.flags.getFFlagUGCValidateBodyParts)
+local getFIntMeshDivision = require(Root.UGCValidation.flags.getFIntMeshDivision)
+local getFIntMeshDivisionFull = require(Root.UGCValidation.flags.getFIntMeshDivisionFull)
+local getFIntMeshDivisionFullExtended = require(Root.UGCValidation.flags.getFIntMeshDivisionFullExtended)
+local getFIntMeshDivisionMedium = require(Root.UGCValidation.flags.getFIntMeshDivisionMedium)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -252,41 +256,54 @@ if getFFlagUGCValidateBodyParts() then
 		ProportionsNormal = true,
 	}
 
-	local meshTol = Vector3.new(0.01, 0.01, 0.01)
-	local meshDivision = 0.5
+	local meshDivisionFullExtended = getFIntMeshDivisionFullExtended() / 100
+	local meshDivision = getFIntMeshDivision() / 100
+	local meshDivisionFull = getFIntMeshDivisionFull() / 100
+	local meshDivisionMedium = getFIntMeshDivisionMedium() / 100
+
 	local fullMesh = {
-		min = Vector3.new(-1, -1, -1) - meshTol,
-		max = Vector3.new(1, 1, 1) + meshTol,
+		min = Vector3.new(-meshDivisionFull, -meshDivisionFull, -meshDivisionFull),
+		max = Vector3.new(meshDivisionFull, meshDivisionFull, meshDivisionFull),
 	}
 
-	local leftMesh = {
-		min = Vector3.new(-1, -1, -1) - meshTol,
-		max = Vector3.new(-meshDivision, 1, 1) + meshTol,
+	local fullMeshExtended = {
+		min = Vector3.new(-meshDivisionFullExtended, -meshDivisionFullExtended, -meshDivisionFullExtended),
+		max = Vector3.new(meshDivisionFullExtended, meshDivisionFullExtended, meshDivisionFullExtended),
 	}
 
-	local rightMesh = {
-		min = Vector3.new(meshDivision, -1, -1) - meshTol,
-		max = Vector3.new(1, 1, 1) + meshTol,
+	local leftMeshMedium = {
+		min = fullMesh.min,
+		max = Vector3.new(-meshDivisionMedium, fullMesh.max.y, fullMesh.max.z),
+	}
+
+	local rightMeshMedium = {
+		min = Vector3.new(meshDivisionMedium, fullMesh.min.y, fullMesh.min.z),
+		max = fullMesh.max,
 	}
 
 	local topMesh = {
-		min = Vector3.new(-1, meshDivision, -1) - meshTol,
-		max = Vector3.new(1, 1, 1) + meshTol,
+		min = Vector3.new(fullMesh.min.x, meshDivision, fullMesh.min.z),
+		max = fullMesh.max,
+	}
+
+	local topMeshExtended = {
+		min = Vector3.new(fullMesh.min.x, meshDivision, fullMesh.min.z),
+		max = Vector3.new(fullMesh.max.x, meshDivisionFullExtended, fullMesh.max.z),
 	}
 
 	local bottomMesh = {
-		min = Vector3.new(-1, -1, -1) - meshTol,
-		max = Vector3.new(1, -meshDivision, 1) + meshTol,
+		min = fullMesh.min,
+		max = Vector3.new(fullMesh.max.x, -meshDivision, fullMesh.max.z),
 	}
 
 	local frontMesh = {
-		min = Vector3.new(-1, -1, -1) - meshTol,
-		max = Vector3.new(1, 1, -meshDivision) + meshTol,
+		min = fullMesh.min,
+		max = Vector3.new(fullMesh.max.x, fullMesh.max.y, -meshDivision),
 	}
 
 	local backMesh = {
-		min = Vector3.new(-1, -1, meshDivision) - meshTol,
-		max = Vector3.new(1, 1, 1) + meshTol,
+		min = Vector3.new(fullMesh.min.x, fullMesh.min.y, meshDivision),
+		max = fullMesh.max,
 	}
 
 	Constants.ASSET_TYPE_INFO[Enum.AssetType.RightArm] = {
@@ -313,7 +330,7 @@ if getFFlagUGCValidateBodyParts() then
 				},
 				otherAttachments = {
 					RightGripAttachment = {
-						bounds = fullMesh,
+						bounds = fullMeshExtended,
 					},
 				},
 			},
@@ -434,7 +451,7 @@ if getFFlagUGCValidateBodyParts() then
 				},
 				otherAttachments = {
 					LeftGripAttachment = {
-						bounds = fullMesh,
+						bounds = fullMeshExtended,
 					},
 				},
 			},
@@ -445,15 +462,15 @@ if getFFlagUGCValidateBodyParts() then
 		isBodyPart = true,
 		bounds = {
 			Classic = {
-				minSize = Vector3.new(1, 2, 1),
+				minSize = Vector3.new(1, 2, 0.7),
 				maxSize = Vector3.new(3.5, 3.25, 2),
 			},
 			ProportionsSlender = {
-				minSize = Vector3.new(1, 2, 1),
+				minSize = Vector3.new(1, 2, 0.7),
 				maxSize = Vector3.new(2.5, 3, 2),
 			},
 			ProportionsNormal = {
-				minSize = Vector3.new(1, 2, 1),
+				minSize = Vector3.new(1, 2, 0.7),
 				maxSize = Vector3.new(4, 3, 2.25),
 			},
 		},
@@ -465,10 +482,10 @@ if getFFlagUGCValidateBodyParts() then
 				},
 				otherAttachments = {
 					LeftShoulderRigAttachment = {
-						bounds = leftMesh,
+						bounds = leftMeshMedium,
 					},
 					RightCollarAttachment = {
-						bounds = rightMesh,
+						bounds = rightMeshMedium,
 					},
 					BodyBackAttachment = {
 						bounds = backMesh,
@@ -480,13 +497,13 @@ if getFFlagUGCValidateBodyParts() then
 						bounds = frontMesh,
 					},
 					RightShoulderRigAttachment = {
-						bounds = rightMesh,
+						bounds = rightMeshMedium,
 					},
 					LeftCollarAttachment = {
-						bounds = leftMesh,
+						bounds = leftMeshMedium,
 					},
 					NeckAttachment = {
-						bounds = topMesh,
+						bounds = topMeshExtended,
 					},
 				},
 			},
@@ -500,10 +517,10 @@ if getFFlagUGCValidateBodyParts() then
 						bounds = fullMesh,
 					},
 					LeftHipRigAttachment = {
-						bounds = leftMesh,
+						bounds = leftMeshMedium,
 					},
 					RightHipRigAttachment = {
-						bounds = rightMesh,
+						bounds = rightMeshMedium,
 					},
 					WaistRigAttachment = {
 						bounds = topMesh,
@@ -625,11 +642,7 @@ if getFFlagUGCValidateBodyParts() then
 		},
 	}
 
-	--NOTE: tolerances specified here mean that all current bundles between 700 and 998 would pass render mesh vs WrapTarget mesh comparison checks
-	Constants.RenderVsWrapMeshComparison = {
-		lowerTol = -0.5, --a render mesh max extent on any axis cannot be more than this amount smaller than the Wraptarget mesh
-		upperTol = 1.5, --a render mesh max extent on any axis cannot be more than this amount larger than the Wraptarget mesh
-	}
+	Constants.RenderVsWrapMeshMaxDiff = 1
 end
 
 Constants.LC_BOUNDS = {
@@ -723,12 +736,6 @@ if getFFlagUGCValidateBodyParts() then
 		SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
 	}
 
-	Constants.TEXTURE_CHANNELS = {
-		SpecialMesh = { TextureId = 3 },
-		MeshPart = { TextureID = 3 },
-		SurfaceAppearance = { ColorMap = 3, MetalnessMap = 1, NormalMap = 3, RoughnessMap = 1 },
-	}
-
 	Constants.ASSET_RENDER_MESH_MAX_TRIANGLES = {
 		DynamicHead = 4000,
 		LeftArm = 1248,
@@ -738,22 +745,22 @@ if getFFlagUGCValidateBodyParts() then
 		RightLeg = 1248,
 	}
 
-	Constants.WRAP_TARGET_CAGE_MESH_VERTS = {
-		Head = 335,
-		LeftUpperArm = 70,
-		LeftLowerArm = 70,
-		LeftHand = 63,
-		RightUpperArm = 70,
-		RightLowerArm = 70,
-		RightHand = 63,
-		UpperTorso = 231,
-		LowerTorso = 92,
-		LeftUpperLeg = 80,
-		LeftLowerLeg = 80,
-		LeftFoot = 64,
-		RightUpperLeg = 80,
-		RightLowerLeg = 80,
-		RightFoot = 64,
+	Constants.WRAP_TARGET_CAGE_MESH_UV_COUNTS = {
+		Head = 343,
+		LeftUpperArm = 77,
+		LeftLowerArm = 77,
+		LeftHand = 86,
+		RightUpperArm = 77,
+		RightLowerArm = 77,
+		RightHand = 86,
+		UpperTorso = 257,
+		LowerTorso = 105,
+		LeftUpperLeg = 88,
+		LeftLowerLeg = 88,
+		LeftFoot = 86,
+		RightUpperLeg = 88,
+		RightLowerLeg = 88,
+		RightFoot = 86,
 	}
 end
 

@@ -74,7 +74,9 @@ function GenericTextLabel:render()
 		local automaticSize
 
 		if useNewGenericTextLabelProps then
-			size = not self.props.AutomaticSize and textboxSize or nil
+			size = if self.props.AutomaticSize == nil or self.props.AutomaticSize == Enum.AutomaticSize.None
+				then textboxSize
+				else nil
 			textSize = self.props.TextSize or fontSizeMax
 			automaticSize = self.props.AutomaticSize or nil
 		else

@@ -39,5 +39,5 @@ return {
 		them semi- or fully transparent. Overlay cards always prevent tap-through of any
 		underlying UI, including other cards in the same stack.
 	]]
-	Overlay = OVERLAY_SYMBOL
+	Overlay = OVERLAY_SYMBOL,
 }

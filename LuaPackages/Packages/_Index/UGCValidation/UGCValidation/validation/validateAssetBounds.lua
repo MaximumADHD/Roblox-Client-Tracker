@@ -8,8 +8,8 @@ local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
+local prettyPrintVector3 = require(root.util.prettyPrintVector3)
 
-local getMeshMinMax = require(root.util.getMeshMinMax)
 local calculateMinMax = require(root.util.calculateMinMax)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -70,9 +70,6 @@ type BoundsData = {
 	minMeshCorner: Vector3?,
 	maxMeshCorner: Vector3?,
 
-	minAttachment: Vector3?,
-	maxAttachment: Vector3?,
-
 	minRigAttachment: Vector3?,
 	maxRigAttachment: Vector3?,
 
@@ -80,36 +77,37 @@ type BoundsData = {
 	maxOverall: Vector3?,
 }
 
-local function calculateBounds(
-	singleAsset: Enum.AssetType?,
-	part: MeshPart,
-	cframe: CFrame,
-	minMaxBounds: BoundsData,
-	meshCache: any
-)
+local function calculateBounds(singleAsset: Enum.AssetType?, part: MeshPart, cframe: CFrame, minMaxBounds: BoundsData)
+	-- this relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
 	minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
 		minMaxBounds.minMeshCorner,
 		minMaxBounds.maxMeshCorner,
-		cframe:PointToWorldSpace(meshCache[part.MeshId].minCorner),
-		cframe:PointToWorldSpace(meshCache[part.MeshId].maxCorner)
+		cframe:PointToWorldSpace(-(part.Size / 2)),
+		cframe:PointToWorldSpace(-(part.Size / 2))
+	)
+
+	minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
+		minMaxBounds.minMeshCorner,
+		minMaxBounds.maxMeshCorner,
+		cframe:PointToWorldSpace(part.Size / 2),
+		cframe:PointToWorldSpace(part.Size / 2)
 	)
 
 	for _, attachName in ConstantsInterface.getAttachments(singleAsset, part.Name) do
 		local attach: Attachment? = part:FindFirstChild(attachName) :: Attachment
 		assert(attach)
 
-		local world = cframe * attach.CFrame
-		local isRigAttachment = string.find(attach.Name, "RigAttachment")
-		if isRigAttachment then
-			minMaxBounds.minRigAttachment, minMaxBounds.maxRigAttachment = calculateMinMax(
-				minMaxBounds.minRigAttachment,
-				minMaxBounds.maxRigAttachment,
-				world.Position,
-				world.Position
-			)
+		local isRigAttachment = string.match(attach.Name, "RigAttachment$") ~= nil
+		if not isRigAttachment then
+			continue
 		end
-		minMaxBounds.minAttachment, minMaxBounds.maxAttachment =
-			calculateMinMax(minMaxBounds.minAttachment, minMaxBounds.maxAttachment, world.Position, world.Position)
+		local world = cframe * attach.CFrame
+		minMaxBounds.minRigAttachment, minMaxBounds.maxRigAttachment = calculateMinMax(
+			minMaxBounds.minRigAttachment,
+			minMaxBounds.maxRigAttachment,
+			world.Position,
+			world.Position
+		)
 	end
 
 	minMaxBounds.minOverall, minMaxBounds.maxOverall = calculateMinMax(
@@ -117,13 +115,6 @@ local function calculateBounds(
 		minMaxBounds.maxOverall,
 		minMaxBounds.minMeshCorner,
 		minMaxBounds.maxMeshCorner
-	)
-
-	minMaxBounds.minOverall, minMaxBounds.maxOverall = calculateMinMax(
-		minMaxBounds.minOverall,
-		minMaxBounds.maxOverall,
-		minMaxBounds.minAttachment,
-		minMaxBounds.maxAttachment
 	)
 
 	minMaxBounds.minOverall, minMaxBounds.maxOverall = calculateMinMax(
@@ -141,8 +132,7 @@ local function traverseHierarchy(
 	parentCFrame: CFrame,
 	name: string,
 	details: any,
-	minMaxBounds: BoundsData,
-	meshCache: any
+	minMaxBounds: BoundsData
 )
 	local meshHandle: MeshPart? = folder:FindFirstChild(name) :: MeshPart
 	assert(meshHandle) -- expected parts have been checked for existance before calling this function
@@ -162,11 +152,11 @@ local function traverseHierarchy(
 	else
 		cframe = CFrame.new()
 	end
-	calculateBounds(singleAsset, meshHandle, cframe, minMaxBounds, meshCache)
+	calculateBounds(singleAsset, meshHandle, cframe, minMaxBounds)
 
 	if details.children then
 		for childName, childDetails in details.children do
-			traverseHierarchy(folder, singleAsset, name, cframe, childName, childDetails, minMaxBounds, meshCache)
+			traverseHierarchy(folder, singleAsset, name, cframe, childName, childDetails, minMaxBounds)
 		end
 	end
 end
@@ -187,30 +177,6 @@ local function forEachMeshPart(inst: Instance, assetTypeEnum: Enum.AssetType, fu
 		end
 	end
 	return true
-end
-
-local function cacheMeshes(inst: Instance, assetTypeEnum: Enum.AssetType, isServer: boolean)
-	local meshCache = {}
-	local allGood = true
-
-	forEachMeshPart(inst, assetTypeEnum, function(meshHandle: MeshPart)
-		local success, _failureReasons, meshMinOpt, meshMaxOpt = getMeshMinMax(meshHandle.MeshId, isServer)
-		if not success then
-			allGood = false
-			return false
-		end
-
-		local meshMin = meshMinOpt :: Vector3
-		local meshMax = meshMaxOpt :: Vector3
-		local meshSize = Vector3.new(meshMax.X - meshMin.X, meshMax.Y - meshMin.Y, meshMax.Z - meshMin.Z)
-		local meshScale = meshHandle.Size / meshSize
-		meshMin = meshMin * meshScale
-		meshMax = meshMax * meshScale
-
-		meshCache[meshHandle.MeshId] = { minCorner = meshMin, maxCorner = meshMax }
-		return true
-	end)
-	return allGood, (if allGood then nil else { `Failed to download mesh` }), meshCache
 end
 
 local function getScaleType(inst: Instance, assetTypeEnum: Enum.AssetType): (boolean, { string }?, string?)
@@ -250,11 +216,10 @@ local function validateMinBoundsInternal(
 		return false,
 			{
 				string.format(
-					"Asset is too small! Min size (mesh) for %s is [%.2f, %.2f, %.2f]",
+					"Asset size is [%s], which is too small! Min size for %s is [%s]",
+					prettyPrintVector3(assetSize),
 					assetTypeEnum.Name,
-					minSize.X,
-					minSize.Y,
-					minSize.Z
+					prettyPrintVector3(minSize)
 				),
 			}
 	end
@@ -272,11 +237,10 @@ local function validateMaxBoundsInternal(
 		return false,
 			{
 				string.format(
-					"Asset is too big! Max size (mesh) for %s is [%.2f, %.2f, %.2f]",
+					"Asset size is [%s], which is too big! Max size for %s is [%s]",
+					prettyPrintVector3(assetSize),
 					assetTypeEnum.Name,
-					maxSize.X,
-					maxSize.Y,
-					maxSize.Z
+					prettyPrintVector3(maxSize)
 				),
 			}
 	end
@@ -290,27 +254,11 @@ local function validateAssetBounds(
 ): (boolean, { string }?)
 	local minMaxBounds: BoundsData = {}
 
-	do
-		local success, reasons, meshCache = cacheMeshes(inst, assetTypeEnum, isServer)
-		if not success then
-			return success, reasons
-		end
-
-		if Enum.AssetType.DynamicHead == assetTypeEnum then
-			calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds, meshCache)
-		else
-			local hierarchy = assetHierarchy[assetTypeEnum]
-			traverseHierarchy(
-				inst :: Folder,
-				assetTypeEnum,
-				nil,
-				CFrame.new(),
-				hierarchy.root,
-				hierarchy,
-				minMaxBounds,
-				meshCache
-			)
-		end
+	if Enum.AssetType.DynamicHead == assetTypeEnum then
+		calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
+	else
+		local hierarchy = assetHierarchy[assetTypeEnum]
+		traverseHierarchy(inst :: Folder, assetTypeEnum, nil, CFrame.new(), hierarchy.root, hierarchy, minMaxBounds)
 	end
 
 	local success, reasons, scaleType = getScaleType(inst, assetTypeEnum)
@@ -326,7 +274,7 @@ local function validateAssetBounds(
 	if
 		not reasonsAccumulator:updateReasons(
 			validateMinBoundsInternal(
-				minMaxBounds.maxMeshCorner :: Vector3 - minMaxBounds.minMeshCorner :: Vector3,
+				minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
 				assetInfo.bounds[scaleType].minSize,
 				assetTypeEnum
 			)
@@ -338,7 +286,7 @@ local function validateAssetBounds(
 	if
 		not reasonsAccumulator:updateReasons(
 			validateMaxBoundsInternal(
-				minMaxBounds.maxMeshCorner :: Vector3 - minMaxBounds.minMeshCorner :: Vector3,
+				minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
 				assetInfo.bounds[scaleType].maxSize,
 				assetTypeEnum
 			)

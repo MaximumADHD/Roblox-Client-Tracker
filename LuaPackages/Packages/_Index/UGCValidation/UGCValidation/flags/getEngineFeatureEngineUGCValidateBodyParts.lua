@@ -1,5 +1,5 @@
 --!strict
 
 return function()
-	return game:GetEngineFeature("EngineUGCValidateBodyParts2")
+	return game:GetEngineFeature("EngineUGCValidateBodyParts3")
 end

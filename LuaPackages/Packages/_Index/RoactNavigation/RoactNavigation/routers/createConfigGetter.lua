@@ -1,22 +1,29 @@
 -- upstream https://github.com/react-navigation/react-navigation/blob/6390aacd07fd647d925dfec842a766c8aad5272f/packages/core/src/routers/createConfigGetter.js
-local Cryo = require(script.Parent.Parent.Parent.Cryo)
-local getScreenForRouteName = require(script.Parent.getScreenForRouteName)
-local validateScreenOptions = require(script.Parent.validateScreenOptions)
-local invariant = require(script.Parent.Parent.utils.invariant)
+local routers = script.Parent
+local root = routers.Parent
+local Packages = root.Parent
+
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
+
+local getScreenForRouteName = require(routers.getScreenForRouteName)
+local validateScreenOptions = require(routers.validateScreenOptions)
+local invariant = require(root.utils.invariant)
 
 local function applyConfig(configurer, navigationOptions, configProps)
 	navigationOptions = navigationOptions or {}
 
 	local configurerType = type(configurer)
 	if configurerType == "function" then
-		return Cryo.Dictionary.join(
+		return Object.assign(
+			{},
 			navigationOptions,
-			configurer(Cryo.Dictionary.join(configProps, {
-				navigationOptions = navigationOptions
+			configurer(Object.assign(table.clone(configProps), {
+				navigationOptions = navigationOptions,
 			}))
 		)
 	elseif configurerType == "table" then
-		return Cryo.Dictionary.join(navigationOptions, configurer)
+		return Object.assign(table.clone(navigationOptions), configurer)
 	else
 		return navigationOptions
 	end
@@ -27,11 +34,7 @@ return function(routeConfigs, navigatorScreenConfig)
 		screenProps = screenProps or {}
 		local route = navigation.state
 
-		invariant(typeof(route) == "table", "navigation.state must be a table")
-		invariant(
-			typeof(route.routeName) == "string",
-			"Cannot get config because the route does not have a routeName."
-		)
+		invariant(type(route.routeName) == "string", "Cannot get config because the route does not have a routeName.")
 
 		local component = getScreenForRouteName(routeConfigs, route.routeName)
 		local routeConfig = routeConfigs[route.routeName]
@@ -43,8 +46,7 @@ return function(routeConfigs, navigatorScreenConfig)
 
 		-- deviation: check if the component is a table, because it could be a
 		-- function and it can't be indexed in Lua.
-		local componentScreenConfig = type(component) == "table"
-			and component.navigationOptions or {}
+		local componentScreenConfig = if type(component) == "table" then component.navigationOptions else {}
 
 		local configOptions = {
 			navigation = navigation,

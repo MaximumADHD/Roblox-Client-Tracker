@@ -34,10 +34,9 @@ local function encodeURIComponent(value)
 end
 
 local function strictUriEncode(value: string): string
-	return encodeURIComponent(value)
-		:gsub("[!'%(%)%*]", function(x)
-			return ("%%%x"):format(x:byte()):upper()
-		end)
+	return encodeURIComponent(value):gsub("[!'%(%)%*]", function(x)
+		return ("%%%x"):format(x:byte()):upper()
+	end)
 end
 
 local decodeComponent = require(routersModule.decodeURIComponent)
@@ -50,7 +49,7 @@ local decode
 local exports = {}
 
 local function newNumber(number)
-	return tonumber(number) or (0/0)
+	return tonumber(number) or (0 / 0)
 end
 
 local function encoderForArrayFormat(options)
@@ -65,33 +64,26 @@ local function encoderForArrayFormat(options)
 
 				if value == nil then
 					return Array.concat(result, {
-						table.concat(
-							{
-								encode(key, options),
-								"[",
-								index,
-								"]",
-							},
-							""
-						),
+						table.concat({
+							encode(key, options),
+							"[",
+							index,
+							"]",
+						}, ""),
 					})
 				end
 
 				return Array.concat(result, {
-					table.concat(
-						{
-							encode(key, options),
-							"[",
-							encode(index, options),
-							"]=",
-							encode(value, options),
-						},
-						""
-					),
+					table.concat({
+						encode(key, options),
+						"[",
+						encode(index, options),
+						"]=",
+						encode(value, options),
+					}, ""),
 				})
 			end
 		end
-
 	elseif arrayFormat == "bracket" then
 		return function(key)
 			return function(result, value)
@@ -101,19 +93,15 @@ local function encoderForArrayFormat(options)
 
 				if value == nil then
 					return Array.concat(result, {
-						table.concat({encode(key, options), "[]"}, ""),
+						table.concat({ encode(key, options), "[]" }, ""),
 					})
 				end
 
 				return Array.concat(result, {
-					table.concat(
-						{encode(key, options), "[]=", encode(value, options)},
-						""
-					),
+					table.concat({ encode(key, options), "[]=", encode(value, options) }, ""),
 				})
 			end
 		end
-
 	elseif arrayFormat == "comma" or arrayFormat == "separator" then
 		return function(key)
 			return function(result, value)
@@ -123,22 +111,15 @@ local function encoderForArrayFormat(options)
 
 				if #result == 0 then
 					return {
-						table.concat(
-							{encode(key, options), "=", encode(key, options)},
-							""
-						),
+						table.concat({ encode(key, options), "=", encode(key, options) }, ""),
 					}
 				end
 
 				return {
-					table.concat(
-						{result, encode(key, options)},
-						options.arrayFormatSeparator
-					),
+					table.concat({ result, encode(key, options) }, options.arrayFormatSeparator),
 				}
 			end
 		end
-
 	else
 		return function(key)
 			return function(result, value)
@@ -147,14 +128,11 @@ local function encoderForArrayFormat(options)
 				end
 
 				if value == nil then
-					return Array.concat(result, {encode(key, options)})
+					return Array.concat(result, { encode(key, options) })
 				end
 
 				return Array.concat(result, {
-					table.concat(
-						{encode(key, options), "=", encode(value, options)},
-						""
-					),
+					table.concat({ encode(key, options), "=", encode(value, options) }, ""),
 				})
 			end
 		end
@@ -181,7 +159,6 @@ local function parserForArrayFormat(options)
 
 			accumulator[key][result[2]] = value
 		end
-
 	elseif arrayFormat == "bracket" then
 		return function(key, value, accumulator)
 			result = RegExp("(\\[\\])$"):exec(key)
@@ -193,26 +170,21 @@ local function parserForArrayFormat(options)
 			end
 
 			if accumulator[key] == nil then
-				accumulator[key] = {value}
+				accumulator[key] = { value }
 				return
 			end
 
 			accumulator[key] = Array.concat({}, accumulator[key], value)
 		end
-
 	elseif arrayFormat == "comma" or arrayFormat == "separator" then
 		return function(key, value, accumulator)
-			local isArray = typeof(value) == "string"
-				and value:find(options.arrayFormatSeparator, 1, true) ~= nil
-				-- and value.split('').indexOf(options.arrayFormatSeparator) > -1
+			local isArray = type(value) == "string" and string.find(value, options.arrayFormatSeparator, 1, true) ~= nil
+			-- and value.split('').indexOf(options.arrayFormatSeparator) > -1
 			local newValue = nil
 			if isArray then
-				newValue = Array.map(
-					value:split(options.arrayFormatSeparator),
-					function(item)
-						return decode(item, options)
-					end
-				)
+				newValue = Array.map(value:split(options.arrayFormatSeparator), function(item)
+					return decode(item, options)
+				end)
 			else
 				if value ~= nil then
 					newValue = decode(value, options)
@@ -220,8 +192,6 @@ local function parserForArrayFormat(options)
 			end
 			accumulator[key] = newValue
 		end
-
-
 	else
 		return function(key, value, accumulator)
 			if accumulator[key] == nil then
@@ -235,7 +205,7 @@ local function parserForArrayFormat(options)
 end
 
 local function validateArrayFormatSeparator(value)
-	if typeof(value) ~= "string" or #value ~= 1 then
+	if type(value) ~= "string" or #value ~= 1 then
 		error(TypeError("arrayFormatSeparator must be single character string"))
 	end
 end
@@ -264,14 +234,11 @@ local function keysSorter(input)
 	if Array.isArray(input) then
 		return Array.sort(input)
 	end
-	if typeof(input) == "table" then
+	if type(input) == "table" then
 		return Array.map(
-			Array.sort(
-				keysSorter(Object.keys(input)),
-				function(a, b)
-					return newNumber(a) - newNumber(b)
-				end
-			),
+			Array.sort(keysSorter(Object.keys(input)), function(a, b)
+				return newNumber(a) - newNumber(b)
+			end),
 			function(key)
 				return input[key]
 			end
@@ -311,15 +278,19 @@ local function extract(input)
 end
 
 local function parseValue(value, options)
-	if options.parseNumbers and
-		not Number.isNaN(newNumber(value)) and
-		typeof(value) == "string" and String.trim(value) ~= ""
+	if
+		options.parseNumbers
+		and not Number.isNaN(newNumber(value))
+		and type(value) == "string"
+		and String.trim(value) ~= ""
 	then
 		value = newNumber(value)
-	elseif options.parseBooleans and value ~= nil and
-		(value:lower() == "true" or value:lower() == "false")
+	elseif
+		options.parseBooleans
+		and value ~= nil
+		and (string.lower(value) == "true" or string.lower(value) == "false")
 	then
-		value = value:lower() == "true"
+		value = string.lower(value) == "true"
 	end
 
 	return value
@@ -342,21 +313,18 @@ local function parse(input, options)
 	-- // Create an object with no prototype
 	local ret = {}
 
-	if typeof(input) ~= "string" then
+	if type(input) ~= "string" then
 		return ret
 	end
 
-	input = String.trim(input):gsub("^[%?#&]", "")
+	input = string.gsub(String.trim(input), "^[%?#&]", "")
 
 	if input == "" then
 		return ret
 	end
 
-	for _, param in ipairs(input:split("&")) do
-		local splitOnFirstResult = splitOnFirst(
-			options.decode and param:gsub("%+", " ") or param,
-			"="
-		)
+	for _, param in input:split("&") do
+		local splitOnFirstResult = splitOnFirst(if options.decode then string.gsub(param, "%+", " ") else param, "=")
 		local key = splitOnFirstResult[1]
 		local value = splitOnFirstResult[2]
 
@@ -370,10 +338,10 @@ local function parse(input, options)
 		formatter(decode(key, options), value, ret)
 	end
 
-	for _, key in ipairs(Object.keys(ret)) do
+	for key in ret do
 		local value = ret[key]
-		if typeof(value) == "table" then --and not Array.isArray(value) then
-			for _, k in ipairs(Object.keys(value)) do
+		if type(value) == "table" then --and not Array.isArray(value) then
+			for k in value do
 				value[k] = parseValue(value[k], options)
 			end
 		else
@@ -395,7 +363,7 @@ local function parse(input, options)
 	return Array.reduce(keys, function(result, key)
 		local value = ret[key]
 
-		if Boolean.toJSBoolean(value) and typeof(value) == "table" and not Array.isArray(value) then
+		if Boolean.toJSBoolean(value) and type(value) == "table" and not Array.isArray(value) then
 			-- // Sort object keys, not values
 			result[key] = keysSorter(value)
 		else
@@ -424,11 +392,11 @@ function exports.stringify(object, options)
 	validateArrayFormatSeparator(options.arrayFormatSeparator)
 
 	local formatter = encoderForArrayFormat(options)
-	local objectCopy = Object.assign({}, object)
+	local objectCopy = table.clone(object)
 
 	-- deviation: there is no nil values that can be paired with a key in a Lua table
 	-- if options.skipNull then
-	-- 	for _, key in ipairs(Object.keys(objectCopy)) do
+	-- 	for _, key in Object.keys(objectCopy) do
 	-- 		if objectCopy[key] == nil or objectCopy[key] == nil then
 	-- 			delete objectCopy[key]
 	-- 		end
@@ -454,10 +422,7 @@ function exports.stringify(object, options)
 				end
 
 				if Array.isArray(value) then
-					return table.concat(
-						Array.reduce(value, formatter(key), {}),
-						"&"
-					)
+					return table.concat(Array.reduce(value, formatter(key), {}), "&")
 				end
 
 				return encode(key, options) + "=" + encode(value, options)
@@ -488,7 +453,7 @@ function exports.stringifyUrl(input, options)
 		queryString = ("?%s"):format(queryString)
 	end
 
-	return("%s%s%s"):format(url, queryString, hash)
+	return ("%s%s%s"):format(url, queryString, hash)
 end
 
 return exports

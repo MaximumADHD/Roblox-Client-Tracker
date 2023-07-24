@@ -10,18 +10,18 @@ local function createIndividualBodyPartSchema(assetTypeEnum: Enum.AssetType, sub
 
 	local individualBodyPartSchema = {
 		ClassName = "MeshPart",
-		Name = subPartName,
+		Name = { subPartName },
 		_children = {
 			{
-				Name = "AvatarPartScaleType",
+				Name = { "AvatarPartScaleType" },
 				ClassName = "StringValue",
 			},
 			{
-				Name = subPartName,
+				Name = { subPartName, subPartName .. "WrapTarget", "WrapTarget" },
 				ClassName = "WrapTarget",
 			},
 			{
-				Name = "SurfaceAppearance",
+				Name = { "SurfaceAppearance" },
 				ClassName = "SurfaceAppearance",
 				_optional = true,
 			},
@@ -29,13 +29,13 @@ local function createIndividualBodyPartSchema(assetTypeEnum: Enum.AssetType, sub
 	}
 
 	table.insert(individualBodyPartSchema._children, {
-		Name = validationData.rigAttachmentToParent.name,
+		Name = { validationData.rigAttachmentToParent.name },
 		ClassName = "Attachment",
 	})
 
 	for attachmentName in pairs(validationData.otherAttachments) do
 		table.insert(individualBodyPartSchema._children, {
-			Name = attachmentName,
+			Name = { attachmentName },
 			ClassName = "Attachment",
 		})
 	end

@@ -1,4 +1,7 @@
-local Cryo = require(script.Parent.Parent.Parent.Cryo)
+local root = script.Parent.Parent
+local Packages = root.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
 local NavigationSymbol = require(script.Parent.Parent.NavigationSymbol)
 
 local JUMP_TO_TOKEN = NavigationSymbol("JUMP_TO")
@@ -17,10 +20,8 @@ setmetatable(SwitchActions, {
 
 -- Pop the top-most item off the route stack, if any.
 function SwitchActions.jumpTo(payload)
-	return Cryo.Dictionary.join(
-		{ type = JUMP_TO_TOKEN, preserveFocus = true },
-		payload or {}
-	)
+	local _ref = { type = JUMP_TO_TOKEN, preserveFocus = true }
+	return if payload then Object.assign(_ref, payload) else _ref
 end
 
 return SwitchActions

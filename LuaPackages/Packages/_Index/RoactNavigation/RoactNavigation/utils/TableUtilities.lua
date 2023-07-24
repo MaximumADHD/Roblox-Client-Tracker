@@ -28,7 +28,7 @@ local function printKeypair(key, value, indentStr, comment)
 	local keyString = makeKeyString(key)
 	local valueString = makeValueString(value)
 
-	local commentStr = comment and string.format(" -- %s", comment) or ""
+	local commentStr = if comment then string.format(" -- %s", comment) else ""
 	print(string.format("%s%s = %s,%s", indentStr, keyString, valueString, commentStr))
 end
 
@@ -47,12 +47,12 @@ function TableUtilities.ShallowEqual(A, B, ignore)
 		ignore = defaultIgnore
 	end
 
-	for key, value in pairs(A) do
+	for key, value in A do
 		if B[key] ~= value and not ignore[key] then
 			return false
 		end
 	end
-	for key, value in pairs(B) do
+	for key, value in B do
 		if A[key] ~= value and not ignore[key] then
 			return false
 		end
@@ -66,9 +66,7 @@ local function formatDeepEqualMessage(message, level)
 		return message
 	end
 
-	return message
-		:gsub("{1}", "first")
-		:gsub("{2}", "second")
+	return message:gsub("{1}", "first"):gsub("{2}", "second")
 end
 
 --[[
@@ -81,10 +79,7 @@ function TableUtilities.DeepEqual(a, b, level)
 	end
 
 	if typeof(a) ~= typeof(b) then
-		local message = ("{1} is of type %s, but {2} is of type %s"):format(
-			typeof(a),
-			typeof(b)
-		)
+		local message = ("{1} is of type %s, but {2} is of type %s"):format(typeof(a), typeof(b))
 
 		return false, formatDeepEqualMessage(message, level)
 	end
@@ -92,7 +87,7 @@ function TableUtilities.DeepEqual(a, b, level)
 	if typeof(a) == "table" then
 		local visitedKeys = {}
 
-		for key, value in pairs(a) do
+		for key, value in a do
 			visitedKeys[key] = true
 
 			local success, innerMessage = TableUtilities.DeepEqual(value, b[key], level + 1)
@@ -105,7 +100,7 @@ function TableUtilities.DeepEqual(a, b, level)
 			end
 		end
 
-		for key, value in pairs(b) do
+		for key, value in b do
 			if not visitedKeys[key] then
 				local success, innerMessage = TableUtilities.DeepEqual(a[key], value, level + 1)
 
@@ -143,7 +138,7 @@ end
 function TableUtilities.TableDifference(A, B)
 	local new = {}
 
-	for key, value in pairs(A) do
+	for key, value in A do
 		if B[key] ~= A[key] then
 			new[key] = value
 		end
@@ -151,7 +146,6 @@ function TableUtilities.TableDifference(A, B)
 
 	return new
 end
-
 
 --[[
 	Takes a list and returns a table whose
@@ -166,18 +160,16 @@ local function membershipTable(list)
 	return result
 end
 
-
 --[[
 	Takes a table and returns a list of keys in that table
 ]]
 local function listOfKeys(t)
 	local result = {}
-	for key,_ in pairs(t) do
+	for key, _ in t do
 		table.insert(result, key)
 	end
 	return result
 end
-
 
 --[[
 	Takes two lists A and B, returns a new list of elements of A
@@ -186,7 +178,6 @@ end
 function TableUtilities.ListDifference(A, B)
 	return listOfKeys(TableUtilities.TableDifference(membershipTable(A), membershipTable(B)))
 end
-
 
 --[[
 	For debugging.  Returns false if the given table has any of the following:
@@ -200,10 +191,10 @@ function TableUtilities.CheckListConsistency(t)
 	local numberConsistency = true
 
 	local index = 1
-	for x, _ in pairs(t) do
-		if type(x) == 'string' then
+	for x, _ in t do
+		if type(x) == "string" then
 			containsStringKey = true
-		elseif type(x) == 'number' then
+		elseif type(x) == "number" then
 			if index ~= x then
 				numberConsistency = false
 			end
@@ -226,31 +217,30 @@ function TableUtilities.CheckListConsistency(t)
 	return true
 end
 
-
 --[[
 	For debugging, serializes the given table to a reasonable string that might even interpret as lua.
 ]]
 function TableUtilities.RecursiveToString(t, indent)
-	indent = indent or ''
+	indent = indent or ""
 
-	if type(t) == 'table' then
+	if type(t) == "table" then
 		local result = ""
 		if not TableUtilities.CheckListConsistency(t) then
 			result = result .. "-- WARNING: this table fails the list consistency test\n"
 		end
 		result = result .. "{\n"
-		for k,v in pairs(t) do
-			if type(k) == 'string' then
+		for k, v in t do
+			if type(k) == "string" then
 				result = result
 					.. "  "
 					.. indent
 					.. tostring(k)
 					.. " = "
-					.. TableUtilities.RecursiveToString(v, "  "..indent)
-					..";\n"
+					.. TableUtilities.RecursiveToString(v, "  " .. indent)
+					.. ";\n"
 			end
-			if type(k) == 'number' then
-				result = result .. "  " .. indent .. TableUtilities.RecursiveToString(v, "  "..indent)..",\n"
+			if type(k) == "number" then
+				result = result .. "  " .. indent .. TableUtilities.RecursiveToString(v, "  " .. indent) .. ",\n"
 			end
 		end
 		result = result .. indent .. "}"
@@ -265,7 +255,7 @@ end
 	limitations which are otherwise necessary for performance. Use sparingly.
 ]]
 function TableUtilities.Print(t, indent)
-	indent = indent or '  '
+	indent = indent or "  "
 
 	if type(t) ~= "table" then
 		error("TableUtilities.Print must be passed a table", 2)
@@ -287,7 +277,7 @@ function TableUtilities.Print(t, indent)
 			print(string.format("%s%s {", indentStr, makeValueString(subTable)))
 		end
 
-		for key, value in pairs(subTable) do
+		for key, value in subTable do
 			if type(value) == "table" then
 				if printedTables[value] then
 					printKeypair(key, value, valueIndentStr, "Possible cycle")
@@ -299,7 +289,7 @@ function TableUtilities.Print(t, indent)
 			end
 		end
 
-		print(string.format("%s}%s", indentStr, (level > 0 and "," or "")))
+		print(string.format("%s}%s", indentStr, (if level > 0 then "," else "")))
 	end
 
 	recurse(t, nil, 0)
@@ -309,12 +299,11 @@ end
     Takes a table and returns the field count
 ]]
 function TableUtilities.FieldCount(t)
-    local fieldCount = 0
-    for _ in pairs(t) do
-        fieldCount = fieldCount + 1
-    end
-    return fieldCount
+	local fieldCount = 0
+	for _ in t do
+		fieldCount = fieldCount + 1
+	end
+	return fieldCount
 end
 
 return TableUtilities
-

@@ -293,14 +293,12 @@ local function initializeLibrary(configs)
 			RateCount = require(script.App.Indicator.RateCount),
 			StatWidget = require(script.App.Indicator.StatWidget),
 			StatGroup = require(script.App.Indicator.StatGroup),
+			PlayerName = require(script.App.Indicator.PlayerName),
 		}),
 
 		Menu = strict({
 			BaseMenu = require(script.App.Menu.BaseMenu),
-			ContrastBaseMenu = require(script.App.Menu.ContrastBaseMenu),
-			GameContextualMenu = require(script.App.Menu.GameContextualMenu),
 			ContextualMenu = require(script.App.Menu.ContextualMenu),
-			OverlayContextualMenu = require(script.App.Menu.OverlayContextualMenu),
 
 			MenuDirection = require(script.App.Menu.MenuDirection),
 
@@ -374,13 +372,13 @@ local function initializeLibrary(configs)
 		Provider = UIBlox.Core.Style.Provider,
 		withStyle = UIBlox.Core.Style.withStyle,
 		Validator = {
-			validateStyle = require(script.Style.Validator.validateStyle),
-			validateFont = require(script.Style.Validator.validateFont),
-			validateFontInfo = require(script.Style.Validator.validateFontInfo),
+			validateStyle = require(script.App.Style.Validator.validateStyle),
+			validateFont = require(script.App.Style.Validator.validateFont),
+			validateFontInfo = require(script.Core.Style.Validator.validateFontInfo),
 			validateTheme = if configs.useNewThemeColorPalettes
 				then require(script.App.Style.Validator.validateThemeNew)
-				else require(script.Style.Validator.validateTheme),
-			validateColorInfo = require(script.Style.Validator.validateColorInfo),
+				else require(script.App.Style.Validator.validateTheme),
+			validateColorInfo = require(script.Core.Style.Validator.validateColorInfo),
 		},
 		-- Used for updating the style in consumer who would have previously
 		-- used `_context` to access the style object

@@ -1,6 +1,12 @@
-local Cryo = require(script.Parent.Parent.Parent.Parent.Cryo)
-local StackViewInterpolator = require(script.Parent.StackViewInterpolator)
-local StackPresentationStyle = require(script.Parent.StackPresentationStyle)
+local RobloxStackView = script.Parent
+local views = RobloxStackView.Parent
+local root = views.Parent
+local Packages = root.Parent
+
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
+local StackViewInterpolator = require(RobloxStackView.StackViewInterpolator)
+local StackPresentationStyle = require(RobloxStackView.StackPresentationStyle)
 
 local DefaultTransitionSpec = {
 	frequency = 3, -- Hz
@@ -35,8 +41,8 @@ end
 local function getTransitionConfig(transitionConfigurer, transitionProps, prevTransitionProps, presentationStyle)
 	local defaultConfig = getDefaultTransitionConfig(transitionProps, prevTransitionProps, presentationStyle)
 	if transitionConfigurer then
-		return Cryo.Dictionary.join(
-			defaultConfig,
+		return Object.assign(
+			table.clone(defaultConfig),
 			transitionConfigurer(transitionProps, prevTransitionProps, presentationStyle)
 		)
 	end

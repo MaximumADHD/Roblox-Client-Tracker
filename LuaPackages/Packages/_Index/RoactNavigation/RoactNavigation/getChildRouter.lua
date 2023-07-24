@@ -2,15 +2,14 @@
 local invariant = require(script.Parent.utils.invariant)
 
 return function(router, routeName)
-	invariant(type(router) == "table", "router must be a table")
-	invariant(type(routeName) == "string", "routeName must be a string")
-
 	if router.childRouters and router.childRouters[routeName] then
 		return router.childRouters[routeName]
 	end
 
-	invariant(type(router.getComponentForRouteName) == "function",
-		"router.getComponentForRouteName must be a function if no child routers are specified")
+	invariant(
+		type(router.getComponentForRouteName) == "function",
+		"router.getComponentForRouteName must be a function if no child routers are specified"
+	)
 	local component = router.getComponentForRouteName(routeName)
 
 	-- deviation: functional components cannot be indexed in Lua

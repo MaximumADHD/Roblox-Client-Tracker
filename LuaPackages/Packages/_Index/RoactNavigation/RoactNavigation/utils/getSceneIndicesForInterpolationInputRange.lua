@@ -1,4 +1,6 @@
-local Cryo = require(script.Parent.Parent.Parent.Cryo)
+local Packages = script.Parent.Parent.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
 
 local function getSceneIndicesForInterpolationInputRange(props)
 	local scene = props.scene
@@ -9,10 +11,10 @@ local function getSceneIndicesForInterpolationInputRange(props)
 	local isBack = not scenes[lastSceneIndexInScenes].isActive
 
 	if isBack then
-		local currentSceneIndexInScenes = Cryo.List.find(scenes, scene)
+		local currentSceneIndexInScenes = Array.indexOf(scenes, scene)
 
 		local targetSceneIndexInScenes = nil
-		for i, iScene in ipairs(scenes) do
+		for i, iScene in scenes do
 			if iScene.isActive then
 				targetSceneIndexInScenes = i
 				break
@@ -30,7 +32,7 @@ local function getSceneIndicesForInterpolationInputRange(props)
 		elseif index == targetSceneIndex and currentSceneIndexInScenes == targetSceneIndexInScenes then
 			return {
 				first = index - 1,
-				last = math.max(lastSceneIndex, index + 1)
+				last = math.max(lastSceneIndex, index + 1),
 			}
 		elseif index == targetSceneIndex or currentSceneIndexInScenes > targetSceneIndexInScenes then
 			return nil
@@ -39,7 +41,7 @@ local function getSceneIndicesForInterpolationInputRange(props)
 
 	return {
 		first = index - 1,
-		last = index + 1
+		last = index + 1,
 	}
 end
 

@@ -1,9 +1,14 @@
 local StyleRoot = script.Parent
 local UIBloxRoot = StyleRoot.Parent
+local AppStyle = UIBloxRoot.App.Style
 local Roact = require(UIBloxRoot.Parent.Roact)
 local t = require(UIBloxRoot.Parent.t)
-local validateStyle = require(StyleRoot.Validator.validateStyle)
+local validateStyle = require(AppStyle.Validator.validateStyle)
 local StyleContext = require(StyleRoot.StyleContext)
+
+local Packages = UIBloxRoot.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
 
 local StyleProvider = Roact.Component:extend("StyleProvider")
 
@@ -23,8 +28,16 @@ end
 
 function StyleProvider:render()
 	assert(self.props.style ~= nil, "StyleProvider style should not be nil.")
+
+	local style = Object.assign({}, {
+		Settings = {
+			PreferredTransparency = 1,
+			ReducedMotion = false,
+		},
+	}, self.state.style)
+
 	local styleObject = {
-		style = self.state.style,
+		style = style,
 		update = function(_self, newStyle)
 			if self.mounted then
 				self:setState({ style = newStyle })

@@ -1,7 +1,10 @@
 local root = script.Parent.Parent
 local Packages = root.Parent
-local Cryo = require(Packages.Cryo)
-local Roact = require(Packages.Roact)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
+
+local React = require(Packages.React)
+local ReactRoblox = require(Packages.Dev.ReactRoblox)
 local NavigationEvents = require(root.views.NavigationEvents)
 local Events = require(root.Events)
 local invariant = require(script.Parent.invariant)
@@ -26,20 +29,17 @@ end
 
 function TrackNavigationEvents:printNavigationEvents()
 	print("Total Events: ", #self.navigationEvents)
-	for _, navigationEvent in ipairs(self.navigationEvents) do
+	for _, navigationEvent in self.navigationEvents do
 		print(navigationEvent)
 	end
 end
 
 function TrackNavigationEvents:waitForNumberEventsMaxWaitTime(numberOfEvents, maxWaitTimeInSeconds)
 	local secondsWaitedFor = 0
-	local waitDurationPerIteration = 0.33
-	while #self.navigationEvents < numberOfEvents
-		and secondsWaitedFor <= maxWaitTimeInSeconds
-	do
-		wait(waitDurationPerIteration)
-		-- print("waiting for number of events to reach:", numberOfEvents, "waited for:", secondsWaitedFor)
-		secondsWaitedFor = secondsWaitedFor + waitDurationPerIteration
+	while #self.navigationEvents < numberOfEvents and secondsWaitedFor <= maxWaitTimeInSeconds do
+		ReactRoblox.act(function()
+			secondsWaitedFor += task.wait()
+		end)
 	end
 end
 
@@ -56,25 +56,25 @@ local propNameToEvent = {
 
 function TrackNavigationEvents:createNavigationAdapter(pageName)
 	local props = {}
-	for propName, event in pairs(propNameToEvent) do
+	for propName, event in propNameToEvent do
 		props[propName] = function()
 			PageNavigationEvent.new(pageName, event)
 			table.insert(self.navigationEvents, PageNavigationEvent.new(pageName, event))
 		end
 	end
 
-	return Roact.createElement(NavigationEvents, props)
+	return React.createElement(NavigationEvents, props)
 end
 
 function TrackNavigationEvents:equalTo(pageNavigationEventList)
-	invariant(typeof(pageNavigationEventList) == "table", "should be a list")
+	invariant(type(pageNavigationEventList) == "table", "should be a list")
 	local numberOfEvents = #self.navigationEvents
 
 	if numberOfEvents ~= #pageNavigationEventList then
 		return false, "different amount of events"
 	end
 
-	for i=1, numberOfEvents do
+	for i = 1, numberOfEvents do
 		if not self.navigationEvents[i]:equalTo(pageNavigationEventList[i]) then
 			return false, ("events at position %d do not match"):format(i)
 		end
@@ -91,27 +91,13 @@ function TrackNavigationEvents:expect(pageNavigationEventList)
 		local expectedEvents = "{}"
 
 		if #self.navigationEvents > 0 then
-			selfEvents = ("{\n  %s,\n}"):format(
-				table.concat(
-					Cryo.List.map(self.navigationEvents, tostring),
-					',\n  '
-				)
-			)
+			selfEvents = ("{\n  %s,\n}"):format(table.concat(Array.map(self.navigationEvents, tostring), ",\n  "))
 		end
 		if #pageNavigationEventList > 0 then
-			expectedEvents = ("{\n  %s,\n}"):format(
-				table.concat(
-					Cryo.List.map(pageNavigationEventList, tostring),
-					',\n  '
-				)
-			)
+			expectedEvents = ("{\n  %s,\n}"):format(table.concat(Array.map(pageNavigationEventList, tostring), ",\n  "))
 		end
 
-		error(("%s\nGot events: %s\n\nExpected events: %s"):format(
-			message,
-			selfEvents,
-			expectedEvents
-		))
+		error(("%s\nGot events: %s\n\nExpected events: %s"):format(message, selfEvents, expectedEvents))
 	end
 end
 

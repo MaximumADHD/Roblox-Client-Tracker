@@ -4,6 +4,21 @@
 
 export type HistoricalParticipantModel = { userId: number, displayName: string, userName: string }
 
+export type CallAction =
+	"Accept"
+	| "AcceptSuccess"
+	| "Cancel"
+	| "ConnectionConfirm"
+	| "Decline"
+	| "Fail"
+	| "Finish"
+	| "Init"
+	| "InitSuccess"
+	| "Miss"
+	| "Receive"
+	| "Reject"
+	| "Suppress"
+
 export type CallRecordModel = {
 	callId: string,
 	callerId: number,
@@ -20,7 +35,7 @@ export type CallStateModel = {
 	callerId: number,
 	calleeId: number,
 	placeId: number?,
-	reservedServerAccessCode: string?;
+	reservedServerAccessCode: string?,
 	callId: string?,
 	callerDisplayName: string?,
 	calleeDisplayName: string?,
@@ -53,6 +68,12 @@ export type StartCallAction = {
 
 export type EndCallAction = {
 	payload: nil,
+}
+
+export type FailedCallAction = {
+	payload: {
+		lastCall: CallStateModel,
+	},
 }
 
 export type ConnectingCallAction = {

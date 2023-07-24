@@ -119,20 +119,15 @@ local function customDecodeURIComponent(input)
 
 	-- deviation: collect the order of the keys from `replaceMap` so that we can iterate
 	-- on the insertion order
-	local entries = {"%FE%FF", "%FF%FE"}
+	local entries = { "%FE%FF", "%FF%FE" }
 
 	local matches = multiMatcher:exec(input)
 	while matches do
 		local match = matches[1]
 
-		xpcall(function()
-			-- // Decode as big chunks as possible
-			local replaceWith = decodeURIComponent(match)
-			if replaceMap[match] == nil then
-				table.insert(entries, match)
-			end
-			replaceMap[match] = replaceWith
-		end, function(_err)
+		-- Decode as big chunks as possible
+
+		local ok, replaceWith = xpcall(decodeURIComponent, function(_err)
 			local result = decode(match)
 
 			if result ~= match then
@@ -143,7 +138,13 @@ local function customDecodeURIComponent(input)
 				end
 				replaceMap[match] = result
 			end
-		end)
+		end, match)
+		if ok then
+			if replaceMap[match] == nil then
+				table.insert(entries, match)
+			end
+			replaceMap[match] = replaceWith
+		end
 
 		-- deviation: the regex library is not stateful, so we need to explicitly
 		-- iterate from the current input starting from the end of the current match
@@ -160,17 +161,16 @@ local function customDecodeURIComponent(input)
 	-- while iterating on them. That is why the following statement is commented:
 	-- local entries = Object.keys(replaceMap)
 
-	for i = 1, #entries do
+	for _, key in entries do
 		-- // Replace all decoded components
-		local key = entries[i]
-		input = input:gsub(escapePercent(key), escapePercent(replaceMap[key]))
+		input = string.gsub(input, escapePercent(key), escapePercent(replaceMap[key]))
 	end
 
 	return input
 end
 
 local function decodeComponent(encodedURI)
-	if typeof(encodedURI) ~= "string" then
+	if type(encodedURI) ~= "string" then
 		error(TypeError("Expected `encodedURI` to be of type `string`, got `" .. typeof(encodedURI) .. "`"))
 	end
 

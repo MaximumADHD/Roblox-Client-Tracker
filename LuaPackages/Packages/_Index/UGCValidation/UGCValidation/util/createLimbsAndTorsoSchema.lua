@@ -11,7 +11,7 @@ local function createLimbsAndTorsoSchema(assetTypeEnum: Enum.AssetType, folderNa
 
 	local rootFolderSchema = {
 		ClassName = "Folder",
-		Name = folderName,
+		Name = { folderName },
 		_children = {},
 	}
 

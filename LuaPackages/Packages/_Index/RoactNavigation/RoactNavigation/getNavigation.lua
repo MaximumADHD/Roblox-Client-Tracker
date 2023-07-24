@@ -1,10 +1,14 @@
 -- upstream https://github.com/react-navigation/react-navigation/blob/72e8160537954af40f1b070aa91ef45fc02bba69/packages/core/src/getNavigation.js
 
-local Cryo = require(script.Parent.Parent.Cryo)
-local Events = require(script.Parent.Events)
-local getNavigationActionCreators = require(script.Parent.routers.getNavigationActionCreators)
-local getChildNavigation = require(script.Parent.getChildNavigation)
-local getChildrenNavigationCache = require(script.Parent.getChildrenNavigationCache)
+local root = script.Parent
+local Packages = root.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
+
+local Events = require(root.Events)
+local getNavigationActionCreators = require(root.routers.getNavigationActionCreators)
+local getChildNavigation = require(root.getChildNavigation)
+local getChildrenNavigationCache = require(root.getChildrenNavigationCache)
 
 return function(router, state, dispatch, actionSubscribers, getScreenProps, getCurrentNavigation)
 	local actions = router.getActionCreators(state, nil)
@@ -46,14 +50,14 @@ return function(router, state, dispatch, actionSubscribers, getScreenProps, getC
 			return {
 				remove = function()
 					actionSubscribers[handler] = nil
-				end
+				end,
 			}
 		end
 	end
 
-	local actionCreators = Cryo.Dictionary.join(getNavigationActionCreators(navigation.state), actions)
+	local actionCreators = Object.assign(getNavigationActionCreators(navigation.state), actions)
 
-	for actionName, _ in pairs(actionCreators) do
+	for actionName, _ in actionCreators do
 		navigation[actionName] = function(...)
 			navigation.dispatch(actionCreators[actionName](...))
 		end

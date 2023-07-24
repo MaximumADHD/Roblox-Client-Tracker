@@ -1,10 +1,16 @@
-local Cryo = require(script.Parent.Parent.Parent.Parent.Cryo)
-local Roact = require(script.Parent.Parent.Parent.Parent.Roact)
-local StackPresentationStyle = require(script.Parent.StackPresentationStyle)
-local StackViewTransitionConfigs = require(script.Parent.StackViewTransitionConfigs)
-local StackViewOverlayFrame = require(script.Parent.StackViewOverlayFrame)
-local StackViewCard = require(script.Parent.StackViewCard)
-local SceneView = require(script.Parent.Parent.SceneView)
+local RobloxStackView = script.Parent
+local views = RobloxStackView.Parent
+local root = views.Parent
+local Packages = root.Parent
+
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
+local React = require(Packages.React)
+local StackPresentationStyle = require(RobloxStackView.StackPresentationStyle)
+local StackViewTransitionConfigs = require(RobloxStackView.StackViewTransitionConfigs)
+local StackViewOverlayFrame = require(RobloxStackView.StackViewOverlayFrame)
+local StackViewCard = require(RobloxStackView.StackViewCard)
+local SceneView = require(views.SceneView)
 
 local defaultScreenOptions = {
 	absorbInput = true,
@@ -14,7 +20,7 @@ local defaultScreenOptions = {
 	-- cardColor3 default is provided by StackViewCard
 	renderOverlay = function(navigationOptions, initialTransitionValue, transitionChangedSignal)
 		-- NOTE: renderOverlay will not be called if sceneOptions.overlayEnabled evaluates false
-		return Roact.createElement(StackViewOverlayFrame, {
+		return React.createElement(StackViewOverlayFrame, {
 			navigationOptions = navigationOptions,
 			initialTransitionValue = initialTransitionValue,
 			transitionChangedSignal = transitionChangedSignal,
@@ -28,10 +34,10 @@ local function calculateTransitionValue(index, position)
 	return math.max(math.min(1 + position - index, 1), 0)
 end
 
-
-local StackViewLayout = Roact.Component:extend("StackViewLayout")
+local StackViewLayout = React.Component:extend("StackViewLayout")
 
 function StackViewLayout:init()
+	self:setState({})
 	local startingIndex = self.props.transitionProps.navigation.state.index
 
 	self._isMounted = false
@@ -68,17 +74,16 @@ function StackViewLayout:_renderCard(scene, navigationOptions)
 	local cardInterpolationProps = {}
 	local screenInterpolator = transitionConfig.screenInterpolator
 	if screenInterpolator then
-		cardInterpolationProps = screenInterpolator(
-			Cryo.Dictionary.join(transitionProps, {
-				initialPositionValue = initialPositionValue,
-				scene = scene,
-			})
-		)
+		cardInterpolationProps = screenInterpolator(Object.assign(table.clone(transitionProps), {
+			initialPositionValue = initialPositionValue,
+			scene = scene,
+		}))
 	end
 
 	-- Merge down the various prop packages to be applied to StackViewCard.
-	return Roact.createElement(StackViewCard, Cryo.Dictionary.join(
-		transitionProps, cardInterpolationProps, {
+	return React.createElement(
+		StackViewCard,
+		Object.assign(table.clone(transitionProps), cardInterpolationProps, {
 			key = "card_" .. tostring(scene.key),
 			scene = scene,
 			renderScene = self._renderScene,
@@ -94,7 +99,7 @@ function StackViewLayout:_renderInnerScene(scene)
 	local sceneComponent = scene.descriptor.getComponent()
 	local screenProps = self.props.screenProps
 
-	return Roact.createElement(SceneView, {
+	return React.createElement(SceneView, {
 		screenProps = screenProps,
 		navigation = navigation,
 		component = sceneComponent,
@@ -107,21 +112,23 @@ function StackViewLayout:render()
 	local scenes = transitionProps.scenes
 
 	local renderedScenes = {}
-	for _, scene in ipairs(scenes) do
+	for _, scene in scenes do
 		-- The card is obscured if:
 		-- 	It's not the active card (e.g. we're transitioning TO it).
 		-- 	It's hidden underneath an opaque card that is NOT currently transitioning.
 		--	It's completely off-screen.
 		local cardObscured = scene.index < topMostOpaqueSceneIndex and not scene.isActive
 
-		local screenOptions = Cryo.Dictionary.join(defaultScreenOptions, scene.descriptor.options or {})
+		local screenOptions = if scene.descriptor.options
+			then Object.assign(table.clone(defaultScreenOptions), scene.descriptor.options)
+			else table.clone(defaultScreenOptions)
 		local overlayEnabled = screenOptions.overlayEnabled
 		local absorbInput = screenOptions.absorbInput
 		local renderOverlay = screenOptions.renderOverlay
 
 		local stationaryContent = nil
 		if overlayEnabled then
-			stationaryContent = Roact.createElement("Frame", {
+			stationaryContent = React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				ClipsDescendants = true,
@@ -131,7 +138,8 @@ function StackViewLayout:render()
 				Overlay = renderOverlay(
 					screenOptions,
 					calculateTransitionValue(scene.index, self._positionLastValue),
-					self._subscribeToOverlayUpdates)
+					self._subscribeToOverlayUpdates
+				),
 			})
 		end
 
@@ -143,7 +151,7 @@ function StackViewLayout:render()
 		-- mouse clicks
 		local absorbInputElement = nil
 		if not cardObscured and absorbInput then
-			absorbInputElement = Roact.createElement("TextButton", {
+			absorbInputElement = React.createElement("TextButton", {
 				Active = true,
 				AutoButtonColor = false,
 				BackgroundTransparency = 1,
@@ -154,10 +162,10 @@ function StackViewLayout:render()
 			})
 		end
 
-		local renderedScene = Roact.createFragment({
+		local renderedScene = React.createElement(React.Fragment, {}, {
 			AbsorbInput = absorbInputElement,
 			-- use scene index for key, it makes testing with Rhodium easier
-			[tostring(scene.index)] = Roact.createElement("Frame", {
+			[tostring(scene.index)] = React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -166,7 +174,7 @@ function StackViewLayout:render()
 				Visible = not cardObscured,
 			}, {
 				StationaryContent = stationaryContent,
-				DynamicContent = Roact.createElement("Frame", {
+				DynamicContent = React.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
 					ClipsDescendants = false,
@@ -176,14 +184,14 @@ function StackViewLayout:render()
 					-- Cards need to have unique keys so that instances of the same components are not
 					-- reused for different scenes. (Could lead to unanticipated lifecycle problems).
 					["card_" .. scene.key] = self:_renderCard(scene, screenOptions),
-				})
+				}),
 			}),
 		})
 
 		renderedScenes[tostring(scene.key)] = renderedScene
 	end
 
-	return Roact.createElement("Frame", {
+	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		ClipsDescendants = false,
@@ -198,15 +206,17 @@ function StackViewLayout.getDerivedStateFromProps(nextProps, _lastState)
 	local isTransitioning = state.isTransitioning
 	local topMostIndex = #scenes
 
-	local isOverlayMode = nextProps.mode == StackPresentationStyle.Modal or
-		nextProps.mode == StackPresentationStyle.Overlay
+	local isOverlayMode = nextProps.mode == StackPresentationStyle.Modal
+		or nextProps.mode == StackPresentationStyle.Overlay
 
 	-- Find the last opaque scene in a modal stack so that we can optimize rendering.
 	local topMostOpaqueSceneIndex = 0
 	if isOverlayMode then
 		for idx = topMostIndex, 1, -1 do
 			local scene = scenes[idx]
-			local navigationOptions = Cryo.Dictionary.join(defaultScreenOptions, scene.descriptor.options or {})
+			local navigationOptions = if scene.descriptor.options
+				then Object.assign(table.clone(defaultScreenOptions), scene.descriptor.options)
+				else table.clone(defaultScreenOptions)
 
 			-- Card covers other pages if it's not an overlay and it's not the top-most index while transitioning.
 			if not navigationOptions.overlayEnabled and not (isTransitioning and idx == topMostIndex) then
@@ -229,7 +239,8 @@ function StackViewLayout.getDerivedStateFromProps(nextProps, _lastState)
 			nextProps.transitionConfig,
 			nextProps.transitionProps,
 			nextProps.lastTransitionProps,
-			nextProps.mode),
+			nextProps.mode
+		),
 	}
 end
 

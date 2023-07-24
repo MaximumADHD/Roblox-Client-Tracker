@@ -1,14 +1,17 @@
 -- upstream: https://github.com/react-navigation/stack/blob/676bc3b45a7715edecd13530ae3b39ee1fe48833/src/views/Transitioner.tsx
 local root = script.Parent.Parent.Parent
 local Packages = root.Parent
-local Cryo = require(Packages.Cryo)
-local Roact = require(Packages.Roact)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
+local Object = LuauPolyfill.Object
+
+local React = require(Packages.React)
 local Otter = require(Packages.Otter)
 local ScenesReducer = require(script.Parent.ScenesReducer)
 local invariant = require(root.utils.invariant)
 
 local DEFAULT_TRANSITION_SPEC = {
-	frequency = 4 -- Hz
+	frequency = 4, -- Hz
 }
 
 local function buildTransitionProps(props, state)
@@ -20,7 +23,7 @@ local function buildTransitionProps(props, state)
 	local scenes = state.scenes
 
 	local activeScene
-	for _, x in ipairs(scenes) do
+	for _, x in scenes do
 		if x.isActive then
 			activeScene = x
 			break
@@ -41,7 +44,7 @@ local function buildTransitionProps(props, state)
 end
 
 local function filterStale(scenes)
-	local filtered = Cryo.List.filter(scenes, function(scene)
+	local filtered = Array.filter(scenes, function(scene)
 		return not scene.isStale
 	end)
 
@@ -52,13 +55,13 @@ local function filterStale(scenes)
 	end
 end
 
-local Transitioner = Roact.Component:extend("Transitioner")
+local Transitioner = React.Component:extend("Transitioner")
 
 function Transitioner:init()
 	local navigationState = self.props.navigation.state
 	local descriptors = self.props.descriptors
 
-	self._ref = Roact.createRef()
+	self._ref = React.createRef()
 
 	self.state = {
 		-- Layout is passed to StackViewLayout in order to allow it to
@@ -86,15 +89,9 @@ function Transitioner:init()
 	self._transitionQueue = {}
 
 	self._completeSignalDisconnector = self.state.position:onComplete(function()
-		-- This spawn is required because of this Otter bug: https://github.com/Roblox/otter/issues/26
-		-- Otter.SingleMotor's step function calls onComplete before it calls stop(). This leaves their
-		-- __running=true, and the setGoal() in our _onTransitionEnd() does nothing. So the whole queue
-		-- handling just stops cold, and the transition never actually happens!
-		spawn(function()
-			if self._isMounted then
-				self:_onTransitionEnd()
-			end
-		end)
+		if self._isMounted then
+			self:_onTransitionEnd()
+		end
 	end)
 
 	self._stepSignalDisconnector = self.state.position:onStep(function(value)
@@ -148,13 +145,13 @@ function Transitioner:didUpdate(prevProps)
 end
 
 function Transitioner:render()
-	return Roact.createElement("Frame", {
+	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		ClipsDescendants = false,
-		[Roact.Change.AbsoluteSize] = self._doOnAbsoluteSizeChanged,
-		[Roact.Ref] = self._ref,
+		[React.Change.AbsoluteSize] = self._doOnAbsoluteSizeChanged,
+		ref = self._ref,
 	}, {
 		["TransitionerScenes"] = self.props.render(
 			self._transitionProps,
@@ -173,18 +170,17 @@ function Transitioner:_onAbsoluteSizeChanged(rbx)
 	local width = rbx.AbsoluteSize.X
 	local height = rbx.AbsoluteSize.Y
 
-	if width == self.state.layout.initWidth and
-		height == self.state.layout.initHeight then
+	if width == self.state.layout.initWidth and height == self.state.layout.initHeight then
 		return
 	end
 
-	local layout = Cryo.Dictionary.join(self.state.layout, {
+	local layout = Object.assign(table.clone(self.state.layout), {
 		initWidth = width,
 		initHeight = height,
 		isMeasured = true,
 	})
 
-	local nextState = Cryo.Dictionary.join(self.state, {
+	local nextState = Object.assign(table.clone(self.state), {
 		layout = layout,
 	})
 
@@ -196,11 +192,8 @@ function Transitioner:_onAbsoluteSizeChanged(rbx)
 end
 
 function Transitioner:_computeScenes(props, nextProps)
-	local nextScenes = ScenesReducer(
-		self.state.scenes,
-		nextProps.navigation.state,
-		props.navigation.state,
-		nextProps.descriptors)
+	local nextScenes =
+		ScenesReducer(self.state.scenes, nextProps.navigation.state, props.navigation.state, nextProps.descriptors)
 
 	if not nextProps.navigation.state.isTransitioning then
 		nextScenes = filterStale(nextScenes)
@@ -233,7 +226,7 @@ function Transitioner:_startTransition(props, nextProps)
 		return
 	end
 
-	local nextState = Cryo.Dictionary.join(self.state, {
+	local nextState = Object.assign(table.clone(self.state), {
 		scenes = nextScenes,
 	})
 
@@ -251,7 +244,6 @@ function Transitioner:_startTransition(props, nextProps)
 
 	self:setState(nextState, function()
 		if isTransitioning and indexHasChanged then
-
 			if nextProps.onTransitionStart then
 				nextProps.onTransitionStart(self._transitionProps, self._prevTransitionProps)
 			end
@@ -261,11 +253,11 @@ function Transitioner:_startTransition(props, nextProps)
 				-- get transition spec
 				local transitionUserSpec = {}
 				if nextProps.configureTransition then
-					transitionUserSpec = nextProps.configureTransition(
-						self._transitionProps, self._prevTransitionProps) or {}
+					transitionUserSpec = nextProps.configureTransition(self._transitionProps, self._prevTransitionProps)
+						or {}
 				end
 
-				local transitionSpec = Cryo.Dictionary.join(DEFAULT_TRANSITION_SPEC, transitionUserSpec)
+				local transitionSpec = Object.assign(table.clone(DEFAULT_TRANSITION_SPEC), transitionUserSpec)
 
 				-- motor will call _endTransition for us
 				position:setGoal(Otter.spring(nextProps.navigation.state.index, transitionSpec))
@@ -295,7 +287,7 @@ function Transitioner:_onTransitionEnd()
 
 	local scenes = filterStale(self.state.scenes)
 
-	local nextState = Cryo.Dictionary.join(self.state, {
+	local nextState = Object.assign(table.clone(self.state), {
 		scenes = scenes,
 	})
 
@@ -309,7 +301,9 @@ function Transitioner:_onTransitionEnd()
 		local firstQueuedTransition = self._transitionQueue[1]
 		if firstQueuedTransition then
 			local prevProps = firstQueuedTransition.prevProps
-			self._transitionQueue = Cryo.List.removeIndex(self._transitionQueue, 1)
+			-- ROBLOX FIXME? is this clone necessary?
+			self._transitionQueue = table.clone(self._transitionQueue)
+			table.remove(self._transitionQueue, 1)
 			self:_startTransition(prevProps, self.props)
 		else
 			self._isTransitionRunning = false

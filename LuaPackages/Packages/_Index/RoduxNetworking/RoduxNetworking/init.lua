@@ -14,6 +14,9 @@ return {
 			POST = function(...)
 				return roduxNetworkingInstance:POST(...)
 			end,
+			PATCH = function(...)
+				return roduxNetworkingInstance:PATCH(...)
+			end,
 			getNetworkImpl = function()
 				return roduxNetworkingInstance:getNetworkImpl()
 			end,

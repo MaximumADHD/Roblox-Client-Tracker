@@ -34,6 +34,8 @@ PlayerTile.validateProps = t.strictInterface({
 	subtitle = t.optional(t.string),
 
 	hasVerifiedBadge = t.optional(t.boolean),
+	-- Whether it's gamepad/keyboard selectable or not
+	Selectable = t.optional(t.boolean),
 	-- The image that represents the Player
 	thumbnail = t.optional(t.union(t.string, t.table)),
 	-- When `buttons` is present, the tile will create interactive buttons within the Tile
@@ -67,6 +69,7 @@ PlayerTile.defaultProps = {
 	onActivated = function() end,
 	title = if UIBloxConfig.removeDefaultValueForPlayerTileName then nil else "",
 	subtitle = if UIBloxConfig.removeDefaultValueForPlayerTileName then nil else "",
+	Selectable = false,
 }
 
 local ANIMATION_SPRING_SETTINGS = {
@@ -246,9 +249,14 @@ function PlayerTile:render()
 		}, {
 			Tile = Roact.createElement(Tile, {
 				footer = footer({
-					playerContext = self.props.relevancyInfo,
+					-- If PlayerTile is selectable, we don't need the footer to be selectable.
+					-- This is consistent with that we only tap/click the entire PlayerTile on mobile and DUA.
+					playerContext = if self.props.Selectable
+						then Dictionary.join(self.props.relevancyInfo, { Selectable = false })
+						else self.props.relevancyInfo,
 					controlState = self.state.controlState,
 				}),
+				Selectable = self.props.Selectable,
 				hasRoundedCorners = true,
 				innerPadding = INNER_PADDING,
 				titleTopPadding = TITLE_TOP_PADDING,

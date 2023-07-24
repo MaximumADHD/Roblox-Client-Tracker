@@ -51,12 +51,9 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 				else
 					return {
 						success = false,
-						message = "Could not find a "
-							.. childSchema.ClassName
-							.. " called "
-							.. getReadableName(childSchema.Name)
-							.. " inside "
-							.. instance.Name
+						message = "Could not find a " .. childSchema.ClassName .. " called " .. getReadableName(
+							childSchema.Name
+						) .. " inside " .. instance.Name,
 					}
 				end
 			end
@@ -69,14 +66,25 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 end
 
 local function validateWithSchema(schema, instance)
-
-	if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and schema.Name ~= instance.Name) then
-		return {
-			success = false,
-			message = "Expected top-level instance to be a "
-				.. schema.ClassName
-				.. (if getFFlagUGCValidateBodyParts() and schema.Name then " named " .. schema.Name else ""),
-		}
+	if getFFlagUGCValidateBodyParts() then
+		if
+			instance.ClassName ~= schema.ClassName
+			or (schema.Name ~= nil and (not checkName(schema.Name, instance.Name)))
+		then
+			return {
+				success = false,
+				message = "Expected top-level instance to be a " .. schema.ClassName .. " named " .. getReadableName(
+					schema.Name
+				),
+			}
+		end
+	else
+		if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and schema.Name ~= instance.Name) then
+			return {
+				success = false,
+				message = "Expected top-level instance to be a " .. schema.ClassName,
+			}
+		end
 	end
 
 	local authorizedSet = {}
@@ -97,7 +105,7 @@ local function validateWithSchema(schema, instance)
 	if #unauthorizedDescendantPaths > 0 then
 		return {
 			success = false,
-			message = "Unexpected Descendants:\n" .. table.concat(unauthorizedDescendantPaths, "\n")
+			message = "Unexpected Descendants:\n" .. table.concat(unauthorizedDescendantPaths, "\n"),
 		}
 	end
 

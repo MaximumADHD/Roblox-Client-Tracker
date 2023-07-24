@@ -2,7 +2,8 @@
 
 local root = script.Parent.Parent
 local Packages = root.Parent
-local Cryo = require(Packages.Cryo)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
 local NavigationSymbol = require(root.NavigationSymbol)
 
 local POP_TOKEN = NavigationSymbol("POP")
@@ -37,38 +38,38 @@ setmetatable(StackActions, {
 
 -- Pop the top-most item off the route stack, if any.
 function StackActions.pop(payload)
-	return Cryo.Dictionary.join({ type = POP_TOKEN }, payload or {})
+	local _ref = { type = POP_TOKEN }
+	return if payload then Object.assign(_ref, payload) else _ref
 end
 
 -- Pop all the items except the last one off the route stack.
 function StackActions.popToTop(payload)
-	return Cryo.Dictionary.join({ type = POP_TO_TOP_TOKEN }, payload or {})
+	local _ref = { type = POP_TO_TOP_TOKEN }
+	return if payload then Object.assign(_ref, payload) else _ref
 end
 
 -- Push a new item onto the route stack.
 function StackActions.push(payload)
-	return Cryo.Dictionary.join({ type = PUSH_TOKEN }, payload or {})
+	local _ref = { type = PUSH_TOKEN }
+	return if payload then Object.assign(_ref, payload) else _ref
 end
 
 -- Reset the route stack and replace it with a new stack,
 -- specified by a list of actions to be applied.
 function StackActions.reset(payload)
-	return Cryo.Dictionary.join({ type = RESET_TOKEN }, payload or {})
+	local _ref = { type = RESET_TOKEN }
+	return if payload then Object.assign(_ref, payload) else _ref
 end
 
 -- Replace the route for the given key with a new route.
 function StackActions.replace(payload)
-	return Cryo.Dictionary.join(
-		{ type = REPLACE_TOKEN, preserveFocus = true },
-		payload or {}
-	)
+	local _ref = { type = REPLACE_TOKEN, preserveFocus = true }
+	return if payload then Object.assign(_ref, payload) else _ref
 end
 
 function StackActions.completeTransition(payload)
-	return Cryo.Dictionary.join(
-		{ type = COMPLETE_TRANSITION_TOKEN, preserveFocus = true },
-		payload or {}
-	)
+	local _ref = { type = COMPLETE_TRANSITION_TOKEN, preserveFocus = true }
+	return if payload then Object.assign(_ref, payload) else _ref
 end
 
 return StackActions

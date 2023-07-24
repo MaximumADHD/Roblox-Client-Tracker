@@ -16,6 +16,7 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local TEXT_LINE_COUNT = 2
 local TITLE_PADDING = 8
+local TITLE_PADDING_REDUCED_MOTION = 6
 
 export type OuterPadding = number | StyleTypes.PaddingItem
 
@@ -41,28 +42,32 @@ export type Props = {
 }
 
 local function TileContentPanel(props: Props)
+	local stylePalette = useStyle()
+	local settings = stylePalette.Settings
+
+	local titlePaddingDefault = if settings.ReducedMotion then TITLE_PADDING_REDUCED_MOTION else TITLE_PADDING
+
 	local contentTitle = props.contentTitle
 	local contentFooter = props.contentFooter
 	local titleTextLineCount = setDefault(props.textLineCount, TEXT_LINE_COUNT)
 	local hasSidePadding = setDefault(props.hasSidePadding, true)
 	local paddingLeft, paddingRight, paddingTop, paddingBottom
 	if props.outerPadding == nil or type(props.outerPadding) == "number" then
-		local outerPadding = setDefault(props.outerPadding, TITLE_PADDING)
+		local outerPadding = setDefault(props.outerPadding, titlePaddingDefault)
 		paddingLeft = outerPadding
 		paddingRight = outerPadding
 		paddingTop = outerPadding
 		paddingBottom = outerPadding
 	else
-		paddingLeft = setDefault(props.outerPadding.Left, TITLE_PADDING)
-		paddingRight = setDefault(props.outerPadding.Right, TITLE_PADDING)
-		paddingTop = setDefault(props.outerPadding.Top, TITLE_PADDING)
-		paddingBottom = setDefault(props.outerPadding.Bottom, TITLE_PADDING)
+		paddingLeft = setDefault(props.outerPadding.Left, titlePaddingDefault)
+		paddingRight = setDefault(props.outerPadding.Right, titlePaddingDefault)
+		paddingTop = setDefault(props.outerPadding.Top, titlePaddingDefault)
+		paddingBottom = setDefault(props.outerPadding.Bottom, titlePaddingDefault)
 	end
-	local titlePadding = setDefault(props.titlePadding, TITLE_PADDING)
+	local titlePadding = setDefault(props.titlePadding, titlePaddingDefault)
 	local panelHeight = props.panelHeight
 	local footerHeight = props.footerHeight
 
-	local stylePalette = useStyle()
 	local font = stylePalette.Font
 	local titleFont = setDefault(props.titleFont, font.Header2)
 	local theme = stylePalette.Theme

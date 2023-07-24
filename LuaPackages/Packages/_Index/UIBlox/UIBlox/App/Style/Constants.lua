@@ -24,4 +24,9 @@ Constants.Layout = {
 	},
 }
 
+Constants.DefaultSettings = {
+	preferredTransparency = 1,
+	reducedMotion = false,
+}
+
 return Constants

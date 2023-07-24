@@ -27,7 +27,7 @@ local function validateWrapTargetComparison(meshScale: Vector3, meshHandle: Mesh
 	assert(meshId)
 
 	local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
-	assert(wrapTarget and wrapTarget.Name == meshHandle.Name, "Missing WrapTarget child for " .. meshHandle.Name)
+	assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
 	local wrapMeshId = getMeshInfo(wrapTarget)
 
 	local mesh = { id = meshId :: string, scale = meshScale, context = meshHandle.Name }
@@ -36,13 +36,7 @@ local function validateWrapTargetComparison(meshScale: Vector3, meshHandle: Mesh
 		scale = meshScale,
 		context = wrapTarget.ClassName,
 	}
-	return validateMeshComparison(
-		mesh,
-		otherMesh,
-		Constants.RenderVsWrapMeshComparison.lowerTol,
-		Constants.RenderVsWrapMeshComparison.upperTol,
-		isServer
-	)
+	return validateMeshComparison(mesh, otherMesh, Constants.RenderVsWrapMeshMaxDiff, isServer)
 end
 
 local function calculateMeshSize(meshHandle: MeshPart, isServer: boolean): (boolean, { string }?, Vector3?)

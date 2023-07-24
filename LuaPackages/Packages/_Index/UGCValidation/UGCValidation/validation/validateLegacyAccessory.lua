@@ -23,7 +23,12 @@ local getAttachment = require(root.util.getAttachment)
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 
-local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean, allowUnreviewedAssets: boolean): (boolean, {string}?)
+local function validateLegacyAccessory(
+	instances: { Instance },
+	assetTypeEnum: Enum.AssetType,
+	isServer: boolean,
+	allowUnreviewedAssets: boolean
+): (boolean, { string }?)
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 
 	local success: boolean, reasons: any
@@ -143,7 +148,7 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 			end
 
 			if game:GetFastFlag("UGCValidateMeshVertColors") then
-				success, failedReason = validateMeshVertColors(meshId)
+				success, failedReason = validateMeshVertColors(meshId, false)
 				if not success then
 					table.insert(reasons, table.concat(failedReason, "\n"))
 					validationResult = false
@@ -203,7 +208,7 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 		end
 
 		if game:GetFastFlag("UGCValidateMeshVertColors") then
-			success, reasons = validateMeshVertColors(meshId)
+			success, reasons = validateMeshVertColors(meshId, false)
 			if not success then
 				return false, reasons
 			end

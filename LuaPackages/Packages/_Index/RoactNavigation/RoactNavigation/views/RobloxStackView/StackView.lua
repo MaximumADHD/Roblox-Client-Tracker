@@ -1,19 +1,21 @@
-local root = script.Parent.Parent.Parent
+local RobloxStackView = script.Parent
+local root = RobloxStackView.Parent.Parent
 local Packages = root.Parent
-local Cryo = require(Packages.Cryo)
-local Roact = require(Packages.Roact)
+
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
+local React = require(Packages.React)
 local StackActions = require(root.routers.StackActions)
-local StackViewLayout = require(script.Parent.StackViewLayout)
-local Transitioner = require(script.Parent.Transitioner)
-local StackViewTransitionConfigs = require(script.Parent.StackViewTransitionConfigs)
-local StackPresentationStyle = require(script.Parent.StackPresentationStyle)
+local StackViewLayout = require(RobloxStackView.StackViewLayout)
+local Transitioner = require(RobloxStackView.Transitioner)
+local StackViewTransitionConfigs = require(RobloxStackView.StackViewTransitionConfigs)
+local StackPresentationStyle = require(RobloxStackView.StackPresentationStyle)
 
 local defaultNavigationConfig = {
 	mode = StackPresentationStyle.Default,
 }
 
-
-local StackView = Roact.Component:extend("StackView")
+local StackView = React.Component:extend("StackView")
 
 function StackView:init()
 	self._doRender = function(...)
@@ -44,7 +46,7 @@ function StackView:render()
 
 	-- Transitioner handles setting up the animation motors and making that data
 	-- available to the lower layer.
-	return Roact.createElement(Transitioner, {
+	return React.createElement(Transitioner, {
 		render = self._doRender,
 		configureTransition = self._doConfigureTransition,
 		screenProps = screenProps,
@@ -67,15 +69,18 @@ end
 
 function StackView:_render(transition, lastTransition)
 	local screenProps = self.props.screenProps
-	local navigationConfig = Cryo.Dictionary.join(defaultNavigationConfig, self.props.navigationConfig)
+	local navigationConfig = Object.assign(table.clone(defaultNavigationConfig), self.props.navigationConfig)
 	local descriptors = self.props.descriptors
 
-	return Roact.createElement(StackViewLayout, Cryo.Dictionary.join(navigationConfig, {
-		screenProps = screenProps,
-		descriptors = descriptors,
-		transitionProps = transition,
-		lastTransitionProps = lastTransition,
-	}))
+	return React.createElement(
+		StackViewLayout,
+		Object.assign(navigationConfig, {
+			screenProps = screenProps,
+			descriptors = descriptors,
+			transitionProps = transition,
+			lastTransitionProps = lastTransition,
+		})
+	)
 end
 
 function StackView:_configureTransition(transition, lastTransition)
@@ -88,8 +93,7 @@ function StackView:_configureTransition(transition, lastTransition)
 end
 
 function StackView:_onTransitionStart(transition, lastTransition)
-	local onTransitionStart = self.props.onTransitionStart
-		or self.props.navigationConfig.onTransitionStart
+	local onTransitionStart = self.props.onTransitionStart or self.props.navigationConfig.onTransitionStart
 
 	-- Only propagate transition changes to caller for transitions where the actual
 	-- index has changed. Transitioner sends updates for _all_ transitions, including
@@ -122,8 +126,7 @@ function StackView:_onTransitionEnd(transition, lastTransition)
 end
 
 function StackView:_onTransitionStep(transition, lastTransition, value)
-	local onTransitionStep = self.props.onTransitionStep
-		or self.props.navigationConfig.onTransitionStep
+	local onTransitionStep = self.props.onTransitionStep or self.props.navigationConfig.onTransitionStep
 
 	-- Only propagate transition changes to caller for transitions where the actual
 	-- index has changed. Transitioner sends updates for _all_ transitions, including

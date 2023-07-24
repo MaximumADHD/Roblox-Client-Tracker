@@ -12,12 +12,12 @@ return function(navigation)
 	local childrenNavigationCache = navigation._childrenNavigation
 
 	local childKeys = {}
-	for _, route in ipairs(navigation.state.routes or {}) do
+	for _, route in navigation.state.routes or {} do
 		childKeys[route.key] = true
 	end
 
 	if not navigation.state.isTransitioning then
-		for cacheKey, _ in pairs(childrenNavigationCache) do
+		for cacheKey, _ in childrenNavigationCache do
 			if not childKeys[cacheKey] then
 				childrenNavigationCache[cacheKey] = nil
 			end

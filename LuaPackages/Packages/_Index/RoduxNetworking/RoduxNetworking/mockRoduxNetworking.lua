@@ -10,7 +10,7 @@ local function makeMockRequestObject(script)
 	request.Mock = {
 		reply = noOpt,
 		clear = noOpt,
-		replyWithError = noOpt
+		replyWithError = noOpt,
 	}
 
 	return request
@@ -20,5 +20,6 @@ return function()
 	return {
 		GET = makeMockRequestObject,
 		POST = makeMockRequestObject,
+		PATCH = makeMockRequestObject,
 	}
 end

@@ -34,18 +34,16 @@ end
 	}
 ]]
 return function(routeConfigs)
-	invariant(type(routeConfigs) == "table", "routeConfigs must be a table")
 	invariant(next(routeConfigs) ~= nil, "Please specify at least one route when configuring a navigator.")
 
-	for routeName, routeConfig in pairs(routeConfigs) do
+	for routeName, routeConfig in routeConfigs do
 		local screenComponent = getScreenComponent(routeConfig)
 
 		local tableRouteConfig = type(routeConfig) == "table"
 		invariant(
-			isValidScreenComponent(screenComponent) or
-				(tableRouteConfig and type(routeConfig.getScreen) == "function"),
-			"The component for route '%s' must be a Roact component or table with 'getScreen'." ..
-				[[ For example:
+			isValidScreenComponent(screenComponent) or (tableRouteConfig and type(routeConfig.getScreen) == "function"),
+			"The component for route '%s' must be a Roact component or table with 'getScreen'."
+				.. [[ For example:
 
 local MyScreen = require(script.Parent.MyScreen)
 ...

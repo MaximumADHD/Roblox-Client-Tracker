@@ -7,6 +7,7 @@ local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Cryo = require(Packages.Cryo)
 
 local StyleProvider = require(UIBlox.Core.Style.StyleProvider)
 
@@ -33,15 +34,25 @@ AppStyleProvider.validateProps = t.strictInterface({
 	style = t.strictInterface({
 		themeName = t.string,
 		fontName = t.string,
+		settings = t.optional(t.strictInterface({
+			preferredTransparency = t.optional(t.number),
+			reducedMotion = t.optional(t.boolean),
+		})),
 	}),
 	[Roact.Children] = t.table,
 })
 
 function AppStyleProvider:render()
 	local style = self.props.style
+	local settings =
+		Cryo.Dictionary.join(if style.settings == nil then {} else style.settings, Constants.DefaultSettings)
 	local appStyle = {
 		Font = getFontFromName(style.fontName, DEFAULT_FONT, FONT_MAP),
 		Theme = getThemeFromName(style.themeName, DEFAULT_THEME, THEME_MAP),
+		Settings = {
+			PreferredTransparency = settings.preferredTransparency,
+			ReducedMotion = settings.reducedMotion,
+		},
 	}
 	return Roact.createElement(StyleProvider, {
 		style = appStyle,

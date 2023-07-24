@@ -1,13 +1,10 @@
 local LuaSocialLibrariesDeps = script.Parent
 
-local FFlagSocialUpdateRoduxNetworking = game:DefineFastFlag("SocialUpdateRoduxNetworking", false)
-
 return {
 	GenericPagination = require(LuaSocialLibrariesDeps.GenericPagination),
 	RoactFitComponents = require(LuaSocialLibrariesDeps.RoactFitComponents),
 	Mock = require(LuaSocialLibrariesDeps.Mock),
-	RoduxNetworking = if FFlagSocialUpdateRoduxNetworking then require(LuaSocialLibrariesDeps.RoduxNetworking_new) else require(LuaSocialLibrariesDeps.RoduxNetworking),
-	FFlagSocialUpdateRoduxNetworking = FFlagSocialUpdateRoduxNetworking,
+	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
 	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),

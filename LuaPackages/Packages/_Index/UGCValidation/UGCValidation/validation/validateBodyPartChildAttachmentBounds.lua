@@ -6,23 +6,15 @@ local Constants = require(root.Constants)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
-local getMeshMinMax = require(root.util.getMeshMinMax)
+local floatEquals = require(root.util.floatEquals)
 
-local function validateInMeshSpace(
-	att: Attachment,
-	part: MeshPart,
-	meshMin: Vector3,
-	meshMax: Vector3,
-	boundsInfoMeshSpace: any
-): (boolean, { string }?)
-	local meshHalfSize = (meshMax - meshMin) / 2
-	--meshCenter needs to be 0,0,0 for this function to work correctly, if it's not 0, 0, 0 then `validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua will catch it
-	local meshCenter = meshMin + meshHalfSize
+-- this function relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
+local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMeshSpace: any): (boolean, { string }?)
+	local meshHalfSize = part.Size / 2
+	local posMeshSpace = (att.CFrame.Position / meshHalfSize) :: any
 
 	local minMeshSpace = boundsInfoMeshSpace.min
 	local maxMeshSpace = boundsInfoMeshSpace.max
-
-	local posMeshSpace = ((att.CFrame.Position - meshCenter) / meshHalfSize) :: any
 	for _, dimension in { "X", "Y", "Z" } do
 		if
 			posMeshSpace[dimension] < (minMeshSpace :: any)[dimension]
@@ -31,9 +23,10 @@ local function validateInMeshSpace(
 			return false,
 				{
 					string.format(
-						"Attachment (%s) in %s, must be within [%s] to [%s]",
+						"Attachment (%s) in %s, is at [%s] but must be within [%s] to [%s]",
 						att.Name,
 						part.Name,
+						prettyPrintVector3(att.CFrame.Position),
 						prettyPrintVector3(minMeshSpace * meshHalfSize),
 						prettyPrintVector3(maxMeshSpace * meshHalfSize)
 					),
@@ -45,17 +38,6 @@ end
 
 -- NOTE: All FindFirstChild() calls will succeed based on all expected parts being checked for existance before calling this function
 local function checkAll(meshHandle: MeshPart, isServer: boolean, partData: any): (boolean, { string }?)
-	local success, failureReasons, meshMinOpt, meshMaxOpt = getMeshMinMax(meshHandle.MeshId, isServer)
-	if not success then
-		return success, failureReasons
-	end
-
-	local meshMin = meshMinOpt :: Vector3
-	local meshMax = meshMaxOpt :: Vector3
-	local meshSize = Vector3.new(meshMax.X - meshMin.X, meshMax.Y - meshMin.Y, meshMax.Z - meshMin.Z)
-	meshMin = meshMin * (meshHandle.Size / meshSize)
-	meshMax = meshMax * (meshHandle.Size / meshSize)
-
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	local rigAttachmentToParent: Attachment? =
@@ -64,13 +46,7 @@ local function checkAll(meshHandle: MeshPart, isServer: boolean, partData: any):
 
 	if
 		not reasonsAccumulator:updateReasons(
-			validateInMeshSpace(
-				rigAttachmentToParent :: Attachment,
-				meshHandle,
-				meshMin,
-				meshMax,
-				partData.rigAttachmentToParent.bounds
-			)
+			validateInMeshSpace(rigAttachmentToParent :: Attachment, meshHandle, partData.rigAttachmentToParent.bounds)
 		)
 	then
 		return reasonsAccumulator:getFinalResults()
@@ -82,18 +58,37 @@ local function checkAll(meshHandle: MeshPart, isServer: boolean, partData: any):
 
 		if
 			not reasonsAccumulator:updateReasons(
-				validateInMeshSpace(
-					childAttachment :: Attachment,
-					meshHandle,
-					meshMin,
-					meshMax,
-					childAttachmentInfo.bounds
-				)
+				validateInMeshSpace(childAttachment :: Attachment, meshHandle, childAttachmentInfo.bounds)
 			)
 		then
 			return reasonsAccumulator:getFinalResults()
 		end
 	end
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function validateAttachmentRotation(inst: Instance): (boolean, { string }?)
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	for _, desc in inst:GetDescendants() do
+		local isRigAttachment = desc.ClassName == "Attachment" and string.find(desc.Name, "RigAttachment")
+		if not isRigAttachment then
+			continue
+		end
+
+		local x, y, z = desc.CFrame:ToOrientation()
+		if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
+			if
+				not reasonsAccumulator:updateReasons(
+					false,
+					{ `RigAttachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
+				)
+			then
+				return reasonsAccumulator:getFinalResults()
+			end
+		end
+	end
+
 	return reasonsAccumulator:getFinalResults()
 end
 
@@ -106,6 +101,10 @@ local function validateBodyPartChildAttachmentBounds(
 	assert(assetInfo)
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	if not reasonsAccumulator:updateReasons(validateAttachmentRotation(inst)) then
+		return reasonsAccumulator:getFinalResults()
+	end
 
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
 		if not reasonsAccumulator:updateReasons(checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head)) then

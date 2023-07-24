@@ -1,13 +1,19 @@
+--!strict
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+local getFFlagAddValidateVertColorsAlphaUGCValidate = require(root.flags.getFFlagAddValidateVertColorsAlphaUGCValidate)
 
 local floatEquals = require(root.util.floatEquals)
 local valueToString = require(root.util.valueToString)
 
-local function validateMeshVertexColors(meshId: string, isServer: boolean?): (boolean, { string }?)
+local function validateMeshVertexColors(
+	meshId: string,
+	checkTransparency: boolean,
+	isServer: boolean?
+): (boolean, { string }?)
 	if not game:GetFastFlag("UGCReturnAllValidations") then
 		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
 		if meshId == "" then
@@ -15,9 +21,12 @@ local function validateMeshVertexColors(meshId: string, isServer: boolean?): (bo
 		end
 	end
 
-	if game:GetFastFlag("UGCLCQualityReplaceLua") or getFFlagUGCValidateBodyParts() then
+	if
+		(game:GetFastFlag("UGCLCQualityReplaceLua") or getFFlagUGCValidateBodyParts())
+		and getFFlagAddValidateVertColorsAlphaUGCValidate()
+	then
 		local success, result = pcall(function()
-			return UGCValidationService:ValidateMeshVertColors(meshId)
+			return UGCValidationService:ValidateMeshVertColors(meshId, checkTransparency) -- ValidateMeshVertColors() checks the color as well as the alpha transparency
 		end)
 
 		if not success then

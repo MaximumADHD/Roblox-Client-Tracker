@@ -7,6 +7,7 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 local VirtualizedList = require(Packages.VirtualizedList).VirtualizedList
+local Cryo = require(Packages.Cryo)
 local withStyle = require(Core.Style.withStyle)
 
 local DIVIDER_START_OFFSET = 24
@@ -15,21 +16,29 @@ type ListTableProps = {
 	-- The LayoutOrder of the list table
 	layoutOrder: number?,
 	-- The Size of the list table.
-	-- If it's no set, the list table will size itself to the parent container.
+	-- If it's not set, the list table will size itself to the parent container.
 	size: UDim2?,
 	-- The AnchorPoint of the list table
 	anchorPoint: Vector2?,
 	-- The Position of the list table
 	position: UDim2?,
+	-- Whether or not the list as a whole is selectable.
+	-- If not set, the default is true
+	selectable: bool?,
 	-- The name passed to the ScrollingFrame Instance
 	Name: string?,
 	-- Array of cell components
 	cells: Array<any>,
 }
 
-local function ScrollingListTable(props: ListTableProps)
+local defaultProps: ListTableProps = {
+	selectable = true,
+	size = UDim2.fromScale(1, 1),
+}
+
+local function ScrollingListTable(providedProps: ListTableProps)
 	return withStyle(function(style)
-		local size: UDim2 = props.size or UDim2.fromScale(1, 1)
+		local props: ListTableProps = Cryo.Dictionary.join(defaultProps, providedProps)
 
 		local children = {}
 		local cells = props.cells
@@ -56,7 +65,7 @@ local function ScrollingListTable(props: ListTableProps)
 		end
 
 		return React.createElement(VirtualizedList, {
-			Size = size,
+			Size = props.size,
 			data = children,
 			renderItem = function(info)
 				return info.item
@@ -78,6 +87,7 @@ local function ScrollingListTable(props: ListTableProps)
 				LayoutOrder = props.layoutOrder,
 				Name = props.Name or "ListTable",
 				ScrollBarThickness = 0,
+				Selectable = props.selectable,
 			},
 			contentContainerStyle = {
 				BackgroundTransparency = 1,

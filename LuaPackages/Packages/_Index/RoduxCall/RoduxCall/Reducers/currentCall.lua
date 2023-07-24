@@ -7,6 +7,7 @@ local StartCall = require(RoduxCall.Actions).StartCall :: any
 local EndCall = require(RoduxCall.Actions).EndCall :: any
 local ConnectingCall = require(RoduxCall.Actions).ConnectingCall :: any
 local UpdateCall = require(RoduxCall.Actions).UpdateCall :: any
+local FailedCall = require(RoduxCall.Actions).FailedCall :: any
 
 local roduxCallTypes = require(script.Parent.Parent.roduxCallTypes)
 
@@ -37,6 +38,12 @@ return function()
 			else
 				return CallStateModel.format(call)
 			end
+		end,
+
+		[FailedCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.FailedCallAction)
+			local lastCall = action.payload.lastCall
+			lastCall.status = Status.Failed.rawValue()
+			return CallStateModel.format(lastCall)
 		end,
 	} :: {
 		[string]: (roduxCallTypes.CurrentCall, any) -> roduxCallTypes.CurrentCall,

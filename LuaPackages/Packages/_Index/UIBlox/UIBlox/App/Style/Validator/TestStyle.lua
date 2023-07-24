@@ -113,9 +113,15 @@ local testFont = {
 	Footer = font,
 }
 
+local testSettings = {
+	PreferredTransparency = 0.56,
+	ReducedMotion = true,
+}
+
 local testStyle = {
 	Theme = testTheme,
 	Font = testFont,
+	Settings = testSettings,
 }
 
 return testStyle

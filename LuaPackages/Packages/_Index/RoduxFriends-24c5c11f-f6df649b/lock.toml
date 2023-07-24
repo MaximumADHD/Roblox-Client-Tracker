@@ -6,7 +6,7 @@ source = "git+https://github.com/roblox/rodux-friends#v3.7.0"
 dependencies = [
     "FriendsNetworking NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "RoduxNetworking RoduxNetworking 3.0.2 url+https://github.com/roblox/rodux-networking",
+    "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
