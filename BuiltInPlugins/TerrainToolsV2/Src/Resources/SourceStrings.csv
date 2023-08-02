@@ -250,6 +250,7 @@ Studio.TerrainToolsV2.RegionSettings.RegionSettings, ,Region Settings
 Studio.TerrainToolsV2.RegionSettings.Rotation, ,Rotation
 Studio.TerrainToolsV2.RegionSettings.Select, ,Select
 Studio.TerrainToolsV2.RegionSettings.Size, ,Size
+Studio.TerrainToolsV2.RegionSettings.SnapToVoxels, ,Snap to Voxels
 Studio.TerrainToolsV2.RegionSettings.Transform, ,Transform
 Studio.TerrainToolsV2.RegionSettings.TransformMode, ,Transform Mode
 Studio.TerrainToolsV2.Regions.EditTools, ,Edit Tools

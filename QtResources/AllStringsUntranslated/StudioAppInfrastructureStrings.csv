@@ -48,7 +48,7 @@ Studio.App.IdeDoc.UncommittedScriptChangesPublishedToNewPlace,Roblox IDE Doc,You
 Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish failed.
 Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
 Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
-Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
+Studio.App.IdeDoc.DeprecateCSG.v1,,You have been upgraded to the latest CSG engine due to a potential security vulnerability found in the legacy CSG engine. <a href=%1>Learn More</a>,You have been upgraded to the latest CSG engine due to a potential security vulnerability found in the legacy CSG engine. <a href=%1>Learn More</a>
 Studio.App.IdeDoc.SavedToLocalFile1,Message displayed when a user successfully saves a place to a file. %1 is the file path.,"Saved to ""%1""","Saved to ""%1"""
 Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.
 Studio.App.MainWindow.ClearTerrainTitle,Main Window,No terrain to clear,No terrain to clear

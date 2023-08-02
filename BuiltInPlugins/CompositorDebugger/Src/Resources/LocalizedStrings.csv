@@ -6,9 +6,11 @@ Studio.CompositorDebugger.Plugin.Toolbar,Animation,Animation,Animación,Animatio
 Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Toggles the Compositor Debugger window.,Activa la ventana de depurador de compositores.,Active/désactive la fenêtre Compositor Debugger.,Commuta la finestra del Debug Compositore.,植字デバッガーウィンドウを切り替え。,작성자 디버거 창을 토글합니다.,Alterna a janela do Depurador do compositor.,切换合成器调试器窗口。,切换合成器调试器窗口。,切換合成器調試器視窗。
 Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details,Layer Details,Detalles de capa,Détails de la couche,Dettagli livello,レイヤーの詳細,레이어 세부 정보,Detalhes da camada,分层细节,分层细节,圖層詳情
 Studio.CompositorDebugger.LayerView.Properties,Properties,Properties,Propiedades,Propriétés,Proprietà,プロパティ,속성,Propriedades,属性,属性,屬性
+Studio.CompositorDebugger.LayerView.props,Properties,Properties, , , , , , , , , 
 Studio.CompositorDebugger.LayerView.State,State,State,Estado,État,Stato,状況,상태,Estado,状态,状态,狀態
 Studio.CompositorDebugger.LayerView.UserData,User Data,User Data,Datos de usuario,Données de l'utilisateur,Dati utente,ユーザーデータ,사용자 데이터,Dados do usuário,用户数据,用户数据,使用者資料
 Studio.CompositorDebugger.LayerView.Watches,Watches,Watches,Inspecciones,Surveillances,Ispezioni,観察,조사식,Observações,监视,监视,監看記錄
 Studio.CompositorDebugger.LayerPanel.LayerData,Layer Data,Layer Data,Datos de capa,Données sur les superpositions,Dati dei strati,レイヤーデータ,레이어 데이터,Dados da camada,分层数据,分层数据,圖層資料
 Studio.CompositorDebugger.LayerPanel.Visualization,Visualization,Visualization,Visualización,Visualisation,Visualizzazione,視覚化,시각화,Visualização,可视化,可视化,視覺效果
 Studio.CompositorDebugger.LayerPanel.RawData,Raw Data,Raw Data,Datos sin procesar,Données brutes,Dati grezzi,未加工データ,원시 데이터,Dados brutos,原始数据,原始数据,原始資料
+Studio.CompositorDebugger.LayerPanel.History,History,History, , , , , , , , , 

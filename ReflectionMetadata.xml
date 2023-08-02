@@ -2600,37 +2600,146 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
-        <string name="Name">Speaker</string>
+        <string name="Name">Wire</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
-
-      <Item class="ReflectionMetadataProperties">
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">ChannelCount</string>
-            <bool name="FFlag">EnableAudioChannelCountProperty</bool>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Volume</string>
-            <double name="UIMinimum">0</double>
-            <double name="UIMaximum">10</double>
-            <double name="UINumTicks">1000</double>
-            <string name="SliderScaling">Square</string>
-          </Properties>
-        </Item>
-      </Item>
     </Item>
-
     <Item class="ReflectionMetadataClass">
       <Properties>
-        <string name="Name">VoiceSource</string>
+        <string name="Name">AudioPlayer</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioEmitter</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioListener</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioDeviceInput</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioDeviceOutput</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioChorus</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioDistortion</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioFlanger</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioReverb</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioEcho</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioEqualizer</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioFader</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioAnalyzer</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioPitchShifter</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioCompressor</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
     </Item>
 

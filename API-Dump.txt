@@ -311,6 +311,80 @@ Class Bone : Attachment
 	Property CFrame Bone.TransformedCFrame [Hidden] [ReadOnly]
 	Property CFrame Bone.TransformedWorldCFrame [ReadOnly] {🧬Unsafe}
 	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
+Class AudioAnalyzer : Instance [NotBrowsable]
+	Property float AudioAnalyzer.PeakLevel [ReadOnly]
+	Property float AudioAnalyzer.RmsLevel [ReadOnly]
+Class AudioChorus : Instance [NotBrowsable]
+	Property float AudioChorus.Depth
+	Property float AudioChorus.Mix
+	Property float AudioChorus.Rate
+Class AudioCompressor : Instance [NotBrowsable]
+	Property float AudioCompressor.Attack
+	Property float AudioCompressor.MakeupGain
+	Property float AudioCompressor.Ratio
+	Property float AudioCompressor.Release
+	Property float AudioCompressor.Threshold
+Class AudioDeviceInput : Instance [NotBrowsable]
+	Property Enum.AccessModifierType AudioDeviceInput.AccessType
+	Property bool AudioDeviceInput.Active {✏️RobloxScriptSecurity}
+	Property bool AudioDeviceInput.IsReady {RobloxScriptSecurity} [ReadOnly]
+	Property bool AudioDeviceInput.Muted
+	Property Player AudioDeviceInput.Player
+	Property BinaryString AudioDeviceInput.AccessList {RobloxSecurity} [Hidden] [NotScriptable]
+	Function Array AudioDeviceInput:GetUserIdAccessList()
+	Function void AudioDeviceInput:SetUserIdAccessList(Array userIds)
+Class AudioDeviceOutput : Instance [NotBrowsable]
+	Property Player AudioDeviceOutput.Player
+Class AudioDistortion : Instance [NotBrowsable]
+	Property float AudioDistortion.Level
+Class AudioEcho : Instance [NotBrowsable]
+	Property float AudioEcho.DelayTime
+	Property float AudioEcho.DryLevel
+	Property float AudioEcho.Feedback
+	Property float AudioEcho.WetLevel
+Class AudioEmitter : Instance [NotBrowsable]
+	Property string AudioEmitter.AudioInteractionGroup
+Class AudioEqualizer : Instance [NotBrowsable]
+	Property float AudioEqualizer.HighGain
+	Property float AudioEqualizer.LowGain
+	Property float AudioEqualizer.MidGain
+	Property NumberRange AudioEqualizer.MidRange
+Class AudioFader : Instance [NotBrowsable]
+	Property float AudioFader.Volume
+Class AudioFlanger : Instance [NotBrowsable]
+	Property float AudioFlanger.Depth
+	Property float AudioFlanger.Mix
+	Property float AudioFlanger.Rate
+Class AudioListener : Instance [NotBrowsable]
+	Property string AudioListener.AudioInteractionGroup
+Class AudioPitchShifter : Instance [NotBrowsable]
+	Property float AudioPitchShifter.Pitch
+Class AudioPlayer : Instance [NotBrowsable]
+	Property string AudioPlayer.AssetId
+	Property bool AudioPlayer.AutoLoad
+	Property bool AudioPlayer.IsPlaying {✏️RobloxSecurity}
+	Property bool AudioPlayer.IsReady [ReadOnly]
+	Property NumberRange AudioPlayer.LoopRegion
+	Property bool AudioPlayer.Looping
+	Property NumberRange AudioPlayer.PlaybackRegion
+	Property double AudioPlayer.PlaybackSpeed
+	Property double AudioPlayer.TimeLength [ReadOnly]
+	Property double AudioPlayer.TimePosition
+	Function void AudioPlayer:Play()
+	Function void AudioPlayer:Stop()
+Class AudioReverb : Instance [NotBrowsable]
+	Property float AudioReverb.DecayRatio
+	Property float AudioReverb.DecayTime
+	Property float AudioReverb.Density
+	Property float AudioReverb.Diffusion
+	Property float AudioReverb.DryLevel
+	Property float AudioReverb.EarlyDelayTime
+	Property float AudioReverb.HighCutFrequency
+	Property float AudioReverb.LateDelayTime
+	Property float AudioReverb.LowShelfFrequency
+	Property float AudioReverb.LowShelfGain
+	Property float AudioReverb.ReferenceFrequency
+	Property float AudioReverb.WetLevel
 Class AudioSearchParams : Instance [NotReplicated]
 	Property string AudioSearchParams.Album
 	Property string AudioSearchParams.Artist
@@ -863,6 +937,7 @@ Class AlignOrientation : Constraint
 	Property float AlignOrientation.MaxTorque
 	Property float AlignOrientation.Responsiveness
 	Property CFrame AlignOrientation.CFrame
+	Property Vector3 AlignOrientation.LookAtPosition [NotReplicated]
 	Property Vector3 AlignOrientation.PrimaryAxis [NotReplicated]
 	Property Vector3 AlignOrientation.SecondaryAxis [NotReplicated]
 Class AlignPosition : Constraint
@@ -871,7 +946,7 @@ Class AlignPosition : Constraint
 	Property Vector3 AlignPosition.Position
 	Property bool AlignPosition.ReactionForceEnabled
 	Property bool AlignPosition.RigidityEnabled
-	Property Enum.ForceLimitMode AlignPosition.ForceLimitMode [NotBrowsable]
+	Property Enum.ForceLimitMode AlignPosition.ForceLimitMode
 	Property Enum.ActuatorRelativeTo AlignPosition.ForceRelativeTo
 	Property Vector3 AlignPosition.MaxAxesForce
 	Property float AlignPosition.MaxForce
@@ -1316,6 +1391,7 @@ Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:EditBreakpoint(int metaBreakpointId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:EditWatch(string expression) {RobloxScriptSecurity}
 	Function bool DebuggerUIService:IsConnectionForPlayDataModel(int debuggerConnectionId) {RobloxScriptSecurity}
+	Function void DebuggerUIService:OpenExceptionMessagePopup(string exceptionMessage, int pausedLine) {RobloxScriptSecurity}
 	Function void DebuggerUIService:OpenScriptAtLine(string guid, int debuggerConnectionId, int line, bool showErrorOnFail) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
 	Function void DebuggerUIService:RemoveScriptLineMarkers(int debuggerConnectionId, bool allMarkers) {RobloxScriptSecurity}
@@ -1400,7 +1476,7 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class DynamicImage : Instance [NotCreatable]
 	Property Vector2 DynamicImage.Size
 	Function void DynamicImage:Clear()
-	Function void DynamicImage:DrawCircle(Vector2 center, int radius, Color3 color, float alpha)
+	Function void DynamicImage:DrawCircle(Vector2 center, int radius, Color3 color, float transparency)
 	Function Array DynamicImage:ReadPixels(Vector2 position, Vector2 size) [CustomLuaState]
 	Function void DynamicImage:Resize(Vector2 newSize)
 	Function void DynamicImage:Rotate(float degrees, bool resizeCanvas = true)
@@ -1684,6 +1760,7 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject GuiObject.NextSelectionUp
 	Property bool GuiObject.Selectable
 	Property int GuiObject.SelectionOrder
+	Property Enum.GuiState GuiObject.GuiState [ReadOnly]
 	Function bool GuiObject:TweenPosition(UDim2 endPosition, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSize(UDim2 endSize, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSizeAndPosition(UDim2 endSize, UDim2 endPosition, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
@@ -2719,9 +2796,9 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
 	Function bool MarketplaceService:PlayerOwnsBundle(Player player, int64 bundleId) [Yields]
-	Function void MarketplaceService:PrepareCollectiblesPurchase(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
+	Function void MarketplaceService:PrepareCollectiblesPurchase(Instance player, int64 assetId, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId)
-	Function void MarketplaceService:PromptCollectiblesPurchase(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
+	Function void MarketplaceService:PromptCollectiblesPurchase(Instance player, int64 assetId, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int64 gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) {RobloxScriptSecurity}
 	Function void MarketplaceService:PromptNativePurchaseWithLocalPlayer(string productId) {RobloxScriptSecurity}
@@ -2755,10 +2832,10 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.MockPurchaseSubscription(Instance player, int64 subscriptionId) {RobloxScriptSecurity} [Hidden]
 	Event MarketplaceService.NativePurchaseFinished(Instance player, string productId, bool wasPurchased) {RobloxScriptSecurity}
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(string productId, bool wasPurchased) {RobloxScriptSecurity}
-	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
+	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(Instance player, int64 assetId, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptBundlePurchaseFinished(Instance player, int64 bundleId, bool wasPurchased)
 	Event MarketplaceService.PromptBundlePurchaseRequested(Instance player, int64 bundleId) {RobloxScriptSecurity}
-	Event MarketplaceService.PromptCollectiblesPurchaseRequested(Instance player, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice, string idempotencyKey, string purchaseAuthToken) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptCollectiblesPurchaseRequested(Instance player, int64 assetId, string collectibleItemId, string collectibleItemInstanceId, string collectibleProductId, int expectedPrice, string idempotencyKey, string purchaseAuthToken) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptGamePassPurchaseFinished(Instance player, int64 gamePassId, bool wasPurchased)
 	Event MarketplaceService.PromptGamePassPurchaseRequested(Instance player, int64 gamePassId) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptNativePurchaseRequested(Instance player, string productId) {RobloxSecurity} [Hidden]
@@ -2791,6 +2868,10 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Property string MaterialService.AsphaltName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.BasaltName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.BrickName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.CardboardName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.CarpetName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.CeramicTilesName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.ClayRoofTilesName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.CobblestoneName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.ConcreteName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.CorrodedMetalName {RobloxSecurity} [NotScriptable]
@@ -2804,14 +2885,18 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Property string MaterialService.GroundName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.IceName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.LeafyGrassName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.LeatherName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.LimestoneName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.MarbleName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.MetalName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.MudName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.PavementName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.PebbleName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.PlasterName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.PlasticName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.RockName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.RoofShinglesName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.RubberName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SaltName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SandName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SandstoneName {RobloxSecurity} [NotScriptable]
@@ -3114,8 +3199,6 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function void BasePart:SetNetworkOwnershipAuto()
 	Function Instance BasePart:SubtractAsync(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
 	Function Instance BasePart:UnionAsync(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
-	Function Objects BasePart:subtractAsync2_INTERNAL(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
-	Function Objects BasePart:unionAsync2_INTERNAL(Objects parts, Enum.CollisionFidelity collisionfidelity = "Default", Enum.RenderFidelity renderFidelity = "Automatic") [Yields]
 	Event BasePart.LocalSimulationTouched(BasePart part) [Deprecated]
 	Event BasePart.NetworkOwnerChanged(SystemAddress systemAddress) {LocalUserSecurity} [Hidden]
 	Event BasePart.OutfitChanged() [Deprecated]
@@ -3563,6 +3646,7 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreAnchorsShown
 	Property bool PhysicsSettings.AreAssembliesShown
+	Property bool PhysicsSettings.AreAssemblyCentersOfMassShown {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreAwakePartsHighlighted
 	Property bool PhysicsSettings.AreBodyTypesShown
 	Property bool PhysicsSettings.AreCollisionCostsShown {RobloxScriptSecurity}
@@ -4076,6 +4160,7 @@ Class RenderSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool RenderSettings.RenderCSGTrianglesDebug
 	Property bool RenderSettings.ShowBoundingBoxes
 	Property Enum.ViewMode RenderSettings.ViewMode
+	Property bool RenderSettings.Enable VR Mode
 	Property bool RenderSettings.ExportMergeByMaterial
 	Property Enum.FramerateManagerMode RenderSettings.FrameRateManager
 	Property Enum.GraphicsMode RenderSettings.GraphicsMode
@@ -5079,6 +5164,7 @@ Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property int64 ChatInputBarConfiguration.TextSize
 	Property Color3 ChatInputBarConfiguration.TextStrokeColor3
 	Property double ChatInputBarConfiguration.TextStrokeTransparency
+	Property bool ChatInputBarConfiguration.AutocompleteEnabled
 	Property bool ChatInputBarConfiguration.Enabled
 	Property Enum.KeyCode ChatInputBarConfiguration.KeyboardKeyCode
 	Property Vector2 ChatInputBarConfiguration.AbsolutePosition [ReadOnly] {🧬Unsafe}
@@ -5681,6 +5767,15 @@ Class WeldConstraint : Instance
 	Property BasePart WeldConstraint.Part0Internal [Hidden] [NotScriptable]
 	Property BasePart WeldConstraint.Part1 [<📁> LoadOnly] [NotReplicated]
 	Property BasePart WeldConstraint.Part1Internal [Hidden] [NotScriptable]
+Class Wire : Instance [NotBrowsable]
+	Property bool Wire.Connected [ReadOnly]
+	Property Instance Wire.SourceInstance
+	Property string Wire.SourceName
+	Property Instance Wire.TargetInstance
+	Property string Wire.TargetName
+Enum AccessModifierType
+	EnumItem AccessModifierType.Allow : 0
+	EnumItem AccessModifierType.Deny : 1
 Enum AccessoryType
 	EnumItem AccessoryType.Unknown : 0
 	EnumItem AccessoryType.Hat : 1
@@ -5869,6 +5964,10 @@ Enum AssetTypeVerification
 Enum AudioSubType
 	EnumItem AudioSubType.Music : 1
 	EnumItem AudioSubType.SoundEffect : 2
+Enum AudioWindowSize
+	EnumItem AudioWindowSize.Small : 0
+	EnumItem AudioWindowSize.Medium : 1
+	EnumItem AudioWindowSize.Large : 2
 Enum AutoIndentRule
 	EnumItem AutoIndentRule.Off : 0
 	EnumItem AutoIndentRule.Absolute : 1
@@ -6638,6 +6737,10 @@ Enum GraphicsMode
 	EnumItem GraphicsMode.Metal : 5
 	EnumItem GraphicsMode.Vulkan : 6
 	EnumItem GraphicsMode.NoGraphics : 9
+Enum GuiState
+	EnumItem GuiState.Idle : 0
+	EnumItem GuiState.Hover : 1
+	EnumItem GuiState.Press : 2
 Enum GuiType
 	EnumItem GuiType.Core : 0
 	EnumItem GuiType.Custom : 1
@@ -7120,6 +7223,14 @@ Enum Material
 	EnumItem Material.ForceField : 1584
 	EnumItem Material.Air : 1792 [NotBrowsable]
 	EnumItem Material.Water : 2048 [NotBrowsable]
+	EnumItem Material.Cardboard : 2304
+	EnumItem Material.Carpet : 2305
+	EnumItem Material.CeramicTiles : 2306
+	EnumItem Material.ClayRoofTiles : 2307
+	EnumItem Material.RoofShingles : 2308
+	EnumItem Material.Leather : 2309
+	EnumItem Material.Plaster : 2310
+	EnumItem Material.Rubber : 2311
 Enum MaterialPattern
 	EnumItem MaterialPattern.Regular : 0
 	EnumItem MaterialPattern.Organic : 1

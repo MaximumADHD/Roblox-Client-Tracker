@@ -1,6 +1,7 @@
 Key,en-us
 Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to apply the selected material to the selected parts
 Studio.MaterialManager.Categories.Asphalt,Asphalt
+Studio.MaterialManager.Categories.Ceramic,Ceramic
 Studio.MaterialManager.Categories.Concrete,Concrete
 Studio.MaterialManager.Categories.Dirt,Dirt
 Studio.MaterialManager.Categories.Fabric,Fabric
@@ -14,6 +15,7 @@ Studio.MaterialManager.Categories.Mineral,Mineral
 Studio.MaterialManager.Categories.Mud,Mud
 Studio.MaterialManager.Categories.Natural,Natural
 Studio.MaterialManager.Categories.Organic,Organic
+Studio.MaterialManager.Categories.Paper,Paper
 Studio.MaterialManager.Categories.Plastic,Plastic
 Studio.MaterialManager.Categories.Rock,Rock
 Studio.MaterialManager.Categories.Sand,Sand
@@ -112,6 +114,18 @@ Studio.MaterialManager.Materials.BasaltVariant,Basalt Variant
 Studio.MaterialManager.Materials.Brick,Brick
 Studio.MaterialManager.Materials.BrickMaterial,Brick Material
 Studio.MaterialManager.Materials.BrickVariant,Brick Variant
+Studio.MaterialManager.Materials.Cardboard,Cardboard
+Studio.MaterialManager.Materials.CardboardMaterial,Cardboard Material
+Studio.MaterialManager.Materials.CardboardVariant,Cardboard Variant
+Studio.MaterialManager.Materials.Carpet,Carpet
+Studio.MaterialManager.Materials.CarpetMaterial,Carpet Material
+Studio.MaterialManager.Materials.CarpetVariant,Carpet Variant
+Studio.MaterialManager.Materials.CeramicTiles,Ceramic Tiles
+Studio.MaterialManager.Materials.CeramicTilesMaterial,Ceramic Tiles Material
+Studio.MaterialManager.Materials.CeramicTilesVariant,Ceramic Tiles Variant
+Studio.MaterialManager.Materials.ClayRoofTiles,Clay Roof Tiles
+Studio.MaterialManager.Materials.ClayRoofTilesMaterial,Clay Roof Tiles Material
+Studio.MaterialManager.Materials.ClayRoofTilesVariant,Clay Roof Tiles Variant
 Studio.MaterialManager.Materials.Cobblestone,Cobblestone
 Studio.MaterialManager.Materials.CobblestoneMaterial,Cobblestone Material
 Studio.MaterialManager.Materials.CobblestoneVariant,Cobblestone Variant
@@ -157,6 +171,9 @@ Studio.MaterialManager.Materials.IceVariant,Ice Variant
 Studio.MaterialManager.Materials.LeafyGrass,Leafy Grass
 Studio.MaterialManager.Materials.LeafyGrassMaterial,Leafy Grass Material
 Studio.MaterialManager.Materials.LeafyGrassVariant,Leafy Grass Variant
+Studio.MaterialManager.Materials.Leather,Leather
+Studio.MaterialManager.Materials.LeatherMaterial,Leather Material
+Studio.MaterialManager.Materials.LeatherVariant,Leather Variant
 Studio.MaterialManager.Materials.Limestone,Limestone
 Studio.MaterialManager.Materials.LimestoneMaterial,Limestone Material
 Studio.MaterialManager.Materials.LimestoneVariant,Limestone Variant
@@ -178,12 +195,21 @@ Studio.MaterialManager.Materials.PavementVariant,Pavement Variant
 Studio.MaterialManager.Materials.Pebble,Pebble
 Studio.MaterialManager.Materials.PebbleMaterial,Pebble Material
 Studio.MaterialManager.Materials.PebbleVariant,Pebble Variant
+Studio.MaterialManager.Materials.Plaster,Plaster
+Studio.MaterialManager.Materials.PlasterMaterial,Plaster Material
+Studio.MaterialManager.Materials.PlasterVariant,Plaster Variant
 Studio.MaterialManager.Materials.Plastic,Plastic
 Studio.MaterialManager.Materials.PlasticMaterial,Plastic Material
 Studio.MaterialManager.Materials.PlasticVariant,Plastic Variant
 Studio.MaterialManager.Materials.Rock,Rock
 Studio.MaterialManager.Materials.RockMaterial,Rock Material
 Studio.MaterialManager.Materials.RockVariant,Rock Variant
+Studio.MaterialManager.Materials.RoofShingles,Roof Shingles
+Studio.MaterialManager.Materials.RoofShinglesMaterial,Roof Shingles Material
+Studio.MaterialManager.Materials.RoofShinglesVariant,Roof Shingles Variant
+Studio.MaterialManager.Materials.Rubber,Rubber
+Studio.MaterialManager.Materials.RubberMaterial,Rubber Material
+Studio.MaterialManager.Materials.RubberVariant,Rubber Variant
 Studio.MaterialManager.Materials.Salt,Salt
 Studio.MaterialManager.Materials.SaltMaterial,Salt Material
 Studio.MaterialManager.Materials.SaltVariant,Salt Variant

@@ -1,0 +1,14 @@
+Key,Context,Source,en-us
+Studio.App.GenerativeAI.Welcome,,"Hi!
+
+Here are some ways I can help:
+- Suggest code
+- Answer questions related to your code
+- Explain code","Hi!
+
+Here are some ways I can help:
+- Suggest code
+- Answer questions related to your code
+- Explain code"
+Studio.App.GenerativeAI.ClearAllMessages,,Clear All Messages,Clear All Messages
+Studio.App.GenerativeAI.Placeholder,,Enter request here,Enter request here

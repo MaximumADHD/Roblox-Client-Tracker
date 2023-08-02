@@ -46,6 +46,7 @@ Studio.AssetImporter.Plugin.Name,AssetImporter
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
+Studio.AssetImporter.PreviewTooltip.ToggleInsertContext, Toggle insert location preview
 Studio.AssetImporter.Properties.AddModelToInventory,Add Model To Inventory
 Studio.AssetImporter.Properties.Anchored,Anchored
 Studio.AssetImporter.Properties.AnimationIdForRestPose,Custom Rest Pose Animation
@@ -200,6 +201,11 @@ Studio.AssetImporter.Statuses.UGCExceedUVSpaceWarning,Mesh has UVs defined outsi
 Studio.AssetImporter.Statuses.UGCMaxMeshTrianglesWarning,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.
 Studio.AssetImporter.Statuses.UGCMeshVertColorsWarning,"Mesh has non-white vertex color values, which violates UGC upload requirements"
 Studio.AssetImporter.Statuses.UnsupportedPreviewTextureType,".tga and .gif are not fully supported. They may not be visible in previews, and in some cases may cause the upload to fail, but they'll appear if the upload succeeds. You may convert them to a different file type such as .png or .jpg to view them in the preview window."
+Studio.AssetImporter.Templates.Default,Default
+Studio.AssetImporter.Templates.LastImportTooltip,Root settings from the last time you imported a file
+Studio.AssetImporter.Templates.LastImported,Last Imported
+Studio.AssetImporter.Templates.ModifiedTemplateTooltip,You have made some changes based on the settings from your last imported file
+Studio.AssetImporter.Templates.ResetTooltip,Reset settings back to selected template
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand
 Studio.AssetImporter.Upload.Failure,Import failed

@@ -42,3 +42,4 @@ Studio.App.ScriptCommandHandler.OpenScriptFile,,Open Script File,Open Script Fil
 Studio.App.Tooltip.Variadic,,Variadic,Variadic
 Studio.App.DebuggerUIUtilities.InsertTemporaryBreakpointElps,,Insert Temporary Breakpoint,Insert Temporary Breakpoint
 Studio.App.BreakpointEditDialog.RemoveOnHit,,Remove Breakpoint on Hit,Remove Breakpoint on Hit
+Studio.App.ExceptionPopup.Title,Appears when an exception paused execution in the debugger,Exception Hit,Exception Hit

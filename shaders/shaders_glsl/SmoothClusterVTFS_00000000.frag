@@ -19,46 +19,55 @@ varying vec2 VARYING7;
 void main()
 {
     vec2 f0 = (VARYING7 * vec2(0.03125)) + CB5[0].zw;
-    vec4 f1 = texture2D(TranslationMapTexture, vec4(f0, 0.0, 6.5).xy, 6.5);
-    vec3 f2;
-    if (f1.w < 0.0)
+    bool f1 = CB5[0].z < 0.0;
+    vec4 f2;
+    if (!f1)
     {
-        f2 = VARYING6.xyz * VARYING6.xyz;
+        f2 = texture2D(TranslationMapTexture, vec4(f0, 0.0, 6.5).xy, 6.5);
     }
     else
     {
-        f2 = texture2D(AlbedoMapTexture, (f0 * f1.z) + f1.xy).xyz;
+        f2 = vec4(0.0);
     }
-    float f3 = clamp(dot(step(CB0[24].xyz, abs(VARYING1 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f4 = VARYING1.yzx - (VARYING1.yzx * f3);
-    vec4 f5 = vec4(clamp(f3, 0.0, 1.0));
-    vec4 f6 = mix(texture3D(LightMapTexture, f4), vec4(0.0), f5);
-    vec4 f7 = mix(texture3D(LightGridSkylightTexture, f4), vec4(1.0), f5);
-    vec4 f8 = texture2D(ShadowMapTexture, VARYING2.xy);
-    vec3 f9 = (min((f6.xyz * (f6.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f7.x)), vec3(CB0[21].w)) + (VARYING4 * ((1.0 - ((step(f8.x, VARYING2.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING2.z - 0.5)), 0.0, 1.0)) * f8.y)) * f7.y))) * f2;
-    vec4 f10 = vec4(0.0);
-    f10.x = f9.x;
-    vec4 f11 = f10;
-    f11.y = f9.y;
+    vec3 f3;
+    if ((f2.w < 0.0) || f1)
+    {
+        f3 = VARYING6.xyz * VARYING6.xyz;
+    }
+    else
+    {
+        f3 = texture2D(AlbedoMapTexture, (f0 * f2.z) + f2.xy).xyz;
+    }
+    float f4 = clamp(dot(step(CB0[24].xyz, abs(VARYING1 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f5 = VARYING1.yzx - (VARYING1.yzx * f4);
+    vec4 f6 = vec4(clamp(f4, 0.0, 1.0));
+    vec4 f7 = mix(texture3D(LightMapTexture, f5), vec4(0.0), f6);
+    vec4 f8 = mix(texture3D(LightGridSkylightTexture, f5), vec4(1.0), f6);
+    vec4 f9 = texture2D(ShadowMapTexture, VARYING2.xy);
+    vec3 f10 = (min((f7.xyz * (f7.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f8.x)), vec3(CB0[21].w)) + (VARYING4 * ((1.0 - ((step(f9.x, VARYING2.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING2.z - 0.5)), 0.0, 1.0)) * f9.y)) * f8.y))) * f3;
+    vec4 f11 = vec4(0.0);
+    f11.x = f10.x;
     vec4 f12 = f11;
-    f12.z = f9.z;
+    f12.y = f10.y;
     vec4 f13 = f12;
-    f13.w = 1.0;
-    vec3 f14 = mix(CB0[19].xyz, f13.xyz, vec3(clamp(exp2((CB0[18].z * VARYING2.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
-    vec4 f15 = f13;
-    f15.x = f14.x;
-    vec4 f16 = f15;
-    f16.y = f14.y;
+    f13.z = f10.z;
+    vec4 f14 = f13;
+    f14.w = 1.0;
+    vec3 f15 = mix(CB0[19].xyz, f14.xyz, vec3(clamp(exp2((CB0[18].z * VARYING2.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
+    vec4 f16 = f14;
+    f16.x = f15.x;
     vec4 f17 = f16;
-    f17.z = f14.z;
-    vec3 f18 = sqrt(clamp(f17.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
-    vec4 f19 = f17;
-    f19.x = f18.x;
-    vec4 f20 = f19;
-    f20.y = f18.y;
+    f17.y = f15.y;
+    vec4 f18 = f17;
+    f18.z = f15.z;
+    vec3 f19 = sqrt(clamp(f18.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
+    vec4 f20 = f18;
+    f20.x = f19.x;
     vec4 f21 = f20;
-    f21.z = f18.z;
-    gl_FragData[0] = f21;
+    f21.y = f19.y;
+    vec4 f22 = f21;
+    f22.z = f19.z;
+    gl_FragData[0] = f22;
 }
 
 //$$ShadowMapTexture=s1

@@ -9,6 +9,7 @@ Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
 Studio.App.GradientEditor.Time,,Time,Time
 Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
 Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
+Studio.App.Properties.NoTagsAdded,Displayed in Tags Section when no tags have been added yet.,No Tags have been added yet,No Tags have been added yet
 Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
 Studio.App.Properties.UnknownAttribute,Displayed when an unhandled exception occurs.,Unknown attributes runtime error.,Unknown attributes runtime error.

@@ -53,6 +53,7 @@ Studio.App.Property.IsTreeShown,,Is Tree Shown,Is Tree Shown
 Studio.App.Property.IsInterpolationThrottleShown,,Is Interpolation Throttle Shown,Is Interpolation Throttle Shown
 Studio.App.Property.ShowDecompositionGeometry,,Show Decomposition Geometry,Show Decomposition Geometry
 Studio.App.Property.AreCollisionCostsShown,,Show Collision Performance,Show Collision Performance
+Studio.App.Property.AreCentersOfMassShown,,Are Assembly Centers of Mass Shown,Are Assembly Centers of Mass Shown
 Studio.App.Property.DisableCSGv2,,Enable Legacy CSG for Roblox Tools,Enable Legacy CSG for Roblox Tools
 Studio.App.Property.AreTimestepsShown,,Are Timesteps Shown,Are Timesteps Shown
 Studio.App.SettingsHeader.Studio,,Studio,Studio
@@ -201,6 +202,7 @@ Studio.App.Property.ServerAudioBehavior,,Server Audio Behavior,Server Audio Beha
 Studio.App.Property.MainVolume,,Main Volume,Main Volume
 Studio.App.Property.OnlyPlayAudioFromWindowInFocus,,Only Play Audio from Window in Focus,Only Play Audio from Window in Focus
 Studio.App.SettingsCategory.StudioUndo,,Undo,Undo
+Studio.App.Property.VRMode,,Enable VR Mode,Enable VR Mode
 Studio.App.Property.RuntimeUndoBehavior,,Runtime Undo Behavior,Runtime Undo Behavior
 Studio.App.SettingsCategory.StudioExplorer,,Explorer,Explorer
 Studio.App.Property.ShowPlusButtonOnHoverInExplorer,,Show plus button on hover in Explorer,Show plus button on hover in Explorer

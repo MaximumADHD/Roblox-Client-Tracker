@@ -5451,6 +5451,1203 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "PeakLevel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RmsLevel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioAnalyzer",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Depth",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Mix",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Rate",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioChorus",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Attack",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MakeupGain",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Ratio",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Release",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Threshold",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioCompressor",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AccessType",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AccessModifierType"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Active",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsReady",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Muted",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Player",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Player"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetUserIdAccessList",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetUserIdAccessList",
+                    "Parameters": [
+                        {
+                            "Name": "userIds",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioDeviceInput",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Player",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Player"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioDeviceOutput",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Level",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioDistortion",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DelayTime",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DryLevel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Feedback",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "WetLevel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioEcho",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AudioInteractionGroup",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioEmitter",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "HighGain",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "LowGain",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MidGain",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MidRange",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioEqualizer",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Volume",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioFader",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Depth",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Mix",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Rate",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioFlanger",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AudioInteractionGroup",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioListener",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Pitch",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioPitchShifter",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AssetId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AutoLoad",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsPlaying",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsReady",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "LoopRegion",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Looping",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PlaybackRegion",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PlaybackSpeed",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TimeLength",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TimePosition",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Play",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Stop",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioPlayer",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DecayRatio",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DecayTime",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Density",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Diffusion",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DryLevel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "EarlyDelayTime",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "HighCutFrequency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "LateDelayTime",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "LowShelfFrequency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "LowShelfGain",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ReferenceFrequency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "WetLevel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AudioReverb",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "Album",
                     "Security": {
                         "Read": "None",
@@ -15564,6 +16761,27 @@
                     }
                 },
                 {
+                    "Category": "TargetOrientation",
+                    "MemberType": "Property",
+                    "Name": "LookAtPosition",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
                     "Category": "Compliance",
                     "MemberType": "Property",
                     "Name": "MaxAngularVelocity",
@@ -15768,9 +16986,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -23948,6 +25163,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "OpenExceptionMessagePopup",
+                    "Parameters": [
+                        {
+                            "Name": "exceptionMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "pausedLine",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "OpenScriptAtLine",
                     "Parameters": [
                         {
@@ -25559,7 +26800,7 @@
                             }
                         },
                         {
-                            "Name": "alpha",
+                            "Name": "transparency",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "float"
@@ -30364,6 +31605,28 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "GuiState",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "GuiState"
                     }
                 },
                 {
@@ -47639,6 +48902,13 @@
                             }
                         },
                         {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
                             "Name": "collectibleItemId",
                             "Type": {
                                 "Category": "Primitive",
@@ -47709,6 +48979,13 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
                             }
                         },
                         {
@@ -48799,6 +50076,13 @@
                             }
                         },
                         {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
                             "Name": "collectibleItemId",
                             "Type": {
                                 "Category": "Primitive",
@@ -48890,6 +50174,13 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
                             }
                         },
                         {
@@ -49607,6 +50898,90 @@
                 {
                     "Category": "Material Overrides",
                     "MemberType": "Property",
+                    "Name": "CardboardName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "CarpetName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "CeramicTilesName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "ClayRoofTilesName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
                     "Name": "CobblestoneName",
                     "Security": {
                         "Read": "RobloxSecurity",
@@ -49880,6 +51255,27 @@
                 {
                     "Category": "Material Overrides",
                     "MemberType": "Property",
+                    "Name": "LeatherName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
                     "Name": "LimestoneName",
                     "Security": {
                         "Read": "RobloxSecurity",
@@ -50006,6 +51402,27 @@
                 {
                     "Category": "Material Overrides",
                     "MemberType": "Property",
+                    "Name": "PlasterName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
                     "Name": "PlasticName",
                     "Security": {
                         "Read": "RobloxSecurity",
@@ -50028,6 +51445,48 @@
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "RockName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "RoofShinglesName",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "RubberName",
                     "Security": {
                         "Read": "RobloxSecurity",
                         "Write": "RobloxSecurity"
@@ -55895,82 +57354,6 @@
                     "ReturnType": {
                         "Category": "Class",
                         "Name": "Instance"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "subtractAsync2_INTERNAL",
-                    "Parameters": [
-                        {
-                            "Name": "parts",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Objects"
-                            }
-                        },
-                        {
-                            "Default": "Default",
-                            "Name": "collisionfidelity",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "CollisionFidelity"
-                            }
-                        },
-                        {
-                            "Default": "Automatic",
-                            "Name": "renderFidelity",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "RenderFidelity"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Objects"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "unionAsync2_INTERNAL",
-                    "Parameters": [
-                        {
-                            "Name": "parts",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Objects"
-                            }
-                        },
-                        {
-                            "Default": "Default",
-                            "Name": "collisionfidelity",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "CollisionFidelity"
-                            }
-                        },
-                        {
-                            "Default": "Automatic",
-                            "Name": "renderFidelity",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "RenderFidelity"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Objects"
                     },
                     "Security": "None",
                     "Tags": [
@@ -63676,6 +65059,24 @@
                     "Security": {
                         "Read": "None",
                         "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Display",
+                    "MemberType": "Property",
+                    "Name": "AreAssemblyCentersOfMassShown",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -72631,6 +74032,24 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "QualityLevel"
+                    }
+                },
+                {
+                    "Category": "General",
+                    "MemberType": "Property",
+                    "Name": "Enable VR Mode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -90392,6 +91811,24 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "AutocompleteEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "BackgroundColor3",
@@ -101149,9 +102586,126 @@
             "MemoryCategory": "PhysicsParts",
             "Name": "WeldConstraint",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Connected",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SourceInstance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SourceName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TargetInstance",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TargetName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Wire",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
         }
     ],
     "Enums": [
+        {
+            "Items": [
+                {
+                    "Name": "Allow",
+                    "Value": 0
+                },
+                {
+                    "Name": "Deny",
+                    "Value": 1
+                }
+            ],
+            "Name": "AccessModifierType"
+        },
         {
             "Items": [
                 {
@@ -101936,6 +103490,23 @@
                 }
             ],
             "Name": "AudioSubType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Small",
+                    "Value": 0
+                },
+                {
+                    "Name": "Medium",
+                    "Value": 1
+                },
+                {
+                    "Name": "Large",
+                    "Value": 2
+                }
+            ],
+            "Name": "AudioWindowSize"
         },
         {
             "Items": [
@@ -105215,6 +106786,23 @@
         {
             "Items": [
                 {
+                    "Name": "Idle",
+                    "Value": 0
+                },
+                {
+                    "Name": "Hover",
+                    "Value": 1
+                },
+                {
+                    "Name": "Press",
+                    "Value": 2
+                }
+            ],
+            "Name": "GuiState"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Core",
                     "Value": 0
                 },
@@ -107200,6 +108788,38 @@
                 {
                     "Name": "ForceField",
                     "Value": 1584
+                },
+                {
+                    "Name": "Cardboard",
+                    "Value": 2304
+                },
+                {
+                    "Name": "Carpet",
+                    "Value": 2305
+                },
+                {
+                    "Name": "CeramicTiles",
+                    "Value": 2306
+                },
+                {
+                    "Name": "ClayRoofTiles",
+                    "Value": 2307
+                },
+                {
+                    "Name": "RoofShingles",
+                    "Value": 2308
+                },
+                {
+                    "Name": "Leather",
+                    "Value": 2309
+                },
+                {
+                    "Name": "Plaster",
+                    "Value": 2310
+                },
+                {
+                    "Name": "Rubber",
+                    "Value": 2311
                 }
             ],
             "Name": "Material"

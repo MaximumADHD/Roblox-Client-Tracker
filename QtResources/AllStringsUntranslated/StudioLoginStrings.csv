@@ -15,6 +15,7 @@ Studio.Auth.Try.Again,The text for retrying launching Studio login,Try Again,Try
 Studio.Auth.Studio.Login,The text for offering the user to login Studio using embedded PKCE flow when launching from web but lack of matching local credential,Login via Studio,Login via Studio
 Studio.Auth.Original.Studio.Not.Found,Error message is shown when the original instance of Studio cannot be found during the external login flow,An error occurred while logging into Studio. Please do not close Studio during login.,An error occurred while logging into Studio. Please do not close Studio during login.
 Studio.App.Login.UnableToConnect,This error is shown to users when Studio fails initially because Studio could not connect.,Studio is unable to connect. Please check your internet connection and try again.,Studio is unable to connect. Please check your internet connection and try again.
+Studio.App.Login.AddNewUser,,Add new user,Add new user
 Studio.App.LoginManager.LogOut,,Log Out,Log Out
 Studio.App.LoginManager.LoggedOut,,Logged Out,Logged Out
 Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service

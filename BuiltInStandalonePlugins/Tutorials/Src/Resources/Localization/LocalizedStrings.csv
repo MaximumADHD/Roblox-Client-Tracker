@@ -1,47 +1,47 @@
-Key,Source,en-us
-Studio.Tutorials.StudioTour.panCamera_Description,Use the <b>E</b> and <b>Q</b> keys to pan up and down.,Use the <b>E</b> and <b>Q</b> keys to pan up and down.
-Studio.Tutorials.Plugin.Name,Tutorials,Tutorials
-Studio.Tutorials.Completed.Title,You completed the %s!,You completed the %s!
-Studio.Tutorials.StudioTour.parts_Title,Parts,Parts
-Studio.Tutorials.Plugin.Button,Toggle,Toggle
-Studio.Tutorials.StudioTour.material_Description,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material.,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material.
-Studio.Tutorials.StudioTour.select_Title,Select Part,Select Part
-Studio.Tutorials.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
-Studio.Tutorials.Plugin.Start,Start,Start
-Studio.Tutorials.Tutorial.StepSkipped,Step Skipped,Step Skipped
-Studio.Tutorials.Plugin.Welcome,"Welcome to Roblox Studio, %s!","Welcome to Roblox Studio, %s!"
-Studio.Tutorials.Plugin.Next,Next,Next
-Studio.Tutorials.Plugin.Title,Want to learn the basics? Start the tour to make your first experience.,Want to learn the basics? Start the tour to make your first experience.
-Studio.Tutorials.StudioTour.color_Description,Click this button to choose a new color for your part.,Click this button to choose a new color for your part.
-Studio.Tutorials.Completed.Description,Continue building here or visit the Dashboard to choose a different template place.,Continue building here or visit the Dashboard to choose a different template place.
-Studio.Tutorials.Completed.Back,Dashboard,Dashboard
-Studio.Tutorials.StudioTour.workspace_Title, Workspace, Workspace
-Studio.Tutorials.Tutorial.QuitTutorial,Quit Tutorial,Quit Tutorial
-Studio.Tutorials.Completed.Continue,Continue,Continue
-Studio.Tutorials.StudioTour.material_Title,Change Material,Change Material
-Studio.Tutorials.Tutorial.Begin,Begin,Begin
-Studio.Tutorials.Tutorial.SkipStep,Skip Step,Skip Step
-Studio.Tutorials.StudioTour.playtest_Title,Playtest,Playtest
-Studio.Tutorials.Tutorial.StopPlaytest_Title,Playtest,Playtest
-Studio.Tutorials.StudioTour.parts_Description,"Parts are the basic building blocks in Studio.<br><br>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br><br>Add as many as you like now!","Parts are the basic building blocks in Studio.<br><br>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br><br>Add as many as you like now!"
-Studio.Tutorials.StudioTour.explorer_Title,Explorer,Explorer
-Studio.Tutorials.Tutorial.StopPlaytest_Description,"Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br><br>Try interacting with the parts you added!<br><br>When you're ready, press Stop to go back to editing your place.","Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br><br>Try interacting with the parts you added!<br><br>When you're ready, press Stop to go back to editing your place."
-Studio.Tutorials.StudioTour.properties_Description,This is the Properties window. You can see and edit the properties of any object you select.,This is the Properties window. You can see and edit the properties of any object you select.
-Studio.Tutorials.StudioTour.Title,Studio Tour,Studio Tour
-Studio.Tutorials.StudioTour.welcome_Title,Studio Tour,Studio Tour
-Studio.Tutorials.StudioTour.welcome_Description,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.
-Studio.Tutorials.StudioTour.moveCamera_Title,Moving the Camera,Moving the Camera
-Studio.Tutorials.StudioTour.panCamera_Title,Moving the Camera,Moving the Camera
-Studio.Tutorials.StudioTour.moveCamera_Description,"Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!","Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!"
-Studio.Tutorials.StudioTour.properties_Title,Properties,Properties
-Studio.Tutorials.StudioTour.zoomCamera_Title,Zooming the Camera,Zooming the Camera
-Studio.Tutorials.StudioTour.zoomCamera_Description,Zoom in and out by scrolling with your mouse wheel or trackpad.,Zoom in and out by scrolling with your mouse wheel or trackpad.
-Studio.Tutorials.StudioTour.rotateCamera_Title,Rotating the Camera,Rotating the Camera
-Studio.Tutorials.StudioTour.rotateCamera_Description,"Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around","Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around"
-Studio.Tutorials.StudioTour.select_Description,Select a part you created earlier by clicking one in the Explorer or the 3D view.,Select a part you created earlier by clicking one in the Explorer or the 3D view.
-Studio.Tutorials.StudioTour.explorer_Description,"The Explorer displays everything in your place, including built-in services.","The Explorer displays everything in your place, including built-in services."
-Studio.Tutorials.StudioTour.workspace_Description,The Workspace service displays everything in your 3D world.,The Workspace service displays everything in your 3D world.
-Studio.Tutorials.StudioTour.focus_Title,Focus,Focus
-Studio.Tutorials.StudioTour.focus_Description,Press F to focus the camera on the part while it's selected.,Press F to focus the camera on the part while it's selected.
-Studio.Tutorials.StudioTour.playtest_Description,"Finally, playtest your place by clicking the Play button.","Finally, playtest your place by clicking the Play button."
-Studio.Tutorials.StudioTour.color_Title,Change Color,Change Color
+Key,Source,en-us,es-es,fr-fr,ko-kr
+Studio.Tutorials.StudioTour.panCamera_Description,Use the <b>E</b> and <b>Q</b> keys to pan up and down.,Use the <b>E</b> and <b>Q</b> keys to pan up and down., ,Utilisez les touches <b>E</b> et <b>Q</b> pour faire un panoramique vers le haut et le bas.,"<b>E</b>, <b>Q</b> 키를 사용하면 위아래로 이동할 수 있습니다."
+Studio.Tutorials.Plugin.Name,Tutorials,Tutorials,Tutoriales,Tutoriels,튜토리얼
+Studio.Tutorials.Completed.Title,You completed the %s!,You completed the %s!, ,Tu as terminé le %s !,%s(을)를 완료했어요!
+Studio.Tutorials.StudioTour.parts_Title,Parts,Parts, ,Parties,파트
+Studio.Tutorials.Plugin.Button,Toggle,Toggle,Activar,Activer/désactiver,전환
+Studio.Tutorials.StudioTour.material_Description,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material.,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material., ,Modifie l'apparence et les propriétés physiques d'une partie en changeant son matériau.<br><br>Clique sur Plastique et choisis un nouveau matériau.,재질을 변경해 파트의 모양 및 물리적 속성을 변경할 수 있습니다.<br><br>플라스틱을 클릭하고 새 재질을 선택하세요.
+Studio.Tutorials.StudioTour.select_Title,Select Part,Select Part, ,Sélectionner une partie,파트 선택
+Studio.Tutorials.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window., ,Active/désactive la fenêtre du plugin Modèle.,템플릿 플러그인 창을 전환합니다.
+Studio.Tutorials.Plugin.Start,Start,Start, ,Commencer,시작
+Studio.Tutorials.Tutorial.StepSkipped,Step Skipped,Step Skipped, ,Étape ignorée,단계 건너뜀
+Studio.Tutorials.Plugin.Welcome,"Welcome to Roblox Studio, %s!","Welcome to Roblox Studio, %s!", ,"Bienvenue dans Roblox Studio, %s!","%s 님, Roblox Studio에 오신 것을 환영합니다!"
+Studio.Tutorials.Plugin.Next,Next,Next, ,Suivant,다음
+Studio.Tutorials.Plugin.Title,Want to learn the basics? Start the tour to make your first experience.,Want to learn the basics? Start the tour to make your first experience., ,Tu veux apprendre les bases ? Commence la visite pour faire ta première expérience.,투어를 통해 기본기를 배우고 첫 체험을 만들어 보세요.
+Studio.Tutorials.StudioTour.color_Description,Click this button to choose a new color for your part.,Click this button to choose a new color for your part., ,Clique sur ce bouton pour choisir une nouvelle couleur pour ta partie.,파트에 다른 색상을 선택하려면 이 버튼을 클릭하세요.
+Studio.Tutorials.Completed.Description,Continue building here or visit the Dashboard to choose a different template place.,Continue building here or visit the Dashboard to choose a different template place., ,Continue à construire ici ou consulte le tableau de bord pour choisir un autre emplacement de modèle.,여기서 빌드를 계속하거나 대시보드를 방문해 다른 템플릿 플레이스를 선택하세요.
+Studio.Tutorials.Completed.Back,Dashboard,Dashboard, ,Tableau de bord,대시보드
+Studio.Tutorials.StudioTour.workspace_Title, Workspace, Workspace, , Workspace, Workspace
+Studio.Tutorials.Tutorial.QuitTutorial,Quit Tutorial,Quit Tutorial, ,Quitter le tutoriel,튜토리얼 종료
+Studio.Tutorials.Completed.Continue,Continue,Continue, ,Continuer,계속
+Studio.Tutorials.StudioTour.material_Title,Change Material,Change Material, ,Changer de matériau,재질 변경
+Studio.Tutorials.Tutorial.Begin,Begin,Begin, ,Commencer,시작
+Studio.Tutorials.Tutorial.SkipStep,Skip Step,Skip Step, ,Ignorer l'étape,단계 건너뛰기
+Studio.Tutorials.StudioTour.playtest_Title,Playtest,Playtest, ,Test de jeu,플레이테스트
+Studio.Tutorials.Tutorial.StopPlaytest_Title,Playtest,Playtest, ,Test de jeu,플레이테스트
+Studio.Tutorials.StudioTour.parts_Description,"Parts are the basic building blocks in Studio.<br><br>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br><br>Add as many as you like now!","Parts are the basic building blocks in Studio.<br><br>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br><br>Add as many as you like now!", ,"Les parties sont les blocs de construction de base dans studio.<br><br>Utilise la flèche en dessous du bouton pour choisir une forme, comme un bloc, une sphère ou un cylindre.<br><br>Ajoute-en autant que tu veux !","파트는 Studio에서의 구축을 위한 기본 블록입니다.<br><br>버튼 아래의 화살표를 사용해 블록, 구, 원통과 같은 모양을 선택하세요.<br><br>지금 바로 원하는 대로 추가해 보세요!"
+Studio.Tutorials.StudioTour.explorer_Title,Explorer,Explorer, ,Explorer,탐색기
+Studio.Tutorials.Tutorial.StopPlaytest_Description,"Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br><br>Try interacting with the parts you added!<br><br>When you're ready, press Stop to go back to editing your place.","Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br><br>Try interacting with the parts you added!<br><br>When you're ready, press Stop to go back to editing your place.", ,"Contrôle ton avatar avec le <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> clés.<br><br>Essayez d'interagir avec les pièces que vous avez ajoutées!<br><br>Quand tu es prêt, appuie sur Arrêter pour revenir à la modification de ta place.","<b>W</b>, <b>A</b>, <b>S</b>, <b>D</b> 키로 아바타를 제어하세요.<br><br>추가한 파트로 상호작용을 시도하세요.<br><br>준비가 되면 중지를 눌러 플레이스 편집으로 돌아가세요."
+Studio.Tutorials.StudioTour.properties_Description,This is the Properties window. You can see and edit the properties of any object you select.,This is the Properties window. You can see and edit the properties of any object you select., ,Ceci est la fenêtre Propriétés. Tu peux voir et modifier les propriétés de n'importe quel objet que tu sélectionnes.,이것은 속성 창입니다. 선택한 개체의 속성을 보고 편집할 수 있습니다.
+Studio.Tutorials.StudioTour.Title,Studio Tour,Studio Tour, ,Studio Tour,Studio 투어
+Studio.Tutorials.StudioTour.welcome_Title,Studio Tour,Studio Tour, ,Studio Tour,Studio 투어
+Studio.Tutorials.StudioTour.welcome_Description,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar., ,La visite t'apprendra à créer ton premier emplacement Roblox ! Tu apprendras à utiliser les commandes de base du studio et à tester avec ton avatar Roblox.,Roblox 플레이스 제작 방법에 대해 알아보세요. 이 투어를 통해 기본 Studio 제어 방법 및 Roblox 아바타로 플레이테스트를 수행하는 방법에 대해 배울 수 있습니다.
+Studio.Tutorials.StudioTour.moveCamera_Title,Moving the Camera,Moving the Camera, ,Déplacement de la caméra,카메라 이동
+Studio.Tutorials.StudioTour.panCamera_Title,Moving the Camera,Moving the Camera, ,Déplacement de la caméra,카메라 이동
+Studio.Tutorials.StudioTour.moveCamera_Description,"Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!","Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!", ,"Utilise le <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> touches pour avancer, aller à gauche, aller en arrière et aller à droite. Essaie !","<b>W</b>, <b>A</b>, <b>S</b>, <b>D</b> 키를 사용하면 앞, 왼쪽, 뒤, 오른쪽으로 이동할 수 있습니다. 지금 바로 사용해 보세요!"
+Studio.Tutorials.StudioTour.properties_Title,Properties,Properties, ,Propriétés,속성
+Studio.Tutorials.StudioTour.zoomCamera_Title,Zooming the Camera,Zooming the Camera, ,Zoom de la caméra,카메라 줌 사용
+Studio.Tutorials.StudioTour.zoomCamera_Description,Zoom in and out by scrolling with your mouse wheel or trackpad.,Zoom in and out by scrolling with your mouse wheel or trackpad., ,Zoomez en avant et en arrière en faisant défiler la souris avec la molette ou le pavé tactile.,마우스 휠이나 트랙패드로 스크롤하면 줌을 이용해 확대 또는 축소할 수 있습니다.
+Studio.Tutorials.StudioTour.rotateCamera_Title,Rotating the Camera,Rotating the Camera, ,Faire pivoter la caméra,카메라 회전
+Studio.Tutorials.StudioTour.rotateCamera_Description,"Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around","Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around", ,"Maintiens enfoncé le bouton droit de la souris ou la touche Ctrl, puis déplace la souris pour déplacer la caméra",마우스 오른쪽 버튼이나 Ctrl 키를 누른 상태에서 마우스를 움직이면 카메라를 회전할 수 있습니다.
+Studio.Tutorials.StudioTour.select_Description,Select a part you created earlier by clicking one in the Explorer or the 3D view.,Select a part you created earlier by clicking one in the Explorer or the 3D view., ,Sélectionner une partie que tu as créée plus tôt en cliquant sur une dans Explorer ou dans la vue 3D.,탐색기 또는 3D 뷰에서 파트를 클릭하면 이전에 생성한 파트를 선택할 수 있습니다.
+Studio.Tutorials.StudioTour.explorer_Description,"The Explorer displays everything in your place, including built-in services.","The Explorer displays everything in your place, including built-in services.", ,"Explorer affiche tout dans ton emplacement, y compris les services intégrés.",탐색기를 이용하면 기본 제공 서비스 등 플레이스에 있는 모든 항목을 확인할 수 있습니다.
+Studio.Tutorials.StudioTour.workspace_Description,The Workspace service displays everything in your 3D world.,The Workspace service displays everything in your 3D world., ,Le service Workspace affiche tout dans votre monde 3D.,Workspace 서비스에서는 3D 월드의 모든 항목을 확인할 수 있습니다.
+Studio.Tutorials.StudioTour.focus_Title,Focus,Focus, ,Mise au point,초점
+Studio.Tutorials.StudioTour.focus_Description,Press F to focus the camera on the part while it's selected.,Press F to focus the camera on the part while it's selected., ,Appuie sur F pour focaliser la caméra sur la pièce pendant qu'elle est sélectionnée.,선택한 파트에 카메라 초점을 맞추려면 F를 누르세요.
+Studio.Tutorials.StudioTour.playtest_Description,"Finally, playtest your place by clicking the Play button.","Finally, playtest your place by clicking the Play button.", ,"Enfin, teste ta place en cliquant sur le bouton Jouer.",마지막으로 플레이 버튼을 클릭해 플레이스를 플레이테스트하세요.
+Studio.Tutorials.StudioTour.color_Title,Change Color,Change Color, ,Changer la couleur,색상 변경

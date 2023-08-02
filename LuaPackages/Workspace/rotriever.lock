@@ -7,19 +7,23 @@ name = "AbuseReporting"
 version = "0.1.0"
 dependencies = [
     "Cryo Cryo 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "Rodux Rodux 0.1.0",
+    "RoduxNetworking RoduxNetworking 0.1.0",
     "ServerUI ServerUI 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
+    "ToastRodux ToastRodux 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "t t 0.1.0",
@@ -103,7 +107,10 @@ dependencies = [
 [[package]]
 name = "AppStartup"
 version = "0.1.0"
-dependencies = ["AppCommonLib AppCommonLib 0.1.0"]
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+]
 
 [[package]]
 name = "AppSystemBar"
@@ -130,6 +137,17 @@ version = "0.1.0"
 [[package]]
 name = "AvatarPolicies"
 version = "0.1.0"
+
+[[package]]
+name = "AwardProtocol"
+version = "0.1.0"
+dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "MessageBus MessageBus 0.1.0",
+    "Promise Promise 0.1.0",
+    "t t 0.1.0",
+]
 
 [[package]]
 name = "BuyRobuxPageTestSuite"
@@ -176,6 +194,8 @@ dependencies = [
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SMSProtocol SMSProtocol 0.1.0",
@@ -262,6 +282,7 @@ version = "0.1.0"
 name = "EditProfile"
 version = "0.1.0"
 dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
     "Dash Dash 0.1.0",
     "FormFactor FormFactor 0.1.0",
     "GraphQLServer GraphQLServer 0.1.0",
@@ -277,6 +298,7 @@ dependencies = [
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
@@ -288,6 +310,7 @@ dependencies = [
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UrlBuilder UrlBuilder 0.1.0",
     "UserProfiles UserProfiles 0.1.0",
 ]
 
@@ -388,9 +411,11 @@ dependencies = [
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "DiscoverabilityModal DiscoverabilityModal 0.1.0",
+    "FocusNavigationUtils FocusNavigationUtils 0.1.0",
     "FormFactor FormFactor 0.1.0",
     "GraphQLServer GraphQLServer 0.1.0",
     "Http Http 0.1.0",
+    "InputHandlers InputHandlers 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
@@ -398,9 +423,11 @@ dependencies = [
     "Lumberyak Lumberyak 0.1.0",
     "Otter Otter 0.1.0",
     "PermissionsProtocol PermissionsProtocol 0.1.0",
+    "PlayerContextualMenu PlayerContextualMenu 0.1.0",
     "ProfileQRCode ProfileQRCode 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
@@ -806,6 +833,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "NotificationsTestSuite"
+version = "0.1.0"
+dependencies = ["AbuseReports AbuseReports 0.1.0"]
+
+[[package]]
 name = "Otter"
 version = "0.1.0"
 
@@ -919,19 +951,33 @@ dependencies = [
 name = "PlayerContextualMenu"
 version = "0.1.0"
 dependencies = [
+    "ApolloClient ApolloClient 0.1.0",
+    "AppCommonLib AppCommonLib 0.1.0",
+    "CollisionMatchers2D CollisionMatchers2D 0.1.0",
     "Dash Dash 0.1.0",
+    "GraphQLServer GraphQLServer 0.1.0",
+    "Http Http 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "Style Style 0.1.0",
+    "ToastRodux ToastRodux 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UserProfiles UserProfiles 0.1.0",
 ]
 
 [[package]]
@@ -1158,6 +1204,7 @@ dependencies = [
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
+    "RoactServiceTags RoactServiceTags 0.1.0",
     "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
@@ -1652,6 +1699,7 @@ dependencies = [
 name = "TenFootUiEngagementScreen"
 version = "0.1.0"
 dependencies = [
+    "AppStartup AppStartup 0.1.0",
     "Cryo Cryo 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
@@ -1727,6 +1775,7 @@ dependencies = [
 name = "TenFootUiShell"
 version = "0.1.0"
 dependencies = [
+    "Analytics Analytics 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "Cryo Cryo 0.1.0",
@@ -1736,6 +1785,7 @@ dependencies = [
     "InputHandlers InputHandlers 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "LinkingProtocol LinkingProtocol 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Navigation Navigation 0.1.0",
     "Promise Promise 0.1.0",
@@ -1761,6 +1811,7 @@ dependencies = [
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UniversalAppPolicy UniversalAppPolicy 0.1.0",
+    "UrlBuilder UrlBuilder 0.1.0",
 ]
 
 [[package]]
@@ -1850,6 +1901,15 @@ dependencies = [
     "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Promise Promise 0.1.0",
+]
+
+[[package]]
+name = "ToastRodux"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Rodux Rodux 0.1.0",
 ]
 
 [[package]]

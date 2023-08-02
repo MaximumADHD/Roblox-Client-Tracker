@@ -1,0 +1,6 @@
+Key,Source,en-us
+Studio.StreamingServiceDispatcherRegistry.Plugin.Name,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
+Studio.StreamingServiceDispatcherRegistry.Plugin.Toolbar,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
+Studio.StreamingServiceDispatcherRegistry.Plugin.Button,Toggle,Toggle
+Studio.StreamingServiceDispatcherRegistry.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
+Studio.StreamingServiceDispatcherRegistry.Plugin.Text,Example Text!,Example Text!

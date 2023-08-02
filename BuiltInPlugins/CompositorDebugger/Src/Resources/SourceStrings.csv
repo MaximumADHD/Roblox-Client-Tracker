@@ -1,11 +1,12 @@
 Key,en-us
+Studio.CompositorDebugger.LayerPanel.History,History
 Studio.CompositorDebugger.LayerPanel.LayerData,Layer Data
 Studio.CompositorDebugger.LayerPanel.RawData,Raw Data
 Studio.CompositorDebugger.LayerPanel.Visualization,Visualization
-Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details
-Studio.CompositorDebugger.LayerView.Properties,Properties
-Studio.CompositorDebugger.LayerView.State,State
-Studio.CompositorDebugger.LayerView.Watches,Watches
+Studio.CompositorDebugger.LayerView.layerDetails,Layer Details
+Studio.CompositorDebugger.LayerView.props,Properties
+Studio.CompositorDebugger.LayerView.state,State
+Studio.CompositorDebugger.LayerView.watches,Watches
 Studio.CompositorDebugger.Plugin.Button,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.
 Studio.CompositorDebugger.Plugin.Name,Compositor Debugger

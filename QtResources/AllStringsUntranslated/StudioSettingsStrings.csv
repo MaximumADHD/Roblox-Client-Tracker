@@ -125,7 +125,7 @@ Studio.App.BetaFeatures.TerrainEditorOverhaulDescription,,"New simplified toolse
 Studio.App.BetaFeatures.MultilayerWrapFixTitle,,Multilayer Wrap Fix,Multilayer Wrap Fix
 Studio.App.BetaFeatures.MultilayerWrapFixDescription,,Outer layers of multilayer outfits will fit better with less distortion. Single layer outfits will be unaffected. Also faster.,Outer layers of multilayer outfits will fit better with less distortion. Single layer outfits will be unaffected. Also faster.
 Studio.App.BetaFeatures.ShowTagsInPropertiesTitle,,Tags in Properties,Tags in Properties
-Studio.App.BetaFeatures.ShowTagsInPropertiesDescription,,Tags added to selected instances are now displayed in the properties panel.,Tags added to selected instances are now displayed in the properties panel.
+Studio.App.BetaFeatures.ShowTagsInPropertiesDescription,,Tags for selected instances can now be added and removed from the properties panel.,Tags for selected instances can now be added and removed from the properties panel.
 Studio.App.BetaFeatures.UGCBodiesAndHeadsTitle,,UGC Bodies & Heads,UGC Bodies & Heads
 Studio.App.BetaFeatures.UGCBodiesAndHeadsDescription,,"Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the catalog.","Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the catalog."
 Studio.App.BetaFeatures.CustomVideoUploadTitle,,Upload Custom Videos,Upload Custom Videos

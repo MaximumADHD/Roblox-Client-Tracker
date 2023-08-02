@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "NotificationsTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/notifications/notifications-test-suite/src"
+    }
+  }
+}

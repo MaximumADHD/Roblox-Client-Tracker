@@ -24,6 +24,15 @@ Studio.R15Migrator.ConversionResult.Error,{count} references were skipped becaus
 Studio.R15Migrator.ConversionResult.Revert,{count} scripts were successfully reverted.
 Studio.R15Migrator.ConversionResult.Script,Script {name} was updated.
 Studio.R15Migrator.ConversionResult.UndoRevert,{count} scripts were restored to their state before reversion.
+Studio.R15Migrator.Finalizer.Characters,Characters
+Studio.R15Migrator.Finalizer.Confirm,Confirm
+Studio.R15Migrator.Finalizer.Description,Clean up temporary instances used for avatar compatability and backup data used during the conversion process.
+Studio.R15Migrator.Finalizer.FinalizedDescription,Finalization step is complete. Please test your experience.
+Studio.R15Migrator.Finalizer.FinalizedTitle,Conversion Complete
+Studio.R15Migrator.Finalizer.Instructions,Confirming finalization step is not reversible. Script backup data and any compatability layer instances on converted avatars will be deleted. Below are characters and scripts that have not been converted. Please check this list to make sure everything you need is converted before confirming.
+Studio.R15Migrator.Finalizer.Name,Finalize Conversion
+Studio.R15Migrator.Finalizer.OK,OK
+Studio.R15Migrator.Finalizer.Scripts,Scripts
 Studio.R15Migrator.InitialScanning.ScanButton,Start Scan
 Studio.R15Migrator.InitialScanning.ScanPrompt,"Click Start Scan to begin scanning place for animations, scripts, and models that need to be converted. This may take some time."
 Studio.R15Migrator.Plugin.Button,Migrate Avatars

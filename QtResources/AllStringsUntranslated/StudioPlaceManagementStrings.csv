@@ -5,3 +5,17 @@ Studio.App.PlaceManager.FailedToOpenObjectBrowser,PlaceManager fails to open obj
 Studio.App.PlaceManager.WeCouldNotJoinTeamCreatePlaceId2,PlaceManager couldn't join team create (place id).,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2
 Studio.App.PlaceManager.WeCouldNotOpenPlaceName2,PlaceManager couldn't open the place (place name).,"We could not open the place ""%1"". %2","We could not open the place ""%1"". %2"
 Studio.App.PlaceManager.WeCouldNotOpenPlaceId2,PlaceManager couldn't open the place (place id).,We could not open the place [%1]. %2,We could not open the place [%1]. %2
+Studio.App.PlaceManager.ShutdownWarning,,<b>Are you sure you want to quit Roblox Studio?</b>,<b>Are you sure you want to quit Roblox Studio?</b>
+Studio.App.PlaceManager.SyncProgressTitle,,<b>Data Sync Progress</b>,<b>Data Sync Progress</b>
+Studio.App.PlaceManager.SyncingGenericWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.
+Studio.App.PlaceManager.SyncTerrainProgressTitle,,<b>Terrain Sync Progress</b>,<b>Terrain Sync Progress</b>
+Studio.App.PlaceManager.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
+Studio.App.PlaceManager.SyncComplete,,Sync has been completed.,Sync has been completed.
+Studio.App.PlaceManager.SyncProgress,,Replication Queue %1 of %2,Replication Queue %1 of %2
+Studio.App.PlaceManager.SaveChangesTo1,,Save changes to %1?,Save changes to %1?
+Studio.App.PlaceManager.AboutToLogOutNewLine,,"Roblox Studio is about to log out.
+
+","Roblox Studio is about to log out.
+
+"
+Studio.App.PlaceManager.UploadingPlaceQuitCommitAuto,PlaceManager applies scripts changes before closing a place,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
