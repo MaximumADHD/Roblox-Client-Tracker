@@ -15,6 +15,7 @@ local getIconSize = require(App.ImageSet.getIconSize)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local PlayerContext = Roact.PureComponent:extend("PlayerContext")
@@ -28,9 +29,6 @@ local EMPHASIS_CONTENT_STATE_COLOR = {
 	[ControlState.Default] = "IconOnHover",
 	[ControlState.Hover] = "IconDefault",
 }
-
-local RELEVANCY_PADDING = 4
-local RELEVANCY_TEXT_HEIGHT = 28
 
 local function doesNotUseScale(value)
 	if value.X.Scale ~= 0 or value.Y.Scale ~= 0 then
@@ -55,9 +53,8 @@ PlayerContext.validateProps = t.strictInterface({
 	onActivated = t.optional(t.callback),
 	-- Whether it's gamepad/keyboard selectable or not
 	Selectable = t.optional(t.boolean),
-
-	fontStyle = t.optional(validateFontInfo),
-
+	-- The styling of the text. Defaults to `CaptionHeader`.
+	fontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 	-- The text height which determines component height
 	textHeight = t.optional(t.number),
 	-- The color style of text, including color and transparency
@@ -75,9 +72,9 @@ PlayerContext.defaultProps = {
 	icon = nil,
 	Selectable = true,
 	iconSize = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
-	textHeight = RELEVANCY_TEXT_HEIGHT,
-	iconPadding = RELEVANCY_PADDING,
-	iconTextSpacing = RELEVANCY_PADDING,
+	textHeight = 28,
+	iconPadding = 4,
+	iconTextSpacing = 4,
 	layoutOrder = 1,
 }
 
@@ -114,6 +111,7 @@ function PlayerContext:render()
 		end
 
 		local textHeight = self.props.textHeight
+
 		local textColorStyle = self.props.textColorStyle
 			or (if onActivated then emphasisContentStyle else secondaryContentStyle)
 		local iconPadding = self.props.iconPadding

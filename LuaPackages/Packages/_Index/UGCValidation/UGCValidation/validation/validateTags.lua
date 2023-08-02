@@ -1,7 +1,7 @@
 local CollectionService = game:GetService("CollectionService")
 
-local function validateTags(instance: Instance): (boolean, {string}?)
-	local objects: {Instance} = instance:GetDescendants()
+local function validateTags(instance: Instance): (boolean, { string }?)
+	local objects: { Instance } = instance:GetDescendants()
 	table.insert(objects, instance)
 
 	local hasTags = {}

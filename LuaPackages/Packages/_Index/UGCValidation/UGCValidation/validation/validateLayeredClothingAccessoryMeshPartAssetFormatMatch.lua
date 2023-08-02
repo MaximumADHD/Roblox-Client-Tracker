@@ -1,4 +1,7 @@
-local function validateLayeredClothingAccessoryMeshPartAssetFormatMatch(meshPartAccessory: Instance, specialMeshAccessory: Instance): (boolean, {string}?)
+local function validateLayeredClothingAccessoryMeshPartAssetFormatMatch(
+	meshPartAccessory: Instance,
+	specialMeshAccessory: Instance
+): (boolean, { string }?)
 	local meshPartHandle = meshPartAccessory:FindFirstChild("Handle") :: MeshPart
 	assert(meshPartHandle and meshPartHandle:IsA("MeshPart"))
 

@@ -36,7 +36,7 @@ local function createMeshPartAccessorySchema(attachmentName)
 						ClassName = "TouchTransmitter",
 						_optional = true,
 					},
-				}
+				},
 			},
 		},
 	}

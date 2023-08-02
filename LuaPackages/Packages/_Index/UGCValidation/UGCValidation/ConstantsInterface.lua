@@ -18,7 +18,7 @@ function ConstantsInterface.getRigAttachmentToParent(assetTypeEnum: Enum.AssetTy
 		return assetInfo.subParts[partName].rigAttachmentToParent.name
 	end
 
-	for assetType, assetInfo in Constants.ASSET_TYPE_INFO do
+	for _, assetInfo in Constants.ASSET_TYPE_INFO do
 		if not assetInfo.isBodyPart then
 			continue
 		end
@@ -39,7 +39,7 @@ function ConstantsInterface.getAttachments(assetTypeEnum: Enum.AssetType?, partN
 		end
 		validationData = assetInfo.subParts[partName]
 	else
-		for assetType, assetInfo in Constants.ASSET_TYPE_INFO do
+		for _, assetInfo in Constants.ASSET_TYPE_INFO do
 			if not assetInfo.isBodyPart then
 				continue
 			end

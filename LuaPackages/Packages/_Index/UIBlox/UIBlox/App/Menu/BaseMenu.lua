@@ -374,23 +374,19 @@ function BaseMenu:render()
 	end)
 end
 
-if UIBloxConfig.enableNewMenuLayout then
-	local function BaseMenuFn(props)
-		local propsWithOverride = props
-		if props.enableTokenOverride then
-			local style = useStyle()
-			local buttonPropsWithToken = {}
-			for index, cellProps in ipairs(props.buttonProps) do
-				buttonPropsWithToken[index] = Cryo.Dictionary.join(cellProps, StyleDefaults.getCellDefaultTokens(style))
-			end
-			propsWithOverride = Cryo.Dictionary.join(propsWithOverride, StyleDefaults.getBaseMenuDefaultTokens(style), {
-				buttonProps = buttonPropsWithToken,
-			})
+local function BaseMenuFn(props)
+	local propsWithOverride = props
+	if UIBloxConfig.enableNewMenuLayout and props.enableTokenOverride then
+		local style = useStyle()
+		local buttonPropsWithToken = {}
+		for index, cellProps in ipairs(props.buttonProps) do
+			buttonPropsWithToken[index] = Cryo.Dictionary.join(cellProps, StyleDefaults.getCellDefaultTokens(style))
 		end
-		return React.createElement(BaseMenu, propsWithOverride)
+		propsWithOverride = Cryo.Dictionary.join(propsWithOverride, StyleDefaults.getBaseMenuDefaultTokens(style), {
+			buttonProps = buttonPropsWithToken,
+		})
 	end
-
-	return BaseMenuFn
-else
-	return BaseMenu
+	return React.createElement(BaseMenu, propsWithOverride)
 end
+
+return BaseMenuFn

@@ -57,6 +57,8 @@ local CORNER_RADIUS = UDim.new(0, 8)
 local DEFAULT_ICON_THEME = "BackgroundOnHover"
 -- default font for text
 local DEFAULT_TEXT_THEME = "TextEmphasis"
+-- default size for gamepad icons
+local DEFAULT_GAMEPAD_ICON_SIZE = Vector2.new(36, 36)
 
 local GAMEPAD_AXIS_OVERRIDE_MAP = if UIBloxConfig.usePlatformContentKeyLabels
 	then platformIconMap.DIRECTIONAL_GAMEPAD_ICONS :: any
@@ -128,7 +130,9 @@ local KEYBOARD_OVERRIDE_MAP: { [Enum.KeyCode]: string | Image } = {
 	[Enum.KeyCode.Right] = Images["icons/controls/keys/arrowRight"],
 }
 
-type KeyLabelContent = { inputType: "keyboard", content: string | Image } | { inputType: "gamepad", content: Image }
+type KeyLabelContent =
+	{ inputType: "keyboard", content: string | Image }
+	| { inputType: "gamepad", content: string | Image }
 
 local function getKeyCodeContent(keyCode: FlexibleKeyCode): KeyLabelContent
 	if type(keyCode) == "table" then
@@ -165,7 +169,9 @@ local function getWidthFromContent(content: KeyLabelContent, font: Fonts.FontPal
 			else innerWidth + 2 * SIDE_PADDING
 		-- just using else doesn't get the proper type refinement
 	elseif content.inputType == "gamepad" then
-		local size: Vector2 = content.content.ImageRectSize
+		local size: Vector2 = if typeof(content.content) == "string"
+			then DEFAULT_GAMEPAD_ICON_SIZE
+			else content.content.ImageRectSize
 		return size.X * HEIGHT / size.Y
 	end
 	assert(false, string.format("Unreachable: Invalid inputType value: %q", content.inputType))

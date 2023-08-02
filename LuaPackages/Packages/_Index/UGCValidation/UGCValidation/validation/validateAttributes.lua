@@ -1,5 +1,5 @@
 -- ensures no descendant of instance has attributes
-local function validateAttributes(instance: Instance): (boolean, {string}?)
+local function validateAttributes(instance: Instance): (boolean, { string }?)
 	local attributesFailures = {}
 
 	if next(instance:GetAttributes()) :: any ~= nil then

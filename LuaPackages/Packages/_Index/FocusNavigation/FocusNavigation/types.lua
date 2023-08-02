@@ -24,4 +24,11 @@ export type EventMap = {
 	[Enum.KeyCode]: string,
 }
 
+-- ContainerFocusBehavior is implemented using refs in ReactFocusNavigation, but
+-- can be generalized for use with FocusNavigationService if desired
+export type ContainerFocusBehavior = {
+	onDescendantFocusChanged: nil | (GuiObject?) -> (),
+	getTarget: () -> GuiObject?,
+}
+
 return {}

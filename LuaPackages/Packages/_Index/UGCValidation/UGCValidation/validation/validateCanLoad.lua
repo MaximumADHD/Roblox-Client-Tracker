@@ -1,6 +1,6 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
-local function validateCanLoad(assetId: string): (boolean, {string}?)
+local function validateCanLoad(assetId: string): (boolean, { string }?)
 	local success, result = pcall(function()
 		return UGCValidationService:CanLoadAsset(assetId)
 	end)

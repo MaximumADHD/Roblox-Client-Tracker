@@ -35,10 +35,9 @@ local function propEq(propValue: any, expectedValue: any)
 	end
 end
 
-local function validateProperties(instance): (boolean, {string}?)
-
+local function validateProperties(instance): (boolean, { string }?)
 	-- full tree of instance + descendants
-	local objects: {Instance} = instance:GetDescendants()
+	local objects: { Instance } = instance:GetDescendants()
 	table.insert(objects, instance)
 
 	for _, object in pairs(objects) do
@@ -46,18 +45,27 @@ local function validateProperties(instance): (boolean, {string}?)
 			if object:IsA(className) then
 				for propName, expectedValue in pairs(properties) do
 					-- ensure property exists first
-					local propExists, propValue = pcall(function() return (object :: any)[propName] end)
+					local propExists, propValue = pcall(function()
+						return (object :: any)[propName]
+					end)
 
 					if not propExists then
-						return false, {
-							string.format("Property %s does not exist on type %s", propName, object.ClassName)
-						}
+						return false,
+							{
+								string.format("Property %s does not exist on type %s", propName, object.ClassName),
+							}
 					end
 
 					if not propEq(propValue, expectedValue) then
-						return false, {
-							string.format("Expected %s.%s to be %s", object:GetFullName(), propName, valueToString(expectedValue))
-						}
+						return false,
+							{
+								string.format(
+									"Expected %s.%s to be %s",
+									object:GetFullName(),
+									propName,
+									valueToString(expectedValue)
+								),
+							}
 					end
 				end
 			end

@@ -41,7 +41,7 @@ local THEME_MAP = {
 	[Constants.ThemeName.Dark] = Themes.DarkTheme,
 	[Constants.ThemeName.Light] = Themes.LightTheme,
 }
-local DEFAULT_DEVICE_TYPE = Constants.DeviceType.Console
+local DEFAULT_DEVICE_TYPE = Constants.DeviceType.Desktop
 
 export type StyleProps = {
 	themeName: string,

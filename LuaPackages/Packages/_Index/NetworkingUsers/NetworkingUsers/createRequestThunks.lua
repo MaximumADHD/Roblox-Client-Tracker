@@ -4,6 +4,7 @@ local createGetUsernameHistoryFromUserId = require(networkRequests.createGetUser
 local createGetUserV2FromUserId = require(networkRequests.createGetUserV2FromUserId)
 local createGetDisplayNameValidation = require(networkRequests.createGetDisplayNameValidation)
 local createSetDisplayName = require(networkRequests.createSetDisplayName)
+local createSetDescription = require(networkRequests.createSetDescription)
 
 return function(config)
 	return {
@@ -12,5 +13,6 @@ return function(config)
 		GetUserV2FromUserId = createGetUserV2FromUserId(config),
 		GetDisplayNameValidation = createGetDisplayNameValidation(config),
 		SetDisplayName = createSetDisplayName(config),
+		SetDescription = createSetDescription(config),
 	}
 end

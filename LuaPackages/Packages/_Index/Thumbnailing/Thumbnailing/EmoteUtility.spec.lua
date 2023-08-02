@@ -167,6 +167,14 @@ return function()
 		mockHumanoid.Parent = mockModel
 		mockHumanoid.RigType = Enum.HumanoidRigType.R6
 
+		local mockHead = Instance.new("MeshPart")
+		mockHead.Name = "Head"
+		mockHead.Parent = mockModel
+
+		local mockFaceControls = Instance.new("FaceControls")
+		mockFaceControls.Name = "FaceControls"
+		mockFaceControls.Parent = mockHead
+
 		local torso = Instance.new("Part")
 		torso.Parent = mockModel
 		torso.Name = "Torso"
@@ -327,6 +335,101 @@ return function()
 		return mockCharacter, originalMockCharacter
 	end
 
+	if EmoteUtility.FFlagEmoteUtilityTweaks then
+		describe("LoadKeyframesForPose", function()
+			it("SHOULD return a function", function()
+				expect(EmoteUtility.LoadKeyframesForPose).to.be.a("function")
+			end)
+			it("SHOULD load animation for body, no face", function()
+				local mockCharacter, _ = setupMockR15Characters()
+				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(mockCharacter, HELLO_EMOTE_ASSET_ID)
+				assert(keyframesForPose, "keyframesForPose should be non-nil. Silence type checker")
+				expect(keyframesForPose.originalAnimationAssetId).to.equal(HELLO_EMOTE_ASSET_ID)
+				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(HELLO_EMOTE_ASSET_ID)
+				expect(keyframesForPose.poseKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).to.equal(nil)
+				expect(keyframesForPose.defaultToolKeyframe).to.equal(nil)
+				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
+			end)
+			it("SHOULD load animation and mood animation.", function()
+				local mockCharacter, _ = setupMockR15Characters()
+				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(
+					mockCharacter,
+					COUNTRY_LINE_DANCE_EMOTE_ASSET_ID,
+					DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID
+				)
+				assert(keyframesForPose, "keyframesForPose should be non-nil. Silence type checker")
+				expect(keyframesForPose.originalAnimationAssetId).to.equal(COUNTRY_LINE_DANCE_EMOTE_ASSET_ID)
+				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(COUNTRY_LINE_DANCE_EMOTE_ASSET_ID)
+				expect(keyframesForPose.poseKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.defaultToolKeyframe).to.equal(nil)
+				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
+			end)
+			it("SHOULD load animation, mood animation, tool stuff.", function()
+				local mockCharacter, _ = setupMockR15Characters(true)
+				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(mockCharacter, HELLO_EMOTE_ASSET_ID)
+				assert(keyframesForPose, "keyframesForPose should be non-nil. Silence type checker")
+				expect(keyframesForPose.originalAnimationAssetId).to.equal(HELLO_EMOTE_ASSET_ID)
+				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(HELLO_EMOTE_ASSET_ID)
+				expect(keyframesForPose.poseKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).to.equal(nil)
+				expect(keyframesForPose.defaultToolKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
+			end)
+			it("SHOULD load no keyframes for nil closeup", function()
+				local mockCharacter, _ = setupMockR15Characters(true)
+				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(mockCharacter, nil, nil, true, true)
+				assert(keyframesForPose, "keyframesForPose should be non-nil. Silence type checker")
+				expect(keyframesForPose.originalAnimationAssetId).to.equal(nil)
+				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(nil)
+				expect(keyframesForPose.poseKeyframe).to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).to.equal(nil)
+				expect(keyframesForPose.defaultToolKeyframe).to.equal(nil)
+				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
+			end)
+			it("SHOULD load body and tool keyframes for nil fullbody", function()
+				local mockCharacter, _ = setupMockR15Characters(true)
+				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(mockCharacter, nil, nil, true, false)
+				assert(keyframesForPose, "keyframesForPose should be non-nil. Silence type checker")
+				expect(keyframesForPose.originalAnimationAssetId).to.equal(nil)
+				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(
+					EmoteUtility.FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL
+				)
+				expect(keyframesForPose.poseKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).to.equal(nil)
+				expect(keyframesForPose.defaultToolKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
+			end)
+			it("SHOULD load nothing for r6 no mood.", function()
+				local mockCharacter, _ = setupMockR6Characters(false)
+				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(mockCharacter, HELLO_EMOTE_ASSET_ID, nil)
+				assert(keyframesForPose, "keyframesForPose should be non-nil. Silence type checker")
+				expect(keyframesForPose.originalAnimationAssetId).to.equal(HELLO_EMOTE_ASSET_ID)
+				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(nil)
+				expect(keyframesForPose.poseKeyframe).to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).to.equal(nil)
+				expect(keyframesForPose.defaultToolKeyframe).to.equal(nil)
+				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
+			end)
+			it("SHOULD load mood for r6 w mood.", function()
+				local mockCharacter, _ = setupMockR6Characters(false)
+				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(
+					mockCharacter,
+					HELLO_EMOTE_ASSET_ID,
+					DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID
+				)
+				assert(keyframesForPose, "keyframesForPose should be non-nil. Silence type checker")
+				expect(keyframesForPose.originalAnimationAssetId).to.equal(HELLO_EMOTE_ASSET_ID)
+				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(nil)
+				expect(keyframesForPose.poseKeyframe).to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.defaultToolKeyframe).to.equal(nil)
+				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
+			end)
+		end)
+	end
+
 	describe("SetPlayerCharacterPoseWithMoodFallback", function()
 		it("SHOULD return a function", function()
 			expect(EmoteUtility.SetPlayerCharacterPoseWithMoodFallback).to.be.a("function")
@@ -372,15 +475,30 @@ return function()
 			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 		end)
-		it("SHOULD leave an R6 avatar with no tool completely alone", function()
+		it("SHOULD leave an R6 avatar with no tool no mood completely alone", function()
 			local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
 			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
 			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 		end)
-		it("SHOULD move arm of R6 avatar with tool", function()
+		if EmoteUtility.FFlagEmoteUtilityTweaks then
+			it("SHOULD apply mood to R6 avatar", function()
+				local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
+				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
+					mockCharacter,
+					HELLO_EMOTE_ASSET_ID,
+					DYLAN_DEFAULT_MOOD_ANIMATION_ASSET_ID,
+					true
+				)
+				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			end)
+		end
+		it("SHOULD move arm of R6 avatar with tool no mood", function()
 			local mockCharacter, originalMockCharacter = setupMockR6Characters(true)
 			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
 			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 		end)
 	end)
 

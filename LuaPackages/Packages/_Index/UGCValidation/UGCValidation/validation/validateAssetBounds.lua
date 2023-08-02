@@ -168,7 +168,7 @@ local function forEachMeshPart(inst: Instance, assetTypeEnum: Enum.AssetType, fu
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
 		return func(inst :: MeshPart)
 	else
-		for subPartName, partData in pairs(assetInfo.subParts) do
+		for subPartName in pairs(assetInfo.subParts) do
 			local meshHandle: MeshPart? = (inst:FindFirstChild(subPartName) :: MeshPart)
 			assert(meshHandle)
 			if not func(meshHandle) then
@@ -250,7 +250,7 @@ end
 local function validateAssetBounds(
 	inst: Instance,
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean
+	_isServer: boolean
 ): (boolean, { string }?)
 	local minMaxBounds: BoundsData = {}
 

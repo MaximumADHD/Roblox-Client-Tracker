@@ -4,6 +4,6 @@ version = "1.1.0"
 commit = "058656de3a24401357ef4dbbbf6fe6c99950ff66"
 source = "url+https://github.com/roblox/focus-navigation"
 dependencies = [
-    "FocusNavigation FocusNavigation 1.1.0 url+https://github.com/roblox/focus-navigation",
+    "FocusNavigation FocusNavigation 1.2.0 url+https://github.com/roblox/focus-navigation",
     "Timers Timers 1.2.3 url+https://github.com/roblox/luau-polyfill",
 ]

@@ -14,6 +14,8 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 -- This component is used to inline an icon into your text.
@@ -33,7 +35,9 @@ ImageTextLabel.validateProps = t.interface({
 
 	genericTextLabelProps = t.interface({
 		Text = t.string,
-		fontStyle = validateFontInfo,
+		fontStyle = t.union(validateFontInfo, validateTypographyInfo),
+		colorStyle = validateColorInfo,
+
 		-- fluidSizing is ignored if imageProps is non-nil
 		fluidSizing = t.optional(t.boolean),
 
@@ -73,7 +77,8 @@ function ImageTextLabel:render()
 		local fontStyle = genericTextLabelProps.fontStyle
 
 		local baseSize = stylePalette.Font.BaseSize
-		local fontSize = fontStyle.RelativeSize * baseSize
+		local fontSize = if fontStyle.RelativeSize then baseSize * fontStyle.RelativeSize else fontStyle.FontSize
+
 		local font = fontStyle.Font
 
 		if imageProps then

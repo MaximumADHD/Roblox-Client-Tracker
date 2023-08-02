@@ -12,6 +12,8 @@ local types = require(script.Parent.types)
 type EventMap = types.EventMap
 type EventData = types.EventData
 type EngineInterface = types.EngineInterface
+type ContainerFocusBehavior = types.ContainerFocusBehavior
+type FocusBehaviorConnection = { behavior: ContainerFocusBehavior, connection: RBXScriptConnection }
 
 type EventPhase = EventPropagationService.EventPhase
 type Event<T> = EventPropagationService.Event<T>
@@ -28,6 +30,8 @@ export type FocusNavigationService = {
 	deregisterEventHandlers: (self: FocusNavigationService, GuiObject, EventHandlerMap) -> (),
 	registerEventHandler: (self: FocusNavigationService, GuiObject, string, EventHandler, EventPhase?) -> (),
 	deregisterEventHandler: (self: FocusNavigationService, GuiObject, string, EventHandler, EventPhase?) -> (),
+	registerFocusBehavior: (self: FocusNavigationService, GuiObject, ContainerFocusBehavior) -> (),
+	deregisterFocusBehavior: (self: FocusNavigationService, GuiObject, ContainerFocusBehavior) -> (),
 	focusGuiObject: (self: FocusNavigationService, GuiObject?, boolean) -> (),
 	teardown: (self: FocusNavigationService) -> (),
 
@@ -37,6 +41,7 @@ export type FocusNavigationService = {
 
 type FocusNavigationServicePrivate = {
 	_eventMapByInstance: { [Instance]: EventMap },
+	_focusBehaviorByInstance: { [Instance]: FocusBehaviorConnection },
 	_eventPropagationService: EventPropagationService<EventData>,
 	_engineInterface: EngineInterface,
 	_engineEventConnections: { RBXScriptConnection },
@@ -58,6 +63,8 @@ type FocusNavigationServicePrivate = {
 	deregisterEventHandlers: (self: FocusNavigationServicePrivate, GuiObject, EventHandlerMap) -> (),
 	registerEventHandler: (self: FocusNavigationServicePrivate, GuiObject, string, EventHandler, EventPhase?) -> (),
 	deregisterEventHandler: (self: FocusNavigationServicePrivate, GuiObject, string, EventHandler, EventPhase?) -> (),
+	registerFocusBehavior: (self: FocusNavigationServicePrivate, GuiObject, ContainerFocusBehavior) -> (),
+	deregisterFocusBehavior: (self: FocusNavigationServicePrivate, GuiObject, ContainerFocusBehavior) -> (),
 	focusGuiObject: (self: FocusNavigationServicePrivate, GuiObject?, boolean) -> (),
 	teardown: (self: FocusNavigationServicePrivate) -> (),
 
@@ -81,6 +88,7 @@ function FocusNavigationService.new(engineInterface: EngineInterface)
 		_engineInterface = engineInterface,
 
 		_eventMapByInstance = setmetatable({}, { __mode = "k" }),
+		_focusBehaviorByInstance = setmetatable({}, { __mode = "k" }),
 		_engineEventConnections = {},
 
 		_silentFocusTarget = nil,
@@ -285,6 +293,80 @@ function FocusNavigationService:deregisterEventHandlers(guiObject: GuiObject, ev
 	self:_updateActiveEventMap(self.focusedGuiObject:getValue())
 end
 
+function FocusNavigationService:registerFocusBehavior(guiObject: GuiObject, behavior: ContainerFocusBehavior)
+	if _G.__DEV__ then
+		local registered = self._focusBehaviorByInstance[guiObject]
+		if registered ~= nil then
+			warn(
+				string.format(
+					"New focus behavior will replace existing registered focus behavior:"
+						.. "\n\t     new behavior: %s\n\texisting behavior: %s",
+					tostring(behavior),
+					tostring(registered.behavior)
+				)
+			)
+		end
+	end
+	local containerFocusBehaviorConnection = {
+		behavior = behavior,
+		connection = guiObject.SelectionChanged:Connect(function(amI, old, new)
+			if new and (amI or new:IsDescendantOf(guiObject)) then
+				if not old or not old:IsDescendantOf(guiObject) then
+					-- If the new focus is within our subtree and the old focus was
+					-- nil or outside, our container is gaining focus from outside
+					-- and we want to trigger our focus behavior
+					local target = behavior.getTarget()
+					if target then
+						self:focusGuiObject(target, false)
+					else
+						-- When we redirect focus ourselves, tell the behavior about
+						-- the resolved value rather than the value pre-redirect
+						if behavior.onDescendantFocusChanged then
+							behavior.onDescendantFocusChanged(new)
+						end
+					end
+				else
+					-- When focus moves within the container, tell the behavior
+					-- about it so that it can track things like focus history
+					if behavior.onDescendantFocusChanged then
+						behavior.onDescendantFocusChanged(new)
+					end
+				end
+			end
+		end),
+	}
+	self._focusBehaviorByInstance[guiObject] = containerFocusBehaviorConnection
+end
+
+function FocusNavigationService:deregisterFocusBehavior(guiObject: GuiObject, behavior: ContainerFocusBehavior)
+	local registered = self._focusBehaviorByInstance[guiObject]
+	if _G.__DEV__ then
+		if not registered then
+			warn(
+				string.format(
+					"Cannot deregister an unregistered focus behavior:" .. "\n\t  provided behavior: %s",
+					tostring(behavior)
+				)
+			)
+		end
+		if registered and registered.behavior ~= behavior then
+			warn(
+				string.format(
+					"Cannot deregister non-matching focus behavior:"
+						.. "\n\t  provided behavior: %s\n\tregistered behavior: %s",
+					tostring(behavior),
+					tostring(registered.behavior)
+				)
+			)
+		end
+	end
+
+	if registered then
+		registered.connection:Disconnect()
+		self._focusBehaviorByInstance[guiObject] = nil
+	end
+end
+
 function FocusNavigationService:focusGuiObject(guiObject: GuiObject?, silent: boolean)
 	if silent then
 		-- If we've silenced the event, we need to identify which guiObjects
@@ -303,6 +385,9 @@ end
 function FocusNavigationService:teardown()
 	for _, connection in self._engineEventConnections do
 		connection:Disconnect()
+	end
+	for _, behaviorConnection in self._focusBehaviorByInstance do
+		behaviorConnection.connection:Disconnect()
 	end
 end
 

@@ -21,7 +21,7 @@ local validateModeration = require(root.validation.validateModeration)
 local validateCanLoad = require(root.validation.validateCanLoad)
 
 local function validateExistance(contentIdMap: any)
-	for assetId, data in pairs(contentIdMap) do
+	for _, data in pairs(contentIdMap) do
 		if not validateCanLoad(data.instance[data.fieldName]) then
 			-- loading a mesh/texture can fail for many reasons, therefore we throw an error here, which means that the validation of this asset
 			-- will be run again, rather than returning false. This is because we can't conclusively say it failed. It's inconclusive. This throwing

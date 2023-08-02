@@ -1,6 +1,6 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
-local function validateUVSpace(meshId: string): (boolean, {string}?)
+local function validateUVSpace(meshId: string): (boolean, { string }?)
 	if not game:GetFastFlag("UGCReturnAllValidations") then
 		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
 		if meshId == "" then
@@ -17,7 +17,10 @@ local function validateUVSpace(meshId: string): (boolean, {string}?)
 	end
 
 	if not result then
-		return false, { "Your mesh has UVs defined outside 0-1 space. This can lead to texturing discrepancies and violates UGC upload requirements." }
+		return false,
+			{
+				"Your mesh has UVs defined outside 0-1 space. This can lead to texturing discrepancies and violates UGC upload requirements.",
+			}
 	end
 
 	return true

@@ -12,6 +12,7 @@ local t = require(Packages.t)
 
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
@@ -26,7 +27,7 @@ GenericTextLabel.validateProps = t.interface({
 	maxSize = t.optional(t.Vector2),
 
 	-- The Font table from the style palette
-	fontStyle = validateFontInfo,
+	fontStyle = t.union(validateFontInfo, validateTypographyInfo),
 
 	-- The color table from the style palette
 	colorStyle = validateColorInfo,
@@ -53,8 +54,11 @@ function GenericTextLabel:render()
 		local textTransparency = color.Transparency
 
 		local baseSize = stylePalette.Font.BaseSize
-		local fontSizeMin = font.RelativeMinSize * baseSize
-		local fontSizeMax = font.RelativeSize * baseSize
+
+		-- Fonts derived from tokens do not have min sizes
+		local fontSizeMin = if font.RelativeMinSize then baseSize * font.RelativeMinSize else font.FontSize
+		local fontSizeMax = if font.RelativeSize then baseSize * font.RelativeSize else font.FontSize
+
 		local textFont = font.Font
 
 		local textboxSize = self.props.Size

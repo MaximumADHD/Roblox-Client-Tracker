@@ -24,7 +24,7 @@ local validateLimbsAndTorso = require(root.validation.validateLimbsAndTorso)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
 
 local function validateBodyPartInternal(
-	isAsync,
+	_isAsync,
 	instances,
 	assetTypeEnum,
 	isServer,
@@ -129,7 +129,7 @@ function UGCValidation.validateMeshPartAssetFormat2(
 	assetTypeEnum,
 	isServer,
 	allowUnreviewedAssets,
-	restrictedUserIds
+	_restrictedUserIds
 )
 	if isLayeredClothing(instances[1]) then
 		return validateLayeredClothingAccessoryMeshPartAssetFormat(
@@ -151,7 +151,7 @@ function UGCValidation.validateMeshPartAssetFormat(
 	assetTypeEnum,
 	isServer,
 	allowUnreviewedAssets,
-	restrictedUserIds
+	_restrictedUserIds
 )
 	-- layered clothing assets should be the same binary for source and avatar_meshpart_accesory
 	if specialMeshAccessory and isLayeredClothing(specialMeshAccessory) then

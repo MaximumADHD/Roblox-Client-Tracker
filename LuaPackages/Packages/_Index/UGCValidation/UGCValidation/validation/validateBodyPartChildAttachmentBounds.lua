@@ -37,7 +37,7 @@ local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMe
 end
 
 -- NOTE: All FindFirstChild() calls will succeed based on all expected parts being checked for existance before calling this function
-local function checkAll(meshHandle: MeshPart, isServer: boolean, partData: any): (boolean, { string }?)
+local function checkAll(meshHandle: MeshPart, _isServer: boolean, partData: any): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	local rigAttachmentToParent: Attachment? =

@@ -119,6 +119,7 @@ local function ExperienceTileV3(props: Props)
 	local style = useStyle()
 	local footerHeight: number = setDefault(props.footerHeight, Constants.DEFAULT_FOOTER_HEIGHT)
 	local isHoverEnabled = setDefault(props.isHoverEnabled, false)
+	local hasBackground = setDefault(props.hasBackground, true)
 	local defaultStyleProps: StyleProps = Constants.getDefaultStyleProps(style)
 	local styleProps = Cryo.Dictionary.join(defaultStyleProps, props.styleProps or {})
 	local backgroundColor: StyleTypes.ThemeItem = styleProps.backgroundColor
@@ -153,7 +154,7 @@ local function ExperienceTileV3(props: Props)
 				aspectRatio = finalAspetRatio,
 				border = border,
 				isTopRounded = true,
-				isBottomRounded = false,
+				isBottomRounded = if UIBloxConfig.experienceTileHoverDelay then not hasBackground else false,
 				thumbnail = finalThumbnail,
 			}),
 			TopContentOverlay = if props.renderTopContentOverlay ~= nil
@@ -167,6 +168,7 @@ local function ExperienceTileV3(props: Props)
 		props.thumbnailAspectRatioOverride,
 		topContentPadding,
 		border,
+		if UIBloxConfig.experienceTileHoverDelay then hasBackground else nil,
 	} :: { any })
 
 	local renderBottomContent = React.useCallback(function(isHovered: boolean): React.ReactElement?
@@ -267,9 +269,7 @@ local function ExperienceTileV3(props: Props)
 		[React.Event.Activated] = props.onActivated,
 	}, {
 		VerticalTile = React.createElement(VerticalTile, {
-			hasBackground = if UIBloxConfig.experienceTileHoverDelay
-				then setDefault(props.hasBackground, true)
-				else true,
+			hasBackground = if UIBloxConfig.experienceTileHoverDelay then hasBackground else true,
 			hasOutline = if UIBloxConfig.experienceTileHoverDelay then setDefault(props.hasOutline, true) else true,
 			isHoverEnabled = isHoverEnabled,
 			hoverDelay = if UIBloxConfig.experienceTileHoverDelay then props.hoverDelay else nil,

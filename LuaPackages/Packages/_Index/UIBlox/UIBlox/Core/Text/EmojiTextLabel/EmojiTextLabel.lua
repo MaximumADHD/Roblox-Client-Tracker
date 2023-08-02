@@ -1,13 +1,14 @@
 --!nonstrict
 local EmojiTextLabelRoot = script.Parent
 local Text = EmojiTextLabelRoot.Parent
-local App = Text.Parent
-local UIBlox = App.Parent
+local Core = Text.Parent
+local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 
+local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local useStyle = require(UIBlox.Core.Style.useStyle)
@@ -25,7 +26,7 @@ type Props = {
 	-- the string to render within GenericTextLabel
 	Text: string,
 	-- the Font table from the style palette
-	fontStyle: validateFontInfo.FontInfo,
+	fontStyle: validateFontInfo.FontInfo | StyleTypes.TypographyItem?,
 	-- the color table from the style palette
 	colorStyle: validateColorInfo.ColorInfo,
 	-- the size available for the textbox
@@ -49,8 +50,12 @@ local function EmojiTextLabel(props: Props)
 	local style = useStyle()
 	local hasEmoji = EmojiEnum.isEnumValue(props.emoji)
 	local baseSize = style.Font.BaseSize
-	local textFont = props.fontStyle.Font
-	local fontSize = props.fontStyle.RelativeSize * baseSize
+
+	local fontStyle = props.fontStyle
+	local textFont = fontStyle.Font
+
+	local fontSize = if fontStyle.RelativeSize then baseSize * fontStyle.RelativeSize else fontStyle.FontSize
+
 	local emojiWidth = fontSize
 	local maxSize = props.maxSize
 

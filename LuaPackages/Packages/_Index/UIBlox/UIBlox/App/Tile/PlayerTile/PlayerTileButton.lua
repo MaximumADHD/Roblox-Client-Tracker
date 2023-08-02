@@ -15,6 +15,7 @@ local PlayerTileButton = Roact.PureComponent:extend("PlayerTileButton")
 PlayerTileButton.validateProps = t.strictInterface({
 	buttonHeight = t.optional(t.number),
 	buttonWidth = t.optional(t.number),
+	outerButtonPadding = t.optional(t.number),
 	-- The icon of the button. A Image is either a ImageSetData or URL string
 	icon = t.union(t.string, t.table),
 	-- Callback for the activated event
@@ -30,6 +31,8 @@ PlayerTileButton.validateProps = t.strictInterface({
 PlayerTileButton.defaultProps = {
 	isSecondary = false,
 	isDisabled = false,
+	buttonHeight = 36,
+	outerButtonPadding = 10,
 	tileSize = UDim2.new(0, 150, 0, 150),
 }
 
@@ -38,17 +41,15 @@ function PlayerTileButton:render()
 	local onActivated = self.props.onActivated
 	local isDisabled = self.props.isDisabled
 	local icon = self.props.icon
-
-	local buttonSize
+	local buttonHeight = self.props.buttonHeight
+	local outerButtonPadding = self.props.outerButtonPadding
 	local tileSize = self.props.tileSize
 
-	local BUTTON_HEIGHT = 36
-	local OUTER_BUTTON_PADDING = 10
-	local MAX_BUTTON_SIZE = tileSize.X.Offset / 2 - (OUTER_BUTTON_PADDING + 5)
-
-	buttonSize = UDim2.new(0, MAX_BUTTON_SIZE, 0, BUTTON_HEIGHT)
+	local maxButtonSize = tileSize.X.Offset / 2 - (outerButtonPadding * 1.5)
+	local buttonSize = UDim2.new(0, maxButtonSize, 0, buttonHeight)
 
 	local buttonType = isSecondary and SecondaryButton or PrimarySystemButton
+
 	return Roact.createElement(buttonType, {
 		automaticSize = Enum.AutomaticSize.XY,
 		position = UDim2.new(1, 0, 1, 0),

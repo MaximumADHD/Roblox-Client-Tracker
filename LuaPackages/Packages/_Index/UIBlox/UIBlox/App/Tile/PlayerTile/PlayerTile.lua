@@ -6,6 +6,8 @@ local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Object = LuauPolyfill.Object
 local Cryo = require(Packages.Cryo)
 local Dictionary = Cryo.Dictionary
 local List = Cryo.List
@@ -21,6 +23,7 @@ local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 
 local Tile = require(App.Tile.BaseTile.Tile)
 
@@ -53,7 +56,7 @@ PlayerTile.validateProps = t.strictInterface({
 		iconColor = t.optional(t.Color3),
 		iconTransparency = t.optional(t.number),
 		onActivated = t.optional(t.callback),
-		fontStyle = t.optional(validateFontInfo),
+		fontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 	}),
 	-- The size of the tile
 	tileSize = t.optional(t.UDim2),
@@ -90,27 +93,51 @@ local INNER_PADDING = 0
 local TITLE_TOP_PADDING = 8
 local FOOTER_TOP_PADDING = 4
 
-local function footer(props)
+local function footer(props, areTokensEnabled)
 	return withStyle(function(style)
+		local tokens = style.Tokens
+
+		-- The logic to apply "emphasis" color styling is done in PlayerContext based on the existence
+		-- of an onActivated prop. Since PlayerContext does not support tokens yet, and does not change
+		-- font styling based on "emphasis", only color, we are following the same logic here in PlayerTile
+		-- for minimal extraneous impact. If the same logic is added to PlayerContext, this should be removed.
+		local playerContextProps = if areTokensEnabled
+			then Object.assign({}, {
+				fontStyle = if props.playerContext.onActivated
+					then tokens.Semantic.Typography.CaptionHeader
+					else tokens.Semantic.Typography.CaptionBody,
+				iconTextSpacing = tokens.Global.Space_50,
+				iconPadding = 0,
+				iconSize = UDim2.fromOffset(tokens.Global.Size_150, tokens.Global.Size_150),
+				textHeight = tokens.Global.Size_350,
+			}, props.playerContext)
+			else props.playerContext
+
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 		}, {
-			PlayerContext = Roact.createElement(PlayerContext, props.playerContext),
+			PlayerContext = Roact.createElement(PlayerContext, playerContextProps),
 		})
 	end)
 end
 
-local function thumbnailOverlayComponents(props)
+local function thumbnailOverlayComponents(props, areTokensEnabled)
 	return withStyle(function(style)
+		local tokens = style.Tokens
+
+		local outerButtonPadding = if areTokensEnabled then tokens.Global.Space_100 else OUTER_BUTTON_PADDING
+		local buttonGap = if areTokensEnabled then tokens.Global.Space_100 else BUTTON_GAP
+		local buttonHeight = if areTokensEnabled then tokens.Global.Size_450 else BUTTON_HEIGHT
+
 		local primaryContentStyle = getContentStyle(CONTENT_STATE_COLOR, props.controlState, style)
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			ButtonBackgroundGradient = not Cryo.isEmpty(props.buttons) and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT + OUTER_BUTTON_PADDING * 2),
+				Size = UDim2.new(1, 0, 0, buttonHeight + outerButtonPadding * 2),
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				LayoutOrder = 1,
@@ -167,7 +194,7 @@ local function thumbnailOverlayComponents(props)
 					{
 						BackgroundTransparency = 1,
 						Position = UDim2.new(1, 0, 1, 0),
-						Size = UDim2.new(0, props.tileSize.X.Offset - (OUTER_BUTTON_PADDING * 2), 0, BUTTON_HEIGHT),
+						Size = UDim2.new(0, props.tileSize.X.Offset - (outerButtonPadding * 2), 0, buttonHeight),
 						AnchorPoint = Vector2.new(1, 1),
 						LayoutOrder = 3,
 						ZIndex = 2,
@@ -175,7 +202,8 @@ local function thumbnailOverlayComponents(props)
 					List.join(
 						List.map(props.buttons, function(button)
 							return Roact.createElement(PlayerTileButton, {
-								buttonHeight = BUTTON_HEIGHT,
+								buttonHeight = buttonHeight,
+								outerButtonPadding = outerButtonPadding,
 								tileSize = props.tileSize,
 								icon = button.icon,
 								isSecondary = button.isSecondary,
@@ -188,15 +216,15 @@ local function thumbnailOverlayComponents(props)
 						{
 							Roact.createElement("UIListLayout", {
 								HorizontalAlignment = Enum.HorizontalAlignment.Right,
-								Padding = UDim.new(0, BUTTON_GAP),
+								Padding = UDim.new(0, buttonGap),
 								FillDirection = Enum.FillDirection.Horizontal,
 							}),
 						}
 					)
 				),
 				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, OUTER_BUTTON_PADDING),
-					PaddingRight = UDim.new(0, OUTER_BUTTON_PADDING),
+					PaddingBottom = UDim.new(0, outerButtonPadding),
+					PaddingRight = UDim.new(0, outerButtonPadding),
 				}),
 			}),
 		})
@@ -241,6 +269,10 @@ function PlayerTile:render()
 	local thumbnail = self.props.thumbnail
 
 	return withStyle(function(style)
+		local tokens = style.Tokens
+
+		local areTokensEnabled = tokens ~= nil and UIBloxConfig.useTokensInPlayerTile
+
 		return Roact.createElement("Frame", {
 			Size = tileSize,
 			BackgroundTransparency = 1,
@@ -255,24 +287,32 @@ function PlayerTile:render()
 						then Dictionary.join(self.props.relevancyInfo, { Selectable = false })
 						else self.props.relevancyInfo,
 					controlState = self.state.controlState,
-				}),
+				}, areTokensEnabled),
 				Selectable = self.props.Selectable,
 				hasRoundedCorners = true,
 				innerPadding = INNER_PADDING,
-				titleTopPadding = TITLE_TOP_PADDING,
-				footerTopPadding = FOOTER_TOP_PADDING,
+				titleTopPadding = if areTokensEnabled then tokens.Global.Space_100 else TITLE_TOP_PADDING,
+				subtitleTopPadding = if areTokensEnabled then tokens.Global.Space_25 else nil,
+				footerTopPadding = if areTokensEnabled then tokens.Global.Space_50 else FOOTER_TOP_PADDING,
 				name = title,
-				subtitle = self.props.subtitle,
+				nameTextColor = if areTokensEnabled then tokens.Semantic.Color.Text.Emphasis.Color3 else nil,
+				titleFontStyle = if areTokensEnabled then tokens.Semantic.Typography.Subheader else nil,
 				hasVerifiedBadge = self.props.hasVerifiedBadge,
 				titleTextLineCount = 1,
+				subtitle = self.props.subtitle,
+				subtitleFontStyle = if areTokensEnabled then tokens.Semantic.Typography.CaptionHeader else nil,
 				onActivated = onActivated,
 				thumbnail = thumbnail,
 				backgroundImage = Images[style.Theme.PlayerBackgroundDefault.Image],
-				thumbnailOverlayComponents = thumbnailOverlayComponents(Dictionary.join(self.props, {
-					hoverMouseEnter = self.hoverMouseEnter,
-					hoverMouseLeave = self.hoverMouseLeave,
-					mouseEntered = self.state.mouseEntered,
-				})),
+				thumbnailOverlayComponents = thumbnailOverlayComponents(
+					Dictionary.join(self.props, {
+						hoverMouseEnter = self.hoverMouseEnter,
+						hoverMouseLeave = self.hoverMouseLeave,
+						mouseEntered = self.state.mouseEntered,
+					}),
+					areTokensEnabled
+				),
+				addSubtitleSpace = if UIBloxConfig.fixLoadingShimmerForPlayerTileNames then title == nil else nil,
 			}),
 		})
 	end)

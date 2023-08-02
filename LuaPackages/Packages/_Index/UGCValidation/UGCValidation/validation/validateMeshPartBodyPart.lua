@@ -6,6 +6,8 @@
 
 local root = script.Parent.Parent
 
+local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
+
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateBodyPartChildAttachmentBounds = require(root.validation.validateBodyPartChildAttachmentBounds)
@@ -36,14 +38,18 @@ local function validateMeshPartBodyPart(
 		return false, { validationResult.message }
 	end
 
-	local result, failureReasons = validateSurfaceAppearances(inst)
-	if not result then
-		return result, failureReasons
+	if not getFFlagDebugUGCDisableSurfaceAppearanceTests() then
+		local result, failureReasons = validateSurfaceAppearances(inst)
+		if not result then
+			return result, failureReasons
+		end
 	end
 
-	result, failureReasons = validateDependencies(inst, isServer, allowUnreviewedAssets, restrictedUserIds)
-	if not result then
-		return result, failureReasons
+	do
+		local result, failureReasons = validateDependencies(inst, isServer, allowUnreviewedAssets, restrictedUserIds)
+		if not result then
+			return result, failureReasons
+		end
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()

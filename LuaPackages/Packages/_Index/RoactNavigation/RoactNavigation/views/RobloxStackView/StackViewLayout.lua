@@ -14,6 +14,7 @@ local SceneView = require(views.SceneView)
 
 local defaultScreenOptions = {
 	absorbInput = true,
+	absorbInputSelectable = true,
 	overlayEnabled = false,
 	overlayColor3 = Color3.new(0, 0, 0),
 	overlayTransparency = 0.7,
@@ -124,6 +125,7 @@ function StackViewLayout:render()
 			else table.clone(defaultScreenOptions)
 		local overlayEnabled = screenOptions.overlayEnabled
 		local absorbInput = screenOptions.absorbInput
+		local absorbInputSelectable = screenOptions.absorbInputSelectable
 		local renderOverlay = screenOptions.renderOverlay
 
 		local stationaryContent = nil
@@ -153,6 +155,7 @@ function StackViewLayout:render()
 		if not cardObscured and absorbInput then
 			absorbInputElement = React.createElement("TextButton", {
 				Active = true,
+				Selectable = absorbInputSelectable,
 				AutoButtonColor = false,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,

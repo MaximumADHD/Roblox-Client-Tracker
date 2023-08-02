@@ -4,12 +4,12 @@ YOUR SPRITE SHEETS MAY GET MODERATED BECAUSE OF BRANDED CONTENT, refer to the wo
 --]]
 local FALLBACK_IMAGES = {
 	["img_set_1x_1"] = "http://www.roblox.com/asset/?id=13675680904",
-	["img_set_1x_2"] = "http://www.roblox.com/asset/?id=13675682006",
-	["img_set_1x_3"] = "http://www.roblox.com/asset/?id=13675683578",
-	["img_set_1x_4"] = "http://www.roblox.com/asset/?id=13675684626",
-	["img_set_1x_5"] = "http://www.roblox.com/asset/?id=13675685530",
-	["img_set_1x_6"] = "http://www.roblox.com/asset/?id=13675686564",
-	["img_set_1x_7"] = "http://www.roblox.com/asset/?id=13675687401",
+	["img_set_1x_2"] = "http://www.roblox.com/asset/?id=14056199652",
+	["img_set_1x_3"] = "http://www.roblox.com/asset/?id=14100660468",
+	["img_set_1x_4"] = "http://www.roblox.com/asset/?id=14056202534",
+	["img_set_1x_5"] = "http://www.roblox.com/asset/?id=14056203494",
+	["img_set_1x_6"] = "http://www.roblox.com/asset/?id=14056204545",
+	["img_set_1x_7"] = "http://www.roblox.com/asset/?id=14056205639",
 }
 
 return FALLBACK_IMAGES

@@ -181,16 +181,16 @@ function Cell:getImageProperties()
 	return imageRectSize, imageRectOffset, sliceCenter
 end
 
-if UIBloxConfig.enableNewMenuLayout then
-	function Cell:renderRoundedBackground(zIndex: number, background: StyleTypes.ThemeItem)
-		local borderRadius = UDim.new(0, self.props.borderCornerRadius)
-		return Roact.createElement(RoundedFrame, {
-			zIndex = zIndex,
-			background = background,
-			topCornerRadius = if self.props.hasRoundTop then borderRadius else nil,
-			bottomCornerRadius = if self.props.hasRoundBottom then borderRadius else nil,
-		})
-	end
+function Cell:renderRoundedBackground(zIndex: number, background: StyleTypes.ThemeItem)
+	assert(UIBloxConfig.enableNewMenuLayout, "enableNewMenuLayout must be enabled to call renderRoundedBackground")
+
+	local borderRadius = UDim.new(0, self.props.borderCornerRadius)
+	return Roact.createElement(RoundedFrame, {
+		zIndex = zIndex,
+		background = background,
+		topCornerRadius = if self.props.hasRoundTop then borderRadius else nil,
+		bottomCornerRadius = if self.props.hasRoundBottom then borderRadius else nil,
+	})
 end
 
 function Cell:renderWithSelectionCursor(getSelectionCursor)

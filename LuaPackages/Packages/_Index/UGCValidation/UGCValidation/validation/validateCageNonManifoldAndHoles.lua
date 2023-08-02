@@ -1,6 +1,6 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
-local function validateCageNonManifoldAndHoles(meshId: string, meshType: string): (boolean, {string}?)
+local function validateCageNonManifoldAndHoles(meshId: string, meshType: string): (boolean, { string }?)
 	if not game:GetFastFlag("UGCReturnAllValidations") then
 		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
 		if meshId == "" then
@@ -21,7 +21,10 @@ local function validateCageNonManifoldAndHoles(meshId: string, meshType: string)
 		local result = true
 		if not checkNonManifold then
 			result = false
-			table.insert(reasons, string.format("%s has non-manifold geometry, which can cause deformation issues.", meshType))
+			table.insert(
+				reasons,
+				string.format("%s has non-manifold geometry, which can cause deformation issues.", meshType)
+			)
 		end
 
 		if not checkCageHoles then
@@ -34,11 +37,14 @@ local function validateCageNonManifoldAndHoles(meshId: string, meshType: string)
 		if not checkNonManifold then
 			return false, { "This cage has non-manifold geometry, which can cause deformation issues." }
 		end
-	
+
 		if not checkCageHoles then
-			return false, { "The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal." }
+			return false,
+				{
+					"The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal.",
+				}
 		end
-	
+
 		return true
 	end
 end

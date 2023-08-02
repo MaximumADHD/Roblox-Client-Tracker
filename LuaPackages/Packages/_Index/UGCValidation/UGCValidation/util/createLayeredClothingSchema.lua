@@ -43,7 +43,7 @@ local function createLayeredClothingSchema(attachmentName)
 						ClassName = "TouchTransmitter",
 						_optional = true,
 					},
-				}
+				},
 			},
 		},
 	}

@@ -15,6 +15,8 @@ local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
 local ImageTextLabel = require(UIBlox.Core.Text.ImageTextLabel.ImageTextLabel)
 local EmojiTextLabel = require(UIBlox.Core.Text.EmojiTextLabel.EmojiTextLabel)
 local Emoji = require(UIBlox.Core.Emoji.Enum.Emoji)
+local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 
 local ICON_PADDING = 4
 local LINE_PADDING = 4
@@ -46,7 +48,7 @@ ItemTileName.validateProps = t.strictInterface({
 
 	-- Font style for header (Header2, Body, etc)
 	-- Defaults to Header2.
-	titleFontStyle = t.optional(t.table),
+	titleFontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 })
 
 function ItemTileName:render()
@@ -64,7 +66,10 @@ function ItemTileName:render()
 		local font = stylePalette.Font
 
 		local titleFontStyle = self.props.titleFontStyle or font.Header2
-		local textSize = font.BaseSize * titleFontStyle.RelativeSize
+
+		local textSize = if titleFontStyle.RelativeSize
+			then font.BaseSize * titleFontStyle.RelativeSize
+			else titleFontStyle.FontSize
 
 		if name ~= nil then
 			local maxSize = Vector2.new(maxWidth, maxHeight)
@@ -87,9 +92,11 @@ function ItemTileName:render()
 			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale
 				or Vector2.new(0, 0)
 
-			local colorStyle = if UIBloxConfig.useNewThemeColorPalettes then theme.TextDefault else theme.TextEmphasis
+			local colorStyle = if self.props.nameTextColor and UIBloxConfig.useTokensInPlayerTile
+				then { Color = self.props.nameTextColor, Transparency = 0 }
+				else theme.TextEmphasis
 
-			if self.props.nameTextColor then
+			if self.props.nameTextColor and not UIBloxConfig.useTokensInPlayerTile then
 				return Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,

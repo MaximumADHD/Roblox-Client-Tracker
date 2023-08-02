@@ -54,7 +54,7 @@ local function calculateMeshSize(meshHandle: MeshPart, isServer: boolean): (bool
 	return true, nil, meshSize
 end
 
-local function validateInternal(meshHandle: MeshPart, validationData: any, isServer: boolean): (boolean, { string }?)
+local function validateInternal(meshHandle: MeshPart, _validationData: any, isServer: boolean): (boolean, { string }?)
 	local success, failureReasons, meshSize = calculateMeshSize(meshHandle, isServer)
 	if (not success) or not meshSize then
 		return success, failureReasons

@@ -11,6 +11,8 @@ local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
 
@@ -54,6 +56,9 @@ local tileInterface = t.strictInterface({
 
 	-- The additional vertical padding above the title area
 	titleTopPadding = t.optional(t.integer),
+
+	-- The additional vertical padding above the title area
+	subtitleTopPadding = t.optional(t.integer),
 
 	-- The additional vertical padding above the footer area
 	footerTopPadding = t.optional(t.integer),
@@ -118,7 +123,11 @@ local tileInterface = t.strictInterface({
 
 	-- What style font to use for title (Header, Body, etc.).
 	-- Defaults to Header2.
-	titleFontStyle = t.optional(t.table),
+	titleFontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
+
+	-- What style font to use for title (Header, Body, etc.).
+	-- Defaults to CaptionHeader.
+	subtitleFontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 
 	-- An inset on the tile image.
 	renderTileInset = t.optional(t.callback),
@@ -141,6 +150,7 @@ Tile.defaultProps = {
 	titleTextLineCount = 2,
 	innerPadding = 8,
 	titleTopPadding = 0,
+	subtitleTopPadding = 0,
 	footerTopPadding = 0,
 	isSelected = false,
 	multiSelect = false,
@@ -173,6 +183,7 @@ function Tile:render()
 	local titleTextLineCount = self.props.titleTextLineCount
 	local innerPadding = self.props.innerPadding
 	local titleTopPadding = self.props.titleTopPadding
+	local subtitleTopPadding = self.props.subtitleTopPadding
 	local footerTopPadding = self.props.footerTopPadding
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
@@ -199,7 +210,17 @@ function Tile:render()
 			local tileWidth = self.state.tileWidth
 
 			local titleFontStyle = self.props.titleFontStyle or font.Header2
-			local maxTitleTextHeight = math.ceil(font.BaseSize * titleFontStyle.RelativeSize * titleTextLineCount)
+			local subtitleFontStyle = self.props.subtitleFontStyle or font.CaptionHeader
+
+			local titleFontSize = if titleFontStyle.RelativeSize
+				then font.BaseSize * titleFontStyle.RelativeSize
+				else titleFontStyle.FontSize
+
+			local subtitleFontSize = if subtitleFontStyle.RelativeSize
+				then font.BaseSize * subtitleFontStyle.RelativeSize
+				else subtitleFontStyle.FontSize
+
+			local maxTitleTextHeight = math.ceil(titleFontSize * titleTextLineCount)
 			local footerHeight = tileHeight
 				- tileWidth
 				- innerPadding
@@ -212,7 +233,7 @@ function Tile:render()
 			-- include subtitle space even if subtitle is empty string
 			if addSubtitleSpace then
 				titleTextSize = Vector2.new(0, maxTitleTextHeight)
-				subtitleTextHeight = math.ceil(font.BaseSize * font.CaptionHeader.RelativeSize)
+				subtitleTextHeight = math.ceil(subtitleFontSize)
 				footerHeight = footerHeight - subtitleTextHeight
 			else
 				if useMaxTitleHeight then
@@ -220,7 +241,6 @@ function Tile:render()
 				else
 					local textToMeasure = name or ""
 
-					local titleFontSize = font.BaseSize * titleFontStyle.RelativeSize
 					local titleFont = titleFontStyle.Font
 
 					if titleIcon then
@@ -233,7 +253,7 @@ function Tile:render()
 				end
 
 				if subtitle ~= nil and subtitle ~= "" then
-					subtitleTextHeight = math.ceil(font.BaseSize * font.CaptionHeader.RelativeSize)
+					subtitleTextHeight = math.ceil(subtitleFontSize)
 					footerHeight = footerHeight - subtitleTextHeight
 				end
 			end
@@ -318,7 +338,7 @@ function Tile:render()
 					UIListLayout = React.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,
 						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(0, 0),
+						Padding = UDim.new(0, subtitleTopPadding),
 					}),
 					NameOverThumbnailPadding = titleTextPadding,
 					Name = (titleTextLineCount > 0 and tileWidth > 0) and React.createElement(TileName, {
@@ -336,7 +356,7 @@ function Tile:render()
 						size = UDim2.new(1, 0, 0, subtitleTextHeight),
 						text = subtitle,
 						colorStyle = theme.TextDefault,
-						fontStyle = font.CaptionHeader,
+						fontStyle = subtitleFontStyle,
 						layoutOrder = 2,
 						fluidSizing = false,
 						textTruncate = Enum.TextTruncate.AtEnd,

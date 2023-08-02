@@ -1,6 +1,6 @@
 --!strict
 
-game:DefineFastInt("UGCValidateMeshDivisionMedium", 29)
+game:DefineFastInt("UGCValidateMeshDivisionMedium", 9)
 
 return function()
 	return game:GetFastInt("UGCValidateMeshDivisionMedium")

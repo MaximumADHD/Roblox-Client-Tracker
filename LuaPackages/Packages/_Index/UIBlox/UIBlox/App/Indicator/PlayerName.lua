@@ -10,6 +10,8 @@ local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local StyleTypes = require(App.Style.StyleTypes)
 
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
+local ShimmerPanel = require(App.Loading.ShimmerPanel)
+
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 
@@ -37,6 +39,8 @@ export type ItemProps = {
 	onActivated: (() -> ())?,
 	-- Cursor to show when selected
 	cursorKind: any,
+	-- Item is in loading state
+	isLoading: boolean?,
 	-- Styles of name item
 	styleProps: ItemStyleProps?,
 }
@@ -85,7 +89,7 @@ end
 local function getDisplayNameStyleDefaults(tokens: StyleTypes.Tokens): ItemStyleProps
 	return {
 		iconLabelSpacing = tokens.Global.Space_25,
-		iconSize = tokens.Semantic.Icon.Size.Medium,
+		iconSize = tokens.Semantic.Icon.Size.Small,
 		labelTypography = tokens.Semantic.Typography.Subheader,
 		labelColorStyle = tokens.Semantic.Color.Text.Emphasis,
 	}
@@ -112,6 +116,7 @@ local function NameItem(props: InnerItemProps)
 	local useTextAsIcon = itemProps.useTextAsIcon
 	local onActivated = itemProps.onActivated
 	local cursorKind = itemProps.cursorKind
+	local isLoading = if itemProps.isLoading ~= nil then itemProps.isLoading else false
 
 	local styleProps = Cryo.Dictionary.join(itemStyleDefaults, itemProps.styleProps or {})
 	local iconLabelSpacing = styleProps.iconLabelSpacing
@@ -120,21 +125,31 @@ local function NameItem(props: InnerItemProps)
 	local labelTypography = styleProps.labelTypography
 	local labelColorStyle = styleProps.labelColorStyle
 
-	local selectionImageObject = if cursorKind then useSelectionCursor(cursorKind) else nil
+	local selectionImageObject = if not isLoading and cursorKind then useSelectionCursor(cursorKind) else nil
+	local showIcon = if not isLoading and icon then true else false
+	local isActive = if not isLoading and onActivated then true else false
+
+	local shimmerHeight = nil
+	if isLoading then
+		if icon then
+			shimmerHeight = math.max(iconSize, labelTypography.FontSize)
+		else
+			shimmerHeight = labelTypography.FontSize
+		end
+	end
 
 	local iconElement = nil
-	if icon then
+	if showIcon then
 		if useTextAsIcon then
 			iconElement = React.createElement("TextLabel", {
 				LayoutOrder = if isReversed then 2 else 1,
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.fromOffset(iconSize, 0),
+				Size = UDim2.fromOffset(iconSize, iconSize),
 				BackgroundTransparency = 1,
 				Text = icon,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				Font = labelTypography.Font,
-				TextScaled = true,
+				TextSize = iconSize,
 				TextColor3 = iconColorStyle.Color3,
 				TextTransparency = if iconColorStyle.Transparency then iconColorStyle.Transparency else 0,
 				Selectable = false,
@@ -152,16 +167,16 @@ local function NameItem(props: InnerItemProps)
 		end
 	end
 
-	return React.createElement(if onActivated then "TextButton" else "Frame", {
-		Text = if onActivated then "" else nil,
-		AutoButtonColor = if onActivated then false else nil,
+	return React.createElement(if isActive then "TextButton" else "Frame", {
+		Text = if isActive then "" else nil,
+		AutoButtonColor = if isActive then false else nil,
 		Size = UDim2.fromScale(1, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-		Selectable = if onActivated then true else false,
+		Selectable = if isActive then true else false,
 		SelectionImageObject = selectionImageObject,
-		[React.Event.Activated] = onActivated,
+		[React.Event.Activated] = if isActive then onActivated else nil,
 	}, {
 		ListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -170,21 +185,28 @@ local function NameItem(props: InnerItemProps)
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			Padding = UDim.new(0, iconLabelSpacing),
 		}),
+		Shimmer = if isLoading
+			then React.createElement(ShimmerPanel, {
+				Size = UDim2.new(1, 0, 0, shimmerHeight),
+			})
+			else nil,
 		Icon = iconElement,
-		Label = React.createElement("TextLabel", {
-			LayoutOrder = if isReversed then 1 else 2,
-			AutomaticSize = Enum.AutomaticSize.XY,
-			Size = UDim2.fromScale(0, 0),
-			BackgroundTransparency = 1,
-			Text = labelText,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			Font = labelTypography.Font,
-			TextSize = labelTypography.FontSize,
-			TextColor3 = labelColorStyle.Color3,
-			TextTransparency = labelColorStyle.Transparency,
-			Selectable = false,
-		}),
+		Label = if not isLoading
+			then React.createElement("TextLabel", {
+				LayoutOrder = if isReversed then 1 else 2,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Size = UDim2.fromScale(0, 0),
+				BackgroundTransparency = 1,
+				Text = labelText,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				Font = labelTypography.Font,
+				TextSize = labelTypography.FontSize,
+				TextColor3 = labelColorStyle.Color3,
+				TextTransparency = labelColorStyle.Transparency,
+				Selectable = false,
+			})
+			else nil,
 	})
 end
 

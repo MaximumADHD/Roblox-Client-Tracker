@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
@@ -11,6 +12,8 @@ local enumerate = require(Packages.enumerate)
 local bindingValidator = require(Core.Utility.bindingValidator)
 
 local withStyle = require(Core.Style.withStyle)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(App.SelectionImage.CursorKind)
 local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
@@ -106,91 +109,103 @@ function Cell:init()
 end
 
 function Cell:render()
+	if UIBloxConfig.enableSelectionCursorProviderOnTableCell then
+		return withStyle(function(style)
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return self:renderWithProviders(style, getSelectionCursor)
+			end)
+		end)
+	end
 	return withStyle(function(style)
-		local anchorPoint = self.props.anchorPoint
-		local layoutOrder = self.props.layoutOrder
-		local position = self.props.position
-		local size = self.props.size
-		if not size then
-			size = UDim2.fromScale(1, 1)
-		end
+		return self:renderWithProviders(style)
+	end)
+end
 
-		local head = self.props.head
-		local tail = self.props.tail
-		local background = self.props.background
+function Cell:renderWithProviders(style, getSelectionCursor)
+	local anchorPoint = self.props.anchorPoint
+	local layoutOrder = self.props.layoutOrder
+	local position = self.props.position
+	local size = self.props.size
+	if not size then
+		size = UDim2.fromScale(1, 1)
+	end
 
-		local userInteractionEnabled = self.props.userInteractionEnabled
-		local interactionEnabled = (tail and userInteractionEnabled) and true or false
-		local isDisabled = self.props.isDisabled
-		local onActivated = self.props.onActivated
-		local onTouchTapped = self.props.onTouchTapped
+	local head = self.props.head
+	local tail = self.props.tail
+	local background = self.props.background
 
-		local currentState = self.props[Cell.debugProps.controlState] or self.state.controlState
-		local backgroundStyle = self.getBackgroundStyle(currentState, style)
+	local userInteractionEnabled = self.props.userInteractionEnabled
+	local interactionEnabled = (tail and userInteractionEnabled) and true or false
+	local isDisabled = self.props.isDisabled
+	local onActivated = self.props.onActivated
+	local onTouchTapped = self.props.onTouchTapped
 
-		return Roact.createElement(Interactable, {
-			AnchorPoint = anchorPoint,
-			LayoutOrder = layoutOrder,
-			Position = position,
-			Size = size,
-			BackgroundTransparency = 1,
-			AutoButtonColor = false,
+	local currentState = self.props[Cell.debugProps.controlState] or self.state.controlState
+	local backgroundStyle = self.getBackgroundStyle(currentState, style)
 
-			isDisabled = isDisabled,
-			onStateChanged = self.onStateChanged,
-			userInteractionEnabled = interactionEnabled,
-			[Roact.Event.Activated] = onActivated,
-			[Roact.Event.TouchTap] = onTouchTapped,
+	return Roact.createElement(Interactable, {
+		AnchorPoint = anchorPoint,
+		LayoutOrder = layoutOrder,
+		Position = position,
+		Size = size,
+		BackgroundTransparency = 1,
+		AutoButtonColor = false,
+		SelectionImageObject = getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset),
 
-			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
-			[Roact.Ref] = self.props.forwardRef,
+		isDisabled = isDisabled,
+		onStateChanged = self.onStateChanged,
+		userInteractionEnabled = interactionEnabled,
+		[Roact.Event.Activated] = onActivated,
+		[Roact.Event.TouchTap] = onTouchTapped,
+
+		[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
+		[Roact.Ref] = self.props.forwardRef,
+	}, {
+		CellBackground = Roact.createElement("Frame", {
+			Size = UDim2.fromScale(1, 1),
+			BackgroundColor3 = backgroundStyle.Color,
+			BackgroundTransparency = backgroundStyle.Transparency,
+			BorderSizePixel = 0,
+			ZIndex = -1,
 		}, {
-			CellBackground = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
-				BackgroundColor3 = backgroundStyle.Color,
-				BackgroundTransparency = backgroundStyle.Transparency,
-				BorderSizePixel = 0,
-				ZIndex = -1,
-			}, {
-				Background = background,
+			Background = background,
+		}),
+		CellContent = Roact.createElement("Frame", {
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, self.props.horizontalPadding),
+				PaddingRight = UDim.new(0, self.props.horizontalPadding),
 			}),
-			CellContent = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
+			CellHead = Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(0, 0.5),
+				Position = UDim2.fromScale(0, 0.5),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.XY,
 			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, self.props.horizontalPadding),
-					PaddingRight = UDim.new(0, self.props.horizontalPadding),
-				}),
-				CellHead = Roact.createElement("Frame", {
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.fromScale(0, 0.5),
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					AutomaticSize = Enum.AutomaticSize.XY,
-				}, {
-					Head = head,
-				}),
-				CellTail = tail and Roact.createElement("Frame", {
-					AnchorPoint = Vector2.new(1, 0.5),
-					Position = UDim2.fromScale(1, 0.5),
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					AutomaticSize = Enum.AutomaticSize.XY,
-				}, {
-					Tail = tail,
-				}) or nil,
+				Head = head,
 			}),
-			DisabledMask = currentState == ControlState.Disabled and Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
+			CellTail = tail and Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.fromScale(1, 0.5),
+				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				BackgroundColor3 = backgroundStyle.Color,
-				BackgroundTransparency = DISABLED_TRANSPARENCY,
-				ZIndex = 100,
+				AutomaticSize = Enum.AutomaticSize.XY,
+			}, {
+				Tail = tail,
 			}) or nil,
-		})
-	end)
+		}),
+		DisabledMask = currentState == ControlState.Disabled and Roact.createElement("Frame", {
+			Size = UDim2.fromScale(1, 1),
+			BorderSizePixel = 0,
+			BackgroundColor3 = backgroundStyle.Color,
+			BackgroundTransparency = DISABLED_TRANSPARENCY,
+			ZIndex = 100,
+		}) or nil,
+	})
 end
 
 return Roact.forwardRef(function(props, ref)

@@ -39,7 +39,7 @@ local function createAccessorySchema(attachmentName)
 						ClassName = "TouchTransmitter",
 						_optional = true,
 					},
-				}
+				},
 			},
 		},
 	}

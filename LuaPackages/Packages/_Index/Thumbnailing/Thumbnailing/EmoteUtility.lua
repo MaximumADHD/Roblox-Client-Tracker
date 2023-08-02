@@ -11,10 +11,14 @@ local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 
 local FFlagEmoteUtilityFixMoodApplication = game:DefineFastFlag("EmoteUtilityFixMoodApplication2", false)
+local FFlagEmoteUtilityTweaks = game:DefineFastFlag("EmoteUtilityTweaks", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local module = {}
+
+module.FFlagEmoteUtilityFixMoodApplication = FFlagEmoteUtilityFixMoodApplication
+module.FFlagEmoteUtilityTweaks = FFlagEmoteUtilityTweaks
 
 type AnimationAssetIdOrUrl = string | number
 
@@ -23,7 +27,15 @@ type AttachmentsByName = { [string]: Attachment }
 type SomeKindOfRotationCurve = EulerRotationCurve | RotationCurve
 
 export type KeyframesForPose = {
-	animationAssetId: number?,
+	-- Remove with FFlagEmoteUtilityTweaks
+	DEPRECATED_animationAssetId: number?,
+	-- The asset id passed in.  This is an explicit choice by the user: they picked this emote to pose.
+	-- If nil, it means they didn't pick an emote.
+	originalAnimationAssetId: number?,
+	-- The asset id used to generate the final pose keyframe.  If originalAnimationAssetId is non-nil, it's that.
+	-- Otherwise if this wasn't a closeup and we used fallback logic, some id of the asset we fell back to.
+	-- Doesn't so much matter what the id is as long as it's globally unique.
+	finalAnimationAssetIdOrUrl: AnimationAssetIdOrUrl?,
 	poseKeyframe: Keyframe?,
 	moodKeyframe: Keyframe?,
 	defaultToolKeyframe: Keyframe?,
@@ -46,7 +58,7 @@ module.mapAssetIdToFileName = nil :: MapAssetIdToFileNameType?
 --   In Studio, use this asset id to load up the animation: in Command bar type "game:GetService("InsertService"):LoadAsset(2510235063).Parent = workspace"
 --   In Studio, drill down Model.R15Anim.pose.RthroIdlePose.  It has "AnimationId" field "rbxassetid://10921261056"
 --   That 10921261056 is the value I want.
-local FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL = "http://www.roblox.com/asset/?id="
+module.FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL = "http://www.roblox.com/asset/?id="
 	.. FStringEmoteUtilityFallbackKeyframeSequenceAssetId
 
 -- We may call applyKeyframeInner a number of times: pose face, pose for tool, pose whole body based on emote, etc.
@@ -134,6 +146,7 @@ local function getAnimationAndIsIdle(animationAssetIdOrUrl: AnimationAssetIdOrUr
 	local animation: Animation?
 	local success
 	local actionName
+
 	if typeof(animationAssetIdOrUrl) == "number" then
 		local instance
 		success, instance = module.LoadAsset(animationAssetIdOrUrl)
@@ -446,9 +459,11 @@ local function applyR15KeyframeWithTool(
 		-- involved in the tool pose.
 		applyKeyframeInner(character, defaultToolKeyframe)
 		-- Now apply the user-selected pose.
-		-- Do this iff the user-selected pose was explicitly set with a animationAssetId.  If not, it's a a pose based
-		-- on idle animation, and we don't want to do arbitrary idle animation + tool because for some gear that doesn't look
-		-- right.
+		-- Do this iff the user-selected pose was explicitly set with a animationAssetId.
+		-- Note this is the assetId that was passed in, not the asset id that we may have finally
+		-- used to pose (maybe different if original id was nil and we're using some kind of fallback logic).
+		-- If animationAssetId is nil, any pose we have is based on some aritary idle anim, and we don't want to mix that
+		-- with tool-based poses (design decision)
 		if animationAssetId ~= nil then
 			applyKeyframeInner(character, poseKeyframe)
 		end
@@ -460,13 +475,16 @@ end
 
 --[[
 	Given a pose asset ID (number) or pose asset url (string), figure out the keyframe we're going to use to
-	pose the avatar.
-	- may be nil, in which case we use a fallback/constant keyframe.  This is a 'weak'
-	  pose which may be trumped by a tool's suggested pose.
-	- may be asset id for a keyframe sequence.  This is also a 'weak' pose which may be
-	  trumped by a tool's suggested pose.
-	- may be asset id for an animation.  This is a 'strong' pose which is considered more
-	  important than any suggestion from tool.
+	pose the main body of the avatar.
+
+	* if animationAssetIdOrUrl is non-nil, pose using that asset.
+	* if animationAssetIdOrUrl is nil, and useFallbackAnimations is true:
+	    * if idle anim is equipped, pose using that.
+		* else pose using some constant/fallback idle anim.
+
+	If animationAssetIdOrUrl is non-nil asset if for an animation, this is a "strong" pose
+	which is considered more important than any pose tweaks from a tool.
+	Otherwise our pose is "weak" and can be trumped by tool.
 
 	useRotationInPoseAsset, if true, means we look for a "ThumbnailCharacterRotation"
 	number value in the pose asset and use that to rotate the avatar.
@@ -477,17 +495,20 @@ end
 local function getMainThumbnailKeyframe(
 	character: Model,
 	animationAssetIdOrUrl: AnimationAssetIdOrUrl?,
-	useRotationInPoseAsset: boolean
-): (Keyframe?, boolean)
+	useRotationInPoseAsset: boolean,
+	useFallbackAnimations: boolean?
+): (Keyframe?, boolean, AnimationAssetIdOrUrl?)
 	local thumbnailKeyframe
 	local givenPoseTrumpsToolPose = false
+	local finalAnimationAssetIdOrUrl = nil
 
 	if animationAssetIdOrUrl then
+		finalAnimationAssetIdOrUrl = animationAssetIdOrUrl
 		local animation, animationAssetIsIdleAnim = getAnimationAndIsIdle(animationAssetIdOrUrl)
 
 		-- animationAsset could be nil if something went wrong.
 		if animation == nil then
-			return nil, givenPoseTrumpsToolPose
+			return nil, givenPoseTrumpsToolPose, finalAnimationAssetIdOrUrl
 		end
 		assert(animation, "animation is non-nil. Silence type checker.")
 
@@ -522,30 +543,70 @@ local function getMainThumbnailKeyframe(
 			end
 		end
 	else
-		local keyframeSequenceAssetUrl = FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL
-		local animateScript = character:FindFirstChild("Animate")
-		if animateScript then
-			local equippedPoseValue = animateScript:FindFirstChild("Pose") or animateScript:FindFirstChild("pose")
-			if equippedPoseValue then
-				local poseAnim = equippedPoseValue:FindFirstChildOfClass("Animation")
-				if poseAnim then
-					keyframeSequenceAssetUrl = poseAnim.AnimationId
+		if not FFlagEmoteUtilityTweaks or useFallbackAnimations then
+			local keyframeSequenceAssetUrl = module.FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL
+			local animateScript = character:FindFirstChild("Animate")
+			if animateScript then
+				local equippedPoseValue = animateScript:FindFirstChild("Pose") or animateScript:FindFirstChild("pose")
+				if equippedPoseValue then
+					local poseAnim = equippedPoseValue:FindFirstChildOfClass("Animation")
+					if poseAnim then
+						keyframeSequenceAssetUrl = poseAnim.AnimationId
+					end
 				end
 			end
-		end
 
-		local poseAnimationClip = getAnimationClipByAssetId(keyframeSequenceAssetUrl)
-		if poseAnimationClip then
-			if not poseAnimationClip:IsA("KeyframeSequence") then
-				-- uh oh.
-				return nil, false
+			finalAnimationAssetIdOrUrl = keyframeSequenceAssetUrl
+
+			local poseAnimationClip = getAnimationClipByAssetId(keyframeSequenceAssetUrl)
+			if poseAnimationClip then
+				if not poseAnimationClip:IsA("KeyframeSequence") then
+					-- unexpected bad situation: we can't seem to find a keyframe.
+					return nil, false, finalAnimationAssetIdOrUrl
+				end
+				local poseKeyframeSequence = poseAnimationClip :: KeyframeSequence
+				thumbnailKeyframe = poseKeyframeSequence:GetKeyframes()[1] :: Keyframe
 			end
-			local poseKeyframeSequence = poseAnimationClip :: KeyframeSequence
-			thumbnailKeyframe = poseKeyframeSequence:GetKeyframes()[1] :: Keyframe
 		end
 	end
 
-	return thumbnailKeyframe, givenPoseTrumpsToolPose
+	return thumbnailKeyframe, givenPoseTrumpsToolPose, finalAnimationAssetIdOrUrl
+end
+
+--[[
+	Get keyframe to pose face based on mood asset id.
+]]
+local function getMoodThumbnailKeyframe(moodAssetIdOrUrl: AnimationAssetIdOrUrl?): Keyframe?
+	local thumbnailKeyframe
+	if not moodAssetIdOrUrl then
+		return nil
+	end
+	assert(moodAssetIdOrUrl, "moodAssetId is non-nil. Silence type checker.")
+
+	local animation, _ = getAnimationAndIsIdle(moodAssetIdOrUrl)
+
+	-- animationAsset could be nil if something went wrong.
+	if animation == nil then
+		return nil
+	end
+	assert(animation, "animation is non-nil. Silence type checker.")
+
+	local thumbnailKeyframeNumber = module.GetNumberValueWithDefault(animation, "ThumbnailKeyframe", nil)
+
+	local thumbnailTime = module.GetNumberValueWithDefault(animation, "ThumbnailTime", nil)
+
+	local emoteAnimationClip = module.GetAnimationClip(animation)
+	if emoteAnimationClip then
+		if emoteAnimationClip:IsA("KeyframeSequence") then
+			thumbnailKeyframe = module.GetThumbnailKeyframe(thumbnailKeyframeNumber, emoteAnimationClip, 0)
+		elseif emoteAnimationClip:IsA("CurveAnimation") then
+			thumbnailKeyframe = module.GetThumbnailKeyframeFromCurve(thumbnailTime, emoteAnimationClip, 0)
+		else
+			error("Unsupported Animation type:" .. emoteAnimationClip.ClassName)
+		end
+	end
+
+	return thumbnailKeyframe
 end
 
 --[[
@@ -634,7 +695,10 @@ end
 	-- defaultToolKeyframe: user is holding tool but tool doesn't tell us how to pose avatar.  Some default "hold up your arm" pose
 	   for holding a tool.
 ]]
-local function doYieldingWorkToLoadPoseInfo(
+-- FIXME(dbanks)
+-- 2023/07/21
+-- Remove with FFlagEmoteUtilityTweaks.
+local function DEPRECATED_doYieldingWorkToLoadPoseInfo(
 	character: Model,
 	animationAssetId: number?,
 	ignoreRotationInPoseAsset: boolean?
@@ -643,6 +707,10 @@ local function doYieldingWorkToLoadPoseInfo(
 	local givenPoseTrumpsToolPose
 	-- Get the thumbnails suggested by animationAssetId.
 	-- Note: this is a yielding call.
+	if not ignoreRotationInPoseAsset then
+		ignoreRotationInPoseAsset = false
+	end
+
 	poseKeyframe, givenPoseTrumpsToolPose =
 		getMainThumbnailKeyframe(character, animationAssetId, not ignoreRotationInPoseAsset)
 
@@ -911,9 +979,27 @@ module.ClearPlayerCharacterFace = function(character: Model)
 	end
 end
 
+module.AdjustArmOnR6ForTool = function(character: Model)
+	local tool = character:FindFirstChildOfClass("Tool")
+	local torso = character:FindFirstChild("Torso")
+	if torso then
+		local rightShoulder = torso:FindFirstChild("Right Shoulder") :: Motor6D
+		if rightShoulder then
+			if tool then
+				rightShoulder.CurrentAngle = math.rad(90)
+				rightShoulder.DesiredAngle = math.rad(90)
+			else
+				rightShoulder.CurrentAngle = math.rad(0)
+				rightShoulder.DesiredAngle = math.rad(0)
+			end
+		end
+	end
+end
+
 -- Check for cases where we can quickly/easily resolve pose, with no async complications.
 -- If we find one, return true.
-module.SetPlayerCharacterPoseEasyOut = function(character: Model, humanoid: Humanoid?): boolean
+-- Remove with FFlagEmoteUtilityTweaks
+module.DEPRECATED_SetPlayerCharacterPoseEasyOut = function(character: Model, humanoid: Humanoid?): boolean
 	if humanoid then
 		if humanoid.RigType == Enum.HumanoidRigType.R6 then
 			local tool = character:FindFirstChildOfClass("Tool")
@@ -946,7 +1032,8 @@ end
 module.SetPlayerCharacterFace = function(
 	character: Model,
 	animationAssetIdOrUrl: AnimationAssetIdOrUrl?,
-	confirmProceedAfterYield: (AnimationAssetIdOrUrl?) -> boolean
+	-- Remove with FFlagEmoteUtilityTweaks
+	DEPRECATED_confirmProceedAfterYield: (AnimationAssetIdOrUrl?) -> boolean
 )
 	-- Early out on nil/empty input.
 	if not animationAssetIdOrUrl then
@@ -971,17 +1058,24 @@ module.SetPlayerCharacterFace = function(
 	end
 
 	-- Get the thumbnails suggested by animationAssetIdOrUrl.
-	local moodKeyframe = getMainThumbnailKeyframe(character, animationAssetIdOrUrl, true)
+	local moodKeyframe
+	if FFlagEmoteUtilityTweaks then
+		moodKeyframe = getMoodThumbnailKeyframe(animationAssetIdOrUrl)
+	else
+		moodKeyframe = getMainThumbnailKeyframe(character, animationAssetIdOrUrl, true --[[useRotationInPoseAsset]])
+	end
 
 	-- If that fails, just quit.  No posing.
 	if not moodKeyframe then
 		return
 	end
 
-	-- We have called some yielding functions (and now we are done, no more yielding functions).
-	-- Do we still want to do this?
-	if confirmProceedAfterYield and not confirmProceedAfterYield(animationAssetIdOrUrl) then
-		return
+	if not FFlagEmoteUtilityTweaks then
+		-- We have called some yielding functions (and now we are done, no more yielding functions).
+		-- Do we still want to do this?
+		if DEPRECATED_confirmProceedAfterYield and not DEPRECATED_confirmProceedAfterYield(animationAssetIdOrUrl) then
+			return
+		end
 	end
 
 	-- Before applying the pose, clear out any previous face pose (otherwise we get some hybrid of previous & mood)
@@ -1001,6 +1095,13 @@ module.SetPlayerCharacterNeutralPose = function(character: Model)
 		return
 	end
 	assert(humanoid, "humanoid should be non-nil. Silence type checker.")
+
+	if FFlagEmoteUtilityTweaks then
+		-- Only need to do this for R15.
+		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+			return
+		end
+	end
 
 	humanoid:BuildRigFromAttachments()
 
@@ -1023,16 +1124,197 @@ end
 	Load what we need to load for this character/pose/mood combo.
 	Do not apply anything to the character.
 	Yielding.
+
+	Remove with FFlagEmoteUtilityTweaks
 ]]
-module.LoadKeyframesForPose = function(
+module.DEPRECATED_LoadKeyframesForPose = function(
 	character: Model,
 	animationAssetId: number?,
 	moodAssetId: number?,
 	ignoreRotationInPoseAsset: boolean?
 ): KeyframesForPose?
 	local keyframesForPose: KeyframesForPose = {}
-	keyframesForPose.animationAssetId = animationAssetId
+	keyframesForPose.DEPRECATED_animationAssetId = animationAssetId
 
+	assert(character, "character should be non-nil")
+	if animationAssetId ~= nil then
+		assert(
+			typeof(animationAssetId) == "number",
+			"EmoteUtility.DEPRECATED_LoadKeyframesForPose expects animationAssetId to be a number or nil"
+		)
+		assert(
+			animationAssetId > 0,
+			"EmoteUtility.DEPRECATED_LoadKeyframesForPose expects animationAssetId to be a real asset ID (positive number)"
+		)
+	end
+	if moodAssetId ~= nil then
+		assert(
+			typeof(moodAssetId) == "number",
+			"EmoteUtility.DEPRECATED_LoadKeyframesForPose expects moodAssetId to be a number or nil"
+		)
+	end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoid then
+		return nil
+	end
+	assert(humanoid, "humanoid should be non-nil. Silence type checker.")
+
+	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+		-- Only R15 avatars can be posed: there are no asset ids to load.
+		return keyframesForPose
+	end
+
+	local poseKeyframe, suggestedKeyframeFromTool, defaultToolKeyframe =
+		DEPRECATED_doYieldingWorkToLoadPoseInfo(character, animationAssetId, ignoreRotationInPoseAsset)
+
+	local moodKeyframe
+	if FFlagEmoteUtilityFixMoodApplication then
+		-- Worry about applying mood asset to pose.
+		-- Overall idea:
+		-- * If there is no mood asset, skip it.
+		-- * If the user did explicitly choose an emote to pose and that emote has mood info, ignore moodAsset:
+		--   the emote is a stronger/more explicit choice about mood.
+		-- * Otherwise we do care about the mood asset: load it.
+		local shouldApplyMood = false
+		if moodAssetId and moodAssetId ~= 0 then
+			if animationAssetId == nil then
+				shouldApplyMood = true
+			else
+				if not module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
+					shouldApplyMood = true
+				end
+			end
+		end
+		if shouldApplyMood then
+			moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true --[[useRotationInPoseAsset]])
+		end
+	else
+		local poseKeyframeHasFaceAnimation = module.PoseKeyframeHasFaceAnimation(poseKeyframe)
+		if not poseKeyframeHasFaceAnimation and moodAssetId and moodAssetId ~= 0 then
+			-- Get the face keyframes.
+			-- Note: this is yielding function.  I considered making it parallel with doYieldingWorkToLoadPoseInfo, but
+			-- doYieldingWorkToLoadPoseInfo gives us poseKeyframe which in turn tells us poseKeyframeHasFaceAnimation.
+			-- Depending on the results of doYieldingWorkToLoadPoseInfo we might not even need to make this call.
+			moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true --[[useRotationInPoseAsset]])
+		end
+	end
+
+	keyframesForPose.poseKeyframe = poseKeyframe
+	keyframesForPose.moodKeyframe = moodKeyframe
+	keyframesForPose.defaultToolKeyframe = defaultToolKeyframe
+	keyframesForPose.suggestedKeyframeFromTool = suggestedKeyframeFromTool
+
+	return keyframesForPose
+end
+
+local function loadKeyframesForPoseR15(
+	character: Model,
+	animationAssetId: number?,
+	moodAssetId: number?,
+	ignoreRotationInPoseAsset: boolean?,
+	forCloseup: boolean?
+): KeyframesForPose?
+	local keyframesForPose: KeyframesForPose = {}
+	keyframesForPose.originalAnimationAssetId = animationAssetId
+
+	-- Get the thumbnails suggested by animationAssetId.
+	-- Note: this is a yielding call.
+	local useFallbackAnimations
+	if forCloseup then
+		useFallbackAnimations = false
+	else
+		useFallbackAnimations = true
+	end
+
+	local poseKeyframe, givenPoseTrumpsToolPose, finalAnimationAssetIdOrUrl =
+		getMainThumbnailKeyframe(character, animationAssetId, not ignoreRotationInPoseAsset, useFallbackAnimations)
+
+	local suggestedKeyframeFromTool, defaultToolKeyframe
+	-- If there's no pose, don't even bother trying to load tool pose.
+	if not forCloseup and poseKeyframe then
+		-- If user is holding a tool, that may affect how we pose.  Sort that out.
+		-- Note: this is also a yielding call.
+		-- I considered trying to run getToolKeyframes and getMainThumbnailKeyframe in parallel, but
+		-- running getMainThumbnailKeyframe first gives us givenPoseTrumpsToolPose, which is an input to getToolKeyframes.
+		-- Without givenPoseTrumpsToolPose, getToolKeyframes would always have to hit backend to fetch defaultToolKeyframe.
+		-- With givenPoseTrumpsToolPose, we might skip that call because the tool has a suggestion on how to pose avatar
+		-- and we know we want to use it.
+		--
+		-- So by running them in sequence I may be able to save us a backend call.
+		suggestedKeyframeFromTool, defaultToolKeyframe = getToolKeyframes(character, givenPoseTrumpsToolPose)
+	end
+
+	local moodKeyframe
+	-- Worry about applying mood asset to pose.
+	-- Overall idea:
+	-- * If there is no mood asset, skip it.
+	-- * If the user did explicitly choose an emote to pose and that emote has mood info, ignore moodAsset:
+	--   the emote is a stronger/more explicit choice about mood.
+	-- * Otherwise we do care about the mood asset: load it.
+	local shouldApplyMood = false
+	if moodAssetId and moodAssetId ~= 0 then
+		if animationAssetId == nil then
+			shouldApplyMood = true
+		else
+			if not module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
+				shouldApplyMood = true
+			end
+		end
+	end
+	if shouldApplyMood then
+		moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
+	end
+
+	keyframesForPose.poseKeyframe = poseKeyframe
+	keyframesForPose.moodKeyframe = moodKeyframe
+	keyframesForPose.defaultToolKeyframe = defaultToolKeyframe
+	keyframesForPose.suggestedKeyframeFromTool = suggestedKeyframeFromTool
+	keyframesForPose.finalAnimationAssetIdOrUrl = finalAnimationAssetIdOrUrl
+
+	return keyframesForPose
+end
+
+local function loadKeyframesForPoseR6(animationAssetId: number?, moodAssetId: number?): KeyframesForPose?
+	local keyframesForPose: KeyframesForPose = {}
+	keyframesForPose.originalAnimationAssetId = animationAssetId
+
+	local moodKeyframe
+	-- Worry about applying mood asset to pose.
+	if moodAssetId and moodAssetId ~= 0 then
+		moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
+	end
+
+	keyframesForPose.moodKeyframe = moodKeyframe
+
+	return keyframesForPose
+end
+
+--[[
+	Load what we need to load for this character/pose/mood combo.
+	Do not apply anything to the character.
+
+	If forCloseup is true:
+	* If animationAssetId is present, use that to pose.
+	* Otherwise fall back to t-pose.
+	  * No worries about tools or tool poses.
+	  * No worries about fallback to equipped idle or default idle anim.
+	If forCloseup is false:
+	* If animationId is present, use that to pose.
+	* Otherwise, if idle anim is equipped, use that to pose.
+	* Otherwise pose with default idle anim.
+	* If avatar is holding a tool, get tool poses.
+
+	Yielding.
+]]
+module.LoadKeyframesForPose = function(
+	character: Model,
+	animationAssetId: number?,
+	moodAssetId: number?,
+	ignoreRotationInPoseAsset: boolean?,
+	forCloseup: boolean?
+): KeyframesForPose?
+	-- sanity checks on args.
 	assert(character, "character should be non-nil")
 	if animationAssetId ~= nil then
 		assert(
@@ -1057,55 +1339,12 @@ module.LoadKeyframesForPose = function(
 	end
 	assert(humanoid, "humanoid should be non-nil. Silence type checker.")
 
-	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-		-- Only R15 avatars can be posed: there are no asset ids to load.
-		return keyframesForPose
-	end
-
-	local poseKeyframe, suggestedKeyframeFromTool, defaultToolKeyframe =
-		doYieldingWorkToLoadPoseInfo(character, animationAssetId, ignoreRotationInPoseAsset)
-
-	local moodKeyframe
-
-	if FFlagEmoteUtilityFixMoodApplication then
-		-- Worry about applying mood asset to pose.
-		-- Overall idea:
-		-- * If there is no mood asset, skip it.
-		-- * If the user did not explicitly choose an an emote to pose, then use the mood asset: even if the
-		--   fallback pose has mood info, the explicitly equipped mood asset is more important.
-		-- * Otherwise the user did explicitly choose an emote to pose.  Iff that emote to pose does
-		--   not have mood info, then apply the mood asset: the mood from emote is more important
-		--   than equipped mood asset.
-		local shouldApplyMood = false
-		if moodAssetId and moodAssetId ~= 0 then
-			if animationAssetId == nil then
-				shouldApplyMood = true
-			else
-				if not module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
-					shouldApplyMood = true
-				end
-			end
-		end
-		if shouldApplyMood then
-			moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true)
-		end
+	-- R6 we don't pose body.  Still might pose face though.
+	if humanoid.RigType == Enum.HumanoidRigType.R15 then
+		return loadKeyframesForPoseR15(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset, forCloseup)
 	else
-		local poseKeyframeHasFaceAnimation = module.PoseKeyframeHasFaceAnimation(poseKeyframe)
-		if not poseKeyframeHasFaceAnimation and moodAssetId and moodAssetId ~= 0 then
-			-- Get the face keyframes.
-			-- Note: this is yielding function.  I considered making it parallel with doYieldingWorkToLoadPoseInfo, but
-			-- doYieldingWorkToLoadPoseInfo gives us poseKeyframe which in turn tells us poseKeyframeHasFaceAnimation.
-			-- Depending on the results of doYieldingWorkToLoadPoseInfo we might not even need to make this call.
-			moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true)
-		end
+		return loadKeyframesForPoseR6(animationAssetId, moodAssetId)
 	end
-
-	keyframesForPose.poseKeyframe = poseKeyframe
-	keyframesForPose.moodKeyframe = moodKeyframe
-	keyframesForPose.defaultToolKeyframe = defaultToolKeyframe
-	keyframesForPose.suggestedKeyframeFromTool = suggestedKeyframeFromTool
-
-	return keyframesForPose
 end
 
 --[[
@@ -1132,19 +1371,46 @@ module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: Keyf
 
 	-- Apply body pose.
 	local tool = character:FindFirstChildOfClass("Tool")
-
-	if tool then
-		applyR15KeyframeWithTool(
-			character,
-			humanoid,
-			tool,
-			keyframesForPose.animationAssetId,
-			keyframesForPose.poseKeyframe,
-			keyframesForPose.defaultToolKeyframe,
-			keyframesForPose.suggestedKeyframeFromTool
-		)
+	if FFlagEmoteUtilityTweaks then
+		if humanoid.RigType == Enum.HumanoidRigType.R15 then
+			if tool then
+				local originalAnimationAssetId = keyframesForPose.originalAnimationAssetId
+				applyR15KeyframeWithTool(
+					character,
+					humanoid,
+					tool,
+					originalAnimationAssetId,
+					keyframesForPose.poseKeyframe,
+					keyframesForPose.defaultToolKeyframe,
+					keyframesForPose.suggestedKeyframeFromTool
+				)
+			else
+				applyKeyframeInner(character, keyframesForPose.poseKeyframe)
+			end
+		else
+			-- Just move the arm for the tool
+			module.AdjustArmOnR6ForTool(character)
+		end
 	else
-		applyKeyframeInner(character, keyframesForPose.poseKeyframe)
+		if tool then
+			local originalAnimationAssetId
+			if FFlagEmoteUtilityTweaks then
+				originalAnimationAssetId = keyframesForPose.originalAnimationAssetId
+			else
+				originalAnimationAssetId = keyframesForPose.DEPRECATED_animationAssetId
+			end
+			applyR15KeyframeWithTool(
+				character,
+				humanoid,
+				tool,
+				originalAnimationAssetId,
+				keyframesForPose.poseKeyframe,
+				keyframesForPose.defaultToolKeyframe,
+				keyframesForPose.suggestedKeyframeFromTool
+			)
+		else
+			applyKeyframeInner(character, keyframesForPose.poseKeyframe)
+		end
 	end
 
 	-- Apply face pose.
@@ -1162,44 +1428,52 @@ end
 	If the animationAssetId contains details that pose the face, ignore moodAssetId.
 	Otherwise pose face with moodAssetId if present.
 
-	animationAssetId could point to an animation asset or a keyframe sequence.
-	* If no animationAssetId is provided we fall back to looking for children of the character
-	with particular names/structure to indicate a pose.
-	Otherwise we fall back to some constant value.  NOTE this constant value will only
-	work on production (hardwired asset id).
-	* If animationAssetId is provided, the caller is assumed to care about exactly what pose
-	we are getting.  Since this function has async yield in it, hit the provided
-	confirmProceedAfterYield callback after all the yielding stuff to confirm we still
-	really want to do this.
-
-	This should properly account for the following quirks:
-	* If tool present, try to adjust pose to account for tool.
-	* If R6, just do very simple adaptation to account for possible tool.
-
 	ignoreRotationInPoseAsset is an optional param: if false, and animationAsset has a
 	"ThumbnailCharacterRotation" NumberValue, use that to rotate the avatar as
 	part of the pose.  If true, ignore "ThumbnailCharacterRotation" NumberValue on
 	pose asset.
+
+	forCloseup is an optional param.  If present and true:
+	-- we don't bother with tool-related poses.
+	-- if animationAssetId is nil, we don't bother with fallback logic.
 ]]
 module.SetPlayerCharacterPoseWithMoodFallback = function(
 	character: Model,
 	animationAssetId: number?,
 	moodAssetId: number?,
-	ignoreRotationInPoseAsset: boolean
+	ignoreRotationInPoseAsset: boolean?,
+	forCloseup: boolean?
 )
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if module.SetPlayerCharacterPoseEasyOut(character, humanoid) then
-		return
+	if FFlagEmoteUtilityTweaks then
+		if not humanoid then
+			return
+		end
+	else
+		if module.DEPRECATED_SetPlayerCharacterPoseEasyOut(character, humanoid) then
+			return
+		end
 	end
 
 	-- Humanoid exists.
 	assert(humanoid, "humanoid should be non-nil.  Silence type checker.")
-	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-		return
+
+	if not FFlagEmoteUtilityTweaks then
+		-- With FFlagEmoteUtilityTweaks true, loading and applying keyframes does the right thing for R6.
+		-- This code as-is: we fail to apply mood when we should.
+		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+			return
+		end
 	end
 
-	local keyframesForPose =
-		module.LoadKeyframesForPose(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset)
+	local keyframesForPose
+	if FFlagEmoteUtilityTweaks then
+		keyframesForPose =
+			module.LoadKeyframesForPose(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset, forCloseup)
+	else
+		keyframesForPose =
+			module.DEPRECATED_LoadKeyframesForPose(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset)
+	end
 
 	module.ApplyKeyframesForPose(character, keyframesForPose)
 end

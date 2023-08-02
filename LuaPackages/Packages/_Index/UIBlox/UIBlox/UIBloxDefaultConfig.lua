@@ -12,6 +12,9 @@ return {
 	-- props from a traditional TextLabel
 	useNewGenericTextLabelProps = false,
 
+	-- Enables token usage in PlayerTile to support scalability
+	useTokensInPlayerTile = false,
+
 	-- Config to enable new icon sizes
 	enableNewIconSizes = false,
 
@@ -82,9 +85,6 @@ return {
 	-- Allow UIBlox TextButtons to be shown after Icon Buttons in the ActionBar
 	enableTextButtonsInActionBar = false,
 
-	-- Enable the overrideAutomaticCanvasSize prop for DetailsPageTenfootTemplate
-	useDetailsPageTemplateManualSize = false,
-
 	-- Enable the option to add a button to the Toast component
 	enableToastButton = false,
 
@@ -99,4 +99,13 @@ return {
 
 	-- Indicate whether to enable the new layout for menu/cell
 	enableNewMenuLayout = false,
+
+	-- Take size of empty subtitles into consideration when rendering loading shimmer for names in PlayerTile
+	fixLoadingShimmerForPlayerTileNames = false,
+
+	-- Enable Cursor Provider on Table Cells to match console navigation styling
+	enableSelectionCursorProviderOnTableCell = false,
+
+	-- Bugfix for ExpandableTextArea not respecting child size
+	fixExpandableTextAreaChildSizing = false,
 }
