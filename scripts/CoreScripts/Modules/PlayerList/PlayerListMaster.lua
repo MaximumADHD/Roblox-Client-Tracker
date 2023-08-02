@@ -7,7 +7,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local FFlagPlayerListRoactInspector = game:DefineFastFlag("PlayerListRoactInspector", false)
+local FFlagPlayerListRoactInspector = game:DefineFastFlag("DebugPlayerListRoactInspector", false)
 
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham

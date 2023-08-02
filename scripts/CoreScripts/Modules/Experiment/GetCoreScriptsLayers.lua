@@ -11,6 +11,8 @@ local GetFFlagReportAnythingAnnotationIXP = require(script.Parent.Parent.Setting
 local GetFStringReportAnythingAnnotationIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
 local GetFStringChatTranslationLayerName = require(script.Parent.Parent.Flags.GetFStringChatTranslationLayerName)
 local GetFFlagUserIsChatTranslationEnabled = require(script.Parent.Parent.Flags.GetFFlagUserIsChatTranslationEnabled)
+local GetFFlagVoiceUserAgencyEnableIXP = require(script.Parent.Parent.Flags.GetFFlagVoiceUserAgencyEnableIXP)
+local GetFStringVoiceUserAgencyIXPLayerName = require(script.Parent.Parent.Flags.GetFStringVoiceUserAgencyIXPLayerName)
 
 return function()
 	local layers = {
@@ -42,6 +44,10 @@ return function()
 
 	if GetFFlagUserIsChatTranslationEnabled() and #GetFStringChatTranslationLayerName() > 0 then
 		table.insert(layers, GetFStringChatTranslationLayerName())
+	end
+
+	if GetFFlagVoiceUserAgencyEnableIXP() then
+		table.insert(layers, GetFStringVoiceUserAgencyIXPLayerName())
 	end
 
 	return layers

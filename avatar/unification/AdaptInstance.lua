@@ -165,7 +165,7 @@ local onMotorChanged = function(motor, adapterMotor)
 			return
 		end
 		setMotor6DAdjustment(motor)
-		remapMotor6DCFrame(adapterMotor)
+		remapMotor6DCFrame(motor, adapterMotor)
 	end
 	return motorChangedFunction
 end

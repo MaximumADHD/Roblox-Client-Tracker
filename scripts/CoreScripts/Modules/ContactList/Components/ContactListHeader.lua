@@ -35,8 +35,6 @@ local getTitleFromPage = function(currentPage)
 		return "Start New Call"
 	elseif currentPage == Pages.CallHistory then
 		return "Recent Calls"
-	elseif currentPage == Pages.CallDetails then
-		return "Call Details"
 	end
 
 	return ""

@@ -1,24 +1,27 @@
 local CorePackages = game:GetService("CorePackages")
 local Packages = CorePackages.Packages
 local React = require(Packages.React)
-
-local DOT_COLOR = Color3.new(0.33, 0.62, 0.49)
-local DOT_SIZE = UDim2.fromOffset(4, 4)
+local UIBlox = require(Packages.UIBlox)
+local useStyle = UIBlox.Core.Style.useStyle
 
 export type Props = {
-	Visible: boolean,
 	AnchorPoint: Vector2?,
 	Position: UDim2?,
 	ZIndex: number?,
 }
 
+local DOT_SIZE = UDim2.fromOffset(4, 4)
+local DEFAULT_ANCHOR_POINT = Vector2.new(0.5, 0.5)
+local DEFAULT_POSITION = UDim2.fromScale(0.8, 0.8)
+
 local function CameraStatusDot(props: Props): React.ReactNode
+	local style = useStyle()
+
 	return React.createElement("Frame", {
-		AnchorPoint = props.AnchorPoint or Vector2.new(0.5, 0.5),
+		AnchorPoint = props.AnchorPoint or DEFAULT_ANCHOR_POINT,
 		Size = DOT_SIZE,
-		BackgroundColor3 = DOT_COLOR,
-		Position = props.Position or UDim2.fromScale(0.8, 0.8),
-		Visible = props.Visible,
+		BackgroundColor3 = style.Theme.OnlineStatus.Color,
+		Position = props.Position or DEFAULT_POSITION,
 		ZIndex = props.ZIndex,
 	}, {
 		UICorner = React.createElement("UICorner", {

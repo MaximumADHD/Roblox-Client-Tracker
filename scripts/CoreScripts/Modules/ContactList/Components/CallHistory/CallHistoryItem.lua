@@ -3,6 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local React = require(CorePackages.Packages.React)
 
@@ -12,13 +13,10 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
-local IconButton = UIBlox.App.Button.IconButton
-local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Images = UIBlox.App.ImageSet.Images
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
-local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 
 local ControlState = UIBlox.Core.Control.Enum.ControlState
@@ -27,10 +25,9 @@ local Interactable = UIBlox.Core.Control.Interactable
 local useStyle = UIBlox.Core.Style.useStyle
 
 local CallState = require(ContactList.Enums.CallState)
-local OpenCallDetails = require(ContactList.Actions.OpenCallDetails)
 
 local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer
+local localPlayer = Players.LocalPlayer :: Player
 
 export type Participant = {
 	userId: number,
@@ -51,7 +48,7 @@ export type Props = {
 	},
 	localUserId: number,
 	showDivider: boolean,
-	OpenCallDetails: () -> (),
+	dismissCallback: () -> (),
 }
 
 local function isMissedCall(caller)
@@ -145,10 +142,34 @@ local function CallHistoryItem(props: Props)
 	end, {})
 	local tag = useSelector(selectTag)
 
-	local dispatch = useDispatch()
-
 	local onDetailsActivated = React.useCallback(function()
-		dispatch(OpenCallDetails(caller.participants))
+		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
+			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
+		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
+		if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(participant.userId) then
+			if isLocalUserDevMode then
+				coroutine.wrap(function()
+					local invokeIrisInviteRemoteEvent =
+						RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
+					invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId))
+				end)()
+			else
+				local CallRequestedEvent =
+					ReplicatedStorage:WaitForChild("Shared"):WaitForChild("CallRequestedEvent") :: RemoteEvent
+				CallRequestedEvent:FireServer(participant.userId)
+			end
+		else
+			local SharedRS = ReplicatedStorage:WaitForChild("Shared")
+			local ShowGenericDialogBindableEvent =
+				SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
+			ShowGenericDialogBindableEvent:Fire(
+				"Error",
+				"Cannot call another user that isn't in the same mode as you. Toggle your dev mode and try again.",
+				true
+			)
+		end
+
+		props.dismissCallback()
 	end, {})
 
 	local interactableTheme
@@ -276,28 +297,6 @@ local function CallHistoryItem(props: Props)
 				}) }),
 			}),
 		}),
-
-		CallDetailsButton = if game:GetEngineFeature("EnableSocialServiceIrisInvite")
-			then React.createElement(IconButton, {
-				size = UDim2.fromOffset(28, 28),
-				iconSize = IconSize.Large,
-				position = UDim2.new(1, -60, 0, 8),
-				iconColor3 = theme.ContextualPrimaryDefault.Color,
-				iconTransparency = theme.ContextualPrimaryDefault.Transparency,
-				icon = Images["icons/actions/accept"],
-				onActivated = function()
-					if localPlayer then
-						coroutine.wrap(function()
-							local invokeIrisInviteRemoteEvent = RobloxReplicatedStorage:WaitForChild(
-								"ContactListInvokeIrisInvite",
-								math.huge
-							) :: RemoteEvent
-							invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId))
-						end)()
-					end
-				end,
-			})
-			else nil,
 
 		Divider = props.showDivider and React.createElement("Frame", {
 			Position = UDim2.new(0, 0, 1, -1),

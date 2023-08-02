@@ -21,8 +21,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local ContactListHeader = require(ContactList.Components.ContactListHeader)
 local CallHistoryContainer = require(ContactList.Components.CallHistory.CallHistoryContainer)
-local CallDetailsContainer = require(ContactList.Components.CallDetails.CallDetailsContainer)
 local FriendListContainer = require(ContactList.Components.FriendList.FriendListContainer)
+local ContactListSearchBar = require(ContactList.Components.ContactListSearchBar)
 
 local CloseContactList = require(ContactList.Actions.CloseContactList)
 local OpenContactList = require(ContactList.Actions.OpenContactList)
@@ -38,6 +38,7 @@ local EnableSocialServiceIrisInvite = game:GetEngineFeature("EnableSocialService
 
 export type Props = {}
 
+local SEARCH_BAR_HEIGHT = 36
 local HEADER_HEIGHT = 48
 local PADDING = 12
 local DOCKED_WIDTH = 376
@@ -50,6 +51,8 @@ local function ContactListContainer(props: Props)
 
 	local contactListContainerRef = React.useRef(nil :: Frame?)
 	local isSmallScreen, setIsSmallScreen = React.useState(currentCamera.ViewportSize.X < 640)
+	local searchText, setSearchText = React.useState("")
+
 	local closePeekViewSignal = Signal.new()
 
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -113,6 +116,10 @@ local function ContactListContainer(props: Props)
 		end
 	end
 
+	local onSearchChanged = function(newSearchQuery)
+		setSearchText(newSearchQuery)
+	end
+
 	local selectCurrentPage = React.useCallback(function(state: any)
 		return state.Navigation.currentPage
 	end, {})
@@ -120,13 +127,15 @@ local function ContactListContainer(props: Props)
 
 	local currentContainer
 	if currentPage == Pages.CallHistory then
-		currentContainer = React.createElement(CallHistoryContainer) :: any
-	elseif currentPage == Pages.CallDetails then
-		currentContainer = React.createElement(CallDetailsContainer) :: any
+		currentContainer = React.createElement(CallHistoryContainer, {
+			dismissCallback = dismissCallback,
+			searchText = searchText,
+		}) :: any
 	elseif currentPage == Pages.FriendList then
 		currentContainer = React.createElement(FriendListContainer, {
 			isDevMode = isDevMode,
 			dismissCallback = dismissCallback,
+			searchText = searchText,
 		}) :: any
 	end
 
@@ -157,6 +166,9 @@ local function ContactListContainer(props: Props)
 				)
 			end)
 		end
+
+		-- Reset search query every time we navigate to a new page
+		setSearchText("")
 	end, { isSmallScreen, currentPage })
 
 	local viewStateChanged = function(viewState, prevViewState)
@@ -194,6 +206,7 @@ local function ContactListContainer(props: Props)
 			}, {
 				Layout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				UICorner = React.createElement("UICorner", {
@@ -206,9 +219,15 @@ local function ContactListContainer(props: Props)
 					dismissCallback = dismissCallback,
 					isDevMode = isDevMode,
 				}),
+				SearchBar = React.createElement(ContactListSearchBar, {
+					layoutOrder = 2,
+					onSearchChanged = onSearchChanged,
+					searchBarHeight = SEARCH_BAR_HEIGHT,
+					searchText = searchText,
+				}),
 				ContentContainer = React.createElement("Frame", {
-					LayoutOrder = 2,
-					Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + PADDING)),
+					LayoutOrder = 3,
+					Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING)),
 					BackgroundTransparency = 1,
 				}, currentContainer),
 			}),

@@ -12,6 +12,7 @@ export type SharePolicies = Package.SharePolicies
 export type ShareTargetGamePolicies = Package.ShareTargetGamePolicies
 export type Policies = Package.Policies
 export type MorePageLayout = Package.MorePageLayout
+export type CrossPlayCapability = Package.CrossPlayCapability
 
 
 return Package

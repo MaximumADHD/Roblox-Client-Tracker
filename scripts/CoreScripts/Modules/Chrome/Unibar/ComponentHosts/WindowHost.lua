@@ -8,9 +8,10 @@ local TweenService = game:GetService("TweenService")
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local UIBlox = require(CorePackages.UIBlox)
+local Interactable = UIBlox.Core.Control.Interactable
+
 local Images = UIBlox.App.ImageSet.Images
 local IconButton = UIBlox.App.Button.IconButton
-local useStyle = UIBlox.Core.Style.useStyle
 
 local ChromeService = require(script.Parent.Parent.Parent.Service)
 local Constants = require(script.Parent.Parent.Parent.Unibar.Constants)
@@ -30,18 +31,21 @@ local MOTOR_OPTIONS = {
 	dampingRatio = 1,
 	frequency = 3,
 }
+local COMPONENT_ZINDEX = {
+	INTEGRATION = 1,
+	CLOSE_BUTTON = 2,
+	INPUT_SHIELD = 3,
+	INPUT_WRAPPER = 4,
+}
 
 local WindowHost = function(props: WindowHostProps)
-	local style = useStyle()
-	local theme = style.Theme
-	local backgroundPress = theme.BackgroundOnPress
-
 	local windowSize = useWindowSize(props.integration.integration)
 	local windowRef: { current: Frame? } = React.useRef(nil)
 	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
 	local overlayTask: { current: thread? } = React.useRef(nil)
+	local dragging, setDragging = React.useBinding(false)
 
-	local isActive, setActive = React.useBinding(false)
+	local _isActive, setActive = React.useBinding(false)
 
 	-- Account for 0,0 and frame size when positioning
 	local position = React.useMemo(function()
@@ -77,13 +81,14 @@ local WindowHost = function(props: WindowHostProps)
 
 		if storedConnection ~= nil then
 			connection = storedConnection
+			setDragging(true)
 
 			assert(windowRef.current ~= nil)
 			assert(windowRef.current.Parent ~= nil)
 
 			if connection then
 				local frame = windowRef.current
-				local frameParent = windowRef.current.Parent :: ScreenGui
+				local frameParent = windowRef.current:FindFirstAncestorWhichIsA("ScreenGui") :: ScreenGui
 				local parentScreenSize = frameParent.AbsoluteSize
 
 				setFrameWidth(ReactOtter.instant(ICON_SIZE) :: any)
@@ -116,7 +121,7 @@ local WindowHost = function(props: WindowHostProps)
 		assert(windowRef.current.Parent ~= nil)
 
 		local frame = windowRef.current
-		local frameParent = windowRef.current.Parent :: ScreenGui
+		local frameParent = windowRef.current:FindFirstAncestorWhichIsA("ScreenGui") :: ScreenGui
 		local parentScreenSize = frameParent.AbsoluteSize
 
 		local frameHalfWidth = frameWidth:getValue() / 2
@@ -151,6 +156,7 @@ local WindowHost = function(props: WindowHostProps)
 				}
 				frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
+					setDragging(true)
 					local inputPosition = inputChangedObj.Position
 					local delta = inputPosition - dragStartPosition
 					local newPosition = {
@@ -223,6 +229,7 @@ local WindowHost = function(props: WindowHostProps)
 			if connection.current then
 				connection.current:Disconnect()
 				connection.current = nil
+				setDragging(false)
 				ChromeService:gesture(props.integration.id, nil)
 				repositionWindowWithinScreenBounds()
 			end
@@ -246,33 +253,20 @@ local WindowHost = function(props: WindowHostProps)
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
 				Position = position,
-				[React.Event.InputBegan] = touchBegan,
-				[React.Event.InputEnded] = touchEnded,
 			}, {
 				WindowWrapper = React.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 				}, {
-					Overlay = React.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						BackgroundColor3 = backgroundPress.Color,
-						BackgroundTransparency = backgroundPress.Transparency,
-						BorderSizePixel = 0,
-						Visible = isActive,
-						ZIndex = 2,
-					}, {
-						Corner = React.createElement("UICorner", {
-							CornerRadius = Constants.CORNER_RADIUS,
-						}),
-					}),
+					Integration = props.integration.component(props) or nil,
 					CloseButtonWrapper = React.createElement("Frame", {
+						ZIndex = COMPONENT_ZINDEX.CLOSE_BUTTON,
 						Size = Constants.CLOSE_BUTTON_SIZE,
 						BackgroundTransparency = 1,
-						Visible = isActive,
-						ZIndex = 3,
+						-- TODO: Allow integration to set isActive to prevent
+						-- close button from permanent disappearing
+						-- Visible = isActive,
 					}, {
 						CloseButtonLayout = React.createElement("UIListLayout", {
 							FillDirection = Enum.FillDirection.Horizontal,
@@ -288,7 +282,22 @@ local WindowHost = function(props: WindowHostProps)
 							end,
 						}),
 					}),
-					Integration = props.integration.component(props) or nil,
+					-- This prevents onActivated (taps/clicks) from propogating
+					-- to the integration whenever the user is trying to
+					-- drag.
+					InputShield = React.createElement(Interactable, {
+						ZIndex = COMPONENT_ZINDEX.INPUT_SHIELD,
+						Size = UDim2.fromScale(1, 1),
+						BackgroundTransparency = 1,
+						Visible = dragging,
+					}),
+					InputWrapper = React.createElement("Frame", {
+						ZIndex = COMPONENT_ZINDEX.INPUT_WRAPPER,
+						Size = UDim2.fromScale(1, 1),
+						BackgroundTransparency = 1,
+						[React.Event.InputBegan] = touchBegan,
+						[React.Event.InputEnded] = touchEnded,
+					}),
 				}),
 			}),
 		}),

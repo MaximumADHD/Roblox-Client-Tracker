@@ -90,7 +90,6 @@ return function()
 			},
 			Navigation = {
 				currentPage = Pages.FriendList,
-				callDetailParticipants = { { userId = 1, username = "TestUser" } },
 			},
 		}
 

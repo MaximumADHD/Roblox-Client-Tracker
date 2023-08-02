@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 local CoreGui = game:GetService('CoreGui')
-
+local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 
 local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
@@ -27,6 +27,7 @@ local UseIconButtons = false
 local UseBottomButtonBarOnMobile = false
 
 local nominalSizeFactor = 0.833
+local topCornerInset, _ = GuiService:GetGuiInset()
 
 -- roughly maps SourceSans font size to Gotham using nominalSizeFactor, rounding down
 local fontSizeMap = {
@@ -297,6 +298,13 @@ local MenuContainerPositionMobile = {
 	AutomaticSize = Enum.AutomaticSize.XY,
 }
 
+local MenuContainerPositionMobileWithStickyBar = {
+	AnchorPoint = Vector2.new(0.5, 0),
+	Position = UDim2.new(0.5, 0, 0, topCornerInset.Y),
+	Size = UDim2.new(1, -24, 0, 0),
+	AutomaticSize = Enum.AutomaticSize.Y,
+}
+
 
 if ThemeEnabled then
 
@@ -306,6 +314,9 @@ if ThemeEnabled then
 		MenuContainerCornerRadius = UDim.new(0, 10),
 		DefaultStokeThickness = 1,
 		AlwaysShowBottomBar = function()
+			if UseStickyBar then
+				return true
+			end
 			if IsSmallTouchScreen then
 				if not UseBottomButtonBarOnMobile then
 					return false
@@ -335,7 +346,11 @@ if ThemeEnabled then
 		end,
 		MenuContainerPosition = function()
 			if IsSmallTouchScreen then
-				return MenuContainerPositionMobile
+				if UseStickyBar then
+					return MenuContainerPositionMobileWithStickyBar
+				else
+					return MenuContainerPositionMobile
+				end
 			else
 				return MenuContainerPosition
 			end
@@ -430,7 +445,8 @@ else
 				return MenuContainerPositionOldMobile
 			else
 				return MenuContainerPositionOld
-			end		end,
+			end
+		end,
 		ButtonHeight = 46,
 		LargeButtonHeight = 70,
 		SelectorArrowButtonWidth = 50,

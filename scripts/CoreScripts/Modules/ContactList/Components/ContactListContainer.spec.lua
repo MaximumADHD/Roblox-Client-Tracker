@@ -21,7 +21,7 @@ return function()
 		Theme = AppDarkTheme,
 	}
 
-	local mockState = function(currentPage, currentCall, callDetailParticipants)
+	local mockState = function(currentPage, currentCall)
 		return {
 			Call = {
 				callHistory = {
@@ -95,13 +95,12 @@ return function()
 			},
 			Navigation = {
 				currentPage = currentPage,
-				callDetailParticipants = callDetailParticipants,
 			},
 		}
 	end
 
 	it("should mount and unmount without errors when all elements hidden", function()
-		local store = Rodux.Store.new(Reducer, mockState(nil, nil, nil), {
+		local store = Rodux.Store.new(Reducer, mockState(nil, nil), {
 			Rodux.thunkMiddleware,
 		})
 
@@ -118,9 +117,6 @@ return function()
 		local folder = Instance.new("Folder")
 		local instance = Roact.mount(element, folder)
 
-		local callDetailsContainerElement = folder:FindFirstChild("CallDetailsContainer", true)
-		expect(callDetailsContainerElement).toBeNull()
-
 		local callHistoryContainerElement = folder:FindFirstChild("CallHistoryContainer", true)
 		expect(callHistoryContainerElement).toBeNull()
 
@@ -133,34 +129,9 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	describe("CallDetailsContainer", function()
-		it("should mount and unmount without errors when call details is visible", function()
-			local store =
-				Rodux.Store.new(Reducer, mockState(Pages.CallDetails, nil, { { userId = 1, username = "TestUser" } }), {
-					Rodux.thunkMiddleware,
-				})
-
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
-					ContactListApp = Roact.createElement(ContactListContainer),
-				}),
-			})
-
-			local folder = Instance.new("Folder")
-			local instance = Roact.mount(element, folder)
-			local containerElement = folder:FindFirstChild("ContentContainer", true)
-			expect(containerElement).never.toBeNull()
-			Roact.unmount(instance)
-		end)
-	end)
-
 	describe("CallHistoryContainer", function()
 		it("should mount and unmount without errors when call history visible", function()
-			local store = Rodux.Store.new(Reducer, mockState(Pages.CallHistory, nil, nil), {
+			local store = Rodux.Store.new(Reducer, mockState(Pages.CallHistory, nil), {
 				Rodux.thunkMiddleware,
 			})
 
@@ -184,7 +155,7 @@ return function()
 
 	describe("FriendListContainer", function()
 		it("should mount and unmount without errors when friend list visible", function()
-			local store = Rodux.Store.new(Reducer, mockState(Pages.FriendList, nil, nil), {
+			local store = Rodux.Store.new(Reducer, mockState(Pages.FriendList, nil), {
 				Rodux.thunkMiddleware,
 			})
 
@@ -208,7 +179,7 @@ return function()
 
 	describe("ScreenSize", function()
 		it("should not mount with a PeekView", function()
-			local store = Rodux.Store.new(Reducer, mockState(Pages.FriendList, nil, nil), {
+			local store = Rodux.Store.new(Reducer, mockState(Pages.FriendList, nil), {
 				Rodux.thunkMiddleware,
 			})
 

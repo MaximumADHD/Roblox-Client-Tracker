@@ -290,6 +290,7 @@ local function createHead()
 		end
 		setUpAestheticPart(part)
 	end
+	CollisionHead:Destroy()
 	CollectionService:AddTag(newHead, ALWAYS_TRANSPARENT_PART_TAG)
 end
 

@@ -374,13 +374,28 @@ local buildOtherReportRequest = function(reportData: OtherReportData)
 			local humanoidDescription, outputMessage = getHumanoidDescription(builderState.selectedAbusers[1].UserId)
 			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION = {
 				valueList = {
-					{data = HttpService:JSONEncode(humanoidDescription)}
+					{ data = HttpService:JSONEncode(humanoidDescription) }
 				}
 			}
 			
 			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION_STATUS = {
 				valueList = {
 					{ data = outputMessage }
+				}
+			}
+			
+			local abuserHumanoidDescriptions = {}
+			for _, player in ipairs(builderState.selectedAbusers) do 
+				humanoidDescription, outputMessage = getHumanoidDescription(player.UserId)
+				abuserHumanoidDescriptions[#abuserHumanoidDescriptions + 1] = {
+					humanoidDescription = humanoidDescription,
+					outputMessage = outputMessage
+				}
+			end
+			
+			request.tags.RA_ALL_ANNOTATED_HUMANOID_DESCRIPTIONS = {
+				valueList = {
+					{ data = HttpService:JSONEncode(abuserHumanoidDescriptions) }
 				}
 			}
 		end

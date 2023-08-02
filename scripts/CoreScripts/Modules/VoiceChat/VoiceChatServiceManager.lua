@@ -1223,6 +1223,12 @@ function VoiceChatServiceManager:SubscribeRetry(userId: number)
 	self.service:SubscribeRetry(userId)
 end
 
+function VoiceChatServiceManager:JoinByGroupIdToken(group, muteState)
+	self.previousGroupId = group
+	self.previousMutedState = muteState
+	return self.service:JoinByGroupIdToken(group, muteState)
+end
+
 function VoiceChatServiceManager:RejoinCurrentChannel()
 	pcall(function()
 		local groupId = self.service:GetGroupId()

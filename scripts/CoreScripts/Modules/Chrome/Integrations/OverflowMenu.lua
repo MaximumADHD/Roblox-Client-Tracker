@@ -44,11 +44,7 @@ local leaderboard = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon(
-				"rbxasset://textures/ui/TopBar/leaderboardOff.png",
-				"rbxasset://textures/ui/TopBar/leaderboardOn.png",
-				leaderboardVisibility
-			)
+			return CommonIcon("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", leaderboardVisibility)
 		end,
 	},
 })
@@ -90,11 +86,7 @@ local backpack = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon(
-				"rbxasset://textures/ui/TopBar/inventoryOff.png",
-				"rbxasset://textures/ui/TopBar/inventoryOn.png",
-				backpackVisibility
-			)
+			return CommonIcon("icons/menu/inventoryOff", "icons/menu/inventory", backpackVisibility)
 		end,
 	},
 })
@@ -117,7 +109,7 @@ return ChromeService:register({
 	label = "Overflow Menu",
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/more_off", "icons/menu/more_on", submenuVisibility)
+			return CommonIcon("icons/menu/9dot", "icons/menu/9dot", submenuVisibility)
 		end,
 	},
 })

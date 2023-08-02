@@ -19,6 +19,7 @@ local GetGameProductInfo = require(Modules.LoadingScreen.Thunks.GetGameProductIn
 local GetIsSubjectToChinaPolicies = require(Modules.LoadingScreen.Thunks.GetIsSubjectToChinaPolicies)
 local GetUniverseId = require(Modules.LoadingScreen.Thunks.GetUniverseId)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
 local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
@@ -33,6 +34,7 @@ local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
 local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
+local GetFFlagReportFirstExperienceCancelled = require(RobloxGui.Modules.Flags.GetFFlagReportFirstExperienceCancelled)
 
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
@@ -461,6 +463,9 @@ function LoadingScreen:renderCloseBtn(style)
 		Active = false,
 		ZIndex = 10,
 		[Roact.Event.MouseButton1Click] = function()
+			if GetFFlagReportFirstExperienceCancelled then
+				LoggingProtocol.default:logEventOnce("first_experience_cancelled")
+			end
 			game:Shutdown()
 		end
 	})

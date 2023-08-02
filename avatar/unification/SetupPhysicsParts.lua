@@ -2,8 +2,7 @@
 -- Setup Physics Parts on R6 Characters
 local SetupPhysicsParts = {}
 
--- AdapterReference.rbxm is set up as { AdapterReference {Left Arm {...}, Right Arm {...},...}, CollisionHead {...} }
--- i.e. CollisionHead and AdapterReference are at then same level
+-- PhysicsReference.rbxm is set up as { PhysicsReference {Left Arm {...}, Right Arm {...},...} }
 local PhysicsReference = script:WaitForChild("PhysicsReference")
 PhysicsReference.Parent = nil
 

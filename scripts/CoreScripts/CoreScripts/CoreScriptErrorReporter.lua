@@ -36,6 +36,8 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitPeriod", 60)
 -- beyond the settings above.
 game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTenths", 10)
 
+game:DefineFastFlag("AddRobloxChannelToLuaBacktrace", false)
+
 -- We don't have a default for this fast string, so if it's the empty string we
 -- know we're at the default and we can't do error reports.
 if
@@ -72,6 +74,12 @@ then
 		report:addAttributes({
 			PlayerCount = playerCount,
 		})
+
+		if game:GetFastFlag("AddRobloxChannelToLuaBacktrace") then
+			report:addAttributes({
+				RobloxChannel = RunService:GetRobloxClientChannel(),
+			})
+		end
 
 		return report
 	end

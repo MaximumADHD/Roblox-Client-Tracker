@@ -51,6 +51,8 @@ local SETTINGS_HUB_MOUSE_OVERRIDE_KEY = Symbol.named("SettingsHubCursorOverride"
 
 local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScreen() and 24 or 26)
 
+local BOTTOM_BUTTON_BAR_HEIGHT = 80
+
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
@@ -79,6 +81,7 @@ local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local GetFFlagVoiceChatToggleMuteAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagVoiceChatToggleMuteAnalytics)
 local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -142,6 +145,7 @@ local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPla
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
+local GetShowCapturesTab = require(RobloxGui.Modules.Settings.Experiments.GetShowCapturesTab)
 
 local MuteStatusIcons = {
 	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
@@ -184,13 +188,16 @@ end
 --[[ CORE MODULES ]]
 local chat = require(RobloxGui.Modules.ChatSelector)
 
+local SETTINGS_SHIELD_ACTIVE_POSITION
+local SETTINGS_SHIELD_SIZE
 if isTenFootInterface then
 	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
 	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
 else
 	local topCornerInset, _ = GuiService:GetGuiInset()
-	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,-topCornerInset.Y)
-	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,topCornerInset.Y)
+
+	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0, 0, 0, -topCornerInset.Y)
+	SETTINGS_SHIELD_SIZE = UDim2.new(1, 0, 1, topCornerInset.Y)
 end
 
 local function GetCorePackagesLoaded(packageList)
@@ -250,6 +257,7 @@ local function CreateSettingsHub()
 	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
 	this.SettingsShowSignal = utility:CreateSignal()
+	this.CurrentPageSignal = utility:CreateSignal()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 
@@ -465,6 +473,7 @@ local function CreateSettingsHub()
 	end
 
 	local function addBottomBarButtonOld(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys)
+
 
 		local buttonName = name .. "Button"
 		local textName = name .. "Text"
@@ -919,7 +928,7 @@ local function CreateSettingsHub()
 
 		this.ClippingShield = utility:Create'Frame'
 		{
-			Name = "SettingsShield",
+			Name = "SettingsClippingShield",
 			Size = SETTINGS_SHIELD_SIZE,
 			Position = SETTINGS_SHIELD_ACTIVE_POSITION,
 			BorderSizePixel = 0,
@@ -1556,6 +1565,7 @@ local function CreateSettingsHub()
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = if Theme.UIBloxThemeEnabled then UDim2.new(0.5, 0, 0.5, 2) else UDim2.new(0.5, 0, 0.5, 0),
 			Size = UDim2.new(1, 0, 1, -20),
+			CanvasSize = UDim2.new(1, 0, 1, 0),
 			ZIndex = this.Shield.ZIndex,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			BackgroundTransparency = 1,
@@ -1565,6 +1575,33 @@ local function CreateSettingsHub()
 			Parent = this.PageViewClipper,
 		};
 		this.PageView.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+ 
+		this.lastPageViewCanvasPosition = this.PageView.CanvasPosition
+		this.handelPageViewScroll = function()
+			local lastPosY = math.clamp(this.lastPageViewCanvasPosition.Y, 0, this.PageView.MaxCanvasPosition.Y)
+			local newPosY = math.clamp(this.PageView.CanvasPosition.Y, 0, this.PageView.MaxCanvasPosition.Y)
+			local diffY = lastPosY - newPosY
+			if math.abs(diffY) > 5 then
+				if diffY < 0 then
+					-- User is scrolling down
+					this:animateOutBottomBar()
+				else
+					-- User is scrolling up
+					this:animateInBottomBar()
+				end
+				this.lastPageViewCanvasPosition = Vector2.new(this.PageView.CanvasPosition.x, newPosY)
+			end
+		end
+
+		this.pageViewScrollChangeCon = nil
+		if Theme.UseStickyBar then
+			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
+			if utility:IsPortrait() == false then
+				this.defaultPageViewClipperSize = nil
+				this.showStickyBottomBar = true
+				this.pageViewScrollChangeCon = this.PageView:GetPropertyChangedSignal("CanvasPosition"):connect(this.handelPageViewScroll)
+			end
+		end
 
 		this.PageViewInnerFrame = utility:Create'Frame'
 		{
@@ -1576,6 +1613,7 @@ local function CreateSettingsHub()
 			BorderSizePixel = 0,
 			Selectable = false,
 			Parent = this.PageView,
+			LayoutOrder = 1,
 		};
 		if Theme.UIBloxThemeEnabled then
 			utility:Create'UIPadding'
@@ -1583,6 +1621,20 @@ local function CreateSettingsHub()
 				PaddingTop = UDim.new(0, 5),
 				Parent = this.PageViewInnerFrame,
 			}
+		end
+
+		if Theme.UseStickyBar then
+			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
+			utility:Create'UIListLayout'
+			{
+				FillDirection = Enum.FillDirection.Vertical,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Parent = this.PageView,
+			}
+			this.PageViewInnerFrame.AutomaticSize = Enum.AutomaticSize.Y
+			this.PageViewInnerFrame.ClipsDescendants = false
 		end
 
 		if UserInputService.MouseEnabled then
@@ -1825,6 +1877,26 @@ local function CreateSettingsHub()
 		workspace.Changed:Connect(onWorkspaceChanged)
 	end
 
+	local function resizeBottomBarButtons()
+		local bottomButtonFrameWidth = this.BottomButtonFrame.AbsoluteSize.X
+
+		local numberOfButton = #this.BottomBarButtons
+		if numberOfButton == 4 then
+			bottomButtonFrameWidth = bottomButtonFrameWidth - 48 - 12
+			numberOfButton = numberOfButton - 1
+		end
+
+		local maxButtonWidth = (bottomButtonFrameWidth - ((numberOfButton - 1) * 12) - 12) / numberOfButton
+		for i = 1, #this.BottomBarButtons do
+			local button = this.BottomBarButtons[i]
+			local buttonName = button[1]
+
+			if buttonName ~= "MuteButtonButton" then
+				this[buttonName].Size = UDim2.fromOffset(maxButtonWidth, this[button[1]].Size.Y.Offset)
+			end
+		end
+	end
+
 	local function onScreenSizeChanged()
 		local function getBackBarVisible()
 			if not this.BackBarRef:getValue() then
@@ -1846,7 +1918,12 @@ local function CreateSettingsHub()
 			bufferSize = math.min(10, (1-0.99) * fullScreenSize)
 		end
 
+		
 		this.MenuContainer.Size = menuPos.Size
+		if Theme.UIBloxThemeEnabled then 
+			this.MenuContainer.Position = menuPos.Position 
+			this.MenuContainer.AnchorPoint = menuPos.AnchorPoint
+		end
 
 		local barSize = this.HubBar.Size.Y.Offset
 		local extraSpace = bufferSize*2+barSize*2
@@ -1991,6 +2068,7 @@ local function CreateSettingsHub()
 			usePageSize = usableScreenHeight
 		end
 
+		local newPageViewClipperSize = nil
 		if not isTenFootInterface then
 			if utility:IsSmallTouchScreen() then
 				local backButtonExtraSize = 0
@@ -1999,14 +2077,14 @@ local function CreateSettingsHub()
 				else
 					backButtonExtraSize = ((GetFFlagEnableTeleportBackButton() and getBackBarVisible()) and 0 or 44)
 				end
-				this.PageViewClipper.Size = UDim2.new(
+				newPageViewClipperSize = UDim2.new(
 					0,
 					this.HubBar.AbsoluteSize.X,
 					0,
 					usePageSize + backButtonExtraSize
 				)
 			else
-				this.PageViewClipper.Size = UDim2.new(
+				newPageViewClipperSize = UDim2.new(
 					0,
 					this.HubBar.AbsoluteSize.X,
 					0,
@@ -2014,13 +2092,16 @@ local function CreateSettingsHub()
 				)
 			end
 		else
-			this.PageViewClipper.Size = UDim2.new(
+			newPageViewClipperSize = UDim2.new(
 				0,
 					this.HubBar.AbsoluteSize.X,
 				0,
 				usePageSize
 			)
 		end
+
+		this.PageViewClipper.Size = newPageViewClipperSize
+		this.defaultPageViewClipperSize = newPageViewClipperSize
 		if not isPortrait then
 			this.PageViewClipper.Position = UDim2.new(
 				this.PageViewClipper.Position.X.Scale,
@@ -2037,6 +2118,19 @@ local function CreateSettingsHub()
 			this.VerticalMenu.Size = UDim2.new(0, Theme.VerticalMenuWidth, 0, usePageSize + this.HubBar.Size.Y.Offset)
 		end
 
+		if Theme.UseStickyBar then
+			this.resetPageViewClipperSize = true
+			this.showStickyBottomBar = true
+			if this.pageViewScrollChangeCon then
+				this.pageViewScrollChangeCon:disconnect()
+				this.pageViewScrollChangeCon = nil
+			end
+			if not isPortrait then
+				this.pageViewScrollChangeCon = this.PageView:GetPropertyChangedSignal("CanvasPosition"):connect(this.handelPageViewScroll)
+			end
+
+			resizeBottomBarButtons()
+		end
 
 	end
 
@@ -2245,14 +2339,74 @@ local function CreateSettingsHub()
 		RemoveHeader(pageToRemove:GetTabHeader())
 	end
 
+	this.bottomBarAnimating = false
+	this.defaultPageViewClipperSize = this.PageViewClipper.Size
+	this.showStickyBottomBar = true
+	this.resetPageViewClipperSize = false
+
+	function animateBottomBarComplete()
+		-- If a resize happened in between a tween, reset the PageViewClipperSize
+		if this.resetPageViewClipperSize then
+			this.PageViewClipper.Size = this.defaultPageViewClipperSize
+			this.resetPageViewClipperSize = false
+		end
+		this.bottomBarAnimating = false
+	end
 	
 	function this:animateInBottomBar()
-		--placeholder for animating in the bottom bar
+		if this.bottomBarAnimating or this.showStickyBottomBar == true then
+			return
+		end
+
+		this.bottomBarAnimating = true
+		this.showStickyBottomBar = true
+		this.resetPageViewClipperSize = false
+
+		local targetSize = UDim2.new(
+			this.defaultPageViewClipperSize.X.Scale,
+			this.defaultPageViewClipperSize.X.Offset,
+			this.defaultPageViewClipperSize.Y.Scale,
+			this.defaultPageViewClipperSize.Y.Offset
+		)
+
+		local movementTime = 0.3
+		this.PageViewClipper:TweenSize(
+			targetSize,
+			Enum.EasingDirection.InOut,
+			Enum.EasingStyle.Quart,
+			movementTime,
+			true,
+			animateBottomBarComplete
+		)
+		return
 	end
 
-
 	function this:animateOutBottomBar()
-		--placeholder for animating out the bottom bar
+		if this.bottomBarAnimating or this.showStickyBottomBar == false then
+			return
+		end
+
+		this.bottomBarAnimating = true
+		this.showStickyBottomBar = false
+		this.resetPageViewClipperSize = false
+
+		local targetSize = UDim2.new(
+			this.defaultPageViewClipperSize.X.Scale,
+			this.defaultPageViewClipperSize.X.Offset,
+			this.defaultPageViewClipperSize.Y.Scale,
+			this.defaultPageViewClipperSize.Y.Offset + BOTTOM_BUTTON_BAR_HEIGHT
+		)
+
+		local movementTime = 0.3
+		this.PageViewClipper:TweenSize(
+			targetSize,
+			Enum.EasingDirection.InOut,
+			Enum.EasingStyle.Quart,
+			movementTime,
+			true,
+			animateBottomBarComplete
+		)
+		return
 	end
 
 	function this:HideBar()
@@ -2316,20 +2470,29 @@ local function CreateSettingsHub()
 		local isClipped = pageToSwitchTo.IsPageClipped == true
 		this.PageViewClipper.ClipsDescendants = isClipped
 		this.PageView.ClipsDescendants = isClipped
-		this.PageViewInnerFrame.ClipsDescendants = isClipped
+
+		if Theme.UseStickyBar == false then
+			this.PageViewInnerFrame.ClipsDescendants = isClipped
+		end
 
 		this.Pages.CurrentPage = pageToSwitchTo
 		this.Pages.CurrentPage.Active = true
 
-		local pageSize = this.Pages.CurrentPage:GetSize()
-		this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+		if ChromeEnabled then
+			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
+		end
 
-		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
-			if prop == "AbsoluteSize" then
-				local pageSize = this.Pages.CurrentPage:GetSize()
-				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
-			end
-		end)
+		if Theme.UseStickyBar == false then
+			local pageSize = this.Pages.CurrentPage:GetSize()
+			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+
+			pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
+				if prop == "AbsoluteSize" then
+					local pageSize = this.Pages.CurrentPage:GetSize()
+					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+				end
+			end)
+		end
 	end
 
 	function this:SwitchToPage(pageToSwitchTo, ignoreStack, direction, skipAnimation, invisibly, eventData)
@@ -2384,7 +2547,7 @@ local function CreateSettingsHub()
 		end
 
 		-- if we have a page we need to let it know to go away
-		if this.Pages.CurrentPage then
+		if this.Pages.CurrentPage and pageChangeCon ~= nil then
 			pageChangeCon:disconnect()
 			this.Pages.CurrentPage.Active = false
 		end
@@ -2418,19 +2581,24 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage = pageToSwitchTo
 		this.Pages.CurrentPage:Display(this.PageViewInnerFrame, skipAnimation)
 		this.Pages.CurrentPage.Active = true
+		if ChromeEnabled then
+			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
+		end
 
-		local pageSize = this.Pages.CurrentPage:GetSize()
-		this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+		if Theme.UseStickyBar == false then
+			local pageSize = this.Pages.CurrentPage:GetSize()
+			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 
-		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
-			if prop == "AbsoluteSize" then
-				local pageSize = this.Pages.CurrentPage:GetSize()
-				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+			pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
+				if prop == "AbsoluteSize" then
+					local pageSize = this.Pages.CurrentPage:GetSize()
+					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+				end
+			end)
+
+			if this.MenuStack[#this.MenuStack] ~= this.Pages.CurrentPage and not ignoreStack then
+				this.MenuStack[#this.MenuStack + 1] = this.Pages.CurrentPage
 			end
-		end)
-
-		if this.MenuStack[#this.MenuStack] ~= this.Pages.CurrentPage and not ignoreStack then
-			this.MenuStack[#this.MenuStack + 1] = this.Pages.CurrentPage
 		end
 
 		local eventTable = {}
@@ -2632,6 +2800,10 @@ local function CreateSettingsHub()
 
 			this.GameSettingsPage:OpenSettingsPage()
 		else
+			if ChromeEnabled then
+				this.CurrentPageSignal:fire("")
+			end
+
 			if noAnimation then
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 				this.Shield.Visible = this.Visible
@@ -2709,6 +2881,13 @@ local function CreateSettingsHub()
 
 			if lastInputChangedCon then
 				lastInputChangedCon:disconnect()
+			end
+
+			if Theme.UseStickyBar then
+				if this.pageViewScrollChangeCon then
+					this.pageViewScrollChangeCon:disconnect()
+					this.pageViewScrollChangeCon = nil
+				end
 			end
 
 			playerList:HideTemp('SettingsMenu', false)
@@ -2978,7 +3157,7 @@ local function CreateSettingsHub()
 		end
 	end
 
-	if Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll then
+	if Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll or GetShowCapturesTab() then
 		local ShotsPageWrapper = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
 
 		this.ScreenshotsApp = ScreenshotsApp
@@ -3153,6 +3332,8 @@ end
 moduleApiTable.RespawnBehaviourChangedEvent = SettingsHubInstance.RespawnBehaviourChangedEvent
 
 moduleApiTable.SettingsShowSignal = SettingsHubInstance.SettingsShowSignal
+
+moduleApiTable.CurrentPageSignal = SettingsHubInstance.CurrentPageSignal
 
 moduleApiTable.SettingsShowEvent = Instance.new("BindableEvent")
 

@@ -79,7 +79,6 @@ local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local ToggleSelfViewBindableEvent = ReplicatedStorage:WaitForChild("ToggleSelfViewBindableEvent")
 local UserInputService = game:GetService("UserInputService")
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -908,9 +907,14 @@ local function createViewport()
 	end
 
 
-	ToggleSelfViewBindableEvent.Event:Connect(function(visible)
-		if visible ~= isOpen then
-			showSelfView(visible)
+	pcall(function()
+		local ToggleSelfViewBindableEvent = ReplicatedStorage:WaitForChild("ToggleSelfViewBindableEvent", 5)
+		if ToggleSelfViewBindableEvent then
+			ToggleSelfViewBindableEvent.Event:Connect(function(visible)
+				if visible ~= isOpen then
+					showSelfView(visible)
+				end
+			end)
 		end
 	end)
 

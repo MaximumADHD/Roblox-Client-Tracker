@@ -14,6 +14,7 @@ export type InputEvent = Package.InputEvent
 export type EventMap = Package.EventMap
 export type FocusNavigationService = Package.FocusNavigationService
 export type InputMethod = Package.InputMethod
+export type InputMode = Package.InputMode
 
 
 return Package

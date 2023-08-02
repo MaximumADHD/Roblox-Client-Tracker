@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["PlayerContextualMenu"]["PlayerContextualMenu"])
 
+export type Props = Package.Props
+
+
 return Package

@@ -10,6 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local UIBlox = dependencies.UIBlox
+local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 
@@ -26,6 +27,7 @@ export type Props = {
 	localUserId: number?,
 	isDevMode: boolean?,
 	dismissCallback: () -> (),
+	searchText: string,
 }
 
 local defaultProps = {
@@ -41,6 +43,7 @@ local function FriendListContainer(passedProps: Props)
 	local font = style.Font
 
 	local noFriendsText = React.useMemo(function()
+		-- TODO (timothyhsu): Localization
 		return React.createElement("TextLabel", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
@@ -72,54 +75,88 @@ local function FriendListContainer(passedProps: Props)
 			if props.localUserId then
 				friendIds = state.Friends.byUserId[tostring(props.localUserId)] or {}
 			end
-
 			local list = {}
 			for _, friendId in ipairs(friendIds) do
 				local friend = state.Users.byUserId[tostring(friendId)]
-				if friend then
+				if
+					friend
+					and (
+						props.searchText == ""
+						or string.find(friend.displayName:lower(), props.searchText:lower())
+						or string.find(friend.username:lower(), props.searchText:lower())
+					)
+				then
 					list[#list + 1] = friend
 				end
 			end
 
-			return list
+			-- Sort the names alphabetical.
+			return Cryo.List.sort(list, function(friend1: any, friend2: any)
+				if friend1.displayName:lower() ~= friend2.displayName:lower() then
+					return friend1.displayName:lower() < friend2.displayName:lower()
+				else
+					return friend1.username:lower() < friend2.username:lower()
+				end
+			end)
+		end, { props.localUserId, props.searchText })
+
+		local friends = useSelector(selectFriends, function(newFriends: any, oldFriends: any)
+			if #newFriends ~= #oldFriends then
+				-- Shortcut for unmatched list lengths.
+				return false
+			else
+				-- Check to see if friends list was changed.
+				for i, friend in ipairs(newFriends) do
+					if friend.id ~= oldFriends[i].id then
+						return false
+					end
+				end
+				return true
+			end
 		end)
 
-		local friendsList = useSelector(selectFriends)
-
-		local friends = {}
-		friends["UIListLayout"] = React.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-		})
-
-		for index, friend in ipairs(friendsList) do
-			friends[index] = React.createElement(FriendListItem, {
-				userId = friend.id,
-				userName = friend.username,
-				displayName = friend.displayName,
-				dismissCallback = props.dismissCallback,
+		local children: any = React.useMemo(function()
+			local entries = {}
+			entries["UIListLayout"] = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				SortOrder = Enum.SortOrder.LayoutOrder,
 			})
-		end
 
-		local friendList: any = React.useMemo(function()
-			if #friendsList == 0 then
-				-- TODO (timothyhsu): Localization
-				friends["NoFriendsText"] = noFriendsText
+			for i, friend in ipairs(friends) do
+				entries[i] = React.createElement(FriendListItem, {
+					userId = friend.id,
+					userName = friend.username,
+					displayName = friend.displayName,
+					dismissCallback = props.dismissCallback,
+					layoutOrder = i,
+				})
 			end
 
-			return friends
-		end, { friendsList })
+			return entries
+		end, dependencyArray(friends))
 
-		return React.createElement("ScrollingFrame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			AutomaticCanvasSize = Enum.AutomaticSize.Y,
-			CanvasSize = UDim2.new(),
-			ScrollingDirection = Enum.ScrollingDirection.Y,
-			BackgroundColor3 = theme.BackgroundDefault.Color,
-			BackgroundTransparency = theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
-		}, friendList)
+		return if #friends == 0 and props.searchText == ""
+			then noFriendsText
+			else React.createElement("ScrollingFrame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				CanvasSize = UDim2.new(),
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				BorderSizePixel = 0,
+			}, children)
 	else
-		local allPlayers, setAllPlayers = React.useState({})
+		local allPlayers, setAllPlayers = React.useState(function()
+			local players = {}
+			for _, player in ipairs(Players:GetPlayers()) do
+				if player.UserId ~= localPlayer.UserId then
+					players[player.UserId] = player
+				end
+			end
+
+			return players
+		end)
 
 		React.useEffect(function()
 			local playerAddedConn = Players.PlayerAdded:Connect(function(player)
@@ -136,45 +173,58 @@ local function FriendListContainer(passedProps: Props)
 			end
 		end, {})
 
-		for i, player in ipairs(Players:GetPlayers()) do
-			if player.UserId ~= localPlayer.UserId then
-				allPlayers[player.UserId] = player
+		local filteredPlayers = React.useMemo(function()
+			local list = {}
+			for _, player in pairs(allPlayers) do
+				if
+					props.searchText == ""
+					or string.find(player.DisplayName:lower(), props.searchText:lower())
+					or string.find(player.Name:lower(), props.searchText:lower())
+				then
+					list[#list + 1] = player
+				end
 			end
-		end
 
-		local friends = {}
-		friends["UIListLayout"] = React.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-		})
+			return Cryo.List.sort(list, function(player1: any, player2: any)
+				if player1.DisplayName:lower() ~= player2.DisplayName:lower() then
+					return player1.DisplayName:lower() < player2.DisplayName:lower()
+				else
+					return player1.Name:lower() < player2.Name:lower()
+				end
+			end)
+		end, { props.searchText, allPlayers })
 
-		local numPlayers = 0
-		for _, player in pairs(allPlayers) do
-			numPlayers = numPlayers + 1
-			friends[player.UserId] = React.createElement(FriendListItem, {
-				userId = player.UserId,
-				userName = player.Name,
-				displayName = player.DisplayName,
-				dismissCallback = props.dismissCallback,
+		local children: any = React.useMemo(function()
+			local entries = {}
+			entries["UIListLayout"] = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				SortOrder = Enum.SortOrder.LayoutOrder,
 			})
-		end
 
-		local friendList: any = React.useMemo(function()
-			if numPlayers == 0 then
-				friends["NoFriendsText"] = noFriendsText
+			for i, player in ipairs(filteredPlayers) do
+				entries[i] = React.createElement(FriendListItem, {
+					userId = player.UserId,
+					userName = player.Name,
+					displayName = player.DisplayName,
+					dismissCallback = props.dismissCallback,
+					layoutOrder = i,
+				})
 			end
 
-			return friends
-		end, { numPlayers })
+			return entries
+		end, dependencyArray(filteredPlayers))
 
-		return React.createElement("ScrollingFrame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			AutomaticCanvasSize = Enum.AutomaticSize.Y,
-			CanvasSize = UDim2.new(),
-			ScrollingDirection = Enum.ScrollingDirection.Y,
-			BackgroundColor3 = theme.BackgroundDefault.Color,
-			BackgroundTransparency = theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
-		}, friendList)
+		return if #filteredPlayers == 0 and props.searchText == ""
+			then noFriendsText
+			else React.createElement("ScrollingFrame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				CanvasSize = UDim2.new(),
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				BorderSizePixel = 0,
+			}, children)
 	end
 end
 

@@ -34,6 +34,7 @@ return function(): TrackerMode
 
 	React.useEffect(function()
 		if VideoCaptureService then
+			updateTrackerMode()
 			local videoCaptureStartedConnection = VideoCaptureService.Started:Connect(function()
 				updateTrackerMode()
 			end)

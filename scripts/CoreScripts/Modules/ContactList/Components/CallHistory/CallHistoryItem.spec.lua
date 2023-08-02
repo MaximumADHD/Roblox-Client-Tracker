@@ -57,7 +57,7 @@ return function()
 					},
 					localUserId = localUserId,
 					showDivider = true,
-					OpenCallDetails = function() end,
+					dismissCallback = function() end,
 				}),
 			}),
 		})

@@ -20,10 +20,12 @@ local GetPresencesFromUserIds = dependencies.NetworkingPresence.GetPresencesFrom
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
 local UIBlox = dependencies.UIBlox
 
+local ControlState = UIBlox.Core.Control.Enum.ControlState
 local PlayerContext = UIBlox.App.Indicator.PlayerContext
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Images = UIBlox.App.ImageSet.Images
+local Interactable = UIBlox.Core.Control.Interactable
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
@@ -36,6 +38,7 @@ export type Props = {
 	userName: string,
 	displayName: string,
 	dismissCallback: () -> (),
+	layoutOrder: number?,
 }
 
 local ICON_SIZE = 10
@@ -84,6 +87,11 @@ local function FriendListItem(props: Props)
 	end, {})
 	local tag = useSelector(selectTag)
 
+	local controlState, setControlState = React.useState(ControlState.Initialize)
+	local onStateChanged = React.useCallback(function(oldState, newState)
+		setControlState(newState)
+	end)
+
 	local image
 	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
 		image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
@@ -91,12 +99,55 @@ local function FriendListItem(props: Props)
 		image = SocialLibraries.User.getUserAvatarImage(props.userId)
 	end
 
-	return React.createElement("Frame", {
+	local interactableTheme
+	if controlState == ControlState.Pressed then
+		interactableTheme = "BackgroundOnPress"
+	elseif controlState == ControlState.Hover then
+		interactableTheme = "BackgroundOnHover"
+	else
+		interactableTheme = "BackgroundDefault"
+	end
+
+	local startCall = function()
+		-- TODO (timothyhsu): Remove check that callee and caller need to be in same mode when Call API is completed
+		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
+			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
+		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
+		if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(props.userId) then
+			if isLocalUserDevMode then
+				coroutine.wrap(function()
+					local invokeIrisInviteRemoteEvent =
+						RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
+					invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
+				end)()
+			else
+				local CallRequestedEvent =
+					ReplicatedStorage:WaitForChild("Shared"):WaitForChild("CallRequestedEvent") :: RemoteEvent
+				CallRequestedEvent:FireServer(props.userId)
+			end
+		else
+			local SharedRS = ReplicatedStorage:WaitForChild("Shared")
+			local ShowGenericDialogBindableEvent =
+				SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
+			ShowGenericDialogBindableEvent:Fire(
+				"Error",
+				"Cannot call another user that isn't in the same mode as you. Toggle your dev mode and try again.",
+				true
+			)
+		end
+
+		props.dismissCallback()
+	end
+
+	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, 92),
-		BackgroundColor3 = theme.BackgroundDefault.Color,
-		BackgroundTransparency = theme.BackgroundDefault.Transparency,
+		BackgroundColor3 = theme[interactableTheme].Color,
+		BackgroundTransparency = theme[interactableTheme].Transparency,
 		BorderSizePixel = 0,
+		LayoutOrder = props.layoutOrder,
+		onStateChanged = onStateChanged,
+		[React.Event.Activated] = startCall,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),
@@ -192,38 +243,7 @@ local function FriendListItem(props: Props)
 				iconColor3 = theme.ContextualPrimaryDefault.Color,
 				iconTransparency = theme.ContextualPrimaryDefault.Transparency,
 				icon = Images["icons/actions/accept"],
-				onActivated = function()
-					-- TODO (timothyhsu): Remove check that callee and caller need to be in same mode when Call API is completed
-					local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
-						:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-					local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
-					if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(props.userId) then
-						if isLocalUserDevMode then
-							coroutine.wrap(function()
-								local invokeIrisInviteRemoteEvent = RobloxReplicatedStorage:WaitForChild(
-									"ContactListInvokeIrisInvite",
-									math.huge
-								) :: RemoteEvent
-								invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
-							end)()
-						else
-							local CallRequestedEvent = ReplicatedStorage:WaitForChild("Shared")
-								:WaitForChild("CallRequestedEvent") :: RemoteEvent
-							CallRequestedEvent:FireServer(props.userId)
-						end
-					else
-						local SharedRS = ReplicatedStorage:WaitForChild("Shared")
-						local ShowGenericDialogBindableEvent =
-							SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
-						ShowGenericDialogBindableEvent:Fire(
-							"Error",
-							"Cannot call another user that isn't in the same mode as you. Toggle your dev mode and try again.",
-							true
-						)
-					end
-
-					props.dismissCallback()
-				end,
+				onActivated = startCall,
 			})
 			else nil,
 	})

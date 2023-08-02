@@ -46,6 +46,7 @@ end
 
 export type WindowProps = {
 	windowSize: WindowSizeSignal.WindowSizeSignal,
+	isDraggedOut: boolean,
 }
 
 local function Window(props: WindowProps): React.ReactNode
@@ -84,6 +85,13 @@ local function Window(props: WindowProps): React.ReactNode
 		end
 	end, {})
 
+	local onActivated = React.useCallback(function()
+		if focused then
+			setLarge(not large)
+		end
+		userInteracted()
+	end)
+
 	local frameRef = React.useRef(nil :: Frame?)
 	React.useEffect(function()
 		-- SelfieView throws an error when running tests involving
@@ -103,12 +111,6 @@ local function Window(props: WindowProps): React.ReactNode
 
 	local cameraButtonClicked = React.useCallback(function()
 		toggleClone()
-		userInteracted()
-	end)
-	local backgroundClicked = React.useCallback(function()
-		if focused then
-			setLarge(not large)
-		end
 		userInteracted()
 	end)
 
@@ -160,13 +162,12 @@ local function Window(props: WindowProps): React.ReactNode
 				automaticSize = Enum.AutomaticSize.Y,
 			}),
 		}),
-		IconFrame = React.createElement("Frame", {
+		IconFrame = focused and React.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, ICON_CONTAINER_HEIGHT),
 			Position = UDim2.fromScale(0.5, 1),
 			AnchorPoint = Vector2.new(0.5, 1),
 			ZIndex = 2,
-			Visible = focused,
 		}, {
 			Interactable = React.createElement(Interactable, {
 				Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
@@ -179,26 +180,24 @@ local function Window(props: WindowProps): React.ReactNode
 				iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 				dotPosition = UDim2.fromScale(0.7, 0.8),
 			}),
-		}),
-		FocusDarken = React.createElement("Frame", {
+		}) or nil,
+		FocusDarken = focused and React.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 0.7,
 			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-			Visible = focused,
 			ZIndex = 2,
 		}, {
 			Corners = React.createElement("UICorner", {}),
-		}),
-		CameraStatusDot = React.createElement(CameraStatusDot, {
-			Visible = cameraOn and not focused,
+		}) or nil,
+		CameraStatusDot = cameraOn and not focused and React.createElement(CameraStatusDot, {
 			Position = UDim2.new(1, -5, 0, 5),
 			AnchorPoint = Vector2.new(1, 0),
 			ZIndex = 2,
-		}),
+		}) or nil,
 		Interactable = React.createElement(Interactable, {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
-			[React.Event.Activated] = backgroundClicked,
+			[React.Event.Activated] = onActivated,
 		}),
 	})
 end

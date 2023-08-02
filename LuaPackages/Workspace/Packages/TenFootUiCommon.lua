@@ -22,6 +22,7 @@ export type SwitchNavigatorConfig = Package.SwitchNavigatorConfig
 export type StackNavigatorConfig = Package.StackNavigatorConfig
 export type RouteArray = Package.RouteArray
 export type ScreenProps = Package.ScreenProps
+export type NavigationOptions = Package.NavigationOptions
 
 
 return Package

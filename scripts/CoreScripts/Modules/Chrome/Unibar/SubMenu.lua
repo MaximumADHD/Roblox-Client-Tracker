@@ -42,7 +42,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	end)
 
 	return React.createElement(Interactable, {
-		Size = UDim2.new(1, 0, 0, 72),
+		Size = UDim2.new(1, 0, 0, 56),
 		BorderSizePixel = 0,
 		BackgroundTransparency = highlightColor:map(function(v)
 			return v.Transparency

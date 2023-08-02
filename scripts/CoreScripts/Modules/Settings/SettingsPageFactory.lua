@@ -25,6 +25,8 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
+local FFlagInGameMenuRotationSelectionTabFix = game:DefineFastFlag("InGameMenuRotationSelectionTabFix", false)
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local this = {}
@@ -224,6 +226,11 @@ local function Initialize()
 					this.TabHeader.Icon.Title.Visible = false
 				end
 			else
+				if FFlagInGameMenuRotationSelectionTabFix then
+					this.TabHeader.Icon.Position = UDim2.new(0, 10, 0.5, -14)
+					this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+					this.TabHeader.Icon.Size = UDim2.new(0, 34, 0, 28)
+				end
 				if FFlagUseNotificationsLocalization then
 					this.TabHeader.Title.Visible = true
 				else
@@ -265,7 +272,8 @@ local function Initialize()
 	if Theme.UIBloxThemeEnabled then
 		utility:Create'UIPadding'
 		{
-			PaddingRight = UDim.new(0, 10),
+			PaddingLeft = UDim.new(0, 12),
+			PaddingRight = UDim.new(0, 11),
 			Parent = this.Page,
 		}
 	end

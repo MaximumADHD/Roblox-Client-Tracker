@@ -86,7 +86,7 @@ local function setCurrentPlayersNames()
 			local player = playersFormatted[profile.id]
 			setNameOnCharacterAdded(player, profile)
 		end
-	end)
+	end, function() end)
 end
 
 local function onPlayerAdded(player: Player)

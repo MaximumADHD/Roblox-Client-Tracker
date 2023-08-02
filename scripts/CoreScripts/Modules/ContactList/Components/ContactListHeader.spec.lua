@@ -17,17 +17,16 @@ return function()
 		Theme = AppDarkTheme,
 	}
 
-	local mockState = function(currentPage, callDetailParticipants)
+	local mockState = function(currentPage)
 		return {
 			Navigation = {
 				currentPage = currentPage,
-				callDetailParticipants = callDetailParticipants,
 			},
 		}
 	end
 
 	it("should mount and unmount without errors hidden", function()
-		local store = Rodux.Store.new(Reducer, mockState(nil, nil), {
+		local store = Rodux.Store.new(Reducer, mockState(nil), {
 			Rodux.thunkMiddleware,
 		})
 

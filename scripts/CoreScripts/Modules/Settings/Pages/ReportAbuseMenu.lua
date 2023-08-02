@@ -770,6 +770,20 @@ local function Initialize()
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ReportAbusePage"
 
+	if Theme.UseStickyBar then
+		-- create a safe zone bottom padding
+		utility:Create'Frame'
+		{
+			Name = "PageViewInnerFrame",
+			Size = UDim2.new(1, 0, 0, 80),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Selectable = false,
+			Parent = this.Page,
+			LayoutOrder = 10,
+		};
+	end
+
 	-- need to override this function from SettingsPageFactory
 	-- DropDown menus require hub to to be set when they are initialized
 	function this:SetHub(newHubRef)

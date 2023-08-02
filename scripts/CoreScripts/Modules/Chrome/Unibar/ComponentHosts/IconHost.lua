@@ -19,8 +19,8 @@ local useNotificationCount = require(script.Parent.Parent.Parent.Hooks.useNotifi
 local useMappedObservableValue = require(script.Parent.Parent.Parent.Hooks.useMappedObservableValue)
 local useTimeHysteresis = require(script.Parent.Parent.Parent.Hooks.useTimeHysteresis)
 
-local BADGE_OFFSET_X = 18
-local BADGE_OFFSET_Y = 2
+local BADGE_OFFSET_X = 20
+local BADGE_OFFSET_Y = 0
 
 type TooltipState = {
 	displaying: boolean,
@@ -164,7 +164,7 @@ function TooltipButton(props: TooltipButtonProps)
 					local magnitude = math.abs((dragStartPosition - inputPosition).Magnitude)
 
 					if magnitude > Constants.DRAG_MAGNITUDE_THRESHOLD then
-						props.integration.activated()
+						ChromeService:toggleWindow(props.integration.id)
 
 						ChromeService:gesture(props.integration.id, connection)
 					end

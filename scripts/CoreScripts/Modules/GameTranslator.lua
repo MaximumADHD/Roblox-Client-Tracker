@@ -9,6 +9,8 @@ local localeId = nil
 local localeIdConnection = nil
 local localeChangedEvent = Instance.new("BindableEvent")
 
+game:DefineFastFlag("GameTranslatorCheckConnectionBeforeDisconnect", false)
+
 local function handlePlayerOrLocaleChanged()
     if player and player.LocaleId ~= localeId then
         localeId = player.LocaleId
@@ -42,8 +44,17 @@ end
 local registryInfoMap = {}
 
 local function unregisterGui(element)
-    registryInfoMap[element].connection:Disconnect()
-    registryInfoMap[element] = nil
+    if game:GetFastFlag("GameTranslatorCheckConnectionBeforeDisconnect") then
+        local info = registryInfoMap[element]
+        if not info then
+            return
+        end
+        info.connection:Disconnect()
+        registryInfoMap[element] = nil
+    else
+        registryInfoMap[element].connection:Disconnect()
+        registryInfoMap[element] = nil
+    end
 end
 
 local function makeAncestryChangedHandler(element, info)

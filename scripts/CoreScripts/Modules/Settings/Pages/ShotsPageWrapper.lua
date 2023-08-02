@@ -26,10 +26,10 @@ end
 local this = SettingsPageFactory:CreateNewPage()
 
 -- Tab Header customization
-this.TabHeader.Name = "ShotsTab"
+this.TabHeader.Name = "CapturesTab"
 
-local icon = Theme.Images["icons/controls/screenshot"]
 if Theme.UIBloxThemeEnabled then
+	local icon = Theme.Images["icons/controls/screenshot"]
 	this.TabHeader.TabLabel.Icon.Image = icon.Image
 	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
 	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
@@ -37,9 +37,7 @@ if Theme.UIBloxThemeEnabled then
 	this.TabHeader.TabLabel.Title.AutoLocalize = false
 	this.TabHeader.TabLabel.Title.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Captures")
 else
-	this.TabHeader.Icon.Image = icon.Image
-	this.TabHeader.Icon.ImageRectOffset = icon.ImageRectOffset
-	this.TabHeader.Icon.ImageRectSize = icon.ImageRectSize
+	this.TabHeader.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/CaptureTab.png"
 
 	if FFlagUseNotificationsLocalization then
 		this.TabHeader.Title.AutoLocalize = false
@@ -54,7 +52,7 @@ this.PageListLayout.Parent = nil
 this.ShouldShowBottomBar = true
 this.ShouldShowHubBar = true
 
-this.Page.Name = "Shots"
+this.Page.Name = "Captures"
 this.Page.Size = UDim2.fromScale(1, 0)
 
 -- When Theme.UIBloxThemeEnabled is true there is a padding element added

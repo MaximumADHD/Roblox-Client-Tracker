@@ -30,8 +30,15 @@ ChromeService:configureMenu({
 ChromeService:configureSubMenu("nine_dot", { "chat", "leaderboard", "emotes", "backpack" })
 ChromeService:setRecentlyUsed("chat", true)
 
+export type IconDividerProps = {
+	toggleTransition: any?,
+	position: React.Binding<UDim2> | UDim2 | nil,
+	visible: React.Binding<boolean> | boolean | nil,
+	disableButtonBehaviors: boolean?,
+}
+
 -- Vertical divider bar that separates groups of icons within the Unibar
-function IconDivider(props)
+function IconDivider(props: IconDividerProps)
 	local style = useStyle()
 
 	return React.createElement("Frame", {
@@ -39,7 +46,6 @@ function IconDivider(props)
 		Size = UDim2.new(0, Constants.DIVIDER_CELL_WIDTH, 1, 0),
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
-		LayoutOrder = props.integration.order,
 	}, {
 		DividerBar = React.createElement("Frame", {
 			Position = UDim2.new(0, 2, 0.5, 0),
@@ -48,6 +54,7 @@ function IconDivider(props)
 			BorderSizePixel = 0,
 			BackgroundColor3 = style.Theme.Divider.Color,
 			BackgroundTransparency = style.Theme.Divider.Transparency,
+			Visible = props.visible or true,
 		}),
 	})
 end
@@ -93,10 +100,17 @@ function Unibar(props)
 	for k, item in menuItems do
 		if item.isDivider then
 			local closedPos = xOffset + Constants.ICON_CELL_WIDTH
+			local positionBinding = IconPositionBinding(toggleTransition, xOffset, closedPos)
+
+			-- Clip the remaining few pixels on the right edge of the unibar during transition
+			local visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
+				local position: UDim2 = values[1]
+				local size: UDim2 = values[2]
+				return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH)
+			end)
 			children[item.id or ("icon" .. k)] = React.createElement(IconDivider, {
-				position = IconPositionBinding(toggleTransition, xOffset, closedPos) :: any,
-				toggleTransition = toggleTransition,
-				integration = item,
+				position = positionBinding,
+				visible = visibleBinding,
 			})
 			xOffset += Constants.DIVIDER_CELL_WIDTH
 		elseif item.integration then
@@ -136,7 +150,6 @@ function Unibar(props)
 
 	return React.createElement("Frame", {
 		Size = unibarSizeBinding,
-		ClipsDescendants = true,
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 		ref = props.menuFrameRef,

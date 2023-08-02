@@ -131,7 +131,7 @@ local function Controls(props: Props)
 	}, {
 		Pane = Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Layout = Enum.FillDirection.Horizontal,
+			Layout = if #keys > 5 then Enum.FillDirection.Vertical else Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Spacing = 15,
 		}, controls),

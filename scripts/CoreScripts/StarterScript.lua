@@ -69,6 +69,8 @@ local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaA
 
 local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
 
+local GetFFlagVoiceUserAgency = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency)
+
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -87,7 +89,9 @@ if FFlagAvatarChatCoreScriptSupport then
 	ExperienceChat.GlobalFlags.AvatarChatEnabled = true
 end
 
-local FFlagScreenshotsFeaturesEnabledForAll = require(CorePackages.Workspace.Packages.Screenshots).Flags.FFlagScreenshotsFeaturesEnabledForAll
+local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
+local FFlagScreenshotsFeaturesEnabledForAll = Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll
+local FFlagScreenshotSharingEnableExperiment = Screenshots.Flags.FFlagScreenshotSharingEnableExperiment
 
 -- Since prop validation can be expensive in certain scenarios, you can enable
 -- this flag locally to validate props to Roact components.
@@ -220,7 +224,7 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
 -- Screenshots
-if FFlagScreenshotsFeaturesEnabledForAll then
+if FFlagScreenshotsFeaturesEnabledForAll or FFlagScreenshotSharingEnableExperiment then
 	coroutine.wrap(safeRequire)(RobloxGui.Modules.Screenshots.ScreenshotsApp)
 end
 
@@ -355,4 +359,8 @@ end
 
 if isCharacterNameHandlerEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CharacterNameHandler", script.Parent)
+end
+
+if GetFFlagVoiceUserAgency() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceUserAgency", RobloxGui)
 end

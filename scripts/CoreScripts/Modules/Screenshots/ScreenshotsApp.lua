@@ -5,7 +5,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 
-if not Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll then
+local EnabledForAll = Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll
+local ExperimentEnabled = Screenshots.Flags.FFlagScreenshotSharingEnableExperiment
+
+if not (EnabledForAll or ExperimentEnabled) then
 	return {}
 end
 

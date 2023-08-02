@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ChromeService = require(script.Parent.Parent.Service)
 local VideoCaptureService = game:GetService("VideoCaptureService")
+local FaceAnimatorService = game:GetService("FaceAnimatorService")
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local FFlagSelfieViewEnabled = require(SelfieViewModule.Flags.FFlagSelfieViewEnabled)
@@ -38,6 +39,14 @@ local selfieViewChromeIntegration = ChromeService:register({
 	windowSize = windowSize,
 	startingWindowPosition = UDim2.new(1, 0, 0, 165),
 	initialAvailability = AvailabilitySignalState.Unavailable,
+	activated = function()
+		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
+			return
+		end
+
+		FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
+	end,
+	draggable = true,
 	components = {
 		Icon = function(props: {})
 			return React.createElement(SelfieView.Icon, {}, {})
@@ -45,6 +54,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 		Window = function(props: {})
 			return React.createElement(SelfieView.Window, {
 				windowSize = windowSize,
+				isDraggedOut = ChromeService:dragConnection(ID) ~= nil,
 			}, {})
 		end,
 	},

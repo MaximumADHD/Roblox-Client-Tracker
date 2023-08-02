@@ -30,7 +30,7 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
-				OpenCallDetails = function() end,
+				dismissCallback = function() end,
 			})
 		end,
 		Outgoing = function(props)
@@ -59,7 +59,7 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
-				OpenCallDetails = function() end,
+				dismissCallback = function() end,
 			})
 		end,
 		Missed = function(props)
@@ -87,7 +87,7 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
-				OpenCallDetails = function() end,
+				dismissCallback = function() end,
 			})
 		end,
 	},

@@ -42,6 +42,14 @@ export type HumanoidDescriptionData = {
     WidthScale: number
 }
 
+local status_codes = {
+    ERR_RA_CHARACTER = "ERR_RA_CHARACTER",
+	ERR_RA_HUMPLAYER = "ERR_RA_HUMPLAYER",
+	ERR_RA_HUMOBJ = "ERR_RA_HUMOBJ",
+	ERR_RA_HUMDESC = "ERR_RA_HUMDESC",
+	OK = "OK"
+}
+
 local getHumanoidDescription = function(userId: number) : (HumanoidDescriptionData, string)
     local player = Players:GetPlayerByUserId(userId)    
     
@@ -66,7 +74,7 @@ local getHumanoidDescription = function(userId: number) : (HumanoidDescriptionDa
         LeftArm = 0, 
         LeftArmColor = { 0, 0, 0 }, 
         LeftLeg = 0, 
-        LeftLegColor = { 0 },
+        LeftLegColor = { 0, 0, 0 },
         MoodAnimation = 0, 
         NeckAccessory = "", 
         Pants = 0, 
@@ -87,7 +95,7 @@ local getHumanoidDescription = function(userId: number) : (HumanoidDescriptionDa
     }
         
     if not player then 
-        return humanoidDescriptionData, "Error: Unable to get player " .. userId
+        return humanoidDescriptionData, status_codes.ERR_RA_HUMPLAYER
     end
     
     local character = player.Character 
@@ -96,13 +104,13 @@ local getHumanoidDescription = function(userId: number) : (HumanoidDescriptionDa
         local humanoid = character:WaitForChild("Humanoid", 1)
         
         if not humanoid then 
-            return humanoidDescriptionData, "Error: Unable to load Humanoid object"
+            return humanoidDescriptionData, status_codes.ERR_RA_HUMOBJ
         end
         
         local description = (humanoid :: Humanoid):GetAppliedDescription() :: any
 
         if not description then 
-            return humanoidDescriptionData, "Error: Unable to load HumanoidDescription Instance"
+            return humanoidDescriptionData, status_codes.ERR_RA_HUMDESC
         end
 
         pcall(function()
@@ -120,10 +128,10 @@ local getHumanoidDescription = function(userId: number) : (HumanoidDescriptionDa
             end
         )
     else 
-        return humanoidDescriptionData, "Error: Unable to get Character model"
+        return humanoidDescriptionData, status_codes.ERR_RA_CHARACTER
     end
 
-    return humanoidDescriptionData, "Success"
+    return humanoidDescriptionData, status_codes.OK
 end
 
 return {
