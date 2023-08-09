@@ -46,6 +46,7 @@ Studio.AssetImporter.Plugin.Name,AssetImporter
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
+Studio.AssetImporter.PreviewTooltip.RigVisualization,Show Rig Visualization
 Studio.AssetImporter.PreviewTooltip.ToggleInsertContext, Toggle insert location preview
 Studio.AssetImporter.Properties.AddModelToInventory,Add Model To Inventory
 Studio.AssetImporter.Properties.Anchored,Anchored
@@ -144,6 +145,7 @@ Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
 Studio.AssetImporter.Statuses.CageUVMisMatchedWarning,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
 Studio.AssetImporter.Statuses.CantImportAvatarGltfsWarning,This file looks like it contains rigging data (Bones/Animations/Skinning). The importer does not yet support rigging in gLTF files.
+Studio.AssetImporter.Statuses.CantImportScaleOrWeightAnimationsWarning,This file looks like it contains scale or weight animations. The importer does not support these animation types so your animations may not work as expected.
 Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object.
 Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object.
 Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object.

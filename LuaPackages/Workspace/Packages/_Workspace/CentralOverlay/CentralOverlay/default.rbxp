@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CentralOverlay",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/central-overlay/src"
+    }
+  }
+}

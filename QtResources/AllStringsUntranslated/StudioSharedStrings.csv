@@ -100,7 +100,11 @@ Studio.App.RBXMainWindow.ViewStudioInternalDebugWidget,,Internal Debug,Internal 
 Studio.App.RBXMainWindow.ViewStudioInternalDebugWidgetTooltip,,View Internal Debug,View Internal Debug
 Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget,,Roblox CodeAssist,Roblox CodeAssist
 Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip,,Roblox CodeAssist,Roblox CodeAssist
+Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget,,Activity Feed,Activity Feed
+Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip,,Activity Feed,Activity Feed
 Studio.App.RBXMainWindow.ShowOrientationIndicator,,Show Orientation Indicator,Show Orientation Indicator
+Studio.App.RobloxStudio.OutOfDateReinstall1,,The version of Roblox Studio is out of date. Please close all instances and reinstall from %1,The version of Roblox Studio is out of date. Please close all instances and reinstall from %1
+Studio.App.RobloxStudio.ChannelOutOfDateReinstall1,,"This is an expired channel build. To move back to latest production Roblox Studio, please close all instances, unenroll your user from the channel, and reinstall from %1","This is an expired channel build. To move back to latest production Roblox Studio, please close all instances, unenroll your user from the channel, and reinstall from %1"
 Studio.App.RobloxRibbonMainWindow.Cleanup,,Cleanup,Cleanup
 Studio.App.RobloxRibbonMainWindow.Color,,Color,Color
 Studio.App.RobloxRibbonMainWindow.ConnectionIsStable,,Connection is stable.,Connection is stable.

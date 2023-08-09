@@ -3,6 +3,23 @@
 lockfile_format_version = 4
 
 [[package]]
+name = "AbuseReportMenu"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "React React 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+]
+
+[[package]]
 name = "AbuseReporting"
 version = "0.1.0"
 dependencies = [
@@ -160,6 +177,15 @@ dependencies = [
     "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Promise Promise 0.1.0",
+]
+
+[[package]]
+name = "CentralOverlay"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Rodux Rodux 0.1.0",
 ]
 
 [[package]]
@@ -1260,6 +1286,7 @@ dependencies = [
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "TestUtils TestUtils 0.1.0",
 ]
 
 [[package]]
@@ -1493,6 +1520,7 @@ dependencies = [
     "FormFactor FormFactor 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Time Time 0.1.0",
+    "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "t t 0.1.0",
 ]
@@ -1523,6 +1551,7 @@ dependencies = [
     "ReactRoblox ReactRoblox 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
@@ -1775,7 +1804,6 @@ dependencies = [
 name = "TenFootUiShell"
 version = "0.1.0"
 dependencies = [
-    "Analytics Analytics 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "Cryo Cryo 0.1.0",

@@ -79,7 +79,7 @@ Studio.MaterialManager.Categories.Stone,Stone,Stone,Piedra,Pierre,Pietra,石,돌
 Studio.MaterialManager.Materials.SmoothPlasticMaterial,Smooth Plastic Material,Smooth Plastic Material,Material de plástico liso,Matériau plastique lisse,Materiale Plastica Liscia,なめらかなプラスチック素材,매끈한 플라스틱 재질,Material de plástico liso,平滑塑料材质,平滑塑料材质,平滑塑膠材質
 Studio.MaterialManager.Categories.Fabric,Fabric,Fabric,Tela,Tissu,Tessuto,布地,직물,Tecido,布料,布料,布料
 Studio.MaterialManager.Materials.Fabric,Fabric,Fabric,Tela,Tissu,Tessuto,布地,직물,Tecido,布料,布料,布料
-Studio.MaterialManager.Materials.Carpet,Carpet,Carpet, , , , , , , , , 
+Studio.MaterialManager.Materials.Carpet,Carpet,Carpet,Alfombra,Tapis, ,カーペット,카펫,Tapete, , , 
 Studio.MaterialManager.Categories.Glacier,Glacier,Glacier,Glaciar,Glacier,Ghiacciaio,氷河,빙하,Geleira,冰川,冰川,冰河
 Studio.MaterialManager.Materials.Glacier,Glacier,Glacier,Glaciar,Glacier,Ghiacciaio,氷河,빙하,Geleira,冰川,冰川,冰河
 Studio.MaterialManager.Categories.Translucent,Translucent,Translucent,Translúcido,Translucide,Traslucido,透明,반투명,Translúcido,半透明,半透明,半透明
@@ -144,7 +144,7 @@ Studio.MaterialManager.MaterialOverrides.CreateNew,Create New,Create New,Crear N
 Studio.MaterialManager.CreateDialog.EditVariant,Edit Variant,Edit Variant,Editar variante,Modifier la variante,Modifica Variante,バリエーションを編集,변형 편집,Editar variante,编辑变量,编辑变量,編輯變種
 Studio.MaterialManager.CreateDialog.ErrorNoName,Name required,Name required,Nombre obligatorio,Nom requis,Nome necessario,名前が必要です,이름은 필수입니다,Nome obrigatório,必填名称,必填名称,需要名稱
 Studio.MaterialManager.CreateDialog.ErrorBaseMaterialNotSelected,No Base Material selected,No Base Material selected,Ningún material base seleccionado,Aucun matériau de base sélectionné,Nessun materiale base selezionato,ベース材料が選択されていません,선택한 기본 재질이 없습니다,Nenhum material base selecionado,未选择基本材质,未选择基本材质,未選擇底部材質
-Studio.MaterialManager.Materials.RubberVariant,Rubber Variant,Rubber Variant, , , , , , , , , 
+Studio.MaterialManager.Materials.RubberVariant,Rubber Variant,Rubber Variant,Variante de goma,Variante de caoutchouc, , ,고무 변형,Variante de borracha, , , 
 Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists,Name already exists,El nombre ya existe,Le nom existe déjà,Il nome esiste già,名前がすでに使われています,이름이 이미 존재합니다,Nome já existe,名称已存在,名称已存在,名稱已存在
 Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected,No Image Selected,No imagen seleccionada,Aucune image sélectionnée,Nessuna immagine selezionata,選択された画像がありません,선택한 이미지가 없습니다,Nenhuma imagem selecionada,未选择图像,未选择图像,未選擇圖像
 Studio.MaterialManager.CreateDialog.ErrorImportMap,Failed to import Texture Map,Failed to import Texture Map,Error al importar el mapa de textura,Échec de l'importation de la carte des textures,Impossibile importare la Mappa Texture,テクスチャマップをインポートできませんでした,텍스처 맵을 가져오지 못했습니다,Falha ao importar Mapa de textura,导入纹理地图失败,导入纹理地图失败,無法匯入紋理圖
@@ -164,14 +164,14 @@ Studio.MaterialManager.Materials.BasaltVariant,Basalt Variant,Basalt Variant,Var
 Studio.MaterialManager.Materials.BrickVariant,Brick Variant,Brick Variant,Variante de ladrillo,Variante de brique,Variante Mattone,レンガのバリエーション,벽돌 변형,Variante de tijolo,砖块变量,砖块变量,磚塊變種
 Studio.MaterialManager.TerrainDetails.Top,Top,Top,Sup.,Haut,Alto,上,상단,Superior,顶部,顶部,頂部
 Studio.MaterialManager.Materials.CobblestoneVariant,Cobblestone Variant,Cobblestone Variant,Variante de adoquín,Variante de pierre taillée,Variante Mattoni,玉砂利のバリエーション,왕자갈 변형,Variante de paralelepípedo,大鹅卵石变量,大鹅卵石变量,鵝卵石變種
-Studio.MaterialManager.Materials.CarpetMaterial,Carpet Material,Carpet Material, , , , , , , , , 
+Studio.MaterialManager.Materials.CarpetMaterial,Carpet Material,Carpet Material,Material de alfombra,Matériau pour tapis, ,カーペット素材,카펫 재질,Material de tapete, , , 
 Studio.MaterialManager.Materials.GlacierMaterial,Glacier Material,Glacier Material,Material de glaciar,Matériau du glacier,Materiale Del Ghiacciaio,氷河の素材,빙하 재질,Material de geleira,冰川材质,冰川材质,冰河材質
 Studio.MaterialManager.Materials.ConcreteVariant,Concrete Variant,Concrete Variant,Variante de hormigón,Variante de béton,Variante Cemento,コンクリートのバリエーション,콘크리트 변형,Variante de concreto,水泥变量,水泥变量,混凝土變種
 Studio.MaterialManager.Materials.CrackedLavaVariant,Cracked Lava Variant,Cracked Lava Variant,Variante de lava agrietada,Variante de lave fissurée,Variante Lava Incrinata,ひび割れた溶岩のバリエーション,갈라진 용암 변형,Variante de lava rachada,裂纹熔岩变量,裂纹熔岩变量,裂紋熔岩變種
 Studio.MaterialManager.Materials.FabricVariant,Fabric Variant,Fabric Variant,Variante de tela,Variante de tissu,Variante Tessuto,生地のバリエーション,직물 변형,Variante de tecido,布料变量,布料变量,布料變種
 Studio.MaterialManager.Materials.FoilVariant,Foil Variant,Foil Variant,Variante de papel aluminio,Variante de la feuille d'aluminium,Variante Lamina,ホイルのバリエーション,포일 변형,Variante de papel alumínio,锡箔变量,锡箔变量,金屬箔變種
 Studio.MaterialManager.Materials.ForcefieldVariant,Force Field Variant,Force Field Variant,Variante de campo de fuerza,Forcer la variante du champ,Variante Campo Forza,フォースフィールドのバリエーション,역장 변형,Variante de campo força,力场变量,力场变量,力場變種
-Studio.MaterialManager.Materials.CarpetVariant,Carpet Variant,Carpet Variant, , , , , , , , , 
+Studio.MaterialManager.Materials.CarpetVariant,Carpet Variant,Carpet Variant,Variante de alfombra,Variante de Tapis, , ,카펫 변형,Variante de tapete, , , 
 Studio.MaterialManager.Materials.GlacierVariant,Glacier Variant,Glacier Variant,Variante de glaciar,Variante du glacier,Variante Ghiacciaio,氷河のバリエーション,빙하 변형,Variante de geleira,冰川变量,冰川变量,冰河變種
 Studio.MaterialManager.Materials.GlassVariant,Glass Variant,Glass Variant,Variante de vidrio,Variante de verre,Variante Vetro,ガラスのバリエーション,유리 변형,Variante de vidro,玻璃变量,玻璃变量,玻璃變種
 Studio.MaterialManager.PhysicalProperties.ElasticityWeight,Elasticity Weight,Elasticity Weight,Peso de la elasticidad,Poids élasticité,Elasticitá Peso,弾力性重量,탄성 가중치,Peso da elasticidade,弹性重量,弹性重量,彈性重量
@@ -181,7 +181,7 @@ Studio.MaterialManager.Materials.IceVariant,Ice Variant,Ice Variant,Variante de 
 Studio.MaterialManager.Materials.LeafyGrassVariant,Leafy Grass Variant,Leafy Grass Variant,Variante de hierba espesa,Variante de l'herbe feuillue,Variante Erba A Foglie,草地のバリエーション,무성한 잔디 변형,Variante de grama alta,绿叶草变量,绿叶草变量,綠葉草變種
 Studio.MaterialManager.Materials.LimestoneVariant,Limestone Variant,Limestone Variant,Variante de piedra caliza,Variante du calcaire,Variante Calcare,ライムストーンのバリエーション,석회암 변형,Variante de calcário,石灰岩变量,石灰岩变量,石灰岩變種
 Studio.MaterialManager.Materials.MarbleVariant,Marble Variant,Marble Variant,Variante de mármol,Variante de Marbre,Variante Marmo,大理石のバリエーション,대리석 변형,Variante de mármore,大理石变量,大理石变量,大理石變種
-Studio.MaterialManager.Materials.PlasterMaterial,Plaster Material,Plaster Material, , , , , , , , , 
+Studio.MaterialManager.Materials.PlasterMaterial,Plaster Material,Plaster Material,Material de yeso,Matériau de plâtre, ,石膏素材,석고 재질,Material de gesso, , , 
 Studio.MaterialManager.Materials.MetalVariant,Metal Variant,Metal Variant,Variante de metal,Variante de métal,Variante Metallo,金属のバリエーション,금속 변형,Variante de metal,金属变量,金属变量,金屬變種
 Studio.MaterialManager.Materials.MudVariant,Mud Variant,Mud Variant,Variante de barro,Variante de boue,Variante Fango,泥のバリエーション,진흙 변형,Variante de lama,泥变量,泥变量,泥變種
 Studio.MaterialManager.Materials.NeonVariant,Neon Variant,Neon Variant,Variante de neón,Variante de néon,Variante Neon,ネオンのバリエーション,네온 변형,Variante de neon,霓虹变量,霓虹变量,霓虹變種
@@ -205,7 +205,7 @@ Studio.MaterialManager.Materials.AirMaterial,Air Material,Air Material,Material 
 Studio.MaterialManager.Materials.BasaltMaterial,Basalt Material,Basalt Material,Material de basalto,Matériau de basalte,Materiale Basalto,玄武岩の素材,현무암 재질,Material de basalto,玄武岩材质,玄武岩材质,玄武岩材質
 Studio.MaterialManager.Materials.BrickMaterial,Brick Material,Brick Material,Material de ladrillo,Matériau de brique,Materiale Mattone,レンガ素材,벽돌 재질,Material de tijolo,砖块材质,砖块材质,磚塊材質
 Studio.MaterialManager.Materials.CobblestoneMaterial,Cobblestone Material,Cobblestone Material,Material de adoquín,Matériau de pierre,Materiale Ciottolo,玉砂利の素材,왕자갈 재질,Material de paralelepípedo,大鹅卵石材质,大鹅卵石材质,鵝卵石材質
-Studio.MaterialManager.Materials.ClayRoofTiles,Clay Roof Tiles,Clay Roof Tiles, , , , , , , , , 
+Studio.MaterialManager.Materials.ClayRoofTiles,Clay Roof Tiles,Clay Roof Tiles,Baldosas de arcilla,Tuiles de toit en argile, , ,점토 기와,Telhas de barro, , , 
 Studio.MaterialManager.CreateDialog.FailedToInsertAssetManager,Failed to insert assetId to AssetManager,Failed to insert assetId to AssetManager,Error al insertar assetId a AssetManager,Impossible d'insérer assetId dans AssetManager,Impossibile inserire assetId in AssetManager,assetId を AssetManager に挿入できませんでした,assetId를 AssetManager에 삽입하지 못했습니다,Falha ao inserir o assetId para o AssetManager,无法将 assetId 插入 AssetManager,无法将 assetId 插入 AssetManager,無法將 assetId 插入 AssetManager
 Studio.MaterialManager.Materials.ConcreteMaterial,Concrete Material,Concrete Material,Material de hormigón,Matériau de béton,Materiale Cemento,コンクリート素材,콘크리트 재질,Material de concreto,水泥材质,水泥材质,混凝土材質
 Studio.MaterialManager.Materials.CorrodedMetalMaterial,Corroded Metal Material,Corroded Metal Material,Material de metal corroído,Matériau de métal corrodé,Materiale In Metallo Corroso,さびた金属素材,부식된 금속 재질,Material de metal corroido,腐蚀金属材质,腐蚀金属材质,腐蝕金屬材質
@@ -224,7 +224,7 @@ Studio.MaterialManager.MaterialTiling.StudsPerTile,Studs Per Tile,Studs Per Tile
 Studio.MaterialManager.Materials.IceMaterial,Ice Material,Ice Material,Material de hielo,Matériau de glace,Materiale Ghiaccio,氷素材,얼음 재질,Material de gelo,冰材质,冰材质,冰材質
 Studio.MaterialManager.Materials.LeafyGrassMaterial,Leafy Grass Material,Leafy Grass Material,Material de hierba espesa,Matériau d'herbe à feuilles,Materiale Erba a Foglie,草地の素材,무성한 잔디 재질,Material de grama alta,绿叶草材质,绿叶草材质,綠葉草材質
 Studio.MaterialManager.Materials.MetalMaterial,Metal Material,Metal Material,Material de metal,Matériau de métal,Materiale Metallico,金属の素材,금속 재질,Material de metal,金属材质,金属材质,金屬材質
-Studio.MaterialManager.Materials.RoofShingles,Roof Shingles,Roof Shingles, , , , , , , , , 
+Studio.MaterialManager.Materials.RoofShingles,Roof Shingles,Roof Shingles,Tejas de techo,Bardeaux de toit, , ,지붕 널,Telhas shingle, , , 
 Studio.MaterialManager.Materials.MudMaterial,Mud Material,Mud Material,Material de barro,Matériau de boue,Materiale Fango,泥素材,진흙 재질,Material de lama,泥材质,泥材质,泥材質
 Studio.MaterialManager.PhysicalProperties.Reset,Reset,Reset,Restablecer,Réinitialiser,Reimposta,リセット,재설정,Reiniciar,重置,重置,重置
 Studio.MaterialManager.Materials.PavementMaterial,Pavement Material,Pavement Material,Material de pavimento,Matériau trottoir,Materiale Pavimentazione,鋪道の素材,보도 재질,Material de pavimento,人行道材质,人行道材质,人行道材質
@@ -255,7 +255,7 @@ Studio.MaterialManager.MaterialInformation.Delete,Delete,Delete,Eliminar,Supprim
 Studio.MaterialManager.TerrainDetails.Delete,Delete,Delete,Eliminar,Supprimer,Elimina,削除,삭제,Excluir,删除,删除,刪除
 Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMapToLarge,Failed to upload: file is too large,Failed to upload: file is too large,Error al cargar: el archivo es demasiado grande,Impossible de télécharger : le fichier est trop volumineux,Caricamento non riuscito: file troppo grande,アップロードできませんでした。ファイルが大きすぎます,업로드 실패: 파일이 너무 큽니다,Falha no upload: o arquivo é grande demais,上传失败：文件太大,上传失败：文件太大,無法上傳：檔案過大
 Studio.MaterialManager.CreateDialog.FailedToUploadTooLarge,Failed to upload: file is too large,Failed to upload: file is too large,Error al cargar: el archivo es demasiado grande,Impossible de télécharger : le fichier est trop volumineux,Caricamento non riuscito: file troppo grande,アップロードできませんでした。ファイルが大きすぎます,업로드 실패: 파일이 너무 큽니다,Falha no upload: o arquivo é grande demais,上传失败：文件太大,上传失败：文件太大,無法上傳：檔案過大
-Studio.MaterialManager.Materials.PlasterVariant,Plaster Variant,Plaster Variant, , , , , , , , , 
+Studio.MaterialManager.Materials.PlasterVariant,Plaster Variant,Plaster Variant,Variante de yeso,Variante de plâtre, , ,석고 변형,Variante de gesso, , , 
 Studio.MaterialManager.CreateDialog.Uploading,Uploading Texture Map...,Uploading Texture Map...,Cargando mapa de textura...,Téléchargement de la carte des textures en cours...,Caricamento Mappa Texture...,テクスチャマップをアップロード中...,텍스처 맵을 업로드하는 중...,Enviando Mapa de Textura...,正在上传纹理地图...,正在上传纹理地图...,正在上傳紋理圖……
 Studio.MaterialManager.MaterialTiling.Tiling,Tiling,Tiling,Mosaico,Carreau,Piastrellatura,タイル,타일링,Ladrilhamento,砖格,砖格,磚格
 Studio.MaterialManager.MaterialTiling.Pattern,Pattern,Pattern,Patrón,Motif,Tipo,パターン,패턴,Padrão,纹理,纹理,紋路
@@ -268,21 +268,21 @@ Studio.MaterialManager.PhysicalProperties.Friction,Friction,Friction,Fricción,F
 Studio.MaterialManager.PhysicalProperties.Physics,Physics,Physics,Física,Physique,Fisica,物理,물리,Física,物理,物理,物理
 Studio.MaterialManager.TerrainDetails.TerrainDetails,Terrain Details,Terrain Details,Detalles del terreno,Détails du terrain,Dettagli Terreno,地形の詳細,지형 세부 사항,Detalhes do terreno,地形详细信息,地形详细信息,地形詳細資訊
 Studio.MaterialManager.MaterialOverrides.OverrideUnavailable,This Material doesn't support Variants,This Material doesn't support Variants,Este material no admite variantes,Ce matériau ne prend pas en charge les variantes,Questo materiale non supporta le varianti,この素材は、バリエーションに対応していません,이 재질은 변형을 지원하지 않습니다,Este material não suporta variantes,此材质不支持变量,此材质不支持变量,此材質不支援變種
-Studio.MaterialManager.Categories.Ceramic,Ceramic,Ceramic, , , , , , , , , 
-Studio.MaterialManager.Categories.Paper,Paper,Paper, , , , , , , , , 
-Studio.MaterialManager.Materials.Cardboard,Cardboard,Cardboard, , , , , , , , , 
-Studio.MaterialManager.Materials.CeramicTiles,Ceramic Tiles,Ceramic Tiles, , , , , , , , , 
-Studio.MaterialManager.Materials.Leather,Leather,Leather, , , , , , , , , 
-Studio.MaterialManager.Materials.Plaster,Plaster,Plaster, , , , , , , , , 
-Studio.MaterialManager.Materials.Rubber,Rubber,Rubber, , , , , , , , , 
-Studio.MaterialManager.Materials.CardboardVariant,Cardboard Variant,Cardboard Variant, , , , , , , , , 
-Studio.MaterialManager.Materials.CeramicTilesVariant,Ceramic Tiles Variant,Ceramic Tiles Variant, , , , , , , , , 
-Studio.MaterialManager.Materials.ClayRoofTilesVariant,Clay Roof Tiles Variant,Clay Roof Tiles Variant, , , , , , , , , 
-Studio.MaterialManager.Materials.LeatherVariant,Leather Variant,Leather Variant, , , , , , , , , 
-Studio.MaterialManager.Materials.RoofShinglesVariant,Roof Shingles Variant,Roof Shingles Variant, , , , , , , , , 
-Studio.MaterialManager.Materials.CardboardMaterial,Cardboard Material,Cardboard Material, , , , , , , , , 
-Studio.MaterialManager.Materials.CeramicTilesMaterial,Ceramic Tiles Material,Ceramic Tiles Material, , , , , , , , , 
-Studio.MaterialManager.Materials.ClayRoofTilesMaterial,Clay Roof Tiles Material,Clay Roof Tiles Material, , , , , , , , , 
-Studio.MaterialManager.Materials.LeatherMaterial,Leather Material,Leather Material, , , , , , , , , 
-Studio.MaterialManager.Materials.RoofShinglesMaterial,Roof Shingles Material,Roof Shingles Material, , , , , , , , , 
-Studio.MaterialManager.Materials.RubberMaterial,Rubber Material,Rubber Material, , , , , , , , , 
+Studio.MaterialManager.Categories.Ceramic,Ceramic,Ceramic,Cerámica,Céramique, ,セラミック,세라믹,Cerâmica, , , 
+Studio.MaterialManager.Categories.Paper,Paper,Paper,Papel,Papier, ,紙,종이,Papel, , , 
+Studio.MaterialManager.Materials.Cardboard,Cardboard,Cardboard,Cartón,Carton, ,ダンボール,판지,Papelão, , , 
+Studio.MaterialManager.Materials.CeramicTiles,Ceramic Tiles,Ceramic Tiles,Baldosas de cerámica,Carreaux de céramique, ,セラミックタイル,세라믹 타일,Ladrilhos de cerâmica, , , 
+Studio.MaterialManager.Materials.Leather,Leather,Leather,Cuero,Cuir, ,レザー,가죽,Couro, , , 
+Studio.MaterialManager.Materials.Plaster,Plaster,Plaster,Yeso,Plâtre, ,石膏,석고,Gesso, , , 
+Studio.MaterialManager.Materials.Rubber,Rubber,Rubber,Goma,Caoutchouc, ,ゴム,고무,Borracha, , , 
+Studio.MaterialManager.Materials.CardboardVariant,Cardboard Variant,Cardboard Variant,Variante de cartón,Variante en carton, , ,판지 변형,Variante de papelão, , , 
+Studio.MaterialManager.Materials.CeramicTilesVariant,Ceramic Tiles Variant,Ceramic Tiles Variant,Variante de baldosas de cerámica,Variante des carreaux de céramique, , ,세라믹 타일 변형,Variante de ladrilhos de cerâmica, , , 
+Studio.MaterialManager.Materials.ClayRoofTilesVariant,Clay Roof Tiles Variant,Clay Roof Tiles Variant,Variante de tejas de arcilla,Variante des tuiles d'argile, , ,점토 기와 변형,Variante de telhas de barro, , , 
+Studio.MaterialManager.Materials.LeatherVariant,Leather Variant,Leather Variant,Variante de cuero,Variante en cuir, , ,가죽 변형,Variante de couro, , , 
+Studio.MaterialManager.Materials.RoofShinglesVariant,Roof Shingles Variant,Roof Shingles Variant,Variante de tejas de techo,Variante de bardeaux de toit, , ,지붕 널 변형,Variante de telhas shingle, , , 
+Studio.MaterialManager.Materials.CardboardMaterial,Cardboard Material,Cardboard Material,Material de cartón,Matériau en carton, ,ダンボール素材,판지 재질,Material de papelão, , , 
+Studio.MaterialManager.Materials.CeramicTilesMaterial,Ceramic Tiles Material,Ceramic Tiles Material,Material de baldosas de cerámica,Matériau des carreaux de céramique, ,セラミックタイル素材,세라믹 타일 재질,Material de ladrilhos de cerâmica, , , 
+Studio.MaterialManager.Materials.ClayRoofTilesMaterial,Clay Roof Tiles Material,Clay Roof Tiles Material,Material de tejas de arcilla,Matériau de tuiles de toit en argile, , ,점토 기와 재질,Material de telhas de barro, , , 
+Studio.MaterialManager.Materials.LeatherMaterial,Leather Material,Leather Material,Material de cuero,Matériau en cuir, ,レザー素材,가죽 재질,Material de couro, , , 
+Studio.MaterialManager.Materials.RoofShinglesMaterial,Roof Shingles Material,Roof Shingles Material,Material de tejas de techo,Matériau des bardeaux de toit, , ,지붕 널 재질,Material de telhas shingle, , , 
+Studio.MaterialManager.Materials.RubberMaterial,Rubber Material,Rubber Material,Material de goma,Matériau en caoutchouc, , ,고무 재질,Material de borracha, , , 

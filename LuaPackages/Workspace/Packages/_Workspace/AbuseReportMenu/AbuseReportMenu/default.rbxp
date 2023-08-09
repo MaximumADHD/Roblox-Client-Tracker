@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AbuseReportMenu",
+    "tree": {
+      "$path": "../../../../../../../modules/trust-and-safety/abuse-report-menu/src"
+    }
+  }
+}

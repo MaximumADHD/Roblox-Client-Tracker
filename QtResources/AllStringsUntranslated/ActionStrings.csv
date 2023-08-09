@@ -1,0 +1,306 @@
+Key,Context,Source,en-us
+Studio.Actions.TBD,,TBD,TBD
+Studio.App.RobloxRibbonMainWindow.EditPivot,,Edit Pivot,Edit Pivot
+Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates
+Studio.App.RobloxRibbonMainWindow.ClearPivot,Button to reset the pivot of the selected objects,Reset,Reset
+Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip,,Reset the pivots of the selected objects,Reset the pivots of the selected objects
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnap,Whether the pivot tool snaps the pivot to the corners of objects,Snap,Snap
+Studio.App.RobloxRibbonMainWindow.TogglePivotSnapTooltip,,"Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?","Does the pivot snap to hotspots (corners, edges, face centers) of the hovered object?"
+Studio.App.RobloxRibbonMainWindow.GlobalWindControl,,Wind Direction,Wind Direction
+Studio.App.RobloxRibbonMainWindow.GlobalWindControlTooltip,,Show Wind Direction,Show Wind Direction
+Studio.App.RobloxRibbonMainWindow.MaterialManager,,Material Manager,Material Manager
+Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip,,"Manage, select, and apply materials","Manage, select, and apply materials"
+Studio.App.RobloxRibbonMainWindow.MaterialGenerator,,Material Generator,Material Generator
+Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip,,Create AI generated materials through a text prompt,Create AI generated materials through a text prompt
+Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor,,Accessory Fitting Tool,Accessory Fitting Tool
+Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip,,Edit and Preview Cage Mesh for Clothing and Accessories.,Edit and Preview Cage Mesh for Clothing and Accessories.
+Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Accessory
+Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip,,Select one or multiple Models to convert into Accessories,Select one or multiple Models to convert into Accessories
+Studio.App.RobloxRibbonMainWindow.Import3D,,Import 3D,Import 3D
+Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
+Studio.App.RobloxRibbonMainWindow.RigBuilder,,Rig Builder,Rig Builder
+Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip,,Insert rigs to animate,Insert rigs to animate
+Studio.App.RobloxRibbonMainWindow.AnimationEditor,,Animation Editor,Animation Editor
+Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish Animation clips","Create, preview, and publish Animation clips"
+Studio.App.RobloxRibbonMainWindow.R15Migrator,,R15 Migrator,R15 Migrator
+Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip,,Tools to migrate avatars and scripts to R15,Tools to migrate avatars and scripts to R15
+Studio.App.RobloxRibbonMainWindow.RobloxClassic,,Roblox Classic,Roblox Classic
+Studio.App.RobloxRibbonMainWindow.RobloxClassicTooltip,,Tools to create Roblox Classic experiences,Tools to create Roblox Classic experiences
+Studio.App.MainWindow.OpenFromFilePrompt,Main Window,Open from File...,Open from File...
+Studio.App.MainWindow.OpenExistingLocalFile,Main Window,Open an existing local file,Open an existing local file
+Studio.App.MainWindow.OpenFromRobloxPrompt,Main Window,Open from Roblox...,Open from Roblox...
+Studio.App.MainWindow.OpenRecentGameRoblox,Main Window,Open a recent Game from Roblox,Open a recent Game from Roblox
+Studio.App.RBXMainWindow.SelectAll,,Select All,Select All
+Studio.App.RobloxRibbonMainWindow.LockTool,,Lock Tool,Lock Tool
+Studio.App.RobloxRibbonMainWindow.Anchor,,Anchor ,Anchor 
+Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,Anchor/Unanchor the selected parts,Anchor/Unanchor the selected parts
+Studio.App.RobloxRibbonMainWindow.Move,,Move,Move
+Studio.App.RobloxRibbonMainWindow.MoveAnObject,,Move an Object,Move an Object
+Studio.App.RobloxRibbonMainWindow.RotateAnObject,,Rotate an Object,Rotate an Object
+Studio.App.RobloxRibbonMainWindow.Transform,,Transform,Transform
+Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject,,Precisely manipulate an object,Precisely manipulate an object
+Studio.App.RobloxRibbonMainWindow.AlignTool,,Align Tool,Align Tool
+Studio.App.RobloxRibbonMainWindow.AlignToolTooltip,,Align the selected parts and models,Align the selected parts and models
+Studio.App.RBXMainWindow.ZoomIn,,Zoom In,Zoom In
+Studio.App.RBXMainWindow.ZoomOut,,Zoom Out,Zoom Out
+Studio.App.RBXMainWindow.TiltUp,,Tilt Up,Tilt Up
+Studio.App.RBXMainWindow.TiltDown,,Tilt Down,Tilt Down
+Studio.App.RBXMainWindow.PanRight,,Pan Right,Pan Right
+Studio.App.RBXMainWindow.PanLeft,,Pan Left,Pan Left
+Studio.App.RBXMainWindow.OpenSelectedScript,,Open selected script,Open selected script
+Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History
+Studio.App.PlaceVersionHistoryDialog.ViewHistory,,View History,View History
+Studio.Common.Action.Cut,,Cut,Cut
+Studio.App.RobloxRibbonMainWindow.CutSelectedText,,Cut selected text,Cut selected text
+Studio.App.RobloxRibbonMainWindow.CopySelectedText,,Copy selected text,Copy selected text
+Studio.Common.Action.Paste,,Paste,Paste
+Studio.App.RobloxRibbonMainWindow.PasteItemInClipboard,,Paste item in clipboard,Paste item in clipboard
+Studio.App.RBXMainWindow.PasteAtOriginalLocation,,Paste At Original Location,Paste At Original Location
+Studio.App.RBXMainWindow.Group,,Group As a Model,Group As a Model
+Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel,,Group the selected parts into a new Model,Group the selected parts into a new Model
+Studio.App.RBXMainWindow.GroupFolder,,Group As a Folder,Group As a Folder
+Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder,,Group the selected Instances into a new Folder,Group the selected Instances into a new Folder
+Studio.App.RBXMainWindow.Ungroup,,Ungroup,Ungroup
+Studio.App.RobloxRibbonMainWindow.UngroupModel,,Ungroup the model into the original parts,Ungroup the model into the original parts
+Studio.App.RBXMainWindow.MoveUpBrick,,Move Up Brick,Move Up Brick
+Studio.App.RBXMainWindow.MoveUp,,Move Up,Move Up
+Studio.App.RBXMainWindow.MoveDown,,Move Down,Move Down
+Studio.App.RBXMainWindow.RotateObjects,,Rotate objects,Rotate objects
+Studio.App.RBXMainWindow.Tilt,,Tilt,Tilt
+Studio.App.RBXMainWindow.TiltObjects,,Tilt objects,Tilt objects
+Studio.App.RBXMainWindow.ToggleClientServer,,Click to toggle between client and server mode,Click to toggle between client and server mode
+Studio.App.RBXMainWindow.RenderStats,,Render Stats,Render Stats
+Studio.App.RobloxRibbonMainWindow.Render,,Render,Render
+Studio.App.RobloxRibbonMainWindow.Network,,Network,Network
+Studio.App.RobloxRibbonMainWindow.Physics,,Physics,Physics
+Studio.App.RobloxRibbonMainWindow.Summary,,Summary,Summary
+Studio.App.RBXMainWindow.MoveEdit,,Move - Edit,Move - Edit
+Studio.App.RBXMainWindow.ResizeCustomIncrement,,Set the resize grid to a custom increment,Set the resize grid to a custom increment
+Studio.App.RBXMainWindow.RotateEdit,,Rotate - Edit,Rotate - Edit
+Studio.App.RBXMainWindow.RotateCustomIncrement,,Set the rotate grid to a custom increment,Set the rotate grid to a custom increment
+Studio.App.RBXMainWindow.MoveToggle,,Move - Toggle,Move - Toggle
+Studio.App.RBXMainWindow.TogglesTheDragGridSnapping,,Toggles the drag grid snapping,Toggles the drag grid snapping
+Studio.App.RBXMainWindow.RotateToggle,,Rotate - Toggle,Rotate - Toggle
+Studio.App.RBXMainWindow.TogglesRotateSnapping,,Toggles the rotate grid snapping,Toggles the rotate grid snapping
+Studio.App.RBXMainWindow.OneStudGrid,,One Stud Grid,One Stud Grid
+Studio.App.RBXMainWindow.15StudGrid,,1/5 Stud Grid,1/5 Stud Grid
+Studio.App.RBXMainWindow.GridOff,,Grid Off,Grid Off
+Studio.App.RobloxRibbonMainWindow.Scale,,Scale,Scale
+Studio.App.RobloxRibbonMainWindow.ResizeAnObject,,Resize an Object,Resize an Object
+Studio.App.RBXMainWindow.Dropper,,Dropper,Dropper
+Studio.App.RBXMainWindow.PickColor,,Pick Color,Pick Color
+Studio.App.MainWindow.SaveToFile,Main Window,Save to File,Save to File
+Studio.App.MainWindow.SaveActiveLocalFile,Main Window,Save the active local file,Save the active local file
+Studio.App.RobloxRibbonMainWindow.RunScript,,Run Script,Run Script
+Studio.App.RobloxRibbonMainWindow.ExecuteLuaCodeFromAFile,,Execute Lua code from a file,Execute Lua code from a file
+Studio.App.MainWindow.ClosePlace,Main Window,Close Place,Close Place
+Studio.App.MainWindow.CloseTab,Main Window,Close Tab,Close Tab
+Studio.App.MainWindow.SaveToFileAsPrompt,Main Window,Save to File As...,Save to File As...
+Studio.App.MainWindow.SaveActiveLocalFileNewName,Main Window,Save the active local file with a new name,Save the active local file with a new name
+Studio.App.RBXMainWindow.ZoomTo,,Zoom to,Zoom to
+Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,View list of insertable objects,View list of insertable objects
+Studio.App.RobloxRibbonMainWindow.Model,,Model,Model
+Studio.App.RobloxRibbonMainWindow.InsertAModelFromLocalFiles,,Insert a model from local files,Insert a model from local files
+Studio.App.RBXMainWindow.PasteInto,,Paste Into,Paste Into
+Studio.App.RBXMainWindow.PasteIntoAtOriginalLocation,,Paste At Original Location,Paste At Original Location
+Studio.App.RBXMainWindow.OpenPreviousTab,,Open Previous Tab,Open Previous Tab
+Studio.App.RBXMainWindow.SaveAsCSVElps,,Save as CSV...,Save as CSV...
+Studio.App.RBXMainWindow.SaveLocalizationTableElps,,Save LocalizationTable to CSV file...,Save LocalizationTable to CSV file...
+Studio.App.RBXMainWindow.LoadFromCSVElps,,Load from CSV...,Load from CSV...
+Studio.App.RBXMainWindow.LoadLocalizationTableFromCSV,,Load LocalizationTable from CSV file...,Load LocalizationTable from CSV file...
+Studio.App.RBXMainWindow.SaveToFileElps,,Save to File...,Save to File...
+Studio.App.RBXMainWindow.SaveSelectionToFileElps,,Save selection to file...,Save selection to file...
+Studio.App.RBXMainWindow.ExportForUploadElps,,(INTERNAL) Export for upload...,(INTERNAL) Export for upload...
+Studio.App.RBXMainWindow.ExportSelectionForUploadElps,,(INTERNAL) Export selection for upload...,(INTERNAL) Export selection for upload...
+Studio.App.RBXMainWindow.SaveAsLocalPluginElps,,Save as Local Plugin...,Save as Local Plugin...
+Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
+Studio.App.RBXMainWindow.InsertFromFileElps,,Insert from File...,Insert from File...
+Studio.App.RBXMainWindow.SaveToRoblox,,Save to Roblox,Save to Roblox
+Studio.App.RBXMainWindow.SaveActiveDocumentToRoblox,,Save active document to Roblox,Save active document to Roblox
+Studio.App.RBXMainWindow.PublishActiveDocumentToRoblox,,Publish active document to Roblox,Publish active document to Roblox
+Studio.App.RBXMainWindow.SaveTheActivePlace,,Save the active place to the location currently open in Studio,Save the active place to the location currently open in Studio
+Studio.App.RBXMainWindow.AboutRobloxStudio,,About Roblox Studio,About Roblox Studio
+Studio.App.RBXMainWindow.OnlineHelpElps,,Online Help...,Online Help...
+Studio.Actions.ConnectionIndicator,,Connection Status,Connection Status
+Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects,,View Lua API objects that can be accessed through scripting,View Lua API objects that can be accessed through scripting
+Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
+Studio.App.RobloxRibbonMainWindow.StartServerAndPlayers,,Start server and players,Start server and players
+Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
+Studio.App.RBXMainWindow.InstanceDump,,Instance Dump,Instance Dump
+Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
+Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...
+Studio.App.RBXMainWindow.ConvertToPackageElps,,Convert to Package...,Convert to Package...
+Studio.App.RBXMainWindow.SaveAndReloadPlugin,,Save and Reload Plugin,Save and Reload Plugin
+Studio.App.RBXMainWindow.SaveBuildAndReloadPlugins,,Build Plugin from Source and Reload in the Debugger,Build Plugin from Source and Reload in the Debugger
+Studio.App.RBXMainWindow.ReloadPlugin,,Reload Plugin,Reload Plugin
+Studio.App.RBXMainWindow.SaveAndReloadAllPlugins,,Save and Reload All Plugins in Debugger,Save and Reload All Plugins in Debugger
+Studio.App.RBXMainWindow.PublishToPackage,,Publish to Package,Publish to Package
+Studio.App.RBXMainWindow.ViewScriptChangesElps,,View Script Changes...,View Script Changes...
+Studio.App.RBXMainWindow.UndoChangesToPackage,,Undo Changes to Package,Undo Changes to Package
+Studio.App.RBXMainWindow.UndoChangesToSelectedPackages,,Undo Changes to Selected Packages,Undo Changes to Selected Packages
+Studio.App.RBXMainWindow.GetLatestPackage,,Get Latest Package,Get Latest Package
+Studio.App.RBXMainWindow.GetLatestForSelectedPackages,,Get Latest For Selected Packages,Get Latest For Selected Packages
+Studio.App.PackageContextMenu.PackageDetails,,Package Details,Package Details
+Studio.App.PackageContextMenu.MassUpdatePackage,,Update All,Update All
+Studio.App.RBXMainWindow.SelectAllModifiedPackages,,Select All Modified Packages,Select All Modified Packages
+Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps,,Find text and replace with...,Find text and replace with...
+Studio.Common.Action.Select,,Select,Select
+Studio.App.RobloxRibbonMainWindow.SelectAnObject,,Select an Object,Select an Object
+Studio.App.RBXMainWindow.PublishTheSelectionToRoblox,,Publish the Selection to Roblox,Publish the Selection to Roblox
+Studio.App.RBXMainWindow.PublishSelectionToRobloxElps,,Save to Roblox...,Save to Roblox...
+Studio.App.RobloxRibbonMainWindow.Service,,Service,Service
+Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection,,Insert service from a service selection,Insert service from a service selection
+Studio.App.RBXMainWindow.OpenFlagEditor,,Open Flag Editor,Open Flag Editor
+Studio.App.RBXMainWindow.AddUIElements,,Add UI elements,Add UI elements
+Studio.App.RBXMainWindow.Editor,,Editor,Editor
+Studio.App.RBXMainWindow.AddRemoveAndModifyTerrain,,"Add, remove, and modify terrain","Add, remove, and modify terrain"
+Studio.App.RBXMainWindow.TerrainEditor,,Terrain Editor,Terrain Editor
+Studio.App.RBXMainWindow.Toolbox,,Toolbox,Toolbox
+Studio.App.RobloxRibbonMainWindow.InsertItemsFromTheToolbox,,Insert items from the toolbox,Insert items from the toolbox
+Studio.App.RBXMainWindow.ViewSelectorTooltip,,Show view selector,Show view selector
+Studio.App.RobloxRibbonMainWindow.ShowGrid,,Show Grid,Show Grid
+Studio.App.RobloxRibbonMainWindow.GridOnYPlane,,Display a 3D grid on the y=0 plane,Display a 3D grid on the y=0 plane
+Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts,,Display grid material on Parts,Display grid material on Parts
+Studio.App.RBXMainWindow.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
+Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering,,Enable Wireframe Rendering,Enable Wireframe Rendering
+Studio.App.RBXMainWindow.UIVisibility,,UI Visibility,UI Visibility
+Studio.App.RobloxRibbonMainWindow.EnableUIVisibility,,Toggles visibility of UI in the 3D View,Toggles visibility of UI in the 3D View
+Studio.App.RobloxRibbonMainWindow.Outlines,,Outlines,Outlines
+Studio.App.RobloxRibbonMainWindow.OutlinesTooltip,,Sets selection rendering mode to outlines,Sets selection rendering mode to outlines
+Studio.App.RobloxRibbonMainWindow.BoundingBoxes,,Bounding Boxes,Bounding Boxes
+Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip,,Sets selection rendering mode to bounding boxes,Sets selection rendering mode to bounding boxes
+Studio.App.RobloxRibbonMainWindow.ViewBoth,,Both,Both
+Studio.App.RobloxRibbonMainWindow.ViewBothTooltip,,Sets selection rendering mode to outlines and bounding boxes,Sets selection rendering mode to outlines and bounding boxes
+Studio.App.RBXMainWindow.VideoRecord,,Video Record,Video Record
+Studio.App.RobloxRibbonMainWindow.RecordAVideo,,Record a video,Record a video
+Studio.App.RBXMainWindow.Performance,,Performance,Performance
+Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo,,View diagnostic information of your game,View diagnostic information of your game
+Studio.App.RBXMainWindow.TaskScheduler,,Task Scheduler,Task Scheduler
+Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation,,View task execution information,View task execution information
+Studio.App.RBXMainWindow.ScriptPerformance,,Script Performance,Script Performance
+Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat,,View script performance information,View script performance information
+Studio.App.RBXMainWindow.Explorer,,Explorer,Explorer
+Studio.App.RobloxRibbonMainWindow.ViewObjectsInWorkspace,,View a list of objects in the workspace,View a list of objects in the workspace
+Studio.App.RobloxRibbonMainWindow.ViewPropertiesOfObjects,,View properties of objects,View properties of objects
+Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts,,See the output feed of your scripts,See the output feed of your scripts
+Studio.App.RBXMainWindow.ClearOutputWindow,,Clear Output Window,Clear Output Window
+Studio.App.RBXMainWindow.EnabledFullScreenMode,,Enabled Full Screen mode,Enabled Full Screen mode
+Studio.App.RBXMainWindow.CollisionCheck,,Collision Check,Collision Check
+Studio.App.RBXMainWindow.ConstraintCheck,,Constraint Check,Constraint Check
+Studio.App.RBXMainWindow.JoinSurfacesCheck,,Join Surfaces Check,Join Surfaces Check
+Studio.App.RobloxRibbonMainWindow.PluginsFolder,,Plugins Folder,Plugins Folder
+Studio.App.RobloxRibbonMainWindow.OpenTheLocalPluginsFolder,,Open the local plugins folder,Open the local plugins folder
+Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
+Studio.App.RBXMainWindow.UnlockAll,,Unlock All,Unlock All
+Studio.App.RBXMainWindow.CustomizeShortcutsElps,,Customize Shortcuts...,Customize Shortcuts...
+Studio.App.RBXMainWindow.ShowListOfShortcutCommands,,Show list of shortcut commands,Show list of shortcut commands
+Studio.App.RBXMainWindow.FindPreviousItem,,Find previous item,Find previous item
+Studio.App.RBXMainWindow.ShowScriptInExplorer,,Show in Explorer,Show in Explorer
+Studio.App.RBXMainWindow.ShowScriptInExplorerTooltip,,Select this script in the explorer,Select this script in the explorer
+Studio.App.RBXMainWindow.Rename,,Rename,Rename
+Studio.App.RBXMainWindow.RenamesSelectedObject,,Renames selected object,Renames selected object
+Studio.App.RobloxRibbonMainWindow.ScreenShot,,Screen Shot,Screen Shot
+Studio.App.RobloxRibbonMainWindow.TakeAScreenshot,,Take a screenshot,Take a screenshot
+Studio.App.RBXMainWindow.SelectParents,,Select Parent(s),Select Parent(s)
+Studio.App.RBXMainWindow.SelectChildren,,Select Children,Select Children
+Studio.App.RBXMainWindow.ExpandAllDescendants,,Expand All,Expand All
+Studio.App.RBXMainWindow.CollapseChildren,,Collapse All,Collapse All
+Studio.Common.Action.Clear,,Clear,Clear
+Studio.App.RBXMainWindow.InsertBreakpoint,,Insert Breakpoint,Insert Breakpoint
+Studio.App.RBXMainWindow.InsertContextDependentBreakpoint,,Insert Contextual Breakpoint,Insert Contextual Breakpoint
+Studio.App.RBXMainWindow.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
+Studio.App.RBXMainWindow.DeleteContextDependentBreakpoint,,Delete Contextual Breakpoint,Delete Contextual Breakpoint
+Studio.App.RBXMainWindow.ResetScriptZoom,,Reset Script Zoom,Reset Script Zoom
+Studio.App.RBXMainWindow.ResetsFontSize,,Reset font size,Reset font size
+Studio.App.RBXMainWindow.CloseAllScripts,,Close All Scripts,Close All Scripts
+Studio.App.RBXMainWindow.ToggleLocalSpace,,Toggle Local Space,Toggle Local Space
+Studio.App.RBXMainWindow.ShowOrientationIndicatorTooltip,,Display surface direction information for objects,Display surface direction information for objects
+Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsText,,Align Dragged Objects,Align Dragged Objects
+Studio.App.RBXMainWindow.ToggleAlignDraggedObjectsTooltip,,Rotate dragged objects to align them with the target surface,Rotate dragged objects to align them with the target surface
+Studio.App.RBXMainWindow.ResetView,,Reset View,Reset View
+Studio.App.RBXMainWindow.ResetWidgetToolbarPos,,Reset Widget and Toolbar position,Reset Widget and Toolbar position
+Studio.App.RBXMainWindow.GridSize2Studs,,Grid Size - 2 studs,Grid Size - 2 studs
+Studio.App.RBXMainWindow.SetGridSizeTo2Studs,,Set Grid Size to 2 Studs,Set Grid Size to 2 Studs
+Studio.App.RBXMainWindow.GridSize4Studs,,Grid Size - 4 Studs,Grid Size - 4 Studs
+Studio.App.RBXMainWindow.SetGridSizeTo4Studs,,Set Grid Size to 4 Studs,Set Grid Size to 4 Studs
+Studio.App.RBXMainWindow.GridSize16Studs,,Grid Size - 16 Studs,Grid Size - 16 Studs
+Studio.App.RBXMainWindow.SetGridSizeTo16Studs,,Set Grid Size to 16 Studs,Set Grid Size to 16 Studs
+Studio.App.RBXMainWindow.PublishAsPluginElps,,Publish as Plugin...,Publish as Plugin...
+Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
+Studio.Common.Action.Previous,,Previous,Previous
+Studio.App.RobloxRibbonMainWindow.GoToPreviousChange,,Go to previous change,Go to previous change
+Studio.App.RobloxRibbonMainWindow.GoToNextChange,,Go to next change,Go to next change
+Studio.App.RobloxRibbonMainWindow.ManageCloudPlugins,,Manage installed plugins,Manage installed plugins
+Studio.App.RBXMainWindow.InsertObjectsWidgetExplorer,,Open insert objects widget in explorer,Open insert objects widget in explorer
+Studio.App.RBXMainWindow.ApplyEdits,,Apply Edits,Apply Edits
+Studio.App.RobloxRibbonMainWindow.PushScriptTCServer,,Push the current edits to a script to the Team Create server,Push the current edits to a script to the Team Create server
+Studio.App.RBXMainWindow.ExplorerFilter,,Explorer Filter,Explorer Filter
+Studio.App.RBXMainWindow.ExportSelectionElps,,Export Selection...,Export Selection...
+Studio.App.RBXMainWindow.ExportSelection,,Export Selection,Export Selection
+Studio.App.RBXMainWindow.ExportAsObj,,Export as Obj,Export as Obj
+Studio.App.RBXMainWindow.ToggleAllBreakpoints,,Toggle All Breakpoints,Toggle All Breakpoints
+Studio.App.RBXMainWindow.EnableDisableAllBreakpoints,,Enable/disable all breakpoints,Enable/disable all breakpoints
+Studio.App.RBXMainWindow.Duplicate,,Duplicate,Duplicate
+Studio.App.RBXMainWindow.DuplicatesCurrentSelection,,Duplicate current selection,Duplicate current selection
+Studio.App.RBXMainWindow.GameExplorer,,Game Explorer,Game Explorer
+Studio.App.RBXMainWindow.ViewGameExplorerElps,,View Game Explorer...,View Game Explorer...
+Studio.App.RBXMainWindow.CustomizeElps,,Customize...,Customize...
+Studio.App.RBXMainWindow.CustomizeQuickAccess,,Customize Quick Access,Customize Quick Access
+Studio.App.RobloxRibbonMainWindow.FusePartsTogether,,Fuse parts together to make a single part,Fuse parts together to make a single part
+Studio.App.RobloxRibbonMainWindow.IntersectParts,,Replace parts with only the area where they overlap,Replace parts with only the area where they overlap
+Studio.App.RBXMainWindow.Negate,,Negate,Negate
+Studio.App.RobloxRibbonMainWindow.NegatePartsForMakingHoles,,Negate parts for making holes,Negate parts for making holes
+Studio.App.RobloxRibbonMainWindow.ExitGame,,Exit Game,Exit Game
+Studio.App.RobloxRibbonMainWindow.ExitTeamTest,,Exit Team Test,Exit Team Test
+Studio.App.RobloxRibbonMainWindow.Mute,,Mute,Mute
+Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds,,Toggle Game Audio Sounds,Toggle Game Audio Sounds
+Studio.App.RBXMainWindow.Sandbox,,Drafts,Drafts
+Studio.App.RBXMainWindow.ViewSandbox,,View Drafts,View Drafts
+Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis,,View Script Analysis,View Script Analysis
+Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet,,View Code Snippet,View Code Snippet
+Studio.App.RBXMainWindow.ScriptRecovery,,Script Recovery,Script Recovery
+Studio.App.RobloxRibbonMainWindow.ViewRecoveredScripts,,View Recovered Scripts,View Recovered Scripts
+Studio.App.RBXMainWindow.TeamCreate,,Team Create,Team Create
+Studio.App.RBXMainWindow.EmulateDevice,,Emulate Device,Emulate Device
+Studio.App.RBXMainWindow.EmulateAMobileDevice,,Emulate a mobile device ,Emulate a mobile device 
+Studio.App.RBXMainWindow.ManageDevicesElps,,Manage Devices...,Manage Devices...
+Studio.App.RBXMainWindow.ManageEmulatedDevices,,Manage emulated devices,Manage emulated devices
+Studio.App.RBXMainWindow.CalibrateScalingElps,,Calibrate scaling...,Calibrate scaling...
+Studio.App.RBXMainWindow.CalibratePhysicalSizeScaling,,Calibrate Physical Size scaling for your screen,Calibrate Physical Size scaling for your screen
+Studio.App.RBXMainWindow.ShowHelpForSelectedObject,,Show help for selected object,Show help for selected object
+Studio.App.RBXMainWindow.ViewCommandBar,,View Command Bar,View Command Bar
+Studio.App.RBXMainWindow.FocusOnCommandBar,,Focus on Command Bar,Focus on Command Bar
+Studio.App.RBXMainWindow.FocusOnCommandBarTooltip,,Set keyboard focus to Command Bar,Set keyboard focus to Command Bar
+Studio.App.RBXMainWindow.OpenAutoSaves,,Open Auto Saves,Open Auto Saves
+Studio.App.RBXMainWindow.OpenAutoSavesFolder,,Open Auto Saves Folder,Open Auto Saves Folder
+Studio.App.RBXMainWindow.DownloadACopyElps,,Download a Copy...,Download a Copy...
+Studio.App.RBXMainWindow.DownloadActiveDocument,,Download a copy of the active document,Download a copy of the active document
+Studio.App.RBXMainWindow.PlaySoloCameraSpawn,,"Start Solo Play, spawning the character from the Camera Position","Start Solo Play, spawning the character from the Camera Position"
+Studio.App.RobloxRibbonMainWindow.DrawOnTop,,Draw On Top,Draw On Top
+Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints, attachments and welds on top","Draw constraints, attachments and welds on top"
+Studio.App.RobloxRibbonMainWindow.ConstraintDetails,,Constraint Details,Constraint Details
+Studio.App.RobloxRibbonMainWindow.ShowConstraintDetails,,Show constraint details,Show constraint details
+Studio.App.RobloxRibbonMainWindow.ShowWelds,,Show Welds,Show Welds
+Studio.App.RBXMainWindow.SelectConnections,,Select Connections,Select Connections
+Studio.App.RBXMainWindow.SelectAttachmentConstraintConnections,,Select connections of the attachment or constraint,Select connections of the attachment or constraint
+Studio.App.RBXMainWindow.Select0AttachmentOrPart,,Select Attachment0 of a constraint or Part0 of a weld,Select Attachment0 of a constraint or Part0 of a weld
+Studio.App.RBXMainWindow.Select1AttachmentOrPart,,Select Attachment1 of a constraint or Part1 of a weld,Select Attachment1 of a constraint or Part1 of a weld
+Studio.App.RBXMainWindow.SwapAttachments,,Swap Attachments,Swap Attachments
+Studio.App.RBXMainWindow.SwitchBothAttachments,,Swap both attachments on the constraint,Swap both attachments on the constraint
+Studio.App.RBXMainWindow.PropertyFilter,,Property Filter,Property Filter
+Studio.App.RobloxRibbonMainWindow.DeviceEmulator,,Device,Device
+Studio.App.RobloxRibbonMainWindow.PlayerEmulator,,Player,Player
+Studio.App.RobloxRibbonMainWindow.Fwd,,Fwd,Fwd
+Studio.App.RobloxRibbonMainWindow.JumpToNextScriptLocation,,Jump to next script location,Jump to next script location
+Studio.Common.Action.Back,,Back,Back
+Studio.App.RobloxRibbonMainWindow.JumpToPreviousScriptLocation,,Jump to previous script location,Jump to previous script location
+Studio.App.RBXMainWindow.ClearSelection,,Clear selection,Clear selection
+Studio.App.RBXMainWindow.ClearTheCurrentSelection,,Clear the current selection,Clear the current selection
+Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
+Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance,Sync Instance
+Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Actions
+Studio.App.RBXMainWindow.AssetManager,,Asset Manager,Asset Manager
+Studio.App.RobloxRibbonMainWindow.TagEditor,,Tag Editor,Tag Editor
+Studio.App.RobloxRibbonMainWindow.TagEditorTooltip,,Create and manage groupings of instances.,Create and manage groupings of instances.
+Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Preview,Avatar Preview
+Studio.App.PackageContextMenu.ShowPackagesDiff,,View Changes,View Changes

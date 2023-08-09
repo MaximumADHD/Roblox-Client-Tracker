@@ -3608,6 +3608,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetRigVisualization",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "HasAnimation",
                     "Parameters": [
                     ],
@@ -4594,6 +4606,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "RegisterUGCValidationFunction",
+                    "Parameters": [
+                        {
+                            "Name": "function",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CreatePlaceAsync",
                     "Parameters": [
                         {
@@ -5491,6 +5522,21 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSpectrum",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -15088,6 +15134,18 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ChatbotUIService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Image",
                     "MemberType": "Property",
@@ -15952,6 +16010,81 @@
                 "NotCreatable",
                 "Service",
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "CFrame",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "UserId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Username",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Collaborator",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CollaboratorsService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -31627,6 +31760,24 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "GuiState"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Interactable",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -49226,20 +49377,20 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "PromptSubscriptionCancellation",
+                    "Name": "PromptSubscriptionPurchaseFinished",
                     "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
                         {
                             "Name": "subscriptionId",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int64"
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "didTryPurchasing",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
                             }
                         }
                     ],
@@ -49247,39 +49398,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "PromptSubscriptionPurchase",
-                    "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "subscriptionId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -49570,72 +49689,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SignalPromptSubscriptionCancellationFinished",
-                    "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "subscriptionId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "wasCanceled",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SignalPromptSubscriptionPurchaseFinished",
-                    "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "subscriptionId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "wasPurchased",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "SignalServerLuaDialogClosed",
                     "Parameters": [
                         {
@@ -49715,31 +49768,23 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "IsPlayerSubscribed",
+                    "Name": "GetSubscriptionPurchaseInfoAsync",
                     "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
                         {
                             "Name": "subscriptionId",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int64"
+                                "Name": "string"
                             }
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
+                        "Category": "Group",
+                        "Name": "Dictionary"
                     },
-                    "Security": "None",
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
-                        "Yields",
-                        "Deprecated"
+                        "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
                 },
@@ -50507,96 +50552,10 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "PromptSubscriptionCancellationFinished",
-                    "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "subscriptionId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "wasCanceled",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "PromptSubscriptionCancellationRequested",
-                    "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "subscriptionId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "PromptSubscriptionPurchaseFinished",
-                    "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "subscriptionId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "wasPurchased",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
                     "Name": "PromptSubscriptionPurchaseRequested",
                     "Parameters": [
                         {
-                            "Name": "player",
+                            "Name": "user",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Instance"
@@ -50606,7 +50565,7 @@
                             "Name": "subscriptionId",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int64"
+                                "Name": "string"
                             }
                         }
                     ],
@@ -65716,6 +65675,42 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "IsInviteFriendsEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowInviteFriendsUI",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PlatformFriendsService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "AccountAge",
@@ -71130,6 +71125,47 @@
                     },
                     "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CreatePopupButton",
+                    "Parameters": [
+                        {
+                            "Name": "buttonId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "tooltip",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "iconname",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "text",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -71229,6 +71265,14 @@
                     "Parameters": [
                     ],
                     "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DropdownClick",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -82680,10 +82724,11 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
                     "Tags": [
+                        "NotReplicated",
                         "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -102080,6 +102125,30 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "LogPublisherWebRTCStats",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "LogSubscriptionWebRTCStats",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PublishPause",
                     "Parameters": [
                         {
@@ -104783,6 +104852,14 @@
                 {
                     "Name": "ClientServerBoundaryViolation",
                     "Value": 9
+                },
+                {
+                    "Name": "Invalidated",
+                    "Value": 10
+                },
+                {
+                    "Name": "PutCursorBeforeEnd",
+                    "Value": 11
                 }
             ],
             "Name": "CompletionItemTag"
@@ -106796,6 +106873,10 @@
                 {
                     "Name": "Press",
                     "Value": 2
+                },
+                {
+                    "Name": "NonInteractable",
+                    "Value": 3
                 }
             ],
             "Name": "GuiState"

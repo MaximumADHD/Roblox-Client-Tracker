@@ -132,3 +132,5 @@ Studio.App.BetaFeatures.CustomVideoUploadTitle,,Upload Custom Videos,Upload Cust
 Studio.App.BetaFeatures.CustomVideoUploadDescription,,Enables video uploads through the Asset Manager for eligible users.,Enables video uploads through the Asset Manager for eligible users.
 Studio.App.BetaFeatures.LuaStateMachineTitle,,Lua based character state machine,Lua based character state machine
 Studio.App.BetaFeatures.LuaStateMachineDescription,,"A Lua replacement for the native Humanoid State Machine, allowing you to define and manage the various states, events, and transitions of your characters with ease. This beta feature needs New Character Controller beta feature enabled","A Lua replacement for the native Humanoid State Machine, allowing you to define and manage the various states, events, and transitions of your characters with ease. This beta feature needs New Character Controller beta feature enabled"
+Studio.App.BetaFeatures.NewBaseMaterialsTitle,,New Base Materials,New Base Materials
+Studio.App.BetaFeatures.NewBaseMaterialsDescription,,Adds 8 new base materials.,Adds 8 new base materials.

@@ -19,3 +19,10 @@ Studio.App.PlaceManager.AboutToLogOutNewLine,,"Roblox Studio is about to log out
 
 "
 Studio.App.PlaceManager.UploadingPlaceQuitCommitAuto,PlaceManager applies scripts changes before closing a place,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
+Studio.App.PlaceManager.FileSetToReadOnlyNewLine1,,"%1
+This file is set to read-only.
+Try again with a different name","%1
+This file is set to read-only.
+Try again with a different name"
+Studio.App.PlaceManager.FailedToAutoSave,,Failed to AutoSave,Failed to AutoSave
+Studio.App.PlaceManager.FailedToAutoSaveTemporarilyDisable,,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?

@@ -1,5 +1,5 @@
 Key,en-us
-Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddHint,"Please select an Animation, Clothing, Accessory, or Avatar Part in order to add it to the Preview."
+Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddHint,"Please select a Clothing, Accessory, or Avatar Part in order to add it to the Preview."
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderMultiple,The following items could not be added: {items}
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderSingle,This item cannot be added.
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedTitle,Warning

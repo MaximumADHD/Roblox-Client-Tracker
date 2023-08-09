@@ -27366,19 +27366,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTheme#GetColor",
     "code_sample": ""
   },
-  "@roblox/globaltype/AssetImportItemSettings": {
-    "documentation": "",
-    "keys": {
-      "ShouldImport": "@roblox/globaltype/AssetImportItemSettings.ShouldImport"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetImportItemSettings",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AssetImportItemSettings.ShouldImport": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetImportItemSettings#ShouldImport",
-    "code_sample": ""
-  },
   "@roblox/globaltype/UIGradient": {
     "documentation": "A <code>UIComponent</code>, that blends a color gradient to its parent <code>GuiObject</code>, so you can layer multiple colors into your text, UI background or other UI content.",
     "keys": {
@@ -36032,19 +36019,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGridStyleLayout#SetCustomSortFunction",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AssetImportSettings": {
-    "documentation": "",
-    "keys": {
-      "Hierarchy": "@roblox/globaltype/AssetImportSettings.Hierarchy"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetImportSettings",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AssetImportSettings.Hierarchy": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetImportSettings#Hierarchy",
     "code_sample": ""
   },
   "@roblox/globaltype/RunningAverageTimeIntervalItem": {

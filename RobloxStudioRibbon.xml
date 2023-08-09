@@ -226,7 +226,7 @@
       </Group>
       <Group name="Solid Modeling" text="Studio.App.RobloxRibbonMainWindow.SolidModeling" modernIcon="UnionOperation" icon=":/RibbonBar/images/RibbonIcons/Home/Union.png" width="32" height="32">
         <addaction name="unionSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Union.png" modernIcon="UnionOperation" tooltip="Studio.App.RobloxRibbonMainWindow.FusePartsTogether" width="32" height="32" />
-        <addaction name="intersectSelectionAction" fflag="SimCSGV3AddIntersection" style="textundericon" icon="" modernIcon="IntersectOperation" tooltip="Studio.App.RobloxRibbonMainWindow.IntersectParts" width="32" height="32" />
+        <addaction name="intersectSelectionAction" style="textundericon" icon="" modernIcon="IntersectOperation" tooltip="Studio.App.RobloxRibbonMainWindow.IntersectParts" width="32" height="32" />
         <addaction name="negateSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Negate.png" modernIcon="NegateOperation" tooltip="Studio.App.RobloxRibbonMainWindow.NegatePartsForMakingHoles" width="32" height="32" />
         <addaction name="separateSelectionAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Separate.png" modernIcon="Separate" tooltip="Studio.App.RBXMainWindow.SeparateSelection" width="32" height="32" />
       </Group>
@@ -362,7 +362,7 @@
         <addspinbox fflag="StudioDraggerFixGridBox" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox fflag="StudioDraggerFixGridBox" type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
       </Group>
-      <Group name="Accessory" fflag="EnableAccessoryTool" text="Studio.Common.Action.Accessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" width="32" height="32">
+      <Group name="Accessory" text="Studio.Common.Action.Accessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" width="32" height="32">
         <addaction name="layeredClothingEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip" width="32" height="32" />
         <addaction name="createAccessoryAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CreateAccessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip" width="32" height="32" />
       </Group>
@@ -380,6 +380,7 @@
       </Group>
       <Group name="AvatarUnification" fflag="DebugR15MigratorPlugin" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
         <addaction name="r15migratorAction" fflag="DebugR15MigratorPlugin" type="plugin" text="Studio.App.RobloxRibbonMainWindow.R15Migrator" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip" width="32" height="32" />
+        <addaction name="r15migratorFinalizerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.R15MigratorFinalizer" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.R15MigratorFinalizerTooltip" width="32" height="32" />
       </Group>
       <Group name="AvatarUnification" fflag="DebugRobloxClassicPlugin" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
         <addaction name="robloxClassicAction" fflag="DebugRobloxClassicPlugin" type="plugin" text="Studio.App.RobloxRibbonMainWindow.RobloxClassic" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.RobloxClassicTooltip" width="32" height="32" />
@@ -475,6 +476,9 @@
         <addaction fflag="DebugStudioAssetProxy" name="remoteDebugDockWidgetAction" style="textbesideicon" text="Studio.App.RemoteDebugger.Title" tooltip="Studio.App.RemoteDebugger.Title"/>
 
         <addaction fflag="AICOChatBot" name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" icon=":/images/code_assist.png" ischeckable="true" />
+
+        <addaction fflag="COLLAB4260ActivityFeed" name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityFeed" ischeckable="true" />
+
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions" modernIcon="ViewSelector" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32">
         <addaction name="viewSelectorAction" style="textundericon" text="Studio.App.RBXMainWindow.ViewSelector" tooltip="Studio.App.RBXMainWindow.ViewSelectorTooltip" type="plugin" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" modernIcon="ViewSelector" width="32" height="32"/>
