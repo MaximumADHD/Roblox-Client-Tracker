@@ -3,9 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Workspace
 
-local Package = require(PackageIndex["Analytics"]["Analytics"])
-
-export type Analytics = Package.Analytics
-
+local Package = require(PackageIndex["RoactRodux"]["RoactRodux"])
 
 return Package

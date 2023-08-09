@@ -9,9 +9,11 @@
 ----------------- SERVICES ------------------------------
 local GuiService = game:GetService("GuiService")
 local HttpService = game:GetService("HttpService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local TweenService = game:GetService("TweenService")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -24,8 +26,11 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 local FFlagInGameMenuRotationSelectionTabFix = game:DefineFastFlag("InGameMenuRotationSelectionTabFix", false)
+
+local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -267,6 +272,7 @@ local function Initialize()
 		Name = "Page",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1,0,1,0),
+		AutomaticSize = if GetFFlagEnableAccessibilitySettingsInExperienceMenu() then Enum.AutomaticSize.Y else nil
 	};
 
 	if Theme.UIBloxThemeEnabled then
@@ -367,11 +373,28 @@ local function Initialize()
 		if skipAnimation then
 			this.Page.Position = endPos
 			animationComplete()
+		elseif GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and UserGameSettings.ReducedMotion then
+			this.Page.Position = endPos
+			pageParent.InnerCanvasGroupShow.GroupTransparency = 1
+			this.Page.Parent = pageParent.InnerCanvasGroupShow
+			this.Page.Visible = true
+			
+			local tweenInfo = TweenInfo.new(0.25)
+			local tweenProps = {
+				GroupTransparency = 0
+			}
+			local tween = TweenService:Create(pageParent.InnerCanvasGroupShow, tweenInfo, tweenProps)
+			tween:Play()
+
+			tween.Completed:Connect(function()
+				this.Page.Parent = pageParent
+				animationComplete();
+			end)
 		else
 			this.Page:TweenPosition(endPos, Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
 		end
 	end
-	function this:Hide(direction, newPagePos, skipAnimation, delayBeforeHiding)
+	function this:Hide(direction, newPagePos, skipAnimation, delayBeforeHiding, pageParent, isPrevPage)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
 		if this.TabHeader then
@@ -403,6 +426,22 @@ local function Initialize()
 				if skipAnimation then
 					this.Page.Position = endPos
 					animationComplete()
+				elseif GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and UserGameSettings.ReducedMotion and isPrevPage then
+					pageParent.InnerCanvasGroupHide.GroupTransparency = 0
+					this.Page.Parent = pageParent.InnerCanvasGroupHide
+					
+					local tweenInfo = TweenInfo.new(0.25)
+					local tweenProps = {
+						GroupTransparency = 1
+					}
+					local tween = TweenService:Create(pageParent.InnerCanvasGroupHide, tweenInfo, tweenProps)
+					tween:Play()
+		
+					tween.Completed:Connect(function()
+						this.Page.Parent = pageParent
+						this.Page.Position = endPos
+						animationComplete();
+					end)
 				else
 					this.Page:TweenPosition(endPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.1, true, animationComplete)
 				end

@@ -1,6 +1,8 @@
 --!nonstrict
 local RunService = game:GetService("RunService")
 
+local avatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
+
 local Rigging = {}
 
 -- Gravity that joint friction values were tuned under.
@@ -389,9 +391,21 @@ local function hasValidConstraint(part0, part1)
 	return false
 end
 
-local function hasRagdollJoint(motor)
-	local part0 = motor.Part0
-	local part1 = motor.Part1
+local function hasRagdollJoint(motor : Instance)
+	if avatarJointUpgrade and not (motor:IsA("Motor6D") or motor:IsA("AnimationConstraint")) then
+		return false
+	end
+	local part0
+	local part1
+	if motor:IsA("Motor6D") then
+		part0 = motor.Part0
+		part1 = motor.Part1
+	elseif avatarJointUpgrade and motor:IsA("AnimationConstraint") then
+		local at0 = motor.Attachment0
+		local at1 = motor.Attachment1
+		part0 = at0 and at0.Parent
+		part1 = at1 and at1.Parent
+	end
 
 	if not part0 or not part1 then
 		return false
@@ -416,7 +430,7 @@ local function disableMotorSet(model, motorSet)
 		local part = model:FindFirstChild(params[2])
 		if part then
 			local motor = part:FindFirstChild(params[1])
-			if motor and motor:IsA("Motor6D") and hasRagdollJoint(motor) then
+			if motor and (avatarJointUpgrade or motor:IsA("Motor6D")) and hasRagdollJoint(motor) then
 				table.insert(motors, motor)
 				motor.Enabled = false
 			end
@@ -448,6 +462,39 @@ function Rigging.removeRagdollJoints(model)
 		then
 			descendant:Destroy()
 		end
+	end
+end
+
+function Rigging.upgradeMotorsToAnimationConstraints(model)
+	local humanoid = model:FindFirstChildWhichIsA("Humanoid")
+	if not humanoid or humanoid.RigType == Enum.HumanoidRigType.R6 then
+		return
+	end
+	assert(avatarJointUpgrade)
+	for _, motor in model:GetDescendants() do
+		if not motor:IsA("Motor6D") then
+			continue
+		end
+
+		-- Use some quick heuristics to set up plausible limb strengths.
+		local maxTorque = 5000 -- the torso is the strongest.
+		-- limbs are weaker
+		if string.find(motor.Name, "Left") or string.find(motor.Name, "Right") then
+			maxTorque *= .2
+		end
+		-- ends of limbs are even weaker
+		if motor.Name == "Neck" or string.find(motor.Name, "Wrist") or string.find(motor.Name, "Ankle") then
+			maxTorque *= .2
+		end
+		local ac = Instance.new("AnimationConstraint")
+		ac.Name = motor.Name
+		ac.Attachment0 = motor.Part0:FindFirstChild(motor.Name .. "RigAttachment")
+		ac.Attachment1 = motor.Part1:FindFirstChild(motor.Name .. "RigAttachment")
+		ac.MaxTorque = maxTorque
+		ac.MaxForce = maxTorque -- roughly similar strength
+		ac.IsKinematic = true
+		ac.Parent = motor.parent
+		motor:Destroy()
 	end
 end
 

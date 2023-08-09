@@ -16,9 +16,11 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 export type Props = {
 	layoutOrder: number?,
-	onSearchChanged: () -> ()?,
+	onSearchChanged: (string) -> ()?,
 	searchBarHeight: number?,
 	searchText: string?,
+	onFocused: () -> ()?,
+	position: UDim2?,
 }
 
 local defaultProps = {
@@ -31,13 +33,14 @@ local ContactListSearchBar = function(passedProps)
 	local style = useStyle()
 	local font = style.Font
 
-	local onSearchChanged = function(instance, property)
+	local onSearchChanged = React.useCallback(function(instance, property)
 		if property == "Text" then
 			props.onSearchChanged(instance.Text)
 		end
-	end
+	end, { props.onSearchChanged })
 
 	return React.createElement("Frame", {
+		Position = props.position,
 		Size = UDim2.new(1, -48, 0, props.searchBarHeight),
 		BackgroundColor3 = Colors.Slate,
 		BackgroundTransparency = 0,
@@ -79,6 +82,7 @@ local ContactListSearchBar = function(passedProps)
 			TextSize = font.BaseSize * font.Body.RelativeSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			[React.Event.Changed] = onSearchChanged,
+			[React.Event.Focused] = props.onFocused,
 		}),
 	})
 end

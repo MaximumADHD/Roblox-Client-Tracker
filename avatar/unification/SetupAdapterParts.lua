@@ -5,15 +5,7 @@ local SetupAdapterParts = {}
 
 local CollectionService = game:GetService("CollectionService")
 
--- AdapterReference.rbxm is set up as { AdapterReference {Left Arm {...}, Right Arm {...},...}, CollisionHead {...} }
--- i.e. CollisionHead and AdapterReference are at then same level
-local AdapterReference = script:WaitForChild("AdapterReference")
-local CollisionHead = script:WaitForChild("CollisionHead")
-AdapterReference.Parent = nil
-CollisionHead.Parent = nil
-
-local Character = script.Parent
-local AdaptInstance = require(Character:WaitForChild("AdaptInstance"))
+local AdaptInstance = require(script.Parent:WaitForChild("AdaptInstance"))
 
 local ALWAYS_TRANSPARENT_PART_TAG = "__RBX__LOCKED_TRANSPARENT"
 
@@ -70,15 +62,7 @@ local JointFixes = {
 	},
 }
 
-local PartNameToAdapter = {}
-local AdapterToParts = {}
-
-local WeldPartNames = {}
-
-local connections = {}
-local fixedAttachments = {}
-
-local function addToFixedAttachments(instance)
+local function addToFixedAttachments(instance, fixedAttachments)
 	fixedAttachments[instance] = true
 
 	local conn
@@ -90,7 +74,7 @@ local function addToFixedAttachments(instance)
 	end)
 end
 
-local function maintainPropertyValue(instance, prop, value)
+local function maintainPropertyValue(instance, prop, value, connections)
 	local function setPropValue()
 		if instance[prop] ~= value then
 			instance[prop] = value
@@ -118,15 +102,15 @@ local function rebuildJoint(parentAttachment, partForJointAttachment)
 	motor.Parent = partForJointAttachment.Parent
 end
 
-local function fixJoints(part)
+local function fixJoints(character, part, fixedAttachments)
 	for attachmentName, info in pairs(JointFixes[part.Name]) do
 		local attachment = part:FindFirstChild(attachmentName)
 		if not attachment or not attachment:IsA("Attachment") then
 			continue
 		end
 
-		local connectedPart = Character:FindFirstChild(info.ConnectedPart)
-		local jointParent = Character:FindFirstChild(info.JointOwner)
+		local connectedPart = character:FindFirstChild(info.ConnectedPart)
+		local jointParent = character:FindFirstChild(info.JointOwner)
 		if not connectedPart or not jointParent then
 			continue
 		end
@@ -145,7 +129,7 @@ local function fixJoints(part)
 		if fixedAttachments[attachment] then
 			continue
 		end
-		addToFixedAttachments(attachment)
+		addToFixedAttachments(attachment, fixedAttachments)
 
 		local originalPositionValue = attachment:FindFirstChild("OriginalPosition")
 		if originalPositionValue and originalPositionValue:IsA("Vector3Value") then
@@ -157,20 +141,20 @@ local function fixJoints(part)
 	end
 end
 
-local function setUpAestheticPart(part)
-	maintainPropertyValue(part, "Massless", true)
-	maintainPropertyValue(part, "CanCollide", false)
-	maintainPropertyValue(part, "CanTouch", false)
-	maintainPropertyValue(part, "CanQuery", false)
+local function setUpAestheticPart(part, connections)
+	maintainPropertyValue(part, "Massless", true, connections)
+	maintainPropertyValue(part, "CanCollide", false, connections)
+	maintainPropertyValue(part, "CanTouch", false, connections)
+	maintainPropertyValue(part, "CanQuery", false, connections)
 end
 
-local function setUpPart(part)
+local function setUpPart(character, part, fixedAttachments, connections)
 	if AestheticParts[part.Name] then
-		setUpAestheticPart(part)
+		setUpAestheticPart(part, connections)
 	end
 
 	if JointFixes[part.Name] then
-		fixJoints(part)
+		fixJoints(character, part, fixedAttachments)
 	end
 end
 
@@ -194,26 +178,26 @@ local function weldParts(weldPart, weldTo)
 	return weld
 end
 
-local function onWeldDestroyed(adapter)
-	local parts = AdapterToParts[adapter]
+local function onWeldDestroyed(adapter, adapterToParts)
+	local parts = adapterToParts[adapter]
 	for part, _ in parts do
 		part:BreakJoints()
 	end
 end
 
-local function setUpAdapterPart(adapter)
+local function setUpAdapterPart(character, adapter, partNameToAdapter, adapterToParts, weldPartNames)
 	local newAdapter = adapter:Clone()
 	newAdapter:ClearAllChildren()
-	newAdapter.Parent = Character
+	newAdapter.Parent = character
 
 	local adapterChildren = adapter:GetChildren()
 	for _, child in adapterChildren do
-		PartNameToAdapter[child.Name] = newAdapter
-		AdapterToParts[newAdapter] = {}
+		partNameToAdapter[child.Name] = newAdapter
+		adapterToParts[newAdapter] = {}
 		if child:FindFirstChildWhichIsA("Weld") then
-			WeldPartNames[child.Name] = true
+			weldPartNames[child.Name] = true
 
-			local weldTo = Character:FindFirstChild(child.Name)
+			local weldTo = character:FindFirstChild(child.Name)
 			weldParts(newAdapter, weldTo)
 		end
 	end
@@ -221,10 +205,17 @@ local function setUpAdapterPart(adapter)
 	return newAdapter
 end
 
-local function onAdaptedPartAdded(part)
-	local adapter = PartNameToAdapter[part.Name]
+local function onAdaptedPartAdded(
+	part,
+	partNameToAdapter,
+	weldPartNames,
+	connections,
+	adapterToParts,
+	adaptInstancesTable
+)
+	local adapter = partNameToAdapter[part.Name]
 
-	if WeldPartNames[part.Name] then
+	if weldPartNames[part.Name] then
 		adapter.Color = part.Color
 		adapter.Transparency = part.Transparency
 		local weld = weldParts(adapter, part)
@@ -235,20 +226,36 @@ local function onAdaptedPartAdded(part)
 					return
 				end
 
-				onWeldDestroyed(adapter)
+				onWeldDestroyed(adapter, adapterToParts)
 			end)
 		)
 	end
 
-	AdaptInstance(part, adapter)
-	AdapterToParts[adapter][part] = true
+	table.insert(adaptInstancesTable, AdaptInstance(part, adapter))
+	adapterToParts[adapter][part] = true
 end
 
-local function onChildAdded(child)
+local function onChildAdded(
+	character,
+	child,
+	partNameToAdapter,
+	weldPartNames,
+	connections,
+	adapterToParts,
+	fixedAttachments,
+	adaptInstancesTable
+)
 	if child:IsA("BasePart") then
-		setUpPart(child)
-		if PartNameToAdapter[child.Name] then
-			onAdaptedPartAdded(child)
+		setUpPart(character, child, fixedAttachments, connections)
+		if partNameToAdapter[child.Name] then
+			onAdaptedPartAdded(
+				child,
+				partNameToAdapter,
+				weldPartNames,
+				connections,
+				adapterToParts,
+				adaptInstancesTable
+			)
 		end
 	end
 	if child:IsA("Humanoid") then
@@ -256,60 +263,103 @@ local function onChildAdded(child)
 	end
 end
 
-local function onChildRemoved(child)
-	if child:IsA("BasePart") and PartNameToAdapter[child.Name] then
-		local adapter = PartNameToAdapter[child.Name]
-		AdapterToParts[adapter][child] = nil
-	end
-end
-
-local function onAncestryChanged(_, parent)
-	if parent == nil then
-		for _, connection in connections do
-			connection:Disconnect()
-		end
-		table.clear(connections)
-	end
-end
-
-local function createHead()
+local function createHead(character, connections, CollisionHead)
 	local newHead = CollisionHead:Clone()
 	newHead:ClearAllChildren()
-	newHead.Parent = Character
+	newHead.Parent = character
 
 	local headChildren = CollisionHead:GetChildren()
 	for _, child in headChildren do
 		--the only child under the CollisionHead is the Head. I only kept this formatting due to the AdapterReference
-		local part = Character:FindFirstChild(child.Name)
-		if not part	then
+		local part = character:FindFirstChild(child.Name)
+		if not part then
 			continue
 		end
 		if child:FindFirstChildWhichIsA("Weld") then
-			local weldTo = Character:FindFirstChild(child.Name)
+			local weldTo = character:FindFirstChild(child.Name)
 			weldParts(newHead, weldTo)
 		end
-		setUpAestheticPart(part)
+		setUpAestheticPart(part, connections)
 	end
 	CollisionHead:Destroy()
 	CollectionService:AddTag(newHead, ALWAYS_TRANSPARENT_PART_TAG)
 end
 
-function SetupAdapterParts.setupCharacter()
+function SetupAdapterParts.setupCharacter(character, AdapterReference, CollisionHead)
+	local partNameToAdapter = {}
+	local adapterToParts = {}
+	local weldPartNames = {}
+	local connections = {}
+	local fixedAttachments = {}
+	local adaptInstancesTable = {}
+
 	for _, child in AdapterReference:GetChildren() do
-		local adapter = setUpAdapterPart(child)
+		local adapter = setUpAdapterPart(character, child, partNameToAdapter, adapterToParts, weldPartNames)
 		CollectionService:AddTag(adapter, ALWAYS_TRANSPARENT_PART_TAG)
 	end
 	AdapterReference:Destroy()
 
-	table.insert(connections, Character.ChildAdded:Connect(onChildAdded))
-	table.insert(connections, Character.ChildRemoved:Connect(onChildRemoved))
-	table.insert(connections, Character.AncestryChanged:Connect(onAncestryChanged))
+	table.insert(
+		connections,
+		character.ChildAdded:Connect(function(child)
+			onChildAdded(
+				character,
+				child,
+				partNameToAdapter,
+				weldPartNames,
+				connections,
+				adapterToParts,
+				fixedAttachments,
+				adaptInstancesTable
+			)
+		end)
+	)
 
-	for _, child in Character:GetChildren() do
-		onChildAdded(child)
+	table.insert(
+		connections,
+		character.ChildRemoved:Connect(function(child)
+			if child:IsA("BasePart") and partNameToAdapter[child.Name] then
+				local adapter = partNameToAdapter[child.Name]
+				adapterToParts[adapter][child] = nil
+			end
+		end)
+	)
+
+	table.insert(
+		connections,
+		character.AncestryChanged:Connect(function(_, parent)
+			if parent == nil then
+				for _, connection in connections do
+					connection:Disconnect()
+				end
+				table.clear(connections)
+			end
+		end)
+	)
+
+	for _, child in character:GetChildren() do
+		onChildAdded(
+			character,
+			child,
+			partNameToAdapter,
+			weldPartNames,
+			connections,
+			adapterToParts,
+			fixedAttachments,
+			adaptInstancesTable
+		)
 	end
 
-	createHead()
+	createHead(character, connections, CollisionHead)
+
+	return {
+		["partNameToAdapter"] = partNameToAdapter,
+		["adapterToParts"] = adapterToParts,
+		["weldPartNames"] = weldPartNames,
+		["connections"] = connections,
+		["fixedAttachments"] = fixedAttachments,
+		["adaptInstancesTable"] = adaptInstancesTable,
+	}
 end
 
 return SetupAdapterParts

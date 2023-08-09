@@ -7,6 +7,10 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 
+local UIBlox = require(CorePackages.Packages.UIBlox)
+local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
+local StyleConstants = UIBlox.App.Style.Constants
+
 local function dumpInstanceTree(instance, indent)
 	indent = indent or ""
 	if instance == nil then
@@ -43,9 +47,15 @@ return function(test, component, reducer, initialStoreState, props)
 	local element = Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
 	}, {
-		Root = Roact.createElement(component, props)
-	})
-
+		AppStyleProvider = Roact.createElement(AppStyleProvider, {
+			style = {
+				themeName = StyleConstants.ThemeName.Dark,
+				fontName = StyleConstants.FontName.Gotham,
+			}
+		}, {
+			Root = Roact.createElement(component, props)
+		})
+	}) 
 	local name = tostring(component)
 
 	local root = Roact.createElement("ScreenGui", {

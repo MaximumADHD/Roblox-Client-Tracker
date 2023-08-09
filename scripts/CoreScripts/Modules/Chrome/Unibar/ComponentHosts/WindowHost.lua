@@ -18,6 +18,7 @@ local Constants = require(script.Parent.Parent.Parent.Unibar.Constants)
 local ChromeTypes = require(script.Parent.Parent.Parent.Service.Types)
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
+local useWindowPosition = require(script.Parent.Parent.Parent.Hooks.useWindowPosition)
 
 local CLOSE_ICON = Images["icons/navigation/close_small"]
 
@@ -40,6 +41,7 @@ local COMPONENT_ZINDEX = {
 
 local WindowHost = function(props: WindowHostProps)
 	local windowSize = useWindowSize(props.integration.integration)
+	local windowPosition, setWindowPosition = useWindowPosition(props.integration.integration)
 	local windowRef: { current: Frame? } = React.useRef(nil)
 	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
 	local overlayTask: { current: thread? } = React.useRef(nil)
@@ -56,7 +58,12 @@ local WindowHost = function(props: WindowHostProps)
 
 		local defaultPosition: UDim2 = props.position or UDim2.new()
 
-		return UDim2.new(1, defaultPosition.X.Offset - windowSize.X.Offset, 0, defaultPosition.Y.Offset)
+		-- If the position signal is available consume it
+		if props.integration.integration.windowPosition ~= nil then
+			return windowPosition
+		else
+			return UDim2.new(1, defaultPosition.X.Offset - windowSize.X.Offset, 0, defaultPosition.Y.Offset)
+		end
 	end)
 
 	-- When a reposition tween is playing, momentarily disallow dragging the window
@@ -205,12 +212,16 @@ local WindowHost = function(props: WindowHostProps)
 
 			local positionTarget = UDim2.new(0, x, 0, y)
 
+			setWindowPosition(positionTarget)
+
 			local tweenStyle = TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 			local positionTween = TweenService:Create(frame, tweenStyle, { Position = positionTarget })
 			positionTween.Completed:Connect(function(_)
 				updateIsRepositioning(false)
 			end)
 			positionTween:Play()
+		else
+			setWindowPosition(UDim2.new(0, xPosition, 0, yPosition))
 		end
 	end, {})
 

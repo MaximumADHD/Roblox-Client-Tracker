@@ -1846,7 +1846,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 	end
 end
 
-local function CreateNewSlider(numOfSteps, startStep, minStep)
+local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, rightLabelText)
 	-------------------- SETUP ------------------------
 	local this = {}
 
@@ -1873,6 +1873,8 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		return
 	end
 
+	local shouldDisplayLabels = leftLabelText or rightLabelText
+
 	local valueChangedEvent = Instance.new("BindableEvent")
 	valueChangedEvent.Name = "ValueChanged"
 
@@ -1885,11 +1887,96 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		NextSelectionRight = this.SliderFrame,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0.6, 0, 0, 50),
+		AutomaticSize = if shouldDisplayLabels then Enum.AutomaticSize.Y else nil,
 		Position = UDim2.new(1, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(1, 0.5),
 		SelectionImageObject = noSelectionObject,
 		ZIndex = 2,
 	})
+
+	local StepsAndButtonsContainer = nil
+	if shouldDisplayLabels then
+		StepsAndButtonsContainer = Util.Create("Frame")({
+			Name = "StepsAndButtonsContainer",
+			Size = UDim2.new(1, 0, 0, 50),
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
+			Parent = this.SliderFrame
+		})
+
+		Util.Create("UIListLayout")({
+			Name = "UIListLayout",
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Parent = this.SliderFrame
+		})
+
+		-- Create left and right labels below steps
+		local SliderLabels = Util.Create("Frame")({
+			Name = "SliderLabels",
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			Parent = this.SliderFrame,
+			LayoutOrder = 2,
+		})
+
+		Util.Create("UIPadding")({
+			Name = "UIPadding",
+			PaddingRight = UDim.new(0, 50),
+			PaddingLeft = UDim.new(0, 50),
+			Parent = SliderLabels
+		})
+
+		local function isWideEnough()
+			return RobloxGui.AbsoluteSize.X > 460
+		end
+		if leftLabelText then
+			this.LeftLabel = Util.Create("TextLabel")({
+				Name = "LeftLabel",
+				Text = leftLabelText,
+				Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
+				TextSize = Theme.textSize(18, "UtilityRow"),
+				TextColor3 = Color3.fromRGB(255, 255, 255),
+				TextTransparency = 0.25,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextWrapped = true,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Parent = SliderLabels,
+				Visible = isWideEnough()
+			})
+		end
+
+		if rightLabelText then
+			this.RightLabel = Util.Create("TextLabel")({
+				Name = "RightLabel",
+				Text = rightLabelText,
+				Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
+				TextSize = Theme.textSize(18, "UtilityRow"),
+				TextColor3 = Color3.fromRGB(255, 255, 255),
+				TextTransparency = 0.25,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				TextWrapped = true,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Parent = SliderLabels,
+				Visible = isWideEnough()
+			})
+		end
+
+		RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(function()
+			if this.LeftLabel then
+				this.LeftLabel.Visible = isWideEnough()
+			end
+
+			if this.RightLabel then
+				this.RightLabel.Visible = isWideEnough()
+			end
+		end)
+	end
 
 	this.StepsContainer = Util.Create("Frame")({
 		Name = "StepsContainer",
@@ -1897,7 +1984,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		Size = UDim2.new(1, -100, 1, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		BackgroundTransparency = 1,
-		Parent = this.SliderFrame,
+		Parent = if shouldDisplayLabels then StepsAndButtonsContainer else this.SliderFrame,
 	})
 
 	local leftButton = Util.Create("ImageButton")({
@@ -1911,7 +1998,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
 		Active = true,
-		Parent = this.SliderFrame,
+		Parent = if shouldDisplayLabels then StepsAndButtonsContainer else this.SliderFrame,
 	})
 	local rightButton = Util.Create("ImageButton")({
 		Name = "RightButton",
@@ -1924,7 +2011,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep)
 		Selectable = false,
 		SelectionImageObject = noSelectionObject,
 		Active = true,
-		Parent = this.SliderFrame,
+		Parent = if shouldDisplayLabels then StepsAndButtonsContainer else this.SliderFrame,
 	})
 
 	local leftButtonImage = Util.Create("ImageLabel")({
@@ -2464,7 +2551,7 @@ if isTenFootInterface() then
 end
 
 local nextPosTable = {}
-local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing)
+local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText)
 	local nextRowPositionY = 0
 	local isARealRow = selectionType ~= "TextBox" -- Textboxes are constructed in this function - they don't have an associated class.
 
@@ -2484,6 +2571,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		Active = false,
 		AutoButtonColor = false,
 		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+		AutomaticSize = if rowDisplayDescription or rowSliderLeftLabelText or rowSliderRightLabelText then Enum.AutomaticSize.Y else nil,
 		Position = UDim2.new(0, 0, 0, nextRowPositionY),
 		ZIndex = 2,
 		Selectable = false,
@@ -2510,24 +2598,85 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		)
 	end
 
+	local RowLabelAndDescriptionFrame = nil
 	local RowLabel = nil
-	RowLabel = Util.Create("TextLabel")({
-		Name = rowDisplayName .. "Label",
-		Text = rowDisplayName,
-		Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
-		TextSize = Theme.textSize(16, "UtilityRow"),
-		TextColor3 = Color3.fromRGB(255, 255, 255),
-		TextXAlignment = Enum.TextXAlignment.Left,
-		BackgroundTransparency = 1,
-		Size = UDim2.new(0, 200, 1, 0),
-		Position = UDim2.new(0, 10, 0, 0),
-		ZIndex = 2,
-		Parent = RowFrame,
-	})
+	if rowDisplayDescription then
+		RowLabelAndDescriptionFrame = Util.Create("Frame")({
+			Name = rowDisplayName .. "RowLabelAndDescriptionFrame",
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0, 10, 0, 0),
+			Size = UDim2.new(0.4, -20, 0, 50),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Parent = RowFrame
+		})
+
+		RowLabel = Util.Create("TextLabel")({
+			Name = rowDisplayName .. "Label",
+			Text = rowDisplayName,
+			Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
+			TextSize = Theme.textSize(16, "UtilityRow"),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			ZIndex = 2,
+			Parent = RowLabelAndDescriptionFrame,
+			LayoutOrder = 1
+		})
+
+		Util.Create("TextLabel")({
+			Name = rowDisplayName .. "Description",
+			Text = rowDisplayDescription,
+			Font = Theme.font(Enum.Font.SourceSans, "UtilityRow"),
+			TextSize = Theme.textSize(18, "UtilityRow"),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextTransparency = 0.25,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			BackgroundTransparency = 1,
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			ZIndex = 2,
+			Parent = RowLabelAndDescriptionFrame,
+			LayoutOrder = 2
+		})
+
+		Util.Create("UIListLayout")({
+			Name = rowDisplayName .. "UIListLayout",
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 8),
+			Parent = RowLabelAndDescriptionFrame
+		})
+
+		Util.Create("UIPadding")({
+			Name = rowDisplayName .. "UIListLayout",
+			PaddingBottom = UDim.new(0, 10),
+			PaddingTop = UDim.new(0, 10),
+			Parent = RowLabelAndDescriptionFrame
+		})
+	else
+		RowLabel = Util.Create("TextLabel")({
+			Name = rowDisplayName .. "Label",
+			Text = rowDisplayName,
+			Font = Theme.font(Enum.Font.SourceSansBold, "UtilityRow"),
+			TextSize = Theme.textSize(16, "UtilityRow"),
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, 200, 1, 0),
+			Position = UDim2.new(0, 10, 0, 0),
+			ZIndex = 2,
+			Parent = RowFrame,
+		})
+	end
 
 	local RowLabelTextSizeConstraint = Instance.new("UITextSizeConstraint")
-	if FFlagUseNotificationsLocalization or Theme.UIBloxThemeEnabled then
-		RowLabel.Size = UDim2.new(0.35, 0, 1, 0)
+	if FFlagUseNotificationsLocalization or Theme.UIBloxThemeEnabled or rowDisplayDescription then
+		if not rowDisplayDescription then
+			RowLabel.Size = UDim2.new(0.35, 0, 1, 0)
+		end
 		RowLabel.TextScaled = true
 		RowLabel.TextWrapped = true
 		RowLabelTextSizeConstraint.Parent = RowLabel
@@ -2552,7 +2701,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	local ValueChangerSelection = nil
 	local ValueChangerInstance = nil
 	if selectionType == "Slider" then
-		ValueChangerInstance = CreateNewSlider(rowValues, rowDefault)
+		ValueChangerInstance = CreateNewSlider(rowValues, rowDefault, nil, rowSliderLeftLabelText, rowSliderRightLabelText)
 		ValueChangerInstance.SliderFrame.Parent = RowFrame
 		ValueChangerSelection = ValueChangerInstance.SliderFrame
 	elseif selectionType == "Selector" then
@@ -3043,8 +3192,8 @@ function moduleApiTable:GetEaseInOutQuad()
 	return EaseInOutQuad
 end
 
-function moduleApiTable:CreateNewSlider(numOfSteps, startStep, minStep)
-	return CreateNewSlider(numOfSteps, startStep, minStep)
+function moduleApiTable:CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, rightLabelText)
+	return CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, rightLabelText)
 end
 
 function moduleApiTable:CreateNewSelector(selectionStringTable, startPosition)
@@ -3055,8 +3204,8 @@ function moduleApiTable:CreateNewDropDown(dropDownStringTable, startPosition)
 	return CreateDropDown(dropDownStringTable, startPosition, nil)
 end
 
-function moduleApiTable:AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing)
-	return AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing)
+function moduleApiTable:AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText)
+	return AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText)
 end
 
 function moduleApiTable:AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing)

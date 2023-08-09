@@ -40,6 +40,7 @@ local cloneStreamTrack = nil
 
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
+local CollectionService = game:GetService("CollectionService")
 local VRService = game:GetService("VRService")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
 local FFlagUseLoadStreamAnimationForClone = game:DefineFastFlag("UseLoadStreamAnimationForClone", false)
@@ -50,6 +51,10 @@ local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImp
 local FFlagSelfViewDontHideOnSwapCharacter = game:DefineFastFlag("SelfViewDontHideOnSwapCharacter", false)
 local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
 local FFlagAvatarChatSelfViewShowDefaultCursor = game:DefineFastFlag("AvatarChatSelfViewShowDefaultCursor", false)
+local FFlagDisableSelfViewReactingToSetCoreGuiEnabled = game:DefineFastFlag("DisableSelfViewReactingToSetCoreGuiEnabled", false)
+local FFlagSanitizeSelfView = game:DefineFastFlag("SanitizeSelfView", false)
+local FFlagSanitizeSelfViewStrict = game:DefineFastFlag("SanitizeSelfViewStrict", false)
+local FFlagRemoveTagsFromSelfViewClone = game:DefineFastFlag("RemoveTagsFromSelfViewClone", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -194,7 +199,33 @@ local r6bodyPartsToShow = {
 	"Torso",
 }
 
-log:trace("Self View 07-17-2023__1!!")
+local ALLOWLISTED_INSTANCE_TYPES = {
+	Accessory = "Accessory",
+	Animator = "Animator",
+	Attachment = "Attachment",
+	BodyColors = "BodyColors",
+	CharacterMesh = "CharacterMesh",
+	Decal = "Decal",
+	FaceControls = "FaceControls",
+	Humanoid = "Humanoid",
+	HumanoidDescription = "HumanoidDescription",
+	MeshPart = "MeshPart",
+	Motor6D = "Motor6D",
+	NumberValue = "NumberValue",
+	Pants = "Pants",
+	Part = "Part",
+	Shirt = "Shirt",
+	ShirtGraphic = "ShirtGraphic",
+	SpecialMesh = "SpecialMesh",
+	StringValue = "StringValue",
+	SurfaceAppearance = "SurfaceAppearance",
+	Vector3Value = "Vector3Value",
+	WrapTarget = "WrapTarget",
+	Weld = "Weld",
+	WrapLayer = "WrapLayer",
+}
+
+log:trace("Self View 08-01-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -264,9 +295,13 @@ end
 function getShouldBeEnabledCoreGuiSetting()
 	--debugPrint("Self View: getShouldBeEnabledCoreGuiSetting(): StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView): "..tostring(StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)))
 
-	return (
-		StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
-	)
+	if FFlagDisableSelfViewReactingToSetCoreGuiEnabled then
+		return true
+	else
+		return (
+			StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+		)
+	end
 end
 
 function updateSelfViewButtonVisibility()
@@ -1274,6 +1309,82 @@ function getAnimator(character, timeOut)
 	return animator
 end
 
+local function disableScripts(instance)
+	for _, child in instance:GetChildren() do
+		if child:IsA("Script") then
+			child.Disabled = true
+			child.Parent = nil
+		end
+
+		disableScripts(child)
+	end
+end
+
+local function removeUI(instance)
+	for _, child in instance:GetChildren() do
+		if child:IsA("GuiObject") or child:IsA("ScreenGui") or child:IsA("BillboardGui") or child:IsA("AdGui") or child:IsA("SurfaceGui")then
+			child.Parent = nil
+		end
+
+		removeUI(child)
+	end
+end
+
+local function removeInstancesStrict(instance)
+	for _, child in instance:GetChildren() do
+		if not ALLOWLISTED_INSTANCE_TYPES[child.ClassName] then
+			child.Parent = nil
+		end
+
+		removeInstancesStrict(child)
+	end
+end
+
+-- Remove unnecessary elements from the Clone
+local function sanitize(clone)
+	if not clone then
+		return
+	end
+
+	if FFlagSanitizeSelfViewStrict then
+		removeInstancesStrict(clone)
+	else
+		disableScripts(clone)
+		removeUI(clone)
+	end
+end
+
+function removeTagsFromSelfViewClone(clone)
+	if clone == nil then
+		return
+	end
+
+	local clonesTags = CollectionService:GetTags(clone)
+	for _, v in ipairs(clonesTags) do
+		--log:trace("removing tag:"..v)
+		CollectionService:RemoveTag(clone, v)
+	end
+
+	for _, part in ipairs( clone:GetDescendants()) do
+		local descendantTags = CollectionService:GetTags(part)
+		for _, v2 in ipairs(descendantTags) do
+			--log:trace("removing tag:"..v2)
+			CollectionService:RemoveTag(part, v2)
+		end
+	end
+
+	clonesTags = CollectionService:GetTags(clone)
+	log:trace("The Self View avatar clone " .. clone:GetFullName() .. " has "..tostring(#clonesTags) .. " tags " .. table.concat(clonesTags, ", "))
+
+	--[[
+	--more debug logging
+	for i, part in ipairs( clone:GetDescendants()) do
+		local descendantTags = CollectionService:GetTags(part)
+		log:trace("The The Self View clone descendant: " .. part:GetFullName() .. " has tags: " .. table.concat(descendantTags, ", "))
+	end
+	]]
+end
+
 local function updateClone(player)
 	debugPrint("Self View: updateClone()")
 
@@ -1312,6 +1423,11 @@ local function updateClone(player)
 	end
 
 	clone = character:Clone()
+
+	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
+	if FFlagRemoveTagsFromSelfViewClone then
+		removeTagsFromSelfViewClone(clone)
+	end	
 
 	--resetting the joints orientations in the clone since it can happen that body/head IK like code was applied on the player avatar
 	--and we want to start with default pose setup in clone, else issues with clone avatar (parts) orientation etc
@@ -1354,6 +1470,9 @@ local function updateClone(player)
 	removeChild(clone, "Animate")
 	removeChild(clone, "Health")
 
+	if FFlagSanitizeSelfView then
+		sanitize(clone)
+	end
 	for index, script in pairs(clone:GetDescendants()) do
 		if script:IsA("BaseScript") then
 			script:Destroy()
@@ -2073,36 +2192,39 @@ end
 --StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.SelfView, false)
 
 --toggle Self View based on whether it is enabled via SetCoreGuiEnabled
-StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, newState)
-	if coreGuiType == Enum.CoreGuiType.All or (coreGuiType == Enum.CoreGuiType.SelfView) then
-		local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
+if not FFlagDisableSelfViewReactingToSetCoreGuiEnabled then
+	--toggle Self View based on whether it is enabled via SetCoreGuiEnabled
+	StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, newState)
+		if coreGuiType == Enum.CoreGuiType.All or (coreGuiType == Enum.CoreGuiType.SelfView) then
+			local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
 
-		Analytics:reportSelfViewEnabledInCoreGuiState(shouldBeEnabledCoreGuiSetting)
+			Analytics:reportSelfViewEnabledInCoreGuiState(shouldBeEnabledCoreGuiSetting)
 
-		debugPrint(
-			"Self View: CoreGuiChangedSignal: shouldBeEnabledCoreGuiSetting: "
-				.. tostring(shouldBeEnabledCoreGuiSetting)
-		)
-		--when disable call comes in we always do it, when enable call comes in only if not visible already
-		if not newState or (frame ~= nil and frame.Visible ~= newState) then
-			if newState then
-				if initialized then
-					ReInit(Players.LocalPlayer)
+			debugPrint(
+				"Self View: CoreGuiChangedSignal: shouldBeEnabledCoreGuiSetting: "
+					.. tostring(shouldBeEnabledCoreGuiSetting)
+			)
+			--when disable call comes in we always do it, when enable call comes in only if not visible already
+			if not newState or (frame ~= nil and frame.Visible ~= newState) then
+				if newState then
+					if initialized then
+						ReInit(Players.LocalPlayer)
+					else
+						Initialize(Players.LocalPlayer)
+					end
 				else
-					Initialize(Players.LocalPlayer)
-				end
-			else
-				if initialized then
-					debugPrint("Self View: triggering shutting down because shouldBeEnabledCoreGuiSetting is false")
-					setIsOpen(false)
-					stopRenderStepped()
-					if frame then
-						frame.Visible = false
+					if initialized then
+						debugPrint("Self View: triggering shutting down because shouldBeEnabledCoreGuiSetting is false")
+						setIsOpen(false)
+						stopRenderStepped()
+						if frame then
+							frame.Visible = false
+						end
 					end
 				end
 			end
 		end
-	end
-end)
+	end)
+end
 
 Initialize(Players.LocalPlayer)

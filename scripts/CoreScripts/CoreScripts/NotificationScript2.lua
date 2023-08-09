@@ -33,6 +33,7 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local success, result = pcall(function()
 	return settings():GetFFlag("UseNotificationsLocalization")
 end)
@@ -76,7 +77,10 @@ local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
-local BG_TRANSPARENCY = 0.6
+local BG_TRANSPARENCY_DEFAULT = 0.6
+local bgTransparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts()
+							then BG_TRANSPARENCY_DEFAULT * GameSettings.PreferredTransparency 
+							else BG_TRANSPARENCY_DEFAULT
 local MAX_NOTIFICATIONS = 3
 local IMAGE_SIZE = isTenFootInterface and 72 or 48
 
@@ -150,7 +154,7 @@ local function createTextButton(name, position)
 	button.Name = name
 	button.Size = UDim2.new(0.5, -1, 0, NOTIFICATION_BUTTON_HEIGHT)
 	button.Position = position
-	button.BackgroundTransparency = BG_TRANSPARENCY
+	button.BackgroundTransparency = bgTransparency
 	button.BackgroundColor3 = Color3.new(0, 0, 0)
 	button.BorderSizePixel = 0
 	button.Font = Enum.Font.SourceSansBold
@@ -187,10 +191,13 @@ else
 end
 NotificationFrame.Parent = RbxGui
 
-local DefaultNotification =
-	createFrame("Notification", UDim2.new(1, 0, 0, NOTIFICATION_Y_OFFSET), UDim2.new(0, 0, 0, 0), BG_TRANSPARENCY)
-DefaultNotification.BackgroundColor3 = Color3.new(0, 0, 0)
-DefaultNotification.BorderSizePixel = 0
+local function createDefaultNotification()
+	local Frame = createFrame("Notification", UDim2.new(1, 0, 0, NOTIFICATION_Y_OFFSET), UDim2.new(0, 0, 0, 0), bgTransparency)
+	Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+	Frame.BorderSizePixel = 0
+	return Frame
+end
+local DefaultNotification = createDefaultNotification()
 
 local NotificationTitle = Instance.new("TextLabel")
 NotificationTitle.Name = "NotificationTitle"
@@ -1061,6 +1068,18 @@ local function onClientLuaDialogRequested(msg, accept, decline)
 	return true
 end
 MarketplaceService.ClientLuaDialogRequested:connect(onClientLuaDialogRequested)
+
+local function onPreferredTransparencyChanged()
+	bgTransparency = BG_TRANSPARENCY_DEFAULT * GameSettings.PreferredTransparency
+	DefaultNotification.BackgroundTransparency = bgTransparency
+
+	for i = 1, #NotificationQueue do
+		NotificationQueue[i].Frame.BackgroundTransparency = bgTransparency
+	end
+end
+if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+	GameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(onPreferredTransparencyChanged)
+end
 
 local Platform = UserInputService:GetPlatform()
 local Modules = RobloxGui:FindFirstChild("Modules")

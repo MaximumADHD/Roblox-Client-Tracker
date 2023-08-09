@@ -19,7 +19,6 @@ local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeatu
 local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry = game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
 local FFlagFaceAnimatorDisableVideoByDefault = game:DefineFastFlag("FaceAnimatorDisableVideoByDefault", false)
 local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
-local FFlagRvCaptureResolveReturnError = game:GetEngineFeature("RvCaptureResolveReturnError")
 local FFlagFacialAnimationStreamingPauseOnMute = game:GetEngineFeature("FacialAnimationStreamingPauseOnMute")
 local FFlagFacialAnimationStreamingServiceFixAnimatorSetup = game:DefineFastFlag("FacialAnimationStreamingServiceFixAnimatorSetup", false)
 local FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled = game:DefineFastFlag("FacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled", false)
@@ -522,7 +521,7 @@ function InitializeFacialAnimationStreaming(settings)
 			playerTrace(string.format("TrackerError: %s", tostring(error)), nil)
 			if error == (Enum::any).TrackerError.VideoNoPermission then
 				TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
-			elseif FFlagRvCaptureResolveReturnError and error == (Enum::any).TrackerError.VideoUnsupported then
+			elseif error == (Enum::any).TrackerError.VideoUnsupported then
 				TrackerMenu:showPrompt(TrackerPromptType.VideoUnsupported)
 			elseif error == (Enum::any).TrackerError.UnsupportedDevice then
 				TrackerMenu:showPrompt(TrackerPromptType.UnsupportedDevice)
@@ -556,7 +555,7 @@ function InitializeFacialAnimationStreaming(settings)
 			playerTrace(string.format("TrackerError: %s", tostring(error)), nil)
 			if error == (Enum::any).TrackerError.VideoNoPermission then
 				TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
-			elseif FFlagRvCaptureResolveReturnError and error == (Enum::any).TrackerError.VideoUnsupported then
+			elseif error == (Enum::any).TrackerError.VideoUnsupported then
 				TrackerMenu:showPrompt(TrackerPromptType.VideoUnsupported)
 			else
 				TrackerMenu:showPrompt(TrackerPromptType.NotAvailable)

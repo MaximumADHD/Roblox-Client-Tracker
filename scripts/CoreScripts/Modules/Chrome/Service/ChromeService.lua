@@ -10,6 +10,9 @@ local NotifySignal = utils.NotifySignal
 local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(script.Parent.Types)
 
+local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 1.5
+local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
+
 -- todo: Consider how ChromeService could support multiple UI at the same time, not only the Unibar
 --       Does there need to be another layer "IntegrationsService" that ChromeService can pull from?
 
@@ -26,6 +29,7 @@ ChromeService.Key = {
 export type ObservableMenuStatus = utils.ObservableValue<number>
 export type ObservableSubMenu = utils.ObservableValue<string?>
 export type ObservableMenuList = utils.ObservableValue<Types.MenuList>
+export type ObservableIntegration = utils.ObservableValue<Types.IntegrationComponentProps | nil>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 
@@ -54,6 +58,8 @@ export type ChromeService = {
 	availabilityChanged: (ChromeService, Types.IntegrationProps) -> (),
 	subMenuNotifications: (ChromeService, subMenuId: Types.IntegrationId) -> utils.NotifySignal,
 	totalNotifications: (ChromeService) -> utils.NotifySignal,
+	notificationIndicator: (ChromeService) -> ObservableIntegration,
+	triggerNotificationIndicator: (ChromeService, Types.IntegrationId) -> (),
 	updateNotificationTotals: (ChromeService) -> (),
 	configureReset: (ChromeService) -> (),
 	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
@@ -68,6 +74,7 @@ export type ChromeService = {
 	isWindowOpen: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	updateWindowSizeSignals: (ChromeService) -> (),
 	updateScreenSize: (ChromeService, screenSize: Vector2, isMobileDevice: boolean) -> (),
+	createIconProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
 
 	_status: ObservableMenuStatus,
 	_currentSubMenu: ObservableSubMenu,
@@ -85,6 +92,9 @@ export type ChromeService = {
 	_mostRecentlyUsedFullRecord: { Types.IntegrationId },
 	_mostRecentlyUsed: Types.IntegrationIdList,
 	_mostRecentlyUsedLimit: number,
+	_notificationIndicator: ObservableIntegration,
+	_lastDisplayedNotificationTick: number,
+	_lastDisplayedNotificationId: Types.IntegrationId,
 }
 
 local DummyIntegration = {
@@ -115,6 +125,10 @@ function ChromeService.new(): ChromeService
 	self._mostRecentlyUsedFullRecord = {}
 	self._mostRecentlyUsed = {}
 	self._mostRecentlyUsedLimit = 1
+
+	self._notificationIndicator = ObservableValue.new(nil)
+	self._lastDisplayedNotificationTick = 0
+	self._lastDisplayedNotificationId = ""
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
 
@@ -185,6 +199,45 @@ function ChromeService:updateWindowSizeSignals()
 	end
 end
 
+function ChromeService:triggerNotificationIndicator(id: Types.IntegrationId)
+	local menuStatus: ObservableMenuStatus = self._status
+	if menuStatus:get() ~= ChromeService.MenuStatus.Closed then
+		-- Early out if the menu isn't closed.  We only need to show this in the closed state.
+		return
+	end
+
+	local notification = self._integrations[id].notification:get()
+	if notification.type == "count" then
+		local count: number = notification.value :: any
+		-- Only run if the count is non zero.
+		-- triggerNotificationIndicator will also run when notications get cleared
+		if count > 0 then
+			local now = tick()
+			local timeSinceLastDisplay = (now - self._lastDisplayedNotificationTick)
+			self._lastDisplayedNotificationTick = now
+
+			if
+				self._lastDisplayedNotificationId == id
+				and timeSinceLastDisplay < NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC
+			then
+				-- Early exit if within a cooloff period.
+				-- We don't need to keep flashing the same icon.
+				return
+			end
+
+			self._lastDisplayedNotificationId = id
+			self._notificationIndicator:setMomentary(
+				self:createIconProps(id, 0, false),
+				NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC
+			)
+		end
+	end
+end
+
+function ChromeService:notificationIndicator()
+	return self._notificationIndicator
+end
+
 function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
 	-- todo: Add analytics
 
@@ -217,6 +270,8 @@ function ChromeService:toggleOpen()
 	local menuStatus: ObservableMenuStatus = self._status
 	if menuStatus:get() == ChromeService.MenuStatus.Closed then
 		menuStatus:set(ChromeService.MenuStatus.Open)
+		self._lastDisplayedNotificationId = ""
+		self._notificationIndicator:set(nil)
 	else
 		-- close any current submenu
 		subMenu:set(nil)
@@ -304,6 +359,7 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 
 	if component.notification and not component.notification:excludeFromTotalCounts() then
 		conns[#conns + 1] = component.notification:connect(function()
+			self:triggerNotificationIndicator(component.id)
 			self:updateNotificationTotals()
 		end)
 	end
@@ -319,6 +375,36 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	return populatedComponent
 end
 
+function ChromeService:createIconProps(
+	id: Types.IntegrationId,
+	order: number?,
+	recentlyUsedItem: boolean?
+): Types.IntegrationComponentProps
+	local iconOrder = order or 0
+	if self._integrations[id] then
+		return {
+			id = id,
+			children = {},
+			order = iconOrder,
+			component = self._integrations[id].components.Icon,
+			integration = self._integrations[id],
+			isDivider = false,
+			recentlyUsedItem = recentlyUsedItem or false,
+			activated = function()
+				self:activate(id)
+			end,
+		}
+	else
+		return {
+			id = id,
+			children = {},
+			order = iconOrder,
+			activated = noop,
+			integration = DummyIntegration,
+		}
+	end
+end
+
 -- Convert the menuConfig into view-model data for the unibar
 -- This incluses adding dividers between groups and child submenus
 function ChromeService:updateMenuList()
@@ -327,28 +413,7 @@ function ChromeService:updateMenuList()
 
 	local function iconProps(id, recentlyUsedItem: boolean?): Types.IntegrationComponentProps
 		order += 1
-		if self._integrations[id] then
-			return {
-				id = id,
-				children = {},
-				order = order,
-				component = self._integrations[id].components.Icon,
-				integration = self._integrations[id],
-				isDivider = false,
-				recentlyUsedItem = recentlyUsedItem or false,
-				activated = function()
-					self:activate(id)
-				end,
-			}
-		else
-			return {
-				id = id,
-				children = {},
-				order = order,
-				activated = noop,
-				integration = DummyIntegration,
-			}
-		end
+		return self:createIconProps(id, order, recentlyUsedItem)
 	end
 
 	local function windowProps(id): Types.IntegrationComponentProps

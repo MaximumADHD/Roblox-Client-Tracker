@@ -2,6 +2,7 @@
 local Players = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local StarterPlayer = game:GetService("StarterPlayer")
 
 local RobloxGui = CoreGuiService:FindFirstChild("RobloxGui")
 local CoreGuiModules = RobloxGui:FindFirstChild("Modules")
@@ -10,25 +11,30 @@ local CommonModules = CoreGuiModules:FindFirstChild("Common")
 local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
+local avatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
+local avatarJointUpgradeDefaultOn = game:GetEngineFeature("AvatarJointUpgradeDefaultOnFeature")
+
 local localPlayer = Players.LocalPlayer
 if not localPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 	localPlayer = Players.LocalPlayer
 end
 
--- If we never get this I don't care. If it doesen't exist I was going to return immediately anyway.
 local DeathTypeValue = RobloxReplicatedStorage:WaitForChild("DeathType", math.huge)
-if not DeathTypeValue or DeathTypeValue.Value ~= "Ragdoll" then
-	return
+-- initialize jointUpgradeActive here, since we need to wait for the value of StarterPlayer.AvatarJointUpgrade to replicate
+local jointUpgradeActive = avatarJointUpgrade and (avatarJointUpgradeDefaultOn or StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled)
+
+if not DeathTypeValue or (not jointUpgradeActive and DeathTypeValue.Value ~= "Ragdoll") then
+	return -- Something's wrong. Don't bother locally modifying the character
 end
 
-local remote = RobloxReplicatedStorage:WaitForChild("OnRagdoll", math.huge)
--- If we're missing our RemoteEvent to notify the server that we've started simulating our
--- ragdoll so it can authoritatively replicate the joint removal, don't ragdoll at all.
-if not (remote and remote:IsA("RemoteEvent")) then
-	return
+local remote
+if not avatarJointUpgrade then
+	remote = RobloxReplicatedStorage:WaitForChild("OnRagdoll", math.huge)
+	if not (remote and remote:IsA("RemoteEvent")) then
+		return -- Something's wrong. Don't bother locally modifying the character
+	end
 end
-
 
 local function onOwnedHumanoidDeath(character, humanoid)
 	-- We first disable the motors on the network owner (the player that owns this character).
@@ -47,31 +53,48 @@ local function onOwnedHumanoidDeath(character, humanoid)
 	-- be creating a new, seperate network ownership unit that we would have to wait for the server
 	-- to assign us network ownership of before we would start simulating and replicating physics
 	-- data for it, creating an additional round trip hitch on our end for our own character.
-	local motors = Rigging.disableMotors(character, humanoid.RigType)
 
-	-- Apply velocities from animation to the child parts to mantain visual momentum.
-	--
-	-- This should be done on the network owner's side just after disabling the kinematic joint so
-	-- the child parts are split off as seperate dynamic bodies. For consistent animation times and
-	-- visual momentum we want to do this on the machine that controls animation state for the
-	-- character and will be simulating the ragdoll, in this case the client.
-	--
-	-- It's also important that this is called *before* any animations are canceled or changed after
-	-- death! Otherwise there will be no animations to get velocities from or the velocities won't
-	-- be consistent!
-	local animator = humanoid:FindFirstChildWhichIsA("Animator")
-	if animator then
-		animator:ApplyJointVelocities(motors)
+	if jointUpgradeActive then
+		if DeathTypeValue.Value ~= "Scriptable" then
+			Rigging.disableMotors(character, humanoid.RigType)
+			if DeathTypeValue.Value == "Classic" then -- ClassicBreakApart
+				Rigging.removeRagdollJoints(character)
+			end
+		end
+	else
+		-- With Moto6D's we needed to manually apply the Animator velocity.
+		-- This will no longer be necessary with AnimationConstraints (CLI-75079).
+
+		local motors = Rigging.disableMotors(character, humanoid.RigType)
+
+		-- Apply velocities from animation to the child parts to mantain visual momentum.
+		--
+		-- This should be done on the network owner's side just after disabling the kinematic joint so
+		-- the child parts are split off as seperate dynamic bodies. For consistent animation times and
+		-- visual momentum we want to do this on the machine that controls animation state for the
+		-- character and will be simulating the ragdoll, in this case the client.
+		--
+		-- It's also important that this is called *before* any animations are canceled or changed after
+		-- death! Otherwise there will be no animations to get velocities from or the velocities won't
+		-- be consistent!
+		local animator = humanoid:FindFirstChildWhichIsA("Animator")
+		if animator then
+			animator:ApplyJointVelocities(motors)
+		end
 	end
 
-	-- Tell the server that we started simulating our ragdoll
-	remote:FireServer(humanoid)
+	if not avatarJointUpgrade then
+		-- Tell the server that we started simulating our ragdoll
+		remote:FireServer(humanoid)
+	end
 
-	-- stiff shock phase...
-	wait(0.1)
+	if not jointUpgradeActive or DeathTypeValue.Value == "Ragdoll" then -- NonGraphic death
+		-- stiff shock phase...
+		wait(0.1)
 
-	-- gradually give up...
-	Rigging.easeJointFriction(character, 0.85)
+		-- gradually give up...
+		Rigging.easeJointFriction(character, 0.85)
+	end
 end
 
 HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
@@ -87,11 +110,13 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
 		-- Assume death is final
 		disconnect()
 		-- Any character: handle fade out on death
-		delay(2.0, function()
-			-- fade into the mist...
-			Rigging.disableParticleEmittersAndFadeOut(character, 0.4)
-		end)
-		-- Just my character: initiate ragdoll and do friction easing
+		if not jointUpgradeActive or DeathTypeValue.Value == "Ragdoll" then -- NonGraphic death
+			delay(2.0, function()
+				-- fade into the mist...
+				Rigging.disableParticleEmittersAndFadeOut(character, 0.4)
+			end)
+		end
+		-- Just my character: initiate local death sequence
 		if player == localPlayer then
 			onOwnedHumanoidDeath(character, humanoid)
 		end

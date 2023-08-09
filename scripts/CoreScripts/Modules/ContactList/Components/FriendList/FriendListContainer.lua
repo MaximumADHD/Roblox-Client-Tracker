@@ -5,6 +5,8 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
 
+local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ContactList = RobloxGui.Modules.ContactList
@@ -17,26 +19,21 @@ local useSelector = dependencies.Hooks.useSelector
 local GetFriendsFromUserId = dependencies.NetworkingFriends.GetFriendsFromUserId
 
 local useStyle = UIBlox.Core.Style.useStyle
+local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
 local FriendListItem = require(ContactList.Components.FriendList.FriendListItem)
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
+local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
-	localUserId: number?,
 	isDevMode: boolean?,
 	dismissCallback: () -> (),
 	searchText: string,
 }
 
-local defaultProps = {
-	localUserId = if localPlayer then localPlayer.UserId else nil,
-}
-
-local function FriendListContainer(passedProps: Props)
-	local props = Cryo.Dictionary.join(defaultProps, passedProps)
-
+local function FriendListContainer(props: Props)
 	local style = useStyle()
 	local dispatch = useDispatch()
 	local theme = style.Theme
@@ -65,15 +62,22 @@ local function FriendListContainer(passedProps: Props)
 
 	if props.isDevMode then
 		React.useEffect(function()
-			if props.localUserId then
-				dispatch(GetFriendsFromUserId.API(props.localUserId))
+			if localUserId then
+				dispatch(GetFriendsFromUserId.API(localUserId))
 			end
-		end, { props.localUserId })
+		end, {})
+
+		local selectIsLoading = React.useCallback(function(state)
+			local status = GetFriendsFromUserId.getStatus(state, localUserId)
+			return status == RetrievalStatus.NotStarted or status == RetrievalStatus.Fetching
+		end)
+
+		local isLoading = useSelector(selectIsLoading)
 
 		local selectFriends = React.useCallback(function(state: any)
 			local friendIds = {}
-			if props.localUserId then
-				friendIds = state.Friends.byUserId[tostring(props.localUserId)] or {}
+			if localUserId then
+				friendIds = state.Friends.byUserId[tostring(localUserId)] or {}
 			end
 			local list = {}
 			for _, friendId in ipairs(friendIds) do
@@ -98,7 +102,7 @@ local function FriendListContainer(passedProps: Props)
 					return friend1.username:lower() < friend2.username:lower()
 				end
 			end)
-		end, { props.localUserId, props.searchText })
+		end, dependencyArray(localUserId, props.searchText))
 
 		local friends = useSelector(selectFriends, function(newFriends: any, oldFriends: any)
 			if #newFriends ~= #oldFriends then
@@ -135,22 +139,34 @@ local function FriendListContainer(passedProps: Props)
 			return entries
 		end, dependencyArray(friends))
 
-		return if #friends == 0 and props.searchText == ""
-			then noFriendsText
+		return if #friends == 0
+				and props.searchText == ""
+				and isLoading
+			then React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 92),
+				BackgroundTransparency = 1,
+			}, {
+				LoadingSpinner = React.createElement(LoadingSpinner, {
+					size = UDim2.fromOffset(48, 48),
+					position = UDim2.fromScale(0.5, 0.5),
+					anchorPoint = Vector2.new(0.5, 0.5),
+				}),
+			})
+			elseif #friends == 0 and props.searchText == "" and not isLoading then noFriendsText
 			else React.createElement("ScrollingFrame", {
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.fromScale(1, 1),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
-				CanvasSize = UDim2.new(),
-				ScrollingDirection = Enum.ScrollingDirection.Y,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
+				CanvasSize = UDim2.new(),
+				ScrollingDirection = Enum.ScrollingDirection.Y,
 			}, children)
 	else
 		local allPlayers, setAllPlayers = React.useState(function()
 			local players = {}
 			for _, player in ipairs(Players:GetPlayers()) do
-				if player.UserId ~= localPlayer.UserId then
+				if player.UserId ~= localUserId then
 					players[player.UserId] = player
 				end
 			end
@@ -192,7 +208,7 @@ local function FriendListContainer(passedProps: Props)
 					return player1.Name:lower() < player2.Name:lower()
 				end
 			end)
-		end, { props.searchText, allPlayers })
+		end, dependencyArray(props.searchText, allPlayers))
 
 		local children: any = React.useMemo(function()
 			local entries = {}

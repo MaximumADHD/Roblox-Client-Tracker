@@ -2,8 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 
 local Action = require(CorePackages.Rodux).makeActionCreator
 
-return Action(script.Name, function(participants)
+return Action(script.Name, function(title, bodyText)
 	return {
-		participants = participants,
+		title = title,
+		bodyText = bodyText,
 	}
 end)

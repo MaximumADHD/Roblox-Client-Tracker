@@ -14,9 +14,11 @@ local RoduxUsers = dependencies.RoduxUsers
 local RoduxNetworking = dependencies.RoduxNetworking
 
 local Navigation = require(script.Navigation)
+local Dialog = require(script.Dialog)
 
 local Reducer = Rodux.combineReducers({
 	Navigation = Navigation,
+	Dialog = Dialog,
 	Call = RoduxCall.installReducer(),
 	Friends = RoduxFriends.installReducer(),
 	Presence = RoduxPresence.installReducer(),

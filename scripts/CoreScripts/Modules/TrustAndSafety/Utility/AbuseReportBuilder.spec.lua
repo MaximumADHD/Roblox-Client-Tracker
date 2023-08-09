@@ -50,6 +50,8 @@ return function()
 				Vector2.new(0.66, 0.66), -- should get 39 first since closer even though both are under point
 				Vector2.new(0.37, 0.37)
 			}
+			AbuseReportBuilder.setAspectRatioDimensions(100, 100)
+			AbuseReportBuilder.setAnnotationCircleRadius(0.05)
 			AbuseReportBuilder.setAnnotationPoints(annotationPoints)
 			local selectedAbusers = AbuseReportBuilder.getSelectedAbusers()
 			expect(#selectedAbusers).to.equal(2)

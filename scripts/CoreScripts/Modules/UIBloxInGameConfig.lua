@@ -4,6 +4,8 @@ local CoreGui = game:GetService("CoreGui")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local UIBloxFlags = SharedFlags.UIBlox
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 return {
 	fixLoadableImageLoadingFailed = UIBloxFlags.GetFFlagFixLoadableImageLoadingFailed(),
 	useNewGenericTextLabelProps = UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps(),
@@ -18,5 +20,6 @@ return {
 	enableToastButton = UIBloxFlags.GetFFlagUIBloxEnableToastButton(),
 	usePlatformContentKeyLabels = UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels(),
 	enableNewMenuLayout = UIBloxFlags.GetFFlagUIBloxEnableNewMenuLayout(),
+	enableRoDSDesignTokenSupport = UIBloxFlags.GetFFlagEnableRoDSDesignTokenSupportInCoreScripts(),
 	useTokensInPlayerTile = UIBloxFlags.GetFFlagUIBloxUseTokensInPlayerTile(),
 }

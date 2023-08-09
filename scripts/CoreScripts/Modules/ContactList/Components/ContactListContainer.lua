@@ -3,6 +3,8 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local SocialService = game:GetService("SocialService")
 
+local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
+local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local PeekView = require(CorePackages.Workspace.Packages.PeekView).PeekView
 local PeekViewState = require(CorePackages.Workspace.Packages.PeekView).PeekViewState
@@ -36,14 +38,23 @@ local currentCamera = workspace.CurrentCamera :: Camera
 
 local EnableSocialServiceIrisInvite = game:GetEngineFeature("EnableSocialServiceIrisInvite")
 
-export type Props = {}
+export type Props = {
+	callProtocol: CallProtocol.CallProtocolModule | nil,
+}
+
+local defaultProps = {
+	callProtocol = CallProtocol.CallProtocol.default,
+}
 
 local SEARCH_BAR_HEIGHT = 36
 local HEADER_HEIGHT = 48
 local PADDING = 12
 local DOCKED_WIDTH = 376
+local PHONEBOOK_TOP_PADDING = 12
 
-local function ContactListContainer(props: Props)
+local function ContactListContainer(passedProps: Props)
+	local props = Cryo.Dictionary.join(defaultProps, passedProps)
+
 	local style = useStyle()
 	local theme = style.Theme
 
@@ -53,7 +64,9 @@ local function ContactListContainer(props: Props)
 	local isSmallScreen, setIsSmallScreen = React.useState(currentCamera.ViewportSize.X < 640)
 	local searchText, setSearchText = React.useState("")
 
-	local closePeekViewSignal = Signal.new()
+	local expectedPeekViewState, setExpectedPeekViewState = React.useState(nil)
+
+	local closePeekViewSignal = React.useRef(Signal.new())
 
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
@@ -112,13 +125,15 @@ local function ContactListContainer(props: Props)
 				)
 			end)
 		else
-			closePeekViewSignal:fire()
+			if closePeekViewSignal and closePeekViewSignal.current then
+				closePeekViewSignal.current:fire()
+			end
 		end
 	end
 
-	local onSearchChanged = function(newSearchQuery)
+	local onSearchChanged = React.useCallback(function(newSearchQuery)
 		setSearchText(newSearchQuery)
-	end
+	end, {})
 
 	local selectCurrentPage = React.useCallback(function(state: any)
 		return state.Navigation.currentPage
@@ -154,6 +169,37 @@ local function ContactListContainer(props: Props)
 		end
 	end, {})
 
+	-- TODO (timothyhsu): Remove once Call API is completed
+	React.useEffect(function()
+		local ClosePhonebookRemoteEvent = ReplicatedStorage:WaitForChild("ClosePhonebookRemoteEvent", 5) :: RemoteEvent
+		local closePhonebookConn
+		if ClosePhonebookRemoteEvent then
+			closePhonebookConn = ClosePhonebookRemoteEvent.OnClientEvent:Connect(function()
+				if currentPage then
+					dismissCallback()
+				end
+			end)
+		end
+
+		return function()
+			if closePhonebookConn then
+				closePhonebookConn:Disconnect()
+			end
+		end
+	end, { currentPage })
+
+	React.useEffect(function()
+		local teleportingCallConn = props.callProtocol:listenToHandleTeleportingCall(function(params)
+			if currentPage then
+				dismissCallback()
+			end
+		end)
+
+		return function()
+			teleportingCallConn:Disconnect()
+		end
+	end, { props.callProtocol, currentPage })
+
 	React.useEffect(function()
 		if currentPage and not isSmallScreen and contactListContainerRef.current then
 			pcall(function()
@@ -171,13 +217,19 @@ local function ContactListContainer(props: Props)
 		setSearchText("")
 	end, { isSmallScreen, currentPage })
 
-	local viewStateChanged = function(viewState, prevViewState)
+	local viewStateChanged = React.useCallback(function(viewState, prevViewState)
 		if viewState == PeekViewState.Closed then
 			if localPlayer and EnableSocialServiceIrisInvite then
 				SocialService:InvokeIrisInvitePromptClosed(localPlayer)
 			end
 		end
-	end
+
+		setExpectedPeekViewState(viewState)
+	end, {})
+
+	local onSearchBarFocused = React.useCallback(function()
+		setExpectedPeekViewState(PeekViewState.Full)
+	end, {})
 
 	local contactListContainerContent = function()
 		return React.createElement("Frame", {
@@ -204,11 +256,6 @@ local function ContactListContainer(props: Props)
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				ref = contactListContainerRef,
 			}, {
-				Layout = React.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
 				UICorner = React.createElement("UICorner", {
 					CornerRadius = UDim.new(0, 12),
 				}),
@@ -224,27 +271,38 @@ local function ContactListContainer(props: Props)
 					onSearchChanged = onSearchChanged,
 					searchBarHeight = SEARCH_BAR_HEIGHT,
 					searchText = searchText,
+					onFocused = onSearchBarFocused,
+					position = UDim2.new(0, 24, 0, HEADER_HEIGHT),
 				}),
 				ContentContainer = React.createElement("Frame", {
-					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING)),
 					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+					Position = UDim2.new(0, 0, 0, HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING),
+					Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING)),
 				}, currentContainer),
 			}),
 		})
 	end
 
-	return if currentPage and isSmallScreen
-		then React.createElement(PeekView, {
-			briefViewContentHeight = UDim.new(0.5, 0),
-			canDragFullViewToBrief = true,
-			closeSignal = closePeekViewSignal,
-			viewStateChanged = viewStateChanged,
-		}, {
-			Content = contactListContainerContent(),
-		})
-		elseif currentPage and not isSmallScreen then contactListContainerContent()
-		else nil
+	return React.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, -PHONEBOOK_TOP_PADDING),
+		Position = UDim2.fromOffset(0, PHONEBOOK_TOP_PADDING),
+		BackgroundTransparency = 1,
+	}, {
+		Content = if currentPage and isSmallScreen
+			then React.createElement(PeekView, {
+				briefViewContentHeight = UDim.new(0.5, 0),
+				canDragFullViewToBrief = true,
+				closeSignal = closePeekViewSignal.current,
+				elasticBehavior = Enum.ElasticBehavior.WhenScrollable,
+				viewStateChanged = viewStateChanged,
+				peekViewState = expectedPeekViewState,
+			}, {
+				Content = contactListContainerContent(),
+			})
+			elseif currentPage and not isSmallScreen then contactListContainerContent()
+			else nil,
+	})
 end
 
 return ContactListContainer

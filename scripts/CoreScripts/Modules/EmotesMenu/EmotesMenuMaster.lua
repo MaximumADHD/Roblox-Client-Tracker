@@ -19,6 +19,7 @@ end
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
+local UIBlox = require(CorePackages.UIBlox)
 
 local EmotesModules = script.Parent
 local CoreScriptModules = EmotesModules.Parent
@@ -32,6 +33,9 @@ local Utility = EmotesModules.Utility
 local Backpack = require(CoreScriptModules.BackpackScript)
 local Chat = require(CoreScriptModules.ChatSelector)
 local TenFootInterface = require(CoreScriptModules.TenFootInterface)
+
+local StyleConstants = UIBlox.App.Style.Constants
+local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
 
 local CanPlayEmotes = require(Utility.CanPlayEmotes)
 local Constants = require(EmotesModules.Constants)
@@ -48,6 +52,8 @@ local NumberEmotesLoadedChanged = require(Actions.NumberEmotesLoadedChanged)
 local SetGuiInset = require(Actions.SetGuiInset)
 local SetLayout = require(Actions.SetLayout)
 local SetLocale = require(Actions.SetLocale)
+
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 local EmotesMenuMaster = {}
 EmotesMenuMaster.__index = EmotesMenuMaster
@@ -292,12 +298,30 @@ function EmotesMenuMaster:_onStateChanged(newState, oldState)
 end
 
 function EmotesMenuMaster:_mount()
+	local appStyleForUiModeStyleProvider = {
+		themeName = StyleConstants.ThemeName.Dark,
+		fontName = StyleConstants.FontName.Gotham
+	}
+
 	if not self.instance then
-		local app = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
-		}, {
-			EmotesMenu = Roact.createElement(EmotesMenu)
-		})
+		local app
+		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+			app = Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.store,
+			}, {
+				Roact.createElement(UiModeStyleProvider, {
+					style = appStyleForUiModeStyleProvider
+				}, {
+					EmotesMenu = Roact.createElement(EmotesMenu)
+				})
+			})
+		else
+			app = Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.store,
+			}, {
+				EmotesMenu = Roact.createElement(EmotesMenu)
+			})
+		end
 
 		self.instance = Roact.mount(app, RobloxGui, "EmotesMenu")
 

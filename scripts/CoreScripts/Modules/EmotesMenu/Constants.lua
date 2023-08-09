@@ -47,6 +47,8 @@ local Constants = {
 	ErrorFrameBorderSize = 0,
 	ErrorFrameBackgroundTransparency = 0.3,
 
+	WheelBackgroundTransparency = 0.4,
+
 	TextPadding = 10,
 
 	SegmentsStartRotation = -90,

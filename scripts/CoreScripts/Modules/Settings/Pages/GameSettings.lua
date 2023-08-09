@@ -118,6 +118,9 @@ local RenderSettings
 local SendNotification
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
+local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
+
 local VideoPromptSystemDefault = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.SystemDefault")
 local VideoPromptVideoCamera = RobloxTranslator:FormatByKey("Feature.SettingsHub.Video.VideoCamera")
 
@@ -152,6 +155,7 @@ local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags
 local GetFFlagEnableAudioOutputDevice = require(RobloxGui.Modules.Flags.GetFFlagEnableAudioOutputDevice)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
 local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
+local GetFFlagSupportsOverscanPolicy = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportsOverscanPolicy
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -637,12 +641,13 @@ local function Initialize()
 			startIndex = 1
 		end
 
-		local reducedMotionLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.ReducedMotion") 
+		local reducedMotionLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.ReducedMotion") 
+		local reducedMotionDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.ReducedMotion") 
 		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On") 
 		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off") 
 
 		this.ReducedMotionFrame, this.ReducedMotionLabel, this.ReducedMotionMode = 
-			utility:AddNewRow(this, reducedMotionLabel, "Selector", {onLabel, offLabel}, startIndex)
+			utility:AddNewRow(this, reducedMotionLabel, "Selector", {onLabel, offLabel}, startIndex, nil, reducedMotionDescription)
 		this.ReducedMotionFrame.LayoutOrder = 11
 		
 		this.ReducedMotionMode.IndexChanged:connect(
@@ -659,16 +664,20 @@ local function Initialize()
 	end
 
 	local function createPreferredTransparencyOptions()
-		local startValue = math.clamp(math.floor(GameSettings.PreferredTransparency * 10 + 0.5), 0, 10)
+		local startValue = 10 - math.clamp(math.floor(GameSettings.PreferredTransparency * 10 + 0.5), 0, 10)
 
-		local preferredTransparencyLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PreferredTransparency") 
+		local preferredTransparencyLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.PreferredTransparency") 
+		local preferredTransparencyDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.PreferredTransparency")
+		local preferredTransparencyLeftLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTransparency.Transparent") 
+		local preferredTransparencyRightLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTransparency.Opaque") 
+
 		this.PreferredTransparencyFrame, this.PreferredTransparencyLabel, this.PreferredTransparencySlider = 
-			utility:AddNewRow(this, preferredTransparencyLabel, "Slider", 10, startValue)
+			utility:AddNewRow(this, preferredTransparencyLabel, "Slider", 10, startValue, nil, preferredTransparencyDescription, preferredTransparencyLeftLabel, preferredTransparencyRightLabel)
 		this.PreferredTransparencyFrame.LayoutOrder = 12
 		
 		this.PreferredTransparencySlider.ValueChanged:connect(
 			function(newValue)
-				newValue = math.clamp(math.floor(newValue), 0, 10) / 10
+				newValue = (10 - math.clamp(math.floor(newValue), 0, 10)) / 10
 				local oldValue = GameSettings.PreferredTransparency
 				GameSettings.PreferredTransparency = newValue
 
@@ -686,12 +695,15 @@ local function Initialize()
 			startIndex = 1
 		end
 
-		local uiNavigationKeyBindLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.UiNavigationKeyBind") 
+		local uiNavigationKeyBindLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.UiNavigationKeyBind") 
+		local uiNavigationKeyBindDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.UiNavigationKeyBind", {
+			uiNavigationKey = UserInputService:GetStringForKeyCode(Enum.KeyCode.BackSlash)
+		}) 
 		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On") 
 		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off") 
 
 		this.UiNavigationKeyBindEnabledFrame, this.UiNavigationKeyBindEnabledLabel, this.UiNavigationKeyBindEnabledMode = 
-			utility:AddNewRow(this, uiNavigationKeyBindLabel, "Selector", {onLabel, offLabel}, startIndex)
+			utility:AddNewRow(this, uiNavigationKeyBindLabel, "Selector", {onLabel, offLabel}, startIndex, nil, uiNavigationKeyBindDescription)
 		this.UiNavigationKeyBindEnabledFrame.LayoutOrder = 13
 		
 		this.UiNavigationKeyBindEnabledMode.IndexChanged:connect(
@@ -2241,7 +2253,17 @@ local function Initialize()
 		local showOverscanScreen = function()
 			-- FIXME: Cyclic module dependency, cast to any to appease typechecker
 			local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub) :: any
-			local overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
+			local overscan
+			if GetFFlagSupportsOverscanPolicy() then
+				if _G.IsLegacyAppShell then
+					overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
+				else 
+					overscan = require(RobloxGui.Modules.Shell.Components.Overscan10ft.Overscan)
+					overscan = require(RobloxGui.Modules.Settings.Components.OverscanWrapper)(overscan)
+				end
+			else
+				overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
+			end
 			local roact = require(RobloxGui.Modules.Common.Roact)
 			local overscanComponent = nil
 
@@ -2274,7 +2296,8 @@ local function Initialize()
 				Enum.UserInputType.Gamepad4
 			)
 
-			local overscanElement = roact.createElement(overscan, props)
+			local overscanElement
+			overscanElement = roact.createElement(overscan, props)
 			overscanComponent = roact.mount(overscanElement, RobloxGui, tostring(overscan))
 		end
 
@@ -2781,7 +2804,9 @@ local function Initialize()
 	if GetFFlagEnableAccessibilitySettingsInExperienceMenu() then
 		createReducedMotionOptions()
 		createPreferredTransparencyOptions()
-		createUiNavigationKeyBindOptions()
+		if UserInputService.KeyboardEnabled then
+			createUiNavigationKeyBindOptions()
+		end
 	end
 
 	local canShowPerfStats =  not PolicyService:IsSubjectToChinaPolicies()
@@ -2795,8 +2820,14 @@ local function Initialize()
 		createMicroProfilerOptions()
 	end
 
-	if isTenFootInterface then
-		createOverscanOption()
+	if GetFFlagSupportsOverscanPolicy() then 
+		if isTenFootInterface and getAppFeaturePolicies().getSupportsOverscan() then
+			createOverscanOption()
+		end
+	else
+		if isTenFootInterface then
+			createOverscanOption()
+		end
 	end
 
 	-- dev console option only shows for place/group place owners

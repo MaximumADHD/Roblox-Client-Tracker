@@ -81,6 +81,7 @@ local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local GetFFlagVoiceChatToggleMuteAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagVoiceChatToggleMuteAnalytics)
 local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 --[[ SERVICES ]]
@@ -97,8 +98,12 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
-local PlatformService = nil
+
+local PlatformService = nil -- Clean up along with PlatformFriendsService engine-feature
 pcall(function() PlatformService = game:GetService('PlatformService') end)
+
+local PlatformFriendsService = nil
+pcall(function() PlatformFriendsService = game:GetService('PlatformFriendsService') end)
 
 --[[ REMOTES ]]
 local GetServerVersionRemote = nil
@@ -945,6 +950,17 @@ local function CreateSettingsHub()
 			ShieldInstanceType = "ImageButton"
 		end
 
+		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+			this.CanvasGroup = utility:Create("CanvasGroup")
+			{
+				Name = "CanvasGroup",
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				GroupTransparency = 0,
+				Parent = this.ClippingShield
+			}
+		end
+
 		this.Shield = utility:Create(ShieldInstanceType)
 		{
 			Name = "SettingsShield",
@@ -1620,6 +1636,25 @@ local function CreateSettingsHub()
 			{
 				PaddingTop = UDim.new(0, 5),
 				Parent = this.PageViewInnerFrame,
+			}
+		end
+		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+			this.InnerCanvasGroupShow = utility:Create("CanvasGroup")
+			{
+				Name = "InnerCanvasGroupShow",
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				GroupTransparency = 0,
+				Parent = this.PageViewInnerFrame
+			}
+
+			this.InnerCanvasGroupHide = utility:Create("CanvasGroup")
+			{
+				Name = "InnerCanvasGroupHide",
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				GroupTransparency = 0,
+				Parent = this.PageViewInnerFrame
 			}
 		end
 
@@ -2451,7 +2486,7 @@ local function CreateSettingsHub()
 		local newPagePos = pageToSwitchTo.TabPosition
 		for page, _ in pairs(this.Pages.PageTable) do
 			if page ~= pageToSwitchTo then
-				page:Hide(-1, newPagePos, true)
+				page:Hide(-1, newPagePos, true, nil, this.PageViewInnerFrame)
 			end
 		end
 
@@ -2556,7 +2591,7 @@ local function CreateSettingsHub()
 		local newPagePos = pageToSwitchTo.TabPosition
 		for page, _ in pairs(this.Pages.PageTable) do
 			if page ~= pageToSwitchTo then
-				page:Hide(-direction, newPagePos, skipAnimation)
+				page:Hide(-direction, newPagePos, skipAnimation, nil, this.PageViewInnerFrame, page == this.Pages.CurrentPage)
 			end
 		end
 
@@ -2717,18 +2752,39 @@ local function CreateSettingsHub()
 					movementTime = if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5
 				end
 
-				this.Shield:TweenPosition(
-					UDim2.new(0, 0, 0, 0),
-					Enum.EasingDirection.InOut,
-					Enum.EasingStyle.Quart,
-					movementTime,
-					true,
-					function ()
-						if FFlagEnableInGameMenuDurationLogger then
-							PerfUtils.menuOpenComplete()
-						end
+				if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and GameSettings.ReducedMotion then
+					this.Shield.Parent = this.CanvasGroup
+					this.CanvasGroup.GroupTransparency = 1
+					this.Shield.Position = UDim2.new(0, 0, 0, 0)
+
+					local tweenInfo = TweenInfo.new(0.25)
+					local tweenProps = {
+						GroupTransparency = 0
+					}
+					local tween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
+					tween:Play()
+
+					tween.Completed:Connect(function()
+						this.Shield.Parent = this.ClippingShield
+					end)
+
+					if FFlagEnableInGameMenuDurationLogger then
+						PerfUtils.menuOpenComplete()
 					end
-				)
+				else
+					this.Shield:TweenPosition(
+						UDim2.new(0, 0, 0, 0),
+						Enum.EasingDirection.InOut,
+						Enum.EasingStyle.Quart,
+						movementTime,
+						true,
+						function ()
+							if FFlagEnableInGameMenuDurationLogger then
+								PerfUtils.menuOpenComplete()
+							end
+						end
+					)
+				end
 
 				if this.DarkenBackground then
 					local tweenInfo = TweenInfo.new(
@@ -2830,28 +2886,51 @@ local function CreateSettingsHub()
 					movementTime = if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4
 				end
 
-				this.Shield:TweenPosition(
-					SETTINGS_SHIELD_INACTIVE_POSITION,
-					Enum.EasingDirection.In,
-					Enum.EasingStyle.Quad,
-					movementTime,
-					true,
-					function()
-						this.Shield.Visible = this.Visible
-						this.SettingsShowSignal:fire(this.Visible)
-						if not this.Visible then
-							GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
-						end
-						if FFlagEnableInGameMenuDurationLogger then
-							PerfUtils.menuCloseComplete()
-						end
-
-						if NotchSupportExperiment.enabled() then
-							clearMenuStack()
-							this.GameSettingsPage:CloseSettingsPage()
-						end
+				local function handleShieldClose()
+					this.SettingsShowSignal:fire(this.Visible)
+					if not this.Visible then
+						GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
 					end
-				)
+					if FFlagEnableInGameMenuDurationLogger then
+						PerfUtils.menuCloseComplete()
+					end
+
+					if NotchSupportExperiment.enabled() then
+						clearMenuStack()
+						this.GameSettingsPage:CloseSettingsPage()
+					end
+				end
+
+				if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and GameSettings.ReducedMotion then
+					this.Shield.Parent = this.CanvasGroup
+					
+					local tweenInfo = TweenInfo.new(0.25)
+					local tweenProps = {
+						GroupTransparency = 1
+					}
+					local tween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
+					tween:Play()
+					tween.Completed:Connect(function()
+						this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
+
+						this.Shield.Visible = this.Visible
+						this.Shield.Parent = this.ClippingShield
+					end)
+
+					handleShieldClose()
+				else
+					this.Shield:TweenPosition(
+						SETTINGS_SHIELD_INACTIVE_POSITION,
+						Enum.EasingDirection.In,
+						Enum.EasingStyle.Quad,
+						movementTime,
+						true,
+						function()
+							this.Shield.Visible = this.Visible
+							handleShieldClose()
+						end
+					)
+				end
 
 				if this.DarkenBackground then
 					local tweenInfo = TweenInfo.new(
@@ -2960,7 +3039,11 @@ local function CreateSettingsHub()
 	end
 
 	function this:InviteToGame()
-		if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
+		if game:GetEngineFeature("PlatformFriendsService") and
+			PlatformFriendsService and
+			PlatformFriendsService:IsInviteFriendsEnabled() then
+			PlatformFriendsService:ShowInviteFriendsUI()
+		elseif UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
 			if PlatformService then
 				PlatformService:PopupGameInviteUI()
 			end
@@ -2983,7 +3066,7 @@ local function CreateSettingsHub()
 			if #this.MenuStack == 0 then
 				this:SetVisibility(false)
 
-				this.Pages.CurrentPage:Hide(0, 0)
+				this.Pages.CurrentPage:Hide(0, 0, nil, nil, this.PageViewInnerFrame)
 			end
 		else
 			this.MenuStack = {}

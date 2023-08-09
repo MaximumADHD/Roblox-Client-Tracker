@@ -64,8 +64,6 @@ local R6MotorValues = {
 	LeftHip = { CFrame.new(-1., -1., 0.) * leftRotation, CFrame.new(-0.5, 1., 0.) * leftRotation },
 }
 
-local ToBeAdaptedInstances = {}
-
 local function isPropertyBlacklisted(toBeAdaptedInstance, propName)
 	for class, props in BlackListProperties do
 		if toBeAdaptedInstance:IsA(class) then
@@ -106,10 +104,8 @@ local function applyMotor6DAdjustment(motor, cframe, prop)
 	return adjustments[1] * cframe * adjustments[2]
 end
 
-local motorCache = {}
-
 -- set adapter motors to be default values
-local function remapMotor6DCFrame(motor, adapterMotor)
+local function remapMotor6DCFrame(motor, adapterMotor, motorCache)
 	local cframes = R6MotorValues[motor.Name]
 	if not cframes then
 		return
@@ -133,7 +129,7 @@ local function fuzzyEq_CFrame(cf1, cf2)
 	return cf1.p:FuzzyEq(cf2.p) and fuzzyEq(rx1, rx2) and fuzzyEq(ry1, ry2) and fuzzyEq(rz1, rz2)
 end
 
-local onPropertyChanged = function(toBeAdapted, adapter)
+local onPropertyChanged = function(toBeAdapted, adapter, motorCache)
 	return function(prop)
 		if isPropertyBlacklisted(toBeAdapted, prop) then
 			return
@@ -155,7 +151,7 @@ local onPropertyChanged = function(toBeAdapted, adapter)
 	end
 end
 
-local onMotorChanged = function(motor, adapterMotor)
+local onMotorChanged = function(motor, adapterMotor, motorCache)
 	local motorChangedFunction
 	motorChangedFunction = function(prop)
 		if prop ~= "C0" and prop ~= "C1" then
@@ -165,16 +161,18 @@ local onMotorChanged = function(motor, adapterMotor)
 			return
 		end
 		setMotor6DAdjustment(motor)
-		remapMotor6DCFrame(motor, adapterMotor)
+		remapMotor6DCFrame(motor, adapterMotor, motorCache)
 	end
 	return motorChangedFunction
 end
 
 local function AdaptInstance(toBeAdapted, adapter)
-	if ToBeAdaptedInstances[toBeAdapted] then
+	local motorCache = {}
+	local toBeAdaptedInstances = {}
+	if toBeAdaptedInstances[toBeAdapted] then
 		return
 	end
-	ToBeAdaptedInstances[toBeAdapted] = true
+	toBeAdaptedInstances[toBeAdapted] = true
 
 	local mirrorInstances = {}
 
@@ -206,13 +204,14 @@ local function AdaptInstance(toBeAdapted, adapter)
 		motorCache[adapter] = {}
 		motorCache[toBeAdapted] = {}
 		setMotor6DAdjustment(toBeAdapted)
-		remapMotor6DCFrame(toBeAdapted, adapter)
+		remapMotor6DCFrame(toBeAdapted, adapter, motorCache)
 	end
 
 	if toBeAdapted:IsA("Motor6D") and Motor6DAdjustments[toBeAdapted.Name] then
-		connections.motorChangedConnection = toBeAdapted.Changed:Connect(onMotorChanged(toBeAdapted, adapter))
+		connections.motorChangedConnection =
+			toBeAdapted.Changed:Connect(onMotorChanged(toBeAdapted, adapter, motorCache))
 	end
-	connections.changedConnection = adapter.Changed:Connect(onPropertyChanged(toBeAdapted, adapter))
+	connections.changedConnection = adapter.Changed:Connect(onPropertyChanged(toBeAdapted, adapter, motorCache))
 
 	local function onChildAdded(child)
 		if mirrorInstances[child] then
@@ -269,7 +268,7 @@ local function AdaptInstance(toBeAdapted, adapter)
 			return
 		end
 
-		ToBeAdaptedInstances[toBeAdapted] = nil
+		toBeAdaptedInstances[toBeAdapted] = nil
 		for _, child in toBeAdapted:GetChildren() do
 			if mirrorInstances[child] then
 				local mirrorInstance = mirrorInstances[child]
@@ -283,6 +282,13 @@ local function AdaptInstance(toBeAdapted, adapter)
 		end
 		connections = {}
 	end)
+
+	return {
+		["connections"] = connections,
+		["motorCache"] = motorCache,
+		["mirrorInstances"] = mirrorInstances,
+		["toBeAdaptedInstances"] = toBeAdaptedInstances,
+	}
 end
 
 return AdaptInstance

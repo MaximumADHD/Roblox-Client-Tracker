@@ -15,11 +15,12 @@ local RBXAssetProto = "rbxasset://"
 
 export type IconData = string | { [string]: any }
 
-function CommonIcon(icon: IconData, iconOn: IconData?, activeSignalValue: ChromeUtils.MappedSignal<boolean>?)
-	local active = activeSignalValue and useMappedSignal(activeSignalValue) or false
+function CommonIconComponent(props)
+	local active = props.activeSignalValue and useMappedSignal(props.activeSignalValue) or false
+	local icon = props.icon
 
-	if active and iconOn then
-		icon = iconOn
+	if active and props.iconOn then
+		icon = props.iconOn
 	end
 
 	if typeof(icon) == "string" then
@@ -37,6 +38,14 @@ function CommonIcon(icon: IconData, iconOn: IconData?, activeSignalValue: Chrome
 		ImageColor3 = style.Theme.IconEmphasis.Color,
 		ImageTransparency = style.Theme.IconEmphasis.Transparency,
 	})
+end
+
+function CommonIcon(icon: IconData, iconOn: IconData?, activeSignalValue: ChromeUtils.MappedSignal<boolean>?)
+	return React.createElement(CommonIconComponent, {
+		icon = icon,
+		iconOn = iconOn,
+		activeSignalValue = activeSignalValue,
+	} :: any)
 end
 
 return CommonIcon

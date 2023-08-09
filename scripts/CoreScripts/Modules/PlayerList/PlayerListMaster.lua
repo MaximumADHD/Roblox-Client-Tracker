@@ -4,6 +4,7 @@ local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -20,6 +21,7 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
+local StyleConstants = UIBlox.App.Style.Constants
 
 local PlayerList = script.Parent
 
@@ -42,8 +44,10 @@ local SetIsUsingGamepad = require(PlayerList.Actions.SetIsUsingGamepad)
 local SetHasPermissionToVoiceChat = require(PlayerList.Actions.SetHasPermissionToVoiceChat)
 local SetMinimized = require(PlayerList.Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPolicies)
+local SetSettings = require(PlayerList.Actions.SetSettings)
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -68,6 +72,24 @@ if FFlagMobilePlayerList then
 	layerCollector.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 end
 
+local function setupSettings(store)
+    local function updateSettings()
+        store:dispatch(SetSettings({
+            reducedMotion = UserGameSettings.ReducedMotion,
+            preferredTransparency = UserGameSettings.PreferredTransparency,
+        }))
+    end
+
+    updateSettings()
+
+    UserGameSettings:GetPropertyChangedSignal("PreferredTransparency"):Connect(function()
+        updateSettings()
+    end)
+    UserGameSettings:GetPropertyChangedSignal("ReducedMotion"):Connect(function()
+        updateSettings()
+    end)
+end
+
 local PlayerListMaster = {}
 PlayerListMaster.__index = PlayerListMaster
 
@@ -88,6 +110,10 @@ function PlayerListMaster.new()
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,
 	})
+
+	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+		setupSettings(self.store)
+	end
 
 	if not StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList) then
 		self.store:dispatch(SetPlayerListEnabled(false))
@@ -126,12 +152,18 @@ function PlayerListMaster.new()
 		Font = AppFont,
 	}
 
+	local appStyleForUiModeStyleProvider = {
+		themeName = StyleConstants.ThemeName.Dark,
+		fontName = StyleConstants.FontName.Gotham
+	}
+
 	if FFlagMobilePlayerList then
 		self.root = Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.store,
 		}, {
 			Roact.createElement(PlayerListSwitcher, {
 				appStyle = appStyle,
+				appStyleForUiModeStyleProvider = appStyleForUiModeStyleProvider,
 				setLayerCollectorEnabled = function(enabled)
 					layerCollector.Enabled = enabled
 				end,

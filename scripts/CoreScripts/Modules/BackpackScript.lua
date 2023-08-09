@@ -3,6 +3,11 @@
 -- Backpack Version 5.1
 -- OnlyTwentyCharacters, SolarCrane
 
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
 BackpackScript.IsHotbarVisible = false
@@ -18,7 +23,10 @@ local ICON_SIZE = 60
 local FONT_SIZE = Enum.FontSize.Size14
 local ICON_BUFFER = 5
 
-local BACKGROUND_FADE = 0.50
+local BACKGROUND_FADE_DEFAULT = 0.50
+local backgroundFade = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() 
+							then BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
+							else BACKGROUND_FADE_DEFAULT
 local BACKGROUND_COLOR = Color3.new(31/255, 31/255, 31/255)
 
 local VR_FADE_TIME = 1
@@ -27,7 +35,10 @@ local VR_PANEL_RESOLUTION = 64
 local SLOT_DRAGGABLE_COLOR = Color3.new(49/255, 49/255, 49/255)
 local SLOT_EQUIP_COLOR = Color3.new(90/255, 142/255, 233/255)
 local SLOT_EQUIP_THICKNESS = 0.1 -- Relative
-local SLOT_FADE_LOCKED = 0.50 -- Locked means undraggable
+local SLOT_FADE_LOCKED_DEFAULT = 0.50 -- Locked means undraggable
+local slotFadeLocked = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() 
+							then SLOT_FADE_LOCKED_DEFAULT * UserGameSettings.PreferredTransparency 
+							else SLOT_FADE_LOCKED_DEFAULT
 local SLOT_BORDER_COLOR = Color3.new(1, 1, 1) -- Appears when dragging
 
 local TOOLTIP_BUFFER = 6
@@ -59,7 +70,10 @@ local SEARCH_TEXT = "   Search"
 
 local SEARCH_TEXT_OFFSET_FROMLEFT = 0
 local SEARCH_BACKGROUND_COLOR = Color3.new(0.37, 0.37, 0.37)
-local SEARCH_BACKGROUND_FADE = 0.15
+local SEARCH_BACKGROUND_FADE_DEFAULT = 0.15
+local searchBackgroundFade = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() 
+									then SEARCH_BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
+									else SEARCH_BACKGROUND_FADE_DEFAULT
 
 local DOUBLE_CLICK_TIME = 0.5
 
@@ -351,7 +365,7 @@ local function MakeSlot(parent, index)
 	local function UpdateSlotFading()
 		if VRService.VREnabled and BackpackPanel then
 			local panelTransparency = BackpackPanel.transparency
-			local slotTransparency = SLOT_FADE_LOCKED
+			local slotTransparency = slotFadeLocked
 
 			-- This equation multiplies the two transparencies together.
 			local finalTransparency = panelTransparency + slotTransparency - panelTransparency * slotTransparency
@@ -370,7 +384,7 @@ local function MakeSlot(parent, index)
 			SlotFrame.SelectionImageObject = SelectionObj
 		else
 			SlotFrame.SelectionImageObject = nil
-			SlotFrame.BackgroundTransparency = (SlotFrame.Draggable) and 0 or SLOT_FADE_LOCKED
+			SlotFrame.BackgroundTransparency = (SlotFrame.Draggable) and 0 or slotFadeLocked
 		end
 		SlotFrame.BackgroundColor3 = (SlotFrame.Draggable) and SLOT_DRAGGABLE_COLOR or BACKGROUND_COLOR
 	end
@@ -611,7 +625,7 @@ local function MakeSlot(parent, index)
 	SlotFrame.Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE)
 	SlotFrame.Active = true
 	SlotFrame.Draggable = false
-	SlotFrame.BackgroundTransparency = SLOT_FADE_LOCKED
+	SlotFrame.BackgroundTransparency = slotFadeLocked
 	SlotFrame.MouseButton1Click:connect(function() changeSlot(slot) end)
 	slot.Frame = SlotFrame
 
@@ -1492,7 +1506,7 @@ RightBumperButton.Position = UDim2.new(1, 0, 0.5, -RightBumperButton.Size.Y.Offs
 
 -- Make the Inventory, which holds the ScrollingFrame, the header, and the search box
 InventoryFrame = NewGui('Frame', 'Inventory')
-InventoryFrame.BackgroundTransparency = BACKGROUND_FADE
+InventoryFrame.BackgroundTransparency = backgroundFade
 InventoryFrame.BackgroundColor3 = BACKGROUND_COLOR
 InventoryFrame.Active = true
 InventoryFrame.Visible = false
@@ -1648,10 +1662,10 @@ else
 	addGamepadHint("rbxasset://textures/ui/Settings/Help/BButtonDark.png", "rbxasset://textures/ui/Settings/Help/BButtonDark@2x.png", "Close Backpack")
 end
 
+local searchFrame = NewGui('Frame', 'Search')
 do -- Search stuff
-	local searchFrame = NewGui('Frame', 'Search')
 	searchFrame.BackgroundColor3 = SEARCH_BACKGROUND_COLOR
-	searchFrame.BackgroundTransparency = SEARCH_BACKGROUND_FADE
+	searchFrame.BackgroundTransparency = searchBackgroundFade
 	searchFrame.Size = UDim2.new(0, SEARCH_WIDTH - (SEARCH_BUFFER * 2), 0, INVENTORY_HEADER_SIZE - (SEARCH_BUFFER * 2))
 	searchFrame.Position = UDim2.new(1, -searchFrame.Size.X.Offset - SEARCH_BUFFER, 0, SEARCH_BUFFER)
 	searchFrame.Parent = InventoryFrame
@@ -1974,5 +1988,23 @@ local function OnVREnabled()
 end
 VRService:GetPropertyChangedSignal("VREnabled"):connect(OnVREnabled)
 OnVREnabled()
+
+local function OnPreferredTransparencyChanged()
+	local preferredTransparency = UserGameSettings.PreferredTransparency
+
+	backgroundFade = BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
+	InventoryFrame.BackgroundTransparency = backgroundFade
+
+	slotFadeLocked = SLOT_FADE_LOCKED_DEFAULT * preferredTransparency
+	for _, slot in ipairs(Slots) do
+		slot.Frame.BackgroundTransparency = slotFadeLocked
+	end
+	
+	searchBackgroundFade = SEARCH_BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
+	searchFrame.BackgroundTransparency = searchBackgroundFade
+end
+if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+	UserGameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(OnPreferredTransparencyChanged)
+end
 
 return BackpackScript

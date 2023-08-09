@@ -32,6 +32,7 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
+local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
 	userId: number | string,
@@ -112,7 +113,7 @@ local function FriendListItem(props: Props)
 		-- TODO (timothyhsu): Remove check that callee and caller need to be in same mode when Call API is completed
 		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
 			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
+		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localUserId)
 		if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(props.userId) then
 			if isLocalUserDevMode then
 				coroutine.wrap(function()

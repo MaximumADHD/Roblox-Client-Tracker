@@ -7,8 +7,10 @@ local AdIdentificationModule = require(CorePackages.Workspace.Packages.TnSAdIden
 local HttpService = game:GetService("HttpService")
 
 local getAvatarsForPoint = AvatarIdentificationModule.AvatarIdentification.getAvatarsForPoint
+local getAvatarsForRegion = AvatarIdentificationModule.AvatarIdentification.getAvatarsForRegion
 type AvatarIDResults = AvatarIdentificationModule.AvatarIDResults
 type AvatarIDStats = AvatarIdentificationModule.AvatarIDStats
+type VisiblePlayer = AvatarIdentificationModule.VisiblePlayer
 
 local getAdsForPoint = AdIdentificationModule.AdIdentification.getAdsForPoint
 type AdIDResults = AdIdentificationModule.AdIDResults
@@ -19,6 +21,7 @@ type SerializedVector2 = {number}
 
 local GetFFlagReportAnythingEnableAdReport = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
 local GetFFlagGetHumanoidDescription = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagGetHumanoidDescription)
+local GetFFlagRAEnableCircleRegion = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagRAEnableCircleRegion)
 
 local getHumanoidDescription = require(script.Parent.GetHumanoidDescription).getHumanoidDescription
 
@@ -50,6 +53,9 @@ type IdentifiedAd = {
 }
 
 type AbuseReportBuilderState = {
+	annotationCircleRadius: number,
+	screenSizeWidth: number,
+	screenSizeHeight: number,
 	screenshotId: string,
 	identifiedAvatars: AvatarIDResults,
 	avatarIDStats: AvatarIDStats?,
@@ -80,6 +86,9 @@ type FinalParameters = {
 }
 
 local builderState: AbuseReportBuilderState = {
+	annotationCircleRadius = 0,
+	screenSizeWidth = 0,
+	screenSizeHeight = 0,
 	screenshotId = "",
 	identifiedAvatars = {},
 	avatarIDStats = nil,
@@ -450,11 +459,25 @@ local interpretAnnotations = function()
 	local orderedResults: {Player} = {}
 	local orderedAdRresults: {VisibleAd} = {}
 	for _, annotationPoint in ipairs(builderState.annotationPoints) do
-		-- pick closest player out of the players under the point
-		local avatarsHit = getAvatarsForPoint(builderState.identifiedAvatars, annotationPoint)
-
+		
 		local minDistance = math.huge
 		local closestPlayerId = nil
+		local avatarsHit = {} :: { Player }
+		
+		if GetFFlagRAEnableCircleRegion() then 
+			-- we select the avatar closest to the center of the circle 
+			avatarsHit = getAvatarsForRegion(
+				builderState.identifiedAvatars,
+				annotationPoint,
+				builderState.annotationCircleRadius,
+				builderState.screenSizeWidth,
+				builderState.screenSizeHeight
+			)
+		else 
+			-- pick closest player out of the players under the point
+			avatarsHit = getAvatarsForPoint(builderState.identifiedAvatars, annotationPoint)
+		end
+
 		for userId, player in pairs(avatarsHit) do
 			local distance = builderState.identifiedAvatars[userId].distance
 			if distance < minDistance then
@@ -462,7 +485,7 @@ local interpretAnnotations = function()
 				closestPlayerId = userId
 			end
 		end
-		
+	
 		local closestAdId = nil
 
 		if GetFFlagReportAnythingEnableAdReport() then 
@@ -495,6 +518,16 @@ local interpretAnnotations = function()
 end
 
 return {
+	setAnnotationCircleRadius = function(circleRadius: number)
+		builderState.annotationCircleRadius = circleRadius
+	end,
+	getAnnotationCircleRadius = function()
+		return builderState.annotationCircleRadius
+	end,
+	setAspectRatioDimensions = function(width: number, height: number)
+		builderState.screenSizeWidth = width
+		builderState.screenSizeHeight = height
+	end,
 	setScreenshotId = function(screenshotId: string)
 		builderState.screenshotId = screenshotId
 	end,
@@ -567,6 +600,9 @@ return {
 	buildOtherReportRequest = buildOtherReportRequest,
 	clear = function()
 		builderState = {
+			annotationCircleRadius = 0,
+			screenSizeWidth = 0,
+			screenSizeHeight = 0,
 			screenshotId = "",
 			identifiedAvatars = {},
 			avatarIDStats = nil,

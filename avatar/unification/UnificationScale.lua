@@ -545,7 +545,7 @@ local function MoveAndScaleAccessories(character: Model, scalingFactors: { [stri
 		if not accessoryAttachment or not accessoryWeld then
 			continue
 		end
-		
+
 		local partName = ACCESSORY_MAPPINGS[accessoryAttachment.Name]
 		if partName == "UpperTorso" or partName == "LowerTorso" then
 			continue

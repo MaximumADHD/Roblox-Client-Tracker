@@ -99,8 +99,7 @@ function MainPlugin:renderButtons(toolbar)
 		Toggle = React.createElement(PluginButton, {
 			Toolbar = toolbar,
 			Active = enabled,
-			Id = "activity_feed_button",
-			Title = self.localization:getText("Plugin", "Button"),
+			Title = "activity_feed_button",
 			Tooltip = self.localization:getText("Plugin", "Description"),
 			--New Plugin Setup: Change Icon. Can be nil if QT is managing the icon
 			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",

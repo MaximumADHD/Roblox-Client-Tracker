@@ -137,11 +137,12 @@ return function()
 	it(
 		"should not teleport the caller when the call becomes teleporting and caller is in correct private server",
 		function(c: any)
-			local received = false
+			local remoteTeleportReceived = false
+			local teleportSuccessCallReceived = false
 			local RemoteIrisInviteTeleport =
 				RobloxReplicatedStorage:FindFirstChild("ContactListIrisInviteTeleport") :: any
 			local connection = RemoteIrisInviteTeleport.OnServerEvent:Connect(function()
-				received = true
+				remoteTeleportReceived = true
 			end)
 
 			-- Blank instance id will match game.JobId.
@@ -149,6 +150,10 @@ return function()
 
 			function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
 				return MessageBus:Subscribe("TeleportTest", callback, false, true)
+			end
+
+			function MockCallProtocol:teleportSuccessCall(callId)
+				teleportSuccessCallReceived = true
 			end
 
 			local store = Rodux.Store.new(Reducer, {}, { Rodux.thunkMiddleware })
@@ -177,7 +182,8 @@ return function()
 			})
 			wait()
 
-			expect(received).toBe(false)
+			expect(remoteTeleportReceived).toBe(false)
+			expect(teleportSuccessCallReceived).toBe(true)
 
 			ReactRoblox.act(function()
 				connection:disconnect()

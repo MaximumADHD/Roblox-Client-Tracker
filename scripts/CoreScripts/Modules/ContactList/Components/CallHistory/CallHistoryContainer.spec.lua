@@ -2,9 +2,10 @@ return function()
 	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
 
+	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local Roact = require(CorePackages.Roact)
-	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
+	local Rodux = require(CorePackages.Rodux)
 	local UIBlox = require(CorePackages.UIBlox)
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest
@@ -29,37 +30,39 @@ return function()
 	}
 
 	beforeAll(function(c: any)
-		c.mockCallHistory = {
-			callRecords = {
-				{
-					callId = "test_call_Id",
-					callerId = 2,
-					participants = {
-						{
-							userId = 1,
-							displayName = "displayName_0",
-							userName = "username_0",
+		c.mockCallHistory = function(nextPageCursor)
+			return {
+				callRecords = {
+					{
+						callId = "test_call_Id",
+						callerId = 2,
+						participants = {
+							{
+								userId = 1,
+								displayName = "displayName_0",
+								userName = "username_0",
+							},
+							{
+								userId = 2,
+								displayName = "displayName_1",
+								userName = "username_1",
+							},
 						},
-						{
-							userId = 2,
-							displayName = "displayName_1",
-							userName = "username_1",
-						},
+						status = "CallFinished",
+						startUtc = 1681338167883,
+						endUtc = 1681338335366,
+						universeId = 123,
+						placeId = 456,
 					},
-					status = "CallFinished",
-					startUtc = 1681338167883,
-					endUtc = 1681338335366,
-					universeId = 123,
-					placeId = 456,
 				},
-			},
-			nextPageCursor = "test_cursor",
-			previousPageCursor = "",
-		}
+				nextPageCursor = nextPageCursor,
+				previousPageCursor = "",
+			}
+		end
 	end)
 
 	it("should mount and unmount without errors", function(c: any)
-		local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory } }, {
+		local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory("test_cursor") } }, {
 			Rodux.thunkMiddleware,
 		})
 
@@ -84,13 +87,98 @@ return function()
 		local displayNameElement: TextLabel = containerElement:FindFirstChild("DisplayName", true) :: TextLabel
 		jestExpect(usernameElement.Text).toEqual("@username_0")
 		jestExpect(displayNameElement.Text).toEqual("displayName_0")
+		local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
+		jestExpect(spinnerElement).never.toBeNull()
 
 		Roact.unmount(instance)
 	end)
 
+	it("should show spinner on first load", function(c: any)
+		local store = Rodux.Store.new(Reducer, {
+			Call = { callHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" } },
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		NetworkingCall.GetCallHistory.Mock.clear()
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+					dismissCallback = function() end,
+					searchText = "",
+				}),
+			}),
+		})
+
+		local folder = Instance.new("Folder")
+		local root = ReactRoblox.createRoot(folder)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
+		local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+		jestExpect(containerElement).toBeNull()
+		local spinnerElement = folder:FindFirstChild("LoadingSpinner", true)
+		jestExpect(spinnerElement).never.toBeNull()
+
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
+	end)
+
+	it("should not show spinner if no more pages", function(c: any)
+		local store = Rodux.Store.new(Reducer, {
+			Call = { callHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" } },
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		NetworkingCall.GetCallHistory.Mock.clear()
+		NetworkingCall.GetCallHistory.Mock.reply(function()
+			return {
+				responseBody = c.mockCallHistory(""),
+			}
+		end)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+					dismissCallback = function() end,
+					searchText = "",
+				}),
+			}),
+		})
+
+		local folder = Instance.new("Folder")
+		local root = ReactRoblox.createRoot(folder)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
+		local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+		jestExpect(containerElement).never.toBeNull()
+		local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
+		jestExpect(spinnerElement).toBeNull()
+
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
+	end)
+
 	describe("search filtering", function(c: any)
 		it("should correctly show matched usernames", function(c: any)
-			local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory } }, {
+			local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory("test_cursor") } }, {
 				Rodux.thunkMiddleware,
 			})
 
@@ -116,7 +204,7 @@ return function()
 		end)
 
 		it("should correctly show matched displayNames", function(c: any)
-			local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory } }, {
+			local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory("test_cursor") } }, {
 				Rodux.thunkMiddleware,
 			})
 
@@ -142,7 +230,11 @@ return function()
 		end)
 
 		it("should not show anything if neither username nor displayName match", function(c: any)
-			local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory } }, {
+			local store = Rodux.Store.new(Reducer, {
+				Call = {
+					callHistory = c.mockCallHistory("test_cursor"),
+				},
+			}, {
 				Rodux.thunkMiddleware,
 			})
 
@@ -160,16 +252,29 @@ return function()
 			})
 
 			local folder = Instance.new("Folder")
-			local instance = Roact.mount(element, folder)
-			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
+			local root = ReactRoblox.createRoot(folder)
+
+			Roact.act(function()
+				root:render(element)
+			end)
+
+			local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
 			-- UIListLayout
 			jestExpect(#containerElement:GetChildren()).toBe(1)
-			Roact.unmount(instance)
+
+			ReactRoblox.act(function()
+				root:unmount()
+			end)
 		end)
 	end)
 
 	it("should load more items when scrolling near the bottom", function(c: any)
-		local store = Rodux.Store.new(Reducer, {}, {
+		-- Start off with items so that we have a list to show.
+		local store = Rodux.Store.new(Reducer, {
+			Call = {
+				callHistory = c.mockCallHistory("test_cursor"),
+			},
+		}, {
 			Rodux.thunkMiddleware,
 		})
 
@@ -191,20 +296,27 @@ return function()
 		NetworkingCall.GetCallHistory.Mock.reply(function()
 			mockGetCallHistory()
 			return {
-				responseBody = c.mockCallHistory,
+				responseBody = c.mockCallHistory("test_cursor"),
 			}
 		end)
 
-		local folder = Instance.new("Folder")
-		local instance = Roact.mount(element, folder)
-		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
+		local frame = Instance.new("Frame")
+		-- We assume this size is small enough to ensure we have a scroll bar.
+		frame.Size = UDim2.new(1, 0, 0, 32)
+		local root = ReactRoblox.createRoot(frame)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
+		local containerElement = frame:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
 		jestExpect(containerElement).never.toBeNull()
 
 		-- Fetch the data first when component get mounted
 		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
 
-		-- Set scroll position to bottom
 		Roact.act(function()
+			-- Scroll to the bottom.
 			containerElement.CanvasPosition =
 				Vector2.new(0, containerElement.AbsoluteCanvasSize.Y - containerElement.AbsoluteSize.Y)
 			task.wait()
@@ -213,6 +325,68 @@ return function()
 		-- Fetch the data second when scroll to bottom
 		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(2)
 
-		Roact.unmount(instance)
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
+	end)
+
+	it("should not load more items when fetch fails", function(c: any)
+		-- Start off with items so that we have a list to show.
+		local store = Rodux.Store.new(Reducer, {
+			Call = {
+				callHistory = c.mockCallHistory("test_cursor"),
+			},
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+					dismissCallback = function() end,
+					searchText = "",
+				}),
+			}),
+		})
+
+		local mockGetCallHistory = jest.fn()
+		NetworkingCall.GetCallHistory.Mock.clear()
+		NetworkingCall.GetCallHistory.Mock.replyWithError(function()
+			mockGetCallHistory()
+			return "error"
+		end)
+
+		local frame = Instance.new("Frame")
+		-- We assume this size is small enough to ensure we have a scroll bar.
+		frame.Size = UDim2.new(1, 0, 0, 32)
+		local root = ReactRoblox.createRoot(frame)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
+		local containerElement = frame:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+		jestExpect(containerElement).never.toBeNull()
+
+		-- Fetch the data first when component get mounted
+		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
+
+		Roact.act(function()
+			-- Scroll to the bottom.
+			containerElement.CanvasPosition =
+				Vector2.new(0, containerElement.AbsoluteCanvasSize.Y - containerElement.AbsoluteSize.Y)
+			task.wait()
+		end)
+
+		-- Do not fetch again because the fetch has failed
+		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
+
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
 	end)
 end

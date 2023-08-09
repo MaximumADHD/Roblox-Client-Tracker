@@ -37,6 +37,8 @@ local MOTOR_OPTIONS = {
 
 local RENDER_OUTSIDE_WINDOW_ELEMENTS = 3
 
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+
 local PlayerListDisplay = Roact.PureComponent:extend("PlayerListDisplay")
 
 PlayerListDisplay.validateProps = t.strictInterface({
@@ -305,7 +307,7 @@ function PlayerListDisplay:render()
 					else style.Theme.BackgroundContrast.Color
 
 				local transparencyBinding = self.minimizedBinding:map(function(value)
-					local defaultTransparency = layoutValues.OverrideBackgroundTransparency
+					local defaultTransparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then layoutValues.OverrideBackgroundTransparency * style.Settings.PreferredTransparency else layoutValues.OverrideBackgroundTransparency
 					local fadedTransparency = layoutValues.FadedBackgroundTransparency
 					local delta = fadedTransparency - defaultTransparency
 					return defaultTransparency + (delta * value)

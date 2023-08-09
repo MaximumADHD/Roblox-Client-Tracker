@@ -35,14 +35,6 @@ local chatChromeIntegration = ChromeService:register({
 			return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibility)
 		end,
 	},
-	--[[ testing secondary action
-	secondaryAction = {
-		label = "Click here!",
-		activated = function(self)
-			self.activated()
-		end,
-	},
-	--]]
 })
 
 chatChromeIntegration.notification:fireCount(unreadMessages)
@@ -81,5 +73,16 @@ coroutine.wrap(function()
 		chatChromeIntegration.availability:available()
 	end
 end)()
+
+-- dev test code
+function _simulateChat()
+	while true do
+		task.wait(math.random(1, 15))
+		unreadMessages += 1
+		chatChromeIntegration.notification:fireCount(unreadMessages)
+	end
+end
+
+--coroutine.resume(coroutine.create(_simulateChat))
 
 return chatChromeIntegration

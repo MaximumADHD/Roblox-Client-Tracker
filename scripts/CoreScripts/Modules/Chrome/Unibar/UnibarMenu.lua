@@ -128,12 +128,12 @@ function Unibar(props)
 			local visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
 				local position: UDim2 = values[1]
 				local size: UDim2 = values[2]
-				return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH)
+				return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH * 1.5)
 			end)
 
 			children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
 				position = positionBinding :: any,
-				visible = visibleBinding,
+				visible = pinned or visibleBinding :: any,
 				toggleTransition = toggleTransition,
 				integration = item,
 			}) :: any

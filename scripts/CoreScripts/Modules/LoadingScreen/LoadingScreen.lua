@@ -8,6 +8,7 @@ local UserInputService = game:GetService("UserInputService")
 local LocalizationService = game:GetService("LocalizationService")
 local ContextActionService = game:GetService("ContextActionService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 -- Dependencies
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
@@ -18,8 +19,12 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 local GetGameProductInfo = require(Modules.LoadingScreen.Thunks.GetGameProductInfo)
 local GetIsSubjectToChinaPolicies = require(Modules.LoadingScreen.Thunks.GetIsSubjectToChinaPolicies)
 local GetUniverseId = require(Modules.LoadingScreen.Thunks.GetUniverseId)
+
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
+local UIBlox = require(CorePackages.UIBlox)
+local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
+local withStyle = UIBlox.Style.withStyle
 
 local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
@@ -34,6 +39,7 @@ local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
 local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local GetFFlagReportFirstExperienceCancelled = require(RobloxGui.Modules.Flags.GetFFlagReportFirstExperienceCancelled)
 
 -- Constants
@@ -204,6 +210,8 @@ function LoadingScreen:renderBackground(style)
 	if self.props.placeId and self.props.placeId > 0 then
 		thumbnailURL = GAME_THUMBNAIL_URL:format(self.props.placeId)
 	end
+
+	local reducedMotion = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then style.Settings.ReducedMotion else false
 	return Roact.createElement("ScreenGui", {
 		DisplayOrder = BASE_SCREEN_ORDER,
 		IgnoreGuiInset = true,
@@ -228,7 +236,7 @@ function LoadingScreen:renderBackground(style)
 				Size = UDim2.fromOffset(thumbnailScaledWidth, thumbnailScaledHeight),
 				ImageTransparency = self.bindings.thumbnailTransparency,
 			}),
-			renderStepped = Roact.createElement(ExternalEventConnection, {
+			renderStepped = not reducedMotion and Roact.createElement(ExternalEventConnection, {
 				event = RunService.renderStepped,
 				callback = self.renderBackgroundSteppedCallback,
 			}),
@@ -253,7 +261,7 @@ function LoadingScreen:showConnnectionHealthDebugMenu(input)
 	lastTapTime = math.huge
 end
 
-function LoadingScreen:renderPlaceIcon()
+function LoadingScreen:renderPlaceIcon(style)
 	local shimPos = self.state.shimPos
 	local shimTransparency = self.bindings.iconTransparency:getValue()
 	local iconURL = ""
@@ -261,6 +269,7 @@ function LoadingScreen:renderPlaceIcon()
 		iconURL = GAME_ICON_URL:format(self.props.universeId)
 	end
 
+	local reducedMotion = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then style.Settings.ReducedMotion else false
 	return Roact.createElement("Frame", {
 		Name = "IconFrame",
 		BackgroundTransparency = self.bindings.iconTransparency,
@@ -271,12 +280,13 @@ function LoadingScreen:renderPlaceIcon()
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Active = true,
 	}, {
-		Shimmer = Roact.createElement("Frame", {
+		LoadingOverlay = not reducedMotion and Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
 			Size = UDim2.fromScale(1, 1),
 			BackgroundColor3 = Color3.new(1, 1, 1),
 			BackgroundTransparency = 0,
+			ZIndex = 2
 		}, {
 			Corner = Roact.createElement("UICorner"),
 			Gradient = Roact.createElement("UIGradient", {
@@ -336,7 +346,7 @@ function LoadingScreen:renderInfoFrame(style)
 		Size = self.isPortrait and UDim2.fromScale(1.0, 0) or UDim2.fromScale(0.6, 0),
 		Active = true,
 	}, {
-		PlaceIcon = self:renderPlaceIcon(),
+		PlaceIcon = self:renderPlaceIcon(style),
 		TextLayoutFrame = Roact.createElement("Frame", {
 			Name = "TextLayout",
 			BackgroundColor3 = style.Theme.BackgroundMuted.Color,
@@ -407,6 +417,8 @@ end
 
 function LoadingScreen:renderMain(style)
 	local padding = getPadding(self.isPortrait)
+
+	local reducedMotion = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then style.Settings.ReducedMotion else false
 	return Roact.createElement("ScreenGui", {
 		DisplayOrder = BASE_SCREEN_ORDER + 1,
 		IgnoreGuiInset = true,
@@ -432,6 +444,19 @@ function LoadingScreen:renderMain(style)
 					NumberSequenceKeypoint.new(0.5, 1.0),
 					NumberSequenceKeypoint.new(1.0, 0.5),
 				}),
+			}),
+			Spinner = reducedMotion and Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundColor3 = Color3.new(1, 1, 1),
+				BackgroundTransparency = 1,
+				ZIndex = 20
+			}, {
+				Roact.createElement(LoadingSpinner, {
+					size = UDim2.fromOffset(30, 30),
+					position = UDim2.new(1, 0, 1, 0),
+					anchorPoint = Vector2.new(1, 1),
+					rotationRate = 180,
+				})
 			}),
 			infoFrame = self:renderInfoFrame(style),
 			serverFrame = self:renderServerFrame(style),
@@ -726,6 +751,14 @@ end
 function LoadingScreen:render()
 	-- Blur effect can only apply to screengui and it's not recommended to nest screengui
 	-- Use Folder as Roact parent to organize two screenguis
+	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+		return withStyle(function(style) 
+			return self.state.visible and Roact.createElement("Folder", {}, { 
+				BackgroundScreen = self:renderBackground(style), 
+				MainScreen = self:renderMain(style),
+			})
+		end)
+	end
 	return self.state.visible and Roact.createElement("Folder", {
 	}, {
 		BackgroundScreen = self:renderBackground(AppStyle),
@@ -772,6 +805,7 @@ LoadingScreen = RoactRodux.connect(
 			isSubjectToChinaPolicies = state.isSubjectToChinaPolicies,
 			placeId = state.gameIds and state.gameIds.placeId or props.placeId,
 			universeId = state.gameIds and state.gameIds.universeId or 0,
+			settings = state.settings,
 		}
 	end,
 	function(dispatch)

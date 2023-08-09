@@ -18,7 +18,7 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local BUTTON_SIZE = 36
 local DIVIDER_WIDTH = 1
-local IN_BETWEEN_PADDING = 12
+local IN_BETWEEN_PADDING = 6
 local PADDING = Vector2.new(12, 16)
 
 export type Props = {
@@ -63,7 +63,6 @@ local ContactListHeader = function(props: Props)
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, IN_BETWEEN_PADDING),
 		}),
 		HeaderUIPadding = React.createElement("UIPadding", {
 			PaddingBottom = UDim.new(0, PADDING.Y),
@@ -85,23 +84,38 @@ local ContactListHeader = function(props: Props)
 				then props.dismissCallback
 				else navigateToCallHistory,
 		}),
-		Divider = React.createElement("Frame", {
-			Size = UDim2.new(0, DIVIDER_WIDTH, 1, 0),
-			BackgroundColor3 = theme.Divider.Color,
-			BackgroundTransparency = theme.Divider.Transparency,
+		DividerContainer = React.createElement("Frame", {
+			Size = UDim2.new(0, 0, 1, 0),
+			AutomaticSize = Enum.AutomaticSize.X,
+			BackgroundTransparency = 1,
 			LayoutOrder = 2,
+		}, {
+			Divider = React.createElement("Frame", {
+				Size = UDim2.new(0, DIVIDER_WIDTH, 1, 0),
+				BackgroundColor3 = theme.Divider.Color,
+				BackgroundTransparency = theme.Divider.Transparency,
+			}),
+			DividerContainerUIPadding = React.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING),
+				PaddingRight = UDim.new(0, IN_BETWEEN_PADDING),
+			}),
 		}),
 		HeaderText = React.createElement("TextLabel", {
-			Size = UDim2.new(1, -(IN_BETWEEN_PADDING * 3 + DIVIDER_WIDTH + BUTTON_SIZE * 2), 0, 0),
+			Size = UDim2.new(1, -(IN_BETWEEN_PADDING * 4 + DIVIDER_WIDTH + BUTTON_SIZE * 2), 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Font = font.Header1.Font,
-			LayoutOrder = 3,
 			Text = getTitleFromPage(props.currentPage),
 			TextColor3 = theme.TextEmphasis.Color,
 			TextSize = font.Header1.RelativeSize * font.BaseSize,
 			TextTransparency = theme.TextEmphasis.Transparency,
+			LayoutOrder = 3,
 			TextXAlignment = Enum.TextXAlignment.Left,
+		}, {
+			HeaderTextUIPadding = React.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING),
+				PaddingRight = UDim.new(0, IN_BETWEEN_PADDING),
+			}),
 		}),
 		NewCallButton = if props.currentPage == Pages.CallHistory
 			then React.createElement(IconButton, {

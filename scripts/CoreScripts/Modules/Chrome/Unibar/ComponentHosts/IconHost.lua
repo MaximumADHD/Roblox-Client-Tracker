@@ -10,13 +10,16 @@ local ControlState = UIBlox.Core.Control.Enum.ControlState
 local useStyle = UIBlox.Core.Style.useStyle
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 
-local Constants = require(script.Parent.Parent.Parent.Unibar.Constants)
+local Chrome = script.Parent.Parent.Parent
+local Constants = require(Chrome.Unibar.Constants)
 
-local ChromeService = require(script.Parent.Parent.Parent.Service)
-local ChromeTypes = require(script.Parent.Parent.Parent.Service.Types)
+local ChromeService = require(Chrome.Service)
+local ChromeTypes = require(Chrome.Service.Types)
 
+local useObservableValue = require(Chrome.Hooks.useObservableValue)
 local useNotificationCount = require(script.Parent.Parent.Parent.Hooks.useNotificationCount)
 local useMappedObservableValue = require(script.Parent.Parent.Parent.Hooks.useMappedObservableValue)
+local useMappedObservableValueBinding = require(script.Parent.Parent.Parent.Hooks.useMappedObservableValueBinding)
 local useTimeHysteresis = require(script.Parent.Parent.Parent.Hooks.useTimeHysteresis)
 
 local BADGE_OFFSET_X = 20
@@ -101,11 +104,50 @@ function NotificationBadge(props: IconHostProps): any?
 	})
 end
 
+type NotificationIndicatorProps = {
+	integration: ChromeTypes.IntegrationComponentProps,
+	setIconVisible: (boolean) -> (),
+}
+function NotificationIndicator(props: NotificationIndicatorProps)
+	local icon = useObservableValue(ChromeService:notificationIndicator())
+	props.setIconVisible(if icon then false else true)
+
+	return React.createElement("Frame", {
+		Name = "NotificationIndicatorFrame",
+		Size = UDim2.new(1, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+	}, {
+		IntegrationIcon = icon and icon.component(props) or nil,
+		UIListLayout = React.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+		}),
+	}) :: any
+end
+
+function HighlightCircle(props)
+	return React.createElement("Frame", {
+		Name = props.name or "Highlighter",
+		Size = UDim2.new(0, 36, 0, 36),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		BackgroundColor3 = props.color.Color,
+		BackgroundTransparency = props.color.Transparency,
+		BorderSizePixel = 0,
+		Visible = props.visible,
+	}, {
+		corner = React.createElement("UICorner", {
+			CornerRadius = UDim.new(1, 0),
+		}),
+	})
+end
+
 type TooltipButtonProps = {
 	setHovered: (boolean) -> (),
 	integration: ChromeTypes.IntegrationComponentProps,
 }
-
 function TooltipButton(props: TooltipButtonProps)
 	local secondaryAction = props.integration.integration.secondaryAction
 	local draggable: boolean = props.integration.integration.draggable or false
@@ -286,10 +328,18 @@ function IconHost(props: IconHostProps)
 	end
 
 	local isHovered, setHovered = React.useBinding(false)
+	local iconVisible, setIconVisible = React.useBinding(true)
 
 	local style = useStyle()
 	local theme = style.Theme
 	local backgroundHover = theme.BackgroundOnHover
+
+	local isCurrentlyOpenSubMenu = useMappedObservableValueBinding(
+		ChromeService:currentSubMenu(),
+		function(currentSubMenu)
+			return currentSubMenu == props.integration.id
+		end
+	)
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, Constants.ICON_CELL_WIDTH, 0, Constants.ICON_CELL_WIDTH),
@@ -302,9 +352,11 @@ function IconHost(props: IconHostProps)
 	}, {
 
 		React.createElement("Frame", {
+			Name = "IntegrationIconFrame",
 			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
+			Visible = iconVisible,
 		}, {
 			IntegrationIcon = props.integration and props.integration.component and props.integration.component(props)
 				or nil,
@@ -314,20 +366,22 @@ function IconHost(props: IconHostProps)
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			}),
 		}) :: any,
-		React.createElement("Frame", {
-			Name = "Highlighter",
-			Size = UDim2.new(0, 36, 0, 36),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			BackgroundColor3 = backgroundHover.Color,
-			BackgroundTransparency = backgroundHover.Transparency,
-			BorderSizePixel = 0,
-			Visible = isHovered,
-		}, {
-			corner = React.createElement("UICorner", {
-				CornerRadius = UDim.new(1, 0),
-			}),
-		}) :: any,
+		if props.integration.integration.flashNotificationSource
+			then React.createElement(NotificationIndicator, {
+				integration = props.integration,
+				setIconVisible = setIconVisible,
+			}) :: any
+			else nil,
+		React.createElement(HighlightCircle, {
+			name = "SelectedHighlighter",
+			color = backgroundHover,
+			visible = isCurrentlyOpenSubMenu,
+		}),
+		React.createElement(HighlightCircle, {
+			name = "Highlighter",
+			color = backgroundHover,
+			visible = isHovered,
+		}),
 		React.createElement(NotificationBadge, props) :: any,
 		if props.disableButtonBehaviors
 			then nil

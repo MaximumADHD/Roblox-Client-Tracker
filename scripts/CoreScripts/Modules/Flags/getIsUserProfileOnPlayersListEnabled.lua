@@ -2,15 +2,15 @@ local CorePackages = game:GetService("CorePackages")
 local rolloutByApplicationId = require(CorePackages.Workspace.Packages.AppCommonLib).rolloutByApplicationId
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 
-game:DefineFastInt("PlayerListUserProfileApiRollout", 0)
-game:DefineFastFlag("PlayerListUserProfileApiEnabledForAll", false)
+game:DefineFastInt("PlayerListUserProfileApiRollout_v2", 0)
+game:DefineFastFlag("PlayerListUserProfileApiEnabledForAll_v2", false)
 
 local playerListUserProfileApiRollout = function()
-	return game:GetFastInt("PlayerListUserProfileApiRollout")
+	return game:GetFastInt("PlayerListUserProfileApiRollout_v2")
 end
 
 local playerListUserProfileApiEnabledForAll = function()
-	return game:GetFastFlag("PlayerListUserProfileApiEnabledForAll")
+	return game:GetFastFlag("PlayerListUserProfileApiEnabledForAll_v2")
 end
 
 local getIsRolloutEnabled

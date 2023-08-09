@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
 local TnsModule = script.Parent.Parent.Parent
@@ -7,8 +8,6 @@ local GetFIntRAMaxAnnotationCount = require(TnsModule.Flags.GetFIntRAMaxAnnotati
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local SUPPORT_DRAG_SELECTION = false
 
@@ -18,9 +17,16 @@ export type Props = {
 	-- This component doesn't store state for the annotation points.
 	-- The parent should handle that and re-render.
 	handleAnnotationPoints: (({ Vector2 }) -> ()),
+	setAnnotationCircleRadius: ((number) -> ()),
+	setAspectRatioDimensions: ((number, number) -> ()),
 }
 
+
 local function ScreenshotHighlighter(props: Props)
+	-- Using a fraction of screen size to determine annotation circle size
+	local sizeData = RobloxGui.AbsoluteSize
+	local minScreenDimension = (sizeData.Y > sizeData.X) and sizeData.X or sizeData.Y
+	local annotationCircleSize = minScreenDimension / 5
 	----------------------
 	-- Handle click state
 	----------------------
@@ -30,6 +36,9 @@ local function ScreenshotHighlighter(props: Props)
 		local positionVec2 = Vector2.new(newPointVec3.X, newPointVec3.Y) - instance.AbsolutePosition
 		positionVec2 = positionVec2 / instance.AbsoluteSize
 		table.insert(props.annotationPoints, positionVec2)
+		local size = if instance.AbsoluteSize.X > instance.AbsoluteSize.Y then instance.AbsoluteSize.X else instance.AbsoluteSize.Y
+		props.setAnnotationCircleRadius(annotationCircleSize * 0.5 / size)
+		props.setAspectRatioDimensions(instance.AbsoluteSize.X, instance.AbsoluteSize.Y)
 		props.handleAnnotationPoints(props.annotationPoints)
 	end
 
@@ -51,27 +60,18 @@ local function ScreenshotHighlighter(props: Props)
 		local isMouseMovement = inputObj.UserInputType == Enum.UserInputType.MouseMovement
 		local isTouch = inputObj.UserInputType == Enum.UserInputType.Touch
 		if isInputChanged and (isTouch or isMouseMovement) then
-			-- print("Changed?", inputObj.UserInputType, inputObj.UserInputState)
 			appendAnnotationPoints(instance, inputObj.Position)
 		end
 	end
 
 	local onInputEnded = function(instance: GuiBase2d, inputObj: InputObject)
 		if isInputActivated then
-			-- print("Mouse or touch up", inputObj.Position)
 			if SUPPORT_DRAG_SELECTION then
 				appendAnnotationPoints(instance, inputObj.Position)
 			end
 			setInputActivated(false)
-			-- print("Input points", props.annotationPoints)
 		end
 	end
-
-	-- Using a fraction of screen size to determine annotation circle size
-	local sizeData = RobloxGui.AbsoluteSize
-	local minScreenDimension = (sizeData.Y > sizeData.X) and sizeData.X or sizeData.Y
-	local annotationCircleSize = minScreenDimension / 5
-
 	-----------------------
 	-- Render clicks
 	-----------------------

@@ -22,7 +22,10 @@ initify(Modules)
 
 local GetFFlagLuaAppUseUIBloxColorPalettes =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppUseUIBloxColorPalettes
-if GetFFlagLuaAppUseUIBloxColorPalettes() then
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+
+local StyleConstants = nil
+if GetFFlagLuaAppUseUIBloxColorPalettes() or GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
 	-- With flag on, styles from UIBlox in LoadingScreen (required below)
 	-- are being used prior to UIBlox initialization which is in
 	-- StarterScript. So add one more initialization here to make
@@ -33,7 +36,11 @@ if GetFFlagLuaAppUseUIBloxColorPalettes() then
 	local UIBlox = require(CorePackages.UIBlox)
 	local uiBloxConfig = require(Modules.UIBloxInGameConfig)
 	UIBlox.init(uiBloxConfig)
+
+	StyleConstants = UIBlox.App.Style.Constants
 end
+
+local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
 
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local LoadingScreen = require(Modules.LoadingScreen.LoadingScreen)
@@ -86,13 +93,25 @@ local spwanUI = coroutine.create(function()
 	local Rodux = require(CorePackages:WaitForChild("Rodux"))
 	local RoactRodux = require(CorePackages:WaitForChild("RoactRodux"))
 	local store = Rodux.Store.new(LoadingScreenReducer, {}, { Rodux.thunkMiddleware })
-	local app = Roact.createElement(RoactRodux.StoreProvider, {
-		store = store,
-	}, {
-		loadingScreenUI = Roact.createElement(LoadingScreen, {
-			placeId = PLACE_ID_FROM_ENGINE,
-		}),
+
+	local loadingScreenUI = Roact.createElement(LoadingScreen, {
+		placeId = PLACE_ID_FROM_ENGINE,
 	})
+	local app = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, 
+		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then {
+			Roact.createElement(UiModeStyleProvider, {
+				style =  {
+					themeName = StyleConstants.ThemeName.Dark,
+					fontName = StyleConstants.FontName.Gotham
+				},
+			}, {
+				loadingScreenUI = loadingScreenUI
+			})
+		} else {
+			loadingScreenUI = loadingScreenUI
+		})
 	loadingScreenUIHandle = Roact.mount(app, CoreGui, "RobloxLoadingGUI")
 	-- Roact mount might lag one frame, make sure transition is destroyed after loading screen shows up.
 	RunService.Heartbeat:wait()

@@ -14,6 +14,6 @@ export type FontPalette = UIBlox.FontPalette
 export type Theme = UIBlox.Theme
 export type AppStyle = UIBlox.AppStyle
 export type ThemeItem = UIBlox.ThemeItem
-export type GridConfig = UIBlox.GridConfig
+export type ResponsiveLayoutConfig = UIBlox.ResponsiveLayoutConfig
 
 return UIBlox

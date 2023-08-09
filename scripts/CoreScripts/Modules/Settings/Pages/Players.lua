@@ -126,6 +126,7 @@ local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Fla
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
+local FFlagPlayerListFixNilUserId = game:DefineFastFlag("PlayerListFixNilUserId_v2", false)
 
 if GetFFlagOldMenuNewIcons() then
 	MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
@@ -1532,7 +1533,11 @@ local function Initialize()
 
 		if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
 			local playerIds = Cryo.List.map(sortedPlayers, function(player)
-				return tostring(sortedPlayers.UserId)
+				if FFlagPlayerListFixNilUserId then
+					return tostring(player.UserId)
+				else
+					return tostring(sortedPlayers.UserId)
+				end
 			end)
 
 			ApolloClient:query({
@@ -1544,7 +1549,7 @@ local function Initialize()
 				Cryo.List.map(response.data.userProfiles, function(userProfile)
 					local labelFrame = existingPlayerLabels[userProfile.names.username]
 					if labelFrame then
-						labelFrame.DisplayNameLabel.Text = result.combinedName
+						labelFrame.DisplayNameLabel.Text = if FFlagPlayerListFixNilUserId then userProfile.names.combinedName else result.combinedName
 					end
 				end)
 			end):catch(function()

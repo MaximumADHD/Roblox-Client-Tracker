@@ -2,12 +2,6 @@
 -- Setup Physics Parts on R6 Characters
 local SetupPhysicsParts = {}
 
--- PhysicsReference.rbxm is set up as { PhysicsReference {Left Arm {...}, Right Arm {...},...} }
-local PhysicsReference = script:WaitForChild("PhysicsReference")
-PhysicsReference.Parent = nil
-
-local Character = script.Parent
-
 local AestheticParts = {
 	"LeftUpperLeg",
 	"LeftLowerLeg",
@@ -199,28 +193,28 @@ local function weldParts(weldPart, weldTo)
 	return weld
 end
 
-local function setUpAdapterPart(adapter)
+local function setUpPhysicsPart(character, adapter)
 	local newAdapter = adapter:Clone()
 	newAdapter:ClearAllChildren()
-	newAdapter.Parent = Character
+	newAdapter.Parent = character
 	newAdapter.Transparency = 1
 
 	local adapterChildren = adapter:GetChildren()
 	for _, child in adapterChildren do
 		if child:FindFirstChildWhichIsA("Weld") then
-			local weldTo = Character:FindFirstChild(child.Name)
+			local weldTo = character:FindFirstChild(child.Name)
 			weldParts(newAdapter, weldTo)
 		end
 	end
 end
 
-function SetupPhysicsParts.setupCharacter(character: Model)
+function SetupPhysicsParts.setupCharacter(character: Model, PhysicsReference)
 	for _, child in PhysicsReference:GetChildren() do
-		setUpAdapterPart(child)
+		setUpPhysicsPart(character, child)
 	end
 
 	for _, part in AestheticParts do
-		setUpAestheticPart(Character[part])
+		setUpAestheticPart(character[part])
 	end
 	PhysicsReference:Destroy()
 

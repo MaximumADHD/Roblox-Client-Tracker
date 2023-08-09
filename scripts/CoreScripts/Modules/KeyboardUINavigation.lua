@@ -4,10 +4,14 @@ local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGuiService = game:GetService("CoreGui")
 
+local Settings = UserSettings()
+local GameSettings = Settings.GameSettings
+
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 local PlayerGui
 
@@ -67,6 +71,12 @@ local function ScrollSelectedElement(actionName, inputState, inputObject)
 end
 
 local function EnableKeyboardNavigation(actionName, inputState, inputObject)
+	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+		if not GameSettings.UiNavigationKeyBindEnabled then
+			return Enum.ContextActionResult.Pass
+		end
+	end
+
 	if inputState ~= Enum.UserInputState.Begin then
 		return Enum.ContextActionResult.Pass
 	end
@@ -116,6 +126,14 @@ function KeyboardUINavigation.new()
 	local self = setmetatable({}, KeyboardUINavigation)
 	ContextActionService:BindAction("EnableKeyboardUINavigation", EnableKeyboardNavigation, false, Enum.KeyCode.BackSlash)
 	ContextActionService:BindAction("ScrollSelectedElement", ScrollSelectedElement, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown, Enum.KeyCode.Home, Enum.KeyCode.End)
+
+	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+		GameSettings:GetPropertyChangedSignal("UiNavigationKeyBindEnabled"):Connect(function()
+			if not GameSettings.UiNavigationKeyBindEnabled then
+				GuiService.SelectedObject = nil
+			end
+		end)
+	end
 	return self
 end
 return KeyboardUINavigation.new()

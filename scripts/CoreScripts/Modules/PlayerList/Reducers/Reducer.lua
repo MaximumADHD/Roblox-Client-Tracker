@@ -1,8 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local Rodux = require(CorePackages.Rodux)
 
 local DisplayOptions = require(script.Parent.DisplayOptions)
 local ScreenSize = require(script.Parent.ScreenSize)
+local Settings = require(script.Parent.Settings)
 local GameStats = require(script.Parent.GameStats)
 
 local Teams = require(script.Parent.Teams)
@@ -18,9 +23,12 @@ local PlayerRelationship = require(script.Parent.PlayerRelationship)
 local PlayerDropDown = require(script.Parent.PlayerDropDown)
 local PlayerKeys = require(script.Parent.PlayerKeys)
 
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+
 local Reducer = Rodux.combineReducers({
 	displayOptions = DisplayOptions,
 	screenSize = ScreenSize,
+	settings = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then Settings else nil,
 	gameStats = GameStats,
 
 	teams = Teams,

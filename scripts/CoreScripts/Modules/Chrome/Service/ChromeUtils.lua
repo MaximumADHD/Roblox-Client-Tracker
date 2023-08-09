@@ -124,6 +124,7 @@ export type ObservableValue<T> = {
 	new: (T) -> ObservableValue<T>,
 	connect: (ObservableValue<T>, SignalLib.SignalCallback, callCallback: boolean?) -> SignalLib.SignalHandle,
 	set: (ObservableValue<T>, T) -> (),
+	setMomentary: (ObservableValue<T>, T, number, T) -> (),
 	get: (ObservableValue<T>) -> T,
 	signal: (ObservableValue<T>) -> SignalLib.Signal,
 }
@@ -142,7 +143,31 @@ function ObservableValue:get<T>(): T
 	return self._value
 end
 
+function ObservableValue.setMomentary<T>(self, value: T, delay: number, resetValue: T)
+	if self._value ~= value then
+		self._value = value
+		self._changeSignal:fire(value)
+	end
+
+	local t: thread? = self._momentaryClearThread
+	if t then
+		task.cancel(t)
+	end
+
+	self._momentaryClearThread = (
+		task.delay(delay, function()
+			self._momentaryClearThread = nil
+			self.set(self, resetValue)
+		end) :: any
+	) :: thread?
+end
+
 function ObservableValue.set<T>(self, value: T)
+	local t: thread? = self._momentaryClearThread
+	if t then
+		task.cancel(t)
+		self._momentaryClearThread = nil
+	end
 	-- todo: consider a different path for table equailiy
 	if self._value ~= value then
 		self._value = value

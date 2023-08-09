@@ -256,6 +256,8 @@ local function ScreenshotDialog(props: Props)
 							Highlighter = React.createElement(ScreenshotHighlighter, {
 								annotationPoints = annotationPoints,
 								handleAnnotationPoints = handleAnnotationPoints,
+								setAnnotationCircleRadius = AbuseReportBuilder.setAnnotationCircleRadius,
+								setAspectRatioDimensions = AbuseReportBuilder.setAspectRatioDimensions,
 								ZIndex = 3,
 							}, {}),
 						}),

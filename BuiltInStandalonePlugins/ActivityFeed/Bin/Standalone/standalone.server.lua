@@ -45,13 +45,13 @@ local inspector = nil
 -- Uncomment to debug your plugin with Developer Inspector
 --[[
 if TestLoader.hasInternalPermission() then
-	-- local DeveloperTools = require(Main.Packages.Dev.DeveloperTools)
-	-- local ReactDevtoolsExtensions = require(Main.Packages.Dev.ReactDevtoolsExtensions)
-	-- inspector = DeveloperTools.forStandalonePlugin("ActivityFeed", plugin, {
+	local DeveloperTools = require(main.Packages.Dev.DeveloperTools)
+	local ReactDevtoolsExtensions = require(main.Packages.Dev.ReactDevtoolsExtensions)
+	inspector = DeveloperTools.forStandalonePlugin("ActivityFeed", plugin, {
 			rootInstance = handle,
 			rootPrefix = { "ActivityFeedGui" },
 		})
-	-- inspector:initRoact(ReactDevtoolsExtensions)
+	inspector:initRoact(ReactDevtoolsExtensions)
 end
 ]]
 

@@ -98,6 +98,13 @@ local function CallBar(passedProps: Props)
 		end
 	end
 
+	-- TODO (timothyhsu): Remove once CallEnded API is available
+	local sendLeaveCallEvent = React.useCallback(function()
+		local ReplicatedStorage = game:GetService("ReplicatedStorage")
+		local LeaveCallEvent = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("LeaveCallEvent") :: RemoteEvent
+		LeaveCallEvent:FireServer(localPlayer)
+	end, {})
+
 	local callStatusText = getTextFromCallStatus(callStatus)
 	local showEndButton = callStatus == RoduxCall.Enums.Status.Active.rawValue()
 		or callStatus == RoduxCall.Enums.Status.Connecting.rawValue()
@@ -105,6 +112,7 @@ local function CallBar(passedProps: Props)
 	local endButtonCallback = React.useCallback(function()
 		if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
 			props.callProtocol:finishCall(callId)
+			sendLeaveCallEvent()
 		elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
 			props.callProtocol:cancelCall(callId)
 		end

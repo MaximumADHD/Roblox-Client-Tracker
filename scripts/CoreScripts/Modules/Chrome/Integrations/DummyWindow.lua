@@ -5,6 +5,7 @@ local ChromeService = require(script.Parent.Parent.Service)
 local CommonIcon = require(script.Parent.CommonIcon)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 local WindowSizeSignal = require(script.Parent.Parent.Service.WindowSizeSignal)
+local WindowPositionSignal = require(script.Parent.Parent.Service.WindowPositionSignal)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -13,14 +14,16 @@ local IconButton = UIBlox.App.Button.IconButton
 local sizeIcon = Images["icons/navigation/cycleUp"]
 local isLargeSize = false
 local windowSize = WindowSizeSignal.new(Constants.DEFAULT_WIDTH, Constants.DEFAULT_HEIGHT)
+local windowPosition = WindowPositionSignal.new(UDim2.new(1, -95, 0, 165))
 
 local dummyWindowIntegraton = ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "dummy_window",
 	label = "Window",
 	draggable = true,
-	startingWindowPosition = UDim2.new(1, -95, 0, 165),
+	startingWindowPosition = windowPosition:get(),
 	windowSize = windowSize,
+	windowPosition = windowPosition,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/avatar_on")

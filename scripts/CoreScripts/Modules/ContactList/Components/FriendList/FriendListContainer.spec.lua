@@ -29,7 +29,9 @@ return function()
 
 	it("should mount and unmount without errors", function()
 		local store = Rodux.Store.new(Reducer, {
-			NetworkStatus = {},
+			NetworkStatus = {
+				["https://friends.roblox.com/v1/users/12345678/friends"] = "Done",
+			},
 			Presence = {
 				byUserId = {
 					["00000000"] = PresenceModel.format(PresenceModel.mock()),
@@ -71,7 +73,6 @@ return function()
 				style = appStyle,
 			}, {
 				FriendListContainer = Roact.createElement(FriendListContainer, {
-					localUserId = 12345678,
 					isDevMode = true,
 					dismissCallback = function() end,
 					searchText = "",
@@ -90,7 +91,9 @@ return function()
 	describe("search filtering", function()
 		it("should correctly show matched usernames", function()
 			local store = Rodux.Store.new(Reducer, {
-				NetworkStatus = {},
+				NetworkStatus = {
+					["https://friends.roblox.com/v1/users/12345678/friends"] = "Done",
+				},
 				Presence = {
 					byUserId = {
 						["00000000"] = PresenceModel.format(PresenceModel.mock()),
@@ -132,7 +135,6 @@ return function()
 					style = appStyle,
 				}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
-						localUserId = 12345678,
 						isDevMode = true,
 						dismissCallback = function() end,
 						searchText = "Haru",
@@ -150,7 +152,9 @@ return function()
 
 		it("should correctly show matched displayNames", function()
 			local store = Rodux.Store.new(Reducer, {
-				NetworkStatus = {},
+				NetworkStatus = {
+					["https://friends.roblox.com/v1/users/12345678/friends"] = "Done",
+				},
 				Presence = {
 					byUserId = {
 						["00000000"] = PresenceModel.format(PresenceModel.mock()),
@@ -192,7 +196,6 @@ return function()
 					style = appStyle,
 				}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
-						localUserId = 12345678,
 						isDevMode = true,
 						dismissCallback = function() end,
 						searchText = "Haru",
@@ -210,7 +213,9 @@ return function()
 
 		it("should not show anything if neither username nor displayName match", function()
 			local store = Rodux.Store.new(Reducer, {
-				NetworkStatus = {},
+				NetworkStatus = {
+					["https://friends.roblox.com/v1/users/12345678/friends"] = "Done",
+				},
 				Presence = {
 					byUserId = {
 						["00000000"] = PresenceModel.format(PresenceModel.mock()),
@@ -252,7 +257,6 @@ return function()
 					style = appStyle,
 				}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
-						localUserId = 12345678,
 						isDevMode = true,
 						dismissCallback = function() end,
 						searchText = "Haru",
@@ -272,7 +276,9 @@ return function()
 	describe("ordering", function()
 		it("should sort names alphabetical", function()
 			local store = Rodux.Store.new(Reducer, {
-				NetworkStatus = {},
+				NetworkStatus = {
+					["https://friends.roblox.com/v1/users/12345678/friends"] = "Done",
+				},
 				Presence = {
 					byUserId = {
 						["00000000"] = PresenceModel.format(PresenceModel.mock()),
@@ -322,7 +328,6 @@ return function()
 					style = appStyle,
 				}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
-						localUserId = 12345678,
 						isDevMode = true,
 						dismissCallback = function() end,
 						searchText = "",

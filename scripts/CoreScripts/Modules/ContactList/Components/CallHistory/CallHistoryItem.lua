@@ -26,9 +26,6 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local CallState = require(ContactList.Enums.CallState)
 
-local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer :: Player
-
 export type Participant = {
 	userId: number,
 	displayName: string,
@@ -49,6 +46,7 @@ export type Props = {
 	localUserId: number,
 	showDivider: boolean,
 	dismissCallback: () -> (),
+	layoutOrder: number?,
 }
 
 local function isMissedCall(caller)
@@ -124,7 +122,7 @@ local function CallHistoryItem(props: Props)
 
 	-- get the participant that is not the local user
 	local participant = caller.participants[1]
-	if caller.participants[1].userId == props.localUserId then
+	if caller.participants[1].userId == localUserId then
 		participant = caller.participants[2]
 	end
 
@@ -145,7 +143,7 @@ local function CallHistoryItem(props: Props)
 	local onDetailsActivated = React.useCallback(function()
 		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
 			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
+		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localUserId)
 		if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(participant.userId) then
 			if isLocalUserDevMode then
 				coroutine.wrap(function()
@@ -194,6 +192,7 @@ local function CallHistoryItem(props: Props)
 		BackgroundColor3 = theme[interactableTheme].Color,
 		BackgroundTransparency = theme[interactableTheme].Transparency,
 		BorderSizePixel = 0,
+		LayoutOrder = props.layoutOrder,
 		onStateChanged = onStateChanged,
 		[React.Event.Activated] = onDetailsActivated,
 	}, {
