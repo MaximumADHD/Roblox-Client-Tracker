@@ -5,7 +5,7 @@ local UIBloxDefaultConfig = require(script.UIBloxDefaultConfig)
 local Fonts = require(script.App.Style.Fonts)
 local ImagesTypes = require(script.App.ImageSet.ImagesTypes)
 local StyleTypes = require(script.App.Style.StyleTypes)
-local GridConfigReader = require(script.Core.Layout.Grid.GridConfigReader)
+local ResponsiveLayoutConfigReader = require(script.Core.Layout.Responsive.ResponsiveLayoutConfigReader)
 local DialogOverlay = require(script.App.Dialog.Overlay.Overlay)
 
 export type Font = Fonts.Font
@@ -18,7 +18,7 @@ export type Theme = StyleTypes.Theme
 export type ThemeItem = StyleTypes.ThemeItem
 export type AppStyle = StyleTypes.AppStyle
 
-export type GridConfig<T = number> = GridConfigReader.Config<T>
+export type ResponsiveLayoutConfig<T = number> = ResponsiveLayoutConfigReader.Config<T>
 
 export type GradientDirection = DialogOverlay.GradientDirection
 
@@ -29,12 +29,14 @@ local function initializeLibrary(configs)
 
 	UIBlox.Core = strict({
 		Layout = strict({
+			Responsive = strict({
+				ResponsiveLayoutProvider = require(script.Core.Layout.Responsive.ResponsiveLayoutProvider),
+				ResponsiveRow = require(script.Core.Layout.Responsive.ResponsiveRow),
+				useResponsiveLayout = require(script.Core.Layout.Responsive.useResponsiveLayout),
+			}),
 			Grid = strict({
-				GridProvider = require(script.Core.Layout.Grid.GridProvider),
-				GridContainer = require(script.Core.Layout.Grid.GridContainer),
-				GridRow = require(script.Core.Layout.Grid.GridRow),
-				withGridConfig = require(script.Core.Layout.Grid.withGridConfig),
-				useGridConfig = require(script.Core.Layout.Grid.useGridConfig),
+				GridContainer_DEPRECATED = require(script.Core.Layout.Grid.GridContainer_DEPRECATED),
+				withGridConfig_DEPRECATED = require(script.Core.Layout.Grid.withGridConfig_DEPRECATED),
 			}),
 		}),
 
@@ -167,7 +169,7 @@ local function initializeLibrary(configs)
 				ScrollBarType = require(script.App.Container.Enum.ScrollBarType),
 			}),
 			Carousel = strict({
-				GridCarousel = require(script.App.Container.Carousel.GridCarousel),
+				ResponsiveCarousel = require(script.App.Container.Carousel.ResponsiveCarousel),
 				FreeFlowCarousel = require(script.App.Container.Carousel.FreeFlowCarousel),
 				--[[
 					TODO: Remove ScrollButton when we switch the new carouels without infinite scroller
@@ -177,7 +179,7 @@ local function initializeLibrary(configs)
 				ScrollButton = require(script.App.Container.Carousel.ScrollButton),
 			}),
 			Grid = strict({
-				GridTable = require(script.App.Container.Grid.GridTable),
+				ResponsiveGrid = require(script.App.Container.Grid.ResponsiveGrid),
 			}),
 			VerticalScrollView = require(script.App.Container.VerticalScrollView),
 			VerticalScrollViewWithMargin = require(script.App.Container.VerticalScrollViewWithMargin),

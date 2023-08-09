@@ -15,6 +15,7 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local Placement = require(Navigation.Enum.Placement)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local HorizontalContainer = require(script.Parent.HorizontalContainer)
 
@@ -41,6 +42,10 @@ local function IconTab(providedProps: Props)
 	local pressed = props.controlState == ControlState.SelectedPressed
 	local selected = props.selected
 	local style = useStyle()
+
+	local tokens = style.Tokens
+	local areTokensEnabled = tokens ~= nil and UIBloxConfig.useTokensInIconTab
+
 	local roundedBackgroundHeight = Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_PADDING * 2
 	assert(item.icon == nil or item.iconComponent == nil, "icon or iconComponent cannot be assigned at same time")
 	local tabSpacing = if item.icon ~= nil or item.iconComponent ~= nil
@@ -96,7 +101,7 @@ local function IconTab(providedProps: Props)
 				Color = if selected then style.Theme.TextEmphasis.Color else style.Theme.TextDefault.Color,
 				Transparency = 0,
 			},
-			fontStyle = style.Font.Header1,
+			fontStyle = if areTokensEnabled then tokens.Semantic.Typography.Header else style.Font.Header1,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			BackgroundTransparency = 1,
 		}),

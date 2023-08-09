@@ -2,6 +2,7 @@ local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
 
 local Roact = dependencies.Roact
+local ImageSetLabel = dependencies.UIBlox.Core.ImageSet.Label
 
 local BORDER_WIDTH = 2
 
@@ -61,11 +62,21 @@ function AvatarCircle:generateThumbnails(thumbnails)
 	local presenceIndicator
 
 	if totalThumbnails == 1 then
-		presenceIndicator = Roact.createElement("ImageLabel", {
-			Size = UDim2.new(0, self.props.presenceIndicatorSize, 0, self.props.presenceIndicatorSize),
-			BackgroundTransparency = 1,
-			Image = self.props.presenceImage,
-		})
+		if self.props.showNewPresenceImage then
+			presenceIndicator = Roact.createElement(ImageSetLabel, {
+				Size = UDim2.new(0, self.props.presenceIndicatorSize, 0, self.props.presenceIndicatorSize),
+				BackgroundTransparency = 1,
+				Image = self.props.presenceImage,
+				ImageColor3 = self.props.presenceImageColor3,
+				ImageTransparency = self.props.presenceImageTransparency,
+			})
+		else
+			presenceIndicator = Roact.createElement("ImageLabel", {
+				Size = UDim2.new(0, self.props.presenceIndicatorSize, 0, self.props.presenceIndicatorSize),
+				BackgroundTransparency = 1,
+				Image = self.props.presenceImage,
+			})
+		end
 	end
 
 	--Thumbnail containers

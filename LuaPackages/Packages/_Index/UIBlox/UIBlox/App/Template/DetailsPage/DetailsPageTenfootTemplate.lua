@@ -54,7 +54,7 @@ export type Props = {
 	renderInfoContent: () -> React.React_Node,
 
 	-- 	Props for the embedded action bar component.
-	-- See [ActionBar](../../Button/ActionBar.md) for required and optional props.
+	-- See [ActionBar](../Components/Button/ActionBar.md) for required and optional props.
 	actionBarProps: { button: any, icons: { any }, enableButtonAtStart: boolean? },
 	--[[
 	The table of props for the content of the details page.

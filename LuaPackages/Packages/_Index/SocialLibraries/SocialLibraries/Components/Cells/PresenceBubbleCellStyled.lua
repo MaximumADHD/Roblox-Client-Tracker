@@ -34,6 +34,9 @@ function StyledCell:render()
 	local theme = style.Theme
 	local font = style.Font
 
+	-- avatarCirclePresenceImage will be a table instead of a string if we are displaying the new presence indicator
+	local showNewPresenceImage = type(self.props.avatarCirclePresenceImage) == "table"
+
 	return Roact.createElement(PresenceBubbleCell, {
 		childWidth = self.props.childWidth,
 		titleText = self.props.titleText,
@@ -45,6 +48,7 @@ function StyledCell:render()
 		onCircleActivated = self.props.onCircleActivated,
 		Size = self.props.Size,
 		isLoading = self.props.isLoading,
+		showNewPresenceImage = showNewPresenceImage,
 
 		-- style properties
 		BackgroundColor3 = theme.BackgroundDefault.Color,
@@ -54,6 +58,9 @@ function StyledCell:render()
 
 		avatarCircleBackgroundColor3 = theme.PlaceHolder.Color,
 		avatarCircleDividerColor3 = theme.PlaceHolder.Color,
+
+		avatarCirclePresenceImageColor3 = if showNewPresenceImage then theme.OnlineStatus.Color else nil,
+		avatarCirclePresenceImageTransparency = if showNewPresenceImage then theme.OnlineStatus.Transparency else nil,
 
 		subTitleTextFont = font.CaptionBody.Font,
 		subTitleTextTransparency = theme.TextDefault.Transparency,

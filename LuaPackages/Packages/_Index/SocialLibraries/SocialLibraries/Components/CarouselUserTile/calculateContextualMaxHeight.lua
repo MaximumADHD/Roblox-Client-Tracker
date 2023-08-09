@@ -1,3 +1,4 @@
+--! DEPRECATED please use the version found in LuaApps SocialCommon
 local Constants = require(script.Parent.Constants)
 local getTextHeight = require(script.Parent.getTextHeight)
 local StyleTypes = require(script.Parent.StyleTypes)

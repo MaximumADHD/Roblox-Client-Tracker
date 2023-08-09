@@ -67,9 +67,6 @@ return {
 	-- Fix Panel3D frame-behind issues when positioned relative to the camera
 	vrFixUIJitter = false,
 
-	-- Indicate whether fix for TileOverlay is enabled
-	enableTileOverlayFix = false,
-
 	-- Use new scroll bar in VerticalScrollView
 	useNewScrollBar = false,
 
@@ -106,6 +103,16 @@ return {
 	-- Enable Cursor Provider on Table Cells to match console navigation styling
 	enableSelectionCursorProviderOnTableCell = false,
 
+	-- If true uses the redesigned coplayFoote
+	coPlayFooterChangeColorAndShowMoreFaces = true,
+
 	-- Bugfix for ExpandableTextArea not respecting child size
 	fixExpandableTextAreaChildSizing = false,
+
+	-- Enables the background prop for table cell to act as the cell's primary background instead of layering on top
+	-- This allows us to pass in custom backgrounds that support transparency
+	enableTableCellFullBackgroundOverride = false,
+
+	-- Enables token usage in IconTab
+	useTokensInIconTab = false,
 }

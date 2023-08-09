@@ -1,3 +1,4 @@
+--! DEPRECATED please use the version found in LuaApps SocialCommon
 local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
 local Roact = dependencies.Roact

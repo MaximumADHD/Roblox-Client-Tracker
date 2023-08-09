@@ -34,8 +34,9 @@ export type StyleProps = {
 export type Props = {
 	-- String containing game rating; should have "%" appended
 	ratingText: string,
-	-- String containing number of users playing; should be formatted using abbreviateCount()
-	playingText: string,
+	-- String containing number of users playing; should be formatted using abbreviateCount().
+	-- If undefined, the playing stats will not display - only the rating will.
+	playingText: string?,
 	-- Props to style the component
 	styleProps: StyleProps?,
 }
@@ -133,12 +134,14 @@ local function StatGroup(props: Props)
 			LayoutOrder = 1,
 		}, RATING_ICON, props.ratingText, stylePalette, styleProps, ratingTextWidth),
 
-		PlayingStats = renderStatItem({
-			Size = UDim2.new(0, 0, 1, 0),
-			AutomaticSize = Enum.AutomaticSize.X,
-			BackgroundTransparency = 1,
-			LayoutOrder = 2,
-		}, PLAYERS_ICON, props.playingText, stylePalette, styleProps, playingTextWidth),
+		PlayingStats = if props.playingText ~= nil
+			then renderStatItem({
+				Size = UDim2.new(0, 0, 1, 0),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+			}, PLAYERS_ICON, props.playingText, stylePalette, styleProps, playingTextWidth)
+			else nil,
 	})
 end
 

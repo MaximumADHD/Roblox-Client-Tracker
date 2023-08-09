@@ -44,11 +44,12 @@ InformativeToast.defaultProps = {
 function InformativeToast:render()
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
+		local settings = stylePalette.Settings
 
 		return Roact.createElement("Frame", {
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundColor3 = theme.BackgroundUIContrast.Color,
-			BackgroundTransparency = theme.BackgroundUIContrast.Transparency,
+			BackgroundTransparency = theme.BackgroundUIContrast.Transparency * settings.PreferredTransparency,
 			BorderSizePixel = 0,
 			ClipsDescendants = true,
 			LayoutOrder = self.props.layoutOrder,

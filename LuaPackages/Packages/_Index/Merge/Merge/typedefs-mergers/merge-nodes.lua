@@ -81,7 +81,10 @@ local function mergeGraphQLNodes(nodes: ReadonlyArray<DefinitionNode>, config: C
 	-- ROBLOX deviation END
 	for _, nodeDefinition in nodes do
 		if Boolean.toJSBoolean(isNamedDefinitionNode(nodeDefinition)) then
-			local name = if typeof(nodeDefinition.name) == "table"
+			-- ROBLOX deviation START: cast to any
+			-- local name = if typeof(nodeDefinition.name) == "table"
+			local name = if typeof((nodeDefinition :: any).name) == "table"
+				-- ROBLOX deviation END
 				-- ROBLOX deviation START: explicit cast
 				-- then nodeDefinition.name.value
 				then (nodeDefinition :: any).name.value

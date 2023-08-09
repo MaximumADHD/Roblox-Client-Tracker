@@ -13,6 +13,7 @@ local Otter = require(Packages.Otter)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local BaseMenu = require(script.Parent.BaseMenu)
 local MenuDirection = require(script.Parent.MenuDirection)
@@ -205,6 +206,7 @@ function ContextualMenu:render()
 				BackgroundColor3 = stylePalette.Theme.Overlay.Color,
 				BackgroundTransparency = backgroundTransparency,
 				AutoButtonColor = false,
+				Selectable = if UIBloxConfig.enableNewMenuLayout then false else nil,
 
 				Position = UDim2.fromOffset(-absolutePosition.X, -absolutePosition.Y),
 				Size = UDim2.fromOffset(self.props.screenSize.X, self.props.screenSize.Y),

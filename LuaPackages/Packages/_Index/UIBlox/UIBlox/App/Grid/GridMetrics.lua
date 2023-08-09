@@ -70,4 +70,13 @@ function GridMetrics.getSmallMetrics(containerWidth, horizontalPadding)
 	}
 end
 
+function GridMetrics.getMetricsForFixedColumns(containerWidth, horizontalPadding, numberOfColumns)
+	local itemWidth = math.floor((containerWidth - (numberOfColumns - 1) * horizontalPadding) / numberOfColumns)
+
+	return {
+		itemsPerRow = numberOfColumns,
+		itemWidth = itemWidth,
+	}
+end
+
 return GridMetrics

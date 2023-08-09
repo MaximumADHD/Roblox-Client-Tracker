@@ -161,15 +161,28 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 		[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 		[Roact.Ref] = self.props.forwardRef,
 	}, {
-		CellBackground = Roact.createElement("Frame", {
-			Size = UDim2.fromScale(1, 1),
-			BackgroundColor3 = backgroundStyle.Color,
-			BackgroundTransparency = backgroundStyle.Transparency,
-			BorderSizePixel = 0,
-			ZIndex = -1,
-		}, {
-			Background = background,
-		}),
+		CellBackground = if UIBloxConfig.enableTableCellFullBackgroundOverride
+			then Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				ZIndex = -1,
+			}, {
+				Background = background or Roact.createElement("Frame", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundColor3 = backgroundStyle.Color,
+					BackgroundTransparency = backgroundStyle.Transparency,
+					BorderSizePixel = 0,
+				}),
+			})
+			else Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundColor3 = backgroundStyle.Color,
+				BackgroundTransparency = backgroundStyle.Transparency,
+				BorderSizePixel = 0,
+				ZIndex = -1,
+			}, {
+				Background = background,
+			}),
 		CellContent = Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,

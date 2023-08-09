@@ -125,6 +125,9 @@ function PresenceBubbleCell:render()
 
 						thumbnails = props.thumbnails,
 						presenceImage = props.avatarCirclePresenceImage,
+						presenceImageColor3 = props.avatarCirclePresenceImageColor3,
+						presenceImageTransparency = props.avatarCirclePresenceImageTransparency,
+						showNewPresenceImage = props.showNewPresenceImage,
 
 						onActivated = props.onCircleActivated or props.onActivated,
 					})

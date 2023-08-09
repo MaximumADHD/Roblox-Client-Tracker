@@ -12,7 +12,7 @@ export type Images = Package.Images
 export type Theme = Package.Theme
 export type ThemeItem = Package.ThemeItem
 export type AppStyle = Package.AppStyle
-export type GridConfig<T = number> = Package.GridConfig<T > 
+export type ResponsiveLayoutConfig<T = number> = Package.ResponsiveLayoutConfig<T > 
 export type GradientDirection = Package.GradientDirection
 
 

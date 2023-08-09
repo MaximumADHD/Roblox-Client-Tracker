@@ -52,6 +52,9 @@ export type GetCallHistorySucceeded = {
 		nextPageCursor: string,
 		previousPageCursor: string,
 	},
+	queryArgs: {
+		cursor: string?,
+	},
 }
 
 export type CallHistory = {
