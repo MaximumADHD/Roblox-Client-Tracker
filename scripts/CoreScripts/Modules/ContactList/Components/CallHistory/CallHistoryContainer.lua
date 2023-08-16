@@ -249,6 +249,9 @@ local function CallHistoryContainer(props: Props)
 			BorderSizePixel = 0,
 			CanvasSize = UDim2.new(),
 			ScrollingDirection = Enum.ScrollingDirection.Y,
+			ScrollBarImageColor3 = theme.UIEmphasis.Color,
+			ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
+			ScrollBarThickness = 4,
 			[React.Change.CanvasPosition] = onCanvasPositionChanged,
 		}, children)
 end

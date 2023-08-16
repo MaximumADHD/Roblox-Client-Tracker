@@ -1,8 +1,5 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 	local Roact = require(CorePackages.Roact)
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Rodux = require(CorePackages.Rodux)
@@ -10,16 +7,9 @@ return function()
 
 	local ModalDialog = require(script.Parent.ModalDialog)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
 	describe("mount & unmount", function()
 		it("empty page", function()
-			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ModalDialog = Roact.createElement(ModalDialog, {
 					visible = true,
 					screenSize = Vector2.new(480, 320),	-- iPhone 4s
@@ -32,9 +22,7 @@ return function()
 		end)
 
 		it("empty page with close button", function()
-			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ModalDialog = Roact.createElement(ModalDialog, {
 					visible = true,
 					screenSize = Vector2.new(568, 320),	-- iPhone 5
@@ -53,9 +41,7 @@ return function()
 		end)
 
 		it("empty page with back button", function()
-			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ModalDialog = Roact.createElement(ModalDialog, {
 					visible = true,
 					screenSize = Vector2.new(667, 375),	-- iPhone 6

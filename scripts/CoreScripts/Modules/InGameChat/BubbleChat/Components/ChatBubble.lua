@@ -19,6 +19,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagEnableRichTextForBubbleChat = require(RobloxGui.Modules.Flags.FFlagEnableRichTextForBubbleChat)
 local FFlagFixMockSizingLabelMemoryLeak = game:DefineFastFlag("FixMockSizingLabelMemoryLeak", false)
 local FFlagFixMockSizingLabelMemoryLeak2 = game:DefineFastFlag("FixMockSizingLabelMemoryLeak2", false)
+local FFlagBubbleChatCaratFix = require(RobloxGui.Modules.Flags.FFlagBubbleChatCaratFix)
 
 local ChatBubble = Roact.PureComponent:extend("ChatBubble")
 
@@ -208,7 +209,9 @@ function ChatBubble:render()
 			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
 		}),
 
-		Carat = self.props.isMostRecent and 	chatSettings.TailVisible and Roact.createElement("ImageLabel", {
+		Carat = self.props.isMostRecent and chatSettings.TailVisible
+		and (not FFlagBubbleChatCaratFix or self.props.showCarat)
+		and Roact.createElement("ImageLabel", {
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(9, 6),

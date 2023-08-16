@@ -7,9 +7,6 @@ local Modules = CoreGui.RobloxGui.Modules
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
-
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local Rodux = require(CorePackages.Rodux)
 local Rhodium = require(CorePackages.Rhodium)
 
@@ -20,11 +17,6 @@ local MockNetwork = require(InspectAndBuyModules.Test.MockNetwork)
 
 return function()
 	beforeAll(function(c)
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
 		-- robloxOwned indicates whether inspect and buy items are roblox authored
 		c.mountInspectMenu = function(notRobloxAuthored)
 			local store = Rodux.Store.new(rootReducer, nil, { Rodux.thunkMiddleware })
@@ -39,9 +31,7 @@ return function()
 					[Roact.Change.AbsoluteSize] = function(rbx)
 					end
 				}, {
-				inspectAndBuy = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle
-				}, {
+				inspectAndBuy = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					inspectAndBuy = Roact.createElement(InspectAndBuy, {
 						humanoidDescription = MockNetwork.GetMockHumanoidDescription(),
 						ctx = "escapeMenu",

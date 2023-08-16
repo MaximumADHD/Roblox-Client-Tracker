@@ -562,10 +562,7 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 				else
 					self.bannedUntil = userSettings.bannedUntil
-					self:showPrompt(if GetFFlagAvatarChatBanMessage() and userSettings.isAvatarVideoEligible
-						then VoiceChatPromptType.VoiceChatSuspendedTemporaryAvatarChat
-						else VoiceChatPromptType.VoiceChatSuspendedTemporary
-					)
+					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
 				end
 			end
 		end
@@ -604,10 +601,7 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage()
 			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 		else
 			self.bannedUntil = userSettings.bannedUntil
-			self:showPrompt(if GetFFlagAvatarChatBanMessage() and userSettings.isAvatarVideoEligible
-				then VoiceChatPromptType.VoiceChatSuspendedTemporaryAvatarChat
-				else VoiceChatPromptType.VoiceChatSuspendedTemporary
-			)
+			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
 		end
 	end
 end
@@ -799,7 +793,6 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 			banEnd = if GetFFlagVoiceBanPromptShowSeconds()
 			then DateTime.fromUnixTimestamp(self.bannedUntil.Seconds):FormatLocalTime("l LT", LocalizationService.RobloxLocaleId)
 			else os.date("%x", self.bannedUntil.Seconds)
-			print(banEnd)
 		end
 		local isNudge = GetFFlagEnableNudgeAnalytics() and (
 			promptType == VoiceChatPromptType.VoiceToxicityModal or promptType == VoiceChatPromptType.VoiceToxicityToast

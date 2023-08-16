@@ -1610,7 +1610,7 @@ local function CreateSettingsHub()
 		end
 
 		this.pageViewScrollChangeCon = nil
-		if Theme.UseStickyBar then
+		if Theme.UseStickyBar() then
 			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
 			if utility:IsPortrait() == false then
 				this.defaultPageViewClipperSize = nil
@@ -1658,7 +1658,7 @@ local function CreateSettingsHub()
 			}
 		end
 
-		if Theme.UseStickyBar then
+		if Theme.UseStickyBar() then
 			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
 			utility:Create'UIListLayout'
 			{
@@ -2153,7 +2153,7 @@ local function CreateSettingsHub()
 			this.VerticalMenu.Size = UDim2.new(0, Theme.VerticalMenuWidth, 0, usePageSize + this.HubBar.Size.Y.Offset)
 		end
 
-		if Theme.UseStickyBar then
+		if Theme.UseStickyBar() then
 			this.resetPageViewClipperSize = true
 			this.showStickyBottomBar = true
 			if this.pageViewScrollChangeCon then
@@ -2506,7 +2506,7 @@ local function CreateSettingsHub()
 		this.PageViewClipper.ClipsDescendants = isClipped
 		this.PageView.ClipsDescendants = isClipped
 
-		if Theme.UseStickyBar == false then
+		if Theme.UseStickyBar() == false then
 			this.PageViewInnerFrame.ClipsDescendants = isClipped
 		end
 
@@ -2517,7 +2517,7 @@ local function CreateSettingsHub()
 			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 		end
 
-		if Theme.UseStickyBar == false then
+		if Theme.UseStickyBar() == false then
 			local pageSize = this.Pages.CurrentPage:GetSize()
 			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 
@@ -2620,7 +2620,7 @@ local function CreateSettingsHub()
 			this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 		end
 
-		if Theme.UseStickyBar == false then
+		if Theme.UseStickyBar() == false then
 			local pageSize = this.Pages.CurrentPage:GetSize()
 			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 
@@ -2962,7 +2962,7 @@ local function CreateSettingsHub()
 				lastInputChangedCon:disconnect()
 			end
 
-			if Theme.UseStickyBar then
+			if Theme.UseStickyBar() then
 				if this.pageViewScrollChangeCon then
 					this.pageViewScrollChangeCon:disconnect()
 					this.pageViewScrollChangeCon = nil

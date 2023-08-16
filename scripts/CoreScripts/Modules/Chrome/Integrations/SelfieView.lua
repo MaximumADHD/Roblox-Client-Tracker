@@ -6,7 +6,7 @@ local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
-local FFlagSelfieViewEnabled = require(SelfieViewModule.Flags.FFlagSelfieViewEnabled)
+local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 
 local SelfieView = require(SelfieViewModule)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
@@ -60,7 +60,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 	},
 })
 
-if FFlagSelfieViewEnabled and game:GetEngineFeature("VideoCaptureService") then
+if GetFFlagSelfieViewEnabled() and game:GetEngineFeature("VideoCaptureService") then
 	selfieViewChromeIntegration.availability:available()
 	VideoCaptureService.Started:Connect(function()
 		selfieViewChromeIntegration.availability:pinned()

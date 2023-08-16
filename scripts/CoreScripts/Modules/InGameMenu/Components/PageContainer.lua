@@ -13,7 +13,6 @@ local InGameMenu = script.Parent.Parent
 local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
 
-local FFlagIGMStopRenderingInactivePages = require(InGameMenu.Flags.FFlagIGMStopRenderingInactivePages)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagIGMControllerBarRefactor = require(InGameMenu.Flags.GetFFlagIGMControllerBarRefactor)
 
@@ -59,16 +58,14 @@ function PageContainer:init(props)
 		self.pagePositions[key] = pageBindings[key]:map(function(value)
 			return UDim2.new(value - 1, 0, 0, 0)
 		end)
-		if FFlagIGMStopRenderingInactivePages then
-			-- check the animation status for each page and toggles visible to false if it
-			-- is finished animating to the right (1.25) or to the left (0)
-			self.pageVisibilities[key] = pageBindings[key]:map(function(value)
-				if (value == animateLeftGoal or value == animateRightGoal) then
-					return false
-				end
-				return true
-			end)
-		end
+		-- check the animation status for each page and toggles visible to false if it
+		-- is finished animating to the right (1.25) or to the left (0)
+		self.pageVisibilities[key] = pageBindings[key]:map(function(value)
+			if (value == animateLeftGoal or value == animateRightGoal) then
+				return false
+			end
+			return true
+		end)
 	end
 
 	self.pageMotor = Otter.createGroupMotor(motorDefaults)
@@ -84,10 +81,7 @@ function PageContainer:render()
 
 	for key, pageInfo in pairs(Pages.pagesByKey) do
 
-		local pageVisible = nil -- inline with FFlagStopRenderingInactivePages
-		if FFlagIGMStopRenderingInactivePages then
-			pageVisible = self.pageVisibilities[key]
-		end
+		local pageVisible = self.pageVisibilities[key]
 
 		pageElements[key] = withLocalization({
 			title = pageInfo.title,
@@ -147,38 +141,18 @@ function PageContainer:didUpdate(oldProps, oldState)
 
 		if Pages.pagesByKey[lastPage].navigationDepth < Pages.pagesByKey[currentPage].navigationDepth then
 
-			if FFlagIGMStopRenderingInactivePages then
-				-- nav down
-				if not currentPageIsModal then
-					self.pageMotor:setGoal({
-						[lastPage] = Otter.spring(animateRightGoal, {frequency = 2.5}),
-					})
-				end
-			else
-				-- nav down
-				if not currentPageIsModal then
-					self.pageMotor:setGoal({
-						[lastPage] = Otter.spring(1.25, {frequency = 2.5}),
-					})
-				end
-
+			-- nav down
+			if not currentPageIsModal then
+				self.pageMotor:setGoal({
+					[lastPage] = Otter.spring(animateRightGoal, {frequency = 2.5}),
+				})
 			end
 
 		elseif Pages.pagesByKey[lastPage].navigationDepth == Pages.pagesByKey[currentPage].navigationDepth then
-
-			if FFlagIGMStopRenderingInactivePages then
-
-				-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
-				self.pageMotor:setGoal({
-					[lastPage] = Otter.spring(animateLeftGoal, {frequency = 2.5}),
-				})
-			else
-				-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
-				self.pageMotor:setGoal({
-					[lastPage] = Otter.spring(0, {frequency = 2.5}),
-				})
-			end
-
+			-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
+			self.pageMotor:setGoal({
+				[lastPage] = Otter.spring(animateLeftGoal, {frequency = 2.5}),
+			})
 		else
 
 			-- nav up/ nav to top
@@ -186,16 +160,9 @@ function PageContainer:didUpdate(oldProps, oldState)
 			-- parent-child pages, it will move all parent pages of lastPage until it reaches currentPage
 			local pagesToSlideRight = {}
 			local pageOnNavPath = lastPage
-			if FFlagIGMStopRenderingInactivePages then
-				while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
-					pagesToSlideRight[pageOnNavPath] = Otter.spring(animateLeftGoal, {frequency = 3.5})
-					pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
-				end
-			else
-				while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
-					pagesToSlideRight[pageOnNavPath] = Otter.spring(0, {frequency = 3.5})
-					pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
-				end
+			while pageOnNavPath ~= nil and pageOnNavPath ~= currentPage do
+				pagesToSlideRight[pageOnNavPath] = Otter.spring(animateLeftGoal, {frequency = 3.5})
+				pageOnNavPath = Pages.pagesByKey[pageOnNavPath].parentPage
 			end
 
 			self.pageMotor:setGoal(pagesToSlideRight)

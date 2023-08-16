@@ -19,23 +19,13 @@ return function()
 		local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 		local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
-		local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-		local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer),
 		}, {
 			InGameMenuPolicy = Roact.createElement(InGameMenuPolicy.Provider, {
 				policy = { InGameMenuPolicy.Mapper },
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					LocalizationProvider = Roact.createElement(LocalizationProvider, {
 						localization = Localization.new("en-us"),
 					}, {

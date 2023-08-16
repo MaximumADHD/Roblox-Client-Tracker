@@ -39,13 +39,6 @@ return function()
 
 	local PlayerListDisplay = require(script.Parent.PlayerListDisplay)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	type FakePlayer = {
 		UserId: number,
@@ -102,9 +95,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PlayerListDisplay = Roact.createElement(PlayerListDisplay, {
 						isVisible = true,
 						isMinimized = false,

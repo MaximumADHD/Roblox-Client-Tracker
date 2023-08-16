@@ -1,3 +1,4 @@
+local Workspace = game:GetService("Workspace")
 local UserInputService = game:GetService("UserInputService")
 local utils = require(script.Parent.ChromeUtils)
 local ObservableValue = utils.ObservableValue
@@ -29,10 +30,10 @@ function setCurrentCamera(camera: Camera?)
 	end
 end
 
-workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
-	setCurrentCamera(workspace.CurrentCamera)
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+	setCurrentCamera(Workspace.CurrentCamera)
 end)
-setCurrentCamera(workspace.CurrentCamera)
+setCurrentCamera(Workspace.CurrentCamera)
 
 return {
 	screenSize = screenSize,

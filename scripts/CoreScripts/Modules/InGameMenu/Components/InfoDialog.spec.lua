@@ -10,23 +10,14 @@ return function()
 	local InGameMenu = script.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local InfoDialog = require(script.Parent.InfoDialog)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				GameIconHeader = Roact.createElement(InfoDialog, {
 					bodyText = "Hello world!",
 					dismissText = "Okay",

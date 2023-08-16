@@ -14,13 +14,6 @@ return function()
 	local Reducers = require(TnsModule.Reducers)
 	local OpenReportMenu = require(TnsModule.Actions.OpenReportMenu)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local ReportMenu = require(script.Parent.ReportMenu)
 
@@ -35,9 +28,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = getStore(),
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					LocalizationProvider = Roact.createElement(LocalizationProvider, {
 						localization = Localization.new("en-us"),
 					}, {

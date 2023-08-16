@@ -10,7 +10,6 @@ return function()
 
 
 
-
 	describe("isMainPageMoreMenuOpen", function()
 		if not GetFFlagIGMControllerBarRefactor() then
 			it("should be closed by default", function()

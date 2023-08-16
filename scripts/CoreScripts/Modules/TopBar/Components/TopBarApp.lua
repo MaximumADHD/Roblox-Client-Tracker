@@ -31,8 +31,10 @@ local Chrome = script.Parent.Parent.Parent.Chrome
 
 local ChromeEnabled = require(Chrome.Enabled)
 local Unibar
+local KeepOutAreasHandler
 if ChromeEnabled() then
 	Unibar = require(Chrome.Unibar)
+	KeepOutAreasHandler = require(Chrome.Service.KeepOutAreasHandler)
 end
 
 local Connection = require(script.Parent.Connection)
@@ -40,6 +42,7 @@ local Connection = require(script.Parent.Connection)
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
+local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -68,6 +71,7 @@ TopBarApp.validateProps = t.strictInterface({
 	inspectMenuOpen = t.optional(t.boolean),
 
 	setScreenSize = t.callback,
+	setKeepOutArea = t.callback,
 })
 
 function TopBarApp:init()
@@ -239,6 +243,7 @@ function TopBarApp:renderWithStyle(style)
 			Position = topBarRightFramePosition,
 			AnchorPoint = Vector2.new(1, 0),
 		}, {
+			KeepOutAreasHandler = Roact.createElement(KeepOutAreasHandler),
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, 2),
 				PaddingBottom = UDim.new(0, 2),
@@ -257,6 +262,7 @@ function TopBarApp:renderWithStyle(style)
 			}),
 			VoiceStateContext = Roact.createElement(VoiceStateContext.Provider, {}, {
 				Unibar = Roact.createElement(Unibar, {
+					onAreaChanged = self.props.setKeepOutArea,
 					layoutOrder = 2,
 				}),
 			})
@@ -358,6 +364,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		setScreenSize = function(screenSize)
 			return dispatch(SetScreenSize(screenSize))
+		end,
+		setKeepOutArea = function(id, position, size)
+			return dispatch(SetKeepOutArea(id, position, size))
 		end,
 	}
 end

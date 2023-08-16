@@ -22,7 +22,14 @@ end
 
 local DeathTypeValue = RobloxReplicatedStorage:WaitForChild("DeathType", math.huge)
 -- initialize jointUpgradeActive here, since we need to wait for the value of StarterPlayer.AvatarJointUpgrade to replicate
-local jointUpgradeActive = avatarJointUpgrade and (avatarJointUpgradeDefaultOn or StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled)
+local jointUpgradeActive = false
+if avatarJointUpgrade then
+	if avatarJointUpgradeDefaultOn then
+		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade ~= Enum.AvatarJointUpgrade.Disabled
+	else
+		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled
+	end
+end
 
 if not DeathTypeValue or (not jointUpgradeActive and DeathTypeValue.Value ~= "Ragdoll") then
 	return -- Something's wrong. Don't bother locally modifying the character
@@ -86,14 +93,12 @@ local function onOwnedHumanoidDeath(character, humanoid)
 	if not avatarJointUpgrade then
 		-- Tell the server that we started simulating our ragdoll
 		remote:FireServer(humanoid)
-	end
-
-	if not jointUpgradeActive or DeathTypeValue.Value == "Ragdoll" then -- NonGraphic death
+		
 		-- stiff shock phase...
 		wait(0.1)
 
 		-- gradually give up...
-		Rigging.easeJointFriction(character, 0.85)
+		Rigging.easeJointFriction_OLD(character, 0.85)
 	end
 end
 

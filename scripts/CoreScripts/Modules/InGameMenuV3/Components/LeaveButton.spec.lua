@@ -20,13 +20,6 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local function getMountableTreeAndStore(children)
 		local store = Rodux.Store.new(reducer)
@@ -34,9 +27,7 @@ return function()
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, children),

@@ -6,20 +6,12 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
 	local ContactListContainer = require(script.Parent.ContactListContainer)
 	local Reducer = require(script.Parent.Parent.Reducer)
 	local Pages = require(script.Parent.Parent.Enums.Pages)
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	local mockState = function(currentPage, currentCall)
 		return {
@@ -107,9 +99,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ContactListContainer = Roact.createElement(ContactListContainer),
 			}),
 		})
@@ -138,9 +128,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					ContactListContainer = Roact.createElement(ContactListContainer),
 				}),
 			})
@@ -162,9 +150,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					ContactListContainer = Roact.createElement(ContactListContainer),
 				}),
 			})
@@ -186,9 +172,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					ContactListContainer = Roact.createElement(ContactListContainer),
 				}),
 			})

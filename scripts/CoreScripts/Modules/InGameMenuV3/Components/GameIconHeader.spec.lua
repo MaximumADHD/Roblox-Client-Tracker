@@ -12,23 +12,14 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local GameIconHeader = require(script.Parent.GameIconHeader)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {

@@ -105,6 +105,9 @@ end
 
 require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDispatcherInstaller)()
 
+if game:GetEngineFeature("AssetServiceUGCValidation") then
+	require(game:GetService("CoreGui").RobloxGui.Modules.Server.UGCValidation.UGCValidationFunctionInstaller)()
+end
 
 local TextChatService = game:GetService("TextChatService")
 local chatVersion = TextChatService.ChatVersion

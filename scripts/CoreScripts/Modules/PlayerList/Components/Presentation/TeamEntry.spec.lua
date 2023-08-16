@@ -15,16 +15,9 @@ return function()
 
 	local TeamEntry = require(script.Parent.TeamEntry)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Reducers = PlayerList.Reducers
 	local Reducer = require(Reducers.Reducer)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	it("should create and destroy without errors", function()
 		local store = Rodux.Store.new(Reducer)
@@ -35,9 +28,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(false)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					TeamEntry = Roact.createElement(TeamEntry, {
 						entrySize = 50,
 						layoutOrder = 0,
@@ -60,9 +51,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					TeamEntry = Roact.createElement(TeamEntry, {
 						entrySize = 150,
 						layoutOrder = 0,

@@ -9,16 +9,9 @@ return function()
 	local UIBlox = InGameMenuDependencies.UIBlox
 
 	local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
-
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Store = require(CorePackages.Rodux).Store
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local mockPolicyMapper = function(policy)
 		return {
@@ -50,9 +43,7 @@ return function()
 			InGameMenuPolicy = Roact.createElement(InGameMenuPolicy.Provider, {
 				policy = { mockPolicyMapper },
 			}, {
-				SendInviteButton = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				SendInviteButton = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					SendInviteButton = Roact.createElement(ShareInviteLinkButton),
 				})
 			})

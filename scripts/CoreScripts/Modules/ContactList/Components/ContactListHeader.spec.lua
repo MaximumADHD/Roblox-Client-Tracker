@@ -7,15 +7,8 @@ return function()
 	local Reducer = require(script.Parent.Parent.Reducer)
 	local ContactListHeader = require(script.Parent.ContactListHeader)
 	local Pages = require(script.Parent.Parent.Enums.Pages)
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	local mockState = function(currentPage)
 		return {
@@ -33,9 +26,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ContactListHeader = Roact.createElement(ContactListHeader, {
 					headerHeight = 48,
 					currentPage = Pages.FriendList,

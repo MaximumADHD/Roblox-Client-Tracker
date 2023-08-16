@@ -3,9 +3,6 @@ return function()
 	local UserInputService = game:GetService("UserInputService")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -22,10 +19,6 @@ return function()
 
 	local ButtonType = UIBlox.App.Button.Enum.ButtonType
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local buttonStackInfo = {
 		buttons = {
@@ -61,9 +54,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PromptWithTextField = Roact.createElement(PromptWithTextField, {
 						fieldText = "test",
 						onFieldTextUpdated = function()
@@ -88,9 +79,7 @@ return function()
 			local updatedText
 
 			local wrappedComponent = function()
-				return Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				return Roact.createElement(UIBlox.Style.Provider, {}, {
 					PromptWithTextField = Roact.createElement(PromptWithTextField, {
 						fieldText = "Hello",
 						onFieldTextUpdated = function(text)

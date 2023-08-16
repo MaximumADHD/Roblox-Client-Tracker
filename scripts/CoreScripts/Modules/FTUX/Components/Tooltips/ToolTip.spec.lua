@@ -1,16 +1,9 @@
 return function()
 	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local function spawnTooltipPart()
 		local part = Instance.new("Part")
@@ -27,9 +20,7 @@ return function()
 			local ToolTip = require(script.Parent.ToolTip)
 			local tooltipPart = spawnTooltipPart()
 
-			local tooltipTest = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local tooltipTest = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				Roact.createElement(ToolTip, {
 					controllerPart = tooltipPart :: BasePart,
 					tooltipText = "Tooltip Text",

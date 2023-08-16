@@ -19,9 +19,6 @@ local RoactAct = require(Modules.act)
 
 local RobloxTranslator = require(Modules.RobloxTranslator)
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 
 local TopBar = Modules.TopBar
@@ -31,11 +28,6 @@ local Reducer = require(TopBar.Reducer)
 
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetMoreMenuOpen = require(TopBar.Actions.SetMoreMenuOpen)
-
-local appStyle = {
-	Theme = AppDarkTheme,
-	Font = AppFont,
-}
 
 return function()
 	describe("MoreMenu", function()
@@ -53,9 +45,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					MoreMenu = Roact.createElement(MoreMenu)
 				})
 			})
@@ -107,9 +97,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					ScreenGui = Roact.createElement("ScreenGui", {
 						ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 					}, {

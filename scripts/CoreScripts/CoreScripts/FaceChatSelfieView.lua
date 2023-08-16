@@ -51,10 +51,14 @@ local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImp
 local FFlagSelfViewDontHideOnSwapCharacter = game:DefineFastFlag("SelfViewDontHideOnSwapCharacter", false)
 local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
 local FFlagAvatarChatSelfViewShowDefaultCursor = game:DefineFastFlag("AvatarChatSelfViewShowDefaultCursor", false)
+local FFlagFaceChatSelfieViewShowOutlinedMicrophoneWhenIdle = game:DefineFastFlag("FaceChatSelfieViewShowOutlinedMicrophoneWhenIdle", false)
 local FFlagDisableSelfViewReactingToSetCoreGuiEnabled = game:DefineFastFlag("DisableSelfViewReactingToSetCoreGuiEnabled", false)
 local FFlagSanitizeSelfView = game:DefineFastFlag("SanitizeSelfView", false)
 local FFlagSanitizeSelfViewStrict = game:DefineFastFlag("SanitizeSelfViewStrict", false)
 local FFlagRemoveTagsFromSelfViewClone = game:DefineFastFlag("RemoveTagsFromSelfViewClone", false)
+local FFlagACSelfViewFixes = game:DefineFastFlag("ACSelfViewFixes", false)
+local FFlagOnlyUpdateButtonsWhenInitialized = game:DefineFastFlag("OnlyUpdateButtonsWhenInitialized", false)
+local FFlagSelfViewChecks = game:DefineFastFlag("SelfViewChecks", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -88,16 +92,23 @@ local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermiss
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
+local FFlagUWPAvatarChatFixes = require(RobloxGui.Modules.Flags.FFlagUWPAvatarChatFixes)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
 local MIC_OFF_IMAGE = Images["icons/controls/microphoneMute"]
+local MIC_INACTIVE_IMAGE = Images["icons/controls/microphone_small"]
 local MIC_NAME = "MicButton"
 local CAM_NAME = "CamButton"
+local inExperienceCoreGui
 
 local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0, 0.105, -0.25)
+local DEFAULT_SELF_VIEW_NO_HEAD_CAM_OFFSET = Vector3.new(0, 1.5, 0)
+local DEFAULT_CAM_DISTANCE = 2
+local DEFAULT_CAM_DISTANCE_NO_HEAD = 2.5
+local DEFAULT_CAM_X_ROT = -0.04
 local cloneCharacterName = "SelfAvatar"
 -- seconds to wait to update the clone after something in the original has changed
 local UPDATE_CLONE_CD = 0.35
@@ -313,28 +324,37 @@ function updateSelfViewButtonVisibility()
 		numButtonsShowing += 1
 	end
 
-	local micButton = frame:FindFirstChild(MIC_NAME, true)
-	local camButton = frame:FindFirstChild(CAM_NAME, true)
-	-- If Camera is not available, the mic button should fill the Self View.
-	local sizeXScale = if numButtonsShowing == 2 then 0.5 else 1
+	--frame should only be nil here when this gets called before Self View got initialized (which should only happen in early voice chat fail in studio)
+	--we catch that case to avoid output window spam
+	if frame ~= nil or not FFlagOnlyUpdateButtonsWhenInitialized then
+		local micButton = frame:FindFirstChild(MIC_NAME, true)
+		local camButton = frame:FindFirstChild(CAM_NAME, true)
+		-- If Camera is not available, the mic button should fill the Self View.
+		local sizeXScale = if numButtonsShowing == 2 then 0.5 else 1
 
-	if micButton then
-		micButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
-		micButton.Visible = getShouldShowMicButton()
-	end
-	if camButton then
-		camButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
-		camButton.Visible = hasCameraPermissions
+		if micButton then
+			micButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
+			micButton.Visible = getShouldShowMicButton()
+		end
+		if camButton then
+			camButton.Size = UDim2.new(sizeXScale, -4, 1, -4)
+			camButton.Visible = hasCameraPermissions
+		end
+
 	end
 end
 
-local LOCAL_STATE_MAP = {
-	[(Enum::any).VoiceChatState.Joining] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
-	[(Enum::any).VoiceChatState.JoiningRetry] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
-	[(Enum::any).VoiceChatState.Joined] = VoiceChatServiceManager.VOICE_STATE.MUTED,
-	[(Enum::any).VoiceChatState.Leaving] = VoiceChatServiceManager.VOICE_STATE.MUTED,
-	[(Enum::any).VoiceChatState.Failed] = VoiceChatServiceManager.VOICE_STATE.ERROR,
-}
+local LOCAL_STATE_MAP = {}
+-- VoiceChatState Enum is not available on devices where Voice Chat isn't supported.
+if not FFlagUWPAvatarChatFixes or (FFlagUWPAvatarChatFixes and game:GetEngineFeature("VoiceChatSupported")) then
+	LOCAL_STATE_MAP = {
+		[(Enum::any).VoiceChatState.Joining] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
+		[(Enum::any).VoiceChatState.JoiningRetry] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
+		[(Enum::any).VoiceChatState.Joined] = VoiceChatServiceManager.VOICE_STATE.MUTED,
+		[(Enum::any).VoiceChatState.Leaving] = VoiceChatServiceManager.VOICE_STATE.MUTED,
+		[(Enum::any).VoiceChatState.Failed] = VoiceChatServiceManager.VOICE_STATE.ERROR,
+	}
+end
 
 --[[
 	If the user has Microphone permissions, init Voice Chat Service Manager
@@ -364,6 +384,19 @@ function initVoiceChatServiceManager()
 				micIcon.Image = icon
 				micIcon.ImageRectOffset = Vector2.new(0, 0)
 				micIcon.ImageRectSize = Vector2.new(0, 0)
+			end
+
+			if FFlagFaceChatSelfieViewShowOutlinedMicrophoneWhenIdle then
+				micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+				if state == VoiceChatServiceManager.VOICE_STATE.INACTIVE then
+					micIcon.Size = UDim2.fromOffset(19, 19)
+					micIcon.Image = MIC_INACTIVE_IMAGE.Image
+					micIcon.ImageRectOffset = MIC_INACTIVE_IMAGE.ImageRectOffset
+					micIcon.ImageRectSize = MIC_INACTIVE_IMAGE.ImageRectSize
+				elseif state == VoiceChatServiceManager.VOICE_STATE.TALKING then
+					micIcon.Position = UDim2.new(0.5, 0, 0.5, -1)
+				end
 			end
 		end
 
@@ -467,6 +500,10 @@ local function disconnectListeners()
 end
 
 function constrainTargetPositionToScreen(uiObject, screenSize, targetPosition)
+	if FFlagSelfViewChecks and uiObject == nil then
+		return
+	end
+
 	local newPosition = {
 		X = targetPosition.X,
 		Y = targetPosition.Y,
@@ -604,12 +641,15 @@ local function createViewport()
 		frame:Destroy()
 	end
 
-	local inExperienceCoreGui = Instance.new("ScreenGui")
-	inExperienceCoreGui.Name = "InExperienceCoreGui"
-	inExperienceCoreGui.Parent = CoreGui
-	--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
-	inExperienceCoreGui.DisplayOrder = -2
-	inExperienceCoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	-- This screen gui is now created once on initialization.
+	if not FFlagACSelfViewFixes then
+		inExperienceCoreGui = Instance.new("ScreenGui")
+		inExperienceCoreGui.Name = "InExperienceCoreGui"
+		inExperienceCoreGui.Parent = CoreGui
+		--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
+		inExperienceCoreGui.DisplayOrder = -2
+		inExperienceCoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	end
 
 	frame = Instance.new("Frame")
 	frame.Name = SELF_VIEW_NAME
@@ -880,12 +920,16 @@ local function createViewport()
 		else
 			micButton.Position = UDim2.new(0, 40, 0, -1)
 			micButton.Size = UDim2.new(0, 34, 0, 34)
-			micButton.Parent = frame
+			if not FFlagACSelfViewFixes then
+				micButton.Parent = frame
+			end
 			micButton.ImageTransparency = 0.3
 
 			camButton.Position = UDim2.new(0, 80, 0, -1)
 			camButton.Size = UDim2.new(0, 34, 0, 34)
-			camButton.Parent = frame
+			if not FFlagACSelfViewFixes then
+				camButton.Parent = frame
+			end
 			camButton.ImageTransparency = 0.3
 
 			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
@@ -1239,6 +1283,11 @@ function getNeck(character, head)
 end
 
 function findObjectOfNameAndTypeName(name, typeName, character)
+	if FFlagSelfViewChecks then
+		if character == nil then
+			return nil
+		end		
+	end
 	local descendants = character:GetDescendants()
 	for _, child in descendants do
 		if child.Name == name and child:IsA(typeName) then
@@ -1267,9 +1316,15 @@ function getHead(character)
 
 		--last resort fallback attempt, could return other object types in worst case (like a Pose called Head if the avatar has AnimSaves in it)
 		if not head then
-			head = character:FindFirstChild("Head", true)
-			if head and head:IsA("Pose") then
-				head = nil
+			if FFlagSelfViewChecks then
+				--having the fallback of just returning any object type which is called "Head" was too loose as it could be some object type which doesn't have features we need later on and cause errors then
+				--so we only fall back to looking for a Head Part if Head MeshPart was not found.
+				head = findObjectOfNameAndTypeName("Head", "Part", character)
+			else
+				head = character:FindFirstChild("Head", true)
+				if head and head:IsA("Pose") then
+					head = nil
+				end
 			end
 		end
 	end
@@ -1418,8 +1473,10 @@ local function updateClone(player)
 
 	local orgHead = getHead(character)
 
-	if not orgHead then
-		return
+	if not FFlagSelfViewChecks then
+		if not orgHead then
+			return
+		end
 	end
 
 	clone = character:Clone()
@@ -1503,30 +1560,38 @@ local function updateClone(player)
 		--focus viewport frame camera on upper body
 		--viewportCamera.CFrame = cloneRootPart.CFrame * CFrame.new(0,1.5,-2) * CFrame.Angles(math.rad(10),math.rad(180),0)--comment out for work in progress
 
-		--GetExtentsSize is only usable on models, so putting head into model:
-		--todo: only run this if head found, also look for head with descendents if not found
-		local dummyModel = Instance.new("Model")
-		dummyModel.Parent = clone
-		local head = getHead(clone)
-		character.Archivable = true
-		headClone = head:Clone()
-		headClone.CanCollide = false
-		headClone.Parent = dummyModel
-		headCloneNeck = getNeck(clone, headClone)
-		local rig = dummyModel
-		local extents = rig:GetExtentsSize()
-		local width = math.min(extents.X, extents.Y)
-		width = math.min(extents.X, extents.Z)
-		cframe, boundsSize = rig:GetBoundingBox()
-		local rootPart = headClone
-		headCloneRootFrame = rootPart.CFrame
-		headClone:Destroy()
+		if orgHead or not FFlagSelfViewChecks then
+			--GetExtentsSize is only usable on models, so putting head into model:
+			--todo: only run this if head found, also look for head with descendents if not found
+			local dummyModel = Instance.new("Model")
+			dummyModel.Parent = clone
+			local head = getHead(clone)
+			character.Archivable = true
+			headClone = head:Clone()
+			headClone.CanCollide = false
+			headClone.Parent = dummyModel
+			headCloneNeck = getNeck(clone, headClone)
+			local rig = dummyModel
+			local extents = rig:GetExtentsSize()
+			local width = math.min(extents.X, extents.Y)
+			width = math.min(extents.X, extents.Z)
+			cframe, boundsSize = rig:GetBoundingBox()
+			local rootPart = headClone
+			headCloneRootFrame = rootPart.CFrame
+			headClone:Destroy()
 
-		local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * 2)
-		viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
-		viewportCamera.Focus = headCloneRootFrame
-		character.Archivable = previousArchivableValue
-		dummyModel:Destroy()
+			local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
+			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
+			viewportCamera.Focus = headCloneRootFrame
+			character.Archivable = previousArchivableValue
+			dummyModel:Destroy()
+		else
+			--when no head was found which is a Part or MeshPart:
+			--basic fallback to focus the avatar in the viewportframe
+			local center = cloneRootPart.Position + cloneRootPart.CFrame.LookVector * DEFAULT_CAM_DISTANCE_NO_HEAD 
+			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_NO_HEAD_CAM_OFFSET, cloneRootPart.Position)		
+			viewportCamera.CFrame  = CFrame.new(viewportCamera.CFrame.Position) * CFrame.Angles(math.rad(DEFAULT_CAM_X_ROT), math.rad(180), 0)
+		end
 	end
 
 	--curious: despite we check further above if clone == nil, noticed in some games above it was not nil and then by reaching here it is nil...
@@ -1609,8 +1674,18 @@ function updateCachedHeadColor(headRefParam)
 	end)
 
 	if hasHeadColor then
-		cachedHeadColor = headRefParam.Color
-		cachedHeadSize = headRefParam.Size
+		if FFlagSelfViewChecks then
+			cachedHeadColor = headRefParam.Color
+			local hasHeadSize = pcall(function()
+				hasProperty(headRefParam, "Size")
+			end)
+			if hasHeadSize then
+				cachedHeadSize = headRefParam.Size
+			end		
+		else
+			cachedHeadColor = headRefParam.Color
+			cachedHeadSize = headRefParam.Size
+		end
 	end
 end
 
@@ -1890,8 +1965,10 @@ function startRenderStepped(player)
 				headRef = getHead(character)
 			end
 
-			if headRef == nil then
-				gotUsableClone = false
+			if not FFlagSelfViewChecks then
+				if headRef == nil then
+					gotUsableClone = false
+				end
 			end
 
 			if headRef then
@@ -1937,7 +2014,13 @@ function startRenderStepped(player)
 							anim = track.Animation
 							if anim then
 								if not orgAnimationTracks[anim.AnimationId] then
-									cloneAnimationTracks[anim.AnimationId]:Stop(0)
+									if FFlagSelfViewChecks then
+										if cloneAnimationTracks[anim.AnimationId] ~= nil then
+											cloneAnimationTracks[anim.AnimationId]:Stop(0)
+										end
+									else
+										cloneAnimationTracks[anim.AnimationId]:Stop(0)
+									end
 									cloneAnimationTracks[anim.AnimationId] = nil
 								end
 							end
@@ -2114,6 +2197,15 @@ function triggerAnalyticsReportExperienceSettings(settings)
 end
 
 function Initialize(player)
+	if FFlagACSelfViewFixes then
+		inExperienceCoreGui = Instance.new("ScreenGui")
+		inExperienceCoreGui.Name = "InExperienceCoreGui"
+		inExperienceCoreGui.Parent = CoreGui
+		--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
+		inExperienceCoreGui.DisplayOrder = -2
+		inExperienceCoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	end
+
 	local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
 
 	Analytics:reportSelfViewEnabledInCoreGuiState(shouldBeEnabledCoreGuiSetting)

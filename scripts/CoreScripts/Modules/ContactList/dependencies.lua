@@ -61,6 +61,9 @@ return {
 	NetworkingFriends = LuaSocialLibrariesDeps.NetworkingFriends.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
+	NetworkingUsers = LuaSocialLibrariesDeps.NetworkingUsers.config({
+		roduxNetworking = myRoduxNetworking,
+	}),
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	UIBlox = require(CorePackages.UIBlox),
 	enumerate = require(CorePackages.enumerate),

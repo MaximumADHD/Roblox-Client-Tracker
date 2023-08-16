@@ -43,6 +43,11 @@ export type Props = {
 }
 
 local ICON_SIZE = 10
+local BUTTON_SIZE = 28
+local PADDING_IN_BETWEEN = 12
+local PROFILE_SIZE = 68
+local PLAYER_CONTEXT_HEIGHT = 24
+local PADDING = Vector2.new(24, 12)
 
 function getTextFromPresence(presence)
 	-- TODO (charlieliu): Localization
@@ -142,7 +147,7 @@ local function FriendListItem(props: Props)
 
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
-		Size = UDim2.new(1, 0, 0, 92),
+		Size = UDim2.new(1, 0, 0, PROFILE_SIZE + PADDING.Y * 2),
 		BackgroundColor3 = theme[interactableTheme].Color,
 		BackgroundTransparency = theme[interactableTheme].Transparency,
 		BorderSizePixel = 0,
@@ -151,12 +156,12 @@ local function FriendListItem(props: Props)
 		[React.Event.Activated] = startCall,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 24),
-			PaddingTop = UDim.new(0, 12),
+			PaddingLeft = UDim.new(0, PADDING.X),
+			PaddingTop = UDim.new(0, PADDING.Y),
 		}),
 
 		ProfileImage = React.createElement(ImageSetLabel, {
-			Size = UDim2.fromOffset(68, 68),
+			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
 		}, {
 			UICorner = React.createElement("UICorner", {
@@ -165,9 +170,8 @@ local function FriendListItem(props: Props)
 		}),
 
 		Content = React.createElement("Frame", {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Position = UDim2.fromOffset(80, 2),
-			Size = UDim2.new(1, -80, 0, 0),
+			Position = UDim2.new(0, PADDING_IN_BETWEEN + PROFILE_SIZE, 0, 0),
+			Size = UDim2.new(1, -(PADDING_IN_BETWEEN * 2 + PROFILE_SIZE + BUTTON_SIZE + PADDING.X), 1, -PADDING.Y),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
@@ -176,71 +180,74 @@ local function FriendListItem(props: Props)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			DisplayName = React.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
+			NameContent = React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, -PLAYER_CONTEXT_HEIGHT),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Font = font.Body.Font,
 				LayoutOrder = 1,
-				LineHeight = 1.25,
-				Text = props.displayName,
-				TextColor3 = theme.TextEmphasis.Color,
-				TextSize = font.BaseSize * font.Body.RelativeSize,
-				TextTransparency = theme.TextDefault.Transparency,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}),
-
-			Username = React.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Font = font.Body.Font,
-				LayoutOrder = 2,
-				LineHeight = 1.25,
-				Text = "@" .. props.userName,
-				TextColor3 = theme.TextDefault.Color,
-				TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
-				TextTransparency = theme.TextDefault.Transparency,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}),
-
-			PresenceDetails = React.createElement("Frame", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				LayoutOrder = 3,
 			}, {
-				UIPadding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 8),
+				UIListLayout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
-				PlayerContext = React.createElement(PlayerContext, {
-					icon = if isOnline(presence)
-						then Images["component_assets/circle_25"]
-						else Images["component_assets/circle_26_stroke_3"],
-					iconColor = if isOnline(presence)
-						then style.Theme.OnlineStatus.Color
-						else style.Theme.OfflineStatus.Color,
-					iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-					iconTransparency = if isOnline(presence)
-						then style.Theme.OnlineStatus.Transparency
-						else style.Theme.OfflineStatus.Transparency,
-					text = getTextFromPresence(presence),
-					fontStyle = style.Font.CaptionBody,
+				DisplayName = React.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Font = font.Header2.Font,
+					LayoutOrder = 1,
+					LineHeight = 1.25,
+					Text = props.displayName,
+					TextColor3 = theme.TextEmphasis.Color,
+					TextSize = font.BaseSize * font.Body.RelativeSize,
+					TextTransparency = theme.TextDefault.Transparency,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
+
+				Username = React.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Font = font.Body.Font,
+					LayoutOrder = 2,
+					LineHeight = 1.25,
+					Text = "@" .. props.userName,
+					TextColor3 = theme.TextDefault.Color,
+					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
+					TextTransparency = theme.TextDefault.Transparency,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+			}),
+
+			PlayerContext = React.createElement(PlayerContext, {
+				icon = if isOnline(presence)
+					then Images["component_assets/circle_25"]
+					else Images["component_assets/circle_26_stroke_3"],
+				iconColor = if isOnline(presence)
+					then style.Theme.OnlineStatus.Color
+					else style.Theme.OfflineStatus.Color,
+				iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+				iconTransparency = if isOnline(presence)
+					then style.Theme.OnlineStatus.Transparency
+					else style.Theme.OfflineStatus.Transparency,
+				text = getTextFromPresence(presence),
+				fontStyle = style.Font.CaptionBody,
+				layoutOrder = 2,
+				textHeight = PLAYER_CONTEXT_HEIGHT,
 			}),
 		}),
 
 		CallButton = if game:GetEngineFeature("EnableSocialServiceIrisInvite")
 			then React.createElement(IconButton, {
-				size = UDim2.fromOffset(28, 28),
+				size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
 				iconSize = IconSize.Large,
-				position = UDim2.new(1, -60, 0, 8),
+				position = UDim2.new(1, -PADDING.X, 0.5, 0),
+				anchorPoint = Vector2.new(1, 0.5),
 				iconColor3 = theme.ContextualPrimaryDefault.Color,
 				iconTransparency = theme.ContextualPrimaryDefault.Transparency,
 				icon = Images["icons/actions/accept"],

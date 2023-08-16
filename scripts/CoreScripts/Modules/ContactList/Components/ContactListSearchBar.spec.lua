@@ -6,15 +6,8 @@ return function()
 	local UIBlox = require(CorePackages.UIBlox)
 	local Reducer = require(script.Parent.Parent.Reducer)
 	local ContactListSearchBar = require(script.Parent.ContactListSearchBar)
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	local mockState = function(currentPage)
 		return {
@@ -32,9 +25,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ContactListSearchBar = Roact.createElement(ContactListSearchBar),
 			}),
 		})

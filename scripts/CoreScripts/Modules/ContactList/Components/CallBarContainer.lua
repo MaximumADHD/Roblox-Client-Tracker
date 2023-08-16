@@ -1,7 +1,6 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local GuiService = game:GetService("GuiService")
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -69,7 +68,7 @@ local function CallBarContainer(passedProps: Props)
 				pcall(function()
 					if callBarRef and callBarRef.current then
 						callBarRef.current:TweenPosition(
-							UDim2.new(0.5, 0, 0, -(CALL_BAR_SIZE.Y + GuiService:GetGuiInset().Y)),
+							UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
 							Enum.EasingDirection.In,
 							Enum.EasingStyle.Quad,
 							0.3,
@@ -106,7 +105,7 @@ local function CallBarContainer(passedProps: Props)
 					pcall(function()
 						if callBarRef and callBarRef.current then
 							callBarRef.current:TweenPosition(
-								UDim2.new(0.5, 0, 0, -(CALL_BAR_SIZE.Y + GuiService:GetGuiInset().Y)),
+								UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
 								Enum.EasingDirection.In,
 								Enum.EasingStyle.Quad,
 								0.3,
@@ -124,7 +123,7 @@ local function CallBarContainer(passedProps: Props)
 				pcall(function()
 					if callBarRef and callBarRef.current then
 						callBarRef.current:TweenPosition(
-							UDim2.new(0.5, 0, 0, -GuiService:GetGuiInset().Y),
+							UDim2.new(0.5, 0, 0, 0),
 							Enum.EasingDirection.Out,
 							Enum.EasingStyle.Quad,
 							0.3,

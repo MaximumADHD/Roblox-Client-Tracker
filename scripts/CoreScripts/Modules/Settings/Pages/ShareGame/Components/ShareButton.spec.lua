@@ -5,20 +5,11 @@ return function()
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local ShareButton = require(script.Parent.ShareButton)
 
 	it("should mount", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			ShareButton = Roact.createElement(ShareButton),
 		})
 

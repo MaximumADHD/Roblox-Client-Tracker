@@ -17,20 +17,12 @@ local jestExpect = JestGlobals.expect
 
 local RoactAct = require(Modules.act)
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 
 local TopBar = Modules.TopBar
 local Presentation = TopBar.Components.Presentation
 local GamepadMenu = require(Presentation.GamepadMenu)
 local Reducer = require(TopBar.Reducer)
-
-local appStyle = {
-	Theme = AppDarkTheme,
-	Font = AppFont,
-}
 
 return function()
 	describe("GamepadMenu", function()
@@ -48,9 +40,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					TopBarApp = Roact.createElement(GamepadMenu)
 				})
 			})
@@ -89,9 +79,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					GamepadMenu = Roact.createElement(GamepadMenu)
 				})
 			})

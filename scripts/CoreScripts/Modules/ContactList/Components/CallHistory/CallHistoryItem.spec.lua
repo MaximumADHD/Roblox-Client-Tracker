@@ -8,20 +8,12 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
 
 	local CallHistoryItem = require(ContactList.Components.CallHistory.CallHistoryItem)
 	local Reducer = require(ContactList.Reducer)
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 	local function createCallHistoryItem(callerId, status, localUserId, endUtc, startUtc)
 		local store = Rodux.Store.new(Reducer, nil, {
 			Rodux.thunkMiddleware,
@@ -30,9 +22,7 @@ return function()
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryItem = Roact.createElement(CallHistoryItem, {
 					caller = {
 						callId = "test_call_id",

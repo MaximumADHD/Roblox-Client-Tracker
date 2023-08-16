@@ -11,9 +11,6 @@ local Cryo = require(CorePackages.Cryo)
 local UIBlox = require(CorePackages.UIBlox)
 local Rhodium = require(CorePackages.Rhodium)
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 local TopBar = Modules.TopBar
 local Reducer = require(TopBar.Reducer)
 local TopBarAppPolicy = require(TopBar.TopBarAppPolicy)
@@ -23,11 +20,6 @@ local registerSetCores = require(TopBar.registerSetCores)
 
 return function()
 	beforeAll(function(c)
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
 		c.mountTopBar = function(overrideConfig)
 			local defaultConfig = {
 				key = "TopBar",
@@ -58,9 +50,7 @@ return function()
 					PolicyProvider = Roact.createElement(TopBarAppPolicy.Provider, {
 						policy = { TopBarAppPolicy.Mapper },
 					}, {
-						ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-							style = appStyle,
-						}, {
+						ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 							[config.key] = Roact.createElement(config.component, config.props),
 						})
 					})

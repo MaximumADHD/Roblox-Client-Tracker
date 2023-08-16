@@ -112,7 +112,7 @@ function CreateMessageLabel(messageData, channelName, refreshCallback)
 	local function useOriginalText(messageObject)	
 		isTranslated = false
 		if messageData.IsFiltered then
-			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. messageObject.Message
+			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. util:SanitizeForRichText(messageObject.Message)
 		else
 			local messageLength = messageObject.MessageLengthUtf8 or messageObject.MessageLength
 			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. string.rep("_", messageLength)
@@ -136,7 +136,7 @@ function CreateMessageLabel(messageData, channelName, refreshCallback)
 			return
 		end
 
-		BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. messageObject.TranslatedMessage
+		BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. util:SanitizeForRichText(messageObject.TranslatedMessage)
 	end
 
 	local function UpdateTextFunction_Chat(messageObject)
@@ -154,7 +154,7 @@ function CreateMessageLabel(messageData, channelName, refreshCallback)
 			return
 		end
 		if messageData.IsFiltered then
-			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. messageObject.Message
+			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. util:SanitizeForRichText(messageObject.Message)
 		else
 			local messageLength = messageObject.MessageLengthUtf8 or messageObject.MessageLength
 			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. string.rep("_", messageLength)

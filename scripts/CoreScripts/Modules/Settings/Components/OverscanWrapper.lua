@@ -1,43 +1,65 @@
 --!strict
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local LocalizationService = game:GetService("LocalizationService")
-
-local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
-local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
-local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
-
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
 local React = require(CorePackages.Packages.React)
-local Rodux = require(CorePackages.Packages.Rodux)
-local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
 local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
+local useRegisterFocusNavigableSurface = FocusNavigableSurfaceRegistry.useRegisterFocusNavigableSurface
+local useDeRegisterFocusNavigableSurface = FocusNavigableSurfaceRegistry.useDeRegisterFocusNavigableSurface
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+local useAutoFocus = FocusNavigationUtils.useAutoFocus
+local useDescendantHasFocus = FocusNavigationUtils.useDescendantHasFocus
 local DeviceTypeEnum = RobloxAppEnums.DeviceType
 
+local AUTO_FOCUS_DEBOUNCE_TIME = 0.1
+
+local function FocusNavigationEffects(props)
+	local focusRef, setFocusRef = React.useState(nil :: GuiObject?)
+	local registerFocusNavigationRoot = useRegisterFocusNavigableSurface()
+	local deregisterFocusNavigationRoot = useDeRegisterFocusNavigableSurface()
+	local autoFocus = useAutoFocus({ focusRef }, AUTO_FOCUS_DEBOUNCE_TIME)
+	local hasFocus = useDescendantHasFocus(focusRef)
+
+	React.useEffect(function()
+		if focusRef then
+			registerFocusNavigationRoot(FocusNavigableSurfaceIdentifierEnum.CentralOverlay, focusRef)
+		else
+			deregisterFocusNavigationRoot(FocusNavigableSurfaceIdentifierEnum.CentralOverlay, focusRef)
+		end
+		return function()
+			deregisterFocusNavigationRoot(FocusNavigableSurfaceIdentifierEnum.CentralOverlay, focusRef)
+		end
+	end, { focusRef } :: { any })
+
+	React.useEffect(function()
+		if focusRef and not hasFocus then
+			autoFocus()
+		end
+	end, { focusRef, hasFocus } :: { any })
+
+	return React.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		ref = setFocusRef,
+	}, props.children)
+end
+
 function OverscanWrapper(Overscan)
-    return function(props)
-        local appStyle = {
-            themeName = "dark",
-            fontName = "gotham",
-            deviceType = DeviceTypeEnum.Console,
-        }
-        return React.createElement(RoactRodux.StoreProvider, {
-            store = Rodux.Store.new(function(state) return state end, {}, {})
+	return function(props)
+		local styleOverride = {
+			deviceType = DeviceTypeEnum.Console,
+		}
+
+		return React.createElement(CoreScriptsRootProvider, {
+            styleOverride = styleOverride,
         }, {
-            ThemeProvider = React.createElement(UIBlox.App.Style.AppStyleProvider, {
-                style = appStyle,
-            }, {
-                DesignTokenProvider = React.createElement(DesignTokenProvider, {
-                    tokenMappers = {}
-                }, {
-                    LocalizationProvider = React.createElement(LocalizationProvider, {
-                        localization = Localization.new(LocalizationService.RobloxLocaleId) 
-                    }, {
-                        Overscan = React.createElement(Overscan, props),
-                    })
-                })
+            FocusNavigationEffects = React.createElement(FocusNavigationEffects, nil, {
+                Overscan = React.createElement(Overscan, props),
             }),
-        })
-    end
+		})
+	end
 end
 
 return OverscanWrapper

@@ -24,6 +24,8 @@ local Constants = require(Modules.InGameChat.BubbleChat.Constants)
 local SelfViewAPI = require(Modules.SelfView.publicApi)
 local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
 local Analytics = require(Modules.SelfView.Analytics).new()
+local FFlagUWPAvatarChatFixes = require(Modules.Flags.FFlagUWPAvatarChatFixes)
+local FFlagBubbleSizingFix = require(Modules.Flags.FFlagBubbleSizingFix)
 
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
@@ -187,10 +189,14 @@ function ControlsBubble:didMount()
 end
 
 function ControlsBubble:render()
-	local shouldShowVoiceIndicator = self.props.hasMicPermissions
+	local shouldShowVoiceIndicator = self.props.hasMicPermissions and (not FFlagUWPAvatarChatFixes or self.props.voiceEnabled)
 	local shouldShowCameraIndicator = self:shouldShowCameraIndicator()
 	local icon, imageSet = self:getMicIcon()
 	local chatSettings = self.props.chatSettings
+	local iconSize = nil
+	if FFlagBubbleSizingFix then
+		iconSize = if self.props.isLocalPlayer then UDim2.fromOffset(14, 18) else UDim2.fromOffset(23, 21)
+	end
 
 	return Roact.createElement("Frame", {
 		AnchorPoint = Vector2.new(0.5, 1),
@@ -236,6 +242,7 @@ function ControlsBubble:render()
 				enabled = self.props.hasMicPermissions,
 				isImageSet = imageSet,
 				chatSettings = chatSettings,
+				iconSize = iconSize,
 			}),
 			CameraBubble = shouldShowCameraIndicator and Roact.createElement(ControlBubble, {
 				LayoutOrder = 2,

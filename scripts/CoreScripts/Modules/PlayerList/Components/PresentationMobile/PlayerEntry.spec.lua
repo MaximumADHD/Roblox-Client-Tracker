@@ -19,13 +19,6 @@ return function()
 
 	local PlayerEntry = require(script.Parent.PlayerEntry)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local function getFakeRelationship()
 		return {
@@ -53,9 +46,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(false)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PlayerEntry = Roact.createElement(PlayerEntry, {
 						player = Players.LocalPlayer,
 						playerStats = {},
@@ -82,9 +73,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PlayerEntry = Roact.createElement(PlayerEntry, {
 						player = Players.LocalPlayer,
 						playerStats = {},

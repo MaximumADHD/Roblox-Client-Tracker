@@ -14,13 +14,6 @@ return function()
 
 	local ReceivedUserInviteStatus = require(InGameMenu.Actions.ReceivedUserInviteStatus)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local Constants = require(InGameMenu.Resources.Constants)
 	local InviteStatus = Constants.InviteStatus
@@ -53,9 +46,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
@@ -96,9 +87,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {

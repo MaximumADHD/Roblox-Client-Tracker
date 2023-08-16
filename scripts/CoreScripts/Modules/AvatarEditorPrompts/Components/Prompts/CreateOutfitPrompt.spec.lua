@@ -1,9 +1,6 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -15,11 +12,6 @@ return function()
 	local OpenPrompt = require(AvatarEditorPrompts.Actions.OpenPrompt)
 
 	local AvatarEditorPromptsPolicy = require(AvatarEditorPrompts.AvatarEditorPromptsPolicy)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	describe("CreateOutfitPrompt", function()
 		it("should create and destroy without errors", function()
@@ -42,9 +34,7 @@ return function()
 				PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
 					policy = { AvatarEditorPromptsPolicy.Mapper },
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 						CreateOutfitPrompt = Roact.createElement(CreateOutfitPrompt)
 					}),
 				}),

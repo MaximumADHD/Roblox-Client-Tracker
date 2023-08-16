@@ -13,6 +13,7 @@ return {
 		dampingRatio = 1,
 		frequency = 1 / 0.15, -- @150ms size anim
 	} :: SpringOptions,
+	UNIBAR_KEEP_OUT_AREA_ID = "unibar",
 
 	-- WindowHost constants
 	WINDOW_HOST_GUI_NAME = "WindowHost",

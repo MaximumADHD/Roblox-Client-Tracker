@@ -32,13 +32,6 @@ return function()
 
 	local PlayerListSorter = require(script.Parent.PlayerListSorter)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
@@ -47,9 +40,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(false)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PlayerListSorter = Roact.createElement(PlayerListSorter, {
 						screenSizeY = 1000,
 						entrySize = 200,
@@ -69,9 +60,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PlayerListSorter = Roact.createElement(PlayerListSorter, {
 						screenSizeY = 1000,
 						entrySize = 200,
@@ -111,9 +100,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(true)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PlayerListSorter = Roact.createElement(PlayerListSorter, {
 						screenSizeY = 1000,
 						entrySize = 200,

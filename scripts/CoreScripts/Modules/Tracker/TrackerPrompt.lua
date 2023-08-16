@@ -15,6 +15,8 @@ local t = require(CorePackages.Packages.t)
 
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
+local FFlagTrackerPromptNewCopyEnabled2 = game:DefineFastFlag("TrackerPromptNewCopyEnabled2", false)
+
 local TOAST_DURATION = 8
 local PROMPT_DISPLAY_ORDER = 10
 
@@ -26,7 +28,9 @@ TrackerPrompt.validateProps = t.strictInterface({
 
 local PromptTitle = {
 	[TrackerPromptType.None] = "",
-	[TrackerPromptType.VideoNoPermission] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoNoPermission"),
+	[TrackerPromptType.VideoNoPermission] = if FFlagTrackerPromptNewCopyEnabled2
+		then RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.UnableToAccessCamera")
+		else RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoNoPermission"),
 	[TrackerPromptType.NotAvailable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.NotAvailable"),
 	[TrackerPromptType.FeatureDisabled] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.FacialAnimation"),
 	[TrackerPromptType.LODCameraRecommendDisable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoPerformancePromptDisable"),
@@ -36,7 +40,9 @@ local PromptTitle = {
 }
 local PromptSubTitle = {
 	[TrackerPromptType.None] = "",
-	[TrackerPromptType.VideoNoPermission] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoNoPermission"),
+	[TrackerPromptType.VideoNoPermission] = if FFlagTrackerPromptNewCopyEnabled2
+		then RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.UnableToAccessCamera")
+		else RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoNoPermission"),
 	[TrackerPromptType.NotAvailable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.NotAvailable"),
 	[TrackerPromptType.FeatureDisabled] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.FeatureDisabled"),
 	[TrackerPromptType.LODCameraRecommendDisable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoPerformancePromptDisable"),

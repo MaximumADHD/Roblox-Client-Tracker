@@ -22,8 +22,11 @@ local VoiceChatServiceManager = require(RobloxGuiModules.VoiceChat.VoiceChatServ
 local GetFFlagVoiceUserAgencyEnableIXP = require(RobloxGuiModules.Flags.GetFFlagVoiceUserAgencyEnableIXP)
 local GetFStringVoiceUserAgencyIXPLayerName = require(RobloxGuiModules.Flags.GetFStringVoiceUserAgencyIXPLayerName)
 
+local FIntVoiceUserAgencyAlertInitTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertInitTimeOffset", 5)
 local FIntVoiceUserAgencyAlertStartTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3)
 local FIntVoiceUserAgencyAlertTimerDuration = game:DefineFastInt("VoiceUserAgencyAlertTimerDuration", 7)
+
+local FFlagVoiceUserAgencyAddMuteDecisionAnalytics = game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false)
 
 local CHECKBOX_TEXT = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.Remember")
 local CHECKBOX_TEXT_SIZE = 16
@@ -82,6 +85,16 @@ local function removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAl
 		placeIds[PLACE_ID_STR] = isMuteAll
 		AppStorageService:SetItem(LOCAL_STORAGE_KEY_VOICE_USER_AGENCY, HttpService:JSONEncode(placeIds))
 		AppStorageService:Flush()
+	end
+
+	if FFlagVoiceUserAgencyAddMuteDecisionAnalytics then
+		AnalyticsService:SendEventDeferred("client", "voiceChat", "SelectJoinWithVoice", {
+			userId = PLAYER_USER_ID,
+			voiceSessionId = VoiceChatServiceManager:getService():GetSessionId(),
+			voiceExperienceId = VoiceChatServiceManager:getService():GetVoiceExperienceId(),
+			isMuteAll = isMuteAll,
+			isRememberSetting = shouldRememberSetting,
+		})
 	end
 
 	bindResetHistory()
@@ -377,10 +390,12 @@ local function showUserAgencyPrompt()
 	end)
 end
 
-VoiceChatServiceManager:asyncInit()
-	:andThen(function()
-		showUserAgencyPrompt()
-	end)
-	:catch(function()
-		log:trace("VoiceChatServiceManager did not initialize for VoiceUserAgency")
-	end)
+task.delay(FIntVoiceUserAgencyAlertInitTimeOffset, function()
+	VoiceChatServiceManager:asyncInit()
+		:andThen(function()
+			showUserAgencyPrompt()
+		end)
+		:catch(function()
+			log:trace("VoiceChatServiceManager did not initialize for VoiceUserAgency")
+		end)
+end)

@@ -1,5 +1,5 @@
-game:DefineFastFlag("AvatarChatBanMessage", false)
+game:DefineFastFlag("AvatarChatBanMessageV2", false)
 
 return function()
-	return game:GetFastFlag("AvatarChatBanMessage")
+	return game:GetFastFlag("AvatarChatBanMessageV2")
 end

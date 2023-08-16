@@ -22,7 +22,7 @@ local AppFontBaseSize = AppFont.BaseSize
 local ThemeEnabled = EnableInGameMenuControls() or EnableInGameMenuModernization()
 
 local UseBiggerText = EnableInGameMenuModernizationBigText()
-local UseStickyBar = EnableInGameMenuModernizationStickyBar()
+local UseStickyBarEnabled = EnableInGameMenuModernizationStickyBar()
 local UseIconButtons = false
 local UseBottomButtonBarOnMobile = false
 
@@ -256,6 +256,11 @@ end
 
 local viewportSize = getViewportSize()
 local IsSmallTouchScreen = viewportSize and UserInputService.TouchEnabled and (viewportSize.Y < 500 or viewportSize.X < 700)
+local UseStickyBar = function()
+	local currentViewportSize = getViewportSize()
+	local isSmallScreen = currentViewportSize and (currentViewportSize.Y < 500 or currentViewportSize.X < 700)
+	return UseStickyBarEnabled and isSmallScreen
+end
 
 local HubPadding = {
 	PaddingTop = UDim.new(0, 0),
@@ -314,7 +319,7 @@ if ThemeEnabled then
 		MenuContainerCornerRadius = UDim.new(0, 10),
 		DefaultStokeThickness = 1,
 		AlwaysShowBottomBar = function()
-			if UseStickyBar then
+			if UseStickyBar() then
 				return true
 			end
 			if IsSmallTouchScreen then
@@ -346,7 +351,7 @@ if ThemeEnabled then
 		end,
 		MenuContainerPosition = function()
 			if IsSmallTouchScreen then
-				if UseStickyBar then
+				if UseStickyBar() then
 					return MenuContainerPositionMobileWithStickyBar
 				else
 					return MenuContainerPositionMobile
@@ -415,6 +420,8 @@ if ThemeEnabled then
 				instance.TextSize = font.TextSize
 			end
 		end,
+		platformNameTextSize = 18,
+		platformNameIconSize = UDim2.fromOffset(36, 36),
 	}
 else
 	return {
@@ -430,7 +437,7 @@ else
 		DefaultStokeThickness = 1,
 		ShowHomeButton = true,
 		UseBiggerText = false,
-		UseStickyBar = false,
+		UseStickyBar = function() return false end,
 		EnableDarkenBackground = false,
 		TabHeaderIconPadding = 0,
 		HubPadding =  function()
@@ -475,5 +482,7 @@ else
 		hydrateLabel = function(instance:any, colorStyle:string, fontStyle:string)
 			-- noop
 		end,
+		platformNameTextSize = 18,
+		platformNameIconSize = UDim2.fromOffset(36, 36),
 	}
 end

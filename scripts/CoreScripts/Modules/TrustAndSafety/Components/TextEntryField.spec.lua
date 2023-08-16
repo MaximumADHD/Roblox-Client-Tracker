@@ -6,20 +6,11 @@ return function()
 	local UIBlox = require(CorePackages.UIBlox)
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local TextEntryField = require(script.Parent.TextEntryField)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			TextEntryField = Roact.createElement(TextEntryField, {
 				enabled = true,
 				text = "Hello world!",
@@ -39,9 +30,7 @@ return function()
 	it("should call textChanged when the user enters text", function()
 		local textChangedWasCalled = false
 
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			TextEntryField = Roact.createElement(TextEntryField, {
 				enabled = true,
 				text = "",
@@ -71,9 +60,7 @@ return function()
 
 	it("should keep old text when new text exceeds max length", function()
 		local text = "Hello"
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			TextEntryField = Roact.createElement(TextEntryField, {
 				enabled = true,
 				text = text,
@@ -103,9 +90,7 @@ return function()
 
 	it("should keep old multi-byte text when new text exceeds max length", function()
 		local text = "罗布乐思"
-		local element = Roact.createElement(UIBlox.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Style.Provider, {}, {
 			TextEntryField = Roact.createElement(TextEntryField, {
 				enabled = true,
 				text = text,

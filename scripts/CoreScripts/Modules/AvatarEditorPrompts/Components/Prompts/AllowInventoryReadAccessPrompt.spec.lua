@@ -1,9 +1,6 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -13,11 +10,6 @@ return function()
 	local Reducer = require(AvatarEditorPrompts.Reducer)
 	local PromptType = require(AvatarEditorPrompts.PromptType)
 	local OpenPrompt = require(AvatarEditorPrompts.Actions.OpenPrompt)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	describe("AllowInventoryReadAccessPrompt", function()
 		it("should create and destroy without errors", function()
@@ -32,9 +24,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					AllowInventoryReadAccessPrompt = Roact.createElement(AllowInventoryReadAccessPrompt)
 				})
 			})

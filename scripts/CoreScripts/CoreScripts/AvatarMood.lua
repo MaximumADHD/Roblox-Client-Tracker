@@ -13,7 +13,6 @@ game:DefineFastFlag("MoodsRemoveWaitForChild", false)
 game:DefineFastFlag("MoodsAnimatorAddedFix", false)
 
 local FFlagSwitchMoodPriorityWhileStreaming = game:DefineFastFlag("SwitchMoodPriorityWhileStreaming", false)
-local animationStreamTrackPlayedSignal = game:GetEngineFeature("AnimationStreamTrackPlayedSignalApiEnabled")
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -56,7 +55,6 @@ local Connection = {
 	CharacterChildRemoved = "characterChildRemoved",
 	DescendantAdded = "DescendantAdded",
 	DescendantRemoving = "DescendantRemoving",
-	AnimationPlayedCoreScript = "AnimationPlayedCoreScript",
 	AnimationStreamTrackPlayed = "AnimationStreamTrackPlayed",
 	StreamTrackStopped = "StreamTrackStopped"
 }
@@ -431,20 +429,12 @@ end
 
 local function onAnimatorAdded(animator)
 	-- disconnect any previous animator listener
-	disconnectAndRemoveConnection(Connection.AnimationPlayedCoreScript)
+	disconnectAndRemoveConnection(Connection.AnimationStreamTrackPlayed)
 	-- listen for animations played on this animator
 
-	if animationStreamTrackPlayedSignal then
-		connections[Connection.AnimationStreamTrackPlayed] = animator.AnimationStreamTrackPlayed:Connect(function(track)
-			syncWithStreamTrack(track)
-		end)
-	else
-		connections[Connection.AnimationPlayedCoreScript] = animator.AnimationPlayedCoreScript:Connect(function(track)
-			if track:IsA("AnimationStreamTrack") then
-				syncWithStreamTrack(track)
-			end
-		end)	
-	end
+	connections[Connection.AnimationStreamTrackPlayed] = animator.AnimationStreamTrackPlayed:Connect(function(track)
+		syncWithStreamTrack(track)
+	end)
 
 	-- check if streaming animation is already playing
 	local coreTracks = animator:GetPlayingAnimationTracksCoreScript()
@@ -466,7 +456,7 @@ end
 
 local function onAnimatorRemoving(animator)
 	-- clear connections
-	disconnectAndRemoveConnection(Connection.AnimationPlayedCoreScript)
+	disconnectAndRemoveConnection(Connection.AnimationStreamTrackPlayed)
 	disconnectAndRemoveConnection(Connection.StreamTrackStopped)
 	-- move Mood to blend with Locomotion
 	switchPriority(Enum.AnimationPriority.Core)

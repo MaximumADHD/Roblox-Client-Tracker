@@ -5,13 +5,6 @@ return function()
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local Slider = require(script.Parent.Slider)
@@ -25,9 +18,7 @@ return function()
 			valueChanged = function() end,
 		})
 
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 				Slider = slider,
 			}),

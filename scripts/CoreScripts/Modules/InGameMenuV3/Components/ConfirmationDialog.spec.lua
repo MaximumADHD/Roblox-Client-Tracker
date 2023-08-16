@@ -9,18 +9,11 @@ return function()
 	local UIBlox = InGameMenuDependencies.UIBlox
 	local Cryo = require(CorePackages.Packages.Cryo)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local InGameMenu = script.Parent.Parent
 	local Constants = require(InGameMenu.Resources.Constants)
 	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local ConfirmationDialog = require(script.Parent.ConfirmationDialog)
 
@@ -45,9 +38,7 @@ return function()
 	local getMountableComponent = function(props)
 		props = props or {}
 
-		return Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		return Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 				ConfirmationDialog = Roact.createElement(
 					ConfirmationDialog,

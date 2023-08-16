@@ -7,23 +7,13 @@ return function()
 
 	local InGameMenu = script.Parent.Parent.Parent
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
 	local SendInviteButton = require(script.Parent.SendInviteButton)
 
 	local Constants = require(InGameMenu.Resources.Constants)
 	local InviteStatus = Constants.InviteStatus
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			SendInviteButton = Roact.createElement(SendInviteButton, {
 				onActivated = function()
 					print("onActivated")
@@ -47,9 +37,7 @@ return function()
 			local animationBegunCalled = 0
 			local animationEndedCalled = 0
 
-			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				SendInviteButton = Roact.createElement(SendInviteButton, {
 					onActivated = function()
 						print("onActivated")

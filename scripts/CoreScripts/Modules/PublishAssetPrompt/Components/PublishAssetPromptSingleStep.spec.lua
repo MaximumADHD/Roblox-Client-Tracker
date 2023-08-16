@@ -1,9 +1,6 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -13,11 +10,6 @@ return function()
 	local Reducer = require(PublishAssetPromptFolder.Reducer)
 	local OpenPublishAssetPrompt = require(PublishAssetPromptFolder.Actions.OpenPublishAssetPrompt)
 	local PromptType = require(PublishAssetPromptFolder.PromptType)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	describe("PublishAssetPromptSingleStep", function()
 		it("should create and destroy without errors", function()
@@ -42,9 +34,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PublishAssetPromptSingleStep = Roact.createElement(PublishAssetPromptSingleStep, {
 						screenSize = Vector2.new(1920, 1080),
 					}),

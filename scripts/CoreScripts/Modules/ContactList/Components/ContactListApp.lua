@@ -3,7 +3,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-local StarterGui = game:GetService("StarterGui")
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -32,17 +31,6 @@ return function(passedProps: Props)
 	local props = Cryo.Dictionary.join(defaultProps, passedProps)
 
 	React.useEffect(function()
-		local callMessageConn = props.callProtocol:listenToHandleCallMessage(function(params)
-			if params.messageType == CallProtocol.Enums.MessageType.CallError.rawValue() then
-				StarterGui:SetCore("SendNotification", {
-					Title = "Call Failed",
-					Text = string.match(params.errorData :: string, "%(.-%)") or params.errorData,
-					Duration = 5,
-					Button1 = "Okay",
-				})
-			end
-		end)
-
 		local teleportingCallConn = props.callProtocol:listenToHandleTeleportingCall(function(params)
 			if
 				params.status == RoduxCall.Enums.Status.Teleporting.rawValue()
@@ -71,7 +59,6 @@ return function(passedProps: Props)
 		end)
 
 		return function()
-			callMessageConn:Disconnect()
 			teleportingCallConn:Disconnect()
 		end
 	end, { props.callProtocol })

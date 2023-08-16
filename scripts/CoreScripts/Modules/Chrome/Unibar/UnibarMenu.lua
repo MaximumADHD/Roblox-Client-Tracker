@@ -24,7 +24,7 @@ type Table = { [any]: any }
 -- ie. Voice Mute integration will only be shown is voice is enabled/active
 ChromeService:configureMenu({
 	{ "trust_and_safty" },
-	{ "toggle_mic_mute", "selfie_view", "dummy_window", "dummy_window_2" },
+	{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
 	{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 })
 ChromeService:configureSubMenu("nine_dot", { "chat", "leaderboard", "emotes", "backpack" })
@@ -78,7 +78,12 @@ function IconPositionBinding(toggleTransition: any, openPosition: number, closed
 	end) :: any
 end
 
-function Unibar(props)
+type UnibarProp = {
+	menuFrameRef: any,
+	onAreaChanged: (id: string, position: UDim2, size: UDim2) -> nil,
+}
+
+function Unibar(props: UnibarProp)
 	-- Tree of menu items to display
 	local menuItems = useChromeMenuItems()
 
@@ -92,6 +97,10 @@ function Unibar(props)
 	local xOffsetPinned = 0 -- x advance layout for pinned items (used when closed)
 	local minSize: number = 0
 	local expandSize: number = 0
+
+	local onAreaChanged = function(rbx)
+		props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, rbx.AbsolutePosition, rbx.AbsoluteSize)
+	end
 
 	local unibarSizeBinding = toggleTransition:map(function(value: number): any
 		return UDim2.new(0, minSize + value * expandSize, 0, Constants.ICON_CELL_WIDTH)
@@ -153,6 +162,8 @@ function Unibar(props)
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 		ref = props.menuFrameRef,
+		[React.Change.AbsoluteSize] = onAreaChanged,
+		[React.Change.AbsolutePosition] = onAreaChanged,
 	}, {
 		React.createElement(AnimationStateHelper, {
 			setToggleTransition = setToggleTransition,
@@ -179,6 +190,7 @@ end
 
 type UnibarMenuProp = {
 	layoutOrder: number,
+	onAreaChanged: (id: string, position: UDim2, size: UDim2) -> nil,
 }
 
 local UnibarMenu = function(props: UnibarMenuProp)
@@ -223,7 +235,10 @@ local UnibarMenu = function(props: UnibarMenuProp)
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 				Padding = UDim.new(0, 10),
 			}) :: any,
-			React.createElement(Unibar, { menuFrameRef = menuFrame }) :: any,
+			React.createElement(Unibar, {
+				menuFrameRef = menuFrame,
+				onAreaChanged = props.onAreaChanged,
+			}) :: any,
 			React.createElement(SubMenu) :: any,
 			React.createElement(WindowManager) :: React.React_Element<any>,
 		}),

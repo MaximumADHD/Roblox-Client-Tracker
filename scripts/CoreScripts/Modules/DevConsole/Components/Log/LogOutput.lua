@@ -14,8 +14,6 @@ local MAX_STR_MSG = " -- Could not display entire %d character message because m
 
 local LogOutput = Roact.Component:extend("LogOutput")
 
-local FFlagLogOutputUseFontSizeForCalcWrappingDims = game:DefineFastFlag("LogOutputUseFontSizeForCalcWrappingDims", false)
-
 function LogOutput:init(props)
 	local initLogOutput = props.initLogOutput and props.initLogOutput()
 
@@ -82,11 +80,7 @@ function LogOutput:didMount()
 				local frameWidth = self.state.absSize.X - ARROW_OFFSET
 
 				if self.state.wordWrap and frameWidth > 0 then
-					if FFlagLogOutputUseFontSizeForCalcWrappingDims then
-						msgDimsY = FONT_SIZE * math.ceil(newestMsg.Dims.X / frameWidth)
-					else
-						msgDimsY = newestMsg.Dims.Y * math.ceil(newestMsg.Dims.X / frameWidth)
-					end
+					msgDimsY = newestMsg.Dims.Y * math.ceil(newestMsg.Dims.X / frameWidth)
 				end
 
 				canvasPosY = math.max(0, canvasPosY - msgDimsY - LINE_PADDING)
@@ -151,11 +145,7 @@ function LogOutput:render()
 
 			local msgDimsY = message.Dims.Y
 			if wordWrap and frameWidth > 0 then
-				if FFlagLogOutputUseFontSizeForCalcWrappingDims then
-					msgDimsY = FONT_SIZE * math.ceil(message.Dims.X / frameWidth)
-				else
-					msgDimsY = message.Dims.Y * math.ceil(message.Dims.X / frameWidth)
-				end
+				msgDimsY = message.Dims.Y * math.ceil(message.Dims.X / frameWidth)
 			end
 
 			messageCount = messageCount + 1

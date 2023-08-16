@@ -26,6 +26,11 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local CallState = require(ContactList.Enums.CallState)
 
+local PADDING_IN_BETWEEN = 12
+local PROFILE_SIZE = 68
+local DETAIL_CONTEXT_HEIGHT = 24
+local PADDING = Vector2.new(24, 12)
+
 export type Participant = {
 	userId: number,
 	displayName: string,
@@ -188,7 +193,7 @@ local function CallHistoryItem(props: Props)
 
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
-		Size = UDim2.new(1, 0, 0, 92),
+		Size = UDim2.new(1, 0, 0, PROFILE_SIZE + PADDING.Y * 2),
 		BackgroundColor3 = theme[interactableTheme].Color,
 		BackgroundTransparency = theme[interactableTheme].Transparency,
 		BorderSizePixel = 0,
@@ -197,12 +202,12 @@ local function CallHistoryItem(props: Props)
 		[React.Event.Activated] = onDetailsActivated,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 24),
-			PaddingTop = UDim.new(0, 12),
+			PaddingLeft = UDim.new(0, PADDING.X),
+			PaddingTop = UDim.new(0, PADDING.Y),
 		}),
 
 		ProfileImage = React.createElement(ImageSetLabel, {
-			Size = UDim2.fromOffset(68, 68),
+			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
 		}, {
 			UICorner = React.createElement("UICorner", {
@@ -211,9 +216,8 @@ local function CallHistoryItem(props: Props)
 		}),
 
 		Content = React.createElement("Frame", {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Position = UDim2.fromOffset(80, 2),
-			Size = UDim2.new(1, -80, 0, 0),
+			Position = UDim2.new(0, PADDING_IN_BETWEEN + PROFILE_SIZE, 0, 0),
+			Size = UDim2.new(1, -(PADDING_IN_BETWEEN + PROFILE_SIZE + PADDING.X), 1, -PADDING.Y),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
@@ -222,58 +226,63 @@ local function CallHistoryItem(props: Props)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			DisplayName = React.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
+			NameContent = React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, -DETAIL_CONTEXT_HEIGHT),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Font = font.Body.Font,
 				LayoutOrder = 1,
-				LineHeight = 1.25,
-				Text = participant.displayName,
-				TextColor3 = if isMissedCall(caller) then theme.Alert.Color else theme.TextEmphasis.Color,
-				TextSize = font.BaseSize * font.Body.RelativeSize,
-				TextTransparency = theme.TextDefault.Transparency,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}),
+			}, {
+				UIListLayout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
 
-			Username = React.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Font = font.Body.Font,
-				LayoutOrder = 2,
-				LineHeight = 1.25,
-				Text = "@" .. participant.userName,
-				TextColor3 = theme.TextDefault.Color,
-				TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
-				TextTransparency = theme.TextDefault.Transparency,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
+				DisplayName = React.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Font = font.Header2.Font,
+					LayoutOrder = 1,
+					LineHeight = 1.25,
+					Text = participant.displayName,
+					TextColor3 = theme.TextEmphasis.Color,
+					TextSize = font.BaseSize * font.Body.RelativeSize,
+					TextTransparency = theme.TextDefault.Transparency,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+
+				Username = React.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Font = font.Body.Font,
+					LayoutOrder = 2,
+					LineHeight = 1.25,
+					Text = "@" .. participant.userName,
+					TextColor3 = theme.TextDefault.Color,
+					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
+					TextTransparency = theme.TextDefault.Transparency,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
 			}),
 
 			Details = React.createElement("Frame", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
+				Size = UDim2.new(1, 0, 0, DETAIL_CONTEXT_HEIGHT),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				LayoutOrder = 3,
+				LayoutOrder = 2,
 			}, {
-				UIPadding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 8),
-				}),
-
 				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, 6),
+					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
 
 				CallContextImage = React.createElement(ImageSetLabel, {
-					AnchorPoint = Vector2.new(0.5, 0),
-					Size = UDim2.fromOffset(18, 18),
-					Position = UDim2.fromOffset(0, 5),
+					Size = UDim2.fromOffset(DETAIL_CONTEXT_HEIGHT, DETAIL_CONTEXT_HEIGHT),
 					BackgroundTransparency = 1,
 					ImageColor3 = theme.TextDefault.Color,
 					ImageTransparency = theme.TextDefault.Transparency,
@@ -281,6 +290,8 @@ local function CallHistoryItem(props: Props)
 				}),
 
 				DetailsText = React.createElement("TextLabel", {
+					Position = UDim2.new(0, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0, 0.5),
 					AutomaticSize = Enum.AutomaticSize.XY,
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
@@ -291,9 +302,7 @@ local function CallHistoryItem(props: Props)
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,
 					TextTruncate = Enum.TextTruncate.AtEnd,
-				}, { UIPadding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 2),
-				}) }),
+				}),
 			}),
 		}),
 

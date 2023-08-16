@@ -9,7 +9,14 @@ local CommonModules = CoreGuiModules:FindFirstChild("Common")
 
 local avatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local avatarJointUpgradeDefaultOn = game:GetEngineFeature("AvatarJointUpgradeDefaultOnFeature")
-local jointUpgradeActive = avatarJointUpgrade and (avatarJointUpgradeDefaultOn or StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled)
+local jointUpgradeActive = false
+if avatarJointUpgrade then
+	if avatarJointUpgradeDefaultOn then
+		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade ~= Enum.AvatarJointUpgrade.Disabled
+	else
+		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled
+	end
+end
 
 local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
@@ -104,10 +111,7 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid: Hu
 
 	-- Server creates ragdoll joints on spawn to allow for seamless transition even if death is
 	-- initiated on the client. The Motor6Ds keep them inactive until they are disabled.
-	Rigging.createRagdollJoints(character, humanoid.RigType)
-	if jointUpgradeActive then
-		Rigging.upgradeMotorsToAnimationConstraints(character)
-	end
+	Rigging.createRagdollJoints(character, humanoid.RigType, jointUpgradeActive)
 	riggedPlayerHumanoids[player] = humanoid
 
 	if avatarJointUpgrade then
@@ -124,6 +128,8 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid: Hu
 					Rigging.disableMotors(character, humanoid.RigType)
 					if deathType == "Classic" then
 						Rigging.removeRagdollJoints(character) -- dismember for ClassicBreakapart
+					elseif deathType == "Ragdoll" then -- NonGraphic DeathStyle
+						Rigging.easeNongraphicJointFriction(character, 0.85)
 					end
 				end
 			else

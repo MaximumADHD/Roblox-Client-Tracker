@@ -1,19 +1,11 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
 
 	local EmoteThumbnailEditor = require(script.Parent.EmoteThumbnailEditor)
 	local EmoteThumbnailParameters = require(script.Parent.EmoteThumbnailParameters)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local closePromptCallback = function() end
 	local updateThumbnailCallback = function(emoteParameters) end
@@ -24,9 +16,7 @@ return function()
 			local keyframe = Instance.new("Keyframe")
 			keyframe.Parent = animationClip
 
-			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				EmoteThumbnailView = Roact.createElement(EmoteThumbnailEditor, {
 					screenSize = Vector2.new(1080, 1920),
 
@@ -44,9 +34,7 @@ return function()
 		it("should create and destroy without errors for CurveAnimation", function()
 			local animationClip = Instance.new("CurveAnimation")
 
-			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				EmoteThumbnailView = Roact.createElement(EmoteThumbnailEditor, {
 					screenSize = Vector2.new(1920, 300), --300 to test the landscape rendering
 

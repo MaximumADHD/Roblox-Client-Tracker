@@ -33,7 +33,7 @@ function CreateWelcomeMessageLabel(messageData, channelName)
 			local formatChannelName = string.format("{%s}", localizedChannelName)
 			ChannelButton = util:AddChannelButtonToBaseMessage(BaseMessage, useChannelColor, formatChannelName, messageData.OriginalChannel)
 			local numNeededSpaces = util:GetNumberOfSpaces(formatChannelName, useFont, useTextSize) + 1
-			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. message
+			BaseMessage.Text = util:CreateLeadingSpaces(numNeededSpaces) .. util:SanitizeForRichText(message)
 	end
 
 	local function GetHeightFunction(xSize)

@@ -37,12 +37,12 @@ local KEY_FADE_IN = "FadeInFunction"
 local KEY_FADE_OUT = "FadeOutFunction"
 local KEY_UPDATE_ANIMATION = "UpdateAnimFunction"
 
-local FFlagUserFixOverlappingRtlChatMessages = false do
+local FFlagUserFixOverlappingRtlChatMessages2 = false do
 	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixOverlappingRtlChatMessages")
+		return UserSettings():IsUserFeatureEnabled("UserFixOverlappingRtlChatMessages2")
 	end)
 	if ok then
-		FFlagUserFixOverlappingRtlChatMessages = value
+		FFlagUserFixOverlappingRtlChatMessages2 = value
 	end
 end
 
@@ -71,7 +71,7 @@ end
 
 function methods:GetMessageHeight(BaseMessage, BaseFrame, xSize)
 	xSize = xSize or BaseFrame.AbsoluteSize.X
-	local text = if FFlagUserFixOverlappingRtlChatMessages then BaseMessage.ContentText else BaseMessage.Text
+	local text = if FFlagUserFixOverlappingRtlChatMessages2 then BaseMessage.ContentText else BaseMessage.Text
 	local textBoundsSize = self:GetStringTextBounds(text, BaseMessage.Font, BaseMessage.TextSize, Vector2.new(xSize, 1000))
 	if textBoundsSize.Y ~= math.floor(textBoundsSize.Y) then
 		-- HACK Alert. TODO: Remove this when we switch UDim2 to use float Offsets
@@ -88,10 +88,22 @@ function methods:GetNumberOfSpaces(str, font, textSize)
 end
 
 function methods:CreateLeadingSpaces(numNeededSpaces)
-	if FFlagUserFixOverlappingRtlChatMessages then
+	if FFlagUserFixOverlappingRtlChatMessages2 then
 		return "<font dir=\"ltr\">" .. string.rep(" ", numNeededSpaces) .. "</font>"
 	else
 		return string.rep(" ", numNeededSpaces)
+	end
+end
+
+function methods:SanitizeForRichText(str)
+	if FFlagUserFixOverlappingRtlChatMessages2 then
+		return string.gsub(str, "%p", {
+			["<"] = "&lt;",
+			[">"] = "&gt;",
+			["&"] = "&amp;",
+		})
+	else
+		return str
 	end
 end
 
@@ -120,7 +132,7 @@ function methods:CreateBaseMessage(message, font, textSize, chatColor)
 	BaseMessage.ClipsDescendants = true
 	BaseMessage.Text = message
 	BaseMessage.Visible = true
-	BaseMessage.RichText = if FFlagUserFixOverlappingRtlChatMessages then true else false
+	BaseMessage.RichText = if FFlagUserFixOverlappingRtlChatMessages2 then true else false
 	BaseMessage.Parent = BaseFrame
 
 	return BaseFrame, BaseMessage

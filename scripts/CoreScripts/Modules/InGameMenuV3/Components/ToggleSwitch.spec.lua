@@ -5,20 +5,11 @@ return function()
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local ToggleSwitch = require(script.Parent.ToggleSwitch)
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			ToggleSwitch = Roact.createElement(ToggleSwitch, {
 				checked = false,
 				onToggled = function()
@@ -37,9 +28,7 @@ return function()
 	end)
 
 	it("should create and destroy without errors when checked", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			ToggleSwitch = Roact.createElement(ToggleSwitch, {
 				checked = true,
 				onToggled = function()

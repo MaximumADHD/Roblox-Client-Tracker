@@ -53,6 +53,7 @@ end)
 local FFlagUseNotificationsLocalization = success and result
 
 local GetFFlagFixReportMenu = require(Settings.Flags.GetFFlagFixReportMenu)
+local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 
 ------------------ Modules --------------------
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
@@ -321,6 +322,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 	})
 
 	local button
+	local buttonUIStroke
 	local borderColor = "DefaultButtonStroke"
 	local backgroundColor = "DefaultButton"
 	if Theme.UIBloxThemeEnabled then
@@ -346,7 +348,7 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 			CornerRadius = Theme.DefaultCornerRadius,
 			Parent = button,
 		})
-		Util.Create("UIStroke")({
+		buttonUIStroke = Util.Create("UIStroke")({
 			Name = "Border",
 			Color = Theme.color(borderColor),
 			Transparency = Theme.transparency(borderColor),
@@ -377,6 +379,17 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 		button.MouseButton1Click:Connect(function()
 			clickFunc(gamepadSet[UserInputService:GetLastInputType()] or false)
 		end)
+	else
+		if GetFFlagSettingsHubButtonCanBeDisabled() then
+			if Theme.UIBloxThemeEnabled then
+				if buttonUIStroke then
+					buttonUIStroke.Enabled = false
+				end
+			else
+				button.ImageTransparency = 1
+			end
+			button.Selectable = false
+		end
 	end
 
 	local function isPointerInput(inputObject)

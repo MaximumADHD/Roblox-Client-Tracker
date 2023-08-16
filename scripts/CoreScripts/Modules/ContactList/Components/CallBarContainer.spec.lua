@@ -8,9 +8,6 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Reducer = require(script.Parent.Parent.Reducer)
 	local CallBarContainer = require(script.Parent.CallBarContainer)
 
@@ -19,11 +16,6 @@ return function()
 	local ContactList = RobloxGui.Modules.ContactList
 	local dependencies = require(ContactList.dependencies)
 	local RoduxCall = dependencies.RoduxCall
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	beforeAll(function(c: any)
 		c.mockCurrentCall = {
@@ -46,9 +38,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallBarContainer = Roact.createElement(CallBarContainer),
 			}),
 		})

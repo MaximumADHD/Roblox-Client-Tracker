@@ -46,7 +46,7 @@ local defaultProps = {
 local function getTextFromCallStatus(status)
 	-- TODO (joshli): Need to translate these.
 	if status == RoduxCall.Enums.Status.Connecting.rawValue() then
-		return "Waiting…"
+		return "Calling…"
 	elseif status == RoduxCall.Enums.Status.Teleporting.rawValue() then
 		return "Teleporting…"
 	elseif status == RoduxCall.Enums.Status.Active.rawValue() then

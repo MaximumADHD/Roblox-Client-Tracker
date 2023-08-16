@@ -11,9 +11,6 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
@@ -30,11 +27,6 @@ return function()
 	local Constants = require(RobloxGui.Modules.Common.Constants)
 
 	local act = require(RobloxGui.Modules.act)
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	beforeAll(function(c: any)
 		local RemoteIrisInviteTeleport = Instance.new("RemoteEvent")
@@ -100,9 +92,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				ContactListApp = Roact.createElement(ContactListApp),
 			}),
 		})
@@ -161,9 +151,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
 				}),
 			})
@@ -214,9 +202,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
 				}),
 			})

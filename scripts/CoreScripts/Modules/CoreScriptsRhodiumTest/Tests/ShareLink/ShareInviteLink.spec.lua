@@ -23,13 +23,6 @@ return function()
 
 	local NetworkingShareLinks = dependencies.NetworkingShareLinks
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local ShareInviteLink = require(RobloxGui.Modules.Settings.Pages.ShareGame.Components.ShareInviteLink)
 	local STORE_URL = "www.bbc.co.uk"
@@ -68,9 +61,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ShareInviteLink = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				ShareInviteLink = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					ShareButton = Roact.createElement(ShareInviteLink, {
 						deviceLayout = Constants.DeviceLayout.DESKTOP,
 						analytics = mockAnalytics,

@@ -11,13 +11,6 @@ return function()
 	local InGameMenu = script.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local EducationalPopupDialog = require(script.Parent.EducationalPopupDialog)
 
@@ -60,9 +53,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				EducationalPopupDialog = Roact.createElement(EducationalPopupDialog, mockProps),
 			}),
 		})

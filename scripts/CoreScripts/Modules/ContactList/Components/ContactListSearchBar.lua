@@ -20,7 +20,6 @@ export type Props = {
 	searchBarHeight: number?,
 	searchText: string?,
 	onFocused: () -> ()?,
-	position: UDim2?,
 }
 
 local defaultProps = {
@@ -40,7 +39,6 @@ local ContactListSearchBar = function(passedProps)
 	end, { props.onSearchChanged })
 
 	return React.createElement("Frame", {
-		Position = props.position,
 		Size = UDim2.new(1, -48, 0, props.searchBarHeight),
 		BackgroundColor3 = Colors.Slate,
 		BackgroundTransparency = 0,

@@ -5,21 +5,12 @@ return function()
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local HomeButton = require(script.Parent.HomeButton)
 
 	it("should create and destroy with default props without errors", function()
 
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			HomeButton = Roact.createElement(HomeButton, {
 				onActivated = function() end,
 			}),
@@ -31,9 +22,7 @@ return function()
 
 	it("should create and destroy with all props without errors", function()
 
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			HomeButton = Roact.createElement(HomeButton, {
 				on = true,
 				anchorPoint = Vector2.new(0.5, 0.5),

@@ -10,8 +10,6 @@ local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local Cryo = InGameMenuDependencies.Cryo
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local RoactRodux = require(CorePackages.RoactRodux)
 local Rodux = require(CorePackages.Rodux)
 local Rhodium = require(CorePackages.Rhodium)
@@ -32,11 +30,6 @@ local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelec
 
 return function()
 	beforeAll(function(c)
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
 		c.mountIGM = function(overrideConfig)
 			local defaultConfig = {
 				key = "InGameMenu",
@@ -82,9 +75,7 @@ return function()
 						policy = { InGameMenuPolicy.Mapper },
 						policyData = config.policyData,
 					}, {
-						ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-							style = appStyle,
-						}, {
+						ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 							LocalizationProvider = Roact.createElement(LocalizationProvider, {
 								localization = localization,
 							}, children)

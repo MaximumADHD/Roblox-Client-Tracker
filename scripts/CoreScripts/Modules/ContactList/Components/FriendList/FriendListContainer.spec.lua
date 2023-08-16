@@ -9,9 +9,6 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -21,11 +18,6 @@ return function()
 
 	local dependencies = require(ContactList.dependencies)
 	local PresenceModel = dependencies.RoduxPresence.Models.Presence
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	it("should mount and unmount without errors", function()
 		local store = Rodux.Store.new(Reducer, {
@@ -69,9 +61,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				FriendListContainer = Roact.createElement(FriendListContainer, {
 					isDevMode = true,
 					dismissCallback = function() end,
@@ -131,9 +121,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
 						dismissCallback = function() end,
@@ -192,9 +180,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
 						dismissCallback = function() end,
@@ -253,9 +239,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
 						dismissCallback = function() end,
@@ -324,9 +308,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
 						dismissCallback = function() end,

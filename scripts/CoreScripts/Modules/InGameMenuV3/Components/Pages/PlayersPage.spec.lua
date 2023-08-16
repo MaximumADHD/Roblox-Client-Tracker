@@ -17,8 +17,6 @@ return function()
 	local InGameMenu = script.Parent.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
 	local UIBlox = InGameMenuDependencies.UIBlox
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 	local Players = game:GetService("Players")
 	local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
@@ -29,10 +27,6 @@ return function()
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 	local ParticipantAdded = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local Localization = require(InGameMenu.Localization.Localization)
 	local Rodux = InGameMenuDependencies.Rodux
@@ -78,9 +72,7 @@ return function()
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {

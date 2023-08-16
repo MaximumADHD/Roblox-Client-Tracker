@@ -13,13 +13,6 @@ return function()
 
 	local StatEntry = require(script.Parent.StatEntry)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	it("should create and destroy without errors", function()
 		local layoutValues = CreateLayoutValues(false)
@@ -27,9 +20,7 @@ return function()
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = layoutValues
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				StatEntry = Roact.createElement(StatEntry, {
 					statValue = 50,
 					isTitleEntry = false,
@@ -52,9 +43,7 @@ return function()
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = layoutValues
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				StatEntry = Roact.createElement(StatEntry, {
 					statValue = 50,
 					isTitleEntry = true,

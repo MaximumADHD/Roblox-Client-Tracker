@@ -6,6 +6,7 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["FocusNavigationUtils"]["FocusNavigationUtils"])
 
 export type FocusNavigationEventName = Package.FocusNavigationEventName
+export type FocusNavigableSurfaceIdentifier = Package.FocusNavigableSurfaceIdentifier
 
 
 return Package

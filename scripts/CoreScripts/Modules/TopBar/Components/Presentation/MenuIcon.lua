@@ -25,28 +25,32 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
+local Constants = require(Components.Parent.Constants)
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
+local SetKeepOutArea = require(Actions.SetKeepOutArea)
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
 	InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 end
 
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+
 local IconButton = require(script.Parent.IconButton)
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
-local BACKGROUND_SIZE = 32
+local BACKGROUND_SIZE = if ChromeEnabled() then (Constants.TopBarHeight - 4) else 32
 local ICON_SIZE = 24
 local DEFAULT_DELAY_TIME = 0.4
 
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	setGamepadMenuOpen = t.callback,
 	iconScale = t.optional(t.number),
+	onAreaChanged = t.optional(t.callback),
 })
 
 function MenuIcon:init()
@@ -115,11 +119,17 @@ end
 function MenuIcon:render()
 	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
 
+	local onAreaChanged = function(rbx)
+		self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+	end
+
 	return Roact.createElement("Frame", {
 		Visible = visible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,
+		[Roact.Change.AbsoluteSize] = if ChromeEnabled() then onAreaChanged else nil,
+		[Roact.Change.AbsolutePosition] = if ChromeEnabled() then onAreaChanged else nil,
 	}, {
 		Background = Roact.createElement(IconButton, {
 			icon = if ChromeEnabled()
@@ -142,6 +152,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		setGamepadMenuOpen = function(open)
 			return dispatch(SetGamepadMenuOpen(open))
+		end,
+		onAreaChanged = function(id, position, size)
+			return dispatch(SetKeepOutArea(id, position, size))
 		end,
 	}
 end

@@ -18,14 +18,6 @@ return function()
 
 	local DropDownButton = require(script.Parent.DropDownButton)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
 	describe("DropDownButton", function()
 		it("should mount and unmount without errors", function()
 			local layoutValues = CreateLayoutValues(false)
@@ -37,9 +29,7 @@ return function()
 				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 					layoutValues = layoutValues
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 						DropDownButton = Roact.createElement(DropDownButton, {
 							contentVisible = true,
 							buttonTransparency = 0,

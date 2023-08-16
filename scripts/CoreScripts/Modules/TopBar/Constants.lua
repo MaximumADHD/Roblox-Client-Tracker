@@ -4,6 +4,8 @@ return {
 	TopBarHeight = if ChromeEnabled() then 48 else 36,
 	TopBarHeightTenFoot = 72,
 
+	MenuIconKeepOutAreaId = 'roblox-menu-icon',
+
 	ScreenSideOffset = 16,
 	ScreenSideOffsetTenFoot = 48,
 

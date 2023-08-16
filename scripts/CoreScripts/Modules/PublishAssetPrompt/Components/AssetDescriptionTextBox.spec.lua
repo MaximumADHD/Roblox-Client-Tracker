@@ -8,16 +8,8 @@ return function()
 	local UIBlox = require(CorePackages.UIBlox)
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local PublishAssetPromptFolder = script.Parent.Parent
 	local Reducer = require(PublishAssetPromptFolder.Reducer)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
 
@@ -31,9 +23,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				AssetDescriptionTextBox = Roact.createElement(AssetDescriptionTextBox, {
 					onAssetDescriptionUpdated = function() end,
 					descriptionTextBoxRef = ref,
@@ -56,9 +46,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				TextEntryField = Roact.createElement(AssetDescriptionTextBox, {
 					onAssetDescriptionUpdated = function(newText, isDescriptionValid)
 						textChangedWasCalled = true

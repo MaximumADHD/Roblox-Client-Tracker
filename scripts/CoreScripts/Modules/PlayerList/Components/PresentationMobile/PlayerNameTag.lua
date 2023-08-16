@@ -13,6 +13,12 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
+local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+
+local getFFlagPlayerListApolloClientEnabled = require(RobloxGui.Modules.Flags.getFFlagPlayerListApolloClientEnabled)
+local getIsUserProfileOnLeaderboardEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnLeaderboardEnabled)
+
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
 PlayerNameTag.validateProps = t.strictInterface({
@@ -32,6 +38,26 @@ PlayerNameTag.validateProps = t.strictInterface({
 	}),
 })
 
+function PlayerNameTag:init()
+	if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then
+		self:setState({
+			name = self.props.player.DisplayName,
+		})
+
+		ApolloClient:query({
+			query = UserProfiles.Queries.userProfilesCombinedNameByUserIds,
+			variables = {
+				userIds = { tostring(self.props.player.UserId) },
+			},
+		}):andThen(function(response)
+			local name = response.data.userProfiles[1].names.combinedName
+			self:setState({
+				name = name,
+			})
+		end)
+	end
+end
+
 function PlayerNameTag:render()
 	return WithLayoutValues(function(layoutValues)
 		local playerNameFont = self.props.textFont.Font
@@ -49,7 +75,7 @@ function PlayerNameTag:render()
 			TextStrokeColor3 = self.props.textStyle.StrokeColor,
 			TextStrokeTransparency = self.props.textStyle.StrokeTransparency,
 			BackgroundTransparency = 1,
-			Text = self.props.player.DisplayName,
+			Text = if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then self.state.name else self.props.player.DisplayName,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 		})
 	end)

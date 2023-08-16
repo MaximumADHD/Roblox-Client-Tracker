@@ -1,6 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -16,10 +14,6 @@ local QuickActionsMenu = require(script.Parent.QuickActionsMenu)
 
 return function()
 	it("should create and destroy without errors for horizontal layout", function()
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
 		local transparencies = {
 			button1 = 0,
 			button2 = 0,
@@ -29,9 +23,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer),
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
@@ -59,10 +51,6 @@ return function()
 	end)
 
 	it("should create and destroy without errors for vertical layout", function()
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
 		local transparencies = {
 			button1 = 0,
 			button2 = 0,
@@ -71,9 +59,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer),
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {

@@ -13,15 +13,8 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local DropDownSelection = require(script.Parent.DropDownSelection)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local dummyDropDownProps = {
 		Size = UDim2.new(0, 200, 0, 44),
@@ -43,9 +36,7 @@ return function()
 	}
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
 				localization = Localization.new("en-us"),
 			}, {
@@ -58,9 +49,7 @@ return function()
 	end)
 
 	it("should create and destroy without errors with a selected item", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
 				localization = Localization.new("en-us"),
 			}, {
@@ -80,9 +69,7 @@ return function()
 		})
 
 		jestExpect(function()
-			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {

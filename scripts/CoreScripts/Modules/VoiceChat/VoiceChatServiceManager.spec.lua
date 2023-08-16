@@ -432,14 +432,20 @@ return function()
 				end)
 				waitForEvents.act()
 				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
+
 				local ToastContainer = CoreGui:FindFirstChild("ToastContainer", true)
+				local FFlagVoiceChatPromptFrameNewCopyEnabled2 = game:GetFastFlag("VoiceChatPromptFrameNewCopyEnabled2")
+				local expectedToastText = if FFlagVoiceChatPromptFrameNewCopyEnabled2
+					then "Unable to access Microphone"
+					else "Voice Chat Unavailable"
+
 				if GetFFlagUIBloxEnableToastButton() then
 					jestExpect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
-						"Voice Chat Unavailable"
+						expectedToastText
 					)
 				else
 					jestExpect(ToastContainer.Toast.ToastFrame.ToastTextFrame.ToastTitle.Text).toBe(
-						"Voice Chat Unavailable"
+						expectedToastText
 					)
 				end
 			end)

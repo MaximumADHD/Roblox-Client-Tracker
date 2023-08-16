@@ -269,7 +269,8 @@ return function()
 	end)
 
 	describe("Navigation flows as expected", function()
-		it("Selection hits all list elements in expected order, top down", function(c)
+		-- TODO Unskip this test: https://roblox.atlassian.net/browse/CLIXBOX-3426
+		xit("Selection hits all list elements in expected order, top down", function(c)
 			-- Send an input to update currently used input device
 			c.gamepadInput(Enum.KeyCode.DPadDown)
 
@@ -328,7 +329,8 @@ return function()
 			expect(tostring(GuiService.SelectedCoreObject)).to.equal("AdvancedSettings")
 		end)
 
-		it("Selection comes back to 'Advanced Settings' button when coming back from it", function(c)
+		-- TODO Unskip this test: https://roblox.atlassian.net/browse/CLIXBOX-3426
+		xit("Selection comes back to 'Advanced Settings' button when coming back from it", function(c)
 			if GetFFlagIGMGamepadSelectionHistory() then
 				-- Send an input to update currently used input device
 				c.gamepadInput(Enum.KeyCode.DPadDown)

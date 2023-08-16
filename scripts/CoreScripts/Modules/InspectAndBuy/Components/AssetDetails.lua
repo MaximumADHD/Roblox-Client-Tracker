@@ -16,6 +16,7 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local Constants = require(InspectAndBuyFolder.Constants)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
+local FFlagAssetDetailsUseAutomaticCanvasSize = require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled = require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
@@ -117,6 +118,8 @@ function AssetDetails:render()
 					Size = UDim2.new(1, 0, 1, -55),
 					ScrollingEnabled = scrollingEnabled,
 					Selectable = false,
+					CanvasSize = if FFlagAssetDetailsUseAutomaticCanvasSize then UDim2.new(1, 0, 0, 0) else nil,
+					AutomaticCanvasSize = if FFlagAssetDetailsUseAutomaticCanvasSize then Enum.AutomaticSize.Y else nil,
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						SortOrder = Enum.SortOrder.LayoutOrder,

@@ -3,8 +3,6 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 	local LocalizationService = game:GetService("LocalizationService")
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
@@ -15,11 +13,6 @@ return function()
 	local MockFTUXStyleAndLocalization = require(FTUX.Utility.MockFTUXStyleAndLocalizationComponent)
 	local PlatformEnum = require(FTUX.Enums.PlatformEnum)
 	type Platform = PlatformEnum.Platform
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	describe("FTUXPanel", function()
 		it("should create and destroy without errors for QuestVR", function()

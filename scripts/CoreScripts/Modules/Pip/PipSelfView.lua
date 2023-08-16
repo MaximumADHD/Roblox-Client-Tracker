@@ -1750,8 +1750,6 @@ function startRenderStepped(player)
 		return
 	end
 
-	local GetSelfViewTrackerDataBindableEvent = ReplicatedStorage:WaitForChild("GetSelfViewTrackerDataBindableEvent", 5)
-
 	renderSteppedConnection = RunService.RenderStepped:Connect(function(step)
 		--GetPropertyChangedSignal for head color/size change fired reliably in a simple test place for animation props
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
@@ -1922,10 +1920,6 @@ function startRenderStepped(player)
 						-- Cam orientation will be an inverse of the head rotation
 						local angle = CFrame.Angles(-x * camOrientationWeight, -y * camOrientationWeight, -z * camOrientationWeight)
 						viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
-
-						if GetSelfViewTrackerDataBindableEvent ~= nil then
-							GetSelfViewTrackerDataBindableEvent:Fire(trackerData)
-						end
 					else
 						viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
 					end

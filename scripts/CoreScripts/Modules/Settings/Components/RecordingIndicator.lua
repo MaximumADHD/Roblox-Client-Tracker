@@ -13,6 +13,8 @@ local SPRING_PARAMS = {
 	dampingRatio = 1,
 }
 
+local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
+
 local MicOn = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.MicOnRecording")
 local MicOff = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.MicOff")
 local VOICE_RECORDING_INDICATOR_FADE_TIME = 5
@@ -85,6 +87,7 @@ function RecordingIndicator:render()
 		TextTransparency = 1 - self.state.textOpacity,
 		BackgroundTransparency = 1,
 		LayoutOrder = 6,
+		TextWrapped = GetFFlagVoiceTextOverflowFix(),
 	})
 end
 

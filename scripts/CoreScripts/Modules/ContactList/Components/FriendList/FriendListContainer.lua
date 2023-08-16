@@ -161,6 +161,9 @@ local function FriendListContainer(props: Props)
 				BorderSizePixel = 0,
 				CanvasSize = UDim2.new(),
 				ScrollingDirection = Enum.ScrollingDirection.Y,
+				ScrollBarImageColor3 = theme.UIEmphasis.Color,
+				ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
+				ScrollBarThickness = 4,
 			}, children)
 	else
 		local allPlayers, setAllPlayers = React.useState(function()
@@ -236,10 +239,13 @@ local function FriendListContainer(props: Props)
 				Size = UDim2.new(1, 0, 1, 0),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				CanvasSize = UDim2.new(),
-				ScrollingDirection = Enum.ScrollingDirection.Y,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				ScrollBarImageColor3 = theme.UIEmphasis.Color,
+				ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
+				ScrollBarThickness = 4,
 			}, children)
 	end
 end

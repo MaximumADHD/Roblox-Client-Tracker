@@ -770,7 +770,7 @@ local function Initialize()
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ReportAbusePage"
 
-	if Theme.UseStickyBar then
+	if Theme.UseStickyBar() then
 		-- create a safe zone bottom padding
 		utility:Create'Frame'
 		{

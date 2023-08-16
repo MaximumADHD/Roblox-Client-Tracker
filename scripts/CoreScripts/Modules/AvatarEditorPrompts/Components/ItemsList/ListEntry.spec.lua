@@ -1,24 +1,14 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	describe("ListEntry", function()
 		it("should create and destroy without errors", function()
 			local ListEntry = require(script.Parent.ListEntry)
 
-			local element = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Style.Provider, {}, {
 				ListEntry = Roact.createElement(ListEntry, {
 					text = "Hello World!",
 					hasBullet = true,
@@ -34,9 +24,7 @@ return function()
 			local ListEntry = require(script.Parent.ListEntry)
 			local ref = Roact.createRef()
 
-			local element = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Style.Provider, {}, {
 				ListEntry = Roact.createElement(ListEntry, {
 					text = "Hello World!",
 					hasBullet = true,

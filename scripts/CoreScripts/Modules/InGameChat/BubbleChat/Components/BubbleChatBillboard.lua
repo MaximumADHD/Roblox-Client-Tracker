@@ -38,6 +38,7 @@ local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicCo
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local FFlagBubbleChatCaratFix = require(RobloxGui.Modules.Flags.FFlagBubbleChatCaratFix)
 local GetFFlagPlayerBillboardReducerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerBillboardReducerEnabled
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
@@ -408,18 +409,6 @@ function BubbleChatBillboard:getPermissions()
 	return getCamMicPermissions(callback)
 end
 
---[[
-	Depending on a combination of account and device permissions, we
-	show or hide the bubble to toggle mic/camera.
-]]
-function BubbleChatBillboard:shouldShowControlBubble()
-	if FFlagAvatarChatCoreScriptSupport then
-		return self.state.hasMicPermissions or self.state.hasCameraPermissions
-	else
-		return false
-	end
-end
-
 function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 	if GetFFlagPlayerBillboardReducerEnabled() and self.props.shouldNotRenderVoiceAndCameraBubble then
 		return false
@@ -457,6 +446,10 @@ function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 	end
 
 	return false
+end
+
+function BubbleChatBillboard:shouldRenderCarat()
+	return self.props.chatSettings.TailVisible and not self:getRenderVoiceAndCameraBubble()
 end
 
 function BubbleChatBillboard:render()
@@ -502,6 +495,7 @@ function BubbleChatBillboard:render()
 				hasCameraPermissions = self.state.hasCameraPermissions,
 				hasMicPermissions = self.state.hasMicPermissions,
 				userId = self.props.userId,
+				voiceEnabled = self.props.voiceEnabled,
 			})
 			children.listLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -539,6 +533,7 @@ function BubbleChatBillboard:render()
 				chatSettings = chatSettings,
 				renderFirstInsert = if not FFlagAvatarChatCoreScriptSupport and showVoiceIndicator then self.renderInsert else nil,
 				insertSize = self.insertSize,
+				showCarat = if FFlagBubbleChatCaratFix then self:shouldRenderCarat() else nil,
 			})
 		else
 			children.DistantBubble = Roact.createElement(ChatBubbleDistant, {

@@ -1,8 +1,6 @@
 return function()
 	it("should create and destroy without errors", function()
 		local CorePackages = game:GetService("CorePackages")
-		local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-		local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 		local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 		local Roact = InGameMenuDependencies.Roact
 		local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -15,17 +13,10 @@ return function()
 
 		local QuickActions = require(script.Parent)
 
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {

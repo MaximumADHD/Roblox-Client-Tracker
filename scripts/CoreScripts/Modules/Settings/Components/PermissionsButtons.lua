@@ -34,12 +34,16 @@ local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.Ge
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
+local FFlagACPermissionButtonFix = game:DefineFastFlag("ACPermissionButtonFix", false)
+
+local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
+local FFlagAvatarChatFixMicText = game:DefineFastFlag("AvatarChatFixMicText", false)
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
 local PADDING_SIZE = 24
-local SMALL_PADDING_SIZE = 16
+local SMALL_PADDING_SIZE = if GetFFlagVoiceTextOverflowFix() then 10 else 16
 local DIVIDER_HEIGHT = 24
 local Y_HEIGHT = 38
 
@@ -81,9 +85,14 @@ function PermissionsButtons:init()
 	-- Note that we have to add VideoCaptureService.Active here because FaceAnimatorService.VideoAnimationEnabled returns true for voice-enabled experiences
 	local isUsingCamera = FaceAnimatorService and FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
 
+	local microphoneEnabled = not VoiceChatServiceManager.localMuted or false
+	if FFlagAvatarChatFixMicText then
+		microphoneEnabled = if VoiceChatServiceManager.localMuted ~= nil and not VoiceChatServiceManager.localMuted then true else false
+	end
+
 	self:setState({
 		allPlayersMuted = false,
-		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
+		microphoneEnabled = microphoneEnabled,
 		cameraEnabled = isUsingCamera,
 		selfViewOpen = self.props.selfViewOpen,
 		showSelfView = FFlagAvatarChatCoreScriptSupport and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
@@ -99,6 +108,14 @@ function PermissionsButtons:init()
 
 	-- Mute all players in the lobby
 	self.toggleMuteAll = function()
+		-- Ensure VCS is initialized.
+		if FFlagACPermissionButtonFix then
+			local voiceService = VoiceChatServiceManager:getService()
+			if not voiceService then
+				return
+			end
+		end
+
 		local newAllPlayersMuted = not self.state.allPlayersMuted
 		VoiceChatServiceManager:MuteAll(newAllPlayersMuted)
 		self:setState({
@@ -116,6 +133,14 @@ function PermissionsButtons:init()
 
 	-- toggle mic permissions
 	self.toggleMic = function()
+		-- Ensure VCS is initialized.
+		if FFlagACPermissionButtonFix then
+			local voiceService = VoiceChatServiceManager:getService()
+			if not voiceService then
+				return
+			end
+		end
+
 		VoiceChatServiceManager:ToggleMic()
 
 		Analytics:setLastCtx("inExperienceEscapeMenu")

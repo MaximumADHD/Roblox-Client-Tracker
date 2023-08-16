@@ -64,12 +64,13 @@ local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6",
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
+local GetFFlagCorescriptsSoundManagerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 
 local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
 
-local GetFFlagVoiceUserAgency = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency)
+local GetFFlagVoiceUserAgency2 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency2)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
@@ -361,6 +362,11 @@ if isCharacterNameHandlerEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CharacterNameHandler", script.Parent)
 end
 
-if GetFFlagVoiceUserAgency() then
+if GetFFlagVoiceUserAgency2() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceUserAgency", RobloxGui)
+end
+
+if GetFFlagCorescriptsSoundManagerEnabled() then
+	local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+	SoundManager.init()
 end

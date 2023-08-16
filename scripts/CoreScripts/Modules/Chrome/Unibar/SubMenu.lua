@@ -8,6 +8,7 @@ local ControlState = UIBlox.Core.Control.Enum.ControlState
 
 local ChromeService = require(script.Parent.Parent.Service)
 local ChromeTypes = require(script.Parent.Parent.Service.Types)
+local UserInputService = game:GetService("UserInputService")
 
 local useChromeMenuItems = require(script.Parent.Parent.Hooks.useChromeMenuItems)
 local useObservableValue = require(script.Parent.Parent.Hooks.useObservableValue)
@@ -138,7 +139,26 @@ export type SubMenuHostProps = {}
 return function(props: SubMenuHostProps) -- SubMenuHost
 	local children: Table = {}
 
+	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
+
 	local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
+
+	-- close submenu on click outside
+	React.useEffect(function()
+		if not currentSubMenu and connection.current then
+			connection.current:Disconnect()
+			connection.current = nil
+		end
+
+		if currentSubMenu and connection.current == nil then
+			connection.current = UserInputService.InputEnded:Connect(function(inputChangedObj: InputObject, _)
+				local subMenuId = ChromeService:currentSubMenu():get()
+				if subMenuId then
+					ChromeService:toggleSubMenu(subMenuId)
+				end
+			end)
+		end
+	end, { currentSubMenu })
 
 	local menuItems = useChromeMenuItems()
 	local subMenuItems = {}

@@ -7,16 +7,8 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local PublishAssetPromptFolder = script.Parent.Parent
 	local Reducer = require(PublishAssetPromptFolder.Reducer)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local ResultModal = require(script.Parent.ResultModal)
 
@@ -28,9 +20,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				ResultModal = Roact.createElement(ResultModal, {
 					resultModalType = Enum.PromptPublishAssetResult.Success,
 					screenSize = Vector2.new(0, 0),
@@ -53,9 +43,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				ResultModal = Roact.createElement(ResultModal, {
 					resultModalType = Enum.PromptPublishAssetResult.UploadFailed,
 					screenSize = Vector2.new(0, 0),

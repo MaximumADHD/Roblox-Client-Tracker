@@ -19,7 +19,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local BUTTON_SIZE = 36
 local DIVIDER_WIDTH = 1
 local IN_BETWEEN_PADDING = 6
-local PADDING = Vector2.new(12, 16)
+local IN_BETWEEN_PADDING_BUTTON = 8
+local SIDE_PADDING = 24
 
 export type Props = {
 	layoutOrder: number?,
@@ -59,25 +60,21 @@ local ContactListHeader = function(props: Props)
 		LayoutOrder = props.layoutOrder,
 		BackgroundTransparency = 1,
 	}, {
+		UIPadding = React.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, SIDE_PADDING),
+			PaddingRight = UDim.new(0, SIDE_PADDING),
+		}),
 		HeaderUIListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-		}),
-		HeaderUIPadding = React.createElement("UIPadding", {
-			PaddingBottom = UDim.new(0, PADDING.Y),
-			PaddingLeft = UDim.new(0, PADDING.X),
-			PaddingRight = UDim.new(0, PADDING.X),
-			PaddingTop = UDim.new(0, PADDING.Y),
 		}),
 		DismissButton = React.createElement(IconButton, {
 			size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
 			icon = if not props.isDevMode or props.currentPage == Pages.CallHistory
 				then Images["icons/navigation/close"]
 				else Images["icons/navigation/pushBack"],
-			iconSize = if not props.isDevMode or props.currentPage == Pages.CallHistory
-				then IconSize.Small
-				else IconSize.Medium,
+			iconSize = IconSize.Medium,
 			iconColor3 = Colors.White,
 			layoutOrder = 1,
 			onActivated = if not props.isDevMode or props.currentPage == Pages.CallHistory
@@ -85,23 +82,28 @@ local ContactListHeader = function(props: Props)
 				else navigateToCallHistory,
 		}),
 		DividerContainer = React.createElement("Frame", {
-			Size = UDim2.new(0, 0, 1, 0),
-			AutomaticSize = Enum.AutomaticSize.X,
+			Size = UDim2.new(0, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
 		}, {
 			Divider = React.createElement("Frame", {
-				Size = UDim2.new(0, DIVIDER_WIDTH, 1, 0),
+				Size = UDim2.new(0, DIVIDER_WIDTH, 0, font.Header1.RelativeSize * font.BaseSize),
 				BackgroundColor3 = theme.Divider.Color,
 				BackgroundTransparency = theme.Divider.Transparency,
 			}),
 			DividerContainerUIPadding = React.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING),
+				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING_BUTTON),
 				PaddingRight = UDim.new(0, IN_BETWEEN_PADDING),
 			}),
 		}),
 		HeaderText = React.createElement("TextLabel", {
-			Size = UDim2.new(1, -(IN_BETWEEN_PADDING * 4 + DIVIDER_WIDTH + BUTTON_SIZE * 2), 0, 0),
+			Size = UDim2.new(
+				1,
+				-(IN_BETWEEN_PADDING + IN_BETWEEN_PADDING_BUTTON + DIVIDER_WIDTH + BUTTON_SIZE * 2),
+				0,
+				0
+			),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Font = font.Header1.Font,
@@ -114,7 +116,7 @@ local ContactListHeader = function(props: Props)
 		}, {
 			HeaderTextUIPadding = React.createElement("UIPadding", {
 				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING),
-				PaddingRight = UDim.new(0, IN_BETWEEN_PADDING),
+				PaddingRight = UDim.new(0, IN_BETWEEN_PADDING_BUTTON),
 			}),
 		}),
 		NewCallButton = if props.currentPage == Pages.CallHistory

@@ -11,12 +11,17 @@ local REFERENCE_GRAVITY = 196.2
 -- ReferenceMass values from mass of child part. Used to normalized "stiffness" for differently
 -- sized avatars (with different mass).
 local DEFAULT_MAX_FRICTION_TORQUE = 500
+local DEFAULT_STRENGTH_TORQUE = 500
+
+-- Joint friction gets multiplied by this factor during non-graphic death to minimize realistic ragdoll motion
+local NONGRAPHIC_FRICTION_SCALE = 100
 
 local HEAD_LIMITS = {
 	UpperAngle = 45,
 	TwistLowerAngle = -40,
 	TwistUpperAngle = 40,
 	FrictionTorque = 400,
+	StrengthTorque = 400,
 	ReferenceMass = 1.0249234437943,
 }
 
@@ -25,6 +30,7 @@ local WAIST_LIMITS = {
 	TwistLowerAngle = -40,
 	TwistUpperAngle = 20,
 	FrictionTorque = 750,
+	StrengthTorque = 5000, -- Make the waist artificially strong for now. Compensate for the rapidly accelerating RootPart physical model.
 	ReferenceMass = 2.861558675766,
 }
 
@@ -32,6 +38,7 @@ local ANKLE_LIMITS = {
 	UpperAngle = 10,
 	TwistLowerAngle = -10,
 	TwistUpperAngle = 10,
+	StrengthTorque = 400,
 	ReferenceMass = 0.43671694397926,
 }
 
@@ -40,6 +47,7 @@ local ELBOW_LIMITS = {
 	UpperAngle = 20,
 	TwistLowerAngle = 5,
 	TwistUpperAngle = 120,
+	StrengthTorque = 1200,
 	ReferenceMass = 0.70196455717087,
 }
 
@@ -47,6 +55,7 @@ local WRIST_LIMITS = {
 	UpperAngle = 30,
 	TwistLowerAngle = -10,
 	TwistUpperAngle = 10,
+	StrengthTorque = 400,
 	ReferenceMass = 0.69132566452026,
 }
 
@@ -54,6 +63,7 @@ local KNEE_LIMITS = {
 	UpperAngle = 5,
 	TwistLowerAngle = -120,
 	TwistUpperAngle = -5,
+	StrengthTorque = 2000,
 	ReferenceMass = 0.65389388799667,
 }
 
@@ -62,6 +72,7 @@ local SHOULDER_LIMITS = {
 	TwistLowerAngle = -85,
 	TwistUpperAngle = 85,
 	FrictionTorque = 600,
+	StrengthTorque = 4000,
 	ReferenceMass = 0.90918225049973,
 }
 
@@ -70,6 +81,7 @@ local HIP_LIMITS = {
 	TwistLowerAngle = -5,
 	TwistUpperAngle = 80,
 	FrictionTorque = 600,
+	StrengthTorque = 4000,
 	ReferenceMass = 1.9175016880035,
 }
 
@@ -237,7 +249,19 @@ local function indexParts(model)
 	return parts
 end
 
-local function createRigJoints(parts, rig)
+local function createRigJoints(parts, rig, jointUpgradeActive)
+	if jointUpgradeActive then
+		local rootAC = Instance.new("AnimationConstraint")
+		rootAC.Name = "Root"
+		rootAC.Attachment0 = parts.HumanoidRootPart.RootRigAttachment
+		rootAC.Attachment1 = parts.LowerTorso.RootRigAttachment
+		rootAC.IsKinematic = true
+		parts.LowerTorso.Root:Destroy()
+		rootAC.Parent = parts.LowerTorso
+		-- Prevent the HRP from colliding with the UpperTorso
+		parts.HumanoidRootPart.CanCollide = false
+	end
+
 	for _, params in ipairs(rig) do
 		local part0Name, part1Name, attachmentName, limits = unpack(params)
 		local part0 = parts[part0Name]
@@ -263,11 +287,33 @@ local function createRigJoints(parts, rig)
 				-- Scale constant torque limit for joint friction relative to gravity and the mass of
 				-- the body part.
 				local gravityScale = workspace.Gravity / REFERENCE_GRAVITY
+				if jointUpgradeActive then
+					gravityScale = math.max(gravityScale, .2) -- Still need some joint friction in zero G
+				end
 				local referenceMass = limits.ReferenceMass
 				local massScale = referenceMass and (part1:GetMass() / referenceMass) or 1
 				local maxTorque = limits.FrictionTorque or DEFAULT_MAX_FRICTION_TORQUE
 				constraint.MaxFrictionTorque = maxTorque * massScale * gravityScale
+				if jointUpgradeActive then
+					constraint.MaxFrictionTorque /= NONGRAPHIC_FRICTION_SCALE
+				end
 				constraint.Parent = part1
+
+				if jointUpgradeActive then
+					local motor = part1:FindFirstChildWhichIsA("Motor6D")
+					assert(motor)
+
+					local ac = Instance.new("AnimationConstraint")
+					ac.Name = motor.Name
+					ac.Attachment0 = motor.Part0:FindFirstChild(motor.Name .. "RigAttachment")
+					ac.Attachment1 = motor.Part1:FindFirstChild(motor.Name .. "RigAttachment")
+					ac.IsKinematic = true
+					local strengthTorque = limits.StrengthTorque or DEFAULT_STRENGTH_TORQUE
+					ac.MaxTorque = strengthTorque * massScale * gravityScale
+					ac.MaxForce = 0 -- currently simulated joints don't allow translation
+					ac.Parent = motor.parent
+					motor:Destroy()
+				end
 			end
 		end
 	end
@@ -439,15 +485,15 @@ local function disableMotorSet(model, motorSet)
 	return motors
 end
 
-function Rigging.createRagdollJoints(model, rigType)
+function Rigging.createRagdollJoints(model, rigType, jointUpgradeActive)
 	local parts = indexParts(model)
 	if rigType == Enum.HumanoidRigType.R6 then
 		createAdditionalAttachments(parts, R6_ADDITIONAL_ATTACHMENTS)
-		createRigJoints(parts, R6_RAGDOLL_RIG)
+		createRigJoints(parts, R6_RAGDOLL_RIG, false)
 		createNoCollides(parts, R6_NO_COLLIDES)
 	elseif rigType == Enum.HumanoidRigType.R15 then
 		createAdditionalAttachments(parts, R15_ADDITIONAL_ATTACHMENTS)
-		createRigJoints(parts, R15_RAGDOLL_RIG)
+		createRigJoints(parts, R15_RAGDOLL_RIG, jointUpgradeActive)
 		createNoCollides(parts, R15_NO_COLLIDES)
 	else
 		error("unknown rig type", 2)
@@ -462,39 +508,6 @@ function Rigging.removeRagdollJoints(model)
 		then
 			descendant:Destroy()
 		end
-	end
-end
-
-function Rigging.upgradeMotorsToAnimationConstraints(model)
-	local humanoid = model:FindFirstChildWhichIsA("Humanoid")
-	if not humanoid or humanoid.RigType == Enum.HumanoidRigType.R6 then
-		return
-	end
-	assert(avatarJointUpgrade)
-	for _, motor in model:GetDescendants() do
-		if not motor:IsA("Motor6D") then
-			continue
-		end
-
-		-- Use some quick heuristics to set up plausible limb strengths.
-		local maxTorque = 5000 -- the torso is the strongest.
-		-- limbs are weaker
-		if string.find(motor.Name, "Left") or string.find(motor.Name, "Right") then
-			maxTorque *= .2
-		end
-		-- ends of limbs are even weaker
-		if motor.Name == "Neck" or string.find(motor.Name, "Wrist") or string.find(motor.Name, "Ankle") then
-			maxTorque *= .2
-		end
-		local ac = Instance.new("AnimationConstraint")
-		ac.Name = motor.Name
-		ac.Attachment0 = motor.Part0:FindFirstChild(motor.Name .. "RigAttachment")
-		ac.Attachment1 = motor.Part1:FindFirstChild(motor.Name .. "RigAttachment")
-		ac.MaxTorque = maxTorque
-		ac.MaxForce = maxTorque -- roughly similar strength
-		ac.IsKinematic = true
-		ac.Parent = motor.parent
-		motor:Destroy()
 	end
 end
 
@@ -555,7 +568,36 @@ function Rigging.disableParticleEmittersAndFadeOut(character, duration)
 	end
 end
 
-function Rigging.easeJointFriction(character, duration)
+function Rigging.easeNongraphicJointFriction(character, duration)
+	local descendants = character:GetDescendants()
+	-- { { joint, initial friction, end friction }, ... }
+	local frictionJoints = {}
+	for _, v in pairs(descendants) do
+		if v:IsA("BallSocketConstraint") and v.Name == BALL_SOCKET_NAME then
+			v.MaxFrictionTorque *= NONGRAPHIC_FRICTION_SCALE
+			local current = v.MaxFrictionTorque
+			-- Keep the torso and neck a little stiffer...
+			local parentName = v.Parent.Name
+			local scale = (parentName == "UpperTorso" or parentName == "Head") and 0.5 or 0.05
+			local nextTorque = current * scale
+			frictionJoints[v] = { v, current, nextTorque }
+		end
+	end
+	local t = 0
+	while t < duration do
+		-- Using stepped because we want to update just before physics sim
+		local _, dt = RunService.Stepped:Wait()
+		t = t + dt
+		local alpha = math.min(t / duration, 1)
+		for _, tuple in pairs(frictionJoints) do
+			local ballSocket, a, b = unpack(tuple)
+			ballSocket.MaxFrictionTorque = (1 - alpha) * a + alpha * b
+		end
+	end
+end
+
+-- remove with FFlag::AvatarJointUpgrade
+function Rigging.easeJointFriction_OLD(character, duration)
 	local descendants = character:GetDescendants()
 	-- { { joint, initial friction, end friction }, ... }
 	local frictionJoints = {}

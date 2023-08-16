@@ -11,9 +11,6 @@ return function()
 	local jest = JestGlobals.jest
 	local jestExpect = JestGlobals.expect
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -23,11 +20,6 @@ return function()
 
 	local dependencies = require(ContactList.dependencies)
 	local NetworkingCall = dependencies.NetworkingCall
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	beforeAll(function(c: any)
 		c.mockCallHistory = function(nextPageCursor)
@@ -69,9 +61,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
 					searchText = "",
@@ -105,9 +95,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
 					searchText = "",
@@ -149,9 +137,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
 					searchText = "",
@@ -185,9 +171,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
 						searchText = "username_1",
@@ -211,9 +195,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
 						searchText = "displayName_1",
@@ -241,9 +223,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
 						searchText = "abcdef",
@@ -281,9 +261,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
 					searchText = "",
@@ -343,9 +321,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
 					searchText = "",

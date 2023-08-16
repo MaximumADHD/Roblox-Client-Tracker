@@ -17,7 +17,7 @@ local windowSize = WindowSizeSignal.new(Constants.DEFAULT_WIDTH, Constants.DEFAU
 local windowPosition = WindowPositionSignal.new(UDim2.new(1, -95, 0, 165))
 
 local dummyWindowIntegraton = ChromeService:register({
-	initialAvailability = ChromeService.AvailabilitySignal.Available,
+	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
 	id = "dummy_window",
 	label = "Window",
 	draggable = true,

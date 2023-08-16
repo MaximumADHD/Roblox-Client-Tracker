@@ -91,7 +91,6 @@ return function()
 		end)
 	end)
 
-
 	describe("SetScreenSize", function()
 		it("should change the value of topbarEnabled", function()
 			local oldState = DisplayOptions(nil, {})

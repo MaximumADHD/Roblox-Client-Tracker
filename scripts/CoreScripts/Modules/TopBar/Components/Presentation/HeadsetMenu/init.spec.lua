@@ -3,9 +3,6 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local VRService = game:GetService("VRService")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -25,10 +22,6 @@ return function()
 
 	local Reducer = require(Modules.TopBar.Reducer)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local HeadsetMenu = require(script.Parent)
 
@@ -40,9 +33,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				HeadsetMenu = Roact.createElement(HeadsetMenu, props or {}),
 			})
 		})

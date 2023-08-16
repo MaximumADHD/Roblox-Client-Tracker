@@ -26,18 +26,11 @@ return function()
 	local MockUserGameSettings = require(InGameMenu.Mocks.MockUserGameSettings)
 	local GetFFlagFullscreenTitleBarInjectGameServices = require(InGameMenu.Flags.GetFFlagFullscreenTitleBarInjectGameServices)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local TITLE_BAR_OFF_POS = UDim2.new(0, 0, 0, -88)
 	local TITLE_BAR_ON_POS = UDim2.fromOffset(0, 0)
 	local OUTSIDE_OF_TITLE_BAR_POSITION = Vector2.new(100, 500)
 	local OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION = Vector2.new(2, 2)
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local mockPolicyMapper = function(policy)
 		return {
@@ -71,9 +64,7 @@ return function()
 			PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 				policy = { mockPolicyMapper },
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FullscreenTitleBar = Roact.createElement(FullscreenTitleBar, mockProps),
 				}),
 			}),
@@ -90,9 +81,7 @@ return function()
 			PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 				policy = { mockPolicyMapper },
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FullscreenTitleBar = Roact.createElement(FullscreenTitleBar, mockProps),
 				}),
 			}),
@@ -113,9 +102,7 @@ return function()
 				PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 					policy = { mockPolicyMapper },
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-						style = appStyle,
-					}, {
+					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 						FullscreenTitleBar = Roact.createElement(FullscreenTitleBar, mockProps),
 					}),
 				}),
@@ -158,9 +145,7 @@ return function()
 				PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 					policy = { mockPolicyMapper },
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-						style = appStyle,
-					}, {
+					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 						FullscreenTitleBar = Roact.createElement(FullscreenTitleBar, mockProps),
 					}),
 				}),
@@ -216,9 +201,7 @@ return function()
 					PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 						policy = { mockPolicyMapper },
 					}, {
-						ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-							style = appStyle,
-						}, {
+						ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 							FullscreenTitleBar = Roact.createElement(FullscreenTitleBar, mockProps),
 						}),
 					}),

@@ -5,20 +5,11 @@ return function()
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	local GameIconButton = require(script.Parent.GameIconButton)
 
 	it("should create and destroy with default props without errors", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			GameIconButton = Roact.createElement(GameIconButton, {}),
 		})
 
@@ -27,9 +18,7 @@ return function()
 	end)
 
 	it("should create and destroy with all props without errors", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			GameIconButton = Roact.createElement(GameIconButton, {
 				anchorPoint = Vector2.new(0.5, 0.5),
 				position = UDim2.new(1, 100, 1, 100),

@@ -21,13 +21,6 @@ return function()
 
 	local PlayerListApp = require(script.Parent.PlayerListApp)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
@@ -38,9 +31,7 @@ return function()
 			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = CreateLayoutValues(false)
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 					PlayerListApp = Roact.createElement(PlayerListApp, {
 						setLayerCollectorEnabled = function() end,
 					})
@@ -65,9 +56,7 @@ return function()
 				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 					layoutValues = CreateLayoutValues(true)
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-						style = appStyle,
-					}, {
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 						PlayerListApp = Roact.createElement(PlayerListApp, {
 							setLayerCollectorEnabled = function() end,
 						})

@@ -6,14 +6,6 @@ return function()
 	local Rodux = require(CorePackages.Rodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
 	local TnsModule = script.Parent.Parent
 	local Dependencies = require(TnsModule.Dependencies)
 	local Reducers = require(TnsModule.Reducers)
@@ -29,9 +21,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-					style = appStyle,
-				}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					Toast = Roact.createElement(Toast),
 				}),
 			})

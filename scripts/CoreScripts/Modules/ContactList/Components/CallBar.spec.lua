@@ -7,9 +7,6 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -18,11 +15,6 @@ return function()
 
 	local CallBar = require(script.Parent.CallBar)
 	local Reducer = require(script.Parent.Parent.Reducer)
-
-	local appStyle = {
-		Font = AppFont,
-		Theme = AppDarkTheme,
-	}
 
 	it("should mount and unmount without errors", function()
 		local store = Rodux.Store.new(Reducer, {
@@ -46,9 +38,7 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallBar = Roact.createElement(CallBar, {
 					size = Vector2.new(200, 44),
 				}),

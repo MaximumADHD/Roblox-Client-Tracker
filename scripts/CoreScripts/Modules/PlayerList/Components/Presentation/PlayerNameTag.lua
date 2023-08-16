@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -10,7 +11,12 @@ local Connection = PlayerList.Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+
+local getFFlagPlayerListApolloClientEnabled = require(RobloxGui.Modules.Flags.getFFlagPlayerListApolloClientEnabled)
+local getIsUserProfileOnLeaderboardEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnLeaderboardEnabled)
+
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
@@ -33,6 +39,26 @@ PlayerNameTag.validateProps = t.strictInterface({
 		Font = t.enum(Enum.Font),
 	}),
 })
+
+function PlayerNameTag:init()
+	if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then
+		self:setState({
+			name = self.props.player.DisplayName,
+		})
+
+		ApolloClient:query({
+			query = UserProfiles.Queries.userProfilesCombinedNameByUserIds,
+			variables = {
+				userIds = { tostring(self.props.player.UserId) },
+			},
+		}):andThen(function(response)
+			local name = response.data.userProfiles[1].names.combinedName
+			self:setState({
+				name = name,
+			})
+		end)
+	end
+end
 
 function PlayerNameTag:render()
 	return WithLayoutValues(function(layoutValues)
@@ -107,7 +133,7 @@ function PlayerNameTag:render()
 							ClipsDescendants = false,
 							Size = UDim2.fromScale(0, 1),
 							Font = playerNameFont,
-							Text = self.props.player.Name,
+							Text = if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then self.state.name else self.props.player.Name,
 							TextSize = textSize,
 							TextColor3 = self.props.textStyle.Color,
 							TextTransparency = self.props.textStyle.Transparency,
@@ -133,7 +159,7 @@ function PlayerNameTag:render()
 						AutomaticSize = Enum.AutomaticSize.X,
 						Size = UDim2.fromScale(0, 1),
 						Font = playerNameFont,
-						Text = self.props.player.DisplayName,
+						Text = if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then self.state.name else self.props.player.DisplayName,
 						TextSize = textSize,
 						TextColor3 = self.props.textStyle.Color,
 						TextTransparency = self.props.textStyle.Transparency,

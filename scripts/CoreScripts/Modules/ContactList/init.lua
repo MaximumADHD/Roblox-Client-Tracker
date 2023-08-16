@@ -1,7 +1,6 @@
 --!strict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -16,6 +15,9 @@ local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 local initCall = require(script.initCall)
 local Reducer = require(script.Reducer)
 local ContactListApp = require(script.Components.ContactListApp)
+
+-- Screen should be beneath the in game menu
+local CONTACT_LIST_DISPLAY_ORDER = -1
 
 local ContactList = {}
 ContactList.__index = ContactList
@@ -36,17 +38,24 @@ function ContactList.new()
 		Font = AppFont,
 	}
 
-	self.root = React.createElement(RoactRodux.StoreProvider, {
-		store = self.store,
+	self.root = React.createElement("ScreenGui", {
+		AutoLocalize = false,
+		DisplayOrder = CONTACT_LIST_DISPLAY_ORDER,
+		IgnoreGuiInset = true,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	}, {
-		ThemeProvider = React.createElement(UIBlox.Style.Provider, {
-			style = appStyle,
+		Content = React.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
 		}, {
-			ContactListApp = React.createElement(ContactListApp),
+			ThemeProvider = React.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
+			}, {
+				ContactListApp = React.createElement(ContactListApp),
+			}),
 		}),
 	})
 
-	self.element = Roact.mount(self.root, RobloxGui, "ContactList")
+	self.element = Roact.mount(self.root, CoreGui, "ContactList")
 
 	return self
 end

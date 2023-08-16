@@ -20,6 +20,5 @@ return {
 	enableToastButton = UIBloxFlags.GetFFlagUIBloxEnableToastButton(),
 	usePlatformContentKeyLabels = UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels(),
 	enableNewMenuLayout = UIBloxFlags.GetFFlagUIBloxEnableNewMenuLayout(),
-	enableRoDSDesignTokenSupport = UIBloxFlags.GetFFlagEnableRoDSDesignTokenSupportInCoreScripts(),
 	useTokensInPlayerTile = UIBloxFlags.GetFFlagUIBloxUseTokensInPlayerTile(),
 }

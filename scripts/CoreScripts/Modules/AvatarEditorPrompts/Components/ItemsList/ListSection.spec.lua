@@ -1,24 +1,14 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	describe("ListSection", function()
 		it("should create and destroy without errors", function()
 			local ListSection = require(script.Parent.ListSection)
 
-			local element = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Style.Provider, {}, {
 				ListEntry = Roact.createElement(ListSection, {
 					headerText = "List Header",
 					items = {
@@ -40,9 +30,7 @@ return function()
 			local ListSection = require(script.Parent.ListSection)
 			local ref = Roact.createRef()
 
-			local element = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
+			local element = Roact.createElement(UIBlox.Style.Provider, {}, {
 				ListEntry = Roact.createElement(ListSection, {
 					headerText = "List Header",
 					items = {
