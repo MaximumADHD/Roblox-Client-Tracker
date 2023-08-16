@@ -8,6 +8,7 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(Core.Style.Validator.validateTypographyInfo)
 
 local Roact = require(Packages.Roact)
 local withStyle = require(Core.Style.withStyle)
@@ -25,7 +26,7 @@ local CellTailDescription = Roact.PureComponent:extend("CellTailDescription")
 CellTailDescription.validateProps = t.strictInterface({
 	text = t.optional(t.string),
 	textColor = t.optional(validateColorInfo),
-	textFont = t.optional(validateFontInfo),
+	textFont = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 	renderTextOverride = t.optional(t.callback),
 	showArrow = t.optional(t.boolean),
 	infoIcon = t.optional(t.string),

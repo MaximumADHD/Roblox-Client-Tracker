@@ -5,19 +5,22 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local DetailsPageDefaultTemplate = require(DetailsPage.DetailsPageTemplate)
 local DetailsPageTenfootTemplate = require(DetailsPage.DetailsPageTenfootTemplate)
-local DeviceType = require(DetailsPage.Enum.DeviceType)
+
+local Constants = require(App.Style.Constants)
+type DeviceType = Constants.DeviceType
+local DeviceType = Constants.DeviceType
 
 local React = require(Packages.React)
 
 export type Props = {
 	-- Device FormFactor from the DeviceType Enum
-	deviceType: DeviceType.DeviceType,
+	deviceType: DeviceType,
 	-- Pass-through props for the DetailsPageTemplate
 	detailsPageProps: DetailsPageTenfootTemplate.Props,
 }
 
 type DeviceTypeMap = {
-	[DeviceType.DeviceType]: any,
+	[DeviceType]: any,
 }
 
 local DeviceTypeMap: DeviceTypeMap = {

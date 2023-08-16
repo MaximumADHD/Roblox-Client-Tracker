@@ -17,6 +17,8 @@ local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
 
 local withStyle = require(Core.Style.withStyle)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(App.SelectionImage.CursorKind)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local ShimmerPanel = require(App.Loading.ShimmerPanel)
 local IconSize = require(App.Constant.IconSize)
@@ -126,131 +128,142 @@ DropdownMenuCell.defaultProps = {
 
 function DropdownMenuCell:render()
 	return withStyle(function(style)
-		assert(t.table(style), "Style provider is missing.")
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			assert(t.table(style), "Style provider is missing.")
 
-		local currentState = self.state.controlState
+			local currentState = self.state.controlState
 
-		local text = self.props.text
-		local icon = self.props.icon
-		local isLoading = self.props.isLoading
-		local isDisabled = self.props.isDisabled
+			local text = self.props.text
+			local icon = self.props.icon
+			local isLoading = self.props.isLoading
+			local isDisabled = self.props.isDisabled
 
-		local buttonStateColorMap = self.props.buttonStateColorMap
-		local contentStateColorMap = self.props.contentStateColorMap
-		local textStateColorMap = self.props.textStateColorMap or contentStateColorMap
-		local iconStateColorMap = self.props.iconStateColorMap or contentStateColorMap
+			local buttonStateColorMap = self.props.buttonStateColorMap
+			local contentStateColorMap = self.props.contentStateColorMap
+			local textStateColorMap = self.props.textStateColorMap or contentStateColorMap
+			local iconStateColorMap = self.props.iconStateColorMap or contentStateColorMap
 
-		if isLoading then
-			isDisabled = true
-		end
+			if isLoading then
+				isDisabled = true
+			end
 
-		local buttonStyle = getButtonStyle(buttonStateColorMap, currentState, style, self.props.isActivated)
-		local textStyle = text
-			and getContentStyle(textStateColorMap, currentState, style, self.props.isActivated, self.props.hasContent)
-		local iconStyle = icon and getContentStyle(iconStateColorMap, currentState, style, self.props.isActivated, true)
-		local buttonImage = self.props.buttonImage
-		local fontStyle = style.Font.Header2
-		local textRightOffset = ELEMENT_PADDING
+			local selectionCursor = getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)
+			local buttonStyle = getButtonStyle(buttonStateColorMap, currentState, style, self.props.isActivated)
+			local textStyle = text
+				and getContentStyle(
+					textStateColorMap,
+					currentState,
+					style,
+					self.props.isActivated,
+					self.props.hasContent
+				)
+			local iconStyle = icon
+				and getContentStyle(iconStateColorMap, currentState, style, self.props.isActivated, true)
+			local buttonImage = self.props.buttonImage
+			local fontStyle = style.Font.Header2
+			local textRightOffset = ELEMENT_PADDING
 
-		if icon ~= nil then
-			textRightOffset = ICON_SIZE + ICON_PADDING + ELEMENT_PADDING
-		end
+			if icon ~= nil then
+				textRightOffset = ICON_SIZE + ICON_PADDING + ELEMENT_PADDING
+			end
 
-		local buttonContentLayer
-		if isLoading then
-			buttonContentLayer = {
-				isLoadingShimmer = Roact.createElement(ShimmerPanel, {
-					Size = UDim2.fromScale(1, 1),
-				}),
-			}
-		else
-			buttonContentLayer = self.props[Roact.Children]
-				or {
-					TextContainer = Roact.createElement("Frame", {
+			local buttonContentLayer
+			if isLoading then
+				buttonContentLayer = {
+					isLoadingShimmer = Roact.createElement(ShimmerPanel, {
 						Size = UDim2.fromScale(1, 1),
-						BackgroundTransparency = 1,
-					}, {
-						UIListLayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							Padding = UDim.new(0, CONTENT_PADDING),
-						}),
-						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, ELEMENT_PADDING),
-						}),
-						Text = if text
-							then Roact.createElement(GenericTextLabel, {
-								BackgroundTransparency = 1,
-								Text = text,
-								fontStyle = fontStyle,
-								colorStyle = textStyle,
-								LayoutOrder = 1,
-								Size = UDim2.new(1, -textRightOffset, 1, 0),
-								TextTruncate = Enum.TextTruncate.AtEnd,
-								TextXAlignment = Enum.TextXAlignment.Left,
-								TextWrapped = false,
-							})
-							else nil,
-					}),
-					IconContainer = Roact.createElement("Frame", {
-						Size = UDim2.fromScale(1, 1),
-						BackgroundTransparency = 1,
-					}, {
-						UIListLayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							HorizontalAlignment = Enum.HorizontalAlignment.Right,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							Padding = UDim.new(0, CONTENT_PADDING),
-						}),
-						Padding = Roact.createElement("UIPadding", {
-							PaddingRight = UDim.new(0, ICON_PADDING),
-						}),
-						Icon = icon and Roact.createElement(ImageSetComponent.Label, {
-							Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-							BackgroundTransparency = 1,
-							Image = icon,
-							ImageColor3 = iconStyle.Color,
-							ImageTransparency = iconStyle.Transparency,
-							LayoutOrder = 2,
-						}) or nil,
 					}),
 				}
-		end
+			else
+				buttonContentLayer = self.props[Roact.Children]
+					or {
+						TextContainer = Roact.createElement("Frame", {
+							Size = UDim2.fromScale(1, 1),
+							BackgroundTransparency = 1,
+						}, {
+							UIListLayout = Roact.createElement("UIListLayout", {
+								FillDirection = Enum.FillDirection.Horizontal,
+								VerticalAlignment = Enum.VerticalAlignment.Center,
+								HorizontalAlignment = Enum.HorizontalAlignment.Left,
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								Padding = UDim.new(0, CONTENT_PADDING),
+							}),
+							Padding = Roact.createElement("UIPadding", {
+								PaddingLeft = UDim.new(0, ELEMENT_PADDING),
+							}),
+							Text = if text
+								then Roact.createElement(GenericTextLabel, {
+									BackgroundTransparency = 1,
+									Text = text,
+									fontStyle = fontStyle,
+									colorStyle = textStyle,
+									LayoutOrder = 1,
+									Size = UDim2.new(1, -textRightOffset, 1, 0),
+									TextTruncate = Enum.TextTruncate.AtEnd,
+									TextXAlignment = Enum.TextXAlignment.Left,
+									TextWrapped = false,
+								})
+								else nil,
+						}),
+						IconContainer = Roact.createElement("Frame", {
+							Size = UDim2.fromScale(1, 1),
+							BackgroundTransparency = 1,
+						}, {
+							UIListLayout = Roact.createElement("UIListLayout", {
+								FillDirection = Enum.FillDirection.Horizontal,
+								VerticalAlignment = Enum.VerticalAlignment.Center,
+								HorizontalAlignment = Enum.HorizontalAlignment.Right,
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								Padding = UDim.new(0, CONTENT_PADDING),
+							}),
+							Padding = Roact.createElement("UIPadding", {
+								PaddingRight = UDim.new(0, ICON_PADDING),
+							}),
+							Icon = icon and Roact.createElement(ImageSetComponent.Label, {
+								Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+								BackgroundTransparency = 1,
+								Image = icon,
+								ImageColor3 = iconStyle.Color,
+								ImageTransparency = iconStyle.Transparency,
+								LayoutOrder = 2,
+							}) or nil,
+						}),
+					}
+			end
 
-		local PROPS_FILTER = {
-			isActivated = Cryo.None,
-			hasContent = Cryo.None,
-			icon = Cryo.None,
-			text = Cryo.None,
-			buttonImage = Cryo.None,
-			buttonStateColorMap = Cryo.None,
-			contentStateColorMap = Cryo.None,
-			textStateColorMap = Cryo.None,
-			iconStateColorMap = Cryo.None,
-			onActivated = Cryo.None,
-			isLoading = Cryo.None,
-			[Roact.Children] = Cryo.None,
-			isDisabled = isDisabled,
-			onStateChanged = self.onStateChanged,
-			userInteractionEnabled = self.props.userInteractionEnabled,
-			Image = buttonImage,
-			ScaleType = Enum.ScaleType.Slice,
-			ImageColor3 = buttonStyle.Color,
-			ImageTransparency = buttonStyle.Transparency,
-			BackgroundTransparency = 1,
-			AutoButtonColor = false,
-			[Roact.Event.Activated] = self.props.onActivated,
-		}
-
-		return Roact.createElement(Interactable, Cryo.Dictionary.join(self.props, PROPS_FILTER), {
-			ButtonContent = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
+			local PROPS_FILTER = {
+				isActivated = Cryo.None,
+				hasContent = Cryo.None,
+				icon = Cryo.None,
+				text = Cryo.None,
+				buttonImage = Cryo.None,
+				buttonStateColorMap = Cryo.None,
+				contentStateColorMap = Cryo.None,
+				textStateColorMap = Cryo.None,
+				iconStateColorMap = Cryo.None,
+				onActivated = Cryo.None,
+				isLoading = Cryo.None,
+				[Roact.Children] = Cryo.None,
+				isDisabled = isDisabled,
+				onStateChanged = self.onStateChanged,
+				userInteractionEnabled = self.props.userInteractionEnabled,
+				Image = buttonImage,
+				ScaleType = Enum.ScaleType.Slice,
+				ImageColor3 = buttonStyle.Color,
+				ImageTransparency = buttonStyle.Transparency,
 				BackgroundTransparency = 1,
-			}, buttonContentLayer),
-		})
+				AutoButtonColor = false,
+				SelectionImageObject = selectionCursor,
+				[Roact.Event.Activated] = self.props.onActivated,
+			}
+
+			return Roact.createElement(Interactable, Cryo.Dictionary.join(self.props, PROPS_FILTER), {
+				ButtonContent = Roact.createElement("Frame", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundTransparency = 1,
+				}, buttonContentLayer),
+			})
+		end)
 	end)
 end
 return DropdownMenuCell

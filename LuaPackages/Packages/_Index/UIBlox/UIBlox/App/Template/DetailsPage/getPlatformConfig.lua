@@ -5,7 +5,11 @@
 ]]
 
 local DetailsPage = script.Parent
-local DeviceType = require(DetailsPage.Enum.DeviceType)
+local App = DetailsPage.Parent.Parent
+
+local Constants = require(App.Style.Constants)
+type DeviceType = Constants.DeviceType
+local DeviceType = Constants.DeviceType
 
 export type DetailsPageConfig = {
 	startingOffsetPosition: number,
@@ -54,7 +58,7 @@ local DetailsPageConfigs = {
 	},
 }
 
-local function getPlatformConfig(deviceType: DeviceTypeEnum): DetailsPageConfig
+local function getPlatformConfig(deviceType: DeviceType): DetailsPageConfig
 	local config = DetailsPageConfigs[deviceType]
 	if config == nil then
 		return DetailsPageConfigs[DeviceType.Desktop]

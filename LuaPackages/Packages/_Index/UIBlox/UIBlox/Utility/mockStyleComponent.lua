@@ -7,8 +7,8 @@ local AppStyleProvider = require(UIBlox.App.Style.AppStyleProvider)
 return function(elements)
 	return Roact.createElement(AppStyleProvider, {
 		style = {
-			themeName = "dark",
-			fontName = "gotham",
+			themeName = "Dark",
+			fontName = "Gotham",
 		},
 	}, {
 		Content = Roact.createElement("Frame", {

@@ -175,6 +175,7 @@ function TooltipContainer:render()
 			Content = Roact.createElement("TextButton", {
 				AutoButtonColor = false,
 				Text = "",
+				Selectable = false,
 				Size = UDim2.fromOffset(frameWidth, frameHeight),
 				BackgroundColor3 = UIBloxConfig.enableTooltipColorStylesFix and theme.SystemPrimaryDefault.Color
 					or theme.BackgroundMuted.Color,

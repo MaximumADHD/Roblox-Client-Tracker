@@ -256,7 +256,7 @@ local function initializeLibrary(configs)
 			Toast = require(script.App.Dialog.Toast.Toast),
 			Tooltip = require(script.App.Dialog.Tooltip.Tooltip),
 			TooltipV2 = require(script.App.Dialog.TooltipV2.Controllers),
-			TooltipCallout = require(script.App.Dialog.TooltipV2.Tooltip),
+			TooltipCallout = require(script.App.Dialog.TooltipV2.TooltipCallout),
 			TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
 			Overlay = DialogOverlay,
 		}),
@@ -350,7 +350,6 @@ local function initializeLibrary(configs)
 			DetailsPage = {
 				Enum = {
 					ContentPosition = require(script.App.Template.DetailsPage.Enum.ContentPosition),
-					DeviceType = require(script.App.Template.DetailsPage.Enum.DeviceType),
 				},
 				DetailsPageTemplate = require(script.App.Template.DetailsPage.DetailsPageTemplate),
 				DetailsPageSelector = require(script.App.Template.DetailsPage.DetailsPageSelector),

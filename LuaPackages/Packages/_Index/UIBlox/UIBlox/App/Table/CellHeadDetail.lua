@@ -8,6 +8,8 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(Core.Style.Validator.validateTypographyInfo)
+
 local Roact = require(Packages.Roact)
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
@@ -17,11 +19,11 @@ local CellHeadDetail = Roact.PureComponent:extend("CellHeadDetail")
 CellHeadDetail.validateProps = t.strictInterface({
 	labelText = t.string,
 	labelTextColor = t.optional(validateColorInfo),
-	labelTextFont = t.optional(validateFontInfo),
+	labelTextFont = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 
 	subLabelText = t.optional(t.string),
 	subLabelTextColor = t.optional(validateColorInfo),
-	subLabelTextFont = t.optional(validateFontInfo),
+	subLabelTextFont = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 })
 
 function CellHeadDetail:render()

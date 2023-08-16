@@ -10,8 +10,8 @@ local Constants = require(Style.Constants)
 
 local function getThemePackageIndex(deviceType)
 	return {
-		[Constants.ThemeName.Light] = RbxDesignFoundations.tokens[deviceType].Light,
-		[Constants.ThemeName.Dark] = RbxDesignFoundations.tokens[deviceType].Dark,
+		[Constants.ThemeName.Light:lower()] = RbxDesignFoundations.tokens[deviceType].Light,
+		[Constants.ThemeName.Dark:lower()] = RbxDesignFoundations.tokens[deviceType].Dark,
 	}
 end
 

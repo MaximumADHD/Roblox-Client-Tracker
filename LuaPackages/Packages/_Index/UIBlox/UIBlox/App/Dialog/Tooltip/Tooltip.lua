@@ -96,6 +96,7 @@ function Tooltip:render()
 				Text = "",
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
+				Selectable = false,
 				Size = UDim2.fromOffset(self.props.triggerSize.X, self.props.triggerSize.Y),
 				Position = isDirectChild and UDim2.fromOffset(0, 0)
 					or UDim2.fromOffset(self.props.triggerPosition.X, self.props.triggerPosition.Y),

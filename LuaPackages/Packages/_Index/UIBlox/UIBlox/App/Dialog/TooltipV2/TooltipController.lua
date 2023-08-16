@@ -11,7 +11,7 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Types = require(TooltipPackage.Types)
 local Consts = require(TooltipPackage.Constants)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
-local Tooltip = require(TooltipPackage.Tooltip)
+local Tooltip = require(TooltipPackage.TooltipCallout)
 
 local TooltipOrientation = require(Dialog.Tooltip.Enum.TooltipOrientation)
 

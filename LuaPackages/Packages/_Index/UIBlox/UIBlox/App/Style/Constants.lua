@@ -1,21 +1,27 @@
 local Constants = {}
 
+export type ThemeName = "Dark" | "Light"
+
 Constants.ThemeName = {
-	Dark = "dark",
-	Light = "light",
+	Dark = "Dark" :: "Dark",
+	Light = "Light" :: "Light",
 }
+
+export type FontName = "Gotham"
 
 Constants.FontName = {
-	Gotham = "gotham",
+	Gotham = "Gotham",
 }
 
+export type DeviceType = "Desktop" | "Tablet" | "Phone" | "Console" | "VR" | "Unknown"
+
 Constants.DeviceType = {
-	Desktop = "Desktop",
-	Console = "Console",
-	Tablet = "Tablet",
-	Phone = "Phone",
-	VR = "VR",
-	Unknown = "Unknown",
+	Desktop = "Desktop" :: "Desktop",
+	Tablet = "Tablet" :: "Tablet",
+	Phone = "Phone" :: "Phone",
+	Console = "Console" :: "Console",
+	VR = "VR" :: "VR",
+	Unknown = "Unknown" :: "Unknown",
 }
 
 Constants.Layout = {
@@ -23,6 +29,10 @@ Constants.Layout = {
 		PositionOffset = 24,
 	},
 }
+
+Constants.DefaultThemeName = Constants.ThemeName.Light
+Constants.DefaultFontName = Constants.FontName.Gotham
+Constants.DefaultDeviceType = Constants.DeviceType.Desktop
 
 Constants.DefaultSettings = {
 	preferredTransparency = 1,

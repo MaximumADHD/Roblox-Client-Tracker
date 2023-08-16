@@ -55,7 +55,8 @@ export type Props = {
 	-- Whether or not the tile has a border outline.
 	-- When isBackground is false, the border will only outline the tile's thumbnail.
 	hasOutline: boolean?,
-	-- Whether or not hover mode is enabled for the tile
+	-- Whether or not hover mode is enabled for the tile.
+	-- If the tile is hovered over and ReducedMotion is on, then the tile will still show the normal sized thumbnail
 	isHoverEnabled: boolean?,
 	-- Delay in seconds before the tile will react to hover user input
 	hoverDelay: number?,
@@ -139,6 +140,7 @@ local function ExperienceTileV3(props: Props)
 		"Not allowed to override AspectRatioMode as Wide with hover enabled!"
 	)
 	local renderTopContent = React.useCallback(function(isHoverContent: boolean): React.ReactElement?
+		isHoverContent = isHoverContent and not style.Settings.ReducedMotion
 		local finalAspetRatioMode: AspectRatioMode =
 			getFinalAspectRatioMode(props.thumbnailAspectRatioOverride, isHoverContent)
 		local finalAspetRatio = getAspectRatio(finalAspetRatioMode)

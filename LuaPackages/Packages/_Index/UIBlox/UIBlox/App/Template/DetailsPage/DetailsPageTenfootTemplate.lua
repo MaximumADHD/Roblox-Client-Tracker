@@ -12,8 +12,12 @@ local getPlatformConfig = require(DetailsPage.getPlatformConfig)
 local useDetailsPageRenderItems = require(DetailsPage.Hooks.useDetailsPageRenderItems)
 local useAnimateFullscreen = require(DetailsPage.Hooks.useAnimateFullscreen)
 local DetailsPageRenderItem = require(DetailsPage.DetailsPageRenderItem)
+
 local Overlay = require(App.Dialog.Overlay.Overlay)
 local LoadableImage = require(App.Loading.LoadableImage)
+
+local Constants = require(App.Style.Constants)
+type DeviceType = Constants.DeviceType
 
 local ReactOtter = require(Packages.ReactOtter)
 type SpringOptions = ReactOtter.SpringOptions
@@ -96,7 +100,7 @@ export type Props = {
 	renderFullscreenContent: () -> React.React_Node,
 
 	-- The device this is running on
-	deviceType: string,
+	deviceType: DeviceType,
 
 	--deprecated Prop
 	isMobile: boolean?,

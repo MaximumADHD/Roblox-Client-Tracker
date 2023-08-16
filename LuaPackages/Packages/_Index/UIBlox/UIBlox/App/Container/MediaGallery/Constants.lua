@@ -19,7 +19,6 @@ export type StyleProps = {
 }
 
 local function getDefaultStyleProps(style: StyleTypes.AppStyle): StyleProps
-	assert(style.Tokens ~= nil, "Design token support is not enabled!")
 	return {
 		borderRadius = UDim.new(0, style.Tokens.Component.VerticalTile.Base.Container.BorderRadius.LeadingTop),
 		contentGap = style.Tokens.Global.Space_150,

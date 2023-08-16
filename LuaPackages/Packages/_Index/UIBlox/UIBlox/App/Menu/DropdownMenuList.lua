@@ -12,6 +12,7 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local BaseMenu = require(script.Parent.BaseMenu)
 local validateButtonProps = require(script.Parent.validateButtonProps)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local dropdownMenuListComponent = Roact.PureComponent:extend("DropdownMenuList")
 
@@ -29,6 +30,7 @@ dropdownMenuListComponent.validateProps = t.strictInterface({
 
 	onDismiss = t.optional(t.callback),
 	buttonSize = t.UDim2,
+	menuListBackground = t.optional(validateColorInfo),
 })
 
 dropdownMenuListComponent.defaultProps = {
@@ -36,6 +38,7 @@ dropdownMenuListComponent.defaultProps = {
 	closeBackgroundVisible = false,
 	showDropShadow = false,
 	fixedListHeight = nil,
+	menuListBackground = nil,
 }
 
 function dropdownMenuListComponent:init()
@@ -133,6 +136,7 @@ function dropdownMenuListComponent:render()
 					width = menuWidth,
 					position = UDim2.fromScale(0, 0),
 					anchorPoint = Vector2.new(0, anchorPointY),
+					background = self.props.menuListBackground,
 				}),
 			}),
 		})

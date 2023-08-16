@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["EmojiList"]["EmojiList"])
+local Package = require(PackageIndex["EmojiList-8785d333-3b4069ee"]["EmojiList"])
 
 return Package

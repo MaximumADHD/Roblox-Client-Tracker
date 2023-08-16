@@ -12,6 +12,7 @@ local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 
 local DropdownMenuList = require(UIBlox.App.Menu.DropdownMenuList)
 local DropdownMenuCell = require(UIBlox.App.Menu.DropdownMenuCell)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local bind = require(UIBlox.Utility.bind)
 
@@ -55,6 +56,9 @@ DropdownMenu.validateProps = t.strictInterface({
 
 	-- Callback triggers on menu open/close events. A single boolean will be passed with the open state of the menu.
 	onMenuOpenChange = t.optional(t.callback),
+
+	-- Override `DropdownMenuList` background
+	menuListBackground = t.optional(validateColorInfo),
 
 	-- The properties for each cell. It is an array that contains multiple tables of the following format:
 	cellDatas = t.array(t.strictInterface({
@@ -213,7 +217,13 @@ function DropdownMenu:render()
 				isActivated = self.state.menuOpen,
 				hasContent = selectedIndex ~= nil,
 				userInteractionEnabled = true,
-				onActivated = self.openMenu,
+				onActivated = function()
+					if self.state.menuOpen then
+						self.closeMenu()
+					else
+						self.openMenu()
+					end
+				end,
 			}),
 			DropdownMenuList = Roact.createElement(DropdownMenuList, {
 				buttonProps = functionalCells,
@@ -224,6 +234,7 @@ function DropdownMenu:render()
 				buttonSize = UDim2.fromScale(1, 1),
 
 				closeBackgroundVisible = false,
+				menuListBackground = self.props.menuListBackground,
 				screenSize = self.props.screenSize,
 				showDropShadow = self.props.showDropShadow,
 				fixedListHeight = self.props.fixedListHeight,

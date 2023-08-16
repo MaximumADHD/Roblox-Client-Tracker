@@ -58,9 +58,6 @@ return {
 	-- Use automatic size in PillGroup to fix initial layout issues
 	pillGroupAutomaticSize = false,
 
-	-- Indicate whether design token support is enabled
-	enableRoDSDesignTokenSupport = false,
-
 	-- Change how VR Panel3D aligned to the in-game panel
 	vrAlignPanel3DUnderInGamePanel = false,
 

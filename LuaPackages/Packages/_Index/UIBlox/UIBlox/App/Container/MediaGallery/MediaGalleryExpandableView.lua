@@ -8,7 +8,6 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local useSelectionCursor = require(UIBlox.App.SelectionImage.useSelectionCursor)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
-local Fonts = require(UIBlox.App.Style.Fonts)
 local Constants = require(script.Parent.Constants)
 
 type SpringOptions = ReactOtter.SpringOptions
@@ -70,7 +69,7 @@ local function MediaGalleryExpandableView(providedProps: Props)
 	local borderRadius: UDim = styleProps.borderRadius
 	local gutter: number = styleProps.gutter
 	local contentGap: number = styleProps.contentGap
-	local titleFont: Fonts.Font = styleProps.titleFont
+	local titleFont = styleProps.titleFont
 	local titleTextColor: StyleTypes.ThemeItem = styleProps.titleTextColor
 	-- size animation of expandable area's expanding and collapsing
 	local isExpanded, setExpanded = React.useState(false)
@@ -177,7 +176,9 @@ local function MediaGalleryExpandableView(providedProps: Props)
 		selectionCursor,
 		borderRadius,
 	} :: { any })
-	local textOneLineSizeY = titleFont.RelativeSize * stylePalette.Font.BaseSize
+	local textOneLineSizeY = if titleFont.RelativeSize
+		then titleFont.RelativeSize * stylePalette.Font.BaseSize
+		else titleFont.FontSize
 	return React.createElement("CanvasGroup", {
 		GroupTransparency = props.groupTransparency,
 		Size = UDim2.new(1, 0, 0, 0),

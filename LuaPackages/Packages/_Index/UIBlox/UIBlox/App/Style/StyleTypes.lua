@@ -17,8 +17,8 @@ export type SemanticTokens = TokenTypes.SemanticTokens
 export type AppStyle = {
 	Theme: Theme,
 	Font: Fonts.FontPalette,
-	Tokens: Tokens?,
-	Settings: Settings?,
+	Tokens: Tokens,
+	Settings: Settings,
 }
 
 export type Settings = {

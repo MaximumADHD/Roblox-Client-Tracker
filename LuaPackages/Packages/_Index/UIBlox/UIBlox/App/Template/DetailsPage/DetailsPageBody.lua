@@ -8,8 +8,8 @@ local Packages = UIBlox.Parent
 local ContentPositionEnum = require(DetailsPage.Enum.ContentPosition)
 local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPageComponentList)
 
+local DeviceType = require(App.Style.Constants).DeviceType
 local getPlatformConfig = require(DetailsPage.getPlatformConfig)
-local DeviceType = require(DetailsPage.Enum.DeviceType)
 local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 
 local Roact = require(Packages.Roact)

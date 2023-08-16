@@ -12,7 +12,7 @@ local Images = require(UIBlox.App.ImageSet.Images)
 local LoadableImage = require(App.Loading.LoadableImage)
 local ActionBar = require(App.Button.ActionBar)
 
-local DeviceType = require(DetailsPage.Enum.DeviceType)
+local DeviceType = require(App.Style.Constants).DeviceType
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)

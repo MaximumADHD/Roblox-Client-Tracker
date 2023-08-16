@@ -29,7 +29,7 @@ end
 
 return function(iconSizeEnum: number, style: StyleTypes.AppStyle?)
 	assert(IconSize.isEnumValue(iconSizeEnum))
-	if style ~= nil and style.Tokens ~= nil and UIBloxConfig.enableRoDSDesignTokenSupport then
+	if style ~= nil and style.Tokens ~= nil then
 		if iconSizeEnum == IconSize.Small then
 			return style.Tokens.Semantic.Icon.Size.Small
 		elseif iconSizeEnum == IconSize.Medium then

@@ -20,12 +20,12 @@ local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
 local VerticalScrollView = require(App.Container.VerticalScrollView)
 local ActionBar = require(App.Button.ActionBar)
 local StickyActionBar = require(App.Button.StickyActionBar)
+local DeviceType = require(App.Style.Constants).DeviceType
 
 local getPlatformConfig = require(DetailsPage.getPlatformConfig)
 local DetailsPageHeader = require(DetailsPage.DetailsPageHeader)
 local DetailsPageBody = require(DetailsPage.DetailsPageBody)
 local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPageComponentList)
-local DeviceType = require(DetailsPage.Enum.DeviceType)
 
 local DetailsPageTemplate = Roact.PureComponent:extend("DetailsPageTemplate")
 
