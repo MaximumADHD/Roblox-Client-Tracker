@@ -18,17 +18,16 @@ uniform sampler2D AlbedoMapTexture;
 uniform sampler2D NormalMapTexture;
 uniform sampler2D SpecularMapTexture;
 
-in vec4 VARYING0;
-in vec3 VARYING1;
-in vec4 VARYING2;
-in vec3 VARYING3;
-in vec4 VARYING4;
-in vec2 VARYING5;
+in vec3 VARYING0;
+in vec4 VARYING1;
+in vec3 VARYING2;
+in vec4 VARYING3;
+in vec2 VARYING4;
 out vec4 _entryPointOutput;
 
 void main()
 {
-    vec2 f0 = (VARYING5 * vec2(0.03125)) + CB5[0].zw;
+    vec2 f0 = (VARYING4 * vec2(0.03125)) + CB5[0].zw;
     bool f1 = CB5[0].z < 0.0;
     vec4 f2;
     if (!f1)
@@ -45,8 +44,8 @@ void main()
     if ((f2.w < 0.0) || f1)
     {
         f5 = vec3(0.0, 1.0, 0.0);
-        f4 = VARYING4.xyz * VARYING4.xyz;
-        f3 = VARYING3;
+        f4 = VARYING3.xyz * VARYING3.xyz;
+        f3 = VARYING2;
     }
     else
     {
@@ -55,8 +54,8 @@ void main()
         f4 = texture(AlbedoMapTexture, f6).xyz;
         f3 = (texture(NormalMapTexture, f6).xyz * 2.0) - vec3(1.0);
     }
-    vec3 f7 = CB0[11].xyz - VARYING2.xyz;
-    float f8 = clamp(1.0 - (VARYING2.w * CB0[28].y), 0.0, 1.0);
+    vec3 f7 = CB0[11].xyz - VARYING1.xyz;
+    float f8 = clamp(1.0 - (VARYING1.w * CB0[28].y), 0.0, 1.0);
     vec3 f9 = -CB0[16].xyz;
     float f10 = dot(f3, f9);
     vec3 f11 = normalize(f7);
@@ -64,9 +63,9 @@ void main()
     vec3 f13 = mix(vec3(0.039999999105930328369140625), f4, vec3(f5.x));
     float f14 = CB0[31].w * f8;
     vec3 f15 = reflect(-f11, f3);
-    vec3 f16 = VARYING2.xyz - (CB0[16].xyz * 0.001000000047497451305389404296875);
-    float f17 = clamp(dot(step(CB0[24].xyz, abs(VARYING1 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f18 = VARYING1.yzx - (VARYING1.yzx * f17);
+    vec3 f16 = VARYING1.xyz - (CB0[16].xyz * 0.001000000047497451305389404296875);
+    float f17 = clamp(dot(step(CB0[24].xyz, abs(VARYING0 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f18 = VARYING0.yzx - (VARYING0.yzx * f17);
     vec4 f19 = texture(LightMapTexture, f18);
     vec4 f20 = texture(LightGridSkylightTexture, f18);
     vec4 f21 = vec4(clamp(f17, 0.0, 1.0));
@@ -147,7 +146,7 @@ void main()
     float f76 = f71.x;
     float f77 = f71.y;
     float f78 = f71.z;
-    vec3 f79 = ((((f47 + (((vec3(f68) - (f67 * (f14 * f68))) * (((((((CB0[40].xyz * f73) + (CB0[42].xyz * f74)) + (CB0[44].xyz * f75)) + (CB0[41].xyz * f76)) + (CB0[43].xyz * f77)) + (CB0[45].xyz * f78)) + (((((((CB0[34].xyz * f73) + (CB0[36].xyz * f74)) + (CB0[38].xyz * f75)) + (CB0[35].xyz * f76)) + (CB0[37].xyz * f77)) + (CB0[39].xyz * f78)) * f25))) * 1.0)) + ((CB0[32].xyz + (CB0[33].xyz * (f25 * (2.0 - CB0[14].w)))) * 1.0)) + vec3((f5.z * 2.0) * f8)) * f4) + ((f46 * (f8 * VARYING0.w)) + ((mix(f63, textureLod(PrefilteredEnvTexture, f61, f60).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f15.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f25)) * f67) * f14));
+    vec3 f79 = ((((f47 + (((vec3(f68) - (f67 * (f14 * f68))) * (((((((CB0[40].xyz * f73) + (CB0[42].xyz * f74)) + (CB0[44].xyz * f75)) + (CB0[41].xyz * f76)) + (CB0[43].xyz * f77)) + (CB0[45].xyz * f78)) + (((((((CB0[34].xyz * f73) + (CB0[36].xyz * f74)) + (CB0[38].xyz * f75)) + (CB0[35].xyz * f76)) + (CB0[37].xyz * f77)) + (CB0[39].xyz * f78)) * f25))) * 1.0)) + ((CB0[32].xyz + (CB0[33].xyz * (f25 * (2.0 - CB0[14].w)))) * 1.0)) + vec3((f5.z * 2.0) * f8)) * f4) + (f46 + ((mix(f63, textureLod(PrefilteredEnvTexture, f61, f60).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f15.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f25)) * f67) * f14));
     vec4 f80 = vec4(0.0);
     f80.x = f79.x;
     vec4 f81 = f80;
@@ -156,7 +155,7 @@ void main()
     f82.z = f79.z;
     vec4 f83 = f82;
     f83.w = 1.0;
-    float f84 = clamp(exp2((CB0[18].z * VARYING2.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    float f84 = clamp(exp2((CB0[18].z * VARYING1.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
     vec3 f85 = textureLod(PrefilteredEnvTexture, vec4(-f7, 0.0).xyz, max(CB0[18].y, f84) * 5.0).xyz;
     bvec3 f86 = bvec3(!(CB0[18].w == 0.0));
     vec3 f87 = mix(vec3(f86.x ? CB0[19].xyz.x : f85.x, f86.y ? CB0[19].xyz.y : f85.y, f86.z ? CB0[19].xyz.z : f85.z), f83.xyz, vec3(f84));

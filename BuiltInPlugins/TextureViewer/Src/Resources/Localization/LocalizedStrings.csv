@@ -1,6 +1,20 @@
 Key,Source,en-us
-Studio.TextureViewer.Plugin.Name,TextureViewer,TextureViewer
-Studio.TextureViewer.Plugin.Toolbar,TextureViewer,TextureViewer
+Studio.TextureViewer.Plugin.Name,Texture Viewer,Texture Viewer
+Studio.TextureViewer.Plugin.Toolbar,Texture Viewer,Texture Viewer
+Studio.TextureViewer.Plugin.Description,Toggles the Texture Viewer plugin window.,Toggles the Texture Viewer plugin window.
 Studio.TextureViewer.Plugin.Button,Toggle,Toggle
-Studio.TextureViewer.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
 Studio.TextureViewer.Plugin.Text,Example Text!,Example Text!
+Studio.TextureViewer.ContextMenu.Select,Select All Instances in Workspace,Select All Instances in Workspace
+Studio.TextureViewer.TextureTable.Size,Size,Size
+Studio.TextureViewer.TextureTable.Texture,Texture,Texture
+Studio.TextureViewer.Search.Placeholder,Search for a texture...,Search for a texture...
+Studio.TextureViewer.ContextMenu.Copy,Copy Texture ID,Copy Texture ID
+Studio.TextureViewer.TextureTable.FindSelect,Find & Select,Find & Select
+Studio.TextureViewer.TextureTable.Id,Id,Id
+Studio.TextureViewer.TextureTable.Cancel,Cancel,Cancel
+Studio.TextureViewer.TextureTable.Confirm,Confirm,Confirm
+Studio.TextureViewer.TextureTable.NotLoaded,Not Loaded,Not Loaded
+Studio.TextureViewer.TopPanel.Textures,Textures,Textures
+Studio.TextureViewer.TopPanel.Refresh,Refresh,Refresh
+Studio.TextureViewer.TopPanel.Size,Total Size,Total Size
+Studio.TextureViewer.ContextMenu.Replace,Replace All With New Texture ID,Replace All With New Texture ID

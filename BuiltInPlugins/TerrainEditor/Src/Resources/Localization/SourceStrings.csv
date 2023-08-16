@@ -29,6 +29,7 @@ Studio.TerrainEditor.BrushShape.Sphere,Sphere
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings
 Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings
+Studio.TerrainEditor.Categories.TransformSettings,Transform Settings
 Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode
 Studio.TerrainEditor.EditorEnum.BrushShape,Brush Shape
 Studio.TerrainEditor.EditorEnum.FlattenMode,Flatten Mode
@@ -52,7 +53,31 @@ Studio.TerrainEditor.Plugin.Description,Toggles the Template plugin window.
 Studio.TerrainEditor.Plugin.Name,Terrain Editor
 Studio.TerrainEditor.Plugin.Text,Example Text!
 Studio.TerrainEditor.Plugin.Toolbar,Terrain Editor
+Studio.TerrainEditor.PluginActions.ApplyStatusTip,Apply Region Transform
+Studio.TerrainEditor.PluginActions.ApplyText,Apply
+Studio.TerrainEditor.PluginActions.CancelStatusTip,Cancel Region Transform
+Studio.TerrainEditor.PluginActions.CancelText,Cancel
+Studio.TerrainEditor.PluginActions.CopyStatusTip,Copy Region Selection
+Studio.TerrainEditor.PluginActions.CopyText,Copy
+Studio.TerrainEditor.PluginActions.CutStatusTip,Cut Region Selection
+Studio.TerrainEditor.PluginActions.CutText,Cut
+Studio.TerrainEditor.PluginActions.DeleteStatusTip,Delete Region Selection
+Studio.TerrainEditor.PluginActions.DeleteText,Delete
+Studio.TerrainEditor.PluginActions.DuplicateStatusTip,Duplicate Region Selection
+Studio.TerrainEditor.PluginActions.DuplicateText,Duplicate
+Studio.TerrainEditor.PluginActions.EditPlaneStatusTip,Edit/apply plane when using plane lock in manual mode
+Studio.TerrainEditor.PluginActions.EditPlaneText,Edit Plane
+Studio.TerrainEditor.PluginActions.PasteStatusTip,Paste Region Selection
+Studio.TerrainEditor.PluginActions.PasteText,Paste
 Studio.TerrainEditor.SelectionSettings.Position,Position
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation
 Studio.TerrainEditor.SelectionSettings.Size,Size
 Studio.TerrainEditor.SelectionSettings.Transform,Transform
+Studio.TerrainEditor.TransformSettings.Apply,Apply
+Studio.TerrainEditor.TransformSettings.LiveEdit,Live Edit
+Studio.TerrainEditor.TransformSettings.MergeEmpty,Merge Empty
+Studio.TerrainEditor.TransformSettings.Position,Position
+Studio.TerrainEditor.TransformSettings.Rotation,Rotation
+Studio.TerrainEditor.TransformSettings.Size,Size
+Studio.TerrainEditor.TransformSettings.SnapToVoxels,Snap to Voxels
+Studio.TerrainEditor.TransformSettings.Transform,Transform

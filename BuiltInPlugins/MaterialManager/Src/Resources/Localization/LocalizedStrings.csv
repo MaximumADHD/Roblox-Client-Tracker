@@ -285,4 +285,4 @@ Studio.MaterialManager.Materials.CeramicTilesMaterial,Ceramic Tiles Material,Cer
 Studio.MaterialManager.Materials.ClayRoofTilesMaterial,Clay Roof Tiles Material,Clay Roof Tiles Material,Material de tejas de arcilla,Matériau de tuiles de toit en argile, , ,점토 기와 재질,Material de telhas de barro, , , 
 Studio.MaterialManager.Materials.LeatherMaterial,Leather Material,Leather Material,Material de cuero,Matériau en cuir, ,レザー素材,가죽 재질,Material de couro, , , 
 Studio.MaterialManager.Materials.RoofShinglesMaterial,Roof Shingles Material,Roof Shingles Material,Material de tejas de techo,Matériau des bardeaux de toit, , ,지붕 널 재질,Material de telhas shingle, , , 
-Studio.MaterialManager.Materials.RubberMaterial,Rubber Material,Rubber Material,Material de goma,Matériau en caoutchouc, , ,고무 재질,Material de borracha, , , 
+Studio.MaterialManager.Materials.RubberMaterial,Rubber Material,Rubber Material,Material de goma,Matériau en caoutchouc, ,ゴム素材,고무 재질,Material de borracha, , , 

@@ -104,3 +104,8 @@ Studio.App.ConnectionIndicatorDialog.DelayedConnectionTitle,,Changes may be dela
 Studio.App.ConnectionIndicatorDialog.DelayedConnectionMessage,,Weak connection,Weak connection
 Studio.App.ConnectionIndicatorDialog.DelayedConnectionTip,,Check your internet connection to avoid delays during saves and collaboration.,Check your internet connection to avoid delays during saves and collaboration.
 Studio.App.ConnectionIndicatorDialog.DisconnectedTitle,,Disconnected,Disconnected
+Studio.App.TeamCreateLoaders.FlyToCollaborator,,Fly To Collaborator,Fly To Collaborator
+Studio.App.TeamCreateLoaders.ReturnToPreviousLocation,,Return to Previous Location,Return to Previous Location
+Studio.App.TeamCreateLoaders.JumpBackUnavailable,,No Previous Location Available,No Previous Location Available
+Studio.App.TeamCreateLoaders.CollaboratorInPrivateScript,,Collaborator is in a Private Script,Collaborator is in a Private Script
+Studio.App.TeamCreateLoaders.LoadingCollaboratorStatus,,Loading Collaborator,Loading Collaborator

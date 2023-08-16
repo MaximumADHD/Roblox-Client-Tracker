@@ -15,6 +15,8 @@ Studio.AccessoryFittingTool.AssetType.Back,Back
 Studio.AccessoryFittingTool.AssetType.Center,Center
 Studio.AccessoryFittingTool.AssetType.Clothing,Clothing
 Studio.AccessoryFittingTool.AssetType.Dress,Dress
+Studio.AccessoryFittingTool.AssetType.Eyebrows,Eyebrows
+Studio.AccessoryFittingTool.AssetType.Eyelashes,Eyelashes
 Studio.AccessoryFittingTool.AssetType.Face,Face
 Studio.AccessoryFittingTool.AssetType.Front,Front
 Studio.AccessoryFittingTool.AssetType.Hair,Hair

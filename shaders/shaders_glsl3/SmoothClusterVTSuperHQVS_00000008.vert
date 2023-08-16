@@ -8,12 +8,11 @@ uniform vec4 CB3[21];
 in vec4 POSITION;
 in vec2 TEXCOORD0;
 in vec4 NORMAL;
-out vec4 VARYING0;
-out vec3 VARYING1;
-out vec4 VARYING2;
-out vec3 VARYING3;
-out vec4 VARYING4;
-out vec2 VARYING5;
+out vec3 VARYING0;
+out vec4 VARYING1;
+out vec3 VARYING2;
+out vec4 VARYING3;
+out vec2 VARYING4;
 
 void main()
 {
@@ -23,22 +22,11 @@ void main()
     vec4 v3 = v2;
     v3.z = v2.z - (float(POSITION.w < 0.0) * 0.00200000009499490261077880859375);
     vec3 v4 = (NORMAL.xyz * 0.0078740157186985015869140625) - vec3(1.0);
-    vec4 v5 = vec4(0.0);
-    v5.w = (abs(POSITION.w) > 3.0) ? 0.0 : 1.0;
-    bvec3 v6 = equal(mod(abs(POSITION.www), vec3(4.0)), vec3(1.0, 2.0, 3.0));
-    vec3 v7 = vec3(v6.x ? vec3(1.0).x : vec3(0.0).x, v6.y ? vec3(1.0).y : vec3(0.0).y, v6.z ? vec3(1.0).z : vec3(0.0).z);
-    vec4 v8 = v5;
-    v8.x = v7.x;
-    vec4 v9 = v8;
-    v9.y = v7.y;
-    vec4 v10 = v9;
-    v10.z = v7.z;
     gl_Position = v3;
-    VARYING0 = v10;
-    VARYING1 = ((v0 + (v4 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
-    VARYING2 = vec4(v1, v0.yz, length(CB0[11].xyz - v0));
-    VARYING3 = v4;
-    VARYING4 = CB3[int(POSITION.w) * 1 + 0];
-    VARYING5 = TEXCOORD0;
+    VARYING0 = ((v0 + (v4 * 6.0)).yxz * CB0[21].xyz) + CB0[22].xyz;
+    VARYING1 = vec4(v1, v0.yz, length(CB0[11].xyz - v0));
+    VARYING2 = v4;
+    VARYING3 = CB3[int(abs(POSITION.w)) * 1 + 0];
+    VARYING4 = TEXCOORD0;
 }
 

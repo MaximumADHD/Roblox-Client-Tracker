@@ -1,6 +1,19 @@
 Key,en-us
+Studio.TextureViewer.ContextMenu.Copy,Copy Texture ID
+Studio.TextureViewer.ContextMenu.Replace,Replace All With New Texture ID
+Studio.TextureViewer.ContextMenu.Select,Select All Instances in Workspace
 Studio.TextureViewer.Plugin.Button,Toggle
-Studio.TextureViewer.Plugin.Description,Toggles the Template plugin window.
-Studio.TextureViewer.Plugin.Name,TextureViewer
-Studio.TextureViewer.Plugin.Text,Example Text!
-Studio.TextureViewer.Plugin.Toolbar,TextureViewer
+Studio.TextureViewer.Plugin.Description,Toggles the Texture Viewer plugin window.
+Studio.TextureViewer.Plugin.Name,Texture Viewer
+Studio.TextureViewer.Plugin.Toolbar,Texture Viewer
+Studio.TextureViewer.Search.Placeholder,Search for a texture...
+Studio.TextureViewer.TextureTable.Cancel,Cancel
+Studio.TextureViewer.TextureTable.Confirm,Confirm
+Studio.TextureViewer.TextureTable.FindSelect,Find & Select
+Studio.TextureViewer.TextureTable.Id,Id
+Studio.TextureViewer.TextureTable.NotLoaded,Not Loaded
+Studio.TextureViewer.TextureTable.Size,Size
+Studio.TextureViewer.TextureTable.Texture,Texture
+Studio.TextureViewer.TopPanel.Refresh,Refresh
+Studio.TextureViewer.TopPanel.Size,Total Size
+Studio.TextureViewer.TopPanel.Textures,Textures

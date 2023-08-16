@@ -28,6 +28,7 @@ Studio.MaterialGenerator.Header.GenerateButton,Generate
 Studio.MaterialGenerator.Header.OutOfBudget,This feature is in beta and the servers are at capacity. Try again soon!
 Studio.MaterialGenerator.Header.PromptPlaceholderText,Ancient stone wall...
 Studio.MaterialGenerator.Header.RetryBudgetQuery,"Generation error, please try again."
+Studio.MaterialGenerator.Header.RetryButton,Retry
 Studio.MaterialGenerator.MaterialView.ApplyVariant,Apply Variant
 Studio.MaterialGenerator.MaterialView.BaseMaterial,Base Material
 Studio.MaterialGenerator.MaterialView.BaseMaterialNotGivenError,Required

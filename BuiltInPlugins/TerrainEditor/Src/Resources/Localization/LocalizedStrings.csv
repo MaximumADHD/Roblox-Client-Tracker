@@ -3,8 +3,10 @@ Studio.TerrainEditor.Generate.BiomeSizeMassive,Massive (500),Riesig (500),Massiv
 Studio.TerrainEditor.BaseTool.BrushPaint,Paint, ,Paint,Pintar,Peindre,Disegna,ペイント,칠하기,Pintar, ,涂画,涂画,上色
 Studio.TerrainEditor.BaseTool.Paint,Paint, ,Paint,Pintar,Peindre,Dipingi,ペイント,칠하기,Pintar, ,涂画,涂画,上色
 Studio.TerrainEditor.MainButtons.Paint,Paint,Bemalen,Paint,Pintar,Peindre,Dipingi,ペイント,칠하기,Pintar,Раскрасить,绘制,绘制,上色
+Studio.TerrainEditor.PluginActions.EditPlaneText,Edit Plane, ,Edit Plane, , , , , , , , , , 
 Studio.TerrainEditor.Generate.BiomeHills,Hills,Hügel,Hills,Colinas,Collines,Colline,丘,언덕,Colinas,Холмы,丘陵,丘陵,山丘
 Studio.TerrainEditor.MainButtons.GrowTooltip,Click and hold to grow and expand terrain.,Klicken und gedrückt halten zum Erhöhen und Erweitern von Gelände.,Click and hold to grow and expand terrain.,Haz clic y mantén presionado para aumentar o expandir el terreno.,Cliquer et maintenir pour augmenter et étendre le terrain.,Clicca e tieni premuto per ingrandire ed espandere il terreno.,クリックして長押しで地形を大きくして広げる。,길게 클릭해 지형을 높이고 확장합니다.,Clique e mantenha pressionado para aumentar e expandir o terreno.,"Удерживайте кнопку мыши, чтобы нарастить и расширить рельеф.",单击并按住以增长和扩大地形。,单击并按住以增长和扩大地形。,按住即可生長地形。
+Studio.TerrainEditor.PluginActions.CancelText,Cancel, ,Cancel, , , , , , , , , , 
 Studio.TerrainEditor.Main.Title,Terrain Editor,Gelände-Editor,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor di terreno,地形エディタ,지형 편집기,Editor de terreno,Редактор рельефа,地形编辑器,地形编辑器,地形編輯器
 Studio.TerrainEditor.Plugin.Name,Terrain Editor, ,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor Terreno,地形エディタ,지형 편집기,Editor de terreno, ,地形编辑器,地形编辑器,地形編輯器
 Studio.TerrainEditor.Plugin.Toolbar,Terrain Editor, ,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor Terreno,地形エディタ,지형 편집기,Editor de terreno, ,地形编辑器,地形编辑器,地形編輯器
@@ -84,6 +86,7 @@ Studio.TerrainEditor.Regions.FillSelection,Fill Selection,Auswahl füllen,Fill S
 Studio.TerrainEditor.Brush.Auto,Auto,Automatisch,Auto,Automático,Auto,Auto,自動,자동,Automático,Авто,自动,自动,自動
 Studio.TerrainEditor.PlaneLock.Auto,Auto, ,Auto,Autom.,Auto,Auto,自動,자동,Automático, ,自动,自动,自動
 Studio.TerrainEditor.Materials.CrackedLava,Cracked Lava,Rissige Lava,Cracked Lava,Lava agrietada,Lave fissurée,Lava incrinata,ひび割れた溶岩,갈라진 용암,Lava rachada,Застывшая лава,裂纹熔岩,裂纹熔岩,裂紋熔岩
+Studio.TerrainEditor.PluginActions.CopyText,Copy, ,Copy, , , , , , , , , , 
 Studio.TerrainEditor.Materials.Basalt,Basalt, ,Basalt,Basalto,Basalte,Basalto,玄武岩,현무암,Basalto,Базальт,玄武岩,玄武岩,玄武岩
 Studio.TerrainEditor.Materials.Cobblestone,Cobblestone,Kopfstein,Cobblestone,Adoquín,Pavés,Ciottolo,玉砂利,왕자갈,Paralelepípedo,Брусчатка,大鹅卵石,大鹅卵石,鵝卵石
 Studio.TerrainEditor.Materials.Pavement,Pavement,Gehweg,Pavement,Pavimento,Chaussée,Pavimentazione,舗道,보도,Pavimento,Покрытие,路面,路面,人行道
@@ -91,6 +94,7 @@ Studio.TerrainEditor.Brush.BrushSettings,Brush Settings,Pinseleinstellungen,Brus
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings, ,Brush Settings,Configuración del pincel,Paramètres du pinceau,Impostazioni pennello,ブラシ設定,브러시 설정,Configurações do pincel, ,涂刷设置,涂刷设置,筆刷設定
 Studio.TerrainEditor.Brush.Size,Size,Größe,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho,Размер,尺寸,尺寸,大小
 Studio.TerrainEditor.SelectionSettings.Size,Size, ,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho, , , , 
+Studio.TerrainEditor.TransformSettings.Size,Size, ,Size, , , , , , , , , , 
 Studio.TerrainEditor.Brush.MaterialSettings,Material Settings,Materialeinstellungen,Material Settings,Configuración del material,Paramètres matériaux,Impostazioni materiale,素材の設定,재질 설정,Configurações do material,Свойства материала,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings, ,Material Settings,Configuración del material,Paramètres matériel,Impostazioni materiale,素材の設定,재질 설정,Configurações do material, ,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Brush.Advanced,Advanced,Fortgeschritten,Advanced,Avanzado,Avancé,Avanzato,詳細設定,고급,Avançado,Расширенные настройки,高级,高级,進階
@@ -102,6 +106,7 @@ Studio.TerrainEditor.Brush.Material,Material, ,Material,Material,Matériau,Mater
 Studio.TerrainEditor.Brush.Shape,Shape,Form,Shape,Forma,Forme,Forma,形状,셰이프,Formato,Форма,形状,形状,形狀
 Studio.TerrainEditor.Regions.EditTools,Edit Tools,Bearbeitungstools,Edit Tools,Herramientas de Edición,Outils d'édition,Strumenti Modifica,編集ツール,편집 도구,Editar ferramentas,Инструменты редактирования,编辑工具,编辑工具,編輯工具
 Studio.TerrainEditor.Regions.MergeEmpty,Merge Empty,Leere zusammenführen,Merge Empty,Combinar vacío,Fusionner vides,Unisci vuoto,空白を併合,빈 공간 병합,Mesclar vazios,Объединить пустые области,合并空白,合并空白,合併空位
+Studio.TerrainEditor.TransformSettings.MergeEmpty,Merge Empty, ,Merge Empty, , , , , , , , , , 
 Studio.TerrainEditor.Regions.Tools,Tools, ,Tools,Herramientas,Outils,Strumenti,ツール,도구,Ferramentas,Инструменты,工具,工具,工具
 Studio.TerrainEditor.BaseTool.Import,Import, ,Import,Importar,Importer,Importa,インポート,가져오기,Importar, ,导入,导入,匯入
 Studio.TerrainEditor.BaseTool.RegionImport,Import, ,Import,Importar,Importer,Importa,インポートする,가져오기,Importar, ,导入,导入,匯入
@@ -122,12 +127,14 @@ Studio.TerrainEditor.BaseTool.RegionFill,Fill, ,Fill,Llenar,Remplir,Riempi,埋�
 Studio.TerrainEditor.BaseTool.RegionTransform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, ,转变,转变,變形
 Studio.TerrainEditor.BaseTool.Transform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, ,转变,转变,變形
 Studio.TerrainEditor.SelectionSettings.Transform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, , , , 
+Studio.TerrainEditor.TransformSettings.Transform,Transform, ,Transform, , , , , , , , , , 
 Studio.TerrainEditor.BaseTool.Draw,Draw, ,Draw,Dibujar,Dessiner,Disegno,描画,그리기,Desenhar, ,绘制,绘制,繪製
 Studio.TerrainEditor.BrushShape.Sphere,Sphere, ,Sphere,Esfera,Sphère,Sfera,球体,구,Esfera, ,球体,球体,球體
 Studio.TerrainEditor.BrushShape.Cube,Cube, ,Cube,Cubo,Cube,Cubo,立方体,큐브,Cubo, ,立方体,立方体,立方體
 Studio.TerrainEditor.BrushShape.Cylinder,Cylinder, ,Cylinder,Cilindro,Cylindre,Cilindro,円柱,원통,Cilindro, ,筒体,筒体,圓柱
 Studio.TerrainEditor.FlattenMode.Over,Over, ,Over,Encima,Au-dessus,Sopra,上,위,Sobre, ,超过,超过,超過
 Studio.TerrainEditor.FlattenMode.Under,Under, ,Under,Debajo,En dessous de,Sotto,下,아래,Embaixo, ,低于,低于,不足
+Studio.TerrainEditor.PluginActions.DeleteText,Delete, ,Delete, , , , , , , , , , 
 Studio.TerrainEditor.PivotPosition.Bottom,Bottom, ,Bottom,Inferior,Bas,In basso,下,하단,Inferior, ,底部,底部,底
 Studio.TerrainEditor.PivotPosition.Center,Center, ,Center,Centro,Centre,Centro,中央,중앙,Centro, ,中央,中央,中央
 Studio.TerrainEditor.PivotPosition.Top,Top, ,Top,Superior,Haut,Superiore,上,상단,Superior, ,顶部,顶部,頂
@@ -144,10 +151,28 @@ Studio.TerrainEditor.BrushSettings.FixedPlane,Fixed Plane, ,Fixed Plane,Plano fi
 Studio.TerrainEditor.BrushSettings.IgnoreParts,Ignore Parts, ,Ignore Parts,Omitir piezas,Ignorer les parties,Ignora parti,パーツを無視,파트 무시,Ignorar partes, ,忽略部件,忽略部件,忽略零件
 Studio.TerrainEditor.BrushSettings.PlanePosition,Plane Position, ,Plane Position,Posición del plano,Position du plan,Posizione piano,平面の位置,평면 위치,Posição do plano, ,平面位置,平面位置,平面位置
 Studio.TerrainEditor.BrushSettings.SnapToVoxels,Snap to Voxels, ,Snap to Voxels,Alinear a los vóxeles,Accrocher aux Voxels,Aderisci ai voxel,ボクセルに装着,복셀에 맞추기,Ajustar aos voxels, ,贴靠至体素,贴靠至体素,貼齊到體素
+Studio.TerrainEditor.TransformSettings.SnapToVoxels,Snap to Voxels, ,Snap to Voxels, , , , , , , , , , 
 Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material, ,Auto Material,Material automático,Matériel Auto,Materiale automatico,素材の自動運用,자동 재질,Material automático, ,自动材质,自动材质,自動材質
 Studio.TerrainEditor.MaterialSettings.ReplaceMaterial,Replace Material, ,Replace Material,Reemplazar material,Remplacer le matériel,Sostituisci materiale,素材を置き換え,재질 바꾸기,Substituir material, ,替换材质,替换材质,取代材質
 Studio.TerrainEditor.MaterialSettings.SourceMaterial,Source Material, ,Source Material,Material de origen,Matériel source,Materiale sorgente,ソース素材,소스 재질,Material de origem, ,来源材质,来源材质,來源材質
 Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material, ,Target Material,Material meta,Matériel cible,Materiale target,対象素材,대상 재질,Material alvo, ,目标材质,目标材质,目標材質
 Studio.TerrainEditor.BaseTool.Select,Select, ,Select,Seleccionar,Sélectionner,Seleziona,選択,선택,Selecionar, , , , 
 Studio.TerrainEditor.SelectionSettings.Position,Position, ,Position,Posición,Position,Posizione,位置,위치,Posição, , , , 
+Studio.TerrainEditor.TransformSettings.Position,Position, ,Position, , , , , , , , , , 
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation, ,Rotation,Rotación,Rotation,Rotazione,回転,회전,Rotação, , , , 
+Studio.TerrainEditor.TransformSettings.Rotation,Rotation, ,Rotation, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.ApplyText,Apply, ,Apply, , , , , , , , , , 
+Studio.TerrainEditor.TransformSettings.Apply,Apply, ,Apply, , , , , , , , , , 
+Studio.TerrainEditor.TransformSettings.LiveEdit,Live Edit, ,Live Edit, , , , , , , , , , 
+Studio.TerrainEditor.Categories.TransformSettings,Transform Settings, ,Transform Settings, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.EditPlaneStatusTip,Edit/apply plane when using plane lock in manual mode, ,Edit/apply plane when using plane lock in manual mode, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.CopyStatusTip,Copy Region Selection, ,Copy Region Selection, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.CutStatusTip,Cut Region Selection, ,Cut Region Selection, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.CutText,Cut, ,Cut, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.DeleteStatusTip,Delete Region Selection, ,Delete Region Selection, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.PasteStatusTip,Paste Region Selection, ,Paste Region Selection, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.PasteText,Paste, ,Paste, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.DuplicateStatusTip,Duplicate Region Selection, ,Duplicate Region Selection, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.DuplicateText,Duplicate, ,Duplicate, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.ApplyStatusTip,Apply Region Transform, ,Apply Region Transform, , , , , , , , , , 
+Studio.TerrainEditor.PluginActions.CancelStatusTip,Cancel Region Transform, ,Cancel Region Transform, , , , , , , , , , 

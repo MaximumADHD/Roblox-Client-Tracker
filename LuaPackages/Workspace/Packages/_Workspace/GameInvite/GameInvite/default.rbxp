@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GameInvite",
+    "tree": {
+      "$path": "../../../../../../../modules/notifications/game-invite/src"
+    }
+  }
+}

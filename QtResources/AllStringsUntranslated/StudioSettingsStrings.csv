@@ -127,10 +127,12 @@ Studio.App.BetaFeatures.MultilayerWrapFixDescription,,Outer layers of multilayer
 Studio.App.BetaFeatures.ShowTagsInPropertiesTitle,,Tags in Properties,Tags in Properties
 Studio.App.BetaFeatures.ShowTagsInPropertiesDescription,,Tags for selected instances can now be added and removed from the properties panel.,Tags for selected instances can now be added and removed from the properties panel.
 Studio.App.BetaFeatures.UGCBodiesAndHeadsTitle,,UGC Bodies & Heads,UGC Bodies & Heads
-Studio.App.BetaFeatures.UGCBodiesAndHeadsDescription,,"Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the catalog.","Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the catalog."
+Studio.App.BetaFeatures.UGCBodiesAndHeadsDescription,,"Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the Marketplace.","Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the Marketplace."
 Studio.App.BetaFeatures.CustomVideoUploadTitle,,Upload Custom Videos,Upload Custom Videos
 Studio.App.BetaFeatures.CustomVideoUploadDescription,,Enables video uploads through the Asset Manager for eligible users.,Enables video uploads through the Asset Manager for eligible users.
 Studio.App.BetaFeatures.LuaStateMachineTitle,,Lua based character state machine,Lua based character state machine
 Studio.App.BetaFeatures.LuaStateMachineDescription,,"A Lua replacement for the native Humanoid State Machine, allowing you to define and manage the various states, events, and transitions of your characters with ease. This beta feature needs New Character Controller beta feature enabled","A Lua replacement for the native Humanoid State Machine, allowing you to define and manage the various states, events, and transitions of your characters with ease. This beta feature needs New Character Controller beta feature enabled"
+Studio.App.BetaFeatures.ChromeTitle,,Updated Roblox Controls,Updated Roblox Controls
+Studio.App.BetaFeatures.ChromeDescription,,Enables a new modernized Roblox Menu and related APIs for more seamless UI placement of key system controls.,Enables a new modernized Roblox Menu and related APIs for more seamless UI placement of key system controls.
 Studio.App.BetaFeatures.NewBaseMaterialsTitle,,New Base Materials,New Base Materials
 Studio.App.BetaFeatures.NewBaseMaterialsDescription,,Adds 8 new base materials.,Adds 8 new base materials.

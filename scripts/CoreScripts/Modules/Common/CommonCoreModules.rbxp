@@ -114,6 +114,12 @@
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }
+            },
+            "CoreScriptsRootProvider": {
+                "$path": "CoreScriptsRootProvider.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
             }
         }
     }

@@ -10,15 +10,15 @@ uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D TranslationMapTexture;
 uniform sampler2D AlbedoMapTexture;
 
-varying vec3 VARYING1;
-varying vec4 VARYING2;
-varying vec3 VARYING4;
-varying vec4 VARYING6;
-varying vec2 VARYING7;
+varying vec3 VARYING0;
+varying vec4 VARYING1;
+varying vec3 VARYING3;
+varying vec4 VARYING5;
+varying vec2 VARYING6;
 
 void main()
 {
-    vec2 f0 = (VARYING7 * vec2(0.03125)) + CB5[0].zw;
+    vec2 f0 = (VARYING6 * vec2(0.03125)) + CB5[0].zw;
     bool f1 = CB5[0].z < 0.0;
     vec4 f2;
     if (!f1)
@@ -32,19 +32,19 @@ void main()
     vec3 f3;
     if ((f2.w < 0.0) || f1)
     {
-        f3 = VARYING6.xyz * VARYING6.xyz;
+        f3 = VARYING5.xyz * VARYING5.xyz;
     }
     else
     {
         f3 = texture2D(AlbedoMapTexture, (f0 * f2.z) + f2.xy).xyz;
     }
-    float f4 = clamp(dot(step(CB0[24].xyz, abs(VARYING1 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f5 = VARYING1.yzx - (VARYING1.yzx * f4);
+    float f4 = clamp(dot(step(CB0[24].xyz, abs(VARYING0 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f5 = VARYING0.yzx - (VARYING0.yzx * f4);
     vec4 f6 = vec4(clamp(f4, 0.0, 1.0));
     vec4 f7 = mix(texture3D(LightMapTexture, f5), vec4(0.0), f6);
     vec4 f8 = mix(texture3D(LightGridSkylightTexture, f5), vec4(1.0), f6);
-    vec4 f9 = texture2D(ShadowMapTexture, VARYING2.xy);
-    vec3 f10 = (min((f7.xyz * (f7.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f8.x)), vec3(CB0[21].w)) + (VARYING4 * ((1.0 - ((step(f9.x, VARYING2.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING2.z - 0.5)), 0.0, 1.0)) * f9.y)) * f8.y))) * f3;
+    vec4 f9 = texture2D(ShadowMapTexture, VARYING1.xy);
+    vec3 f10 = (min((f7.xyz * (f7.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f8.x)), vec3(CB0[21].w)) + (VARYING3 * ((1.0 - ((step(f9.x, VARYING1.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING1.z - 0.5)), 0.0, 1.0)) * f9.y)) * f8.y))) * f3;
     vec4 f11 = vec4(0.0);
     f11.x = f10.x;
     vec4 f12 = f11;
@@ -53,7 +53,7 @@ void main()
     f13.z = f10.z;
     vec4 f14 = f13;
     f14.w = 1.0;
-    vec3 f15 = mix(CB0[19].xyz, f14.xyz, vec3(clamp(exp2((CB0[18].z * VARYING2.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
+    vec3 f15 = mix(CB0[19].xyz, f14.xyz, vec3(clamp(exp2((CB0[18].z * VARYING1.w) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
     vec4 f16 = f14;
     f16.x = f15.x;
     vec4 f17 = f16;
