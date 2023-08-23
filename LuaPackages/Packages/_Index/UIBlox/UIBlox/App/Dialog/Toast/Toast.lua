@@ -12,7 +12,6 @@ local SlidingDirection = require(UIBloxRoot.Core.Animation.Enum.SlidingDirection
 local SlidingContainer = require(UIBloxRoot.Core.Animation.SlidingContainer)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local StateTable = require(UIBloxRoot.StateTable.StateTable)
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local AnimationState = require(ToastRoot.Enum.AnimationState)
 local InformativeToast = require(ToastRoot.InformativeToast)
@@ -238,7 +237,7 @@ function Toast:render()
 	}, {
 		ToastContainer = Roact.createElement(ToastContainer, {
 			anchorPoint = self.props.anchorPoint,
-			buttonText = if UIBloxConfig.enableToastButton then self.currentToastContent.buttonText else nil,
+			buttonText = self.currentToastContent.buttonText,
 			position = self.props.position,
 			size = self.props.size,
 			-- Toast content props

@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2021 Apollo Graph, Inc. (Formerly Meteor Development Group, Inc.)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX note: extracted from storeUtils to break circular dependencies
 -- policies_types.lua:55:28-68: ApolloClient/Packages/ApolloClient/cache/inmemory/writeToStore_types -> ApolloClient/Packages/ApolloClient/cache/inmemory/types -> ApolloClient/Packages/ApolloClient/cache/inmemory/policies_types
 local srcWorkspace = script.Parent.Parent.Parent

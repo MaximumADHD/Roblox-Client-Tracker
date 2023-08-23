@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2021 Apollo Graph, Inc. (Formerly Meteor Development Group, Inc.)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/apollographql/apollo-client/blob/3161e31538c33f3aafb18f955fbee0e6e7a0b0c0/src/utilities/graphql/transform.ts
 
 local srcWorkspace = script.Parent.Parent.Parent

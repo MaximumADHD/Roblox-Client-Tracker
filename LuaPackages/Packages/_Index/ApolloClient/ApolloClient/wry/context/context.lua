@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2019-2021 Ben Newman <ben@eloper.dev>
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/benjamn/wryware/blob/91655122045a99ad445aa330e88905feb3775db6/packages/context/src/context.ts
 
 local srcWorkspace = script.Parent.Parent.Parent

@@ -11,6 +11,7 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
+local Fonts = require(UIBlox.App.Style.Fonts)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -52,6 +53,9 @@ export type StyleProps = {
 	badgeHeight: number?,
 	-- Color of badge content
 	badgeContentColor: StyleTypes.ThemeItem?,
+
+	-- Font of the text
+	fontStyle: Fonts.FontPalette?,
 
 	-- Color of label content
 	labelContentColor: StyleTypes.ThemeItem?,
@@ -368,7 +372,7 @@ local function CoPlayFooter(passedProps: Props): React.ReactElement?
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextWrapped = false,
-					fontStyle = style.Font.CaptionBody,
+					fontStyle = styleProps.fontStyle or style.Font.CaptionBody,
 					colorStyle = labelContentColor,
 				}),
 			})

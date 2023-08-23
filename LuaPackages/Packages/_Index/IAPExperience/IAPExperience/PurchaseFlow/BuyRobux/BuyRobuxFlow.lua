@@ -20,6 +20,7 @@ local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEv
 local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 
 local BuyRobuxFlow = Roact.Component:extend(script.Name)
+local OverlayTypeAnimator = "IapExperienceAnimator"
 
 type Props = {
 	screenSize: Vector2,
@@ -42,6 +43,8 @@ type Props = {
 
 	onAnalyticEvent: (string, table) -> any?,
 	onPageClose: () -> any,
+	flowComplete: () -> any,
+	dispatchCentralOverlay: (any, any) -> any,
 }
 
 type State = {
@@ -61,6 +64,59 @@ function BuyRobuxFlow:didUpdate(prevProps: Props, prevState: State)
 
 	if prevProps.purchaseState ~= props.purchaseState then
 		self:reportModalShown()
+		self:dispatchAndRenderModal(props)
+	end
+end
+
+-- Use CentralOverlay to render the modals so that they could get the gamepad focus on Console
+function BuyRobuxFlow:dispatchAndRenderModal(props: Props)
+	if props.purchaseState == BuyRobuxFlowState.Error then
+		props.dispatchCentralOverlay(OverlayTypeAnimator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = props.purchaseState == BuyRobuxFlowState.Error,
+			renderChildren = function()
+				return Roact.createElement(PurchaseErrorPrompt, {
+					screenSize = props.screenSize,
+
+					errorType = props.errorType,
+
+					doneControllerIcon = props.acceptControllerIcon,
+
+					doneActivated = function()
+						self:reportUserInput("Done")
+						props.flowComplete()
+						props.dispatchCentralOverlay(); -- close the modal
+					end,
+				})
+			end,
+		})
+		return
+	end
+
+	if props.purchaseState == BuyRobuxFlowState.PurchaseWarning then
+		props.dispatchCentralOverlay(OverlayTypeAnimator, {
+			shouldAnimate = props.shouldAnimate,
+			shouldShow = props.purchaseState == BuyRobuxFlowState.PurchaseWarning,
+			renderChildren = function()
+				return Roact.createElement(U13ConfirmPrompt, {
+					screenSize = props.screenSize,
+
+					modalType = props.u13ConfirmType,
+
+					doneActivated = function()
+						self:reportUserInput("Confirm")
+						props.acceptPurchaseWarning()
+						props.dispatchCentralOverlay(); -- close the modal
+					end,
+					cancelActivated = function()
+						self:reportUserInput("Cancel")
+						props.cancelPurchase()
+						props.dispatchCentralOverlay(); -- close the modal
+					end,
+				})
+			end,
+		})
+		return
 	end
 end
 
@@ -141,49 +197,13 @@ function BuyRobuxFlow:render()
 			onPageClose = props.onPageClose,
 			hasNativePurchaseSucceeded = purchaseState == BuyRobuxFlowState.Succeed,
 			shouldAnimate = props.shouldAnimate,
+			analyticId = state.analyticId,
+			onAnalyticEvent = props.onAnalyticEvent,
 		}),
 		LoadingOverlay = Roact.createElement(LoadingOverlay, {
 			shouldAnimate = false,
 			showOverlay = loadingOverlayState ~= nil,
 			loadingState = loadingOverlayState,
-		}),
-		U13ConfirmPromptAnimator = Roact.createElement(Animator, {
-			shouldAnimate = props.shouldAnimate,
-			shouldShow = purchaseState == BuyRobuxFlowState.PurchaseWarning,
-			renderChildren = function()
-				return Roact.createElement(U13ConfirmPrompt, {
-					screenSize = props.screenSize,
-
-					modalType = props.u13ConfirmType,
-
-					doneActivated = function()
-						self:reportUserInput("Confirm")
-						props.acceptPurchaseWarning()
-					end,
-					cancelActivated = function()
-						self:reportUserInput("Cancel")
-						props.cancelPurchase()
-					end,
-				})
-			end,
-		}),
-		PurchaseErrorPromptAnimator = Roact.createElement(Animator, {
-			shouldAnimate = props.shouldAnimate,
-			shouldShow = purchaseState == BuyRobuxFlowState.Error,
-			renderChildren = function()
-				return Roact.createElement(PurchaseErrorPrompt, {
-					screenSize = props.screenSize,
-
-					errorType = props.errorType,
-
-					doneControllerIcon = props.acceptControllerIcon,
-
-					doneActivated = function()
-						self:reportUserInput("Done")
-						props.flowComplete()
-					end,
-				})
-			end,
 		}),
 	})
 end

@@ -13,7 +13,6 @@ local Images = require(UIBloxRoot.App.ImageSet.Images)
 local memoize = require(UIBloxRoot.Utility.memoize)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local DEFAULT_PADDING = 12
 local DEFAULT_ICON_SIZE = Vector2.new(36, 36)
@@ -124,7 +123,7 @@ function ToastContainer:init()
 	self.getTextHeights = function(stylePalette)
 		local iconImage = self.props.iconImage
 		local iconSize = self.getIconSize()
-		local buttonText = if UIBloxConfig.enableToastButton then self.props.buttonText else nil
+		local buttonText = self.props.buttonText
 		local padding = self.props.padding
 		local toastSubtitle = self.props.toastSubtitle
 		local toastTitle = self.props.toastTitle
@@ -199,20 +198,14 @@ function ToastContainer:render()
 	return withStyle(function(stylePalette)
 		local subtitleHeight, titleHeight = self.getTextHeights(stylePalette)
 		local textFrameHeight = titleHeight + subtitleHeight
-		local buttonDimensions = if UIBloxConfig.enableToastButton then self.getButtonDimensions(stylePalette) else nil
-		local buttonHeight = if UIBloxConfig.enableToastButton then buttonDimensions.Y else nil
+		local buttonDimensions = self.getButtonDimensions(stylePalette)
+		local buttonHeight = buttonDimensions.Y
 
 		local size = self.props.size
 		if self.props.fitHeight then
 			local containerHeight = math.max(iconSize.Y, textFrameHeight)
 				+ padding * 2
-				+ (
-					if UIBloxConfig.enableToastButton
-							and self.showCompactToast()
-							and self.props.buttonText
-						then buttonHeight
-						else 0
-				)
+				+ (if self.showCompactToast() and self.props.buttonText then buttonHeight else 0)
 			size = UDim2.new(size.X.Scale, size.X.Offset, 0, containerHeight)
 		end
 
@@ -235,9 +228,7 @@ function ToastContainer:render()
 					})
 				end
 			end,
-			[Roact.Event.Activated] = if UIBloxConfig.enableToastButton
-				then if not self.props.buttonText then self.props.onActivated else nil
-				else self.props.onActivated,
+			[Roact.Event.Activated] = if not self.props.buttonText then self.props.onActivated else nil,
 			[Roact.Event.InputBegan] = self.onButtonInputBegan,
 			[Roact.Event.InputEnded] = self.onButtonInputEnded,
 			[Roact.Event.TouchSwipe] = self.props.onTouchSwipe,
@@ -245,14 +236,12 @@ function ToastContainer:render()
 		}, {
 			UISizeConstraint = Roact.createElement("UISizeConstraint", self.props.sizeConstraint),
 			Toast = self.props.renderToast({
-				buttonProps = if UIBloxConfig.enableToastButton
-					then if self.props.buttonText and self.props.onActivated
-						then {
-							buttonDimensions = self.getButtonDimensions(stylePalette),
-							buttonText = self.props.buttonText,
-							onActivated = self.props.onActivated,
-						}
-						else nil
+				buttonProps = if self.props.buttonText and self.props.onActivated
+					then {
+						buttonDimensions = self.getButtonDimensions(stylePalette),
+						buttonText = self.props.buttonText,
+						onActivated = self.props.onActivated,
+					}
 					else nil,
 				iconProps = iconImage and {
 					colorStyle = self.props.iconColorStyle,
@@ -262,13 +251,9 @@ function ToastContainer:render()
 				iconChildren = self.props.iconChildren,
 				-- The `self.props.buttonText and self.props.onActivated` predicate exists because passing in
 				-- `isCompact` into the `InformativeToast` component otherwise would cause a validation error
-				isCompact = if UIBloxConfig.enableToastButton
-					then if self.props.buttonText and self.props.onActivated then self.showCompactToast() else nil
-					else nil,
+				isCompact = if self.props.buttonText and self.props.onActivated then self.showCompactToast() else nil,
 				padding = padding,
-				pressed = if UIBloxConfig.enableToastButton
-					then self.showPressed()
-					else self.props.onActivated and self.state.pressed or nil,
+				pressed = self.showPressed(),
 				pressedScale = self.props.pressedScale,
 				subtitleTextProps = toastSubtitle and {
 					colorStyle = theme.TextEmphasis,

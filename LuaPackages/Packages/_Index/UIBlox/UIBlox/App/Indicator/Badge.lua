@@ -16,6 +16,7 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local BadgeStates = require(script.Parent.Enum.BadgeStates)
+local BadgeVariant = require(script.Parent.Enum.BadgeVariant)
 
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 
@@ -48,6 +49,8 @@ Badge.validateProps = t.strictInterface({
 	-- Badge text to be shown. If `BadgeStates.isEmpty` is passed in, the badge
 	-- will become smaller (12x12 outer and 8x8 inner) with no contents.
 	value = t.union(t.string, t.integer, BadgeStates.isEnumValue),
+	-- Badge variant for different color options
+	badgeVariant = t.optional(BadgeVariant.isEnumValue),
 })
 
 Badge.defaultProps = {
@@ -55,6 +58,7 @@ Badge.defaultProps = {
 	anchorPoint = Vector2.new(0, 0),
 	disabled = false,
 	hasShadow = false,
+	badgeVariant = BadgeVariant.Default,
 }
 
 function Badge:render()
@@ -86,6 +90,20 @@ function Badge:render()
 		if self.props.value == BadgeStates.isEmpty then
 			badgeWidth = EMPTY_BADGE_WIDTH
 			badgeHeight = EMPTY_BADGE_WIDTH
+		end
+
+		local badgeColor = stylePalette.Tokens.Semantic.Color.Common.Badge
+		local badgeContent = {
+			Color = stylePalette.Tokens.Semantic.Color.Common.BadgeContent.Color3,
+			Transparency = stylePalette.Tokens.Semantic.Color.Common.BadgeContent.Transparency,
+		}
+
+		if self.props.badgeVariant == BadgeVariant.Alert then
+			badgeColor = stylePalette.Tokens.Semantic.Color.Common.Alert
+			badgeContent = {
+				Color = stylePalette.Tokens.Global.Color.White.Color3,
+				Transparency = stylePalette.Tokens.Semantic.Color.Common.BadgeContent.Transparency,
+			}
 		end
 
 		return Roact.createElement("Frame", {
@@ -128,15 +146,15 @@ function Badge:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Size = UDim2.new(1, -(INNER_PADDING * 2), 1, -(INNER_PADDING * 2)),
 
-				ImageColor3 = theme.Badge.Color,
-				ImageTransparency = divideTransparency(theme.Badge.Transparency, self.props.disabled and 2 or 1),
+				ImageColor3 = badgeColor.Color3,
+				ImageTransparency = divideTransparency(badgeColor.Transparency, self.props.disabled and 2 or 1),
 				Image = INNER_CIRCLE_IMAGE,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = Rect.new(12, 12, 13, 13),
 			}, {
 				TextLabel = Roact.createElement(GenericTextLabel, {
 					fontStyle = font.CaptionBody,
-					colorStyle = theme.BadgeContent,
+					colorStyle = badgeContent,
 
 					BackgroundTransparency = 1,
 					Text = badgeText,

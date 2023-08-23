@@ -3,10 +3,8 @@ local IAPExperienceRoot = GenericRoot.Parent
 local Packages = IAPExperienceRoot.Parent
 
 local LocalizationService = game:GetService("LocalizationService")
-local GuiService = game:GetService("GuiService")
 
 local Roact = require(Packages.Roact)
-local Otter = require(Packages.Otter)
 
 local UIBlox = require(Packages.UIBlox)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
@@ -14,13 +12,11 @@ local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
-local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local RoactGamepad = require(Packages.RoactGamepad)
-local Focusable = RoactGamepad.Focusable
 
 local RoactFitComponents = require(Packages.RoactFitComponents)
 local FitFrameHorizontal = RoactFitComponents.FitFrameHorizontal
@@ -53,6 +49,7 @@ type Props = {
 
 	onActivated: (string) -> any,
 	onHover: (string, boolean) -> any,
+	onSelect: (React.Ref<any>) -> any,
 
 	forwardRef: React.Ref<any>,
 
@@ -115,6 +112,9 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 			end,
 			[Roact.Event.MouseLeave] = function()
 				props.onHover(props.forwardRef, false)
+			end,
+			[Roact.Event.SelectionGained] = function()
+				props.onSelect(props.forwardRef)
 			end,
 		}, {
 			Corner = Roact.createElement("UICorner", {

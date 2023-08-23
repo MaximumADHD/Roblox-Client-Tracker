@@ -7,6 +7,7 @@ local getFIntMeshDivision = require(Root.UGCValidation.flags.getFIntMeshDivision
 local getFIntMeshDivisionFull = require(Root.UGCValidation.flags.getFIntMeshDivisionFull)
 local getFIntMeshDivisionFullExtended = require(Root.UGCValidation.flags.getFIntMeshDivisionFullExtended)
 local getFIntMeshDivisionMedium = require(Root.UGCValidation.flags.getFIntMeshDivisionMedium)
+local getFFlagAddUGCValidationForPackage = require(Root.UGCValidation.flags.getFFlagAddUGCValidationForPackage)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -762,6 +763,28 @@ if getFFlagUGCValidateBodyParts() then
 		RightLowerLeg = 88,
 		RightFoot = 86,
 	}
+end
+
+if getFFlagAddUGCValidationForPackage() then
+	Constants.PACKAGE_CONTENT_ID_FIELDS = Cryo.Dictionary.join(Constants.CONTENT_ID_FIELDS, {
+		Sound = { "SoundId" },
+		Decal = { "Texture" },
+		VideoFrame = { "Video" },
+		PackageLink = { "PackageId" },
+		CharacterMesh = { "baseTextureAssetId", "overlayTextureAssetId", "meshAssetId" },
+		Tool = { "TextureId" },
+		Sky = { "SkyUp", "SkyLf", "SkyRt", "SkyBk", "SkyFt", "SkyDn", "Sun", "Moon" },
+		Trail = { "texture" },
+		Beam = { "texture" },
+		ShirtGraphic = { "Graphic" },
+		Shirt = { "ShirtTemplate" },
+		Pants = { "PantsTemplate" },
+		AdGui = { "FallbackImage" },
+	})
+
+	Constants.ExperienceAuthHeaderKey = "RBX-ExperienceAuthorization"
+	Constants.ContentType = "Content-Type"
+	Constants.ApplicationJson = "application/json"
 end
 
 return Constants

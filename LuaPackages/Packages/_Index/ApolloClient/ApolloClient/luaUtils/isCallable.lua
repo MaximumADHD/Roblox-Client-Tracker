@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) Roblox Corporation
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX comment: we use callable tables instead of functions sometimes, so typeof() == "function" isn't enough
 -- https://github.com/Roblox/roact-alignment/blob/2e9a4b4b4683da6c603d9c6a9b27b776c5a006c7/modules/react-reconciler/src/ReactFiberDevToolsHook.new.lua#L27-L42
 local function isCallable(value: any): boolean

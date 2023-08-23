@@ -21,6 +21,8 @@ local PremiumUpsellPrompt = require(IAPExperienceRoot.PremiumUpsell.PremiumUpsel
 local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEventData)
 local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 
+local FFlagCompleteFlowInStudioAccept = game:DefineFastFlag("CompleteFlowInStudioAccept", false)
+
 local PremiumUpsellFlow = Roact.Component:extend(script.Name)
 
 type Props = {
@@ -130,6 +132,9 @@ function PremiumUpsellFlow:render()
 					purchasePremiumActivated = function()
 						self:reportUserInput("Subscribe")
 						props.purchasePremium()
+						if FFlagCompleteFlowInStudioAccept and game:GetService("RunService"):IsStudio() then
+							props.flowComplete()
+						end
 					end,
 					cancelPurchaseActivated = function()
 						self:reportUserInput("Cancel")

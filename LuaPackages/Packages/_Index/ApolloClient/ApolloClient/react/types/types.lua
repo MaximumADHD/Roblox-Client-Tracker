@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2021 Apollo Graph, Inc. (Formerly Meteor Development Group, Inc.)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/apollographql/apollo-client/blob/v3.4.2/src/react/types/types.ts
 local srcWorkspace = script.Parent.Parent.Parent
 local rootWorkspace = srcWorkspace.Parent
@@ -200,7 +206,7 @@ type UnexecutedLazyResult<TData, TVariables> = UnexecutedLazyFields & AbsentLazy
 
 export type LazyQueryResult<TData, TVariables> = UnexecutedLazyResult<TData, TVariables> | QueryResult<TData, TVariables>
 
---[[ 
+--[[
 	ROBLOX deviation: no way to type a tuple in Luau. Using Tuple helper type in case it becomes possible in later versions of Luau
 	original type:
 	export type QueryTuple<TData, TVariables> = [

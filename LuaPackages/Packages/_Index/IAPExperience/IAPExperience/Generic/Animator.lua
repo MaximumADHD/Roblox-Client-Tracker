@@ -1,6 +1,9 @@
+local LocalizationService = game:GetService("LocalizationService")
+
 local ProductPurchaseRoot = script.Parent
 local IAPExperienceRoot = ProductPurchaseRoot.Parent
 local Packages = IAPExperienceRoot.Parent
+local LocaleProvider = require(IAPExperienceRoot.Locale.LocaleProvider)
 
 local Roact = require(Packages.Roact)
 local Otter = require(Packages.Otter)
@@ -75,7 +78,7 @@ function Animator:willUnmount()
 	self.motor:destroy()
 end
 
-function Animator:render()
+function Animator:renderWithoutLocale()
 	local props: Props = self.props
 
 	if props.shouldAnimate then
@@ -99,6 +102,17 @@ function Animator:render()
 			return nil
 		end
 	end
+end
+
+function Animator:render()
+	-- TODO(UBIQUITY-666): Explore the option to use the generic LocaleProvider from Universal App
+	-- And deprecate this provider from IAPExperience package.
+	-- Have to wrap it here to make the CentralOverlay work with this module.
+	return Roact.createElement(LocaleProvider, {
+		locale = LocalizationService and LocalizationService.RobloxLocaleId,
+	}, {
+		self:renderWithoutLocale()
+	})
 end
 
 return Animator

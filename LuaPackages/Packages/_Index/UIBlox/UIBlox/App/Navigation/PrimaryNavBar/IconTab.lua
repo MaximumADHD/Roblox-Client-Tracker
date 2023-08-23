@@ -45,6 +45,9 @@ local function IconTab(providedProps: Props)
 
 	local tokens = style.Tokens
 	local areTokensEnabled = tokens ~= nil and UIBloxConfig.useTokensInIconTab
+	local iconStyle = if selected
+		then style.Tokens.Semantic.Color.Icon.Emphasis
+		else style.Tokens.Semantic.Color.Icon.Default
 
 	local roundedBackgroundHeight = Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_PADDING * 2
 	assert(item.icon == nil or item.iconComponent == nil, "icon or iconComponent cannot be assigned at same time")
@@ -73,6 +76,8 @@ local function IconTab(providedProps: Props)
 				Image = item.icon,
 				BackgroundTransparency = 1,
 				ScaleType = Enum.ScaleType.Fit,
+				ImageColor3 = if areTokensEnabled then iconStyle.Color3 else nil,
+				ImageTransparency = if areTokensEnabled then iconStyle.Transparency else nil,
 			})
 			elseif item.iconComponent ~= nil then React.createElement(
 				"Frame",

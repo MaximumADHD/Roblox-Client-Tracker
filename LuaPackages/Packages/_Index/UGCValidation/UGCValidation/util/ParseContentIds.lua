@@ -9,7 +9,7 @@ local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
-
+local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local ParseContentIds = {}
 
 -- rbxassetid://1234
@@ -49,6 +49,13 @@ end
 -- attempt to extract the asset id out of a valid content id URL
 local function tryGetAssetIdFromContentIdInternal(contentId)
 	local id
+
+	if getFFlagAddUGCValidationForPackage() then
+		id = tonumber(contentId)
+		if id ~= nil then
+			return id
+		end
+	end
 
 	id = getRbxAssetId(contentId)
 	if id ~= nil then

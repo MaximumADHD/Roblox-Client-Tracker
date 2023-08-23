@@ -27,9 +27,6 @@ return {
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
-	-- if true, uses the new refactored PlayerCount
-	useNewPlayerCount = false,
-
 	-- if true, uses the new KeyLabelV2
 	useNewKeyLabel = false,
 
@@ -79,9 +76,6 @@ return {
 	-- Allow UIBlox TextButtons to be shown after Icon Buttons in the ActionBar
 	enableTextButtonsInActionBar = false,
 
-	-- Enable the option to add a button to the Toast component
-	enableToastButton = false,
-
 	-- Allow to pass buttonText and buttonType to EmptyState component
 	buttonPropsForEmptyState = false,
 
@@ -112,4 +106,10 @@ return {
 
 	-- Enables token usage in IconTab
 	useTokensInIconTab = false,
+
+	-- Enable IconButton to calculate size based on token values
+	useTokensSizeInIconButton = false,
+
+	-- Adds a UISizeLimit to PartialPageModal.lua
+	partialPageModalSizeLimit = false,
 }

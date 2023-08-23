@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2021 Apollo Graph, Inc. (Formerly Meteor Development Group, Inc.)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/apollographql/invariant-packages/blob/be3bfe/packages/ts-invariant/src/invariant.ts
 local srcWorkspace = script.Parent.Parent
 local rootWorkspace = srcWorkspace.Parent

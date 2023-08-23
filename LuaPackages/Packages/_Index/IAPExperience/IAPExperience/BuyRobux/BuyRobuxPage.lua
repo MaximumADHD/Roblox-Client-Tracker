@@ -6,31 +6,29 @@ local LocalizationService = game:GetService("LocalizationService")
 local GuiService = game:GetService("GuiService")
 
 local Roact = require(Packages.Roact)
-local Otter = require(Packages.Otter)
 
 local RoactGamepad = require(Packages.RoactGamepad)
 
 local UIBlox = require(Packages.UIBlox)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
-local FreeFlowCarousel = UIBlox.App.Container.Carousel.FreeFlowCarousel
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
-local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
 
 local RoactFitComponents = require(Packages.RoactFitComponents)
 local FitFrameHorizontal = RoactFitComponents.FitFrameHorizontal
-local FitFrameVertical = RoactFitComponents.FitFrameVertical
 local FitTextLabel = RoactFitComponents.FitTextLabel
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
-local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEventData)
-local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 local formatNumber = require(IAPExperienceRoot.Utility.formatNumber)
 local Animator = require(IAPExperienceRoot.Generic.Animator)
+
+local getEnableCompensatingScrollingFrame = require(IAPExperienceRoot.Flags.getEnableCompensatingScrollingFrame)
+
+local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 
 local RobuxPackage = require(BuyRobuxRoot.RobuxPackage)
 
@@ -70,9 +68,11 @@ type Props = {
 	robuxBalance: number,
 	robuxPackages: table?,
 	shouldAnimate: boolean?,
+	analyticId: string?,
 
 	robuxPackageActivated: (string) -> any,
 	onPageClose: () -> any,
+	onAnalyticEvent: (string, table) -> any?,
 }
 
 type State = {
@@ -86,6 +86,7 @@ function BuyRobuxPage:init()
 	}
 
 	self.buttonRefs = RoactGamepad.createRefCache()
+	self.scrollingFrameRef = Roact.createRef()
 
 	self.getGamepadNextSelectionLeft = function(buttonRefIndex)
 		return buttonRefIndex > 1 and self.buttonRefs[buttonRefIndex - 1] or nil
@@ -174,6 +175,51 @@ function BuyRobuxPage:render()
 	})
 end
 
+-- Compensate the ScrollingFrame using CanvasPosition to move the selected package to the safe area of the screen
+function BuyRobuxPage:movePackageToAttentionArea(currentSelectedPackage: RobuxPackage)
+	if not getEnableCompensatingScrollingFrame() then
+		return
+	end
+
+	local scrollingFrame = self.scrollingFrameRef.current
+	if scrollingFrame == nil or currentSelectedPackage == nil then
+		return
+	end
+	local frameWidth = scrollingFrame.AbsoluteSize.X
+	local bufferWidth = ROBUX_PACKAGE_LIST_PADDING * 3 * self:getScale()
+
+	local btnPositionLeft = currentSelectedPackage.AbsolutePosition.X - bufferWidth
+	if (btnPositionLeft < 0) then
+		scrollingFrame.CanvasPosition = Vector2.new(btnPositionLeft, 0)
+		self:reportScrollingFrameCompensationHappened()
+		return
+	end
+
+	local btnPositionRight = currentSelectedPackage.AbsolutePosition.X + currentSelectedPackage.AbsoluteSize.X + bufferWidth
+	if (btnPositionRight > frameWidth) then
+		scrollingFrame.CanvasPosition = Vector2.new(btnPositionLeft, 0)
+		self:reportScrollingFrameCompensationHappened()
+		return
+	end
+end
+
+function BuyRobuxPage:reportScrollingFrameCompensationHappened()
+	local props: Props = self.props
+	if not props.onAnalyticEvent then
+		return
+	end
+
+	local data = getUserInputEventData(
+		props.analyticId,
+		"",
+		"BuyRobux",
+		"ScrollingFrame",
+		"Compensated"
+	)
+
+	props.onAnalyticEvent("UserPurchaseFlow", data)
+end
+
 function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectionCursor)
 	local props: Props = self.props
 
@@ -187,9 +233,10 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 		local balanceTextHeight = 32 * self:getScale()
 
 		local RobuxPackageChildren = {
-			StartingPadding = Roact.createElement("Frame", {
+			LeadingPadding = Roact.createElement("Frame", {
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
+				LayoutOrder = 0,
 				Size = UDim2.new(0, (SIDE_PADDING - ROBUX_PACKAGE_LIST_PADDING) * self:getScale(), 0, 1),
 			}),
 			RobuxPackageChildren = Roact.createElement("UIListLayout", {
@@ -198,7 +245,13 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 				FillDirection = Enum.FillDirection.Horizontal,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, ROBUX_PACKAGE_LIST_PADDING * self:getScale()),
-			})
+			}),
+			TrailingPadding = Roact.createElement("Frame", {
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				LayoutOrder = numOfPackages + 1,
+				Size = UDim2.new(0, (SIDE_PADDING - ROBUX_PACKAGE_LIST_PADDING) * self:getScale(), 0, 1),
+			}),
 		}
 
 		for i = 1, numOfPackages do
@@ -222,6 +275,9 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 
 				onActivated = function(packageId: string)
 					props.robuxPackageActivated(packageId)
+				end,
+				onSelect = function(ref: React.Ref<any>)
+					self:movePackageToAttentionArea(ref:getValue())
 				end,
 				onHover = function(ref: React.Ref<any>, didHover: boolean)
 					if didHover then
@@ -411,12 +467,17 @@ function BuyRobuxPage:renderWithLocale(locMap: { [string]: string }, getSelectio
 			RobuxPackageTilesFrame = Roact.createElement("ScrollingFrame", {
 				Position = UDim2.new(0, 0, 0, 310 * self:getScale()),
 				Size = UDim2.new(1, 0, 0, 615 * self:getScale()),
-				CanvasSize = UDim2.new(0, #RobuxPackageChildren * 390 * self:getScale(), 0, 615 * self:getScale()),
+				AutomaticSize = Enum.AutomaticSize.None,
+				CanvasSize = UDim2.new(0, 0, 0, 0),
+				AutomaticCanvasSize = Enum.AutomaticSize.X,
 				ScrollingEnabled = hasPackageData,
 				ScrollingDirection = Enum.ScrollingDirection.X,
 				ScrollBarImageTransparency = 1,
+				ScrollBarThickness = 0,
 				Selectable = false,
 				BackgroundTransparency = 1,
+
+				[Roact.Ref] = self.scrollingFrameRef,
 			}, RobuxPackageChildren),
 		})
 	end)

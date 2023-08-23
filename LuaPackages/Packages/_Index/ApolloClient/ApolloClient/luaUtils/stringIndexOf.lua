@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) Roblox Corporation
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX comment: no upstream
 -- ROBLOX TODO: replace when added to LuauPolyfill
 local exports = {}

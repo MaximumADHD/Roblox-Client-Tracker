@@ -7,7 +7,7 @@ game:DefineFastFlag("UGCLCQualityReplaceLua", false)
 game:DefineFastFlag("UGCReturnAllValidations", false)
 
 local root = script
-
+local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local ConstantsInterface = require(root.ConstantsInterface)
 
@@ -22,6 +22,7 @@ local validateLegacyAccessoryMeshPartAssetFormat = require(root.validation.valid
 
 local validateLimbsAndTorso = require(root.validation.validateLimbsAndTorso)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
+local validatePackage = require(root.validation.validatePackage)
 
 local function validateBodyPartInternal(
 	_isAsync,
@@ -45,7 +46,8 @@ local function validateInternal(
 	assetTypeEnum,
 	isServer,
 	allowUnreviewedAssets,
-	restrictedUserIds
+	restrictedUserIds,
+	token
 ): (boolean, { string }?)
 	if getFFlagUGCValidateBodyParts() and ConstantsInterface.isBodyPart(assetTypeEnum) then
 		return validateBodyPartInternal(
@@ -58,6 +60,10 @@ local function validateInternal(
 		)
 	end
 
+	if getFFlagAddUGCValidationForPackage() and assetTypeEnum == Enum.AssetType.Model then
+		return validatePackage(instances, isServer, restrictedUserIds, token)
+	end
+
 	if isLayeredClothing(instances[1]) then
 		return validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
 	else
@@ -67,14 +73,15 @@ end
 
 local UGCValidation = {}
 
-function UGCValidation.validate(instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds)
+function UGCValidation.validate(instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token)
 	local success, reasons = validateInternal(
 		false, --[[ isAsync = ]]
 		instances,
 		assetTypeEnum,
 		isServer,
 		allowUnreviewedAssets,
-		restrictedUserIds
+		restrictedUserIds,
+		token
 	)
 	return success, reasons
 end
@@ -89,7 +96,7 @@ function UGCValidation.validateAsync(
 )
 	coroutine.wrap(function()
 		callback(
-			validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds)
+			validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, "")
 		)
 	end)()
 end
@@ -155,7 +162,7 @@ function UGCValidation.validateMeshPartAssetFormat(
 )
 	-- layered clothing assets should be the same binary for source and avatar_meshpart_accesory
 	if specialMeshAccessory and isLayeredClothing(specialMeshAccessory) then
-		return UGCValidation.validate({ specialMeshAccessory }, assetTypeEnum, isServer, allowUnreviewedAssets, {})
+		return UGCValidation.validate({ specialMeshAccessory }, assetTypeEnum, isServer, allowUnreviewedAssets, {}, "")
 	end
 
 	local success, reasons

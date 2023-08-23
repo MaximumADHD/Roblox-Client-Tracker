@@ -12,7 +12,6 @@ local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local SpringAnimatedItem = require(UIBloxRoot.Utility.SpringAnimatedItem)
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local ToastFrame = require(ToastRoot.ToastFrame)
 local ToastIcon = require(ToastRoot.ToastIcon)
@@ -108,10 +107,10 @@ function InteractiveToast:render()
 				SliceCenter = TOAST_SLICE_CENTER,
 			}),
 			ToastFrame = Roact.createElement(ToastFrame, {
-				buttonProps = if UIBloxConfig.enableToastButton then self.props.buttonProps else nil,
+				buttonProps = self.props.buttonProps,
 				iconProps = self.props.iconProps,
 				iconChildren = self.props.iconChildren,
-				isCompact = if UIBloxConfig.enableToastButton then self.props.isCompact else nil,
+				isCompact = self.props.isCompact,
 				padding = self.props.padding,
 				subtitleTextProps = self.props.subtitleTextProps,
 				textFrameSize = self.props.textFrameSize,

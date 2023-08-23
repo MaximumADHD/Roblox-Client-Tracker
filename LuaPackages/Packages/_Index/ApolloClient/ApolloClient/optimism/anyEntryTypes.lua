@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2016 Ben Newman
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX no upstream, extracted from optimism/entry.ts to work around circular types/deps
 
 local srcWorkspace = script.Parent.Parent

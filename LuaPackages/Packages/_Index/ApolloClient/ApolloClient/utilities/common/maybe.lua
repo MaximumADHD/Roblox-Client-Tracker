@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2021 Apollo Graph, Inc. (Formerly Meteor Development Group, Inc.)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX deviation: this was to support webpack logic, logic which is needed in luau
 local exports = {}
 -- ROBLOX todo: this is supposed to be a generic function

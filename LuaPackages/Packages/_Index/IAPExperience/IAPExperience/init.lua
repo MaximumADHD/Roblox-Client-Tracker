@@ -1,4 +1,6 @@
 return {
+	Animator = require(script.Generic.Animator),
+
 	ProductPurchase = require(script.ProductPurchase.ProductPurchasePrompt),
 	ProductPurchaseRobuxUpsell = require(script.ProductPurchaseRobuxUpsell.ProductPurchaseRobuxUpsell),
 

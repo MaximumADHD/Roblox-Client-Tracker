@@ -4,7 +4,7 @@ version = "0.3.10"
 commit = "4d2654b06c41e47af15f5021015e210622f053ad"
 source = "url+https://github.com/roblox/apollo-client-testing"
 dependencies = [
-    "ApolloClient ApolloClient 0.3.7 url+https://github.com/roblox/apollo-client-lua",
+    "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphQLTag GraphqlTag 2.12.6 url+https://github.com/roblox/graphql-tag-lua",
     "Jest Jest 3.2.5 url+https://github.com/roblox/jest-roblox",

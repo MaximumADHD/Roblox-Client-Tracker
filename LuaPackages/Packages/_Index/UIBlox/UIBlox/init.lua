@@ -38,6 +38,11 @@ local function initializeLibrary(configs)
 				GridContainer_DEPRECATED = require(script.Core.Layout.Grid.GridContainer_DEPRECATED),
 				withGridConfig_DEPRECATED = require(script.Core.Layout.Grid.withGridConfig_DEPRECATED),
 			}),
+			LayerCollector = strict({
+				LayerCollectorProvider = require(script.Core.Layout.LayerCollector.LayerCollectorProvider),
+				withLayerCollectorProvider = require(script.Core.Layout.LayerCollector.withLayerCollectorProvider),
+				useLayerCollector = require(script.Core.Layout.LayerCollector.useLayerCollector),
+			}),
 		}),
 
 		Animation = strict({
@@ -226,6 +231,9 @@ local function initializeLibrary(configs)
 			ExperienceTileV3 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV3),
 			AspectRatioModeEnum = require(script.App.Tile.SplitTile.ExperienceTile.Enum.AspectRatioMode),
 			getExperienceTileHeight = require(script.App.Tile.SplitTile.ExperienceTile.getExperienceTileHeight),
+			getExperienceTileRelativeHeight = require(
+				script.App.Tile.SplitTile.ExperienceTile.getExperienceTileRelativeHeight
+			),
 			ExperienceActionRow = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow),
 			ActionTile = require(script.App.Tile.SplitTile.ActionTile.ActionTile),
 			VerticalTile = require(script.App.Tile.SplitTile.VerticalTile.VerticalTile),
@@ -286,12 +294,11 @@ local function initializeLibrary(configs)
 			EmptyState = require(script.App.Indicator.EmptyState),
 			Enum = strict({
 				BadgeStates = require(script.App.Indicator.Enum.BadgeStates),
+				BadgeVariant = require(script.App.Indicator.Enum.BadgeVariant),
 				VoteStates = require(script.App.Indicator.Enum.VoteStates),
 			}),
 			PlayerContext = require(script.App.Indicator.PlayerContext),
-			PlayerCount = if configs.useNewPlayerCount
-				then require(script.App.Indicator.PlayerCountV2)
-				else require(script.App.Indicator.PlayerCount),
+			PlayerCount = require(script.App.Indicator.PlayerCount),
 			RateCount = require(script.App.Indicator.RateCount),
 			StatWidget = require(script.App.Indicator.StatWidget),
 			StatGroup = require(script.App.Indicator.StatGroup),

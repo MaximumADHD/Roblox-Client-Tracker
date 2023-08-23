@@ -1,3 +1,9 @@
+--[[
+ * Copyright (c) 2019-2021 Ben Newman <ben@eloper.dev>
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+]]
 -- ROBLOX upstream: https://github.com/benjamn/wryware/blob/%40wry/trie%400.3.1/packages/trie/src/trie.ts
 
 -- A [trie](https://en.wikipedia.org/wiki/Trie) data structure that holds
