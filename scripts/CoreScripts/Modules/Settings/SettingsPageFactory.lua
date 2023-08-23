@@ -28,8 +28,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
-local FFlagInGameMenuRotationSelectionTabFix = game:DefineFastFlag("InGameMenuRotationSelectionTabFix", false)
-
 local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 
 ----------- CLASS DECLARATION --------------
@@ -231,11 +229,9 @@ local function Initialize()
 					this.TabHeader.Icon.Title.Visible = false
 				end
 			else
-				if FFlagInGameMenuRotationSelectionTabFix then
-					this.TabHeader.Icon.Position = UDim2.new(0, 10, 0.5, -14)
-					this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
-					this.TabHeader.Icon.Size = UDim2.new(0, 34, 0, 28)
-				end
+				this.TabHeader.Icon.Position = UDim2.new(0, 10, 0.5, -14)
+				this.TabHeader.Icon.AnchorPoint = Vector2.new(0, 0)
+				this.TabHeader.Icon.Size = UDim2.new(0, 34, 0, 28)
 				if FFlagUseNotificationsLocalization then
 					this.TabHeader.Title.Visible = true
 				else

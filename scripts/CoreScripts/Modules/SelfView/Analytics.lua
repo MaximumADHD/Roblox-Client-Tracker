@@ -54,13 +54,13 @@ type AnalyticsWrapperMeta = {
 
 	_report: (AnalyticsWrapper, string, string, string?, { [string]: any }) -> (),
 	--reportMicState: (AnalyticsWrapper, boolean, string, LogLevel?) -> (),
-	reportMicState: (AnalyticsWrapper, boolean, string, string, string, string) -> (),
-	reportCamState: (AnalyticsWrapper, boolean, string, string, string, string) -> (),
+	reportMicState: (AnalyticsWrapper, boolean) -> (),
+	reportCamState: (AnalyticsWrapper, boolean) -> (),
 	reportSelfViewEnabledInCoreGuiState: (AnalyticsWrapper, boolean, string, string, string) -> (),
 	reportSelfViewSessionStarted: (AnalyticsWrapper, string, string, string, string, string, string, string, string, string, string, string) -> (),
 	reportSelfViewSessionStopped: (AnalyticsWrapper, string, string, string) -> (),
-	reportUserAccountSettings: (AnalyticsWrapper, string, string, string, string, string) -> (),
-	reportExperienceSettings: (AnalyticsWrapper, string, string, string, string, string, string) -> (),
+	reportUserAccountSettings: (AnalyticsWrapper, boolean, boolean) -> (),
+	reportExperienceSettings: (AnalyticsWrapper, boolean, boolean, boolean) -> (),
 	setLastCtx: (AnalyticsWrapper, string) -> (),
 }
 
@@ -187,7 +187,7 @@ function Analytics:reportSelfViewSessionStopped()
 	end	
 end
 
-function Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccount_audioEnabled)
+function Analytics:reportUserAccountSettings(userAccount_videoEnabled: boolean, userAccount_audioEnabled: boolean)
 	debugPrint("Self View: Analytics:reportUserAccountSettings,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",userAccount_videoEnabled: "..tostring(userAccount_videoEnabled)..",userAccount_audioEnabled: "..tostring(userAccount_audioEnabled))
 	self:_report("SelfView", "userAccountSettings", "true", {
 		universeid = tostring(game.GameId),
@@ -198,7 +198,7 @@ function Analytics:reportUserAccountSettings(userAccount_videoEnabled, userAccou
 	})
 end
 
-function Analytics:reportExperienceSettings(experienceSettings_placeEnabled, experienceSettings_videoEnabled, experienceSettings_audioEnabled)
+function Analytics:reportExperienceSettings(experienceSettings_placeEnabled:boolean, experienceSettings_videoEnabled: boolean, experienceSettings_audioEnabled: boolean)
 	debugPrint("Self View: Analytics:reportExperienceSettings,universeid: "..tostring(game.GameId)..",pid: "..tostring(game.PlaceId)..",sessionid: "..tostring(self._impl:GetSessionId())..",experienceSettings_placeEnabled: "..tostring(experienceSettings_placeEnabled)..",experienceSettings_videoEnabled: "..tostring(experienceSettings_videoEnabled)..",experienceSettings_audioEnabled: "..tostring(experienceSettings_audioEnabled))
 	self:_report("SelfView", "experienceSettings", "true", {
 		universeid = tostring(game.GameId),

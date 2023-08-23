@@ -33,7 +33,7 @@ end)
 
 local leaderboard = ChromeService:register({
 	id = "leaderboard",
-	label = "Leaderboard",
+	label = "CoreScripts.TopBar.Leaderboard",
 	activated = function(self)
 		if VRService.VREnabled then
 			local InGameMenu = require(RobloxGui.Modules.InGameMenu)
@@ -55,7 +55,7 @@ local emotesVisibility = MappedSignal.new(EmotesMenuMaster.EmotesMenuToggled.Eve
 end)
 local emotes = ChromeService:register({
 	id = "emotes",
-	label = "Emotes",
+	label = "CoreScripts.TopBar.Emotes",
 	activated = function(self)
 		if EmotesMenuMaster:isOpen() then
 			EmotesMenuMaster:close()
@@ -80,7 +80,7 @@ local backpackVisibility = MappedSignal.new(BackpackModule.StateChanged.Event, f
 end)
 local backpack = ChromeService:register({
 	id = "backpack",
-	label = "Inventory",
+	label = "CoreScripts.TopBar.Inventory",
 	activated = function(self)
 		BackpackModule:OpenClose()
 	end,
@@ -106,7 +106,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	notification = ChromeService:subMenuNotifications("nine_dot"),
 	id = "nine_dot",
-	label = "Overflow Menu",
+	label = "CoreScripts.TopBar.MoreMenu",
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/9dot", "icons/menu/9dot", submenuVisibility)

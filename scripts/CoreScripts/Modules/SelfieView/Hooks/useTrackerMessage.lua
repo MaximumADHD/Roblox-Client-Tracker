@@ -10,6 +10,7 @@ local setTimeout = LuauPolyfill.setTimeout
 local clearTimeout = LuauPolyfill.clearTimeout
 
 local useTrackerMode = require(script.Parent.useTrackerMode)
+local FaceChatUtils = require(script.Parent.Parent.Utils.FaceChatUtils)
 
 local TRACKER_VANISH_DELAY_MS: number = 2000
 
@@ -27,20 +28,43 @@ local MESSAGES = {
 	OFF = "OFF",
 }
 
+local TrackerMode = Enum.TrackerMode
+type TrackerMode = Enum.TrackerMode
+
 return function(): TrackerMessage
+	local lastTrackerMode: { current: TrackerMode } =
+		React.useRef(FaceChatUtils.getTrackerMode()) :: { current: TrackerMode }
 	local trackerMode = useTrackerMode()
 	local trackerMessage: TrackerMessage, setTrackerMessage: (TrackerMessage) -> () =
 		React.useState({ visible = false, text = MESSAGES.MOTION_TRACKING, status = MESSAGES.OFF })
 	local removeMessageTimeoutID: { current: number? } = React.useRef(nil)
 	local getTrackerMessage = function(): TrackerMessage
+		-- Defaults to "Motion Off"
 		local text = MESSAGES.MOTION_TRACKING
 		local status = MESSAGES.OFF
-		if trackerMode == Enum.TrackerMode.AudioVideo or trackerMode == Enum.TrackerMode.Video then
+
+		if trackerMode ~= TrackerMode.None then
+			-- Something is still on.
 			status = MESSAGES.ON
-		elseif trackerMode == Enum.TrackerMode.Audio then
-			text = MESSAGES.SOUND_TRACKING
-			status = MESSAGES.ON
+			if trackerMode == TrackerMode.AudioVideo or trackerMode == TrackerMode.Video then
+				text = MESSAGES.MOTION_TRACKING
+			else
+				text = MESSAGES.SOUND_TRACKING
+			end
+		else
+			-- Both are off
+			status = MESSAGES.OFF
+			if lastTrackerMode.current == TrackerMode.Audio then
+				text = MESSAGES.SOUND_TRACKING
+			else
+				text = MESSAGES.MOTION_TRACKING
+			end
 		end
+
+		-- We save the last state so we can tell which one was
+		-- just turned off and show the appropriate message
+		lastTrackerMode.current = trackerMode
+
 		return {
 			visible = true,
 			text = text,

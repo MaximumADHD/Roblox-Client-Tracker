@@ -76,7 +76,7 @@ local getSafeAreasWithinBoundaries = function(
 	return safeAreas
 end
 
-local getTopBarInset = function(screenSize: Vector2, keepOutAreas: KeepOutAreas)
+local getTopBarInset = function(screenSize: Vector2, keepOutAreas: KeepOutAreas): Rect?
 	-- Does not count on overlapping areas, would have to merge them first
 	local safeAreas: SafeAreas = {}
 
@@ -103,12 +103,11 @@ local getTopBarInset = function(screenSize: Vector2, keepOutAreas: KeepOutAreas)
 	safeAreas = getSafeAreasWithinBoundaries(guiTopLeftPosition, guiBottomRightPosition, sortedKeepOutAreas)
 
 	-- Get largest safe area and consider it the topbar inset
-	local topbarInset
-	local topbarInsetWidth = 0
+	local topbarInset: Rect? = nil
 	for _, area in ipairs(safeAreas) do
-		if area.Size.X > topbarInsetWidth then
-			topbarInsetWidth = area.Size.X
-			topbarInset = area
+		if not topbarInset or area.Size.X > topbarInset.Width then
+			topbarInset =
+				Rect.new(area.Position.X, area.Position.Y, area.Position.X + area.Size.X, area.Position.Y + area.Size.Y)
 		end
 	end
 
@@ -117,7 +116,9 @@ end
 
 local fireKeepOutAreasChanged = function(screenSize: Vector2, keepOutAreas: KeepOutAreas)
 	local topbarInset = getTopBarInset(screenSize, keepOutAreas)
-	GuiService:SetTopbarInset(topbarInset)
+	if topbarInset then
+		GuiService:SetTopbarInset(topbarInset)
+	end
 end
 
 local KeepOutAreasHandler = React.PureComponent:extend("KeepOutAreasHandler")

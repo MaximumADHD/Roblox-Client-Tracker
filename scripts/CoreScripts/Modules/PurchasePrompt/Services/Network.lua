@@ -139,6 +139,25 @@ local function performPurchase(infoType, productId, expectedPrice, requestId, is
 	error(tostring(result))
 end
 
+local function performPurchaseV2(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken, collectibleItemInstanceId)
+	local success, result = pcall(function()
+		local collectiblesProductDetails = {
+			CollectibleItemId = collectibleItemId,
+			CollectibleProductId = collectibleProductId,
+			IdempotencyKey = idempotencyKey,
+			PurchaseAuthToken = purchaseAuthToken,
+			CollectibleItemInstanceId = collectibleItemInstanceId,
+		}
+		return MarketplaceService:PerformPurchaseV2(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectiblesProductDetails)
+	end)
+
+	if success then
+		return result
+	end
+
+	error(tostring(result))
+end
+
 local function loadAssetForEquip(assetId)
 	return InsertService:LoadAsset(assetId)
 end
@@ -299,6 +318,7 @@ function Network.new()
 		getProductInfo = Promise.promisify(getProductInfo),
 		getPlayerOwns = Promise.promisify(getPlayerOwns),
 		performPurchase = Promise.promisify(performPurchase),
+		performPurchaseV2 = Promise.promisify(performPurchaseV2),
 		loadAssetForEquip = Promise.promisify(loadAssetForEquip),
 		getAccountInfo = Promise.promisify(getAccountInfo),
 		getBalanceInfo = Promise.promisify(getBalanceInfo),

@@ -4,9 +4,13 @@ local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local IXPService = game:GetService("IXPService")
+local LocalizationService = game:GetService("LocalizationService")
 
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
@@ -39,7 +43,8 @@ local GlobalConfig = require(script.GlobalConfig)
 
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts =
+	require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 -- FTUX
 local FTUX = RobloxGui.Modules.FTUX
@@ -84,7 +89,7 @@ function TopBar.new()
 			FTUXMenu.mountFtuxMenu(PlatformEnum.QuestVR)
 		end
 	end
-	
+
 	if GetFFlagEnableVRFTUXExperience() then
 		if IsFTUXExperience(PlatformEnum.QuestVR) then
 			FTUXMenu.mountFtuxMenu(PlatformEnum.QuestVR)
@@ -108,39 +113,49 @@ function TopBar.new()
 
 	local appStyleForAppStyleProvider = {
 		themeName = StyleConstants.ThemeName.Dark,
-		fontName = StyleConstants.FontName.Gotham
+		fontName = StyleConstants.FontName.Gotham,
 	}
 
-	local function wrapWithUiModeStyleProvider(children) 
+	local function wrapWithUiModeStyleProvider(children)
 		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
 			return {
 				UiModeStyleProvider = Roact.createElement(UiModeStyleProvider, {
 					style = appStyleForAppStyleProvider,
-				}, children)
+				}, children),
 			}
 		end
 		return {
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 				style = appStyle,
-			}, children)
+			}, children),
 		}
 	end
 
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
 	}, {
-		PolicyProvider = Roact.createElement(TopBarAppPolicy.Provider, {
-			policy = { TopBarAppPolicy.Mapper },
-		}, wrapWithUiModeStyleProvider({
-			ExperimentProvider = Roact.createFragment({
-				RoactAppExperimentProvider = GetFFlagEnableTeleportBackButton() and Roact.createElement(RoactAppExperiment.Provider, {
-					value = IXPService,
+		PolicyProvider = Roact.createElement(
+			TopBarAppPolicy.Provider,
+			{
+				policy = { TopBarAppPolicy.Mapper },
+			},
+			wrapWithUiModeStyleProvider({
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new(LocalizationService.RobloxLocaleId),
 				}, {
-					TopBarApp = Roact.createElement(TopBarApp),
-				}) or nil,
-				TopBarApp = (not GetFFlagEnableTeleportBackButton()) and Roact.createElement(TopBarApp) or nil,
+					ExperimentProvider = Roact.createFragment({
+						RoactAppExperimentProvider = GetFFlagEnableTeleportBackButton()
+								and Roact.createElement(RoactAppExperiment.Provider, {
+									value = IXPService,
+								}, {
+									TopBarApp = Roact.createElement(TopBarApp),
+								})
+							or nil,
+						TopBarApp = (not GetFFlagEnableTeleportBackButton()) and Roact.createElement(TopBarApp) or nil,
+					}),
+				}),
 			})
-		})),
+		),
 	})
 
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")

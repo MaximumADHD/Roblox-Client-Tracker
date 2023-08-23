@@ -1,7 +1,11 @@
 --[[
 	Centralize the non-public dependencies outside TrustAndSafety module.
 ]]
-local InGameMenu = script.Parent.Parent.InGameMenuV3
+local CorePackages = game:GetService("CorePackages")
+
+local InGameMenu = script.Parent.Parent.InGameMenu
+
+local SwitchTnSTranslationsPackage = game:DefineFastFlag("SwitchTnSTranslationsPackage", false)
 
 return {
 	BarOnTopScrollingFrame = InGameMenu.Components.BarOnTopScrollingFrame,
@@ -12,7 +16,7 @@ return {
 	GameIcon = InGameMenu.Components.GameIcon,
 	PlayerSearchPredicate = InGameMenu.Utility.PlayerSearchPredicate,
 	SearchBar = InGameMenu.Components.SearchBar,
-	Localization = InGameMenu.Localization.Localization,
+	Localization = if SwitchTnSTranslationsPackage then require(CorePackages.Workspace.Packages.InExperienceLocales).Localization else require(InGameMenu.Localization.Localization),
 	LocalizationProvider = InGameMenu.Localization.LocalizationProvider,
 	withLocalization = InGameMenu.Localization.withLocalization,
 	UIBloxInGameConfig = script.Parent.Parent.UIBloxInGameConfig,

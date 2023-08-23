@@ -10,7 +10,18 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local LocalizationProvider = require(script.Localization.LocalizationProvider)
+local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+
+local Localization
+local LocalizationProvider
+if GetFFlagSwitchInExpTranslationsPackage() then
+	Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+	LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+else
+	Localization = require(script.Localization.Localization)
+	LocalizationProvider = require(script.Localization.LocalizationProvider)
+end
+
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
@@ -25,8 +36,6 @@ local App = require(script.Components.App)
 local FocusHandlerContextProvider = require(script.Components.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
-
-local Localization = require(script.Localization.Localization)
 
 local SetLocaleId = require(script.Actions.SetLocaleId)
 local SetInspectMenuEnabled = require(script.Actions.SetInspectMenuEnabled)

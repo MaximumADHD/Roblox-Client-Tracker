@@ -2,17 +2,14 @@
 --[[
 	Handles A/B testing of experience menu with IXP service
 	on the Experience.Menu layer
-	eg. v1 = old menu, v2 = deprecated menu, v3 = new menu
+	eg. v1 = old menu, v2 = VR menu
 ]]
 
 local AppStorageService = game:GetService("AppStorageService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local InGameMenu = script.Parent.InGameMenuV3
-local Constants = require(InGameMenu.Resources.Constants)
-local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
-local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+local InGameMenu = script.Parent.InGameMenu
 
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
@@ -20,7 +17,6 @@ local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTe
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
 
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
-local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSATQualification"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
@@ -118,61 +114,6 @@ function parseCountData(data)
 	end
 	local splitStr = data:split(":")
 	return splitStr[1], splitStr[2]
-end
-
-function ExperienceMenuABTestManager:getCSATQualification()
-	if self._isCSATQualified ~= nil then
-		return self._isCSATQualified
-	end
-
-	local isCSATQualified = false
-	local cacheFetchSuccess, countData = pcall(function()
-		return AppStorageService:GetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION)
-	end)
-
-	local countSum, countTestVersion = parseCountData(countData)
-	if countTestVersion == TEST_VERSION and tonumber(countSum) then
-		isCSATQualified = tonumber(countSum) >= ACTION_TRIGGER_LATCHED
-	end
-
-	-- fallback to default if there was an issue with local storage
-	if cacheFetchSuccess and isCSATQualified then
-		self._isCSATQualified = true
-		return true
-	end
-
-	return false
-end
-
-function ExperienceMenuABTestManager:setCSATQualification()
-	if self._isCSATQualified == true then
-		return
-	end
-
-	local successGetCount, countData = pcall(function()
-		return AppStorageService:GetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION)
-	end)
-
-	local countSum, countTestVersion = parseCountData(countData)
-	if not successGetCount or countTestVersion ~= TEST_VERSION or not tonumber(countSum) then
-		countTestVersion = TEST_VERSION
-		countSum = "1"
-	else
-		countSum = tostring((tonumber(countSum) or 0) + 1)
-	end
-
-	if (tonumber(countSum) or 0) >= ACTION_TRIGGER_THRESHOLD then
-		countSum = tostring(ACTION_TRIGGER_LATCHED)
-		self._isCSATQualified = true
-		SendAnalytics(Constants.AnalyticsExperienceMenuTest, Constants.AnalyticsExperienceMenuTestCsatQualificationField, {
-			error = tostring(error),
-		})
-	end
-
-	pcall(function()
-		AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION, countSum..":"..TEST_VERSION)
-		AppStorageService:Flush()
-	end)
 end
 
 function ExperienceMenuABTestManager.new(ixpServiceWrapper)
@@ -274,10 +215,6 @@ function ExperienceMenuABTestManager:initialize()
 			AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, layerData.menuVersion or "")
 			AppStorageService:Flush()
 		end)
-	end
-
-	if IsMenuCsatEnabled() then
-		self._isCSATQualified = self:getCSATQualification()
 	end
 end
 

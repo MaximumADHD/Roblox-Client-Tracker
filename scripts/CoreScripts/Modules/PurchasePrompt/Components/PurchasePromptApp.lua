@@ -32,9 +32,6 @@ local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsell
 local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local Gotham = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
-local InGameMenu = script.Parent.Parent.Parent.InGameMenuV3
-local InGameMenuConstants = require(InGameMenu.Resources.Constants)
-
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
 function PurchasePromptApp:init()

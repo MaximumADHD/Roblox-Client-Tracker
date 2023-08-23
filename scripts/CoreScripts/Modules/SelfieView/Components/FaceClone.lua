@@ -1,30 +1,4 @@
 --!strict
---[[
-*current requirements for showing Self View:
-	-player has to have an avatar with Head and Animator. Head can be either an object inside body with FaceControls or an object called "Head".
-	-avatar parent not nil
-	-CoreGuiType.SelfView is not set to false.
-	It gets set to false when either calling SetCoreGuiEnabled(CoreGuiType.CoreGuiType.SelfView), false
-	or SetCoreGuiEnabled(CoreGuiType.All, false)
-	the later is the case in many experiences
-	(in that case the developer would have to call SetCoreGuiEnabled(CoreGuiType.CoreGuiType.SelfView), true)
-	then if they want to disable all toggleable CoreGuiTypes but then enable just Self View)
-
-*currently the Self View gets hidden if no usable head found, this may be changed based on feedback from Product
-
-TODO: this is just an in between state checkin for MVP preview
-this will see further refactors over the next PRs before MVP release
-bigger changes before mvp release next up:
--test print messages cleanup before MVP release
-
-*bigger changes before full version release:
--add more analytics tracking calls
--improve cam framing in viewportframe further
-(-add new SelfViewService for further customization (position, size, color, override head name (so it can use a head not named "Head", lighting settings etc))
--potentially changing this to do the ui in roact (pros/ cons to evaluate)
--reduce full rebuilds of clone as much as possible
-(potentially size change for bodyparts could be done in place instead of doing full rebuild)
-]]
 
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
@@ -32,17 +6,10 @@ local cloneStreamTrack: AnimationStreamTrack? = nil
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled =
 	game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RunService = game:GetService("RunService")
-local FaceAnimatorService = game:GetService("FaceAnimatorService")
-local VideoCaptureService = game:GetService("VideoCaptureService")
-local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
-local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
-local CorePackages = game:GetService("CorePackages")
-local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 
 local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0, 0.105, -0.25)
+local DEFAULT_CAM_DISTANCE = 2
 local cloneCharacterName = "SelfAvatar"
 -- seconds to wait to update the clone after something in the original has changed
 local UPDATE_CLONE_CD = 0.35
@@ -50,21 +17,14 @@ local updateCloneCurrentCoolDown = 0
 
 local renderSteppedConnection: RBXScriptConnection? = nil
 local playerCharacterAddedConnection: RBXScriptConnection? = nil
-local serviceStateSingalConnection: RBXScriptConnection? = nil
 local trackStoppedConnections = {}
-local videoAnimationPropertyChangedSingalConnection: RBXScriptConnection? = nil
-local audioAnimationPropertyChangedSingalConnection: RBXScriptConnection? = nil
-local videoCaptureServiceStartedConnection: RBXScriptConnection? = nil
-local videoCaptureServiceStoppedConnection: RBXScriptConnection? = nil
-local videoCaptureServiceDevicesChangedConnection: RBXScriptConnection? = nil
 
 local cloneAnimator: Animator? = nil
 local cloneAnimationTracks = {}
 local orgAnimationTracks = {}
 local cachedHeadColor: Color3? = nil
 local cachedHeadSize: Vector3? = nil
-local currentTrackerMode: Enum.TrackerMode? = nil
-local cachedMode = nil
+
 local viewportFrame: ViewportFrame = nil
 local viewportCamera: Camera? = nil
 local boundsSize: Vector3? = nil
@@ -77,19 +37,9 @@ local headCloneRootFrame: CFrame? = nil
 local wrapperFrame: Frame? = nil
 
 --state
-local isOpen: boolean = true
-local foundStreamTrack: boolean? = nil
-local _gotUsableClone: boolean = false
-local initialized: boolean = false
 local cloneCamUpdateCounter: number = 0
 --TODO: increase cloneCamUpdatePosEvery once we add easing to the cam framing code
 local cloneCamUpdatePosEvery = 1
-local hasCameraPermissions: boolean = false
-local hasMicPermissions: boolean = false
-local cachedHasCameraPermissions: boolean = false
-local cachedHasMicPermissions: boolean = false
-local lastReportedCamState: boolean = false
-local toggleSelfViewSignalConnection: SignalLib.SignalHandle
 
 local observerInstances = {}
 local Observer = {
@@ -109,23 +59,7 @@ if not Players.LocalPlayer then
 end
 local LocalPlayer = Players.LocalPlayer :: Player
 
-local CoreGuiUtils = require(script.Parent.Parent.Utils.CoreGuiUtils)
 local ModelUtils = require(script.Parent.Parent.Utils.ModelUtils)
-
--- Check that the user's device has given Roblox mic and camera permissions.
-function getPermissions(): ()
-	local callback = function(response)
-		hasCameraPermissions = response.hasCameraPermissions
-	end
-	getCamMicPermissions(callback)
-end
-
-local function removeChild(model: Model, childName: string): ()
-	local child = model:FindFirstChild(childName)
-	if child then
-		child:Destroy()
-	end
-end
 
 function setCloneDirty(dirty: boolean): ()
 	if dirty then
@@ -147,82 +81,10 @@ function createCloneAnchor(): ()
 	cloneAnchor = worldModel
 end
 
-local onUpdateTrackerMode = function()
-	currentTrackerMode = Enum.TrackerMode.None --"NONE"
-	if FaceAnimatorService.AudioAnimationEnabled and not FaceAnimatorService.VideoAnimationEnabled then
-		currentTrackerMode = Enum.TrackerMode.Audio --"A2C"
-	elseif
-		not FaceAnimatorService.AudioAnimationEnabled
-		and FaceAnimatorService.VideoAnimationEnabled
-		and FaceAnimatorService:IsStarted()
-	then
-		currentTrackerMode = Enum.TrackerMode.Video --"V2C"
-	elseif
-		FaceAnimatorService.AudioAnimationEnabled
-		and FaceAnimatorService.VideoAnimationEnabled
-		and FaceAnimatorService:IsStarted()
-	then
-		currentTrackerMode = Enum.TrackerMode.AudioVideo --"AV2C"
-	end
-
-	local cameraPermissionsChanged = false
-	local modeChanged = false
-
-	--if clone was setup with no streamtrack but now currentTrackerMode changed to one of the modes which could deliver a stream track, queue refresh of Self View
-	if
-		not foundStreamTrack and (cachedMode == Enum.TrackerMode.None and currentTrackerMode ~= Enum.TrackerMode.None)
-	then
-		setCloneDirty(true)
-	end
-	if cachedHasCameraPermissions ~= hasCameraPermissions or cachedHasMicPermissions ~= hasMicPermissions then
-		if cachedHasCameraPermissions ~= hasCameraPermissions then
-			cameraPermissionsChanged = true
-		end
-
-		setCloneDirty(true)
-	end
-
-	if cachedMode ~= currentTrackerMode then
-		modeChanged = true
-	end
-
-	if modeChanged or cameraPermissionsChanged then
-		local newReportedCamState = false
-
-		if
-			hasCameraPermissions
-			and (currentTrackerMode == Enum.TrackerMode.Video or currentTrackerMode == Enum.TrackerMode.AudioVideo)
-		then
-			newReportedCamState = true
-		end
-
-		if
-			not hasCameraPermissions
-			or (currentTrackerMode ~= Enum.TrackerMode.Video and currentTrackerMode ~= Enum.TrackerMode.AudioVideo)
-		then
-			newReportedCamState = false
-		end
-
-		if newReportedCamState ~= lastReportedCamState then
-			lastReportedCamState = newReportedCamState
-		end
-	end
-
-	cachedHasCameraPermissions = hasCameraPermissions
-	cachedHasMicPermissions = hasMicPermissions
-	cachedMode = currentTrackerMode
-end
-
 local function clearObserver(observerId: string): ()
 	if observerInstances[observerId] then
 		observerInstances[observerId]:Disconnect()
 		observerInstances[observerId] = nil
-	end
-end
-
-local function clearAllObservers(): ()
-	for observerInstance in observerInstances do
-		clearObserver(observerInstance)
 	end
 end
 
@@ -249,33 +111,7 @@ local function clearClone()
 	stopRenderStepped()
 	clearObserver(Observer.AnimationPlayed)
 	clearObserver(Observer.AnimationPlayedCoreScript)
-	if videoAnimationPropertyChangedSingalConnection then
-		videoAnimationPropertyChangedSingalConnection:Disconnect()
-		videoAnimationPropertyChangedSingalConnection = nil
-	end
 
-	if audioAnimationPropertyChangedSingalConnection then
-		audioAnimationPropertyChangedSingalConnection:Disconnect()
-		audioAnimationPropertyChangedSingalConnection = nil
-	end
-
-	if videoCaptureServiceStartedConnection then
-		videoCaptureServiceStartedConnection:Disconnect()
-		videoCaptureServiceStartedConnection = nil
-	end
-
-	if videoCaptureServiceStoppedConnection then
-		videoCaptureServiceStoppedConnection:Disconnect()
-		videoCaptureServiceStoppedConnection = nil
-	end
-
-	if videoCaptureServiceDevicesChangedConnection then
-		videoCaptureServiceDevicesChangedConnection:Disconnect()
-		videoCaptureServiceDevicesChangedConnection = nil
-	end
-
-	foundStreamTrack = nil
-	cachedMode = nil
 	cloneAnimator = nil
 	cloneAnimationTracks = {}
 	-- clear objects
@@ -301,7 +137,6 @@ local function syncTrack(animator: Animator, track: AnimationTrack)
 		else
 			cloneTrack = animator:LoadStreamAnimation(track.Animation)
 		end
-		foundStreamTrack = true
 	else
 		warn("No animation to clone in SelfView")
 	end
@@ -323,7 +158,6 @@ end
 
 local function updateClone(player: Player?)
 	clearClone()
-	_gotUsableClone = false
 
 	if not player then
 		return
@@ -333,7 +167,7 @@ local function updateClone(player: Player?)
 	--we set it up here so it is already ready for before player's character loaded
 	startRenderStepped(player)
 
-	if not player or not player.Character then
+	if not player or not (player.Character or player.CharacterAdded:Wait()) then
 		return
 	end
 
@@ -357,42 +191,27 @@ local function updateClone(player: Player?)
 	clone = character:Clone()
 	assert(clone ~= nil)
 
+	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
+	ModelUtils.removeTags(clone)
+
 	--resetting the joints orientations in the clone since it can happen that body/head IK like code was applied on the player avatar
 	--and we want to start with default pose setup in clone, else issues with clone avatar (parts) orientation etc
-	for _, part in ipairs(clone:GetDescendants()) do
-		if part:IsA("Motor6D") then
-			part.C0 = CFrame.new(part.C0.Position)
-			part.C1 = CFrame.new(part.C1.Position)
-		end
-	end
+	ModelUtils.resetPartOrientation(clone)
 
-	for _, part in ipairs(clone:GetDescendants()) do
-		if part:IsA("MeshPart") or part:IsA("Decal") then
-			part.Transparency = 0
-		end
-	end
+	ModelUtils.updateTransparency(clone)
 
 	clone.Name = cloneCharacterName
 
 	-- remove unneeded cloned assets
 	--(removing these already here as otherwise on fast respawn the Animate script in the clone can execute some stuff already before removal)
-	removeChild(clone, "Animate")
-	removeChild(clone, "Health")
+	ModelUtils.removeScripts(clone)
 
-	for _, script in pairs(clone:GetDescendants()) do
-		if script:IsA("BaseScript") then
-			script:Destroy()
-		end
-	end
+	-- Recursively remove unnecessary elements from the Character
+	ModelUtils.sanitizeCharacter(clone)
 
 	character.Archivable = previousArchivableValue
 
 	clone.Parent = cloneAnchor
-	--product question: should we show the Self View only if there is also a usable (standard) Animator or also for avatars which don't use animator?
-	--in that case it could have no streamtrack and we could also support "cloning" anims by copying cframes over
-	--if Self View only wanted to be shown if Animator exists, comment below line out (then it will
-	--only see it as _gotUsableClone when also Animator found)
-	_gotUsableClone = true
 
 	--focus clone
 	local cloneRootPart: BasePart = clone:FindFirstChild("HumanoidRootPart") :: BasePart
@@ -424,7 +243,7 @@ local function updateClone(player: Player?)
 		assert(headCloneRootFrame ~= nil)
 		headClone:Destroy()
 
-		local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * 2)
+		local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
 		if not viewportCamera then
 			warn("viewportCamera is nil, this shouldn't be possible")
 		end
@@ -484,7 +303,6 @@ local function updateClone(player: Player?)
 					syncTrack(cloneAnimator, track)
 				end
 			)
-			_gotUsableClone = true
 
 			--usable clone was set up, cancel potential additional refresh
 			setCloneDirty(false)
@@ -512,7 +330,12 @@ function updateCachedHeadColor(headRefParam: MeshPart?)
 
 	if hasHeadColor then
 		cachedHeadColor = headRefParam.Color
-		cachedHeadSize = headRefParam.Size
+		local hasHeadSize = pcall(function()
+			hasProperty(headRefParam, "Size")
+		end)
+		if hasHeadSize then
+			cachedHeadSize = headRefParam.Size
+		end
 	end
 end
 
@@ -552,24 +375,6 @@ local function characterAdded(character)
 	setCloneDirty(true)
 end
 
-function setIsOpen(shouldBeOpen)
-	isOpen = shouldBeOpen
-
-	if isOpen then
-		ReInit(LocalPlayer)
-	else
-		headRef = nil
-		cachedHeadColor = nil
-		cachedHeadSize = nil
-		clearAllObservers()
-		clearObserver(Observer.CharacterAdded)
-		clearObserver(Observer.CharacterRemoving)
-		clearClone()
-
-		prepMicAndCamPropertyChangedSignalHandler()
-	end
-end
-
 local function createViewport(): ()
 	if viewportFrame then
 		viewportFrame:Destroy()
@@ -586,40 +391,6 @@ local function createViewport(): ()
 	viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
 	viewportFrame.IsMirrored = true
 
-	local function showSelfView(newState)
-		setIsOpen(newState)
-
-		if not isOpen then
-			if cloneStreamTrack then
-				local onTrackStoppedConnection = nil
-				local tempCloneStreamTrack = cloneStreamTrack
-				local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
-				onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
-					tempCloneStreamTrack:Destroy()
-
-					if tempNewTrackerStreamAnimation then
-						tempNewTrackerStreamAnimation:Destroy()
-					end
-
-					onTrackStoppedConnection:Disconnect()
-				end)
-
-				cloneStreamTrack:Stop(0.0)
-				cloneStreamTrack = nil
-			elseif newTrackerStreamAnimation then
-				newTrackerStreamAnimation:Destroy()
-				newTrackerStreamAnimation = nil
-			end
-		end
-	end
-
-	if toggleSelfViewSignalConnection then
-		toggleSelfViewSignalConnection:disconnect()
-	end
-	toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
-		showSelfView(not isOpen)
-	end)
-
 	local uiCorner = Instance.new("UICorner")
 	uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = viewportFrame
@@ -635,8 +406,6 @@ local function createViewport(): ()
 end
 
 function ReInit(player: Player)
-	_gotUsableClone = false
-
 	assert(player.Character ~= nil)
 
 	headRef = ModelUtils.getHead(player.Character)
@@ -730,62 +499,12 @@ function updateClonePartsColor(headRefColor)
 	cachedHeadColor = headRefColor
 end
 
-function prepMicAndCamPropertyChangedSignalHandler()
-	if not videoAnimationPropertyChangedSingalConnection then
-		videoAnimationPropertyChangedSingalConnection = FaceAnimatorService
-			:GetPropertyChangedSignal("VideoAnimationEnabled")
-			:Connect(function()
-				onUpdateTrackerMode()
-			end)
-	end
-
-	if not audioAnimationPropertyChangedSingalConnection then
-		audioAnimationPropertyChangedSingalConnection = FaceAnimatorService
-			:GetPropertyChangedSignal("AudioAnimationEnabled")
-			:Connect(function()
-				onUpdateTrackerMode()
-			end)
-	end
-
-	if not videoCaptureServiceStartedConnection then
-		videoCaptureServiceStartedConnection = VideoCaptureService.Started:Connect(function()
-			getPermissions()
-			onUpdateTrackerMode()
-		end)
-	end
-
-	if not videoCaptureServiceStoppedConnection then
-		videoCaptureServiceStoppedConnection = VideoCaptureService.Stopped:Connect(function()
-			getPermissions()
-			onUpdateTrackerMode()
-		end)
-	end
-
-	if not videoCaptureServiceDevicesChangedConnection then
-		videoCaptureServiceDevicesChangedConnection = VideoCaptureService.DevicesChanged:Connect(function()
-			getPermissions()
-			onUpdateTrackerMode()
-		end)
-	end
-end
-
 function startRenderStepped(player: Player)
 	stopRenderStepped()
-
-	prepMicAndCamPropertyChangedSignalHandler()
-
-	onUpdateTrackerMode()
-
-	-- Do not connect to RenderStepped if the Self View is not open.
-	if not isOpen then
-		return
-	end
 
 	renderSteppedConnection = RunService.RenderStepped:Connect(function(step: number)
 		--GetPropertyChangedSignal for head color/size change fired reliably in a simple test place for animation props
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
-
-		_gotUsableClone = false
 
 		if LocalPlayer then
 			local character = LocalPlayer.Character
@@ -799,18 +518,12 @@ function startRenderStepped(player: Player)
 				headRef = ModelUtils.getHead(character)
 			end
 
-			if headRef == nil then
-				_gotUsableClone = false
-			end
-
 			if headRef then
 				local animator: Animator? = ModelUtils.getAnimator(character, 0)
 
 				--manual sync of canned animation tracks
 				if cloneAnimator ~= nil and animator ~= nil then
 					assert(cloneAnimator ~= nil)
-
-					_gotUsableClone = true
 
 					local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
 					for _, track in pairs(playingAnims) do
@@ -848,7 +561,9 @@ function startRenderStepped(player: Player)
 							anim = track.Animation
 							if anim then
 								if not orgAnimationTracks[anim.AnimationId] then
-									cloneAnimationTracks[anim.AnimationId]:Stop(0)
+									if cloneAnimationTracks[anim.AnimationId] ~= nil then
+										cloneAnimationTracks[anim.AnimationId]:Stop(0)
+									end
 									cloneAnimationTracks[anim.AnimationId] = nil
 								end
 							end
@@ -952,10 +667,6 @@ function startRenderStepped(player: Player)
 			end
 		end
 
-		if cachedHasCameraPermissions ~= hasCameraPermissions or cachedHasMicPermissions ~= hasMicPermissions then
-			onUpdateTrackerMode()
-		end
-
 		if updateCloneCurrentCoolDown > 0 then
 			updateCloneCurrentCoolDown = updateCloneCurrentCoolDown - step
 			if updateCloneCurrentCoolDown <= 0 then
@@ -973,13 +684,6 @@ local function Initialize(player: Player, passedWrapperFrame: Frame?): (() -> ()
 		return
 	end
 
-	local shouldBeEnabledCoreGuiSetting = CoreGuiUtils.coreGuiEnabled()
-
-	if not shouldBeEnabledCoreGuiSetting and not debug then
-		return
-	end
-
-	getPermissions()
 	createViewport()
 
 	playerAdded(player)
@@ -990,35 +694,12 @@ local function Initialize(player: Player, passedWrapperFrame: Frame?): (() -> ()
 			clearObserver(Observer.CharacterAdded)
 			clearObserver(Observer.CharacterRemoving)
 			clearClone()
-			if serviceStateSingalConnection then
-				serviceStateSingalConnection:Disconnect()
-			end
 		end
 	end)
 
 	startRenderStepped(player)
 
-	initialized = true
-
 	return clearClone
 end
-
---comment in to test Self View not getting shown (as wanted) if CoreGuiType.SelfView is already set disabled before we get to init Self View
---StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.SelfView, false)
-
-CoreGuiUtils.coreGuiChangedSignal:connect(function(newState: boolean)
-	if newState then
-		if initialized then
-			ReInit(LocalPlayer)
-		else
-			Initialize(LocalPlayer)
-		end
-	else
-		if initialized then
-			setIsOpen(false)
-		end
-		stopRenderStepped()
-	end
-end)
 
 return Initialize

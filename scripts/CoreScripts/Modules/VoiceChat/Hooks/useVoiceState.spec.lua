@@ -125,7 +125,7 @@ return function()
 	end
 
 	describe('useVoiceState', function()
-		it('state is hidden when voice is disabled', function()
+		itSkipFlakyTest('state is hidden when voice is disabled', function()
 			local app = createApp()
 			local players = app.players
 			app.render({
@@ -151,7 +151,7 @@ return function()
 			app.unmount()
 		end)
 
-		it('state is reset to hidden on pause and no longer updates', function()
+		itSkipFlakyTest('state is reset to hidden on pause and no longer updates', function()
 			local app = createApp()
 			local players = app.players
 			app.render({

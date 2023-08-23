@@ -7,11 +7,10 @@ local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local useCameraOn = require(script.Parent.Parent.Hooks.useCameraOn)
-local CameraStatusDot = require(script.Parent.CameraStatusDot)
 
 export type Props = {
 	iconSize: UDim2?,
-	dotPosition: UDim2?,
+	transparency: number?,
 }
 
 local DEFAULT_ICON_SIZE = UDim2.fromScale(1, 1)
@@ -29,10 +28,8 @@ local function CameraStatusIcon(props: Props): React.ReactNode
 			Size = props.iconSize or DEFAULT_ICON_SIZE,
 			Position = UDim2.fromScale(0.5, 0.5),
 			AnchorPoint = Vector2.new(0.5, 0.5),
+			ImageTransparency = props.transparency or 0,
 		}),
-		CameraStatusDot = cameraOn and React.createElement(CameraStatusDot, {
-			Position = props.dotPosition,
-		}) or nil,
 	})
 end
 

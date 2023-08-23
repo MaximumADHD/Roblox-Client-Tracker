@@ -6,6 +6,7 @@
 	as the current facial expression of the avatar.
 ]]
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local Packages = CorePackages.Packages
 local React = require(Packages.React)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
@@ -15,34 +16,35 @@ local setTimeout = LuauPolyfill.setTimeout
 local clearTimeout = LuauPolyfill.clearTimeout
 local WindowSizeSignal = require(script.Parent.Parent.Parent.Chrome.Service.WindowSizeSignal)
 
-local FaceAnimatorService = game:GetService("FaceAnimatorService")
-
 local UIBlox = require(Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
+local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
+local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 
 local CameraStatusIcon = require(script.Parent.CameraStatusIcon)
 local CameraStatusDot = require(script.Parent.CameraStatusDot)
 local SizingUtils = require(script.Parent.Parent.Utils.SizingUtils)
+local FaceChatUtils = require(script.Parent.Parent.Utils.FaceChatUtils)
+local ModelUtils = require(script.Parent.Parent.Utils.ModelUtils)
 local useCameraOn = require(script.Parent.Parent.Hooks.useCameraOn)
+local useLocalPlayer = require(script.Parent.Parent.Hooks.useLocalPlayer)
 local useTrackerMessage = require(script.Parent.Parent.Hooks.useTrackerMessage)
+local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismissal)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local ICON_CONTAINER_HEIGHT: number = 44
 local ICON_SIZE: number = 28
 local BUTTON_PADDING: number = 10
 local UNFOCUS_DELAY_MS: number = 2000
+-- This should never be greater than UNFOCUS_DELAY_MS as that will
+-- cause the tooltip to show when the icon is hidden
+local HIDE_TOOLTIP_DELAY_MS = 2000
 
-local Players = game:GetService("Players")
 local FaceClone = require(script.Parent.FaceClone)
-
-local function toggleClone()
-	if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
-		return
-	end
-
-	FaceAnimatorService.VideoAnimationEnabled = not FaceAnimatorService.VideoAnimationEnabled
-end
 
 export type WindowProps = {
 	windowSize: WindowSizeSignal.WindowSizeSignal,
@@ -64,26 +66,52 @@ local function Window(props: WindowProps): React.ReactNode
 		props.windowSize:requestSize(frameSize.X, frameSize.Y)
 	end, { frameSize })
 
-	-- After no interaction for a specified time the UI becomes unfocused
+	local player: Player = useLocalPlayer()
+
+	local showCameraButton: boolean = React.useMemo(function(): boolean
+		return FaceChatUtils.getPermissions().userCamEligible
+	end)
+
+	local tooltipHeaderText, tooltipBodyText, showTooltip, showError = useTooltipDismissal(HIDE_TOOLTIP_DELAY_MS)
+
+	-- After no interaction for a specified time the UI becomes unfocused.
+	-- This includes error messages.
 	local focused: boolean, setFocused: (boolean) -> () = React.useState(true)
-	local timeoutID: { current: number? } = React.useRef(nil)
+	local unfocusTimeoutID: { current: number? } = React.useRef(nil)
 	local userInteracted = function()
-		if timeoutID.current then
-			clearTimeout(timeoutID.current)
+		if unfocusTimeoutID.current then
+			clearTimeout(unfocusTimeoutID.current)
 		end
 		setFocused(true)
-		timeoutID.current = (setTimeout(function()
+		unfocusTimeoutID.current = (setTimeout(function()
 			setFocused(false)
 		end, UNFOCUS_DELAY_MS) :: any) :: number
 	end
 	React.useEffect(function()
+		-- The window starts in the focused state.
 		userInteracted()
 		return function()
-			if timeoutID.current then
-				clearTimeout(timeoutID.current)
+			if unfocusTimeoutID.current then
+				clearTimeout(unfocusTimeoutID.current)
 			end
 		end
 	end, {})
+
+	local cameraButtonClicked: () -> () = React.useCallback(function()
+		userInteracted()
+		if not FaceChatUtils.getPermissions().userCamEnabled then
+			showError("Allow Camera Access to continue", "Settings > Privacy > Microphone and Camera Input")
+			return
+		end
+		if not ModelUtils.hasDynamicHead(player.Character or player.CharacterAdded:Wait()) then
+			-- We don't want to show this error when turning off the camera.
+			if not FaceChatUtils.isCameraOn() then
+				showError("Equip a dynamic head to express yourself!", "Avatar > Customize > Head & Body")
+			end
+		end
+		Analytics:setLastCtx("SelfView")
+		FaceChatUtils.toggleVideoAnimation()
+	end)
 
 	local onActivated = React.useCallback(function()
 		if focused then
@@ -92,27 +120,24 @@ local function Window(props: WindowProps): React.ReactNode
 		userInteracted()
 	end)
 
-	local frameRef = React.useRef(nil :: Frame?)
+	local frameRef: { current: Frame? } = React.useRef(nil :: Frame?)
 	React.useEffect(function()
 		-- SelfieView throws an error when running tests involving
 		-- a cloned avatar. There may be a solution in the future
 		-- to mock the clone in tests, but for now we are disabling
 		-- the test.
-		if Players.LocalPlayer and not _G.__TESTEZ_RUNNING_TEST__ then
-			local unmount = FaceClone(Players.LocalPlayer, frameRef.current)
-			return function()
-				if unmount then
-					unmount()
-				end
+		if _G.__TESTEZ_RUNNING_TEST__ then
+			return
+		end
+
+		local unmount = FaceClone(player, frameRef.current)
+
+		return function()
+			if unmount then
+				unmount()
 			end
 		end
-		return function() end
 	end, { frameRef })
-
-	local cameraButtonClicked = React.useCallback(function()
-		toggleClone()
-		userInteracted()
-	end)
 
 	return React.createElement("Frame", {
 		Name = "SelfieViewFrame",
@@ -162,23 +187,37 @@ local function Window(props: WindowProps): React.ReactNode
 				automaticSize = Enum.AutomaticSize.Y,
 			}),
 		}),
-		IconFrame = focused and React.createElement("Frame", {
+		IconFrame = focused and showCameraButton and React.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, ICON_CONTAINER_HEIGHT),
 			Position = UDim2.fromScale(0.5, 1),
 			AnchorPoint = Vector2.new(0.5, 1),
 			ZIndex = 2,
 		}, {
-			Interactable = React.createElement(Interactable, {
-				Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
-				BackgroundTransparency = 1,
-				[React.Event.Activated] = cameraButtonClicked,
-				Position = UDim2.fromScale(0.5, 0.5),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-			}),
+			Tooltip = withTooltip({
+				headerText = tooltipHeaderText,
+				bodyText = tooltipBodyText,
+				textXAlignment = Enum.TextXAlignment.Left,
+			}, {
+				guiTarget = CoreGui,
+				active = showTooltip,
+				DisplayOrder = 10,
+				preferredOrientation = TooltipOrientation.Bottom,
+			}, function(triggerPointChanged): React.ReactNode
+				return React.createElement(Interactable, {
+					Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
+					BackgroundTransparency = 1,
+					Position = UDim2.fromScale(0.5, 0.5),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+
+					[React.Change.AbsoluteSize] = triggerPointChanged,
+					[React.Change.AbsolutePosition] = triggerPointChanged,
+					[React.Event.Activated] = cameraButtonClicked,
+				})
+			end),
 			CameraStatusIcon = React.createElement(CameraStatusIcon, {
 				iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-				dotPosition = UDim2.fromScale(0.7, 0.8),
+				transparency = not FaceChatUtils.getPermissions().userCamEnabled and 0.5 or 0,
 			}),
 		}) or nil,
 		FocusDarken = focused and React.createElement("Frame", {
@@ -189,7 +228,7 @@ local function Window(props: WindowProps): React.ReactNode
 		}, {
 			Corners = React.createElement("UICorner", {}),
 		}) or nil,
-		CameraStatusDot = cameraOn and not focused and React.createElement(CameraStatusDot, {
+		CameraStatusDot = cameraOn and React.createElement(CameraStatusDot, {
 			Position = UDim2.new(1, -5, 0, 5),
 			AnchorPoint = Vector2.new(1, 0),
 			ZIndex = 2,

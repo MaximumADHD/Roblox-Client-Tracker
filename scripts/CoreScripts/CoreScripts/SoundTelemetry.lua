@@ -216,6 +216,15 @@ local function onLooped(sound: Sound, numTimesLooped: number)
 	end
 end
 
+local function unhookSoundEvents(sound: Sound)
+	local connections = trackedSounds[sound]
+	if connections ~= nil then 
+		for _, connection in connections do
+			connection:Disconnect()
+		end
+	end
+	trackedSounds[sound] = nil
+end
 
 local function hookupSoundEvents(sound: Sound)
 	local playedSoundConnection = sound.Played:Connect(function()
@@ -251,36 +260,29 @@ local function hookupSoundEvents(sound: Sound)
 		onLooped(sound, numTimesLooped)
 	end)
 
-	local soundConnections = { playedSoundConnection, pausedSoundConnection, stoppedSoundConnection, endedSoundConnection, resumedSoundConnection, didLoopSoundConnection}
-	trackedSounds[sound] = soundConnections
-end
+	local ancestryChangedConnection = sound.AncestryChanged:Connect(function(child, parent)
+		if child:FindFirstAncestorOfClass("DataModel") == nil then
+			unhookSoundEvents(sound)
+		end
+	end)
 
-local function unhookSoundEvents(sound: Sound)
-	local connections = trackedSounds[sound]
-	for _, connection in connections do
-		connection:Disconnect()
-	end
-	trackedSounds[sound] = nil
+	local soundConnections = { playedSoundConnection, pausedSoundConnection, stoppedSoundConnection, endedSoundConnection, resumedSoundConnection, didLoopSoundConnection, ancestryChangedConnection}
+	trackedSounds[sound] = soundConnections
+
 end
 
 local shouldHookupSoundEvents = GetFFlagEnableSoundSessionTelemetry() or enableThrottledTelemetry
 
 if shouldHookupSoundEvents then 
 	for _, instance in ipairs(game:GetDescendants()) do
-		if instance:IsA("Sound") and not trackedSounds[instance] then
-			hookupSoundEvents(instance)
+		if instance.ClassName == "Sound" and not trackedSounds[instance :: Sound] then
+			hookupSoundEvents(instance :: Sound)
 		end
 	end
 
 	game.DescendantAdded:Connect(function(instance)
-		if instance:IsA("Sound") and not trackedSounds[instance] then
-			hookupSoundEvents(instance)
-		end
-	end)
-
-	game.DescendantRemoving:Connect(function(instance)
-		if instance:IsA("Sound") and trackedSounds[instance] then
-			unhookSoundEvents(instance)
+		if instance.ClassName == "Sound" and not trackedSounds[instance :: Sound] then
+			hookupSoundEvents(instance :: Sound)
 		end
 	end)
 end

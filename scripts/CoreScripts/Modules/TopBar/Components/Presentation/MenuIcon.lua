@@ -35,12 +35,13 @@ if isNewInGameMenuEnabled() then
 end
 
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
 
 local IconButton = require(script.Parent.IconButton)
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
-local BACKGROUND_SIZE = if ChromeEnabled() then (Constants.TopBarHeight - 4) else 32
+local BACKGROUND_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 32
 local ICON_SIZE = 24
 local DEFAULT_DELAY_TIME = 0.4
 
@@ -132,11 +133,11 @@ function MenuIcon:render()
 		[Roact.Change.AbsolutePosition] = if ChromeEnabled() then onAreaChanged else nil,
 	}, {
 		Background = Roact.createElement(IconButton, {
-			icon = if ChromeEnabled()
+			icon = if isNewTiltIconEnabled()
 				then UIBloxImages["icons/status/player/admin"]
 				else "rbxasset://textures/ui/TopBar/coloredlogo.png",
 			iconSize = ICON_SIZE * (self.props.iconScale or 1),
-			useIconScaleAnimation = ChromeEnabled(),
+			useIconScaleAnimation = isNewTiltIconEnabled(),
 			onActivated = self.menuIconActivated,
 			onHover = self.menuIconOnHover,
 			enableFlashingDot = self.state.enableFlashingDot,

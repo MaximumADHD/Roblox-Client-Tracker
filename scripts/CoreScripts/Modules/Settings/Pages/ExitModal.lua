@@ -33,10 +33,17 @@ local LocalizationService = game:GetService("LocalizationService")
 
 ----------- UTILITIES --------------
 
+local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
 local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
-local Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
+local Localization
+if GetFFlagSwitchInExpTranslationsPackage() then
+	Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+else
+	Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
+end
 local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics)
 local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)

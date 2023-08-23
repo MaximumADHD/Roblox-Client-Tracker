@@ -1,11 +1,19 @@
 local CorePackages = game:GetService("CorePackages")
 local InspectAndBuyFolder = script.Parent.Parent
+local UIBlox = require(CorePackages.UIBlox)
+local Images = UIBlox.App.ImageSet.Images
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Colors = require(InspectAndBuyFolder.Colors)
 local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+local LimitedLabel = require(InspectAndBuyFolder.Components.LimitedLabel)
+local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
+
+local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
+
+local LIMITED_ITEM_IMAGE = "icons/status/item/limited"
 
 local AssetCard = Roact.Component:extend("AssetCard")
 
@@ -19,10 +27,13 @@ function AssetCard:render()
 	local assetInfo = self.props.assetInfo
 	local openDetails = self.props.openDetails
 	local assetCardSizeX = self.props.assetCardSizeX
+	local icon = Images[LIMITED_ITEM_IMAGE]
+	local imageSize = icon and icon.ImageRectSize / Images.ImagesResolutionScale or Vector2.new(0, 0)
 
 	return Roact.createElement(InspectAndBuyContext.Consumer, {
 		render = function(views)
 			local viewMapping = views[view]
+			local isCollectibles = GetFFlagDisplayCollectiblesIcon() and UtilityFunctions.isCollectibles(assetInfo)
 
 			return Roact.createElement("ImageButton", {
 				BackgroundTransparency = 0,
@@ -68,7 +79,7 @@ function AssetCard:render()
 					}, {
 						UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
 							MaxTextSize = viewMapping.AssetTextMaxSize,
-						})
+						}),
 					}),
 				}),
 				EquippedFrame = Roact.createElement("ImageLabel", {
@@ -89,26 +100,34 @@ function AssetCard:render()
 					Visible = equipped,
 					Image = "rbxasset://textures/ui/InspectMenu/gr-item-selector-triangle.png",
 					ImageColor3 = Colors.Green,
+				}),
+				-- Adding an icon for ugc limited items.
+				LimitedLabel = isCollectibles and Roact.createElement(LimitedLabel, {
+					frameSize = UDim2.new(0, imageSize.X + 18, 0, imageSize.Y + 4),
+					framePosition = UDim2.new(0, 16, 0, assetCardSizeX - imageSize.Y - 20),
+					imageSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
+					imagePosition = UDim2.new(0, 5, 0, 2),
+					textSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
+					textPosition = UDim2.new(0, 5 + imageSize.X, 0, 2),
+					text = "#",
 				})
 			})
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = props.assetInfo.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = props.assetInfo.assetId
 
-		return {
-			view = state.view,
-			equipped = state.equippedAssets[assetId] == true,
-		}
-	end,
-	function(dispatch)
-		return {
-			openDetails = function(assetId)
-				dispatch(SetDetailsInformation(true, assetId))
-			end,
-		}
-	end
-)(AssetCard)
+	return {
+		view = state.view,
+		equipped = state.equippedAssets[assetId] == true,
+		locale = state.locale,
+	}
+end, function(dispatch)
+	return {
+		openDetails = function(assetId)
+			dispatch(SetDetailsInformation(true, assetId))
+		end,
+	}
+end)(AssetCard)

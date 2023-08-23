@@ -5,55 +5,53 @@ local Packages = CorePackages.Packages
 local React = require(Packages.React)
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
+local FaceChatUtils = require(script.Parent.Parent.Utils.FaceChatUtils)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local TrackerMode = Enum.TrackerMode
 type TrackerMode = Enum.TrackerMode
 
+-- As of now we always start with no tracking but this is left here
+-- in case we want to startup with some tracking in the future.
+local trackerMode: TrackerMode = FaceChatUtils.getTrackerMode()
+local savedCamState: boolean = trackerMode == TrackerMode.Video or trackerMode == TrackerMode.AudioVideo
+local savedMicState: boolean = trackerMode == TrackerMode.Audio or trackerMode == TrackerMode.AudioVideo
+
 return function(): TrackerMode
 	local trackerMode: TrackerMode, setTrackerMode: (TrackerMode) -> () = React.useState(TrackerMode.None)
 
-	local updateTrackerMode = function()
-		local trackerMode: TrackerMode = TrackerMode.None
-		if FaceAnimatorService.AudioAnimationEnabled and not FaceAnimatorService.VideoAnimationEnabled then
-			trackerMode = TrackerMode.Audio
-		elseif
-			not FaceAnimatorService.AudioAnimationEnabled
-			and FaceAnimatorService.VideoAnimationEnabled
-			and FaceAnimatorService:IsStarted()
-		then
-			trackerMode = TrackerMode.Video
-		elseif
-			FaceAnimatorService.AudioAnimationEnabled
-			and FaceAnimatorService.VideoAnimationEnabled
-			and FaceAnimatorService:IsStarted()
-		then
-			trackerMode = TrackerMode.AudioVideo
+	local updateTrackerMode = React.useCallback(function()
+		local trackerMode: TrackerMode = FaceChatUtils.getTrackerMode()
+
+		-- Analytics
+		-- Report cam/mic state if changed
+		local newCamState: boolean = trackerMode == TrackerMode.Video or trackerMode == TrackerMode.AudioVideo
+		if newCamState ~= savedCamState then
+			Analytics:reportCamState(newCamState)
+			savedCamState = newCamState
 		end
+		local newMicState: boolean = trackerMode == TrackerMode.Audio or trackerMode == TrackerMode.AudioVideo
+		if newMicState ~= savedMicState then
+			Analytics:reportMicState(newMicState)
+			savedMicState = newMicState
+		end
+
 		setTrackerMode(trackerMode)
-	end
+	end)
 
 	React.useEffect(function()
 		if VideoCaptureService then
 			updateTrackerMode()
-			local videoCaptureStartedConnection = VideoCaptureService.Started:Connect(function()
-				updateTrackerMode()
-			end)
-			local videoCaptureStoppedConnection = VideoCaptureService.Stopped:Connect(function()
-				updateTrackerMode()
-			end)
-			local videoCaptureDevicesChangedConnection = VideoCaptureService.DevicesChanged:Connect(function()
-				updateTrackerMode()
-			end)
-			local videoAnimationEnabledConnection = FaceAnimatorService
-				:GetPropertyChangedSignal("VideoAnimationEnabled")
-				:Connect(function()
-					updateTrackerMode()
-				end)
-			local audioAnimationEnabledConnection = FaceAnimatorService
-				:GetPropertyChangedSignal("AudioAnimationEnabled")
-				:Connect(function()
-					updateTrackerMode()
-				end)
+			local videoCaptureStartedConnection = VideoCaptureService.Started:Connect(updateTrackerMode)
+			local videoCaptureStoppedConnection = VideoCaptureService.Stopped:Connect(updateTrackerMode)
+			local videoCaptureDevicesChangedConnection = VideoCaptureService.DevicesChanged:Connect(updateTrackerMode)
+			local videoAnimationEnabledConnection =
+				FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"):Connect(updateTrackerMode)
+			local audioAnimationEnabledConnection =
+				FaceAnimatorService:GetPropertyChangedSignal("AudioAnimationEnabled"):Connect(updateTrackerMode)
 			return function()
 				videoCaptureStartedConnection:Disconnect()
 				videoCaptureStoppedConnection:Disconnect()

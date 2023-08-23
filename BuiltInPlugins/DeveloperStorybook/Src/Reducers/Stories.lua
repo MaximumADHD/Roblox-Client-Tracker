@@ -26,6 +26,8 @@ local SetLive = require(Main.Src.Actions.SetLive)
 local SetSettings = require(Main.Src.Actions.SetSettings)
 local CollapseTree = require(Main.Src.Actions.CollapseTree)
 
+local FFlagFixStorybookPlainFilter = game:GetFastFlag("FixStorybookPlainFilter")
+
 -- Copy the input tree of children, returning a filtered tree of items whose names match the filter
 -- string passed in, or items which have descendendants that do.
 local function applySearch(children: Types.Array<Types.StoryItem>, filter: string): Types.Array<Types.StoryItem>?
@@ -35,7 +37,10 @@ local function applySearch(children: Types.Array<Types.StoryItem>, filter: strin
 	return collectArray(children, function(_index: number, child: Types.StoryItem)
 		local nextChild = copy(child)
 		nextChild.Children = applySearch(nextChild.Children, filter)
-		local include = #nextChild.Children > 0 or nextChild.Name:lower():match(filter:lower())
+		local include = #nextChild.Children > 0
+			or if FFlagFixStorybookPlainFilter
+				then nextChild.Name:lower():find(filter:lower(), 1, true)
+				else nextChild.Name:lower():match(filter:lower())
 		if include then
 			return nextChild
 		else

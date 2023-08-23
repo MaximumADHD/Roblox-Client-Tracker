@@ -1066,12 +1066,14 @@ local function Initialize()
 			end
 
 			local function updateCameraMovementModes()
-				local enumsToAdd = nil
+				local enumsToAdd = {}
 
-				if UserInputService.TouchEnabled then
-					enumsToAdd = PlayerScripts:GetRegisteredTouchCameraMovementModes()
-				else
-					enumsToAdd = PlayerScripts:GetRegisteredComputerCameraMovementModes()
+				if PlayerScripts then
+					if UserInputService.TouchEnabled then
+						enumsToAdd = PlayerScripts:GetRegisteredTouchCameraMovementModes()
+					else
+						enumsToAdd = PlayerScripts:GetRegisteredComputerCameraMovementModes()
+					end
 				end
 
 				cameraEnumNames = {}
@@ -1141,21 +1143,23 @@ local function Initialize()
 				Parent = this.CameraModeFrame
 			}
 
-			PlayerScripts.TouchCameraMovementModeRegistered:connect(
-				function(registeredMode)
-					if UserInputService.TouchEnabled then
-						updateCameraMovementModes()
+			if PlayerScripts then
+				PlayerScripts.TouchCameraMovementModeRegistered:connect(
+					function(registeredMode)
+						if UserInputService.TouchEnabled then
+							updateCameraMovementModes()
+						end
 					end
-				end
-			)
+				)
 
-			PlayerScripts.ComputerCameraMovementModeRegistered:connect(
-				function(registeredMode)
-					if UserInputService.MouseEnabled then
-						updateCameraMovementModes()
+				PlayerScripts.ComputerCameraMovementModeRegistered:connect(
+					function(registeredMode)
+						if UserInputService.MouseEnabled then
+							updateCameraMovementModes()
+						end
 					end
-				end
-			)
+				)
+			end
 
 			local hasInitialized = false
 			this.CameraMode.IndexChanged:connect(
@@ -1392,10 +1396,12 @@ local function Initialize()
 			end
 
 			local function updateMovementModes()
-				if UserInputService.TouchEnabled then
-					movementModes = PlayerScripts:GetRegisteredTouchMovementModes()
-				else
-					movementModes = PlayerScripts:GetRegisteredComputerMovementModes()
+				if PlayerScripts then
+					if UserInputService.TouchEnabled then
+						movementModes = PlayerScripts:GetRegisteredTouchMovementModes()
+					else
+						movementModes = PlayerScripts:GetRegisteredComputerMovementModes()
+					end
 				end
 
 				movementEnumNames = {}
@@ -1442,21 +1448,23 @@ local function Initialize()
 
 			updateMovementModes()
 
-			PlayerScripts.TouchMovementModeRegistered:connect(
-				function(registeredMode)
-					if UserInputService.TouchEnabled then
-						updateMovementModes()
+			if PlayerScripts then
+				PlayerScripts.TouchMovementModeRegistered:connect(
+					function(registeredMode)
+						if UserInputService.TouchEnabled then
+							updateMovementModes()
+						end
 					end
-				end
-			)
+				)
 
-			PlayerScripts.ComputerMovementModeRegistered:connect(
-				function(registeredMode)
-					if UserInputService.MouseEnabled then
-						updateMovementModes()
+				PlayerScripts.ComputerMovementModeRegistered:connect(
+					function(registeredMode)
+						if UserInputService.MouseEnabled then
+							updateMovementModes()
+						end
 					end
-				end
-			)
+				)
+			end
 
 			this.MovementMode.IndexChanged:connect(
 				function(newIndex)

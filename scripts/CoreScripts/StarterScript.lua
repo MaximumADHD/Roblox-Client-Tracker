@@ -70,7 +70,7 @@ local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaA
 
 local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
 
-local GetFFlagVoiceUserAgency2 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency2)
+local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
@@ -362,7 +362,7 @@ if isCharacterNameHandlerEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CharacterNameHandler", script.Parent)
 end
 
-if GetFFlagVoiceUserAgency2() then
+if GetFFlagVoiceUserAgency3() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceUserAgency", RobloxGui)
 end
 

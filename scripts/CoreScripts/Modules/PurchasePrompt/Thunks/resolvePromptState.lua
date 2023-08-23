@@ -49,7 +49,7 @@ local requiredServices = {
 	Network,
 }
 
-local function resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase)
+local function resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase, expectedPrice)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local state = store:getState()
 		local abTest = services[ABTest]
@@ -66,7 +66,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		) and (externalSettings.getLuaUseThirdPartyPermissions() or externalSettings.getFlagRestrictSales2())
 
 		local canPurchase, failureReason =
-			meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
+			meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings, expectedPrice)
 		if not canPurchase then
 			if not externalSettings.isStudio() and failureReason == PurchaseError.ThirdPartyDisabled then
 				-- Do not annoy player with 3rd party failure notifications.
@@ -78,6 +78,9 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		local robuxBalance = balanceInfo.robux
 		local isPlayerPremium = accountInfo.isPremium
 		local price = getPlayerProductInfoPrice(productInfo, isPlayerPremium)
+		if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and expectedPrice ~= nil then
+			price = expectedPrice
+		end
 		local platform = UserInputService:GetPlatform()
 
 		if price > robuxBalance then

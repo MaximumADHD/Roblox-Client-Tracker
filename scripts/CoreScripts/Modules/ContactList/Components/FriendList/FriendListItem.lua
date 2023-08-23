@@ -153,6 +153,7 @@ local function FriendListItem(props: Props)
 		BorderSizePixel = 0,
 		LayoutOrder = props.layoutOrder,
 		onStateChanged = onStateChanged,
+		AutoButtonColor = false,
 		[React.Event.Activated] = startCall,
 	}, {
 		UIPadding = React.createElement("UIPadding", {

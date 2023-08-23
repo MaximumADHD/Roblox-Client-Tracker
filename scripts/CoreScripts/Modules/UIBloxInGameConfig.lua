@@ -16,8 +16,6 @@ return {
 	vrAlignPanel3DUnderInGamePanel = UIBloxFlags.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel(),
 	vrFixUIJitter = UIBloxFlags.GetFFlagUIBloxVRFixUIJitter(),
 	dualVRLaserPointers = UIBloxFlags.GetFFlagUIBloxVRDualLaserPointers(),
-	useNewPlayerCount = UIBloxFlags.GetFFlagUIBloxUseNewPlayerCount(),
-	enableToastButton = UIBloxFlags.GetFFlagUIBloxEnableToastButton(),
 	usePlatformContentKeyLabels = UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels(),
 	enableNewMenuLayout = UIBloxFlags.GetFFlagUIBloxEnableNewMenuLayout(),
 	useTokensInPlayerTile = UIBloxFlags.GetFFlagUIBloxUseTokensInPlayerTile(),

@@ -9,9 +9,10 @@ local function UGCValidationFunction(args)
     local isServer = args["isServer"]
     local allowUnreviewedAssets = args["allowUnreviewedAssets"]
     local restrictedUserIds = args["restrictedUserIds"]
+    local token = args["token"]
 
     local success, reasons
-    success, reasons = UGCValidation.validate(objectInstances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds)
+    success, reasons = UGCValidation.validate(objectInstances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token)
     if not success then
         local failureReasonStr = ""
         if reasons then

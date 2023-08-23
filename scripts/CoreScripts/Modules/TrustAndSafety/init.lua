@@ -10,7 +10,7 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
 local Dependencies = require(script.Dependencies)
-local Localization = require(Dependencies.Localization)
+local Localization = Dependencies.Localization
 local LocalizationProvider = require(Dependencies.LocalizationProvider)
 local playerInterface = require(Dependencies.playerInterface)
 

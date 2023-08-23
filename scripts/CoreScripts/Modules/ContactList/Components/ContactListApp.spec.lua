@@ -111,7 +111,17 @@ return function()
 	local function createMockCallProtocol(state: string, instanceId: string)
 		local MockCallProtocol = {}
 
+		function MockCallProtocol:listenToHandleConnectingCall(callback: (any) -> ())
+			-- Stub
+			return MessageBus:Subscribe("", callback, false, true)
+		end
+
 		function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
+			-- Stub
+			return MessageBus:Subscribe("", callback, false, true)
+		end
+
+		function MockCallProtocol:listenToHandleEndCall(callback: (any) -> ())
 			-- Stub
 			return MessageBus:Subscribe("", callback, false, true)
 		end

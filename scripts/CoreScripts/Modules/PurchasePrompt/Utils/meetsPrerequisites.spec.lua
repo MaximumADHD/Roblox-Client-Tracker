@@ -28,7 +28,7 @@ return function()
 
 	it("should return true if prerequisites are all met", function()
 		local productInfo = getValidProductInfo()
-		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
 		expect(met).to.equal(true)
 	end)
@@ -36,7 +36,7 @@ return function()
 	it("should return true if prerequisites are all met for assets with sale restriction", function()
 		local productInfo = getValidProductInfo()
 		productInfo.CanBeSoldInThisGame = true
-		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
 		expect(met).to.equal(true)
 	end)
@@ -48,14 +48,14 @@ return function()
 		-- Set creator id to game's creator id
 		productInfo.Creator.CreatorTargetId = game.CreatorId
 
-		local met, _ = meetsPrerequisites(productInfo, false, true, defaultExternalSettings)
+		local met, _ = meetsPrerequisites(productInfo, false, true, defaultExternalSettings, nil)
 
 		expect(met).to.equal(true)
 	end)
 
 	it("should return false if the player owns the item already", function()
 		local productInfo = getValidProductInfo()
-		local met, errorReason = meetsPrerequisites(productInfo, true, true, defaultExternalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, true, true, defaultExternalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.AlreadyOwn)
@@ -66,7 +66,7 @@ return function()
 		productInfo.ProductType = "Collectible Item"
 		productInfo.Remaining = 10
 
-		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
 		expect(met).to.equal(true)
 	end)
@@ -76,7 +76,7 @@ return function()
 		productInfo.IsForSale = false
 		productInfo.IsPublicDomain = false
 
-		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.NotForSale)
@@ -90,7 +90,7 @@ return function()
 			EnableRestrictedAssetSaleLocationPurchasePrompt = true,
 		})
 
-		local met, errorReason = meetsPrerequisites(productInfo, false, false, externalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, false, externalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.NotForSaleHere)
@@ -104,7 +104,7 @@ return function()
 			EnableRestrictedAssetSaleLocationPurchasePrompt = false,
 		})
 
-		local met, _ = meetsPrerequisites(productInfo, false, false, externalSettings)
+		local met, _ = meetsPrerequisites(productInfo, false, false, externalSettings, nil)
 
 		expect(met).to.equal(true)
 	end)
@@ -114,7 +114,7 @@ return function()
 		productInfo.IsLimited = true
 		productInfo.Remaining = 0
 
-		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.Limited)
@@ -125,7 +125,7 @@ return function()
 		productInfo.ProductType = "Collectible Item"
 		productInfo.Remaining = 0
 
-		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.Limited)
@@ -142,7 +142,7 @@ return function()
 			LuaUseThirdPartyPermissions = true,
 			PermissionsServiceIsThirdPartyPurchaseAllowed = false,
 		})
-		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.ThirdPartyDisabled)
@@ -159,7 +159,7 @@ return function()
 			LuaUseThirdPartyPermissions = true,
 			PermissionsServiceIsThirdPartyPurchaseAllowed = true,
 		})
-		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings, nil)
 
 		expect(met).to.equal(true)
 	end)
@@ -176,7 +176,7 @@ return function()
 			LuaUseThirdPartyPermissions = false,
 			RestrictSales2 = true,
 		})
-		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.ThirdPartyDisabled)
@@ -186,7 +186,7 @@ return function()
 		local productInfo = getValidProductInfo()
 		productInfo.MinimumMembershipLevel = 4
 
-		local met, errorReason = meetsPrerequisites(productInfo, false, true, defaultExternalSettings)
+		local met, errorReason = meetsPrerequisites(productInfo, false, true, defaultExternalSettings, nil)
 
 		expect(met).to.equal(false)
 		expect(errorReason).to.equal(PurchaseError.PremiumOnly)

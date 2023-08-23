@@ -231,6 +231,12 @@ function ProductPurchaseContainer:didMount()
 	end
 end
 
+function ProductPurchaseContainer:willUpdate(nextProps)
+    if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and self.props.expectedPrice ~= nextProps.expectedPrice then
+        self:setState({})
+    end
+end
+
 function ProductPurchaseContainer:didUpdate(prevProps, prevState)
 	-- Game unpause and purchase workflow could be triggered at the same time by doing some hack.
 	-- The fix is to check the game pause status in didUpdate(), and close ourchase prompt if in game pause.
@@ -331,6 +337,7 @@ end
 function ProductPurchaseContainer:render()
 	local purchaseFlow = self.props.purchaseFlow
 	local promptState = self.props.promptState
+	local expectedPrice = self.props.expectedPrice
 	local requestType = self.props.requestType
 	local purchaseError = self.props.purchaseError
 	local productInfo = self.props.productInfo
@@ -359,7 +366,7 @@ function ProductPurchaseContainer:render()
 			isDisabled = promptState == PromptState.PurchaseInProgress,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
-			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4),
+			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 			currentBalance = accountInfo.balance,
 			testPurchase = isTestPurchase,
 
@@ -386,7 +393,7 @@ function ProductPurchaseContainer:render()
 			isDisabled = promptState == PromptState.UpsellInProgress,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
-			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4),
+			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
 			robuxPurchaseAmount = nativeUpsell.robuxPurchaseAmount,
 			balanceAmount = accountInfo.balance,
 
@@ -525,6 +532,7 @@ local function mapStateToProps(state)
 		purchaseFlow = state.purchaseFlow,
 		promptState = state.promptState,
 		requestType = state.promptRequest.requestType,
+		expectedPrice = state.promptRequest.expectedPrice,
 		windowState = state.windowState,
 		purchaseError = state.purchaseError,
 		productInfo = state.productInfo,

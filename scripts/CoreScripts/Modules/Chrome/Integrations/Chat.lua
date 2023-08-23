@@ -20,7 +20,7 @@ end)
 
 local chatChromeIntegration = ChromeService:register({
 	id = "chat",
-	label = "Text Chat",
+	label = "CoreScripts.TopBar.Chat",
 	activated = function(self)
 		ChatSelector:ToggleVisibility()
 		if ChatSelector:GetVisibility() then

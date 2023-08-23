@@ -83,7 +83,7 @@ end
 
 return chromeService:register({
 	id = "chrome_toggle",
-	label = "Open",
+	label = "CoreScripts.TopBar.MenuToggle",
 	hideNotificationCountWhileOpen = true,
 	activated = function()
 		chromeService:toggleOpen()

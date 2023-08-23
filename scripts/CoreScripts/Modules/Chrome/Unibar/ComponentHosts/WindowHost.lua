@@ -13,12 +13,12 @@ local Interactable = UIBlox.Core.Control.Interactable
 local Images = UIBlox.App.ImageSet.Images
 local IconButton = UIBlox.App.Button.IconButton
 
+local debounce = require(script.Parent.Parent.Parent.Utility.debounce)
 local ChromeService = require(script.Parent.Parent.Parent.Service)
 local Constants = require(script.Parent.Parent.Parent.Unibar.Constants)
 local ChromeTypes = require(script.Parent.Parent.Parent.Service.Types)
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
-local useWindowPosition = require(script.Parent.Parent.Parent.Hooks.useWindowPosition)
 
 local CLOSE_ICON = Images["icons/navigation/close_small"]
 
@@ -27,6 +27,7 @@ export type WindowHostProps = {
 	position: UDim2?,
 }
 
+local RESIZE_DEBOUNCE_TIME = 0.2
 local ICON_SIZE = 42
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -41,30 +42,15 @@ local COMPONENT_ZINDEX = {
 
 local WindowHost = function(props: WindowHostProps)
 	local windowSize = useWindowSize(props.integration.integration)
-	local windowPosition, setWindowPosition = useWindowPosition(props.integration.integration)
 	local windowRef: { current: Frame? } = React.useRef(nil)
 	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
 	local overlayTask: { current: thread? } = React.useRef(nil)
 	local dragging, setDragging = React.useBinding(false)
+	local positionTween: Tween? = React.useMemo(function()
+		return nil
+	end, {})
 
 	local _isActive, setActive = React.useBinding(false)
-
-	-- Account for 0,0 and frame size when positioning
-	local position = React.useMemo(function()
-		-- If position has already been set, return existing position
-		if windowRef and windowRef.current then
-			return windowRef.current.Position
-		end
-
-		local defaultPosition: UDim2 = props.position or UDim2.new()
-
-		-- If the position signal is available consume it
-		if props.integration.integration.windowPosition ~= nil then
-			return windowPosition
-		else
-			return UDim2.new(1, defaultPosition.X.Offset - windowSize.X.Offset, 0, defaultPosition.Y.Offset)
-		end
-	end)
 
 	-- When a reposition tween is playing, momentarily disallow dragging the window
 	local isRepositioning, updateIsRepositioning = React.useBinding(false)
@@ -80,24 +66,24 @@ local WindowHost = function(props: WindowHostProps)
 		setFrameHeight(ReactOtter.spring(windowSize.Y.Offset, MOTOR_OPTIONS))
 	end, { windowSize.Y.Offset })
 
-	-- This effect determines whether the window was opened as a result of a drag from IconHost
-	-- when a connection is active drive the window frame position with the input object and
+	-- This effect is responsible for ultimately assigning the window position to the window host frame.
+	-- Check whether the window was opened as a result of a drag from IconHost, when
+	-- a connection is active drive the window frame position with the input object and
 	-- adjust the size of the window to expand as if it was scaling up from the icon
 	React.useEffect(function()
 		local storedConnection = ChromeService:dragConnection(props.integration.id)
+		assert(windowRef.current ~= nil)
+		assert(windowRef.current.Parent ~= nil)
+
+		local frame = windowRef.current
+		local frameParent = windowRef.current:FindFirstAncestorWhichIsA("ScreenGui") :: ScreenGui
+		local parentScreenSize = frameParent.AbsoluteSize
 
 		if storedConnection ~= nil then
 			connection = storedConnection
 			setDragging(true)
 
-			assert(windowRef.current ~= nil)
-			assert(windowRef.current.Parent ~= nil)
-
 			if connection then
-				local frame = windowRef.current
-				local frameParent = windowRef.current:FindFirstAncestorWhichIsA("ScreenGui") :: ScreenGui
-				local parentScreenSize = frameParent.AbsoluteSize
-
 				setFrameWidth(ReactOtter.instant(ICON_SIZE) :: any)
 				setFrameHeight(ReactOtter.instant(ICON_SIZE) :: any)
 
@@ -120,8 +106,27 @@ local WindowHost = function(props: WindowHostProps)
 					frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
 				end)
 			end
+		else
+			-- If the position signal is available consume it
+			-- Always translate the position to absolute coordinates accounting for X scale
+			local defaultPosition: UDim2 = props.position or UDim2.new()
+			if props.integration.integration.cachePosition then
+				local cachedPosition = ChromeService:windowPosition(props.integration.id) or UDim2.new()
+				local leftSideOffset = if cachedPosition.X.Scale == 1 then parentScreenSize.X else 0
+				cachedPosition = UDim2.new(0, leftSideOffset + cachedPosition.X.Offset, 0, cachedPosition.Y.Offset)
+				frame.Position = cachedPosition
+			else
+				local leftSideOffset = if defaultPosition.X.Scale == 1 then parentScreenSize.X else 0
+				frame.Position = UDim2.new(0, leftSideOffset + defaultPosition.X.Offset, 0, defaultPosition.Y.Offset)
+			end
 		end
 	end, {})
+
+	local cachePosition = React.useCallback(function(position: UDim2)
+		if props.integration.integration.cachePosition then
+			ChromeService:updateWindowPosition(props.integration.id, position)
+		end
+	end, { props.integration })
 
 	local touchBegan = React.useCallback(function(_: Frame, inputObj: InputObject)
 		assert(windowRef.current ~= nil)
@@ -199,6 +204,10 @@ local WindowHost = function(props: WindowHostProps)
 		local xPosition = frame.Position.X.Offset
 		local yPosition = frame.Position.Y.Offset
 
+		if positionTween and positionTween.PlaybackState == Enum.PlaybackState.Playing then
+			positionTween:Cancel()
+		end
+
 		if
 			xPosition < frameHalfWidth
 			or xPosition > parentScreenSize.X - frameHalfWidth
@@ -212,16 +221,18 @@ local WindowHost = function(props: WindowHostProps)
 
 			local positionTarget = UDim2.new(0, x, 0, y)
 
-			setWindowPosition(positionTarget)
+			cachePosition(positionTarget)
 
 			local tweenStyle = TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
-			local positionTween = TweenService:Create(frame, tweenStyle, { Position = positionTarget })
+			positionTween = TweenService:Create(frame, tweenStyle, { Position = positionTarget })
+			assert(positionTween ~= nil)
 			positionTween.Completed:Connect(function(_)
 				updateIsRepositioning(false)
+				positionTween = nil
 			end)
 			positionTween:Play()
 		else
-			setWindowPosition(UDim2.new(0, xPosition, 0, yPosition))
+			cachePosition(UDim2.new(0, xPosition, 0, yPosition))
 		end
 	end, {})
 
@@ -251,6 +262,9 @@ local WindowHost = function(props: WindowHostProps)
 		Name = React.createElement("ScreenGui", {
 			Name = Constants.WINDOW_HOST_GUI_NAME .. ":" .. props.integration.id,
 			-- TODO manage display ordering
+			[React.Change.AbsoluteSize] = debounce(function()
+				repositionWindowWithinScreenBounds()
+			end, RESIZE_DEBOUNCE_TIME),
 			DisplayOrder = 100,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		}, {
@@ -263,7 +277,6 @@ local WindowHost = function(props: WindowHostProps)
 				BorderSizePixel = 0,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
-				Position = position,
 			}, {
 				WindowWrapper = React.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
@@ -293,9 +306,8 @@ local WindowHost = function(props: WindowHostProps)
 							end,
 						}),
 					}),
-					-- This prevents onActivated (taps/clicks) from propogating
-					-- to the integration whenever the user is trying to
-					-- drag.
+					-- This prevents onActivated (taps/clicks) from propagating
+					-- to the integration whenever the user is trying to drag.
 					InputShield = React.createElement(Interactable, {
 						ZIndex = COMPONENT_ZINDEX.INPUT_SHIELD,
 						Size = UDim2.fromScale(1, 1),

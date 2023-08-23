@@ -274,8 +274,8 @@ local function showUserAgencyPrompt()
 	local dialog = create("Frame")({
 		Name = "VoiceUserAgencyFrame",
 		AnchorPoint = Vector2.new(0.5, 0),
-		Size = UDim2.new(1, 0, 1, 0),
-		Position = UDim2.new(0.5, 0, 0, 20),
+		Size = UDim2.new(0.9, 0, 1, 0),
+		Position = UDim2.new(0.5, 0, 0, 4),
 		BackgroundColor3 = Color3.fromRGB(57, 59, 61),
 		BorderSizePixel = 0,
 
@@ -284,7 +284,7 @@ local function showUserAgencyPrompt()
 		}),
 
 		create("UISizeConstraint")({
-			MaxSize = Vector2.new(400, 256),
+			MaxSize = Vector2.new(400, 216),
 		}),
 
 		create("UIPadding")({
@@ -319,7 +319,7 @@ local function showUserAgencyPrompt()
 			TextColor3 = Color3.fromRGB(190, 190, 190),
 			TextSize = 16,
 			TextWrapped = true,
-			Size = UDim2.new(1, 0, 0, 90),
+			Size = UDim2.new(1, 0, 0, 60),
 			BackgroundTransparency = 1,
 			TextTransparency = 0,
 			LayoutOrder = 2,
@@ -339,7 +339,7 @@ local function showUserAgencyPrompt()
 		create("Frame")({
 			Name = "ButtonsContainer",
 			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 64),
+			Size = UDim2.new(1, 0, 0, 62),
 			BackgroundTransparency = 1,
 			LayoutOrder = 4,
 
@@ -358,7 +358,7 @@ local function showUserAgencyPrompt()
 		create("Frame")({
 			Name = "CheckboxContainer",
 			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 64),
+			Size = UDim2.new(1, 0, 0, 28),
 			BackgroundTransparency = 1,
 			LayoutOrder = 5,
 

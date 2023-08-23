@@ -32,6 +32,7 @@ local function MarketplaceServiceEventConnector(props)
 	local onBundlePurchaseRequest = props.onBundlePurchaseRequest
 	local onPremiumPurchaseRequest = props.onPremiumPurchaseRequest
 	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
+	local onPromptCollectiblesPurchaseRequest = props.onPromptCollectiblesPurchaseRequest
 
 	local function checkNewEventExists()
 		return MarketplaceService.PromptPurchaseRequestedV2;
@@ -50,8 +51,20 @@ local function MarketplaceServiceEventConnector(props)
 		})
 	end
 
+	local function checkPromptCollectiblesPurchaseRequestedEventExists()
+		return MarketplaceService.PromptCollectiblesPurchaseRequested;
+	end
+	local promptCollectiblesPurchaseConnection;
+	if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and pcall(checkPromptCollectiblesPurchaseRequestedEventExists) then
+		promptCollectiblesPurchaseConnection = Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptCollectiblesPurchaseRequested,
+			callback = onPromptCollectiblesPurchaseRequest,
+		})
+	end
+
 	return Roact.createFragment({
 		promptPurchaseConnection,
+		promptCollectiblesPurchaseConnection,
 		RobloxPurchase = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptRobloxPurchaseRequested,
 			callback = onRobloxPurchaseRequest,
@@ -108,6 +121,12 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		end
 	end
 
+	local function onPromptCollectiblesPurchaseRequest(player, assetId, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice, idempotencyKey, purchaseAuthToken)
+		if player == Players.LocalPlayer then
+			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, false, true, idempotencyKey, purchaseAuthToken, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice))
+		end
+	end
+
 	-- Specific to purchasing dev products
 	local function onServerPurchaseVerification(serverResponseTable)
 		if not serverResponseTable then
@@ -144,6 +163,7 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		onServerPurchaseVerification = onServerPurchaseVerification,
 		onBundlePurchaseRequest = onBundlePurchaseRequest,
 		onPremiumPurchaseRequest = onPremiumPurchaseRequest,
+		onPromptCollectiblesPurchaseRequest = onPromptCollectiblesPurchaseRequest,
 	}
 end)(MarketplaceServiceEventConnector)
 

@@ -8,7 +8,7 @@ local Constants = require(script.Parent.Parent.Unibar.Constants)
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Unavailable,
 	id = "dummy_window_2",
-	label = "Window",
+	label = "CoreScripts.TopBar.Menu",
 	startingWindowPosition = UDim2.new(1, -245, 0, 95),
 	components = {
 		Icon = function(props)

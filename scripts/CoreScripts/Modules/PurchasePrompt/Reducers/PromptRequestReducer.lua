@@ -30,6 +30,10 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 			isRobloxPurchase = action.isRobloxPurchase,
 			idempotencyKey = idempotencyKey,
 			purchaseAuthToken = action.purchaseAuthToken or '',
+			collectibleItemId = action.collectibleItemId or '',
+			collectibleItemInstanceId = action.collectibleItemInstanceId or '',
+			collectibleProductId = action.collectibleProductId or '',
+			expectedPrice = action.expectedPrice or 0,
 		}
 	end,
 	[RequestGamepassPurchase.name] = function(state, action)

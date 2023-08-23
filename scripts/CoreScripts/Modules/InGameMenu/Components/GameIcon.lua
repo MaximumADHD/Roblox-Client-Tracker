@@ -26,6 +26,8 @@ GameIcon.validateProps = t.strictInterface({
 	iconSize = t.numberMin(0),
 	layoutOrder = t.optional(t.number),
 	cornerRadius = t.optional(t.UDim),
+	Position = t.optional(t.UDim2),
+	AnchorPoint = t.optional(t.Vector2),
 })
 
 function GameIcon:render()
@@ -34,11 +36,7 @@ function GameIcon:render()
 	local gameId = self.props.gameId
 	local cornerRadius = self.props.cornerRadius
 
-	local iconUrl = ("rbxthumb://type=GameIcon&id=%d&w=%d&h=%d"):format(
-		gameId,
-		requestIconSize,
-		requestIconSize
-	)
+	local iconUrl = ("rbxthumb://type=GameIcon&id=%d&w=%d&h=%d"):format(gameId, requestIconSize, requestIconSize)
 
 	--Special case for when the gameId is not available. For example developing in studio with a un-published game.
 	local isPlaceholder = gameId == 0
@@ -55,6 +53,8 @@ function GameIcon:render()
 				ImageColor3 = style.Theme.PlaceHolder.Color,
 				ImageTransparency = style.Theme.PlaceHolder.Transparency,
 				LayoutOrder = self.props.layoutOrder,
+				Position = self.props.Position,
+				AnchorPoint = self.props.AnchorPoint,
 			}, {
 				PlaceholderIcon = Roact.createElement(ImageSetLabel, {
 					BackgroundTransparency = 1,
@@ -77,6 +77,8 @@ function GameIcon:render()
 			Size = UDim2.fromOffset(iconSize, iconSize),
 			BackgroundTransparency = 1,
 			LayoutOrder = self.props.layoutOrder,
+			Position = self.props.Position,
+			AnchorPoint = self.props.AnchorPoint,
 		}, {
 			UICorner = cornerRadius and cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
 				CornerRadius = cornerRadius,

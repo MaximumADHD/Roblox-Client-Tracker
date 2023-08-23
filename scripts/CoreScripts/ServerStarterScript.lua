@@ -1,4 +1,3 @@
---!nonstrict
 --[[
 		// Filename: ServerStarterScript.lua
 		// Version: 1.0
@@ -17,7 +16,9 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local ScriptContext = game:GetService('ScriptContext')
 local CoreGui = game:GetService("CoreGui")
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
+assert(RobloxGui ~= nil, "RobloxGui should exist")
 
 local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
 
@@ -140,4 +141,10 @@ end
 local GetFFlagContactListEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListEnabled)
 if GetFFlagContactListEnabled() then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerContactList", script.Parent)
+end
+
+local GetFFlagEnableVoiceDefaultServerScript = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableVoiceDefaultServerScript)
+
+if GetFFlagEnableVoiceDefaultServerScript() then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/VoiceDefault", script.Parent)
 end

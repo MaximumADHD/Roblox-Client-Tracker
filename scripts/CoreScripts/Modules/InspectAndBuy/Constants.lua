@@ -108,6 +108,8 @@ local Constants = {
 Constants.MoodAnimationAssetTypeId = "78"
 Constants.DynamicHeadAssetTypeId = "79"
 
+Constants.DetailsThumbnailFrameHeight = 250
+
 Constants.DynamicHeadAssetTypes = {
 	[tostring(Enum.AssetType.EyebrowAccessory.Value)] = true,
 	[tostring(Enum.AssetType.EyelashAccessory.Value)] = true,

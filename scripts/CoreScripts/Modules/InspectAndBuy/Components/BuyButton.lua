@@ -38,6 +38,10 @@ function BuyButton:render()
 	local promptPurchase = self.props.promptPurchase
 	local buyText = self.props.buyText
 	local buyButtonRef = self.props.buyButtonRef
+	local collectibleItemId = self.props.collectibleItemId
+	local collectibleLowestAvailableResaleProductId = self.props.collectibleLowestAvailableResaleProductId
+	local collectibleLowestAvailableResaleItemInstanceId = self.props.collectibleLowestAvailableResaleItemInstanceId
+	local collectibleLowestResalePrice = self.props.collectibleLowestResalePrice
 	local size = UDim2.new(0, self:getBuyButtonTextSize(buyText), 1, 0)
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
@@ -65,7 +69,14 @@ function BuyButton:render()
 					self.lastGamepadFocus = GuiService.SelectedCoreObject
 					GuiService.SelectedCoreObject = nil
 				end
-				promptPurchase(itemId, itemType)
+				promptPurchase(
+					itemId,
+					itemType,
+					collectibleItemId,
+					collectibleLowestAvailableResaleProductId,
+					collectibleLowestAvailableResaleItemInstanceId,
+					collectibleLowestResalePrice
+				)
 			end
 		end,
 	}, {
@@ -78,7 +89,7 @@ function BuyButton:render()
 		RobuxIcon = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, ROBUX_ICON_SIZE, 0, ROBUX_ICON_SIZE),
-			Image =  "rbxasset://textures/ui/common/robux_small.png",
+			Image = "rbxasset://textures/ui/common/robux_small.png",
 			ImageTransparency = transparencyOverride,
 			ImageColor3 = Colors.White,
 			LayoutOrder = 1,
@@ -94,13 +105,12 @@ function BuyButton:render()
 			TextTransparency = transparencyOverride,
 			LayoutOrder = 2,
 			TextXAlignment = Enum.TextXAlignment.Center,
-		})
+		}),
 	})
 end
 
 function BuyButton:didMount()
-	local purchaseFinishedListener =
-			MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	local purchaseFinishedListener = MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
 	local bundlePurchaseFinishedListener =
 		MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
 	table.insert(self.connections, purchaseFinishedListener)
@@ -115,8 +125,12 @@ end
 
 function BuyButton:getBuyButtonTextSize(buyText)
 	if self.props.buyButtonRef.current then
-		local buyButtonTextSize = TextService:GetTextSize(buyText,
-			TEXT_SIZE, Enum.Font.Gotham, Vector2.new(self.props.buyButtonRef.current.AbsoluteSize.X, 5000))
+		local buyButtonTextSize = TextService:GetTextSize(
+			buyText,
+			TEXT_SIZE,
+			Enum.Font.Gotham,
+			Vector2.new(self.props.buyButtonRef.current.AbsoluteSize.X, 5000)
+		)
 		self.props.buyButtonRef.Size = UDim2.new(0, 1, 0, buyButtonTextSize.Y)
 		return buyButtonTextSize.X > MIN_SIZE and buyButtonTextSize.X or MIN_SIZE
 	end
@@ -124,23 +138,36 @@ function BuyButton:getBuyButtonTextSize(buyText)
 	return 0
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
-			locale = state.locale,
-			view = state.view,
-			assetInfo = state.assets[assetId],
-			gamepadEnabled = state.gamepadEnabled,
-			visible = state.visible,
-		}
-	end,
-	function(dispatch)
-		return {
-			promptPurchase = function(itemId, itemType)
-				dispatch(PromptPurchase(itemId, itemType))
-			end,
-		}
-	end
-)(BuyButton)
+	return {
+		locale = state.locale,
+		view = state.view,
+		assetInfo = state.assets[assetId],
+		gamepadEnabled = state.gamepadEnabled,
+		visible = state.visible,
+	}
+end, function(dispatch)
+	return {
+		promptPurchase = function(
+			itemId,
+			itemType,
+			collectibleItemId,
+			collectibleLowestAvailableResaleProductId,
+			collectibleLowestAvailableResaleItemInstanceId,
+			collectibleLowestResalePrice
+		)
+			dispatch(
+				PromptPurchase(
+					itemId,
+					itemType,
+					collectibleItemId,
+					collectibleLowestAvailableResaleProductId,
+					collectibleLowestAvailableResaleItemInstanceId,
+					collectibleLowestResalePrice
+				)
+			)
+		end,
+	}
+end)(BuyButton)

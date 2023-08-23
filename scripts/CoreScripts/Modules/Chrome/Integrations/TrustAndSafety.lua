@@ -31,7 +31,7 @@ end)
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "trust_and_safty",
-	label = "Report",
+	label = "CoreScripts.InGameMenu.QuickActions.Report",
 	activated = function(self)
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		if SettingsHub:GetVisibility() then

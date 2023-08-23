@@ -4,7 +4,7 @@ return function()
 		local Dependencies = require(script.Parent.Dependencies)
 		for _, val in pairs(Dependencies) do
 			-- Skip already required modules
-			if typeof(val) ~= 'function' then
+			if typeof(val) ~= 'function' and typeof(val) ~= 'table' then
 				local module = require(val)
 			end
 		end

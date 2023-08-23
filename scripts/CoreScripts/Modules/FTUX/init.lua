@@ -6,9 +6,17 @@ local LocalizationService = game:GetService("LocalizationService")
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
+local Localization
+if GetFFlagSwitchInExpTranslationsPackage() then
+	Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+else
+	Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
+end
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
 local FTUXPanel = require(script.Components.FTUXPanel)

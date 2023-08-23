@@ -1,12 +1,23 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local UIBlox = require(CorePackages.UIBlox)
+local Images = UIBlox.App.ImageSet.Images
 local InspectAndBuyFolder = script.Parent.Parent
+local LimitedLabel = require(InspectAndBuyFolder.Components.LimitedLabel)
+local Constants = require(InspectAndBuyFolder.Constants)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
+local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
+local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
+
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
+
+local LIMITED_ITEM = "InGame.InspectMenu.Label.LimitedItems"
+local LIMITED_ITEM_IMAGE = "icons/status/item/limited"
 
 local function isPartOfBundleAndOffsale(assetInfo)
 	if assetInfo and assetInfo.isForSale then
@@ -41,13 +52,23 @@ function DetailsThumbnail:render()
 	local view = self.props.view
 	local detailsInformation = self.props.detailsInformation
 	local tryingOnInfo = self.props.tryingOnInfo
+	local locale = self.props.locale
+	local assetInfo = self.props.assetInfo
+	local icon = Images[LIMITED_ITEM_IMAGE]
+	local imageSize = icon and icon.ImageRectSize / Images.ImagesResolutionScale or Vector2.new(0, 0)
 
 	return Roact.createElement(InspectAndBuyContext.Consumer, {
 		render = function(views)
 			local viewMapping = views[view]
+			local isCollectibles = GetFFlagDisplayCollectiblesIcon() and UtilityFunctions.isCollectibles(assetInfo)
 			return Roact.createElement("Frame", {
 				Position = viewMapping.DetailsThumbnailFramePosition,
-				Size = UDim2.new(1, 0, 0, 300),
+				Size = UDim2.new(
+					1,
+					0,
+					0,
+					GetFFlagDisplayCollectiblesIcon() and Constants.DetailsThumbnailFrameHeight or 300
+				),
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
 				Visible = not tryingOnInfo.tryingOn,
@@ -64,22 +85,31 @@ function DetailsThumbnail:render()
 						AspectType = Enum.AspectType.FitWithinMaxSize,
 						DominantAxis = viewMapping.DetailsThumbnailARDominantAxis,
 					}),
+				}),
+				-- Adding an icon for ugc limited items.
+				LimitedLabel = isCollectibles and Roact.createElement(LimitedLabel, {
+					frameSize = UDim2.new(0, imageSize.X + 18, 0, imageSize.Y + 6),
+					framePosition = UDim2.new(0, 0, 0, Constants.DetailsThumbnailFrameHeight - imageSize.Y - 8),
+					imageSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
+					imagePosition = UDim2.new(0, 4, 0, 3),
+					textSize = UDim2.new(0, 4 + imageSize.X, 0, imageSize.Y),
+					textPosition = UDim2.new(0, 5 + imageSize.X, 0, 3),
+					text = "#" .. "    " .. RobloxTranslator:FormatByKeyForLocale(LIMITED_ITEM, locale),
 				})
 			})
-		end
+		end,
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
-			view = state.view,
-			tryingOnInfo = state.tryingOnInfo,
-			detailsInformation = state.detailsInformation,
-			assetInfo = state.assets[assetId],
-			bundles = state.bundles,
-		}
-	end
-)(DetailsThumbnail)
+	return {
+		view = state.view,
+		tryingOnInfo = state.tryingOnInfo,
+		detailsInformation = state.detailsInformation,
+		assetInfo = state.assets[assetId],
+		locale = state.locale,
+		bundles = state.bundles,
+	}
+end)(DetailsThumbnail)

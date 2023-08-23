@@ -53,8 +53,8 @@ return function()
 	end
 
 	local function testThunk(mockAnalytics, mockExternalSettings, store,
-			productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase)
-		return Thunk.test(resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase), store, {
+			productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase, expectedPrice)
+		return Thunk.test(resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase, expectedPrice), store, {
 			[ABTest] = MockABTest.new(),
 			[Analytics] = mockAnalytics or MockAnalytics.new().mockService,
 			[ExternalSettings] = mockExternalSettings or MockExternalSettings.new(false, false, {}),
@@ -69,7 +69,7 @@ return function()
 		local productInfo = getTestProductInfo()
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
-		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false)
+		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
 
@@ -88,7 +88,7 @@ return function()
 
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
-		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false)
+		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
 
@@ -108,7 +108,7 @@ return function()
 		testThunk(nil, MockExternalSettings.new(false, false, {
 			LuaUseThirdPartyPermissions = true,
 			PermissionsServiceIsThirdPartyPurchaseAllowed = false,
-		}), store, productInfo, accountInfo, balanceInfo, false, false)
+		}), store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
 
@@ -124,7 +124,7 @@ return function()
 		productInfo.IsForSale = false
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
-		testThunk(nil, nil, store, productInfo, accountInfo, balanceInfo, false, false)
+		testThunk(nil, nil, store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
 
@@ -137,7 +137,7 @@ return function()
 		local productInfo = getTestProductInfo()
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
-		testThunk(nil, nil, store, productInfo, accountInfo, balanceInfo, false, false)
+		testThunk(nil, nil, store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.PromptPurchase)
@@ -153,7 +153,7 @@ return function()
 			LuaUseThirdPartyPermissions = true,
 			PermissionsServiceIsThirdPartyPurchaseAllowed = false,
 			BypassThirdPartySettingForRobloxPurchase = true,
-		}), store, productInfo, accountInfo, balanceInfo, false, false)
+		}), store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.PromptPurchase)
@@ -168,7 +168,7 @@ return function()
 		local accountInfo = getTestAccountInfo()
 		local balanceInfo = getTestBalance()
 		balanceInfo.robux = 0
-		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false):andThen(function()
+		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false, nil):andThen(function()
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
 			expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)
@@ -186,7 +186,7 @@ return function()
 		balanceInfo.robux = 0
 		testThunk(mockAnalytics, MockExternalSettings.new(false, false, {
 			DisableRobuxUpsell = true,
-		}), store, productInfo, accountInfo, balanceInfo, false, false)
+		}), store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.Error)

@@ -22,7 +22,7 @@ local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
 local TrustAndSafetyApp = Roact.PureComponent:extend("TrustAndSafetyApp")
 
-local DISPLAY_ORDER = 8 -- Displays above the InGameMenuV3
+local DISPLAY_ORDER = 8 -- Displays above the InGameMenu
 
 TrustAndSafetyApp.validateProps = t.strictInterface({
 	setScreenSize = t.callback,

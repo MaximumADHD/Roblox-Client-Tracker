@@ -12,7 +12,6 @@ return function()
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
 
-
 	local GameLabel = require(script.Parent.GameLabel)
 
 	it("should create and destroy without errors", function()

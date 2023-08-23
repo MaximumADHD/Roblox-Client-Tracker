@@ -5,13 +5,12 @@ local Stats = game:GetService("Stats")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local InGameMenuV3 = RobloxGui.Modules.InGameMenuV3
 local InGameMenu = RobloxGui.Modules.InGameMenu
 
 local loggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local SendAnalytics = require(InGameMenuV3.Utility.SendAnalytics)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(script.Parent.Constants)
 local ConstantsV1 = require(InGameMenu.Resources.Constants)
 

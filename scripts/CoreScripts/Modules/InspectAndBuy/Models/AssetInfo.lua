@@ -15,6 +15,13 @@
 		isLimited = bool,
 		bundlesAssetIsIn = table,
 		numFavorites = int,
+		collectibleItemId = string,
+		collectibleProductId = string,
+		collectibleLowestResalePrice = int,
+		collectibleLowestAvailableResaleProductId = string,
+		collectibleLowestAvailableResaleItemInstanceId = string,
+		collectibleQuantityLimitPerUser = int,
+		remaining = int,
 	}
 ]]
 local CoreGui = game:GetService("CoreGui")
@@ -53,6 +60,13 @@ function AssetInfo.mock()
 	self.bundlesAssetIsIn = {}
 	self.numFavorites = 0
 	self.minimumMembershipLevel = 0
+	self.collectibleItemId = ""
+	self.collectibleProductId = ""
+	self.collectibleLowestResalePrice = 0
+	self.collectibleLowestAvailableResaleProductId = ""
+	self.collectibleLowestAvailableResaleItemInstanceId = ""
+	self.collectibleQuantityLimitPerUser = 0
+	self.remaining = 0
 
 	return self
 end
@@ -73,6 +87,15 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 	if GetCollectibleItemInInspectAndBuyEnabled() and newAsset.productType == Constants.ProductType.CollectibleItem then
 		newAsset.isForSale = assetInfo.IsForSale and assetInfo.Remaining > 0 and assetInfo.CanBeSoldInThisGame
 			and assetInfo.SaleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+		newAsset.collectibleItemId = assetInfo.CollectibleItemId or ""
+		newAsset.collectibleProductId = assetInfo.CollectibleProductId or ""
+		newAsset.remaining = assetInfo.Remaining or 0
+		if assetInfo.CollectiblesItemDetails then
+			newAsset.collectibleLowestResalePrice = assetInfo.CollectiblesItemDetails.CollectibleLowestResalePrice or 0
+			newAsset.collectibleLowestAvailableResaleProductId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleProductId or ""
+			newAsset.collectibleLowestAvailableResaleItemInstanceId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleItemInstanceId or ""
+			newAsset.collectibleQuantityLimitPerUser = assetInfo.CollectiblesItemDetails.CollectibleQuantityLimitPerUser or 0
+		end
 	elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
 		newAsset.isForSale = assetInfo.IsForSale and assetInfo.CanBeSoldInThisGame
 	else

@@ -22,8 +22,6 @@ return function()
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
-	local GetFFlagUIBloxEnableToastButton =
-		require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxEnableToastButton
 
 	local noop = function() end
 	local stub = function(val)
@@ -439,15 +437,9 @@ return function()
 					then "Unable to access Microphone"
 					else "Voice Chat Unavailable"
 
-				if GetFFlagUIBloxEnableToastButton() then
 					jestExpect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
 						expectedToastText
 					)
-				else
-					jestExpect(ToastContainer.Toast.ToastFrame.ToastTextFrame.ToastTitle.Text).toBe(
-						expectedToastText
-					)
-				end
 			end)
 		end)
 

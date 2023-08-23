@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["SocialCommon"]["SocialCommon"])
 
+export type ContextualInfoTypes = Package.ContextualInfoTypes
+export type RecommendationSourceEnum = Package.RecommendationSourceEnum
+
+
 return Package

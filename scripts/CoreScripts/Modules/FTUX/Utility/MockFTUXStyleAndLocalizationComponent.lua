@@ -5,7 +5,7 @@ local LocalizationService = game:GetService("LocalizationService")
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
-local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local AppStyleProvider = UIBlox.Core.Style.Provider
 

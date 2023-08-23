@@ -12,7 +12,7 @@ local THIRD_PARTY_WARNING = "AllowThirdPartySales has blocked the purchase"
 	.. " prompt for %d created by %d. To sell this asset made by a"
 	.. " different %s, you will need to enable AllowThirdPartySales."
 
-local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings)
+local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings, expectedPrice)
 	local isCollectibleItem = productInfo.ProductType == Constants.ProductType.CollectibleItem
 
 	-- A user can own multiple instances of a Collectible item
@@ -20,16 +20,17 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 		return false, PurchaseError.AlreadyOwn
 	end
 
-	if not (productInfo.IsForSale or productInfo.IsPublicDomain) then
+	-- Resale cases should have precedence over the following conditions.
+	if (not game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") or expectedPrice == nil) and not (productInfo.IsForSale or productInfo.IsPublicDomain) then
 		return false, PurchaseError.NotForSale
 	end
 
-	if externalSettings.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
+	if (not game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") or expectedPrice == nil) and externalSettings.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
 			and productInfo.CanBeSoldInThisGame == false then
 		return false, PurchaseError.NotForSaleHere
 	end
 
-	if isCollectibleItem or productInfo.IsLimited or productInfo.IsLimitedUnique then
+	if (not game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") or expectedPrice == nil) and (isCollectibleItem or productInfo.IsLimited or productInfo.IsLimitedUnique) then
 		if productInfo.Remaining == nil or productInfo.Remaining == 0 then
 			return false, PurchaseError.Limited
 		end

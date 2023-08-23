@@ -6,7 +6,7 @@ local KEYS = {
 	LARGE = "Large",
 	SMALL = "Small",
 }
--- TODO: Update sizing to use actual values from product
+
 local SIZING_RULES = {
 	[KEYS.MOBILE_PORTRAIT] = {
 		[KEYS.SMALL] = {
@@ -30,12 +30,12 @@ local SIZING_RULES = {
 	},
 	[KEYS.DESKTOP] = {
 		[KEYS.SMALL] = {
-			ratio = 0.3,
-			max = math.huge,
+			ratio = 0.33,
+			max = 600,
 		},
 		[KEYS.LARGE] = {
-			ratio = 0.5,
-			max = math.huge,
+			ratio = 0.44,
+			max = 760,
 		},
 	},
 }

@@ -199,6 +199,7 @@ local function CallHistoryItem(props: Props)
 		BorderSizePixel = 0,
 		LayoutOrder = props.layoutOrder,
 		onStateChanged = onStateChanged,
+		AutoButtonColor = false,
 		[React.Event.Activated] = onDetailsActivated,
 	}, {
 		UIPadding = React.createElement("UIPadding", {

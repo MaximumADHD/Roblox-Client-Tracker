@@ -18,11 +18,12 @@ local FlashingDot = require(script.Parent.FlashingDot)
 local FlashingDotV2 = require(script.Parent.FlashingDotV2)
 local GetFFlagFlashingDotUseAsyncInit = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFlashingDotUseAsyncInit)
 local ChromeEnabled = require(CoreGui.RobloxGui.Modules.Chrome.Enabled)()
+local isNewTiltIconEnabled = require(CoreGui.RobloxGui.Modules.isNewTiltIconEnabled)
 local Constants = require(script.Parent.Parent.Parent.Constants)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
-local BACKGROUND_SIZE = if ChromeEnabled then (Constants.TopBarHeight - 4) else 32
+local BACKGROUND_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 32
 
 local OVERLAY_ASSET = Images["component_assets/circle_17"]
 
@@ -99,16 +100,16 @@ function IconButton:render()
 			onStateChanged = self.controlStateUpdated,
 
 			ZIndex = 1,
-			BackgroundTransparency = if ChromeEnabled then style.Theme.BackgroundUIContrast.Transparency else 1,
-			Position = UDim2.fromScale(0, if ChromeEnabled then 0.5 else 1),
-			AnchorPoint = Vector2.new(0, if ChromeEnabled then 0.5 else 1),
+			BackgroundTransparency = if isNewTiltIconEnabled() then style.Theme.BackgroundUIContrast.Transparency else 1,
+			Position = UDim2.fromScale(0, if isNewTiltIconEnabled() then 0.5 else 1),
+			AnchorPoint = Vector2.new(0, if isNewTiltIconEnabled() then 0.5 else 1),
 			Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),
-			Image = if not ChromeEnabled then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
+			Image = if not isNewTiltIconEnabled() then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
 
-			UICorner = ChromeEnabled and Roact.createElement("UICorner", {
+			UICorner = isNewTiltIconEnabled() and Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
 			}) or nil,
 
@@ -133,18 +134,18 @@ function IconButton:render()
 				then Roact.createElement(if GetFFlagFlashingDotUseAsyncInit() then FlashingDotV2 else FlashingDot)
 				else nil,
 
-			StateOverlayRound = ChromeEnabled and Roact.createElement("Frame", {
+			StateOverlayRound = isNewTiltIconEnabled() and Roact.createElement("Frame", {
 				BackgroundTransparency = overlayTheme.Transparency,
 				BackgroundColor3 = overlayTheme.Color,
 				Size = UDim2.fromScale(1, 1),
 				ZIndex = 2,
 			}, {
-				UICorner = ChromeEnabled and Roact.createElement("UICorner", {
+				UICorner = isNewTiltIconEnabled() and Roact.createElement("UICorner", {
 					CornerRadius = UDim.new(1, 0),
 				}) or nil,
 			}) or nil,
 
-			StateOverlay = not ChromeEnabled and Roact.createElement(ImageSetLabel, {
+			StateOverlay = not isNewTiltIconEnabled() and Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
 
 				Image = OVERLAY_ASSET,

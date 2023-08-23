@@ -54,11 +54,12 @@ local FFlagAvatarChatSelfViewShowDefaultCursor = game:DefineFastFlag("AvatarChat
 local FFlagFaceChatSelfieViewShowOutlinedMicrophoneWhenIdle = game:DefineFastFlag("FaceChatSelfieViewShowOutlinedMicrophoneWhenIdle", false)
 local FFlagDisableSelfViewReactingToSetCoreGuiEnabled = game:DefineFastFlag("DisableSelfViewReactingToSetCoreGuiEnabled", false)
 local FFlagSanitizeSelfView = game:DefineFastFlag("SanitizeSelfView", false)
-local FFlagSanitizeSelfViewStrict = game:DefineFastFlag("SanitizeSelfViewStrict", false)
+local FFlagSanitizeSelfViewStrict2 = game:DefineFastFlag("SanitizeSelfViewStrict2", false)
 local FFlagRemoveTagsFromSelfViewClone = game:DefineFastFlag("RemoveTagsFromSelfViewClone", false)
 local FFlagACSelfViewFixes = game:DefineFastFlag("ACSelfViewFixes", false)
 local FFlagOnlyUpdateButtonsWhenInitialized = game:DefineFastFlag("OnlyUpdateButtonsWhenInitialized", false)
 local FFlagSelfViewChecks = game:DefineFastFlag("SelfViewChecks", false)
+local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
 
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
@@ -110,6 +111,10 @@ local DEFAULT_CAM_DISTANCE = 2
 local DEFAULT_CAM_DISTANCE_NO_HEAD = 2.5
 local DEFAULT_CAM_X_ROT = -0.04
 local cloneCharacterName = "SelfAvatar"
+--FoV smaller is closer up
+local SELF_VIEW_CAMERA_FIELD_OF_VIEW = 52.5
+--gets value populated with actual headHeight once we have it, default value is just a fallback value while no proper usable head is found
+local headHeight = 1.31
 -- seconds to wait to update the clone after something in the original has changed
 local UPDATE_CLONE_CD = 0.35
 --when no usable clone for 5 sec it will hide Self View (not doing it instantly as to not have it flicker on off while swapping avatars)
@@ -201,6 +206,10 @@ local r15bodyPartsToShow = {
 	"RightUpperArm",
 }
 
+--table which gets populated with the initial transparency of body parts 
+--so we can maintain that transparency even if later it gets changed for the game world avatar when entering vehicles or similar
+local partsOrgTransparency = {}
+
 local r6bodyPartsToShow = {
 	"Head",
 	"Left Arm",
@@ -234,9 +243,14 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	WrapTarget = "WrapTarget",
 	Weld = "Weld",
 	WrapLayer = "WrapLayer",
+	--additional items needed for having some accessories work:
+	WeldConstraint = "WeldConstraint",
+	AccessoryWeld = "AccessoryWeld",
+	--PackageLink is here since one can't nill out the parent of a PackageLink
+	PackageLink = "PackageLink",
 }
 
-log:trace("Self View 08-01-2023__1!!")
+log:trace("Self View 08-15-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -1008,8 +1022,12 @@ local function createViewport()
 	createCloneAnchor()
 
 	viewportCamera = Instance.new("Camera")
-	--FoV smaller is closer up
-	viewportCamera.FieldOfView = 55
+
+	if FFlagSelfViewChecks2 then
+		viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
+	else
+		viewportCamera.FieldOfView = 55
+	end
 	viewportFrame.CurrentCamera = viewportCamera
 	viewportCamera.Parent = viewportFrame
 end
@@ -1173,6 +1191,12 @@ function clearCloneCharacter()
 		clone = nil
 	end
 
+	if FFlagSelfViewChecks2 then
+		if cloneAnchor == nil then
+			return
+		end
+	end
+
 	local noRefClone = cloneAnchor:FindFirstChild(cloneCharacterName)
 	if noRefClone then
 		noRefClone:Destroy()
@@ -1262,6 +1286,11 @@ end
 
 -- Finds the FaceControls instance attached to the rig
 function getFaceControls(rig)
+	if FFlagSelfViewChecks2 then
+		if rig == nil then
+			return
+		end
+	end
 	return rig:FindFirstChildWhichIsA("FaceControls", true)
 end
 
@@ -1401,7 +1430,7 @@ local function sanitize(clone)
 		return
 	end
 
-	if FFlagSanitizeSelfViewStrict then
+	if FFlagSanitizeSelfViewStrict2 then
 		removeInstancesStrict(clone)
 	else
 		disableScripts(clone)
@@ -1427,17 +1456,6 @@ function removeTagsFromSelfViewClone(clone)
 			CollectionService:RemoveTag(part, v2)
 		end
 	end
-
-	clonesTags = CollectionService:GetTags(clone)
-	log:trace("The Self View avatar clone " .. clone:GetFullName() .. " has "..tostring(#clonesTags) .. " tags " .. table.concat(clonesTags, ", "))
-
-	--[[
-	--more debug logging
-	for i, part in ipairs( clone:GetDescendants()) do
-		local descendantTags = CollectionService:GetTags(part)
-		log:trace("The The Self View clone descendant: " .. part:GetFullName() .. " has tags: " .. table.concat(descendantTags, ", "))
-	end
-	]]
 end
 
 local function updateClone(player)
@@ -1460,6 +1478,13 @@ local function updateClone(player)
 
 	--need to wait here for character else sometimes error on respawn
 	local character = player.Character or player.CharacterAdded:Wait()
+
+	if FFlagSelfViewChecks2 then
+		--should not be possible, but very rarely it can happen that player character is nil here despite the above check, in that case return
+		if not character then
+			return
+		end
+	end
 
 	debugPrint("Self View: updateClone(): character:" .. tostring(character))
 
@@ -1496,25 +1521,48 @@ local function updateClone(player)
 			end
 		end
 	end
-
-	if FFlagSelfViewMakeClonePartsNonTransparent and not FFlagSelfViewMakeClonePartsNonTransparent2 then
-		for _, part in ipairs( clone:GetDescendants()) do
-			if part:IsA("MeshPart") or part:IsA("Decal") then
-				part.Transparency = 0
-			end
-		end
-	end
-	if FFlagSelfViewMakeClonePartsNonTransparent and FFlagSelfViewMakeClonePartsNonTransparent2 then
+	
+	if FFlagSelfViewChecks2 then
+		--it could happen that the head was made transparent during gameplay, which is in some experiences done when entering a car for example
+		--we still want to show the self view avatar's head in that case (also because sometimes exiting vehicles would not cause a refresh of the self view and the head would stay transparent then)
+		--but we also want to respect it if the head was transparent to begin with on first usage like for a headless head look
 		for _, part in ipairs(clone:GetDescendants()) do
 			if part:IsA("Decal") then
 				part.Transparency = 0
 			elseif part:IsA("MeshPart") then
 				if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
-					part.Transparency = 0
+					if not table.find(partsOrgTransparency, part.MeshId) then
+						partsOrgTransparency[part.MeshId] = part.Transparency
+					else
+						part.Transparency = partsOrgTransparency[part.MeshId]
+					end
 				end
 			elseif part:IsA("Part") then
-				if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r6bodyPartsToShow, part.Name)) then
+				if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
 					part.Transparency = 0
+				end
+			end
+		end		
+	else
+		if FFlagSelfViewMakeClonePartsNonTransparent and not FFlagSelfViewMakeClonePartsNonTransparent2 then
+			for _, part in ipairs( clone:GetDescendants()) do
+				if part:IsA("MeshPart") or part:IsA("Decal") then
+					part.Transparency = 0
+				end
+			end
+		end
+		if FFlagSelfViewMakeClonePartsNonTransparent and FFlagSelfViewMakeClonePartsNonTransparent2 then
+			for _, part in ipairs(clone:GetDescendants()) do
+				if part:IsA("Decal") then
+					part.Transparency = 0
+				elseif part:IsA("MeshPart") then
+					if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
+						part.Transparency = 0
+					end
+				elseif part:IsA("Part") then
+					if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r6bodyPartsToShow, part.Name)) then
+						part.Transparency = 0
+					end
 				end
 			end
 		end
@@ -1570,16 +1618,26 @@ local function updateClone(player)
 			headClone = head:Clone()
 			headClone.CanCollide = false
 			headClone.Parent = dummyModel
+			--if the user has a hat on, we take that into consideration for the cam framing now as there are many bigger heads and masks
+			--which are of type hat accessory which the users put on their head and we want that to be still properly framed in the self view
+			if FFlagSelfViewChecks2 then
+				for _, accessory in pairs(clone:GetChildren()) do
+					if accessory:IsA("Accessory") and accessory.AccessoryType == Enum.AccessoryType.Hat then
+						local hatClone = accessory:Clone()
+						hatClone.Parent = dummyModel
+					end
+				end
+			end
 			headCloneNeck = getNeck(clone, headClone)
 			local rig = dummyModel
 			local extents = rig:GetExtentsSize()
+			headHeight = extents.Y
 			local width = math.min(extents.X, extents.Y)
 			width = math.min(extents.X, extents.Z)
 			cframe, boundsSize = rig:GetBoundingBox()
 			local rootPart = headClone
 			headCloneRootFrame = rootPart.CFrame
 			headClone:Destroy()
-
 			local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
 			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
 			viewportCamera.Focus = headCloneRootFrame
@@ -2099,9 +2157,15 @@ function startRenderStepped(player)
 						debugPrint("Self View: no neck found")
 					end
 
-					local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
-					viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
-					viewportCamera.Focus = headClone.CFrame
+					if FFlagSelfViewChecks2 then
+						local offset = Vector3.new(0, (headHeight * 0.25), -((boundsSize.Z) + 1))
+						viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
+						viewportCamera.Focus = headClone.CFrame						
+					else
+						local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+						viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
+						viewportCamera.Focus = headClone.CFrame	
+					end
 				end
 			end
 

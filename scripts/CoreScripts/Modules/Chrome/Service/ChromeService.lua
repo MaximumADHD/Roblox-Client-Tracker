@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
+local LocalizationService = game:GetService("LocalizationService")
 
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 local utils = require(script.Parent.ChromeUtils)
 local ViewportUtil = require(script.Parent.ViewportUtil)
@@ -52,6 +54,7 @@ export type ChromeService = {
 	status: (ChromeService) -> ObservableMenuStatus,
 	menuList: (ChromeService) -> ObservableMenuList,
 	windowList: (ChromeService) -> ObservableWindowList,
+	updateLocalization: (ChromeService, component: Types.IntegrationRegisterProps) -> Types.IntegrationRegisterProps,
 	dragConnection: (ChromeService, componentId: Types.IntegrationId) -> { current: RBXScriptConnection? }?,
 	register: (ChromeService, Types.IntegrationRegisterProps) -> Types.IntegrationProps,
 	updateMenuList: (ChromeService) -> (),
@@ -73,7 +76,9 @@ export type ChromeService = {
 	toggleWindow: (ChromeService, componentId: Types.IntegrationId) -> (),
 	isWindowOpen: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	updateWindowSizeSignals: (ChromeService) -> (),
+	windowPosition: (ChromeService, componentId: Types.IntegrationId) -> UDim2?,
 	updateScreenSize: (ChromeService, screenSize: Vector2, isMobileDevice: boolean) -> (),
+	updateWindowPosition: (ChromeService, componentId: Types.IntegrationId, position: UDim2) -> (),
 	createIconProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
 
 	_status: ObservableMenuStatus,
@@ -87,6 +92,7 @@ export type ChromeService = {
 	_subMenuNotifications: { [Types.IntegrationId]: utils.NotifySignal },
 	_menuList: ObservableMenuList,
 	_dragConnection: { [Types.IntegrationId]: { current: RBXScriptConnection? }? },
+	_windowPositions: { [Types.IntegrationId]: UDim2? },
 	_windowList: ObservableWindowList,
 	_totalNotifications: utils.NotifySignal,
 	_mostRecentlyUsedFullRecord: { Types.IntegrationId },
@@ -95,6 +101,10 @@ export type ChromeService = {
 	_notificationIndicator: ObservableIntegration,
 	_lastDisplayedNotificationTick: number,
 	_lastDisplayedNotificationId: Types.IntegrationId,
+	_localization: any,
+	_localizedLabelKeys: {
+		[Types.IntegrationId]: { label: string?, secondaryActionLabel: string? },
+	},
 }
 
 local DummyIntegration = {
@@ -108,6 +118,7 @@ local DummyIntegration = {
 }
 
 function ChromeService.new(): ChromeService
+	local localeId = LocalizationService.RobloxLocaleId
 	local self = {}
 	self._status = utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
 	self._currentSubMenu = utils.ObservableValue.new(nil)
@@ -121,10 +132,13 @@ function ChromeService.new(): ChromeService
 	self._menuList = ObservableValue.new({})
 	self._windowList = ObservableValue.new({})
 	self._dragConnection = {}
+	self._windowPositions = ObservableValue.new({})
 	self._totalNotifications = NotifySignal.new(true)
 	self._mostRecentlyUsedFullRecord = {}
 	self._mostRecentlyUsed = {}
 	self._mostRecentlyUsedLimit = 1
+	self._localization = Localization.new(localeId)
+	self._localizedLabelKeys = {}
 
 	self._notificationIndicator = ObservableValue.new(nil)
 	self._lastDisplayedNotificationTick = 0
@@ -321,6 +335,44 @@ function ChromeService:dragConnection(componentId: Types.IntegrationId)
 	end
 end
 
+function ChromeService:updateLocalization(component: Types.IntegrationRegisterProps)
+	local localizedLabel: string = ""
+	local localizedSecondaryAction: string = ""
+	self._localizedLabelKeys[component.id] = {}
+
+	--Store and override original localization keys
+	--Localized the string and assign back to component
+
+	-- Localize integration label
+	self._localizedLabelKeys[component.id].label = component.label
+	localizedLabel = component.label
+	local success, err = pcall(function()
+		localizedLabel = self._localization:Format(localizedLabel)
+	end)
+	if not success then
+		localizedLabel = component.label
+		warn(err)
+	end
+
+	component.label = localizedLabel
+
+	-- Localize integration secondaryAction label
+	if component.secondaryAction then
+		self._localizedLabelKeys[component.id].secondaryActionLabel = component.secondaryAction.label
+		localizedSecondaryAction = component.secondaryAction.label
+		local secondaryActionSuccess, secondaryActionErr = pcall(function()
+			localizedSecondaryAction = self._localization:Format(localizedSecondaryAction)
+		end)
+		if not secondaryActionSuccess then
+			localizedSecondaryAction = component.secondaryAction.label
+			warn(secondaryActionErr)
+		end
+		component.secondaryAction.label = localizedSecondaryAction
+	end
+
+	return component :: Types.IntegrationRegisterProps
+end
+
 -- Register an integration to be shown within Chrome UIs
 -- The Chrome service will monitor any changes to integration availability and notifications
 function ChromeService:register(component: Types.IntegrationRegisterProps): Types.IntegrationProps
@@ -368,6 +420,8 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	if component.windowSize == nil and component.components and component.components.Window then
 		component.windowSize = WindowSizeSignal.new()
 	end
+
+	component = self:updateLocalization(component)
 
 	local populatedComponent = component :: Types.IntegrationProps
 	self._integrations[component.id] = populatedComponent
@@ -676,6 +730,14 @@ function ChromeService:setRecentlyUsed(componentId: Types.IntegrationId, force: 
 		end
 		table.insert(self._mostRecentlyUsedFullRecord, componentId)
 	end
+end
+
+function ChromeService:windowPosition(componentId: Types.IntegrationId)
+	return self._windowPositions[componentId]
+end
+
+function ChromeService:updateWindowPosition(componentId: Types.IntegrationId, position: UDim2)
+	self._windowPositions[componentId] = position
 end
 
 function ChromeService:activate(componentId: Types.IntegrationId)

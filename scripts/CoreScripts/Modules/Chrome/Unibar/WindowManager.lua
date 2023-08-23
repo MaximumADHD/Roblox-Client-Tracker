@@ -14,7 +14,7 @@ return function(props)
 	local children: Table = {} -- Windows to be rendered
 
 	for k, item in windowItems do
-		children[("window" .. k)] = React.createElement(WindowHost, {
+		children[("window_" .. item.integration.id)] = React.createElement(WindowHost, {
 			position = item.integration.startingWindowPosition,
 			integration = item,
 		})

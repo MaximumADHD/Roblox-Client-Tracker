@@ -65,6 +65,7 @@ local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFFlagMuteButtonRaceConditionFix)
+local GetFFlagAbuseReportMenuMigration = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAbuseReportMenuMigration
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
@@ -151,6 +152,7 @@ local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.No
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 local GetShowCapturesTab = require(RobloxGui.Modules.Settings.Experiments.GetShowCapturesTab)
+local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 
 local MuteStatusIcons = {
 	MicOn = "rbxasset://textures/ui/Settings/Players/Unmute@2x.png",
@@ -395,7 +397,13 @@ local function CreateSettingsHub()
 		-- Lazy load and cache strings from IGMv3
 		local localeId = LocalizationService.RobloxLocaleId
 		if not IGMLocalizationStrings[localeId] then
-			local Localization = require(RobloxGui.Modules.InGameMenuV3.Localization.Localization)
+
+			local Localization
+			if GetFFlagSwitchInExpTranslationsPackage() then
+				Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+			else
+				Localization = require(RobloxGui.Modules.InGameMenu.Localization.Localization)
+			end
 			IGMLocalizationStrings[localeId] = Localization.new(localeId)
 			local strings = IGMLocalizationStrings[localeId]
 			VoiceStateStrings.Loading = strings:Format("CoreScripts.InGameMenu.QuickActions.Connecting")
@@ -3176,7 +3184,11 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+	if GetFFlagAbuseReportMenuMigration() then
+		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.AbuseReportMenuNewContainerPage)
+	else
+		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+	end
 	this.ReportAbusePage:SetHub(this)
 
 	if GetFFlagAbuseReportEnableReportSentPage() then

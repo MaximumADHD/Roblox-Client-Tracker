@@ -13,12 +13,15 @@ local RedVoiceDot = require(script.Parent.RedVoiceDot)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
+local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
+
 local muteSelf = ChromeService:register({
 	--initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "toggle_mic_mute",
-	label = "Mute/Unmute Self",
+	label = "CoreScripts.TopBar.ToggleMic",
 	activated = function(self)
 		VoiceChatServiceManager:ToggleMic()
+		Analytics:setLastCtx("SelfView")
 	end,
 	components = {
 		Icon = function(props)

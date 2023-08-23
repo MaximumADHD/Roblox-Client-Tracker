@@ -1,6 +1,5 @@
 local ChromeUtils = require(script.Parent.ChromeUtils)
 local WindowSizeSignal = require(script.Parent.WindowSizeSignal)
-local WindowPositionSignal = require(script.Parent.WindowPositionSignal)
 
 export type IntegrationComponents = {
 	Icon: any?,
@@ -27,7 +26,7 @@ export type IntegrationProps = {
 	hideNotificationCountWhileOpen: boolean,
 	startingWindowPosition: UDim2?,
 	windowSize: WindowSizeSignal.WindowSizeSignal?,
-	windowPosition: WindowPositionSignal.WindowPositionSignal?,
+	cachePosition: boolean?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,
 	flashNotificationSource: boolean?,
@@ -44,7 +43,7 @@ export type IntegrationRegisterProps = {
 	notification: ChromeUtils.NotifySignal?,
 	hideNotificationCountWhileOpen: boolean?,
 	windowSize: WindowSizeSignal.WindowSizeSignal?,
-	windowPosition: WindowPositionSignal.WindowPositionSignal?,
+	cachePosition: boolean?,
 	startingWindowPosition: UDim2?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,

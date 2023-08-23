@@ -22,6 +22,7 @@ return function()
 			isSubjectToChinaPolicies = true,
 			FetchingStatus = true,
 			storeId = true,
+			collectibleResellableInstances = true,
 		}
 
 		for key in pairs(expectedKeys) do

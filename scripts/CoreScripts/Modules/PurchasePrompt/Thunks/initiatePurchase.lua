@@ -28,7 +28,7 @@ local requiredServices = {
 	ExternalSettings,
 }
 
-local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase, idempotencyKey, purchaseAuthToken)
+local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase, idempotencyKey, purchaseAuthToken, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		--local abTest = services[ABTest]
 		local network = services[Network]
@@ -41,7 +41,7 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 		--store:dispatch(SetABVariation("ExampleABTest", abTest.getLayerData("ExampleABTest"))
 		
 		if infoType == Enum.InfoType.Asset then
-			store:dispatch(RequestAssetPurchase(id, equipIfPurchased, isRobloxPurchase, idempotencyKey, purchaseAuthToken))
+			store:dispatch(RequestAssetPurchase(id, equipIfPurchased, isRobloxPurchase, idempotencyKey, purchaseAuthToken, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice))
 		elseif infoType == Enum.InfoType.GamePass then
 			store:dispatch(RequestGamepassPurchase(id))
 		elseif infoType == Enum.InfoType.Product then
@@ -77,7 +77,8 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 					results.accountInfo,
 					results.balanceInfo,
 					results.alreadyOwned,
-					isRobloxPurchase
+					isRobloxPurchase,
+					expectedPrice
 				))
 			end)
 			:catch(function(errorReason)

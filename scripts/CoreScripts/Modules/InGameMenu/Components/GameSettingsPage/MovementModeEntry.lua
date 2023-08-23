@@ -55,7 +55,7 @@ MovementModeEntry.defaultProps = {
 function MovementModeEntry:init()
 	self:setState({
 		selectedComputerMode = UserGameSettings.ComputerMovementMode,
-		computerOptions = playerScripts:GetRegisteredComputerMovementModes(),
+		computerOptions = playerScripts and playerScripts:GetRegisteredComputerMovementModes() or {},
 		developerComputerMode = localPlayer.DevComputerMovementMode,
 	})
 end
@@ -72,7 +72,7 @@ function MovementModeEntry:render()
 				})
 			end,
 		}),
-		ComputerMovementModeRegisteredListener = Roact.createElement(ExternalEventConnection, {
+		ComputerMovementModeRegisteredListener = playerScripts and Roact.createElement(ExternalEventConnection, {
 			event = playerScripts.ComputerMovementModeRegistered,
 			callback = function()
 				self:setState({

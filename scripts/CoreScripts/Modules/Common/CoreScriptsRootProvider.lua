@@ -2,7 +2,14 @@
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
-local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
+local FFlagSwitchCSRootProviderTranslationsPackage = game:DefineFastFlag("SwitchCSRootProviderTranslationsPackage", false)
+
+local Localization
+if FFlagSwitchCSRootProviderTranslationsPackage then
+	Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+else
+	Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
+end
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
 local Cryo = require(CorePackages.Packages.Cryo)

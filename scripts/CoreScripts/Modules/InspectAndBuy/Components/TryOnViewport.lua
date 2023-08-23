@@ -7,6 +7,8 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local GetHumanoidDescriptionFromCostumeId = require(InspectAndBuyFolder.Thunks.GetHumanoidDescriptionFromCostumeId)
 
+local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
+
 local TryOnViewport = Roact.PureComponent:extend("TryOnViewport")
 
 local function isPartOfBundleAndOffsale(assetInfo)
@@ -184,7 +186,7 @@ function TryOnViewport:render()
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 0, 300),
+		Size = UDim2.new(1, 0, 0, GetFFlagDisplayCollectiblesIcon() and Constants.DetailsThumbnailFrameHeight or 300),
 		LayoutOrder = 2,
 		Visible = visible,
 	}, {

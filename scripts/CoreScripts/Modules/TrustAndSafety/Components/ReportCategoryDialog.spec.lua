@@ -9,7 +9,7 @@ return function()
 
 	local TnsModule = script.Parent.Parent
 	local Dependencies = require(TnsModule.Dependencies)
-	local Localization = require(Dependencies.Localization)
+	local Localization = Dependencies.Localization
 	local LocalizationProvider = require(Dependencies.LocalizationProvider)
 	local Reducers = require(TnsModule.Reducers)
 	local SetVoiceReportingFlow = require(TnsModule.Actions.SetVoiceReportingFlow)

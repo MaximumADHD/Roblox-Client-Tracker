@@ -2,6 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 local React = require(CorePackages.Packages.React)
@@ -26,6 +27,18 @@ export type Props = {
 local defaultProps = {
 	callProtocol = CallProtocol.CallProtocol.default,
 }
+
+local function createBindableEvent(name: string): BindableEvent
+	local bindableEvent = ReplicatedStorage:FindFirstChild(name)
+	if bindableEvent then
+		return bindableEvent :: BindableEvent
+	else
+		local updatedBindableEvent = Instance.new("BindableEvent") :: BindableEvent
+		updatedBindableEvent.Name = name
+		updatedBindableEvent.Parent = ReplicatedStorage
+		return updatedBindableEvent
+	end
+end
 
 return function(passedProps: Props)
 	local props = Cryo.Dictionary.join(defaultProps, passedProps)
@@ -60,6 +73,31 @@ return function(passedProps: Props)
 
 		return function()
 			teleportingCallConn:Disconnect()
+		end
+	end, { props.callProtocol })
+
+	-- TODO: Remove this when the API is available.
+	React.useEffect(function()
+		local connectingCallEvent: BindableEvent = createBindableEvent("ConnectingCallBindableEvent")
+		local teleportingCallEvent: BindableEvent = createBindableEvent("TeleportingCallBindableEvent")
+		local endCallEvent: BindableEvent = createBindableEvent("EndCallBindableEvent")
+
+		local connectingCallConn = props.callProtocol:listenToHandleConnectingCall(function(params)
+			connectingCallEvent:Fire()
+		end)
+
+		local teleportingCallConn = props.callProtocol:listenToHandleTeleportingCall(function(params)
+			teleportingCallEvent:Fire()
+		end)
+
+		local endCallConn = props.callProtocol:listenToHandleEndCall(function(params)
+			endCallEvent:Fire()
+		end)
+
+		return function()
+			connectingCallConn:Disconnect()
+			teleportingCallConn:Disconnect()
+			endCallConn:Disconnect()
 		end
 	end, { props.callProtocol })
 

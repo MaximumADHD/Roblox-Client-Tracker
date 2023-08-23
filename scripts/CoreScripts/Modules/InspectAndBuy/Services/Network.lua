@@ -249,6 +249,26 @@ local function getModelFromUserId(userId)
 	end)
 end
 
+--[[
+	Get collectible resellable instances for an id and a user.
+]]
+local function getCollectibleResellableInstances(collectibleItemId, userId)
+	local query = Url:makeQueryString({
+		ownerId = tostring(userId),
+		ownerType = "User",
+		cursor = "",
+		limit = 500,
+	})
+
+	local url =
+		string.format("%smarketplace-sales/v1/item/%s/resellable-instances?%s", Url.APIS_URL, collectibleItemId, query)
+	local options = {
+		Url = url,
+		Method = "GET",
+	}
+	return createYieldingPromise(options, true)
+end
+
 local Network = {}
 
 function Network.new()
@@ -267,6 +287,7 @@ function Network.new()
 		createFavoriteForBundle = createFavoriteForBundle,
 		deleteFavoriteForBundle = deleteFavoriteForBundle,
 		getModelFromUserId = getModelFromUserId,
+		getCollectibleResellableInstances = getCollectibleResellableInstances,
 	}
 
 	setmetatable(networkService, {

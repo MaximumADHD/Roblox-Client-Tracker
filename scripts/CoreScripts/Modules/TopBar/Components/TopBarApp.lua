@@ -47,6 +47,7 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
 local GetFFlagBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagBetaBadge)
 local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
@@ -58,7 +59,7 @@ local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 -- vr bottom bar
 local VRBottomBar = require(RobloxGui.Modules.VR.VRBottomBar.VRBottomBar)
 
-local CLOSE_MENU_ICON_SIZE = if Unibar then (Constants.TopBarHeight - 4) else 30
+local CLOSE_MENU_ICON_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 30
 
 local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
@@ -91,7 +92,7 @@ function TopBarApp:renderWithStyle(style)
 	local chromeEnabled = ChromeEnabled()
 
 	local screenSideOffset = Constants.ScreenSideOffset
-	local topBarHeight = Constants.TopBarHeight
+	local topBarHeight = if not isNewTiltIconEnabled() then 36 else Constants.TopBarHeight
 	if TenFootInterface:IsEnabled() then
 		screenSideOffset = Constants.ScreenSideOffsetTenFoot
 		topBarHeight = Constants.TopBarHeightTenFoot
@@ -138,7 +139,7 @@ function TopBarApp:renderWithStyle(style)
 			HurtOverlay = Roact.createElement(HurtOverlay),
 		}),
 
-		MenuIconHolder = Unibar and Roact.createElement("Frame", {
+		MenuIconHolder = isNewTiltIconEnabled() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, screenSideOffset, 0, 0),
 			Size = UDim2.new(1, 0, 0, topBarHeight),
@@ -295,7 +296,7 @@ function TopBarApp:renderWithStyle(style)
 					BackgroundTransparency = 1,
 				}),
 
-				MenuIcon = not chromeEnabled and Roact.createElement(MenuIcon, {
+				MenuIcon = not isNewTiltIconEnabled() and Roact.createElement(MenuIcon, {
 					layoutOrder = 1,
 				}),
 

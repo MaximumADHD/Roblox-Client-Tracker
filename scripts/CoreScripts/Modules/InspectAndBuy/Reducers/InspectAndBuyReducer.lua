@@ -18,6 +18,7 @@ local IsLoaded = require(Reducers.IsLoaded)
 local IsSubjectToChinaPolicies = require(Reducers.IsSubjectToChinaPolicies)
 local GamepadEnabled = require(Reducers.GamepadEnabled)
 local StoreId = require(Reducers.StoreId)
+local CollectibleResellableInstances = require(Reducers.CollectibleResellableInstances)
 
 return Rodux.combineReducers({
 	view = View,
@@ -37,4 +38,5 @@ return Rodux.combineReducers({
 	isSubjectToChinaPolicies = IsSubjectToChinaPolicies,
 	FetchingStatus = FetchingStatus,
 	storeId = StoreId,
+	collectibleResellableInstances = CollectibleResellableInstances,
 })

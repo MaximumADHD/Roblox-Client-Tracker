@@ -13,6 +13,7 @@ local ItemType = require(Root.Enums.ItemType)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local getToolAsset = require(Root.Network.getToolAsset)
 local performPurchase = require(Root.Network.performPurchase)
+local performPurchaseV2 = require(Root.Network.performPurchaseV2)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
@@ -58,9 +59,16 @@ local function purchaseItem()
 		local isRobloxPurchase = state.promptRequest.isRobloxPurchase
 		local purchaseAuthToken = state.promptRequest.purchaseAuthToken
 		local idempotencyKey = state.promptRequest.idempotencyKey
+		local requestCollectibleItemId = state.promptRequest.collectibleItemId
+		local requestCollectibleItemInstanceId = state.promptRequest.collectibleItemInstanceId
+		local requestCollectibleProductId = state.promptRequest.collectibleProductId
+		local expectedPrice = state.promptRequest.expectedPrice
 
 		local isPlayerPremium = state.accountInfo.membershipType == 4
 		local salePrice = getPlayerPrice(state.productInfo, isPlayerPremium)
+		if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '' then
+			salePrice = expectedPrice
+		end
 		local assetTypeId = state.productInfo.assetTypeId
 		local productId = state.productInfo.productId
 		local collectibleItemId = state.productInfo.collectibleItemId
@@ -70,7 +78,8 @@ local function purchaseItem()
 
 		analytics.signalProductPurchaseConfirmed(productId, state.requestType)
 
-		return performPurchase(network, infoType, productId, salePrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken)
+		if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '' then
+			return performPurchaseV2(network, infoType, productId, salePrice, requestId, isRobloxPurchase, requestCollectibleItemId, requestCollectibleProductId, idempotencyKey, purchaseAuthToken, requestCollectibleItemInstanceId)
 			:andThen(function(result)
 				--[[
 					If the purchase was successful, we signal success,
@@ -78,19 +87,7 @@ local function purchaseItem()
 				]]
 				store:dispatch(completePurchase())
 
-				-- Marketplace Analytics for bundles is not available yet.
-				if itemType ~= ItemType.Bundle then
-					analytics.signalPurchaseSuccess(id, infoType, salePrice, result)
-				end
-
-				if equipIfPurchased and assetTypeId == ASSET_TYPE_TOOL then
-					return getToolAsset(network, id)
-						:andThen(function(tool)
-							if tool then
-								tool.Parent = Players.LocalPlayer.Backpack
-							end
-						end)
-				end
+				analytics.signalPurchaseSuccess(id, infoType, salePrice, result)
 
 				return Promise.resolve()
 			end)
@@ -105,6 +102,43 @@ local function purchaseItem()
 
 				store:dispatch(ErrorOccurred(errorReason))
 			end)
+		else
+			return performPurchase(network, infoType, productId, salePrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken)
+				:andThen(function(result)
+					--[[
+						If the purchase was successful, we signal success,
+						record analytics, and equip the item if needed
+					]]
+					store:dispatch(completePurchase())
+
+					-- Marketplace Analytics for bundles is not available yet.
+					if itemType ~= ItemType.Bundle then
+						analytics.signalPurchaseSuccess(id, infoType, salePrice, result)
+					end
+
+					if equipIfPurchased and assetTypeId == ASSET_TYPE_TOOL then
+						return getToolAsset(network, id)
+							:andThen(function(tool)
+								if tool then
+									tool.Parent = Players.LocalPlayer.Backpack
+								end
+							end)
+					end
+
+					return Promise.resolve()
+				end)
+				:catch(function(errorReason)
+					if errorReason == PurchaseError.TwoFactorNeeded then
+						analytics.signalTwoSVSettingsErrorShown(productId, infoType)
+				
+						if platform == Enum.Platform.Windows or platform == Enum.Platform.OSX then
+							errorReason = PurchaseError.TwoFactorNeededSettings
+						end
+					end
+
+					store:dispatch(ErrorOccurred(errorReason))
+				end)
+		end
 	end)
 end
 

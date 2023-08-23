@@ -52,7 +52,10 @@ local SEARCH_BAR_HEIGHT = 36
 local HEADER_HEIGHT = 48
 local PADDING = 12
 local DOCKED_WIDTH = 376
+-- Margin between left and bottom border of the screen when small screen is not applied
 local PHONEBOOK_CONTAINER_MARGIN = 12
+-- Margin between phonebook and top border of screen
+local PHONEBOOK_CONTAINER_TOP_MARGIN = PHONEBOOK_CONTAINER_MARGIN + TopBarConstants.TopBarHeight
 -- Peekview includes header as part of the scrolling frame
 -- will need to substract the height to able to correctly
 -- calculate the content size
@@ -120,7 +123,7 @@ local function ContactListContainer(passedProps: Props)
 		if not isSmallScreen and contactListContainerRef.current then
 			pcall(function()
 				contactListContainerRef.current:TweenPosition(
-					UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_MARGIN),
+					UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
 					Enum.EasingDirection.Out,
 					Enum.EasingStyle.Quad,
 					0.3,
@@ -210,12 +213,7 @@ local function ContactListContainer(passedProps: Props)
 		if currentPage and not isSmallScreen and contactListContainerRef.current then
 			pcall(function()
 				contactListContainerRef.current:TweenPosition(
-					UDim2.new(
-						0,
-						PHONEBOOK_CONTAINER_MARGIN,
-						0,
-						PHONEBOOK_CONTAINER_MARGIN + TopBarConstants.TopBarHeight
-					),
+					UDim2.new(0, PHONEBOOK_CONTAINER_MARGIN, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
 					Enum.EasingDirection.In,
 					Enum.EasingStyle.Quad,
 					0.3,
@@ -247,15 +245,10 @@ local function ContactListContainer(passedProps: Props)
 		return React.createElement("ImageButton", {
 			Size = if isSmallScreen
 				then UDim2.new(1, 0, 1, -PEEK_HEADER_HEIGHT)
-				else UDim2.new(
-					0,
-					DOCKED_WIDTH,
-					1,
-					-(PHONEBOOK_CONTAINER_MARGIN * 2) - TopBarConstants.TopBarHeight
-				),
+				else UDim2.new(0, DOCKED_WIDTH, 1, -(PHONEBOOK_CONTAINER_MARGIN + PHONEBOOK_CONTAINER_TOP_MARGIN)),
 			Position = if isSmallScreen
 				then UDim2.new(0, 0, 0, 0)
-				else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_MARGIN + TopBarConstants.TopBarHeight),
+				else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
 			AutoButtonColor = false,
 			BackgroundColor3 = theme.BackgroundDefault.Color,
 			ref = contactListContainerRef,
@@ -309,8 +302,8 @@ local function ContactListContainer(passedProps: Props)
 		}, {
 			Content = if isSmallScreen
 				then React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, -PHONEBOOK_CONTAINER_MARGIN - TopBarConstants.TopBarHeight),
-					Position = UDim2.fromOffset(0, PHONEBOOK_CONTAINER_MARGIN + TopBarConstants.TopBarHeight),
+					Size = UDim2.new(1, 0, 1, -PHONEBOOK_CONTAINER_TOP_MARGIN),
+					Position = UDim2.fromOffset(0, PHONEBOOK_CONTAINER_TOP_MARGIN),
 					BackgroundTransparency = 1,
 				}, {
 					peekView = React.createElement(PeekView, {

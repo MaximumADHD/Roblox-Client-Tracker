@@ -52,7 +52,7 @@ CameraModeEntry.defaultProps = {
 function CameraModeEntry:init()
 	self:setState({
 		selectedComputerMode = UserGameSettings.ComputerCameraMovementMode,
-		computerOptions = playerScripts:GetRegisteredComputerCameraMovementModes(),
+		computerOptions = playerScripts and playerScripts:GetRegisteredComputerCameraMovementModes() or {},
 		developerComputerMode = localPlayer.DevComputerCameraMode,
 	})
 end
@@ -69,7 +69,7 @@ function CameraModeEntry:render()
 				})
 			end,
 		}),
-		ComputerCameraMovementModeRegisteredListener = Roact.createElement(ExternalEventConnection, {
+		ComputerCameraMovementModeRegisteredListener = playerScripts and Roact.createElement(ExternalEventConnection, {
 			event = playerScripts.ComputerCameraMovementModeRegistered,
 			callback = function()
 				self:setState({

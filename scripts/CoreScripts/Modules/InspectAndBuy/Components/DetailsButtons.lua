@@ -13,10 +13,12 @@ local BuyButton = require(InspectAndBuyFolder.Components.BuyButton)
 local InspectAndBuyControllerBar = require(InspectAndBuyFolder.Components.InspectAndBuyControllerBar)
 local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
+local tutils = require(CorePackages.tutils)
 
 local FFlagFixInspectAndBuyPremiumPrice = game:DefineFastFlag("FixInspectAndBuyPremiumPrice", false)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
-local GetCollectibleItemInInspectAndBuyEnabled = require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
+local GetCollectibleItemInInspectAndBuyEnabled =
+	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -24,6 +26,8 @@ local OFFSALE_KEY = "InGame.InspectMenu.Label.Offsale"
 local LIMITED_KEY = "InGame.InspectMenu.Label.Limited"
 local OWNED_KEY = "InGame.InspectMenu.Label.Owned"
 local PREMIUM_ONLY_KEY = "InGame.InspectMenu.Label.PremiumOnly"
+local LIMIT_REACHED_KEY = "InGame.InspectMenu.Action.LimitReached"
+local FROM_RESALE_KEY = "InGame.InspectMenu.Action.FromResale"
 local ROBLOX_CREATOR_ID = "1"
 
 --[[
@@ -34,10 +38,29 @@ local function isAnimationAsset(assetTypeId)
 	return Constants.AnimationAssetTypes[assetTypeId] ~= nil
 end
 
-local function getBuyText(itemInfo, locale)
+local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, collectibleLowestResalePrice)
 	local buyText
 
-	if itemInfo.owned then
+	if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and collectibleLowestResalePrice then
+		buyText = RobloxTranslator:FormatByKeyForLocale(
+			FROM_RESALE_KEY,
+			locale,
+			{ PRICE = tostring(collectibleLowestResalePrice) }
+		)
+	elseif
+		game:GetEngineFeature("CollectibleItemPurchaseResellEnabled")
+		and collectibleQuantityLimitReached
+		and itemInfo.isForSale
+	then
+		buyText = RobloxTranslator:FormatByKeyForLocale(LIMIT_REACHED_KEY, locale)
+	elseif
+		game:GetEngineFeature("CollectibleItemPurchaseResellEnabled")
+		and itemInfo.price ~= nil
+		and itemInfo.productType == Constants.ProductType.CollectibleItem
+		and itemInfo.isForSale
+	then
+		buyText = itemInfo.price
+	elseif itemInfo.owned then
 		buyText = RobloxTranslator:FormatByKeyForLocale(OWNED_KEY, locale)
 	elseif itemInfo.isLimited then
 		buyText = RobloxTranslator:FormatByKeyForLocale(LIMITED_KEY, locale)
@@ -56,7 +79,10 @@ local function getBuyText(itemInfo, locale)
 					end
 				end
 			else
-				if itemInfo.price == nil and (Players.LocalPlayer :: Player).MembershipType ~= Enum.MembershipType.Premium then
+				if
+					itemInfo.price == nil
+					and (Players.LocalPlayer :: Player).MembershipType ~= Enum.MembershipType.Premium
+				then
 					buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
 				else
 					buyText = itemInfo.premiumPricing.premiumPriceInRobux
@@ -79,8 +105,10 @@ function DetailsButtons:didUpdate(prevProps)
 	local detailsInformation = self.props.detailsInformation
 	local gamepadEnabled = self.props.gamepadEnabled
 
-	if (prevProps.assetInfo.bundlesAssetIsIn == nil and self.props.assetInfo.bundlesAssetIsIn ~= nil)
-		and detailsInformation.viewingDetails then
+	if
+		(prevProps.assetInfo.bundlesAssetIsIn == nil and self.props.assetInfo.bundlesAssetIsIn ~= nil)
+		and detailsInformation.viewingDetails
+	then
 		local assetInfo = self.props.assetInfo
 		local showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
 		local visible = self.props.visible
@@ -110,6 +138,11 @@ function DetailsButtons:render()
 	local showTryOn = false
 	local creatorId = assetInfo and assetInfo.creatorId or 0
 	local buyText, forSale, partOfBundle, bundleId, itemType, itemId, partOfBundleAndOffsale
+	local collectibleQuantityLimitReached = false
+	local collectibleItemId = nil
+	local collectibleLowestResalePrice = nil
+	local collectibleLowestAvailableResaleProductId = nil
+	local collectibleLowestAvailableResaleItemInstanceId = nil
 	if assetInfo then
 		partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
 		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
@@ -118,30 +151,81 @@ function DetailsButtons:render()
 			itemType = Constants.ItemType.Bundle
 			itemId = bundleId
 			if bundleInfo[bundleId] then
-				buyText = getBuyText(bundleInfo[bundleId], locale)
+				buyText = getBuyText(
+					bundleInfo[bundleId],
+					locale,
+					collectibleQuantityLimitReached,
+					collectibleLowestResalePrice
+				)
 				forSale = bundleInfo[bundleId].isForSale and not bundleInfo[bundleId].owned
 				showRobuxIcon = bundleInfo[bundleId].price ~= nil and not bundleInfo[bundleId].owned and forSale
 			end
 		else
 			itemType = Constants.ItemType.Asset
 			itemId = assetInfo.assetId
-			if GetCollectibleItemInInspectAndBuyEnabled() and assetInfo.productType == Constants.ProductType.CollectibleItem then
+			if
+				GetCollectibleItemInInspectAndBuyEnabled()
+				and assetInfo.productType == Constants.ProductType.CollectibleItem
+			then
 				-- isForSale bit for Collectible Items is already computed in GetProductInfo() where sale location
 				-- and remaining stock are already taken into account.
 				forSale = assetInfo.isForSale
+				if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") then
+					-- we use resale for the following conditions:
+					-- 1. when there is no original instance
+					-- 2. when the user reached quantity limit
+					-- 3. when resale has a lower price than original instance
+					local resellableInstances = self.props.resellableInstances
+					local ownedInstances = resellableInstances
+						and resellableInstances[assetInfo.collectibleItemId]
+						and tutils.fieldCount(resellableInstances[assetInfo.collectibleItemId])
+					collectibleQuantityLimitReached = ownedInstances
+						and assetInfo.collectibleQuantityLimitPerUser ~= nil
+						and assetInfo.collectibleQuantityLimitPerUser > 0
+						and ownedInstances >= assetInfo.collectibleQuantityLimitPerUser
+					local resaleAvailable = assetInfo.collectibleLowestAvailableResaleProductId
+						and assetInfo.collectibleLowestAvailableResaleProductId ~= ""
+					local resaleHasLowerPrice = resaleAvailable
+						and assetInfo.price > assetInfo.collectibleLowestResalePrice
+					if resaleAvailable then
+						if not forSale or collectibleQuantityLimitReached or resaleHasLowerPrice then
+							collectibleLowestResalePrice = assetInfo.collectibleLowestResalePrice
+							collectibleLowestAvailableResaleItemInstanceId =
+								assetInfo.collectibleLowestAvailableResaleItemInstanceId
+							collectibleLowestAvailableResaleProductId =
+								assetInfo.collectibleLowestAvailableResaleProductId
+							collectibleItemId = assetInfo.collectibleItemId
+							forSale = true
+						end
+					elseif collectibleQuantityLimitReached then
+						forSale = false
+					end
+				end
 			else
 				forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
 			end
 			if forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
 				forSale = (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium
 			end
-			buyText = getBuyText(assetInfo, locale)
-			showRobuxIcon = assetInfo.price ~= nil and not assetInfo.owned and forSale
+			buyText = getBuyText(assetInfo, locale, collectibleQuantityLimitReached, collectibleLowestResalePrice)
+			if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") then
+				showRobuxIcon = (assetInfo.price ~= nil and not assetInfo.owned and forSale)
+					or collectibleLowestResalePrice ~= nil
+					or (
+						assetInfo.price ~= nil
+						and assetInfo.productType == Constants.ProductType.CollectibleItem
+						and forSale
+					)
+			else
+				showRobuxIcon = assetInfo.price ~= nil and not assetInfo.owned and forSale
+			end
 		end
 
 		showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
-		if Constants.AssetTypeIdStringToHumanoidDescriptionProp[assetInfo.assetTypeId] == nil
-			and Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] == nil then
+		if
+			Constants.AssetTypeIdStringToHumanoidDescriptionProp[assetInfo.assetTypeId] == nil
+			and Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] == nil
+		then
 			showTryOn = false
 		end
 	end
@@ -194,28 +278,31 @@ function DetailsButtons:render()
 			forSale = forSale,
 			buyText = buyText,
 			buyButtonRef = self.buyButtonRef,
+			collectibleItemId = collectibleItemId,
+			collectibleLowestAvailableResaleProductId = collectibleLowestAvailableResaleProductId,
+			collectibleLowestAvailableResaleItemInstanceId = collectibleLowestAvailableResaleItemInstanceId,
+			collectibleLowestResalePrice = collectibleLowestResalePrice,
 		}),
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		local isFavorited
-		if GetFFlagUseInspectAndBuyControllerBar() then
-			isFavorited = GetIsFavorite(state)
-		end
-
-		return {
-			visible = state.visible,
-			assetInfo = state.assets[assetId] or {},
-			detailsInformation = state.detailsInformation,
-			bundleInfo = state.bundles,
-			locale = state.locale,
-			gamepadEnabled = state.gamepadEnabled,
-			isFavorited = isFavorited,
-			tryingOn = state.tryingOnInfo.tryingOn,
-		}
+	local isFavorited
+	if GetFFlagUseInspectAndBuyControllerBar() then
+		isFavorited = GetIsFavorite(state)
 	end
-)(DetailsButtons)
+
+	return {
+		visible = state.visible,
+		assetInfo = state.assets[assetId] or {},
+		detailsInformation = state.detailsInformation,
+		bundleInfo = state.bundles,
+		locale = state.locale,
+		gamepadEnabled = state.gamepadEnabled,
+		isFavorited = isFavorited,
+		tryingOn = state.tryingOnInfo.tryingOn,
+		resellableInstances = state.collectibleResellableInstances,
+	}
+end)(DetailsButtons)
