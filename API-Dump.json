@@ -3134,6 +3134,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "RegisterEvaluationParallelCallback",
+                    "Parameters": [
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "StepAnimations",
                     "Parameters": [
                         {
@@ -4625,6 +4644,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreateDynamicImageAsync",
+                    "Parameters": [
+                        {
+                            "Name": "textureId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "DynamicImage"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CreatePlaceAsync",
                     "Parameters": [
                         {
@@ -4779,28 +4820,6 @@
                     "ReturnType": {
                         "Category": "Class",
                         "Name": "Instance"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "LoadImageAsync",
-                    "Parameters": [
-                        {
-                            "Name": "textureId",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Content"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "DynamicImage"
                     },
                     "Security": "None",
                     "Tags": [
@@ -27070,6 +27089,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Crop",
+                    "Parameters": [
+                        {
+                            "Name": "min",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "max",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "DrawCircle",
                     "Parameters": [
                         {
@@ -27098,6 +27143,39 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DrawImage",
+                    "Parameters": [
+                        {
+                            "Name": "position",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "image",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "DynamicImage"
+                            }
+                        },
+                        {
+                            "Name": "combineType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ImageCombineType"
                             }
                         }
                     ],
@@ -27661,6 +27739,35 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateUserNotificationAsync",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "userNotification",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "UserNotification"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "ExperienceNotificationService",
@@ -30573,10 +30680,11 @@
                             }
                         },
                         {
+                            "Default": "nil",
                             "Name": "options",
                             "Type": {
                                 "Category": "Group",
-                                "Name": "Variant"
+                                "Name": "Dictionary"
                             }
                         }
                     ],
@@ -30606,10 +30714,11 @@
                             }
                         },
                         {
+                            "Default": "nil",
                             "Name": "options",
                             "Type": {
                                 "Category": "Group",
-                                "Name": "Variant"
+                                "Name": "Dictionary"
                             }
                         }
                     ],
@@ -30642,10 +30751,11 @@
                             }
                         },
                         {
+                            "Default": "nil",
                             "Name": "options",
                             "Type": {
                                 "Category": "Group",
-                                "Name": "Variant"
+                                "Name": "Dictionary"
                             }
                         }
                     ],
@@ -30678,10 +30788,11 @@
                             }
                         },
                         {
+                            "Default": "nil",
                             "Name": "options",
                             "Type": {
                                 "Category": "Group",
-                                "Name": "Variant"
+                                "Name": "Dictionary"
                             }
                         }
                     ],
@@ -39123,6 +39234,29 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "TopbarInset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Rect"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "TouchControlsEnabled",
                     "Security": {
                         "Read": "None",
@@ -40012,8 +40146,8 @@
                         {
                             "Name": "topbarInset",
                             "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
+                                "Category": "DataType",
+                                "Name": "Rect"
                             }
                         }
                     ],
@@ -40396,21 +40530,6 @@
                         }
                     ],
                     "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "TopbarInsetChanged",
-                    "Parameters": [
-                        {
-                            "Name": "topbarInset",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -52448,6 +52567,133 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "expiration",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UpdateAsync",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "transformFunction",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        },
+                        {
+                            "Name": "expiration",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MemoryStoreHashMap",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
                     "Name": "AddAsync",
                     "Parameters": [
                         {
@@ -52554,6 +52800,25 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetHashMap",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "MemoryStoreHashMap"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Function",
                     "Name": "GetQueue",
@@ -65852,6 +66117,24 @@
                 {
                     "Category": "Display",
                     "MemberType": "Property",
+                    "Name": "SolverConvergenceMetricType",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SolverConvergenceMetricType"
+                    }
+                },
+                {
+                    "Category": "Display",
+                    "MemberType": "Property",
                     "Name": "SolverConvergenceVisualizationMode",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -72898,6 +73181,13 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "creatorType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetCreatorType"
                             }
                         },
                         {
@@ -84346,10 +84636,64 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetInstance",
+                    "Parameters": [
+                        {
+                            "Name": "collectorName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "instanceId",
+                            "Name": "requestId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "RegisterCommand",
                     "Parameters": [
                         {
                             "Name": "commandName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "function",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RegisterContextCollector",
+                    "Parameters": [
+                        {
+                            "Name": "collectorName",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -84387,6 +84731,99 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UnregisterContextCollector",
+                    "Parameters": [
+                        {
+                            "Name": "collectorName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "RequestEnded",
+                    "Parameters": [
+                        {
+                            "Name": "requestId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "RequestError",
+                    "Parameters": [
+                        {
+                            "Name": "requestId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "errorMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "RequestStarted",
+                    "Parameters": [
+                        {
+                            "Name": "requestId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Stream",
+                    "Parameters": [
+                        {
+                            "Name": "requestId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "streamContent",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
@@ -84940,6 +85377,42 @@
                     "Security": {
                         "Read": "None",
                         "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "CameraAdaptiveSpeed",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "CameraTweenFocus",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -89307,6 +89780,21 @@
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "StyleRulePropertyChanged",
+                    "Parameters": [
+                        {
+                            "Name": "styleProperty",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Gui",
@@ -89881,6 +90369,18 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetIsUseUniverseSearchNewEndpoint",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -103896,6 +104396,19 @@
         {
             "Items": [
                 {
+                    "Name": "User",
+                    "Value": 0
+                },
+                {
+                    "Name": "Group",
+                    "Value": 1
+                }
+            ],
+            "Name": "AssetCreatorType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Success",
                     "Value": 0
                 },
@@ -108024,6 +108537,19 @@
         {
             "Items": [
                 {
+                    "Name": "BlendSourceOver",
+                    "Value": 1
+                },
+                {
+                    "Name": "Overwrite",
+                    "Value": 2
+                }
+            ],
+            "Name": "ImageCombineType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Edge",
                     "Value": 0
                 },
@@ -111821,6 +112347,19 @@
                 }
             ],
             "Name": "SizeConstraint"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "IterationBased",
+                    "Value": 0
+                },
+                {
+                    "Name": "AlgorithmAgnostic",
+                    "Value": 1
+                }
+            ],
+            "Name": "SolverConvergenceMetricType"
         },
         {
             "Items": [

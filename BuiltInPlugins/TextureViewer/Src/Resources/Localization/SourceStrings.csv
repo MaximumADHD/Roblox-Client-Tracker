@@ -7,8 +7,6 @@ Studio.TextureViewer.Plugin.Description,Toggles the Texture Viewer plugin window
 Studio.TextureViewer.Plugin.Name,Texture Viewer
 Studio.TextureViewer.Plugin.Toolbar,Texture Viewer
 Studio.TextureViewer.Search.Placeholder,Search for a texture...
-Studio.TextureViewer.TextureTable.Cancel,Cancel
-Studio.TextureViewer.TextureTable.Confirm,Confirm
 Studio.TextureViewer.TextureTable.FindSelect,Find & Select
 Studio.TextureViewer.TextureTable.Id,Id
 Studio.TextureViewer.TextureTable.NotLoaded,Not Loaded

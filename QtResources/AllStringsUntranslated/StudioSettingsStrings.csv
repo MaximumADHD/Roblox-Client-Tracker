@@ -118,8 +118,6 @@ Studio.App.BetaFeatures.ContextualServiceVisibilityTitle,,Explorer Services Clea
 Studio.App.BetaFeatures.ContextualServiceVisibilityDescription,,"Uncommon services like TestService are no longer visible by default, but can be added through the Insert Service menu.","Uncommon services like TestService are no longer visible by default, but can be added through the Insert Service menu."
 Studio.App.BetaFeatures.AICOTitle,,AI-Powered Code Completion,AI-Powered Code Completion
 Studio.App.BetaFeatures.AICODescription,,"AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically.","AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically."
-Studio.App.BetaFeatures.IkControlJointLimitTitle,,IKControl Joint Constraint Support,IKControl Joint Constraint Support
-Studio.App.BetaFeatures.IkControlJointLimitDescription,,IKControl will now respect physics constraints and limits that match the positions of the animated joints.,IKControl will now respect physics constraints and limits that match the positions of the animated joints.
 Studio.App.BetaFeatures.TerrainEditorOverhaulTitle,,Terrain Editor Improvements,Terrain Editor Improvements
 Studio.App.BetaFeatures.TerrainEditorOverhaulDescription,,"New simplified toolset and 3D gizmo for Terrain Editor, enables using shortcuts to copy/paste/cut/duplicate voxel terrain.","New simplified toolset and 3D gizmo for Terrain Editor, enables using shortcuts to copy/paste/cut/duplicate voxel terrain."
 Studio.App.BetaFeatures.MultilayerWrapFixTitle,,Multilayer Wrap Fix,Multilayer Wrap Fix
@@ -128,7 +126,7 @@ Studio.App.BetaFeatures.ShowTagsInPropertiesTitle,,Tags in Properties,Tags in Pr
 Studio.App.BetaFeatures.ShowTagsInPropertiesDescription,,Tags for selected instances can now be added and removed from the properties panel.,Tags for selected instances can now be added and removed from the properties panel.
 Studio.App.BetaFeatures.UGCBodiesAndHeadsTitle,,UGC Bodies & Heads,UGC Bodies & Heads
 Studio.App.BetaFeatures.UGCBodiesAndHeadsDescription,,"Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the Marketplace.","Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the Marketplace."
-Studio.App.BetaFeatures.CustomVideoUploadTitle,,Upload Custom Videos,Upload Custom Videos
+Studio.App.BetaFeatures.CustomVideoUploadTitle,,Video Uploads,Video Uploads
 Studio.App.BetaFeatures.CustomVideoUploadDescription,,Enables video uploads through the Asset Manager for eligible users.,Enables video uploads through the Asset Manager for eligible users.
 Studio.App.BetaFeatures.LuaStateMachineTitle,,Lua based character state machine,Lua based character state machine
 Studio.App.BetaFeatures.LuaStateMachineDescription,,"A Lua replacement for the native Humanoid State Machine, allowing you to define and manage the various states, events, and transitions of your characters with ease. This beta feature needs New Character Controller beta feature enabled","A Lua replacement for the native Humanoid State Machine, allowing you to define and manage the various states, events, and transitions of your characters with ease. This beta feature needs New Character Controller beta feature enabled"
@@ -136,3 +134,5 @@ Studio.App.BetaFeatures.ChromeTitle,,Updated Roblox Controls,Updated Roblox Cont
 Studio.App.BetaFeatures.ChromeDescription,,Enables a new modernized Roblox Menu and related APIs for more seamless UI placement of key system controls.,Enables a new modernized Roblox Menu and related APIs for more seamless UI placement of key system controls.
 Studio.App.BetaFeatures.NewBaseMaterialsTitle,,New Base Materials,New Base Materials
 Studio.App.BetaFeatures.NewBaseMaterialsDescription,,Adds 8 new base materials.,Adds 8 new base materials.
+Studio.App.BetaFeatures.NewCameraControlsTitle,,New Studio Camera Controls,New Studio Camera Controls
+Studio.App.BetaFeatures.NewCameraControlsDescription,,Enables improved camera controls for Studio.,Enables improved camera controls for Studio.

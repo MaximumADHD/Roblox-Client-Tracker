@@ -1,6 +1,6 @@
-Key,Source,en-us
-Studio.StreamingServiceDispatcherRegistry.Plugin.Name,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
-Studio.StreamingServiceDispatcherRegistry.Plugin.Toolbar,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
-Studio.StreamingServiceDispatcherRegistry.Plugin.Button,Toggle,Toggle
-Studio.StreamingServiceDispatcherRegistry.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
-Studio.StreamingServiceDispatcherRegistry.Plugin.Text,Example Text!,Example Text!
+Key,Source,en-us,fr-fr,ko-kr
+Studio.StreamingServiceDispatcherRegistry.Plugin.Name,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry, ,StreamingServiceDispatcherRegistry
+Studio.StreamingServiceDispatcherRegistry.Plugin.Toolbar,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry, ,StreamingServiceDispatcherRegistry
+Studio.StreamingServiceDispatcherRegistry.Plugin.Button,Toggle,Toggle, ,전환
+Studio.StreamingServiceDispatcherRegistry.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Active/désactive la fenêtre du plugin Modèle.,템플릿 플러그인 창을 전환합니다.
+Studio.StreamingServiceDispatcherRegistry.Plugin.Text,Example Text!,Example Text!,Exemple de texte !,예시 텍스트!

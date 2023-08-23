@@ -1,8 +1,8 @@
 Key,en-us
-Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddHint,"Please select a Clothing, Accessory, or Avatar Part in order to add it to the Preview."
+Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddHint,"Select Clothing, Accessories, or Heads in the Explorer to add to preview."
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderMultiple,The following items could not be added: {items}
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderSingle,This item cannot be added.
-Studio.AvatarCompatibilityPreviewer.AddItems.FailedTitle,Warning
+Studio.AvatarCompatibilityPreviewer.AddItems.FailedTitle,Unsupported Item
 Studio.AvatarCompatibilityPreviewer.AddItems.OK,OK
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Back,Back
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.BodyEmotes,Emotes
@@ -35,7 +35,7 @@ Studio.AvatarCompatibilityPreviewer.Categories.animations,Animations
 Studio.AvatarCompatibilityPreviewer.Categories.body,Body
 Studio.AvatarCompatibilityPreviewer.Categories.clothing,Clothing
 Studio.AvatarCompatibilityPreviewer.Categories.face,Face
-Studio.AvatarCompatibilityPreviewer.CheckFace.DynamicHeadNotice,This avatar does not have a dynamic head.
+Studio.AvatarCompatibilityPreviewer.CheckFace.DynamicHeadNotice,This avatar's head does not support facial animation.
 Studio.AvatarCompatibilityPreviewer.DummyPreview.RevertToDefault,Revert to Default
 Studio.AvatarCompatibilityPreviewer.DummyPreview.Textured,Textured
 Studio.AvatarCompatibilityPreviewer.EquippedItemContextMenu.OpenPalette,Open {palette}

@@ -1,4 +1,4 @@
-Key,Source,en-us
-Studio.ActivityFeed.Plugin.Name,ActivityFeed,ActivityFeed
-Studio.ActivityFeed.Plugin.Button,Toggle,Toggle
-Studio.ActivityFeed.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
+Key,Source,en-us,ko-kr
+Studio.ActivityFeed.Plugin.Name,ActivityFeed,ActivityFeed,ActivityFeed
+Studio.ActivityFeed.Plugin.Button,Toggle,Toggle,전환
+Studio.ActivityFeed.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,템플릿 플러그인 창을 전환합니다.

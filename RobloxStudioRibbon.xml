@@ -377,6 +377,7 @@
       </Group>
       <Group name="Animation" text="Studio.Common.Action.Animation" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" width="32" height="32">
         <addaction name="animationEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AnimationEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip" width="32" height="32" />
+        <addaction name="compositorDebuggerAction" fflag="CDCompositorDebuggerIcon" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CompositorDebugger" modernIcon="CompositorDebugger" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip" width="32" height="32" />
       </Group>
       <Group name="AvatarUnification" fflag="DebugR15MigratorPlugin" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
         <addaction name="r15migratorAction" fflag="DebugR15MigratorPlugin" type="plugin" text="Studio.App.RobloxRibbonMainWindow.R15Migrator" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip" width="32" height="32" />

@@ -1,6 +1,6 @@
-Key,Source,en-us
-Studio.CompositorGraphEditor.Plugin.Button,Toggle,Toggle
-Studio.CompositorGraphEditor.Plugin.Name,CompositorGraphEditor,CompositorGraphEditor
-Studio.CompositorGraphEditor.Plugin.Toolbar,CompositorGraphEditor,CompositorGraphEditor
-Studio.CompositorGraphEditor.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
-Studio.CompositorGraphEditor.Plugin.Text,Example Text!,Example Text!
+Key,Source,en-us,fr-fr,ko-kr
+Studio.CompositorGraphEditor.Plugin.Button,Toggle,Toggle,Activer/désactiver,전환
+Studio.CompositorGraphEditor.Plugin.Name,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
+Studio.CompositorGraphEditor.Plugin.Toolbar,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
+Studio.CompositorGraphEditor.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Active/désactive la fenêtre du plugin Modèle.,템플릿 플러그인 창을 전환합니다.
+Studio.CompositorGraphEditor.Plugin.Text,Example Text!,Example Text!,Exemple de texte !,예시 텍스트!

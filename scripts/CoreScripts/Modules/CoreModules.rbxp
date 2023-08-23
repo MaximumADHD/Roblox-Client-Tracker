@@ -64,9 +64,6 @@
             "InGameMenu": {
                 "$path": "InGameMenu"
             },
-            "InGameMenuV3": {
-                "$path": "InGameMenuV3"
-            },
             "InspectAndBuy": {
                 "$path": "InspectAndBuy"
             },
@@ -270,6 +267,12 @@
             },
             "isNewInGameMenuEnabled": {
                 "$path": "isNewInGameMenuEnabled.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "isNewTiltIconEnabled": {
+                "$path": "isNewTiltIconEnabled.lua",
                 ".robloxrc": {
                     "$path": "../.robloxrc"
                 }

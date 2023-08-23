@@ -4,7 +4,7 @@
 #include <Globals.h>
 uniform vec4 CB0[57];
 uniform vec4 unpackInfo[1];
-uniform vec4 CB3[21];
+uniform vec4 CB3[63];
 attribute vec4 POSITION;
 attribute vec2 TEXCOORD0;
 attribute vec4 NORMAL;

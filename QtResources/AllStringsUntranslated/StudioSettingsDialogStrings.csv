@@ -40,6 +40,7 @@ Studio.App.Property.AreBodyTypesShown,,Are Body Types Shown,Are Body Types Shown
 Studio.App.Property.IsReceiveAgeShown,,Is Receive Age Shown,Is Receive Age Shown
 Studio.App.Property.AreContactPointsShown,,Are Contact Points Shown,Are Contact Points Shown
 Studio.App.Property.AreSolverIslandsShown,,Are Solver Islands Shown,Are Solver Islands Shown
+Studio.App.Property.SolverConvergenceMetricType,,Solver Convergence Metric Type,Solver Convergence Metric Type
 Studio.App.Property.SolverConvergenceVisualizationMode,,Solver Convergence Visualization Mode,Solver Convergence Visualization Mode
 Studio.App.Property.AreContactForcesShownForSelectedOrHoveredAssemblies,,Are Contact Forces Shown For Selected Or Hovered Assemblies,Are Contact Forces Shown For Selected Or Hovered Assemblies
 Studio.App.Property.AreConstraintForcesShownForSelectedOrHoveredInstances,,Are Constraint Forces Shown For Selected Or Hovered Instances,Are Constraint Forces Shown For Selected Or Hovered Instances
@@ -63,6 +64,8 @@ Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
 Studio.App.Property.CameraPanSpeed,,Camera Pan Speed,Camera Pan Speed
 Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse Wheel Speed
 Studio.App.Property.CameraZoomToMousePosition,,Camera Zoom to Mouse Position,Camera Zoom to Mouse Position
+Studio.App.Property.CameraTweenFocus,,Camera Focus Tweening,Camera Focus Tweening
+Studio.App.Property.CameraAdaptiveSpeed,,Camera Focus Adapts Speed,Camera Focus Adapts Speed
 Studio.App.SettingsCategory.StudioDirectories,,Directories,Directories
 Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script File Dir
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir

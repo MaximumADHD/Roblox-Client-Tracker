@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ItemDetails",
+    "tree": {
+      "$path": "../../../../../../../modules/avatar/item-details/src"
+    }
+  }
+}

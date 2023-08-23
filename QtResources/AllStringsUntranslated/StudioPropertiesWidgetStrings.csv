@@ -185,6 +185,9 @@ Studio.RobloxPropertiesWidget.Category.Streaming,,Streaming,Streaming
 Studio.RobloxPropertiesWidget.Category.Surface,,Surface,Surface
 Studio.RobloxPropertiesWidget.Category.SurfaceInputs,,Surface Inputs,Surface Inputs
 Studio.RobloxPropertiesWidget.Category.Tags,,Tags,Tags
+Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,Text that appears in the text box of the AddTagPopup letting users know how to use it.,Search for or create a tag,Search for or create a tag
+Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,Displayed in the AddTagPopup when no tags have been created yet.,No tags have been created yet,No tags have been created yet
+Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,Displayed in the AddTagPopup to label a tag that will be newly created.,Create tag: %1,Create tag: %1
 Studio.RobloxPropertiesWidget.Category.TargetOrientation,,TargetOrientation,TargetOrientation
 Studio.RobloxPropertiesWidget.Category.Team,,Team,Team
 Studio.RobloxPropertiesWidget.Category.Teams,,Teams,Teams

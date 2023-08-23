@@ -60,6 +60,8 @@ Studio.App.PropertyEnum.PerCore1,,Per Core 1,Per Core 1
 Studio.App.PropertyEnum.PerCore2,,Per Core 2,Per Core 2
 Studio.App.PropertyEnum.PerCore3,,Per Core 3,Per Core 3
 Studio.App.PropertyEnum.PerCore4,,Per Core 4,Per Core 4
+Studio.App.PropertyEnum.IterationBased,,Iteration Based,Iteration Based
+Studio.App.PropertyEnum.AlgorithmAgnostic,,Algorithm Agnostic,Algorithm Agnostic
 Studio.App.PropertyEnum.PerEdge,,Per Edge,Per Edge
 Studio.App.PropertyEnum.PerIsland,,Per Island,Per Island
 Studio.App.PropertyEnum.Precise,,Precise,Precise

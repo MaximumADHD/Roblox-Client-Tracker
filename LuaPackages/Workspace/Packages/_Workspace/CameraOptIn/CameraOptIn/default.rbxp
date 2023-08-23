@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CameraOptIn",
+    "tree": {
+      "$path": "../../../../../../../modules/avatar/camera-opt-in/src"
+    }
+  }
+}
