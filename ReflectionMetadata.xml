@@ -2615,6 +2615,17 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PlaybackSpeed</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2660,6 +2671,33 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Depth</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Mix</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Rate</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2669,6 +2707,16 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Level</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2678,6 +2726,33 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Depth</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Mix</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Rate</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2687,6 +2762,107 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Density</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Diffusion</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ReferenceFrequency</string>
+            <double name="UIMinimum">20</double>
+            <double name="UIMaximum">20000</double>
+            <double name="UINumTicks">20000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DecayRatio</string>
+            <double name="UIMinimum">0.1</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DecayTime</string>
+            <double name="UIMinimum">0.1</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EarlyDelayTime</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">0.1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LateDelayTime</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">0.1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HighCutFrequency</string>
+            <double name="UIMinimum">20</double>
+            <double name="UIMaximum">20000</double>
+            <double name="UINumTicks">20000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LowShelfFrequency</string>
+            <double name="UIMinimum">20</double>
+            <double name="UIMaximum">20000</double>
+            <double name="UINumTicks">20000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LowShelfGain</string>
+            <double name="UIMinimum">-36</double>
+            <double name="UIMaximum">12</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DryLevel</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WetLevel</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2696,6 +2872,40 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DelayTime</string>
+            <double name="UIMinimum">0.001</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Feedback</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DryLevel</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">WetLevel</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2705,6 +2915,41 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MidRange</string>
+            <double name="UIMinimum">200</double>
+            <double name="UIMaximum">20000</double>
+            <double name="UINumTicks">20000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">LowGain</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MidGain</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HighGain</string>
+            <double name="UIMinimum">-80</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2714,6 +2959,17 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">100</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2732,6 +2988,17 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Pitch</string>
+            <double name="UIMinimum">0.5</double>
+            <double name="UIMaximum">2</double>
+            <double name="UINumTicks">100</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2741,6 +3008,48 @@
         <string name="ExplorerImageIndex">11</string>
         <bool name="FFlag">EnableAudioWiringStudio</bool>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Attack</string>
+            <double name="UIMinimum">0.0001</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MakeupGain</string>
+            <double name="UIMinimum">-30</double>
+            <double name="UIMaximum">30</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Ratio</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">50</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Release</string>
+            <double name="UIMinimum">0.01</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Threshold</string>
+            <double name="UIMinimum">-60</double>
+            <double name="UIMaximum">0</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">

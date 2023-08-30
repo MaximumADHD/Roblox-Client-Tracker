@@ -213,9 +213,14 @@ Studio.App.BulkAudioImportRateLimiting.UploadsDefault2,,"You have %1 audio uploa
 Studio.App.BulkVideoImportInfos.PreparingToUpload,,Preparing to upload,Preparing to upload
 Studio.App.BulkVideoImportInfos.UploadProgress1,Display the video uploading progress in percent.,Uploading: %1%,Uploading: %1%
 Studio.App.BulkVideoImportInfos.ProcessProgress1,Display the video processing progress in percent.,Processing: %1%,Processing: %1%
+Studio.App.BulkVideoImportInfos.UploadCanceled,,Video upload is canceled.,Video upload is canceled.
+Studio.App.BulkVideoImportInfos.UploadCannotBeCanceled,,Video processing cannot be canceled.,Video processing cannot be canceled.
 Studio.App.BulkVideoImportErrors.UploadError,,An error occurred during video uploading.,An error occurred during video uploading.
 Studio.App.BulkVideoImportErrors.ProcessError,,An error occurred during video processing.,An error occurred during video processing.
 Studio.App.BulkVideoImportErrors.ValidationError,Deprecated. Will remove soon.,The file does not meet our requirement.,The file does not meet our requirement.
+Studio.App.BulkVideoImportErrors.PermissionDenied,,Permission is denied.,Permission is denied.
+Studio.App.BulkVideoImportErrors.ResourceExhausted,,Video upload limit is reached.,Video upload limit is reached.
+Studio.App.BulkVideoImportErrors.ContentModerated,,The video is moderated.,The video is moderated.
 Studio.App.BulkVideoImportErrors.UnsupportedFileType,,Unsupported file type.,Unsupported file type.
 Studio.App.BulkVideoImportErrors.NoVideoStream,,No video stream is found in the file.,No video stream is found in the file.
 Studio.App.BulkVideoImportErrors.TooManyVideoStreams,,Too many video streams are found in the file.,Too many video streams are found in the file.
@@ -232,6 +237,16 @@ Studio.App.BulkVideoImportErrors.UnsupportedAudioSampleRate,,Unsupported audio s
 Studio.App.BulkVideoImportErrors.UnsupportedAudioChannelCount,,Unsupported audio channel count.,Unsupported audio channel count.
 Studio.App.BulkVideoImportErrors.UnsupportedAudioSampleFormat,,Unsupported audio sample format.,Unsupported audio sample format.
 Studio.App.BulkVideoImportErrors.FileCorrupted,,The file is corrupted.,The file is corrupted.
+Studio.App.BulkVideoImportRateLimiting.UploadsLeft4,,"%1 of %2 video uploads left until %3.
+(<a href=%4>Learn more</a>)","%1 of %2 video uploads left until %3.
+(<a href=%4>Learn more</a>)"
+Studio.App.BulkVideoImportRateLimiting.UploadsReachedLimit2,,"You've reached your video upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)","You've reached your video upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)"
+Studio.App.BulkVideoImportRateLimiting.NoCapacity,,Video uploads are temporarily unavailable. Please try again later.,Video uploads are temporarily unavailable. Please try again later.
+Studio.App.BulkVideoImportRateLimiting.UploadsDefault2,,"You have %1 video uploads per 30 days.
+(<a href=%2>Learn more</a>)","You have %1 video uploads per 30 days.
+(<a href=%2>Learn more</a>)"
 Studio.Common.Action.Apply,,Apply,Apply
 Studio.Common.Action.Confirm,,Confirm,Confirm
 Studio.Common.Action.HideDetails,,Hide Details,Hide Details

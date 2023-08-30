@@ -120,6 +120,12 @@
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }
+            },
+            "FocusNavigationEffectsWrapper": {
+                "$path": "FocusNavigationEffectsWrapper.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
             }
         }
     }

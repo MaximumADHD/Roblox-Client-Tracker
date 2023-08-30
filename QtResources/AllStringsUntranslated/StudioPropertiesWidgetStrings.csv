@@ -94,6 +94,7 @@ Studio.RobloxPropertiesWidget.Category.Clothes,,Clothes,Clothes
 Studio.RobloxPropertiesWidget.Category.Collision,,Collision,Collision
 Studio.RobloxPropertiesWidget.Category.Compliance,,Compliance,Compliance
 Studio.RobloxPropertiesWidget.Category.Configuration,,Configuration,Configuration
+Studio.RobloxPropertiesWidget.Category.Connections,,Connections,Connections
 Studio.RobloxPropertiesWidget.Category.Control,,Control,Control
 Studio.RobloxPropertiesWidget.Category.Controls,,Controls,Controls
 Studio.RobloxPropertiesWidget.Category.Cylinder,,Cylinder,Cylinder
@@ -126,6 +127,7 @@ Studio.RobloxPropertiesWidget.Category.Goals,,Goals,Goals
 Studio.RobloxPropertiesWidget.Category.Hinge,,Hinge,Hinge
 Studio.RobloxPropertiesWidget.Category.Image,,Image,Image
 Studio.RobloxPropertiesWidget.Category.Input,,Input,Input
+Studio.RobloxPropertiesWidget.Category.Interactions,,Interactions,Interactions
 Studio.RobloxPropertiesWidget.Category.Internal,,Internal,Internal
 Studio.RobloxPropertiesWidget.Category.Jaw,,Jaw,Jaw
 Studio.RobloxPropertiesWidget.Category.JobInfo,,JobInfo,JobInfo
@@ -139,6 +141,7 @@ Studio.RobloxPropertiesWidget.Category.LuaDebugger,,Lua Debugger,Lua Debugger
 Studio.RobloxPropertiesWidget.Category.Material,,Material,Material
 Studio.RobloxPropertiesWidget.Category.MaterialOverrides,,Material Overrides,Material Overrides
 Studio.RobloxPropertiesWidget.Category.MaterialPack,,Material Pack,Material Pack
+Studio.RobloxPropertiesWidget.Category.Metering,,Metering,Metering
 Studio.RobloxPropertiesWidget.Category.Mobile,,Mobile,Mobile
 Studio.RobloxPropertiesWidget.Category.Mode,,Mode,Mode
 Studio.RobloxPropertiesWidget.Category.ModeSwitching,DragDetector mode switching property section,Mode Switching,Mode Switching
@@ -156,11 +159,13 @@ Studio.RobloxPropertiesWidget.Category.Performance,,Performance,Performance
 Studio.RobloxPropertiesWidget.Category.Physics,,Physics,Physics
 Studio.RobloxPropertiesWidget.Category.PhysicsResponse,,Physics Response,Physics Response
 Studio.RobloxPropertiesWidget.Category.Pivot,,Pivot,Pivot
+Studio.RobloxPropertiesWidget.Category.Permissions,,Permissions,Permissions
 Studio.RobloxPropertiesWidget.Category.Plane,,Plane,Plane
 Studio.RobloxPropertiesWidget.Category.Playback,,Playback,Playback
 Studio.RobloxPropertiesWidget.Category.PrimaryPart,,Primary Part,Primary Part
 Studio.RobloxPropertiesWidget.Category.Profile,,Profile,Profile
 Studio.RobloxPropertiesWidget.Category.ProxySettings,,Proxy Settings,Proxy Settings
+Studio.RobloxPropertiesWidget.Category.Recording,,Recording,Recording
 Studio.RobloxPropertiesWidget.Category.Reflection,,Reflection,Reflection
 Studio.RobloxPropertiesWidget.Category.Regions,,Regions,Regions
 Studio.RobloxPropertiesWidget.Category.RenderingTest,,RenderingTest,RenderingTest

@@ -193,6 +193,7 @@ Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness 
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarning,Could not find corresponding Geo Mesh for Cage Mesh.
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {name}.
 Studio.AssetImporter.Statuses.NoRefMeshForCageWarningWithSuggestion_v1,Could not find corresponding Geo Mesh for Cage Mesh. Try renaming to {SuggestedName}.
+Studio.AssetImporter.Statuses.NoValidParentError,Incompatible with current parent. Please note textures cannot be under attachment or cage meshes.
 Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format.
 Studio.AssetImporter.Statuses.OuterCageBloatingWarning,The average distance between the clothing and outer cage is too large. This will lead to bloating issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.OuterCageFarExtendedFromMeshWarning,There are outer cage vertex(s) that are too far away from the clothing mesh. This will lead to issues when other clothing is layered on top.

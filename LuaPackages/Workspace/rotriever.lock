@@ -56,6 +56,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "NotificationsCommon NotificationsCommon 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
@@ -65,6 +66,17 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
+]
+
+[[package]]
+name = "Achievements"
+version = "0.1.0"
+dependencies = [
+    "AwardProtocol AwardProtocol 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "Promise Promise 0.1.0",
 ]
 
 [[package]]
@@ -487,6 +499,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
@@ -919,11 +932,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "NotificationsCommon"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "Lumberyak Lumberyak 0.1.0",
+    "React React 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "TestUtils TestUtils 0.1.0",
+]
+
+[[package]]
 name = "NotificationsTestSuite"
 version = "0.1.0"
 dependencies = [
     "AbuseReports AbuseReports 0.1.0",
     "GameInvite GameInvite 0.1.0",
+    "NotificationsCommon NotificationsCommon 0.1.0",
 ]
 
 [[package]]
@@ -1298,6 +1327,7 @@ dependencies = [
     "Cryo Cryo 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "React React 0.1.0",
+    "ReactOtter ReactOtter 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactServiceTags RoactServiceTags 0.1.0",
@@ -1305,6 +1335,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "Rodux Rodux 0.1.0",
+    "TestUtils TestUtils 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UniversalAppPolicy UniversalAppPolicy 0.1.0",
 ]
@@ -1608,6 +1639,7 @@ dependencies = [
     "Cryo Cryo 0.1.0",
     "DiscoverabilityModal DiscoverabilityModal 0.1.0",
     "FitFrame FitFrame 0.1.0",
+    "FormFactor FormFactor 0.1.0",
     "GameProtocol GameProtocol 0.1.0",
     "GraphQLServer GraphQLServer 0.1.0",
     "Http Http 0.1.0",
@@ -1627,10 +1659,12 @@ dependencies = [
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "SocialCommon SocialCommon 0.1.0",
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
@@ -1683,6 +1717,7 @@ dependencies = [
 name = "SoundManager"
 version = "0.1.0"
 dependencies = [
+    "Cryo Cryo 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
@@ -1838,6 +1873,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "Navigation Navigation 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",

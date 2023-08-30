@@ -1,9 +1,9 @@
 Key,Source,en-us,es-es,fr-fr,it-it,ja-jp,ko-kr,pt-br,zh-cjv,zh-cn,zh-tw
 Studio.CompositorDebugger.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Exemple de texte !,Testo Di Esempio!,テキストの例！,예시 텍스트!,Texto de exemplo!,示例文本！,示例文本！,範例文字！
-Studio.CompositorDebugger.Plugin.Button,Compositor Debugger,Compositor Debugger,Depurador de compositor,Compositor Debugger,Debug Compositore,植字デバッガー,작성자 디버거,Depurador do compositor,合成器调试器,合成器调试器,合成器調試器
-Studio.CompositorDebugger.Plugin.Name,Compositor Debugger,Compositor Debugger,Depurador de compositor,Debugger de compositeur,Debug Compositore,植字デバッガー,작성자 디버거,Depurador do compositor,合成器调试器,合成器调试器,合成器調試器
+Studio.CompositorDebugger.Plugin.Button,Compositor Debugger,Compositor Debugger,Depurador de compositor,Compositor Debugger,Debug Compositore,植字デバッガー,컴포지터 디버거,Depurador do compositor,合成器调试器,合成器调试器,合成器調試器
+Studio.CompositorDebugger.Plugin.Name,Compositor Debugger,Compositor Debugger,Depurador de compositor,Debugger de compositeur,Debug Compositore,植字デバッガー,컴포지터 디버거,Depurador do compositor,合成器调试器,合成器调试器,合成器調試器
 Studio.CompositorDebugger.Plugin.Toolbar,Animation,Animation,Animación,Animation,Animazione,アニメーション,애니메이션,Animação,动画,动画,動畫
-Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Toggles the Compositor Debugger window.,Activa la ventana de depurador de compositores.,Active/désactive la fenêtre Compositor Debugger.,Commuta la finestra del Debug Compositore.,植字デバッガーウィンドウを切り替え。,작성자 디버거 창을 토글합니다.,Alterna a janela do Depurador do compositor.,切换合成器调试器窗口。,切换合成器调试器窗口。,切換合成器調試器視窗。
+Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Toggles the Compositor Debugger window.,Activa la ventana de depurador de compositores.,Active/désactive la fenêtre Compositor Debugger.,Commuta la finestra del Debug Compositore.,植字デバッガーウィンドウを切り替え。,컴포지터 디버거 창을 토글합니다.,Alterna a janela do Depurador do compositor.,切换合成器调试器窗口。,切换合成器调试器窗口。,切換合成器調試器視窗。
 Studio.CompositorDebugger.LayerView.LayerDetails,Layer Details,Layer Details,Detalles de capa,Détails de la couche,Dettagli livello,レイヤーの詳細,레이어 세부 정보,Detalhes da camada,分层细节,分层细节,圖層詳情
 Studio.CompositorDebugger.LayerView.Properties,Properties,Properties,Propiedades,Propriétés,Proprietà,プロパティ,속성,Propriedades,属性,属性,屬性
 Studio.CompositorDebugger.LayerView.props,Properties,Properties,Propiedades,Propriétés, ,プロパティ,속성,Propriedades, , , 

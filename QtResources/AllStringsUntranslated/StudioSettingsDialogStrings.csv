@@ -100,6 +100,8 @@ Studio.App.PropertyTooltip.HoverLineThickness,,How thick is the outline shown ar
 Studio.App.Property.Font,,Font,Font
 Studio.App.Property.TabWidth,,Tab Width,Tab Width
 Studio.App.Property.IndentUsingSpaces,,Indent Using Spaces,Indent Using Spaces
+Studio.App.Property.LargeFileLineCountThreshold,,Large File Line Count Threshold,Large File Line Count Threshold
+Studio.App.Property.LargeFileThreshold,,Large File Character Threshold,Large File Character Threshold
 Studio.App.Property.TextWrapping,,Text Wrapping,Text Wrapping
 Studio.App.Property.ShowWhitespace,,Show Whitespace,Show Whitespace
 Studio.App.Property.ScrollPastLastLine,,Scroll Past Last Line,Scroll Past Last Line
@@ -273,6 +275,8 @@ Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column 
 Studio.App.PropertyTooltip.ShowWhitespace,,Visibly display spaces and tabs.,Visibly display spaces and tabs.
 Studio.App.PropertyTooltip.ScrollPastLastLine,,Allow script editor to scroll past the last line.,Allow script editor to scroll past the last line.
 Studio.App.PropertyTooltip.IndentUsingSpaces,,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.,Prefer indent with spaces over tabs. This will affect Auto Indent and pressing Tab behavior.
+Studio.App.PropertyTooltip.LargeFileLineCountThreshold,,"To preserve system performance, certain language features will be disabled when scripts exceed this many lines.","To preserve system performance, certain language features will be disabled when scripts exceed this many lines."
+Studio.App.PropertyTooltip.LargeFileThreshold,,"To preserve system performance, certain language features will be disabled when scripts exceed this many characters.","To preserve system performance, certain language features will be disabled when scripts exceed this many characters."
 Studio.App.PropertyTooltip.Font,,"Change the text font family, typeface, and size.","Change the text font family, typeface, and size."
 Studio.App.PropertyTooltip.TabWidth,,"The width of a tab, measured in number of spaces. Value can only be between 1 and 8.","The width of a tab, measured in number of spaces. Value can only be between 1 and 8."
 Studio.App.PropertyTooltip.TextWrapping,,Wrap the line of text below when the line character limit has been reached.,Wrap the line of text below when the line character limit has been reached.

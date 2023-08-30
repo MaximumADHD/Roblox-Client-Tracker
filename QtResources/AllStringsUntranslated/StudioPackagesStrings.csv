@@ -33,7 +33,14 @@ Studio.App.PackageMassUpdate.UpdateDescription1,<b>%1</b> should not be translat
 Studio.App.PackageMassUpdate.Version,Version of a package,Version,Version
 Studio.App.PackageMassUpdate.VersionContent1,latest mean the last version of the package,%1 (latest),%1 (latest)
 Studio.App.PackageMassUpdate.PublishedOn,The date that the package is published,Published on,Published on
+Studio.App.PackageMassUpdate.UpdateTo,Label for most recent version to update to,Update to,Update to
+Studio.App.PackageMassUpdate.PublishedBy,The username of the creator that published the package,Published by,Published by
 Studio.App.PackageMassUpdate.All,Text for checkbox option that can check all the children checkboxs,All,All
+Studio.App.PackageMassUpdate.Latest,Latest label for the last version of the package,Latest,Latest
+Studio.App.PackageMassUpdate.AllPlaces,Updated text for checkbox option that can check all the children checkboxes,All Places in this Experience,All Places in this Experience
+Studio.App.PackageMassUpdate.SelectPlaces,Heading for selection list in mass update window,Select Places to Update,Select Places to Update
+Studio.App.PackageMassUpdate.AboutVersion,Heading for version description,About Version,About Version
+Studio.App.PackageMassUpdate.UpdatesAllCopies,Description for selection list in mass update window,Updates all copies in a place. We recommend closing other Studio instances before updating.,Updates all copies in a place. We recommend closing other Studio instances before updating.
 Studio.App.PackageMassUpdate.WarningMessage,,Note: We recommend closing other Studio instances before mass updating.,Note: We recommend closing other Studio instances before mass updating.
 Studio.App.PackageMassUpdate.CancelConfirmation,,Update hasn't been completed. Once we finish cancelling we will close this window. Are you sure that you want to cancel?,Update hasn't been completed. Once we finish cancelling we will close this window. Are you sure that you want to cancel?
 Studio.App.PackageMassUpdate.CancelConfirmationWindowTitle,Window title for cancel confirmation,Cancel Update,Cancel Update

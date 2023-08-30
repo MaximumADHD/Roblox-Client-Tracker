@@ -1,0 +1,13 @@
+Key,Source,en-us
+Studio.VRStatus.Plugin.Name,VR Status,VR Status
+Studio.VRStatus.Plugin.Button,Toggle,Toggle
+Studio.VRStatus.AlertDialog.Detected,detected,detected
+Studio.VRStatus.Plugin.Toolbar,VRStatus,VRStatus
+Studio.VRStatus.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
+Studio.VRStatus.StatusButton.Title,Status,Status
+Studio.VRStatus.AlertDialog.OkButtonText,Ok,Ok
+Studio.VRStatus.Plugin.Text,Example Text!,Example Text!
+Studio.VRStatus.AlertDialog.NoDeviceDetected,No VR Device detected. Please connect device and restart studio.,No VR Device detected. Please connect device and restart studio.
+Studio.VRStatus.StatusButton.Tooltip,Display current VR connection status.,Display current VR connection status.
+Studio.VRStatus.AlertDialog.ModeOn,VR Mode On,VR Mode On
+Studio.VRStatus.AlertDialog.ModeOff,VR Mode Off,VR Mode Off

@@ -39,15 +39,15 @@ Item {
     readonly property bool isTemplatePage: gamePageName == "templatePage"
     readonly property bool isMyGamesPage: gamePageName == "myGamesPage"
     readonly property bool isRecentGamesPage: gamePageName == "recentGamesPage"
-	readonly property bool isArchivedGamesPage: gamePageName == "archivedGamesPage"
+    readonly property bool isArchivedGamesPage: gamePageName == "archivedGamesPage"
 
-	function getGroupGamesPageController() {
+    function getGroupGamesPageController() {
         return isArchivedGamesPage ? archivedGroupGamesPageController : groupGamesPageController;
-	}
+    }
 
-	function isCurrentTabGroupGamesTab() {
-		return (currentTabElementId === "myGames_GroupGames" || currentTabElementId == "archivedGames_GroupGames");
-	}
+    function isCurrentTabGroupGamesTab() {
+        return (currentTabElementId === "myGames_GroupGames" || currentTabElementId == "archivedGames_GroupGames");
+    }
 
     function getShouldDisplayCreatorName() {
         return isRecentGamesPage || currentTabElementId === "myGames_SharedWithMe"
@@ -145,12 +145,12 @@ Item {
                 gameGridViewWithHeader.model = gameGridViewWithHeader.controller.getGamesPageModel();
                 gameGridViewWithHeader.onClicked = gameGridViewWithHeader.controller.onGameClicked;
             }
-			else if (isArchivedGamesPage) {
-				 // Each category on the myGamesPage has a different controller, model and click handler
+            else if (isArchivedGamesPage) {
+                 // Each category on the myGamesPage has a different controller, model and click handler
                 gameGridViewWithHeader.controller = (index == 0) ? myArchivedGamesPageController : archivedGroupGamesPageController;
                 gameGridViewWithHeader.model = gameGridViewWithHeader.controller.getGamesPageModel();
                 gameGridViewWithHeader.onClicked = gameGridViewWithHeader.controller.onGameClicked;
-			}
+            }
 
             // Tell the grid view about the new controller and model
             gameGridView.controller = gameGridViewWithHeader.controller;
@@ -213,10 +213,10 @@ Item {
         id: populatingAnimation
         objectName: "gamesLoadingAnimation"
         anchors.top: gameTabBarContainer.bottom
-		// Hardcode this topmargin to 18 because there is also a margin on the loading gif
-		// and it will affect the alignment.
-		anchors.topMargin: 18
-		anchors.bottom: undefined
+        // Hardcode this topmargin to 18 because there is also a margin on the loading gif
+        // and it will affect the alignment.
+        anchors.topMargin: 18
+        anchors.bottom: undefined
         visible: false
     }
 
@@ -271,7 +271,7 @@ Item {
                         objectName: model.elementId + "_Category"
                         width: FFlagLocalizationStartPageFixes ? Math.max(gameTabBarUpperTabWidth, textMetrics.width + 20) : gameTabBarUpperTabWidth
                         height: parent.height
-						color: userPreferences.theme.style("CommonStyle mainBackground")
+                        color: userPreferences.theme.style("CommonStyle mainBackground")
 
                         Rectangle { // Blue bar at bottom of component
                             id: gameTabSelectedBar
@@ -495,27 +495,27 @@ Item {
                 }
             }
 
-			Item {
+            Item {
                 id: _groupGamesComboBoxContainer
                 // Text + dropdown + some padding between the two
-				width: 275
+                width: FFlagFixOwnerLabelWidth ? ownerTextMetrics.width + 10 + groupGamesComboBox.width : 275
                 height: gameTabBarLowerRowItemHeight
 
-				anchors.left: parent.left
+                anchors.left: parent.left
 
-				// If searching is on and we are wrapping groups, then go under search. If search is off or we aren't wrapping groups, then go to top of screen
-				anchors.top: showSearch && isWrappingGroups ? searchWidget.bottom
-															: parent.top
-				// If searching is off or we are wrapping (i.e. groups at left of screen), then use the outer margins, else use the inner margins
-				anchors.leftMargin: !showSearch || isWrappingGroups ? gameTabBarLowerHorizontalOuterMargins
-																	: gameTabBarLowerHorizontalInnerMargins
-					
-				anchors.rightMargin: gameTabBarLowerHorizontalInnerMargins
+                // If searching is on and we are wrapping groups, then go under search. If search is off or we aren't wrapping groups, then go to top of screen
+                anchors.top: showSearch && isWrappingGroups ? searchWidget.bottom
+                                                            : parent.top
+                // If searching is off or we are wrapping (i.e. groups at left of screen), then use the outer margins, else use the inner margins
+                anchors.leftMargin: !showSearch || isWrappingGroups ? gameTabBarLowerHorizontalOuterMargins
+                                                                    : gameTabBarLowerHorizontalInnerMargins
+                    
+                anchors.rightMargin: gameTabBarLowerHorizontalInnerMargins
 
                 anchors.topMargin: showGroups ? gameTabBarLowerVerticalMargins
-												  : -3 * gameTabBarLowerRowItemHeight
+                                                  : -3 * gameTabBarLowerRowItemHeight
                 anchors.bottomMargin: gameTabBarLowerVerticalMargins
-				z: 6 // The group combo box needs a higher Z than the sort combo box for when they wrap
+                z: 6 // The group combo box needs a higher Z than the sort combo box for when they wrap
                 visible: true
 
                 PlainText {
@@ -526,79 +526,85 @@ Item {
                     font.pixelSize: 18
                     font.weight: userPreferences.theme.style("CommonStyle fontWeight")
                     renderType: userPreferences.theme.style("CommonStyle textRenderType")
-					color: userPreferences.theme.style("StartPage Page labelText")
+                    color: userPreferences.theme.style("StartPage Page labelText")
                 }
 
-				RobloxComboBox {
-					id: _groupGamesComboBox
-					objectName: "GroupGamesComboBox"
+                TextMetrics {
+                    id: ownerTextMetrics
+                    font: ownerLabel.font
+                    text: ownerLabel.text
+                }
+
+                RobloxComboBox {
+                    id: _groupGamesComboBox
+                    objectName: "GroupGamesComboBox"
                     height: gameTabBarLowerRowItemHeight
-					anchors.right: parent.right
+                    anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     anchors.verticalCenter: parent.verticalCenter
-					// Only visible on the games page, group games tab
-					// This fixes a bug where you could click through the upper bar on the recent games page
-					// Also can't be tied to currentTabElementId because then the animations wouldn't work
-					function calculateVisibility() {
-						return isMyGamesPage || isArchivedGamesPage
-					}
+                    // Only visible on the games page, group games tab
+                    // This fixes a bug where you could click through the upper bar on the recent games page
+                    // Also can't be tied to currentTabElementId because then the animations wouldn't work
+                    function calculateVisibility() {
+                        return isMyGamesPage || isArchivedGamesPage
+                    }
 
-					visible: calculateVisibility()
+                    visible: calculateVisibility()
 
-					checkable: showGroups
+                    checkable: showGroups
 
-					model: getGroupGamesPageController().getGroupModel()
+                    model: getGroupGamesPageController().getGroupModel()
 
-					onCurrentIndexChanged: {
-						if (!isMyGamesPage && !isArchivedGamesPage) {
-							return;
-						}                    
-						if (FFlagContextMenuWithCursor) {
-							contextMenuDropdown.hide();
-						} else {
-							gameGridView.gridContextMenuDropdown.hide();
-						}
+                    onCurrentIndexChanged: {
+                        if (!isMyGamesPage && !isArchivedGamesPage) {
+                            return;
+                        }                    
+                        if (FFlagContextMenuWithCursor) {
+                            contextMenuDropdown.hide();
+                        } else {
+                            gameGridView.gridContextMenuDropdown.hide();
+                        }
 
-						getGroupGamesPageController().onGroupChanged(currentIndex);
+                        getGroupGamesPageController().onGroupChanged(currentIndex);
 
-						// Because the current index can be changed when populating is changed, check here before changing which model to render
-						// Still send the update to C++ though (above)
-						if (isCurrentTabGroupGamesTab()) {
-							gameGridViewWithHeader.model = getGroupGamesPageController().getGamesPageModel();
-							gameGridView.model = gameGridViewWithHeader.model;
-						}
-					}
+                        // Because the current index can be changed when populating is changed, check here before changing which model to render
+                        // Still send the update to C++ though (above)
+                        if (isCurrentTabGroupGamesTab()) {
+                            gameGridViewWithHeader.model = getGroupGamesPageController().getGamesPageModel();
+                            gameGridView.model = gameGridViewWithHeader.model;
+                        }
+                    }
 
-					onCheckedChanged: {
-						if (checked) {
-							gameGridViewWithHeader.setFocusTo("GroupComboBox");
-						}
+                    onCheckedChanged: {
+                        if (checked) {
+                            gameGridViewWithHeader.setFocusTo("GroupComboBox");
+                        }
 
-						gameGridViewWithHeader.setGridViewScrollable(!checked);
-					}
+                        gameGridViewWithHeader.setGridViewScrollable(!checked);
+                    }
 
-					// If the GroupModel gets refreshed then we need to get the group
-					// GamesPageModel manually because the old one has been completely
-					// deleted instead of cleared. This Connection handles that.
-					Connections {
-						target: getGroupGamesPageController().getGroupModel()
-						onRowsRemoved: {
-							if (isCurrentTabGroupGamesTab()) {
-								// The GroupGamesModel will return an empty model if all of them
-								// have been removed. That way the view doesn't get assigned a NULL
-								// pointer. It's using the Null Object design pattern.
-								gameGridView.model = getGroupGamesPageController().getGamesPageModel();
-							}
-						}
-						onPopulatingChanged: {
-							if ((isMyGamesPage || isArchivedGamesPage) && !populating && _groupGamesComboBox.model.count > 0) {
-								_groupGamesComboBox.currentIndex = getGroupGamesPageController().getLastGroupIndex();
-							}
-						}
-					}
-				} //combobox
-			}
-			
+                    // If the GroupModel gets refreshed then we need to get the group
+                    // GamesPageModel manually because the old one has been completely
+                    // deleted instead of cleared. This Connection handles that.
+                    Connections {
+                        target: getGroupGamesPageController().getGroupModel()
+                        onRowsRemoved: {
+                            if (isCurrentTabGroupGamesTab()) {
+                                // The GroupGamesModel will return an empty model if all of them
+                                // have been removed. That way the view doesn't get assigned a NULL
+                                // pointer. It's using the Null Object design pattern.
+                                gameGridView.model = getGroupGamesPageController().getGamesPageModel();
+                            }
+                        }
+                        onPopulatingChanged: {
+                            if ((isMyGamesPage || isArchivedGamesPage) && !populating && _groupGamesComboBox.model.count > 0) {
+                                _groupGamesComboBox.currentIndex = getGroupGamesPageController().getLastGroupIndex();
+                            }
+                        }
+                    }
+                } //combobox
+            }
+            
             Item {
                 id: sortOptionsComboBoxContainer
                 // Text + dropdown + some padding between the two
@@ -624,7 +630,7 @@ Item {
                     font.pixelSize: 18
                     font.weight: userPreferences.theme.style("CommonStyle fontWeight")
                     renderType: userPreferences.theme.style("CommonStyle textRenderType")
-					color: userPreferences.theme.style("StartPage Page labelText")
+                    color: userPreferences.theme.style("StartPage Page labelText")
                 }
 
                 TextMetrics {
@@ -755,7 +761,7 @@ Item {
                 createNewGameWidget.state = createNewGameWidget.stateNoArchivedGames;
             } else if (isArchivedGamesPage && (currentTabElementId === "archivedGames_GroupGames")) {
                 createNewGameWidget.state = createNewGameWidget.stateNoArchivedGroupGames;
-			}
+            }
         }
 
         // Switch to the state when tab changes, e.g. My Games to Group Games.
