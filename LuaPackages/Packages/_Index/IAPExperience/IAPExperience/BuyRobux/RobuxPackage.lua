@@ -11,10 +11,10 @@ local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCurso
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
 local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local RoactGamepad = require(Packages.RoactGamepad)
 

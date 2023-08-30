@@ -7,7 +7,7 @@ local llama = dependencies.llama
 local UIBlox = dependencies.UIBlox
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local Style = UIBlox.Style
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 

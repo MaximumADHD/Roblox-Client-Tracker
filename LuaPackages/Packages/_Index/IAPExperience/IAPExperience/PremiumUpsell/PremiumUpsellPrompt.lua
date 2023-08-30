@@ -12,7 +12,7 @@ local UIBlox = require(Packages.UIBlox)
 local PartialPageModal = UIBlox.App.Dialog.Modal.PartialPageModal
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Style.withStyle
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)

@@ -45,6 +45,8 @@ export type Props = {
 	onLayout: ((rbx: ScrollingFrame) -> ())?,
 	scrollEventThrottle: number?,
 	onScroll: ((rbx: ScrollingFrame) -> ())?,
+	-- Observe selection changed events in order to manage scrolling while using selection-based navigation.
+	onSelectionChanged: ((rbx: any, isSelected: boolean, oldSelection: any?, newSelection: any?) -> ())?,
 	onTouchStart: (rbx: ScrollingFrame, input: InputObject) -> (),
 	onTouchEnd: (rbx: ScrollingFrame, input: InputObject) -> (),
 	onTouchMove: (rbx: ScrollingFrame, input: InputObject) -> (),
@@ -184,6 +186,11 @@ function ScrollViewNativeComponent:render()
 				self.props.onTouchMove(rbx, input)
 			end
 		end,
+		[Event.SelectionChanged] = if self.props.onSelectionChanged
+			then function(rbx, isSelected, oldSelection, newSelection)
+				self.props.onSelectionChanged(rbx, isSelected, oldSelection, newSelection)
+			end
+			else nil,
 	}, styleProps)
 
 	return React.createElement("ScrollingFrame", nativeProps, {

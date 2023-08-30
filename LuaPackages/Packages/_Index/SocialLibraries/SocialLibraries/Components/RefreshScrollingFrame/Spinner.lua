@@ -10,7 +10,7 @@ local Cryo = dependencies.Cryo
 
 local withStyle = UIBlox.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 

@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-circus/src/index.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-circus/src/index.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -15,7 +15,7 @@ type FIXME_ANALYZE = any
 -- ROBLOX deviation START: predefine variables
 local _dispatchDescribe: (
 	blockFn: Circus_BlockFn,
-	blockName: Circus_BlockName,
+	blockName: Circus_BlockNameLike,
 	describeFn: DescribeFn,
 	mode: Circus_BlockMode?
 ) -> ()
@@ -24,8 +24,9 @@ local exports = {}
 local typesModule = require(Packages.JestTypes)
 type Circus_HookFn = typesModule.Circus_HookFn
 type Circus_HookType = typesModule.Circus_HookType
-type Circus_BlockName = typesModule.Circus_BlockName
 type Circus_BlockFn = typesModule.Circus_BlockFn
+type Circus_BlockNameLike = typesModule.Circus_BlockNameLike
+type Circus_TestNameLike = typesModule.Circus_TestNameLike
 type Circus_BlockMode = typesModule.Circus_BlockMode
 type Circus_TestName = typesModule.Circus_TestName
 type Circus_TestFn = typesModule.Circus_TestFn
@@ -36,6 +37,7 @@ type Global_It = typesModule.Global_It
 local bindEach = require(Packages.JestEach).bind
 local jest_utilModule = require(Packages.JestUtil)
 local ErrorWithStack = jest_utilModule.ErrorWithStack
+local convertDescriptorToString = jest_utilModule.convertDescriptorToString
 local isPromise = jest_utilModule.isPromise
 local dispatchSync = require(script.state).dispatchSync
 local stateModule = require(script.state)
@@ -44,29 +46,30 @@ exports.getState = stateModule.getState
 exports.resetState = stateModule.resetState
 exports.run = require(script.run).default
 
-local prettyFormat = require(Packages.PrettyFormat).format
-
 type THook = (fn: Circus_HookFn, timeout: number?) -> ()
 type DescribeFn = typeof(setmetatable({}, {
-	__call = (nil :: any) :: (_self: any, blockName: Circus_BlockName, blockFn: Circus_BlockFn) -> (),
+	__call = (nil :: any) :: (_self: any, blockName: Circus_BlockNameLike, blockFn: Circus_BlockFn) -> (),
 }))
+
+local LuauPolyfill = require(Packages.LuauPolyfill)
+type Error = LuauPolyfill.Error
 
 local describe = (function()
 	local describe
 	describe = setmetatable({}, {
-		__call = function(_self: any, blockName: Circus_BlockName, blockFn: Circus_BlockFn)
+		__call = function(_self: any, blockName: Circus_BlockNameLike, blockFn: Circus_BlockFn)
 			return _dispatchDescribe(blockFn, blockName, describe)
 		end,
 	})
 	local only
 	only = setmetatable({}, {
-		__call = function(_self: any, blockName: Circus_BlockName, blockFn: Circus_BlockFn)
+		__call = function(_self: any, blockName: Circus_BlockNameLike, blockFn: Circus_BlockFn)
 			return _dispatchDescribe(blockFn, blockName, only, "only")
 		end,
 	})
 	local skip
 	skip = setmetatable({}, {
-		__call = function(_self: any, blockName: Circus_BlockName, blockFn: Circus_BlockFn)
+		__call = function(_self: any, blockName: Circus_BlockNameLike, blockFn: Circus_BlockFn)
 			return _dispatchDescribe(blockFn, blockName, skip, "skip")
 		end,
 	})
@@ -96,7 +99,7 @@ end)()
 
 function _dispatchDescribe(
 	blockFn: Circus_BlockFn,
-	blockName: Circus_BlockName,
+	blockName: Circus_BlockNameLike,
 	describeFn: DescribeFn,
 	-- ROBLOX FIXME Luau: can't type it properly as `Circus_BlockMode` because for some reason it conflicts with a predefined value type.
 	mode: any?
@@ -114,12 +117,32 @@ function _dispatchDescribe(
 		asyncError.message = ("Invalid second argument, %s. It must be a callback function."):format(blockFn)
 		error(asyncError)
 	end
+	do --[[ ROBLOX COMMENT: try-catch block conversion ]]
+		-- ROBLOX deviation START: silence unused 'ok' variable
+		-- local ok, result, hasReturned = xpcall(function()
+		local _ok, result, hasReturned = xpcall(function()
+			-- ROBLOX deviation END
+			blockName = convertDescriptorToString(blockName)
+		end, function(error_)
+			asyncError.message = (error_ :: Error).message
+			error(asyncError)
+		end)
+		-- ROBLOX deviation END
+		if hasReturned then
+			return result
+		end
+	end
+
 	dispatchSync({
 		asyncError = asyncError,
-		blockName = blockName,
+		-- ROBLOX deviation START: string type has difficulty being inferred via control flow
+		-- blockName = blockName,
+		blockName = blockName :: string,
+		-- ROBLOX deviation END
 		mode = mode,
 		name = "start_describe_definition",
 	})
+
 	-- ROBLOX deviation: casting to any as this is runtime check that is not allowed by type
 	local describeReturn = blockFn() :: any
 	if isPromise(describeReturn) then
@@ -135,7 +158,11 @@ function _dispatchDescribe(
 			describeFn :: FIXME_ANALYZE
 		))
 	end
-	dispatchSync({ blockName = blockName, mode = mode, name = "finish_describe_definition" })
+
+	-- ROBLOX deviation START: string type has difficulty being inferred via control flow
+	-- dispatchSync({ blockName = blockName, mode = mode, name = "finish_describe_definition" })
+	dispatchSync({ blockName = blockName :: string, mode = mode, name = "finish_describe_definition" })
+	-- ROBLOX deviation END
 end
 
 local function _addHook(fn: Circus_HookFn, hookType: Circus_HookType, hookFn: THook, timeout: number?)
@@ -177,7 +204,7 @@ local test: Global_It = (function()
 		testName: Circus_TestName,
 		mode: Circus_TestMode,
 		fn: Circus_TestFn | nil,
-		testFn: (testName: Circus_TestName, fn: Circus_TestFn, timeout: number?) -> (),
+		testFn: (testName: Circus_TestNameLike, fn: Circus_TestFn, timeout: number?) -> (),
 		timeout: number?
 	) -> ()
 	-- ROBLOX deviation END
@@ -215,14 +242,24 @@ local test: Global_It = (function()
 		testFn: (testName: Circus_TestName, fn: Circus_TestFn, timeout: number?) -> (),
 		timeout: number?
 	): ()
-		local asyncError = ErrorWithStack.new(nil, testFn)
-		if typeof(testName) ~= "string" then
-			asyncError.message = ("Invalid first argument, %s. It must be a string."):format(
-				-- ROBLOX deviation: using prettyFormat to output useful error information
-				prettyFormat(testName)
-			)
+		local asyncError, hasErrored = ErrorWithStack.new(nil, testFn), false
+
+		do --[[ ROBLOX COMMENT: try-catch block conversion ]]
+			local _ok, result, hasReturned = xpcall(function()
+				testName = convertDescriptorToString(testName)
+			end, function(error_)
+				asyncError.message = (error_ :: Error).message
+				hasErrored = true
+			end)
+			if hasReturned then
+				return result
+			end
+		end
+
+		if hasErrored then
 			error(asyncError)
 		end
+
 		if fn == nil then
 			asyncError.message =
 				"Missing second argument. It must be a callback function. Perhaps you want to use `test.todo` for a test placeholder."

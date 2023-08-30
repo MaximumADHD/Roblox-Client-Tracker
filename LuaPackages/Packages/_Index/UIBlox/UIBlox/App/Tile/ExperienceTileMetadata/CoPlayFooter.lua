@@ -14,8 +14,8 @@ local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local Fonts = require(UIBlox.App.Style.Fonts)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
-local EMPHASIS_BORDER_OFFSET = 1 --number of pixels between the emphasis border and the outside of the content's border
+-- Always a thin line inside the outer badge
+local EMPHASIS_BORDER_WIDTH = 1
 
 export type StyleProps = {
 	-- Spacing between faces and label
@@ -153,15 +153,15 @@ end
 
 local function renderEmphasisBorder(borderStrokeWidth: number, styleProps: StyleProps, style: StyleTypes.AppStyle)
 	local theme = style.Theme
-	local sizeOffset = borderStrokeWidth - EMPHASIS_BORDER_OFFSET
+	local sizeOffset = borderStrokeWidth - EMPHASIS_BORDER_WIDTH
+	local positionOffset = (EMPHASIS_BORDER_WIDTH - borderStrokeWidth) / 2
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Position = UDim2.fromScale(0.5, 0.5),
-		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0, positionOffset, 0, positionOffset),
 		Size = UDim2.new(1, sizeOffset, 1, sizeOffset),
 	}, {
 		renderCornerStroke({
-			borderWidth = 1, -- Always a thin line inside the outer badge
+			borderWidth = EMPHASIS_BORDER_WIDTH,
 			borderColor = theme.ContextualPrimaryDefault,
 			borderRadius = styleProps.badgeBorderRadius :: number,
 		}),

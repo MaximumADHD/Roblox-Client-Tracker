@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-core/src/getSelectProjectsMessage.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-core/src/getSelectProjectsMessage.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -25,16 +25,48 @@ local getProjectsRunningMessage
 local getProjectNameListElement
 -- ROBLOX deviation END
 
-local function getSelectProjectsMessage(projectConfigs: Array<Config_ProjectConfig>): string
+local function getSelectProjectsMessage(
+	projectConfigs: Array<Config_ProjectConfig>,
+	opts: {
+		ignoreProjects: Array<string> | nil,
+		selectProjects: Array<string> | nil,
+	}
+): string
+	-- ROBLOX deviation START: fix length check
+	-- if projectConfigs.length == 1 then
 	if #projectConfigs == 0 then
-		return getNoSelectionWarning()
+		-- ROBLOX deviation END
+		return getNoSelectionWarning(opts)
 	end
 	return getProjectsRunningMessage(projectConfigs)
 end
 exports.default = getSelectProjectsMessage
 
-function getNoSelectionWarning(): string
-	return chalk.yellow("You provided values for --selectProjects but no projects were found matching the selection.\n")
+function getNoSelectionWarning(opts: {
+	ignoreProjects: Array<string> | nil,
+	selectProjects: Array<string> | nil,
+}): string
+	if
+		Boolean.toJSBoolean(
+			if Boolean.toJSBoolean(opts.ignoreProjects) then opts.selectProjects else opts.ignoreProjects
+		)
+	then
+		return chalk.yellow(
+			"You provided values for --selectProjects and --ignoreProjects, but no projects were found matching the selection.\n"
+				.. "Are you ignoring all the selected projects?\n"
+		)
+	elseif Boolean.toJSBoolean(opts.ignoreProjects) then
+		return chalk.yellow(
+			"You provided values for --ignoreProjects, but no projects were found matching the selection.\n"
+				.. "Are you ignoring all projects?\n"
+		)
+	elseif Boolean.toJSBoolean(opts.selectProjects) then
+		return chalk.yellow(
+			"You provided values for --selectProjects but no projects were found matching the selection.\n"
+		)
+	else
+		return chalk.yellow("No projects were found.\n")
+	end
 end
 
 function getProjectsRunningMessage(projectConfigs: Array<Config_ProjectConfig>): string

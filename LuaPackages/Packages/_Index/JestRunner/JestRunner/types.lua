@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-runner/src/types.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-runner/src/types.ts
 
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
@@ -13,6 +13,8 @@ type Array<T> = LuauPolyfill.Array<T>
 type Error = LuauPolyfill.Error
 type Promise<T> = LuauPolyfill.Promise<T>
 type Set<T> = LuauPolyfill.Set<T>
+
+type void = nil
 
 -- ROBLOX deviation: no emittery available
 type Emittery<T> = any
@@ -55,9 +57,23 @@ export type TestRunnerContext = {
 	changedFiles: Set<Config_Path>?,
 	sourcesRelatedToTestsInChangedFiles: Set<Config_Path>?,
 }
-export type TestRunnerSerializedContext = {
-	changedFiles: Array<Config_Path>?,
-	sourcesRelatedToTestsInChangedFiles: Array<Config_Path>?,
+type SerializeSet<T> = any --[[ ROBLOX TODO: Unhandled node for type: TSConditionalType ]] --[[ T extends Set<infer U> ? Array<U> : T ]]
+export type TestRunnerSerializedContext = any --[[ ROBLOX TODO: Unhandled node for type: TSMappedType ]] --[[ {
+  [K in keyof TestRunnerContext]: SerializeSet<TestRunnerContext[K]>;
+} ]]
+export type UnsubscribeFn = () -> ()
+export type CallbackTestRunnerInterface = {
+	isSerial: boolean?,
+	supportsEventEmitters: boolean?,
+	runTests: (
+		self: CallbackTestRunnerInterface,
+		tests: Array<Test>,
+		watcher: TestWatcher,
+		onStart: OnTestStart,
+		onResult: OnTestSuccess,
+		onFailure: OnTestFailure,
+		options: TestRunnerOptions
+	) -> Promise<void>,
 }
 
 -- TODO: Should live in `@jest/core` or `jest-watcher`

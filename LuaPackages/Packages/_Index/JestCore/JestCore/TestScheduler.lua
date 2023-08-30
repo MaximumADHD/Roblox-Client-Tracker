@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-core/src/TestScheduler.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-core/src/TestScheduler.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -31,10 +31,12 @@ local reportersModule = require(Packages.JestReporters)
 -- local CoverageReporter = reportersModule.CoverageReporter
 -- ROBLOX deviation END
 local DefaultReporter = reportersModule.DefaultReporter
+type JestReporter = reportersModule.BaseReporter
 -- ROBLOX deviation START: not needed
 -- local NotifyReporter = reportersModule.NotifyReporter
 -- ROBLOX deviation END
 type Reporter = reportersModule.Reporter
+type ReporterContext = reportersModule.ReporterContext
 local SummaryReporter = reportersModule.SummaryReporter
 local VerboseReporter = reportersModule.VerboseReporter
 local test_resultModule = require(Packages.JestTestResult)
@@ -55,6 +57,7 @@ type Config_ReporterConfig = typesModule.Config_ReporterConfig
 local formatExecError = require(Packages.JestMessageUtil).formatExecError
 local jest_runnerModule = require(Packages.JestRunner)
 type TestRunner = jest_runnerModule.TestRunner
+type TestRunnerContext = jest_runnerModule.TestRunnerContext
 local jest_runtimeModule = require(Packages.JestRuntime)
 type Context = jest_runtimeModule.Context
 -- ROBLOX deviation START: snapshot not used yet
@@ -70,6 +73,11 @@ local TestWatcherModule = require(script.Parent.TestWatcher)
 type TestWatcher = TestWatcherModule.TestWatcher
 local shouldRunInBand = require(script.Parent.testSchedulerHelper).shouldRunInBand
 
+-- ROBLOX deviation START: add additional imports and types
+local types = require(script.Parent.types)
+type ReporterConstructor = types.ReporterConstructor
+-- ROBLOX deviation END
+
 -- ROBLOX deviation START: predefine variables
 local TestScheduler: TestSchedulerPrivate & TestScheduler_statics
 local invariant
@@ -78,20 +86,17 @@ local getEstimatedTime
 -- ROBLOX deviation END
 
 export type TestSchedulerOptions = { startRun: (globalConfig: Config_GlobalConfig) -> () }
-export type TestSchedulerContext = {
-	firstRun: boolean,
-	previousSuccess: boolean,
-	changedFiles: Set<Config_Path>?,
-	sourcesRelatedToTestsInChangedFiles: Set<Config_Path>?,
-}
+-- ROBLOX deviation START: luau is not resolving type intersection as expected
+-- export type TestSchedulerContext = ReporterContext & TestRunnerContext
+export type TestSchedulerContext = ReporterContext | TestRunnerContext
+-- ROBLOX deviation END
 
 local function createTestScheduler(
 	globalConfig: Config_GlobalConfig,
-	options: TestSchedulerOptions,
 	context: TestSchedulerContext
 ): Promise<TestScheduler>
 	return Promise.resolve():andThen(function()
-		local scheduler = TestScheduler.new(globalConfig, options, context)
+		local scheduler = TestScheduler.new(globalConfig, context)
 		scheduler:_setupReporters():expect()
 		return scheduler
 	end)
@@ -100,7 +105,7 @@ exports.createTestScheduler = createTestScheduler
 
 type TestScheduler = {
 	addReporter: (self: TestScheduler, reporter: Reporter) -> (),
-	removeReporter: (self: TestScheduler, ReporterClass: Function) -> (),
+	removeReporter: (self: TestScheduler, reporterConstructor: ReporterConstructor) -> (),
 	scheduleTests: (self: TestScheduler, tests: Array<Test>, watcher: TestWatcher) -> Promise<AggregatedResult>,
 	_setupReporters: (self: TestScheduler) -> Promise<nil>,
 }
@@ -149,26 +154,17 @@ type TestSchedulerPrivate = {
 }
 
 type TestScheduler_statics = {
-	new: (
-		globalConfig: Config_GlobalConfig,
-		options: TestSchedulerOptions,
-		context: TestSchedulerContext
-	) -> TestScheduler,
+	new: (globalConfig: Config_GlobalConfig, context: TestSchedulerContext) -> TestScheduler,
 }
 
 TestScheduler = {} :: TestSchedulerPrivate & TestScheduler_statics;
 (TestScheduler :: any).__index = TestScheduler
 
-function TestScheduler.new(
-	globalConfig: Config_GlobalConfig,
-	options: TestSchedulerOptions,
-	context: TestSchedulerContext
-): TestScheduler
+function TestScheduler.new(globalConfig: Config_GlobalConfig, context: TestSchedulerContext): TestScheduler
 	local self = setmetatable({}, TestScheduler)
+	self._context = context
 	self._dispatcher = ReporterDispatcher.new()
 	self._globalConfig = globalConfig
-	self._options = options
-	self._context = context
 	return (self :: any) :: TestScheduler
 end
 
@@ -192,9 +188,9 @@ function TestScheduler:scheduleTests(tests: Array<Test>, watcher: TestWatcher): 
 			return self._dispatcher:onTestFileStart(...)
 		end
 		local timings: Array<number> = {}
-		local contexts = Set.new()
+		local testContexts = Set.new()
 		Array.forEach(tests, function(test)
-			contexts:add(test.context)
+			testContexts:add(test.context)
 			-- ROBLOX deviation START: can't compare nil to number
 			local duration = test.duration or 0
 			if duration > 0 then
@@ -219,19 +215,15 @@ function TestScheduler:scheduleTests(tests: Array<Test>, watcher: TestWatcher): 
 					return onFailure(test, { message = message, stack = Error.new(message).stack })
 				end -- Throws when the context is leaked after executing a test.
 				if Boolean.toJSBoolean(testResult.leaks) then
-					local message = tostring(chalk.red:bold("EXPERIMENTAL FEATURE!\n"))
-						.. "Your test suite is leaking memory. Please ensure all references are cleaned.\n"
-						.. "\n"
-						.. "There is a number of things that can leak memory:\n"
-						.. "  - Async operations that have not finished (e.g. fs.readFile).\n"
-						.. "  - Timers not properly mocked (e.g. setInterval, setTimeout).\n"
-						.. "  - Keeping references to the global scope."
+					local message = ("%sYour test suite is leaking memory. Please ensure all references are cleaned.\n"):format(
+						tostring(chalk.red:bold("EXPERIMENTAL FEATURE!\n"))
+					) .. "\n" .. "There is a number of things that can leak memory:\n" .. "  - Async operations that have not finished (e.g. fs.readFile).\n" .. "  - Timers not properly mocked (e.g. setInterval, setTimeout).\n" .. "  - Keeping references to the global scope."
 					return onFailure(test, { message = message, stack = Error.new(message).stack })
 				end
 
 				addResult(aggregatedResults, testResult)
 				self._dispatcher:onTestFileResult(test, testResult, aggregatedResults):expect()
-				return self:_bailIfNeeded(contexts, aggregatedResults, watcher)
+				return self:_bailIfNeeded(testContexts, aggregatedResults, watcher)
 			end)
 		end
 
@@ -255,7 +247,7 @@ function TestScheduler:scheduleTests(tests: Array<Test>, watcher: TestWatcher): 
 
 		function updateSnapshotState()
 			return Promise.resolve():andThen(function()
-				local contextsWithSnapshotResolvers = Promise.all(Array.map(Array.from(contexts), function(context)
+				local contextsWithSnapshotResolvers = Promise.all(Array.map(Array.from(testContexts), function(context)
 					return Promise.resolve():andThen(function()
 						return {
 							context,
@@ -309,7 +301,7 @@ function TestScheduler:scheduleTests(tests: Array<Test>, watcher: TestWatcher): 
 
 		local testRunners: { [string]: TestRunner } = {}
 		local contextsByTestRunner = WeakMap.new()
-		Promise.all(Array.map(Array.from(contexts), function(context)
+		Promise.all(Array.map(Array.from(testContexts), function(context)
 			return Promise.resolve():andThen(function()
 				local config = context.config
 				if not Boolean.toJSBoolean(testRunners[config.runner]) then
@@ -319,10 +311,8 @@ function TestScheduler:scheduleTests(tests: Array<Test>, watcher: TestWatcher): 
 					local Runner: TestRunner = require(Packages.JestRunner).default
 					-- ROBLOX deviation END
 					local runner = Runner.new(self._globalConfig, {
-						changedFiles = if typeof(self._context) == "table" then self._context.changedFiles else nil,
-						sourcesRelatedToTestsInChangedFiles = if typeof(self._context) == "table"
-							then self._context.sourcesRelatedToTestsInChangedFiles
-							else nil,
+						changedFiles = self._context.changedFiles,
+						sourcesRelatedToTestsInChangedFiles = self._context.sourcesRelatedToTestsInChangedFiles,
 					})
 					testRunners[config.runner] = runner
 					contextsByTestRunner:set(runner, context)
@@ -423,11 +413,11 @@ function TestScheduler:scheduleTests(tests: Array<Test>, watcher: TestWatcher): 
 
 		updateSnapshotState():expect()
 		aggregatedResults.wasInterrupted = watcher:isInterrupted()
-		self._dispatcher:onRunComplete(contexts, aggregatedResults):expect()
+		self._dispatcher:onRunComplete(testContexts, aggregatedResults):expect()
 
 		local anyTestFailures = not (
-				aggregatedResults.numFailedTests == 0 and aggregatedResults.numRuntimeErrorTestSuites == 0
-			)
+			aggregatedResults.numFailedTests == 0 and aggregatedResults.numRuntimeErrorTestSuites == 0
+		)
 		local anyReporterErrors = self._dispatcher:hasErrors()
 
 		aggregatedResults.success = anyTestFailures or aggregatedResults.snapshot.failure or anyReporterErrors
@@ -622,14 +612,13 @@ function getEstimatedTime(timings: Array<number>, workers: number): number
 	local max = math.max(table.unpack(timings))
 	return if #timings <= workers
 		then max
-		else
-			math.max(Array.reduce(timings, function(
-				-- ROBLOX FIXME Luau: should be inferred from reduce's initial value
-				sum: number,
-				time_
-			)
-				return sum + time_
-			end) / workers, max)
+		else math.max(Array.reduce(timings, function(
+			-- ROBLOX FIXME Luau: should be inferred from reduce's initial value
+			sum: number,
+			time_
+		)
+			return sum + time_
+		end) / workers, max)
 end
 
 return exports

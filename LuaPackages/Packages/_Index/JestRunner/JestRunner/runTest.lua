@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-runner/src/runTest.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-runner/src/runTest.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -110,9 +110,9 @@ local function runTestInternal(
 	-- ROBLOX deviation: accept ModuleScript instead of string
 	path: ModuleScript,
 	globalConfig: Config_GlobalConfig,
-	config: Config_ProjectConfig,
+	projectConfig: Config_ProjectConfig,
 	resolver: Resolver,
-	context: TestRunnerContext?,
+	context: TestRunnerContext,
 	sendMessageToJest: TestFileEvent?,
 	loadedModuleFns: Map<ModuleScript, { any }>
 ): Promise<RunTestInternalResult>
@@ -122,7 +122,7 @@ local function runTestInternal(
 		-- local docblockPragmas = docblock:parse(docblock:extract(testSource))
 		-- local customEnvironment = docblockPragmas["jest-environment"]
 		-- ROBLOX deviation END
-		local testEnvironment = config.testEnvironment
+		local testEnvironment = projectConfig.testEnvironment
 		-- ROBLOX deviation START: no custom environment handling
 		-- if customEnvironment ~= nil then
 		-- 	if Array.isArray(customEnvironment) then
@@ -171,7 +171,7 @@ local function runTestInternal(
 			return getConsoleOutput(
 				-- 4 = the console call is buried 4 stack frames deep
 				BufferedConsole.write({}, type_, message, 4),
-				config,
+				projectConfig,
 				globalConfig
 			)
 		end
@@ -186,7 +186,7 @@ local function runTestInternal(
 			testConsole = BufferedConsole.new()
 		end
 
-		local environment = TestEnvironment.new(config, {
+		local environment = TestEnvironment.new(projectConfig, {
 			console = testConsole,
 			-- docblockPragmas = docblockPragmas,
 			testPath = path,
@@ -194,9 +194,9 @@ local function runTestInternal(
 
 		if typeof(environment.getVmContext) ~= "function" then
 			console.error(
-				(
-					'Test environment found at "%s" does not export a "getVmContext" method, which is mandatory from Jest 27. This method is a replacement for "runScript".'
-				):format(tostring(testEnvironment))
+				('Test environment found at "%s" does not export a "getVmContext" method, which is mandatory from Jest 27. This method is a replacement for "runScript".'):format(
+					tostring(testEnvironment)
+				)
 			)
 			-- ROBLOX deviation START: no process.exit in Luau
 			error(1)
@@ -229,7 +229,7 @@ local function runTestInternal(
 
 		local start = DateTime.now().UnixTimestampMillis
 
-		for _, path_ in config.setupFiles do
+		for _, path_ in projectConfig.setupFiles do
 			-- ROBLOX deviation START: no esm modules in Lua
 			runtime:requireModule(path_)
 			-- local esm = runtime:unstable_shouldLoadAsEsm(path)
@@ -313,7 +313,8 @@ local function runTestInternal(
 				-- 	runtime:collectV8Coverage():expect()
 				-- end
 				-- ROBLOX deviation END
-				result = testFramework(globalConfig, config, environment, runtime, path, sendMessageToJest):expect()
+				result =
+					testFramework(globalConfig, projectConfig, environment, runtime, path, sendMessageToJest):expect()
 			end)
 			if not ok_ then
 				local err = result_
@@ -331,7 +332,7 @@ local function runTestInternal(
 				error(err)
 			end
 
-			freezeConsole(testConsole, config)
+			freezeConsole(testConsole, projectConfig)
 
 			local testCount = result.numPassingTests
 				+ result.numFailingTests
@@ -343,13 +344,13 @@ local function runTestInternal(
 			result.perfStats = {
 				["end"] = end_,
 				runtime = testRuntime,
-				slow = testRuntime / 1000 > config.slowTestThreshold,
+				slow = testRuntime / 1000 > projectConfig.slowTestThreshold,
 				start = start,
 			}
-			result.testFilePath = getRelativePath(path, config.rootDir)
+			result.testFilePath = getRelativePath(path, projectConfig.rootDir)
 			result.console = testConsole:getBuffer()
 			result.skipped = testCount == result.numPendingTests
-			result.displayName = config.displayName
+			result.displayName = projectConfig.displayName
 
 			-- #region
 			-- ROBLOX deviation START: no coverage support
@@ -401,11 +402,11 @@ local function runTestInternal(
 end
 
 local function runTest(
-	path: Config_Path,
+	path: ModuleScript,
 	globalConfig: Config_GlobalConfig,
 	config: Config_ProjectConfig,
 	resolver: Resolver,
-	context: TestRunnerContext?,
+	context: TestRunnerContext,
 	sendMessageToJest: TestFileEvent?,
 	loadedModuleFns: Map<ModuleScript, { any }>
 ): Promise<TestResult>

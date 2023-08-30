@@ -56,6 +56,12 @@ VerticalScrollView.validateProps = t.strictInterface({
 	[Roact.Change.CanvasPosition] = t.optional(t.callback),
 	[Roact.Change.CanvasSize] = t.optional(t.callback),
 	scrollingFrameRef = t.optional(t.table),
+	-- Connects to the ScrollingFrame's SelectionChanged event
+	onSelectionChanged = t.optional(t.callback),
+	-- Sets the CanvasPosition on the ScrollingFrame via a binding or Vector2
+	CanvasPosition = t.optional(t.union(t.table, t.Vector2)),
+	-- Sets the ScrollingEnabled prop on the ScrollingFrame
+	ScrollingEnabled = t.optional(t.boolean),
 
 	-- Navigation parameter for RoactGamepad support
 	NextSelectionLeft = t.optional(t.table),
@@ -206,6 +212,8 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			ScrollBarImageTransparency = self.scrollBarImageTransparency,
 			ScrollBarThickness = scrollBarThickness,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
+			ScrollingEnabled = self.props.ScrollingEnabled,
+			CanvasPosition = self.props.CanvasPosition,
 
 			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			onFocusGained = isGamepadFocusable and self.onGamepadFocused or nil,
@@ -228,6 +236,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			[Roact.Event.InputEnded] = self.inputEnded,
 			[Roact.Change.CanvasPosition] = self.canvasPosition,
 			[Roact.Change.CanvasSize] = self.props[Roact.Change.CanvasSize],
+			[Roact.Event.SelectionChanged] = self.props.onSelectionChanged,
 			[Roact.Ref] = self.props.scrollingFrameRef,
 		}, scrollingFrameChildren),
 	})

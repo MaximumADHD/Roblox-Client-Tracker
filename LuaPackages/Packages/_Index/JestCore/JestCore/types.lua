@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-core/src/types.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-core/src/types.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -17,6 +17,15 @@ local typesModule = require(Packages.JestTypes)
 type Config_Path = typesModule.Config_Path
 local jest_runtimeModule = require(Packages.JestRuntime)
 type Context = jest_runtimeModule.Context
+
+-- ROBLOX deviation START: add additional imports and types
+local reportersModule = require(Packages.JestReporters)
+type JestReporter = reportersModule.BaseReporter
+type ReporterContext = reportersModule.ReporterContext
+type Config_GlobalConfig = typesModule.Config_GlobalConfig
+
+type Record<K, T> = { [K]: T }
+-- ROBLOX deviation END
 
 export type Stats = {
 	roots: number,
@@ -44,5 +53,13 @@ export type TestPathCasesWithPathPattern = TestPathCases & { testPathPattern: (p
 export type FilterResult = { test: string, message: string }
 
 export type Filter = (testPaths: Array<string>) -> Promise<{ filtered: Array<FilterResult> }>
+
+-- ROBLOX deviation START: add types moved from other files to avoid cyclic dependencies
+export type ReporterConstructor = (
+	globalConfig: Config_GlobalConfig,
+	reporterConfig: Record<string, unknown>,
+	reporterContext: ReporterContext
+) -> JestReporter
+-- ROBLOX deviation END
 
 return {}

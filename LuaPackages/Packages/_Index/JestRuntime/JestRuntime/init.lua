@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-runtime/src/index.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-runtime/src/index.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -494,7 +494,7 @@ type Runtime_private = { --
 	isTornDown: boolean,
 	-- ROBLOX deviation START: additional properties
 	_jestObject: Jest,
-	_cleanupFns: Array<(...any) -> (...any)>,
+	_cleanupFns: Array<(...any) -> ...any>,
 	-- ROBLOX deviation END
 	-- ROBLOX deviation START: skipped
 	-- loadEsmModule: (self: Runtime_private, modulePath: Config_Path, query_: string?) -> Promise<VMModule>,
@@ -2579,6 +2579,14 @@ function Runtime_private:_createJestObjectFor(from: ModuleScript): Jest
 		advanceTimersToNextTimer = function(steps: number?)
 			return _getFakeTimers():advanceTimersToNextTimer(steps)
 		end,
+		-- ROBLOX deviation START: additional method to allow mocking of game-engine timer behavior
+		getEngineFrameTime = function()
+			return _getFakeTimers():getEngineFrameTime()
+		end,
+		setEngineFrameTime = function(frameTimeMs: number)
+			return _getFakeTimers():setEngineFrameTime(frameTimeMs)
+		end,
+		-- ROBLOX deviation END
 		-- ROBLOX TODO START: not implemented yet
 		-- autoMockOff = disableAutomock,
 		-- autoMockOn = enableAutomock,

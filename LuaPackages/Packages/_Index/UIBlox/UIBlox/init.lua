@@ -52,6 +52,8 @@ local function initializeLibrary(configs)
 		ImageSet = strict({
 			Button = require(script.Core.ImageSet.ImageSetComponent).Button,
 			Label = require(script.Core.ImageSet.ImageSetComponent).Label,
+			ImageSetButton = require(script.Core.ImageSet.ImageSetComponent).Button,
+			ImageSetLabel = require(script.Core.ImageSet.ImageSetComponent).Label,
 			Validator = strict({
 				validateImage = require(script.Core.ImageSet.Validator.validateImage),
 			}),

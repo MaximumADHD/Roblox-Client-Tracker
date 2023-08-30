@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-config/src/resolveConfigPath.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-config/src/resolveConfigPath.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -32,6 +32,8 @@ local JEST_CONFIG_BASE_NAME = constantsModule.JEST_CONFIG_BASE_NAME
 -- local JEST_CONFIG_EXT_ORDER = constantsModule.JEST_CONFIG_EXT_ORDER
 -- local PACKAGE_JSON = constantsModule.PACKAGE_JSON
 -- ROBLOX deviation END
+local utilsModule = require(script.Parent.utils)
+local DOCUMENTATION_NOTE = utilsModule.DOCUMENTATION_NOTE
 
 -- ROBLOX deviation START: predefine functions
 local resolveConfigPathByTraversing: (
@@ -206,7 +208,7 @@ local function extraIfPackageJson(configPath: Config_Path)
 end
 
 function makeMultipleConfigsWarning(configPaths: Array<ModuleScript>)
-	return chalk.yellow(
+	return chalk.yellow({
 		Array.join(
 			Array.concat(
 				{},
@@ -218,15 +220,12 @@ function makeMultipleConfigsWarning(configPaths: Array<ModuleScript>)
 					"",
 					"  Implicit config resolution does not allow multiple configuration files.",
 					"  Either remove unused config files or select one explicitly with `--config`.",
-					"",
-					"  Configuration Documentation:",
-					"  https://jestjs.io/docs/configuration.html",
-					"",
 				}
 			),
 			"\n"
-		)
-	)
+		),
+		DOCUMENTATION_NOTE,
+	})
 end
 
 return exports

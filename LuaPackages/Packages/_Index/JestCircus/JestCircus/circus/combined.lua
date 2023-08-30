@@ -1,6 +1,6 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-circus/src/globalErrorHandlers.ts
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-circus/src/state.ts
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-circus/src/eventHandler.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-circus/src/globalErrorHandlers.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-circus/src/state.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-circus/src/eventHandler.ts
 
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
@@ -78,9 +78,10 @@ do
 					table.insert(
 						currentlyRunningTest.errors,
 						Error.new(
-							(
-								'Cannot nest a describe inside a test. Describe block "%s" cannot run because it is nested within "%s".'
-							):format(blockName, currentlyRunningTest.name)
+							('Cannot nest a describe inside a test. Describe block "%s" cannot run because it is nested within "%s".'):format(
+								blockName,
+								currentlyRunningTest.name
+							)
 						)
 					)
 					break
@@ -96,9 +97,9 @@ do
 
 				if not Boolean.toJSBoolean(describeBlockHasTests(currentDescribeBlock)) then
 					Array.forEach(currentDescribeBlock.hooks, function(hook)
-						hook.asyncError.message = (
-							"Invalid: %s() may not be used in a describe block containing no tests."
-						):format(hook.type)
+						hook.asyncError.message = ("Invalid: %s() may not be used in a describe block containing no tests."):format(
+							hook.type
+						)
 						table.insert(state.unhandledErrors, hook.asyncError)
 					end)
 				end
@@ -106,11 +107,11 @@ do
 				-- pass mode of currentDescribeBlock to tests
 				-- but do not when there is already a single test with "only" mode
 				local shouldPassMode = not (
-						currentDescribeBlock.mode == "only"
-						and Array.some(currentDescribeBlock.children, function(child)
-							return child.type == "test" and child.mode == "only"
-						end)
-					)
+					currentDescribeBlock.mode == "only"
+					and Array.some(currentDescribeBlock.children, function(child)
+						return child.type == "test" and child.mode == "only"
+					end)
+				)
 				if shouldPassMode then
 					Array.forEach(currentDescribeBlock.children, function(child)
 						if child.type == "test" and not Boolean.toJSBoolean(child.mode) then
@@ -422,7 +423,7 @@ do
 				-- ROBLOX deviation START: need to check if value returned is a Promise, otherwise we can't run `:expect()`
 				-- ROBLOX FIXME Luau: need to cast handler explicitely as Luau can't infer from type union properly
 				local result = (
-					handler :: ((self: any, event: Circus_AsyncEvent, state: Circus_State) -> (nil | Promise<nil>))
+					handler :: (self: any, event: Circus_AsyncEvent, state: Circus_State) -> nil | Promise<nil>
 				)(nil, event, getState())
 				if result ~= nil then
 					result:expect()
@@ -435,7 +436,7 @@ do
 	function dispatchSync(event: Circus_SyncEvent): ()
 		for _, handler in ipairs(eventHandlers) do
 			-- ROBLOX FIXME Luau: need to cast handler explicitely as Luau can't infer from type union properly
-			(handler :: ((self: any, event: Circus_SyncEvent, state: Circus_State) -> ()))(nil, event, getState())
+			(handler :: (self: any, event: Circus_SyncEvent, state: Circus_State) -> ())(nil, event, getState())
 		end
 	end
 	exports.dispatchSync = dispatchSync

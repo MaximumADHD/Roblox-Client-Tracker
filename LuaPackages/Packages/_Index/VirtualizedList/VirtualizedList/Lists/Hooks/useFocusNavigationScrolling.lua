@@ -13,8 +13,6 @@
 	* limitations under the License.
 ]]
 
-local GuiService = game:GetService("GuiService")
-
 local srcWorkspace = script.Parent.Parent.Parent
 local Packages = srcWorkspace.Parent
 
@@ -63,20 +61,9 @@ local function useFocusNavigationScrolling<T>(scrollConfig: ScrollConfig<T>)
 		end
 	end, { listRef })
 
-	React.useEffect(function()
-		local function scrollToFocusSelection(changedValue: string)
-			local selectedCoreObject = nil
-			if changedValue == "SelectedObject" then
-				selectedCoreObject = GuiService.SelectedObject
-			elseif changedValue == "SelectedCoreObject" then
-				selectedCoreObject = GuiService.SelectedCoreObject
-			end
-
-			if not selectedCoreObject then
-				return nil
-			end
-
-			local parentView = (selectedCoreObject :: GuiObject):FindFirstAncestor(cellRendererKey) :: GuiObject
+	local onSelectionChanged = React.useCallback(function(selectionParent, _, oldSelection, newSelection)
+		if newSelection and newSelection:IsDescendantOf(selectionParent) then
+			local parentView = (newSelection :: GuiObject):FindFirstAncestor(cellRendererKey) :: GuiObject
 			if not parentView or not parentView.LayoutOrder then
 				return nil
 			end
@@ -106,19 +93,11 @@ local function useFocusNavigationScrolling<T>(scrollConfig: ScrollConfig<T>)
 				animated = animated,
 				viewOffset = viewOffset,
 			})
-			return nil
 		end
-
-		local connection = GuiService.Changed:Connect(scrollToFocusSelection)
-
-		return function()
-			if connection then
-				connection:Disconnect()
-			end
-		end
+		return nil
 	end, { listRef, focusedIndex, cellRendererKey, onSelectedIndexChanged, animated, viewOffset } :: { any })
 
-	return onScrollToIndexFailed
+	return onSelectionChanged, onScrollToIndexFailed
 end
 
 return useFocusNavigationScrolling

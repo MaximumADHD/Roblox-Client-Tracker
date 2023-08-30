@@ -2,8 +2,8 @@
 local UIBloxRoot = script.Parent.Parent.Parent.Parent
 local Packages = UIBloxRoot.Parent
 
-local Roact = require(Packages.Roact)
-local withStyle = require(UIBloxRoot.Core.Style.withStyle)
+local React = require(Packages.React)
+local useStyle = require(UIBloxRoot.Core.Style.useStyle)
 
 local ExternalEventConnection = require(UIBloxRoot.Utility.ExternalEventConnection)
 local RunService = game:GetService("RunService")
@@ -16,28 +16,46 @@ local RunService = game:GetService("RunService")
 	Each individual cursor file uses this fragment to add the rotating gradient as a child.
 		EG: RoundedRect.lua, SkinToneCircle.lua, etc
 ]]
-local AnimatedGradient = Roact.Component:extend("AnimatedGradient")
+return function()
+	local style = useStyle()
+	local selectionCursor = style.Theme.SelectionCursor
+	local settings = style.Settings
 
-function AnimatedGradient:init()
-	self.rotation, self.updateRotation = Roact.createBinding(0)
+	local rotation, updateRotation = React.useBinding(0)
+	local color, updateColor = React.useBinding(selectionCursor.GradientColorSequence)
+	local transparency, updateTransparency = React.useBinding(selectionCursor.GradientTransparencySequence)
+
+	return React.createElement(React.Fragment, {}, {
+		GradientChild = React.createElement("UIGradient", {
+			Rotation = rotation,
+			Color = color,
+			Transparency = transparency,
+		}),
+		RenderSteppedConnection = React.createElement(ExternalEventConnection, {
+			event = RunService.RenderStepped,
+			callback = function()
+				local rotation = rotation:getValue() + selectionCursor.GradientRotationSpeed
+				local color = selectionCursor.GradientColorSequence
+				local transparency = selectionCursor.GradientTransparencySequence
+
+				-- When ReducedMotion is enabled, instead of a rotating gradient,
+				-- the border fades between the first and last color in the sequence.
+				if settings.ReducedMotion then
+					local position = (math.sin(math.rad(rotation)) + 1) / 2
+
+					local c0 = color.Keypoints[1].Value
+					local c1 = color.Keypoints[#color.Keypoints].Value
+					color = ColorSequence.new(c0:lerp(c1, position))
+
+					local t0 = transparency.Keypoints[1].Value
+					local t1 = transparency.Keypoints[#transparency.Keypoints].Value
+					transparency = NumberSequence.new(t0 + (t1 - t0) * position)
+				end
+
+				updateRotation(rotation)
+				updateColor(color)
+				updateTransparency(transparency)
+			end,
+		}),
+	})
 end
-
-function AnimatedGradient:render()
-	return withStyle(function(style)
-		return Roact.createFragment({
-			GradientChild = Roact.createElement("UIGradient", {
-				Rotation = self.rotation,
-				Color = style.Theme.SelectionCursor.GradientColorSequence,
-				Transparency = style.Theme.SelectionCursor.GradientTransparencySequence,
-			}),
-			RenderSteppedConnection = Roact.createElement(ExternalEventConnection, {
-				event = RunService.RenderStepped,
-				callback = function()
-					self.updateRotation(self.rotation:getValue() + style.Theme.SelectionCursor.GradientRotationSpeed)
-				end,
-			}),
-		})
-	end)
-end
-
-return AnimatedGradient

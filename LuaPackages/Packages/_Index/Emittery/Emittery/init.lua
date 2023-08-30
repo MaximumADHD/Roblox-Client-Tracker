@@ -675,7 +675,7 @@ export type Emittery_ListenerChangedData = {
 	--[[*
 	The listener that was added or removed.
 	]]
-	listener: (eventData: unknown?) -> (...Promise<nil>),
+	listener: (eventData: unknown?) -> ...Promise<nil>,
 
 	--[[*
 	The name of the event that was added or removed if `.on()` or `.off()` was used, or `undefined` if `.onAny()` or `.offAny()` was used.

@@ -122,6 +122,7 @@ SystemBar.validateProps = t.strictInterface({
 	bgTransparency = t.optional(t.integer),
 	-- Item list sort order
 	sortOrder = t.optional(t.enum(Enum.SortOrder)),
+	clipsDescendants = t.optional(t.boolean),
 })
 
 SystemBar.defaultProps = {
@@ -129,6 +130,7 @@ SystemBar.defaultProps = {
 	layoutPaddingOffset = UDim.new(0, 0),
 	firstItemPaddingOffset = UDim.new(0, 0),
 	lastItemPaddingOffset = UDim.new(0, 0),
+	clipsDescendants = true,
 }
 
 function SystemBar:isPortrait()
@@ -352,7 +354,7 @@ function SystemBar:renderList(items, renderItem)
 			Position = self.props.position or UDim2.new(0, 0, 0, 0),
 			Size = self.props.size or UDim2.new(1, 0, 1, 0),
 			BackgroundColor3 = Color3.new(0, 0, 0),
-			ClipsDescendants = true,
+			ClipsDescendants = self.props.clipsDescendants,
 			LayoutOrder = self.props.layoutOrder,
 			BackgroundTransparency = self.props.bgTransparency or 1,
 			[Roact.Change.AbsoluteSize] = function(rbx)

@@ -1,5 +1,6 @@
 return function()
 	local EmoteUtility = require(script.Parent.EmoteUtility)
+	local InsertService = game:GetService("InsertService")
 
 	-- Note: this emote has face built in.
 	local HELLO_EMOTE_ASSET_ID = 3576686446
@@ -160,30 +161,9 @@ return function()
 	end
 
 	local function getMockR6Character(): Model
-		local mockModel = Instance.new("Model")
-
-		local mockHumanoid = Instance.new("Humanoid")
-		mockHumanoid.Name = "Humanoid"
-		mockHumanoid.Parent = mockModel
-		mockHumanoid.RigType = Enum.HumanoidRigType.R6
-
-		local mockHead = Instance.new("MeshPart")
-		mockHead.Name = "Head"
-		mockHead.Parent = mockModel
-
-		local mockFaceControls = Instance.new("FaceControls")
-		mockFaceControls.Name = "FaceControls"
-		mockFaceControls.Parent = mockHead
-
-		local torso = Instance.new("Part")
-		torso.Parent = mockModel
-		torso.Name = "Torso"
-
-		local rightShoulder = Instance.new("Motor6D")
-		rightShoulder.Parent = torso
-		rightShoulder.Name = "Right Shoulder"
-
-		return mockModel
+		local model = InsertService:LoadLocalAsset("rbxasset://r6avatar.rbxm") :: Model
+		assert(model, "model should be non-nil")
+		return model
 	end
 
 	local function addTool(character: Model)
@@ -199,11 +179,27 @@ return function()
 				-- Type checker doesn't like dynamic prop lookups. Cast to any to make it shut up.
 				local char2Part = char2:FindFirstChild(name)
 				if char2Part then
-					if #(char1Part:GetChildren()) > 0 then
-						local motor6D1 = char1Part:FindFirstChildWhichIsA("Motor6D") :: Motor6D
-						local motor6D2 = char2Part:FindFirstChildWhichIsA("Motor6D") :: Motor6D
-						if motor6D1.Transform ~= motor6D2.Transform then
-							return false
+					local c1Children = char1Part:GetChildren()
+					local c2Children = char2Part:GetChildren()
+
+					for _, c1Child in c1Children do
+						if c1Child:IsA("Motor6D") then
+							local c1ChildName = c1Child.Name
+							local c2Child
+							for _, child in c2Children do
+								if child.Name == c1ChildName then
+									if child:IsA("Motor6D") then
+										c2Child = child
+										break
+									end
+								end
+							end
+							if not c2Child then
+								return false
+							end
+							if c1Child.Transform ~= c2Child.Transform then
+								return false
+							end
 						end
 					end
 				else
@@ -270,6 +266,19 @@ return function()
 	local function facesMatch(char1: Model, char2: Model): boolean
 		local faceControls1 = char1:FindFirstChildWhichIsA("FaceControls", true)
 		local faceControls2 = char2:FindFirstChildWhichIsA("FaceControls", true)
+
+		if not faceControls1 then
+			if not faceControls2 then
+				return true
+			else
+				return false
+			end
+		else
+			if not faceControls2 then
+				return false
+			end
+		end
+
 		assert(faceControls1, "faceControls1 should not be null")
 		assert(faceControls2, "faceControls2 should not be null")
 
@@ -412,7 +421,7 @@ return function()
 				expect(keyframesForPose.defaultToolKeyframe).to.equal(nil)
 				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
 			end)
-			it("SHOULD load mood for r6 w mood.", function()
+			it("SHOULD not load mood for r6 w mood.", function()
 				local mockCharacter, _ = setupMockR6Characters(false)
 				local keyframesForPose = EmoteUtility.LoadKeyframesForPose(
 					mockCharacter,
@@ -423,7 +432,7 @@ return function()
 				expect(keyframesForPose.originalAnimationAssetId).to.equal(HELLO_EMOTE_ASSET_ID)
 				expect(keyframesForPose.finalAnimationAssetIdOrUrl).to.equal(nil)
 				expect(keyframesForPose.poseKeyframe).to.equal(nil)
-				expect(keyframesForPose.moodKeyframe).never.to.equal(nil)
+				expect(keyframesForPose.moodKeyframe).to.equal(nil)
 				expect(keyframesForPose.defaultToolKeyframe).to.equal(nil)
 				expect(keyframesForPose.suggestedKeyframeFromTool).to.equal(nil)
 			end)
@@ -475,14 +484,26 @@ return function()
 			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
 			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 		end)
-		it("SHOULD leave an R6 avatar with no tool no mood completely alone", function()
+		it("SHOULD leave an R6 avatar with no tool completely alone", function()
 			local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
 			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
 			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 		end)
+		it("SHOULD move an R6 avatar that isn't at rest.", function()
+			local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
+
+			local torso = mockCharacter:FindFirstChild("Torso")
+			local rightShoulder = torso:FindFirstChild("Right Shoulder") :: Motor6D
+			rightShoulder.Transform = CFrame.fromEulerAnglesYXZ(math.rad(-15), math.rad(-30), math.rad(-45))
+			EmoteUtility.ForceAnimationToStep(mockCharacter)
+
+			EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(mockCharacter, HELLO_EMOTE_ASSET_ID, nil, true)
+			expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+			expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
+		end)
 		if EmoteUtility.FFlagEmoteUtilityTweaks then
-			it("SHOULD apply mood to R6 avatar", function()
+			it("SHOULD not apply mood to R6 avatar", function()
 				local mockCharacter, originalMockCharacter = setupMockR6Characters(false)
 				EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(
 					mockCharacter,
@@ -491,7 +512,7 @@ return function()
 					true
 				)
 				expect(motor6DsMatch(mockCharacter, originalMockCharacter)).to.equal(true)
-				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(false)
+				expect(facesMatch(mockCharacter, originalMockCharacter)).to.equal(true)
 			end)
 		end
 		it("SHOULD move arm of R6 avatar with tool no mood", function()

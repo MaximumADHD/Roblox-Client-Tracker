@@ -3,10 +3,12 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestTypes-edcba0e9-3.2.5"]["JestTypes"])
+local Package = require(PackageIndex["JestTypes-edcba0e9-3.4.0"]["JestTypes"])
 
 export type Circus_DoneFn = Package.Circus_DoneFn
 export type Circus_BlockFn = Package.Circus_BlockFn
+export type Circus_BlockNameLike = Package.Circus_BlockNameLike
+export type Circus_TestNameLike = Package.Circus_TestNameLike
 export type Circus_BlockName = Package.Circus_BlockName
 export type Circus_BlockMode = Package.Circus_BlockMode
 export type Circus_TestMode = Package.Circus_TestMode

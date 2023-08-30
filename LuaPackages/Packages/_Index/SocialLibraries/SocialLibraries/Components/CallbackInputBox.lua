@@ -3,7 +3,7 @@ local dependencies = require(SocialLibraries.dependencies)
 
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local CallbackInputBox = Roact.PureComponent:extend("CallbackInputBox")
 

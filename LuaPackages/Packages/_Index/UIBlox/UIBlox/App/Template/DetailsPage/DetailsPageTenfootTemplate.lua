@@ -13,6 +13,9 @@ local useDetailsPageRenderItems = require(DetailsPage.Hooks.useDetailsPageRender
 local useAnimateFullscreen = require(DetailsPage.Hooks.useAnimateFullscreen)
 local DetailsPageRenderItem = require(DetailsPage.DetailsPageRenderItem)
 
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local EnableActionBarTokens = UIBloxConfig.enableActionBarTokens
+
 local Overlay = require(App.Dialog.Overlay.Overlay)
 local LoadableImage = require(App.Loading.LoadableImage)
 
@@ -34,6 +37,8 @@ type DetailsPageTenfootTokens = {
 	thumbnailMargin: number?,
 	headerGradientHeight: number?,
 	headerBottomMargin: number?,
+	actionBarWidth: number?,
+	actionBarHeight: number?,
 }
 
 local React = require(Packages.React)
@@ -189,6 +194,8 @@ local function DetailsPageTenfootTemplate(props: Props)
 			deviceType = props.deviceType,
 			thumbnailShadowHeight = tokens.thumbnailShadowHeight,
 			gradientHeight = tokens.headerGradientHeight,
+			actionBarHeight = if EnableActionBarTokens then tokens.actionBarHeight else nil,
+			actionBarWidth = if EnableActionBarTokens then tokens.actionBarWidth else nil,
 			itemPadding = tokens.thumbnailMargin,
 			bottomMargin = tokens.headerBottomMargin,
 		})
@@ -287,8 +294,9 @@ local function DetailsPageTenfootTemplate(props: Props)
 			style = {
 				BackgroundTransparency = 1,
 				ScrollBarThickness = 0,
-				VerticalScrollBarInset = Enum.ScrollBarInset.None,
 				ScrollingEnabled = false,
+				Selectable = false,
+				VerticalScrollBarInset = Enum.ScrollBarInset.None,
 				ZIndex = 3,
 			},
 			animationConfig = tokens.animationConfig,

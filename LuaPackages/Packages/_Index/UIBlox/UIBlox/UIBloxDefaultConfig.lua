@@ -61,6 +61,9 @@ return {
 	-- Fix Panel3D frame-behind issues when positioned relative to the camera
 	vrFixUIJitter = false,
 
+	-- Allow narrower SegmentedControl
+	allowNarrowerSegmentedControl = false,
+
 	-- Use new scroll bar in VerticalScrollView
 	useNewScrollBar = false,
 
@@ -95,7 +98,7 @@ return {
 	enableSelectionCursorProviderOnTableCell = false,
 
 	-- If true uses the redesigned coplayFoote
-	coPlayFooterChangeColorAndShowMoreFaces = true,
+	coPlayFooterChangeColorAndShowMoreFaces = false,
 
 	-- Bugfix for ExpandableTextArea not respecting child size
 	fixExpandableTextAreaChildSizing = false,
@@ -112,4 +115,7 @@ return {
 
 	-- Adds a UISizeLimit to PartialPageModal.lua
 	partialPageModalSizeLimit = false,
+
+	-- enable tokens for action bar
+	enableActionBarTokens = false,
 }

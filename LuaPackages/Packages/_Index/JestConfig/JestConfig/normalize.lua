@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-config/src/normalize.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-config/src/normalize.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -92,6 +92,9 @@ local getDisplayNameColor = require(script.Parent.color).getDisplayNameColor
 -- local DEFAULT_REPORTER_LABEL = constantsModule.DEFAULT_REPORTER_LABEL
 -- ROBLOX deviation END
 local getMaxWorkers = require(script.Parent.getMaxWorkers).default
+-- ROBLOX deviation START: not needed now. Will be necessary when we want to implement TestSequencer
+-- local parseShardPair = require(script.Parent.parseShardPair).parseShardPair
+-- ROBLOX deviation END
 local setFromArgv = require(script.Parent.setFromArgv).default
 local utilsModule = require(script.Parent.utils)
 local BULLET = utilsModule.BULLET
@@ -492,8 +495,8 @@ local function normalizeMissingOptions(
 	-- ROBLOX deviation END
 	projectIndex: number
 ): Config_InitialOptionsWithRootDir
-	if not Boolean.toJSBoolean(options.name) then
-		options.name = getRelativePath((options.rootDir :: any) :: Instance, nil)
+	if not Boolean.toJSBoolean(options.id) then
+		options.id = getRelativePath((options.rootDir :: any) :: Instance, nil)
 		-- ROBLOX deviation START: createHash not supported
 		-- 	options.name = createHash("md5")
 		-- 		:update(options.rootDir)
@@ -1161,7 +1164,7 @@ local function normalize(
 					or key == "listTests"
 					or key == "logHeapUsage"
 					or key == "maxConcurrency"
-					or key == "name"
+					or key == "id"
 					or key == "noStackTrace"
 					or key == "notify"
 					or key == "notifyMode"

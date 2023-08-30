@@ -39,7 +39,7 @@ local Queue: Queue
 -- ROBLOX deviation END
 
 -- ROBLOX deviation START: additional types for Luau
-type ThroatFn<TResult, TArgs> = ((...TArgs) -> Promise<TResult>)
+type ThroatFn<TResult, TArgs> = (...TArgs) -> Promise<TResult>
 
 type ThroatFnOrCallableFn<TResult, TArgs> = ThroatFn<TResult, TArgs> | typeof(setmetatable({}, {
 	__call = (function() end :: any) :: (self: any, ...TArgs) -> Promise<TResult>,

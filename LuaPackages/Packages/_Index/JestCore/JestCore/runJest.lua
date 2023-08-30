@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-core/src/runJest.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-core/src/runJest.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -29,6 +29,7 @@ local CustomConsole = require(Packages.JestConsole).CustomConsole
 local test_resultModule = require(Packages.JestTestResult)
 type AggregatedResult = test_resultModule.AggregatedResult
 type Test = test_resultModule.Test
+type TestContext = test_resultModule.TestContext
 -- ROBLOX deviation START: not needed
 -- local TestResultsProcessor = test_resultModule.TestResultsProcessor
 -- ROBLOX deviation END
@@ -203,7 +204,7 @@ local testSchedulerContext: TestSchedulerContext = { firstRun = true, previousSu
 
 local function runJest(ref: {
 	globalConfig: Config_GlobalConfig,
-	contexts: Array<Context>,
+	contexts: Array<TestContext>,
 	outputStream: NodeJS_WriteStream,
 	testWatcher: TestWatcher,
 	jestHooks: JestHookEmitter?,
@@ -381,7 +382,8 @@ local function runJest(ref: {
 		-- end
 		-- ROBLOX deviation END
 
-		local scheduler = createTestScheduler(globalConfig, { startRun = startRun }, testSchedulerContext):expect()
+		local scheduler =
+			createTestScheduler(globalConfig, Object.assign({}, { startRun = startRun }, testSchedulerContext)):expect()
 
 		local results = scheduler:scheduleTests(allTests, testWatcher):expect()
 

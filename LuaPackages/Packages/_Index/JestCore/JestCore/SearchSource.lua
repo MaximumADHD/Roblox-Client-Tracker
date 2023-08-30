@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-core/src/SearchSource.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-core/src/SearchSource.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -32,7 +32,6 @@ local test_resultModule = require(Packages.JestTestResult)
 type Test = test_resultModule.Test
 local jestTypesModule = require(Packages.JestTypes)
 type Config_GlobalConfig = jestTypesModule.Config_GlobalConfig
-type Config_Path = jestTypesModule.Config_Path
 type Config_ProjectConfig = jestTypesModule.Config_ProjectConfig
 -- ROBLOX deviation START: not needed
 -- local jest_changed_filesModule = require(Packages["jest-changed-files"])
@@ -54,6 +53,9 @@ local typesModule = require(script.Parent.types)
 type Filter = typesModule.Filter
 type Stats = typesModule.Stats
 type TestPathCases = typesModule.TestPathCases
+
+local globalTypesModule = require(Packages.JestTypes)
+type Config_Path = globalTypesModule.Config_Path
 
 -- ROBLOX deviation START: custom implementation for getting all files
 type FileInfo = { path: Config_Path, script: ModuleScript }
@@ -161,7 +163,7 @@ export type SearchSource = {
 	getTestPaths: (
 		self: SearchSource,
 		globalConfig: Config_GlobalConfig,
-		changedFiles: ChangedFiles | nil,
+		changedFiles: ChangedFiles?,
 		filter: Filter?
 	) -> Promise<SearchResult>,
 	-- ROBLOX deviation START: not ported
@@ -184,9 +186,9 @@ type SearchSourcePrivate = {
 	_filterTestPathsWithStats: (
 		self: SearchSourcePrivate,
 		allPaths: Array<Test>,
-		testPathPattern: string?
+		testPathPattern: string
 	) -> SearchResult,
-	_getAllTestPaths: (self: SearchSourcePrivate, testPathPattern: string?) -> SearchResult,
+	_getAllTestPaths: (self: SearchSourcePrivate, testPathPattern: string) -> SearchResult,
 	_getTestPaths: (
 		self: SearchSourcePrivate,
 		globalConfig: Config_GlobalConfig,
@@ -305,7 +307,7 @@ function SearchSource:_filterTestPathsWithStats(allPaths: Array<Test>, testPathP
 	if testPathPattern ~= nil and Boolean.toJSBoolean(testPathPattern) then
 		local regex = testPathPatternToRegExp(testPathPattern)
 		table.insert(testCases, {
-			isMatch = function(path: Config_Path)
+			isMatch = function(path: string)
 				return regex:test(path)
 			end,
 			stat = "testPathPattern",
@@ -341,7 +343,10 @@ function SearchSource:_getAllTestPaths(testPathPattern: string?): SearchResult
 			getAllFiles(self._context)
 			-- ROBLOX devation END
 		),
-		testPathPattern
+		-- ROBLOX deviation START: workaround 'string?' param type being mistaken for 'string'
+		-- testPathPattern
+		testPathPattern :: string
+		-- ROBLOX devation END
 	)
 end
 
@@ -351,8 +356,12 @@ function SearchSource:isTestFilePath(path: Config_Path): boolean
 	end)
 end
 
+-- ROBLOX deviation START: workaround 'string?' param type being mistaken for 'string'
+-- function SearchSource_private:findMatchingTests(testPathPattern: string): SearchResult
+-- 	return self:_getAllTestPaths(testPathPattern)
 function SearchSource:findMatchingTests(testPathPattern: string?): SearchResult
-	return self:_getAllTestPaths(testPathPattern)
+	return self:_getAllTestPaths(testPathPattern :: string)
+	-- ROBLOX deviation END
 end
 
 -- ROBLOX deviation START: not ported
@@ -527,7 +536,7 @@ end
 
 function SearchSource:getTestPaths(
 	globalConfig: Config_GlobalConfig,
-	changedFiles: ChangedFiles | nil,
+	changedFiles: ChangedFiles?,
 	filter: Filter?
 ): Promise<SearchResult>
 	return Promise.resolve():andThen(function()

@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-circus/src/utils.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-circus/src/utils.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -166,6 +166,7 @@ local function makeTest(
 		mode = mode,
 		name = convertDescriptorToString(name),
 		parent = parent,
+		retryReasons = {},
 		seenDone = false,
 		startedAt = nil,
 		status = nil,
@@ -184,12 +185,11 @@ local function hasEnabledTest(describeBlock: Circus_DescribeBlock): boolean
 	return Array.some(describeBlock.children, function(child: Circus_DescribeBlock | Circus_TestEntry)
 		return if child.type == "describeBlock"
 			then hasEnabledTest(child)
-			else
-				not (
-					child.mode == "skip"
-					or (hasFocusedTests and child.mode ~= "only")
-					or (testNamePattern and not testNamePattern:test(getTestID(child :: Circus_TestEntry)))
-				)
+			else not (
+				child.mode == "skip"
+				or (hasFocusedTests and child.mode ~= "only")
+				or (testNamePattern and not testNamePattern:test(getTestID(child :: Circus_TestEntry)))
+			)
 	end)
 end
 
@@ -256,9 +256,10 @@ end
 exports.describeBlockHasTests = describeBlockHasTests
 
 local function _makeTimeoutMessage(timeout: number, isHook: boolean)
-	return (
-		"Exceeded timeout of %s for a %s.\nUse jest.setTimeout(newTimeout) to increase the timeout value, if this is a long-running test."
-	):format(formatTime(timeout), if isHook then "hook" else "test")
+	return ("Exceeded timeout of %s for a %s.\nUse jest.setTimeout(newTimeout) to increase the timeout value, if this is a long-running test."):format(
+		formatTime(timeout),
+		if isHook then "hook" else "test"
+	)
 end
 
 -- Global values can be overwritten by mocks or tests. We'll capture
@@ -493,6 +494,7 @@ local function makeSingleTestResult(test: Circus_TestEntry): Circus_TestResult
 		errorsDetailed = errorsDetailed,
 		invocations = test.invocations,
 		location = location,
+		retryReasons = Array.map(Array.map(test.retryReasons, _getError), getErrorStack),
 		-- ROBLOX FIXME Luau: assert above should narrow the type to non-nil
 		status = status :: Circus_TestStatus,
 		testPath = Array.from(testPath),
@@ -618,6 +620,7 @@ local function parseSingleTestResult(testResult: Circus_TestResult): AssertionRe
 		invocations = testResult.invocations,
 		location = testResult.location,
 		numPassingAsserts = 0,
+		retryReasons = Array.from(testResult.retryReasons),
 		status = status,
 		title = testResult.testPath[#testResult.testPath],
 	}

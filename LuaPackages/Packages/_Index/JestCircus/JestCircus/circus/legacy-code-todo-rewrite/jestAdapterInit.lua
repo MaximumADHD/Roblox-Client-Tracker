@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-circus/src/legacy-code-todo-rewrite/jestAdapterInit.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-circus/src/legacy-code-todo-rewrite/jestAdapterInit.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -242,8 +242,8 @@ local function initialize(
 				expand = expand,
 				-- ROBLOX deviation START: not supported
 				-- prettierPath = config.prettierPath,
-				-- snapshotFormat = config.snapshotFormat,
 				-- ROBLOX deviation END
+				snapshotFormat = config.snapshotFormat,
 				updateSnapshot = updateSnapshot,
 			} :: any
 		)
@@ -308,6 +308,7 @@ local function runAndTransformResultsToJestFormat(ref: {
 				invocations = testResult.invocations,
 				location = testResult.location,
 				numPassingAsserts = 0,
+				retryReasons = testResult.retryReasons,
 				status = status,
 				title = testResult.testPath[#testResult.testPath],
 			}

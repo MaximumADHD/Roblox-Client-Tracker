@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-core/src/cli/index.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-core/src/cli/index.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -26,10 +26,10 @@ local chalk = require(Packages.ChalkLua)
 -- ROBLOX deviation END
 local test_resultModule = require(Packages.JestTestResult)
 type AggregatedResult = test_resultModule.AggregatedResult
+type TestContext = test_resultModule.TestContext
 local jestTypesModule = require(Packages.JestTypes)
 type Config_Argv = jestTypesModule.Config_Argv
 type Config_GlobalConfig = jestTypesModule.Config_GlobalConfig
-type Config_Path = jestTypesModule.Config_Path
 type Config_ProjectConfig = jestTypesModule.Config_ProjectConfig
 -- ROBLOX deviation START: not used
 -- local jest_changed_filesModule = require(Packages["jest-changed-files"])
@@ -50,7 +50,6 @@ local preRunMessage = jest_utilModule.preRunMessage
 local TestWatcher = require(script.Parent.TestWatcher).default
 local formatHandleErrors = require(script.Parent.collectHandles).formatHandleErrors
 local getChangedFilesPromise = require(script.Parent.getChangedFilesPromise).default
-local getConfigsOfProjectsToRun = require(script.Parent.getConfigsOfProjectsToRun).default
 local getProjectNamesMissingWarning = require(script.Parent.getProjectNamesMissingWarning).default
 local getSelectProjectsMessage = require(script.Parent.getSelectProjectsMessage).default
 local createContext = require(script.Parent.lib.createContext).default
@@ -122,12 +121,19 @@ local function runCLI(
 
 		local configsOfProjectsToRun = configs
 		if Boolean.toJSBoolean(argv.selectProjects) then
-			local namesMissingWarning = getProjectNamesMissingWarning(configs)
+			local namesMissingWarning = getProjectNamesMissingWarning(
+				configs,
+				{ ignoreProjects = argv.ignoreProjects, selectProjects = argv.selectProjects }
+			)
 			if Boolean.toJSBoolean(namesMissingWarning) and namesMissingWarning then
 				outputStream:write(namesMissingWarning)
 			end
-			configsOfProjectsToRun = getConfigsOfProjectsToRun(argv.selectProjects, configs)
-			outputStream:write(getSelectProjectsMessage(configsOfProjectsToRun))
+			outputStream:write(
+				getSelectProjectsMessage(
+					configsOfProjectsToRun,
+					{ ignoreProjects = argv.ignoreProjects, selectProjects = argv.selectProjects }
+				)
+			)
 		end
 
 		_run10000(globalConfig, configsOfProjectsToRun, hasDeprecationWarnings, outputStream, function(r)
@@ -290,7 +296,7 @@ end
 
 function runWithoutWatch(
 	globalConfig: Config_GlobalConfig,
-	contexts: Array<Context>,
+	contexts: Array<TestContext>,
 	outputStream: NodeJS_WriteStream,
 	onComplete: OnCompleteCallback,
 	changedFilesPromise: ChangedFilesPromise?,

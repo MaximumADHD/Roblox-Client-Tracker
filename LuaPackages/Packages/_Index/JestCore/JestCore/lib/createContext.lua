@@ -1,4 +1,4 @@
--- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-core/src/lib/createContext.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-core/src/lib/createContext.ts
 --[[*
  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
  *
@@ -20,15 +20,21 @@ type HasteMapObject = nil
 local jest_runtimeModule = require(Packages.JestRuntime)
 -- local Runtime = jest_runtimeModule.default
 type Context = jest_runtimeModule.Context
-exports.default = function(config: Config_ProjectConfig, _ref: HasteMapObject): Context
-	-- ROBLOX deviation START: no haste maps support
-	-- local hasteFS, moduleMap = ref.hasteFS, ref.moduleMap
+
+-- ROBLOX deviation START: no haste maps support
+-- local function createContext(config: Config_ProjectConfig, ref0: HasteMapObject): TestContext
+-- 	local hasteFS, moduleMap = ref.hasteFS, ref.moduleMap
+-- ROBLOX deviation END
+local function createContext(config: Config_ProjectConfig, _ref: HasteMapObject): Context
 	return {
 		config = config,
+		-- ROBLOX deviation START: no haste maps support
 		-- hasteFS = hasteFS,
 		-- moduleMap = moduleMap,
 		-- resolver = Runtime:createResolver(config, moduleMap),
+		-- ROBLOX deviation END
 	}
-	-- ROBLOX deviation END
 end
+exports.default = createContext
+
 return exports

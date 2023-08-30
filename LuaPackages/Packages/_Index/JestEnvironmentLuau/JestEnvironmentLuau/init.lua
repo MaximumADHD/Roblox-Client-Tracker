@@ -14,7 +14,7 @@
 ]]
 --[[
 	ROBLOX NOTE: no upstream
-	based on: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-environment-node/src/index.ts
+	based on: https://github.com/facebook/jest/blob/v28.0.0/packages/jest-environment-node/src/index.ts
 ]]
 
 local Packages = script.Parent
@@ -52,7 +52,7 @@ type JestEnvironmentLuau = {
 	fakeTimers: FakeTimers | nil,
 	-- ROBLOX deviation END
 	moduleMocker: ModuleMocker | nil,
-	getVmContext: (self: JestEnvironmentLuau) -> (Context | nil),
+	getVmContext: (self: JestEnvironmentLuau) -> Context | nil,
 	setup: (self: JestEnvironmentLuau) -> Promise<nil>,
 	teardown: (self: JestEnvironmentLuau) -> Promise<nil>,
 	context: any,

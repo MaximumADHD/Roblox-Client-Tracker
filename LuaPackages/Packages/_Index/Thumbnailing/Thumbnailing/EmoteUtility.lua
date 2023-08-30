@@ -11,7 +11,7 @@ local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 
 local FFlagEmoteUtilityFixMoodApplication = game:DefineFastFlag("EmoteUtilityFixMoodApplication2", false)
-local FFlagEmoteUtilityTweaks = game:DefineFastFlag("EmoteUtilityTweaks", false)
+local FFlagEmoteUtilityTweaks = game:DefineFastFlag("EmoteUtilityTweaks3", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
@@ -249,20 +249,6 @@ local function getAnimationClipByAssetId(animationClipAssetId: string): Animatio
 	end
 
 	return animationClip
-end
-
---[[
-	Experience suggests that on RCC, if just change the "Transform" on a joint, the avatar doesn't move.
-	We have to play the animation a bit to get things to jump into place.
-]]
-local function forceAnimationToStep(character: Model)
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if humanoid then
-		local animator = humanoid:FindFirstChildOfClass("Animator")
-		if animator then
-			animator:StepAnimations(0.1)
-		end
-	end
 end
 
 -- It's possible that a Keyframe contains invalid NumberPoses (e.g APIs not yet enabled)
@@ -733,6 +719,20 @@ local function DEPRECATED_doYieldingWorkToLoadPoseInfo(
 	return poseKeyframe, suggestedKeyframeFromTool, defaultToolKeyframe
 end
 
+--[[
+	Experience suggests that on RCC, if just change the "Transform" on a joint, the avatar doesn't move.
+	We have to play the animation a bit to get things to jump into place.
+]]
+module.ForceAnimationToStep = function(character: Model)
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if humanoid then
+		local animator = humanoid:FindFirstChildOfClass("Animator")
+		if animator then
+			animator:StepAnimations(0.1)
+		end
+	end
+end
+
 -- When loading an Animation asset, it's expected that the instance you get back is
 -- some parent/container with the Animation you care about as the first child.
 -- When loading a KeyframeSequence/AnimationClip asset, it's expected the instance
@@ -822,7 +822,7 @@ module.ApplyKeyframe = function(character: Model, poseKeyframe: Keyframe?)
 	applyKeyframeInner(character, poseKeyframe)
 	clearJointBlacklist()
 	if isOnRCC() then
-		forceAnimationToStep(character)
+		module.ForceAnimationToStep(character)
 	end
 end
 
@@ -1032,7 +1032,10 @@ end
 module.SetPlayerCharacterFace = function(
 	character: Model,
 	animationAssetIdOrUrl: AnimationAssetIdOrUrl?,
-	-- Remove with FFlagEmoteUtilityTweaks
+	-- Remove once no one is calling this anymore.
+	-- I believe the only caller is DEPRECATED_AnimationManager.lua.
+	-- So once FFlagAXRefactorAnimationManagerAnimSelection3 is on for good/
+	-- remove from code, remove this param.
 	DEPRECATED_confirmProceedAfterYield: (AnimationAssetIdOrUrl?) -> boolean
 )
 	-- Early out on nil/empty input.
@@ -1070,12 +1073,10 @@ module.SetPlayerCharacterFace = function(
 		return
 	end
 
-	if not FFlagEmoteUtilityTweaks then
-		-- We have called some yielding functions (and now we are done, no more yielding functions).
-		-- Do we still want to do this?
-		if DEPRECATED_confirmProceedAfterYield and not DEPRECATED_confirmProceedAfterYield(animationAssetIdOrUrl) then
-			return
-		end
+	-- We have called some yielding functions (and now we are done, no more yielding functions).
+	-- Do we still want to do this?
+	if DEPRECATED_confirmProceedAfterYield and not DEPRECATED_confirmProceedAfterYield(animationAssetIdOrUrl) then
+		return
 	end
 
 	-- Before applying the pose, clear out any previous face pose (otherwise we get some hybrid of previous & mood)
@@ -1089,7 +1090,6 @@ end
 	and clear out each Transform on each Motor6D.
 ]]
 module.SetPlayerCharacterNeutralPose = function(character: Model)
-	module.ClearPlayerCharacterFace(character)
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	if not humanoid then
 		return
@@ -1097,13 +1097,18 @@ module.SetPlayerCharacterNeutralPose = function(character: Model)
 	assert(humanoid, "humanoid should be non-nil. Silence type checker.")
 
 	if FFlagEmoteUtilityTweaks then
-		-- Only need to do this for R15.
+		humanoid:BuildRigFromAttachments()
+		-- Don't do anything else unless it's R15.
 		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
 			return
 		end
 	end
 
-	humanoid:BuildRigFromAttachments()
+	if not FFlagEmoteUtilityTweaks then
+		humanoid:BuildRigFromAttachments()
+	end
+
+	module.ClearPlayerCharacterFace(character)
 
 	local function recurResetJoint(instance: Instance)
 		if instance:IsA("Motor6D") then
@@ -1125,7 +1130,10 @@ end
 	Do not apply anything to the character.
 	Yielding.
 
-	Remove with FFlagEmoteUtilityTweaks
+	Remove once no one is calling this anymore.
+	-- I believe the only caller is DEPRECATED_AnimationManager.lua.
+	-- So once FFlagAXRefactorAnimationManagerAnimSelection3 is on for good/
+	-- remove from code, remove this function.
 ]]
 module.DEPRECATED_LoadKeyframesForPose = function(
 	character: Model,
@@ -1275,21 +1283,6 @@ local function loadKeyframesForPoseR15(
 	return keyframesForPose
 end
 
-local function loadKeyframesForPoseR6(animationAssetId: number?, moodAssetId: number?): KeyframesForPose?
-	local keyframesForPose: KeyframesForPose = {}
-	keyframesForPose.originalAnimationAssetId = animationAssetId
-
-	local moodKeyframe
-	-- Worry about applying mood asset to pose.
-	if moodAssetId and moodAssetId ~= 0 then
-		moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
-	end
-
-	keyframesForPose.moodKeyframe = moodKeyframe
-
-	return keyframesForPose
-end
-
 --[[
 	Load what we need to load for this character/pose/mood combo.
 	Do not apply anything to the character.
@@ -1339,11 +1332,14 @@ module.LoadKeyframesForPose = function(
 	end
 	assert(humanoid, "humanoid should be non-nil. Silence type checker.")
 
-	-- R6 we don't pose body.  Still might pose face though.
 	if humanoid.RigType == Enum.HumanoidRigType.R15 then
 		return loadKeyframesForPoseR15(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset, forCloseup)
 	else
-		return loadKeyframesForPoseR6(animationAssetId, moodAssetId)
+		-- Nothing really much to do for r6.
+		-- can't apply keyframes to body or face.
+		local keyframesForPose: KeyframesForPose = {}
+		keyframesForPose.originalAnimationAssetId = animationAssetId
+		return keyframesForPose
 	end
 end
 
@@ -1414,11 +1410,18 @@ module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: Keyf
 	end
 
 	-- Apply face pose.
-	applyKeyframeInner(character, keyframesForPose.moodKeyframe)
+	if FFlagEmoteUtilityTweaks then
+		-- No point in even trying for R6, we know it's null.
+		if humanoid.RigType == Enum.HumanoidRigType.R15 then
+			applyKeyframeInner(character, keyframesForPose.moodKeyframe)
+		end
+	else
+		applyKeyframeInner(character, keyframesForPose.moodKeyframe)
+	end
 
 	clearJointBlacklist()
 	if isOnRCC() then
-		forceAnimationToStep(character)
+		module.ForceAnimationToStep(character)
 	end
 end
 
@@ -1460,7 +1463,6 @@ module.SetPlayerCharacterPoseWithMoodFallback = function(
 
 	if not FFlagEmoteUtilityTweaks then
 		-- With FFlagEmoteUtilityTweaks true, loading and applying keyframes does the right thing for R6.
-		-- This code as-is: we fail to apply mood when we should.
 		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
 			return
 		end

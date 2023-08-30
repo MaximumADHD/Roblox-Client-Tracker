@@ -2,7 +2,7 @@ local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
 
 local Roact = dependencies.Roact
-local ImageSetLabel = dependencies.UIBlox.Core.ImageSet.Label
+local ImageSetLabel = dependencies.UIBlox.Core.ImageSet.ImageSetLabel
 
 local BaseCell = require(script.Parent.BaseCell)
 local IconWithTextCell = Roact.PureComponent:extend("IconWithTextCell")

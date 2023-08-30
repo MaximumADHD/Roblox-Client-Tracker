@@ -13,8 +13,8 @@ local UIBlox = require(Packages.UIBlox)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetButton = UIBlox.Core.ImageSet.Button
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
 local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
 

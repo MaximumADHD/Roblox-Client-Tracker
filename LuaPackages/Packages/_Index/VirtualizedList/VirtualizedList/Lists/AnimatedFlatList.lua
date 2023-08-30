@@ -37,7 +37,7 @@ export type Props<ItemT> = AnimatedProps<ItemT> & FlatListProps<ItemT>
 
 local function AnimatedFlatList<ItemT>(props: Props<ItemT>)
 	local listRef = React.useRef(nil)
-	local onAnimationScrollFailed = useFocusNavigationScrolling({
+	local onSelectionChanged, onAnimationScrollFailed = useFocusNavigationScrolling({
 		listRef = listRef,
 		onSelectedIndexChanged = props.onSelectedIndexChanged,
 		initialIndex = props.initialScrollIndex,
@@ -53,6 +53,7 @@ local function AnimatedFlatList<ItemT>(props: Props<ItemT>)
 		onSelectedIndexChanged = Object.None,
 		ref = listRef,
 		onScrollToIndexFailed = if props.getItemLayout then nil else onAnimationScrollFailed,
+		onSelectionChanged = onSelectionChanged,
 	})
 
 	return React.createElement(FlatList, flatListProps)
