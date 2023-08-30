@@ -32,19 +32,22 @@ export type WindowSizeSignal = {
 	new: (number?, number?) -> WindowSizeSignal,
 	connect: (WindowSizeSignal, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
 	requestSize: (WindowSizeSignal, number, number) -> (),
+	toggleIsLarge: (WindowSizeSignal) -> (),
 	get: (WindowSizeSignal) -> UDim2,
+	getIsLarge: (WindowSizeSignal) -> boolean,
 	updateConstraints: (WindowSizeSignal) -> (),
 }
 
 local WindowSizeSignal = {}
 WindowSizeSignal.__index = WindowSizeSignal
 
-function WindowSizeSignal.new(initialWidth: number?, initialHeight: number?): WindowSizeSignal
+function WindowSizeSignal.new(initialWidth: number?, initialHeight: number?, isLarge: boolean?): WindowSizeSignal
 	local self = {
 		_state = (getConstrainedWindowSize(
 			initialWidth or Constants.DEFAULT_WIDTH,
 			initialHeight or Constants.DEFAULT_HEIGHT
 		)) :: UDim2,
+		_isLarge = isLarge or false,
 		_changeSignal = Signal.new(),
 	}
 	return (setmetatable(self, WindowSizeSignal) :: any) :: WindowSizeSignal
@@ -64,8 +67,18 @@ function WindowSizeSignal:requestSize(newWidth: number, newHeight: number)
 	end
 end
 
+function WindowSizeSignal:toggleIsLarge()
+	local isLarge = not self._isLarge
+	self._isLarge = isLarge
+	self._changeSignal:fire(isLarge)
+end
+
 function WindowSizeSignal:get(): UDim2
 	return self._state
+end
+
+function WindowSizeSignal:getIsLarge(): boolean
+	return self._isLarge
 end
 
 -- Re-request size when device constraints updated

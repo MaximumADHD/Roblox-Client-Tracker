@@ -4,7 +4,7 @@
 		// Description: Server core script that handles core script server side logic.
 ]]--
 
-local runService = game:GetService('RunService')
+local runService = game:GetService("RunService")
 
 -- Prevent server script from running in Studio when not in run mode
 while not runService:IsRunning() do
@@ -13,8 +13,8 @@ end
 
 --[[ Services ]]--
 local CorePackages = game:GetService("CorePackages")
-local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
-local ScriptContext = game:GetService('ScriptContext')
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local ScriptContext = game:GetService("ScriptContext")
 local CoreGui = game:GetService("CoreGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
@@ -89,8 +89,17 @@ end
 
 RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
 
+local FFlagEnableTenFootInterfaceCheckForLegacyChat =
+	game:DefineFastFlag("EnableTenFootInterfaceCheckForLegacyChat", false)
 local function shouldLoadLuaChat()
-	return game:GetService("Chat").LoadDefaultChat and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
+	if FFlagEnableTenFootInterfaceCheckForLegacyChat then
+		return game:GetService("Chat").LoadDefaultChat
+			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
+			and (not game:GetService("GuiService"):IsTenFootInterface())
+	else
+		return game:GetService("Chat").LoadDefaultChat
+			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
+	end
 end
 
 if shouldLoadLuaChat() then
@@ -125,10 +134,9 @@ if game:DefineFastFlag("ExperienceChatOnLoadedCounters", false) then
 	if runService:IsStudio() == false then
 		local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-		local counterName = if chatVersion == Enum.ChatVersion.TextChatService then
-			"textChatServiceChatVersionTextChatService"
-			else
-			"textChatServiceChatVersionLegacy"
+		local counterName = if chatVersion == Enum.ChatVersion.TextChatService
+			then "textChatServiceChatVersionTextChatService"
+			else "textChatServiceChatVersionLegacy"
 
 		AnalyticsService:ReportCounter(counterName, 1)
 	end
@@ -143,7 +151,8 @@ if GetFFlagContactListEnabled() then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerContactList", script.Parent)
 end
 
-local GetFFlagEnableVoiceDefaultServerScript = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableVoiceDefaultServerScript)
+local GetFFlagEnableVoiceDefaultServerScript =
+	require(RobloxGui.Modules.Common.Flags.GetFFlagEnableVoiceDefaultServerScript)
 
 if GetFFlagEnableVoiceDefaultServerScript() then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/VoiceDefault", script.Parent)

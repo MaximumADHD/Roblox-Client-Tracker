@@ -122,6 +122,7 @@ local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagFixMutePlayerAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFixMutePlayerAnalytics)
 local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
+local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -412,6 +413,7 @@ local function Initialize()
 	end)
 
 	local resizeBlockButton
+	local trySelection
 	local blockingAnalytics = BlockingAnalytics.new(
 		localPlayer.UserId,
 		{ EventStream = AnalyticsService }
@@ -420,16 +422,24 @@ local function Initialize()
 	local function createBlockButton(parent, player, isPortrait, wasIsPortrait)
 		local isBlocked = getIsBlocked(player)
 
-		local function updateBlockButton()
-			resizeBlockButton(parent, player, isPortrait, not isPortrait)
+		local function updateBlockButton(resumeSelection)
+			local blockbutton = resizeBlockButton(parent, player, isPortrait, not isPortrait)
 			resizeFriendButton(parent, player, isPortrait, not isPortrait)
+			if GetFFlagWrapBlockModalScreenInProvider() and resumeSelection then
+				trySelection(blockbutton)
+			end
 		end
 
 		local function blockUser()
+			local hasSelection = GuiService.SelectedCoreObject ~= nil or GuiService.SelectedObject ~= nil
 			if GetFFlagEnableBlockAnalyticsSource() then
-				onBlockButtonActivated(player, blockingAnalytics, Constants.AnalyticsInGameMenuName):andThen(updateBlockButton)
+				onBlockButtonActivated(player, blockingAnalytics, Constants.AnalyticsInGameMenuName):andThen(function()
+					updateBlockButton(hasSelection)
+				end)
 			else
-				onBlockButtonActivated(player, blockingAnalytics):andThen(updateBlockButton)
+				onBlockButtonActivated(player, blockingAnalytics):andThen(function()
+					updateBlockButton(hasSelection)
+				end)
 			end
 		end
 
@@ -462,10 +472,18 @@ local function Initialize()
 		end
 	end
 
+	function trySelection(guiObject)
+		if guiObject and not guiObject.Selectable then
+			GuiService:Select(guiObject)
+		else
+			GuiService.SelectedCoreObject = guiObject
+		end
+	end
+
 	function resizeBlockButton(parent, player, isPortrait, wasIsPortrait)
 		local blockButton = parent:FindFirstChild("BlockButton")
 		if blockButton and isPortrait == wasIsPortrait then
-			return
+			return blockButton
 		end
 
 		if blockButton then
@@ -483,6 +501,7 @@ local function Initialize()
 			blockButton.Selectable = true
 			blockButton.Parent = parent
 		end
+		return blockButton
 	end
 
 	local isLocalPlayerMutedState = false

@@ -25,10 +25,10 @@ local split = string.split
 
 local SetStories = require(Main.Src.Actions.SetStories)
 
-local getFFlagMaterialFrameworkStorybook = require(Main.Src.Flags.getFFlagMaterialFrameworkStorybook)
-
 local TestLoader = require(Main.Packages.TestLoader)
 local ModuleLoader = TestLoader.ModuleLoader
+
+local FFlagViewportToolingFrameworkStorybook = game:DefineFastFlag("ViewportToolingFrameworkStorybook", false)
 
 -- Services to search for .storybook files
 local STORYBOOK_SOURCES = {
@@ -229,9 +229,16 @@ local function findStorybooks()
 	local sources = collectArray(STORYBOOK_SOURCES, safeGetService)
 	local devFramework = index and index.DeveloperFramework.DeveloperFramework or Main.Parent.Framework
 	insert(sources, devFramework)
-	if getFFlagMaterialFrameworkStorybook() then
-		local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
-		insert(sources, materialFramework)
+	local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
+	insert(sources, materialFramework)
+
+	if FFlagViewportToolingFrameworkStorybook then
+		insert(
+			sources,
+			if index
+				then index.ViewportToolingFramework.ViewportToolingFramework
+				else Main.Parent.ViewportToolingFramework
+		)
 	end
 
 	local foldersByPath: { [string]: Types.StoryItem } = {}

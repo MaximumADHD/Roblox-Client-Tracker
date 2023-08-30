@@ -16,6 +16,9 @@ return function()
 	local GetFFlagLuaAppAddSignalToFocusArea = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppAddSignalToFocusArea
 	local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local guiServiceSelectEnabled
 
 	local function createElementInScreenGui(name, props, children, store)
@@ -119,9 +122,9 @@ return function()
 		}, store)
 
 		if not GetFFlagLuaAppAddSignalToFocusArea() then
-			expect(focusAreaRef.current).to.be.ok()
+			expect(focusAreaRef.current).never.toBeNil()
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("TestFocusArea1")
+		expect((common.getSelection() :: GuiObject).Name).toBe("TestFocusArea1")
 
 		Roact.unmount(instance)
 		screenGui:Destroy()
@@ -154,31 +157,31 @@ return function()
 
 		-- Check that the focus area exists
 		if not GetFFlagLuaAppAddSignalToFocusArea() then
-			expect(focusAreaRef.current).to.be.ok()
+			expect(focusAreaRef.current).never.toBeNil()
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("TestFocusArea2")
+		expect((common.getSelection() :: GuiObject).Name).toBe("TestFocusArea2")
 
 		-- Change the selection
 		GuiService.SelectedCoreObject = screenGui:FindFirstChild("SiblingFrame", true)
-		expect((common.getSelection() :: GuiObject).Name).to.equal("SiblingFrame")
+		expect((common.getSelection() :: GuiObject).Name).toBe("SiblingFrame")
 
 		-- Blur the focus area
 		if GetFFlagLuaAppAddSignalToFocusArea() then
 			blur(focusSignal)
 		else
 			blur(focusAreaRef)
-			expect(focusAreaRef.current).to.be.ok()
+			expect(focusAreaRef.current).never.toBeNil()
 		end
-		expect(common.getSelection()).to.equal(nil)
+		expect(common.getSelection()).toBeNil()
 
 		-- Expect the selection state to be restored when refocused
 		if GetFFlagLuaAppAddSignalToFocusArea() then
 			focus(focusSignal)
 		else
 			focus(focusAreaRef)
-			expect(focusAreaRef.current).to.be.ok()
+			expect(focusAreaRef.current).never.toBeNil()
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("SiblingFrame")
+		expect((common.getSelection() :: GuiObject).Name).toBe("SiblingFrame")
 
 		Roact.unmount(instance)
 		screenGui:Destroy()
@@ -212,10 +215,10 @@ return function()
 		if GetFFlagLuaAppAddSignalToFocusArea() then
 			focus(focusSignal)
 		else
-			expect(focusAreaRef.current).to.be.ok()
+			expect(focusAreaRef.current).never.toBeNil()
 			focus(focusAreaRef)
 		end
-		expect((common.getSelection() :: GuiObject).Name).to.equal("TestFocusArea3")
+		expect((common.getSelection() :: GuiObject).Name).toBe("TestFocusArea3")
 
 		Roact.unmount(instance)
 		screenGui:Destroy()

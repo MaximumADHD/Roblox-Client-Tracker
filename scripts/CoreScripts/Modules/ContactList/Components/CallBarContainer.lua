@@ -5,6 +5,11 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
+local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
+local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
+local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local GetFFlagCorescriptsSoundManagerEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -47,10 +52,20 @@ local function CallBarContainer(passedProps: Props)
 
 	React.useEffect(function()
 		local connectingCallConn = props.callProtocol:listenToHandleConnectingCall(function(params)
+			if GetFFlagCorescriptsSoundManagerEnabled() then
+				SoundManager:PlaySound(
+					Sounds.Ringtone.Name,
+					{ Volume = 0.5, Looped = true, SoundGroup = SoundGroups.Iris }
+				)
+			end
 			dispatch(RoduxCall.Actions.ConnectingCall(params))
 		end)
 
 		local teleportingCallConn = props.callProtocol:listenToHandleTeleportingCall(function(params)
+			if GetFFlagCorescriptsSoundManagerEnabled() then
+				SoundManager:StopSound(Sounds.Ringtone.Name)
+				SoundManager:PlaySound(Sounds.CallAccept.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+			end
 			dispatch(RoduxCall.Actions.UpdateCall(params))
 		end)
 
@@ -59,12 +74,22 @@ local function CallBarContainer(passedProps: Props)
 		end)
 
 		local endCallConn = props.callProtocol:listenToHandleEndCall(function(params)
-			if
-				params.callAction == CallAction.Decline.rawValue()
-				or params.callAction == CallAction.Cancel.rawValue()
-			then
+			if params.callAction == CallAction.Cancel.rawValue() then
+				if GetFFlagCorescriptsSoundManagerEnabled() then
+					SoundManager:StopSound(Sounds.Ringtone.Name)
+					SoundManager:PlaySound(Sounds.CallCancel.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				end
+				dispatch(RoduxCall.Actions.FailedCall(params.lastCall))
+			elseif params.callAction == CallAction.Decline.rawValue() then
+				if GetFFlagCorescriptsSoundManagerEnabled() then
+					SoundManager:StopSound(Sounds.Ringtone.Name)
+					SoundManager:PlaySound(Sounds.CallDecline.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				end
 				dispatch(RoduxCall.Actions.FailedCall(params.lastCall))
 			else
+				if params.callAction == CallAction.Finish.rawValue() and GetFFlagCorescriptsSoundManagerEnabled() then
+					SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				end
 				pcall(function()
 					if callBarRef and callBarRef.current then
 						callBarRef.current:TweenPosition(

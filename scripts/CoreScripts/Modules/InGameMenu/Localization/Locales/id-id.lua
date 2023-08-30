@@ -338,4 +338,10 @@ return{
 	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeOnlyFriends"] = [[Hanya Teman]],
 	["CoreScripts.InGameMenu.GameSettings.SafetyBubbleModeAnyone"] = [[Siapa pun]],
 	["CoreScripts.InGameMenu.Prompt.VRFTUXLeaveGameBodyText"] = [[Kamu yakin ingin meninggalkan pengalaman virtual ini? Kamu dapat mengakses tutorial lagi dari menu "Lainnya".]],
+	["CoreScripts.InGameMenu.Controls.ResetCameraLabel"] = [[Gerakkan/Reset Kamera]],
+	["CoreScripts.InGameMenu.Controls.MenuLabel"] = [[Menu]],
+	["CoreScripts.InGameMenu.Controls.SelectItemLabel"] = [[Pilih Item]],
+	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[Kembali / Keluar]],
+	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(Klik) Kamera Orang Pertama/Ketiga]],
+	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[Loncat / Pilih]],
 }

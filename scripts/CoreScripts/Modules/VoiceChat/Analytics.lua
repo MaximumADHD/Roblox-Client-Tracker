@@ -5,9 +5,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
 
 game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)
-game:DefineFastFlag("LuaVoiceChatAnalyticsUsePoints", false)
-game:DefineFastFlag("LuaVoiceChatAnalyticsUseCounter", false)
-game:DefineFastFlag("LuaVoiceChatAnalyticsUseEvents", false)
+game:DefineFastFlag("LuaVoiceChatAnalyticsUsePointsV2", false)
+game:DefineFastFlag("LuaVoiceChatAnalyticsUseCounterV2", false)
+game:DefineFastFlag("LuaVoiceChatAnalyticsUseEventsV2", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsBanMessage", true)
 game:DefineFastFlag("LuaVoiceChatReconnectMissedSequence", false)
 
@@ -100,10 +100,10 @@ end
 
 function Analytics:_report(context, name, extraName, args)
 	local combinedName = context .. "-" .. name
-	if game:GetFastFlag("LuaVoiceChatAnalyticsUsePoints") then
+	if game:GetFastFlag("LuaVoiceChatAnalyticsUsePointsV2") then
 		self._impl:ReportInfluxSeries(combinedName, args, game:GetFastInt("LuaVoiceChatAnalyticsPointsThrottle"))
 	end
-	if game:GetFastFlag("LuaVoiceChatAnalyticsUseCounter") then
+	if game:GetFastFlag("LuaVoiceChatAnalyticsUseCounterV2") then
 		local longName = combinedName
 		if extraName then
 			longName = longName .. "-" .. extraName
@@ -115,13 +115,13 @@ function Analytics:_report(context, name, extraName, args)
 
 		self._impl:ReportCounter(finalName, 1)
 	end
-	if game:GetFastFlag("LuaVoiceChatAnalyticsUseEvents") then
+	if game:GetFastFlag("LuaVoiceChatAnalyticsUseEventsV2") then
 		self._impl:SendEventDeferred("client", context, name, args)
 	end
 end
 
 function Analytics:reportVoiceChatJoinResult(success, result, level)
-	self:_report("voiceChat", "defaultChannelJoinResult", result, {
+	self:_report("voiceChat", "defaultChannelJoinResults", result, {
 		success = success,
 		result = result,
 		logLevel = if level then level else Analytics.INFO,

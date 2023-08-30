@@ -50,6 +50,7 @@ local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableV
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagEnableNudgeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableNudgeAnalytics)
 local GetFFlagVoiceBanPromptShowSeconds = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanPromptShowSeconds)
+local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -820,6 +821,9 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 				onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
 					then function()
 						self:ShowVoiceToxicityFeedbackToast()
+						if FFlagFixNudgeDeniedEvents then
+							self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
+						end
 					end
 					elseif isNudge then function()
 						self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())

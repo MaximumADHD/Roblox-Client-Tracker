@@ -93,6 +93,7 @@ local function installStorybookEmbed(parent: Instance)
 	createPackageLink("RoactRodux", SrcPackages)
 	createPackageLink("Rodux", SrcPackages)
 	createPackageLink("TestLoader", SrcPackages)
+	createPackageLink("ViewportToolingFramework", SrcPackages)
 
 	-- Disable StorybookLocal - will be enabled by runner
 	SrcFolder.Util.StorybookLocal.Enabled = false

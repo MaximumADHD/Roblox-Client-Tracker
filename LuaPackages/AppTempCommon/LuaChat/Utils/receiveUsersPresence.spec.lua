@@ -1,6 +1,10 @@
 --!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Rodux = require(CorePackages.Rodux)
 	local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 	local receiveUsersPresence = require(script.Parent.receiveUsersPresence)
@@ -68,10 +72,11 @@ return function()
 		receiveUsersPresence(presenceModels, store)
 
 		local presenceCounts = store:getState().FriendPresenceCounts
+		expect(presenceCounts).toEqual({
+			["OFFLINE"] = 1,
+			["ONLINE"] = 1,
+			["IN_GAME"] = 2
+		})
 
-		expect(presenceCounts["OFFLINE"]).to.equal(1)
-		expect(presenceCounts["ONLINE"]).to.equal(1)
-		expect(presenceCounts["IN_GAME"]).to.equal(2)
-		expect(presenceCounts["IN_STUDIO"]).to.never.be.ok()
 	end)
 end

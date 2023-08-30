@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent._Index
 
-local Package = require(PackageIndex["Jest-edcba0e9-3.2.5"]["Jest"])
+local Package = require(PackageIndex["Jest-edcba0e9-3.4.0"]["Jest"])
 
 return Package

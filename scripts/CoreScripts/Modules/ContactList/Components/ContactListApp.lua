@@ -8,6 +8,10 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
+local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
+local GetFFlagCorescriptsSoundManagerEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -100,6 +104,12 @@ return function(passedProps: Props)
 			endCallConn:Disconnect()
 		end
 	end, { props.callProtocol })
+
+	React.useEffect(function()
+		if GetFFlagCorescriptsSoundManagerEnabled() then
+			SoundManager:CreateSoundGroup(SoundGroups.Iris.Name)
+		end
+	end, {})
 
 	return React.createElement("Folder", {}, {
 		CallDialogContainer = React.createElement(CallDialogContainer),

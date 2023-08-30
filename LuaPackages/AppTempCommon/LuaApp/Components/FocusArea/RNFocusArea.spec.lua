@@ -6,6 +6,9 @@ return function()
 	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local act = ReactRoblox.act
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Roact = require(CorePackages.Roact)
 	local RoactNavigation = require(CorePackages.RoactNavigation)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -147,21 +150,21 @@ return function()
 			local mountResult = createMultipleScreens(navigator, testStore)
 
 			-- Check that first selection is as expected
-			expect(common.getSelection()).to.be.ok()
+			expect(common.getSelection()).never.toBeNil()
 			-- No children so Screen should be selected on screen1
-			expect((common.getSelection() :: GuiObject).Name).to.equal("Scene")
-			expect((common.getSelection() :: GuiObject):FindFirstChild("Button1", true)).to.be.ok()
+			expect((common.getSelection() :: GuiObject).Name).toBe("Scene")
+			expect((common.getSelection() :: GuiObject):FindFirstChild("Button1", true)).never.toBeNil()
 
 			-- Navigate to next screen
 			local ref = mountResult.appContainerRef
-			expect(ref.current._navigation.navigate).to.be.ok()
+			expect(ref.current._navigation.navigate).never.toBeNil()
 			navigate("Screen2", focusAreaConfig, navOptions, testStore, mountResult)
 
 			-- Check that selection on second screen is as expected
-			expect(common.getSelection()).to.be.ok()
+			expect(common.getSelection()).never.toBeNil()
 			-- No children so Screen should be selected on screen2
-			expect((common.getSelection() :: GuiObject).Name).to.equal("Scene")
-			expect((common.getSelection() :: GuiObject):FindFirstChild("Button2", true)).to.be.ok()
+			expect((common.getSelection() :: GuiObject).Name).toBe("Scene")
+			expect((common.getSelection() :: GuiObject):FindFirstChild("Button2", true)).never.toBeNil()
 
 			-- Destroy instances
 			mountResult.cleanup(mountResult.instance)

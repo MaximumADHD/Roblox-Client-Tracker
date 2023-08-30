@@ -4,7 +4,7 @@ local AppTempCommon = CorePackages.AppTempCommon
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
-local dependencies = require(ShareGame.dependencies)
+local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon).ReducerDependencies
 
 local PlaceInfos = require(CorePackages.Workspace.Packages.PlaceInfoRodux).Reducers.PlaceInfosReducer
 local Users = require(CorePackages.Workspace.Packages.UserLib).Reducers.UserReducer

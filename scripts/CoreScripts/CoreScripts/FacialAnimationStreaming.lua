@@ -32,11 +32,6 @@ local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetSer
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 
-local streamingStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingStats)
-game:DefineFastFlag("AvatarChatSubsessionAnalyticsV2Lua3", false)
-
-local FFlagFacialAnimationFixAnimatorNoHumanoid = game:DefineFastFlag("FacialAnimationFixAnimatorNoHumanoid", false)
-
 local heartbeatStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingHeartbeatStats)
 
 if not FaceAnimatorService or not FacialAnimationStreamingService then
@@ -218,10 +213,8 @@ local function onAnimatorAdded(player, animator)
 		return
 	end
 
-	if FFlagFacialAnimationFixAnimatorNoHumanoid then
-		if not animator.Parent or not animator.Parent:IsA("Humanoid") then
-			return
-		end
+	if not animator.Parent or not animator.Parent:IsA("Humanoid") then
+		return
 	end
 
 	if FFlagFacialAnimationStreamingServiceFixAnimatorSetup and playerAnimations[player.UserId] then
@@ -436,12 +429,6 @@ local function ConnectStateChangeCallback()
 	end
 	Players.PlayerRemoving:Connect(function(player)
 		playerTrace("Player leaving game", player)
-		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua3") then
-			if player.UserId == Players.LocalPlayer.UserId then
-				streamingStats.endTracking()
-			end
-		end
-
 		playerJoinedGame[player.UserId] = nil
 		playerUpdate(player)
 	end)
@@ -466,9 +453,6 @@ function InitializeVoiceChat()
 	local onCompletion = function()
 		JoinAllExistingPlayers()
 		ConnectStateChangeCallback()
-		if game:GetFastFlag("AvatarChatSubsessionAnalyticsV2Lua3") then
-			streamingStats.startTracking()
-		end
 	end
 
 	if VoiceChatServiceManager then

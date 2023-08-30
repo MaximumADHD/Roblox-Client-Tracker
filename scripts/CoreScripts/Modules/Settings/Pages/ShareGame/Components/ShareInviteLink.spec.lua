@@ -9,7 +9,7 @@ return function()
 	local UIBlox = InGameMenuDependencies.UIBlox
 	local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 	local Constants = require(ShareGame.Constants)
-	local dependencies = require(ShareGame.dependencies)
+	local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon).ReducerDependencies
 
 	local NetworkingShareLinks = dependencies.NetworkingShareLinks
 

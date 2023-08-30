@@ -33,6 +33,10 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local AutoPropertyToggleEntry = require(script.Parent.AutoPropertyToggleEntry)
 local SafetyBubbleModeEntry = require(script.Parent.SafetyBubbleModeEntry)
+local ComfortSettingsEntry
+if game:GetEngineFeature("VRMoreComfortSettings") then
+	ComfortSettingsEntry = require(script.Parent.ComfortSettingsEntry)
+end
 local CameraModeEntry = require(script.Parent.CameraModeEntry)
 local CameraSensitivityEntry = require(script.Parent.CameraSensitivityEntry)
 local CategoryHeader = require(script.Parent.CategoryHeader)
@@ -54,12 +58,21 @@ local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelec
 local GetFFlagIGMVRSettingsPolish = require(Flags.GetFFlagIGMVRSettingsPolish)
 local GetFFlagIGMVRSafetyBubbleModeEntry = require(Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
+local EnableNewComfortSettingsUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRComfortSetting() and
+	game:GetEngineFeature("VRMoreComfortSettings")
+
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild
+
+local NAVIGATE_FORWARD_BUTTON_HEIGHT = 54
+local NAVIGATE_FORWARD_TEXT_PADDING_LEFT = 24
+local NAVIGATE_FORWARD_TEXT_PADDING_RIGHT = 72
+local NAVIGATE_FORWARD_ICON_SIZE = 36
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({
 	switchToAdvancedPage = t.callback,
+	switchToVRComfortSettingsPage = t.callback,
 	pageTitle = t.string,
 	isMenuOpen = t.boolean,
 	currentPage = t.optional(t.string),
@@ -83,7 +96,7 @@ function BasicPage:init()
 		shiftLockEnabled = localPlayer.DevEnableMouseLock,
 		fullScreenEnabled = UserGameSettings:InFullScreen(),
 		invertedCameraEnabled = UserGameSettings.IsUsingCameraYInverted,
-		vrActive =  self.props.vrService.VREnabled,
+		vrActive = self.props.vrService.VREnabled,
 		vrEnabled = UserGameSettings.VREnabled,
 		voiceChatEnabled = false,
 	})
@@ -164,17 +177,48 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 1,
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.VrControlsTitle",
 			}) else nil,
-			VignetteEnabled = if self.state.vrActive then Roact.createElement(AutoPropertyToggleEntry, {
+			VignetteEnabled = if not EnableNewComfortSettingsUI and self.state.vrActive then Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 17,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VignetteEnabled",
 				instance = UserGameSettings,
 				valueKey = "VignetteEnabled",
 			}) else nil,
-			VRSmoothRotationEnabled = if self.state.vrActive then Roact.createElement(AutoPropertyToggleEntry, {
+			VRSmoothRotationEnabled = if not EnableNewComfortSettingsUI and self.state.vrActive then Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 18,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VRSmoothRotationEnabled",
 				instance = UserGameSettings,
 				valueKey = "VRSmoothRotationEnabled",
+			}) else nil,
+			VRComfortSettings = if EnableNewComfortSettingsUI and self.state.vrActive then Roact.createElement(ComfortSettingsEntry, {
+				LayoutOrder = getNextLayoutOrder(),
+			}) else nil,
+			VRComfortSettingsPageButton = if EnableNewComfortSettingsUI and self.state.vrActive then Roact.createElement("TextButton", {
+				LayoutOrder = getNextLayoutOrder(),
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, NAVIGATE_FORWARD_BUTTON_HEIGHT),
+				Text = "",
+				[Roact.Event.Activated] = self.props.switchToVRComfortSettingsPage,
+			}, {
+				Text = withLocalization({
+					text = "CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings",
+				})(function(localization)
+					return Roact.createElement(ThemedTextLabel, {
+						Text = localization.text,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						fontKey = "Body",
+						themeKey = "TextDefault",
+						Size = UDim2.new(1, -(NAVIGATE_FORWARD_TEXT_PADDING_LEFT + NAVIGATE_FORWARD_TEXT_PADDING_RIGHT), 1, 0),
+						Position = UDim2.new(0, NAVIGATE_FORWARD_TEXT_PADDING_LEFT, 0.5, 0),
+						AnchorPoint = Vector2.new(0, 0.5),
+					})
+				end),
+				Icon = Roact.createElement(ImageSetLabel, {
+					BackgroundTransparency = 1,
+					Image = Assets.Images.NavigateForward,
+					Size = UDim2.new(0, NAVIGATE_FORWARD_ICON_SIZE, 0, NAVIGATE_FORWARD_ICON_SIZE),
+					Position = UDim2.new(1, -NAVIGATE_FORWARD_ICON_SIZE, 0.5, 0),
+					AnchorPoint = Vector2.new(1, 0.5),
+				}),
 			}) else nil,
 			VRMode = if showVRToggle then Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 16,
@@ -287,7 +331,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			AdvancedSettings = Roact.createElement("TextButton", {
 				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 20,
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, 54),
+				Size = UDim2.new(1, 0, 0, NAVIGATE_FORWARD_BUTTON_HEIGHT),
 				Text = "",
 				SelectionImageObject = getSelectionCursor(CursorKind.Square),
 				[Roact.Event.Activated] = self.props.switchToAdvancedPage,
@@ -300,16 +344,16 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						TextXAlignment = Enum.TextXAlignment.Left,
 						fontKey = "Body",
 						themeKey = "TextDefault",
-						Size = UDim2.new(1, -96, 1, 0),
-						Position = UDim2.new(0, 24, 0.5, 0),
+						Size = UDim2.new(1, -(NAVIGATE_FORWARD_TEXT_PADDING_LEFT + NAVIGATE_FORWARD_TEXT_PADDING_RIGHT), 1, 0),
+						Position = UDim2.new(0, NAVIGATE_FORWARD_TEXT_PADDING_LEFT, 0.5, 0),
 						AnchorPoint = Vector2.new(0, 0.5),
 					})
 				end),
 				Icon = Roact.createElement(ImageSetLabel, {
 					BackgroundTransparency = 1,
 					Image = Assets.Images.NavigateForward,
-					Size = UDim2.new(0, 36, 0, 36),
-					Position = UDim2.new(1, -36, 0.5, 0),
+					Size = UDim2.new(0, NAVIGATE_FORWARD_ICON_SIZE, 0, NAVIGATE_FORWARD_ICON_SIZE),
+					Position = UDim2.new(1, -NAVIGATE_FORWARD_ICON_SIZE, 0.5, 0),
 					AnchorPoint = Vector2.new(1, 0.5),
 				}),
 			}),
@@ -412,6 +456,9 @@ end, function(dispatch)
 	return {
 		switchToAdvancedPage = function()
 			dispatch(SetCurrentPage(Constants.advancedSettingsPageKey))
+		end,
+		switchToVRComfortSettingsPage = function()
+			dispatch(SetCurrentPage(Constants.vrComfortSettingsPageKey))
 		end,
 	}
 end)(BasicPage)

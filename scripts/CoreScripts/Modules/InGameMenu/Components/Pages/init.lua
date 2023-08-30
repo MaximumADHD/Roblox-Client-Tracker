@@ -78,6 +78,15 @@ local pages = {
 		parentPage = "GameSettings",
 	},
 	{
+		key = "VRGameSettings",
+		title = "CoreScripts.InGameMenu.PageTitle.VRComfortSettings",
+		icon = Images["icons/menu/settings_large"],
+		component = script.Parent.GameSettingsPage.VRComfortSettingsPage,
+		isSecondaryPage = true,
+		navigationDepth = 3,
+		parentPage = "GameSettings",
+	},
+	{
 		key = Constants.LeaveToAppPromptPageKey,
 		navigationDepth = 1,
 		component = script.Dialog.LeaveToAppPrompt,

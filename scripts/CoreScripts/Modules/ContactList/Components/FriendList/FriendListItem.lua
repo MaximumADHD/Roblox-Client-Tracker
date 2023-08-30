@@ -7,6 +7,11 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
+local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
+local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
+local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local GetFFlagCorescriptsSoundManagerEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
@@ -22,17 +27,21 @@ local UIBlox = dependencies.UIBlox
 
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local PlayerContext = UIBlox.App.Indicator.PlayerContext
-local IconButton = UIBlox.App.Button.IconButton
-local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Images = UIBlox.App.ImageSet.Images
 local Interactable = UIBlox.Core.Control.Interactable
+local IconButton = UIBlox.App.Button.IconButton
+local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
+-- TODO: Remove once RDC is finished
+local ContactListHelper = require(ContactList.Components.ContactListHelper)
+
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
 local localUserId: number = localPlayer and localPlayer.UserId or 0
+local rng = Random.new()
 
 export type Props = {
 	userId: number | string,
@@ -40,37 +49,14 @@ export type Props = {
 	displayName: string,
 	dismissCallback: () -> (),
 	layoutOrder: number?,
+	showDivider: boolean,
 }
 
-local ICON_SIZE = 10
 local BUTTON_SIZE = 28
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
 local PLAYER_CONTEXT_HEIGHT = 24
 local PADDING = Vector2.new(24, 12)
-
-function getTextFromPresence(presence)
-	-- TODO (charlieliu): Localization
-	if presence then
-		if presence.userPresenceType == EnumPresenceType.Online then
-			return "Online"
-		elseif presence.userPresenceType == EnumPresenceType.InGame then
-			return "Experience"
-		elseif presence.userPresenceType == EnumPresenceType.InStudio then
-			return "Roblox Studio"
-		end
-	end
-
-	return "Offline"
-end
-
-function isOnline(presence)
-	if presence then
-		return presence.userPresenceType ~= EnumPresenceType.Offline
-	end
-
-	return false
-end
 
 local function FriendListItem(props: Props)
 	local style = useStyle()
@@ -93,25 +79,22 @@ local function FriendListItem(props: Props)
 	end, {})
 	local tag = useSelector(selectTag)
 
-	local controlState, setControlState = React.useState(ControlState.Initialize)
-	local onStateChanged = React.useCallback(function(oldState, newState)
-		setControlState(newState)
-	end)
+	local itemBackgroundTheme, setItemBackgroundTheme = React.useState("BackgroundDefault")
+	local onItemStateChanged = React.useCallback(function(oldState, newState)
+		if newState == ControlState.Pressed then
+			setItemBackgroundTheme("BackgroundOnPress")
+		elseif newState == ControlState.Hover then
+			setItemBackgroundTheme("BackgroundOnHover")
+		else
+			setItemBackgroundTheme("BackgroundDefault")
+		end
+	end, {})
 
 	local image
 	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
 		image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
 	else
 		image = SocialLibraries.User.getUserAvatarImage(props.userId)
-	end
-
-	local interactableTheme
-	if controlState == ControlState.Pressed then
-		interactableTheme = "BackgroundOnPress"
-	elseif controlState == ControlState.Hover then
-		interactableTheme = "BackgroundOnHover"
-	else
-		interactableTheme = "BackgroundDefault"
 	end
 
 	local startCall = function()
@@ -145,16 +128,77 @@ local function FriendListItem(props: Props)
 		props.dismissCallback()
 	end
 
+	local playerContext = React.useMemo(function()
+		local icon = Images["component_assets/circle_26_stroke_3"]
+		local iconColor = style.Theme.OfflineStatus.Color
+		local iconTransparency = style.Theme.OfflineStatus.Transparency
+		local iconSize = 12
+		local text = "Offline"
+		local textColorStyle = style.Theme.TextMuted
+		if presence then
+			if presence.userPresenceType == EnumPresenceType.Online then
+				icon = Images["component_assets/circle_16"]
+				iconColor = style.Theme.OnlineStatus.Color
+				iconTransparency = style.Theme.OnlineStatus.Transparency
+				text = "Online"
+				textColorStyle = style.Theme.TextMuted
+				iconSize = 12
+			elseif presence.userPresenceType == EnumPresenceType.InGame then
+				icon = Images["icons/menu/games_small"]
+				iconColor = style.Theme.IconEmphasis.Color
+				iconTransparency = style.Theme.IconEmphasis.Transparency
+				text = presence.lastLocation
+				textColorStyle = theme.TextEmphasis
+				iconSize = 16
+			elseif presence.userPresenceType == EnumPresenceType.InStudio then
+				icon = Images["icons/logo/studiologo_small"]
+				iconColor = style.Theme.TextDefault.Color
+				iconTransparency = style.Theme.TextDefault.Transparency
+				text = "Roblox Studio"
+				textColorStyle = style.Theme.TextMuted
+				iconSize = 16
+			end
+		end
+
+		return React.createElement(PlayerContext, {
+			fontStyle = style.Font.CaptionBody,
+			icon = icon,
+			iconColor = iconColor,
+			iconSize = UDim2.fromOffset(iconSize, iconSize),
+			iconTransparency = iconTransparency,
+			layoutOrder = 2,
+			onActivated = startCall,
+			text = text,
+			textColorStyle = textColorStyle,
+			textHeight = PLAYER_CONTEXT_HEIGHT,
+		})
+	end, { presence, style })
+
+	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
+		if
+			inputObject
+			and inputObject.UserInputType == Enum.UserInputType.MouseMovement
+			and GetFFlagCorescriptsSoundManagerEnabled()
+		then
+			SoundManager:PlaySound(Sounds.Hover.Name, {
+				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
+				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
+				SoundGroup = SoundGroups.Iris,
+			})
+		end
+	end, {})
+
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, PROFILE_SIZE + PADDING.Y * 2),
-		BackgroundColor3 = theme[interactableTheme].Color,
-		BackgroundTransparency = theme[interactableTheme].Transparency,
+		BackgroundColor3 = theme[itemBackgroundTheme].Color,
+		BackgroundTransparency = theme[itemBackgroundTheme].Transparency,
 		BorderSizePixel = 0,
 		LayoutOrder = props.layoutOrder,
-		onStateChanged = onStateChanged,
+		onStateChanged = onItemStateChanged,
 		AutoButtonColor = false,
 		[React.Event.Activated] = startCall,
+		[React.Event.InputBegan] = onHovered,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, PADDING.X),
@@ -182,41 +226,43 @@ local function FriendListItem(props: Props)
 			}),
 
 			NameContent = React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, -PLAYER_CONTEXT_HEIGHT),
+				Size = UDim2.new(1, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				LayoutOrder = 1,
 			}, {
 				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, 4),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
+				UIPadding = React.createElement("UIPadding", {
+					PaddingBottom = UDim.new(0, 6),
+				}),
+
 				DisplayName = React.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.new(1, 0, 0, 0),
+					Size = UDim2.new(1, 0, 0, 20),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Font = font.Header2.Font,
 					LayoutOrder = 1,
-					LineHeight = 1.25,
 					Text = props.displayName,
 					TextColor3 = theme.TextEmphasis.Color,
-					TextSize = font.BaseSize * font.Body.RelativeSize,
-					TextTransparency = theme.TextDefault.Transparency,
+					TextSize = font.BaseSize * font.Header2.RelativeSize,
+					TextTransparency = theme.TextEmphasis.Transparency,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
 
 				Username = React.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.new(1, 0, 0, 0),
+					Size = UDim2.new(1, 0, 0, 14),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Font = font.Body.Font,
+					Font = font.CaptionBody.Font,
 					LayoutOrder = 2,
-					LineHeight = 1.25,
-					Text = "@" .. props.userName,
+					Text = "@" .. ContactListHelper.getUsername(props.userId, props.userName),
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,
@@ -225,36 +271,29 @@ local function FriendListItem(props: Props)
 				}),
 			}),
 
-			PlayerContext = React.createElement(PlayerContext, {
-				icon = if isOnline(presence)
-					then Images["component_assets/circle_25"]
-					else Images["component_assets/circle_26_stroke_3"],
-				iconColor = if isOnline(presence)
-					then style.Theme.OnlineStatus.Color
-					else style.Theme.OfflineStatus.Color,
-				iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-				iconTransparency = if isOnline(presence)
-					then style.Theme.OnlineStatus.Transparency
-					else style.Theme.OfflineStatus.Transparency,
-				text = getTextFromPresence(presence),
-				fontStyle = style.Font.CaptionBody,
-				layoutOrder = 2,
-				textHeight = PLAYER_CONTEXT_HEIGHT,
-			}),
+			PlayerContext = playerContext,
 		}),
 
 		CallButton = if game:GetEngineFeature("EnableSocialServiceIrisInvite")
 			then React.createElement(IconButton, {
 				size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-				iconSize = IconSize.Large,
-				position = UDim2.new(1, -PADDING.X, 0.5, 0),
+				iconSize = IconSize.Medium,
+				position = UDim2.new(1, -PADDING.X, 0.5, -PADDING.Y / 2),
 				anchorPoint = Vector2.new(1, 0.5),
 				iconColor3 = theme.ContextualPrimaryDefault.Color,
 				iconTransparency = theme.ContextualPrimaryDefault.Transparency,
-				icon = Images["icons/actions/accept"],
+				icon = "rbxassetid://14532752184", -- TODO: Replace with UIBLOX icon
 				onActivated = startCall,
 			})
 			else nil,
+
+		Divider = props.showDivider and React.createElement("Frame", {
+			Position = UDim2.new(0, 0, 1, -1),
+			Size = UDim2.new(1, 0, 0, 1),
+			BackgroundColor3 = theme.Divider.Color,
+			BackgroundTransparency = theme.Divider.Transparency,
+			BorderSizePixel = 0,
+		}) or nil,
 	})
 end
 

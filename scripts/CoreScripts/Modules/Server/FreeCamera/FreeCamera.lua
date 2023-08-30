@@ -43,7 +43,16 @@ do
     end)
     FFlagUserExitFreecamBreaksWithShiftlock = success and result
 end
- 
+
+local FFlagUserFixFreecamFocusFlicker 
+do
+    local success, result = pcall(function()
+        return UserSettings():IsUserFeatureEnabled("UserFixFreecamFocusFlicker")
+    end)
+    FFlagUserFixFreecamFocusFlicker = success and result
+end
+
+
 ------------------------------------------------------------------------
 
 local TOGGLE_INPUT_PRIORITY = Enum.ContextActionPriority.Low.Value
@@ -326,7 +335,11 @@ local function StepFreecam(dt)
 	cameraPos = cameraCFrame.p
 
 	Camera.CFrame = cameraCFrame
-	Camera.Focus = cameraCFrame*CFrame.new(0, 0, -GetFocusDistance(cameraCFrame))
+	if FFlagUserFixFreecamFocusFlicker then
+		Camera.Focus = cameraCFrame 
+	else
+		Camera.Focus = cameraCFrame*CFrame.new(0, 0, -GetFocusDistance(cameraCFrame))
+	end
 	Camera.FieldOfView = cameraFov
 end
 

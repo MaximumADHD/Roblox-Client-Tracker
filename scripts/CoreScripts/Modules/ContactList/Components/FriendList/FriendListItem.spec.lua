@@ -51,6 +51,7 @@ return function()
 					userName = "user name",
 					displayName = "display name",
 					dismissCallback = function() end,
+					showDivider = true,
 				}),
 			}),
 		})

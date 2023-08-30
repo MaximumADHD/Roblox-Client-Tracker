@@ -31,6 +31,9 @@ local ContactListSearchBar = function(passedProps)
 	local props = Cryo.Dictionary.join(defaultProps, passedProps)
 	local style = useStyle()
 	local font = style.Font
+	local theme = style.Theme
+
+	local isFocused, setIsFocused = React.useState(false)
 
 	local onSearchChanged = React.useCallback(function(instance, property)
 		if property == "Text" then
@@ -40,8 +43,8 @@ local ContactListSearchBar = function(passedProps)
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, -48, 0, props.searchBarHeight),
-		BackgroundColor3 = Colors.Slate,
-		BackgroundTransparency = 0,
+		BackgroundColor3 = theme.UIMuted.Color,
+		BackgroundTransparency = theme.UIMuted.Transparency,
 		LayoutOrder = props.layoutOrder,
 	}, {
 		UIListLayout = React.createElement("UIListLayout", {
@@ -58,14 +61,14 @@ local ContactListSearchBar = function(passedProps)
 			PaddingRight = UDim.new(0, 12),
 		}),
 		UIStroke = React.createElement("UIStroke", {
-			Color = Colors.White,
+			Color = Colors.Pumice,
 			Thickness = 1,
-			Transparency = 0.7,
 		}),
 		SearchImage = React.createElement(ImageSetLabel, {
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
 			Image = Images["icons/common/search_small"],
+			ImageColor3 = if isFocused then Colors.White else Color3.fromHex("#696A6B"),
 			Size = UDim2.fromOffset(16, 16),
 		}),
 		TextBox = React.createElement("TextBox", {
@@ -73,6 +76,7 @@ local ContactListSearchBar = function(passedProps)
 			BackgroundTransparency = 1,
 			Font = font.Body.Font,
 			LayoutOrder = 2,
+			PlaceholderColor3 = Color3.fromHex("#696A6B"),
 			-- TODO (timothyhsu): Localization
 			PlaceholderText = "Search friends",
 			Text = props.searchText,
@@ -80,7 +84,13 @@ local ContactListSearchBar = function(passedProps)
 			TextSize = font.BaseSize * font.Body.RelativeSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			[React.Event.Changed] = onSearchChanged,
-			[React.Event.Focused] = props.onFocused,
+			[React.Event.Focused] = function()
+				setIsFocused(true)
+				props.onFocused()
+			end,
+			[React.Event.FocusLost] = function()
+				setIsFocused(false)
+			end,
 		}),
 	})
 end

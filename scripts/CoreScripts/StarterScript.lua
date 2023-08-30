@@ -65,6 +65,7 @@ local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).
 local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 local GetFFlagCorescriptsSoundManagerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
+local GetFFlagIrisAlwaysOnTopEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisAlwaysOnTopEnabled
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 
@@ -191,6 +192,11 @@ end
 
 if game:GetEngineFeature("EnableBubbleChatFromChatService") or UserRoactBubbleChatBeta then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerBillboards", RobloxGui)
+end
+
+
+if GetFFlagIrisAlwaysOnTopEnabled() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/IrisUpdateBubbleChat", RobloxGui)
 end
 
 -- Purchase Prompt Script

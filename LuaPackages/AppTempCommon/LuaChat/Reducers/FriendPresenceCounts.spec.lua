@@ -1,6 +1,9 @@
 --!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local FriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Reducers.FriendPresenceCounts)
 	local UpdateFriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Actions.UpdateFriendPresenceCounts)
 
@@ -8,7 +11,7 @@ return function()
 		local state = FriendPresenceCounts(nil, {})
 
 		local nextKey, _ = next(state)
-		expect(nextKey).to.never.be.ok()
+		expect(nextKey).never.toBeDefined()
 	end)
 
 	it("should respond to UpdateFriendPresenceCounts", function()
@@ -20,9 +23,9 @@ return function()
 			["IN_STUDIO"] = 0,
 		}))
 
-		expect(state["OFFLINE"]).to.equal(2)
-		expect(state["ONLINE"]).to.equal(5)
-		expect(state["IN_GAME"]).to.equal(3)
-		expect(state["IN_STUDIO"]).to.equal(0)
+		expect(state["OFFLINE"]).toBe(2)
+		expect(state["ONLINE"]).toBe(5)
+		expect(state["IN_GAME"]).toBe(3)
+		expect(state["IN_STUDIO"]).toBe(0)
 	end)
 end

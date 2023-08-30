@@ -4,9 +4,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
-local initializeSelf = require(CoreGuiModules:WaitForChild("Pip"):WaitForChild("PipSelfView"))
-initializeSelf(game.Players.LocalPlayer)
-
 -- exposing head tracking data through a bindable function for Iris
 local getFFlagExposeHeadTrackingData = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExposeHeadTrackingData
 

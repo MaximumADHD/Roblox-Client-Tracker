@@ -5,6 +5,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Packages = CorePackages.Packages
+local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 local React = require(Packages.React)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local setTimeout = LuauPolyfill.setTimeout
@@ -39,6 +40,13 @@ export type IconProps = {
 
 local function Icon(props: IconProps): React.ReactNode
 	local recentlyToggled: boolean, setRecentlyToggled: (boolean) -> () = React.useState(true)
+	local localized = useLocalization({
+		robloxPermissionErrorHeader = "CoreScripts.TopBar.RobloxPermissionErrorHeader",
+		robloxPermissionErrorBody = "CoreScripts.TopBar.RobloxPermissionErrorBody",
+		dynamicAvatarMissingErrorHeader = "CoreScripts.TopBar.DynamicAvatarMissingErrorHeader",
+		dynamicAvatarMissingErrorBody = "CoreScripts.TopBar.DynamicAvatarMissingErrorBody",
+	})
+
 	local cameraOn = useCameraOn()
 	local timeoutID: { current: number? } = React.useRef(nil)
 	React.useEffect(function()
@@ -92,13 +100,13 @@ local function Icon(props: IconProps): React.ReactNode
 				return
 			end
 			if not FaceChatUtils.getPermissions().userCamEnabled then
-				showError("Allow Camera Access to continue", "Settings > Privacy > Microphone and Camera Input")
+				showError(localized.robloxPermissionErrorHeader, localized.robloxPermissionErrorBody)
 				return
 			end
 			if not ModelUtils.hasDynamicHead(player.Character or player.CharacterAdded:Wait()) then
 				-- We don't want to show this error when turning off the camera.
 				if not FaceChatUtils.isCameraOn() then
-					showError("Equip a dynamic head to express yourself!", "Avatar > Customize > Head & Body")
+					showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
 				end
 			end
 			Analytics:setLastCtx("SelfView")

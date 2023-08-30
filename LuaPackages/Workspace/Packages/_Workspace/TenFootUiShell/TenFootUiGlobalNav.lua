@@ -6,7 +6,6 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 local Package = require(PackageIndex["TenFootUiGlobalNav"]["TenFootUiGlobalNav"])
 
 export type GlobalNavProps = Package.GlobalNavProps
-export type NavigationObject = Package.NavigationObject
 
 
 return Package

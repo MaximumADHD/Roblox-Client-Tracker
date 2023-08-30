@@ -1,10 +1,13 @@
 --!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local Roact = require(CorePackages.Roact)
 	local Cryo = require(CorePackages.Cryo)
-	local JestGlobals = require(CorePackages.JestGlobals)
-	local jest = JestGlobals.jest
 
 	local FocusHistory = require(script.Parent.FocusHistory)
 
@@ -65,57 +68,57 @@ return function()
 	end)
 
 	it("should register three focus areas with unique tags", function(c)
-		expect(c.tags.MockFocusArea1).never.to.equal(c.tags.MockFocusArea2)
-		expect(c.tags.MockFocusArea2).never.to.equal(c.tags.MockFocusArea3)
-		expect(c.tags.MockFocusArea1).never.to.equal(c.tags.MockFocusArea3)
+		expect(c.tags.MockFocusArea1).never.toBe(c.tags.MockFocusArea2)
+		expect(c.tags.MockFocusArea2).never.toBe(c.tags.MockFocusArea3)
+		expect(c.tags.MockFocusArea1).never.toBe(c.tags.MockFocusArea3)
 
 		c.cleanup()
 	end)
 
 	it("should request and cede the focus for focus area 1", function(c)
 		FocusHistory.requestFocus(c.tags.MockFocusArea1)
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(0)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea1.handleBlur).never.toHaveBeenCalled()
 
 		FocusHistory.yieldFocus(c.tags.MockFocusArea1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(1)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(1)
 
 		c.cleanup()
 	end)
 
 	it("should check that when focus areas cede their focus, it's returned to priorly selected items", function(c)
 		FocusHistory.requestFocus(c.tags.MockFocusArea1)
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(0)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea1.handleBlur).never.toHaveBeenCalled()
 
 		FocusHistory.requestFocus(c.tags.MockFocusArea2)
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleBlur.mock.calls).to.equal(0)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleBlur).never.toHaveBeenCalled()
 
 		FocusHistory.requestFocus(c.tags.MockFocusArea3)
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea3.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea3.handleBlur.mock.calls).to.equal(0)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea3.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea3.handleBlur).never.toHaveBeenCalled()
 
 		FocusHistory.yieldFocus(c.tags.MockFocusArea3)
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleFocus.mock.calls).to.equal(2)
-		expect(#c.MockFocusArea2.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea3.handleBlur.mock.calls).to.equal(1)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleFocus).toHaveBeenCalledTimes(2)
+		expect(c.MockFocusArea2.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea3.handleBlur).toHaveBeenCalledTimes(1)
 
 		FocusHistory.yieldFocus(c.tags.MockFocusArea2)
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(2)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleBlur.mock.calls).to.equal(2)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(2)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleBlur).toHaveBeenCalledTimes(2)
 
 		FocusHistory.yieldFocus(c.tags.MockFocusArea1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(2)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(2)
 	end)
 
 	it("should check that when focus areas cannot duplicate in history", function(c)
@@ -126,12 +129,12 @@ return function()
 		FocusHistory.requestFocus(c.tags.MockFocusArea1)
 
 		-- Check that got back focus
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(2)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(2)
 
 		-- Check that everything else blurred a little
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleBlur.mock.calls).to.equal(2)
-		expect(#c.MockFocusArea3.handleBlur.mock.calls).to.equal(1)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleBlur).toHaveBeenCalledTimes(2)
+		expect(c.MockFocusArea3.handleBlur).toHaveBeenCalledTimes(1)
 	end)
 
 	it("should check that when focus areas cannot cede if they don't have focus", function(c)
@@ -140,11 +143,11 @@ return function()
 		FocusHistory.requestFocus(c.tags.MockFocusArea3)
 
 		FocusHistory.yieldFocus(c.tags.MockFocusArea2)
-		expect(#c.MockFocusArea1.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea1.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea2.handleBlur.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea3.handleFocus.mock.calls).to.equal(1)
-		expect(#c.MockFocusArea3.handleBlur.mock.calls).to.equal(0)
+		expect(c.MockFocusArea1.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea1.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea2.handleBlur).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea3.handleFocus).toHaveBeenCalledTimes(1)
+		expect(c.MockFocusArea3.handleBlur).never.toHaveBeenCalled()
 	end)
 end

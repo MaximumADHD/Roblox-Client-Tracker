@@ -91,6 +91,7 @@ local ContactListHeader = function(props: Props)
 				Size = UDim2.new(0, DIVIDER_WIDTH, 0, font.Header1.RelativeSize * font.BaseSize),
 				BackgroundColor3 = theme.Divider.Color,
 				BackgroundTransparency = theme.Divider.Transparency,
+				BorderSizePixel = 0,
 			}),
 			DividerContainerUIPadding = React.createElement("UIPadding", {
 				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING_BUTTON),
@@ -102,9 +103,8 @@ local ContactListHeader = function(props: Props)
 				1,
 				-(IN_BETWEEN_PADDING + IN_BETWEEN_PADDING_BUTTON + DIVIDER_WIDTH + BUTTON_SIZE * 2),
 				0,
-				0
+				24
 			),
-			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Font = font.Header1.Font,
 			Text = getTitleFromPage(props.currentPage),
@@ -113,6 +113,7 @@ local ContactListHeader = function(props: Props)
 			TextTransparency = theme.TextEmphasis.Transparency,
 			LayoutOrder = 3,
 			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
 		}, {
 			HeaderTextUIPadding = React.createElement("UIPadding", {
 				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING),
@@ -122,7 +123,7 @@ local ContactListHeader = function(props: Props)
 		NewCallButton = if props.currentPage == Pages.CallHistory
 			then React.createElement(IconButton, {
 				size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-				icon = Images["icons/actions/edit/add"],
+				icon = "rbxassetid://14522111372", -- TODO: Replace with UIBLOX icon
 				iconSize = IconSize.Medium,
 				iconColor3 = Colors.White,
 				layoutOrder = 4,

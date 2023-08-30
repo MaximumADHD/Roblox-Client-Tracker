@@ -216,10 +216,10 @@ local function CallBar(passedProps: Props)
 				AnchorPoint = Vector2.new(1, 1),
 				LayoutOrder = 3,
 				Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-				BackgroundTransparency = style.Theme.UIMuted.Transparency,
-				BackgroundColor3 = style.Theme.UIMuted.Color,
+				BackgroundTransparency = style.Theme.Alert.Transparency,
+				BackgroundColor3 = style.Theme.Alert.Color,
 				BorderSizePixel = 0,
-				Image = "rbxassetid://12788429603",
+				Image = "rbxassetid://14535614005",
 				[React.Event.Activated] = endButtonCallback,
 			}, {
 				UICorner = React.createElement("UICorner", {

@@ -13,7 +13,7 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
-local dependencies = require(ShareGame.dependencies)
+local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon).ReducerDependencies
 local Constants = require(ShareGame.Constants)
 local ShareButton = require(ShareGame.Components.ShareButton)
 local getTranslator = require(ShareGame.getTranslator)

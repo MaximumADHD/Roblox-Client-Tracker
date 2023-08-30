@@ -19,7 +19,6 @@ local useSelector = dependencies.Hooks.useSelector
 local UIBlox = dependencies.UIBlox
 
 local useStyle = UIBlox.Core.Style.useStyle
-local Colors = UIBlox.App.Style.Colors
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
@@ -46,19 +45,32 @@ local function CallHistoryContainer(props: Props)
 	local isLoading = React.useRef(true)
 	local status, setStatus = React.useState(RetrievalStatus.Fetching)
 
+	local nextPageCursor = useSelector(function(state)
+		return state.Call.callHistory.nextPageCursor
+	end)
+
+	local getCallRecords = React.useCallback(function(cursor)
+		isLoading.current = true
+		setStatus(RetrievalStatus.Fetching)
+		dispatch(NetworkingCall.GetCallHistory.API({ cursor = cursor, limit = 16, universeId = game.GameId })):andThen(
+			function()
+				setStatus(RetrievalStatus.Done)
+			end,
+			function()
+				setStatus(RetrievalStatus.Failed)
+			end
+		)
+	end, {})
+
 	React.useEffect(function()
 		-- It is assumed this fetch is enough to fill a page. If not, we should
 		-- investigate more options.
-		dispatch(NetworkingCall.GetCallHistory.API({ limit = 20, universeId = game.GameId })):andThen(function()
-			setStatus(RetrievalStatus.Done)
-		end, function()
-			setStatus(RetrievalStatus.Failed)
-		end)
+		getCallRecords("")
 
 		return function()
 			dispatch(RoduxCall.Actions.ClearCallRecords())
 		end
-	end, {})
+	end, { getCallRecords })
 
 	local selectCallRecords = React.useCallback(function(state: any)
 		local callRecords = state.Call.callHistory.callRecords
@@ -98,17 +110,139 @@ local function CallHistoryContainer(props: Props)
 
 	local navigateToNewCall = React.useCallback(function()
 		dispatch(SetCurrentPage(Pages.FriendList))
-	end)
-
-	local nextPageCursor = useSelector(function(state)
-		return state.Call.callHistory.nextPageCursor
-	end)
+	end, {})
 
 	React.useEffect(function()
 		if status ~= RetrievalStatus.Fetching then
 			isLoading.current = false
 		end
 	end, { status })
+
+	local noRecordsComponent = React.useMemo(function()
+		local message
+		if props.searchText ~= "" then
+			message = "No friends found"
+		elseif status == RetrievalStatus.Failed then
+			message = "Something went wrong! Please try again."
+		else
+			message = "Your friends are waiting for your call!"
+		end
+
+		return React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = 10000, -- Hack to push this to the back.
+		}, {
+			UIListLayout = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				Padding = UDim.new(0, 20),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+
+			UIPadding = React.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, 12),
+				PaddingBottom = UDim.new(0, 12),
+				PaddingLeft = UDim.new(0, 24),
+				PaddingRight = UDim.new(0, 24),
+			}),
+
+			Image = if status ~= RetrievalStatus.Failed or props.searchText ~= ""
+				then React.createElement(ImageSetLabel, {
+					BackgroundTransparency = 1,
+					Image = Images[if props.searchText == ""
+						then "icons/graphic/findfriends_xlarge"
+						else "icons/status/oof_xlarge"],
+					LayoutOrder = 1,
+					Size = UDim2.fromOffset(96, 96),
+				})
+				else nil,
+
+			Message = React.createElement("TextLabel", {
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				Font = font.Body.Font,
+				LayoutOrder = 2,
+				Text = message,
+				TextColor3 = theme.TextDefault.Color,
+				TextSize = font.Body.RelativeSize * font.BaseSize,
+				TextTransparency = theme.TextDefault.Transparency,
+				TextWrapped = true,
+			}),
+
+			FailedButton = if status == RetrievalStatus.Failed and props.searchText == ""
+				then React.createElement("TextButton", {
+					Size = UDim2.new(0, 0, 0, 0),
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundColor3 = theme.SystemPrimaryDefault.Color,
+					BackgroundTransparency = theme.SystemPrimaryDefault.Transparency,
+					BorderSizePixel = 0,
+					Font = font.Header2.Font,
+					LayoutOrder = 3,
+					Text = "Retry",
+					TextColor3 = theme.SystemPrimaryContent.Color,
+					TextSize = font.Header2.RelativeSize * font.BaseSize,
+					TextTransparency = theme.SystemPrimaryContent.Transparency,
+					[React.Event.Activated] = function()
+						getCallRecords(nextPageCursor)
+					end,
+				}, {
+					UICorner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+					UIPadding = React.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 8),
+						PaddingRight = UDim.new(0, 8),
+					}),
+					UISizeConstraint = React.createElement("UISizeConstraint", {
+						MinSize = Vector2.new(108, 36),
+					}),
+				})
+				else nil,
+
+			CallButton = if status == RetrievalStatus.Done and props.searchText == ""
+				then React.createElement("ImageButton", {
+					Size = UDim2.new(1, 0, 0, 48),
+					BackgroundColor3 = theme.SystemPrimaryDefault.Color,
+					BackgroundTransparency = theme.SystemPrimaryDefault.Transparency,
+					BorderSizePixel = 0,
+					LayoutOrder = 3,
+					[React.Event.Activated] = navigateToNewCall,
+				}, {
+					UICorner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+					UIListLayout = React.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						Padding = UDim.new(0, 4),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
+					StartCallIcon = React.createElement(ImageSetLabel, {
+						Size = UDim2.fromOffset(28, 28),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://14532752184",
+						ImageColor3 = theme.SystemPrimaryContent.Color,
+						LayoutOrder = 1,
+					}),
+					StartCallButtonText = React.createElement("TextLabel", {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+						Font = font.Header2.Font,
+						LayoutOrder = 2,
+						Text = "Start a call",
+						TextColor3 = theme.SystemPrimaryContent.Color,
+						TextSize = font.Header2.RelativeSize * font.BaseSize,
+						TextTransparency = theme.SystemPrimaryContent.Transparency,
+					}),
+				})
+				else nil,
+		})
+	end, dependencyArray(getCallRecords, props.searchText, status))
 
 	local children: any = React.useMemo(function()
 		local entries: any = {}
@@ -126,27 +260,30 @@ local function CallHistoryContainer(props: Props)
 				layoutOrder = i,
 			})
 		end
-
-		if nextPageCursor ~= "" and status ~= RetrievalStatus.Failed and props.searchText == "" then
-			-- We don't show a loading indicator when searching, when loading
-			-- fails (we should add an option to do retries) or when there are
-			-- no more pages.
+		if nextPageCursor ~= "" and props.searchText == "" then
+			-- This renders an extra component like refresh button or a loading
+			-- indicator. We do not want either when there is no next page or
+			-- when we are searching.
 			local index = #entries + 1
-			entries[index] = React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 92),
-				BackgroundTransparency = 1,
-				LayoutOrder = index,
-			}, {
-				LoadingSpinner = React.createElement(LoadingSpinner, {
-					size = UDim2.fromOffset(48, 48),
-					position = UDim2.fromScale(0.5, 0.5),
-					anchorPoint = Vector2.new(0.5, 0.5),
-				}),
-			})
+			if status == RetrievalStatus.Failed then
+				entries[index] = noRecordsComponent
+			else
+				entries[index] = React.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 92),
+					BackgroundTransparency = 1,
+					LayoutOrder = index,
+				}, {
+					LoadingSpinner = React.createElement(LoadingSpinner, {
+						size = UDim2.fromOffset(48, 48),
+						position = UDim2.fromScale(0.5, 0.5),
+						anchorPoint = Vector2.new(0.5, 0.5),
+					}),
+				})
+			end
 		end
 
 		return entries
-	end, dependencyArray(callRecords, nextPageCursor, props.searchText, status))
+	end, dependencyArray(callRecords, nextPageCursor, noRecordsComponent, props.searchText, status))
 
 	local onCanvasPositionChanged = React.useCallback(function(f)
 		if
@@ -156,15 +293,9 @@ local function CallHistoryContainer(props: Props)
 			and props.searchText == ""
 			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
 		then
-			isLoading.current = true
-			setStatus(RetrievalStatus.Fetching)
-			dispatch(NetworkingCall.GetCallHistory.API({ limit = 10, cursor = nextPageCursor })):andThen(function()
-				setStatus(RetrievalStatus.Done)
-			end, function()
-				setStatus(RetrievalStatus.Failed)
-			end)
+			getCallRecords(nextPageCursor)
 		end
-	end, dependencyArray(nextPageCursor, props.searchText, status))
+	end, dependencyArray(getCallRecords, nextPageCursor, props.searchText, status))
 
 	return if #callRecords == 0
 			and status == RetrievalStatus.Fetching
@@ -179,68 +310,7 @@ local function CallHistoryContainer(props: Props)
 				anchorPoint = Vector2.new(0.5, 0.5),
 			}),
 		})
-		elseif #callRecords == 0 and props.searchText == "" then React.createElement("Frame", {
-			Size = UDim2.fromScale(1, 1),
-			BackgroundTransparency = 1,
-		}, {
-			UIListLayout = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, 20),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-			}),
-			UIPadding = React.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 20),
-				PaddingRight = UDim.new(0, 20),
-			}),
-			NoCallHistoryText = React.createElement("TextLabel", {
-				Size = UDim2.fromScale(1, 0),
-				AutomaticSize = Enum.AutomaticSize.Y,
-				BackgroundTransparency = 1,
-				Font = font.Body.Font,
-				LayoutOrder = 1,
-				Text = "Your friends are waiting for you call!",
-				TextColor3 = theme.TextDefault.Color,
-				TextSize = font.Body.RelativeSize * font.BaseSize,
-				TextTransparency = theme.TextDefault.Transparency,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-			}),
-			StartCallButton = React.createElement("ImageButton", {
-				Size = UDim2.new(1, 0, 0, 48),
-				BackgroundColor3 = Colors.White,
-				LayoutOrder = 2,
-				[React.Event.Activated] = navigateToNewCall,
-			}, {
-				UICorner = React.createElement("UICorner", {
-					CornerRadius = UDim.new(0, 8),
-				}),
-				UIListLayout = React.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					Padding = UDim.new(0, 4),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-				StartCallIcon = React.createElement(ImageSetLabel, {
-					Size = UDim2.fromOffset(28, 28),
-					BackgroundTransparency = 1,
-					Image = Images["icons/actions/friends/friendInvite"],
-					ImageColor3 = Colors.Black,
-					LayoutOrder = 1,
-				}),
-				StartCallButtonText = React.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.XY,
-					BackgroundTransparency = 1,
-					Font = font.Body.Font,
-					LayoutOrder = 2,
-					Text = "Start a call",
-					TextColor3 = Colors.Black,
-					TextSize = font.Body.RelativeSize * font.BaseSize,
-					TextTransparency = theme.TextDefault.Transparency,
-				}),
-			}),
-		})
+		elseif #callRecords == 0 then noRecordsComponent
 		else React.createElement("ScrollingFrame", {
 			Size = UDim2.fromScale(1, 1),
 			AutomaticCanvasSize = Enum.AutomaticSize.Y,

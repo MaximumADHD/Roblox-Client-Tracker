@@ -70,7 +70,6 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
 local GetFIntEducationalPopupDisplayMaxCount = require(RobloxGui.Modules.Flags.GetFIntEducationalPopupDisplayMaxCount)
 local FFlagLuaAppExitModalDoNotShow = game:DefineFastFlag("LuaAppExitModalDoNotShow", false)
-local GetFFlagEnableSurveyImprovements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSurveyImprovements
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -236,9 +235,7 @@ local function Initialize()
 					end
 					this.LeaveGameFunc(false)
 
-					if GetFFlagEnableSurveyImprovements() then 
-						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType}) 
-					end
+					MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType}) 
 				end,
 			}),
 		})

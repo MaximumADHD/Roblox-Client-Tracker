@@ -1,4 +1,9 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local trimCharacterFromEndString = require(script.Parent.trimCharacterFromEndString)
 
 	describe("single byte characters", function()
@@ -6,7 +11,7 @@ return function()
 			local passedString = "testing"
 			local passedCharacter = "/"
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(passedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(passedString)
 		end)
 
 		it("should trim a string if it ends with a single instance of the passed character", function()
@@ -14,7 +19,7 @@ return function()
 			local passedCharacter = "/"
 			local expectedString = "testing"
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(expectedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(expectedString)
 		end)
 
 		it("should trim a string if it ends with multiple instances of the passed character", function()
@@ -22,7 +27,7 @@ return function()
 			local passedCharacter = "/"
 			local expectedString = "testing"
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(expectedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(expectedString)
 		end)
 
 		it("should do nothing if the passed character is empty", function()
@@ -30,7 +35,7 @@ return function()
 			local passedCharacter = ""
 			local expectedString = "hunter2"
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(expectedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(expectedString)
 		end)
 	end)
 
@@ -39,7 +44,7 @@ return function()
 			local passedString = "testing"
 			local passedCharacter = "🐶"
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(passedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(passedString)
 		end)
 
 		it("should trim a string if it ends with a single instance of the passed character", function()
@@ -47,7 +52,7 @@ return function()
 			local passedCharacter = "🐶"
 			local expectedString = "testing"
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(expectedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(expectedString)
 		end)
 
 		it("should trim a string if it ends with multiple instances of the passed character", function()
@@ -55,7 +60,7 @@ return function()
 			local passedCharacter = "🐶"
 			local expectedString = "testing"
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(expectedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(expectedString)
 		end)
 	end)
 
@@ -65,7 +70,7 @@ return function()
 			local passedCharacter = "p"
 			local expectedString = ""
 
-			expect(trimCharacterFromEndString(passedString, passedCharacter)).to.equal(expectedString)
+			expect(trimCharacterFromEndString(passedString, passedCharacter)).toBe(expectedString)
 		end)
 	end)
 end

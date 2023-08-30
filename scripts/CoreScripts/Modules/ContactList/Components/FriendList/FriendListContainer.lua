@@ -19,6 +19,8 @@ local useSelector = dependencies.Hooks.useSelector
 local GetFriendsFromUserId = dependencies.NetworkingFriends.GetFriendsFromUserId
 
 local useStyle = UIBlox.Core.Style.useStyle
+local Images = UIBlox.App.ImageSet.Images
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
 local FriendListItem = require(ContactList.Components.FriendList.FriendListItem)
@@ -39,40 +41,110 @@ local function FriendListContainer(props: Props)
 	local theme = style.Theme
 	local font = style.Font
 
+	local selectStatus = React.useCallback(function(state)
+		if props.isDevMode then
+			return GetFriendsFromUserId.getStatus(state, localUserId)
+		else
+			-- Non dev mode doesn't make a network request, so it just "succeeds".
+			return RetrievalStatus.Done
+		end
+	end, { props.isDevMode })
+	local status = useSelector(selectStatus)
+
+	-- Not used for non dev mode but defined here due to the no friends component.
+	local getFriends = React.useCallback(function()
+		if localUserId then
+			dispatch(GetFriendsFromUserId.API(localUserId))
+		end
+	end, {})
+
 	local noFriendsText = React.useMemo(function()
+		local message
+		if props.searchText ~= "" then
+			message = "No friends found"
+		elseif status == RetrievalStatus.Failed then
+			message = "Something went wrong! Please try again."
+		else
+			message = "Oh no you have no friends."
+		end
+
 		-- TODO (timothyhsu): Localization
-		return React.createElement("TextLabel", {
-			Size = UDim2.fromScale(1, 1),
+		return React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
-			Font = font.Body.Font,
-			Text = "Add friends on Roblox to be able to make a call",
-			TextColor3 = theme.TextDefault.Color,
-			TextSize = 16 * font.Body.RelativeSize,
-			TextTransparency = theme.TextDefault.Transparency,
-			TextWrapped = true,
-			TextXAlignment = Enum.TextXAlignment.Center,
-			TextYAlignment = Enum.TextYAlignment.Center,
 		}, {
-			NoFriendsTextUIPadding = React.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 8),
-				PaddingRight = UDim.new(0, 8),
+			UIListLayout = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				Padding = UDim.new(0, 20),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
-		}, nil)
-	end)
+
+			UIPadding = React.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, 12),
+				PaddingBottom = UDim.new(0, 12),
+				PaddingLeft = UDim.new(0, 24),
+				PaddingRight = UDim.new(0, 24),
+			}),
+
+			Image = if status ~= RetrievalStatus.Failed or props.searchText ~= ""
+				then React.createElement(ImageSetLabel, {
+					BackgroundTransparency = 1,
+					Image = Images[if props.searchText == ""
+						then "icons/graphic/findfriends_xlarge"
+						else "icons/status/oof_xlarge"],
+					LayoutOrder = 1,
+					Size = UDim2.fromOffset(96, 96),
+				})
+				else nil,
+
+			Message = React.createElement("TextLabel", {
+				Size = UDim2.fromScale(1, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				Font = font.Body.Font,
+				LayoutOrder = 2,
+				Text = message,
+				TextColor3 = theme.TextDefault.Color,
+				TextSize = font.Body.RelativeSize * font.BaseSize,
+				TextTransparency = theme.TextDefault.Transparency,
+				TextWrapped = true,
+			}),
+
+			FailedButton = if status == RetrievalStatus.Failed and props.searchText == ""
+				then React.createElement("TextButton", {
+					Size = UDim2.new(0, 0, 0, 0),
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundColor3 = theme.SystemPrimaryDefault.Color,
+					BackgroundTransparency = theme.SystemPrimaryDefault.Transparency,
+					BorderSizePixel = 0,
+					Font = font.Header2.Font,
+					LayoutOrder = 3,
+					Text = "Retry",
+					TextColor3 = theme.SystemPrimaryContent.Color,
+					TextSize = font.Header2.RelativeSize * font.BaseSize,
+					TextTransparency = theme.SystemPrimaryContent.Transparency,
+					[React.Event.Activated] = getFriends,
+				}, {
+					UICorner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+					UIPadding = React.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 8),
+						PaddingRight = UDim.new(0, 8),
+					}),
+					UISizeConstraint = React.createElement("UISizeConstraint", {
+						MinSize = Vector2.new(108, 36),
+					}),
+				})
+				else nil,
+		})
+	end, dependencyArray(props.searchText, status))
 
 	if props.isDevMode then
-		React.useEffect(function()
-			if localUserId then
-				dispatch(GetFriendsFromUserId.API(localUserId))
-			end
-		end, {})
-
-		local selectIsLoading = React.useCallback(function(state)
-			local status = GetFriendsFromUserId.getStatus(state, localUserId)
-			return status == RetrievalStatus.NotStarted or status == RetrievalStatus.Fetching
-		end)
-
-		local isLoading = useSelector(selectIsLoading)
+		React.useEffect(getFriends, {})
 
 		local selectFriends = React.useCallback(function(state: any)
 			local friendIds = {}
@@ -133,6 +205,7 @@ local function FriendListContainer(props: Props)
 					displayName = friend.displayName,
 					dismissCallback = props.dismissCallback,
 					layoutOrder = i,
+					showDivider = i ~= #friends,
 				})
 			end
 
@@ -141,7 +214,7 @@ local function FriendListContainer(props: Props)
 
 		return if #friends == 0
 				and props.searchText == ""
-				and isLoading
+				and (status == RetrievalStatus.NotStarted or status == RetrievalStatus.Fetching)
 			then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 92),
 				BackgroundTransparency = 1,
@@ -152,7 +225,7 @@ local function FriendListContainer(props: Props)
 					anchorPoint = Vector2.new(0.5, 0.5),
 				}),
 			})
-			elseif #friends == 0 and props.searchText == "" and not isLoading then noFriendsText
+			elseif #friends == 0 then noFriendsText
 			else React.createElement("ScrollingFrame", {
 				Size = UDim2.fromScale(1, 1),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
@@ -227,13 +300,14 @@ local function FriendListContainer(props: Props)
 					displayName = player.DisplayName,
 					dismissCallback = props.dismissCallback,
 					layoutOrder = i,
+					showDivider = i ~= #filteredPlayers,
 				})
 			end
 
 			return entries
 		end, dependencyArray(filteredPlayers))
 
-		return if #filteredPlayers == 0 and props.searchText == ""
+		return if #filteredPlayers == 0
 			then noFriendsText
 			else React.createElement("ScrollingFrame", {
 				Size = UDim2.new(1, 0, 1, 0),

@@ -2,6 +2,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Rodux = require(CorePackages.Rodux)
 	local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
 
@@ -103,8 +106,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.UsersReducerMonitor.numberOfAddUsersCalled).to.equal(0)
-		expect(state.FriendCountReducerMonitor.numberOfSetFriendCountCalled).to.equal(0)
+		expect(state.UsersReducerMonitor.numberOfAddUsersCalled).toBe(0)
+		expect(state.FriendCountReducerMonitor.numberOfSetFriendCountCalled).toBe(0)
 	end)
 
 	it("should update only the number of users with modified data", function()
@@ -124,8 +127,8 @@ return function()
 		store:dispatch(UpdateUsers(listOfUsersWithPotentialUpdates))
 
 		local state = store:getState()
-		expect(state.UsersReducerMonitor.numberOfAddUsersCalled).to.equal(1)
-		expect(state.UsersReducerMonitor.numberOfUsersPassedIn).to.equal(2)
+		expect(state.UsersReducerMonitor.numberOfAddUsersCalled).toBe(1)
+		expect(state.UsersReducerMonitor.numberOfUsersPassedIn).toBe(2)
 	end)
 
 	it("should correctly update the number of friends", function()
@@ -135,8 +138,8 @@ return function()
 		store:dispatch(UpdateUsers(listOfUsers))
 
 		local state = store:getState()
-		expect(state.FriendCountReducerMonitor.numberOfSetFriendCountCalled).to.equal(1)
-		expect(state.FriendCount).to.equal(5)
+		expect(state.FriendCountReducerMonitor.numberOfSetFriendCountCalled).toBe(1)
+		expect(state.FriendCount).toBe(5)
 
 		local currentUsers = store:getState().Users
 		local listOfUsersWithPotentialUpdates = {
@@ -149,6 +152,6 @@ return function()
 		store:dispatch(UpdateUsers(listOfUsersWithPotentialUpdates))
 
 		state = store:getState()
-		expect(state.FriendCount).to.equal(4)
+		expect(state.FriendCount).toBe(4)
 	end)
 end

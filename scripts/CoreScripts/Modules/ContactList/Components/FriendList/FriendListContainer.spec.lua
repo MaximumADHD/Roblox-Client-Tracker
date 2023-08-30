@@ -251,8 +251,8 @@ return function()
 			local folder = Instance.new("Folder")
 			local instance = Roact.mount(element, folder)
 			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-			-- UIListLayout + 1 friend items
-			expect(#containerElement:GetChildren()).toBe(1)
+			-- No scroll list.
+			expect(containerElement).toBeNil()
 			Roact.unmount(instance)
 		end)
 	end)

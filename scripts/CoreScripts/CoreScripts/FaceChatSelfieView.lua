@@ -60,8 +60,11 @@ local FFlagACSelfViewFixes = game:DefineFastFlag("ACSelfViewFixes", false)
 local FFlagOnlyUpdateButtonsWhenInitialized = game:DefineFastFlag("OnlyUpdateButtonsWhenInitialized", false)
 local FFlagSelfViewChecks = game:DefineFastFlag("SelfViewChecks", false)
 local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
+local FFlagSelfViewUseRealBoundingBox = game:DefineFastFlag("SelfViewUseRealBoundingBox", false)
 
 local CorePackages = game:GetService("CorePackages")
+local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
+local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
 local Promise = require(CorePackages.Promise)
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
@@ -73,6 +76,8 @@ local INGAME_SELFVIEW_CUSOR_OVERRIDE_KEY = Symbol.named("SelfieViewCursorOverrid
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local AppStorageService = game:GetService("AppStorageService")
+local SocialService = game:GetService("SocialService")
+local UserInputService = game:GetService("UserInputService")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local FaceAnimatorService = game:FindService("FaceAnimatorService")
 local VideoCaptureService = game:FindService("VideoCaptureService")
@@ -92,6 +97,7 @@ local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSi
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local GetFFlagIrisGyroEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisGyroEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FFlagUWPAvatarChatFixes = require(RobloxGui.Modules.Flags.FFlagUWPAvatarChatFixes)
 
@@ -187,6 +193,9 @@ local lastReportedCamState = false
 local toggleSelfViewSignalConnection
 local noDynamicHeadEquippedInfoShown = false
 local localPlayerHasDynamicHead = nil
+
+local selfViewVisibleConnection = nil
+local selfViewHiddenConnection = nil
 local r15bodyPartsToShow = {
 	"Head",
 	"UpperTorso",
@@ -674,22 +683,6 @@ local function createViewport()
 	frame.Size = DEFAULT_SIZE
 	local position = DEFAULT_POSITION
 
-	-- Remove pcall when the key SelfViewPosition is in AppStorageService.
-	pcall(function()
-		local savedPosition = AppStorageService:GetItem("SelfViewPosition")
-		if savedPosition then
-			local pos = string.split(savedPosition, ",")
-			local newPosition = UDim2.fromOffset(pos[1], pos[2])
-			newPosition = {
-				X = pos[1],
-				Y = pos[2],
-			}
-			local screenSize = frame.Parent.AbsoluteSize
-			position = constrainTargetPositionToScreen(frame, screenSize, newPosition)
-		end
-	end)
-	frame.Position = position
-	frame.Position = getRelativePosition(frame)
 	frame.BackgroundTransparency = 1
 	frame.InputBegan:Connect(function(input)
 		inputBegan(frame, input)
@@ -716,6 +709,23 @@ local function createViewport()
 	sizeConstraint.Parent = frame
 	sizeConstraint.MaxSize = Vector2.new(140, 140)
 	sizeConstraint.MinSize = Vector2.new(95, 95)
+
+	-- Remove pcall when the key SelfViewPosition is in AppStorageService.
+	pcall(function()
+		local savedPosition = AppStorageService:GetItem("SelfViewPosition")
+		if savedPosition then
+			local pos = string.split(savedPosition, ",")
+			local newPosition = UDim2.fromOffset(pos[1], pos[2])
+			newPosition = {
+				X = pos[1],
+				Y = pos[2],
+			}
+			local screenSize = frame.Parent.AbsoluteSize
+			position = constrainTargetPositionToScreen(frame, screenSize, newPosition)
+		end
+	end)
+	frame.Position = position
+	frame.Position = getRelativePosition(frame)
 
 	bottomButtonsFrame = Instance.new("Frame")
 	bottomButtonsFrame.Name = "BottomButtonsFrame"
@@ -909,7 +919,7 @@ local function createViewport()
 		end
 	end
 
-	local function showSelfView(newState)
+	local function showSelfView(newState, position, anchorPoint)
 		setIsOpen(newState)
 		setButtonButtonsVisibility()
 
@@ -929,6 +939,13 @@ local function createViewport()
 			camButton.ImageTransparency = 0
 
 			indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+
+			if position ~= nil then
+				frame.Position = position
+			end
+			if anchorPoint ~= nil then
+				frame.AnchorPoint = anchorPoint
+			end
 			frame.Active = true
 			frame.Visible = true
 		else
@@ -999,6 +1016,50 @@ local function createViewport()
 	toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
 		showSelfView(not isOpen)
 	end)
+
+	if game:GetEngineFeature("EnableSelfViewToggleApi") then
+		if selfViewVisibleConnection then
+			selfViewVisibleConnection:Disconnect()
+			selfViewVisibleConnection = nil
+		end
+		if selfViewHiddenConnection then
+			selfViewHiddenConnection:Disconnect()
+			selfViewHiddenConnection = nil
+		end
+		selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
+			-- Calling showSelfView when self view is already visible is no-op
+			if not isOpen then
+				-- use current position
+				local newSelfViewPosition = nil
+				local anchorPoint = nil
+				local screenSize = frame.Parent.AbsoluteSize
+				if selfViewPosition == Enum.SelfViewPosition.TopLeft then
+					newSelfViewPosition = UDim2.new(0, SCREEN_BORDER_OFFSET, 0, SCREEN_BORDER_OFFSET)
+					anchorPoint = Vector2.new(0, 0)
+				elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
+					newSelfViewPosition = UDim2.new(1, -SCREEN_BORDER_OFFSET, 0, SCREEN_BORDER_OFFSET)
+					anchorPoint = Vector2.new(1, 0)
+				elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
+					newSelfViewPosition = UDim2.new(0, SCREEN_BORDER_OFFSET, 1, -SCREEN_BORDER_OFFSET)
+					anchorPoint = Vector2.new(0, 1)
+				elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
+					newSelfViewPosition = UDim2.new(1, -SCREEN_BORDER_OFFSET, 1, -SCREEN_BORDER_OFFSET)
+					anchorPoint = Vector2.new(1, 1)
+				end
+				showSelfView(true, newSelfViewPosition, anchorPoint)
+				if newSelfViewPosition ~= nil then
+					local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
+					AppStorageService:SetItem("SelfViewPosition", value)
+				end
+			end
+		end)
+		selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
+			-- Calling hideSelfView when self view is not visible is no-op
+			if isOpen then
+				showSelfView(false)
+			end
+		end)
+	end
 
 	uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = closeButton
@@ -1608,41 +1669,75 @@ local function updateClone(player)
 		--focus viewport frame camera on upper body
 		--viewportCamera.CFrame = cloneRootPart.CFrame * CFrame.new(0,1.5,-2) * CFrame.Angles(math.rad(10),math.rad(180),0)--comment out for work in progress
 
-		if orgHead or not FFlagSelfViewChecks then
-			--GetExtentsSize is only usable on models, so putting head into model:
-			--todo: only run this if head found, also look for head with descendents if not found
-			local dummyModel = Instance.new("Model")
-			dummyModel.Parent = clone
-			local head = getHead(clone)
-			character.Archivable = true
-			headClone = head:Clone()
-			headClone.CanCollide = false
-			headClone.Parent = dummyModel
-			--if the user has a hat on, we take that into consideration for the cam framing now as there are many bigger heads and masks
-			--which are of type hat accessory which the users put on their head and we want that to be still properly framed in the self view
-			if FFlagSelfViewChecks2 then
-				for _, accessory in pairs(clone:GetChildren()) do
-					if accessory:IsA("Accessory") and accessory.AccessoryType == Enum.AccessoryType.Hat then
-						local hatClone = accessory:Clone()
-						hatClone.Parent = dummyModel
+		if orgHead or not FFlagSelfViewChecks then			
+			if FFlagSelfViewUseRealBoundingBox then
+				--we want to focus the cam on head + hat accessories bounding box
+				--and we don't use rig:GetBoundingBox() because when Game Settings/Avatar/Collision is set to inner box, 
+				--it does not return the visual mesh's bounding box
+				--and hence is then too small for some heads (like Piggy)
+				local head = getHead(clone)
+				local headTargetCFrame = CFrameUtility.CalculateTargetCFrame(head.CFrame)
+				local minHeadExtent, maxHeadExtent = CharacterUtility.CalculateHeadExtents(clone, headTargetCFrame)
+				local oMin, oMax = Vector3.new(minHeadExtent.X, minHeadExtent.Y, minHeadExtent.Z), Vector3.new(maxHeadExtent.X, maxHeadExtent.Y, maxHeadExtent.Z)
+				boundsSize = (oMax-oMin)
+
+				headHeight = head.Size.Y
+				local width = math.min(boundsSize.X, boundsSize.Y)
+				width = math.min(boundsSize.X, boundsSize.Z)
+
+				local dummyModel = Instance.new("Model")
+				dummyModel.Parent = clone
+				local head = getHead(clone)
+				character.Archivable = true
+				headClone = head:Clone()
+				headClone.CanCollide = false
+				headClone.Parent = dummyModel
+
+				headCloneNeck = getNeck(clone, headClone)
+				local rootPart = headClone
+				headCloneRootFrame = rootPart.CFrame
+				headClone:Destroy()
+				local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
+				viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
+				viewportCamera.Focus = headCloneRootFrame
+				character.Archivable = previousArchivableValue
+				dummyModel:Destroy()
+			else
+				--GetExtentsSize is only usable on models, so putting head into model:
+				--todo: only run this if head found, also look for head with descendents if not found
+				local dummyModel = Instance.new("Model")
+				dummyModel.Parent = clone
+				local head = getHead(clone)
+				character.Archivable = true
+				headClone = head:Clone()
+				headClone.CanCollide = false
+				headClone.Parent = dummyModel
+				--if the user has a hat on, we take that into consideration for the cam framing now as there are many bigger heads and masks
+				--which are of type hat accessory which the users put on their head and we want that to be still properly framed in the self view
+				if FFlagSelfViewChecks2 then
+					for _, accessory in pairs(clone:GetChildren()) do
+						if accessory:IsA("Accessory") and accessory.AccessoryType == Enum.AccessoryType.Hat then
+							local hatClone = accessory:Clone()
+							hatClone.Parent = dummyModel
+						end
 					end
 				end
-			end
-			headCloneNeck = getNeck(clone, headClone)
-			local rig = dummyModel
-			local extents = rig:GetExtentsSize()
-			headHeight = extents.Y
-			local width = math.min(extents.X, extents.Y)
-			width = math.min(extents.X, extents.Z)
-			cframe, boundsSize = rig:GetBoundingBox()
-			local rootPart = headClone
-			headCloneRootFrame = rootPart.CFrame
-			headClone:Destroy()
-			local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
-			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
-			viewportCamera.Focus = headCloneRootFrame
-			character.Archivable = previousArchivableValue
-			dummyModel:Destroy()
+				headCloneNeck = getNeck(clone, headClone)
+				local rig = dummyModel
+				local extents = rig:GetExtentsSize()
+				headHeight = extents.Y
+				local width = math.min(extents.X, extents.Y)
+				width = math.min(extents.X, extents.Z)
+				cframe, boundsSize = rig:GetBoundingBox()
+				local rootPart = headClone
+				headCloneRootFrame = rootPart.CFrame
+				headClone:Destroy()
+				local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
+				viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
+				viewportCamera.Focus = headCloneRootFrame
+				character.Archivable = previousArchivableValue
+				dummyModel:Destroy()
+			end	
 		else
 			--when no head was found which is a Part or MeshPart:
 			--basic fallback to focus the avatar in the viewportframe
@@ -2029,6 +2124,11 @@ function startRenderStepped(player)
 				end
 			end
 
+			local currentStreamTrackWeight
+			if GetFFlagIrisGyroEnabled() then
+				currentStreamTrackWeight = 1
+			end
+			
 			if headRef then
 				local animator = getAnimator(character, 0)
 
@@ -2091,8 +2191,37 @@ function startRenderStepped(player)
 							if trackS.Animation:IsA("TrackerStreamAnimation") then
 								trackS.Priority = track.Priority
 								trackS:AdjustWeight(track.WeightCurrent, 0)
+
+								if GetFFlagIrisGyroEnabled() then
+									currentStreamTrackWeight = track.WeightCurrent
+								end
 							end
 						end
+					end
+				end
+			end
+
+			local camOrientationWeight
+			local trackerWeight
+			local trackerData
+			if GetFFlagIrisGyroEnabled() then
+				camOrientationWeight = 0.5
+				trackerWeight = 1
+				trackerData = nil
+				-- When a device has accelerometer, we make self view orientation a hybrid of:
+				-- 1. Face rotation
+				-- 2. Camera orientation
+				
+				if UserInputService.AccelerometerEnabled then
+					if cloneAnimator ~= nil then
+						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
+							for i, trackS in pairs(playingAnims) do
+								if trackS.Animation:IsA("TrackerStreamAnimation") then
+									-- poll tracker data
+									_, trackerData, _ = trackS:GetTrackerData()
+									trackS:AdjustWeight(math.clamp(trackerWeight * currentStreamTrackWeight, 0.001, currentStreamTrackWeight), 0)
+								end
+							end
 					end
 				end
 			end
@@ -2156,15 +2285,23 @@ function startRenderStepped(player)
 					else
 						debugPrint("Self View: no neck found")
 					end
-
-					if FFlagSelfViewChecks2 then
-						local offset = Vector3.new(0, (headHeight * 0.25), -((boundsSize.Z) + 1))
-						viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
-						viewportCamera.Focus = headClone.CFrame						
-					else
+					
+					if GetFFlagIrisGyroEnabled() and trackerData ~= nil then
 						local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
-						viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
-						viewportCamera.Focus = headClone.CFrame	
+						local x, y, z = trackerData:ToEulerAnglesXYZ()
+						-- Cam orientation will be an inverse of the head rotation
+						local angle = CFrame.Angles(-x * camOrientationWeight, -y * camOrientationWeight, -z * camOrientationWeight)
+						viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
+					else
+						if FFlagSelfViewChecks2 then
+							local offset = Vector3.new(0, (headHeight * 0.25), -((boundsSize.Z) + 1))
+							viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
+							viewportCamera.Focus = headClone.CFrame
+						else
+							local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+							viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
+							viewportCamera.Focus = headClone.CFrame
+						end
 					end
 				end
 			end

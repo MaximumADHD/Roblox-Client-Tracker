@@ -57,24 +57,6 @@ local Constants = {
 		SHARE_GAME = "SHARE_GAME",
 	},
 
-	-- FIXME(dbanks)
-	-- 2023/06/27
-	-- Remove with FFlagDeprecateDuplicateThumbnailConstants
-	DEPRECATED_AvatarThumbnailTypes = {
-		AvatarThumbnail = "AvatarThumbnail",
-		HeadShot = "HeadShot",
-	},
-	-- FIXME(dbanks)
-	-- 2023/06/27
-	-- Remove with FFlagDeprecateDuplicateThumbnailConstants
-	DEPRECATED_AvatarThumbnailSizes = {
-		Size48x48 = "Size48x48",
-		Size60x60 = "Size60x60",
-		Size100x100 = "Size100x100",
-		Size150x150 = "Size150x150",
-		Size352x352 = "Size352x352",
-	},
-
 	SHARE_GAME_Z_INDEX = 2,
 
 	--[[

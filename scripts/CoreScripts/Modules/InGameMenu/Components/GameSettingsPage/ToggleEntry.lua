@@ -19,6 +19,7 @@ ToggleEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	labelKey = t.string,
 	lockedToOff = t.optional(t.boolean),
+	isDisabled = t.optional(t.boolean),
 	subtextEnabled = t.optional(t.boolean),
 	subtextKey = t.optional(t.string),
 	checked = t.boolean,
@@ -80,7 +81,7 @@ function ToggleEntry:render()
 			AnchorPoint = Vector2.new(1, 0.5),
 			checked = self.props.checked and not self.props.lockedToOff,
 			onToggled = self.props.onToggled,
-			disabled = self.props.lockedToOff,
+			disabled = self.props.lockedToOff or self.props.isDisabled,
 			buttonRef = buttonRef,
 			onSelectionLost = function()
 				self:setState({

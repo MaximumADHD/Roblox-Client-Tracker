@@ -10,8 +10,10 @@ return {
 	DIVIDER_CELL_WIDTH = 5,
 	ICON_SIZE = 36,
 	MENU_ANIMATION_SPRING = {
-		dampingRatio = 1,
+		dampingRatio = 1.1,
 		frequency = 1 / 0.15, -- @150ms size anim
+		restingPositionLimit = 0.1,
+		restingVelocityLimit = 0.05,
 	} :: SpringOptions,
 	UNIBAR_KEEP_OUT_AREA_ID = "unibar",
 

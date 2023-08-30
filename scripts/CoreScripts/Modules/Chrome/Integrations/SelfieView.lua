@@ -71,6 +71,14 @@ local selfieViewChromeIntegration = ChromeService:register({
 	},
 })
 
+-- Update windowSize on resize before window is opened (starting size)
+ViewportUtil.screenSize:connect(function(screenSize)
+	if not ChromeService:isWindowOpen(ID) then
+		local frameSize = SizingUtils.getSize(screenSize, windowSize:getIsLarge())
+		windowSize:requestSize(frameSize.X, frameSize.Y)
+	end
+end, true)
+
 local updateAvailability = function(): ()
 	-- Check that the place has mic/cam enabled (ignoring user)
 	local permissions: FaceChatUtils.Permissions = FaceChatUtils.getPermissions()

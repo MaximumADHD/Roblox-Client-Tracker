@@ -45,6 +45,8 @@ local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissi
 
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
 
+local GetFFlagRequestServerStatsFix = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagRequestServerStatsFix)
+
 local DEV_TAB_LIST = {
 	Log = {
 		tab = Log,
@@ -192,6 +194,9 @@ function DevConsoleMaster:SetupDevConsole()
 					position = Constants.MainWindowInit.Position,
 					size = Constants.MainWindowInit.Size,
 					tabList = PLAYER_TAB_LIST,
+					onCloseCallback = function(value)
+						 self:SetServerStatsConnection(value)
+					end,
 				}),
 
 				RCCProfilerDataCompleteListener = Roact.createElement(RCCProfilerDataCompleteListener),
@@ -212,7 +217,6 @@ function DevConsoleMaster:Start()
 		end
 		self.init = true
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
-
 		local clientReplicator = getClientReplicator()
 
 		if clientReplicator then
@@ -225,7 +229,11 @@ function DevConsoleMaster:Start()
 
 				self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
 			end)
-			clientReplicator:RequestServerStats(true)
+			if GetFFlagRequestServerStatsFix() then
+				self:SetServerStatsConnection(true)
+			else
+				clientReplicator:RequestServerStats(true)
+			end
 		end
 	end
 end
@@ -236,7 +244,11 @@ function DevConsoleMaster:ToggleVisibility()
 	end
 
 	local isVisible = not self.store:getState().DisplayOptions.isVisible
-	self.store:dispatch(SetDevConsoleVisibility(isVisible))
+	if GetFFlagRequestServerStatsFix() then
+		self:SetVisibility(isVisible)
+	else
+		self.store:dispatch(SetDevConsoleVisibility(isVisible))
+	end
 end
 
 function DevConsoleMaster:GetVisibility()
@@ -254,12 +266,23 @@ function DevConsoleMaster:GetVisibility()
 	return false
 end
 
+function DevConsoleMaster:SetServerStatsConnection(value)
+	local clientReplicator = getClientReplicator()
+	if clientReplicator then
+		clientReplicator:RequestServerStats(value)
+	end
+end
+
 function DevConsoleMaster:SetVisibility(value)
 	if type(value) == "boolean" then
 		if not self.init and value then
 			master:Start()
 		end
 
+		if GetFFlagRequestServerStatsFix() then
+			self:SetServerStatsConnection(value)
+		end
+		
 		self.store:dispatch(SetDevConsoleVisibility(value))
 	end
 end

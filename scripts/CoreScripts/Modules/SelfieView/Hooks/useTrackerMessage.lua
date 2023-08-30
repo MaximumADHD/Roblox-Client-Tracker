@@ -11,6 +11,7 @@ local clearTimeout = LuauPolyfill.clearTimeout
 
 local useTrackerMode = require(script.Parent.useTrackerMode)
 local FaceChatUtils = require(script.Parent.Parent.Utils.FaceChatUtils)
+local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
 local TRACKER_VANISH_DELAY_MS: number = 2000
 
@@ -20,14 +21,6 @@ export type TrackerMessage = {
 	status: string,
 }
 
--- TODO: Add Localizations https://roblox.atlassian.net/browse/APPEXP-870
-local MESSAGES = {
-	MOTION_TRACKING = "Motion Tracking",
-	SOUND_TRACKING = "Sound Tracking",
-	ON = "ON",
-	OFF = "OFF",
-}
-
 local TrackerMode = Enum.TrackerMode
 type TrackerMode = Enum.TrackerMode
 
@@ -35,29 +28,37 @@ return function(): TrackerMessage
 	local lastTrackerMode: { current: TrackerMode } =
 		React.useRef(FaceChatUtils.getTrackerMode()) :: { current: TrackerMode }
 	local trackerMode = useTrackerMode()
+
+	local localized = useLocalization({
+		controlMessageSound = "CoreScripts.TopBar.ControlMessageSound",
+		controlMessageMotion = "CoreScripts.TopBar.ControlMessageMotion",
+		controlMessageOn = "CoreScripts.TopBar.ControlMessageOn",
+		controlMessageOff = "CoreScripts.TopBar.ControlMessageOff",
+	})
+
 	local trackerMessage: TrackerMessage, setTrackerMessage: (TrackerMessage) -> () =
-		React.useState({ visible = false, text = MESSAGES.MOTION_TRACKING, status = MESSAGES.OFF })
+		React.useState({ visible = false, text = localized.controlMessageMotion, status = localized.controlMessageOff })
 	local removeMessageTimeoutID: { current: number? } = React.useRef(nil)
 	local getTrackerMessage = function(): TrackerMessage
 		-- Defaults to "Motion Off"
-		local text = MESSAGES.MOTION_TRACKING
-		local status = MESSAGES.OFF
+		local text = localized.controlMessageMotion
+		local status = localized.controlMessageOff
 
 		if trackerMode ~= TrackerMode.None then
 			-- Something is still on.
-			status = MESSAGES.ON
+			status = localized.controlMessageOn
 			if trackerMode == TrackerMode.AudioVideo or trackerMode == TrackerMode.Video then
-				text = MESSAGES.MOTION_TRACKING
+				text = localized.controlMessageMotion
 			else
-				text = MESSAGES.SOUND_TRACKING
+				text = localized.controlMessageSound
 			end
 		else
 			-- Both are off
-			status = MESSAGES.OFF
+			status = localized.controlMessageOff
 			if lastTrackerMode.current == TrackerMode.Audio then
-				text = MESSAGES.SOUND_TRACKING
+				text = localized.controlMessageSound
 			else
-				text = MESSAGES.MOTION_TRACKING
+				text = localized.controlMessageMotion
 			end
 		end
 

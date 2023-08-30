@@ -8,10 +8,11 @@ local CoreGui = game:GetService("CoreGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
-local dependencies = require(ShareGame.dependencies)
+local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon).ReducerDependencies
 local RoduxShareLinks = dependencies.RoduxShareLinks
 local ClearShareInviteLink = RoduxShareLinks.Actions.ClearShareInviteLink
 local OpenPage = require(ShareGame.Actions.OpenPage)

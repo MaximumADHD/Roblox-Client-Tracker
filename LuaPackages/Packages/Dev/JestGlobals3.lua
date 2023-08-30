@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestGlobals-edcba0e9-3.2.5"]["JestGlobals"])
+local Package = require(PackageIndex["JestGlobals-edcba0e9-3.4.0"]["JestGlobals"])
 
 export type MatcherState = Package.MatcherState
 export type ExpectExtended<E, State = MatcherState> = Package.ExpectExtended<E, State > 

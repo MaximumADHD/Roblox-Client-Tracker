@@ -1,7 +1,5 @@
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
-local dependencies = require(ShareGame.dependencies)
+local CorePackages = game:GetService("CorePackages")
+local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon).ReducerDependencies
 
 local NetworkingShareLinks = dependencies.NetworkingShareLinks
 local RoduxShareLinks = dependencies.RoduxShareLinks

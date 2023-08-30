@@ -162,11 +162,60 @@ return function()
 		end)
 	end)
 
+	it("should show error state if fetch fails", function(c: any)
+		local store = Rodux.Store.new(Reducer, {
+			Call = { callHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" } },
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		NetworkingCall.GetCallHistory.Mock.clear()
+		NetworkingCall.GetCallHistory.Mock.replyWithError(function()
+			return "error"
+		end)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
+				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+					dismissCallback = function() end,
+					searchText = "",
+				}),
+			}),
+		})
+
+		local folder = Instance.new("Folder")
+		local root = ReactRoblox.createRoot(folder)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
+		local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+		jestExpect(containerElement).toBeNull()
+		local failedButtonElement = folder:FindFirstChild("FailedButton", true)
+		jestExpect(failedButtonElement).never.toBeNull()
+
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
+	end)
+
 	describe("search filtering", function(c: any)
 		it("should correctly show matched usernames", function(c: any)
-			local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory("test_cursor") } }, {
+			local store = Rodux.Store.new(Reducer, {
+				Call = { callHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" } },
+			}, {
 				Rodux.thunkMiddleware,
 			})
+
+			NetworkingCall.GetCallHistory.Mock.clear()
+			NetworkingCall.GetCallHistory.Mock.reply(function()
+				return {
+					responseBody = c.mockCallHistory(""),
+				}
+			end)
 
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
@@ -180,17 +229,34 @@ return function()
 			})
 
 			local folder = Instance.new("Folder")
-			local instance = Roact.mount(element, folder)
-			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
+			local root = ReactRoblox.createRoot(folder)
+
+			Roact.act(function()
+				root:render(element)
+			end)
+
+			local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
 			-- UIListLayout + 1 friend items
 			jestExpect(#containerElement:GetChildren()).toBe(2)
-			Roact.unmount(instance)
+
+			ReactRoblox.act(function()
+				root:unmount()
+			end)
 		end)
 
 		it("should correctly show matched displayNames", function(c: any)
-			local store = Rodux.Store.new(Reducer, { Call = { callHistory = c.mockCallHistory("test_cursor") } }, {
+			local store = Rodux.Store.new(Reducer, {
+				Call = { callHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" } },
+			}, {
 				Rodux.thunkMiddleware,
 			})
+
+			NetworkingCall.GetCallHistory.Mock.clear()
+			NetworkingCall.GetCallHistory.Mock.reply(function()
+				return {
+					responseBody = c.mockCallHistory(""),
+				}
+			end)
 
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
@@ -204,11 +270,19 @@ return function()
 			})
 
 			local folder = Instance.new("Folder")
-			local instance = Roact.mount(element, folder)
-			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-			-- UIListLayout + 1 friend items
+			local root = ReactRoblox.createRoot(folder)
+
+			Roact.act(function()
+				root:render(element)
+			end)
+
+			local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+			-- UIListLayout + 1 friend items.
 			jestExpect(#containerElement:GetChildren()).toBe(2)
-			Roact.unmount(instance)
+
+			ReactRoblox.act(function()
+				root:unmount()
+			end)
 		end)
 
 		it("should not show anything if neither username nor displayName match", function(c: any)
@@ -239,8 +313,8 @@ return function()
 			end)
 
 			local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
-			-- UIListLayout
-			jestExpect(#containerElement:GetChildren()).toBe(1)
+			-- No scroll list.
+			jestExpect(containerElement).toBeNull()
 
 			ReactRoblox.act(function()
 				root:unmount()

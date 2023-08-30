@@ -32,6 +32,20 @@ local FFlagUserVRRotationUpdate do
 	FFlagUserVRRotationUpdate = success and result
 end
 
+local FFlagUserVRFollowCamera do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRFollowCamera")
+	end)
+	FFlagUserVRFollowCamera = success and result
+end
+
+local FFlagUserVRRotationTweeks do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRRotationTweeks")
+	end)
+	FFlagUserVRRotationTweeks = success and result
+end
+
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local VRBaseCamera = setmetatable({}, BaseCamera)
@@ -101,10 +115,28 @@ function VRBaseCamera:OnEnable(enable: boolean)
 		self.gamepadResetConnection = CameraInput.gamepadReset:Connect(function()
 			self:GamepadReset()
 		end)
+		
+		if FFlagUserVRFollowCamera then
+			-- reset on options change
+			self.thirdPersonOptionChanged = VRService:GetPropertyChangedSignal("ThirdPersonFollowCamEnabled"):Connect(function()
+				-- only need to reset third person options if in third person
+				if not self:IsInFirstPerson() then
+					self:Reset()
+				end 
+			end)
+		end
+
 	else
 		-- make sure zoom is reset when switching to another camera
 		if self.inFirstPerson then
 			self:GamepadZoomPress()
+		end
+
+		if FFlagUserVRFollowCamera then
+			if self.thirdPersonOptionChanged then
+				self.thirdPersonOptionChanged:Disconnect()
+				self.thirdPersonOptionChanged = nil
+			end
 		end
 
 		if self.gamepadResetConnection then
@@ -378,7 +410,11 @@ function VRBaseCamera:getRotation(dt)
 					yawDelta = -1
 				end
 				
-				yawDelta *= math.rad(60)
+				if FFlagUserVRRotationTweeks then
+					yawDelta *= math.rad(30)
+				else
+					yawDelta *= math.rad(60)
+				end
 				self:StartFadeFromBlack()
 				self.stepRotateTimeout = 0.25
 			end

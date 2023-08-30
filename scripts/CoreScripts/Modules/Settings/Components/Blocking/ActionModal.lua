@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -7,6 +9,8 @@ local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
+
+local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)
 
 local ActionModal = Roact.PureComponent:extend("ActionModal")
 
@@ -32,6 +36,7 @@ function ActionModal:render()
 				BackgroundColor3 = style.Theme.Overlay.Color,
 				Active = true,
 				AutoButtonColor = false,
+				Selectable = if GetFFlagWrapBlockModalScreenInProvider() then false else nil,
 				Visible = self.props.Visible,
 				[Roact.Event.Activated] = self.props.cancel,
 			},  {

@@ -8,6 +8,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Packages = CorePackages.Packages
+local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 local React = require(Packages.React)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
@@ -15,6 +16,7 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local setTimeout = LuauPolyfill.setTimeout
 local clearTimeout = LuauPolyfill.clearTimeout
 local WindowSizeSignal = require(script.Parent.Parent.Parent.Chrome.Service.WindowSizeSignal)
+local useWindowSizeIsLarge = require(script.Parent.Parent.Parent.Chrome.Hooks.useWindowSizeIsLarge)
 
 local UIBlox = require(Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
@@ -56,9 +58,18 @@ local function Window(props: WindowProps): React.ReactNode
 	local theme = style.Theme
 	local font = style.Font
 
+	local localized = useLocalization({
+		robloxPermissionErrorHeader = "CoreScripts.TopBar.RobloxPermissionErrorHeader",
+		robloxPermissionErrorBody = "CoreScripts.TopBar.RobloxPermissionErrorBody",
+		dynamicAvatarMissingErrorHeader = "CoreScripts.TopBar.DynamicAvatarMissingErrorHeader",
+		dynamicAvatarMissingErrorBody = "CoreScripts.TopBar.DynamicAvatarMissingErrorBody",
+	})
+
 	local cameraOn = useCameraOn()
 	local trackerMessage = useTrackerMessage()
-	local large: boolean, setLarge: (boolean) -> () = React.useState(false)
+
+	local large = useWindowSizeIsLarge(props.windowSize)
+
 	local frameSize: Vector2 = useSelector(function(state)
 		return SizingUtils.getSize(state.displayOptions.screenSize :: Vector2, large)
 	end)
@@ -69,7 +80,7 @@ local function Window(props: WindowProps): React.ReactNode
 	local player: Player = useLocalPlayer()
 
 	local showCameraButton: boolean = React.useMemo(function(): boolean
-		return FaceChatUtils.getPermissions().userCamEligible
+		return FaceChatUtils.getPermissions().userCamEligible and FaceChatUtils.getPermissions().placeCamEnabled
 	end)
 
 	local tooltipHeaderText, tooltipBodyText, showTooltip, showError = useTooltipDismissal(HIDE_TOOLTIP_DELAY_MS)
@@ -100,13 +111,13 @@ local function Window(props: WindowProps): React.ReactNode
 	local cameraButtonClicked: () -> () = React.useCallback(function()
 		userInteracted()
 		if not FaceChatUtils.getPermissions().userCamEnabled then
-			showError("Allow Camera Access to continue", "Settings > Privacy > Microphone and Camera Input")
+			showError(localized.robloxPermissionErrorHeader, localized.robloxPermissionErrorBody)
 			return
 		end
 		if not ModelUtils.hasDynamicHead(player.Character or player.CharacterAdded:Wait()) then
 			-- We don't want to show this error when turning off the camera.
 			if not FaceChatUtils.isCameraOn() then
-				showError("Equip a dynamic head to express yourself!", "Avatar > Customize > Head & Body")
+				showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
 			end
 		end
 		Analytics:setLastCtx("SelfView")
@@ -115,7 +126,7 @@ local function Window(props: WindowProps): React.ReactNode
 
 	local onActivated = React.useCallback(function()
 		if focused then
-			setLarge(not large)
+			props.windowSize:toggleIsLarge()
 		end
 		userInteracted()
 	end)

@@ -37,6 +37,7 @@ return {
 		dependencyArray = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.dependencyArray,
 		useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch,
 		useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector,
+		usePrevious = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.usePrevious,
 	},
 	NetworkingCall = LuaSocialLibrariesDeps.NetworkingCall.config({
 		roduxNetworking = myRoduxNetworking,
@@ -69,4 +70,5 @@ return {
 	enumerate = require(CorePackages.enumerate),
 	getStandardSizeAvatarHeadShotRbxthumb = require(CorePackages.Workspace.Packages.UserLib).Utils.getStandardSizeAvatarHeadShotRbxthumb,
 	FFlagLuaAppUnifyCodeToGenerateRbxThumb = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyCodeToGenerateRbxThumb,
+	GetFFlagPeekViewEnableSnapToViewState = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewEnableSnapToViewState,
 }

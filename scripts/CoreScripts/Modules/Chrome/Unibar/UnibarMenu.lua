@@ -70,12 +70,34 @@ function AnimationStateHelper(props)
 	return nil
 end
 
--- React Binding value to drive Icon positions within the unibar
-function IconPositionBinding(toggleTransition: any, openPosition: number, closedPosition: number)
-	return toggleTransition:map(function(value)
-		local openDelta = openPosition - closedPosition
-		return UDim2.new(0, closedPosition + openDelta * value, 0, 0)
-	end) :: any
+function linearInterpolation(a: number, b: number, t: number)
+	return a * (1 - t) + b * t
+end
+
+function IconPositionBinding(
+	toggleTransition: any,
+	priorPosition: number,
+	openPosition: number,
+	closedPosition: number,
+	iconReflow: any,
+	unibarWidth: any,
+	pinned: boolean,
+	flipLerp: any
+)
+	return React.joinBindings({ toggleTransition, iconReflow, unibarWidth })
+		:map(function(val: { [number]: number })
+			local open = 0
+			if flipLerp.current then
+				open = linearInterpolation(openPosition, priorPosition, val[2])
+			else
+				open = linearInterpolation(priorPosition, openPosition, val[2])
+			end
+
+			local closedPos = closedPosition
+			local openDelta = open - closedPos
+
+			return UDim2.new(0, closedPos + openDelta * val[1], 0, 0)
+		end) :: any
 end
 
 type UnibarProp = {
@@ -84,12 +106,20 @@ type UnibarProp = {
 }
 
 function Unibar(props: UnibarProp)
+	local currentOpenPositions = {}
+	local priorOpenPositions = React.useRef({})
+	local updatePositions = false
+	local priorPositions = priorOpenPositions.current or {}
+
 	-- Tree of menu items to display
 	local menuItems = useChromeMenuItems()
 
-	-- todo: Consider moving globally useful items such as animations into a Context (vs prop pushing)
 	-- Animation for menu open(toggleTransition = 1), closed(toggleTransition = 0) status
 	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(0)
+	local unibarWidth, setUnibarWidth = ReactOtter.useAnimatedBinding(0)
+	local iconReflow, setIconReflow = ReactOtter.useAnimatedBinding(1)
+	local flipLerp = React.useRef(false)
+	local positionUpdateCount = React.useRef(0)
 
 	local children: Table = {} -- Icons and Dividers to be rendered
 	local pinnedCount = 0 -- number of icons to support when closed
@@ -98,18 +128,31 @@ function Unibar(props: UnibarProp)
 	local minSize: number = 0
 	local expandSize: number = 0
 
-	local onAreaChanged = function(rbx)
+	local onAreaChanged = React.useCallback(function(rbx)
 		props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, rbx.AbsolutePosition, rbx.AbsoluteSize)
-	end
+	end, {})
 
-	local unibarSizeBinding = toggleTransition:map(function(value: number): any
-		return UDim2.new(0, minSize + value * expandSize, 0, Constants.ICON_CELL_WIDTH)
-	end)
+	local unibarSizeBinding = React.joinBindings({ toggleTransition, unibarWidth })
+		:map(function(val: { [number]: number })
+			return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, Constants.ICON_CELL_WIDTH)
+		end)
 
 	for k, item in menuItems do
 		if item.isDivider then
-			local closedPos = xOffset + Constants.ICON_CELL_WIDTH
-			local positionBinding = IconPositionBinding(toggleTransition, xOffset, closedPos)
+			local closedPos = xOffset
+			local prior = priorPositions[item.id] or xOffset
+			currentOpenPositions[item.id] = xOffset
+			updatePositions = updatePositions or (prior ~= xOffset)
+			local positionBinding = IconPositionBinding(
+				toggleTransition,
+				prior,
+				xOffset,
+				closedPos,
+				iconReflow,
+				unibarWidth,
+				false,
+				flipLerp
+			)
 
 			-- Clip the remaining few pixels on the right edge of the unibar during transition
 			local visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
@@ -117,6 +160,7 @@ function Unibar(props: UnibarProp)
 				local size: UDim2 = values[2]
 				return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH)
 			end)
+
 			children[item.id or ("icon" .. k)] = React.createElement(IconDivider, {
 				position = positionBinding,
 				visible = visibleBinding,
@@ -124,15 +168,26 @@ function Unibar(props: UnibarProp)
 			xOffset += Constants.DIVIDER_CELL_WIDTH
 		elseif item.integration then
 			local pinned = false
-			local closedPos = xOffset + Constants.ICON_CELL_WIDTH
+			local closedPos = xOffset
 			if item.integration.availability:get() == ChromeService.AvailabilitySignal.Pinned then
 				pinned = true
 				closedPos = xOffsetPinned
 				pinnedCount += 1
 			end
 
-			local positionBinding = IconPositionBinding(toggleTransition, xOffset, closedPos)
-
+			local prior = if priorPositions[item.id] == nil then xOffset else priorPositions[item.id]
+			currentOpenPositions[item.id] = xOffset
+			updatePositions = updatePositions or (prior ~= xOffset)
+			local positionBinding = IconPositionBinding(
+				toggleTransition,
+				prior,
+				xOffset,
+				closedPos,
+				iconReflow,
+				unibarWidth,
+				pinned,
+				flipLerp
+			)
 			-- Clip the remaining few pixels on the right edge of the unibar during transition
 			local visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
 				local position: UDim2 = values[1]
@@ -154,7 +209,34 @@ function Unibar(props: UnibarProp)
 	end
 
 	minSize = Constants.ICON_CELL_WIDTH * pinnedCount
-	expandSize = xOffset - minSize
+	expandSize = xOffset
+
+	React.useEffect(function()
+		local lastUnibarWidth = unibarWidth:getValue()
+		if unibarWidth:getValue() == 0 then
+			setUnibarWidth(ReactOtter.instant(expandSize) :: any)
+		elseif lastUnibarWidth ~= expandSize then
+			setUnibarWidth(ReactOtter.spring(expandSize, Constants.MENU_ANIMATION_SPRING))
+		end
+	end, { expandSize })
+
+	if updatePositions then
+		positionUpdateCount.current = (positionUpdateCount.current or 0) + 1
+	end
+	priorOpenPositions.current = currentOpenPositions
+
+	React.useEffect(function()
+		-- Currently forced to use this flipLerp logic as otter does not support a starting position
+		---(even with a call of ReactOtter.instant ahead of time)
+		if not flipLerp.current then
+			setIconReflow(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING))
+			flipLerp.current = true
+		else
+			setIconReflow(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING))
+			flipLerp.current = false
+		end
+	end, { positionUpdateCount.current :: any, flipLerp })
+
 	local style = useStyle()
 
 	return React.createElement("Frame", {

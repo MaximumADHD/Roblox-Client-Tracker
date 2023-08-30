@@ -6,6 +6,11 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local React = require(CorePackages.Packages.React)
+local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
+local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
+local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local GetFFlagCorescriptsSoundManagerEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -13,7 +18,6 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
-local Images = UIBlox.App.ImageSet.Images
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
@@ -22,14 +26,22 @@ local useSelector = dependencies.Hooks.useSelector
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Interactable = UIBlox.Core.Control.Interactable
+local IconButton = UIBlox.App.Button.IconButton
+local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local useStyle = UIBlox.Core.Style.useStyle
 
 local CallState = require(ContactList.Enums.CallState)
+
+-- TODO: Remove once RDC is finished
+local ContactListHelper = require(ContactList.Components.ContactListHelper)
+
+local rng = Random.new()
 
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
 local DETAIL_CONTEXT_HEIGHT = 24
 local PADDING = Vector2.new(24, 12)
+local BUTTON_SIZE = 28
 
 export type Participant = {
 	userId: number,
@@ -54,12 +66,12 @@ export type Props = {
 	layoutOrder: number?,
 }
 
-local function isMissedCall(caller)
-	return CallState.fromRawValue(caller.status) ~= CallState.Finished
+local function isMissedCall(caller, localUserId)
+	return caller.callerId ~= localUserId and CallState.fromRawValue(caller.status) ~= CallState.Finished
 end
 
 local function getCallStatusText(caller, localUserId)
-	if isMissedCall(caller) then
+	if isMissedCall(caller, localUserId) then
 		return "Missed"
 	elseif caller.callerId == localUserId then
 		return "Outgoing"
@@ -70,12 +82,13 @@ end
 
 -- TODO (joshualee) update icons to match design
 local function getCallContextImage(caller, localUserId)
-	if isMissedCall(caller) then
-		return Images["icons/status/alert"]
+	-- TODO: Replace with UIBLOX icon
+	if isMissedCall(caller, localUserId) then
+		return "rbxassetid://14439512369"
 	elseif caller.callerId == localUserId then
-		return Images["icons/controls/keys/arrowRight"]
+		return "rbxassetid://14439517793"
 	else
-		return Images["icons/controls/keys/arrowLeft"]
+		return "rbxassetid://14439507750"
 	end
 end
 
@@ -135,17 +148,23 @@ local function CallHistoryItem(props: Props)
 	local theme = style.Theme
 	local font = style.Font
 
-	local controlState, setControlState = React.useState(ControlState.Initialize)
-	local onStateChanged = React.useCallback(function(oldState, newState)
-		setControlState(newState)
-	end)
+	local itemBackgroundTheme, setItemBackgroundTheme = React.useState("BackgroundDefault")
+	local onItemStateChanged = React.useCallback(function(oldState, newState)
+		if newState == ControlState.Pressed then
+			setItemBackgroundTheme("BackgroundOnPress")
+		elseif newState == ControlState.Hover then
+			setItemBackgroundTheme("BackgroundOnHover")
+		else
+			setItemBackgroundTheme("BackgroundDefault")
+		end
+	end, {})
 
 	local selectTag = React.useCallback(function(state: any)
 		return state.Navigation.currentTag
 	end, {})
 	local tag = useSelector(selectTag)
 
-	local onDetailsActivated = React.useCallback(function()
+	local startCall = React.useCallback(function()
 		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
 			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
 		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localUserId)
@@ -175,14 +194,19 @@ local function CallHistoryItem(props: Props)
 		props.dismissCallback()
 	end, {})
 
-	local interactableTheme
-	if controlState == ControlState.Pressed then
-		interactableTheme = "BackgroundOnPress"
-	elseif controlState == ControlState.Hover then
-		interactableTheme = "BackgroundOnHover"
-	else
-		interactableTheme = "BackgroundDefault"
-	end
+	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
+		if
+			inputObject
+			and inputObject.UserInputType == Enum.UserInputType.MouseMovement
+			and GetFFlagCorescriptsSoundManagerEnabled()
+		then
+			SoundManager:PlaySound(Sounds.Hover.Name, {
+				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
+				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
+				SoundGroup = SoundGroups.Iris,
+			})
+		end
+	end, {})
 
 	local image
 	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
@@ -191,16 +215,19 @@ local function CallHistoryItem(props: Props)
 		image = SocialLibraries.User.getUserAvatarImage(participant.userId)
 	end
 
+	local isMissedCall = isMissedCall(caller, localUserId)
+
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, PROFILE_SIZE + PADDING.Y * 2),
-		BackgroundColor3 = theme[interactableTheme].Color,
-		BackgroundTransparency = theme[interactableTheme].Transparency,
+		BackgroundColor3 = theme[itemBackgroundTheme].Color,
+		BackgroundTransparency = theme[itemBackgroundTheme].Transparency,
 		BorderSizePixel = 0,
 		LayoutOrder = props.layoutOrder,
-		onStateChanged = onStateChanged,
+		onStateChanged = onItemStateChanged,
 		AutoButtonColor = false,
-		[React.Event.Activated] = onDetailsActivated,
+		[React.Event.Activated] = startCall,
+		[React.Event.InputBegan] = onHovered,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, PADDING.X),
@@ -218,51 +245,46 @@ local function CallHistoryItem(props: Props)
 
 		Content = React.createElement("Frame", {
 			Position = UDim2.new(0, PADDING_IN_BETWEEN + PROFILE_SIZE, 0, 0),
-			Size = UDim2.new(1, -(PADDING_IN_BETWEEN + PROFILE_SIZE + PADDING.X), 1, -PADDING.Y),
+			Size = UDim2.new(1, -(PADDING_IN_BETWEEN + PROFILE_SIZE + BUTTON_SIZE + PADDING.X), 1, -PADDING.Y),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
-			UIListLayout = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-
 			NameContent = React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, -DETAIL_CONTEXT_HEIGHT),
+				Size = UDim2.new(1, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				LayoutOrder = 1,
 			}, {
 				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, 4),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
 				DisplayName = React.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.new(1, 0, 0, 0),
+					Size = UDim2.new(1, 0, 0, 20),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Font = font.Header2.Font,
 					LayoutOrder = 1,
-					LineHeight = 1.25,
 					Text = participant.displayName,
-					TextColor3 = theme.TextEmphasis.Color,
-					TextSize = font.BaseSize * font.Body.RelativeSize,
-					TextTransparency = theme.TextDefault.Transparency,
+					TextColor3 = if isMissedCall then theme.Alert.Color else theme.TextEmphasis.Color,
+					TextSize = font.BaseSize * font.Header2.RelativeSize,
+					TextTransparency = if isMissedCall
+						then theme.Alert.Transparency
+						else theme.TextEmphasis.Transparency,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
 
 				Username = React.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.new(1, 0, 0, 0),
+					Size = UDim2.new(1, 0, 0, 14),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Font = font.Body.Font,
+					Font = font.CaptionBody.Font,
 					LayoutOrder = 2,
-					LineHeight = 1.25,
-					Text = "@" .. participant.userName,
+					Text = "@" .. ContactListHelper.getUsername(participant.userId, participant.userName),
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,
@@ -272,6 +294,7 @@ local function CallHistoryItem(props: Props)
 			}),
 
 			Details = React.createElement("Frame", {
+				Position = UDim2.new(0, 0, 1, -DETAIL_CONTEXT_HEIGHT),
 				Size = UDim2.new(1, 0, 0, DETAIL_CONTEXT_HEIGHT),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -280,6 +303,7 @@ local function CallHistoryItem(props: Props)
 				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
+					Padding = UDim.new(0, 4),
 				}),
 
 				CallContextImage = React.createElement(ImageSetLabel, {
@@ -291,21 +315,33 @@ local function CallHistoryItem(props: Props)
 				}),
 
 				DetailsText = React.createElement("TextLabel", {
-					Position = UDim2.new(0, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(0, 0.5),
-					AutomaticSize = Enum.AutomaticSize.XY,
+					Size = UDim2.fromOffset(0, 14),
+					AutomaticSize = Enum.AutomaticSize.X,
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
-					LineHeight = 1.16667,
 					Text = getCallStatusText(caller, localUserId) .. " • " .. getTimestampText(caller.endUtc),
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,
 					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextYAlignment = Enum.TextYAlignment.Center,
 				}),
 			}),
 		}),
+
+		CallButton = if game:GetEngineFeature("EnableSocialServiceIrisInvite")
+			then React.createElement(IconButton, {
+				size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
+				iconSize = IconSize.Medium,
+				position = UDim2.new(1, -PADDING.X, 0.5, -PADDING.Y / 2),
+				anchorPoint = Vector2.new(1, 0.5),
+				iconColor3 = theme.ContextualPrimaryDefault.Color,
+				iconTransparency = theme.ContextualPrimaryDefault.Transparency,
+				icon = "rbxassetid://14532752184", -- TODO: Replace with UIBLOX icon
+				onActivated = startCall,
+			})
+			else nil,
 
 		Divider = props.showDivider and React.createElement("Frame", {
 			Position = UDim2.new(0, 0, 1, -1),

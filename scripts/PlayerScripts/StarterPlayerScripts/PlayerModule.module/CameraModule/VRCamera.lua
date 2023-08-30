@@ -24,6 +24,20 @@ local FFlagUserVRRotationUpdate do
 	FFlagUserVRRotationUpdate = success and result
 end
 
+local FFlagUserVRFollowCamera do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRFollowCamera")
+	end)
+	FFlagUserVRFollowCamera = success and result
+end
+
+local FFlagUserVRRotationTweeks do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRRotationTweeks")
+	end)
+	FFlagUserVRRotationTweeks = success and result
+end
+
 --[[ The Module ]]--
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
 local VRCamera = setmetatable({}, VRBaseCamera)
@@ -86,15 +100,28 @@ function VRCamera:Update(timeDelta)
 
 	if subjectPosition and player and camera then
 		newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
-
+		
+		-- update camera cframe based on first/third person
 		if self:IsInFirstPerson() then
 			-- update camera CFrame
 			newCameraCFrame, newCameraFocus = self:UpdateFirstPersonTransform(
 				timeDelta,newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
 		else -- 3rd person
-			-- update camera CFrame
-			newCameraCFrame, newCameraFocus = self:UpdateThirdPersonTransform(
-				timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+			
+			if FFlagUserVRFollowCamera then
+
+				if VRService.ThirdPersonFollowCamEnabled then
+					newCameraCFrame, newCameraFocus = self:UpdateThirdPersonFollowTransform(
+						timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+				else
+					newCameraCFrame, newCameraFocus = self:UpdateThirdPersonComfortTransform(
+						timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+				end
+
+			else
+				newCameraCFrame, newCameraFocus = self:UpdateThirdPersonComfortTransform(
+					timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+			end
 		end
 
 		self.lastCameraTransform = newCameraCFrame
@@ -176,7 +203,7 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	return newCameraCFrame, newCameraFocus
 end
 
-function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+function VRCamera:UpdateThirdPersonComfortTransform(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
 	local zoom = self:GetCameraToSubjectDistance()
 	if zoom < 0.5 then
 		zoom = 0.5
@@ -213,7 +240,12 @@ function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCame
 				local yawDelta = self:getRotation(timeDelta)
 				if math.abs(yawDelta) > 0 then
 					local cameraOffset = newCameraFocus:ToObjectSpace(newCameraCFrame)
-					local rotatedFocus = newCameraFocus * CFrame.Angles(0, yawDelta, 0)
+					local rotatedFocus -- inline with FFlagUserVRRotationTweeks
+					if FFlagUserVRRotationTweeks then
+						rotatedFocus = newCameraFocus * CFrame.Angles(0, -yawDelta, 0)
+					else
+						rotatedFocus = newCameraFocus * CFrame.Angles(0, yawDelta, 0)
+					end
 					newCameraCFrame = rotatedFocus * cameraOffset
 				end
 
@@ -317,6 +349,56 @@ function VRCamera:UpdateThirdPersonTransform(timeDelta, newCameraCFrame, newCame
 				end
 			end
 		end
+	end
+
+	return newCameraCFrame, newCameraFocus
+end
+
+function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+	local camera = workspace.CurrentCamera :: Camera
+	local zoom = self:GetCameraToSubjectDistance()
+	local vrFocus = self:GetVRFocus(subjectPosition, timeDelta)
+
+	if self.needsReset then
+		local subjectCFrame = self:GetSubjectCFrame()
+		if not subjectCFrame then -- can't perform a reset until the subject is valid
+			return camera.CFrame, camera.Focus
+		end
+
+		self.needsReset = false
+
+		VRService:RecenterUserHeadCFrame()
+		self:ResetZoom()
+		self:StartFadeFromBlack()
+
+		-- set the camera and focus to zoom distance behind the subject
+		newCameraCFrame = vrFocus * subjectCFrame.Rotation * CFrame.new(0, 0, zoom)
+
+		self.focusOffset = vrFocus:ToObjectSpace(newCameraCFrame) -- GetVRFocus returns a CFrame with no rotation
+
+		return newCameraCFrame, vrFocus
+	end
+
+	newCameraCFrame = vrFocus:ToWorldSpace(self.focusOffset)
+
+	-- compute offset for 3rd person camera rotation
+	local yawDelta = self:getRotation(timeDelta)
+	if math.abs(yawDelta) > 0 then
+		local cameraOffset = vrFocus:ToObjectSpace(newCameraCFrame)
+	        local rotatedFocus -- inline with FFlagUserVRRotationTweeks
+	        if FFlagUserVRRotationTweeks then
+ 		        rotatedFocus = newCameraFocus * CFrame.Angles(0, -yawDelta, 0)
+ 	        else
+ 		        rotatedFocus = newCameraFocus * CFrame.Angles(0, yawDelta, 0)
+ 	        end
+
+		newCameraCFrame = rotatedFocus * cameraOffset
+		self.focusOffset = vrFocus:ToObjectSpace(newCameraCFrame) -- update 3rd person offset
+	end
+
+	-- vignette
+	if (newCameraFocus.Position - camera.Focus.Position).Magnitude > 0.01 then
+		self:StartVREdgeBlur(PlayersService.LocalPlayer)
 	end
 
 	return newCameraCFrame, newCameraFocus
