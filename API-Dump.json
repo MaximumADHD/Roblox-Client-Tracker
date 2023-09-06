@@ -4688,6 +4688,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreateDynamicMeshAsync",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "DynamicMesh"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CreatePlaceAsync",
                     "Parameters": [
                         {
@@ -5566,6 +5588,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetSpectrum",
                     "Parameters": [
                     ],
@@ -5642,6 +5683,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -5742,6 +5802,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -5849,6 +5928,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetUserIdAccessList",
                     "Parameters": [
                     ],
@@ -5905,6 +6003,25 @@
                         "Category": "Class",
                         "Name": "Player"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -5933,6 +6050,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6015,6 +6151,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6043,6 +6198,56 @@
                         "Category": "Primitive",
                         "Name": "string"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAudibilityFor",
+                    "Parameters": [
+                        {
+                            "Name": "listener",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "AudioListener"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetInteractingListeners",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6125,6 +6330,25 @@
                         "Category": "DataType",
                         "Name": "NumberRange"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6153,6 +6377,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6217,6 +6460,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6245,6 +6507,56 @@
                         "Category": "Primitive",
                         "Name": "string"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAudibilityOf",
+                    "Parameters": [
+                        {
+                            "Name": "emitter",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "AudioEmitter"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetInteractingEmitters",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6273,6 +6585,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -6471,6 +6802,25 @@
                         "Category": "Primitive",
                         "Name": "double"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
@@ -6721,6 +7071,25 @@
                         "Category": "Primitive",
                         "Name": "float"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConnectedWires",
+                    "Parameters": [
+                        {
+                            "Name": "pin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -14030,6 +14399,25 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "DeleteCapture",
+                    "Parameters": [
+                        {
+                            "Name": "capturePath",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Function",
                     "Name": "RetrieveCaptures",
@@ -22781,44 +23169,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "InitializeFromMeshIdAsync",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Content"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "InitializeFromMeshPartAsync",
-                    "Parameters": [
-                        {
-                            "Name": "meshPart",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "Raycast",
                     "Parameters": [
                         {
@@ -27244,6 +27594,46 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "DrawRectangle",
+                    "Parameters": [
+                        {
+                            "Name": "position",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "size",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "color",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Color3"
+                            }
+                        },
+                        {
+                            "Name": "transparency",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ReadPixels",
                     "Parameters": [
                         {
@@ -27823,6 +28213,134 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ExperienceNotificationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "LaunchExperience",
+                    "Parameters": [
+                        {
+                            "Name": "params",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "LaunchExperienceFromSource",
+                    "Parameters": [
+                        {
+                            "Name": "params",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "source",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "LaunchExperienceFromSourceWithCallback",
+                    "Parameters": [
+                        {
+                            "Name": "params",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "source",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RegisterForExperienceJoin",
+                    "Parameters": [
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "RBXScriptConnection"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RegisterForExperienceLeave",
+                    "Parameters": [
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "RBXScriptConnection"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ExperienceService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -50210,6 +50728,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetSubscriptionProductInfoAsync",
+                    "Parameters": [
+                        {
+                            "Name": "subscriptionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetSubscriptionPurchaseInfoAsync",
                     "Parameters": [
                         {
@@ -50225,6 +50765,64 @@
                         "Name": "Dictionary"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetUserSubscriptionPaymentHistoryAsync",
+                    "Parameters": [
+                        {
+                            "Name": "user",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Name": "subscriptionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetUserSubscriptionStatusAsync",
+                    "Parameters": [
+                        {
+                            "Name": "user",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Name": "subscriptionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
                     "Tags": [
                         "Yields"
                     ],
@@ -67769,6 +68367,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetBlockListInitialized",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetCharacterAppearanceJson",
                     "Parameters": [
                         {
@@ -75338,6 +75948,52 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "NewNotificationFromPlugin",
+                    "Parameters": [
+                        {
+                            "Name": "notificationId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "NewNotificationId",
+                    "Parameters": [
+                        {
+                            "Name": "notificationId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RibbonNotificationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -86154,6 +86810,24 @@
                     }
                 },
                 {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "FreeCameraSpeedScroll",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Function Name Color",
@@ -95681,6 +96355,14 @@
                                 "Category": "Class",
                                 "Name": "Instance"
                             }
+                        },
+                        {
+                            "Default": "Box",
+                            "Name": "collisionFidelity",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CollisionFidelity"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -95747,6 +96429,49 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CheckMeshInCameraFrustum",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "meshScale",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        },
+                        {
+                            "Name": "handleWorldCF",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        },
+                        {
+                            "Name": "cameraWorldCF",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
                             }
                         }
                     ],
@@ -96038,6 +96763,28 @@
                             "Type": {
                                 "Category": "DataType",
                                 "Name": "CFrame"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateMeshTriangleArea",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -103985,6 +104732,27 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "UseNewControlPaths",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "UseNewJoinFlow",
                     "Security": {
                         "Read": "RobloxSecurity",
@@ -106947,6 +107715,18 @@
                 {
                     "Name": "OnUpdate",
                     "Value": 5
+                },
+                {
+                    "Name": "ListAsync",
+                    "Value": 6
+                },
+                {
+                    "Name": "GetVersionAsync",
+                    "Value": 7
+                },
+                {
+                    "Name": "RemoveVersionAsync",
+                    "Value": 8
                 }
             ],
             "Name": "DataStoreRequestType"
@@ -110260,6 +111040,23 @@
                 }
             ],
             "Name": "LiveEditingAtomicUpdateResponse"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Normal",
+                    "Value": 0
+                },
+                {
+                    "Name": "Warning",
+                    "Value": 1
+                },
+                {
+                    "Name": "Error",
+                    "Value": 2
+                }
+            ],
+            "Name": "LiveEditingBroadcastMessageType"
         },
         {
             "Items": [
@@ -113776,6 +114573,28 @@
         {
             "Items": [
                 {
+                    "Name": "Paid",
+                    "Value": 0
+                },
+                {
+                    "Name": "Refunded",
+                    "Value": 1
+                }
+            ],
+            "Name": "SubscriptionPaymentStatus"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Month",
+                    "Value": 0
+                }
+            ],
+            "Name": "SubscriptionPeriod"
+        },
+        {
+            "Items": [
+                {
                     "Name": "None",
                     "Value": 0
                 },
@@ -115121,6 +115940,23 @@
                 }
             ],
             "Name": "VoiceChatState"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Publish",
+                    "Value": 0
+                },
+                {
+                    "Name": "Subscribe",
+                    "Value": 1
+                },
+                {
+                    "Name": "Join",
+                    "Value": 2
+                }
+            ],
+            "Name": "VoiceControlPath"
         },
         {
             "Items": [

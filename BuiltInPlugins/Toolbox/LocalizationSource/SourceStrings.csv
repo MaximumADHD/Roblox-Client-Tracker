@@ -250,9 +250,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,{assetName} includes {numScripts:int} script(s).,Studio.Toolbox.General.SearchResultsKeyword,Search Results for
  ,Search Results for,Studio.Toolbox.Audio.SoundEffect.Category.rattles,Rattles
  ,Rattles,Studio.Toolbox.General.SearchResultsBackToHome,< All {assetType} /
- ,< All {assetType} /,Studio.Toolbox.Audio.SoundEffect.Category.beeps,Beeps
- ,Beeps,Studio.Toolbox.General.AssetTypeLeftArm,Left Arm
- ,Left Arm,Studio.Toolbox.General.BackToHome,All {assetType}
+ ,< All {assetType} /,Studio.Toolbox.General.AssetTypeLeftArm,Left Arm
+ ,Left Arm,Studio.Toolbox.Audio.SoundEffect.Category.beeps,Beeps
+ ,Beeps,Studio.Toolbox.General.BackToHome,All {assetType}
  ,All {assetType},Studio.Toolbox.General.DidYouMean,Did you mean
  ,Did you mean,Studio.Toolbox.General.SearchOptionsAllViews,All Views
  ,All Views,Studio.Toolbox.Audio.SoundEffect.Category.Bird,Bird
@@ -457,9 +457,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Select exactly one item.,Studio.Toolbox.AssetConfigSharing.VerifyCurrentLimit,Current limit: {quotaText}
  ,Current limit: {quotaText},Studio.Toolbox.General.AssetTypeSweaterAccessory,Sweater Accessory
  ,Sweater Accessory,Studio.Toolbox.General.AssetTypeLeftShoeAccessory,Left Shoe Accessory
- ,Left Shoe Accessory,Studio.Toolbox.Audio.SoundEffect.Category.beasts,Beasts
- ,Beasts,Studio.Toolbox.General.AssetTypeDressSkirtAccessory,Dress Skirt Accessory
- ,Dress Skirt Accessory,Studio.Toolbox.Audio.SoundEffect.Category.sea-animals,Sea Animals
+ ,Left Shoe Accessory,Studio.Toolbox.General.AssetTypeDressSkirtAccessory,Dress Skirt Accessory
+ ,Dress Skirt Accessory,Studio.Toolbox.Audio.SoundEffect.Category.beasts,Beasts
+ ,Beasts,Studio.Toolbox.Audio.SoundEffect.Category.sea-animals,Sea Animals
  ,Sea Animals,Studio.Toolbox.General.AssetTypeTorso,Torso
  ,Torso,Studio.Toolbox.General.AssetTypeRightArm,Right Arm
  ,Right Arm,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard open or close,Cupboard open or close
@@ -581,11 +581,11 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,House music,Studio.Toolbox.AudioView.Album,Album
  ,Album,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux
  ,Insufficient Robux,Studio.Toolbox.AssetConfigPackage.CantConvertMultipleInstancesWarning,Cannot convert to package unless package has a single root instance.
- ,Cannot convert to package unless package has a single root instance.,Studio.Toolbox.Audio.SoundEffect.Category.Fire,Fire
- ,Fire,Studio.Toolbox.Audio.SoundEffect.Category.fire,Fire
- ,Fire,"Studio.Toolbox.Audio.SoundEffect.Category.Sailboat, sailing ship","Sailboat, sailing ship"
+ ,Cannot convert to package unless package has a single root instance.,"Studio.Toolbox.Audio.SoundEffect.Category.Sailboat, sailing ship","Sailboat, sailing ship"
  ,"Sailboat, sailing ship",Studio.Toolbox.Audio.SoundEffect.Category.Sailboat_sailing_ship,"Sailboat, sailing ship"
- ,"Sailboat, sailing ship",Studio.Toolbox.AssetConfigPackage.CantConvertIfChildPackageHasUnpublishedChangesWarning,Cannot convert to package while the instance contains packages with unpublished changes.
+ ,"Sailboat, sailing ship",Studio.Toolbox.Audio.SoundEffect.Category.Fire,Fire
+ ,Fire,Studio.Toolbox.Audio.SoundEffect.Category.fire,Fire
+ ,Fire,Studio.Toolbox.AssetConfigPackage.CantConvertIfChildPackageHasUnpublishedChangesWarning,Cannot convert to package while the instance contains packages with unpublished changes.
  ,Cannot convert to package while the instance contains packages with unpublished changes.,Studio.Toolbox.AssetConfigPackage.Non3DRoot3DDescendentsWarning,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package."
  ,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the package.",Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot be made public at this time. Please check back at a later date.
  ,Audio files cannot be made public at this time. Please check back at a later date.,Studio.Toolbox.AssetConfigSharing.VideoPublicDisabledInformation,Video files cannot be made public at this time. Please check back at a later date.
@@ -767,7 +767,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,"Livestock, farm animals, working animals",Studio.Toolbox.Audio.SoundEffect.Category.Livestock_farm_animals_working_animals,"Livestock, farm animals, working animals"
  ,"Livestock, farm animals, working animals",Studio.Toolbox.AssetConfig.CreateBundleInvalidBundleName,Error creating bundle. Invalid bundle name.
  ,Error creating bundle. Invalid bundle name.,Studio.Toolbox.Audio.SoundEffect.Category.walla,Walla
- ,Walla,Studio.Toolbox.Audio.SoundEffect.Category.turbulent,Turbulent
+ ,Walla,Studio.Toolbox.AssetConfig.UGCForAllCreationBannedLink,Marketplace Policy.
+ ,Marketplace Policy.,Studio.Toolbox.Audio.SoundEffect.Category.turbulent,Turbulent
  ,Turbulent,Studio.Toolbox.AssetConfig.CreateBundleInvalidAssetIds,Error creating bundle. Invalid body part asset IDs.
  ,Error creating bundle. Invalid body part asset IDs.,"Studio.Toolbox.Audio.SoundEffect.Category.Waves, surf","Waves, surf"
  ,"Waves, surf",Studio.Toolbox.Audio.SoundEffect.Category.Waves_surf,"Waves, surf"
@@ -806,10 +807,19 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Steam whistle,Studio.Toolbox.Audio.SoundEffect.Category.Steam_whistle,Steam whistle
  ,Steam whistle,Studio.Toolbox.AssetConfig.UGCBodyBundleName,Body
  ,Body,Studio.Toolbox.AssetConfig.UGCBundleCategoryName,Body
- ,Body,Studio.Toolbox.AssetConfig.UGCDynamicHeadBundleName,Head
+ ,Body,"Studio.Toolbox.Audio.SoundEffect.Category.Air horn, truck horn","Air horn, truck horn"
+ ,"Air horn, truck horn",Studio.Toolbox.Audio.SoundEffect.Category.Air_horn_truck_horn,"Air horn, truck horn"
+ ,"Air horn, truck horn",Studio.Toolbox.AssetConfig.UGCForAllCreationBanned,Suspended from 3D Avatar Item Creation for {bannedDays} days. You will not be able to upload 3D Avatar UGC from Studio or put it on sale. Please abide by our 
+ ,Suspended from 3D Avatar Item Creation for {bannedDays} days. You will not be able to upload 3D Avatar UGC from Studio or put it on sale. Please abide by our,Studio.Toolbox.AssetConfig.UGCForAllGeneralWarning,ID Verification is required to upload Avatar Assets. Premium 1000 or Premium 2200 is also required to upload to groups.
+ ,ID Verification is required to upload Avatar Assets. Premium 1000 or Premium 2200 is also required to upload to groups.,Studio.Toolbox.AssetConfig.UGCDynamicHeadBundleName,Head
  ,Head,Studio.Toolbox.Audio.SoundEffect.Category.Drum and bass,Drum and bass
  ,Drum and bass,Studio.Toolbox.Audio.SoundEffect.Category.Drum_and_bass,Drum and bass
- ,Drum and bass,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
+ ,Drum and bass,Studio.Toolbox.Audio.SoundEffect.Category.Bicycle bell,Bicycle bell
+ ,Bicycle bell,Studio.Toolbox.Audio.SoundEffect.Category.Bicycle_bell,Bicycle bell
+ ,Bicycle bell,Studio.Toolbox.AssetConfig.UGCUnknownMeshPartsMessage,The following mesh parts are unknown and will not be uploaded:
+ ,The following mesh parts are unknown and will not be uploaded:,Studio.Toolbox.Audio.SoundEffect.Category.birds,Birds
+ ,Birds,Studio.Toolbox.Audio.SoundEffect.Category.Howl,Howl
+ ,Howl,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
  ,Aircraft,Studio.Toolbox.Audio.SoundEffect.Category.aircraft,Aircraft
  ,Aircraft,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
  ,Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
@@ -868,14 +878,13 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,s,Studio.Toolbox.General.AbbreviatedMinutes,m
  ,m,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
  ,Sound Length,Studio.Toolbox.AssetUploadResult.CreatorDashboardMessage,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.
-A message displayed to the user after asset upload success informing them that they can configure and put assets on sale in the Creator Dashboard web interface a link to it.,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.Audio.SoundEffect.Category.battle,Battle
- ,Battle,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
- ,Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
+A message displayed to the user after asset upload success informing them that they can configure and put assets on sale in the Creator Dashboard web interface a link to it.,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
+ ,Invalid Animation ID,"Studio.Toolbox.Audio.SoundEffect.Category.Rowboat, canoe, kayak","Rowboat, canoe, kayak"
+ ,"Rowboat, canoe, kayak",Studio.Toolbox.Audio.SoundEffect.Category.Rowboat_canoe_kayak,"Rowboat, canoe, kayak"
+ ,"Rowboat, canoe, kayak",Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
  ,This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.Audio.SoundEffect.Category.Acoustic guitar,Acoustic guitar
  ,Acoustic guitar,Studio.Toolbox.Audio.SoundEffect.Category.Acoustic_guitar,Acoustic guitar
- ,Acoustic guitar,"Studio.Toolbox.Audio.SoundEffect.Category.Rowboat, canoe, kayak","Rowboat, canoe, kayak"
- ,"Rowboat, canoe, kayak",Studio.Toolbox.Audio.SoundEffect.Category.Rowboat_canoe_kayak,"Rowboat, canoe, kayak"
- ,"Rowboat, canoe, kayak",Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
+ ,Acoustic guitar,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
  ,Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.InsertTool.DialogText,Put this tool into the StarterPack?
 StarterPack is a Roblox API term that should not be translated.,Put this tool into the StarterPack?,Studio.Toolbox.HomeView.TheEssentials,The Essentials
  ,The Essentials,Studio.Toolbox.HomeView.trending,Trending
@@ -920,11 +929,8 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Funk,Studio.Toolbox.Audio.SoundEffect.Category.arrows,Arrows
  ,Arrows,Studio.Toolbox.Audio.SoundEffect.Category.Turkey,Turkey
  ,Turkey,Studio.Toolbox.Audio.SoundEffect.Category.babies,Babies
- ,Babies,Studio.Toolbox.Audio.SoundEffect.Category.Bicycle bell,Bicycle bell
- ,Bicycle bell,Studio.Toolbox.Audio.SoundEffect.Category.Bicycle_bell,Bicycle bell
- ,Bicycle bell,Studio.Toolbox.Audio.SoundEffect.Category.birds,Birds
- ,Birds,Studio.Toolbox.Audio.SoundEffect.Category.Howl,Howl
- ,Howl,Studio.Toolbox.Audio.SoundEffect.Category.blood,Blood
+ ,Babies,Studio.Toolbox.Audio.SoundEffect.Category.battle,Battle
+ ,Battle,Studio.Toolbox.Audio.SoundEffect.Category.blood,Blood
  ,Blood,Studio.Toolbox.Audio.SoundEffect.Category.Frog,Frog
  ,Frog,Studio.Toolbox.Audio.SoundEffect.Category.blow,Blow
  ,Blow,"Studio.Toolbox.Audio.SoundEffect.Category.Outside, rural or natural","Outside, rural or natural"
@@ -947,10 +953,10 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Bullets,Studio.Toolbox.Audio.SoundEffect.Category.burps,Burps
  ,Burps,Studio.Toolbox.Audio.SoundEffect.Category.plastic,Plastic
  ,Plastic,Studio.Toolbox.Audio.SoundEffect.Category.buses,Buses
- ,Buses,Studio.Toolbox.Audio.SoundEffect.Category.bys,Bys
- ,Bys,"Studio.Toolbox.Audio.SoundEffect.Category.Motorboat, speedboat","Motorboat, speedboat"
+ ,Buses,"Studio.Toolbox.Audio.SoundEffect.Category.Motorboat, speedboat","Motorboat, speedboat"
  ,"Motorboat, speedboat",Studio.Toolbox.Audio.SoundEffect.Category.Motorboat_speedboat,"Motorboat, speedboat"
- ,"Motorboat, speedboat",Studio.Toolbox.Audio.SoundEffect.Category.cartoon,Cartoon
+ ,"Motorboat, speedboat",Studio.Toolbox.Audio.SoundEffect.Category.bys,Bys
+ ,Bys,Studio.Toolbox.Audio.SoundEffect.Category.cartoon,Cartoon
  ,Cartoon,Studio.Toolbox.Audio.SoundEffect.Category.carts,Carts
  ,Carts,Studio.Toolbox.Audio.SoundEffect.Category.clicks,Clicks
  ,Clicks,Studio.Toolbox.Audio.SoundEffect.Category.chimes,Chimes
@@ -962,12 +968,12 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Cloth,Studio.Toolbox.Audio.SoundEffect.Category.combustion,Combustion
  ,Combustion,Studio.Toolbox.Audio.SoundEffect.Category.cooking,Cooking
  ,Cooking,Studio.Toolbox.Audio.SoundEffect.Category.Plop,Plop
- ,Plop,Studio.Toolbox.Audio.SoundEffect.Category.cracks,Cracks
+ ,Plop,"Studio.Toolbox.Audio.SoundEffect.Category.Boat, Water vehicle","Boat, Water vehicle"
+ ,"Boat, Water vehicle",Studio.Toolbox.Audio.SoundEffect.Category.Boat_Water_vehicle,"Boat, Water vehicle"
+ ,"Boat, Water vehicle",Studio.Toolbox.Audio.SoundEffect.Category.cracks,Cracks
  ,Cracks,Studio.Toolbox.Audio.SoundEffect.Category.Whimper (dog),Whimper (dog)
  ,Whimper (dog),Studio.Toolbox.Audio.SoundEffect.Category.Whimper_(dog),Whimper (dog)
- ,Whimper (dog),"Studio.Toolbox.Audio.SoundEffect.Category.Boat, Water vehicle","Boat, Water vehicle"
- ,"Boat, Water vehicle",Studio.Toolbox.Audio.SoundEffect.Category.Boat_Water_vehicle,"Boat, Water vehicle"
- ,"Boat, Water vehicle",Studio.Toolbox.Audio.SoundEffect.Category.crashes,Crashes
+ ,Whimper (dog),Studio.Toolbox.Audio.SoundEffect.Category.crashes,Crashes
  ,Crashes,Studio.Toolbox.Audio.SoundEffect.Category.creaks,Creaks
  ,Creaks,Studio.Toolbox.Audio.SoundEffect.Category.Lullaby,Lullaby
  ,Lullaby,Studio.Toolbox.Audio.SoundEffect.Category.crunches,Crunches
@@ -1370,9 +1376,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Alarm clock,Studio.Toolbox.Audio.SoundEffect.Category.Alarm_clock,Alarm clock
  ,Alarm clock,Studio.Toolbox.Audio.SoundEffect.Category.Air brake,Air brake
  ,Air brake,Studio.Toolbox.Audio.SoundEffect.Category.Air_brake,Air brake
- ,Air brake,"Studio.Toolbox.Audio.SoundEffect.Category.Air horn, truck horn","Air horn, truck horn"
- ,"Air horn, truck horn",Studio.Toolbox.Audio.SoundEffect.Category.Air_horn_truck_horn,"Air horn, truck horn"
- ,"Air horn, truck horn",Studio.Toolbox.Audio.SoundEffect.Category.Reversing beeps,Reversing beeps
+ ,Air brake,Studio.Toolbox.Audio.SoundEffect.Category.Reversing beeps,Reversing beeps
  ,Reversing beeps,Studio.Toolbox.Audio.SoundEffect.Category.Reversing_beeps,Reversing beeps
  ,Reversing beeps,"Studio.Toolbox.Audio.SoundEffect.Category.Ice cream truck, ice cream van","Ice cream truck, ice cream van"
  ,"Ice cream truck, ice cream van",Studio.Toolbox.Audio.SoundEffect.Category.Ice_cream_truck_ice_cream_van,"Ice cream truck, ice cream van"

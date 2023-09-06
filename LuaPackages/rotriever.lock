@@ -34,8 +34,8 @@ dependencies = [
     "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphQLTag GraphqlTag 2.12.6 url+https://github.com/roblox/graphql-tag-lua",
-    "Jest Jest 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestGlobals JestGlobals 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Jest Jest 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGlobals JestGlobals 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
@@ -98,19 +98,19 @@ dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DataLoader DataLoader 0.2.0 url+https://github.com/roblox/data-loader-lua",
     "DeveloperTools DeveloperTools 0.2.7 url+https://github.com/roblox/developer-tools",
-    "ExperienceChat ExperienceChat 4d854fd9 git+https://github.com/roblox/lua-experience-chat#v4.1.4",
-    "ExperienceChat_New ExperienceChat 641e507a git+https://github.com/roblox/lua-experience-chat#v4.1.7",
+    "ExperienceChat ExperienceChat 79afedfc git+https://github.com/roblox/lua-experience-chat#v4.1.6",
+    "ExperienceChat_New ExperienceChat bdbec492 git+https://github.com/roblox/lua-experience-chat#v4.1.8",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphqlToolsUtils Utils 0.3.0 url+https://github.com/roblox/graphql-tools-lua",
     "HttpRequest HttpRequest 1.1.1 url+https://github.com/roblox/http-request",
-    "IAPExperience IAPExperience 83766d21 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 03e156c4 git+https://github.com/roblox/iapexperience#master",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "InputHandlers InputHandlers 1.2.0 url+https://github.com/roblox/focus-navigation",
-    "Jest Jest 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestBenchmark JestBenchmark 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Jest Jest 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestBenchmark JestBenchmark 3.4.1 url+https://github.com/roblox/jest-roblox",
     "JestGlobals JestGlobals 2.4.1 url+https://github.com/roblox/jest-roblox",
-    "JestGlobals3 JestGlobals 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGlobals3 JestGlobals 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps b2564272 git+https://github.com/roblox/lua-social-libraries-deps#master",
     "LuauPolyfill LuauPolyfill 0.4.2 url+https://github.com/roblox/luau-polyfill",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
@@ -142,15 +142,17 @@ dependencies = [
     "RoactGamepad <patched> RoactGamepad 0.5.12 url+https://github.com/roblox/roact-gamepad",
     "RoactNavigation <patched> RoactNavigation 0.5.6 url+https://github.com/roblox/roact-navigation",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "RoduxDevtools RoduxDevtools 1.0.0-rc.1 url+https://github.com/roblox/rodux-devtools",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#master",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
+    "Signal Signal 1.0.0 url+https://github.com/roblox/signal-lua",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
     "Thumbnailing Thumbnailing 503ed0b0 git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.3.15 url+https://github.com/roblox/ugc-validation",
-    "UIBlox UIBlox c88d645d git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.4.1 url+https://github.com/roblox/ugc-validation",
+    "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f7c32346 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
     "VirtualizedList <patched> VirtualizedList 1.4.1 url+https://github.com/roblox/virtualized-list-lua",
@@ -197,8 +199,8 @@ dependencies = ["LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/l
 
 [[package]]
 name = "DiffSequences"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = ["LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill"]
 
@@ -215,13 +217,13 @@ commit = "d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6"
 source = "git+https://github.com/roblox/dom-testing-library-lua#d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6"
 dependencies = [
     "Chalk ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestGlobals JestGlobals 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGlobals JestGlobals 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -232,8 +234,8 @@ source = "url+https://github.com/roblox/luau-polyfill"
 
 [[package]]
 name = "Emittery"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
@@ -270,26 +272,26 @@ dependencies = [
 
 [[package]]
 name = "Expect"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMatcherUtils JestMatcherUtils 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMessageUtil JestMessageUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestSnapshot JestSnapshot 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMatcherUtils JestMatcherUtils 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestSnapshot JestSnapshot 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "ExperienceChat"
-version = "4.1.4"
-commit = "4d854fd9d51f9588956153fdb685a540c376b3ca"
-source = "git+https://github.com/roblox/lua-experience-chat#v4.1.4"
+version = "4.1.6"
+commit = "79afedfc2e835f30700a1115869dfbb5d61bfffa"
+source = "git+https://github.com/roblox/lua-experience-chat#v4.1.6"
 dependencies = [
     "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
@@ -301,17 +303,17 @@ dependencies = [
     "ReactRoblox ReactRobloxProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "Roact RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox c88d645d git+https://github.com/roblox/uiblox#master",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.1 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
 
 [[package]]
 name = "ExperienceChat"
-version = "4.1.7"
-commit = "641e507ac1095909b3cd31f517a25fc9c4bdab99"
-source = "git+https://github.com/roblox/lua-experience-chat#v4.1.7"
+version = "4.1.8"
+commit = "bdbec492f94bab5a0dc14c1db0710fb51ab369f7"
+source = "git+https://github.com/roblox/lua-experience-chat#v4.1.8"
 dependencies = [
     "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
@@ -323,8 +325,8 @@ dependencies = [
     "ReactRoblox ReactRobloxProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "Roact RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox c88d645d git+https://github.com/roblox/uiblox#master",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.1 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -383,14 +385,16 @@ dependencies = [
 [[package]]
 name = "IAPExperience"
 version = "1.0.0"
-commit = "83766d21b0852c684a134155081e753cceaa2715"
+commit = "03e156c41f01792fee03cb7c4812e3dc85cbf75d"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
+    "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
+    "ReactOtter ReactOtter 1.1.0 url+https://github.com/roblox/otter",
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactGamepad <patched> RoactGamepad 0.5.12 url+https://github.com/roblox/roact-gamepad",
-    "UIBlox UIBlox c88d645d git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -408,8 +412,8 @@ dependencies = [
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox c88d645d git+https://github.com/roblox/uiblox#master",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -441,63 +445,63 @@ dependencies = [
 
 [[package]]
 name = "Jest"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
-dependencies = ["JestCore JestCore 3.4.0 url+https://github.com/roblox/jest-roblox"]
+dependencies = ["JestCore JestCore 3.4.1 url+https://github.com/roblox/jest-roblox"]
 
 [[package]]
 name = "JestBenchmark"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestGlobals JestGlobals 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGlobals JestGlobals 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
 ]
 
 [[package]]
 name = "JestCircus"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "Expect Expect 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestEach JestEach 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestEnvironment JestEnvironment 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMatcherUtils JestMatcherUtils 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMessageUtil JestMessageUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestRuntime JestRuntime 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestSnapshot JestSnapshot 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTestResult JestTestResult 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Expect Expect 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestEach JestEach 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestEnvironment JestEnvironment 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMatcherUtils JestMatcherUtils 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestRuntime JestRuntime 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestSnapshot JestSnapshot 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTestResult JestTestResult 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "Throat Throat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "Throat Throat 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "JestConfig"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestEnvironmentLuau JestEnvironmentLuau 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestValidate JestValidate 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestEnvironmentLuau JestEnvironmentLuau 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestValidate JestValidate 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -518,43 +522,43 @@ dependencies = [
 
 [[package]]
 name = "JestConsole"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestEach JestEach 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMessageUtil JestMessageUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMock JestMock 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestEach JestEach 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "JestCore"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "Emittery Emittery 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestConfig JestConfig 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestConsole JestConsole 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMessageUtil JestMessageUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestReporters JestReporters 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestRunner JestRunner 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestRuntime JestRuntime 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestSnapshot JestSnapshot 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTestResult JestTestResult 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Emittery Emittery 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestConfig JestConfig 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestConsole JestConsole 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestReporters JestReporters 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestRunner JestRunner 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestRuntime JestRuntime 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestSnapshot JestSnapshot 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTestResult JestTestResult 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -572,16 +576,16 @@ dependencies = [
 
 [[package]]
 name = "JestDiff"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "DiffSequences DiffSequences 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "DiffSequences DiffSequences 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -601,41 +605,41 @@ dependencies = [
 
 [[package]]
 name = "JestEach"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
 name = "JestEnvironment"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestFakeTimers JestFakeTimers 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMock JestMock 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestFakeTimers JestFakeTimers 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
 ]
 
 [[package]]
 name = "JestEnvironmentLuau"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestEnvironment JestEnvironment 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestFakeTimers JestFakeTimers 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMock JestMock 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestEnvironment JestEnvironment 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestFakeTimers JestFakeTimers 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]
@@ -653,12 +657,12 @@ dependencies = [
 
 [[package]]
 name = "JestFakeTimers"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMock JestMock 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
 ]
 
@@ -674,8 +678,8 @@ dependencies = [
 
 [[package]]
 name = "JestGetType"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
@@ -698,13 +702,13 @@ dependencies = [
 
 [[package]]
 name = "JestGlobals"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "Expect Expect 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestEnvironment JestEnvironment 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Expect Expect 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestEnvironment JestEnvironment 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
 ]
 
@@ -724,15 +728,15 @@ dependencies = [
 
 [[package]]
 name = "JestMatcherUtils"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestDiff JestDiff 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestDiff JestDiff 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
 ]
 
@@ -745,16 +749,16 @@ dependencies = ["LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/l
 
 [[package]]
 name = "JestMessageUtil"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -766,8 +770,8 @@ dependencies = ["LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/l
 
 [[package]]
 name = "JestMock"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = ["LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill"]
 
@@ -791,56 +795,56 @@ dependencies = [
 
 [[package]]
 name = "JestReporters"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestConsole JestConsole 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMessageUtil JestMessageUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMock JestMock 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTestResult JestTestResult 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestConsole JestConsole 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTestResult JestTestResult 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "Path Path 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "TestUtils TestUtils 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Path Path 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "TestUtils TestUtils 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "JestRunner"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "Emittery Emittery 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestCircus JestCircus 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestConsole JestConsole 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestEnvironment JestEnvironment 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMessageUtil JestMessageUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestRuntime JestRuntime 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTestResult JestTestResult 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestUtil JestUtil 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Emittery Emittery 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestCircus JestCircus 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestConsole JestConsole 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestEnvironment JestEnvironment 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestRuntime JestRuntime 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTestResult JestTestResult 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "Throat Throat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "Throat Throat 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "JestRuntime"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "Expect Expect 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestFakeTimers JestFakeTimers 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMock JestMock 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestSnapshot JestSnapshot 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "Expect Expect 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestFakeTimers JestFakeTimers 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestSnapshot JestSnapshot 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]
@@ -862,19 +866,19 @@ dependencies = [
 
 [[package]]
 name = "JestSnapshot"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestDiff JestDiff 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMatcherUtils JestMatcherUtils 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestDiff JestDiff 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMatcherUtils JestMatcherUtils 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -889,11 +893,11 @@ dependencies = [
 
 [[package]]
 name = "JestTestResult"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
 ]
 
@@ -909,8 +913,8 @@ dependencies = [
 
 [[package]]
 name = "JestTypes"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
@@ -934,23 +938,23 @@ dependencies = [
 
 [[package]]
 name = "JestUtil"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Picomatch <patched> Picomatch 0.3.1 url+https://github.com/roblox/picomatch-lua",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "JestValidate"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
@@ -1235,8 +1239,8 @@ dependencies = ["LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/l
 
 [[package]]
 name = "Path"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = ["LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill"]
 
@@ -1274,16 +1278,16 @@ dependencies = [
 
 [[package]]
 name = "PrettyFormat"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "ReactIs <patched> ReactIsProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -1323,14 +1327,14 @@ source = "git+https://github.com/roblox/purchase-prompt-deps#master"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "IAPExperience IAPExperience 83766d21 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 03e156c4 git+https://github.com/roblox/iapexperience#master",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox c88d645d git+https://github.com/roblox/uiblox#master",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f7c32346 git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1591,7 +1595,7 @@ commit = "4bf12c314d5ff4df8b3900e9ca4ed364563110c0"
 source = "url+https://github.com/roblox/react-testing-library-lua"
 dependencies = [
     "DomTestingLibrary <patched> DomTestingLibrary d9b6c762 git+https://github.com/roblox/dom-testing-library-lua#d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6",
-    "JestGlobals JestGlobals 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGlobals JestGlobals 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
@@ -1735,7 +1739,7 @@ commit = "60ce019cc53a78b1917c1cc4880879e6a3d0c34c"
 source = "url+https://github.com/roblox/roact-rodux"
 dependencies = [
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
 ]
 
 [[package]]
@@ -1758,14 +1762,20 @@ dependencies = [
 
 [[package]]
 name = "RobloxShared"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestGetType JestGetType 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestMock JestMock 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
 ]
+
+[[package]]
+name = "Rodux"
+version = "3.1.0"
+commit = "b59cc9dd97c4ec90b7ff11f14331021f1c5d6e99"
+source = "git+https://github.com/roblox/rodux#v3.1.0"
 
 [[package]]
 name = "RoduxAliases"
@@ -1774,7 +1784,7 @@ commit = "868f23dc6b0b20b06603c10d63d274cdb6cf2139"
 source = "git+https://github.com/roblox/rodux-aliases#v2.2.0"
 dependencies = [
     "AliasNetworking NetworkingAliases 1.15.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -1787,7 +1797,7 @@ source = "url+https://github.com/roblox/rodux-call"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "NetworkingCall NetworkingCall 1.15.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1801,11 +1811,17 @@ source = "url+https://github.com/roblox/rodux-contacts"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "NetworkingContacts NetworkingContacts 0.4.2 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
+
+[[package]]
+name = "RoduxDevtools"
+version = "1.0.0-rc.1"
+commit = "9cfac9e0cb63804ede2bc6906be4295665926d48"
+source = "url+https://github.com/roblox/rodux-devtools"
 
 [[package]]
 name = "RoduxFriends"
@@ -1814,7 +1830,7 @@ commit = "f6df649b4185dcba87c157ab6cb6572f3a580ad6"
 source = "git+https://github.com/roblox/rodux-friends#v3.7.0"
 dependencies = [
     "FriendsNetworking NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
@@ -1830,7 +1846,7 @@ dependencies = [
     "FriendsNetworking NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "NetworkingBlocking NetworkingBlocking 1.15.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
@@ -1845,7 +1861,7 @@ source = "git+https://github.com/roblox/rodux-games#master"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "NetworkingGames NetworkingGames 1.2.0 url+https://github.com/roblox/networking-games",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1859,7 +1875,7 @@ source = "git+https://github.com/roblox/rodux-games#v1.4.1"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "NetworkingGames NetworkingGames 1.2.0 url+https://github.com/roblox/networking-games",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1873,7 +1889,7 @@ source = "url+https://github.com/roblox/rodux-networking"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "tutils tutils 0.1.2 url+https://github.com/roblox/tutils",
 ]
 
@@ -1885,7 +1901,7 @@ source = "git+https://github.com/roblox/rodux-presence#v3.0.1"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "PresenceNetworking roblox/networking-presence e1b72e1a git+https://github.com/roblox/networking-presence#v1.0.0",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1899,7 +1915,7 @@ source = "git+https://github.com/roblox/rodux-presence#v3.1.0"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "NetworkingPresence NetworkingPresence 0.8.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1913,7 +1929,7 @@ source = "git+https://github.com/roblox/rodux-presence#v3.2.3"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "NetworkingPresence NetworkingPresence 1.15.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1926,7 +1942,7 @@ commit = "d8bb287f7f81bbf0035352c445a11dd5e193785a"
 source = "git+https://github.com/roblox/rodux-sharelinks#v1.3.0"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "ShareLinksNetworking NetworkingShareLinks 15eccb0a git+https://github.com/roblox/networking-sharelinks#v1.1.1",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
@@ -1940,7 +1956,7 @@ source = "url+https://github.com/roblox/rodux-squads"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "NetworkingSquads NetworkingSquads 1.15.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1955,7 +1971,7 @@ dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 url+https://github.com/roblox/lua-app-networking",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
 ]
 
@@ -1967,7 +1983,7 @@ source = "git+https://github.com/roblox/rodux-users#v1.3.3"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "FriendsNetworking NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
 ]
@@ -1980,7 +1996,7 @@ source = "git+https://github.com/roblox/rodux-users#v1.4.0"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "FriendsNetworking NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
 ]
@@ -2065,11 +2081,11 @@ dependencies = [
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactNavigation <patched> RoactNavigation 0.5.6 url+https://github.com/roblox/roact-navigation",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxFriends RoduxFriends f6df649b git+https://github.com/roblox/rodux-friends#v3.7.0",
     "RoduxPresence RoduxPresence af4ec863 git+https://github.com/roblox/rodux-presence#v3.0.1",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox c88d645d git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -2131,21 +2147,21 @@ dependencies = [
 
 [[package]]
 name = "TestUtils"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestEnvironmentLuau JestEnvironmentLuau 3.4.0 url+https://github.com/roblox/jest-roblox",
-    "JestTypes JestTypes 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestEnvironmentLuau JestEnvironmentLuau 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 3.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 3.4.0 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "Throat"
-version = "3.4.0"
-commit = "1c87b1bdb6cc18a63204bb4f28d2efd5617d3a3b"
+version = "3.4.1"
+commit = "7055c70a0153d993ba7abb8c39984ce9313d7757"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
@@ -2167,8 +2183,8 @@ dependencies = ["Collections Collections 1.2.3 url+https://github.com/roblox/lua
 
 [[package]]
 name = "UGCValidation"
-version = "1.3.15"
-commit = "a3faadc2236a919baf8c56c0db28a133a1380af9"
+version = "1.4.1"
+commit = "adb6bfae5e59c2aae248932c85aa0c146c8d8a18"
 source = "url+https://github.com/roblox/ugc-validation"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
@@ -2178,7 +2194,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "c88d645d224cdc35860644976b13673672d3bbee"
+commit = "97de29fcbfa06e50c3f48edbb29e04b5a5226d2c"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
@@ -2389,12 +2405,6 @@ name = "roblox/networking-users"
 version = "0.1.0"
 commit = "6616f72fb9e539daf1ea21a05cfcaacb82358638"
 source = "git+https://github.com/roblox/networking-users#v1.0.0"
-
-[[package]]
-name = "roblox/rodux"
-version = "3.0.0"
-commit = "2ea111e5695dddaefcfb5d67bcbb1095fff1b069"
-source = "git+https://github.com/roblox/rodux#v3.0.0"
 
 [[package]]
 name = "roblox/string-utilities"

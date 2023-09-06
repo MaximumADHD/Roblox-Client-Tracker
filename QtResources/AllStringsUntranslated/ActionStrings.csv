@@ -281,6 +281,7 @@ Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints,
 Studio.App.RobloxRibbonMainWindow.ConstraintDetails,,Constraint Details,Constraint Details
 Studio.App.RobloxRibbonMainWindow.ShowConstraintDetails,,Show constraint details,Show constraint details
 Studio.App.RobloxRibbonMainWindow.ShowWelds,,Show Welds,Show Welds
+Studio.App.RobloxRibbonMainWindow.ShowWeldsTooltip,,Show welds between parts,Show welds between parts
 Studio.App.RBXMainWindow.SelectConnections,,Select Connections,Select Connections
 Studio.App.RBXMainWindow.SelectAttachmentConstraintConnections,,Select connections of the attachment or constraint,Select connections of the attachment or constraint
 Studio.App.RBXMainWindow.Select0AttachmentOrPart,,Select Attachment0 of a constraint or Part0 of a weld,Select Attachment0 of a constraint or Part0 of a weld

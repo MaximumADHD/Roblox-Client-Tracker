@@ -1,6 +1,6 @@
 Key,Context,Source,en-us
 Studio.SettingsDialog.Property.IconOverrideDir,User can specify a folder on their machine containing custom icons to use instead of default Roblox Studio icons,Custom Icon Dir,Custom Icon Dir
-Studio.App.RobloxSettingsDialog.RestartForSettingsChanges,,Some of these setting changes will not take effect until you restart Roblox,Some of these setting changes will not take effect until you restart Roblox
+Studio.App.RobloxSettingsDialog.RestartForSettingsChanges,,Some of these setting changes will not take effect until you restart Studio,Some of these setting changes will not take effect until you restart Studio
 Studio.App.RobloxSettingsDialog.ReopenForSettingsChanges,,Some of these setting changes will not take effect until you reopen the place file,Some of these setting changes will not take effect until you reopen the place file
 Studio.App.RobloxSettingsDialog.ResetAllSettings,,Reset All Settings,Reset All Settings
 Studio.App.RobloxSettingsDialog.ResetSettingsTitle,,Reset Settings,Reset Settings
@@ -60,6 +60,7 @@ Studio.App.Property.AreTimestepsShown,,Are Timesteps Shown,Are Timesteps Shown
 Studio.App.SettingsHeader.Studio,,Studio,Studio
 Studio.App.SettingsCategory.StudioCamera,,Camera,Camera
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
+Studio.App.Property.FreeCameraSpeedScroll,,Scroll Wheel Adjusts Free-Camera Speed,Scroll Wheel Adjusts Free-Camera Speed
 Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
 Studio.App.Property.CameraPanSpeed,,Camera Pan Speed,Camera Pan Speed
 Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse Wheel Speed

@@ -1,6 +1,14 @@
-Key,en-us
-Studio.RoduxDevtools.Plugin.Button,Store Inspector
-Studio.RoduxDevtools.Plugin.Description,Toggles the Store Inspector window.
-Studio.RoduxDevtools.Plugin.Name,Rodux Devtools
-Studio.RoduxDevtools.Plugin.Text,Example Text!
-Studio.RoduxDevtools.Plugin.Toolbar,Rodux Devtools
+Key,Source,en-us
+Studio.RoduxDevtools.Common.LoadingStub, ,Loading event details...
+Studio.RoduxDevtools.FlushDetails.ConsumersTitle, ,Flush Consumers
+Studio.RoduxDevtools.FlushDetails.NoTraceback, ,No consumer traceback
+Studio.RoduxDevtools.FlushDetails.SummaryTitle, ,Summary
+Studio.RoduxDevtools.Plugin.Button, ,Store Inspector
+Studio.RoduxDevtools.Plugin.Description, ,Toggles the Store Inspector window.
+Studio.RoduxDevtools.Plugin.Name, ,Rodux Devtools
+Studio.RoduxDevtools.Plugin.Toolbar, ,Rodux Devtools
+Studio.RoduxDevtools.Topbar.ClearList.Text, ,Clear List
+Studio.RoduxDevtools.Topbar.ClearList.Tooltip, ,Empties the events list
+WARNING: This action cannot be undone,Studio.RoduxDevtools.Topbar.SearchbarPlaceholder, 
+Find...,Studio.RoduxDevtools.FlushDetails.Summary,{count:int}{elapsed:num}{timestamp}{source}
+"Flushed the latest state to {count:int} consumers, which took {elapsed:num} milliseconds.,Timestamp: {timestamp},Store: {source}"

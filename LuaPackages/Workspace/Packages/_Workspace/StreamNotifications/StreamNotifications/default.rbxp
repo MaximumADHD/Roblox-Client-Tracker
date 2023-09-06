@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "StreamNotifications",
+    "tree": {
+      "$path": "../../../../../../../modules/notifications/stream-notifications/src"
+    }
+  }
+}

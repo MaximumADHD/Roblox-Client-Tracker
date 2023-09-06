@@ -75,8 +75,6 @@ Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
 Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
 Studio.App.BetaFeatures.Import3DGltfSupportTitle,,3D Import gLTF Support,3D Import gLTF Support
 Studio.App.BetaFeatures.Import3DGltfSupportDescription,,Enable the import of .gltf and .glb files through the 3D Importer,Enable the import of .gltf and .glb files through the 3D Importer
-Studio.App.BetaFeatures.TextChatServiceTitle,,New Text Chat Service,New Text Chat Service
-Studio.App.BetaFeatures.TextChatServiceDescription,,"Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat.","Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat."
 Studio.App.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flipbooks
 Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
 Studio.App.BetaFeatures.NewCharacterControllerTitle,,New Character Controller,New Character Controller

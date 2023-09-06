@@ -32,14 +32,21 @@ Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings
 Studio.TerrainEditor.Categories.TransformSettings,Transform Settings
 Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode
 Studio.TerrainEditor.EditorEnum.BrushShape,Brush Shape
+Studio.TerrainEditor.EditorEnum.FillMode,Fill Mode
 Studio.TerrainEditor.EditorEnum.FlattenMode,Flatten Mode
+Studio.TerrainEditor.EditorEnum.MaterialMode,Material Mode
 Studio.TerrainEditor.EditorEnum.PivotPosition,Pivot Position
 Studio.TerrainEditor.EditorEnum.PlaneLock,Plane Lock
+Studio.TerrainEditor.FillMode.Fill,Fill
+Studio.TerrainEditor.FillMode.Replace,Replace
 Studio.TerrainEditor.FlattenMode.Both,Both
 Studio.TerrainEditor.FlattenMode.Over,Over
 Studio.TerrainEditor.FlattenMode.Under,Under
+Studio.TerrainEditor.MaterialMode.Paint,Paint
+Studio.TerrainEditor.MaterialMode.Replace,Replace
 Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material
-Studio.TerrainEditor.MaterialSettings.ReplaceMaterial,Replace Material
+Studio.TerrainEditor.MaterialSettings.FillMode,Fill Mode
+Studio.TerrainEditor.MaterialSettings.MaterialMode,Material Mode
 Studio.TerrainEditor.MaterialSettings.SourceMaterial,Source Material
 Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material
 Studio.TerrainEditor.PivotPosition.Bottom,Bottom
@@ -73,6 +80,8 @@ Studio.TerrainEditor.SelectionSettings.Position,Position
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation
 Studio.TerrainEditor.SelectionSettings.Size,Size
 Studio.TerrainEditor.SelectionSettings.Transform,Transform
+Studio.TerrainEditor.Tabs.Create,Create
+Studio.TerrainEditor.Tabs.Edit,Edit
 Studio.TerrainEditor.TransformSettings.Apply,Apply
 Studio.TerrainEditor.TransformSettings.LiveEdit,Live Edit
 Studio.TerrainEditor.TransformSettings.MergeEmpty,Merge Empty

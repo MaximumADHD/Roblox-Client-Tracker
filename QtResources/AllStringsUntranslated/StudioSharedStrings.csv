@@ -147,6 +147,8 @@ Studio.App.PropertyItems.OverriddenBy,"Text which displays under a property in t
 Studio.App.PropertyItems.DoubleClickToGoTo1,Tooltip that displays on both the 'Influenced by' and 'Overridden by' texts that lets the user know that double clicking on the text will navigate them to the Instance that is influencing/overriding a property. The parameter is the name of the Instance that is influencing/overriding the property.,Double-click here to go to %1,Double-click here to go to %1
 Studio.App.RobloxScriptDoc.BreakpointsDisabledLinkedSource,,Breakpoints are currently disabled for LinkedSource.,Breakpoints are currently disabled for LinkedSource.
 Studio.App.EmbeddedFindReplaceWidget.Close,,Close,Close
+Studio.App.DiagnosticBar.VRDevice1,"Text that displays which vr headset is currently connected or if no headset is connected. The argument should be the name of the vr device: Vive, Index, Oculus, or others.",VR Device: %1,VR Device: %1
+Studio.App.DiagnosticBar.VRDeviceNotDetected,Text when no Virtual Reality headset is detected,None Detected,None Detected
 Studio.App.AutoSaveDialog.OpenRobloxFile,,Open Roblox File,Open Roblox File
 Studio.App.CloudEditController.StartServerAndPlayers,,Start Server and Players,Start Server and Players
 Studio.App.RobloxMainWindow.SaveAs,,Save As,Save As

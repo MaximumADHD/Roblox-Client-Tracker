@@ -151,18 +151,6 @@ Studio.App.LocalPlacePublishRequestMediator.UnableToPublishToExperience,Display 
 Studio.App.LocalPlacePublishRequestMediator.NoLongerHaveAccess17Plus,,You no longer have access to this experience because its age recommendation was updated to Ages 17+.,You no longer have access to this experience because its age recommendation was updated to Ages 17+.
 Studio.App.LocalPlacePublishRequestMediator.PublishConflictError,Displays when a user's place fails to upload.,Server is busy and unable to process your upload request. Please try again in a couple minutes.,Server is busy and unable to process your upload request. Please try again in a couple minutes.
 Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.FileSizeViolation,Roblox IDE Doc,The place is too large.,The place is too large.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.NotFound,Roblox IDE Doc,Place upload server/endpoint not found.,Place upload server/endpoint not found.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.Flooded,Roblox IDE Doc,"Too many upload requests, please wait before retrying.","Too many upload requests, please wait before retrying."
-Studio.App.IdeDoc.PlaceUploadErrorMessage.BadRequest,Roblox IDE Doc,Attempted to upload invalid content.,Attempted to upload invalid content.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.Forbidden,Roblox IDE Doc,User does not have the correct permissions to manage this experience.,User does not have the correct permissions to manage this experience.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.Unauthorized,Roblox IDE Doc,This operation requires an authenticated user.,This operation requires an authenticated user.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.Conflict,Roblox IDE Doc,"Attempted to upload to a Team Create place, but Team Create is not enabled.","Attempted to upload to a Team Create place, but Team Create is not enabled."
-Studio.App.IdeDoc.PlaceUploadErrorMessage.PublishAllDescendants,Roblox IDE Doc,Place upload failed when attempting to publish descendant assets.,Place upload failed when attempting to publish descendant assets.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.NoUsersInServer,Roblox IDE Doc,No valid user in the Team Create session.,No valid user in the Team Create session.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.MissingUserId,Roblox IDE Doc,Failed due to missing user id.,Failed due to missing user id.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.Success,Roblox IDE Doc,Place uploaded successfully.,Place uploaded successfully.
-Studio.App.IdeDoc.PlaceUploadErrorMessage.Unknown,Roblox IDE Doc,Internal server error.,Internal server error.
 Studio.App.IdeDoc.SavedToRobloxSuccess1,"Message displayed when a user successfully saves a place to Roblox, %1 is save initiator name.",%1 successfully saved new changes to Roblox.,%1 successfully saved new changes to Roblox.
 Studio.App.IdeDoc.SavedToRobloxSuccess,Message displayed when a user successfully saves a place to Roblox.,Team Create user successfully saved new changes to Roblox.,Team Create user successfully saved new changes to Roblox.
 Studio.App.IdeDoc.PublishedToRobloxSuccess1,"Message displayed when a user successfully publishes a place to Roblox, %1 is publish initiator name.",%1 successfully published new changes to Roblox.,%1 successfully published new changes to Roblox.

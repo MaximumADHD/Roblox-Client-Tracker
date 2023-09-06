@@ -141,6 +141,7 @@ Class AnimationRigData : Instance
 	Property BinaryString AnimationRigData.parent [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.postTransform [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.preTransform [Hidden] [NotScriptable]
+	Property BinaryString AnimationRigData.rootMotion [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.transform [Hidden] [NotScriptable]
 	Property BinaryString AnimationRigData.weight [Hidden] [NotScriptable]
 	Function bool AnimationRigData:LoadFromHumanoid(Instance humanoid) {RobloxScriptSecurity}
@@ -273,6 +274,7 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property string AssetPatchSettings.PatchId
 Class AssetService : Instance [NotCreatable] [Service]
 	Function DynamicImage AssetService:CreateDynamicImageAsync(Content textureId) [Yields]
+	Function DynamicMesh AssetService:CreateDynamicMeshAsync(Content meshId) [Yields]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function int64 AssetService:CreatePlaceInPlayerInventoryAsync(Instance player, string placeName, int64 templatePlaceID, string description = "") [Yields]
 	Function Instance AssetService:DeserializeInstance(string serializedInstance) {RobloxScriptSecurity}
@@ -320,17 +322,20 @@ Class Bone : Attachment
 Class AudioAnalyzer : Instance [NotBrowsable]
 	Property float AudioAnalyzer.PeakLevel [ReadOnly]
 	Property float AudioAnalyzer.RmsLevel [ReadOnly]
+	Function Array AudioAnalyzer:GetConnectedWires(string pin) {RobloxScriptSecurity}
 	Function Array AudioAnalyzer:GetSpectrum() [CustomLuaState]
 Class AudioChorus : Instance [NotBrowsable]
 	Property float AudioChorus.Depth
 	Property float AudioChorus.Mix
 	Property float AudioChorus.Rate
+	Function Array AudioChorus:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioCompressor : Instance [NotBrowsable]
 	Property float AudioCompressor.Attack
 	Property float AudioCompressor.MakeupGain
 	Property float AudioCompressor.Ratio
 	Property float AudioCompressor.Release
 	Property float AudioCompressor.Threshold
+	Function Array AudioCompressor:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioDeviceInput : Instance [NotBrowsable]
 	Property BinaryString AudioDeviceInput.AccessList {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Enum.AccessModifierType AudioDeviceInput.AccessType
@@ -338,34 +343,48 @@ Class AudioDeviceInput : Instance [NotBrowsable]
 	Property bool AudioDeviceInput.IsReady {RobloxScriptSecurity} [ReadOnly]
 	Property bool AudioDeviceInput.Muted
 	Property Player AudioDeviceInput.Player
+	Function Array AudioDeviceInput:GetConnectedWires(string pin) {RobloxScriptSecurity}
 	Function Array AudioDeviceInput:GetUserIdAccessList()
 	Function void AudioDeviceInput:SetUserIdAccessList(Array userIds)
 Class AudioDeviceOutput : Instance [NotBrowsable]
 	Property Player AudioDeviceOutput.Player
+	Function Array AudioDeviceOutput:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioDistortion : Instance [NotBrowsable]
 	Property float AudioDistortion.Level
+	Function Array AudioDistortion:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioEcho : Instance [NotBrowsable]
 	Property float AudioEcho.DelayTime
 	Property float AudioEcho.DryLevel
 	Property float AudioEcho.Feedback
 	Property float AudioEcho.WetLevel
+	Function Array AudioEcho:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioEmitter : Instance [NotBrowsable]
 	Property string AudioEmitter.AudioInteractionGroup
+	Function float AudioEmitter:GetAudibilityFor(AudioListener listener) {RobloxScriptSecurity}
+	Function Array AudioEmitter:GetConnectedWires(string pin) {RobloxScriptSecurity}
+	Function Array AudioEmitter:GetInteractingListeners() {RobloxScriptSecurity}
 Class AudioEqualizer : Instance [NotBrowsable]
 	Property float AudioEqualizer.HighGain
 	Property float AudioEqualizer.LowGain
 	Property float AudioEqualizer.MidGain
 	Property NumberRange AudioEqualizer.MidRange
+	Function Array AudioEqualizer:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioFader : Instance [NotBrowsable]
 	Property float AudioFader.Volume
+	Function Array AudioFader:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioFlanger : Instance [NotBrowsable]
 	Property float AudioFlanger.Depth
 	Property float AudioFlanger.Mix
 	Property float AudioFlanger.Rate
+	Function Array AudioFlanger:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioListener : Instance [NotBrowsable]
 	Property string AudioListener.AudioInteractionGroup
+	Function float AudioListener:GetAudibilityOf(AudioEmitter emitter) {RobloxScriptSecurity}
+	Function Array AudioListener:GetConnectedWires(string pin) {RobloxScriptSecurity}
+	Function Array AudioListener:GetInteractingEmitters() {RobloxScriptSecurity}
 Class AudioPitchShifter : Instance [NotBrowsable]
 	Property float AudioPitchShifter.Pitch
+	Function Array AudioPitchShifter:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioPlayer : Instance [NotBrowsable]
 	Property string AudioPlayer.AssetId
 	Property bool AudioPlayer.AutoLoad
@@ -377,6 +396,7 @@ Class AudioPlayer : Instance [NotBrowsable]
 	Property double AudioPlayer.TimePosition
 	Property NumberRange AudioPlayer.LoopRegion
 	Property NumberRange AudioPlayer.PlaybackRegion
+	Function Array AudioPlayer:GetConnectedWires(string pin) {RobloxScriptSecurity}
 	Function void AudioPlayer:Play()
 	Function void AudioPlayer:Stop()
 Class AudioReverb : Instance [NotBrowsable]
@@ -392,6 +412,7 @@ Class AudioReverb : Instance [NotBrowsable]
 	Property float AudioReverb.LowShelfFrequency
 	Property float AudioReverb.ReferenceFrequency
 	Property float AudioReverb.WetLevel
+	Function Array AudioReverb:GetConnectedWires(string pin) {RobloxScriptSecurity}
 Class AudioSearchParams : Instance [NotReplicated]
 	Property string AudioSearchParams.Album
 	Property string AudioSearchParams.Artist
@@ -779,6 +800,7 @@ Class Camera : Instance [NotReplicated]
 	Event Camera.FirstPersonTransition(bool entering) {LocalUserSecurity}
 	Event Camera.InterpolationFinished()
 Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void CaptureService:DeleteCapture(string capturePath) {RobloxScriptSecurity}
 	Function Vector2 CaptureService:GetCaptureSizeAsync(Content captureContentId) {RobloxScriptSecurity} [Yields]
 	Function Array CaptureService:RetrieveCaptures() {RobloxScriptSecurity}
 	Function void CaptureService:SaveScreenshotCapture() {RobloxScriptSecurity}
@@ -1280,8 +1302,6 @@ Class DynamicMesh : DataModelMesh
 	Function float DynamicMesh:GetVertexColorAlpha(int vertexId)
 	Function Vector3 DynamicMesh:GetVertexNormal(int vertexId)
 	Function Array DynamicMesh:GetVertices()
-	Function void DynamicMesh:InitializeFromMeshIdAsync(Content meshId)
-	Function void DynamicMesh:InitializeFromMeshPartAsync(Instance meshPart)
 	Function Tuple DynamicMesh:Raycast(Vector3 origin, Vector3 direction)
 	Function void DynamicMesh:RemoveTriangle(int triangleId)
 	Function void DynamicMesh:RemoveVertex(int vertexId)
@@ -1509,6 +1529,7 @@ Class DynamicImage : Instance
 	Function void DynamicImage:Crop(Vector2 min, Vector2 max)
 	Function void DynamicImage:DrawCircle(Vector2 center, int radius, Color3 color, float transparency)
 	Function void DynamicImage:DrawImage(Vector2 position, DynamicImage image, Enum.ImageCombineType combineType)
+	Function void DynamicImage:DrawRectangle(Vector2 position, Vector2 size, Color3 color, float transparency)
 	Function Array DynamicImage:ReadPixels(Vector2 position, Vector2 size) [CustomLuaState]
 	Function void DynamicImage:Resize(Vector2 size)
 	Function void DynamicImage:Rotate(float degrees, bool changeSize)
@@ -1536,6 +1557,12 @@ Class ExperienceInviteOptions : Instance [NotReplicated]
 	Property string ExperienceInviteOptions.PromptMessage
 Class ExperienceNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance ExperienceNotificationService:CreateUserNotificationAsync(string userId, UserNotification userNotification) [Yields]
+Class ExperienceService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function string ExperienceService:LaunchExperience(Dictionary params) {RobloxScriptSecurity}
+	Function string ExperienceService:LaunchExperienceFromSource(Dictionary params, string source) {RobloxScriptSecurity}
+	Function void ExperienceService:LaunchExperienceFromSourceWithCallback(Dictionary params, string source, Function callback) {RobloxScriptSecurity}
+	Function RBXScriptConnection ExperienceService:RegisterForExperienceJoin(Function callback) {RobloxScriptSecurity}
+	Function RBXScriptConnection ExperienceService:RegisterForExperienceLeave(Function callback) {RobloxScriptSecurity}
 Class Explosion : Instance
 	Property float Explosion.BlastPressure
 	Property float Explosion.BlastRadius
@@ -2690,9 +2717,11 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Event Lighting.LightingChanged(bool skyChanged)
 Class LiveScriptingService : Instance [NotCreatable] [Service]
 	Event LiveScriptingService.BeginEdit(int64 id, string guid) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.BroadcastMessage(string message, Enum.LiveEditingBroadcastMessageType type) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.EndEdit(int64 id) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.FailedToOpen(int64 id, bool legalToOpenLocal) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.KickFromEdit(int64 id, string msg) {RobloxSecurity} [Hidden]
+	Event LiveScriptingService.LiveEditingClientConfiguration(string serializedConfig) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.OpenedWithSource(int64 id, string source) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.SendAtomicOperation(int requestId, string guid, string op, string hash) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.SendAtomicUpdateResponse(int guid, Enum.LiveEditingAtomicUpdateResponse response) {RobloxSecurity} [Hidden]
@@ -2831,7 +2860,10 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum.InfoType infoType = "Asset") [Yields]
 	Function int MarketplaceService:GetRobuxBalance() {RobloxScriptSecurity} [Yields]
+	Function Dictionary MarketplaceService:GetSubscriptionProductInfoAsync(string subscriptionId) [Yields]
 	Function Dictionary MarketplaceService:GetSubscriptionPurchaseInfoAsync(string subscriptionId) {RobloxScriptSecurity} [Yields]
+	Function Array MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(Player user, string subscriptionId) [Yields]
+	Function Dictionary MarketplaceService:GetUserSubscriptionStatusAsync(Player user, string subscriptionId) [Yields]
 	Function Dictionary MarketplaceService:PerformPurchase(Enum.InfoType infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase, string collectibleItemId = "", string collectibleProductId = "", string idempotencyKey = "", string purchaseAuthToken = "") {RobloxScriptSecurity} [Yields]
 	Function Dictionary MarketplaceService:PerformPurchaseV2(Enum.InfoType infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase, Dictionary collectiblesProductDetails) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
@@ -3824,6 +3856,7 @@ Class Player : Instance
 	Function void Player:SaveNumber(string key, double value) [Deprecated]
 	Function void Player:SaveString(string key, string value) [Deprecated]
 	Function void Player:SetAccountAge(int accountAge) {PluginSecurity}
+	Function void Player:SetBlockListInitialized() {RobloxScriptSecurity}
 	Function void Player:SetCharacterAppearanceJson(string jsonBlob) {RobloxScriptSecurity}
 	Function void Player:SetExperienceSettingsLocaleId(string locale) {RobloxScriptSecurity}
 	Function void Player:SetMembershipType(Enum.MembershipType membershipType) {RobloxScriptSecurity}
@@ -4241,6 +4274,9 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Event ReplicatedFirst.FinishedReplicating() {RobloxScriptSecurity}
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() {RobloxScriptSecurity}
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
+Class RibbonNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void RibbonNotificationService:NewNotificationFromPlugin(string notificationId) {RobloxScriptSecurity}
+	Event RibbonNotificationService.NewNotificationId(string notificationId) {RobloxScriptSecurity}
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
 Class RobloxServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4817,6 +4853,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Camera Zoom to Mouse Position
 	Property bool Studio.CameraAdaptiveSpeed {RobloxScriptSecurity}
 	Property bool Studio.CameraTweenFocus {RobloxScriptSecurity}
+	Property bool Studio.FreeCameraSpeedScroll {RobloxScriptSecurity}
 	Property QDir Studio.DefaultScriptFileDir
 	Property QDir Studio.IconOverrideDir {RobloxScriptSecurity}
 	Property QDir Studio.LocalAssetsFolder {✏️RobloxScriptSecurity}
@@ -5390,13 +5427,14 @@ Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int UGCValidationService:CalculateUniqueUVCount(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:CanLoadAsset(string assetId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:CheckMeshInCameraFrustum(string meshId, Vector3 meshScale, CFrame handleWorldCF, CFrame cameraWorldCF) {RobloxScriptSecurity} [Yields]
 	Function Objects UGCValidationService:FetchAssetWithFormat(Content url, string assetFormat) {RobloxScriptSecurity} [Yields]
 	Function int UGCValidationService:GetMeshTriCount(string meshId) {RobloxScriptSecurity} [Yields]
 	Function Array UGCValidationService:GetMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
 	Function Array UGCValidationService:GetMeshVerts(string meshId) {RobloxScriptSecurity} [Yields]
 	Function Variant UGCValidationService:GetPropertyValue(Instance instance, string property) {RobloxScriptSecurity}
 	Function Vector2 UGCValidationService:GetTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
-	Function void UGCValidationService:ResetCollisionFidelity(Instance meshPart) {RobloxScriptSecurity}
+	Function void UGCValidationService:ResetCollisionFidelity(Instance meshPart, Enum.CollisionFidelity collisionFidelity = "Box") {RobloxScriptSecurity}
 	Function void UGCValidationService:SetMeshIdBlocking(Instance meshPart, string meshId) {RobloxScriptSecurity}
 	Function Tuple UGCValidationService:ValidateCageMeshIntersection(string innerCageMeshId, string outerCageMeshId, string refMeshId) {RobloxScriptSecurity} [Yields]
 	Function Tuple UGCValidationService:ValidateCageNonManifoldAndHoles(string meshId) {RobloxScriptSecurity} [Yields]
@@ -5404,6 +5442,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:ValidateDynamicHeadMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateFullBodyCageDeletion(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshBounds(string meshId, Vector3 meshScale, Vector3 boundsOffset, CFrame attachmentCF, CFrame handleCF) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateMeshTriangleArea(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshTriangles(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMeshVertColors(string meshId, bool includeAlpha = true) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateMisMatchUV(string innerCageMeshId, string outerCageMeshId) {RobloxScriptSecurity} [Yields]
@@ -5842,18 +5881,24 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity}
 	Property bool VoiceChatService.UseNewAudioApi {RobloxScriptSecurity} [Hidden]
+	Property bool VoiceChatService.UseNewControlPaths {RobloxSecurity} [Hidden]
 	Property bool VoiceChatService.UseNewJoinFlow {RobloxSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [Hidden]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.JoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeAcked(string handshakeAnswer) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeCompleted() {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeInitiated(string handshakeOffer, Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.RelayCandidatesGathered(Enum.VoiceControlPath voiceControlPath, string serializedIceCandidates) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventClientToServer(int64 tag, string value) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventServerToClient(int64 tag, string value) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceSetupFailed(Enum.VoiceControlPath voiceControlPath, string serializedFailure) {RobloxSecurity} [Hidden]
 Class WeldConstraint : Instance
 	Property bool WeldConstraint.Active [ReadOnly]
 	Property bool WeldConstraint.Enabled [<📁> LoadOnly] [NotReplicated]
@@ -6508,6 +6553,9 @@ Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetSortedAsync : 3
 	EnumItem DataStoreRequestType.SetIncrementSortedAsync : 4
 	EnumItem DataStoreRequestType.OnUpdate : 5
+	EnumItem DataStoreRequestType.ListAsync : 6
+	EnumItem DataStoreRequestType.GetVersionAsync : 7
+	EnumItem DataStoreRequestType.RemoveVersionAsync : 8
 Enum DeathStyle
 	EnumItem DeathStyle.Default : 0
 	EnumItem DeathStyle.ClassicBreakApart : 1
@@ -7295,6 +7343,10 @@ Enum LiveEditingAtomicUpdateResponse
 	EnumItem LiveEditingAtomicUpdateResponse.FailureGuidNotFound : 1
 	EnumItem LiveEditingAtomicUpdateResponse.FailureHashMismatch : 2
 	EnumItem LiveEditingAtomicUpdateResponse.FailureOperationIllegal : 3
+Enum LiveEditingBroadcastMessageType
+	EnumItem LiveEditingBroadcastMessageType.Normal : 0
+	EnumItem LiveEditingBroadcastMessageType.Warning : 1
+	EnumItem LiveEditingBroadcastMessageType.Error : 2
 Enum LoadCharacterLayeredClothing
 	EnumItem LoadCharacterLayeredClothing.Default : 0
 	EnumItem LoadCharacterLayeredClothing.Disabled : 1
@@ -8108,6 +8160,11 @@ Enum Style
 	EnumItem Style.AlternatingSupports : 0
 	EnumItem Style.BridgeStyleSupports : 1
 	EnumItem Style.NoSupports : 2
+Enum SubscriptionPaymentStatus
+	EnumItem SubscriptionPaymentStatus.Paid : 0
+	EnumItem SubscriptionPaymentStatus.Refunded : 1
+Enum SubscriptionPeriod
+	EnumItem SubscriptionPeriod.Month : 0
 Enum SurfaceConstraint
 	EnumItem SurfaceConstraint.None : 0
 	EnumItem SurfaceConstraint.Hinge : 1
@@ -8426,6 +8483,10 @@ Enum VoiceChatState
 	EnumItem VoiceChatState.Leaving : 4
 	EnumItem VoiceChatState.Ended : 5
 	EnumItem VoiceChatState.Failed : 6
+Enum VoiceControlPath
+	EnumItem VoiceControlPath.Publish : 0
+	EnumItem VoiceControlPath.Subscribe : 1
+	EnumItem VoiceControlPath.Join : 2
 Enum VolumetricAudio
 	EnumItem VolumetricAudio.Disabled : 0
 	EnumItem VolumetricAudio.Automatic : 1

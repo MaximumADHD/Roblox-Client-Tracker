@@ -37,3 +37,16 @@ Studio.App.AssetPrivacyPublishDialog.GrantAllPermissionsButton,warning modal but
 Studio.App.AssetPrivacyPublishDialog.PublishToRobloxButton,warning modal button that publishes game after granting permission,Publish to Roblox,Publish to Roblox
 Studio.App.AssetPrivacyPublishDialog.PublishWithoutGrantingButton,warning modal button that publishes game without granting permission,Publish without Permissions,Publish without Permissions
 Studio.App.AssetPrivacyPublishDialog.CancelPublishButton,warning modal button that cancel the publish,Cancel Publish,Cancel Publish
+Studio.App.IdeDoc.PlaceUploadErrorMessage.FileSizeViolation,Roblox IDE Doc,The place is too large.,The place is too large.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NotFound,Roblox IDE Doc,Place upload server/endpoint not found.,Place upload server/endpoint not found.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Flooded,Roblox IDE Doc,"Too many upload requests, please wait before retrying.","Too many upload requests, please wait before retrying."
+Studio.App.IdeDoc.PlaceUploadErrorMessage.BadRequest,Roblox IDE Doc,Attempted to upload invalid content.,Attempted to upload invalid content.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Forbidden,Roblox IDE Doc,User does not have the correct permissions to manage this experience.,User does not have the correct permissions to manage this experience.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Unauthorized,Roblox IDE Doc,This operation requires an authenticated user.,This operation requires an authenticated user.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Conflict,Roblox IDE Doc,"Attempted to upload to a Team Create place, but Team Create is not enabled.","Attempted to upload to a Team Create place, but Team Create is not enabled."
+Studio.App.IdeDoc.PlaceUploadErrorMessage.ServerBusy,Roblox IDE Doc,Server is busy and unable to process your upload request. Please try again in a couple minutes.,Server is busy and unable to process your upload request. Please try again in a couple minutes.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.PublishAllDescendants,Roblox IDE Doc,Place upload failed when attempting to publish descendant assets.,Place upload failed when attempting to publish descendant assets.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NoUsersInServer,Roblox IDE Doc,No valid user in the Team Create session.,No valid user in the Team Create session.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.MissingUserId,Roblox IDE Doc,Failed due to missing user id.,Failed due to missing user id.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Success,Roblox IDE Doc,Place uploaded successfully.,Place uploaded successfully.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Unknown,Roblox IDE Doc,Internal server error.,Internal server error.

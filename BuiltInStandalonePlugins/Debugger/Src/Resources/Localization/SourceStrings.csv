@@ -31,6 +31,7 @@ Studio.Debugger.BreakpointsWindow.RemoveOnHitColumn,Remove on Hit,Remove on Hit
 Studio.Debugger.Common.stepOverActionV2,Step Over,Step Over
 Studio.Debugger.BreakpointsWindow.AllColumns,All Columns,All Columns
 Studio.Debugger.Callstack.AllColumns,All Columns,All Columns
+Studio.Debugger.Watch.AllColumns,All Columns,All Columns
 Studio.Debugger.Callstack.FrameColumn,Frame,Frame
 Studio.Debugger.Callstack.FrameColumnTooltip,The data associated with a single call to a function,The data associated with a single call to a function
 Studio.Debugger.Common.EnableLogpoint,Enable Logpoint,Enable Logpoint
@@ -90,6 +91,7 @@ Studio.Debugger.Watch.NameColumn,Name,Name
 Studio.Debugger.Watch.NameColumnTooltip,The declared name of a variable,The declared name of a variable
 Studio.Debugger.Watch.ScopeColumn,Scope,Scope
 Studio.Debugger.Watch.ExpressionColumn,Expression,Expression
+Studio.Debugger.Watch.ExpressionColumnTooltip,The declared name of a expression,The declared name of a expression
 Studio.Debugger.Watch.ScopeColumnTooltip,The scope of a variable: where it can be “seen” and accessed,The scope of a variable: where it can be “seen” and accessed
 Studio.Debugger.Watch.ValueColumn,Value,Value
 Studio.Debugger.Watch.ValueColumnTooltip,The current value of a variable,The current value of a variable

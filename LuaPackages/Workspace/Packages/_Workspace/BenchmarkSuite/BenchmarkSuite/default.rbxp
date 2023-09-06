@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "BenchmarkSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/benchmarks/benchmark-suite/src"
+    }
+  }
+}

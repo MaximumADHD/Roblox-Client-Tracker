@@ -1,6 +1,6 @@
 [Icon Theme]
-Name=Dark Qt Studio Theme
-Comment=A Generated ini theme file
+Name=Dark RobloxStudio Theme
+Comment=Auto-generated index.theme file for Roblox icon pack
 
 [16/1x]
 Size=16
@@ -22,30 +22,55 @@ Size=20
 MinSize=17
 Scale=1
 
-[20/2x]
-Size=20
-MinSize=17
-Scale=2
-
-[20/3x]
-Size=20
-MinSize=17
-Scale=3
+[24/1x]
+Size=24
+MinSize=21
+Scale=1
 
 [28/1x]
 Size=28
 MinSize=25
 Scale=1
 
-[28/2x]
-Size=28
-MinSize=25
+[36/1x]
+Size=36
+MinSize=33
+Scale=1
+
+[16/1x]
+Size=16
+MinSize=13
+Scale=1
+
+[16/2x]
+Size=16
+MinSize=13
 Scale=2
 
-[28/3x]
+[16/3x]
+Size=16
+MinSize=13
+Scale=3
+
+[20/1x]
+Size=20
+MinSize=17
+Scale=1
+
+[24/1x]
+Size=24
+MinSize=21
+Scale=1
+
+[28/1x]
 Size=28
 MinSize=25
-Scale=3
+Scale=1
+
+[36/1x]
+Size=36
+MinSize=33
+Scale=1
 
 [32/1x]
 Size=32
@@ -62,78 +87,24 @@ Size=32
 MinSize=29
 Scale=3
 
-[36/1x]
-Size=36
-MinSize=33
-Scale=1
-
-[36/2x]
-Size=36
-MinSize=33
-Scale=2
-
-[36/3x]
-Size=36
-MinSize=33
-Scale=3
-
 [40/1x]
 Size=40
 MinSize=37
 Scale=1
-
-[40/2x]
-Size=40
-MinSize=37
-Scale=2
-
-[40/3x]
-Size=40
-MinSize=37
-Scale=3
 
 [48/1x]
 Size=48
 MinSize=45
 Scale=1
 
-[48/2x]
-Size=48
-MinSize=45
-Scale=2
-
-[48/3x]
-Size=48
-MinSize=45
-Scale=3
-
 [56/1x]
 Size=56
 MinSize=53
 Scale=1
-
-[56/2x]
-Size=56
-MinSize=53
-Scale=2
-
-[56/3x]
-Size=56
-MinSize=53
-Scale=3
 
 [72/1x]
 Size=72
 MinSize=69
 Scale=1
 
-[72/2x]
-Size=72
-MinSize=69
-Scale=2
-
-[72/3x]
-Size=72
-MinSize=69
-Scale=3
 
