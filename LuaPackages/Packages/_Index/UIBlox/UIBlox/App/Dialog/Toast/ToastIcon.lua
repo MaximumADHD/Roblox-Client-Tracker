@@ -17,7 +17,7 @@ local ToastIcon = Roact.PureComponent:extend("ToastIcon")
 
 ToastIcon.validateProps = t.interface({
 	-- ImageSet compatible image info or image directory
-	Image = t.union(t.table, t.string),
+	Image = t.union(t.table, t.string, t.callback),
 	Size = t.UDim2,
 
 	AnchorPoint = t.optional(t.Vector2),

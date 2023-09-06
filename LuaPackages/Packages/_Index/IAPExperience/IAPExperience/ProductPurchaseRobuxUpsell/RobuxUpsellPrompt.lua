@@ -16,6 +16,9 @@ local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 
 local ProductDetails = require(ProductPurchaseRobuxUpsell.ProductDetails)
 
+local Constants = require(IAPExperienceRoot.Generic.Constants)
+local getEnableCondenseRobuxUpsell = require(IAPExperienceRoot.Flags.getEnableCondenseRobuxUpsell)
+
 local LOC_KEY = "IAPExperience.RobuxUpsell.%s"
 
 local DELAYED_INPUT_ANIM_SEC = 3
@@ -61,14 +64,49 @@ RobuxUpsellPrompt.defaultProps = {
 	inputDelaySec = DELAYED_INPUT_ANIM_SEC,
 }
 
+type State = {
+	contentSize: Vector2,
+	footerSize: Vector2,
+	isCondensed: boolean,
+}
+
 function RobuxUpsellPrompt:init()
 	self.contentRef = Roact.createRef()
 	self.state = {
 		contentSize = Vector2.new(0, 0),
 		footerSize = Vector2.new(0, 0),
+		isCondensed = false,
 	}
 
+	self.validateCondensedCondition = function(rbx)
+		if not getEnableCondenseRobuxUpsell() then
+			return
+		end
+
+		local currentPromptRenderedHeight = rbx.AbsoluteSize.Y
+			+ Constants.MODAL_HEIGHT_WITHOUT_CONTENT
+			+ Constants.MODAL_NORMAL_SECTION_PADDING * 2 -- default padding between sections introduced from alert layout
+			+ Constants.MODAL_NORMAL_BUTTON_HEIGHT * 2 -- button height
+
+		if self.state.isCondensed then
+			-- if condensed, check if the full rendering could be inside the screen
+			self:setState({
+				isCondensed = self.props.screenSize.Y
+					< currentPromptRenderedHeight
+						+ (Constants.MODAL_NORMAL_CONTENT_PADDING - Constants.MODAL_CONDENSED_CONTENT_PADDING) * 6 -- middle content padding
+						+ (Constants.MODAL_NORMAL_BUTTON_MARGIN - Constants.MODAL_CONDENSED_BUTTON_MARGIN) -- button stack padding
+						+ (Constants.NORMAL_ICON_SIZE - Constants.CONDENSED_ICON_SIZE), -- icon size
+			})
+		else
+			-- if not condensed, check if the current full rendering is outside the screen
+			self:setState({
+				isCondensed = self.props.screenSize.Y < currentPromptRenderedHeight + Constants.MODAL_NORMAL_BUTTON_MARGIN, -- button padding
+			})
+		end
+	end
+
 	self.changeContentSize = function(rbx)
+		self.validateCondensedCondition(rbx)
 		if self.state.contentSize ~= rbx.AbsoluteSize then
 			self:setState({
 				contentSize = rbx.AbsoluteSize,
@@ -119,10 +157,15 @@ end
 
 function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 	local props: Props = self.props
+	local state: State = self.state
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local fonts = stylePalette.Font
+		local textFontSize = fonts.BaseSize * fonts.Body.RelativeSize
+		textFontSize = if getEnableCondenseRobuxUpsell()
+			then (state.isCondensed and textFontSize * 0.9 or textFontSize)
+			else textFontSize
 
 		local additionalRobux = props.itemRobuxCost - props.balanceAmount
 		local additionalText = locMap.AdditionalRobux:gsub("{robux}", utf8.char(0xE002) .. tostring(additionalRobux))
@@ -159,8 +202,9 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 					FillDirection = Enum.FillDirection.Vertical,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
-					contentPadding = UDim.new(0, 15),
-
+					contentPadding = if getEnableCondenseRobuxUpsell()
+						then UDim.new(0, state.isCondensed and Constants.MODAL_CONDENSED_CONTENT_PADDING or Constants.MODAL_NORMAL_CONTENT_PADDING)
+						else UDim.new(0, Constants.MODAL_NORMAL_CONTENT_PADDING),
 					[Roact.Ref] = self.contentRef,
 					[Roact.Change.AbsoluteSize] = self.changeContentSize,
 				}, {
@@ -169,6 +213,12 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 						itemIcon = props.itemIcon,
 						itemName = props.itemName,
 						itemRobuxCost = props.itemRobuxCost,
+						itemIconWidth = if getEnableCondenseRobuxUpsell()
+							then state.isCondensed and Constants.CONDENSED_ICON_SIZE or nil
+							else nil,
+						itemIconHeight = if getEnableCondenseRobuxUpsell()
+							then state.isCondensed and Constants.CONDENSED_ICON_SIZE or nil
+							else nil,
 					}),
 					Underline = Roact.createElement("Frame", {
 						LayoutOrder = 2,
@@ -188,7 +238,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 
 						Font = fonts.Body.Font,
 						Text = if self.props.isQuest then additionalText else additionalText .. " " .. wouldYouBuyText,
-						TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+						TextSize = textFontSize,
 						TextColor3 = theme.TextDefault.Color,
 						TextTransparency = theme.TextDefault.Transparency,
 					}),
@@ -216,7 +266,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 							Text = if self.props.isQuest
 								then locMap.PurchaseNotAvailableOnHeadSet
 								else locMap.DisclosurePayment,
-							TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+							TextSize = textFontSize,
 							TextColor3 = theme.TextDefault.Color,
 							TextTransparency = theme.TextDefault.Transparency,
 						}),
@@ -237,7 +287,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 									AutomaticSize = Enum.AutomaticSize.XY,
 									Font = fonts.Body.Font,
 									Text = splitDisclosure[1],
-									TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+									TextSize = textFontSize,
 									TextColor3 = theme.TextDefault.Color,
 									TextTransparency = theme.TextDefault.Transparency,
 								}),
@@ -249,7 +299,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 									AutomaticSize = Enum.AutomaticSize.XY,
 									Font = fonts.Body.Font,
 									Text = tosLinkText,
-									TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+									TextSize = textFontSize,
 									TextColor3 = theme.TextDefault.Color,
 									TextTransparency = theme.TextDefault.Transparency,
 
@@ -261,7 +311,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 									AutomaticSize = Enum.AutomaticSize.XY,
 									Font = fonts.Body.Font,
 									Text = splitDisclosure[2],
-									TextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+									TextSize = textFontSize,
 									TextColor3 = theme.TextDefault.Color,
 									TextTransparency = theme.TextDefault.Transparency,
 								}),
@@ -271,6 +321,9 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 			end,
 			buttonStackInfo = {
 				forcedFillDirection = Enum.FillDirection.Vertical,
+				marginBetween = if getEnableCondenseRobuxUpsell()
+					then state.isCondensed and Constants.MODAL_CONDENSED_BUTTON_MARGIN or Constants.MODAL_NORMAL_BUTTON_MARGIN
+					else Constants.MODAL_NORMAL_BUTTON_MARGIN,
 				buttons = if self.props.isQuest
 					then {
 						{

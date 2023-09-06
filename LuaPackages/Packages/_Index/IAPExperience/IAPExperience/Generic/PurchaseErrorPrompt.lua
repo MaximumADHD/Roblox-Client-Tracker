@@ -9,14 +9,18 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 
 local ERROR_ICON = "icons/status/error_large"
+local ALREADY_OWNED_ICON = "icons/status/success_large"
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 
 local PurchaseErrorType = require(GenericRoot.PurchaseErrorType)
+local PurchaseFlowType = require(GenericRoot.PurchaseFlowType)
 
 local LOC_KEY = "IAPExperience.PurchaseError.%s"
 
 local ErrorPrompt = Roact.Component:extend(script.Name)
+
+local getEnableErrorPromptNewIcon = require(IAPExperienceRoot.Flags.getEnableErrorPromptNewIcon)
 
 type Props = {
 	anchorPoint: Vector2?,
@@ -24,6 +28,7 @@ type Props = {
 	screenSize: Vector2,
 
 	errorType: any?,
+	flowType: any?,
 
 	doneControllerIcon: { [string]: any? },
 
@@ -35,9 +40,13 @@ ErrorPrompt.defaultProps = {
 	position = UDim2.new(0.5, 0, 0.5, 0),
 }
 
-function ErrorPrompt:getErrorTitle(locMap: { [string]: string }, errorType: any?)
+function ErrorPrompt:getErrorTitle(locMap: { [string]: string }, errorType: any?, flowType: any?)
 	if errorType == PurchaseErrorType.FailedRobuxPurchase then
 		return locMap.robuxFailedPurchaseTitle
+	elseif errorType == PurchaseErrorType.AlreadySubscribed then
+		return locMap.alreadySubscribedTitle
+	elseif flowType == PurchaseFlowType.Subscription then
+		return locMap.cantSubscribeTitle
 	end
 
 	return locMap.titleText
@@ -75,9 +84,37 @@ function ErrorPrompt:getErrorMessage(locMap: { [string]: string }, errorType: an
 		return locMap.parentalLimitText
 	elseif errorType == PurchaseErrorType.FailedRobuxPurchase then
 		return locMap.robuxFailedPurchaseText
+	elseif errorType == PurchaseErrorType.AlreadySubscribed then
+		return locMap.alreadySubscribedText
+	elseif errorType == PurchaseErrorType.UnavailableSubscription then
+		return locMap.unavailableSubscriptionText
+	elseif errorType == PurchaseErrorType.SubscriptionExceededUserSpendLimit then
+		return locMap.parentalRestrictionSubscriptionText
+	elseif errorType == PurchaseErrorType.SubscriptionUnsupportedLocale then
+		return locMap.subscriptionUnsupportedLocaleText
+	elseif errorType == PurchaseErrorType.UnderAge17 then
+		return locMap.underAge17Text
+	elseif
+		errorType == PurchaseErrorType.SubscriptionUnsupportedDevice
+		or errorType == PurchaseErrorType.SubscriptionThirdPartySalesNotAllowed
+	then
+		return locMap.subscriptionUnsupportedDeviceText
 	end
 
 	return locMap.unknownText
+end
+
+function getIsAlreadyOwnedError(errorType: any)
+	return errorType == PurchaseErrorType.AlreadyOwn
+		or errorType == PurchaseErrorType.AlreadyPremium
+		or errorType == PurchaseErrorType.AlreadySubscribed
+end
+
+function getErrorTitleIcon(errorType: any)
+	if getIsAlreadyOwnedError(errorType) then
+		return Images[ALREADY_OWNED_ICON]
+	end
+	return Images[ERROR_ICON]
 end
 
 function ErrorPrompt:render()
@@ -140,6 +177,30 @@ function ErrorPrompt:render()
 			parentalLimitText = {
 				key = LOC_KEY:format("Text.ParentalLimit"),
 			},
+			alreadySubscribedTitle = {
+				key = LOC_KEY:format("Title.AlreadySubscribed"),
+			},
+			cantSubscribeTitle = {
+				key = LOC_KEY:format("Title.CantSubscribe"),
+			},
+			alreadySubscribedText = {
+				key = LOC_KEY:format("Text.AlreadySubscribed"),
+			},
+			unavailableSubscriptionText = {
+				key = LOC_KEY:format("Text.UnavailableSubscription"),
+			},
+			parentalRestrictionSubscriptionText = {
+				key = LOC_KEY:format("Text.ParentalRestrictionSubscription"),
+			},
+			subscriptionUnsupportedLocaleText = {
+				key = LOC_KEY:format("Text.SubscriptionUnsupportedLocale"),
+			},
+			underAge17Text = {
+				key = LOC_KEY:format("Text.UnderAge17"),
+			},
+			subscriptionUnsupportedDeviceText = {
+				key = LOC_KEY:format("Text.SubscriptionUnsupportedDevice"),
+			},
 		},
 		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)
@@ -154,8 +215,8 @@ function ErrorPrompt:renderAlert(locMap: { [string]: string })
 		anchorPoint = props.anchorPoint,
 		position = props.position,
 		screenSize = props.screenSize,
-		title = self:getErrorTitle(locMap, props.errorType),
-		titleIcon = Images[ERROR_ICON],
+		title = self:getErrorTitle(locMap, props.errorType, props.flowType),
+		titleIcon = getEnableErrorPromptNewIcon() and getErrorTitleIcon(props.errorType) or Images[ERROR_ICON],
 		bodyText = self:getErrorMessage(locMap, props.errorType),
 		buttonStackInfo = {
 			buttons = {

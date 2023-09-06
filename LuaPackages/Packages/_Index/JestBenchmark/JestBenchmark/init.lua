@@ -17,7 +17,7 @@
 
 local exports = {}
 
-exports.benchmark = require(script.benchmark)
+exports.benchmark = require(script.benchmark).benchmark
 exports.Profiler = require(script.Profiler)
 exports.Reporter = require(script.reporters.Reporter)
 exports.HeartbeatReporter = require(script.reporters.HeartbeatReporter)

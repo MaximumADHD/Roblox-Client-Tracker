@@ -27,15 +27,24 @@ local function initializeHeartbeatReporter(metricName: string, collectorFn: Coll
 	local reporter = initializeReporter(metricName, collectorFn)
 	local hasStarted = false
 	local heartbeatConnection = nil
+	local activeSections = 0
 
 	local function start(sectionName: string)
 		reporter.start(sectionName)
+		activeSections += 1
 		if not hasStarted then
 			hasStarted = true
 			heartbeatConnection = heartbeat:Connect(function(deltaTime)
-				reporter.report(deltaTime)
+				if activeSections > 0 then
+					reporter.report(deltaTime)
+				end
 			end)
 		end
+	end
+
+	local function stop()
+		activeSections -= 1
+		reporter.stop()
 	end
 
 	local function finish()
@@ -47,7 +56,7 @@ local function initializeHeartbeatReporter(metricName: string, collectorFn: Coll
 
 	return {
 		start = start,
-		stop = reporter.stop,
+		stop = stop,
 		finish = finish,
 		-- Reporting is handled internally
 		report = function(_)

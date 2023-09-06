@@ -26,7 +26,6 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImageSetData = require(Core.ImageSet.Validator.validateImageSetData)
 
 local ContentProviderContext = require(UIBlox.App.Context.ContentProvider)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local LOAD_FAILED_RETRY_COUNT = 3
 local LOAD_TIMED_OUT_RETRY_COUNT = 5
@@ -228,10 +227,7 @@ function LoadableImage:render()
 	local showFailedStateWhenLoadingFailed = self.props.showFailedStateWhenLoadingFailed
 	local loadingComplete = self:isImageNonNil() and self:isLoadingComplete(self.state)
 
-	local loadingFailed = false
-	if UIBloxConfig.fixLoadableImageLoadingFailed then
-		loadingFailed = self:getCurrentImageAssetFetchStatus(self.state) == Enum.AssetFetchStatus.Failure
-	end
+	local loadingFailed = self:getCurrentImageAssetFetchStatus(self.state) == Enum.AssetFetchStatus.Failure
 
 	local hasUISizeConstraint = false
 
@@ -443,6 +439,15 @@ function LoadableImage:preloadImageWithRetryLogic(thisImageId)
 			break
 		end
 
+		-- FIXME(dbanks)
+		-- 2023/08/28
+		-- This whole business of retrying in case of failure or timeout is actually useless.
+		-- See BatchThumbnailFetcher::markFailedRequest and/or BatchThumbnailFetcher::markSuccessRequest.
+		-- If BTF tries n times and finally times out, the result is written into BTF's cache -> all
+		-- subsequent retries will hit the cache and get the same result.
+		-- Hopefully soon we may fix this so that retrying here would be meaningful.
+		-- If we don't/can't change this about BTF then we should remove this retry logic, it's just
+		-- dead/confusing code.
 		retryCount = retryCount + 1
 		if latestStatus == Enum.AssetFetchStatus.Failure and retryCount > LOAD_FAILED_RETRY_COUNT then
 			break

@@ -21,7 +21,7 @@ local initializeHeartbeatReporter = require(script.Parent.HeartbeatReporter).ini
 
 local function averageFps(deltaTimeList: { number })
 	if #deltaTimeList == 0 then
-		return 0
+		return math.huge
 	end
 
 	local sum = 0

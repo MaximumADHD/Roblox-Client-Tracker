@@ -11,11 +11,21 @@ local t = require(Packages.t)
 local ToastIcon = require(ToastRoot.ToastIcon)
 local ToastText = require(ToastRoot.ToastText)
 
+local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 local PrimarySystemButton = require(AppRoot.Button.PrimarySystemButton)
+local PrimaryContextualButton = require(AppRoot.Button.PrimaryContextualButton)
+local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
 
 local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSize)
 
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+
 local ToastFrame = Roact.PureComponent:extend("ToastFrame")
+
+local BUTTON_TYPE_ENUMS = {
+	[ButtonType.PrimaryContextual] = PrimaryContextualButton,
+	[ButtonType.PrimarySystem] = PrimarySystemButton,
+}
 
 ToastFrame.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
@@ -34,6 +44,7 @@ ToastFrame.validateProps = t.strictInterface({
 	subtitleTextProps = t.optional(ToastText.validateProps),
 	textFrameSize = t.UDim2,
 	titleTextProps = ToastText.validateProps,
+	buttonType = t.optional(enumerateValidator(ButtonType)),
 })
 
 ToastFrame.defaultProps = {
@@ -42,16 +53,50 @@ ToastFrame.defaultProps = {
 	textFrameSize = UDim2.new(1, 0, 1, 0),
 }
 
+local function renderToastIcon(iconProps, iconChildren)
+	if iconProps then
+		if type(iconProps.Image) == "function" then
+			return iconProps.Image(iconProps)
+		else
+			return Roact.createElement(
+				ToastIcon,
+				Cryo.Dictionary.join(iconProps, {
+					LayoutOrder = 1,
+				}),
+				iconChildren
+			)
+		end
+	end
+	return nil
+end
+
 function ToastFrame:render()
 	local buttonProps = self.props.buttonProps
 	local buttonText = buttonProps and buttonProps.buttonText
 	local buttonHeight = buttonProps and buttonProps.buttonDimensions.Y
 	local buttonWidth = buttonProps and buttonProps.buttonDimensions.X
+
+	local buttonElement
+	if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder and buttonProps then
+		local buttonType = buttonProps.buttonType or ButtonType.PrimarySystem
+		buttonElement = BUTTON_TYPE_ENUMS[buttonType]
+	end
 	local isCompact = self.props.isCompact
 	local iconProps = self.props.iconProps
 	local onActivated = buttonProps and buttonProps.onActivated
 	local padding = self.props.padding
 	local subtitleTextProps = self.props.subtitleTextProps
+
+	local contentVerticalAlignment: Enum.VerticalAlignment?
+	if not UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then
+		contentVerticalAlignment = nil
+	elseif not subtitleTextProps then
+		contentVerticalAlignment = Enum.VerticalAlignment.Center
+	elseif isCompact then
+		contentVerticalAlignment = Enum.VerticalAlignment.Top
+	else
+		contentVerticalAlignment = Enum.VerticalAlignment.Center
+	end
 
 	return Roact.createElement("Frame", {
 		AnchorPoint = self.props.anchorPoint,
@@ -79,7 +124,7 @@ function ToastFrame:render()
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			ClipsDescendants = true,
+			ClipsDescendants = if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then false else true,
 			LayoutOrder = 1,
 			Position = self.props.position,
 			Size = if not buttonProps
@@ -91,15 +136,10 @@ function ToastFrame:render()
 				FillDirection = Enum.FillDirection.Horizontal,
 				Padding = UDim.new(0, padding),
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = if isCompact then Enum.VerticalAlignment.Top else Enum.VerticalAlignment.Center,
+				VerticalAlignment = contentVerticalAlignment
+					or if isCompact then Enum.VerticalAlignment.Top else Enum.VerticalAlignment.Center,
 			}),
-			ToastIcon = iconProps and Roact.createElement(
-				ToastIcon,
-				Cryo.Dictionary.join(iconProps, {
-					LayoutOrder = 1,
-				}),
-				self.props.iconChildren
-			),
+			ToastIcon = renderToastIcon(iconProps, self.props.iconChildren),
 			ToastTextFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
@@ -123,14 +163,17 @@ function ToastFrame:render()
 				),
 			}),
 		}),
-		ToastButton = buttonProps and Roact.createElement(PrimarySystemButton, {
-			fitContent = not isCompact,
-			layoutOrder = 2,
-			maxWidth = if not isCompact then buttonProps.buttonDimensions.X else nil,
-			onActivated = onActivated,
-			standardSize = StandardButtonSize.Small,
-			text = buttonText,
-		}),
+		ToastButton = buttonProps and Roact.createElement(
+			if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then buttonElement else PrimarySystemButton,
+			{
+				fitContent = not isCompact,
+				layoutOrder = 2,
+				maxWidth = if not isCompact then buttonProps.buttonDimensions.X else nil,
+				onActivated = onActivated,
+				standardSize = StandardButtonSize.Small,
+				text = buttonText,
+			}
+		),
 	})
 end
 

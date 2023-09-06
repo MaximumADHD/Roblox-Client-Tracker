@@ -16,12 +16,14 @@ local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateCanLoad = require(root.validation.validateCanLoad)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
+local validateAccessoryName = require(root.validation.validateAccessoryName)
 
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
+local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 
 local function validateLegacyAccessory(
 	instances: { Instance },
@@ -45,6 +47,13 @@ local function validateLegacyAccessory(
 	success, reasons = validateInstanceTree(schema, instance)
 	if not success then
 		return false, reasons
+	end
+
+	if getFFlagUGCValidationNameCheck() and isServer then
+		success, reasons = validateAccessoryName(instance)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	local handle = instance:FindFirstChild("Handle") :: Part

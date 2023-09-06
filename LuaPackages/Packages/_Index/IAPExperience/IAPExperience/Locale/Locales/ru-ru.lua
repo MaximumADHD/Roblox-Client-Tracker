@@ -265,4 +265,6 @@ LuaApp]],
     ["IAPExperience.BuyRobux.Banner.Text"] = [[Robux позволяет покупать обновления для аватара или специальные способности в плейсах]],
     ["IAPExperience.BuyRobux.Banner.Title"] = [[Получить Robux]],
     ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[Ещё {robux} Robux]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux2"] = [[Ещё Robux: {robux}]],
+    ["IAPExperience.BuyRobux.Alert.SuccessfulMessage"] = [[Успешная покупка Robux!]],
 }

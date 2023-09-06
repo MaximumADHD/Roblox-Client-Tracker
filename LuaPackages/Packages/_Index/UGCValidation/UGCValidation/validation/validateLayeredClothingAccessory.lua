@@ -18,6 +18,7 @@ local validateHSR = require(root.validation.validateHSR)
 local validateUVSpace = require(root.validation.validateUVSpace)
 local validateCanLoad = require(root.validation.validateCanLoad)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
+local validateAccessoryName = require(root.validation.validateAccessoryName)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
 local validateMisMatchUV = require(root.validation.validateMisMatchUV)
@@ -31,6 +32,7 @@ local getMeshSize = require(root.util.getMeshSize)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
+local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 
 local function buildAllowedAssetTypeIdSet()
 	local allowedAssetTypeIdSet = {}
@@ -70,6 +72,13 @@ local function validateLayeredClothingAccessory(
 	success, reasons = validateInstanceTree(schema, instance)
 	if not success then
 		return false, reasons
+	end
+
+	if getFFlagUGCValidationNameCheck() and isServer then
+		success, reasons = validateAccessoryName(instance)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	local handle = instance:FindFirstChild("Handle") :: MeshPart

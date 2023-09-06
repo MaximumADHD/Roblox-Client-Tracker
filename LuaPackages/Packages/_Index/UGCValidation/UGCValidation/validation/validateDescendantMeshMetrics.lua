@@ -14,6 +14,8 @@ local validateOverlappingVertices = require(root.validation.validateOverlappingV
 local validateCageUVs = require(root.validation.validateCageUVs)
 local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCageDeletion)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
+local validateCageUVTriangleArea = require(root.validation.validateCageUVTriangleArea)
+local validateMeshTriangleArea = require(root.validation.validateMeshTriangleArea)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local ParseContentIds = require(root.util.ParseContentIds)
@@ -21,6 +23,9 @@ local getMeshMinMax = require(root.util.getMeshMinMax)
 
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
+local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCValidateCageUVTriangleArea)
+local getFFlagUGCValidateMeshTriangleAreaForCages = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForCages)
+local getFFlagUGCValidateMeshTriangleAreaForMeshes = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForMeshes)
 
 local function validateIsSkinned(obj: MeshPart, isServer: boolean): (boolean, { string }?)
 	if not obj.HasSkinnedMesh then
@@ -155,6 +160,15 @@ local function validateDescendantMeshMetrics(
 			if not reasonsAccumulator:updateReasons(validateIsSkinned(data.instance :: MeshPart, isServer)) then
 				return reasonsAccumulator:getFinalResults()
 			end
+
+			if
+				getFFlagUGCValidateMeshTriangleAreaForMeshes()
+				and not reasonsAccumulator:updateReasons(
+					validateMeshTriangleArea(data.instance, data.fieldName, isServer)
+				)
+			then
+				return reasonsAccumulator:getFinalResults()
+			end
 		elseif data.instance.ClassName == "WrapTarget" then
 			assert(data.fieldName == "CageMeshId")
 
@@ -176,6 +190,24 @@ local function validateDescendantMeshMetrics(
 						data.fieldName,
 						isServer
 					)
+				)
+			then
+				return reasonsAccumulator:getFinalResults()
+			end
+
+			if
+				getFFlagUGCValidateCageUVTriangleArea()
+				and not reasonsAccumulator:updateReasons(
+					validateCageUVTriangleArea(data.instance, data.fieldName, isServer)
+				)
+			then
+				return reasonsAccumulator:getFinalResults()
+			end
+
+			if
+				getFFlagUGCValidateMeshTriangleAreaForCages()
+				and not reasonsAccumulator:updateReasons(
+					validateMeshTriangleArea(data.instance, data.fieldName, isServer)
 				)
 			then
 				return reasonsAccumulator:getFinalResults()

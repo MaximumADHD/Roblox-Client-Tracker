@@ -8,6 +8,7 @@ local getFIntMeshDivisionFull = require(Root.UGCValidation.flags.getFIntMeshDivi
 local getFIntMeshDivisionFullExtended = require(Root.UGCValidation.flags.getFIntMeshDivisionFullExtended)
 local getFIntMeshDivisionMedium = require(Root.UGCValidation.flags.getFIntMeshDivisionMedium)
 local getFFlagAddUGCValidationForPackage = require(Root.UGCValidation.flags.getFFlagAddUGCValidationForPackage)
+local getFFlagUGCValidationAdjustLegBounds = require(Root.UGCValidation.flags.getFFlagUGCValidationAdjustLegBounds)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -546,11 +547,15 @@ if getFFlagUGCValidateBodyParts() then
 			},
 			ProportionsSlender = {
 				minSize = Vector3.new(0.25, 2, 0.5),
-				maxSize = Vector3.new(1.5, 3, 2),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
 			},
 			ProportionsNormal = {
 				minSize = Vector3.new(0.25, 2, 0.5),
-				maxSize = Vector3.new(1.5, 3, 2),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
 			},
 		},
 		subParts = {
@@ -599,11 +604,15 @@ if getFFlagUGCValidateBodyParts() then
 			},
 			ProportionsSlender = {
 				minSize = Vector3.new(0.25, 2, 0.5),
-				maxSize = Vector3.new(1.5, 3, 2),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
 			},
 			ProportionsNormal = {
 				minSize = Vector3.new(0.25, 2, 0.5),
-				maxSize = Vector3.new(1.5, 3, 2),
+				maxSize = if getFFlagUGCValidationAdjustLegBounds()
+					then Vector3.new(1.5, 3.3, 2)
+					else Vector3.new(1.5, 3, 2),
 			},
 		},
 		subParts = {

@@ -41,7 +41,7 @@ ToastContainer.validateProps = t.strictInterface({
 	fitHeight = t.optional(t.boolean),
 	iconColorStyle = t.optional(validateColorInfo),
 	-- Optional image to be displayed in the toast.
-	iconImage = t.optional(t.union(t.table, t.string)),
+	iconImage = t.optional(t.union(t.table, t.string, t.callback)),
 	iconSize = t.optional(t.Vector2),
 	iconChildren = t.optional(t.table),
 	layoutOrder = t.optional(t.integer),
@@ -194,7 +194,6 @@ function ToastContainer:render()
 	local padding = self.props.padding
 	local toastSubtitle = self.props.toastSubtitle
 	local toastTitle = self.props.toastTitle
-
 	return withStyle(function(stylePalette)
 		local subtitleHeight, titleHeight = self.getTextHeights(stylePalette)
 		local textFrameHeight = titleHeight + subtitleHeight
@@ -241,6 +240,7 @@ function ToastContainer:render()
 						buttonDimensions = self.getButtonDimensions(stylePalette),
 						buttonText = self.props.buttonText,
 						onActivated = self.props.onActivated,
+						buttonType = self.props.buttonType,
 					}
 					else nil,
 				iconProps = iconImage and {

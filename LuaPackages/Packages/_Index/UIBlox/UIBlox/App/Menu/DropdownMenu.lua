@@ -15,6 +15,9 @@ local DropdownMenuCell = require(UIBlox.App.Menu.DropdownMenuCell)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local bind = require(UIBlox.Utility.bind)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local useStyle = require(UIBlox.Core.Style.useStyle)
+local StyleDefaults = require(script.Parent.StyleDefaults)
 
 local BUTTON_IMAGE = "component_assets/circle_17_stroke_1"
 local COLLAPSE_IMAGE = "truncate_arrows/actions_truncationCollapse"
@@ -37,7 +40,7 @@ DropdownMenu.validateProps = t.strictInterface({
 	onChange = t.callback,
 
 	-- Height of the DropdownCell.
-	height = t.UDim,
+	height = if UIBloxConfig.enableNewMenuLayout then t.optional(t.UDim) else t.UDim,
 
 	-- The total size of the screen, used for the dismiss background and the DropdownMenuList's position on the compact width
 	screenSize = t.Vector2,
@@ -89,11 +92,25 @@ DropdownMenu.validateProps = t.strictInterface({
 		-- A Color3 value to override the Text TextColor with
 		textColorOverride = t.optional(t.Color3),
 	})),
+
+	-- Menu button color styles
+	menuStateColors = t.optional(t.strictInterface({
+		-- Button default color
+		buttonDefault = t.optional(validateColorInfo),
+		-- Content default color
+		contentDefault = t.optional(validateColorInfo),
+		-- Button color when menu is in alert state
+		alert = t.optional(validateColorInfo),
+	})),
+
+	-- Indicate whether design override is enabled
+	enableTokenOverride = t.optional(t.boolean),
 })
 
 DropdownMenu.defaultProps = {
 	showDropShadow = false,
 	fixedListHeight = nil,
+	enableTokenOverride = false,
 }
 
 function DropdownMenu:didUpdate(prevProps, prevState)
@@ -175,20 +192,44 @@ function DropdownMenu:render()
 	end)
 	local selectedValue = if selectedIndex ~= nil then functionalCells[selectedIndex].text else self.props.placeholder
 
-	local defaultState = "SecondaryDefault"
-	local hoverState = "SecondaryOnHover"
-	local textState = "TextEmphasis"
-
 	local absoluteSize = self.state.absoluteSize
 	local limitMenuWidth = absoluteSize.X > 640
 
-	if self.state.menuOpen then
-		hoverState = defaultState
-	end
+	local buttonStateColorMap, contentStateColorMap
+	if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+		local buttonDefault = self.props.menuStateColors.buttonDefault
+		local contentDefault = self.props.menuStateColors.contentDefault
 
-	if self.props.errorState then
-		defaultState = "Alert"
-		hoverState = "Alert"
+		if self.props.errorState then
+			buttonDefault = self.props.menuStateColors.alert
+		end
+
+		buttonStateColorMap = {
+			[ControlState.Default] = buttonDefault,
+		}
+		contentStateColorMap = {
+			[ControlState.Default] = contentDefault,
+		}
+	else
+		local defaultState = "SecondaryDefault"
+		local hoverState = "SecondaryOnHover"
+		local textState = "TextEmphasis"
+
+		if self.state.menuOpen then
+			hoverState = defaultState
+		end
+
+		if self.props.errorState then
+			defaultState = "Alert"
+			hoverState = "Alert"
+		end
+		buttonStateColorMap = {
+			[ControlState.Default] = defaultState,
+			[ControlState.Hover] = hoverState,
+		}
+		contentStateColorMap = {
+			[ControlState.Default] = textState,
+		}
 	end
 
 	return Roact.createElement("Frame", {
@@ -203,13 +244,8 @@ function DropdownMenu:render()
 			SpawnButton = Roact.createElement(DropdownMenuCell, {
 				Size = UDim2.fromScale(1, 1),
 				buttonImage = Images[BUTTON_IMAGE],
-				buttonStateColorMap = {
-					[ControlState.Default] = defaultState,
-					[ControlState.Hover] = hoverState,
-				},
-				contentStateColorMap = {
-					[ControlState.Default] = textState,
-				},
+				buttonStateColorMap = buttonStateColorMap,
+				contentStateColorMap = contentStateColorMap,
 				icon = self.state.menuOpen and Images[COLLAPSE_IMAGE] or Images[EXPAND_IMAGE],
 				text = selectedValue,
 				isDisabled = self.props.isDisabled,
@@ -224,6 +260,7 @@ function DropdownMenu:render()
 						self.openMenu()
 					end
 				end,
+				enableTokenOverride = self.props.enableTokenOverride,
 			}),
 			DropdownMenuList = Roact.createElement(DropdownMenuList, {
 				buttonProps = functionalCells,
@@ -239,6 +276,7 @@ function DropdownMenu:render()
 				showDropShadow = self.props.showDropShadow,
 				fixedListHeight = self.props.fixedListHeight,
 				onDismiss = self.closeMenu,
+				enableTokenOverride = self.props.enableTokenOverride,
 			}),
 			UISizeConstraint = limitMenuWidth and Roact.createElement("UISizeConstraint", {
 				MaxSize = Vector2.new(DROPDOWN_MENU_MAX_WIDTH, math.huge),
@@ -247,4 +285,25 @@ function DropdownMenu:render()
 	})
 end
 
-return DropdownMenu
+return Roact.forwardRef(function(providedProps: any, ref: any)
+	local props
+	if UIBloxConfig.enableNewMenuLayout and providedProps.enableTokenOverride then
+		local style = useStyle()
+		local styleDefaults = StyleDefaults.getDropdownMenuDefaultTokens(style)
+
+		local menuStateColors = Cryo.Dictionary.join(styleDefaults.menuStateColors, providedProps.menuStateColors or {})
+		props = Cryo.Dictionary.join(providedProps, {
+			height = providedProps.height or styleDefaults.height,
+			menuStateColors = menuStateColors,
+		})
+	else
+		props = providedProps
+	end
+
+	return Roact.createElement(
+		DropdownMenu,
+		Cryo.Dictionary.join(props, {
+			[Roact.Ref] = ref,
+		})
+	)
+end)

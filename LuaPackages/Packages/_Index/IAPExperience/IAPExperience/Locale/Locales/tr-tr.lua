@@ -6,6 +6,12 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
+    ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Robux alınıyor...]],
+    ["IAPExperience.Loading.Text.PurchasingItem"] = [[Eşya satın alınıyor...]],
+    ["IAPExperience.Loading.WaitingForPurchase"] = [[Satın alma için bekleniyor...]],
+    ["IAPExperience.Loading.WaitingForRobux"] = [[Robux'un verilmesini bekliyorum...]],
+    ["IAPExperience.Loading.Text.WaitingForPurchase"] = [[Satın alma için bekleniyor...]],
+    ["IAPExperience.Loading.Text.WaitingForRobux"] = [[Robux'un verilmesini bekliyorum...]],
     ["Authentication.TwoStepVerification.Action.Cancel"] = [[İptal Et]],
     ["Authentication.TwoStepVerification.Action.Resend"] = [[Kodu Tekrar Gönder]],
     ["Authentication.TwoStepVerification.Action.Verify"] = [[Doğrula]],

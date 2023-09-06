@@ -1,8 +1,4 @@
 return {
-	-- fixLoadableImageLoadingFailed: when true, we correctly assess if a loadable image attempt
-	-- to load an asset has failed.
-	fixLoadableImageLoadingFailed = false,
-
 	-- styleRefactorConfig: DEPRECATED: this is a no-op, but is left in so that it's easier to upgrade consumers of
 	-- UIBlox that try to assign a value to it (the config layer will throw if assigning to a value that's not in the
 	-- default config)
@@ -116,6 +112,15 @@ return {
 	-- Adds a UISizeLimit to PartialPageModal.lua
 	partialPageModalSizeLimit = false,
 
+	-- Adds an option to change the kind of button shown in a toast
+	toastButtonTypesAutoAlignAndNoBorder = false,
+
 	-- enable tokens for action bar
 	enableActionBarTokens = false,
+
+	-- Bugfix for the coplay footer badge emphasis border rendering incorrectly
+	fixCoPlayFooterBadgeEmphasisBorder = false,
+
+	-- Bugfix for the coplay footer badge text being off center
+	fixCoPlayFooterBadgeTextCenteringAndZIndex = false,
 }

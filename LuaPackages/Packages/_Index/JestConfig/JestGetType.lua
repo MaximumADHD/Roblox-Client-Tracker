@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestGetType-edcba0e9-3.4.0"]["JestGetType"])
+local Package = require(PackageIndex["JestGetType-edcba0e9-3.4.1"]["JestGetType"])
 
 return Package

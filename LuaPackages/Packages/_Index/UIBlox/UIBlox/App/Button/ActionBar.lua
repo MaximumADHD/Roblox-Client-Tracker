@@ -125,9 +125,9 @@ ActionBar.validateProps = t.strictInterface({
 
 ActionBar.defaultProps = {
 	horizontalAlignment = Enum.HorizontalAlignment.Center,
-	iconSize = ICON_SIZE,
-	buttonHeight = BUTTON_HEIGHT,
-	buttonPadding = BUTTON_PADDING,
+	iconSize = 36,
+	buttonHeight = 48,
+	buttonPadding = 12,
 }
 
 function ActionBar:render()

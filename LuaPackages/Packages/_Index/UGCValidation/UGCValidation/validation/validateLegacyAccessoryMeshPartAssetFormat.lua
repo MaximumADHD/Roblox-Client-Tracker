@@ -5,12 +5,15 @@ local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
 local validateLegacyAccessoryMeshPartAssetFormatMatch =
 	require(root.validation.validateLegacyAccessoryMeshPartAssetFormatMatch)
+local validateAccessoryName = require(root.validation.validateAccessoryName)
+
+local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 
 local function validateLegacyAccessoryMeshPartAssetFormat(
 	instances: { Instance },
 	specialMeshAssetFormatAccessory: Instance,
 	_assetTypeEnum: Enum.AssetType,
-	_isServer: boolean
+	isServer: boolean
 ): (boolean, { string }?)
 	local success: boolean, reasons: { string }?
 
@@ -30,6 +33,13 @@ local function validateLegacyAccessoryMeshPartAssetFormat(
 	success, reasons = validateInstanceTree(schema, meshPartAssetFormatAccessory)
 	if not success then
 		return false, reasons
+	end
+
+	if getFFlagUGCValidationNameCheck() and isServer then
+		success, reasons = validateAccessoryName(meshPartAssetFormatAccessory)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	success, reasons =

@@ -1,17 +1,18 @@
-local PremiumUpsellRoot = script.Parent
-local IAPExperienceRoot = PremiumUpsellRoot.Parent
+local SubscriptionRoot = script.Parent
+local IAPExperienceRoot = SubscriptionRoot.Parent
 local Packages = IAPExperienceRoot.Parent
 
 local UIBlox = require(Packages.UIBlox)
-local React = require(Packages.Parent.Parent.React)
+local React = require(Packages.React)
 
 local withStyle = UIBlox.Style.withStyle
 
 type Props = {
 	name: string,
 	displayPrice: string,
-	appStoreName: string,
-	subscriptionPeriodField: string,
+	subscriptionProviderName: string,
+	period: string,
+	disclaimerText: string,
 	layoutOrder: number,
 }
 return function(props: Props)
@@ -22,6 +23,7 @@ return function(props: Props)
 		local fonts = stylePalette.Font
 		local titleTextSize = 20
 		local priceTextSize = 16
+		local disclaimerTextSize = 16
 		local font = fonts.Body.Font
 
 		return React.createElement("Frame", {
@@ -39,7 +41,7 @@ return function(props: Props)
 			AppName = React.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, titleTextSize),
 				BackgroundTransparency = 1,
-				Text = props.appStoreName,
+				Text = props.subscriptionProviderName,
 				TextSize = 16,
 				TextColor3 = theme.TextEmphasis.Color,
 				TextTransparency = theme.TextEmphasis.Transparency,
@@ -89,10 +91,10 @@ return function(props: Props)
 					LayoutOrder = props.layoutOrder + 1,
 					AutomaticSize = Enum.AutomaticSize.X,
 				}),
-				Time = React.createElement("TextLabel", {
+				Period = React.createElement("TextLabel", {
 					Size = UDim2.new(0, 0, 0, priceTextSize),
 					BackgroundTransparency = 1,
-					Text = props.subscriptionPeriodField,
+					Text = props.period,
 					TextSize = priceTextSize,
 					TextColor3 = theme.TextDefault.Color,
 					TextTransparency = theme.TextDefault.Transparency,
@@ -103,6 +105,18 @@ return function(props: Props)
 					LayoutOrder = props.layoutOrder + 1,
 					AutomaticSize = Enum.AutomaticSize.X,
 				}),
+			}),
+		}, {
+			DisclaimerText = React.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 0, disclaimerTextSize),
+				BackgroundTransparency = 1,
+				Text = props.disclaimerText,
+				TextSize = disclaimerTextSize,
+				TextColor3 = theme.TextDefault.Color,
+				Font = font,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextWrapped = true,
+				LayoutOrder = props.layoutOrder + 3,
 			}),
 		})
 	end)

@@ -17,6 +17,7 @@ local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
 
 local withStyle = require(Core.Style.withStyle)
+local useStyle = require(UIBlox.Core.Style.useStyle)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
@@ -26,24 +27,32 @@ local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local ButtonGetContentStyle = require(Core.Button.getContentStyle)
+local validateTypographyInfo = require(Core.Style.Validator.validateTypographyInfo)
+local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 
-local CONTENT_PADDING = 5
-local ELEMENT_PADDING = 12
-local ICON_PADDING = 20
-local ICON_SIZE = IconSize.Regular
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local StyleDefaults = require(script.Parent.StyleDefaults)
 
 local DropdownMenuCell = Roact.PureComponent:extend("DropdownMenuCell")
 
-local function getButtonStyle(contentMap, controlState, style, isActive)
-	local buttonStyle = ButtonGetContentStyle(contentMap, controlState, style)
+local function getColorFromMap(colorMap, controlState)
+	local controlStateColor = colorMap[controlState] or colorMap[ControlState.Default]
+	return {
+		Color = controlStateColor.Color,
+		Transparency = controlStateColor.Transparency,
+	}
+end
+
+local function getButtonStyle(getStyleFunc, contentMap, controlState, style, isActive)
+	local buttonStyle = getStyleFunc(contentMap, controlState, style)
 	if (controlState ~= ControlState.Disabled and controlState ~= ControlState.Pressed) and isActive then
 		buttonStyle.Transparency = 0.5 * buttonStyle.Transparency + 0.5
 	end
 	return buttonStyle
 end
 
-local function getContentStyle(contentMap, controlState, style, isActive, hasContent)
-	local contentStyle = ButtonGetContentStyle(contentMap, controlState, style)
+local function getButtonContentStyle(getStyleFunc, contentMap, controlState, style, isActive, hasContent)
+	local contentStyle = getStyleFunc(contentMap, controlState, style)
 
 	if
 		(controlState ~= ControlState.Disabled and controlState ~= ControlState.Pressed)
@@ -69,10 +78,15 @@ function DropdownMenuCell:init()
 	end
 end
 
-local colorStateMap = t.interface({
-	-- The default state theme color class
-	[ControlState.Default] = t.string,
-})
+local colorStateMap = t.union(
+	t.interface({
+		-- The default state theme color class
+		[ControlState.Default] = t.string,
+	}),
+	t.interface({
+		[ControlState.Default] = validateColorInfo,
+	})
+)
 
 DropdownMenuCell.validateProps = t.interface({
 	--The icon of the button
@@ -80,6 +94,9 @@ DropdownMenuCell.validateProps = t.interface({
 
 	--The text of the button
 	text = t.optional(t.string),
+
+	--The font of the text
+	textFont = t.optional(validateTypographyInfo),
 
 	--The image being used as the background of the button
 	buttonImage = validateImage,
@@ -118,12 +135,46 @@ DropdownMenuCell.validateProps = t.interface({
 	userInteractionEnabled = t.optional(t.boolean),
 
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
+
+	-- Size of the icon button
+	iconSize = t.optional(t.number),
+
+	-- Padding of the container at the left/right side
+	containerPadding = t.optional(t.strictInterface({
+		left = t.number,
+		right = t.number,
+	})),
+
+	-- Spacing between text and icon
+	iconTextSpacing = t.optional(t.number),
+
+	-- Container border config which is a replacement for rounded image button background
+	border = t.optional(t.strictInterface({
+		-- Border corner radius
+		cornerRadius = t.number,
+		-- Border size
+		size = t.number,
+	})),
+
+	-- Indicate whether design override is enabled
+	enableTokenOverride = t.optional(t.boolean),
 })
 
 DropdownMenuCell.defaultProps = {
 	isDisabled = false,
 	isLoading = false,
 	SliceCenter = Rect.new(8, 8, 9, 9),
+	iconSize = IconSize.Regular,
+	containerPadding = {
+		left = 12,
+		right = 20,
+	},
+	iconTextSpacing = 5,
+	border = {
+		cornerRadius = 8,
+		size = 1,
+	},
+	enableTokenOverride = false,
 }
 
 function DropdownMenuCell:render()
@@ -135,6 +186,9 @@ function DropdownMenuCell:render()
 
 			local text = self.props.text
 			local icon = self.props.icon
+			local iconSize = self.props.iconSize
+			local containerPadding = self.props.containerPadding
+			local iconTextSpacing = self.props.iconTextSpacing
 			local isLoading = self.props.isLoading
 			local isDisabled = self.props.isDisabled
 
@@ -148,9 +202,18 @@ function DropdownMenuCell:render()
 			end
 
 			local selectionCursor = getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)
-			local buttonStyle = getButtonStyle(buttonStateColorMap, currentState, style, self.props.isActivated)
+			local getStyleFunc
+			if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+				getStyleFunc = getColorFromMap
+			else
+				getStyleFunc = ButtonGetContentStyle
+			end
+
+			local buttonStyle =
+				getButtonStyle(getStyleFunc, buttonStateColorMap, currentState, style, self.props.isActivated)
 			local textStyle = text
-				and getContentStyle(
+				and getButtonContentStyle(
+					getStyleFunc,
 					textStateColorMap,
 					currentState,
 					style,
@@ -158,13 +221,27 @@ function DropdownMenuCell:render()
 					self.props.hasContent
 				)
 			local iconStyle = icon
-				and getContentStyle(iconStateColorMap, currentState, style, self.props.isActivated, true)
+				and getButtonContentStyle(
+					getStyleFunc,
+					iconStateColorMap,
+					currentState,
+					style,
+					self.props.isActivated,
+					true
+				)
 			local buttonImage = self.props.buttonImage
-			local fontStyle = style.Font.Header2
-			local textRightOffset = ELEMENT_PADDING
+			local fontStyle
+			if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+				fontStyle = self.props.textFont
+			else
+				fontStyle = style.Font.Header2
+			end
 
+			local textRightOffset
 			if icon ~= nil then
-				textRightOffset = ICON_SIZE + ICON_PADDING + ELEMENT_PADDING
+				textRightOffset = iconSize + iconTextSpacing + containerPadding.right
+			else
+				textRightOffset = containerPadding.right
 			end
 
 			local buttonContentLayer
@@ -186,10 +263,9 @@ function DropdownMenuCell:render()
 								VerticalAlignment = Enum.VerticalAlignment.Center,
 								HorizontalAlignment = Enum.HorizontalAlignment.Left,
 								SortOrder = Enum.SortOrder.LayoutOrder,
-								Padding = UDim.new(0, CONTENT_PADDING),
 							}),
 							Padding = Roact.createElement("UIPadding", {
-								PaddingLeft = UDim.new(0, ELEMENT_PADDING),
+								PaddingLeft = UDim.new(0, containerPadding.left),
 							}),
 							Text = if text
 								then Roact.createElement(GenericTextLabel, {
@@ -214,13 +290,12 @@ function DropdownMenuCell:render()
 								VerticalAlignment = Enum.VerticalAlignment.Center,
 								HorizontalAlignment = Enum.HorizontalAlignment.Right,
 								SortOrder = Enum.SortOrder.LayoutOrder,
-								Padding = UDim.new(0, CONTENT_PADDING),
 							}),
 							Padding = Roact.createElement("UIPadding", {
-								PaddingRight = UDim.new(0, ICON_PADDING),
+								PaddingRight = UDim.new(0, containerPadding.right),
 							}),
 							Icon = icon and Roact.createElement(ImageSetComponent.Label, {
-								Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+								Size = UDim2.fromOffset(iconSize, iconSize),
 								BackgroundTransparency = 1,
 								Image = icon,
 								ImageColor3 = iconStyle.Color,
@@ -236,34 +311,71 @@ function DropdownMenuCell:render()
 				hasContent = Cryo.None,
 				icon = Cryo.None,
 				text = Cryo.None,
+				textFont = Cryo.None,
 				buttonImage = Cryo.None,
 				buttonStateColorMap = Cryo.None,
 				contentStateColorMap = Cryo.None,
 				textStateColorMap = Cryo.None,
 				iconStateColorMap = Cryo.None,
+				iconSize = Cryo.None,
+				containerPadding = Cryo.None,
+				iconTextSpacing = Cryo.None,
+				border = Cryo.None,
+				enableTokenOverride = Cryo.None,
 				onActivated = Cryo.None,
 				isLoading = Cryo.None,
 				[Roact.Children] = Cryo.None,
 				isDisabled = isDisabled,
 				onStateChanged = self.onStateChanged,
 				userInteractionEnabled = self.props.userInteractionEnabled,
-				Image = buttonImage,
 				ScaleType = Enum.ScaleType.Slice,
-				ImageColor3 = buttonStyle.Color,
-				ImageTransparency = buttonStyle.Transparency,
 				BackgroundTransparency = 1,
 				AutoButtonColor = false,
 				SelectionImageObject = selectionCursor,
 				[Roact.Event.Activated] = self.props.onActivated,
 			}
+			local interactableProps
+			local buttonBackgroundLayer
+			local buttonContentSize
+			if UIBloxConfig.enableNewMenuLayout and self.props.enableTokenOverride then
+				local borderSize = self.props.border.size
+				buttonContentSize = UDim2.new(1, -2 * borderSize, 1, -2 * borderSize)
+				buttonBackgroundLayer = {
+					UIStroke = Roact.createElement("UIStroke", {
+						Color = buttonStyle.Color,
+						Transparency = buttonStyle.Transparency,
+						Thickness = borderSize,
+					}),
+					UICorner = Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(0, self.props.border.cornerRadius),
+					}),
+				}
+				interactableProps = Cryo.Dictionary.join(self.props, PROPS_FILTER)
+			else
+				buttonContentSize = UDim2.new(1, 0, 1, 0)
+				buttonBackgroundLayer = {}
+				interactableProps = Cryo.Dictionary.join(self.props, {
+					Image = buttonImage,
+					ImageColor3 = buttonStyle.Color,
+					ImageTransparency = buttonStyle.Transparency,
+				}, PROPS_FILTER)
+			end
 
-			return Roact.createElement(Interactable, Cryo.Dictionary.join(self.props, PROPS_FILTER), {
+			return Roact.createElement(Interactable, interactableProps, {
 				ButtonContent = Roact.createElement("Frame", {
-					Size = UDim2.fromScale(1, 1),
+					Size = buttonContentSize,
 					BackgroundTransparency = 1,
-				}, buttonContentLayer),
+				}, Cryo.Dictionary.join(buttonBackgroundLayer, buttonContentLayer)),
 			})
 		end)
 	end)
 end
-return DropdownMenuCell
+
+return function(providedProps: any)
+	local props = providedProps
+	if UIBloxConfig.enableNewMenuLayout and providedProps.enableTokenOverride then
+		local style = useStyle()
+		props = Cryo.Dictionary.join(StyleDefaults.getDropdownMenuCellDefaultTokens(style), providedProps)
+	end
+	return Roact.createElement(DropdownMenuCell, props)
+end

@@ -74,10 +74,6 @@ local function initializeReporter<T>(metricName: string, collectorFn: CollectorF
 			error("Reporter.stop() called without a corresponding Reporter.start()")
 		end
 
-		if reportCount == 0 then
-			error("Reporter.stop() called before reporting any values")
-		end
-
 		table.insert(sectionNames, sectionName :: string)
 		table.insert(startIdxs, startIdx :: number)
 		table.insert(stopIdxs, reportCount)

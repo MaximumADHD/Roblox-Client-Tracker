@@ -4,7 +4,7 @@ local Packages = IAPExperienceRoot.Parent
 
 local TextService = game:GetService("TextService")
 
-local React = require(Packages.Parent.Parent.React)
+local React = require(Packages.React)
 
 local UIBlox = require(Packages.UIBlox)
 local PartialPageModal = UIBlox.App.Dialog.Modal.PartialPageModal
@@ -14,7 +14,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Style.withStyle
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
-local SubscriptionTitle = require(IAPExperienceRoot.Subscriptions.SubscriptionTitle)
+local SubscriptionTitle = require(IAPExperienceRoot.Subscription.SubscriptionTitle)
 
 local CONTENT_PADDING = 24
 local CONDENSED_CONTENT_PADDING = 12
@@ -25,7 +25,7 @@ local BUTTON_HEIGHT = 48
 
 type Props = {
 	name: string,
-	appStoreName: string,
+	subscriptionProviderName: string,
 	displayPrice: string,
 	period: string,
 	disclaimerText: string,
@@ -35,14 +35,20 @@ type Props = {
 	isTestingMode: boolean,
 
 	screenSize: Vector,
-
-	acceptControllerIcon: { [string]: any? },
-
 	purchaseSubscriptionActivated: () -> any,
 	cancelPurchaseActivated: () -> any,
 }
 
-local function generateFooter(disclaimerText, disclaimerHeight, fonts, theme)
+local function generateFooter(isTestingMode, footerText, fonts, theme, middleContentSize)
+	if not isTestingMode then
+		return nil
+	end
+	local footerTextHeight = TextService:GetTextSize(
+		footerText,
+		12,
+		fonts.Footer.Font,
+		Vector2.new(middleContentSize, math.huge)
+	).Y + 2
 	return React.createElement("Frame", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0, 16),
@@ -55,11 +61,11 @@ local function generateFooter(disclaimerText, disclaimerHeight, fonts, theme)
 		DisclaimerText = React.createElement("TextLabel", {
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, disclaimerHeight),
+			Size = UDim2.new(1, 0, 0, footerTextHeight),
 			Font = fonts.Footer.Font,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextWrapped = true,
-			Text = disclaimerText,
+			Text = footerText,
 			TextSize = 12,
 			TextColor3 = theme.TextDefault.Color,
 		}),
@@ -83,7 +89,7 @@ local function generatePromptText(props, fonts, theme, middleContentSize, descri
 				rbx.Text,
 				rbx.TextSize,
 				rbx.Font,
-				Vector2.new(rbx.AbsoluteSize.X, 999999) -- math.max does not work, returns font size.
+				Vector2.new(rbx.AbsoluteSize.X, math.huge)
 			).Y
 			descriptionHeightChanged(newHeight)
 		end,
@@ -100,23 +106,14 @@ local function SubscriptionPurchasePrompt(props)
 		keys = {
 			titleText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription" },
 			subscribe = { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
-			testDisclaimerText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer" },
+			footerText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer" },
 		},
 		render = function(locMap)
 			local disclaimerText = props.disclaimerText
-			if props.isTestingMode then
-				disclaimerText = locMap.testDisclaimerText
-			end
 			return withStyle(function(stylePalette)
 				local theme = stylePalette.Theme
 				local fonts = stylePalette.Font
 				local middleContentSize = PartialPageModal:getMiddleContentWidth(props.screenSize.X)
-				local disclaimerHeight = TextService:GetTextSize(
-					props.disclaimerText,
-					12,
-					fonts.Footer.Font,
-					Vector2.new(middleContentSize, 10000)
-				).Y + 2
 				return React.createElement(PartialPageModal, {
 					title = locMap.titleText,
 					screenSize = props.screenSize,
@@ -128,7 +125,6 @@ local function SubscriptionPurchasePrompt(props)
 								props = {
 									onActivated = props.purchaseSubscriptionActivated,
 									text = locMap.subscribe,
-									inputIcon = props.acceptControllerIcon,
 								},
 							},
 						},
@@ -136,8 +132,8 @@ local function SubscriptionPurchasePrompt(props)
 					},
 					onCloseClicked = props.cancelPurchaseActivated,
 					footerContent = function()
-						return generateFooter(disclaimerText, disclaimerHeight, fonts, theme)
-					end,
+						return generateFooter(props.isTestingMode, locMap.footerText , fonts, theme, middleContentSize)
+				end,
 				}, {
 					React.createElement("Frame", {
 						BackgroundTransparency = 1,
@@ -175,10 +171,11 @@ local function SubscriptionPurchasePrompt(props)
 							Image = props.itemIcon,
 						}),
 						SubscriptionInfo = React.createElement(SubscriptionTitle, {
-							appStoreName = props.appStoreName,
+							subscriptionProviderName = props.subscriptionProviderName,
 							name = props.name,
 							displayPrice = props.displayPrice,
 							period = props.period,
+							disclaimerText = props.disclaimerText,
 							layoutOrder = 2,
 						}),
 						PromptScroll = React.createElement("ScrollingFrame", {

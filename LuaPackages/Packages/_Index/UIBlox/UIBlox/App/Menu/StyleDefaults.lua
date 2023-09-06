@@ -36,7 +36,45 @@ local getBaseMenuDefaultTokens = function(style: StyleTypes.AppStyle)
 	}
 end
 
+local getDropdownMenuCellDefaultTokens = function(style: StyleTypes.AppStyle)
+	return {
+		iconSize = style.Tokens.Global.Size_450,
+		containerPadding = {
+			left = style.Tokens.Global.Space_200,
+			right = style.Tokens.Global.Space_300,
+		},
+		textFont = style.Tokens.Semantic.Typography.Subheader,
+		iconTextSpacing = style.Tokens.Global.Space_200,
+		border = {
+			cornerRadius = style.Tokens.Semantic.Radius.Medium,
+			size = style.Tokens.Global.Stroke_100,
+		},
+	}
+end
+
+local getDropdownMenuDefaultTokens = function(style: StyleTypes.AppStyle)
+	return {
+		height = UDim.new(0, style.Tokens.Global.Size_600),
+		menuStateColors = {
+			buttonDefault = {
+				Color = style.Tokens.Semantic.Color.Action.Secondary.Border.Color3,
+				Transparency = style.Tokens.Semantic.Color.Action.Secondary.Border.Transparency,
+			},
+			contentDefault = {
+				Color = style.Tokens.Semantic.Color.Text.Default.Color3,
+				Transparency = style.Tokens.Semantic.Color.Text.Default.Transparency,
+			},
+			alert = {
+				Color = style.Tokens.Semantic.Color.Action.Alert.Border.Color3,
+				Transparency = style.Tokens.Semantic.Color.Action.Alert.Border.Transparency,
+			},
+		},
+	}
+end
+
 return {
 	getBaseMenuDefaultTokens = getBaseMenuDefaultTokens,
 	getCellDefaultTokens = getCellDefaultTokens,
+	getDropdownMenuCellDefaultTokens = getDropdownMenuCellDefaultTokens,
+	getDropdownMenuDefaultTokens = getDropdownMenuDefaultTokens,
 }

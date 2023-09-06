@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestConsole-edcba0e9-3.4.0"]["JestConsole"])
+local Package = require(PackageIndex["JestConsole-edcba0e9-3.4.1"]["JestConsole"])
 
 export type Console = Package.Console
 export type ConsoleOptions = Package.ConsoleOptions

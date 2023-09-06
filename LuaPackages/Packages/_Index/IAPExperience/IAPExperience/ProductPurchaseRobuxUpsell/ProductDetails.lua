@@ -15,6 +15,9 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 
+local Constants = require(IAPExperienceRoot.Generic.Constants)
+local getEnableCondenseRobuxUpsell = require(IAPExperienceRoot.Flags.getEnableCondenseRobuxUpsell)
+
 local ROBUX_ICON = Images["icons/common/robux"]
 local MISSING_ICON = Images["icons/status/imageunavailable"]
 
@@ -27,6 +30,8 @@ type Props = {
 	itemIcon: any?,
 	itemName: string,
 	itemRobuxCost: number,
+	itemIconWidth: number?,
+	itemIconHeight: number?,
 }
 
 function ProductDetails:init()
@@ -50,6 +55,14 @@ function ProductDetails:render()
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local fonts = stylePalette.Font
+
+		local itemIconLengthOfSide = props.itemIcon ~= nil and Constants.NORMAL_ICON_SIZE or UIBloxIconSize.Large
+		local itemIconWidth = itemIconLengthOfSide
+		local itemIconHeight = itemIconLengthOfSide
+		if getEnableCondenseRobuxUpsell() then
+			itemIconWidth = props.itemIconWidth == nil and itemIconLengthOfSide or props.itemIconWidth
+			itemIconHeight = props.itemIconHeight == nil and itemIconLengthOfSide or props.itemIconHeight
+		end
 
 		return Roact.createElement(FitFrameVertical, {
 			LayoutOrder = props.layoutOrder,
@@ -80,7 +93,7 @@ function ProductDetails:render()
 					then Roact.createElement(ImageSetLabel, {
 						BackgroundTransparency = 1,
 						Position = UDim2.new(0, 5, 0, 5),
-						Size = UDim2.new(0, 85, 0, 85),
+						Size = UDim2.new(0, itemIconWidth, 0, itemIconHeight),
 						ScaleType = Enum.ScaleType.Stretch,
 						Image = props.itemIcon,
 						ImageTransparency = 0,
@@ -88,7 +101,7 @@ function ProductDetails:render()
 					else Roact.createElement(ImageSetLabel, {
 						BackgroundTransparency = 1,
 						Position = UDim2.new(0, 5, 0, 5),
-						Size = UDim2.new(0, UIBloxIconSize.Large, 0, UIBloxIconSize.Large),
+						Size = UDim2.new(0, itemIconWidth, 0, itemIconHeight),
 						ScaleType = Enum.ScaleType.Stretch,
 						Image = MISSING_ICON,
 						ImageColor3 = theme.UIDefault.Color,

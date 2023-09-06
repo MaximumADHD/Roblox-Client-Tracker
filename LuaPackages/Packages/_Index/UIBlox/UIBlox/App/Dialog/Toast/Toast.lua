@@ -12,6 +12,8 @@ local SlidingDirection = require(UIBloxRoot.Core.Animation.Enum.SlidingDirection
 local SlidingContainer = require(UIBloxRoot.Core.Animation.SlidingContainer)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local StateTable = require(UIBloxRoot.StateTable.StateTable)
+local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
+local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 
 local AnimationState = require(ToastRoot.Enum.AnimationState)
 local InformativeToast = require(ToastRoot.InformativeToast)
@@ -43,9 +45,10 @@ Toast.validateProps = t.strictInterface({
 		-- Icon image color style, will be assigned with default one in `ToastIcon` if unspecified here.
 		-- This prop change will trigger toast to slide up and update the content then slide down.
 		iconColorStyle = t.optional(validateColorInfo),
-		-- Icon image in the toast, could be nil if we want the toast without icon. Support both ImageSet compatible table or string directory.
+		-- Icon image in the toast, could be nil if we want the toast without icon. Support both ImageSet compatible table or string directory
+		-- or a function that returns another RoactElement to render in place of an image.
 		-- This prop change will trigger toast to slide up and update the content then slide down.
-		iconImage = t.optional(t.union(t.table, t.string)),
+		iconImage = t.optional(t.union(t.table, t.string, t.callback)),
 		-- Size of the icon image in the toast. This prop change will trigger toast to slide up and update the content then slide down.
 		iconSize = t.optional(t.Vector2),
 		-- A Roact children table of icon image to customize toast icon.
@@ -72,6 +75,8 @@ Toast.validateProps = t.strictInterface({
 		sequenceNumber = t.optional(t.integer),
 		-- Title text to display in the toast. Should be localized. This prop change will trigger toast to slide up and update the content then slide down.
 		toastTitle = t.string,
+		-- Changes which button component gets displayed
+		buttonType = t.optional(enumerateValidator(ButtonType)),
 	}),
 })
 
@@ -250,6 +255,7 @@ function Toast:render()
 			renderToast = onActivated and self.renderInteractiveToast or self.renderInformativeToast,
 			toastSubtitle = self.currentToastContent.toastSubtitle,
 			toastTitle = self.currentToastContent.toastTitle,
+			buttonType = self.currentToastContent.buttonType,
 		}),
 	})
 end

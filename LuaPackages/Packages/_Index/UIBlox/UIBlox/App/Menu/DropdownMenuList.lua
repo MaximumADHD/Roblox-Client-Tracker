@@ -31,6 +31,8 @@ dropdownMenuListComponent.validateProps = t.strictInterface({
 	onDismiss = t.optional(t.callback),
 	buttonSize = t.UDim2,
 	menuListBackground = t.optional(validateColorInfo),
+	-- Indicate whether design override is enabled
+	enableTokenOverride = t.optional(t.boolean),
 })
 
 dropdownMenuListComponent.defaultProps = {
@@ -39,6 +41,7 @@ dropdownMenuListComponent.defaultProps = {
 	showDropShadow = false,
 	fixedListHeight = nil,
 	menuListBackground = nil,
+	enableTokenOverride = false,
 }
 
 function dropdownMenuListComponent:init()
@@ -137,6 +140,7 @@ function dropdownMenuListComponent:render()
 					position = UDim2.fromScale(0, 0),
 					anchorPoint = Vector2.new(0, anchorPointY),
 					background = self.props.menuListBackground,
+					enableTokenOverride = self.props.enableTokenOverride,
 				}),
 			}),
 		})

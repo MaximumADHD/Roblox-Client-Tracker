@@ -292,7 +292,7 @@ function Tile:render()
 				[React.Event.Activated] = not isDisabled and onActivated or nil,
 				[React.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 				ref = self.props.textButtonRef,
-				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
+				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			}, {
 				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,

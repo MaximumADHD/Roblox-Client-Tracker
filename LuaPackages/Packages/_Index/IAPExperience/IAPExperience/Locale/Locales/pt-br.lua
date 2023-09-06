@@ -264,4 +264,6 @@
     ["IAPExperience.BuyRobux.Banner.Text"] = [[Robux permitem que você compre melhorias para seu avatar ou compre habilidades especiais em experiências]],
     ["IAPExperience.BuyRobux.Banner.Title"] = [[Obter Robux]],
     ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[{robux} Robux a mais]],
+    ["IAPExperience.BuyRobux.Text.MoreRobux2"] = [[{robux} mais Robux]],
+    ["IAPExperience.BuyRobux.Alert.SuccessfulMessage"] = [[Você comprou Robux com sucesso!]],
 }

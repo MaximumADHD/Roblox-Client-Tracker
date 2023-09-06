@@ -13,6 +13,8 @@ return {
 		PremiumUpsellFlowState = require(script.PurchaseFlow.PremiumUpsell.PremiumUpsellFlowState),
 		PurchaseErrorType = require(script.Generic.PurchaseErrorType),
 		U13ConfirmType = require(script.Generic.U13ConfirmType),
+		SubscriptionPurchaseFlow = require(script.PurchaseFlow.Subscription.SubscriptionPurchaseFlow),
+		SubscriptionPurchaseFlowState = require(script.PurchaseFlow.Subscription.SubscriptionPurchaseFlowState),
 	},
 
 	Locale = {
