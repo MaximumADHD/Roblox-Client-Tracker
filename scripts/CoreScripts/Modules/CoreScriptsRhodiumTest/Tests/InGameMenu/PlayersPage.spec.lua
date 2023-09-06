@@ -8,6 +8,9 @@ local act = require(Modules.act)
 local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
@@ -58,7 +61,7 @@ return function()
 
 			-- Open the contextual menu on the first selected player
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
 		end)
 
 		it("Exits when pressing B and selects the player again", function(c)
@@ -70,7 +73,7 @@ return function()
 
 			-- Open the contextual menu on the first selected player
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
 
 			-- Exits
 			c.gamepadInput(Enum.KeyCode.ButtonB)
@@ -79,7 +82,7 @@ return function()
 			if game:GetFastFlag("LuaMenuPerfImprovements") then
 				playerString = "player_12345678"
 			end
-			expect(tostring(GuiService.SelectedCoreObject)).to.equal(playerString)
+			expect(tostring(GuiService.SelectedCoreObject)).toBe(playerString)
 		end)
 
 		it("Ignores input if canCaptureFocus is false", function(c)
@@ -93,16 +96,16 @@ return function()
 
 			-- Open the contextual menu
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
 
 			-- Open the Respawn dialog
 			c.gamepadInput(Enum.KeyCode.ButtonY)
-			expect(store:getState().respawn.dialogOpen).to.equal(true)
+			expect(store:getState().respawn.dialogOpen).toBe(true)
 
 			-- Pressing B closes the dialog, not the contextual menu
 			c.gamepadInput(Enum.KeyCode.ButtonB)
-			expect(store:getState().respawn.dialogOpen).to.equal(false)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			expect(store:getState().respawn.dialogOpen).toBe(false)
+			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
 
 			-- Contextual menu is capturing input again, can now be closed
 			c.gamepadInput(Enum.KeyCode.ButtonB)
@@ -111,7 +114,7 @@ return function()
 			if game:GetFastFlag("LuaMenuPerfImprovements") then
 				playerString = "player_12345678"
 			end
-			expect(tostring(GuiService.SelectedCoreObject)).to.equal(playerString)
+			expect(tostring(GuiService.SelectedCoreObject)).toBe(playerString)
 		end)
 
 		it("Does not abandon the bounds of the menu", function(c)
@@ -123,14 +126,14 @@ return function()
 
 			-- Open the contextual menu
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
 
 			-- Tries to exit the menu area
 			c.gamepadInput(Enum.KeyCode.DPadDown)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
 
 			c.gamepadInput(Enum.KeyCode.DPadLeft)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
 		end)
 	end)
 
@@ -147,12 +150,12 @@ return function()
 			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
 		end)
 
-		expect(store:getState().currentZone).to.equal(1)
+		expect(store:getState().currentZone).toBe(1)
 
 		c.gamepadInput(Enum.KeyCode.DPadLeft)
-		expect(store:getState().currentZone).to.equal(0)
+		expect(store:getState().currentZone).toBe(0)
 
 		c.gamepadInput(Enum.KeyCode.DPadRight)
-		expect(store:getState().currentZone).to.equal(1)
+		expect(store:getState().currentZone).toBe(1)
 	end)
 end

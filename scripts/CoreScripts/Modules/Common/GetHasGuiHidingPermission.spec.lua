@@ -1,5 +1,9 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
 
 local GetFIntCanHideGuiGroupId = require(CoreGui.RobloxGui.Modules.Flags.GetFIntCanHideGuiGroupId)
 
@@ -32,37 +36,37 @@ return function()
 			local featureSupported = game:GetEngineFeature("GuiHidingApiSupport")
 			local success, result =
 				GetHasGuiHidingPermission(true, playerNoGroup, playerPermissionsAllow):timeout(5):await()
-			expect(success).to.equal(true)
-			expect(result).to.be.equal(featureSupported)
+			expect(success).toBe(true)
+			expect(result).toBe(featureSupported)
 		end)
 
 		if game:GetEngineFeature("GuiHidingApiSupport") then
 			it("should return true in studio regardless of player group/permissions", function()
 				local success, result =
 					GetHasGuiHidingPermission(true, playerNoGroup, playerPermissionsDisallow):timeout(5):await()
-				expect(success).to.equal(true)
-				expect(result).to.equal(true)
+				expect(success).toBe(true)
+				expect(result).toBe(true)
 			end)
 
 			it("should return false for a player not in the required group and without manage permissions", function()
 				local success, result =
 					GetHasGuiHidingPermission(false, playerNoGroup, playerPermissionsDisallow):timeout(5):await()
-				expect(success).to.equal(true)
-				expect(result).to.equal(false)
+				expect(success).toBe(true)
+				expect(result).toBe(false)
 			end)
 
 			it("should return true if player is in the correct group, regardless of manage permissions", function()
 				local success, result =
 					GetHasGuiHidingPermission(false, playerGuiHideGroup, playerPermissionsDisallow):timeout(5):await()
-				expect(success).to.equal(true)
-				expect(result).to.equal(true)
+				expect(success).toBe(true)
+				expect(result).toBe(true)
 			end)
 
 			it("should return true if player has manage permissions, regardless of group", function()
 				local success, result =
 					GetHasGuiHidingPermission(false, playerNoGroup, playerPermissionsAllow):timeout(5):await()
-				expect(success).to.equal(true)
-				expect(result).to.equal(true)
+				expect(success).toBe(true)
+				expect(result).toBe(true)
 			end)
 		end
 	end)

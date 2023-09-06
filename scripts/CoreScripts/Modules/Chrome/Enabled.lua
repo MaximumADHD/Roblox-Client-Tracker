@@ -2,8 +2,14 @@ game:DefineFastFlag("EnableInGameMenuChrome", false)
 game:DefineFastString("InGameMenuChromeForcedUserIds", "")
 
 local Players = game:GetService("Players")
+local VRService = game:GetService("VRService")
 
 return function()
+	if VRService.VREnabled then
+		-- hard disable in VR until we support v2 menu and validated
+		return false
+	end
+
 	local localPlayer = Players.LocalPlayer
 	while not localPlayer do
 		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()

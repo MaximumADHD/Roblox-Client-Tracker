@@ -10,6 +10,9 @@ local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 local act = require(Modules.act)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
@@ -62,21 +65,21 @@ return function()
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
 
 			c.gamepadInput(Enum.KeyCode.DPadDown)
 			c.gamepadInput(Enum.KeyCode.DPadDown)
 			c.gamepadInput(Enum.KeyCode.DPadDown)
 			c.gamepadInput(Enum.KeyCode.DPadDown)
-			expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).to.equal("Controls...")
-
-			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(store:getState().menuPage).to.equal("Controls")
-			expect(GuiService.SelectedCoreObject).to.equal(closeButtonElement:waitForRbxInstance(1))
+			expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).toBe("Controls...")
 
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(store:getState().menuPage).to.equal(Constants.MainPagePageKey)
-			expect(GuiService.SelectedCoreObject).never.to.equal(closeButtonElement:getRbxInstance())
+			expect(store:getState().menuPage).toBe("Controls")
+			expect(GuiService.SelectedCoreObject).toBe(closeButtonElement:waitForRbxInstance(1))
+
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(store:getState().menuPage).toBe(Constants.MainPagePageKey)
+			expect(GuiService.SelectedCoreObject).never.toBe(closeButtonElement:getRbxInstance())
 		end)
 
 		it("should navigate back when pressing B", function(c)
@@ -88,19 +91,19 @@ return function()
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
 
 			c.gamepadInput(Enum.KeyCode.DPadDown)
 			c.gamepadInput(Enum.KeyCode.DPadDown)
 			c.gamepadInput(Enum.KeyCode.DPadDown)
 			c.gamepadInput(Enum.KeyCode.DPadDown)
-			expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).to.equal("Controls...")
+			expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).toBe("Controls...")
 
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(store:getState().menuPage).to.equal("Controls")
+			expect(store:getState().menuPage).toBe("Controls")
 
 			c.gamepadInput(Enum.KeyCode.ButtonB)
-			expect(store:getState().menuPage).to.equal(Constants.MainPagePageKey)
+			expect(store:getState().menuPage).toBe(Constants.MainPagePageKey)
 		end)
 
 		it("Should not bumper switch", function(c)
@@ -113,9 +116,9 @@ return function()
 			c.storeUpdate(SetCurrentPage("Controls"))
 
 			c.gamepadInput(Enum.KeyCode.ButtonL1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 			c.gamepadInput(Enum.KeyCode.ButtonR1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 	end)
 end

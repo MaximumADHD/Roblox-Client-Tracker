@@ -6,6 +6,11 @@ local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
+local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local FFlagAvatarContextMenuItemsChatButtonRefactor
 	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
 
@@ -51,15 +56,15 @@ return function()
 			local font = nil
 			for _, button in ipairs(buttons) do
 				local buttonLabel = button:FindFirstChildWhichIsA("TextLabel")
-				expect(buttonLabel).to.be.ok()
-				expect(buttonLabel.Font).to.be.ok()
+				expect(buttonLabel).never.toBeNil()
+				expect(buttonLabel.Font).never.toBeNil()
 				if font == nil then
 					font = buttonLabel.Font
 				else
-					expect(font).never.to.equal(nil)
-					expect(buttonLabel.Font).to.equal(font)
-					expect(buttonLabel.TextXAlignment).to.equal(Enum.TextXAlignment.Center)
-					expect(buttonLabel.TextYAlignment).to.equal(Enum.TextYAlignment.Center)
+					expect(font).never.toBeNil()
+					expect(buttonLabel.Font).toBe(font)
+					expect(buttonLabel.TextXAlignment).toBe(Enum.TextXAlignment.Center)
+					expect(buttonLabel.TextYAlignment).toBe(Enum.TextYAlignment.Center)
 				end
 			end
 		end)
@@ -70,8 +75,8 @@ return function()
 
 			for _, button in ipairs(buttons) do
 				local buttonLabel = button:FindFirstChildWhichIsA("TextLabel")
-				expect(buttonLabel).to.be.ok()
-				expect(buttonLabel.TextColor3).to.equal(whiteColor)
+				expect(buttonLabel).never.toBeNil()
+				expect(buttonLabel.TextColor3).toBe(whiteColor)
 			end
 		end)
 
@@ -84,10 +89,10 @@ return function()
 					}
 					local menuItemsFrame = makeContextMenuItemsFrame(props, { TextChatService = textChatService })
 					local buttons = menuItemsFrame:GetChildren()
-					expect(#buttons).to.equal(#buttonNames)
+					expect(#buttons).toBe(#buttonNames)
 
 					for _, name in ipairs(buttonNames) do
-						expect(menuItemsFrame:FindFirstChild(name)).to.be.ok()
+						expect(menuItemsFrame:FindFirstChild(name)).never.toBeNil()
 					end
 				end
 			end)

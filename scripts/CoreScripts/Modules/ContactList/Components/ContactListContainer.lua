@@ -52,7 +52,7 @@ local SharedRS = nil
 local EnableSocialServiceIrisInvite = game:GetEngineFeature("EnableSocialServiceIrisInvite")
 
 local SEARCH_BAR_HEIGHT = 36
-local HEADER_HEIGHT = 48
+local HEADER_HEIGHT = 36
 local PADDING = 8
 local DOCKED_WIDTH = 376
 -- Margin between left and bottom border of the screen when small screen is not applied
@@ -128,10 +128,10 @@ local function ContactListContainer()
 	end
 
 	local dismissCallback = React.useCallback(function()
-		if GetFFlagCorescriptsSoundManagerEnabled() then
-			SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-		end
 		if not isSmallScreen and contactListContainerRef.current then
+			if GetFFlagCorescriptsSoundManagerEnabled() then
+				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+			end
 			pcall(function()
 				contactListContainerRef.current:TweenPosition(
 					UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
@@ -224,6 +224,10 @@ local function ContactListContainer()
 		if viewState == PeekViewState.Closed then
 			if localPlayer and EnableSocialServiceIrisInvite then
 				SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+			end
+
+			if GetFFlagCorescriptsSoundManagerEnabled() then
+				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 			end
 		end
 

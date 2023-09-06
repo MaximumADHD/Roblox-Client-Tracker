@@ -19,6 +19,7 @@ local Chat = game:GetService("Chat")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
+game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -181,6 +182,9 @@ local function onPlayerAdded(newPlayer)
 end
 
 RemoteEvent_SetPlayerBlockList.OnServerEvent:Connect(function(player, blockList)
+	if game:GetFastFlag("EnableSetUserBlocklistInitialized") then
+		player:SetBlockListInitialized()
+	end
 	if type(blockList) == "table" then
 		if verifyBlockList(blockList) then
 			player:AddToBlockList(blockList)

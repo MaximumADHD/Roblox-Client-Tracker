@@ -1,6 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
 local AppStorageService = game:GetService("AppStorageService")
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Mock = InGameMenuDependencies.Mock
 
@@ -30,8 +33,9 @@ return function()
 		it("should return instance without error", function()
 			if GetFFlagShareInviteLinkContextMenuABTestEnabled() and HAS_KEY_IN_GAME_ENGINE then
 				local manager = ShareInviteLinkABTestManager.new()
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toEqual({
+					_ixpServiceWrapper = expect.anything(),
+				})
 			end
 		end)
 
@@ -43,10 +47,11 @@ return function()
 					Mock.MagicMock.new({ returnValue = { share_invite_link_enabled = "true" } })
 
 				local manager = ShareInviteLinkABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-				expect(manager._currentSessionIsEnabled).to.equal(nil)
-				expect(manager:isShareInviteLinkEnabled()).to.equal(false)
+				expect(manager).toEqual({
+					_ixpServiceWrapper = expect.anything(),
+					_currentSessionIsEnabled = expect.anything(),
+				})
+				expect(manager:isShareInviteLinkEnabled()).toBe(false)
 			end
 		end)
 
@@ -62,10 +67,11 @@ return function()
 				AppStorageService:Flush()
 
 				local manager = ShareInviteLinkABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-				expect(manager._currentSessionIsEnabled).to.equal(nil)
-				expect(manager:isShareInviteLinkEnabled()).to.equal(true)
+				expect(manager).toEqual({
+					_ixpServiceWrapper = expect.anything(),
+					_currentSessionIsEnabled = expect.anything(),
+				})
+				expect(manager:isShareInviteLinkEnabled()).toBe(true)
 			end
 		end)
 
@@ -77,24 +83,25 @@ return function()
 					Mock.MagicMock.new({ returnValue = { share_invite_link_enabled = "true" } })
 
 				local manager = ShareInviteLinkABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-				expect(manager._currentSessionIsEnabled).to.equal(nil)
+				expect(manager).toEqual({
+					_ixpServiceWrapper = expect.anything(),
+					_currentSessionIsEnabled = nil,
+				})
 
 				-- initialize test manager to get experiment info from IXP
 				manager:initialize()
 
 				-- isShareInviteLinkEnabled should still return the old value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(false)
+				expect(manager:isShareInviteLinkEnabled()).toBe(false)
 
 				-- verify share_invite_link_enabled value is written to cache
-				expect(manager.getCachedValue()).to.equal(true)
+				expect(manager.getCachedValue()).toBe(true)
 
 				-- reset _currentSessionIsEnabled to simulate recreating the manager
 				manager._currentSessionIsEnabled = nil
 
 				-- isShareInviteLinkEnabled should return the cached value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(true)
+				expect(manager:isShareInviteLinkEnabled()).toBe(true)
 			end
 		end)
 
@@ -106,24 +113,25 @@ return function()
 					Mock.MagicMock.new({ returnValue = { share_invite_link_enabled = "true" } })
 
 				local manager = ShareInviteLinkABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-				expect(manager._currentSessionIsEnabled).to.equal(nil)
+				expect(manager).toEqual({
+					_ixpServiceWrapper = expect.anything(),
+					_currentSessionIsEnabled = nil,
+				})
 
 				-- initialize test manager to get experiment info from IXP
 				manager:initialize()
 
 				-- isShareInviteLinkEnabled should still return the old value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(false)
+				expect(manager:isShareInviteLinkEnabled()).toBe(false)
 
 				-- verify share_invite_link_enabled value is written to cache
-				expect(manager.getCachedValue()).to.equal(true)
+				expect(manager.getCachedValue()).toBe(true)
 
 				-- reset _currentSessionIsEnabled to simulate recreating the manager
 				manager._currentSessionIsEnabled = nil
 
 				-- isShareInviteLinkEnabled should return the cached value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(true)
+				expect(manager:isShareInviteLinkEnabled()).toBe(true)
 
 				-- change ixp status
 				ixpServiceWrapperMock.GetLayerData =
@@ -133,16 +141,16 @@ return function()
 				manager:initialize()
 
 				-- isShareInviteLinkEnabled should still return the old value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(true)
+				expect(manager:isShareInviteLinkEnabled()).toBe(true)
 
 				-- verify share_invite_link_enabled value is written to cache
-				expect(manager.getCachedValue()).to.equal(false)
+				expect(manager.getCachedValue()).toBe(false)
 
 				-- reset _currentSessionIsEnabled to simulate recreating the manager
 				manager._currentSessionIsEnabled = nil
 
 				-- isShareInviteLinkEnabled should return the cached value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(false)
+				expect(manager:isShareInviteLinkEnabled()).toBe(false)
 			end
 		end)
 
@@ -158,24 +166,25 @@ return function()
 				AppStorageService:Flush()
 
 				local manager = ShareInviteLinkABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-				expect(manager._currentSessionIsEnabled).to.equal(nil)
+				expect(manager).toEqual({
+					_ixpServiceWrapper = expect.anything(),
+					_currentSessionIsEnabled = nil,
+				})
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- isShareInviteLinkEnabled should still return the old value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(true)
+				expect(manager:isShareInviteLinkEnabled()).toBe(true)
 
 				-- verify default value is written to cache
-				expect(manager.getCachedValue()).to.equal(false)
+				expect(manager.getCachedValue()).toBe(false)
 
 				-- reset _currentSessionIsEnabled to simulate recreating the manager
 				manager._currentSessionIsEnabled = nil
 
 				-- isShareInviteLinkEnabled should return the cached value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(false)
+				expect(manager:isShareInviteLinkEnabled()).toBe(false)
 			end
 		end)
 
@@ -191,27 +200,28 @@ return function()
 				AppStorageService:Flush()
 
 				local manager = ShareInviteLinkABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
-				expect(manager._currentSessionIsEnabled).to.equal(nil)
+				expect(manager).toEqual({
+					_ixpServiceWrapper = expect.anything(),
+					_currentSessionIsEnabled = nil,
+				})
 
 				-- when we launch initially value should read from cache
-				expect(manager:isShareInviteLinkEnabled()).to.equal(true)
+				expect(manager:isShareInviteLinkEnabled()).toBe(true)
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- isShareInviteLinkEnabled should still return the old value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(true)
+				expect(manager:isShareInviteLinkEnabled()).toBe(true)
 
 				-- verify default value is written to cache
-				expect(manager.getCachedValue()).to.equal(false)
+				expect(manager.getCachedValue()).toBe(false)
 
 				-- reset _currentSessionIsEnabled to simulate recreating the manager
 				manager._currentSessionIsEnabled = nil
 
 				-- isShareInviteLinkEnabled should return the cached value
-				expect(manager:isShareInviteLinkEnabled()).to.equal(false)
+				expect(manager:isShareInviteLinkEnabled()).toBe(false)
 			end
 		end)
 	end)

@@ -7,9 +7,9 @@ local GetFStringReportAnythingAnnotationIXPLayerName =
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
-local REPORT_ANYTHING_ENABLED = "ReportAnythingEnabled"
-local TYPE_OF_ABUSE_ENABLED = "TypeofAbuseEnabled"
 local OPTIONAL_SCREENSHOT_ENABLED = "OptionalScreenshotEnabled"
+local OPTIONAL_SCREENSHOT_AVATAR = "OptionalScreenshotAvatar"
+local OPTIONAL_SCREENSHOT_EXPERIENCE = "OptionalScreenshotExperience"
 
 local TrustAndSafetyIXPManager = {}
 TrustAndSafetyIXPManager.__index = TrustAndSafetyIXPManager
@@ -19,36 +19,21 @@ function TrustAndSafetyIXPManager.new(serviceWrapper: any): any
 		_ixpServiceWrapper = serviceWrapper or IXPServiceWrapper,
 		_initialized = false, -- initialize() has been called
 		_ixpInitialized = false, -- We're done calling IXP
-		_reportAnythingEnabled = false,
-		_typeofAbuseEnabled = false,
 		_optionalScreenshotEnabled = false,
+		_reportAnythingExperienceEnabled = false,
+		_reportAnythingAvatarEnabled = false,
 		_callbacks = {},
 	}
 	setmetatable(manager, TrustAndSafetyIXPManager)
 	return manager
 end
 
-function TrustAndSafetyIXPManager:getReportAnythingEnabled()
-	return self._reportAnythingEnabled
-end
-
-function TrustAndSafetyIXPManager:getTypeofAbuseEnabled() 
-	return self._typeofAbuseEnabled
-end
-
-function TrustAndSafetyIXPManager:getOptionalScreenshotEnabled() 
-	return self._optionalScreenshotEnabled
-end
-
--- The experiment definition doesn't have separate variables for "other" vs
--- "experience" for now. It's all lumped into REPORT_ANYTHING_ENABLED. But
--- Let's keep the code paths separate.
 function TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled()
-	return self:getReportAnythingEnabled()
+	return self._reportAnythingExperienceEnabled or self._optionalScreenshotEnabled
 end
 
-function TrustAndSafetyIXPManager:getReportAnythingOtherEnabled()
-	return self:getReportAnythingEnabled()
+function TrustAndSafetyIXPManager:getReportAnythingAvatarEnabled()
+	return self._reportAnythingAvatarEnabled or self._optionalScreenshotEnabled
 end
 
 function TrustAndSafetyIXPManager:waitForInitialization(callback)
@@ -82,12 +67,19 @@ function TrustAndSafetyIXPManager:initialize()
 		self._ixpServiceWrapper:WaitForInitialization()
 		local layerData = self._ixpServiceWrapper:GetLayerData(GetFStringReportAnythingAnnotationIXPLayerName())
 		if layerData then
-			self._reportAnythingEnabled = layerData[REPORT_ANYTHING_ENABLED] or false
-			self._typeofAbuseEnabled = layerData[TYPE_OF_ABUSE_ENABLED] or false
+			-- retain optionalScreenshotEnabled for compatibility during transition
 			self._optionalScreenshotEnabled = layerData[OPTIONAL_SCREENSHOT_ENABLED] or false
+			self._reportAnythingExperienceEnabled = layerData[OPTIONAL_SCREENSHOT_EXPERIENCE] or false
+			self._reportAnythingAvatarEnabled = layerData[OPTIONAL_SCREENSHOT_AVATAR] or false
 		end
 
-		log:debug("ReportAnything enabled? {}. Invoking {} callbacks.", self._reportAnythingEnabled, #self._callbacks)
+		log:debug(
+			"RA Optional Screenshot enabled? Both: {}, Exp: {}, Avatar: {}. Invoking {} callbacks.",
+			self._optionalScreenshotEnabled,
+			self._reportAnythingExperienceEnabled,
+			self._reportAnythingAvatarEnabled,
+			#self._callbacks
+		)
 
 		-- Invoke all pending callbacks
 		self._ixpInitialized = true

@@ -23,10 +23,22 @@ local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiMod
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local Constants = require(script.Constants)
+
+if ChromeEnabled and not TenFootInterface:IsEnabled() then
+	-- set this prior to TopBarApp require
+	local guiInsetTopLeft, guiInsetBottomRight = GuiService:GetGuiInset()
+	GuiService:SetGlobalGuiInset(
+		guiInsetTopLeft.X,
+		Constants.TopBarHeight,
+		guiInsetBottomRight.X,
+		guiInsetBottomRight.Y
+	)
+end
 
 local TopBarApp = require(script.Components.TopBarApp)
 local Reducer = require(script.Reducer)
-local Constants = require(script.Constants)
 local TopBarAppPolicy = require(script.TopBarAppPolicy)
 
 local SetSmallTouchDevice = require(script.Actions.SetSmallTouchDevice)
@@ -72,7 +84,7 @@ function TopBar.new()
 		})
 	end
 
-	if not TenFootInterface:IsEnabled() then
+	if not TenFootInterface:IsEnabled() and not ChromeEnabled then
 		GuiService:SetGlobalGuiInset(0, Constants.TopBarHeight, 0, 0)
 	end
 

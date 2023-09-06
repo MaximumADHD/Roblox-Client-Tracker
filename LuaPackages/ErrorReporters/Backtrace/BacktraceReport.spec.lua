@@ -3,14 +3,15 @@ return function()
 	local BacktraceReport = require(script.Parent.BacktraceReport)
 	local CorePackages = game:GetService("CorePackages")
 
-	local tutils = require(CorePackages.Packages.tutils)
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	describe(".new", function()
 		it("should return a valid report", function()
 			local report = BacktraceReport.new()
 			local isValid = report:validate()
 
-			expect(isValid).to.equal(true)
+			expect(isValid).toBe(true)
 		end)
 	end)
 
@@ -30,7 +31,8 @@ return function()
 				},
 			}
 
-			expect(report:validate()).to.equal(false)
+			local isValid = report:validate()
+			expect(isValid).toBe(false)
 
 			-- invalid arch
 			report.arch = {
@@ -38,7 +40,8 @@ return function()
 				regsiters = nil,
 			}
 
-			expect(report:validate()).to.equal(false)
+			isValid = report:validate()
+			expect(isValid).toBe(false)
 
 			-- correct arch
 			report.arch = {
@@ -48,7 +51,8 @@ return function()
 				},
 			}
 
-			expect(report:validate()).to.equal(true)
+			isValid = report:validate()
+			expect(isValid).toBe(true)
 		end)
 	end)
 
@@ -57,14 +61,14 @@ return function()
 
 		it("should return false if not a table", function()
 			local result = IAnnotations("string")
-			expect(result).to.equal(false)
+			expect(result).toBe(false)
 		end)
 
 		it("should return false if a non-table value is not string, number, or boolean", function()
 			local result = IAnnotations({
 				Value = function() end,
 			})
-			expect(result).to.equal(false)
+			expect(result).toBe(false)
 
 			result = IAnnotations({
 				Value = "ha",
@@ -78,11 +82,11 @@ return function()
 					},
 				},
 			})
-			expect(result).to.equal(false)
+			expect(result).toBe(false)
 		end)
 
 		it("should return true for an empty table", function()
-			expect(IAnnotations({})).to.equal(true)
+			expect(IAnnotations({})).toBe(true)
 		end)
 
 		it("should return true if a non-table value is either string, number, or boolean", function()
@@ -100,7 +104,7 @@ return function()
 					},
 				},
 			})
-			expect(result).to.equal(true)
+			expect(result).toBe(true)
 		end)
 	end)
 
@@ -110,17 +114,19 @@ return function()
 			report:addAttributes({
 				att1 = 1,
 			})
-			expect(tutils.fieldCount(report.attributes)).to.equal(1)
-			expect(report.attributes.att1).to.equal(1)
+			expect(report.attributes).toEqual({
+				att1 = 1
+			})
 			report:addAttributes({
 				att1 = 2,
 				att2 = false,
 				att3 = "test",
 			})
-			expect(tutils.fieldCount(report.attributes)).to.equal(3)
-			expect(report.attributes.att1).to.equal(2)
-			expect(report.attributes.att2).to.equal(false)
-			expect(report.attributes.att3).to.equal("test")
+			expect(report.attributes).toEqual({
+				att1 = 2,
+				att2 = false,
+				att3 = "test",
+			})
 		end)
 	end)
 
@@ -143,17 +149,19 @@ return function()
 			report:addAnnotations({
 				EnvironmentVariables = environmentVariables,
 			})
-			expect(tutils.fieldCount(report.annotations)).to.equal(1)
-			expect(tutils.deepEqual(report.annotations.EnvironmentVariables, environmentVariables)).to.equal(true)
+			expect(report.annotations).toEqual({
+				EnvironmentVariables = environmentVariables
+			})
 
 			report:addAnnotations({
 				SomeProperty = true,
 				Dependencies = dependencies,
 			})
-			expect(tutils.fieldCount(report.annotations)).to.equal(3)
-			expect(tutils.deepEqual(report.annotations.EnvironmentVariables, environmentVariables)).to.equal(true)
-			expect(report.annotations.SomeProperty).to.equal(true)
-			expect(tutils.deepEqual(report.annotations.Dependencies, dependencies)).to.equal(true)
+			expect(report.annotations).toEqual({
+				EnvironmentVariables = environmentVariables,
+				SomeProperty = true,
+				Dependencies = dependencies,
+			})
 		end)
 	end)
 
@@ -177,13 +185,21 @@ return function()
 			local report = BacktraceReport.new()
 
 			report:addStackToThread(stack1, "main")
-			expect(tutils.fieldCount(report.threads)).to.equal(1)
-			expect(tutils.deepEqual(report.threads.main.stack, stack1)).to.equal(true)
+			expect(report.threads).toMatchObject({
+				main = {
+					stack = stack1
+				}
+			})
 
 			report:addStackToThread(stack2, "1")
-			expect(tutils.fieldCount(report.threads)).to.equal(2)
-			expect(tutils.deepEqual(report.threads.main.stack, stack1)).to.equal(true)
-			expect(tutils.deepEqual(report.threads["1"].stack, stack2)).to.equal(true)
+			expect(report.threads).toMatchObject({
+				main = {
+					stack = stack1
+				},
+				["1"] = {
+					stack = stack2
+				},
+			})
 		end)
 	end)
 
@@ -192,7 +208,7 @@ return function()
 			local report = BacktraceReport.fromMessageAndStack("index nil", "Script 'Workspace.Script', Line 3")
 			local isValid = report:validate()
 
-			expect(isValid).to.equal(true)
+			expect(isValid).toBe(true)
 		end)
 	end)
 
@@ -211,7 +227,7 @@ return function()
 			})
 			local isValid = report:validate()
 
-			expect(isValid).to.equal(true)
+			expect(isValid).toBe(true)
 		end)
 	end)
 end

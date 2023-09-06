@@ -3,6 +3,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local LocalizationService = game:GetService("LocalizationService")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -65,8 +68,8 @@ return function()
 		local instance = Roact.mount(element, folder)
 		local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 		local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
-		expect(usernameElement.Text).to.be.equal("@testuser_1")
-		expect(displayNameElement.Text).to.be.equal("testuser_1")
+		expect(usernameElement.Text).toBe("@testuser_1")
+		expect(displayNameElement.Text).toBe("testuser_1")
 		Roact.unmount(instance)
 	end)
 
@@ -85,9 +88,9 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			expect(usernameElement.Text).to.be.equal("@testuser_1")
-			expect(displayNameElement.Text).to.be.equal("testuser_1")
-			expect(string.sub(statusElement.Text, 1, 6)).to.be.equal("Missed")
+			expect(usernameElement.Text).toBe("@testuser_1")
+			expect(displayNameElement.Text).toBe("testuser_1")
+			expect(string.sub(statusElement.Text, 1, 6)).toBe("Missed")
 			Roact.unmount(instance)
 		end)
 
@@ -105,9 +108,9 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			expect(usernameElement.Text).to.be.equal("@testuser_1")
-			expect(displayNameElement.Text).to.be.equal("testuser_1")
-			expect(string.sub(statusElement.Text, 1, 8)).to.be.equal("Incoming")
+			expect(usernameElement.Text).toBe("@testuser_1")
+			expect(displayNameElement.Text).toBe("testuser_1")
+			expect(string.sub(statusElement.Text, 1, 8)).toBe("Incoming")
 			Roact.unmount(instance)
 		end)
 
@@ -125,9 +128,9 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			expect(usernameElement.Text).to.be.equal("@testuser_0")
-			expect(displayNameElement.Text).to.be.equal("testuser_0")
-			expect(string.sub(statusElement.Text, 1, 8)).to.equal("Outgoing")
+			expect(usernameElement.Text).toBe("@testuser_0")
+			expect(displayNameElement.Text).toBe("testuser_0")
+			expect(string.sub(statusElement.Text, 1, 8)).toBe("Outgoing")
 			Roact.unmount(instance)
 		end)
 	end)
@@ -144,7 +147,7 @@ return function()
 			local instance = Roact.mount(element, folder)
 			local statusElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
 
-			expect(statusElement.Text).to.equal("Outgoing • " .. expectedTimeString)
+			expect(statusElement.Text).toBe("Outgoing • " .. expectedTimeString)
 			Roact.unmount(instance)
 		end)
 
@@ -156,7 +159,7 @@ return function()
 			local instance = Roact.mount(element, folder)
 			local statusElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
 
-			expect(statusElement.Text).to.equal("Outgoing • " .. expectedTimeString)
+			expect(statusElement.Text).toBe("Outgoing • " .. expectedTimeString)
 			Roact.unmount(instance)
 		end)
 
@@ -169,7 +172,7 @@ return function()
 			local instance = Roact.mount(element, folder)
 			local statusElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
 
-			expect(statusElement.Text).to.equal("Outgoing • " .. expectedTimeString)
+			expect(statusElement.Text).toBe("Outgoing • " .. expectedTimeString)
 			Roact.unmount(instance)
 		end)
 
@@ -182,7 +185,7 @@ return function()
 			local instance = Roact.mount(element, folder)
 			local statusElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
 
-			expect(statusElement.Text).to.equal("Outgoing • " .. expectedTimeString)
+			expect(statusElement.Text).toBe("Outgoing • " .. expectedTimeString)
 			Roact.unmount(instance)
 		end)
 	end)

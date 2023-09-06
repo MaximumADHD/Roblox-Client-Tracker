@@ -15,6 +15,7 @@ local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local tutils = require(CorePackages.tutils)
 
+local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local FFlagFixInspectAndBuyPremiumPrice = game:DefineFastFlag("FixInspectAndBuyPremiumPrice", false)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled =
@@ -116,12 +117,16 @@ function DetailsButtons:didUpdate(prevProps)
 		if gamepadEnabled and visible then
 			local creatorId = assetInfo and assetInfo.creatorId or 0
 
-			if creatorId == ROBLOX_CREATOR_ID then
+			if FFlagEnableFavoriteButtonForUgc then
 				GuiService.SelectedCoreObject = self.favoriteButtonRef.current
-			elseif showTryOn then
-				GuiService.SelectedCoreObject = self.tryOnButtonRef.current
 			else
-				GuiService.SelectedCoreObject = self.buyButtonRef.current
+				if creatorId == ROBLOX_CREATOR_ID then
+					GuiService.SelectedCoreObject = self.favoriteButtonRef.current
+				elseif showTryOn then
+					GuiService.SelectedCoreObject = self.tryOnButtonRef.current
+				else
+					GuiService.SelectedCoreObject = self.buyButtonRef.current
+				end
 			end
 		end
 	elseif self.props.assetInfo.bundlesAssetIsIn == nil and detailsInformation.viewingDetails and gamepadEnabled then
@@ -247,7 +252,7 @@ function DetailsButtons:render()
 		ControllerBar = showControllerBar and Roact.createElement(InspectAndBuyControllerBar, {
 			showTryOn = showTryOn,
 			tryingOn = self.props.tryingOn,
-			showFavorite = creatorId == ROBLOX_CREATOR_ID, -- only Roblox-authored items are favoriteable
+			showFavorite = if FFlagEnableFavoriteButtonForUgc then true else creatorId == ROBLOX_CREATOR_ID, -- only Roblox-authored items are favoriteable
 			isFavorited = self.props.isFavorited,
 		}),
 		FavoriteButton = Roact.createElement(FavoritesButton, {

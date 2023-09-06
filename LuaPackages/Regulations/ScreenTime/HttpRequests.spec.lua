@@ -1,5 +1,10 @@
 --!nonstrict
 local HttpRequests = require(script.Parent.HttpRequests)
+local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+local jest = JestGlobals.jest
 
 function createMockHttpService(success, statusCode, errorCode, instructions)
 	local testBody = "test-body"
@@ -43,15 +48,13 @@ return function()
 	describe("getInstructions()", function()
 		it("should correctly callback when succeeded", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 0, testInstructions))
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				expect(success).to.equal(true)
-				expect(unauthorized).to.equal(false)
-				expect(instructions).to.equal(testInstructions)
-				called = true;
-			end
-			httpRequests:getInstructions(callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success, unauthorized, instructions)
+				expect(success).toBe(true)
+				expect(unauthorized).toBe(false)
+				expect(instructions).toBe(testInstructions)
+			end)
+			httpRequests:getInstructions(mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should throw when callback is nil", function()
@@ -59,66 +62,55 @@ return function()
 			local success, err = pcall(function()
 				httpRequests:getInstructions()
 			end)
-			expect(success).to.equal(false)
+			expect(success).toBe(false)
 		end)
-		
+
 		it("should throw when not get from new", function()
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				called = true;
-			end
+			local mock, mockFn = jest.fn()
 			local success, err = pcall(function()
-				HttpRequests:getInstructions(callback)
+				HttpRequests:getInstructions(mockFn)
 			end)
-			expect(success).to.equal(false)
-			expect(called).to.equal(false)
+			expect(success).toBe(false)
+			expect(mock).never.toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when connection error", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(false))
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				expect(success).to.equal(false)
-				called = true;
-			end
-			httpRequests:getInstructions(callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success, unauthorized, instructions)
+				expect(success).toBe(false)
+			end)
+			httpRequests:getInstructions(mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when 401", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 401))
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				expect(success).to.equal(false)
-				expect(unauthorized).to.equal(true)
-				called = true;
-			end
-			httpRequests:getInstructions(callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success, unauthorized, instructions)
+				expect(success).toBe(false)
+				expect(unauthorized).toBe(true)
+			end)
+			httpRequests:getInstructions(mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when 412", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 412))
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				expect(success).to.equal(false)
-				expect(unauthorized).to.equal(false)
-				called = true;
-			end
-			httpRequests:getInstructions(callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success, unauthorized, instructions)
+				expect(success).toBe(false)
+				expect(unauthorized).toBe(false)
+			end)
+			httpRequests:getInstructions(mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when errorCode", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 1))
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				expect(success).to.equal(false)
-				expect(unauthorized).to.equal(false)
-				called = true;
-			end
-			httpRequests:getInstructions(callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success, unauthorized, instructions)
+				expect(success).toBe(false)
+				expect(unauthorized).toBe(false)
+			end)
+			httpRequests:getInstructions(mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when decoding failed", function()
@@ -127,14 +119,12 @@ return function()
 				assert(false)
 			end
 			local httpRequests = HttpRequests:new(httpService)
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				expect(success).to.equal(false)
-				expect(unauthorized).to.equal(false)
-				called = true;
-			end
-			httpRequests:getInstructions(callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success, unauthorized, instructions)
+				expect(success).toBe(false)
+				expect(unauthorized).toBe(false)
+			end)
+			httpRequests:getInstructions(mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when wrong response json format", function()
@@ -145,39 +135,32 @@ return function()
 				}
 			end
 			local httpRequests = HttpRequests:new(httpService)
-			local called = false
-			local function callback(success, unauthorized, instructions)
-				expect(success).to.equal(false)
-				expect(unauthorized).to.equal(false)
-				called = true;
-			end
-			httpRequests:getInstructions(callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success, unauthorized, instructions)
+				expect(success).toBe(false)
+				expect(unauthorized).toBe(false)
+			end)
+			httpRequests:getInstructions(mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 	end)
 
 	describe("reportExecution()", function()
 		it("should correctly callback when succeeded", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 0))
-			local called = false
-			local function callback(success)
-				expect(success).to.equal(true)
-				called = true;
-			end
-			httpRequests:reportExecution("a", "b", callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success)
+				expect(success).toBe(true)
+			end)
+			httpRequests:reportExecution("a", "b", mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should throw when not get from new", function()
-			local called = false
-			local function callback(success)
-				called = true;
-			end
+			local mock, mockFn = jest.fn()
 			local success, err = pcall(function()
-				HttpRequests:reportExecution("a", "b", callback)
+				HttpRequests:reportExecution("a", "b", mockFn)
 			end)
-			expect(success).to.equal(false)
-			expect(called).to.equal(false)
+			expect(success).toBe(false)
+			expect(mock).never.toHaveBeenCalled()
 		end)
 
 		it("should be ok with nil callback when succeeded", function()
@@ -187,35 +170,29 @@ return function()
 
 		it("should correctly callback when connection error", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(false))
-			local called = false
-			local function callback(success)
-				expect(success).to.equal(false)
-				called = true;
-			end
-			httpRequests:reportExecution("a", "b", callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success)
+				expect(success).toBe(false)
+			end)
+			httpRequests:reportExecution("a", "b", mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when 401", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 401))
-			local called = false
-			local function callback(success)
-				expect(success).to.equal(false)
-				called = true;
-			end
-			httpRequests:reportExecution("a", "b", callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success)
+				expect(success).toBe(false)
+			end)
+			httpRequests:reportExecution("a", "b", mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when errorCode", function()
 			local httpRequests = HttpRequests:new(createMockHttpService(true, 200, 1))
-			local called = false
-			local function callback(success)
-				expect(success).to.equal(false)
-				called = true;
-			end
-			httpRequests:reportExecution("a", "b", callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success)
+				expect(success).toBe(false)
+			end)
+			httpRequests:reportExecution("a", "b", mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when decoding failed", function()
@@ -224,13 +201,11 @@ return function()
 				assert(false)
 			end
 			local httpRequests = HttpRequests:new(httpService)
-			local called = false
-			local function callback(success)
-				expect(success).to.equal(false)
-				called = true;
-			end
-			httpRequests:reportExecution("a", "b", callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success)
+				expect(success).toBe(false)
+			end)
+			httpRequests:reportExecution("a", "b", mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 
 		it("should correctly callback when wrong response json format", function()
@@ -239,13 +214,11 @@ return function()
 				return { }
 			end
 			local httpRequests = HttpRequests:new(httpService)
-			local called = false
-			local function callback(success)
-				expect(success).to.equal(false)
-				called = true;
-			end
-			httpRequests:reportExecution("a", "b", callback)
-			expect(called).to.equal(true)
+			local mock, mockFn = jest.fn(function (success)
+				expect(success).toBe(false)
+			end)
+			httpRequests:reportExecution("a", "b", mockFn)
+			expect(mock).toHaveBeenCalled()
 		end)
 	end)
 end

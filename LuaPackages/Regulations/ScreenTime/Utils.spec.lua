@@ -1,4 +1,9 @@
 --!nonstrict
+local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local Utils = require(script.Parent.Utils)
 
 function createMockDependencies()
@@ -21,7 +26,7 @@ return function()
 			local success, err = pcall(function()
 				local utils = Utils:new(mock)
 			end)
-			expect(success).to.equal(false)
+			expect(success).toBe(false)
 		end)
 
 		it("should throw when setter is nil", function()
@@ -30,7 +35,7 @@ return function()
 			local success, err = pcall(function()
 				local utils = Utils:new(mock)
 			end)
-			expect(success).to.equal(false)
+			expect(success).toBe(false)
 		end)
 	end)
 
@@ -39,7 +44,7 @@ return function()
 			local mock = createMockDependencies()
 			local utils = Utils:new(mock)
 			local flag = utils:isLockedOut()
-			expect(flag).to.equal(false)
+			expect(flag).toBe(false)
 		end)
 
 		it("should return true after set", function()
@@ -47,7 +52,7 @@ return function()
 			local utils = Utils:new(mock)
 			utils:setLockedOut()
 			local flag = utils:isLockedOut()
-			expect(flag).to.equal(true)
+			expect(flag).toBe(true)
 		end)
 	end)
 end

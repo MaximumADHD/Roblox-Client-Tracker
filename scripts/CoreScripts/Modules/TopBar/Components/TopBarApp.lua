@@ -41,6 +41,7 @@ local Connection = require(script.Parent.Connection)
 
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
+local GetFFlagChangeTopbarHeightCalculation = require(TopBar.Flags.GetFFlagChangeTopbarHeightCalculation)
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 
@@ -93,14 +94,20 @@ function TopBarApp:renderWithStyle(style)
 
 	local screenSideOffset = Constants.ScreenSideOffset
 	local topBarHeight = if not isNewTiltIconEnabled() then 36 else Constants.TopBarHeight
+	if GetFFlagChangeTopbarHeightCalculation() then
+		topBarHeight =  Constants.TopBarHeight
+	end
+
 	if TenFootInterface:IsEnabled() then
 		screenSideOffset = Constants.ScreenSideOffsetTenFoot
 		topBarHeight = Constants.TopBarHeightTenFoot
 	end
 	local isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
-	local topBarFramePosition = UDim2.new(0, 0, 0, 0)
+	local topBarFramePosition = UDim2.new(0, 0, 0, if GetFFlagChangeTopbarHeightCalculation() then Constants.TopBarTopMargin else 0)
+	local topBarFrameHeight = topBarHeight - Constants.TopBarTopMargin
 	local topBarLeftFramePosition = UDim2.new(0, screenSideOffset, 0, 0)
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
+	local topBarRightUnibarFramePosition = UDim2.new(1, -screenSideOffset, 0, Constants.TopBarTopMargin)
 	local closeMenuButtonPosition = UDim2.new(0, 0, 0.5, 0)
 
 	local bottomBar = if FFlagVRMoveVoiceIndicatorToBottomBar
@@ -141,8 +148,8 @@ function TopBarApp:renderWithStyle(style)
 
 		MenuIconHolder = isNewTiltIconEnabled() and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Position = UDim2.new(0, screenSideOffset, 0, 0),
-			Size = UDim2.new(1, 0, 0, topBarHeight),
+			Position = UDim2.new(0, screenSideOffset, 0, if GetFFlagChangeTopbarHeightCalculation() then Constants.TopBarTopMargin else 0),
+			Size = UDim2.new(1, 0, 0, if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight),
 		}, {
 			MenuIcon = Roact.createElement(MenuIcon, {
 				iconScale = if self.props.menuOpen then 1.25 else 1,
@@ -240,8 +247,8 @@ function TopBarApp:renderWithStyle(style)
 
 		UnibarRightFrame = Unibar and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, topBarHeight),
-			Position = topBarRightFramePosition,
+			Size = UDim2.new(1, 0, 0, if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight),
+			Position = if GetFFlagChangeTopbarHeightCalculation() then topBarRightUnibarFramePosition else topBarRightFramePosition,
 			AnchorPoint = Vector2.new(1, 0),
 		}, {
 			KeepOutAreasHandler = Roact.createElement(KeepOutAreasHandler),
@@ -271,7 +278,7 @@ function TopBarApp:renderWithStyle(style)
 
 		TopBarFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, topBarHeight),
+			Size = UDim2.new(1, 0, 0, if GetFFlagChangeTopbarHeightCalculation() then topBarFrameHeight else topBarHeight),
 			Visible = isTopBarVisible,
 			Position = topBarFramePosition,
 		}, {

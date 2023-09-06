@@ -70,7 +70,7 @@ coroutine.wrap(function()
 	end
 
 	if canChat and chatChromeIntegration.availability then
-		chatChromeIntegration.availability:available()
+		ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat)
 	end
 end)()
 

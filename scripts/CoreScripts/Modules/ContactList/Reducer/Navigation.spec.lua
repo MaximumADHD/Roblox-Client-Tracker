@@ -5,25 +5,30 @@ return function()
 	local OpenContactList = require(ContactList.Actions.OpenContactList)
 	local Pages = require(script.Parent.Parent.Enums.Pages)
 
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	it("should have the correct default values", function()
 		local defaultState = Navigation(nil, {})
 
-		expect(type(defaultState)).to.equal("table")
-		expect(defaultState.currentPage).to.equal(nil)
+		expect(defaultState).toEqual(expect.any("table"))
+		expect(defaultState.currentPage).toBe(nil)
 	end)
 
 	describe("using actions", function()
 		it("should change with OpenContactList and CloseContactList", function()
 			local oldState = Navigation(nil, {})
 			local openState = Navigation(oldState, OpenContactList("tag"))
-			expect(oldState).to.never.equal(openState)
-			expect(openState.currentPage).to.equal(Pages.CallHistory)
-			expect(openState.currentTag).to.equal("tag")
+			expect(oldState).never.toBe(openState)
+			expect(openState.currentPage).toBe(Pages.CallHistory)
+			expect(openState.currentTag).toBe("tag")
 
 			local closeState = Navigation(openState, CloseContactList())
-			expect(openState).to.never.equal(closeState)
-			expect(closeState.currentPage).to.equal(nil)
-			expect(closeState.currentTag).to.equal("")
+			expect(openState).never.toBe(closeState)
+			expect(closeState.currentPage).toBe(nil)
+			expect(closeState.currentTag).toBe("")
 		end)
 	end)
 end

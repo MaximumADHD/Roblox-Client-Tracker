@@ -11,6 +11,9 @@ local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 local act = require(Modules.act)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
@@ -71,22 +74,22 @@ return function()
 					wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
 				end)
 
-				expect(store:getState().currentZone).to.equal(1)
+				expect(store:getState().currentZone).toBe(1)
 
 				c.gamepadInput(Enum.KeyCode.DPadLeft)
-				expect(store:getState().currentZone).to.equal(0)
+				expect(store:getState().currentZone).toBe(0)
 
 				c.gamepadInput(Enum.KeyCode.DPadRight)
-				expect(store:getState().currentZone).to.equal(1)
+				expect(store:getState().currentZone).toBe(1)
 			end)
 
 			it("Should bumper switch", function(c)
 				local store = c.store
 
 				c.gamepadInput(Enum.KeyCode.ButtonL1)
-				expect(store:getState().currentZone).to.equal(0)
+				expect(store:getState().currentZone).toBe(0)
 				c.gamepadInput(Enum.KeyCode.ButtonR1)
-				expect(store:getState().currentZone).to.equal(1)
+				expect(store:getState().currentZone).toBe(1)
 			end)
 		end)
 
@@ -142,11 +145,11 @@ return function()
 			end)
 
 			it("should focus the back button when friends are loading", function()
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("BackButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("BackButton")
 			end)
 
 			it("should focus the add frieds button when you have no friends", function(c)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("BackButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("BackButton")
 
 				finishedLoadingEvent:Fire({
 					IsFinished = true,
@@ -155,21 +158,21 @@ return function()
 					end,
 				})
 				act(wait)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("MakeFriendsButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("MakeFriendsButton")
 
 				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(c.store:getState().menuPage).to.equal("Players")
+				expect(c.store:getState().menuPage).toBe("Players")
 			end)
 
 			it("should focus the retry button when loading friends has failed", function(c)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("BackButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("BackButton")
 
 				finishedLoadingEvent:Fire(nil) -- Should fail loading when we pass nil
 				act(wait)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("RetryButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("RetryButton")
 
 				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("BackButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("BackButton")
 
 				finishedLoadingEvent:Fire({
 					IsFinished = true,
@@ -185,11 +188,11 @@ return function()
 					end,
 				})
 				act(wait)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("friend_1")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("friend_1")
 			end)
 
 			it("should focus the first friend when loading friends succeeds", function()
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("BackButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("BackButton")
 
 				finishedLoadingEvent:Fire({
 					IsFinished = true,
@@ -205,11 +208,11 @@ return function()
 					end,
 				})
 				act(wait)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("friend_1")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("friend_1")
 			end)
 
 			it("should focus the topmost search result and clear the search text", function(c)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("BackButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("BackButton")
 
 				finishedLoadingEvent:Fire({
 					IsFinished = true,
@@ -243,12 +246,12 @@ return function()
 				local rootPath = XPath.new(c.path)
 				local pageContainerPath = rootPath:cat(XPath.new("Page.PageContainer"))
 				local pageContainer = Element.new(pageContainerPath)
-				expect(pageContainer:waitForRbxInstance(1)).to.be.ok()
+				expect(pageContainer:waitForRbxInstance(1)).never.toBeNil()
 				local pageContainerInstance = pageContainer.rbxInstance
 				GuiService:AddSelectionParent("invite_friends_test_selection_parent", pageContainerInstance)
 
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("friend_1")
-				expect(GuiService.SelectedCoreObject.DisplayNameLabel.Text).to.equal("AAAAA")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("friend_1")
+				expect(GuiService.SelectedCoreObject.DisplayNameLabel.Text).toBe("AAAAA")
 
 				-- Focus the search bar and enter a search query
 				c.gamepadInput(Enum.KeyCode.DPadUp)
@@ -262,8 +265,8 @@ return function()
 				act(wait)
 
 				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("friend_3")
-				expect(GuiService.SelectedCoreObject.DisplayNameLabel.Text).to.equal("CCCCC")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("friend_3")
+				expect(GuiService.SelectedCoreObject.DisplayNameLabel.Text).toBe("CCCCC")
 
 				-- Click the clear button
 				act(function()
@@ -274,8 +277,8 @@ return function()
 				act(wait)
 
 				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("friend_1")
-				expect(GuiService.SelectedCoreObject.DisplayNameLabel.Text).to.equal("AAAAA")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("friend_1")
+				expect(GuiService.SelectedCoreObject.DisplayNameLabel.Text).toBe("AAAAA")
 
 				GuiService:RemoveSelectionGroup("invite_friends_test_selection_parent")
 			end)

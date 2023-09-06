@@ -7,6 +7,7 @@ local Players = game:GetService("Players")
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local GetFFlagSubscriptionFailureUX = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureUX)
+local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 
 local VoiceEnabledChanged = require(script.Parent.Actions.VoiceEnabledChanged)
 local VoiceStateChanged = require(script.Parent.Actions.VoiceStateChanged)
@@ -52,7 +53,11 @@ local function setVoiceEnabled(voiceState, chatStore)
 				chatStore:dispatch(VoiceStateChanged(userId, VOICE_STATE.HIDDEN))
 			end
 		end
-	elseif voiceState == (Enum::any).VoiceChatState.Joined and not VoiceChatServiceManager.localMuted then
+	elseif voiceState == (Enum::any).VoiceChatState.Joined and
+		if GetFFlagLocalMutedNilFix
+			then VoiceChatServiceManager.localMuted == false
+			else not VoiceChatServiceManager.localMuted
+		then
 		-- The mute changed signal happens before the user is Joined, so check again here.
 		chatStore:dispatch(VoiceStateChanged(localUserId, VOICE_STATE.INACTIVE))
 	end

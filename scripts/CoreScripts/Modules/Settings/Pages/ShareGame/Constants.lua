@@ -1,8 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
-local ThumbnailRequest = require(AppTempCommon.LuaApp.Models.ThumbnailRequest)
+local ThumbnailRequest = require(CorePackages.Workspace.Packages.UserLib).Utils.ThumbnailRequest
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local UserLibConstants = UserLib.Utils.Constants
 local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
@@ -126,18 +125,18 @@ local Constants = {
 		DeveloperMultiple = "DeveloperMultiple",
 		DeveloperSingle = "DeveloperSingle",
 		GameMenu = "GameMenu",
-	}
+	},
 }
 
-Constants.InviteAvatarThumbnailType = UserLibConstants.RbxAvatarThumbnailTypesFromEnum.HeadShot :: UserLib.RbxAvatarThumbnailTypeFromEnum
+Constants.InviteAvatarThumbnailType =
+	UserLibConstants.RbxAvatarThumbnailTypesFromEnum.HeadShot :: UserLib.RbxAvatarThumbnailTypeFromEnum
 Constants.InviteAvatarThumbnailSize = UserLibConstants.RbxThumbnailSizes.Size150x150 :: UserLib.RbxThumbnailSize
 Constants.InviteAvatarRbxthumbType = UserLibConstants.RbxthumbTypes.AvatarHeadShot :: UserLib.RbxthumbType
 
 Constants.ThumbnailRequest = {
-	InviteToGame = {ThumbnailRequest.fromData(
-		Constants.InviteAvatarThumbnailType,
-		Constants.InviteAvatarThumbnailSize
-	)},
+	InviteToGame = {
+		ThumbnailRequest.fromData(Constants.InviteAvatarThumbnailType, Constants.InviteAvatarThumbnailSize),
+	},
 }
 
 return Constants

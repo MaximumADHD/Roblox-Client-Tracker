@@ -7,7 +7,6 @@ local UIBloxFlags = SharedFlags.UIBlox
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 return {
-	fixLoadableImageLoadingFailed = UIBloxFlags.GetFFlagFixLoadableImageLoadingFailed(),
 	useNewGenericTextLabelProps = UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableRightSideGadgetView = UIBloxFlags.GetFFlagUIBloxUseRightSideGadget(),
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()

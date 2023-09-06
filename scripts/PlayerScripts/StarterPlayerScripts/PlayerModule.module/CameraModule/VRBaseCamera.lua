@@ -34,7 +34,7 @@ end
 
 local FFlagUserVRFollowCamera do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRFollowCamera")
+		return UserSettings():IsUserFeatureEnabled("UserVRFollowCamera2")
 	end)
 	FFlagUserVRFollowCamera = success and result
 end
@@ -66,6 +66,9 @@ function VRBaseCamera.new()
 	-- initialize vr specific variables
 	self.gamepadResetConnection = nil
 	self.needsReset = true
+	if FFlagUserVRFollowCamera then
+		self.recentered = false
+	end
 	
 	-- timer for step rotation
 	if FFlagUserVRRotationUpdate then
@@ -124,6 +127,12 @@ function VRBaseCamera:OnEnable(enable: boolean)
 					self:Reset()
 				end 
 			end)
+			
+			self.vrRecentered = VRService.UserCFrameChanged:Connect(function(userCFrame, _)
+				if userCFrame == Enum.UserCFrame.Floor then
+					self.recentered = true
+				end
+			end)
 		end
 
 	else
@@ -136,6 +145,11 @@ function VRBaseCamera:OnEnable(enable: boolean)
 			if self.thirdPersonOptionChanged then
 				self.thirdPersonOptionChanged:Disconnect()
 				self.thirdPersonOptionChanged = nil
+			end
+			
+			if self.vrRecentered then
+				self.vrRecentered:Disconnect()
+				self.vrRecentered = nil
 			end
 		end
 

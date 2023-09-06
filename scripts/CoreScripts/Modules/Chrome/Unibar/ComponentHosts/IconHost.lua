@@ -179,10 +179,11 @@ function TooltipButton(props: TooltipButtonProps)
 	-- this is reset on the next hover
 	local clickLatched, setClicked = useTimeHysteresis(0, 1.0)
 	local hoverHandler = React.useCallback(function(_, newState)
-		local hovered = newState ~= ControlState.Default
-		props.setHovered(hovered)
+		local active = newState ~= ControlState.Default
+		props.setHovered(active)
+		local hovered = newState == ControlState.Hover
 		setHovered(hovered, (hovered and isTooltipHovered) or areTooltipsDisplaying())
-		if not hovered then
+		if not active then
 			setClicked(false)
 		end
 	end, { props.setHovered :: any, setHovered, setClicked, isTooltipHovered })

@@ -1,4 +1,6 @@
 --!nonstrict
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
@@ -21,6 +23,9 @@ local ScreenshotDialogLandscapeModeHeader =
 	require(TnsModule.Components.ReportAnything.ScreenshotDialogLandscapeModeHeader)
 local AbuseReportBuilder = require(TnsModule.Utility.AbuseReportBuilder)
 local ReportAnythingAnalytics = require(TnsModule.Utility.ReportAnythingAnalytics)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local GetFFlagReportAnythingLocalizationEnabled = require(TnsModule.Flags.GetFFlagReportAnythingLocalizationEnabled)
 
 local Divider = require(Dependencies.Divider)
 
@@ -73,7 +78,9 @@ local function PortraitModeFooter(props: { reportAction: (({ Vector2 }) -> ()), 
 							onActivated = function()
 								props.reportAction(props.annotationPoints)
 							end,
-							text = "Next",
+							text = if GetFFlagReportAnythingLocalizationEnabled()
+								then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.Next")
+								else "Next",
 						},
 					},
 				},

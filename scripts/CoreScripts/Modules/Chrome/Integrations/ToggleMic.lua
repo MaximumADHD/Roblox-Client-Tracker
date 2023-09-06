@@ -55,11 +55,11 @@ end
 if game:GetEngineFeature("VoiceChatSupported") then
 	VoiceChatServiceManager:asyncInit()
 		:andThen(function()
-			VoiceChatServiceManager:SetupParticipantListeners()
 			local voiceService = VoiceChatServiceManager:getService()
 			if voiceService then
-				updateVoiceState(nil, voiceService.VoiceChatState)
 				voiceService.StateChanged:Connect(updateVoiceState)
+				VoiceChatServiceManager:SetupParticipantListeners()
+				muteSelf.availability:available()
 			end
 		end)
 		:catch(function() end)

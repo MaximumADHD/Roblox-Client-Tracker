@@ -11,6 +11,7 @@ local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
 local TryOnItem = require(InspectAndBuyFolder.Thunks.TryOnItem)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
+local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local TryOnShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).TryOn
 
@@ -82,7 +83,9 @@ function TryOnButton:render()
 	local partOfBundleAndOffsale = self.props.partOfBundleAndOffsale
 	local bundleId = self.props.bundleId
 	local tryOnButtonRef = self.props.tryOnButtonRef
-	local sizeXAdjustment = creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
+	local sizeXAdjustment = if FFlagEnableFavoriteButtonForUgc
+		then -32
+		else creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
 	local tryOnTextKey
 
 	if tryingOn then

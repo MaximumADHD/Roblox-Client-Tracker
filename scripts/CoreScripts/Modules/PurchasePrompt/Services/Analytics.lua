@@ -10,6 +10,8 @@ local HttpService = game:GetService("HttpService")
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
+local GetFFlagUsePlatformNameForUnknown = require(Root.Flags.GetFFlagUsePlatformNameForUnknown)
+local GetFFlagEnableQuestIAPAnalytics = require(Root.Flags.GetFFlagEnableQuestIAPAnalytics)
 
 local Analytics = {}
 
@@ -29,6 +31,9 @@ function Analytics.new()
 	local function GetPlatformString()
 		local platform = UserInputService:GetPlatform()
 		local platformStr = "UNKNOWN"
+		if GetFFlagUsePlatformNameForUnknown then
+			platformStr = tostring(platform)
+		end
 		
 		if platform == Enum.Platform.Windows then
 			platformStr = "Windows"
@@ -42,6 +47,9 @@ function Analytics.new()
 				platformStr = "Amazon"
 			else
 				platformStr = "Android"
+			end
+			if GetFFlagEnableQuestIAPAnalytics() and string.find(useragent, "OculusQuest3Store") then
+				platformStr = "Quest"
 			end
 		elseif platform == Enum.Platform.XBoxOne then
 			platformStr = "XBoxOne"

@@ -3,7 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local AddUsers = require(CorePackages.Workspace.Packages.UserLib).Actions.AddUsers
-local SetFriendCount = require(CorePackages.AppTempCommon.LuaApp.Actions.SetFriendCount)
+local SetFriendCount = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.SetFriendCount
 
 return function(users)
 	return function(store)

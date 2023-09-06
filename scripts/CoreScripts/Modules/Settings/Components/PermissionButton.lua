@@ -15,6 +15,7 @@ PermissionButton.validateProps = t.strictInterface({
 	image = t.table,
 	LayoutOrder = t.number,
 	useNewMenuTheme = t.boolean,
+	imageLabelProps = t.optional(t.table),
 })
 
 function PermissionButton:render()
@@ -31,7 +32,8 @@ function PermissionButton:render()
 			LayoutOrder = 2,
 			Image = self.props.image,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
+			Size = self.props.imageLabelProps and self.props.imageLabelProps.Size or UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
+			Position = self.props.imageLabelProps and self.props.imageLabelProps.Position,
 			[Roact.Event.Activated] = self.props.callback,
 		})
 	})

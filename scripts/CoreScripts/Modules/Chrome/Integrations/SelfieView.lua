@@ -4,6 +4,7 @@ local React = require(CorePackages.Packages.React)
 local ChromeService = require(script.Parent.Parent.Service)
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
+local StarterGui = game:GetService("StarterGui")
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
@@ -80,6 +81,12 @@ ViewportUtil.screenSize:connect(function(screenSize)
 end, true)
 
 local updateAvailability = function(): ()
+	local coreGuiEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView)
+	if not coreGuiEnabled then
+		selfieViewChromeIntegration.availability:unavailable()
+		return
+	end
+
 	-- Check that the place has mic/cam enabled (ignoring user)
 	local permissions: FaceChatUtils.Permissions = FaceChatUtils.getPermissions()
 
@@ -117,5 +124,7 @@ if GetFFlagSelfieViewEnabled() and game:GetEngineFeature("VideoCaptureService") 
 	FaceAnimatorService:GetPropertyChangedSignal("AudioAnimationEnabled"):Connect(updateAvailability)
 	reportSettings()
 end
+
+StarterGui.CoreGuiChangedSignal:Connect(updateAvailability)
 
 return selfieViewChromeIntegration

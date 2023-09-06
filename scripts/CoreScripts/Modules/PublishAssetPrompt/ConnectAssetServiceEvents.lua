@@ -10,10 +10,13 @@ local ExpAuthSvc = game:GetService("ExperienceAuthService")
 
 local PublishAssetPrompt = script.Parent
 local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
+local OpenPublishAvatarPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAvatarPrompt)
 local OpenResultModal = require(PublishAssetPrompt.Thunks.OpenResultModal)
 
 local FFlagInExperiencePublishDeserializeAsset = game:DefineFastFlag("InExperiencePublishDeserializeAsset", false)
 local FFlagNewInExperienceSerializationFix = game:DefineFastFlag("NewInExperienceSerializationFix", false)
+-- TODO: AVBURST-13147 Revisit how humanoid description will be passed through and outfitToPublish in metadata
+local FFlagPublishAvatarPromptEnabled = require(script.Parent.FFlagPublishAvatarPromptEnabled)
 
 local function ConnectAssetServiceEvents(store)
 	local connections = {}
@@ -40,24 +43,34 @@ local function ConnectAssetServiceEvents(store)
 						elseif metadata["serializedInstance"] then
 							local instance = AssetService:DeserializeInstance(metadata["serializedInstance"])
 							store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
+						elseif FFlagPublishAvatarPromptEnabled and metadata["outfitToPublish"] then
+							store:dispatch(OpenPublishAvatarPrompt(metadata["outfitToPublish"], guid, scopes))
 						end
 					else
 						if
 							game:GetEngineFeature("AssetServiceDeserializeInstance")
 							and FFlagInExperiencePublishDeserializeAsset
 						then
-							local instance = AssetService:DeserializeInstance(metadata["serializedInstance"])
+							if FFlagPublishAvatarPromptEnabled and metadata["outfitToPublish"] then
+								store:dispatch(OpenPublishAvatarPrompt(metadata["outfitToPublish"], guid, scopes))
+							else
+								local instance = AssetService:DeserializeInstance(metadata["serializedInstance"])
 
-							store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
+								store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
+							end
 						else
-							store:dispatch(
-								OpenPublishAssetPrompt(
-									metadata["instanceToPublish"],
-									metadata["assetType"],
-									guid,
-									scopes
+							if FFlagPublishAvatarPromptEnabled and metadata["outfitToPublish"] then
+								store:dispatch(OpenPublishAvatarPrompt(metadata["outfitToPublish"], guid, scopes))
+							else
+								store:dispatch(
+									OpenPublishAssetPrompt(
+										metadata["instanceToPublish"],
+										metadata["assetType"],
+										guid,
+										scopes
+									)
 								)
-							)
+							end
 						end
 					end
 				end

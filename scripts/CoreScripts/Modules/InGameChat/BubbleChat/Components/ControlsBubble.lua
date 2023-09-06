@@ -26,6 +26,7 @@ local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
 local Analytics = require(Modules.SelfView.Analytics).new()
 local FFlagUWPAvatarChatFixes = require(Modules.Flags.FFlagUWPAvatarChatFixes)
 local FFlagBubbleSizingFix = require(Modules.Flags.FFlagBubbleSizingFix)
+local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
 
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
@@ -52,7 +53,9 @@ function ControlsBubble:init()
 	local cameraEnabled = if FaceAnimatorService then (FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled) else false
 
 	self:setState({
-		microphoneEnabled = not VoiceChatServiceManager.localMuted or false,
+		microphoneEnabled = if GetFFlagLocalMutedNilFix
+			then VoiceChatServiceManager.localMuted == false
+			else not VoiceChatServiceManager.localMuted,
 		cameraEnabled = cameraEnabled,
 	})
 

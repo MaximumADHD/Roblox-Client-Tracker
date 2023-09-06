@@ -156,6 +156,7 @@ local GetFFlagEnableAudioOutputDevice = require(RobloxGui.Modules.Flags.GetFFlag
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
 local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 local GetFFlagSupportsOverscanPolicy = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportsOverscanPolicy
+local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -1012,6 +1013,13 @@ local function Initialize()
 
 		-----------------------------------------------------------
 		----------------------- Camera Mode -----------------------
+		function cameraModeIsUserChoice()
+			if UserInputService.TouchEnabled then
+				return LocalPlayer.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice
+			else
+				return LocalPlayer.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice
+			end
+		end
 
 		function setCameraModeVisible(visible)
 			if this.CameraMode then
@@ -1084,7 +1092,11 @@ local function Initialize()
 					return
 				end
 
-				setCameraModeVisible(true)
+				if GetFFlagGameSettingsCameraModeFixEnabled() then
+					setCameraModeVisible(cameraModeIsUserChoice())
+				else
+					setCameraModeVisible(true)
+				end
 
 				for i = 1, #enumsToAdd do
 					local newCameraMode = enumsToAdd[i]

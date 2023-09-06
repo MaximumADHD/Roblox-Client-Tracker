@@ -3,6 +3,9 @@ return function()
 	local UserInputService = game:GetService("UserInputService")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -101,19 +104,19 @@ return function()
 			withServices(function(path)
 				path = XPath.new(path)
 				local baseWidget = Element.new(path)
-				expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
+				expect(baseWidget:waitForRbxInstance(1)).never.toBeNil()
 
 				local rootInstance = baseWidget:waitForRbxInstance(1)
 
 				local textboxInstance = rootInstance:FindFirstChildWhichIsA("TextBox", true)
-				expect(textboxInstance).to.be.ok()
-				expect(textboxInstance.Text).to.equal("Hello")
+				expect(textboxInstance).never.toBeNil()
+				expect(textboxInstance.Text).toBe("Hello")
 
 				textboxInstance.Text = textboxInstance.Text .. " world!"
 
 				wait()
 
-				expect(updatedText).to.equal("Hello world!")
+				expect(updatedText).toBe("Hello world!")
 			end,
 			wrappedComponent, Reducer, initalStoreState, nil)
 		end)

@@ -6,6 +6,9 @@ local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
+local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
+local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
+local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -111,6 +114,7 @@ local function CallBar(passedProps: Props)
 
 	local endButtonCallback = React.useCallback(function()
 		if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
+			SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 			props.callProtocol:finishCall(callId)
 			sendLeaveCallEvent()
 		elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
@@ -169,13 +173,11 @@ local function CallBar(passedProps: Props)
 			}),
 
 			DisplayName = React.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
+				Size = UDim2.new(1, 0, 0, 22),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Font = font.CaptionHeader.Font,
 				LayoutOrder = 1,
-				LineHeight = 1.25,
 				Text = if otherEndParticipant then otherEndParticipant.displayName else "",
 				TextColor3 = theme.TextEmphasis.Color,
 				TextSize = font.BaseSize * font.CaptionHeader.RelativeSize,
@@ -184,29 +186,18 @@ local function CallBar(passedProps: Props)
 				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
 
-			Details = React.createElement("Frame", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
+			DetailsText = React.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 0, 14),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
+				Font = font.Footer.Font,
 				LayoutOrder = 2,
-			}, {
-				UIPadding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 2),
-				}),
-
-				DetailsText = React.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.XY,
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					Font = font.Footer.Font,
-					LineHeight = 1.16667,
-					Text = callStatusText,
-					TextColor3 = Colors.White,
-					TextSize = font.BaseSize * font.Footer.RelativeSize,
-					TextTransparency = 0.4,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-				}),
+				Text = callStatusText,
+				TextColor3 = Colors.White,
+				TextSize = font.BaseSize * font.Footer.RelativeSize,
+				TextTransparency = 0.4,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
 		}),
 

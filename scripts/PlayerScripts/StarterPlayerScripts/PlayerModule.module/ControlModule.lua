@@ -42,6 +42,20 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
+local FFlagUserFixVRSwimming do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixVRSwimming")
+	end)
+	FFlagUserFixVRSwimming = success and result
+end
+
+local FFlagUserVRFollowCamera do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRFollowCamera2")
+	end)
+	FFlagUserVRFollowCamera = success and result
+end
+
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -164,10 +178,10 @@ function ControlModule.new()
 	self.touchGui = nil
 	self.playerGuiAddedConn = nil
 
-		GuiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function()
-			self:UpdateTouchGuiVisibility()
-			self:UpdateActiveControlModuleEnabled()
-		end)
+	GuiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function()
+		self:UpdateTouchGuiVisibility()
+		self:UpdateActiveControlModuleEnabled()
+	end)
 
 	if UserInputService.TouchEnabled then
 		self.playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
@@ -339,18 +353,38 @@ local function calculateRawMoveVector(humanoid: Humanoid, cameraRelativeMoveVect
 		return cameraRelativeMoveVector
 	end
 
-	if humanoid:GetState() == Enum.HumanoidStateType.Swimming then
-		return camera.CFrame:VectorToWorldSpace(cameraRelativeMoveVector)
+	if not FFlagUserFixVRSwimming then
+		if humanoid:GetState() == Enum.HumanoidStateType.Swimming then
+			return camera.CFrame:VectorToWorldSpace(cameraRelativeMoveVector)
+		end
 	end
 
 	local cameraCFrame = camera.CFrame
 
 	if VRService.VREnabled and humanoid.RootPart then
-		-- movement relative to VR frustum
-		local cameraDelta = humanoid.RootPart.CFrame.Position - cameraCFrame.Position
-		if cameraDelta.Magnitude < 3 then -- "nearly" first person
+		if FFlagUserVRFollowCamera then
 			local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			cameraCFrame = cameraCFrame * vrFrame
+			
+			-- movement relative to VR frustum
+			local cameraDelta = camera.Focus.Position - cameraCFrame.Position
+			if cameraDelta.Magnitude < 3 then -- "nearly" first person
+				cameraCFrame = cameraCFrame * vrFrame
+			else
+				cameraCFrame = camera.CFrame * (vrFrame.Rotation + vrFrame.Position * camera.HeadScale)
+			end
+		else
+			-- movement relative to VR frustum
+			local cameraDelta = humanoid.RootPart.CFrame.Position - cameraCFrame.Position
+			if cameraDelta.Magnitude < 3 then -- "nearly" first person
+				local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+				cameraCFrame = cameraCFrame * vrFrame
+			end
+		end
+	end
+
+	if FFlagUserFixVRSwimming then
+		if humanoid:GetState() == Enum.HumanoidStateType.Swimming then
+			return cameraCFrame:VectorToWorldSpace(cameraRelativeMoveVector)
 		end
 	end
 
@@ -406,10 +440,10 @@ function ControlModule:OnRenderStepped(dt)
 		-- Verification of vehicleConsumedInput is commented out to preserve legacy behavior,
 		-- in case some game relies on Humanoid.MoveDirection still being set while in a VehicleSeat
 		--if not vehicleConsumedInput then
-			if cameraRelative then
-				moveVector = calculateRawMoveVector(self.humanoid, moveVector)
-			end
-			self.moveFunction(Players.LocalPlayer, moveVector, false)
+		if cameraRelative then
+			moveVector = calculateRawMoveVector(self.humanoid, moveVector)
+		end
+		self.moveFunction(Players.LocalPlayer, moveVector, false)
 		--end
 
 		-- And make them jump if needed
@@ -495,8 +529,8 @@ function ControlModule:SwitchToController(controlModule)
 		self.activeControlModule = controlModule -- Only used to check if controller switch is necessary
 
 		if self.touchControlFrame and (self.activeControlModule == ClickToMove
-					or self.activeControlModule == TouchThumbstick
-					or self.activeControlModule == DynamicThumbstick) then
+			or self.activeControlModule == TouchThumbstick
+			or self.activeControlModule == DynamicThumbstick) then
 			if not self.controllers[TouchJump] then
 				self.controllers[TouchJump] = TouchJump.new()
 			end

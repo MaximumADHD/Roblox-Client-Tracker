@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local ReceivedUserPresence = require(CorePackages.Workspace.Packages.UserLib).Actions.ReceivedUserPresence
-local UpdateFriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Actions.UpdateFriendPresenceCounts)
+local UpdateFriendPresenceCounts = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.UpdateFriendPresenceCounts
 local WebPresenceMap = require(CorePackages.Workspace.Packages.UserLib).Enum.WebPresenceMap
 
 local FFlagLuaAppConvertUniverseIdToString = settings():GetFFlag("LuaAppConvertUniverseIdToStringV364")

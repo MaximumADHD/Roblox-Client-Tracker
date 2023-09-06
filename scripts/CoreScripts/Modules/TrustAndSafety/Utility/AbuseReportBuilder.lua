@@ -22,6 +22,8 @@ type SerializedVector2 = {number}
 local GetFFlagReportAnythingEnableAdReport = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
 local GetFFlagGetHumanoidDescription = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagGetHumanoidDescription)
 local GetFFlagRAEnableCircleRegion = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagRAEnableCircleRegion)
+local GetFFlagReportAnythingAbuseVectorRenameEnabled = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingAbuseVectorRenameEnabled)
+
 
 local getHumanoidDescription = require(script.Parent.GetHumanoidDescription).getHumanoidDescription
 
@@ -108,6 +110,7 @@ local Constants = {
 		Sampling = "ra/sampling",
 		E1 = "ra/e1",
 		E2 = "ra/e2",
+		E3 = "ra/e3",
 		Unknown = "ra/unknown"
 	}
 }
@@ -353,7 +356,10 @@ local buildOtherReportRequest = function(reportData: OtherReportData)
 
 			REPORTED_ABUSE_VECTOR = {
 				valueList = {
-					{ data = "other" },
+					{ data = if GetFFlagReportAnythingAbuseVectorRenameEnabled()
+						then "avatar"
+						else "other"
+					},
 				}
 			},
 

@@ -10,6 +10,9 @@ local Modules = CoreGui.RobloxGui.Modules
 local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local TopBar = Modules.TopBar
 local QuickMenu = require(TopBar.Components.Presentation.GamepadMenu)
 local SetGamepadMenuOpen = require(TopBar.Actions.SetGamepadMenuOpen)
@@ -68,49 +71,49 @@ return function()
 				c.storeUpdate(SetGamepadMenuOpen(true))
 
 				local controllerBarElement = CoreGui.QuickMenuControllerBar.ControllerBar
-				expect(controllerBarElement).to.be.ok()
-				expect(#controllerBarElement:GetChildren()).to.equal(3)
+				expect(controllerBarElement).never.toBeNil()
+				expect(#controllerBarElement:GetChildren()).toBe(3)
 
 				-- ensure correct text is rendered
 				local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
 				local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
 
-				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Back")
+				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Back")
 
-				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Respawn Character")
-				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Leave")
+				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Respawn Character")
+				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Leave")
 
 				-- Close menu
 				c.gamepadInput(Enum.KeyCode.ButtonB)
 				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).never.to.be.ok()
+				expect(controllerBarElement).toBeNil()
 			end)
 			it("Should close with respawn", function(c)
 				c.storeUpdate(SetGamepadMenuOpen(true))
 
 				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).to.be.ok()
-				expect(#controllerBarElement:GetChildren()).to.equal(3)
+				expect(controllerBarElement).never.toBeNil()
+				expect(#controllerBarElement:GetChildren()).toBe(3)
 
 				-- Respawn
 				c.gamepadInput(Enum.KeyCode.ButtonY)
 
 				-- ensure other controllerBar is now on screen
 				controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).never.to.be.ok()
+				expect(controllerBarElement).toBeNil()
 			end)
 			it("Should disappear with leaveGame", function(c)
 				c.storeUpdate(SetGamepadMenuOpen(true))
 
 
 				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).to.be.ok()
-				expect(#controllerBarElement:GetChildren()).to.equal(3)
+				expect(controllerBarElement).never.toBeNil()
+				expect(#controllerBarElement:GetChildren()).toBe(3)
 
 				-- Respawn
 				c.gamepadInput(Enum.KeyCode.ButtonX)
 				controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).never.to.be.ok()
+				expect(controllerBarElement).toBeNil()
 			end)
 		end
 	end)

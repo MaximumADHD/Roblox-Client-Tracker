@@ -1,6 +1,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
 
@@ -46,8 +49,8 @@ return function()
 
 			local instance = Roact.mount(element)
 
-			expect(ref.current).to.be.ok()
-			expect(ref.current:IsA("Instance")).to.equal(true)
+			expect(ref.current).never.toBeNil()
+			expect(ref.current:IsA("Instance")).toBe(true)
 
 			Roact.unmount(instance)
 		end)

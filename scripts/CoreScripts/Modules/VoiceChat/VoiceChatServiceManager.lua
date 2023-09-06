@@ -50,7 +50,9 @@ local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableV
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagEnableNudgeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableNudgeAnalytics)
 local GetFFlagVoiceBanPromptShowSeconds = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanPromptShowSeconds)
+local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
+local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceListeners", false)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -139,6 +141,9 @@ local VoiceChatServiceManager = {
 	getPermissionsFunction = getCamMicPermissions,
 	AvatarChatService = AvatarChatService,
 }
+
+-- Initialized in GetVoiceStateFromEnum
+local LOCAL_STATE_MAP = {}
 
 function getIconSrc(name, folder)
 	local folderStr = folder and folder .. "/" or ""
@@ -237,6 +242,11 @@ function VoiceChatServiceManager:_asyncInit()
 				then
 					self.voiceEnabled = true
 					self.service = service
+					if FFlagAlwaysSetupVoiceListeners then
+						-- This fixes a race condition when the user successfully joins a call before
+						-- SetupParticipantListeners is called, causing the UI to get into a bad state
+						self:SetupParticipantListeners()
+					end
 				end
 			end
 		end)
@@ -967,6 +977,25 @@ function VoiceChatServiceManager:GetIcon(name, folder)
 	return getIconSrc(name, folder)
 end
 
+function VoiceChatServiceManager:GetVoiceStateFromEnum(voiceStateEnum)
+	-- If LOCAL_STATE_MAP is set globally outside of this function, unit tests throw this error:
+	-- "VoiceChatState is not a valid member of 'Enum'"". This happens despite the type casting.
+	-- Initializing it within the function and when it is being accessed stops the error from surfacing.
+	-- This is also needed because VoiceChatState Enum is not available on devices where Voice Chat isn't supported.
+	if not LOCAL_STATE_MAP[voiceStateEnum] then
+		LOCAL_STATE_MAP = {
+			[(Enum::any).VoiceChatState.Idle] = VOICE_STATE.HIDDEN,
+			[(Enum::any).VoiceChatState.Joining] = VOICE_STATE.CONNECTING,
+			[(Enum::any).VoiceChatState.JoiningRetry] = VOICE_STATE.CONNECTING,
+			[(Enum::any).VoiceChatState.Joined] = VOICE_STATE.MUTED,
+			[(Enum::any).VoiceChatState.Leaving] = VOICE_STATE.MUTED,
+			[(Enum::any).VoiceChatState.Ended] = VOICE_STATE.HIDDEN,
+			[(Enum::any).VoiceChatState.Failed] = VOICE_STATE.ERROR,
+		}
+	end
+	return LOCAL_STATE_MAP[voiceStateEnum]
+end
+
 export type RecentInteractionData = {[string]: {lastHeardTime: number}}
 function VoiceChatServiceManager:getRecentUsersInteractionData(): RecentInteractionData
 	self:_updateRecentUsersInteractionData()
@@ -1094,8 +1123,14 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		if self.service:GetVoiceChatApiVersion() >= MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY then
 			self.micConnection = self.service.PlayerMicActivitySignalChange:Connect(function(result)
 				self.isTalking = result.isActive
-				if not self.localMuted then
-					self.talkingChanged:Fire(self.isTalking)
+				if GetFFlagLocalMutedNilFix then
+					if self.localMuted == false then
+						self.talkingChanged:Fire(self.isTalking)
+					end
+				else
+					if not self.localMuted then
+						self.talkingChanged:Fire(self.isTalking)
+					end
 				end
 			end)
 		end

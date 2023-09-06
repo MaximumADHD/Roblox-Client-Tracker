@@ -27,7 +27,7 @@ local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 
 local LocalPlayer = Players.LocalPlayer
 
-local AssetNameTextBox = require(script.Parent.AssetNameTextBox)
+local NameTextBox = require(script.Parent.Common.NameTextBox)
 local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
 local ObjectViewport = require(script.Parent.ObjectViewport)
 local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
@@ -61,7 +61,6 @@ local LayeredAssetTypes = {
 	[Enum.AssetType.DressSkirtAccessory] = true,
 	[Enum.AssetType.HairAccessory] = true,
 }
-
 local PublishAssetPrompt = script.Parent.Parent
 local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
 local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
@@ -203,10 +202,10 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						BackgroundTransparency = 1,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}),
-					NameInput = Roact.createElement(AssetNameTextBox, {
+					NameInput = Roact.createElement(NameTextBox, {
 						Size = UDim2.new(1, 0, 0, 30),
 						Position = UDim2.new(0, 0, 0, LABEL_HEIGHT),
-						onAssetNameUpdated = self.onAssetNameUpdated,
+						onNameUpdated = self.onAssetNameUpdated,
 						nameTextBoxRef = self.nameTextBoxRef,
 						NextSelectionDown = self.descriptionTextBoxRef,
 						defaultName = self.assetName,

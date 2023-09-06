@@ -6,6 +6,9 @@ local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 local withServices = require(Modules.CoreScriptsRhodiumTest.Helpers.withServices)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local EmotesMenuReducer = require(Modules.EmotesMenu.Reducers.EmotesMenuReducer)
 local EmotesMenu = require(Modules.EmotesMenu.Components.EmotesMenu)
 
@@ -15,7 +18,7 @@ return function()
 			withServices(function(path)
 				path = XPath.new(path)
 				local baseWidget = Element.new(path)
-				expect(baseWidget:waitForRbxInstance(1)).to.be.ok()
+				expect(baseWidget:waitForRbxInstance(1)).never.toBeNil()
 			end,
 			EmotesMenu, EmotesMenuReducer)
 		end)

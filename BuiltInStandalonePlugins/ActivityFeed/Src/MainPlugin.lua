@@ -22,11 +22,13 @@ local React = require(main.Packages.React)
 local Rodux = require(main.Packages.Rodux)
 
 local Framework = require(main.Packages.Framework)
-
-local StudioUI = Framework.StudioUI
-local DockWidget = StudioUI.DockWidget
-local PluginToolbar = StudioUI.PluginToolbar
-local PluginButton = StudioUI.PluginButton
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
+local DockWidget = if FFlagDevFrameworkBetterInit then Framework.UI.DockWidget else Framework.StudioUI.DockWidget
+local PluginToolbar = if FFlagDevFrameworkBetterInit
+	then Framework.UI.PluginToolbar
+	else Framework.StudioUI.PluginToolbar
+local PluginButton = if FFlagDevFrameworkBetterInit then Framework.UI.PluginButton else Framework.StudioUI.PluginButton
 
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin

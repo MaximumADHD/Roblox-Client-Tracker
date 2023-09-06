@@ -1,6 +1,11 @@
 return function()
 	local PromptInfo = require(script.Parent.PromptInfo)
 
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local AvatarEditorPrompts = script.Parent.Parent
 	local Actions = AvatarEditorPrompts.Actions
 	local CloseOpenPrompt = require(Actions.CloseOpenPrompt)
@@ -18,12 +23,11 @@ return function()
 
 	it("should have the correct default values", function()
 		local defaultState = PromptInfo(nil, {})
-		expect(type(defaultState)).to.equal("table")
-		expect(type(defaultState.queue)).to.equal("table")
-		expect(type(defaultState.infoQueue)).to.equal("table")
-		expect(countValues(defaultState)).to.equal(2)
-		expect(countValues(defaultState.queue)).to.equal(0)
-		expect(countValues(defaultState.infoQueue)).to.equal(0)
+		expect(defaultState).toEqual({
+			queue = {},
+			infoQueue = {},
+		})
+		expect(countValues(defaultState)).toBe(2)
 	end)
 
 	describe("OpenPrompt", function()
@@ -31,40 +35,38 @@ return function()
 			local humanoidDescription = Instance.new("HumanoidDescription")
 
 			local oldState = PromptInfo(nil, {})
+			local humanoid = {
+				humanoidDescription = humanoidDescription,
+				rigType = Enum.HumanoidRigType.R15,
+			}
 			local newState = PromptInfo(oldState, OpenPrompt(
 				PromptType.SaveAvatar,
-				{
-					humanoidDescription = humanoidDescription,
-					rigType = Enum.HumanoidRigType.R15,
-				}
+				humanoid
 			))
-			expect(oldState).to.never.equal(newState)
-			expect(countValues(newState.queue)).to.equal(0)
-			expect(countValues(newState.infoQueue)).to.equal(0)
-
-			expect(newState.promptType).to.equal(PromptType.SaveAvatar)
-			expect(newState.humanoidDescription).to.equal(humanoidDescription)
-			expect(newState.rigType).to.equal(Enum.HumanoidRigType.R15)
+			expect(oldState).never.toEqual(newState)
+			expect(countValues(newState.queue)).toBe(0)
+			expect(countValues(newState.infoQueue)).toBe(0)
+			expect(newState.promptType).toBe(PromptType.SaveAvatar)
+			expect(newState).toMatchObject(humanoid)
 		end)
 
 		it("should correctly open PromptType.CreateOutfit", function()
 			local humanoidDescription = Instance.new("HumanoidDescription")
 
 			local oldState = PromptInfo(nil, {})
+			local humanoid = {
+				humanoidDescription = humanoidDescription,
+				rigType = Enum.HumanoidRigType.R15,
+			}
 			local newState = PromptInfo(oldState, OpenPrompt(
 				PromptType.CreateOutfit,
-				{
-					humanoidDescription = humanoidDescription,
-					rigType = Enum.HumanoidRigType.R15,
-				}
+				humanoid
 			))
-			expect(oldState).to.never.equal(newState)
-			expect(countValues(newState.queue)).to.equal(0)
-			expect(countValues(newState.infoQueue)).to.equal(0)
-
-			expect(newState.promptType).to.equal(PromptType.CreateOutfit)
-			expect(newState.humanoidDescription).to.equal(humanoidDescription)
-			expect(newState.rigType).to.equal(Enum.HumanoidRigType.R15)
+			expect(oldState).never.toEqual(newState)
+			expect(countValues(newState.queue)).toBe(0)
+			expect(countValues(newState.infoQueue)).toBe(0)
+			expect(newState.promptType).toBe(PromptType.CreateOutfit)
+			expect(newState).toMatchObject(humanoid)
 		end)
 
 		it("should correctly open PromptType.AllowInventoryReadAccess", function()
@@ -73,34 +75,32 @@ return function()
 				PromptType.AllowInventoryReadAccess,
 				{}
 			))
-			expect(oldState).to.never.equal(newState)
-			expect(countValues(newState)).to.equal(3)
-			expect(countValues(newState.queue)).to.equal(0)
-			expect(countValues(newState.infoQueue)).to.equal(0)
+			expect(oldState).never.toEqual(newState)
+			expect(countValues(newState)).toBe(3)
+			expect(countValues(newState.queue)).toBe(0)
+			expect(countValues(newState.infoQueue)).toBe(0)
 
-			expect(newState.promptType).to.equal(PromptType.AllowInventoryReadAccess)
+			expect(newState.promptType).toBe(PromptType.AllowInventoryReadAccess)
 		end)
 
 		it("should correctly open PromptType.SetFavorite", function()
 			local oldState = PromptInfo(nil, {})
+			local item = {
+				itemId = 1337,
+				itemType = Enum.AvatarItemType.Bundle,
+				itemName = "Cool Bundle",
+				isFavorited = true,
+			}
 			local newState = PromptInfo(oldState, OpenPrompt(
 				PromptType.SetFavorite,
-				{
-					itemId = 1337,
-					itemType = Enum.AvatarItemType.Bundle,
-					itemName = "Cool Bundle",
-					isFavorited = true,
-				}
+				item
 			))
-			expect(oldState).to.never.equal(newState)
-			expect(countValues(newState.queue)).to.equal(0)
-			expect(countValues(newState.infoQueue)).to.equal(0)
+			expect(oldState).never.toEqual(newState)
+			expect(countValues(newState.queue)).toBe(0)
+			expect(countValues(newState.infoQueue)).toBe(0)
 
-			expect(newState.promptType).to.equal(PromptType.SetFavorite)
-			expect(newState.itemId).to.equal(1337)
-			expect(newState.itemType).to.equal(Enum.AvatarItemType.Bundle)
-			expect(newState.itemName).to.equal("Cool Bundle")
-			expect(newState.isFavorited).to.equal(true)
+			expect(newState.promptType).toBe(PromptType.SetFavorite)
+			expect(newState).toMatchObject(item)
 		end)
 
 		it("should add a prompt to the queue if a prompt is already open", function()
@@ -117,19 +117,19 @@ return function()
 
 			local humanoidDescription = Instance.new("HumanoidDescription")
 
+
+			local humanoid = {
+				humanoidDescription = humanoidDescription,
+				rigType = Enum.HumanoidRigType.R15,
+			}
 			local newState = PromptInfo(oldState, OpenPrompt(
 				PromptType.CreateOutfit,
-				{
-					humanoidDescription = humanoidDescription,
-					rigType = Enum.HumanoidRigType.R15,
-				}
+				humanoid
 			))
-			expect(oldState).to.never.equal(newState)
-			expect(countValues(newState.queue)).to.equal(1)
-			expect(countValues(newState.infoQueue)).to.equal(1)
-			expect(newState.queue[1]).to.equal(PromptType.CreateOutfit)
-			expect(newState.infoQueue[1].humanoidDescription).to.equal(humanoidDescription)
-			expect(newState.infoQueue[1].rigType).to.equal(Enum.HumanoidRigType.R15)
+			expect(oldState).never.toEqual(newState)
+			expect(newState.queue).toEqual({PromptType.CreateOutfit})
+			expect(countValues(newState.infoQueue)).toBe(1)
+			expect(newState.infoQueue[1]).toMatchObject(humanoid)
 		end)
 	end)
 
@@ -143,13 +143,13 @@ return function()
 					rigType = Enum.HumanoidRigType.R15,
 				}
 			))
-			expect(oldState).to.never.equal(newState)
+			expect(oldState).never.toEqual(newState)
 			newState = PromptInfo(newState, CloseOpenPrompt())
-			expect(type(newState.queue)).to.equal("table")
-			expect(type(newState.infoQueue)).to.equal("table")
-			expect(countValues(newState)).to.equal(2)
-			expect(countValues(newState.queue)).to.equal(0)
-			expect(countValues(newState.infoQueue)).to.equal(0)
+			expect(newState).toEqual({
+				queue = {},
+				infoQueue = {},
+			})
+			expect(countValues(newState)).toBe(2)
 		end)
 
 		it("should switch to the next prompt info in the queue if the queue isn't empty", function()
@@ -160,31 +160,28 @@ return function()
 					humanoidDescription = Instance.new("HumanoidDescription"),
 					rigType = Enum.HumanoidRigType.R15,
 				}
-			))
+				))
+			local item = {
+				itemId = 1337,
+				itemType = Enum.AvatarItemType.Bundle,
+				itemName = "Cool Bundle",
+				isFavorited = true,
+			}
 			local newState = PromptInfo(oldState, OpenPrompt(
 				PromptType.SetFavorite,
-				{
-					itemId = 1337,
-					itemType = Enum.AvatarItemType.Bundle,
-					itemName = "Cool Bundle",
-					isFavorited = true,
-				}
+				item
 			))
-			expect(oldState).to.never.equal(newState)
-			expect(countValues(newState.queue)).to.equal(1)
-			expect(countValues(newState.infoQueue)).to.equal(1)
+			expect(oldState).never.toEqual(newState)
+			expect(countValues(newState.queue)).toBe(1)
+			expect(countValues(newState.infoQueue)).toBe(1)
 
 			newState = PromptInfo(newState, CloseOpenPrompt())
-			expect(type(newState.queue)).to.equal("table")
-			expect(type(newState.infoQueue)).to.equal("table")
-			expect(countValues(newState.queue)).to.equal(0)
-			expect(countValues(newState.infoQueue)).to.equal(0)
-
-			expect(newState.promptType).to.equal(PromptType.SetFavorite)
-			expect(newState.itemId).to.equal(1337)
-			expect(newState.itemType).to.equal(Enum.AvatarItemType.Bundle)
-			expect(newState.itemName).to.equal("Cool Bundle")
-			expect(newState.isFavorited).to.equal(true)
+			expect(newState).toMatchObject({
+				queue = {},
+				infoQueue = {},
+			})
+			expect(newState.promptType).toBe(PromptType.SetFavorite)
+			expect(newState).toMatchObject(item)
 		end)
 	end)
 end

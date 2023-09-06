@@ -9,6 +9,9 @@ return function()
 	local Element = Rhodium.Element
 	local XPath = Rhodium.XPath
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenu = Modules.InGameMenu
 	local ZonePortal = require(InGameMenu.Components.ZonePortal)
 	local Direction = require(InGameMenu.Enums.Direction)
@@ -34,18 +37,18 @@ return function()
 		local path = c.path
 		local store = c.store
 
-		expect(store:getState().currentZone).to.equal(nil)
+		expect(store:getState().currentZone).toBeNil()
 
 		local rootPath = XPath.new(path)
 		local zonePortalPath = rootPath:cat(XPath.new("ZonePortal"))
 		local zonePortal = Element.new(zonePortalPath)
 
-		expect(zonePortal:waitForRbxInstance(1)).to.be.ok()
+		expect(zonePortal:waitForRbxInstance(1)).never.toBeNil()
 
 		GuiService.SelectedCoreObject = zonePortal:getRbxInstance()
 
 		wait()
 
-		expect(store:getState().currentZone).to.equal(999)
+		expect(store:getState().currentZone).toBe(999)
 	end)
 end

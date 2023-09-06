@@ -21,7 +21,7 @@ return function()
 	it("should update users with presence", function()
 		local UserPresenceReducer = Rodux.combineReducers({
 			Users = require(CorePackages.Workspace.Packages.UserLib).Reducers.UserReducer,
-			FriendPresenceCounts = require(CorePackages.AppTempCommon.LuaChat.Reducers.FriendPresenceCounts),
+			FriendPresenceCounts = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Reducers.FriendPresenceCounts,
 		})
 
 		local userId1 = "12"

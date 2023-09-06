@@ -28,6 +28,16 @@ if not VRService.VREnabled then
 	return nil
 end
 
+local GetFFlagFineTuneAppRefreshRate =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFineTuneAppRefreshRate
+if GetFFlagFineTuneAppRefreshRate() then
+	-- Ensure we have the desired target framerate for experiences
+	-- SVR-685
+	-- SVR-686
+	local EXPERIENCE_QUEST_REFRESH_RATE = 90
+	VRService.QuestDisplayRefreshRate = EXPERIENCE_QUEST_REFRESH_RATE
+end
+
 local UserGuiModule = {}
 UserGuiModule.ModuleName = "UserGui"
 UserGuiModule.KeepVRTopbarOpen = false
@@ -84,7 +94,7 @@ function UserGuiModule:SetVisible(visible, panel)
 	if panel then
 		panel:SetVisible(GuiVisible)
 	end
-	
+
 	if GuiVisible then
 		VRHub:FireModuleOpened(UserGuiModule.ModuleName)
 	else

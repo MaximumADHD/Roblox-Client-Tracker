@@ -1,6 +1,5 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
@@ -8,8 +7,8 @@ local dependencies = require(CorePackages.Workspace.Packages.NotificationsCommon
 
 local PlaceInfos = require(CorePackages.Workspace.Packages.PlaceInfoRodux).Reducers.PlaceInfosReducer
 local Users = require(CorePackages.Workspace.Packages.UserLib).Reducers.UserReducer
-local Friends = require(AppTempCommon.LuaApp.Reducers.Friends)
-local FriendCount = require(AppTempCommon.LuaChat.Reducers.FriendCount)
+local Friends = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Reducers.Friends
+local FriendCount = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Reducers.FriendCount
 
 local ConversationsSearch = require(ShareGame.Reducers.ConversationsSearch)
 local DeviceInfo = require(ShareGame.Reducers.DeviceInfo)

@@ -22,7 +22,10 @@ local LocalPlayer = Players.LocalPlayer
 local Components = script.Parent
 local PromptType = require(Components.Parent.PromptType)
 local PublishAssetPromptSingleStep = require(Components.PublishAssetPromptSingleStep)
+local PublishAvatarPrompt = require(Components.PublishAvatarPrompt.PublishAvatarPrompt)
 local ResultModal = require(Components.ResultModal)
+
+local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.FFlagPublishAvatarPromptEnabled)
 
 --Displays behind the in-game menu so that developers can't block interaction with the InGameMenu by constantly prompting.
 --The in-game menu displays at level 0, to render behind it we need to display at level -1.
@@ -73,6 +76,12 @@ function PublishAssetPromptApp:render()
 	elseif self.props.assetInstance then
 		if self.props.promptType == PromptType.PublishAssetSingleStep then
 			promptElement = Roact.createElement(PublishAssetPromptSingleStep, {
+				screenSize = self.state.screenSize,
+			})
+		end
+	elseif FFlagPublishAvatarPromptEnabled and self.props.humanoidDescription then
+		if self.props.promptType == PromptType.PublishAvatar then
+			promptElement = Roact.createElement(PublishAvatarPrompt, {
 				screenSize = self.state.screenSize,
 			})
 		end
@@ -166,6 +175,9 @@ local function mapStateToProps(state)
 		promptType = state.promptRequest.promptInfo.promptType,
 		assetInstance = state.promptRequest.promptInfo.assetInstance,
 		assetType = state.promptRequest.promptInfo.assetType,
+		humanoidDescription = if FFlagPublishAvatarPromptEnabled
+			then state.promptRequest.promptInfo.humanoidDescription
+			else nil,
 	}
 end
 

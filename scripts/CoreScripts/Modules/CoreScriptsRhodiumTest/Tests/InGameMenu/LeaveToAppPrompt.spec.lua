@@ -8,6 +8,9 @@ local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
 local act = require(Modules.act)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
@@ -66,13 +69,13 @@ return function()
 				wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
 			end)
 
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 
 			c.gamepadInput(Enum.KeyCode.DPadLeft)
-			expect(store:getState().currentZone).to.equal(0)
+			expect(store:getState().currentZone).toBe(0)
 
 			c.gamepadInput(Enum.KeyCode.DPadRight)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 	end)
 end

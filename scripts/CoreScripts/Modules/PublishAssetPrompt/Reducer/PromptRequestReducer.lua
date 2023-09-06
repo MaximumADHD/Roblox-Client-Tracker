@@ -10,6 +10,7 @@ local Rodux = require(CorePackages.Rodux)
 local Cryo = require(CorePackages.Cryo)
 
 local OpenPublishAssetPrompt = require(Root.Actions.OpenPublishAssetPrompt)
+local OpenPublishAvatarPrompt = require(Root.Actions.OpenPublishAvatarPrompt)
 local CloseOpenPrompt = require(Root.Actions.CloseOpenPrompt)
 local OpenResultModal = require(Root.Actions.OpenResultModal)
 local CloseResultModal = require(Root.Actions.CloseResultModal)
@@ -25,6 +26,18 @@ local PromptRequestReducer = Rodux.createReducer(EMPTY_STATE, {
 	[OpenPublishAssetPrompt.name] = function(state, action: OpenPublishAssetPrompt.Action)
 		-- Maintain a queue of pending prompts. action.promptInfo should contain
 		-- a promptType and any other information required by that prompt. See OpenPublishAssetPrompt.lua
+		if state.promptInfo.promptType == nil then
+			return Cryo.Dictionary.join(state, { promptInfo = action.promptInfo })
+		end
+
+		return Cryo.Dictionary.join(state, {
+			queue = Cryo.List.join(state.queue, { action.promptInfo }),
+		})
+	end,
+
+	[OpenPublishAvatarPrompt.name] = function(state, action: OpenPublishAvatarPrompt.Action)
+		-- Maintain a queue of pending prompts. action.promptInfo should contain
+		-- a promptType and any other information required by that prompt. See OpenPublishAvatarPrompt.lua
 		if state.promptInfo.promptType == nil then
 			return Cryo.Dictionary.join(state, { promptInfo = action.promptInfo })
 		end

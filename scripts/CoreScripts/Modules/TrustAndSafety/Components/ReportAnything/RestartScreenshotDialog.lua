@@ -1,4 +1,6 @@
 --!nonstrict
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
@@ -12,6 +14,8 @@ local PrimaryContextualButton = UIBlox.App.Button.PrimaryContextualButton
 local useStyle = UIBlox.Core.Style.useStyle
 local TnsModule = script.Parent.Parent.Parent
 local Dependencies = require(TnsModule.Dependencies)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local GetFFlagReportAnythingLocalizationEnabled = require(TnsModule.Flags.GetFFlagReportAnythingLocalizationEnabled)
 
 local Divider = require(Dependencies.Divider)
 
@@ -28,10 +32,19 @@ local function RestartScreenshotDialog(props: Props)
 	local stylePalette = useStyle()
 	local theme = stylePalette.Theme
 	local font = stylePalette.Font
+	local footerHeight = FOOTER_HEIGHT
+	local dialogHeight = 180
+	local textBodyHeight = 50
+
+	if (GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode) then
+		footerHeight = FOOTER_HEIGHT * 2 - 12
+		dialogHeight = 260
+		textBodyHeight = 100
+	end
 
 	local dialogWidth = if props.isSmallPortraitMode then 343 else 480
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, dialogWidth, 0, 180),
+		Size = UDim2.new(0, dialogWidth, 0, dialogHeight),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		BackgroundColor3 = Color3.fromHex("#4F545F"),
@@ -55,14 +68,16 @@ local function RestartScreenshotDialog(props: Props)
 				renderLeft = function() end,
 				-- Need dummy on the right to take up space for balance
 				renderRight = function() end,
-				title = "Retake Scene",
+				title = if GetFFlagReportAnythingLocalizationEnabled()
+					then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.RetakeScene")
+					else "Retake Scene",
 				LayoutOrder = 1,
 			}),
 			Divider = React.createElement(Divider, {
 				LayoutOrder = 2,
 			}),
 			Description = React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT - 1),
+				Size = UDim2.new(1, 0, 1, -footerHeight - 1),
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
 			}, {
@@ -73,7 +88,9 @@ local function RestartScreenshotDialog(props: Props)
 					PaddingRight = UDim.new(0, 16),
 				}),
 				TextBody = React.createElement("TextLabel", {
-					Text = "Help us understand what’s happening around you. We’ll capture the scene the moment you select “Report.”",
+					Text = if GetFFlagReportAnythingLocalizationEnabled()
+						then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Message.RetakeScene")
+						else "Help us understand what’s happening around you. We’ll capture the scene the moment you select “Report.”",
 					Font = font.Body.Font,
 					LayoutOrder = 3,
 					TextColor3 = theme.TextEmphasis.Color,
@@ -81,15 +98,16 @@ local function RestartScreenshotDialog(props: Props)
 					TextSize = 16,
 					TextWrapped = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Size = UDim2.new(1, 0, 0, 50),
+					TextYAlignment = if GetFFlagReportAnythingLocalizationEnabled() then Enum.TextYAlignment.Top else nil,
+					Size = UDim2.new(1, 0, 0, textBodyHeight),
 					BackgroundTransparency = 1,
 				}),
 			}),
 		}),
 		Footer = React.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-			Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
+			Size = UDim2.new(1, 0, 0, footerHeight),
+			Position = UDim2.new(0, 0, 1, -footerHeight),
 			BorderSizePixel = 0,
 			LayoutOrder = 4,
 		}, {
@@ -100,20 +118,26 @@ local function RestartScreenshotDialog(props: Props)
 				PaddingRight = UDim.new(0, 16),
 			}),
 			ActionButtons = React.createElement(ButtonStack, {
-				forcedFillDirection = Enum.FillDirection.Horizontal,
+				forcedFillDirection = if (GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode)
+					then Enum.FillDirection.Vertical
+					else Enum.FillDirection.Horizontal,
 				buttons = {
 					{
 						buttonType = ButtonType.Secondary,
 						props = if props.isSmallPortraitMode
 							then {
 								onActivated = props.onCancel,
-								text = "Cancel",
-								size = UDim2.new(0, 80, 0, 28),
+								text = if GetFFlagReportAnythingLocalizationEnabled()
+									then RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Cancel")
+									else "Cancel",
+								size = if GetFFlagReportAnythingLocalizationEnabled() then UDim2.new(1, 0, 0, 28) else UDim2.new(0, 80, 0, 28),
 								fontStyle = font.Body2,
 							}
 							else {
 								onActivated = props.onCancel,
-								text = "Cancel",
+								text = if GetFFlagReportAnythingLocalizationEnabled()
+									then RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Cancel")
+									else "Cancel",
 							},
 					},
 					{
@@ -121,13 +145,17 @@ local function RestartScreenshotDialog(props: Props)
 						props = if props.isSmallPortraitMode
 							then {
 								onActivated = props.onRestart,
-								text = "Back To Experience",
-								size = UDim2.new(0, 200, 0, 28),
+								text = if GetFFlagReportAnythingLocalizationEnabled()
+									then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.BackToExperience")
+									else "Back To Experience",
+								size = if GetFFlagReportAnythingLocalizationEnabled() then UDim2.new(1, 0, 0, 28) else UDim2.new(0, 200, 0, 28),
 								fontStyle = font.Body2,
 							}
 							else {
 								onActivated = props.onRestart,
-								text = "Back To Experience",
+								text = if GetFFlagReportAnythingLocalizationEnabled()
+									then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.BackToExperience")
+									else "Back To Experience",
 							},
 					},
 				},

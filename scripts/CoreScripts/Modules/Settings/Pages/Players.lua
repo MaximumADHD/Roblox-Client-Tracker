@@ -131,6 +131,7 @@ local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerLis
 
 local FFlagEnablePlatformName = game:DefineFastFlag("EnablePlatformName", false)
 local FFlagCheckForNilUserIdOnPlayerList = game:DefineFastFlag("CheckForNilUserIdOnPlayerList", false)
+local FFlagLocalPlayerPlatformNameWorkaround = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLocalPlayerPlatformNameWorkaround
 
 if GetFFlagOldMenuNewIcons() then
 	MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
@@ -1649,7 +1650,7 @@ local function Initialize()
 		end
 
 		if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
-			local playerIds 
+			local playerIds
 			if FFlagCheckForNilUserIdOnPlayerList then
 				playerIds = Cryo.List.filterMap(sortedPlayers, function(player)
 					if not player.UserId then
@@ -1678,7 +1679,7 @@ local function Initialize()
 
 						if FFlagEnablePlatformName then
 							local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
-							local platformName = nil 
+							local platformName = nil
 
 							if userProfile.names.platformName ~= "" then
 								platformName = userProfile.names.platformName
@@ -1687,6 +1688,41 @@ local function Initialize()
 						end
 					end
 				end)
+
+				if FFlagLocalPlayerPlatformNameWorkaround then
+					--[[
+						TODO: CLIPS-618. We have to do an additional fetch for the localPlayer platformName
+						due to a potential issue with the profiles backend. This query should be removed
+						once the backend issue is resolved.
+					]]
+					-- Check cache first
+					local data = ApolloClient:readQuery({
+						query = UserProfiles.Queries.userProfilesPlatformNamesByUserIds,
+						variables = {
+							userIds = { tostring(localPlayer.UserId) },
+						},
+					})
+
+					-- If the platformName is not in the cache, or is an empty string, try to refetch it
+					if data.userProfiles and data.userProfiles[1] and data.userProfiles[1].names.platformName == "" then
+						ApolloClient:query({
+							query = UserProfiles.Queries.userProfilesPlatformNamesByUserIds,
+							variables = {
+								userIds = { tostring(localPlayer.UserId) },
+							},
+							fetchPolicy = "network-only",
+						}):andThen(function(response)
+							local userProfile = response.data.userProfiles[1]
+							if userProfile and userProfile.names.platformName ~= "" then
+								local labelFrame = existingPlayerLabels[localPlayer.Name]
+								local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
+								resizePlatformName(rightSideButtons, userProfile.names.platformName)
+							end
+						end):catch(function()
+							warn("CoreScripts: Failed to fetch platform name for local user.")
+						end)
+					end
+				end
 			end):catch(function()
 				Cryo.List.map(sortedPlayers, function(player)
 					local labelFrame = existingPlayerLabels[player.Name]

@@ -61,6 +61,7 @@ local FFlagOnlyUpdateButtonsWhenInitialized = game:DefineFastFlag("OnlyUpdateBut
 local FFlagSelfViewChecks = game:DefineFastFlag("SelfViewChecks", false)
 local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
 local FFlagSelfViewUseRealBoundingBox = game:DefineFastFlag("SelfViewUseRealBoundingBox", false)
+local FFlagSelfViewChecks3 = game:DefineFastFlag("SelfViewChecks3", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -128,7 +129,7 @@ local AUTO_HIDE_CD = 5
 local updateCloneCurrentCoolDown = 0
 
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
-local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
+local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 
 local renderSteppedConnection = nil
 local playerCharacterAddedConnection = nil
@@ -150,7 +151,8 @@ local currentTrackerMode = nil
 local cachedMode = nil
 local viewportFrame = nil
 local viewportCamera = nil
-local boundsSize = nil
+--fallback default value, actual value gets populated once parts found:
+local boundsSize = Vector3.new (1.1721, 1.1811, 1.1578)
 local cloneAnchor = nil
 local clone = nil
 local headRef = nil
@@ -176,16 +178,13 @@ local cloneCamUpdateCounter = 0
 local selfViewSessionStarted = false
 local cachedViewSessionStarted = false
 local didOverrideMouse = false
+local isVoiceConnecting = true
 --TODO: increase cloneCamUpdatePosEvery once we add easing to the cam framing code
 local cloneCamUpdatePosEvery = 1
 local hasCameraPermissions = false
 local hasMicPermissions = false
 local function getShouldShowMicButton()
-	if GetFFlagUpdateSelfieViewOnBan() then
-		return hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
-	else
-		return hasMicPermissions
-	end
+	return hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
 end
 local cachedHasCameraPermissions = false
 local cachedHasMicPermissions = false
@@ -259,7 +258,7 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	PackageLink = "PackageLink",
 }
 
-log:trace("Self View 08-15-2023__1!!")
+log:trace("Self View 08-30-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -392,14 +391,16 @@ function initVoiceChatServiceManager()
 			if state == cachedMicState and level == cachedLevel then
 				return
 			end
-	
+
 			cachedMicState = state
 			cachedLevel = level
-	
+
 			if state == VoiceChatServiceManager.VOICE_STATE.MUTED then
 				micIcon.Size = UDim2.fromOffset(32, 32)
 				micIcon.Image = MIC_OFF_IMAGE.Image
-				micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
+				if not FFlagSelfViewChecks3 or micIcon.ImageRectOffset ~= MIC_OFF_IMAGE.ImageRectOffset then
+					micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
+				end
 				micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
 			else
 				local icon = VoiceChatServiceManager:VoiceStateToIcon(state, level, "New")
@@ -462,9 +463,18 @@ function initVoiceChatServiceManager()
 				if voiceService then
 					voiceService.StateChanged:Connect(function(_oldState, newState)
 						local voiceManagerState = LOCAL_STATE_MAP[newState]
+						if GetFFlagShowMicConnectingIconAndToast() then
+							voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
+						end
 						if voiceManagerState then
+							if GetFFlagShowMicConnectingIconAndToast() then
+								local inConnectingState = voiceManagerState == VoiceChatServiceManager.VOICE_STATE.CONNECTING
+								if not inConnectingState and isVoiceConnecting then
+									isVoiceConnecting = false
+								end
+							end
 							updateMicIcon(voiceManagerState, cachedLevel)
-						elseif GetFFlagUpdateSelfieViewOnBan() and newState == (Enum::any).VoiceChatState.Ended then
+						elseif newState == (Enum::any).VoiceChatState.Ended then
 							updateSelfViewButtonVisibility()
 						end
 					end)
@@ -481,7 +491,7 @@ function initVoiceChatServiceManager()
 local vCInitialized = false
 -- Check that the user's device has given Roblox mic and camera permissions.
 function getPermissions()
-	debugPrint("Self View: getPermissions()")
+	log:trace("Self View: getPermissions()")
 
 	local callback = function(response)
 		hasCameraPermissions = response.hasCameraPermissions
@@ -541,12 +551,15 @@ end
 
 -- Update the position of the Self View frame based on dragging.
 local function processDrag(frame, inputPosition, dragStartPosition, frameStartPosition)
+	if FFlagSelfViewChecks3 and not frame.Parent then
+		return
+	end
+
 	local delta = (inputPosition - dragStartPosition)
 	local newPosition = {
 		X = (delta + frameStartPosition).X,
 		Y = (delta + frameStartPosition).Y,
 	}
-
 	-- Constrain the location to the screen.
 	local screenSize = frame.Parent.AbsoluteSize
 	frame.Position = constrainTargetPositionToScreen(frame, screenSize, newPosition)
@@ -772,6 +785,12 @@ local function createViewport()
 				.. tostring(hasMicPermissions)
 		)
 		if voiceService and getShouldShowMicButton() then
+			if GetFFlagShowMicConnectingIconAndToast() then
+				if isVoiceConnecting then
+					VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
+					return
+				end
+			end
 			VoiceChatServiceManager:ToggleMic()
 			Analytics:setLastCtx("SelfView")
 		end
@@ -813,10 +832,17 @@ local function createViewport()
 	micIcon.Parent = micButton
 	micIcon.AnchorPoint = Vector2.new(0.5, 0.5)
 	micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-	micIcon.Size = UDim2.new(0, 32, 0, 32)
-	micIcon.Image = MIC_OFF_IMAGE.Image
-	micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
-	micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
+	if GetFFlagShowMicConnectingIconAndToast() and isVoiceConnecting then
+		micIcon.Size = UDim2.fromOffset(16, 20)
+		micIcon.Image = VoiceChatServiceManager:GetIcon("Connecting", "New")
+		micIcon.ImageRectOffset = Vector2.new(0, 0)
+		micIcon.ImageRectSize = Vector2.new(0, 0)
+	else
+		micIcon.Size = UDim2.new(0, 32, 0, 32)
+		micIcon.Image = MIC_OFF_IMAGE.Image
+		micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
+		micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
+	end
 	micIcon.BackgroundTransparency = 1
 	micIcon.ZIndex = 2
 
@@ -2151,16 +2177,32 @@ function startRenderStepped(player)
 						anim = value.Animation
 						if anim then
 							if anim:IsA("Animation") then
-								orgAnimationTracks[anim.AnimationId] = value
-								if not cloneAnimationTracks[anim.AnimationId] then
-									cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
-								end
-								local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
+								if FFlagSelfViewChecks3 then
+									--avoid error "LoadAnimation requires the asset id to not be empty" 
+									if anim.AnimationId ~= "" then
+										orgAnimationTracks[anim.AnimationId] = value
+										if not cloneAnimationTracks[anim.AnimationId] then
+											cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
+										end
+										local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
+		
+										cloneAnimationTrack:Play()
+										cloneAnimationTrack.TimePosition = value.TimePosition
+										cloneAnimationTrack.Priority = value.Priority
+										cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
+									end
+								else
+									orgAnimationTracks[anim.AnimationId] = value
+									if not cloneAnimationTracks[anim.AnimationId] then
+										cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
+									end
+									local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
 
-								cloneAnimationTrack:Play()
-								cloneAnimationTrack.TimePosition = value.TimePosition
-								cloneAnimationTrack.Priority = value.Priority
-								cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
+									cloneAnimationTrack:Play()
+									cloneAnimationTrack.TimePosition = value.TimePosition
+									cloneAnimationTrack.Priority = value.Priority
+									cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
+								end
 							end
 						end
 					end

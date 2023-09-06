@@ -13,6 +13,9 @@ local VirtualInput = Rhodium.VirtualInput
 local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
@@ -111,8 +114,8 @@ return function()
 				".PageNavigation.PagePlayers"))
 			local playersButtonElement = Element.new(playersButtonPath)
 
-			expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
-			expect(GuiService.SelectedCoreObject).to.equal(playersButtonElement.rbxInstance)
+			expect(playersButtonElement:waitForRbxInstance(1)).never.toBeNil()
+			expect(GuiService.SelectedCoreObject).toBe(playersButtonElement.rbxInstance)
 		end)
 
 		it("Should gain and lose focus when user transitions between gamepad and keyboard", function(c)
@@ -131,16 +134,16 @@ return function()
 			local playersButtonElement = Element.new(playersButtonPath)
 
 			-- Nothing is selected as user gets to the page after using keyboard
-			expect(GuiService.SelectedCoreObject).to.equal(nil)
+			expect(GuiService.SelectedCoreObject).toBeNil()
 
 			-- Input device is set to Gamepad and the menu item is focused
 			c.gamepadInput(Enum.KeyCode.DPadUp)
-			expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
-			expect(GuiService.SelectedCoreObject).to.equal(playersButtonElement:getRbxInstance())
+			expect(playersButtonElement:waitForRbxInstance(1)).never.toBeNil()
+			expect(GuiService.SelectedCoreObject).toBe(playersButtonElement:getRbxInstance())
 
 			c.keyboardInput(Enum.KeyCode.Down)
 			-- Nothing is selected as user goes back to using keyboard
-			expect(GuiService.SelectedCoreObject).to.equal(nil)
+			expect(GuiService.SelectedCoreObject).toBeNil()
 		end)
 
 		it("Should select the first player when moving to the Players page", function(c)
@@ -161,7 +164,7 @@ return function()
 				".PageNavigation.PagePlayers"))
 
 			local playersButtonElement = Element.new(playersButtonPath)
-			expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
+			expect(playersButtonElement:waitForRbxInstance(1)).never.toBeNil()
 
 			c.gamepadInput(Enum.KeyCode.ButtonA)
 			--[[
@@ -172,7 +175,7 @@ return function()
 			if game:GetFastFlag("LuaMenuPerfImprovements") then
 				playerString = "player_12345678"
 			end
-			expect(tostring(GuiService.SelectedCoreObject)).to.equal(playerString)
+			expect(tostring(GuiService.SelectedCoreObject)).toBe(playerString)
 		end)
 
 		it("Should select the Camera Mode dropdown when opening the settings page", function(c)
@@ -182,7 +185,7 @@ return function()
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("GameSettings"))
 
-			expect(tostring(GuiService.SelectedCoreObject)).to.equal("OpenDropDownButton")
+			expect(tostring(GuiService.SelectedCoreObject)).toBe("OpenDropDownButton")
 		end)
 
 		it("Should remember to select Settings option when navigating back from Settings page", function(c)
@@ -196,10 +199,10 @@ return function()
 				c.gamepadInput(Enum.KeyCode.DPadDown) -- Settings
 
 				c.gamepadInput(Enum.KeyCode.ButtonA) -- Settings
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("OpenDropDownButton") -- Focus captured on Settings
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("OpenDropDownButton") -- Focus captured on Settings
 
 				c.gamepadInput(Enum.KeyCode.ButtonB) -- Go back
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("PageGameSettings")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("PageGameSettings")
 			end
 		end)
 
@@ -218,8 +221,8 @@ return function()
 			local friendsButtonElement = Element.new(friendsButtonPath)
 
 			c.gamepadInput(Enum.KeyCode.DPadDown)
-			expect(friendsButtonElement:waitForRbxInstance(1)).to.be.ok()
-			expect(GuiService.SelectedCoreObject).to.equal(friendsButtonElement.rbxInstance)
+			expect(friendsButtonElement:waitForRbxInstance(1)).never.toBeNil()
+			expect(GuiService.SelectedCoreObject).toBe(friendsButtonElement.rbxInstance)
 		end)
 
 		it("should switch between the page and SideNavigation", function(c)
@@ -234,13 +237,13 @@ return function()
 				wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
 			end)
 
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 
 			c.gamepadInput(Enum.KeyCode.DPadLeft)
-			expect(store:getState().currentZone).to.equal(0)
+			expect(store:getState().currentZone).toBe(0)
 
 			c.gamepadInput(Enum.KeyCode.DPadRight)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 
 		it("Forgets previous selection when menu is closed", function(c)
@@ -251,13 +254,13 @@ return function()
 
 				c.gamepadInput(Enum.KeyCode.DPadDown) -- Players option
 				c.gamepadInput(Enum.KeyCode.DPadDown) -- Invite Friends option
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("PageInviteFriends")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("PageInviteFriends")
 
 				c.gamepadInput(Enum.KeyCode.ButtonB) -- Close menu
 
 				c.storeUpdate(SetMenuOpen(true))
 				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("PagePlayers")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("PagePlayers")
 			end
 		end)
 	end)
@@ -282,11 +285,11 @@ return function()
 			local contextualMenuElement = Element.new(contextualMenuPath)
 			local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
 
-			expect(contextualMenu.Visible).to.equal(false)
+			expect(contextualMenu.Visible).toBe(false)
 
 			-- Open the menu
 			c.mouseClick(moreMenuButtonElement)
-			expect(contextualMenu.Visible).to.equal(true)
+			expect(contextualMenu.Visible).toBe(true)
 
 			-- Close the menu - disable click validation since this may
 			-- _actually_ click the background of the ContextualMenu (which has
@@ -297,11 +300,11 @@ return function()
 			act(function()
 				wait(DELAY_FOR_ANIMATION_AND_REFOCUS)
 			end)
-			expect(contextualMenu.Visible).to.equal(false)
+			expect(contextualMenu.Visible).toBe(false)
 
 			-- Reopen menu
 			c.mouseClick(moreMenuButtonElement)
-			expect(contextualMenu.Visible).to.equal(true)
+			expect(contextualMenu.Visible).toBe(true)
 		end)
 
 		it("Should open when clicking the ellipsis button, and close when pressing B", function(c)
@@ -342,13 +345,13 @@ return function()
 			-- Opening the menu
 			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-			expect(GuiService.SelectedCoreObject).to.never.equal(nil)
-			expect(GuiService.SelectedCoreObject).to.equal(firstMenuButton)
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
+			expect(GuiService.SelectedCoreObject).toBe(firstMenuButton)
 
 			c.gamepadInput(Enum.KeyCode.ButtonB)
 
-			expect(GuiService.SelectedCoreObject).to.never.equal(nil)
-			expect(GuiService.SelectedCoreObject).to.equal(moreMenuButton)
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
+			expect(GuiService.SelectedCoreObject).toBe(moreMenuButton)
 		end)
 
 		it("Should close when navigating to another page", function(c)
@@ -374,7 +377,7 @@ return function()
 			local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
 
 			-- Menu starts off closed
-			expect(contextualMenu.Visible).to.equal(false)
+			expect(contextualMenu.Visible).toBe(false)
 			-- Opening the menu
 			GuiService.SelectedCoreObject = moreMenuButton
 			act(function()
@@ -382,7 +385,7 @@ return function()
 			end)
 			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-			expect(contextualMenu.Visible).to.equal(true)
+			expect(contextualMenu.Visible).toBe(true)
 
 			-- Switching page closes the menu
 			c.gamepadInput(Enum.KeyCode.ButtonX)
@@ -391,7 +394,7 @@ return function()
 			act(function()
 				wait(1)
 			end)
-			expect(contextualMenu.Visible).to.equal(false)
+			expect(contextualMenu.Visible).toBe(false)
 		end)
 
 		it("Should close when Respawn opens", function(c)
@@ -423,7 +426,7 @@ return function()
 			end)
 			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-			expect(contextualMenu.Visible).to.equal(true)
+			expect(contextualMenu.Visible).toBe(true)
 
 			-- Switching page closes the menu
 			c.gamepadInput(Enum.KeyCode.ButtonY)
@@ -432,7 +435,7 @@ return function()
 			act(function()
 				wait(1)
 			end)
-			expect(contextualMenu.Visible).to.equal(false)
+			expect(contextualMenu.Visible).toBe(false)
 		end)
 	end)
 
@@ -444,7 +447,7 @@ return function()
 			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
 			c.gamepadInput(Enum.KeyCode.ButtonX)
-			expect(tostring(store:getState().menuPage)).to.equal("LeaveGamePrompt")
+			expect(tostring(store:getState().menuPage)).toBe("LeaveGamePrompt")
 		end)
 
 		it("Should open the Respawn dialog when pressing Y", function(c)
@@ -454,7 +457,7 @@ return function()
 			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
 			c.gamepadInput(Enum.KeyCode.ButtonY)
-			expect(store:getState().respawn.dialogOpen).to.equal(true)
+			expect(store:getState().respawn.dialogOpen).toBe(true)
 		end)
 
 		it("Should not bumper switch if menu closed", function(c)
@@ -464,9 +467,9 @@ return function()
 			c.storeUpdate(SetMenuOpen(false))
 
 			c.gamepadInput(Enum.KeyCode.ButtonL1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 			c.gamepadInput(Enum.KeyCode.ButtonR1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 
 		it("Should bumper switch", function(c)
@@ -476,9 +479,9 @@ return function()
 			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
 			c.gamepadInput(Enum.KeyCode.ButtonL1)
-			expect(store:getState().currentZone).to.equal(0)
+			expect(store:getState().currentZone).toBe(0)
 			c.gamepadInput(Enum.KeyCode.ButtonR1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 
 		if GetFFlagUseIGMControllerBar() then
@@ -498,19 +501,19 @@ return function()
 				local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
 
 				-- Menu starts off closed
-				expect(contextualMenu.Visible).to.equal(false)
+				expect(contextualMenu.Visible).toBe(false)
 
 				c.gamepadInput(Enum.KeyCode.ButtonL3)
 
-				expect(contextualMenu.Visible).to.equal(true)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("Cell") -- Highlights more menu
+				expect(contextualMenu.Visible).toBe(true)
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("Cell") -- Highlights more menu
 				wait(3) -- wait for animation
 				c.gamepadInput(Enum.KeyCode.ButtonL3)
 				wait(3) -- wait for animation
-				expect(contextualMenu.Visible).to.equal(false)
+				expect(contextualMenu.Visible).toBe(false)
 				if GetFFlagIGMGamepadSelectionHistory() then
 					-- Remembers to highlight previously highlighted Players option
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("PagePlayers")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("PagePlayers")
 				end
 			end)
 		end
@@ -527,18 +530,18 @@ return function()
 
 
 				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).to.be.ok()
-				expect(#controllerBarElement:GetChildren()).to.equal(3)
+				expect(controllerBarElement).never.toBeNil()
+				expect(#controllerBarElement:GetChildren()).toBe(3)
 
 				-- ensure correct text is rendered
 				local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
 				local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
 
-				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Back")
+				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Back")
 
-				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Open More Menu")
-				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Respawn Character")
-				expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Leave")
+				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Open More Menu")
+				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Respawn Character")
+				expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Leave")
 			end)
 			it("Should change text when more menu is opened", function(c)
 				c.storeUpdate(SetMenuOpen(true))
@@ -549,8 +552,8 @@ return function()
 
 
 				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).to.be.ok()
-				expect(#controllerBarElement:GetChildren()).to.equal(3)
+				expect(controllerBarElement).never.toBeNil()
+				expect(#controllerBarElement:GetChildren()).toBe(3)
 
 				c.gamepadInput(Enum.KeyCode.ButtonL3)
 
@@ -558,11 +561,11 @@ return function()
 				local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
 				local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
 
-				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Back")
+				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Back")
 
-				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Close More Menu")
-				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Respawn Character")
-				expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Leave")
+				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Close More Menu")
+				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Respawn Character")
+				expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Leave")
 			end)
 			it("Should change text when respawn dialog is opened", function(c)
 				c.storeUpdate(SetMenuOpen(true))
@@ -574,16 +577,16 @@ return function()
 
 
 				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).to.be.ok()
-				expect(#controllerBarElement:GetChildren()).to.equal(3)
+				expect(controllerBarElement).never.toBeNil()
+				expect(#controllerBarElement:GetChildren()).toBe(3)
 
 				-- ensure correct text is rendered
 				local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
 				local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
 
-				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Cancel")
+				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Cancel")
 
-				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Respawn")
+				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Respawn")
 			end)
 			it("Should show and hide ControllerBar depending on last used input", function(c)
 				c.storeUpdate(SetMenuOpen(true))
@@ -593,19 +596,19 @@ return function()
 				c.storeUpdate(SetInputType(Constants.InputType.MouseAndKeyboard))
 
 				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).never.to.be.ok()
+				expect(controllerBarElement).toBeNil()
 
 				-- Should appear when we use gamepad
 				c.storeUpdate(SetInputType(Constants.InputType.Gamepad))
 
 				controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).to.be.ok()
+				expect(controllerBarElement).never.toBeNil()
 
 				-- Should disappear when we use keyboard again
 				c.storeUpdate(SetInputType(Constants.InputType.MouseAndKeyboard))
 
 				controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).never.to.be.ok()
+				expect(controllerBarElement).toBeNil()
 			end)
 			if GetFFlagSideNavControllerBar() then
 				it("Should render ControllerBar when selecting side navigation", function(c)
@@ -620,21 +623,21 @@ return function()
 					c.gamepadInput(Enum.KeyCode.DPadDown)
 					c.gamepadInput(Enum.KeyCode.DPadLeft)
 
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("CloseMenuButton")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("CloseMenuButton")
 
 					local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-					expect(controllerBarElement).to.be.ok()
-					expect(#controllerBarElement:GetChildren()).to.equal(3)
+					expect(controllerBarElement).never.toBeNil()
+					expect(#controllerBarElement:GetChildren()).toBe(3)
 
 					-- ensure correct text is rendered
 					local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
 					local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
 
-					expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Back")
+					expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Back")
 
-					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Open More Menu")
-					expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Respawn Character")
-					expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Leave")
+					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Open More Menu")
+					expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Respawn Character")
+					expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Leave")
 				end)
 
 				it("Should open more menu with left stickfrom side navigation", function(c)
@@ -657,32 +660,32 @@ return function()
 					c.gamepadInput(Enum.KeyCode.DPadDown)
 					c.gamepadInput(Enum.KeyCode.DPadLeft)
 
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("CloseMenuButton")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("CloseMenuButton")
 
 					-- Menu starts off closed
-					expect(contextualMenu.Visible).to.equal(false)
+					expect(contextualMenu.Visible).toBe(false)
 
 					c.gamepadInput(Enum.KeyCode.ButtonL3)
 					wait(TestConstants.OpenMoreMenuAnimationDuration) -- wait for animation
-					expect(contextualMenu.Visible).to.equal(true)
+					expect(contextualMenu.Visible).toBe(true)
 
 					local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-					expect(controllerBarElement).to.be.ok()
-					expect(#controllerBarElement:GetChildren()).to.equal(3)
+					expect(controllerBarElement).never.toBeNil()
+					expect(#controllerBarElement:GetChildren()).toBe(3)
 
 					-- ensure correct text is rendered
 					local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
 					local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
 
-					expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Back")
+					expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Back")
 
-					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Close More Menu")
-					expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Respawn Character")
-					expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).to.equal("Leave")
+					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Close More Menu")
+					expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Respawn Character")
+					expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Leave")
 
 					c.gamepadInput(Enum.KeyCode.ButtonL3)
 					wait(TestConstants.CloseMoreMenuAnimationDuration) -- wait for animation
-					expect(contextualMenu.Visible).to.equal(false)
+					expect(contextualMenu.Visible).toBe(false)
 				end)
 			end
 		end
@@ -713,12 +716,12 @@ return function()
 
 		do
 			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Keyboard):getRbxInstance()
-			expect(leaveGameKeyLabel).to.be.ok()
-			expect(leaveGameKeyLabel.Text).to.equal("L")
+			expect(leaveGameKeyLabel).never.toBeNil()
+			expect(leaveGameKeyLabel.Text).toBe("L")
 
 			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Keyboard):getRbxInstance()
-			expect(respawnKeyLabel).to.be.ok()
-			expect(respawnKeyLabel.Text).to.equal("R")
+			expect(respawnKeyLabel).never.toBeNil()
+			expect(respawnKeyLabel.Text).toBe("R")
 		end
 
 		c.gamepadInput(Enum.KeyCode.DPadDown)
@@ -726,39 +729,41 @@ return function()
 		if UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels() then
 			local ButtonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX.png"
 			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
-			expect(leaveGameKeyLabel).to.be.ok()
-			expect(leaveGameKeyLabel.Image).to.equal(ButtonX)
-	
+			expect(leaveGameKeyLabel).never.toBeNil()
+			expect(leaveGameKeyLabel.Image).toBe(ButtonX)
+
 			local ButtonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY.png"
 			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
-			expect(respawnKeyLabel).to.be.ok()
-			expect(respawnKeyLabel.Image).to.equal(ButtonY)
+			expect(respawnKeyLabel).never.toBeNil()
+			expect(respawnKeyLabel.Image).toBe(ButtonY)
 		else
 			local ButtonX = Images["icons/controls/keys/xboxX"]
 			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
-			expect(leaveGameKeyLabel).to.be.ok()
-			expect(leaveGameKeyLabel.Image).to.equal(ButtonX.Image)
-			expect(leaveGameKeyLabel.ImageRectOffset).to.equal(ButtonX.ImageRectOffset)
-			expect(leaveGameKeyLabel.ImageRectSize).to.equal(ButtonX.ImageRectSize)
-	
+			expect(leaveGameKeyLabel).toMatchInstance({
+				Image = ButtonX.Image,
+				ImageRectOffset = ButtonX.ImageRectOffset,
+				ImageRectSize = ButtonX.ImageRectSize,
+			})
+
 			local ButtonY = Images["icons/controls/keys/xboxY"]
 			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
-			expect(respawnKeyLabel).to.be.ok()
-			expect(respawnKeyLabel.Image).to.equal(ButtonY.Image)
-			expect(respawnKeyLabel.ImageRectOffset).to.equal(ButtonY.ImageRectOffset)
-			expect(respawnKeyLabel.ImageRectSize).to.equal(ButtonY.ImageRectSize)
+			expect(respawnKeyLabel).toMatchInstance({
+				Image = ButtonY.Image,
+				ImageRectOffset = ButtonY.ImageRectOffset,
+				ImageRectSize = ButtonY.ImageRectSize,
+			})
 		end
 
 		c.keyboardInput(Enum.KeyCode.A)
 
 		do
 			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Keyboard):getRbxInstance()
-			expect(leaveGameKeyLabel).to.be.ok()
-			expect(leaveGameKeyLabel.Text).to.equal("L")
+			expect(leaveGameKeyLabel).never.toBeNil()
+			expect(leaveGameKeyLabel.Text).toBe("L")
 
 			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Keyboard):getRbxInstance()
-			expect(respawnKeyLabel).to.be.ok()
-			expect(respawnKeyLabel.Text).to.equal("R")
+			expect(respawnKeyLabel).never.toBeNil()
+			expect(respawnKeyLabel.Text).toBe("R")
 		end
 	end)
 end

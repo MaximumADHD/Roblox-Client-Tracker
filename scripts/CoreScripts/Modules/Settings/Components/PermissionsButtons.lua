@@ -29,11 +29,13 @@ local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local RecordingIndicator = require(Modules.Settings.Components.RecordingIndicator)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
+local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
+local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagACPermissionButtonFix = game:DefineFastFlag("ACPermissionButtonFix", false)
 
 local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
@@ -93,12 +95,30 @@ function PermissionsButtons:init()
 	self:setState({
 		allPlayersMuted = false,
 		microphoneEnabled = microphoneEnabled,
+		isVoiceConnecting = VoiceChatServiceManager.localMuted == nil,
+		voiceServiceInitialized = false,
 		cameraEnabled = isUsingCamera,
 		selfViewOpen = self.props.selfViewOpen,
 		showSelfView = FFlagAvatarChatCoreScriptSupport and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.SelfView) and (self.state.hasCameraPermissions or self.state.hasMicPermissions),
 		hasCameraPermissions = false,
 		hasMicPermissions = false,
 	})
+
+	if GetFFlagShowMicConnectingIconAndToast() then
+		VoiceChatServiceManager
+			:asyncInit()
+			:andThen(function()
+				local voiceService = VoiceChatServiceManager:getService()
+				if voiceService then
+					self:setState({
+						voiceServiceInitialized = true,
+					})
+				end
+			end)
+			:catch(function()
+				log:warning("VoiceChatServiceManager failed to initialize")
+			end)
+	end
 
 	self.selfViewVisibilityUpdatedSignal = selfViewVisibilityUpdatedSignal:connect(function()
 		self:setState({
@@ -133,6 +153,10 @@ function PermissionsButtons:init()
 
 	-- toggle mic permissions
 	self.toggleMic = function()
+		if GetFFlagShowMicConnectingIconAndToast() and self.state.isVoiceConnecting then
+			VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
+			return
+		end
 		-- Ensure VCS is initialized.
 		if FFlagACPermissionButtonFix then
 			local voiceService = VoiceChatServiceManager:getService()
@@ -199,6 +223,19 @@ function PermissionsButtons:init()
 			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
 		})
 	end
+
+	if GetFFlagShowMicConnectingIconAndToast() then
+		self.onVoiceStateChange = function(oldState, newState)
+			local voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
+			local inConnectingState = voiceManagerState == VoiceChatServiceManager.VOICE_STATE.CONNECTING
+
+			if not inConnectingState and self.state.isVoiceConnecting then
+				self:setState({
+					isVoiceConnecting = false,
+				})
+			end
+		end
+	end
 end
 
 --[[
@@ -242,6 +279,15 @@ function PermissionsButtons:render()
 		and not self.props.isTenFootInterface
 		and not self.props.isSmallTouchScreen)
 		or self.props.useNewMenuTheme
+	local shouldShowRecordingIndicator = (not GetFFlagShowMicConnectingIconAndToast() or not self.state.isVoiceConnecting) and shouldShowMicButtons
+	local micImage = MIC_IMAGE
+	local micImageLabelProps = nil
+	if GetFFlagShowMicConnectingIconAndToast() and self.state.isVoiceConnecting then
+		micImage = VoiceChatServiceManager:GetIcon("Connecting", "New")
+		micImageLabelProps = { Size = UDim2.fromOffset(14, 22), Position = UDim2.fromOffset(9, 4) }
+	elseif not self.state.microphoneEnabled then
+		micImage = MIC_OFF_IMAGE
+	end
 
 	return self:isShowingPermissionButtons() and Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -294,9 +340,10 @@ function PermissionsButtons:render()
 					}),
 			ToggleMicButton = shouldShowMicButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 2,
-				image = if self.state.microphoneEnabled then MIC_IMAGE else MIC_OFF_IMAGE,
+				image = micImage,
 				callback = self.toggleMic,
 				useNewMenuTheme = self.props.useNewMenuTheme,
+				imageLabelProps = micImageLabelProps,
 			}),
 			EnableVideoButton = shouldShowCameraButtons and Roact.createElement(PermissionButton, {
 				LayoutOrder = 3,
@@ -312,7 +359,7 @@ function PermissionsButtons:render()
 			}),
 		}),
 		Divider2 = createDivider(5),
-		RecordingIndicator = shouldShowMicButtons and Roact.createElement(RecordingIndicator, {
+		RecordingIndicator = shouldShowRecordingIndicator and Roact.createElement(RecordingIndicator, {
 			micOn = self.state.microphoneEnabled,
 			hasMicPermissions = self.state.hasMicPermissions,
 			isSmallTouchScreen = self.props.isSmallTouchScreen,
@@ -335,6 +382,12 @@ function PermissionsButtons:render()
 			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 			callback = self.updateVideoCaptureEnabled,
 		}),
+		VoiceStateChangeEvent = if GetFFlagShowMicConnectingIconAndToast() and self.state.voiceServiceInitialized then
+			Roact.createElement(ExternalEventConnection, {
+				event = VoiceChatServiceManager:getService().StateChanged,
+				callback = self.onVoiceStateChange,
+			})
+		else nil,
 	})
 end
 

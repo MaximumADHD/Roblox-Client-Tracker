@@ -34,6 +34,9 @@ export type Props = {
 	searchText: string,
 }
 
+-- The height for loading and call records.
+local ITEM_HEIGHT = 92
+
 local function CallHistoryContainer(props: Props)
 	local dispatch = useDispatch()
 	local style = useStyle()
@@ -43,6 +46,7 @@ local function CallHistoryContainer(props: Props)
 	-- Using refs instead of state since state might not be updated in time.
 	-- These are set to loading and fetching to prepare for the initial fetch.
 	local isLoading = React.useRef(true)
+	local scrollingFrameRef = React.useRef(nil)
 	local status, setStatus = React.useState(RetrievalStatus.Fetching)
 
 	local nextPageCursor = useSelector(function(state)
@@ -52,7 +56,7 @@ local function CallHistoryContainer(props: Props)
 	local getCallRecords = React.useCallback(function(cursor)
 		isLoading.current = true
 		setStatus(RetrievalStatus.Fetching)
-		dispatch(NetworkingCall.GetCallHistory.API({ cursor = cursor, limit = 16, universeId = game.GameId })):andThen(
+		dispatch(NetworkingCall.GetCallHistory.API({ cursor = cursor, limit = 8, universeId = game.GameId })):andThen(
 			function()
 				setStatus(RetrievalStatus.Done)
 			end,
@@ -244,7 +248,7 @@ local function CallHistoryContainer(props: Props)
 		})
 	end, dependencyArray(getCallRecords, props.searchText, status))
 
-	local children: any = React.useMemo(function()
+	local children: { any } = React.useMemo(function()
 		local entries: any = {}
 		entries["UIListLayout"] = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
@@ -269,7 +273,7 @@ local function CallHistoryContainer(props: Props)
 				entries[index] = noRecordsComponent
 			else
 				entries[index] = React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, 92),
+					Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
 					BackgroundTransparency = 1,
 					LayoutOrder = index,
 				}, {
@@ -285,7 +289,7 @@ local function CallHistoryContainer(props: Props)
 		return entries
 	end, dependencyArray(callRecords, nextPageCursor, noRecordsComponent, props.searchText, status))
 
-	local onCanvasPositionChanged = React.useCallback(function(f)
+	local onFetchNextPage = React.useCallback(function(f)
 		if
 			not isLoading.current
 			and status ~= RetrievalStatus.Failed
@@ -297,11 +301,23 @@ local function CallHistoryContainer(props: Props)
 		end
 	end, dependencyArray(getCallRecords, nextPageCursor, props.searchText, status))
 
+	React.useEffect(function()
+		-- This is used to handle the case where the number of records is less
+		-- than the height of the list. That means the list will never be
+		-- scrollable to fetch more items. This does not check if there is a
+		-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
+		local totalHeight = (#children - 1) * ITEM_HEIGHT
+
+		if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
+			onFetchNextPage(scrollingFrameRef.current)
+		end
+	end, dependencyArray(children, onFetchNextPage))
+
 	return if #callRecords == 0
 			and status == RetrievalStatus.Fetching
 			and props.searchText == ""
 		then React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, 92),
+			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
 			LoadingSpinner = React.createElement(LoadingSpinner, {
@@ -322,7 +338,8 @@ local function CallHistoryContainer(props: Props)
 			ScrollBarImageColor3 = theme.UIEmphasis.Color,
 			ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
 			ScrollBarThickness = 4,
-			[React.Change.CanvasPosition] = onCanvasPositionChanged,
+			ref = scrollingFrameRef,
+			[React.Change.CanvasPosition] = onFetchNextPage,
 		}, children)
 end
 

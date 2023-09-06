@@ -1,7 +1,13 @@
 --!nonstrict
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local TnsModule = script.Parent.Parent.Parent
+local GetFFlagReportAnythingLocalizationEnabled = require(TnsModule.Flags.GetFFlagReportAnythingLocalizationEnabled)
 
 local ButtonStack = UIBlox.App.Button.ButtonStack
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
@@ -9,6 +15,7 @@ local HeaderBar = UIBlox.App.Bar.HeaderBar
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local UIBloxImages = UIBlox.App.ImageSet.Images
+local withStyle = UIBlox.Style.withStyle
 
 local HEADER_HEIGHT = 48
 
@@ -22,6 +29,29 @@ type Props = {
 	isUndoEnabled: boolean,
 	annotationPoints: { Vector2 },
 }
+
+local function renderWrappingCenter(title)
+	return function()
+		return withStyle(function(style)
+			local theme = style.Theme
+			local font = style.Font
+
+			return React.createElement("TextLabel", {
+				Text = title,
+				Font = font.Header2.Font,
+				TextColor3 = theme.TextEmphasis.Color,
+				TextTransparency = theme.TextEmphasis.Transparency,
+				TextSize = 20,
+				TextWrapped = true,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+			})
+		end)
+	end
+end
+
 
 local function renderHeaderBarLeft(backAction, undoAnnotationPoints, redoAnnotationPoints, isRedoEnabled, isUndoEnabled)
 	local isShowUndoRedoButtons = isRedoEnabled or isUndoEnabled
@@ -79,7 +109,9 @@ local function renderHeaderBarRight(reportAction, annotationPoints)
 							onActivated = function()
 								reportAction(annotationPoints)
 							end,
-							text = "Next",
+							text = if GetFFlagReportAnythingLocalizationEnabled()
+								then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.Next")
+								else "Next",
 						},
 					},
 				},
@@ -106,7 +138,8 @@ local function LandscapeModeHeader(props: Props)
 				props.isUndoEnabled
 			),
 			renderRight = renderHeaderBarRight(props.reportAction, props.annotationPoints),
-			title = props.titleText,
+			title = if GetFFlagReportAnythingLocalizationEnabled() then nil else props.titleText,
+			renderCenter = if GetFFlagReportAnythingLocalizationEnabled() then renderWrappingCenter(props.titleText) else nil,
 		}),
 	})
 end

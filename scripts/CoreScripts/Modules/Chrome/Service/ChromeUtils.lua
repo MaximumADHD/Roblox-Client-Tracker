@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local StarterGui = game:GetService("StarterGui")
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
@@ -237,10 +238,26 @@ function MappedSignal:get<T>(): T
 	return self._fetchMapFunction()
 end
 
+function setCoreGuiAvailability(integration: { availability: AvailabilitySignal }, coreGui)
+	local function updateAvailable()
+		local available = StarterGui:GetCoreGuiEnabled(coreGui)
+		if available then
+			integration.availability:available()
+		else
+			integration.availability:unavailable()
+		end
+	end
+
+	local disconnect = StarterGui.CoreGuiChangedSignal:Connect(updateAvailable)
+	updateAvailable()
+	return disconnect
+end
+
 return {
 	MappedSignal = MappedSignal,
 	AvailabilitySignal = AvailabilitySignal,
 	AvailabilitySignalState = AvailabilitySignalState,
 	NotifySignal = NotifySignal,
 	ObservableValue = ObservableValue,
+	setCoreGuiAvailability = setCoreGuiAvailability,
 }

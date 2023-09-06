@@ -30,7 +30,7 @@ end)
 
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
-	id = "trust_and_safty",
+	id = "trust_and_safety",
 	label = "CoreScripts.InGameMenu.QuickActions.Report",
 	activated = function(self)
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)

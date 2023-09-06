@@ -10,6 +10,9 @@ local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 local act = require(Modules.act)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
@@ -76,14 +79,14 @@ return function()
 				c.gamepadInput(Enum.KeyCode.DPadLeft)
 
 				local gameIcon = Element.new(iconPath):getRbxInstance()
-				expect(gameIcon).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(gameIcon)
+				expect(gameIcon).never.toBeNil()
+				expect(GuiService.SelectedCoreObject).toBe(gameIcon)
 				c.gamepadInput(Enum.KeyCode.ButtonB)
 
 				local closeIcon = Element.new(iconPath):getRbxInstance()
-				expect(closeIcon).to.be.ok()
-				expect(closeIcon).to.never.equal(gameIcon)
-				expect(GuiService.SelectedCoreObject).to.equal(closeIcon)
+				expect(closeIcon).never.toBeNil()
+				expect(closeIcon).never.toBe(gameIcon)
+				expect(GuiService.SelectedCoreObject).toBe(closeIcon)
 			end
 		end)
 
@@ -98,16 +101,16 @@ return function()
 				local rootPath = XPath.new(path)
 				local iconPath = rootPath:cat(XPath.new("SideNavigation.Content.HomeButton.HomeButton"))
 				local homeIcon = Element.new(iconPath):getRbxInstance()
-				expect(homeIcon).to.be.ok()
+				expect(homeIcon).never.toBeNil()
 
 				c.gamepadInput(Enum.KeyCode.DPadLeft)
 				c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				expect(GuiService.SelectedCoreObject).to.equal(homeIcon)
+				expect(GuiService.SelectedCoreObject).toBe(homeIcon)
 
 				c.gamepadInput(Enum.KeyCode.ButtonB)
 
-				expect(GuiService.SelectedCoreObject).to.equal(homeIcon)
+				expect(GuiService.SelectedCoreObject).toBe(homeIcon)
 			end
 		end)
 	end)

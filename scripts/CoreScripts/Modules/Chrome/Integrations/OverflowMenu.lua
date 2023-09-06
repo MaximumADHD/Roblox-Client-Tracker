@@ -1,5 +1,4 @@
 local ChromeService = require(script.Parent.Parent.Service)
-local ChromeTypes = require(script.Parent.Parent.Service.Types)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
@@ -8,24 +7,8 @@ local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
-local StarterGui = game:GetService("StarterGui")
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
-
-function setCoreGuiAvailability(integration: ChromeTypes.IntegrationProps, coreGui)
-	local function updateAvailable()
-		local available = StarterGui:GetCoreGuiEnabled(coreGui)
-		if available then
-			integration.availability:available()
-		else
-			integration.availability:unavailable()
-		end
-	end
-
-	local disconnect = StarterGui.CoreGuiChangedSignal:Connect(updateAvailable)
-	updateAvailable()
-	return disconnect
-end
 
 local leaderboardVisibility = MappedSignal.new(PlayerListMaster:GetSetVisibleChangedEvent().Event, function()
 	return PlayerListMaster:GetSetVisible()
@@ -48,7 +31,7 @@ local leaderboard = ChromeService:register({
 		end,
 	},
 })
-setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
+ChromeUtils.setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
 
 local emotesVisibility = MappedSignal.new(EmotesMenuMaster.EmotesMenuToggled.Event, function()
 	return EmotesMenuMaster:isOpen()
@@ -73,7 +56,7 @@ local emotes = ChromeService:register({
 		end,
 	},
 })
-setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu)
+ChromeUtils.setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu)
 
 local backpackVisibility = MappedSignal.new(BackpackModule.StateChanged.Event, function()
 	return BackpackModule.IsOpen
@@ -90,7 +73,7 @@ local backpack = ChromeService:register({
 		end,
 	},
 })
-setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
+ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
 
 -- todo: reduce external boilerplate for a signal sourced directly from ChromeService
 local currentSubMenu = ChromeService:currentSubMenu()

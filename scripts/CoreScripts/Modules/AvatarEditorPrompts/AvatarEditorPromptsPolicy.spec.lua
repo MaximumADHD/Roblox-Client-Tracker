@@ -1,5 +1,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Roact = require(CorePackages.Roact)
 
 	it("should create and destroy without errors", function()
@@ -39,7 +43,7 @@ return function()
 		})
 
 		local instance = Roact.mount(element)
-		expect(testValue).to.equal(testPolicyValue)
+		expect(testValue).toBe(testPolicyValue)
 		Roact.unmount(instance)
 	end)
 end

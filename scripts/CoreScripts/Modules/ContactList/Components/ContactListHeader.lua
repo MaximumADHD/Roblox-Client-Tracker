@@ -10,16 +10,14 @@ local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
 
 local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
-local Colors = UIBlox.App.Style.Colors
-local IconButton = UIBlox.App.Button.IconButton
-local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Images = UIBlox.App.ImageSet.Images
+local ImageSetButton = UIBlox.Core.ImageSet.Button
 local useStyle = UIBlox.Core.Style.useStyle
 
-local BUTTON_SIZE = 36
+local BUTTON_SIZE = 28
 local DIVIDER_WIDTH = 1
-local IN_BETWEEN_PADDING = 6
-local IN_BETWEEN_PADDING_BUTTON = 8
+local BUTTON_PADDING = 8
+local TEXT_PADDING = 12
 local SIDE_PADDING = 24
 
 export type Props = {
@@ -69,17 +67,21 @@ local ContactListHeader = function(props: Props)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}),
-		DismissButton = React.createElement(IconButton, {
-			size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-			icon = if not props.isDevMode or props.currentPage == Pages.CallHistory
+		DismissButton = React.createElement(ImageSetButton, {
+			Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
+			BackgroundColor3 = theme.BackgroundDefault.Color,
+			BackgroundTransparency = theme.BackgroundDefault.Transparency,
+			Image = if not props.isDevMode or props.currentPage == Pages.CallHistory
 				then Images["icons/navigation/close"]
 				else Images["icons/navigation/pushBack"],
-			iconSize = IconSize.Medium,
-			iconColor3 = Colors.White,
-			layoutOrder = 1,
-			onActivated = if not props.isDevMode or props.currentPage == Pages.CallHistory
+			LayoutOrder = 1,
+			[React.Event.Activated] = if not props.isDevMode or props.currentPage == Pages.CallHistory
 				then props.dismissCallback
 				else navigateToCallHistory,
+		}, {
+			UICorner = React.createElement("UICorner", {
+				CornerRadius = UDim.new(0, 8),
+			}),
 		}),
 		DividerContainer = React.createElement("Frame", {
 			Size = UDim2.new(0, 0, 0, 0),
@@ -88,23 +90,18 @@ local ContactListHeader = function(props: Props)
 			LayoutOrder = 2,
 		}, {
 			Divider = React.createElement("Frame", {
-				Size = UDim2.new(0, DIVIDER_WIDTH, 0, font.Header1.RelativeSize * font.BaseSize),
+				Size = UDim2.new(0, DIVIDER_WIDTH, 0, 16),
 				BackgroundColor3 = theme.Divider.Color,
 				BackgroundTransparency = theme.Divider.Transparency,
 				BorderSizePixel = 0,
 			}),
 			DividerContainerUIPadding = React.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING_BUTTON),
-				PaddingRight = UDim.new(0, IN_BETWEEN_PADDING),
+				PaddingLeft = UDim.new(0, BUTTON_PADDING),
+				PaddingRight = UDim.new(0, TEXT_PADDING),
 			}),
 		}),
 		HeaderText = React.createElement("TextLabel", {
-			Size = UDim2.new(
-				1,
-				-(IN_BETWEEN_PADDING + IN_BETWEEN_PADDING_BUTTON + DIVIDER_WIDTH + BUTTON_SIZE * 2),
-				0,
-				24
-			),
+			Size = UDim2.new(1, -(BUTTON_PADDING + TEXT_PADDING + DIVIDER_WIDTH + BUTTON_SIZE * 2), 0, 24),
 			BackgroundTransparency = 1,
 			Font = font.Header1.Font,
 			Text = getTitleFromPage(props.currentPage),
@@ -114,20 +111,19 @@ local ContactListHeader = function(props: Props)
 			LayoutOrder = 3,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
-		}, {
-			HeaderTextUIPadding = React.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, IN_BETWEEN_PADDING),
-				PaddingRight = UDim.new(0, IN_BETWEEN_PADDING_BUTTON),
-			}),
 		}),
 		NewCallButton = if props.currentPage == Pages.CallHistory
-			then React.createElement(IconButton, {
-				size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-				icon = "rbxassetid://14522111372", -- TODO: Replace with UIBLOX icon
-				iconSize = IconSize.Medium,
-				iconColor3 = Colors.White,
-				layoutOrder = 4,
-				onActivated = navigateToNewCall,
+			then React.createElement(ImageSetButton, {
+				Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				Image = "rbxassetid://14522111372",
+				LayoutOrder = 4,
+				[React.Event.Activated] = navigateToNewCall,
+			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
 			})
 			else nil,
 	})

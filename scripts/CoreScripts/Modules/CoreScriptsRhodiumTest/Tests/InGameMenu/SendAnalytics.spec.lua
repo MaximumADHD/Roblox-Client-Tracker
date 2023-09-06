@@ -9,6 +9,7 @@ local VirtualInput = Rhodium.VirtualInput
 
 local JestGlobals = require(CorePackages.JestGlobals)
 local jest = JestGlobals.jest
+local expect = JestGlobals.expect
 
 local InGameMenu = Modules.InGameMenu
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
@@ -45,11 +46,8 @@ return function()
 
 			SendAnalytics(ctx, evt, params, false, analyticsServiceImpl)
 
-			expect(#c.SetRBXEventStreamSpy.mock.calls).to.equal(1)
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][2]).to.equal("client")
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][3]).to.equal(ctx)
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][4]).to.equal(evt)
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][5]).to.equal(params)
+			expect(c.SetRBXEventStreamSpy).toHaveBeenCalledTimes(1)
+			expect(c.SetRBXEventStreamSpy).toHaveBeenCalledWith(expect.anything(), "client", ctx, evt, params)
 		end)
 
 		it("Appends the latest used input device to the params table", function(c)
@@ -66,8 +64,10 @@ return function()
 
 			SendAnalytics(ctx, evt, params, false, analyticsServiceImpl)
 
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].testParam).to.equal("test")
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].inputDevice).to.equal("MouseAndKeyboard")
+			expect(c.SetRBXEventStreamSpy.mock.calls[1][5]).toMatchObject({
+				testParam = "test",
+				inputDevice = "MouseAndKeyboard",
+			})
 
 			params = {testParam = "test2"}
 			gamepad:hitButton(Enum.KeyCode.DPadDown)
@@ -75,7 +75,7 @@ return function()
 			wait()
 
 			SendAnalytics(ctx, evt, params, false, analyticsServiceImpl)
-			expect(c.SetRBXEventStreamSpy.mock.calls[2][5].inputDevice).to.equal("Gamepad")
+			expect(c.SetRBXEventStreamSpy.mock.calls[2][5].inputDevice).toBe("Gamepad")
 		end)
 
 		it("Uses directly the lastUsedInput value if it's not in our mapping", function(c)
@@ -92,7 +92,7 @@ return function()
 
 			SendAnalytics(ctx, evt, params, false, analyticsServiceImpl)
 
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].inputDevice).to.equal("Enum.UserInputType.TextInput")
+			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].inputDevice).toBe("Enum.UserInputType.TextInput")
 		end)
 
 		it("Appends the input even when reportSettingsForAnalytics is true", function(c)
@@ -109,8 +109,8 @@ return function()
 
 			SendAnalytics(ctx, evt, params, true, analyticsServiceImpl)
 
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].camera_y_inverted).to.never.equal(nil)
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].inputDevice).to.equal("MouseAndKeyboard")
+			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].camera_y_inverted).never.toBeNil()
+			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].inputDevice).toBe("MouseAndKeyboard")
 		end)
 
 		it("Does not append setting values when reportSettingsForAnalytics is false", function(c)
@@ -123,7 +123,7 @@ return function()
 
 			SendAnalytics(ctx, evt, params, false, analyticsServiceImpl)
 
-			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].camera_y_inverted).to.equal(nil)
+			expect(c.SetRBXEventStreamSpy.mock.calls[1][5].camera_y_inverted).toBeNil()
 		end)
 	end)
 end

@@ -66,12 +66,14 @@ local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Pa
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 local GetFFlagCorescriptsSoundManagerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local GetFFlagIrisAlwaysOnTopEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisAlwaysOnTopEnabled
+local GetFFlagTenFootUiAchievements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagTenFootUiAchievements
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 
 local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
 
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
+local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 
@@ -307,6 +309,10 @@ if FFlagLuaAppEnableToastNotificationsCoreScripts then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ToastNotificationGUI", script.Parent)
 end
 
+if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/GameInviteModalGUI", script.Parent)
+end
+
 if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")
 end
@@ -375,4 +381,10 @@ end
 if GetFFlagCorescriptsSoundManagerEnabled() then
 	local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 	SoundManager.init()
+end
+
+if GetFFlagTenFootUiAchievements() then
+	local InExpAchievementManager = require(CorePackages.Workspace.Packages.Achievements).InExpAchievementManager
+	local achievementManager = InExpAchievementManager.new()
+	achievementManager:startUp()
 end

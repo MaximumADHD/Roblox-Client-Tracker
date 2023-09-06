@@ -1,4 +1,6 @@
 --!nonstrict
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
@@ -13,12 +15,15 @@ local ImageSetButton = UIBlox.Core.ImageSet.Button
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 local SecondaryButton = UIBlox.App.Button.SecondaryButton
+local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
 
 local TnsModule = script.Parent.Parent.Parent
 local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
 local RestartScreenshotDialog = require(TnsModule.Components.ReportAnything.RestartScreenshotDialog)
 local ReportAnythingAnalytics = require(TnsModule.Utility.ReportAnythingAnalytics)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local GetFFlagReportAnythingLocalizationEnabled = require(TnsModule.Flags.GetFFlagReportAnythingLocalizationEnabled)
 
 local Divider = require(Dependencies.Divider)
 
@@ -30,6 +35,7 @@ export type Props = {
 	screenshot: string,
 	imageAspectRatio: number,
 	viewportHeight: number,
+	viewportWidth: number;
 	isSmallPortraitMode: boolean,
 	onBack: () -> (),
 	onRestart: () -> (),
@@ -38,12 +44,62 @@ export type Props = {
 	reportAnythingAnalytics: typeof(ReportAnythingAnalytics)?,
 }
 
+local function ScreenshotReviewDialogSmallPortraitModeHeaderRight(props)
+	local retakeButtonWidth, setRetakeButtonWidth = React.useState(0)
+	local retakeButtonWidthChangedCallback = React.useCallback(function(rbx)
+		setRetakeButtonWidth(rbx.AbsoluteSize.X)
+	end, { setRetakeButtonWidth })
+	local onActivatedCallback = React.useCallback(function()
+		props.setShowRestartDialog(true)
+	end, { props.setShowRestartDialog })
+
+	return React.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+	}, {
+		Layout = React.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+		Text = React.createElement("TextLabel", {
+			LayoutOrder = -1,
+			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SceneCaptured"),
+			Font = props.font.Header2.Font,
+			TextColor3 = props.theme.TextEmphasis.Color,
+			TextTransparency = props.theme.TextEmphasis.Transparency,
+			TextSize = 20,
+			TextWrapped = true,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			-- Need to manually size this text since when used in the
+			-- `renderRight` of the HeaderBar, the container Frame here does not
+			-- expand on its own.
+			Size = UDim2.new(0, props.viewportWidth - retakeButtonWidth - 50, 1, 0),
+			BackgroundTransparency = 1,
+		}),
+		RetakeButton = React.createElement(SecondaryButton, {
+			text = RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.Retake"),
+			fitContent = true,
+			standardSize = StandardButtonSize.XSmall,
+			onActivated = onActivatedCallback,
+			[React.Change.AbsoluteSize] = retakeButtonWidthChangedCallback
+		})
+	})
+end
+
 local function ScreenshotReviewDialog(props: Props)
 	React.useEffect(function()
 		if props.reportAnythingAnalytics then
 			props.reportAnythingAnalytics.incrementAnnotationOptionSeen()
 		end
 	end, {})
+
+	local footerHeight = FOOTER_HEIGHT
+	if (GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode) then
+		footerHeight = (FOOTER_HEIGHT - 12) * 2 + 8 -- buttons have 8px between them, not 12 (normal padding)
+	end
 
 	local isShowRestartDialog, setShowRestartDialog = React.useState(false)
 	local stylePalette = useStyle()
@@ -116,7 +172,7 @@ local function ScreenshotReviewDialog(props: Props)
 				}),
 				-- List layout for header and content
 				HeaderAndContent = React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
+					Size = UDim2.new(1, 0, 1, -footerHeight),
 					BackgroundTransparency = 1,
 				}, {
 					Layout = React.createElement("UIListLayout", {
@@ -146,17 +202,38 @@ local function ScreenshotReviewDialog(props: Props)
 							end,
 							-- Need dummy on the right to take up space for balance
 							renderRight = function()
+								if GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode then
+									return React.createElement(ScreenshotReviewDialogSmallPortraitModeHeaderRight, {
+										setShowRestartDialog = setShowRestartDialog,
+										font = font,
+										theme = theme,
+										viewportWidth = props.viewportWidth
+									})
+								end
 								local retakeButtonWidth = if props.isSmallPortraitMode then 72 else 120 
+
 								local retakeButtonHeight = if props.isSmallPortraitMode then 28 else 36
 								return React.createElement(SecondaryButton, {
-									size = UDim2.new(0, retakeButtonWidth, 0, retakeButtonHeight),
-									text = "Retake",
+									size = if GetFFlagReportAnythingLocalizationEnabled()
+										then nil -- let the button autosize based on content
+										else UDim2.new(0, retakeButtonWidth, 0, retakeButtonHeight),
+									text = if GetFFlagReportAnythingLocalizationEnabled()
+										then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.Retake")
+										else "Retake",
+									fitContent = GetFFlagReportAnythingLocalizationEnabled(),
+									standardSize = if GetFFlagReportAnythingLocalizationEnabled()
+										then StandardButtonSize.XSmall
+										else nil,
 									onActivated = function()
 										setShowRestartDialog(true)
 									end,
 								})
 							end,
-							title = "Scene Captured",
+							title = if GetFFlagReportAnythingLocalizationEnabled()
+								then (if props.isSmallPortraitMode
+									then nil
+									else RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SceneCaptured"))
+								else "Scene Captured",
 							isSecondary = props.isSmallPortraitMode,
 						}),
 					}),
@@ -166,7 +243,7 @@ local function ScreenshotReviewDialog(props: Props)
 					ScreenshotBody = React.createElement("Frame", {
 						BackgroundTransparency = 1,
 						LayoutOrder = 3,
-						Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
+						Size = UDim2.new(1, 0, 1, -60),
 						ZIndex = 10,
 					}, {
 						Padding = React.createElement("UIPadding", {
@@ -179,7 +256,8 @@ local function ScreenshotReviewDialog(props: Props)
 						}),
 						ScreenshotContainer = React.createElement("Frame", {
 							Size = UDim2.new(1, 0, 1, -32),
-							BackgroundTransparency = 1,
+							BackgroundTransparency = 2,
+							LayoutOrder = 1,
 						}, {
 							Padding = React.createElement("UIPadding", {
 								PaddingTop = UDim.new(0, 12),
@@ -216,21 +294,26 @@ local function ScreenshotReviewDialog(props: Props)
 							}),
 						}),
 						Description = React.createElement("TextLabel", {
-							Text = "If the problem is not in this scene, you can “Retake”\nthe screenshot.",
+							Text = if GetFFlagReportAnythingLocalizationEnabled()
+								then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Message.ProblemNotInScene")
+								else "If the problem is not in this scene, you can “Retake”\nthe screenshot.",
 							Font = font.Header1.Font,
 							LayoutOrder = 2,
 							TextColor3 = theme.TextEmphasis.Color,
 							TextTransparency = theme.TextEmphasis.Transparency,
 							TextSize = if props.isSmallPortraitMode then 12 else 20,
 							TextXAlignment = Enum.TextXAlignment.Center,
-							Size = UDim2.new(1, 0, 0, 20),
+							TextWrapped = GetFFlagReportAnythingLocalizationEnabled(),
+							Size = if GetFFlagReportAnythingLocalizationEnabled()
+								then UDim2.new(1, -24, 0, (if props.isSmallPortraitMode then 24 else 40))
+								else UDim2.new(1, 0, 0, 20),
 							BackgroundTransparency = 1,
 						}),
 					}),
 				}),
 				Footer = React.createElement("Frame", {
 					BackgroundTransparency = 0,
-					Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+					Size = UDim2.new(1, 0, 0, footerHeight),
 					BackgroundColor3 = Color3.fromHex("#4F545F"),
 					AnchorPoint = Vector2.new(0, 1),
 					Position = UDim2.fromScale(0, 1),
@@ -241,7 +324,9 @@ local function ScreenshotReviewDialog(props: Props)
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					}),
 					Container = React.createElement("Frame", {
-						Size = UDim2.new(0, if props.isSmallPortraitMode then 400 else 612, 1, 0),
+						Size = if (GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode)
+							then UDim2.new(1, 0, 1, 0)
+							else UDim2.new(0, if props.isSmallPortraitMode then 400 else 612, 1, 0),
 						BackgroundTransparency = 1,
 					}, {
 						Padding = React.createElement("UIPadding", {
@@ -251,13 +336,18 @@ local function ScreenshotReviewDialog(props: Props)
 							PaddingRight = UDim.new(0, 16),
 						}),
 						ActionButtons = React.createElement(ButtonStack, {
+							forcedFillDirection = if (GetFFlagReportAnythingLocalizationEnabled() and props.isSmallPortraitMode)
+								then Enum.FillDirection.Vertical
+								else nil,
 							marginBetween = 8,
 							buttons = {
 								{
 									buttonType = ButtonType.Secondary,
 									props = {
 										onActivated = props.onSkip,
-										text = "Attach Screenshot",
+										text = if GetFFlagReportAnythingLocalizationEnabled()
+											then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.AttachScreenshot")
+											else "Attach Screenshot",
 									},
 								},
 								{
@@ -266,7 +356,9 @@ local function ScreenshotReviewDialog(props: Props)
 										onActivated = function()
 											props.onNextPage()
 										end,
-										text = "Highlight Scene",
+										text = if GetFFlagReportAnythingLocalizationEnabled()
+											then RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.HighlightScene")
+											else "Highlight Scene",
 									},
 								},
 							},

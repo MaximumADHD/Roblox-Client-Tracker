@@ -3,7 +3,8 @@ return function()
 	local ProcessErrorStack = require(script.Parent.ProcessErrorStack)
 	local CorePackages = game:GetService("CorePackages")
 
-	local tutils = require(CorePackages.Packages.tutils)
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local testCasesNormal = {
 		ScriptContextError = {
@@ -166,10 +167,10 @@ return function()
 		for key, testCase in pairs(testCasesNormal) do
 			local stack, sourceCodeOutput = ProcessErrorStack(testCase.error)
 
-			expect(tutils.deepEqual(testCase.expectedOutput, {
+			expect(testCase.expectedOutput).toEqual({
 				stack = stack,
 				sourceCodeOutput = sourceCodeOutput,
-			}, true)).to.equal(true)
+			})
 		end
 	end)
 
@@ -189,15 +190,15 @@ return function()
 		for _, testCase in ipairs(testCasesOther) do
 			local stack, sourceCodeOutput = ProcessErrorStack(testCase)
 
-			expect(tutils.shallowEqual(stack, {})).to.equal(true)
-			expect(tutils.shallowEqual(sourceCodeOutput, {})).to.equal(true)
+			expect(stack).toEqual({})
+			expect(sourceCodeOutput).toEqual({})
 		end
 	end)
 
 	it("should return empty results with nil input", function()
 		local stack, sourceCodeOutput = ProcessErrorStack(nil)
 
-		expect(tutils.shallowEqual(stack, {})).to.equal(true)
-		expect(tutils.shallowEqual(sourceCodeOutput, {})).to.equal(true)
+		expect(stack).toEqual({})
+		expect(sourceCodeOutput).toEqual({})
 	end)
 end

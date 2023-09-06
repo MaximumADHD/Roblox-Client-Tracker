@@ -8,6 +8,9 @@ local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
 local act = require(Modules.act)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 
@@ -58,9 +61,9 @@ return function()
 			c.storeUpdate(SetRespawning(true))
 
 			c.gamepadInput(Enum.KeyCode.ButtonL1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 			c.gamepadInput(Enum.KeyCode.ButtonR1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 	end)
 end

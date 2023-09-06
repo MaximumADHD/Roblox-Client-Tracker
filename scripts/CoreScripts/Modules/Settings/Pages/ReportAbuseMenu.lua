@@ -71,12 +71,13 @@ local GetFFlagEnableIGMv1ARFlowNilMoAFix =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
 local GetFFlagReportAnythingFixDefaultAnalytics =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingFixDefaultAnalytics)
-local GetFFlagEnableMOAForNonVoiceUsers =
-	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableMOAForNonVoiceUsers)
 local GetFFlagReportAnythingEnableAdReport =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
-local GetFFlagFixReportMenu = require(Settings.Flags.GetFFlagFixReportMenu)
-local GetFFlagEnableOptionalScreenshotButton = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableOptionalScreenshotButton)
+local GetFFlagReportAnythingLocalizationEnabled =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingLocalizationEnabled)
+local GetFFlagReportAbuseMenuAutosizeYEnabled =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAbuseMenuAutosizeYEnabled)
+local GetFFlagEnableOptionalScreenshotButton2 = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableOptionalScreenshotButton2)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -84,6 +85,13 @@ local ATTACH_SCREENSHOT_LABEL = {
 	ATTACH_SCREENSHOT = "Capture Scene",
 	SCREENSHOT_ATTACHED = "Scene Captured"
 }
+
+if GetFFlagReportAnythingLocalizationEnabled() then
+	ATTACH_SCREENSHOT_LABEL = {
+		ATTACH_SCREENSHOT = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.CaptureScene"),
+		SCREENSHOT_ATTACHED = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SceneCaptured"),
+	}
+end
 
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
@@ -150,8 +158,6 @@ local FFlagUseNotificationsLocalization = success and result
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
-local MIN_GAME_REPORT_TEXT_LENGTH = 5
-
 local timeEntered
 local inSortingExperiment = true
 local inEntryExperiment = true
@@ -182,12 +188,19 @@ local MethodOfAbuseOptions: {
 	},
 }
 
-local function shouldShowMethodOfAbuseForAll()
-	return GetFFlagEnableMOAForNonVoiceUsers() and TrustAndSafetyIXPManager:getTypeofAbuseEnabled()
+local function shouldDoReportScreenshot()
+	return GetFFlagEnableOptionalScreenshotButton2() and (
+		TrustAndSafetyIXPManager:getReportAnythingAvatarEnabled() or
+		TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled()
+	)
 end
 
-local function shouldShowOptionalScreenshot()
-	return GetFFlagEnableOptionalScreenshotButton() and TrustAndSafetyIXPManager:getOptionalScreenshotEnabled()
+local function shouldShowOptionalScreenshotAvatar()
+	return GetFFlagEnableOptionalScreenshotButton2() and TrustAndSafetyIXPManager:getReportAnythingAvatarEnabled()
+end
+
+local function shouldShowOptionalScreenshotExperience()
+	return GetFFlagEnableOptionalScreenshotButton2() and TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled()
 end
 
 ----------- CLASS DECLARATION --------------
@@ -207,9 +220,7 @@ local function Initialize()
 	this.isAnnotationComplete = false
 
 	this.isHidingForARScreenshot = false
-	if GetFFlagFixReportMenu() then
-		this.submitButtonActive = false
-	end
+	this.submitButtonActive = false
 
 	this.reportAbuseAnalytics = ReportAbuseAnalytics.new(EventIngest.new(EventIngestService), Analytics.Diag, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
 
@@ -217,7 +228,7 @@ local function Initialize()
 		if this.MethodOfAbuseMode then
 			local currentIndex = this.MethodOfAbuseMode.CurrentIndex
 			local voiceAllowed = false
-			if shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot() then
+			if shouldShowOptionalScreenshotAvatar() then
 				if currentIndex == nil then
 					return "Chat"
 				end
@@ -264,12 +275,15 @@ local function Initialize()
 	function this:ActivateFormPhase(newFormPhase, isPlayerPreselected)
 		local normalFormVisibility = function()
 			this.GameOrPlayerFrame.Visible = true
-			this.WhichPlayerFrame.Visible = true
+			-- player select should only be visible for player mode
+			this.WhichPlayerFrame.Visible = this.GameOrPlayerMode.CurrentIndex == 2
 			this.AbuseDescriptionFrame.Visible = true
 			this.SubmitButton.Visible = true
 
-			-- show type of abuse dropdown for both modes, and also update method of abuse visibility
-			this.MethodOfAbuseFrame.Visible = this.GameOrPlayerMode.CurrentIndex == 2
+			-- method of abuse visibility
+			if this.MethodOfAbuseFrame then
+				this.MethodOfAbuseFrame.Visible = this.GameOrPlayerMode.CurrentIndex == 2
+			end
 
 		end
 		local oneButtonSubmit = function()
@@ -343,12 +357,6 @@ local function Initialize()
 			})
 		end
 
-		local shouldShowPlayerDropdownPostAnnotation = function()
-			return #AbuseReportBuilder.getSelectedAbusers() == 0
-				and this:GetSelectedMethodOfAbuse() == "Other"
-				and this.GameOrPlayerMode.CurrentIndex == 2 -- Player mode
-		end
-
 		local onBack = function()
 			this:unmountAnnotationPage()
 			AbuseReportBuilder.clearAnnotationPoints()
@@ -357,10 +365,6 @@ local function Initialize()
 
 		local onAnnotate = function(points: { Vector2 })
 			AbuseReportBuilder.setAnnotationPoints(points)
-			if shouldShowPlayerDropdownPostAnnotation() then
-				-- select manually from dropdown if no annotated players
-				this.WhichPlayerFrame.Visible = true
-			end
 			this.isAnnotationComplete = true 
 			this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 			this:unmountAnnotationPage()
@@ -369,9 +373,6 @@ local function Initialize()
 		local onSkip = function()
 			AbuseReportBuilder.clearAnnotationPoints()
 			AbuseReportBuilder.setAnnotationOptionSeen(true)
-			if shouldShowPlayerDropdownPostAnnotation() then
-				this.WhichPlayerFrame.Visible = true
-			end
 			this.isAnnotationComplete = true 
 			this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 			this:unmountAnnotationPage()
@@ -431,7 +432,7 @@ local function Initialize()
 		nextPlayerToReport = player
 		currentSelectedPlayer = player
 		this:SetDefaultMethodOfAbuse(nextPlayerToReport)
-		if shouldShowOptionalScreenshot() then
+		if shouldShowOptionalScreenshotAvatar() then
 			this:ActivateFormPhase(FormPhase.AttachScreenshotInit, true)
 		end
 	end
@@ -444,6 +445,11 @@ local function Initialize()
 	function this:updateRALayout()
 		-- basically updateVoiceLayout but can also run without Voice, and
 		-- determines the selected method of abuse correctly.
+
+		-- User-facing rename "Other" to "Avatar"
+		MethodOfAbuseOptions.other.title = "Feature.SettingsHub.MethodOfAbuse.AvatarTitle"
+		MethodOfAbuseOptions.other.subtitle = "Feature.SettingsHub.MethodOfAbuse.AvatarSubtitle"
+
 		local MOALabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.MethodOfAbuse")
 		this.MethodOfAbuseFrame, this.MethodOfAbuseLabel, this.MethodOfAbuseMode =
 			utility:AddNewRow(this, MOALabel, "DropDown", getSortedMethodOfAbuseList())
@@ -465,7 +471,7 @@ local function Initialize()
 
 		this.WhichPlayerFrame.LayoutOrder = 3
 		this.TypeOfAbuseFrame.LayoutOrder = 4
-		this.AbuseDescriptionFrame.LayoutOrder = 5
+		this.AbuseDescriptionFrame.LayoutOrder = 6
 
 		local function methodOfAbuseChanged(newIndex)
 			--As we're now relying on a reference to the player object instead of the
@@ -484,7 +490,7 @@ local function Initialize()
 				selectedMethodOfAbuse = "other"
 			end
 			
-			if shouldShowOptionalScreenshot() then 
+			if shouldShowOptionalScreenshotAvatar() then 
 				this:updateScreenshotButton(selectedMethodOfAbuse)
 			end
 			
@@ -532,7 +538,7 @@ local function Initialize()
 
 			this.WhichPlayerFrame.LayoutOrder = 3
 			this.TypeOfAbuseFrame.LayoutOrder = 4
-			this.AbuseDescriptionFrame.LayoutOrder = 5
+			this.AbuseDescriptionFrame.LayoutOrder = 6
 
 			local function methodOfAbuseChanged(newIndex)
 				--As we're now relying on a reference to the player object instead of the
@@ -599,7 +605,7 @@ local function Initialize()
 				PageInstance.MethodOfAbuseMode:SetSelectionIndex(1)
 			end
 
-		elseif shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot() then
+		elseif shouldShowOptionalScreenshotAvatar() then
 			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
 				-- Note that we're using the index property of the TypeOfAbuseOption,
 				-- not the index of the AbuseOption in the dropdown list
@@ -710,17 +716,13 @@ local function Initialize()
 
 		if this.GameOrPlayerMode.CurrentIndex == 1 then
 			this.WhichPlayerMode:SetInteractable(false)
-			if GetFFlagFixReportMenu() then
-				this.WhichPlayerFrame.Visible = false
-			end
+			this.WhichPlayerFrame.Visible = false
 			this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_GAME)
 			this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_GAME > 1)
 		else
 			this.WhichPlayerLabel.ZIndex = 2
 			this.WhichPlayerMode:SetInteractable(index > 1)
-			if GetFFlagFixReportMenu() then
-				this.WhichPlayerFrame.Visible = index > 1
-			end
+			this.WhichPlayerFrame.Visible = index > 1
 
 			if this.MethodOfAbuseMode then
 				this.MethodOfAbuseMode:SetInteractable(index > 1)
@@ -770,7 +772,7 @@ local function Initialize()
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ReportAbusePage"
 
-	if Theme.UseStickyBar() then
+	if Theme.UseStickyBar() or GetFFlagReportAbuseMenuAutosizeYEnabled() then
 		-- create a safe zone bottom padding
 		utility:Create'Frame'
 		{
@@ -782,6 +784,10 @@ local function Initialize()
 			Parent = this.Page,
 			LayoutOrder = 10,
 		};
+	end
+
+	if GetFFlagReportAbuseMenuAutosizeYEnabled() then
+		this.Page.AutomaticSize = Enum.AutomaticSize.Y
 	end
 
 	-- need to override this function from SettingsPageFactory
@@ -808,9 +814,7 @@ local function Initialize()
 		this.WhichPlayerFrame, this.WhichPlayerLabel, this.WhichPlayerMode =
 			utility:AddNewRow(this, whichPlayerText, "DropDown", { "update me" })
 		this.WhichPlayerMode:SetInteractable(false)
-		if GetFFlagFixReportMenu() then
-			this.WhichPlayerFrame.Visible = false
-		end
+		this.WhichPlayerFrame.Visible = false
 		this.WhichPlayerMode:SetAutoLocalize(false)
 		this.WhichPlayerLabel.ZIndex = 1
 		this.WhichPlayerFrame.LayoutOrder = 2
@@ -827,15 +831,9 @@ local function Initialize()
 		this.TypeOfAbuseFrame.LayoutOrder = 3
 
 		if Theme.UIBloxThemeEnabled then
-			if GetFFlagFixReportMenu() then
-				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
-					utility:AddNewRow(this, "", "TextBox", nil, nil, 1)
-				this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
-			else
-				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
-					utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 1)
-				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
-			end
+			this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+				utility:AddNewRow(this, "", "TextBox", nil, nil, 1)
+			this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
 
 			this.AbuseDescriptionLabel.Text = "Abuse Description"
 			this.AbuseDescriptionFrame.Size = UDim2.new(1, 0, 0, 100)
@@ -867,40 +865,23 @@ local function Initialize()
 			this.AbuseDescription.Selection.BackgroundTransparency = Theme.transparency("ControlInputBackground")
 			this.AbuseDescription.Selection.TextColor3 = Theme.color("ControlInputText")
 		elseif utility:IsSmallTouchScreen() then
-			if GetFFlagFixReportMenu() then
-				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
-					utility:AddNewRow(this, "", "TextBox", nil, nil, 5)
-				this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
-			else
-				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
-					utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
-				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
-			end
+			this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+				utility:AddNewRow(this, "", "TextBox", nil, nil, 5)
+			this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
 
 			this.AbuseDescriptionLabel.Text = "Abuse Description"
 		else
-			if GetFFlagFixReportMenu() then
-				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
-					utility:AddNewRow(this, "", "TextBox", nil, nil, 5)
-				this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
-			else
-				this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
-					utility:AddNewRow(this, DEFAULT_ABUSE_DESC_TEXT, "TextBox", nil, nil, 5)
-				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
-			end
+			this.AbuseDescriptionFrame, this.AbuseDescriptionLabel, this.AbuseDescription =
+				utility:AddNewRow(this, "", "TextBox", nil, nil, 5)
+			this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
 
 			this.AbuseDescriptionFrame.Size = UDim2.new(1, -10, 0, 100)
 			this.AbuseDescription.Selection.Size = UDim2.new(1, 0, 1, 0)
 		end
 
-		this.AbuseDescriptionFrame.LayoutOrder = 4
+		this.AbuseDescriptionFrame.LayoutOrder = 6
 
 		this.AbuseDescription.Selection.FocusLost:connect(function()
-			if GetFFlagFixReportMenu() == false then
-				if this.AbuseDescription.Selection.Text == "" then
-					this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
-				end
-			end
 			if Theme.UIBloxThemeEnabled then
 				local Border = this.AbuseDescription.Selection.Border
 				Border.Thickness = 1
@@ -973,8 +954,7 @@ local function Initialize()
 				end
 
 				local function TnSIXPInitializationCallback()
-					if not (shouldShowMethodOfAbuseForAll() 
-						or shouldShowOptionalScreenshot()) then
+					if not shouldShowOptionalScreenshotAvatar() then
 						this:updateVoiceLayout()
 						updateMethodOfAbuseVisibility()
 					end
@@ -1008,22 +988,18 @@ local function Initialize()
 			this.SubmitButton.ZIndex = 2
 			this.SubmitButton.Selectable = true
 			this.SubmitText.ZIndex = 2
-			if GetFFlagFixReportMenu() then
-				this.SubmitButton.ImageTransparency = 0
-				this.SubmitText.TextTransparency = 0
-				this.submitButtonActive = true
-			end
+			this.SubmitButton.ImageTransparency = 0
+			this.SubmitText.TextTransparency = 0
+			this.submitButtonActive = true
 		end
 
 		local function makeSubmitButtonInactive()
 			this.SubmitButton.ZIndex = 1
 			this.SubmitButton.Selectable = false
 			this.SubmitText.ZIndex = 1
-			if GetFFlagFixReportMenu() then
-				this.SubmitButton.ImageTransparency = 0.75
-				this.SubmitText.TextTransparency = 0.75
-				this.submitButtonActive = false
-			end
+			this.SubmitButton.ImageTransparency = 0.75
+			this.SubmitText.TextTransparency = 0.75
+			this.submitButtonActive = false
 		end
 
 		this.NextButton, this.NextText, this.NextEnabled = nil, nil, false
@@ -1048,14 +1024,15 @@ local function Initialize()
 		end
 		
 		function this:updateScreenshotButton(selectedMethodOfAbuse) 
-			if this.GameOrPlayerMode.CurrentIndex == 1 or 
-				(selectedMethodOfAbuse and 
+			if shouldShowOptionalScreenshotExperience() and this.GameOrPlayerMode.CurrentIndex == 1 then
+				this.AttachScreenshotRow.Visible = true
+			elseif shouldShowOptionalScreenshotAvatar() and (selectedMethodOfAbuse and 
 					(selectedMethodOfAbuse == "other" or selectedMethodOfAbuse == "Other")) then 
 				this.AttachScreenshotRow.Visible = true
 			else 
 				this.AttachScreenshotRow.Visible = false 
 			end
-			
+
 			if this.isAnnotationComplete then 
 				this.ScreenshotText.Text = ATTACH_SCREENSHOT_LABEL.SCREENSHOT_ATTACHED
 				this.ScreenshotButton.ImageTransparency = 1
@@ -1080,6 +1057,9 @@ local function Initialize()
 		function this:initOptionalScreenshotButton() 	
 			local button_width = if utility:IsSmallTouchScreen() then 200 else 250 
 			local label = if utility:IsSmallTouchScreen() then "Attach Screenshot?\n(optional)" else "Attach Screenshot? (optional)"
+			if GetFFlagReportAnythingLocalizationEnabled() then
+				label = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.AttachScreenshot")
+			end
 			local icon_size = 40
 			local icon_end = icon_size / (button_width * 0.8)
 			local text_start = icon_end
@@ -1138,8 +1118,8 @@ local function Initialize()
 				this.hintLabel.Size = UDim2.new(0,icon_size,0,icon_size)
 			end
 			
-			this.AttachScreenshotRow = utility:AddNewRowObject(this, label, this.ScreenshotButton)
-			this.AttachScreenshotRow.LayoutOrder = 4
+			this.AttachScreenshotRow = utility:AddNewRowObject(this, label, this.ScreenshotButton, nil, GetFFlagReportAnythingLocalizationEnabled())
+			this.AttachScreenshotRow.LayoutOrder = 5
 			this:updateScreenshotButton()
 		end
 
@@ -1156,20 +1136,8 @@ local function Initialize()
 
 		local function updateSubmitButton()
 			if this.GameOrPlayerMode.CurrentIndex == 1 then -- 1 is Report Game
-				if GetFFlagFixReportMenu() then
-					makeSubmitButtonActive()
-					return
-				else
-					if this.AbuseDescription.Selection.Text ~= "" then
-						if
-							utf8.len(utf8.nfcnormalize(this.AbuseDescription.Selection.Text))
-							> MIN_GAME_REPORT_TEXT_LENGTH
-						then
-							makeSubmitButtonActive()
-							return
-						end
-					end
-				end
+				makeSubmitButtonActive()
+				return
 			else
 				if this:isPlayerModeSubmissionAllowed() then
 					makeSubmitButtonActive()
@@ -1212,16 +1180,14 @@ local function Initialize()
 				this.TypeOfAbuseLabel.ZIndex = (#ABUSE_TYPES_GAME > 1 and 2 or 1)
 
 				this.WhichPlayerMode:SetInteractable(false)
-				if GetFFlagFixReportMenu() then
-					this.WhichPlayerFrame.Visible = false
-				end
+				this.WhichPlayerFrame.Visible = false
 				this.WhichPlayerLabel.ZIndex = 1
 
 				updateSubmitButton()
-				if shouldShowOptionalScreenshot() then 
+				if shouldDoReportScreenshot() then 
 					currentSelectedPlayer = nil
 					nextPlayerToReport = nil
-					this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
+					this:updateScreenshotButton(nil)
 				end
 			else
 				this.TypeOfAbuseMode:UpdateDropDownList(abuseTypePlayerList)
@@ -1230,20 +1196,20 @@ local function Initialize()
 
 				if #playerNames > 0 then
 					this.WhichPlayerMode:SetInteractable(true)
-					if GetFFlagFixReportMenu() then
-						this.WhichPlayerFrame.Visible = true
-					end
+					this.WhichPlayerFrame.Visible = true
 					this.WhichPlayerLabel.ZIndex = 2
 				else
 					this.WhichPlayerMode:SetInteractable(false)
-					if GetFFlagFixReportMenu() then
-						this.WhichPlayerFrame.Visible = false
-					end
+					this.WhichPlayerFrame.Visible = false
 					this.WhichPlayerLabel.ZIndex = 1
 				end
 
 				updateSubmitButton()
-				if shouldShowOptionalScreenshot() then 
+				if shouldDoReportScreenshot() then 
+					-- still need to call this even if only Experience screenshot
+					-- is enabled (even though we are switching to Player reporting
+					-- in this branch of this function) so that we can hide the
+					-- screenshot button for Avatar if applicable
 					this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 				end
 			end
@@ -1271,18 +1237,14 @@ local function Initialize()
 
 		local function cleanupReportAbuseMenu()
 			updateAbuseDropDown(false)
-			if GetFFlagFixReportMenu() == false then
-				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
-			end
+			this.AbuseDescription.Selection.Text = ""
 			-- animation enabled for deferred lua workaround
-			this.HubRef:SetVisibility(false, not shouldShowOptionalScreenshot())
+			this.HubRef:SetVisibility(false, not shouldDoReportScreenshot())
 		end
 
 		local function onReportSubmitted()
-			if GetFFlagFixReportMenu() then
-				if this.submitButtonActive == false then
-					return
-				end
+			if this.submitButtonActive == false then
+				return
 			end
 
 			local abuseReason = nil
@@ -1300,7 +1262,7 @@ local function Initialize()
 				local currentAbusingPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 				local shouldProceedWithReport = currentAbusingPlayer and abuseReason
 
-				if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowOptionalScreenshot() then
+				if shouldShowOptionalScreenshotAvatar() then
 					shouldProceedWithReport = this:isPlayerModeSubmissionAllowed()
 				end
 
@@ -1346,15 +1308,7 @@ local function Initialize()
 								end
 							end)
 						end)
-					elseif ((TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot()) and this:isOtherReportSelected()) then
-						local variant = AbuseReportBuilder.Constants.Variant.Sampling
-						if shouldShowMethodOfAbuseForAll() then
-							variant = AbuseReportBuilder.Constants.Variant.E1
-						end
-
-						if shouldShowOptionalScreenshot() then 
-							variant = AbuseReportBuilder.Constants.Variant.E2
-						end 
+					elseif (shouldShowOptionalScreenshotAvatar() and this:isOtherReportSelected()) then
 						pcall(function()
 							task.spawn(function()
 								local request = AbuseReportBuilder.buildOtherReportRequest({
@@ -1363,7 +1317,7 @@ local function Initialize()
 									abuseComment = this.AbuseDescription.Selection.Text,
 									abuseReason = abuseReason,
 									menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
-									variant = variant,
+									variant = AbuseReportBuilder.Constants.Variant.E3
 								})
 								PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 								if #AbuseReportBuilder.getSelectedAbusers() > 0 or not currentAbusingPlayer then
@@ -1383,7 +1337,7 @@ local function Initialize()
 							typeOfAbuse = abuseReason,
 						}
 
-						if TrustAndSafetyIXPManager:getReportAnythingOtherEnabled() or shouldShowOptionalScreenshot() then
+						if shouldShowOptionalScreenshotAvatar() then
 							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 							submittedParameters = Cryo.Dictionary.join(
 								submittedParameters,
@@ -1414,23 +1368,15 @@ local function Initialize()
 				if abuseReason then
 					reportSucceeded = true
 					showReportSentAlert = true
-					local variant = nil
-					if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() then 
-						variant = AbuseReportBuilder.Constants.Variant.Sampling
-					end 
 
-					if shouldShowOptionalScreenshot() then 
-						variant = AbuseReportBuilder.Constants.Variant.E2
-					end 
-
-					if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() or shouldShowOptionalScreenshot() then
+					if shouldShowOptionalScreenshotExperience() then
 						local request = AbuseReportBuilder.buildExperienceReportRequest({
 							localUserId = PlayersService.LocalPlayer.UserId,
 							placeId = game.PlaceId,
 							abuseComment = this.AbuseDescription.Selection.Text,
 							abuseReason = abuseReason,
 							menuEntryPoint = this.reportAbuseAnalytics:getAbuseReportSessionEntryPoint(),
-							variant = variant
+							variant = AbuseReportBuilder.Constants.Variant.E3
 						})
 						PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
 					else
@@ -1461,7 +1407,7 @@ local function Initialize()
 							typeOfAbuse = abuseReason,
 						}
 
-						if TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled() or shouldShowOptionalScreenshot() then
+						if shouldShowOptionalScreenshotExperience() then
 							local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 							submittedParameters = Cryo.Dictionary.join(
 								submittedParameters,
@@ -1494,7 +1440,7 @@ local function Initialize()
 					alertText = "Thanks for your report! Our moderators will review the place and make a determination."
 				end
 
-				if shouldShowOptionalScreenshot() then
+				if shouldDoReportScreenshot() then
 					alertText = "We’ve received your report and will take action soon if needed. Your feedback helps keep our community safe."
 				end
 
@@ -1503,7 +1449,7 @@ local function Initialize()
 
 			if reportSucceeded then
 				this.LastSelectedObject = nil
-				if shouldShowOptionalScreenshot() then
+				if shouldDoReportScreenshot() then
 					AbuseReportBuilder.clear()
 					this:ActivateFormPhase(FormPhase.AttachScreenshotInit)
 				end
@@ -1556,7 +1502,7 @@ local function Initialize()
 		this.WhichPlayerMode.IndexChanged:connect(playerSelectionChanged)
 
 		local function typeOfAbuseChanged(newIndex)
-			if shouldShowOptionalScreenshot() then 
+			if shouldShowOptionalScreenshotAvatar() then 
 				this:updateScreenshotButton(this:GetSelectedMethodOfAbuse())
 			end
 			updateSubmitButton()
@@ -1587,14 +1533,14 @@ local function Initialize()
 
 		-- IXP initialization is async. We need to do the following updates after getting the IXP variables.
 		local function ixpInitializationCallback()
-			if shouldShowMethodOfAbuseForAll() or shouldShowOptionalScreenshot() then
+			if shouldShowOptionalScreenshotAvatar() then
 				this:updateRALayout()
 				updateMethodOfAbuseVisibility()
 				updateSubmitButton()
-				
-				if shouldShowOptionalScreenshot() then 
-					this:initOptionalScreenshotButton()
-				end
+			end
+
+			if shouldDoReportScreenshot() then 
+				this:initOptionalScreenshotButton()
 			end
 		end
 
@@ -1612,7 +1558,7 @@ do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
-		if (shouldShowOptionalScreenshot()) and not PageInstance.isHidingForARScreenshot then
+		if (shouldDoReportScreenshot()) and not PageInstance.isHidingForARScreenshot then
 			PageInstance.isHidingForARScreenshot = true
 			PageInstance.HubRef:SetVisibility(false, true)
 
@@ -1682,7 +1628,7 @@ do
 
 	PageInstance.Hidden.Event:connect(function()
 		if open then
-			if (shouldShowOptionalScreenshot()) 
+			if (shouldDoReportScreenshot()) 
 				and PageInstance.isHidingForARScreenshot then
 				open = false
 				return
@@ -1720,7 +1666,7 @@ do
 					methodOfAbuseSelected = methodOfAbuseSelected,
 				}
 
-				if shouldShowOptionalScreenshot() then
+				if shouldDoReportScreenshot() then
 					local accumulatedParameters = ReportAnythingAnalytics.getAccumulatedParameters()
 					abandonedParameters = Cryo.Dictionary.join(
 						abandonedParameters,
@@ -1733,7 +1679,7 @@ do
 				PageInstance.reportAbuseAnalytics:reportFormAbandoned(timeToExit, abandonedParameters)
 			end
 
-			if shouldShowOptionalScreenshot() then
+			if shouldDoReportScreenshot() then
 				PageInstance:unmountAnnotationPage()
 				if AbuseReportBuilder.getAnnotationOptionSeen() then
 					PageInstance:ActivateFormPhase(FormPhase.AttachScreenshotInit)

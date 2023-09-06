@@ -26,7 +26,9 @@ local FIntVoiceUserAgencyAlertInitTimeOffset = game:DefineFastInt("VoiceUserAgen
 local FIntVoiceUserAgencyAlertStartTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3)
 local FIntVoiceUserAgencyAlertTimerDuration = game:DefineFastInt("VoiceUserAgencyAlertTimerDuration", 7)
 
-local FFlagVoiceUserAgencyAddMuteDecisionAnalytics = game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false)
+local FFlagVoiceUserAgencyAddMuteDecisionAnalytics =
+	game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false)
+local FFlagVoiceUserAgencyAdjustDescriptionText = game:DefineFastFlag("VoiceUserAgencyAdjustDescriptionText", false)
 
 local CHECKBOX_TEXT = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.Remember")
 local CHECKBOX_TEXT_SIZE = 16
@@ -315,7 +317,9 @@ local function showUserAgencyPrompt()
 		create("TextLabel")({
 			Name = "Lower",
 			Font = Enum.Font.Gotham,
-			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.VoiceUserAgency.JoinUnmuted.Description"),
+			Text = FFlagVoiceUserAgencyAdjustDescriptionText and RobloxTranslator:FormatByKey(
+				"Feature.SettingsHub.Prompt.VoiceUserAgency.JoinUnmuted.Description"
+			) or RobloxTranslator:FormatByKey("Feature.SettingsHub.VoiceUserAgency.JoinUnmuted.Description"),
 			TextColor3 = Color3.fromRGB(190, 190, 190),
 			TextSize = 16,
 			TextWrapped = true,

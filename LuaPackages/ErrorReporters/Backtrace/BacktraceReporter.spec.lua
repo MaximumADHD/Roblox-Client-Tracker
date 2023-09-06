@@ -3,8 +3,10 @@ return function()
 	local BacktraceReport = require(script.Parent.BacktraceReport)
 
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Cryo = require(CorePackages.Cryo)
-	local tutils = require(CorePackages.tutils)
 
 	local requestsSent = 0
 	local requestBody = nil
@@ -39,14 +41,14 @@ return function()
 		it("should error if no httpService or token is passed in", function()
 			expect(function()
 				BacktraceReporter.new({})
-			end).to.throw()
+			end).toThrow("invalid arguments for BacktraceReporter: ")
 
 			expect(function()
 				BacktraceReporter.new({
 					httpService = mockHttpService,
 					token = nil,
 				})
-			end).to.throw()
+			end).toThrow("invalid arguments for BacktraceReporter: ")
 
 			expect(function()
 				local reporter = BacktraceReporter.new({
@@ -54,7 +56,7 @@ return function()
 					token = "",
 				})
 				reporter:stop()
-			end).to.never.throw()
+			end).never.toThrow()
 		end)
 	end)
 
@@ -69,11 +71,11 @@ return function()
 
 			reporter:sendErrorReport(report)
 
-			expect(requestsSent).to.equal(1)
+			expect(requestsSent).toBe(1)
 
 			reporter:sendErrorReport(report)
 
-			expect(requestsSent).to.equal(2)
+			expect(requestsSent).toBe(2)
 
 			reporter:stop()
 		end)
@@ -90,9 +92,9 @@ return function()
 
 			expect(function()
 				reporter:sendErrorReport(errorReport)
-			end).to.throw()
+			end).toThrow()
 
-			expect(requestsSent).to.equal(0)
+			expect(requestsSent).toBe(0)
 
 			reporter:stop()
 		end)
@@ -109,11 +111,11 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
+			expect(requestsSent).toBe(1)
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(2)
+			expect(requestsSent).toBe(2)
 
 			reporter:stop()
 		end)
@@ -129,9 +131,9 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack, "SomeDetails")
 
-			expect(requestsSent).to.equal(1)
+			expect(requestsSent).toBe(1)
 
-			expect(requestBody.annotations.stackDetails).to.equal("SomeDetails")
+			expect(requestBody.annotations.stackDetails).toBe("SomeDetails")
 
 			reporter:stop()
 		end)
@@ -153,13 +155,13 @@ return function()
 
 			reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(0)
+			expect(requestsSent).toBe(0)
 
 			reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack)
 
 			-- These 2 errors would be squashed together
-			expect(requestsSent).to.equal(1)
-			expect(requestBody.attributes.ErrorCount).to.equal(2)
+			expect(requestsSent).toBe(1)
+			expect(requestBody.attributes.ErrorCount).toBe(2)
 
 			reporter:stop()
 		end)
@@ -179,9 +181,9 @@ return function()
 			reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, "SomeDetails")
 			reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, "SomeDetails")
 
-			expect(requestsSent).to.equal(1)
+			expect(requestsSent).toBe(1)
 
-			expect(requestBody.annotations.stackDetails).to.equal("SomeDetails")
+			expect(requestBody.annotations.stackDetails).toBe("SomeDetails")
 
 			reporter:stop()
 		end)
@@ -209,10 +211,10 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
-			expect(requestBody.uuid).to.equal("id")
-			expect(requestBody.timestamp).to.equal(1)
-			expect(requestBody.attributes["Message"]).to.equal("test")
+			expect(requestsSent).toBe(1)
+			expect(requestBody.uuid).toBe("id")
+			expect(requestBody.timestamp).toBe(1)
+			expect(requestBody.attributes["Message"]).toBe("test")
 
 			reporter:stop()
 		end)
@@ -242,10 +244,10 @@ return function()
 
 			reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
-			expect(requestBody.uuid).to.equal("id")
-			expect(requestBody.timestamp).to.equal(1)
-			expect(requestBody.attributes["Message"]).to.equal("test")
+			expect(requestsSent).toBe(1)
+			expect(requestBody.uuid).toBe("id")
+			expect(requestBody.timestamp).toBe(1)
+			expect(requestBody.attributes["Message"]).toBe("test")
 
 			reporter:stop()
 		end)
@@ -261,23 +263,23 @@ return function()
 				token = "12345",
 			})
 
-			reporter:updateSharedAttributes({
+			local attributes = {
 				["Message"] = "test",
 				["Locale"] = "en-us",
-			})
+			}
+
+			reporter:updateSharedAttributes(attributes)
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
-			expect(requestBody.attributes["Message"]).to.equal("test")
-			expect(requestBody.attributes["Locale"]).to.equal("en-us")
+			expect(requestsSent).toBe(1)
+			expect(requestBody.attributes).toMatchObject(attributes)
 
 			requestBody = nil
 			reporter:reportErrorImmediately("some other message", mockErrorStack)
 
-			expect(requestsSent).to.equal(2)
-			expect(requestBody.attributes["Message"]).to.equal("test")
-			expect(requestBody.attributes["Locale"]).to.equal("en-us")
+			expect(requestsSent).toBe(2)
+			expect(requestBody.attributes).toMatchObject(attributes)
 
 			reporter:stop()
 		end)
@@ -291,16 +293,17 @@ return function()
 				token = "12345",
 			})
 
-			reporter:updateSharedAttributes({
+			local attributes = {
 				["Message"] = "test",
 				["Locale"] = "en-us",
-			})
+			}
+
+			reporter:updateSharedAttributes(attributes)
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
-			expect(requestBody.attributes["Message"]).to.equal("test")
-			expect(requestBody.attributes["Locale"]).to.equal("en-us")
+			expect(requestsSent).toBe(1)
+			expect(requestBody.attributes).toMatchObject(attributes)
 
 			reporter:updateSharedAttributes({
 				["Message"] = Cryo.None,
@@ -311,10 +314,12 @@ return function()
 			requestBody = nil
 			reporter:reportErrorImmediately("some other message", mockErrorStack)
 
-			expect(requestsSent).to.equal(2)
-			expect(requestBody.attributes["Message"]).to.equal(nil)
-			expect(requestBody.attributes["Locale"]).to.equal("zh-cn")
-			expect(requestBody.attributes["Theme"]).to.equal("light")
+			expect(requestsSent).toBe(2)
+			expect(requestBody.attributes).toMatchObject({
+				["Message"] = nil,
+				["Locale"] = "zh-cn",
+				["Theme"] = "light"
+			})
 
 			reporter:stop()
 		end)
@@ -334,7 +339,7 @@ return function()
 					["Locale"] = "zh-cn",
 					["Theme"] = function() end, -- callbacks are not allowed
 				})
-			end).to.throw()
+			end).toThrow()
 
 			reporter:stop()
 		end)
@@ -361,14 +366,14 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
-			expect(tutils.deepEqual(annotations, requestBody.annotations, true)).to.equal(true)
+			expect(requestsSent).toBe(1)
+			expect(annotations).toEqual(requestBody.annotations)
 
 			requestBody = nil
 			reporter:reportErrorImmediately("some other message", mockErrorStack)
 
-			expect(requestsSent).to.equal(2)
-			expect(tutils.deepEqual(annotations, requestBody.annotations, true)).to.equal(true)
+			expect(requestsSent).toBe(2)
+			expect(annotations).toEqual(requestBody.annotations)
 
 			reporter:stop()
 		end)
@@ -394,8 +399,8 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
-			expect(tutils.deepEqual(annotations, requestBody.annotations, true)).to.equal(true)
+			expect(requestsSent).toBe(1)
+			expect(annotations).toEqual(requestBody.annotations)
 
 			reporter:updateSharedAnnotations({
 				["Message"] = Cryo.None,
@@ -413,8 +418,8 @@ return function()
 				},
 				["AppVersion"] = "1.0",
 			}
-			expect(requestsSent).to.equal(2)
-			expect(tutils.deepEqual(expectedAnnotations, requestBody.annotations, true)).to.equal(true)
+			expect(requestsSent).toBe(2)
+			expect(requestBody.annotations).toEqual(expectedAnnotations)
 
 			reporter:stop()
 		end)
@@ -436,7 +441,7 @@ return function()
 						["Theme"] = function() end, -- callbacks are not allowed
 					},
 				})
-			end).to.throw()
+			end).toThrow()
 
 			reporter:stop()
 		end)
@@ -459,8 +464,8 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(2) -- one for error, one for log
-			expect(requestBody).to.equal(logText)
+			expect(requestsSent).toBe(2) -- one for error, one for log
+			expect(requestBody).toBe(logText)
 
 			reporter:stop()
 		end)
@@ -479,7 +484,7 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(1)
+			expect(requestsSent).toBe(1)
 
 			reporter:stop()
 		end)
@@ -501,11 +506,11 @@ return function()
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
 
-			expect(requestsSent).to.equal(2) -- one for error, one for log
-			expect(requestBody).to.equal(logText)
+			expect(requestsSent).toBe(2) -- one for error, one for log
+			expect(requestBody).toBe(logText)
 
 			reporter:reportErrorImmediately(mockErrorMessage, mockErrorStack)
-			expect(requestsSent).to.equal(3) -- only one more, the error report
+			expect(requestsSent).toBe(3) -- only one more, the error report
 
 			reporter:stop()
 		end)

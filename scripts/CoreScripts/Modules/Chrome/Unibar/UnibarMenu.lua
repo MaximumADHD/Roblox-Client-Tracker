@@ -23,7 +23,7 @@ type Table = { [any]: any }
 -- Integration availability signals will ultimately filter items out so no need for granular filtering here.
 -- ie. Voice Mute integration will only be shown is voice is enabled/active
 ChromeService:configureMenu({
-	{ "trust_and_safty" },
+	{ "trust_and_safety" },
 	{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
 	{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 })
@@ -138,6 +138,14 @@ function Unibar(props: UnibarProp)
 		end)
 
 	for k, item in menuItems do
+		if item.integration.availability:get() == ChromeService.AvailabilitySignal.Pinned then
+			pinnedCount += 1
+		end
+	end
+
+	local pinnedCountWithoutToggle = math.max(pinnedCount - 1, 0)
+
+	for k, item in menuItems do
 		if item.isDivider then
 			local closedPos = xOffset
 			local prior = priorPositions[item.id] or xOffset
@@ -168,11 +176,10 @@ function Unibar(props: UnibarProp)
 			xOffset += Constants.DIVIDER_CELL_WIDTH
 		elseif item.integration then
 			local pinned = false
-			local closedPos = xOffset
+			local closedPos = xOffset + Constants.ICON_CELL_WIDTH * pinnedCountWithoutToggle
 			if item.integration.availability:get() == ChromeService.AvailabilitySignal.Pinned then
 				pinned = true
 				closedPos = xOffsetPinned
-				pinnedCount += 1
 			end
 
 			local prior = if priorPositions[item.id] == nil then xOffset else priorPositions[item.id]

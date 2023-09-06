@@ -12,10 +12,21 @@ local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
 
 local GetFFlagEnableNewInviteMenuCustomization = require(Modules.Flags.GetFFlagEnableNewInviteMenuCustomization)
 local GetFFlagEnableInvitePromptLoadingState = require(Modules.Flags.GetFFlagEnableInvitePromptLoadingState)
+local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
+	require(Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
+local FFlagLuaEnableGameInviteModalInvitePrompt = game:DefineFastFlag("LuaEnableGameInviteModalInvitePromptDev", false)
 
+local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+
+local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant
+if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
+	GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
+	GameInviteModalService = GameInvitePackage.GameInviteModalService
+	GameInviteInviteExperimentVariant = GameInvitePackage.GameInviteInviteExperimentVariant
+end
 
 local inviteToGameAnalytics = InviteToGameAnalytics.new()
 	:withEventStream(EventStream.new())
@@ -38,7 +49,29 @@ local function canSendGameInviteAsync(player)
 end
 
 SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOptions: Instance?)
-	if GetFFlagEnableNewInviteMenuCustomization() then
+	local newGameInviteModalEnabled = false
+	if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() and FFlagLuaEnableGameInviteModalInvitePrompt then
+		local layerData = IXPServiceWrapper:GetLayerData("Growth.Notifications.GameInviteMenu")
+		newGameInviteModalEnabled = (
+			layerData
+			and (
+				layerData.inExperienceGameInviteUXRefresh2023 == GameInviteInviteExperimentVariant.UxRefresh
+				or layerData.inExperienceGameInviteUXRefresh2023 == GameInviteInviteExperimentVariant.InviteLimit
+			)
+		) == true
+	end
+
+	if newGameInviteModalEnabled then
+		if player ~= Players.LocalPlayer then
+			return
+		end
+		local options: ExperienceInviteOptions? = if experienceInviteOptions
+			then experienceInviteOptions :: ExperienceInviteOptions
+			else nil
+		if GameInviteModalService then
+			GameInviteModalService:openModal(options)
+		end
+	elseif GetFFlagEnableNewInviteMenuCustomization() then
 		if player ~= Players.LocalPlayer then
 			return
 		end
@@ -50,7 +83,8 @@ SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOpt
 		end
 
 		local options: ExperienceInviteOptions? = if experienceInviteOptions
-			then experienceInviteOptions :: ExperienceInviteOptions else nil
+			then experienceInviteOptions :: ExperienceInviteOptions
+			else nil
 		local params = GetCustomizedInvitePromptParams(options, ApiGetCanSendAndCanCustomizeInvites)
 		if params then
 			modalPrompt:show(params)

@@ -23,6 +23,8 @@ local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjec
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
+local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
+
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
 local Constants = require(Components.Parent.Constants)
@@ -42,6 +44,10 @@ local IconButton = require(script.Parent.IconButton)
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
 local BACKGROUND_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 32
+if GetFFlagChangeTopbarHeightCalculation() then
+	BACKGROUND_SIZE = Constants.TopBarButtonHeight
+end
+
 local ICON_SIZE = 24
 local DEFAULT_DELAY_TIME = 0.4
 
@@ -134,7 +140,7 @@ function MenuIcon:render()
 	}, {
 		Background = Roact.createElement(IconButton, {
 			icon = if isNewTiltIconEnabled()
-				then UIBloxImages["icons/status/player/admin"]
+				then UIBloxImages["icons/logo/block"]
 				else "rbxasset://textures/ui/TopBar/coloredlogo.png",
 			iconSize = ICON_SIZE * (self.props.iconScale or 1),
 			useIconScaleAnimation = isNewTiltIconEnabled(),

@@ -20,10 +20,14 @@ local GetFFlagFlashingDotUseAsyncInit = require(CoreGui.RobloxGui.Modules.Flags.
 local ChromeEnabled = require(CoreGui.RobloxGui.Modules.Chrome.Enabled)()
 local isNewTiltIconEnabled = require(CoreGui.RobloxGui.Modules.isNewTiltIconEnabled)
 local Constants = require(script.Parent.Parent.Parent.Constants)
+local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
 local BACKGROUND_SIZE = if isNewTiltIconEnabled() then (Constants.TopBarHeight - 4) else 32
+if GetFFlagChangeTopbarHeightCalculation() then
+	BACKGROUND_SIZE = Constants.TopBarButtonHeight
+end
 
 local OVERLAY_ASSET = Images["component_assets/circle_17"]
 

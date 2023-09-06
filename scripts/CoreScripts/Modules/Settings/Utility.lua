@@ -52,7 +52,6 @@ local success, result = pcall(function()
 end)
 local FFlagUseNotificationsLocalization = success and result
 
-local GetFFlagFixReportMenu = require(Settings.Flags.GetFFlagFixReportMenu)
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUseHardwareSafeArea", false)
 
@@ -1044,13 +1043,11 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 		dropDownButtonEnabled.Value = value and not active
 
-		if GetFFlagFixReportMenu() then
-			this.DropDownImage.Visible = value
-			if value then
-				this.DropDownFrame.ImageTransparency = 0
-			else
-				this.DropDownFrame.ImageTransparency = 0.5
-			end
+		this.DropDownImage.Visible = value
+		if value then
+			this.DropDownFrame.ImageTransparency = 0
+		else
+			this.DropDownFrame.ImageTransparency = 0.5
 		end
 	end
 
@@ -1496,10 +1493,8 @@ local function CreateSelector(selectionStringTable, startPosition)
 		leftButton.Active = interactable
 		rightButton.Active = interactable
 
-		if GetFFlagFixReportMenu() then
-			leftButton.Visible = interactable
-			rightButton.Visible = interactable
-		end
+		leftButton.Visible = interactable
+		rightButton.Visible = interactable
 
 		if not interactable then
 			for i, selectionLabel in pairs(this.Selections) do
@@ -3049,7 +3044,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	return RowFrame, RowLabel, ValueChangerInstance
 end
 
-local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing)
+local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing, autoSizeLabel)
 	local nextRowPositionY = 0
 
 	if nextPosTable[pageToAddTo] then
@@ -3097,6 +3092,7 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		TextSize = Theme.textSize(16, "UtilityRow"),
 		TextColor3 = Color3.fromRGB(255, 255, 255),
 		TextXAlignment = Enum.TextXAlignment.Left,
+		TextWrapped = autoSizeLabel,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, 200, 1, 0),
 		Position = UDim2.new(0, 10, 0, 0),
@@ -3104,6 +3100,9 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 		Parent = RowFrame,
 	})
 	local function onResized(viewportSize, portrait)
+		if autoSizeLabel then
+			RowLabel.Size = UDim2.new(1 - rowObject.Size.X.Scale, -rowObject.Size.X.Offset, 1, 0)
+		end
 		if portrait then
 			RowLabel.TextSize = Theme.textSize(16, "UtilityRow")
 		else
@@ -3226,8 +3225,8 @@ function moduleApiTable:AddNewRow(pageToAddTo, rowDisplayName, selectionType, ro
 	return AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText)
 end
 
-function moduleApiTable:AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing)
-	return AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing)
+function moduleApiTable:AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing, autoSizeLabel)
+	return AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing, autoSizeLabel)
 end
 
 function moduleApiTable:ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc, hasBackground)

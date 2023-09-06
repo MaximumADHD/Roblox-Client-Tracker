@@ -25,6 +25,8 @@ local ANON_LABEL = "<anonymous>"
 
 local ProfilerViewEntry = Roact.PureComponent:extend("ProfilerViewEntry")
 
+local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativeFrames", false)
+
 type BorderedCellLabelProps = {
 	text: string,
 	size: UDim2,
@@ -146,6 +148,7 @@ function ProfilerViewEntry:render()
 	local childData = self:standardizeChildren(data)
 	local totalDuration = data.TotalDuration
 	local selfDuration = data.Duration
+	local isNative = data.IsNative or false
 
 	if percentageRatio then
 		if percentageRatio == 0 then
@@ -166,6 +169,10 @@ function ProfilerViewEntry:render()
 	local defaultName = if depth == 0 then ROOT_LABEL else ANON_LABEL
 	local name = if not data.Name or #data.Name == 0 then defaultName else data.Name
 	local sourceName = if not data.Source or #data.Source == 0 then name else data.Source
+
+	if FFlagScriptProfilerNativeFrames and isNative then
+		name = name .. " <native>"
+	end
 
 	local hoverText = sourceName
 	local lineNumber = data.Line

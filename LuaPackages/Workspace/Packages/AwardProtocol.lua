@@ -6,6 +6,7 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["AwardProtocol"]["AwardProtocol"])
 
 export type AwardProtocol = Package.AwardProtocol
+export type AwardName = Package.AwardName
 
 
 return Package

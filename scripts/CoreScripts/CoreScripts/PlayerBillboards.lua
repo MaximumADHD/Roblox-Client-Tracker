@@ -47,6 +47,7 @@ local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableBubbleChatForExpChat
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 local GetFFlagPlayerBillboardReducerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerBillboardReducerEnabled
+local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 
@@ -360,7 +361,11 @@ local function setVoiceEnabled(voiceState)
 				chatStore:dispatch(VoiceStateChanged(userId, Constants.VOICE_STATE.HIDDEN))
 			end
 		end
-	elseif voiceState == (Enum::any).VoiceChatState.Joined and not VoiceChatServiceManager.localMuted then
+	elseif voiceState == (Enum::any).VoiceChatState.Joined and
+		if GetFFlagLocalMutedNilFix
+			then VoiceChatServiceManager.localMuted == false
+			else not VoiceChatServiceManager.localMuted
+		then
 		-- The mute changed signal happens before the user is Joined, so check again here.
 		chatStore:dispatch(VoiceStateChanged(localUserId, Constants.VOICE_STATE.INACTIVE))
 	end

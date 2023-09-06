@@ -1,6 +1,9 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local Modules = script.Parent.Parent
 local MockRequest = require(Modules.LuaApp.TestHelpers.MockRequest)
 local HttpResponse = require(Modules.LuaApp.Http.HttpResponse)
@@ -16,6 +19,10 @@ local testCreator = "Test Creator"
 
 return function()
 	describe("GetGameNameAndDescription", function()
+		local testResult = {
+			Name = testName,
+			Description = testDescription,
+		}
 		local responseBody = {
 			data = {
 				[1] = {
@@ -36,9 +43,8 @@ return function()
 
 			local success, result = resultPromise:timeout(5):await()
 
-			expect(success).to.equal(true)
-			expect(result.Name).to.equal(testName)
-			expect(result.Description).to.equal(testDescription)
+			expect(success).toBe(true)
+			expect(result).toEqual(testResult)
 		end)
 
 		it("should return a promise that resolves with the name and description when already cached", function()
@@ -50,9 +56,8 @@ return function()
 
 			local success, result = resultPromise:timeout(5):await()
 
-			expect(success).to.equal(true)
-			expect(result.Name).to.equal(testName)
-			expect(result.Description).to.equal(testDescription)
+			expect(success).toBe(true)
+			expect(result).toEqual(testResult)
 		end)
 
 		it("should return a promise that resolves with the name and description when there is a request in progress", function()
@@ -73,14 +78,12 @@ return function()
 			resolveNetworking(HttpResponse.new(resolveUrl, responseBody, 0, StatusCodes.OK))
 
 			local success, result = firstPromise:timeout(5):await()
-			expect(success).to.equal(true)
-			expect(result.Name).to.equal(testName)
-			expect(result.Description).to.equal(testDescription)
+			expect(success).toBe(true)
+			expect(result).toEqual(testResult)
 
 			success, result = secondPromise:timeout(5):await()
-			expect(success).to.equal(true)
-			expect(result.Name).to.equal(testName)
-			expect(result.Description).to.equal(testDescription)
+			expect(success).toBe(true)
+			expect(result).toEqual(testResult)
 		end)
 
 		it("should be successfully even if there is no game description", function()
@@ -100,9 +103,9 @@ return function()
 
 			local success, result = resultPromise:timeout(5):await()
 
-			expect(success).to.equal(true)
-			expect(result.Name).to.equal(testName)
-			expect(result.Description).to.equal("")
+			expect(success).toBe(true)
+			expect(result.Name).toBe(testName)
+			expect(result.Description).toBe("")
 		end)
 	end)
 end

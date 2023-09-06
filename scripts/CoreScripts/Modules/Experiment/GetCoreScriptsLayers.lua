@@ -13,6 +13,7 @@ local GetFStringChatTranslationLayerName = require(script.Parent.Parent.Flags.Ge
 local GetFFlagUserIsChatTranslationEnabled = require(script.Parent.Parent.Flags.GetFFlagUserIsChatTranslationEnabled)
 local GetFFlagVoiceUserAgencyEnableIXP = require(script.Parent.Parent.Flags.GetFFlagVoiceUserAgencyEnableIXP)
 local GetFStringVoiceUserAgencyIXPLayerName = require(script.Parent.Parent.Flags.GetFStringVoiceUserAgencyIXPLayerName)
+local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(script.Parent.Parent.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
 return function()
 	local layers = {
@@ -48,6 +49,9 @@ return function()
 
 	if GetFFlagVoiceUserAgencyEnableIXP() then
 		table.insert(layers, GetFStringVoiceUserAgencyIXPLayerName())
+	end
+	if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
+		table.insert(layers, "Growth.Notifications.GameInviteMenu")
 	end
 
 	return layers

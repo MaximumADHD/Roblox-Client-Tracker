@@ -8,6 +8,9 @@ local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
 local act = require(Modules.act)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local InGameMenu = Modules.InGameMenu
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local OpenReportSentDialog = require(InGameMenu.Actions.OpenReportSentDialog)
@@ -62,9 +65,9 @@ return function()
 			c.storeUpdate(OpenReportDialog(12, "mr f"))
 
 			c.gamepadInput(Enum.KeyCode.ButtonL1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 			c.gamepadInput(Enum.KeyCode.ButtonR1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 
         it("Should not bumper switch on ReportSentDialog", function(c)
@@ -77,9 +80,9 @@ return function()
 			c.storeUpdate(OpenReportSentDialog(12, "mr f"))
 
 			c.gamepadInput(Enum.KeyCode.ButtonL1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 			c.gamepadInput(Enum.KeyCode.ButtonR1)
-			expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).toBe(1)
 		end)
 	end)
 end

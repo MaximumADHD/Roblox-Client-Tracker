@@ -16,6 +16,7 @@ local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
+local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local FavoriteShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).Favorite
 
@@ -74,9 +75,11 @@ function FavoritesButton:activateButton()
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
 
-	-- prevent activation when favorites isn't visible b/c items not created by Roblox are not favoriteable
-	if creatorId ~= ROBLOX_CREATOR_ID then
-		return
+	if not FFlagEnableFavoriteButtonForUgc then
+		-- prevent activation when favorites isn't visible b/c items not created by Roblox are not favoriteable
+		if creatorId ~= ROBLOX_CREATOR_ID then
+			return
+		end
 	end
 
 	if isFavorited then
@@ -124,7 +127,7 @@ function FavoritesButton:render()
 		SliceCenter = Rect.new(5, 5, 120, 20),
 		SelectionImageObject = self.selectedImage,
 		-- Users can only favorite Roblox created items, otherwise they'll be captcha'd. We do not support captchas in game.
-		Visible = creatorId == ROBLOX_CREATOR_ID,
+		Visible = if FFlagEnableFavoriteButtonForUgc then true else creatorId == ROBLOX_CREATOR_ID,
 		[Roact.Ref] = favoriteButtonRef,
 		[Roact.Event.Activated] = function()
 			if GetFFlagUseInspectAndBuyControllerBar() then

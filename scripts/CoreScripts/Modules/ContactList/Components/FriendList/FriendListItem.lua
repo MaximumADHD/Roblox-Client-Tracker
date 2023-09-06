@@ -29,8 +29,6 @@ local ControlState = UIBlox.Core.Control.Enum.ControlState
 local PlayerContext = UIBlox.App.Indicator.PlayerContext
 local Images = UIBlox.App.ImageSet.Images
 local Interactable = UIBlox.Core.Control.Interactable
-local IconButton = UIBlox.App.Button.IconButton
-local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
@@ -52,7 +50,7 @@ export type Props = {
 	showDivider: boolean,
 }
 
-local BUTTON_SIZE = 28
+local CALL_IMAGE_SIZE = 28
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
 local PLAYER_CONTEXT_HEIGHT = 24
@@ -98,6 +96,7 @@ local function FriendListItem(props: Props)
 	end
 
 	local startCall = function()
+		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 		-- TODO (timothyhsu): Remove check that callee and caller need to be in same mode when Call API is completed
 		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
 			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
@@ -216,7 +215,7 @@ local function FriendListItem(props: Props)
 
 		Content = React.createElement("Frame", {
 			Position = UDim2.new(0, PADDING_IN_BETWEEN + PROFILE_SIZE, 0, 0),
-			Size = UDim2.new(1, -(PADDING_IN_BETWEEN * 2 + PROFILE_SIZE + BUTTON_SIZE + PADDING.X), 1, -PADDING.Y),
+			Size = UDim2.new(1, -(PADDING_IN_BETWEEN * 2 + PROFILE_SIZE + CALL_IMAGE_SIZE + PADDING.X), 1, -PADDING.Y),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
@@ -274,16 +273,15 @@ local function FriendListItem(props: Props)
 			PlayerContext = playerContext,
 		}),
 
-		CallButton = if game:GetEngineFeature("EnableSocialServiceIrisInvite")
-			then React.createElement(IconButton, {
-				size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-				iconSize = IconSize.Medium,
-				position = UDim2.new(1, -PADDING.X, 0.5, -PADDING.Y / 2),
-				anchorPoint = Vector2.new(1, 0.5),
-				iconColor3 = theme.ContextualPrimaryDefault.Color,
-				iconTransparency = theme.ContextualPrimaryDefault.Transparency,
-				icon = "rbxassetid://14532752184", -- TODO: Replace with UIBLOX icon
-				onActivated = startCall,
+		CallIcon = if game:GetEngineFeature("EnableSocialServiceIrisInvite")
+			then React.createElement(ImageSetLabel, {
+				Position = UDim2.new(1, -PADDING.X - 4, 0.5, -PADDING.Y / 2),
+				Size = UDim2.fromOffset(CALL_IMAGE_SIZE, CALL_IMAGE_SIZE),
+				AnchorPoint = Vector2.new(1, 0.5),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://14532752184", -- TODO: Replace with UIBLOX icon
+				ImageColor3 = theme.ContextualPrimaryDefault.Color,
+				ImageTransparency = theme.ContextualPrimaryDefault.Transparency,
 			})
 			else nil,
 

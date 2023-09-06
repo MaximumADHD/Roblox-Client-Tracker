@@ -3,7 +3,9 @@ return function()
 	local ErrorQueue = require(script.Parent.ErrorQueue)
 	local CorePackages = game:GetService("CorePackages")
 
-	local tutils = require(CorePackages.Packages.tutils)
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
 
 	local errorsToAdd = {
 		[1] = {
@@ -50,16 +52,16 @@ return function()
 			}
 
 			local errorsReported = {}
-			local reportCount = 0
-			local reportMethod = function(errorKey, errorData, errorCount)
-				reportCount = reportCount + 1
-				errorsReported[errorKey] = {
-					data = errorData,
-					count = errorCount,
-				}
-			end
+			local mock, mockMethod = jest.fn(
+				function(errorKey, errorData, errorCount)
+					errorsReported[errorKey] = {
+						data = errorData,
+						count = errorCount,
+					}
+				end
+			)
 
-			local errorQueue = ErrorQueue.new(reportMethod, {
+			local errorQueue = ErrorQueue.new(mockMethod, {
 				queueErrorLimit = 6,
 			})
 
@@ -67,24 +69,22 @@ return function()
 				errorQueue:addError(error.key, error.value)
 			end
 
-			expect(reportCount).to.equal(3)
-			for errorKey, expectedError in pairs(expectedErrorsReported) do
-				expect(tutils.deepEqual(expectedError, errorsReported[errorKey])).to.equal(true)
-			end
+			expect(mock).toHaveBeenCalledTimes(3)
+			expect(errorsReported).toEqual(expectedErrorsReported)
 		end)
 
 		it("should not report errors before the total error limit is reached", function()
 			local errorsReported = {}
-			local reportCount = 0
-			local reportMethod = function(errorKey, errorData, errorCount)
-				reportCount = reportCount + 1
-				errorsReported[errorKey] = {
-					data = errorData,
-					count = errorCount,
-				}
-			end
+			local mock, mockMethod = jest.fn(
+				function(errorKey, errorData, errorCount)
+					errorsReported[errorKey] = {
+						data = errorData,
+						count = errorCount,
+					}
+				end
+			)
 
-			local errorQueue = ErrorQueue.new(reportMethod, {
+			local errorQueue = ErrorQueue.new(mockMethod, {
 				queueErrorLimit = 6,
 			})
 
@@ -93,8 +93,8 @@ return function()
 				errorQueue:addError(error.key, error.value)
 			end
 
-			expect(reportCount).to.equal(0)
-			expect(tutils.deepEqual(errorsReported, {})).to.equal(true)
+			expect(mock).never.toHaveBeenCalled()
+			expect(errorsReported).toEqual({})
 		end)
 	end)
 
@@ -116,16 +116,16 @@ return function()
 			}
 
 			local errorsReported = {}
-			local reportCount = 0
-			local reportMethod = function(errorKey, errorData, errorCount)
-				reportCount = reportCount + 1
-				errorsReported[errorKey] = {
-					data = errorData,
-					count = errorCount,
-				}
-			end
+			local mock, mockMethod = jest.fn(
+				function(errorKey, errorData, errorCount)
+					errorsReported[errorKey] = {
+						data = errorData,
+						count = errorCount,
+					}
+				end
+			)
 
-			local errorQueue = ErrorQueue.new(reportMethod, {
+			local errorQueue = ErrorQueue.new(mockMethod, {
 				queueKeyLimit = 3,
 				queueErrorLimit = 100,
 			})
@@ -134,24 +134,22 @@ return function()
 				errorQueue:addError(error.key, error.value)
 			end
 
-			expect(reportCount).to.equal(3)
-			for errorKey, expectedError in pairs(expectedErrorsReported) do
-				expect(tutils.deepEqual(expectedError, errorsReported[errorKey])).to.equal(true)
-			end
+			expect(mock).toHaveBeenCalledTimes(3)
+			expect(errorsReported).toEqual(expectedErrorsReported)
 		end)
 
 		it("should not report errors before the total key limit is reached", function()
 			local errorsReported = {}
-			local reportCount = 0
-			local reportMethod = function(errorKey, errorData, errorCount)
-				reportCount = reportCount + 1
-				errorsReported[errorKey] = {
-					data = errorData,
-					count = errorCount,
-				}
-			end
+			local mock, mockMethod = jest.fn(
+				function(errorKey, errorData, errorCount)
+					errorsReported[errorKey] = {
+						data = errorData,
+						count = errorCount,
+					}
+				end
+			)
 
-			local errorQueue = ErrorQueue.new(reportMethod, {
+			local errorQueue = ErrorQueue.new(mockMethod, {
 				queueKeyLimit = 4,
 				queueErrorLimit = 100,
 			})
@@ -160,8 +158,8 @@ return function()
 				errorQueue:addError(error.key, error.value)
 			end
 
-			expect(reportCount).to.equal(0)
-			expect(tutils.deepEqual(errorsReported, {})).to.equal(true)
+			expect(mock).never.toHaveBeenCalled()
+			expect(errorsReported).toEqual({})
 		end)
 	end)
 
@@ -183,16 +181,16 @@ return function()
 			}
 
 			local errorsReported = {}
-			local reportCount = 0
-			local reportMethod = function(errorKey, errorData, errorCount)
-				reportCount = reportCount + 1
-				errorsReported[errorKey] = {
-					data = errorData,
-					count = errorCount,
-				}
-			end
+			local mock, mockMethod = jest.fn(
+				function(errorKey, errorData, errorCount)
+					errorsReported[errorKey] = {
+						data = errorData,
+						count = errorCount,
+					}
+				end
+			)
 
-			local errorQueue = ErrorQueue.new(reportMethod, {
+			local errorQueue = ErrorQueue.new(mockMethod, {
 				queueTimeLimit = 0.5,
 				queueErrorLimit = 100,
 				queueKeyLimit = 100,
@@ -206,26 +204,24 @@ return function()
 
 			errorQueue:_onRenderStep(0.5)
 
-			expect(reportCount).to.equal(3)
-			for errorKey, expectedError in pairs(expectedErrorsReported) do
-				expect(tutils.deepEqual(expectedError, errorsReported[errorKey])).to.equal(true)
-			end
+			expect(mock).toHaveBeenCalledTimes(3)
+			expect(errorsReported).toEqual(expectedErrorsReported)
 
 			errorQueue:stopTimer()
 		end)
 
 		it("should not report errors before the total time limit is reached", function()
 			local errorsReported = {}
-			local reportCount = 0
-			local reportMethod = function(errorKey, errorData, errorCount)
-				reportCount = reportCount + 1
-				errorsReported[errorKey] = {
-					data = errorData,
-					count = errorCount,
-				}
-			end
+			local mock, mockMethod = jest.fn(
+				function(errorKey, errorData, errorCount)
+					errorsReported[errorKey] = {
+						data = errorData,
+						count = errorCount,
+					}
+				end
+			)
 
-			local errorQueue = ErrorQueue.new(reportMethod, {
+			local errorQueue = ErrorQueue.new(mockMethod, {
 				queueTimeLimit = 2,
 				queueErrorLimit = 100,
 				queueKeyLimit = 100,
@@ -239,8 +235,8 @@ return function()
 
 			errorQueue:_onRenderStep(1)
 
-			expect(reportCount).to.equal(0)
-			expect(tutils.deepEqual(errorsReported, {})).to.equal(true)
+			expect(mock).never.toHaveBeenCalled()
+			expect(errorsReported).toEqual({})
 
 			errorQueue:stopTimer()
 		end)
@@ -264,16 +260,16 @@ return function()
 			}
 
 			local errorsReported = {}
-			local reportCount = 0
-			local reportMethod = function(errorKey, errorData, errorCount)
-				reportCount = reportCount + 1
-				errorsReported[errorKey] = {
-					data = errorData,
-					count = errorCount,
-				}
-			end
+			local mock, mockMethod = jest.fn(
+				function(errorKey, errorData, errorCount)
+					errorsReported[errorKey] = {
+						data = errorData,
+						count = errorCount,
+					}
+				end
+			)
 
-			local errorQueue = ErrorQueue.new(reportMethod, {
+			local errorQueue = ErrorQueue.new(mockMethod, {
 				queueTimeLimit = 100,
 				queueErrorLimit = 100,
 				queueKeyLimit = 100,
@@ -285,14 +281,12 @@ return function()
 				errorQueue:addError(error.key, error.value)
 			end
 
-			expect(reportCount).to.equal(0)
+			expect(mock).never.toHaveBeenCalled()
 
 			errorQueue:reportAllErrors()
 
-			expect(reportCount).to.equal(3)
-			for errorKey, expectedError in pairs(expectedErrorsReported) do
-				expect(tutils.deepEqual(expectedError, errorsReported[errorKey])).to.equal(true)
-			end
+			expect(mock).toHaveBeenCalledTimes(3)
+			expect(errorsReported).toEqual(expectedErrorsReported)
 
 			errorQueue:stopTimer()
 		end)
