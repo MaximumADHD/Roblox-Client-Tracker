@@ -4357,7 +4357,6 @@
 [Lua] FFlagEnableNewVoiceReportFlows
 [Lua] FFlagEnableNudgeAnalyticsV2
 [C++] FFlagEnableOOMMessageBoxSessionThrottle
-[Lua] FFlagEnableOptionalScreenshotButton
 [Lua] FFlagEnableOptionalScreenshotButton2
 [Lua] FFlagEnablePalisadesPaymentsPlatform
 [Lua] FFlagEnablePerBubbleCustomization
@@ -4551,7 +4550,6 @@
 [C++] FFlagFixCullingShadowObject
 [C++] FFlagFixDeprecatedSystemUse
 [C++] FFlagFixDeserializeDecodeInstances
-[Lua] FFlagFixDisappearingBubbleChat2
 [C++] FFlagFixDiscardHSRWithTempCageIdBug
 [Lua] FFlagFixDoubleSpacesAfterPrefixText
 [C++] FFlagFixElasticScrollbars
