@@ -9,6 +9,7 @@
 local root = script.Parent.Parent
 
 local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebugUGCDisableRCCOwnershipCheck)
+local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 
 local Constants = require(root.Constants)
 
@@ -127,15 +128,18 @@ local function validateDependencies(
 		end
 	end
 
-	local checkModeration = not isServer
-	if allowUnreviewedAssets then
-		checkModeration = false
-	end
-	if checkModeration then
-		if not reasonsAccumulator:updateReasons(validateModeration(instance, restrictedUserIds)) then
-			return reasonsAccumulator:getFinalResults()
+	if not getFFlagUGCValidateBodyPartsModeration() then
+		local checkModeration = not isServer
+		if allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
+			if not reasonsAccumulator:updateReasons(validateModeration(instance, restrictedUserIds)) then
+				return reasonsAccumulator:getFinalResults()
+			end
 		end
 	end
+
 	return reasonsAccumulator:getFinalResults()
 end
 

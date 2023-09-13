@@ -4,6 +4,7 @@ local root = script.Parent.Parent
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
 local validateWithSchema = require(root.util.validateWithSchema)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
+local getMeshSize = require(root.util.getMeshSize)
 
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 
@@ -35,8 +36,15 @@ local function validateMeshPartAccessory(specialMeshAccessory, meshPartAccessory
 		return false, { "MeshPart.TextureID did not match SpecialMesh.TextureId" }
 	end
 
+	local meshId = meshPartHandle.MeshId
+	local meshSizeSuccess, meshSize = pcall(getMeshSize, meshId)
+	if not meshSizeSuccess then
+		return false, { "Failed to read mesh" }
+	end
+	local meshScale = meshPartHandle.Size / meshSize
+
 	if getFFlagUGCValidateThumbnailConfiguration() then
-		local success, reasons = validateThumbnailConfiguration(meshPartAccessory, meshPartHandle)
+		local success, reasons = validateThumbnailConfiguration(meshPartAccessory, meshPartHandle, meshId, meshScale)
 		if not success then
 			return false, reasons
 		end

@@ -4,7 +4,7 @@ version = "3.1.0"
 commit = "c2fcb3b018db3be44b9b8a2acffe7c9f6da755f1"
 source = "git+https://github.com/roblox/rodux-presence#v3.1.0"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "NetworkingPresence NetworkingPresence 0.8.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",

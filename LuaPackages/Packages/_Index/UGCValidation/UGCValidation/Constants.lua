@@ -9,6 +9,9 @@ local getFIntMeshDivisionFullExtended = require(Root.UGCValidation.flags.getFInt
 local getFIntMeshDivisionMedium = require(Root.UGCValidation.flags.getFIntMeshDivisionMedium)
 local getFFlagAddUGCValidationForPackage = require(Root.UGCValidation.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagUGCValidationAdjustLegBounds = require(Root.UGCValidation.flags.getFFlagUGCValidationAdjustLegBounds)
+local getFFlagUGCValidateSurfaceAppearanceAlphaMode =
+	require(Root.UGCValidation.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
+local getFFlagFixPackageIDFieldName = require(Root.UGCValidation.flags.getFFlagFixPackageIDFieldName)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -716,6 +719,11 @@ Constants.PROPERTIES = {
 	Part = {
 		Shape = Enum.PartType.Block,
 	},
+	SurfaceAppearance = if getFFlagUGCValidateSurfaceAppearanceAlphaMode()
+		then {
+			AlphaMode = Enum.AlphaMode.Overlay,
+		}
+		else nil,
 }
 
 Constants.CONTENT_ID_FIELDS = {
@@ -775,21 +783,39 @@ if getFFlagUGCValidateBodyParts() then
 end
 
 if getFFlagAddUGCValidationForPackage() then
-	Constants.PACKAGE_CONTENT_ID_FIELDS = Cryo.Dictionary.join(Constants.CONTENT_ID_FIELDS, {
-		Sound = { "SoundId" },
-		Decal = { "Texture" },
-		VideoFrame = { "Video" },
-		PackageLink = { "PackageId" },
-		CharacterMesh = { "baseTextureAssetId", "overlayTextureAssetId", "meshAssetId" },
-		Tool = { "TextureId" },
-		Sky = { "SkyUp", "SkyLf", "SkyRt", "SkyBk", "SkyFt", "SkyDn", "Sun", "Moon" },
-		Trail = { "texture" },
-		Beam = { "texture" },
-		ShirtGraphic = { "Graphic" },
-		Shirt = { "ShirtTemplate" },
-		Pants = { "PantsTemplate" },
-		AdGui = { "FallbackImage" },
-	})
+	Constants.PACKAGE_CONTENT_ID_FIELDS = Cryo.Dictionary.join(
+		Constants.CONTENT_ID_FIELDS,
+		if getFFlagFixPackageIDFieldName()
+			then {
+				Sound = { "SoundId" },
+				Decal = { "Texture" },
+				VideoFrame = { "Video" },
+				PackageLink = { "PackageId" },
+				CharacterMesh = { "OverlayTextureId", "MeshId", "BaseTextureId" },
+				Tool = { "TextureId" },
+				Trail = { "Texture" },
+				Beam = { "Texture" },
+				ShirtGraphic = { "Graphic" },
+				Shirt = { "ShirtTemplate" },
+				Pants = { "PantsTemplate" },
+				AdGui = { "FallbackImage" },
+			}
+			else {
+				Sound = { "SoundId" },
+				Decal = { "Texture" },
+				VideoFrame = { "Video" },
+				PackageLink = { "PackageId" },
+				CharacterMesh = { "baseTextureAssetId", "overlayTextureAssetId", "meshAssetId" },
+				Tool = { "TextureId" },
+				Sky = { "SkyUp", "SkyLf", "SkyRt", "SkyBk", "SkyFt", "SkyDn", "Sun", "Moon" },
+				Trail = { "texture" },
+				Beam = { "texture" },
+				ShirtGraphic = { "Graphic" },
+				Shirt = { "ShirtTemplate" },
+				Pants = { "PantsTemplate" },
+				AdGui = { "FallbackImage" },
+			}
+	)
 
 	Constants.ExperienceAuthHeaderKey = "RBX-ExperienceAuthorization"
 	Constants.ContentType = "Content-Type"

@@ -4,7 +4,7 @@ version = "0.2.0"
 commit = "5dd650f714bd6021c9f7841e78275865119435c5"
 source = "git+https://github.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",

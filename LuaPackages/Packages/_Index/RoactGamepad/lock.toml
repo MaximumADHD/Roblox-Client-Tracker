@@ -4,7 +4,7 @@ version = "0.5.12"
 commit = "8ea840572a4912cf208b8f5b828520257d80f061"
 source = "url+https://github.com/roblox/roact-gamepad"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",

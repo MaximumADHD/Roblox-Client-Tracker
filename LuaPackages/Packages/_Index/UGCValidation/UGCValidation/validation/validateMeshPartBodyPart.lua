@@ -7,6 +7,9 @@
 local root = script.Parent.Parent
 
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
+local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
+local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
+local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -20,9 +23,12 @@ local validateTags = require(root.validation.validateTags)
 local validateProperties = require(root.validation.validateProperties)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateHSR = require(root.validation.validateHSR)
+local validateBodyPartCollisionFidelity = require(root.validation.validateBodyPartCollisionFidelity)
+local validateModeration = require(root.validation.validateModeration)
 
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
 
 local function validateMeshPartBodyPart(
@@ -33,6 +39,11 @@ local function validateMeshPartBodyPart(
 	allowUnreviewedAssets: boolean,
 	restrictedUserIds: Types.RestrictedUserIds
 ): (boolean, { string }?)
+	-- do this ASAP
+	if getFFlagUGCValidationResetPhysicsData() then
+		resetPhysicsData({ inst })
+	end
+
 	local validationResult = validateWithSchema(schema, inst)
 	if not validationResult.success then
 		return false, { validationResult.message }
@@ -86,12 +97,31 @@ local function validateMeshPartBodyPart(
 		return reasonsAccumulator:getFinalResults()
 	end
 
+	if
+		getFFlagUGCValidateBodyPartsCollisionFidelity()
+		and not reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst))
+	then
+		return reasonsAccumulator:getFinalResults()
+	end
+
 	if not reasonsAccumulator:updateReasons(validateTags(inst)) then
 		return reasonsAccumulator:getFinalResults()
 	end
 
 	if not reasonsAccumulator:updateReasons(validateAttributes(inst)) then
 		return reasonsAccumulator:getFinalResults()
+	end
+
+	if getFFlagUGCValidateBodyPartsModeration() then
+		local checkModeration = not isServer
+		if allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
+			if not reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds)) then
+				return reasonsAccumulator:getFinalResults()
+			end
+		end
 	end
 
 	return reasonsAccumulator:getFinalResults()

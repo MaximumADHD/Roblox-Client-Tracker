@@ -25,6 +25,7 @@ local maxAssetIdSize = game:GetFastInt("UGCValidationMaxAssetSizeAllowed")
 local Constants = require(root.UGCValidation.Constants)
 
 local FailureReasonsAccumulator = require(root.UGCValidation.util.FailureReasonsAccumulator)
+local getFFlagFixPackageIDFieldName = require(root.UGCValidation.flags.getFFlagFixPackageIDFieldName)
 
 local function createCanPublishPromise(url, assetIds, restrictedIds, token)
 	if #assetIds == 0 then
@@ -89,6 +90,12 @@ local function validateAssetCreator(
 	local assetIdList = {}
 
 	for assetId, _ in assetIdTable do
+		if getFFlagFixPackageIDFieldName() then
+			if assetId == 0 then
+				continue
+			end
+		end
+
 		table.insert(assetIdList, assetId)
 
 		if #assetIdList >= pageSize then

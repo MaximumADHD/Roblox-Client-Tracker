@@ -10,14 +10,12 @@ local InsertService = game:GetService("InsertService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 
-local FFlagEmoteUtilityFixMoodApplication = game:DefineFastFlag("EmoteUtilityFixMoodApplication2", false)
 local FFlagEmoteUtilityTweaks = game:DefineFastFlag("EmoteUtilityTweaks3", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local module = {}
 
-module.FFlagEmoteUtilityFixMoodApplication = FFlagEmoteUtilityFixMoodApplication
 module.FFlagEmoteUtilityTweaks = FFlagEmoteUtilityTweaks
 
 type AnimationAssetIdOrUrl = string | number
@@ -1177,35 +1175,24 @@ module.DEPRECATED_LoadKeyframesForPose = function(
 		DEPRECATED_doYieldingWorkToLoadPoseInfo(character, animationAssetId, ignoreRotationInPoseAsset)
 
 	local moodKeyframe
-	if FFlagEmoteUtilityFixMoodApplication then
-		-- Worry about applying mood asset to pose.
-		-- Overall idea:
-		-- * If there is no mood asset, skip it.
-		-- * If the user did explicitly choose an emote to pose and that emote has mood info, ignore moodAsset:
-		--   the emote is a stronger/more explicit choice about mood.
-		-- * Otherwise we do care about the mood asset: load it.
-		local shouldApplyMood = false
-		if moodAssetId and moodAssetId ~= 0 then
-			if animationAssetId == nil then
+	-- Worry about applying mood asset to pose.
+	-- Overall idea:
+	-- * If there is no mood asset, skip it.
+	-- * If the user did explicitly choose an emote to pose and that emote has mood info, ignore moodAsset:
+	--   the emote is a stronger/more explicit choice about mood.
+	-- * Otherwise we do care about the mood asset: load it.
+	local shouldApplyMood = false
+	if moodAssetId and moodAssetId ~= 0 then
+		if animationAssetId == nil then
+			shouldApplyMood = true
+		else
+			if not module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
 				shouldApplyMood = true
-			else
-				if not module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
-					shouldApplyMood = true
-				end
 			end
 		end
-		if shouldApplyMood then
-			moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true --[[useRotationInPoseAsset]])
-		end
-	else
-		local poseKeyframeHasFaceAnimation = module.PoseKeyframeHasFaceAnimation(poseKeyframe)
-		if not poseKeyframeHasFaceAnimation and moodAssetId and moodAssetId ~= 0 then
-			-- Get the face keyframes.
-			-- Note: this is yielding function.  I considered making it parallel with doYieldingWorkToLoadPoseInfo, but
-			-- doYieldingWorkToLoadPoseInfo gives us poseKeyframe which in turn tells us poseKeyframeHasFaceAnimation.
-			-- Depending on the results of doYieldingWorkToLoadPoseInfo we might not even need to make this call.
-			moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true --[[useRotationInPoseAsset]])
-		end
+	end
+	if shouldApplyMood then
+		moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true --[[useRotationInPoseAsset]])
 	end
 
 	keyframesForPose.poseKeyframe = poseKeyframe

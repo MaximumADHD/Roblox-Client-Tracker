@@ -150,7 +150,7 @@ local function validateLayeredClothingAccessory(
 		end
 
 		if getFFlagUGCValidateThumbnailConfiguration() then
-			success, failedReason = validateThumbnailConfiguration(instance, handle)
+			success, failedReason = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
@@ -328,7 +328,7 @@ local function validateLayeredClothingAccessory(
 		end
 
 		if getFFlagUGCValidateThumbnailConfiguration() then
-			success, reasons = validateThumbnailConfiguration(instance, handle)
+			success, reasons = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
 			if not success then
 				return false, reasons
 			end
