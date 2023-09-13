@@ -435,6 +435,13 @@ Item {
                 text: qsTr("Studio.App.GameGridViewWithHeader.Refresh")
                 onClicked: {
                     gameTableView.subPlaceParentIndex = -1;
+                    if (FFlagStartPageSortOnRefresh) {
+                        // Only these two sorts are supported by the backend; on refresh, items will not be returned in order
+                        // for other sort options.
+                        if (gameTableView.currentSort !==  qsTr("Studio.App.ListView.ExperienceName") && gameTableView.currentSort !== qsTr("Studio.App.ListView.DateCreated")) {
+                            gameTableView.currentSort = ""; // Hides the sort arrow
+                        }
+                    }
                     gameGridViewWithHeader.controller.handleSuggestedRefresh()
                 }
             }

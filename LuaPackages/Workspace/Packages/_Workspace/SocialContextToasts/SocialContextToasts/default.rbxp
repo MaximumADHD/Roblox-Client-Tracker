@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SocialContextToasts",
+    "tree": {
+      "$path": "../../../../../../../modules/notifications/social-context-toasts/src"
+    }
+  }
+}

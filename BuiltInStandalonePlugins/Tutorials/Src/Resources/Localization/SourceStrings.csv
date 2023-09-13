@@ -4,6 +4,7 @@ Studio.Tutorials.StudioTour2.panCamera_Description,Use the <b>E</b> and <b>Q</b>
 Studio.Tutorials.Plugin.Name,Tutorials,Tutorials
 Studio.Tutorials.Completed.Title,You completed the %s!,You completed the %s!
 Studio.Tutorials.StudioTour.parts_Title,Parts,Parts
+Studio.Tutorials.StudioTour2.topic_parts,Parts,Parts
 Studio.Tutorials.Plugin.Button,Toggle,Toggle
 Studio.Tutorials.StudioTour2.rotate_Title,Rotate,Rotate
 Studio.Tutorials.StudioTour.material_Description,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material.,Change a Part's appearance and physical properties by changing its Material.<br><br>Click on Plastic and choose a new material.
@@ -14,8 +15,8 @@ Studio.Tutorials.Plugin.Description,Toggles the Template plugin window.,Toggles 
 Studio.Tutorials.Plugin.Start,Start,Start
 Studio.Tutorials.Tutorial.StepSkipped,Step Skipped,Step Skipped
 Studio.Tutorials.Plugin.Welcome,"Welcome to Roblox Studio, %s!","Welcome to Roblox Studio, %s!"
-Studio.Tutorials.Plugin.Next,Next,Next
 Studio.Tutorials.StudioTour2.select_Title,Select the car,Select the car
+Studio.Tutorials.Plugin.Next,Next,Next
 Studio.Tutorials.Plugin.Title,Want to learn the basics? Start the tour to make your first experience.,Want to learn the basics? Start the tour to make your first experience.
 Studio.Tutorials.StudioTour.color_Description,Click this button to choose a new color for your part.,Click this button to choose a new color for your part.
 Studio.Tutorials.Completed.Description,Continue building here or visit the Dashboard to choose a different template place.,Continue building here or visit the Dashboard to choose a different template place.
@@ -26,10 +27,17 @@ Studio.Tutorials.Tutorial.QuitTutorial,Quit Tutorial,Quit Tutorial
 Studio.Tutorials.Completed.Continue,Continue,Continue
 Studio.Tutorials.Tutorial.Begin,Begin,Begin
 Studio.Tutorials.StudioTour.material_Title,Change Material,Change Material
+Studio.Tutorials.StudioTour.properties_Description,This is the Properties window. You can see and edit the properties of any object you select.,This is the Properties window. You can see and edit the properties of any object you select.
+Studio.Tutorials.StudioTour.Title,Studio Tour,Studio Tour
+Studio.Tutorials.StudioTour.welcome_Title,Studio Tour,Studio Tour
+Studio.Tutorials.StudioTour2.Title,Studio Tour,Studio Tour
+Studio.Tutorials.StudioTour2.welcome_Title,Studio Tour,Studio Tour
+Studio.Tutorials.Tutorial.TopicNumber,Topic %d of %d,Topic %d of %d
 Studio.Tutorials.StudioTour2.move_Title,Move,Move
 Studio.Tutorials.Tutorial.SkipStep,Skip Step,Skip Step
 Studio.Tutorials.StudioTour.playtest_Title,Playtest,Playtest
 Studio.Tutorials.StudioTour2.playtest_Title,Playtest,Playtest
+Studio.Tutorials.StudioTour2.topic_playtest,Playtest,Playtest
 Studio.Tutorials.Tutorial.StopPlaytest_Title,Playtest,Playtest
 Studio.Tutorials.StudioTour2.insertMarketplace_Description,Click on the part's tile and drag it onto the target.,Click on the part's tile and drag it onto the target.
 Studio.Tutorials.StudioTour.parts_Description,"Parts are the basic building blocks in Studio.<br><br>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br><br>Add as many as you like now!","Parts are the basic building blocks in Studio.<br><br>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br><br>Add as many as you like now!"
@@ -37,12 +45,8 @@ Studio.Tutorials.StudioTour2.parts_Description,"Parts are the basic building blo
 Studio.Tutorials.StudioTour.explorer_Title,Explorer,Explorer
 Studio.Tutorials.StudioTour2.explorerSelected_Title,Explorer,Explorer
 Studio.Tutorials.StudioTour2.explorer_Title,Explorer,Explorer
+Studio.Tutorials.StudioTour2.topic_explorer,Explorer,Explorer
 Studio.Tutorials.Tutorial.StopPlaytest_Description,"Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br><br>Try interacting with the parts you added!<br><br>When you're ready, press Stop to go back to editing your place.","Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br><br>Try interacting with the parts you added!<br><br>When you're ready, press Stop to go back to editing your place."
-Studio.Tutorials.StudioTour.properties_Description,This is the Properties window. You can see and edit the properties of any object you select.,This is the Properties window. You can see and edit the properties of any object you select.
-Studio.Tutorials.StudioTour.Title,Studio Tour,Studio Tour
-Studio.Tutorials.StudioTour.welcome_Title,Studio Tour,Studio Tour
-Studio.Tutorials.StudioTour2.Title,Studio Tour,Studio Tour
-Studio.Tutorials.StudioTour2.welcome_Title,Studio Tour,Studio Tour
 Studio.Tutorials.StudioTour2.parts_Title,Insert a Part,Insert a Part
 Studio.Tutorials.StudioTour.welcome_Description,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.
 Studio.Tutorials.StudioTour2.welcome_Description,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.
@@ -57,6 +61,7 @@ Studio.Tutorials.StudioTour2.zoomCamera_Title,Zooming the Camera,Zooming the Cam
 Studio.Tutorials.StudioTour2.insertMarketplace_Title,Let's insert the car,Let's insert the car
 Studio.Tutorials.StudioTour.properties_Title,Properties,Properties
 Studio.Tutorials.StudioTour2.properties_Title,Properties,Properties
+Studio.Tutorials.StudioTour2.topic_properties,Properties,Properties
 Studio.Tutorials.StudioTour.zoomCamera_Description,Zoom in and out by scrolling with your mouse wheel or trackpad.,Zoom in and out by scrolling with your mouse wheel or trackpad.
 Studio.Tutorials.StudioTour2.zoomCamera_Description,Zoom in and out by scrolling with your mouse wheel or trackpad.,Zoom in and out by scrolling with your mouse wheel or trackpad.
 Studio.Tutorials.StudioTour2.scale_Description,Use the scale tool to make the wedge larger.,Use the scale tool to make the wedge larger.
@@ -79,6 +84,7 @@ Studio.Tutorials.StudioTour2.scale_Title,Scale,Scale
 Studio.Tutorials.StudioTour2.marketplace_Description,The Marketplace contains assets that you can add to your experience.<br><br>Open up the Toolbox to view them.,The Marketplace contains assets that you can add to your experience.<br><br>Open up the Toolbox to view them.
 Studio.Tutorials.StudioTour.focus_Description,Press F to focus the camera on the part while it's selected.,Press F to focus the camera on the part while it's selected.
 Studio.Tutorials.StudioTour2.marketplace_Title,Marketplace,Marketplace
+Studio.Tutorials.StudioTour2.topic_marketplace,Marketplace,Marketplace
 Studio.Tutorials.StudioTour2.searchMarketplace_Title,Let's search for a car,Let's search for a car
 Studio.Tutorials.StudioTour2.searchMarketplace_Description,Try searching for "car" to add to your experience.,Try searching for "car" to add to your experience.
 Studio.Tutorials.StudioTour2.color_Title,Change the color of the ramp,Change the color of the ramp
@@ -96,3 +102,6 @@ Studio.Tutorials.StudioTour2.avatar_Title,Control your avatar,Control your avata
 Studio.Tutorials.StudioTour2.avatar_Description,"Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys. Press <b>E</b> to enter the car when you are near it. Can you drive into the boxes?",Press <b>E</b> to enter the car when you are near it. Can you drive into the boxes?
 Studio.Tutorials.StudioTour2.stopPlaytest_Title,Complete the tour,Complete the tour
 Studio.Tutorials.StudioTour2.stopPlaytest_Description,"When you're ready, press Stop to go back to editing your place and complete the tour.","When you're ready, press Stop to go back to editing your place and complete the tour."
+Studio.Tutorials.StudioTour2.topic_navigation,Navigation,Navigation
+Studio.Tutorials.StudioTour2.topic_selection,Selection,Selection
+Studio.Tutorials.StudioTour2.topic_attributes,Attributes,Attributes

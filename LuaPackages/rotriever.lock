@@ -94,17 +94,17 @@ dependencies = [
     "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
     "ApolloClientTesting ApolloClientTesting 0.3.10 url+https://github.com/roblox/apollo-client-testing",
     "AvatarExperienceDeps AvatarExperienceDeps b9c8ce15 git+https://github.com/roblox/avatar-experience-deps#master",
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DataLoader DataLoader 0.2.0 url+https://github.com/roblox/data-loader-lua",
     "DeveloperTools DeveloperTools 0.2.7 url+https://github.com/roblox/developer-tools",
-    "ExperienceChat ExperienceChat 79afedfc git+https://github.com/roblox/lua-experience-chat#v4.1.6",
-    "ExperienceChat_New ExperienceChat bdbec492 git+https://github.com/roblox/lua-experience-chat#v4.1.8",
+    "ExperienceChat ExperienceChat bdbec492 git+https://github.com/roblox/lua-experience-chat#v4.1.8",
+    "ExperienceChat_New ExperienceChat 11072b76 git+https://github.com/roblox/lua-experience-chat#v4.1.10",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphqlToolsUtils Utils 0.3.0 url+https://github.com/roblox/graphql-tools-lua",
     "HttpRequest HttpRequest 1.1.1 url+https://github.com/roblox/http-request",
-    "IAPExperience IAPExperience 03e156c4 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 12db1efd git+https://github.com/roblox/iapexperience#master",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "InputHandlers InputHandlers 1.2.0 url+https://github.com/roblox/focus-navigation",
     "Jest Jest 3.4.1 url+https://github.com/roblox/jest-roblox",
@@ -150,8 +150,8 @@ dependencies = [
     "Signal Signal 1.0.0 url+https://github.com/roblox/signal-lua",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
-    "Thumbnailing Thumbnailing 503ed0b0 git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.4.1 url+https://github.com/roblox/ugc-validation",
+    "Thumbnailing Thumbnailing b714970f git+https://github.com/roblox/thumbnailing#main",
+    "UGCValidation UGCValidation 1.4.3 url+https://github.com/roblox/ugc-validation",
     "UIBlox UIBlox 97de29fc git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f7c32346 git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
@@ -165,7 +165,30 @@ dependencies = [
 name = "Cryo"
 version = "1.0.1"
 commit = "e4573638c510c85c56ff79769857f1549568e649"
-source = "url+https://github.com/roblox/cryo"
+source = "git+https://github.com/roblox/cryo#v1.0.1"
+
+[[package]]
+name = "Cryo"
+version = "1.0.3"
+commit = "4132e8acca97a059823660edfc88f801bedead9b"
+source = "git+https://github.com/roblox/cryo#v1.0.3"
+
+[[package]]
+name = "CryoProxy"
+version = "0.1.0"
+commit = "92eeeafa4bd285b5dff328542bbe7e75f01ba1ce"
+source = "git+https://github.com/roblox/cryo-upgrade#main"
+dependencies = [
+    "Cryo Cryo 4132e8ac git+https://github.com/roblox/cryo#v1.0.3",
+    "CryoUpgradeFlag CryoUpgradeFlag 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
+    "CurrentCryo Cryo e4573638 git+https://github.com/roblox/cryo#v1.0.1",
+]
+
+[[package]]
+name = "CryoUpgradeFlag"
+version = "0.1.0"
+commit = "92eeeafa4bd285b5dff328542bbe7e75f01ba1ce"
+source = "git+https://github.com/roblox/cryo-upgrade#main"
 
 [[package]]
 name = "Dash"
@@ -289,9 +312,9 @@ dependencies = [
 
 [[package]]
 name = "ExperienceChat"
-version = "4.1.6"
-commit = "79afedfc2e835f30700a1115869dfbb5d61bfffa"
-source = "git+https://github.com/roblox/lua-experience-chat#v4.1.6"
+version = "4.1.8"
+commit = "bdbec492f94bab5a0dc14c1db0710fb51ab369f7"
+source = "git+https://github.com/roblox/lua-experience-chat#v4.1.8"
 dependencies = [
     "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
@@ -311,9 +334,9 @@ dependencies = [
 
 [[package]]
 name = "ExperienceChat"
-version = "4.1.8"
-commit = "bdbec492f94bab5a0dc14c1db0710fb51ab369f7"
-source = "git+https://github.com/roblox/lua-experience-chat#v4.1.8"
+version = "4.1.10"
+commit = "11072b76d8889ebd5bfe35b75baad56f04b6d4ea"
+source = "git+https://github.com/roblox/lua-experience-chat#v4.1.10"
 dependencies = [
     "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
@@ -368,7 +391,7 @@ version = "1.1.1"
 commit = "9a5a8b6a2ca0255713a9ce8b1ac0be15ecbafd77"
 source = "url+https://github.com/roblox/http-request"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]
 
@@ -385,7 +408,7 @@ dependencies = [
 [[package]]
 name = "IAPExperience"
 version = "1.0.0"
-commit = "03e156c41f01792fee03cb7c4812e3dc85cbf75d"
+commit = "12db1efd4b80518e8cdf64dcd8190a56056a6781"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
@@ -405,7 +428,7 @@ version = "0.2.0"
 commit = "5dd650f714bd6021c9f7841e78275865119435c5"
 source = "git+https://github.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
@@ -1325,9 +1348,9 @@ version = "1.0.0"
 commit = "fdaad92186796db723f6ca423fa60de54de35631"
 source = "git+https://github.com/roblox/purchase-prompt-deps#master"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "IAPExperience IAPExperience 03e156c4 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience 12db1efd git+https://github.com/roblox/iapexperience#master",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
@@ -1655,7 +1678,7 @@ version = "0.4.1"
 commit = "3cb03d33db43ddec64c74b2479f365ea2b156b4a"
 source = "url+https://github.com/roblox/roact-app-experiment"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "ReactRoblox <patched> ReactRobloxProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
@@ -1692,7 +1715,7 @@ version = "2.0.0"
 commit = "f424225f04feb5b7190b8ffa82f7bb094c0c3720"
 source = "url+https://github.com/roblox/roact-fit-components"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
 ]
 
@@ -1702,7 +1725,7 @@ version = "0.5.12"
 commit = "8ea840572a4912cf208b8f5b828520257d80f061"
 source = "url+https://github.com/roblox/roact-gamepad"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
@@ -1795,7 +1818,7 @@ version = "1.10.1"
 commit = "b3efbbcf70a54ab058b4552e23ea5c512f9dee10"
 source = "url+https://github.com/roblox/rodux-call"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "NetworkingCall NetworkingCall 1.15.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
@@ -1887,7 +1910,7 @@ version = "3.1.1"
 commit = "26566b303e7ffb158cd82023abd278f78c1fd19b"
 source = "url+https://github.com/roblox/rodux-networking"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "tutils tutils 0.1.2 url+https://github.com/roblox/tutils",
@@ -1899,7 +1922,7 @@ version = "3.0.1"
 commit = "af4ec863cd5a219bf61bb0df0f15af82656b638a"
 source = "git+https://github.com/roblox/rodux-presence#v3.0.1"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "PresenceNetworking roblox/networking-presence e1b72e1a git+https://github.com/roblox/networking-presence#v1.0.0",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
@@ -1913,7 +1936,7 @@ version = "3.1.0"
 commit = "c2fcb3b018db3be44b9b8a2acffe7c9f6da755f1"
 source = "git+https://github.com/roblox/rodux-presence#v3.1.0"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "NetworkingPresence NetworkingPresence 0.8.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
@@ -1927,7 +1950,7 @@ version = "3.2.3"
 commit = "dc416d59fc59c2d29fe3e4cacfb41362ccf9be03"
 source = "git+https://github.com/roblox/rodux-presence#v3.2.3"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "NetworkingPresence NetworkingPresence 1.15.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
@@ -1941,7 +1964,7 @@ version = "1.3.0"
 commit = "d8bb287f7f81bbf0035352c445a11dd5e193785a"
 source = "git+https://github.com/roblox/rodux-sharelinks#v1.3.0"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
     "ShareLinksNetworking NetworkingShareLinks 15eccb0a git+https://github.com/roblox/networking-sharelinks#v1.1.1",
@@ -1954,7 +1977,7 @@ version = "1.11.0"
 commit = "dccc7414e166a5d03ba207f2e235bd867e8b110c"
 source = "url+https://github.com/roblox/rodux-squads"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "NetworkingSquads NetworkingSquads 1.15.0 url+https://github.com/roblox/lua-app-networking",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
@@ -1981,7 +2004,7 @@ version = "1.3.3"
 commit = "941abdeb135c61070b76aab6416dad7333ba554d"
 source = "git+https://github.com/roblox/rodux-users#v1.3.3"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "FriendsNetworking NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
@@ -1994,7 +2017,7 @@ version = "1.4.0"
 commit = "bdaabf6e43c8ed33beb12e9e029a353ee20fdf9d"
 source = "git+https://github.com/roblox/rodux-users#v1.4.0"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "FriendsNetworking NetworkingFriends 2.10.0 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
     "RoduxNetworking RoduxNetworking 3.1.1 url+https://github.com/roblox/rodux-networking",
@@ -2071,7 +2094,7 @@ version = "2.5.6"
 commit = "c4e84413ac3dcad3c17f472ef63a1703e2d05ea6"
 source = "git+https://github.com/roblox/social-libraries#v2.5.6"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "GenericPagination roblox/genericpagination 885168d0 git+https://github.com/roblox/genericpagination#master",
     "LuauPolyfill LuauPolyfill 90b08185 git+https://github.com/roblox/luau-polyfill#v0.3.4",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
@@ -2171,7 +2194,7 @@ dependencies = [
 [[package]]
 name = "Thumbnailing"
 version = "0.1.0"
-commit = "503ed0b0fb3d8b895170b2741333e61adb31b4eb"
+commit = "b714970f8c81c75decf72d7ead9d1dc9be18decc"
 source = "git+https://github.com/roblox/thumbnailing#main"
 
 [[package]]
@@ -2183,11 +2206,11 @@ dependencies = ["Collections Collections 1.2.3 url+https://github.com/roblox/lua
 
 [[package]]
 name = "UGCValidation"
-version = "1.4.1"
-commit = "adb6bfae5e59c2aae248932c85aa0c146c8d8a18"
+version = "1.4.3"
+commit = "4f791bfa84b1eb510ffd69128c9e83159cc0559d"
 source = "url+https://github.com/roblox/ugc-validation"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]
 
@@ -2197,7 +2220,7 @@ version = "0.1.1"
 commit = "97de29fcbfa06e50c3f48edbb29e04b5a5226d2c"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "DocUtils DocUtils 0.1.6 url+https://github.com/roblox/doc-utils",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
@@ -2220,7 +2243,7 @@ version = "1.1.4"
 commit = "f7c3234672963c01e8fafc25bca139a2638c51c7"
 source = "git+https://github.com/roblox/url-builder#master"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
 ]
 
@@ -2230,7 +2253,7 @@ version = "0.1.1"
 commit = "021b560b34e48a18e9d0af9bb588f7caf9666329"
 source = "url+https://github.com/roblox/usage-tracker-lua"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "ReactIs <patched> ReactIsProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
 ]
 
@@ -2350,7 +2373,7 @@ version = "1.1.0"
 commit = "3e68dca3e2d0b073b26ab223157cc34b2b2cf695"
 source = "git+https://github.com/roblox/http-request#v1.1.0"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]
 
@@ -2366,7 +2389,7 @@ version = "0.1.0"
 commit = "045503a92d7b28424ab635cc1a3badec1cbfb881"
 source = "git+https://github.com/roblox/lua-roact-policy-provider#master"
 dependencies = [
-    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
+    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
@@ -2386,7 +2409,7 @@ name = "roblox/lumberyak"
 version = "0.1.1"
 commit = "e6abd03f984e7c21da90d3b5751dce94a4036968"
 source = "git+https://github.com/roblox/lumberyak#master"
-dependencies = ["Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo"]
+dependencies = ["Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main"]
 
 [[package]]
 name = "roblox/networking-chat"

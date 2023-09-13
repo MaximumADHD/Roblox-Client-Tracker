@@ -7,3 +7,4 @@ Visit https://www.roblox.com/drivers for more information.","Your computer's gra
 
 Visit https://www.roblox.com/drivers for more information."
 Studio.App.RenderScheduler.FailedToBindToWorkspace,,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.
+Studio.App.AuxiliaryView.RenderException1,,Adding AuxiliaryView failed with error,Adding AuxiliaryView failed with error

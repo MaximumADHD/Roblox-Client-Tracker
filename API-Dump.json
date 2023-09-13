@@ -4909,6 +4909,35 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptImportAnimationClipFromVideoAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Name": "progressCallback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SavePlaceAsync",
                     "Parameters": [
                     ],
@@ -17945,6 +17974,54 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "C0",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "C1",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "IsKinematic",
                     "Security": {
                         "Read": "None",
@@ -17994,6 +18071,54 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Part0",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "BasePart"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Part1",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "BasePart"
                     }
                 },
                 {
@@ -27495,6 +27620,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Copy",
+                    "Parameters": [
+                        {
+                            "Name": "min",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        },
+                        {
+                            "Name": "max",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector2"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "DynamicImage"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "Crop",
                     "Parameters": [
                         {
@@ -28525,6 +28676,28 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Control",
+                    "MemberType": "Property",
+                    "Name": "FaceTrackingStatusEnum",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TrackerFaceTrackingStatus"
                     }
                 },
                 {
@@ -66474,6 +66647,24 @@
                 {
                     "Category": "Display",
                     "MemberType": "Property",
+                    "Name": "AreNonAnchorsShown",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Display",
+                    "MemberType": "Property",
                     "Name": "AreOwnersShown",
                     "Security": {
                         "Read": "None",
@@ -70575,7 +70766,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -84105,6 +84296,27 @@
                     }
                 },
                 {
+                    "Category": "Character",
+                    "MemberType": "Property",
+                    "Name": "AnimationCompositorMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AnimationCompositorMode"
+                    }
+                },
+                {
                     "Category": "Mobile",
                     "MemberType": "Property",
                     "Name": "AutoJumpEnabled",
@@ -90409,6 +90621,101 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "AttachPluginGui",
+                    "Parameters": [
+                        {
+                            "Name": "target",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "StudioWidget"
+                            }
+                        },
+                        {
+                            "Name": "gui",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "PluginGui"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetWidgetFromLabel",
+                    "Parameters": [
+                        {
+                            "Name": "label",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "StudioWidget"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "HideSpotlight",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowSpotlight",
+                    "Parameters": [
+                        {
+                            "Name": "target",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "StudioWidget"
+                            }
+                        },
+                        {
+                            "Name": "sinkInput",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool?"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StudioWidgetsService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
                 "NotReplicated"
             ]
         },
@@ -100213,6 +100520,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetImageForKeyCode",
+                    "Parameters": [
+                        {
+                            "Name": "keyCode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "KeyCode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetKeysPressed",
                     "Parameters": [
                     ],
@@ -105354,6 +105680,76 @@
                 }
             ],
             "Name": "AnalyticsProgressionStatus"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Initializing",
+                    "Value": 0
+                },
+                {
+                    "Name": "Pending",
+                    "Value": 1
+                },
+                {
+                    "Name": "Processing",
+                    "Value": 2
+                },
+                {
+                    "Name": "ErrorGeneric",
+                    "Value": 4
+                },
+                {
+                    "Name": "Success",
+                    "Value": 6
+                },
+                {
+                    "Name": "ErrorVideoTooLong",
+                    "Value": 7
+                },
+                {
+                    "Name": "ErrorNoPersonDetected",
+                    "Value": 8
+                },
+                {
+                    "Name": "ErrorVideoUnstable",
+                    "Value": 9
+                },
+                {
+                    "Name": "Timeout",
+                    "Value": 10
+                },
+                {
+                    "Name": "Cancelled",
+                    "Value": 11
+                },
+                {
+                    "Name": "ErrorMultiplePeople",
+                    "Value": 12
+                },
+                {
+                    "Name": "ErrorUploadingVideo",
+                    "Value": 2001
+                }
+            ],
+            "Name": "AnimationClipFromVideoStatus"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "AnimationCompositorMode"
         },
         {
             "Items": [
@@ -114776,8 +115172,12 @@
                     "Value": 3
                 },
                 {
-                    "Name": "TeleportUnknown",
+                    "Name": "TeleportToVIPServer",
                     "Value": 4
+                },
+                {
+                    "Name": "TeleportUnknown",
+                    "Value": 5
                 }
             ],
             "Name": "TeleportMethod"
@@ -114853,6 +115253,10 @@
                 {
                     "Name": "ToInstance",
                     "Value": 1
+                },
+                {
+                    "Name": "ToVIPServer",
+                    "Value": 3
                 },
                 {
                     "Name": "ToReservedServer",
@@ -115396,6 +115800,39 @@
                 }
             ],
             "Name": "TrackerExtrapolationFlagMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "FaceTrackingSuccess",
+                    "Value": 0
+                },
+                {
+                    "Name": "FaceTrackingNoFaceFound",
+                    "Value": 1
+                },
+                {
+                    "Name": "FaceTrackingUnknown",
+                    "Value": 2
+                },
+                {
+                    "Name": "FaceTrackingLost",
+                    "Value": 3
+                },
+                {
+                    "Name": "FaceTrackingHasTrackingError",
+                    "Value": 4
+                },
+                {
+                    "Name": "FaceTrackingIsOccluded",
+                    "Value": 5
+                },
+                {
+                    "Name": "FaceTrackingUninitialized",
+                    "Value": 6
+                }
+            ],
+            "Name": "TrackerFaceTrackingStatus"
         },
         {
             "Items": [

@@ -32,8 +32,8 @@ StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 NetworkingFriends = "github.com/roblox/networking-friends@2.9.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.6" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.8" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.8" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.10" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 ReactFocusNavigation = "github.com/roblox/focus-navigation@1.2.0"
 InputHandlers = "github.com/roblox/focus-navigation@1.0.0"
@@ -55,7 +55,7 @@ QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.3.0"
 GraphqlToolsUtils = { target = "github.com/Roblox/graphql-tools-lua", version = "0.3.0", package = "Utils" }
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.4.1"
+UGCValidation = "github.com/roblox/ugc-validation@1.4.3"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 Signal = "github.com/roblox/signal-lua@1.0"
@@ -104,6 +104,10 @@ Promise = { git = "github.com/Roblox/promise-upgrade", rev = "v0.1.0", package =
 
 [config.patch."https://github.com/roblox/roact-navigation"]
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.6"
+
+# Cryo - flagged upgrade
+[config.patch."github.com/roblox/cryo"]
+Cryo = { git = "https://github.com/Roblox/cryo-upgrade", rev = "main", package = "CryoProxy" }
 
 # Roact 17 - Patch in flagged proxy for roact, roact-rodux, and gamepad
 [config.patch."github.com/roblox/roact"]

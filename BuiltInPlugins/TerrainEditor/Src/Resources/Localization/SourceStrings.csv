@@ -30,6 +30,9 @@ Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings
 Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings
 Studio.TerrainEditor.Categories.TransformSettings,Transform Settings
+Studio.TerrainEditor.Dialog.Cancel,Cancel
+Studio.TerrainEditor.Dialog.Pause,Pause
+Studio.TerrainEditor.Dialog.Resume,Resume
 Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode
 Studio.TerrainEditor.EditorEnum.BrushShape,Brush Shape
 Studio.TerrainEditor.EditorEnum.FillMode,Fill Mode
@@ -45,10 +48,68 @@ Studio.TerrainEditor.FlattenMode.Under,Under
 Studio.TerrainEditor.MaterialMode.Paint,Paint
 Studio.TerrainEditor.MaterialMode.Replace,Replace
 Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material
+Studio.TerrainEditor.MaterialSettings.Fill,Fill
 Studio.TerrainEditor.MaterialSettings.FillMode,Fill Mode
 Studio.TerrainEditor.MaterialSettings.MaterialMode,Material Mode
+Studio.TerrainEditor.MaterialSettings.Paint,Paint
+Studio.TerrainEditor.MaterialSettings.Replace,Replace
 Studio.TerrainEditor.MaterialSettings.SourceMaterial,Source Material
 Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material
+Studio.TerrainEditor.Materials.Air,Air
+Studio.TerrainEditor.Materials.Asphalt,Asphalt
+Studio.TerrainEditor.Materials.Basalt,Basalt
+Studio.TerrainEditor.Materials.Brick,Brick
+Studio.TerrainEditor.Materials.Cardboard,Cardboard
+Studio.TerrainEditor.Materials.Carpet,Carpet
+Studio.TerrainEditor.Materials.CeramicTiles,Ceramic Tiles
+Studio.TerrainEditor.Materials.ClayRoofTiles,Clay Roof Tiles
+Studio.TerrainEditor.Materials.Cobblestone,Cobblestone
+Studio.TerrainEditor.Materials.Concrete,Concrete
+Studio.TerrainEditor.Materials.CorrodedMetal,Corroded Metal
+Studio.TerrainEditor.Materials.CrackedLava,Cracked Lava
+Studio.TerrainEditor.Materials.DiamondPlate,Diamond Plate
+Studio.TerrainEditor.Materials.Fabric,Fabric
+Studio.TerrainEditor.Materials.Foil,Foil
+Studio.TerrainEditor.Materials.ForceField,Force Field
+Studio.TerrainEditor.Materials.Glacier,Glacier
+Studio.TerrainEditor.Materials.Glass,Glass
+Studio.TerrainEditor.Materials.Granite,Granite
+Studio.TerrainEditor.Materials.Grass,Grass
+Studio.TerrainEditor.Materials.Ground,Ground
+Studio.TerrainEditor.Materials.Ice,Ice
+Studio.TerrainEditor.Materials.LeafyGrass,Leafy Grass
+Studio.TerrainEditor.Materials.Leather,Leather
+Studio.TerrainEditor.Materials.Limestone,Limestone
+Studio.TerrainEditor.Materials.Marble,Marble
+Studio.TerrainEditor.Materials.Metal,Metal
+Studio.TerrainEditor.Materials.Mud,Mud
+Studio.TerrainEditor.Materials.Neon,Neon
+Studio.TerrainEditor.Materials.Pavement,Pavement
+Studio.TerrainEditor.Materials.Pebble,Pebble
+Studio.TerrainEditor.Materials.Plaster,Plaster
+Studio.TerrainEditor.Materials.Plastic,Plastic
+Studio.TerrainEditor.Materials.Rock,Rock
+Studio.TerrainEditor.Materials.RoofShingles,Roof Shingles
+Studio.TerrainEditor.Materials.Rubber,Rubber
+Studio.TerrainEditor.Materials.Salt,Salt
+Studio.TerrainEditor.Materials.Sand,Sand
+Studio.TerrainEditor.Materials.Sandstone,Sandstone
+Studio.TerrainEditor.Materials.Slate,Slate
+Studio.TerrainEditor.Materials.SmoothPlastic,Smooth Plastic
+Studio.TerrainEditor.Materials.Snow,Snow
+Studio.TerrainEditor.Materials.Water,Water
+Studio.TerrainEditor.Materials.Wood,Wood
+Studio.TerrainEditor.Materials.WoodPlanks,Wood Planks
+Studio.TerrainEditor.Operations.DuplicateDescription,Duplicating voxels to the target transform.
+Studio.TerrainEditor.Operations.DuplicateName,Duplicate
+Studio.TerrainEditor.Operations.FillDescription,Filling voxels in the selection with {material}.
+Studio.TerrainEditor.Operations.FillName,Fill
+Studio.TerrainEditor.Operations.MoveDescription,Moving voxels to the target transform.
+Studio.TerrainEditor.Operations.MoveName,Move
+Studio.TerrainEditor.Operations.PasteDescription,Pasting voxels to the target transform.
+Studio.TerrainEditor.Operations.PasteName,Paste
+Studio.TerrainEditor.Operations.ReplaceDescription,Replacing {source} voxels in the selection with {target}.
+Studio.TerrainEditor.Operations.ReplaceName,Replace
 Studio.TerrainEditor.PivotPosition.Bottom,Bottom
 Studio.TerrainEditor.PivotPosition.Center,Center
 Studio.TerrainEditor.PivotPosition.Top,Top

@@ -40,6 +40,8 @@
         ,"StarterPack":["Tool","LocalScript","Script","Animation"]
         ,"StarterPlayer":["Humanoid","Model"]
         ,"StarterPlayerScripts":["LocalScript"]
+        ,"StyleRule":["StyleRule","Folder"]
+        ,"StyleSheet":["StyleRule","Folder","StyleDerive"]
         ,"SurfaceGui":["TextLabel","TextBox","Frame","ImageLabel","TextButton"]
         ,"Teams":["Team"]
         ,"TestService":["LocalScript","Script"]

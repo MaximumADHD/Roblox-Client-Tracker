@@ -27,6 +27,7 @@ Studio.App.Property.PhysicsEnvironmentalThrottle,,Physics Environmental Throttle
 Studio.App.Property.ThrottleAdjustTime,,Throttle Adjust Time,Throttle Adjust Time
 Studio.App.SettingsCategory.PhysicsDisplay,,Display,Display
 Studio.App.Property.AreAnchorsShown,,Are Anchors Shown,Are Anchors Shown
+Studio.App.Property.AreNonAnchorsShown,,Are NonAnchors Shown,Are NonAnchors Shown
 Studio.App.Property.ArePartCoordsShown,,Are Part Coords Shown,Are Part Coords Shown
 Studio.App.Property.AreUnalignedPartsShown,,Are Unaligned Parts Shown,Are Unaligned Parts Shown
 Studio.App.Property.AreModelCoordsShown,,Are Model Coords Shown,Are Model Coords Shown

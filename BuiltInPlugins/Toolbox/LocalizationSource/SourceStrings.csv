@@ -142,12 +142,12 @@ Studio.Toolbox.AssetUploadResult.SubmitAsDevelopmentItem,Submit as Development I
 Studio.Toolbox.General.Package,Convert to Package, ,Convert to Package
 Studio.Toolbox.Announcement.Button_Default,Got it!, ,Got it!
 Studio.Toolbox.General.SearchTagIdUnverified,Show ID Unverified creators, ,Show ID Unverified creators
-Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories, ,Face Accessories
-Studio.Toolbox.Audio.SoundEffect.Category.Gurgling,Gurgling, ,Gurgling
 Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser,Search by username, ,Search by username
 Studio.Toolbox.General.CategoryGroupModels,Group Models, ,Group Models
 Studio.Toolbox.Audio.SoundEffect.Category.coughs,Coughs, ,Coughs
 Studio.Toolbox.Audio.SoundEffect.Category.Snicker,Snicker, ,Snicker
+Studio.Toolbox.Audio.SoundEffect.Category.Gurgling,Gurgling, ,Gurgling
+Studio.Toolbox.General.CategoryCreationsFaceAccessory,Face Accessories, ,Face Accessories
 Studio.Toolbox.General.SuggestionsBuilding,Building, ,Building
 Studio.Toolbox.Audio.SoundEffect.Category.Dial tone,Dial tone, ,Dial tone
 Studio.Toolbox.Audio.SoundEffect.Category.Dial_tone,Dial tone, ,Dial tone
@@ -281,9 +281,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Essential,Studio.Toolbox.General.SearchOptionsDone,Done
  ,Done,Studio.Toolbox.Audio.SoundEffect.Category.Hum,Hum
  ,Hum,Studio.Toolbox.Audio.SoundEffect.Category.hum,Hum
- ,Hum,Studio.Toolbox.Audio.SoundEffect.Category.artillery,Artillery
- ,Artillery,Studio.Toolbox.AudioView.Category,Category
- ,Category,Studio.Toolbox.General.RobloxStudio,Roblox Studio
+ ,Hum,Studio.Toolbox.AudioView.Category,Category
+ ,Category,Studio.Toolbox.Audio.SoundEffect.Category.artillery,Artillery
+ ,Artillery,Studio.Toolbox.General.RobloxStudio,Roblox Studio
  ,Roblox Studio,Studio.Toolbox.General.SearchOptionsResetAll,Reset All
  ,Reset All,Studio.Toolbox.Purchase.FreeTitle,Install Plugin
  ,Install Plugin,Studio.Toolbox.General.Sharing,Sharing
@@ -331,13 +331,14 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Version History,Studio.Toolbox.AssetConfigUpload.IDCopied,ID Copied!
  ,ID Copied!,Studio.Toolbox.AssetConfigSharing.PrivateInformation,Grant permissions to specific Universes through Asset Configuration on the web.
  ,Grant permissions to specific Universes through Asset Configuration on the web.,Studio.Toolbox.General.CategoryCreationsShoulderAccessory,Shoulder Accessories
- ,Shoulder Accessories,Studio.Toolbox.General.SalesCreatorEarnings,Creator earnings ({earningsPercent}%)
+ ,Shoulder Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Bass drum,Bass drum
+ ,Bass drum,Studio.Toolbox.Audio.SoundEffect.Category.Bass_drum,Bass drum
+ ,Bass drum,Studio.Toolbox.AssetConfigVersions.Notes,Notes
+ ,Notes,Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessories
+ ,Front Accessories,Studio.Toolbox.General.SalesCreatorEarnings,Creator earnings ({earningsPercent}%)
  ,Creator earnings ({earningsPercent}%),Studio.Toolbox.Audio.SoundEffect.Category.Punk rock,Punk rock
  ,Punk rock,Studio.Toolbox.Audio.SoundEffect.Category.Punk_rock,Punk rock
- ,Punk rock,Studio.Toolbox.Audio.SoundEffect.Category.Bass drum,Bass drum
- ,Bass drum,Studio.Toolbox.Audio.SoundEffect.Category.Bass_drum,Bass drum
- ,Bass drum,Studio.Toolbox.General.CategoryCreationsFrontAccessory,Front Accessories
- ,Front Accessories,Studio.Toolbox.General.CategoryCreationsBackAccessory,Back Accessories
+ ,Punk rock,Studio.Toolbox.General.CategoryCreationsBackAccessory,Back Accessories
  ,Back Accessories,Studio.Toolbox.General.CategoryCreationsJacketAccessory,Jacket Accessories
  ,Jacket Accessories,"Studio.Toolbox.Audio.SoundEffect.Category.Neigh, whinny","Neigh, whinny"
  ,"Neigh, whinny",Studio.Toolbox.Audio.SoundEffect.Category.Neigh_whinny,"Neigh, whinny"
@@ -655,7 +656,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Growling,Studio.Toolbox.Audio.SoundEffect.Category.Ska,Ska
  ,Ska,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
  ,Restore previous version,Studio.Toolbox.Audio.SoundEffect.Category.electric,Electric
- ,Electric,Studio.Toolbox.Audio.SoundEffect.Category.air,Air
+ ,Electric,Studio.Toolbox.HomeView.trending,Trending
+ ,Trending,Studio.Toolbox.AssetConfigVersions.AddANote,Add a note or select to restore versions.
+ ,Add a note or select to restore versions.,Studio.Toolbox.Audio.SoundEffect.Category.air,Air
  ,Air,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort
  ,Snort,Studio.Toolbox.AssetConfigVersions.Version,Version
  ,Version,Studio.Toolbox.Announcement.Header_Default,Announcement
@@ -887,8 +890,7 @@ A message displayed to the user after asset upload success informing them that t
  ,Acoustic guitar,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
  ,Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.InsertTool.DialogText,Put this tool into the StarterPack?
 StarterPack is a Roblox API term that should not be translated.,Put this tool into the StarterPack?,Studio.Toolbox.HomeView.TheEssentials,The Essentials
- ,The Essentials,Studio.Toolbox.HomeView.trending,Trending
- ,Trending,Studio.Toolbox.HomeView.TopSearches,Top Searches
+ ,The Essentials,Studio.Toolbox.HomeView.TopSearches,Top Searches
  ,Top Searches,Studio.Toolbox.AssetTable.DateUpdated,Date Modified
  ,Date Modified,Studio.Toolbox.SearchOptionsSort.DateModified,Date Modified
  ,Date Modified,Studio.Toolbox.AudioView.Artist,Artist
@@ -1023,9 +1025,9 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Hardware,Studio.Toolbox.Audio.SoundEffect.Category.Percussion,Percussion
  ,Percussion,Studio.Toolbox.Audio.SoundEffect.Category.heavy,Heavy
  ,Heavy,Studio.Toolbox.Audio.SoundEffect.Category.industrial,Industrial
- ,Industrial,Studio.Toolbox.Audio.SoundEffect.Category.insects,Insects
- ,Insects,Studio.Toolbox.Audio.SoundEffect.Category.Crackle,Crackle
- ,Crackle,Studio.Toolbox.Audio.SoundEffect.Category.jets,Jets
+ ,Industrial,Studio.Toolbox.Audio.SoundEffect.Category.Crackle,Crackle
+ ,Crackle,Studio.Toolbox.Audio.SoundEffect.Category.insects,Insects
+ ,Insects,Studio.Toolbox.Audio.SoundEffect.Category.jets,Jets
  ,Jets,Studio.Toolbox.Audio.SoundEffect.Category.reptiles,Reptiles
  ,Reptiles,Studio.Toolbox.Audio.SoundEffect.Category.Vibraphone,Vibraphone
  ,Vibraphone,Studio.Toolbox.Audio.SoundEffect.Category.knives-swords,Knives & Swords

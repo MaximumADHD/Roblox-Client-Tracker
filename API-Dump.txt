@@ -284,6 +284,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:GetCreatorAssetID(int64 creationID) [Yields] [Deprecated]
 	Function Instance AssetService:GetGamePlacesAsync() [Yields]
 	Function Tuple AssetService:PromptCreateAssetAsync(Player player, Instance instance, Enum.AssetType assetType) [Yields]
+	Function Tuple AssetService:PromptImportAnimationClipFromVideoAsync(Player player, Function progressCallback) [Yields]
 	Function void AssetService:RegisterUGCValidationFunction(Function function) {RobloxScriptSecurity}
 	Function void AssetService:SavePlaceAsync() [Yields]
 	Function AudioPages AssetService:SearchAudio(AudioSearchParams searchParameters) [Yields]
@@ -1009,7 +1010,11 @@ Class AngularVelocity : Constraint
 Class AnimationConstraint : Constraint [NotBrowsable]
 	Property float AnimationConstraint.MaxForce
 	Property float AnimationConstraint.MaxTorque
+	Property CFrame AnimationConstraint.C0 [Hidden] [ReadOnly] [Deprecated]
+	Property CFrame AnimationConstraint.C1 [Hidden] [ReadOnly] [Deprecated]
 	Property bool AnimationConstraint.IsKinematic
+	Property BasePart AnimationConstraint.Part0 [Hidden] [ReadOnly] [Deprecated]
+	Property BasePart AnimationConstraint.Part1 [Hidden] [ReadOnly] [Deprecated]
 	Property CFrame AnimationConstraint.Transform
 Class BallSocketConstraint : Constraint
 	Property float BallSocketConstraint.Radius
@@ -1526,6 +1531,7 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DraggerService.ShowPivotIndicator [NotReplicated]
 Class DynamicImage : Instance
 	Property Vector2 DynamicImage.Size
+	Function DynamicImage DynamicImage:Copy(Vector2 min, Vector2 max)
 	Function void DynamicImage:Crop(Vector2 min, Vector2 max)
 	Function void DynamicImage:DrawCircle(Vector2 center, int radius, Color3 color, float transparency)
 	Function void DynamicImage:DrawImage(Vector2 position, DynamicImage image, Enum.ImageCombineType combineType)
@@ -1574,6 +1580,7 @@ Class Explosion : Instance
 	Event Explosion.Hit(BasePart part, float distance)
 Class FaceAnimatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool FaceAnimatorService.AudioAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Enum.TrackerFaceTrackingStatus FaceAnimatorService.FaceTrackingStatusEnum {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.FlipHeadOrientation {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.VideoAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function TrackerLodController FaceAnimatorService:GetTrackerLodController() {RobloxScriptSecurity}
@@ -2482,6 +2489,7 @@ Class Humanoid : Instance
 	Event Humanoid.Touched(BasePart touchingPart, BasePart humanoidPart)
 Class HumanoidDescription : Instance
 	Property string HumanoidDescription.AccessoryBlob [NotScriptable]
+	Property string HumanoidDescription.AccessoryRigidAndLayeredBlob {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property string HumanoidDescription.BackAccessory
 	Property string HumanoidDescription.FaceAccessory
 	Property string HumanoidDescription.FrontAccessory
@@ -3398,7 +3406,7 @@ Class PartOperation : TriangleMeshPart
 	Property float PartOperation.SmoothingAngle {✏️PluginSecurity}
 	Property Content PartOperation.AssetId {RobloxSecurity} [Hidden] [NotScriptable]
 	Property SharedString PartOperation.CSGMesh2KernelMap [Hidden] [NotReplicated] [NotScriptable]
-	Property CSGPropertyData PartOperation.CSGPropertyData [Hidden] [NotReplicated] [NotScriptable]
+	Property CSGPropertyData PartOperation.CSGPropertyData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property BinaryString PartOperation.ChildData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property SharedString PartOperation.ChildData2 {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property Enum.FormFactor PartOperation.FormFactor {RobloxSecurity} [Hidden] [NotScriptable]
@@ -3557,7 +3565,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
 	Property Enum.StreamingIntegrityMode Workspace.StreamingIntegrityMode [NotScriptable]
 	Property int Workspace.StreamingMinRadius [NotScriptable]
-	Property Enum.StreamingPauseMode Workspace.StreamingPauseMode [<📁> LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property Enum.StreamingPauseMode Workspace.StreamingPauseMode [<📁> LoadOnly] [Hidden] [NotReplicated] [NotScriptable]
 	Property int Workspace.StreamingTargetRadius [NotScriptable]
 	Function void Workspace:BreakJoints(Objects objects) {PluginSecurity} [Deprecated]
 	Function float Workspace:CalculateJumpDistance(float gravity, float jumpPower, float walkSpeed) {RobloxScriptSecurity}
@@ -3733,6 +3741,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreMagnitudesShownForDrawnForcesAndTorques {RobloxScriptSecurity}
 	Property bool PhysicsSettings.AreMechanismsShown
 	Property bool PhysicsSettings.AreModelCoordsShown
+	Property bool PhysicsSettings.AreNonAnchorsShown
 	Property bool PhysicsSettings.AreOwnersShown
 	Property bool PhysicsSettings.ArePartCoordsShown
 	Property bool PhysicsSettings.AreRegionsShown
@@ -3970,7 +3979,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.TeamCreatePublishFinished(bool publishSuccessful) {RobloxSecurity} [Hidden]
 	Event Players.TeamCreateSaveFinished(bool saveSuccessful) {RobloxSecurity} [Hidden]
 	Event Players.TeamCreateServerMessage(Enum.MessageType messageType, string message, bool printToStatusBar) {RobloxSecurity} [Hidden]
-	Event Players.UserSubscriptionStatusChanged(Player user, string subscriptionId) {RobloxScriptSecurity}
+	Event Players.UserSubscriptionStatusChanged(Player user, string subscriptionId)
 Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Plugin.CollisionEnabled [ReadOnly]
@@ -4753,6 +4762,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property Enum.DevComputerCameraMovementMode StarterPlayer.DevComputerCameraMovementMode
 	Property Enum.DevTouchCameraMovementMode StarterPlayer.DevTouchCameraMovementMode
 	Property bool StarterPlayer.AllowCustomAnimations {✏️RobloxScriptSecurity} [Hidden]
+	Property Enum.AnimationCompositorMode StarterPlayer.AnimationCompositorMode [NotBrowsable]
 	Property Enum.AvatarJointUpgrade StarterPlayer.AvatarJointUpgrade [NotReplicated] [NotBrowsable]
 	Property Enum.AvatarJointUpgrade StarterPlayer.AvatarJointUpgrade_Serialized [Hidden] [NotScriptable]
 	Property float StarterPlayer.CharacterMaxSlopeAngle
@@ -5084,6 +5094,11 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.SaveLocallyAsComplete(bool success) {RobloxScriptSecurity}
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum.StudioStyleGuideColor styleguideitem, Enum.StudioStyleGuideModifier modifier = "Default") {PluginSecurity}
+Class StudioWidgetsService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void StudioWidgetsService:AttachPluginGui(StudioWidget target, PluginGui gui) {RobloxScriptSecurity}
+	Function StudioWidget StudioWidgetsService:GetWidgetFromLabel(string label) {RobloxScriptSecurity}
+	Function void StudioWidgetsService:HideSpotlight() {RobloxScriptSecurity}
+	Function void StudioWidgetsService:ShowSpotlight(StudioWidget target, bool? sinkInput) {RobloxScriptSecurity}
 Class StyleBase : Instance [NotCreatable]
 	Function Objects StyleBase:GetStyleRules()
 	Function void StyleBase:InsertStyleRule(StyleRule rule, int? index)
@@ -5177,6 +5192,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function Tuple TeleportService:UnblockAsync() {RobloxScriptSecurity} [Yields]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
 	Event TeleportService.MenuTeleportAttempt() {RobloxScriptSecurity}
+	Event TeleportService.SendVIPData(Instance player, string vipServerCode, int64 dmPlaceID) {RobloxSecurity} [Hidden]
 	Event TeleportService.TeleportInProgress(Instance player, Dictionary teleportInfo) {RobloxSecurity} [Hidden]
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage, int64 placeId, Instance teleportOptions)
 	Event TeleportService.TeleportInitFailedInternal(Instance player, Enum.TeleportResult teleportResult, string errorMessage, string guid) {RobloxSecurity} [Hidden]
@@ -5636,6 +5652,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TextBox UserInputService:GetFocusedTextBox()
 	Function bool UserInputService:GetGamepadConnected(Enum.UserInputType gamepadNum)
 	Function Array UserInputService:GetGamepadState(Enum.UserInputType gamepadNum)
+	Function Content UserInputService:GetImageForKeyCode(Enum.KeyCode keyCode)
 	Function Array UserInputService:GetKeysPressed()
 	Function Enum.UserInputType UserInputService:GetLastInputType()
 	Function Array UserInputService:GetMouseButtonsPressed()
@@ -5893,6 +5910,9 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.PublishingHandshakeInitiated(string handshakeOffer, Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RelayCandidatesGathered(Enum.VoiceControlPath voiceControlPath, string serializedIceCandidates) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeAcked(int eventTag, string handshakeAnswer, string userToMute) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeCompleted(string subscriptionInfo) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeInitiated(string handshakeOffer, string subscriptionInfo, bool isNewConnection) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
@@ -5989,6 +6009,23 @@ Enum AnalyticsProgressionStatus
 	EnumItem AnalyticsProgressionStatus.Complete : 2
 	EnumItem AnalyticsProgressionStatus.Abandon : 3
 	EnumItem AnalyticsProgressionStatus.Fail : 4
+Enum AnimationClipFromVideoStatus
+	EnumItem AnimationClipFromVideoStatus.Initializing : 0
+	EnumItem AnimationClipFromVideoStatus.Pending : 1
+	EnumItem AnimationClipFromVideoStatus.Processing : 2
+	EnumItem AnimationClipFromVideoStatus.ErrorGeneric : 4
+	EnumItem AnimationClipFromVideoStatus.Success : 6
+	EnumItem AnimationClipFromVideoStatus.ErrorVideoTooLong : 7
+	EnumItem AnimationClipFromVideoStatus.ErrorNoPersonDetected : 8
+	EnumItem AnimationClipFromVideoStatus.ErrorVideoUnstable : 9
+	EnumItem AnimationClipFromVideoStatus.Timeout : 10
+	EnumItem AnimationClipFromVideoStatus.Cancelled : 11
+	EnumItem AnimationClipFromVideoStatus.ErrorMultiplePeople : 12
+	EnumItem AnimationClipFromVideoStatus.ErrorUploadingVideo : 2001
+Enum AnimationCompositorMode
+	EnumItem AnimationCompositorMode.Default : 0
+	EnumItem AnimationCompositorMode.Enabled : 1
+	EnumItem AnimationCompositorMode.Disabled : 2
 Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1
@@ -8207,7 +8244,8 @@ Enum TeleportMethod
 	EnumItem TeleportMethod.TeleportToPlaceInstance : 1
 	EnumItem TeleportMethod.TeleportToPrivateServer : 2
 	EnumItem TeleportMethod.TeleportPartyAsync : 3
-	EnumItem TeleportMethod.TeleportUnknown : 4
+	EnumItem TeleportMethod.TeleportToVIPServer : 4
+	EnumItem TeleportMethod.TeleportUnknown : 5
 Enum TeleportResult
 	EnumItem TeleportResult.Success : 0
 	EnumItem TeleportResult.Failure : 1
@@ -8227,6 +8265,7 @@ Enum TeleportType
 	EnumItem TeleportType.ToPlace : 0
 	EnumItem TeleportType.ToInstance : 1
 	EnumItem TeleportType.ToReservedServer : 2
+	EnumItem TeleportType.ToVIPServer : 3
 Enum TerrainAcquisitionMethod
 	EnumItem TerrainAcquisitionMethod.None : 0
 	EnumItem TerrainAcquisitionMethod.Legacy : 1
@@ -8355,6 +8394,14 @@ Enum TrackerExtrapolationFlagMode
 	EnumItem TrackerExtrapolationFlagMode.ExtrapolateFacsAndPose : 1
 	EnumItem TrackerExtrapolationFlagMode.ExtrapolateFacsOnly : 2
 	EnumItem TrackerExtrapolationFlagMode.Auto : 3
+Enum TrackerFaceTrackingStatus
+	EnumItem TrackerFaceTrackingStatus.FaceTrackingSuccess : 0
+	EnumItem TrackerFaceTrackingStatus.FaceTrackingNoFaceFound : 1
+	EnumItem TrackerFaceTrackingStatus.FaceTrackingUnknown : 2
+	EnumItem TrackerFaceTrackingStatus.FaceTrackingLost : 3
+	EnumItem TrackerFaceTrackingStatus.FaceTrackingHasTrackingError : 4
+	EnumItem TrackerFaceTrackingStatus.FaceTrackingIsOccluded : 5
+	EnumItem TrackerFaceTrackingStatus.FaceTrackingUninitialized : 6
 Enum TrackerLodFlagMode
 	EnumItem TrackerLodFlagMode.ForceFalse : 0
 	EnumItem TrackerLodFlagMode.ForceTrue : 1

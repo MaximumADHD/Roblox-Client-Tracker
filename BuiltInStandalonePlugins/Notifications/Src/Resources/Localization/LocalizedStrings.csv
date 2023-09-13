@@ -1,5 +1,5 @@
-Key,Source,en-us,it-it,ja-jp,ko-kr
-Studio.Notifications.Plugin.Name,Notifications,Notifications,Notifiche,通知,알림
-Studio.Notifications.Plugin.Toolbar,Notifications,Notifications,Notifiche,通知,알림
-Studio.Notifications.Plugin.Button,Toggle,Toggle,Attiva/disattiva,切り換え,전환
-Studio.Notifications.Plugin.Description,Toggles the Notifications plugin window.,Toggles the Notifications plugin window.,Attiva/disattiva la finestra del plugin Notifiche.,通知のプラグインウィンドウを切り換え。,알림 플러그인 창을 전환합니다.
+Key,Source,en-us,fr-fr,it-it,ja-jp,ko-kr,pt-br
+Studio.Notifications.Plugin.Name,Notifications,Notifications,Notifications,Notifiche,通知,알림,Notificações
+Studio.Notifications.Plugin.Toolbar,Notifications,Notifications,Notifications,Notifiche,通知,알림,Notificações
+Studio.Notifications.Plugin.Button,Toggle,Toggle,Activer/désactiver,Attiva/disattiva,切り換え,전환,Alternador
+Studio.Notifications.Plugin.Description,Toggles the Notifications plugin window.,Toggles the Notifications plugin window.,Active/désactive la fenêtre du plugin Notifications .,Attiva/disattiva la finestra del plugin Notifiche.,通知のプラグインウィンドウを切り換え。,알림 플러그인 창을 전환합니다.,Ativa/desativa a janela do plugin Notificações.

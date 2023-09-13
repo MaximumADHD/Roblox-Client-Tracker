@@ -61,8 +61,6 @@ Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Pr
 Studio.App.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
 Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptive timestepping
 Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
-Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
-Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. 
 Studio.App.BetaFeatures.LuauDataModelAwarenessTitle,,Luau DataModel awareness,Luau DataModel awareness
 Studio.App.BetaFeatures.LuauDataModelAwarenessDescription,,"When typechecking scripts, incorporate the shape of the game's DataModel","When typechecking scripts, incorporate the shape of the game's DataModel"
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision Pipeline,Accelerated Collision Pipeline
@@ -120,8 +118,6 @@ Studio.App.BetaFeatures.ContextualServiceVisibilityTitle,,Explorer Services Clea
 Studio.App.BetaFeatures.ContextualServiceVisibilityDescription,,"Uncommon services like TestService are no longer visible by default, but can be added through the Insert Service menu.","Uncommon services like TestService are no longer visible by default, but can be added through the Insert Service menu."
 Studio.App.BetaFeatures.AICOTitle,,AI-Powered Code Completion,AI-Powered Code Completion
 Studio.App.BetaFeatures.AICODescription,,"AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically.","AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically."
-Studio.App.BetaFeatures.TerrainEditorOverhaulTitle,,Terrain Editor Improvements,Terrain Editor Improvements
-Studio.App.BetaFeatures.TerrainEditorOverhaulDescription,,"New simplified toolset and 3D gizmo for Terrain Editor, enables using shortcuts to copy/paste/cut/duplicate voxel terrain.","New simplified toolset and 3D gizmo for Terrain Editor, enables using shortcuts to copy/paste/cut/duplicate voxel terrain."
 Studio.App.BetaFeatures.MultilayerWrapFixTitle,,Multilayer Wrap Fix,Multilayer Wrap Fix
 Studio.App.BetaFeatures.MultilayerWrapFixDescription,,Outer layers of multilayer outfits will fit better with less distortion. Single layer outfits will be unaffected. Also faster.,Outer layers of multilayer outfits will fit better with less distortion. Single layer outfits will be unaffected. Also faster.
 Studio.App.BetaFeatures.ShowTagsInPropertiesTitle,,Tags in Properties,Tags in Properties
