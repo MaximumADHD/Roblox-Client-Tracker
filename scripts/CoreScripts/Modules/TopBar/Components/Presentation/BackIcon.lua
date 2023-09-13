@@ -19,6 +19,12 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
 local IconButton = require(script.Parent.IconButton)
 
+local TopBar = script.Parent.Parent.Parent
+local Constants = require(TopBar.Constants)
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
+local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
+
 local BackButtonController = require(RobloxGui.Modules.Settings.BackButtonController)
 
 local GetFStringTeleportBackButtonTopBarIXPCustomFieldName =
@@ -35,9 +41,12 @@ BackIcon.validateProps = t.strictInterface({
 
 	topBarEnabled = t.boolean,
 	backEnabled = t.boolean,
+	setKeepOutArea = t.callback,
+	removeKeepOutArea = t.callback,
 })
 
 function BackIcon:init()
+	self.rootRef = Roact.createRef()
 	self.backIconActivated = function()
 		BackButtonController.initiateBackButtonTeleport((Enum :: any).AdTeleportMethod.UIBackButton)
 	end
@@ -80,7 +89,27 @@ function BackIcon:render()
 		active = self.state.tooltipActive and backEnabled,
 		DisplayOrder = -1,
 	}
+
+	local onAreaChanged = function(rbx)
+		if backEnabled and rbx then
+			self.props.setKeepOutArea(Constants.BackIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+		else
+			self.props.removeKeepOutArea(Constants.BackIconKeepOutAreaId)
+		end
+	end
+
+	if FFlagEnableChromeBackwardsSignalAPI then
+		if self.rootRef.current then
+			onAreaChanged(self.rootRef.current)
+		end
+	end
+
 	return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
+		local onChange = function (rbx)
+			onAreaChanged(rbx)
+			triggerPointChanged(rbx)
+		end
+
 		return withStyle(function(style)
 			return Roact.createElement("TextButton", {
 				Text = "",
@@ -89,8 +118,9 @@ function BackIcon:render()
 				Size = UDim2.new(0, BACK_ICON_AREA_WIDTH, 1, 0),
 				LayoutOrder = self.props.layoutOrder,
 				Selectable = false,
-				[Roact.Change.AbsoluteSize] = triggerPointChanged,
-				[Roact.Change.AbsolutePosition] = triggerPointChanged,
+				[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onChange else triggerPointChanged,
+				[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onChange else triggerPointChanged,
+				[Roact.Ref] = self.rootRef,
 			}, {
 				Background = Roact.createElement(IconButton, {
 					icon = Images["icons/actions/cycleLeft"],
@@ -123,7 +153,18 @@ local function mapStateToProps(state)
 	}
 end
 
-BackIcon = RoactRodux.connect(mapStateToProps, nil)(BackIcon)
+local function mapDispatchToProps(dispatch)
+	return {
+		setKeepOutArea = function(id, position, size)
+			return dispatch(SetKeepOutArea(id, position, size))
+		end,
+		removeKeepOutArea = function(id)
+			return dispatch(RemoveKeepOutArea(id))
+		end,
+	}
+end
+
+BackIcon = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BackIcon)
 BackIcon = BackButtonController.connectExperimentUserLayer(
 	BackIcon,
 	"backEnabled",

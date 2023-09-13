@@ -14,6 +14,7 @@ local PlayersService = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
+local LocalizationService = game:GetService("LocalizationService")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 ----------- UTILITIES --------------
@@ -25,6 +26,10 @@ local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local formatUsername = UserProfiles.Formatters.formatUsername
 local getCombinedNameFromId = UserProfiles.Selectors.getCombinedNameFromId
 local Cryo = require(CorePackages.Cryo)
+local Roact = require(CorePackages.Roact)
+local UIBlox = require(CorePackages.UIBlox)
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 
@@ -41,6 +46,7 @@ local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.Vo
 local BlockingAnalytics = require(script:FindFirstAncestor("Settings").Analytics.BlockingAnalytics)
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
+local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 
 ------------ Constants -------------------
 local Theme = require(script.Parent.Parent.Theme)
@@ -122,6 +128,7 @@ local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagFixMutePlayerAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFixMutePlayerAnalytics)
 local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
+local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
@@ -347,6 +354,7 @@ local function Initialize()
 
 	local shareGameButton
 	local muteAllButton
+	local muteToggles
 	local muteImageButtons = {}
 	local voiceAnalytics
 	if GetFFlagVoiceChatToggleMuteAnalytics() then
@@ -858,12 +866,18 @@ local function Initialize()
 	local voiceChatServiceConnected = false
 
 	local function muteAllButtonRemove()
-		if muteAllButton then
-			muteAllButton.Visible = false
-			muteAllButton:Destroy()
-		end
-		if shareGameButton then
-			shareGameButton.Size = FULL_SIZE_SHARE_GAME_BUTTON_SIZE
+		if GetFFlagShowMuteToggles() then
+			if muteToggles then
+				Roact.unmount(muteToggles)
+			end
+		else
+			if muteAllButton then
+				muteAllButton.Visible = false
+				muteAllButton:Destroy()
+			end
+			if shareGameButton then
+				shareGameButton.Size = FULL_SIZE_SHARE_GAME_BUTTON_SIZE
+			end
 		end
 	end
 
@@ -934,7 +948,9 @@ local function Initialize()
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
 		if voiceChatServiceConnected then
-			frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
+			if not GetFFlagShowMuteToggles() then
+				frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
+			end
 			if GetFFlagInviteTextTruncateFix() then
 				textLabel.Size = UDim2.new(0.5, 0, 0, 0)
 				textLabel.TextTruncate = Enum.TextTruncate.AtEnd
@@ -1036,6 +1052,18 @@ local function Initialize()
 		frame.SelectionImageObject = frame:Clone()
 
 		return frame
+	end
+
+	local function createMuteToggles()
+		return Roact.createElement(UIBlox.Core.Style.Provider, {
+			style = Theme,
+		}, {
+			LocalizationProvider = Roact.createElement(LocalizationProvider, {
+				localization = Localization.new(LocalizationService.RobloxLocaleId),
+			}, {
+				MuteToggles = Roact.createElement(MuteToggles),
+			}),
+		})
 	end
 
 	local function createInspectButtonImage(activateInspectAndBuyMenu)
@@ -1410,8 +1438,14 @@ local function Initialize()
 	local renderSteppedConnected = false
 
 	local function updateAllMuteButtons()
-		if not muteAllButton then
-			return
+		if GetFFlagShowMuteToggles() then
+			if not muteToggles then
+				return
+			end
+		else
+			if not muteAllButton then
+				return
+			end
 		end
 
 		local players = PlayersService:GetPlayers()
@@ -1430,7 +1464,7 @@ local function Initialize()
 		end
 
 		-- See if the Mute All button needs to update.
-		if FFlagAvatarChatCoreScriptSupport then
+		if FFlagAvatarChatCoreScriptSupport and not GetFFlagShowMuteToggles() then
 			if allMuted then
 				muteAllState = true
 			else
@@ -1455,22 +1489,25 @@ local function Initialize()
 			return item1.Name:lower() < item2.Name:lower()
 		end)
 
-		local extraOffset = 20
+		local extraOffset = if GetFFlagShowMuteToggles() then 60 else 20
 		if utility:IsSmallTouchScreen() or utility:IsPortrait() then
-			extraOffset = 85
+			extraOffset = if GetFFlagShowMuteToggles() then 125 else 85
 		end
 
 		local buttonFrame
 		local showMuteAllButton = voiceChatServiceConnected and not muteAllButton
-		if showMuteAllButton then
-			buttonFrame = utility:Create'Frame'
-			{
-				Name = "Holder",
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT),
-				Parent = this.Page,
-				LayoutOrder = 1,
-			}
+		local showMuteToggles = voiceChatServiceConnected and not muteToggles
+		if not GetFFlagShowMuteToggles() then
+			if showMuteAllButton then
+				buttonFrame = utility:Create'Frame'
+				{
+					Name = "Holder",
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT),
+					Parent = this.Page,
+					LayoutOrder = 1,
+				}
+			end
 		end
 
 		-- Create "invite friends" button if it doesn't exist yet
@@ -1490,7 +1527,7 @@ local function Initialize()
 			end)
 
 			shareGameButton.LayoutOrder = 1
-			if showMuteAllButton then
+			if not GetFFlagShowMuteToggles() and showMuteAllButton then
 				shareGameButton.Parent = buttonFrame
 			else
 				-- Ensure the button is always at the top of the list
@@ -1498,29 +1535,35 @@ local function Initialize()
 			end
 		end
 
-		if showMuteAllButton then
-			muteAllButton = createMuteAllButton()
-			muteAllButton.Activated:connect(function()
-				muteAllState = not muteAllState
-				local text = muteAllState and RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.UnmuteAll") or RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
-				muteAllButton.TextLabel.Text = text
-				if GetFFlagOldMenuNewIcons() then
-					muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
-				end
-				if GetFFlagVoiceChatUILogging() then
-					log:debug("{} all players", muteAllState and "Muting" or "Unmuting")
-				end
+		if GetFFlagShowMuteToggles() then
+			if showMuteToggles then
+				muteToggles = Roact.mount(createMuteToggles(), this.Page, "MuteToggles")
+			end
+		else
+			if showMuteAllButton then
+				muteAllButton = createMuteAllButton()
+				muteAllButton.Activated:connect(function()
+					muteAllState = not muteAllState
+					local text = muteAllState and RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.UnmuteAll") or RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.MuteAll")
+					muteAllButton.TextLabel.Text = text
+					if GetFFlagOldMenuNewIcons() then
+						muteAllButton.Icon.Image = VoiceChatServiceManager:GetIcon(muteAllState and "MuteAll" or "UnmuteAll", "Misc")
+					end
+					if GetFFlagVoiceChatUILogging() then
+						log:debug("{} all players", muteAllState and "Muting" or "Unmuting")
+					end
 
-				if voiceAnalytics then
-					voiceAnalytics:onToggleMuteAll(muteAllState)
-				end
+					if voiceAnalytics then
+						voiceAnalytics:onToggleMuteAll(muteAllState)
+					end
 
-				VoiceChatServiceManager:MuteAll(muteAllState)
-				updateAllMuteButtons()
-			end)
+					VoiceChatServiceManager:MuteAll(muteAllState)
+					updateAllMuteButtons()
+				end)
 
-			muteAllButton.LayoutOrder = 1
-			muteAllButton.Parent = buttonFrame
+				muteAllButton.LayoutOrder = 1
+				muteAllButton.Parent = buttonFrame
+			end
 		end
 
 		local inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
@@ -1604,7 +1647,11 @@ local function Initialize()
 
 							if parent then
 								parent.Position = UDim2.new(0, LABEL_POSX-3, 0, -2)
-								parent.Size = UDim2.new(1, RIGHT_SIDE_BUTTON_PAD, 0.99, 0)
+								if Theme.UIBloxThemeEnabled then
+									parent.Size = UDim2.new(1, RIGHT_SIDE_BUTTON_PAD, 0.99, -8)
+								else
+									parent.Size = UDim2.new(1, RIGHT_SIDE_BUTTON_PAD, 0.99, 0)
+								end
 							end
 
 							if rightSideListLayout then
@@ -1757,9 +1804,9 @@ local function Initialize()
 		end
 
 		utility:OnResized("MenuPlayerListExtraPageSize", function(newSize, isPortrait)
-			local extraOffset = 20
+			local extraOffset = if GetFFlagShowMuteToggles() then 60 else 20
 			if utility:IsSmallTouchScreen() or utility:IsPortrait() then
-				extraOffset = 85
+				extraOffset = if GetFFlagShowMuteToggles() then 125 else 85
 			end
 
 			local inviteToGameRow = 1

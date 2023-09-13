@@ -22,9 +22,11 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local UIBloxImageSetLabel = UIBlox.Core.ImageSet.Label
+local ItemInfoList = require(CorePackages.Workspace.Packages.ItemDetails).ItemInfoList
 
 local FFlagAssetDetailsUseAutomaticCanvasSize =
 	require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
+local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
@@ -45,6 +47,66 @@ function AssetDetails:setScrollingEnabled(enabled)
 			scrollingEnabled = enabled,
 		})
 	end
+end
+
+function AssetDetails:getInfoRowProps()
+	local assetInfo = self.props.assetInfo or {}
+	local locale = self.props.locale
+
+	local isBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+
+	-- Creator Row
+	local creatorRow = {
+		infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.Filter.Creator", locale),
+		infoData = assetInfo.creatorName or "",
+		hasVerifiedBadge = assetInfo.creatorHasVerifiedBadge,
+		LayoutOrder = 1,
+	}
+
+	-- Attribution Row
+	-- Should only show if item has attribution
+	local attributionRow
+	if assetInfo.creatingUniverseId then
+		attributionRow = {
+			infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.Attribution", locale),
+			-- TODO lua-apps/pull/14810 show experience name
+			infoData = assetInfo.creatingUniverseId,
+			--TODO AVBURST-12699: Launch attribution experience
+			-- onActivate = function() end,
+			LayoutOrder = 2,
+		}
+	end
+
+	-- Category Row
+	local categoryString
+	if isBundle then
+		categoryString = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.Bundle", locale)
+	else
+		local category = Constants.AssetTypeIdToCategory[assetInfo.assetTypeId]
+		local categoryKey = Constants.AssetCategoriesLocalized[category]
+		local subTypeKey = Constants.AssetTypeIdToTypeLocalized[assetInfo.assetTypeId]
+
+		if categoryKey and subTypeKey then
+			local categoryLocalized = RobloxTranslator:FormatByKeyForLocale(categoryKey, locale)
+			local subTypeLocalized = RobloxTranslator:FormatByKeyForLocale(subTypeKey, locale)
+
+			categoryString = categoryLocalized .. " | " .. subTypeLocalized
+		end
+	end
+
+	local categoryRow = {
+		infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.CategoryType", locale),
+		infoData = categoryString,
+		LayoutOrder = 3,
+	}
+
+	local rowData = {
+		creatorRow,
+		attributionRow,
+		categoryRow,
+	}
+
+	return rowData
 end
 
 function AssetDetails:init()
@@ -220,6 +282,10 @@ function AssetDetails:render()
 						}),
 					}),
 					DetailsDescription = Roact.createElement(DetailsDescription),
+					ItemInfoList = FFlagAttributionInInspectAndBuy and Roact.createElement(ItemInfoList, {
+						rowData = self:getInfoRowProps(),
+						LayoutOrder = 5,
+					}),
 				}),
 			})
 		end,

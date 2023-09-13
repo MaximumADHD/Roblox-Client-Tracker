@@ -18,6 +18,9 @@ local FFlagNewInExperienceSerializationFix = game:DefineFastFlag("NewInExperienc
 -- TODO: AVBURST-13147 Revisit how humanoid description will be passed through and outfitToPublish in metadata
 local FFlagPublishAvatarPromptEnabled = require(script.Parent.FFlagPublishAvatarPromptEnabled)
 
+local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
+	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
+
 local function ConnectAssetServiceEvents(store)
 	local connections = {}
 
@@ -27,8 +30,14 @@ local function ConnectAssetServiceEvents(store)
 		table.insert(
 			connections,
 			ExpAuthSvc.OpenAuthPrompt:Connect(function(guid, scopes, metadata)
-				-- Check scopes; we only want to show the publish prompt for the CreatorAssetsCreate scope
-				if #scopes == 1 and scopes[1] == Enum.ExperienceAuthScope.CreatorAssetsCreate then
+				local isVideoToAnimationFlow = EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled
+					and metadata["isVideoToAnimationFlow"]
+				-- Check scopes; we only want to show the publish prompt for the CreatorAssetsCreate scope (but not for videoToAnimationFlow)
+				if
+					#scopes == 1
+					and scopes[1] == Enum.ExperienceAuthScope.CreatorAssetsCreate
+					and not isVideoToAnimationFlow
+				then
 					if FFlagNewInExperienceSerializationFix then
 						-- We need to handle asset passed as either instance or as serialized string.
 						if metadata["instanceToPublish"] then

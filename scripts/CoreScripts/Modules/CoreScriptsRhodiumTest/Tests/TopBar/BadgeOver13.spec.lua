@@ -5,6 +5,8 @@ local jest = Jest.jest
 
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
+local Rodux = require(CorePackages.Rodux)
+local RoactRodux = require(CorePackages.RoactRodux)
 local Rhodium = require(CorePackages.Rhodium)
 local List = require(CorePackages.Cryo).List
 local Promise = require(CorePackages.Promise)
@@ -15,6 +17,7 @@ local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
 local TopBar = Modules.TopBar
+local Reducer = require(TopBar.Reducer)
 local PresentationComponent = require(TopBar.Components.Presentation.BadgeOver13:FindFirstChild("BadgeOver13.story"))
 local AppComponent = require(TopBar.Components.Presentation.BadgeOver13)
 
@@ -31,25 +34,35 @@ return function()
 
 		local root = ReactRoblox.createRoot(parent)
 
+		local store = Rodux.Store.new(Reducer, nil, {
+			Rodux.thunkMiddleware,
+		})
+
 		beforeAll(function()
 			ReactRoblox.act(function()
-				root:render(React.createElement(AppStyleProvider, {
-					style = {
-						themeName = "Light",
-						fontName = "Gotham",
-					},
-				}, {
-					test = React.createElement(PresentationComponent, {
-						fireEvent = fireEvent,
-						bodyText = {
-							"first",
-							"second",
-							"third",
-						},
-						openWebview = openWebView,
-						visible = true,
+				root:render(
+					React.createElement(RoactRodux.StoreProvider, {
+						store = store
+					}, {
+						ThemeProvider = React.createElement(AppStyleProvider, {
+							style = {
+								themeName = "Light",
+								fontName = "Gotham",
+							},
+						}, {
+							test = React.createElement(PresentationComponent, {
+								fireEvent = fireEvent,
+								bodyText = {
+									"first",
+									"second",
+									"third",
+								},
+								openWebview = openWebView,
+								visible = true,
+							})
+						})
 					})
-				}))
+				)
 			end)
 		end)
 
@@ -195,36 +208,45 @@ return function()
 				UserId = "123",
 			} :: any
 
+			local store = Rodux.Store.new(Reducer, nil, {
+				Rodux.thunkMiddleware,
+			})
+
 			local root = ReactRoblox.createRoot(parent)
 			ReactRoblox.act(function()
-				root:render(React.createElement(AppStyleProvider, {
-					style = {
-						themeName = "Light",
-						fontName = "Gotham",
-					},
-				}, {
-					test = React.createElement(AppComponent, {
-						analytics = {
-							EventStream = {
-								setRBXEventStream = setRBXEventStream,
+				root:render(
+					React.createElement(RoactRodux.StoreProvider, {
+						store = store
+					}, {
+						ThemeProvider = React.createElement(AppStyleProvider, {
+							style = {
+								themeName = "Light",
+								fontName = "Gotham",
 							},
-						},
-						layoutOrder = 0,
-						player = player,
-						voiceChatServiceManager = {
-							asyncInit = function()
-								if config.isVoiceEnabled == true then
-									return Promise.resolve()
-								else
-									return Promise.reject()
-								end
-							end,
-						},
-						VRService = {
-							VREnabled = config.isVREnabled,
-						},
-					})
-				}))
+						}, {
+							test = React.createElement(AppComponent, {
+								analytics = {
+									EventStream = {
+										setRBXEventStream = setRBXEventStream,
+									},
+								},
+								layoutOrder = 0,
+								player = player,
+								voiceChatServiceManager = {
+									asyncInit = function()
+										if config.isVoiceEnabled == true then
+											return Promise.resolve()
+										else
+											return Promise.reject()
+										end
+									end,
+								},
+								VRService = {
+									VREnabled = config.isVREnabled,
+								},
+							})
+						})
+					}))
 			end)
 
 			return {

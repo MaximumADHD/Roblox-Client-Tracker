@@ -14,6 +14,7 @@ local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images
+local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
@@ -34,6 +35,8 @@ local Unibar
 local KeepOutAreasHandler
 if ChromeEnabled() then
 	Unibar = require(Chrome.Unibar)
+end
+if game:GetEngineFeature("InGameChromeSignalAPI") then
 	KeepOutAreasHandler = require(Chrome.Service.KeepOutAreasHandler)
 end
 
@@ -42,6 +45,7 @@ local Connection = require(script.Parent.Connection)
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
 local GetFFlagChangeTopbarHeightCalculation = require(TopBar.Flags.GetFFlagChangeTopbarHeightCalculation)
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 
@@ -137,6 +141,7 @@ function TopBarApp:renderWithStyle(style)
 		GamepadMenu = Roact.createElement(GamepadMenu),
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
 		VRBottomBar = VRService.VREnabled and bottomBar or nil,
+		KeepOutAreasHandler = if FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler then Roact.createElement(KeepOutAreasHandler) else nil,
 
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -251,7 +256,7 @@ function TopBarApp:renderWithStyle(style)
 			Position = if GetFFlagChangeTopbarHeightCalculation() then topBarRightUnibarFramePosition else topBarRightFramePosition,
 			AnchorPoint = Vector2.new(1, 0),
 		}, {
-			KeepOutAreasHandler = Roact.createElement(KeepOutAreasHandler),
+			KeepOutAreasHandler = if not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler then Roact.createElement(KeepOutAreasHandler) else nil,
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, 2),
 				PaddingBottom = UDim.new(0, 2),
@@ -269,9 +274,11 @@ function TopBarApp:renderWithStyle(style)
 				layoutOrder = 1,
 			}),
 			VoiceStateContext = Roact.createElement(VoiceStateContext.Provider, {}, {
-				Unibar = Roact.createElement(Unibar, {
-					onAreaChanged = self.props.setKeepOutArea,
-					layoutOrder = 2,
+				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+					Unibar = Roact.createElement(Unibar, {
+						onAreaChanged = self.props.setKeepOutArea,
+						layoutOrder = 2,
+					}),
 				}),
 			})
 		}) or nil,

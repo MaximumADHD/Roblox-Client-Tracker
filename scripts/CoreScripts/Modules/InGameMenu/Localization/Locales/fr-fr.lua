@@ -344,4 +344,13 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[Retour / Quitter]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(Clic) Caméra FP/TP]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[Saut / Sélectionner]],
+	["CoreScripts.InGameMenu.PageTitle.VRComfortSettings"] = [[Paramètres de confort]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[Paramètres personnalisés]],
+	["CoreScripts.InGameMenu.GameSettings.VRSteppedRotationEnabled"] = [[Rotation progressive VR activée]],
+	["CoreScripts.InGameMenu.GameSettings.VRThirdPersonFixedCamEnabled"] = [[Caméra fixe à la 3e personne]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingsDescription"] = [[Réduisez le mal des transports en ajustant le mouvement et le champ de vision]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingComfort"] = [[Confort]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingNormal"] = [[Par défaut]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingExpert"] = [[Expert]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingCustom"] = [[Personnalisé]],
 }

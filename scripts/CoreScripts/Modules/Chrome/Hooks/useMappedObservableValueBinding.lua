@@ -2,18 +2,18 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 
-return function<T>(observableValue: ChromeUtils.ObservableValue<T>, mapFunc: ((T) -> any)?): React.Binding<T?>
+return function<T, V>(observableValue: ChromeUtils.ObservableValue<T>, mapFunc: ((T) -> V?)?): React.Binding<V?>
 	if not observableValue then
 		warn("observableValue undefined")
 		return React.useBinding(nil)
 	end
 
-	local map: (T) -> any
+	local map: (T) -> V?
 	if mapFunc then
 		map = mapFunc
 	else
 		map = function(v: T)
-			return v
+			return v :: any
 		end
 	end
 

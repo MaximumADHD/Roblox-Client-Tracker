@@ -1768,6 +1768,15 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		)
 	end
 
+	if Theme.UIBloxThemeEnabled and not hasBackground then
+		Util.Create("UICorner")({
+			CornerRadius = Theme.DefaultCornerRadius,
+			Parent = AlertViewBacking,
+		})
+		AlertViewBacking.BackgroundColor3 = Theme.color("MenuContainer")
+		AlertViewBacking.BackgroundTransparency = Theme.transparency("MenuContainer")
+	end
+
 	local _AlertViewText = Util.Create("TextLabel")({
 		Name = "AlertViewText",
 		BackgroundTransparency = 1,

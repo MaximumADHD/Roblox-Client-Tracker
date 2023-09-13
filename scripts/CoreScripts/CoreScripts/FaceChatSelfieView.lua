@@ -62,6 +62,7 @@ local FFlagSelfViewChecks = game:DefineFastFlag("SelfViewChecks", false)
 local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
 local FFlagSelfViewUseRealBoundingBox = game:DefineFastFlag("SelfViewUseRealBoundingBox", false)
 local FFlagSelfViewChecks3 = game:DefineFastFlag("SelfViewChecks3", false)
+local FFlagSelfViewAdaptToScreenOrientationChange = game:DefineFastFlag("SelfViewAdaptToScreenOrientationChange", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -141,6 +142,7 @@ local audioAnimationPropertyChangedSingalConnection = nil
 local videoCaptureServiceStartedConnection = nil
 local videoCaptureServiceStoppedConnection = nil
 local videoCaptureServiceDevicesChangedConnection = nil
+local playerScreenOrientationConnection = nil
 
 local cloneAnimator = nil
 local cloneAnimationTracks = {}
@@ -258,7 +260,7 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	PackageLink = "PackageLink",
 }
 
-log:trace("Self View 08-30-2023__1!!")
+log:trace("Self View 08-31-2023__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -659,6 +661,33 @@ function createCloneAnchor()
 	worldModel.Parent = viewportFrame
 	-- define clone anchor
 	cloneAnchor = worldModel
+end
+
+function connectToScreenOrientationChange()
+	local LocalPlayer = Players.LocalPlayer
+	if not LocalPlayer then
+		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+		LocalPlayer = Players.LocalPlayer
+	end
+	if not LocalPlayer then
+		--shouldn't happen unless catastrophic loading failure
+		return
+	end
+	local playerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	while not playerGui do
+		LocalPlayer.ChildAdded:wait()
+		playerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	end
+
+	playerScreenOrientationConnection = playerGui:GetPropertyChangedSignal("CurrentScreenOrientation"):Connect(function()
+		if frame and frame.Parent then
+			local screenSize = frame.Parent.AbsoluteSize
+			local frameStartPosition = Vector3.new(frame.AbsolutePosition.X, frame.AbsolutePosition.Y, 0)
+			frame.Position = constrainTargetPositionToScreen(frame, screenSize, frameStartPosition)
+			frame.Position = getRelativePosition(frame)
+		end
+	end)
+
 end
 
 local function createViewport()
@@ -1117,6 +1146,12 @@ local function createViewport()
 	end
 	viewportFrame.CurrentCamera = viewportCamera
 	viewportCamera.Parent = viewportFrame
+
+	if FFlagSelfViewAdaptToScreenOrientationChange then
+		if not playerScreenOrientationConnection then
+			connectToScreenOrientationChange()
+		end
+	end
 end
 
 function toggleIndicator(mode)
@@ -2514,6 +2549,10 @@ function setIsOpen(shouldBeOpen)
 		clearObserver(Observer.CharacterAdded)
 		clearObserver(Observer.CharacterRemoving)
 		clearClone()
+		if playerScreenOrientationConnection then
+			playerScreenOrientationConnection:Disconnect()
+			playerScreenOrientationConnection = nil
+		end
 
 		prepMicAndCamPropertyChangedSignalHandler()
 

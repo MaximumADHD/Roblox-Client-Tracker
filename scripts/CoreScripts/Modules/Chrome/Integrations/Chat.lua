@@ -22,7 +22,20 @@ local chatChromeIntegration = ChromeService:register({
 	id = "chat",
 	label = "CoreScripts.TopBar.Chat",
 	activated = function(self)
-		ChatSelector:ToggleVisibility()
+		if ChatSelector:GetVisibility() then
+			ChatSelector:ToggleVisibility()
+		else
+			ChromeUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
+				if menuWasOpen then
+					if not ChatSelector:GetVisibility() then
+						ChatSelector:ToggleVisibility()
+					end
+				else
+					ChatSelector:ToggleVisibility()
+				end
+			end)
+		end
+
 		if ChatSelector:GetVisibility() then
 			if unreadMessages and self.notification then
 				unreadMessages = 0

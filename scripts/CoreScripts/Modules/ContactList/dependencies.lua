@@ -69,6 +69,5 @@ return {
 	UIBlox = require(CorePackages.UIBlox),
 	enumerate = require(CorePackages.enumerate),
 	getStandardSizeAvatarHeadShotRbxthumb = require(CorePackages.Workspace.Packages.UserLib).Utils.getStandardSizeAvatarHeadShotRbxthumb,
-	FFlagLuaAppUnifyCodeToGenerateRbxThumb = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppUnifyCodeToGenerateRbxThumb,
 	GetFFlagPeekViewEnableSnapToViewState = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewEnableSnapToViewState,
 }

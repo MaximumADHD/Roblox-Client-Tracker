@@ -1,4 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
@@ -11,6 +14,7 @@ local Constants = require(script.Parent.Constants)
 
 local useChromeMenuItems = require(script.Parent.Parent.Hooks.useChromeMenuItems)
 local useChromeMenuStatus = require(script.Parent.Parent.Hooks.useChromeMenuStatus)
+local useObservableValue = require(script.Parent.Parent.Hooks.useObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 
@@ -62,11 +66,43 @@ end
 -- Non-visible helper child component to avoid parent re-renders
 -- Updates animation targets based Chrome status
 function AnimationStateHelper(props)
-	if useChromeMenuStatus() == ChromeService.MenuStatus.Open then
-		props.setToggleTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING))
-	else
-		props.setToggleTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING))
-	end
+	local menuStatusOpen = useChromeMenuStatus() == ChromeService.MenuStatus.Open
+	local selectedItem = useObservableValue(ChromeService:selectedItem())
+
+	React.useEffect(function()
+		if menuStatusOpen then
+			local lastInput = UserInputService:GetLastInputType()
+			local pressed = lastInput == Enum.UserInputType.MouseButton1 or lastInput == Enum.UserInputType.Touch
+
+			if not pressed then
+				ContextActionService:BindCoreAction("RBXEscapeUnibar", function()
+					ChromeService:toggleOpen()
+				end, false, Enum.KeyCode.Escape)
+				GuiService:Select(props.menuFrameRef.current)
+			end
+			props.setToggleTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING))
+		else
+			ContextActionService:UnbindCoreAction("RBXEscapeUnibar")
+
+			if GuiService.SelectedCoreObject then
+				local selectedWithinUnibar = props.menuFrameRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
+				if selectedWithinUnibar then
+					GuiService.SelectedCoreObject = nil
+				end
+			end
+			props.setToggleTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING))
+		end
+	end, { menuStatusOpen })
+
+	React.useEffect(function()
+		if props.menuFrameRef.current and selectedItem then
+			local selectChild: any? = props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+			if selectChild then
+				GuiService.SelectedCoreObject = selectChild
+			end
+		end
+	end, { selectedItem })
+
 	return nil
 end
 
@@ -129,7 +165,9 @@ function Unibar(props: UnibarProp)
 	local expandSize: number = 0
 
 	local onAreaChanged = React.useCallback(function(rbx)
-		props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, rbx.AbsolutePosition, rbx.AbsoluteSize)
+		if rbx then
+			props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, rbx.AbsolutePosition, rbx.AbsoluteSize)
+		end
 	end, {})
 
 	local unibarSizeBinding = React.joinBindings({ toggleTransition, unibarWidth })
@@ -201,7 +239,6 @@ function Unibar(props: UnibarProp)
 				local size: UDim2 = values[2]
 				return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH * 1.5)
 			end)
-
 			children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
 				position = positionBinding :: any,
 				visible = pinned or visibleBinding :: any,
@@ -250,12 +287,14 @@ function Unibar(props: UnibarProp)
 		Size = unibarSizeBinding,
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
+		SelectionGroup = true,
 		ref = props.menuFrameRef,
 		[React.Change.AbsoluteSize] = onAreaChanged,
 		[React.Change.AbsolutePosition] = onAreaChanged,
 	}, {
 		React.createElement(AnimationStateHelper, {
 			setToggleTransition = setToggleTransition,
+			menuFrameRef = props.menuFrameRef,
 		}),
 		-- Background
 		React.createElement("Frame", {
@@ -316,6 +355,10 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			LayoutOrder = props.layoutOrder,
+			SelectionGroup = true,
+			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
 			ref = menuOutterFrame,
 		}, {
 			React.createElement("UIListLayout", {

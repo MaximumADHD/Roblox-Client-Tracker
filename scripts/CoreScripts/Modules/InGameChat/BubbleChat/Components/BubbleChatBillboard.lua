@@ -40,6 +40,8 @@ local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.G
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local FFlagBubbleChatCaratFix = require(RobloxGui.Modules.Flags.FFlagBubbleChatCaratFix)
 local GetFFlagPlayerBillboardReducerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerBillboardReducerEnabled
+local FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService =
+	require(RobloxGui.Modules.Flags.FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 
 local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
@@ -50,6 +52,7 @@ local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFl
 
 local FFlagEasierUnmuting = game:DefineFastFlag("EasierUnmuting", false)
 local FFlagEasierUnmutingBasedOnCamera = game:DefineFastFlag("EasierUnmutingBasedOnCamera", false)
+local FFlagEasierUnmutingHideIfMuted = game:DefineFastFlag("EasierUnmutingHideIfMuted", false)
 local FIntEasierUnmutingDisplayDistance = game:DefineFastInt("EasierUnmutingDisplayDistance", 20)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
@@ -58,6 +61,11 @@ local SPRING_CONFIG = {
 	dampingRatio = 1,
 	frequency = 4,
 }
+
+local ControlsBubbleV2
+if FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService then
+	ControlsBubbleV2 = require(script.Parent.ControlsBubbleV2)
+end
 
 BubbleChatBillboard.validateProps = t.strictInterface({
 	userId = t.string,
@@ -78,21 +86,19 @@ function getEasierUnmutingDistance(adorneePosition): number | nil
 		return nil
 	end
 
-	if FFlagEasierUnmutingBasedOnCamera then
-		local cameraPosition = workspace.CurrentCamera and workspace.CurrentCamera.CFrame.Position
+	local humanoidRootPart = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	local cameraPosition = workspace.CurrentCamera and workspace.CurrentCamera.CFrame.Position
+
+	if FFlagEasierUnmutingBasedOnCamera or not humanoidRootPart then
+		if not cameraPosition then
+			return nil
+		end
 
 		return (adorneePosition - cameraPosition).Magnitude
 	end
 
-	local humanoidRootPart = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-
-	if not humanoidRootPart then
-		return nil
-	end
-
 	return (adorneePosition - humanoidRootPart.CFrame.Position).Magnitude
 end
-
 
 function BubbleChatBillboard:init()
 	local selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
@@ -108,13 +114,9 @@ function BubbleChatBillboard:init()
 		lastVoiceState = nil,
 		selfViewOpen = selfViewOpen,
 		selfViewEnabled = selfViewEnabled,
+		isInsideEasierUnmutingDistance = if FFlagEasierUnmuting then false else nil,
+		isMuted = if FFlagEasierUnmuting and FFlagEasierUnmutingHideIfMuted then false else nil
 	})
-
-	if FFlagEasierUnmuting then
-		self:setState({
-			isInsideEasierUnmutingDistance = false
-		})
-	end
 
 	self.isMounted = false
 	self.offset, self.updateOffset = Roact.createBinding(Vector3.new())
@@ -195,6 +197,22 @@ function BubbleChatBillboard:init()
 			selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
 		})
 	end)
+
+	if FFlagEasierUnmuting and FFlagEasierUnmutingHideIfMuted then
+		self.participantsUpdateConnection = VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
+			local participant = participants[self.props.userId]
+
+			if not participant then
+				return
+			end
+
+			if participant.isMuted ~= self.state.isMuted then
+				self:setState({
+					isMuted = participant.isMuted
+				})
+			end
+		end)
+	end
 end
 
 function BubbleChatBillboard:checkCounterForTimeout(lastCounter)
@@ -227,7 +245,7 @@ function BubbleChatBillboard:checkCounterForTimeoutWithEasierUnmuting(lastState)
 
 	-- Start a new timer when the counter changes, unless this is the local
 	-- user or the voice state is TALKING or LOCAL_MUTED.
-	
+
 	local notLocalPlayer = self.props.userId ~= tostring(Players.LocalPlayer.UserId)
 	local relevantStateHasChanged = self.state.voiceStateCounter ~= lastCounter
 	local shouldHideIndicator =
@@ -296,7 +314,7 @@ function BubbleChatBillboard:didMount()
 			local isInsideRenderDistance = distance < self.state.savedChatSettings.MaxDistance
 			local isInsideMaximizeDistance = distance < self.state.savedChatSettings.MinimizeDistance
 			local isInsideEasierUnmutingDistance = false
-			
+
 			if FFlagEasierUnmuting then
 				local easierUnmutingDistance = getEasierUnmutingDistance(position)
 
@@ -307,7 +325,7 @@ function BubbleChatBillboard:didMount()
 
 			if
 				isInsideMaximizeDistance ~= self.state.isInsideMaximizeDistance or
-				isInsideRenderDistance ~= self.state.isInsideRenderDistance or 
+				isInsideRenderDistance ~= self.state.isInsideRenderDistance or
 				(FFlagEasierUnmuting and isInsideEasierUnmutingDistance ~= self.state.isInsideEasierUnmutingDistance)
 			then
 				self:setState({
@@ -352,6 +370,10 @@ function BubbleChatBillboard:willUnmount()
 	if self.selfViewVisibilityUpdatedSignal then
 		self.selfViewVisibilityUpdatedSignal:disconnect()
 		self.selfViewVisibilityUpdatedSignal = nil
+	end
+	if FFlagEasierUnmuting and FFlagEasierUnmutingHideIfMuted and self.participantsUpdateConnection then
+		self.participantsUpdateConnection:Disconnect()
+		self.participantsUpdateConnection = nil
 	end
 end
 
@@ -511,7 +533,7 @@ function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 		if FFlagVRMoveVoiceIndicatorToBottomBar and VRService.VREnabled then
 			return false
 		end
-		
+
 		-- Self View hides local player's bubble.
 		if not self.state.selfViewOpen then
 			-- Local player renders the control button even in the timed out state
@@ -552,14 +574,22 @@ function BubbleChatBillboard:render()
 	-- the MaxDistance property on the billboard, but that keeps
 	-- instances around. This approach means nothing exists in the DM
 	-- when there are no messages.
+	if not self.state.isInsideRenderDistance then
+		log:trace("Not in range for {}", self.state.shortId)
+		return
+	end
+
+	-- Easier Unmuting: don't show billboard if we are using easier unmuting
+	-- and they are outside of the distance or muted themselves
 	if
-		not self.state.isInsideRenderDistance or (
-			FFlagEasierUnmuting and
-			self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and
+		FFlagEasierUnmuting
+		and self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
+		and (
 			not self.state.isInsideEasierUnmutingDistance
+			or (FFlagEasierUnmutingHideIfMuted and self.state.isMuted)
 		)
 	then
-		log:trace("Not in range for {}", self.state.shortId)
+		log:trace("Unmute toggle not applicable for {}", self.state.shortId)
 		return
 	end
 
@@ -579,7 +609,7 @@ function BubbleChatBillboard:render()
 
 	if FFlagAvatarChatCoreScriptSupport then
 		if self:getRenderVoiceAndCameraBubble() then
-			children.VoiceAndCameraBubble = Roact.createElement(ControlsBubble, {
+			local voiceAndCameraBubbleSettings = {
 				chatSettings = chatSettings,
 				isInsideMaximizeDistance = self.state.isInsideMaximizeDistance,
 				LayoutOrder = 2,
@@ -588,7 +618,13 @@ function BubbleChatBillboard:render()
 				hasMicPermissions = self.state.hasMicPermissions,
 				userId = self.props.userId,
 				voiceEnabled = self.props.voiceEnabled,
-			})
+			}
+
+			children.VoiceAndCameraBubble = (
+				FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService
+				and Roact.createElement(ControlsBubbleV2, voiceAndCameraBubbleSettings)
+			) or Roact.createElement(ControlsBubble, voiceAndCameraBubbleSettings)
+
 			children.listLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,

@@ -28,6 +28,7 @@ local PurchasePromptPolicy = require(Root.Components.Connection.PurchasePromptPo
 local ProductPurchaseContainer = require(script.Parent.ProductPurchase.ProductPurchaseContainer)
 local RobuxUpsellContainer = require(script.Parent.RobuxUpsell.RobuxUpsellContainer)
 local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsellContainer)
+local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase.SubscriptionPurchaseContainer)
 
 local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local Gotham = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
@@ -84,6 +85,7 @@ function PurchasePromptApp:render()
 								ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer),
 								RobuxUpsellContainer = Roact.createElement(RobuxUpsellContainer),
 								PremiumUpsellContainer = Roact.createElement(PremiumUpsellContainer),
+								SubscriptionPurchaseContainer = Roact.createElement(SubscriptionPurchaseContainer),
 							}),
 							EventConnections = Roact.createElement(EventConnections),
 						})

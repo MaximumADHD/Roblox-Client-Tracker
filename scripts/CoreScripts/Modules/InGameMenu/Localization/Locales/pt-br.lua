@@ -344,4 +344,13 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[Voltar / Sair]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(Clique) 1ª pessoa / 3ª pessoa]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[Pular / Selecionar]],
+	["CoreScripts.InGameMenu.PageTitle.VRComfortSettings"] = [[Configurações de conforto]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[Configurações personalizadas]],
+	["CoreScripts.InGameMenu.GameSettings.VRSteppedRotationEnabled"] = [[Rotação progressiva de RV ativada]],
+	["CoreScripts.InGameMenu.GameSettings.VRThirdPersonFixedCamEnabled"] = [[Câmera fixa em 3ª pessoa]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingsDescription"] = [[Reduza o enjoo por movimento ajustando o movimento e o campo de visão]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingComfort"] = [[Conforto]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingNormal"] = [[Padrão]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingExpert"] = [[Expert]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingCustom"] = [[Personalizado]],
 }

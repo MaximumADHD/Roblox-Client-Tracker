@@ -344,4 +344,5 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[Назад / выход]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(Нажать) Камера FP / TP]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[Прыгнуть / Выбрать]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[Пользовательские настройки]],
 }

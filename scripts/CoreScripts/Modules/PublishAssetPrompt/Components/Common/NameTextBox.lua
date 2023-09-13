@@ -181,7 +181,7 @@ function NameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 		SliceCenter = BACKGROUND_9S_CENTER,
 	}, {
 		Textbox = Roact.createElement(Focusable.TextBox, {
-			Text = self.state.assetName,
+			Text = self.state.name,
 			BackgroundTransparency = 1,
 			ClearTextOnFocus = false,
 			Font = font.CaptionBody.Font,

@@ -344,4 +344,13 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[Kembali / Keluar]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(Klik) Kamera Orang Pertama/Ketiga]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[Loncat / Pilih]],
+	["CoreScripts.InGameMenu.PageTitle.VRComfortSettings"] = [[Pengaturan Kenyamanan]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[Pengaturan Kustom]],
+	["CoreScripts.InGameMenu.GameSettings.VRSteppedRotationEnabled"] = [[Rotasi Bertahap VR Diaktifkan]],
+	["CoreScripts.InGameMenu.GameSettings.VRThirdPersonFixedCamEnabled"] = [[Kamera Tetap Orang Ketiga]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingsDescription"] = [[Kurangi motion sickness dengan menyesuaikan gerakan dan ruang pandang]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingComfort"] = [[Nyaman]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingNormal"] = [[Default]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingExpert"] = [[Master]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingCustom"] = [[Kustom]],
 }

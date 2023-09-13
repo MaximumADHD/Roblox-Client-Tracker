@@ -24,6 +24,8 @@ local Presentation = TopBar.Components.Presentation
 local GamepadMenu = require(Presentation.GamepadMenu)
 local Reducer = require(TopBar.Reducer)
 
+local ChromeEnabled = require(Modules.Chrome.Enabled)
+
 return function()
 	describe("GamepadMenu", function()
 		afterAll(function(context)
@@ -99,8 +101,10 @@ return function()
 				wait()
 			end)
 
+			local emotesPosition = if ChromeEnabled() then 4 else 3
+
 			-- Navigate down to the emotes button
-			for i = 1, 3 do
+			for i = 1, emotesPosition do
 				RoactAct(function()
 					gamepad:hitButton(Enum.KeyCode.DPadDown)
 					wait()

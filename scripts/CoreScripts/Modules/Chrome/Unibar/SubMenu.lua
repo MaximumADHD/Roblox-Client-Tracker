@@ -1,10 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
+local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local ChromeService = require(script.Parent.Parent.Service)
 local ChromeTypes = require(script.Parent.Parent.Service.Types)
@@ -51,6 +54,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		BackgroundColor3 = highlightColor:map(function(v)
 			return v.Color
 		end),
+		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
 		[React.Event.Activated] = props.activated,
 		LayoutOrder = props.order,
 		onStateChanged = stateChange,
@@ -85,6 +89,30 @@ end
 function SubMenu(props: SubMenuProps)
 	local style = useStyle()
 	local theme = style.Theme
+	local menuRef = React.useRef(nil)
+
+	React.useEffect(function()
+		-- A manual Left, Right exit out of the sub-menu, back into Unibar
+		local conn = UserInputService.InputBegan:Connect(function(input)
+			local key = input.KeyCode
+			if key == Enum.KeyCode.Left or key == Enum.KeyCode.DPadLeft then
+				local selectedWithinMenu = menuRef.current
+					and menuRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
+				if selectedWithinMenu then
+					ChromeService:setSelectedByOffset(-1)
+				end
+			elseif key == Enum.KeyCode.Right or key == Enum.KeyCode.DPadRight then
+				local selectedWithinMenu = menuRef.current
+					and menuRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
+				if selectedWithinMenu then
+					ChromeService:setSelectedByOffset(1)
+				end
+			end
+		end)
+		return function()
+			conn:Disconnect()
+		end
+	end, {})
 
 	local rows: Table = {
 		UIListLayout = React.createElement("UIListLayout", {
@@ -114,6 +142,7 @@ function SubMenu(props: SubMenuProps)
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
 		BackgroundTransparency = theme.BackgroundUIContrast.Transparency,
 		AutomaticSize = Enum.AutomaticSize.Y,
+		ref = menuRef,
 	}, {
 		UIPadding = React.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, 8),
@@ -130,6 +159,11 @@ function SubMenu(props: SubMenuProps)
 			BackgroundTransparency = 1,
 			AutomaticCanvasSize = Enum.AutomaticSize.XY,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
+			SelectionGroup = true,
+			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
+			Selectable = false,
 		}, rows),
 	})
 end
@@ -152,8 +186,11 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 
 		if currentSubMenu and connection.current == nil then
 			connection.current = UserInputService.InputEnded:Connect(function(inputChangedObj: InputObject, _)
+				local pressed = inputChangedObj.UserInputType == Enum.UserInputType.MouseButton1
+					or inputChangedObj.UserInputType == Enum.UserInputType.Touch
+
 				local subMenuId = ChromeService:currentSubMenu():get()
-				if subMenuId then
+				if subMenuId and pressed then
 					ChromeService:toggleSubMenu(subMenuId)
 				end
 			end)

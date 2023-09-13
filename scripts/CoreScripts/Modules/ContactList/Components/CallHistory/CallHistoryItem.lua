@@ -16,10 +16,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
-local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
-local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local useSelector = dependencies.Hooks.useSelector
 
@@ -207,12 +205,7 @@ local function CallHistoryItem(props: Props)
 		end
 	end, {})
 
-	local image
-	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-		image = getStandardSizeAvatarHeadShotRbxthumb(tostring(participant.userId))
-	else
-		image = SocialLibraries.User.getUserAvatarImage(participant.userId)
-	end
+	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(participant.userId))
 
 	local isMissedCall = isMissedCall(caller, localUserId)
 

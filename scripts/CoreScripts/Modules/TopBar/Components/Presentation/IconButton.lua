@@ -6,6 +6,7 @@ local React = require(CorePackages.Packages.React)
 
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local Cryo = require(CorePackages.Cryo)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local withStyle = UIBlox.Core.Style.withStyle
@@ -13,6 +14,9 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Images = UIBlox.App.ImageSet.Images
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
+
+local TopBar = script.Parent.Parent.Parent
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 
 local FlashingDot = require(script.Parent.FlashingDot)
 local FlashingDotV2 = require(script.Parent.FlashingDotV2)
@@ -111,6 +115,7 @@ function IconButton:render()
 			Image = if not isNewTiltIconEnabled() then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			[Roact.Event.Activated] = self.props.onActivated,
+			[Roact.Ref] = self.props.forwardRef,
 		}, {
 
 			UICorner = isNewTiltIconEnabled() and Roact.createElement("UICorner", {
@@ -162,6 +167,14 @@ function IconButton:render()
 				ZIndex = 2,
 			}) or nil,
 		})
+	end)
+end
+
+if FFlagEnableChromeBackwardsSignalAPI then
+	return Roact.forwardRef(function(props, ref)
+		return Roact.createElement(IconButton, Cryo.Dictionary.join(props, {
+			forwardRef = ref,
+		}))
 	end)
 end
 

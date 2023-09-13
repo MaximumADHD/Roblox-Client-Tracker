@@ -105,7 +105,7 @@ local function ContactListContainer()
 			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
 				function(player: any, tag: string)
 					if localPlayer and localPlayer.UserId == player.UserId then
-						if not isDevMode then
+						if not getIsDevMode() then
 							dispatch(SetCurrentPage(Pages.FriendList))
 						else
 							dispatch(OpenContactList(tag))

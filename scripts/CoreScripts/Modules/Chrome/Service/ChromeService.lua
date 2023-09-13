@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
+local UserInputService = game:GetService("UserInputService")
 
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
@@ -32,6 +33,7 @@ export type ObservableMenuStatus = utils.ObservableValue<number>
 export type ObservableSubMenu = utils.ObservableValue<string?>
 export type ObservableMenuList = utils.ObservableValue<Types.MenuList>
 export type ObservableIntegration = utils.ObservableValue<Types.IntegrationComponentProps | nil>
+export type ObservableIntegrationId = utils.ObservableValue<string?>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 
@@ -68,7 +70,10 @@ export type ChromeService = {
 	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
 	configureSubMenu: (ChromeService, parent: Types.IntegrationId, menuConfig: Types.IntegrationIdList) -> (),
 	gesture: (ChromeService, componentId: Types.IntegrationId, connection: { current: RBXScriptConnection? }?) -> (),
-	withinCurrentTopLevelMenu: (ChromeService, componentId: Types.IntegrationId) -> Types.IntegrationComponentProps?,
+	withinCurrentTopLevelMenu: (
+		ChromeService,
+		componentId: Types.IntegrationId
+	) -> (Types.IntegrationComponentProps?, number),
 	withinCurrentSubmenu: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	isMostRecentlyUsed: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	setRecentlyUsed: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
@@ -80,6 +85,10 @@ export type ChromeService = {
 	updateScreenSize: (ChromeService, screenSize: Vector2, isMobileDevice: boolean) -> (),
 	updateWindowPosition: (ChromeService, componentId: Types.IntegrationId, position: UDim2) -> (),
 	createIconProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
+	setSelected: (ChromeService, Types.IntegrationId?) -> (),
+	selectedItem: (ChromeService, Types.IntegrationId?) -> ObservableIntegrationId,
+	repairSelected: (ChromeService) -> (),
+	setSelectedByOffset: (ChromeService, number) -> (),
 
 	_status: ObservableMenuStatus,
 	_currentSubMenu: ObservableSubMenu,
@@ -105,6 +114,8 @@ export type ChromeService = {
 	_localizedLabelKeys: {
 		[Types.IntegrationId]: { label: string?, secondaryActionLabel: string? },
 	},
+	_selectedItem: ObservableIntegrationId,
+	_selectedItemIdx: number,
 }
 
 local DummyIntegration = {
@@ -122,7 +133,8 @@ function ChromeService.new(): ChromeService
 	local self = {}
 	self._status = utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
 	self._currentSubMenu = utils.ObservableValue.new(nil)
-
+	self._selectedItem = utils.ObservableValue.new(nil)
+	self._selectedItemIdx = 0
 	self._integrations = {} :: Types.IntegrationList
 	self._integrationsConnections = {}
 	self._integrationsStatus = {} -- Icon/Window
@@ -287,6 +299,7 @@ function ChromeService:toggleOpen()
 		self._lastDisplayedNotificationId = ""
 		self._notificationIndicator:set(nil)
 	else
+		self._selectedItem:set(nil)
 		-- close any current submenu
 		subMenu:set(nil)
 		menuStatus:set(ChromeService.MenuStatus.Closed)
@@ -580,6 +593,7 @@ function ChromeService:updateMenuList()
 	-- todo: nice to have optimization, only update if we fail an equality check
 	self._menuList:set(root.children)
 	self._windowList:set(windowList)
+	self:repairSelected()
 end
 
 function ChromeService:availabilityChanged(component: Types.IntegrationProps)
@@ -674,10 +688,10 @@ function ChromeService:withinCurrentTopLevelMenu(componentId: Types.IntegrationI
 	local menuItems = self._menuList:get()
 	for i, item in menuItems do
 		if item.id == componentId then
-			return item
+			return item, i
 		end
 	end
-	return nil
+	return nil, 0
 end
 
 function ChromeService:withinCurrentSubmenu(componentId: Types.IntegrationId)
@@ -745,6 +759,11 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 	-- todo: Consider if we need to auto-close the sub-menus when items are selected
 	-- todo: Add analytics.
 	if self._integrations[componentId] then
+		local toggledSubmenu = false
+		local lastInput = UserInputService:GetLastInputType()
+		-- todo: accommodate VR laser pointer clicks
+		local pressed = lastInput == Enum.UserInputType.MouseButton1 or lastInput == Enum.UserInputType.Touch
+
 		--is part of current sub-menu
 		self:setRecentlyUsed(componentId)
 
@@ -764,6 +783,7 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 			-- run default behavior
 			if self._subMenuConfig[componentId] then
 				self:toggleSubMenu(componentId)
+				toggledSubmenu = true
 			end
 			self:toggleWindow(componentId)
 		end
@@ -771,10 +791,61 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 		if self._currentSubMenu:get() ~= componentId then
 			self._currentSubMenu:set(nil)
 		end
+
+		if not pressed and not toggledSubmenu and self._status:get() == ChromeService.MenuStatus.Open then
+			self:toggleOpen()
+		end
 	end
 	if errorMessage then
 		-- defer until end of function
 		error(errorMessage)
+	end
+end
+
+function ChromeService:selectedItem()
+	return self._selectedItem
+end
+
+function ChromeService:setSelected(componentId: Types.IntegrationId?)
+	local item, idx = self:withinCurrentTopLevelMenu(componentId or "")
+	if not item then
+		return
+	end
+
+	local lastInput = UserInputService:GetLastInputType()
+	local pressed = lastInput == Enum.UserInputType.MouseButton1 or lastInput == Enum.UserInputType.Touch
+
+	local currentSubmenu = self._currentSubMenu:get()
+	if currentSubmenu and currentSubmenu ~= componentId and not pressed then
+		self:toggleSubMenu(currentSubmenu)
+	end
+
+	self._selectedItemIdx = idx
+	self._selectedItem:set(componentId)
+end
+
+function ChromeService:setSelectedByOffset(offset: number)
+	local menuItems = self._menuList:get()
+	local _, idx = self:withinCurrentTopLevelMenu(self._selectedItem:get() or "")
+	if idx > 0 then
+		idx = math.clamp(idx + offset, 1, #menuItems)
+		self:setSelected(menuItems[idx].id)
+	end
+end
+
+-- As icons are added and removed, ensure we never have an orphan selected state
+function ChromeService:repairSelected()
+	local selected = self._selectedItem:get()
+	if selected then
+		-- is selected item still within our set
+		local _, idx = self:withinCurrentTopLevelMenu(self._selectedItem:get() or "")
+		if idx == 0 then
+			-- if not, use the last known selected index
+			idx = self._selectedItemIdx
+		end
+		local menuItems = self._menuList:get()
+		idx = math.clamp(idx, 1, #menuItems)
+		self:setSelected(menuItems[idx].id)
 	end
 end
 

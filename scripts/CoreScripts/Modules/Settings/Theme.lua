@@ -35,6 +35,7 @@ local fontSizeMap = {
 	[ Enum.FontSize.Size18 ]  = Enum.FontSize.Size14,
 	[ Enum.FontSize.Size24 ]  = Enum.FontSize.Size18,
 	[ Enum.FontSize.Size36 ]  = Enum.FontSize.Size28,
+	[ Enum.FontSize.Size48 ]  = Enum.FontSize.Size36,
 }
 
 local nullColor = Color3.fromRGB(0, 0, 0);

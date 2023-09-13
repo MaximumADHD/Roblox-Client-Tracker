@@ -13,6 +13,10 @@ local Constants = require(TopBar.Constants)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
+local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
+
 local HEALTHBAR_SIZE = UDim2.new(0, 80, 0, 6)
 local HEALTHBAR_SIZE_TENFOOT = UDim2.new(0, 220, 0, 16)
 
@@ -27,6 +31,9 @@ HealthBar.validateProps = t.strictInterface({
 	healthEnabled = t.boolean,
 	health = t.number,
 	maxHealth = t.number,
+
+	setKeepOutArea = t.callback,
+	removeKeepOutArea = t.callback,
 })
 
 local function color3ToVector3(color3)
@@ -68,6 +75,10 @@ local function getHealthBarColor(healthPercent)
 	return Color3.new(result.x, result.y, result.z)
 end
 
+function HealthBar:init()
+	self.rootRef = Roact.createRef()
+end
+
 function HealthBar:render()
 	local healthVisible = self.props.healthEnabled
 		and self.props.health < self.props.maxHealth
@@ -98,11 +109,28 @@ function HealthBar:render()
 		sliceCenter = Rect.new(8, 8, 9, 9)
 	end
 
+	local onAreaChanged = function(rbx)
+		if healthVisible and rbx then
+			self.props.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+		else
+			self.props.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
+		end
+	end
+
+	if FFlagEnableChromeBackwardsSignalAPI then
+		if self.rootRef.current then
+			onAreaChanged(self.rootRef.current)
+		end
+	end
+
 	local healthBarColor = getHealthBarColor(healthPercent)
 	return Roact.createElement("Frame", {
 		Visible = healthVisible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(healthBarSize.X, UDim.new(1, 0)),
+		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Ref] = self.rootRef,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, healthBarOffset),
@@ -138,4 +166,16 @@ local function mapStateToProps(state)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(HealthBar)
+
+local function mapDispatchToProps(dispatch)
+	return {
+		setKeepOutArea = function(id, position, size)
+			return dispatch(SetKeepOutArea(id, position, size))
+		end,
+		removeKeepOutArea = function(id)
+			return dispatch(RemoveKeepOutArea(id))
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(HealthBar)

@@ -31,6 +31,7 @@ local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -49,6 +50,7 @@ local GO_TO_BOTTOM_ACTION_NAME = "TopBarGamepadMoveSelectionBottom"
 local THUMBSTICK_MOVE_COOLDOWN = 0.15
 
 local MENU_ICON = Images["icons/logo/block"]
+local UNIBAR_ICON = Images["icons/menu/AR"]
 local LEADERBOARD_ICON_ON = "rbxasset://textures/ui/TopBar/leaderboardOn.png"
 local LEADERBOARD_ICON_OFF = "rbxasset://textures/ui/TopBar/leaderboardOff.png"
 local EMOTES_ICON_ON = "rbxasset://textures/ui/TopBar/emotesOn.png"
@@ -245,6 +247,11 @@ function GamepadMenu.openRootMenu()
 	end
 end
 
+function GamepadMenu.openUnibarMenu()
+	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+	ChromeService:toggleOpen()
+end
+
 function GamepadMenu.toggleChatVisible()
 	ChatModule:ToggleVisibility()
 end
@@ -304,6 +311,16 @@ function GamepadMenu.getMenuActionsFromProps(props)
 		localizationKey = "CoreScripts.TopBar.Menu",
 		onActivated = GamepadMenu.openRootMenu,
 	})
+
+	if ChromeEnabled() then
+		table.insert(menuActions, {
+			name = "Unibar",
+			icon = UNIBAR_ICON,
+			iconComponent = nil,
+			localizationKey = "CoreScripts.TopBar.Title.ExperienceControls",
+			onActivated = GamepadMenu.openUnibarMenu,
+		})
+	end
 
 	if props.chatEnabled and not TenFootInterface:IsEnabled() then
 		table.insert(menuActions, {

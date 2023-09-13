@@ -11,6 +11,7 @@ local InspectAndBuyReducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyR
 local TestContainer = require(InspectAndBuyFolder.Test.TestContainer)
 local mockModel = require(InspectAndBuyFolder.Test.getMockModel)()
 
+local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 
 local DetailsText = require(script.Parent.DetailsText)
 
@@ -45,45 +46,47 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	describe("Verified Badges", function()
-		it("Should show the verified badge for assets created by verified creators", function()
-			local creatorHasVerifiedBadge = true
+	if not FFlagAttributionInInspectAndBuy then
+		describe("Verified Badges", function()
+			it("Should show the verified badge for assets created by verified creators", function()
+				local creatorHasVerifiedBadge = true
 
-			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
-				Rodux.thunkMiddleware,
-			})
-			local element = Roact.createElement(TestContainer, {
-				overrideStore = store,
-			}, {
-				DetailsText = Roact.createElement(DetailsText, {
-					localPlayerModel = mockModel,
-				}),
-			})
+				local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
+					Rodux.thunkMiddleware,
+				})
+				local element = Roact.createElement(TestContainer, {
+					overrideStore = store,
+				}, {
+					DetailsText = Roact.createElement(DetailsText, {
+						localPlayerModel = mockModel,
+					}),
+				})
 
-			SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
-				local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
-				expect(verifiedBadge.Text).to.equal(VerifiedBadges.emoji.verified)
+				SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
+					local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
+					expect(verifiedBadge.Text).to.equal(VerifiedBadges.emoji.verified)
+				end)
+			end)
+
+			it("Should not show the verified badge for assets created by non-verified creators", function()
+				local creatorHasVerifiedBadge = false
+
+				local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
+					Rodux.thunkMiddleware,
+				})
+				local element = Roact.createElement(TestContainer, {
+					overrideStore = store,
+				}, {
+					DetailsText = Roact.createElement(DetailsText, {
+						localPlayerModel = mockModel,
+					}),
+				})
+
+				SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
+					local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
+					expect(verifiedBadge).to.never.be.ok()
+				end)
 			end)
 		end)
-
-		it("Should not show the verified badge for assets created by non-verified creators", function()
-			local creatorHasVerifiedBadge = false
-
-			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(creatorHasVerifiedBadge), {
-				Rodux.thunkMiddleware,
-			})
-			local element = Roact.createElement(TestContainer, {
-				overrideStore = store,
-			}, {
-				DetailsText = Roact.createElement(DetailsText, {
-					localPlayerModel = mockModel,
-				}),
-			})
-
-			SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
-				local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
-				expect(verifiedBadge).to.never.be.ok()
-			end)
-		end)
-	end)
+	end
 end

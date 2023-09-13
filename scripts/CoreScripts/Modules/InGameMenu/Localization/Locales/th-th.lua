@@ -240,7 +240,7 @@ return{
 	["CoreScripts.InGameMenu.Label.Accessory"] = [[เครื่องประดับ]],
 	["CoreScripts.InGameMenu.Label.Emotes"] = [[ท่าทาง]],
 	["CoreScripts.InGameMenu.Label.ClassicShirts"] = [[เสื้อเชิ้ตแบบคลาสสิก]],
-	["CoreScripts.InGameMenu.Label.ClassicPants"] = [[กางเกงแบบคลาสสิก]],
+	["CoreScripts.InGameMenu.Label.ClassicPants"] = [[กางเกงขายาวแบบคลาสสิก]],
 	["CoreScripts.InGameMenu.Label.Gear"] = [[อุปกรณ์]],
 	["CoreScripts.InGameMenu.Label.ClassicTShirts"] = [[เสื้อยืดแบบคลาสสิก]],
 	["CoreScripts.InGameMenu.Label.Hat"] = [[หมวก]],

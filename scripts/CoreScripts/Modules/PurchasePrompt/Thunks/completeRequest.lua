@@ -66,6 +66,8 @@ local function completeRequest()
 			end
 		elseif requestType == RequestType.Premium then
 			MarketplaceService:SignalPromptPremiumPurchaseFinished(didPurchase or purchaseError == PurchaseError.AlreadyPremium)
+		elseif requestType == RequestType.Subscription then
+			MarketplaceService:SignalPromptSubscriptionPurchaseFinished(id, didPurchase or purchaseError == PurchaseError.AlreadySubscribed)
 		end
 
 		return store:dispatch(CompleteRequest())

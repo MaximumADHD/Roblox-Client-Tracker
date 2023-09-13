@@ -26,6 +26,8 @@ local DFFlagSystemUtilCheckSSE41 = game:GetEngineFeature("SystemUtilCheckSSE41")
 local FFlagFacialAnimationStreamingClearTrackImprovementsV2 = game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovementsV2", false)
 local FFlagFacialAnimationStreamingPauseTrackWhenAllOff = game:DefineFastFlag("FacialAnimationStreamingPauseTrackWhenAllOff", false)
 local FFlagFacialAnimationStreamingDisableLipsyncForVRUser = game:DefineFastFlag("FacialAnimationStreamingDisableLipsyncForVRUser", false)
+game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
+game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
 local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
@@ -67,6 +69,7 @@ local playerJoinedGame = {}
 
 local playerAnimations = {}
 local playerConnections = {}
+local playerAnimators = {}
 
 local trackerErrorConnection = nil
 local trackerPromptConnection = nil
@@ -241,6 +244,11 @@ local function onAnimatorAdded(player, animator)
 		playerAnimation.animationTrack:Play(0.1, 1)
 
 		playerAnimations[player.UserId] = playerAnimation
+
+		if game:GetFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving") then
+			-- set animator
+			playerAnimators[player.UserId] = animator
+		end
 	end
 
 	-- check if data model is ready for this animator
@@ -286,8 +294,24 @@ end
 
 local function onCharacterDescendantRemoving(player, descendant)
 	if descendant:IsA("Animator") then
-		clearConnection(player, Connections.AnimatorDataModelReady)
-		clearCharacterAnimations(player)
+		if game:GetFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving") then
+			if descendant == playerAnimators[player.UserId] then
+				clearConnection(player, Connections.AnimatorDataModelReady)
+				clearCharacterAnimations(player)
+				playerAnimators[player.UserId] = nil
+
+				-- check for any remaining animator in the hierarchy
+				if game:GetFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator") then
+					local animator = getPlayerAnimator(player)
+					if animator then
+						onAnimatorAdded(player, animator)
+					end
+				end
+			end
+		else
+			clearConnection(player, Connections.AnimatorDataModelReady)
+			clearCharacterAnimations(player)
+		end
 	elseif descendant:IsA("Humanoid") then
 		clearConnection(player, Connections.PlayerEmoted)
 	end

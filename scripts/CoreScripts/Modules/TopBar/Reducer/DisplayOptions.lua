@@ -11,6 +11,7 @@ local SetTopBarEnabled = require(Actions.SetTopBarEnabled)
 local SetSmallTouchDevice = require(Actions.SetSmallTouchDevice)
 local SetScreenSize = require(Actions.SetScreenSize)
 local SetKeepOutArea = require(Actions.SetKeepOutArea)
+local RemoveKeepOutArea = require(Actions.RemoveKeepOutArea)
 local SetInputType = require(Actions.SetInputType)
 local SetInspectMenuOpen = require(Actions.SetInspectMenuOpen)
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
@@ -88,6 +89,15 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 			size = action.size,
 			position = action.position,
 		}
+
+		return Cryo.Dictionary.join(state, {
+			keepOutAreas = keepOutAreas,
+		})
+	end,
+
+	[RemoveKeepOutArea.name] = function (state, action)
+		local keepOutAreas = table.clone(state.keepOutAreas)
+		keepOutAreas[action.id] = nil
 
 		return Cryo.Dictionary.join(state, {
 			keepOutAreas = keepOutAreas,

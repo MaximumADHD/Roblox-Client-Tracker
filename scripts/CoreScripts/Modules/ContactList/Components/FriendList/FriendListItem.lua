@@ -14,11 +14,9 @@ local GetFFlagCorescriptsSoundManagerEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
-local SocialLibraries = dependencies.SocialLibraries
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
-local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local GetPresencesFromUserIds = dependencies.NetworkingPresence.GetPresencesFromUserIds
 
@@ -88,12 +86,7 @@ local function FriendListItem(props: Props)
 		end
 	end, {})
 
-	local image
-	if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-		image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
-	else
-		image = SocialLibraries.User.getUserAvatarImage(props.userId)
-	end
+	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
 
 	local startCall = function()
 		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })

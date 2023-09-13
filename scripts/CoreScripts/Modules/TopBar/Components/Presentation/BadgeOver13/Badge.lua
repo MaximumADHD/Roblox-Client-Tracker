@@ -1,11 +1,22 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
+local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local e = React.createElement
 
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
+local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
+
+local TopBar = script.Parent.Parent.Parent.Parent
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
+local Constants = require(TopBar.Constants)
+
+local STROKE_THICKNESS = 2
+
+function noop() end
 
 type Props = {
 	layoutOrder: number,
@@ -15,26 +26,38 @@ type Props = {
 
 return function(props: Props)
 	local style = useStyle()
-    local isHoveredOrPressed, setHoveredOrPressed = React.useState(false)
+	local dispatch = useDispatch()
+	local isHoveredOrPressed, setHoveredOrPressed = React.useState(false)
+
+	local onAreaChanged = function(rbx: GuiObject?)
+		if FFlagEnableChromeBackwardsSignalAPI and rbx then
+			-- Need to recalculate the position as stroke is not part of AbsolutePosition/AbsoluteSize
+			local strokePosition = Vector2.new(rbx.AbsolutePosition.X - STROKE_THICKNESS, rbx.AbsolutePosition.Y - STROKE_THICKNESS)
+			local strokeSize = Vector2.new(rbx.AbsoluteSize.X + 2 * STROKE_THICKNESS, rbx.AbsoluteSize.Y + 2 * STROKE_THICKNESS)
+			dispatch(SetKeepOutArea(Constants.BadgeOver13KeepOutAreaId, strokePosition, strokeSize))
+		end
+	end
 
 	return e(Interactable, {
-        BackgroundTransparency = 1,
+		BackgroundTransparency = 1,
 		AutomaticSize = Enum.AutomaticSize.XY,
 		isDisabled = false,
 		LayoutOrder = props.layoutOrder,
 		onStateChanged = React.useCallback(function(_oldState, newState)
-            setHoveredOrPressed(newState == ControlState.Hover or newState == ControlState.Pressed)
+			setHoveredOrPressed(newState == ControlState.Hover or newState == ControlState.Pressed)
 		end),
 		[React.Event.Activated] = React.useCallback(function()
 			props.setIsPopupVisible(not props.isPopupVisible)
-		end)
+		end),
+		[React.Change.AbsoluteSize] = onAreaChanged,
+		[React.Change.AbsolutePosition] = onAreaChanged,
 	}, {
-        constraint = e("UISizeConstraint", {
-            MinSize = Vector2.new(32, 32),
-        }),
+		constraint = e("UISizeConstraint", {
+			MinSize = Vector2.new(32, 32),
+		}),
 		text = e("TextLabel", {
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            Position = UDim2.fromScale(0.5, 0.5),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
 			Text = "13+",
 			Font = Enum.Font.GothamBold,
 			TextSize = 12,
@@ -52,7 +75,7 @@ return function(props: Props)
 				CornerRadius = UDim.new(0, 4)
 			}),
 			stroke = e("UIStroke", {
-				Thickness = 2,
+				Thickness = STROKE_THICKNESS,
 				Color = style.Theme.BackgroundMuted.Color,
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 			}),

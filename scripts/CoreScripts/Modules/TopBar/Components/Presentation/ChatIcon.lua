@@ -17,6 +17,12 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
 local IconButton = require(script.Parent.IconButton)
 
+local TopBar = script.Parent.Parent.Parent
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
+local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
+local Constants = require(TopBar.Constants)
+
 local GameSettings = UserSettings().GameSettings
 
 local function shouldShowEmptyBadge()
@@ -40,9 +46,13 @@ ChatIcon.validateProps = t.strictInterface({
 
 	topBarEnabled = t.boolean,
 	chatEnabled = t.boolean,
+
+	setKeepOutArea = t.callback,
+	removeKeepOutArea = t.callback,
 })
 
 function ChatIcon:init()
+	self.buttonRef = Roact.createRef()
 	self.chatIconActivated = function()
 		ChatSelector:ToggleVisibility()
 		GameSettings.ChatVisible = ChatSelector:GetVisibility()
@@ -58,6 +68,27 @@ function ChatIcon:render()
 			chatIcon = "rbxasset://textures/ui/TopBar/chatOff.png"
 		end
 
+		local onAreaChanged = function(rbx)
+			if chatEnabled and rbx then
+				self.props.setKeepOutArea(Constants.ChatIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			else
+				self.props.removeKeepOutArea(Constants.ChatIconKeepOutAreaId)
+			end
+		end
+
+		local setButtonRef = function(rbx)
+			if rbx then
+				self.buttonRef.current = rbx
+				onAreaChanged(self.buttonRef.current)
+			end
+		end
+
+		if FFlagEnableChromeBackwardsSignalAPI then
+			if self.buttonRef.current then
+				onAreaChanged(self.buttonRef.current)
+			end
+		end
+
 		return Roact.createElement("TextButton", {
 			Text = "",
 			Visible = chatEnabled,
@@ -69,8 +100,10 @@ function ChatIcon:render()
 			Background = Roact.createElement(IconButton, {
 				icon = chatIcon,
 				iconSize = ICON_SIZE,
-
 				onActivated = self.chatIconActivated,
+				[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+				[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+				[Roact.Ref] = setButtonRef,
 			}),
 
 			BadgeContainer = Roact.createElement("Frame", {
@@ -100,4 +133,15 @@ local function mapStateToProps(state)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(ChatIcon)
+local function mapDispatchToProps(dispatch)
+	return {
+		setKeepOutArea = function(id, position, size)
+			return dispatch(SetKeepOutArea(id, position, size))
+		end,
+		removeKeepOutArea = function(id)
+			return dispatch(RemoveKeepOutArea(id))
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(ChatIcon)

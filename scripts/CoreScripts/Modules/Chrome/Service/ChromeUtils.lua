@@ -1,5 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
 local StarterGui = game:GetService("StarterGui")
+local GuiService = game:GetService("GuiService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
@@ -253,6 +257,26 @@ function setCoreGuiAvailability(integration: { availability: AvailabilitySignal 
 	return disconnect
 end
 
+function dismissRobloxMenuAndRun(func)
+	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+	if GuiService.MenuIsOpen then
+		local timeout = tick() + 3
+		local conn: RBXScriptConnection | nil = nil
+		conn = GuiService.MenuClosed:Connect(function()
+			if conn then
+				conn:Disconnect()
+				conn = nil
+			end
+			if tick() < timeout then
+				func(true)
+			end
+		end)
+		SettingsHub:SetVisibility(false)
+	else
+		func(false)
+	end
+end
+
 return {
 	MappedSignal = MappedSignal,
 	AvailabilitySignal = AvailabilitySignal,
@@ -260,4 +284,5 @@ return {
 	NotifySignal = NotifySignal,
 	ObservableValue = ObservableValue,
 	setCoreGuiAvailability = setCoreGuiAvailability,
+	dismissRobloxMenuAndRun = dismissRobloxMenuAndRun,
 }

@@ -1,8 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
-local RoactRodux = require(CorePackages.RoactRodux)
-local RunService = game:GetService("RunService")
+local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
+local dependencyArray = RoactUtils.Hooks.dependencyArray
 
 type KeepOutArea = {
 	id: string,
@@ -121,25 +122,18 @@ local fireKeepOutAreasChanged = function(screenSize: Vector2, keepOutAreas: Keep
 	end
 end
 
-local KeepOutAreasHandler = React.PureComponent:extend("KeepOutAreasHandler")
+function KeepOutAreasHandler(props)
+	local screenSize = useSelector(function(state)
+		return state.displayOptions.screenSize
+	end)
 
-function KeepOutAreasHandler:render()
-	return nil
+	local keepOutAreas = useSelector(function(state)
+		return state.displayOptions.keepOutAreas
+	end)
+
+	React.useEffect(function()
+		fireKeepOutAreasChanged(screenSize, keepOutAreas)
+	end, dependencyArray(screenSize, keepOutAreas))
 end
 
-function KeepOutAreasHandler:didUpdate(prevProps)
-	if game:GetEngineFeature("InGameChromeSignalAPI") and RunService:IsStudio() then
-		if prevProps.keepOutAreas ~= self.props.keepOutAreas or prevProps.screenSize ~= self.props.screenSize then
-			fireKeepOutAreasChanged(self.props.screenSize, self.props.keepOutAreas)
-		end
-	end
-end
-
-local function mapStateToProps(state)
-	return {
-		screenSize = state.displayOptions.screenSize,
-		keepOutAreas = state.displayOptions.keepOutAreas,
-	}
-end
-
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(KeepOutAreasHandler)
+return KeepOutAreasHandler

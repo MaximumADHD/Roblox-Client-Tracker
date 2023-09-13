@@ -73,6 +73,8 @@ local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjec
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
+local FFlagEasierUnmutingPassMuteStatus = game:DefineFastFlag("EasierUnmutingPassMuteStatus", false)
+local ExperienceChat = if FFlagEasierUnmutingPassMuteStatus then require(CorePackages.ExperienceChat) else nil
 
 type VoiceChatPlaceSettings = {
 	isUniverseEnabledForVoice: boolean,
@@ -1054,9 +1056,15 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 
 				self.participants[tostring(userId)] = nil
 				self.participantLeft:Fire(self.participants, GetFFlagPlayerListAnimateMic() and userId or nil)
+				if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantRemoved then
+					ExperienceChat.Events.VoiceParticipantRemoved(tostring(userId))
+				end
 			end
 			for _, userId in ipairs(participantJoined) do
 				self.participantJoined:Fire(self.participants, userId)
+				if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantAdded then
+					ExperienceChat.Events.VoiceParticipantAdded(tostring(userId))
+				end
 			end
 			for _, state in pairs(updatedStates) do
 				local userId = state["userId"]
@@ -1067,6 +1075,17 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 						lastHeardTime = os.time(),
 						player = PlayersService:GetPlayerByUserId(userId),
 					})
+				end
+
+				if
+					FFlagEasierUnmutingPassMuteStatus
+					and ExperienceChat.Events.VoiceParticipantToggleMuted
+					and (
+						not lastState
+						or (lastState.isMuted ~= state.isMuted)
+					)
+				then
+					ExperienceChat.Events.VoiceParticipantToggleMuted(tostring(userId), state.isMuted)
 				end
 
 				self.participants[tostring(userId)] = state

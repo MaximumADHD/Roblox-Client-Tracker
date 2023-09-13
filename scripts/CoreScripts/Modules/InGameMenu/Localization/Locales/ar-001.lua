@@ -344,4 +344,13 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[العودة / الخروج]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(ضغطة) كاميرا FP / TP]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[قفز / تحديد]],
+	["CoreScripts.InGameMenu.PageTitle.VRComfortSettings"] = [[إعدادات الراحة]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[إعدادات مخصصة]],
+	["CoreScripts.InGameMenu.GameSettings.VRSteppedRotationEnabled"] = [[تمكين VR Stepped Rotation]],
+	["CoreScripts.InGameMenu.GameSettings.VRThirdPersonFixedCamEnabled"] = [[الكاميرا الثابتة للشخص الثالث]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingsDescription"] = [[تقليل دوار الحركة عن طريق ضبط الحركة ومجال الرؤية]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingComfort"] = [[الراحة]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingNormal"] = [[الافتراضي]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingExpert"] = [[خبير]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingCustom"] = [[تخصيص]],
 }

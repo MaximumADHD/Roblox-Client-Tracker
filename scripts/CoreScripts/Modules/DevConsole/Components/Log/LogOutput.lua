@@ -12,6 +12,8 @@ local LINE_PADDING = Constants.LogFormatting.TextFramePadding
 local MAX_STRING_SIZE = Constants.LogFormatting.MaxStringSize
 local MAX_STR_MSG = " -- Could not display entire %d character message because message exceeds max displayable length of %d"
 
+local FFlagDevConsoleLogTextLabelSizingFix = game:DefineFastFlag("DevConsoleLogTextLabelSizingFix", false)
+
 local LogOutput = Roact.Component:extend("LogOutput")
 
 function LogOutput:init(props)
@@ -80,7 +82,11 @@ function LogOutput:didMount()
 				local frameWidth = self.state.absSize.X - ARROW_OFFSET
 
 				if self.state.wordWrap and frameWidth > 0 then
-					msgDimsY = newestMsg.Dims.Y * math.ceil(newestMsg.Dims.X / frameWidth)
+					if FFlagDevConsoleLogTextLabelSizingFix then
+						msgDimsY = math.ceil(newestMsg.Dims.Y * math.ceil(newestMsg.Dims.X / frameWidth))
+					else
+						msgDimsY = newestMsg.Dims.Y * math.ceil(newestMsg.Dims.X / frameWidth)
+					end
 				end
 
 				canvasPosY = math.max(0, canvasPosY - msgDimsY - LINE_PADDING)
@@ -145,7 +151,11 @@ function LogOutput:render()
 
 			local msgDimsY = message.Dims.Y
 			if wordWrap and frameWidth > 0 then
-				msgDimsY = message.Dims.Y * math.ceil(message.Dims.X / frameWidth)
+				if FFlagDevConsoleLogTextLabelSizingFix then
+					msgDimsY = math.ceil(message.Dims.Y * math.ceil(message.Dims.X / frameWidth))
+				else
+					msgDimsY = message.Dims.Y * math.ceil(message.Dims.X / frameWidth)
+				end
 			end
 
 			messageCount = messageCount + 1

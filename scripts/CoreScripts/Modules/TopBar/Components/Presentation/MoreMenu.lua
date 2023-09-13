@@ -17,7 +17,11 @@ local Components = script.Parent.Parent
 local TopBar = Components.Parent
 
 local Actions = TopBar.Actions
+local SetKeepOutArea = require(Actions.SetKeepOutArea)
+local RemoveKeepOutArea = require(Actions.RemoveKeepOutArea)
 local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
+
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
@@ -86,9 +90,12 @@ MoreMenu.validateProps = t.strictInterface({
 	emotesOpen = t.boolean,
 
 	inputType = t.string,
+	setKeepOutArea = t.callback,
+	removeKeepOutArea = t.callback,
 })
 
 function MoreMenu:init()
+	self.rootRef = Roact.createRef()
 	self:setState({
 		vrShowMenuIcon = false,
 	})
@@ -193,11 +200,28 @@ function MoreMenu:renderWithStyle(style)
 
 	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and not VRService.VREnabled
 
+	local onAreaChanged = function(rbx)
+		if moreButtonVisible and rbx then
+			self.props.setKeepOutArea(Constants.MoreMenuKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+		else
+			self.props.removeKeepOutArea(Constants.MoreMenuKeepOutAreaId)
+		end
+	end
+
+	if FFlagEnableChromeBackwardsSignalAPI then
+		if self.rootRef.current then
+			onAreaChanged(self.rootRef.current)
+		end
+	end
+
 	return Roact.createElement("Frame", {
 		Visible = moreButtonVisible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, MORE_BUTTON_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,
+		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Ref] = self.rootRef,
 	}, {
 		OpenButton = Roact.createElement(IconButton, {
 			icon = moreIcon,
@@ -312,6 +336,12 @@ local function mapDispatchToProps(dispatch)
 	return {
 		setMoreMenuOpen = function(open)
 			return dispatch(SetMoreMenuOpen(open))
+		end,
+		setKeepOutArea = function(id, position, size)
+			return dispatch(SetKeepOutArea(id, position, size))
+		end,
+		removeKeepOutArea = function(id)
+			return dispatch(RemoveKeepOutArea(id))
 		end,
 	}
 end

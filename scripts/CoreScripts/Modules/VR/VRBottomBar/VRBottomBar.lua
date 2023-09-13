@@ -62,6 +62,7 @@ local FIntVRBottomBarPositionOffsetVerticalNumber = require(RobloxGui.Modules.Fl
 local FIntVRBottomBarPositionOffsetDepthNumber = require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetDepthNumber)
 local FFlagVRBottomBarEnableMoreMenu = require(RobloxGui.Modules.Flags.FFlagVRBottomBarEnableMoreMenu)
 local FFlagVRBottomBarHighlightedLeaveGameIcon = require(RobloxGui.Modules.Flags.FFlagVRBottomBarHighlightedLeaveGameIcon)
+local FFlagVRBottomBarNoCurvature = game:DefineFastFlag("VRBottomBarNoCurvature", false)
 
 local UsePositionConfig = FFlagVRBottomBarUsePositionConfig or FFlagVRBottomBarDebugPositionConfig or FFlagVRBottomBarEnableMoreMenu
 
@@ -688,6 +689,7 @@ function VRBottomBar:renderWithStyle(style)
 			tilt = 0,
 			anchoring = VRConstants.AnchoringTypes.Head,
 			faceCamera = true,
+			curvature = if FFlagVRBottomBarNoCurvature or game:GetEngineFeature("EnableMaquettesSupport") then 0 else nil,
 			alwaysOnTop = EngineFeatureEnableVRBottomBarWorksBehindObjects and true or nil,
 			parent = EngineFeatureEnableVRBottomBarWorksBehindObjects and GuiService.CoreGuiFolder or nil,
 			zOffset = 1,

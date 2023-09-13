@@ -27,15 +27,25 @@ local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFSt
 local GetFFlagEnableBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFFlagEnableBetaBadgeLearnMore)
 local GetFFlagBetaBadgeLearnMoreLinkFormview = require(RobloxGui.Modules.Flags.GetFFlagBetaBadgeLearnMoreLinkFormview)
 
+local TopBar = script.Parent.Parent.Parent
+local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
+local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
+local Constants = require(TopBar.Constants)
+
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
-	Analytics = t.table
+	Analytics = t.table,
+	setKeepOutArea = t.optional(t.callback),
+	removeKeepOutArea = t.optional(t.callback),
 })
 
 local CustomWebviewType: {[string]: number} = {
 	FullScreen = 0,
 	FormSheet = 2
 }
+
+local STROKE_THICKNESS = 2
 
 local BadgeSize = UDim2.fromOffset(31, 11)
 local PopupPadding = UDim.new(0, 12)
@@ -62,6 +72,7 @@ function openWebview(url)
 end
 
 function VoiceBetaBadge:init()
+	self.buttonRef = Roact.createRef()
 	self:setState({
 		vrShowMenuIcon = VRService.VREnabled and GamepadService.GamepadCursorEnabled,
 		voiceChatServiceConnected = false,
@@ -75,7 +86,7 @@ function VoiceBetaBadge:init()
 			})
 		end):catch(noop)
 	end
-	
+
 	self.menuIconActivated = function()
 		self:setState({
 			showPopup = not self.state.showPopup
@@ -93,6 +104,24 @@ end
 
 function VoiceBetaBadge:render()
 	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon) and self.state.voiceChatServiceConnected
+
+	local onAreaChanged = function(rbx)
+		if visible and rbx then
+			-- Need to recalculate the position as stroke is not part of AbsolutePosition/AbsoluteSize
+			local strokePosition = Vector2.new(rbx.AbsolutePosition.X - STROKE_THICKNESS, rbx.AbsolutePosition.Y - STROKE_THICKNESS)
+			local strokeSize = Vector2.new(rbx.AbsoluteSize.X + 2 * STROKE_THICKNESS, rbx.AbsoluteSize.Y + 2 * STROKE_THICKNESS)
+			self.props.setKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId, strokePosition, strokeSize)
+		else
+			self.props.removeKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId)
+		end
+	end
+
+	if FFlagEnableChromeBackwardsSignalAPI then
+		if self.buttonRef.current then
+			onAreaChanged(self.buttonRef.current)
+		end
+	end
+
 	return withStyle(function(style)
 		local fontStyle = style.Font.Footer
 		local font = fontStyle.Font
@@ -203,6 +232,9 @@ function VoiceBetaBadge:render()
 				LayoutOrder = self.props.layoutOrder,
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(0, 1),
+				[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+				[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+				[Roact.Ref] = self.buttonRef,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
@@ -229,7 +261,7 @@ function VoiceBetaBadge:render()
 						CornerRadius = UDim.new(0, 3)
 					}),
 					UIStroke = Roact.createElement("UIStroke", {
-						Thickness = 2,
+						Thickness = STROKE_THICKNESS,
 						Color = textTheme.Color,
 					}),
 					VREnabledListener = GamepadService and Roact.createElement(ExternalEventConnection, {
@@ -244,6 +276,21 @@ function VoiceBetaBadge:render()
 			})
 		})
 	end)
+end
+
+if FFlagEnableChromeBackwardsSignalAPI then
+	local function mapDispatchToProps(dispatch)
+		return {
+			setKeepOutArea = function(id, position, size)
+				return dispatch(SetKeepOutArea(id, position, size))
+			end,
+			removeKeepOutArea = function(id)
+				return dispatch(RemoveKeepOutArea(id))
+			end,
+		}
+	end
+
+	return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(VoiceBetaBadge)
 end
 
 return VoiceBetaBadge

@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local Immutable = require(CorePackages.Workspace.Packages.AppCommonLib).Immutable
-local ReceivedPlacesInfos = require(CorePackages.AppTempCommon.LuaApp.Actions.ReceivedPlacesInfos)
+local ReceivedPlacesInfos = require(CorePackages.Workspace.Packages.PlaceInfoRodux).Actions.ReceivedPlacesInfos
 
 local convertUniverseIdToString = require(CorePackages.Workspace.Packages.SharedFlags).ConvertUniverseIdToString
 

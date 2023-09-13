@@ -272,6 +272,9 @@ local function CreateSettingsHub()
 	if GetFFlagEnableTeleportBackButton() then
 		this.BackBarVisibleConnection = nil
 	end
+	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+		this.PreferredTransparencyChangedConnection = nil
+	end
 	this.TabConnection = nil
 	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
@@ -2195,6 +2198,12 @@ local function CreateSettingsHub()
 
 	end
 
+	local function onPreferredTransparencyChanged()
+		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+			this.MenuContainer.BackgroundTransparency = Theme.transparency("MenuContainer", 1) * GuiService.PreferredTransparency
+		end
+	end
+
 	local function toggleQuickProfilerFromHotkey(actionName, inputState, inputObject)
 		-- Make sure it's Ctrl-F7.
 		-- NOTE: This will only work if FFlagDontSwallowInputForStudioShortcuts is True.
@@ -2731,6 +2740,11 @@ local function CreateSettingsHub()
 			this.BackBarVisibleConnection = nil
 		end
 
+		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and this.PreferredTransparencyChangedConnection then
+			this.PreferredTransparencyChangedConnection:disconnect()
+			this.PreferredTransparencyChangedConnection = nil
+		end
+
 		this.Modal.Visible = this.Visible
 
 		if this.TabConnection then
@@ -2758,6 +2772,13 @@ local function CreateSettingsHub()
 			end
 			onScreenSizeChanged()
 
+			if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+				this.PreferredTransparencyChangedConnection = GuiService:GetPropertyChangedSignal("PreferredTransparency"):connect(function()
+					onPreferredTransparencyChanged()
+				end)
+			end
+			onPreferredTransparencyChanged()
+
 			this.SettingsShowSignal:fire(this.Visible)
 
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
@@ -2772,6 +2793,10 @@ local function CreateSettingsHub()
 			if noAnimation or not this.Shield:IsDescendantOf(game) then
 				this.Shield.Position = UDim2.new(0, 0, 0, 0)
 				if this.DarkenBackground then
+					if this.DarkenBackgroundTween then
+						this.DarkenBackgroundTween:Cancel()
+						this.DarkenBackgroundTween = nil
+					end
 					this.DarkenBackground.BackgroundTransparency = Theme.transparency("DarkenBackground")
 				end
 			else
@@ -2822,9 +2847,11 @@ local function CreateSettingsHub()
 						Enum.EasingStyle.Quad,
 						Enum.EasingDirection.Out
 					)
-
-					local tween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = Theme.transparency("DarkenBackground")})
-					tween:Play()
+					if this.DarkenBackgroundTween then
+						this.DarkenBackgroundTween:Cancel()
+					end
+					this.DarkenBackgroundTween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = Theme.transparency("DarkenBackground")})
+					this.DarkenBackgroundTween:Play()
 				end
 
 				if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
@@ -2904,6 +2931,10 @@ local function CreateSettingsHub()
 					this.FullscreenBackgroundCover.Visible = false
 				end
 				if this.DarkenBackground then
+					if this.DarkenBackgroundTween then
+						this.DarkenBackgroundTween:Cancel()
+						this.DarkenBackgroundTween = nil
+					end
 					this.DarkenBackground.BackgroundTransparency = 1
 				end
 			else
@@ -2969,8 +3000,11 @@ local function CreateSettingsHub()
 						Enum.EasingDirection.Out
 					)
 
-					local tween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = 1})
-					tween:Play()
+					if this.DarkenBackgroundTween then
+						this.DarkenBackgroundTween:Cancel()
+					end
+					this.DarkenBackgroundTween = TweenService:Create(this.DarkenBackground, tweenInfo, {BackgroundTransparency = 1})
+					this.DarkenBackgroundTween:Play()
 				end
 
 				if NotchSupportExperiment.enabled() then

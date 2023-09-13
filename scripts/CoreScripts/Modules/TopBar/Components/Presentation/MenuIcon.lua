@@ -11,6 +11,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local UIBloxImages = UIBlox.App.ImageSet.Images
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
@@ -24,6 +25,7 @@ local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjec
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
+local FFlagEnableChromeBackwardsSignalAPI = require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -36,7 +38,6 @@ if isNewInGameMenuEnabled() then
 	InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 end
 
-local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
 
 local IconButton = require(script.Parent.IconButton)
@@ -68,7 +69,7 @@ function MenuIcon:init()
 		enableFlashingDot = false
 	})
 
-	if GetFFlagVoiceRecordingIndicatorsEnabled() then
+	if GetFFlagVoiceRecordingIndicatorsEnabled() and not ChromeEnabled() then
 		-- We spawn a new coroutine so that this doesn't block the UI from loading.
 		task.spawn(function()
 			self:setState({
@@ -127,7 +128,9 @@ function MenuIcon:render()
 	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
 
 	local onAreaChanged = function(rbx)
-		self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+		if rbx then
+			self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
+		end
 	end
 
 	return Roact.createElement("Frame", {
@@ -135,8 +138,8 @@ function MenuIcon:render()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,
-		[Roact.Change.AbsoluteSize] = if ChromeEnabled() then onAreaChanged else nil,
-		[Roact.Change.AbsolutePosition] = if ChromeEnabled() then onAreaChanged else nil,
+		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
 	}, {
 		Background = Roact.createElement(IconButton, {
 			icon = if isNewTiltIconEnabled()

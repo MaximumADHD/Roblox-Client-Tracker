@@ -11,6 +11,7 @@ local RequestBundlePurchase = require(Root.Actions.RequestBundlePurchase)
 local RequestGamepassPurchase = require(Root.Actions.RequestGamepassPurchase)
 local RequestProductPurchase = require(Root.Actions.RequestProductPurchase)
 local RequestPremiumPurchase = require(Root.Actions.RequestPremiumPurchase)
+local RequestSubscriptionPurchase = require(Root.Actions.RequestSubscriptionPurchase)
 local CompleteRequest = require(Root.Actions.CompleteRequest)
 local RequestType = require(Root.Enums.RequestType)
 
@@ -63,6 +64,12 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 	[RequestPremiumPurchase.name] = function(state, action)
 		return {
 			requestType = RequestType.Premium,
+		}
+	end,
+	[RequestSubscriptionPurchase.name] = function(state, action)
+		return {
+			id = action.id,
+			requestType = RequestType.Subscription,
 		}
 	end,
 	[CompleteRequest.name] = function(state, action)

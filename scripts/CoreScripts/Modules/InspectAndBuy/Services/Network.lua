@@ -11,6 +11,13 @@ local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 --[[
+	TODO AVBURST-12905:
+		Remove and use item details endpoint for getting attribution data
+		instead of using the asset-versions endpoint.
+--]]
+local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)
+
+--[[
 	Expects a Promise. Hits the url given and resolves/rejects appropriately.
 	Some endpoints return a string so no JSON parsing will be done.
 ]]
@@ -269,6 +276,21 @@ local function getCollectibleResellableInstances(collectibleItemId, userId)
 	return createYieldingPromise(options, true)
 end
 
+--[[
+	TODO AVBURST-12905:
+		Remove and use item details endpoint for getting attribution data
+		instead of using the asset-versions endpoint.
+--]]
+local function getVersionInfo(assetId)
+	local url = string.format("%sv1/assets/%s/saved-versions", DEVELOPER_URL, assetId)
+	local options = {
+		Url = url,
+		Method = "GET",
+	}
+	return createYieldingPromise(options, true)
+end
+
+
 local Network = {}
 
 function Network.new()
@@ -288,6 +310,8 @@ function Network.new()
 		deleteFavoriteForBundle = deleteFavoriteForBundle,
 		getModelFromUserId = getModelFromUserId,
 		getCollectibleResellableInstances = getCollectibleResellableInstances,
+		--TODO AVBURST-12905: use item details endpoint for getting attribution data
+		getVersionInfo = getVersionInfo
 	}
 
 	setmetatable(networkService, {

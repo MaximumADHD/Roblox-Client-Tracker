@@ -14,11 +14,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
-local SocialLibraries = dependencies.SocialLibraries
 local UIBlox = dependencies.UIBlox
 local RoduxCall = dependencies.RoduxCall
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
-local FFlagLuaAppUnifyCodeToGenerateRbxThumb = dependencies.FFlagLuaAppUnifyCodeToGenerateRbxThumb
 
 local Colors = UIBlox.App.Style.Colors
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
@@ -94,11 +92,7 @@ local function CallBar(passedProps: Props)
 
 	local image
 	if otherEndParticipant then
-		if FFlagLuaAppUnifyCodeToGenerateRbxThumb then
-			image = getStandardSizeAvatarHeadShotRbxthumb(otherEndParticipant.userId)
-		else
-			image = SocialLibraries.User.getUserAvatarImage(otherEndParticipant.userId)
-		end
+		image = getStandardSizeAvatarHeadShotRbxthumb(otherEndParticipant.userId)
 	end
 
 	-- TODO (timothyhsu): Remove once CallEnded API is available

@@ -3,10 +3,13 @@
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
 local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)
+local GetVersionInfo = require(InspectAndBuyFolder.Thunks.GetVersionInfo)
 local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 local Constants = require(InspectAndBuyFolder.Constants)
+
+local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 
 local requiredServices = {}
 
@@ -51,6 +54,10 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription, isForLocalP
 			for _, asset in ipairs(assets) do
 				coroutine.wrap(function()
 					store:dispatch(GetProductInfo(asset.assetId))
+					if FFlagAttributionInInspectAndBuy then
+						-- TODO AVBURST-12905: use item details endpoint for getting attribution data
+						store:dispatch(GetVersionInfo(asset.assetId))
+					end
 				end)()
 			end
 			store:dispatch(SetAssets(assets))

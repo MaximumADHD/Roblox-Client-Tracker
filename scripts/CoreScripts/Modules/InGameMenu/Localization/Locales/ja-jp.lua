@@ -344,4 +344,13 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[戻る / 退出]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[（クリック） 一人称 / 三人称 カメラ]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[ジャンプ / 選択]],
+	["CoreScripts.InGameMenu.PageTitle.VRComfortSettings"] = [[VR酔い防止設定]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[カスタム設定]],
+	["CoreScripts.InGameMenu.GameSettings.VRSteppedRotationEnabled"] = [[VRステップ回転を有効化済み]],
+	["CoreScripts.InGameMenu.GameSettings.VRThirdPersonFixedCamEnabled"] = [[3人称視点固定カメラ]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingsDescription"] = [[動きと視野を調整してVR酔いを防止]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingComfort"] = [[VR酔い防止]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingNormal"] = [[初期設定]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingExpert"] = [[上級者向け]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingCustom"] = [[カスタム]],
 }

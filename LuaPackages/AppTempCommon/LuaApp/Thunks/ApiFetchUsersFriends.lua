@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
-local ApiFetchUsersPresences = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersPresences)
+local ApiFetchUsersPresences = require(CorePackages.Workspace.Packages.UserLib).Thunks.ApiFetchUsersPresences
 -- FIXME(dbanks)
 -- 2023/06/15
 -- Remove with FFlagWriteRbxthumbsIntoStore
@@ -15,7 +15,7 @@ local FetchUserFriendsStarted = require(CorePackages.Workspace.Packages.LegacyFr
 local FetchUserFriendsFailed = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsFailed
 local FetchUserFriendsCompleted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsCompleted
 local UserModel = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
-local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
+local UpdateUsers = require(CorePackages.Workspace.Packages.UserLib).Thunks.UpdateUsers
 
 local FFlagWriteRbxthumbsIntoStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagWriteRbxthumbsIntoStore
 

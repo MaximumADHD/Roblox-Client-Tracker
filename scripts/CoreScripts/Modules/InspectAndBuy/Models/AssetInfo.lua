@@ -22,6 +22,7 @@
 		collectibleLowestAvailableResaleItemInstanceId = string,
 		collectibleQuantityLimitPerUser = int,
 		remaining = int,
+		creatingUniverseId = string,
 	}
 ]]
 local CoreGui = game:GetService("CoreGui")
@@ -67,6 +68,7 @@ function AssetInfo.mock()
 	self.collectibleLowestAvailableResaleItemInstanceId = ""
 	self.collectibleQuantityLimitPerUser = 0
 	self.remaining = 0
+	self.creatingUniverseId = nil
 
 	return self
 end
@@ -149,6 +151,23 @@ function AssetInfo.fromPurchaseSuccess(assetId)
 	local newAsset = AssetInfo.new()
 	newAsset.assetId = tostring(assetId)
 	newAsset.owned = true
+	return newAsset
+end
+
+--[[
+	TODO AVBURST-12905:
+		Remove and use item details endpoint for getting attribution data
+		instead of using the asset-versions endpoint.
+--]]
+function AssetInfo.fromGetVersionInfo(assetId, versionData)
+	local newAsset = AssetInfo.new()
+	local latestVersion = versionData.data[1]
+
+	newAsset.assetId = tostring(assetId)
+	newAsset.creatingUniverseId = if latestVersion.creatingUniverseId
+		then tostring(latestVersion.creatingUniverseId)
+		else nil
+
 	return newAsset
 end
 

@@ -52,6 +52,12 @@ return {
 	TopBarTopMargin = topbarHeight - topbarButtonHeight - 2 * topbarButtonPadding,
 
 	MenuIconKeepOutAreaId = 'roblox-menu-icon',
+	HealthBarKeepOutAreaId = 'health-bar',
+	MoreMenuKeepOutAreaId = 'more-menu',
+	ChatIconKeepOutAreaId = 'chat-icon',
+	BackIconKeepOutAreaId = 'back-icon',
+	BadgeOver13KeepOutAreaId = 'badge-13',
+	VoiceBetaBadgeKeepOutAreaId = 'badge-voice-beta',
 
 	ScreenSideOffset = 16,
 	ScreenSideOffsetTenFoot = 48,

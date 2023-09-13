@@ -121,6 +121,16 @@ local MOCK_ECONOMY_PRODUCT_INFO = {
 	assetId = 10,
 }
 
+-- TODO AVBURST-12905: use item details endpoint for getting attribution data
+local MOCK_VERSION_INFO = {
+	data = {
+		{
+			assetId = 17,
+			creatingUniverseId = 13,
+		},
+	},
+}
+
 local function getRobloxProductInfo(id)
 	local info = Cryo.Dictionary.join(MOCK_PRODUCT_INFO, { AssetId = id })
 	return Promise.resolve(info)
@@ -129,6 +139,12 @@ end
 local function getProductInfo(id)
 	local info = Cryo.Dictionary.join(MOCK_PRODUCT_INFO, { AssetId = id })
 	info.Creator.Id = 2 -- setting this to anything except 1
+	return Promise.resolve(info)
+end
+
+-- TODO AVBURST-12905: use item details endpoint for getting attribution data
+local function getVersionInfo(id)
+	local info = Cryo.Dictionary.join(MOCK_VERSION_INFO, { AssetId = id })
 	return Promise.resolve(info)
 end
 
@@ -213,6 +229,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getFavoriteForBundle = networkFailure,
 			getEconomyProductInfo = networkFailure,
 			getModelFromUserId = networkFailure,
+			getVersionInfo = networkFailure, -- TODO AVBURST-12905: use item details endpoint for getting attribution data
 		}
 	else
 		mockNetworkService = {
@@ -229,6 +246,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getFavoriteForBundle = getFavoriteForBundle,
 			getEconomyProductInfo = getEconomyProductInfo,
 			getModelFromUserId = getModelFromUserId,
+			getVersionInfo = getVersionInfo, -- TODO AVBURST-12905: use item details endpoint for getting attribution data
 		}
 	end
 
@@ -279,6 +297,11 @@ end
 
 function MockNetwork.GetMockHumanoidDescriptionEmotes()
 	return MOCK_HUMANOID_DESCRIPTION_EMOTES
+end
+
+-- TODO AVBURST-12905: use item details endpoint for getting attribution data
+function MockNetwork.GetVersionInfo()
+	return MOCK_VERSION_INFO
 end
 
 return MockNetwork

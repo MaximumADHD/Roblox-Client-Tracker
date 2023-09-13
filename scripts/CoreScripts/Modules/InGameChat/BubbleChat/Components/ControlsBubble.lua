@@ -1,6 +1,8 @@
 --[[
 	A bubble for showing controls to enable/disable the
 	user's Microphone and Camera.
+
+	The TextChatService version of this file is called PlayerButtons
 ]]
 
 local CorePackages = game:GetService("CorePackages")

@@ -344,4 +344,13 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[뒤로 / 나가기]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[(클릭) 1인칭 / 3인칭 카메라]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[점프 / 선택]],
+	["CoreScripts.InGameMenu.PageTitle.VRComfortSettings"] = [[컴포트 설정]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[맞춤 설정]],
+	["CoreScripts.InGameMenu.GameSettings.VRSteppedRotationEnabled"] = [[VR 단계별 회전 활성화됨]],
+	["CoreScripts.InGameMenu.GameSettings.VRThirdPersonFixedCamEnabled"] = [[3인칭 고정 카메라]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingsDescription"] = [[움직임과 시야를 조정해 멀미를 줄입니다]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingComfort"] = [[편안함]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingNormal"] = [[기본]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingExpert"] = [[전문가]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingCustom"] = [[맞춤]],
 }

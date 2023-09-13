@@ -157,6 +157,7 @@ local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.
 local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 local GetFFlagSupportsOverscanPolicy = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportsOverscanPolicy
 local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
+local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -276,12 +277,24 @@ local function Initialize()
 				if newIndex == 1 then
 					if not GameSettings:InFullScreen() then
 						GuiService:ToggleFullscreen()
-						this.FullscreenEnabler:SetSelectionIndex(1)
+						if GetFFlagFixCyclicFullscreenIndexEvent() then
+							if this.FullscreenEnabler.GetSelectedIndex() ~= 1 then
+								this.FullscreenEnabler:SetSelectionIndex(1)
+							end
+						else
+							this.FullscreenEnabler:SetSelectionIndex(1)
+						end
 					end
 				elseif newIndex == 2 then
 					if GameSettings:InFullScreen() then
 						GuiService:ToggleFullscreen()
-						this.FullscreenEnabler:SetSelectionIndex(2)
+						if GetFFlagFixCyclicFullscreenIndexEvent() then
+							if this.FullscreenEnabler.GetSelectedIndex() ~= 2 then
+								this.FullscreenEnabler:SetSelectionIndex(2)
+							end
+						else
+							this.FullscreenEnabler:SetSelectionIndex(2)
+						end
 					end
 				end
 				spawn(function() --fullscreen setting takes a frame to update so need to wait before reporting

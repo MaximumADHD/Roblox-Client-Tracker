@@ -11,6 +11,7 @@ game:DefineFastFlag("MoodsHeadRemovedFix", false)
 game:DefineFastFlag("SetDefaultMoodNeutralLua", false)
 game:DefineFastFlag("MoodsRemoveWaitForChild", false)
 game:DefineFastFlag("MoodsAnimatorAddedFix", false)
+game:DefineFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator", false)
 
 local FFlagSwitchMoodPriorityWhileStreaming = game:DefineFastFlag("SwitchMoodPriorityWhileStreaming", false)
 
@@ -70,6 +71,23 @@ local LegacyDefaultEmotes = {
 	laugh = true,
 	cheer = true,
 }
+
+local function getPlayerHumanoid(player)
+	if player.Character then
+		return player.Character:FindFirstChildOfClass("Humanoid")
+	end
+
+	return nil
+end
+
+local function getPlayerAnimator(player)
+	local humanoid = getPlayerHumanoid(player)
+	if humanoid then
+		return humanoid:FindFirstChildOfClass("Animator")
+	end
+
+	return nil
+end
 
 local function switchPriority(priority)
 	currentMoodTrackPriority = priority
@@ -454,7 +472,9 @@ local function onAnimatorAdded(animator)
 	end
 end
 
-local function onAnimatorRemoving(animator)
+local function onAnimatorRemoving_Deprecated(animator)
+	assert(not game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator"))
+
 	-- clear connections
 	disconnectAndRemoveConnection(Connection.AnimationStreamTrackPlayed)
 	disconnectAndRemoveConnection(Connection.StreamTrackStopped)
@@ -462,8 +482,24 @@ local function onAnimatorRemoving(animator)
 	switchPriority(Enum.AnimationPriority.Core)
 end
 
+local function onAnimatorRemoving(player, animator)
+	assert(game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator"))
+
+	-- clear connections
+	disconnectAndRemoveConnection(Connection.AnimationStreamTrackPlayed)
+	disconnectAndRemoveConnection(Connection.StreamTrackStopped)
+	-- move Mood to blend with Locomotion
+	switchPriority(Enum.AnimationPriority.Core)
+
+	-- search for any remainig Animator in the hierarchy
+	local animator = getPlayerAnimator(player)
+	if animator then
+		onAnimatorAdded(animator)
+	end
+end
+
 -- Update mood whenever character head is changed
-local function onCharacterAdded(character)
+local function onCharacterAdded(player, character)
 	local head = character:FindFirstChild("Head")
 	if head then
 		onHeadAdded(head)
@@ -500,7 +536,11 @@ local function onCharacterAdded(character)
 
 		connections[Connection.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
 			if descendant:IsA("Animator") then
-				onAnimatorRemoving(descendant)
+				if game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator") then
+					onAnimatorRemoving(player, descendant)
+				else
+					onAnimatorRemoving_Deprecated(descendant)
+				end
 			end
 		end)
 	end
@@ -517,8 +557,10 @@ local function onCharacterRemoving(character)
 end
 
 if LocalPlayer.Character then
-	onCharacterAdded(LocalPlayer.Character)
+	onCharacterAdded(LocalPlayer, LocalPlayer.Character)
 end
 
-LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+LocalPlayer.CharacterAdded:Connect(function(character)
+	onCharacterAdded(LocalPlayer, character)
+end)
 LocalPlayer.CharacterRemoving:Connect(onCharacterRemoving)

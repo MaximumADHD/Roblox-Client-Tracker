@@ -9,6 +9,8 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local useStyle = UIBlox.Core.Style.useStyle
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
+local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local Chrome = script.Parent.Parent.Parent
 local Constants = require(Chrome.Unibar.Constants)
@@ -147,8 +149,10 @@ end
 type TooltipButtonProps = {
 	setHovered: (boolean) -> (),
 	integration: ChromeTypes.IntegrationComponentProps,
+	isCurrentlyOpenSubMenu: React.Binding<boolean?>,
 }
 function TooltipButton(props: TooltipButtonProps)
+	local localBtnRef = React.useRef(nil)
 	local secondaryAction = props.integration.integration.secondaryAction
 	local draggable: boolean = props.integration.integration.draggable or false
 	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
@@ -174,11 +178,15 @@ function TooltipButton(props: TooltipButtonProps)
 
 	-- isTooltipHovered is a tooltip panel hover state that works in combination with isHovered
 	local isTooltipHovered, setTooltipHovered = useTimeHysteresis(0, 0, 0.65)
+	local isTooltipButtonSelected, setTooltipButtonSelected = React.useState(false)
 
 	-- clickLatched inhibits the display of the tooltip if you've clicked on the icon
 	-- this is reset on the next hover
 	local clickLatched, setClicked = useTimeHysteresis(0, 1.0)
-	local hoverHandler = React.useCallback(function(_, newState)
+	local hoverHandler = React.useCallback(function(oldState, newState)
+		if newState == ControlState.Selected and oldState == ControlState.Default then
+			ChromeService:setSelected(props.integration.id)
+		end
 		local active = newState ~= ControlState.Default
 		props.setHovered(active)
 		local hovered = newState == ControlState.Hover
@@ -232,13 +240,31 @@ function TooltipButton(props: TooltipButtonProps)
 		end
 	end, { draggable })
 
+	local displayTooltip = (isHovered or isTooltipHovered or isTooltipButtonSelected) and not clickLatched
+	logTooltipState(props.integration.id, displayTooltip)
+
 	local renderTooltipComponent = React.useCallback(function(triggerPointChanged)
 		return React.createElement(Interactable, {
-			Name = "IconHitArea",
+			Name = "IconHitArea_" .. props.integration.id,
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			onStateChanged = hoverHandler,
+			ref = localBtnRef,
+			SelectionOrder = 100 - props.integration.order,
+			Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
+				return UDim2.new(0, 0, 0, if activeSubmenu then 1 else 0)
+			end),
+			SelectionImageObject = useSelectionCursor(CursorKind.SelectedKnob),
+			SelectionGroup = true,
+			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorDown = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
+				-- only allow down nav if secondaryAction or an active open submenu
+				return if (displayTooltip and secondaryAction) or activeSubmenu
+					then Enum.SelectionBehavior.Escape
+					else Enum.SelectionBehavior.Stop
+			end),
+
 			[React.Change.AbsolutePosition] = triggerPointChanged,
 			[React.Change.AbsoluteSize] = triggerPointChanged,
 			[React.Event.InputBegan] = touchBegan,
@@ -246,7 +272,6 @@ function TooltipButton(props: TooltipButtonProps)
 			[React.Event.Activated] = function()
 				setClicked(true, true)
 				props.integration.activated()
-
 				if connection.current then
 					connection.current:Disconnect()
 					connection.current = nil
@@ -254,7 +279,16 @@ function TooltipButton(props: TooltipButtonProps)
 				end
 			end,
 		})
-	end, { hoverHandler :: any, setHovered, setClicked, touchBegan, touchEnded })
+	end, {
+		hoverHandler :: any,
+		setHovered,
+		setClicked,
+		touchBegan,
+		touchEnded,
+		props.isCurrentlyOpenSubMenu,
+		displayTooltip,
+		secondaryAction,
+	})
 
 	-- tooltipRefHandler attached mouse events to the tooltip in order to keep it open while the mouse is over
 	-- this is only used in the event we have a secondaryAction
@@ -298,9 +332,6 @@ function TooltipButton(props: TooltipButtonProps)
 		end
 	end, { setTooltipHovered })
 
-	local displayTooltip = (isHovered or isTooltipHovered) and not clickLatched
-	logTooltipState(props.integration.id, displayTooltip)
-
 	return withTooltip({
 		headerText = props.integration.integration.label,
 		hotkeyCodes = props.integration.integration.hotkeyCodes,
@@ -308,9 +339,20 @@ function TooltipButton(props: TooltipButtonProps)
 		buttonProps = if secondaryAction
 			then {
 				text = secondaryAction.label,
+				onStateChanged = function(_, newState)
+					if newState == ControlState.Selected then
+						setTooltipButtonSelected(true)
+					else
+						setTooltipButtonSelected(false)
+					end
+				end,
 				onActivated = function()
 					secondaryAction.activated(props.integration)
 				end,
+				NextSelectionUp = localBtnRef,
+				NextSelectionLeft = localBtnRef,
+				NextSelectionRight = localBtnRef,
+				NextSelectionDown = localBtnRef,
 			}
 			else nil,
 		ref = if secondaryAction then tooltipRefHandler else nil,
@@ -389,6 +431,7 @@ function IconHost(props: IconHostProps)
 			else React.createElement(TooltipButton, {
 				integration = props.integration,
 				setHovered = setHovered,
+				isCurrentlyOpenSubMenu = isCurrentlyOpenSubMenu,
 			}) :: any,
 	})
 end

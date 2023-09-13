@@ -21,6 +21,7 @@ local GamepadEnabledReducer = require(script.Parent.GamepadEnabledReducer)
 local ABVariationReducer = require(script.Parent.ABVariationReducer)
 local WindowStateReducer = require(script.Parent.WindowStateReducer)
 local ButtonStateReducer = require(script.Parent.ButtonStateReducer)
+local SubscriptionPurchaseInfoReducer = require(script.Parent.SubscriptionPurchaseInfoReducer)
 
 local Reducer = Rodux.combineReducers({
 	promptRequest = PromptRequestReducer,
@@ -37,6 +38,7 @@ local Reducer = Rodux.combineReducers({
 	abVariations = ABVariationReducer,
 	windowState = WindowStateReducer,
 	buttonState = ButtonStateReducer,
+	subscriptionPurchaseInfo = SubscriptionPurchaseInfoReducer,
 })
 
 return Reducer

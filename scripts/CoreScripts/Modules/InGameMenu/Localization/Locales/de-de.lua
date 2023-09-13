@@ -344,4 +344,13 @@ return{
 	["CoreScripts.InGameMenu.Controls.BackExitLabel"] = [[Zurück / Verlassen]],
 	["CoreScripts.InGameMenu.Controls.FirstPersonCameraLabel"] = [[First-Person- / Third-Person-Kamera (Klicken)]],
 	["CoreScripts.InGameMenu.Controls.JumpSelectLabel"] = [[Springen / Auswählen]],
+	["CoreScripts.InGameMenu.PageTitle.VRComfortSettings"] = [[Komfort-Einstellungen]],
+	["CoreScripts.InGameMenu.GameSettings.SwitchToVRComfortSettings"] = [[Benutzerdefinierte Einstellungen]],
+	["CoreScripts.InGameMenu.GameSettings.VRSteppedRotationEnabled"] = [[VR-stufenweise Drehung aktiviert]],
+	["CoreScripts.InGameMenu.GameSettings.VRThirdPersonFixedCamEnabled"] = [[Feste Kamera für 3. Person]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingsDescription"] = [[Reduziere Schwindel oder Übelkeit, indem du die Bewegung und das Sichtfeld anpasst]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingComfort"] = [[Komfort]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingNormal"] = [[Standard]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingExpert"] = [[Experte]],
+	["CoreScripts.InGameMenu.GameSettings.ComfortSettingCustom"] = [[Benutzerdefiniert]],
 }

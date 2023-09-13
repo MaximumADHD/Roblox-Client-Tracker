@@ -16,6 +16,7 @@ local completePurchase = require(Root.Thunks.completePurchase)
 local initiatePurchase = require(Root.Thunks.initiatePurchase)
 local initiateBundlePurchase = require(Root.Thunks.initiateBundlePurchase)
 local initiatePremiumPurchase = require(Root.Thunks.initiatePremiumPurchase)
+local initiateSubscriptionPurchase = require(Root.Thunks.initiateSubscriptionPurchase)
 local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
@@ -33,6 +34,7 @@ local function MarketplaceServiceEventConnector(props)
 	local onPremiumPurchaseRequest = props.onPremiumPurchaseRequest
 	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
 	local onPromptCollectiblesPurchaseRequest = props.onPromptCollectiblesPurchaseRequest
+	local onSubscriptionPurchaseRequest = props.onSubscriptionPurchaseRequest
 
 	local function checkNewEventExists()
 		return MarketplaceService.PromptPurchaseRequestedV2;
@@ -88,6 +90,10 @@ local function MarketplaceServiceEventConnector(props)
 		Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptPremiumPurchaseRequested,
 			callback = onPremiumPurchaseRequest,
+		}),
+		Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptSubscriptionPurchaseRequested,
+			callback = onSubscriptionPurchaseRequest,
 		}),
 	})
 end
@@ -154,6 +160,10 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		end
 	end
 
+	local function onSubscriptionPurchaseRequest(subscriptionId)
+		dispatch(initiateSubscriptionPurchase(subscriptionId))
+	end
+
 	return {
 		onPurchaseRequest = onPurchaseRequest,
 		onPurchaseRequestV2 = onPurchaseRequestV2,
@@ -164,6 +174,7 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		onBundlePurchaseRequest = onBundlePurchaseRequest,
 		onPremiumPurchaseRequest = onPremiumPurchaseRequest,
 		onPromptCollectiblesPurchaseRequest = onPromptCollectiblesPurchaseRequest,
+		onSubscriptionPurchaseRequest = onSubscriptionPurchaseRequest,
 	}
 end)(MarketplaceServiceEventConnector)
 

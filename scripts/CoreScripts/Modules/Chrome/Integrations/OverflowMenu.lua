@@ -22,7 +22,13 @@ local leaderboard = ChromeService:register({
 			local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 			InGameMenu.openPlayersPage()
 		else
-			PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+			if PlayerListMaster:GetSetVisible() then
+				PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+			else
+				ChromeUtils.dismissRobloxMenuAndRun(function()
+					PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+				end)
+			end
 		end
 	end,
 	components = {
@@ -47,7 +53,9 @@ local emotes = ChromeService:register({
 			--	ChatSelector:SetVisible(true)
 			--	self.chatWasHidden = false
 			--end
-			EmotesMenuMaster:open()
+			ChromeUtils.dismissRobloxMenuAndRun(function()
+				EmotesMenuMaster:open()
+			end)
 		end
 	end,
 	components = {
@@ -65,7 +73,13 @@ local backpack = ChromeService:register({
 	id = "backpack",
 	label = "CoreScripts.TopBar.Inventory",
 	activated = function(self)
-		BackpackModule:OpenClose()
+		if BackpackModule.IsOpen then
+			BackpackModule:OpenClose()
+		else
+			ChromeUtils.dismissRobloxMenuAndRun(function()
+				BackpackModule:OpenClose()
+			end)
+		end
 	end,
 	components = {
 		Icon = function(props)
