@@ -194,6 +194,7 @@ Class Animator : Instance
 	Event Animator.AnimationStreamTrackPlayed(AnimationStreamTrack animationTrack) {RobloxScriptSecurity}
 	Event Animator.OnCombinedUpdate2(Content animation, bool playState, float fadeTime, float weight, float speed, float timePosition, Enum.AnimationPriority priority, int valuesUpdated) {RobloxSecurity} [Hidden]
 	Event Animator.OnStreamingUpdated(float fadeTime, float weight, Enum.AnimationPriority priority, int valuesUpdated) {RobloxSecurity} [Hidden]
+	Event Animator.OnStreamingUpdated2(float fadeTime, float weight, Enum.AnimationPriority priority, bool maskEnabled, int valuesUpdated) {RobloxSecurity} [Hidden]
 	Event Animator.StreamSyncRequest(Player player) {RobloxSecurity} [Hidden]
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
@@ -717,6 +718,11 @@ Class RocketPropulsion : BodyMover [Deprecated]
 	Function void RocketPropulsion:Abort() [Deprecated]
 	Function void RocketPropulsion:Fire() [Deprecated]
 	Event RocketPropulsion.ReachedTarget() [Deprecated]
+Class BodyPartDescription : Instance [NotBrowsable]
+	Property int64 BodyPartDescription.AssetId
+	Property Enum.BodyPart BodyPartDescription.BodyPart
+	Property Color3 BodyPartDescription.Color
+	Property Instance BodyPartDescription.Instance
 Class Breakpoint : Instance [NotReplicated]
 	Property string Breakpoint.Condition {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int Breakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1535,6 +1541,7 @@ Class DynamicImage : Instance
 	Function void DynamicImage:Crop(Vector2 min, Vector2 max)
 	Function void DynamicImage:DrawCircle(Vector2 center, int radius, Color3 color, float transparency)
 	Function void DynamicImage:DrawImage(Vector2 position, DynamicImage image, Enum.ImageCombineType combineType)
+	Function void DynamicImage:DrawLine(Vector2 p1, Vector2 p2, Color3 color, float transparency)
 	Function void DynamicImage:DrawRectangle(Vector2 position, Vector2 size, Color3 color, float transparency)
 	Function Array DynamicImage:ReadPixels(Vector2 position, Vector2 size) [CustomLuaState]
 	Function void DynamicImage:Resize(Vector2 size)
@@ -2724,6 +2731,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function void Lighting:SetMinutesAfterMidnight(double minutes)
 	Event Lighting.LightingChanged(bool skyChanged)
 Class LiveScriptingService : Instance [NotCreatable] [Service]
+	Property Enum.ServerLiveEditingMode LiveScriptingService.ServerLiveEditingMode [Hidden] [NotScriptable]
 	Event LiveScriptingService.BeginEdit(int64 id, string guid) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.BroadcastMessage(string message, Enum.LiveEditingBroadcastMessageType type) {RobloxSecurity} [Hidden]
 	Event LiveScriptingService.EndEdit(int64 id) {RobloxSecurity} [Hidden]
@@ -3175,6 +3183,7 @@ Class OpenCloudApiV1 : Instance [NotCreatable] [NotReplicated]
 	Function OpenCloudModel OpenCloudApiV1:CreateUserNotificationAsync(string user, OpenCloudModel userNotification) [Yields]
 Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function OpenCloudApiV1 OpenCloudService:GetApiV1()
+Class OperationTree : Instance
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property CFrame PVInstance.Pivot Offset [NotReplicated] [NotScriptable]
 	Property CFrame PVInstance.Origin [NotReplicated] [NotScriptable]
@@ -3329,6 +3338,7 @@ Class SpawnLocation : Part
 Class WedgePart : FormFactorPart
 Class Terrain : BasePart [NotCreatable]
 	Property bool Terrain.Decoration [NotScriptable]
+	Property float Terrain.GrassLength [NotScriptable] [NotBrowsable]
 	Property BinaryString Terrain.MaterialColors [NotScriptable]
 	Property bool Terrain.ShorelinesUpgraded {RobloxScriptSecurity} [Hidden]
 	Property bool Terrain.SmoothVoxelsUpgraded {RobloxScriptSecurity} [Hidden]
@@ -3545,7 +3555,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.FluidForces Workspace.FluidForces [NotScriptable]
 	Property Vector3 Workspace.GlobalWind
 	Property float Workspace.Gravity
-	Property Enum.HumanoidOnlySetCollisionsOnStateChange Workspace.HumanoidOnlySetCollisionsOnStateChange [NotScriptable]
 	Property Enum.IKControlConstraintSupport Workspace.IKControlConstraintSupport [NotScriptable]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
@@ -3752,12 +3761,14 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreWorldCoordsShown
 	Property bool PhysicsSettings.DisableCSGv2
 	Property bool PhysicsSettings.DisableCSGv3ForPlugins
+	Property float PhysicsSettings.FluidForceDrawScale {RobloxScriptSecurity}
 	Property bool PhysicsSettings.ForceCSGv2 [Hidden] [NotReplicated]
 	Property float PhysicsSettings.ForceDrawScale {RobloxScriptSecurity}
 	Property bool PhysicsSettings.IsInterpolationThrottleShown
 	Property bool PhysicsSettings.IsReceiveAgeShown
 	Property bool PhysicsSettings.IsTreeShown
 	Property bool PhysicsSettings.ShowDecompositionGeometry
+	Property bool PhysicsSettings.ShowFluidForcesForSelectedOrHoveredAssemblies {RobloxScriptSecurity}
 	Property Enum.SolverConvergenceMetricType PhysicsSettings.SolverConvergenceMetricType {RobloxScriptSecurity}
 	Property Enum.SolverConvergenceVisualizationMode PhysicsSettings.SolverConvergenceVisualizationMode {RobloxScriptSecurity}
 	Property bool PhysicsSettings.UseCSGv2
@@ -3921,6 +3932,8 @@ Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Event PlayerScripts.ComputerMovementModeRegistered() {RobloxScriptSecurity}
 	Event PlayerScripts.TouchCameraMovementModeRegistered() {RobloxScriptSecurity}
 	Event PlayerScripts.TouchMovementModeRegistered() {RobloxScriptSecurity}
+Class PlayerViewService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function CFrame PlayerViewService:GetDeviceCameraCFrame(Player player = nil)
 Class Players : Instance [NotCreatable] [Service]
 	Property bool Players.CharacterAutoLoads [NotReplicated]
 	Property bool Players.UseStrafingAnimations [NotScriptable]
@@ -4998,7 +5011,13 @@ Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioAssetService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioAssetService.OnPublishPackageResult(Dictionary result, string errorMessage) {RobloxScriptSecurity}
 	Event StudioAssetService.OnSaveToRoblox(Objects instances, Variant assetType) {RobloxScriptSecurity}
-Class StudioCallout : Instance
+Class StudioAttachment : Instance
+	Property bool StudioAttachment.AutoHideParent
+	Property bool StudioAttachment.IsArrowVisible
+	Property Vector2 StudioAttachment.Offset
+	Property Vector2 StudioAttachment.SourceAnchorPoint
+	Property Vector2 StudioAttachment.TargetAnchorPoint
+Class StudioCallout : Instance [NotCreatable] [NotReplicated]
 	Property Vector2 StudioCallout.AnchorPoint {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioCallout.IsArrowVisible {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioCallout.IsNextVisible {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -5026,8 +5045,8 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.TouchInBoundsChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.TouchPositionsChanged() {RobloxScriptSecurity}
-Class StudioObjectBase : Instance
-Class StudioWidget : StudioObjectBase
+Class StudioObjectBase : Instance [NotCreatable] [NotReplicated]
+Class StudioWidget : StudioObjectBase [NotCreatable] [NotReplicated]
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:ClearUploadNames() {RobloxScriptSecurity}
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
@@ -5095,7 +5114,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum.StudioStyleGuideColor styleguideitem, Enum.StudioStyleGuideModifier modifier = "Default") {PluginSecurity}
 Class StudioWidgetsService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function void StudioWidgetsService:AttachPluginGui(StudioWidget target, PluginGui gui) {RobloxScriptSecurity}
+	Function void StudioWidgetsService:AttachPluginGui(StudioWidget target, PluginGui gui, StudioAttachment attachment) {RobloxScriptSecurity}
 	Function StudioWidget StudioWidgetsService:GetWidgetFromLabel(string label) {RobloxScriptSecurity}
 	Function void StudioWidgetsService:HideSpotlight() {RobloxScriptSecurity}
 	Function void StudioWidgetsService:ShowSpotlight(StudioWidget target, bool? sinkInput) {RobloxScriptSecurity}
@@ -5322,10 +5341,14 @@ Class TextChatMessage : Instance [NotCreatable]
 	Property TextChannel TextChatMessage.TextChannel
 	Property TextSource TextChatMessage.TextSource
 	Property DateTime TextChatMessage.Timestamp
+	Property string TextChatMessage.Translation
 Class TextChatMessageProperties : Instance
 	Property string TextChatMessageProperties.PrefixText
 	Property string TextChatMessageProperties.Text
+	Property string TextChatMessageProperties.Translation
 Class TextChatService : Instance [NotCreatable] [Service]
+	Property bool TextChatService.ChatTranslationEnabled {✏️RobloxScriptSecurity}
+	Property bool TextChatService.ChatTranslationToggleEnabled {RobloxScriptSecurity}
 	Property Enum.ChatVersion TextChatService.ChatVersion {✏️NotAccessibleSecurity}
 	Property bool TextChatService.CreateDefaultCommands {✏️PluginSecurity}
 	Property bool TextChatService.CreateDefaultTextChannels {✏️PluginSecurity}
@@ -5338,6 +5361,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.MessageReceived(TextChatMessage textChatMessage)
 	Event TextChatService.SendingMessage(TextChatMessage textChatMessage)
 	Event TextChatService.ServerToClientMessageReplicateSignal(string text, string prefixText, string metadata, string messageId, TextSource textSource, TextChannel textChannel, int64 timestamp, Enum.TextChatMessageStatus status) {RobloxSecurity} [Hidden]
+	Event TextChatService.ServerToClientMessageReplicateSignalV2(Dictionary data) {RobloxSecurity} [Hidden]
 	Callback Tuple TextChatService.OnBubbleAdded(TextChatMessage message, Instance adornee)
 	Callback Tuple TextChatService.OnIncomingMessage(TextChatMessage message)
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
@@ -5905,20 +5929,20 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.JoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.PublishingHandshakeAcked(string handshakeAnswer) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.PublishingHandshakeCompleted() {RobloxSecurity} [Hidden]
-	Event VoiceChatService.PublishingHandshakeInitiated(string handshakeOffer, Enum.MuteState muteState) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeAcked(string handshakeAnswer, string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeCompleted(string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishingHandshakeInitiated(string handshakeOffer, Enum.MuteState muteState, string sessionId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.RelayCandidatesGathered(Enum.VoiceControlPath voiceControlPath, string serializedIceCandidates) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.SubscriptionHandshakeAcked(int eventTag, string handshakeAnswer, string userToMute) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.SubscriptionHandshakeCompleted(string subscriptionInfo) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.SubscriptionHandshakeInitiated(string handshakeOffer, string subscriptionInfo, bool isNewConnection) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.RelayCandidatesGathered(Enum.VoiceControlPath voiceControlPath, string serializedIceCandidates, bool isLast, string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeAcked(int eventTag, string handshakeAnswer, string userToMute, string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeCompleted(string subscriptionInfo, string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeInitiated(string handshakeOffer, string subscriptionInfo, bool isNewConnection, string sessionId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventClientToServer(int64 tag, string value) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventServerToClient(int64 tag, string value) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.VoiceSetupFailed(Enum.VoiceControlPath voiceControlPath, string serializedFailure) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceSetupFailed(Enum.VoiceControlPath voiceControlPath, string serializedFailure, string sessionId) {RobloxSecurity} [Hidden]
 Class WeldConstraint : Instance
 	Property bool WeldConstraint.Active [ReadOnly]
 	Property bool WeldConstraint.Enabled [<📁> LoadOnly] [NotReplicated]
@@ -7005,10 +7029,6 @@ Enum HumanoidHealthDisplayType
 	EnumItem HumanoidHealthDisplayType.DisplayWhenDamaged : 0
 	EnumItem HumanoidHealthDisplayType.AlwaysOn : 1
 	EnumItem HumanoidHealthDisplayType.AlwaysOff : 2
-Enum HumanoidOnlySetCollisionsOnStateChange
-	EnumItem HumanoidOnlySetCollisionsOnStateChange.Default : 0
-	EnumItem HumanoidOnlySetCollisionsOnStateChange.Disabled : 1
-	EnumItem HumanoidOnlySetCollisionsOnStateChange.Enabled : 2
 Enum HumanoidRigType
 	EnumItem HumanoidRigType.R6 : 0
 	EnumItem HumanoidRigType.R15 : 1
@@ -7533,6 +7553,12 @@ Enum NormalId
 	EnumItem NormalId.Left : 3
 	EnumItem NormalId.Bottom : 4
 	EnumItem NormalId.Front : 5
+Enum OperationType
+	EnumItem OperationType.Null : 0
+	EnumItem OperationType.Union : 1
+	EnumItem OperationType.Subtraction : 2
+	EnumItem OperationType.Intersection : 3
+	EnumItem OperationType.Primitive : 4
 Enum OrientationAlignmentMode
 	EnumItem OrientationAlignmentMode.OneAttachment : 0
 	EnumItem OrientationAlignmentMode.TwoAttachment : 1
@@ -7671,6 +7697,13 @@ Enum PoseEasingStyle
 Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
+Enum PrimitiveType
+	EnumItem PrimitiveType.Null : 0
+	EnumItem PrimitiveType.Ball : 1
+	EnumItem PrimitiveType.Cylinder : 2
+	EnumItem PrimitiveType.Block : 3
+	EnumItem PrimitiveType.Wedge : 4
+	EnumItem PrimitiveType.CornerWedge : 5
 Enum PrivilegeType [Deprecated]
 	EnumItem PrivilegeType.Banned : 0 [Deprecated]
 	EnumItem PrivilegeType.Visitor : 10 [Deprecated]
@@ -7868,6 +7901,7 @@ Enum SaveAvatarThumbnailCustomizationFailure
 	EnumItem SaveAvatarThumbnailCustomizationFailure.BadFieldOfViewDeg : 3
 	EnumItem SaveAvatarThumbnailCustomizationFailure.BadDistanceScale : 4
 	EnumItem SaveAvatarThumbnailCustomizationFailure.Other : 5
+	EnumItem SaveAvatarThumbnailCustomizationFailure.Throttled : 6
 Enum SaveFilter [Deprecated]
 	EnumItem SaveFilter.SaveWorld : 0 [Deprecated]
 	EnumItem SaveFilter.SaveGame : 1 [Deprecated]
@@ -7940,6 +7974,10 @@ Enum ServerAudioBehavior
 	EnumItem ServerAudioBehavior.Enabled : 0
 	EnumItem ServerAudioBehavior.Muted : 1
 	EnumItem ServerAudioBehavior.OnlineGame : 2
+Enum ServerLiveEditingMode
+	EnumItem ServerLiveEditingMode.Uninitialized : 0
+	EnumItem ServerLiveEditingMode.Enabled : 1
+	EnumItem ServerLiveEditingMode.Disabled : 2
 Enum ServiceVisibility
 	EnumItem ServiceVisibility.Always : 0
 	EnumItem ServiceVisibility.Off : 1

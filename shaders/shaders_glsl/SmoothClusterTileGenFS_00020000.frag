@@ -102,7 +102,7 @@ void main()
     }
     gl_FragData[0] = vec4(f49 * f49, 1.0);
     gl_FragData[1] = vec4((vec4(normalize(((mix(vec3(VARYING4.z, 0.0, -VARYING4.x), vec3(-VARYING4.y, VARYING4.x, 0.0), f20) * f19.x) + (mix(vec3(0.0, 1.0, 0.0), vec3(0.0, -VARYING4.z, VARYING4.y), f20) * f19.y)) + (VARYING4 * sqrt(clamp(1.0 + dot(vec2(1.0) - f18, f19), 0.0, 1.0)))), 0.0).xyz * 0.5) + vec3(0.5), 1.0);
-    gl_FragData[2] = ((texture2DGradARB(SpecularMapTexture, f0, f6, f7) * VARYING0.x) + (texture2DGradARB(SpecularMapTexture, f1, f8, f9) * VARYING0.y)) + (texture2DGradARB(SpecularMapTexture, f2, f10, f11) * VARYING0.z);
+    gl_FragData[2] = vec4((((texture2DGradARB(SpecularMapTexture, f0, f6, f7) * VARYING0.x) + (texture2DGradARB(SpecularMapTexture, f1, f8, f9) * VARYING0.y)) + (texture2DGradARB(SpecularMapTexture, f2, f10, f11) * VARYING0.z)).xyz, 1.0);
 }
 
 //$$SpecularMapTexture=s3

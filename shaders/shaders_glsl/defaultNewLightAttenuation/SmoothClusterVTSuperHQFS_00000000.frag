@@ -12,7 +12,7 @@ uniform sampler2D AlbedoMapTexture;
 uniform sampler2D NormalMapTexture;
 uniform sampler2D SpecularMapTexture;
 
-varying vec3 VARYING0;
+varying vec4 VARYING0;
 varying vec4 VARYING1;
 varying vec3 VARYING2;
 varying vec3 VARYING3;
@@ -35,7 +35,7 @@ void main()
     vec3 f3;
     vec3 f4;
     vec3 f5;
-    if ((f2.w < 0.0) || f1)
+    if (((f2.w < 0.0) || f1) || (!(VARYING0.w == 0.0)))
     {
         f5 = vec3(0.0, 1.0, 0.0);
         f4 = VARYING4.xyz * VARYING4.xyz;
@@ -51,7 +51,7 @@ void main()
     float f7 = clamp(1.0 - (VARYING1.w * CB0[28].y), 0.0, 1.0);
     float f8 = 0.08900000154972076416015625 + (f5.y * 0.9110000133514404296875);
     vec3 f9 = VARYING1.xyz - (CB0[16].xyz * 0.001000000047497451305389404296875);
-    float f10 = clamp(dot(step(CB0[24].xyz, abs(VARYING0 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f10 = clamp(dot(step(CB0[24].xyz, abs(VARYING0.xyz - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f11 = VARYING0.yzx - (VARYING0.yzx * f10);
     vec4 f12 = vec4(clamp(f10, 0.0, 1.0));
     vec4 f13 = mix(texture3D(LightMapTexture, f11), vec4(0.0), f12);
@@ -72,7 +72,7 @@ void main()
     float f28 = f21 * f21;
     float f29 = (((f22 * f28) - f22) * f22) + 1.0;
     float f30 = 1.0 - f5.x;
-    vec3 f31 = (((((((vec3(f30) - (f27 * ((CB0[31].w * f7) * f30))) * CB0[15].xyz) * f20) + (CB0[17].xyz * (f30 * clamp(-f18, 0.0, 1.0)))) + (min((f13.xyz * (f13.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f14.x)), vec3(CB0[21].w)) * 1.0)) + vec3((f5.z * 2.0) * f7)) * f4) + (((f27 * (((f28 + (f28 * f28)) / (((f29 * f29) * ((f23 * 3.0) + 0.5)) * ((f22 * 0.75) + 0.25))) * f20)) * CB0[15].xyz) * 1.0);
+    vec3 f31 = (((((((vec3(f30) - (f27 * ((CB0[31].w * f7) * f30))) * CB0[15].xyz) * f20) + (CB0[17].xyz * (f30 * clamp(-f18, 0.0, 1.0)))) + (min((f13.xyz * (f13.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f14.x)), vec3(CB0[21].w)) * 1.0)) + vec3((f5.z * 2.0) * f7)) * f4) + ((((f27 * (((f28 + (f28 * f28)) / (((f29 * f29) * ((f23 * 3.0) + 0.5)) * ((f22 * 0.75) + 0.25))) * f20)) * CB0[15].xyz) * 1.0) * f7);
     vec4 f32 = vec4(0.0);
     f32.x = f31.x;
     vec4 f33 = f32;

@@ -177,6 +177,7 @@ Studio.RobloxPropertiesWidget.Category.Scale,,Scale,Scale
 Studio.App.PropertyItems.ResetScaleIcon.ToolTip,Tooltip for an icon that when clicked will reset the scale of a model to 1 without changing its size.,Resets the model's scale to 1 without changing its size.,Resets the model's scale to 1 without changing its size.
 Studio.RobloxPropertiesWidget.Category.ScriptEditor,,Script Editor,Script Editor
 Studio.RobloxPropertiesWidget.Category.ScriptEditorColors,,Script Editor Colors,Script Editor Colors
+Studio.RobloxPropertiesWidget.Category.Scripting,,Scripting,Scripting
 Studio.RobloxPropertiesWidget.Category.Scrolling,,Scrolling,Scrolling
 Studio.RobloxPropertiesWidget.Category.Selection,,Selection,Selection
 Studio.RobloxPropertiesWidget.Category.Servo,,Servo,Servo

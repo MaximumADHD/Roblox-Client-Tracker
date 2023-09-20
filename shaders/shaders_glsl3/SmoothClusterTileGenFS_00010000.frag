@@ -111,7 +111,7 @@ void main()
     vec3 f63 = vec4(vec3(f62, f61, f62) + (vec3(f60.yzy) * vec3(1.0, 1.0, -1.0)), 0.0).xyz;
     _entryPointOutput_albedo = vec4(f63 * f63, 1.0);
     _entryPointOutput_normal = vec4((vec4(normalize(((mix(vec3(VARYING4.z, 0.0, -VARYING4.x), vec3(-VARYING4.y, VARYING4.x, 0.0), f29) * f28.x) + (mix(vec3(0.0, 1.0, 0.0), vec3(0.0, -VARYING4.z, VARYING4.y), f29) * f28.y)) + (VARYING4 * f28.z)), 0.0).xyz * 0.5) + vec3(0.5), 1.0);
-    _entryPointOutput_spec = ((f1 * f6.x) + (f3 * f6.y)) + (f5 * f6.z);
+    _entryPointOutput_spec = vec4((((f1 * f6.x) + (f3 * f6.y)) + (f5 * f6.z)).xyz, 1.0);
 }
 
 //$$SpecularMapTexture=s3

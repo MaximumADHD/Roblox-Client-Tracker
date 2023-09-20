@@ -13,7 +13,7 @@ Studio.RobloxPropertiesWidget.Category.Appearance,,,Appearance,Appearance,,,Aspe
 Studio.RobloxPropertiesWidget.Category.Assembly,,,Assembly,Assembly,,,Montaje,Assemblage,,Montaggio,アセンブリ,어셈블리,Montagem,,,,,组件,组件,組件
 Studio.RobloxPropertiesWidget.Category.Asset,,,Asset,Asset,,,Recurso,Contenu,,Risorsa/Asset,アセット,애셋,Ativo,,,,,素材,素材,資產
 Studio.RobloxPropertiesWidget.Category.Attachments,,,Attachments,Attachments,,,Conexiones,Pièces jointes,,Allegati,アタッチメント,첨부 파일,Anexos,,,,,附件,附件,附件
-Studio.RobloxPropertiesWidget.Category.Attributes,,,Attributes,Attributes,,,Atributos,Attributs,,Attributi,属性,속성,Atributos,,,,,属性,属性,屬性
+Studio.RobloxPropertiesWidget.Category.Attributes,,,Attributes,Attributes,,,Atributos,Attributs,,Attributi,属性,특성,Atributos,,,,,属性,属性,屬性
 Studio.RobloxPropertiesWidget.Category.Audio,,,Audio,Audio,,,Audio,Audio,,Audio,オーディオ,오디오,Áudio,,,,,音频,音频,音訊
 Studio.RobloxPropertiesWidget.Category.AutoRecovery,,,Auto-Recovery,Auto-Recovery,,,Recuperación automática,Auto-recouvrement,,Ripristino automatico,自動復元,자동 복구,Recuperação automática,,,,,自动恢复,自动恢复,自動復原
 Studio.RobloxPropertiesWidget.Category.Axes,,,Axes,Axes,,,Ejes,Axes,,Assi,軸,축,Eixos,,,,,轴,轴,軸
@@ -144,11 +144,11 @@ Studio.RobloxPropertiesWidget.Category.PhysicsResponse,,,Physics Response,Physic
 Studio.RobloxPropertiesWidget.Category.Aerodynamics,,,Aerodynamics,Aerodynamics,,,Aerodinámico,Aérodynamique,,Aerodinamica,空気力学,공기 역학,Aerodinâmica,,,,,,,
 Studio.RobloxPropertiesWidget.Category.AirProperties,,,AirProperties,AirProperties,,,AirProperties,Propriétés de l'air,,AirProperties,AirProperties,AirProperties,Propriedades aéreas,,,,,,,
 Studio.RobloxPropertiesWidget.Category.Tags,,,Tags,Tags,,,Etiquetas,Étiquettes,,Etichette,タグ,태그,Marcadores,,,,,,,
-Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,,,Search for or create a tag,Search for or create a tag,,,,Rechercher ou créer un tag,,,,태그 검색 또는 만들기,Procure ou crie um marcador,,,,,,,
-Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,,,No tags have been created yet,No tags have been created yet,,,,Aucun tag n'a encore été créé,,,,아직 만든 태그가 없습니다,Nenhum marcador foi criado ainda,,,,,,,
-Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,,,Create tag: %1,Create tag: %1,,,,Créer un tag : %1,,,,태그 만들기: %1,Criar marcador: %1,,,,,,,
-Studio.RobloxPropertiesWidget.Category.Connections,,,Connections,Connections,,,,Connexions,,Connessioni,,연결,Conexões,,,,,,,
-Studio.RobloxPropertiesWidget.Category.Interactions,,,Interactions,Interactions,,,,Interactions,,Interazione,,상호 작용,Interações,,,,,,,
-Studio.RobloxPropertiesWidget.Category.Metering,,,Metering,Metering,,,,Comptage,,Misurazione,,미터링,Medição,,,,,,,
-Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,,,Permissions,,Autorizzazioni,,권한,Permissões,,,,,,,
-Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,,,Enregistrement,,Registrazione,,기록,Gravação,,,,,,,
+Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,,,Search for or create a tag,Search for or create a tag,,,Busca o crea una etiqueta,Rechercher ou créer un tag,,,タグを検索または作成,태그 검색 또는 만들기,Procure ou crie um marcador,,,,,,,
+Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,,,No tags have been created yet,No tags have been created yet,,,Aún no se han creado etiquetas,Aucun tag n'a encore été créé,,,タグがまだ作成されていません,아직 만든 태그가 없습니다,Nenhum marcador foi criado ainda,,,,,,,
+Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,,,Create tag: %1,Create tag: %1,,,Crear etiqueta: %1,Créer un tag : %1,,,タグ作成: %1,태그 만들기: %1,Criar marcador: %1,,,,,,,
+Studio.RobloxPropertiesWidget.Category.Connections,,,Connections,Connections,,,Conexiones,Connexions,,Connessioni,,연결,Conexões,,,,,,,
+Studio.RobloxPropertiesWidget.Category.Interactions,,,Interactions,Interactions,,,Interacciones,Interactions,,Interazione,交流,상호 작용,Interações,,,,,,,
+Studio.RobloxPropertiesWidget.Category.Metering,,,Metering,Metering,,,Medición,Comptage,,Misurazione,,미터링,Medição,,,,,,,
+Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,,Permisos,Permissions,,Autorizzazioni,権限,권한,Permissões,,,,,,,
+Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,,Grabando,Enregistrement,,Registrazione,,기록,Gravação,,,,,,,

@@ -16,6 +16,7 @@ Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor,,Accessory Fitting Tool,
 Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip,,Edit and Preview Cage Mesh for Clothing and Accessories.,Edit and Preview Cage Mesh for Clothing and Accessories.
 Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Accessory
 Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip,,Select one or multiple Models to convert into Accessories,Select one or multiple Models to convert into Accessories
+Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories,,Bulk Create Accessories,Bulk Create Accessories
 Studio.App.RobloxRibbonMainWindow.Import3D,,Import 3D,Import 3D
 Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
 Studio.App.RobloxRibbonMainWindow.RigBuilder,,Rig Builder,Rig Builder
@@ -23,6 +24,8 @@ Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip,,Insert rigs to animate,Inse
 Studio.App.RobloxRibbonMainWindow.AnimationEditor,,Animation Editor,Animation Editor
 Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish Animation clips","Create, preview, and publish Animation clips"
 Studio.App.RobloxRibbonMainWindow.R15Migrator,,R15 Migrator,R15 Migrator
+Studio.App.RobloxRibbonMainWindow.R15MigratorFinalize,,Finalize Conversion,Finalize Conversion
+Studio.App.RobloxRibbonMainWindow.R15MigratorFinalizeTooltip,,Clean up temporary instances used for avatar compatability and backup data used during the conversion process.,Clean up temporary instances used for avatar compatability and backup data used during the conversion process.
 Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip,,Tools to migrate avatars and scripts to R15,Tools to migrate avatars and scripts to R15
 Studio.App.RobloxRibbonMainWindow.RobloxClassic,,Roblox Classic,Roblox Classic
 Studio.App.RobloxRibbonMainWindow.RobloxClassicTooltip,,Tools to create Roblox Classic experiences,Tools to create Roblox Classic experiences

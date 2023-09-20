@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "GameProtocol",
-    "tree": {
-      "$path": "../../../../../../../modules/protocols/game/src"
-    }
-  }
-}

@@ -1,20 +1,20 @@
-Key,Source,en-us,fr-fr,ja-jp,ko-kr,pt-br
-Studio.TextureViewer.Plugin.Name,Texture Viewer,Texture Viewer,Visualiseur de textures,テクスチャビューア,텍스처 뷰어,Visualizador de texturas
-Studio.TextureViewer.Plugin.Toolbar,Texture Viewer,Texture Viewer,Visualiseur de textures,テクスチャビューア,텍스처 뷰어,Visualizador de texturas
-Studio.TextureViewer.Plugin.Description,Toggles the Texture Viewer plugin window.,Toggles the Texture Viewer plugin window.,Active/désactive la fenêtre de plugin du visualiseur de textures.,テクスチャビューア・プラグインウィンドウを切り替え。,텍스처 뷰어 플러그인 창을 전환합니다.,Alterna a janela do plugin Visualizador de texturas.
-Studio.TextureViewer.Plugin.Button,Toggle,Toggle,Activer/désactiver,切り換え,전환,Alternar
-Studio.TextureViewer.Plugin.Text,Example Text!,Example Text!,Exemple de texte !,テキストの例！,예시 텍스트!,Texto de exemplo!
-Studio.TextureViewer.ContextMenu.Select,Select All Instances in Workspace,Select All Instances in Workspace,Sélectionner toutes les instances dans Workspace,ワークスペースのすべてのインスタンスを選択,작업 공간의 모든 인스턴스 선택,Selecionar todas as instâncias no espaço de trabalho
-Studio.TextureViewer.TextureTable.Size,Size,Size,Taille,サイズ,크기,Tamanho
-Studio.TextureViewer.TextureTable.Texture,Texture,Texture,Texture,テクスチャ,텍스처,Textura
-Studio.TextureViewer.Search.Placeholder,Search for a texture...,Search for a texture...,Rechercher une texture...,テクスチャをサーチ...,텍스처 검색...,Procurar por uma textura...
-Studio.TextureViewer.ContextMenu.Copy,Copy Texture ID,Copy Texture ID,Copier l'ID de texture,テクスチャIDをコピー,텍스처 ID 복사,Copiar ID da textura
-Studio.TextureViewer.TextureTable.FindSelect,Find & Select,Find & Select,Rechercher et sélectionner,サーチと選択,찾기 및 선택,Localizar e selecionar
-Studio.TextureViewer.TextureTable.Id,Id,Id,Id,ID,ID,Identidade
-Studio.TextureViewer.TextureTable.Cancel,Cancel,Cancel,Annuler,キャンセル,취소,Cancelar
-Studio.TextureViewer.TextureTable.Confirm,Confirm,Confirm,Confirmer,確認する,확인,Confirmar
-Studio.TextureViewer.TextureTable.NotLoaded,Not Loaded,Not Loaded,Non chargé,読み込まれていません,불러오지 못함,Não carregado
-Studio.TextureViewer.TopPanel.Textures,Textures,Textures,Textures,テクスチャ,텍스처,Textura
-Studio.TextureViewer.TopPanel.Refresh,Refresh,Refresh,Rafraîchir,リフレッシュ,새로 고침,Atualizar
-Studio.TextureViewer.TopPanel.Size,Total Size,Total Size,Taille totale,合計サイズ,전체 크기,Tamanho total
-Studio.TextureViewer.ContextMenu.Replace,Replace All With New Texture ID,Replace All With New Texture ID,Remplacer tout par un nouvel ID de texture,すべてを新しいテクスチャIDに置き換え,새 텍스처 ID로 모두 바꾸기,Substituir tudo com uma nova ID de textura
+Key,Source,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br
+Studio.TextureViewer.Plugin.Name,Texture Viewer,Texture Viewer,Vista de texturas,Visualiseur de textures,テクスチャビューア,텍스처 뷰어,Visualizador de texturas
+Studio.TextureViewer.Plugin.Toolbar,Texture Viewer,Texture Viewer,Vista de texturas,Visualiseur de textures,テクスチャビューア,텍스처 뷰어,Visualizador de texturas
+Studio.TextureViewer.Plugin.Description,Toggles the Texture Viewer plugin window.,Toggles the Texture Viewer plugin window.,Alterna la ventana del plugin Vista de texturas.,Active/désactive la fenêtre de plugin du visualiseur de textures.,テクスチャビューア・プラグインウィンドウを切り替え。,텍스처 뷰어 플러그인 창을 전환합니다.,Alterna a janela do plugin Visualizador de texturas.
+Studio.TextureViewer.Plugin.Button,Toggle,Toggle,Alternar,Activer/désactiver,切り換え,전환,Alternar
+Studio.TextureViewer.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Exemple de texte !,テキストの例！,예시 텍스트!,Texto de exemplo!
+Studio.TextureViewer.ContextMenu.Select,Select All Instances in Workspace,Select All Instances in Workspace,Seleccionar todas las instancias en el Espacio de trabajo,Sélectionner toutes les instances dans Workspace,ワークスペースのすべてのインスタンスを選択,작업 공간의 모든 인스턴스 선택,Selecionar todas as instâncias no espaço de trabalho
+Studio.TextureViewer.TextureTable.Size,Size,Size,Tamaño,Taille,サイズ,크기,Tamanho
+Studio.TextureViewer.TextureTable.Texture,Texture,Texture,Textura,Texture,テクスチャ,텍스처,Textura
+Studio.TextureViewer.Search.Placeholder,Search for a texture...,Search for a texture...,Buscar textura...,Rechercher une texture...,テクスチャをサーチ...,텍스처 검색...,Procurar por uma textura...
+Studio.TextureViewer.ContextMenu.Copy,Copy Texture ID,Copy Texture ID,Copiar ID de la textura,Copier l'ID de texture,テクスチャIDをコピー,텍스처 ID 복사,Copiar ID da textura
+Studio.TextureViewer.TextureTable.FindSelect,Find & Select,Find & Select,Buscar y seleccionar,Rechercher et sélectionner,サーチと選択,찾기 및 선택,Localizar e selecionar
+Studio.TextureViewer.TextureTable.Id,Id,Id,ID,Id,ID,ID,Identidade
+Studio.TextureViewer.TextureTable.Cancel,Cancel,Cancel,Cancelar,Annuler,キャンセル,취소,Cancelar
+Studio.TextureViewer.TextureTable.Confirm,Confirm,Confirm,Confirmar,Confirmer,確認する,확인,Confirmar
+Studio.TextureViewer.TextureTable.NotLoaded,Not Loaded,Not Loaded,No cargado,Non chargé,読み込まれていません,불러오지 못함,Não carregado
+Studio.TextureViewer.TopPanel.Textures,Textures,Textures,Texturas,Textures,テクスチャ,텍스처,Textura
+Studio.TextureViewer.TopPanel.Refresh,Refresh,Refresh,Actualizar,Rafraîchir,リフレッシュ,새로 고침,Atualizar
+Studio.TextureViewer.TopPanel.Size,Total Size,Total Size,Tamaño total,Taille totale,合計サイズ,전체 크기,Tamanho total
+Studio.TextureViewer.ContextMenu.Replace,Replace All With New Texture ID,Replace All With New Texture ID,Reemplazar todo con un nuevo ID de textura,Remplacer tout par un nouvel ID de texture,すべてを新しいテクスチャIDに置き換え,새 텍스처 ID로 모두 바꾸기,Substituir tudo com uma nova ID de textura

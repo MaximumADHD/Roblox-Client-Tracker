@@ -1,4 +1,4 @@
-Key,Source,en-us,fr-fr,ja-jp,ko-kr,pt-br
-Studio.ActivityFeed.Plugin.Name,ActivityFeed,ActivityFeed,ActivityFeed,ActivityFeed,ActivityFeed,ActivityFeed
-Studio.ActivityFeed.Plugin.Button,Toggle,Toggle,Activer/désactiver,切り換え,전환,Alternar
-Studio.ActivityFeed.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 전환합니다.,Alterna a janela do plugin de modelos.
+Key,Source,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br
+Studio.ActivityFeed.Plugin.Name,ActivityFeed,ActivityFeed,ActivityFeed,ActivityFeed,ActivityFeed,ActivityFeed,ActivityFeed
+Studio.ActivityFeed.Plugin.Button,Toggle,Toggle,Alternar,Activer/désactiver,切り換え,전환,Alternar
+Studio.ActivityFeed.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 전환합니다.,Alterna a janela do plugin de modelos.

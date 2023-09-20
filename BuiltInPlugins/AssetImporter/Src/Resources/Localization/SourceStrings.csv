@@ -216,10 +216,15 @@ Studio.AssetImporter.Statuses.UGCMeshVertColorsWarning,"Mesh has non-white verte
 Studio.AssetImporter.Statuses.UnsupportedPreviewTextureType,".tga and .gif are not fully supported. They may not be visible in previews, and in some cases may cause the upload to fail, but they'll appear if the upload succeeds. You may convert them to a different file type such as .png or .jpg to view them in the preview window."
 Studio.AssetImporter.Statuses.UnsupportedPreviewTextureTypeWarning,".tga and .gif are not fully supported. They may not be visible in previews, and in some cases may cause the upload to fail, but they'll appear if the upload succeeds. You may convert them to a different file type such as .png or .jpg to view them in the preview window."
 Studio.AssetImporter.Templates.Default,Default
+Studio.AssetImporter.Templates.Delete,Delete
 Studio.AssetImporter.Templates.LastImportTooltip,Root settings from the last time you imported a file
 Studio.AssetImporter.Templates.LastImported,Last Imported
 Studio.AssetImporter.Templates.ModifiedTemplateTooltip,You have made some changes based on the settings from your last imported file
+Studio.AssetImporter.Templates.Rename,Rename
+Studio.AssetImporter.Templates.Reset,Reset
 Studio.AssetImporter.Templates.ResetTooltip,Reset settings back to selected template
+Studio.AssetImporter.Templates.SaveChanges,Save changes
+Studio.AssetImporter.Templates.SaveNewPreset,Save as new preset
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand
 Studio.AssetImporter.Upload.Failure,Import failed

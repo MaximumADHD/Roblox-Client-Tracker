@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "MockEngineServices",
+    "tree": {
+      "$path": "../../../../../../../modules/not-for-production-use/mock-engine-services/src"
+    }
+  }
+}

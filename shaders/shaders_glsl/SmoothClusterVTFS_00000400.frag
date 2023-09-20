@@ -10,7 +10,7 @@ uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D TranslationMapTexture;
 uniform sampler2D AlbedoMapTexture;
 
-varying vec3 VARYING0;
+varying vec4 VARYING0;
 varying vec4 VARYING1;
 varying vec3 VARYING3;
 varying vec4 VARYING5;
@@ -30,7 +30,7 @@ void main()
         f2 = vec4(0.0);
     }
     vec3 f3;
-    if ((f2.w < 0.0) || f1)
+    if (((f2.w < 0.0) || f1) || (!(VARYING0.w == 0.0)))
     {
         f3 = VARYING5.xyz * VARYING5.xyz;
     }
@@ -38,7 +38,7 @@ void main()
     {
         f3 = texture2D(AlbedoMapTexture, (f0 * f2.z) + f2.xy).xyz;
     }
-    float f4 = clamp(dot(step(CB0[24].xyz, abs(VARYING0 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    float f4 = clamp(dot(step(CB0[24].xyz, abs(VARYING0.xyz - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f5 = VARYING0.yzx - (VARYING0.yzx * f4);
     vec4 f6 = vec4(clamp(f4, 0.0, 1.0));
     vec4 f7 = mix(texture3D(LightMapTexture, f5), vec4(0.0), f6);

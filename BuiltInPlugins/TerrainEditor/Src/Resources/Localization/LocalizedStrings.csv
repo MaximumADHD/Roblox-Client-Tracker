@@ -3,19 +3,20 @@ Studio.TerrainEditor.Generate.BiomeSizeMassive,Massive (500),Riesig (500),Massiv
 Studio.TerrainEditor.BaseTool.BrushPaint,Paint, ,Paint,Pintar,Peindre,Disegna,ペイント,칠하기,Pintar, ,涂画,涂画,上色
 Studio.TerrainEditor.BaseTool.Paint,Paint, ,Paint,Pintar,Peindre,Dipingi,ペイント,칠하기,Pintar, ,涂画,涂画,上色
 Studio.TerrainEditor.MainButtons.Paint,Paint,Bemalen,Paint,Pintar,Peindre,Dipingi,ペイント,칠하기,Pintar,Раскрасить,绘制,绘制,上色
-Studio.TerrainEditor.MaterialMode.Paint,Paint, ,Paint, , , , , , , , , , 
-Studio.TerrainEditor.MaterialSettings.Paint,Paint, ,Paint, , , , , , , , , , 
-Studio.TerrainEditor.PluginActions.EditPlaneText,Edit Plane, ,Edit Plane, ,Modifier plan, ,平面を編集,평면 편집,Editar plano, , , , 
+Studio.TerrainEditor.MaterialMode.Paint,Paint, ,Paint,Pintar, , ,ペイント,칠하기, , , , , 
+Studio.TerrainEditor.MaterialSettings.Paint,Paint, ,Paint,Pintar, , ,ペイント,칠하기, , , , , 
+Studio.TerrainEditor.PluginActions.EditPlaneText,Edit Plane, ,Edit Plane,Editar plano,Modifier plan, ,平面を編集,평면 편집,Editar plano, , , , 
 Studio.TerrainEditor.Generate.BiomeHills,Hills,Hügel,Hills,Colinas,Collines,Colline,丘,언덕,Colinas,Холмы,丘陵,丘陵,山丘
 Studio.TerrainEditor.MainButtons.GrowTooltip,Click and hold to grow and expand terrain.,Klicken und gedrückt halten zum Erhöhen und Erweitern von Gelände.,Click and hold to grow and expand terrain.,Haz clic y mantén presionado para aumentar o expandir el terreno.,Cliquer et maintenir pour augmenter et étendre le terrain.,Clicca e tieni premuto per ingrandire ed espandere il terreno.,クリックして長押しで地形を大きくして広げる。,길게 클릭해 지형을 높이고 확장합니다.,Clique e mantenha pressionado para aumentar e expandir o terreno.,"Удерживайте кнопку мыши, чтобы нарастить и расширить рельеф.",单击并按住以增长和扩大地形。,单击并按住以增长和扩大地形。,按住即可生長地形。
-Studio.TerrainEditor.Dialog.Cancel,Cancel, ,Cancel, , , , , , , , , , 
-Studio.TerrainEditor.PluginActions.CancelText,Cancel, ,Cancel, ,Annuler, ,キャンセル,취소,Cancelar, , , , 
+Studio.TerrainEditor.Dialog.Cancel,Cancel, ,Cancel,Cancelar, , ,キャンセル,취소, , , , , 
+Studio.TerrainEditor.PluginActions.CancelText,Cancel, ,Cancel,Cancelar,Annuler, ,キャンセル,취소,Cancelar, , , , 
 Studio.TerrainEditor.Main.Title,Terrain Editor,Gelände-Editor,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor di terreno,地形エディタ,지형 편집기,Editor de terreno,Редактор рельефа,地形编辑器,地形编辑器,地形編輯器
 Studio.TerrainEditor.Plugin.Name,Terrain Editor, ,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor Terreno,地形エディタ,지형 편집기,Editor de terreno, ,地形编辑器,地形编辑器,地形編輯器
 Studio.TerrainEditor.Plugin.Toolbar,Terrain Editor, ,Terrain Editor,Editor de terreno,Éditeur de terrain,Editor Terreno,地形エディタ,지형 편집기,Editor de terreno, ,地形编辑器,地形编辑器,地形編輯器
 Studio.TerrainEditor.Generate.BiomeWater,Water,Wasser,Water,Agua,Eau,Acqua,水,물,Água,Вода,水域,水域,水域
 Studio.TerrainEditor.Materials.Water,Water,Wasser,Water,Agua,Eau,Acqua,水,물,Água,Вода,水域,水域,水域
-Studio.TerrainEditor.Materials.ForceField,Force Field, ,Force Field, , , , , , , , , , 
+Studio.TerrainEditor.Image.Dimensions,Dimensions, ,Dimensions,Dimensiones,Dimensions, , ,크기, , , , , 
+Studio.TerrainEditor.Materials.ForceField,Force Field, ,Force Field,Campo de fuerza, , ,フォースフィールド,역장, , , , , 
 Studio.TerrainEditor.Main.Tooltip,"Add, remove, and modify terrain","Gelände hinzufügen, entfernen und bearbeiten","Add, remove, and modify terrain","Añade, elimina y modifica el terreno","Ajouter, supprimer et modifier le terrain","Aggiungi, rimuovi e modifica terreno",地形の削除、追加、変更,"지형 추가, 제거, 수정","Adicione, remova e modifique o terreno","Добавляйте, удаляйте и изменяйте рельеф",添加、删除和修改地形,添加、删除和修改地形,新增、移除及修改地形
 Studio.TerrainEditor.MainButtons.Erode,Erode,Vertiefen,Erode,Erosionar,Éroder,Erodi,削る,낮추기,Erodir,Эрозия,侵蚀,侵蚀,侵蝕
 Studio.TerrainEditor.Main.ToolbarButton,Editor, ,Editor,Editor,Éditeur,Editor,エディタ,편집기,Editor,Редактор,编辑器,编辑器,編輯器
@@ -25,7 +26,7 @@ Studio.TerrainEditor.EditorEnum.PivotPosition,Pivot Position, ,Pivot Position,Po
 Studio.TerrainEditor.MainButtons.Grow,Grow,Erhöhen,Grow,Aumentar,Augmenter,Ingrandisci,大きく,높이기,Aumentar,Нарастить,增长,增长,生長
 Studio.TerrainEditor.Generate.MapSizeMedium,Medium (256),Mittel (256),Medium (256),Medio (256),Moyenne (256),Media (256),中 (256),중형(256),Médio (256),Средний (256),中 (256),中 (256),中 (256)
 Studio.TerrainEditor.Materials.Snow,Snow,Schnee,Snow,Nieve,Neige,Neve,雪,눈,Neve,Снег,雪,雪,雪
-Studio.TerrainEditor.Materials.RoofShingles,Roof Shingles, ,Roof Shingles, , , , , , , , , , 
+Studio.TerrainEditor.Materials.RoofShingles,Roof Shingles, ,Roof Shingles,Tejas de techo, , ,屋根板,지붕 널, , , , , 
 Studio.TerrainEditor.BaseTool.Generate,Generate, ,Generate,Generar,Générer,Genera,作成する,생성,Gerar, ,生成,生成,產生
 Studio.TerrainEditor.BaseTool.RegionGenerate,Generate, ,Generate,Generar,Générer,Genera,作成する,생성,Gerar, ,生成,生成,生成
 Studio.TerrainEditor.Generate.ButtonGenerate,Generate,Generieren,Generate,Generar,Générer,Genera,作成する,생성,Gerar,Генерировать,生成,生成,生成
@@ -48,17 +49,18 @@ Studio.TerrainEditor.MainButtons.Regions,Regions,Regionen,Regions,Regiones,Régi
 Studio.TerrainEditor.Materials.Concrete,Concrete,Beton,Concrete,Concreto,Béton,Calcestruzzo,コンクリート,콘크리트,Concreto,Бетон,水泥,水泥,混凝土
 Studio.TerrainEditor.MainButtons.GenerateTooltip,Generate landscapes of terrain.,Zum Generieren von Landschaftsgelände.,Generate landscapes of terrain.,Genera paisajes de terreno.,Générer des paysages grâce au terrain.,Genera paesaggi di terreno.,地形の景観を作成する。,지형의 풍경을 생성합니다.,Gerar paisagens de terreno.,Создание рельефа.,生成地形地貌。,生成地形地貌。,生成地形景觀。
 Studio.TerrainEditor.Generate.Seed,Seed,Startwert,Seed,Semilla,Valeur initiale,Seme,蒔く,시드,Semente,Зерно карты,随机种子,随机种子,種子
+Studio.TerrainEditor.HeightmapSettings.Heightmap,Heightmap, ,Heightmap,Heightmap,Heightmaps, , ,Heightmap, , , , , 
 Studio.TerrainEditor.MainButtons.AddTooltip,Click and hold to add terrain.,Klicken und gedrückt halten zum Hinzufügen von Gelände.,Click and hold to add terrain.,Haz clic y mantén presionado para añadir terreno.,Cliquer et maintenir pour ajouter du terrain.,Clicca e tieni premuto per aggiungere il terreno.,クリックして長押しで地形を追加。,길게 클릭해 지형을 추가합니다.,Clique e mantenha pressionado para adicionar terreno.,"Удерживайте кнопку мыши, чтобы добавить рельеф.",单击并按住以增加地形。,单击并按住以增加地形。,按住不放以加入地形。
 Studio.TerrainEditor.Generate.BiomeArctic,Arctic,Arktisch,Arctic,Ártico,Arctique,Polare,北極,북극,Ártico,Арктика,极地,极地,極地
 Studio.TerrainEditor.MainButtons.SubtractTooltip,Click and hold to remove terrain.,Klicken und gedrückt halten zum Abtragen von Gelände.,Click and hold to remove terrain.,Haz clic y mantén presionado para eliminar terreno.,Cliquer et maintenir pour supprimer du terrain.,Clicca e tieni premuto per rimuovere il terreno.,クリックして長押しで地形を削除。,길게 클릭해 지형을 제거합니다.,Clique e mantenha pressionado para remover terreno.,"Удерживайте кнопку мыши, чтобы удалить рельеф.",单击并按住以减少地形。,单击并按住以减少地形。,按住不放以移除地形。
 Studio.TerrainEditor.MainButtons.PaintTooltip,Paint the material of the terrain.,Zum Bemalen des Geländematerials.,Paint the material of the terrain.,Pinta el material del terreno.,Peindre les matériaux du terrain.,Dipingi il materiale del terreno.,地形の素材をペイント。,지형의 재질을 색칠합니다.,Pinte o material do terreno.,Раскрасьте рельеф.,绘制地形的材质。,绘制地形的材质。,為地形材質上色。
 Studio.TerrainEditor.Generate.BiomeMountains,Mountains,Gebirge,Mountains,Montañas,Montagnes,Montagne,山,산,Montanhas,Горы,山脉,山脉,山脈
-Studio.TerrainEditor.FillMode.Replace,Replace, ,Replace, , , , , , , , , , 
-Studio.TerrainEditor.MaterialMode.Replace,Replace, ,Replace, , , , , , , , , , 
-Studio.TerrainEditor.MaterialSettings.Replace,Replace, ,Replace, , , , , , , , , , 
-Studio.TerrainEditor.Operations.ReplaceName,Replace, ,Replace, , , , , , , , , , 
+Studio.TerrainEditor.FillMode.Replace,Replace, ,Replace,Reemplazar, , ,置き換え,바꾸기, , , , , 
+Studio.TerrainEditor.MaterialMode.Replace,Replace, ,Replace,Reemplazar, , ,置き換え,바꾸기, , , , , 
+Studio.TerrainEditor.MaterialSettings.Replace,Replace, ,Replace,Reemplazar, , ,置き換え,바꾸기, , , , , 
+Studio.TerrainEditor.Operations.ReplaceName,Replace, ,Replace,Reemplazar, , ,置き換え,바꾸기, , , , , 
 Studio.TerrainEditor.MainButtons.ErodeTooltip,Click and hold to erode and remove terrain.,Klicken und gedrückt halten zum Vertiefen und Entfernen von Gelände.,Click and hold to erode and remove terrain.,Haz clic y mantén presionado para erosionar o eliminar el terreno.,Cliquer et maintenir pour éroder et supprimer du terrain.,Clicca e tieni premuto per erodere e rimuovere il terreno.,クリックして長押しで地形を平らにしたり削除する。,길게 클릭해 지형을 낮추고 제거합니다.,Clique e mantenha pressionado para erodir e remover o terreno.,"Удерживайте кнопку мыши, чтобы удалить часть рельефа.",点击并按住以侵蚀和删除地形。,点击并按住以侵蚀和删除地形。,按住即可侵蝕並移除地形。
-Studio.TerrainEditor.Materials.Carpet,Carpet, ,Carpet, , , , , , , , , , 
+Studio.TerrainEditor.Materials.Carpet,Carpet, ,Carpet,Alfombra, , ,カーペット,카펫, , , , , 
 Studio.TerrainEditor.Materials.Glacier,Glacier,Gletscher,Glacier,Glaciar,Glacier,Ghiacciaio,氷河,빙하,Geleira,Ледник,冰川,冰川,冰河
 Studio.TerrainEditor.MainButtons.RegionsTooltip,Manipulate regions of smooth terrain.,Zum Bearbeiten von glatten Geländebereichen.,Manipulate regions of smooth terrain.,Manipula las regiones de terreno liso.,Manipuler des régions de terrain lisse.,Gestisci aree di terreno uniforme.,平らな地形の地域を操作,부드러운 지형의 범위를 조절하세요.,Manipule regiões de terreno suavizado.,Манипулировать участками рельефа.,对平滑的地形区域进行操作。,对平滑的地形区域进行操作。,操控平滑地形區域。
 Studio.TerrainEditor.Generate.BiomeCanyons,Canyons,Schluchten,Canyons,Cañones,Canyons,Canyon,谷,협곡,Cânions,Каньоны,峡谷,峡谷,峽谷
@@ -74,6 +76,7 @@ Studio.TerrainEditor.Materials.Ice,Ice,Eis,Ice,Hielo,Glace,Ghiaccio,氷,얼음,G
 Studio.TerrainEditor.Generate.BiomeSizeSmall,Small (50),Klein (50),Small (50),Pequeño (50),Petit (50),Piccolo (50),小 (50),소형(50),Pequeno (50),Маленький (50),小 (50),小 (50),小 (50)
 Studio.TerrainEditor.Generate.BiomeSizeMedium,Medium (100),Mittel (100),Medium (100),Medio (100),Moyen (100),Medio (100),中 (100),중형(100),Médio (100),Средний (100),中 (100),中 (100),中 (100)
 Studio.TerrainEditor.Materials.WoodPlanks,Wood Planks,Holzbretter,Wood Planks,Tablones de madera,Planches de bois,Assi di legno,木の板,나무 판자,Tábuas,Доски,木板,木板,木板
+Studio.TerrainEditor.Categories.HeightmapSettings,Heightmap Settings, ,Heightmap Settings,Configuración Heightmap,Paramètres Heightmap, , ,Heightmap 설정, , , , , 
 Studio.TerrainEditor.Materials.Mud,Mud,Schlamm,Mud,Barro,Boue,Fango,泥,진흙,Lama,Грязь,泥,泥,泥巴
 Studio.TerrainEditor.Generate.BiomeSizeLarge,Large (200),Groß (200),Large (200),Grande (200),Grand (200),Grande (200),大 (200),대형(200),Grande (200),Большой (200),大 (200),大 (200),大 (200)
 Studio.TerrainEditor.Generate.MapSizeSmall,Small (128),Klein (128),Small (128),Pequeño (128),Petite (128),Piccola (128),小 (128),소형(128),Pequeno (128),Маленький (128),小 (128),小 (128),小 (128)
@@ -96,17 +99,17 @@ Studio.TerrainEditor.Regions.FillSelection,Fill Selection,Auswahl füllen,Fill S
 Studio.TerrainEditor.Brush.Auto,Auto,Automatisch,Auto,Automático,Auto,Auto,自動,자동,Automático,Авто,自动,自动,自動
 Studio.TerrainEditor.PlaneLock.Auto,Auto, ,Auto,Autom.,Auto,Auto,自動,자동,Automático, ,自动,自动,自動
 Studio.TerrainEditor.Materials.CrackedLava,Cracked Lava,Rissige Lava,Cracked Lava,Lava agrietada,Lave fissurée,Lava incrinata,ひび割れた溶岩,갈라진 용암,Lava rachada,Застывшая лава,裂纹熔岩,裂纹熔岩,裂紋熔岩
-Studio.TerrainEditor.PluginActions.CopyText,Copy, ,Copy, ,Copier, ,コピー,복사,Copiar, , , , 
+Studio.TerrainEditor.PluginActions.CopyText,Copy, ,Copy,Copiar,Copier, ,コピー,복사,Copiar, , , , 
 Studio.TerrainEditor.Materials.Basalt,Basalt, ,Basalt,Basalto,Basalte,Basalto,玄武岩,현무암,Basalto,Базальт,玄武岩,玄武岩,玄武岩
 Studio.TerrainEditor.Materials.Cobblestone,Cobblestone,Kopfstein,Cobblestone,Adoquín,Pavés,Ciottolo,玉砂利,왕자갈,Paralelepípedo,Брусчатка,大鹅卵石,大鹅卵石,鵝卵石
 Studio.TerrainEditor.Materials.Pavement,Pavement,Gehweg,Pavement,Pavimento,Chaussée,Pavimentazione,舗道,보도,Pavimento,Покрытие,路面,路面,人行道
 Studio.TerrainEditor.Brush.BrushSettings,Brush Settings,Pinseleinstellungen,Brush Settings,Configuración del pincel,Paramètres brosse,Impostazioni pennello,ブラシ設定,브러시 설정,Configurações do pincel,Параметры кисти,笔刷设置,笔刷设置,筆刷設定
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings, ,Brush Settings,Configuración del pincel,Paramètres du pinceau,Impostazioni pennello,ブラシ設定,브러시 설정,Configurações do pincel, ,涂刷设置,涂刷设置,筆刷設定
-Studio.TerrainEditor.Materials.Metal,Metal, ,Metal, , , , , , , , , , 
+Studio.TerrainEditor.Materials.Metal,Metal, ,Metal,Metal, , ,金属,금속, , , , , 
 Studio.TerrainEditor.Brush.Size,Size,Größe,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho,Размер,尺寸,尺寸,大小
 Studio.TerrainEditor.SelectionSettings.Size,Size, ,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho, , , , 
-Studio.TerrainEditor.TransformSettings.Size,Size, ,Size, ,Taille, ,サイズ,크기,Tamanho, , , , 
-Studio.TerrainEditor.Dialog.Pause,Pause, ,Pause, , , , , , , , , , 
+Studio.TerrainEditor.TransformSettings.Size,Size, ,Size,Tamaño,Taille, ,サイズ,크기,Tamanho, , , , 
+Studio.TerrainEditor.Dialog.Pause,Pause, ,Pause,Pausar, , ,一時停止,일시 중지, , , , , 
 Studio.TerrainEditor.Brush.MaterialSettings,Material Settings,Materialeinstellungen,Material Settings,Configuración del material,Paramètres matériaux,Impostazioni materiale,素材の設定,재질 설정,Configurações do material,Свойства материала,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings, ,Material Settings,Configuración del material,Paramètres matériel,Impostazioni materiale,素材の設定,재질 설정,Configurações do material, ,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Brush.Advanced,Advanced,Fortgeschritten,Advanced,Avanzado,Avancé,Avanzato,詳細設定,고급,Avançado,Расширенные настройки,高级,高级,進階
@@ -115,14 +118,18 @@ Studio.TerrainEditor.BrushSettings.PlaneLock,Plane Lock, ,Plane Lock,Bloqueo del
 Studio.TerrainEditor.EditorEnum.PlaneLock,Plane Lock, ,Plane Lock,Bloqueo de plano,Plan fermé,Blocco piano,平面ロック,평면 고정,Bloquear plano, ,平面锁定,平面锁定,鎖定平面
 Studio.TerrainEditor.Brush.SnapToGrid,Snap to Grid,Am Raster ausrichten,Snap to Grid,Alinear a la cuadrícula,Aligner sur la grille,Aderisci a griglia,グリッドに装着,그리드에 맞추기,Ajustar à grade,Привязать к сетке,对齐至栅格,对齐至栅格,貼齊到網格
 Studio.TerrainEditor.Brush.Material,Material, ,Material,Material,Matériau,Materiale,素材,재질,Material,Материал,材质,材质,材質
+Studio.TerrainEditor.HeightmapSettings.Material,Material, ,Material,Material,Matériel, ,素材,재질, , , , , 
+Studio.TerrainEditor.ImportMode.Material,Material, ,Material,Material,Matériel, ,素材,재질, , , , , 
 Studio.TerrainEditor.Brush.Shape,Shape,Form,Shape,Forma,Forme,Forma,形状,셰이프,Formato,Форма,形状,形状,形狀
 Studio.TerrainEditor.Regions.EditTools,Edit Tools,Bearbeitungstools,Edit Tools,Herramientas de Edición,Outils d'édition,Strumenti Modifica,編集ツール,편집 도구,Editar ferramentas,Инструменты редактирования,编辑工具,编辑工具,編輯工具
 Studio.TerrainEditor.Regions.MergeEmpty,Merge Empty,Leere zusammenführen,Merge Empty,Combinar vacío,Fusionner vides,Unisci vuoto,空白を併合,빈 공간 병합,Mesclar vazios,Объединить пустые области,合并空白,合并空白,合併空位
-Studio.TerrainEditor.TransformSettings.MergeEmpty,Merge Empty, ,Merge Empty, ,Fusion vide, ,空白を併合,빈 공간 병합,Mesclar vazios, , , , 
+Studio.TerrainEditor.TransformSettings.MergeEmpty,Merge Empty, ,Merge Empty,Combinar vacío,Fusion vide, ,空白を併合,빈 공간 병합,Mesclar vazios, , , , 
 Studio.TerrainEditor.Regions.Tools,Tools, ,Tools,Herramientas,Outils,Strumenti,ツール,도구,Ferramentas,Инструменты,工具,工具,工具
 Studio.TerrainEditor.BaseTool.Import,Import, ,Import,Importar,Importer,Importa,インポート,가져오기,Importar, ,导入,导入,匯入
 Studio.TerrainEditor.BaseTool.RegionImport,Import, ,Import,Importar,Importer,Importa,インポートする,가져오기,Importar, ,导入,导入,匯入
+Studio.TerrainEditor.HeightmapSettings.Import,Import, ,Import,Importar,Importer, ,インポート,가져오기, , , , , 
 Studio.TerrainEditor.MainButtons.Import,Import, ,Import,Importar,Importer,Importa,インポート,가져오기,Importar,Импорт,导入,导入,匯入
+Studio.TerrainEditor.Operations.ImportName,Import, ,Import,Importar,Importation, ,インポート,가져오기, , , , , 
 Studio.TerrainEditor.MainButtons.ImportTooltip,Import a HeightMap and ColorMap., ,Import a HeightMap and ColorMap.,Importa HeightMap y ColorMap,Importer une HeightMap et une ColorMap.,Importa una HeightMap e una ColorMap.,HeightMap と ColorMapをインポート。,HeightMap과 ColorMap을 가져옵니다.,Importar um HeightMap e ColorMap.,Импортировать HeightMap и ColorMap.,导入 HeightMap 和 ColorMap。,导入 HeightMap 和 ColorMap。,匯入 HeightMap 與 ColorMap。
 Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings, ,Selection Settings,Configuración de selección,Paramètres de sélection,Impostazioni selezione,選択設定,선택 항목 설정,Configurações de seleção, , , , 
 Studio.TerrainEditor.FlattenMode.Both,Both, ,Both,Ambos,Les deux,Entrambi,両方,양쪽 모두,Ambos, ,两者皆是,两者皆是,兩者
@@ -132,96 +139,109 @@ Studio.TerrainEditor.Plugin.Description,Toggles the Template plugin window., ,To
 Studio.TerrainEditor.Plugin.Text,Example Text!, ,Example Text!,Texto de ejemplo,Exemple de texte !,Testo Di Esempio!,テキストの例！,예시 텍스트!,Texto de exemplo!, ,示例文本！,示例文本！,範例文字！
 Studio.TerrainEditor.BaseTool.BrushFlatten,Flatten, ,Flatten,Aplanar,Aplatir,Appianare,平地化,평탄화,Aplainar, ,扁平化,扁平化,平地化
 Studio.TerrainEditor.BaseTool.Flatten,Flatten, ,Flatten,Aplanar,Aplatir,Appianare,平地化,평탄화,Aplainar, ,扁平化,扁平化,平地化
-Studio.TerrainEditor.Materials.CeramicTiles,Ceramic Tiles, ,Ceramic Tiles, , , , , , , , , , 
+Studio.TerrainEditor.Materials.CeramicTiles,Ceramic Tiles, ,Ceramic Tiles,Baldosas de cerámica, , ,セラミックタイル,세라믹 타일, , , , , 
 Studio.TerrainEditor.BaseTool.BrushSculpt,Sculpt, ,Sculpt,Esculpir,Sculpter,Scolpire,彫刻,스컬프팅,Esculpir, ,塑形,塑形,雕塑
 Studio.TerrainEditor.BaseTool.Sculpt,Sculpt, ,Sculpt,Esculpir,Sculpter,Scolpire,彫刻,조각,Esculpir, ,塑形,塑形,雕刻
 Studio.TerrainEditor.BaseTool.Fill,Fill, ,Fill,Llenar,Remplir,Riempi,埋める,채우기,Preencher, ,填充,填充,填滿
 Studio.TerrainEditor.BaseTool.RegionFill,Fill, ,Fill,Llenar,Remplir,Riempi,埋める,채우기,Preencher, ,填充,填充,填滿
-Studio.TerrainEditor.FillMode.Fill,Fill, ,Fill, , , , , , , , , , 
-Studio.TerrainEditor.MaterialSettings.Fill,Fill, ,Fill, , , , , , , , , , 
-Studio.TerrainEditor.Operations.FillName,Fill, ,Fill, , , , , , , , , , 
+Studio.TerrainEditor.FillMode.Fill,Fill, ,Fill,Llenar, , ,埋める,채우기, , , , , 
+Studio.TerrainEditor.MaterialSettings.Fill,Fill, ,Fill,Llenar, , ,埋める,채우기, , , , , 
+Studio.TerrainEditor.Operations.FillName,Fill, ,Fill,Llenar, , ,埋める,채우기, , , , , 
 Studio.TerrainEditor.BaseTool.RegionTransform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, ,转变,转变,變形
 Studio.TerrainEditor.BaseTool.Transform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, ,转变,转变,變形
 Studio.TerrainEditor.SelectionSettings.Transform,Transform, ,Transform,Transformar,Transformer,Trasforma,変換,변환,Transformar, , , , 
-Studio.TerrainEditor.TransformSettings.Transform,Transform, ,Transform, ,Transformer, ,変換,변환,Transformar, , , , 
+Studio.TerrainEditor.TransformSettings.Transform,Transform, ,Transform,Transformar,Transformer, ,変換,변환,Transformar, , , , 
 Studio.TerrainEditor.BaseTool.Draw,Draw, ,Draw,Dibujar,Dessiner,Disegno,描画,그리기,Desenhar, ,绘制,绘制,繪製
 Studio.TerrainEditor.BrushShape.Sphere,Sphere, ,Sphere,Esfera,Sphère,Sfera,球体,구,Esfera, ,球体,球体,球體
 Studio.TerrainEditor.BrushShape.Cube,Cube, ,Cube,Cubo,Cube,Cubo,立方体,큐브,Cubo, ,立方体,立方体,立方體
 Studio.TerrainEditor.BrushShape.Cylinder,Cylinder, ,Cylinder,Cilindro,Cylindre,Cilindro,円柱,원통,Cilindro, ,筒体,筒体,圓柱
 Studio.TerrainEditor.FlattenMode.Over,Over, ,Over,Encima,Au-dessus,Sopra,上,위,Sobre, ,超过,超过,超過
 Studio.TerrainEditor.FlattenMode.Under,Under, ,Under,Debajo,En dessous de,Sotto,下,아래,Embaixo, ,低于,低于,不足
-Studio.TerrainEditor.PluginActions.DeleteText,Delete, ,Delete, ,Supprimer, ,削除,삭제,Excluir, , , , 
+Studio.TerrainEditor.PluginActions.DeleteText,Delete, ,Delete,Eliminar,Supprimer, ,削除,삭제,Excluir, , , , 
 Studio.TerrainEditor.PivotPosition.Bottom,Bottom, ,Bottom,Inferior,Bas,In basso,下,하단,Inferior, ,底部,底部,底
 Studio.TerrainEditor.PivotPosition.Center,Center, ,Center,Centro,Centre,Centro,中央,중앙,Centro, ,中央,中央,中央
 Studio.TerrainEditor.PivotPosition.Top,Top, ,Top,Superior,Haut,Superiore,上,상단,Superior, ,顶部,顶部,頂
 Studio.TerrainEditor.PlaneLock.Off,Off, ,Off,Desactivado,Off,Off,オフ,끄기,A partir de, ,关闭,关闭,關閉
 Studio.TerrainEditor.PlaneLock.Manual,Manual, ,Manual,Manual,Manuel,Manuale,マニュアル,수동,Manual, ,手动,手动,手動
 Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode, ,Brush Mode,Modo Pincel,En mode pinceau,Modalità pennello,ブラシモード,브러시 모드,Modo pincel, ,涂刷模式,涂刷模式,筆刷模式
-Studio.TerrainEditor.Materials.CorrodedMetal,Corroded Metal, ,Corroded Metal, , , , , , , , , , 
+Studio.TerrainEditor.Materials.CorrodedMetal,Corroded Metal, ,Corroded Metal,Metal corroído, , ,さびた金属,부식된 금속, , , , , 
 Studio.TerrainEditor.BrushSettings.BrushShape,Brush Shape, ,Brush Shape,Forma del pincel,Forme du pinceau,Forma pennello,ブラシの形状,브러시 모양,Forma de pincel, ,涂刷形状,涂刷形状,筆刷形狀
 Studio.TerrainEditor.EditorEnum.BrushShape,Brush Shape, ,Brush Shape,Forma del pincel,Forme du pinceau,Forma pennello,ブラシの形状,브러시 모양,Forma de pincel, ,涂刷形状,涂刷形状,筆刷形狀
 Studio.TerrainEditor.BrushSettings.FlattenMode,Flatten Mode, ,Flatten Mode,Modo Aplanado,Mode aplanir,Modalità appiattimento,平地化モード,평탄화 모드,Modo achatar, ,扁平化模式,扁平化模式,平地化模式
 Studio.TerrainEditor.EditorEnum.FlattenMode,Flatten Mode, ,Flatten Mode,Modo Aplanado,Aplanir le mode,Modalità appiattimento,平地化モード,평탄화 모드,Modo achatar, ,扁平化模式,扁平化模式,平地化模式
-Studio.TerrainEditor.EditorEnum.MaterialMode,Material Mode, ,Material Mode, , , , , , , , , , 
-Studio.TerrainEditor.MaterialSettings.MaterialMode,Material Mode, ,Material Mode, , , , , , , , , , 
+Studio.TerrainEditor.EditorEnum.MaterialMode,Material Mode, ,Material Mode,Modo de material, , ,素材モード,재질 모드, , , , , 
+Studio.TerrainEditor.MaterialSettings.MaterialMode,Material Mode, ,Material Mode,Modo de Material, , ,素材モード,재질 모드, , , , , 
 Studio.TerrainEditor.BrushSettings.BaseHeight,Base Height, ,Base Height,Altura de la base,Hauteur de base,Altezza base,ベースの高さ,베이스 높이,Altura base, ,基本高度,基本高度,基礎高度
 Studio.TerrainEditor.BrushSettings.BaseSize,Base Size, ,Base Size,Tamaño de la base,Taille de base,Dimensione base,ベースのサイズ,베이스 크기,Tamanho base, ,基本尺寸,基本尺寸,基礎尺寸
 Studio.TerrainEditor.BrushSettings.FixedPlane,Fixed Plane, ,Fixed Plane,Plano fijo,Plan fixe,Piano fisso,固定平面,고정된 평면,Plano fixo, ,固定平面,固定平面,固定平面
 Studio.TerrainEditor.BrushSettings.IgnoreParts,Ignore Parts, ,Ignore Parts,Omitir piezas,Ignorer les parties,Ignora parti,パーツを無視,파트 무시,Ignorar partes, ,忽略部件,忽略部件,忽略零件
+Studio.TerrainEditor.Operations.ImportDescription,Importing voxels to the target transform., ,Importing voxels to the target transform.,Importando heightmap del terreno.,Importation de la carte de hauteur du terrain., , ,지형 Heightmap을 가져옵니다., , , , , 
 Studio.TerrainEditor.BrushSettings.PlanePosition,Plane Position, ,Plane Position,Posición del plano,Position du plan,Posizione piano,平面の位置,평면 위치,Posição do plano, ,平面位置,平面位置,平面位置
 Studio.TerrainEditor.BrushSettings.SnapToVoxels,Snap to Voxels, ,Snap to Voxels,Alinear a los vóxeles,Accrocher aux Voxels,Aderisci ai voxel,ボクセルに装着,복셀에 맞추기,Ajustar aos voxels, ,贴靠至体素,贴靠至体素,貼齊到體素
-Studio.TerrainEditor.TransformSettings.SnapToVoxels,Snap to Voxels, ,Snap to Voxels, ,Ajuster aux Voxels, ,ボクセルに装着,복셀에 맞추기,Alinhar aos voxels, , , , 
+Studio.TerrainEditor.TransformSettings.SnapToVoxels,Snap to Voxels, ,Snap to Voxels,Ajustar a vóxeles,Ajuster aux Voxels, ,ボクセルに装着,복셀에 맞추기,Alinhar aos voxels, , , , 
 Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material, ,Auto Material,Material automático,Matériel Auto,Materiale automatico,素材の自動運用,자동 재질,Material automático, ,自动材质,自动材质,自動材質
-Studio.TerrainEditor.Operations.MoveName,Move, ,Move, , , , , , , , , , 
+Studio.TerrainEditor.Operations.MoveName,Move, ,Move,Mover, , ,移動,이동, , , , , 
 Studio.TerrainEditor.MaterialSettings.ReplaceMaterial,Replace Material, ,Replace Material,Reemplazar material,Remplacer le matériel,Sostituisci materiale,素材を置き換え,재질 바꾸기,Substituir material, ,替换材质,替换材质,取代材質
 Studio.TerrainEditor.MaterialSettings.SourceMaterial,Source Material, ,Source Material,Material de origen,Matériel source,Materiale sorgente,ソース素材,소스 재질,Material de origem, ,来源材质,来源材质,來源材質
 Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material, ,Target Material,Material meta,Matériel cible,Materiale target,対象素材,대상 재질,Material alvo, ,目标材质,目标材质,目標材質
 Studio.TerrainEditor.BaseTool.Select,Select, ,Select,Seleccionar,Sélectionner,Seleziona,選択,선택,Selecionar, , , , 
 Studio.TerrainEditor.SelectionSettings.Position,Position, ,Position,Posición,Position,Posizione,位置,위치,Posição, , , , 
-Studio.TerrainEditor.TransformSettings.Position,Position, ,Position, ,Position, ,位置,위치,Posição, , , , 
+Studio.TerrainEditor.TransformSettings.Position,Position, ,Position,Posición,Position, ,位置,위치,Posição, , , , 
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation, ,Rotation,Rotación,Rotation,Rotazione,回転,회전,Rotação, , , , 
-Studio.TerrainEditor.TransformSettings.Rotation,Rotation, ,Rotation, ,Rotation, ,回転,회전,Rotação, , , , 
-Studio.TerrainEditor.PluginActions.ApplyText,Apply, ,Apply, ,Appliquer, ,適用する,적용,Aplicar, , , , 
-Studio.TerrainEditor.TransformSettings.Apply,Apply, ,Apply, ,Appliquer, ,適用する,적용,Aplicar, , , , 
-Studio.TerrainEditor.TransformSettings.LiveEdit,Live Edit, ,Live Edit, ,Modifier en direct, ,ライブ編集,라이브 편집,Editar ao vivo, , , , 
-Studio.TerrainEditor.Categories.TransformSettings,Transform Settings, ,Transform Settings, ,Paramètres de transformation, ,設定を変換,변환 설정,Configurações de transformação, , , , 
-Studio.TerrainEditor.PluginActions.EditPlaneStatusTip,Edit/apply plane when using plane lock in manual mode, ,Edit/apply plane when using plane lock in manual mode, ,Modifier/appliquer le plan lors de l'utilisation du verrouillage de plan en mode manuel, ,手動モードで平面ロックを使用するときに平面を編集または適用,수동 모드에서 평면 잠금을 사용할 때 평면 편집 또는 적용,Editar/aplicar plano quando usar bloqueio de plano em modo manual, , , , 
-Studio.TerrainEditor.PluginActions.CopyStatusTip,Copy Region Selection, ,Copy Region Selection, ,Copier la sélection de la région, ,地域の選択範囲をコピー,영역 선택 복사,Copiar seleção de região, , , , 
-Studio.TerrainEditor.PluginActions.CutStatusTip,Cut Region Selection, ,Cut Region Selection, ,Couper la selection de la région, ,地域の選択範囲を切り取る,영역 선택 잘라내기,Recortar seleção de região, , , , 
-Studio.TerrainEditor.Materials.Plastic,Plastic, ,Plastic, , , , , , , , , , 
-Studio.TerrainEditor.PluginActions.CutText,Cut, ,Cut, ,Couper, ,切り取る,잘라내기,Recortar, , , , 
-Studio.TerrainEditor.PluginActions.DeleteStatusTip,Delete Region Selection, ,Delete Region Selection, ,Supprimer la sélection de région, ,地域の選択範囲を削除,영역 선택 삭제,Excluir seleção de região, , , , 
-Studio.TerrainEditor.PluginActions.PasteStatusTip,Paste Region Selection, ,Paste Region Selection, ,Coller la sélection de la région, ,地域の選択範囲を張り付け,영역 선택 붙여넣기,Colar seleção de região, , , , 
-Studio.TerrainEditor.Operations.PasteName,Paste, ,Paste, , , , , , , , , , 
-Studio.TerrainEditor.PluginActions.PasteText,Paste, ,Paste, ,Coller, ,貼り付け,붙여넣기,Colar, , , , 
-Studio.TerrainEditor.PluginActions.DuplicateStatusTip,Duplicate Region Selection, ,Duplicate Region Selection, ,Reproduire la sélection de région, ,地域の選択範囲を複製,영역 선택 복제,Duplicar seleção de região, , , , 
-Studio.TerrainEditor.Operations.DuplicateName,Duplicate, ,Duplicate, , , , , , , , , , 
-Studio.TerrainEditor.PluginActions.DuplicateText,Duplicate, ,Duplicate, ,Reproduire, ,複製,복제,Duplicar, , , , 
-Studio.TerrainEditor.PluginActions.ApplyStatusTip,Apply Region Transform, ,Apply Region Transform, ,Appliquer la transformation de la région, ,地域変換を適用,영역 변환 적용,Aplicar transformação de região, , , , 
-Studio.TerrainEditor.PluginActions.CancelStatusTip,Cancel Region Transform, ,Cancel Region Transform, ,Annuler la transformation de la région, ,地域変換をキャンセル,영역 변환 취소,Cancelar transformação de região, , , , 
-Studio.TerrainEditor.EditorEnum.FillMode,Fill Mode, ,Fill Mode, , , , , , , , , , 
-Studio.TerrainEditor.MaterialSettings.FillMode,Fill Mode, ,Fill Mode, , , , , , , , , , 
-Studio.TerrainEditor.Tabs.Create,Create, ,Create, , , , , , , , , , 
-Studio.TerrainEditor.Tabs.Edit,Edit, ,Edit, , , , , , , , , , 
-Studio.TerrainEditor.Operations.MoveDescription,Moving voxels to the target transform., ,Moving voxels to the target transform., , , , , , , , , , 
-Studio.TerrainEditor.Operations.PasteDescription,Pasting voxels to the target transform., ,Pasting voxels to the target transform., , , , , , , , , , 
-Studio.TerrainEditor.Operations.DuplicateDescription,Duplicating voxels to the target transform., ,Duplicating voxels to the target transform., , , , , , , , , , 
-Studio.TerrainEditor.Operations.FillDescription,Filling voxels in the selection with {material}., ,Filling voxels in the selection with {material}., , , , , , , , , , 
-Studio.TerrainEditor.Operations.ReplaceDescription,Replacing {source} voxels in the selection with {target}., ,Replacing {source} voxels in the selection with {target}., , , , , , , , , , 
-Studio.TerrainEditor.Dialog.Resume,Resume, ,Resume, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Air,Air, ,Air, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Cardboard,Cardboard, ,Cardboard, , , , , , , , , , 
-Studio.TerrainEditor.Materials.ClayRoofTiles,Clay Roof Tiles, ,Clay Roof Tiles, , , , , , , , , , 
-Studio.TerrainEditor.Materials.DiamondPlate,Diamond Plate, ,Diamond Plate, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Fabric,Fabric, ,Fabric, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Foil,Foil, ,Foil, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Glass,Glass, ,Glass, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Granite,Granite, ,Granite, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Leather,Leather, ,Leather, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Marble,Marble, ,Marble, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Neon,Neon, ,Neon, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Pebble,Pebble, ,Pebble, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Plaster,Plaster, ,Plaster, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Rubber,Rubber, ,Rubber, , , , , , , , , , 
-Studio.TerrainEditor.Materials.SmoothPlastic,Smooth Plastic, ,Smooth Plastic, , , , , , , , , , 
-Studio.TerrainEditor.Materials.Wood,Wood, ,Wood, , , , , , , , , , 
+Studio.TerrainEditor.TransformSettings.Rotation,Rotation, ,Rotation,Rotación,Rotation, ,回転,회전,Rotação, , , , 
+Studio.TerrainEditor.PluginActions.ApplyText,Apply, ,Apply,Aplicar,Appliquer, ,適用する,적용,Aplicar, , , , 
+Studio.TerrainEditor.TransformSettings.Apply,Apply, ,Apply,Aplicar,Appliquer, ,適用する,적용,Aplicar, , , , 
+Studio.TerrainEditor.ImportWarning.Scaling,"Image resolution ({ImageWidth:int}x{ImageHeight:int}) is too low for the target Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, decrease the size or import a new Heightmap.", ,"Image resolution ({ImageWidth:int}x{ImageHeight:int}) is too low for the target Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, decrease the size or import a new Heightmap.","La resolución de la imagen ({ImageWidth:int}x{ImageHeight:int}) es demasiada baja para los valores meta de Tamaño (X {RegionWidth:int}, Z {RegionHeight:int}). Para obtener mejores resultados, disminuye el tamaño o importa un nuevo Heightmap.","La résolution de l'image ({ImageWidth:int}x{ImageHeight:int}) est trop faible pour les valeurs de la Taille de la cible (X {RegionWidth:int}, Z {RegionHeight:int}). Pour de meilleurs résultats, diminue la taille ou importez une nouvelle Heightmap.", , ,"이미지 해상도({ImageWidth:int}x{ImageHeight:int})가 대상 크기 값(X {RegionWidth:int}, Z {RegionHeight:int})에 비해 너무 낮습니다. 최상의 결과를 얻으려면 크기를 줄이거나 새 Heightmap을 가져오세요.", , , , , 
+Studio.TerrainEditor.TransformSettings.LiveEdit,Live Edit, ,Live Edit,Edición en vivo,Modifier en direct, ,ライブ編集,라이브 편집,Editar ao vivo, , , , 
+Studio.TerrainEditor.Categories.TransformSettings,Transform Settings, ,Transform Settings,Configuración de transformación,Paramètres de transformation, ,設定を変換,변환 설정,Configurações de transformação, , , , 
+Studio.TerrainEditor.PluginActions.EditPlaneStatusTip,Edit/apply plane when using plane lock in manual mode, ,Edit/apply plane when using plane lock in manual mode,Edita o aplica el plano cuando se utiliza el bloqueo de plano en modo Manual,Modifier/appliquer le plan lors de l'utilisation du verrouillage de plan en mode manuel, ,手動モードで平面ロックを使用するときに平面を編集または適用,수동 모드에서 평면 잠금을 사용할 때 평면 편집 또는 적용,Editar/aplicar plano quando usar bloqueio de plano em modo manual, , , , 
+Studio.TerrainEditor.PluginActions.CopyStatusTip,Copy Region Selection, ,Copy Region Selection,Copiar selección de región,Copier la sélection de la région, ,地域の選択範囲をコピー,영역 선택 복사,Copiar seleção de região, , , , 
+Studio.TerrainEditor.PluginActions.CutStatusTip,Cut Region Selection, ,Cut Region Selection,Cortar selección de región,Couper la selection de la région, ,地域の選択範囲を切り取る,영역 선택 잘라내기,Recortar seleção de região, , , , 
+Studio.TerrainEditor.Materials.Plastic,Plastic, ,Plastic,Plástico, , ,プラスチック,플라스틱, , , , , 
+Studio.TerrainEditor.PluginActions.CutText,Cut, ,Cut,Cortar,Couper, ,切り取る,잘라내기,Recortar, , , , 
+Studio.TerrainEditor.PluginActions.DeleteStatusTip,Delete Region Selection, ,Delete Region Selection,Eliminar selección de región,Supprimer la sélection de région, ,地域の選択範囲を削除,영역 선택 삭제,Excluir seleção de região, , , , 
+Studio.TerrainEditor.PluginActions.PasteStatusTip,Paste Region Selection, ,Paste Region Selection,Pegar selección de región,Coller la sélection de la région, ,地域の選択範囲を張り付け,영역 선택 붙여넣기,Colar seleção de região, , , , 
+Studio.TerrainEditor.Operations.PasteName,Paste, ,Paste,Pegar, , ,貼り付け,붙여넣기, , , , , 
+Studio.TerrainEditor.PluginActions.PasteText,Paste, ,Paste,Pegar,Coller, ,貼り付け,붙여넣기,Colar, , , , 
+Studio.TerrainEditor.PluginActions.DuplicateStatusTip,Duplicate Region Selection, ,Duplicate Region Selection,Duplica la selección de región,Reproduire la sélection de région, ,地域の選択範囲を複製,영역 선택 복제,Duplicar seleção de região, , , , 
+Studio.TerrainEditor.Operations.DuplicateName,Duplicate, ,Duplicate,Duplicar, , ,複製,복제, , , , , 
+Studio.TerrainEditor.PluginActions.DuplicateText,Duplicate, ,Duplicate,Duplicar,Reproduire, ,複製,복제,Duplicar, , , , 
+Studio.TerrainEditor.PluginActions.ApplyStatusTip,Apply Region Transform, ,Apply Region Transform,Aplica la transformación de región,Appliquer la transformation de la région, ,地域変換を適用,영역 변환 적용,Aplicar transformação de região, , , , 
+Studio.TerrainEditor.PluginActions.CancelStatusTip,Cancel Region Transform, ,Cancel Region Transform,Cancela la transformación de región,Annuler la transformation de la région, ,地域変換をキャンセル,영역 변환 취소,Cancelar transformação de região, , , , 
+Studio.TerrainEditor.EditorEnum.FillMode,Fill Mode, ,Fill Mode,Modo de relleno, , ,塗りつぶしモード,채우기 모드, , , , , 
+Studio.TerrainEditor.MaterialSettings.FillMode,Fill Mode, ,Fill Mode,Modo de Relleno, , ,塗りつぶしモード,채우기 모드, , , , , 
+Studio.TerrainEditor.Tabs.Create,Create, ,Create,Crear, , ,作成,만들기, , , , , 
+Studio.TerrainEditor.Tabs.Edit,Edit, ,Edit,Editar, , ,編集,편집, , , , , 
+Studio.TerrainEditor.Operations.MoveDescription,Moving voxels to the target transform., ,Moving voxels to the target transform.,Moviendo los vóxeles a la transformación del objetivo., , , ,복셀을 대상 변환으로 이동합니다., , , , , 
+Studio.TerrainEditor.Operations.PasteDescription,Pasting voxels to the target transform., ,Pasting voxels to the target transform.,Pegando los vóxeles a la transformación del objetivo., , , ,복셀을 대상 변환으로 붙여넣기합니다., , , , , 
+Studio.TerrainEditor.Operations.DuplicateDescription,Duplicating voxels to the target transform., ,Duplicating voxels to the target transform.,Duplicando los vóxeles a la transformación del objetivo., , , ,복셀을 대상 변환으로 복제합니다., , , , , 
+Studio.TerrainEditor.Operations.FillDescription,Filling voxels in the selection with {material}., ,Filling voxels in the selection with {material}.,Llenando los vóxeles en la selección con {material}., , ,選択範囲を {material} のボクセルで埋めています。,선택 영역의 복셀을 {material}(으)로 채웁니다., , , , , 
+Studio.TerrainEditor.Operations.ReplaceDescription,Replacing {source} voxels in the selection with {target}., ,Replacing {source} voxels in the selection with {target}.,Reemplazando los vóxeles {source} en la selección con {target}., , ,選択範囲内の {source} ボクセルを {target} に置き換えます。,선택 영역의 {source} 복셀을 {target}(으)로 바꿉니다., , , , , 
+Studio.TerrainEditor.Dialog.Resume,Resume, ,Resume,Reanudar, , ,再開,재개, , , , , 
+Studio.TerrainEditor.Materials.Air,Air, ,Air,Aire, , ,空気,공기, , , , , 
+Studio.TerrainEditor.Materials.Cardboard,Cardboard, ,Cardboard,Cartón, , ,ダンボール,판지, , , , , 
+Studio.TerrainEditor.Materials.ClayRoofTiles,Clay Roof Tiles, ,Clay Roof Tiles,Tejas de arcilla, , ,屋根用クレイタイル,점토 기와, , , , , 
+Studio.TerrainEditor.Materials.DiamondPlate,Diamond Plate, ,Diamond Plate,Placa de diamante, , ,ダイヤモンド板,다이아몬드판, , , , , 
+Studio.TerrainEditor.Materials.Fabric,Fabric, ,Fabric,Tela, , ,布地,직물, , , , , 
+Studio.TerrainEditor.Materials.Foil,Foil, ,Foil,Papel aluminio, , ,ホイル,호일, , , , , 
+Studio.TerrainEditor.Materials.Glass,Glass, ,Glass,Vidrio, , ,ガラス,유리, , , , , 
+Studio.TerrainEditor.Materials.Granite,Granite, ,Granite,Granito, , ,花崗岩,화강암, , , , , 
+Studio.TerrainEditor.Materials.Leather,Leather, ,Leather,Cuero, , ,レザー,가죽, , , , , 
+Studio.TerrainEditor.Materials.Marble,Marble, ,Marble,Mármol, , ,大理石,대리석, , , , , 
+Studio.TerrainEditor.Materials.Neon,Neon, ,Neon,Neón, , ,ネオン,네온, , , , , 
+Studio.TerrainEditor.Materials.Pebble,Pebble, ,Pebble,Piedrita, , ,小石,자갈, , , , , 
+Studio.TerrainEditor.Materials.Plaster,Plaster, ,Plaster,Yeso, , ,石膏,석고, , , , , 
+Studio.TerrainEditor.Materials.Rubber,Rubber, ,Rubber,Goma, , ,ゴム,고무, , , , , 
+Studio.TerrainEditor.Materials.SmoothPlastic,Smooth Plastic, ,Smooth Plastic,Plástico liso, , ,なめらかなプラスチック,매끈한 플라스틱, , , , , 
+Studio.TerrainEditor.Image.Filename,Filename, ,Filename,Nombre del archivo,Nom du fichier, ,ファイル名,파일 이름, , , , , 
+Studio.TerrainEditor.Materials.Wood,Wood, ,Wood,Madera, , ,木材,목재, , , , , 
+Studio.TerrainEditor.HeightmapSettings.Colormap,Colormap, ,Colormap,Colormap,Colormap, , ,Colormap, , , , , 
+Studio.TerrainEditor.ImportMode.Colormap,Colormap, ,Colormap,Colormap,Colormap, , ,Colormap, , , , , 
+Studio.TerrainEditor.EditorEnum.ImportMode,Import Mode, ,Import Mode,Modo Importación,Mode Importation, ,インポートモード,가져오기 모드, , , , , 
+Studio.TerrainEditor.HeightmapSettings.ImportMode,Import Mode, ,Import Mode,Modo Importación,Mode Importation, ,インポートモード,가져오기 모드, , , , , 
+Studio.TerrainEditor.HeightmapSettings.DefaultMaterial,Default Material, ,Default Material,Material predeterminado,Matériel par défaut, ,デフォルト素材,기본 재질, , , , , 
+Studio.TerrainEditor.ImportWarning.AspectRatio,"Image aspect ratio ({ImageAspectRatio}) is not compatible with Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, adjust the Size or import a new image.", ,"Image aspect ratio ({ImageAspectRatio}) is not compatible with Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, adjust the Size or import a new image.","La relación de aspecto de la imagen ({ImageAspectRatio}) no es compatible con los valores de Tamaño (X {RegionWidth:int}, Z {RegionHeight:int}). Para obtener mejores resultados, ajusta el Tamaño o importa una nueva imagen.","Le format d'image ({ImageAspectRatio}) n'est pas compatible avec les valeurs de taille (X {RegionWidth:int}, Z {RegionHeight:int}). Pour de meilleurs résultats, ajustez la Taille ou importez une nouvelle image.", , ,"이미지의 가로 세로 비율({ImageAspectRatio})이 크기 값(X {RegionWidth:int}, Z {RegionHeight:int})와 호환되지 않습니다. 최상의 결과를 얻으려면 크기를 조정하거나 새 이미지를 가져오세요.", , , , , 
+Studio.TerrainEditor.ImportWarning.DiscardedChannels,Heightmaps only use the red channel., ,Heightmaps only use the red channel.,Heightmaps solo usan el canal rojo.,Les Heightmaps n'utilisent que le canal rouge., , ,Heightmap은 레드 채널만 사용합니다., , , , , 
+Studio.TerrainEditor.ImportWarning.FailedPreview,Failed to generate image preview: {Error}, ,Failed to generate image preview: {Error},Error al generar la vista previa de la imagen: {Error},Impossible de générer l'aperçu de l'image: {Error}, , ,이미지 미리 보기를 생성하지 못했습니다. 오류: {Error}, , , , , 
+Studio.TerrainEditor.ImportWarning.FailedImport,Failed to import image: {Error}, ,Failed to import image: {Error},Error al importar la imagen: {Error},Impossible d'importer l'image : {Error}, ,画像をインポートできませんでした: {Error},이미지를 가져오지 못했습니다. 오류: {Error}, , , , , 
+Studio.TerrainEditor.Image.ImagePreview,Image Preview, ,Image Preview,Vista previa de la imagen,Aperçu de l'image, ,画像プレビュー,이미지 미리 보기, , , , , 

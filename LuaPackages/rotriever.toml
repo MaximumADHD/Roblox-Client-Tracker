@@ -32,8 +32,8 @@ StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 NetworkingFriends = "github.com/roblox/networking-friends@2.9.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.8" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.10" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.10" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.1.11" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 ReactFocusNavigation = "github.com/roblox/focus-navigation@1.2.0"
 InputHandlers = "github.com/roblox/focus-navigation@1.0.0"

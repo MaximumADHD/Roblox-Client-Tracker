@@ -108,8 +108,6 @@ Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories,,Bulk Create Accessories
 Studio.App.RobloxRibbonMainWindow.BulkCreateAccessoriesTooltip,,Bulk Create Accessories from Imported Model,Bulk Create Accessories from Imported Model
 Studio.App.RobloxRibbonMainWindow.AvatarImporter,,Avatar Importer,Avatar Importer
 Studio.App.RobloxRibbonMainWindow.AvatarImporterTooltip,,Import an Avatar with a .fbx file,Import an Avatar with a .fbx file
-Studio.App.RobloxRibbonMainWindow.R15MigratorFinalizer,,Finalize Conversion,Finalize Conversion
-Studio.App.RobloxRibbonMainWindow.R15MigratorFinalizerTooltip,,Clean up temporary instances used for avatar compatability and backup data used during the conversion process.,Clean up temporary instances used for avatar compatability and backup data used during the conversion process.
 Studio.App.RobloxRibbonMainWindow.Navigate,,Navigate,Navigate
 Studio.App.RobloxRibbonMainWindow.None,,None,None
 Studio.App.RobloxRibbonMainWindow.Part,,Part,Part

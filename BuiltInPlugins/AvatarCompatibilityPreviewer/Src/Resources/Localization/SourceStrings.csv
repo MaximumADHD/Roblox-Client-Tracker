@@ -1,81 +1,95 @@
-Key,en-us
-Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddHint,"Select Clothing, Accessories, or Heads in the Explorer to add to preview."
-Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderMultiple,The following items could not be added: {items}
-Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderSingle,This item cannot be added.
-Studio.AvatarCompatibilityPreviewer.AddItems.FailedTitle,Unsupported Item
-Studio.AvatarCompatibilityPreviewer.AddItems.OK,OK
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Back,Back
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.BodyEmotes,Emotes
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.BodyRangeOfMotion,Range of Motion
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Emotions,Range of Motion
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Eyebrows,Eyebrows
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Eyelashes,Eyelashes
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Face,Face
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Front,Front
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Hair,Hair
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Head,Head
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.HeadBodyPart,Head
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Jackets,Jackets
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.LeftArm,Left Arm
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.LeftLeg,Left Leg
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Movement,Movement
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Neck,Neck
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Pants,Pants
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.RightArm,Right Arm
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.RightLeg,Right Leg
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shirts,Shirts
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shoes,Shoes
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shorts,Shorts
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shoulder,Shoulder
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Skin,Skin
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Skirts,Skirts
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Sweaters,Sweaters
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Torso,Torso
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.Waist,Waist
-Studio.AvatarCompatibilityPreviewer.Categories.accessories,Accessories
-Studio.AvatarCompatibilityPreviewer.Categories.animations,Animations
-Studio.AvatarCompatibilityPreviewer.Categories.body,Body
-Studio.AvatarCompatibilityPreviewer.Categories.clothing,Clothing
-Studio.AvatarCompatibilityPreviewer.Categories.face,Face
-Studio.AvatarCompatibilityPreviewer.CheckFace.DynamicHeadNotice,This avatar's head does not support facial animation.
-Studio.AvatarCompatibilityPreviewer.DummyPreview.RevertToDefault,Revert to Default
-Studio.AvatarCompatibilityPreviewer.DummyPreview.Textured,Textured
-Studio.AvatarCompatibilityPreviewer.EquippedItemContextMenu.OpenPalette,Open {palette}
-Studio.AvatarCompatibilityPreviewer.EquippedItemContextMenu.UnequipItem,Unequip Item
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10214319518,V Pose
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10370351535,Cartwheel
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714338461,Tilt
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714340543,Floss Dance
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714352626,Happy
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714359093,Hello
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714360164,Hero Landing
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714374484,Shrug
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714388352,Monkey
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714389988,Salute
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714395441,Point
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_11453082181,Piano Jump
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_12507085924,Lotus
-Studio.AvatarCompatibilityPreviewer.ItemNames.BodyRangeOfMotion_13899730930,Range of Motion
-Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965039145,Brows ROM
-Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965064041,Eyes ROM
-Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965076233,Mouth ROM
-Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965126930,Expressions
-Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965139478,Dialogue
-Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965162732,FACS
-Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600205519,Climb
-Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600206437,Fall
-Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600208470,Idle
-Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600210487,Jump
-Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600211410,Run
-Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600212676,Swim
-Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600249883,Walk
-Studio.AvatarCompatibilityPreviewer.Plugin.Button,Preview Avatar
-Studio.AvatarCompatibilityPreviewer.Plugin.Description,Opens the Avatar Previewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Name,Avatar Previewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar,Avatar Previewer
-Studio.AvatarCompatibilityPreviewer.SelectScreen.CurrentPlace,Current Place
-Studio.AvatarCompatibilityPreviewer.SelectScreen.ImportCharacterFrom,Select Character From
-Studio.AvatarCompatibilityPreviewer.Stages.CheckBody,Check Body
-Studio.AvatarCompatibilityPreviewer.Stages.CheckFace,Check Face
-Studio.AvatarCompatibilityPreviewer.Stages.Publish,Publish
-Studio.AvatarCompatibilityPreviewer.Stages.Test,Test in Experience
+Key,Source,en-us
+Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddHint, ,"Select Clothing, Accessories, or Heads in the Explorer to add to preview."
+Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderMultiple, ,The following items could not be added: {items}
+Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderSingle, ,This item cannot be added.
+Studio.AvatarCompatibilityPreviewer.AddItems.FailedTitle, ,Unsupported Item
+Studio.AvatarCompatibilityPreviewer.AddItems.OK, ,OK
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Back, ,Back
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.BodyEmotes, ,Emotes
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.BodyRangeOfMotion, ,Range of Motion
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Emotions, ,Range of Motion
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Eyebrows, ,Eyebrows
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Eyelashes, ,Eyelashes
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Face, ,Face
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Front, ,Front
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Hair, ,Hair
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Head, ,Head
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.HeadBodyPart, ,Head
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Jackets, ,Jackets
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.LeftArm, ,Left Arm
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.LeftLeg, ,Left Leg
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Movement, ,Movement
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Neck, ,Neck
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Pants, ,Pants
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.RightArm, ,Right Arm
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.RightLeg, ,Right Leg
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shirts, ,Shirts
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shoes, ,Shoes
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shorts, ,Shorts
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Shoulder, ,Shoulder
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Skin, ,Skin
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Skirts, ,Skirts
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Sweaters, ,Sweaters
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Torso, ,Torso
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Waist, ,Waist
+Studio.AvatarCompatibilityPreviewer.Categories.accessories, ,Accessories
+Studio.AvatarCompatibilityPreviewer.Categories.animations, ,Animations
+Studio.AvatarCompatibilityPreviewer.Categories.body, ,Body
+Studio.AvatarCompatibilityPreviewer.Categories.clothing, ,Clothing
+Studio.AvatarCompatibilityPreviewer.Categories.face, ,Face
+Studio.AvatarCompatibilityPreviewer.CheckFace.DynamicHeadNotice, ,This avatar's head does not support facial animation.
+Studio.AvatarCompatibilityPreviewer.DummyPreview.RevertToDefault, ,Revert to Default
+Studio.AvatarCompatibilityPreviewer.DummyPreview.Textured, ,Textured
+Studio.AvatarCompatibilityPreviewer.EquippedItemContextMenu.OpenPalette, ,Open {palette}
+Studio.AvatarCompatibilityPreviewer.EquippedItemContextMenu.UnequipItem, ,Unequip Item
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10214319518, ,V Pose
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10370351535, ,Cartwheel
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714338461, ,Tilt
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714340543, ,Floss Dance
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714352626, ,Happy
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714359093, ,Hello
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714360164, ,Hero Landing
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714374484, ,Shrug
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714388352, ,Monkey
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714389988, ,Salute
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_10714395441, ,Point
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_11453082181, ,Piano Jump
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyEmotes_12507085924, ,Lotus
+Studio.AvatarCompatibilityPreviewer.ItemNames.BodyRangeOfMotion_13899730930, ,Range of Motion
+Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965039145, ,Brows ROM
+Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965064041, ,Eyes ROM
+Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965076233, ,Mouth ROM
+Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965126930, ,Expressions
+Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965139478, ,Dialogue
+Studio.AvatarCompatibilityPreviewer.ItemNames.Emotions_13965162732, ,FACS
+Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600205519, ,Climb
+Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600206437, ,Fall
+Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600208470, ,Idle
+Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600210487, ,Jump
+Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600211410, ,Run
+Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600212676, ,Swim
+Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600249883, ,Walk
+Studio.AvatarCompatibilityPreviewer.Plugin.Button, ,Preview Avatar
+Studio.AvatarCompatibilityPreviewer.Plugin.Description, ,Opens the Avatar Previewer
+Studio.AvatarCompatibilityPreviewer.Plugin.Name, ,Avatar Previewer
+Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar, ,Avatar Previewer
+Studio.AvatarCompatibilityPreviewer.SelectScreen.CurrentPlace, ,Current Place
+Studio.AvatarCompatibilityPreviewer.SelectScreen.ImportCharacterFrom, ,Select Character From
+Studio.AvatarCompatibilityPreviewer.Stages.CheckBody, ,Check Body
+Studio.AvatarCompatibilityPreviewer.Stages.CheckFace, ,Check Face
+Studio.AvatarCompatibilityPreviewer.Stages.Publish, ,Publish
+Studio.AvatarCompatibilityPreviewer.Stages.Test, ,Test in Experience
+Studio.AvatarCompatibilityPreviewer.UGCValidation.AlertTitle, ,Body Errors
+Studio.AvatarCompatibilityPreviewer.UGCValidation.AssetNotFound, ,{asset} not found
+Studio.AvatarCompatibilityPreviewer.UGCValidation.SuccessTooltip, ,This avatar can be uploaded to Marketplace
+Studio.AvatarCompatibilityPreviewer.UGCValidation.WarningAction, ,See Details
+Studio.AvatarCompatibilityPreviewer.UGCValidation.WarningLongTitle_Plural, ,{amount:int} Warnings found that will prevent you from uploading to Marketplace
+Studio.AvatarCompatibilityPreviewer.UGCValidation.WarningLongTitle_Singular, ,1 Warning found that will prevent you from uploading to Marketplace
+Studio.AvatarCompatibilityPreviewer.UGCValidation.WarningShortTitle_Plural, ,{amount:int} Warnings
+Studio.AvatarCompatibilityPreviewer.UGCValidation.WarningShortTitle_Singular, ,1 Warning
+Studio.AvatarCompatibilityPreviewer.AssetType.DynamicHead,Dynamic Head,Dynamic Head
+Studio.AvatarCompatibilityPreviewer.AssetType.LeftLeg,Left Leg,Left Leg
+Studio.AvatarCompatibilityPreviewer.AssetType.Torso,Torso,Torso
+Studio.AvatarCompatibilityPreviewer.AssetType.RightArm,Right Arm,Right Arm
+Studio.AvatarCompatibilityPreviewer.AssetType.LeftArm,Left Arm,Left Arm
+Studio.AvatarCompatibilityPreviewer.AssetType.RightLeg,Right Leg,Right Leg

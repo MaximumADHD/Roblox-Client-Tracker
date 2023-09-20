@@ -17,10 +17,10 @@ out vec3 VARYING4;
 
 void main()
 {
-    vec4 v0 = POSITION * vec4(0.00390625);
+    vec4 v0 = POSITION * CB1[0].w;
     vec2 v1 = CB2[2].zw + (vec2(0.5) * CB2[1].z);
     vec3 v2 = vec3(CB2[2].x, 0.0, CB2[2].y);
-    float v3 = (NORMAL.w > 0.100000001490116119384765625) ? 0.0 : 0.4000000059604644775390625;
+    float v3 = ((NORMAL.w > 0.100000001490116119384765625) ? 0.0 : 0.4000000059604644775390625) * CB1[1].z;
     vec2 v4 = v0.xz;
     vec2 v5 = v4 + (v1 * 2.0);
     vec2 v6 = floor(v5);

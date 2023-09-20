@@ -134,3 +134,7 @@ Studio.App.BetaFeatures.NewBaseMaterialsTitle,,New Base Materials,New Base Mater
 Studio.App.BetaFeatures.NewBaseMaterialsDescription,,Adds 8 new base materials.,Adds 8 new base materials.
 Studio.App.BetaFeatures.NewCameraControlsTitle,,New Studio Camera Controls,New Studio Camera Controls
 Studio.App.BetaFeatures.NewCameraControlsDescription,,Enables improved camera controls for Studio.,Enables improved camera controls for Studio.
+Studio.App.BetaFeatures.DynamicImageMeshTitle,,DynamicImage and DynamicMesh,DynamicImage and DynamicMesh
+Studio.App.BetaFeatures.DynamicImageMeshDescription,,Enables the new DynamicImage and DynamicMesh instances which allow the runtime creation and editing of Images and Meshes,Enables the new DynamicImage and DynamicMesh instances which allow the runtime creation and editing of Images and Meshes
+Studio.App.BetaFeatures.GrassLengthCustomizationTitle,,Grass Length Customization,Grass Length Customization
+Studio.App.BetaFeatures.GrassLengthCustomizationDescription,,Enables customization of terrain grass length in Studio.,Enables customization of terrain grass length in Studio.

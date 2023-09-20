@@ -16,7 +16,7 @@ out vec3 VARYING3;
 
 void main()
 {
-    vec4 v0 = POSITION / vec4(256.0);
+    vec4 v0 = POSITION * CB1[0].w;
     vec3 v1 = v0.xyz + CB1[0].xyz;
     float v2 = v1.y - (smoothstep(0.0, 1.0, 1.0 - ((CB1[1].x - length(CB0[11].xyz - v1)) * CB1[1].y)) * v0.w);
     vec3 v3 = v1;

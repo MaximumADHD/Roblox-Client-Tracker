@@ -67,6 +67,12 @@
                     "$path": ".robloxrc"
                 }
             },
+            "Hooks": {
+                "$path": "Hooks",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
             "Url": {
                 "$path": "Url.lua",
                 ".robloxrc": {

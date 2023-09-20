@@ -3677,6 +3677,8 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">FillDirectionMaxCells</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -3742,6 +3744,9 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">TweenTime</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">5</double>
+            <double name="UINumTicks">500</double>
           </Properties>
         </Item>
       </Item>
@@ -3860,11 +3865,15 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">MinTextSize</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">MaxTextSize</string>
+            <double name="UIMinimum">1</double>
+            <double name="UIMaximum">100</double>
           </Properties>
         </Item>
       </Item>
@@ -3882,6 +3891,9 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">AspectRatio</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -3910,6 +3922,9 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Scale</string>
+            <double name="UIMinimum">0.1</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">990</double>
           </Properties>
         </Item>
       </Item>
@@ -3967,12 +3982,18 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Transparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
           </Properties>
         </Item>
 
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Rotation</string>
+            <double name="UIMinimum">-180</double>
+            <double name="UIMaximum">180</double>
+            <double name="UINumTicks">360</double>
           </Properties>
         </Item>
 
@@ -4022,6 +4043,7 @@
             <string name="Name">Transparency</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
           </Properties>
         </Item>
 
@@ -7352,6 +7374,15 @@
             <string name="Name">LightInfluence</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MaxDistance</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1000</double>
+            <double name="UINumTicks">20</double>
           </Properties>
         </Item>
       </Item>
@@ -7400,7 +7431,7 @@
             <string name="Name">LightInfluence</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
-            <double name="UINumTicks">2000</double>
+            <double name="UINumTicks">100</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -7418,6 +7449,22 @@
             <double name="UIMaximum">1000</double>
             <double name="UINumTicks">20</double>
             <string name="FFlag">SurfaceGuiMaxDistance</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">PixelsPerStud</string>
+            <double name="UIMinimum">10</double>
+            <double name="UIMaximum">200</double>
+            <double name="UINumTicks">19</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ToolPunchThroughDistance</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1000</double>
+            <double name="UINumTicks">20</double>
           </Properties>
         </Item>
       </Item>
@@ -7561,6 +7608,8 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">BorderSizePixel</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">100</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -7582,6 +7631,14 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Position</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Rotation</string>
+            <double name="UIMinimum">-180</double>
+            <double name="UIMaximum">180</double>
+            <double name="UINumTicks">360</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -7745,6 +7802,16 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">ScrollBarThickness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ScrollBarImageTransparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -8286,6 +8353,14 @@
         <string name="Name">HumanoidDescription</string>
         <string name="ExplorerOrder">22</string>
         <string name="ExplorerImageIndex">104</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">BodyPartDescription</string>
+        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerImageIndex">104</string>
+        <bool name="FFlag">HumanoidDescriptionNewInstancesStudio</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -9098,6 +9173,14 @@
           <Properties>
             <string name="Name">WaterReflectance</string>
             <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GrassLength</string>
+            <string name="FFlag">GrassLengthCustomization</string>
+            <double name="UIMinimum">0.1</double>
             <double name="UIMaximum">1</double>
           </Properties>
         </Item>

@@ -27,6 +27,7 @@ Studio.TerrainEditor.BrushShape.Cube,Cube
 Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
 Studio.TerrainEditor.BrushShape.Sphere,Sphere
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
+Studio.TerrainEditor.Categories.HeightmapSettings,Heightmap Settings
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings
 Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings
 Studio.TerrainEditor.Categories.TransformSettings,Transform Settings
@@ -37,6 +38,7 @@ Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode
 Studio.TerrainEditor.EditorEnum.BrushShape,Brush Shape
 Studio.TerrainEditor.EditorEnum.FillMode,Fill Mode
 Studio.TerrainEditor.EditorEnum.FlattenMode,Flatten Mode
+Studio.TerrainEditor.EditorEnum.ImportMode,Import Mode
 Studio.TerrainEditor.EditorEnum.MaterialMode,Material Mode
 Studio.TerrainEditor.EditorEnum.PivotPosition,Pivot Position
 Studio.TerrainEditor.EditorEnum.PlaneLock,Plane Lock
@@ -45,6 +47,22 @@ Studio.TerrainEditor.FillMode.Replace,Replace
 Studio.TerrainEditor.FlattenMode.Both,Both
 Studio.TerrainEditor.FlattenMode.Over,Over
 Studio.TerrainEditor.FlattenMode.Under,Under
+Studio.TerrainEditor.HeightmapSettings.Colormap,Colormap
+Studio.TerrainEditor.HeightmapSettings.DefaultMaterial,Default Material
+Studio.TerrainEditor.HeightmapSettings.Heightmap,Heightmap
+Studio.TerrainEditor.HeightmapSettings.Import,Import
+Studio.TerrainEditor.HeightmapSettings.ImportMode,Import Mode
+Studio.TerrainEditor.HeightmapSettings.Material,Material
+Studio.TerrainEditor.Image.Dimensions,Dimensions
+Studio.TerrainEditor.Image.Filename,Filename
+Studio.TerrainEditor.Image.ImagePreview,Image Preview
+Studio.TerrainEditor.ImportMode.Colormap,Colormap
+Studio.TerrainEditor.ImportMode.Material,Material
+Studio.TerrainEditor.ImportWarning.AspectRatio,"Image aspect ratio ({ImageAspectRatio}) is not compatible with Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, adjust the Size or import a new image."
+Studio.TerrainEditor.ImportWarning.DiscardedChannels,Heightmaps only use the red channel.
+Studio.TerrainEditor.ImportWarning.FailedImport,Failed to import image: {Error}
+Studio.TerrainEditor.ImportWarning.FailedPreview,Failed to generate image preview: {Error}
+Studio.TerrainEditor.ImportWarning.Scaling,"Image resolution ({ImageWidth:int}x{ImageHeight:int}) is too low for the target Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, decrease the size or import a new Heightmap."
 Studio.TerrainEditor.MaterialMode.Paint,Paint
 Studio.TerrainEditor.MaterialMode.Replace,Replace
 Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material
@@ -104,6 +122,8 @@ Studio.TerrainEditor.Operations.DuplicateDescription,Duplicating voxels to the t
 Studio.TerrainEditor.Operations.DuplicateName,Duplicate
 Studio.TerrainEditor.Operations.FillDescription,Filling voxels in the selection with {material}.
 Studio.TerrainEditor.Operations.FillName,Fill
+Studio.TerrainEditor.Operations.ImportDescription,Importing voxels to the target transform.
+Studio.TerrainEditor.Operations.ImportName,Import
 Studio.TerrainEditor.Operations.MoveDescription,Moving voxels to the target transform.
 Studio.TerrainEditor.Operations.MoveName,Move
 Studio.TerrainEditor.Operations.PasteDescription,Pasting voxels to the target transform.

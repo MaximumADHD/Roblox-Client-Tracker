@@ -897,6 +897,26 @@
             "Warning Text": {
                 "Default": "#816006"
             }
+        },
+        {
+            "AlertBackground Important SubtleFill": {
+                "Default": "#FDE0DF"
+            }
+        },
+        {
+            "AlertBackground Notice SubtleFill": {
+                "Default": "#FEF6E0"
+            }
+        },
+        {
+            "AlertBackground Active SubtleFill": {
+                "Default": "#C9FFE6"
+            }
+        },
+        {
+            "AlertBackground Inform SubtleFill": {
+                "Default": "#D5F0FF"
+            }
         }
     ],
     "Paths": [

@@ -61,6 +61,8 @@ DefaultDepthVS_00001000,Vertex
 DefaultDepthVS_00001002,Vertex
 DefaultDepthVS_00001006,Vertex
 DefaultDepthVS_00100001,Vertex
+DefaultDepthVS_04000006,Vertex
+DefaultDepthVS_04001006,Vertex
 DefaultDetiledHQFS_00000000,Fragment
 DefaultDetiledHQFS_00000008,Fragment
 DefaultForceFieldFS,Fragment
@@ -82,6 +84,10 @@ DefaultForceFieldHQVS_0000100a,Vertex
 DefaultForceFieldHQVS_0000100e,Vertex
 DefaultForceFieldHQVS_00100001,Vertex
 DefaultForceFieldHQVS_00100009,Vertex
+DefaultForceFieldHQVS_04000006,Vertex
+DefaultForceFieldHQVS_0400000e,Vertex
+DefaultForceFieldHQVS_04001006,Vertex
+DefaultForceFieldHQVS_0400100e,Vertex
 DefaultForceFieldSHQFS_00000000,Fragment
 DefaultForceFieldSHQFS_00000008,Fragment
 DefaultForceFieldVS_00000000,Vertex
@@ -100,6 +106,10 @@ DefaultForceFieldVS_00001402,Vertex
 DefaultForceFieldVS_00001406,Vertex
 DefaultForceFieldVS_00100001,Vertex
 DefaultForceFieldVS_00100401,Vertex
+DefaultForceFieldVS_04000006,Vertex
+DefaultForceFieldVS_04000406,Vertex
+DefaultForceFieldVS_04001006,Vertex
+DefaultForceFieldVS_04001406,Vertex
 DefaultGlassHQFS_00000000,Fragment
 DefaultGlassHQFS_00000008,Fragment
 DefaultGlassSuperHQFS_00000000,Fragment
@@ -112,6 +122,8 @@ DefaultHighlightAlphaTestVS_00001000,Vertex
 DefaultHighlightAlphaTestVS_00001002,Vertex
 DefaultHighlightAlphaTestVS_00001006,Vertex
 DefaultHighlightAlphaTestVS_00100001,Vertex
+DefaultHighlightAlphaTestVS_04000006,Vertex
+DefaultHighlightAlphaTestVS_04001006,Vertex
 DefaultHighlightVS_00000000,Vertex
 DefaultHighlightVS_00000001,Vertex
 DefaultHighlightVS_00000002,Vertex
@@ -120,6 +132,8 @@ DefaultHighlightVS_00001000,Vertex
 DefaultHighlightVS_00001002,Vertex
 DefaultHighlightVS_00001006,Vertex
 DefaultHighlightVS_00100001,Vertex
+DefaultHighlightVS_04000006,Vertex
+DefaultHighlightVS_04001006,Vertex
 DefaultHQVS_00000000,Vertex
 DefaultHQVS_00000001,Vertex
 DefaultHQVS_00000002,Vertex
@@ -136,6 +150,10 @@ DefaultHQVS_0000100a,Vertex
 DefaultHQVS_0000100e,Vertex
 DefaultHQVS_00100001,Vertex
 DefaultHQVS_00100009,Vertex
+DefaultHQVS_04000006,Vertex
+DefaultHQVS_0400000e,Vertex
+DefaultHQVS_04001006,Vertex
+DefaultHQVS_0400100e,Vertex
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
 DefaultNeonFS_00000000,Fragment
@@ -164,6 +182,10 @@ DefaultNewShadowVS_00001042,Vertex
 DefaultNewShadowVS_00001046,Vertex
 DefaultNewShadowVS_00100001,Vertex
 DefaultNewShadowVS_00100041,Vertex
+DefaultNewShadowVS_04000006,Vertex
+DefaultNewShadowVS_04000046,Vertex
+DefaultNewShadowVS_04001006,Vertex
+DefaultNewShadowVS_04001046,Vertex
 DefaultOpaqueFS_00000000,Fragment
 DefaultOpaqueFS_00000800,Fragment
 DefaultOpaqueHQFS_00000000,Fragment
@@ -192,6 +214,10 @@ DefaultReflectionVS_00001402,Vertex
 DefaultReflectionVS_00001406,Vertex
 DefaultReflectionVS_00100001,Vertex
 DefaultReflectionVS_00100401,Vertex
+DefaultReflectionVS_04000006,Vertex
+DefaultReflectionVS_04000406,Vertex
+DefaultReflectionVS_04001006,Vertex
+DefaultReflectionVS_04001406,Vertex
 DefaultShadowFS,Fragment
 DefaultShadowGeomVS_00000000,Vertex
 DefaultShadowGeomVS_00000001,Vertex
@@ -201,6 +227,8 @@ DefaultShadowGeomVS_00001000,Vertex
 DefaultShadowGeomVS_00001002,Vertex
 DefaultShadowGeomVS_00001006,Vertex
 DefaultShadowGeomVS_00100001,Vertex
+DefaultShadowGeomVS_04000006,Vertex
+DefaultShadowGeomVS_04001006,Vertex
 DefaultSurfaceAppearanceDitheredDepthFS,Fragment
 DefaultSurfaceAppearanceDitheredDepthFS_00000000,Fragment
 DefaultSurfaceAppearanceDitheredDepthVS_00000000,Vertex
@@ -211,6 +239,8 @@ DefaultSurfaceAppearanceDitheredDepthVS_00001000,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_00001002,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_00001006,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_00100001,Vertex
+DefaultSurfaceAppearanceDitheredDepthVS_04000006,Vertex
+DefaultSurfaceAppearanceDitheredDepthVS_04001006,Vertex
 DefaultSurfaceAppearanceDitheredFS_00000000,Fragment
 DefaultSurfaceAppearanceDitheredFS_00000800,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_00000000,Fragment
@@ -235,6 +265,10 @@ DefaultSurfaceHQVS_0000100a,Vertex
 DefaultSurfaceHQVS_0000100e,Vertex
 DefaultSurfaceHQVS_00100001,Vertex
 DefaultSurfaceHQVS_00100009,Vertex
+DefaultSurfaceHQVS_04000006,Vertex
+DefaultSurfaceHQVS_0400000e,Vertex
+DefaultSurfaceHQVS_04001006,Vertex
+DefaultSurfaceHQVS_0400100e,Vertex
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000000,Fragment
 DefaultTiledEmissiveHideDiffuseRepHQFS_00000008,Fragment
 DefaultTiledHideAllRepHQFS_00000000,Fragment
@@ -265,6 +299,10 @@ DefaultVS_00001402,Vertex
 DefaultVS_00001406,Vertex
 DefaultVS_00100001,Vertex
 DefaultVS_00100401,Vertex
+DefaultVS_04000006,Vertex
+DefaultVS_04000406,Vertex
+DefaultVS_04001006,Vertex
+DefaultVS_04001406,Vertex
 DefaultWangHQFS_00000000,Fragment
 DefaultWangHQFS_00000008,Fragment
 DepthResolveMax2FS,Fragment
@@ -317,6 +355,10 @@ GlassVS_00001402,Vertex
 GlassVS_00001406,Vertex
 GlassVS_00100001,Vertex
 GlassVS_00100401,Vertex
+GlassVS_04000006,Vertex
+GlassVS_04000406,Vertex
+GlassVS_04001006,Vertex
+GlassVS_04001406,Vertex
 GrassFS,Fragment
 GrassHQFS,Fragment
 GrassHQFSShadowed,Fragment
@@ -330,6 +372,8 @@ GrassShadowPS_00000000,Fragment
 GrassShadowPS_00000040,Fragment
 GrassShadowVS_00000000,Vertex
 GrassShadowVS_00000040,Vertex
+GrassShadowVS_02000000,Vertex
+GrassShadowVS_02000040,Vertex
 GrassVS,Vertex
 GrassVSDepth,Vertex
 GrassVSPrecise,Vertex
@@ -351,6 +395,10 @@ GridVS_0000100a,Vertex
 GridVS_0000100e,Vertex
 GridVS_00100001,Vertex
 GridVS_00100009,Vertex
+GridVS_04000006,Vertex
+GridVS_0400000e,Vertex
+GridVS_04001006,Vertex
+GridVS_0400100e,Vertex
 HighlightInPlaceFS_00000000,Fragment
 HighlightPostprocessAlphaTestFS_00000000,Fragment
 HighlightPostprocessFS_00000000,Fragment
@@ -599,6 +647,8 @@ SmoothClusterVTSuperHQFS_00000800,Fragment
 SmoothClusterVTSuperHQFS_00000808,Fragment
 SmoothClusterVTSuperHQVS_00000000,Vertex
 SmoothClusterVTSuperHQVS_00000008,Vertex
+SmoothClusterVTTranslationFS,Fragment
+SmoothClusterVTTranslationVS,Vertex
 SmoothClusterVTVS_00000000,Vertex
 SmoothWaterFS_00000000,Fragment
 SmoothWaterFS_00000800,Fragment
