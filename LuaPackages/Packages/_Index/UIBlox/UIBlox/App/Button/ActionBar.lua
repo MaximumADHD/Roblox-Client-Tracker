@@ -20,7 +20,7 @@ local TextButton = require(Button.TextButton)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getPageMargin = require(App.Container.getPageMargin)
-local validateButtonProps = require(Button.validateButtonProps)
+local validateButtonProps = require(Button.Button).validateProps
 local StyleConstants = require(UIBlox.App.Style.Constants)
 local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 

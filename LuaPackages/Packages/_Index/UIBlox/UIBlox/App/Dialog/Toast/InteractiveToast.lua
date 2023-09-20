@@ -12,6 +12,8 @@ local ImageSetComponent = require(UIBloxRoot.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBloxRoot.App.ImageSet.Images)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local SpringAnimatedItem = require(UIBloxRoot.Utility.SpringAnimatedItem)
+local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
+local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 
 local ToastFrame = require(ToastRoot.ToastFrame)
 local ToastIcon = require(ToastRoot.ToastIcon)
@@ -41,6 +43,8 @@ InteractiveToast.validateProps = t.strictInterface({
 		buttonText = t.string,
 		-- Callback of the button
 		onActivated = t.callback,
+		-- Style of button
+		buttonType = t.optional(enumerateValidator(ButtonType)),
 	})),
 	iconProps = t.optional(ToastIcon.validateProps),
 	-- A Roact children table of icon image to customize toast icon

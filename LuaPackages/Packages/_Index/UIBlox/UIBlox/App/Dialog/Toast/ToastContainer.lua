@@ -13,6 +13,8 @@ local Images = require(UIBloxRoot.App.ImageSet.Images)
 local memoize = require(UIBloxRoot.Utility.memoize)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
+local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
+local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 
 local DEFAULT_PADDING = 12
 local DEFAULT_ICON_SIZE = Vector2.new(36, 36)
@@ -55,6 +57,7 @@ ToastContainer.validateProps = t.strictInterface({
 	sizeConstraint = t.optional(t.table),
 	toastSubtitle = t.optional(t.string),
 	toastTitle = t.string,
+	buttonType = t.optional(enumerateValidator(ButtonType)),
 })
 
 ToastContainer.defaultProps = {

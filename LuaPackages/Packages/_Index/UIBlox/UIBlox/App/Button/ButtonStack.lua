@@ -17,7 +17,7 @@ local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
-local validateButtonProps = require(ButtonRoot.validateButtonProps)
+local validateButtonProps = require(ButtonRoot.Button).validateProps
 
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis

@@ -22,6 +22,10 @@ local ControlState = require(Core.Control.Enum.ControlState)
 local Interactable = require(Core.Control.Interactable)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
+local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
+local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
@@ -54,6 +58,7 @@ local MenuTile = Roact.Component:extend("MenuTile")
 
 MenuTile.defaultProps = {
 	size = UDim2.fromScale(1, 1),
+	styleProps = {},
 }
 
 MenuTile.validateProps = t.strictInterface({
@@ -72,6 +77,17 @@ MenuTile.validateProps = t.strictInterface({
 	title = t.string,
 	-- Function to call when user activates the menu tile.
 	onActivated = t.callback,
+	-- Props to customize style of icon and title
+	styleProps = t.optional(t.strictInterface({
+		-- Color style of icon
+		iconStyle = t.optional(validateColorInfo),
+		-- Size of icon
+		iconSize = t.optional(enumerateValidator(IconSize)),
+		-- Color style of title
+		titleStyle = t.optional(validateColorInfo),
+		-- Font of title
+		titleFont = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
+	})),
 })
 
 local function withProviders(renderCallback)
@@ -80,6 +96,22 @@ local function withProviders(renderCallback)
 			return renderCallback(stylePalette, getSelectionCursor)
 		end)
 	end)
+end
+
+local function getStyleProps(providedStyleProps, stylePalette)
+	local theme = stylePalette.Theme
+	local font = stylePalette.Font
+
+	local iconSize = if providedStyleProps.iconSize
+		then getIconSize(providedStyleProps.iconSize, stylePalette)
+		else getIconSize(IconSize.Large)
+
+	return {
+		iconStyle = providedStyleProps.iconStyle or theme.IconDefault,
+		iconSize = iconSize,
+		titleStyle = providedStyleProps.titleStyle or theme.TextDefault,
+		titleFont = providedStyleProps.titleFont or font.SubHeader1,
+	}
 end
 
 function MenuTile:init()
@@ -118,13 +150,19 @@ function MenuTile:render()
 	return withProviders(function(stylePalette, getSelectionCursor)
 		local theme = stylePalette.Theme
 
+		local styleProps = getStyleProps(self.props.styleProps, stylePalette)
+
 		local backgroundStyle = theme.BackgroundUIDefault
-		local iconStyle = theme.IconDefault
 		local hoverStyle = theme.BackgroundOnHover
 
-		local titleStyle = theme.TextDefault
-		local titleFont = stylePalette.Font.SubHeader1
-		local titleFontSize = titleFont.RelativeSize * stylePalette.Font.BaseSize
+		local iconStyle = styleProps.iconStyle
+		local iconSize = styleProps.iconSize
+
+		local titleStyle = styleProps.titleStyle
+		local titleFont = styleProps.titleFont
+		local titleFontSize = if titleFont.RelativeSize
+			then titleFont.RelativeSize * stylePalette.Font.BaseSize
+			else titleFont.FontSize
 		local titleTextOneLineSizeY =
 			TextService:GetTextSize(title, titleFontSize, titleFont.Font, Vector2.new(100, titleFontSize)).Y
 
@@ -217,7 +255,7 @@ function MenuTile:render()
 						ImageColor3 = iconStyle.Color,
 						ImageTransparency = iconTransparency,
 						LayoutOrder = LAYOUT_ORDER.ICON,
-						Size = UDim2.fromOffset(getIconSize(IconSize.Large), getIconSize(IconSize.Large)),
+						Size = UDim2.fromOffset(iconSize, iconSize),
 					}),
 					-- GenericText, does not limit to 2 lines
 					Title = title and Roact.createElement("TextLabel", {

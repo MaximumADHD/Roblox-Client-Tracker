@@ -220,8 +220,10 @@ function GenericButton:renderButton(loadingProgress)
 		if inputIcon then
 			assert(colorStateMap(inputIconStateColorMap), "inputIconStateColorMap is missing or invalid.")
 		end
-		if isDelayedInput then
-			assert(delayedInputImage, "delayedInputImage is missing or invalid")
+		if isDelayedInput and delayedInputImage == nil then
+			-- Instead of breaking when delayedInput is true and no image is provided, disable delayedInput.
+			-- Ideally two props don't depend on eachothers existence to work properly.
+			isDelayedInput = false
 		end
 
 		if isLoading then

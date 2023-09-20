@@ -385,6 +385,7 @@ local function initializeLibrary(configs)
 			validateStyle = require(script.App.Style.Validator.validateStyle),
 			validateFont = require(script.App.Style.Validator.validateFont),
 			validateFontInfo = require(script.Core.Style.Validator.validateFontInfo),
+			validateTypographyInfo = require(script.Core.Style.Validator.validateTypographyInfo),
 			validateTheme = if configs.useNewThemeColorPalettes
 				then require(script.App.Style.Validator.validateThemeNew)
 				else require(script.App.Style.Validator.validateTheme),

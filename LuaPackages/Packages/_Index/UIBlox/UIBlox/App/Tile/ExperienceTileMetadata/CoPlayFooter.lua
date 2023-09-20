@@ -90,7 +90,7 @@ export type Props = {
 type BadgeProps = {
 	usersCount: number,
 	layoutOrder: number,
-	zIndex: number,
+	ZIndex: number,
 	maxDisplayNumber: number,
 	showEmphasisBorder: boolean?,
 }
@@ -98,7 +98,7 @@ type BadgeProps = {
 type FaceProps = {
 	user: string,
 	layoutOrder: number,
-	zIndex: number,
+	ZIndex: number,
 	showEmphasisBorder: boolean?,
 }
 
@@ -205,7 +205,7 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 
 	local BadgeContainer = React.createElement("Frame", {
 		LayoutOrder = props.layoutOrder,
-		ZIndex = props.zIndex,
+		ZIndex = props.ZIndex,
 		Size = UDim2.fromOffset(0, badgeHeight),
 		BorderSizePixel = 0,
 		BackgroundColor3 = badgeBackgroundColor.Color,
@@ -234,6 +234,7 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 			TextTransparency = badgeContentColor.Transparency,
 			BackgroundTransparency = 1,
 			AutomaticSize = Enum.AutomaticSize.X,
+			ZIndex = props.ZIndex + 1,
 		}, {
 			Padding = React.createElement("UIPadding", {
 				PaddingLeft = UDim.new(0, badgeSpacingLeading),
@@ -245,7 +246,7 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 				badgeBorderWidth,
 				styleProps,
 				style,
-				if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.zIndex + 1 else nil
+				if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.ZIndex + 1 else nil
 			)
 			else nil,
 	})
@@ -253,7 +254,7 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 	if UIBloxConfig.fixCoPlayFooterBadgeEmphasisBorder then
 		return React.createElement("Frame", {
 			LayoutOrder = props.layoutOrder,
-			ZIndex = props.zIndex,
+			ZIndex = props.ZIndex,
 			Size = UDim2.fromOffset(0, badgeHeight),
 			BorderSizePixel = 0,
 			BackgroundColor3 = badgeBackgroundColor.Color,
@@ -266,7 +267,7 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 					badgeBorderWidth,
 					styleProps,
 					style,
-					if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.zIndex + 1 else nil
+					if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.ZIndex + 1 else nil
 				)
 				else nil,
 		})
@@ -287,7 +288,7 @@ local function renderFaceImage(props: FaceProps, styleProps: StyleProps, style: 
 	local faceHeight = styleProps.faceHeight :: number
 	return React.createElement(ImageSetLabel, {
 		LayoutOrder = props.layoutOrder,
-		ZIndex = props.zIndex,
+		ZIndex = props.ZIndex,
 		Size = UDim2.fromOffset(faceWidth, faceHeight),
 		Image = getAvatarImage(props.user),
 		BackgroundColor3 = faceBackgroundColor.Color,
@@ -304,7 +305,7 @@ local function renderFaceImage(props: FaceProps, styleProps: StyleProps, style: 
 				faceBorderWidth,
 				styleProps,
 				style,
-				if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.zIndex + 1 else nil
+				if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.ZIndex + 1 else nil
 			)
 			else nil,
 	})
@@ -321,6 +322,7 @@ local function renderFaces(props: Props, styleProps: StyleProps, style: StyleTyp
 	if not shouldRenderBadge then
 		faceGroupCount = faceGroupCount + 1
 	end
+
 	local faces = {
 		ListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -338,7 +340,7 @@ local function renderFaces(props: Props, styleProps: StyleProps, style: StyleTyp
 			then renderBadge({
 				usersCount = #users,
 				layoutOrder = 0,
-				zIndex = if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then maxFaceZindex else 0,
+				ZIndex = if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then maxFaceZindex + 1 else 0,
 				maxDisplayNumber = props.maxBadgeDisplayNumber :: number,
 				showEmphasisBorder = props.showEmphasisBorder :: boolean,
 			}, styleProps, style)
@@ -349,7 +351,7 @@ local function renderFaces(props: Props, styleProps: StyleProps, style: StyleTyp
 		faces["Face_" .. i] = renderFaceImage({
 			user = users[i],
 			layoutOrder = i,
-			zIndex = if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then maxFaceZindex - i else -i,
+			ZIndex = if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then maxFaceZindex - i else -i,
 			showEmphasisBorder = props.showEmphasisBorder :: boolean,
 		}, styleProps, style)
 	end
