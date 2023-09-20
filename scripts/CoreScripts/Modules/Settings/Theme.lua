@@ -343,6 +343,9 @@ if ThemeEnabled then
 		UseStickyBar = UseStickyBar,
 		EnableDarkenBackground = true,
 		TabHeaderIconPadding = 5,
+		UseInspectAndBuyPanel = function()
+			return IsSmallTouchScreen
+		end,
 		HubPadding =  function()
 			if IsSmallTouchScreen then
 				return HubPaddingMobile
@@ -441,6 +444,9 @@ else
 		UseStickyBar = function() return false end,
 		EnableDarkenBackground = false,
 		TabHeaderIconPadding = 0,
+		UseInspectAndBuyPanel = function()
+			return false
+		end,
 		HubPadding =  function()
 			if IsSmallTouchScreen then
 				return HubPaddingMobile

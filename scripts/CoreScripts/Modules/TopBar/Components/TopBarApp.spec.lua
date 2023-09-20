@@ -1,10 +1,15 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local LocalizationService = game:GetService("LocalizationService")
+
 
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+
 
 	local Reducer = require(script.Parent.Parent.Reducer)
 
@@ -19,8 +24,13 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					TopBarApp = Roact.createElement(TopBarApp)
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new(LocalizationService.RobloxLocaleId),
+				}, {
+
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
+						TopBarApp = Roact.createElement(TopBarApp)
+					})
 				})
 			})
 

@@ -25,6 +25,7 @@ local GetFStringVoiceUserAgencyIXPLayerName = require(RobloxGuiModules.Flags.Get
 local FIntVoiceUserAgencyAlertInitTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertInitTimeOffset", 5)
 local FIntVoiceUserAgencyAlertStartTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3)
 local FIntVoiceUserAgencyAlertTimerDuration = game:DefineFastInt("VoiceUserAgencyAlertTimerDuration", 7)
+local FFlagMuteNonFriendsEvent = require(RobloxGuiModules.Flags.FFlagMuteNonFriendsEvent)
 
 local FFlagVoiceUserAgencyAddMuteDecisionAnalytics =
 	game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false)
@@ -55,28 +56,58 @@ local function getAppStorageTable()
 end
 
 local didResetHistory = false
+local function resetHistory()
+	if didResetHistory then
+		return
+	end
+	local checkAppStorageSuccess, errorMsg = pcall(function()
+		local placeIds = getAppStorageTable()
+		for placeIdStr, _ in placeIds do
+			if placeIdStr == PLACE_ID_STR then
+				placeIds[placeIdStr] = nil
+				AppStorageService:SetItem(LOCAL_STORAGE_KEY_VOICE_USER_AGENCY, HttpService:JSONEncode(placeIds))
+				AppStorageService:Flush()
+				didResetHistory = true
+				break
+			end
+		end
+	end)
+	if not checkAppStorageSuccess then
+		log:trace(errorMsg)
+	end
+end
+
 local function bindResetHistory()
 	-- remove from "remember for this experience" history
 	VoiceChatServiceManager.muteAllChanged.Event:Connect(function(muteState)
-		if didResetHistory then
-			return
-		end
-		local checkAppStorageSuccess, errorMsg = pcall(function()
-			local placeIds = getAppStorageTable()
-			for placeIdStr, _ in pairs(placeIds) do
-				if placeIdStr == PLACE_ID_STR then
-					placeIds[placeIdStr] = nil
-					AppStorageService:SetItem(LOCAL_STORAGE_KEY_VOICE_USER_AGENCY, HttpService:JSONEncode(placeIds))
-					AppStorageService:Flush()
-					didResetHistory = true
-					break
-				end
+		if FFlagMuteNonFriendsEvent then
+			resetHistory()
+		else
+			if didResetHistory then
+				return
 			end
-		end)
-		if not checkAppStorageSuccess then
-			log:trace(errorMsg)
+			local checkAppStorageSuccess, errorMsg = pcall(function()
+				local placeIds = getAppStorageTable()
+				for placeIdStr, _ in placeIds do
+					if placeIdStr == PLACE_ID_STR then
+						placeIds[placeIdStr] = nil
+						AppStorageService:SetItem(LOCAL_STORAGE_KEY_VOICE_USER_AGENCY, HttpService:JSONEncode(placeIds))
+						AppStorageService:Flush()
+						didResetHistory = true
+						break
+					end
+				end
+			end)
+			if not checkAppStorageSuccess then
+				log:trace(errorMsg)
+			end
 		end
 	end)
+	if FFlagMuteNonFriendsEvent then
+		VoiceChatServiceManager.mutedNonFriends.Event:Connect(function()
+			resetHistory()
+		end)
+	end
 end
 
 local function removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAll)

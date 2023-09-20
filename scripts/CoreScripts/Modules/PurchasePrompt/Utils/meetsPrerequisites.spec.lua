@@ -2,6 +2,10 @@
 return function()
 	local Root = script.Parent.Parent
 	local Workspace = game:GetService("Workspace")
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local PurchaseError = require(Root.Enums.PurchaseError)
 
@@ -30,7 +34,7 @@ return function()
 		local productInfo = getValidProductInfo()
 		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
-		expect(met).to.equal(true)
+		expect(met).toBe(true)
 	end)
 
 	it("should return true if prerequisites are all met for assets with sale restriction", function()
@@ -38,7 +42,7 @@ return function()
 		productInfo.CanBeSoldInThisGame = true
 		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
-		expect(met).to.equal(true)
+		expect(met).toBe(true)
 	end)
 
 	it("should return true if third party restrictions do not apply", function()
@@ -50,15 +54,15 @@ return function()
 
 		local met, _ = meetsPrerequisites(productInfo, false, true, defaultExternalSettings, nil)
 
-		expect(met).to.equal(true)
+		expect(met).toBe(true)
 	end)
 
 	it("should return false if the player owns the item already", function()
 		local productInfo = getValidProductInfo()
 		local met, errorReason = meetsPrerequisites(productInfo, true, true, defaultExternalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.AlreadyOwn)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.AlreadyOwn)
 	end)
 
 	it("should return true for purchasing already owned collectible item", function()
@@ -68,7 +72,7 @@ return function()
 
 		local met, _ = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
-		expect(met).to.equal(true)
+		expect(met).toBe(true)
 	end)
 
 	it("should return false if the product is not for sale", function()
@@ -78,8 +82,8 @@ return function()
 
 		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.NotForSale)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.NotForSale)
 	end)
 
 	it("should return false if the product is not for sale in the given game", function()
@@ -92,8 +96,8 @@ return function()
 
 		local met, errorReason = meetsPrerequisites(productInfo, false, false, externalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.NotForSaleHere)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.NotForSaleHere)
 	end)
 
 	it("should return true if prerequisites are all met (EnableRestrictedAssetSaleLocationPurchasePrompt flag check)", function()
@@ -106,7 +110,7 @@ return function()
 
 		local met, _ = meetsPrerequisites(productInfo, false, false, externalSettings, nil)
 
-		expect(met).to.equal(true)
+		expect(met).toBe(true)
 	end)
 
 	it("should return false if no copies are available", function()
@@ -116,8 +120,8 @@ return function()
 
 		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.Limited)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.Limited)
 	end)
 
 	it("should return false if no copies are available of a collectilbe item", function()
@@ -127,8 +131,8 @@ return function()
 
 		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.Limited)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.Limited)
 	end)
 
 	it("should return false if third-party sales are restricted by permissions service", function()
@@ -144,8 +148,8 @@ return function()
 		})
 		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.ThirdPartyDisabled)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.ThirdPartyDisabled)
 	end)
 
 	it("should return true if third-party sales are allowed by permissions service", function()
@@ -161,9 +165,9 @@ return function()
 		})
 		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings, nil)
 
-		expect(met).to.equal(true)
+		expect(met).toBe(true)
 	end)
-	
+
 	it("should return false if third-party sales are restricted", function()
 		local productInfo = getValidProductInfo()
 		Workspace.AllowThirdPartySales = false
@@ -178,8 +182,8 @@ return function()
 		})
 		local met, errorReason = meetsPrerequisites(productInfo, false, true, externalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.ThirdPartyDisabled)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.ThirdPartyDisabled)
 	end)
 
 	it("should return false if premium purchase", function()
@@ -188,7 +192,7 @@ return function()
 
 		local met, errorReason = meetsPrerequisites(productInfo, false, true, defaultExternalSettings, nil)
 
-		expect(met).to.equal(false)
-		expect(errorReason).to.equal(PurchaseError.PremiumOnly)
+		expect(met).toBe(false)
+		expect(errorReason).toBe(PurchaseError.PremiumOnly)
 	end)
 end

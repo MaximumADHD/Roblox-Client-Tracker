@@ -1,8 +1,12 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
 
 local React = require(CorePackages.Packages.React)
+local Roact = require(CorePackages.Roact)
+
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -31,11 +35,15 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
 	dismissCallback: () -> (),
+	isSmallScreen: boolean,
+	scrollingEnabled: boolean,
 	searchText: string,
 }
 
 -- The height for loading and call records.
 local ITEM_HEIGHT = 92
+-- The amount user needs to move for the gesture to be interpreted as a scroll.
+local TOUCH_SLOP = 12
 
 local function CallHistoryContainer(props: Props)
 	local dispatch = useDispatch()
@@ -47,7 +55,9 @@ local function CallHistoryContainer(props: Props)
 	-- These are set to loading and fetching to prepare for the initial fetch.
 	local isLoading = React.useRef(true)
 	local scrollingFrameRef = React.useRef(nil)
+	local initialPositionY = React.useRef(0)
 	local status, setStatus = React.useState(RetrievalStatus.Fetching)
+	local overscrolling, setOverscrolling = React.useState(false)
 
 	local nextPageCursor = useSelector(function(state)
 		return state.Call.callHistory.nextPageCursor
@@ -313,6 +323,25 @@ local function CallHistoryContainer(props: Props)
 		end
 	end, dependencyArray(children, onFetchNextPage))
 
+	local touchStarted = React.useCallback(function(touch: InputObject)
+		initialPositionY.current = touch.Position.Y
+	end, {})
+
+	local touchMoved = React.useCallback(function(touch: InputObject)
+		local delta = touch.Position.Y - initialPositionY.current :: number
+
+		if delta > TOUCH_SLOP and scrollingFrameRef.current and scrollingFrameRef.current.CanvasPosition.Y == 0 then
+			-- Check if user is scrolling up at the top. If so, we will
+			-- disable this scroller so that inputs will power the outer
+			-- scroller.
+			setOverscrolling(true)
+		end
+	end, {})
+
+	local touchEnded = React.useCallback(function()
+		setOverscrolling(false)
+	end, {})
+
 	return if #callRecords == 0
 			and status == RetrievalStatus.Fetching
 			and props.searchText == ""
@@ -327,20 +356,45 @@ local function CallHistoryContainer(props: Props)
 			}),
 		})
 		elseif #callRecords == 0 then noRecordsComponent
-		else React.createElement("ScrollingFrame", {
-			Size = UDim2.fromScale(1, 1),
-			AutomaticCanvasSize = Enum.AutomaticSize.Y,
-			BackgroundColor3 = theme.BackgroundDefault.Color,
-			BackgroundTransparency = theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
-			CanvasSize = UDim2.new(),
-			ScrollingDirection = Enum.ScrollingDirection.Y,
-			ScrollBarImageColor3 = theme.UIEmphasis.Color,
-			ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
-			ScrollBarThickness = 4,
-			ref = scrollingFrameRef,
-			[React.Change.CanvasPosition] = onFetchNextPage,
-		}, children)
+		else Roact.createFragment({
+			React.createElement("ScrollingFrame", {
+				Size = UDim2.fromScale(1, 1),
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				BorderSizePixel = 0,
+				CanvasSize = UDim2.new(),
+				ElasticBehavior = Enum.ElasticBehavior.Never,
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				ScrollingEnabled = not overscrolling and props.scrollingEnabled,
+				ScrollBarImageColor3 = theme.UIEmphasis.Color,
+				ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
+				ScrollBarThickness = 4,
+				ref = scrollingFrameRef,
+				[React.Change.CanvasPosition] = onFetchNextPage,
+			}, children),
+
+			TouchStartedUserInputConnection = props.isSmallScreen
+				and props.scrollingEnabled
+				and React.createElement(ExternalEventConnection, {
+					event = UserInputService.TouchStarted,
+					callback = touchStarted,
+				}),
+
+			TouchMovedUserInputConnection = props.isSmallScreen
+				and props.scrollingEnabled
+				and React.createElement(ExternalEventConnection, {
+					event = UserInputService.TouchMoved,
+					callback = touchMoved,
+				}),
+
+			TouchEndedUserInputConnection = props.isSmallScreen
+				and props.scrollingEnabled
+				and React.createElement(ExternalEventConnection, {
+					event = UserInputService.TouchEnded,
+					callback = touchEnded,
+				}),
+		})
 end
 
 return CallHistoryContainer

@@ -71,6 +71,7 @@ local function ContactListContainer()
 	local dispatch = useDispatch()
 
 	local contactListContainerRef = React.useRef(nil :: Frame?)
+	local contactListId, setContactListId = React.useState(0)
 	local isSmallScreen, setIsSmallScreen = React.useState(currentCamera.ViewportSize.X < 640)
 	local searchText, setSearchText = React.useState("")
 	-- The desired height of the content that does not include the backdrop.
@@ -117,6 +118,8 @@ local function ContactListContainer()
 			local irisInvitePromptClosedConn = SocialService.IrisInvitePromptClosed:Connect(function(player: any)
 				if localPlayer and localPlayer.UserId == player.UserId then
 					dispatch(CloseContactList())
+					-- Increment the id so we create a new PeekView for the next open.
+					setContactListId(contactListId + 1)
 				end
 			end)
 
@@ -124,7 +127,7 @@ local function ContactListContainer()
 				promptIrisInviteRequestedConn:Disconnect()
 				irisInvitePromptClosedConn:Disconnect()
 			end
-		end, {})
+		end, dependencyArray(contactListId))
 	end
 
 	local dismissCallback = React.useCallback(function()
@@ -239,99 +242,119 @@ local function ContactListContainer()
 	end, {})
 
 	-- Use an ImageButton here so that it acts as a click sink
-	local contactListContainerContent = React.useMemo(function()
-		local currentContainer
-		if currentPage == Pages.CallHistory then
-			currentContainer = React.createElement(CallHistoryContainer, {
-				dismissCallback = dismissCallback,
-				searchText = searchText,
-			}) :: any
-		elseif currentPage == Pages.FriendList then
-			currentContainer = React.createElement(FriendListContainer, {
-				isDevMode = isDevMode,
-				dismissCallback = dismissCallback,
-				searchText = searchText,
-			}) :: any
-		end
+	local contactListContainerContent = React.useMemo(
+		function()
+			local currentContainer
+			if currentPage == Pages.CallHistory then
+				currentContainer = React.createElement(CallHistoryContainer, {
+					dismissCallback = dismissCallback,
+					isSmallScreen = isSmallScreen,
+					scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
+					searchText = searchText,
+				}) :: any
+			elseif currentPage == Pages.FriendList then
+				currentContainer = React.createElement(FriendListContainer, {
+					dismissCallback = dismissCallback,
+					isDevMode = isDevMode,
+					isSmallScreen = isSmallScreen,
+					scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
+					searchText = searchText,
+				}) :: any
+			end
 
-		return React.createElement("ImageButton", {
-			Size = if isSmallScreen
-				then UDim2.new(1, 0, 0, contactListContainerContentHeight - PEEK_HEADER_HEIGHT)
-				else UDim2.new(0, DOCKED_WIDTH, 1, -(PHONEBOOK_CONTAINER_MARGIN + PHONEBOOK_CONTAINER_TOP_MARGIN)),
-			Position = if isSmallScreen
-				then UDim2.new(0, 0, 0, 0)
-				else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
-			AutoButtonColor = false,
-			BackgroundColor3 = theme.BackgroundDefault.Color,
-			ref = contactListContainerRef,
+			return React.createElement("ImageButton", {
+				Size = if isSmallScreen
+					then UDim2.new(1, 0, 0, contactListContainerContentHeight - PEEK_HEADER_HEIGHT)
+					else UDim2.new(
+						0,
+						DOCKED_WIDTH,
+						1,
+						-(PHONEBOOK_CONTAINER_MARGIN + PHONEBOOK_CONTAINER_TOP_MARGIN)
+					),
+				Position = if isSmallScreen
+					then UDim2.new(0, 0, 0, 0)
+					else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
+				AutoButtonColor = false,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				ref = contactListContainerRef,
+			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, 12),
+				}),
+				UIPadding = React.createElement("UIPadding", {
+					PaddingTop = if isSmallScreen then UDim.new(0, 0) else UDim.new(0, PADDING),
+				}),
+				Layout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, PADDING),
+				}),
+				Header = React.createElement(ContactListHeader, {
+					currentPage = currentPage,
+					headerHeight = HEADER_HEIGHT,
+					layoutOrder = 1,
+					dismissCallback = dismissCallback,
+					isDevMode = isDevMode,
+				}),
+				SearchBar = React.createElement(ContactListSearchBar, {
+					layoutOrder = 2,
+					onSearchChanged = onSearchChanged,
+					searchBarHeight = SEARCH_BAR_HEIGHT,
+					searchText = searchText,
+					onFocused = onSearchBarFocused,
+				}),
+				ContentContainer = React.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+					Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING * 2)),
+				}, currentContainer),
+			})
+		end,
+		dependencyArray(
+			contactListContainerContentHeight,
+			currentPage,
+			dismissCallback,
+			expectedPeekViewState,
+			isSmallScreen,
+			searchText
+		)
+	)
+
+	local children: any = {}
+	if isSmallScreen then
+		-- Use a unique id to ensure that just one PeekView is associated with
+		-- each open.
+		children["Content" .. tostring(contactListId)] = React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, -PHONEBOOK_CONTAINER_TOP_MARGIN),
+			Position = UDim2.fromOffset(0, PHONEBOOK_CONTAINER_TOP_MARGIN),
+			BackgroundTransparency = 1,
 		}, {
-			UICorner = React.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 12),
+			React.createElement(PeekView, {
+				briefViewContentHeight = UDim.new(0.6, 0),
+				canDragFullViewToBrief = true,
+				closeSignal = closePeekViewSignal.current,
+				elasticBehavior = Enum.ElasticBehavior.Never,
+				peekViewState = expectedPeekViewState,
+				snapToSameViewStateOnIdle = if GetFFlagPeekViewEnableSnapToViewState() then true else nil,
+				viewStateChanged = viewStateChanged,
+			}, {
+				Content = contactListContainerContent,
 			}),
-			UIPadding = React.createElement("UIPadding", {
-				PaddingTop = if isSmallScreen then UDim.new(0, 0) else UDim.new(0, PADDING),
-			}),
-			Layout = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, PADDING),
-			}),
-			Header = React.createElement(ContactListHeader, {
-				currentPage = currentPage,
-				headerHeight = HEADER_HEIGHT,
-				layoutOrder = 1,
-				dismissCallback = dismissCallback,
-				isDevMode = isDevMode,
-			}),
-			SearchBar = React.createElement(ContactListSearchBar, {
-				layoutOrder = 2,
-				onSearchChanged = onSearchChanged,
-				searchBarHeight = SEARCH_BAR_HEIGHT,
-				searchText = searchText,
-				onFocused = onSearchBarFocused,
-			}),
-			ContentContainer = React.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 3,
-				Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING * 2)),
-			}, currentContainer),
 		})
-	end, dependencyArray(contactListContainerContentHeight, currentPage, dismissCallback, isSmallScreen, searchText))
+	else
+		children["Content"] = contactListContainerContent
+	end
 
 	return if currentPage
-		then React.createElement("Frame", {
+		then React.createElement("TextButton", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
-			[React.Event.InputBegan] = function(_, inputObject)
-				if
-					inputObject.UserInputType == Enum.UserInputType.MouseButton1
-					or inputObject.UserInputType == Enum.UserInputType.Touch
-				then
-					dismissCallback()
-				end
+			Text = "",
+			[React.Event.Activated] = function()
+				dismissCallback()
 			end,
-		}, {
-			Content = if isSmallScreen
-				then React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, -PHONEBOOK_CONTAINER_TOP_MARGIN),
-					Position = UDim2.fromOffset(0, PHONEBOOK_CONTAINER_TOP_MARGIN),
-					BackgroundTransparency = 1,
-				}, {
-					peekView = React.createElement(PeekView, {
-						briefViewContentHeight = UDim.new(0.6, 0),
-						canDragFullViewToBrief = true,
-						closeSignal = closePeekViewSignal.current,
-						elasticBehavior = Enum.ElasticBehavior.WhenScrollable,
-						peekViewState = expectedPeekViewState,
-						snapToSameViewStateOnIdle = if GetFFlagPeekViewEnableSnapToViewState() then true else nil,
-						viewStateChanged = viewStateChanged,
-					}, {
-						Content = contactListContainerContent,
-					}),
-				})
-				else contactListContainerContent,
-		})
+		}, children)
 		else nil
 end
 

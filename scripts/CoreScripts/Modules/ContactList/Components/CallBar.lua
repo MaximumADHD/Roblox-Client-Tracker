@@ -46,7 +46,10 @@ local defaultProps = {
 
 local function getTextFromCallStatus(status)
 	-- TODO (joshli): Need to translate these.
-	if status == RoduxCall.Enums.Status.Connecting.rawValue() then
+	if
+		status == RoduxCall.Enums.Status.Initializing.rawValue()
+		or status == RoduxCall.Enums.Status.Connecting.rawValue()
+	then
 		return "Calling…"
 	elseif status == RoduxCall.Enums.Status.Teleporting.rawValue() then
 		return "Teleporting…"
@@ -103,7 +106,7 @@ local function CallBar(passedProps: Props)
 	end, {})
 
 	local callStatusText = getTextFromCallStatus(callStatus)
-	local showEndButton = callStatus == RoduxCall.Enums.Status.Active.rawValue()
+	local isEndButtonEnabled = callStatus == RoduxCall.Enums.Status.Active.rawValue()
 		or callStatus == RoduxCall.Enums.Status.Connecting.rawValue()
 
 	local endButtonCallback = React.useCallback(function()
@@ -172,7 +175,9 @@ local function CallBar(passedProps: Props)
 				BorderSizePixel = 0,
 				Font = font.CaptionHeader.Font,
 				LayoutOrder = 1,
-				Text = if otherEndParticipant then otherEndParticipant.displayName else "",
+				Text = if otherEndParticipant and otherEndParticipant.displayName
+					then otherEndParticipant.displayName
+					else "",
 				TextColor3 = theme.TextEmphasis.Color,
 				TextSize = font.BaseSize * font.CaptionHeader.RelativeSize,
 				TextTransparency = theme.TextEmphasis.Transparency,
@@ -195,9 +200,10 @@ local function CallBar(passedProps: Props)
 			}),
 		}),
 
-		EndButton = if showEndButton
+		EndButton = if callStatus ~= RoduxCall.Enums.Status.Failed.rawValue()
 			then React.createElement("ImageButton", {
 				Position = UDim2.fromOffset(0, 0),
+				Active = isEndButtonEnabled,
 				AnchorPoint = Vector2.new(1, 1),
 				LayoutOrder = 3,
 				Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),

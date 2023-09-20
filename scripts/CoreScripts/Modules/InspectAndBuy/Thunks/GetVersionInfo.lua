@@ -12,6 +12,8 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+local GetExperiencePlayability = require(InspectAndBuyFolder.Thunks.GetExperiencePlayability)
+local GetExperienceInfo = require(InspectAndBuyFolder.Thunks.GetExperienceInfo)
 
 local requiredServices = {
 	Network,
@@ -30,8 +32,17 @@ local function GetVersionInfo(id)
 
 		return PerformFetch.Single(key, function()
 			return network.getVersionInfo(id):andThen(function(results)
-				local assetInfo = AssetInfo.fromGetVersionInfo(id, results)
-				store:dispatch(SetAssets({ assetInfo }))
+				local latestVersion = results.data[1]
+				local creatingUniverseId = if latestVersion then latestVersion.creatingUniverseId else nil
+				if creatingUniverseId then
+					-- Set asset to have creating universe id
+					local assetInfo = AssetInfo.fromGetVersionInfo(id, latestVersion)
+					store:dispatch(SetAssets({ assetInfo }))
+					-- Get Experience Playability
+					store:dispatch(GetExperiencePlayability(creatingUniverseId))
+					-- Get Experience Info
+					store:dispatch(GetExperienceInfo(creatingUniverseId))
+				end
 			end)
 		end)(store):catch(function(err) end)
 	end)

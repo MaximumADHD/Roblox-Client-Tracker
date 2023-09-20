@@ -20,12 +20,13 @@ return function()
 
 	local DUMMY_ASSET_ID = "1818"
 	local DUMMY_UNIVERSE_ID = "13"
+	local DUMMY_UNIVERSE_NAME = "My cool experience"
 	local DUMMY_CREATOR_NAME = "mtnLark"
 
-	local function makeInitialStoreState(hasAttribution)
+	local function makeInitialStoreState(hasAttribution, showAttribution)
 		local mockAsset = AssetInfo.mock()
 		mockAsset.id = DUMMY_ASSET_ID
-		mockAsset.creatingUniverseId = if hasAttribution then "13" else nil
+		mockAsset.creatingUniverseId = if hasAttribution then DUMMY_UNIVERSE_ID else nil
 		mockAsset.creatorName = DUMMY_CREATOR_NAME
 		mockAsset.assetTypeId = "8" -- hat
 
@@ -40,6 +41,13 @@ return function()
 			},
 			bundles = {},
 			isSubjectToChinaPolicies = false,
+			creatingExperiences = {
+				[DUMMY_UNIVERSE_ID] = {
+					id = DUMMY_UNIVERSE_ID,
+					name = DUMMY_UNIVERSE_NAME,
+					playabilityStatus = if showAttribution then "Playable" else nil,
+				},
+			},
 		}
 	end
 
@@ -56,7 +64,7 @@ return function()
 
 	if FFlagAttributionInInspectAndBuy then
 		it("should show the item info list", function()
-			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false), {
+			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false, false), {
 				Rodux.thunkMiddleware,
 			})
 			local element = Roact.createElement(TestContainer, {
@@ -76,7 +84,7 @@ return function()
 		end)
 
 		it("should show creator in item info list", function()
-			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false), {
+			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false, false), {
 				Rodux.thunkMiddleware,
 			})
 			local element = Roact.createElement(TestContainer, {
@@ -106,7 +114,7 @@ return function()
 		end)
 
 		it("should show attribution in item info list if item has creatingUniverseId", function()
-			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(true), {
+			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(true, true), {
 				Rodux.thunkMiddleware,
 			})
 			local element = Roact.createElement(TestContainer, {
@@ -132,12 +140,38 @@ return function()
 				-- Check shows correct universe
 				local infoDataTextLabel = attributionRow:FindFirstChild("InfoDataTextLabel", true) :: TextLabel
 				-- TODO lua-apps/pull/14810 show experience name
-				expect(infoDataTextLabel.Text).toEqual(DUMMY_UNIVERSE_ID)
+				expect(infoDataTextLabel.Text).toEqual(DUMMY_UNIVERSE_NAME)
 			end)
 		end)
 
 		it("should NOT show attribution in item info list if item has no creatingUniverseId", function()
-			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false), {
+			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false, false), {
+				Rodux.thunkMiddleware,
+			})
+			local element = Roact.createElement(TestContainer, {
+				overrideStore = store,
+			}, {
+				DetailsText = Roact.createElement(AssetDetails, {
+					localPlayerModel = mockModel,
+				}),
+			})
+
+			SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
+				local itemInfoList = parent:FindFirstChild("ItemInfoList", true) :: Frame
+				expect(itemInfoList).toBeTruthy()
+
+				-- Type row should be second row when attribution does not exist
+				local typeRow = itemInfoList:FindFirstChild("2", false) :: ImageButton
+				expect(typeRow).toBeTruthy()
+
+				-- Check does not show attribution
+				local infoNameTextLabel = typeRow:FindFirstChild("InfoNameTextLabel", true) :: TextLabel
+				expect(infoNameTextLabel.Text).never.toEqual("Made In")
+			end)
+		end)
+
+		it("should NOT show attribution in item info list if experience has bad playability", function()
+			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(true, false), {
 				Rodux.thunkMiddleware,
 			})
 			local element = Roact.createElement(TestContainer, {
@@ -163,7 +197,7 @@ return function()
 		end)
 
 		it("should show type row", function()
-			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false), {
+			local store = Rodux.Store.new(InspectAndBuyReducer, makeInitialStoreState(false, false), {
 				Rodux.thunkMiddleware,
 			})
 			local element = Roact.createElement(TestContainer, {

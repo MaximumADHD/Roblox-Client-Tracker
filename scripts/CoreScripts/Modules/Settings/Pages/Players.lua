@@ -139,6 +139,8 @@ local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerLis
 local FFlagEnablePlatformName = game:DefineFastFlag("EnablePlatformName", false)
 local FFlagCheckForNilUserIdOnPlayerList = game:DefineFastFlag("CheckForNilUserIdOnPlayerList", false)
 local FFlagLocalPlayerPlatformNameWorkaround = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLocalPlayerPlatformNameWorkaround
+local FFlagFixPlayersLoadingState = game:DefineFastFlag("FixPlayersLoadingState", false)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 if GetFFlagOldMenuNewIcons() then
 	MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
@@ -798,6 +800,9 @@ local function Initialize()
 	end
 
 	local function addMuteButtonExperience()
+		if ChromeEnabled then
+			return
+		end
 		updateButtonRow()
 		appendMuteButton()
 	end
@@ -912,6 +917,9 @@ local function Initialize()
 		icon.Parent = frame
 
 		local textLabel = Instance.new("TextLabel")
+		if FFlagFixPlayersLoadingState then
+			textLabel.Text = ""
+		end
 		textLabel.TextXAlignment = Enum.TextXAlignment.Left
 		textLabel.Font = Theme.font(Enum.Font.SourceSans, "DisplayName")
 		textLabel.FontSize = hasSecondRow and Theme.fontSize(Enum.FontSize.Size36, "DisplayName") or Theme.fontSize(Enum.FontSize.Size24, "DisplayName")
@@ -924,6 +932,9 @@ local function Initialize()
 
 		if hasSecondRow then
 			local secondRow = Instance.new("TextLabel")
+			if FFlagFixPlayersLoadingState then
+				secondRow.Text = ""
+			end
 			secondRow.Name = "SecondRow"
 			secondRow.TextXAlignment = Enum.TextXAlignment.Left
 			secondRow.Font = Theme.font(Enum.Font.SourceSans)
@@ -1826,7 +1837,6 @@ local function Initialize()
 			RunService:UnbindFromRenderStep(renderStepName)
 		end
 	end
-
 
 	if getFFlagEnableVoiceChatPlayersList()
 		and game:GetEngineFeature("VoiceChatSupported")

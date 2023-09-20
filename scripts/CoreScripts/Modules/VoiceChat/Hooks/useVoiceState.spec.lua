@@ -31,8 +31,7 @@ local function doPlayerVoiceState(player, state)
 	updateEvent:Fire(participants)
 end
 
-local function itSkipFlakyTest(...)
-end
+local function itSkipFlakyTest(...) end
 
 local VoiceChatServiceManagerMock = {
 	talkingChanged = localTalkingChanged,
@@ -55,7 +54,7 @@ local function talkLocal(talking)
 	localTalkingChanged:Fire(talking)
 end
 
-local function VoiceStateWrapper(props:any)
+local function VoiceStateWrapper(props: any)
 	props.onVoiceState(useVoiceState(props.player.UserId, props.paused, {
 		voiceChatServiceManager = VoiceChatServiceManagerMock,
 	}))
@@ -66,7 +65,6 @@ end
 local localPlayerIdx = 0
 
 return function()
-
 	local function createApp()
 		local players = {
 			{
@@ -84,17 +82,17 @@ return function()
 
 		local voiceEnabledContextMock = {
 			voiceEnabled = true,
-			voiceState = "Joined"
+			voiceState = "Joined",
 		}
 		local voiceDisabledContextMock = {
 			voiceEnabled = false,
-			voiceState = "Error"
+			voiceState = "Error",
 		}
 
-		local function build(options:any?) : any
-			local children:any = {}
+		local function build(options: any?): any
+			local children: any = {}
 			for i, player in ipairs(players) do
-				children["player"..player.UserId] = React.createElement(VoiceStateWrapper, {
+				children["player" .. player.UserId] = React.createElement(VoiceStateWrapper, {
 					player = player,
 					paused = options and options.paused or nil,
 					onVoiceState = function(voiceState)
@@ -124,12 +122,12 @@ return function()
 		}
 	end
 
-	describe('useVoiceState', function()
-		itSkipFlakyTest('state is hidden when voice is disabled', function()
+	describe("useVoiceState", function()
+		itSkipFlakyTest("state is hidden when voice is disabled", function()
 			local app = createApp()
 			local players = app.players
 			app.render({
-				voiceEnabled = false
+				voiceEnabled = false,
 			})
 			wait() -- need to wait for event bindings
 
@@ -139,7 +137,7 @@ return function()
 
 			ReactRoblox.act(function()
 				doPlayerJoin(players[1])
-				doPlayerVoiceState(players[1],{
+				doPlayerVoiceState(players[1], {
 					subscriptionCompleted = true,
 				})
 			end)
@@ -151,17 +149,17 @@ return function()
 			app.unmount()
 		end)
 
-		itSkipFlakyTest('state is reset to hidden on pause and no longer updates', function()
+		itSkipFlakyTest("state is reset to hidden on pause and no longer updates", function()
 			local app = createApp()
 			local players = app.players
 			app.render({
-				voiceEnabled = true
+				voiceEnabled = true,
 			})
 			wait() -- need to wait for event bindings
 
 			ReactRoblox.act(function()
 				doPlayerJoin(players[1])
-				doPlayerVoiceState(players[1],{
+				doPlayerVoiceState(players[1], {
 					subscriptionCompleted = true,
 				})
 			end)
@@ -184,18 +182,18 @@ return function()
 
 		-- TJeff Hampton: This test is flaky under RCC Windows (robloxdev-cli on Windows) on the develop channel.
 		-- It can be reenabled once we have stabliized RCC Windows self-checks
-		itSkipFlakyTest('updates state based on VoiceChatServiceManager updates', function()
+		itSkipFlakyTest("updates state based on VoiceChatServiceManager updates", function()
 			local app = createApp()
 			local players = app.players
 
 			app.render({
-				voiceEnabled = true
+				voiceEnabled = true,
 			})
 			task.wait(0.1) -- need to wait for event bindings
 
 			ReactRoblox.act(function()
 				doPlayerJoin(players[1])
-				doPlayerVoiceState(players[1],{
+				doPlayerVoiceState(players[1], {
 					subscriptionCompleted = true,
 				})
 			end)
@@ -205,7 +203,7 @@ return function()
 			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.MUTED)
 
 			ReactRoblox.act(function()
-				doPlayerVoiceState(players[1],{
+				doPlayerVoiceState(players[1], {
 					subscriptionCompleted = true,
 					isSignalActive = true,
 				})
@@ -215,7 +213,7 @@ return function()
 			expect(players[1].voiceState).to.be.equal(VOICE_STATE.TALKING)
 
 			ReactRoblox.act(function()
-				doPlayerVoiceState(players[1],{
+				doPlayerVoiceState(players[1], {
 					subscriptionCompleted = true,
 					isMuted = true,
 				})
@@ -224,7 +222,7 @@ return function()
 			expect(players[1].voiceState).to.be.equal(VOICE_STATE.MUTED)
 
 			ReactRoblox.act(function()
-				doPlayerVoiceState(players[1],{
+				doPlayerVoiceState(players[1], {
 					subscriptionCompleted = true,
 					isMutedLocally = true,
 				})
@@ -258,6 +256,5 @@ return function()
 
 			app.unmount()
 		end)
-
 	end)
 end

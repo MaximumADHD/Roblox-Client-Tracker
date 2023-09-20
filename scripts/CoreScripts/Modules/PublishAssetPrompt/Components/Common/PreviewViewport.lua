@@ -1,6 +1,6 @@
 --!nonstrict
 --[[
-	AssetPreviewViewport
+	PreviewViewport
 	A viewport to provide a detailed preview of the asset to the user
     It accepts animationClip or a model as a parameter.
     It allows for zooming, panning and rotating the previewed asset.
@@ -25,6 +25,7 @@ local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local InteractionFrame = require(script.Parent.InteractionFrame)
+local Constants = require(script.Parent.Parent.Parent.Constants)
 
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local PreviewShrinkIcon = UIBloxImages["icons/actions/previewShrink"]
@@ -49,18 +50,19 @@ local LoadingState = {
 	FAILED_TO_LOAD = "failedToLoad",
 }
 
-local AssetPreviewViewport = Roact.PureComponent:extend("AssetPreviewViewport")
+local PreviewViewport = Roact.PureComponent:extend("PreviewViewport")
 
-AssetPreviewViewport.validateProps = t.strictInterface({
+PreviewViewport.validateProps = t.strictInterface({
 	asset = t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip")),
 	closePreviewView = t.callback,
 })
 
-function AssetPreviewViewport:init()
+function PreviewViewport:init()
 	self:setState({
 		loadingState = LoadingState.LOADING,
 	})
 
+	self.ref = Roact.createRef()
 	self.zoomFactor = INITIAL_ZOOM_FACTOR
 	self.cameraDegreesAngle = Vector2.new(0, 0)
 	self.cameraPanInPixels = Vector2.new(0, 0)
@@ -114,13 +116,13 @@ function AssetPreviewViewport:init()
 	end
 end
 
-function AssetPreviewViewport:setLoadingState(loadingState)
+function PreviewViewport:setLoadingState(loadingState)
 	self:setState({
 		loadingState = loadingState,
 	})
 end
 
-function AssetPreviewViewport:clampOffsets()
+function PreviewViewport:clampOffsets()
 	-- zoom limitation
 	self.zoomFactor = math.clamp(self.zoomFactor, MIN_ZOOM_FACTOR, MAX_ZOOM_FACTOR)
 
@@ -146,7 +148,7 @@ function AssetPreviewViewport:clampOffsets()
 	)
 end
 
-function AssetPreviewViewport:angleToMakeBasePlateParallel()
+function PreviewViewport:angleToMakeBasePlateParallel()
 	local zoomedCameraDistance = self.cameraDistance / self.zoomFactor
 
 	-- panScalingFactor represents the ratio of points to pixels of actual panning in pixels
@@ -165,7 +167,7 @@ function AssetPreviewViewport:angleToMakeBasePlateParallel()
 	return -alpha_deg
 end
 
-function AssetPreviewViewport:processAsset()
+function PreviewViewport:processAsset()
 	local asset = self.props.asset
 	if not asset then
 		return
@@ -220,7 +222,7 @@ function AssetPreviewViewport:processAsset()
 	end
 end
 
-function AssetPreviewViewport:addModelToViewportIfNeeded()
+function PreviewViewport:addModelToViewportIfNeeded()
 	if self.model ~= nil and self.model.Parent ~= nil then
 		return
 	end
@@ -256,7 +258,7 @@ local function rotateVectorAround(v, amount, axis)
 	return CFrame.fromAxisAngle(axis, amount):VectorToWorldSpace(v)
 end
 
-function AssetPreviewViewport:resetCameraPosition()
+function PreviewViewport:resetCameraPosition()
 	if not self.model then
 		return
 	end
@@ -286,7 +288,7 @@ function AssetPreviewViewport:resetCameraPosition()
 end
 
 -- calculates how many world coordinates points are per one pixel at the current resolution without zooming
-function AssetPreviewViewport:pointsToPixelsFactor()
+function PreviewViewport:pointsToPixelsFactor()
 	if
 		self.absoluteSize == nil
 		or self.modelExtentsSize == nil
@@ -301,7 +303,7 @@ function AssetPreviewViewport:pointsToPixelsFactor()
 	return math.max(self.modelExtentsSize.X, self.modelExtentsSize.Y) / self.absoluteSize.Y
 end
 
-function AssetPreviewViewport:updateCameraPosition()
+function PreviewViewport:updateCameraPosition()
 	if self.absoluteSize == nil or self.cameraDistance == nil then
 		return
 	end
@@ -335,14 +337,14 @@ local localized = {
 	loadingFailedText = RobloxTranslator:FormatByKey("CoreScripts.AssetPreviewView.Label.LoadingFailed"),
 }
 
-function AssetPreviewViewport:render()
+function PreviewViewport:render()
 	local loadingState = self.state.loadingState
-
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 1),
 		Position = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),
+		[Roact.Ref] = self.ref,
 		[Roact.Change.AbsoluteSize] = function(rbx)
 			self.absoluteSize = rbx.AbsoluteSize
 			self:updateCameraPosition()
@@ -401,9 +403,9 @@ function AssetPreviewViewport:render()
 				Size = UDim2.fromScale(1, 1),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				LightColor = Color3.fromRGB(240, 240, 240),
-				Ambient = Color3.fromRGB(160, 160, 160),
-				LightDirection = Vector3.new(9.5, -12, 7.5),
+				LightColor = Constants.ViewportLightColor,
+				Ambient = Constants.ViewportLightAmbient,
+				LightDirection = Constants.ViewportLightDirection,
 				CurrentCamera = self.cameraRef,
 			}, {
 				Camera = Roact.createElement("Camera", {
@@ -424,16 +426,18 @@ function AssetPreviewViewport:render()
 	})
 end
 
-function AssetPreviewViewport:didMount()
+function PreviewViewport:didMount()
+	local topLeftInset = GuiService:GetGuiInset()
 	self.isMounted = true
+	self.absolutePosition = self.ref.current.AbsolutePosition + topLeftInset
 	self:processAsset()
 end
 
-function AssetPreviewViewport:willUnmount()
+function PreviewViewport:willUnmount()
 	self.isMounted = false
 end
 
-function AssetPreviewViewport:didUpdate(prevProps)
+function PreviewViewport:didUpdate(prevProps)
 	local assetChanged = self.props.asset ~= prevProps.asset
 	if assetChanged then
 		-- Unparent the old model
@@ -452,4 +456,4 @@ function AssetPreviewViewport:didUpdate(prevProps)
 	end
 end
 
-return AssetPreviewViewport
+return PreviewViewport

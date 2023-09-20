@@ -2,7 +2,8 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
+local GetFFlagVoiceChatReportOutOfOrderSequence =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
 
 game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUsePointsV2", false)
@@ -146,8 +147,12 @@ function Analytics:reportOutOfOrderSequence()
 	end
 end
 
-function Analytics:reportReceivedNudge(report: { type: string, deliveryTime: string }, userId: number, voiceSessionId: string)
-	local deliveryTime = (DateTime.fromIsoDate(report.deliveryTime)::DateTime).UnixTimestampMillis
+function Analytics:reportReceivedNudge(
+	report: { type: string, deliveryTime: string },
+	userId: number,
+	voiceSessionId: string
+)
+	local deliveryTime = (DateTime.fromIsoDate(report.deliveryTime) :: DateTime).UnixTimestampMillis
 	local durationInMs = DateTime.now().UnixTimestampMillis - deliveryTime
 	self._impl:ReportCounter("voicechat-receivednudge", 1)
 	self._impl:ReportCounter("voicechat-receivednudgeduration", durationInMs)
@@ -164,7 +169,7 @@ function Analytics:reportClosedNudge(userId: number, voiceSessionId: string)
 	self._impl:SendEventDeferred("client", "voiceChat", closedNudgeType, {
 		userId = userId,
 		voiceSessionId = voiceSessionId,
-		closeType = "CLOSED" :: NudgeCloseType
+		closeType = "CLOSED" :: NudgeCloseType,
 	})
 end
 
@@ -173,7 +178,7 @@ function Analytics:reportAcknowledgedNudge(userId: number, voiceSessionId: strin
 	self._impl:SendEventDeferred("client", "voiceChat", closedNudgeType, {
 		userId = userId,
 		voiceSessionId = voiceSessionId,
-		closeType = "ACKNOWLEDGED" :: NudgeCloseType
+		closeType = "ACKNOWLEDGED" :: NudgeCloseType,
 	})
 end
 
@@ -182,7 +187,7 @@ function Analytics:reportDeniedNudge(userId: number, voiceSessionId: string)
 	self._impl:SendEventDeferred("client", "voiceChat", closedNudgeType, {
 		userId = userId,
 		voiceSessionId = voiceSessionId,
-		closeType = "DENIED" :: NudgeCloseType
+		closeType = "DENIED" :: NudgeCloseType,
 	})
 end
 

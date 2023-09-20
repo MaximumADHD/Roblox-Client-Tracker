@@ -11,9 +11,6 @@ local t = InGameMenuDependencies.t
 local InGameMenu = script:FindFirstAncestor("InGameMenu")
 local Constants = require(InGameMenu.Resources.Constants)
 
-local GetFFlagIGMVRQuestControlsInstructions =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
-
 local BlurredModalPortal = Roact.PureComponent:extend("BlurredModalPortal")
 
 BlurredModalPortal.validateProps = t.strictInterface({
@@ -30,18 +27,14 @@ function BlurredModalPortal:render()
 			OnTopOfCoreBlur = true,
 			Enabled = self.props.Enabled,
 			IgnoreGuiInset = true,
-			DisplayOrder = if GetFFlagIGMVRQuestControlsInstructions()
-				then Constants.DisplayOrder.BlurredModalPortal
-				else nil,
+			DisplayOrder = Constants.DisplayOrder.BlurredModalPortal,
 		}, self.props[Roact.Children]),
 	})
 end
 
 function BlurredModalPortal:didUpdate(prevProps)
-	if GetFFlagIGMVRQuestControlsInstructions() then
-		if VRService.VREnabled then
-			return
-		end
+	if VRService.VREnabled then
+		return
 	end
 
 	local wasEnabled = prevProps.Enabled

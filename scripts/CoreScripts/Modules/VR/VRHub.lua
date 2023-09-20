@@ -24,6 +24,7 @@ local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEna
 	or game:GetEngineFeature("EnableMaquettesSupport")
 local GetFFlagUIBloxVRFixUIJitter =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
+local FFlagVRControllerModelsSetByDevFix = game:DefineFastFlag("VRControllerModelsSetByDevFix", false)
 
 local VRHub = {}
 local RegisteredModules = {}
@@ -37,6 +38,9 @@ VRHub.LaserPointer = nil
 VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
+if FFlagVRControllerModelsSetByDevFix then
+	VRHub.ControllerModelsEnabledSetByDeveloper = true
+end
 
 VRHub.SafetyBubble = nil
 -- TODO: AvatarGestures cannot be turned on until this is implemented
@@ -76,9 +80,14 @@ local function enableControllerModels(enabled)
 		end
 	end
 end
-local enableControllerModelsSetByDeveloper = false
+local enableControllerModelsSetByDeveloper = false -- Cleanup when we remove FFlagVRControllerModelsSetByDevFix
 StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
-	enableControllerModelsSetByDeveloper = true
+	if FFlagVRControllerModelsSetByDevFix then
+		enabled = if enabled then true else false
+		VRHub.ControllerModelsEnabledSetByDeveloper = enabled
+	else
+		enableControllerModelsSetByDeveloper = true
+	end
 	enableControllerModels(enabled)
 end)
 
@@ -151,8 +160,12 @@ local function onVREnabledChanged()
 		if VRHub.LaserPointer then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
 		end
-		if not enableControllerModelsSetByDeveloper then
-			enableControllerModels(true)
+		if FFlagVRControllerModelsSetByDevFix then
+			enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
+		else
+			if not enableControllerModelsSetByDeveloper then
+				enableControllerModels(true)
+			end
 		end
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
 
@@ -184,10 +197,18 @@ local function onVRSessionStateChanged()
 	if VRService.VRSessionState == Enum.VRSessionState.Focused then
 		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Disabled then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
-			enableControllerModels(true)
+			if FFlagVRControllerModelsSetByDevFix then
+				enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
+			else
+				enableControllerModels(true)
+			end
 		end
 		if not VRHub.ControllerModelsEnabled then
-			enableControllerModels(true)
+			if FFlagVRControllerModelsSetByDevFix then
+				enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
+			else
+				enableControllerModels(true)
+			end
 		end
 	else
 		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Navigation then

@@ -5,6 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
+local Signal = SignalLib.Signal
 local utils = require(script.Parent.ChromeUtils)
 local ViewportUtil = require(script.Parent.ViewportUtil)
 local WindowSizeSignal = require(script.Parent.WindowSizeSignal)
@@ -33,6 +34,7 @@ export type ObservableMenuStatus = utils.ObservableValue<number>
 export type ObservableSubMenu = utils.ObservableValue<string?>
 export type ObservableMenuList = utils.ObservableValue<Types.MenuList>
 export type ObservableIntegration = utils.ObservableValue<Types.IntegrationComponentProps | nil>
+export type ObservableIntegrationList = utils.ObservableValue<Types.IntegrationList>
 export type ObservableIntegrationId = utils.ObservableValue<string?>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
@@ -85,6 +87,13 @@ export type ChromeService = {
 	updateScreenSize: (ChromeService, screenSize: Vector2, isMobileDevice: boolean) -> (),
 	updateWindowPosition: (ChromeService, componentId: Types.IntegrationId, position: UDim2) -> (),
 	createIconProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
+
+	onIntegrationRegistered: (ChromeService) -> SignalLib.Signal,
+	onIntegrationActivated: (ChromeService) -> SignalLib.Signal,
+	onIntegrationStatusChanged: (ChromeService) -> SignalLib.Signal,
+	integrations: (ChromeService) -> Types.IntegrationList,
+	mostRecentlyUsed: (ChromeService) -> Types.IntegrationIdList,
+
 	setSelected: (ChromeService, Types.IntegrationId?) -> (),
 	selectedItem: (ChromeService, Types.IntegrationId?) -> ObservableIntegrationId,
 	repairSelected: (ChromeService) -> (),
@@ -110,6 +119,11 @@ export type ChromeService = {
 	_notificationIndicator: ObservableIntegration,
 	_lastDisplayedNotificationTick: number,
 	_lastDisplayedNotificationId: Types.IntegrationId,
+
+	_onIntegrationRegistered: SignalLib.Signal,
+	_onIntegrationActivated: SignalLib.Signal,
+	_onIntegrationStatusChanged: SignalLib.Signal,
+
 	_localization: any,
 	_localizedLabelKeys: {
 		[Types.IntegrationId]: { label: string?, secondaryActionLabel: string? },
@@ -155,6 +169,10 @@ function ChromeService.new(): ChromeService
 	self._notificationIndicator = ObservableValue.new(nil)
 	self._lastDisplayedNotificationTick = 0
 	self._lastDisplayedNotificationId = ""
+
+	self._onIntegrationRegistered = Signal.new()
+	self._onIntegrationActivated = Signal.new()
+	self._onIntegrationStatusChanged = Signal.new()
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
 
@@ -265,8 +283,6 @@ function ChromeService:notificationIndicator()
 end
 
 function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
-	-- todo: Add analytics
-
 	if self._status:get() == ChromeService.MenuStatus.Closed then
 		warn("Can't toggleSubMenu while menu is closed")
 		return
@@ -291,7 +307,6 @@ function ChromeService:currentSubMenu()
 end
 
 function ChromeService:toggleOpen()
-	-- todo: Add analytics
 	local subMenu: ObservableSubMenu = self._currentSubMenu
 	local menuStatus: ObservableMenuStatus = self._status
 	if menuStatus:get() == ChromeService.MenuStatus.Closed then
@@ -318,6 +333,7 @@ function ChromeService:toggleWindow(componentId: Types.IntegrationId)
 		else
 			self._integrationsStatus[componentId] = ChromeService.IntegrationStatus.Icon
 		end
+		self._onIntegrationStatusChanged:fire(componentId, self._integrationsStatus[componentId])
 	end
 
 	self:updateMenuList()
@@ -612,6 +628,26 @@ function ChromeService:totalNotifications()
 	return self._totalNotifications
 end
 
+function ChromeService:onIntegrationRegistered()
+	return self._onIntegrationRegistered
+end
+
+function ChromeService:onIntegrationActivated()
+	return self._onIntegrationActivated
+end
+
+function ChromeService:onIntegrationStatusChanged()
+	return self._onIntegrationStatusChanged
+end
+
+function ChromeService:integrations()
+	return self._integrations
+end
+
+function ChromeService:mostRecentlyUsed()
+	return self._mostRecentlyUsed
+end
+
 function ChromeService:updateNotificationTotals()
 	local total = 0
 	for i, v in self._integrations do
@@ -757,7 +793,6 @@ end
 function ChromeService:activate(componentId: Types.IntegrationId)
 	local errorMessage
 	-- todo: Consider if we need to auto-close the sub-menus when items are selected
-	-- todo: Add analytics.
 	if self._integrations[componentId] then
 		local toggledSubmenu = false
 		local lastInput = UserInputService:GetLastInputType()
@@ -768,6 +803,7 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 		self:setRecentlyUsed(componentId)
 
 		local integrationActivated = self._integrations[componentId].activated
+		self._onIntegrationActivated:fire(componentId)
 
 		if integrationActivated then
 			-- override default

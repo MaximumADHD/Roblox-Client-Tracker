@@ -11,16 +11,25 @@ local UIBlox = require(CorePackages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
 
 local Images = UIBlox.App.ImageSet.Images
-local IconButton = UIBlox.App.Button.IconButton
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local useStyle = UIBlox.Core.Style.useStyle
+local ControlState = UIBlox.Core.Control.Enum.ControlState
 
-local debounce = require(script.Parent.Parent.Parent.Utility.debounce)
-local ChromeService = require(script.Parent.Parent.Parent.Service)
-local Constants = require(script.Parent.Parent.Parent.Unibar.Constants)
-local ChromeTypes = require(script.Parent.Parent.Parent.Service.Types)
+local Chrome = script.Parent.Parent.Parent
+local debounce = require(Chrome.Utility.debounce)
+local ChromeService = require(Chrome.Service)
+local Constants = require(Chrome.Unibar.Constants)
+local ChromeTypes = require(Chrome.Service.Types)
+local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
+local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
 
-local CLOSE_ICON = Images["icons/navigation/close_small"]
+local CLOSE_BUTTON_PADDING = 4
+local CLOSE_ICON = Images["icons/navigation/close"]
+local CLOSE_BUTTON_OFFSET = UDim2.fromOffset(CLOSE_BUTTON_PADDING, CLOSE_BUTTON_PADDING)
+local CLOSE_BUTTON_HOVER = Constants.CLOSE_BUTTON_SIZE
+	+ UDim2.fromOffset(CLOSE_BUTTON_PADDING * 2, CLOSE_BUTTON_PADDING * 2)
 
 export type WindowHostProps = {
 	integration: ChromeTypes.IntegrationComponentProps,
@@ -50,7 +59,9 @@ local WindowHost = function(props: WindowHostProps)
 		return nil
 	end, {})
 
+	local style = useStyle()
 	local _isActive, setActive = React.useBinding(false)
+	local closeButtonHover, setCloseButtonHover = React.useBinding(false)
 
 	-- When a reposition tween is playing, momentarily disallow dragging the window
 	local isRepositioning, updateIsRepositioning = React.useBinding(false)
@@ -93,6 +104,13 @@ local WindowHost = function(props: WindowHostProps)
 				local frameStartPosition =
 					Vector3.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y, 0)
 				local dragStartPosition = frameStartPosition
+
+				if FFlagEnableChromeAnalytics then
+					ChromeAnalytics.default:setWindowDefaultPosition(
+						props.integration.id,
+						Vector2.new(frameStartPosition.X, frameStartPosition.Y)
+					)
+				end
 
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					local inputPosition = inputChangedObj.Position
@@ -152,6 +170,13 @@ local WindowHost = function(props: WindowHostProps)
 			inputObj.UserInputType == Enum.UserInputType.MouseButton1
 			or inputObj.UserInputType == Enum.UserInputType.Touch
 		then
+			if FFlagEnableChromeAnalytics then
+				ChromeAnalytics.default:onWindowTouchBegan(
+					props.integration.id,
+					Vector2.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y)
+				)
+			end
+
 			-- Set window active, cancel any tasks to turn off overlay
 			setActive(true)
 			if overlayTask.current then
@@ -184,10 +209,31 @@ local WindowHost = function(props: WindowHostProps)
 						),
 					}
 					frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
+
+					if FFlagEnableChromeAnalytics then
+						ChromeAnalytics.default:onWindowDrag(props.integration.id, inputPosition)
+					end
 				end)
 			end
 		end
 	end, {})
+
+	local requiresRepositioning = function(frame: Frame)
+		local frameParent = frame.Parent :: ScreenGui
+
+		local xPosition = frame.Position.X.Offset
+		local yPosition = frame.Position.Y.Offset
+
+		local frameHalfWidth = frameWidth:getValue() / 2
+		local frameHalfHeight = frameHeight:getValue() / 2
+
+		local parentScreenSize = frameParent.AbsoluteSize
+
+		return xPosition < frameHalfWidth
+			or xPosition > parentScreenSize.X - frameHalfWidth
+			or yPosition < frameHalfHeight
+			or yPosition > parentScreenSize.Y - frameHalfHeight
+	end
 
 	-- When the drag ends and the window frame is clipped, reposition it within the screen bounds
 	local repositionWindowWithinScreenBounds = React.useCallback(function()
@@ -195,11 +241,6 @@ local WindowHost = function(props: WindowHostProps)
 		assert(windowRef.current.Parent ~= nil)
 
 		local frame = windowRef.current
-		local frameParent = windowRef.current.Parent :: ScreenGui
-
-		local frameHalfWidth = frameWidth:getValue() / 2
-		local frameHalfHeight = frameHeight:getValue() / 2
-		local parentScreenSize = frameParent.AbsoluteSize
 
 		local xPosition = frame.Position.X.Offset
 		local yPosition = frame.Position.Y.Offset
@@ -208,12 +249,13 @@ local WindowHost = function(props: WindowHostProps)
 			positionTween:Cancel()
 		end
 
-		if
-			xPosition < frameHalfWidth
-			or xPosition > parentScreenSize.X - frameHalfWidth
-			or yPosition < frameHalfHeight
-			or yPosition > parentScreenSize.Y - frameHalfHeight
-		then
+		if requiresRepositioning(frame) then
+			local frameParent = windowRef.current.Parent :: ScreenGui
+
+			local frameHalfWidth = frameWidth:getValue() / 2
+			local frameHalfHeight = frameHeight:getValue() / 2
+			local parentScreenSize = frameParent.AbsoluteSize
+
 			updateIsRepositioning(true)
 
 			local x = math.clamp(xPosition, frameHalfWidth, parentScreenSize.X - frameHalfWidth)
@@ -241,6 +283,16 @@ local WindowHost = function(props: WindowHostProps)
 			inputObj.UserInputType == Enum.UserInputType.MouseButton1
 			or inputObj.UserInputType == Enum.UserInputType.Touch
 		then
+			if windowRef.current then
+				if FFlagEnableChromeAnalytics then
+					ChromeAnalytics.default:onWindowTouchEnded(
+						props.integration.id,
+						Vector2.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y),
+						requiresRepositioning(windowRef.current)
+					)
+				end
+			end
+
 			-- Spawn task to disable overlay after a timespan
 			overlayTask.current = task.spawn(function()
 				task.wait(Constants.WINDOW_ACTIVE_SECONDS)
@@ -286,8 +338,8 @@ local WindowHost = function(props: WindowHostProps)
 					Integration = props.integration.component(props) or nil,
 					CloseButtonWrapper = React.createElement("Frame", {
 						ZIndex = COMPONENT_ZINDEX.CLOSE_BUTTON,
-						Size = Constants.CLOSE_BUTTON_SIZE,
 						BackgroundTransparency = 1,
+						Size = Constants.CLOSE_BUTTON_FRAME,
 						-- TODO: Allow integration to set isActive to prevent
 						-- close button from permanent disappearing
 						-- Visible = isActive,
@@ -298,12 +350,33 @@ local WindowHost = function(props: WindowHostProps)
 							VerticalAlignment = Enum.VerticalAlignment.Center,
 							HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						}),
-						CloseButton = React.createElement(IconButton, {
-							icon = CLOSE_ICON,
-							iconSize = Constants.CLOSE_ICON_SIZE,
-							onActivated = function()
+						CloseButtonInteractable = React.createElement(Interactable, {
+							Size = Constants.CLOSE_BUTTON_FRAME,
+							BackgroundTransparency = 1,
+							onStateChanged = function(_, newState)
+								setCloseButtonHover(newState == ControlState.Hover)
+							end,
+							[React.Event.Activated] = function()
 								ChromeService:toggleWindow(props.integration.id)
 							end,
+						}, {
+							CloseButton = React.createElement(ImageSetLabel, {
+								BackgroundTransparency = 1,
+								BorderSizePixel = 0,
+								Position = CLOSE_BUTTON_OFFSET,
+								Image = CLOSE_ICON,
+								Size = Constants.CLOSE_BUTTON_SIZE,
+							}),
+							Hover = React.createElement("Frame", {
+								Size = CLOSE_BUTTON_HOVER,
+								Visible = closeButtonHover,
+								BackgroundTransparency = style.Theme.BackgroundOnHover.Transparency,
+								BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
+							}, {
+								Corner = React.createElement("UICorner", {
+									CornerRadius = UDim.new(0, 8),
+								}),
+							}),
 						}),
 					}),
 					-- This prevents onActivated (taps/clicks) from propagating

@@ -23,6 +23,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local UIBloxImageSetLabel = UIBlox.Core.ImageSet.Label
 local ItemInfoList = require(CorePackages.Workspace.Packages.ItemDetails).ItemInfoList
+local AttributionConstants = require(InspectAndBuyFolder.AttributionConstants)
 
 local FFlagAssetDetailsUseAutomaticCanvasSize =
 	require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
@@ -32,6 +33,8 @@ local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
+local Modules = CoreGui.RobloxGui.Modules
+local Theme = require(Modules.Settings.Theme)
 
 local CONTROLLER_BAR_HEIGHT = require(CoreGui.RobloxGui.Modules.InGameMenuConstants).ControllerBarHeight
 
@@ -64,17 +67,29 @@ function AssetDetails:getInfoRowProps()
 	}
 
 	-- Attribution Row
-	-- Should only show if item has attribution
+	-- Should only show if item has attribution and is not restricted
 	local attributionRow
-	if assetInfo.creatingUniverseId then
-		attributionRow = {
-			infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.Attribution", locale),
-			-- TODO lua-apps/pull/14810 show experience name
-			infoData = assetInfo.creatingUniverseId,
-			--TODO AVBURST-12699: Launch attribution experience
-			-- onActivate = function() end,
-			LayoutOrder = 2,
-		}
+
+	local creatingUniverseId = assetInfo.creatingUniverseId
+	if creatingUniverseId then
+		local experienceInfo = self.props.creatingExperiences[creatingUniverseId]
+		-- Make sure we have information in the store
+		if experienceInfo then
+
+			local playabilityStatus = experienceInfo.playabilityStatus
+
+			if AttributionConstants.ShowPlayableAttributionMapper[playabilityStatus] then
+				local gameName = experienceInfo.name or ""
+
+				attributionRow = {
+					infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.Attribution", locale),
+					infoData = gameName,
+					--TODO AVBURST-12699: Launch attribution experience
+					-- onActivate = function() end,
+					LayoutOrder = 2,
+				}
+			end
+		end
 	end
 
 	-- Category Row
@@ -215,6 +230,9 @@ function AssetDetails:render()
 			if GetFFlagUseInspectAndBuyControllerBar() and self.props.gamepadEnabled then
 				controllerBarOffset = -1 * CONTROLLER_BAR_HEIGHT
 			end
+			if Theme.UIBloxThemeEnabled then
+				controllerBarOffset += -Theme.DefaultCornerRadius.Offset
+			end
 			return Roact.createElement("Frame", {
 				Position = UDim2.new(0, viewMapping.BorderPaddingSize, 0, 0),
 				Size = UDim2.new(1, -(2 * viewMapping.BorderPaddingSize), 1, controllerBarOffset),
@@ -303,6 +321,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		gamepadEnabled = state.gamepadEnabled,
 		locale = state.locale,
 		resellableInstances = state.collectibleResellableInstances,
+		creatingExperiences = state.creatingExperiences,
 	}
 end, function(dispatch)
 	return {

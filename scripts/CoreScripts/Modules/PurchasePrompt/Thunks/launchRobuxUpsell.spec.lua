@@ -6,6 +6,10 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local PromptState = require(Root.Enums.PromptState)
 	local PurchaseError = require(Root.Enums.PurchaseError)
 	local RequestType = require(Root.Enums.RequestType)
@@ -15,7 +19,6 @@ return function()
 	local ExternalSettings = require(Root.Services.ExternalSettings)
 	local Network = require(Root.Services.Network)
 	local PlatformInterface = require(Root.Services.PlatformInterface)
-	local createSpy = require(Root.Test.createSpy)
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 	local MockNetwork = require(Root.Test.MockNetwork)
@@ -52,10 +55,10 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-		expect(analytics.spies.reportRobuxUpsellStarted.callCount).to.equal(0)
-		expect(platformInterface.spies.startRobuxUpsellWeb.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed).toHaveBeenCalledTimes(1)
+		expect(analytics.spies.reportRobuxUpsellStarted).never.toHaveBeenCalled()
+		expect(platformInterface.spies.startRobuxUpsellWeb).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.UpsellInProgress)
 	end
 
 	it("should run without errors on Windows", function()
@@ -81,13 +84,13 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed).toHaveBeenCalledTimes(1)
 		if game:GetEngineFeature("NativePurchaseWithLocalPlayer") then
-			expect(platformInterface.spies.promptNativePurchaseWithLocalPlayer.callCount).to.equal(1)
+			expect(platformInterface.spies.promptNativePurchaseWithLocalPlayer).toHaveBeenCalledTimes(1)
 		else
-			expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+			expect(platformInterface.spies.promptNativePurchase).toHaveBeenCalledTimes(1)
 		end
-		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		expect(state.promptState).toBe(PromptState.UpsellInProgress)
 	end
 
 	it("should run without errors on IOS", function()
@@ -112,11 +115,11 @@ return function()
 		local analytics = MockAnalytics.new()
 		local platformInterface = MockPlatformInterface.new()
 
-		local beginPlatformStorePurchaseSpy = createSpy(function()
+		local spy, spyFn = jest.fn(function()
 			return Constants.PlatformPurchaseResult.PurchaseResult_Success
 		end)
-		platformInterface.mockService.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy.value
-		platformInterface.spies.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy
+		platformInterface.mockService.beginPlatformStorePurchase = spyFn
+		platformInterface.spies.beginPlatformStorePurchase = spy
 
 		Thunk.test(launchRobuxUpsell(), store, {
 			[Analytics] = analytics.mockService,
@@ -129,12 +132,12 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed).toHaveBeenCalledTimes(1)
+		expect(platformInterface.spies.beginPlatformStorePurchase).toHaveBeenCalledTimes(1)
 		--In progress because we still need to check the balance after
-		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		expect(state.promptState).toBe(PromptState.UpsellInProgress)
 
-		expect(analytics.spies.signalXboxInGamePurchaseSuccess.callCount).to.equal(1)
+		expect(analytics.spies.signalXboxInGamePurchaseSuccess).toHaveBeenCalledTimes(1)
 	end)
 
 	it("should run without errors on XBoxOne when the purchase is cancelled (FFlagPPXboxPromptNative: false)", function()
@@ -143,11 +146,11 @@ return function()
 		local analytics = MockAnalytics.new()
 		local platformInterface = MockPlatformInterface.new()
 
-		local beginPlatformStorePurchaseSpy = createSpy(function()
+		local spy, spyFn = jest.fn(function()
 			return Constants.PlatformPurchaseResult.PurchaseResult_UserCancelled
 		end)
-		platformInterface.mockService.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy.value
-		platformInterface.spies.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy
+		platformInterface.mockService.beginPlatformStorePurchase = spyFn
+		platformInterface.spies.beginPlatformStorePurchase = spy
 
 		Thunk.test(launchRobuxUpsell(), store, {
 			[Analytics] = analytics.mockService,
@@ -160,11 +163,11 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed).toHaveBeenCalledTimes(1)
+		expect(platformInterface.spies.beginPlatformStorePurchase).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.Error)
 
-		expect(analytics.spies.signalXboxInGamePurchaseCanceled.callCount).to.equal(1)
+		expect(analytics.spies.signalXboxInGamePurchaseCanceled).toHaveBeenCalledTimes(1)
 	end)
 
 	it("should run without errors on XBoxOne when the purchase errored (FFlagPPXboxPromptNative: false)", function()
@@ -173,11 +176,11 @@ return function()
 		local analytics = MockAnalytics.new()
 		local platformInterface = MockPlatformInterface.new()
 
-		local beginPlatformStorePurchaseSpy = createSpy(function()
+		local spy, spyFn = jest.fn(function()
 			return Constants.PlatformPurchaseResult.PurchaseResult_Error
 		end)
-		platformInterface.mockService.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy.value
-		platformInterface.spies.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy
+		platformInterface.mockService.beginPlatformStorePurchase = spyFn
+		platformInterface.spies.beginPlatformStorePurchase = spy
 
 		Thunk.test(launchRobuxUpsell(), store, {
 			[Analytics] = analytics.mockService,
@@ -190,11 +193,11 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed).toHaveBeenCalledTimes(1)
+		expect(platformInterface.spies.beginPlatformStorePurchase).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.Error)
 
-		expect(analytics.spies.signalXboxInGamePurchaseFailure.callCount).to.equal(1)
+		expect(analytics.spies.signalXboxInGamePurchaseFailure).toHaveBeenCalledTimes(1)
 	end)
 
 	it("should prevent upsells if FFlagDisableRobuxUpsell = true", function()
@@ -213,8 +216,8 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.Error)
-		expect(state.purchaseError).to.equal(PurchaseError.NotEnoughRobuxNoUpsell)
+		expect(state.promptState).toBe(PromptState.Error)
+		expect(state.purchaseError).toBe(PurchaseError.NotEnoughRobuxNoUpsell)
 	end)
 
 	describe("should signal signalScaryModalConfirmed when starting ScaryModal has been confirmed and native purchase starts", function()
@@ -235,8 +238,8 @@ return function()
 
 			local state = store:getState()
 
-			expect(analytics.spies.signalScaryModalConfirmed.callCount).to.equal(1)
-			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+			expect(analytics.spies.signalScaryModalConfirmed).toHaveBeenCalledTimes(1)
+			expect(state.promptState).toBe(PromptState.UpsellInProgress)
 		end
 
 

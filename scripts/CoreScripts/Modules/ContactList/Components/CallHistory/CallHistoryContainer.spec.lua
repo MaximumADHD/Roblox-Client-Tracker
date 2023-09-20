@@ -64,6 +64,8 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isSmallScreen = false,
+					scrollingEnabled = true,
 					searchText = "",
 				}),
 			}),
@@ -98,6 +100,8 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isSmallScreen = false,
+					scrollingEnabled = true,
 					searchText = "",
 				}),
 			}),
@@ -140,6 +144,8 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isSmallScreen = false,
+					scrollingEnabled = true,
 					searchText = "",
 				}),
 			}),
@@ -152,7 +158,7 @@ return function()
 			root:render(element)
 		end)
 
-		local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
 		jestExpect(containerElement).never.toBeNull()
 		local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
 		jestExpect(spinnerElement).toBeNull()
@@ -180,6 +186,8 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isSmallScreen = false,
+					scrollingEnabled = true,
 					searchText = "",
 				}),
 			}),
@@ -223,6 +231,8 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
 						searchText = "username_1",
 					}),
 				}),
@@ -235,7 +245,7 @@ return function()
 				root:render(element)
 			end)
 
-			local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
 			-- UIListLayout + 1 friend items
 			jestExpect(#containerElement:GetChildren()).toBe(2)
 
@@ -264,6 +274,8 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
 						searchText = "displayName_1",
 					}),
 				}),
@@ -276,7 +288,7 @@ return function()
 				root:render(element)
 			end)
 
-			local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
 			-- UIListLayout + 1 friend items.
 			jestExpect(#containerElement:GetChildren()).toBe(2)
 
@@ -300,6 +312,8 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
 						searchText = "abcdef",
 					}),
 				}),
@@ -338,6 +352,8 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isSmallScreen = false,
+					scrollingEnabled = true,
 					searchText = "",
 				}),
 			}),
@@ -361,7 +377,7 @@ return function()
 			root:render(element)
 		end)
 
-		local containerElement = frame:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+		local containerElement = frame:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
 		jestExpect(containerElement).never.toBeNull()
 
 		-- Fetch the data first when component get mounted
@@ -398,6 +414,8 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isSmallScreen = false,
+					scrollingEnabled = true,
 					searchText = "",
 				}),
 			}),
@@ -419,7 +437,7 @@ return function()
 			root:render(element)
 		end)
 
-		local containerElement = frame:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
+		local containerElement = frame:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
 		jestExpect(containerElement).never.toBeNull()
 
 		-- Fetch the data first when component get mounted

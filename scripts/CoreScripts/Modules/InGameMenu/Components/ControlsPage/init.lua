@@ -18,13 +18,7 @@ local VRGamepadControls = require(script.ControlLayouts.VRGamepadControls)
 local RobloxGui = CoreGui.RobloxGui
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 
-local GetFFlagIGMVRQuestControlsInstructions =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
-
-local VRService = game:GetService("VRService")
-if GetFFlagIGMVRQuestControlsInstructions() then
-	VRService = require(RobloxGui.Modules.VR.VRServiceWrapper)
-end
+local VRService = require(RobloxGui.Modules.VR.VRServiceWrapper)
 
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 
@@ -48,10 +42,8 @@ function ControlsPage:render()
 	if controlLayout == Controls.ControlLayouts.KEYBOARD then
 		return Roact.createElement(KeyboardControls)
 	elseif controlLayout == Controls.ControlLayouts.GAMEPAD then
-		if GetFFlagIGMVRQuestControlsInstructions()
-			and VRService.VREnabled
-			and VRUtil.getCurrentControllerType() == "Touch" then -- For now we only have a page for these
-				return Roact.createElement(VRGamepadControls)
+		if VRService.VREnabled and VRUtil.getCurrentControllerType() == "Touch" then -- For now we only have a page for these
+			return Roact.createElement(VRGamepadControls)
 		else
 			return Roact.createFragment({
 				GamepadControls = Roact.createElement(GamepadControls, {

@@ -27,7 +27,6 @@ else
 	VOICE_STATE = VoiceChatServiceManager.VOICE_STATE
 end
 
-
 local function shorten(id)
 	return "..." .. string.sub(tostring(id), -4)
 end
@@ -36,7 +35,7 @@ local LOCAL_STATE_MAP
 
 local function setVoiceEnabled(voiceState, chatStore)
 	local localUserId = tostring(Players.LocalPlayer.UserId)
-	local voiceEnabled = voiceState ~= (Enum::any).VoiceChatState.Ended
+	local voiceEnabled = voiceState ~= (Enum :: any).VoiceChatState.Ended
 	chatStore:dispatch(VoiceEnabledChanged(voiceEnabled))
 
 	if not LOCAL_STATE_MAP[voiceState] then
@@ -46,18 +45,19 @@ local function setVoiceEnabled(voiceState, chatStore)
 		chatStore:dispatch(VoiceStateChanged(localUserId, LOCAL_STATE_MAP[voiceState]))
 	end
 
-	if voiceState == (Enum::any).VoiceChatState.Failed then
+	if voiceState == (Enum :: any).VoiceChatState.Failed then
 		for _, user in pairs(Players:GetPlayers()) do
 			local userId = tostring(user.UserId)
 			if user ~= Players.LocalPlayer then
 				chatStore:dispatch(VoiceStateChanged(userId, VOICE_STATE.HIDDEN))
 			end
 		end
-	elseif voiceState == (Enum::any).VoiceChatState.Joined and
-		if GetFFlagLocalMutedNilFix
+	elseif
+		voiceState == (Enum :: any).VoiceChatState.Joined
+		and if GetFFlagLocalMutedNilFix
 			then VoiceChatServiceManager.localMuted == false
 			else not VoiceChatServiceManager.localMuted
-		then
+	then
 		-- The mute changed signal happens before the user is Joined, so check again here.
 		chatStore:dispatch(VoiceStateChanged(localUserId, VOICE_STATE.INACTIVE))
 	end
@@ -65,13 +65,13 @@ end
 
 local initVoice = function(chatStore)
 	LOCAL_STATE_MAP = {
-		[(Enum::any).VoiceChatState.Idle] = VOICE_STATE.HIDDEN,
-		[(Enum::any).VoiceChatState.Joining] = VOICE_STATE.CONNECTING,
-		[(Enum::any).VoiceChatState.JoiningRetry] = VOICE_STATE.CONNECTING,
-		[(Enum::any).VoiceChatState.Joined] = VOICE_STATE.MUTED,
-		[(Enum::any).VoiceChatState.Leaving] = VOICE_STATE.MUTED,
-		[(Enum::any).VoiceChatState.Ended] = VOICE_STATE.HIDDEN,
-		[(Enum::any).VoiceChatState.Failed] = VOICE_STATE.ERROR,
+		[(Enum :: any).VoiceChatState.Idle] = VOICE_STATE.HIDDEN,
+		[(Enum :: any).VoiceChatState.Joining] = VOICE_STATE.CONNECTING,
+		[(Enum :: any).VoiceChatState.JoiningRetry] = VOICE_STATE.CONNECTING,
+		[(Enum :: any).VoiceChatState.Joined] = VOICE_STATE.MUTED,
+		[(Enum :: any).VoiceChatState.Leaving] = VOICE_STATE.MUTED,
+		[(Enum :: any).VoiceChatState.Ended] = VOICE_STATE.HIDDEN,
+		[(Enum :: any).VoiceChatState.Failed] = VOICE_STATE.ERROR,
 	}
 
 	local voiceService = VoiceChatServiceManager:getService()
@@ -156,11 +156,13 @@ end
 
 return function(chatStore)
 	if game:GetEngineFeature("VoiceChatSupported") then
-		VoiceChatServiceManager:asyncInit():andThen(function()
-			VoiceChatServiceManager:SetupParticipantListeners()
-			initVoice(chatStore)
-		end):catch(function()
-			log:warning("Failed to init VoiceChatServiceManager")
-		end)
+		VoiceChatServiceManager:asyncInit()
+			:andThen(function()
+				VoiceChatServiceManager:SetupParticipantListeners()
+				initVoice(chatStore)
+			end)
+			:catch(function()
+				log:warning("Failed to init VoiceChatServiceManager")
+			end)
 	end
 end

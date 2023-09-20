@@ -27,9 +27,6 @@ local Assets = require(InGameMenu.Resources.Assets)
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
-local GetFFlagIGMVRQuestControlsInstructions =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
-
 local HEADER_HEIGHT = 132
 
 local HEADER_SIDE_PADDING = 95
@@ -56,9 +53,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = style.Theme.Overlay.Color,
 				-- This is only used in VR, where the blur effect does not work, so let's use solid backgrounds
-				BackgroundTransparency = if GetFFlagIGMVRQuestControlsInstructions()
-					then 0
-					else style.Theme.Overlay.Transparency,
+				BackgroundTransparency = 0,
 				Active = true,
 			}, {
 
@@ -66,7 +61,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
 					Position = UDim2.new(0, 0, 0, HEADER_HEIGHT),
-					ClipsDescendants = true
+					ClipsDescendants = true,
 				}, props[Roact.Children]),
 
 				HeaderContainer = Roact.createElement("Frame", {
@@ -129,7 +124,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 					-- Renders with height always at 60% of width
 					SizeConstraint = Enum.SizeConstraint.RelativeXX,
 					Size = UDim2.new(1, 0, 0.6, 0),
-				})
+				}),
 			})
 		end)
 	end)
@@ -141,13 +136,10 @@ local function ControlLayoutContainer(props)
 	end)
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	nil,
-	function(dispatch)
-		return {
-			onClosed = function()
-				dispatch(NavigateBack())
-			end
-		}
-	end
-)(ControlLayoutContainer)
+return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+	return {
+		onClosed = function()
+			dispatch(NavigateBack())
+		end,
+	}
+end)(ControlLayoutContainer)

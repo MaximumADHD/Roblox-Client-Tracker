@@ -27,11 +27,11 @@ local VoiceChatServiceStub = {
 	publishPaused = false,
 	available = true,
 	joinCalled = false,
-	policyMapper = nil
+	policyMapper = nil,
 }
 
 local function makeMockUser(userId, isMutedLocally)
-	return {userId=tostring(userId), UserId=tostring(userId), isMuted=false, isMutedLocally=not not isMutedLocally}
+	return { userId = tostring(userId), UserId = tostring(userId), isMuted = false, isMutedLocally = not not isMutedLocally }
 end
 
 function VoiceChatServiceStub:Disconnect()
@@ -97,7 +97,6 @@ function VoiceChatServiceStub:setUserStates(userStates)
 	ParticipantsStateChangedMock:Fire({}, {}, userStates)
 	waitForEvents()
 end
-
 
 function VoiceChatServiceStub:resetMocks()
 	ParticipantsStateChangedMock = Instance.new("BindableEvent")

@@ -63,6 +63,7 @@ local FIntVRBottomBarPositionOffsetDepthNumber = require(RobloxGui.Modules.Flags
 local FFlagVRBottomBarEnableMoreMenu = require(RobloxGui.Modules.Flags.FFlagVRBottomBarEnableMoreMenu)
 local FFlagVRBottomBarHighlightedLeaveGameIcon = require(RobloxGui.Modules.Flags.FFlagVRBottomBarHighlightedLeaveGameIcon)
 local FFlagVRBottomBarNoCurvature = game:DefineFastFlag("VRBottomBarNoCurvature", false)
+local FFlagVRBottomBarFixMoreMenuPosition = game:DefineFastFlag("VRBottomBarFixMoreMenuPosition", false)
 
 local UsePositionConfig = FFlagVRBottomBarUsePositionConfig or FFlagVRBottomBarDebugPositionConfig or FFlagVRBottomBarEnableMoreMenu
 
@@ -546,6 +547,9 @@ function VRBottomBar:init()
 			local bottomBarCFrame = CFrame.new(bottomBarPosition, userHeadCameraCF.Position)
 
 			local basePartSize = 0.2 + self.state.zOffset / 10 -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
+			if FFlagVRBottomBarFixMoreMenuPosition then
+				basePartSize = basePartSize * scaleGuiDistance
+			end
 			local xOffset = FFlagVRBottomBarDebugPositionConfig and (#self.state.itemList - 3) / 2 * basePartSize
 				or (#self.state.itemList - 2.5) / 2 * basePartSize
 			local bottomBarOffsetCFrame = CFrame.new(-xOffset * cameraHeadScale, basePartSize/2 * cameraHeadScale, -PANEL3D_SIZE_Z/2)

@@ -4,6 +4,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Root = script.Parent.Parent.Parent
 
 	local getLocalizationContext = require(Root.Localization.getLocalizationContext)
@@ -41,11 +44,10 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		expect(type(testString)).to.equal("string")
-
-		expect(textLabelRef.current).to.be.ok()
-		expect(textLabelRef.current:IsA("Instance")).to.be.ok()
-		expect(textLabelRef.current.Text).to.equal(testString)
+		expect(testString).toEqual(expect.any("string"))
+		expect(textLabelRef.current).toMatchInstance({
+			Text = testString,
+		})
 
 		Roact.unmount(instance)
 	end)

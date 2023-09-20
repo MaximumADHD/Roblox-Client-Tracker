@@ -1,15 +1,11 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local VRService = game:GetService("VRService")
 
 local InGameMenu = script.Parent.Parent
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local UIBlox = InGameMenuDependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
-
-local GetFFlagIGMVRQuestControlsInstructions =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
 
 local Constants = require(InGameMenu.Resources.Constants)
 
@@ -64,7 +60,7 @@ local pages = {
 		title = "CoreScripts.InGameMenu.PageTitle.Controls",
 		icon = Images["icons/controls/controls"],
 		component = script.Parent.ControlsPage,
-		isModal = if GetFFlagIGMVRQuestControlsInstructions() then true else not VRService.VREnabled,
+		isModal = true,
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
 	},

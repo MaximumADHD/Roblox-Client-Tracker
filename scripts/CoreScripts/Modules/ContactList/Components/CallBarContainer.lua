@@ -51,6 +51,10 @@ local function CallBarContainer(passedProps: Props)
 	end
 
 	React.useEffect(function()
+		local initCallConn = props.callProtocol:listenToHandleInitCall(function(params)
+			dispatch(RoduxCall.Actions.UpdateCall(params))
+		end)
+
 		local connectingCallConn = props.callProtocol:listenToHandleConnectingCall(function(params)
 			if GetFFlagCorescriptsSoundManagerEnabled() then
 				SoundManager:PlaySound(
@@ -114,6 +118,7 @@ local function CallBarContainer(passedProps: Props)
 		end)
 
 		return function()
+			initCallConn:Disconnect()
 			connectingCallConn:Disconnect()
 			teleportingCallConn:Disconnect()
 			activeCallConn:Disconnect()

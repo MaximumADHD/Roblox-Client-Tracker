@@ -1,10 +1,13 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
 
 local React = require(CorePackages.Packages.React)
+local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -30,10 +33,15 @@ local localPlayer = Players.LocalPlayer :: Player
 local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
-	isDevMode: boolean?,
 	dismissCallback: () -> (),
+	isDevMode: boolean,
+	isSmallScreen: boolean,
+	scrollingEnabled: boolean,
 	searchText: string,
 }
+
+-- The amount user needs to move for the gesture to be interpreted as a scroll.
+local TOUCH_SLOP = 12
 
 local function FriendListContainer(props: Props)
 	local style = useStyle()
@@ -191,6 +199,29 @@ local function FriendListContainer(props: Props)
 			end
 		end)
 
+		local scrollingFrameRef = React.useRef(nil)
+		local initialPositionY = React.useRef(0)
+		local overscrolling, setOverscrolling = React.useState(false)
+
+		local touchStarted = React.useCallback(function(touch: InputObject)
+			initialPositionY.current = touch.Position.Y
+		end, {})
+
+		local touchMoved = React.useCallback(function(touch: InputObject)
+			local delta = touch.Position.Y - initialPositionY.current :: number
+
+			if delta > TOUCH_SLOP and scrollingFrameRef.current and scrollingFrameRef.current.CanvasPosition.Y == 0 then
+				-- Check if user is scrolling up at the top. If so, we will
+				-- disable this scroller so that inputs will power the outer
+				-- scroller.
+				setOverscrolling(true)
+			end
+		end, {})
+
+		local touchEnded = React.useCallback(function()
+			setOverscrolling(false)
+		end, {})
+
 		local children: any = React.useMemo(function()
 			local entries = {}
 			entries["UIListLayout"] = React.createElement("UIListLayout", {
@@ -226,18 +257,44 @@ local function FriendListContainer(props: Props)
 				}),
 			})
 			elseif #friends == 0 then noFriendsText
-			else React.createElement("ScrollingFrame", {
-				Size = UDim2.fromScale(1, 1),
-				AutomaticCanvasSize = Enum.AutomaticSize.Y,
-				BackgroundColor3 = theme.BackgroundDefault.Color,
-				BackgroundTransparency = theme.BackgroundDefault.Transparency,
-				BorderSizePixel = 0,
-				CanvasSize = UDim2.new(),
-				ScrollingDirection = Enum.ScrollingDirection.Y,
-				ScrollBarImageColor3 = theme.UIEmphasis.Color,
-				ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
-				ScrollBarThickness = 4,
-			}, children)
+			else Roact.createFragment({
+				React.createElement("ScrollingFrame", {
+					Size = UDim2.fromScale(1, 1),
+					AutomaticCanvasSize = Enum.AutomaticSize.Y,
+					BackgroundColor3 = theme.BackgroundDefault.Color,
+					BackgroundTransparency = theme.BackgroundDefault.Transparency,
+					BorderSizePixel = 0,
+					CanvasSize = UDim2.new(),
+					ElasticBehavior = Enum.ElasticBehavior.Never,
+					ScrollingDirection = Enum.ScrollingDirection.Y,
+					ScrollingEnabled = not overscrolling and props.scrollingEnabled,
+					ScrollBarImageColor3 = theme.UIEmphasis.Color,
+					ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
+					ScrollBarThickness = 4,
+					ref = scrollingFrameRef,
+				}, children),
+
+				TouchStartedUserInputConnection = props.isSmallScreen
+					and props.scrollingEnabled
+					and React.createElement(ExternalEventConnection, {
+						event = UserInputService.TouchStarted,
+						callback = touchStarted,
+					}),
+
+				TouchMovedUserInputConnection = props.isSmallScreen
+					and props.scrollingEnabled
+					and React.createElement(ExternalEventConnection, {
+						event = UserInputService.TouchMoved,
+						callback = touchMoved,
+					}),
+
+				TouchEndedUserInputConnection = props.isSmallScreen
+					and props.scrollingEnabled
+					and React.createElement(ExternalEventConnection, {
+						event = UserInputService.TouchEnded,
+						callback = touchEnded,
+					}),
+			})
 	else
 		local allPlayers, setAllPlayers = React.useState(function()
 			local players = {}

@@ -2,8 +2,11 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Root = script.Parent.Parent.Parent
-	
+
 	local getLocalizationContext = require(Root.Localization.getLocalizationContext)
 	local Connection = script.Parent
 
@@ -26,8 +29,8 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		expect(renderedFrameRef.current).to.be.ok()
-		expect(renderedFrameRef.current:IsA("Instance")).to.be.ok()
+		expect(renderedFrameRef.current).never.toBeNil()
+		expect(renderedFrameRef.current:IsA("Instance")).never.toBeNil()
 
 		Roact.unmount(instance)
 	end)

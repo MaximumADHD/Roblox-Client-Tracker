@@ -7,6 +7,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PromptState = require(Root.Enums.PromptState)
 	local PurchaseError = require(Root.Enums.PurchaseError)
 	local Reducer = require(Root.Reducers.Reducer)
@@ -73,10 +76,16 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.productInfo.name).to.be.ok()
-		expect(state.productInfo.name).to.equal(GetFFlagTranslateDevProducts() and testProductDisplayName or testProductName)
-		expect(state.accountInfo.balance).to.be.ok()
-		expect(mockAnalytics.spies.signalProductPurchaseShown.callCount).to.equal(1)
+		expect(state).toMatchObject({
+			productInfo = {
+				name = GetFFlagTranslateDevProducts() and testProductDisplayName or testProductName
+			},
+			accountInfo = {
+				balance = expect.anything()
+			},
+		})
+
+		expect(mockAnalytics.spies.signalProductPurchaseShown).toHaveBeenCalledTimes(1)
 	end)
 
 	it("should fallback to name if display name is missing", function()
@@ -92,8 +101,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.productInfo.name).to.be.ok()
-		expect(state.productInfo.name).to.equal(testProductName)
+		expect(state.productInfo).toMatchObject({ name = testProductName })
 	end)
 
 	it("should resolve state to None if hiding 3rd party purchase failure", function()
@@ -112,8 +120,10 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptRequest.requestType).to.equal(RequestType.None)
-		expect(state.promptState).to.equal(PromptState.None)
+		expect(state).toMatchObject({
+			promptRequest = { requestType = RequestType.None },
+			promptState = PromptState.None,
+		})
 	end)
 
 	it("should resolve state to Error if prerequisites are failed", function()
@@ -128,7 +138,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(state.promptState).toBe(PromptState.Error)
 	end)
 
 	it("should resolve state to PromptPurchase if account meets requirements", function()
@@ -140,7 +150,7 @@ return function()
 		testThunk(nil, nil, store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.PromptPurchase)
+		expect(state.promptState).toBe(PromptState.PromptPurchase)
 	end)
 
 	it("should resolve state to PromptPurchase if is roblox purchase but third party sales are disabled", function()
@@ -156,7 +166,7 @@ return function()
 		}), store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.PromptPurchase)
+		expect(state.promptState).toBe(PromptState.PromptPurchase)
 	end)
 
 	it("should resolve state to RobuxUpsell if account is short on Robux", function()
@@ -170,8 +180,8 @@ return function()
 		balanceInfo.robux = 0
 		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false, nil):andThen(function()
 			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
-			expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)
+			expect(state.promptState).toBe(PromptState.RobuxUpsell)
+			expect(mockAnalytics.spies.signalProductPurchaseUpsellShown).toHaveBeenCalledTimes(1)
 		end)
 	end)
 
@@ -189,7 +199,7 @@ return function()
 		}), store, productInfo, accountInfo, balanceInfo, false, false, nil)
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.Error)
-		expect(state.purchaseError).to.equal(PurchaseError.NotEnoughRobuxNoUpsell)
+		expect(state.promptState).toBe(PromptState.Error)
+		expect(state.purchaseError).toBe(PurchaseError.NotEnoughRobuxNoUpsell)
 	end)
 end

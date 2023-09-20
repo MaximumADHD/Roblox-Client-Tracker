@@ -13,8 +13,7 @@ local Framework = require(Main.Packages.Framework)
 local UI = Framework.UI
 local Checkbox = UI.Checkbox
 local Pane = UI.Pane
-local devFrameworkDeprecateTextInput = UI.TextInput2 == nil
-local DEPRECATED_TextInput = if devFrameworkDeprecateTextInput then UI.DEPRECATED_TextInput else UI.TextInput
+local DEPRECATED_TextInput = UI.DEPRECATED_TextInput
 local SelectInput = UI.SelectInput
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()

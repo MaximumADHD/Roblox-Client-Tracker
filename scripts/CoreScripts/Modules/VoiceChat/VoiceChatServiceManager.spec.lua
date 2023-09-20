@@ -228,6 +228,18 @@ return function()
 			-- Should still be true after un-muting everyone
 			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 		end)
+
+		it("mutedAnyone gets set when ToggleMuteSome is called", function()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002"), makeMockUser("003") })
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
+			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
+			VoiceChatServiceManager:ToggleMuteSome({ "001", "002" }, true)
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			VoiceChatServiceManager:ToggleMuteSome({ "001", "002" }, false)
+			-- Should still be true after un-muting some
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+		end)
 	end)
 
 	describe("Voice Chat Service Manager", function()
@@ -437,9 +449,9 @@ return function()
 					then "Unable to access Microphone"
 					else "Voice Chat Unavailable"
 
-					jestExpect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
-						expectedToastText
-					)
+				jestExpect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
+					expectedToastText
+				)
 			end)
 		end)
 
@@ -542,6 +554,38 @@ return function()
 			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
+			})).toBe(true)
+		end)
+
+		it("ToggleMuteSome toggles isMutedLocally", function()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002"), makeMockUser("003") })
+			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+				["001"] = makeMockUser("001"),
+				["002"] = makeMockUser("002"),
+				["003"] = makeMockUser("003"),
+			})).toBe(true)
+			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
+			VoiceChatServiceManager:ToggleMuteSome({ "001", "002" }, true)
+			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+				["001"] = makeMockUser("001", true),
+				["002"] = makeMockUser("002", true),
+				["003"] = makeMockUser("003"),
+			})).toBe(true)
+			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
+			VoiceChatServiceManager:ToggleMuteSome({ "003" }, true)
+			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+				["001"] = makeMockUser("001", true),
+				["002"] = makeMockUser("002", true),
+				["003"] = makeMockUser("003", true),
+			})).toBe(true)
+
+			VoiceChatServiceStub.IsSubscribePausedCB = stub(true)
+			VoiceChatServiceManager:ToggleMuteSome({ "001", "002", "003" }, false)
+			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+				["001"] = makeMockUser("001"),
+				["002"] = makeMockUser("002"),
+				["003"] = makeMockUser("003"),
 			})).toBe(true)
 		end)
 

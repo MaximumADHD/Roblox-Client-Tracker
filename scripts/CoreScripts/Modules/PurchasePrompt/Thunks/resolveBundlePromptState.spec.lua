@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PromptState = require(Root.Enums.PromptState)
 	local Reducer = require(Root.Reducers.Reducer)
 	local Analytics = require(Root.Services.Analytics)
@@ -82,8 +85,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.productInfo.name).to.be.ok()
-		expect(state.accountInfo.balance).to.be.ok()
+		expect(state.productInfo.name).never.toBeNil()
+		expect(state.accountInfo.balance).never.toBeNil()
 	end)
 
 	it("should resolve state to Error if prerequisites are failed", function()
@@ -104,7 +107,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(state.promptState).toBe(PromptState.Error)
 	end)
 
 	it("should resolve state to PromptPurchase if account meets requirements", function()
@@ -124,7 +127,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptState).to.equal(PromptState.PromptPurchase)
+		expect(state.promptState).toBe(PromptState.PromptPurchase)
 	end)
 
 	it("should resolve state to RobuxUpsell if account is short on Robux", function()
@@ -154,7 +157,7 @@ return function()
 		local state = store:getState()
 
 		if not GetFFlagDisableRobuxUpsell() then
-			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
+			expect(state.promptState).toBe(PromptState.RobuxUpsell)
 		end
 	end)
 end

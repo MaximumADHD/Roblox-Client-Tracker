@@ -34,9 +34,9 @@ local CoreScriptModules = EmotesModules.Parent
 local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 
 local GetFFlagFixMissingPlayerGuiCrash = require(RobloxGui.Modules.Flags.GetFFlagFixMissingPlayerGuiCrash)
+local FFlagFixEmotesMenuVR = game:DefineFastFlag("FixEmotesMenuVR", false) or game:GetEngineFeature("EnableMaquettesSupport")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui
-
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
@@ -116,7 +116,9 @@ function EmotesMenu:resetSelectedObject()
 			end
 		end
 		-- We want to reset the selected object if the saved version is either nil or a descendant of PlayerGui
-		local isValid = if PlayerGui then (self.savedSelectedObject == nil or self.savedSelectedObject:IsDescendantOf(PlayerGui)) else false
+		local isValid = if PlayerGui
+			then (self.savedSelectedObject == nil or self.savedSelectedObject:IsDescendantOf(PlayerGui))
+			else false
 		if isValid then
 			GuiService.SelectedObject = self.savedSelectedObject
 		end
@@ -189,7 +191,7 @@ function EmotesMenu:didMount()
 		local inputType = input.UserInputType
 		if
 			(inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch)
-			and not VRService.VREnabled
+			and (FFlagFixEmotesMenuVR or not VRService.VREnabled)
 		then
 			-- Don't close the emotes menu when interacting with the game outside of the menu with
 			-- the new emotes flag on

@@ -2,6 +2,10 @@ return function()
 	local Root = script.Parent.Parent
 
 	local PaymentPlatform = require(Root.Enums.PaymentPlatform)
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local getCounterCombinations = require(script.Parent.getCounterCombinations)
 
@@ -11,7 +15,7 @@ return function()
 				return true
 			end
 		end
-	
+
 		return false
 	end
 
@@ -22,10 +26,7 @@ return function()
 
 		local combinations = getCounterCombinations("prefix", "counterName", "platform", "purchaseFlow", 500)
 
-		expect(#combinations).to.be.equal(#expectedCombinations)
-		for _, combination in expectedCombinations do
-			expect(has_value(combinations, combination)).to.be.equal(true)
-		end
+		expect(combinations).toEqual(expectedCombinations)
 	end)
 
 	it("should return correctly combinations with purchaseFlow", function()
@@ -34,10 +35,7 @@ return function()
 
 		local combinations = getCounterCombinations("prefix", "counterName", "platform", "purchaseFlow", nil)
 
-		expect(#combinations).to.be.equal(#expectedCombinations)
-		for _, combination in expectedCombinations do
-			expect(has_value(combinations, combination)).to.be.equal(true)
-		end
+		expect(combinations).toEqual(expectedCombinations)
 	end)
 
 	it("should return correctly combinations with robuxAmount", function()
@@ -47,10 +45,7 @@ return function()
 
 		local combinations = getCounterCombinations("prefix", "counterName", "platform", nil, 500)
 
-		expect(#combinations).to.be.equal(#expectedCombinations)
-		for _, combination in expectedCombinations do
-			expect(has_value(combinations, combination)).to.be.equal(true)
-		end
+		expect(combinations).toEqual(expectedCombinations)
 	end)
 
 	it("should return correctly combinations", function()
@@ -59,9 +54,6 @@ return function()
 
 		local combinations = getCounterCombinations("prefix", "counterName", "platform", nil, nil)
 
-		expect(#combinations).to.be.equal(#expectedCombinations)
-		for _, combination in expectedCombinations do
-			expect(has_value(combinations, combination)).to.be.equal(true)
-		end
+		expect(combinations).toEqual(expectedCombinations)
 	end)
 end

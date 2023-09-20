@@ -23,6 +23,7 @@ return function()
 			FetchingStatus = true,
 			storeId = true,
 			collectibleResellableInstances = true,
+			creatingExperiences = true,
 		}
 
 		for key in pairs(expectedKeys) do

@@ -16,7 +16,9 @@ local Chrome = script.Parent.Parent.Parent
 local Constants = require(Chrome.Unibar.Constants)
 
 local ChromeService = require(Chrome.Service)
+local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Chrome.Service.Types)
+local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
 local useNotificationCount = require(script.Parent.Parent.Parent.Hooks.useNotificationCount)
@@ -206,6 +208,9 @@ function TooltipButton(props: TooltipButtonProps)
 		then
 			local dragStartPosition = inputObj.Position
 			setClicked(true, true)
+			if FFlagEnableChromeAnalytics then
+				ChromeAnalytics.default:onIconTouchBegan(props.integration.id)
+			end
 
 			if not connection.current then
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
@@ -215,8 +220,10 @@ function TooltipButton(props: TooltipButtonProps)
 					local magnitude = math.abs((dragStartPosition - inputPosition).Magnitude)
 
 					if magnitude > Constants.DRAG_MAGNITUDE_THRESHOLD then
+						if FFlagEnableChromeAnalytics then
+							ChromeAnalytics.default:onIconDrag(props.integration.id)
+						end
 						ChromeService:toggleWindow(props.integration.id)
-
 						ChromeService:gesture(props.integration.id, connection)
 					end
 				end)

@@ -141,11 +141,12 @@ local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 
-local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant
+local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant, GameInviteConstants
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
 	GameInviteModalService = GameInvitePackage.GameInviteModalService
 	GameInviteInviteExperimentVariant = GameInvitePackage.GameInviteInviteExperimentVariant
+	GameInviteConstants = GameInvitePackage.GameInviteConstants
 end
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
@@ -790,6 +791,7 @@ local function CreateSettingsHub()
 		if GetFFlagEnableVoiceChatPlayersList()
 			and game:GetEngineFeature("VoiceChatSupported")
 			and not voiceChatServiceConnected
+			and not ChromeEnabled
 		then
 			voiceChatServiceConnected = true
 			VoiceChatServiceManager:asyncInit():andThen(function()
@@ -2784,6 +2786,10 @@ local function CreateSettingsHub()
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
 			this.Shield.Visible = this.Visible
 
+			if Theme.UIBloxThemeEnabled then
+				GuiService:CloseInspectMenu()
+			end
+
 			if NotchSupportExperiment.enabled() and not UserInputService.VREnabled then
 				this.FullscreenGui.Enabled = true
 				this.FullscreenBackgroundCover.Visible = true
@@ -3118,7 +3124,7 @@ local function CreateSettingsHub()
 			end
 		elseif newGameInviteModalEnabled then
 				GameInviteModalService:openModal({
-					trigger = "DeveloperMultiple"
+					trigger = GameInviteConstants.Triggers.GameMenu
 				})
 		else
 			this:AddToMenuStack(this.Pages.CurrentPage)

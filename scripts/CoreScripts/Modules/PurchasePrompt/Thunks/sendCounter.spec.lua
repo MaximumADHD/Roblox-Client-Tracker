@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Counter = require(Root.Enums.Counter)
 	local RequestType = require(Root.Enums.RequestType)
 	local Reducer = require(Root.Reducers.Reducer)
@@ -38,7 +41,7 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(analytics.spies.sendCounter.callCount).to.equal(2)
+		expect(analytics.spies.sendCounter).toHaveBeenCalledTimes(2)
 	end)
 
 	it("Should send correct counters when missing purchaseFlow", function()
@@ -58,7 +61,7 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(analytics.spies.sendCounter.callCount).to.equal(2)
+		expect(analytics.spies.sendCounter).toHaveBeenCalledTimes(2)
 	end)
 
 	it("Should send correct counters when missing nativeUpsell", function()
@@ -78,7 +81,7 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(analytics.spies.sendCounter.callCount).to.equal(1)
+		expect(analytics.spies.sendCounter).toHaveBeenCalledTimes(1)
 	end)
 
 	it("Should send correct counters when missing purchaseFlow and nativeUpsell", function()
@@ -97,6 +100,6 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(analytics.spies.sendCounter.callCount).to.equal(1)
+		expect(analytics.spies.sendCounter).toHaveBeenCalledTimes(1)
 	end)
 end

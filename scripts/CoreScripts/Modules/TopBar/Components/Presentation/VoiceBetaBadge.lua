@@ -24,9 +24,9 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
 
 local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFStringVoiceBetaBadgeLearnMore)
-local GetFFlagEnableBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFFlagEnableBetaBadgeLearnMore)
 local GetFFlagBetaBadgeLearnMoreLinkFormview = require(RobloxGui.Modules.Flags.GetFFlagBetaBadgeLearnMoreLinkFormview)
 
+local FFlagUpdateVoiceBetaDescription = game:DefineFastFlag("UpdateVoiceBetaDescription", false)
 local TopBar = script.Parent.Parent.Parent
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
@@ -40,16 +40,16 @@ VoiceBetaBadge.validateProps = t.strictInterface({
 	removeKeepOutArea = t.optional(t.callback),
 })
 
-local CustomWebviewType: {[string]: number} = {
+local CustomWebviewType: { [string]: number } = {
 	FullScreen = 0,
-	FormSheet = 2
+	FormSheet = 2,
 }
 
 local STROKE_THICKNESS = 2
 
 local BadgeSize = UDim2.fromOffset(31, 11)
 local PopupPadding = UDim.new(0, 12)
-local PopupSize = UDim2.fromOffset(330, if GetFFlagEnableBetaBadgeLearnMore() then 165 else 180)
+local PopupSize = UDim2.fromOffset(330, if FFlagUpdateVoiceBetaDescription then 185 else 165)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -60,13 +60,13 @@ local eventContext = "voiceChat"
 local OPEN_CUSTOM_WEBVIEW = 20
 function openWebview(url)
 	local notificationData = HttpService:JSONEncode({
-		title = if game:GetEngineFeature("SetWebViewTitle") then 'Help Center' else nil,
+		title = if game:GetEngineFeature("SetWebViewTitle") then "Help Center" else nil,
 		presentationStyle = if GetFFlagBetaBadgeLearnMoreLinkFormview() then CustomWebviewType.FormSheet else nil,
 		visible = true,
 		url = url,
 	})
 
-	log:debug('Opening Webview with payload {}', notificationData)
+	log:debug("Opening Webview with payload {}", notificationData)
 
 	GuiService:BroadcastNotification(notificationData, OPEN_CUSTOM_WEBVIEW)
 end
@@ -76,22 +76,27 @@ function VoiceBetaBadge:init()
 	self:setState({
 		vrShowMenuIcon = VRService.VREnabled and GamepadService.GamepadCursorEnabled,
 		voiceChatServiceConnected = false,
-		showPopup = false
+		showPopup = false,
 	})
 
 	if game:GetEngineFeature("VoiceChatSupported") then
-		VoiceChatServiceManager:asyncInit():andThen(function()
-			self:setState({
-				voiceChatServiceConnected = true,
-			})
-		end):catch(noop)
+		VoiceChatServiceManager:asyncInit()
+			:andThen(function()
+				self:setState({
+					voiceChatServiceConnected = true,
+				})
+			end)
+			:catch(noop)
 	end
 
 	self.menuIconActivated = function()
 		self:setState({
-			showPopup = not self.state.showPopup
+			showPopup = not self.state.showPopup,
 		})
-		self.props.Analytics.EventStream:setRBXEvent(eventContext, if not self.state.showPopup then "openBetaBadge" else "closeBetaBadge")
+		self.props.Analytics.EventStream:setRBXEvent(
+			eventContext,
+			if not self.state.showPopup then "openBetaBadge" else "closeBetaBadge"
+		)
 	end
 
 	self.learnMore = function()
@@ -108,8 +113,10 @@ function VoiceBetaBadge:render()
 	local onAreaChanged = function(rbx)
 		if visible and rbx then
 			-- Need to recalculate the position as stroke is not part of AbsolutePosition/AbsoluteSize
-			local strokePosition = Vector2.new(rbx.AbsolutePosition.X - STROKE_THICKNESS, rbx.AbsolutePosition.Y - STROKE_THICKNESS)
-			local strokeSize = Vector2.new(rbx.AbsoluteSize.X + 2 * STROKE_THICKNESS, rbx.AbsoluteSize.Y + 2 * STROKE_THICKNESS)
+			local strokePosition =
+				Vector2.new(rbx.AbsolutePosition.X - STROKE_THICKNESS, rbx.AbsolutePosition.Y - STROKE_THICKNESS)
+			local strokeSize =
+				Vector2.new(rbx.AbsoluteSize.X + 2 * STROKE_THICKNESS, rbx.AbsoluteSize.Y + 2 * STROKE_THICKNESS)
 			self.props.setKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId, strokePosition, strokeSize)
 		else
 			self.props.removeKeepOutArea(Constants.VoiceBetaBadgeKeepOutAreaId)
@@ -153,7 +160,7 @@ function VoiceBetaBadge:render()
 					Popup = Roact.createElement("Frame", {
 						AutomaticSize = Enum.AutomaticSize.XY,
 						BackgroundTransparency = 1,
-						LayoutOrder = 0
+						LayoutOrder = 0,
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							Padding = UDim.new(0, 0),
@@ -172,7 +179,8 @@ function VoiceBetaBadge:render()
 							BackgroundTransparency = 1,
 						}),
 						FirstBullet = Roact.createElement("TextLabel", {
-							Text = "• ".. RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.VoiceChatBullet"),
+							Text = "• "
+								.. RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.VoiceChatBullet"),
 							TextSize = popupTextSize,
 							Font = font,
 							LayoutOrder = 2,
@@ -183,7 +191,9 @@ function VoiceBetaBadge:render()
 						}),
 					}),
 					Text = Roact.createElement("TextLabel", {
-						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.DisclaimerText"),
+						Text = if FFlagUpdateVoiceBetaDescription
+							then RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.DisclaimerText2")
+							else RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.DisclaimerText"),
 						TextSize = popupTextSize,
 						Font = font,
 						LayoutOrder = 0,
@@ -193,7 +203,7 @@ function VoiceBetaBadge:render()
 						TextWrapped = true,
 						BackgroundTransparency = 1,
 					}),
-					LearnMoreLink = GetFFlagEnableBetaBadgeLearnMore() and Roact.createElement("TextButton", {
+					LearnMoreLink = Roact.createElement("TextButton", {
 						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.LearnMoreLink"),
 						TextSize = popupTextSize,
 						Font = font,
@@ -204,19 +214,8 @@ function VoiceBetaBadge:render()
 						BackgroundTransparency = 1,
 						[Roact.Event.Activated] = self.learnMore,
 					}),
-					LearnMoreText = not GetFFlagEnableBetaBadgeLearnMore() and Roact.createElement("TextLabel", {
-						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.LearnMoreText"),
-						TextSize = popupTextSize,
-						Font = font,
-						LayoutOrder = 2,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextColor3 = textTheme.Color,
-						AutomaticSize = Enum.AutomaticSize.XY,
-						TextWrapped = true,
-						BackgroundTransparency = 1,
-					}),
 					UICorner = Roact.createElement("UICorner", {
-						CornerRadius = UDim.new(0, 8)
+						CornerRadius = UDim.new(0, 8),
 					}),
 					UIPadding = Roact.createElement("UIPadding", {
 						PaddingLeft = PopupPadding,
@@ -258,7 +257,7 @@ function VoiceBetaBadge:render()
 						[Roact.Event.Activated] = self.menuIconActivated,
 					}),
 					UICorner = Roact.createElement("UICorner", {
-						CornerRadius = UDim.new(0, 3)
+						CornerRadius = UDim.new(0, 3),
 					}),
 					UIStroke = Roact.createElement("UIStroke", {
 						Thickness = STROKE_THICKNESS,
@@ -271,9 +270,9 @@ function VoiceBetaBadge:render()
 								vrShowMenuIcon = VRService.VREnabled and GamepadService.GamepadCursorEnabled,
 							})
 						end or nil,
-					})
-				})
-			})
+					}),
+				}),
+			}),
 		})
 	end)
 end

@@ -64,7 +64,9 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				FriendListContainer = Roact.createElement(FriendListContainer, {
 					isDevMode = true,
+					isSmallScreen = false,
 					dismissCallback = function() end,
+					scrollingEnabled = true,
 					searchText = "",
 				}),
 			}),
@@ -124,7 +126,9 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
+						isSmallScreen = false,
 						dismissCallback = function() end,
+						scrollingEnabled = true,
 						searchText = "Haru",
 					}),
 				}),
@@ -183,7 +187,9 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
+						isSmallScreen = false,
 						dismissCallback = function() end,
+						scrollingEnabled = true,
 						searchText = "Haru",
 					}),
 				}),
@@ -242,7 +248,9 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
+						isSmallScreen = false,
 						dismissCallback = function() end,
+						scrollingEnabled = true,
 						searchText = "Haru",
 					}),
 				}),
@@ -311,7 +319,9 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					FriendListContainer = Roact.createElement(FriendListContainer, {
 						isDevMode = true,
+						isSmallScreen = false,
 						dismissCallback = function() end,
+						scrollingEnabled = true,
 						searchText = "",
 					}),
 				}),

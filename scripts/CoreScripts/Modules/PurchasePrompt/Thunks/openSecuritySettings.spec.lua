@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PromptState = require(Root.Enums.PromptState)
 	local WindowState = require(Root.Enums.WindowState)
 	local RequestType = require(Root.Enums.RequestType)
@@ -48,9 +51,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalTwoSVSettingsErrorConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.openSecuritySettings.callCount).to.equal(1)
-		expect(state.windowState).to.equal(WindowState.Hidden)
+		expect(analytics.spies.signalTwoSVSettingsErrorConfirmed).toHaveBeenCalledTimes(1)
+		expect(platformInterface.spies.openSecuritySettings).toHaveBeenCalledTimes(1)
+		expect(state.windowState).toBe(WindowState.Hidden)
 	end
 
 	it("should run without errors on Windows", function()
@@ -76,9 +79,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalTwoSVSettingsErrorConfirmed.callCount).to.equal(0)
-		expect(platformInterface.spies.openSecuritySettings.callCount).to.equal(0)
-		expect(state.windowState).to.equal(WindowState.Hidden)
+		expect(analytics.spies.signalTwoSVSettingsErrorConfirmed).never.toHaveBeenCalled()
+		expect(platformInterface.spies.openSecuritySettings).never.toHaveBeenCalled()
+		expect(state.windowState).toBe(WindowState.Hidden)
 	end
 
 	it("should run without errors on IOS", function()

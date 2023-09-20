@@ -21,11 +21,12 @@ local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporte
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 
-local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant
+local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant, GetCustomizedInvitePromptTrigger
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
 	GameInviteModalService = GameInvitePackage.GameInviteModalService
 	GameInviteInviteExperimentVariant = GameInvitePackage.GameInviteInviteExperimentVariant
+	GetCustomizedInvitePromptTrigger = GameInvitePackage.GetCustomizedInvitePromptTrigger
 end
 
 local inviteToGameAnalytics = InviteToGameAnalytics.new()
@@ -69,7 +70,9 @@ SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOpt
 			then experienceInviteOptions :: ExperienceInviteOptions
 			else nil
 		if GameInviteModalService then
-			GameInviteModalService:openModal(options)
+			GameInviteModalService:openModal({
+				trigger = GetCustomizedInvitePromptTrigger(options)
+			}, options)
 		end
 	elseif GetFFlagEnableNewInviteMenuCustomization() then
 		if player ~= Players.LocalPlayer then

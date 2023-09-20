@@ -11,11 +11,14 @@ return function()
 	local Rodux = PurchasePromptDeps.Rodux
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local RequestType = require(Root.Enums.RequestType)
 	local PromptState = require(Root.Enums.PromptState)
 	local Analytics = require(Root.Services.Analytics)
 	local Reducer = require(Root.Reducers.Reducer)
-	local createSpy = require(Root.Test.createSpy)
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local Thunk = require(Root.Thunk)
 
@@ -32,27 +35,29 @@ return function()
 				},
 			})
 
+			local values = {}
+			local mock, mockFn = jest.fn(function(...)
+				values = {...}
+			end)
+
 			local analytics = MockAnalytics.new()
 
 			local thunk = completeRequest()
 
-			local finishedSignalSpy = createSpy()
-			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(finishedSignalSpy.value)
+			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(mockFn)
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
 			waitForEvents()
 
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.None)
+			expect(store:getState().promptState).toBe(PromptState.None)
 
-			expect(finishedSignalSpy.callCount).to.equal(1)
-
-			local values = finishedSignalSpy:captureValues("userId", "productId", "didPurchase")
-
-			expect(values.productId).to.equal(123)
-			expect(values.didPurchase).to.equal(false)
+			expect(mock).toHaveBeenCalledTimes(1)
+			expect(values).toMatchObject({
+				[2] = 123,
+				[3] = false,
+			})
 
 			connection:Disconnect()
 		end)
@@ -67,27 +72,29 @@ return function()
 				},
 			})
 
+			local values = {}
+			local mock, mockFn = jest.fn(function(...)
+				values = {...}
+			end)
+
 			local analytics = MockAnalytics.new()
 
 			local thunk = completeRequest()
 
-			local finishedSignalSpy = createSpy()
-			local connection = MarketplaceService.PromptGamePassPurchaseFinished:Connect(finishedSignalSpy.value)
+			local connection = MarketplaceService.PromptGamePassPurchaseFinished:Connect(mockFn)
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
 			waitForEvents()
 
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.None)
+			expect(store:getState().promptState).toBe(PromptState.None)
 
-			expect(finishedSignalSpy.callCount).to.equal(1)
-
-			local values = finishedSignalSpy:captureValues("player", "gamePassId", "didPurchase")
-
-			expect(values.gamePassId).to.equal(456)
-			expect(values.didPurchase).to.equal(false)
+			expect(mock).toHaveBeenCalledTimes(1)
+			expect(values).toMatchObject({
+				[2] = 456,
+				[3] = false,
+			})
 
 			connection:Disconnect()
 		end)
@@ -106,23 +113,26 @@ return function()
 
 			local thunk = completeRequest()
 
-			local finishedSignalSpy = createSpy()
-			local connection = MarketplaceService.PromptPurchaseFinished:Connect(finishedSignalSpy.value)
+			local values = {}
+			local mock, mockFn = jest.fn(function(...)
+				values = {...}
+			end)
+
+			local connection = MarketplaceService.PromptPurchaseFinished:Connect(mockFn)
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
 			waitForEvents()
 
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.None)
+			expect(store:getState().promptState).toBe(PromptState.None)
 
-			expect(finishedSignalSpy.callCount).to.equal(1)
+			expect(mock).toHaveBeenCalledTimes(1)
 
-			local values = finishedSignalSpy:captureValues("player", "assetId", "didPurchase")
-
-			expect(values.assetId).to.equal(789)
-			expect(values.didPurchase).to.equal(false)
+			expect(values).toMatchObject({
+				[2] = 789,
+				[3] = false,
+			})
 
 			connection:Disconnect()
 		end)
@@ -144,23 +154,24 @@ return function()
 
 			local thunk = completeRequest()
 
-			local finishedSignalSpy = createSpy()
-			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(finishedSignalSpy.value)
+			local values = {}
+			local mock, mockFn = jest.fn(function(...)
+				values = {...}
+			end)
+			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(mockFn)
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
 			waitForEvents()
 
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.None)
+			expect(store:getState().promptState).toBe(PromptState.None)
 
-			expect(finishedSignalSpy.callCount).to.equal(1)
-
-			local values = finishedSignalSpy:captureValues("userId", "productId", "didPurchase")
-
-			expect(values.productId).to.equal(123)
-			expect(values.didPurchase).to.equal(true)
+			expect(mock).toHaveBeenCalledTimes(1)
+			expect(values).toMatchObject({
+				[2] = 123,
+				[3] = true,
+			})
 
 			connection:Disconnect()
 		end)
@@ -180,23 +191,25 @@ return function()
 
 			local thunk = completeRequest()
 
-			local finishedSignalSpy = createSpy()
-			local connection = MarketplaceService.PromptGamePassPurchaseFinished:Connect(finishedSignalSpy.value)
+			local values = {}
+			local mock, mockFn = jest.fn(function(...)
+				values = {...}
+			end)
+
+			local connection = MarketplaceService.PromptGamePassPurchaseFinished:Connect(mockFn)
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
 			waitForEvents()
 
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.None)
+			expect(store:getState().promptState).toBe(PromptState.None)
 
-			expect(finishedSignalSpy.callCount).to.equal(1)
-
-			local values = finishedSignalSpy:captureValues("player", "gamePassId", "didPurchase")
-
-			expect(values.gamePassId).to.equal(456)
-			expect(values.didPurchase).to.equal(true)
+			expect(mock).toHaveBeenCalledTimes(1)
+			expect(values).toMatchObject({
+				[2] = 456,
+				[3] = true,
+			})
 
 			connection:Disconnect()
 		end)
@@ -216,23 +229,24 @@ return function()
 
 			local thunk = completeRequest()
 
-			local finishedSignalSpy = createSpy()
-			local connection = MarketplaceService.PromptPurchaseFinished:Connect(finishedSignalSpy.value)
+			local values = {}
+			local mock, mockFn = jest.fn(function(...)
+				values = {...}
+			end)
+			local connection = MarketplaceService.PromptPurchaseFinished:Connect(mockFn)
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
 			waitForEvents()
 
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.None)
+			expect(store:getState().promptState).toBe(PromptState.None)
 
-			expect(finishedSignalSpy.callCount).to.equal(1)
-
-			local values = finishedSignalSpy:captureValues("player", "assetId", "didPurchase")
-
-			expect(values.assetId).to.equal(789)
-			expect(values.didPurchase).to.equal(true)
+			expect(mock).toHaveBeenCalledTimes(1)
+			expect(values).toMatchObject({
+				[2] = 789,
+				[3] = true,
+			})
 
 			connection:Disconnect()
 		end)
@@ -254,21 +268,24 @@ return function()
 
 			local thunk = completeRequest()
 
-			local finishedSignalSpy = createSpy()
-			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(finishedSignalSpy.value)
+			local values = {}
+			local mock, mockFn = jest.fn(function(...)
+				values = {...}
+			end)
+			local connection = MarketplaceService.PromptProductPurchaseFinished:Connect(mockFn)
 
 			Thunk.test(thunk, store, {
 				[Analytics] = analytics.mockService,
 			})
 			waitForEvents()
 
-			expect(analytics.spies.signalScaryModalCanceled.callCount).to.equal(1)
+			expect(analytics.spies.signalScaryModalCanceled).toHaveBeenCalledTimes(1)
 
-			expect(finishedSignalSpy.callCount).to.equal(1)
-
-			local values = finishedSignalSpy:captureValues("userId", "productId", "didPurchase")
-			expect(values.productId).to.equal(123)
-			expect(values.didPurchase).to.equal(true)
+			expect(mock).toHaveBeenCalledTimes(1)
+			expect(values).toMatchObject({
+				[2] = 123,
+				[3] = true,
+			})
 
 			connection:Disconnect()
 		end

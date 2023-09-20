@@ -138,8 +138,8 @@ function MenuIcon:render()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,
-		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
-		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
+		[Roact.Change.AbsolutePosition] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
 	}, {
 		Background = Roact.createElement(IconButton, {
 			icon = if isNewTiltIconEnabled()

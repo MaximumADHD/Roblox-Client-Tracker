@@ -32,9 +32,6 @@ local Controls
 local AppDarkTheme
 local AppFont
 
-local GetFFlagIGMVRQuestControlsInstructions =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
-
 local appStyle
 
 local ControlsPage
@@ -80,25 +77,9 @@ local function resetModules()
 	}
 
 	ControlsPage = require(script.Parent)
-
-	GetFFlagIGMVRQuestControlsInstructions =
-		require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
 end
 
--- TODO Remove when GetFFlagIGMVRQuestControlsInstructions is removed
-it("Only runs when GetFFlagIGMVRQuestControlsInstructions and EnableVRUpdate3 are active", function()
-	-- Because there seems to be no way to inject globals through jest 3 while code is running as part of a test,
-	-- And because these tests do depend on some fixes in AppStyleProvider.lua, DarkTheme.lua and LightTheme.lua
-	-- I'm flagging the entire test to only run when those fixes are in place. The old version of these tests is also
-	-- flagged to only run when GetFFlagIGMVRQuestControlsInstructions is off, so to be removed together with the flag.
-
-	-- Furthermore, because running an empty test in Jest 3 fails with "Your test suite must contain at least one test."
-	-- Here is a fake test doing nothing:
-
-	expect(true).toBe(true)
-end)
-
-if GetFFlagIGMVRQuestControlsInstructions() and game:GetEngineFeature("EnableVRUpdate3") then
+if game:GetEngineFeature("EnableVRUpdate3") then
 	local function getMountableTreeAndStore(props)
 		local store = Rodux.Store.new(reducer, {
 			currentZone = 1,
@@ -122,7 +103,7 @@ if GetFFlagIGMVRQuestControlsInstructions() and game:GetEngineFeature("EnableVRU
 				}),
 			}),
 		}),
-		store
+			store
 	end
 
 	describe("In-Game Menu Controls Page", function()

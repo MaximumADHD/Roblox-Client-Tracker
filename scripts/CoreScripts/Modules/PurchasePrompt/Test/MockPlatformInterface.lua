@@ -4,8 +4,11 @@
 ]]
 local Root = script.Parent.Parent
 
-local createSpy = require(Root.Test.createSpy)
 local PlatformInterface = require(Root.Services.PlatformInterface)
+local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local jest = JestGlobals.jest
 
 local MockPlatformInterface = {}
 
@@ -16,9 +19,9 @@ function MockPlatformInterface.new()
 	local spies = {}
 
 	for k, v in pairs(platformInterface) do
-		local spyFunc = createSpy()
-		mockService[k] = spyFunc.value
-		spies[k] = spyFunc
+		local spy, spyFunc = jest.fn()
+		mockService[k] = spyFunc
+		spies[k] = spy
 	end
 
 	setmetatable(mockService, {

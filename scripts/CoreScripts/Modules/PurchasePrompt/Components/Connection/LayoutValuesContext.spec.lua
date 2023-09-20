@@ -1,7 +1,10 @@
 return function()
-	
+
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local Connection = script.Parent
 
@@ -9,7 +12,7 @@ return function()
 	local withLayoutValues = require(Connection.withLayoutValues)
 
 	local testComponent = function(props)
-		return withLayoutValues(function(values)		
+		return withLayoutValues(function(values)
 			props.testValueCallback(values.Size.ButtonHeight)
 			return Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(values.Size.ButtonHeight, values.Size.ButtonHeight)
@@ -31,7 +34,7 @@ return function()
 		})
 		local instance = Roact.mount(element)
 
-		expect(testValue).to.be.ok()
+		expect(testValue).never.toBeNil()
 
 		Roact.unmount(instance)
 	end)

@@ -290,6 +290,23 @@ local function getVersionInfo(assetId)
 	return createYieldingPromise(options, true)
 end
 
+local function getExperiencePlayability(experienceId)
+	local url = string.format("%sv1/games/multiget-playability-status?universeIds=%s", Url.GAME_URL, experienceId)
+	local options = {
+		Url = url,
+		Method = "GET",
+	}
+	return createYieldingPromise(options, true)
+end
+
+local function getExperienceInfo(experienceId)
+	local url = string.format("%sv1/games?universeIds=%s", Url.GAME_URL, experienceId)
+	local options = {
+		Url = url,
+		Method = "GET",
+	}
+	return createYieldingPromise(options, true)
+end
 
 local Network = {}
 
@@ -311,7 +328,9 @@ function Network.new()
 		getModelFromUserId = getModelFromUserId,
 		getCollectibleResellableInstances = getCollectibleResellableInstances,
 		--TODO AVBURST-12905: use item details endpoint for getting attribution data
-		getVersionInfo = getVersionInfo
+		getVersionInfo = getVersionInfo,
+		getExperiencePlayability = getExperiencePlayability,
+		getExperienceInfo = getExperienceInfo,
 	}
 
 	setmetatable(networkService, {

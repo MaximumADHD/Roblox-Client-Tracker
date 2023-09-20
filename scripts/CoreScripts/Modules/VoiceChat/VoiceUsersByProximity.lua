@@ -1,36 +1,28 @@
 --!nonstrict
 local VCSM = require(script.Parent.VoiceChatServiceManager)
 
-local function getPlayerPrimaryPart(
-	player: Player
-)
+local function getPlayerPrimaryPart(player: Player)
 	return player and player.Character and player.Character.PrimaryPart
 end
 
-local function getPlayerDistanceFrom(
-	player: Player,
-	position: Vector3
-) : number
+local function getPlayerDistanceFrom(player: Player, position: Vector3): number
 	local primaryPart = getPlayerPrimaryPart(player)
 	local distance
 
 	if primaryPart then
-		distance = (primaryPart.Position-position).Magnitude
+		distance = (primaryPart.Position - position).Magnitude
 	end
 
 	return distance
 end
 
 local function getComparator(originPosition: Vector3)
-	return function(
-		playerA: Player,
-		playerB: Player
-	)
+	return function(playerA: Player, playerB: Player)
 		local playerAPart = getPlayerPrimaryPart(playerA)
 		local playerBPart = getPlayerPrimaryPart(playerB)
 
 		--no characters, sort alphabetically
-		if  (not playerAPart and not playerBPart) then
+		if not playerAPart and not playerBPart then
 			return playerA.Name:lower() < playerB.Name:lower()
 		elseif playerAPart and not playerBPart then
 			return true
@@ -54,7 +46,7 @@ local function getSortedPlayers(
 	interactedWithLocalPlayer: boolean | nil, --only include players who have interacted with this client
 	excludedPlayer: Player | nil,
 	keepPlayersWithNoCharacter: boolean | nil --players with no character will be sorted last, alphabetically
-) : { [number]: Player }
+): { [number]: Player }
 	--filter by radius, interactions, exclusion
 	local filteredParticipants = {}
 	local proximityComparator = getComparator(originPosition)
@@ -62,7 +54,11 @@ local function getSortedPlayers(
 	for userId, participant in pairs(VoiceChatServiceManager.participants) do
 		local participantPlayer = PlayersService:GetPlayerByUserId(userId)
 
-		if not participantPlayer or excludedPlayer == participantPlayer or (not keepPlayersWithNoCharacter and not getPlayerPrimaryPart(participantPlayer)) then
+		if
+			not participantPlayer
+			or excludedPlayer == participantPlayer
+			or (not keepPlayersWithNoCharacter and not getPlayerPrimaryPart(participantPlayer))
+		then
 			continue
 		end
 
@@ -89,7 +85,6 @@ local function getSortedPlayers(
 
 	return filteredParticipants
 end
-
 
 return {
 	getComparator = getComparator,

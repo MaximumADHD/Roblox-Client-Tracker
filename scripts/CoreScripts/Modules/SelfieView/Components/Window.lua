@@ -35,6 +35,9 @@ local useLocalPlayer = require(script.Parent.Parent.Hooks.useLocalPlayer)
 local useTrackerMessage = require(script.Parent.Parent.Hooks.useTrackerMessage)
 local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismissal)
 
+local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
+local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
@@ -114,12 +117,23 @@ local function Window(props: WindowProps): React.ReactNode
 			showError(localized.robloxPermissionErrorHeader, localized.robloxPermissionErrorBody)
 			return
 		end
-		if not ModelUtils.hasDynamicHead(player.Character or player.CharacterAdded:Wait()) then
-			-- We don't want to show this error when turning off the camera.
-			if not FaceChatUtils.isCameraOn() then
-				showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
+
+		if GetFFlagSelfieViewDontWaitForCharacter() then
+			if player.Character and not ModelUtils.hasDynamicHead(player.Character) then
+				-- We don't want to show this error when turning off the camera.
+				if not FaceChatUtils.isCameraOn() then
+					showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
+				end
+			end
+		else
+			if not ModelUtils.hasDynamicHead(player.Character or player.CharacterAdded:Wait()) then
+				-- We don't want to show this error when turning off the camera.
+				if not FaceChatUtils.isCameraOn() then
+					showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
+				end
 			end
 		end
+
 		Analytics:setLastCtx("SelfView")
 		FaceChatUtils.toggleVideoAnimation()
 	end)

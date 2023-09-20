@@ -1,22 +1,26 @@
 return function()
 	local makeActionCreator = require(script.Parent.makeActionCreator)
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	describe("the generated action creator", function()
 		it("should throw if given an invalid arguments", function()
 			expect(function()
 				makeActionCreator(100)
-			end).to.throw()
+			end).toThrow()
 			expect(function()
 				makeActionCreator("Test", 12)
-			end).to.throw()
+			end).toThrow()
 		end)
 
 		it("should generate a callable table with a 'name' field", function()
 			local actionCreator = makeActionCreator("Action")
-
-			expect(type(actionCreator)).to.equal("table")
-			expect(actionCreator.name).to.equal("Action")
-			expect(actionCreator).never.to.throw()
+			expect(actionCreator).toMatchObject({
+				name = "Action",
+			})
+			expect(function() actionCreator() end).never.toThrow()
 		end)
 	end)
 
@@ -26,14 +30,14 @@ return function()
 
 			expect(function()
 				actionWithFields(10, "Apple", "extra arg")
-			end).to.throw()
+			end).toThrow()
 			expect(function()
 				actionWithFields(10)
-			end).to.throw()
+			end).toThrow()
 
 			expect(function()
 				actionWithFields(10, "Orange")
-			end).never.to.throw()
+			end).never.toThrow()
 		end)
 
 		it("should correctly count trailing nils", function()
@@ -41,7 +45,7 @@ return function()
 
 			expect(function()
 				actionWithFields("1", nil)
-			end).never.to.throw()
+			end).never.toThrow()
 		end)
 	end)
 end

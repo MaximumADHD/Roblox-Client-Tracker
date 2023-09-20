@@ -179,4 +179,5 @@ return {
 		sendMenuEnding(delta, true)
 		menuOpenToken = nil
 	end,
+	getFps = getFps,
 }

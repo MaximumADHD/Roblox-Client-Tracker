@@ -1,20 +1,16 @@
 --!nonstrict
-local VRService 		= game:GetService("VRService")
-local Players 			= game:GetService("Players")
-local UserInputService 	= game:GetService("UserInputService")
-local CoreGui 			= game:GetService("CoreGui")
-local CorePackages		= game:GetService("CorePackages")
+local VRService = game:GetService("VRService")
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
-local RobloxGui 		= CoreGui.RobloxGui
-local ViveController 	= require(RobloxGui.Modules.VR.Controllers.ViveController)
-local TouchController 	= require(RobloxGui.Modules.VR.Controllers.TouchController)
-local RiftController 	= require(RobloxGui.Modules.VR.Controllers.RiftController)
-local IndexController 	= require(RobloxGui.Modules.VR.Controllers.IndexController)
-local VRUtil			= require(RobloxGui.Modules.VR.VRUtil)
-
-local FFlagVREnableTouchControllerModels = require(RobloxGui.Modules.Flags.FFlagVREnableTouchControllerModels)
-local GetFFlagIGMVRQuestControlsInstructions =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRQuestControlsInstructions
+local RobloxGui = CoreGui.RobloxGui
+local ViveController = require(RobloxGui.Modules.VR.Controllers.ViveController)
+local TouchController = require(RobloxGui.Modules.VR.Controllers.TouchController)
+local RiftController = require(RobloxGui.Modules.VR.Controllers.RiftController)
+local IndexController = require(RobloxGui.Modules.VR.Controllers.IndexController)
+local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -46,46 +42,20 @@ function VRControllerModel.new(userCFrame)
 	return self
 end
 
-if not GetFFlagIGMVRQuestControlsInstructions() then
-	function VRControllerModel:useTouchControllerModel()
-		-- TODO: Add more device names when we're ready
-		return FFlagVREnableTouchControllerModels and
-			(self.currentVRDeviceName:match("Oculus") or
-			self.currentVRDeviceName:match("Meta") or
-			self.currentVRDeviceName:match("OpenXr") or
-			self.currentVRDeviceName:match("OpenXR"))
-	end
+-- creates the controller model and stores it in self.controllerModel
+function VRControllerModel:createControllerModel()
+	local controllerType = VRUtil.getCurrentControllerType()
 
-	-- creates the controller model and stores it in self.controllerModel
-	function VRControllerModel:createControllerModel()
-		if self.currentVRDeviceName:match("Vive") then
-			self.controllerModel = ViveController.new(self.userCFrame)
-		elseif self.currentVRDeviceName:match("Rift") then
-			self.controllerModel = RiftController.new(self.userCFrame)
-		elseif self.currentVRDeviceName:match("Index") then
-			self.controllerModel = IndexController.new(self.userCFrame)
-		elseif self:useTouchControllerModel() then
-			self.controllerModel = TouchController.new(self.userCFrame)
-		else
-			self.controllerModel = RiftController.new(self.userCFrame)
-		end
-	end
-else
-	-- creates the controller model and stores it in self.controllerModel
-	function VRControllerModel:createControllerModel()
-		local controllerType = VRUtil.getCurrentControllerType()
-
-		if controllerType == "Vive" then
-			self.controllerModel = ViveController.new(self.userCFrame)
-		elseif controllerType == "Rift" then
-			self.controllerModel = RiftController.new(self.userCFrame)
-		elseif controllerType == "Index" then
-			self.controllerModel = IndexController.new(self.userCFrame)
-		elseif controllerType == "Touch" then
-			self.controllerModel = TouchController.new(self.userCFrame)
-		else
-			self.controllerModel = RiftController.new(self.userCFrame)
-		end
+	if controllerType == "Vive" then
+		self.controllerModel = ViveController.new(self.userCFrame)
+	elseif controllerType == "Rift" then
+		self.controllerModel = RiftController.new(self.userCFrame)
+	elseif controllerType == "Index" then
+		self.controllerModel = IndexController.new(self.userCFrame)
+	elseif controllerType == "Touch" then
+		self.controllerModel = TouchController.new(self.userCFrame)
+	else
+		self.controllerModel = RiftController.new(self.userCFrame)
 	end
 end
 
@@ -143,20 +113,44 @@ function VRControllerModel:setEnabled(enabled)
 				end
 			end)
 
-			self.onInputBeganConn = UserInputService.InputBegan:connect(function(...) self:onInputBegan(...) end)
-			self.onInputChangedConn = UserInputService.InputChanged:connect(function(...) self:onInputChanged(...) end)
-			self.onInputEndedConn = UserInputService.InputEnded:connect(function(...) self:onInputEnded(...) end)
+			self.onInputBeganConn = UserInputService.InputBegan:connect(function(...)
+				self:onInputBegan(...)
+			end)
+			self.onInputChangedConn = UserInputService.InputChanged:connect(function(...)
+				self:onInputChanged(...)
+			end)
+			self.onInputEndedConn = UserInputService.InputEnded:connect(function(...)
+				self:onInputEnded(...)
+			end)
 
 			--Put the model in the workspace
 			self:setModelInWorkspace(VRService:GetUserCFrameEnabled(self.userCFrame))
 		else
 			--Disconnect events
-			if self.onVRDeviceChangedConn then self.onVRDeviceChangedConn:disconnect() self.onVRDeviceChangedConn = nil end
-			if self.onCurrentCameraChangedConn then self.onCurrentCameraChangedConn:disconnect() self.onCurrentCameraChangedConn = nil end
-			if self.onUserCFrameEnabledChangedConn then self.onUserCFrameEnabledChangedConn:disconnect() self.onUserCFrameEnabledChangedConn = nil end
-			if self.onInputBeganConn then self.onInputBeganConn:disconnect() self.onInputBeganConn = nil end
-			if self.onInputChangedConn then self.onInputChangedConn:disconnect() self.onInputChangedConn = nil end
-			if self.onInputEndedConn then self.onInputEndedConn:disconnect() self.onInputEndedConn = nil end
+			if self.onVRDeviceChangedConn then
+				self.onVRDeviceChangedConn:disconnect()
+				self.onVRDeviceChangedConn = nil
+			end
+			if self.onCurrentCameraChangedConn then
+				self.onCurrentCameraChangedConn:disconnect()
+				self.onCurrentCameraChangedConn = nil
+			end
+			if self.onUserCFrameEnabledChangedConn then
+				self.onUserCFrameEnabledChangedConn:disconnect()
+				self.onUserCFrameEnabledChangedConn = nil
+			end
+			if self.onInputBeganConn then
+				self.onInputBeganConn:disconnect()
+				self.onInputBeganConn = nil
+			end
+			if self.onInputChangedConn then
+				self.onInputChangedConn:disconnect()
+				self.onInputChangedConn = nil
+			end
+			if self.onInputEndedConn then
+				self.onInputEndedConn:disconnect()
+				self.onInputEndedConn = nil
+			end
 
 			--Remove the model from the workspace
 			if self.currentModel then
@@ -203,7 +197,7 @@ end
 
 function VRControllerModel:getButtonPosition(keyCode)
 	if self.currentModel and self.currentModel.getButtonPart then
-		local buttonPart  = self.currentModel:getButtonPart(keyCode)
+		local buttonPart = self.currentModel:getButtonPart(keyCode)
 		if buttonPart then
 			return buttonPart.Position
 		end

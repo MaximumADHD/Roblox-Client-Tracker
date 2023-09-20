@@ -82,9 +82,14 @@ return function(passedProps: Props)
 
 	-- TODO: Remove this when the API is available.
 	React.useEffect(function()
+		local initCallEvent: BindableEvent = createBindableEvent("initCallBindableEvent")
 		local connectingCallEvent: BindableEvent = createBindableEvent("ConnectingCallBindableEvent")
 		local teleportingCallEvent: BindableEvent = createBindableEvent("TeleportingCallBindableEvent")
 		local endCallEvent: BindableEvent = createBindableEvent("EndCallBindableEvent")
+
+		local initCallConn = props.callProtocol:listenToHandleInitCall(function(params)
+			initCallEvent:Fire()
+		end)
 
 		local connectingCallConn = props.callProtocol:listenToHandleConnectingCall(function(params)
 			connectingCallEvent:Fire()
@@ -99,6 +104,7 @@ return function(passedProps: Props)
 		end)
 
 		return function()
+			initCallConn:Disconnect()
 			connectingCallConn:Disconnect()
 			teleportingCallConn:Disconnect()
 			endCallConn:Disconnect()

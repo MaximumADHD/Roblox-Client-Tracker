@@ -31,13 +31,19 @@ local BadgeOver13 = require(Presentation.BadgeOver13)
 local Chrome = script.Parent.Parent.Parent.Chrome
 
 local ChromeEnabled = require(Chrome.Enabled)
+local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+
 local Unibar
 local KeepOutAreasHandler
+local ChromeAnalytics
 if ChromeEnabled() then
 	Unibar = require(Chrome.Unibar)
 end
 if game:GetEngineFeature("InGameChromeSignalAPI") then
 	KeepOutAreasHandler = require(Chrome.Service.KeepOutAreasHandler)
+	if FFlagEnableChromeAnalytics then
+		ChromeAnalytics = require(Chrome.Analytics)
+	end
 end
 
 local Connection = require(script.Parent.Connection)
@@ -256,6 +262,7 @@ function TopBarApp:renderWithStyle(style)
 			Position = if GetFFlagChangeTopbarHeightCalculation() then topBarRightUnibarFramePosition else topBarRightFramePosition,
 			AnchorPoint = Vector2.new(1, 0),
 		}, {
+			ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
 			KeepOutAreasHandler = if not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler then Roact.createElement(KeepOutAreasHandler) else nil,
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, 2),

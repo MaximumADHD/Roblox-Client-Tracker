@@ -44,15 +44,6 @@ do
     FFlagUserExitFreecamBreaksWithShiftlock = success and result
 end
 
-local FFlagUserFixFreecamFocusFlicker 
-do
-    local success, result = pcall(function()
-        return UserSettings():IsUserFeatureEnabled("UserFixFreecamFocusFlicker")
-    end)
-    FFlagUserFixFreecamFocusFlicker = success and result
-end
-
-
 ------------------------------------------------------------------------
 
 local TOGGLE_INPUT_PRIORITY = Enum.ContextActionPriority.Low.Value
@@ -288,36 +279,6 @@ local Input = {} do
 	end
 end
 
-local function GetFocusDistance(cameraFrame)
-	local znear = 0.1
-	local viewport = Camera.ViewportSize
-	local projy = 2*tan(cameraFov/2)
-	local projx = viewport.x/viewport.y*projy
-	local fx = cameraFrame.rightVector
-	local fy = cameraFrame.upVector
-	local fz = cameraFrame.lookVector
-
-	local minVect = Vector3.new()
-	local minDist = 512
-
-	for x = 0, 1, 0.5 do
-		for y = 0, 1, 0.5 do
-			local cx = (x - 0.5)*projx
-			local cy = (y - 0.5)*projy
-			local offset = fx*cx - fy*cy + fz
-			local origin = cameraFrame.p + offset*znear
-			local _, hit = Workspace:FindPartOnRay(Ray.new(origin, offset.unit*minDist))
-			local dist = (hit - origin).magnitude
-			if minDist > dist then
-				minDist = dist
-				minVect = offset.unit
-			end
-		end
-	end
-
-	return fz:Dot(minVect)*minDist
-end
-
 ------------------------------------------------------------------------
 
 local function StepFreecam(dt)
@@ -335,11 +296,7 @@ local function StepFreecam(dt)
 	cameraPos = cameraCFrame.p
 
 	Camera.CFrame = cameraCFrame
-	if FFlagUserFixFreecamFocusFlicker then
-		Camera.Focus = cameraCFrame 
-	else
-		Camera.Focus = cameraCFrame*CFrame.new(0, 0, -GetFocusDistance(cameraCFrame))
-	end
+	Camera.Focus = cameraCFrame 
 	Camera.FieldOfView = cameraFov
 end
 

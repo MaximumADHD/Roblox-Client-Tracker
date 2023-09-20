@@ -6,6 +6,9 @@ local cloneStreamTrack: AnimationStreamTrack? = nil
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled =
 	game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 
+local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
+local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
+
 local RunService = game:GetService("RunService")
 
 local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0, 0.105, -0.25)
@@ -35,6 +38,7 @@ local headClone: MeshPart? = nil
 local headCloneNeck: Motor6D? = nil
 local headCloneRootFrame: CFrame? = nil
 local wrapperFrame: Frame? = nil
+local initialized = false
 
 --state
 local cloneCamUpdateCounter: number = 0
@@ -167,12 +171,28 @@ local function updateClone(player: Player?)
 	--we set it up here so it is already ready for before player's character loaded
 	startRenderStepped(player)
 
-	if not player or not (player.Character or player.CharacterAdded:Wait()) then
-		return
+	local character: Model | nil = player.Character
+
+	if GetFFlagSelfieViewDontWaitForCharacter() then
+		if not player or not player.Character then
+			return
+		end
+
+		character = player.Character
+
+		if not character then
+			return
+		end
+	else
+		if not player or not (player.Character or player.CharacterAdded:Wait()) then
+			return
+		end
+
+		character = player.Character or player.CharacterAdded:Wait()
 	end
 
-	--need to wait here for character else sometimes error on respawn
-	local character: Model = player.Character or player.CharacterAdded:Wait()
+	--satisfy typechecker:
+	assert(character ~= nil)
 
 	local animator: Animator? = ModelUtils.getAnimator(character, 10)
 
@@ -340,6 +360,12 @@ function updateCachedHeadColor(headRefParam: MeshPart?)
 end
 
 local function characterAdded(character)
+	if GetFFlagSelfieViewDontWaitForCharacter() then
+		if not character then
+			return
+		end
+	end
+
 	headRef = ModelUtils.getHead(character)
 	updateCachedHeadColor(headRef)
 
@@ -373,6 +399,7 @@ local function characterAdded(character)
 	end)
 
 	setCloneDirty(true)
+	initialized = true
 end
 
 local function createViewport(): ()
@@ -424,7 +451,15 @@ local function onCharacterAdded(character: Model)
 	if playerCharacterAddedConnection then
 		playerCharacterAddedConnection:Disconnect()
 	end
-	ReInit(LocalPlayer)
+	if GetFFlagSelfieViewDontWaitForCharacter() then
+		if not initialized then
+			characterAdded(character)
+		else
+			ReInit(LocalPlayer)
+		end
+	else
+		ReInit(LocalPlayer)
+	end
 end
 
 --not making this a local function, else on respawn of avatar the function is not available yet when wanting to call it again from the ReInit function
@@ -440,12 +475,26 @@ function playerAdded(player: Player)
 			clearObserver(Observer.CharacterAdded)
 		end
 
-		local currentCharacter: Model = player.Character or player.CharacterAdded:Wait()
+		local currentCharacter: Model | nil = player.Character
+		if GetFFlagSelfieViewDontWaitForCharacter() then
+			currentCharacter = player.Character
+		else
+			currentCharacter = player.Character or player.CharacterAdded:Wait()
+		end
 
-		--handle respawn:
+		--handle (re)spawn:
 		playerCharacterAddedConnection = player.CharacterAdded:Connect(onCharacterAdded)
 
-		characterAdded(currentCharacter)
+		if GetFFlagSelfieViewDontWaitForCharacter() then
+			if currentCharacter then
+				characterAdded(currentCharacter)
+			end
+		else
+			--satisfy typechecker:
+			assert(currentCharacter ~= nil)
+
+			characterAdded(currentCharacter)
+		end
 
 		observerInstances[Observer.CharacterAdded] = player.CharacterAdded:Connect(characterAdded)
 		observerInstances[Observer.CharacterRemoving] = player.CharacterRemoving:Connect(function()

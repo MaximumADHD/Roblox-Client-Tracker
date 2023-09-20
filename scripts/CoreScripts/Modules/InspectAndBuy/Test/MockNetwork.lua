@@ -6,6 +6,8 @@
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
+local PlayabilityStatusEnum = require(CorePackages.Workspace.Packages.PlayabilityRodux).Enums.PlayabilityStatusEnum
+
 local MOCK_ASSET_DATA = {
 	[1] = {
 		id = 100425207,
@@ -131,6 +133,18 @@ local MOCK_VERSION_INFO = {
 	},
 }
 
+local MOCK_PLAYABILITY_INFO = {
+	playabilityStatus = PlayabilityStatusEnum.Playable,
+	universeId = 13,
+	isPlayable = true,
+}
+
+local MOCK_EXPERIENCE_INFO = {
+	name = "fakename",
+	id = 13,
+	rootPlaceId = 17,
+}
+
 local function getRobloxProductInfo(id)
 	local info = Cryo.Dictionary.join(MOCK_PRODUCT_INFO, { AssetId = id })
 	return Promise.resolve(info)
@@ -146,6 +160,16 @@ end
 local function getVersionInfo(id)
 	local info = Cryo.Dictionary.join(MOCK_VERSION_INFO, { AssetId = id })
 	return Promise.resolve(info)
+end
+
+local function getExperiencePlayability(universeId)
+	local info = Cryo.Dictionary.join(MOCK_PLAYABILITY_INFO, { universeId = universeId })
+	return Promise.resolve({ info })
+end
+
+local function getExperienceInfo(universeId)
+	local info = Cryo.Dictionary.join(MOCK_EXPERIENCE_INFO, { id = universeId })
+	return Promise.resolve({ data = { info } })
 end
 
 local function getAssetBundles(id)
@@ -230,6 +254,8 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getEconomyProductInfo = networkFailure,
 			getModelFromUserId = networkFailure,
 			getVersionInfo = networkFailure, -- TODO AVBURST-12905: use item details endpoint for getting attribution data
+			getExperiencePlayability = networkFailure,
+			getExperienceInfo = networkFailure,
 		}
 	else
 		mockNetworkService = {
@@ -247,6 +273,8 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getEconomyProductInfo = getEconomyProductInfo,
 			getModelFromUserId = getModelFromUserId,
 			getVersionInfo = getVersionInfo, -- TODO AVBURST-12905: use item details endpoint for getting attribution data
+			getExperiencePlayability = getExperiencePlayability,
+			getExperienceInfo = getExperienceInfo,
 		}
 	end
 
@@ -302,6 +330,14 @@ end
 -- TODO AVBURST-12905: use item details endpoint for getting attribution data
 function MockNetwork.GetVersionInfo()
 	return MOCK_VERSION_INFO
+end
+
+function MockNetwork.GetExperiencePlayability()
+	return { MOCK_PLAYABILITY_INFO }
+end
+
+function MockNetwork.GetExperienceInfo()
+	return { data = { MOCK_EXPERIENCE_INFO } }
 end
 
 return MockNetwork

@@ -47,7 +47,7 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 local VoiceChatState
 if game:GetEngineFeature("VoiceChatSupported") then
-	VoiceChatState = (Enum::any).VoiceChatState
+	VoiceChatState = (Enum :: any).VoiceChatState
 else
 	-- Mock VoiceChatState
 	VoiceChatState = {
@@ -110,7 +110,7 @@ local function useVoiceState(userId: string | number, paused: boolean?, options:
 		local userIdStr = tostring(userId)
 
 		local isLocalPlayer = localUserId == userIdInt
-		local blocked:boolean? = nil
+		local blocked: boolean? = nil
 		local conns = {}
 		local destroyed = false
 
@@ -163,54 +163,72 @@ local function useVoiceState(userId: string | number, paused: boolean?, options:
 			if isLocalPlayer then
 				-- Local player events
 
-				table.insert(conns, manager.talkingChanged.Event:Connect(function(isTalking)
-					updateVoiceState(if isTalking then VOICE_STATE.TALKING else VOICE_STATE.INACTIVE)
-				end))
+				table.insert(
+					conns,
+					manager.talkingChanged.Event:Connect(function(isTalking)
+						updateVoiceState(if isTalking then VOICE_STATE.TALKING else VOICE_STATE.INACTIVE)
+					end)
+				)
 
-				table.insert(conns, manager.muteChanged.Event:Connect(function(muted)
-					updateVoiceState(if muted then VOICE_STATE.MUTED else VOICE_STATE.INACTIVE)
-				end))
+				table.insert(
+					conns,
+					manager.muteChanged.Event:Connect(function(muted)
+						updateVoiceState(if muted then VOICE_STATE.MUTED else VOICE_STATE.INACTIVE)
+					end)
+				)
 			else
 				-- Peer player events
-				table.insert(conns, manager.participantsUpdate.Event:Connect(function(participants)
-					local participant = participants[userIdStr] -- this participants table uses [tostring(userId)]
-					if participant and not blocked then
-						updateVoiceState(mapParticipantStateToVoiceState(participant))
-					else
-						updateVoiceState(VOICE_STATE.HIDDEN)
-					end
-				end))
+				table.insert(
+					conns,
+					manager.participantsUpdate.Event:Connect(function(participants)
+						local participant = participants[userIdStr] -- this participants table uses [tostring(userId)]
+						if participant and not blocked then
+							updateVoiceState(mapParticipantStateToVoiceState(participant))
+						else
+							updateVoiceState(VOICE_STATE.HIDDEN)
+						end
+					end)
+				)
 
-				table.insert(conns, manager.participantLeft.Event:Connect(function(participants, leftUserId)
-					if leftUserId == userIdInt then
-						updateVoiceState(VOICE_STATE.HIDDEN)
-					end
-				end))
+				table.insert(
+					conns,
+					manager.participantLeft.Event:Connect(function(participants, leftUserId)
+						if leftUserId == userIdInt then
+							updateVoiceState(VOICE_STATE.HIDDEN)
+						end
+					end)
+				)
 
-				table.insert(conns, manager.participantJoined.Event:Connect(function(participants, joinedUserId)
-					if joinedUserId == userIdInt then
-						updateVoiceState(VOICE_STATE.HIDDEN)
-					end
-				end))
+				table.insert(
+					conns,
+					manager.participantJoined.Event:Connect(function(participants, joinedUserId)
+						if joinedUserId == userIdInt then
+							updateVoiceState(VOICE_STATE.HIDDEN)
+						end
+					end)
+				)
 
 				-- Note that we don't need to block anyone already blocked, as VCS doesn't establish
 				-- connections between blocked users
-				table.insert(conns, BlockedStatusChanged:Connect(function(playerUserId, isBlocked)
-					if userIdInt == playerUserId then
-						if isBlocked then
-							blocked = true
-							updateVoiceState(VOICE_STATE.HIDDEN)
-						else
-							blocked = nil
-							local participant = manager.participants[userIdStr]
-							if participant then
-								updateVoiceState(mapParticipantStateToVoiceState(participant))
-							else
+				table.insert(
+					conns,
+					BlockedStatusChanged:Connect(function(playerUserId, isBlocked)
+						if userIdInt == playerUserId then
+							if isBlocked then
+								blocked = true
 								updateVoiceState(VOICE_STATE.HIDDEN)
+							else
+								blocked = nil
+								local participant = manager.participants[userIdStr]
+								if participant then
+									updateVoiceState(mapParticipantStateToVoiceState(participant))
+								else
+									updateVoiceState(VOICE_STATE.HIDDEN)
+								end
 							end
 						end
-					end
-				end))
+					end)
+				)
 			end
 		end)
 
@@ -223,7 +241,7 @@ local function useVoiceState(userId: string | number, paused: boolean?, options:
 				end
 			end)
 		end
-	end, {userId, voiceContext.voiceState, (paused == true)}::{any})
+	end, { userId, voiceContext.voiceState, (paused == true) } :: { any })
 	-- FIXME Luau: remove the {any} cast from the mixed type array  ^
 
 	return voiceState

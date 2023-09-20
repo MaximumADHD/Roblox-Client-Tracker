@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PromptState = require(Root.Enums.PromptState)
 	local Reducer = require(Root.Reducers.Reducer)
 	local Analytics = require(Root.Services.Analytics)
@@ -59,8 +62,8 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(state.premiumProductInfo.mobileProductId).to.be.ok()
-		expect(state.accountInfo.membershipType).to.be.ok()
+		expect(state.premiumProductInfo.mobileProductId).never.toBeNil()
+		expect(state.accountInfo.membershipType).never.toBeNil()
 	end)
 
 	it("should resolve state to Error if failed to get premium products", function()
@@ -81,8 +84,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(mockAnalytics.spies.signalPremiumUpsellInvalidProducts.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(mockAnalytics.spies.signalPremiumUpsellInvalidProducts).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.Error)
 	end)
 
 	it("should resolve state to Error if invalid platform (XBOX)", function()
@@ -103,8 +106,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(mockAnalytics.spies.signalPremiumUpsellInvalidPlatform.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(mockAnalytics.spies.signalPremiumUpsellInvalidPlatform).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.Error)
 	end)
 
 	it("should show the upsell given correct data", function()
@@ -125,9 +128,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(mockAnalytics.spies.signalPremiumUpsellShownNonPremium.callCount).to.equal(1)
-		expect(mockAnalytics.spies.signalPremiumUpsellInvalidProducts.callCount).to.equal(0)
-		expect(state.promptState).to.equal(PromptState.PremiumUpsell)
+		expect(mockAnalytics.spies.signalPremiumUpsellShownNonPremium).toHaveBeenCalledTimes(1)
+		expect(mockAnalytics.spies.signalPremiumUpsellInvalidProducts).never.toHaveBeenCalled()
+		expect(state.promptState).toBe(PromptState.PremiumUpsell)
 	end)
 
 	it("should complete the request and show nothing when failing precheck", function()
@@ -148,8 +151,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(mockAnalytics.spies.signalPremiumUpsellPrecheckFail.callCount).to.equal(1)
-		expect(mockAnalytics.spies.signalPremiumUpsellShownNonPremium.callCount).to.equal(0)
-		expect(state.promptState).to.equal(PromptState.None)
+		expect(mockAnalytics.spies.signalPremiumUpsellPrecheckFail).toHaveBeenCalledTimes(1)
+		expect(mockAnalytics.spies.signalPremiumUpsellShownNonPremium).never.toHaveBeenCalled()
+		expect(state.promptState).toBe(PromptState.None)
 	end)
 end

@@ -4,18 +4,18 @@ return function()
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
 
-	local AssetPreviewViewport = require(script.Parent.AssetPreviewViewport)
+	local PreviewViewport = require(script.Parent.PreviewViewport)
 
 	local closePreviewView = function() end
 
-	describe("AssetPreviewViewport", function()
+	describe("PreviewViewport", function()
 		it("should create and destroy without errors for an AnimationClip", function()
 			local animationClip = Instance.new("KeyframeSequence")
 			local keyframe = Instance.new("Keyframe")
 			keyframe.Parent = animationClip
 
 			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				AssetPreviewViewport = Roact.createElement(AssetPreviewViewport, {
+				PreviewViewport = Roact.createElement(PreviewViewport, {
 					asset = animationClip,
 					closePreviewView = closePreviewView,
 				}),
@@ -31,7 +31,7 @@ return function()
 			part.Parent = model
 
 			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				AssetPreviewViewport = Roact.createElement(AssetPreviewViewport, {
+				PreviewViewport = Roact.createElement(PreviewViewport, {
 					asset = model,
 					closePreviewView = closePreviewView,
 				}),

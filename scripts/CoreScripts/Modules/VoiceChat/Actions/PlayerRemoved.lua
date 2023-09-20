@@ -13,5 +13,5 @@ return Action(script.Name, function(userId)
 
 	return {
 		userId = tostring(userId),
-   	}
+	}
 end)

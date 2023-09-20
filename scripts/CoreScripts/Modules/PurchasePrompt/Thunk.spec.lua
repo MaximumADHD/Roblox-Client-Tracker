@@ -1,7 +1,12 @@
 return function()
 	local Root = script.Parent
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 	local Rodux = PurchasePromptDeps.Rodux
 
@@ -18,38 +23,48 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		it("should only intercept thunk objects", function()
 			local store = Rodux.Store.new(lastActionReducer, {}, { Thunk.middleware() })
 
-			expect(store:getState().count).to.equal(1)
-			expect(store:getState().lastAction.type).to.equal("@@INIT")
+			expect(store:getState()).toMatchObject({
+				count = 1,
+				lastAction = {
+					type = "@@INIT",
+				},
+			})
 
 			local thunk = Thunk.new("Foo", {}, function()
 				-- do nothing in particular
 			end)
 			store:dispatch(thunk)
 
-			expect(store:getState().count).to.equal(1)
-			expect(store:getState().lastAction.type).to.equal("@@INIT")
+			expect(store:getState()).toMatchObject({
+				count = 1,
+				lastAction = {
+					type = "@@INIT",
+				},
+			})
 
 			store:dispatch({ type = "NewAction" })
 
-			expect(store:getState().count).to.equal(2)
-			expect(store:getState().lastAction.type).to.equal("NewAction")
+			expect(store:getState()).toMatchObject({
+				count = 2,
+				lastAction = {
+					type = "NewAction",
+				},
+			})
 		end)
 
 		it("should invoke the provided functions of intercepted thunks", function()
 			local store = Rodux.Store.new(lastActionReducer, {}, { Thunk.middleware() })
-			local thunkInvocations = 0
+			local mock, mockFn = jest.fn()
 
-			local thunk = Thunk.new("Foo", {}, function()
-				thunkInvocations = thunkInvocations + 1
-			end)
+			local thunk = Thunk.new("Foo", {}, mockFn)
 
-			expect(thunkInvocations).to.equal(0)
+			expect(mock).never.toHaveBeenCalled()
 
 			store:dispatch(thunk)
-			expect(thunkInvocations).to.equal(1)
+			expect(mock).toHaveBeenCalledTimes(1)
 
 			store:dispatch(thunk)
-			expect(thunkInvocations).to.equal(2)
+			expect(mock).toHaveBeenCalledTimes(2)
 		end)
 
 		it("should provide only the requested services to the thunk on invocation", function()
@@ -71,8 +86,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 			end)
 
 			store:dispatch(thunk)
-			expect(servicesFound[fooServiceKey]).to.equal(FooService)
-			expect(servicesFound[barServiceKey]).never.to.be.ok()
+			expect(servicesFound[fooServiceKey]).toBe(FooService)
+			expect(servicesFound[barServiceKey]).toBeNil()
 		end)
 
 		it("should throw if thunks requests services that are not provided", function()
@@ -81,7 +96,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				-- do nothing in particular
 			end)
 
-			expect(function() store:dispatch(thunk) end).to.throw()
+			expect(function() store:dispatch(thunk) end).toThrow()
 		end)
 	end)
 
@@ -89,10 +104,10 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		it("should validate arguments", function()
 			local noop = function() end
 
-			expect(Thunk.new).to.throw()
-			expect(function() Thunk.new(10, nil, noop) end).to.throw()
-			expect(function() Thunk.new("Foo", 10, noop) end).to.throw()
-			expect(function() Thunk.new("Foo", nil, 10) end).to.throw()
+			expect(Thunk.new).toThrow()
+			expect(function() Thunk.new(10, nil, noop) end).toThrow()
+			expect(function() Thunk.new("Foo", 10, noop) end).toThrow()
+			expect(function() Thunk.new("Foo", nil, 10) end).toThrow()
 		end)
 
 		it("should produce a callable table", function()
@@ -100,8 +115,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 				-- do nothing in particular
 			end)
 
-			expect(type(thunk)).to.equal("table")
-			expect(function() thunk() end).never.to.throw()
+			expect(thunk).toEqual(expect.any("table"))
+			expect(function() thunk() end).never.toThrow()
 		end)
 	end)
 end

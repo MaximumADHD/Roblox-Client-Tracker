@@ -11,8 +11,7 @@ local Button = UI.Button
 local SharedFlags = Framework.SharedFlags
 local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
 local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
-local devFrameworkDeprecateTextInput = UI.TextInput2 == nil
-local DEPRECATED_TextInput = if devFrameworkDeprecateTextInput then UI.DEPRECATED_TextInput else UI.TextInput
+local DEPRECATED_TextInput = UI.DEPRECATED_TextInput
 
 local StyleKey = Framework.Style.StyleKey
 

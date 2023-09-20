@@ -11,7 +11,6 @@ local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-
 local UIBlox = require(CorePackages.UIBlox)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
@@ -36,12 +35,9 @@ VoiceIndicator.validateProps = t.strictInterface({
 	userId = t.string,
 	hideOnError = t.optional(t.boolean),
 	size = t.optional(t.UDim2),
-	iconStyle = t.optional(t.union(
-		t.literal("MicDark"),
-		t.literal("MicLight"),
-		t.literal("SpeakerDark"),
-		t.literal("SpeakerLight")
-	)),
+	iconStyle = t.optional(
+		t.union(t.literal("MicDark"), t.literal("MicLight"), t.literal("SpeakerDark"), t.literal("SpeakerLight"))
+	),
 	iconTransparency = t.optional(t.union(t.number, t.table)),
 
 	-- RoactRodux
@@ -78,7 +74,7 @@ function VoiceIndicator:init()
 			elseif voiceState == Constants.VOICE_STATE.INACTIVE then
 				return VoiceChatServiceManager:GetIcon("Unmuted0", self.props.iconStyle)
 			elseif voiceState == Constants.VOICE_STATE.TALKING then
-				local roundedLevel = 20 * math.floor(0.5 + 5*level)
+				local roundedLevel = 20 * math.floor(0.5 + 5 * level)
 				return VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), self.props.iconStyle)
 			else
 				return VoiceChatServiceManager:GetIcon("Error", self.props.iconStyle)
@@ -91,7 +87,7 @@ function VoiceIndicator:init()
 			elseif voiceState == Constants.VOICE_STATE.INACTIVE then
 				return self:getIcon("Unmuted0")
 			elseif voiceState == Constants.VOICE_STATE.TALKING then
-				local roundedLevel = 20 * math.floor(0.5 + 5*level)
+				local roundedLevel = 20 * math.floor(0.5 + 5 * level)
 				return self:getIcon("Unmuted" .. tostring(roundedLevel))
 			else
 				return self:getIcon("Error")
@@ -101,15 +97,16 @@ function VoiceIndicator:init()
 end
 
 function VoiceIndicator:renderWithSelectionCursor(getSelectionCursor)
-	local userIsHiddenOrErrored = self.props.voiceState == Constants.VOICE_STATE.ERROR or
-		self.props.voiceState == Constants.VOICE_STATE.HIDDEN
-	if self.props.hideOnError
-		and (not self.props.voiceState or userIsHiddenOrErrored) then
+	local userIsHiddenOrErrored = self.props.voiceState == Constants.VOICE_STATE.ERROR
+		or self.props.voiceState == Constants.VOICE_STATE.HIDDEN
+	if self.props.hideOnError and (not self.props.voiceState or userIsHiddenOrErrored) then
 		return nil
 	end
 
-	local imageTransparency = (self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and GetFFlagEnableVoiceChatLocalMuteUI())
-		and 0.5
+	local imageTransparency = (
+		self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and GetFFlagEnableVoiceChatLocalMuteUI()
+	)
+			and 0.5
 		or 0
 
 	if self.props.iconTransparency then
@@ -141,8 +138,7 @@ function VoiceIndicator:render()
 end
 
 function VoiceIndicator:didUpdate(previousProps, previousState)
-	log:trace("Voice state updated to {} for ...{}",
-		self.props.voiceState, string.sub(tostring(self.props.userId), -4))
+	log:trace("Voice state updated to {} for ...{}", self.props.voiceState, string.sub(tostring(self.props.userId), -4))
 	if previousProps.voiceState ~= self.props.voiceState then
 		self.updateVoiceState(self.props.voiceState)
 	end
@@ -153,7 +149,6 @@ function VoiceIndicator:willUnmount()
 		RunService:UnbindFromRenderStep(self.renderStepName)
 	end)
 end
-
 
 local function mapStateToProps(state, props)
 	return {

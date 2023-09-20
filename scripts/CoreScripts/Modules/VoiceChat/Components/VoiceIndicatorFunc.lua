@@ -43,7 +43,7 @@ local function mapLevelToIcon(iconStyle)
 		elseif voiceState == Constants.VOICE_STATE.INACTIVE then
 			return VoiceChatServiceManager:GetIcon("Unmuted0", iconStyle)
 		elseif voiceState == Constants.VOICE_STATE.TALKING then
-			local roundedLevel = 20 * math.floor(0.5 + 5*level)
+			local roundedLevel = 20 * math.floor(0.5 + 5 * level)
 			return VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), iconStyle)
 		else
 			return VoiceChatServiceManager:GetIcon("Error", iconStyle)
@@ -56,7 +56,9 @@ local HIDE_ON_ERROR_STATES = {
 	[Constants.VOICE_STATE.HIDDEN] = true,
 }
 
-local function GenerateGUID() return HttpService:GenerateGUID() end
+local function GenerateGUID()
+	return HttpService:GenerateGUID()
+end
 
 type VoiceIndicatorProps = {
 	hideOnError: boolean?,
@@ -72,7 +74,7 @@ local function VoiceIndicator(props: VoiceIndicatorProps)
 	local voiceState = useVoiceState(props.userId, props.disable or false)
 	local level, setLevel = React.useBinding(0)
 	local voiceStateBinding, setVoiceStateBinding = React.useBinding(voiceState)
-	local voiceStateAndLevel = useJoinBinding({voiceStateBinding, level})
+	local voiceStateAndLevel = useJoinBinding({ voiceStateBinding, level })
 	local renderStepName = React.useRef(GenerateGUID()).current or ""
 	setVoiceStateBinding(voiceState)
 
@@ -89,7 +91,7 @@ local function VoiceIndicator(props: VoiceIndicatorProps)
 				RunService:UnbindFromRenderStep(renderStepName)
 			end
 		end
-	end, {talkingAnimation})
+	end, { talkingAnimation })
 
 	local visible = not (props.hideOnError and (not voiceState or HIDE_ON_ERROR_STATES[voiceState]))
 	local imageTransparency = voiceState == Constants.VOICE_STATE.LOCAL_MUTED and 0.5 or 0
@@ -107,7 +109,7 @@ local function VoiceIndicator(props: VoiceIndicatorProps)
 
 	local imageMapFunc = React.useMemo(function()
 		return voiceStateAndLevel:map(mapLevelToIcon(props.iconStyle))
-	end, {props.iconStyle})
+	end, { props.iconStyle })
 
 	return Roact.createElement("ImageButton", {
 		Size = props.size or DEFAULT_SIZE,

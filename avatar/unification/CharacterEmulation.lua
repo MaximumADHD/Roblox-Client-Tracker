@@ -209,10 +209,14 @@ local function setUpDescendant(descendant)
 	end
 
 	if descendant:IsA("Motor6D") and descendant.Parent.Name == "Head" and descendant.Name == "Neck" then
-		local adapter = descendant:Clone()
-		adapter.Enabled = false
-		adapter.Parent = Character:WaitForChild("Torso")
-		AdaptInstance(descendant, adapter)
+        local parent = Character:WaitForChild("Torso")
+        local torsoNeck = parent:FindFirstChild("Neck")
+        if torsoNeck == nil then
+            local adapter = descendant:Clone()
+            adapter.Enabled = false
+            adapter.Parent = parent
+            AdaptInstance(descendant, adapter)
+        end
 	end
 end
 

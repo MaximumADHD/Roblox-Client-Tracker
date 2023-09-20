@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PromptState = require(Root.Enums.PromptState)
 	local WindowState = require(Root.Enums.WindowState)
 	local PurchaseError = require(Root.Enums.PurchaseError)
@@ -38,10 +41,10 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed.callCount).to.equal(0)
-		expect(platformInterface.spies.signalMockPurchasePremium.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.None)
-		expect(state.windowState).to.equal(WindowState.Hidden)
+		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed).never.toHaveBeenCalled()
+		expect(platformInterface.spies.signalMockPurchasePremium).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.None)
+		expect(state.windowState).toBe(WindowState.Hidden)
 	end)
 
 	it("should run without errors on Desktop", function()
@@ -63,10 +66,10 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.startPremiumUpsell.callCount).to.equal(1)
-		expect(platformInterface.spies.signalMockPurchasePremium.callCount).to.equal(0)
-		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed).toHaveBeenCalledTimes(1)
+		expect(platformInterface.spies.startPremiumUpsell).toHaveBeenCalledTimes(1)
+		expect(platformInterface.spies.signalMockPurchasePremium).never.toHaveBeenCalled()
+		expect(state.promptState).toBe(PromptState.UpsellInProgress)
 	end)
 
 	it("should run without errors on Mobile", function()
@@ -88,14 +91,14 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed.callCount).to.equal(1)
+		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed).toHaveBeenCalledTimes(1)
 		if game:GetEngineFeature("NativePurchaseWithLocalPlayer") then
-			expect(platformInterface.spies.promptNativePurchaseWithLocalPlayer.callCount).to.equal(1)
+			expect(platformInterface.spies.promptNativePurchaseWithLocalPlayer).toHaveBeenCalledTimes(1)
 		else
-			expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
+			expect(platformInterface.spies.promptNativePurchase).toHaveBeenCalledTimes(1)
 		end
-		expect(platformInterface.spies.signalMockPurchasePremium.callCount).to.equal(0)
-		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		expect(platformInterface.spies.signalMockPurchasePremium).never.toHaveBeenCalled()
+		expect(state.promptState).toBe(PromptState.UpsellInProgress)
 	end)
 
 	it("should run into error on unsupported platforms", function()
@@ -117,9 +120,9 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed.callCount).to.equal(1)
-		expect(platformInterface.spies.startPremiumUpsell.callCount).to.equal(0)
-		expect(platformInterface.spies.signalMockPurchasePremium.callCount).to.equal(0)
-		expect(state.purchaseError).to.equal(PurchaseError.PremiumUnavailablePlatform)
+		expect(mockAnalytics.spies.signalPremiumUpsellConfirmed).toHaveBeenCalledTimes(1)
+		expect(platformInterface.spies.startPremiumUpsell).toHaveBeenCalledTimes(0)
+		expect(platformInterface.spies.signalMockPurchasePremium).never.toHaveBeenCalled()
+		expect(state.purchaseError).toBe(PurchaseError.PremiumUnavailablePlatform)
 	end)
 end

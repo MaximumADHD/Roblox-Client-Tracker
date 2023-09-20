@@ -7,17 +7,20 @@ local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Cryo)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local CoreGui = game:GetService("CoreGui")
-local runService = game:GetService('RunService')
+local runService = game:GetService("RunService")
 local SoundService = game:GetService("SoundService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local NotificationService = game:GetService("NotificationService")
 local LocalizationService = game:GetService("LocalizationService")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local VoiceChatService = game:GetService("VoiceChatService")
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagEnableVoiceChatRejoinOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatRejoinOnBlock)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceCheckLocalNetworkSet = require(RobloxGui.Modules.Flags.GetFFlagVoiceCheckLocalNetworkSet)
-local GetFIntEnableVoiceChatRejoinOnBlockDelay = require(RobloxGui.Modules.Flags.GetFIntEnableVoiceChatRejoinOnBlockDelay)
+local GetFIntEnableVoiceChatRejoinOnBlockDelay =
+	require(RobloxGui.Modules.Flags.GetFIntEnableVoiceChatRejoinOnBlockDelay)
 local GetFFlagVoiceChatDUARGate = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatDUARGate)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagVoiceChatStudioErrorToasts = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatStudioErrorToasts)
@@ -30,18 +33,26 @@ local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
-local GetFFlagSkipRedundantVoiceCheck = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSkipRedundantVoiceCheck
+local GetFFlagSkipRedundantVoiceCheck =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSkipRedundantVoiceCheck
 local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
-local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
-local GetFIntVoiceUsersInteractionExpiryTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
+local GetFFlagClearUserFromRecentVoiceDataOnLeave =
+	require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
+local GetFIntVoiceUsersInteractionExpiryTimeSeconds =
+	require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
-local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged)
-local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
-local GetFFlagVoiceChatReportOutOfOrderSequence = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
+local GetFFlagVoiceChatUseSoundServiceInputApi =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
+local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged)
+local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
+local GetFFlagVoiceChatReportOutOfOrderSequence =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
 local GetFFlagAvatarChatBanMessage = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatBanMessage)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
-local GetFFlagVoiceChatServiceManagerUseAvatarChat = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
+local GetFFlagVoiceChatServiceManagerUseAvatarChat =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local GetFFlagLuaConsumePlayerModerated = require(RobloxGui.Modules.Flags.GetFFlagLuaConsumePlayerModerated)
@@ -50,14 +61,19 @@ local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableV
 local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagEnableNudgeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableNudgeAnalytics)
 local GetFFlagVoiceBanPromptShowSeconds = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanPromptShowSeconds)
+local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlagVoiceUseAudioRoutingAPI)
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
+local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceListeners", false)
+local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
+local AudioDeviceInputDebugger = require(RobloxGui.Modules.VoiceChat.Components.AudioDeviceInputDebugger)
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
-local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
+local GetShowAgeVerificationOverlay =
+	require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
 local GetUserSettings = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetUserSettings)
 local GetInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetInformedOfBan)
 local PostInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.PostInformedOfBan)
@@ -94,7 +110,7 @@ type VoiceChatUserSettings = {
 
 type VoiceChatPlaceAndUserSettings = {
 	universePlaceVoiceEnabledSettings: VoiceChatPlaceSettings,
-	voiceSettings: VoiceChatUserSettings
+	voiceSettings: VoiceChatUserSettings,
 }
 
 local VOICE_STATE = Constants.VOICE_STATE
@@ -107,6 +123,13 @@ local WATCHED_NAMESPACES = Constants.WATCHED_NAMESPACES
 local WATCHED_MESSAGE_TYPES = Constants.WATCHED_MESSAGE_TYPES
 type WatchedMessageTypes = Constants.WatchedMessageTypes
 type EventTable = { [WatchedMessageTypes]: BindableEvent }
+type AudioDeviceData = {
+	onPlayerChanged: RBXScriptConnection,
+	onMutedChanged: RBXScriptConnection,
+	onActiveChanged: RBXScriptConnection,
+	serverActiveState: boolean,
+	analyzer: AudioAnalyzer | nil,
+}
 
 local VoiceChatServiceManager = {
 	available = nil,
@@ -129,8 +152,12 @@ local VoiceChatServiceManager = {
 	participantsUpdate = Instance.new("BindableEvent"),
 	muteChanged = Instance.new("BindableEvent"),
 	muteAllChanged = if GetFFlagMuteAllEvent() then Instance.new("BindableEvent") else nil,
+	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
+	muteAll = false,
+	mutedPlayers = {} :: { [number]: boolean },
 	talkingChanged = Instance.new("BindableEvent"),
 	SignalREventTable = {} :: EventTable,
+	audioDevices = {} :: { [AudioDeviceInput]: AudioDeviceData },
 	service = nil,
 	voiceEnabled = false,
 	VOICE_STATE = VOICE_STATE,
@@ -161,7 +188,7 @@ function getIcon(voiceState, level, folder)
 		return getIconSrc("Blank", folder)
 	elseif voiceState == VOICE_STATE.TALKING then
 		local micLevel = level or math.random()
-		local roundedLevel = 20 * math.floor(0.5 + 5*micLevel)
+		local roundedLevel = 20 * math.floor(0.5 + 5 * micLevel)
 		return level and getIconSrc("Unmuted" .. tostring(roundedLevel), folder) or getIconSrc("Blank", folder)
 	else
 		return getIconSrc("Error", folder)
@@ -170,7 +197,16 @@ end
 
 VoiceChatServiceManager.__index = VoiceChatServiceManager
 
-function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, PermissionsService, BlockStatusChanged, AnalyticsService, NotificationService, getPermissionsFunction, AvatarChatService)
+function VoiceChatServiceManager.new(
+	VoiceChatService,
+	HttpRbxApiService,
+	PermissionsService,
+	BlockStatusChanged,
+	AnalyticsService,
+	NotificationService,
+	getPermissionsFunction,
+	AvatarChatService
+)
 	local self = setmetatable({
 		service = VoiceChatService,
 		HttpRbxApiService = HttpRbxApiService,
@@ -303,8 +339,8 @@ end
 
 function VoiceChatServiceManager:GetRequest(url, method)
 	local success, result = pcall(function()
-		local request = self.HttpRbxApiService:GetAsyncFullUrl(url,
-			Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
+		local request =
+			self.HttpRbxApiService:GetAsyncFullUrl(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
 		return HttpService:JSONDecode(request)
 	end)
 	return success and result
@@ -312,8 +348,13 @@ end
 
 function VoiceChatServiceManager:PostRequest(url, method, postBody)
 	local success, result = pcall(function()
-		local request = self.HttpRbxApiService:PostAsyncFullUrl(url, postBody,
-			Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson, Enum.HttpRequestType.Players)
+		local request = self.HttpRbxApiService:PostAsyncFullUrl(
+			url,
+			postBody,
+			Enum.ThrottlingPriority.Default,
+			Enum.HttpContentType.ApplicationJson,
+			Enum.HttpRequestType.Players
+		)
 		return HttpService:JSONDecode(request)
 	end)
 	return success and result
@@ -384,7 +425,7 @@ function VoiceChatServiceManager:onMissedSequence(namespace)
 	self:RejoinCurrentChannel()
 end
 
-type EventData = {namespace: string, detail: string, detailType: string}
+type EventData = { namespace: string, detail: string, detailType: string }
 function VoiceChatServiceManager:watchSignalR()
 	if GetFFlagVoiceChatReportOutOfOrderSequence() then
 		self.NotificationService.RobloxEventReceived:Connect(function(eventData: EventData)
@@ -410,36 +451,38 @@ function VoiceChatServiceManager:watchSignalR()
 				if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
 					self:onMissedSequence(namespace)
 				end
-			elseif diff < -1 then  -- Ignore duplicate (-1) messages for now
+			elseif diff < -1 then -- Ignore duplicate (-1) messages for now
 				self.Analytics:reportOutOfOrderSequence()
 			end
 		end)
 
-		self.NotificationService.RobloxConnectionChanged:Connect(function(connectionHubName, state, seqNum, seqNumByNamespace)
-			if connectionHubName == "signalR" then
-				if state ~= Enum.ConnectionState.Connected then
-					log:info("SignalR disconnected")
-					return  -- We'll update the sequence numbers once signalR reconnects
-				end
-
-				for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
-					if not WATCHED_NAMESPACES[namespace] then
-						continue
+		self.NotificationService.RobloxConnectionChanged:Connect(
+			function(connectionHubName, state, seqNum, seqNumByNamespace)
+				if connectionHubName == "signalR" then
+					if state ~= Enum.ConnectionState.Connected then
+						log:info("SignalR disconnected")
+						return -- We'll update the sequence numbers once signalR reconnects
 					end
-					log:trace("SignalR message {}: {}", namespace, value)
 
-					local diff = self:checkAndUpdateSequence(namespace, value)
-					if diff > 0 then
-						self.Analytics:reportReconnectDueToMissedSequence()
-						if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
-							self:onMissedSequence(namespace)
+					for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
+						if not WATCHED_NAMESPACES[namespace] then
+							continue
 						end
-					elseif diff < -1 then  -- Duplicate (-1) messages are expected when reconnecting
-						self.Analytics:reportOutOfOrderSequence()
+						log:trace("SignalR message {}: {}", namespace, value)
+
+						local diff = self:checkAndUpdateSequence(namespace, value)
+						if diff > 0 then
+							self.Analytics:reportReconnectDueToMissedSequence()
+							if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
+								self:onMissedSequence(namespace)
+							end
+						elseif diff < -1 then -- Duplicate (-1) messages are expected when reconnecting
+							self.Analytics:reportOutOfOrderSequence()
+						end
 					end
 				end
 			end
-		end)
+		)
 	else
 		if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
 			self.NotificationService.RobloxEventReceived:Connect(function(eventData: EventData)
@@ -458,23 +501,25 @@ function VoiceChatServiceManager:watchSignalR()
 		end
 
 		if GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged() then
-			self.NotificationService.RobloxConnectionChanged:Connect(function(connectionHubName, state, seqNum, seqNumByNamespace)
-				if connectionHubName == "signalR" then
-					if state ~= Enum.ConnectionState.Connected then
-						log:info("SignalR disconnected")
-						return  -- We'll update the sequence numbers once signalR reconnects
-					end
-
-					for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
-						if not WATCHED_NAMESPACES[namespace] then
-							continue
+			self.NotificationService.RobloxConnectionChanged:Connect(
+				function(connectionHubName, state, seqNum, seqNumByNamespace)
+					if connectionHubName == "signalR" then
+						if state ~= Enum.ConnectionState.Connected then
+							log:info("SignalR disconnected")
+							return -- We'll update the sequence numbers once signalR reconnects
 						end
-						if not self:checkAndUpdateSequence(namespace, value) then
-							self:onMissedSequence(namespace)
+
+						for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
+							if not WATCHED_NAMESPACES[namespace] then
+								continue
+							end
+							if not self:checkAndUpdateSequence(namespace, value) then
+								self:onMissedSequence(namespace)
+							end
 						end
 					end
 				end
-			end)
+			)
 		end
 	end
 end
@@ -488,7 +533,10 @@ function VoiceChatServiceManager:voicePermissionGranted(permissionResponse)
 	-- If the return value is a table, that means multiple permissions have different values.
 	if typeof(permissionResponse) == "table" then
 		local hasMicPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-			or not Cryo.List.find(permissionResponse.missingPermissions, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+			or not Cryo.List.find(
+				permissionResponse.missingPermissions,
+				PermissionsProtocol.Permissions.MICROPHONE_ACCESS
+			)
 
 		permissionGranted = hasMicPermissionsResponse
 	else
@@ -506,25 +554,46 @@ end
 
 -- Map AvatarChatService feature mask to VoiceChat structs.
 function VoiceChatServiceManager:avatarChatUserAndPlaceSettingsValueOfClientFeatures(clientFeatures)
-	local placeSettings : VoiceChatPlaceSettings = {
-		isUniverseEnabledForVoice = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UniverseAudio),
-		isPlaceEnabledForVoice = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.PlaceAudio),
-		isUniverseEnabledForAvatarVideo = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UniverseVideo),
-		isPlaceEnabledForAvatarVideo = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.PlaceVideo)
+	local placeSettings: VoiceChatPlaceSettings = {
+		isUniverseEnabledForVoice = self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.UniverseAudio
+		),
+		isPlaceEnabledForVoice = self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.PlaceAudio
+		),
+		isUniverseEnabledForAvatarVideo = self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.UniverseVideo
+		),
+		isPlaceEnabledForAvatarVideo = self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.PlaceVideo
+		),
 	}
 
-	local userSettings : VoiceChatUserSettings = {
-		isUserEligible = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudioEligible),
+	local userSettings: VoiceChatUserSettings = {
+		isUserEligible = self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.UserAudioEligible
+		),
 		isVoiceEnabled = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudio),
-		isAvatarVideoEligible = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideoEligible),
-		isAvatarVideoEnabled = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideo),
+		isAvatarVideoEligible = self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.UserVideoEligible
+		),
+		isAvatarVideoEnabled = self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.UserVideo
+		),
 		isBanned = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserBanned),
-		bannedUntil = nil
+		bannedUntil = nil,
 	}
 
 	return {
 		universePlaceVoiceEnabledSettings = placeSettings,
-		voiceSettings = userSettings
+		voiceSettings = userSettings,
 	}
 end
 
@@ -539,7 +608,8 @@ function VoiceChatServiceManager:resolveAvatarChatUserAndPlaceSettings()
 end
 
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
-	if GetFFlagSkipRedundantVoiceCheck()
+	if
+		GetFFlagSkipRedundantVoiceCheck()
 		and MemStorageService:GetItem(SKIP_VOICE_CHECK_UNIVERSE_KEY) == tostring(game.GameId)
 		and MemStorageService:GetItem(SKIP_VOICE_CHECK_KEY) == "true"
 	then
@@ -548,7 +618,10 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 		MemStorageService:RemoveItem(SKIP_VOICE_CHECK_UNIVERSE_KEY)
 		return false
 	end
-	local result : VoiceChatPlaceAndUserSettings = if GetFFlagAvatarChatServiceEnabled() and GetFFlagVoiceChatServiceManagerUseAvatarChat() then self:resolveAvatarChatUserAndPlaceSettings() else GetShowAgeVerificationOverlay(bind(self, 'GetRequest'), tostring(game.GameId), tostring(game.PlaceId))
+	local result: VoiceChatPlaceAndUserSettings = if GetFFlagAvatarChatServiceEnabled()
+			and GetFFlagVoiceChatServiceManagerUseAvatarChat()
+		then self:resolveAvatarChatUserAndPlaceSettings()
+		else GetShowAgeVerificationOverlay(bind(self, "GetRequest"), tostring(game.GameId), tostring(game.PlaceId))
 	if not result then
 		self:_reportJoinFailed("invalidResponse", Analytics.ERROR)
 		return false
@@ -565,10 +638,14 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 
 	self.bannedUntil = nil
 	if userSettings and userSettings.isBanned then
-		local informedOfBanResult = GetInformedOfBan(bind(self, 'GetRequest'))
+		local informedOfBanResult = GetInformedOfBan(bind(self, "GetRequest"))
 		if informedOfBanResult and not informedOfBanResult.informedOfBan then
 			-- AvatarChatService currently cant provide more than flags, hence we still need an additional request here for banned users.
-			if GetFFlagAvatarChatServiceEnabled() and GetFFlagVoiceChatServiceManagerUseAvatarChat() and userSettings.bannedUntil == nil then
+			if
+				GetFFlagAvatarChatServiceEnabled()
+				and GetFFlagVoiceChatServiceManagerUseAvatarChat()
+				and userSettings.bannedUntil == nil
+			then
 				self:ShowPlayerModeratedMessage()
 			else
 				if userSettings.bannedUntil == nil then
@@ -579,14 +656,22 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 				end
 			end
 		end
-	elseif GetFFlagVoiceChatStudioErrorToasts() and self.runService:IsStudio() and userSettings and not userSettings.isVoiceEnabled then
+	elseif
+		GetFFlagVoiceChatStudioErrorToasts()
+		and self.runService:IsStudio()
+		and userSettings
+		and not userSettings.isVoiceEnabled
+	then
 		self:showPrompt(VoiceChatPromptType.User)
-	elseif GetFFlagVoiceChatStudioErrorToasts() and self.runService:IsStudio()
-		and universePlaceSettings and not universePlaceSettings.isPlaceEnabledForVoice then
+	elseif
+		GetFFlagVoiceChatStudioErrorToasts()
+		and self.runService:IsStudio()
+		and universePlaceSettings
+		and not universePlaceSettings.isPlaceEnabledForVoice
+	then
 		self:showPrompt(
 			VoiceChatPromptType.Place,
-			GetFFlagEnableVoicePromptReasonText()
-				and (table.concat(universePlaceSettings.reasons or {}, '') or nil)
+			GetFFlagEnableVoicePromptReasonText() and (table.concat(universePlaceSettings.reasons or {}, "") or nil)
 				or nil
 		)
 	end
@@ -599,13 +684,14 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 		self:_reportJoinFailed("userNotEnabled")
 	end
 
-	return universePlaceSettings and userSettings
+	return universePlaceSettings
+		and userSettings
 		and userSettings.isVoiceEnabled
 		and universePlaceSettings.isPlaceEnabledForVoice
 end
 
 function VoiceChatServiceManager:ShowPlayerModeratedMessage()
-	local userSettings = GetUserSettings(bind(self, 'GetRequest'))
+	local userSettings = GetUserSettings(bind(self, "GetRequest"))
 	if not userSettings or not userSettings.isBanned then
 		self:_reportJoinFailed("PlayerModeratedBadState", Analytics.ERROR)
 		return
@@ -625,11 +711,13 @@ end
 
 function VoiceChatServiceManager:checkLocalNetworkPermission()
 	if GetFFlagVoiceCheckLocalNetworkSet() then
-		return self.PermissionsService:hasPermissions({
-			PermissionsProtocol.Permissions.LOCAL_NETWORK
-		}):andThen(function (permissionResponse)
-			return permissionResponse and Promise.resolve() or Promise.reject()
-		end)
+		return self.PermissionsService
+			:hasPermissions({
+				PermissionsProtocol.Permissions.LOCAL_NETWORK,
+			})
+			:andThen(function(permissionResponse)
+				return permissionResponse and Promise.resolve() or Promise.reject()
+			end)
 	end
 	return Promise.reject()
 end
@@ -641,7 +729,7 @@ function VoiceChatServiceManager:requestMicPermission()
 
 		return self.permissionPromise
 	end
-	local permissions = {PermissionsProtocol.Permissions.MICROPHONE_ACCESS}
+	local permissions = { PermissionsProtocol.Permissions.MICROPHONE_ACCESS }
 	if game:GetEngineFeature("PermissionsProtocolAllowsLocalNetworkAuthorization") then
 		table.insert(permissions, PermissionsProtocol.Permissions.LOCAL_NETWORK)
 	end
@@ -655,7 +743,8 @@ function VoiceChatServiceManager:requestMicPermission()
 		promiseStart = Promise.new(function(resolve, _)
 			local callback = function(response)
 				local newAuth = {
-					status = response.hasMicPermissions and PermissionsProtocol.Status.AUTHORIZED or PermissionsProtocol.Status.DENIED
+					status = response.hasMicPermissions and PermissionsProtocol.Status.AUTHORIZED
+						or PermissionsProtocol.Status.DENIED,
 				}
 				resolve(newAuth)
 			end
@@ -665,56 +754,65 @@ function VoiceChatServiceManager:requestMicPermission()
 		promiseStart = self.PermissionsService:requestPermissions(permissions)
 	end
 
-	self.permissionPromise = promiseStart:andThen(function (permissionResponse)
-		if not permissionResponse and not permissionResponse.status then
-			log:debug("No permission response, rejecting access")
-			self:_reportJoinFailed("noPermissionResponse", Analytics.ERROR)
-			return Promise.reject()
-		end
-		log:debug("Permission status {}", permissionResponse.status)
-
-		local permissionGranted
-		if FFlagAvatarChatCoreScriptSupport then
-			permissionGranted = self:voicePermissionGranted(permissionResponse)
-		else
-			permissionGranted = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
-		end
-		if GetFFlagVoiceCheckLocalNetworkSet() then
-			if permissionGranted then
-				return Promise.resolve()
-			else
-				if FFlagAvatarChatCoreScriptSupport then
-					return self.PermissionsService:requestPermissions({PermissionsProtocol.Permissions.LOCAL_NETWORK}):andThen(function(localNetworkResponse)
-						self:_reportJoinFailed("missingPermissions")
-						local missingPermissions = localNetworkResponse.missingPermissions
-						local networkPermissionDenied = missingPermissions and #missingPermissions == 1
-							and missingPermissions[1] == 'LOCAL_NETWORK'
-						return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission() or Promise.reject()
-					end)
-				else
-					self:_reportJoinFailed("missingPermissions")
-					local missingPermissions = permissionResponse.missingPermissions
-					local networkPermissionDenied = missingPermissions and #missingPermissions == 1
-						and missingPermissions[1] == 'LOCAL_NETWORK'
-					return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission() or Promise.reject()
-				end
+	self.permissionPromise = promiseStart
+		:andThen(function(permissionResponse)
+			if not permissionResponse and not permissionResponse.status then
+				log:debug("No permission response, rejecting access")
+				self:_reportJoinFailed("noPermissionResponse", Analytics.ERROR)
+				return Promise.reject()
 			end
-		else
-			return permissionGranted and Promise.resolve() or Promise.reject()
-		end
-	end):andThen(function()
-		-- Check volume settings. Show prompt if volume is 0
-		if GetFFlagEnableUniveralVoiceToasts() then
-			return self:CheckAndShowNotAudiblePrompt()
-		end
-		return Promise.resolve()
-	end):catch(function()
-		-- Check mic permission settings. Show prompt if no permission
-		if GetFFlagEnableUniveralVoiceToasts() then
-			return self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
-		end
-		return Promise.reject()
-	end)
+			log:debug("Permission status {}", permissionResponse.status)
+
+			local permissionGranted
+			if FFlagAvatarChatCoreScriptSupport then
+				permissionGranted = self:voicePermissionGranted(permissionResponse)
+			else
+				permissionGranted = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
+			end
+			if GetFFlagVoiceCheckLocalNetworkSet() then
+				if permissionGranted then
+					return Promise.resolve()
+				else
+					if FFlagAvatarChatCoreScriptSupport then
+						return self.PermissionsService
+							:requestPermissions({ PermissionsProtocol.Permissions.LOCAL_NETWORK })
+							:andThen(function(localNetworkResponse)
+								self:_reportJoinFailed("missingPermissions")
+								local missingPermissions = localNetworkResponse.missingPermissions
+								local networkPermissionDenied = missingPermissions
+									and #missingPermissions == 1
+									and missingPermissions[1] == "LOCAL_NETWORK"
+								return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission()
+									or Promise.reject()
+							end)
+					else
+						self:_reportJoinFailed("missingPermissions")
+						local missingPermissions = permissionResponse.missingPermissions
+						local networkPermissionDenied = missingPermissions
+							and #missingPermissions == 1
+							and missingPermissions[1] == "LOCAL_NETWORK"
+						return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission()
+							or Promise.reject()
+					end
+				end
+			else
+				return permissionGranted and Promise.resolve() or Promise.reject()
+			end
+		end)
+		:andThen(function()
+			-- Check volume settings. Show prompt if volume is 0
+			if GetFFlagEnableUniveralVoiceToasts() then
+				return self:CheckAndShowNotAudiblePrompt()
+			end
+			return Promise.resolve()
+		end)
+		:catch(function()
+			-- Check mic permission settings. Show prompt if no permission
+			if GetFFlagEnableUniveralVoiceToasts() then
+				return self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
+			end
+			return Promise.reject()
+		end)
 	return self.permissionPromise
 end
 
@@ -738,17 +836,16 @@ function VoiceChatServiceManager:canUseServiceAsync()
 				if not game:IsLoaded() then
 					game.Loaded:Wait()
 				end
-				local VCS = game:GetService("VoiceChatService")
-				if not VCS.VoiceChatEnabledForUniverseOnRcc or not VCS.VoiceChatEnabledForPlaceOnRcc then
+				if not VoiceChatService.VoiceChatEnabledForUniverseOnRcc or not VoiceChatService.VoiceChatEnabledForPlaceOnRcc then
 					log:debug(
 						"Disabling voice chat due to RCC Response. Universe: {}, Place: {}",
-						VCS.VoiceChatEnabledForUniverseOnRcc,
-						VCS.VoiceChatEnabledForPlaceOnRcc
+						VoiceChatService.VoiceChatEnabledForUniverseOnRcc,
+						VoiceChatService.VoiceChatEnabledForPlaceOnRcc
 					)
 
-					if not VCS.VoiceChatEnabledForUniverseOnRcc then
+					if not VoiceChatService.VoiceChatEnabledForUniverseOnRcc then
 						self:_reportJoinFailed("universeNotEnabled")
-					elseif not VCS.VoiceChatEnabledForPlaceOnRcc then
+					elseif not VoiceChatService.VoiceChatEnabledForPlaceOnRcc then
 						self:_reportJoinFailed("placeNotEnabled")
 					end
 
@@ -771,8 +868,11 @@ function VoiceChatServiceManager:canUseService()
 		return false
 	end
 	local success, result = pcall(function()
-		local request = HttpRbxApiService:GetAsyncFullUrl("https://voice.roblox.com/v1/settings",
-			Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
+		local request = HttpRbxApiService:GetAsyncFullUrl(
+			"https://voice.roblox.com/v1/settings",
+			Enum.ThrottlingPriority.Default,
+			Enum.HttpRequestType.Players
+		)
 		return HttpService:JSONDecode(request)
 	end)
 	local canUseService = success and result.isVoiceEnabled
@@ -804,20 +904,24 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 		local banEnd = ""
 		if self.bannedUntil ~= nil then
 			banEnd = if GetFFlagVoiceBanPromptShowSeconds()
-			then DateTime.fromUnixTimestamp(self.bannedUntil.Seconds):FormatLocalTime("l LT", LocalizationService.RobloxLocaleId)
-			else os.date("%x", self.bannedUntil.Seconds)
+				then DateTime.fromUnixTimestamp(self.bannedUntil.Seconds)
+					:FormatLocalTime("l LT", LocalizationService.RobloxLocaleId)
+				else os.date("%x", self.bannedUntil.Seconds)
 		end
-		local isNudge = GetFFlagEnableNudgeAnalytics() and (
-			promptType == VoiceChatPromptType.VoiceToxicityModal or promptType == VoiceChatPromptType.VoiceToxicityToast
-		)
-		self.voiceChatPromptInstance = Roact.mount(Roact.createElement(VoiceChatPrompt, {
-			Analytics = Analytics.new(),
-			promptSignal = self.promptSignal.Event,
-			bannedUntil = banEnd,
-			policyMapper = self.policyMapper,
-			errorText = errorText,
-			onReadyForSignal = onReadyForSignal,
-			onContinueFunc = if promptType == VoiceChatPromptType.VoiceChatSuspendedTemporary
+		local isNudge = GetFFlagEnableNudgeAnalytics()
+			and (
+				promptType == VoiceChatPromptType.VoiceToxicityModal
+				or promptType == VoiceChatPromptType.VoiceToxicityToast
+			)
+		self.voiceChatPromptInstance = Roact.mount(
+			Roact.createElement(VoiceChatPrompt, {
+				Analytics = Analytics.new(),
+				promptSignal = self.promptSignal.Event,
+				bannedUntil = banEnd,
+				policyMapper = self.policyMapper,
+				errorText = errorText,
+				onReadyForSignal = onReadyForSignal,
+				onContinueFunc = if promptType == VoiceChatPromptType.VoiceChatSuspendedTemporary
 					then function()
 						PostInformedOfBan(bind(self, "PostRequest"), true)
 					end
@@ -871,14 +975,15 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 			if FFlagAvatarChatCoreScriptSupport then
 				self:showPrompt(VoiceChatPromptType.Permission)
 			else
-				return self.PermissionsService:hasPermissions({
-					PermissionsProtocol.Permissions.MICROPHONE_ACCESS
-				}):andThen(function (permissionResponse)
-					if permissionResponse and
-						permissionResponse.status == PermissionsProtocol.Status.DENIED then
-						self:showPrompt(VoiceChatPromptType.Permission)
-					end
-				end)
+				return self.PermissionsService
+					:hasPermissions({
+						PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
+					})
+					:andThen(function(permissionResponse)
+						if permissionResponse and permissionResponse.status == PermissionsProtocol.Status.DENIED then
+							self:showPrompt(VoiceChatPromptType.Permission)
+						end
+					end)
 			end
 		end
 		return Promise.resolve()
@@ -895,12 +1000,14 @@ end
 
 function VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 	if game:GetEngineFeature("VoiceChatSupported") then
-		return self:asyncInit():andThen(function()
-			-- Check volume settings. Show prompt if volume is 0
-			if UserSettings().GameSettings.MasterVolume == 0 then
-				self:showPrompt(VoiceChatPromptType.NotAudible)
-			end
-		end):catch(function() end)
+		return self:asyncInit()
+			:andThen(function()
+				-- Check volume settings. Show prompt if volume is 0
+				if UserSettings().GameSettings.MasterVolume == 0 then
+					self:showPrompt(VoiceChatPromptType.NotAudible)
+				end
+			end)
+			:catch(function() end)
 	end
 	return Promise.resolve()
 end
@@ -920,16 +1027,182 @@ function VoiceChatServiceManager:GetNudgeAnalyticsData()
 	return PlayersService.LocalPlayer.UserId, self.service:GetSessionId()
 end
 
+function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput): AudioDeviceData
+	local out = {}
+	local isLocalPlayer = device.Player == PlayersService.LocalPlayer
+
+	if device.Active then
+		-- If AudioDeviceInputs get replicated while the local client is in a mute-all state. We need to sever the connection here to
+		-- keep muteAll working
+		if self.muteAll and not isLocalPlayer then
+			device.Active = false
+		end
+
+		if device.Player and self.mutedPlayers[device.Player.UserId] then
+			device.Active = false
+		end
+	end
+
+	out.onPlayerChanged = device:GetPropertyChangedSignal("Player"):Connect(function()
+		-- We don't care if a non-active user leaves/joins. They don't have voice
+		-- TODO: Handle the case where Device.Player is changed
+		self:UpdateAudioDeviceInputDebugger()
+	end)
+
+	out.onMutedChanged = device:GetPropertyChangedSignal("Muted"):Connect(function()
+		self:UpdateAudioDeviceInputDebugger()
+	end)
+
+	out.onActiveChanged = device:GetPropertyChangedSignal("Active"):Connect(function()
+		self:UpdateAudioDeviceInputDebugger()
+		if self.muteAll and not isLocalPlayer then
+			device.Active = false
+		end
+		if device.Player and self.mutedPlayers[device.Player.UserId] then
+			device.Active = false
+		end
+	end)
+
+	return out :: AudioDeviceData
+end
+
+local function avoidEmitting(character: Model)
+	local function prune(instance: Instance)
+		if instance:HasTag("RbxDefaultVoiceEmitter") then
+			-- calling :Destroy() directly from DescendantAdded throws an error
+			log:debug("Destroying RbxDefaultVoiceEmitter for local player")
+			task.defer(function()
+				instance:Destroy()
+			end)
+		end
+	end
+	character.DescendantAdded:Connect(prune)
+	for _, desc in character:GetDescendants() do
+		prune(desc)
+	end
+end
+
+
+function VoiceChatServiceManager:onInstanceAdded(inst: Instance)
+	if inst:IsA("AudioDeviceInput") then
+		local inst: AudioDeviceInput = inst
+		log:trace("Found new audio device instance for {}", inst.Player and inst.Player.Name)
+		self.audioDevices[inst] = self:CreateAudioDeviceData(inst)
+		self:UpdateAudioDeviceInputDebugger()
+	end
+end
+
+function VoiceChatServiceManager:UpdateAudioDeviceInputDebugger()
+	if DebugShowAudioDeviceInputDebugger then
+		if not self.voiceDebuggerInstance then
+			log:debug("Mounting AudioDeviceInput Debugger")
+			self.voiceDebuggerInstance = Roact.mount(
+				Roact.createElement(AudioDeviceInputDebugger, {
+					instances = self.audioDevices,
+					mutedPlayers = self.mutedPlayers,
+				}),
+				CoreGui,
+				"RobloxVoiceChatPromptGui"
+			)
+		else
+			Roact.update(
+				self.voiceDebuggerInstance,
+				Roact.createElement(AudioDeviceInputDebugger, {
+					instances = self.audioDevices,
+					mutedPlayers = self.mutedPlayers,
+				})
+			)
+		end
+	end
+end
+
+function VoiceChatServiceManager:onInstanceRemove(inst: Instance)
+	if inst:IsA("AudioDeviceInput") then
+		local inst: AudioDeviceInput = inst
+		log:trace("Removing AudioDeviceInput {} {} {}", inst, "for user", inst.Player and inst.Player.UserId)
+		local data = self.audioDevices[inst]
+		if data then
+			data.onActiveChanged:Disconnect()
+			data.onMutedChanged:Disconnect()
+			data.onPlayerChanged:Disconnect()
+		end
+		self.audioDevices[inst] = nil
+		self:UpdateAudioDeviceInputDebugger()
+	end
+end
+
+function VoiceChatServiceManager:hookupAudioDeviceInputListener()
+	log:debug("Hooking up audio device listeners")
+	local localPlayer = PlayersService.LocalPlayer
+	game.DescendantAdded:Connect(function(inst)
+		self:onInstanceAdded(inst)
+	end)
+
+	local localAudioDevice = localPlayer:FindFirstChildOfClass("AudioDeviceInput")
+	log:debug("Found local user audio device {}", localAudioDevice)
+	self:onInstanceAdded(localAudioDevice)
+	if (VoiceChatService :: any).EnableDefaultVoice then
+		log:debug('Creating default voice listener')
+		local listener = Instance.new("AudioListener")
+		-- Does this need to change if the user changes camera?
+		listener.Parent = workspace.CurrentCamera
+		local wire = Instance.new("Wire")
+		wire.Parent = listener
+		local output = Instance.new("AudioDeviceOutput")
+		output.Parent = wire
+		wire.SourceInstance = listener
+		wire.TargetInstance = output
+
+		-- Snip the local player emitter by default
+		localPlayer.CharacterAdded:Connect(avoidEmitting)
+		if localPlayer.Character then
+			avoidEmitting(localPlayer.Character)
+		end
+	end
+
+	game.DescendantRemoving:Connect(function(inst)
+		self:onInstanceRemove(inst)
+	end)
+
+	for _, player in PlayersService:GetPlayers() do
+		if player.AudioDeviceInput then
+			self:onInstanceAdded(player.AudioDeviceInput)
+		end
+	end
+
+	PlayersService.PlayerRemoving:Connect(function(player)
+		-- TODO: Create a player index so we don't have to iterate through all audioDevices
+		for device in self.audioDevices do
+			if device.Player and device.Player == player then
+				self:onInstanceRemove(device)
+			end
+		end
+	end)
+end
+
 function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
 	self:ensureInitialized("mute player " .. userId)
 	self._mutedAnyone = true
 	local requestedMuteStatus = not self.service:IsSubscribePaused(userId)
 	log:trace("Setting mute for {} to {}", shorten(userId), requestedMuteStatus)
 
-	self.service:SubscribePause(
-		userId,
-		requestedMuteStatus
-	)
+	if GetFFlagVoiceUseAudioRoutingAPI() then
+		-- We need to do this here because when we set the device, it checks self.mutedPlayers in device:GetPropertyChangedSignal("Active")
+		self.mutedPlayers[userId] = requestedMuteStatus
+		for device in self.audioDevices do
+			if device.Player and device.Player.UserId == userId then
+				-- TODO: Replace this with something that doesn't depend on VCI
+				local participant = self.participants[tostring(userId)]
+				local VCIActiveState = participant and not participant.isMuted
+
+				-- setting device.Active calls SubscribePause
+				device.Active = if not requestedMuteStatus then VCIActiveState else false
+			end
+		end
+		self:UpdateAudioDeviceInputDebugger()
+	else
+		self.service:SubscribePause(userId, requestedMuteStatus)
+	end
 	-- We need to update the state and fire the event locally because toggling local muting doesn't trigger
 	-- a participantStateChange for some reason.
 	for _, player in pairs(self.participants) do
@@ -943,7 +1216,24 @@ end
 function VoiceChatServiceManager:MuteAll(muteState: boolean)
 	self:ensureInitialized("mute all")
 	self._mutedAnyone = true
-	self.service:SubscribePauseAll(muteState)
+	if GetFFlagVoiceUseAudioRoutingAPI() then
+		self.muteAll = muteState
+		log:debug("Setting self mute all to {}", muteState)
+		-- When we flip .Active, it bulk edits all subscriptions. So no need for SubscribePauseAll here
+		for audioDevice in self.audioDevices do
+			if audioDevice.Player and audioDevice.Player ~= PlayersService.LocalPlayer then
+				log:debug("Local muting {} to '{} = {}'", audioDevice.Player.Name, audioDevice.Active, muteState)
+				-- TODO: Replace this with something that doesn't depend on VCI
+				local userId = audioDevice.Player.UserId
+				self.mutedPlayers[userId] = muteState
+				local participant = self.participants[tostring(userId)]
+				local VCIActiveState = participant and not participant.isMuted
+				audioDevice.Active = if not muteState then VCIActiveState else false
+			end
+		end
+	else
+		self.service:SubscribePauseAll(muteState)
+	end
 	-- We need to update the state and fire the event locally because toggling local muting doesn't trigger
 	-- a participantStateChange for some reason.
 	for _, player in pairs(self.participants) do
@@ -955,6 +1245,27 @@ function VoiceChatServiceManager:MuteAll(muteState: boolean)
 	end
 end
 
+function VoiceChatServiceManager:ToggleMuteSome(userIds: { number }, muteState: boolean)
+	self:ensureInitialized("mute some players")
+	self._mutedAnyone = true
+	for _, userId in userIds do
+		self.service:SubscribePause(userId, muteState)
+
+		local participant = self.participants[tostring(userId)]
+		if participant then
+			-- We need to update the state and fire the event locally because toggling local muting doesn't trigger
+			-- a participantStateChange for some reason.
+			participant.isMutedLocally = muteState
+			self.participantsUpdate:Fire(self.participants)
+		end
+	end
+end
+
+function VoiceChatServiceManager:FireMuteNonFriendsEvent()
+	if FFlagMuteNonFriendsEvent then
+		self.mutedNonFriends:Fire()
+	end
+end
 
 function VoiceChatServiceManager:ParticipantStateToIcon(participantState, level)
 	local voiceState = VOICE_STATE.INACTIVE
@@ -986,19 +1297,19 @@ function VoiceChatServiceManager:GetVoiceStateFromEnum(voiceStateEnum)
 	-- This is also needed because VoiceChatState Enum is not available on devices where Voice Chat isn't supported.
 	if not LOCAL_STATE_MAP[voiceStateEnum] then
 		LOCAL_STATE_MAP = {
-			[(Enum::any).VoiceChatState.Idle] = VOICE_STATE.HIDDEN,
-			[(Enum::any).VoiceChatState.Joining] = VOICE_STATE.CONNECTING,
-			[(Enum::any).VoiceChatState.JoiningRetry] = VOICE_STATE.CONNECTING,
-			[(Enum::any).VoiceChatState.Joined] = VOICE_STATE.MUTED,
-			[(Enum::any).VoiceChatState.Leaving] = VOICE_STATE.MUTED,
-			[(Enum::any).VoiceChatState.Ended] = VOICE_STATE.HIDDEN,
-			[(Enum::any).VoiceChatState.Failed] = VOICE_STATE.ERROR,
+			[(Enum :: any).VoiceChatState.Idle] = VOICE_STATE.HIDDEN,
+			[(Enum :: any).VoiceChatState.Joining] = VOICE_STATE.CONNECTING,
+			[(Enum :: any).VoiceChatState.JoiningRetry] = VOICE_STATE.CONNECTING,
+			[(Enum :: any).VoiceChatState.Joined] = VOICE_STATE.MUTED,
+			[(Enum :: any).VoiceChatState.Leaving] = VOICE_STATE.MUTED,
+			[(Enum :: any).VoiceChatState.Ended] = VOICE_STATE.HIDDEN,
+			[(Enum :: any).VoiceChatState.Failed] = VOICE_STATE.ERROR,
 		}
 	end
 	return LOCAL_STATE_MAP[voiceStateEnum]
 end
 
-export type RecentInteractionData = {[string]: {lastHeardTime: number}}
+export type RecentInteractionData = { [string]: { lastHeardTime: number } }
 function VoiceChatServiceManager:getRecentUsersInteractionData(): RecentInteractionData
 	self:_updateRecentUsersInteractionData()
 	return self.recentUsersInteractionData
@@ -1009,7 +1320,7 @@ function VoiceChatServiceManager:_setRecentUserState(userId, newState)
 	local participantInteractionData = Cryo.Dictionary.join(oldState, newState)
 
 	self.recentUsersInteractionData = Cryo.Dictionary.join(self.recentUsersInteractionData, {
-		[tostring(userId)] = participantInteractionData
+		[tostring(userId)] = participantInteractionData,
 	})
 end
 
@@ -1020,8 +1331,10 @@ function VoiceChatServiceManager:_updateRecentUsersInteractionData()
 	if self.recentUsersInteractionData then
 		for userId, interactionData in pairs(self.recentUsersInteractionData) do
 			local participant = self.participants[userId]
-			local clearOnLeave = GetFFlagClearUserFromRecentVoiceDataOnLeave() and not PlayersService:GetPlayerByUserId(tonumber(userId))
-			local clearOnInactive = (currentTime-interactionData.lastHeardTime) >= GetFIntVoiceUsersInteractionExpiryTimeSeconds()
+			local clearOnLeave = GetFFlagClearUserFromRecentVoiceDataOnLeave()
+				and not PlayersService:GetPlayerByUserId(tonumber(userId))
+			local clearOnInactive = (currentTime - interactionData.lastHeardTime)
+				>= GetFIntVoiceUsersInteractionExpiryTimeSeconds()
 			local isCurrentlyMuted = if not participant then true else participant.isMuted
 
 			if (clearOnInactive and isCurrentlyMuted) or clearOnLeave then
@@ -1040,67 +1353,66 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		self.recentUsersInteractionData = {}
 
 		-- TODO: Init the participants list with the "Initial" state when API is ready
-		self.participantConnection = self.service.ParticipantsStateChanged:Connect(function(participantLeft, participantJoined, updatedStates)
-			log:trace("Participants state changed")
+		self.participantConnection = self.service.ParticipantsStateChanged:Connect(
+			function(participantLeft, participantJoined, updatedStates)
+				log:trace("Participants state changed")
 
-			for _, userId in ipairs(participantLeft) do
-				if not GetFFlagClearUserFromRecentVoiceDataOnLeave() then
-					local participant = self.participants[tostring(userId)]
+				for _, userId in ipairs(participantLeft) do
+					if not GetFFlagClearUserFromRecentVoiceDataOnLeave() then
+						local participant = self.participants[tostring(userId)]
 
-					if not participant.isMuted then
-						self:_setRecentUserState(userId, {
-							lastHeardTime = os.time(),
-						})
+						if not participant.isMuted then
+							self:_setRecentUserState(userId, {
+								lastHeardTime = os.time(),
+							})
+						end
+					end
+
+					self.participants[tostring(userId)] = nil
+					self.participantLeft:Fire(self.participants, GetFFlagPlayerListAnimateMic() and userId or nil)
+					if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantRemoved then
+						ExperienceChat.Events.VoiceParticipantRemoved(tostring(userId))
 					end
 				end
-
-				self.participants[tostring(userId)] = nil
-				self.participantLeft:Fire(self.participants, GetFFlagPlayerListAnimateMic() and userId or nil)
-				if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantRemoved then
-					ExperienceChat.Events.VoiceParticipantRemoved(tostring(userId))
+				for _, userId in ipairs(participantJoined) do
+					self.participantJoined:Fire(self.participants, userId)
+					if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantAdded then
+						ExperienceChat.Events.VoiceParticipantAdded(tostring(userId))
+					end
 				end
-			end
-			for _, userId in ipairs(participantJoined) do
-				self.participantJoined:Fire(self.participants, userId)
-				if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantAdded then
-					ExperienceChat.Events.VoiceParticipantAdded(tostring(userId))
-				end
-			end
-			for _, state in pairs(updatedStates) do
-				local userId = state["userId"]
-				local lastState = self.participants[userId]
+				for _, state in pairs(updatedStates) do
+					local userId = state["userId"]
+					local lastState = self.participants[userId]
 
-				if not state.isMuted or (lastState and not lastState.isMuted) then
-					self:_setRecentUserState(userId, {
-						lastHeardTime = os.time(),
-						player = PlayersService:GetPlayerByUserId(userId),
-					})
-				end
+					if not state.isMuted or (lastState and not lastState.isMuted) then
+						self:_setRecentUserState(userId, {
+							lastHeardTime = os.time(),
+							player = PlayersService:GetPlayerByUserId(userId),
+						})
+					end
 
-				if
-					FFlagEasierUnmutingPassMuteStatus
-					and ExperienceChat.Events.VoiceParticipantToggleMuted
-					and (
-						not lastState
-						or (lastState.isMuted ~= state.isMuted)
-					)
-				then
-					ExperienceChat.Events.VoiceParticipantToggleMuted(tostring(userId), state.isMuted)
+					if
+						FFlagEasierUnmutingPassMuteStatus
+						and ExperienceChat.Events.VoiceParticipantToggleMuted
+						and (not lastState or (lastState.isMuted ~= state.isMuted))
+					then
+						ExperienceChat.Events.VoiceParticipantToggleMuted(tostring(userId), state.isMuted)
+					end
+
+					self.participants[tostring(userId)] = state
 				end
 
-				self.participants[tostring(userId)] = state
-			end
+				self:_updateRecentUsersInteractionData()
 
-			self:_updateRecentUsersInteractionData()
-
-			if #updatedStates > 0 then
-				self.participantsUpdate:Fire(self.participants)
+				if #updatedStates > 0 then
+					self.participantsUpdate:Fire(self.participants)
+				end
 			end
-		end)
+		)
 
 		self.stateConnection = self.service.StateChanged:Connect(function(oldState, newState)
-			local inFailedState = newState == (Enum::any).VoiceChatState.Failed
-			local inConnectingState = newState == (Enum::any).VoiceChatState.Joining
+			local inFailedState = newState == (Enum :: any).VoiceChatState.Failed
+			local inConnectingState = newState == (Enum :: any).VoiceChatState.Joining
 			local newMuted = self.service:IsPublishPaused()
 			if GetFFlagEnableErrorIconFix() then
 				if newMuted ~= self.localMuted and not inFailedState and not inConnectingState then
@@ -1116,22 +1428,23 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				end
 			end
 
-			if newState == (Enum::any).VoiceChatState.Leaving then
+			if newState == (Enum :: any).VoiceChatState.Leaving then
 				self.previousGroupId = self.service:GetGroupId()
 				self.previousMutedState = self.service:IsPublishPaused()
 			end
-			if newState == (Enum::any).VoiceChatState.Ended or inFailedState then
+			if newState == (Enum :: any).VoiceChatState.Ended or inFailedState then
 				self.participants = {}
 				self.localMuted = nil
 				self.participantsUpdate:Fire(self.participants)
 				if inFailedState then
 					log:debug("State Changed to Failed. Reason: {}", self.service:GetAndClearCallFailureMessage())
 				end
-				if oldState == (Enum::any).VoiceChatState.Joining
-					or oldState == (Enum::any).VoiceChatState.JoiningRetry
-					or oldState == (Enum::any).VoiceChatState.Joined
+				if
+					oldState == (Enum :: any).VoiceChatState.Joining
+					or oldState == (Enum :: any).VoiceChatState.JoiningRetry
+					or oldState == (Enum :: any).VoiceChatState.Joined
 				then
-					if newState == (Enum::any).VoiceChatState.Ended then
+					if newState == (Enum :: any).VoiceChatState.Ended then
 						log:debug("State Changed to Ended from {}", oldState)
 					end
 					self:showPrompt(VoiceChatPromptType.Retry)
@@ -1153,7 +1466,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				end
 			end)
 		end
-		
+
 		if GetFFlagLuaConsumePlayerModerated() then
 			local playerModeratedEvent = self:GetSignalREvent("ParticipantModeratedFromVoice")
 			self.playerModeratedConnection = playerModeratedEvent:Connect(function()
@@ -1170,7 +1483,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 			end)
 		end
 		if GetFFlagEnableVoiceNudge() then
-			log:trace('Setting up voice nudge handlers')
+			log:trace("Setting up voice nudge handlers")
 			local voiceToxicityModalConnection = self:GetSignalREvent("VoiceToxicityModal")
 			self.voiceToxicityModalConnection = voiceToxicityModalConnection:Connect(function(detail)
 				if GetFFlagEnableNudgeAnalytics() then
@@ -1213,6 +1526,10 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					end
 				end
 			end)
+		end
+
+		if GetFFlagVoiceUseAudioRoutingAPI() then
+			self:hookupAudioDeviceInputListener()
 		end
 	end
 end
@@ -1257,12 +1574,31 @@ function VoiceChatServiceManager:ToggleMic()
 		-- Not connected, so don't try and toggle anything.
 		return
 	end
-	local newMuted = not self.service:IsPublishPaused()
-	log:trace("Setting self mute to {}", newMuted)
 
-	self.service:PublishPause(newMuted)
-	self.localMuted = newMuted
-	self.muteChanged:Fire(newMuted)
+	if GetFFlagVoiceUseAudioRoutingAPI() then
+		self.localMuted = not self.localMuted
+		local active = not self.localMuted -- .Active is the opposite of localMuted
+		log:trace("Setting self mute to {}", active)
+		local SendMuteEvent = RobloxReplicatedStorage:WaitForChild("SetUserActive", 10) :: RemoteEvent | nil
+		if SendMuteEvent then
+			SendMuteEvent:FireServer(active)
+			for audioDevice in self.audioDevices do
+				if audioDevice.Player and audioDevice.Player == PlayersService.LocalPlayer then
+					audioDevice.Active = active
+				end
+			end
+			self.muteChanged:Fire(self.localMuted)
+		else
+			log:error("Could not find SendMuteEvent")
+		end
+	else
+		local newMuted = not self.service:IsPublishPaused()
+		log:trace("Setting self mute to {}", newMuted)
+		self.service:PublishPause(newMuted)
+		self.localMuted = newMuted
+		self.muteChanged:Fire(newMuted)
+	end
+
 	if not self.localMuted then
 		self.talkingChanged:Fire(self.isTalking)
 	end
@@ -1287,7 +1623,7 @@ function VoiceChatServiceManager:RejoinCurrentChannel()
 			local muted = self.service:IsPublishPaused()
 			self.service:Leave()
 			if GetFFlagClearVoiceStateOnRejoin() then
-				log:debug('Rejoining current channel {}', groupId)
+				log:debug("Rejoining current channel {}", groupId)
 				-- Resets the UI on rejoin, as "Leave" doesn't seem to send any events in this case
 				self.participants = {}
 				self.participantsUpdate:Fire(self.participants)
@@ -1317,18 +1653,21 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 end
 
 local function isValidDeviceList(deviceNames, deviceGuids, index)
-	return deviceNames and deviceGuids and index and #deviceNames > 0 and index > 0
-		and index <= #deviceNames and #deviceNames == #deviceGuids
+	return deviceNames
+		and deviceGuids
+		and index
+		and #deviceNames > 0
+		and index > 0
+		and index <= #deviceNames
+		and #deviceNames == #deviceGuids
 end
 
 local function setVCSOutput(soundServiceOutputName, VCService)
-	local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function ()
+	local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
 		return VCService:GetSpeakerDevices()
 	end)
 
-	if VCSSuccess
-		and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex) then
-
+	if VCSSuccess and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex) then
 		-- Find the matching VCS Device
 		local VCSDeviceIndex = 0
 		for deviceIndex, deviceName in ipairs(VCSDeviceNames) do
@@ -1338,12 +1677,12 @@ local function setVCSOutput(soundServiceOutputName, VCService)
 		end
 
 		if VCSDeviceIndex > 0 then
-			log:info("[OutputDeviceSelection] Setting VCS Speaker Device To {} {}",
-				VCSDeviceNames[VCSDeviceIndex], VCSDeviceGuids[VCSDeviceIndex])
-			VCService:SetSpeakerDevice(
+			log:info(
+				"[OutputDeviceSelection] Setting VCS Speaker Device To {} {}",
 				VCSDeviceNames[VCSDeviceIndex],
 				VCSDeviceGuids[VCSDeviceIndex]
 			)
+			VCService:SetSpeakerDevice(VCSDeviceNames[VCSDeviceIndex], VCSDeviceGuids[VCSDeviceIndex])
 		else
 			log:warning("Could not find equivalent VoiceChatService Device")
 		end
@@ -1360,8 +1699,7 @@ function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid
 		else
 			self.service:SetMicDevice(deviceName, deviceGuid)
 			-- TODO: This will be removed when set device API refactoring is done
-			log:info("[OutputDeviceSelection] Setting VCS Mic Device To {} {}",
-				deviceName, deviceGuid)
+			log:info("[OutputDeviceSelection] Setting VCS Mic Device To {} {}", deviceName, deviceGuid)
 			log:info("[OutputDeviceSelection] Rejoining Voice Chat")
 			self:RejoinCurrentChannel()
 		end
@@ -1391,11 +1729,13 @@ function VoiceChatServiceManager:GetDevices(deviceType)
 
 	-- The following is to add an additional check to ensure that VCS:GetSpeakerDevices() and SoundService:GetOutputDevices() are returning the same results.
 	-- Otherwise we throw an error.
-	local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function ()
+	local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
 		return self.service:GetSpeakerDevices()
 	end)
 
-	local deviceOutputsAreConsistent = soundServiceSuccess and VCSSuccess and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
+	local deviceOutputsAreConsistent = soundServiceSuccess
+		and VCSSuccess
+		and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
 		and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex)
 	log:debug("Device names found: {}", table.concat(deviceNames or {}, ", "))
 
@@ -1425,7 +1765,7 @@ end
 function VoiceChatServiceManager:VoiceChatEnded()
 	if self.service then
 		local state = self.service.VoiceChatState
-		return state == (Enum::any).VoiceChatState.Ended or state == (Enum::any).VoiceChatState.Idle
+		return state == (Enum :: any).VoiceChatState.Ended or state == (Enum :: any).VoiceChatState.Idle
 	end
 	-- If VoiceChatService isn't initiated, we still count the call as ended even though it technically never began.
 	return true
@@ -1438,8 +1778,11 @@ function VoiceChatServiceManager:UnmountPrompt()
 end
 
 VoiceChatServiceManager.default = VoiceChatServiceManager.new(
-	nil, HttpRbxApiService, PermissionsProtocol.default,
-	GetFFlagDeferredBlockStatusChange() and BlockingUtility:GetAfterBlockedStatusChangedEvent() or BlockingUtility:GetBlockedStatusChangedEvent()
+	nil,
+	HttpRbxApiService,
+	PermissionsProtocol.default,
+	GetFFlagDeferredBlockStatusChange() and BlockingUtility:GetAfterBlockedStatusChangedEvent()
+		or BlockingUtility:GetBlockedStatusChangedEvent()
 )
 
 export type VoiceChatServiceManager = typeof(VoiceChatServiceManager.default)

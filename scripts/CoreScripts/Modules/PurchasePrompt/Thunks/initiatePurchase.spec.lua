@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local RequestType = require(Root.Enums.RequestType)
 	local PromptState = require(Root.Enums.PromptState)
 	local PurchaseError = require(Root.Enums.PurchaseError)
@@ -32,7 +35,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.promptRequest.id).to.equal(15)
+		expect(state.promptRequest.id).toBe(15)
 	end)
 
 	it("should abort when a purchase is already in progress", function()
@@ -55,8 +58,12 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(state.promptRequest.id).to.equal(12)
-		expect(state.promptState).to.equal(PromptState.PromptPurchase)
+		expect(state).toMatchObject({
+			promptRequest = {
+				id = 12,
+			},
+			promptState = PromptState.PromptPurchase,
+		})
 	end)
 
 	it("should resolve to an error state if a network failure occurs", function()
@@ -71,7 +78,7 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(state.promptState).toBe(PromptState.Error)
 	end)
 
 	it("should resolve to an error state if purchasing is disabled", function()
@@ -88,7 +95,9 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.Error)
-		expect(state.purchaseError).to.equal(PurchaseError.PurchaseDisabled)
+		expect(state).toMatchObject({
+			promptState = PromptState.Error,
+			purchaseError = PurchaseError.PurchaseDisabled,
+		})
 	end)
 end

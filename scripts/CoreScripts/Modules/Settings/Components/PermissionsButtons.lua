@@ -37,6 +37,7 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagACPermissionButtonFix = game:DefineFastFlag("ACPermissionButtonFix", false)
+local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 
 local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -386,6 +387,14 @@ function PermissionsButtons:render()
 			Roact.createElement(ExternalEventConnection, {
 				event = VoiceChatServiceManager:getService().StateChanged,
 				callback = self.onVoiceStateChange,
+			})
+		else nil,
+		MuteNonFriendsEvent = if FFlagMuteNonFriendsEvent then
+			Roact.createElement(ExternalEventConnection, {
+				event = VoiceChatServiceManager.mutedNonFriends.Event,
+				callback = function()
+					self.toggleMuteAllIcon(false)
+				end,
 			})
 		else nil,
 	})

@@ -159,13 +159,12 @@ end
 		Remove and use item details endpoint for getting attribution data
 		instead of using the asset-versions endpoint.
 --]]
-function AssetInfo.fromGetVersionInfo(assetId, versionData)
+function AssetInfo.fromGetVersionInfo(assetId, latestVersionData)
 	local newAsset = AssetInfo.new()
-	local latestVersion = versionData.data[1]
 
 	newAsset.assetId = tostring(assetId)
-	newAsset.creatingUniverseId = if latestVersion.creatingUniverseId
-		then tostring(latestVersion.creatingUniverseId)
+	newAsset.creatingUniverseId = if latestVersionData.creatingUniverseId
+		then tostring(latestVersionData.creatingUniverseId)
 		else nil
 
 	return newAsset

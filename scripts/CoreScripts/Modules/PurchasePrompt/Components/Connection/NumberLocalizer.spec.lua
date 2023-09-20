@@ -1,8 +1,11 @@
 --!nonstrict
 return function()
-	
+
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local Root = script.Parent.Parent.Parent
 
@@ -41,11 +44,10 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		expect(testString).to.equal("123,456,789")
-
-		expect(textLabelRef.current).to.be.ok()
-		expect(textLabelRef.current:IsA("Instance")).to.be.ok()
-		expect(textLabelRef.current.Text).to.equal(testString)
+		expect(testString).toBe("123,456,789")
+		expect(textLabelRef.current).toMatchInstance({
+			Text = testString,
+		})
 
 		Roact.unmount(instance)
 	end)

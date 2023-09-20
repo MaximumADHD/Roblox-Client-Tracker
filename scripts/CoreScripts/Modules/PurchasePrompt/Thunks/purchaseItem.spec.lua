@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local RequestType = require(Root.Enums.RequestType)
 	local PurchaseError = require(Root.Enums.PurchaseError)
 	local PromptState = require(Root.Enums.PromptState)
@@ -51,9 +54,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalProductPurchaseConfirmed.callCount).to.equal(1)
-		expect(analytics.spies.signalPurchaseSuccess.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.PurchaseInProgress)
+		expect(analytics.spies.signalProductPurchaseConfirmed).toHaveBeenCalledTimes(1)
+		expect(analytics.spies.signalPurchaseSuccess).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.PurchaseInProgress)
 	end)
 
 	it("should resolve to an error state if a network error occurs", function()
@@ -70,8 +73,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalPurchaseSuccess.callCount).to.equal(0)
-		expect(state.promptState).to.equal(PromptState.Error)
+		expect(analytics.spies.signalPurchaseSuccess).never.toHaveBeenCalled()
+		expect(state.promptState).toBe(PromptState.Error)
 	end)
 
 	local function checkDesktop2SV(platform)
@@ -91,9 +94,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalTwoSVSettingsErrorShown.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.Error)
-		expect(state.purchaseError).to.equal(PurchaseError.TwoFactorNeededSettings)
+		expect(analytics.spies.signalTwoSVSettingsErrorShown).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.Error)
+		expect(state.purchaseError).toBe(PurchaseError.TwoFactorNeededSettings)
 	end
 
 	it("should handle reason TwoStepVerificationRequired and return correct PurchaseError on Windows", function()
@@ -121,9 +124,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(analytics.spies.signalTwoSVSettingsErrorShown.callCount).to.equal(1)
-		expect(state.promptState).to.equal(PromptState.Error)
-		expect(state.purchaseError).to.equal(PurchaseError.TwoFactorNeeded)
+		expect(analytics.spies.signalTwoSVSettingsErrorShown).toHaveBeenCalledTimes(1)
+		expect(state.promptState).toBe(PromptState.Error)
+		expect(state.purchaseError).toBe(PurchaseError.TwoFactorNeeded)
 	end
 
 	it("should handle reason TwoStepVerificationRequired and return correct PurchaseError on IOS", function()

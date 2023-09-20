@@ -18,7 +18,6 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 local BaseMenu = UIBlox.App.Menu.BaseMenu
 
-local ELEMENT_BACKGROUND_COLOR = Color3.fromRGB(79, 84, 95)
 local ELEMENT_HEIGHT = 40
 local ARROW_SIZE = 16
 local ARROW_OFFSET = ARROW_SIZE / 2
@@ -49,6 +48,7 @@ local function DropdownMenu(props: Props)
 	local style = useStyle()
 	local fontStyle = style.Font.CaptionHeader
 	local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
+	local backgroundColor = if style.UIBloxThemeEnabled then style.color("ControlInputBackground") else Color3.fromRGB(79, 84, 95)
 
 	local showDropdown, setShowDropdown = React.useState(false)
 	local buttonProps, setButtonProps = React.useState({})
@@ -91,7 +91,7 @@ local function DropdownMenu(props: Props)
 			TextSize = fontSize,
 			Font = fontStyle.Font,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			BackgroundColor3 = ELEMENT_BACKGROUND_COLOR,
+			BackgroundColor3 = backgroundColor,
 			BackgroundTransparency = 0,
 			LayoutOrder = props.layoutOrder,
 			[Roact.Event.Activated] = onMainButtonPressed,
@@ -121,7 +121,7 @@ local function DropdownMenu(props: Props)
 			layoutOrder = 2,
 			elementHeight = ELEMENT_HEIGHT,
 			background = { 
-				Color = ELEMENT_BACKGROUND_COLOR,
+				Color = backgroundColor,
 			},
 			showDropShadow = true,
 		}),

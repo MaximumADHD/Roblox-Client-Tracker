@@ -1,5 +1,9 @@
 return function()
 	local getPlayerProductInfoPrice = require(script.Parent.getPlayerProductInfoPrice)
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	it("should return correct sale price when not premium", function()
 		local productInfo = {
@@ -9,7 +13,7 @@ return function()
 
 		local price = getPlayerProductInfoPrice(productInfo, false)
 
-		expect(price).to.equal(5)
+		expect(price).toBe(5)
 	end)
 
 	it("should return correct sale price when premium", function()
@@ -20,6 +24,6 @@ return function()
 
 		local price = getPlayerProductInfoPrice(productInfo, true)
 
-		expect(price).to.equal(10)
+		expect(price).toBe(10)
 	end)
 end

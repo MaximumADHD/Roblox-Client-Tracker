@@ -16,13 +16,18 @@ return function()
 	local makeMockUser = VCSS.makeMockUser
 
 	beforeAll(function(c)
-		c.fflagClearUserFromRecentVoiceDataOnLeave = game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", false)
-		c.fintVoiceUsersInteractionExpiryTimeSeconds = game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", 600)
+		c.fflagClearUserFromRecentVoiceDataOnLeave =
+			game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", false)
+		c.fintVoiceUsersInteractionExpiryTimeSeconds =
+			game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", 600)
 	end)
 
 	afterAll(function(c)
 		game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", c.fflagClearUserFromRecentVoiceDataOnLeave)
-		game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", c.fintVoiceUsersInteractionExpiryTimeSeconds)
+		game:SetFastIntForTesting(
+			"VoiceUsersInteractionExpiryTimeSeconds",
+			c.fintVoiceUsersInteractionExpiryTimeSeconds
+		)
 	end)
 
 	beforeEach(function(c)
@@ -45,15 +50,15 @@ return function()
 				Character = {
 					PrimaryPart = {
 						Position = position,
-					}
-				}
+					},
+				},
 			}
 
 			mockPlayersService.players[userId] = mockPlayer
 
 			local mockUser = makeMockUser(tostring(userId))
 			mockUser.isMuted = true
-			VoiceChatServiceStub:addUsers({mockUser})
+			VoiceChatServiceStub:addUsers({ mockUser })
 
 			return mockPlayer
 		end
@@ -72,7 +77,8 @@ return function()
 			c.mockPlayersService:addMockPlayerAndCharacter("003", Vector3.new(0, 0, 10))
 			waitForEvents()
 
-			local usersSortedByProximity = getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0,0,0))
+			local usersSortedByProximity =
+				getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0, 0, 0))
 
 			jestExpect(usersSortedByProximity[1]).toBe(c.mockPlayersService.players["001"])
 			jestExpect(usersSortedByProximity[2]).toBe(c.mockPlayersService.players["002"])
@@ -85,7 +91,8 @@ return function()
 			c.mockPlayersService:addMockPlayerAndCharacter("003", Vector3.new(0, 0, 10))
 			waitForEvents()
 
-			local usersSortedByProximity = getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0,0,0), 5)
+			local usersSortedByProximity =
+				getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0, 0, 0), 5)
 
 			jestExpect(#usersSortedByProximity).toBe(2)
 		end)
@@ -105,7 +112,13 @@ return function()
 			})
 			waitForEvents()
 
-			local usersSortedByProximity = getVoiceUsersByProximity(c.mockPlayersService, c.VoiceChatServiceManager, Vector3.new(0,0,0), nil, true)
+			local usersSortedByProximity = getVoiceUsersByProximity(
+				c.mockPlayersService,
+				c.VoiceChatServiceManager,
+				Vector3.new(0, 0, 0),
+				nil,
+				true
+			)
 
 			jestExpect(#usersSortedByProximity).toBe(1)
 		end)
@@ -121,7 +134,11 @@ return function()
 			local usersSortedByProximity = getVoiceUsersByProximity(
 				c.mockPlayersService,
 				c.VoiceChatServiceManager,
-				Vector3.new(0,0,0), nil, nil, c.mockPlayersService.players["003"])
+				Vector3.new(0, 0, 0),
+				nil,
+				nil,
+				c.mockPlayersService.players["003"]
+			)
 
 			jestExpect(#usersSortedByProximity).toBe(2)
 		end)

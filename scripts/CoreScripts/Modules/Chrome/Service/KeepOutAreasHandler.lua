@@ -1,9 +1,12 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local RunService = game:GetService("RunService")
 local React = require(CorePackages.Packages.React)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 local dependencyArray = RoactUtils.Hooks.dependencyArray
+
+local GetFFlagFixKeepOutAreasCompatibility = require(script.Parent.Parent.Flags.GetFFlagFixKeepOutAreasCompatibility)
 
 type KeepOutArea = {
 	id: string,
@@ -132,7 +135,12 @@ function KeepOutAreasHandler(props)
 	end)
 
 	React.useEffect(function()
-		fireKeepOutAreasChanged(screenSize, keepOutAreas)
+		if
+			GetFFlagFixKeepOutAreasCompatibility()
+			or (game:GetEngineFeature("InGameChromeSignalAPI") and RunService:IsStudio())
+		then
+			fireKeepOutAreasChanged(screenSize, keepOutAreas)
+		end
 	end, dependencyArray(screenSize, keepOutAreas))
 end
 

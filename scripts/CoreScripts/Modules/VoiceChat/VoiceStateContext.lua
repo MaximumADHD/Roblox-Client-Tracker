@@ -30,7 +30,7 @@
 			end)
 --]]
 
-local DEFAULT_STATE = game:GetEngineFeature("VoiceChatSupported") and (Enum::any).VoiceChatState.Ended or nil
+local DEFAULT_STATE = game:GetEngineFeature("VoiceChatSupported") and (Enum :: any).VoiceChatState.Ended or nil
 
 -- Shape of context value
 local DEFAULT_VALUE = {
@@ -51,7 +51,7 @@ local VoiceStateProvider = function(props)
 
 	local function updateVoiceState(_, voiceState)
 		if voiceState ~= contextValue.voiceState then
-			local voiceEnabled = voiceState ~= (Enum::any).VoiceChatState.Ended
+			local voiceEnabled = voiceState ~= (Enum :: any).VoiceChatState.Ended
 			setContextValue({
 				voiceEnabled = voiceEnabled,
 				voiceState = voiceState,
@@ -63,18 +63,20 @@ local VoiceStateProvider = function(props)
 		local active = true
 		local conn = nil
 		if game:GetEngineFeature("VoiceChatSupported") then
-			VoiceChatServiceManager:asyncInit():andThen(function()
-				if active then
-					VoiceChatServiceManager:SetupParticipantListeners()
-					local voiceService = VoiceChatServiceManager:getService()
-					if voiceService then
-						updateVoiceState(nil, voiceService.VoiceChatState)
-						conn = voiceService.StateChanged:Connect(updateVoiceState)
+			VoiceChatServiceManager:asyncInit()
+				:andThen(function()
+					if active then
+						VoiceChatServiceManager:SetupParticipantListeners()
+						local voiceService = VoiceChatServiceManager:getService()
+						if voiceService then
+							updateVoiceState(nil, voiceService.VoiceChatState)
+							conn = voiceService.StateChanged:Connect(updateVoiceState)
+						end
 					end
-				end
-			end):catch(function()
-				updateVoiceState(nil ,DEFAULT_STATE)
-			end)
+				end)
+				:catch(function()
+					updateVoiceState(nil, DEFAULT_STATE)
+				end)
 		end
 
 		return function()
@@ -97,7 +99,7 @@ return {
 	Context = VoiceStateContext,
 	withVoiceState = function(render)
 		return React.createElement(VoiceStateContext.Consumer, {
-			render = render
+			render = render,
 		})
 	end,
 }

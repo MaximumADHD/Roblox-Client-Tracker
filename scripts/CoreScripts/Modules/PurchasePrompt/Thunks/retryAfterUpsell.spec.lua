@@ -5,6 +5,9 @@ return function()
 	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PromptState = require(Root.Enums.PromptState)
 	local RequestType = require(Root.Enums.RequestType)
 	local Reducer = require(Root.Reducers.Reducer)
@@ -54,8 +57,8 @@ return function()
 		end)
 
 		-- Account info should be re-populated
-		expect(state.accountInfo.balance).to.be.equal(balanceInfo.robux)
-		expect(state.accountInfo.membershipType).to.be.equal(accountInfo.MembershipType)
+		expect(state.accountInfo.balance).toBe(balanceInfo.robux)
+		expect(state.accountInfo.membershipType).toBe(accountInfo.MembershipType)
 	end)
 
 	-- TODO[esauer]: fix test with refactoring on retryAfterUpsell
@@ -94,8 +97,8 @@ return function()
 	-- 	})
 
 	-- 	local state = store:getState()
-	-- 	expect(state.promptState).to.equal(PromptState.Error)
-	-- 	expect(analytics.spies.signalFailedPurchasePostUpsell.callCount).to.equal(1)
+	-- 	expect(state.promptState).toBe(PromptState.Error)
+	-- 	expect(analytics.spies.signalFailedPurchasePostUpsell).toHaveBeenCalledTimes(1)
 	-- end)
 
 	it("should not run if there is no request", function()
@@ -122,7 +125,7 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
+		expect(state.promptState).toBe(PromptState.UpsellInProgress)
 	end)
 
 	it("should not run if there is no upsell", function()
@@ -149,6 +152,6 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(state.promptState).to.equal(PromptState.None)
+		expect(state.promptState).toBe(PromptState.None)
 	end)
 end
