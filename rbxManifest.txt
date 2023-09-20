@@ -1805,7 +1805,7 @@ ReflectionMetadata.xml
 RobloxStudio_license.html
 b55ce30b7e2c6aeb8d464112b8735c0a
 RobloxStudioBeta.exe
-e7649fbb35ab6d807a0ac0bb8d45913f
+a0b1d6ee292bdcf9b192cfc4efcfec40
 RobloxStudioRibbon.xml
 980e4ff7321f787c2e2c266e4aacc329
 d3dcompiler_47.dll
