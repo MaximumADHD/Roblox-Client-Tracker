@@ -1,7 +1,10 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
-    local Cryo = require(CorePackages.Cryo)
+	local Cryo = require(CorePackages.Cryo)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local InspectAndBuyFolder = script.Parent.Parent
 	local TestContainer = require(InspectAndBuyFolder.Test.TestContainer)
@@ -37,8 +40,8 @@ return function()
 
         local instance = Roact.mount(element)
 
-        expect(capturedView1).to.equal(CompactView)
-        expect(capturedView2).to.equal(WideView)
+		expect(capturedView1).toBe(CompactView)
+		expect(capturedView2).toBe(WideView)
 
         Roact.unmount(instance)
     end)
@@ -75,8 +78,8 @@ return function()
 
         local instance = Roact.mount(element)
 
-        expect(capturedView1).to.equal(CompactView)
-        expect(capturedView2).to.equal(WideView)
+		expect(capturedView1).toBe(CompactView)
+		expect(capturedView2).toBe(WideView)
 
         Roact.unmount(instance)
     end)

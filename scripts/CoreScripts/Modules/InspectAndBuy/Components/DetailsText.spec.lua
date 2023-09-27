@@ -3,6 +3,9 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local SocialTestHelpers = require(CorePackages.Workspace.Packages.SocialTestHelpers)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 
 local InspectAndBuyFolder = script.Parent.Parent
@@ -64,7 +67,7 @@ return function()
 
 				SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
 					local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
-					expect(verifiedBadge.Text).to.equal(VerifiedBadges.emoji.verified)
+					expect(verifiedBadge.Text).toBe(VerifiedBadges.emoji.verified)
 				end)
 			end)
 
@@ -84,7 +87,7 @@ return function()
 
 				SocialTestHelpers.TestHelpers.runWhileMounted(element, function(parent)
 					local verifiedBadge = parent:FindFirstChild("Emoji", true) :: TextLabel
-					expect(verifiedBadge).to.never.be.ok()
+					expect(verifiedBadge).toBeNil()
 				end)
 			end)
 		end)

@@ -1,6 +1,6 @@
 --!nonstrict
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
 local InGameMenu = script.Parent.Parent
 
@@ -8,8 +8,7 @@ local SetGameNameAndDescription = require(InGameMenu.Actions.SetGameNameAndDescr
 
 local httpImpl = require(InGameMenu.Network.httpRequest)(HttpRbxApiService)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
 
 local function requestGameNameAndDescription(store)
 	if game.GameId == 0 then

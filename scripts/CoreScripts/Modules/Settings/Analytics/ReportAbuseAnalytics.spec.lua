@@ -1,6 +1,9 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local LuaSocialLibrariesDeps = require(CorePackages.LuaSocialLibrariesDeps)
 local Mock = LuaSocialLibrariesDeps.Mock
 local ReportAbuseAnalytics = require(script.Parent.ReportAbuseAnalytics)
@@ -21,7 +24,7 @@ return function()
 	end)
 
 	it("SHOULD return a valid object", function(c)
-		expect(c.reportAbuseAnalytics).to.be.ok()
+		expect(c.reportAbuseAnalytics).never.toBeNil()
 	end)
 
 	describe("ReportAbuseAnalytics", function(c)

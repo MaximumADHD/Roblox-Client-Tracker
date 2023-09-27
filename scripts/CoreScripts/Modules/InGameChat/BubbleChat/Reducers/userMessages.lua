@@ -19,7 +19,7 @@ local userMessages = Rodux.createReducer({
 		local messages = state[action.message.userId] or {}
 
 		return Cryo.Dictionary.join(state, {
-			[action.message.userId] = Cryo.List.join(messages, { action.message.id })
+			[action.message.userId] = Cryo.List.join(messages, { action.message.id }),
 		})
 	end,
 
@@ -35,7 +35,7 @@ local userMessages = Rodux.createReducer({
 				return Cryo.Dictionary.join(state, {
 					[action.message.userId] = Cryo.List.filter(messages, function(messageId)
 						return messageId ~= action.message.id
-					end)
+					end),
 				})
 			end
 		else
@@ -53,7 +53,7 @@ local userMessages = Rodux.createReducer({
 		else
 			return state
 		end
-	end
+	end,
 })
 
 return userMessages

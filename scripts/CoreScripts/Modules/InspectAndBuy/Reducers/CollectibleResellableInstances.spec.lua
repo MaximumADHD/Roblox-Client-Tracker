@@ -3,6 +3,11 @@ return function()
 	local SetCollectibleResellableInstances = require(InspectAndBuyFolder.Actions.SetCollectibleResellableInstances)
 	local CollectibleResellableInstances = require(script.Parent.CollectibleResellableInstances)
 
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local collectibleItemId = "123"
 	local collectibleItemInstances = {}
 	collectibleItemInstances["222"] = {
@@ -29,9 +34,9 @@ return function()
 				{},
 				SetCollectibleResellableInstances(collectibleItemId, collectibleItemInstances)
 			)
-			expect(newState[collectibleItemId]).to.never.equal(nil)
-			expect(newState["TEST"]).to.never.equal(true)
-			expect(countKeys(newState)).to.equal(1)
+			expect(newState[collectibleItemId]).never.toBeNil()
+			expect(newState["TEST"]).never.toBe(true)
+			expect(countKeys(newState)).toBe(1)
 		end)
 	end)
 end

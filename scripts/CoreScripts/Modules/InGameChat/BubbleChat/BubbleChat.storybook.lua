@@ -21,8 +21,7 @@ return {
 			return Roact.createElement(RoactRodux.StoreProvider, {
 				store = StoryStore,
 			}, {
-				Story = Roact.createElement(story, Cryo.Dictionary.join(
-					storyProps, {chatSettings = ChatSettings}))
+				Story = Roact.createElement(story, Cryo.Dictionary.join(storyProps, { chatSettings = ChatSettings })),
 			})
 		end
 	end,

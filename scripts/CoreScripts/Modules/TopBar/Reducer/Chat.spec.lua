@@ -6,6 +6,11 @@ return function()
 	local SetCanChat = require(Actions.SetCanChat)
 	local Chat = require(script.Parent.Chat)
 
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local function countValues(t)
 		local c = 0
 		for _, _ in pairs(t) do
@@ -16,28 +21,29 @@ return function()
 
 	it("should have the correct default values", function()
 		local defaultState = Chat(nil, {})
-		expect(type(defaultState)).to.equal("table")
-		expect(defaultState.canChat).to.equal(false)
-		expect(defaultState.visible).to.equal(true)
-		expect(defaultState.lastReadMessages).to.equal(0)
-		expect(defaultState.unreadMessages).to.equal(0)
+		expect(defaultState).toMatchObject({
+			canChat = false,
+			visible = true,
+			lastReadMessages = 0,
+			unreadMessages = 0,
+		})
 	end)
 
 	describe("SetCanChat", function()
 		it("should change the value of canChat", function()
 			local oldState = Chat(nil, {})
 			local newState = Chat(oldState, SetCanChat(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.canChat).to.equal(true)
+			expect(oldState).never.toBe(newState)
+			expect(newState.canChat).toBe(true)
 		end)
 
 		it("should not change any other values", function()
 			local oldState = Chat(nil, {})
 			local newState = Chat(oldState, SetCanChat(true))
-			expect(countValues(newState)).to.equal(countValues(oldState))
+			expect(countValues(newState)).toBe(countValues(oldState))
 			for key, value in pairs(newState) do
 				if key ~= "canChat" then
-					expect(value).to.equal(oldState[key])
+					expect(value).toBe(oldState[key])
 				end
 			end
 		end)
@@ -48,9 +54,9 @@ return function()
 			local oldState = Chat(nil, {})
 			oldState = Chat(oldState, UpdateChatVisible(true))
 			local newState = Chat(oldState, UpdateChatMessages(10))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.lastReadMessages).to.equal(10)
-			expect(newState.unreadMessages).to.equal(0)
+			expect(oldState).never.toBe(newState)
+			expect(newState.lastReadMessages).toBe(10)
+			expect(newState.unreadMessages).toBe(0)
 		end)
 
 		it("should change the value of unreadMessages when not visible", function()
@@ -58,9 +64,9 @@ return function()
 			oldState = Chat(oldState, UpdateChatMessages(5))
 			oldState = Chat(oldState, UpdateChatVisible(false))
 			local newState = Chat(oldState, UpdateChatMessages(15))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.lastReadMessages).to.equal(5)
-			expect(newState.unreadMessages).to.equal(10)
+			expect(oldState).never.toBe(newState)
+			expect(newState.lastReadMessages).toBe(5)
+			expect(newState.unreadMessages).toBe(10)
 		end)
 	end)
 
@@ -68,13 +74,13 @@ return function()
 		it("should reset unreadMessages", function()
 			local oldState = Chat(nil, {})
 			oldState = Chat(oldState, UpdateChatVisible(false))
-			expect(oldState.visible).to.equal(false)
+			expect(oldState.visible).toBe(false)
 			oldState = Chat(oldState, UpdateChatMessages(10))
 			local newState = Chat(oldState, UpdateChatVisible(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.visible).to.equal(true)
-			expect(newState.lastReadMessages).to.equal(10)
-			expect(newState.unreadMessages).to.equal(0)
+			expect(oldState).never.toBe(newState)
+			expect(newState.visible).toBe(true)
+			expect(newState.lastReadMessages).toBe(10)
+			expect(newState.unreadMessages).toBe(0)
 		end)
 	end)
 end

@@ -6,8 +6,8 @@ local flags = script.Parent.Parent.Parent.Parent.Flags
 return function()
 	it("should return the original chat settings if there are no user specific settings", function()
 		local chatSettings = {
-			Transparency = .5,
-			TextSize = 10
+			Transparency = 0.5,
+			TextSize = 10,
 		}
 		local message = createMockMessage({})
 
@@ -16,13 +16,13 @@ return function()
 	end)
 
 	local chatSettings = {
-		Transparency = .5,
+		Transparency = 0.5,
 		TextSize = 10,
 		UserSpecificSettings = {
 			["1"] = {
-				TextSize = 15
-			}
-		}
+				TextSize = 15,
+			},
+		},
 	}
 
 	it("should return the original chat settings if there are no user specific settings for this user", function()

@@ -40,7 +40,7 @@ function BubbleChatList.getDerivedStateFromProps(nextProps, lastState)
 			if not Cryo.List.find(nextProps.messageIds, bubble.messageId) then
 				table.insert(bubbles, {
 					messageId = bubble.messageId,
-					fadingOut = true
+					fadingOut = true,
 				})
 			end
 		end
@@ -49,12 +49,12 @@ function BubbleChatList.getDerivedStateFromProps(nextProps, lastState)
 	for _, messageId in ipairs(nextProps.messageIds) do
 		table.insert(bubbles, {
 			messageId = messageId,
-			fadingOut = false
+			fadingOut = false,
 		})
 	end
 
 	return {
-		bubbles = bubbles
+		bubbles = bubbles,
 	}
 end
 
@@ -75,7 +75,7 @@ function BubbleChatList:init(props)
 			-- Doing this when #bubbles == 0 causes Roact to panic, probably because the bubbles are being unmounted twice
 			-- (once due to setState below and once due to this list component being unmounted), hence the above check
 			self:setState({
-				bubbles = bubbles
+				bubbles = bubbles,
 			})
 		end
 	end
@@ -97,15 +97,15 @@ function BubbleChatList:render()
 	children.CaretPadding = chatSettings.TailVisible
 		and (not FFlagBubbleChatCaratFix or self.props.showCarat)
 		and Roact.createElement("UIPadding", {
-		PaddingBottom = UDim.new(0, 8),
-	})
+			PaddingBottom = UDim.new(0, 8),
+		})
 
 	for index, bubble in ipairs(self.state.bubbles) do
 		local isMostRecent = index == #self.state.bubbles
 
 		local renderInsert = isMostRecent and self.props.renderFirstInsert or nil
 		local insertSize = self.props.insertSize
-	
+
 		children["Bubble" .. bubble.messageId] = Roact.createElement(ChatBubble, {
 			messageId = bubble.messageId,
 			isMostRecent = isMostRecent,

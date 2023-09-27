@@ -1,10 +1,16 @@
 --!strict
 local CollectionService = game:GetService("CollectionService")
 
+local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
+local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent", false)
+local FFlagSelfViewMakeClonePartsNonTransparent2 = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent2", false)
 local FFlagSanitizeSelfViewStrict = game:DefineFastFlag("SanitizeSelfViewStrict", false)
 
 -- Finds the FaceControls instance attached to the rig
 local function getFaceControls(rig: Model): FaceControls?
+	if rig == nil then
+		return
+	end
 	return rig:FindFirstChildWhichIsA("FaceControls", true) :: FaceControls?
 end
 
@@ -50,6 +56,14 @@ local function getHead(character: Model): MeshPart?
 	--fallback lookup attempts in case non dynamic head avatar
 	if not head then
 		head = findObjectOfNameAndTypeName("Head", "MeshPart", character)
+	end
+
+	if not head then
+		-- Having the fallback of just returning any object type which is called "Head" was
+		-- too loose as it could be some object type which doesn't have features we
+		-- need later on and cause errors then so we only fall back to looking
+		-- for a Head Part if Head MeshPart was not found.
+		head = findObjectOfNameAndTypeName("Head", "Part", character)
 	end
 
 	return head
@@ -107,17 +121,51 @@ local r6bodyPartsToShow = {
 	"Right Leg",
 	"Torso",
 }
-local function updateTransparency(character: Model)
-	for _, part in ipairs(character:GetDescendants()) do
-		if part:IsA("Decal") then
-			part.Transparency = 0
-		elseif part:IsA("MeshPart") then
-			if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
+local function updateTransparency(character: Model, partsOrgTransparency)
+	if FFlagSelfViewChecks2 then
+		--it could happen that the head was made transparent during gameplay, which is in some experiences done when entering a car for example
+		--we still want to show the self view avatar's head in that case (also because sometimes exiting vehicles would not cause a refresh of the self view and the head would stay transparent then)
+		--but we also want to respect it if the head was transparent to begin with on first usage like for a headless head look
+		for _, part in ipairs(character:GetDescendants()) do
+			if part:IsA("Decal") then
 				part.Transparency = 0
+			elseif part:IsA("MeshPart") then
+				if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
+					if not table.find(partsOrgTransparency, part.MeshId) then
+						partsOrgTransparency[part.MeshId] = part.Transparency
+					else
+						part.Transparency = partsOrgTransparency[part.MeshId]
+					end
+				end
+			elseif part:IsA("Part") then
+				if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
+					part.Transparency = 0
+				end
 			end
-		elseif part:IsA("Part") then
-			if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r6bodyPartsToShow, part.Name)) then
-				part.Transparency = 0
+		end
+	else
+		if FFlagSelfViewMakeClonePartsNonTransparent and not FFlagSelfViewMakeClonePartsNonTransparent2 then
+			for _, part in ipairs(character:GetDescendants()) do
+				if part:IsA("MeshPart") or part:IsA("Decal") then
+					part.Transparency = 0
+				end
+			end
+		end
+		if FFlagSelfViewMakeClonePartsNonTransparent and FFlagSelfViewMakeClonePartsNonTransparent2 then
+			for _, part in ipairs(character:GetDescendants()) do
+				if part:IsA("Decal") then
+					part.Transparency = 0
+				elseif part:IsA("MeshPart") then
+					if
+						(part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name))
+					then
+						part.Transparency = 0
+					end
+				elseif part:IsA("Part") then
+					if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r6bodyPartsToShow, part.Name)) then
+						part.Transparency = 0
+					end
+				end
 			end
 		end
 	end

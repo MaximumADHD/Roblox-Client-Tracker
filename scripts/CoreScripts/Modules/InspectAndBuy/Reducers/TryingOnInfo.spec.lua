@@ -3,13 +3,10 @@ return function()
 	local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
 	local TryingOnInfo = require(script.Parent.TryingOnInfo)
 
-	local function countKeys(t)
-		local count = 0
-		for _ in pairs(t) do
-			count = count + 1
-		end
-		return count
-	end
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 --[[
 	Note: Rthro Animation Bundle is by default in the Bundles reducer.
@@ -20,10 +17,11 @@ return function()
 			local assetTypeId = "8"
 			local newState = TryingOnInfo(nil, SetTryingOnInfo(true, assetId, assetTypeId))
 
-			expect(newState.tryingOn).to.equal(true)
-			expect(newState.assetId).to.equal(assetId)
-			expect(newState.assetTypeId).to.equal(assetTypeId)
-			expect(countKeys(newState)).to.equal(3)
+			expect(newState).toEqual({
+				tryingOn = true,
+				assetId = assetId,
+				assetTypeId = assetTypeId,
+			})
 		end)
 	end)
 end

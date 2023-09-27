@@ -15,12 +15,12 @@ local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManage
 
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 
--- TODO: Uncomment the below code once translation keys are available
--- local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
+local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
 local DropdownMenu = require(Modules.Settings.Components.DropdownMenu)
 
@@ -36,16 +36,19 @@ local localPlayer = Players.LocalPlayer
 export type MuteTogglesType = () -> React.ReactElement
 
 local function MuteToggles()
-	-- TODO: Uncomment the below code once translation keys are available
-	-- local _localizedText = useLocalization({
-	-- 	muteLabel = "Feature.SettingsHub.Label.Mute",
-	-- 	nobodyLabel = "Feature.SettingsHub.Action.NobodyToggle",
-	-- 	nonfriendsLabel = "Feature.SettingsHub.Action.NonfriendsToggle",
-	-- 	everyoneLabel = "Feature.SettingsHub.Action.EveryoneToggle",
-	-- })
+	local localizedText = useLocalization({
+		muteLabel = "Feature.SettingsHub.Label.Mute",
+		nobodyLabel = "Feature.SettingsHub.Action.NobodyToggle",
+		nonFriendsLabel = "Feature.SettingsHub.Action.NonfriendsToggle",
+		everyoneLabel = "Feature.SettingsHub.Action.EveryoneToggle",
+	})
+	local muteLabel = if localizedText.muteLabel == "" then "Mute" else localizedText.muteLabel
+	local nobodyLabel = if localizedText.nobodyLabel == "" then "Nobody" else localizedText.nobodyLabel
+	local nonFriendsLabel = if localizedText.nonFriendsLabel == "" then "Non-friends" else localizedText.nonFriendsLabel
+	local everyoneLabel = if localizedText.everyoneLabel == "" then "Everyone" else localizedText.everyoneLabel
+
 	local style = useStyle()
 	local fontStyle = style.Font.SubHeader1
-	local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
 
 	local selectedIndex, setSelectedIndex = React.useState(1)
 	local friends, setFriends = React.useState({})
@@ -94,18 +97,18 @@ local function MuteToggles()
 		if localPlayer then
 			if localPlayer:IsFriendsWith(userId) then
 				if not Cryo.List.find(friends, userId) then
-					local newFriends = Cryo.List.join(friends, {userId})
+					local newFriends = Cryo.List.join(friends, { userId })
 					setFriends(newFriends)
 				end
 			else
 				if not Cryo.List.find(nonFriends, userId) then
-					local newNonFriends = Cryo.List.join(nonFriends, {userId})
+					local newNonFriends = Cryo.List.join(nonFriends, { userId })
 					setNonFriends(newNonFriends)
 				end
 
 				-- If we have Mute Non-friends selected, we should mute the new non-friend that joined
 				if selectedIndex == 2 then
-					VoiceChatServiceManager:ToggleMuteSome({userId}, true)
+					VoiceChatServiceManager:ToggleMuteSome({ userId }, true)
 				end
 			end
 		end
@@ -129,7 +132,7 @@ local function MuteToggles()
 			-- If the player is now a friend, we should add this player to the friends state
 			-- and remove them from the non-friends state
 			if not Cryo.List.find(friends, otherPlayerUserId) then
-				local newFriends = Cryo.List.join(friends, {otherPlayerUserId})
+				local newFriends = Cryo.List.join(friends, { otherPlayerUserId })
 				local newNonFriends = Cryo.List.removeValue(nonFriends, otherPlayerUserId)
 				setFriends(newFriends)
 				setNonFriends(newNonFriends)
@@ -138,13 +141,13 @@ local function MuteToggles()
 			-- If the currently selected option is non-friends, we should unmute this newly
 			-- friended player
 			if selectedIndex == 2 then
-				VoiceChatServiceManager:ToggleMuteSome({player.UserId}, false)
+				VoiceChatServiceManager:ToggleMuteSome({ player.UserId }, false)
 			end
 		elseif friendStatus == Enum.FriendStatus.NotFriend then
 			-- If the player is not a friend anymore, we should add this player to the non-friends
 			-- state and remove them from the friends state
 			if not Cryo.List.find(nonFriends, otherPlayerUserId) then
-				local newNonFriends = Cryo.List.join(nonFriends, {otherPlayerUserId})
+				local newNonFriends = Cryo.List.join(nonFriends, { otherPlayerUserId })
 				local newFriends = Cryo.List.removeValue(friends, otherPlayerUserId)
 				setFriends(newFriends)
 				setNonFriends(newNonFriends)
@@ -192,44 +195,59 @@ local function MuteToggles()
 			PaddingRight = UDim.new(0, MUTE_TOGGLES_PADDING),
 		}),
 		MuteFrame = Roact.createElement("Frame", {
-			Size = UDim2.new(0.5, 0, 1, 0),
+			Size = UDim2.new(0.5, 0, 0, MUTE_TOGGLES_HEIGHT),
 			BorderSizePixel = 0,
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
 		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingLeft = if style.UIBloxThemeEnabled then UDim.new(0, 4) else UDim.new(0, -1),
+			}),
 			ImageSetLabel = Roact.createElement(ImageSetLabel, {
 				Image = MUTE_IMAGE,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, MUTE_ICON_SIZE, 0, MUTE_ICON_SIZE),
-				Position = if style.UIBloxThemeEnabled then UDim2.new(0, 4, 0, 2) else UDim2.new(0, -1, 0, 2),
+				LayoutOrder = 1,
 			}),
-			TextLabel = Roact.createElement("TextLabel", {
-				-- TODO: Change so that the text uses translation instead
-				Text = "Mute",
-				Font = fontStyle.Font,
-				TextSize = fontSize,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextColor3 = Color3.new(1, 1, 1),
+			TextFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(0.6, 0, 0, MUTE_TOGGLES_HEIGHT),
+				BorderSizePixel = 0,
+				LayoutOrder = 2,
 				BackgroundTransparency = 1,
-				AutoLocalize = false,
-				Position = UDim2.new(0, 60 - MUTE_TOGGLES_PADDING, .5, 0),
-				AutomaticSize = Enum.AutomaticSize.X,
+			}, {
+				UIPadding = Roact.createElement("UIPadding", {
+					PaddingLeft = if style.UIBloxThemeEnabled then UDim.new(0, 6) else UDim.new(0, 11),
+				}),
+				TextLabel = Roact.createElement(StyledTextLabel, {
+					text = muteLabel,
+					fontStyle = fontStyle,
+					textXAlignment = Enum.TextXAlignment.Left,
+					colorStyle = {
+						Color = Color3.new(1, 1, 1),
+						Transparency = 0,
+					},
+					size = UDim2.new(1, 0, 0, MUTE_TOGGLES_HEIGHT),
+				}),
 			}),
 		}),
 		DropdownMenu = Roact.createElement(DropdownMenu, {
 			buttonSize = UDim2.new(0.5, 0, 0, MUTE_TOGGLES_HEIGHT),
-			-- TODO: Change so that the text uses translation instead
-			dropdownList = { "Nobody", "Non-friends", "Everyone" },
+			dropdownList = { nobodyLabel, nonFriendsLabel, everyoneLabel },
 			selectedIndex = selectedIndex,
 			onSelection = onSelection,
 			layoutOrder = 2,
 		}),
-		MuteAllChangedEvent = if VoiceChatServiceManager.muteAllChanged then
-			Roact.createElement(ExternalEventConnection, {
+		MuteAllChangedEvent = if VoiceChatServiceManager.muteAllChanged
+			then Roact.createElement(ExternalEventConnection, {
 				event = VoiceChatServiceManager.muteAllChanged.Event,
 				callback = muteAllChangedCallback,
 			})
-		else nil,
+			else nil,
 		PlayerJoinedVoiceEvent = Roact.createElement(ExternalEventConnection, {
 			event = VoiceChatServiceManager.participantJoined.Event,
 			callback = playerJoinedVoiceCallback,
@@ -238,10 +256,12 @@ local function MuteToggles()
 			event = VoiceChatServiceManager.participantLeft.Event,
 			callback = playerLeftVoiceCallback,
 		}),
-		FriendStatusChangeEvent = if localPlayer then Roact.createElement(ExternalEventConnection, {
-			event = localPlayer.FriendStatusChanged,
-			callback = friendStatusChangeCallback,
-		}) else nil,
+		FriendStatusChangeEvent = if localPlayer
+			then Roact.createElement(ExternalEventConnection, {
+				event = localPlayer.FriendStatusChanged,
+				callback = friendStatusChangeCallback,
+			})
+			else nil,
 	})
 end
 

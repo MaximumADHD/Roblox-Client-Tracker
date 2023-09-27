@@ -24,6 +24,8 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local DeviceTypeEnum = RobloxAppEnums.DeviceType
+local GamepadDisconnectTokenMapper = require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadDisconnectTokenMapper
+local FFlagCoreScriptsGlobalEffects = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreScriptsGlobalEffects
 
 local focusNavigationService =
 	ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
@@ -59,7 +61,9 @@ local function CoreScriptsRootProvider(props: Props)
 			style = style,
 		}, {
 			DesignTokenProvider = React.createElement(DesignTokenProvider, {
-				tokenMappers = {},
+				tokenMappers = {
+					GamepadDisconnect = if FFlagCoreScriptsGlobalEffects then GamepadDisconnectTokenMapper else nil,
+				},
 			}, {
 				CursorProvider = React.createElement(CursorProvider, {}, {
 					LocalizationProvider = React.createElement(LocalizationProvider, {

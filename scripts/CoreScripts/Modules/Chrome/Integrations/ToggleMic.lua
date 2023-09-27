@@ -15,14 +15,24 @@ local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
+local toggleMic = function(self)
+	VoiceChatServiceManager:ToggleMic()
+	Analytics:setLastCtx("SelfView")
+end
+
+local rejoinChannel = function(self)
+	VoiceChatServiceManager:RejoinPreviousChannel()
+end
+
+local showLoading = function(self)
+	VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
+end
+
 local muteSelf = ChromeService:register({
 	--initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "toggle_mic_mute",
 	label = "CoreScripts.TopBar.ToggleMic",
-	activated = function(self)
-		VoiceChatServiceManager:ToggleMic()
-		Analytics:setLastCtx("SelfView")
-	end,
+	activated = toggleMic,
 	components = {
 		Icon = function(props)
 			return React.createElement("Frame", {
@@ -49,6 +59,18 @@ local function updateVoiceState(_, voiceState)
 		muteSelf.availability:available()
 	else
 		muteSelf.availability:unavailable()
+	end
+
+	local voiceFailed = voiceState == (Enum :: any).VoiceChatState.Failed
+	local voiceLoading = voiceState == (Enum :: any).VoiceChatState.Joining
+		or voiceState == (Enum :: any).VoiceChatState.JoiningRetry
+
+	if voiceFailed then
+		muteSelf.activated = rejoinChannel
+	elseif voiceLoading then
+		muteSelf.activated = showLoading
+	else
+		muteSelf.activated = toggleMic
 	end
 end
 

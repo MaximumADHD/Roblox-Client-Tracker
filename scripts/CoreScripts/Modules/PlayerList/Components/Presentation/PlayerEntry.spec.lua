@@ -6,6 +6,9 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PlayerList = script.Parent.Parent.Parent
 	local Reducers = PlayerList.Reducers
 	local Reducer = require(Reducers.Reducer)
@@ -90,8 +93,8 @@ return function()
 			})
 		})
 		local instance = Roact.mount(element)
-		expect(ref.current).to.be.ok()
-		expect(ref.current:IsA("Instance")).to.equal(true)
+		expect(ref.current).never.toBeNil()
+		expect(ref.current:IsA("Instance")).toBe(true)
 		Roact.unmount(instance)
 	end)
 

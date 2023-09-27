@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -20,7 +22,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.playerName).to.equal(MockNetwork.GetMockPlayerName())
+		expect(state.playerName).toBe(MockNetwork.GetMockPlayerName())
 	end)
 
 	it("should catch network errors that happen and still run", function()

@@ -3,6 +3,9 @@ return function()
 	local AvatarIdentificationModule = require(CorePackages.Workspace.Packages.TnSAvatarIdentification)
 	type AvatarIDResults = AvatarIdentificationModule.AvatarIDResults
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local AbuseReportBuilder = require(script.Parent.AbuseReportBuilder)
 	local AvatarIdentification
 
@@ -54,9 +57,9 @@ return function()
 			AbuseReportBuilder.setAnnotationCircleRadius(0.05)
 			AbuseReportBuilder.setAnnotationPoints(annotationPoints)
 			local selectedAbusers = AbuseReportBuilder.getSelectedAbusers()
-			expect(#selectedAbusers).to.equal(2)
-			expect(selectedAbusers[1].UserId).to.equal(39)
-			expect(selectedAbusers[2].UserId).to.equal(38)
+			expect(#selectedAbusers).toBe(2)
+			expect(selectedAbusers[1].UserId).toBe(39)
+			expect(selectedAbusers[2].UserId).toBe(38)
 		end)
 	end)
-end	
+end

@@ -2,9 +2,6 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local InviteToGameAnalytics = require(script.Parent.InviteToGameAnalytics)
 	local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
-	local CoreGui = game:GetService("CoreGui")
-	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-	local getFFlagShareLinkFixAnalytics = require(RobloxGui.Modules.Settings.Flags.getFFlagShareLinkFixAnalytics)
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 	local jest = JestGlobals.jest
@@ -170,34 +167,6 @@ return function()
 		end)
 	end)
 
-	describe("onLinkGenerated", function()
-		it("SHOULD fire `EventName.LinkGenerated` event", function()
-			local mockEventStream = createMockEventStream()
-
-			local lastEventContext = nil
-			local lastEventName = nil
-
-			mockEventStream.onSetRBXEventStream:connect(function(_, eventName, additionalArgs)
-				lastEventContext = "testing123"
-				lastEventName = eventName
-			end)
-
-			local analytics = InviteToGameAnalytics.new()
-				:withEventStream(mockEventStream)
-			if getFFlagShareLinkFixAnalytics() then
-				jestExpect(function()
-					analytics:onLinkGenerated("", "123456")
-				end).toThrow()
-			else
-				analytics:onLinkGenerated("", "123456")
-
-				jestExpect(lastEventContext).toBe("testing123")
-				jestExpect(lastEventName).toBe(InviteToGameAnalytics.EventName.LinkGenerated)
-			end
-		end)
-	end)
-
-
 	describe("linkGenerated", function()
 		it("SHOULD fire `EventName.LinkGenerated` event", function()
 			local eventStreamMock = {
@@ -208,16 +177,12 @@ return function()
 				:withEventStream(eventStreamMock)
 				analytics:linkGenerated({ linkId = "123", linkType = "Profile" })
 
-				if getFFlagShareLinkFixAnalytics() then
-					jestExpect(eventStreamMock.setRBXEventStream).toHaveBeenCalledWith(eventStreamMock, "shareLinks", InviteToGameAnalytics.EventName.LinkGenerated, {
-						linkId = "123",
-						linkType = "Profile",
-						page = "inGameMenu",
-						subpage = "inviteFriendsPage",
-					})
-				else
-					jestExpect(eventStreamMock.setRBXEventStream).never.toHaveBeenCalled()
-				end
+			jestExpect(eventStreamMock.setRBXEventStream).toHaveBeenCalledWith(eventStreamMock, "shareLinks", InviteToGameAnalytics.EventName.LinkGenerated, {
+				linkId = "123",
+				linkType = "Profile",
+				page = "inGameMenu",
+				subpage = "inviteFriendsPage",
+			})
 		end)
 	end)
 

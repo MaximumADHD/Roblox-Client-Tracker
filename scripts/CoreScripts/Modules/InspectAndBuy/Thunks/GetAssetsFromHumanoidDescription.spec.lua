@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -27,7 +29,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(countKeys(state.assets)).to.equal(0)
+		expect(state.assets).toEqual({})
 	end)
 
 	--[[
@@ -45,7 +47,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(countKeys(state.assets)).to.equal(4)
+		expect(countKeys(state.assets)).toBe(4)
 	end)
 
 	it("shouldn't fail and add no assets on an empty humanoid description object", function()
@@ -59,7 +61,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(countKeys(state.assets)).to.equal(0)
+		expect(state.assets).toEqual({})
 	end)
 
 	it("should correctly add emotes from a humanoid description", function()
@@ -73,7 +75,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(countKeys(state.assets)).to.equal(3)
+		expect(countKeys(state.assets)).toBe(3)
 	end)
 
 	it("should catch network errors that happen and still run", function()

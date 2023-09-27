@@ -1,4 +1,6 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
 	local TrustAndSafety = script.Parent.Parent
 	local OpenReportDialog = require(TrustAndSafety.Actions.OpenReportDialog)
 	local CloseReportDialog = require(TrustAndSafety.Actions.CloseReportDialog)
@@ -17,10 +19,13 @@ return function()
 	local Constants = require(TrustAndSafety.Resources.Constants)
 	local report = require(script.Parent.report)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	describe("Initial state", function()
 		it("should be closed by default", function()
 			local defaultState = report(nil, {})
-			expect(defaultState.currentPage).to.equal(Constants.Page.None)
+			expect(defaultState.currentPage).toBe(Constants.Page.None)
 		end)
 	end)
 
@@ -38,39 +43,44 @@ return function()
 			oldState = report(oldState, SetVoiceReportingFlow(true));
 			local newState = report(oldState, BeginReportFlow(Constants.ReportType.Player, targetPlayer))
 
-			expect(oldState).to.never.equal(newState)
-			expect(newState.voiceReportingFlowEnabled).to.equal(true)
-			expect(newState.currentPage).to.equal(Constants.Page.Category)
-			expect(newState.reportType).to.equal(Constants.ReportType.Player)
-			expect(newState.beginningReportType).to.equal(Constants.ReportType.Player)
+			expect(oldState).never.toBe(newState)
+			expect(newState).toMatchObject({
+				voiceReportingFlowEnabled = true,
+				currentPage = Constants.Page.Category,
+				reportType = Constants.ReportType.Player,
+				beginningReportType = Constants.ReportType.Player,
+				targetPlayer = targetPlayer,
+			})
 
-			expect(newState.targetPlayer).to.equal(targetPlayer)
+			newState = report(newState, SelectReportCategory(Constants.Category.Voice))
+			expect(newState).toMatchObject({
+				currentPage = Constants.Page.ReportForm,
+				reportCategory = Constants.Category.Voice,
+				history = { [2] = Constants.Page.Category },
+				beginningReportType = Constants.ReportType.Player,
+			})
 
-			local newState = report(newState, SelectReportCategory(Constants.Category.Voice))
-			expect(newState.currentPage).to.equal(Constants.Page.ReportForm)
-			expect(newState.reportCategory).to.equal(Constants.Category.Voice)
-			expect(newState.history[2]).to.equal(Constants.Page.Category)
+			newState = report(newState, NavigateBack())
+			expect(newState).toMatchObject({
+				currentPage = Constants.Page.Category,
+				targetPlayer = targetPlayer,
+			})
+			expect(#newState.history).toBe(1)
 
-			expect(newState.beginningReportType).to.equal(Constants.ReportType.Player)
-
-			local newState = report(newState, NavigateBack())
-			expect(newState.currentPage).to.equal(Constants.Page.Category)
-			expect(newState.targetPlayer).to.equal(targetPlayer)
-			expect(#newState.history).to.equal(1)
-
-			expect(newState.beginningTimestamp).to.never.equal(0)
-
+			expect(newState.beginningTimestamp).never.toBe(0)
 		end)
 
 		it("should open for a experiance", function()
 			local oldState = report(nil, {})
 			oldState = report(oldState, SetVoiceReportingFlow(true));
 			local newState = report(oldState, BeginReportFlow(Constants.ReportType.Place))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.voiceReportingFlowEnabled).to.equal(true)
-			expect(newState.currentPage).to.equal(Constants.Page.ReportForm)
-			expect(newState.reportType).to.equal(Constants.ReportType.Place)
-			expect(newState.beginningReportType).to.equal(Constants.ReportType.Place)
+			expect(oldState).never.toBe(newState)
+			expect(newState).toMatchObject({
+				voiceReportingFlowEnabled = true,
+				currentPage = Constants.Page.ReportForm,
+				reportType = Constants.ReportType.Place,
+				beginningReportType = Constants.ReportType.Place,
+			})
 		end)
 
 
@@ -85,32 +95,38 @@ return function()
 			oldState = report(oldState, SetVoiceReportingFlow(true));
 			local newState = report(oldState, BeginReportFlow())
 
-			expect(oldState).to.never.equal(newState)
-			expect(newState.voiceReportingFlowEnabled).to.equal(true)
-			expect(newState.currentPage).to.equal(Constants.Page.Category)
-			expect(newState.reportType).to.equal(Constants.ReportType.Any)
-			expect(newState.beginningReportType).to.equal(Constants.ReportType.Any)
+			expect(oldState).never.toBe(newState)
+			expect(newState).toMatchObject({
+				voiceReportingFlowEnabled = true,
+				currentPage = Constants.Page.Category,
+				reportType = Constants.ReportType.Any,
+				beginningReportType = Constants.ReportType.Any,
+			})
 
 			newState = report(newState, SelectReportCategory(Constants.Category.Voice))
-			expect(newState.currentPage).to.equal(Constants.Page.Listing)
-			expect(newState.reportCategory).to.equal(Constants.Category.Voice)
-			expect(newState.history[2]).to.equal(Constants.Page.Category)
+			expect(newState).toMatchObject({
+				currentPage = Constants.Page.Listing,
+				reportCategory = Constants.Category.Voice,
+				history = { [2] = Constants.Page.Category }
+			})
 
 			newState = report(newState, SelectReportListing(Constants.ReportType.Player, targetPlayer, {123, 321}))
-			expect(newState.currentPage).to.equal(Constants.Page.ReportForm)
-			expect(newState.reportType).to.equal(Constants.ReportType.Player)
-			expect(newState.targetPlayer).to.equal(targetPlayer)
-			expect(newState.history[3]).to.equal(Constants.Page.Listing)
-			expect(newState.beginningReportType).to.equal(Constants.ReportType.Any)
-			expect(#newState.sortedUserIds).to.equal(2)
+			expect(newState).toMatchObject({
+				currentPage = Constants.Page.ReportForm,
+				reportType = Constants.ReportType.Player,
+				targetPlayer = targetPlayer,
+				history = { [3] = Constants.Page.Listing },
+				beginningReportType = Constants.ReportType.Any,
+			})
+			expect(#newState.sortedUserIds).toBe(2)
 
 			newState = report(newState, NavigateBack())
 			newState = report(newState, SelectReportListing(Constants.ReportType.Place))
-			expect(newState.currentPage).to.equal(Constants.Page.ReportForm)
-			expect(newState.reportType).to.equal(Constants.ReportType.Place)
-
+			expect(newState).toMatchObject({
+				currentPage = Constants.Page.ReportForm,
+				reportType = Constants.ReportType.Place,
+			})
 		end)
-
 	end)
 
 	describe("ReportDialog", function()
@@ -125,11 +141,13 @@ return function()
 			oldState = report(oldState, SetVoiceReportingFlow(false));
 			local newState = report(oldState, BeginReportFlow(Constants.ReportType.Player, targetPlayer))
 
-			expect(oldState).to.never.equal(newState)
-			expect(newState.voiceReportingFlowEnabled).to.equal(false)
-			expect(newState.currentPage).to.equal(Constants.Page.ReportForm)
-			expect(newState.reportType).to.equal(Constants.ReportType.Player)
-			expect(newState.targetPlayer).to.equal(targetPlayer)
+			expect(oldState).never.toBe(newState)
+			expect(newState).toMatchObject({
+				voiceReportingFlowEnabled = false,
+				currentPage = Constants.Page.ReportForm,
+				reportType = Constants.ReportType.Player,
+				targetPlayer = targetPlayer,
+			})
 		end)
 
 		it("should open for a place", function()
@@ -137,10 +155,12 @@ return function()
 			oldState = report(oldState, SetVoiceReportingFlow(false));
 
 			local newState = report(oldState, BeginReportFlow(Constants.ReportType.Place))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.voiceReportingFlowEnabled).to.equal(false)
-			expect(newState.currentPage).to.equal(Constants.Page.ReportForm)
-			expect(newState.reportType).to.equal(Constants.ReportType.Place)
+			expect(oldState).never.toBe(newState)
+			expect(newState).toMatchObject({
+				voiceReportingFlowEnabled = false,
+				currentPage = Constants.Page.ReportForm,
+				reportType = Constants.ReportType.Place,
+			})
 		end)
 
 		it("should clear targetPlayer for a place", function()
@@ -149,10 +169,12 @@ return function()
 			oldState = report(oldState, BeginReportFlow(Constants.ReportType.Player, targetPlayer))
 			oldState = report(oldState, EndReportFlow())
 			local newState = report(oldState, BeginReportFlow(Constants.ReportType.Place))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.ReportForm)
-			expect(newState.reportType).to.equal(Constants.ReportType.Place)
-			expect(newState.targetPlayer).to.equal(nil)
+			expect(oldState).never.toBe(newState)
+			expect(newState).toMatchObject({
+				currentPage = Constants.Page.ReportForm,
+				reportType = Constants.ReportType.Place,
+			})
+			expect(newState.targetPlayer).toBeNil()
 		end)
 
 		it("should close", function()
@@ -160,8 +182,8 @@ return function()
 			oldState = report(oldState, SetVoiceReportingFlow(false));
 			oldState = report(oldState, BeginReportFlow(Constants.ReportType.Place))
 			local newState = report(oldState, EndReportFlow())
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.None)
+			expect(oldState).never.toBe(newState)
+			expect(newState.currentPage).toBe(Constants.Page.None)
 		end)
 	end)
 
@@ -170,8 +192,8 @@ return function()
 			local oldState = report(nil, {})
 			oldState = report(oldState, SetVoiceReportingFlow(false));
 			local newState = report(oldState, OpenReportSentDialog(nil, nil))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.ReportSent)
+			expect(oldState).never.toBe(newState)
+			expect(newState.currentPage).toBe(Constants.Page.ReportSent)
 		end)
 
 		it("should close", function()
@@ -179,8 +201,8 @@ return function()
 			oldState = report(oldState, SetVoiceReportingFlow(false));
 			oldState = report(oldState, OpenReportSentDialog(nil, nil))
 			local newState = report(oldState, EndReportFlow())
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.None)
+			expect(oldState).never.toBe(newState)
+			expect(newState.currentPage).toBe(Constants.Page.None)
 		end)
 	end)
 
@@ -189,8 +211,8 @@ return function()
 			local oldState = report(nil, {})
 			oldState = report(oldState, SetVoiceReportingFlow(false));
 			local newState = report(oldState, BeginReportFlow())
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.Listing)
+			expect(oldState).never.toBe(newState)
+			expect(newState.currentPage).toBe(Constants.Page.Listing)
 		end)
 
 		it("should close", function()
@@ -199,8 +221,8 @@ return function()
 			oldState = report(oldState, BeginReportFlow())
 
 			local newState = report(oldState, EndReportFlow())
-			expect(oldState).to.never.equal(newState)
-			expect(newState.currentPage).to.equal(Constants.Page.None)
+			expect(oldState).never.toBe(newState)
+			expect(newState.currentPage).toBe(Constants.Page.None)
 		end)
 	end)
 end

@@ -1,7 +1,7 @@
 local VoiceChatService = game:GetService("VoiceChatService")
 
-game:DefineFastFlag("VoiceUseAudioRoutingAPI", false)
+game:DefineFastFlag("VoiceUseAudioRoutingAPIV2", false)
 
 return function()
-	return (game:GetFastFlag("VoiceUseAudioRoutingAPI") and (VoiceChatService :: any).UseNewAudioApi)
+	return (game:GetFastFlag("VoiceUseAudioRoutingAPIV2") and (VoiceChatService :: any).UseNewAudioApi)
 end

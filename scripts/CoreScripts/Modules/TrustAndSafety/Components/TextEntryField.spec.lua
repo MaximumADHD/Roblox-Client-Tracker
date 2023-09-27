@@ -2,6 +2,10 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local Roact = require(CorePackages.Roact)
 	local UIBlox = require(CorePackages.UIBlox)
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
@@ -28,15 +32,13 @@ return function()
 	end)
 
 	it("should call textChanged when the user enters text", function()
-		local textChangedWasCalled = false
+		local textChangedMock, textChangedFn = jest.fn()
 
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 			TextEntryField = Roact.createElement(TextEntryField, {
 				enabled = true,
 				text = "",
-				textChanged = function(newText)
-					textChangedWasCalled = true
-				end,
+				textChanged = textChangedFn,
 				maxTextLength = 200,
 				autoFocusOnEnabled = false,
 				PlaceholderText = "Enter text here",
@@ -53,7 +55,7 @@ return function()
 		textBox.Text = "Hello world!"
 
 		waitForEvents.act()
-		expect(textChangedWasCalled).to.equal(true)
+		expect(textChangedMock).toHaveBeenCalled()
 
 		Roact.unmount(instance)
 	end)
@@ -82,8 +84,8 @@ return function()
 		textBox.Text = "Hello world!"
 		waitForEvents.act()
 
-		expect(textBox.Text).to.equal("Hello")
-		expect(text).to.equal("Hello")
+		expect(textBox.Text).toBe("Hello")
+		expect(text).toBe("Hello")
 
 		Roact.unmount(instance)
 	end)
@@ -111,8 +113,8 @@ return function()
 
 		textBox.Text = "罗布乐思是世界最大的多人在线游戏"
 		waitForEvents.act()
-		expect(textBox.Text).to.equal("罗布乐思")
-		expect(text).to.equal("罗布乐思")
+		expect(textBox.Text).toBe("罗布乐思")
+		expect(text).toBe("罗布乐思")
 
 		Roact.unmount(instance)
 	end)

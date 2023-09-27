@@ -39,6 +39,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
+local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFFlagOptimizeHelpMenuInputEvent)
 
 ----------- CLASS DECLARATION --------------
 
@@ -631,6 +632,26 @@ local function Initialize()
 		switchToHelp(this:GetCurrentInputType())
 	end
 
+	function this:PageDisplayed()
+		if not this.LastInputTypeChangedConnection then
+			this.LastInputTypeChangedConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType: Enum.UserInputType)
+				if inputType ~= Enum.UserInputType.Focus and inputType ~= Enum.UserInputType.None then
+					lastInputType = inputType
+					showTypeOfHelp()
+				end
+			end)
+		end
+		lastInputType = UserInputService:GetLastInputType()
+		showTypeOfHelp()
+	end
+
+	function this:PageHidden()
+		if this.LastInputTypeChangedConnection then
+			this.LastInputTypeChangedConnection:Disconnect()
+			this.LastInputTypeChangedConnection = nil
+		end
+	end
+
 	local function adjustForScreenLayout(givenSize) -- portrait mode was causing the help frame to be either too tall or short when changed between landscape mode and portrait.
 		if this:GetCurrentInputType() == TOUCH_TAG then
 			local scheme = GameSettings.TouchMovementMode
@@ -674,13 +695,15 @@ local function Initialize()
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "Help"
 
-	UserInputService.InputBegan:connect(function(inputObject)
-		local inputType = inputObject.UserInputType
-		if inputType ~= Enum.UserInputType.Focus and inputType ~= Enum.UserInputType.None then
-			lastInputType = inputObject.UserInputType
-			showTypeOfHelp()
-		end
-	end)
+	if not GetFFlagOptimizeHelpMenuInputEvent() then
+		UserInputService.InputBegan:connect(function(inputObject)
+			local inputType = inputObject.UserInputType
+			if inputType ~= Enum.UserInputType.Focus and inputType ~= Enum.UserInputType.None then
+				lastInputType = inputObject.UserInputType
+				showTypeOfHelp()
+			end
+		end)
+	end
 
 	utility:OnResized(this, function(newSize, isPortrait)
 		if this.HelpPages[TOUCH_TAG] then
@@ -697,6 +720,9 @@ do
   PageInstance = Initialize()
 
   PageInstance.Displayed.Event:connect(function()
+      if GetFFlagOptimizeHelpMenuInputEvent() then
+        PageInstance:PageDisplayed()
+      end
       local isPortrait = utility:IsPortrait()
       if PageInstance:GetCurrentInputType() == TOUCH_TAG then
         if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
@@ -709,6 +735,9 @@ do
     end)
 
   PageInstance.Hidden.Event:connect(function()
+      if GetFFlagOptimizeHelpMenuInputEvent() then
+        PageInstance:PageHidden()
+      end
       PageInstance.HubRef.PageViewClipper.ClipsDescendants = true
       PageInstance.HubRef.PageView.ClipsDescendants = true
 

@@ -21,8 +21,14 @@ local MESSAGES = {
 	createMockMessage({ userId = "2", text = "This user only sent one message." }),
 
 	createMockMessage({ userId = "3", text = "This user sent three messages" }),
-	createMockMessage({ userId = "3", text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at lacus vehicula, vulputate elit quis, cursus diam. Nam bibendum, massa sed condimentum elementum, quam nulla fermentum diam," }),
-	createMockMessage({ userId = "3", text = "non posuere metus justo porttitor enim. Etiam neque magna, consectetur suscipit consectetur non, rhoncus sit amet enim. Curabitur gravida tempus ex," }),
+	createMockMessage({
+		userId = "3",
+		text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at lacus vehicula, vulputate elit quis, cursus diam. Nam bibendum, massa sed condimentum elementum, quam nulla fermentum diam,",
+	}),
+	createMockMessage({
+		userId = "3",
+		text = "non posuere metus justo porttitor enim. Etiam neque magna, consectetur suscipit consectetur non, rhoncus sit amet enim. Curabitur gravida tempus ex,",
+	}),
 }
 
 function Story:init()
@@ -51,13 +57,13 @@ function Story:render()
 
 	for userId, messageIds in pairs(state.userMessages) do
 		children[userId] = Roact.createElement("Frame", {
-			Size = UDim2.new(1/3, 0, 1, 0),
+			Size = UDim2.new(1 / 3, 0, 1, 0),
 			BackgroundTransparency = 1,
 		}, {
 			BubbleChatList = Roact.createElement(BubbleChatList, {
 				userId = userId,
 				chatSettings = self.props.chatSettings,
-			})
+			}),
 		})
 	end
 

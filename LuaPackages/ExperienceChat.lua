@@ -2,11 +2,11 @@
 local CorePackages = game:GetService("CorePackages")
 
 local initify = require(CorePackages.initify)
-local GetFFlagUpgradeExpChatV4_1_11 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUpgradeExpChatV4_1_11
+local GetFFlagUpgradeExpChatV4_2_0 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUpgradeExpChatV4_2_0
 
 initify(CorePackages.Packages)
 
-if GetFFlagUpgradeExpChatV4_1_11() then
+if GetFFlagUpgradeExpChatV4_2_0() then
     return require(CorePackages.Packages.ExperienceChat_New)
 else
     return require(CorePackages.Packages.ExperienceChat)

@@ -55,7 +55,7 @@ function Story:render()
 				Size = UDim2.fromOffset(200, 40),
 				[Roact.Event.Activated] = function()
 					self:setState({
-						voiceOn = not self.state.voiceOn
+						voiceOn = not self.state.voiceOn,
 					})
 				end,
 			}),
@@ -64,7 +64,7 @@ function Story:render()
 				LayoutOrder = 1,
 				Text = "Add message",
 				Size = UDim2.fromOffset(200, 80),
-				[Roact.Event.Activated] = self.props.addMessage
+				[Roact.Event.Activated] = self.props.addMessage,
 			}),
 		}),
 
@@ -93,11 +93,11 @@ local function mapDispatchToProps(dispatch)
 			local rng = Random.new()
 			local message = createMockMessage({
 				userId = USER_ID,
-				text = MESSAGES[rng:NextInteger(0, #MESSAGES)]
+				text = MESSAGES[rng:NextInteger(0, #MESSAGES)],
 			})
 
 			dispatch(AddMessage(message))
-		end
+		end,
 	}
 end
 
@@ -105,10 +105,10 @@ Story = RoactRodux.connect(nil, mapDispatchToProps)(Story)
 
 return function(props)
 	return Roact.createElement(RoactRodux.StoreProvider, {
-		store = Rodux.Store.new(chatReducer)
+		store = Rodux.Store.new(chatReducer),
 	}, {
 		Roact.createElement(Story, {
 			chatSettings = props.chatSettings,
-		})
+		}),
 	})
 end

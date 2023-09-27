@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -14,14 +16,6 @@ return function()
 
 	local MOCK_FAVORITE = BundleInfo.mock()
 
-	local function countKeys(t)
-		local count = 0
-		for _ in pairs(t) do
-			count = count + 1
-		end
-		return count
-	end
-
 	describe("CreateFavoriteForBundle", function()
 		it("should run without errors", function()
 			local store = Rodux.Store.new(Reducer)
@@ -35,8 +29,8 @@ return function()
 			})
 
 			local state = store:getState()
-			expect(analytics.reportFavoriteItem_callCount).to.equal(1)
-			expect(countKeys(state.favorites.bundles)).to.equal(1)
+			expect(analytics.reportFavoriteItem).toHaveBeenCalledTimes(1)
+			expect(state.favorites.bundles).toEqual({ [MOCK_FAVORITE.bundleId] = expect.anything() })
 		end)
 
 		it("should create a favorite object for a bundle", function()
@@ -51,9 +45,8 @@ return function()
 			})
 
 			local state = store:getState()
-			expect(analytics.reportFavoriteItem_callCount).to.equal(1)
-			expect(state.favorites.bundles[MOCK_FAVORITE.bundleId]).to.equal(true)
-			expect(countKeys(state.favorites.bundles)).to.equal(1)
+			expect(analytics.reportFavoriteItem).toHaveBeenCalledTimes(1)
+			expect(state.favorites.bundles).toEqual({ [MOCK_FAVORITE.bundleId] = true })
 		end)
 
 		it("should catch network errors that happen and still run", function()
@@ -67,7 +60,7 @@ return function()
 				[Analytics] = analytics,
 			})
 
-			expect(analytics.reportFavoriteItem_callCount).to.equal(1)
+			expect(analytics.reportFavoriteItem).toHaveBeenCalledTimes(1)
 		end)
 	end)
 end

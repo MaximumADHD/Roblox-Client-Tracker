@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -36,14 +38,14 @@ return function()
 			})
 
 			local state = store:getState()
-			expect(countKeys(state.favorites.bundles)).to.equal(1)
+			expect(countKeys(state.favorites.bundles)).toBe(1)
 		end)
 
 		it("should delete a favorite object for an asset", function()
 			local store = Rodux.Store.new(Reducer)
 			store:dispatch(SetFavoriteBundle(MOCK_FAVORITE.bundleId, true))
 			store:dispatch(SetBundles({MOCK_FAVORITE}))
-			expect(store:getState().favorites.bundles[MOCK_FAVORITE.bundleId]).to.equal(true)
+			expect(store:getState().favorites.bundles[MOCK_FAVORITE.bundleId]).toBe(true)
 			local thunk = DeleteFavoriteForBundle(MOCK_FAVORITE.bundleId)
 			local analytics = MockAnalytics.new()
 
@@ -52,7 +54,7 @@ return function()
 				[Analytics] = analytics,
 			})
 
-			expect(store:getState().favorites.bundles[MOCK_FAVORITE.bundleId]).to.equal(false)
+			expect(store:getState().favorites.bundles[MOCK_FAVORITE.bundleId]).toBe(false)
 		end)
 
 		it("should catch network errors that happen and still run", function()

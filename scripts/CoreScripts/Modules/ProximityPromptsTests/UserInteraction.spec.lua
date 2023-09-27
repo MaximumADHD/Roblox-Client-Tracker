@@ -4,6 +4,11 @@ local UserInputService = game:GetService("UserInputService")
 
 local PlayerHelper = require(script.Parent.PlayerHelper)
 local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+local jest = JestGlobals.jest
+
 local Rhodium = require(CorePackages.Rhodium)
 local RoactAct = require(game.CoreGui.RobloxGui.Modules.act)
 
@@ -11,8 +16,9 @@ local testMenuKey = "ProximityPromptTestsMenuKey"
 
 return function()
 	local part, prompt, promptUI, promptUICorners
-	local promptTriggeredCount, promptTriggerEndedCount
 	local promptScreenGui
+	local promptTriggeredMock, promptTriggeredFn = jest.fn()
+	local promptTriggerEndedMock, promptTriggerEndFn = jest.fn()
 
 	if not game:GetEngineFeature("ProximityPrompts") then
 		return
@@ -42,10 +48,9 @@ return function()
 		1.0, "Couldn't find correctly sized prompt within time limit.")
 
 		promptGuiConnection:Disconnect()
-		expect(success).to.equal(true)
-
-		expect(newPromptUI).to.be.ok()
-		expect(newPromptUI.Active).to.equal(true) -- Expect BillboardGui to respond to mouse clicks
+		expect(success).toBe(true)
+		-- Expect BillboardGui to respond to mouse clicks
+		expect(newPromptUI).toMatchInstance({ Active = true })
 
 		promptUI = newPromptUI
 		promptUICorners = PlayerHelper.GetCornersOfBillboardGui(promptUI)
@@ -78,24 +83,19 @@ return function()
 		part.Position = Vector3.new(0,0,-5)
 		part.Anchored = true
 
-		promptTriggeredCount = 0
-		promptTriggerEndedCount = 0
+		promptTriggeredMock.mockClear()
+		promptTriggerEndedMock.mockClear()
 
 		prompt = Instance.new("ProximityPrompt")
 		prompt.Parent = part
 		prompt.MaxActivationDistance = 10
 
-		prompt.Triggered:Connect(function(player)
-			promptTriggeredCount += 1
-		end)
-		prompt.TriggerEnded:Connect(function(player)
-			promptTriggerEndedCount += 1
-		end)
+		prompt.Triggered:Connect(promptTriggeredFn)
+		prompt.TriggerEnded:Connect(promptTriggerEndFn)
 
 		-- Wait for Proximity prompts ScreenGui to be added
 		promptScreenGui = PlayerHelper.PlayerGui:WaitForChild("ProximityPrompts", 10)
-		expect(promptScreenGui).to.be.ok()
-
+		expect(promptScreenGui).never.toBeNil()
 
 		rebuildPromptUI()
 		PlayerHelper.WaitNFrames(1)
@@ -135,13 +135,14 @@ return function()
 
 			local buttonTextLabel = promptUI:FindFirstChild("ButtonText", true)
 			local buttonImageLabel = promptUI:FindFirstChild("ButtonImage", true)
-			expect(buttonTextLabel).to.equal(nil) -- Should have no text
-			expect(buttonImageLabel).to.be.ok() -- Should be an image
-			expect(buttonImageLabel:IsA("ImageLabel")).to.be.equal(true)
-			expect(buttonImageLabel.Visible).to.be.equal(true)
+			expect(buttonTextLabel).toBeNil() -- Should have no text
+			expect(buttonImageLabel).never.toBeNil() -- Should be an image
+			expect(buttonImageLabel:IsA("ImageLabel")).toBe(true)
+			expect(buttonImageLabel.Visible).toBe(true)
 			local assetURL = tostring(buttonImageLabel.Image)
 			-- Check if asset URL contains tap icon
-			expect(string.find(assetURL, "TouchTapIcon.png") == nil).to.equal(false)
+			local url, _ = string.find(assetURL, "TouchTapIcon.png")
+			expect(url).never.toBeNil()
 		end)
 
 		it("Should display correct gamepad button for triggering", function()
@@ -158,13 +159,14 @@ return function()
 
 				local buttonTextLabel = promptUI:FindFirstChild("ButtonText", true)
 				local buttonImageLabel = promptUI:FindFirstChild("ButtonImage", true)
-				expect(buttonTextLabel).to.equal(nil) -- Should have no text
-				expect(buttonImageLabel).to.be.ok() -- Should be an image
-				expect(buttonImageLabel:IsA("ImageLabel")).to.be.equal(true)
-				expect(buttonImageLabel.Visible).to.be.equal(true)
+				expect(buttonTextLabel).toBeNil() -- Should have no text
+				expect(buttonImageLabel).never.toBeNil() -- Should be an image
+				expect(buttonImageLabel:IsA("ImageLabel")).toBe(true)
+				expect(buttonImageLabel.Visible).toBe(true)
 				local assetURL = tostring(buttonImageLabel.Image)
 				-- Check if asset URL contains expected button name
-				expect(string.find(assetURL, expectedAssetNames[idx]) == nil).to.equal(false)
+				local url, _ = string.find(assetURL, expectedAssetNames[idx])
+				expect(url).never.toBeNil()
 			end
 
 			gamepad:disconnect()
@@ -178,10 +180,10 @@ return function()
 				rebuildPromptUI()
 
 				local buttonTextLabel = promptUI:FindFirstChild("ButtonText", true)
-				expect(buttonTextLabel).to.be.ok()
-				expect(buttonTextLabel:IsA("TextLabel")).to.be.equal(true)
-				expect(buttonTextLabel.Text).to.be.equal(keyString) -- Check button text is correct
-				expect(buttonTextLabel.TextFits).to.be.equal(true) -- Text should not be cut off
+				expect(buttonTextLabel).never.toBeNil()
+				expect(buttonTextLabel:IsA("TextLabel")).toBe(true)
+				expect(buttonTextLabel.Text).toBe(keyString) -- Check button text is correct
+				expect(buttonTextLabel.TextFits).toBe(true) -- Text should not be cut off
 			end
 		end)
 
@@ -193,11 +195,11 @@ return function()
 
 			local actionTextLabel = promptUI:FindFirstChild("ActionText", true)
 			local objectTextLabel = promptUI:FindFirstChild("ObjectText", true)
-			expect(actionTextLabel:IsA("TextLabel")).to.be.equal(true)
-			expect(objectTextLabel:IsA("TextLabel")).to.be.equal(true)
+			expect(actionTextLabel:IsA("TextLabel")).toBe(true)
+			expect(objectTextLabel:IsA("TextLabel")).toBe(true)
 			-- Check text is correct:
-			expect(actionTextLabel.Text).to.be.equal(prompt.ActionText)
-			expect(objectTextLabel.Text).to.be.equal(prompt.ObjectText)
+			expect(actionTextLabel.Text).toBe(prompt.ActionText)
+			expect(objectTextLabel.Text).toBe(prompt.ObjectText)
 		end)
 
 		it("Prompt UI width should match prompt frame size after 4 frames", function()
@@ -208,13 +210,13 @@ return function()
 			PlayerHelper.WaitNFrames(1)
 
 			local frame = promptUI:FindFirstChild("Frame", true)
-			expect(frame:IsA("Frame")).to.be.equal(true)
+			expect(frame:IsA("Frame")).toBe(true)
 
 			local rhoElement = Rhodium.Element.new(promptUI)
 			local dimensions = rhoElement:getSize()
 
 			-- At initial rendering, the height will be correct
-			expect(dimensions.y).to.equal(frame.AbsoluteSize.y)
+			expect(dimensions.y).toBe(frame.AbsoluteSize.y)
 
 			-- We have to wait at least 4 frames so that automaticsize can size the  UI, and we
 			-- can set the BillboardGui's size to match. 4 is loosely based off of the number of
@@ -223,7 +225,7 @@ return function()
 
 			local newDimensions = rhoElement:getSize()
 			-- Leave a small amount of room for rounding errors
-			expect(math.ceil(newDimensions.x)).to.equal(math.ceil(frame.AbsoluteSize.x))
+			expect(math.ceil(newDimensions.x)).toBe(math.ceil(frame.AbsoluteSize.x))
 		end)
 
 		it("ActionText and ObjectText should not be cut off/should fit in prompt frame", function()
@@ -235,10 +237,10 @@ return function()
 
 			local actionTextLabel = promptUI:FindFirstChild("ActionText", true)
 			local objectTextLabel = promptUI:FindFirstChild("ObjectText", true)
-			expect(actionTextLabel:IsA("TextLabel")).to.be.equal(true)
-			expect(objectTextLabel:IsA("TextLabel")).to.be.equal(true)
-			expect(actionTextLabel.Text).to.be.equal(prompt.ActionText)
-			expect(objectTextLabel.Text).to.be.equal(prompt.ObjectText)
+			expect(actionTextLabel:IsA("TextLabel")).toBe(true)
+			expect(objectTextLabel:IsA("TextLabel")).toBe(true)
+			expect(actionTextLabel.Text).toBe(prompt.ActionText)
+			expect(objectTextLabel.Text).toBe(prompt.ObjectText)
 		end)
 
 		it("ActionText and ObjectText should update within 1 frame when prompt properties changed", function()
@@ -251,16 +253,16 @@ return function()
 			-- First setting
 			local actionTextLabel = promptUI:FindFirstChild("ActionText", true)
 			local objectTextLabel = promptUI:FindFirstChild("ObjectText", true)
-			expect(actionTextLabel:IsA("TextLabel")).to.be.equal(true)
-			expect(objectTextLabel:IsA("TextLabel")).to.be.equal(true)
-			expect(actionTextLabel.Text).to.be.equal(prompt.ActionText)
-			expect(objectTextLabel.Text).to.be.equal(prompt.ObjectText)
+			expect(actionTextLabel:IsA("TextLabel")).toBe(true)
+			expect(objectTextLabel:IsA("TextLabel")).toBe(true)
+			expect(actionTextLabel.Text).toBe(prompt.ActionText)
+			expect(objectTextLabel.Text).toBe(prompt.ObjectText)
 
 			-- One additional frame for AutomaticSize
 			PlayerHelper.WaitNFrames(1)
 
 			local firstXSize = promptUI.AbsoluteSize.x
-			expect(firstXSize > 0).to.be.equal(true)
+			expect(firstXSize).toBeGreaterThan(0)
 
 			prompt.ActionText = "ActionText 2B Longer"
 			prompt.ObjectText = "ObjectText 2B Longer"
@@ -270,16 +272,16 @@ return function()
 			-- Second setting
 			local actionTextLabel = promptUI:FindFirstChild("ActionText", true)
 			local objectTextLabel = promptUI:FindFirstChild("ObjectText", true)
-			expect(actionTextLabel:IsA("TextLabel")).to.be.equal(true)
-			expect(objectTextLabel:IsA("TextLabel")).to.be.equal(true)
-			expect(actionTextLabel.Text).to.be.equal(prompt.ActionText)
-			expect(objectTextLabel.Text).to.be.equal(prompt.ObjectText)
+			expect(actionTextLabel:IsA("TextLabel")).toBe(true)
+			expect(objectTextLabel:IsA("TextLabel")).toBe(true)
+			expect(actionTextLabel.Text).toBe(prompt.ActionText)
+			expect(objectTextLabel.Text).toBe(prompt.ObjectText)
 
 			-- One additional frame for AutomaticSize and one for deferred Lua
 			PlayerHelper.WaitNFrames(2)
 
 			local secondXSize = promptUI.AbsoluteSize.x
-			expect(secondXSize > firstXSize).to.be.equal(true) -- Prompt x size should have gotten bigger.
+			expect(secondXSize).toBeGreaterThan(firstXSize) -- Prompt x size should have gotten bigger.
 		end)
 	end)
 
@@ -295,27 +297,27 @@ return function()
 			prompt.Enabled = true
 
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 10
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(true) -- should be inside of radius
+			expect(dist.Magnitude).toBeLessThan(prompt.MaxActivationDistance) -- should be inside of radius
 
-			expect(promptUI).to.be.ok()
+			expect(promptUI).never.toBeNil()
 
 			PlayerHelper.WaitNFrames(1)
 
-			expect(promptUI.Enabled).to.equal(true) -- Visible
+			expect(promptUI.Enabled).toBe(true) -- Visible
 			local rhoElement = Rhodium.Element.new(promptUI)
 			local dimensions = rhoElement:getSize()
-			expect(dimensions).to.be.ok()
-			expect(dimensions.x > 10).to.equal(true) -- Prompts can be variable size but expect larger than 10x10px
-			expect(dimensions.y > 10).to.equal(true)
+			expect(dimensions).never.toBeNil()
+			expect(dimensions.x).toBeGreaterThan(10) -- Prompts can be variable size but expect larger than 10x10px
+			expect(dimensions.y).toBeGreaterThan(10)
 
 			-- Check BillboardGui is OK
-			expect(promptUI:IsA("BillboardGui"))
-			expect(promptUI.Active).to.be.equal(true) -- responds to mouse events
-			expect(promptUI.Adornee.Name).to.be.equal(part.Name) -- Check Adornee is correct
+			expect(promptUI:IsA("BillboardGui")).toBe(true)
+			expect(promptUI.Active).toBe(true) -- responds to mouse events
+			expect(promptUI.Adornee.Name).toBe(part.Name) -- Check Adornee is correct
 		end)
 
 		it("should fire Triggered signal when clicked if .ClickablePrompt=true", function()
@@ -326,13 +328,13 @@ return function()
 			part.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
 
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			local promptScreenPos = promptUICorners.center
 			-- Send left mouse button down event
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(math.floor(promptScreenPos.x), math.floor(promptScreenPos.y), 0, true) -- mouse down
 			PlayerHelper.WaitNFrames(1)
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(math.floor(promptScreenPos.x), math.floor(promptScreenPos.y), 0, false) -- mouse up
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("should not fire Triggered signal for all keyboard keys except .KeyboardKeyCode", function()
@@ -359,19 +361,19 @@ return function()
 			local keycodes = Enum.KeyCode:GetEnumItems()
 			for _, v in pairs(keycodes) do
 				if not excludeKeyCodesMap[v] then
-					promptTriggeredCount = 0
+					promptTriggeredMock.mockClear()
 					Rhodium.VirtualInput.Keyboard.SendKeyEvent(true, v, false)
 					Rhodium.VirtualInput.Keyboard.SendKeyEvent(false, v, false)
 					PlayerHelper.WaitNFrames(1)
-					expect(promptTriggeredCount).to.equal(0)
+					expect(promptTriggeredMock).never.toHaveBeenCalled()
 				end
 			end
 
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(true, prompt.KeyboardKeyCode, false)
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(false, prompt.KeyboardKeyCode, false)
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("should fire Triggered signal for correct gamepad input", function()
@@ -392,19 +394,19 @@ return function()
 			for _, v in pairs(keycodes) do
 				-- NOTE: Enum.KeyCode.ButtonSelect enables gamepad virtual cursor selection mode! Do not press it!
 				if v ~= prompt.GamepadKeyCode and v ~= Enum.KeyCode.ButtonSelect and v ~= Enum.KeyCode.ButtonStart then
-					promptTriggeredCount = 0
+					promptTriggeredMock.mockClear()
 					gamepad:pressButton(v)
 					gamepad:releaseButton(v)
 					PlayerHelper.WaitNFrames(1)
-					expect(promptTriggeredCount).to.equal(0)
+					expect(promptTriggeredMock).never.toHaveBeenCalled()
 				end
 			end
 
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			gamepad:pressButton(prompt.GamepadKeyCode)
 			gamepad:releaseButton(prompt.GamepadKeyCode)
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 
 			gamepad:disconnect()
 		end)
@@ -425,13 +427,13 @@ return function()
 			local touchpoints = promptUICorners
 
 			for _,point in pairs(touchpoints) do
-				promptTriggeredCount = 0
+				promptTriggeredMock.mockClear()
 				PlayerHelper.WaitNFrames(1)
 				Rhodium.VirtualInput.Touch.touchStart(point)
 				Rhodium.VirtualInput.Touch.touchStop(point)
 				PlayerHelper.WaitNFrames(1)
 
-				expect(promptTriggeredCount).to.equal(1)
+				expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 			end
 		end)
 
@@ -443,23 +445,23 @@ return function()
 			prompt.KeyboardKeyCode = Enum.KeyCode.F
 			prompt.GamepadKeyCode = Enum.KeyCode.ButtonX
 
-			expect(GuiService.MenuIsOpen).to.equal(false) -- Menu should be closed at first
+			expect(GuiService.MenuIsOpen).toBe(false) -- Menu should be closed at first
 
 			-- Click should work
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			local promptScreenPos = promptUICorners.center
 
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(promptScreenPos.x, promptScreenPos.y, 0, true) -- mouse down
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(promptScreenPos.x, promptScreenPos.y, 0, false) -- mouse up
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 
 			-- Keypress should work
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(true, prompt.KeyboardKeyCode, false)
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(false, prompt.KeyboardKeyCode, false)
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 
 			RoactAct(function()
 				-- Open in-game menu:
@@ -472,19 +474,19 @@ return function()
 			end, 5, "Menu did not open")
 
 			-- Try click
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(promptScreenPos.x, promptScreenPos.y, 0, true) -- mouse down
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(promptScreenPos.x, promptScreenPos.y, 0, false) -- mouse up
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(0)
+			expect(promptTriggeredMock).never.toHaveBeenCalled()
 
-			expect(GuiService.MenuIsOpen).to.equal(true) -- Menu should still be open
+			expect(GuiService.MenuIsOpen).toBe(true) -- Menu should still be open
 			-- Try keypress
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(true, prompt.KeyboardKeyCode, false)
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(false, prompt.KeyboardKeyCode, false)
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(0)
+			expect(promptTriggeredMock).never.toHaveBeenCalled()
 
 			RoactAct(function()
 				-- Close the test menu
@@ -514,10 +516,10 @@ return function()
 			end)
 
 			-- Button press should work
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			gamepad:hitButton(prompt.GamepadKeyCode)
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 
 			-- Open the in-game menu by pressing start button on console
 			RoactAct(function()
@@ -530,10 +532,10 @@ return function()
 			end, 5, "Menu did not open")
 
 			-- Button press should NOT work
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			gamepad:hitButton(prompt.GamepadKeyCode)
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggeredCount).to.equal(0)
+			expect(promptTriggeredMock).never.toHaveBeenCalled()
 
 			-- Close the in-game menu by pressing start button on console
 			RoactAct(function()
@@ -557,28 +559,28 @@ return function()
 			setKeyboardInputType()
 			PlayerHelper.WaitNFrames(1)
 
-			promptTriggeredCount = 0
+			promptTriggeredMock.mockClear()
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(true, prompt.KeyboardKeyCode, false) -- key down
 
 			PlayerHelper.WaitGameTime(prompt.HoldDuration)
 
 			-- Prompt should not have triggered yet
-			expect(promptTriggeredCount).to.equal(0)
+			expect(promptTriggeredMock).never.toHaveBeenCalled()
 
-			promptTriggeredCount = 0
-			promptTriggerEndedCount = 0
+			promptTriggeredMock.mockClear()
+			promptTriggerEndedMock.mockClear()
 			PlayerHelper.WaitNFrames(1)
 			-- Prompt should have triggered on this frame
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggerEndedCount).to.equal(0)
+			expect(promptTriggerEndedMock).never.toHaveBeenCalled()
 
 			Rhodium.VirtualInput.Keyboard.SendKeyEvent(false, prompt.KeyboardKeyCode, false) -- key up
 			-- Prompt triggerEnded event should be fired
-			promptTriggerEndedCount = 0
+			promptTriggerEndedMock.mockClear()
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggerEndedCount).to.equal(1)
+			expect(promptTriggerEndedMock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("Should only fire triggered signal after .HoldDuration time has elapsed for click", function()
@@ -588,23 +590,23 @@ return function()
 			prompt.HoldDuration = 0.23456  -- seconds
 
 			local buttonPos = promptUICorners
-			promptTriggeredCount = 0
-			promptTriggerEndedCount = 0
+			promptTriggeredMock.mockClear()
+			promptTriggerEndedMock.mockClear()
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(buttonPos.center.x, buttonPos.center.y, 0, true) -- mouse down
 
 			PlayerHelper.WaitGameTime(prompt.HoldDuration)
 
 			-- Prompt should not have triggered yet
-			expect(promptTriggeredCount).to.equal(0)
-			expect(promptTriggerEndedCount).to.equal(0)
+			expect(promptTriggeredMock).never.toHaveBeenCalled()
+			expect(promptTriggerEndedMock).never.toHaveBeenCalled()
 
 			PlayerHelper.WaitNFrames(2)
 			-- Prompt should have triggered on this frame
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 
 			Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(buttonPos.center.x, buttonPos.center.y, 0, false) -- mouse up
 			PlayerHelper.WaitNFrames(1)
-			expect(promptTriggerEndedCount).to.equal(1)
+			expect(promptTriggerEndedMock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("Should only fire triggered signal after .HoldDuration time has elapsed for tap", function()
@@ -620,25 +622,25 @@ return function()
 			rebuildPromptUI() -- Need to rebuild to respond to touch input
 			local buttonPos = promptUICorners
 
-			promptTriggeredCount = 0
-			promptTriggerEndedCount = 0
+			promptTriggeredMock.mockClear()
+			promptTriggerEndedMock.mockClear()
 			Rhodium.VirtualInput.Touch.touchStart(buttonPos.center) -- touch down
 
 			PlayerHelper.WaitGameTime(prompt.HoldDuration)
 
 			-- Prompt should not have triggered yet
-			expect(promptTriggeredCount).to.equal(0)
-			expect(promptTriggerEndedCount).to.equal(0)
+			expect(promptTriggeredMock).never.toHaveBeenCalled()
+			expect(promptTriggerEndedMock).never.toHaveBeenCalled()
 
 			PlayerHelper.WaitNFrames(2)
 			-- Prompt should have triggered on this frame
-			expect(promptTriggeredCount).to.equal(1)
+			expect(promptTriggeredMock).toHaveBeenCalledTimes(1)
 
 			Rhodium.VirtualInput.Touch.touchStop(buttonPos.center) -- touch up
 			PlayerHelper.WaitNFrames(1)
 
 			-- Prompt triggerEnded event should be fired
-			expect(promptTriggerEndedCount).to.equal(1)
+			expect(promptTriggerEndedMock).toHaveBeenCalledTimes(1)
 		end)
 
 

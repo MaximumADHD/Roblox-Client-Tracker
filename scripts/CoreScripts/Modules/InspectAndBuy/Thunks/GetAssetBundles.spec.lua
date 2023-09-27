@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -19,8 +21,8 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(#state.assets[mockAssetId].bundlesAssetIsIn).to.equal(#MockNetwork.GetMockAssetBundlesData().data)
-		expect(state.assets[mockAssetId].bundlesAssetIsIn[1]).to.equal(
+		expect(#state.assets[mockAssetId].bundlesAssetIsIn).toBe(#MockNetwork.GetMockAssetBundlesData().data)
+		expect(state.assets[mockAssetId].bundlesAssetIsIn[1]).toBe(
 			tostring(MockNetwork.GetMockAssetBundlesData().data[1].id))
 	end)
 

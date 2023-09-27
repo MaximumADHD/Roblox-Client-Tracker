@@ -702,6 +702,7 @@ return function()
 		local leaveGameKeyLabelPath_Gamepad = mainPagePath:cat(XPath.new("BottomButtons.LeaveGame.KeyLabel"))
 		local leaveGameKeyLabelPath_Keyboard = leaveGameKeyLabelPath_Gamepad:cat(XPath.new("LabelContent"))
 
+		-- These components do not use the UIBlox KeyLabel component
 		local respawnKeyLabelPath_Gamepad
 		local respawnKeyLabelPath_Keyboard
 		if game:GetFastFlag("TakeAScreenshotOfThis") then

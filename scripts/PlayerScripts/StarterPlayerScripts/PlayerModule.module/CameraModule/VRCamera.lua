@@ -38,6 +38,13 @@ local FFlagUserVRRotationTweeks do
 	FFlagUserVRRotationTweeks = success and result
 end
 
+local FFlagUserVRTorsoEstimation do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRTorsoEstimation")
+	end)
+	FFlagUserVRTorsoEstimation = success and result
+end
+
 --[[ The Module ]]--
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
 local VRCamera = setmetatable({}, VRBaseCamera)
@@ -385,12 +392,16 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 	-- figure out if the player is moving
 	local player = PlayersService.LocalPlayer
 	local subjectDelta = lastSubjPos - subjectPosition
-	local moveVector = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule")):GetMoveVector()
+	local controlModule = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+	local moveVector = controlModule:GetMoveVector()
 
 	-- while moving, slowly adjust camera so the avatar is in front of your head
 	if subjectDelta.magnitude > 0.01 or moveVector.magnitude > 0 then -- is the subject moving?
 
 		local headOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		if FFlagUserVRTorsoEstimation then
+			headOffset = controlModule:GetEstimatedVRTorsoFrame()
+		end
 		-- account for headscale
 		headOffset = headOffset.Rotation + headOffset.Position * camera.HeadScale
 		local headCframe = camera.CFrame * headOffset

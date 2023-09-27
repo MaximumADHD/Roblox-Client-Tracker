@@ -4,6 +4,14 @@ local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
+local React = require(CorePackages.Packages.React)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local RequestType = require(Root.Enums.RequestType)
 
@@ -16,7 +24,11 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 
 local PremiumUpsellOverlay = require(script.Parent.PremiumUpsellOverlay)
 
+local GetFFLagUseCoreScriptsRootProviderForUpsellModal = require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
+
 local PremiumUpsellContainer = Roact.Component:extend(script.Name)
+
+local SELECTION_GROUP_NAME = "PremiumUpsellContainer"
 
 function PremiumUpsellContainer:init()
 	self.state = {
@@ -32,7 +44,7 @@ function PremiumUpsellContainer:init()
 	end
 end
 
-function PremiumUpsellContainer:render()
+function PremiumUpsellContainer:createElement()
 	local props = self.props
 	local state = self.state
 
@@ -75,6 +87,21 @@ function PremiumUpsellContainer:render()
 			end,
 		})
 	})
+end
+
+function PremiumUpsellContainer:render()
+	if GetFFLagUseCoreScriptsRootProviderForUpsellModal() then
+		return Roact.createElement(CoreScriptsRootProvider, {}, {
+			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+				selectionGroupName = SELECTION_GROUP_NAME,
+				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+			}, {
+				PremiumUpsellContainer = self:createElement(),
+			})
+		})
+	else
+		return self:createElement()
+	end
 end
 
 PremiumUpsellContainer = connectToStore(

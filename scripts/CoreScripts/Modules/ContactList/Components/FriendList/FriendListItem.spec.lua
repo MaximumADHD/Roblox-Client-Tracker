@@ -52,6 +52,7 @@ return function()
 					displayName = "display name",
 					dismissCallback = function() end,
 					showDivider = true,
+					isDevMode = true,
 				}),
 			}),
 		})

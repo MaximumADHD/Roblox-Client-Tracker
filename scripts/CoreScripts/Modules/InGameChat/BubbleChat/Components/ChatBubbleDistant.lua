@@ -117,52 +117,57 @@ function ChatBubbleDistant:render()
 			ImageColor3 = chatSettings.BackgroundColor3,
 			ImageTransparency = self.transparency,
 		}),
-		RoundedFrame = 	Roact.createElement("ImageLabel", Cryo.Dictionary.join(backgroundImageSettings, {
-			Size = self.frameSize,
-			BackgroundColor3 = chatSettings.BackgroundColor3,
-			BackgroundTransparency = backgroundImageSettings.Image == "" and self.transparency or 1,
-			BorderSizePixel = 0,
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.new(0.5, 0, 0, 0),
-			ClipsDescendants = true,
-			ImageTransparency = self.transparency,
-		}), {
-			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
-				CornerRadius = chatSettings.CornerRadius,
+		RoundedFrame = Roact.createElement(
+			"ImageLabel",
+			Cryo.Dictionary.join(backgroundImageSettings, {
+				Size = self.frameSize,
+				BackgroundColor3 = chatSettings.BackgroundColor3,
+				BackgroundTransparency = backgroundImageSettings.Image == "" and self.transparency or 1,
+				BorderSizePixel = 0,
+				AnchorPoint = Vector2.new(0.5, 0),
+				Position = UDim2.new(0.5, 0, 0, 0),
+				ClipsDescendants = true,
+				ImageTransparency = self.transparency,
 			}),
-
-			Contents = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, chatSettings.Padding),
-					PaddingRight = UDim.new(0, chatSettings.Padding),
-					PaddingBottom = UDim.new(0, chatSettings.Padding),
-					PaddingLeft = UDim.new(0, chatSettings.Padding),
+			{
+				UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
+					CornerRadius = chatSettings.CornerRadius,
 				}),
-				
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-				
-				Insert = self.props.renderInsert and self.props.renderInsert(),
 
-				Ellipsis = Roact.createElement("TextLabel", {
+				Contents = Roact.createElement("Frame", {
+					Size = UDim2.fromScale(1, 1),
 					BackgroundTransparency = 1,
-					Text = "…",
-					TextColor3 = chatSettings.TextColor3,
-					TextTransparency = self.transparency,
-					Font = Enum.Font.GothamBlack,
-					TextScaled = true,
-					Size = UDim2.new(1, -extraWidth, 1, 0),
-					LayoutOrder = 2,
-				}),
-			}),
+				}, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, chatSettings.Padding),
+						PaddingRight = UDim.new(0, chatSettings.Padding),
+						PaddingBottom = UDim.new(0, chatSettings.Padding),
+						PaddingLeft = UDim.new(0, chatSettings.Padding),
+					}),
 
-			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
-		})
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+
+					Insert = self.props.renderInsert and self.props.renderInsert(),
+
+					Ellipsis = Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						Text = "…",
+						TextColor3 = chatSettings.TextColor3,
+						TextTransparency = self.transparency,
+						Font = Enum.Font.GothamBlack,
+						TextScaled = true,
+						Size = UDim2.new(1, -extraWidth, 1, 0),
+						LayoutOrder = 2,
+					}),
+				}),
+
+				Gradient = backgroundGradientSettings.Enabled
+					and Roact.createElement("UIGradient", backgroundGradientSettings),
+			}
+		),
 	})
 end
 

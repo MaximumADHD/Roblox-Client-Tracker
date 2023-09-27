@@ -15,6 +15,7 @@ export type UIDefinition = Package.UIDefinition
 export type DefaultUITemplate = Package.DefaultUITemplate
 export type UITransformFunction = Package.UITransformFunction
 export type UINavigatorRoute = Package.UINavigatorRoute
+export type ConfigurationViewError = Package.ConfigurationViewError
 
 
 return Package

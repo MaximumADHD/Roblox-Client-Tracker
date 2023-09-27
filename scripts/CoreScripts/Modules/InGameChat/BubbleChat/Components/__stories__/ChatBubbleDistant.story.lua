@@ -40,7 +40,7 @@ function Story:render()
 				})
 			end or nil,
 			insertSize = self.state.voiceOn and Vector2.new(28, 28) or nil,
-		})
+		}),
 	})
 end
 

@@ -8,9 +8,9 @@ local function getTransparencySpringFromSettings(chatSettings)
 		return Otter.instant
 	end
 
-	local config =  {
+	local config = {
 		dampingRatio = animationSettings.SpringDampingRatio,
-		frequency = animationSettings.SpringFrequency
+		frequency = animationSettings.SpringFrequency,
 	}
 	return function(targetValue)
 		return Otter.spring(targetValue, config)

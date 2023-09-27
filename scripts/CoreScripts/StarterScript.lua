@@ -70,7 +70,7 @@ local GetFFlagEnableSocialContextToast = require(CorePackages.Workspace.Packages
 local GetFFlagTenFootUiAchievements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagTenFootUiAchievements
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
-
+local FFlagCoreScriptsGlobalEffects = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreScriptsGlobalEffects
 local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
 
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
@@ -89,7 +89,12 @@ while not localPlayer do
 end
 
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
-if FFlagAvatarChatCoreScriptSupport then
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+if ChromeEnabled then
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	ExperienceChat.GlobalFlags.AvatarChatEnabled = FFlagAvatarChatCoreScriptSupport
+	ExperienceChat.GlobalFlags.ChromeEnabled = true
+elseif FFlagAvatarChatCoreScriptSupport then
 	local ExperienceChat = require(CorePackages.ExperienceChat)
 	ExperienceChat.GlobalFlags.AvatarChatEnabled = true
 end
@@ -377,6 +382,14 @@ end
 
 if GetFFlagVoiceUserAgency3() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceUserAgency", RobloxGui)
+end
+
+if FFlagCoreScriptsGlobalEffects then
+	-- Mounts a react root that persists while the user is in-experience.
+	-- This allows us to use react-based listeners that trigger effects
+	if not _G.IsLegacyAppShell then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptsGlobalEffects", script.Parent)
+	end
 end
 
 if GetFFlagCorescriptsSoundManagerEnabled() then

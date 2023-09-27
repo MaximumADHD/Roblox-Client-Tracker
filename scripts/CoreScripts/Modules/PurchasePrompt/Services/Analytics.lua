@@ -31,7 +31,7 @@ function Analytics.new()
 	local function GetPlatformString()
 		local platform = UserInputService:GetPlatform()
 		local platformStr = "UNKNOWN"
-		if GetFFlagUsePlatformNameForUnknown then
+		if GetFFlagUsePlatformNameForUnknown() then
 			platformStr = tostring(platform)
 		end
 		
@@ -55,6 +55,8 @@ function Analytics.new()
 			platformStr = "XBoxOne"
 		elseif platform == Enum.Platform.UWP then
 			platformStr = "UWP"
+		elseif platform == Enum.Platform.PS4 then
+			platformStr = "PlayStation"
 		end
 
 		if GetFFlagEnableLuobuInGameUpsell() then

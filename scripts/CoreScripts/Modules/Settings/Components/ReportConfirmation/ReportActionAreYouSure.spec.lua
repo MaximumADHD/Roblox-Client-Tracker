@@ -3,6 +3,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local ReportActionAreYouSure = require(script.Parent.ReportActionAreYouSure)
 	local simpleMountFrame = require(CorePackages.Workspace.Packages.UnitTestHelpers).simpleMountFrame
 
@@ -25,13 +28,13 @@ return function()
 			}))
 
 			local title = parent:FindFirstChild("title", true)
-			expect(title).to.be.ok()
+			expect(title).never.toBeNil()
 
 			local subtitle = parent:FindFirstChild("subtitle", true)
-			expect(subtitle).to.be.ok()
+			expect(subtitle).never.toBeNil()
 
-			expect(title.Text).to.equal(titleText)
-			expect(subtitle.Text).to.equal(subtitleText)
+			expect(title.Text).toBe(titleText)
+			expect(subtitle.Text).toBe(subtitleText)
 
 			cleanup()
 		end)
@@ -54,13 +57,13 @@ return function()
 			}))
 
 			local title = parent:FindFirstChild("title", true)
-			expect(title).to.be.ok()
+			expect(title).never.toBeNil()
 
 			local subtitle = parent:FindFirstChild("subtitle", true)
-			expect(subtitle).to.be.ok()
+			expect(subtitle).never.toBeNil()
 
-			expect(title.Text).to.equal(titleText)
-			expect(subtitle.Text).to.equal(subtitleText)
+			expect(title.Text).toBe(titleText)
+			expect(subtitle.Text).toBe(subtitleText)
 
 			cleanup()
 		end)
@@ -83,13 +86,13 @@ return function()
 			}))
 
 			local title = parent:FindFirstChild("title", true)
-			expect(title).to.be.ok()
+			expect(title).never.toBeNil()
 
 			local subtitle = parent:FindFirstChild("subtitle", true)
-			expect(subtitle).to.be.ok()
+			expect(subtitle).never.toBeNil()
 
-			expect(title.Text).to.equal(titleText)
-			expect(subtitle.Text).to.equal(subtitleText)
+			expect(title.Text).toBe(titleText)
+			expect(subtitle.Text).toBe(subtitleText)
 
 			cleanup()
 		end)

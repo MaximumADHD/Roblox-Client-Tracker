@@ -1,6 +1,10 @@
 return function()
     local AssetInfo = require(script.Parent.AssetInfo)
-    local Constants = require(script.Parent.Parent.Constants)
+	local Constants = require(script.Parent.Parent.Constants)
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
     local function createCollectibleItem()
         return {
@@ -36,21 +40,21 @@ return function()
 	describe("AssetInfo", function()
         it("should mark valid Collectible Item as forSale", function()
             local assetInfo = AssetInfo.fromGetProductInfo(createCollectibleItem())
-            expect(assetInfo.isForSale).to.equal(true)
+			expect(assetInfo.isForSale).toBe(true)
         end)
 
         it("should mark Collectible Item as offSale if remaining = 0", function()
             local productInfo = createCollectibleItem()
             productInfo.Remaining = 0
             local assetInfo = AssetInfo.fromGetProductInfo(productInfo)
-            expect(assetInfo.isForSale).to.equal(not IsSaleLocationEnabled())
+			expect(assetInfo.isForSale).toBe(not IsSaleLocationEnabled())
         end)
 
         it("should mark Collectible Item as offSale if sale location is DEV_API_ONLY", function()
             local productInfo = createCollectibleItem()
             productInfo.SaleLocation.SaleLocationType = Constants.SaleLocationType.ExperiencesDevApiOnly
             local assetInfo = AssetInfo.fromGetProductInfo(productInfo)
-            expect(assetInfo.isForSale).to.equal(not IsSaleLocationEnabled())
+			expect(assetInfo.isForSale).toBe(not IsSaleLocationEnabled())
         end)
     end)
 end

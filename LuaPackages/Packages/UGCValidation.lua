@@ -5,4 +5,9 @@ local PackageIndex = script.Parent._Index
 
 local Package = require(PackageIndex["UGCValidation"]["UGCValidation"])
 
+export type AvatarValidationError = Package.AvatarValidationError
+export type AvatarValidationResponse = Package.AvatarValidationResponse
+export type BundlesMetadata = Package.BundlesMetadata
+
+
 return Package

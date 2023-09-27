@@ -36,7 +36,7 @@ function ChatBillboards.getDerivedStateFromProps(nextProps, lastState)
 		-- We need to keep in memory userMessages' keys to allow the fade out animations to play, otherwise the child
 		-- billboards would be unmounted right away. It is their responsibility to clean up by triggering
 		-- the function self.onBillboardFadeOut
-		userMessages = Cryo.Dictionary.join(lastState.userMessages or {}, nextProps.userMessages)
+		userMessages = Cryo.Dictionary.join(lastState.userMessages or {}, nextProps.userMessages),
 	}
 end
 
@@ -48,7 +48,7 @@ function ChatBillboards:init()
 
 	self.onBillboardFadeOut = function(userId)
 		self:setState({
-			userMessages = Cryo.Dictionary.join(self.state.userMessages, { [userId] = Cryo.None })
+			userMessages = Cryo.Dictionary.join(self.state.userMessages, { [userId] = Cryo.None }),
 		})
 	end
 end

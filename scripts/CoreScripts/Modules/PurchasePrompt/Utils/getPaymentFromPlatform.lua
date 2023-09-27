@@ -28,8 +28,7 @@ return function(platform, isLuobu, isAmazon, isMaquettes)
 		end
 	elseif platform == Enum.Platform.UWP then
 		return PaymentPlatform.UWP
-	-- TODO(UBIQUITY-852): Remove the implementation based on solutions in UBIQUITY-852.
-	elseif GetFFlagEnablePalisadesPaymentsPlatform() then
+	elseif GetFFlagEnablePalisadesPaymentsPlatform() and platform == Enum.Platform.PS4 then
 		return PaymentPlatform.Palisades
 	else
 		return PaymentPlatform.None

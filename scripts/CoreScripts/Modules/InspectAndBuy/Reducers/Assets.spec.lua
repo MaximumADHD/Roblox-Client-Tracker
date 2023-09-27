@@ -5,6 +5,11 @@ return function()
 	local Assets = require(script.Parent.Assets)
 	local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local MOCK_ASSET_1 = AssetInfo.mock()
 	MOCK_ASSET_1.assetId = "123"
 
@@ -25,31 +30,31 @@ return function()
 		it("should set a single asset", function()
 			local newState = Assets(nil, SetAssets({MOCK_ASSET_1}))
 
-			expect(newState[MOCK_ASSET_1.assetId].assetId).to.equal(MOCK_ASSET_1.assetId)
-			expect(countKeys(newState)).to.equal(1)
+			expect(newState[MOCK_ASSET_1.assetId].assetId).toBe(MOCK_ASSET_1.assetId)
+			expect(countKeys(newState)).toBe(1)
 		end)
 
 		it("should set a list of assets", function()
 			local newState = Assets(nil, SetAssets({MOCK_ASSET_1, MOCK_ASSET_2}))
 
-			expect(newState[MOCK_ASSET_1.assetId].assetId).to.equal(MOCK_ASSET_1.assetId)
-			expect(newState[MOCK_ASSET_2.assetId].assetId).to.equal(MOCK_ASSET_2.assetId)
-			expect(countKeys(newState)).to.equal(2)
+			expect(newState[MOCK_ASSET_1.assetId].assetId).toBe(MOCK_ASSET_1.assetId)
+			expect(newState[MOCK_ASSET_2.assetId].assetId).toBe(MOCK_ASSET_2.assetId)
+			expect(countKeys(newState)).toBe(2)
 		end)
 
 		it("should update an asset", function()
 			local newState = Assets(nil, SetAssets({MOCK_ASSET_1}))
 
-			expect(newState[MOCK_ASSET_1.assetId].assetId).to.equal(MOCK_ASSET_1.assetId)
+			expect(newState[MOCK_ASSET_1.assetId].assetId).toBe(MOCK_ASSET_1.assetId)
 
 			local updatedAsset = MOCK_ASSET_1
 			updatedAsset.name = MOCK_NAME
 
 			newState = Assets(newState, SetAssets({updatedAsset}))
 
-			expect(newState[MOCK_ASSET_1.assetId].assetId).to.equal(MOCK_ASSET_1.assetId)
-			expect(newState[MOCK_ASSET_1.assetId].name).to.equal(MOCK_NAME)
-			expect(countKeys(newState)).to.equal(1)
+			expect(newState[MOCK_ASSET_1.assetId].assetId).toBe(MOCK_ASSET_1.assetId)
+			expect(newState[MOCK_ASSET_1.assetId].name).toBe(MOCK_NAME)
+			expect(countKeys(newState)).toBe(1)
 		end)
 	end)
 
@@ -62,9 +67,9 @@ return function()
 				{"1", "2", "3"}
 			))
 
-			expect(newState[MOCK_ASSET_1.assetId].assetId).to.equal(MOCK_ASSET_1.assetId)
-			expect(newState[MOCK_ASSET_1.assetId].bundlesAssetIsIn[1]).to.equal("1")
-			expect(#newState[MOCK_ASSET_1.assetId].bundlesAssetIsIn).to.equal(3)
+			expect(newState[MOCK_ASSET_1.assetId].assetId).toBe(MOCK_ASSET_1.assetId)
+			expect(newState[MOCK_ASSET_1.assetId].bundlesAssetIsIn[1]).toBe("1")
+			expect(#newState[MOCK_ASSET_1.assetId].bundlesAssetIsIn).toBe(3)
 		end)
 	end)
 end

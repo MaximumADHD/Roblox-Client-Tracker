@@ -4,6 +4,11 @@ return function()
 	local Bundles = require(script.Parent.Bundles)
 	local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local MOCK_BUNDLE_1 = BundleInfo.mock()
 	MOCK_BUNDLE_1.bundleId = "123"
 
@@ -24,8 +29,8 @@ return function()
 				[1] = MOCK_BUNDLE_1,
 			}))
 
-			expect(newState[MOCK_BUNDLE_1.bundleId].bundleId).to.equal(MOCK_BUNDLE_1.bundleId)
-			expect(countKeys(newState)).to.equal(1)
+			expect(newState[MOCK_BUNDLE_1.bundleId].bundleId).toBe(MOCK_BUNDLE_1.bundleId)
+			expect(countKeys(newState)).toBe(1)
 		end)
 
 		it("should set multiple bundles information", function()
@@ -34,9 +39,9 @@ return function()
 				[2] = MOCK_BUNDLE_2,
 			}))
 
-			expect(newState[MOCK_BUNDLE_1.bundleId].bundleId).to.equal(MOCK_BUNDLE_1.bundleId)
-			expect(newState[MOCK_BUNDLE_2.bundleId].bundleId).to.equal(MOCK_BUNDLE_2.bundleId)
-			expect(countKeys(newState)).to.equal(2)
+			expect(newState[MOCK_BUNDLE_1.bundleId].bundleId).toBe(MOCK_BUNDLE_1.bundleId)
+			expect(newState[MOCK_BUNDLE_2.bundleId].bundleId).toBe(MOCK_BUNDLE_2.bundleId)
+			expect(countKeys(newState)).toBe(2)
 		end)
 
 		it("should update a bundle's information", function()
@@ -46,15 +51,15 @@ return function()
 				[1] = bundle1,
 			}))
 
-			expect(newState[bundle1.bundleId].bundleId).to.equal(bundle1.bundleId)
+			expect(newState[bundle1.bundleId].bundleId).toBe(bundle1.bundleId)
 
 			bundle1.numFavorites = numFavorites
 			newState = Bundles(newState, SetBundles({
 				[1] = bundle1,
 			}))
 
-			expect(newState[bundle1.bundleId].numFavorites).to.equal(numFavorites)
-			expect(countKeys(newState)).to.equal(1)
+			expect(newState[bundle1.bundleId].numFavorites).toBe(numFavorites)
+			expect(countKeys(newState)).toBe(1)
 		end)
 	end)
 end

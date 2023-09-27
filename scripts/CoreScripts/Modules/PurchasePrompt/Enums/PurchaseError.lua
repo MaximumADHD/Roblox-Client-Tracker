@@ -39,10 +39,10 @@ local PurchaseError = createEnum("PurchaseError", {
 	"AlreadySubscribed",
 	"SubscriptionExceededUserSpendLimit",
 	"SubscriptionUnsupportedLocale",
-	"UnderAge17",
-	"SubscriptionUnsupportedDevice",
-	"UnavailableSubscription",
-	"SubscriptionThirdPartySalesNotAllowed",
+	"RestrictedUserAge",
+	"SubscriptionPurchasePlatformNotSupported",
+	"SubscriptionInvalidSaleLocation",
+	"SubscriptionNotForSale"
 })
 
 return PurchaseError

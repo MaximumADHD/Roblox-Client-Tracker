@@ -449,6 +449,9 @@ local function CreateSettingsHub()
 	local voiceButtonTextCached = nil
 
 	local function updateIcon()
+		if ChromeEnabled then
+			return
+		end
 		local buttonHint, buttonLabel
 		if Theme.UseIconButtons then
 			if not buttonHintCached then
@@ -777,6 +780,9 @@ local function CreateSettingsHub()
 	end
 
 	local function addMuteButtonToBar()
+		if ChromeEnabled then
+			return
+		end
 		local buttonSize = UDim2.new(0,235,0,Theme.LargeButtonHeight)
 		local buttonOffset = -27.5
 		appendMicButton()
@@ -791,7 +797,6 @@ local function CreateSettingsHub()
 		if GetFFlagEnableVoiceChatPlayersList()
 			and game:GetEngineFeature("VoiceChatSupported")
 			and not voiceChatServiceConnected
-			and not ChromeEnabled
 		then
 			voiceChatServiceConnected = true
 			VoiceChatServiceManager:asyncInit():andThen(function()

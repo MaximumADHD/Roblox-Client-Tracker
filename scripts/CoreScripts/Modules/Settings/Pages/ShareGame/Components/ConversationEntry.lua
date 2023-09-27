@@ -18,8 +18,6 @@ local InviteButton = require(ShareGame.Components.InviteButton)
 local Constants = require(ShareGame.Constants)
 local InviteStatus = Constants.InviteStatus
 
-local FFlagLuaInviteFailOnZeroPlaceId = settings():GetFFlag("LuaInviteFailOnZeroPlaceIdV384")
-
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
 local ENTRY_BG_TRANSPARENCY = 0.85
@@ -60,11 +58,7 @@ function ConversationEntry:init()
 				analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
 			end
 
-			local onReject
-			if FFlagLuaInviteFailOnZeroPlaceId then
-				onReject = function() end
-			end
-
+			local onReject = function() end	
 			inviteUser(users[1].id):andThen(onSuccess, onReject)
 		end
 	end

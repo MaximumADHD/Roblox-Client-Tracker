@@ -48,6 +48,8 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 
+local FFlagShowAddFriendButtonForXboxUA = game:DefineFastFlag("ShowAddFriendButtonForXboxUA", false)
+
 ------------ Constants -------------------
 local Theme = require(script.Parent.Parent.Theme)
 
@@ -138,7 +140,6 @@ local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerLis
 
 local FFlagEnablePlatformName = game:DefineFastFlag("EnablePlatformName", false)
 local FFlagCheckForNilUserIdOnPlayerList = game:DefineFastFlag("CheckForNilUserIdOnPlayerList", false)
-local FFlagLocalPlayerPlatformNameWorkaround = require(CorePackages.Workspace.Packages.SharedFlags).FFlagLocalPlayerPlatformNameWorkaround
 local FFlagFixPlayersLoadingState = game:DefineFastFlag("FixPlayersLoadingState", false)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
@@ -250,10 +251,18 @@ local function Initialize()
 				end
 			end
 
-			if platform ~= Enum.Platform.XBoxOne then
-				friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, Theme.ButtonHeight), addFriendFunc)
-				friendLabelText.ZIndex = 3
-				friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
+			if FFlagShowAddFriendButtonForXboxUA then
+				if not (platform == Enum.Platform.XBoxOne and game:GetEngineFeature("XboxUniversalApp") == false) then
+					friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, Theme.ButtonHeight), addFriendFunc)
+					friendLabelText.ZIndex = 3
+					friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
+				end
+			else
+				if platform ~= Enum.Platform.XBoxOne then
+					friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, Theme.ButtonHeight), addFriendFunc)
+					friendLabelText.ZIndex = 3
+					friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
+				end
 			end
 		end
 
@@ -1496,9 +1505,26 @@ local function Initialize()
 
 	local rebuildPlayerList = function(switchedFromGamepadInput)
 		sortedPlayers = PlayersService:GetPlayers()
-		table.sort(sortedPlayers, function(item1,item2)
-			return item1.Name:lower() < item2.Name:lower()
-		end)
+
+		if ChromeEnabled then
+			table.sort(sortedPlayers, function(item1,item2)
+				local name1 = item1.Name:lower()
+				local name2 = item2.Name:lower()
+				-- pin localPlayer to the top of the sort
+				if item1 == localPlayer then
+					name1 = " "
+				end
+				if item2 == localPlayer then
+					name2 = " "
+				end
+				return name1 < name2
+			end)
+		else
+			table.sort(sortedPlayers, function(item1,item2)
+				return item1.Name:lower() < item2.Name:lower()
+			end)
+		end
+
 
 		local extraOffset = if GetFFlagShowMuteToggles() then 60 else 20
 		if utility:IsSmallTouchScreen() or utility:IsPortrait() then
@@ -1746,41 +1772,6 @@ local function Initialize()
 						end
 					end
 				end)
-
-				if FFlagLocalPlayerPlatformNameWorkaround then
-					--[[
-						TODO: CLIPS-618. We have to do an additional fetch for the localPlayer platformName
-						due to a potential issue with the profiles backend. This query should be removed
-						once the backend issue is resolved.
-					]]
-					-- Check cache first
-					local data = ApolloClient:readQuery({
-						query = UserProfiles.Queries.userProfilesPlatformNamesByUserIds,
-						variables = {
-							userIds = { tostring(localPlayer.UserId) },
-						},
-					})
-
-					-- If the platformName is not in the cache, or is an empty string, try to refetch it
-					if data.userProfiles and data.userProfiles[1] and data.userProfiles[1].names.platformName == "" then
-						ApolloClient:query({
-							query = UserProfiles.Queries.userProfilesPlatformNamesByUserIds,
-							variables = {
-								userIds = { tostring(localPlayer.UserId) },
-							},
-							fetchPolicy = "network-only",
-						}):andThen(function(response)
-							local userProfile = response.data.userProfiles[1]
-							if userProfile and userProfile.names.platformName ~= "" then
-								local labelFrame = existingPlayerLabels[localPlayer.Name]
-								local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
-								resizePlatformName(rightSideButtons, userProfile.names.platformName)
-							end
-						end):catch(function()
-							warn("CoreScripts: Failed to fetch platform name for local user.")
-						end)
-					end
-				end
 			end):catch(function()
 				Cryo.List.map(sortedPlayers, function(player)
 					local labelFrame = existingPlayerLabels[player.Name]

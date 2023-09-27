@@ -33,7 +33,7 @@ local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local Constants = require(ShareGame.Constants)
 local ShareInviteLink = require(ShareGame.Components.ShareInviteLink)
-local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
 
 local FetchUserFriends
 local ClosePage

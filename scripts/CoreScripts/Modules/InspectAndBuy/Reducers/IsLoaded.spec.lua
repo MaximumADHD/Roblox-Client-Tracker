@@ -5,14 +5,17 @@ return function()
 	local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 	local IsLoaded = require(script.Parent.IsLoaded)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	describe("IsLoaded", function()
 		it("should mark the Inspect Menu as loaded or not", function()
 			local store = Rodux.Store.new(IsLoaded)
 			local newState = store:getState()
-			expect(newState).to.equal(false)
+			expect(newState).toBe(false)
 
 			newState = IsLoaded(newState, SetAssets({}))
-			expect(newState).to.equal(true)
+			expect(newState).toBe(true)
 		end)
 	end)
 end

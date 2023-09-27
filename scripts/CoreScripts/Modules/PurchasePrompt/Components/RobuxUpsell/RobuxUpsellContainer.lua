@@ -5,6 +5,14 @@ local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
+local React = require(CorePackages.Packages.React)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 
@@ -23,9 +31,13 @@ local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
 
+local GetFFLagUseCoreScriptsRootProviderForUpsellModal = require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
+
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
 
 local RobuxUpsellContainer = Roact.Component:extend(script.Name)
+
+local SELECTION_GROUP_NAME = "RobuxUpsellContainer"
 
 function RobuxUpsellContainer:init()
 	self.state = {
@@ -41,7 +53,7 @@ function RobuxUpsellContainer:init()
 	end
 end
 
-function RobuxUpsellContainer:render()
+function RobuxUpsellContainer:createElement()
 	local props = self.props
 	local state = self.state
 
@@ -105,6 +117,21 @@ function RobuxUpsellContainer:render()
 			end,
 		})
 	})
+end
+
+function RobuxUpsellContainer:render()
+	if GetFFLagUseCoreScriptsRootProviderForUpsellModal() then
+		return Roact.createElement(CoreScriptsRootProvider, {}, {
+			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+				selectionGroupName = SELECTION_GROUP_NAME,
+				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+			}, {
+				RobuxUpsellContainer = self:createElement(),
+			})
+		})
+	else
+		return self:createElement()
+	end
 end
 
 RobuxUpsellContainer = connectToStore(

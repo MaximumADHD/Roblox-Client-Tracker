@@ -16,10 +16,11 @@ local EnableInGameMenuModernization = require(RobloxGui.Modules.Flags.GetFFlagEn
 local EnableInGameMenuModernizationBigText = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationBigText)
 local EnableInGameMenuModernizationStickyBar = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationStickyBar)
 local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
+local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
 
 local AppFontBaseSize = AppFont.BaseSize
 
-local ThemeEnabled = EnableInGameMenuControls() or EnableInGameMenuModernization()
+local ThemeEnabled = EnableInGameMenuControls() or EnableInGameMenuModernization() or ChromeEnabled()
 
 local UseBiggerText = EnableInGameMenuModernizationBigText()
 local UseStickyBarEnabled = EnableInGameMenuModernizationStickyBar()

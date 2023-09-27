@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -8,14 +10,6 @@ return function()
 	local Thunk = require(InspectAndBuyFolder.Thunk)
 	local MockId = require(InspectAndBuyFolder.MockId)
 	local GetBundleFavoriteCount = require(script.Parent.GetBundleFavoriteCount)
-
-	local function countKeys(t)
-		local count = 0
-		for _ in pairs(t) do
-			count = count + 1
-		end
-		return count
-	end
 
 	describe("GetBundleFavoriteCount", function()
 		it("should run without errors", function()
@@ -28,7 +22,7 @@ return function()
 			})
 
 			local state = store:getState()
-			expect(countKeys(state.bundles)).to.equal(1)
+			expect(state.bundles).toEqual({ [mockId] = expect.anything() })
 		end)
 
 		it("should get the number of favorites a bundle has", function()
@@ -40,7 +34,7 @@ return function()
 				[Network] = MockNetwork.new(),
 			})
 
-			expect(store:getState().bundles[mockId].numFavorites).to.equal(MockNetwork.GetMockFavoriteCount())
+			expect(store:getState().bundles[mockId].numFavorites).toBe(MockNetwork.GetMockFavoriteCount())
 		end)
 
 		it("should catch network errors that happen and still run", function()

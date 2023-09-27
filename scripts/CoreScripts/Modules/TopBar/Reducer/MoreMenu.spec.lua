@@ -7,6 +7,11 @@ return function()
 	local SetLeaderboardOpen = require(Actions.SetLeaderboardOpen)
 	local SetEmotesEnabled = require(Actions.SetEmotesEnabled)
 
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local MoreMenu = require(script.Parent.MoreMenu)
 
 	local function countValues(t)
@@ -19,28 +24,29 @@ return function()
 
 	it("should have the correct default values", function()
 		local defaultState = MoreMenu(nil, {})
-		expect(type(defaultState)).to.equal("table")
-		expect(defaultState.open).to.equal(false)
-		expect(defaultState.backpackOpen).to.equal(false)
-		expect(defaultState.leaderboardOpen).to.equal(false)
-		expect(defaultState.emotesOpen).to.equal(false)
+		expect(defaultState).toMatchObject({
+			open = false,
+			backpackOpen = false,
+			leaderboardOpen = false,
+			emotesOpen = false,
+		})
 	end)
 
 	describe("SetMoreMenuOpen", function()
 		it("should change the value of open", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetMoreMenuOpen(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.open).to.equal(true)
+			expect(oldState).never.toBe(newState)
+			expect(newState.open).toBe(true)
 		end)
 
 		it("should not change any other values", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetMoreMenuOpen(true))
-			expect(countValues(newState)).to.equal(countValues(oldState))
+			expect(countValues(newState)).toBe(countValues(oldState))
 			for key, value in pairs(newState) do
 				if key ~= "open" then
-					expect(value).to.equal(oldState[key])
+					expect(value).toBe(oldState[key])
 				end
 			end
 		end)
@@ -50,17 +56,17 @@ return function()
 		it("should change the value of backpackOpen", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetBackpackOpen(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.backpackOpen).to.equal(true)
+			expect(oldState).never.toBe(newState)
+			expect(newState.backpackOpen).toBe(true)
 		end)
 
 		it("should not change any other values except open", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetBackpackOpen(true))
-			expect(countValues(newState)).to.equal(countValues(oldState))
+			expect(countValues(newState)).toBe(countValues(oldState))
 			for key, value in pairs(newState) do
 				if key ~= "backpackOpen" and key ~= "open" then
-					expect(value).to.equal(oldState[key])
+					expect(value).toBe(oldState[key])
 				end
 			end
 		end)
@@ -69,8 +75,8 @@ return function()
 			local oldState = MoreMenu(nil, {})
 			oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
 			local newState = MoreMenu(oldState, SetBackpackOpen(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.open).to.equal(false)
+			expect(oldState).never.toBe(newState)
+			expect(newState.open).toBe(false)
 		end)
 	end)
 
@@ -78,17 +84,17 @@ return function()
 		it("should change the value of emotesOpen", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetEmotesOpen(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.emotesOpen).to.equal(true)
+			expect(oldState).never.toBe(newState)
+			expect(newState.emotesOpen).toBe(true)
 		end)
 
 		it("should not change any other values except open", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetEmotesOpen(true))
-			expect(countValues(newState)).to.equal(countValues(oldState))
+			expect(countValues(newState)).toBe(countValues(oldState))
 			for key, value in pairs(newState) do
 				if key ~= "emotesOpen" and key ~= "open" then
-					expect(value).to.equal(oldState[key])
+					expect(value).toBe(oldState[key])
 				end
 			end
 		end)
@@ -97,8 +103,8 @@ return function()
 			local oldState = MoreMenu(nil, {})
 			oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
 			local newState = MoreMenu(oldState, SetEmotesOpen(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.open).to.equal(false)
+			expect(oldState).never.toBe(newState)
+			expect(newState.open).toBe(false)
 		end)
 	end)
 
@@ -106,17 +112,17 @@ return function()
 		it("should change the value of emotesEnabled", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetEmotesEnabled(false))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.emotesEnabled).to.equal(false)
+			expect(oldState).never.toBe(newState)
+			expect(newState.emotesEnabled).toBe(false)
 		end)
 
 		it("should not change any other values", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetEmotesEnabled(false))
-			expect(countValues(newState)).to.equal(countValues(oldState))
+			expect(countValues(newState)).toBe(countValues(oldState))
 			for key, value in pairs(newState) do
 				if key ~= "emotesEnabled" then
-					expect(value).to.equal(oldState[key])
+					expect(value).toBe(oldState[key])
 				end
 			end
 		end)
@@ -126,17 +132,17 @@ return function()
 		it("should change the value of open", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.leaderboardOpen).to.equal(true)
+			expect(oldState).never.toBe(newState)
+			expect(newState.leaderboardOpen).toBe(true)
 		end)
 
 		it("should not change any other values except open", function()
 			local oldState = MoreMenu(nil, {})
 			local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
-			expect(countValues(newState)).to.equal(countValues(oldState))
+			expect(countValues(newState)).toBe(countValues(oldState))
 			for key, value in pairs(newState) do
 				if key ~= "leaderboardOpen" and key ~= "open" then
-					expect(value).to.equal(oldState[key])
+					expect(value).toBe(oldState[key])
 				end
 			end
 		end)
@@ -145,8 +151,8 @@ return function()
 			local oldState = MoreMenu(nil, {})
 			oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
 			local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.open).to.equal(false)
+			expect(oldState).never.toBe(newState)
+			expect(newState.open).toBe(false)
 		end)
 	end)
 end

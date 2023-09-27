@@ -4,13 +4,18 @@ local CorePackages = game:GetService("CorePackages")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
+local UIBlox = InGameMenuDependencies.UIBlox
 
 local InGameMenu = script.Parent.Parent.Parent
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagUIBloxUseNewKeyLabel = SharedFlags.UIBlox.GetFFlagUIBloxUseNewKeyLabel
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
-local KeyLabel = require(InGameMenu.Components.KeyLabel)
+local KeyLabel = if GetFFlagUIBloxUseNewKeyLabel()
+	then UIBlox.App.Menu.KeyLabel
+	else require(InGameMenu.Components.KeyLabel)
 local PointerLabel = require(InGameMenu.Components.PointerLabel)
 local Divider = require(InGameMenu.Components.Divider)
 
@@ -41,11 +46,27 @@ local function renderHorizontalSpacer(symbol, layoutOrder, isElipses)
 end
 
 local function renderKey(input, layoutOrder)
-	local inputComponent = input.EnumType == Enum.KeyCode and KeyLabel or PointerLabel
-	return Roact.createElement(inputComponent, {
-		input = input,
-		LayoutOrder = layoutOrder,
-	})
+	-- TODO: Update UIBlox KeyLabel to be an... InputLabel?
+	if GetFFlagUIBloxUseNewKeyLabel() then
+		if input.EnumType == Enum.KeyCode then
+			return Roact.createElement(KeyLabel, {
+				keyCode = input,
+				textThemeKey = "TextEmphasis",
+				LayoutOrder = layoutOrder,
+			})
+		else
+			return Roact.createElement(PointerLabel, {
+				input = input,
+				LayoutOrder = layoutOrder,
+			})
+		end
+	else
+		local inputComponent = input.EnumType == Enum.KeyCode and KeyLabel or PointerLabel
+		return Roact.createElement(inputComponent, {
+			input = input,
+			LayoutOrder = layoutOrder,
+		})
+	end
 end
 
 local function renderInputIconContainer(inputs, isList)

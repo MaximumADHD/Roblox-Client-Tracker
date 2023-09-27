@@ -20,7 +20,7 @@ local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
-local TEST_VERSION = "t5" -- bump on new A/B campaigns
+local TEST_VERSION = "t6" -- bump on new A/B campaigns
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -38,6 +38,8 @@ local MENU_VERSION_MODERNIZATION_ENUM = {
 	STICKY_BAR = "v5.3"..TEST_VERSION,
 }
 
+local MENU_VERSION_CHROME = "v6"..TEST_VERSION
+
 local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
 	[MENU_VERSION_V2] = false,
@@ -45,9 +47,10 @@ local validVersion = {
 	[MENU_VERSION_CONTROLS_ENUM.BASELINE] = false,
 	[MENU_VERSION_CONTROLS_ENUM.OLD_LAYOUT] = false,
 	[MENU_VERSION_CONTROLS_ENUM.HOME_BUTTON] = false,
-	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
-	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = true,
-	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = true,
+	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = false,
+	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
+	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
+	[MENU_VERSION_CHROME] = true,
 }
 
 local ExperienceMenuABTestManager = {}
@@ -106,6 +109,10 @@ end
 
 function ExperienceMenuABTestManager.modernizationStickyBarVersionId()
 	return MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR
+end
+
+function ExperienceMenuABTestManager.chromeVersionId()
+	return MENU_VERSION_CHROME
 end
 
 function parseCountData(data)
@@ -188,6 +195,10 @@ end
 
 function ExperienceMenuABTestManager:shouldShowStickyBar()
 	return self:getVersion() == MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR
+end
+
+function ExperienceMenuABTestManager:isChromeEnabled()
+	return self:getVersion() == MENU_VERSION_CHROME
 end
 
 -- this is called on the assumption that IXP layers are initialized

@@ -1,6 +1,11 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	it("should require without errors", function()
 		local PublishAssetPrompt = require(script.Parent)
-		expect(PublishAssetPrompt).to.be.ok()
+		expect(PublishAssetPrompt).never.toBeNil()
 	end)
 end

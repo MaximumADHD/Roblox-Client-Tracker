@@ -14,7 +14,7 @@ return function()
 	it("should override the default settings with the ones supplied", function()
 		local newSettings = {
 			BubbleDuration = ChatSettings.BubbleDuration / 2,
-			MaxDistance = ChatSettings.MaxDistance * 2
+			MaxDistance = ChatSettings.MaxDistance * 2,
 		}
 
 		local store = Rodux.Store.new(chatSettings)
@@ -36,9 +36,9 @@ return function()
 		local newSettings = {
 			BubbleDuration = ChatSettings.BubbleDuration / 2,
 			SizeAnimation = {
-				Enabled = not ChatSettings.SizeAnimation.Enabled
+				Enabled = not ChatSettings.SizeAnimation.Enabled,
 			},
-			BackgroundImage = {}
+			BackgroundImage = {},
 		}
 
 		local store = Rodux.Store.new(chatSettings)
@@ -75,21 +75,21 @@ return function()
 
 	it("should fill missing keys with their defaults in provided user specific settings", function()
 		local userSettings = {
-				["1234"] = {
-					BubbleDuration = ChatSettings.BubbleDuration * 2
+			["1234"] = {
+				BubbleDuration = ChatSettings.BubbleDuration * 2,
+			},
+			["5678"] = {
+				MinimizeDistance = ChatSettings.MinimizeDistance * 2,
+				MaxDistance = ChatSettings.MaxDistance * 2,
+				BackgroundGradient = {
+					Enabled = not ChatSettings.BackgroundGradient.Enabled,
 				},
-				["5678"] = {
-					MinimizeDistance = ChatSettings.MinimizeDistance * 2,
-					MaxDistance = ChatSettings.MaxDistance * 2,
-					BackgroundGradient = {
-						Enabled = not ChatSettings.BackgroundGradient.Enabled
-					}
-				}
+			},
 		}
 
 		local store = Rodux.Store.new(chatSettings)
 		store:dispatch(UpdateChatSettings({
-			UserSpecificSettings = userSettings
+			UserSpecificSettings = userSettings,
 		}))
 		local state = store:getState()
 		local newUserSettings = state.UserSpecificSettings
@@ -106,7 +106,9 @@ return function()
 		expect(newUserSettings["5678"].BubbleDuration).to.equal(ChatSettings.BubbleDuration)
 		expect(newUserSettings["5678"].MinimizeDistance).to.equal(userSettings["5678"].MinimizeDistance)
 		expect(newUserSettings["5678"].MaxDistance).to.equal(userSettings["5678"].MaxDistance)
-		expect(newUserSettings["5678"].BackgroundGradient.Enabled).to.equal(userSettings["5678"].BackgroundGradient.Enabled)
+		expect(newUserSettings["5678"].BackgroundGradient.Enabled).to.equal(
+			userSettings["5678"].BackgroundGradient.Enabled
+		)
 		expect(newUserSettings["5678"].BackgroundGradient.Rotation).to.equal(ChatSettings.BackgroundGradient.Rotation)
 		expect(newUserSettings["5678"].Transparency).to.equal(ChatSettings.Transparency)
 	end)

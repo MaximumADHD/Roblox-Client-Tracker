@@ -2,6 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 
 local Rodux = require(CorePackages.Packages.Rodux)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local voiceState = require(script.Parent.voiceState)
 local ParticipantAdded = require(script.Parent.Parent.Actions.ParticipantAdded)
 local ParticipantRemoved = require(script.Parent.Parent.Actions.ParticipantRemoved)
@@ -17,9 +20,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(state["12345"]).to.be.ok()
-		expect(state["23456"]).to.be.ok()
-		expect(state["34567"]).to.never.be.ok()
+		expect(state["12345"]).never.toBeNil()
+		expect(state["23456"]).never.toBeNil()
+		expect(state["34567"]).toBeNil()
 	end)
 
 	it("should handle ParticipantRemoved", function()
@@ -31,9 +34,9 @@ return function()
 
 		local state = store:getState()
 
-		expect(state["12345"]).to.never.be.ok()
-		expect(state["23456"]).to.be.ok()
-		expect(state["34567"]).to.never.be.ok()
+		expect(state["12345"]).toBeNil()
+		expect(state["23456"]).never.toBeNil()
+		expect(state["34567"]).toBeNil()
 	end)
 
 	it("should handle VoiceStateChanged", function()
@@ -46,8 +49,8 @@ return function()
 
 		local state = store:getState()
 
-		expect(state["12345"]).to.equal("Test1")
-		expect(state["23456"]).to.equal("Test2")
+		expect(state["12345"]).toBe("Test1")
+		expect(state["23456"]).toBe("Test2")
 	end)
 
 	it("should handle VoiceEnabledChanged", function()
@@ -57,12 +60,12 @@ return function()
 
 		local state = store:getState()
 
-		expect(state["voiceEnabled"]).to.equal(true)
+		expect(state["voiceEnabled"]).toBe(true)
 
 		store:dispatch(VoiceEnabledChanged(false))
 
 		state = store:getState()
 
-		expect(state["voiceEnabled"]).to.equal(false)
+		expect(state["voiceEnabled"]).toBe(false)
 	end)
 end

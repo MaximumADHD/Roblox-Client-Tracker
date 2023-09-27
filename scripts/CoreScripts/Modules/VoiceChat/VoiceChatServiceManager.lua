@@ -65,8 +65,10 @@ local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlag
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
+local FFlagFixNonSelfCalls = game:DefineFastFlag("FixNonSelfCalls", false)
 local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceListeners", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
+local FFlagOverwriteIsMutedLocally = game:DefineFastFlag("OverwriteIsMutedLocally", false)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -265,13 +267,13 @@ function VoiceChatServiceManager:_reportJoinFailed(result, level)
 end
 
 function VoiceChatServiceManager:_asyncInit()
-	return VoiceChatServiceManager:canUseServiceAsync():andThen(function(canUseService)
+	return (if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):canUseServiceAsync():andThen(function(canUseService)
 		local serviceName = "VoiceChatService"
 		if game:GetEngineFeature("UseNewVoiceChatService") then
 			serviceName = "VoiceChatInternal"
 			log:debug("Using VoiceChatInternal")
 		end
-		local success = pcall(function()
+		local success, err = pcall(function()
 			local service = game:GetService(serviceName)
 			if service then
 				if
@@ -289,7 +291,7 @@ function VoiceChatServiceManager:_asyncInit()
 			end
 		end)
 		if not success then
-			log:warning("EnableVoiceChat flag is enabled but GetService panicked")
+			log:warning("EnableVoiceChat flag is enabled but GetService panicked {}", err)
 			self:_reportJoinFailed("getServiceFailed", Analytics.ERROR)
 
 			return Promise.reject()
@@ -782,7 +784,7 @@ function VoiceChatServiceManager:requestMicPermission()
 								local networkPermissionDenied = missingPermissions
 									and #missingPermissions == 1
 									and missingPermissions[1] == "LOCAL_NETWORK"
-								return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission()
+								return networkPermissionDenied and (if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):checkLocalNetworkPermission()
 									or Promise.reject()
 							end)
 					else
@@ -791,7 +793,7 @@ function VoiceChatServiceManager:requestMicPermission()
 						local networkPermissionDenied = missingPermissions
 							and #missingPermissions == 1
 							and missingPermissions[1] == "LOCAL_NETWORK"
-						return networkPermissionDenied and VoiceChatServiceManager:checkLocalNetworkPermission()
+						return networkPermissionDenied and (if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):checkLocalNetworkPermission()
 							or Promise.reject()
 					end
 				end
@@ -1086,7 +1088,7 @@ end
 function VoiceChatServiceManager:onInstanceAdded(inst: Instance)
 	if inst:IsA("AudioDeviceInput") then
 		local inst: AudioDeviceInput = inst
-		log:trace("Found new audio device instance for {}", inst.Player and inst.Player.Name)
+		log:debug("Found new audio device instance for {}", inst.Player and inst.Player.Name)
 		self.audioDevices[inst] = self:CreateAudioDeviceData(inst)
 		self:UpdateAudioDeviceInputDebugger()
 	end
@@ -1140,7 +1142,9 @@ function VoiceChatServiceManager:hookupAudioDeviceInputListener()
 
 	local localAudioDevice = localPlayer:FindFirstChildOfClass("AudioDeviceInput")
 	log:debug("Found local user audio device {}", localAudioDevice)
-	self:onInstanceAdded(localAudioDevice)
+	if localAudioDevice then
+		self:onInstanceAdded(localAudioDevice)
+	end
 	if (VoiceChatService :: any).EnableDefaultVoice then
 		log:debug('Creating default voice listener')
 		local listener = Instance.new("AudioListener")
@@ -1164,10 +1168,9 @@ function VoiceChatServiceManager:hookupAudioDeviceInputListener()
 		self:onInstanceRemove(inst)
 	end)
 
-	for _, player in PlayersService:GetPlayers() do
-		if player.AudioDeviceInput then
-			self:onInstanceAdded(player.AudioDeviceInput)
-		end
+	-- TODO: Is this performant enough?
+	for _, inst in game:GetDescendants() do
+		self:onInstanceAdded(inst)
 	end
 
 	PlayersService.PlayerRemoving:Connect(function(player)
@@ -1183,7 +1186,9 @@ end
 function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
 	self:ensureInitialized("mute player " .. userId)
 	self._mutedAnyone = true
-	local requestedMuteStatus = not self.service:IsSubscribePaused(userId)
+	local requestedMuteStatus = if GetFFlagVoiceUseAudioRoutingAPI() and FFlagOverwriteIsMutedLocally
+		then not self.mutedPlayers[userId]
+		else not self.service:IsSubscribePaused(userId)
 	log:trace("Setting mute for {} to {}", shorten(userId), requestedMuteStatus)
 
 	if GetFFlagVoiceUseAudioRoutingAPI() then
@@ -1397,6 +1402,10 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 						and (not lastState or (lastState.isMuted ~= state.isMuted))
 					then
 						ExperienceChat.Events.VoiceParticipantToggleMuted(tostring(userId), state.isMuted)
+					end
+
+					if GetFFlagVoiceUseAudioRoutingAPI() and FFlagOverwriteIsMutedLocally then
+						state.isMutedLocally = not not self.mutedPlayers[userId] -- Not not to convert to bool
 					end
 
 					self.participants[tostring(userId)] = state
@@ -1630,7 +1639,7 @@ function VoiceChatServiceManager:RejoinCurrentChannel()
 			end
 			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
 			if not joinInProgress then
-				VoiceChatServiceManager:InitialJoinFailedPrompt()
+				(if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):InitialJoinFailedPrompt()
 			end
 		end
 	end)
@@ -1646,7 +1655,7 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 			self.service:Leave()
 			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
 			if not joinInProgress then
-				VoiceChatServiceManager:InitialJoinFailedPrompt()
+				(if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):InitialJoinFailedPrompt()
 			end
 		end
 	end)

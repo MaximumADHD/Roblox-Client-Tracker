@@ -19,6 +19,7 @@ local dependencies = require(ContactList.dependencies)
 local UIBlox = dependencies.UIBlox
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 
+local dependencyArray = dependencies.Hooks.dependencyArray
 local useSelector = dependencies.Hooks.useSelector
 
 local ControlState = UIBlox.Core.Control.Enum.ControlState
@@ -57,6 +58,7 @@ export type Props = {
 		placeId: number,
 	},
 	localUserId: number,
+	isDevMode: boolean,
 	showDivider: boolean,
 	dismissCallback: () -> (),
 	layoutOrder: number?,
@@ -162,11 +164,17 @@ local function CallHistoryItem(props: Props)
 
 	local startCall = React.useCallback(function()
 		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
-			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localUserId)
-		if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(participant.userId) then
-			if isLocalUserDevMode then
+		local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
+
+		local isCalleeInDevMode = true
+		if SharedRS then
+			local IsUserInDevModeRemoteFunction =
+				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
+			isCalleeInDevMode = IsUserInDevModeRemoteFunction:InvokeServer(participant.userId)
+		end
+
+		if props.isDevMode == isCalleeInDevMode then
+			if props.isDevMode then
 				coroutine.wrap(function()
 					local invokeIrisInviteRemoteEvent =
 						RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
@@ -178,7 +186,6 @@ local function CallHistoryItem(props: Props)
 				CallRequestedEvent:FireServer(participant.userId)
 			end
 		else
-			local SharedRS = ReplicatedStorage:WaitForChild("Shared")
 			local ShowGenericDialogBindableEvent =
 				SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
 			ShowGenericDialogBindableEvent:Fire(
@@ -189,7 +196,7 @@ local function CallHistoryItem(props: Props)
 		end
 
 		props.dismissCallback()
-	end, {})
+	end, dependencyArray(props.dismissCallback, props.isDevMode))
 
 	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
 		if

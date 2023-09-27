@@ -4,29 +4,21 @@ local Rodux = require(CorePackages.Rodux)
 
 local Pages = require(script.Parent.Parent.Enums.Pages)
 
-local CloseContactList = require(script.Parent.Parent.Actions.CloseContactList)
-local OpenContactList = require(script.Parent.Parent.Actions.OpenContactList)
 local SetCurrentPage = require(script.Parent.Parent.Actions.SetCurrentPage)
+local SetCurrentTag = require(script.Parent.Parent.Actions.SetCurrentTag)
 
 return Rodux.createReducer({
 	currentPage = nil,
 	currentTag = "",
 }, {
-	[OpenContactList.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			currentPage = Pages.CallHistory,
-			currentTag = action.tag,
-		})
-	end,
 	[SetCurrentPage.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			currentPage = action.page,
+			currentPage = if action.page == nil then Cryo.None else action.page,
 		})
 	end,
-	[CloseContactList.name] = function(state, action)
+	[SetCurrentTag.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			currentPage = Cryo.None,
-			currentTag = "",
+			currentTag = action.tag,
 		})
 	end,
 } :: {

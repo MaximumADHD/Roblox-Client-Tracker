@@ -5,8 +5,6 @@ local Roact = require(CorePackages.Roact)
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
 local UserLibConstants = require(CorePackages.Workspace.Packages.UserLib).Utils.Constants
 
-local GetFFlagUseRbxthumbForLocalThumbnailUrls =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseRbxthumbForLocalThumbnailUrls
 local getRbxthumbWithTypeSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getRbxthumbWithTypeSizeAndOptions
 
 local BORDER_SIZE = 1
@@ -126,23 +124,18 @@ function ConversationThumbnail:render()
 
 		local thumbnailImage
 		if user then
-			if GetFFlagUseRbxthumbForLocalThumbnailUrls() then
-				-- Only use rbx thumb for local user: this allows the thumbnail to update if the user changes clothes or something.
-				local localUserId
-				local localPlayer = game:GetService("Players").LocalPlayer
-				if localPlayer then
-					localUserId = tostring(localPlayer.UserId)
-				end
-				if localUserId and user.id == localUserId then
-					local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
-					thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
-				else
-					thumbnailImage = user.thumbnails and user.thumbnails[THUMBNAIL_IMAGE_TYPE]
-						and user.thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
-				end
+			-- Only use rbx thumb for local user: this allows the thumbnail to update if the user changes clothes or something.
+			local localUserId
+			local localPlayer = game:GetService("Players").LocalPlayer
+			if localPlayer then
+				localUserId = tostring(localPlayer.UserId)
+			end
+			if localUserId and user.id == localUserId then
+				local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
+				thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
 			else
 				thumbnailImage = user.thumbnails and user.thumbnails[THUMBNAIL_IMAGE_TYPE]
-				and user.thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
+					and user.thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
 			end
 		end
 		if not thumbnailImage then

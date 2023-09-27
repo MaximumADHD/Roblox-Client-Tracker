@@ -43,6 +43,18 @@ export type Props = {
 -- The amount user needs to move for the gesture to be interpreted as a scroll.
 local TOUCH_SLOP = 12
 
+local isMatching = function(searchText: string, userName: string, displayName: string)
+	if searchText == "" then
+		return true
+	end
+
+	local normalizedDisplayName = utf8.nfdnormalize(displayName)
+	local normalizedSearchText = utf8.nfdnormalize(searchText)
+
+	return string.find(normalizedDisplayName:lower(), normalizedSearchText:lower(), 1, true) ~= nil
+		or string.find(userName:lower(), searchText:lower(), 1, true) ~= nil
+end
+
 local function FriendListContainer(props: Props)
 	local style = useStyle()
 	local dispatch = useDispatch()
@@ -65,6 +77,10 @@ local function FriendListContainer(props: Props)
 			dispatch(GetFriendsFromUserId.API(localUserId))
 		end
 	end, {})
+
+	local trimmedSearchText = React.useMemo(function()
+		return string.gsub(props.searchText, "%s+", "")
+	end, { props.searchText })
 
 	local noFriendsText = React.useMemo(function()
 		local message
@@ -162,14 +178,7 @@ local function FriendListContainer(props: Props)
 			local list = {}
 			for _, friendId in ipairs(friendIds) do
 				local friend = state.Users.byUserId[tostring(friendId)]
-				if
-					friend
-					and (
-						props.searchText == ""
-						or string.find(friend.displayName:lower(), props.searchText:lower())
-						or string.find(friend.username:lower(), props.searchText:lower())
-					)
-				then
+				if friend and isMatching(trimmedSearchText, friend.username, friend.displayName) then
 					list[#list + 1] = friend
 				end
 			end
@@ -182,7 +191,7 @@ local function FriendListContainer(props: Props)
 					return friend1.username:lower() < friend2.username:lower()
 				end
 			end)
-		end, dependencyArray(localUserId, props.searchText))
+		end, dependencyArray(localUserId, trimmedSearchText))
 
 		local friends = useSelector(selectFriends, function(newFriends: any, oldFriends: any)
 			if #newFriends ~= #oldFriends then
@@ -237,14 +246,14 @@ local function FriendListContainer(props: Props)
 					dismissCallback = props.dismissCallback,
 					layoutOrder = i,
 					showDivider = i ~= #friends,
+					isDevMode = props.isDevMode :: boolean,
 				})
 			end
 
 			return entries
-		end, dependencyArray(friends))
+		end, dependencyArray(friends, props.isDevMode))
 
 		return if #friends == 0
-				and props.searchText == ""
 				and (status == RetrievalStatus.NotStarted or status == RetrievalStatus.Fetching)
 			then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 92),
@@ -325,11 +334,7 @@ local function FriendListContainer(props: Props)
 		local filteredPlayers = React.useMemo(function()
 			local list = {}
 			for _, player in pairs(allPlayers) do
-				if
-					props.searchText == ""
-					or string.find(player.DisplayName:lower(), props.searchText:lower())
-					or string.find(player.Name:lower(), props.searchText:lower())
-				then
+				if isMatching(trimmedSearchText, player.Name, player.DisplayName) then
 					list[#list + 1] = player
 				end
 			end
@@ -341,7 +346,7 @@ local function FriendListContainer(props: Props)
 					return player1.Name:lower() < player2.Name:lower()
 				end
 			end)
-		end, dependencyArray(props.searchText, allPlayers))
+		end, dependencyArray(trimmedSearchText, allPlayers))
 
 		local children: any = React.useMemo(function()
 			local entries = {}
@@ -358,11 +363,12 @@ local function FriendListContainer(props: Props)
 					dismissCallback = props.dismissCallback,
 					layoutOrder = i,
 					showDivider = i ~= #filteredPlayers,
+					isDevMode = props.isDevMode :: boolean,
 				})
 			end
 
 			return entries
-		end, dependencyArray(filteredPlayers))
+		end, dependencyArray(filteredPlayers, props.isDevMode))
 
 		return if #filteredPlayers == 0
 			then noFriendsText

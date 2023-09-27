@@ -8,6 +8,6 @@ return Action(script.Name, function(enabled)
 	maybeAssert(t.boolean(enabled))
 
 	return {
-        enabled = enabled,
+		enabled = enabled,
 	}
 end)

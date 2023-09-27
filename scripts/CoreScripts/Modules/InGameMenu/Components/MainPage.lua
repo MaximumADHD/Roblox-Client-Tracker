@@ -13,6 +13,7 @@ local VRService = game:GetService("VRService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local VideoProtocol = require(CorePackages.Workspace.Packages.VideoProtocol)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
@@ -22,6 +23,8 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ContextualMenu = UIBlox.App.Menu.ContextualMenu
 local MenuDirection = UIBlox.App.Menu.MenuDirection
 local KeyLabel = UIBlox.App.Menu.KeyLabel
+
+local GetFFlagUIBloxUseNewKeyLabel = SharedFlags.UIBlox.GetFFlagUIBloxUseNewKeyLabel
 
 local InGameMenu = script.Parent.Parent
 
@@ -534,6 +537,7 @@ function MainPage:render()
 							AnchorPoint = Vector2.new(1, 0.5),
 							Position = UDim2.new(1, -16, 0.5, 0),
 							LayoutOrder = 2,
+							ZIndex = if GetFFlagUIBloxUseNewKeyLabel() then 2 else nil,
 						}) or nil,
 					}),
 					VoiceChatMuteButton = voiceChatMuteButton,

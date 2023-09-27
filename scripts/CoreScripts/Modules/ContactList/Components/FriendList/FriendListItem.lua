@@ -14,6 +14,7 @@ local GetFFlagCorescriptsSoundManagerEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
+local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
@@ -34,9 +35,6 @@ local useStyle = UIBlox.Core.Style.useStyle
 -- TODO: Remove once RDC is finished
 local ContactListHelper = require(ContactList.Components.ContactListHelper)
 
-local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer :: Player
-local localUserId: number = localPlayer and localPlayer.UserId or 0
 local rng = Random.new()
 
 export type Props = {
@@ -46,6 +44,7 @@ export type Props = {
 	dismissCallback: () -> (),
 	layoutOrder: number?,
 	showDivider: boolean,
+	isDevMode: boolean,
 }
 
 local CALL_IMAGE_SIZE = 28
@@ -88,14 +87,21 @@ local function FriendListItem(props: Props)
 
 	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
 
-	local startCall = function()
+	local startCall = React.useCallback(function()
 		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+
 		-- TODO (timothyhsu): Remove check that callee and caller need to be in same mode when Call API is completed
-		local IsUserInDevModeRemoteFunction = ReplicatedStorage:WaitForChild("Shared")
-			:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-		local isLocalUserDevMode = IsUserInDevModeRemoteFunction:InvokeServer(localUserId)
-		if isLocalUserDevMode == IsUserInDevModeRemoteFunction:InvokeServer(props.userId) then
-			if isLocalUserDevMode then
+		local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
+
+		local isCalleeInDevMode = true
+		if SharedRS then
+			local IsUserInDevModeRemoteFunction =
+				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
+			isCalleeInDevMode = IsUserInDevModeRemoteFunction:InvokeServer(props.userId)
+		end
+
+		if props.isDevMode == isCalleeInDevMode then
+			if props.isDevMode then
 				coroutine.wrap(function()
 					local invokeIrisInviteRemoteEvent =
 						RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
@@ -107,7 +113,6 @@ local function FriendListItem(props: Props)
 				CallRequestedEvent:FireServer(props.userId)
 			end
 		else
-			local SharedRS = ReplicatedStorage:WaitForChild("Shared")
 			local ShowGenericDialogBindableEvent =
 				SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
 			ShowGenericDialogBindableEvent:Fire(
@@ -118,7 +123,7 @@ local function FriendListItem(props: Props)
 		end
 
 		props.dismissCallback()
-	end
+	end, dependencyArray(props.dismissCallback, props.isDevMode))
 
 	local playerContext = React.useMemo(function()
 		local icon = Images["component_assets/circle_26_stroke_3"]

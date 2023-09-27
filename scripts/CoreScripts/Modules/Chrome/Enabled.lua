@@ -1,3 +1,6 @@
+local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(script.Parent.Parent.ExperienceMenuABTestManager)
+
 game:DefineFastFlag("EnableInGameMenuChrome", false)
 game:DefineFastString("InGameMenuChromeForcedUserIds", "")
 
@@ -21,6 +24,10 @@ return function()
 		if localPlayer and tonumber(forcedUserIdString) == localPlayer.UserId then
 			return true
 		end
+	end
+
+	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isChromeEnabled() then
+		return true
 	end
 
 	return game:GetFastFlag("EnableInGameMenuChrome")

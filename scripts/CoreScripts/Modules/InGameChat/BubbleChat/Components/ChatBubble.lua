@@ -83,10 +83,10 @@ function ChatBubble:init()
 		self.mockSizingLabel = initMockSizingLabel()
 	end
 
-	self.isRichTextEnabled = if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService and FFlagEnableRichTextForBubbleChat then
-		true
-	else
-		false
+	self.isRichTextEnabled = if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService
+			and FFlagEnableRichTextForBubbleChat
+		then true
+		else false
 end
 
 function ChatBubble:getBoundsFromSizingLabel(Text, TextSize, Font, Size)
@@ -159,66 +159,72 @@ function ChatBubble:render()
 			Padding = UDim.new(0, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
 		}),
 
-		Frame = Roact.createElement("ImageLabel", Cryo.Dictionary.join(backgroundImageSettings, {
-			LayoutOrder = 1,
-			BackgroundColor3 = chatSettings.BackgroundColor3,
-			AnchorPoint = Vector2.new(0.5, 0),
-			Size = UDim2.fromScale(1, 1),
-			BorderSizePixel = 0,
-			Position = UDim2.new(0.5, 0, 0, 0),
-			BackgroundTransparency = backgroundImageSettings.Image ~= "" and 1 or self.transparency,
-			ClipsDescendants = true,
-			ImageTransparency = self.transparency,
-		}), {
-			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
-				CornerRadius = chatSettings.CornerRadius,
+		Frame = Roact.createElement(
+			"ImageLabel",
+			Cryo.Dictionary.join(backgroundImageSettings, {
+				LayoutOrder = 1,
+				BackgroundColor3 = chatSettings.BackgroundColor3,
+				AnchorPoint = Vector2.new(0.5, 0),
+				Size = UDim2.fromScale(1, 1),
+				BorderSizePixel = 0,
+				Position = UDim2.new(0.5, 0, 0, 0),
+				BackgroundTransparency = backgroundImageSettings.Image ~= "" and 1 or self.transparency,
+				ClipsDescendants = true,
+				ImageTransparency = self.transparency,
 			}),
+			{
+				UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
+					CornerRadius = chatSettings.CornerRadius,
+				}),
 
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Bottom,
-				Padding = UDim.new(0, chatSettings.Padding),
-			}),
+				UIListLayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Bottom,
+					Padding = UDim.new(0, chatSettings.Padding),
+				}),
 
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, chatSettings.Padding),
-				PaddingRight = UDim.new(0, chatSettings.Padding),
-				PaddingBottom = UDim.new(0, chatSettings.Padding),
-				PaddingLeft = UDim.new(0, chatSettings.Padding),
-			}),
+				Padding = Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, chatSettings.Padding),
+					PaddingRight = UDim.new(0, chatSettings.Padding),
+					PaddingBottom = UDim.new(0, chatSettings.Padding),
+					PaddingLeft = UDim.new(0, chatSettings.Padding),
+				}),
 
-			Insert = self.props.renderInsert and self.props.renderInsert(),
+				Insert = self.props.renderInsert and self.props.renderInsert(),
 
-			Text = Roact.createElement("TextLabel", {
-				Text = self.props.text,
-				Size = UDim2.new(1, -extraWidth, 1, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				BackgroundTransparency = 1,
-				Font = chatSettings.Font,
-				TextColor3 = chatSettings.TextColor3,
-				TextSize = chatSettings.TextSize,
-				TextTransparency = self.transparency,
-				TextWrapped = true,
-				AutoLocalize = false,
+				Text = Roact.createElement("TextLabel", {
+					Text = self.props.text,
+					Size = UDim2.new(1, -extraWidth, 1, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.fromScale(0.5, 0.5),
+					BackgroundTransparency = 1,
+					Font = chatSettings.Font,
+					TextColor3 = chatSettings.TextColor3,
+					TextSize = chatSettings.TextSize,
+					TextTransparency = self.transparency,
+					TextWrapped = true,
+					AutoLocalize = false,
+					LayoutOrder = 2,
+					RichText = self.isRichTextEnabled,
+				}),
+
+				Gradient = backgroundGradientSettings.Enabled
+					and Roact.createElement("UIGradient", backgroundGradientSettings),
+			}
+		),
+
+		Carat = self.props.isMostRecent
+			and chatSettings.TailVisible
+			and (not FFlagBubbleChatCaratFix or self.props.showCarat)
+			and Roact.createElement("ImageLabel", {
 				LayoutOrder = 2,
-				RichText = self.isRichTextEnabled,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromOffset(9, 6),
+				Image = "rbxasset://textures/ui/InGameChat/Caret.png",
+				ImageColor3 = chatSettings.BackgroundColor3,
+				ImageTransparency = self.transparency,
 			}),
-
-			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
-		}),
-
-		Carat = self.props.isMostRecent and chatSettings.TailVisible
-		and (not FFlagBubbleChatCaratFix or self.props.showCarat)
-		and Roact.createElement("ImageLabel", {
-			LayoutOrder = 2,
-			BackgroundTransparency = 1,
-			Size = UDim2.fromOffset(9, 6),
-			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
-			ImageColor3 = chatSettings.BackgroundColor3,
-			ImageTransparency = self.transparency,
-		}),
 	})
 end
 
@@ -243,7 +249,8 @@ function ChatBubble:didUpdate(previousProps)
 	end
 	-- Update the size of the bubble to accommodate changes to the text's size (for instance: when the text changes due
 	-- to filtering, or when new customization settings are applied)
-	if previousProps.text ~= self.props.text
+	if
+		previousProps.text ~= self.props.text
 		or previousProps.chatSettings ~= self.props.chatSettings
 		or previousProps.renderInsert ~= self.props.renderInsert
 		or previousProps.insertSize ~= self.props.insertSize

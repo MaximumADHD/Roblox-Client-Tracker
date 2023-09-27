@@ -10,8 +10,7 @@ local function getUpsellFlow(platform)
 		return UpsellFlow.Mobile
 	elseif platform == Enum.Platform.XBoxOne then
 		return UpsellFlow.Xbox
-	-- TODO(UBIQUITY-852): Remove the implementation based on solutions in UBIQUITY-852.
-	elseif GetFFlagEnablePalisadesPaymentsPlatform() then
+	elseif GetFFlagEnablePalisadesPaymentsPlatform() and platform == Enum.Platform.PS4 then
 		return UpsellFlow.Mobile
 	end
 

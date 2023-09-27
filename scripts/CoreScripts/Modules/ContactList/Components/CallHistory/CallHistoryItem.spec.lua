@@ -50,6 +50,7 @@ return function()
 					},
 					localUserId = localUserId,
 					showDivider = true,
+					isDevMode = true,
 					dismissCallback = function() end,
 				}),
 			}),

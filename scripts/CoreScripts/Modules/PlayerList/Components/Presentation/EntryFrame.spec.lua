@@ -2,6 +2,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Components = script.Parent.Parent
 	local Connection = Components.Connection
 	local LayoutValues = require(Connection.LayoutValues)
@@ -64,8 +67,8 @@ return function()
 		})
 		local instance = Roact.mount(element)
 
-		expect(ref.current).to.be.ok()
-		expect(ref.current:IsA("Instance")).to.equal(true)
+		expect(ref.current).never.toBeNil()
+		expect(ref.current:IsA("Instance")).toBe(true)
 
 		Roact.unmount(instance)
 	end)

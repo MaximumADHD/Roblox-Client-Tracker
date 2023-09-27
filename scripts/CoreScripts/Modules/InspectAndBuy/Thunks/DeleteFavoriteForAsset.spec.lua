@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -36,15 +38,15 @@ return function()
 			})
 
 			local state = store:getState()
-			expect(analytics.reportFavoriteItem_callCount).to.equal(1)
-			expect(countKeys(state.favorites.assets)).to.equal(1)
+			expect(analytics.reportFavoriteItem).toHaveBeenCalledTimes(1)
+			expect(countKeys(state.favorites.assets)).toBe(1)
 		end)
 
 		it("should delete a favorite object for an asset", function()
 			local store = Rodux.Store.new(Reducer)
 			store:dispatch(SetAssets({MOCK_FAVORITE}))
 			store:dispatch(SetFavoriteAsset(MOCK_FAVORITE.assetId, true))
-			expect(store:getState().favorites.assets[MOCK_FAVORITE.assetId]).to.equal(true)
+			expect(store:getState().favorites.assets[MOCK_FAVORITE.assetId]).toBe(true)
 			local thunk = DeleteFavoriteForAsset(MOCK_FAVORITE.assetId)
 			local analytics = MockAnalytics.new()
 
@@ -53,8 +55,8 @@ return function()
 				[Analytics] = analytics,
 			})
 
-			expect(analytics.reportFavoriteItem_callCount).to.equal(1)
-			expect(store:getState().favorites.assets[MOCK_FAVORITE.assetId]).to.equal(false)
+			expect(analytics.reportFavoriteItem).toHaveBeenCalledTimes(1)
+			expect(store:getState().favorites.assets).toEqual({ [MOCK_FAVORITE.assetId] = false })
 		end)
 
 		it("should catch network errors that happen and still run", function()
@@ -68,7 +70,7 @@ return function()
 				[Analytics] = analytics,
 			})
 
-			expect(analytics.reportFavoriteItem_callCount).to.equal(1)
+			expect(analytics.reportFavoriteItem).toHaveBeenCalledTimes(1)
 		end)
 	end)
 end

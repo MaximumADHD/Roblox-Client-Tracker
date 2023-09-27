@@ -26,6 +26,7 @@ local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
 local Analytics = require(Modules.SelfView.Analytics).new()
 local FFlagUWPAvatarChatFixes = require(Modules.Flags.FFlagUWPAvatarChatFixes)
 local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
+local GetFFlagMicHandlingParity = require(Modules.Flags.GetFFlagMicHandlingParity)
 
 local AvatarChatUISettings = Constants.AVATAR_CHAT_UI_SETTINGS
 
@@ -49,7 +50,9 @@ ControlsBubble.defaultProps = {
 }
 
 function ControlsBubble:init()
-	local cameraEnabled = if FaceAnimatorService then (FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled) else false
+	local cameraEnabled = if FaceAnimatorService
+		then (FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled)
+		else false
 
 	self:setState({
 		microphoneEnabled = if GetFFlagLocalMutedNilFix
@@ -65,12 +68,27 @@ function ControlsBubble:init()
 				return
 			end
 
-			Analytics:setLastCtx("bubbleChatToggle")
-			VoiceChatServiceManager:ToggleMic()
+			if GetFFlagMicHandlingParity() then
+				if self.props.voiceState == Constants.VOICE_STATE.ERROR then
+					VoiceChatServiceManager:RejoinPreviousChannel()
+				elseif self.props.voiceState == Constants.VOICE_STATE.CONNECTING then
+					VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
+				else
+					Analytics:setLastCtx("bubbleChatToggle")
+					VoiceChatServiceManager:ToggleMic()
 
-			self:setState({
-				microphoneEnabled = not VoiceChatServiceManager.localMuted
-			})
+					self:setState({
+						microphoneEnabled = not VoiceChatServiceManager.localMuted,
+					})
+				end
+			else
+				Analytics:setLastCtx("bubbleChatToggle")
+				VoiceChatServiceManager:ToggleMic()
+
+				self:setState({
+					microphoneEnabled = not VoiceChatServiceManager.localMuted,
+				})
+			end
 		else
 			-- The billboards use strings, but the manager expects numbers
 			VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId))
@@ -79,7 +97,7 @@ function ControlsBubble:init()
 
 	self.updateVideo = function()
 		self:setState({
-			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled
+			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
 		})
 	end
 
@@ -98,7 +116,7 @@ function ControlsBubble:init()
 		Analytics:setLastCtx("bubbleChatToggle")
 
 		self:setState({
-			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled
+			cameraEnabled = FaceAnimatorService.VideoAnimationEnabled,
 		})
 
 		local selfViewOpen = SelfViewAPI.getSelfViewIsOpenAndVisible()
@@ -109,7 +127,7 @@ function ControlsBubble:init()
 
 	self.muteChangedEvent = function(muted)
 		self:setState({
-			microphoneEnabled = not muted
+			microphoneEnabled = not muted,
 		})
 	end
 end
@@ -128,7 +146,8 @@ function ControlsBubble:shouldShowMicOffIndicator()
 	if self.props.isLocalPlayer then
 		-- If the local player has not given mic permissions to their device, we show the muted icon.
 		local noPermissions = not (self.state.microphoneEnabled and self.props.hasMicPermissions)
-		local micMuted = self.props.voiceState == Constants.VOICE_STATE.MUTED or self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
+		local micMuted = self.props.voiceState == Constants.VOICE_STATE.MUTED
+			or self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
 		if noPermissions or micMuted then
 			return true
 		end
@@ -137,9 +156,9 @@ function ControlsBubble:shouldShowMicOffIndicator()
 	return false
 end
 
-
 function ControlsBubble:render()
-	local shouldShowVoiceIndicator = self.props.hasMicPermissions and (not FFlagUWPAvatarChatFixes or self.props.voiceEnabled)
+	local shouldShowVoiceIndicator = self.props.hasMicPermissions
+		and (not FFlagUWPAvatarChatFixes or self.props.voiceEnabled)
 	local shouldShowCameraIndicator = self:shouldShowCameraIndicator()
 	local shouldShowMicOffIndicator = self:shouldShowMicOffIndicator()
 	local shouldShowBothIndicators = shouldShowCameraIndicator and shouldShowVoiceIndicator

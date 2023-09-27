@@ -7,11 +7,14 @@ return function()
 
 	local SetIsSubjectToChinaPolicies = require(InspectAndBuyFolder.Actions.SetIsSubjectToChinaPolicies)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	describe("IsSubjectToChinaPolicies", function()
 		it("should default true", function()
 			local store = Rodux.Store.new(IsSubjectToChinaPolicies)
 			local state = store:getState()
-			expect(state).to.equal(true)
+			expect(state).toBe(true)
 		end)
 
 		it("should mark the Inspect Menu as subject to china policies", function()
@@ -19,7 +22,7 @@ return function()
 			local state = store:getState()
 
 			local newState = IsSubjectToChinaPolicies(state, SetIsSubjectToChinaPolicies(true))
-			expect(newState).to.equal(true)
+			expect(newState).toBe(true)
 		end)
 
 		it("should mark the Inspect Menu as not subject to china policies", function()
@@ -27,7 +30,7 @@ return function()
 			local state = store:getState()
 
 			local newState = IsSubjectToChinaPolicies(state, SetIsSubjectToChinaPolicies(false))
-			expect(newState).to.equal(false)
+			expect(newState).toBe(false)
 		end)
 	end)
 end

@@ -64,6 +64,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isDevMode = true,
 					isSmallScreen = false,
 					scrollingEnabled = true,
 					searchText = "",
@@ -100,6 +101,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isDevMode = true,
 					isSmallScreen = false,
 					scrollingEnabled = true,
 					searchText = "",
@@ -144,6 +146,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isDevMode = true,
 					isSmallScreen = false,
 					scrollingEnabled = true,
 					searchText = "",
@@ -186,6 +189,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isDevMode = true,
 					isSmallScreen = false,
 					scrollingEnabled = true,
 					searchText = "",
@@ -231,6 +235,7 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
+						isDevMode = true,
 						isSmallScreen = false,
 						scrollingEnabled = true,
 						searchText = "username_1",
@@ -274,6 +279,7 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
+						isDevMode = true,
 						isSmallScreen = false,
 						scrollingEnabled = true,
 						searchText = "displayName_1",
@@ -312,6 +318,7 @@ return function()
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 						dismissCallback = function() end,
+						isDevMode = true,
 						isSmallScreen = false,
 						scrollingEnabled = true,
 						searchText = "abcdef",
@@ -352,6 +359,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isDevMode = true,
 					isSmallScreen = false,
 					scrollingEnabled = true,
 					searchText = "",
@@ -414,6 +422,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
 					dismissCallback = function() end,
+					isDevMode = true,
 					isSmallScreen = false,
 					scrollingEnabled = true,
 					searchText = "",

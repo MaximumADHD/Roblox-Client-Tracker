@@ -12,7 +12,7 @@ local messages = Rodux.createReducer({
 }, {
 	[AddMessage.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			[action.message.id] = action.message
+			[action.message.id] = action.message,
 		})
 	end,
 
@@ -30,10 +30,10 @@ local messages = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			[action.messageId] = Cryo.Dictionary.join(message, {
-				text = action.newText
-			})
+				text = action.newText,
+			}),
 		})
-	end
+	end,
 })
 
 return messages

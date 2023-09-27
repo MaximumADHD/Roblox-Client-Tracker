@@ -34,9 +34,8 @@ local CallHistoryContainer = require(ContactList.Components.CallHistory.CallHist
 local FriendListContainer = require(ContactList.Components.FriendList.FriendListContainer)
 local ContactListSearchBar = require(ContactList.Components.ContactListSearchBar)
 
-local CloseContactList = require(ContactList.Actions.CloseContactList)
-local OpenContactList = require(ContactList.Actions.OpenContactList)
 local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
+local SetCurrentTag = require(ContactList.Actions.SetCurrentTag)
 
 local Pages = require(ContactList.Enums.Pages)
 
@@ -96,7 +95,7 @@ local function ContactListContainer()
 			return IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
 		end
 
-		return false
+		return true
 	end
 
 	local isDevMode = getIsDevMode()
@@ -106,10 +105,11 @@ local function ContactListContainer()
 			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
 				function(player: any, tag: string)
 					if localPlayer and localPlayer.UserId == player.UserId then
+						dispatch(SetCurrentTag(tag))
 						if not getIsDevMode() then
 							dispatch(SetCurrentPage(Pages.FriendList))
 						else
-							dispatch(OpenContactList(tag))
+							dispatch(SetCurrentPage(Pages.CallHistory))
 						end
 					end
 				end
@@ -117,7 +117,7 @@ local function ContactListContainer()
 
 			local irisInvitePromptClosedConn = SocialService.IrisInvitePromptClosed:Connect(function(player: any)
 				if localPlayer and localPlayer.UserId == player.UserId then
-					dispatch(CloseContactList())
+					dispatch(SetCurrentPage(nil))
 					-- Increment the id so we create a new PeekView for the next open.
 					setContactListId(contactListId + 1)
 				end
@@ -188,15 +188,19 @@ local function ContactListContainer()
 			end
 		end
 
-		-- TODO (timothyhsu): Remove ClosePhonebookRemoteEvent once Call API is completed
-		local ClosePhonebookRemoteEvent = ReplicatedStorage:WaitForChild("ClosePhonebookRemoteEvent", 5) :: RemoteEvent
 		local closePhonebookConn
-		if ClosePhonebookRemoteEvent then
-			closePhonebookConn = ClosePhonebookRemoteEvent.OnClientEvent:Connect(function()
-				if currentPage then
-					dismissCallback()
-				end
-			end)
+
+		if not isDevMode then
+			-- TODO (timothyhsu): Remove ClosePhonebookRemoteEvent once Call API is completed
+			local ClosePhonebookRemoteEvent =
+				ReplicatedStorage:WaitForChild("ClosePhonebookRemoteEvent", 5) :: RemoteEvent
+			if ClosePhonebookRemoteEvent then
+				closePhonebookConn = ClosePhonebookRemoteEvent.OnClientEvent:Connect(function()
+					if currentPage then
+						dismissCallback()
+					end
+				end)
+			end
 		end
 
 		return function()
@@ -204,7 +208,7 @@ local function ContactListContainer()
 				closePhonebookConn:Disconnect()
 			end
 		end
-	end, { currentPage })
+	end, { currentPage, isDevMode })
 
 	React.useEffect(function()
 		if currentPage and not isSmallScreen and contactListContainerRef.current then
@@ -238,6 +242,7 @@ local function ContactListContainer()
 	end, {})
 
 	local onSearchBarFocused = React.useCallback(function()
+		dispatch(SetCurrentPage(Pages.FriendList))
 		setExpectedPeekViewState(PeekViewState.Full)
 	end, {})
 
@@ -248,6 +253,7 @@ local function ContactListContainer()
 			if currentPage == Pages.CallHistory then
 				currentContainer = React.createElement(CallHistoryContainer, {
 					dismissCallback = dismissCallback,
+					isDevMode = isDevMode,
 					isSmallScreen = isSmallScreen,
 					scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
 					searchText = searchText,
@@ -265,12 +271,7 @@ local function ContactListContainer()
 			return React.createElement("ImageButton", {
 				Size = if isSmallScreen
 					then UDim2.new(1, 0, 0, contactListContainerContentHeight - PEEK_HEADER_HEIGHT)
-					else UDim2.new(
-						0,
-						DOCKED_WIDTH,
-						1,
-						-(PHONEBOOK_CONTAINER_MARGIN + PHONEBOOK_CONTAINER_TOP_MARGIN)
-					),
+					else UDim2.new(0, DOCKED_WIDTH, 1, -PHONEBOOK_CONTAINER_TOP_MARGIN),
 				Position = if isSmallScreen
 					then UDim2.new(0, 0, 0, 0)
 					else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),

@@ -27,5 +27,4 @@ return function()
 		expect(validateMessage("\xf0\x90\x28\xbc")).to.equal(false)
 		expect(validateMessage("\xf0\x28\x8c\x28")).to.equal(false)
 	end)
-
 end

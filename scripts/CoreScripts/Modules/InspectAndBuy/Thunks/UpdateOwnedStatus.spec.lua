@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -15,7 +17,7 @@ return function()
 		local store = Rodux.Store.new(Reducer)
 		local asset = AssetInfo.mock()
 		store:dispatch(SetAssets({asset}))
-		expect(store:getState().assets[asset.assetId].owned).to.equal(false)
+		expect(store:getState().assets[asset.assetId].owned).toBe(false)
 
 		local thunk = UpdateOwnedStatus(asset.assetId, Constants.ItemType.Asset)
 
@@ -23,14 +25,14 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.assets[asset.assetId].owned).to.equal(true)
+		expect(state.assets[asset.assetId].owned).toBe(true)
 	end)
 
 	it("should update the owned status of a bundle", function()
 		local store = Rodux.Store.new(Reducer)
 		local bundle = BundleInfo.mock()
 		store:dispatch(SetBundles({bundle}))
-		expect(store:getState().bundles[bundle.bundleId].owned).to.equal(false)
+		expect(store:getState().bundles[bundle.bundleId].owned).toBe(false)
 
 		local thunk = UpdateOwnedStatus(bundle.bundleId, Constants.ItemType.Bundle)
 
@@ -38,6 +40,6 @@ return function()
 
 		local state = store:getState()
 
-		expect(state.bundles[bundle.bundleId].owned).to.equal(true)
+		expect(state.bundles[bundle.bundleId].owned).toBe(true)
 	end)
 end

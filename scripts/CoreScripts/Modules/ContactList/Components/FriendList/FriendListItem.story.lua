@@ -20,6 +20,7 @@ return {
 				displayName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				isDevMode = true,
 			})
 		end,
 
@@ -30,6 +31,7 @@ return {
 				displayName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				isDevMode = true,
 			})
 		end,
 
@@ -40,6 +42,7 @@ return {
 				displayName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				isDevMode = true,
 			})
 		end,
 
@@ -50,6 +53,7 @@ return {
 				displayName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				isDevMode = true,
 			})
 		end,
 	},

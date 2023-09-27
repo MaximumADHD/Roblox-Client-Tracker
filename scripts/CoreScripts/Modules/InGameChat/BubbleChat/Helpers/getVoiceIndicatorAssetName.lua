@@ -1,6 +1,15 @@
+local CoreGui = game:GetService("CoreGui")
+local Modules = CoreGui.RobloxGui.Modules
+local getFFlagEnableShimmeringIconLegacyChatService = require(Modules.Flags.getFFlagEnableShimmeringIconLegacyChatService)
+
 return function(voiceState: any, level: number, iconStyle: string)
 	local assetName: string
 	local prefix = "icons/controls/voice/"
+
+	if getFFlagEnableShimmeringIconLegacyChatService() and voiceState == "Connecting" then
+		assetName = prefix .. iconStyle .. "_0_dark"
+		return assetName
+	end
 
 	if voiceState == "Muted" or voiceState == "LOCAL_MUTED" then
 		assetName = prefix .. iconStyle .. "_off_light"

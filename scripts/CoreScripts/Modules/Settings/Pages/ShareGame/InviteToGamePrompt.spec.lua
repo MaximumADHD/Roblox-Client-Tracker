@@ -1,6 +1,10 @@
 --!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local act = ReactRoblox.act
 
@@ -10,23 +14,23 @@ return function()
 		it("should return a new prompt", function()
 			local prompt = InviteToGamePrompt.new()
 
-			expect(prompt).to.be.ok()
-			expect(prompt.show).to.be.ok()
-			expect(prompt.hide).to.be.ok()
-			expect(prompt.isActive).to.equal(false)
+			expect(prompt).toMatchObject({
+				show = expect.anything(),
+				hide = expect.anything(),
+				isActive = false,
+			})
 		end)
 
 		it("should accept mountTarget as a parameter", function()
 			local folder = Instance.new("Folder")
 			local prompt = InviteToGamePrompt.new(folder)
 
-			expect(prompt).to.be.ok()
-			expect(prompt.show).to.be.ok()
-			expect(prompt.hide).to.be.ok()
-			expect(prompt.isActive).to.equal(false)
-
-			expect(prompt.mountTarget).to.be.ok()
-			expect(prompt.mountTarget).to.equal(folder)
+			expect(prompt).toMatchObject({
+				show = expect.anything(),
+				hide = expect.anything(),
+				isActive = false,
+				mountTarget = folder,
+			})
 
 			folder:Destroy()
 		end)
@@ -38,9 +42,8 @@ return function()
 			local prompt = InviteToGamePrompt.new()
 			local promptWithSocial = prompt:withSocialServiceAndLocalPlayer(mockSocialService)
 
-			expect(promptWithSocial).to.be.ok()
-			expect(promptWithSocial.socialService).to.equal(mockSocialService)
-			expect(promptWithSocial).to.equal(prompt)
+			expect(promptWithSocial.socialService).toEqual(mockSocialService)
+			expect(promptWithSocial).toBe(prompt)
 		end)
 
 		it("should accept passed localPlayer", function()
@@ -48,9 +51,8 @@ return function()
 			local prompt = InviteToGamePrompt.new()
 			local promptWithPlayer = prompt:withSocialServiceAndLocalPlayer(nil, mockLocalPlayer)
 
-			expect(promptWithPlayer).to.be.ok()
-			expect(promptWithPlayer.localPlayer).to.equal(mockLocalPlayer)
-			expect(promptWithPlayer).to.equal(prompt)
+			expect(promptWithPlayer.localPlayer).toEqual(mockLocalPlayer)
+			expect(promptWithPlayer).toBe(prompt)
 		end)
 	end)
 
@@ -60,9 +62,8 @@ return function()
 			local prompt = InviteToGamePrompt.new()
 			local promptWithAnalytics = prompt:withAnalytics(mockAnalytics)
 
-			expect(promptWithAnalytics).to.be.ok()
-			expect(promptWithAnalytics.analytics).to.equal(mockAnalytics)
-			expect(promptWithAnalytics).to.equal(prompt)
+			expect(promptWithAnalytics.analytics).toEqual(mockAnalytics)
+			expect(promptWithAnalytics).toBe(prompt)
 		end)
 	end)
 
@@ -71,13 +72,13 @@ return function()
 			local folder = Instance.new("Folder")
 			local prompt = InviteToGamePrompt.new(folder)
 
-			expect(prompt.instance).to.never.be.ok()
+			expect(prompt.instance).toBeNil()
 
 			act(function()
 				prompt:show()
 			end)
 
-			expect(prompt.instance).to.be.ok()
+			expect(prompt.instance).never.toBeNil()
 
 			InviteToGamePrompt:destruct()
 			folder:Destroy()
@@ -92,8 +93,7 @@ return function()
 			end)
 
 			local screenGui = folder:FindFirstChildOfClass("ScreenGui", true)
-			expect(screenGui).to.be.ok()
-			expect(screenGui.Enabled).to.equal(true)
+			expect(screenGui).toMatchInstance({ Enabled = true })
 
 			InviteToGamePrompt:destruct()
 			folder:Destroy()
@@ -111,8 +111,7 @@ return function()
 			end)
 
 			local screenGui = folder:FindFirstChildOfClass("ScreenGui", true)
-			expect(screenGui).to.be.ok()
-			expect(screenGui.Enabled).to.equal(true)
+			expect(screenGui).toMatchInstance({ Enabled = true })
 
 			InviteToGamePrompt:destruct()
 			folder:Destroy()
@@ -131,7 +130,7 @@ return function()
 				prompt:hide()
 			end)
 
-			expect(prompt.instance).to.never.be.ok()
+			expect(prompt.instance).toBeNil()
 
 			InviteToGamePrompt:destruct()
 			folder:Destroy()
@@ -149,10 +148,9 @@ return function()
 			prompt:hide()
 		end)
 
-		expect(prompt.instance).to.be.ok()
+		expect(prompt.instance).never.toBeNil()
 		local screenGui = folder:FindFirstChildOfClass("ScreenGui", true)
-		expect(screenGui).to.be.ok()
-		expect(screenGui.Enabled).to.equal(false)
+		expect(screenGui).toMatchInstance({ Enabled = false })
 
 		InviteToGamePrompt:destruct()
 		folder:Destroy()
@@ -182,9 +180,9 @@ return function()
 			prompt:hide(mockSentUserIds)
 		end)
 
-		expect(lastSentLocalPlayer).to.equal(mockLocalPlayer)
+		expect(lastSentLocalPlayer).toBe(mockLocalPlayer)
 		-- lastSentUserIds should always be an empty array
-		expect(#lastSentUserIds).to.equal(0)
+		expect(#lastSentUserIds).toBe(0)
 
 		InviteToGamePrompt:destruct()
 		folder:Destroy()
@@ -212,8 +210,8 @@ return function()
 			prompt:hide(mockSentUserIds)
 		end)
 
-		expect(lastSentLocalPlayer).to.equal(nil)
-		expect(lastSentUserIds).to.equal(nil)
+		expect(lastSentLocalPlayer).toBeNil()
+		expect(lastSentUserIds).toBeNil()
 
 		InviteToGamePrompt:destruct()
 		folder:Destroy()

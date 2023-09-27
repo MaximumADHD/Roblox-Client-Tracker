@@ -2,11 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local getFFlagGameInviteShortUrlEnabled = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagGameInviteShortUrlEnabled
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
-local getFFlagShareLinkFixAnalytics = require(RobloxGui.Modules.Settings.Flags.getFFlagShareLinkFixAnalytics)
-
 game:DefineFastFlag("LuaAppInviteEventsIncludePlaceId", false)
 
 local InviteToGameAnalytics = {}
@@ -111,25 +106,7 @@ function InviteToGameAnalytics:inputShareGameEntryPoint()
 	end
 end
 
-function InviteToGameAnalytics:onLinkGenerated(linkType: string, linkId: number)
-	assert(not getFFlagShareLinkFixAnalytics(), "onLinkGenerated should not be called when FFlagShareLinkFixAnalytics is on")
-	local eventName = InviteToGameAnalytics.EventName.LinkGenerated
-	local eventContext = "shareLinks"
-	local additionalArgs = {
-		linkType = linkType,
-		linkId = linkId,
-		page = "inGameMenu",
-		subpage = "inviteFriendsPage",
-		isShortUrlEnabled = if getFFlagGameInviteShortUrlEnabled() then true else nil
-	}
-	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
-end
-
 function InviteToGameAnalytics:linkGenerated(args: { linkType: string, linkId: number })
-	if not getFFlagShareLinkFixAnalytics() then
-		return
-	end
-
 	local eventName = InviteToGameAnalytics.EventName.LinkGenerated
 	local eventContext = "shareLinks"
 	local additionalArgs = {

@@ -1,6 +1,11 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
 	local TnsModule = script.Parent.Parent
 	local ShowToast = require(TnsModule.Actions.ShowToast)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local common = require(script.Parent.common)
 
@@ -9,8 +14,8 @@ return function()
 			local testText = "test text"
 			local oldState = common(nil, {})
 			local newState = common(oldState, ShowToast(testText))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.toastTitle).to.equal(testText)
+			expect(oldState).never.toBe(newState)
+			expect(newState.toastTitle).toBe(testText)
 		end)
 	end)
 end

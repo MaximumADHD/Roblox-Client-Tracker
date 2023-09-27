@@ -1,5 +1,10 @@
 --!nonstrict
 local ProximityPromptService = game:GetService("ProximityPromptService")
+local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+local jest = JestGlobals.jest
 
 local PlayerHelper = require(script.Parent.PlayerHelper)
 
@@ -29,19 +34,16 @@ return function()
 
 	describe("Activation Radius", function()
 		local part, prompt
-		local promptShownCount, promptHiddenCount
+		local promptShownMock, promptShownFn = jest.fn()
+		local promptHiddenMock, promptHiddenFn = jest.fn()
 
 		beforeAll(function()
 			part = makePartWithPrompt{Position=Vector3.new(5,0,-5)}
 			prompt = part.ProximityPrompt
-			promptShownCount = 0
-			promptHiddenCount = 0
-			prompt.PromptShown:Connect(function(inputType)
-				promptShownCount += 1
-			end)
-			prompt.PromptHidden:Connect(function(inputType)
-				promptHiddenCount += 1
-			end)
+			promptShownMock.mockClear()
+			promptHiddenMock.mockClear()
+			prompt.PromptShown:Connect(promptShownFn)
+			prompt.PromptHidden:Connect(promptHiddenFn)
 			PlayerHelper.WaitNFrames(1)
 
 			prompt.Enabled = true
@@ -53,8 +55,8 @@ return function()
 		end)
 
 		local function refreshPromptVisibleSignals()
-			promptShownCount = 0 -- Reset counters
-			promptHiddenCount = 0
+			promptShownMock.mockClear() -- Reset counters
+			promptHiddenMock.mockClear()
 			PlayerHelper.WaitNFrames(2) -- Wait for onHeartbeat()
 		end
 
@@ -63,20 +65,20 @@ return function()
 			prompt.Enabled = true
 			part.Position = Vector3.new(0, 0, -7)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 6
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(false) -- should be outside of radius
+			expect(dist.Magnitude < prompt.MaxActivationDistance).toBe(false) -- should be outside of radius
 
 			PlayerHelper.WaitNFrames(2)
 
 			part.Position = Vector3.new(0, 0, -5)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 			refreshPromptVisibleSignals()
 
-			expect(promptShownCount).to.equal(1)
-			expect(promptHiddenCount).to.equal(0)
+			expect(promptShownMock).toHaveBeenCalledTimes(1)
+			expect(promptHiddenMock).never.toHaveBeenCalled()
 		end)
 
 		it("PromptHidden triggered on player going out of activation but still visible", function()
@@ -84,34 +86,32 @@ return function()
 			prompt.Enabled = true
 			part.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 6
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(true) -- should be within radius
+			expect(dist.Magnitude).toBeLessThan(prompt.MaxActivationDistance) -- should be within radius
 
 			PlayerHelper.WaitNFrames(2)
 
 			part.Position = Vector3.new(0, 0, -7)
 			refreshPromptVisibleSignals()
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
-			expect(promptShownCount).to.equal(0)
-			expect(promptHiddenCount).to.equal(1)
+			expect(promptShownMock).never.toHaveBeenCalled()
+			expect(promptHiddenMock).toHaveBeenCalledTimes(1)
 		end)
 	end)
 
 	describe("PromptHidden Signal", function()
 		local part, prompt
-		local promptHiddenCount
+		local promptHiddenMock, promptHiddenFn = jest.fn()
 
 		beforeAll(function()
 			part = makePartWithPrompt{Position=Vector3.new(5,0,-5)}
 			prompt = part.ProximityPrompt
-			promptHiddenCount = 0
-			prompt.PromptHidden:Connect(function(inputType)
-				promptHiddenCount += 1
-			end)
+			promptHiddenMock.mockClear()
+			prompt.PromptHidden:Connect(promptHiddenFn)
 			PlayerHelper.WaitNFrames(1)
 
 			prompt.Enabled = true
@@ -123,7 +123,7 @@ return function()
 		end)
 
 		local function refreshPromptVisibleSignals()
-			promptHiddenCount = 0 -- Reset counter
+			promptHiddenMock.mockClear() -- Reset counter
 			PlayerHelper.WaitNFrames(1) -- Wait for onHeartbeat()
 		end
 
@@ -132,15 +132,15 @@ return function()
 			prompt.Enabled = true
 			part.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 15
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(true)
+			expect(dist.Magnitude).toBeLessThan(prompt.MaxActivationDistance)
 
 			part.Position = Vector3.new(100, 0, -5)
 			refreshPromptVisibleSignals()
-			expect(promptHiddenCount).to.equal(1)
+			expect(promptHiddenMock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("PromptHidden triggered on line of sight blocked for .RequiresLineOfSight=true", function()
@@ -148,11 +148,11 @@ return function()
 			prompt.Enabled = true
 			part.Position = Vector3.new(0, 0, -10)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 15
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(true)
+			expect(dist.Magnitude).toBeLessThan(prompt.MaxActivationDistance)
 
 			local blockerPart = PlayerHelper.AddInstance("Part")
 			blockerPart.Shape = Enum.PartType.Block
@@ -161,7 +161,7 @@ return function()
 			blockerPart.Anchored = true
 
 			refreshPromptVisibleSignals()
-			expect(promptHiddenCount).to.equal(1)
+			expect(promptHiddenMock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("PromptHidden not triggered on line of sight blocked for .RequiresLineOfSight=false", function()
@@ -169,11 +169,11 @@ return function()
 			prompt.Enabled = true
 			part.Position = Vector3.new(0, 0, -10)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 15
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(true)
+			expect(dist.Magnitude).toBeLessThan(prompt.MaxActivationDistance)
 
 			local blockerPart = PlayerHelper.AddInstance("Part")
 			blockerPart.Shape = Enum.PartType.Block
@@ -182,7 +182,7 @@ return function()
 			blockerPart.Anchored = true
 
 			refreshPromptVisibleSignals()
-			expect(promptHiddenCount).to.equal(0)
+			expect(promptHiddenMock).never.toHaveBeenCalled()
 		end)
 
 		it("PromptHidden triggered when setting .Enabled=false", function()
@@ -190,15 +190,15 @@ return function()
 			prompt.Enabled = true
 			part.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 15
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(true)
+			expect(dist.Magnitude).toBeLessThan(prompt.MaxActivationDistance)
 
 			prompt.Enabled = false
 			refreshPromptVisibleSignals()
-			expect(promptHiddenCount).to.equal(1)
+			expect(promptHiddenMock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("PromptHidden triggered when setting ProximityPromptService.Enabled=false", function()
@@ -206,15 +206,15 @@ return function()
 			prompt.Enabled = true
 			part.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part)).toBe(true)
 
 			prompt.MaxActivationDistance = 15
 			local dist = part.Position - PlayerHelper.hrp.Position
-			expect(dist.Magnitude < prompt.MaxActivationDistance).to.equal(true)
+			expect(dist.Magnitude).toBeLessThan(prompt.MaxActivationDistance)
 
 			ProximityPromptService.Enabled = false
 			refreshPromptVisibleSignals()
-			expect(promptHiddenCount).to.equal(1)
+			expect(promptHiddenMock).toHaveBeenCalledTimes(1)
 
 			PlayerHelper.WaitNFrames(1)
 			ProximityPromptService.Enabled = true -- Re-enable prompts for other tests.
@@ -223,16 +223,14 @@ return function()
 
 	describe("Enabled/Disabled", function()
 		local part1, prompt1
-		local prompt1ShownCount
+		local prompt1Mock, prompt1Fn = jest.fn()
 		local promptUIs, promptGuiConnection
 
 		beforeAll(function()
 			part1 = makePartWithPrompt{Position=Vector3.new(5,0,-5)}
 			prompt1 = part1.ProximityPrompt
-			prompt1ShownCount = 0
-			prompt1.PromptShown:Connect(function(inputType)
-				prompt1ShownCount += 1
-			end)
+			prompt1Mock.mockClear()
+			prompt1.PromptShown:Connect(prompt1Fn)
 			PlayerHelper.WaitNFrames(1)
 
 			prompt1.Enabled = true
@@ -253,10 +251,10 @@ return function()
 		local function refreshPromptVisibleSignals()
 			ProximityPromptService.Enabled = false -- Disable all prompts
 			PlayerHelper.WaitNFrames(2) -- wait for onHeartbeat()
-	
-			prompt1ShownCount = 0 -- Reset counter
+
+			prompt1Mock.mockClear() -- Reset counter
 			promptUIs = {}
-	
+
 			ProximityPromptService.Enabled = true -- Enable all prompts
 			PlayerHelper.WaitNFrames(2) -- Wait for onHeartbeat()
 		end
@@ -268,21 +266,21 @@ return function()
 			part1.Position = Vector3.new(0, 0, -5)
 			prompt1.Style = Enum.ProximityPromptStyle.Default
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
 
 			prompt1.MaxActivationDistance = 15
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
 
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount).to.equal(1)
-			expect(#promptUIs).to.equal(1)
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
+			expect(#promptUIs).toBe(1)
 
 			prompt1.Style = Enum.ProximityPromptStyle.Custom
 			PlayerHelper.WaitWallTime(0.25)
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount).to.equal(1)
-			expect(#promptUIs).to.equal(0) -- No UI should be shown!
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
+			expect(#promptUIs).toBe(0) -- No UI should be shown!
 			prompt1.Style = Enum.ProximityPromptStyle.Default -- reset for other tests.
 		end)
 
@@ -291,14 +289,14 @@ return function()
 			prompt1.Enabled = true
 			part1.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
 
 			prompt1.MaxActivationDistance = 15
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
 
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount).to.equal(1)
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("disabled prompt shouldn't be shown", function()
@@ -306,14 +304,14 @@ return function()
 			prompt1.Enabled = false
 			part1.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
 
 			prompt1.MaxActivationDistance = 15
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
 
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount).to.equal(0)
+			expect(prompt1Mock).never.toHaveBeenCalled()
 		end)
 
 		it("enabled prompt with disabled ProximityPromptService shouldn't be shown", function()
@@ -321,18 +319,18 @@ return function()
 			prompt1.Enabled = true
 			part1.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
 
 			prompt1.MaxActivationDistance = 15
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
 
 			ProximityPromptService.Enabled = false
 
 			PlayerHelper.WaitNFrames(2)
-			prompt1ShownCount = 0
+			prompt1Mock.mockClear()
 			PlayerHelper.WaitNFrames(2)
-			expect(prompt1ShownCount).to.equal(0)
+			expect(prompt1Mock).never.toHaveBeenCalled()
 
 			ProximityPromptService.Enabled = true
 		end)
@@ -340,15 +338,13 @@ return function()
 
 	describe("Line Of Sight", function()
 		local part1, prompt1
-		local prompt1ShownCount
+		local prompt1Mock, prompt1Fn = jest.fn()
 
 		beforeAll(function()
 			part1 = makePartWithPrompt{Position=Vector3.new(5,0,-5)}
 			prompt1 = part1.ProximityPrompt
-			prompt1ShownCount = 0
-			prompt1.PromptShown:Connect(function(inputType)
-				prompt1ShownCount += 1
-			end)
+			prompt1Mock.mockClear()
+			prompt1.PromptShown:Connect(prompt1Fn)
 			PlayerHelper.WaitNFrames(1)
 
 			prompt1.Enabled = true
@@ -362,9 +358,9 @@ return function()
 		local function refreshPromptVisibleSignals()
 			prompt1.Enabled = false -- Disable prompts
 			PlayerHelper.WaitNFrames(2) -- wait for onHeartbeat()
-	
-			prompt1ShownCount = 0 -- Reset counter
-	
+
+			prompt1Mock.mockClear() -- Reset counter
+
 			prompt1.Enabled = true -- Enable prompts
 			PlayerHelper.WaitNFrames(2) -- Wait for onHeartbeat()
 		end
@@ -373,38 +369,38 @@ return function()
 			prompt1.RequiresLineOfSight = true
 			part1.Position = Vector3.new(0, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
 
 			prompt1.MaxActivationDistance = 15
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
 
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount).to.equal(1)
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("offscreen prompt shouldn't be shown", function()
 			prompt1.RequiresLineOfSight = false
 			part1.Position = Vector3.new(500, 0, -5)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(false)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(false)
 
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount).to.equal(0)
+			expect(prompt1Mock).never.toHaveBeenCalled()
 		end)
 
 		it("blocked prompt with .RequiresLineOfSight=true shouldn't be shown", function()
 			prompt1.RequiresLineOfSight = true
 			part1.Position = Vector3.new(0, 0, -10)
 			PlayerHelper.WaitNFrames(1)
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
 
 			prompt1.MaxActivationDistance = 15
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
 
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount).to.equal(1)
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
 
 			local blockerPart = PlayerHelper.AddInstance("Part")
 			blockerPart.Shape = Enum.PartType.Block
@@ -415,12 +411,12 @@ return function()
 
 			refreshPromptVisibleSignals()
 			-- Prompt shouldn't be shown because Line of Sight is blocked.
-			expect(prompt1ShownCount).to.equal(0)
+			expect(prompt1Mock).never.toHaveBeenCalled()
 
 			prompt1.RequiresLineOfSight = false
 			refreshPromptVisibleSignals()
 			-- Now, the prompt *should* be shown because Line of Sight isn't required.
-			expect(prompt1ShownCount).to.equal(1)
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
 
 			blockerPart:Destroy()
 		end)
@@ -428,21 +424,18 @@ return function()
 
 	describe("Exclusivity", function()
 		local part1, part2, prompt1, prompt2
-		local prompt1ShownCount, prompt2ShownCount
+		local prompt1Mock, prompt1Fn = jest.fn()
+		local prompt2Mock, prompt2Fn = jest.fn()
 
 		beforeAll(function()
 			part1 = makePartWithPrompt{Position=Vector3.new(5,0,-5)}
 			part2 = makePartWithPrompt{Position=Vector3.new(-5,0,-5)}
 			prompt1 = part1.ProximityPrompt
 			prompt2 = part2.ProximityPrompt
-			prompt1ShownCount = 0
-			prompt2ShownCount = 0
-			prompt1.PromptShown:Connect(function(inputType)
-				prompt1ShownCount += 1
-			 end)
-			prompt2.PromptShown:Connect(function(inputType)
-				prompt2ShownCount += 1
-			 end)
+			prompt1Mock.mockClear()
+			prompt2Mock.mockClear()
+			prompt1.PromptShown:Connect(prompt1Fn)
+			prompt2.PromptShown:Connect(prompt2Fn)
 			prompt1.Enabled = true
 			prompt2.Enabled = true
 			prompt1.RequiresLineOfSight = false
@@ -453,27 +446,27 @@ return function()
 
 		afterAll(function()
 			PlayerHelper.CleanUpAfterTest()
-		end)   
+		end)
 
 		local function refreshPromptVisibleSignals()
 			prompt1.Enabled = false -- Disable prompts
 			prompt2.Enabled = false
 			PlayerHelper.WaitNFrames(1) -- wait for onHeartbeat()
-	
-			prompt1ShownCount = 0
-			prompt2ShownCount = 0 -- Reset counters
-	
+
+			prompt1Mock.mockClear()
+			prompt2Mock.mockClear() -- Reset counters
+
 			prompt1.Enabled = true -- Enable prompts
 			prompt2.Enabled = true
 			PlayerHelper.WaitNFrames(1) -- Wait for onHeartbeat()
 		end
 
 		it("testing context should be set up correctly", function()
-			expect(PlayerHelper.hrp).to.be.ok()
-			
+			expect(PlayerHelper.hrp).never.toBeNil()
+
 			-- Both parts should be onscreen
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
-			expect(PlayerHelper.IsPartOnscreen(part2)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
+			expect(PlayerHelper.IsPartOnscreen(part2)).toBe(true)
 
 			-- Both parts should be within activation distance
 			prompt1.MaxActivationDistance = 10
@@ -481,10 +474,10 @@ return function()
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
 			local dist2 = part2.Position - PlayerHelper.hrp.Position
 
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
-			expect(dist2.Magnitude < prompt2.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
+			expect(dist2.Magnitude).toBeLessThan(prompt2.MaxActivationDistance)
 		end)
-		
+
 		it("should only show 1 prompt for Exclusivity = OneGlobally", function()
 			prompt1.Exclusivity = Enum.ProximityPromptExclusivity.OneGlobally
 			prompt2.Exclusivity = Enum.ProximityPromptExclusivity.OneGlobally
@@ -492,10 +485,9 @@ return function()
 			refreshPromptVisibleSignals()
 
 			-- Only 1 prompt should be shown, even though there are two in view.
-			local numPromptsShown = prompt1ShownCount + prompt2ShownCount
-			expect(numPromptsShown).to.equal(1)
+			expect(#prompt1Mock.mock.calls + #prompt2Mock.mock.calls).toBe(1)
 		end)
-		
+
 		it("should only show 1 prompt for Exclusivity = OnePerButton", function()
 			prompt1.Exclusivity = Enum.ProximityPromptExclusivity.OnePerButton
 			prompt2.Exclusivity = Enum.ProximityPromptExclusivity.OnePerButton
@@ -505,8 +497,7 @@ return function()
 			refreshPromptVisibleSignals()
 
 			-- Only 1 prompt should be shown, even though there are two in view.
-			local numPromptsShown = prompt1ShownCount + prompt2ShownCount
-			expect(numPromptsShown).to.equal(1)
+			expect(#prompt1Mock.mock.calls + #prompt2Mock.mock.calls).toBe(1)
 		end)
 
 		it("should show 2 prompts for Exclusivity = OnePerButton and different keycodes", function()
@@ -518,8 +509,8 @@ return function()
 			refreshPromptVisibleSignals()
 
 			-- Both prompts should be shown
-			expect(prompt1ShownCount).to.equal(1)
-			expect(prompt2ShownCount).to.equal(1)
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
+			expect(prompt2Mock).toHaveBeenCalledTimes(1)
 		end)
 
 		it("should show 2 prompts for Exclusivity = AlwaysShow and same keycodes", function()
@@ -531,17 +522,15 @@ return function()
 			refreshPromptVisibleSignals()
 
 			-- Both prompts should be shown
-			expect(prompt1ShownCount).to.equal(1)
-			expect(prompt2ShownCount).to.equal(1)
+			expect(prompt1Mock).toHaveBeenCalledTimes(1)
+			expect(prompt2Mock).toHaveBeenCalledTimes(1)
 		end)
-
-
-		
 	end)
-	
+
 	describe("Max Prompts Visible", function()
 		local part1, part2, prompt1, prompt2
-		local prompt1ShownCount, prompt2ShownCount
+		local prompt1Mock, prompt1Fn = jest.fn()
+		local prompt2Mock, prompt2Fn = jest.fn()
 		local promptUIs, promptGuiConnection
 
 		beforeAll(function()
@@ -549,14 +538,9 @@ return function()
 			part2 = makePartWithPrompt{Position=Vector3.new(-5,0,-5)}
 			prompt1 = part1.ProximityPrompt
 			prompt2 = part2.ProximityPrompt
-			prompt1ShownCount = 0
-			prompt2ShownCount = 0
-			prompt1.PromptShown:Connect(function(inputType)
-				prompt1ShownCount += 1
-			end)
-			prompt2.PromptShown:Connect(function(inputType)
-				prompt2ShownCount += 1
-			end)
+			jest.clearAllMocks()
+			prompt1.PromptShown:Connect(prompt1Fn)
+			prompt2.PromptShown:Connect(prompt2Fn)
 			prompt1.Enabled = true
 			prompt2.Enabled = true
 			prompt1.RequiresLineOfSight = false
@@ -578,52 +562,49 @@ return function()
 		afterAll(function()
 			PlayerHelper.CleanUpAfterTest()
 			promptGuiConnection:Disconnect()
-		end)   
+		end)
 
 		local function refreshPromptVisibleSignals()
 			prompt1.Enabled = false -- Disable prompts
 			prompt2.Enabled = false
 			PlayerHelper.WaitNFrames(1) -- wait for onHeartbeat()
-	
-			prompt1ShownCount = 0
-			prompt2ShownCount = 0 -- Reset counters
+
+			jest.clearAllMocks() -- Reset counters
 			promptUIs = {}
-	
+
 			prompt1.Enabled = true -- Enable prompts
 			prompt2.Enabled = true
 			PlayerHelper.WaitNFrames(1) -- Wait for onHeartbeat()
 		end
 
 		it("testing context should be set up correctly", function()
-			expect(PlayerHelper.hrp).to.be.ok()
-			
+			expect(PlayerHelper.hrp).never.toBeNil()
+
 			-- Both parts should be onscreen
-			expect(PlayerHelper.IsPartOnscreen(part1)).to.equal(true)
-			expect(PlayerHelper.IsPartOnscreen(part2)).to.equal(true)
+			expect(PlayerHelper.IsPartOnscreen(part1)).toBe(true)
+			expect(PlayerHelper.IsPartOnscreen(part2)).toBe(true)
 
 			-- Both parts should be within activation distance
 			local dist1 = part1.Position - PlayerHelper.hrp.Position
 			local dist2 = part2.Position - PlayerHelper.hrp.Position
-			expect(dist1.Magnitude < prompt1.MaxActivationDistance).to.equal(true)
-			expect(dist2.Magnitude < prompt2.MaxActivationDistance).to.equal(true)
+			expect(dist1.Magnitude).toBeLessThan(prompt1.MaxActivationDistance)
+			expect(dist2.Magnitude).toBeLessThan(prompt2.MaxActivationDistance)
 		end)
 
 		it("should only show 1 prompt if MaxPromptsVisible=1 but there are 2 prompts", function()
 			refreshPromptVisibleSignals()
-			expect(prompt1ShownCount + prompt2ShownCount).to.equal(2)
+			expect(#prompt1Mock.mock.calls + #prompt2Mock.mock.calls).toBe(2)
 
 			ProximityPromptService.MaxPromptsVisible = 1
 			refreshPromptVisibleSignals()
 			-- Only 1 prompt should be shown now
-			expect(prompt1ShownCount + prompt2ShownCount).to.equal(1)
+			expect(#prompt1Mock.mock.calls + #prompt2Mock.mock.calls).toBe(1)
 
 			PlayerHelper.WaitWallTime(0.25)
-			expect(#promptUIs).to.equal(1) -- Check actual number of default UIs
+			expect(#promptUIs).toBe(1) -- Check actual number of default UIs
 
 			PlayerHelper.WaitNFrames(1)
 			ProximityPromptService.MaxPromptsVisible = 16 -- reset to original
 		end)
-
-
 	end)
 end

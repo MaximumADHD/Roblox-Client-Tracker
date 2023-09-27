@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -13,7 +15,7 @@ return function()
 			local store = Rodux.Store.new(Reducer)
 			local mockId = 1
 			local analytics = MockAnalytics.new()
-			expect(analytics.reportTryOnButtonClicked_callCount).to.equal(0)
+			expect(analytics.reportTryOnButtonClicked).never.toHaveBeenCalled()
 
 			local thunk = TryOnItem(true, 1, 1, true, mockId)
 
@@ -22,8 +24,8 @@ return function()
 			})
 
 			local state = store:getState()
-			expect(analytics.reportTryOnButtonClicked_callCount).to.equal(1)
-			expect(state.tryingOnInfo.assetId).to.equal(mockId)
+			expect(analytics.reportTryOnButtonClicked).toHaveBeenCalledTimes(1)
+			expect(state.tryingOnInfo.assetId).toBe(mockId)
 		end)
 	end)
 end

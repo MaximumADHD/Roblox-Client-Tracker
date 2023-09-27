@@ -1,4 +1,9 @@
 --!strict
+local CorePackages = game:GetService("CorePackages")
+local ModelUtils = require(script.Parent.Parent.Utils.ModelUtils)
+
+local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
+local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
 
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
@@ -12,7 +17,16 @@ local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.Ge
 local RunService = game:GetService("RunService")
 
 local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0, 0.105, -0.25)
+local DEFAULT_SELF_VIEW_NO_HEAD_CAM_OFFSET = Vector3.new(0, 1.5, 0)
+local DEFAULT_CAM_X_ROT = -0.04
 local DEFAULT_CAM_DISTANCE = 2
+local DEFAULT_CAM_DISTANCE_NO_HEAD = 2.5
+
+--FoV smaller is closer up
+local SELF_VIEW_CAMERA_FIELD_OF_VIEW = 70
+--gets value populated with actual headHeight once we have it, default value is just a fallback value while no proper usable head is found
+local headHeight = 1.31
+
 local cloneCharacterName = "SelfAvatar"
 -- seconds to wait to update the clone after something in the original has changed
 local UPDATE_CLONE_CD = 0.35
@@ -22,6 +36,10 @@ local renderSteppedConnection: RBXScriptConnection? = nil
 local playerCharacterAddedConnection: RBXScriptConnection? = nil
 local trackStoppedConnections = {}
 
+--table which gets populated with the initial transparency of body parts
+--so we can maintain that transparency even if later it gets changed for the game world avatar when entering vehicles or similar
+local partsOrgTransparency = {}
+
 local cloneAnimator: Animator? = nil
 local cloneAnimationTracks = {}
 local orgAnimationTracks = {}
@@ -30,7 +48,8 @@ local cachedHeadSize: Vector3? = nil
 
 local viewportFrame: ViewportFrame = nil
 local viewportCamera: Camera? = nil
-local boundsSize: Vector3? = nil
+--fallback default value, actual value gets populated once parts found:
+local boundsSize: Vector3? = Vector3.new(1.1721, 1.1811, 1.1578)
 local cloneAnchor: WorldModel? = nil
 local clone: Model? = nil
 local headRef: MeshPart? = nil
@@ -62,8 +81,6 @@ if not Players.LocalPlayer then
 	warn("Players.LocalPlayer does not exist")
 end
 local LocalPlayer = Players.LocalPlayer :: Player
-
-local ModelUtils = require(script.Parent.Parent.Utils.ModelUtils)
 
 function setCloneDirty(dirty: boolean): ()
 	if dirty then
@@ -100,6 +117,7 @@ function clearCloneCharacter(): ()
 
 	if not cloneAnchor then
 		warn("cloneAnchor is nil, this shouldn't be possible")
+		return
 	end
 	assert(cloneAnchor ~= nil)
 	local noRefClone = cloneAnchor:FindFirstChild(cloneCharacterName)
@@ -171,7 +189,8 @@ local function updateClone(player: Player?)
 	--we set it up here so it is already ready for before player's character loaded
 	startRenderStepped(player)
 
-	local character: Model | nil = player.Character
+	--need to wait here for character else sometimes error on respawn
+	local character = player.Character
 
 	if GetFFlagSelfieViewDontWaitForCharacter() then
 		if not player or not player.Character then
@@ -218,7 +237,10 @@ local function updateClone(player: Player?)
 	--and we want to start with default pose setup in clone, else issues with clone avatar (parts) orientation etc
 	ModelUtils.resetPartOrientation(clone)
 
-	ModelUtils.updateTransparency(clone)
+	--it could happen that the head was made transparent during gameplay, which is in some experiences done when entering a car for example
+	--we still want to show the self view avatar's head in that case (also because sometimes exiting vehicles would not cause a refresh of the self view and the head would stay transparent then)
+	--but we also want to respect it if the head was transparent to begin with on first usage like for a headless head look
+	ModelUtils.updateTransparency(clone, partsOrgTransparency)
 
 	clone.Name = cloneCharacterName
 
@@ -237,41 +259,62 @@ local function updateClone(player: Player?)
 	local cloneRootPart: BasePart = clone:FindFirstChild("HumanoidRootPart") :: BasePart
 	if cloneRootPart then
 		cloneRootPart.CFrame = CFrame.new(Vector3.new(0, 0, 0))
+		assert(viewportCamera ~= nil)
+
 		--focus viewport frame camera on upper body
 		--viewportCamera.CFrame = cloneRootPart.CFrame * CFrame.new(0,1.5,-2) * CFrame.Angles(math.rad(10),math.rad(180),0)--comment out for work in progress
+		if orgHead then
+			--we want to focus the cam on head + hat accessories bounding box
+			--and we don't use rig:GetBoundingBox() because when Game Settings/Avatar/Collision is set to inner box,
+			--it does not return the visual mesh's bounding box
+			--and hence is then too small for some heads (like Piggy)
 
-		--GetExtentsSize is only usable on models, so putting head into model:
-		--todo: only run this if head found, also look for head with descendents if not found
-		local dummyModel = Instance.new("Model")
-		dummyModel.Parent = clone
-		local head = ModelUtils.getHead(clone)
-		assert(head ~= nil)
-		character.Archivable = true
-		headClone = head:Clone()
-		assert(headClone ~= nil)
-		headClone.CanCollide = false
-		headClone.Parent = dummyModel
-		headCloneNeck = ModelUtils.getNeck(clone, headClone)
-		local rig = dummyModel
-		local extents = rig:GetExtentsSize()
-		local width = math.min(extents.X, extents.Y)
-		width = math.min(extents.X, extents.Z)
-		local _
-		_, boundsSize = rig:GetBoundingBox()
-		local rootPart = headClone
-		headCloneRootFrame = rootPart.CFrame
-		assert(headCloneRootFrame ~= nil)
-		headClone:Destroy()
+			local head = ModelUtils.getHead(clone)
+			assert(head ~= nil)
 
-		local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
-		if not viewportCamera then
-			warn("viewportCamera is nil, this shouldn't be possible")
+			local headTargetCFrame = CFrameUtility.CalculateTargetCFrame(head.CFrame)
+			local minHeadExtent, maxHeadExtent = CharacterUtility.CalculateHeadExtents(clone, headTargetCFrame)
+			local oMin, oMax =
+				Vector3.new(minHeadExtent.X, minHeadExtent.Y, minHeadExtent.Z),
+				Vector3.new(maxHeadExtent.X, maxHeadExtent.Y, maxHeadExtent.Z)
+			boundsSize = (oMax - oMin)
+
+			assert(boundsSize ~= nil)
+
+			headHeight = head.Size.Y
+			local width = math.min(boundsSize.X, boundsSize.Y)
+			width = math.min(boundsSize.X, boundsSize.Z)
+
+			local dummyModel = Instance.new("Model")
+			dummyModel.Parent = clone
+			head = ModelUtils.getHead(clone)
+			character.Archivable = true
+			headClone = head:Clone()
+
+			assert(headClone ~= nil)
+			headClone.CanCollide = false
+			headClone.Parent = dummyModel
+
+			headCloneNeck = ModelUtils.getNeck(clone, headClone)
+			local rootPart = headClone
+			headCloneRootFrame = rootPart.CFrame
+			headClone:Destroy()
+			assert(headCloneRootFrame ~= nil)
+
+			local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
+			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
+			viewportCamera.Focus = headCloneRootFrame
+
+			character.Archivable = previousArchivableValue
+			dummyModel:Destroy()
+		else
+			--when no head was found which is a Part or MeshPart:
+			--basic fallback to focus the avatar in the viewportframe
+			local center = cloneRootPart.Position + cloneRootPart.CFrame.LookVector * DEFAULT_CAM_DISTANCE_NO_HEAD
+			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_NO_HEAD_CAM_OFFSET, cloneRootPart.Position)
+			viewportCamera.CFrame = CFrame.new(viewportCamera.CFrame.Position)
+				* CFrame.Angles(math.rad(DEFAULT_CAM_X_ROT), math.rad(180), 0)
 		end
-		assert(viewportCamera ~= nil)
-		viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
-		viewportCamera.Focus = headCloneRootFrame
-		character.Archivable = previousArchivableValue
-		dummyModel:Destroy()
 	end
 
 	--curious: despite we check further above if clone == nil, noticed in some games above it was not nil and then by reaching here it is nil...
@@ -427,7 +470,7 @@ local function createViewport(): ()
 	viewportCamera = Instance.new("Camera")
 	assert(viewportCamera ~= nil)
 	--FoV smaller is closer up
-	viewportCamera.FieldOfView = 70
+	viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
 	viewportFrame.CurrentCamera = viewportCamera
 	viewportCamera.Parent = viewportFrame
 end
@@ -694,7 +737,7 @@ function startRenderStepped(player: Player)
 						warn("boundsSize is nil, this shouldn't be possible")
 					end
 					assert(boundsSize ~= nil)
-					local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+					local offset = Vector3.new(0, (headHeight * 0.25), -(boundsSize.Z + 1))
 					viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
 					viewportCamera.Focus = headClone.CFrame
 				end

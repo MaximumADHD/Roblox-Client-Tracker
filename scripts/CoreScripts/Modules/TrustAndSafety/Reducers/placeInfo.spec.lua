@@ -1,6 +1,11 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
 	local TnsModule = script.Parent.Parent
 	local SetPlaceInfo = require(TnsModule.Actions.SetPlaceInfo)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local placeInfo = require(script.Parent.placeInfo)
 
@@ -11,9 +16,11 @@ return function()
 		it("should update", function()
 			local oldState = placeInfo(nil, {})
 			local newState = placeInfo(oldState, SetPlaceInfo(newName, newDescription))
-			expect(oldState).to.never.equal(newState)
-			expect(newState.name).to.equal(newName)
-			expect(newState.description).to.equal(newDescription)
+			expect(oldState).never.toBe(newState)
+			expect(newState).toMatchObject({
+				name = newName,
+				description = newDescription,
+			})
 		end)
 	end)
 end

@@ -3,7 +3,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local JestGlobals = require(CorePackages.JestGlobals)
-	local jestExpect = JestGlobals.expect
+	local expect = JestGlobals.expect
 	local jest = JestGlobals.jest
 	local Promise = require(CorePackages.Promise)
 	local Cryo = require(CorePackages.Cryo)
@@ -42,7 +42,7 @@ return function()
 			done = true
 		end)
 		res:await()
-		jestExpect(done).toBe(true)
+		expect(done).toBe(true)
 	end
 
 	local expectToReject = function(promise)
@@ -51,7 +51,7 @@ return function()
 			done = true
 		end)
 		res:await()
-		jestExpect(done).toBe(true)
+		expect(done).toBe(true)
 	end
 
 	local function createVoiceOptionsJSONStub(options)
@@ -175,13 +175,13 @@ return function()
 			local mockUserB = makeMockUser("002")
 			mockUserB.isMuted = true
 
-			expect(VoiceChatServiceManager).to.be.ok()
-			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			expect(VoiceChatServiceManager).never.toBeNil()
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).toBe(true)
 			VoiceChatServiceStub:addUsers({ mockUserA, mockUserB })
-			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).toBe(true)
 			mockUserA.isMuted = false
 			VoiceChatServiceStub:setUserStates({ mockUserA })
-			expect(#Cryo.Dictionary.values(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(1)
+			expect(#Cryo.Dictionary.values(VoiceChatServiceManager:getRecentUsersInteractionData())).toBe(1)
 		end)
 
 		it("Recent user data cache should expire according to FIntVoiceUsersInteractionExpiryTimeSeconds", function()
@@ -192,53 +192,53 @@ return function()
 			local mockUserB = makeMockUser("002")
 			mockUserB.isMuted = true
 
-			expect(VoiceChatServiceManager).to.be.ok()
-			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			expect(VoiceChatServiceManager).never.toBeNil()
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).toBe(true)
 			VoiceChatServiceStub:addUsers({ mockUserA, mockUserB })
-			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).toBe(true)
 			mockUserA.isMuted = false
 			VoiceChatServiceStub:setUserStates({ mockUserA })
-			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(false)
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).toBe(false)
 			mockUserA.isMuted = true
 			VoiceChatServiceStub:setUserStates({ mockUserA })
-			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).toBe(true)
 
 			game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", old)
 		end)
 
 		it("mutedAnyone gets set when user is local muted", function()
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002") })
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
 			VoiceChatServiceManager:ToggleMutePlayer("002")
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 			VoiceChatServiceManager:ToggleMutePlayer("002")
 			-- Should still be true after un-muting user
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 		end)
 
 		it("mutedAnyone gets set when muteAll is called", function()
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002") })
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
 			VoiceChatServiceManager:MuteAll(true)
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 			VoiceChatServiceManager:MuteAll(false)
 			-- Should still be true after un-muting everyone
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 		end)
 
 		it("mutedAnyone gets set when ToggleMuteSome is called", function()
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002"), makeMockUser("003") })
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
 			VoiceChatServiceManager:ToggleMuteSome({ "001", "002" }, true)
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 			VoiceChatServiceManager:ToggleMuteSome({ "001", "002" }, false)
 			-- Should still be true after un-muting some
-			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			expect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 		end)
 	end)
 
@@ -255,25 +255,25 @@ return function()
 		end)
 
 		it("Participants are tracked properly when added and removed", function()
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002") })
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 			})).toBe(true)
 			VoiceChatServiceStub:addUsers({ makeMockUser("003"), makeMockUser("004") })
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 				["003"] = makeMockUser("003"),
 				["004"] = makeMockUser("004"),
 			})).toBe(true)
 			VoiceChatServiceStub:kickUsers({ "001", "002", "004" })
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["003"] = makeMockUser("003"),
 			})).toBe(true)
 			VoiceChatServiceStub:addUsers({ makeMockUser("005"), makeMockUser("006") })
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["003"] = makeMockUser("003"),
 				["005"] = makeMockUser("005"),
 				["006"] = makeMockUser("006"),
@@ -281,14 +281,14 @@ return function()
 		end)
 		itFIXME("Participants are cleared when player leaves voicechat", function()
 			-- TODO: Finish this when VoiceChatState is added to Enum Globally
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002") })
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 			})).toBe(true)
 			VoiceChatServiceStub:Disconnect()
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
+			expect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
 		end)
 
 		it("requestMicPermission throws when a malformed response is given", function()
@@ -360,8 +360,8 @@ return function()
 					VoiceChatServiceManager:userAndPlaceCanUseVoice("12345")
 				end)
 				waitForEvents.act()
-				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
-				-- jestExpect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).toBe("Microphone use Suspended")
+				expect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
+				-- expect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).toBe("Microphone use Suspended")
 			end)
 
 			if not GetFFlagAlwaysMountVoicePrompt() then
@@ -383,9 +383,9 @@ return function()
 					VoiceChatServiceManager:createPromptInstance(noop)
 					local mock, mockFn = jest.fn()
 					VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
-					jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice("12345")).toBe(false)
+					expect(VoiceChatServiceManager:userAndPlaceCanUseVoice("12345")).toBe(false)
 					waitForEvents.act()
-					jestExpect(mock).toHaveBeenCalledWith(VoiceChatPromptType.Place)
+					expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.Place)
 				end)
 			end
 
@@ -406,9 +406,9 @@ return function()
 				local mock, mockFn = jest.fn()
 				VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
 				-- This should never fire
-				jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice("12345")).toBe(false)
+				expect(VoiceChatServiceManager:userAndPlaceCanUseVoice("12345")).toBe(false)
 				waitForEvents.act()
-				jestExpect(mock).never.toHaveBeenCalled()
+				expect(mock).never.toHaveBeenCalled()
 				game:SetFastFlagForTesting("VCPromptEarlyOut", earlyOutFlag)
 			end)
 		end)
@@ -441,7 +441,7 @@ return function()
 					VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 				end)
 				waitForEvents.act()
-				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
+				expect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
 
 				local ToastContainer = CoreGui:FindFirstChild("ToastContainer", true)
 				local FFlagVoiceChatPromptFrameNewCopyEnabled2 = game:GetFastFlag("VoiceChatPromptFrameNewCopyEnabled2")
@@ -449,7 +449,7 @@ return function()
 					then "Unable to access Microphone"
 					else "Voice Chat Unavailable"
 
-				jestExpect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
+				expect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
 					expectedToastText
 				)
 			end)
@@ -457,18 +457,18 @@ return function()
 
 		it("VoiceChatAvailable Returns the correct values", function()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new()
-			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
+			expect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub)
 			VoiceChatServiceStub.GetVoiceChatApiVersionCB = stub(2)
-			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
+			expect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			VoiceChatServiceStub.GetVoiceChatApiVersionCB = stub(6)
-			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
+			expect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			VoiceChatServiceStub.GetVoiceChatAvailableCB = stub(0)
-			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
+			expect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			-- We set available to nil because we cache it to keep init() itempotent
 			VoiceChatServiceManager.available = nil
 			VoiceChatServiceStub.GetVoiceChatAvailableCB = stub(2)
-			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(true)
+			expect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(true)
 		end)
 
 		describe("BlockingUtils", function()
@@ -502,7 +502,7 @@ return function()
 
 				BlockMock:Fire(player.UserId, true)
 				waitForEvents()
-				jestExpect(spy).toHaveBeenCalledTimes(1)
+				expect(spy).toHaveBeenCalledTimes(1)
 			end)
 
 			it("we call subscribe unblock when a user is unblocked", function()
@@ -525,20 +525,20 @@ return function()
 
 				UnblockMock:Fire(player.UserId, false)
 				waitForEvents()
-				jestExpect(spy).toHaveBeenCalledTimes(1)
+				expect(spy).toHaveBeenCalledTimes(1)
 			end)
 		end)
 
 		it("MuteUser toggles isMutedLocally", function()
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002") })
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 			})).toBe(true)
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
 			VoiceChatServiceManager:ToggleMutePlayer("002")
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002", true),
 			})).toBe(true)
@@ -550,31 +550,31 @@ return function()
 			VoiceChatServiceManager:ToggleMutePlayer("002")
 			waitForEvents()
 
-			jestExpect(spy).toHaveBeenCalledTimes(1)
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(spy).toHaveBeenCalledTimes(1)
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 			})).toBe(true)
 		end)
 
 		it("ToggleMuteSome toggles isMutedLocally", function()
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002"), makeMockUser("003") })
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 				["003"] = makeMockUser("003"),
 			})).toBe(true)
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
 			VoiceChatServiceManager:ToggleMuteSome({ "001", "002" }, true)
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001", true),
 				["002"] = makeMockUser("002", true),
 				["003"] = makeMockUser("003"),
 			})).toBe(true)
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
 			VoiceChatServiceManager:ToggleMuteSome({ "003" }, true)
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001", true),
 				["002"] = makeMockUser("002", true),
 				["003"] = makeMockUser("003", true),
@@ -582,7 +582,7 @@ return function()
 
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(true)
 			VoiceChatServiceManager:ToggleMuteSome({ "001", "002", "003" }, false)
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 				["003"] = makeMockUser("003"),
@@ -591,15 +591,15 @@ return function()
 
 		it("Rejoin clears participants", function()
 			local ClearStateOnRejoinOld = game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", true)
-			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			expect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({ makeMockUser("001"), makeMockUser("002") })
 
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {
+			expect(deepEqual(VoiceChatServiceManager.participants, {
 				["001"] = makeMockUser("001"),
 				["002"] = makeMockUser("002"),
 			})).toBe(true)
 			VoiceChatServiceManager:RejoinCurrentChannel()
-			jestExpect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
+			expect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
 			game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", ClearStateOnRejoinOld)
 		end)
 	end)
@@ -620,46 +620,46 @@ return function()
 			end)
 
 			it("should return true if a sequence increments normally", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 104)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 104)).toBe(true)
 			end)
 
 			it("should return true if a sequence number repeats", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
 			end)
 
 			it("should return false if it skips a number", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(false)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(false)
 			end)
 
 			it("should return true if two sequences increment on their own", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 102)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 203)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 102)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 203)).toBe(true)
 			end)
 
 			it("should return false if either sequence skips", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(false)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 104)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 204)).toBe(false)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(false)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 104)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 204)).toBe(false)
 			end)
 
 			it("should ignore nil values", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", nil)).toBe(true)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", nil)).toBe(true)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
 			end)
 		end)
 
@@ -679,46 +679,46 @@ return function()
 			end)
 
 			it("should return 0 if a sequence increments normally", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 104)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 104)).toBe(0)
 			end)
 
 			it("should return negative if a sequence number repeats", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(-1)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(-2)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(-1)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(-2)
 			end)
 
 			it("should return positive if it skips a number", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(1)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(1)
 			end)
 
 			it("should return 0 if two sequences increment on their own", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 102)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 203)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 102)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 203)).toBe(0)
 			end)
 
 			it("should return positive if either sequence skips", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(1)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 104)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 204)).toBe(1)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(1)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 104)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 204)).toBe(1)
 			end)
 
 			it("should ignore nil values", function()
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", nil)).toBe(0)
-				jestExpect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", nil)).toBe(0)
+				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(0)
 			end)
 		end)
 
@@ -751,7 +751,7 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("NotVoiceNotifications", 4))
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				expect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
 			end)
 
@@ -764,7 +764,7 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 4))
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
+				expect(VoiceChatServiceStub.joinCalled).toBe(true)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
 			end)
 
@@ -777,7 +777,7 @@ return function()
 				context.RobloxEventReceived:Fire(makeEventMessage("VoiceNotifications", 3))
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				expect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", flag)
 			end)
 
@@ -794,7 +794,7 @@ return function()
 				)
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				expect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", flag)
 			end)
 
@@ -813,7 +813,7 @@ return function()
 				)
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				expect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
@@ -833,7 +833,7 @@ return function()
 				)
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(true)
+				expect(VoiceChatServiceStub.joinCalled).toBe(true)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
@@ -854,7 +854,7 @@ return function()
 				)
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				expect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
@@ -875,7 +875,7 @@ return function()
 				)
 				waitForEvents()
 
-				jestExpect(VoiceChatServiceStub.joinCalled).toBe(false)
+				expect(VoiceChatServiceStub.joinCalled).toBe(false)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)

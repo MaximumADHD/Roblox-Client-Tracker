@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local t = require(CorePackages.Packages.t)
 
+local MANNEQUIN_BUNDLE_ID = 515
 export type Type = {
 	-- thumbnailBundleId: number, -- we currently do not use this parameter as we are using costumeId for the preview
 
@@ -13,6 +14,7 @@ export type Type = {
 
 	thumbnailCharacterRotation: number,
 }
+type Table = { [string]: number }
 
 local EmoteThumbnailParameters = {}
 
@@ -35,5 +37,19 @@ EmoteThumbnailParameters.defaultParameters = {
 	thumbnailHorizontalOffset = 0,
 	thumbnailCharacterRotation = 0,
 }
+
+EmoteThumbnailParameters.encodeAsATable = function(thumbnailParameters: Type): Table
+	local encodedParameters = {}
+
+	encodedParameters["ThumbnailBundleId"] = MANNEQUIN_BUNDLE_ID
+	encodedParameters["ThumbnailCharacterRotation"] = thumbnailParameters.thumbnailCharacterRotation
+	encodedParameters["ThumbnailHorizontalOffset"] = thumbnailParameters.thumbnailHorizontalOffset
+	encodedParameters["ThumbnailVerticalOffset"] = thumbnailParameters.thumbnailVerticalOffset
+	encodedParameters["ThumbnailZoom"] = thumbnailParameters.thumbnailZoom
+	encodedParameters["ThumbnailKeyframe"] = thumbnailParameters.thumbnailKeyframe
+	encodedParameters["ThumbnailTime"] = thumbnailParameters.thumbnailTime
+
+	return encodedParameters
+end
 
 return EmoteThumbnailParameters

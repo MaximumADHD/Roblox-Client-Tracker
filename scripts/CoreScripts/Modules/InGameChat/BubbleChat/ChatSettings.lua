@@ -26,7 +26,7 @@ return {
 	TextColor3 = Color3.fromRGB(57, 59, 61),
 	TextSize = 16,
 	Font = Enum.Font.GothamMedium,
-	Transparency = .1,
+	Transparency = 0.1,
 	CornerEnabled = true, -- In case devs are concerned with UICorner performance issues, they can just disable those
 	CornerRadius = UDim.new(0, 12),
 	TailVisible = true,
@@ -102,5 +102,5 @@ return {
 	-- For NPCs (parts that "talk" using the Chat:Chat(part, message) function), use the full name of the part
 	-- that you passed as the first argument to Chat:Chat instead of the user ID. Example:
 	-- UserSpecificSettings = {[workspace.NPC.Head:GetFullName()] = {BackgroundColor3 = Color3.fromRGB(255, 0, 0)}}
-	UserSpecificSettings = {}
+	UserSpecificSettings = {},
 }

@@ -35,6 +35,7 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
 	dismissCallback: () -> (),
+	isDevMode: boolean,
 	isSmallScreen: boolean,
 	scrollingEnabled: boolean,
 	searchText: string,
@@ -44,6 +45,18 @@ export type Props = {
 local ITEM_HEIGHT = 92
 -- The amount user needs to move for the gesture to be interpreted as a scroll.
 local TOUCH_SLOP = 12
+
+local isMatching = function(searchText: string, participant)
+	if searchText == "" then
+		return true
+	end
+
+	local normalizedDisplayName = utf8.nfdnormalize(participant.displayName)
+	local normalizedSearchText = utf8.nfdnormalize(searchText)
+
+	return string.find(normalizedDisplayName:lower(), normalizedSearchText:lower(), 1, true) ~= nil
+		or string.find(participant.userName:lower(), searchText:lower(), 1, true) ~= nil
+end
 
 local function CallHistoryContainer(props: Props)
 	local dispatch = useDispatch()
@@ -66,7 +79,8 @@ local function CallHistoryContainer(props: Props)
 	local getCallRecords = React.useCallback(function(cursor)
 		isLoading.current = true
 		setStatus(RetrievalStatus.Fetching)
-		dispatch(NetworkingCall.GetCallHistory.API({ cursor = cursor, limit = 8, universeId = game.GameId })):andThen(
+		local limit = if cursor == "" then 16 else 8
+		dispatch(NetworkingCall.GetCallHistory.API({ cursor = cursor, limit = limit, universeId = game.GameId })):andThen(
 			function()
 				setStatus(RetrievalStatus.Done)
 			end,
@@ -91,14 +105,7 @@ local function CallHistoryContainer(props: Props)
 		local list = {}
 		for _, callRecord in ipairs(callRecords) do
 			for _, participant in pairs(callRecord.participants) do
-				if
-					participant.userId ~= localUserId
-					and (
-						props.searchText == ""
-						or string.find(participant.displayName:lower(), props.searchText:lower())
-						or string.find(participant.userName:lower(), props.searchText:lower())
-					)
-				then
+				if participant.userId ~= localUserId and isMatching(props.searchText, participant) then
 					list[#list + 1] = callRecord
 					break
 				end
@@ -268,6 +275,7 @@ local function CallHistoryContainer(props: Props)
 		for i, caller in ipairs(callRecords) do
 			entries[i] = React.createElement(CallHistoryItem, {
 				caller = caller,
+				isDevMode = props.isDevMode,
 				localUserId = localUserId,
 				showDivider = i ~= #callRecords,
 				dismissCallback = props.dismissCallback,
@@ -297,7 +305,7 @@ local function CallHistoryContainer(props: Props)
 		end
 
 		return entries
-	end, dependencyArray(callRecords, nextPageCursor, noRecordsComponent, props.searchText, status))
+	end, dependencyArray(callRecords, nextPageCursor, noRecordsComponent, props.isDevMode, props.searchText, status))
 
 	local onFetchNextPage = React.useCallback(function(f)
 		if

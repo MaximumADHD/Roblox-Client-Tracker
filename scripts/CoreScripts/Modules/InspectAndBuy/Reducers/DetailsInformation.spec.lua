@@ -3,13 +3,10 @@ return function()
 	local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
 	local DetailsInformation = require(script.Parent.DetailsInformation)
 
-	local function countKeys(t)
-		local count = 0
-		for _ in pairs(t) do
-			count = count + 1
-		end
-		return count
-	end
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 --[[
 	Note: Rthro Animation Bundle is by default in the Bundles reducer.
@@ -18,10 +15,10 @@ return function()
 		it("should set the details information", function()
 			local assetId = "123"
 			local newState = DetailsInformation(nil, SetDetailsInformation(true, assetId))
-
-			expect(newState.viewingDetails).to.equal(true)
-			expect(newState.assetId).to.equal(assetId)
-			expect(countKeys(newState)).to.equal(2)
+			expect(newState).toEqual({
+				viewingDetails = true,
+				assetId = assetId,
+			})
 		end)
 	end)
 end

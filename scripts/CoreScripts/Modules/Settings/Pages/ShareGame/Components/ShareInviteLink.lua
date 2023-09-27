@@ -27,7 +27,6 @@ local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local GetFFlagLuaAppNewShareSheet =
 	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
-local getFFlagShareLinkFixAnalytics = require(RobloxGui.Modules.Settings.Flags.getFFlagShareLinkFixAnalytics)
 local getFFlagGameInviteShortUrlEnabled = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagGameInviteShortUrlEnabled
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
@@ -55,7 +54,6 @@ export type Props = {
 	},
 	analytics: {
 		onShareButtonClick: (any) -> (),
-		onLinkGenerated: (any) -> (),
 	},
 }
 
@@ -128,11 +126,8 @@ function ShareInviteLink:didUpdate(oldProps: InternalProps)
 	if oldProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
 		local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
 		local linkId = self.props.shareInviteLink.linkId
-		if getFFlagShareLinkFixAnalytics() then
-			self.props.analytics:linkGenerated({ linkType = linkType, linkId = linkId })
-		else
-			self.props.analytics:onLinkGenerated(linkType, linkId)
-		end
+		
+		self.props.analytics:linkGenerated({ linkType = linkType, linkId = linkId })
 
 		if getFFlagGameInviteShortUrlEnabled() then
 			self.displayShareSheet(props.shareInviteLink)

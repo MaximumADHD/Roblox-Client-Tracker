@@ -3,6 +3,9 @@ return function()
 	local Roact = require(CorePackages.Roact)
 	local Components = script.Parent.Parent
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local PlayerList = Components.Parent
 	local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 
@@ -35,7 +38,7 @@ return function()
 		})
 		local instance = Roact.mount(element)
 
-		expect(testValue).to.be.ok()
+		expect(testValue).never.toBeNil()
 
 		Roact.unmount(instance)
 	end)

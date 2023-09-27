@@ -12,7 +12,7 @@ local MESSAGE = {
 	userId = "2",
 	name = "John",
 	text = "Hello, World",
-	timestamp = 0
+	timestamp = 0,
 }
 
 return function()

@@ -25,7 +25,7 @@ local httpImpl = httpRequest(HttpRbxApiService)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local Promise = require(CorePackages.Promise)
 
-local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
 if not GetFFlagScreenshotHudApi() then

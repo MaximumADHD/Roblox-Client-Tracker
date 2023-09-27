@@ -2,6 +2,10 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -36,7 +40,7 @@ return function()
 	end)
 
 	it("should call onAssetDescriptionUpdated when the user enters text", function()
-		local textChangedWasCalled = false
+		local textChangedMock, textChangedFn = jest.fn()
 		local ref = Roact.createRef()
 
 		local store = Rodux.Store.new(Reducer, nil, {
@@ -48,9 +52,7 @@ return function()
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
 				TextEntryField = Roact.createElement(AssetDescriptionTextBox, {
-					onAssetDescriptionUpdated = function(newText, isDescriptionValid)
-						textChangedWasCalled = true
-					end,
+					onAssetDescriptionUpdated = textChangedFn,
 					descriptionTextBoxRef = ref,
 				}),
 			}),
@@ -64,7 +66,7 @@ return function()
 		textBox.Text = "Hello world"
 
 		waitForEvents.act()
-		expect(textChangedWasCalled).to.equal(true)
+		expect(textChangedMock).toHaveBeenCalled()
 
 		Roact.unmount(instance)
 	end)

@@ -1,6 +1,7 @@
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local VoiceChatService = game:GetService("VoiceChatService")
-local FFlagDebugLogVoiceDefault = game:DefineFastFlag("DebugLogVoiceDefault", true)
+local FFlagDebugLogVoiceDefault = game:DefineFastFlag("DebugLogVoiceDefault", false)
+local FFlagSetNewDeviceToFalse = game:DefineFastFlag("SetNewDeviceToFalse", false)
 
 local function log(...)
 	if FFlagDebugLogVoiceDefault then
@@ -125,15 +126,23 @@ if (VoiceChatService :: any).UseNewAudioApi then
 	game.DescendantAdded:Connect(function(inst)
 		if inst:IsA("AudioDeviceInput") then
 			local device = inst :: AudioDeviceInput
+			if FFlagSetNewDeviceToFalse then
+				device.Active = false
+			end
 			trackDevice(device)
 		end
 	end)
 
 	for _, inst in game:GetDescendants() do
 		if inst:IsA("AudioDeviceInput") then
-			trackDevice(inst)
+			local device = inst :: AudioDeviceInput
+			if FFlagSetNewDeviceToFalse then
+				device.Active = false
+			end
+			trackDevice(device)
 		end
 	end
+
 	game.DescendantRemoving:Connect(function(inst)
 		if inst:IsA("AudioDeviceInput") then
 			local device = inst :: AudioDeviceInput

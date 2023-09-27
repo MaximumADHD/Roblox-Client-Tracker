@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local Rodux = require(CorePackages.Rodux)
 	local InspectAndBuyFolder = script.Parent.Parent
 	local Reducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
@@ -28,7 +30,7 @@ return function()
 			})
 
 			local state = store:getState()
-			expect(countKeys(state.assets)).to.equal(1)
+			expect(countKeys(state.assets)).toBe(1)
 		end)
 
 		it("should get the number of favorites an asset has", function()
@@ -40,7 +42,7 @@ return function()
 				[Network] = MockNetwork.new(),
 			})
 
-			expect(store:getState().assets[mockId].numFavorites).to.equal(MockNetwork.GetMockFavoriteCount())
+			expect(store:getState().assets[mockId].numFavorites).toBe(MockNetwork.GetMockFavoriteCount())
 		end)
 
 		it("should catch network errors that happen and still run", function()

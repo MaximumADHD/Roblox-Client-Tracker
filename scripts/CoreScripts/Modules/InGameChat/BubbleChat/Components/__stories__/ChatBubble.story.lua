@@ -16,15 +16,15 @@ local Story = Roact.PureComponent:extend("Story")
 
 local messages = {
 	createMockMessage({
-		text = "Hello World!"
+		text = "Hello World!",
 	}),
 	createMockMessage({
-		text = "Testing length to see what happens when it spills to the second line"
+		text = "Testing length to see what happens when it spills to the second line",
 	}),
 	createMockMessage({
-		text = "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo " ..
-			"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu" ..
-			"fugiat nulla pariatur"
+		text = "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+			.. "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu"
+			.. "fugiat nulla pariatur",
 	}),
 }
 
@@ -57,7 +57,7 @@ function Story:render()
 			insertSize = self.state.voiceOn and Vector2.new(28, 28) or nil,
 		})
 	end
-	
+
 	children.Layout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.Name,
 		FillDirection = Enum.FillDirection.Horizontal,
@@ -92,11 +92,11 @@ function Story:render()
 				})
 			end,
 		}),
-	
+
 		Bubbles = Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
-		}, children)
+		}, children),
 	})
 end
 

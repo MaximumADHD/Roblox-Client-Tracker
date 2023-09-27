@@ -30,6 +30,7 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
+				isDevMode = true,
 				dismissCallback = function() end,
 			})
 		end,
@@ -59,6 +60,7 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
+				isDevMode = true,
 				dismissCallback = function() end,
 			})
 		end,
@@ -87,6 +89,7 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
+				isDevMode = true,
 				dismissCallback = function() end,
 			})
 		end,

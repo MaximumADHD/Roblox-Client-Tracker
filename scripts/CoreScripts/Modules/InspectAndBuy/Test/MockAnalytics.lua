@@ -7,13 +7,17 @@
 ]]
 local MockAnalytics = {}
 
+local CorePackages = game:GetService("CorePackages")
+local JestGlobals = require(CorePackages.JestGlobals)
+local jest = JestGlobals.jest
+
 function MockAnalytics.new()
 	local service = {
-		reportOpenInspectMenu_callCount = 0,
-		reportTryOnButtonClicked_callCount = 0,
-		reportFavoriteItem_callCount = 0,
-		reportPurchaseAttempt_callCount = 0,
-		reportPurchaseSuccess_callCount = 0,
+		reportOpenInspectMenu = jest.fn(),
+		reportTryOnButtonClicked = jest.fn(),
+		reportFavoriteItem = jest.fn(),
+		reportPurchaseAttempt = jest.fn(),
+		reportPurchaseSuccess = jest.fn(),
 	}
 
 	setmetatable(service, {
@@ -21,26 +25,6 @@ function MockAnalytics.new()
 			return "Service(MockAnalytics)"
 		end,
 	})
-
-	function service.reportOpenInspectMenu(ctx)
-		service.reportOpenInspectMenu_callCount = service.reportOpenInspectMenu_callCount + 1
-	end
-
-	function service.reportTryOnButtonClicked(itemType, itemID, ctx)
-		service.reportTryOnButtonClicked_callCount = service.reportTryOnButtonClicked_callCount + 1
-	end
-
-	function service.reportFavoriteItem(itemType, itemID, favorite, success, failureReason, favoriteCount, ctx)
-		service.reportFavoriteItem_callCount = service.reportFavoriteItem_callCount + 1
-	end
-
-	function service.reportPurchaseAttempt(itemType, itemID, ctx)
-		service.reportPurchaseAttempt_callCount = service.reportPurchaseAttempt_callCount + 1
-	end
-
-	function service.reportPurchaseSuccess()
-		service.reportPurchaseSuccess_callCount = service.reportPurchaseSuccess_callCount + 1
-	end
 
 	return service
 end

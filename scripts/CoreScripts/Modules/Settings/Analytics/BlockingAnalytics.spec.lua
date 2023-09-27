@@ -1,5 +1,9 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
+
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local LuaSocialLibrariesDeps = require(CorePackages.LuaSocialLibrariesDeps)
 local Mock = LuaSocialLibrariesDeps.Mock
 local BlockingAnalytics = require(script.Parent.BlockingAnalytics)
@@ -16,7 +20,7 @@ return function()
 	end)
 
 	it("SHOULD return a valid object", function(c)
-		expect(BlockingAnalytics).to.be.ok()
+		expect(BlockingAnalytics).never.toBeNil()
 	end)
 
 	describe("GIVEN context and test event", function()
@@ -74,7 +78,7 @@ return function()
 				it("SHOULD only fire eventStream once", function(c)
 					local mock = c.analytics.EventStream.SendEventDeferred
 					local calls = c.Mock.getCalls(mock)
-					expect(#calls).to.equal(1)
+					expect(#calls).toBe(1)
 				end)
 			end)
 		end)
@@ -110,7 +114,7 @@ return function()
 				it("SHOULD only fire eventStream once", function(c)
 					local mock = c.analytics.EventStream.SendEventDeferred
 					local calls = c.Mock.getCalls(mock)
-					expect(#calls).to.equal(1)
+					expect(#calls).toBe(1)
 				end)
 			end)
 		end)

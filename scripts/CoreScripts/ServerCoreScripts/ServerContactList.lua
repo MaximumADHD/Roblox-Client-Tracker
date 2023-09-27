@@ -1,15 +1,10 @@
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local SocialService = game:GetService("SocialService")
 local TeleportService = game:GetService("TeleportService")
-local FFlagGetPrivateServerIdRemoteFunctionEnabled = game:DefineFastFlag("GetPrivateServerIdRemoteFunctionEnabled", false)
 
 local RemoteInvokeIrisInvite = Instance.new("RemoteEvent")
 RemoteInvokeIrisInvite.Name = "ContactListInvokeIrisInvite"
 RemoteInvokeIrisInvite.Parent = RobloxReplicatedStorage
-
-local RemoteFunction_GetPrivateServerId = Instance.new("RemoteFunction")
-RemoteFunction_GetPrivateServerId.Name = "GetPrivateServerId"
-RemoteFunction_GetPrivateServerId.Parent = RobloxReplicatedStorage
 
 RemoteInvokeIrisInvite.OnServerEvent:Connect(function(player, tag, calleeId)
 	-- We want to fire this event from the server because there's a callback it
@@ -33,9 +28,3 @@ RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanc
 
 	TeleportService:TeleportAsync(placeId, { player }, teleportOptions)
 end)
-
-if FFlagGetPrivateServerIdRemoteFunctionEnabled then
-	RemoteFunction_GetPrivateServerId.OnServerInvoke = function()
-		return game.PrivateServerId
-	end
-end

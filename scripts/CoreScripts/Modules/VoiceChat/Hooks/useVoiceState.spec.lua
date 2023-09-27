@@ -5,6 +5,9 @@ local useVoiceState = require(script.Parent.useVoiceState)
 local VoiceStateContext = require(script.Parent.Parent.VoiceStateContext)
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VOICE_STATE = VoiceConstants.VOICE_STATE
 local Players = game:GetService("Players")
@@ -131,9 +134,9 @@ return function()
 			})
 			wait() -- need to wait for event bindings
 
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[2].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
+			expect(players[1].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[2].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.HIDDEN)
 
 			ReactRoblox.act(function()
 				doPlayerJoin(players[1])
@@ -142,9 +145,9 @@ return function()
 				})
 			end)
 			wait()
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[2].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
+			expect(players[1].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[2].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.HIDDEN)
 
 			app.unmount()
 		end)
@@ -164,18 +167,18 @@ return function()
 				})
 			end)
 
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.INACTIVE)
-			expect(players[2].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.MUTED)
+			expect(players[1].voiceState).toBe(VOICE_STATE.INACTIVE)
+			expect(players[2].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.MUTED)
 
 			app.render({
 				voiceEnabled = true,
 				paused = true,
 			})
 			wait()
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[2].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
+			expect(players[1].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[2].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.HIDDEN)
 
 			app.unmount()
 		end)
@@ -198,9 +201,9 @@ return function()
 				})
 			end)
 			waitForEvents.act()
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.INACTIVE)
-			expect(players[2].voiceState).to.be.equal(VOICE_STATE.HIDDEN)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.MUTED)
+			expect(players[1].voiceState).toBe(VOICE_STATE.INACTIVE)
+			expect(players[2].voiceState).toBe(VOICE_STATE.HIDDEN)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.MUTED)
 
 			ReactRoblox.act(function()
 				doPlayerVoiceState(players[1], {
@@ -210,7 +213,7 @@ return function()
 			end)
 			waitForEvents.act()
 			-- This expectation is flaky under windows RCC.
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.TALKING)
+			expect(players[1].voiceState).toBe(VOICE_STATE.TALKING)
 
 			ReactRoblox.act(function()
 				doPlayerVoiceState(players[1], {
@@ -219,7 +222,7 @@ return function()
 				})
 			end)
 			waitForEvents.act()
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.MUTED)
+			expect(players[1].voiceState).toBe(VOICE_STATE.MUTED)
 
 			ReactRoblox.act(function()
 				doPlayerVoiceState(players[1], {
@@ -228,31 +231,31 @@ return function()
 				})
 			end)
 			waitForEvents.act()
-			expect(players[1].voiceState).to.be.equal(VOICE_STATE.LOCAL_MUTED)
+			expect(players[1].voiceState).toBe(VOICE_STATE.LOCAL_MUTED)
 
 			ReactRoblox.act(function()
 				talkLocal(true)
 				waitForEvents()
 			end)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.TALKING)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.TALKING)
 
 			ReactRoblox.act(function()
 				talkLocal(false)
 				waitForEvents()
 			end)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.INACTIVE)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.INACTIVE)
 
 			ReactRoblox.act(function()
 				muteLocal(true)
 				waitForEvents()
 			end)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.MUTED)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.MUTED)
 
 			ReactRoblox.act(function()
 				muteLocal(false)
 				waitForEvents()
 			end)
-			expect(players[localPlayerIdx].voiceState).to.be.equal(VOICE_STATE.INACTIVE)
+			expect(players[localPlayerIdx].voiceState).toBe(VOICE_STATE.INACTIVE)
 
 			app.unmount()
 		end)

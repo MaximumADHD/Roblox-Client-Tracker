@@ -9,6 +9,9 @@ return function()
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local ShareGameAppReducer = require(script.Parent.Parent.AppReducer)
 
 	local FullModalShareGameComponent = require(script.Parent.FullModalShareGameComponent)
@@ -43,14 +46,14 @@ return function()
 			local folder = Instance.new("Folder")
 			local instance = Roact.mount(createModal(false), folder)
 
-			expect(instance).to.be.ok()
-			expect(folder:FindFirstChildOfClass("ScreenGui", true).Enabled).to.equal(false)
+			expect(instance).never.toBeNil()
+			expect(folder:FindFirstChildOfClass("ScreenGui", true).Enabled).toBe(false)
 
 
 			local newInstance = Roact.update(instance, createModal(true))
 
-			expect(newInstance).to.be.ok()
-			expect(folder:FindFirstChildOfClass("ScreenGui", true).Enabled).to.equal(true)
+			expect(newInstance).never.toBeNil()
+			expect(folder:FindFirstChildOfClass("ScreenGui", true).Enabled).toBe(true)
 		end)
 	end)
 
@@ -68,8 +71,8 @@ return function()
 				folder
 			)
 
-			expect(instance).to.be.ok()
-			expect(folder:FindFirstChild("CustomText", true).Text).to.equal("Custom")
+			expect(instance).never.toBeNil()
+			expect(folder:FindFirstChild("CustomText", true).Text).toBe("Custom")
 
 			game:SetFastFlagForTesting("EnableNewInviteMenuStyle", oldFlagValue)
 		end)
@@ -102,9 +105,9 @@ return function()
 				folder
 			)
 
-			expect(instance).to.be.ok()
-			expect(folder:FindFirstChild("Header", true).Text:match("TestUser")).to.be.ok()
-			expect(folder:FindFirstChild("TextBody", true).Text:match("TestUser")).to.be.ok()
+			expect(instance).never.toBeNil()
+			expect(folder:FindFirstChild("Header", true).Text:match("TestUser")).never.toBeNil()
+			expect(folder:FindFirstChild("TextBody", true).Text:match("TestUser")).never.toBeNil()
 		end)
 
 		it("should use custom text if provided", function()
@@ -126,8 +129,8 @@ return function()
 				folder
 			)
 
-			expect(instance).to.be.ok()
-			expect(folder:FindFirstChild("TextBody", true).Text).to.equal("Custom Text")
+			expect(instance).never.toBeNil()
+			expect(folder:FindFirstChild("TextBody", true).Text).toBe("Custom Text")
 		end)
 	end)
 end
