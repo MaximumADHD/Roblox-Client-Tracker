@@ -38,6 +38,10 @@ Studio.AvatarCompatibilityPreviewer.Categories.body, ,Body
 Studio.AvatarCompatibilityPreviewer.Categories.clothing, ,Clothing
 Studio.AvatarCompatibilityPreviewer.Categories.face, ,Face
 Studio.AvatarCompatibilityPreviewer.CheckFace.DynamicHeadNotice, ,This avatar's head does not support facial animation.
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.CallToAction, ,Which palette do you want to add these items to?
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.DropdownPlaceholder, ,Palette
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.OK, ,OK
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Title, ,Select Item Palettes
 Studio.AvatarCompatibilityPreviewer.DummyPreview.RevertToDefault, ,Revert to Default
 Studio.AvatarCompatibilityPreviewer.DummyPreview.Textured, ,Textured
 Studio.AvatarCompatibilityPreviewer.EquippedItemContextMenu.OpenPalette, ,Open {palette}

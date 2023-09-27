@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "InputUi",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/input-ui/src"
+    }
+  }
+}

@@ -1,13 +1,13 @@
-Key,Source,en-us,es-es,fr-fr,ja-jp,ko-kr
-Studio.VRStatus.Plugin.Name,VR Status,VR Status,Estado de RV,Statut VR,VR状況,VR 상태
-Studio.VRStatus.Plugin.Button,Toggle,Toggle,Alternar,Activer/désactiver,切り換え,전환
-Studio.VRStatus.AlertDialog.Detected,detected,detected,detectado,détecté,検出済み,감지됨
-Studio.VRStatus.Plugin.Toolbar,VRStatus,VRStatus,VRStatus,VRSstatus,VRStatus,VRStatus
-Studio.VRStatus.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 전환합니다.
-Studio.VRStatus.StatusButton.Title,Status,Status,Estado,Statut,状況,상태
-Studio.VRStatus.AlertDialog.OkButtonText,Ok,Ok,Aceptar,Ok,了解,확인
-Studio.VRStatus.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Exemple de texte !,テキストの例,예시 텍스트!
-Studio.VRStatus.AlertDialog.NoDeviceDetected,No VR Device detected. Please connect device and restart studio.,No VR Device detected. Please connect device and restart studio.,No se detectó ningún dispositivo RV. Conecta el dispositivo y reinicia Studio.,Aucun appareil VR détecté. Connecter l'appareil et redémarrer Studio.,VRデバイスが検知されませんでした。デバイスを接続してStudioを再起動してください。,VR 기기가 감지되지 않았습니다. 기기를 연결하고 Studio를 다시 시작하세요.
-Studio.VRStatus.StatusButton.Tooltip,Display current VR connection status.,Display current VR connection status.,Muestra el estado actual de la conexión RV.,Afficher l'état actuel de la connexion VR.,現在のVR接続状況を表示。,현재 VR 연결 상태를 표시합니다.
-Studio.VRStatus.AlertDialog.ModeOn,VR Mode On,VR Mode On,Modo RV activado,Mode VR activé,VRモード：オン,VR 모드 켜기
-Studio.VRStatus.AlertDialog.ModeOff,VR Mode Off,VR Mode Off,Modo RV desactivado,Mode VR désactivé,VRモード：オフ,VR 모드 끄기
+Key,Source,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br
+Studio.VRStatus.Plugin.Name,VR Status,VR Status,Estado de RV,Statut VR,VR状況,VR 상태,Estado de RV
+Studio.VRStatus.Plugin.Button,Toggle,Toggle,Alternar,Activer/désactiver,切り換え,전환,Alternar
+Studio.VRStatus.AlertDialog.Detected,detected,detected,detectado,détecté,検出済み,감지됨,detectado
+Studio.VRStatus.Plugin.Toolbar,VRStatus,VRStatus,VRStatus,VRSstatus,VRStatus,VRStatus,VRStatus
+Studio.VRStatus.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 전환합니다.,Alterna a janela do plugin de modelos.
+Studio.VRStatus.StatusButton.Title,Status,Status,Estado,Statut,状況,상태,Status
+Studio.VRStatus.AlertDialog.OkButtonText,Ok,Ok,Aceptar,Ok,了解,확인,OK
+Studio.VRStatus.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Exemple de texte !,テキストの例,예시 텍스트!,Texto de exemplo!
+Studio.VRStatus.AlertDialog.NoDeviceDetected,No VR Device detected. Please connect device and restart studio.,No VR Device detected. Please connect device and restart studio.,No se detectó ningún dispositivo RV. Conecta el dispositivo y reinicia Studio.,Aucun appareil VR détecté. Connecter l'appareil et redémarrer Studio.,VRデバイスが検知されませんでした。デバイスを接続してStudioを再起動してください。,VR 기기가 감지되지 않았습니다. 기기를 연결하고 Studio를 다시 시작하세요.,Nenhum dispositivo RV detectado. Conecte o dispositivo e reinicie o estúdio.
+Studio.VRStatus.StatusButton.Tooltip,Display current VR connection status.,Display current VR connection status.,Muestra el estado actual de la conexión RV.,Afficher l'état actuel de la connexion VR.,現在のVR接続状況を表示。,현재 VR 연결 상태를 표시합니다.,Exibir o status atual da conexão RV.
+Studio.VRStatus.AlertDialog.ModeOn,VR Mode On,VR Mode On,Modo RV activado,Mode VR activé,VRモード：オン,VR 모드 켜기,Modo RV Ativado
+Studio.VRStatus.AlertDialog.ModeOff,VR Mode Off,VR Mode Off,Modo RV desactivado,Mode VR désactivé,VRモード：オフ,VR 모드 끄기,Modo RV desligado

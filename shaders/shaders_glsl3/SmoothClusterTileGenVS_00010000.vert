@@ -51,7 +51,7 @@ void main()
     bvec3 v21 = greaterThan(TEXCOORD1.xyz, vec3(7.5));
     vec4 v22 = v20;
     v22.w = (dot(v17, v14) * 20.0) - 19.0;
-    gl_Position = vec4((((((TEXCOORD2.xy * CB6[0].zw) + CB6[0].xy) + vec2(0.5)) * CB6[1].zw) * vec2(2.0, -2.0)) + vec2(-1.0, 1.0), 0.5, 1.0);
+    gl_Position = vec4((((((TEXCOORD2.xy * CB6[0].zw) + CB6[0].xy) + vec2(0.25)) * CB6[1].zw) * vec2(2.0, -2.0)) + vec2(-1.0, 1.0), 0.5, 1.0);
     VARYING0 = vec4(v14, (abs(POSITION.w) > 3.0) ? 0.0 : 1.0);
     VARYING1 = vec4(((v3 * sqrt(1.0 - (v4 * v4))) + (v3.yx * vec2(v4, -v4))) + (vec2(NORMAL.w, floor(NORMAL.w * 2.6651442050933837890625)) * CB2[v2 * 1 + 0].y), ((v7 * sqrt(1.0 - (v8 * v8))) + (v7.yx * vec2(v8, -v8))) + (vec2(TEXCOORD0.w, floor(TEXCOORD0.w * 2.6651442050933837890625)) * CB2[v6 * 1 + 0].y));
     VARYING2 = vec4(CB2[v2 * 1 + 0].w, 0.0, CB2[v6 * 1 + 0].w, 0.0);

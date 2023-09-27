@@ -496,7 +496,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,The creator always has full access.,Studio.Toolbox.General.ContentType,Content Type
  ,Content Type,Studio.Toolbox.AssetConfigPreview.Change,Change
  ,Change,Studio.Toolbox.General.AssetCategory,Asset Category
- , Asset Category,Studio.Toolbox.Audio.SoundEffect.Category.Helicopter,Helicopter
+ , Asset Category,Studio.Toolbox.AssetConfig.ValidationFullBody,Full Body
+ ,Full Body,Studio.Toolbox.Audio.SoundEffect.Category.Helicopter,Helicopter
  ,Helicopter,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
  ,Filter ID,Studio.Toolbox.General.BodyValidation,Body Validation
  ,Body Validation,Studio.Toolbox.AudioView.Tags,Tags
@@ -773,9 +774,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Walla,Studio.Toolbox.AssetConfig.UGCForAllCreationBannedLink,Marketplace Policy.
  ,Marketplace Policy.,Studio.Toolbox.Audio.SoundEffect.Category.turbulent,Turbulent
  ,Turbulent,Studio.Toolbox.AssetConfig.CreateBundleInvalidAssetIds,Error creating bundle. Invalid body part asset IDs.
- ,Error creating bundle. Invalid body part asset IDs.,"Studio.Toolbox.Audio.SoundEffect.Category.Waves, surf","Waves, surf"
- ,"Waves, surf",Studio.Toolbox.Audio.SoundEffect.Category.Waves_surf,"Waves, surf"
- ,"Waves, surf",Studio.Toolbox.AssetConfig.CreateBundleInvalidBundleType,Error creating bundle. Invalid bundle type.
+ ,Error creating bundle. Invalid body part asset IDs.,Studio.Toolbox.AssetConfig.CreateBundleInvalidBundleType,Error creating bundle. Invalid bundle type.
  ,Error creating bundle. Invalid bundle type.,Studio.Toolbox.Audio.Music.Genre.funk-soul-r-b,"Funk, Soul, R&B"
  ,"Funk, Soul, R&B",Studio.Toolbox.AssetConfig.CreateBundleInvalidCreateBundleRequest,Error creating bundle. Invalid create bundle request.
  ,Error creating bundle. Invalid create bundle request.,Studio.Toolbox.AssetConfig.CreateBundleInvalidBundleDescription,Error creating bundle. The bundle description is invalid.
@@ -872,12 +871,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,"Chewing, mastication",Studio.Toolbox.Audio.SoundEffect.Category.Chewing_mastication,"Chewing, mastication"
  ,"Chewing, mastication",Studio.Toolbox.Audio.SoundEffect.Category.Rustle,Rustle
  ,Rustle,Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience?
- ,Do you grant permission for this Experience?,Studio.Toolbox.Audio.SoundEffect.Category.Typewriter,Typewriter
- ,Typewriter,Studio.Toolbox.Audio.SoundEffect.Category.Singing bowl,Singing bowl
- ,Singing bowl,Studio.Toolbox.Audio.SoundEffect.Category.Singing_bowl,Singing bowl
- ,Singing bowl,Studio.Toolbox.Audio.SoundEffect.Category.arcs-zaps,Arcs & Zaps
- ,Arcs & Zaps,Studio.Toolbox.Audio.SoundEffect.Category.feedback,Feedback
- ,Feedback,Studio.Toolbox.General.AbbreviatedSeconds,s
+ ,Do you grant permission for this Experience?,Studio.Toolbox.General.AbbreviatedSeconds,s
  ,s,Studio.Toolbox.General.AbbreviatedMinutes,m
  ,m,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
  ,Sound Length,Studio.Toolbox.AssetUploadResult.CreatorDashboardMessage,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.
@@ -927,7 +921,12 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Rocks,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine,Answering Machine
  ,Answering Machine,Studio.Toolbox.Audio.SoundEffect.Category.Applause,Applause
  ,Applause,Studio.Toolbox.Audio.SoundEffect.Category.applause,Applause
- ,Applause,Studio.Toolbox.Audio.SoundEffect.Category.Funk,Funk
+ ,Applause,Studio.Toolbox.Audio.SoundEffect.Category.Typewriter,Typewriter
+ ,Typewriter,Studio.Toolbox.Audio.SoundEffect.Category.Singing bowl,Singing bowl
+ ,Singing bowl,Studio.Toolbox.Audio.SoundEffect.Category.Singing_bowl,Singing bowl
+ ,Singing bowl,Studio.Toolbox.Audio.SoundEffect.Category.arcs-zaps,Arcs & Zaps
+ ,Arcs & Zaps,Studio.Toolbox.Audio.SoundEffect.Category.feedback,Feedback
+ ,Feedback,Studio.Toolbox.Audio.SoundEffect.Category.Funk,Funk
  ,Funk,Studio.Toolbox.Audio.SoundEffect.Category.arrows,Arrows
  ,Arrows,Studio.Toolbox.Audio.SoundEffect.Category.Turkey,Turkey
  ,Turkey,Studio.Toolbox.Audio.SoundEffect.Category.babies,Babies
@@ -1360,7 +1359,9 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Wind,Studio.Toolbox.Audio.SoundEffect.Category.Thunderstorm,Thunderstorm
  ,Thunderstorm,Studio.Toolbox.Audio.SoundEffect.Category.Rain on surface,Rain on surface
  ,Rain on surface,Studio.Toolbox.Audio.SoundEffect.Category.Rain_on_surface,Rain on surface
- ,Rain on surface,Studio.Toolbox.Audio.SoundEffect.Category.Ship,Ship
+ ,Rain on surface,"Studio.Toolbox.Audio.SoundEffect.Category.Waves, surf","Waves, surf"
+ ,"Waves, surf",Studio.Toolbox.Audio.SoundEffect.Category.Waves_surf,"Waves, surf"
+ ,"Waves, surf",Studio.Toolbox.Audio.SoundEffect.Category.Ship,Ship
  ,Ship,Studio.Toolbox.Audio.SoundEffect.Category.Chainsaw,Chainsaw
  ,Chainsaw,"Studio.Toolbox.Audio.SoundEffect.Category.Vehicle horn, car horn, honking","Vehicle horn, car horn, honking"
  ,"Vehicle horn, car horn, honking",Studio.Toolbox.Audio.SoundEffect.Category.Vehicle_horn_car_horn_honking,"Vehicle horn, car horn, honking"

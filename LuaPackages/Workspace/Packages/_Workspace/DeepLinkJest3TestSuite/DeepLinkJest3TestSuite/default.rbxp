@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DeepLinkJest3TestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/deep-link-test-suite/src"
+    }
+  }
+}

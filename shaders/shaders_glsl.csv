@@ -303,6 +303,7 @@ ShadowBlurMarkFS,Fragment
 ShadowBlurMarkVS,Vertex
 SkyFS,Fragment
 SkyLinearFS,Fragment
+SkyLinearVColorFS,Fragment
 SkyVS,Vertex
 SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex

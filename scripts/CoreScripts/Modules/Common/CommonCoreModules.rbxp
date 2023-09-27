@@ -49,12 +49,6 @@
                     "$path": ".robloxrc"
                 }
             },
-            "GetGameNameAndDescription": {
-                "$path": "GetGameNameAndDescription.lua",
-                ".robloxrc": {
-                    "$path": ".robloxrc"
-                }
-            },
             "Create": {
                 "$path": "Create.lua",
                 ".robloxrc": {
@@ -81,12 +75,6 @@
             },
             "RagdollRigging": {
                 "$path": "RagdollRigging.lua",
-                ".robloxrc": {
-                    "$path": ".robloxrc"
-                }
-            },
-            "GetGameNameAndDescription.spec": {
-                "$path": "GetGameNameAndDescription.spec.lua",
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }

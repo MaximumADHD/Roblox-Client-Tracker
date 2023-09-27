@@ -1,0 +1,47 @@
+Key,Source,en-us
+Studio.MaterialGenerator.Plugin.Toolbar,MaterialGenerator,MaterialGenerator
+Studio.MaterialGenerator.Errors.AccountingFailedDecrement,Usage is limited during beta. Wait a moment and try again.,Usage is limited during beta. Wait a moment and try again.
+Studio.MaterialGenerator.Errors.TooManyRequests,Usage is limited during beta. Wait a moment and try again.,Usage is limited during beta. Wait a moment and try again.
+Studio.MaterialGenerator.Plugin.Button,Material Generator,Material Generator
+Studio.MaterialGenerator.Plugin.Name,Material Generator,Material Generator
+Studio.MaterialGenerator.Plugin.Description,Generate materials from text using AI,Generate materials from text using AI
+Studio.MaterialGenerator.Header.GenerateButton,Generate,Generate
+Studio.MaterialGenerator.Browser.GenerateVariations,Generate Variations,Generate Variations
+Studio.MaterialGenerator.TextureBrowser.GenerateVariations,Generate Variations,Generate Variations
+Studio.MaterialGenerator.Header.PromptPlaceholderText,Ancient stone wall...,Ancient stone wall...
+Studio.MaterialGenerator.Header.OutOfBudget,This feature is in beta and the servers are at capacity. Try again soon!,This feature is in beta and the servers are at capacity. Try again soon!
+Studio.MaterialGenerator.Header.BudgetErrorFormat,"Generation error, please try again.","Generation error, please try again."
+Studio.MaterialGenerator.Header.ErrorQueryingBudget,"Generation error, please try again.","Generation error, please try again."
+Studio.MaterialGenerator.Header.RetryBudgetQuery,"Generation error, please try again.","Generation error, please try again."
+Studio.MaterialGenerator.Editor.StudsPerTile,Studs Per Tile,Studs Per Tile
+Studio.MaterialGenerator.MaterialView.StudsPerTile,Studs Per Tile,Studs Per Tile
+Studio.MaterialGenerator.Header.RetryButton,Retry,Retry
+Studio.MaterialGenerator.Header.AddImageTooltip,Add base image,Add base image
+Studio.MaterialGenerator.Editor.MaterialPattern,Pattern,Pattern
+Studio.MaterialGenerator.MaterialView.MaterialPattern,Pattern,Pattern
+Studio.MaterialGenerator.Editor.MaterialPatternOrganic,Organic,Organic
+Studio.MaterialGenerator.MaterialView.MaterialPatternOrganic,Organic,Organic
+Studio.MaterialGenerator.Browser.RemoveAll,Discard All,Discard All
+Studio.MaterialGenerator.TextureBrowser.RemoveAll,Discard All,Discard All
+Studio.MaterialGenerator.Editor.Name,Name,Name
+Studio.MaterialGenerator.MaterialView.Name,Name,Name
+Studio.MaterialGenerator.Editor.BaseMaterial,Base Material,Base Material
+Studio.MaterialGenerator.MaterialView.BaseMaterial,Base Material,Base Material
+Studio.MaterialGenerator.Editor.SaveAndApplyVariant,Save & Apply Variant,Save & Apply Variant
+Studio.MaterialGenerator.MaterialView.SaveAndApplyVariant,Save & Apply Variant,Save & Apply Variant
+Studio.MaterialGenerator.Errors.FailedToGenerateMaps,Generation error. Please try again.,Generation error. Please try again.
+Studio.MaterialGenerator.Errors.NoSession,Generation error. Please try again.,Generation error. Please try again.
+Studio.MaterialGenerator.Errors.UnknownGenerationError,Generation error. Please try again.,Generation error. Please try again.
+Studio.MaterialGenerator.Editor.ApplyVariant,Apply Variant,Apply Variant
+Studio.MaterialGenerator.MaterialView.ApplyVariant,Apply Variant,Apply Variant
+Studio.MaterialGenerator.Editor.BaseMaterialPlaceholderText,None,None
+Studio.MaterialGenerator.MaterialView.BaseMaterialPlaceholderText,None,None
+Studio.MaterialGenerator.Editor.BaseMaterialNotGivenError,Required,Required
+Studio.MaterialGenerator.MaterialView.BaseMaterialNotGivenError,Required,Required
+Studio.MaterialGenerator.Browser.Remove,Discard,Discard
+Studio.MaterialGenerator.TextureBrowser.Remove,Discard,Discard
+Studio.MaterialGenerator.Errors.NoSelectedMaterial,Please choose a base material.,Please choose a base material.
+Studio.MaterialGenerator.Errors.ServerError500,"Server error, please try again.","Server error, please try again."
+Studio.MaterialGenerator.Errors.ServerError504,"Server error, please try again.","Server error, please try again."
+Studio.MaterialGenerator.Errors.TextFullyFiltered,Your text is fully filtered. Please try a different prompt.,Your text is fully filtered. Please try a different prompt.
+Studio.MaterialGenerator.Errors.FailedToSetImage,Failed to set image. Please try again.,Failed to set image. Please try again.

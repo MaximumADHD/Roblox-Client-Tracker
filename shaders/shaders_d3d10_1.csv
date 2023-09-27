@@ -696,6 +696,7 @@ ShadowEvsmVBlurLFS_7,Fragment
 ShadowEvsmVBlurLFS_9,Fragment
 SkyFS,Fragment
 SkyLinearFS,Fragment
+SkyLinearVColorFS,Fragment
 SkyVS,Vertex
 SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex

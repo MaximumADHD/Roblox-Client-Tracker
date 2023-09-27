@@ -98,13 +98,14 @@ Studio.App.RBXMainWindow.PublishToRoblox,,Publish to Roblox,Publish to Roblox
 Studio.App.RBXMainWindow.ViewTeamChatTooltip,,View Team Chat Window,View Team Chat Window
 Studio.App.RBXMainWindow.ViewStudioInternalDebugWidget,,Internal Debug,Internal Debug
 Studio.App.RBXMainWindow.ViewStudioInternalDebugWidgetTooltip,,View Internal Debug,View Internal Debug
-Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget,,Roblox CodeAssist,Roblox CodeAssist
-Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip,,Roblox CodeAssist,Roblox CodeAssist
+Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget,,Assistant,Assistant
+Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip,,View Assistant,View Assistant
 Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget,,Activity Feed,Activity Feed
 Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip,,Activity Feed,Activity Feed
 Studio.App.RBXMainWindow.ShowOrientationIndicator,,Show Orientation Indicator,Show Orientation Indicator
 Studio.App.RobloxStudio.OutOfDateReinstall1,,The version of Roblox Studio is out of date. Please close all instances and reinstall from %1,The version of Roblox Studio is out of date. Please close all instances and reinstall from %1
 Studio.App.RobloxStudio.ChannelOutOfDateReinstall1,,"This is an expired channel build. To move back to latest production Roblox Studio, please close all instances, unenroll your user from the channel, and reinstall from %1","This is an expired channel build. To move back to latest production Roblox Studio, please close all instances, unenroll your user from the channel, and reinstall from %1"
+Studio.App.RobloxStudio.FailToLoadRequiredDLLs1,,Failed to locate some required DLLs. Please close all instances and reinstall Roblox Studio from %1,Failed to locate some required DLLs. Please close all instances and reinstall Roblox Studio from %1
 Studio.App.RobloxRibbonMainWindow.Cleanup,,Cleanup,Cleanup
 Studio.App.RobloxRibbonMainWindow.Color,,Color,Color
 Studio.App.RobloxRibbonMainWindow.ConnectionIsStable,,Connection is stable.,Connection is stable.
@@ -130,7 +131,7 @@ Studio.App.RobloxQuickAccessConfig.Remove,,Remove,Remove
 Studio.App.DocumentationView.LearnMore,,Learn more,Learn more
 Studio.App.UpdateUIManager.Chat,,Chat,Chat
 Studio.App.RBXMainWindow.InternalDebug,,Internal Debug,Internal Debug
-Studio.App.RBXMainWindow.ConversationalAI,,Roblox CodeAssist,Roblox CodeAssist
+Studio.App.RBXMainWindow.ConversationalAI,,Assistant,Assistant
 Studio.App.StudioServiceHost.ConvertToPackageFailed,,Convert to package failed.,Convert to package failed.
 Studio.App.RobloxStudioVerbs.QuickOpen,,Quick Open,Quick Open
 Studio.App.UploadMeshRequest.CouldNotFindTexture1PleaseVerify,,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file"

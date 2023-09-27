@@ -9,6 +9,21 @@ Studio.TerrainEditor.BaseTool.Sculpt,Sculpt
 Studio.TerrainEditor.BaseTool.Select,Select
 Studio.TerrainEditor.BaseTool.Smooth,Smooth
 Studio.TerrainEditor.BaseTool.Transform,Transform
+Studio.TerrainEditor.BiomeSettings.BiomeBlending,Blending
+Studio.TerrainEditor.BiomeSettings.BiomeSize,Biome Size
+Studio.TerrainEditor.BiomeSettings.Biomes,Biomes
+Studio.TerrainEditor.BiomeSettings.Caves,Caves
+Studio.TerrainEditor.BiomeSettings.Generate,Generate
+Studio.TerrainEditor.BiomeSettings.Seed,Seed
+Studio.TerrainEditor.Biomes.Arctic,Arctic
+Studio.TerrainEditor.Biomes.Canyons,Canyons
+Studio.TerrainEditor.Biomes.Dunes,Dunes
+Studio.TerrainEditor.Biomes.Hills,Hills
+Studio.TerrainEditor.Biomes.Lavascape,Lavascape
+Studio.TerrainEditor.Biomes.Marsh,Marsh
+Studio.TerrainEditor.Biomes.Mountains,Mountains
+Studio.TerrainEditor.Biomes.Plains,Plains
+Studio.TerrainEditor.Biomes.Water,Water
 Studio.TerrainEditor.BrushMode.Add,Add
 Studio.TerrainEditor.BrushMode.Subtract,Subtract
 Studio.TerrainEditor.BrushSettings.BaseHeight,Base Height
@@ -26,6 +41,7 @@ Studio.TerrainEditor.BrushSettings.Strength,Strength
 Studio.TerrainEditor.BrushShape.Cube,Cube
 Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
 Studio.TerrainEditor.BrushShape.Sphere,Sphere
+Studio.TerrainEditor.Categories.BiomeSettings,Biome Settings
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
 Studio.TerrainEditor.Categories.HeightmapSettings,Heightmap Settings
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings

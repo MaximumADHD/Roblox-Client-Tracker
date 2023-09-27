@@ -56,6 +56,13 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantAdded(Instance descendant)
 	Event Instance.DescendantRemoving(Instance descendant)
 	Event Instance.Destroying()
+Class AccessoryDescription : Instance [NotBrowsable]
+	Property Enum.AccessoryType AccessoryDescription.AccessoryType
+	Property int64 AccessoryDescription.AssetId
+	Property Instance AccessoryDescription.Instance
+	Property bool AccessoryDescription.IsLayered
+	Property int AccessoryDescription.Order
+	Property float AccessoryDescription.Puffiness
 Class Accoutrement : Instance
 	Property int Accoutrement.BackendAccoutrementState [Hidden] [NotScriptable]
 	Property Vector3 Accoutrement.AttachmentForward [Hidden] [NotReplicated]
@@ -180,6 +187,8 @@ Class AnimationTrack : Instance [NotCreatable]
 Class Animator : Instance
 	Property bool Animator.EvaluationThrottled [ReadOnly] [NotBrowsable]
 	Property bool Animator.PreferLodEnabled
+	Property CFrame Animator.RootMotion [ReadOnly] [NotBrowsable]
+	Property float Animator.RootMotionWeight [ReadOnly] [NotBrowsable]
 	Function void Animator:ApplyJointVelocities(Variant motors)
 	Function Array Animator:GetPlayingAnimationTracks()
 	Function Array Animator:GetPlayingAnimationTracksCoreScript() {RobloxScriptSecurity}
@@ -197,6 +206,7 @@ Class Animator : Instance
 	Event Animator.OnStreamingUpdated2(float fadeTime, float weight, Enum.AnimationPriority priority, bool maskEnabled, int valuesUpdated) {RobloxSecurity} [Hidden]
 	Event Animator.StreamSyncRequest(Player player) {RobloxSecurity} [Hidden]
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function bool AppUpdateService:CanPerformBinaryUpdate() {RobloxScriptSecurity}
 	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
 	Function void AppUpdateService:DisableDUAR() {RobloxScriptSecurity}
 	Function void AppUpdateService:DisableDUARAndOpenSurvey(string surveyUrl) {RobloxScriptSecurity}
@@ -232,7 +242,6 @@ Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function void AssetImportSession:Upload() {RobloxScriptSecurity}
 	Function bool AssetImportSession:usesCustomRestPoseLua() {RobloxScriptSecurity}
 	Event AssetImportSession.UploadComplete(Dictionary results)
-	Event AssetImportSession.UploadCompleteDeprecated(bool succeeded, Dictionary errorMap)
 	Event AssetImportSession.UploadProgress(float progressRatio)
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
@@ -579,6 +588,7 @@ Class RootImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property bool RootImportData.UseSceneOriginAsCFrame
 	Property bool RootImportData.UseSceneOriginAsPivot
 	Property bool RootImportData.UsesCages
+	Property bool RootImportData.ValidateUgcBody
 	Property Enum.NormalId RootImportData.WorldForward
 	Property Enum.NormalId RootImportData.WorldUp
 Class BasePlayerGui : Instance [NotCreatable]
@@ -1268,6 +1278,7 @@ Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
+Class CreationDBService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool CrossDMScriptChangeListener:IsWatchingScriptLine(string scriptRef, int lineNumber) {RobloxScriptSecurity}
 	Function void CrossDMScriptChangeListener:StartWatchingScriptLine(string scriptRef, int debuggerConnectionId, int lineNumber) {RobloxScriptSecurity}
@@ -2372,6 +2383,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function string HttpService:GenerateGUID(bool wrapInCurlyBraces = true) {🧬Safe}
 	Function string HttpService:GetAsync(string url, bool nocache = false, Variant headers) [Yields]
 	Function bool HttpService:GetHttpEnabled() {RobloxScriptSecurity}
+	Function Secret HttpService:GetSecret(string key) {🧬Safe}
 	Function string HttpService:GetUserAgent() {RobloxScriptSecurity}
 	Function Variant HttpService:JSONDecode(string input) [CustomLuaState] {🧬Safe}
 	Function string HttpService:JSONEncode(Variant input) [CustomLuaState] {🧬Safe}
@@ -2435,7 +2447,6 @@ Class Humanoid : Instance
 	Function bool Humanoid:AddCustomStatus(string status) [Deprecated]
 	Function bool Humanoid:AddStatus(Enum.Status status = "Poison") [Deprecated]
 	Function void Humanoid:ApplyDescription(HumanoidDescription humanoidDescription, Enum.AssetTypeVerification assetTypeVerification = "Default") [Yields]
-	Function void Humanoid:ApplyDescriptionBlocking(HumanoidDescription humanoidDescription) {RobloxScriptSecurity}
 	Function void Humanoid:ApplyDescriptionClientServer(HumanoidDescription humanoidDescription) {RobloxScriptSecurity} [Yields]
 	Function void Humanoid:ApplyDescriptionReset(HumanoidDescription humanoidDescription, Enum.AssetTypeVerification assetTypeVerification = "Default") [Yields]
 	Function void Humanoid:BuildRigFromAttachments()
@@ -3569,6 +3580,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Camera Workspace.CurrentCamera [NotReplicated]
 	Property double Workspace.DistributedGameTime [NotReplicated]
 	Property Enum.RejectCharacterDeletions Workspace.RejectCharacterDeletions [NotScriptable]
+	Property Enum.EditorLiveScripting Workspace.EditorLiveScripting [NotScriptable]
 	Property Enum.ModelStreamingBehavior Workspace.ModelStreamingBehavior [NotScriptable]
 	Property Enum.StreamOutBehavior Workspace.StreamOutBehavior [NotScriptable]
 	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
@@ -4235,6 +4247,8 @@ Class ReflectionMetadataEnumItem : ReflectionMetadataItem
 Class ReflectionMetadataMember : ReflectionMetadataItem
 Class ReflectionMetadataProperties : Instance
 Class ReflectionMetadataYieldFunctions : Instance
+Class ReflectionService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Array ReflectionService:GetPropertyNames(string name) {RobloxScriptSecurity}
 Class RemoteCursorService : Instance [NotCreatable] [Service]
 	Event RemoteCursorService.BroadcastRemoteCursorPositions(string script, string remoteCursorPosition) {RobloxSecurity} [Hidden]
 	Event RemoteCursorService.RequestAllRemoteCursorPositionForScript(string script) {RobloxSecurity} [Hidden]
@@ -5272,6 +5286,7 @@ Class TextChannel : Instance
 	Callback Tuple TextChannel.OnIncomingMessage(TextChatMessage message)
 	Callback Tuple TextChannel.ShouldDeliverCallback(TextChatMessage message, TextSource textSource)
 Class TextChatCommand : Instance
+	Property bool TextChatCommand.AutocompleteVisible
 	Property bool TextChatCommand.Enabled
 	Property string TextChatCommand.PrimaryAlias
 	Property string TextChatCommand.SecondaryAlias
@@ -5447,10 +5462,13 @@ Class Translator : Instance [NotCreatable] [NotReplicated]
 Class TutorialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string TutorialService:GetMainViewSessionId() {RobloxScriptSecurity}
 	Function StudioWidget TutorialService:GetStudioWidgetFromLabel(string label) {RobloxScriptSecurity}
+	Function string TutorialService:GetTutorialIDToLaunch() {RobloxScriptSecurity}
 	Function bool TutorialService:HasUserCompletedTutorial() {RobloxScriptSecurity}
+	Function bool TutorialService:HideOnlyNamedWidgets(string configurationLabel) {RobloxScriptSecurity}
 	Function void TutorialService:PromptClosePlace() {RobloxScriptSecurity}
 	Function void TutorialService:SetTutorialCompletionStatus(bool completed) {RobloxScriptSecurity}
 	Function bool TutorialService:ShouldLaunchTutorial() {RobloxScriptSecurity}
+	Function bool TutorialService:ShowOnlyNamedWidgets(string configurationLabel) {RobloxScriptSecurity}
 Class TweenBase : Instance [NotCreatable] [NotBrowsable]
 	Property Enum.PlaybackState TweenBase.PlaybackState [ReadOnly]
 	Function void TweenBase:Cancel()
@@ -5491,6 +5509,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:ValidateSkinnedMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateUVValuesInReference(Array referenceValues, string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUniqueUVCount(string meshId, int numRequired) {RobloxScriptSecurity} [Yields]
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
@@ -6766,6 +6785,10 @@ Enum EasingStyle
 	EnumItem EasingStyle.Exponential : 8
 	EnumItem EasingStyle.Circular : 9
 	EnumItem EasingStyle.Cubic : 10
+Enum EditorLiveScripting
+	EnumItem EditorLiveScripting.Default : 0
+	EnumItem EditorLiveScripting.Disabled : 1
+	EnumItem EditorLiveScripting.Enabled : 2
 Enum ElasticBehavior
 	EnumItem ElasticBehavior.WhenScrollable : 0
 	EnumItem ElasticBehavior.Always : 1
@@ -7937,6 +7960,7 @@ Enum ScreenInsets
 	EnumItem ScreenInsets.None : 0
 	EnumItem ScreenInsets.DeviceSafeInsets : 1
 	EnumItem ScreenInsets.CoreUISafeInsets : 2
+	EnumItem ScreenInsets.TopbarSafeInsets : 3
 Enum ScreenOrientation
 	EnumItem ScreenOrientation.LandscapeLeft : 0
 	EnumItem ScreenOrientation.LandscapeRight : 1

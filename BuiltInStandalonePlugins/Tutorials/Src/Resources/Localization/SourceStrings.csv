@@ -8,12 +8,12 @@ Studio.Tutorials.Completed.Title,You completed the %s!,You completed the %s!
 Studio.Tutorials.StudioTour.parts_Title,Parts,Parts
 Studio.Tutorials.StudioTour2.topic_parts,Parts,Parts
 Studio.Tutorials.Plugin.Button,Toggle,Toggle
-Studio.Tutorials.StudioTour2.rotate_Title,Rotate,Rotate
 Studio.Tutorials.StudioTour.select_Title,Select Part,Select Part
 Studio.Tutorials.StudioTour.rotateCamera_Description,"Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around.","Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around"
 Studio.Tutorials.StudioTour2.rotateCamera_Description,"Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around.","Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around"
 Studio.Tutorials.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
 Studio.Tutorials.Plugin.Start,Start,Start
+Studio.Tutorials.StudioTour2.moveCamera_Compliment,Nice 👍,Nice 👍
 Studio.Tutorials.Tutorial.StepSkipped,Step Skipped,Step Skipped
 Studio.Tutorials.Plugin.Welcome,"Welcome to Roblox Studio, %s!","Welcome to Roblox Studio, %s!"
 Studio.Tutorials.StudioTour2.select_Title,Select the car,Select the car
@@ -23,7 +23,16 @@ Studio.Tutorials.Completed.Description,Continue building here or visit the Dashb
 Studio.Tutorials.Completed.Back,Dashboard,Dashboard
 Studio.Tutorials.Tutorial.QuitTutorial,Quit Tutorial,Quit Tutorial
 Studio.Tutorials.Completed.Continue,Continue,Continue
+Studio.Tutorials.StudioTour.moveCamera_Title,Moving the Camera,Moving the Camera
+Studio.Tutorials.StudioTour.panCamera_Title,Moving the Camera,Moving the Camera
+Studio.Tutorials.StudioTour2.moveCamera_Title,Moving the Camera,Moving the Camera
+Studio.Tutorials.StudioTour2.panCamera_Title,Moving the Camera,Moving the Camera
+Studio.Tutorials.SkipDialog.Title,Skip forward to this step?,Skip forward to this step?
+Studio.Tutorials.StudioTour.explorer_Description,"The Explorer displays everything in your place, including built-in services.","The Explorer displays everything in your place, including built-in services."
+Studio.Tutorials.StudioTour2.explorer_Description,"The Explorer displays everything in your place, including built-in services.","The Explorer displays everything in your place, including built-in services."
+Studio.Tutorials.SkipDialog.Text,Skipping forward will complete the previous steps for you. This will insert any parts or models required to complete the rest of the tour.,Skipping forward will complete the previous steps for you. This will insert any parts or models required to complete the rest of the tour.
 Studio.Tutorials.Tutorial.Skip,Skip,Skip
+Studio.Tutorials.StudioTour2.welcome_Compliment,Well done!,Well done!
 Studio.Tutorials.Tutorial.Back,Back,Back
 Studio.Tutorials.Tutorial.Begin,Begin,Begin
 Studio.Tutorials.StudioTour.material_Title,Change Material,Change Material
@@ -34,7 +43,6 @@ Studio.Tutorials.StudioTour.welcome_Title,Studio Tour,Studio Tour
 Studio.Tutorials.StudioTour2.Title,Studio Tour,Studio Tour
 Studio.Tutorials.StudioTour2.welcome_Title,Studio Tour,Studio Tour
 Studio.Tutorials.Tutorial.TopicNumber,Topic %d of %d,Topic %d of %d
-Studio.Tutorials.StudioTour2.move_Title,Move,Move
 Studio.Tutorials.Tutorial.SkipStep,Skip Step,Skip Step
 Studio.Tutorials.StudioTour.playtest_Title,Playtest,Playtest
 Studio.Tutorials.StudioTour2.playtest_Title,Playtest,Playtest
@@ -44,10 +52,8 @@ Studio.Tutorials.StudioTour2.wedge_Description,Parts are the basic building bloc
 Studio.Tutorials.Tutorial.StopPlaytest_Description,"Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br/><br/>Try interacting with the parts you added!<br/><br/>When you're ready, press Stop to go back to editing your place.","Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys.<br/><br/>Try interacting with the parts you added!<br/><br/>When you're ready, press Stop to go back to editing your place."
 Studio.Tutorials.StudioTour.welcome_Description,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.
 Studio.Tutorials.StudioTour2.welcome_Description,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.,The tour will teach you how to create your first Roblox place! You'll learn how to use the basic Studio controls and playtest with your Roblox avatar.
-Studio.Tutorials.StudioTour.moveCamera_Title,Moving the Camera,Moving the Camera
-Studio.Tutorials.StudioTour.panCamera_Title,Moving the Camera,Moving the Camera
-Studio.Tutorials.StudioTour2.moveCamera_Title,Moving the Camera,Moving the Camera
-Studio.Tutorials.StudioTour2.panCamera_Title,Moving the Camera,Moving the Camera
+Studio.Tutorials.StudioTour2.color_Compliment,Awesome pick 🎉,Awesome pick 🎉
+Studio.Tutorials.StudioTour2.insertMarketplace_Compliment,Great Job 🎉,Great Job 🎉
 Studio.Tutorials.StudioTour.moveCamera_Description,"Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!","Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!"
 Studio.Tutorials.StudioTour2.moveCamera_Description,"Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!","Use the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys to move forwards, left, backwards and right. Try it out now!"
 Studio.Tutorials.StudioTour.properties_Title,Properties,Properties
@@ -66,8 +72,6 @@ Studio.Tutorials.StudioTour.explorer_Title,Explorer,Explorer
 Studio.Tutorials.StudioTour2.explorerSelected_Title,Explorer,Explorer
 Studio.Tutorials.StudioTour2.explorer_Title,Explorer,Explorer
 Studio.Tutorials.StudioTour2.topic_explorer,Explorer,Explorer
-Studio.Tutorials.StudioTour.explorer_Description,"The Explorer displays everything in your place, including built-in services.","The Explorer displays everything in your place, including built-in services."
-Studio.Tutorials.StudioTour2.explorer_Description,"The Explorer displays everything in your place, including built-in services.","The Explorer displays everything in your place, including built-in services."
 Studio.Tutorials.StudioTour.color_Title,Change Color,Change Color
 Studio.Tutorials.StudioTour.workspace_Title,Workspace, Workspace
 Studio.Tutorials.StudioTour2.workspace_Title,Workspace,Workspace
@@ -76,29 +80,43 @@ Studio.Tutorials.StudioTour2.workspace_Description,The Workspace service display
 Studio.Tutorials.StudioTour.parts_Description,"Parts are the basic building blocks in Studio.<br/><br/>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br/><br/>Add as many as you like now!","Parts are the basic building blocks in Studio.<br/><br/>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br/><br/>Add as many as you like now!"
 Studio.Tutorials.StudioTour.focus_Title,Focus,Focus
 Studio.Tutorials.StudioTour2.focus_Title,Focus,Focus
-Studio.Tutorials.StudioTour2.anchor_Title,Anchor the ramp,Anchor the ramp
-Studio.Tutorials.StudioTour2.scale_Title,Scale,Scale
 Studio.Tutorials.StudioTour.focus_Description,Press F to focus the camera on the part while it's selected.,Press F to focus the camera on the part while it's selected.
-Studio.Tutorials.StudioTour2.color_Description,Click this button to choose a new color for the ramp.,Click this button to choose a new color for the ramp.
 Studio.Tutorials.StudioTour.playtest_Description,"Finally, click the Play button to playtest your experience.","Finally, click the Play button to playtest your experience."
+Studio.Tutorials.StudioTour2.panCamera_Compliment,Keep it up!,Keep it up!
+Studio.Tutorials.StudioTour2.focus_Compliment,Just like that!,Just like that!
+Studio.Tutorials.StudioTour2.zoomCamera_Compliment,Just like that!,Just like that!
+Studio.Tutorials.StudioTour2.rotateCamera_Compliment,Got it 💪,Got it 💪
+Studio.Tutorials.StudioTour2.select_Compliment,Got it 💪,Got it 💪
 Studio.Tutorials.StudioTour2.marketplace_Title,Marketplace,Marketplace
 Studio.Tutorials.StudioTour2.topic_marketplace,Marketplace,Marketplace
 Studio.Tutorials.StudioTour2.searchMarketplace_Title,Search the Marketplace,Search the Marketplace
 Studio.Tutorials.StudioTour2.insertMarketplace_Title,Insert the car,Insert the car
 Studio.Tutorials.StudioTour2.insertMarketplace_Description,Click on the car's tile to insert it into your place.,Click on the car's tile to insert it into your place.
 Studio.Tutorials.StudioTour2.explorerSelected_Description,When you insert an asset it is automatically selected in Explorer.<br/><br/>Your currrent selection is also highlighted in the 3D world.,When you insert an asset it is automatically selected in Explorer.<br/><br/>Your currrent selection is also highlighted in the 3D world.
-Studio.Tutorials.StudioTour2.color_Title,Change the color of the ramp,Change the color of the ramp
 Studio.Tutorials.StudioTour2.wedge_Title,Insert a Wedge,Insert a Wedge
+Studio.Tutorials.StudioTour2.wedge_Compliment,Perfect! 😊,Perfect! 😊
+Studio.Tutorials.StudioTour2.move_Title,Move,Move
+Studio.Tutorials.StudioTour2.move_Compliment,Great!,Great!
 Studio.Tutorials.StudioTour2.move_Description,Use the Move tool to move the ramp in front of the car.<br/><br/>Click and drag the handles to move the ramp.,Use the Move tool to move the ramp in front of the car.<br/><br/>Click and drag the handles to move the ramp.
+Studio.Tutorials.StudioTour2.rotate_Title,Rotate,Rotate
+Studio.Tutorials.StudioTour2.rotate_Compliment,Yep!,Yep!
 Studio.Tutorials.StudioTour2.rotate_Description,Use the rotate tool to turn the wedge around so it faces the car.<br/><br/>Click and drag the handles to rotate.,Use the rotate tool to turn the wedge around so it faces the car.<br/><br/>Click and drag the handles to rotate.
+Studio.Tutorials.StudioTour2.scale_Title,Scale,Scale
+Studio.Tutorials.StudioTour2.scale_Compliment,Fantastic! ✨,Fantastic! ✨
 Studio.Tutorials.StudioTour2.scale_Description,Use the Scale tool to make the ramp big enough for the car to drive over.<br/><br/>Click and drag the handles to change its size.,Use the Scale tool to make the ramp big enough for the car to drive over.<br/><br/>Click and drag the handles to change its size.
+Studio.Tutorials.StudioTour2.color_Title,Change the color of the ramp,Change the color of the ramp
+Studio.Tutorials.StudioTour2.color_Description,Click this button to choose a new color for the ramp.,Click this button to choose a new color for the ramp.
+Studio.Tutorials.StudioTour2.anchor_Title,Anchor the ramp,Anchor the ramp
+Studio.Tutorials.StudioTour2.anchor_Compliment,That's right 💪,That's right 💪
 Studio.Tutorials.StudioTour2.anchor_Description,"If the ramp isn't Anchored, it will move when you try to drive over it. With the ramp selected, click Anchor to make it anchored.","If the ramp isn't Anchored, it will move when you try to drive over it. With the ramp selected, click Anchor to make it anchored."
 Studio.Tutorials.StudioTour2.focus_Description,"With the car selected, press F to move the camera to look at it.","With the car selected, press F to move the camera to look at it."
 Studio.Tutorials.StudioTour2.properties_Description,This is the Properties window. You can see and edit the properties of the selected object.,This is the Properties window. You can see and edit the properties of the selected object.
 Studio.Tutorials.StudioTour2.maxSpeed_Title,Change Max Speed,Change Max Speed
+Studio.Tutorials.StudioTour2.maxSpeed_Compliment,"Woah, that's fast 🏎","Woah, that's fast 🏎"
 Studio.Tutorials.StudioTour2.maxSpeed_Description,You can add custom data to objects using attributes.<br/><br/>Search for the MaxSpeed attribute and update it to a new value to change the speed of the car.,You can add custom data to objects using attributes.<br/><br/>Search for the MaxSpeed attribute and update it to a new value to change the speed of the car.
 Studio.Tutorials.StudioTour2.playtest_Description,"Finally, playtest your place by clicking the Play button.","Finally, playtest your place by clicking the Play button."
 Studio.Tutorials.StudioTour2.avatar_Title,Control your avatar,Control your avatar
+Studio.Tutorials.StudioTour2.avatar_Compliment,Go for it! 🏎,Go for it! 🏎
 Studio.Tutorials.StudioTour2.avatar_Description,"Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys. Press <b>E</b> to enter the car when you are near it. Can you drive into the boxes?","Control your avatar with the <b>W</b>, <b>A</b>, <b>S</b> & <b>D</b> keys. Press <b>E</b> to enter the car when you are near it. Can you drive into the boxes?"
 Studio.Tutorials.StudioTour2.stopPlaytest_Title,Complete the tour,Complete the tour
 Studio.Tutorials.StudioTour2.stopPlaytest_Description,"When you're ready, press Stop to go back to editing your place and complete the tour.","When you're ready, press Stop to go back to editing your place and complete the tour."

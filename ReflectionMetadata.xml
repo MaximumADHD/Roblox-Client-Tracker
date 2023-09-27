@@ -5282,7 +5282,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">EvaluateStateMachine</string>
-            <string name="FFlag">EnableEvaluateStateMachine2</string>
+            <string name="FFlag">EnableEvaluateStateMachine3</string>
           </Properties>
         </Item>
       </Item>
@@ -8365,6 +8365,14 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AccessoryDescription</string>
+        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerImageIndex">104</string>
+        <bool name="FFlag">HumanoidDescriptionNewInstancesStudio</bool>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Folder</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">77</string>
@@ -8542,6 +8550,20 @@
             <string name="Description">Returns true if animation evaluation for the Animator is throttled.</string>
             <string name="PropertyOrder">1001</string>
             <bool name="FFlag">AnimatorIsThrottledPropertyEnabled</bool>
+          </Properties>
+	    </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RootMotion</string>
+            <string name="PropertyOrder">1002</string>
+            <bool name="FFlag">RootMotionSupportedInternal</bool>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RootMotionWeight</string>
+            <string name="PropertyOrder">1003</string>
+            <bool name="FFlag">RootMotionSupportedInternal</bool>
           </Properties>
         </Item>
       </Item>

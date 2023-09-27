@@ -58,6 +58,9 @@
             "Flags": {
                 "$path": "Flags"
             },
+            "GamepadDisconnect": {
+                "$path": "GamepadDisconnect"
+            },
             "InGameChat": {
                 "$path": "InGameChat"
             },

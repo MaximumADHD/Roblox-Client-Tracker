@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "NavigationRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/navigation-rodux/src"
+    }
+  }
+}
