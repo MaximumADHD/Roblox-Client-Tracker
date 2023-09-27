@@ -115,201 +115,79 @@ local function validateLayeredClothingAccessory(
 		end
 	end
 
-	if game:GetFastFlag("UGCReturnAllValidations") then
-		local failedReason: any = {}
-		local validationResult = true
-		reasons = {}
-		success, failedReason = validateMaterials(instance)
+	local failedReason: any = {}
+	local validationResult = true
+	reasons = {}
+	success, failedReason = validateMaterials(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateProperties(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTags(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateAttributes(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTextureSize(textureId, true)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	if getFFlagUGCValidateThumbnailConfiguration() then
+		success, failedReason = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
+	end
 
-		success, failedReason = validateProperties(instance)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
+	do
+		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
 
-		success, failedReason = validateTags(instance)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		success, failedReason = validateAttributes(instance)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		success, failedReason = validateTextureSize(textureId, true)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		if getFFlagUGCValidateThumbnailConfiguration() then
-			success, failedReason = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-		end
-
-		do
-			local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
-
-			if getFFlagUGCValidateBodyParts() and wrapLayer == nil then
-				table.insert(reasons, "Could not find WrapLayer!")
-				validationResult = false
-			else
-				success, failedReason = validateHSR(wrapLayer)
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-			end
-		end
-
-		local checkModeration = not isServer
-		if allowUnreviewedAssets then
-			checkModeration = false
-		end
-		if checkModeration then
-			success, failedReason = validateModeration(instance, {})
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-		end
-
-		if meshId == "" then
-			table.insert(reasons, "Mesh must contain valid MeshId")
+		if getFFlagUGCValidateBodyParts() and wrapLayer == nil then
+			table.insert(reasons, "Could not find WrapLayer!")
 			validationResult = false
 		else
-			success, failedReason = validateMeshBounds(
-				handle,
-				attachment,
-				meshId,
-				meshScale,
-				assetTypeEnum,
-				if getFFlagUGCValidateBodyParts() then boundsInfo else Constants.LC_BOUNDS,
-				(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
-			)
+			success, failedReason = validateHSR(wrapLayer)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
 			end
-
-			success, failedReason = validateMeshTriangles(meshId)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-
-			if game:GetFastFlag("UGCValidateMeshVertColors") then
-				success, failedReason = validateMeshVertColors(meshId, false)
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-			end
-
-			if game:GetFastFlag("UGCLCQualityReplaceLua") then
-				success, failedReason = validateUVSpace(meshId)
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-			end
 		end
+	end
 
-		if game:GetFastFlag("UGCLCQualityValidation") then
-			local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
-			local innerCageId = wrapLayer.ReferenceMeshId
-			local outerCageId = wrapLayer.CageMeshId
-
-			if innerCageId == "" then
-				table.insert(reasons, "InnerCages must contain valid MeshId.")
-				validationResult = false
-			elseif outerCageId == "" then
-				table.insert(reasons, "OuterCages must contain valid MeshId.")
-				validationResult = false
-			else
-				success, failedReason = validateOverlappingVertices(innerCageId, "InnerCage")
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-
-				success, failedReason = validateOverlappingVertices(outerCageId, "OuterCage")
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-
-				success, failedReason = validateMisMatchUV(innerCageId, outerCageId)
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-
-				success, failedReason = validateCageMeshIntersection(innerCageId, outerCageId, meshId)
-				if not success then
-					table.insert(reasons, "" .. table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
-					validationResult = false
-				end
-
-				success, failedReason = validateCageNonManifoldAndHoles(innerCageId, "InnerCage")
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
-					validationResult = false
-				end
-
-				success, failedReason = validateCageNonManifoldAndHoles(outerCageId, "OuterCage")
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
-					validationResult = false
-				end
-
-				success, failedReason = validateFullBodyCageDeletion(innerCageId, "InnerCage")
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-
-				success, failedReason = validateFullBodyCageDeletion(outerCageId, "OuterCage")
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-			end
+	local checkModeration = not isServer
+	if allowUnreviewedAssets then
+		checkModeration = false
+	end
+	if checkModeration then
+		success, failedReason = validateModeration(instance, {})
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
+	end
 
-		return validationResult, reasons
+	if meshId == "" then
+		table.insert(reasons, "Mesh must contain valid MeshId")
+		validationResult = false
 	else
-		success, reasons = validateMaterials(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateProperties(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateTags(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateAttributes(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateMeshBounds(
+		success, failedReason = validateMeshBounds(
 			handle,
 			attachment,
 			meshId,
@@ -319,107 +197,96 @@ local function validateLayeredClothingAccessory(
 			(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
 		)
 		if not success then
-			return false, reasons
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 
-		success, reasons = validateTextureSize(textureId, true)
+		success, failedReason = validateMeshTriangles(meshId)
 		if not success then
-			return false, reasons
-		end
-
-		if getFFlagUGCValidateThumbnailConfiguration() then
-			success, reasons = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
-			if not success then
-				return false, reasons
-			end
-		end
-
-		success, reasons = validateMeshTriangles(meshId)
-		if not success then
-			return false, reasons
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 
 		if game:GetFastFlag("UGCValidateMeshVertColors") then
-			success, reasons = validateMeshVertColors(meshId, false)
+			success, failedReason = validateMeshVertColors(meshId, false)
 			if not success then
-				return false, reasons
-			end
-		end
-
-		do
-			local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
-
-			if getFFlagUGCValidateBodyParts() and wrapLayer == nil then
-				return false, { "Could not find WrapLayer!" }
-			else
-				success, reasons = validateHSR(wrapLayer)
-				if not success then
-					return false, reasons
-				end
-			end
-		end
-
-		if not isServer then
-			success, reasons = validateModeration(instance, {})
-			if not success then
-				return false, reasons
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
 			end
 		end
 
 		if game:GetFastFlag("UGCLCQualityReplaceLua") then
-			success, reasons = validateUVSpace(meshId)
+			success, failedReason = validateUVSpace(meshId)
 			if not success then
-				return false, reasons
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
 			end
 		end
-
-		if game:GetFastFlag("UGCLCQualityValidation") then
-			local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
-			local innerCageId = wrapLayer.ReferenceMeshId
-			local outerCageId = wrapLayer.CageMeshId
-			success, reasons = validateOverlappingVertices(innerCageId, "InnerCage")
-			if not success then
-				return false, reasons
-			end
-
-			success, reasons = validateOverlappingVertices(outerCageId, "OuterCage")
-			if not success then
-				return false, reasons
-			end
-
-			success, reasons = validateMisMatchUV(innerCageId, outerCageId)
-			if not success then
-				return false, reasons
-			end
-
-			success, reasons = validateCageMeshIntersection(innerCageId, outerCageId, meshId)
-			if not success then
-				return false, reasons
-			end
-
-			success, reasons = validateCageNonManifoldAndHoles(innerCageId, "InnerCage")
-			if not success then
-				return false, reasons
-			end
-
-			success, reasons = validateCageNonManifoldAndHoles(outerCageId, "OuterCage")
-			if not success then
-				return false, reasons
-			end
-
-			success, reasons = validateFullBodyCageDeletion(innerCageId, "InnerCage")
-			if not success then
-				return false, reasons
-			end
-
-			success, reasons = validateFullBodyCageDeletion(outerCageId, "OuterCage")
-			if not success then
-				return false, reasons
-			end
-		end
-
-		return true
 	end
+
+	if game:GetFastFlag("UGCLCQualityValidation") then
+		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
+		local innerCageId = wrapLayer.ReferenceMeshId
+		local outerCageId = wrapLayer.CageMeshId
+
+		if innerCageId == "" then
+			table.insert(reasons, "InnerCages must contain valid MeshId.")
+			validationResult = false
+		elseif outerCageId == "" then
+			table.insert(reasons, "OuterCages must contain valid MeshId.")
+			validationResult = false
+		else
+			success, failedReason = validateOverlappingVertices(innerCageId, "InnerCage")
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason = validateOverlappingVertices(outerCageId, "OuterCage")
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason = validateMisMatchUV(innerCageId, outerCageId)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason = validateCageMeshIntersection(innerCageId, outerCageId, meshId)
+			if not success then
+				table.insert(reasons, "" .. table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
+				validationResult = false
+			end
+
+			success, failedReason = validateCageNonManifoldAndHoles(innerCageId, "InnerCage")
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
+				validationResult = false
+			end
+
+			success, failedReason = validateCageNonManifoldAndHoles(outerCageId, "OuterCage")
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
+				validationResult = false
+			end
+
+			success, failedReason = validateFullBodyCageDeletion(innerCageId, "InnerCage")
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason = validateFullBodyCageDeletion(outerCageId, "OuterCage")
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+	end
+
+	return validationResult, reasons
 end
 
 return validateLayeredClothingAccessory

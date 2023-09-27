@@ -5,6 +5,7 @@ local module = {}
 
 local CFrameUtility = require(script.Parent.CFrameUtility)
 local VectorUtility = require(script.Parent.VectorUtility)
+local CharacterUtility = require(script.Parent.CharacterUtility)
 
 -- When generating a head thumbnail, how much 'margin' around extent of head + accoutrements?
 module.DefaultHeadMarginScale = 1.1
@@ -16,6 +17,19 @@ module.DefaultBodyPartMarginScale = 1.2
 module.XRotForFullBody = 15.0
 module.XRotForCloseup = 0.0
 module.DistanceScaleForFullBody = 1.0
+
+-- TODO: AVBURST-13133 Remove module.DefaultHeadMarginScale = 1.1 as camera code concentrates here
+local HEAD_MARGIN_SCALE = 1.1
+local HEAD_X_ROTATION_RAD = math.rad(15.0)
+local HEAD_Y_ROTATION_RAD = math.rad(30.0)
+
+-- The camera cframe to use if the Body Part mannequin should face left/right.
+-- First angle is X rotation, second is Y rotation
+local FACE_LEFT_CFRAME = CFrame.fromEulerAnglesYXZ(math.rad(-20), math.rad(20), 0)
+local FACE_RIGHT_CFRAME = CFrame.fromEulerAnglesYXZ(math.rad(-20), math.rad(-20), 0)
+
+-- FOV for Body Part and Head thumbnails
+local FIELD_OF_VIEW_DEG = 30
 
 export type CameraOptions = {
 	optFieldOfView: number?,
@@ -122,6 +136,80 @@ module.SetupCamera = function(camera: Camera, cameraOptions: CameraOptions)
 
 	local cPos = VectorUtility.Vector3FromXYRotPlusDistance(cameraXRotDeg, cameraYRotDeg, distanceToCamera)
 	camera.CFrame = module.GetCameraCFrame(finalTargetCFrame, cPos)
+end
+
+--[[
+	Sets up a camera meant for BodyPart Thumbnails given
+	mannequin: the mannequin Model
+	faceRight: whether the mannequin should face right
+	focusPartNames: the names of the parts to focus on in the thumbnail
+	camera: the Camera to set up
+]]
+module.SetupBodyPartCamera = function(
+	mannequin: Model,
+	faceRight: boolean,
+	focusPartNames: { [number]: string },
+	camera: Camera
+)
+	local mannequinFocusParts = {}
+	if #focusPartNames > 0 then
+		for _, focusPartName in pairs(focusPartNames) do
+			local focusPart = mannequin:FindFirstChild(focusPartName, --[[recursive = ]] true) :: BasePart
+			if focusPart then
+				table.insert(mannequinFocusParts, focusPart)
+			end
+		end
+	end
+	local humanoidRootPart = mannequin:FindFirstChild("HumanoidRootPart") :: BasePart
+	local mannequinTargetCFrame = humanoidRootPart.CFrame
+	local adjustment = if faceRight then FACE_RIGHT_CFRAME else FACE_LEFT_CFRAME
+	mannequinTargetCFrame = adjustment * mannequinTargetCFrame
+	local minPartsExtent, maxPartsExtent =
+		CharacterUtility.CalculateBodyPartsExtents(mannequinTargetCFrame, mannequinFocusParts)
+	-- Setup Camera with these options
+	local cameraOptions = {
+		optFieldOfView = FIELD_OF_VIEW_DEG,
+		targetCFrame = mannequinTargetCFrame,
+		minExtent = minPartsExtent,
+		maxExtent = maxPartsExtent,
+		extentScale = module.DefaultBodyPartMarginScale,
+	}
+	module.SetupCamera(camera, cameraOptions)
+end
+
+--[[
+	Sets up a camera to be used in Head Thumbnails given:
+
+	headModel: The head to make a thumbnail of
+	camera: the Camera to set up for the thumbnail
+]]
+module.SetupHeadCamera = function(headModel: Model, camera: Camera)
+	local head = headModel:FindFirstChild("Head") :: MeshPart
+	-- Figure out the target CFrame: a cframe describing the centroid of the thing we
+	-- are looking at.
+	-- It's roughly the head CFrame, but the head may be tilted somehow: we
+	-- want target CFrame's Up vector to point straight up.  We want a
+	-- a CFrame with head CFrame position, and head CFrame "Look" vector
+	-- flattened into the X-Z plane.
+	local headTargetCFrame = CFrameUtility.CalculateTargetCFrame(head.CFrame)
+
+	-- Turn the head before we calculate extents so we're calculating extents on what the camera is
+	-- actually seeing.
+	local adjustment = CFrame.fromEulerAnglesYXZ(HEAD_X_ROTATION_RAD, HEAD_Y_ROTATION_RAD, 0)
+	headTargetCFrame = adjustment * headTargetCFrame
+
+	-- Get extents of head, hair, and hats, relative to target cframe.
+	local minHeadExtent, maxHeadExtent = CharacterUtility.CalculateHeadExtents(headModel, headTargetCFrame)
+
+	-- Setup Camera
+	local cameraOptions = {
+		optFieldOfView = FIELD_OF_VIEW_DEG,
+		targetCFrame = headTargetCFrame,
+		minExtent = minHeadExtent,
+		maxExtent = maxHeadExtent,
+		extentScale = HEAD_MARGIN_SCALE,
+	}
+	module.SetupCamera(camera, cameraOptions)
 end
 
 return module

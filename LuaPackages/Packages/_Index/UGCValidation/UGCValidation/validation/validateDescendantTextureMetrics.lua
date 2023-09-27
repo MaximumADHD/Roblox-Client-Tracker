@@ -21,11 +21,7 @@ local function validateDescendantTextureMetrics(rootInstance: Instance, isServer
 	local sizeAlreadyTested = {}
 	for _, data in allTextures do
 		if not sizeAlreadyTested[data.id] then
-			if
-				not reasonsAccumulator:updateReasons(validateTextureSize(data.instance[data.fieldName], nil, isServer))
-			then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(validateTextureSize(data.instance[data.fieldName], nil, isServer))
 			sizeAlreadyTested[data.id] = true
 		end
 	end

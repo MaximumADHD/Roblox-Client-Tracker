@@ -11,7 +11,8 @@ local Object = LuauPolyfill.Object
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
-local SecondaryButton = require(UIBlox.App.Button.SecondaryButton)
+local Button = require(UIBlox.App.Button.Button)
+local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 
 local ResponsiveRow = require(UIBlox.Core.Layout.Responsive.ResponsiveRow)
 local withGridConfig_DEPRECATED = require(UIBlox.Core.Layout.Grid.withGridConfig_DEPRECATED)
@@ -166,7 +167,8 @@ function ResponsiveCarousel:renderHeader(headerProps)
 				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
 			ResponsiveCarouselSeeAll = if shouldShowButton
-				then Roact.createElement(SecondaryButton, {
+				then Roact.createElement(Button, {
+					buttonType = ButtonType.Secondary,
 					position = UDim2.new(1, -buttonSize.X.Offset, 0, 0),
 					size = buttonSize,
 					text = self.props.buttonText,

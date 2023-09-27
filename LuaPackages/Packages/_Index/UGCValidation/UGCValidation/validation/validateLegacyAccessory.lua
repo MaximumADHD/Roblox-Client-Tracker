@@ -78,115 +78,64 @@ local function validateLegacyAccessory(
 		end
 	end
 
-	if game:GetFastFlag("UGCReturnAllValidations") then
-		local failedReason: any = {}
-		local validationResult = true
-		reasons = {}
-		success, failedReason = validateMaterials(instance)
+	local failedReason: any = {}
+	local validationResult = true
+	reasons = {}
+	success, failedReason = validateMaterials(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateProperties(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTags(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateAttributes(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTextureSize(textureId)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	if getFFlagUGCValidateThumbnailConfiguration() then
+		success, failedReason = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
+	end
 
-		success, failedReason = validateProperties(instance)
+	local checkModeration = not isServer
+	if allowUnreviewedAssets then
+		checkModeration = false
+	end
+	if checkModeration then
+		success, failedReason = validateModeration(instance, {})
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
+	end
 
-		success, failedReason = validateTags(instance)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		success, failedReason = validateAttributes(instance)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		success, failedReason = validateTextureSize(textureId)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		if getFFlagUGCValidateThumbnailConfiguration() then
-			success, failedReason = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-		end
-
-		local checkModeration = not isServer
-		if allowUnreviewedAssets then
-			checkModeration = false
-		end
-		if checkModeration then
-			success, failedReason = validateModeration(instance, {})
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-		end
-
-		if meshId == "" then
-			table.insert(reasons, "Mesh must contain valid MeshId")
-			validationResult = false
-		else
-			success, failedReason = validateMeshBounds(
-				handle,
-				attachment,
-				meshId,
-				meshScale,
-				assetTypeEnum,
-				boundsInfo,
-				(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
-			)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-
-			success, failedReason = validateMeshTriangles(meshId)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-
-			if game:GetFastFlag("UGCValidateMeshVertColors") then
-				success, failedReason = validateMeshVertColors(meshId, false)
-				if not success then
-					table.insert(reasons, table.concat(failedReason, "\n"))
-					validationResult = false
-				end
-			end
-		end
-		return validationResult, reasons
+	if meshId == "" then
+		table.insert(reasons, "Mesh must contain valid MeshId")
+		validationResult = false
 	else
-		success, reasons = validateMaterials(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateProperties(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateTags(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateAttributes(instance)
-		if not success then
-			return false, reasons
-		end
-
-		success, reasons = validateMeshBounds(
+		success, failedReason = validateMeshBounds(
 			handle,
 			attachment,
 			meshId,
@@ -196,42 +145,25 @@ local function validateLegacyAccessory(
 			(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
 		)
 		if not success then
-			return false, reasons
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 
-		success, reasons = validateTextureSize(textureId)
+		success, failedReason = validateMeshTriangles(meshId)
 		if not success then
-			return false, reasons
-		end
-
-		if getFFlagUGCValidateThumbnailConfiguration() then
-			success, reasons = validateThumbnailConfiguration(instance, handle, meshId, meshScale)
-			if not success then
-				return false, reasons
-			end
-		end
-
-		success, reasons = validateMeshTriangles(meshId)
-		if not success then
-			return false, reasons
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 
 		if game:GetFastFlag("UGCValidateMeshVertColors") then
-			success, reasons = validateMeshVertColors(meshId, false)
+			success, failedReason = validateMeshVertColors(meshId, false)
 			if not success then
-				return false, reasons
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
 			end
 		end
-
-		if not isServer then
-			success, reasons = validateModeration(instance, {})
-			if not success then
-				return false, reasons
-			end
-		end
-
-		return true
 	end
+	return validationResult, reasons
 end
 
 return validateLegacyAccessory

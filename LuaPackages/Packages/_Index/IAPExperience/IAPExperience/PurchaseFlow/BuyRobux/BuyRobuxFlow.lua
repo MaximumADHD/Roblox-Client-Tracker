@@ -9,7 +9,7 @@ local Roact = require(Packages.Roact)
 
 local BuyRobuxFlowState = require(BuyRobuxRoot.BuyRobuxFlowState)
 
-local Animator = require(IAPExperienceRoot.Generic.Animator)
+local Constants = require(IAPExperienceRoot.Generic.Constants)
 local LoadingOverlay = require(IAPExperienceRoot.Generic.LoadingOverlay)
 local LoadingOverlayState = require(IAPExperienceRoot.Generic.LoadingOverlayState)
 local BuyRobuxPage = require(IAPExperienceRoot.BuyRobux.BuyRobuxPage)
@@ -20,7 +20,6 @@ local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEv
 local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
 
 local BuyRobuxFlow = Roact.Component:extend(script.Name)
-local OverlayTypeAnimator = "IapExperienceAnimator"
 
 type Props = {
 	screenSize: Vector2,
@@ -71,7 +70,7 @@ end
 -- Use CentralOverlay to render the modals so that they could get the gamepad focus on Console
 function BuyRobuxFlow:dispatchAndRenderModal(props: Props)
 	if props.purchaseState == BuyRobuxFlowState.Error then
-		props.dispatchCentralOverlay(OverlayTypeAnimator, {
+		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, {
 			shouldAnimate = props.shouldAnimate,
 			shouldShow = props.purchaseState == BuyRobuxFlowState.Error,
 			renderChildren = function()
@@ -94,7 +93,7 @@ function BuyRobuxFlow:dispatchAndRenderModal(props: Props)
 	end
 
 	if props.purchaseState == BuyRobuxFlowState.PurchaseWarning then
-		props.dispatchCentralOverlay(OverlayTypeAnimator, {
+		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, {
 			shouldAnimate = props.shouldAnimate,
 			shouldShow = props.purchaseState == BuyRobuxFlowState.PurchaseWarning,
 			renderChildren = function()

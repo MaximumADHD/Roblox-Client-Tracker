@@ -16,7 +16,7 @@ local getFontFromName = require(Style.Fonts.getFontFromName)
 local Constants = require(Style.Constants)
 local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
-local StyleContext = require(UIBlox.Style.StyleContext)
+local StyleContext = require(UIBlox.Core.Style.StyleContext)
 
 local getTokens = TokenPackage.getTokens
 local validateTokens = TokenPackage.validateTokens

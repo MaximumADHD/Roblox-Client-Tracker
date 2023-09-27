@@ -14,13 +14,6 @@ local function validateMeshVertexColors(
 	checkTransparency: boolean,
 	isServer: boolean?
 ): (boolean, { string }?)
-	if not game:GetFastFlag("UGCReturnAllValidations") then
-		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
-		if meshId == "" then
-			return false, { "Mesh must contain valid MeshId" }
-		end
-	end
-
 	if
 		(game:GetFastFlag("UGCLCQualityReplaceLua") or getFFlagUGCValidateBodyParts())
 		and getFFlagAddValidateVertColorsAlphaUGCValidate()

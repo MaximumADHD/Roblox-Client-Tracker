@@ -10,13 +10,9 @@ local InsertService = game:GetService("InsertService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 
-local FFlagEmoteUtilityTweaks = game:DefineFastFlag("EmoteUtilityTweaks3", false)
-
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local module = {}
-
-module.FFlagEmoteUtilityTweaks = FFlagEmoteUtilityTweaks
 
 type AnimationAssetIdOrUrl = string | number
 
@@ -25,7 +21,9 @@ type AttachmentsByName = { [string]: Attachment }
 type SomeKindOfRotationCurve = EulerRotationCurve | RotationCurve
 
 export type KeyframesForPose = {
-	-- Remove with FFlagEmoteUtilityTweaks
+	-- FIXME(dbanks)
+	-- 2023/09/19
+	-- Remove with FFlagAXRefactorAnimationManagerAnimSelection4
 	DEPRECATED_animationAssetId: number?,
 	-- The asset id passed in.  This is an explicit choice by the user: they picked this emote to pose.
 	-- If nil, it means they didn't pick an emote.
@@ -128,6 +126,34 @@ local function reportCounter(actionName: string, success: boolean)
 	local counterName = prefix .. "_" .. actionName .. "_" .. suffix
 
 	RbxAnalyticsService:ReportCounter(counterName)
+end
+
+-- Check for cases where we can quickly/easily resolve pose, with no async complications.
+-- If we find one, return true.
+-- Remove with FFlagAXRefactorAnimationManagerAnimSelection4
+module.DEPRECATED_SetPlayerCharacterPoseEasyOut = function(character: Model, humanoid: Humanoid?): boolean
+	if humanoid then
+		if humanoid.RigType == Enum.HumanoidRigType.R6 then
+			local tool = character:FindFirstChildOfClass("Tool")
+			local torso = character:FindFirstChild("Torso")
+			if torso then
+				local rightShoulder = torso:FindFirstChild("Right Shoulder") :: Motor6D
+				if rightShoulder then
+					if tool then
+						rightShoulder.CurrentAngle = math.rad(90)
+						rightShoulder.DesiredAngle = math.rad(90)
+					else
+						rightShoulder.CurrentAngle = math.rad(0)
+						rightShoulder.DesiredAngle = math.rad(0)
+					end
+				end
+			end
+			return true
+		end
+		return false
+	else
+		return true
+	end
 end
 
 -- animationAssetIdOrUrl identifies the pose asset we want to load.
@@ -527,7 +553,7 @@ local function getMainThumbnailKeyframe(
 			end
 		end
 	else
-		if not FFlagEmoteUtilityTweaks or useFallbackAnimations then
+		if useFallbackAnimations then
 			local keyframeSequenceAssetUrl = module.FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL
 			local animateScript = character:FindFirstChild("Animate")
 			if animateScript then
@@ -671,7 +697,6 @@ end
 	Do the work needed to convert our resource ids/urls describing pose into
 	useful keyframe data we can use to pose the avatar.
 	This may involve several RPCs to fetch resources from backend.
-
 	Returns:
 	-- poseKeyframe: pose based on animationAssetId.
 	-- tool: the tool avatar is holding, if present.  If nil you can ignore suggestedKeyframeFromTool and defaultToolKeyframe
@@ -681,7 +706,7 @@ end
 ]]
 -- FIXME(dbanks)
 -- 2023/07/21
--- Remove with FFlagEmoteUtilityTweaks.
+-- Remove with FFlagAXRefactorAnimationManagerAnimSelection4.
 local function DEPRECATED_doYieldingWorkToLoadPoseInfo(
 	character: Model,
 	animationAssetId: number?,
@@ -994,34 +1019,6 @@ module.AdjustArmOnR6ForTool = function(character: Model)
 	end
 end
 
--- Check for cases where we can quickly/easily resolve pose, with no async complications.
--- If we find one, return true.
--- Remove with FFlagEmoteUtilityTweaks
-module.DEPRECATED_SetPlayerCharacterPoseEasyOut = function(character: Model, humanoid: Humanoid?): boolean
-	if humanoid then
-		if humanoid.RigType == Enum.HumanoidRigType.R6 then
-			local tool = character:FindFirstChildOfClass("Tool")
-			local torso = character:FindFirstChild("Torso")
-			if torso then
-				local rightShoulder = torso:FindFirstChild("Right Shoulder") :: Motor6D
-				if rightShoulder then
-					if tool then
-						rightShoulder.CurrentAngle = math.rad(90)
-						rightShoulder.DesiredAngle = math.rad(90)
-					else
-						rightShoulder.CurrentAngle = math.rad(0)
-						rightShoulder.DesiredAngle = math.rad(0)
-					end
-				end
-			end
-			return true
-		end
-		return false
-	else
-		return true
-	end
-end
-
 -- animationAssetIdOrUrl identifies the pose asset we want to load.
 -- If it's a number, it's an assetId: e.g. 10300116892
 -- If it's a string, it's a url including an asset hash: e.g.
@@ -1032,7 +1029,7 @@ module.SetPlayerCharacterFace = function(
 	animationAssetIdOrUrl: AnimationAssetIdOrUrl?,
 	-- Remove once no one is calling this anymore.
 	-- I believe the only caller is DEPRECATED_AnimationManager.lua.
-	-- So once FFlagAXRefactorAnimationManagerAnimSelection3 is on for good/
+	-- So once FFlagAXRefactorAnimationManagerAnimSelection4 is on for good/
 	-- remove from code, remove this param.
 	DEPRECATED_confirmProceedAfterYield: (AnimationAssetIdOrUrl?) -> boolean
 )
@@ -1059,12 +1056,7 @@ module.SetPlayerCharacterFace = function(
 	end
 
 	-- Get the thumbnails suggested by animationAssetIdOrUrl.
-	local moodKeyframe
-	if FFlagEmoteUtilityTweaks then
-		moodKeyframe = getMoodThumbnailKeyframe(animationAssetIdOrUrl)
-	else
-		moodKeyframe = getMainThumbnailKeyframe(character, animationAssetIdOrUrl, true --[[useRotationInPoseAsset]])
-	end
+	local moodKeyframe = getMoodThumbnailKeyframe(animationAssetIdOrUrl)
 
 	-- If that fails, just quit.  No posing.
 	if not moodKeyframe then
@@ -1094,16 +1086,10 @@ module.SetPlayerCharacterNeutralPose = function(character: Model)
 	end
 	assert(humanoid, "humanoid should be non-nil. Silence type checker.")
 
-	if FFlagEmoteUtilityTweaks then
-		humanoid:BuildRigFromAttachments()
-		-- Don't do anything else unless it's R15.
-		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-			return
-		end
-	end
-
-	if not FFlagEmoteUtilityTweaks then
-		humanoid:BuildRigFromAttachments()
+	humanoid:BuildRigFromAttachments()
+	-- Don't do anything else unless it's R15.
+	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+		return
 	end
 
 	module.ClearPlayerCharacterFace(character)
@@ -1130,7 +1116,7 @@ end
 
 	Remove once no one is calling this anymore.
 	-- I believe the only caller is DEPRECATED_AnimationManager.lua.
-	-- So once FFlagAXRefactorAnimationManagerAnimSelection3 is on for good/
+	-- So once FFlagAXRefactorAnimationManagerAnimSelection4 is on for good/
 	-- remove from code, remove this function.
 ]]
 module.DEPRECATED_LoadKeyframesForPose = function(
@@ -1354,34 +1340,9 @@ module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: Keyf
 
 	-- Apply body pose.
 	local tool = character:FindFirstChildOfClass("Tool")
-	if FFlagEmoteUtilityTweaks then
-		if humanoid.RigType == Enum.HumanoidRigType.R15 then
-			if tool then
-				local originalAnimationAssetId = keyframesForPose.originalAnimationAssetId
-				applyR15KeyframeWithTool(
-					character,
-					humanoid,
-					tool,
-					originalAnimationAssetId,
-					keyframesForPose.poseKeyframe,
-					keyframesForPose.defaultToolKeyframe,
-					keyframesForPose.suggestedKeyframeFromTool
-				)
-			else
-				applyKeyframeInner(character, keyframesForPose.poseKeyframe)
-			end
-		else
-			-- Just move the arm for the tool
-			module.AdjustArmOnR6ForTool(character)
-		end
-	else
+	if humanoid.RigType == Enum.HumanoidRigType.R15 then
 		if tool then
-			local originalAnimationAssetId
-			if FFlagEmoteUtilityTweaks then
-				originalAnimationAssetId = keyframesForPose.originalAnimationAssetId
-			else
-				originalAnimationAssetId = keyframesForPose.DEPRECATED_animationAssetId
-			end
+			local originalAnimationAssetId = keyframesForPose.originalAnimationAssetId
 			applyR15KeyframeWithTool(
 				character,
 				humanoid,
@@ -1394,15 +1355,14 @@ module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: Keyf
 		else
 			applyKeyframeInner(character, keyframesForPose.poseKeyframe)
 		end
+	else
+		-- Just move the arm for the tool
+		module.AdjustArmOnR6ForTool(character)
 	end
 
 	-- Apply face pose.
-	if FFlagEmoteUtilityTweaks then
-		-- No point in even trying for R6, we know it's null.
-		if humanoid.RigType == Enum.HumanoidRigType.R15 then
-			applyKeyframeInner(character, keyframesForPose.moodKeyframe)
-		end
-	else
+	-- No point in even trying for R6, we know it's null.
+	if humanoid.RigType == Enum.HumanoidRigType.R15 then
 		applyKeyframeInner(character, keyframesForPose.moodKeyframe)
 	end
 
@@ -1435,34 +1395,15 @@ module.SetPlayerCharacterPoseWithMoodFallback = function(
 	forCloseup: boolean?
 )
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if FFlagEmoteUtilityTweaks then
-		if not humanoid then
-			return
-		end
-	else
-		if module.DEPRECATED_SetPlayerCharacterPoseEasyOut(character, humanoid) then
-			return
-		end
+	if not humanoid then
+		return
 	end
 
 	-- Humanoid exists.
 	assert(humanoid, "humanoid should be non-nil.  Silence type checker.")
 
-	if not FFlagEmoteUtilityTweaks then
-		-- With FFlagEmoteUtilityTweaks true, loading and applying keyframes does the right thing for R6.
-		if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-			return
-		end
-	end
-
-	local keyframesForPose
-	if FFlagEmoteUtilityTweaks then
-		keyframesForPose =
-			module.LoadKeyframesForPose(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset, forCloseup)
-	else
-		keyframesForPose =
-			module.DEPRECATED_LoadKeyframesForPose(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset)
-	end
+	local keyframesForPose =
+		module.LoadKeyframesForPose(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset, forCloseup)
 
 	module.ApplyKeyframesForPose(character, keyframesForPose)
 end

@@ -81,7 +81,7 @@
     ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[購入できませんでした。課金されていません。もう一度お試しください。]],
     ["IAPExperience.PurchaseError.Title.AlreadySubscribed"] = [[定期購入済み]],
     ["IAPExperience.PurchaseError.Title.CantSubscribe"] = [[定期購入できません]],
-    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[定期購入済みです。]],
+    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[定期購入は「設定」>「定期購入」から管理できます。]],
     ["IAPExperience.PurchaseError.Text.UnavailableSubscription"] = [[現在、これは定期購入できません]],
     ["IAPExperience.PurchaseError.Text.ParentalRestrictionSubscription"] = [[月額利用制限のあるアカウントでは、定期購入をご利用いただけません]],
     ["IAPExperience.PurchaseError.Text.SubscriptionUnsupportedLocale"] = [[現在、この定期購入はお住まいの国ではご利用いただけません]],

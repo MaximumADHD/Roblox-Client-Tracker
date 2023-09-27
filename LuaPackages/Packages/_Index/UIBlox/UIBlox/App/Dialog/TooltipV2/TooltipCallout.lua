@@ -10,7 +10,8 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Types = require(Tooltip.Types)
 local StyledTextLabel = require(App.Text.StyledTextLabel)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
-local PrimarySystemButton = require(App.Button.PrimarySystemButton)
+local Button = require(App.Button.Button)
+local ButtonType = require(App.Button.Enum.ButtonType)
 local StandardButtonSize = require(UIBlox.Core.Button.Enum.StandardButtonSize)
 local KeyLabel = require(App.Menu.KeyLabelV2)
 local getKeyLabelWidth = require(App.Menu.KeyLabelV2.getKeyLabelWidth)
@@ -146,6 +147,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		}
 	elseif props.buttonProps then
 		local buttonProps = LuauPolyfill.Object.assign({}, props.buttonProps, {
+			buttonType = ButtonType.PrimarySystem,
 			standardSize = StandardButtonSize.XSmall,
 			fontStyle = headerFont,
 		})
@@ -158,7 +160,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 			SizeContraint = React.createElement("UISizeConstraint", {
 				MinSize = Vector2.new(0, 28),
 			}),
-			Button = React.createElement(PrimarySystemButton, buttonProps),
+			Button = React.createElement(Button, buttonProps),
 		}
 	end
 

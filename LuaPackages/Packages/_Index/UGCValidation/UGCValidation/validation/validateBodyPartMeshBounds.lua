@@ -62,9 +62,7 @@ local function validateInternal(meshHandle: MeshPart, _validationData: any, isSe
 	local meshScale = meshHandle.Size / meshSize :: Vector3
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
-	if not reasonsAccumulator:updateReasons(validateWrapTargetComparison(meshScale, meshHandle, isServer)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateWrapTargetComparison(meshScale, meshHandle, isServer))
 	return reasonsAccumulator:getFinalResults()
 end
 
@@ -84,9 +82,7 @@ local function validateBodyPartMeshBounds(
 		local meshHandle: MeshPart? = inst:FindFirstChild(subPartName) :: MeshPart
 		assert(meshHandle) -- expected parts have been checked for existance before calling this function
 
-		if not reasonsAccumulator:updateReasons(validateInternal(meshHandle :: MeshPart, validationData, isServer)) then
-			return reasonsAccumulator:getFinalResults()
-		end
+		reasonsAccumulator:updateReasons(validateInternal(meshHandle :: MeshPart, validationData, isServer))
 	end
 	return reasonsAccumulator:getFinalResults()
 end

@@ -26,22 +26,14 @@ local function validateSurfaceAppearances(instance: Instance): (boolean, { strin
 
 		if meshPartHasTexture then
 			if surfaceAppearance then
-				if
-					not reasonsAccumulator:updateReasons(false, {
-						`SurfaceAppearance's parent ({(descendant :: Instance):GetFullName()}) must have an empty TextureID`,
-					})
-				then
-					return reasonsAccumulator:getFinalResults()
-				end
+				reasonsAccumulator:updateReasons(false, {
+					`SurfaceAppearance's parent ({(descendant :: Instance):GetFullName()}) must have an empty TextureID`,
+				})
 			end
 		elseif not surfaceAppearance then
-			if
-				not reasonsAccumulator:updateReasons(false, {
-					`({(descendant :: Instance):GetFullName()}) has an empty TextureID, so must have a child SurfaceAppearance`,
-				})
-			then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(false, {
+				`({(descendant :: Instance):GetFullName()}) has an empty TextureID, so must have a child SurfaceAppearance`,
+			})
 		end
 	end
 	return reasonsAccumulator:getFinalResults()

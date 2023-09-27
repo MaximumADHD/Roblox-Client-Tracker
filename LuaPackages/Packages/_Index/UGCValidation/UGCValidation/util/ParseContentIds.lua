@@ -123,13 +123,9 @@ local function parseWithErrorCheckInternal(contentIds, contentIdMap, allResults,
 			local requiredFieldsForClassType = requiredFields and requiredFields[descendant.ClassName]
 			for __, field in ipairs(contentIdFields) do
 				local isRequired = requiredFieldsForClassType and requiredFieldsForClassType[field]
-				if
-					not reasonsAccumulator:updateReasons(
-						parseContentId(contentIds, contentIdMap, allResults, descendant, field, isRequired)
-					)
-				then
-					return reasonsAccumulator:getFinalResults()
-				end
+				reasonsAccumulator:updateReasons(
+					parseContentId(contentIds, contentIdMap, allResults, descendant, field, isRequired)
+				)
 			end
 		end
 	end

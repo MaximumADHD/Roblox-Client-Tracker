@@ -81,7 +81,7 @@
     ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[구매를 완료하지 못했기 때문에 비용이 청구되지 않았습니다. 다시 시도하세요.]],
     ["IAPExperience.PurchaseError.Title.AlreadySubscribed"] = [[이미 구독 중]],
     ["IAPExperience.PurchaseError.Title.CantSubscribe"] = [[구독할 수 없습니다]],
-    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[이미 구독 중입니다.]],
+    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [['설정' > '구독'에서 구독을 관리할 수 있습니다.]],
     ["IAPExperience.PurchaseError.Text.UnavailableSubscription"] = [[현재 이 구독을 진행할 수 없습니다]],
     ["IAPExperience.PurchaseError.Text.ParentalRestrictionSubscription"] = [[월간 결제 한도가 있는 계정으로는 구독을 진행할 수 없습니다]],
     ["IAPExperience.PurchaseError.Text.SubscriptionUnsupportedLocale"] = [[현재 회원님의 국가에서는 이 구독을 진행할 수 없습니다]],

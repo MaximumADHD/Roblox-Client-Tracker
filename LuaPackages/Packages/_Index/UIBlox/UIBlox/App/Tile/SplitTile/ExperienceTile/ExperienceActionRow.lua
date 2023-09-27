@@ -7,7 +7,8 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 
-local PrimaryContextualButton = require(App.Button.PrimaryContextualButton)
+local Button = require(App.Button.Button)
+local ButtonType = require(App.Button.Enum.ButtonType)
 local Images = require(App.ImageSet.Images)
 
 local BUTTON_HEIGHT = 36
@@ -47,7 +48,8 @@ local function ExperienceActionRow(props: Props)
 		icon = if isActionable then Images[PLAY_ICON] else Images[UNAVAILABLE_ICON]
 	end
 
-	return React.createElement(PrimaryContextualButton, {
+	return React.createElement(Button, {
+		buttonType = ButtonType.PrimaryContextual,
 		text = text,
 		icon = icon,
 		size = UDim2.new(1, -2 * horizontalPadding, 0, height - 2 * verticalPadding),

@@ -4,6 +4,8 @@ local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 
+local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
+
 local validateMeshPartBodyPart = require(root.validation.validateMeshPartBodyPart)
 local validateTags = require(root.validation.validateTags)
 local validateProperties = require(root.validation.validateProperties)
@@ -48,21 +50,16 @@ local function compareFolderInfo(fromFolder: any, toFolder: any): (boolean, { st
 
 	for key, val in fromFolder do
 		if nil == toFolder[key] or toFolder[key] ~= val then
-			if
-				not reasonsAccumulator:updateReasons(false, {
-					`{key} has a different value in different folders`,
-				})
-			then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(false, { `{key} has a different value in different folders` })
 		end
 	end
 	return reasonsAccumulator:getFinalResults()
 end
 
-local R15ArtistIntentFolderName = "R15ArtistIntent"
-local R15FixedFolderName = "R15Fixed"
-local R6FolderName = "R6"
+-- Remove with FFlagMoveToolboxCodeToUGCValidation
+local DEPRECATED_R15ArtistIntentFolderName = "R15ArtistIntent"
+local DEPRECATED_R15FixedFolderName = "R15Fixed"
+local DEPRECATED_R6FolderName = "R6"
 
 local function validateFolderAssetIdsMatch(
 	allSelectedInstances: { Instance },
@@ -76,7 +73,10 @@ local function validateFolderAssetIdsMatch(
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, folderName in requiredTopLevelFolders do
-		if folderName == R6FolderName then
+		if
+			folderName
+			== (if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName)
+		then
 			continue
 		end
 
@@ -100,12 +100,8 @@ local function validateFolderAssetIdsMatch(
 			continue
 		end
 
-		if not reasonsAccumulator:updateReasons(compareFolderInfo(prevFolderInfo, folderInfo)) then
-			return reasonsAccumulator:getFinalResults()
-		end
-		if not reasonsAccumulator:updateReasons(compareFolderInfo(folderInfo, prevFolderInfo)) then
-			return reasonsAccumulator:getFinalResults()
-		end
+		reasonsAccumulator:updateReasons(compareFolderInfo(prevFolderInfo, folderInfo))
+		reasonsAccumulator:updateReasons(compareFolderInfo(folderInfo, prevFolderInfo))
 	end
 	return reasonsAccumulator:getFinalResults()
 end
@@ -114,22 +110,17 @@ local function validateR6Folder(inst: Instance)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	if #(inst:GetChildren()) > 0 then
-		if not reasonsAccumulator:updateReasons(false, { `{R6FolderName} Folder should have no children!` }) then
-			return reasonsAccumulator:getFinalResults()
-		end
+		reasonsAccumulator:updateReasons(false, {
+			`{if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName} Folder should have no children!`,
+		})
 	end
 
-	if not reasonsAccumulator:updateReasons(validateTags(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateTags(inst))
 
-	if not reasonsAccumulator:updateReasons(validateProperties(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateProperties(inst))
 
-	if not reasonsAccumulator:updateReasons(validateAttributes(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateAttributes(inst))
+
 	return reasonsAccumulator:getFinalResults()
 end
 
@@ -141,12 +132,22 @@ local function validateLimbsAndTorso(
 	restrictedUserIds: Types.RestrictedUserIds
 ): (boolean, { string }?)
 	local requiredTopLevelFolders: { string } = {
-		R15ArtistIntentFolderName,
+		if getFFlagMoveToolboxCodeToUGCValidation()
+			then Constants.FOLDER_NAMES.R15ArtistIntent
+			else DEPRECATED_R15ArtistIntentFolderName,
 	}
 	if isServer then
 		-- in Studio these folders are automatically added just before upload
-		table.insert(requiredTopLevelFolders, R15FixedFolderName)
-		table.insert(requiredTopLevelFolders, R6FolderName)
+		table.insert(
+			requiredTopLevelFolders,
+			if getFFlagMoveToolboxCodeToUGCValidation()
+				then Constants.FOLDER_NAMES.R15Fixed
+				else DEPRECATED_R15FixedFolderName
+		)
+		table.insert(
+			requiredTopLevelFolders,
+			if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName
+		)
 	end
 
 	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
@@ -159,7 +160,10 @@ local function validateLimbsAndTorso(
 		local result
 		local reasons
 
-		if folderName == R6FolderName then
+		if
+			folderName
+			== (if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName)
+		then
 			result, reasons = validateR6Folder(inst)
 		else
 			result, reasons = validateMeshPartBodyPart(

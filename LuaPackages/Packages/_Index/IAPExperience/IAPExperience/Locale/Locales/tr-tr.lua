@@ -6,8 +6,9 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
+    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[Aboneliklerini Ayarlar > Abonelikler'den yönetebilirsin.]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Robux alınıyor...]],
-    ["IAPExperience.Loading.Text.PurchasingItem"] = [[Eşya satın alınıyor...]],
+    ["IAPExperience.Loading.Text.PurchasingItem"] = [[Öğe satın alınıyor...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[Satın alma için bekleniyor...]],
     ["IAPExperience.Loading.WaitingForRobux"] = [[Robux'un verilmesini bekliyorum...]],
     ["IAPExperience.Loading.Text.WaitingForPurchase"] = [[Satın alma için bekleniyor...]],

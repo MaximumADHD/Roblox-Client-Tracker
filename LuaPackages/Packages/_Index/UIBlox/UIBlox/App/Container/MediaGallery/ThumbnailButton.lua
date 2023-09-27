@@ -17,7 +17,8 @@ local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
-local PrimaryContextualButton = require(App.Button.PrimaryContextualButton)
+local Button = require(App.Button.Button)
+local ButtonType = require(App.Button.Enum.ButtonType)
 local LoadableImage = require(App.Loading.LoadableImage)
 
 local IMAGE_UNAVAILABLE = "icons/imageUnavailable"
@@ -126,7 +127,8 @@ function ThumbnailButton:renderButton()
 				ZIndex = -1,
 			}),
 			PlayButton = if isVideo
-				then Roact.createElement(PrimaryContextualButton, {
+				then Roact.createElement(Button, {
+					buttonType = ButtonType.PrimaryContextual,
 					size = buttonSize,
 					anchorPoint = Vector2.new(0.5, 0.5),
 					position = UDim2.fromScale(0.5, 0.5),

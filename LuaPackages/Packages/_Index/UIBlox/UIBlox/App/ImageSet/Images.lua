@@ -1,7 +1,11 @@
 -- This file just provides a convenient interface to query for images
-local GetImageSetData = require(script.Parent.GetImageSetData)
-local FALLBACK_IMAGES = require(script.Parent.FallbackImages)
-local ImagesTypes = require(script.Parent.ImagesTypes)
+local ImageSet = script.Parent
+local GetImageSetData = require(ImageSet.GetImageSetData)
+local FALLBACK_IMAGES = require(ImageSet.FallbackImages)
+local ImagesTypes = require(ImageSet.ImagesTypes)
+
+local UIBlox = ImageSet.Parent.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local GuiService = game:GetService("GuiService")
 
@@ -10,6 +14,12 @@ local success, scale = pcall(GuiService.GetResolutionScale, GuiService)
 
 if not success or not CorePackages then
 	scale = 1
+end
+
+-- Both this and the resolution scale should probably be provided to UIBlox via some
+-- prop or context, maybe even token, rather than us calling GuiService directly.
+if UIBloxConfig.increaseImageResolutionForTenFoot and GuiService:IsTenFootInterface() then
+	scale = 3
 end
 
 local sourceData

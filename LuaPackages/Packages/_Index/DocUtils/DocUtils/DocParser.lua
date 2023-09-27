@@ -33,6 +33,9 @@ local Types = require(script.Parent.Types)
 local FileUtils = require(script.Parent.FileUtils)
 local PropParser = require(script.Parent.PropParser)
 
+local Packages = script.Parent.Parent
+local Cryo = require(Packages.Cryo)
+
 local DocParser = {}
 DocParser.__index = DocParser
 
@@ -58,7 +61,7 @@ function DocParser.new(component: string, file: ModuleScript)
 	local componentName = file.Name:match("(%w+)%.story")
 	local isStory = componentName ~= nil
 	if not isStory then
-		print("📖 " .. file.Name .. " is not a story, treating as a component instead")
+		-- print("📖 " .. file.Name .. " is not a story, treating as a component instead")
 		componentName = file.Name
 	end
 
@@ -114,6 +117,7 @@ end
 -- Using a component's defined props / interface, generate documentation for the component.
 local tableVarContentsPattern = "%s+=%s+%{\n(.-)\n%}"
 local tInterfacePattern = "t%.s?t?r?i?c?t?[iI]nterface"
+local componentPattern = "R[oe]act%.createElement%(%s*([%w%.]+)%s*,"
 function DocParser:parse()
 	local result = {
 		Props = nil :: { Types.Prop }?,
@@ -130,12 +134,12 @@ function DocParser:parse()
 
 	local propsPattern, defaultPropsPattern
 	if string.find(source, tInterfacePattern) then
-		-- Warn files with t. style typing
-		warn(
-			"🦖 Props for files with t.interface style typing are not recommended. Update "
-				.. script.Name
-				.. ".lua to use Luau types 🌼🌸🌺"
-		)
+		-- Warn files with t. style typing (commented out becuase it's not useful right now)
+		-- warn(
+		-- 	"🦖 Props for files with t.interface style typing are not recommended. Update "
+		-- 		.. script.Name
+		-- 		.. ".lua to use Luau types 🌼🌸🌺"
+		-- )
 
 		propsPattern = ".validateProps%s+=%s+" .. tInterfacePattern .. "%(%{\n(.-)\n%}%)"
 		defaultPropsPattern = script.Name .. "%.defaultProps" .. tableVarContentsPattern
@@ -163,10 +167,17 @@ function DocParser:parse()
 
 	if not result.Typechecking or not props then
 		print("💔 Couldn't find props for " .. script.Name)
-		return result
+	else
+		result.Props = PropParser.parseProps(result.Typechecking, props, defaultProps)
 	end
 
-	result.Props = PropParser.parseProps(result.Typechecking, props, defaultProps)
+	local components = {}
+	for component in string.gmatch(source, componentPattern) do
+		components[component] = true
+	end
+
+	result.Components = Cryo.Dictionary.keys(components)
+
 	return result
 end
 

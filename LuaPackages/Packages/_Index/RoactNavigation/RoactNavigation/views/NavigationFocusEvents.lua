@@ -125,7 +125,7 @@ function NavigationEventManager:_handleWillFocus(args)
 			then Array.findIndex(lastState.routes, function(r)
 				return r.key == route.key
 			end)
-			else {}
+			else -1
 		if nextLastStateIndex > 0 then
 			nextLastState = lastState.routes[nextLastStateIndex]
 		end
@@ -155,7 +155,7 @@ function NavigationEventManager:_handleWillBlur(args)
 			then Array.findIndex(lastState.routes, function(r)
 				return r.key == route.key
 			end)
-			else {}
+			else -1
 		if nextLastStateIndex > 0 then
 			nextLastState = lastState.routes[nextLastStateIndex]
 		end
@@ -183,7 +183,7 @@ function NavigationEventManager:_handleDidFocus(args)
 			return r.key == self._lastWillFocusKey
 		end)
 
-		if routeIndex then
+		if routeIndex > 0 then
 			local route = navigation.state.routes[routeIndex]
 
 			local nextLastState = nil
@@ -192,7 +192,7 @@ function NavigationEventManager:_handleDidFocus(args)
 					then Array.findIndex(lastState.routes, function(r)
 						return r.key == route.key
 					end)
-					else {}
+					else -1
 				if nextLastStateIndex > 0 then
 					nextLastState = lastState.routes[nextLastStateIndex]
 				end
@@ -231,8 +231,8 @@ function NavigationEventManager:_handleDidBlur(args)
 					then Array.findIndex(lastState.routes, function(r)
 						return r.key == route.key
 					end)
-					else {}
-				if nextLastStateIndex then
+					else -1
+				if nextLastStateIndex > 0 then
 					nextLastState = lastState.routes[nextLastStateIndex]
 				end
 			end

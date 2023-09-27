@@ -8,13 +8,6 @@ local function validateFullBodyCageDeletion(
 	meshType: string,
 	isServer: boolean?
 ): (boolean, { string }?)
-	if not game:GetFastFlag("UGCReturnAllValidations") then
-		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
-		if meshId == "" then
-			return false, { "Cage must contain valid MeshId for FullBodyCageDeletion check." }
-		end
-	end
-
 	local success, result = pcall(function()
 		return UGCValidationService:ValidateFullBodyCageDeletion(meshId)
 	end)

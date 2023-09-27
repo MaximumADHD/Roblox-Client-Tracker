@@ -32,6 +32,7 @@
     ["IAPExperience.PurchaseSuccess.Action.Equip"] = [[Trang bị hình đại diện của tôi]],
     ["IAPExperience.PurchaseSuccess.Action.BackToShop"] = [[Quay lại Cửa hàng]],
     ["IAPExperience.PurchaseSuccess.Text.BalanceNow"] = [[Số dư của bạn bây giờ {robux}.]],
+    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[Bạn có thể quản lý đăng ký của mình từ Cài đặt > Đăng ký.]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Mua Robux...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[Đang mua vật phẩm...]],
     ["IAPExperience.Loading.WaitingForPurchase"] = [[Đang chờ mua...]],

@@ -12,7 +12,6 @@
 		getImportPath(story, "IconButton") -> "App.Button.IconButton"
 ]]
 
-local Types = require(script.Parent.Types)
 local FileUtils = {}
 
 local REQUIRE_SUFFIX = "!require"

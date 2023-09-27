@@ -25,6 +25,7 @@ local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local StandardButtonSize = require(Button.Enum.StandardButtonSize)
 
@@ -80,7 +81,7 @@ GenericButton.validateProps = t.interface({
 	buttonImage = validateImage,
 
 	--The font style for the button text
-	fontStyle = t.optional(t.union(t.string, validateFontInfo)),
+	fontStyle = t.optional(t.union(t.string, validateFontInfo, validateTypographyInfo)),
 
 	--The image used to indicate a loading bar for when isDelayedInput is set
 	delayedInputImage = t.optional(validateImage),

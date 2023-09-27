@@ -1,13 +1,6 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local function validateUVSpace(meshId: string): (boolean, { string }?)
-	if not game:GetFastFlag("UGCReturnAllValidations") then
-		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
-		if meshId == "" then
-			return false, { "Mesh must contain valid MeshId" }
-		end
-	end
-
 	local success, result = pcall(function()
 		return UGCValidationService:ValidateUVSpace(meshId)
 	end)

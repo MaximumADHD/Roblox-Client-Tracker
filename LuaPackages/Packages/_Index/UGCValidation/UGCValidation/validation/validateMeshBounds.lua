@@ -34,13 +34,6 @@ local function validateMeshBounds(
 	name: string,
 	isServer: boolean?
 ): (boolean, { string }?)
-	if not game:GetFastFlag("UGCReturnAllValidations") then
-		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
-		if meshId == "" then
-			return false, { "Mesh must contain valid MeshId" }
-		end
-	end
-
 	local boundsSize = boundsInfo.size
 	local boundsOffset = boundsInfo.offset or DEFAULT_OFFSET
 	local boundsCF = handle.CFrame * attachment.CFrame * CFrame.new(boundsOffset)

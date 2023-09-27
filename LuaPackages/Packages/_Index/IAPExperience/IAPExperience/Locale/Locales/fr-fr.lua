@@ -81,7 +81,7 @@
     ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[Ton achat a échoué et tu n'as pas été débité. Réessayer.]],
     ["IAPExperience.PurchaseError.Title.AlreadySubscribed"] = [[Déjà abonné]],
     ["IAPExperience.PurchaseError.Title.CantSubscribe"] = [[Impossible de s'abonner]],
-    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[Tu es déjà abonné (e).]],
+    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[Vous pouvez gérer votre abonnement à partir de Paramètres > Abonnement.]],
     ["IAPExperience.PurchaseError.Text.UnavailableSubscription"] = [[Cet abonnement ne peut pas être acheté pour le moment]],
     ["IAPExperience.PurchaseError.Text.ParentalRestrictionSubscription"] = [[Les abonnements ne sont pas disponibles pour les comptes avec des restrictions mensuelles de dépenses]],
     ["IAPExperience.PurchaseError.Text.SubscriptionUnsupportedLocale"] = [[Cet abonnement n'est pas disponible dans ton pays en ce moment]],

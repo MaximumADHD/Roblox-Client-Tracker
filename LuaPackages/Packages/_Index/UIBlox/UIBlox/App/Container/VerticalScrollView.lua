@@ -219,6 +219,8 @@ function VerticalScrollView:getScrollBarStyleProps(style, scrollBarType)
 			userInteractionEnabled = true,
 			width = tokens.Global.Size_200,
 			handleWidth = tokens.Global.Size_100,
+			paddingStartEnd = tokens.Global.Space_50,
+			marginRight = 0,
 		}
 	elseif scrollBarType == ScrollBarType.Gamepad then
 		return {
@@ -231,6 +233,8 @@ function VerticalScrollView:getScrollBarStyleProps(style, scrollBarType)
 				Color = tokens.Semantic.Color.Icon.Emphasis.Color3,
 				Transparency = tokens.Semantic.Color.Icon.Emphasis.Transparency,
 			},
+			paddingStartEnd = tokens.Global.Space_300,
+			marginRight = tokens.Global.Space_300,
 		}
 	end
 
@@ -239,6 +243,8 @@ function VerticalScrollView:getScrollBarStyleProps(style, scrollBarType)
 		userInteractionEnabled = false,
 		width = tokens.Global.Space_150,
 		handleWidth = tokens.Global.Size_25,
+		paddingStartEnd = tokens.Global.Space_50,
+		marginRight = 0,
 	}
 end
 
@@ -252,12 +258,15 @@ function VerticalScrollView:renderScrollBar(style)
 		userInteractionEnabled = styleProps.userInteractionEnabled,
 		width = styleProps.width,
 		anchorPoint = Vector2.new(1, 0),
-		position = UDim2.fromScale(1, 0),
+		position = if UIBloxConfig.fixScrollBarLayout10ft
+			then UDim2.new(1, -styleProps.marginRight, 0, 0)
+			else UDim2.fromScale(1, 0),
 		zIndex = 2,
 		transparency = self.scrollBarImageTransparency,
 		backgroundColor = styleProps.backgroundColor,
-		paddingStartEnd = tokens.Global.Space_50,
-
+		paddingStartEnd = if UIBloxConfig.fixScrollBarLayout10ft
+			then styleProps.paddingStartEnd
+			else tokens.Global.Space_50,
 		handleWidth = styleProps.handleWidth,
 		handleColor = {
 			Color = tokens.Semantic.Color.Ui.Emphasis.Color3,

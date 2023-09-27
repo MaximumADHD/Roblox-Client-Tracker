@@ -1,6 +1,6 @@
 --!nonstrict
-local Button = script.Parent
-local App = Button.Parent
+local ButtonRoot = script.Parent
+local App = ButtonRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
@@ -12,17 +12,15 @@ local t = require(Packages.t)
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 
-local PrimaryContextualButton = require(Button.PrimaryContextualButton)
-local PrimarySystemButton = require(Button.PrimarySystemButton)
-local SecondaryButton = require(Button.SecondaryButton)
-local IconButton = require(Button.IconButton)
-local TextButton = require(Button.TextButton)
+local Button = require(ButtonRoot.Button)
+local IconButton = require(ButtonRoot.IconButton)
+local TextButton = require(ButtonRoot.TextButton)
+local ButtonType = require(ButtonRoot.Enum.ButtonType)
+
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getPageMargin = require(App.Container.getPageMargin)
-local validateButtonProps = require(Button.Button).validateProps
-local StyleConstants = require(UIBlox.App.Style.Constants)
-local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
+local StyleConstants = require(App.Style.Constants)
 
 local ActionBar = Roact.PureComponent:extend("ActionBar")
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
@@ -32,11 +30,6 @@ local EnableActionBarTokens = UIBloxConfig.enableActionBarTokens
 local BUTTON_PADDING = 12
 local BUTTON_HEIGHT = 48
 local ICON_SIZE = 36
-local BUTTON_TYPE_ENUMS = {
-	[ButtonType.Secondary] = SecondaryButton,
-	[ButtonType.PrimaryContextual] = PrimaryContextualButton,
-	[ButtonType.PrimarySystem] = PrimarySystemButton,
-}
 
 function ActionBar:init()
 	self.buttonRefs = RoactGamepad.createRefCache()
@@ -73,7 +66,7 @@ ActionBar.validateProps = t.strictInterface({
 	-- buttons: A table of button tables that contain props that PrimaryContextualButton allow.
 	-- See [Button](Button.md) for more information.
 	button = t.optional(t.strictInterface({
-		props = validateButtonProps,
+		props = Button.validateProps,
 	})),
 
 	-- height of the icon wrapper
@@ -267,17 +260,17 @@ function ActionBar:render()
 				},
 			}
 
-			local buttonComponent = if iconNumber == 0 then PrimarySystemButton else PrimaryContextualButton
-
-			if buttonProps.buttonType then
-				buttonComponent = BUTTON_TYPE_ENUMS[buttonProps.buttonType]
+			if buttonProps.buttonType == nil then
+				buttonProps.buttonType = if iconNumber == 0
+					then ButtonType.PrimarySystem
+					else ButtonType.PrimaryContextual
 			end
 
 			table.insert(
 				buttonTable,
 				isButtonAtStart and 1 or buttonRefNumber,
 				Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-					Icon = Roact.createElement(buttonComponent, buttonProps),
+					Icon = Roact.createElement(Button, buttonProps),
 				})
 			)
 		end

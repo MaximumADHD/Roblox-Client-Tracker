@@ -1,13 +1,6 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local function validateMisMatchUV(innerCageMeshId: string, outerCageMeshId: string): (boolean, { string }?)
-	if not game:GetFastFlag("UGCReturnAllValidations") then
-		-- we have checked inner/outer cage id in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
-		if innerCageMeshId == "" or outerCageMeshId == "" then
-			return false, { "Cage must contain valid MeshId" }
-		end
-	end
-
 	local success, result = pcall(function()
 		return UGCValidationService:ValidateMisMatchUV(innerCageMeshId, outerCageMeshId)
 	end)

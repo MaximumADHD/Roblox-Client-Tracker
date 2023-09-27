@@ -44,25 +44,17 @@ local function checkAll(meshHandle: MeshPart, _isServer: boolean, partData: any)
 		meshHandle:FindFirstChild(partData.rigAttachmentToParent.name) :: Attachment
 	assert(rigAttachmentToParent)
 
-	if
-		not reasonsAccumulator:updateReasons(
-			validateInMeshSpace(rigAttachmentToParent :: Attachment, meshHandle, partData.rigAttachmentToParent.bounds)
-		)
-	then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(
+		validateInMeshSpace(rigAttachmentToParent :: Attachment, meshHandle, partData.rigAttachmentToParent.bounds)
+	)
 
 	for childAttachmentName, childAttachmentInfo in pairs(partData.otherAttachments) do
 		local childAttachment: Attachment? = meshHandle:FindFirstChild(childAttachmentName) :: Attachment
 		assert(childAttachment)
 
-		if
-			not reasonsAccumulator:updateReasons(
-				validateInMeshSpace(childAttachment :: Attachment, meshHandle, childAttachmentInfo.bounds)
-			)
-		then
-			return reasonsAccumulator:getFinalResults()
-		end
+		reasonsAccumulator:updateReasons(
+			validateInMeshSpace(childAttachment :: Attachment, meshHandle, childAttachmentInfo.bounds)
+		)
 	end
 	return reasonsAccumulator:getFinalResults()
 end
@@ -78,14 +70,10 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 
 		local x, y, z = desc.CFrame:ToOrientation()
 		if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
-			if
-				not reasonsAccumulator:updateReasons(
-					false,
-					{ `RigAttachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
-				)
-			then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(
+				false,
+				{ `RigAttachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
+			)
 		end
 	end
 
@@ -102,22 +90,16 @@ local function validateBodyPartChildAttachmentBounds(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if not reasonsAccumulator:updateReasons(validateAttachmentRotation(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateAttachmentRotation(inst))
 
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		if not reasonsAccumulator:updateReasons(checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head)) then
-			return reasonsAccumulator:getFinalResults()
-		end
+		reasonsAccumulator:updateReasons(checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head))
 	else
 		for subPartName, partData in pairs(assetInfo.subParts) do
 			local meshHandle: MeshPart? = (inst:FindFirstChild(subPartName) :: MeshPart)
 			assert(meshHandle)
 
-			if not reasonsAccumulator:updateReasons(checkAll(meshHandle :: MeshPart, isServer, partData)) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(checkAll(meshHandle :: MeshPart, isServer, partData))
 		end
 	end
 	return reasonsAccumulator:getFinalResults()

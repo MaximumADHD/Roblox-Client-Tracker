@@ -135,9 +135,7 @@ local function validateDescendantMeshMetrics(
 
 	local allMeshes = ParseContentIds.parse(rootInstance, Constants.MESH_CONTENT_ID_FIELDS)
 
-	if not reasonsAccumulator:updateReasons(validateTotalAssetTriangles(allMeshes, assetTypeEnum, isServer)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateTotalAssetTriangles(allMeshes, assetTypeEnum, isServer))
 
 	for _, data in allMeshes do
 		local errorString = string.format("%s.%s ( %s )", data.instance:GetFullName(), data.fieldName, data.id)
@@ -145,83 +143,41 @@ local function validateDescendantMeshMetrics(
 		if data.instance.ClassName == "MeshPart" then
 			assert(data.fieldName == "MeshId")
 
-			if not reasonsAccumulator:updateReasons(validateMeshIsAtOrigin(data.instance :: MeshPart, isServer)) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(validateMeshIsAtOrigin(data.instance :: MeshPart, isServer))
 
-			if
-				not reasonsAccumulator:updateReasons(
-					validateMeshVertColors(data.instance[data.fieldName], true, isServer)
-				)
-			then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(validateMeshVertColors(data.instance[data.fieldName], true, isServer))
 
-			if not reasonsAccumulator:updateReasons(validateIsSkinned(data.instance :: MeshPart, isServer)) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(validateIsSkinned(data.instance :: MeshPart, isServer))
 
-			if
-				getFFlagUGCValidateMeshTriangleAreaForMeshes()
-				and not reasonsAccumulator:updateReasons(
-					validateMeshTriangleArea(data.instance, data.fieldName, isServer)
-				)
-			then
-				return reasonsAccumulator:getFinalResults()
+			if getFFlagUGCValidateMeshTriangleAreaForMeshes() then
+				reasonsAccumulator:updateReasons(validateMeshTriangleArea(data.instance, data.fieldName, isServer))
 			end
 		elseif data.instance.ClassName == "WrapTarget" then
 			assert(data.fieldName == "CageMeshId")
 
 			if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-				if
-					not reasonsAccumulator:updateReasons(
-						validateFullBodyCageDeletion(data.instance[data.fieldName], errorString, isServer)
-					)
-				then
-					return reasonsAccumulator:getFinalResults()
-				end
+				reasonsAccumulator:updateReasons(
+					validateFullBodyCageDeletion(data.instance[data.fieldName], errorString, isServer)
+				)
 			end
 
-			if
-				not reasonsAccumulator:updateReasons(
-					validateCageUVs(
-						data.instance[data.fieldName],
-						data.instance :: WrapTarget,
-						data.fieldName,
-						isServer
-					)
-				)
-			then
-				return reasonsAccumulator:getFinalResults()
+			reasonsAccumulator:updateReasons(
+				validateCageUVs(data.instance[data.fieldName], data.instance :: WrapTarget, data.fieldName, isServer)
+			)
+
+			if getFFlagUGCValidateCageUVTriangleArea() then
+				reasonsAccumulator:updateReasons(validateCageUVTriangleArea(data.instance, data.fieldName, isServer))
 			end
 
-			if
-				getFFlagUGCValidateCageUVTriangleArea()
-				and not reasonsAccumulator:updateReasons(
-					validateCageUVTriangleArea(data.instance, data.fieldName, isServer)
-				)
-			then
-				return reasonsAccumulator:getFinalResults()
-			end
-
-			if
-				getFFlagUGCValidateMeshTriangleAreaForCages()
-				and not reasonsAccumulator:updateReasons(
-					validateMeshTriangleArea(data.instance, data.fieldName, isServer)
-				)
-			then
-				return reasonsAccumulator:getFinalResults()
+			if getFFlagUGCValidateMeshTriangleAreaForCages() then
+				reasonsAccumulator:updateReasons(validateMeshTriangleArea(data.instance, data.fieldName, isServer))
 			end
 		end
 
 		if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-			if
-				not reasonsAccumulator:updateReasons(
-					validateOverlappingVertices(data.instance[data.fieldName], errorString, isServer)
-				)
-			then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(
+				validateOverlappingVertices(data.instance[data.fieldName], errorString, isServer)
+			)
 		end
 	end
 

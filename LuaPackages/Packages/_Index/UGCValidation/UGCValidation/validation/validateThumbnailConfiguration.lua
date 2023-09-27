@@ -1,8 +1,8 @@
 --!nonstrict
 
 local UGCValidationService = game:GetService("UGCValidationService")
-local FFlagUGCValidationAddThumbnailFrustumChecking =
-	game:DefineFastFlag("UGCValidationAddThumbnailFrustumChecking", false)
+local FFlagUGCValidationAddThumbnailFrustumCheckingv2 =
+	game:DefineFastFlag("UGCValidationAddThumbnailFrustumCheckingv2", false)
 -- validates that if ThumbnailConfiguration exists, ThumbnailConfiguration.ThumbnailCameraTarget.Value is set to the handle
 
 local function validateThumbnailConfiguration(
@@ -20,7 +20,10 @@ local function validateThumbnailConfiguration(
 			return false, { string.format("ThumbnailCameraTarget.Value must be %s", handle:GetFullName()) }
 		end
 		-- check the frustum of the camera when taking snapshots now
-		if FFlagUGCValidationAddThumbnailFrustumChecking then
+		if
+			game:GetEngineFeature("EngineUGCValidateThumbnailerMeshInFrustum")
+			and FFlagUGCValidationAddThumbnailFrustumCheckingv2
+		then
 			local target = thumbnailCameraTarget.Value :: BasePart
 			local handleCF = target.CFrame
 			local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue") :: CFrameValue

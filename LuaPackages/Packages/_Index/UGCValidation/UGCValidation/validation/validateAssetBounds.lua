@@ -6,10 +6,13 @@
 
 local root = script.Parent.Parent
 
+local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
+local getFFlagUGCValidateMinBoundsOnlyMesh = require(root.flags.getFFlagUGCValidateMinBoundsOnlyMesh)
+
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
-
+local Types = require(root.util.Types)
 local calculateMinMax = require(root.util.calculateMinMax)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -63,6 +66,21 @@ local assetHierarchy = {
 				},
 			},
 		},
+	},
+}
+
+local fullBody = {
+	root = "LowerTorso",
+	children = {
+		UpperTorso = {
+			children = {
+				Head = assetHierarchy[Enum.AssetType.DynamicHead],
+				LeftUpperArm = assetHierarchy[Enum.AssetType.LeftArm],
+				RightUpperArm = assetHierarchy[Enum.AssetType.RightArm],
+			},
+		},
+		LeftUpperLeg = assetHierarchy[Enum.AssetType.LeftLeg],
+		RightUpperLeg = assetHierarchy[Enum.AssetType.RightLeg],
 	},
 }
 
@@ -126,7 +144,8 @@ local function calculateBounds(singleAsset: Enum.AssetType?, part: MeshPart, cfr
 end
 
 local function traverseHierarchy(
-	folder: Folder,
+	fullBodyAssets: Types.AllBodyParts?,
+	folder: Folder?,
 	singleAsset: Enum.AssetType?,
 	parentName: string?,
 	parentCFrame: CFrame,
@@ -134,12 +153,27 @@ local function traverseHierarchy(
 	details: any,
 	minMaxBounds: BoundsData
 )
-	local meshHandle: MeshPart? = folder:FindFirstChild(name) :: MeshPart
+	if getFFlagUGCValidateFullBody() then
+		local isSingleInstance = folder and singleAsset
+		assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
+	end
+
+	local meshHandle: MeshPart?
+	if getFFlagUGCValidateFullBody() and fullBodyAssets then
+		meshHandle = (fullBodyAssets :: Types.AllBodyParts)[name] :: MeshPart
+	else
+		meshHandle = (folder :: Folder):FindFirstChild(name) :: MeshPart
+	end
 	assert(meshHandle) -- expected parts have been checked for existance before calling this function
 
 	local cframe = parentCFrame
 	if parentName then
-		local parentMeshHandle: MeshPart? = folder:FindFirstChild(parentName) :: MeshPart
+		local parentMeshHandle: MeshPart?
+		if getFFlagUGCValidateFullBody() and fullBodyAssets then
+			parentMeshHandle = (fullBodyAssets :: Types.AllBodyParts)[parentName] :: MeshPart
+		else
+			parentMeshHandle = (folder :: Folder):FindFirstChild(parentName) :: MeshPart
+		end
 		assert(parentMeshHandle)
 
 		local rigAttachmentName = ConstantsInterface.getRigAttachmentToParent(singleAsset, name)
@@ -156,32 +190,59 @@ local function traverseHierarchy(
 
 	if details.children then
 		for childName, childDetails in details.children do
-			traverseHierarchy(folder, singleAsset, name, cframe, childName, childDetails, minMaxBounds)
+			traverseHierarchy(fullBodyAssets, folder, singleAsset, name, cframe, childName, childDetails, minMaxBounds)
 		end
 	end
 end
 
-local function forEachMeshPart(inst: Instance, assetTypeEnum: Enum.AssetType, func: (meshHandle: MeshPart) -> boolean)
-	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
-	assert(assetInfo)
+local function forEachMeshPart(
+	fullBodyAssets: Types.AllBodyParts?,
+	inst: Instance?,
+	assetTypeEnum: Enum.AssetType?,
+	func: (meshHandle: MeshPart) -> boolean
+)
+	if getFFlagUGCValidateFullBody() then
+		local isSingleInstance = inst and assetTypeEnum
+		assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
+	end
 
-	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		return func(inst :: MeshPart)
-	else
-		for subPartName in pairs(assetInfo.subParts) do
-			local meshHandle: MeshPart? = (inst:FindFirstChild(subPartName) :: MeshPart)
-			assert(meshHandle)
-			if not func(meshHandle) then
+	if getFFlagUGCValidateFullBody() and fullBodyAssets then
+		for _, meshHandle in fullBodyAssets :: Types.AllBodyParts do
+			if not func(meshHandle :: MeshPart) then
 				return false
+			end
+		end
+	else
+		local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum :: Enum.AssetType]
+		assert(assetInfo)
+
+		if Enum.AssetType.DynamicHead == assetTypeEnum :: Enum.AssetType then
+			return func(inst :: MeshPart)
+		else
+			for subPartName in pairs(assetInfo.subParts) do
+				local meshHandle: MeshPart? = ((inst :: Instance):FindFirstChild(subPartName) :: MeshPart)
+				assert(meshHandle)
+				if not func(meshHandle) then
+					return false
+				end
 			end
 		end
 	end
 	return true
 end
 
-local function getScaleType(inst: Instance, assetTypeEnum: Enum.AssetType): (boolean, { string }?, string?)
+local function getScaleType(
+	fullBodyAssets: Types.AllBodyParts?,
+	inst: Instance?,
+	assetTypeEnum: Enum.AssetType?
+): (boolean, { string }?, string?)
+	if getFFlagUGCValidateFullBody() then
+		local isSingleInstance = inst and assetTypeEnum
+		assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
+	end
+
 	local prevPartScaleType = nil
-	local result = forEachMeshPart(inst, assetTypeEnum, function(meshHandle: MeshPart)
+	local result = forEachMeshPart(fullBodyAssets, inst, assetTypeEnum, function(meshHandle: MeshPart)
 		local scaleType: StringValue? = meshHandle:FindFirstChild("AvatarPartScaleType") :: StringValue
 		assert(scaleType) -- expected parts have been checked for existance before calling this function
 
@@ -209,18 +270,24 @@ end
 local function validateMinBoundsInternal(
 	assetSize: Vector3,
 	minSize: Vector3,
-	assetTypeEnum: Enum.AssetType
+	assetTypeEnum: Enum.AssetType?
 ): (boolean, { string }?)
 	local isMeshBigEnough = assetSize.X >= minSize.X and assetSize.Y >= minSize.Y and assetSize.Z >= minSize.Z
 	if not isMeshBigEnough then
 		return false,
 			{
-				string.format(
-					"Asset size is [%s], which is too small! Min size for %s is [%s]",
-					prettyPrintVector3(assetSize),
-					assetTypeEnum.Name,
-					prettyPrintVector3(minSize)
-				),
+				if getFFlagUGCValidateFullBody() and not assetTypeEnum
+					then string.format(
+						"Full body size is [%s], which is too small! Min size is [%s]",
+						prettyPrintVector3(assetSize),
+						prettyPrintVector3(minSize)
+					)
+					else string.format(
+						"Asset size is [%s], which is too small! Min size for %s is [%s]",
+						prettyPrintVector3(assetSize),
+						(assetTypeEnum :: Enum.AssetType).Name,
+						prettyPrintVector3(minSize)
+					),
 			}
 	end
 	return true
@@ -229,71 +296,96 @@ end
 local function validateMaxBoundsInternal(
 	assetSize: Vector3,
 	maxSize: Vector3,
-	assetTypeEnum: Enum.AssetType
+	assetTypeEnum: Enum.AssetType?
 ): (boolean, { string }?)
 	local isMeshSmallEnough = assetSize.X <= maxSize.X and assetSize.Y <= maxSize.Y and assetSize.Z <= maxSize.Z
 
 	if not isMeshSmallEnough then
 		return false,
 			{
-				string.format(
-					"Asset size is [%s], which is too big! Max size for %s is [%s]",
-					prettyPrintVector3(assetSize),
-					assetTypeEnum.Name,
-					prettyPrintVector3(maxSize)
-				),
+				if getFFlagUGCValidateFullBody() and not assetTypeEnum
+					then string.format(
+						"Full body size is [%s], which is too big! Max size is [%s]",
+						prettyPrintVector3(assetSize),
+						prettyPrintVector3(maxSize)
+					)
+					else string.format(
+						"Asset size is [%s], which is too big! Max size for %s is [%s]",
+						prettyPrintVector3(assetSize),
+						(assetTypeEnum :: Enum.AssetType).Name,
+						prettyPrintVector3(maxSize)
+					),
 			}
 	end
 	return true
 end
 
 local function validateAssetBounds(
-	inst: Instance,
-	assetTypeEnum: Enum.AssetType,
+	fullBodyAssets: Types.AllBodyParts?,
+	inst: Instance?,
+	assetTypeEnum: Enum.AssetType?,
 	_isServer: boolean
 ): (boolean, { string }?)
-	local minMaxBounds: BoundsData = {}
-
-	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
-	else
-		local hierarchy = assetHierarchy[assetTypeEnum]
-		traverseHierarchy(inst :: Folder, assetTypeEnum, nil, CFrame.new(), hierarchy.root, hierarchy, minMaxBounds)
+	if getFFlagUGCValidateFullBody() then
+		local isSingleInstance = inst and assetTypeEnum
+		assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
 	end
 
-	local success, reasons, scaleType = getScaleType(inst, assetTypeEnum)
+	local minMaxBounds: BoundsData = {}
+
+	if getFFlagUGCValidateFullBody() and fullBodyAssets then
+		traverseHierarchy(fullBodyAssets, nil, nil, nil, CFrame.new(), fullBody.root, fullBody, minMaxBounds)
+	elseif Enum.AssetType.DynamicHead == assetTypeEnum :: Enum.AssetType then
+		calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
+	else
+		local hierarchy = assetHierarchy[assetTypeEnum :: Enum.AssetType]
+		traverseHierarchy(
+			nil,
+			inst :: Folder,
+			assetTypeEnum,
+			nil,
+			CFrame.new(),
+			hierarchy.root,
+			hierarchy,
+			minMaxBounds
+		)
+	end
+
+	local success, reasons, scaleType = getScaleType(fullBodyAssets, inst, assetTypeEnum)
 	if not success then
 		return success, reasons
 	end
 
-	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
-	assert(assetInfo)
-
+	local assetInfo = if not getFFlagUGCValidateFullBody() then Constants.ASSET_TYPE_INFO[assetTypeEnum] else nil
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if
-		not reasonsAccumulator:updateReasons(
-			validateMinBoundsInternal(
-				minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
-				assetInfo.bounds[scaleType].minSize,
-				assetTypeEnum
-			)
-		)
-	then
-		return reasonsAccumulator:getFinalResults()
+	local minSize, maxSize
+	if getFFlagUGCValidateFullBody() then
+		if fullBodyAssets then
+			minSize, maxSize = ConstantsInterface.calculateFullBodyBounds(scaleType :: string)
+		else
+			minSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].minSize
+			maxSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].maxSize
+		end
 	end
 
-	if
-		not reasonsAccumulator:updateReasons(
-			validateMaxBoundsInternal(
-				minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
-				assetInfo.bounds[scaleType].maxSize,
-				assetTypeEnum
-			)
+	reasonsAccumulator:updateReasons(
+		validateMinBoundsInternal(
+			if getFFlagUGCValidateMinBoundsOnlyMesh()
+				then minMaxBounds.maxMeshCorner :: Vector3 - minMaxBounds.minMeshCorner :: Vector3
+				else minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
+			if getFFlagUGCValidateFullBody() then minSize else assetInfo.bounds[scaleType].minSize,
+			assetTypeEnum
 		)
-	then
-		return reasonsAccumulator:getFinalResults()
-	end
+	)
+
+	reasonsAccumulator:updateReasons(
+		validateMaxBoundsInternal(
+			minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
+			if getFFlagUGCValidateFullBody() then maxSize else assetInfo.bounds[scaleType].maxSize,
+			assetTypeEnum
+		)
+	)
 
 	return reasonsAccumulator:getFinalResults()
 end

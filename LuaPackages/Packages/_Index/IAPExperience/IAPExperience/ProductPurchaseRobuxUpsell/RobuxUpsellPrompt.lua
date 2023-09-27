@@ -302,6 +302,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 									TextSize = textFontSize,
 									TextColor3 = theme.TextDefault.Color,
 									TextTransparency = theme.TextDefault.Transparency,
+									Selectable = props.termsOfUseActivated ~= nil,
 
 									[Roact.Event.Activated] = props.termsOfUseActivated,
 								}),

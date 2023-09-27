@@ -47,7 +47,7 @@ PartialPageModal.validateProps = t.strictInterface({
 	marginSize = t.optional(t.number),
 	-- Button stack validates the contents.
 	-- See [ButtonStack](../Button/ButtonStack.md) for more details.
-	buttonStackProps = t.optional(t.table),
+	buttonStackProps = t.optional(ButtonStack.validateProps),
 
 	-- Accepts any element
 	footerContent = t.optional(t.callback),

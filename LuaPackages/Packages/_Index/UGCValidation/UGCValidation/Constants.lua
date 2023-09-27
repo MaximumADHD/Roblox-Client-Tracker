@@ -1,17 +1,18 @@
 --!nonstrict
-local Root = script:FindFirstAncestor("UGCValidation").Parent
-local Cryo = require(Root.Cryo)
+local Root = script:FindFirstAncestor("UGCValidation")
+local Cryo = require(Root.Parent.Cryo)
 
-local getFFlagUGCValidateBodyParts = require(Root.UGCValidation.flags.getFFlagUGCValidateBodyParts)
-local getFIntMeshDivision = require(Root.UGCValidation.flags.getFIntMeshDivision)
-local getFIntMeshDivisionFull = require(Root.UGCValidation.flags.getFIntMeshDivisionFull)
-local getFIntMeshDivisionFullExtended = require(Root.UGCValidation.flags.getFIntMeshDivisionFullExtended)
-local getFIntMeshDivisionMedium = require(Root.UGCValidation.flags.getFIntMeshDivisionMedium)
-local getFFlagAddUGCValidationForPackage = require(Root.UGCValidation.flags.getFFlagAddUGCValidationForPackage)
-local getFFlagUGCValidationAdjustLegBounds = require(Root.UGCValidation.flags.getFFlagUGCValidationAdjustLegBounds)
-local getFFlagUGCValidateSurfaceAppearanceAlphaMode =
-	require(Root.UGCValidation.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
-local getFFlagFixPackageIDFieldName = require(Root.UGCValidation.flags.getFFlagFixPackageIDFieldName)
+local getFFlagMoveToolboxCodeToUGCValidation = require(Root.flags.getFFlagMoveToolboxCodeToUGCValidation)
+local getFFlagUGCValidateBodyParts = require(Root.flags.getFFlagUGCValidateBodyParts)
+local getFIntMeshDivision = require(Root.flags.getFIntMeshDivision)
+local getFIntMeshDivisionFull = require(Root.flags.getFIntMeshDivisionFull)
+local getFIntMeshDivisionFullExtended = require(Root.flags.getFIntMeshDivisionFullExtended)
+local getFIntMeshDivisionMedium = require(Root.flags.getFIntMeshDivisionMedium)
+local getFFlagAddUGCValidationForPackage = require(Root.flags.getFFlagAddUGCValidationForPackage)
+local getFFlagUGCValidationAdjustLegBounds = require(Root.flags.getFFlagUGCValidationAdjustLegBounds)
+local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(Root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
+local getFFlagFixPackageIDFieldName = require(Root.flags.getFFlagFixPackageIDFieldName)
+local getFFlagUGCValidateFullBody = require(Root.flags.getFFlagUGCValidateFullBody)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -70,6 +71,65 @@ Constants.R15_BODY_PARTS = {
 	"RightLowerArm",
 	"RightHand",
 }
+
+if getFFlagMoveToolboxCodeToUGCValidation() then
+	Constants.UGC_BODY_PARTS = {
+		"Head",
+		"UpperTorso",
+		"LowerTorso",
+		"LeftUpperLeg",
+		"LeftLowerLeg",
+		"LeftHand",
+		"RightUpperArm",
+		"RightLowerArm",
+		"RightHand",
+		"LeftUpperArm",
+		"LeftLowerArm",
+		"LeftFoot",
+		"RightUpperLeg",
+		"RightLowerLeg",
+		"RightFoot",
+		"EyebrowAccessory",
+		"EyelashAccessory",
+		"HairAccessory",
+	}
+
+	Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
+		Head = Enum.AssetType.DynamicHead,
+		UpperTorso = Enum.AssetType.Torso,
+		LowerTorso = Enum.AssetType.Torso,
+		LeftUpperArm = Enum.AssetType.LeftArm,
+		LeftLowerArm = Enum.AssetType.LeftArm,
+		LeftHand = Enum.AssetType.LeftArm,
+		RightUpperArm = Enum.AssetType.RightArm,
+		RightLowerArm = Enum.AssetType.RightArm,
+		RightHand = Enum.AssetType.RightArm,
+		LeftUpperLeg = Enum.AssetType.LeftLeg,
+		LeftLowerLeg = Enum.AssetType.LeftLeg,
+		LeftFoot = Enum.AssetType.LeftLeg,
+		RightUpperLeg = Enum.AssetType.RightLeg,
+		RightLowerLeg = Enum.AssetType.RightLeg,
+		RightFoot = Enum.AssetType.RightLeg,
+		EyebrowAccessory = Enum.AssetType.EyebrowAccessory,
+		EyelashAccessory = Enum.AssetType.EyelashAccessory,
+		HairAccessory = Enum.AssetType.HairAccessory,
+	}
+
+	Constants.ASSET_TYPES_THAT_SKIP_FOLDER = {
+		Enum.AssetType.DynamicHead,
+		Enum.AssetType.EyebrowAccessory,
+		Enum.AssetType.EyelashAccessory,
+		Enum.AssetType.HairAccessory,
+	}
+end
+
+if getFFlagMoveToolboxCodeToUGCValidation() or getFFlagUGCValidateFullBody() then
+	Constants.FOLDER_NAMES = {
+		R6 = "R6",
+		R15ArtistIntent = "R15ArtistIntent",
+		R15Fixed = "R15Fixed",
+	}
+end
 
 Constants.EXTRA_BANNED_NAMES = {
 	"Head",

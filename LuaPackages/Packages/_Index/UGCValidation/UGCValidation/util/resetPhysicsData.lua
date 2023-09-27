@@ -1,4 +1,3 @@
---!nonstrict
 local UGCValidationService = game:GetService("UGCValidationService")
 
 -- validation logic uses MeshPart.Size in several places to check asset bounds

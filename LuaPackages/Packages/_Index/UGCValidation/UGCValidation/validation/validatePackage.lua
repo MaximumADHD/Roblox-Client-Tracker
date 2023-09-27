@@ -14,7 +14,7 @@ local function validatePackage(
 	allSelectedInstances: { Instance },
 	isServer: boolean,
 	restrictedUserIds: Types.RestrictedUserIds,
-	token: string
+	token: string?
 ): (boolean, { string }?)
 	local result, failureReasons = validateSingleInstance(allSelectedInstances)
 	if not result then
@@ -36,7 +36,7 @@ local function validatePackage(
 		return false, parseReasons
 	end
 
-	return validateAssetCreator(contentIdMap, isServer, restrictedUserIds, token)
+	return validateAssetCreator(contentIdMap, isServer, restrictedUserIds, token :: string)
 end
 
 return validatePackage

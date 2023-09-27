@@ -10,6 +10,7 @@ local root = script.Parent.Parent
 
 local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebugUGCDisableRCCOwnershipCheck)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
+local getFFlagUGCValidateAssetStatusNameChange = require(root.flags.getFFlagUGCValidateAssetStatusNameChange)
 
 local Constants = require(root.Constants)
 
@@ -32,11 +33,20 @@ local function validateExistance(contentIdMap: any)
 	end
 end
 
-local ASSET_STATUS_RCC = {
-	MODERATION_STATE_REVIEWING = "MODERATION_STATE_REVIEWING",
-	MODERATION_STATE_REJECTED = "MODERATION_STATE_REJECTED",
-	MODERATION_STATE_APPROVED = "MODERATION_STATE_APPROVED",
-}
+local ASSET_STATUS_RCC = nil
+local ASSET_STATUS_RCC_deprecated = nil
+if getFFlagUGCValidateAssetStatusNameChange() then
+	ASSET_STATUS_RCC = {
+		MODERATION_STATE_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true },
+		MODERATION_STATE_APPROVED = { ["MODERATION_STATE_APPROVED"] = true, ["Approved"] = true },
+	}
+else
+	ASSET_STATUS_RCC_deprecated = {
+		MODERATION_STATE_REVIEWING = "MODERATION_STATE_REVIEWING",
+		MODERATION_STATE_REJECTED = "MODERATION_STATE_REJECTED",
+		MODERATION_STATE_APPROVED = "MODERATION_STATE_APPROVED",
+	}
+end
 
 local function validateModerationRCC(
 	restrictedUserIds: Types.RestrictedUserIds,
@@ -68,28 +78,21 @@ local function validateModerationRCC(
 
 		local creatorTable = response.creationContext.creator
 		local creatorId = if creatorTable.userId then creatorTable.userId else creatorTable.groupId
-		if not reasonsAccumulator:updateReasons(idsHashTable[tonumber(creatorId)], {
-			failureMessage,
-		}) then
-			return reasonsAccumulator:getFinalResults()
-		end
+		reasonsAccumulator:updateReasons(idsHashTable[tonumber(creatorId)], { failureMessage })
 
-		if ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING == response.moderationResult.moderationState then
+		local isReviewing = if getFFlagUGCValidateAssetStatusNameChange()
+			then ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[response.moderationResult.moderationState]
+			else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_REVIEWING == response.moderationResult.moderationState
+		if isReviewing then
 			-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
 			-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
 			error("Asset is under review")
 		end
 
-		if
-			not reasonsAccumulator:updateReasons(
-				ASSET_STATUS_RCC.MODERATION_STATE_APPROVED == response.moderationResult.moderationState,
-				{
-					failureMessage,
-				}
-			)
-		then
-			return reasonsAccumulator:getFinalResults()
-		end
+		local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
+			then ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[response.moderationResult.moderationState]
+			else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_APPROVED == response.moderationResult.moderationState
+		reasonsAccumulator:updateReasons(isApproved, { failureMessage })
 	end
 	return reasonsAccumulator:getFinalResults()
 end
@@ -122,9 +125,7 @@ local function validateDependencies(
 
 	if not getFFlagDebugUGCDisableRCCOwnershipCheck() then
 		if isServer then
-			if not reasonsAccumulator:updateReasons(validateModerationRCC(restrictedUserIds, contentIdMap)) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(validateModerationRCC(restrictedUserIds, contentIdMap))
 		end
 	end
 
@@ -134,9 +135,7 @@ local function validateDependencies(
 			checkModeration = false
 		end
 		if checkModeration then
-			if not reasonsAccumulator:updateReasons(validateModeration(instance, restrictedUserIds)) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(validateModeration(instance, restrictedUserIds))
 		end
 	end
 

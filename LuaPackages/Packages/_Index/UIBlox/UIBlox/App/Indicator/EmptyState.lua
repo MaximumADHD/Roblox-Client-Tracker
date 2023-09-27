@@ -17,9 +17,10 @@ local getPageMargin = require(App.Container.getPageMargin)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
-local SecondaryButton = require(App.Button.SecondaryButton)
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local Button = require(App.Button.Button)
+local ButtonType = require(App.Button.Enum.ButtonType)
 
 local ICON_TEXT_PADDING = 12
 local TEXT_BUTTON_PADDING = 24
@@ -44,7 +45,7 @@ EmptyState.validateProps = t.strictInterface({
 	-- Button text
 	buttonText = t.optional(t.string),
 	-- Button type from App.Button
-	buttonType = t.optional(t.table),
+	buttonType = t.optional(enumerateValidator(ButtonType)),
 	-- Passing in the callback function will render a button
 	onActivated = t.optional(t.callback),
 	frameRef = t.optional(t.table),
@@ -66,6 +67,7 @@ EmptyState.defaultProps = {
 	position = UDim2.fromScale(0.5, 0.5),
 	anchorPoint = Vector2.new(0.5, 0.5),
 	buttonIcon = Images["icons/common/refresh"],
+	buttonType = ButtonType.Secondary,
 	iconSize = UDim2.fromOffset(getIconSize(IconSize.XLarge), getIconSize(IconSize.XLarge)),
 }
 
@@ -183,22 +185,16 @@ function EmptyState:render()
 					UISizeConstraint = Roact.createElement("UISizeConstraint", {
 						MaxSize = Vector2.new(BUTTON_MAX_SIZE, BUTTON_HEIGHT),
 					}),
-					Button = Roact.createElement(
-						if UIBloxConfig.buttonPropsForEmptyState
-							then self.props.buttonType or SecondaryButton
-							else SecondaryButton,
-						{
-							size = UDim2.fromScale(1, 1),
-							position = UDim2.fromScale(0.5, 0.5),
-							anchorPoint = Vector2.new(0.5, 0.5),
-							onActivated = self.props.onActivated,
-							icon = if UIBloxConfig.buttonPropsForEmptyState
-								then getCorrectedIconValue(self.props.buttonIcon)
-								else self.props.buttonIcon,
-							text = if UIBloxConfig.buttonPropsForEmptyState then self.props.buttonText else nil,
-							[Roact.Ref] = self.buttonRef,
-						}
-					),
+					Button = Roact.createElement(Button, {
+						buttonType = self.props.buttonType,
+						size = UDim2.fromScale(1, 1),
+						position = UDim2.fromScale(0.5, 0.5),
+						anchorPoint = Vector2.new(0.5, 0.5),
+						onActivated = self.props.onActivated,
+						icon = getCorrectedIconValue(self.props.buttonIcon),
+						text = self.props.buttonText,
+						[Roact.Ref] = self.buttonRef,
+					}),
 				}),
 			}),
 		})

@@ -62,6 +62,8 @@ export type StyleProps = {
 	buttonGroupGap: number?,
 	-- Size of vote buttons
 	buttonSize: number?,
+	-- The icon size in vote buttons. If icon size is larger, it will be the actual button size.
+	buttonIconSizeEnum: number?,
 }
 
 local defaultStyleProps = {
@@ -78,6 +80,7 @@ local defaultStyleProps = {
 
 	buttonGroupGap = 12,
 	buttonSize = 44,
+	buttonIconSizeEnum = IconSize.Medium,
 }
 
 local RateCount = Roact.PureComponent:extend("RateCount")
@@ -138,6 +141,8 @@ RateCount.validateProps = t.strictInterface({
 		buttonGroupGap = t.optional(t.integer),
 		-- Size of vote buttons.
 		buttonSize = t.optional(t.integer),
+		-- The icon size in vote buttons. If icon size is larger, it will be used as actual button size.
+		buttonIconSizeEnum = t.optional(enumerateValidator(IconSize)),
 	})),
 })
 
@@ -201,10 +206,14 @@ function RateCount:render()
 
 		local buttonGroupGap = styleProps.buttonGroupGap
 		local buttonSize = styleProps.buttonSize
+		local buttonIconSizeEnum = styleProps.buttonIconSizeEnum
+		local iconButtonSize = if UIBloxConfig.useTokensSizeInIconButton
+			then math.max(getIconSize(buttonIconSizeEnum, style), buttonSize)
+			else buttonSize
 
 		local textSectionSizeOffset = -(
 			statWidgetIconSize
-			+ buttonSize * 2
+			+ iconButtonSize * 2
 			+ statWidgetContainerGap
 			+ containerGap
 			+ buttonGroupGap
@@ -274,6 +283,7 @@ function RateCount:render()
 				size = UDim2.fromOffset(buttonSize, buttonSize),
 				icon = isVoteDownChecked and ICON_VOTE_DOWN_ON or ICON_VOTE_DOWN_OFF,
 				iconColor3 = style.Theme.IconEmphasis.Color,
+				iconSize = if UIBloxConfig.useTokensSizeInIconButton then buttonIconSizeEnum else nil,
 				onActivated = self.onVoteDownActivated,
 				showBackground = true,
 			}),
@@ -282,6 +292,7 @@ function RateCount:render()
 				size = UDim2.fromOffset(buttonSize, buttonSize),
 				icon = isVoteUpChecked and ICON_VOTE_UP_ON or ICON_VOTE_UP_OFF,
 				iconColor3 = style.Theme.IconEmphasis.Color,
+				iconSize = if UIBloxConfig.useTokensSizeInIconButton then buttonIconSizeEnum else nil,
 				onActivated = self.onVoteUpActivated,
 				showBackground = true,
 			}),

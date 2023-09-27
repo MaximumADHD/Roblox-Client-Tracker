@@ -86,19 +86,19 @@ function ErrorPrompt:getErrorMessage(locMap: { [string]: string }, errorType: an
 		return locMap.robuxFailedPurchaseText
 	elseif errorType == PurchaseErrorType.AlreadySubscribed then
 		return locMap.alreadySubscribedText
-	elseif errorType == PurchaseErrorType.UnavailableSubscription then
-		return locMap.unavailableSubscriptionText
+	elseif errorType == PurchaseErrorType.SubscriptionNotForSale then
+		return locMap.subscriptionNotForSaleText
 	elseif errorType == PurchaseErrorType.SubscriptionExceededUserSpendLimit then
 		return locMap.parentalRestrictionSubscriptionText
 	elseif errorType == PurchaseErrorType.SubscriptionUnsupportedLocale then
 		return locMap.subscriptionUnsupportedLocaleText
-	elseif errorType == PurchaseErrorType.UnderAge17 then
-		return locMap.underAge17Text
+	elseif errorType == PurchaseErrorType.RestrictedUserAge then
+		return locMap.restrictedUserAgeText
 	elseif
-		errorType == PurchaseErrorType.SubscriptionUnsupportedDevice
-		or errorType == PurchaseErrorType.SubscriptionThirdPartySalesNotAllowed
+		errorType == PurchaseErrorType.SubscriptionPurchasePlatformNotSupported
+		or errorType == PurchaseErrorType.SubscriptionInvalidSaleLocation
 	then
-		return locMap.subscriptionUnsupportedDeviceText
+		return locMap.subscriptionUnsupportedPlatformText
 	end
 
 	return locMap.unknownText
@@ -186,8 +186,8 @@ function ErrorPrompt:render()
 			alreadySubscribedText = {
 				key = LOC_KEY:format("Text.AlreadySubscribed"),
 			},
-			unavailableSubscriptionText = {
-				key = LOC_KEY:format("Text.UnavailableSubscription"),
+			subscriptionNotForSaleText = {
+				key = LOC_KEY:format("Text.SubscriptionNotForSale"),
 			},
 			parentalRestrictionSubscriptionText = {
 				key = LOC_KEY:format("Text.ParentalRestrictionSubscription"),
@@ -195,11 +195,11 @@ function ErrorPrompt:render()
 			subscriptionUnsupportedLocaleText = {
 				key = LOC_KEY:format("Text.SubscriptionUnsupportedLocale"),
 			},
-			underAge17Text = {
-				key = LOC_KEY:format("Text.UnderAge17"),
+			restrictedUserAgeText = {
+				key = LOC_KEY:format("Text.RestrictedUserAge"),
 			},
-			subscriptionUnsupportedDeviceText = {
-				key = LOC_KEY:format("Text.SubscriptionUnsupportedDevice"),
+			subscriptionUnsupportedPlatformText = {
+				key = LOC_KEY:format("Text.SubscriptionUnsupportedPlatform"),
 			},
 		},
 		render = function(locMap: { [string]: string })

@@ -81,7 +81,7 @@
     ["IAPExperience.PurchaseError.Text.FailedRobuxPurchase"] = [[您購買失敗，且您未支付任何費用。請再試一次。]],
     ["IAPExperience.PurchaseError.Title.AlreadySubscribed"] = [[已訂閱]],
     ["IAPExperience.PurchaseError.Title.CantSubscribe"] = [[無法訂閱]],
-    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[你已經訂閱這個了。]],
+    ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[你可以在「設定」>「訂閱」管理你的訂閱。]],
     ["IAPExperience.PurchaseError.Text.UnavailableSubscription"] = [[此訂閱目前無法購買]],
     ["IAPExperience.PurchaseError.Text.ParentalRestrictionSubscription"] = [[有月度花費限制的帳號無法使用訂閱]],
     ["IAPExperience.PurchaseError.Text.SubscriptionUnsupportedLocale"] = [[此訂閱目前無法在您的國家使用]],
@@ -274,4 +274,7 @@
     ["IAPExperience.BuyRobux.Text.MoreRobux"] = [[再加 {robux} Robux]],
     ["IAPExperience.BuyRobux.Text.MoreRobux2"] = [[再 {robux} Robux]],
     ["IAPExperience.BuyRobux.Alert.SuccessfulMessage"] = [[您已成功購買 Robux！]],
+    ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[體驗訂閱]],
+    ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[此對話為預覽畫面，顯示了使用者將看到的訂閱說明。點選「訂閱」並不會向您收費。]],
+    ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[取得訂閱]],
 }

@@ -17,9 +17,7 @@ local function validateHSR(inst: Instance?): (boolean, { string }?)
 			if (not obj:IsA("BaseWrap")) or (obj :: BaseWrap):IsHSRReady() then
 				continue
 			end
-			if not reasonsAccumulator:updateReasons(false, { `HSR data not ready for {obj:GetFullName()}!` }) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(false, { `HSR data not ready for {obj:GetFullName()}!` })
 		end
 		return reasonsAccumulator:getFinalResults()
 	else

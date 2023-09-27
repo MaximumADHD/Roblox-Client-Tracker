@@ -11,9 +11,9 @@ local t = require(Packages.t)
 local ToastIcon = require(ToastRoot.ToastIcon)
 local ToastText = require(ToastRoot.ToastText)
 
+local Button = require(AppRoot.Button.Button)
 local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 local PrimarySystemButton = require(AppRoot.Button.PrimarySystemButton)
-local PrimaryContextualButton = require(AppRoot.Button.PrimaryContextualButton)
 local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
 
 local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSize)
@@ -21,11 +21,6 @@ local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSiz
 local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local ToastFrame = Roact.PureComponent:extend("ToastFrame")
-
-local BUTTON_TYPE_ENUMS = {
-	[ButtonType.PrimaryContextual] = PrimaryContextualButton,
-	[ButtonType.PrimarySystem] = PrimarySystemButton,
-}
 
 ToastFrame.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
@@ -76,10 +71,9 @@ function ToastFrame:render()
 	local buttonHeight = buttonProps and buttonProps.buttonDimensions.Y
 	local buttonWidth = buttonProps and buttonProps.buttonDimensions.X
 
-	local buttonElement
+	local buttonType
 	if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder and buttonProps then
-		local buttonType = buttonProps.buttonType or ButtonType.PrimarySystem
-		buttonElement = BUTTON_TYPE_ENUMS[buttonType]
+		buttonType = buttonProps.buttonType or ButtonType.PrimarySystem
 	end
 	local isCompact = self.props.isCompact
 	local iconProps = self.props.iconProps
@@ -164,8 +158,9 @@ function ToastFrame:render()
 			}),
 		}),
 		ToastButton = buttonProps and Roact.createElement(
-			if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then buttonElement else PrimarySystemButton,
+			if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then Button else PrimarySystemButton,
 			{
+				buttonType = buttonType,
 				fitContent = not isCompact,
 				layoutOrder = 2,
 				maxWidth = if not isCompact then buttonProps.buttonDimensions.X else nil,

@@ -43,22 +43,22 @@ type KeyLabelProps = {
 }
 
 -- height of KeyLabels
-local HEIGHT = 28
+local HEIGHT = 36
 -- preferred width as long as we have at least MIN_SIDE_PADDING
 local PREFERRED_WIDTH = HEIGHT
 -- minimum padding around content
-local MIN_SIDE_PADDING = 4
+local MIN_SIDE_PADDING = 8
 -- default padding on the side of KeyLabels
-local SIDE_PADDING = 8
--- corner radius for keyboard labels
-local CORNER_RADIUS = UDim.new(0, 8)
+local SIDE_PADDING = 10
 
 -- default theme for label background
-local DEFAULT_ICON_THEME = "BackgroundOnHover"
+local DEFAULT_ICON_THEME = "UIEmphasis"
 -- default font for text
-local DEFAULT_TEXT_THEME = "TextEmphasis"
+local DEFAULT_TEXT_THEME = "TextDefault"
 -- default size for gamepad icons
 local DEFAULT_GAMEPAD_ICON_SIZE = Vector2.new(36, 36)
+-- offset to center text vertically
+local TEXT_CENTER_OFFSET = -1
 
 local GAMEPAD_AXIS_OVERRIDE_MAP = if UIBloxConfig.usePlatformContentKeyLabels
 	then platformIconMap.DIRECTIONAL_GAMEPAD_ICONS :: any
@@ -153,20 +153,18 @@ end
 
 local function getWidthFromContent(content: KeyLabelContent, font: Fonts.FontPalette): number
 	if content.inputType == "keyboard" then
-		local innerWidth: number
 		if type(content.content) == "string" then
 			local baseSize: number = font.BaseSize
 			-- note: Tooltip spec says use CaptionBody, KeyLabel spec sugggests to use heavier font
 			local textFont = font.CaptionBody
 			local fontSize = baseSize * textFont.RelativeSize
 			-- is this expenseive? we only run on a few different strings, so we could memoize
-			innerWidth = GetTextSize(content.content, fontSize, textFont.Font, Vector2.zero).X
-		else
-			innerWidth = content.content.ImageRectSize.X
+			local innerWidth = GetTextSize(content.content, fontSize, textFont.Font, Vector2.zero).X
+			if innerWidth + 2 * MIN_SIDE_PADDING > PREFERRED_WIDTH then
+				return innerWidth + 2 * SIDE_PADDING
+			end
 		end
-		return if innerWidth + 2 * MIN_SIDE_PADDING <= PREFERRED_WIDTH
-			then PREFERRED_WIDTH
-			else innerWidth + 2 * SIDE_PADDING
+		return PREFERRED_WIDTH
 		-- just using else doesn't get the proper type refinement
 	elseif content.inputType == "gamepad" then
 		local size: Vector2 = if typeof(content.content) == "string"
@@ -198,7 +196,7 @@ local function KeyLabel(props: KeyLabelProps)
 		local font = style.Font
 		local baseSize: number = font.BaseSize
 		-- note: Tooltip spec says use CaptionBody, KeyLabel spec sugggests to use heavier font
-		local textFont = font.CaptionBody
+		local textFont = font.CaptionHeader
 		local fontSize = baseSize * textFont.RelativeSize
 
 		local text = ""
@@ -219,24 +217,33 @@ local function KeyLabel(props: KeyLabelProps)
 		end
 
 		return React.createElement(
-			"TextLabel",
+			ImageSetLabel,
 			LuauPolyfill.Object.assign(generalProps, {
-				Text = text,
-				BackgroundColor3 = iconTheme.Color,
-				BackgroundTransparency = iconTheme.Transparency,
-				TextColor3 = textTheme.Color,
-				TextTransparency = textTheme.Transparency,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextSize = fontSize,
-				Font = textFont.Font,
-				RichText = false,
+				BackgroundTransparency = 1,
+
+				ImageTransparency = iconTheme.Transparency,
+				ImageColor3 = iconTheme.Color,
+				Image = Images["icons/controls/keys/key_single"],
+
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(Vector2.new(10, 9), Vector2.new(25, 25)),
 			}),
 			{
-				UICorner = React.createElement("UICorner", {
-					CornerRadius = CORNER_RADIUS,
+				LabelContent = React.createElement("TextLabel", {
+					Text = text,
+					BackgroundTransparency = 1,
+					TextColor3 = textTheme.Color,
+					TextTransparency = textTheme.Transparency,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextSize = fontSize,
+					Font = textFont.Font,
+					RichText = false,
+					Position = UDim2.fromOffset(0, TEXT_CENTER_OFFSET),
+					Size = UDim2.fromScale(1, 1),
+				}, {
+					Icon = icon,
 				}),
-				Icon = icon,
 			}
 		)
 	elseif content.inputType == "gamepad" then

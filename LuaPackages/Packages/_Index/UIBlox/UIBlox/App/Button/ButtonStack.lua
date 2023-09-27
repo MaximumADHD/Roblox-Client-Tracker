@@ -9,20 +9,15 @@ local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
 local t = require(Packages.t)
 
-local AlertButton = require(ButtonRoot.AlertButton)
-local PrimaryContextualButton = require(ButtonRoot.PrimaryContextualButton)
-local PrimarySystemButton = require(ButtonRoot.PrimarySystemButton)
-local SecondaryButton = require(ButtonRoot.SecondaryButton)
+local Button = require(ButtonRoot.Button)
+local ButtonType = require(ButtonRoot.Enum.ButtonType)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
-local validateButtonProps = require(ButtonRoot.Button).validateProps
 
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
-
-local ButtonType = require(ButtonRoot.Enum.ButtonType)
 
 local ButtonStack = Roact.PureComponent:extend("ButtonStack")
 
@@ -32,7 +27,7 @@ ButtonStack.validateProps = t.strictInterface({
 	buttons = t.array(t.strictInterface({
 		-- Determines which button to use
 		buttonType = t.optional(enumerateValidator(ButtonType)),
-		props = validateButtonProps,
+		props = Button.validateProps,
 		-- Default gamepad focus to this button if true.
 		isDefaultChild = t.optional(t.boolean),
 	})),
@@ -124,19 +119,9 @@ function ButtonStack:render()
 				key = tostring(colIndex),
 				layoutOrder = isButtonStacked and (#buttons - colIndex) or colIndex,
 				size = buttonSize,
+				buttonType = button.buttonType or ButtonType.Secondary,
 			}
 			local buttonProps = Cryo.Dictionary.join(newProps, button.props)
-
-			local buttonComponent
-			if button.buttonType == ButtonType.PrimaryContextual then
-				buttonComponent = PrimaryContextualButton
-			elseif button.buttonType == ButtonType.PrimarySystem then
-				buttonComponent = PrimarySystemButton
-			elseif button.buttonType == ButtonType.Alert then
-				buttonComponent = AlertButton
-			else
-				buttonComponent = SecondaryButton
-			end
 
 			if button.isDefaultChild then
 				defaultChildIndex = colIndex
@@ -151,7 +136,7 @@ function ButtonStack:render()
 					or nil,
 			}
 			local buttonPropsWithGamepad = Cryo.Dictionary.join(buttonProps, gamepadProps)
-			table.insert(buttonTable, Roact.createElement(buttonComponent, buttonPropsWithGamepad))
+			table.insert(buttonTable, Roact.createElement(Button, buttonPropsWithGamepad))
 		end
 
 		return Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {

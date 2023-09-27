@@ -63,6 +63,9 @@ return {
 	-- Use new scroll bar in VerticalScrollView
 	useNewScrollBar = false,
 
+	-- Fix new scroll bar's margin and paddings in 10ftUi VerticalScrollView
+	fixScrollBarLayout10ft = false,
+
 	-- Link button use uiblox selecton image
 	linkButtonUseSelectionImage = false,
 
@@ -74,9 +77,6 @@ return {
 
 	-- Allow UIBlox TextButtons to be shown after Icon Buttons in the ActionBar
 	enableTextButtonsInActionBar = false,
-
-	-- Allow to pass buttonText and buttonType to EmptyState component
-	buttonPropsForEmptyState = false,
 
 	-- Add hover delay support for ExperienceTileV3
 	experienceTileHoverDelay = false,
@@ -111,6 +111,9 @@ return {
 
 	-- Adds a UISizeLimit to PartialPageModal.lua
 	partialPageModalSizeLimit = false,
+
+	-- Increase the resolution in ImageSet components for ten foot UI
+	increaseImageResolutionForTenFoot = false,
 
 	-- Adds an option to change the kind of button shown in a toast
 	toastButtonTypesAutoAlignAndNoBorder = false,

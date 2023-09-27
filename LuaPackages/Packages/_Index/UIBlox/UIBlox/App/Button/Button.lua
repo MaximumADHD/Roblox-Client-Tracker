@@ -11,6 +11,7 @@ local t = require(Packages.t)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 
 local ButtonType = require(ButtonRoot.Enum.ButtonType)
 local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
@@ -111,7 +112,7 @@ Button.validateProps = t.strictInterface({
 	-- The icon of the controller input (A/B/X/Y button) needed to activate the button
 	inputIcon = t.optional(validateImage),
 	-- The font style for the button text
-	fontStyle = t.optional(t.union(t.string, validateFontInfo)),
+	fontStyle = t.optional(t.union(t.string, validateFontInfo, validateTypographyInfo)),
 	-- Contains override props for the text label
 	buttonTextOverride = t.optional(t.table),
 

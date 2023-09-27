@@ -86,7 +86,7 @@ function PropParser.parseProps(typechecking: Types.Typechecking, props: string, 
 			end
 			continue
 		elseif depth > 0 then
-			assert(multilinePropType ~= nil)
+			assert(multilinePropType ~= nil, "Multiline prop type cannot be nil")
 			-- Contents of a multi-line type definition
 			multilinePropType ..= "\n" .. line:gsub("^" .. multilineWhitespace, "")
 			continue
@@ -117,10 +117,8 @@ function PropParser.parseProps(typechecking: Types.Typechecking, props: string, 
 				currentComment = endingComment
 			end
 
-			local propName, propType, isOptional = PropParser._getProp(
-				typechecking,
-				if depth == 0 and multilinePropType then multilinePropType else line
-			)
+			local propName, propType, isOptional =
+				PropParser._getProp(typechecking, if depth == 0 and multilinePropType then multilinePropType else line)
 
 			if propName == nil or propType == nil then
 				print("🤏  Unable to parse prop definition: " .. line)
@@ -168,7 +166,10 @@ local tInterfacePattern = "s?t?r?i?c?t?[iI]nterface"
 local luauPropPattern = "^%s*(%[?%w+%]?):%s+(.*)"
 local luauKeyPattern = "^%s*%[(%w+)%]: %{\n(.*)\n%s*%}"
 local tPropPattern = "^%s*%[?([%w%.]+)%]?%s=%s(.*)"
-function PropParser._getProp(typechecking: Types.Typechecking, line: string): (string?, string | Types.PropType | nil, boolean)
+function PropParser._getProp(
+	typechecking: Types.Typechecking,
+	line: string
+): (string?, string | Types.PropType | nil, boolean)
 	local isMultiline = string.match(line, "\n")
 
 	-- Strip trailing whitespace
@@ -180,22 +181,22 @@ function PropParser._getProp(typechecking: Types.Typechecking, line: string): (s
 	-- Returns propName, propType, isOptional
 	local propName, propType = string.match(line, luauPropPattern .. (if isMultiline then "" else ",$"))
 	if propName and propType then
-		assert(typechecking == Types.Typecheckers.Luau)
+		assert(typechecking == Types.Typecheckers.Luau, "Typechecker must be Luau at this point")
 		local optionalQualifier = string.match(propType, "(%??)$")
 		propType = propType:gsub("(%??)$", "")
 		if isMultiline then
 			local propTypeQualifier = Types.PropTypeQualifiers.Interface
-			
+
 			-- Strip out surrounding brackets
-			local multilinePropType = string.match(propType, "^%s*%{(.*)%s*%},*")
+			local multilinePropType = string.match(propType, "^%s*{(.*)%s*},*")
 			if multilinePropType and string.match(multilinePropType, luauKeyPattern) then
 				local key
 				key, propType = string.match(multilinePropType, luauKeyPattern)
 				if key == "number" then
 					propTypeQualifier = Types.PropTypeQualifiers.Array
-				else
-					-- Maps are not yet supported
-					-- propTypeQualifier = Types.PropTypeQualifiers.Map
+					-- else
+					-- 	-- Maps are not yet supported
+					-- 	propTypeQualifier = Types.PropTypeQualifiers.Map
 				end
 			end
 
@@ -211,7 +212,7 @@ function PropParser._getProp(typechecking: Types.Typechecking, line: string): (s
 			propType = "🤷"
 		end
 
-		propType = propType:gsub("^%{ %[number%]: (.-)%s*%}$", function(s)
+		propType = propType:gsub("^{ %[number%]: (.-)%s*}$", function(s)
 			return "Array<" .. s .. ">"
 		end)
 

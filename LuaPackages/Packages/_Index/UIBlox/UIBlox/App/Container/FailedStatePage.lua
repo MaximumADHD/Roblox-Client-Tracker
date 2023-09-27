@@ -8,7 +8,8 @@ local t = require(Packages.t)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local EmptyState = require(UIBlox.App.Indicator.EmptyState)
-local SecondaryButton = require(UIBlox.App.Button.SecondaryButton)
+local Button = require(UIBlox.App.Button.Button)
+local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 
 local RenderOnFailedStyle = require(UIBlox.App.Loading.Enum.RenderOnFailedStyle)
 
@@ -43,7 +44,8 @@ function FailedStatePage:render()
 		})
 	elseif self.props.renderOnFailed == RenderOnFailedStyle.RetryButton then
 		if self.props.onRetry then
-			return Roact.createElement(SecondaryButton, {
+			return Roact.createElement(Button, {
+				buttonType = ButtonType.Secondary,
 				size = UDim2.fromOffset(RETRY_BUTTON_HEIGHT, RETRY_BUTTON_WIDTH),
 				position = UDim2.fromScale(0.5, 0.5),
 				anchorPoint = Vector2.new(0.5, 0.5),

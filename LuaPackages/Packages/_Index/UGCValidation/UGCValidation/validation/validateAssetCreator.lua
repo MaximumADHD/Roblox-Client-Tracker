@@ -127,11 +127,7 @@ local function validateAssetCreator(
 				instanceId
 			)
 
-			if not reasonsAccumulator:updateReasons(allowed, {
-				failureMessage,
-			}) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(allowed, { failureMessage })
 		end
 	end
 

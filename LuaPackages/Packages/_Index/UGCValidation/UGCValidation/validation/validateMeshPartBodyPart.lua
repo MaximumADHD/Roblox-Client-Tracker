@@ -65,52 +65,29 @@ local function validateMeshPartBodyPart(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if not reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, assetTypeEnum, isServer)) then
-		return reasonsAccumulator:getFinalResults()
+	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, assetTypeEnum, isServer))
+
+	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, assetTypeEnum, isServer))
+
+	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, assetTypeEnum, isServer))
+
+	reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, assetTypeEnum, isServer))
+
+	reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, isServer))
+
+	reasonsAccumulator:updateReasons(validateHSR(inst))
+
+	reasonsAccumulator:updateReasons(validateMaterials(inst))
+
+	reasonsAccumulator:updateReasons(validateProperties(inst))
+
+	if getFFlagUGCValidateBodyPartsCollisionFidelity() then
+		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst))
 	end
 
-	if not reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, assetTypeEnum, isServer)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateTags(inst))
 
-	if not reasonsAccumulator:updateReasons(validateAssetBounds(inst, assetTypeEnum, isServer)) then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if not reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, assetTypeEnum, isServer)) then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if not reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, isServer)) then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if not reasonsAccumulator:updateReasons(validateHSR(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if not reasonsAccumulator:updateReasons(validateMaterials(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if not reasonsAccumulator:updateReasons(validateProperties(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if
-		getFFlagUGCValidateBodyPartsCollisionFidelity()
-		and not reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst))
-	then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if not reasonsAccumulator:updateReasons(validateTags(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
-
-	if not reasonsAccumulator:updateReasons(validateAttributes(inst)) then
-		return reasonsAccumulator:getFinalResults()
-	end
+	reasonsAccumulator:updateReasons(validateAttributes(inst))
 
 	if getFFlagUGCValidateBodyPartsModeration() then
 		local checkModeration = not isServer
@@ -118,9 +95,7 @@ local function validateMeshPartBodyPart(
 			checkModeration = false
 		end
 		if checkModeration then
-			if not reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds)) then
-				return reasonsAccumulator:getFinalResults()
-			end
+			reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds))
 		end
 	end
 

@@ -1,7 +1,5 @@
 --!strict
 
-local FFlagUGCReturnAllValidations = game:GetFastFlag("UGCReturnAllValidations")
-
 local FailureReasonsAccumulator = {}
 FailureReasonsAccumulator.__index = FailureReasonsAccumulator
 
@@ -14,15 +12,13 @@ function FailureReasonsAccumulator.new()
 	return setmetatable(self, FailureReasonsAccumulator)
 end
 
-function FailureReasonsAccumulator:updateReasons(newSuccess: boolean, newReasons: { string }?): boolean
+function FailureReasonsAccumulator:updateReasons(newSuccess: boolean, newReasons: { string }?)
 	if newSuccess then
-		return true
+		return
 	end
 
 	table.insert(self.reasons, table.concat(newReasons :: { string }, "\n"))
 	self.passed = false
-
-	return FFlagUGCReturnAllValidations
 end
 
 function FailureReasonsAccumulator:getFinalResults(): (boolean, { string }?)

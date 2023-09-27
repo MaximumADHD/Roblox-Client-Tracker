@@ -5,13 +5,6 @@ local root = script.Parent.Parent
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 
 local function validateOverlappingVertices(meshId: string, meshType: string, isServer: boolean?): (boolean, { string }?)
-	if not game:GetFastFlag("UGCReturnAllValidations") then
-		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
-		if meshId == "" then
-			return false, { "Cage must contain valid MeshId" }
-		end
-	end
-
 	local success, result = pcall(function()
 		return UGCValidationService:ValidateOverlappingVertices(meshId)
 	end)

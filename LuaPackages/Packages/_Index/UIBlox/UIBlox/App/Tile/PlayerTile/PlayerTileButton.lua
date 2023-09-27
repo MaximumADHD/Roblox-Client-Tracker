@@ -6,8 +6,8 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 
-local PrimarySystemButton = require(App.Button.PrimarySystemButton)
-local SecondaryButton = require(App.Button.SecondaryButton)
+local Button = require(App.Button.Button)
+local ButtonType = require(App.Button.Enum.ButtonType)
 local ControlState = require(Core.Control.Enum.ControlState)
 
 local PlayerTileButton = Roact.PureComponent:extend("PlayerTileButton")
@@ -48,9 +48,10 @@ function PlayerTileButton:render()
 	local maxButtonSize = tileSize.X.Offset / 2 - (outerButtonPadding * 1.5)
 	local buttonSize = UDim2.new(0, maxButtonSize, 0, buttonHeight)
 
-	local buttonType = isSecondary and SecondaryButton or PrimarySystemButton
+	local buttonType = isSecondary and ButtonType.Secondary or ButtonType.PrimarySystem
 
-	return Roact.createElement(buttonType, {
+	return Roact.createElement(Button, {
+		buttonType = buttonType,
 		automaticSize = Enum.AutomaticSize.XY,
 		position = UDim2.new(1, 0, 1, 0),
 		size = buttonSize,

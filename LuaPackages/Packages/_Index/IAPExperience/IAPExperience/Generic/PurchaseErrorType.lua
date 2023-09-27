@@ -111,41 +111,42 @@ local rawKeyToRawValue = {
 	--
 	AlreadySubscribed = "AlreadySubscribed",
 
-	--[[ PurchaseErrorType.UnavailableSubscription
-    The user is being prompted to purchase subscription that is not available for sale or invalid.
+	--[[ PurchaseErrorType.SubscriptionNotForSale
+    The user is being prompted to purchase subscription that is not marked for sale by seller.
     ]]
 	--
-	UnavailableSubscription = "UnavailableSubscription",
+	SubscriptionNotForSale = "SubscriptionNotForSale",
 
-	--[[ PurchasseErrorType.SubscriptionExceededUserSpendLimit
+	--[[ PurchaseErrorType.SubscriptionExceededUserSpendLimit
 	The user has monthly spend restriction
 	]]
 	--
 	SubscriptionExceededUserSpendLimit = "SubscriptionExceededUserSpendLimit",
 
-	--[[ PurchasseErrorType.SubscriptionUnsupportedLocale
+	--[[ PurchaseErrorType.SubscriptionUnsupportedLocale
 	The account is from an inelligible country
 	]]
 	--
 	SubscriptionUnsupportedLocale = "SubscriptionUnsupportedLocale",
 
-	--[[ PurchasseErrorType.UnderAge17
-	The subscription is restricted for purchase for user under 17
+	--[[ PurchaseErrorType.RestrictedUserAge
+	The purchase is restricted for users under universe age recommendation guidelines
 	]]
 	--
-	UnderAge17 = "UnderAge17",
+	RestrictedUserAge = "RestrictedUserAge",
 
-	--[[ PurchasseErrorType.SubscriptionUnsupportedDevice
+	--[[ PurchaseErrorType.SubscriptionPurchasePlatformNotSupported
 	The subscription is restricted for purchase on the current device
 	]]
 	--
-	SubscriptionUnsupportedDevice = "SubscriptionUnsupportedDevice",
+	SubscriptionPurchasePlatformNotSupported = "SubscriptionPurchasePlatformNotSupported",
 
-	--[[ PurchasseErrorType.SubscriptionThirdPartySalesNotAllowed
-	The subscription is restricted for purchase for user under 17
+
+	--[[ PurchaseErrorType.SubscriptionInvalidSaleLocation
+	The sale location is invalid for subscription purchase
 	]]
 	--
-	SubscriptionThirdPartySalesNotAllowed = "SubscriptionThirdPartySalesNotAllowed",
+	SubscriptionInvalidSaleLocation = "SubscriptionInvalidSaleLocation",
 
 	--[[ PurchaseErrorType.Unknown
     This error is for when the user runs into an error during a generic robux purchase

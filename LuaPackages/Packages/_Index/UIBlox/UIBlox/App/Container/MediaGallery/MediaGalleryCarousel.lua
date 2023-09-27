@@ -2,8 +2,8 @@
 local UIBlox = script:FindFirstAncestor("UIBlox")
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBlox.App.ImageSet.Images)
-local PrimaryContextualButton = require(UIBlox.App.Button.PrimaryContextualButton)
-
+local Button = require(UIBlox.App.Button.Button)
+local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 local Cryo = require(UIBlox.Parent.Cryo)
 local React = require(UIBlox.Parent.React)
 
@@ -83,7 +83,8 @@ local function MediaGalleryCarousel(providedProps: Props)
 				CornerRadius = props.borderRadius,
 			}),
 			PlayButton = if isVideo
-				then React.createElement(PrimaryContextualButton, {
+				then React.createElement(Button, {
+					buttonType = ButtonType.PrimaryContextual,
 					size = PLAY_BUTTON_SIZE_SCALE,
 					anchorPoint = Vector2.new(0.5, 0.5),
 					position = UDim2.fromScale(0.5, 0.5),

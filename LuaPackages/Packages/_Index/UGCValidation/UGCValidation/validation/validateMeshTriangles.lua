@@ -9,13 +9,6 @@ local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFla
 
 -- ensures accessory mesh does not have more triangles than Constants.MAX_HAT_TRIANGLES
 local function validateMeshTriangles(meshId: string, maxTriangles: number?, isServer: boolean?): (boolean, { string }?)
-	if not game:GetFastFlag("UGCReturnAllValidations") then
-		-- we have checked meshId in validateLayeredClothingAccessory, this should be removed when UGCReturnAllValidations is on
-		if meshId == "" then
-			return false, { "Mesh must contain valid MeshId" }
-		end
-	end
-
 	if game:GetFastFlag("UGCLCQualityReplaceLua") and getFFlagUGCValidateBodyPartsExtendedMeshTests() then
 		local success, result = pcall(function()
 			return UGCValidationService:ValidateMeshTriangles(meshId)
