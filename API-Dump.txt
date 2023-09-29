@@ -2395,7 +2395,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 Class Humanoid : Instance
 	Property bool Humanoid.BreakJointsOnDeath
 	Property Enum.HumanoidCollisionType Humanoid.CollisionType {✏️PluginSecurity} [Deprecated]
-	Property bool Humanoid.EvaluateStateMachine [NotBrowsable]
+	Property bool Humanoid.EvaluateStateMachine
 	Property bool Humanoid.RequiresNeck
 	Property bool Humanoid.AutoRotate
 	Property Enum.Material Humanoid.FloorMaterial [ReadOnly]
