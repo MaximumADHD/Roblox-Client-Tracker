@@ -1,5 +1,8 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 	local GetFFlagCorescriptsSoundManagerEnabled =
 		require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 
@@ -12,6 +15,6 @@ return function()
 
 	it("should require without errors", function()
 		local ContactList = require(script.Parent)
-		expect(ContactList).to.be.ok()
+		expect(ContactList).never.toBeNil()
 	end)
 end

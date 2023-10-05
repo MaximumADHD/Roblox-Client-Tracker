@@ -32,6 +32,7 @@ local Constants = require(script.Parent.Parent.Constants)
 local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
@@ -171,7 +172,11 @@ function BubbleChatBillboard:init()
 		else
 			onClick = function()
 				-- The billboards use strings, but the manager expects numbers
-				VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId))
+				VoiceChatServiceManager:ToggleMutePlayer(
+					tonumber(self.props.userId),
+					if self:isShowingDueToEasierUnmuting()
+						then VoiceConstants.VOICE_CONTEXT_TYPE.EASIER_UNMUTING
+						else VoiceConstants.VOICE_CONTEXT_TYPE.BUBBLE_CHAT)
 			end
 		end
 
@@ -226,6 +231,13 @@ function BubbleChatBillboard:init()
 			end
 		)
 	end
+end
+
+function BubbleChatBillboard:isShowingDueToEasierUnmuting()
+	return FFlagEasierUnmuting
+		and self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
+		and self.state.isInsideEasierUnmutingDistance
+		and not (FFlagEasierUnmutingHideIfMuted and self.state.isMuted)
 end
 
 function BubbleChatBillboard:checkCounterForTimeout(lastCounter)
@@ -627,6 +639,7 @@ function BubbleChatBillboard:render()
 				hasMicPermissions = self.state.hasMicPermissions,
 				userId = self.props.userId,
 				voiceEnabled = self.props.voiceEnabled,
+				isShowingDueToEasierUnmuting = self:isShowingDueToEasierUnmuting()
 			}
 
 			children.VoiceAndCameraBubble = (

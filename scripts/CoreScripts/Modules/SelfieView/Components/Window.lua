@@ -24,6 +24,7 @@ local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
+local ControlState = UIBlox.Core.Control.Enum.ControlState
 
 local CameraStatusIcon = require(script.Parent.CameraStatusIcon)
 local CameraStatusDot = require(script.Parent.CameraStatusDot)
@@ -34,6 +35,8 @@ local useCameraOn = require(script.Parent.Parent.Hooks.useCameraOn)
 local useLocalPlayer = require(script.Parent.Parent.Hooks.useLocalPlayer)
 local useTrackerMessage = require(script.Parent.Parent.Hooks.useTrackerMessage)
 local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismissal)
+local Constants = require(script.Parent.Parent.Parent.Chrome.Unibar.Constants)
+local ChromeService = require(script.Parent.Parent.Parent.Chrome.Service)
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
@@ -49,14 +52,21 @@ local UNFOCUS_DELAY_MS: number = 2000
 -- cause the tooltip to show when the icon is hidden
 local HIDE_TOOLTIP_DELAY_MS = 2000
 
+local CLOSE_BUTTON_PADDING = 4
+local CLOSE_BUTTON_POSITION = UDim2.fromOffset(14, 14)
+local CLOSE_BUTTON_HOVER = Constants.CLOSE_BUTTON_SIZE
+	+ UDim2.fromOffset(CLOSE_BUTTON_PADDING * 2, CLOSE_BUTTON_PADDING * 2)
+
 local FaceClone = require(script.Parent.FaceClone)
 
 export type WindowProps = {
+	id: string,
 	windowSize: WindowSizeSignal.WindowSizeSignal,
 	isDraggedOut: boolean,
 }
 
 local function Window(props: WindowProps): React.ReactNode
+	local id = props.id
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
@@ -91,6 +101,8 @@ local function Window(props: WindowProps): React.ReactNode
 	-- After no interaction for a specified time the UI becomes unfocused.
 	-- This includes error messages.
 	local focused: boolean, setFocused: (boolean) -> () = React.useState(true)
+	local closeButtonHover, setCloseButtonHover = React.useState(false)
+	local cameraButtonHover, setCameraButtonHover = React.useState(false)
 	local unfocusTimeoutID: { current: number? } = React.useRef(nil)
 	local userInteracted = function()
 		if unfocusTimeoutID.current then
@@ -109,11 +121,11 @@ local function Window(props: WindowProps): React.ReactNode
 				clearTimeout(unfocusTimeoutID.current)
 			end
 		end
-	end, {})
+	end, { unfocusTimeoutID } :: { any })
 
-	local cameraButtonClicked: () -> () = React.useCallback(function()
+	local activateCamera = function(muteTooltip)
 		userInteracted()
-		if not FaceChatUtils.getPermissions().userCamEnabled then
+		if not FaceChatUtils.getPermissions().userCamEnabled and not muteTooltip then
 			showError(localized.robloxPermissionErrorHeader, localized.robloxPermissionErrorBody)
 			return
 		end
@@ -121,14 +133,14 @@ local function Window(props: WindowProps): React.ReactNode
 		if GetFFlagSelfieViewDontWaitForCharacter() then
 			if player.Character and not ModelUtils.hasDynamicHead(player.Character) then
 				-- We don't want to show this error when turning off the camera.
-				if not FaceChatUtils.isCameraOn() then
+				if not FaceChatUtils.isCameraOn() and not muteTooltip then
 					showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
 				end
 			end
 		else
 			if not ModelUtils.hasDynamicHead(player.Character or player.CharacterAdded:Wait()) then
 				-- We don't want to show this error when turning off the camera.
-				if not FaceChatUtils.isCameraOn() then
+				if not FaceChatUtils.isCameraOn() and not muteTooltip then
 					showError(localized.dynamicAvatarMissingErrorHeader, localized.dynamicAvatarMissingErrorBody)
 				end
 			end
@@ -136,14 +148,18 @@ local function Window(props: WindowProps): React.ReactNode
 
 		Analytics:setLastCtx("SelfView")
 		FaceChatUtils.toggleVideoAnimation()
-	end)
+	end
+
+	local cameraButtonClicked: () -> () = React.useCallback(function()
+		activateCamera(false)
+	end, { FaceChatUtils, ModelUtils, localized, player } :: { any })
 
 	local onActivated = React.useCallback(function()
 		if focused then
 			props.windowSize:toggleIsLarge()
 		end
 		userInteracted()
-	end)
+	end, { userInteracted, focused, props.windowSize } :: { any })
 
 	local frameRef: { current: Frame? } = React.useRef(nil :: Frame?)
 	React.useEffect(function()
@@ -156,23 +172,108 @@ local function Window(props: WindowProps): React.ReactNode
 		end
 
 		local unmount = FaceClone(player, frameRef.current)
+		if not FaceChatUtils.isCameraOn() and not props.isDraggedOut then
+			activateCamera(true)
+		end
 
 		return function()
 			if unmount then
 				unmount()
 			end
 		end
-	end, { frameRef })
+	end, { player, frameRef } :: { any })
+
+	local cameraHoverState = React.useCallback(function(_, newState)
+		setCameraButtonHover(newState == ControlState.Hover)
+	end, { setCameraButtonHover })
+
+	local closeHoverState = React.useCallback(function(_, newState)
+		setCloseButtonHover(newState == ControlState.Hover)
+	end, { setCloseButtonHover })
+
+	local tooltipCallback = React.useCallback(function(triggerPointChanged): React.ReactNode
+		return React.createElement(Interactable, {
+			Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
+			BackgroundTransparency = 1,
+			onStateChanged = cameraHoverState,
+			Position = UDim2.fromScale(0.5, 0.5),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			[React.Change.AbsoluteSize] = triggerPointChanged,
+			[React.Change.AbsolutePosition] = triggerPointChanged,
+			[React.Event.Activated] = cameraButtonClicked,
+		})
+	end, { cameraHoverState, cameraButtonClicked } :: { any })
 
 	return React.createElement("Frame", {
 		Name = "SelfieViewFrame",
 		Active = true,
 		Size = UDim2.fromScale(1, 1),
-		-- TODO: UPDATE WITH DESIGN TOKENS
 		BackgroundColor3 = Color3.new(0, 0, 0),
 		BackgroundTransparency = 0,
+		[React.Event.MouseEnter] = userInteracted,
+		[React.Event.MouseMoved] = userInteracted,
 		ref = frameRef,
 	}, {}, {
+
+		CloseButtonWrapper = focused and React.createElement("Frame", {
+			ZIndex = 2,
+			BackgroundTransparency = 1,
+			Size = Constants.CLOSE_BUTTON_FRAME,
+		}, {
+
+			CloseButtonLayout = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			}),
+			CloseButtonInteractable = React.createElement(Interactable, {
+				Size = Constants.CLOSE_BUTTON_FRAME,
+				BackgroundTransparency = 1,
+				onStateChanged = closeHoverState,
+				[React.Event.Activated] = function()
+					ChromeService:toggleWindow(id)
+				end,
+			}, {
+				Fragment = React.createElement(React.Fragment, nil, {
+					React.createElement("Frame", {
+						Name = "X1",
+						Position = CLOSE_BUTTON_POSITION,
+						AnchorPoint = Vector2.new(0.5, 0),
+						Size = UDim2.new(0, 16, 0, 2),
+						BorderSizePixel = 0,
+						BackgroundColor3 = style.Theme.IconEmphasis.Color,
+						BackgroundTransparency = 0,
+						Rotation = 45,
+					}, {
+						Corner = React.createElement("UICorner"),
+					}) :: any,
+					React.createElement("Frame", {
+						Name = "X2",
+						Position = CLOSE_BUTTON_POSITION,
+						AnchorPoint = Vector2.new(0.5, 0),
+						Size = UDim2.new(0, 16, 0, 2),
+						BorderSizePixel = 0,
+						BackgroundColor3 = style.Theme.IconEmphasis.Color,
+						BackgroundTransparency = 0,
+						Rotation = -45,
+					}, {
+						Corner = React.createElement("UICorner"),
+					}) :: any,
+				}),
+				Hover = React.createElement("Frame", {
+					Size = CLOSE_BUTTON_HOVER,
+					Visible = closeButtonHover,
+					BackgroundTransparency = style.Theme.BackgroundOnHover.Transparency,
+					BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
+				}, {
+					Corner = React.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+				}),
+			}),
+		}),
+
 		Corners = React.createElement("UICorner", {}),
 		ControlMessage = React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 1),
@@ -226,20 +327,21 @@ local function Window(props: WindowProps): React.ReactNode
 			}, {
 				guiTarget = CoreGui,
 				active = showTooltip,
-				DisplayOrder = 10,
+				DisplayOrder = 101,
 				preferredOrientation = TooltipOrientation.Bottom,
-			}, function(triggerPointChanged): React.ReactNode
-				return React.createElement(Interactable, {
-					Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
-					BackgroundTransparency = 1,
-					Position = UDim2.fromScale(0.5, 0.5),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-
-					[React.Change.AbsoluteSize] = triggerPointChanged,
-					[React.Change.AbsolutePosition] = triggerPointChanged,
-					[React.Event.Activated] = cameraButtonClicked,
-				})
-			end),
+			}, tooltipCallback),
+			Hover = React.createElement("Frame", {
+				Size = UDim2.fromOffset(ICON_SIZE + BUTTON_PADDING, ICON_SIZE + BUTTON_PADDING),
+				Visible = cameraButtonHover,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				BackgroundTransparency = style.Theme.BackgroundOnHover.Transparency,
+				BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
+			}, {
+				Corner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+			}),
 			CameraStatusIcon = React.createElement(CameraStatusIcon, {
 				iconSize = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 				transparency = not FaceChatUtils.getPermissions().userCamEnabled and 0.5 or 0,

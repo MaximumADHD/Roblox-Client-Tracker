@@ -10,14 +10,18 @@ local GetFStringTeleportBackButtonIXPCustomLayerName = require(script.Parent.Par
 local GetFFlagReportAnythingAnnotationIXP = require(script.Parent.Parent.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFStringReportAnythingAnnotationIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
 local GetFStringChatTranslationLayerName = require(script.Parent.Parent.Flags.GetFStringChatTranslationLayerName)
-local GetFFlagUserIsChatTranslationEnabled = require(script.Parent.Parent.Flags.GetFFlagUserIsChatTranslationEnabled)
+local GetFFlagChatTranslationSettingEnabled = require(script.Parent.Parent.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFFlagVoiceUserAgencyEnableIXP = require(script.Parent.Parent.Flags.GetFFlagVoiceUserAgencyEnableIXP)
 local GetFStringVoiceUserAgencyIXPLayerName = require(script.Parent.Parent.Flags.GetFStringVoiceUserAgencyIXPLayerName)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(script.Parent.Parent.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
+local getFStringDesktopToastNotificationLayer = require(CorePackages.Workspace.Packages.SharedFlags).getFStringDesktopToastNotificationLayer
+local GetFFlagMuteTogglesEnableIXP = require(script.Parent.Parent.Settings.Flags.GetFFlagMuteTogglesEnableIXP)
+local GetFStringMuteTogglesIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringMuteTogglesIXPLayerName)
 
 return function()
 	local layers = {
 		"AbuseReports",
+		getFStringDesktopToastNotificationLayer(),
 	}
 
 	if IsExperienceMenuABTestEnabled()
@@ -43,7 +47,7 @@ return function()
 		table.insert(layers, GetFStringReportAnythingAnnotationIXPLayerName())
 	end
 
-	if GetFFlagUserIsChatTranslationEnabled() and #GetFStringChatTranslationLayerName() > 0 then
+	if GetFFlagChatTranslationSettingEnabled() and #GetFStringChatTranslationLayerName() > 0 then
 		table.insert(layers, GetFStringChatTranslationLayerName())
 	end
 
@@ -52,6 +56,10 @@ return function()
 	end
 	if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 		table.insert(layers, "Growth.Notifications.GameInviteMenu")
+	end
+
+	if GetFFlagMuteTogglesEnableIXP() then
+		table.insert(layers, GetFStringMuteTogglesIXPLayerName())
 	end
 
 	return layers

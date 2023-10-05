@@ -77,6 +77,8 @@ local GetFFlagReportAnythingLocalizationEnabled =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingLocalizationEnabled)
 local GetFFlagReportAbuseMenuAutosizeYEnabled =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAbuseMenuAutosizeYEnabled)
+local GetFFlagRAScreenshotOncePerMenuOpenEnabled =
+	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagRAScreenshotOncePerMenuOpenEnabled)
 local GetFFlagEnableOptionalScreenshotButton2 = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableOptionalScreenshotButton2)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
@@ -798,6 +800,11 @@ local function Initialize()
 		this.HubRef.SettingsShowSignal:connect(function(isOpen)
 			if isOpen then
 				this:setReportTimestamp(Workspace:GetServerTimeNow())
+			else
+				if GetFFlagRAScreenshotOncePerMenuOpenEnabled() and shouldDoReportScreenshot() then
+					-- clear out the screenshot related state only when the entire menu closes
+					AbuseReportBuilder.clear()
+				end
 			end
 		end)
 
@@ -1558,7 +1565,13 @@ do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
-		if (shouldDoReportScreenshot()) and not PageInstance.isHidingForARScreenshot then
+		local kickOffScreenshot = shouldDoReportScreenshot() and not PageInstance.isHidingForARScreenshot
+
+		if GetFFlagRAScreenshotOncePerMenuOpenEnabled() then
+			kickOffScreenshot = kickOffScreenshot and (AbuseReportBuilder.getScreenshotContentId() == "")
+		end
+
+		if kickOffScreenshot then
 			PageInstance.isHidingForARScreenshot = true
 			PageInstance.HubRef:SetVisibility(false, true)
 
@@ -1684,7 +1697,13 @@ do
 				if AbuseReportBuilder.getAnnotationOptionSeen() then
 					PageInstance:ActivateFormPhase(FormPhase.AttachScreenshotInit)
 				end
-				AbuseReportBuilder.clear() -- opening the AR flow again will replace anything in here anyway.
+				if GetFFlagRAScreenshotOncePerMenuOpenEnabled() then
+					-- with flag on, keep screenshot but clear user annotations if they
+					-- navigate away from this tab but keep the IGM open.
+					AbuseReportBuilder.clearAnnotationPoints()
+				else
+					AbuseReportBuilder.clear() -- opening the AR flow again will replace anything in here anyway
+				end
 			end
 			ReportAbuseAnalytics:endAbuseReportSession()
 			open = false

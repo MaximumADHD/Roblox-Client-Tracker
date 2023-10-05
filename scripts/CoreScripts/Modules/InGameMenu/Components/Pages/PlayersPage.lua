@@ -28,6 +28,7 @@ local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelec
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 
 local PlayerLabel = require(InGameMenu.Components.PlayerLabelV2)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
@@ -311,7 +312,7 @@ function PlayersPage:getMoreActions(localized)
 						onActivated = function()
 							local player = self.state.selectedPlayer
 							log:debug("Muting Player {}", player.UserId)
-							VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
+							VoiceChatServiceManager:ToggleMutePlayer(player.UserId, VoiceConstants.VOICE_CONTEXT_TYPE.IN_GAME_MENU)
 							self:setState({
 								selectedPlayer = Roact.None,
 							})
@@ -428,7 +429,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 			Position = UDim2.new(1, 4, 0.5, 0),
 			Image = VoiceChatServiceManager:GetIcon(self.state.allMuted and "UnmuteAll" or "MuteAll", "Misc"),
 			[Roact.Event.Activated] = function()
-				VoiceChatServiceManager:MuteAll(not self.state.allMuted)
+				VoiceChatServiceManager:MuteAll(not self.state.allMuted, VoiceConstants.VOICE_CONTEXT_TYPE.IN_GAME_MENU)
 				self:setState({
 					allMuted = not self.state.allMuted,
 				})

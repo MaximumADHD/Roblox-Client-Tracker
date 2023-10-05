@@ -14,6 +14,7 @@ return function()
 	local ActionBindingsData = require(Reducers.ActionBindingsData)
 	local MicroProfiler = require(Reducers.MicroProfiler)
 	local DebugVisualizationsData = require(Reducers.DebugVisualizationsData)
+	local ScriptProfiler = require(Reducers.ScriptProfiler)
 
 	it("has the expected fields, and only the expected fields", function()
 		local state = DevConsoleReducer(nil, {})
@@ -31,6 +32,7 @@ return function()
 			ActionBindingsData = ActionBindingsData(nil, {}),
 			MicroProfiler = MicroProfiler(nil, {}),
 			DebugVisualizationsData = DebugVisualizationsData(nil, {}),
+			ScriptProfiler = ScriptProfiler(nil, {}),
 		}
 
 		for key in pairs(expectedKeys) do

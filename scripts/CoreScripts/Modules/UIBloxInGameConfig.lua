@@ -11,8 +11,7 @@ return {
 	enableRightSideGadgetView = UIBloxFlags.GetFFlagUIBloxUseRightSideGadget(),
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()
 		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
-	pillGroupAutomaticSize = UIBloxFlags.GetFFlagUIBloxPillGroupAutomaticSize(),
-	vrAlignPanel3DUnderInGamePanel = UIBloxFlags.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel(),
+	vrAlignPanel3DUnderInGamePanel = true,
 	vrFixUIJitter = UIBloxFlags.GetFFlagUIBloxVRFixUIJitter(),
 	allowNarrowerSegmentedControl = SharedFlags.GetFFlagIGMVRComfortSetting(),
 	dualVRLaserPointers = UIBloxFlags.GetFFlagUIBloxVRDualLaserPointers(),
@@ -21,4 +20,8 @@ return {
 	enableNewMenuLayout = UIBloxFlags.GetFFlagUIBloxEnableNewMenuLayout(),
 	useTokensInPlayerTile = UIBloxFlags.GetFFlagUIBloxUseTokensInPlayerTile(),
 	increaseImageResolutionForTenFoot = UIBloxFlags.GetFFlagIncreaseImageResolutionForTenFoot(),
+	fixCoPlayFooterBadgeTextCenteringAndZIndex = UIBloxFlags.GetFFlagUIBloxUpgradeCoPlayFooter(),
+	fixCoPlayFooterBadgeEmphasisBorder = UIBloxFlags.GetFFlagUIBloxUpgradeCoPlayFooter(),
+	toastButtonTypesAutoAlignAndNoBorder = UIBloxFlags.GetFFlagUIBloxToastButtonTypesAutoAlignAndNoBorder(),
+	coPlayFooterChangeColorAndShowMoreFaces = UIBloxFlags.GetFFlagUIBloxUpgradeCoPlayFooter(),
 }

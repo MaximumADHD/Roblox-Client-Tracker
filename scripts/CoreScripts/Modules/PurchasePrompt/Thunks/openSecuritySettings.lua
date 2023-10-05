@@ -1,3 +1,4 @@
+--!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 
@@ -22,7 +23,7 @@ local requiredServices = {
 	PlatformInterface,
 }
 
-local function openSecuritySettings()
+local function openSecuritySettings(challengeResponse: string?)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local analytics = services[Analytics]
 		local externalSettings = services[ExternalSettings]
@@ -36,9 +37,13 @@ local function openSecuritySettings()
 			local requestType = state.requestType
 
 			analytics.signalTwoSVSettingsErrorConfirmed(productId, requestType)
-			platformInterface.openSecuritySettings()
+			if challengeResponse then
+				platformInterface.openSecuritySettings(challengeResponse)
+			else
+				platformInterface.openSecuritySettings()
+			end
 		end
-        store:dispatch(hideWindow())
+		store:dispatch(hideWindow())
 	end)
 end
 

@@ -10,7 +10,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
-local InviteEvents = require(ShareGame.Analytics.InviteEvents)
+local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInviteEvents
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local ToasterComponent = require(ShareGame.Components.ErrorToaster)
@@ -46,8 +46,6 @@ local IMAGE_ROUNDED_BACKGROUND = "rbxasset://textures/ui/LuaChat/9-slice/btn-con
 -- Color 41/41/41 comes from the SettingsShield background color
 local SETTINGS_SHIELD_BACKGROUND_COLOR = Color3.fromRGB(41, 41, 41)
 local BACKGROUND_BORDER_RADIUS = 3
-
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local ModalShareGamePageFrame = Roact.PureComponent:extend("ModalShareGamePageFrame")
 ModalShareGamePageFrame.defaultProps = {
@@ -188,7 +186,7 @@ function ModalShareGamePageFrame:render()
 				closePage = self.onClosePage,
 				searchAreaActive = searchAreaActive,
 				toggleSearchIcon = true,
-				iconType = FFlagLuaInviteModalEnabled and BackButton.IconType.Cross or nil,
+				iconType = BackButton.IconType.Cross,
 			}),
 			CustomText = isNewUI and Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, customTextHeight),

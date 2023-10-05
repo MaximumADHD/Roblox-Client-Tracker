@@ -21,6 +21,7 @@ local ChatIcon = require(script.ChatIcon)
 local MenuCell = require(script.MenuCell)
 local BottomBar = require(script.BottomBar)
 local ControllerBar = require(script.QuickMenuControllerBar)
+local MenuNavigationToggleDialog = require(script.MenuNavigationToggleDialog)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -75,6 +76,7 @@ local LocalPlayer = Players.LocalPlayer
 
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
+local FFlagAddMenuNavigationToggleDialog = require(script.Parent.Parent.Parent.Flags.FFlagAddMenuNavigationToggleDialog)
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -130,7 +132,7 @@ function GamepadMenu:init()
 		end
 
 		GamepadMenu.leaveGame()
-		
+
 		self.props.setGamepadMenuOpen(false)
 
 		return Enum.ContextActionResult.Sink
@@ -142,7 +144,7 @@ function GamepadMenu:init()
 		end
 
 		GamepadMenu.respawnCharacter()
-		
+
 		self.props.setGamepadMenuOpen(false)
 
 		return Enum.ContextActionResult.Sink
@@ -506,6 +508,9 @@ function GamepadMenu:render()
 			}, menuChildren),
 
 			ControllerBar = controllerBarComponent,
+			MenuNavigationToggleDialog = if FFlagAddMenuNavigationToggleDialog then Roact.createElement(MenuNavigationToggleDialog, {
+				Position = UDim2.fromScale(0.5, 0.1),
+			}) else nil
 		})
 	end)
 end

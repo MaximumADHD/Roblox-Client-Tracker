@@ -2,6 +2,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local Rodux = InGameMenuDependencies.Rodux
@@ -83,8 +86,8 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		expect(testButtonRef:getValue()).to.be.ok()
-		expect(type(testButtonRef:getValue())).to.equal("userdata")
+		expect(testButtonRef:getValue()).never.toBeNil()
+		expect(type(testButtonRef:getValue())).toBe("userdata")
 
 		Roact.unmount(instance)
 	end)

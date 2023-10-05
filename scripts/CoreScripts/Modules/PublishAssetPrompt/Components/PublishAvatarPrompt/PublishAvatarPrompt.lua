@@ -15,6 +15,10 @@ local LocalPlayer = Players.LocalPlayer
 
 local Components = script.Parent.Parent
 local BasePublishPrompt = require(Components.BasePublishPrompt)
+local ObjectViewport = require(Components.Common.ObjectViewport)
+
+local CAMERA_FOV = 30
+
 local TITLE_TEXT = "title"
 local BODY_TEXT = "body"
 
@@ -25,20 +29,40 @@ PublishAvatarPrompt.validateProps = t.strictInterface({
 	humanoidDescription = t.any,
 })
 
+function PublishAvatarPrompt:init()
+	self:setState({
+		showingPreviewView = false,
+	})
+	self.openPreviewView = function()
+		self:setState({
+			showingPreviewView = true,
+		})
+	end
+	self.closePreviewView = function()
+		self:setState({
+			showingPreviewView = false,
+		})
+	end
+end
+
 function PublishAvatarPrompt:renderPromptBody()
 	assert(LocalPlayer, "Assert LocalPlayer not nil to silence type checker")
+	-- TODO: Replace placeholder HD AVBURST-13327
+	-- Note it's nice to use LocalPlayer.Character.Humanoid.HumanoidDescription for debugging
+	local model =
+		Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
 	return Roact.createFragment({
 		layout = Roact.createElement("UIListLayout", {
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
 		}),
-		-- TODO AVBURST-12722, AVBURST-12723, add working Object Viewport and Item Cards when ready
-		-- For now pass a placeholder frame to show how to pass prompt body
-		Frame = Roact.createElement("Frame", {
-			BackgroundTransparency = 0,
-			BackgroundColor3 = Color3.new(1, 1, 1),
-			Size = UDim2.new(1, 0, 0, 300),
+		-- TODO AVBURST-13271, AVBURST-12723, add Item Cards when ready and tooltip to ObjectViewport
+		EmbeddedPreview = Roact.createElement(ObjectViewport, {
+			openPreviewView = self.openPreviewView,
+			model = model,
+			useFullBodyCameraSettings = true,
+			fieldOfView = CAMERA_FOV,
 		}),
 	})
 end
@@ -60,7 +84,16 @@ function PublishAvatarPrompt:render()
 	return Roact.createElement(BasePublishPrompt, {
 		promptBody = self:renderPromptBody(),
 		screenSize = self.props.screenSize,
+		showingPreviewView = self.state.showingPreviewView,
+		closePreviewView = self.closePreviewView,
+		-- TODO: Replace placeholder HD AVBURST-13327
+		-- Note it's nice to use LocalPlayer.Character.Humanoid.HumanoidDescription for debugging
+		asset = Players:CreateHumanoidModelFromDescription(
+			Instance.new("HumanoidDescription"),
+			Enum.HumanoidRigType.R15
+		),
 		nameLabel = "Body Name", -- TODO AVBURST-12954 localize
+		nameMetadataString = "avatarName",
 		defaultName = LocalPlayer.Name .. "'s Body", -- TODO AVBURST-12954 localize
 		typeData = localized[BODY_TEXT],
 		titleText = localized[TITLE_TEXT],
@@ -69,6 +102,7 @@ end
 
 local function mapStateToProps(state)
 	return {
+		-- TODO: Replace placeholder HD AVBURST-13327
 		-- Currently humanoidDescription is just a string, so the viewport uses a placeholder
 		humanoidDescription = state.promptRequest.promptInfo.humanoidDescription,
 	}

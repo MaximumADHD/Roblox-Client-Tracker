@@ -29,6 +29,7 @@ local Modules = CoreGui.RobloxGui.Modules
 local PermissionButton = require(Modules.Settings.Components.PermissionButton)
 local RecordingIndicator = require(Modules.Settings.Components.RecordingIndicator)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceConstants = require(Modules.VoiceChat.Constants)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
@@ -138,7 +139,7 @@ function PermissionsButtons:init()
 		end
 
 		local newAllPlayersMuted = not self.state.allPlayersMuted
-		VoiceChatServiceManager:MuteAll(newAllPlayersMuted)
+		VoiceChatServiceManager:MuteAll(newAllPlayersMuted, VoiceConstants.VOICE_CONTEXT_TYPE.IN_GAME_MENU)
 		self:setState({
 			allPlayersMuted = newAllPlayersMuted,
 		})

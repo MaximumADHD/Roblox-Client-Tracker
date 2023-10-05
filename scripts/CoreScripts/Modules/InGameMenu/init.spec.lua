@@ -1,6 +1,10 @@
 return function()
 	local GuiService = game:GetService("GuiService")
 	local Players = game:GetService("Players")
+	local CorePackages = game:GetService("CorePackages")
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	beforeEach(function()
 		GuiService.SelectedCoreObject = nil
@@ -16,6 +20,6 @@ return function()
 
 	it("should require without errors", function()
 		local InGameMenu = require(script.Parent)
-		expect(InGameMenu).to.be.ok()
+		expect(InGameMenu).never.toBeNil()
 	end)
 end

@@ -1,5 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local Rodux = require(CorePackages.Packages.Rodux)
 
 local messages = require(script.Parent.messages)
@@ -23,7 +26,7 @@ return function()
 
 		local state = store:getState()
 
-		expect(state[MESSAGE.id]).to.be.ok()
+		expect(state[MESSAGE.id]).never.toBeNil()
 	end)
 
 	it("should handle RemoveMessage", function()
@@ -33,12 +36,12 @@ return function()
 
 		local state = store:getState()
 
-		expect(state[MESSAGE.id]).to.be.ok()
+		expect(state[MESSAGE.id]).never.toBeNil()
 
 		store:dispatch(RemoveMessage(MESSAGE))
 		state = store:getState()
 
-		expect(state[MESSAGE.id]).to.never.be.ok()
+		expect(state[MESSAGE.id]).toBeNil()
 	end)
 
 	it("should handle SetMessageText", function()
@@ -49,6 +52,6 @@ return function()
 
 		local state = store:getState()
 
-		expect(state[MESSAGE.id].text).to.equal("New Text")
+		expect(state[MESSAGE.id].text).toBe("New Text")
 	end)
 end

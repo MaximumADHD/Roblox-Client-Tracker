@@ -9,25 +9,36 @@ local ChromeService = require(script.Parent.Parent.Service)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 local CommonIcon = require(script.Parent.CommonIcon)
+local GameSettings = UserSettings().GameSettings
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 
 local unreadMessages = 0
+-- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
+local chatVisibility: boolean = ChatSelector:GetVisibility()
+local chatChromeIntegration
 
-local chatVisibility = MappedSignal.new(ChatSelector.VisibilityStateChanged, function()
-	return ChatSelector:GetVisibility()
+local chatVisibilitySignal = MappedSignal.new(ChatSelector.VisibilityStateChanged, function()
+	return chatVisibility
+end, function(visibility)
+	chatVisibility = visibility :: boolean
+	GameSettings.ChatVisible = visibility :: boolean
+	if visibility and unreadMessages and chatChromeIntegration.notification then
+		unreadMessages = 0
+		chatChromeIntegration.notification:clear()
+	end
 end)
 
-local chatChromeIntegration = ChromeService:register({
+chatChromeIntegration = ChromeService:register({
 	id = "chat",
 	label = "CoreScripts.TopBar.Chat",
 	activated = function(self)
-		if ChatSelector:GetVisibility() then
+		if chatVisibility then
 			ChatSelector:ToggleVisibility()
 		else
 			ChromeUtils.dismissRobloxMenuAndRun(function(menuWasOpen)
 				if menuWasOpen then
-					if not ChatSelector:GetVisibility() then
+					if not chatVisibility then
 						ChatSelector:ToggleVisibility()
 					end
 				else
@@ -35,24 +46,17 @@ local chatChromeIntegration = ChromeService:register({
 				end
 			end)
 		end
-
-		if ChatSelector:GetVisibility() then
-			if unreadMessages and self.notification then
-				unreadMessages = 0
-				self.notification:clear()
-			end
-		end
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibility)
+			return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
 		end,
 	},
 })
 
 chatChromeIntegration.notification:fireCount(unreadMessages)
 TextChatService.MessageReceived:Connect(function()
-	if not ChatSelector:GetVisibility() then
+	if not chatVisibility then
 		unreadMessages += 1
 		chatChromeIntegration.notification:fireCount(unreadMessages)
 	end
@@ -60,7 +64,7 @@ end)
 
 local lastMessagesChangedValue = 0
 ChatSelector.MessagesChanged:connect(function(messages: number)
-	if not ChatSelector:GetVisibility() then
+	if not chatVisibility then
 		unreadMessages += messages - lastMessagesChangedValue
 		chatChromeIntegration.notification:fireCount(unreadMessages)
 	end
@@ -91,8 +95,10 @@ end)()
 function _simulateChat()
 	while true do
 		task.wait(math.random(1, 15))
-		unreadMessages += 1
-		chatChromeIntegration.notification:fireCount(unreadMessages)
+		if not chatVisibility then
+			unreadMessages += 1
+			chatChromeIntegration.notification:fireCount(unreadMessages)
+		end
 	end
 end
 

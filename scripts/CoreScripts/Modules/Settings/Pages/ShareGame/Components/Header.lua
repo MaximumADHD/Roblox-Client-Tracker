@@ -12,7 +12,6 @@ local Constants = require(ShareGame.Constants)
 local BackButton = require(ShareGame.Components.BackButton)
 local SearchArea = require(ShareGame.Components.SearchArea)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
 
@@ -27,42 +26,23 @@ function Header:render()
 	local searchAreaActive = self.props.searchAreaActive
 	local analytics = self.props.analytics
 
-	local toggleSearchIcon
-	local iconType
-	if FFlagLuaInviteModalEnabled then
-		toggleSearchIcon = self.props.toggleSearchIcon
-		iconType = self.props.iconType
-	end
+	local toggleSearchIcon = self.props.toggleSearchIcon
+	local iconType = self.props.iconType
 
 	local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
 	local isDesktop = deviceLayout == Constants.DeviceLayout.DESKTOP
-	local isSearchingOnMobile
-	if not FFlagLuaInviteModalEnabled then
-		isSearchingOnMobile = (not isDesktop) and searchAreaActive
-	end
 
-	local isSearchingWithIcon
+
+	local isSearchingWithIcon = toggleSearchIcon and searchAreaActive
 	local backButtonWidth
-	if FFlagLuaInviteModalEnabled then
-		isSearchingWithIcon = toggleSearchIcon and searchAreaActive
-		if iconType == BackButton.IconType.None then
-			backButtonWidth = layoutSpecific.BACK_BUTTON_WIDTH
-		else
-			backButtonWidth = layoutSpecific.BACK_BUTTON_MODAL_WIDTH
-		end
+	if iconType == BackButton.IconType.None then
+		backButtonWidth = layoutSpecific.BACK_BUTTON_WIDTH
+	else
+		backButtonWidth = layoutSpecific.BACK_BUTTON_MODAL_WIDTH
 	end
 
-	local isArrow
-	local isTitleVisible
-	local visible
-	if FFlagLuaInviteModalEnabled then
-		isTitleVisible = not isSearchingWithIcon
-		visible = true
-	else
-		isTitleVisible = not isSearchingOnMobile
-		isArrow = not isDesktop
-		visible = not isSearchingOnMobile
-	end
+	local isTitleVisible = not isSearchingWithIcon
+	local visible = true
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -83,12 +63,11 @@ function Header:render()
 			ZIndex = zIndex,
 		}),
 		BackButton = Roact.createElement(BackButton, {
-			isArrow = isArrow,
 			visible = visible,
 			iconType = iconType,
 			position = UDim2.new(0, 0, 0.5, 0),
 			size = UDim2.new(
-				0, FFlagLuaInviteModalEnabled and backButtonWidth or layoutSpecific.BACK_BUTTON_WIDTH,
+				0, backButtonWidth or layoutSpecific.BACK_BUTTON_WIDTH,
 				0, layoutSpecific.BACK_BUTTON_HEIGHT
 			),
 			anchorPoint = Vector2.new(0, 0.5),
@@ -96,11 +75,11 @@ function Header:render()
 			onClick = closePage,
 		}),
 		SearchArea = Roact.createElement(SearchArea, {
-			fullWidthSearchBar = FFlagLuaInviteModalEnabled and toggleSearchIcon or not isDesktop,
+			fullWidthSearchBar = toggleSearchIcon or not isDesktop,
 			searchBoxMargin = layoutSpecific.SEARCH_BOX_MARGIN,
 			anchorPoint = Vector2.new(1, 0.5),
 			position = UDim2.new(1, 0, 0.5, 0),
-			size = FFlagLuaInviteModalEnabled and UDim2.new(1, -backButtonWidth, 1, 0),
+			size = UDim2.new(1, -backButtonWidth, 1, 0),
 			zIndex = zIndex,
 			analytics = analytics,
 		})

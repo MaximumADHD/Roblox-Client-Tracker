@@ -53,8 +53,6 @@ local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEna
 
 local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("EnableVRBottomBarWorksBehindObjects")
 
-local GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local FFlagVRBottomBarUsePositionConfig = require(RobloxGui.Modules.Flags.FFlagVRBottomBarUsePositionConfig)
 local FFlagVRBottomBarDebugPositionConfig = require(RobloxGui.Modules.Flags.FFlagVRBottomBarDebugPositionConfig)
@@ -665,7 +663,7 @@ end
 
 -- VRBottomBar implements two UIBlox components
 function VRBottomBar:renderWithStyle(style)
-	local basePartSize = GetFFlagUIBloxVRAlignPanel3DUnderInGamePanel() and 0.2 or 0.15
+	local basePartSize = 0.2
 	if UsePositionConfig then
 		basePartSize = 0.2 + self.state.zOffset/10  -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
 	end

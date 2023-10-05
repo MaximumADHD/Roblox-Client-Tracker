@@ -2,6 +2,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -86,16 +89,18 @@ return function()
 
 			local validatePlayer = function(playerName, userName, displayName)
 				local label = instance:FindFirstChild(playerName)
-				expect(label).never.to.equal(nil)
+				expect(label).never.toBeNil()
 
 				local displayNameLabel = label:FindFirstChild("DisplayNameLabel")
 				local usernameLabel = label:FindFirstChild("UsernameLabel")
-				expect(displayNameLabel).never.to.equal(nil)
-				expect(usernameLabel).never.to.equal(nil)
-				expect(usernameLabel.Visible).to.equal(true)
-				expect(displayNameLabel.Visible).to.equal(true)
-				expect(usernameLabel.Text).to.equal("@" .. userName)
-				expect(displayNameLabel.Text).to.equal(displayName)
+				expect(displayNameLabel).toMatchInstance({
+					Visible = true,
+					Text = displayName,
+				})
+				expect(usernameLabel).toMatchInstance({
+					Visible = true,
+					Text = "@" .. userName,
+				})
 			end
 
 			validatePlayer("PlayerLabel1", PLAYER1_USERNAME, PLAYER1_DISPLAYNAME)
@@ -127,8 +132,8 @@ return function()
 		})
 
 		local instance = Roact.mount(element)
-		expect(ref.current).to.be.ok()
-		expect(ref.current:IsA("Instance")).to.equal(true)
+		expect(ref.current).never.toBeNil()
+		expect(ref.current:IsA("Instance")).toBe(true)
 		Roact.unmount(instance)
 	end)
 end

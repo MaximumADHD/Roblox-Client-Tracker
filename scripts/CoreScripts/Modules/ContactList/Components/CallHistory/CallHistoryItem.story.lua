@@ -1,37 +1,43 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
+local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
+local GraphQLServer = require(CorePackages.Workspace.Packages.GraphQLServer)
+local ApolloClientTestUtils = GraphQLServer.ApolloClientTestUtils
+local mockApolloClient = ApolloClientTestUtils.mockApolloClient
+
 local CallHistoryItem = require(script.Parent.CallHistoryItem)
 
 return {
 	stories = {
-		Finished = function(props)
-			return React.createElement(CallHistoryItem, {
-				caller = {
-					callId = "test_call_id",
-					callerId = 2,
-					participants = {
-						{
-							userId = 1,
-							displayName = "localuserDisplayName",
-							userName = "localuser",
+		Incoming = function(props)
+			return React.createElement(ApolloClientModule.ApolloProvider, { client = mockApolloClient({}) }, {
+				React.createElement(CallHistoryItem, {
+					caller = {
+						callId = "test_call_id",
+						callerId = 2,
+						participants = {
+							{
+								userId = 1,
+								displayName = "localuserDisplayName",
+								userName = "localuser",
+							},
+							{
+								userId = 2,
+								displayName = "SuperCoolDisplayName",
+								userName = "SuperCoolUsername",
+							},
 						},
-						{
-							userId = 2,
-							displayName = "SuperCoolDisplayName",
-							userName = "SuperCoolUsername",
-						},
+						status = "CallFinished",
+						startUtc = 1681338167883,
+						endUtc = 1681338335366,
+						universeId = 123,
+						placeId = 456,
 					},
-					status = "CallFinished",
-					startUtc = 1681338167883,
-					endUtc = 1681338335366,
-					universeId = 123,
-					placeId = 456,
-				},
-				localUserId = 1,
-				showDivider = props.controls.showDivider,
-				isDevMode = true,
-				dismissCallback = function() end,
+					localUserId = 1,
+					showDivider = props.controls.showDivider,
+					dismissCallback = function() end,
+				}),
 			})
 		end,
 		Outgoing = function(props)
@@ -60,7 +66,6 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
-				isDevMode = true,
 				dismissCallback = function() end,
 			})
 		end,
@@ -68,7 +73,7 @@ return {
 			return React.createElement(CallHistoryItem, {
 				caller = {
 					callId = "test_call_id",
-					callerId = 1,
+					callerId = 2,
 					participants = {
 						{
 							userId = 1,
@@ -89,7 +94,6 @@ return {
 				},
 				localUserId = 1,
 				showDivider = props.controls.showDivider,
-				isDevMode = true,
 				dismissCallback = function() end,
 			})
 		end,

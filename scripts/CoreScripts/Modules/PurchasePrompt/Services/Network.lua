@@ -16,6 +16,7 @@ local PremiumProduct = require(Root.Models.PremiumProduct)
 
 local debugLog = require(Root.Utils.debugLog)
 local serializeTable = require(Root.Utils.serializeTable)
+local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
 
 local EngineFeatureEnablePlayerOwnsBundleApi = game:GetEngineFeature("EnablePlayerOwnsBundleApi")
 
@@ -133,6 +134,13 @@ local function performPurchase(infoType, productId, expectedPrice, requestId, is
 	end)
 
 	if success then
+		return result
+	end
+
+	--[[ Generic Challenge Responses are HTTP 403 Forbidden responses with a unique
+	response pattern. We explicitly identify the response and return the result.
+	]]--
+	if isGenericChallengeResponse(result) then
 		return result
 	end
 

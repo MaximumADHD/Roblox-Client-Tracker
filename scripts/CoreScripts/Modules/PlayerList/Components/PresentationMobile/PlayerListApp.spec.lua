@@ -2,18 +2,15 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 
 	local Roact = require(CorePackages.Roact)
-	local RoactRodux = require(CorePackages.RoactRodux)
 	local Rodux = require(CorePackages.Rodux)
-	local UIBlox = require(CorePackages.UIBlox)
 
 	local PlayerList = script.Parent.Parent.Parent
 	local Reducers = PlayerList.Reducers
 	local Reducer = require(Reducers.Reducer)
 
-	local Connection = PlayerList.Components.Connection
-	local LayoutValues = require(Connection.LayoutValues)
-	local LayoutValuesProvider = LayoutValues.Provider
 
+
+	local TestProviders = require(PlayerList.TestProviders)
 	local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 
 	local Actions = PlayerList.Actions
@@ -23,19 +20,13 @@ return function()
 
 
 	it("should create and destroy without errors", function()
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
+		local element = Roact.createElement(TestProviders, {
 			store = Rodux.Store.new(Reducer, nil, {
 				Rodux.thunkMiddleware,
 			})
 		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(false)
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					PlayerListApp = Roact.createElement(PlayerListApp, {
-						setLayerCollectorEnabled = function() end,
-					})
-				})
+			PlayerListApp = Roact.createElement(PlayerListApp, {
+				setLayerCollectorEnabled = function() end,
 			})
 		})
 
@@ -49,17 +40,12 @@ return function()
 		})
 		store:dispatch(SetTenFootInterface(true))
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store
+		local element = Roact.createElement(TestProviders, {
+			store = store,
+			layoutValues = CreateLayoutValues(true),
 		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(true)
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					PlayerListApp = Roact.createElement(PlayerListApp, {
-						setLayerCollectorEnabled = function() end,
-					})
-				})
+			PlayerListApp = Roact.createElement(PlayerListApp, {
+				setLayerCollectorEnabled = function() end,
 			})
 		})
 

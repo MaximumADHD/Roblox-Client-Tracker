@@ -1,5 +1,10 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
 	local PlayerSearchPredicate = require(script.Parent.PlayerSearchPredicate)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	it("should succeed for no search query", function()
 		local searchQuery = ""
@@ -7,7 +12,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed for search query equal to name", function()
@@ -16,7 +21,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with lowercase search query", function()
@@ -25,7 +30,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with uppercase search query", function()
@@ -34,7 +39,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with partial match", function()
@@ -43,7 +48,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with partial center match", function()
@@ -52,7 +57,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with partial end match for display name", function()
@@ -61,7 +66,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with different case partial match", function()
@@ -70,7 +75,7 @@ return function()
 		local displayName = "Dave"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should fail with for completely different search query", function()
@@ -79,7 +84,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(false)
+		expect(result).toBe(false)
 	end)
 
 	it("should fail with for partially different search query", function()
@@ -88,7 +93,7 @@ return function()
 		local displayName = "TheGamer101"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(false)
+		expect(result).toBe(false)
 	end)
 
 	it("should succeed with for DisplayName only", function()
@@ -97,7 +102,7 @@ return function()
 		local displayName = "MyFriendsName"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with no DisplayName", function()
@@ -106,7 +111,7 @@ return function()
 		local displayName = nil
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed with for Username only", function()
@@ -115,7 +120,7 @@ return function()
 		local displayName = "MyFriendsName"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed for utf8 display name", function()
@@ -124,7 +129,7 @@ return function()
 		local displayName = "我爱你"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed for mixed utf8 display name", function()
@@ -133,7 +138,7 @@ return function()
 		local displayName = "Piérre"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should succeed partial utf8 display name", function()
@@ -142,7 +147,7 @@ return function()
 		local displayName = "龙平果"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should support lowercase search for some utf8 characters", function()
@@ -151,7 +156,7 @@ return function()
 		local displayName = "DÁVE"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(true)
+		expect(result).toBe(true)
 	end)
 
 	it("should fail for different utf8 characters", function()
@@ -160,6 +165,6 @@ return function()
 		local displayName = "DÁVE"
 
 		local result = PlayerSearchPredicate(searchQuery, userName, displayName)
-		expect(result).to.equal(false)
+		expect(result).toBe(false)
 	end)
 end

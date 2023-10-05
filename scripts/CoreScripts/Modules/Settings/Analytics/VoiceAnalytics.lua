@@ -3,10 +3,11 @@ local Constants = require(script.Parent.Parent.Resources.Constants)
 local VoiceAnalytics = {}
 VoiceAnalytics.__index = VoiceAnalytics
 
-function VoiceAnalytics.new(eventStreamImpl)
+function VoiceAnalytics.new(eventStreamImpl, eventContext)
 	local self = {
 		_eventStreamImpl = eventStreamImpl,
 		_target = "EventIngest",
+		_context = eventContext or "SettingsHub",
 	}
 
 	setmetatable(self, VoiceAnalytics)
@@ -39,40 +40,34 @@ end
 
 function VoiceAnalytics:onMuteSelf()
 	local eventName = Constants.VoiceAnalytics.MuteSelf
-	local eventContext = "SettingsHub"
-	self._eventStreamImpl:setRBXEventStream(self._target, eventContext, eventName, {})
+	self._eventStreamImpl:setRBXEventStream(self._target, self._context, eventName, {})
 end
 
 function VoiceAnalytics:onUnmuteSelf()
 	local eventName = Constants.VoiceAnalytics.UnmuteSelf
-	local eventContext = "SettingsHub"
-	self._eventStreamImpl:setRBXEventStream(self._target, eventContext, eventName, {})
+	self._eventStreamImpl:setRBXEventStream(self._target, self._context, eventName, {})
 end
 
 function VoiceAnalytics:onMuteAll()
 	local eventName = Constants.VoiceAnalytics.MuteAll
-	local eventContext = "SettingsHub"
-	self._eventStreamImpl:setRBXEventStream(self._target, eventContext, eventName, {})
+	self._eventStreamImpl:setRBXEventStream(self._target, self._context, eventName, {})
 end
 
 function VoiceAnalytics:onUnmuteAll()
 	local eventName = Constants.VoiceAnalytics.UnmuteAll
-	local eventContext = "SettingsHub"
-	self._eventStreamImpl:setRBXEventStream(self._target, eventContext, eventName, {})
+	self._eventStreamImpl:setRBXEventStream(self._target, self._context, eventName, {})
 end
 
 function VoiceAnalytics:onMutePlayer(userId)
 	local eventName = Constants.VoiceAnalytics.MutePlayer
-	local eventContext = "SettingsHub"
-	self._eventStreamImpl:setRBXEventStream(self._target, eventContext, eventName, {
+	self._eventStreamImpl:setRBXEventStream(self._target, self._context, eventName, {
 		mutedUserId = userId,
 	})
 end
 
 function VoiceAnalytics:onUnmutePlayer(userId)
 	local eventName = Constants.VoiceAnalytics.UnmutePlayer
-	local eventContext = "SettingsHub"
-	self._eventStreamImpl:setRBXEventStream(self._target, eventContext, eventName, {
+	self._eventStreamImpl:setRBXEventStream(self._target, self._context, eventName, {
 		mutedUserId = userId,
 	})
 end

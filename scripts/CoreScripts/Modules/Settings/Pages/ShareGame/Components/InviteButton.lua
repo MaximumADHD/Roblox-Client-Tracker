@@ -22,7 +22,6 @@ local INVITE_STATUS_TEXT = {
 	[InviteStatus.Pending] = "Feature.SettingsHub.Label.Sending",
 }
 
-local FFlagLuaInviteGameHandleUnknownResponse = settings():GetFFlag("LuaInviteGameHandleUnknownResponse")
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
 
@@ -56,10 +55,8 @@ function InviteButton:render()
 		})
 	else
 		local inviteText = INVITE_STATUS_TEXT[inviteStatus]
-		if FFlagLuaInviteGameHandleUnknownResponse then
-			if not inviteText then
-				inviteText = MODERATED_TEXT
-			end
+		if not inviteText then
+			inviteText = MODERATED_TEXT
 		end
 
 		return Roact.createElement("TextLabel", {

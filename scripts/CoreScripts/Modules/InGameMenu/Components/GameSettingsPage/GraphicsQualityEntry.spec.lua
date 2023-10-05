@@ -3,6 +3,8 @@ return function()
 	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
@@ -83,23 +85,23 @@ return function()
 			UserGameSettings.GraphicsQualityLevel = 11
 
 			local instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level11)
+			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level11)
 			Roact.unmount(instance)
 
 			UserGameSettings.GraphicsQualityLevel = 21
 			instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level21)
+			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level21)
 			Roact.unmount(instance)
 		else
 			UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel2
 
 			local instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level03)
+			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level03)
 			Roact.unmount(instance)
 
 			UserGameSettings.SavedQualityLevel = Enum.SavedQualitySetting.QualityLevel10
 			instance = Roact.mount(element)
-			expect(RenderSettings.QualityLevel).to.equal(Enum.QualityLevel.Level21)
+			expect(RenderSettings.QualityLevel).toBe(Enum.QualityLevel.Level21)
 			Roact.unmount(instance)
 		end
 	end)

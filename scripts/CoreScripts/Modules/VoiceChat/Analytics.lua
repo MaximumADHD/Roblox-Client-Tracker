@@ -16,6 +16,24 @@ type EventStreamFn = (AnalyticsService, string, string, string, { [string]: any 
 type DiagFn = (AnalyticsService, string, number) -> ()
 type InfluxFn = (AnalyticsService, string, { [string]: any }, number) -> ()
 
+export type VoiceMuteIndividualArgs = {
+	userId: number,
+	clientSessionId: string,
+	targetUserId: number,
+	channelId: string,
+	context: string,
+	muted: boolean
+}
+
+export type VoiceMuteGroupArgs = {
+	userId: number,
+	clientSessionId: string,
+	channelId: string,
+	context: string,
+	groupType: string,
+	muted: boolean
+}
+
 -- Only providing types for functions we might use
 type AnalyticsService = {
 	-- Event Stream
@@ -52,6 +70,8 @@ type AnalyticsWrapperMeta = {
 	reportClosedNudge: (AnalyticsWrapper, number, string) -> (),
 	reportAcknowledgedNudge: (AnalyticsWrapper, number, string) -> (),
 	reportDeniedNudge: (AnalyticsWrapper, number, string) -> (),
+	reportVoiceMuteIndividual: (AnalyticsWrapper, VoiceMuteIndividualArgs) -> (),
+	reportVoiceMuteGroup: (AnalyticsWrapper, VoiceMuteGroupArgs) -> ()
 }
 
 -- Replace this when Luau supports it
@@ -188,6 +208,28 @@ function Analytics:reportDeniedNudge(userId: number, voiceSessionId: string)
 		userId = userId,
 		voiceSessionId = voiceSessionId,
 		closeType = "DENIED" :: NudgeCloseType,
+	})
+end
+
+function Analytics:reportVoiceMuteIndividual(args: VoiceMuteIndividualArgs)
+	self._impl:SendEventDeferred("client", "voice", "voiceUIMuteUnmuteIndividual", {
+		user_id = args.userId,
+		client_session_id = args.clientSessionId,
+		target_user_id = args.targetUserId,
+		channel_id = args.channelId,
+		context = args.context,
+		muted = args.muted
+	})
+end
+
+function Analytics:reportVoiceMuteGroup(args: VoiceMuteGroupArgs)
+	self._impl:SendEventDeferred("client", "voice", "voiceUIMuteUnmuteGroup", {
+		user_id = args.userId,
+		client_session_id = args.clientSessionId,
+		channel_id = args.channelId,
+		context = args.context,
+		group_type = args.groupType,
+		muted = args.muted
 	})
 end
 

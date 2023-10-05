@@ -4,6 +4,10 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local VRService = game:GetService("VRService")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local act = require(Modules.act)
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Cryo = InGameMenuDependencies.Cryo
@@ -63,18 +67,17 @@ return function()
 
 			local playerGui = Players.LocalPlayer.PlayerGui
 			local instance = Roact.mount(element, playerGui)
-			expect(#playerGui:GetChildren()).to.equal(1)
+			expect(#playerGui:GetChildren()).toBe(1)
 
 			-- check for a few things we expect to find at various places in the tree
 			local renderedTitle = playerGui:FindFirstChild("PageTitle", true)
-			expect(renderedTitle).never.to.equal(nil)
-			expect(renderedTitle.text).to.equal("Settings")
-			expect(playerGui:FindFirstChild("CameraModeEntrySelector", true)).never.to.equal(nil)
-			expect(playerGui:FindFirstChild("CameraSensitivityMouseSlider", true)).never.to.equal(nil)
-			expect(playerGui:FindFirstChild("FullScreen", true)).never.to.equal(nil)
-			expect(playerGui:FindFirstChild("GraphicsQualityEntry", true)).never.to.equal(nil)
-			expect(playerGui:FindFirstChild("MovementModeEntrySelector", true)).never.to.equal(nil)
-			expect(playerGui:FindFirstChild("AdvancedSettings", true)).never.to.equal(nil)
+			expect(renderedTitle.text).toBe("Settings")
+			expect(playerGui:FindFirstChild("CameraModeEntrySelector", true)).never.toBeNil()
+			expect(playerGui:FindFirstChild("CameraSensitivityMouseSlider", true)).never.toBeNil()
+			expect(playerGui:FindFirstChild("FullScreen", true)).never.toBeNil()
+			expect(playerGui:FindFirstChild("GraphicsQualityEntry", true)).never.toBeNil()
+			expect(playerGui:FindFirstChild("MovementModeEntrySelector", true)).never.toBeNil()
+			expect(playerGui:FindFirstChild("AdvancedSettings", true)).never.toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -94,9 +97,9 @@ return function()
 
 			-- Make sure the page is mounted, or SelectedCoreObject might be nil for the wrong reasons
 			local playerGui = Players.LocalPlayer.PlayerGui
-			expect(playerGui:FindFirstChild("CameraModeEntrySelector", true)).never.to.equal(nil)
+			expect(playerGui:FindFirstChild("CameraModeEntrySelector", true)).never.toBeNil()
 
-			expect(GuiService.SelectedCoreObject).to.equal(nil)
+			expect(GuiService.SelectedCoreObject).toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -114,10 +117,10 @@ return function()
 
 			-- Make sure the page is mounted, or SelectedCoreObject might be nil for the wrong reasons
 			local playerGui = Players.LocalPlayer.PlayerGui
-			expect(playerGui:FindFirstChild("CameraModeEntrySelector", true)).never.to.equal(nil)
+			expect(playerGui:FindFirstChild("CameraModeEntrySelector", true)).never.toBeNil()
 
-			expect(GuiService.SelectedCoreObject).to.be.ok()
-			expect(tostring(GuiService.SelectedCoreObject)).to.equal("OpenDropDownButton")
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
+			expect(tostring(GuiService.SelectedCoreObject)).toBe("OpenDropDownButton")
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil
@@ -144,8 +147,8 @@ return function()
 				store:flush()
 			end)
 
-			expect(GuiService.SelectedCoreObject).to.be.ok()
-			expect(tostring(GuiService.SelectedCoreObject)).to.equal("Dot")
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
+			expect(tostring(GuiService.SelectedCoreObject)).toBe("Dot")
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil
@@ -177,8 +180,7 @@ return function()
 				end)
 
 				local VRControlsHeader = playerGui:FindFirstChild("VRControlsHeader", true)
-				expect(VRControlsHeader).never.to.equal(nil)
-				expect(VRControlsHeader.LayoutOrder).to.equal(1)
+				expect(VRControlsHeader).toMatchInstance({ LayoutOrder = 1 })
 
 				Roact.unmount(instance)
 			end)
@@ -204,7 +206,7 @@ return function()
 				end)
 
 				local CameraHeader = playerGui:FindFirstChild("CameraHeader", true)
-				expect(CameraHeader).to.equal(nil)
+				expect(CameraHeader).toBeNil()
 			end)
 
 		end)

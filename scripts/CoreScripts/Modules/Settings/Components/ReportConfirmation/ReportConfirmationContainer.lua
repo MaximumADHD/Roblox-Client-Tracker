@@ -13,6 +13,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local Constants = require(RobloxGui.Modules.VoiceChat.Constants)
 local GetFFlagVoiceARUnblockingUnmutingEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceARUnblockingUnmutingEnabled)
 
 local ReportActionSelection = require(script.Parent.ReportActionSelection)
@@ -117,14 +118,14 @@ function ReportConfirmationContainer:init()
 			self.props.reportAbuseAnalytics:reportEventAndIncrement("muteUser")
 
 			if voiceParticipant and not voiceParticipant.isMutedLocally then
-				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId)
+				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId, Constants.VOICE_CONTEXT_TYPE.REPORT_MENU)
 			end
 		elseif not muteFlipped and self.state.targetInitiallyVoiceMuted and GetFFlagVoiceARUnblockingUnmutingEnabled() then
 			self.props.blockingUtility:UnmutePlayer(player)
 			self.props.reportAbuseAnalytics:reportEventAndIncrement("unmuteUser")
 
 			if voiceParticipant and voiceParticipant.isMutedLocally then
-				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId)
+				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId, Constants.VOICE_CONTEXT_TYPE.REPORT_MENU)
 			end
 		end
 

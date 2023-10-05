@@ -11,6 +11,15 @@ return function()
 	local jest = JestGlobals.jest
 	local jestExpect = JestGlobals.expect
 
+	local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
+	local ApolloProvider = ApolloClientModule.ApolloProvider
+
+	local GraphQLServer = require(CorePackages.Workspace.Packages.GraphQLServer)
+	local ApolloClientTestUtils = GraphQLServer.ApolloClientTestUtils
+	local mockApolloClient = ApolloClientTestUtils.mockApolloClient
+
+	local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -51,6 +60,18 @@ return function()
 				previousPageCursor = "",
 			}
 		end
+
+		c.mockApolloClient = mockApolloClient({})
+		UserProfiles.TestUtils.writeProfileDataToCache(c.mockApolloClient, {
+			["1"] = {
+				combinedName = "displayName_0",
+				username = "username_0",
+			},
+			["2"] = {
+				combinedName = "displayName_1",
+				username = "username_1",
+			},
+		})
 	end)
 
 	it("should mount and unmount without errors", function(c: any)
@@ -62,12 +83,14 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-					dismissCallback = function() end,
-					isDevMode = true,
-					isSmallScreen = false,
-					scrollingEnabled = true,
-					searchText = "",
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = c.mockApolloClient,
+				}, {
+					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
+					}),
 				}),
 			}),
 		})
@@ -99,12 +122,14 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-					dismissCallback = function() end,
-					isDevMode = true,
-					isSmallScreen = false,
-					scrollingEnabled = true,
-					searchText = "",
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = c.mockApolloClient,
+				}, {
+					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
+					}),
 				}),
 			}),
 		})
@@ -144,12 +169,14 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-					dismissCallback = function() end,
-					isDevMode = true,
-					isSmallScreen = false,
-					scrollingEnabled = true,
-					searchText = "",
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = c.mockApolloClient,
+				}, {
+					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
+					}),
 				}),
 			}),
 		})
@@ -187,12 +214,14 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-					dismissCallback = function() end,
-					isDevMode = true,
-					isSmallScreen = false,
-					scrollingEnabled = true,
-					searchText = "",
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = c.mockApolloClient,
+				}, {
+					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
+					}),
 				}),
 			}),
 		})
@@ -214,135 +243,6 @@ return function()
 		end)
 	end)
 
-	describe("search filtering", function(c: any)
-		it("should correctly show matched usernames", function(c: any)
-			local store = Rodux.Store.new(Reducer, {
-				Call = { callHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" } },
-			}, {
-				Rodux.thunkMiddleware,
-			})
-
-			NetworkingCall.GetCallHistory.Mock.clear()
-			NetworkingCall.GetCallHistory.Mock.reply(function()
-				return {
-					responseBody = c.mockCallHistory(""),
-				}
-			end)
-
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-						dismissCallback = function() end,
-						isDevMode = true,
-						isSmallScreen = false,
-						scrollingEnabled = true,
-						searchText = "username_1",
-					}),
-				}),
-			})
-
-			local folder = Instance.new("Folder")
-			local root = ReactRoblox.createRoot(folder)
-
-			Roact.act(function()
-				root:render(element)
-			end)
-
-			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-			-- UIListLayout + 1 friend items
-			jestExpect(#containerElement:GetChildren()).toBe(2)
-
-			ReactRoblox.act(function()
-				root:unmount()
-			end)
-		end)
-
-		it("should correctly show matched displayNames", function(c: any)
-			local store = Rodux.Store.new(Reducer, {
-				Call = { callHistory = { callRecords = {}, nextPageCursor = "", previousPageCursor = "" } },
-			}, {
-				Rodux.thunkMiddleware,
-			})
-
-			NetworkingCall.GetCallHistory.Mock.clear()
-			NetworkingCall.GetCallHistory.Mock.reply(function()
-				return {
-					responseBody = c.mockCallHistory(""),
-				}
-			end)
-
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-						dismissCallback = function() end,
-						isDevMode = true,
-						isSmallScreen = false,
-						scrollingEnabled = true,
-						searchText = "displayName_1",
-					}),
-				}),
-			})
-
-			local folder = Instance.new("Folder")
-			local root = ReactRoblox.createRoot(folder)
-
-			Roact.act(function()
-				root:render(element)
-			end)
-
-			local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-			-- UIListLayout + 1 friend items.
-			jestExpect(#containerElement:GetChildren()).toBe(2)
-
-			ReactRoblox.act(function()
-				root:unmount()
-			end)
-		end)
-
-		it("should not show anything if neither username nor displayName match", function(c: any)
-			local store = Rodux.Store.new(Reducer, {
-				Call = {
-					callHistory = c.mockCallHistory("test_cursor"),
-				},
-			}, {
-				Rodux.thunkMiddleware,
-			})
-
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-						dismissCallback = function() end,
-						isDevMode = true,
-						isSmallScreen = false,
-						scrollingEnabled = true,
-						searchText = "abcdef",
-					}),
-				}),
-			})
-
-			local folder = Instance.new("Folder")
-			local root = ReactRoblox.createRoot(folder)
-
-			Roact.act(function()
-				root:render(element)
-			end)
-
-			local containerElement = folder:FindFirstChild("ScrollingFrame", true) :: ScrollingFrame
-			-- No scroll list.
-			jestExpect(containerElement).toBeNull()
-
-			ReactRoblox.act(function()
-				root:unmount()
-			end)
-		end)
-	end)
-
 	it("should load more items when scrolling near the bottom", function(c: any)
 		-- Start off with items so that we have a list to show.
 		local store = Rodux.Store.new(Reducer, {
@@ -357,12 +257,14 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-					dismissCallback = function() end,
-					isDevMode = true,
-					isSmallScreen = false,
-					scrollingEnabled = true,
-					searchText = "",
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = c.mockApolloClient,
+				}, {
+					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
+					}),
 				}),
 			}),
 		})
@@ -420,12 +322,14 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
-					dismissCallback = function() end,
-					isDevMode = true,
-					isSmallScreen = false,
-					scrollingEnabled = true,
-					searchText = "",
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = c.mockApolloClient,
+				}, {
+					CallHistoryContainer = Roact.createElement(CallHistoryContainer, {
+						dismissCallback = function() end,
+						isSmallScreen = false,
+						scrollingEnabled = true,
+					}),
 				}),
 			}),
 		})

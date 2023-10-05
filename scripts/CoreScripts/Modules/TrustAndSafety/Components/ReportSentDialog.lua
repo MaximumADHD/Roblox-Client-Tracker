@@ -32,6 +32,7 @@ local ShowToast = require(TnsModule.Actions.ShowToast)
 local Constants = require(TnsModule.Resources.Constants)
 local Assets = require(TnsModule.Resources.Assets)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 
 local SELECTION_GROUP_NAME = "ReportSentDialogGroup"
 local SINK_ACTION = "ReporSentDialogSinkAction"
@@ -107,7 +108,7 @@ function ReportSentDialog:init()
 		if self:isReportingPlayer() then
 			local toastMessage = self.getToastMessage(localized)
 			if self:hasMuteChanged() then
-				VoiceChatServiceManager:ToggleMutePlayer(self.props.targetPlayer.UserId)
+				VoiceChatServiceManager:ToggleMutePlayer(self.props.targetPlayer.UserId, VoiceConstants.VOICE_CONTEXT_TYPE.REPORT_MENU)
 			end
 
 			local isBlockingPlayer = self.state.isBlockCheckBoxSelected

@@ -25,7 +25,6 @@ export type Props = {
 	headerHeight: number,
 	currentPage: Pages.PagesType,
 	dismissCallback: () -> (),
-	isDevMode: boolean?,
 }
 
 -- TODO (timothyhsu): Localization
@@ -71,11 +70,11 @@ local ContactListHeader = function(props: Props)
 			Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
 			BackgroundColor3 = theme.BackgroundDefault.Color,
 			BackgroundTransparency = theme.BackgroundDefault.Transparency,
-			Image = if not props.isDevMode or props.currentPage == Pages.CallHistory
+			Image = if props.currentPage == Pages.CallHistory
 				then Images["icons/navigation/close"]
 				else Images["icons/navigation/pushBack"],
 			LayoutOrder = 1,
-			[React.Event.Activated] = if not props.isDevMode or props.currentPage == Pages.CallHistory
+			[React.Event.Activated] = if props.currentPage == Pages.CallHistory
 				then props.dismissCallback
 				else navigateToCallHistory,
 		}, {

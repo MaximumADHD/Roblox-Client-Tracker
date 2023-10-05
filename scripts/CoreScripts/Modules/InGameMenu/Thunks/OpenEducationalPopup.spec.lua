@@ -2,6 +2,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local CoreGui = game:GetService("CoreGui")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Rodux = InGameMenuDependencies.Rodux
 
@@ -38,7 +41,7 @@ return function()
 
 		store:dispatch(OpenEducationalPopup(guiService, appStorageService, 10))
 
-		expect(guiService.broadcasts[1].notification).to.equal(MockNotificationType.NATIVE_EXIT)
+		expect(guiService.broadcasts[1].notification).toBe(MockNotificationType.NATIVE_EXIT)
 	end)
 
 	it("should increase local storage count after popup displayed", function()
@@ -54,8 +57,8 @@ return function()
 		store:dispatch(OpenEducationalPopup(guiService, appStorageService, 10))
 
 		local state = store:getState()
-		expect(state.nativeClosePrompt.closingApp).to.equal(true)
-		expect(tonumber(appStorageService:GetItem(LOCAL_STORAGE_KEY))).equal(1)
+		expect(state.nativeClosePrompt.closingApp).toBe(true)
+		expect(tonumber(appStorageService:GetItem(LOCAL_STORAGE_KEY))).toBe(1)
 	end)
 
 	it("should not display popup if display count hits the limitation", function()
@@ -71,9 +74,9 @@ return function()
 		store:dispatch(OpenEducationalPopup(guiService, appStorageService, 3))
 
 		local state = store:getState()
-		expect(state.nativeClosePrompt.closingApp).to.equal(false)
-		expect(tonumber(appStorageService:GetItem(LOCAL_STORAGE_KEY))).equal(3)
-		expect(guiService.broadcasts[1].notification).to.equal(MockNotificationType.NATIVE_EXIT)
+		expect(state.nativeClosePrompt.closingApp).toBe(false)
+		expect(tonumber(appStorageService:GetItem(LOCAL_STORAGE_KEY))).toBe(3)
+		expect(guiService.broadcasts[1].notification).toBe(MockNotificationType.NATIVE_EXIT)
 	end)
 
 end

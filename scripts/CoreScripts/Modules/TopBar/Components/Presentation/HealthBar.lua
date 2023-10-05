@@ -17,6 +17,10 @@ local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableC
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
+local Chrome = TopBar.Parent.Chrome
+local ChromeEnabled = require(Chrome.Enabled)
+local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil
+
 local HEALTHBAR_SIZE = UDim2.new(0, 80, 0, 6)
 local HEALTHBAR_SIZE_TENFOOT = UDim2.new(0, 220, 0, 16)
 
@@ -77,11 +81,35 @@ end
 
 function HealthBar:init()
 	self.rootRef = Roact.createRef()
+	if ChromeService then
+		self:setState({
+			chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+		})
+	end
+end
+
+function HealthBar:didMount()
+	if ChromeService then
+		self.chromeMenuStatusConn = ChromeService:status():connect(function()
+			self:setState({
+				chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+			})
+		end)
+	end
+end
+
+function HealthBar:onUnmount()
+	if self.chromeMenuStatusConn then
+		self.chromeMenuStatusConn:Disconnect()
+		self.chromeMenuStatusConn = nil
+	end
 end
 
 function HealthBar:render()
 	local healthVisible = self.props.healthEnabled
 		and self.props.health < self.props.maxHealth
+
+	healthVisible = healthVisible and not self.state.chromeMenuOpen
 
 	local healthPercent = 1
 	if self.props.isDead then

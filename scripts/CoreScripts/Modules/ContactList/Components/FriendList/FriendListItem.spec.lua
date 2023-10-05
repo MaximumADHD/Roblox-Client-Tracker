@@ -48,11 +48,10 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				FriendListItem = Roact.createElement(FriendListItem, {
 					userId = "12345678",
-					userName = "user name",
-					displayName = "display name",
+					userName = "@user name",
+					combinedName = "display name",
 					dismissCallback = function() end,
 					showDivider = true,
-					isDevMode = true,
 				}),
 			}),
 		})
@@ -60,9 +59,9 @@ return function()
 		local folder = Instance.new("Folder")
 		local instance = Roact.mount(element, folder)
 		local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
-		local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
+		local combinedNameElement: TextLabel = folder:FindFirstChild("CombinedName", true) :: TextLabel
 		expect(usernameElement.Text).toBe("@user name")
-		expect(displayNameElement.Text).toBe("display name")
+		expect(combinedNameElement.Text).toBe("display name")
 		Roact.unmount(instance)
 	end)
 end

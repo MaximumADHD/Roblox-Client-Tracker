@@ -44,6 +44,13 @@ do
 	FFlagUserIsChatTranslationEnabled = success and value
 end
 
+local FFlagUserAddBetterConsoleCheckForLegacyChat do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAddBetterConsoleCheckForLegacyChat")
+	end)
+	FFlagUserAddBetterConsoleCheckForLegacyChat = success and result
+end
+
 local FILTER_MESSAGE_TIMEOUT = 60
 
 local RunService = game:GetService("RunService")
@@ -159,6 +166,12 @@ GuiParent.Name = "Chat"
 GuiParent.ResetOnSpawn = false
 GuiParent.DisplayOrder = ChatDisplayOrder
 GuiParent.Parent = PlayerGui
+
+if FFlagUserAddBetterConsoleCheckForLegacyChat then
+	if game:GetService("GuiService"):IsTenFootInterface() then
+		GuiParent.Enabled = false
+	end
+end
 
 local DidFirstChannelsLoads = false
 

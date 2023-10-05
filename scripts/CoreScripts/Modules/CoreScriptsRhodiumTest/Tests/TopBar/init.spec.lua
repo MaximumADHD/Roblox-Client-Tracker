@@ -3,6 +3,7 @@ local HttpService = game:GetService("HttpService")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
+local LocalizationService = game:GetService("LocalizationService")
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
@@ -10,6 +11,16 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Cryo = require(CorePackages.Cryo)
 local UIBlox = require(CorePackages.UIBlox)
 local Rhodium = require(CorePackages.Rhodium)
+local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
+local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
+local defaultStyle = {
+	themeName = "dark",
+	fontName = "gotham",
+	deviceType = RobloxAppEnums.DeviceType.Console,
+}
 
 local TopBar = Modules.TopBar
 local Reducer = require(TopBar.Reducer)
@@ -33,6 +44,8 @@ return function()
 			local store = Rodux.Store.new(Reducer, nil, { Rodux.thunkMiddleware })
 			registerSetCores(store)
 
+			local localization = Localization.new("en-us")
+
 			local root = Roact.createElement("ScreenGui",
 			{
 				ResetOnSpawn = false,
@@ -50,9 +63,19 @@ return function()
 					PolicyProvider = Roact.createElement(TopBarAppPolicy.Provider, {
 						policy = { TopBarAppPolicy.Mapper },
 					}, {
-						ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-							[config.key] = Roact.createElement(config.component, config.props),
-						})
+						LocalizationProvider = Roact.createElement(LocalizationProvider, {
+              localization = localization,
+            }, {
+							StyleProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
+								style = defaultStyle,
+							}, {
+								DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
+									tokenMappers = {}
+								}, {
+									[config.key] = Roact.createElement(config.component, config.props),
+								}),
+							})
+						}),
 					})
 				})
 			})

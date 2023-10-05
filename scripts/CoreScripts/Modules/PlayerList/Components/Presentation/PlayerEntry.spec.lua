@@ -2,22 +2,12 @@ return function()
 	local Players = game:GetService("Players")
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
-	local Rodux = require(CorePackages.Rodux)
-	local RoactRodux = require(CorePackages.RoactRodux)
-	local UIBlox = require(CorePackages.UIBlox)
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
 	local PlayerList = script.Parent.Parent.Parent
-	local Reducers = PlayerList.Reducers
-	local Reducer = require(Reducers.Reducer)
-
-	local Components = script.Parent.Parent
-	local Connection = Components.Connection
-	local LayoutValues = require(Connection.LayoutValues)
-	local LayoutValuesProvider = LayoutValues.Provider
-
+	local TestProviders = require(PlayerList.TestProviders)
 	local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 
 	local PlayerEntry = require(script.Parent.PlayerEntry)
@@ -41,26 +31,16 @@ return function()
 	end
 
 	it("should create and destroy without errors", function()
-		local store = Rodux.Store.new(Reducer)
-
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(false)
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					PlayerEntry = Roact.createElement(PlayerEntry, {
-						player = Players.LocalPlayer,
-						playerStats = {},
-						playerIconInfo = getFakeIconInfo(),
-						playerRelationship = getFakeRelationship(),
-						entrySize = 50,
-						titlePlayerEntry = false,
-						hasDivider = true,
-						gameStats = {},
-					})
-				})
+		local element = Roact.createElement(TestProviders, {}, {
+			PlayerEntry = Roact.createElement(PlayerEntry, {
+				player = Players.LocalPlayer,
+				playerStats = {},
+				playerIconInfo = getFakeIconInfo(),
+				playerRelationship = getFakeRelationship(),
+				entrySize = 50,
+				titlePlayerEntry = false,
+				hasDivider = true,
+				gameStats = {},
 			})
 		})
 		local instance = Roact.mount(element)
@@ -69,27 +49,18 @@ return function()
 
 	it("should accept and assign refs", function()
 		local ref = Roact.createRef()
-		local store = Rodux.Store.new(Reducer)
 
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
-		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(false)
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					PlayerEntry = Roact.createElement(PlayerEntry, {
-						player = Players.LocalPlayer,
-						playerStats = {},
-						playerIconInfo = getFakeIconInfo(),
-						playerRelationship = getFakeRelationship(),
-						entrySize = 50,
-						titlePlayerEntry = false,
-						hasDivider = true,
-						gameStats = {},
-						[Roact.Ref] = ref,
-					})
-				})
+		local element = Roact.createElement(TestProviders, {}, {
+			PlayerEntry = Roact.createElement(PlayerEntry, {
+				player = Players.LocalPlayer,
+				playerStats = {},
+				playerIconInfo = getFakeIconInfo(),
+				playerRelationship = getFakeRelationship(),
+				entrySize = 50,
+				titlePlayerEntry = false,
+				hasDivider = true,
+				gameStats = {},
+				[Roact.Ref] = ref,
 			})
 		})
 		local instance = Roact.mount(element)
@@ -99,26 +70,18 @@ return function()
 	end)
 
 	it("should create and destroy without errors tenfoot", function()
-		local store = Rodux.Store.new(Reducer)
-
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store,
+		local element = Roact.createElement(TestProviders, {
+			layoutValues = CreateLayoutValues(true)
 		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-				layoutValues = CreateLayoutValues(true)
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					PlayerEntry = Roact.createElement(PlayerEntry, {
-						player = Players.LocalPlayer,
-						playerStats = {},
-						playerIconInfo = getFakeIconInfo(),
-						playerRelationship = getFakeRelationship(),
-						entrySize = 150,
-						titlePlayerEntry = true,
-						hasDivider = false,
-						gameStats = {},
-					})
-				})
+			PlayerEntry = Roact.createElement(PlayerEntry, {
+				player = Players.LocalPlayer,
+				playerStats = {},
+				playerIconInfo = getFakeIconInfo(),
+				playerRelationship = getFakeRelationship(),
+				entrySize = 150,
+				titlePlayerEntry = true,
+				hasDivider = false,
+				gameStats = {},
 			})
 		})
 		local instance = Roact.mount(element)

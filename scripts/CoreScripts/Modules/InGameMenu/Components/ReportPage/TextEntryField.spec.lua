@@ -2,6 +2,10 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local Roact = InGameMenuDependencies.Roact
@@ -47,7 +51,7 @@ return function()
 	end)
 
 	it("should call textChanged when the user enters text", function()
-		local textChangedWasCalled = false
+		local textChangedSpy, textChangedFn = jest.fn()
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
@@ -59,9 +63,7 @@ return function()
 					TextEntryField = Roact.createElement(TextEntryField, {
 						enabled = true,
 						text = "",
-						textChanged = function(newText)
-							textChangedWasCalled = true
-						end,
+						textChanged = textChangedFn,
 						maxTextLength = 200,
 						autoFocusOnEnabled = false,
 
@@ -83,7 +85,7 @@ return function()
 			task.wait(0.1)
 		end)
 
-		expect(textChangedWasCalled).to.equal(true)
+		expect(textChangedSpy).toHaveBeenCalled()
 
 		Roact.unmount(instance)
 	end)
@@ -124,7 +126,7 @@ return function()
 			task.wait(0.1)
 		end)
 
-		expect(textChangedTo).to.equal("Hello")
+		expect(textChangedTo).toBe("Hello")
 
 		Roact.unmount(instance)
 	end)
@@ -165,7 +167,7 @@ return function()
 			task.wait(0.1)
 		end)
 
-		expect(textChangedTo).to.equal("罗布乐思")
+		expect(textChangedTo).toBe("罗布乐思")
 
 		Roact.unmount(instance)
 	end)

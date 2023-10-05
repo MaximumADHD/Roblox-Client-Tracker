@@ -40,6 +40,7 @@ local cloneStreamTrack = nil
 
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CollectionService = game:GetService("CollectionService")
 local VRService = game:GetService("VRService")
 local FFlagFacialAnimationShowInfoMessageWhenNoDynamicHead = game:DefineFastFlag("FacialAnimationShowInfoMessageWhenNoDynamicHead", false)
@@ -97,6 +98,7 @@ local SELF_VIEW_NAME = "SelfView"
 local IS_STUDIO = RunService:IsStudio()
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
+local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local GetFFlagIrisGyroEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisGyroEnabled
@@ -131,6 +133,12 @@ local updateCloneCurrentCoolDown = 0
 
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
+local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
+
+local voiceAnalytics
+if GetFFlagEnableVoiceMuteAnalytics() then
+	voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "LegacySelfView")
+end
 
 local renderSteppedConnection = nil
 local playerCharacterAddedConnection = nil
@@ -216,7 +224,7 @@ local r15bodyPartsToShow = {
 	"RightUpperArm",
 }
 
---table which gets populated with the initial transparency of body parts 
+--table which gets populated with the initial transparency of body parts
 --so we can maintain that transparency even if later it gets changed for the game world avatar when entering vehicles or similar
 local partsOrgTransparency = {}
 
@@ -388,7 +396,7 @@ function initVoiceChatServiceManager()
 	do
 		local cachedMicState = VoiceChatServiceManager.VOICE_STATE.MUTED
 		local cachedLevel = 0
-	
+
 		local function updateMicIcon(state, level)
 			if state == cachedMicState and level == cachedLevel then
 				return
@@ -463,32 +471,32 @@ function initVoiceChatServiceManager()
 			:andThen(function()
 				local voiceService = VoiceChatServiceManager:getService()
 				if voiceService then
-					voiceService.StateChanged:Connect(function(_oldState, newState)
-						local voiceManagerState = LOCAL_STATE_MAP[newState]
+				voiceService.StateChanged:Connect(function(_oldState, newState)
+					local voiceManagerState = LOCAL_STATE_MAP[newState]
+					if GetFFlagShowMicConnectingIconAndToast() then
+						voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
+					end
+					if voiceManagerState then
 						if GetFFlagShowMicConnectingIconAndToast() then
-							voiceManagerState = VoiceChatServiceManager:GetVoiceStateFromEnum(newState)
-						end
-						if voiceManagerState then
-							if GetFFlagShowMicConnectingIconAndToast() then
-								local inConnectingState = voiceManagerState == VoiceChatServiceManager.VOICE_STATE.CONNECTING
-								if not inConnectingState and isVoiceConnecting then
-									isVoiceConnecting = false
-								end
+							local inConnectingState = voiceManagerState == VoiceChatServiceManager.VOICE_STATE.CONNECTING
+							if not inConnectingState and isVoiceConnecting then
+								isVoiceConnecting = false
 							end
-							updateMicIcon(voiceManagerState, cachedLevel)
-						elseif newState == (Enum::any).VoiceChatState.Ended then
-							updateSelfViewButtonVisibility()
 						end
-					end)
-				end
+						updateMicIcon(voiceManagerState, cachedLevel)
+					elseif newState == (Enum::any).VoiceChatState.Ended then
+						updateSelfViewButtonVisibility()
+					end
+				end)
+			end
 			end)
 			:catch(function()
 				if GetFFlagVoiceChatUILogging() then
-					log:warning("Failed to init VoiceChatServiceManager")
-				end
+				log:warning("Failed to init VoiceChatServiceManager")
+			end
 			end)
-		end
 	end
+end
 
 local vCInitialized = false
 -- Check that the user's device has given Roblox mic and camera permissions.
@@ -822,6 +830,9 @@ local function createViewport()
 			end
 			VoiceChatServiceManager:ToggleMic()
 			Analytics:setLastCtx("SelfView")
+			if voiceAnalytics then
+				voiceAnalytics:onToggleMuteSelf(not VoiceChatServiceManager.localMuted)
+			end
 		end
 	end)
 
@@ -1166,8 +1177,8 @@ function toggleIndicator(mode)
 	if indicatorCircle then
 		indicatorCircle.Visible = (
 			(mode == Enum.TrackerMode.Audio or mode == Enum.TrackerMode.AudioVideo)
-			and getShouldShowMicButton()
-			and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible))
+				and getShouldShowMicButton()
+				and (debug or (bottomButtonsFrame and bottomButtonsFrame.Visible))
 		)
 			or (
 				(mode == Enum.TrackerMode.Video or mode == Enum.TrackerMode.AudioVideo)
@@ -1437,7 +1448,7 @@ function findObjectOfNameAndTypeName(name, typeName, character)
 	if FFlagSelfViewChecks then
 		if character == nil then
 			return nil
-		end		
+		end
 	end
 	local descendants = character:GetDescendants()
 	for _, child in descendants do
@@ -1631,7 +1642,7 @@ local function updateClone(player)
 	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
 	if FFlagRemoveTagsFromSelfViewClone then
 		removeTagsFromSelfViewClone(clone)
-	end	
+	end
 
 	--resetting the joints orientations in the clone since it can happen that body/head IK like code was applied on the player avatar
 	--and we want to start with default pose setup in clone, else issues with clone avatar (parts) orientation etc
@@ -1643,7 +1654,7 @@ local function updateClone(player)
 			end
 		end
 	end
-	
+
 	if FFlagSelfViewChecks2 then
 		--it could happen that the head was made transparent during gameplay, which is in some experiences done when entering a car for example
 		--we still want to show the self view avatar's head in that case (also because sometimes exiting vehicles would not cause a refresh of the self view and the head would stay transparent then)
@@ -1664,7 +1675,7 @@ local function updateClone(player)
 					part.Transparency = 0
 				end
 			end
-		end		
+		end
 	else
 		if FFlagSelfViewMakeClonePartsNonTransparent and not FFlagSelfViewMakeClonePartsNonTransparent2 then
 			for _, part in ipairs( clone:GetDescendants()) do
@@ -1730,10 +1741,10 @@ local function updateClone(player)
 		--focus viewport frame camera on upper body
 		--viewportCamera.CFrame = cloneRootPart.CFrame * CFrame.new(0,1.5,-2) * CFrame.Angles(math.rad(10),math.rad(180),0)--comment out for work in progress
 
-		if orgHead or not FFlagSelfViewChecks then			
+		if orgHead or not FFlagSelfViewChecks then
 			if FFlagSelfViewUseRealBoundingBox then
 				--we want to focus the cam on head + hat accessories bounding box
-				--and we don't use rig:GetBoundingBox() because when Game Settings/Avatar/Collision is set to inner box, 
+				--and we don't use rig:GetBoundingBox() because when Game Settings/Avatar/Collision is set to inner box,
 				--it does not return the visual mesh's bounding box
 				--and hence is then too small for some heads (like Piggy)
 				local head = getHead(clone)
@@ -1798,12 +1809,12 @@ local function updateClone(player)
 				viewportCamera.Focus = headCloneRootFrame
 				character.Archivable = previousArchivableValue
 				dummyModel:Destroy()
-			end	
+			end
 		else
 			--when no head was found which is a Part or MeshPart:
 			--basic fallback to focus the avatar in the viewportframe
-			local center = cloneRootPart.Position + cloneRootPart.CFrame.LookVector * DEFAULT_CAM_DISTANCE_NO_HEAD 
-			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_NO_HEAD_CAM_OFFSET, cloneRootPart.Position)		
+			local center = cloneRootPart.Position + cloneRootPart.CFrame.LookVector * DEFAULT_CAM_DISTANCE_NO_HEAD
+			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_NO_HEAD_CAM_OFFSET, cloneRootPart.Position)
 			viewportCamera.CFrame  = CFrame.new(viewportCamera.CFrame.Position) * CFrame.Angles(math.rad(DEFAULT_CAM_X_ROT), math.rad(180), 0)
 		end
 	end
@@ -1895,7 +1906,7 @@ function updateCachedHeadColor(headRefParam)
 			end)
 			if hasHeadSize then
 				cachedHeadSize = headRefParam.Size
-			end		
+			end
 		else
 			cachedHeadColor = headRefParam.Color
 			cachedHeadSize = headRefParam.Size
@@ -2189,7 +2200,7 @@ function startRenderStepped(player)
 			if GetFFlagIrisGyroEnabled() then
 				currentStreamTrackWeight = 1
 			end
-			
+
 			if headRef then
 				local animator = getAnimator(character, 0)
 
@@ -2213,14 +2224,14 @@ function startRenderStepped(player)
 						if anim then
 							if anim:IsA("Animation") then
 								if FFlagSelfViewChecks3 then
-									--avoid error "LoadAnimation requires the asset id to not be empty" 
+									--avoid error "LoadAnimation requires the asset id to not be empty"
 									if anim.AnimationId ~= "" then
 										orgAnimationTracks[anim.AnimationId] = value
 										if not cloneAnimationTracks[anim.AnimationId] then
 											cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
 										end
 										local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
-		
+
 										cloneAnimationTrack:Play()
 										cloneAnimationTrack.TimePosition = value.TimePosition
 										cloneAnimationTrack.Priority = value.Priority
@@ -2288,17 +2299,17 @@ function startRenderStepped(player)
 				-- When a device has accelerometer, we make self view orientation a hybrid of:
 				-- 1. Face rotation
 				-- 2. Camera orientation
-				
+
 				if UserInputService.AccelerometerEnabled then
 					if cloneAnimator ~= nil then
 						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
-							for i, trackS in pairs(playingAnims) do
-								if trackS.Animation:IsA("TrackerStreamAnimation") then
-									-- poll tracker data
-									_, trackerData, _ = trackS:GetTrackerData()
-									trackS:AdjustWeight(math.clamp(trackerWeight * currentStreamTrackWeight, 0.001, currentStreamTrackWeight), 0)
-								end
+						for i, trackS in pairs(playingAnims) do
+							if trackS.Animation:IsA("TrackerStreamAnimation") then
+								-- poll tracker data
+								_, trackerData, _ = trackS:GetTrackerData()
+								trackS:AdjustWeight(math.clamp(trackerWeight * currentStreamTrackWeight, 0.001, currentStreamTrackWeight), 0)
 							end
+						end
 					end
 				end
 			end
@@ -2341,8 +2352,8 @@ function startRenderStepped(player)
 									headDuringAnimCFrame.Position.X * 0.25,
 									(
 										headClone.CFrame.Position.Y
-										+ headDuringAnimCFrame.Position.Y
-										+ (headDuringAnimCFrame.Position.Y * 0.75)
+											+ headDuringAnimCFrame.Position.Y
+											+ (headDuringAnimCFrame.Position.Y * 0.75)
 									) * 0.33333,
 									headDuringAnimCFrame.Position.Z
 								)
@@ -2352,8 +2363,8 @@ function startRenderStepped(player)
 									headDuringAnimCFrame.Position.X * 0.6,
 									(
 										headClone.CFrame.Position.Y
-										+ headDuringAnimCFrame.Position.Y
-										+ (headDuringAnimCFrame.Position.Y * 0.75)
+											+ headDuringAnimCFrame.Position.Y
+											+ (headDuringAnimCFrame.Position.Y * 0.75)
 									) * 0.33333,
 									headDuringAnimCFrame.Position.Z
 								)
@@ -2362,7 +2373,7 @@ function startRenderStepped(player)
 					else
 						debugPrint("Self View: no neck found")
 					end
-					
+
 					if GetFFlagIrisGyroEnabled() and trackerData ~= nil then
 						local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
 						local x, y, z = trackerData:ToEulerAnglesXYZ()

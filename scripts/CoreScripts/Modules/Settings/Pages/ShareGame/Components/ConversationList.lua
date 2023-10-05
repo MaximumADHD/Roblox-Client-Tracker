@@ -21,7 +21,7 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local Theme = require(Modules.Settings.Theme)
 local Constants = require(ShareGame.Constants)
-local InviteEvents = require(ShareGame.Analytics.InviteEvents)
+local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInviteEvents
 local ConversationEntry = require(ShareGame.Components.ConversationEntry)
 local InviteListEntry = require(ShareGame.Components.InviteListEntry)
 local FriendsErrorPage = require(ShareGame.Components.FriendsErrorPage)
@@ -45,7 +45,6 @@ local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local GetFFlagInviteListRerank = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagInviteListRerank
 
 local getTranslator = require(ShareGame.getTranslator)
@@ -72,12 +71,10 @@ local SORT_ORDER = {
 }
 
 local ConversationList = Roact.PureComponent:extend("ConversationList")
-if FFlagLuaInviteModalEnabled then
-	ConversationList.defaultProps = {
-		entryHeight = ENTRY_HEIGHT,
-		entryPadding = ENTRY_PADDING,
-	}
-end
+ConversationList.defaultProps = {
+	entryHeight = ENTRY_HEIGHT,
+	entryPadding = ENTRY_PADDING,
+}
 
 function ConversationList:init()
 	self.scrollingRef = Roact.createRef()
@@ -96,15 +93,8 @@ function ConversationList:render()
 	local analytics = self.props.analytics
 	local children = self.props[Roact.Children] or {}
 
-	local entryHeight
-	local entryPadding
-	if FFlagLuaInviteModalEnabled then
-		entryHeight = self.props.entryHeight
-		entryPadding = self.props.entryPadding
-	else
-		entryHeight = ENTRY_HEIGHT
-		entryPadding = ENTRY_PADDING
-	end
+	local entryHeight = self.props.entryHeight
+	local entryPadding = self.props.entryPadding
 
 	local friends = self.props.friends
 	local friendsRetrievalStatus = self.props.friendsRetrievalStatus
@@ -333,7 +323,7 @@ local selectFriendsByRank = memoize(function(users)
 	local function friendPreference(friend1, friend2)
 		local friend1Weight = tonumber(friend1.friendFrequentRank) or 0
 		local friend2Weight = tonumber(friend2.friendFrequentRank) or 0
-	
+
 		if friend1Weight == friend2Weight then
 			return friend1.name:lower() < friend2.name:lower()
 		else

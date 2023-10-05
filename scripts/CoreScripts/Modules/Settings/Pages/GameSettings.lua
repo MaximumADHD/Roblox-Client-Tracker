@@ -26,6 +26,7 @@ local VideoCaptureService = game:GetService("VideoCaptureService")
 local UserGameSettings = Settings:GetService("UserGameSettings")
 local Url = require(RobloxGui.Modules.Common.Url)
 local VoiceChatService = nil
+local TextChatService = game:GetService("TextChatService")
 
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
@@ -84,13 +85,7 @@ local CAMERA_DEVICE_INFO_KEY = "CameraDeviceInfo"
 -------- CHAT TRANSLATION ----------
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
-local localPlayer = Players.LocalPlayer
-
-local PlayerScripts
-local ChatTranslationEnabled = nil
-
-local GetFFlagUserIsChatTranslationEnabled = require(RobloxGui.Modules.Flags.GetFFlagUserIsChatTranslationEnabled)
-
+local GetFFlagChatTranslationSettingEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFStringChatTranslationLayerName = require(RobloxGui.Modules.Flags.GetFStringChatTranslationLayerName)
 
 ----------- UTILITIES --------------
@@ -267,7 +262,7 @@ local function Initialize()
 
 		this.FullscreenFrame, this.FullscreenLabel, this.FullscreenEnabler =
 			utility:AddNewRow(this, "Fullscreen", "Selector", {"On", "Off"}, fullScreenInit)
-		this.FullscreenFrame.LayoutOrder = 8
+		this.FullscreenFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 9 else 8
 
 		settingsDisabledInVR[this.FullscreenFrame] = true
 
@@ -339,7 +334,7 @@ local function Initialize()
 
 		this.GraphicsEnablerFrame, this.GraphicsEnablerLabel, this.GraphicsQualityEnabler =
 			utility:AddNewRow(this, "Graphics Mode", "Selector", {"Automatic", "Manual"}, graphicsEnablerStart)
-		this.GraphicsEnablerFrame.LayoutOrder = 9
+		this.GraphicsEnablerFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 10 else 9
 
 		------------------ Gfx Slider GUI Setup  ------------------
 
@@ -364,7 +359,7 @@ local function Initialize()
 				utility:AddNewRow(this, "Graphics Quality", "Slider", GRAPHICS_QUALITY_LEVELS, 1)
 		end
 
-		this.GraphicsQualityFrame.LayoutOrder = 10
+		this.GraphicsQualityFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 11 else 10
 		this.GraphicsQualitySlider:SetMinStep(1)
 
 		------------------------------------------------------
@@ -662,7 +657,7 @@ local function Initialize()
 
 		this.ReducedMotionFrame, this.ReducedMotionLabel, this.ReducedMotionMode = 
 			utility:AddNewRow(this, reducedMotionLabel, "Selector", {onLabel, offLabel}, startIndex, nil, reducedMotionDescription)
-		this.ReducedMotionFrame.LayoutOrder = 11
+		this.ReducedMotionFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 12 else 11
 		
 		this.ReducedMotionMode.IndexChanged:connect(
 			function(newIndex)
@@ -687,7 +682,7 @@ local function Initialize()
 
 		this.PreferredTransparencyFrame, this.PreferredTransparencyLabel, this.PreferredTransparencySlider = 
 			utility:AddNewRow(this, preferredTransparencyLabel, "Slider", 10, startValue, nil, preferredTransparencyDescription, preferredTransparencyLeftLabel, preferredTransparencyRightLabel)
-		this.PreferredTransparencyFrame.LayoutOrder = 12
+		this.PreferredTransparencyFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 13 else 12
 		
 		this.PreferredTransparencySlider.ValueChanged:connect(
 			function(newValue)
@@ -718,7 +713,7 @@ local function Initialize()
 
 		this.UiNavigationKeyBindEnabledFrame, this.UiNavigationKeyBindEnabledLabel, this.UiNavigationKeyBindEnabledMode = 
 			utility:AddNewRow(this, uiNavigationKeyBindLabel, "Selector", {onLabel, offLabel}, startIndex, nil, uiNavigationKeyBindDescription)
-		this.UiNavigationKeyBindEnabledFrame.LayoutOrder = 13
+		this.UiNavigationKeyBindEnabledFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 14 else 13
 		
 		this.UiNavigationKeyBindEnabledMode.IndexChanged:connect(
 			function(newIndex)
@@ -751,7 +746,7 @@ local function Initialize()
 
 		this.PerformanceStatsFrame, this.PerformanceStatsLabel, this.PerformanceStatsMode =
 			utility:AddNewRow(this, "Performance Stats", "Selector", {"On", "Off"}, startIndex)
-		this.PerformanceStatsFrame.LayoutOrder = 14
+		this.PerformanceStatsFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 15 else 14
 
 		this.PerformanceStatsOverrideText =
 			utility:Create "TextLabel" {
@@ -939,7 +934,7 @@ local function Initialize()
 		local microProfilerLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MicroProfiler")
 		this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode =
 				utility:AddNewRow(this, microProfilerLabel, "Selector", {"On", "Off"}, webServerIndex) -- This can be set to override defualt micro profiler state
-		this.MicroProfilerFrame.LayoutOrder = 15
+		this.MicroProfilerFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 16 else 15
 
 		tryContentLabel()
 
@@ -1218,7 +1213,7 @@ local function Initialize()
 
 				this.VREnabledFrame, this.VREnabledLabel, this.VREnabledSelector =
 					utility:AddNewRow(this, "VR", "Selector", optionNames, GameSettings.VREnabled and 1 or 2)
-				this.VREnabledFrame.LayoutOrder = 17
+				this.VREnabledFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 18 else 17
 
 				this.VREnabledSelector.IndexChanged:connect(
 					function(newIndex)
@@ -1248,83 +1243,88 @@ local function Initialize()
 		------------------
 		------------------------- Chat Translation -----------
 		local function createChatTranslationOption()
-			if not ChatTranslationEnabled then
-				return
-			end
-
-			local chatTranslationEnabled = if ChatTranslationEnabled.Value then 1 else 2
-
-			local ChatTranslationSetting = RobloxTranslator:FormatByKey("Feature.SettingsHub.Chat.TranslationEnabled")
+			local chatTranslationEnabled = if TextChatService.ChatTranslationEnabled then 1 else 2
 
 			this.ChatTranslationFrame, this.ChatTranslationLabel, this.ChatTranslationEnabler =
-				utility:AddNewRow(this, ChatTranslationSetting, "Selector", {"On", "Off"}, chatTranslationEnabled)
+				utility:AddNewRow(this, "Automatic Chat Translation", "Selector", {"On", "Off"}, chatTranslationEnabled)
 			this.ChatTranslationFrame.LayoutOrder = 5
 
 			this.ChatTranslationEnabler.IndexChanged:connect(
 				function(newIndex)
 					local newSettingsValue = if newIndex == 1 then true else false
-					local oldSettingsValue = ChatTranslationEnabled.Value
-					ChatTranslationEnabled.Value = newSettingsValue
-					reportSettingsChangeForAnalytics("chat_translation", oldSettingsValue, newSettingsValue, {
-						locale_id = localPlayer.LocaleId
-					})
+					local oldSettingsValue = TextChatService.ChatTranslationEnabled
+
+					if newSettingsValue ~= oldSettingsValue then
+						TextChatService.ChatTranslationEnabled = newSettingsValue
+						reportSettingsChangeForAnalytics("chat_translation", oldSettingsValue, newSettingsValue, {
+							locale_id = LocalPlayer.LocaleId
+						})
+					end
+				end
+			)
+
+			local chatTranslationToggleEnabled = if TextChatService.ChatTranslationToggleEnabled then 1 else 2
+
+			this.ChatTranslationToggleFrame, this.ChatTranslationToggleLabel, this.ChatTranslationToggleEnabler =
+				utility:AddNewRow(this, "Option to View Untranslated Message", "Selector", {"On", "Off"}, chatTranslationToggleEnabled)
+			this.ChatTranslationToggleFrame.LayoutOrder = 6
+
+			this.ChatTranslationToggleEnabler.IndexChanged:connect(
+				function(newIndex)
+					local newSettingsValue = if newIndex == 1 then true else false
+					local oldSettingsValue = TextChatService.ChatTranslationToggleEnabled
+
+					if newSettingsValue ~= oldSettingsValue then
+						TextChatService.ChatTranslationToggleEnabled = newSettingsValue
+						reportSettingsChangeForAnalytics("chat_translation_toggle", oldSettingsValue, newSettingsValue, {
+							locale_id = LocalPlayer.LocaleId
+						})
+					end
 				end
 			)
 		end
 
-		local function userEnrolledInChatTranslation()
-			local layerName = GetFStringChatTranslationLayerName()
+		local function getChatTranslationLayerData(layerName)
+			local chatTranslationLayerData = {
+				ChatTranslationEnabled = false,
+				ChatTranslationToggleEnabled = false,
+			}
 
 			if not layerName or layerName == "" then
-				return false
+				return chatTranslationLayerData
 			end
 
 			-- Override layer name for channel testing
 			if (layerName == "override") then
-				ChatTranslationEnabled.Value = true
-				return true
+				chatTranslationLayerData.ChatTranslationEnabled = true
+				return chatTranslationLayerData
 			end
 
 			local layerSuccess, layerData = pcall(function()
 				return IXPServiceWrapper:GetLayerData(layerName)
 			end)
 
-			if not layerSuccess then
-				return false
+			if layerSuccess then
+				chatTranslationLayerData.ChatTranslationEnabled = layerData.chatTranslationEnabled or false
+				chatTranslationLayerData.ChatTranslationToggleEnabled = layerData.chatTranslationToggleEnabled or false
 			end
 
-			if layerData and (layerData.chatTranslationEnabled == true) then
-				ChatTranslationEnabled.Value = true
-				return true
-			end
-
-			return false
+			return chatTranslationLayerData
 		end
 
-		if GetFFlagUserIsChatTranslationEnabled() then
-			PlayerScripts = localPlayer:WaitForChild("PlayerScripts")
-			if PlayerScripts then
-				local chatScript = PlayerScripts:FindFirstChild("ChatScript")
+		local function setUpChatTranslationIxpDefaults(layerData)
+			TextChatService.ChatTranslationEnabled = layerData.ChatTranslationEnabled
+			TextChatService.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled
+		end
 
-				if chatScript then
-					ChatTranslationEnabled = chatScript:FindFirstChild("ChatTranslationEnabled", true)
-					
-					if ChatTranslationEnabled and ChatTranslationEnabled:IsA("BoolValue") and userEnrolledInChatTranslation() then
-						createChatTranslationOption()
-					end
-				else
-					local playerScriptSignal
-					playerScriptSignal = PlayerScripts.ChildAdded:Connect(function(child)
-						if child.Name == "ChatScript" then
-							ChatTranslationEnabled = child:FindFirstChild("ChatTranslationEnabled", true)
+		if GetFFlagChatTranslationSettingEnabled() then
+			local layerName = GetFStringChatTranslationLayerName()
+			local layerData = getChatTranslationLayerData(layerName)
 
-							if ChatTranslationEnabled and ChatTranslationEnabled:IsA("BoolValue") and userEnrolledInChatTranslation() then
-								createChatTranslationOption()
-							end
-							playerScriptSignal:Disconnect()
-						end
-					end)
-				end
+			setUpChatTranslationIxpDefaults(layerData)
+
+			if layerData.ChatTranslationEnabled then
+				createChatTranslationOption()
 			end
 		end
 
@@ -1998,7 +1998,7 @@ local function Initialize()
 		local startVolumeLevel = math.floor(GameSettings.MasterVolume * 10)
 		this.VolumeFrame, this.VolumeLabel, this.VolumeSlider =
 			utility:AddNewRow(this, "Volume", "Slider", 10, startVolumeLevel)
-		this.VolumeFrame.LayoutOrder = if GetFFlagUserIsChatTranslationEnabled() then 7 else 6
+		this.VolumeFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 8 else 6
 
 		-- ROBLOX FIXME: We should express the "Sounds" folder statically in the project config
 		local volumeSound = Instance.new("Sound", (game:GetService("CoreGui").RobloxGui :: any).Sounds)
@@ -2042,7 +2042,7 @@ local function Initialize()
 
 		this.CameraInvertedFrame, _, this.CameraInvertedSelector =
 			utility:AddNewRow(this, "Camera Inverted", "Selector", {"Off", "On"}, initialIndex)
-		this.CameraInvertedFrame.LayoutOrder = 16
+		this.CameraInvertedFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 17 else 16
 		settingsDisabledInVR[this.CameraInvertedFrame] = true
 
 		this.CameraInvertedSelector.IndexChanged:connect(
@@ -2128,7 +2128,7 @@ local function Initialize()
 
 		this.MouseAdvancedFrame, this.MouseAdvancedLabel, this.MouseAdvancedEntry =
 			utility:AddNewRow(this, "Camera Sensitivity", "Slider", AdvancedMouseSteps, startMouseLevel)
-		this.MouseAdvancedFrame.LayoutOrder = if GetFFlagUserIsChatTranslationEnabled() then 6 else 5
+		this.MouseAdvancedFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 7 else 5
 		settingsDisabledInVR[this.MouseAdvancedFrame] = true
 
 		this.MouseAdvancedEntry.SliderFrame.Size =

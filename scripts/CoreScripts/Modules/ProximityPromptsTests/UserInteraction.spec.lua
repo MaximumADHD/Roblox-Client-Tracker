@@ -12,6 +12,8 @@ local jest = JestGlobals.jest
 local Rhodium = require(CorePackages.Rhodium)
 local RoactAct = require(game.CoreGui.RobloxGui.Modules.act)
 
+local FFlagProximityPromptGamepadIcons = require(game.CoreGui.RobloxGui.Modules.Flags.FFlagProximityPromptGamepadIcons)
+
 local testMenuKey = "ProximityPromptTestsMenuKey"
 
 return function()
@@ -151,7 +153,9 @@ return function()
 			setGamepadInputType(gamepad)
 
 			local keycodes = {Enum.KeyCode.ButtonA, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonX, Enum.KeyCode.ButtonY}
-			local expectedAssetNames = {"xboxA.png", "xboxB.png", "xboxX.png", "xboxY.png"}
+			local expectedAssetNames = if FFlagProximityPromptGamepadIcons and game:GetEngineFeature("GetImageForKeyCode") then
+				{"ButtonA", "ButtonB", "ButtonX", "ButtonY"} else
+				{"xboxA.png", "xboxB.png", "xboxX.png", "xboxY.png"}
 			for idx,keycode in pairs(keycodes) do
 				prompt.GamepadKeyCode = keycode
 

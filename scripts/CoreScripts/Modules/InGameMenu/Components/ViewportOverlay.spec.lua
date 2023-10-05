@@ -2,6 +2,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local CoreGui = game:GetService("CoreGui")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
@@ -40,7 +43,7 @@ return function()
 			local instance = Roact.mount(element, folder)
 			local inputCapturer = folder:FindFirstChild("InputCapturer", true)
 
-			expect(inputCapturer).to.never.be.ok()
+			expect(inputCapturer).toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -51,7 +54,7 @@ return function()
 			local instance = Roact.mount(element, folder)
 			local inputCapturer = folder:FindFirstChild("InputCapturer", true)
 
-			expect(inputCapturer).to.be.ok()
+			expect(inputCapturer).never.toBeNil()
 
 			Roact.unmount(instance)
 		end)

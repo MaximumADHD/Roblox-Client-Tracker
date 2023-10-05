@@ -4,6 +4,9 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local Store = require(CorePackages.Rodux).Store
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local act = require(Modules.act)
 	local RhodiumHelpers = require(CorePackages.Workspace.Packages.RhodiumHelpers)
@@ -83,21 +86,21 @@ return function()
 
 		local instance = Roact.mount(element, game:GetService("CoreGui"))
 
-		expect(ServerLogData).to.be.ok()
+		expect(ServerLogData).never.toBeNil()
 
 		local FilterCheckBoxes = RhodiumHelpers.findFirstInstance(game:GetService("CoreGui"), {
 			Name = "FilterCheckBoxes"
 		})
 
-		expect(FilterCheckBoxes).to.be.ok()
+		expect(FilterCheckBoxes).never.toBeNil()
 
 		local ErrorCheckBox = RhodiumHelpers.findFirstInstance(FilterCheckBoxes, {
 			Name = "Error"
 		})
 
-		expect(ErrorCheckBox).to.be.ok()
+		expect(ErrorCheckBox).never.toBeNil()
 		-- The ErrorCheckBox.Icon Image should be a roblox AssetID
-		expect(ErrorCheckBox.Icon.Image ~= "").to.equal(true)
+		expect(ErrorCheckBox.Icon.Image).never.toBe("")
 
 		act(function()
 			-- Mimic clicking the filter button
@@ -105,7 +108,7 @@ return function()
 		end)
 
 		-- After clicking, the Icon image should disappear
-		expect(ErrorCheckBox.Icon.Image == "").to.equal(true)
+		expect(ErrorCheckBox.Icon.Image).toBe("")
 
 		act(function()
 			-- Mimic clicking the filter button
@@ -113,7 +116,7 @@ return function()
 		end)
 
 		-- The ErrorCheckBox.Icon Image should be a roblox AssetID
-		expect(ErrorCheckBox.Icon.Image ~= "").to.equal(true)
+		expect(ErrorCheckBox.Icon.Image).never.toBe("")
 
 		Roact.unmount(instance)
 	end)

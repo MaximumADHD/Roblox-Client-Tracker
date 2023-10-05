@@ -4,7 +4,6 @@ local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local ThumbnailRequest = require(CorePackages.Workspace.Packages.UserLib).Utils.ThumbnailRequest
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local UserLibConstants = UserLib.Utils.Constants
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 
 local DeviceLayout = {
 	PHONE_PORTRAIT = "PHONE_PORTRAIT",
@@ -71,7 +70,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 7,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
-			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
+			BACK_BUTTON_MODAL_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 0,
 			TOAST_HEIGHT = 40,
 		},
@@ -82,7 +81,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 5,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
-			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
+			BACK_BUTTON_MODAL_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 0,
 			TOAST_HEIGHT = 40,
 		},
@@ -93,7 +92,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 15,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
-			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
+			BACK_BUTTON_MODAL_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 0,
 			TOAST_HEIGHT = 80,
 		},
@@ -104,7 +103,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 5,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 44,
-			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
+			BACK_BUTTON_MODAL_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 68,
 			TOAST_HEIGHT = 80,
 		},
@@ -115,7 +114,7 @@ local Constants = {
 			PAGE_SIDE_MARGINS = 0,
 			BACK_BUTTON_HEIGHT = 44,
 			BACK_BUTTON_WIDTH = 154,
-			BACK_BUTTON_MODAL_WIDTH = FFlagLuaInviteModalEnabled and 44,
+			BACK_BUTTON_MODAL_WIDTH = 44,
 			EXTEND_BOTTOM_SIZE = 68,
 			TOAST_HEIGHT = 80,
 		},

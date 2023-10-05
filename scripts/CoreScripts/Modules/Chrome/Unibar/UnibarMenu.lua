@@ -1,20 +1,21 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
-local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
-local ChromeService = require(script.Parent.Parent.Service)
+local Chrome = script.Parent.Parent
+local ChromeService = require(Chrome.Service)
 
-local _integrations = require(script.Parent.Parent.Integrations)
+local _integrations = require(Chrome.Integrations)
 local SubMenu = require(script.Parent.SubMenu)
 local WindowManager = require(script.Parent.WindowManager)
 local Constants = require(script.Parent.Constants)
+local HealthBar = require(script.Parent.HealthBar)
 
-local useChromeMenuItems = require(script.Parent.Parent.Hooks.useChromeMenuItems)
-local useChromeMenuStatus = require(script.Parent.Parent.Hooks.useChromeMenuStatus)
-local useObservableValue = require(script.Parent.Parent.Hooks.useObservableValue)
+local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
+local useChromeMenuStatus = require(Chrome.Hooks.useChromeMenuStatus)
+local useObservableValue = require(Chrome.Hooks.useObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 
@@ -71,7 +72,7 @@ function AnimationStateHelper(props)
 
 	React.useEffect(function()
 		if menuStatusOpen then
-			local lastInput = UserInputService:GetLastInputType()
+			local lastInput = ChromeService:getLastInputToOpenMenu()
 			local pressed = lastInput == Enum.UserInputType.MouseButton1 or lastInput == Enum.UserInputType.Touch
 
 			if not pressed then
@@ -313,6 +314,10 @@ function Unibar(props: UnibarProp)
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 		}, children),
+
+		React.createElement(HealthBar, {
+			size = unibarSizeBinding,
+		}),
 	} :: Array<any>)
 end
 

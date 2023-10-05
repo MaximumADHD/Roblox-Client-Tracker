@@ -2,6 +2,9 @@ return function()
 	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -49,8 +52,8 @@ return function()
 		local instance = Roact.mount(element, folder)
 
 		local detailTextElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
-		expect(detailTextElement).to.be.ok()
-		expect(detailTextElement.Text).to.be.equal("Roblox Call")
+		expect(detailTextElement).never.toBeNil()
+		expect(detailTextElement.Text).toBe("Roblox Call")
 
 		Roact.unmount(instance)
 	end)

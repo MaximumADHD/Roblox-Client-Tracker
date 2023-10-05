@@ -4,6 +4,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local GuiService = game:GetService("GuiService")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
@@ -66,7 +69,7 @@ return function()
 			local element = getMountableComponent()
 
 			local instance = Roact.mount(element)
-			expect(CoreGui:FindFirstChild("InGameMenuConfirmationDialog")).to.never.equal(nil)
+			expect(CoreGui:FindFirstChild("InGameMenuConfirmationDialog")).never.toBeNil()
 			Roact.unmount(instance)
 		end)
 	end)
@@ -77,7 +80,7 @@ return function()
 			local tree = Roact.mount(element)
 
 			Roact.update(tree, getMountableComponent({ visible = true }))
-			expect(GuiService.SelectedCoreObject).to.equal(nil)
+			expect(GuiService.SelectedCoreObject).toBeNil()
 
 			Roact.unmount(tree)
 		end)
@@ -86,12 +89,12 @@ return function()
 				local element = getMountableComponent({ visible = false, inputType = Constants.InputType.MouseAndKeyboard })
 				local tree = Roact.mount(element)
 				-- Nothing is focused as we open the dialog with mouse/keyboard
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
+				expect(GuiService.SelectedCoreObject).toBeNil()
 
 				waitForEvents()
 
 				Roact.update(tree, getMountableComponent({ visible = true, inputType = Constants.InputType.Gamepad }))
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("ConfirmButton")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("ConfirmButton")
 
 				Roact.unmount(tree)
 				GuiService.SelectedCoreObject = nil

@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
 local CoreGui = game:GetService("CoreGui")
+local LocalizationService = game:GetService("LocalizationService")
 local Modules = CoreGui.RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
@@ -11,6 +12,17 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Rhodium = require(CorePackages.Rhodium)
 local Element = Rhodium.Element
 local XPath = Rhodium.XPath
+local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
+local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
+local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
+local defaultStyle = {
+	themeName = "dark",
+	fontName = "gotham",
+	deviceType = RobloxAppEnums.DeviceType.Console,
+}
+
 
 local JestGlobals = require(CorePackages.JestGlobals)
 local jestExpect = JestGlobals.expect
@@ -25,6 +37,8 @@ local GamepadMenu = require(Presentation.GamepadMenu)
 local Reducer = require(TopBar.Reducer)
 
 local ChromeEnabled = require(Modules.Chrome.Enabled)
+
+local localization = Localization.new("en-us")
 
 return function()
 	describe("GamepadMenu", function()
@@ -42,8 +56,18 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					TopBarApp = Roact.createElement(GamepadMenu)
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = localization,
+				}, {
+					StyleProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
+						style = defaultStyle,
+					}, {
+						DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
+							tokenMappers = {}
+						}, {
+							TopBarApp = Roact.createElement(GamepadMenu),
+						}),
+					})
 				})
 			})
 
@@ -51,7 +75,7 @@ return function()
 			local instanceName = "Test-" .. HttpService:GenerateGUID(false)
 			local handle = Roact.mount(element, CoreGui, instanceName)
 
-			local path = ("game.CoreGui.%s"):format(instanceName)
+			local path = "game.CoreGui.TopBarApp"
 			path = XPath.new(path)
 			local baseWidget = Element.new(path)
 			jestExpect(baseWidget:waitForRbxInstance(1)).toBeDefined()
@@ -81,8 +105,18 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-					GamepadMenu = Roact.createElement(GamepadMenu)
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = localization,
+				}, {
+					StyleProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
+						style = defaultStyle,
+					}, {
+						DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
+							tokenMappers = {}
+						}, {
+							GamepadMenu = Roact.createElement(GamepadMenu),
+						}),
+					})
 				})
 			})
 

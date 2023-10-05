@@ -62,6 +62,10 @@ return function()
 	local PiiFilter = require(script.Parent.PiiFilter)
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local function mockWait(duration: number?): number
 		return duration or 0
 	end
@@ -83,7 +87,7 @@ return function()
 		local testString = "something(1234567) + u/n TestUsername + display TestDisplayName"
 		local expectedString = "something(UserId(1)) + u/n UserName(1) + display DisplayName(1)"
 		local cleanedString = filter:cleanPii(testString)
-		expect(cleanedString).to.equal(expectedString)
+		expect(cleanedString).toBe(expectedString)
 
 		filter:stopTracking()
 	end)
@@ -109,7 +113,7 @@ return function()
 		mockPlayers:addPlayer(1234567, "TestUsername", "TestDisplayName")
 
 		local secondOutput = filter:cleanPii(testString)
-		expect(secondOutput).to.equal(firstOutput)
+		expect(secondOutput).toBe(firstOutput)
 
 		filter:stopTracking()
 	end)
@@ -118,12 +122,10 @@ return function()
 		local mockPlayers = MockPlayers.new()
 		mockPlayers:addPlayer(1234567, "TestUsername", "TestDisplayName")
 
-		local waitFnCallCount = 0
-		local function waitFn(delay: number?)
-			expect(delay).to.equal(1)
-			waitFnCallCount += 1
+		local waitMock, waitFn = jest.fn(function (delay: number?)
+			expect(delay).toBe(1)
 			return task.wait(delay)
-		end
+		end)
 
 		local filter = PiiFilter.new({
 			eraseTimeout = 1,
@@ -136,20 +138,20 @@ return function()
 		filter:startTracking()
 		mockPlayers:removePlayer(1234567)
 		waitForEvents()
-		expect(waitFnCallCount).to.equal(1)
+		expect(waitMock).toHaveBeenCalledTimes(1)
 
 		-- It's within 1 second of the player leaving, so their information should still be stored
 		-- in the filter and should be removed.
 		local testString = "something(1234567) + u/n TestUsername + display TestDisplayName"
 		local cleanedString = filter:cleanPii(testString)
-		expect(cleanedString).to.equal("something(UserId(1)) + u/n UserName(1) + display DisplayName(1)")
+		expect(cleanedString).toBe("something(UserId(1)) + u/n UserName(1) + display DisplayName(1)")
 
 		task.wait(1)
 
 		-- At this point the PII info should be removed, per the erase timeout.
 		-- We expect no filtering to take place.
 		local uncleanedString = filter:cleanPii(testString)
-		expect(uncleanedString).to.equal(testString)
+		expect(uncleanedString).toBe(testString)
 
 		filter:stopTracking()
 	end)

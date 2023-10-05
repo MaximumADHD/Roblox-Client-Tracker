@@ -51,6 +51,15 @@ return {
 	MAX_HEIGHT_LANDSCAPE = 240,
 	MAX_WIDTH_LANDSCAPE = 112,
 
+	HEALTH = {
+		RED = Color3.fromRGB(255, 28, 0),
+		YELLOW = Color3.fromRGB(250, 235, 0),
+		GREEN = Color3.fromRGB(27, 252, 107),
+		RED_THRESHOLD = 0.1,
+		YELLOW_THRESHOLD = 0.5,
+		GREEN_THRESHOLD = 0.8,
+	},
+
 	ANALYTICS = {
 		SCREEN_ORIENTATION_MAP = {
 			[Enum.ScreenOrientation.LandscapeLeft] = ScreenOrientations.Landscape,

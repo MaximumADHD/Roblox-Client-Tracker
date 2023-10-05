@@ -7,6 +7,7 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+local FFlagVRBackpackImproved = game:DefineFastFlag("VRBackpackImproved", false)
 
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
@@ -164,17 +165,24 @@ local CharConns = {} -- Holds character connections to be cleared later
 local GamepadEnabled = false -- determines if our gui needs to be gamepad friendly
 local TimeOfLastToolChange = 0
 
-local IsVR = VRService.VREnabled -- Are we currently using a VR device?
+local IsVR = VRService.VREnabled and not FFlagVRBackpackImproved -- Are we currently using a VR device?
+
+-- This should be removed with FFlagVRBackpackImproved
+local function OldVREnabled()
+	return VRService.VREnabled and not FFlagVRBackpackImproved
+end
 local NumberOfHotbarSlots = IsVR and HOTBAR_SLOTS_VR or (IS_PHONE and HOTBAR_SLOTS_MINI or HOTBAR_SLOTS_FULL) -- Number of slots shown at the bottom
 local NumberOfInventoryRows = IsVR and INVENTORY_ROWS_VR or (IS_PHONE and INVENTORY_ROWS_MINI or INVENTORY_ROWS_FULL) -- How many rows in the popped-up inventory
 local BackpackPanel = nil
 
 local lastEquippedSlot = nil
 
+-- remove with FFlagVRBackpackImproved
 local function EvaluateBackpackPanelVisibility(enabled)
-	return enabled and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack) and TopbarEnabled and VRService.VREnabled
+	return enabled and StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack) and TopbarEnabled and OldVREnabled()
 end
 
+-- remove with FFlagVRBackpackImproved
 local function ShowVRBackpackPopup()
 	if BackpackPanel and EvaluateBackpackPanelVisibility(true) then
 		BackpackPanel:ForceShowForSeconds(2)
@@ -258,7 +266,7 @@ local function AdjustHotbarFrames()
 		end
 	end
 
-	OpenInventoryButton.Visible = not inventoryOpen and (hotbarIsVisible or not isInventoryEmpty()) and not VRService.VREnabled
+	OpenInventoryButton.Visible = not inventoryOpen and (hotbarIsVisible or not isInventoryEmpty()) and not OldVREnabled()
 	OpenInventoryButton.Position = UDim2.new(0.5, -15, 1, hotbarIsVisible and -110 or -50)
 	BackpackScript.IsHotbarVisible = hotbarIsVisible
 end
@@ -363,7 +371,7 @@ local function MakeSlot(parent, index)
 	-- Slot Functions --
 
 	local function UpdateSlotFading()
-		if VRService.VREnabled and BackpackPanel then
+		if OldVREnabled() and BackpackPanel then
 			local panelTransparency = BackpackPanel.transparency
 			local slotTransparency = slotFadeLocked
 
@@ -439,7 +447,7 @@ local function MakeSlot(parent, index)
 		local hotbarSlot = (self.Index <= NumberOfHotbarSlots)
 		local inventoryOpen = InventoryFrame.Visible
 
-		if (not hotbarSlot or inventoryOpen) and not VRService.VREnabled then
+		if (not hotbarSlot or inventoryOpen) and not OldVREnabled() then
 			SlotFrame.Draggable = true
 		end
 
@@ -570,7 +578,7 @@ local function MakeSlot(parent, index)
 
 	function slot:SetClickability(on) -- (Happens on open/close arrow)
 		if self.Tool then
-			if UserInputService.VREnabled then
+			if OldVREnabled() then
 				SlotFrame.Draggable = false
 			else
 				SlotFrame.Draggable = not on
@@ -710,7 +718,7 @@ local function MakeSlot(parent, index)
 
 		SlotFrame.DragBegin:connect(function(dragPoint)
 
-			if VRService.VREnabled then
+			if OldVREnabled() then
 				-- select instead of drag
 				return
 			end
@@ -756,7 +764,7 @@ local function MakeSlot(parent, index)
 				FakeSlotFrame:Destroy()
 			end
 
-			if VRService.VREnabled then
+			if OldVREnabled() then
 				-- select instead of drag
 				slot:Select(false)
 				return
@@ -1091,7 +1099,7 @@ end
 
 local function OnUISChanged(property)
 	if property == 'KeyboardEnabled' or property == "VREnabled" then
-		local on = UserInputService.KeyboardEnabled and not UserInputService.VREnabled
+		local on = UserInputService.KeyboardEnabled and not VRService.VREnabled
 		for i = 1, NumberOfHotbarSlots do
 			Slots[i]:TurnNumber(on)
 		end
@@ -1273,7 +1281,7 @@ function getGamepadSwapSlot()
 end
 
 function changeSlot(slot)
-	local swapInVr = not VRService.VREnabled or InventoryFrame.Visible
+	local swapInVr = not OldVREnabled() or InventoryFrame.Visible
 	local gamepadCursorEnabled = GamepadService.GamepadCursorEnabled
 
 	if slot.Frame == GuiService.SelectedCoreObject and swapInVr and not gamepadCursorEnabled then
@@ -1312,8 +1320,9 @@ function changeSlot(slot)
 	end
 end
 
+-- Remove with FFlagVRBackpackImproved
 function vrMoveSlotToInventory()
-	if not VRService.VREnabled then
+	if not OldVREnabled() then
 		return
 	end
 
@@ -1797,7 +1806,7 @@ do -- Search stuff
 	end
 
 	local function detectGamepad(lastInputType)
-		if lastInputType == Enum.UserInputType.Gamepad1 and not UserInputService.VREnabled then
+		if lastInputType == Enum.UserInputType.Gamepad1 and not VRService.VREnabled then
 			searchFrame.Visible = false
 		else
 			searchFrame.Visible = true
@@ -1834,11 +1843,11 @@ do -- Make the Inventory expand/collapse arrow (unless TopBar)
 			if GamepadEnabled then
 				if GAMEPAD_INPUT_TYPES[UserInputService:GetLastInputType()] then
 					resizeGamepadHintsFrame()
-					gamepadHintsFrame.Visible = not (UserInputService.VREnabled)
+					gamepadHintsFrame.Visible = not OldVREnabled()
 				end
 				enableGamepadInventoryControl()
 			end
-			if BackpackPanel and VRService.VREnabled then
+			if BackpackPanel and OldVREnabled() then
 				BackpackPanel:SetVisible(true)
 				BackpackPanel:RequestPositionUpdate()
 			end
@@ -1942,52 +1951,54 @@ GuiService.MenuOpened:Connect(function()
 	end
 end)
 
-local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil
-local function OnVREnabled()
-	local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+if not FFlagVRBackpackImproved then
+	local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil
+	local function OnVREnabled()
+		local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
 
-	IsVR = false
-	OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
-	OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
+		IsVR = false
+		OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
+		OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
 
-	VRInventorySelector.Visible = IsVR
+		VRInventorySelector.Visible = IsVR
 
-	local BackpackPanel = Panel3D.Get(BackpackScript.ModuleName)
-	BackpackPanel:SetVisible(EvaluateBackpackPanelVisibility(false))
-	BackpackPanel:LinkTo(nil)
+		local BackpackPanel = Panel3D.Get(BackpackScript.ModuleName)
+		BackpackPanel:SetVisible(EvaluateBackpackPanelVisibility(false))
+		BackpackPanel:LinkTo(nil)
 
-	MainFrame.Parent = RobloxGui
-	OpenInventoryButton.Parent = nil
-	CloseInventoryButton.Parent = nil
+		MainFrame.Parent = RobloxGui
+		OpenInventoryButton.Parent = nil
+		CloseInventoryButton.Parent = nil
 
-	ScrollUpInventoryButton.Parent = nil
-	ScrollDownInventoryButton.Parent = nil
-	ScrollingFrame.ScrollingEnabled = true
+		ScrollUpInventoryButton.Parent = nil
+		ScrollDownInventoryButton.Parent = nil
+		ScrollingFrame.ScrollingEnabled = true
 
-	-- Turn draggin back on
-	for _, slot in pairs(Slots) do
-		slot:SetClickability(true)
+		-- Turn draggin back on
+		for _, slot in pairs(Slots) do
+			slot:SetClickability(true)
+		end
+
+		if BackpackStateChangedInVRConn then
+			BackpackStateChangedInVRConn:disconnect()
+			BackpackStateChangedInVRConn = nil
+		end
+		if VRModuleOpenedConn then
+			VRModuleOpenedConn:disconnect()
+			VRModuleOpenedConn = nil
+		end
+		if VRModuleClosedConn then
+			VRModuleClosedConn:disconnect()
+			VRModuleClosedConn = nil
+		end
+
+		NumberOfInventoryRows = IsVR and INVENTORY_ROWS_VR or (IS_PHONE and INVENTORY_ROWS_MINI or INVENTORY_ROWS_FULL)
+		local newSlotTotal = IsVR and HOTBAR_SLOTS_VR or (IS_PHONE and HOTBAR_SLOTS_MINI or HOTBAR_SLOTS_FULL)
+		SetNumberOfHotbarSlots(newSlotTotal)
 	end
-
-	if BackpackStateChangedInVRConn then
-		BackpackStateChangedInVRConn:disconnect()
-		BackpackStateChangedInVRConn = nil
-	end
-	if VRModuleOpenedConn then
-		VRModuleOpenedConn:disconnect()
-		VRModuleOpenedConn = nil
-	end
-	if VRModuleClosedConn then
-		VRModuleClosedConn:disconnect()
-		VRModuleClosedConn = nil
-	end
-
-	NumberOfInventoryRows = IsVR and INVENTORY_ROWS_VR or (IS_PHONE and INVENTORY_ROWS_MINI or INVENTORY_ROWS_FULL)
-	local newSlotTotal = IsVR and HOTBAR_SLOTS_VR or (IS_PHONE and HOTBAR_SLOTS_MINI or HOTBAR_SLOTS_FULL)
-	SetNumberOfHotbarSlots(newSlotTotal)
+	VRService:GetPropertyChangedSignal("VREnabled"):connect(OnVREnabled)
+	OnVREnabled()
 end
-VRService:GetPropertyChangedSignal("VREnabled"):connect(OnVREnabled)
-OnVREnabled()
 
 local function OnPreferredTransparencyChanged()
 	local preferredTransparency = UserGameSettings.PreferredTransparency

@@ -27,6 +27,7 @@ local Analytics = require(Modules.SelfView.Analytics).new()
 local FFlagUWPAvatarChatFixes = require(Modules.Flags.FFlagUWPAvatarChatFixes)
 local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
 local GetFFlagMicHandlingParity = require(Modules.Flags.GetFFlagMicHandlingParity)
+local VoiceConstants = require(Modules.VoiceChat.Constants)
 
 local AvatarChatUISettings = Constants.AVATAR_CHAT_UI_SETTINGS
 
@@ -43,6 +44,7 @@ ControlsBubble.validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.number),
 	hasCameraPermissions = t.boolean,
 	hasMicPermissions = t.boolean,
+	isShowingDueToEasierUnmuting = t.optional(t.boolean)
 })
 
 ControlsBubble.defaultProps = {
@@ -91,7 +93,12 @@ function ControlsBubble:init()
 			end
 		else
 			-- The billboards use strings, but the manager expects numbers
-			VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId))
+			VoiceChatServiceManager:ToggleMutePlayer(
+				tonumber(self.props.userId),
+				if self.props.isShowingDueToEasierUnmuting
+					then VoiceConstants.VOICE_CONTEXT_TYPE.EASIER_UNMUTING
+					else VoiceConstants.VOICE_CONTEXT_TYPE.BUBBLE_CHAT
+			)
 		end
 	end
 

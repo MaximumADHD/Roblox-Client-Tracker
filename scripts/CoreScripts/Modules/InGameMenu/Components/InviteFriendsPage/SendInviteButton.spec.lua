@@ -1,6 +1,10 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local UIBlox = InGameMenuDependencies.UIBlox
@@ -34,20 +38,16 @@ return function()
 
 	describe("animations", function()
 		it("should call animation began and ended once", function()
-			local animationBegunCalled = 0
-			local animationEndedCalled = 0
+			local beginSpy, beginFn = jest.fn()
+			local endSpy, endFn = jest.fn()
 
 			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				SendInviteButton = Roact.createElement(SendInviteButton, {
 					onActivated = function()
 						print("onActivated")
 					end,
-					animationBegun = function()
-						animationBegunCalled = animationBegunCalled + 1
-					end,
-					animationEnded = function()
-						animationEndedCalled = animationEndedCalled + 1
-					end,
+					animationBegun = beginFn,
+					animationEnded = endFn,
 					userInviteStatus = InviteStatus.Failed,
 				}),
 			})
@@ -56,8 +56,8 @@ return function()
 			wait(1)
 			Roact.unmount(instance)
 
-			expect(animationBegunCalled).to.equal(1)
-			expect(animationEndedCalled).to.equal(1)
+			expect(beginSpy).toHaveBeenCalledTimes(1)
+			expect(endSpy).toHaveBeenCalledTimes(1)
 		end)
 	end)
 end

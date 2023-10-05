@@ -19,6 +19,8 @@ local VALUE_PADDING = Constants.ScriptProfilerFormatting.ValuePadding
 
 local ProfilerView = Roact.PureComponent:extend("ProfilerView")
 
+local FFlagScriptProfilerSessionLength = game:DefineFastFlag("ScriptProfilerSessionLength", false)
+
 function ProfilerView:renderChildren()
 	local data = self.props.data
 	return Roact.createElement(ProfilerViewEntry, {
@@ -29,6 +31,19 @@ function ProfilerView:renderChildren()
 			then data.TotalDuration / 100
 			else nil
 	})
+end
+
+local function formatSessionLength(len: number?): string?
+	if len then
+		local hours = len / (1000 * 60 * 60)
+		local mins = (len / (1000 * 60)) % 60
+		local secs = (len / 1000) % 60
+		local millis = len % 1000
+
+		return string.format("%02i:%02i:%02i.%04i", hours, mins, secs, millis)
+	end
+
+	return nil
 end
 
 function ProfilerView:render()
@@ -57,14 +72,38 @@ function ProfilerView:render()
 		})
 	end
 
+	local sessionLengthText = if FFlagScriptProfilerSessionLength then formatSessionLength(self.props.sessionLength) else nil
+
+	if sessionLengthText then
+		sessionLengthText = "Session Duration: " .. sessionLengthText
+	end
+
 	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
+		FFlagScriptProfilerSessionLength and Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+			BackgroundTransparency = 1,
+		}, {
+			Name = Roact.createElement(HeaderButton, {
+				text = sessionLengthText or "Session Info",
+				size = UDim2.new(1 - VALUE_CELL_WIDTH * 2, -VALUE_PADDING - CELL_PADDING, 0, HEADER_HEIGHT),
+				pos = UDim2.new(0, CELL_PADDING, 0, 0),
+			}),
+
+			TopHorizontal = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 1),
+				BackgroundColor3 = LINE_COLOR,
+				BorderSizePixel = 0,
+			}),
+		}),
+
 		Header = 	Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
+			Position = if FFlagScriptProfilerSessionLength then UDim2.new(0, 0, 0, HEADER_HEIGHT) else nil,
 		}, {
 			Name = Roact.createElement(HeaderButton, {
 				text = HEADER_NAMES[1],
@@ -110,8 +149,8 @@ function ProfilerView:render()
 		}),
 
 		Entries = Roact.createElement("ScrollingFrame", {
-			Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
-			Position = UDim2.new(0, 0, 0, HEADER_HEIGHT),
+			Size = UDim2.new(1, 0, 1, if FFlagScriptProfilerSessionLength then -HEADER_HEIGHT * 2 else -HEADER_HEIGHT),
+			Position = UDim2.new(0, 0, 0, if FFlagScriptProfilerSessionLength then HEADER_HEIGHT * 2 else HEADER_HEIGHT),
 			BackgroundTransparency = 1,
 			VerticalScrollBarInset = Enum.ScrollBarInset.None,
 			ScrollBarThickness = 5,

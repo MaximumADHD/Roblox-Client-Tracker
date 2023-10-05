@@ -3,7 +3,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local React = require(CorePackages.Packages.React)
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
@@ -11,6 +10,7 @@ local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundG
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local GetFFlagCorescriptsSoundManagerEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -28,9 +28,6 @@ local Interactable = UIBlox.Core.Control.Interactable
 local useStyle = UIBlox.Core.Style.useStyle
 
 local CallState = require(ContactList.Enums.CallState)
-
--- TODO: Remove once RDC is finished
-local ContactListHelper = require(ContactList.Components.ContactListHelper)
 
 local rng = Random.new()
 
@@ -58,7 +55,6 @@ export type Props = {
 		placeId: number,
 	},
 	localUserId: number,
-	isDevMode: boolean,
 	showDivider: boolean,
 	dismissCallback: () -> (),
 	layoutOrder: number?,
@@ -142,6 +138,23 @@ local function CallHistoryItem(props: Props)
 		participant = caller.participants[2]
 	end
 
+	local combinedName = ""
+	local userName = ""
+	local namesFetch = UserProfiles.Hooks.useUserProfilesFetch({
+		userIds = { tostring(participant.userId) },
+		query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
+	})
+
+	if namesFetch.data then
+		combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, participant.userId)
+		userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, participant.userId)
+		userName = UserProfiles.Formatters.formatUsername(userName)
+	else
+		-- Use fallback for default or if there's an error. Need a better pattern.
+		combinedName = participant.displayName
+		userName = "@" .. participant.userName
+	end
+
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
@@ -164,39 +177,15 @@ local function CallHistoryItem(props: Props)
 
 	local startCall = React.useCallback(function()
 		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-		local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
 
-		local isCalleeInDevMode = true
-		if SharedRS then
-			local IsUserInDevModeRemoteFunction =
-				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-			isCalleeInDevMode = IsUserInDevModeRemoteFunction:InvokeServer(participant.userId)
-		end
-
-		if props.isDevMode == isCalleeInDevMode then
-			if props.isDevMode then
-				coroutine.wrap(function()
-					local invokeIrisInviteRemoteEvent =
-						RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
-					invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId))
-				end)()
-			else
-				local CallRequestedEvent =
-					ReplicatedStorage:WaitForChild("Shared"):WaitForChild("CallRequestedEvent") :: RemoteEvent
-				CallRequestedEvent:FireServer(participant.userId)
-			end
-		else
-			local ShowGenericDialogBindableEvent =
-				SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
-			ShowGenericDialogBindableEvent:Fire(
-				"Error",
-				"Cannot call another user that isn't in the same mode as you. Toggle your dev mode and try again.",
-				true
-			)
-		end
+		coroutine.wrap(function()
+			local invokeIrisInviteRemoteEvent =
+				RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
+			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId))
+		end)()
 
 		props.dismissCallback()
-	end, dependencyArray(props.dismissCallback, props.isDevMode))
+	end, dependencyArray(participant, props.dismissCallback))
 
 	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
 		if
@@ -267,7 +256,7 @@ local function CallHistoryItem(props: Props)
 					BorderSizePixel = 0,
 					Font = font.Header2.Font,
 					LayoutOrder = 1,
-					Text = participant.displayName,
+					Text = combinedName,
 					TextColor3 = if isMissedCall then theme.Alert.Color else theme.TextEmphasis.Color,
 					TextSize = font.BaseSize * font.Header2.RelativeSize,
 					TextTransparency = if isMissedCall
@@ -283,7 +272,7 @@ local function CallHistoryItem(props: Props)
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
 					LayoutOrder = 2,
-					Text = "@" .. ContactListHelper.getUsername(participant.userId, participant.userName),
+					Text = userName,
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,

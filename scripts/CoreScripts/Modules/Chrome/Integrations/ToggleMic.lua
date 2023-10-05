@@ -2,10 +2,13 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local React = require(CorePackages.Packages.React)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
+local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
+local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
 
 local ChromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
@@ -15,9 +18,17 @@ local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
+local voiceAnalytics
+if GetFFlagEnableVoiceMuteAnalytics() then
+	voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Chrome.Integrations.ToggleMic")
+end
+
 local toggleMic = function(self)
 	VoiceChatServiceManager:ToggleMic()
 	Analytics:setLastCtx("SelfView")
+	if voiceAnalytics then
+		voiceAnalytics:onToggleMuteSelf(not VoiceChatServiceManager.localMuted)
+	end
 end
 
 local rejoinChannel = function(self)

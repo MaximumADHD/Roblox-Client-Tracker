@@ -2,7 +2,6 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
@@ -14,20 +13,11 @@ local Promise = require(CorePackages.Promise)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local httpRequest
-if not FFlagLuaInviteModalEnabled then
-	httpRequest = require(AppTempCommon.Temp.httpRequest)
-end
-
--- TODO (timothyhsu): Remove above httpRequest definition when removing this FFlag as well
-if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-	httpRequest = require(AppTempCommon.Temp.httpRequest)
-end
+local httpRequest = require(AppTempCommon.Temp.httpRequest)
 
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
@@ -35,15 +25,8 @@ local Constants = require(ShareGame.Constants)
 local ShareInviteLink = require(ShareGame.Components.ShareInviteLink)
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
 
-local FetchUserFriends
-local ClosePage
-local BackButton
-if FFlagLuaInviteModalEnabled then
-	BackButton = require(ShareGame.Components.BackButton)
-else
-	FetchUserFriends = require(ShareGame.Thunks.FetchUserFriends)
-	ClosePage = require(ShareGame.Actions.ClosePage)
-end
+local BackButton = require(ShareGame.Components.BackButton)
+
 local SetGameInfoCreated = require(ShareGame.Actions.SetGameInfoCreated)
 
 local USER_LIST_PADDING = 10
@@ -58,10 +41,6 @@ function ShareGamePageFrame:init()
 		self.state = {
 			serverType = nil,
 		}
-	end
-
-	if not FFlagLuaInviteModalEnabled then
-		self.props.reFetch()
 	end
 end
 
@@ -100,15 +79,9 @@ function ShareGamePageFrame:render()
 
 	local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
 	local headerHeight = layoutSpecific.HEADER_HEIGHT
-	local isDesktop
-	local iconType
-	local toggleSearchIcon
-	if FFlagLuaInviteModalEnabled then
-		isDesktop = deviceLayout == Constants.DeviceLayout.DESKTOP
-		iconType = not isDesktop and BackButton.IconType.Arrow or BackButton.IconType.None
-
-		toggleSearchIcon = not isDesktop
-	end
+	local isDesktop = deviceLayout == Constants.DeviceLayout.DESKTOP
+	local iconType = not isDesktop and BackButton.IconType.Arrow or BackButton.IconType.None
+	local toggleSearchIcon = not isDesktop
 
 	local isVisible = self.props.isVisible
 	local showInviteLink = self:shouldShowInviteLink(self.props.gameInfo)
@@ -165,34 +138,6 @@ function ShareGamePageFrame:render()
 			trigger = "GameMenu",
 		}),
 	})
-end
-
-if not FFlagLuaInviteModalEnabled then
-	-- This logic is being moved to ShareGameContainer.lua
-	-- so it can be shared with this file and ModalShareGamePageFrame.lua
-	ShareGamePageFrame = RoactRodux.UNSTABLE_connect2(
-		function(state, props)
-			return {
-				deviceLayout = state.DeviceInfo.DeviceLayout,
-				searchAreaActive = state.ConversationsSearch.SearchAreaActive,
-				searchText = state.ConversationsSearch.SearchText,
-			}
-		end,
-		function(dispatch)
-			return {
-				closePage = function()
-					dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
-				end,
-
-				reFetch = function()
-					local userId = tostring(Players.LocalPlayer.UserId)
-					local requestImpl = httpRequest(HttpRbxApiService)
-
-					dispatch(FetchUserFriends(requestImpl, userId))
-				end,
-			}
-		end
-	)(ShareGamePageFrame)
 end
 
 if GetFFlagShareInviteLinkContextMenuV1Enabled() then

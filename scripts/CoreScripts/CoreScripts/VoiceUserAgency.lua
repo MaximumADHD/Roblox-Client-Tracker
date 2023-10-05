@@ -18,6 +18,7 @@ local IXPServiceWrapper = require(RobloxGuiModules.Common.IXPServiceWrapper)
 local log = require(RobloxGuiModules.Logger):new(script.Name)
 local RobloxTranslator = require(RobloxGuiModules.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGuiModules.VoiceChat.VoiceChatServiceManager).default
+local Constants = require(RobloxGuiModules.VoiceChat.Constants)
 
 local GetFFlagVoiceUserAgencyEnableIXP = require(RobloxGuiModules.Flags.GetFFlagVoiceUserAgencyEnableIXP)
 local GetFStringVoiceUserAgencyIXPLayerName = require(RobloxGuiModules.Flags.GetFStringVoiceUserAgencyIXPLayerName)
@@ -26,6 +27,7 @@ local FIntVoiceUserAgencyAlertInitTimeOffset = game:DefineFastInt("VoiceUserAgen
 local FIntVoiceUserAgencyAlertStartTimeOffset = game:DefineFastInt("VoiceUserAgencyAlertStartTimeOffset", 3)
 local FIntVoiceUserAgencyAlertTimerDuration = game:DefineFastInt("VoiceUserAgencyAlertTimerDuration", 7)
 local FFlagMuteNonFriendsEvent = require(RobloxGuiModules.Flags.FFlagMuteNonFriendsEvent)
+local GetFFlagShowMuteToggles = require(RobloxGuiModules.Settings.Flags.GetFFlagShowMuteToggles)
 
 local FFlagVoiceUserAgencyAddMuteDecisionAnalytics =
 	game:DefineFastFlag("VoiceUserAgencyAddMuteDecisionAnalytics", false)
@@ -130,6 +132,10 @@ local function removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAl
 		})
 	end
 
+	if GetFFlagShowMuteToggles() then
+		VoiceChatServiceManager:FireUserAgencySelectedEvent(isMuteAll)
+	end
+
 	bindResetHistory()
 end
 
@@ -171,7 +177,10 @@ local function showUserAgencyPrompt()
 		return
 	end
 	if isMutedAllHistory ~= nil then
-		VoiceChatServiceManager:MuteAll(isMutedAllHistory)
+		VoiceChatServiceManager:MuteAll(isMutedAllHistory, Constants.VOICE_CONTEXT_TYPE.USER_AGENCY)
+		if GetFFlagShowMuteToggles() then
+			VoiceChatServiceManager:FireUserAgencySelectedEvent(isMutedAllHistory)
+		end
 		bindResetHistory()
 		AnalyticsService:SendEventDeferred("client", "voiceChat", "JoinWithVoice", {
 			userId = PLAYER_USER_ID,
@@ -213,7 +222,7 @@ local function showUserAgencyPrompt()
 	})
 	muteAllButton.Activated:Connect(function()
 		isMuteAll = true
-		VoiceChatServiceManager:MuteAll(isMuteAll)
+		VoiceChatServiceManager:MuteAll(isMuteAll, Constants.VOICE_CONTEXT_TYPE.USER_AGENCY)
 		removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAll)
 	end)
 
@@ -234,7 +243,7 @@ local function showUserAgencyPrompt()
 	})
 	unmuteAllButton.Activated:Connect(function()
 		isMuteAll = false
-		VoiceChatServiceManager:MuteAll(isMuteAll)
+		VoiceChatServiceManager:MuteAll(isMuteAll, Constants.VOICE_CONTEXT_TYPE.USER_AGENCY)
 		removeUserAgencyPrompt(screenGui, shouldRememberSetting, isMuteAll)
 	end)
 

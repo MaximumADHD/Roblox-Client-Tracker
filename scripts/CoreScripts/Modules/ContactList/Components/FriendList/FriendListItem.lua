@@ -2,7 +2,6 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -32,19 +31,15 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
--- TODO: Remove once RDC is finished
-local ContactListHelper = require(ContactList.Components.ContactListHelper)
-
 local rng = Random.new()
 
 export type Props = {
 	userId: number | string,
 	userName: string,
-	displayName: string,
+	combinedName: string,
 	dismissCallback: () -> (),
 	layoutOrder: number?,
 	showDivider: boolean,
-	isDevMode: boolean,
 }
 
 local CALL_IMAGE_SIZE = 28
@@ -90,40 +85,14 @@ local function FriendListItem(props: Props)
 	local startCall = React.useCallback(function()
 		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 
-		-- TODO (timothyhsu): Remove check that callee and caller need to be in same mode when Call API is completed
-		local SharedRS = ReplicatedStorage:FindFirstChild("Shared")
-
-		local isCalleeInDevMode = true
-		if SharedRS then
-			local IsUserInDevModeRemoteFunction =
-				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-			isCalleeInDevMode = IsUserInDevModeRemoteFunction:InvokeServer(props.userId)
-		end
-
-		if props.isDevMode == isCalleeInDevMode then
-			if props.isDevMode then
-				coroutine.wrap(function()
-					local invokeIrisInviteRemoteEvent =
-						RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
-					invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
-				end)()
-			else
-				local CallRequestedEvent =
-					ReplicatedStorage:WaitForChild("Shared"):WaitForChild("CallRequestedEvent") :: RemoteEvent
-				CallRequestedEvent:FireServer(props.userId)
-			end
-		else
-			local ShowGenericDialogBindableEvent =
-				SharedRS:WaitForChild("ShowGenericDialogBindableEvent") :: BindableEvent
-			ShowGenericDialogBindableEvent:Fire(
-				"Error",
-				"Cannot call another user that isn't in the same mode as you. Toggle your dev mode and try again.",
-				true
-			)
-		end
+		coroutine.wrap(function()
+			local invokeIrisInviteRemoteEvent =
+				RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
+			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
+		end)()
 
 		props.dismissCallback()
-	end, dependencyArray(props.dismissCallback, props.isDevMode))
+	end, dependencyArray(props.dismissCallback, props.userId))
 
 	local playerContext = React.useMemo(function()
 		local icon = Images["component_assets/circle_26_stroke_3"]
@@ -239,13 +208,13 @@ local function FriendListItem(props: Props)
 					PaddingBottom = UDim.new(0, 6),
 				}),
 
-				DisplayName = React.createElement("TextLabel", {
+				CombinedName = React.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 0, 20),
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Font = font.Header2.Font,
 					LayoutOrder = 1,
-					Text = props.displayName,
+					Text = props.combinedName,
 					TextColor3 = theme.TextEmphasis.Color,
 					TextSize = font.BaseSize * font.Header2.RelativeSize,
 					TextTransparency = theme.TextEmphasis.Transparency,
@@ -259,7 +228,7 @@ local function FriendListItem(props: Props)
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
 					LayoutOrder = 2,
-					Text = "@" .. ContactListHelper.getUsername(props.userId, props.userName),
+					Text = props.userName,
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,

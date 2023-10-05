@@ -47,6 +47,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local React = require(CorePackages.Packages.React)
 local VoiceIndicatorWrapper = function(props)
 	local voiceServiceState = React.useContext(VoiceStateContext.Context)
@@ -203,7 +204,7 @@ function ReportDialog:renderPlayerInfo()
 						iconStyle = "SpeakerLight",
 						size = UDim2.fromOffset(36, 36),
 						onClicked = function()
-							VoiceChatServiceManager:ToggleMutePlayer(self.props.targetPlayer.UserId)
+							VoiceChatServiceManager:ToggleMutePlayer(self.props.targetPlayer.UserId, VoiceConstants.VOICE_CONTEXT_TYPE.REPORT_MENU)
 						end,
 					}
 				) or nil,

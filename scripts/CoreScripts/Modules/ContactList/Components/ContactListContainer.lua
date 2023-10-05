@@ -2,7 +2,6 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local SocialService = game:GetService("SocialService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local React = require(CorePackages.Packages.React)
 local PeekView = require(CorePackages.Workspace.Packages.PeekView).PeekView
@@ -22,7 +21,6 @@ local dependencies = require(ContactList.dependencies)
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
-local usePrevious = dependencies.Hooks.usePrevious
 
 local UIBlox = dependencies.UIBlox
 local useStyle = UIBlox.Core.Style.useStyle
@@ -44,9 +42,6 @@ local TopBarConstants = require(ContactList.Parent.TopBar.Constants)
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
 local currentCamera = workspace.CurrentCamera :: Camera
-
--- Remove once we no longer need dev mode.
-local SharedRS = nil
 
 local EnableSocialServiceIrisInvite = game:GetEngineFeature("EnableSocialServiceIrisInvite")
 
@@ -84,32 +79,16 @@ local function ContactListContainer()
 
 	local closePeekViewSignal = React.useRef(Signal.new())
 
-	local getIsDevMode = function()
-		if not SharedRS then
-			SharedRS = ReplicatedStorage:FindFirstChild("Shared")
-		end
-
-		if SharedRS then
-			local IsUserInDevModeRemoteFunction =
-				SharedRS:WaitForChild("IsUserInDevModeRemoteFunction") :: RemoteFunction
-			return IsUserInDevModeRemoteFunction:InvokeServer(localPlayer.UserId)
-		end
-
-		return true
-	end
-
-	local isDevMode = getIsDevMode()
-
 	if EnableSocialServiceIrisInvite then
 		React.useEffect(function()
 			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
 				function(player: any, tag: string)
 					if localPlayer and localPlayer.UserId == player.UserId then
 						dispatch(SetCurrentTag(tag))
-						if not getIsDevMode() then
-							dispatch(SetCurrentPage(Pages.FriendList))
-						else
-							dispatch(SetCurrentPage(Pages.CallHistory))
+						dispatch(SetCurrentPage(Pages.CallHistory))
+
+						if GetFFlagCorescriptsSoundManagerEnabled() then
+							SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 						end
 					end
 				end
@@ -162,7 +141,6 @@ local function ContactListContainer()
 		return state.Navigation.currentPage
 	end, {})
 	local currentPage = useSelector(selectCurrentPage)
-	local prevCurrentPage = usePrevious(currentPage)
 
 	-- Listen for screen size changes
 	React.useEffect(function()
@@ -180,35 +158,6 @@ local function ContactListContainer()
 			conn:Disconnect()
 		end
 	end, {})
-
-	React.useEffect(function()
-		if not prevCurrentPage and currentPage then
-			if GetFFlagCorescriptsSoundManagerEnabled() then
-				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-			end
-		end
-
-		local closePhonebookConn
-
-		if not isDevMode then
-			-- TODO (timothyhsu): Remove ClosePhonebookRemoteEvent once Call API is completed
-			local ClosePhonebookRemoteEvent =
-				ReplicatedStorage:WaitForChild("ClosePhonebookRemoteEvent", 5) :: RemoteEvent
-			if ClosePhonebookRemoteEvent then
-				closePhonebookConn = ClosePhonebookRemoteEvent.OnClientEvent:Connect(function()
-					if currentPage then
-						dismissCallback()
-					end
-				end)
-			end
-		end
-
-		return function()
-			if closePhonebookConn then
-				closePhonebookConn:Disconnect()
-			end
-		end
-	end, { currentPage, isDevMode })
 
 	React.useEffect(function()
 		if currentPage and not isSmallScreen and contactListContainerRef.current then
@@ -253,7 +202,6 @@ local function ContactListContainer()
 			if currentPage == Pages.CallHistory then
 				currentContainer = React.createElement(CallHistoryContainer, {
 					dismissCallback = dismissCallback,
-					isDevMode = isDevMode,
 					isSmallScreen = isSmallScreen,
 					scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
 					searchText = searchText,
@@ -261,7 +209,6 @@ local function ContactListContainer()
 			elseif currentPage == Pages.FriendList then
 				currentContainer = React.createElement(FriendListContainer, {
 					dismissCallback = dismissCallback,
-					isDevMode = isDevMode,
 					isSmallScreen = isSmallScreen,
 					scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
 					searchText = searchText,
@@ -296,7 +243,6 @@ local function ContactListContainer()
 					headerHeight = HEADER_HEIGHT,
 					layoutOrder = 1,
 					dismissCallback = dismissCallback,
-					isDevMode = isDevMode,
 				}),
 				SearchBar = React.createElement(ContactListSearchBar, {
 					layoutOrder = 2,

@@ -9,7 +9,7 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Constants = require(Modules.Common.Constants)
 local Theme = require(Modules.Settings.Theme)
-local InviteEvents = require(ShareGame.Analytics.InviteEvents)
+local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInviteEvents
 local ShareGameConstants = require(ShareGame.Constants)
 local PresenceUtil = require(ShareGame.PresenceUtil)
 local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)

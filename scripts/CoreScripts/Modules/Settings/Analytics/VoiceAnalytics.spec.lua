@@ -16,7 +16,7 @@ return function()
 				setRBXEventStream = jest.fn(),
 			},
 		}
-		c.voiceAnalytics = VoiceAnalytics.new(c.analytics.EventStream)
+		c.voiceAnalytics = VoiceAnalytics.new(c.analytics.EventStream, "VoiceAnalytics.test")
 	end)
 
 	describe("VoiceAnalytics", function(c)

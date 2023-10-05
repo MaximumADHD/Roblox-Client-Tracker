@@ -1,32 +1,36 @@
+--!strict
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local Roact = require(CorePackages.Roact)
+local React = require(CorePackages.Packages.React)
 local t = require(CorePackages.Packages.t)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local Cryo = require(CorePackages.Packages.Cryo)
 
 local PlayerList = script.Parent.Parent.Parent
 local Connection = PlayerList.Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
+local usePlayerCombinedName = require(PlayerList.Hooks.usePlayerCombinedName)
 
-local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
+local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local getFFlagPlayerListApolloClientEnabled = require(RobloxGui.Modules.Flags.getFFlagPlayerListApolloClientEnabled)
 local getIsUserProfileOnLeaderboardEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnLeaderboardEnabled)
+local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
-local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
+local PlayerNameTag = React.PureComponent:extend("PlayerNameTag")
 
 PlayerNameTag.validateProps = t.strictInterface({
 	player = playerInterface,
 	isTitleEntry = t.boolean,
 	isHovered = t.boolean,
 	layoutOrder = t.integer,
-
+	name = if FFlagRefactorPlayerNameTag then t.string else nil,
 	textStyle = t.strictInterface({
 		Color = t.Color3,
 		Transparency = t.number,
@@ -40,23 +44,42 @@ PlayerNameTag.validateProps = t.strictInterface({
 	}),
 })
 
-function PlayerNameTag:init()
-	if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then
-		self:setState({
-			name = self.props.player.DisplayName,
-		})
+type Props = {
+	player: Player,
+	isTitleEntry: boolean,
+	isHovered: boolean,
+	textStyle: {
+		Color: Color3,
+		Transparency: number,
+		StrokeColor: Color3?,
+		StrokeTransparency: number?,
+	},
+	textFont: {
+		Size: number,
+		MinSize: number,
+		Font: Enum.Font,
+	},
+}
 
-		ApolloClient:query({
-			query = UserProfiles.Queries.userProfilesCombinedNameByUserIds,
-			variables = {
-				userIds = { tostring(self.props.player.UserId) },
-			},
-		}):andThen(function(response)
-			local name = response.data.userProfiles[1].names.combinedName
+if not FFlagRefactorPlayerNameTag then
+	function PlayerNameTag:init()
+		if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then
 			self:setState({
-				name = name,
+				name = self.props.player.DisplayName,
 			})
-		end)
+
+			ApolloClient:query({
+				query = UserProfiles.Queries.userProfilesCombinedNameByUserIds,
+				variables = {
+					userIds = { tostring(self.props.player.UserId) },
+				},
+			}):andThen(function(response)
+				local name = response.data.userProfiles[1].names.combinedName
+				self:setState({
+					name = name,
+				})
+			end)
+		end
 	end
 end
 
@@ -77,14 +100,14 @@ function PlayerNameTag:render()
 		local hasVerifiedBadge = VerifiedBadges.isPlayerVerified(self.props.player)
 
 		if layoutValues.IsTenFoot and platformName ~= "" then
-			playerNameChildren["VerticalLayout"] = Roact.createElement("UIListLayout", {
+			playerNameChildren["VerticalLayout"] = React.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Vertical,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				Padding = UDim.new(0, 10),
 			})
 
-			playerNameChildren["PlayerPlatformName"] = Roact.createElement("TextLabel", {
+			playerNameChildren["PlayerPlatformName"] = React.createElement("TextLabel", {
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, 0, 0.35, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -99,19 +122,19 @@ function PlayerNameTag:render()
 				LayoutOrder = 2,
 			})
 
-			playerNameChildren["RobloxNameFrame"] = Roact.createElement("Frame", {
+			playerNameChildren["RobloxNameFrame"] = React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0.45, 0),
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
 			}, {
-				Layout = Roact.createElement("UIListLayout", {
+				Layout = React.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Horizontal,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					Padding = UDim.new(0, 6),
 				}),
 
-				RobloxIcon = Roact.createElement("ImageButton", {
+				RobloxIcon = React.createElement("ImageButton", {
 					Size = UDim2.new(0, 24, 0, 24),
 					Image = layoutValues.RobloxIconImage,
 					BackgroundTransparency = 1,
@@ -120,7 +143,7 @@ function PlayerNameTag:render()
 					LayoutOrder = 1,
 				}),
 
-				PlayerNameContainer = Roact.createElement(VerifiedBadges.EmojiWrapper, {
+				PlayerNameContainer = React.createElement(VerifiedBadges.EmojiWrapper, {
 						emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
 						layoutOrder = 2,
 						mockIsEnrolled = true,
@@ -128,12 +151,16 @@ function PlayerNameTag:render()
 						automaticSize = Enum.AutomaticSize.Y,
 						verticalAlignment = Enum.VerticalAlignment.Center,
 					}, {
-						PlayerName = Roact.createElement("TextLabel", {
+						PlayerName = React.createElement("TextLabel", {
 							AutomaticSize = Enum.AutomaticSize.X,
 							ClipsDescendants = false,
 							Size = UDim2.fromScale(0, 1),
 							Font = playerNameFont,
-							Text = if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then self.state.name else self.props.player.Name,
+							Text = if FFlagRefactorPlayerNameTag
+								then self.props.name
+								else if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled()
+									then self.state.name
+									else self.props.player.Name,
 							TextSize = textSize,
 							TextColor3 = self.props.textStyle.Color,
 							TextTransparency = self.props.textStyle.Transparency,
@@ -146,7 +173,7 @@ function PlayerNameTag:render()
 					}),
 			})
 		else
-			playerNameChildren["PlayerNameContainer"] = Roact.createElement(VerifiedBadges.EmojiWrapper, {
+			playerNameChildren["PlayerNameContainer"] = React.createElement(VerifiedBadges.EmojiWrapper, {
 					emoji = if hasVerifiedBadge then VerifiedBadges.emoji.verified else "",
 					anchorPoint = Vector2.new(0, 0.5),
 					position = UDim2.fromScale(0, 0.5),
@@ -155,11 +182,15 @@ function PlayerNameTag:render()
 					automaticSize = Enum.AutomaticSize.X,
 					size = UDim2.new(0, 0, 0, textSize),
 				}, {
-					PlayerName = Roact.createElement("TextLabel", {
+					PlayerName = React.createElement("TextLabel", {
 						AutomaticSize = Enum.AutomaticSize.X,
 						Size = UDim2.fromScale(0, 1),
 						Font = playerNameFont,
-						Text = if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then self.state.name else self.props.player.DisplayName,
+						Text = if FFlagRefactorPlayerNameTag
+							then self.props.name
+							else if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled()
+								then self.state.name
+								else self.props.player.DisplayName,
 						TextSize = textSize,
 						TextColor3 = self.props.textStyle.Color,
 						TextTransparency = self.props.textStyle.Transparency,
@@ -170,7 +201,7 @@ function PlayerNameTag:render()
 						TextXAlignment = Enum.TextXAlignment.Left,
 						BackgroundTransparency = 1,
 					}, {
-						SizeConstraint = Roact.createElement("UITextSizeConstraint", {
+						SizeConstraint = React.createElement("UITextSizeConstraint", {
 							MaxTextSize = textSize,
 							MinTextSize = minTextSize,
 						}),
@@ -178,7 +209,7 @@ function PlayerNameTag:render()
 				})
 		end
 
-		return Roact.createElement("Frame", {
+		return React.createElement("Frame", {
 			LayoutOrder = self.props.layoutOrder,
 			Size = layoutValues.PlayerNameSize,
 			BackgroundTransparency = 1,
@@ -186,4 +217,16 @@ function PlayerNameTag:render()
 	end)
 end
 
-return PlayerNameTag
+local function PlayerNameTagContainer(props: Props)
+	local name = usePlayerCombinedName(tostring(props.player.UserId), props.player.DisplayName)
+
+	return React.createElement(PlayerNameTag, Cryo.Dictionary.join(props, {
+		name = name
+	}))
+end
+
+if FFlagRefactorPlayerNameTag then
+	return PlayerNameTagContainer
+else
+	return PlayerNameTag
+end

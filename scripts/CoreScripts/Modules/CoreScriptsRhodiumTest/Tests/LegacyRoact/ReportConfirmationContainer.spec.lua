@@ -3,6 +3,7 @@
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ReportConfirmationContainer = require(Modules.Settings.Components.ReportConfirmation.ReportConfirmationContainer)
 local Constants = require(Modules.InGameMenu.Resources.Constants)
+local VoiceConstants = require(Modules.VoiceChat.Constants)
 
 local noOp = function()
 end
@@ -56,7 +57,7 @@ return function()
 				},
 			}
 
-			c.toggleMutePlayerMockSpy, c.toggleMutePlayerMock = c.jest.fn(function(_, userId)
+			c.toggleMutePlayerMockSpy, c.toggleMutePlayerMock = c.jest.fn(function(_, userId, _)
 				participants[tostring(userId)].isMutedLocally = not participants[tostring(userId)].isMutedLocally
 			end)
 
@@ -139,7 +140,7 @@ return function()
 				c.jestExpect(c.isPlayerBlockedByUserIdMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId)
 				c.jestExpect(c.blockPlayerAsyncMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
 				c.jestExpect(c.mutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
-				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId)
+				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId, VoiceConstants.VOICE_CONTEXT_TYPE.REPORT_MENU)
 
 				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledTimes(1)
 				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledWith(
@@ -188,7 +189,7 @@ return function()
 				c.jestExpect(c.isPlayerBlockedByUserIdMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId)
 				c.jestExpect(c.blockPlayerAsyncMockSpy).toHaveBeenCalledTimes(0)
 				c.jestExpect(c.mutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
-				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId)
+				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId, VoiceConstants.VOICE_CONTEXT_TYPE.REPORT_MENU)
 
 				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledTimes(0)
 

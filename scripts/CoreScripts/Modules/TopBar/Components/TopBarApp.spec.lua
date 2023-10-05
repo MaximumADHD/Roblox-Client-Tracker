@@ -9,7 +9,14 @@ return function()
 	local UIBlox = require(CorePackages.UIBlox)
 	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
+	local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
 
+	local defaultStyle = {
+		themeName = "dark",
+		fontName = "gotham",
+		deviceType = RobloxAppEnums.DeviceType.Console,
+	}
 
 	local Reducer = require(script.Parent.Parent.Reducer)
 
@@ -27,9 +34,14 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new(LocalizationService.RobloxLocaleId),
 				}, {
-
-					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {}, {
-						TopBarApp = Roact.createElement(TopBarApp)
+					StyleProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
+						style = defaultStyle,
+					}, {
+						DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
+							tokenMappers = {}
+						}, {
+							TopBarApp = Roact.createElement(TopBarApp)
+						}),
 					})
 				})
 			})

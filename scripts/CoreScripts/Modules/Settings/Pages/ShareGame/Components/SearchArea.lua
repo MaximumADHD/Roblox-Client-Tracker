@@ -18,7 +18,6 @@ local SetSearchAreaActive = require(ShareGame.Actions.SetSearchAreaActive)
 local SetSearchText = require(ShareGame.Actions.SetSearchText)
 local ShareGameIcons = require(RobloxGui.Modules.Settings.Pages.ShareGame.Spritesheets.ShareGameIcons)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
 
@@ -49,10 +48,7 @@ function SearchArea:render()
 	local position = self.props.position
 	local zIndex = self.props.zIndex
 	local searchAreaActive = self.props.searchAreaActive
-	local size
-	if FFlagLuaInviteModalEnabled then
-		size = self.props.size
-	end
+	local size = self.props.size
 
 	local cancelText = self.state.cancelText
 	local cancelTextWidth = Text.GetTextWidth(cancelText, CANCEL_TEXT_FONT, CANCEL_TEXT_SIZE)

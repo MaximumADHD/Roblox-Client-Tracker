@@ -2,6 +2,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -85,16 +88,18 @@ return function()
 
 		local validatePlayer = function(playerName, userName, displayName)
 			local label = instance:FindFirstChild(playerName, true)
-			expect(label).never.to.equal(nil)
+			expect(label).never.toBeNil()
 
 			local displayNameLabel = label:FindFirstChild("DisplayNameLabel", true)
 			local usernameLabel = label:FindFirstChild("UsernameLabel", true)
-			expect(displayNameLabel).never.to.equal(nil)
-			expect(usernameLabel).never.to.equal(nil)
-			expect(usernameLabel.Visible).to.equal(true)
-			expect(displayNameLabel.Visible).to.equal(true)
-			expect(usernameLabel.Text).to.equal("@" .. userName)
-			expect(displayNameLabel.Text).to.equal(displayName)
+			expect(displayNameLabel).toMatchInstance({
+				Visible = true,
+				Text = displayName,
+			})
+			expect(usernameLabel).toMatchInstance({
+				Visible = true,
+				Text = "@" .. userName,
+			})
 		end
 
 		validatePlayer("PlayerCell1", PLAYER1_USERNAME, PLAYER1_DISPLAYNAME)
@@ -126,8 +131,8 @@ return function()
 		})
 
 		local instance = Roact.mount(element)
-		expect(ref.current).to.be.ok()
-		expect(ref.current:IsA("Instance")).to.equal(true)
+		expect(ref.current).never.toBeNil()
+		expect(ref.current:IsA("Instance")).toBe(true)
 		Roact.unmount(instance)
 	end)
 
@@ -169,9 +174,9 @@ return function()
 			local cell = instance:FindFirstChild(playerName, true)
 			local onlinePresenseIndicator = cell:FindFirstChild("OnlineIndicator", true)
 			if expectedOnlineStatus then
-				expect(onlinePresenseIndicator).never.to.equal(nil)
+				expect(onlinePresenseIndicator).never.toBeNil()
 			else
-				expect(onlinePresenseIndicator).to.equal(nil)
+				expect(onlinePresenseIndicator).toBeNil()
 			end
 		end
 
@@ -220,9 +225,9 @@ return function()
 				local cell = instance:FindFirstChild(playerName, true)
 				local verifiedBadge = cell:FindFirstChild("Emoji", true)
 				if expectedVerifiedBadgeStatus then
-					expect(verifiedBadge).never.to.equal(nil)
+					expect(verifiedBadge).never.toBeNil()
 				else
-					expect(verifiedBadge).to.equal(nil)
+					expect(verifiedBadge).toBeNil()
 				end
 			end
 

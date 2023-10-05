@@ -3,6 +3,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local CoreGui = game:GetService("CoreGui")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -89,8 +92,7 @@ return function()
 
 		local handle = Roact.mount(element)
 		local instance = CoreGui:FindFirstChild("InGameFullscreenTitleBarScreen")
-		expect(instance).to.never.equal(nil)
-		expect(instance.ClassName).to.equal("ScreenGui")
+		expect(instance).toMatchInstance({ ClassName = "ScreenGui" })
 		Roact.unmount(handle)
 	end)
 
@@ -117,10 +119,9 @@ return function()
 
 			local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
 			local triggerAreaInstance = triggerArea:waitForRbxInstance()
-			expect(triggerAreaInstance).to.be.ok()
+			expect(triggerAreaInstance).never.toBeNil()
 			local barInstance = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.Bar"):waitForRbxInstance()
-			expect(barInstance).to.be.ok()
-			expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
+			expect(barInstance).toMatchInstance({ Position = TITLE_BAR_OFF_POS })
 
 			act(function()
 				VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
@@ -133,7 +134,7 @@ return function()
 				task.wait(2)
 			end)
 
-			expect(barInstance.Position).equal(TITLE_BAR_ON_POS)
+			expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
 			Roact.unmount(handle)
 		end)
@@ -160,10 +161,9 @@ return function()
 
 			local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
 			local triggerAreaInstance = triggerArea:waitForRbxInstance()
-			expect(triggerAreaInstance).to.be.ok()
+			expect(triggerAreaInstance).never.toBeNil()
 			local barInstance = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.Bar"):waitForRbxInstance()
-			expect(barInstance).to.be.ok()
-			expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
+			expect(barInstance).toMatchInstance({ Position = TITLE_BAR_OFF_POS })
 
 			act(function()
 				VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
@@ -175,7 +175,7 @@ return function()
 				task.wait(2)
 			end)
 
-			expect(barInstance.Position).equal(TITLE_BAR_ON_POS)
+			expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
 			act(function()
 				-- Re-move the mouse, so that the MouseEnter event can fire on the title bar frame.
@@ -189,7 +189,7 @@ return function()
 				task.wait(2)
 			end)
 
-			expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
+			expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
 			Roact.unmount(handle)
 		end)
 
@@ -216,10 +216,9 @@ return function()
 
 				local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
 				local triggerAreaInstance = triggerArea:waitForRbxInstance()
-				expect(triggerAreaInstance).to.be.ok()
+				expect(triggerAreaInstance).never.toBeNil()
 				local barInstance = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.Bar"):waitForRbxInstance()
-				expect(barInstance).to.be.ok()
-				expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
+				expect(barInstance).toMatchInstance({ Position = TITLE_BAR_OFF_POS })
 
 				act(function()
 					VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
@@ -231,7 +230,7 @@ return function()
 					task.wait(1.5) -- wait for any remaining action
 				end)
 
-				expect(barInstance.Position).equal(TITLE_BAR_OFF_POS)
+				expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
 
 				act(function()
 					VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
@@ -245,7 +244,7 @@ return function()
 					task.wait(1.5) -- wait for any remaining action
 				end)
 
-				expect(barInstance.Position).equal(TITLE_BAR_ON_POS)
+				expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
 				Roact.unmount(handle)
 			end)

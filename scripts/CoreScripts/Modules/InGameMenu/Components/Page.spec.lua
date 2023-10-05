@@ -7,6 +7,9 @@ return function()
     local reducer = require(InGameMenu.reducer)
 	local UIBlox = InGameMenuDependencies.UIBlox
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
     local Localization = require(InGameMenu.Localization.Localization)
     local Rodux = InGameMenuDependencies.Rodux
 	local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -47,17 +50,17 @@ return function()
         local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
 
         local renderedPage = Players.LocalPlayer.PlayerGui:GetChildren()[1]
-        expect(renderedPage:FindFirstChild("PageTitle")).never.to.equal(nil)
-        expect(renderedPage:FindFirstChild("PageTitle").text).to.equal("test")
+		expect(renderedPage:FindFirstChild("PageTitle")).never.toBeNil()
+		expect(renderedPage:FindFirstChild("PageTitle").text).toBe("test")
 
         local pageContainer = renderedPage:FindFirstChild("PageContainer")
-        expect(pageContainer).never.to.equal(nil)
+		expect(pageContainer).never.toBeNil()
 
-        -- renders children of Page
-        expect(#pageContainer:GetChildren()).to.equal(2)
-        expect(pageContainer:GetChildren()[1].Text).to.equal("yo")
-        expect(pageContainer:GetChildren()[2].Text).to.equal("hello")
-        
+		-- renders children of Page
+		expect(#pageContainer:GetChildren()).toBe(2)
+		expect(pageContainer:GetChildren()[1].Text).toBe("yo")
+		expect(pageContainer:GetChildren()[2].Text).toBe("hello")
+
         Roact.unmount(instance)
     end)
 end

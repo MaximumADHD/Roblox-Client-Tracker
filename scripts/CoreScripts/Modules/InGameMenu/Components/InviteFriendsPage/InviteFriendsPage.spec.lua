@@ -4,6 +4,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local act = require(Modules.act)
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
@@ -91,7 +94,7 @@ return function()
 				store:flush()
 			end)
 
-			expect(GuiService.SelectedCoreObject).to.never.be.ok()
+			expect(GuiService.SelectedCoreObject).toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -105,7 +108,7 @@ return function()
 				store:flush()
 			end)
 
-			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
 
 			Roact.unmount(instance)
 		end)

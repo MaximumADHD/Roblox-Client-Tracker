@@ -2,6 +2,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local act = require(Modules.act)
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -63,8 +66,8 @@ return function()
 			store:flush()
 		end)
 
-		expect(didCallOnNavigateTo).to.equal(true)
-		expect(didCallOnNavigateAway).to.equal(false)
+		expect(didCallOnNavigateTo).toBe(true)
+		expect(didCallOnNavigateAway).toBe(false)
 
 		Roact.unmount(instance)
 	end)
@@ -96,8 +99,8 @@ return function()
 			store:flush()
 		end)
 
-		expect(didCallOnNavigateTo).to.equal(true)
-		expect(didCallOnNavigateAway).to.equal(false)
+		expect(didCallOnNavigateTo).toBe(true)
+		expect(didCallOnNavigateAway).toBe(false)
 
 		Roact.unmount(instance)
 	end)
@@ -130,8 +133,8 @@ return function()
 		end)
 
 
-		expect(didCallOnNavigateTo).to.equal(false)
-		expect(didCallOnNavigateAway).to.equal(false)
+		expect(didCallOnNavigateTo).toBe(false)
+		expect(didCallOnNavigateAway).toBe(false)
 
 		Roact.unmount(instance)
 	end)
@@ -165,8 +168,8 @@ return function()
 			store:flush()
 		end)
 
-		expect(didCallOnNavigateTo).to.equal(false)
-		expect(didCallOnNavigateAway).to.equal(true)
+		expect(didCallOnNavigateTo).toBe(false)
+		expect(didCallOnNavigateAway).toBe(true)
 
 		Roact.unmount(instance)
 	end)
@@ -199,8 +202,8 @@ return function()
 			store:flush()
 		end)
 
-		expect(didCallOnNavigateTo).to.equal(false)
-		expect(didCallOnNavigateAway).to.equal(true)
+		expect(didCallOnNavigateTo).toBe(false)
+		expect(didCallOnNavigateAway).toBe(true)
 
 		Roact.unmount(instance)
 	end)
@@ -232,8 +235,8 @@ return function()
 		store:dispatch(SetCurrentPage("testPage2"))
 		store:flush()
 
-		expect(didCallOnNavigateTo).to.equal(false)
-		expect(didCallOnNavigateAway).to.equal(false)
+		expect(didCallOnNavigateTo).toBe(false)
+		expect(didCallOnNavigateAway).toBe(false)
 
 		Roact.unmount(instance)
 	end)

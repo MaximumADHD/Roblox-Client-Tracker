@@ -3,6 +3,9 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local act = require(Modules.act)
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local InGameMenu = script.Parent.Parent
@@ -65,7 +68,7 @@ return function()
 
 	it("should render basic MainPage components", function()
 		local element, store = getMountableTreeAndStore()
-		expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+		expect(Players.LocalPlayer.PlayerGui).never.toBeNil()
 
 		local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
 		act(function()
@@ -74,11 +77,11 @@ return function()
 		end)
 
 		local renderedMainPage = Players.LocalPlayer.PlayerGui:GetChildren()[1]
-		expect(renderedMainPage).never.to.equal(nil)
+		expect(renderedMainPage).never.toBeNil()
 
 		-- Check all the NavigationButtons are rendered
 		local renderedPageNavigation = renderedMainPage:FindFirstChild("PageNavigation", true)
-		expect(renderedPageNavigation).never.to.equal(nil)
+		expect(renderedPageNavigation).never.toBeNil()
 
 		local expectedPageCount = 0
 		local renderedPageCount = 0
@@ -96,11 +99,11 @@ return function()
 				renderedPageCount += 1
 			end
 		end
-		expect(renderedPageCount).to.equal(expectedPageCount)
+		expect(renderedPageCount).toBe(expectedPageCount)
 
 		-- Check the BottomButtons are rendered
 		local renderedBottomButtons = renderedMainPage:FindFirstChild("BottomButtons", true)
-		expect(renderedBottomButtons).never.to.equal(nil)
+		expect(renderedBottomButtons).never.toBeNil()
 
 		Roact.unmount(instance)
 	end)
@@ -108,7 +111,7 @@ return function()
 	describe("Gamepad", function()
 		it("Should not gain focus when gamepad is not the last used device", function()
 			local element, store = getMountableTreeAndStore()
-			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			expect(Players.LocalPlayer.PlayerGui).never.toBeNil()
 
 			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
 			act(function()
@@ -118,14 +121,14 @@ return function()
 				store:flush()
 			end)
 
-			expect(GuiService.SelectedCoreObject).to.equal(nil)
+			expect(GuiService.SelectedCoreObject).toBeNil()
 
 			Roact.unmount(instance)
 		end)
 
 		it("Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled", function()
 			local element, store = getMountableTreeAndStore({ open = true })
-			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			expect(Players.LocalPlayer.PlayerGui).never.toBeNil()
 
 			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
 			act(function()
@@ -135,7 +138,7 @@ return function()
 				store:flush()
 			end)
 
-			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil
@@ -153,12 +156,12 @@ return function()
 			end)
 
 			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			expect(Players.LocalPlayer.PlayerGui).never.toBeNil()
 
 			local button = RhodiumHelpers.findFirstInstance(Players.LocalPlayer.PlayerGui, {
 				Name = "VoiceChatMuteButton",
 			})
-			expect(button).to.be.ok()
+			expect(button).never.toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -170,13 +173,13 @@ return function()
 			local localUserId = tostring(Players.LocalPlayer.UserId)
 			store:dispatch(ParticipantAdded(localUserId))
 
-			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			expect(Players.LocalPlayer.PlayerGui).never.toBeNil()
 			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
 
 			local button = RhodiumHelpers.findFirstInstance(Players.LocalPlayer.PlayerGui, {
 				Name = "VoiceChatMuteButton",
 			})
-			expect(button).never.to.be.ok()
+			expect(button).toBeNil()
 
 			Roact.unmount(instance)
 		end)

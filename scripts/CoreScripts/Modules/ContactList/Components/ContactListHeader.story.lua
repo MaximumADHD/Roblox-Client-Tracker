@@ -11,7 +11,6 @@ return {
 				headerHeight = 48,
 				currentPage = Pages.FriendList,
 				dismissCallback = function() end,
-				isDevMode = true,
 			})
 		end,
 		ContactListHeaderCallHistory = function(props)
@@ -19,7 +18,6 @@ return {
 				headerHeight = 48,
 				currentPage = Pages.CallHistory,
 				dismissCallback = function() end,
-				isDevMode = true,
 			})
 		end,
 	},

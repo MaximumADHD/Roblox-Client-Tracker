@@ -1,10 +1,5 @@
 --!nonstrict
 return function()
-	local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
-	if not FFlagLuaInviteModalEnabled then
-		return
-	end
-
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)

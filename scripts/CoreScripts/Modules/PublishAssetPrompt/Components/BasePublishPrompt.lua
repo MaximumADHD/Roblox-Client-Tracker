@@ -28,12 +28,16 @@ local Components = script.Parent
 local NameTextBox = require(Components.Common.NameTextBox)
 local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
 local ItemInfoList = require(CorePackages.Workspace.Packages.ItemDetails).ItemInfoList
+local LeaveCreationAlert = require(script.Parent.LeaveCreationAlert)
+local Constants = require(script.Parent.Parent.Constants)
+local PreviewViewport = require(Components.Common.PreviewViewport)
 
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
 local LABEL_HEIGHT = 15
 local LABEL_PADDING = 24
 local BOTTOM_GRADIENT_HEIGHT = 5
+local DISTANCE_FROM_TOP = 37
 
 local DISCLAIMER_TEXT = "disclaimer"
 local SUBMIT_TEXT = "submit"
@@ -50,6 +54,10 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	promptBody = t.any,
 	typeData = t.string,
 	titleText = t.string,
+	nameMetadataString = t.optional(t.string),
+	showingPreviewView = t.boolean,
+	closePreviewView = t.callback,
+	asset = t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip")),
 
 	-- Mapped state
 	guid = t.any,
@@ -60,9 +68,28 @@ BasePublishPrompt.validateProps = t.strictInterface({
 })
 
 function BasePublishPrompt:init()
+	self:setState({
+		name = self.props.defaultName,
+
+		-- if showUnsavedDataWarning is false, show the prompt
+		-- if true, we are showing a warning that says data is lost when prompt is closed
+		showUnsavedDataWarning = false,
+	})
 	-- TODO: AVBURST-13016 Add back checking name for spaces or special characters after investigating
 	self.closePrompt = function()
 		self.props.closePrompt()
+	end
+
+	self.showUnsavedDataWarning = function()
+		self:setState({
+			showUnsavedDataWarning = true,
+		})
+	end
+
+	self.cancelClosePrompt = function()
+		self:setState({
+			showUnsavedDataWarning = false,
+		})
 	end
 
 	self.denyAndClose = function()
@@ -80,6 +107,9 @@ function BasePublishPrompt:init()
 
 	self.confirmAndUpload = function()
 		local metadata = {}
+		if self.props.nameMetadataString then
+			metadata[self.props.nameMetadataString] = self.state.name
+		end
 		-- TODO: Name Validation should be done before submitting AVBURST-12725
 
 		-- We should never get to this point if this engine feature is off, but just in case:
@@ -92,6 +122,12 @@ function BasePublishPrompt:init()
 			)
 			self.closePrompt()
 		end
+	end
+
+	self.onNameUpdated = function(newName, _)
+		self:setState({
+			name = newName,
+		})
 	end
 end
 
@@ -120,8 +156,8 @@ function BasePublishPrompt:renderMiddle(localized)
 					FillDirection = Enum.FillDirection.Vertical,
 				}),
 				padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, 24),
-					PaddingRight = UDim.new(0, 24),
+					PaddingLeft = UDim.new(0, Constants.PromptSidePadding),
+					PaddingRight = UDim.new(0, Constants.PromptSidePadding),
 				}),
 
 				NameLabel = Roact.createElement("TextLabel", {
@@ -141,9 +177,9 @@ function BasePublishPrompt:renderMiddle(localized)
 				NameInput = Roact.createElement(NameTextBox, {
 					Size = UDim2.new(1, 0, 0, NAME_HEIGHT_PIXELS),
 					-- TODO: Investigate previous name updated AVBURST-13016 and name moderation AVBURST-12725, for now use placeholder
-					onNameUpdated = function() end,
+					onNameUpdated = self.onNameUpdated,
 					nameTextBoxRef = self.nameTextBoxRef,
-					defaultName = self.props.defaultName,
+					defaultName = self.state.name,
 					LayoutOrder = 2,
 				}),
 				PromptBody = Roact.createElement("Frame", {
@@ -184,12 +220,12 @@ function BasePublishPrompt:renderMiddle(localized)
 				gradient = Roact.createElement("UIGradient", {
 					Rotation = 270,
 					Color = ColorSequence.new({
-						ColorSequenceKeypoint.new(0, style.Theme.BackgroundUIDefault.Color),
-						ColorSequenceKeypoint.new(1, style.Theme.BackgroundUIDefault.Color),
+						ColorSequenceKeypoint.new(0, theme.BackgroundUIDefault.Color),
+						ColorSequenceKeypoint.new(1, theme.BackgroundUIDefault.Color),
 					}),
 					Transparency = NumberSequence.new({
-						NumberSequenceKeypoint.new(0, theme.BackgroundDefault.Transparency),
-						NumberSequenceKeypoint.new(0.5, theme.BackgroundDefault.Transparency),
+						NumberSequenceKeypoint.new(0, theme.BackgroundUIDefault.Transparency),
+						NumberSequenceKeypoint.new(0.5, theme.BackgroundUIDefault.Transparency),
 						NumberSequenceKeypoint.new(1, 1),
 					}),
 				}),
@@ -200,8 +236,8 @@ function BasePublishPrompt:renderMiddle(localized)
 				Position = UDim2.new(0, 0, 1, -DISCLAIMER_HEIGHT_PIXELS),
 			}, {
 				padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, 24),
-					PaddingRight = UDim.new(0, 24),
+					PaddingLeft = UDim.new(0, Constants.PromptSidePadding),
+					PaddingRight = UDim.new(0, Constants.PromptSidePadding),
 				}),
 				Disclaimer = Roact.createElement("TextLabel", {
 					Size = UDim2.fromScale(1, 1),
@@ -218,34 +254,62 @@ function BasePublishPrompt:renderMiddle(localized)
 end
 
 function BasePublishPrompt:renderAlertLocalized(localized)
-	return Roact.createFragment({
-		-- Render transparent black frame over the whole screen to de-focus anything in the background.
-		Roact.createElement(Overlay, {
-			showGradient = false,
-			ZIndex = -1,
-		}),
+	return withStyle(function(style)
+		local theme = style.Theme
+		return Roact.createFragment({
+			-- Render transparent black frame over the whole screen to de-focus anything in the background.
+			Overlay = Roact.createElement(Overlay, {
+				showGradient = false,
+				ZIndex = -1,
+			}),
 
-		Roact.createElement(FullPageModal, {
-			title = self.props.titleText,
-			onCloseClicked = self.closePrompt,
-			distanceFromTop = 37,
-			marginSize = 0,
-			screenSize = self.props.screenSize,
-			buttonStackProps = {
-				buttons = {
-					{
-						buttonType = ButtonType.PrimarySystem,
-						props = {
-							onActivated = self.confirmAndUpload,
-							text = localized[SUBMIT_TEXT],
+			PublishPrompt = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+				Visible = not self.state.showUnsavedDataWarning,
+			}, {
+				FullPageModal = Roact.createElement(FullPageModal, {
+					title = self.props.titleText,
+					onCloseClicked = self.showUnsavedDataWarning,
+					distanceFromTop = DISTANCE_FROM_TOP,
+					marginSize = 0,
+					screenSize = self.props.screenSize,
+					buttonStackProps = {
+						buttons = {
+							{
+								buttonType = ButtonType.PrimarySystem,
+								props = {
+									onActivated = self.confirmAndUpload,
+									text = localized[SUBMIT_TEXT],
+								},
+							},
 						},
 					},
-				},
-			},
-		}, {
-			middleContent = self:renderMiddle(localized),
-		}),
-	})
+				}, {
+					middleContent = self:renderMiddle(localized),
+				}),
+			}),
+			LeaveCreationAlert = if self.state.showUnsavedDataWarning
+				then Roact.createElement(LeaveCreationAlert, {
+					screenSize = self.props.screenSize,
+					closePrompt = self.denyAndClose,
+					cancelClosePrompt = self.cancelClosePrompt,
+				})
+				else nil,
+			PreviewFrame = self.props.showingPreviewView and Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundColor3 = theme.BackgroundUIDefault.Color,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
+			}, {
+				PreviewViewport = Roact.createElement(PreviewViewport, {
+					asset = self.props.asset,
+					closePreviewView = self.props.closePreviewView,
+				}),
+			}) or nil,
+		})
+	end)
 end
 
 local function GetLocalizedStrings()

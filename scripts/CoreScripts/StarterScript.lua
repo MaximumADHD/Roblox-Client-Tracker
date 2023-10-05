@@ -32,7 +32,6 @@ local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild
 
 -- remove this when removing FFlagConnectErrorHandlerInLoadingScript
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
 local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
 
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
@@ -59,7 +58,6 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListEnabled)
-local FFlagVRAvatarHeightScaling = require(RobloxGui.Modules.Flags.FFlagVRAvatarHeightScaling)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
 local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
 local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
@@ -250,10 +248,7 @@ coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.VirtualCursor.VirtualCursorMain)
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
-
-if FFlagLuaInviteModalEnabled then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
 
 if UserInputService.TouchEnabled then -- touch devices don't use same control frame
 	-- only used for touch device button generation
@@ -270,9 +265,7 @@ coroutine.wrap(function()
 	if not VRService.VREnabled then
 		VRService:GetPropertyChangedSignal("VREnabled"):Wait()
 	end
-	if FFlagVRAvatarHeightScaling then
-		safeRequire(RobloxGui.Modules.VR.VRAvatarHeightScaling)
-	end
+	safeRequire(RobloxGui.Modules.VR.VRAvatarHeightScaling)
 	safeRequire(RobloxGui.Modules.VR.VirtualKeyboard)
 	safeRequire(RobloxGui.Modules.VR.UserGui)
 end)()

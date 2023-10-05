@@ -41,6 +41,7 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 local MultiTextLocalizer = require(Root.Components.Connection.MultiTextLocalizer)
 local LocalizationService = require(Root.Localization.LocalizationService)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
+local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
 
 local Animator = require(script.Parent.Animator)
 
@@ -163,6 +164,10 @@ function ProductPurchaseContainer:init()
 		elseif promptState == PromptState.Error
 				and purchaseError == PurchaseError.TwoFactorNeededSettings then
 			return self.props.onOpenSecuritySettings
+		elseif isGenericChallengeResponse(purchaseError) then
+			return function()
+				self.props.onOpenSecuritySettings(purchaseError)
+			end
 		else
 			return self.props.hideWindow
 		end
@@ -311,7 +316,7 @@ function ProductPurchaseContainer:getMessageKeysFromPromptState()
 				okText = { key = OK_LOCALE_KEY },
 				titleText = { key = ERROR_LOCALE_KEY },
 			}
-		elseif purchaseError == PurchaseError.TwoFactorNeededSettings then
+		elseif (purchaseError == PurchaseError.TwoFactorNeededSettings or isGenericChallengeResponse(purchaseError)) then
 
 			local messageKey = "CoreScripts.PurchasePrompt.PurchaseFailed.Enable2SV"
 			if FFlagPPTwoFactorLogOutMessage then
@@ -412,8 +417,9 @@ function ProductPurchaseContainer:render()
 			
 			isLuobu = self.state.isLuobu,
 		})
-	elseif promptState == PromptState.Error
-			and purchaseError == PurchaseError.TwoFactorNeededSettings then
+	elseif (promptState == PromptState.Error
+			and purchaseError == PurchaseError.TwoFactorNeededSettings) or 
+			isGenericChallengeResponse(purchaseError) then
 		prompt = Roact.createElement(MultiTextLocalizer, {
 			locKeys = self:getMessageKeysFromPromptState(),
 			render = function(localeMap)
@@ -551,8 +557,12 @@ local function mapDispatchToProps(dispatch)
 		onScaryModalConfirm = function()
 			dispatch(launchRobuxUpsell())
 		end,
-		onOpenSecuritySettings = function()
-			dispatch(openSecuritySettings())
+		onOpenSecuritySettings = function(challengeResponse: string?)
+			if challengeResponse then
+				dispatch(openSecuritySettings(challengeResponse))
+			else
+				dispatch(openSecuritySettings())
+			end
 		end,
 		onRobuxUpsell = function()
 			dispatch(initiatePurchasePrecheck())

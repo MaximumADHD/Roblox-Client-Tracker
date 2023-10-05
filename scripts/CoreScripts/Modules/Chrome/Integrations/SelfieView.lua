@@ -13,7 +13,6 @@ local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
 local SizingUtils = require(SelfieViewModule.Utils.SizingUtils)
 local AvailabilitySignalState = require(script.Parent.Parent.Service.ChromeUtils).AvailabilitySignalState
-local Types = require(script.Parent.Parent.Service.Types)
 local WindowSizeSignal = require(script.Parent.Parent.Service.WindowSizeSignal)
 
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
@@ -30,16 +29,8 @@ local startingWindowPosition = UDim2.new(1, -95, 0, 165)
 -- TODO: Add Localizations
 local ID = "selfie_view"
 local LABEL = "CoreScripts.TopBar.SelfViewLabel"
-local SECONDARY_ACTION_LABEL = "CoreScripts.TopBar.SelfViewSecondaryAction"
 
 ChromeService:updateWindowPosition(ID, startingWindowPosition)
-
-local secondaryAction: Types.SecondaryAction = {
-	label = SECONDARY_ACTION_LABEL,
-	activated = function(props: Types.IntegrationComponentProps)
-		ChromeService:toggleWindow(ID)
-	end,
-}
 
 local selfieViewChromeIntegration = ChromeService:register({
 	id = ID,
@@ -48,23 +39,24 @@ local selfieViewChromeIntegration = ChromeService:register({
 	-- We haven't decided if we're going to allow hotkeys yet
 	-- Relevant ticket: https://roblox.atlassian.net/browse/APPEXP-817
 	-- hotkeyCodes = { Enum.KeyCode.LeftControl, Enum.KeyCode.LeftAlt, Enum.KeyCode.T },
-	secondaryAction = secondaryAction,
 	windowSize = windowSize,
 	startingWindowPosition = startingWindowPosition,
 	initialAvailability = AvailabilitySignalState.Unavailable,
 	activated = function()
+		ChromeService:toggleWindow(ID)
 		activatedSignal:fire()
 	end,
 	draggable = true,
 	cachePosition = true,
 	components = {
-		Icon = function(props: {})
+		Icon = function(_)
 			return React.createElement(SelfieView.Icon, {
 				activatedSignal = activatedSignal,
 			}, {})
 		end,
-		Window = function(props: {})
+		Window = function(_)
 			return React.createElement(SelfieView.Window, {
+				id = ID,
 				windowSize = windowSize,
 				isDraggedOut = ChromeService:dragConnection(ID) ~= nil,
 			}, {})

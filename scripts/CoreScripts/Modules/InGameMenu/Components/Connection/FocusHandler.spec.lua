@@ -13,6 +13,7 @@ return function()
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest
+	local expect = JestGlobals.expect
 
 	local InGameMenu = script.Parent.Parent.Parent
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
@@ -68,12 +69,12 @@ return function()
 							isFocused = true,
 						})
 					})
-					expect(localPlayer().PlayerGui).to.be.ok()
+					expect(localPlayer().PlayerGui).never.toBeNil()
 
-					expect(GuiService.SelectedCoreObject).to.equal(nil)
+					expect(GuiService.SelectedCoreObject).toBeNil()
 					local instance = Roact.mount(element, localPlayer().PlayerGui)
 
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("button1")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("button1")
 
 					Roact.unmount(instance)
 				end)
@@ -84,10 +85,10 @@ return function()
 							isFocused = false,
 						})
 					})
-					expect(localPlayer().PlayerGui).to.be.ok()
+					expect(localPlayer().PlayerGui).never.toBeNil()
 
 					local instance = Roact.mount(element, localPlayer().PlayerGui)
-					expect(GuiService.SelectedCoreObject).to.equal(nil)
+					expect(GuiService.SelectedCoreObject).toBeNil()
 					act(function()
 						Roact.update(instance, Roact.createElement(FocusHandlerContextProvider, {}, {
 							Roact.createElement(TestApp, {
@@ -96,7 +97,7 @@ return function()
 						}))
 					end)
 
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("button1")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("button1")
 
 					Roact.unmount(instance)
 				end)
@@ -120,26 +121,26 @@ return function()
 						})
 					end
 					local element = getTree(true, false)
-					expect(localPlayer().PlayerGui).to.be.ok()
+					expect(localPlayer().PlayerGui).never.toBeNil()
 
-					expect(GuiService.SelectedCoreObject).to.equal(nil)
-					expect(#outerDidBlurSpy.mock.calls).to.equal(0)
+					expect(GuiService.SelectedCoreObject).toBeNil()
+					expect(outerDidBlurSpy).never.toHaveBeenCalled()
 					local instance = Roact.mount(element, localPlayer().PlayerGui)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("outerButton")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("outerButton")
 
 					act(function()
 						Roact.update(instance, getTree(true, true))
 					end)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("innerButton")
-					expect(#outerDidBlurSpy.mock.calls).to.equal(1)
-					expect(#innerDidBlurSpy.mock.calls).to.equal(0)
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("innerButton")
+					expect(outerDidBlurSpy).toHaveBeenCalledTimes(1)
+					expect(innerDidBlurSpy).never.toHaveBeenCalled()
 
 					act(function()
 						Roact.update(instance, getTree(true, false))
 					end)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("outerButton")
-					expect(#outerDidBlurSpy.mock.calls).to.equal(1)
-					expect(#innerDidBlurSpy.mock.calls).to.equal(1)
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("outerButton")
+					expect(outerDidBlurSpy).toHaveBeenCalledTimes(1)
+					expect(innerDidBlurSpy).toHaveBeenCalledTimes(1)
 
 					Roact.unmount(instance)
 				end)
@@ -163,19 +164,19 @@ return function()
 					end
 					local element = getTree(true, false)
 
-					expect(localPlayer().PlayerGui).to.be.ok()
+					expect(localPlayer().PlayerGui).never.toBeNil()
 
-					expect(GuiService.SelectedCoreObject).to.equal(nil)
-					expect(#didBlurSpyA.mock.calls).to.equal(0)
-					expect(#didBlurSpyB.mock.calls).to.equal(0)
+					expect(GuiService.SelectedCoreObject).toBeNil()
+					expect(didBlurSpyA).never.toHaveBeenCalled()
+					expect(didBlurSpyB).never.toHaveBeenCalled()
 					local instance = Roact.mount(element, localPlayer().PlayerGui)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonA")
 
 					act(function()
 						Roact.update(instance, getTree(false, true))
 					end)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonB")
-					expect(#didBlurSpyA.mock.calls).to.equal(1)
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonB")
+					expect(didBlurSpyA).toHaveBeenCalledTimes(1)
 				end)
 			end)
 
@@ -204,18 +205,18 @@ return function()
 
 					local element = getTree(true, false)
 
-					expect(localPlayer().PlayerGui).to.be.ok()
+					expect(localPlayer().PlayerGui).never.toBeNil()
 
-					expect(GuiService.SelectedCoreObject).to.equal(nil)
+					expect(GuiService.SelectedCoreObject).toBeNil()
 					local instance = Roact.mount(element, localPlayer().PlayerGui)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonA")
 					-- Select the second button before capturing focus elsewhere
 					GuiService.SelectedCoreObject = frameRef.current:FindFirstChild("buttonToBeRememberedA", true)
 
 					act(function()
 						Roact.update(instance, getTree(false, true))
 					end)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonB")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonB")
 					-- Select the second button before capturing focus elsewhere
 					GuiService.SelectedCoreObject = frameRef.current:FindFirstChild("buttonToBeRememberedB", true)
 
@@ -224,13 +225,13 @@ return function()
 					act(function()
 						Roact.update(instance, getTree(true, false))
 					end)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonToBeRememberedA")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonToBeRememberedA")
 
 					-- This applies to every focus handler
 					act(function()
 						Roact.update(instance, getTree(false, true))
 					end)
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonToBeRememberedB")
+					expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonToBeRememberedB")
 				end)
 			end)
 
@@ -260,24 +261,24 @@ return function()
 
 				local element = getTree({focusA = true, focusB = false, shouldForgetA = true})
 
-				expect(localPlayer().PlayerGui).to.be.ok()
+				expect(localPlayer().PlayerGui).never.toBeNil()
 
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
+				expect(GuiService.SelectedCoreObject).toBeNil()
 				local instance = Roact.mount(element, localPlayer().PlayerGui)
 
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonA")
 				-- Select the second button before capturing focus elsewhere
 				GuiService.SelectedCoreObject = frameRef.current:FindFirstChild("buttonToBeRememberedA", true)
 
 				act(function()
 					Roact.update(instance, getTree({focusA = false, focusB = true, shouldForgetA = true}))
 				end)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonB")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonB")
 
 				act(function()
 					Roact.update(instance, getTree({focusA = true, focusB = false, shouldForgetA=true}))
 				end)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonA")
 			end)
 
 			it("Choose to forget right as the element gains focus", function()
@@ -306,24 +307,24 @@ return function()
 
 				local element = getTree({focusA = true, focusB = false})
 
-				expect(localPlayer().PlayerGui).to.be.ok()
+				expect(localPlayer().PlayerGui).never.toBeNil()
 
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
+				expect(GuiService.SelectedCoreObject).toBeNil()
 				local instance = Roact.mount(element, localPlayer().PlayerGui)
 
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonA")
 				-- Select the second button before capturing focus elsewhere
 				GuiService.SelectedCoreObject = frameRef.current:FindFirstChild("buttonToBeRememberedA", true)
 
 				act(function()
 					Roact.update(instance, getTree({focusA = false, focusB = true}))
 				end)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonB")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonB")
 
 				act(function()
 					Roact.update(instance, getTree({focusA = true, focusB = false, shouldForgetA=true}))
 				end)
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("buttonA")
+				expect(tostring(GuiService.SelectedCoreObject)).toBe("buttonA")
 			end)
 		end)
 	end

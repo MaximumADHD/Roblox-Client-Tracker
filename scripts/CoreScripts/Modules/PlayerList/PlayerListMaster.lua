@@ -22,6 +22,9 @@ local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local StyleConstants = UIBlox.App.Style.Constants
+local ApolloClientInstance = require(CoreGui.RobloxGui.Modules.ApolloClient)
+local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
+local ApolloProvider = ApolloClientModule.ApolloProvider
 
 local PlayerList = script.Parent
 
@@ -48,6 +51,7 @@ local SetSettings = require(PlayerList.Actions.SetSettings)
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 
 if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -169,6 +173,14 @@ function PlayerListMaster.new()
 				end,
 			})
 		})
+
+		if FFlagRefactorPlayerNameTag then
+			self.root = Roact.createElement(ApolloProvider, {
+				client = ApolloClientInstance
+			})
+		end
+
+
 		self.element = Roact.mount(self.root, layerCollector, "PlayerListMaster")
 
 	else
@@ -185,6 +197,12 @@ function PlayerListMaster.new()
 				})
 			})
 		})
+
+		if FFlagRefactorPlayerNameTag then
+			self.root = Roact.createElement(ApolloProvider, {
+				client = ApolloClientInstance
+			})
+		end
 
 		self.element = Roact.mount(self.root, RobloxGui, "PlayerListMaster")
 	end

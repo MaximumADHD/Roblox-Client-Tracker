@@ -7,9 +7,6 @@ local CoreGui = game:GetService("CoreGui")
 local Packages = CorePackages.Packages
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 local React = require(Packages.React)
-local LuauPolyfill = require(Packages.LuauPolyfill)
-local setTimeout = LuauPolyfill.setTimeout
-local clearTimeout = LuauPolyfill.clearTimeout
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local FaceChatUtils = require(script.Parent.Parent.Utils.FaceChatUtils)
 local ModelUtils = require(script.Parent.Parent.Utils.ModelUtils)
@@ -21,7 +18,6 @@ local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local Chrome = script.Parent.Parent.Parent.Chrome
 local IconSize = require(Chrome.Unibar.Constants).ICON_SIZE
 
-local CameraStatusIcon = require(script.Parent.CameraStatusIcon)
 local CameraStatusDot = require(script.Parent.CameraStatusDot)
 local FaceClone = require(script.Parent.FaceClone)
 local useCameraOn = require(script.Parent.Parent.Hooks.useCameraOn)
@@ -35,14 +31,12 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local HIDE_TOOLTIP_DELAY_MS = 2000
-local HIDE_ICON_TIMEOUT_MS: number = 600
 
 export type IconProps = {
 	activatedSignal: AppCommonLib.Signal,
 }
 
 local function Icon(props: IconProps): React.ReactNode
-	local recentlyToggled: boolean, setRecentlyToggled: (boolean) -> () = React.useState(true)
 	local localized = useLocalization({
 		robloxPermissionErrorHeader = "CoreScripts.TopBar.RobloxPermissionErrorHeader",
 		robloxPermissionErrorBody = "CoreScripts.TopBar.RobloxPermissionErrorBody",
@@ -51,31 +45,6 @@ local function Icon(props: IconProps): React.ReactNode
 	})
 
 	local cameraOn = useCameraOn()
-	local timeoutID: { current: number? } = React.useRef(nil)
-	React.useEffect(function()
-		if timeoutID.current then
-			clearTimeout(timeoutID.current)
-		end
-		setRecentlyToggled(true)
-		timeoutID.current = (
-			setTimeout(function()
-				setRecentlyToggled(false)
-			end, HIDE_ICON_TIMEOUT_MS) :: any
-		) :: number
-		return function()
-			if timeoutID.current then
-				clearTimeout(timeoutID.current)
-			end
-		end
-	end, { cameraOn })
-	React.useEffect(function()
-		return function()
-			if timeoutID.current then
-				clearTimeout(timeoutID.current)
-			end
-		end
-	end, {})
-
 	local player: Player = useLocalPlayer()
 
 	local frameRef = React.useRef(nil :: Frame?)
@@ -130,17 +99,6 @@ local function Icon(props: IconProps): React.ReactNode
 		end
 	end, { props.activatedSignal })
 
-	local hovered: boolean, setHovered: (boolean) -> () = React.useState(false)
-	local mouseEnter = React.useCallback(function()
-		setHovered(true)
-	end)
-	local mouseLeave = React.useCallback(function()
-		setHovered(false)
-	end)
-	local showStatusIcon: boolean = React.useMemo(function(): boolean
-		return hovered or recentlyToggled
-	end, { hovered, recentlyToggled })
-
 	return withTooltip({
 		headerText = tooltipHeaderText,
 		bodyText = tooltipBodyText,
@@ -157,8 +115,6 @@ local function Icon(props: IconProps): React.ReactNode
 			BackgroundTransparency = 1,
 			[React.Change.AbsoluteSize] = triggerPointChanged,
 			[React.Change.AbsolutePosition] = triggerPointChanged,
-			[React.Event.MouseEnter] = mouseEnter,
-			[React.Event.MouseLeave] = mouseLeave,
 		}, {
 			CameraStatusDot = cameraOn and React.createElement(CameraStatusDot, {
 				Position = UDim2.fromScale(0.8, 0.7),
@@ -166,7 +122,6 @@ local function Icon(props: IconProps): React.ReactNode
 			}) or nil,
 			WrapperCanvasGroup = React.createElement("CanvasGroup", {
 				ref = frameRef,
-				Visible = not showStatusIcon,
 				Size = UDim2.fromOffset(IconSize, IconSize),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
@@ -176,9 +131,6 @@ local function Icon(props: IconProps): React.ReactNode
 					CornerRadius = UDim.new(1, 0),
 				}),
 			}),
-			CameraStatusIcon = showStatusIcon and React.createElement(CameraStatusIcon, {
-				iconSize = UDim2.fromOffset(IconSize, IconSize),
-			}) or nil,
 		})
 	end)
 end

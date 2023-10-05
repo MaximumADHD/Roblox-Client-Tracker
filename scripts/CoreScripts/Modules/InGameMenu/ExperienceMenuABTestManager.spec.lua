@@ -14,6 +14,7 @@ local isV2Valid = false
 local isV3Valid = false
 local isControlsValid = false
 local isModernizationValid = false
+local isChromeValid = true
 
 return function()
 	describe("lifecycle", function()
@@ -186,7 +187,7 @@ return function()
 		end)
 
 		it("returns menu modernization for user in the modernized variant", function()
-			if IsExperienceMenuABTestEnabled() and isModernizationValid then
+			if IsExperienceMenuABTestEnabled() and isChromeValid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
 				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
@@ -217,6 +218,7 @@ return function()
 				expect(manager:isMenuModernizationEnabled()).to.equal(true)
 				expect(manager:areMenuControlsEnabled()).to.equal(false)
 				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:isChromeEnabled()).to.equal(false)
 
 				expect(manager:shouldShowBiggerText()).to.equal(false)
 				expect(manager:shouldShowStickyBar()).to.equal(false)
@@ -298,7 +300,7 @@ return function()
 		end)
 
 		it("returns chrome for user in the variant", function()
-			if IsExperienceMenuABTestEnabled() then
+			if IsExperienceMenuABTestEnabled() and isChromeValid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
 				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({

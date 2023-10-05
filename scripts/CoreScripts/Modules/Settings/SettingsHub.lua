@@ -137,8 +137,7 @@ local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSi
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfViewVisibilityUpdatedSignal)
 
-local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
-local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 
 local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant, GameInviteConstants
@@ -286,7 +285,7 @@ local function CreateSettingsHub()
 
 	local voiceAnalytics
 	if GetFFlagVoiceChatToggleMuteAnalytics() then
-		voiceAnalytics = VoiceAnalytics.new(AnalyticsService)
+		voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "SettingsHub")
 	end
 
 	if GetFFlagVoiceRecordingIndicatorsEnabled() then
@@ -581,7 +580,7 @@ local function CreateSettingsHub()
 		UserInputService.InputBegan:connect(function(inputObject)
 
 			if inputObject.UserInputType == Enum.UserInputType.Gamepad1 or inputObject.UserInputType == Enum.UserInputType.Gamepad2 or
-			inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
+				inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
 				if hintLabel then
 					hintLabel.Image = gamepadImage
 					-- if isTenFootInterface then
@@ -670,7 +669,7 @@ local function CreateSettingsHub()
 		UserInputService.InputBegan:connect(function(inputObject)
 
 			if inputObject.UserInputType == Enum.UserInputType.Gamepad1 or inputObject.UserInputType == Enum.UserInputType.Gamepad2 or
-			inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
+				inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
 				if hintLabel then
 					-- We use `fnOrValue` here so that gamepadImage can change after "addBottomBarButton" has been called.
 					-- Otherwise if we change the image after the fact, it would change to the initial image whenever the user presses
@@ -728,19 +727,19 @@ local function CreateSettingsHub()
 
 		if Theme.UseIconButtons then
 			addBottomBarIconButton("MuteButton", nil, "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
-			function ()
-				VoiceChatServiceManager:ToggleMic()
-				if voiceAnalytics then
-					voiceAnalytics:onToggleMuteSelf(this.isMuted)
-				end
-			end, {})
+				function ()
+					VoiceChatServiceManager:ToggleMic()
+					if voiceAnalytics then
+						voiceAnalytics:onToggleMuteSelf(this.isMuted)
+					end
+				end, {})
 			updateIcon()
 		else
 			addBottomBarButton("MuteButton", "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
-			function ()
-				VoiceChatServiceManager:ToggleMic()
-			end, {}, UDim2.new(0,Theme.LargeButtonHeight,0,Theme.LargeButtonHeight),
-			--[[forceHintButton = ]] true
+				function ()
+					VoiceChatServiceManager:ToggleMic()
+				end, {}, UDim2.new(0,Theme.LargeButtonHeight,0,Theme.LargeButtonHeight),
+				--[[forceHintButton = ]] true
 			)
 		end
 
@@ -1512,9 +1511,9 @@ local function CreateSettingsHub()
 		if GetFFlagEnableTeleportBackButton() then
 			this.BackBarRef = Roact.createRef()
 			this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
-					value = IXPService,
-				}, {
-					Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
+				value = IXPService,
+			}, {
+				Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
 			})
 			Roact.mount(this.BackBar, menuParent, "BackBar")
 		end
@@ -1627,7 +1626,7 @@ local function CreateSettingsHub()
 			Parent = this.PageViewClipper,
 		};
 		this.PageView.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
- 
+
 		this.lastPageViewCanvasPosition = this.PageView.CanvasPosition
 		this.handelPageViewScroll = function()
 			local lastPosY = math.clamp(this.lastPageViewCanvasPosition.Y, 0, this.PageView.MaxCanvasPosition.Y)
@@ -1989,10 +1988,10 @@ local function CreateSettingsHub()
 			bufferSize = math.min(10, (1-0.99) * fullScreenSize)
 		end
 
-		
+
 		this.MenuContainer.Size = menuPos.Size
-		if Theme.UIBloxThemeEnabled then 
-			this.MenuContainer.Position = menuPos.Position 
+		if Theme.UIBloxThemeEnabled then
+			this.MenuContainer.Position = menuPos.Position
 			this.MenuContainer.AnchorPoint = menuPos.AnchorPoint
 		end
 
@@ -2165,7 +2164,7 @@ local function CreateSettingsHub()
 		else
 			newPageViewClipperSize = UDim2.new(
 				0,
-					this.HubBar.AbsoluteSize.X,
+				this.HubBar.AbsoluteSize.X,
 				0,
 				usePageSize
 			)
@@ -2216,7 +2215,7 @@ local function CreateSettingsHub()
 		-- NOTE: This will only work if FFlagDontSwallowInputForStudioShortcuts is True.
 		-- Otherwise, we never get the "Begin" input state when Ctrl key is down.
 		if (not (UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) or
-				UserInputService:IsKeyDown(Enum.KeyCode.RightControl))) then
+			UserInputService:IsKeyDown(Enum.KeyCode.RightControl))) then
 			return
 		end
 
@@ -2433,7 +2432,7 @@ local function CreateSettingsHub()
 		end
 		this.bottomBarAnimating = false
 	end
-	
+
 	function this:animateInBottomBar()
 		if this.bottomBarAnimating or this.showStickyBottomBar == true then
 			return
@@ -2975,7 +2974,7 @@ local function CreateSettingsHub()
 
 				if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and GameSettings.ReducedMotion then
 					this.Shield.Parent = this.CanvasGroup
-					
+
 					local tweenInfo = TweenInfo.new(0.25)
 					local tweenProps = {
 						GroupTransparency = 1
@@ -3128,9 +3127,9 @@ local function CreateSettingsHub()
 				PlatformService:PopupGameInviteUI()
 			end
 		elseif newGameInviteModalEnabled then
-				GameInviteModalService:openModal({
-					trigger = GameInviteConstants.Triggers.GameMenu
-				})
+			GameInviteModalService:openModal({
+				trigger = GameInviteConstants.Triggers.GameMenu
+			})
 		else
 			this:AddToMenuStack(this.Pages.CurrentPage)
 			this:SwitchToPage(this.ShareGamePage, nil, 1, true)

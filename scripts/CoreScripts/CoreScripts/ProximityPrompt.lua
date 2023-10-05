@@ -10,6 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
+local FFlagProximityPromptGamepadIcons = require(RobloxGui.Modules.Flags.FFlagProximityPromptGamepadIcons)
 
 local LocalPlayer = Players.LocalPlayer
 while LocalPlayer == nil do
@@ -19,6 +20,7 @@ end
 
 local PlayerGui = CoreUtility.waitForChildOfClass(LocalPlayer, "PlayerGui")
 
+-- Remove with FFlagProximityPromptGamepadIcons
 local GamepadButtonImage = {
 	[Enum.KeyCode.ButtonX] = "rbxasset://textures/ui/Controls/xboxX.png",
 	[Enum.KeyCode.ButtonY] = "rbxasset://textures/ui/Controls/xboxY.png",
@@ -302,7 +304,12 @@ local function createPrompt(prompt, inputType, gui)
 	table.insert(tweensForFadeIn, TweenService:Create(roundFrame, tweenInfoQuick, { BackgroundTransparency = 0.5 }))
 
 	if inputType == Enum.ProximityPromptInputType.Gamepad then
-		if GamepadButtonImage[prompt.GamepadKeyCode] then
+
+		local mappedIconImage = if FFlagProximityPromptGamepadIcons and game:GetEngineFeature("GetImageForKeyCode") then
+			UserInputService:GetImageForKeyCode(prompt.GamepadKeyCode) else
+			GamepadButtonImage[prompt.GamepadKeyCode]
+
+		if mappedIconImage then
 			local icon = Instance.new("ImageLabel")
 			icon.Name = "ButtonImage"
 			icon.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -310,7 +317,7 @@ local function createPrompt(prompt, inputType, gui)
 			icon.Position = UDim2.fromScale(0.5, 0.5)
 			icon.BackgroundTransparency = 1
 			icon.ImageTransparency = 1
-			icon.Image = GamepadButtonImage[prompt.GamepadKeyCode]
+			icon.Image = mappedIconImage
 			icon.Parent = resizeableInputFrame
 			table.insert(tweensForFadeOut, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 1 }))
 			table.insert(tweensForFadeIn, TweenService:Create(icon, tweenInfoQuick, { ImageTransparency = 0 }))

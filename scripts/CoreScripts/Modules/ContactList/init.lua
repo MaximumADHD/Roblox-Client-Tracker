@@ -2,6 +2,8 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
@@ -11,6 +13,9 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
+
+local ApolloProvider = require(CorePackages.Packages.ApolloClient).ApolloProvider
+local ApolloClient = require(RobloxGui.Modules.ApolloClient)
 
 local initCall = require(script.initCall)
 local Reducer = require(script.Reducer)
@@ -50,7 +55,11 @@ function ContactList.new()
 			ThemeProvider = React.createElement(UIBlox.Style.Provider, {
 				style = appStyle,
 			}, {
-				ContactListApp = React.createElement(ContactListApp),
+				ApolloProvider = React.createElement(ApolloProvider, {
+					client = ApolloClient,
+				}, {
+					ContactListApp = React.createElement(ContactListApp),
+				}),
 			}),
 		}),
 	})

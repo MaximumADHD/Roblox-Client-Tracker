@@ -13,8 +13,11 @@ return function()
 				MainView = {
 					currTabIndex = 0
 				},
-				MicroProfiler = {
-					lastFileOutputLocation = ""
+				ScriptProfiler = {
+					isClientView = true,
+					usePercentages = false,
+					client = { isProfiling = false, data = nil, frequency = 1000, },
+					server = { isProfiling = false, data = nil, frequency = 1000, },
 				},
 			}
 		end)

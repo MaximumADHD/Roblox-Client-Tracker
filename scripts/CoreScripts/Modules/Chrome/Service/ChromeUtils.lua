@@ -206,16 +206,17 @@ foo:connect(function(value)
 end)
 
 --]]
+type AnyFunc = (any?) -> ()
 
 export type MappedSignal<T> = {
-	new: (SignalLib.Signal, () -> T) -> MappedSignal<T>,
+	new: (SignalLib.Signal, () -> T, AnyFunc?) -> MappedSignal<T>,
 	connect: (MappedSignal<T>, SignalLib.SignalCallback) -> SignalLib.SignalHandle,
 	get: (MappedSignal<T>) -> T,
 }
 
 local MappedSignal = {}
 MappedSignal.__index = MappedSignal
-function MappedSignal.new<T>(signal, fetchMapFunction)
+function MappedSignal.new<T>(signal, fetchMapFunction, eventReceiver: AnyFunc?)
 	if not signal then
 		error("No signal provided to MappedSignal")
 	end
@@ -225,6 +226,7 @@ function MappedSignal.new<T>(signal, fetchMapFunction)
 	local self = {}
 	self._signal = signal
 	self._fetchMapFunction = fetchMapFunction
+	self._eventReceiver = eventReceiver
 	return (setmetatable(self, MappedSignal) :: any) :: MappedSignal<T>
 end
 
@@ -233,7 +235,10 @@ function MappedSignal:connect(handler)
 		warn("MappedSignal: Missing signal")
 		return function() end
 	end
-	return self._signal:connect(function()
+	return self._signal:connect(function(...)
+		if self._eventReceiver then
+			self._eventReceiver(...)
+		end
 		handler(self._fetchMapFunction())
 	end)
 end

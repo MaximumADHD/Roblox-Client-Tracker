@@ -64,13 +64,16 @@ local GetFFlagVoiceBanPromptShowSeconds = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlagVoiceUseAudioRoutingAPI)
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
+local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local FFlagFixNonSelfCalls = game:DefineFastFlag("FixNonSelfCalls", false)
 local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceListeners", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 local FFlagOverwriteIsMutedLocally = game:DefineFastFlag("OverwriteIsMutedLocally", false)
+local FFlagVoiceMuteUnmuteAnalytics = game:DefineFastFlag("VoiceMuteUnmuteAnalytics", false)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
 local AudioDeviceInputDebugger = require(RobloxGui.Modules.VoiceChat.Components.AudioDeviceInputDebugger)
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
@@ -155,6 +158,7 @@ local VoiceChatServiceManager = {
 	muteChanged = Instance.new("BindableEvent"),
 	muteAllChanged = if GetFFlagMuteAllEvent() then Instance.new("BindableEvent") else nil,
 	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
+	userAgencySelected = if GetFFlagShowMuteToggles() then Instance.new("BindableEvent") else nil,
 	muteAll = false,
 	mutedPlayers = {} :: { [number]: boolean },
 	talkingChanged = Instance.new("BindableEvent"),
@@ -891,6 +895,26 @@ function VoiceChatServiceManager:ensureInitialized(action)
 	end
 end
 
+-- implementation wrappers for when VoiceChatInternal is deprecated
+function VoiceChatServiceManager:GetSessionId()
+	self:ensureInitialized("get session id")
+	return self.service:GetSessionId()
+end
+
+function VoiceChatServiceManager:GetChannelId()
+	self:ensureInitialized("get channel id")
+	return self.service:GetChannelId()
+end
+
+function VoiceChatServiceManager:JoinWithVoiceMuteData(obj)
+	local localPlayer = PlayersService.LocalPlayer
+	return Cryo.Dictionary.join({
+		userId = localPlayer.UserId,
+		clientSessionId = self:GetSessionId(),
+		channelId = self:GetChannelId()
+	}, obj)
+end
+
 function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptType)
 	if not self.voiceChatPromptInstance or GetFFlagAlwaysMountVoicePrompt() then
 		if self.promptSignal then
@@ -1026,7 +1050,7 @@ function VoiceChatServiceManager:ShowVoiceToxicityFeedbackToast()
 end
 
 function VoiceChatServiceManager:GetNudgeAnalyticsData()
-	return PlayersService.LocalPlayer.UserId, self.service:GetSessionId()
+	return PlayersService.LocalPlayer.UserId, self:GetSessionId()
 end
 
 function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput): AudioDeviceData
@@ -1183,7 +1207,7 @@ function VoiceChatServiceManager:hookupAudioDeviceInputListener()
 	end)
 end
 
-function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
+function VoiceChatServiceManager:ToggleMutePlayer(userId: number, context: string)
 	self:ensureInitialized("mute player " .. userId)
 	self._mutedAnyone = true
 	local requestedMuteStatus = if GetFFlagVoiceUseAudioRoutingAPI() and FFlagOverwriteIsMutedLocally
@@ -1216,9 +1240,19 @@ function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
 			self.participantsUpdate:Fire(self.participants)
 		end
 	end
+
+	if FFlagVoiceMuteUnmuteAnalytics and context then
+		self.Analytics:reportVoiceMuteIndividual(
+			self:JoinWithVoiceMuteData({
+				targetUserId = tonumber(userId),
+				context = context,
+				muted = requestedMuteStatus
+			}) :: Analytics.VoiceMuteIndividualArgs
+		)
+	end
 end
 
-function VoiceChatServiceManager:MuteAll(muteState: boolean)
+function VoiceChatServiceManager:MuteAll(muteState: boolean, context: string)
 	self:ensureInitialized("mute all")
 	self._mutedAnyone = true
 	if GetFFlagVoiceUseAudioRoutingAPI() then
@@ -1248,9 +1282,19 @@ function VoiceChatServiceManager:MuteAll(muteState: boolean)
 	if GetFFlagMuteAllEvent() then
 		self.muteAllChanged:Fire(muteState)
 	end
+
+	if FFlagVoiceMuteUnmuteAnalytics and context then
+		self.Analytics:reportVoiceMuteGroup(
+			self:JoinWithVoiceMuteData({
+				groupType = VoiceConstants.VOICE_GROUP_TYPE.ALL,
+				context = context,
+				muted = muteState
+			}) :: Analytics.VoiceMuteGroupArgs
+		)
+	end
 end
 
-function VoiceChatServiceManager:ToggleMuteSome(userIds: { number }, muteState: boolean)
+function VoiceChatServiceManager:ToggleMuteSome(userIds: { number }, muteState: boolean, groupType: string, context: string)
 	self:ensureInitialized("mute some players")
 	self._mutedAnyone = true
 	for _, userId in userIds do
@@ -1264,11 +1308,27 @@ function VoiceChatServiceManager:ToggleMuteSome(userIds: { number }, muteState: 
 			self.participantsUpdate:Fire(self.participants)
 		end
 	end
+
+	if FFlagVoiceMuteUnmuteAnalytics and groupType and context then
+		self.Analytics:reportVoiceMuteGroup(
+			self:JoinWithVoiceMuteData({
+				groupType = groupType,
+				context = context,
+				muted = muteState
+			}) :: Analytics.VoiceMuteGroupArgs
+		)
+	end
 end
 
 function VoiceChatServiceManager:FireMuteNonFriendsEvent()
 	if FFlagMuteNonFriendsEvent then
 		self.mutedNonFriends:Fire()
+	end
+end
+
+function VoiceChatServiceManager:FireUserAgencySelectedEvent(muteState: boolean)
+	if GetFFlagShowMuteToggles() then
+		self.userAgencySelected:Fire(muteState)
 	end
 end
 

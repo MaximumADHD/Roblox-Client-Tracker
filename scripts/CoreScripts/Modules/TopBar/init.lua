@@ -11,6 +11,7 @@ local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
@@ -57,6 +58,7 @@ local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
+local FFlagAddMenuNavigationToggleDialog = require(script.Flags.FFlagAddMenuNavigationToggleDialog)
 
 -- FTUX
 local FTUX = RobloxGui.Modules.FTUX
@@ -129,7 +131,7 @@ function TopBar.new()
 	}
 
 	local function wrapWithUiModeStyleProvider(children)
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
+		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() or FFlagAddMenuNavigationToggleDialog then
 			return {
 				UiModeStyleProvider = Roact.createElement(UiModeStyleProvider, {
 					style = appStyleForAppStyleProvider,
@@ -141,6 +143,17 @@ function TopBar.new()
 				style = appStyle,
 			}, children),
 		}
+	end
+
+	-- Nest Providers in reverse order of hierarchy
+	local TopBarWithProviders = Roact.createElement(TopBarApp)
+
+	if FFlagAddMenuNavigationToggleDialog then
+		TopBarWithProviders = Roact.createElement(DesignTokenProvider, {
+			tokenMappers = {},
+		}, {
+			TopBarApp = TopBarWithProviders,
+		})
 	end
 
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
@@ -160,10 +173,10 @@ function TopBar.new()
 								and Roact.createElement(RoactAppExperiment.Provider, {
 									value = IXPService,
 								}, {
-									TopBarApp = Roact.createElement(TopBarApp),
+									TopBarApp = TopBarWithProviders,
 								})
 							or nil,
-						TopBarApp = (not GetFFlagEnableTeleportBackButton()) and Roact.createElement(TopBarApp) or nil,
+						TopBarApp = (not GetFFlagEnableTeleportBackButton()) and TopBarWithProviders or nil,
 					}),
 				}),
 			})

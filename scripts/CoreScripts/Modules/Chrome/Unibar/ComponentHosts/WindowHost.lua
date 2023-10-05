@@ -10,11 +10,6 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local UIBlox = require(CorePackages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
 
-local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local useStyle = UIBlox.Core.Style.useStyle
-local ControlState = UIBlox.Core.Control.Enum.ControlState
-
 local Chrome = script.Parent.Parent.Parent
 local debounce = require(Chrome.Utility.debounce)
 local ChromeService = require(Chrome.Service)
@@ -24,12 +19,6 @@ local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
-
-local CLOSE_BUTTON_PADDING = 4
-local CLOSE_ICON = Images["icons/navigation/close"]
-local CLOSE_BUTTON_OFFSET = UDim2.fromOffset(CLOSE_BUTTON_PADDING, CLOSE_BUTTON_PADDING)
-local CLOSE_BUTTON_HOVER = Constants.CLOSE_BUTTON_SIZE
-	+ UDim2.fromOffset(CLOSE_BUTTON_PADDING * 2, CLOSE_BUTTON_PADDING * 2)
 
 export type WindowHostProps = {
 	integration: ChromeTypes.IntegrationComponentProps,
@@ -53,15 +42,10 @@ local WindowHost = function(props: WindowHostProps)
 	local windowSize = useWindowSize(props.integration.integration)
 	local windowRef: { current: Frame? } = React.useRef(nil)
 	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
-	local overlayTask: { current: thread? } = React.useRef(nil)
 	local dragging, setDragging = React.useBinding(false)
 	local positionTween: Tween? = React.useMemo(function()
 		return nil
 	end, {})
-
-	local style = useStyle()
-	local _isActive, setActive = React.useBinding(false)
-	local closeButtonHover, setCloseButtonHover = React.useBinding(false)
 
 	-- When a reposition tween is playing, momentarily disallow dragging the window
 	local isRepositioning, updateIsRepositioning = React.useBinding(false)
@@ -177,12 +161,6 @@ local WindowHost = function(props: WindowHostProps)
 				)
 			end
 
-			-- Set window active, cancel any tasks to turn off overlay
-			setActive(true)
-			if overlayTask.current then
-				task.cancel(overlayTask.current)
-			end
-
 			-- Handle dragging
 			if not connection.current and not isRepositioning:getValue() then
 				-- The dragging callback might never be called when a single tap is registered
@@ -293,12 +271,6 @@ local WindowHost = function(props: WindowHostProps)
 				end
 			end
 
-			-- Spawn task to disable overlay after a timespan
-			overlayTask.current = task.spawn(function()
-				task.wait(Constants.WINDOW_ACTIVE_SECONDS)
-				setActive(false)
-			end)
-
 			-- Handle dragging
 			if connection.current then
 				connection.current:Disconnect()
@@ -336,49 +308,6 @@ local WindowHost = function(props: WindowHostProps)
 					BorderSizePixel = 0,
 				}, {
 					Integration = props.integration.component(props) or nil,
-					CloseButtonWrapper = React.createElement("Frame", {
-						ZIndex = COMPONENT_ZINDEX.CLOSE_BUTTON,
-						BackgroundTransparency = 1,
-						Size = Constants.CLOSE_BUTTON_FRAME,
-						-- TODO: Allow integration to set isActive to prevent
-						-- close button from permanent disappearing
-						-- Visible = isActive,
-					}, {
-						CloseButtonLayout = React.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-							HorizontalAlignment = Enum.HorizontalAlignment.Center,
-						}),
-						CloseButtonInteractable = React.createElement(Interactable, {
-							Size = Constants.CLOSE_BUTTON_FRAME,
-							BackgroundTransparency = 1,
-							onStateChanged = function(_, newState)
-								setCloseButtonHover(newState == ControlState.Hover)
-							end,
-							[React.Event.Activated] = function()
-								ChromeService:toggleWindow(props.integration.id)
-							end,
-						}, {
-							CloseButton = React.createElement(ImageSetLabel, {
-								BackgroundTransparency = 1,
-								BorderSizePixel = 0,
-								Position = CLOSE_BUTTON_OFFSET,
-								Image = CLOSE_ICON,
-								Size = Constants.CLOSE_BUTTON_SIZE,
-							}),
-							Hover = React.createElement("Frame", {
-								Size = CLOSE_BUTTON_HOVER,
-								Visible = closeButtonHover,
-								BackgroundTransparency = style.Theme.BackgroundOnHover.Transparency,
-								BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
-							}, {
-								Corner = React.createElement("UICorner", {
-									CornerRadius = UDim.new(0, 8),
-								}),
-							}),
-						}),
-					}),
 					-- This prevents onActivated (taps/clicks) from propagating
 					-- to the integration whenever the user is trying to drag.
 					InputShield = React.createElement(Interactable, {

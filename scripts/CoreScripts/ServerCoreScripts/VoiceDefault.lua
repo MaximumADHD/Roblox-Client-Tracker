@@ -2,6 +2,7 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local VoiceChatService = game:GetService("VoiceChatService")
 local FFlagDebugLogVoiceDefault = game:DefineFastFlag("DebugLogVoiceDefault", false)
 local FFlagSetNewDeviceToFalse = game:DefineFastFlag("SetNewDeviceToFalse", false)
+local FFlagFixNewPlayerCheck = game:DefineFastFlag("FixNewPlayerCheck", false)
 
 local function log(...)
 	if FFlagDebugLogVoiceDefault then
@@ -49,10 +50,28 @@ local function hookupDeviceInputToEmitter(character: Instance, input: Instance)
 	wire.TargetInstance = emitter
 end
 
+-- Deprecated, remove with FFlagFixNewPlayerCheck
 local function untrackDevice(device: AudioDeviceInput)
 	if device.Player then
 		local deviceList = playerDevices[device.Player]
 		deviceList[device] = nil
+	end
+
+	local connections = audioDevices[device]
+	if not connections then
+		log("Attempting to remove connections from untracked AudioDeviceInput")
+		return
+	end
+	(connections :: AudioDeviceConnections).onPlayerChanged:Disconnect()
+	audioDevices[device] = nil
+end
+
+local function untrackDeviceForPlayer(device: AudioDeviceInput, player: Player?)
+	if player then
+		local deviceList = playerDevices[player]
+		if deviceList then
+			deviceList[device] = nil
+		end
 	end
 
 	local connections = audioDevices[device]
@@ -71,8 +90,14 @@ local function trackDevice(device: AudioDeviceInput)
 	end
 
 	local connections = {}
+	local oldPlayer = player
 	connections.onPlayerChanged = device:GetPropertyChangedSignal("Player"):Connect(function()
-		untrackDevice(device)
+		if FFlagFixNewPlayerCheck then
+			untrackDeviceForPlayer(device, oldPlayer)
+		else
+			untrackDevice(device)
+		end
+		oldPlayer = device.Player
 		trackDevice(device)
 	end)
 
@@ -146,7 +171,11 @@ if (VoiceChatService :: any).UseNewAudioApi then
 	game.DescendantRemoving:Connect(function(inst)
 		if inst:IsA("AudioDeviceInput") then
 			local device = inst :: AudioDeviceInput
-			untrackDevice(device)
+			if FFlagFixNewPlayerCheck then
+				untrackDeviceForPlayer(device, device.Player)
+			else
+				untrackDevice(device)
+			end
 		end
 	end)
 

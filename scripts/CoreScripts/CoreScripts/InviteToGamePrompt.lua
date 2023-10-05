@@ -19,7 +19,7 @@ local FFlagLuaEnableGameInviteModalInvitePrompt = game:DefineFastFlag("LuaEnable
 local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
-local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 
 local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant, GetCustomizedInvitePromptTrigger
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then

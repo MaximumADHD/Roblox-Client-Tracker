@@ -40,13 +40,15 @@ local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local ShareGameIcons = require(ShareGameDirectory.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
+local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 local onBlockButtonActivated = require(script:FindFirstAncestor("Settings").onBlockButtonActivated)
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local BlockingAnalytics = require(script:FindFirstAncestor("Settings").Analytics.BlockingAnalytics)
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
+local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local FFlagShowAddFriendButtonForXboxUA = game:DefineFastFlag("ShowAddFriendButtonForXboxUA", false)
 
@@ -132,6 +134,8 @@ local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.G
 local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)
+local GetFFlagMuteTogglesEnableIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagMuteTogglesEnableIXP)
+local GetFStringMuteTogglesIXPLayerName = require(RobloxGui.Modules.Settings.Flags.GetFStringMuteTogglesIXPLayerName)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -368,8 +372,10 @@ local function Initialize()
 	local muteToggles
 	local muteImageButtons = {}
 	local voiceAnalytics
+	local shouldShowMuteToggles = GetFFlagShowMuteToggles()
+	local initialMuteTogglesState = false
 	if GetFFlagVoiceChatToggleMuteAnalytics() then
-		voiceAnalytics = VoiceAnalytics.new(AnalyticsService)
+		voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
 	end
 
 	local function friendStatusCreate(playerLabel, player)
@@ -606,7 +612,8 @@ local function Initialize()
 							end
 						end
 						VoiceChatServiceManager:ToggleMutePlayer(
-							playerStatus.userId
+							playerStatus.userId,
+							VoiceConstants.VOICE_CONTEXT_TYPE.IN_GAME_MENU
 						)
 					elseif status.subscriptionFailed then
 						if LuaFlagVoiceChatDisableSubscribeRetryForMultistream then
@@ -863,7 +870,7 @@ local function Initialize()
 				end
 
 				local reportButton = utility:MakeStyledImageButton("ReportPlayer", REPORT_PLAYER_IMAGE,
-						UDim2.new(0, Theme.ButtonHeight, 0, Theme.ButtonHeight), UDim2.new(0, 28, 0, 28), reportPlayerFunction)
+					UDim2.new(0, Theme.ButtonHeight, 0, Theme.ButtonHeight), UDim2.new(0, 28, 0, 28), reportPlayerFunction)
 				reportButton.Name = "ReportPlayer"
 				reportButton.Position = UDim2.new(1, -260, 0, 7)
 				reportButton.LayoutOrder = 3
@@ -880,7 +887,7 @@ local function Initialize()
 	local voiceChatServiceConnected = false
 
 	local function muteAllButtonRemove()
-		if GetFFlagShowMuteToggles() then
+		if shouldShowMuteToggles then
 			if muteToggles then
 				Roact.unmount(muteToggles)
 			end
@@ -968,7 +975,7 @@ local function Initialize()
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
 		if voiceChatServiceConnected then
-			if not GetFFlagShowMuteToggles() then
+			if not shouldShowMuteToggles then
 				frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
 			end
 			if GetFFlagInviteTextTruncateFix() then
@@ -1074,21 +1081,24 @@ local function Initialize()
 		return frame
 	end
 
-	local function createMuteToggles()
+	local function createMuteToggles(initialTogglesState)
 		return Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = Theme,
 		}, {
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
 				localization = Localization.new(LocalizationService.RobloxLocaleId),
 			}, {
-				MuteToggles = Roact.createElement(MuteToggles),
+				MuteToggles = Roact.createElement(MuteToggles, {
+					Players = PlayersService,
+					initialTogglesState = initialTogglesState,
+				}),
 			}),
 		})
 	end
 
 	local function createInspectButtonImage(activateInspectAndBuyMenu)
 		local inspectButton = utility:MakeStyledImageButton("InspectButton", INSPECT_IMAGE,
-				UDim2.new(0, Theme.ButtonHeight, 0, Theme.ButtonHeight), UDim2.new(0, 28, 0, 28), activateInspectAndBuyMenu)
+			UDim2.new(0, Theme.ButtonHeight, 0, Theme.ButtonHeight), UDim2.new(0, 28, 0, 28), activateInspectAndBuyMenu)
 		return inspectButton
 	end
 
@@ -1351,9 +1361,9 @@ local function Initialize()
 							else
 								reportFlagChanged(reportFlag, prop)
 							end
-						 end)
+						end)
 
-						 if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
+						if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnPlayersListEnabled() then
 							reportFlagChangedWithCombinedName(reportFlag, "AbsolutePosition")
 						else
 							reportFlagChanged(reportFlag, "AbsolutePosition")
@@ -1458,7 +1468,7 @@ local function Initialize()
 	local renderSteppedConnected = false
 
 	local function updateAllMuteButtons()
-		if GetFFlagShowMuteToggles() then
+		if shouldShowMuteToggles then
 			if not muteToggles then
 				return
 			end
@@ -1484,7 +1494,7 @@ local function Initialize()
 		end
 
 		-- See if the Mute All button needs to update.
-		if FFlagAvatarChatCoreScriptSupport and not GetFFlagShowMuteToggles() then
+		if FFlagAvatarChatCoreScriptSupport and not shouldShowMuteToggles then
 			if allMuted then
 				muteAllState = true
 			else
@@ -1526,15 +1536,15 @@ local function Initialize()
 		end
 
 
-		local extraOffset = if GetFFlagShowMuteToggles() then 60 else 20
+		local extraOffset = if shouldShowMuteToggles then 60 else 20
 		if utility:IsSmallTouchScreen() or utility:IsPortrait() then
-			extraOffset = if GetFFlagShowMuteToggles() then 125 else 85
+			extraOffset = if shouldShowMuteToggles then 125 else 85
 		end
 
 		local buttonFrame
 		local showMuteAllButton = voiceChatServiceConnected and not muteAllButton
-		local showMuteToggles = voiceChatServiceConnected and not muteToggles
-		if not GetFFlagShowMuteToggles() then
+		local renderMuteToggles = voiceChatServiceConnected and not muteToggles
+		if not shouldShowMuteToggles then
 			if showMuteAllButton then
 				buttonFrame = utility:Create'Frame'
 				{
@@ -1564,7 +1574,7 @@ local function Initialize()
 			end)
 
 			shareGameButton.LayoutOrder = 1
-			if not GetFFlagShowMuteToggles() and showMuteAllButton then
+			if not shouldShowMuteToggles and showMuteAllButton then
 				shareGameButton.Parent = buttonFrame
 			else
 				-- Ensure the button is always at the top of the list
@@ -1572,9 +1582,9 @@ local function Initialize()
 			end
 		end
 
-		if GetFFlagShowMuteToggles() then
-			if showMuteToggles then
-				muteToggles = Roact.mount(createMuteToggles(), this.Page, "MuteToggles")
+		if shouldShowMuteToggles then
+			if renderMuteToggles then
+				muteToggles = Roact.mount(createMuteToggles(initialMuteTogglesState), this.Page, "MuteToggles")
 			end
 		else
 			if showMuteAllButton then
@@ -1594,7 +1604,7 @@ local function Initialize()
 						voiceAnalytics:onToggleMuteAll(muteAllState)
 					end
 
-					VoiceChatServiceManager:MuteAll(muteAllState)
+					VoiceChatServiceManager:MuteAll(muteAllState, VoiceConstants.VOICE_CONTEXT_TYPE.IN_GAME_MENU)
 					updateAllMuteButtons()
 				end)
 
@@ -1806,9 +1816,9 @@ local function Initialize()
 		end
 
 		utility:OnResized("MenuPlayerListExtraPageSize", function(newSize, isPortrait)
-			local extraOffset = if GetFFlagShowMuteToggles() then 60 else 20
+			local extraOffset = if shouldShowMuteToggles then 60 else 20
 			if utility:IsSmallTouchScreen() or utility:IsPortrait() then
-				extraOffset = if GetFFlagShowMuteToggles() then 125 else 85
+				extraOffset = if shouldShowMuteToggles then 125 else 85
 			end
 
 			local inviteToGameRow = 1
@@ -1834,6 +1844,26 @@ local function Initialize()
 		and not voiceChatServiceConnected
 	then
 		VoiceChatServiceManager:asyncInit():andThen(function()
+			-- We should only check if the user is in the mute toggles experiment after voice chat is connected
+			if GetFFlagShowMuteToggles() and GetFFlagMuteTogglesEnableIXP() then
+				-- Get IXP layer data
+				local layerFetchSuccess, layerData = pcall(function()
+					return IXPServiceWrapper:GetLayerData(GetFStringMuteTogglesIXPLayerName())
+				end)
+
+				if not layerFetchSuccess then
+					-- Don't show mute toggles if we can't access IXP service
+					shouldShowMuteToggles = false
+				elseif not layerData then
+					shouldShowMuteToggles = false
+				elseif not layerData.ShowMuteToggles then
+					-- Don't show mute toggles if user is not enrolled in experiment
+					shouldShowMuteToggles = false
+				else
+					shouldShowMuteToggles = true
+				end
+			end
+
 			voiceChatServiceConnected = true
 			VoiceChatServiceManager:SetupParticipantListeners()
 			-- This will only affect mobile as buttonContainer is only visibile in mobile
@@ -1857,6 +1887,11 @@ local function Initialize()
 					elseif newState == (Enum :: any).VoiceChatState.Joined and voiceChatServiceConnected == false then
 						-- TODO: Re-Add removed buttons as soon as we have a valid usecase for re-joining voice mid-game
 					end
+				end)
+			end
+			if GetFFlagShowMuteToggles() then
+				VoiceChatServiceManager.userAgencySelected.Event:Connect(function(isMuteAll)
+					initialMuteTogglesState = isMuteAll
 				end)
 			end
 		end):catch(function(err)

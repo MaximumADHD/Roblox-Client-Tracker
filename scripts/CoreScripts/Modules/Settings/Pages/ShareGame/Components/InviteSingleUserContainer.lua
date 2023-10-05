@@ -13,7 +13,7 @@ local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Colors = require(Modules.Common.Constants).COLORS
 local ShareGameConstants = require(ShareGame.Constants)
-local InviteEvents = require(ShareGame.Analytics.InviteEvents)
+local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInviteEvents
 local InviteStatus = ShareGameConstants.InviteStatus
 local RobloxTranslator = require(ShareGame.getTranslator)()
 

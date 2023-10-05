@@ -11,6 +11,15 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
+	local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
+	local ApolloProvider = ApolloClientModule.ApolloProvider
+
+	local GraphQLServer = require(CorePackages.Workspace.Packages.GraphQLServer)
+	local ApolloClientTestUtils = GraphQLServer.ApolloClientTestUtils
+	local mockApolloClient = ApolloClientTestUtils.mockApolloClient
+
+	local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -22,36 +31,51 @@ return function()
 			Rodux.thunkMiddleware,
 		})
 
+		local client = mockApolloClient({})
+		UserProfiles.TestUtils.writeProfileDataToCache(client, {
+			["1"] = {
+				combinedName = "testuser_0",
+				username = "testuser_0",
+			},
+			["2"] = {
+				combinedName = "testuser_1",
+				username = "testuser_1",
+			},
+		})
+
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallHistoryItem = Roact.createElement(CallHistoryItem, {
-					caller = {
-						callId = "test_call_id",
-						callerId = callerId,
-						participants = {
-							{
-								userId = 1,
-								displayName = "testuser_0",
-								userName = "testuser_0",
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = client,
+				}, {
+					CallHistoryItem = Roact.createElement(CallHistoryItem, {
+						caller = {
+							callId = "test_call_id",
+							callerId = callerId,
+							participants = {
+								{
+									userId = 1,
+									displayName = "testuser_0",
+									userName = "testuser_0",
+								},
+								{
+									userId = 2,
+									displayName = "testuser_1",
+									userName = "testuser_1",
+								},
 							},
-							{
-								userId = 2,
-								displayName = "testuser_1",
-								userName = "testuser_1",
-							},
+							status = status,
+							startUtc = startUtc,
+							endUtc = endUtc,
+							universeId = 123,
+							placeId = 456,
 						},
-						status = status,
-						startUtc = startUtc,
-						endUtc = endUtc,
-						universeId = 123,
-						placeId = 456,
-					},
-					localUserId = localUserId,
-					showDivider = true,
-					isDevMode = true,
-					dismissCallback = function() end,
+						localUserId = localUserId,
+						showDivider = true,
+						dismissCallback = function() end,
+					}),
 				}),
 			}),
 		})

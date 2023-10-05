@@ -31,6 +31,7 @@ local FFlagBubbleSizingFix = require(Modules.Flags.FFlagBubbleSizingFix)
 local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
 local GetFFlagMicHandlingParity = require(Modules.Flags.GetFFlagMicHandlingParity)
 local GetFFlagMicStatesFix = require(Modules.Flags.GetFFlagMicStatesFix)
+local VoiceConstants = require(Modules.VoiceChat.Constants)
 
 local VIDEO_IMAGE = Images["icons/controls/video"]
 local VIDEO_OFF_IMAGE = Images["icons/controls/videoOff"]
@@ -94,7 +95,7 @@ function ControlsBubble:init()
 			end
 		else
 			-- The billboards use strings, but the manager expects numbers
-			VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId))
+			VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId), VoiceConstants.VOICE_CONTEXT_TYPE.BUBBLE_CHAT)
 		end
 	end
 

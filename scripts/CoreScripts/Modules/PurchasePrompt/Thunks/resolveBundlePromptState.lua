@@ -1,5 +1,6 @@
 --!nonstrict
 local Root = script.Parent.Parent
+local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
 local SetPromptState = require(Root.Actions.SetPromptState)
@@ -26,10 +27,13 @@ local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 local getPaymentFromPlatformLegacy = require(Root.Utils.getPaymentFromPlatformLegacy)
 local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
 local GetFFlagEnableQuestPaymentPlatformType = require(Root.Flags.GetFFlagEnableQuestPaymentPlatformType)
+local GetFFlagRespectBalanceInfoForBundleUpsellInStudio =
+	require(Root.Flags.GetFFlagRespectBalanceInfoForBundleUpsellInStudio)
 local Thunk = require(Root.Thunk)
 
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
-local GetFFlagEnableInsufficientRobuxForBundleUpsellFix = require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
+local GetFFlagEnableInsufficientRobuxForBundleUpsellFix =
+	require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
 
 local function getPurchasableStatus(productPurchasableDetails)
 	local reason = productPurchasableDetails.reason
@@ -67,9 +71,24 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 		local price = productPurchasableDetails.price
 		local platform = UserInputService:GetPlatform()
 		local upsellFlow = getUpsellFlow(platform)
+		local canStartUpsellProcess = failureReason == PurchaseError.NotEnoughRobux
+		--[[
+			In studio, we falsely report that users have the maximum amount
+			 of robux, so that they can always test the normal purchase flow
+		]]
+		if RunService:IsStudio() and GetFFlagRespectBalanceInfoForBundleUpsellInStudio() and canStartUpsellProcess then
+			-- In this case, we will only show the Bundle purchase modal and respect the Robux balance mock.
+			canStartUpsellProcess = price > balanceInfo.robux
+			-- TODO: In Studio, we hide the Bundle upsell for now due to a better experience requirement.
+			-- Currently, the Buy Robux Upsell requires Native Prompt call. In studio, we won't be able to purchase.
+			-- Thus, with upsell open, devs won't be able to test purchasing a bundle. Thus, we will ignore this upsell case in Studio for now.
+			if not canPurchase then
+				canPurchase = not canStartUpsellProcess
+			end
+		end
 
 		if not canPurchase then
-			if failureReason == PurchaseError.NotEnoughRobux then
+			if canStartUpsellProcess then
 				if not GetFFlagEnableInsufficientRobuxForBundleUpsellFix() and upsellFlow == UpsellFlow.Web then
 					return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
 				else
@@ -86,15 +105,21 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 					end
 
 					local robuxBalance = balanceInfo.robux
-	
-					return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
-						:andThen(function(product: RobuxUpsell.Product)
-							analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
+
+					return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform):andThen(
+						function(product: RobuxUpsell.Product)
+							analytics.signalProductPurchaseUpsellShown(
+								product.id,
+								state.requestType,
+								product.providerId
+							)
 							store:dispatch(PromptNativeUpsell(product.providerId, product.id, product.robuxAmount))
-						end, function()
+						end,
+						function()
 							-- No upsell item will provide sufficient funds to make this purchase
 							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-						end)
+						end
+					)
 				end
 			else
 				return store:dispatch(ErrorOccurred(failureReason))

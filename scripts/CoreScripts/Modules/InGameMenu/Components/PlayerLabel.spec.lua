@@ -1,6 +1,9 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -72,8 +75,8 @@ return function()
 		})
 
 		local instance = Roact.mount(element)
-		expect(ref.current).to.be.ok()
-		expect(ref.current:IsA("Instance")).to.equal(true)
+		expect(ref.current).never.toBeNil()
+		expect(ref.current:IsA("Instance")).toBe(true)
 		Roact.unmount(instance)
 	end)
 end

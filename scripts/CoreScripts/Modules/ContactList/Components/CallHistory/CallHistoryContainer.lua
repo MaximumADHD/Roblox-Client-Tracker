@@ -23,11 +23,11 @@ local useSelector = dependencies.Hooks.useSelector
 local UIBlox = dependencies.UIBlox
 
 local useStyle = UIBlox.Core.Style.useStyle
-local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
 local CallHistoryItem = require(ContactList.Components.CallHistory.CallHistoryItem)
+local NoItemView = require(ContactList.Components.common.NoItemView)
+local Constants = require(ContactList.Components.common.Constants)
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
@@ -35,33 +35,13 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
 	dismissCallback: () -> (),
-	isDevMode: boolean,
 	isSmallScreen: boolean,
 	scrollingEnabled: boolean,
-	searchText: string,
 }
-
--- The height for loading and call records.
-local ITEM_HEIGHT = 92
--- The amount user needs to move for the gesture to be interpreted as a scroll.
-local TOUCH_SLOP = 12
-
-local isMatching = function(searchText: string, participant)
-	if searchText == "" then
-		return true
-	end
-
-	local normalizedDisplayName = utf8.nfdnormalize(participant.displayName)
-	local normalizedSearchText = utf8.nfdnormalize(searchText)
-
-	return string.find(normalizedDisplayName:lower(), normalizedSearchText:lower(), 1, true) ~= nil
-		or string.find(participant.userName:lower(), searchText:lower(), 1, true) ~= nil
-end
 
 local function CallHistoryContainer(props: Props)
 	local dispatch = useDispatch()
 	local style = useStyle()
-	local font = style.Font
 	local theme = style.Theme
 
 	-- Using refs instead of state since state might not be updated in time.
@@ -91,8 +71,6 @@ local function CallHistoryContainer(props: Props)
 	end, {})
 
 	React.useEffect(function()
-		-- It is assumed this fetch is enough to fill a page. If not, we should
-		-- investigate more options.
 		getCallRecords("")
 
 		return function()
@@ -101,18 +79,8 @@ local function CallHistoryContainer(props: Props)
 	end, { getCallRecords })
 
 	local selectCallRecords = React.useCallback(function(state: any)
-		local callRecords = state.Call.callHistory.callRecords
-		local list = {}
-		for _, callRecord in ipairs(callRecords) do
-			for _, participant in pairs(callRecord.participants) do
-				if participant.userId ~= localUserId and isMatching(props.searchText, participant) then
-					list[#list + 1] = callRecord
-					break
-				end
-			end
-		end
-		return list
-	end, dependencyArray(localUserId, props.searchText))
+		return state.Call.callHistory.callRecords
+	end, {})
 
 	local callRecords = useSelector(selectCallRecords, function(newCallRecords: any, oldCallRecords: any)
 		if #newCallRecords ~= #oldCallRecords then
@@ -141,129 +109,47 @@ local function CallHistoryContainer(props: Props)
 
 	local noRecordsComponent = React.useMemo(function()
 		local message
-		if props.searchText ~= "" then
-			message = "No friends found"
-		elseif status == RetrievalStatus.Failed then
+		if status == RetrievalStatus.Failed then
 			message = "Something went wrong! Please try again."
 		else
 			message = "Your friends are waiting for your call!"
 		end
 
-		return React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			LayoutOrder = 10000, -- Hack to push this to the back.
-		}, {
-			UIListLayout = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, 20),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-			}),
-
-			UIPadding = React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 12),
-				PaddingBottom = UDim.new(0, 12),
-				PaddingLeft = UDim.new(0, 24),
-				PaddingRight = UDim.new(0, 24),
-			}),
-
-			Image = if status ~= RetrievalStatus.Failed or props.searchText ~= ""
-				then React.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Image = Images[if props.searchText == ""
-						then "icons/graphic/findfriends_xlarge"
-						else "icons/status/oof_xlarge"],
-					LayoutOrder = 1,
-					Size = UDim2.fromOffset(96, 96),
-				})
-				else nil,
-
-			Message = React.createElement("TextLabel", {
-				Size = UDim2.fromScale(1, 0),
-				AutomaticSize = Enum.AutomaticSize.Y,
-				BackgroundTransparency = 1,
-				Font = font.Body.Font,
-				LayoutOrder = 2,
-				Text = message,
-				TextColor3 = theme.TextDefault.Color,
-				TextSize = font.Body.RelativeSize * font.BaseSize,
-				TextTransparency = theme.TextDefault.Transparency,
-				TextWrapped = true,
-			}),
-
-			FailedButton = if status == RetrievalStatus.Failed and props.searchText == ""
-				then React.createElement("TextButton", {
-					Size = UDim2.new(0, 0, 0, 0),
-					AutomaticSize = Enum.AutomaticSize.XY,
-					BackgroundColor3 = theme.SystemPrimaryDefault.Color,
-					BackgroundTransparency = theme.SystemPrimaryDefault.Transparency,
-					BorderSizePixel = 0,
-					Font = font.Header2.Font,
-					LayoutOrder = 3,
-					Text = "Retry",
-					TextColor3 = theme.SystemPrimaryContent.Color,
-					TextSize = font.Header2.RelativeSize * font.BaseSize,
-					TextTransparency = theme.SystemPrimaryContent.Transparency,
-					[React.Event.Activated] = function()
-						getCallRecords(nextPageCursor)
-					end,
-				}, {
-					UICorner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(0, 8),
-					}),
-					UIPadding = React.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, 8),
-						PaddingRight = UDim.new(0, 8),
-					}),
-					UISizeConstraint = React.createElement("UISizeConstraint", {
-						MinSize = Vector2.new(108, 36),
-					}),
-				})
-				else nil,
-
-			CallButton = if status == RetrievalStatus.Done and props.searchText == ""
-				then React.createElement("ImageButton", {
-					Size = UDim2.new(1, 0, 0, 48),
-					BackgroundColor3 = theme.SystemPrimaryDefault.Color,
-					BackgroundTransparency = theme.SystemPrimaryDefault.Transparency,
-					BorderSizePixel = 0,
-					LayoutOrder = 3,
-					[React.Event.Activated] = navigateToNewCall,
-				}, {
-					UICorner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(0, 8),
-					}),
-					UIListLayout = React.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Horizontal,
-						HorizontalAlignment = Enum.HorizontalAlignment.Center,
-						Padding = UDim.new(0, 4),
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-					}),
-					StartCallIcon = React.createElement(ImageSetLabel, {
-						Size = UDim2.fromOffset(28, 28),
-						BackgroundTransparency = 1,
-						Image = "rbxassetid://14532752184",
-						ImageColor3 = theme.SystemPrimaryContent.Color,
-						LayoutOrder = 1,
-					}),
-					StartCallButtonText = React.createElement("TextLabel", {
-						AutomaticSize = Enum.AutomaticSize.XY,
-						BackgroundTransparency = 1,
-						Font = font.Header2.Font,
-						LayoutOrder = 2,
-						Text = "Start a call",
-						TextColor3 = theme.SystemPrimaryContent.Color,
-						TextSize = font.Header2.RelativeSize * font.BaseSize,
-						TextTransparency = theme.SystemPrimaryContent.Transparency,
-					}),
-				})
-				else nil,
+		return React.createElement(NoItemView, {
+			isImageEnabled = status ~= RetrievalStatus.Failed,
+			imageName = "icons/graphic/findfriends_xlarge",
+			isFailedButtonEnabled = status == RetrievalStatus.Failed,
+			onFailedButtonActivated = function()
+				getCallRecords(nextPageCursor)
+			end,
+			isCallButtonEnabled = status == RetrievalStatus.Done,
+			onCallButtonActivated = navigateToNewCall,
+			messageText = message,
 		})
-	end, dependencyArray(getCallRecords, props.searchText, status))
+	end, dependencyArray(getCallRecords, navigateToNewCall, nextPageCursor, status))
+
+	local touchStarted = React.useCallback(function(touch: InputObject)
+		initialPositionY.current = touch.Position.Y
+	end, {})
+
+	local touchMoved = React.useCallback(function(touch: InputObject)
+		local delta = touch.Position.Y - initialPositionY.current :: number
+
+		if
+			delta > Constants.TOUCH_SLOP
+			and scrollingFrameRef.current
+			and scrollingFrameRef.current.CanvasPosition.Y == 0
+		then
+			-- Check if user is scrolling up at the top. If so, we will
+			-- disable this scroller so that inputs will power the outer
+			-- scroller.
+			setOverscrolling(true)
+		end
+	end, {})
+
+	local touchEnded = React.useCallback(function()
+		setOverscrolling(false)
+	end, {})
 
 	local children: { any } = React.useMemo(function()
 		local entries: any = {}
@@ -275,23 +161,21 @@ local function CallHistoryContainer(props: Props)
 		for i, caller in ipairs(callRecords) do
 			entries[i] = React.createElement(CallHistoryItem, {
 				caller = caller,
-				isDevMode = props.isDevMode,
 				localUserId = localUserId,
 				showDivider = i ~= #callRecords,
 				dismissCallback = props.dismissCallback,
 				layoutOrder = i,
 			})
 		end
-		if nextPageCursor ~= "" and props.searchText == "" then
+		if nextPageCursor ~= "" then
 			-- This renders an extra component like refresh button or a loading
-			-- indicator. We do not want either when there is no next page or
-			-- when we are searching.
+			-- indicator. We do not want either when there is no next page.
 			local index = #entries + 1
 			if status == RetrievalStatus.Failed then
 				entries[index] = noRecordsComponent
 			else
 				entries[index] = React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+					Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
 					BackgroundTransparency = 1,
 					LayoutOrder = index,
 				}, {
@@ -305,56 +189,34 @@ local function CallHistoryContainer(props: Props)
 		end
 
 		return entries
-	end, dependencyArray(callRecords, nextPageCursor, noRecordsComponent, props.isDevMode, props.searchText, status))
+	end, dependencyArray(callRecords, nextPageCursor, noRecordsComponent, status))
 
 	local onFetchNextPage = React.useCallback(function(f)
 		if
 			not isLoading.current
 			and status ~= RetrievalStatus.Failed
 			and nextPageCursor ~= ""
-			and props.searchText == ""
 			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
 		then
 			getCallRecords(nextPageCursor)
 		end
-	end, dependencyArray(getCallRecords, nextPageCursor, props.searchText, status))
+	end, dependencyArray(getCallRecords, nextPageCursor, status))
 
 	React.useEffect(function()
 		-- This is used to handle the case where the number of records is less
 		-- than the height of the list. That means the list will never be
 		-- scrollable to fetch more items. This does not check if there is a
 		-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
-		local totalHeight = (#children - 1) * ITEM_HEIGHT
+		local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
 
 		if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
 			onFetchNextPage(scrollingFrameRef.current)
 		end
 	end, dependencyArray(children, onFetchNextPage))
 
-	local touchStarted = React.useCallback(function(touch: InputObject)
-		initialPositionY.current = touch.Position.Y
-	end, {})
-
-	local touchMoved = React.useCallback(function(touch: InputObject)
-		local delta = touch.Position.Y - initialPositionY.current :: number
-
-		if delta > TOUCH_SLOP and scrollingFrameRef.current and scrollingFrameRef.current.CanvasPosition.Y == 0 then
-			-- Check if user is scrolling up at the top. If so, we will
-			-- disable this scroller so that inputs will power the outer
-			-- scroller.
-			setOverscrolling(true)
-		end
-	end, {})
-
-	local touchEnded = React.useCallback(function()
-		setOverscrolling(false)
-	end, {})
-
-	return if #callRecords == 0
-			and status == RetrievalStatus.Fetching
-			and props.searchText == ""
+	return if #callRecords == 0 and status == RetrievalStatus.Fetching
 		then React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+			Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
 			LoadingSpinner = React.createElement(LoadingSpinner, {

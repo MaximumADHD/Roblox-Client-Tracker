@@ -6,6 +6,10 @@ return function()
 	local Players = game:GetService("Players")
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
+	local jest = JestGlobals.jest
+
 	local act = require(Modules.act)
 
 	local Rhodium = require(CorePackages.Rhodium)
@@ -25,9 +29,6 @@ return function()
 	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 	local SetInputType = require(InGameMenu.Actions.SetInputType)
 	local Constants = require(InGameMenu.Resources.Constants)
-
-	local JestGlobals = require(CorePackages.JestGlobals)
-	local jest = JestGlobals.jest
 
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
@@ -84,7 +85,7 @@ return function()
 				store:flush()
 			end)
 
-			expect(GuiService.SelectedCoreObject).to.equal(nil)
+			expect(GuiService.SelectedCoreObject).toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -100,7 +101,7 @@ return function()
 				store:flush()
 			end)
 
-			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).never.toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -127,7 +128,7 @@ return function()
 				wait()
 			end)
 
-			expect(#onConfirmSpy.mock.calls).to.equal(1)
+			expect(onConfirmSpy).toHaveBeenCalledTimes(1)
 
 			Roact.unmount(instance)
 		end)
@@ -158,8 +159,8 @@ return function()
 					wait()
 				end)
 
-				expect(#mockDetectURL.mock.calls).to.equal(1)
-				expect(mockDetectURL.mock.calls[1][2]).to.equal("roblox://navigation/home")
+				expect(mockDetectURL).toHaveBeenCalledTimes(1)
+				expect(mockDetectURL).toHaveBeenCalledWith(expect.anything(), "roblox://navigation/home")
 
 				Roact.unmount(instance)
 			end

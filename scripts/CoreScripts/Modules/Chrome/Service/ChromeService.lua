@@ -55,6 +55,7 @@ export type ChromeService = {
 	toggleSubMenu: (ChromeService, subMenuId: Types.IntegrationId) -> (),
 	currentSubMenu: (ChromeService) -> ObservableSubMenu,
 	toggleOpen: (ChromeService) -> (),
+	getLastInputToOpenMenu: (ChromeService) -> Enum.UserInputType,
 	status: (ChromeService) -> ObservableMenuStatus,
 	menuList: (ChromeService) -> ObservableMenuList,
 	windowList: (ChromeService) -> ObservableWindowList,
@@ -124,6 +125,8 @@ export type ChromeService = {
 	_onIntegrationActivated: SignalLib.Signal,
 	_onIntegrationStatusChanged: SignalLib.Signal,
 
+	_lastInputToOpenMenu: Enum.UserInputType,
+
 	_localization: any,
 	_localizedLabelKeys: {
 		[Types.IntegrationId]: { label: string?, secondaryActionLabel: string? },
@@ -173,6 +176,8 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationRegistered = Signal.new()
 	self._onIntegrationActivated = Signal.new()
 	self._onIntegrationStatusChanged = Signal.new()
+
+	self._lastInputToOpenMenu = Enum.UserInputType.None
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
 
@@ -313,12 +318,18 @@ function ChromeService:toggleOpen()
 		menuStatus:set(ChromeService.MenuStatus.Open)
 		self._lastDisplayedNotificationId = ""
 		self._notificationIndicator:set(nil)
+		self._lastInputToOpenMenu = UserInputService:GetLastInputType()
 	else
 		self._selectedItem:set(nil)
 		-- close any current submenu
 		subMenu:set(nil)
 		menuStatus:set(ChromeService.MenuStatus.Closed)
+		self._lastInputToOpenMenu = Enum.UserInputType.None
 	end
+end
+
+function ChromeService:getLastInputToOpenMenu()
+	return self._lastInputToOpenMenu
 end
 
 function ChromeService:toggleWindow(componentId: Types.IntegrationId)

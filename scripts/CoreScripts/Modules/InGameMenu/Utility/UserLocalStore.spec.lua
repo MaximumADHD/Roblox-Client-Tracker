@@ -1,6 +1,11 @@
 return function()
+	local CorePackages = game:GetService("CorePackages")
+
 	local AppStorageService = game:GetService("AppStorageService")
 	local UserLocalStore = require(script.Parent.UserLocalStore)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local expect = JestGlobals.expect
 
 	-- we need to use a registered key for testing
 	local testKey = "NativeCloseLuaPromptDisplayCount"
@@ -11,7 +16,7 @@ return function()
 
 		local store = UserLocalStore.new("123456")
 		store:SetItem(testKey, "test")
-		expect(store:GetItem(testKey)).to.equal("test")
+		expect(store:GetItem(testKey)).toBe("test")
 
 		AppStorageService:SetItem(testKey, initialValue)
 	end)
@@ -24,7 +29,7 @@ return function()
 		local store2 = UserLocalStore.new("654321")
 		store1:SetItem(testKey, "first")
 		store2:SetItem(testKey, "second")
-		expect(store1:GetItem(testKey)).to.equal("first")
+		expect(store1:GetItem(testKey)).toBe("first")
 
 		AppStorageService:SetItem(testKey, initialValue)
 	end)
@@ -33,7 +38,7 @@ return function()
 		assert(game.Players.LocalPlayer)
 		local currentUserId = tostring(game.Players.LocalPlayer.UserId)
 		local store = UserLocalStore.new()
-		expect(store.userId).to.equal(currentUserId)
+		expect(store.userId).toBe(currentUserId)
 	end)
 
 	it("supports multiple value types", function()
@@ -43,17 +48,16 @@ return function()
 		local store = UserLocalStore.new()
 
 		store:SetItem(testKey, 5)
-		expect(store:GetItem(testKey)).to.equal(5)
+		expect(store:GetItem(testKey)).toBe(5)
 
 		store:SetItem(testKey, true)
-		expect(store:GetItem(testKey)).to.equal(true)
+		expect(store:GetItem(testKey)).toBe(true)
 
 		store:SetItem(testKey, {
 			key = "value",
 		})
 		local value = store:GetItem(testKey)
-		expect(type(value)).to.equal("table")
-		expect(value.key).to.equal("value")
+		expect(value).toMatchObject({ key = "value" })
 
 		AppStorageService:SetItem(testKey, initialValue)
 	end)
@@ -63,7 +67,7 @@ return function()
 		AppStorageService:SetItem(testKey, "default value")
 
 		local store = UserLocalStore.new()
-		expect(store:GetItem(testKey)).to.equal("default value")
+		expect(store:GetItem(testKey)).toBe("default value")
 
 		AppStorageService:SetItem(testKey, initialValue)
 	end)

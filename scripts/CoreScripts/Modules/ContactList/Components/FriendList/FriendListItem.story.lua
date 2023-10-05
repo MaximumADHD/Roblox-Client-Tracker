@@ -16,44 +16,40 @@ return {
 		OfflineFriendListItem = function(props)
 			return React.createElement(FriendListItem, {
 				userId = "12345678",
-				userName = "user name",
-				displayName = "display name",
+				userName = "@user name",
+				combinedName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
-				isDevMode = true,
 			})
 		end,
 
 		OnlineFriendListItem = function(props)
 			return React.createElement(FriendListItem, {
 				userId = "11111111",
-				userName = "user name",
-				displayName = "display name",
+				userName = "@user name",
+				combinedName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
-				isDevMode = true,
-			})
-		end,
-
-		InGameFriendListItem = function(props)
-			return React.createElement(FriendListItem, {
-				userId = "22222222",
-				userName = "user name",
-				displayName = "display name",
-				dismissCallback = function() end,
-				showDivider = props.controls.showDivider,
-				isDevMode = true,
 			})
 		end,
 
 		InStudioFriendListItem = function(props)
 			return React.createElement(FriendListItem, {
-				userId = "33333333",
-				userName = "user name",
-				displayName = "display name",
+				userId = "22222222",
+				userName = "@user name",
+				combinedName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
-				isDevMode = true,
+			})
+		end,
+
+		InGameFriendListItem = function(props)
+			return React.createElement(FriendListItem, {
+				userId = "33333333",
+				userName = "@user name",
+				combinedName = "display name",
+				dismissCallback = function() end,
+				showDivider = props.controls.showDivider,
 			})
 		end,
 	},
@@ -84,8 +80,8 @@ return {
 			byUserId = {
 				["12345678"] = {
 					id = "12345678",
-					username = "user name",
-					displayName = "display name",
+					username = "@user name",
+					combinedName = "display name",
 					hasVerifiedBadge = false,
 				},
 			},

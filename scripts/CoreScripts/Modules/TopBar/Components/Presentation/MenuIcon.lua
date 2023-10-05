@@ -9,6 +9,8 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local UIBloxImages = UIBlox.App.ImageSet.Images
+local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
+local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
@@ -49,8 +51,12 @@ if GetFFlagChangeTopbarHeightCalculation() then
 	BACKGROUND_SIZE = Constants.TopBarButtonHeight
 end
 
+local tooltipEnabled = ChromeEnabled()
 local ICON_SIZE = 24
-local DEFAULT_DELAY_TIME = 0.4
+local DEFAULT_DELAY_TIME = if tooltipEnabled then 0.65 else 0.4
+local MENU_TOOLTIP_LABEL = "CoreScripts.TopBar.RobloxMenu"
+local MENU_TOOLTIP_FALLBACK = "Roblox Menu"
+local MENU_HOTKEYS = { Enum.KeyCode.Escape }
 
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
@@ -66,6 +72,7 @@ function MenuIcon:init()
 		vrShowMenuIcon = false,
 		showTooltip = false,
 		isHovering = false,
+		clickLatched = if tooltipEnabled then false else nil,
 		enableFlashingDot = false
 	})
 
@@ -81,7 +88,8 @@ function MenuIcon:init()
 	self.menuIconActivated = function()
 		self:setState({
 			showTooltip = false,
-			isHovering = false,
+			isHovering = if tooltipEnabled then nil else false,
+			clickLatched = if tooltipEnabled then true else nil,
 		})
 
 		if VRService.VREnabled and (VRHub.ShowTopBar or GamepadService.GamepadCursorEnabled) then
@@ -97,6 +105,20 @@ function MenuIcon:init()
 		end
 	end
 	self.menuIconOnHover = function()
+		if tooltipEnabled then
+			self:setState({
+				isHovering = true,
+			})
+			
+			delay(DEFAULT_DELAY_TIME, function()
+				if self.state.isHovering and not self.state.clickLatched then
+					self:setState({
+						showTooltip = true,
+					})
+				end
+			end)
+		end
+
 		if isNewInGameMenuEnabled() then
 			-- Disable Menu Icon hovering if not on DUA
 			if not isSubjectToDesktopPolicies() then
@@ -111,6 +133,7 @@ function MenuIcon:init()
 		self:setState({
 			showTooltip = false,
 			isHovering = false,
+			clickLatched = if tooltipEnabled then false else nil,
 		})
 	end
 
@@ -133,29 +156,72 @@ function MenuIcon:render()
 		end
 	end
 
-	return Roact.createElement("Frame", {
-		Visible = visible,
-		BackgroundTransparency = 1,
-		Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
-		LayoutOrder = self.props.layoutOrder,
-		[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
-		[Roact.Change.AbsolutePosition] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
-	}, {
-		Background = Roact.createElement(IconButton, {
-			icon = if isNewTiltIconEnabled()
-				then UIBloxImages["icons/logo/block"]
-				else "rbxasset://textures/ui/TopBar/coloredlogo.png",
-			iconSize = ICON_SIZE * (self.props.iconScale or 1),
-			useIconScaleAnimation = isNewTiltIconEnabled(),
-			onActivated = self.menuIconActivated,
-			onHover = self.menuIconOnHover,
-			enableFlashingDot = self.state.enableFlashingDot,
-		}),
-		ShowTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
-			event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
-			callback = self.showTopBarCallback,
-		})
+	local background = Roact.createElement(IconButton, {
+		icon = if isNewTiltIconEnabled()
+			then UIBloxImages["icons/logo/block"]
+			else "rbxasset://textures/ui/TopBar/coloredlogo.png",
+		iconSize = ICON_SIZE * (self.props.iconScale or 1),
+		useIconScaleAnimation = isNewTiltIconEnabled(),
+		onActivated = self.menuIconActivated,
+		onHover = self.menuIconOnHover,
+		onHoverEnd = if tooltipEnabled then self.menuIconOnHoverEnd else nil,
+		enableFlashingDot = self.state.enableFlashingDot,
 	})
+
+	local showTopBarListener = GamepadService and Roact.createElement(ExternalEventConnection, {
+		event = VRHub.ShowTopBarChanged.Event or GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"),
+		callback = self.showTopBarCallback,
+	})
+
+	if tooltipEnabled then
+		local tooltipText = MENU_TOOLTIP_FALLBACK
+		pcall(function()
+			tooltipText = RobloxTranslator:FormatByKey(MENU_TOOLTIP_LABEL)
+	   	end)
+		local tooltipProps = {
+			textAlignment = Enum.TextXAlignment.Center,
+			headerText = tooltipText,
+			hotkeyCodes = MENU_HOTKEYS,
+		}
+		local tooltipOptions = {
+			active = self.state.showTooltip,
+			guiTarget = CoreGui,
+			preferredOrientation = TooltipOrientation.Bottom,
+			DisplayOrder = 10,
+		}
+
+		return withTooltip(tooltipProps, tooltipOptions, function(triggerPointChanged)
+			local onChange = function(rbx)
+				onAreaChanged(rbx)
+				triggerPointChanged(rbx)
+			end
+
+			return Roact.createElement("Frame", {
+				Visible = visible,
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
+				LayoutOrder = self.props.layoutOrder,
+
+				[Roact.Change.AbsoluteSize] = onChange,
+				[Roact.Change.AbsolutePosition] = onChange,
+			}, {
+				Background = background,
+				ShowTopBarListener = showTopBarListener,
+			})
+		end)
+	else
+		return Roact.createElement("Frame", {
+			Visible = visible,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
+			LayoutOrder = self.props.layoutOrder,
+			[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
+			[Roact.Change.AbsolutePosition] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
+		}, {
+			Background = background,
+			ShowTopBarListener = showTopBarListener,
+		})
+	end
 end
 
 local function mapDispatchToProps(dispatch)

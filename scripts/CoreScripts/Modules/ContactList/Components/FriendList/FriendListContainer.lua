@@ -3,12 +3,13 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
+local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
-local Cryo = require(CorePackages.Packages.Cryo)
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -17,16 +18,15 @@ local dependencies = require(ContactList.dependencies)
 local UIBlox = dependencies.UIBlox
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
-local useSelector = dependencies.Hooks.useSelector
 
-local GetFriendsFromUserId = dependencies.NetworkingFriends.GetFriendsFromUserId
+local FindFriendsFromUserId = dependencies.NetworkingFriends.FindFriendsFromUserId
 
 local useStyle = UIBlox.Core.Style.useStyle
-local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
 local FriendListItem = require(ContactList.Components.FriendList.FriendListItem)
+local NoItemView = require(ContactList.Components.common.NoItemView)
+local Constants = require(ContactList.Components.common.Constants)
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
@@ -34,53 +34,64 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 
 export type Props = {
 	dismissCallback: () -> (),
-	isDevMode: boolean,
 	isSmallScreen: boolean,
 	scrollingEnabled: boolean,
 	searchText: string,
 }
 
--- The amount user needs to move for the gesture to be interpreted as a scroll.
-local TOUCH_SLOP = 12
-
-local isMatching = function(searchText: string, userName: string, displayName: string)
-	if searchText == "" then
-		return true
-	end
-
-	local normalizedDisplayName = utf8.nfdnormalize(displayName)
-	local normalizedSearchText = utf8.nfdnormalize(searchText)
-
-	return string.find(normalizedDisplayName:lower(), normalizedSearchText:lower(), 1, true) ~= nil
-		or string.find(userName:lower(), searchText:lower(), 1, true) ~= nil
-end
-
 local function FriendListContainer(props: Props)
-	local style = useStyle()
 	local dispatch = useDispatch()
+	local style = useStyle()
 	local theme = style.Theme
-	local font = style.Font
 
-	local selectStatus = React.useCallback(function(state)
-		if props.isDevMode then
-			return GetFriendsFromUserId.getStatus(state, localUserId)
-		else
-			-- Non dev mode doesn't make a network request, so it just "succeeds".
-			return RetrievalStatus.Done
-		end
-	end, { props.isDevMode })
-	local status = useSelector(selectStatus)
+	-- Using refs instead of state since state might not be updated in time.
+	-- These are set to loading and fetching to prepare for the initial fetch.
+	local isLoading = React.useRef(true)
+	local scrollingFrameRef = React.useRef(nil)
+	local initialPositionY = React.useRef(0)
+	local status, setStatus = React.useState(RetrievalStatus.Fetching)
+	local overscrolling, setOverscrolling = React.useState(false)
+	local friends, setFriends = React.useState({})
+	local nextPageCursor, setNextPageCursor = React.useState(nil)
 
-	-- Not used for non dev mode but defined here due to the no friends component.
-	local getFriends = React.useCallback(function()
+	local getFriends = React.useCallback(function(cursor)
 		if localUserId then
-			dispatch(GetFriendsFromUserId.API(localUserId))
+			isLoading.current = true
+			setStatus(RetrievalStatus.Fetching)
+			dispatch(FindFriendsFromUserId.API(localUserId, { userSort = "CombinedName", cursor = nil, limit = 50 })):andThen(
+				function(result)
+					-- TODO (joshli): Need to validate that this fetch is for
+					-- the relevant cursor.
+					for _, friend in ipairs(result.responseBody.PageItems) do
+						table.insert(friends, friend)
+					end
+
+					setFriends(friends)
+					setNextPageCursor(result.responseBody.NextPage)
+					setStatus(RetrievalStatus.Done)
+				end,
+				function()
+					setStatus(RetrievalStatus.Failed)
+				end
+			)
 		end
+	end, dependencyArray(friends))
+
+	-- We do not depend on getFriends since it can cause an infinite bug.
+	-- Perhaps a better solution would be to use Rodux for updates to friends.
+	React.useEffect(function()
+		getFriends("")
 	end, {})
 
-	local trimmedSearchText = React.useMemo(function()
-		return string.gsub(props.searchText, "%s+", "")
-	end, { props.searchText })
+	-- local trimmedSearchText = React.useMemo(function()
+	-- 	return string.gsub(props.searchText, "%s+", "")
+	-- end, { props.searchText })
+
+	React.useEffect(function()
+		if status ~= RetrievalStatus.Fetching then
+			isLoading.current = false
+		end
+	end, { status })
 
 	local noFriendsText = React.useMemo(function()
 		local message
@@ -92,299 +103,177 @@ local function FriendListContainer(props: Props)
 			message = "Oh no you have no friends."
 		end
 
-		-- TODO (timothyhsu): Localization
-		return React.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
+		return React.createElement(NoItemView, {
+			isImageEnabled = status ~= RetrievalStatus.Failed or props.searchText ~= "",
+			imageName = if props.searchText == ""
+				then "icons/graphic/findfriends_xlarge"
+				else "icons/status/oof_xlarge",
+			isFailedButtonEnabled = status == RetrievalStatus.Failed and props.searchText == "",
+			onFailedButtonActivated = function()
+				getFriends(nextPageCursor)
+			end,
+			isCallButtonEnabled = false,
+			onCallButtonActivated = function() end,
+			messageText = message,
+		})
+	end, dependencyArray(props.searchText, getFriends, nextPageCursor, status))
+
+	local touchStarted = React.useCallback(function(touch: InputObject)
+		initialPositionY.current = touch.Position.Y
+	end, {})
+
+	local touchMoved = React.useCallback(function(touch: InputObject)
+		local delta = touch.Position.Y - initialPositionY.current :: number
+
+		if
+			delta > Constants.TOUCH_SLOP
+			and scrollingFrameRef.current
+			and scrollingFrameRef.current.CanvasPosition.Y == 0
+		then
+			-- Check if user is scrolling up at the top. If so, we will
+			-- disable this scroller so that inputs will power the outer
+			-- scroller.
+			setOverscrolling(true)
+		end
+	end, {})
+
+	local friendIds = Cryo.List.map(friends, function(friend)
+		return tostring(friend.id)
+	end)
+
+	local namesFetch = UserProfiles.Hooks.useUserProfilesFetch({
+		userIds = friendIds,
+		query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
+	})
+
+	local touchEnded = React.useCallback(function()
+		setOverscrolling(false)
+	end, {})
+
+	local children: any = React.useMemo(function()
+		local entries: any = {}
+		entries["UIListLayout"] = React.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
+
+		for i, friend in ipairs(friends) do
+			local combinedName = ""
+			local userName = ""
+			if namesFetch.data then
+				combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, friend.id)
+				userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, friend.id)
+				userName = UserProfiles.Formatters.formatUsername(userName)
+			end
+
+			entries[i] = React.createElement(FriendListItem, {
+				userId = friend.id,
+				combinedName = combinedName,
+				userName = userName,
+				dismissCallback = props.dismissCallback,
+				layoutOrder = i,
+				showDivider = i ~= #friends,
+			})
+		end
+
+		if nextPageCursor ~= nil then
+			-- This renders an extra component like refresh button or a loading
+			-- indicator. We do not want either when there is no next page.
+			local index = #entries + 1
+			if status == RetrievalStatus.Failed then
+				entries[index] = noFriendsText
+			else
+				entries[index] = React.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
+					BackgroundTransparency = 1,
+					LayoutOrder = index,
+				}, {
+					LoadingSpinner = React.createElement(LoadingSpinner, {
+						size = UDim2.fromOffset(48, 48),
+						position = UDim2.fromScale(0.5, 0.5),
+						anchorPoint = Vector2.new(0.5, 0.5),
+					}),
+				})
+			end
+		end
+
+		return entries
+	end, dependencyArray(friends, nextPageCursor, noFriendsText, status, namesFetch.data))
+
+	local onFetchNextPage = React.useCallback(function(f)
+		if
+			not isLoading.current
+			and status ~= RetrievalStatus.Failed
+			and nextPageCursor ~= nil
+			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
+		then
+			getFriends(nextPageCursor)
+		end
+	end, dependencyArray(getFriends, nextPageCursor, status))
+
+	React.useEffect(function()
+		-- This is used to handle the case where the number of records is less
+		-- than the height of the list. That means the list will never be
+		-- scrollable to fetch more items. This does not check if there is a
+		-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
+		local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
+
+		if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
+			onFetchNextPage(scrollingFrameRef.current)
+		end
+	end, dependencyArray(children, onFetchNextPage))
+
+	return if #friends == 0 and status == RetrievalStatus.Fetching
+		then React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
-			UIListLayout = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, 20),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
+			LoadingSpinner = React.createElement(LoadingSpinner, {
+				size = UDim2.fromOffset(48, 48),
+				position = UDim2.fromScale(0.5, 0.5),
+				anchorPoint = Vector2.new(0.5, 0.5),
 			}),
-
-			UIPadding = React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 12),
-				PaddingBottom = UDim.new(0, 12),
-				PaddingLeft = UDim.new(0, 24),
-				PaddingRight = UDim.new(0, 24),
-			}),
-
-			Image = if status ~= RetrievalStatus.Failed or props.searchText ~= ""
-				then React.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Image = Images[if props.searchText == ""
-						then "icons/graphic/findfriends_xlarge"
-						else "icons/status/oof_xlarge"],
-					LayoutOrder = 1,
-					Size = UDim2.fromOffset(96, 96),
-				})
-				else nil,
-
-			Message = React.createElement("TextLabel", {
-				Size = UDim2.fromScale(1, 0),
-				AutomaticSize = Enum.AutomaticSize.Y,
-				BackgroundTransparency = 1,
-				Font = font.Body.Font,
-				LayoutOrder = 2,
-				Text = message,
-				TextColor3 = theme.TextDefault.Color,
-				TextSize = font.Body.RelativeSize * font.BaseSize,
-				TextTransparency = theme.TextDefault.Transparency,
-				TextWrapped = true,
-			}),
-
-			FailedButton = if status == RetrievalStatus.Failed and props.searchText == ""
-				then React.createElement("TextButton", {
-					Size = UDim2.new(0, 0, 0, 0),
-					AutomaticSize = Enum.AutomaticSize.XY,
-					BackgroundColor3 = theme.SystemPrimaryDefault.Color,
-					BackgroundTransparency = theme.SystemPrimaryDefault.Transparency,
-					BorderSizePixel = 0,
-					Font = font.Header2.Font,
-					LayoutOrder = 3,
-					Text = "Retry",
-					TextColor3 = theme.SystemPrimaryContent.Color,
-					TextSize = font.Header2.RelativeSize * font.BaseSize,
-					TextTransparency = theme.SystemPrimaryContent.Transparency,
-					[React.Event.Activated] = getFriends,
-				}, {
-					UICorner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(0, 8),
-					}),
-					UIPadding = React.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, 8),
-						PaddingRight = UDim.new(0, 8),
-					}),
-					UISizeConstraint = React.createElement("UISizeConstraint", {
-						MinSize = Vector2.new(108, 36),
-					}),
-				})
-				else nil,
 		})
-	end, dependencyArray(props.searchText, status))
-
-	if props.isDevMode then
-		React.useEffect(getFriends, {})
-
-		local selectFriends = React.useCallback(function(state: any)
-			local friendIds = {}
-			if localUserId then
-				friendIds = state.Friends.byUserId[tostring(localUserId)] or {}
-			end
-			local list = {}
-			for _, friendId in ipairs(friendIds) do
-				local friend = state.Users.byUserId[tostring(friendId)]
-				if friend and isMatching(trimmedSearchText, friend.username, friend.displayName) then
-					list[#list + 1] = friend
-				end
-			end
-
-			-- Sort the names alphabetical.
-			return Cryo.List.sort(list, function(friend1: any, friend2: any)
-				if friend1.displayName:lower() ~= friend2.displayName:lower() then
-					return friend1.displayName:lower() < friend2.displayName:lower()
-				else
-					return friend1.username:lower() < friend2.username:lower()
-				end
-			end)
-		end, dependencyArray(localUserId, trimmedSearchText))
-
-		local friends = useSelector(selectFriends, function(newFriends: any, oldFriends: any)
-			if #newFriends ~= #oldFriends then
-				-- Shortcut for unmatched list lengths.
-				return false
-			else
-				-- Check to see if friends list was changed.
-				for i, friend in ipairs(newFriends) do
-					if friend.id ~= oldFriends[i].id then
-						return false
-					end
-				end
-				return true
-			end
-		end)
-
-		local scrollingFrameRef = React.useRef(nil)
-		local initialPositionY = React.useRef(0)
-		local overscrolling, setOverscrolling = React.useState(false)
-
-		local touchStarted = React.useCallback(function(touch: InputObject)
-			initialPositionY.current = touch.Position.Y
-		end, {})
-
-		local touchMoved = React.useCallback(function(touch: InputObject)
-			local delta = touch.Position.Y - initialPositionY.current :: number
-
-			if delta > TOUCH_SLOP and scrollingFrameRef.current and scrollingFrameRef.current.CanvasPosition.Y == 0 then
-				-- Check if user is scrolling up at the top. If so, we will
-				-- disable this scroller so that inputs will power the outer
-				-- scroller.
-				setOverscrolling(true)
-			end
-		end, {})
-
-		local touchEnded = React.useCallback(function()
-			setOverscrolling(false)
-		end, {})
-
-		local children: any = React.useMemo(function()
-			local entries = {}
-			entries["UIListLayout"] = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			})
-
-			for i, friend in ipairs(friends) do
-				entries[i] = React.createElement(FriendListItem, {
-					userId = friend.id,
-					userName = friend.username,
-					displayName = friend.displayName,
-					dismissCallback = props.dismissCallback,
-					layoutOrder = i,
-					showDivider = i ~= #friends,
-					isDevMode = props.isDevMode :: boolean,
-				})
-			end
-
-			return entries
-		end, dependencyArray(friends, props.isDevMode))
-
-		return if #friends == 0
-				and (status == RetrievalStatus.NotStarted or status == RetrievalStatus.Fetching)
-			then React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 92),
-				BackgroundTransparency = 1,
-			}, {
-				LoadingSpinner = React.createElement(LoadingSpinner, {
-					size = UDim2.fromOffset(48, 48),
-					position = UDim2.fromScale(0.5, 0.5),
-					anchorPoint = Vector2.new(0.5, 0.5),
-				}),
-			})
-			elseif #friends == 0 then noFriendsText
-			else Roact.createFragment({
-				React.createElement("ScrollingFrame", {
-					Size = UDim2.fromScale(1, 1),
-					AutomaticCanvasSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = theme.BackgroundDefault.Color,
-					BackgroundTransparency = theme.BackgroundDefault.Transparency,
-					BorderSizePixel = 0,
-					CanvasSize = UDim2.new(),
-					ElasticBehavior = Enum.ElasticBehavior.Never,
-					ScrollingDirection = Enum.ScrollingDirection.Y,
-					ScrollingEnabled = not overscrolling and props.scrollingEnabled,
-					ScrollBarImageColor3 = theme.UIEmphasis.Color,
-					ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
-					ScrollBarThickness = 4,
-					ref = scrollingFrameRef,
-				}, children),
-
-				TouchStartedUserInputConnection = props.isSmallScreen
-					and props.scrollingEnabled
-					and React.createElement(ExternalEventConnection, {
-						event = UserInputService.TouchStarted,
-						callback = touchStarted,
-					}),
-
-				TouchMovedUserInputConnection = props.isSmallScreen
-					and props.scrollingEnabled
-					and React.createElement(ExternalEventConnection, {
-						event = UserInputService.TouchMoved,
-						callback = touchMoved,
-					}),
-
-				TouchEndedUserInputConnection = props.isSmallScreen
-					and props.scrollingEnabled
-					and React.createElement(ExternalEventConnection, {
-						event = UserInputService.TouchEnded,
-						callback = touchEnded,
-					}),
-			})
-	else
-		local allPlayers, setAllPlayers = React.useState(function()
-			local players = {}
-			for _, player in ipairs(Players:GetPlayers()) do
-				if player.UserId ~= localUserId then
-					players[player.UserId] = player
-				end
-			end
-
-			return players
-		end)
-
-		React.useEffect(function()
-			local playerAddedConn = Players.PlayerAdded:Connect(function(player)
-				setAllPlayers(Cryo.Dictionary.join(allPlayers, { userId = player }))
-			end)
-
-			local playerRemovingConn = Players.PlayerRemoving:Connect(function(player)
-				setAllPlayers(Cryo.Dictionary.join(allPlayers, { [player.UserId] = Cryo.None }))
-			end)
-
-			return function()
-				playerAddedConn:Disconnect()
-				playerRemovingConn:Disconnect()
-			end
-		end, {})
-
-		local filteredPlayers = React.useMemo(function()
-			local list = {}
-			for _, player in pairs(allPlayers) do
-				if isMatching(trimmedSearchText, player.Name, player.DisplayName) then
-					list[#list + 1] = player
-				end
-			end
-
-			return Cryo.List.sort(list, function(player1: any, player2: any)
-				if player1.DisplayName:lower() ~= player2.DisplayName:lower() then
-					return player1.DisplayName:lower() < player2.DisplayName:lower()
-				else
-					return player1.Name:lower() < player2.Name:lower()
-				end
-			end)
-		end, dependencyArray(trimmedSearchText, allPlayers))
-
-		local children: any = React.useMemo(function()
-			local entries = {}
-			entries["UIListLayout"] = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			})
-
-			for i, player in ipairs(filteredPlayers) do
-				entries[i] = React.createElement(FriendListItem, {
-					userId = player.UserId,
-					userName = player.Name,
-					displayName = player.DisplayName,
-					dismissCallback = props.dismissCallback,
-					layoutOrder = i,
-					showDivider = i ~= #filteredPlayers,
-					isDevMode = props.isDevMode :: boolean,
-				})
-			end
-
-			return entries
-		end, dependencyArray(filteredPlayers, props.isDevMode))
-
-		return if #filteredPlayers == 0
-			then noFriendsText
-			else React.createElement("ScrollingFrame", {
-				Size = UDim2.new(1, 0, 1, 0),
+		elseif #friends == 0 then noFriendsText
+		else Roact.createFragment({
+			React.createElement("ScrollingFrame", {
+				Size = UDim2.fromScale(1, 1),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
-				CanvasSize = UDim2.new(),
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
+				CanvasSize = UDim2.new(),
+				ElasticBehavior = Enum.ElasticBehavior.Never,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
+				ScrollingEnabled = not overscrolling and props.scrollingEnabled,
 				ScrollBarImageColor3 = theme.UIEmphasis.Color,
 				ScrollBarImageTransparency = theme.UIEmphasis.Transparency,
 				ScrollBarThickness = 4,
-			}, children)
-	end
+				ref = scrollingFrameRef,
+				[React.Change.CanvasPosition] = onFetchNextPage,
+			}, children),
+
+			TouchStartedUserInputConnection = props.isSmallScreen
+				and props.scrollingEnabled
+				and React.createElement(ExternalEventConnection, {
+					event = UserInputService.TouchStarted,
+					callback = touchStarted,
+				}),
+
+			TouchMovedUserInputConnection = props.isSmallScreen
+				and props.scrollingEnabled
+				and React.createElement(ExternalEventConnection, {
+					event = UserInputService.TouchMoved,
+					callback = touchMoved,
+				}),
+
+			TouchEndedUserInputConnection = props.isSmallScreen
+				and props.scrollingEnabled
+				and React.createElement(ExternalEventConnection, {
+					event = UserInputService.TouchEnded,
+					callback = touchEnded,
+				}),
+		})
 end
 
 return FriendListContainer

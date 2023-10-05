@@ -2,8 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
 
-local FFlagLuaInviteModalEnabled = settings():GetFFlag("LuaInviteModalEnabledV384")
-
 local BUTTON_IMAGE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButton.png"
 local BUTTON_IMAGE_ACTIVE = "rbxasset://textures/ui/Settings/MenuBarAssets/MenuButtonSelected.png"
 local BUTTON_SLICE = Rect.new(8, 6, 46, 44)
@@ -34,10 +32,7 @@ function RectangleButton:render()
 	local layoutOrder = self.props.layoutOrder
 	local zIndex = self.props.zIndex
 	local onClick = self.props.onClick
-	local visible
-	if FFlagLuaInviteModalEnabled then
-		visible = self.props.visible
-	end
+	local visible = self.props.visible
 
 	local children = self.props[Roact.Children] or {}
 
