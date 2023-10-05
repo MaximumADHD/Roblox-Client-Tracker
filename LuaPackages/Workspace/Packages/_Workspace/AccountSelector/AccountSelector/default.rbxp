@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AccountSelector",
+    "tree": {
+      "$path": "../../../../../../../modules/account-authentication/account-selector/src"
+    }
+  }
+}

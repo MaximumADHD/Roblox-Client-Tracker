@@ -28,6 +28,7 @@ Studio.Toolbox.Common.Close,Close, ,Close
 Studio.Toolbox.AssetTable.Name,Name, ,Name
 Studio.Toolbox.AudioView.Name,Name, ,Name
 Studio.Toolbox.SearchOptionsSort.Name,Name, ,Name
+Studio.Toolbox.UiSortIntent.Name,Name, ,Name
 Studio.Toolbox.General.CategoryGroupDecals,Group Images, ,Group Images
 Studio.Toolbox.Audio.SoundEffect.Category.Arrow,Arrow, ,Arrow
 Studio.Toolbox.Common.InsertAborted,Not inserting asset {assetId} because it is invalid., ,Not inserting asset {assetId} because it is invalid.
@@ -58,9 +59,11 @@ Studio.Toolbox.Common.OK,OK, ,OK
 Studio.Toolbox.Audio.SoundEffect.Category.light,Light, ,Light
 Studio.Toolbox.General.SuggestionsLight,Light, ,Light
 Studio.Toolbox.General.SortByUpdated,Updated, ,Updated
+Studio.Toolbox.UiSortIntent.Updated,Updated, ,Updated
 Studio.Toolbox.Common.Yes,Yes, ,Yes
 Studio.Toolbox.General.AssetTypePlugin,Plugin, ,Plugin
 Studio.Toolbox.General.SortByFavorites,Favorites, ,Favorites
+Studio.Toolbox.UiSortIntent.Favorites,Favorites, ,Favorites
 Studio.Toolbox.Audio.SoundEffect.Category.Alarm,Alarm, ,Alarm
 Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users
 Studio.Toolbox.Audio.SoundEffect.Category.debris,Debris, ,Debris
@@ -105,6 +108,7 @@ Studio.Toolbox.Audio.SoundEffect.Category.voice,Voice, ,Voice
 Studio.Toolbox.Audio.SoundEffect.Category.Vocal music,Vocal music, ,Vocal music
 Studio.Toolbox.Audio.SoundEffect.Category.Vocal_music,Vocal music, ,Vocal music
 Studio.Toolbox.General.SortByRatings,Ratings, ,Ratings
+Studio.Toolbox.UiSortIntent.Ratings,Ratings, ,Ratings
 Studio.Toolbox.General.CategoryCreationsShirtAccessory,Shirt Accessories, ,Shirt Accessories
 Studio.Toolbox.General.CategoryFonts,Fonts, ,Fonts
 Studio.Toolbox.Audio.SoundEffect.Category.instruments,Instruments, ,Instruments
@@ -213,6 +217,7 @@ Studio.Toolbox.Audio.SoundEffect.Category.Brass_instrument,Brass instrument, ,Br
 Studio.Toolbox.Audio.SoundEffect.Category.foliage,Foliage, ,Foliage
 Studio.Toolbox.General.SortByRelevance,Relevance, ,Relevance
 Studio.Toolbox.SearchOptionsSort.Relevance,Relevance, ,Relevance
+Studio.Toolbox.UiSortIntent.Relevance,Relevance, ,Relevance
 Studio.Toolbox.AssetConfigPreview.MaxSize,Max size: {maxDimensionsX}x{maxDimensionsY} px, ,Max size: {maxDimensionsX}x{maxDimensionsY} px
 Studio.Toolbox.Audio.Music.Genre.atmosphere,Atmosphere, ,Atmosphere
 Studio.Toolbox.General.VotingVoteText,vote, ,vote
@@ -262,6 +267,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Creator,Studio.Toolbox.General.Ownership,Creator
  ,Creator,Studio.Toolbox.General.SearchOptionCreator,Creator
  ,Creator,Studio.Toolbox.SearchOptionsSort.Creator,Creator
+ ,Creator,Studio.Toolbox.UiSortIntent.Creator,Creator
  ,Creator,Studio.Toolbox.General.SearchOptionCreatorAndGroups,Creator & Groups
  ,Creator & Groups,Studio.Toolbox.General.SearchOptionSort,Sort By
  ,Sort By,Studio.Toolbox.General.SearchOptionsApply,Apply
@@ -658,6 +664,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Ska,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
  ,Restore previous version,Studio.Toolbox.Audio.SoundEffect.Category.electric,Electric
  ,Electric,Studio.Toolbox.HomeView.trending,Trending
+ ,Trending,Studio.Toolbox.UiSortIntent.Trending,Trending
  ,Trending,Studio.Toolbox.AssetConfigVersions.AddANote,Add a note or select to restore versions.
  ,Add a note or select to restore versions.,Studio.Toolbox.Audio.SoundEffect.Category.air,Air
  ,Air,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort
@@ -854,6 +861,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Music of Africa,Studio.Toolbox.AssetConfigAdditionalImages.SelectLimit,You can select up to {limit} screenshots
  ,You can select up to {limit} screenshots,Studio.Toolbox.AssetTable.DateCreated,Date Created
  ,Date Created,Studio.Toolbox.SearchOptionsSort.DateCreated,Date Created
+ ,Date Created,Studio.Toolbox.UiSortIntent.DateCreated,Date Created
  ,Date Created,Studio.Toolbox.Audio.SoundEffect.Category.Traditional music,Traditional music
  ,Traditional music,Studio.Toolbox.Audio.SoundEffect.Category.Traditional_music,Traditional music
  ,Traditional music,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
@@ -887,11 +895,13 @@ StarterPack is a Roblox API term that should not be translated.,Put this tool in
  ,The Essentials,Studio.Toolbox.HomeView.TopSearches,Top Searches
  ,Top Searches,Studio.Toolbox.AssetTable.DateUpdated,Date Modified
  ,Date Modified,Studio.Toolbox.SearchOptionsSort.DateModified,Date Modified
+ ,Date Modified,Studio.Toolbox.UiSortIntent.DateModified,Date Modified
  ,Date Modified,Studio.Toolbox.AudioView.Artist,Artist
  ,Artist,Studio.Toolbox.AudioView.Length,Length
  ,Length,Studio.Toolbox.Audio.SoundEffect.Category.motorcycles,Motorcycles
  ,Motorcycles,Studio.Toolbox.Audio.SoundEffect.Category.swishes,Swishes
  ,Swishes,Studio.Toolbox.AudioView.Duration,Duration
+ ,Duration,Studio.Toolbox.UiSortIntent.Duration,Duration
  ,Duration,Studio.Toolbox.Audio.SoundEffect.Category.Trumpet,Trumpet
  ,Trumpet,Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
 ID: {assetId:int},Type: {assetType}, ,Name: {assetName}
@@ -1546,6 +1556,11 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Pink noise,Studio.Toolbox.Audio.SoundEffect.Category.Vibration,Vibration
  ,Vibration,Studio.Toolbox.Audio.SoundEffect.Category.Television,Television
  ,Television,Studio.Toolbox.SearchOptionsSort.MostUsed,Most Used
+ ,Most Used,Studio.Toolbox.UiSortIntent.MostTaken,Most Used
  ,Most Used,Studio.Toolbox.SearchOptionsSort.ShortestToLongest,Shortest to Longest
  ,Shortest to Longest,Studio.Toolbox.SearchOptionsType.All,All
- ,All
+ ,All,Studio.Toolbox.UiSortIntent.AllTime,All Time
+ ,All Time,Studio.Toolbox.UiSortIntent.Top,Top
+ ,Top,Studio.Toolbox.SortDirection.Ascending,Ascending
+ ,Ascending,Studio.Toolbox.SortDirection.Descending,Descending
+ ,Descending

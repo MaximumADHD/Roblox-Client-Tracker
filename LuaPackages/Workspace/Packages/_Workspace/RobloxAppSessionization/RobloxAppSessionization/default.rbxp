@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RobloxAppSessionization",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/roblox-app-sessionization/src"
+    }
+  }
+}

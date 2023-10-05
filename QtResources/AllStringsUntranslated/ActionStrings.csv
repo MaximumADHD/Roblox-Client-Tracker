@@ -308,3 +308,6 @@ Studio.App.RobloxRibbonMainWindow.TagEditor,,Tag Editor,Tag Editor
 Studio.App.RobloxRibbonMainWindow.TagEditorTooltip,,Create and manage groupings of instances.,Create and manage groupings of instances.
 Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Preview,Avatar Preview
 Studio.App.PackageContextMenu.ShowPackagesDiff,,View Changes,View Changes
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction,,Update Available,Update Available
+Studio.App.RibbonUpdatesBar.WhatsNewAction,,Notifications,Notifications
+Studio.App.RibbonUpdatesBar.WhatsNewAction.ToolTip,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!

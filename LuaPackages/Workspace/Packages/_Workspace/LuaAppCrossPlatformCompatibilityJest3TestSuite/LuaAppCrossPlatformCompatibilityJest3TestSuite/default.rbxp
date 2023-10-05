@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "LuaAppCrossPlatformCompatibilityJest3TestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/lua-app-components-test-suite/src"
+    }
+  }
+}

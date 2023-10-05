@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ChallengeDialog",
+    "tree": {
+      "$path": "../../../../../../../modules/account-security/challenge-dialog/src"
+    }
+  }
+}

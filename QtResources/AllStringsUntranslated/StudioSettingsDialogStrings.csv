@@ -64,6 +64,7 @@ Studio.App.SettingsHeader.Studio,,Studio,Studio
 Studio.App.SettingsCategory.StudioCamera,,Camera,Camera
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
 Studio.App.Property.FreeCameraSpeedScroll,,Scroll Wheel Adjusts Free-Camera Speed,Scroll Wheel Adjusts Free-Camera Speed
+Studio.App.Property.CameraSpeedAdjustBinding,,Change Camera Speed,Change Camera Speed
 Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
 Studio.App.Property.CameraPanSpeed,,Camera Pan Speed,Camera Pan Speed
 Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse Wheel Speed

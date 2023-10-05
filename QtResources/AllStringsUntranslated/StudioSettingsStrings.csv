@@ -32,6 +32,9 @@ Studio.App.Settings.SelectFolderMessageBoxText,,"Need a location to store local 
 Do you want to pick a file path now?","Need a location to store local files.
 Do you want to pick a file path now?"
 Studio.App.PropertyEnum.Off,,Off,Off
+Studio.App.PropertyEnum.None,,Disabled,Disabled
+Studio.App.PropertyEnum.RmbScroll,,Right Mouse Button + Scroll,Right Mouse Button + Scroll
+Studio.App.PropertyEnum.AltScroll,,Alt + Scroll,Alt + Scroll
 Studio.App.BetaFeatures.CreateAnimationFromVideoTitle,,Live Animation Creator,Live Animation Creator
 Studio.App.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar."
 Studio.App.BetaFeatures.DragDetectorsTitle,,DragDetectors,DragDetectors

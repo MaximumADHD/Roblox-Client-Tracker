@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "MockableProxyServices",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/mockable-proxy-services/src"
+    }
+  }
+}

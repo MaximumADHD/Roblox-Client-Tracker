@@ -56,6 +56,8 @@ Studio.App.ScriptingCmd.DELETELINES,,Delete Lines,Delete Lines
 Studio.App.ScriptingCmd.DELETELINESTooltip,,Delete selected line(s),Delete selected line(s)
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to Start of Line,Delete to Start of Line
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,Delete to the start of the current line,Delete to the start of the current line
+Studio.App.ScriptingCmd.NEWLINEAFTERCURSOR,,Insert newline after cursor,Insert newline after cursor
+Studio.App.ScriptingCmd.NEWLINEAFTERCURSORTooltip,,Insert a newline after the cursor,Insert a newline after the cursor
 Studio.App.ScriptingCmd.FORMATALL,,Format Document,Format Document
 Studio.App.ScriptingCmd.FORMATALLTooltip,,Format the entire document,Format the entire document
 Studio.App.ScriptingCmd.INDENT,,Indent,Indent

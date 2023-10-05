@@ -4,6 +4,8 @@ Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %d %s
 Studio.AssetImporter.AssetImportTree.Errors,error(s)
 Studio.AssetImporter.AssetImportTree.RightClickApplyToAll,Apply To All
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s)
+Studio.AssetImporter.Callouts.UgcValidationDesc,Enable “Validate UGC Body” to open in Avatar Previewer after importing and validate if your model meets UGC publication requirements.
+Studio.AssetImporter.Callouts.UgcValidationTitle,Avatar Detected
 Studio.AssetImporter.EnumItem.Back,Back
 Studio.AssetImporter.EnumItem.Bottom,Bottom
 Studio.AssetImporter.EnumItem.CM,CM
@@ -43,6 +45,7 @@ Studio.AssetImporter.Plugin.Description,Import a mesh rig or avatar from a file 
 Studio.AssetImporter.Plugin.Import,Import
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import
 Studio.AssetImporter.Plugin.Name,AssetImporter
+Studio.AssetImporter.Plugin.Save,Save
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
@@ -124,7 +127,7 @@ Studio.AssetImporter.PropertiesTooltip.UseImportedPivot,Whether or not to use th
 Studio.AssetImporter.PropertiesTooltip.UseSceneOriginAsCFrame,If the model's CFrame should be set at the imported scene's origin
 Studio.AssetImporter.PropertiesTooltip.UseSceneOriginAsPivot,If the model's pivot point should be set at the imported scene's origin
 Studio.AssetImporter.PropertiesTooltip.UsesCages,Find meshes with cage names and convert them to Wrap instances
-Studio.AssetImporter.PropertiesTooltip.ValidateUgcBody,Opens the Avatar Previewer for the imported rig after import. The rig must be inserted into the workspace.
+Studio.AssetImporter.PropertiesTooltip.ValidateUgcBody,Inserts imported model in Workspace and opens Avatar Previewer to run UGC validation
 Studio.AssetImporter.PropertiesTooltip.WorldForward,The file's forward vector
 Studio.AssetImporter.PropertiesTooltip.WorldUp,The file's up vector
 Studio.AssetImporter.Sections.AnimationGeneral,Animation General
@@ -217,17 +220,22 @@ Studio.AssetImporter.Statuses.UGCMaxMeshTrianglesWarning,Mesh exceeds the max tr
 Studio.AssetImporter.Statuses.UGCMeshVertColorsWarning,"Mesh has non-white vertex color values, which violates UGC upload requirements"
 Studio.AssetImporter.Statuses.UnsupportedPreviewTextureType,".tga and .gif are not fully supported. They may not be visible in previews, and in some cases may cause the upload to fail, but they'll appear if the upload succeeds. You may convert them to a different file type such as .png or .jpg to view them in the preview window."
 Studio.AssetImporter.Statuses.UnsupportedPreviewTextureTypeWarning,".tga and .gif are not fully supported. They may not be visible in previews, and in some cases may cause the upload to fail, but they'll appear if the upload succeeds. You may convert them to a different file type such as .png or .jpg to view them in the preview window."
-Studio.AssetImporter.Statuses.ValidateUgcButNoInsertError,Please insert the rig into the workspace to open the Avatar Previewer after import.
+Studio.AssetImporter.Statuses.ValidateUgcButNoInsertError,Please enable "Insert In Workspace" to open the Avatar Previewer after import.
 Studio.AssetImporter.Templates.Default,Default
 Studio.AssetImporter.Templates.Delete,Delete
 Studio.AssetImporter.Templates.LastImportTooltip,Root settings from the last time you imported a file
 Studio.AssetImporter.Templates.LastImported,Last Imported
 Studio.AssetImporter.Templates.ModifiedTemplateTooltip,You have made some changes based on the settings from your last imported file
+Studio.AssetImporter.Templates.PresetsRemaining1,{presetsRemaining} preset slots left.
 Studio.AssetImporter.Templates.Rename,Rename
 Studio.AssetImporter.Templates.Reset,Reset
 Studio.AssetImporter.Templates.ResetTooltip,Reset settings back to selected template
 Studio.AssetImporter.Templates.SaveChanges,Save changes
+Studio.AssetImporter.Templates.SaveInitialPreset,Save as initial preset
 Studio.AssetImporter.Templates.SaveNewPreset,Save as new preset
+Studio.AssetImporter.Templates.TooManyPresets,No preset slots are left. Please delete or edit one of your other presets.
+Studio.AssetImporter.Templates.WindowTitleNewPreset,Create new preset
+Studio.AssetImporter.Templates.WindowTitleRenamePreset,Rename preset
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand
 Studio.AssetImporter.Upload.Failure,Import failed

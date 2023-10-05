@@ -26,17 +26,23 @@ Studio.TerrainEditor.Biomes.Plains,Plains
 Studio.TerrainEditor.Biomes.Water,Water
 Studio.TerrainEditor.BrushMode.Add,Add
 Studio.TerrainEditor.BrushMode.Subtract,Subtract
+Studio.TerrainEditor.BrushSettings.Apply,Apply
 Studio.TerrainEditor.BrushSettings.BaseHeight,Base Height
 Studio.TerrainEditor.BrushSettings.BaseSize,Base Size
+Studio.TerrainEditor.BrushSettings.BrushMode,Brush Mode
 Studio.TerrainEditor.BrushSettings.BrushShape,Brush Shape
+Studio.TerrainEditor.BrushSettings.Edit,Edit
 Studio.TerrainEditor.BrushSettings.FixedPlane,Fixed Plane
+Studio.TerrainEditor.BrushSettings.FixedPlanePosition,Plane Position
 Studio.TerrainEditor.BrushSettings.FlattenMode,Flatten Mode
 Studio.TerrainEditor.BrushSettings.IgnoreParts,Ignore Parts
 Studio.TerrainEditor.BrushSettings.IgnoreWater,Ignore Water
+Studio.TerrainEditor.BrushSettings.ManualPlaneLock,Edit Plane
 Studio.TerrainEditor.BrushSettings.PivotPosition,Pivot Position
 Studio.TerrainEditor.BrushSettings.PlaneLock,Plane Lock
 Studio.TerrainEditor.BrushSettings.PlanePosition,Plane Position
-Studio.TerrainEditor.BrushSettings.SnapToVoxels,Snap to Voxels
+Studio.TerrainEditor.BrushSettings.PlaneRotation,Plane Rotation
+Studio.TerrainEditor.BrushSettings.Snapping,Snapping
 Studio.TerrainEditor.BrushSettings.Strength,Strength
 Studio.TerrainEditor.BrushShape.Cube,Cube
 Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
@@ -58,6 +64,7 @@ Studio.TerrainEditor.EditorEnum.ImportMode,Import Mode
 Studio.TerrainEditor.EditorEnum.MaterialMode,Material Mode
 Studio.TerrainEditor.EditorEnum.PivotPosition,Pivot Position
 Studio.TerrainEditor.EditorEnum.PlaneLock,Plane Lock
+Studio.TerrainEditor.EditorEnum.Snapping,Snapping
 Studio.TerrainEditor.FillMode.Fill,Fill
 Studio.TerrainEditor.FillMode.Replace,Replace
 Studio.TerrainEditor.FlattenMode.Both,Both
@@ -177,6 +184,9 @@ Studio.TerrainEditor.SelectionSettings.Position,Position
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation
 Studio.TerrainEditor.SelectionSettings.Size,Size
 Studio.TerrainEditor.SelectionSettings.Transform,Transform
+Studio.TerrainEditor.Snapping.Increment,Increment
+Studio.TerrainEditor.Snapping.Off,Off
+Studio.TerrainEditor.Snapping.Voxel,Voxel
 Studio.TerrainEditor.Tabs.Create,Create
 Studio.TerrainEditor.Tabs.Edit,Edit
 Studio.TerrainEditor.TransformSettings.Apply,Apply

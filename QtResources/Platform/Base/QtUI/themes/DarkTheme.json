@@ -913,6 +913,21 @@
             "AlertBackground Inform SubtleFill": {
                 "Default": "#002E49"
             }
+        },
+        {
+            "OnboardingShadow": {
+                "Default": "#000000"
+            }
+        },
+        {
+            "OnboardingCover": {
+                "Default": "#3C64FA"
+            }
+        },
+        {
+            "OnboardingHighlight": {
+                "Default": "#4785FF"
+            }
         }
     ],
     "Paths": [

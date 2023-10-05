@@ -217,17 +217,17 @@ Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int AssetDeliveryProxy.Port
 	Property bool AssetDeliveryProxy.StartServer
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Map AssetImportService:GetAllTemplates() {RobloxScriptSecurity}
-	Function Map AssetImportService:GetTemplate(string name) {RobloxScriptSecurity}
+	Function Map AssetImportService:GetAllPresets() {RobloxScriptSecurity}
+	Function Map AssetImportService:GetPreset(string name) {RobloxScriptSecurity}
 	Function string AssetImportService:PickFileWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function Array AssetImportService:PickMultipleFilesWithPrompt() {RobloxScriptSecurity} [Yields]
-	Function void AssetImportService:RemoveTemplate(string name) {RobloxScriptSecurity}
-	Function void AssetImportService:SaveTemplate(string name, Dictionary importTemplate) {RobloxScriptSecurity}
+	Function void AssetImportService:RemovePreset(string name) {RobloxScriptSecurity}
+	Function bool AssetImportService:SavePreset(string name, Dictionary preset) {RobloxScriptSecurity}
 	Function AssetImportSession AssetImportService:StartSessionWithPath(string filePath) {RobloxScriptSecurity}
 	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
+	Function void AssetImportSession:ApplyPreset(Dictionary preset) {RobloxScriptSecurity}
 	Function void AssetImportSession:ApplySettings() {RobloxScriptSecurity}
-	Function void AssetImportSession:ApplyTemplate(Dictionary template) {RobloxScriptSecurity}
 	Function void AssetImportSession:Cancel() {RobloxScriptSecurity}
 	Function Dictionary AssetImportSession:GetCurrentStatusTable() {RobloxScriptSecurity}
 	Function string AssetImportSession:GetFilename() {RobloxScriptSecurity}
@@ -446,6 +446,8 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Function int AvatarChatService:PollClientFeatures() {RobloxScriptSecurity}
 	Function int AvatarChatService:PollServerFeatures() {RobloxScriptSecurity}
 	Event AvatarChatService.OnClientFeatures(int features) {RobloxSecurity} [Hidden]
+Class AvatarCreationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Tuple AvatarCreationService:PromptCreateAvatarAsync(Player player, HumanoidDescription humanoidDescription) [Yields]
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
 	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) [Yields]
@@ -528,7 +530,7 @@ Class BaseImportData : Instance [NotCreatable] [NotReplicated]
 	Property string BaseImportData.Id [ReadOnly]
 	Property string BaseImportData.ImportName
 	Property bool BaseImportData.ShouldImport
-	Function Map BaseImportData:CreateTemplateFromData() {RobloxScriptSecurity}
+	Function Map BaseImportData:CreatePresetFromData() {RobloxScriptSecurity}
 	Function Dictionary BaseImportData:GetStatuses() {RobloxScriptSecurity}
 	Function Dictionary BaseImportData:GetStatuses_DEPRECATED() {RobloxScriptSecurity}
 	Event BaseImportData.StatusRemoved(Dictionary status)
@@ -1231,7 +1233,7 @@ Class ControllerBase : Instance [NotCreatable]
 	Property bool ControllerBase.BalanceRigidityEnabled
 	Property bool ControllerBase.Active [ReadOnly]
 	Property float ControllerBase.MoveSpeedFactor
-Class AirController : ControllerBase [NotBrowsable]
+Class AirController : ControllerBase
 	Property float AirController.BalanceMaxTorque
 	Property float AirController.BalanceSpeed
 	Property Vector3 AirController.LinearImpulse [Hidden] [NotReplicated]
@@ -1240,12 +1242,12 @@ Class AirController : ControllerBase [NotBrowsable]
 	Property bool AirController.MaintainAngularMomentum
 	Property float AirController.TurnMaxTorque
 	Property float AirController.TurnSpeedFactor
-Class ClimbController : ControllerBase [NotBrowsable]
+Class ClimbController : ControllerBase
 	Property float ClimbController.BalanceMaxTorque
 	Property float ClimbController.BalanceSpeed
 	Property float ClimbController.AccelerationTime
 	Property float ClimbController.MoveMaxForce
-Class GroundController : ControllerBase [NotBrowsable]
+Class GroundController : ControllerBase
 	Property float GroundController.AccelerationLean
 	Property float GroundController.BalanceMaxTorque
 	Property float GroundController.BalanceSpeed
@@ -1257,13 +1259,13 @@ Class GroundController : ControllerBase [NotBrowsable]
 	Property float GroundController.StandForce
 	Property float GroundController.StandSpeed
 	Property float GroundController.TurnSpeedFactor
-Class SwimController : ControllerBase [NotBrowsable]
+Class SwimController : ControllerBase
 	Property float SwimController.PitchMaxTorque
 	Property float SwimController.PitchSpeedFactor
 	Property float SwimController.RollMaxTorque
 	Property float SwimController.RollSpeedFactor
 	Property float SwimController.AccelerationTime
-Class ControllerManager : Instance [NotBrowsable]
+Class ControllerManager : Instance
 	Property ControllerBase ControllerManager.ActiveController
 	Property float ControllerManager.BaseMoveSpeed
 	Property float ControllerManager.BaseTurnSpeed
@@ -1554,7 +1556,7 @@ Class DynamicImage : Instance
 	Function void DynamicImage:DrawImage(Vector2 position, DynamicImage image, Enum.ImageCombineType combineType)
 	Function void DynamicImage:DrawLine(Vector2 p1, Vector2 p2, Color3 color, float transparency)
 	Function void DynamicImage:DrawRectangle(Vector2 position, Vector2 size, Color3 color, float transparency)
-	Function Array DynamicImage:ReadPixels(Vector2 position, Vector2 size) [CustomLuaState]
+	Function Array DynamicImage:ReadPixels(Vector2 position, Vector2 size) [CustomLuaState] {🧬Safe}
 	Function void DynamicImage:Resize(Vector2 size)
 	Function void DynamicImage:Rotate(float degrees, bool changeSize)
 	Function void DynamicImage:WritePixels(Vector2 position, Vector2 size, Array pixels) [CustomLuaState]
@@ -2819,6 +2821,8 @@ Class LodDataEntity : Instance [NotCreatable]
 	Property Vector3 LodDataEntity.EntityScale [Hidden] [NotScriptable]
 	Property Instance LodDataEntity.EntitySource [Hidden] [NotScriptable]
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
+Class LogReporterService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function bool LogReporterService:ReportLog(string logId, string desc) {RobloxScriptSecurity}
 Class LogService : Instance [NotCreatable] [Service]
 	Function void LogService:ClearOutput()
 	Function void LogService:ExecuteScript(string source) {RobloxScriptSecurity}
@@ -2893,6 +2897,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Dictionary MarketplaceService:GetUserSubscriptionStatusAsync(Player user, string subscriptionId) [Yields]
 	Function Dictionary MarketplaceService:PerformPurchase(Enum.InfoType infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase, string collectibleItemId = "", string collectibleProductId = "", string idempotencyKey = "", string purchaseAuthToken = "") {RobloxScriptSecurity} [Yields]
 	Function Dictionary MarketplaceService:PerformPurchaseV2(Enum.InfoType infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase, Dictionary collectiblesProductDetails) {RobloxScriptSecurity} [Yields]
+	Function string MarketplaceService:PerformSubscriptionPurchase(string subscriptionId) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
 	Function bool MarketplaceService:PlayerOwnsBundle(Player player, int64 bundleId) [Yields]
@@ -3915,6 +3920,7 @@ Class Player : Instance
 	Event Player.ScopeCheckInitiated(string guid, Array serializedScopes, Dictionary metadata) {RobloxSecurity} [Hidden]
 	Event Player.ScriptSecurityError(string hash, string error, string stack) {LocalUserSecurity} [Hidden]
 	Event Player.ServerToClientUnfilteredChatReplicate(bool value) {RobloxSecurity} [Hidden]
+	Event Player.ServerUpdatedHead(Enum.AssetType assetType, int64 assetId) {RobloxSecurity} [Hidden]
 	Event Player.SetShutdownMessage(string message) {RobloxSecurity} [Hidden]
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
 	Event Player.StatsAvailable(string info) {LocalUserSecurity} [Hidden]
@@ -4455,7 +4461,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Tuple ScriptEditorService:OpenScriptDocumentAsync(LuaSourceContainer script) {PluginSecurity} [Yields]
 	Function void ScriptEditorService:RegisterAutocompleteCallback(string name, int priority, Function callbackFunction) {PluginSecurity}
 	Function void ScriptEditorService:RegisterScriptAnalysisCallback(string name, int priority, Function callbackFunction) {PluginSecurity}
-	Function Tuple ScriptEditorService:UpdateSourceAsync(LuaSourceContainer script, Function callback) {PluginSecurity} [Yields]
+	Function void ScriptEditorService:UpdateSourceAsync(LuaSourceContainer script, Function callback) {PluginSecurity} [Yields]
 	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {PluginSecurity}
@@ -4482,11 +4488,11 @@ Class SensorBase : Instance [NotCreatable]
 	Property Enum.SensorUpdateType SensorBase.UpdateType
 	Function void SensorBase:Sense() [Deprecated]
 	Event SensorBase.OnSensorOutputChanged()
-Class BuoyancySensor : SensorBase [NotBrowsable]
+Class BuoyancySensor : SensorBase
 	Property bool BuoyancySensor.FullySubmerged
 	Property bool BuoyancySensor.TouchingSurface
 Class ControllerSensor : SensorBase [NotCreatable]
-Class ControllerPartSensor : ControllerSensor [NotBrowsable]
+Class ControllerPartSensor : ControllerSensor
 	Property float ControllerPartSensor.SearchDistance
 	Property Enum.SensorMode ControllerPartSensor.SensorMode
 	Property CFrame ControllerPartSensor.HitFrame
@@ -4887,6 +4893,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float Studio.Camera Pan Speed {RobloxScriptSecurity}
 	Property float Studio.Camera Shift Speed
 	Property float Studio.Camera Speed
+	Property Enum.CameraSpeedAdjustBinding Studio.Camera Speed Adjust Binding
 	Property bool Studio.Camera Zoom to Mouse Position
 	Property bool Studio.CameraAdaptiveSpeed {RobloxScriptSecurity}
 	Property bool Studio.CameraTweenFocus {RobloxScriptSecurity}
@@ -5025,13 +5032,13 @@ Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioAssetService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioAssetService.OnPublishPackageResult(Dictionary result, string errorMessage) {RobloxScriptSecurity}
 	Event StudioAssetService.OnSaveToRoblox(Objects instances, Variant assetType) {RobloxScriptSecurity}
-Class StudioAttachment : Instance
+Class StudioAttachment : Instance [NotReplicated]
 	Property bool StudioAttachment.AutoHideParent
 	Property bool StudioAttachment.IsArrowVisible
 	Property Vector2 StudioAttachment.Offset
 	Property Vector2 StudioAttachment.SourceAnchorPoint
 	Property Vector2 StudioAttachment.TargetAnchorPoint
-Class StudioCallout : Instance [NotCreatable] [NotReplicated]
+Class StudioCallout : Instance [NotReplicated]
 	Property Vector2 StudioCallout.AnchorPoint {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioCallout.IsArrowVisible {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioCallout.IsNextVisible {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -5128,10 +5135,13 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum.StudioStyleGuideColor styleguideitem, Enum.StudioStyleGuideModifier modifier = "Default") {PluginSecurity}
 Class StudioWidgetsService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void StudioWidgetsService:ApplyFillInBox(StudioWidget target) {RobloxScriptSecurity}
+	Function void StudioWidgetsService:ApplyHighlight(StudioWidget target, string? rowName) {RobloxScriptSecurity}
+	Function void StudioWidgetsService:ApplyShadows() {RobloxScriptSecurity}
+	Function void StudioWidgetsService:ApplySpotlight(StudioWidget target, string? rowName) {RobloxScriptSecurity}
 	Function void StudioWidgetsService:AttachPluginGui(StudioWidget target, PluginGui gui, StudioAttachment attachment) {RobloxScriptSecurity}
 	Function StudioWidget StudioWidgetsService:GetWidgetFromLabel(string label) {RobloxScriptSecurity}
 	Function void StudioWidgetsService:HideSpotlight() {RobloxScriptSecurity}
-	Function void StudioWidgetsService:ShowSpotlight(StudioWidget target, bool? sinkInput) {RobloxScriptSecurity}
 Class StyleBase : Instance [NotCreatable]
 	Function Objects StyleBase:GetStyleRules()
 	Function void StyleBase:InsertStyleRule(StyleRule rule, int? index)
@@ -5464,11 +5474,11 @@ Class TutorialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioWidget TutorialService:GetStudioWidgetFromLabel(string label) {RobloxScriptSecurity}
 	Function string TutorialService:GetTutorialIDToLaunch() {RobloxScriptSecurity}
 	Function bool TutorialService:HasUserCompletedTutorial() {RobloxScriptSecurity}
-	Function bool TutorialService:HideOnlyNamedWidgets(string configurationLabel) {RobloxScriptSecurity}
+	Function bool TutorialService:HideWidgets(string commaSeparatedNames) {RobloxScriptSecurity}
 	Function void TutorialService:PromptClosePlace() {RobloxScriptSecurity}
 	Function void TutorialService:SetTutorialCompletionStatus(bool completed) {RobloxScriptSecurity}
 	Function bool TutorialService:ShouldLaunchTutorial() {RobloxScriptSecurity}
-	Function bool TutorialService:ShowOnlyNamedWidgets(string configurationLabel) {RobloxScriptSecurity}
+	Function bool TutorialService:ShowWidgets(string commaSeparatedNames) {RobloxScriptSecurity}
 Class TweenBase : Instance [NotCreatable] [NotBrowsable]
 	Property Enum.PlaybackState TweenBase.PlaybackState [ReadOnly]
 	Function void TweenBase:Cancel()
@@ -5948,14 +5958,16 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.JoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.PublishStateChange(Enum.MuteState muteState, string sessionId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeAcked(string handshakeAnswer, string sessionId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeCompleted(string sessionId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeInitiated(string handshakeOffer, Enum.MuteState muteState, string sessionId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(string channelName, int64 participantId, string sessionId, string channelId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RelayCandidatesGathered(Enum.VoiceControlPath voiceControlPath, string serializedIceCandidates, bool isLast, string sessionId) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.SubscriptionHandshakeAcked(int eventTag, string handshakeAnswer, string userToMute, string sessionId) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.SubscriptionHandshakeCompleted(string subscriptionInfo, string sessionId) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.SubscriptionHandshakeInitiated(string handshakeOffer, string subscriptionInfo, bool isNewConnection, string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscribeStateChange(Enum.MuteState muteState, string userIds, string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeAcked(int64 eventTag, string handshakeAnswer, string usersToMute, string sessionId) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeCompleted(string sessionId, int64 eventTag) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionHandshakeInitiated(string handshakeOffer, string newSubscriptionStates, bool isNewConnection, string sessionId, int64 eventTag) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
@@ -6353,6 +6365,10 @@ Enum CameraMode
 Enum CameraPanMode
 	EnumItem CameraPanMode.Classic : 0
 	EnumItem CameraPanMode.EdgeBump : 1
+Enum CameraSpeedAdjustBinding
+	EnumItem CameraSpeedAdjustBinding.None : 0
+	EnumItem CameraSpeedAdjustBinding.RmbScroll : 1
+	EnumItem CameraSpeedAdjustBinding.AltScroll : 2
 Enum CameraType
 	EnumItem CameraType.Fixed : 0
 	EnumItem CameraType.Attach : 1
@@ -8249,6 +8265,9 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.AICOOverlayButtonBackground : 129
 	EnumItem StudioStyleGuideColor.AICOOverlayButtonBackgroundHover : 130
 	EnumItem StudioStyleGuideColor.AICOOverlayButtonBackgroundPressed : 131
+	EnumItem StudioStyleGuideColor.OnboardingCover : 132
+	EnumItem StudioStyleGuideColor.OnboardingHighlight : 133
+	EnumItem StudioStyleGuideColor.OnboardingShadow : 134
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

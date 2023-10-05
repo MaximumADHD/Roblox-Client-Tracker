@@ -221,6 +221,8 @@ Studio.App.BulkVideoImportErrors.ValidationError,Deprecated. Will remove soon.,T
 Studio.App.BulkVideoImportErrors.PermissionDenied,,Permission is denied.,Permission is denied.
 Studio.App.BulkVideoImportErrors.ResourceExhausted,,Video upload limit is reached.,Video upload limit is reached.
 Studio.App.BulkVideoImportErrors.ContentModerated,,The video is moderated.,The video is moderated.
+Studio.App.BulkVideoImportErrors.InsufficientFunds,,Insufficient Robux.,Insufficient Robux.
+Studio.App.BulkVideoImportErrors.IdVerificationError,,Age ID verification is required.,Age ID verification is required.
 Studio.App.BulkVideoImportErrors.UnsupportedFileType,,Unsupported file type.,Unsupported file type.
 Studio.App.BulkVideoImportErrors.NoVideoStream,,No video stream is found in the file.,No video stream is found in the file.
 Studio.App.BulkVideoImportErrors.TooManyVideoStreams,,Too many video streams are found in the file.,Too many video streams are found in the file.

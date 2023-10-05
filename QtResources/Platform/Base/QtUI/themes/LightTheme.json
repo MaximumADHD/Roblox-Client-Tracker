@@ -917,6 +917,21 @@
             "AlertBackground Inform SubtleFill": {
                 "Default": "#D5F0FF"
             }
+        },
+        {
+            "OnboardingShadow": {
+                "Default": "#000000"
+            }
+        },
+        {
+            "OnboardingCover": {
+                "Default": "#3C64FA"
+            }
+        },
+        {
+            "OnboardingHighlight": {
+                "Default": "#4785FF"
+            }
         }
     ],
     "Paths": [
@@ -1657,5 +1672,10 @@
     "Warning": {
         "Main": "#AD8007",
         "Text": "#816006"
+    },
+    "Onboarding": {
+        "Cover": "#3C64FA",
+        "Highlight": "#4785FF",
+        "Shadow": "#000000"
     }
 }
