@@ -18,6 +18,25 @@ export type IconTabItem = {
 	showOverlay: boolean?,
 }
 
+export type Padding = {
+	left: number?,
+	right: number?,
+	top: number?,
+	bottom: number?,
+}
+
+export type IconTabGroupProps = {
+	selection: { number }?,
+	-- List of `IconTab`s to display on the IconTabGroup
+	items: { [number]: IconTabItem },
+	-- Padding around the entire IconTabGroup
+	padding: Padding?,
+	-- Horizontal spacing between each IconTab
+	itemSpacing: UDim?,
+	-- Padding around each item
+	itemPadding: Padding?,
+}
+
 export type ContainerProps = {
 	size: Vector2?,
 	automaticSize: any?,

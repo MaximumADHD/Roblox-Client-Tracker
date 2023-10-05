@@ -2,6 +2,7 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local validateSingleInstance = require(root.validation.validateSingleInstance)
@@ -12,8 +13,8 @@ local Types = require(root.util.Types)
 
 local function validatePackage(
 	allSelectedInstances: { Instance },
-	isServer: boolean,
-	restrictedUserIds: Types.RestrictedUserIds,
+	isServer: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?,
 	token: string?
 ): (boolean, { string }?)
 	local result, failureReasons = validateSingleInstance(allSelectedInstances)
@@ -33,10 +34,11 @@ local function validatePackage(
 		ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance, Constants.PACKAGE_CONTENT_ID_FIELDS)
 
 	if not parseSuccess then
+		Analytics.reportFailure(Analytics.ErrorType.validatePackage_FailedToParse)
 		return false, parseReasons
 	end
 
-	return validateAssetCreator(contentIdMap, isServer, restrictedUserIds, token :: string)
+	return validateAssetCreator(contentIdMap, isServer, restrictedUserIds :: Types.RestrictedUserIds, token :: string)
 end
 
 return validatePackage

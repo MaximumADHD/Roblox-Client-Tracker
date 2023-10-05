@@ -4,6 +4,8 @@ local root = script.Parent.Parent
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 
+local Analytics = require(root.Analytics)
+
 local function validateOverlappingVertices(meshId: string, meshType: string, isServer: boolean?): (boolean, { string }?)
 	local success, result = pcall(function()
 		return UGCValidationService:ValidateOverlappingVertices(meshId)
@@ -18,10 +20,12 @@ local function validateOverlappingVertices(meshId: string, meshType: string, isS
 				error(string.format("Failed to execute validateOverlappingVertices check for %s", meshType))
 			end
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateOverlappingVertices_FailedToExecute)
 		return false, { string.format("Failed to execute validateOverlappingVertices check for %s", meshType) }
 	end
 
 	if not result then
+		Analytics.reportFailure(Analytics.ErrorType.validateOverlappingVertices_OverlappingVertices)
 		return false,
 			{ string.format("%s has multiple vertices sharing identical or near-identical positions.", meshType) }
 	end

@@ -18,6 +18,14 @@ return function(UrlBuilder)
 		giftCards = UrlBuilder.fromString("www:giftcards"),
 		amazonStore = UrlBuilder.fromString("https://www.amazon.com/roblox"),
 		help = UrlBuilder.fromString(isQQ() and "corp:faq" or "www:help"),
+		appealsPortal = {
+			-- link the Report & Appeals standalone portal (e.g. not part of settings)
+			main = UrlBuilder.fromString("www:report-appeals"),
+			-- link to a specific violation within the portal
+			-- The URL builder does not support paramters in the hash 
+			-- so we send that as a query parameter instead and handle it in the portal
+			violation = UrlBuilder.fromString("www:report-appeals?vid={id}#!incoming"),
+		},
 		email = {
 			getSetEmail = UrlBuilder.fromString("accountSettings:v1/email"),
 			sendVerificationEmail = UrlBuilder.fromString("accountSettings:v1/email/verify"),

@@ -2,6 +2,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
@@ -15,6 +16,7 @@ local function validateTextureSize(
 		if allowNoTexture then
 			return true
 		else
+			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_InvalidTextureId)
 			return false, { "Mesh must contain valid TextureId" }
 		end
 	end
@@ -33,10 +35,12 @@ local function validateTextureSize(
 					error("Failed to execute validateTextureSize check")
 				end
 			end
+			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_FailedToExecute)
 			return false, { "Failed to execute validateTextureSize check" }
 		end
 
 		if not result then
+			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_TextureTooBig)
 			return false, { "Your textures exceeds the max texture size limit for UGC upload requirements." }
 		end
 	else
@@ -53,8 +57,10 @@ local function validateTextureSize(
 					error("Failed to load texture data " .. tostring(imageSize))
 				end
 			end
+			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_FailedToLoadTexture)
 			return false, { "Failed to load texture data", imageSize } :: { any }
 		elseif imageSize.X > Constants.MAX_TEXTURE_SIZE or imageSize.Y > Constants.MAX_TEXTURE_SIZE then
+			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_TextureTooBig)
 			return false,
 				{
 					string.format(

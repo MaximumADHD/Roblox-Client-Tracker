@@ -1,6 +1,7 @@
 local root = script.Parent.Parent
 
-local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
+local createLegacyAccessoryMeshPartAssetFormatSchema = require(root.util.createLegacyAccessoryMeshPartAssetFormatSchema)
+
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
 local validateLegacyAccessoryMeshPartAssetFormatMatch =
@@ -13,7 +14,7 @@ local function validateLegacyAccessoryMeshPartAssetFormat(
 	instances: { Instance },
 	specialMeshAssetFormatAccessory: Instance,
 	_assetTypeEnum: Enum.AssetType,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	local success: boolean, reasons: { string }?
 
@@ -28,7 +29,7 @@ local function validateLegacyAccessoryMeshPartAssetFormat(
 	local specialMeshAssetFormatHandle = specialMeshAssetFormatAccessory:FindFirstChild("Handle") :: Part
 	local specialMeshAssetFormatAttachment =
 		specialMeshAssetFormatHandle:FindFirstChildOfClass("Attachment") :: Attachment
-	local schema = createMeshPartAccessorySchema(specialMeshAssetFormatAttachment.Name)
+	local schema = createLegacyAccessoryMeshPartAssetFormatSchema(specialMeshAssetFormatAttachment.Name)
 
 	success, reasons = validateInstanceTree(schema, meshPartAssetFormatAccessory)
 	if not success then

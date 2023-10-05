@@ -70,7 +70,7 @@ test("allows same arguments as prettyDOM", function()
 	debug_(container, 6, { highlight = false })
 
 	expect(console.log).toHaveBeenCalledTimes(1)
-	expect((console.log :: any).mock.calls[1]).toEqual({ "Frame ..." })
+	expect((console.log :: any).mock.calls[1]).toEqual({ "Folder..." })
 end)
 --[[
 eslint

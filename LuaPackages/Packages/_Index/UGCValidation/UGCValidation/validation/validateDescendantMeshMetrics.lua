@@ -8,6 +8,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
@@ -16,6 +17,7 @@ local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCag
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateCageUVTriangleArea = require(root.validation.validateCageUVTriangleArea)
 local validateMeshTriangleArea = require(root.validation.validateMeshTriangleArea)
+local validateCageUVValues = require(root.validation.validateCageUVValues)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local ParseContentIds = require(root.util.ParseContentIds)
@@ -26,9 +28,11 @@ local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineF
 local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCValidateCageUVTriangleArea)
 local getFFlagUGCValidateMeshTriangleAreaForCages = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForCages)
 local getFFlagUGCValidateMeshTriangleAreaForMeshes = require(root.flags.getFFlagUGCValidateMeshTriangleAreaForMeshes)
+local getFFlagUGCValidateUVValuesInReference = require(root.flags.getFFlagUGCValidateUVValuesInReference)
 
-local function validateIsSkinned(obj: MeshPart, isServer: boolean): (boolean, { string }?)
+local function validateIsSkinned(obj: MeshPart, isServer: boolean?): (boolean, { string }?)
 	if not obj.HasSkinnedMesh then
+		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_NoSkinningInfo)
 		return false, { `{obj.Name}.MeshId does not contain skinning information!` }
 	end
 
@@ -49,6 +53,7 @@ local function validateIsSkinned(obj: MeshPart, isServer: boolean): (boolean, { 
 			-- happen when validation is called from RCC
 			error(errorMessage)
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_FailedToLoadMesh)
 		return false, { errorMessage }
 	end
 
@@ -59,6 +64,7 @@ local function validateIsSkinned(obj: MeshPart, isServer: boolean): (boolean, { 
 		if isServer then
 			error(errorMessage)
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_HasSkinnedMeshMismatch)
 		return false, { errorMessage }
 	end
 	return true
@@ -67,7 +73,7 @@ end
 local function validateTotalAssetTriangles(
 	allMeshes: any,
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	local maxTriangleCount = assert(Constants.ASSET_RENDER_MESH_MAX_TRIANGLES[assetTypeEnum.Name])
 
@@ -84,6 +90,7 @@ local function validateTotalAssetTriangles(
 			end)
 
 			if not success then
+				Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_FailedToLoadMesh)
 				return false, `Failed to load mesh data for {data.instance.Name}.{data.fieldName} ({data.id})`
 			end
 			result = result + triangles
@@ -99,16 +106,18 @@ local function validateTotalAssetTriangles(
 			-- which would mean the asset failed validation
 			error(message :: string)
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_FailedToCalculateTriangles)
 		return false, { message :: string }
 	end
 	if totalAssetTriangles :: number > maxTriangleCount then
+		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_TooManyTriangles)
 		return false, { `{assetTypeEnum.Name} cannot have more than {maxTriangleCount} triangles in render meshes` }
 	end
 	return true
 end
 
 -- the mesh should be created at the origin
-local function validateMeshIsAtOrigin(obj: MeshPart, isServer: boolean): (boolean, { string }?)
+local function validateMeshIsAtOrigin(obj: MeshPart, isServer: boolean?): (boolean, { string }?)
 	local success, failureReasons, meshMinOpt, meshMaxOpt = getMeshMinMax(obj.MeshId, isServer)
 	if not success then
 		return success, failureReasons
@@ -121,6 +130,7 @@ local function validateMeshIsAtOrigin(obj: MeshPart, isServer: boolean): (boolea
 
 	local Tol = 0.001
 	if meshCenter.Magnitude > Tol then
+		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_TooFarFromOrigin)
 		return false, { `Mesh for MeshPart {obj.Name} has been built too far from the origin` }
 	end
 	return true
@@ -129,7 +139,7 @@ end
 local function validateDescendantMeshMetrics(
 	rootInstance: Instance,
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -167,6 +177,17 @@ local function validateDescendantMeshMetrics(
 
 			if getFFlagUGCValidateCageUVTriangleArea() then
 				reasonsAccumulator:updateReasons(validateCageUVTriangleArea(data.instance, data.fieldName, isServer))
+			end
+
+			if getFFlagUGCValidateUVValuesInReference() then
+				reasonsAccumulator:updateReasons(
+					validateCageUVValues(
+						data.instance[data.fieldName],
+						data.instance :: WrapTarget,
+						data.fieldName,
+						isServer
+					)
+				)
 			end
 
 			if getFFlagUGCValidateMeshTriangleAreaForCages() then

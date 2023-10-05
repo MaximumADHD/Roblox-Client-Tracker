@@ -1,7 +1,7 @@
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 
-local root = script:FindFirstAncestor("UGCValidation")
+local root = script.Parent.Parent
 
 local Promise = require(root.Parent.Promise)
 

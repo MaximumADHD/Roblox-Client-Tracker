@@ -1,3 +1,7 @@
+local root = script.Parent.Parent
+
+local Analytics = require(root.Analytics)
+
 local function validateLayeredClothingAccessoryMeshPartAssetFormatMatch(
 	meshPartAccessory: Instance,
 	specialMeshAccessory: Instance
@@ -11,10 +15,16 @@ local function validateLayeredClothingAccessoryMeshPartAssetFormatMatch(
 	assert(specialMeshHandle and specialMeshHandle:IsA("MeshPart"))
 
 	if meshPartHandle.MeshId ~= specialMeshHandle.MeshId then
+		Analytics.reportFailure(
+			Analytics.ErrorType.validateLayeredClothingAccessoryMeshPartAssetFormatMatch_MeshIdMismatch
+		)
 		return false, { "MeshPart.MeshId did not match SpecialMesh.MeshId" }
 	end
 
 	if meshPartHandle.TextureID ~= specialMeshHandle.TextureID then
+		Analytics.reportFailure(
+			Analytics.ErrorType.validateLayeredClothingAccessoryMeshPartAssetFormatMatch_TextureIdMismatch
+		)
 		return false, { "MeshPart.TextureID did not match SpecialMesh.TextureId" }
 	end
 

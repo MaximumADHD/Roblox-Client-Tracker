@@ -1,6 +1,7 @@
 --!nonstrict
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local validateInstanceTree = require(root.validation.validateInstanceTree)
@@ -48,11 +49,14 @@ end
 local function validateLayeredClothingAccessory(
 	instances: { Instance },
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean,
-	allowUnreviewedAssets: boolean
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?
 ): (boolean, { string }?)
 	local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
 	if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
+		Analytics.reportFailure(
+			Analytics.ErrorType.validateLayeredClothingAccessory_AssetTypeNotAllowedAsLayeredClothing
+		)
 		return false, { "Asset type cannot be validated as Layered Clothing" }
 	end
 
@@ -85,6 +89,7 @@ local function validateLayeredClothingAccessory(
 	local meshId = handle.MeshId
 	local meshSizeSuccess, meshSize = pcall(getMeshSize, meshId)
 	if not meshSizeSuccess then
+		Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_FailedToLoadMesh)
 		return false, { "Failed to read mesh" }
 	end
 
@@ -160,6 +165,7 @@ local function validateLayeredClothingAccessory(
 		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
 
 		if getFFlagUGCValidateBodyParts() and wrapLayer == nil then
+			Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoWrapLayer)
 			table.insert(reasons, "Could not find WrapLayer!")
 			validationResult = false
 		else
@@ -184,6 +190,7 @@ local function validateLayeredClothingAccessory(
 	end
 
 	if meshId == "" then
+		Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoMeshId)
 		table.insert(reasons, "Mesh must contain valid MeshId")
 		validationResult = false
 	else
@@ -230,9 +237,11 @@ local function validateLayeredClothingAccessory(
 		local outerCageId = wrapLayer.CageMeshId
 
 		if innerCageId == "" then
+			Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoInnerCageId)
 			table.insert(reasons, "InnerCages must contain valid MeshId.")
 			validationResult = false
 		elseif outerCageId == "" then
+			Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoOuterCageId)
 			table.insert(reasons, "OuterCages must contain valid MeshId.")
 			validationResult = false
 		else

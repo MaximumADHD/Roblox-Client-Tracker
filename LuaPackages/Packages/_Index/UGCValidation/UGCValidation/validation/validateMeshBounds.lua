@@ -1,7 +1,10 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
+
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+
+local Analytics = require(root.Analytics)
 
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
@@ -58,10 +61,12 @@ local function validateMeshBounds(
 					error("Failed to execute validateMeshBounds check")
 				end
 			end
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_FailedToExecute)
 			return false, { "Failed to execute validateMeshBounds check" }
 		end
 
 		if not result then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge)
 			if getFFlagUGCValidateBodyParts() then
 				return false, getErrors(name, boundsSize, attachment)
 			else
@@ -83,6 +88,7 @@ local function validateMeshBounds(
 		end)
 
 		if not success then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_FailedToLoadMesh)
 			if getFFlagUGCValidateBodyParts() then
 				if nil ~= isServer and isServer then
 					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -97,6 +103,7 @@ local function validateMeshBounds(
 		for _, vertPos in pairs(verts) do
 			local worldPos = handle.CFrame:PointToWorldSpace(vertPos * meshScale)
 			if not pointInBounds(worldPos, boundsCF, boundsSize) then
+				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge)
 				if getFFlagUGCValidateBodyParts() then
 					return false, getErrors(name, boundsSize, attachment)
 				else

@@ -10,7 +10,7 @@ local root = script.Parent.Parent
 
 local calculateMinMax = require(root.util.calculateMinMax)
 
-local function getVerts(id: string, isServer: boolean): (boolean, { string }?, any?)
+local function getVerts(id: string, isServer: boolean?): (boolean, { string }?, any?)
 	local success, verts = pcall(function()
 		return UGCValidationService:GetMeshVerts(id)
 	end)
@@ -41,7 +41,7 @@ end
 
 local function getMeshMinMax(
 	meshId: string,
-	isServer: boolean,
+	isServer: boolean?,
 	scale: Vector3?
 ): (boolean, { string }?, Vector3?, Vector3?)
 	local success, failureReasons, verts = getVerts(meshId, isServer)

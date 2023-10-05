@@ -1,7 +1,7 @@
 --!strict
-local root = script:FindFirstAncestor("UGCValidation").Parent
+local root = script.Parent
 
-local Constants = require(root.UGCValidation.Constants)
+local Constants = require(root.Constants)
 
 local ConstantsInterface = {}
 

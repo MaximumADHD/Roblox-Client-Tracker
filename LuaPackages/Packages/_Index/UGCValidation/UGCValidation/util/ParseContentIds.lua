@@ -10,6 +10,7 @@ local root = script.Parent.Parent
 local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
+local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local ParseContentIds = {}
 
 -- rbxassetid://1234
@@ -53,7 +54,11 @@ local function tryGetAssetIdFromContentIdInternal(contentId)
 	if getFFlagAddUGCValidationForPackage() then
 		id = tonumber(contentId)
 		if id ~= nil then
-			return id
+			if getFFlagFixPackageIDFieldName() then
+				return tostring(id)
+			else
+				return id
+			end
 		end
 	end
 

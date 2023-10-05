@@ -16,6 +16,8 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local Placement = require(Navigation.Enum.Placement)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
+local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 
 local HorizontalContainer = require(script.Parent.HorizontalContainer)
 
@@ -29,11 +31,16 @@ type Props = {
 	item: Types.IconTabItem,
 	selected: boolean,
 	controlState: number?,
+	padding: Types.Padding?,
 }
 
 local defaultProps: Props = {
 	controlState = ControlState.Default,
 	selected = false,
+	padding = {
+		left = Constants.ICON_TAB_ITEM_PADDING_LEFT,
+		right = Constants.ICON_TAB_ITEM_PADDING_RIGHT,
+	},
 }
 
 local function IconTab(providedProps: Props)
@@ -48,7 +55,9 @@ local function IconTab(providedProps: Props)
 	local iconStyle = if selected
 		then style.Tokens.Semantic.Color.Icon.Emphasis
 		else style.Tokens.Semantic.Color.Icon.Default
-
+	local iconSize = getIconSize(IconSize.Medium, style)
+	local iconTabItemIconWidth = if areTokensEnabled then iconSize else Constants.ICON_TAB_ITEM_ICON_WIDTH
+	local iconTabItemIconHeight = if areTokensEnabled then iconSize else Constants.ICON_TAB_ITEM_ICON_HEIGHT
 	local roundedBackgroundHeight = Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_PADDING * 2
 	assert(item.icon == nil or item.iconComponent == nil, "icon or iconComponent cannot be assigned at same time")
 	local tabSpacing = if item.icon ~= nil or item.iconComponent ~= nil
@@ -62,16 +71,13 @@ local function IconTab(providedProps: Props)
 		roundedBackgroundColor = style.Theme.Divider.Color,
 		roundedBackgroundTransparency = Constants.ICON_TAB_SELECTED_TRANSPARENCY,
 		spacing = tabSpacing,
-		padding = {
-			left = Constants.ICON_TAB_ITEM_PADDING_LEFT,
-			right = Constants.ICON_TAB_ITEM_PADDING_RIGHT,
-		},
+		padding = props.padding,
 		showRoundedBackground = if item.showRoundedBackground ~= nil then item.showRoundedBackground else selected,
 		showOverlay = if item.showOverlay ~= nil then item.showOverlay else pressed,
 	}, {
 		Icon = if item.icon ~= nil
 			then React.createElement(ImageSetLabel, {
-				Size = UDim2.new(0, Constants.ICON_TAB_ITEM_ICON_WIDTH, 0, Constants.ICON_TAB_ITEM_ICON_HEIGHT),
+				Size = UDim2.new(0, iconTabItemIconWidth, 0, iconTabItemIconHeight),
 				LayoutOrder = 1,
 				Image = item.icon,
 				BackgroundTransparency = 1,

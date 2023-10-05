@@ -8,6 +8,8 @@ local shallowEqual = Utils.shallowEqual
 local getAncestors = Utils.getAncestors
 local warn = Utils.mockableWarn
 
+local isValidFocusTarget = require(script.Parent.isValidFocusTarget)
+
 local types = require(script.Parent.types)
 type EventMap = types.EventMap
 type EventData = types.EventData
@@ -315,12 +317,21 @@ function FocusNavigationService:registerFocusBehavior(guiObject: GuiObject, beha
 					-- If the new focus is within our subtree and the old focus was
 					-- nil or outside, our container is gaining focus from outside
 					-- and we want to trigger our focus behavior
-					local target = behavior.getTarget()
-					if target then
-						self:focusGuiObject(target, false)
-					else
-						-- When we redirect focus ourselves, tell the behavior about
-						-- the resolved value rather than the value pre-redirect
+					local didRefocus = false
+					for _, target in behavior.getTargets() do
+						-- target validity check
+						if isValidFocusTarget(target) then
+							self:focusGuiObject(target, false)
+							didRefocus = true
+							break
+						end
+					end
+					if not didRefocus then
+						-- If we did not redirect focus just now, we trigger
+						-- callbacks on the behavior so that it can track focus
+						-- changes within the container; redirects will already
+						-- be accounted for, since the subsequent event from a
+						-- redirect will be handled here
 						if behavior.onDescendantFocusChanged then
 							behavior.onDescendantFocusChanged(new)
 						end

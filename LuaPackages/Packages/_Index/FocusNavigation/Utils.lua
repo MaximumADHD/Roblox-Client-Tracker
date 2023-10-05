@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Utils-4396b9b2-1.2.0"]["Utils"])
+local Package = require(PackageIndex["Utils-4396b9b2-1.3.0"]["Utils"])
 
 export type Signal<T> = Package.Signal<T> 
 export type FireSignal<T> = Package.FireSignal<T> 

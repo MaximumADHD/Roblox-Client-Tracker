@@ -1,16 +1,18 @@
 --!nonstrict
 
+local UGCValidationService = game:GetService("UGCValidationService")
+
 local root = script.Parent.Parent
 
 local getEngineFeatureEngineUGCValidateCageUVTriangleArea =
 	require(root.flags.getEngineFeatureEngineUGCValidateCageUVTriangleArea)
 
-local UGCValidationService = game:GetService("UGCValidationService")
+local Analytics = require(root.Analytics)
 
 local function validateCageUVTriangleArea(
 	instance: Instance,
 	fieldName: string,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	local contentId = instance[fieldName]
 
@@ -23,10 +25,12 @@ local function validateCageUVTriangleArea(
 			if isServer then
 				error("Failed to load mesh data")
 			end
+			Analytics.reportFailure(Analytics.ErrorType.validateCageUVTriangleArea_FailedToLoadMesh)
 			return false, { "Failed to load mesh data" }
 		end
 
 		if not result then
+			Analytics.reportFailure(Analytics.ErrorType.validateCageUVTriangleArea_ZeroAreaTriangle)
 			return false,
 				{
 					string.format(

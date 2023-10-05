@@ -18,7 +18,6 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local IconButton = require(UIBlox.App.Button.IconButton)
 local useIsGamepad = require(UIBlox.Utility.useIsGamepad)
 local ScrollingListWithArrowsAndGradient = require(Control.HorizontalNav.ScrollingListWithArrowsAndGradient)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Pill = require(PillRoot.Pillv2)
 
 -- Signature for callback invoked when pill selection changes
@@ -166,38 +165,18 @@ local function PillGroup(props: Props)
 		})
 	end
 
-	if UIBloxConfig.pillGroupAutomaticSize then
-		children.Layout = React.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, BUTTON_PADDING),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
-		children.Padding = React.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, leftPadding),
-			PaddingRight = UDim.new(0, rightPadding),
-		})
-	end
-
 	local function getScrollingListChildren()
 		return {
-			SubNavFrame = if UIBloxConfig.pillGroupAutomaticSize
-				then React.createElement("Frame", {
-					Size = UDim2.fromScale(0, 1),
-					AutomaticSize = Enum.AutomaticSize.X,
-					BackgroundTransparency = 1,
-					[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
-				}, children)
-				else React.createElement(FitFrameHorizontal, {
-					height = UDim.new(1, 0),
-					contentPadding = UDim.new(0, BUTTON_PADDING),
-					margin = FitFrame.Rect.quad(0, rightPadding, 0, leftPadding),
+			SubNavFrame = React.createElement(FitFrameHorizontal, {
+				height = UDim.new(1, 0),
+				contentPadding = UDim.new(0, BUTTON_PADDING),
+				margin = FitFrame.Rect.quad(0, rightPadding, 0, leftPadding),
 
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					FillDirection = Enum.FillDirection.Horizontal,
-					BackgroundTransparency = 1,
-					[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
-				}, children),
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				FillDirection = Enum.FillDirection.Horizontal,
+				BackgroundTransparency = 1,
+				[React.Change.AbsoluteSize] = onNavFrameSizeChanged,
+			}, children),
 		}
 	end
 

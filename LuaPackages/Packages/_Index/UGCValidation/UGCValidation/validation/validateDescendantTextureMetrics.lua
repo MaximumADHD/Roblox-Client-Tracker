@@ -13,7 +13,7 @@ local validateTextureSize = require(root.validation.validateTextureSize)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local ParseContentIds = require(root.util.ParseContentIds)
 
-local function validateDescendantTextureMetrics(rootInstance: Instance, isServer: boolean): (boolean, { string }?)
+local function validateDescendantTextureMetrics(rootInstance: Instance, isServer: boolean?): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	local allTextures = ParseContentIds.parse(rootInstance, Constants.TEXTURE_CONTENT_ID_FIELDS)

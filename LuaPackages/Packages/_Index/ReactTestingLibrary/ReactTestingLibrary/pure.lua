@@ -73,7 +73,7 @@ local function render(ui, ref_: Object?)
 	end
 	if not container then
 		-- ROBLOX deviation START: replace ReactDom
-		container = Instance.new("Frame")
+		container = Instance.new("Folder")
 		container.Parent = baseElement
 		renderer = ReactRoblox.createLegacyRoot(container)
 		-- baseElement:render(container)

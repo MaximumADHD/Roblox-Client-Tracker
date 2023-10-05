@@ -9,6 +9,7 @@ local root = script.Parent.Parent
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
 local getFFlagUGCValidateMinBoundsOnlyMesh = require(root.flags.getFFlagUGCValidateMinBoundsOnlyMesh)
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
@@ -254,10 +255,12 @@ local function getScaleType(
 		return true
 	end)
 	if not result then
+		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_InconsistentAvatarPartScaleType)
 		return false, { "All MeshParts must have the same Value in their AvatarPartScaleType child" }, nil
 	end
 
 	if not Constants.AvatarPartScaleTypes[prevPartScaleType] then
+		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_InvalidAvatarPartScaleType)
 		return false,
 			{
 				"The Value of all MeshParts AvatarPartScaleType children must be either Classic, ProportionsSlender, or ProportionsNormal",
@@ -274,6 +277,7 @@ local function validateMinBoundsInternal(
 ): (boolean, { string }?)
 	local isMeshBigEnough = assetSize.X >= minSize.X and assetSize.Y >= minSize.Y and assetSize.Z >= minSize.Z
 	if not isMeshBigEnough then
+		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooSmall)
 		return false,
 			{
 				if getFFlagUGCValidateFullBody() and not assetTypeEnum
@@ -301,6 +305,7 @@ local function validateMaxBoundsInternal(
 	local isMeshSmallEnough = assetSize.X <= maxSize.X and assetSize.Y <= maxSize.Y and assetSize.Z <= maxSize.Z
 
 	if not isMeshSmallEnough then
+		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooBig)
 		return false,
 			{
 				if getFFlagUGCValidateFullBody() and not assetTypeEnum
@@ -324,7 +329,7 @@ local function validateAssetBounds(
 	fullBodyAssets: Types.AllBodyParts?,
 	inst: Instance?,
 	assetTypeEnum: Enum.AssetType?,
-	_isServer: boolean
+	_isServer: boolean?
 ): (boolean, { string }?)
 	if getFFlagUGCValidateFullBody() then
 		local isSingleInstance = inst and assetTypeEnum

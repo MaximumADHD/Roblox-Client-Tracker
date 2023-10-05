@@ -1,4 +1,4 @@
---!nonstrict
+--!strict
 
 --[[
 	validateCageUVs.lua checks that WrapTarget cage meshes have the correct number of unique UVs
@@ -6,6 +6,7 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
@@ -19,7 +20,7 @@ local function validateCageUVs(
 	contentId: string,
 	wrapTarget: WrapTarget,
 	fieldName: string,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	if not getEngineFeatureEngineUGCValidateBodyParts() then
 		return true
@@ -66,10 +67,12 @@ local function validateCageUVs(
 			-- which would mean the asset failed validation
 			error(errorMsg)
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateCageUVs_TestExecutedSuccessfully)
 		return false, { errorMsg }
 	end
 
 	if not testPassed then
+		Analytics.reportFailure(Analytics.ErrorType.validateCageUVs_TestPassed)
 		if getEngineFeatureEngineUGCValidateCalculateUniqueUV() then
 			return false,
 				{

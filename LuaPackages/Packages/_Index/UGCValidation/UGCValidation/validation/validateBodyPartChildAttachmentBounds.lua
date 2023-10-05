@@ -2,6 +2,7 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -20,6 +21,7 @@ local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMe
 			posMeshSpace[dimension] < (minMeshSpace :: any)[dimension]
 			or posMeshSpace[dimension] > (maxMeshSpace :: any)[dimension]
 		then
+			Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_InvalidAttachmentPosition)
 			return false,
 				{
 					string.format(
@@ -37,7 +39,7 @@ local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMe
 end
 
 -- NOTE: All FindFirstChild() calls will succeed based on all expected parts being checked for existance before calling this function
-local function checkAll(meshHandle: MeshPart, _isServer: boolean, partData: any): (boolean, { string }?)
+local function checkAll(meshHandle: MeshPart, _isServer: boolean?, partData: any): (boolean, { string }?)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	local rigAttachmentToParent: Attachment? =
@@ -70,6 +72,7 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 
 		local x, y, z = desc.CFrame:ToOrientation()
 		if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
+			Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
 			reasonsAccumulator:updateReasons(
 				false,
 				{ `RigAttachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
@@ -83,7 +86,7 @@ end
 local function validateBodyPartChildAttachmentBounds(
 	inst: Instance,
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 	assert(assetInfo)

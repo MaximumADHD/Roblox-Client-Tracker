@@ -4,14 +4,17 @@
 	validateAssetCreator.lua validates that the asset passed in are created by user/group in restrictedUserIds
 ]]
 
-local root = script:FindFirstAncestor("UGCValidation").Parent
-local Promise = require(root.Promise)
+local root = script.Parent.Parent
+
+local Promise = require(root.Parent.Promise)
 
 game:DefineFastInt("UGCValidationCanPublishRequestPageSize", 50)
 game:DefineFastInt("UGCValidationMaxAssetSizeAllowed", 500)
 
-local APIUtil = require(root.UGCValidation.util.APIUtil)
-local Types = require(root.UGCValidation.util.Types)
+local Analytics = require(root.Analytics)
+
+local APIUtil = require(root.util.APIUtil)
+local Types = require(root.util.Types)
 
 local HttpService = game:GetService("HttpService")
 
@@ -22,10 +25,11 @@ local SERVER_URL = "packages-api/v1/rcc/canPublish"
 local CLIENT_URL = "packages-api/v1/canPublish"
 local pageSize = game:GetFastInt("UGCValidationCanPublishRequestPageSize")
 local maxAssetIdSize = game:GetFastInt("UGCValidationMaxAssetSizeAllowed")
-local Constants = require(root.UGCValidation.Constants)
+local Constants = require(root.Constants)
 
-local FailureReasonsAccumulator = require(root.UGCValidation.util.FailureReasonsAccumulator)
-local getFFlagFixPackageIDFieldName = require(root.UGCValidation.flags.getFFlagFixPackageIDFieldName)
+local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
+local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 
 local function createCanPublishPromise(url, assetIds, restrictedIds, token)
 	if #assetIds == 0 then
@@ -58,7 +62,7 @@ end
 
 local function validateAssetCreator(
 	contentIdMap: any,
-	isServer: boolean,
+	isServer: boolean?,
 	restrictedUserIds: Types.RestrictedUserIds,
 	token: string
 ): (boolean, { string }?)
@@ -84,6 +88,7 @@ local function validateAssetCreator(
 	end
 
 	if count > maxAssetIdSize then
+		Analytics.reportFailure(Analytics.ErrorType.validateAssetCreator_TooManyDependencies)
 		return false, { "Too many mesh/texture dependencies" }
 	end
 
@@ -113,12 +118,16 @@ local function validateAssetCreator(
 	local complete, responses = Promise.all(promises):await()
 
 	if not complete then
+		Analytics.reportFailure(Analytics.ErrorType.validateAssetCreator_FailedToLoad)
 		return false, { "Failed to load asset detail" }
 	end
 
 	for _, response in responses do
 		local results = response.result
 		for instanceId, allowed in pairs(results) do
+			if getFFlagUGCValidationAnalytics() and not allowed then
+				Analytics.reportFailure(Analytics.ErrorType.validateAssetCreator_DependencyNotOwnedByCreator)
+			end
 			local data = contentIdMap[instanceId]
 			local failureMessage = string.format(
 				"%s.%s ( %s ) is not owned by the experience creator or player",
@@ -126,7 +135,6 @@ local function validateAssetCreator(
 				data.fieldName,
 				instanceId
 			)
-
 			reasonsAccumulator:updateReasons(allowed, { failureMessage })
 		end
 	end

@@ -11,6 +11,8 @@ local useFocusGuiObject = require(script.useFocusGuiObject)
 local useEventMap = require(script.useEventMap)
 local useEventHandler = require(script.useEventHandler)
 local useEventHandlerMap = require(script.useEventHandlerMap)
+local useContainerFocusBehavior = require(script.useContainerFocusBehavior)
+local FocusBehaviorHooks = require(script.FocusBehaviorHooks)
 
 -- Forwarded types from FocusNavigation and EventPropagation
 export type EventPhase = FocusNavigation.EventPhase
@@ -47,4 +49,11 @@ return {
 	useEventMap = useEventMap,
 	useEventHandler = useEventHandler,
 	useEventHandlerMap = useEventHandlerMap,
+
+	-- Container focus behavior
+	useContainerFocusBehavior = useContainerFocusBehavior,
+
+	useDefaultFocusBehavior = FocusBehaviorHooks.useDefaultFocusBehavior,
+	useMostRecentFocusBehavior = FocusBehaviorHooks.useMostRecentFocusBehavior,
+	useMostRecentOrDefaultFocusBehavior = FocusBehaviorHooks.useMostRecentOrDefaultFocusBehavior,
 }

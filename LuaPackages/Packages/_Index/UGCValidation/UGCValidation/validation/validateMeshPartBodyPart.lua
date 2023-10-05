@@ -6,6 +6,8 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
+
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
@@ -35,9 +37,9 @@ local function validateMeshPartBodyPart(
 	inst: Instance,
 	schema: any,
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean,
-	allowUnreviewedAssets: boolean,
-	restrictedUserIds: Types.RestrictedUserIds
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?
 ): (boolean, { string }?)
 	-- do this ASAP
 	if getFFlagUGCValidationResetPhysicsData() then
@@ -46,6 +48,7 @@ local function validateMeshPartBodyPart(
 
 	local validationResult = validateWithSchema(schema, inst)
 	if not validationResult.success then
+		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartBodyPart_ValidateWithSchema)
 		return false, { validationResult.message }
 	end
 

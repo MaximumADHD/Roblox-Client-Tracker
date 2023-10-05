@@ -1,6 +1,7 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
+local Analytics = require(root.Analytics)
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 
 local function validateFullBodyCageDeletion(
@@ -21,10 +22,12 @@ local function validateFullBodyCageDeletion(
 				error("Failed to execute validateFullBodyCageDeletion check")
 			end
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateFullBodyCageDeletion_FailedToExecute)
 		return false, { "Failed to execute validateFullBodyCageDeletion check" }
 	end
 
 	if not result then
+		Analytics.reportFailure(Analytics.ErrorType.validateFullBodyCageDeletion_GeometryRemoved)
 		return false,
 			{ string.format("Some %s geometry has been removed. This will result in layering issues.", meshType) }
 	end

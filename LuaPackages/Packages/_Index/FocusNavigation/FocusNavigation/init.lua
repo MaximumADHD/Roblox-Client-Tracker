@@ -1,7 +1,8 @@
 local EventPropagation = require(script.Parent.EventPropagation)
 
 local FocusNavigationService = require(script.FocusNavigationService)
-local composeContainerFocusBehaviors = require(script.composeContainerFocusBehaviors)
+local isValidFocusTarget = require(script.isValidFocusTarget)
+
 local EngineInterface = require(script.EngineInterface)
 local types = require(script.types)
 
@@ -24,7 +25,7 @@ export type ContainerFocusBehavior = types.ContainerFocusBehavior
 export type FocusNavigationService = FocusNavigationService.FocusNavigationService
 
 return {
-	composeContainerFocusBehaviors = composeContainerFocusBehaviors,
+	isValidFocusTarget = isValidFocusTarget,
 	FocusNavigationService = FocusNavigationService,
 	EngineInterface = {
 		CoreGui = EngineInterface.CoreGui,

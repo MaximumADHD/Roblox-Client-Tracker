@@ -28,12 +28,18 @@ local function createMeshPartAccessorySchema(attachmentName)
 						ClassName = "Attachment",
 					},
 					{
+						ClassName = "SurfaceAppearance",
+						Name = "SurfaceAppearance",
+						_optional = true,
+					},
+					{
 						ClassName = "StringValue",
 						Name = "AvatarPartScaleType",
 						_optional = true,
 					},
 					{
 						ClassName = "TouchTransmitter",
+						Name = "TouchInterest",
 						_optional = true,
 					},
 				},

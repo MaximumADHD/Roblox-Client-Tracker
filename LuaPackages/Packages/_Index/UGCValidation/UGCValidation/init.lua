@@ -1,4 +1,3 @@
-game:DefineFastFlag("UGCExtraBannedNames", false)
 game:DefineFastFlag("UGCValidateMeshVertColors", false)
 game:DefineFastString("UGCLCAllowedAssetTypeIds", "")
 game:DefineFastFlag("UGCBetterModerationErrorText", false)
@@ -6,19 +5,23 @@ game:DefineFastFlag("UGCLCQualityValidation", false)
 game:DefineFastFlag("UGCLCQualityReplaceLua", false)
 
 local root = script
+
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
-local ConstantsInterface = require(root.ConstantsInterface)
+local getFFlagUGCValidationMeshPartAccessoryUploads = require(root.flags.getFFlagUGCValidationMeshPartAccessoryUploads)
 
-local validateMeshPartAccessory = require(root.validation.validateMeshPartAccessory)
+local Analytics = require(root.Analytics)
+local ConstantsInterface = require(root.ConstantsInterface)
 
 local BundlesMetadata = require(root.util.BundlesMetadata)
 local createUGCBodyPartFolders = require(root.util.createUGCBodyPartFolders)
+local isMeshPartAccessory = require(root.util.isMeshPartAccessory)
 local isLayeredClothing = require(root.util.isLayeredClothing)
 local Types = require(root.util.Types)
 
 local validateInternal = require(root.validation.validateInternal)
+local validateMeshPartAccessory = require(root.validation.validateMeshPartAccessory)
 local validateLayeredClothingAccessory = require(root.validation.validateLayeredClothingAccessory)
 local validateLegacyAccessory = require(root.validation.validateLegacyAccessory)
 local validateLayeredClothingAccessoryMeshPartAssetFormat =
@@ -33,12 +36,12 @@ local validatePackage = require(root.validation.validatePackage)
 
 -- Remove with FFlagMoveToolboxCodeToUGCValidation
 local function DEPRECATED_validateBodyPartInternal(
-	_isAsync,
-	instances,
-	assetTypeEnum,
-	isServer,
-	allowUnreviewedAssets,
-	restrictedUserIds
+	_isAsync: boolean,
+	instances: { Instance },
+	assetTypeEnum: Enum.AssetType,
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?
 )
 	assert(ConstantsInterface.isBodyPart(assetTypeEnum)) --checking in the calling function, so must be true
 
@@ -50,13 +53,13 @@ end
 
 -- Remove with FFlagMoveToolboxCodeToUGCValidation
 local function DEPRECATED_validateInternal(
-	isAsync,
-	instances,
-	assetTypeEnum,
-	isServer,
-	allowUnreviewedAssets,
-	restrictedUserIds,
-	token
+	isAsync: boolean,
+	instances: { Instance },
+	assetTypeEnum: Enum.AssetType,
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?,
+	token: string?
 ): (boolean, { string }?)
 	if getFFlagUGCValidateBodyParts() and ConstantsInterface.isBodyPart(assetTypeEnum) then
 		return DEPRECATED_validateBodyPartInternal(
@@ -73,17 +76,42 @@ local function DEPRECATED_validateInternal(
 		return validatePackage(instances, isServer, restrictedUserIds, token)
 	end
 
-	if isLayeredClothing(instances[1]) then
-		return validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+	if getFFlagUGCValidationMeshPartAccessoryUploads() then
+		local accessory = instances[1]
+		if isMeshPartAccessory(accessory) then
+			if isLayeredClothing(accessory) then
+				return validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+			else
+				return validateMeshPartAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+			end
+		else
+			return validateLegacyAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+		end
 	else
-		return validateLegacyAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+		if isLayeredClothing(instances[1]) then
+			return validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+		else
+			return validateLegacyAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+		end
 	end
 end
 
 local UGCValidation = {}
 
 if getFFlagMoveToolboxCodeToUGCValidation() then
-	function UGCValidation.validate(instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token)
+	function UGCValidation.validate(
+		instances: { Instance },
+		assetTypeEnum: Enum.AssetType,
+		isServer: boolean?,
+		allowUnreviewedAssets: boolean?,
+		restrictedUserIds: Types.RestrictedUserIds?,
+		token: string?
+	)
+		Analytics.setMetadata({
+			entrypoint = "validate",
+			assetType = assetTypeEnum.Name,
+			isServer = isServer,
+		})
 		local success, reasons = validateInternal(
 			false, --[[ isAsync = ]]
 			instances,
@@ -97,13 +125,18 @@ if getFFlagMoveToolboxCodeToUGCValidation() then
 	end
 
 	function UGCValidation.validateAsync(
-		instances,
-		assetTypeEnum,
-		callback,
-		isServer,
-		allowUnreviewedAssets,
-		restrictedUserIds
+		instances: { Instance },
+		assetTypeEnum: Enum.AssetType,
+		callback: (success: boolean, reasons: { string }?) -> (),
+		isServer: boolean?,
+		allowUnreviewedAssets: boolean?,
+		restrictedUserIds: Types.RestrictedUserIds?
 	)
+		Analytics.setMetadata({
+			entrypoint = "validateAsync",
+			assetType = assetTypeEnum.Name,
+			isServer = isServer,
+		})
 		coroutine.wrap(function()
 			callback(
 				validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, "")
@@ -111,7 +144,19 @@ if getFFlagMoveToolboxCodeToUGCValidation() then
 		end)()
 	end
 else
-	function UGCValidation.validate(instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token)
+	function UGCValidation.validate(
+		instances: { Instance },
+		assetTypeEnum: Enum.AssetType,
+		isServer: boolean?,
+		allowUnreviewedAssets: boolean?,
+		restrictedUserIds: Types.RestrictedUserIds?,
+		token: string?
+	)
+		Analytics.setMetadata({
+			entrypoint = "validate",
+			assetType = assetTypeEnum.Name,
+			isServer = isServer,
+		})
 		local success, reasons = DEPRECATED_validateInternal(
 			false, --[[ isAsync = ]]
 			instances,
@@ -125,13 +170,18 @@ else
 	end
 
 	function UGCValidation.validateAsync(
-		instances,
-		assetTypeEnum,
-		callback,
-		isServer,
-		allowUnreviewedAssets,
-		restrictedUserIds
+		instances: { Instance },
+		assetTypeEnum: Enum.AssetType,
+		callback: (success: boolean, reasons: { string }?) -> (),
+		isServer: boolean?,
+		allowUnreviewedAssets: boolean?,
+		restrictedUserIds: Types.RestrictedUserIds?
 	)
+		Analytics.setMetadata({
+			entrypoint = "validateAsync",
+			assetType = assetTypeEnum.Name,
+			isServer = isServer,
+		})
 		coroutine.wrap(function()
 			callback(
 				DEPRECATED_validateInternal(--[[ isAsync = ]]
@@ -149,12 +199,17 @@ else
 end
 
 function UGCValidation.validateMeshPartFormat(
-	instances,
-	assetTypeEnum,
-	isServer,
-	allowUnreviewedAssets,
-	restrictedUserIds
+	instances: { Instance },
+	assetTypeEnum: Enum.AssetType,
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?
 )
+	Analytics.setMetadata({
+		entrypoint = "validateMeshPartFormat",
+		assetType = assetTypeEnum.Name,
+		isServer = isServer,
+	})
 	-- the Toolbox only calls this function for DynamicHeads. For Accessories UGC creators upload the SpecialMesh version
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
@@ -162,13 +217,18 @@ function UGCValidation.validateMeshPartFormat(
 end
 
 function UGCValidation.validateAsyncMeshPartFormat(
-	instances,
-	assetTypeEnum,
-	callback,
-	isServer,
-	allowUnreviewedAssets,
-	restrictedUserIds
+	instances: { Instance },
+	assetTypeEnum: Enum.AssetType,
+	callback: (success: boolean, reasons: { string }?) -> (),
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?
 )
+	Analytics.setMetadata({
+		entrypoint = "validateAsyncMeshPartFormat",
+		assetType = assetTypeEnum.Name,
+		isServer = isServer,
+	})
 	-- the Toolbox only calls this function for DynamicHeads. For Accessories UGC creators upload the SpecialMesh version
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
@@ -178,13 +238,18 @@ function UGCValidation.validateAsyncMeshPartFormat(
 end
 
 function UGCValidation.validateMeshPartAssetFormat2(
-	instances,
-	specialMeshAccessory,
-	assetTypeEnum,
-	isServer,
-	allowUnreviewedAssets,
-	_restrictedUserIds
+	instances: { Instance },
+	specialMeshAccessory: Instance,
+	assetTypeEnum: Enum.AssetType,
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	_restrictedUserIds: Types.RestrictedUserIds?
 )
+	Analytics.setMetadata({
+		entrypoint = "validateMeshPartAssetFormat2",
+		assetType = assetTypeEnum.Name,
+		isServer = isServer,
+	})
 	if isLayeredClothing(instances[1]) then
 		return validateLayeredClothingAccessoryMeshPartAssetFormat(
 			instances,
@@ -196,30 +261,6 @@ function UGCValidation.validateMeshPartAssetFormat2(
 	else
 		return validateLegacyAccessoryMeshPartAssetFormat(instances, specialMeshAccessory, assetTypeEnum, isServer)
 	end
-end
-
--- assumes specialMeshAccessory has already passed through UGCValidation.validate()
-function UGCValidation.validateMeshPartAssetFormat(
-	specialMeshAccessory,
-	meshPartAccessory,
-	assetTypeEnum,
-	isServer,
-	allowUnreviewedAssets,
-	_restrictedUserIds
-)
-	-- layered clothing assets should be the same binary for source and avatar_meshpart_accesory
-	if specialMeshAccessory and isLayeredClothing(specialMeshAccessory) then
-		return UGCValidation.validate({ specialMeshAccessory }, assetTypeEnum, isServer, allowUnreviewedAssets, {}, "")
-	end
-
-	local success, reasons
-
-	success, reasons = validateMeshPartAccessory(specialMeshAccessory, meshPartAccessory)
-	if not success then
-		return false, reasons
-	end
-
-	return true
 end
 
 export type AvatarValidationError = validateBundleReadyForUpload.AvatarValidationError
@@ -256,7 +297,12 @@ if getFFlagMoveToolboxCodeToUGCValidation() then
 	}
 end
 
-function UGCValidation.validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean): (boolean, { string }?)
+function UGCValidation.validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean?): (boolean, { string }?)
+	Analytics.setMetadata({
+		entrypoint = "validateFullBody",
+		assetType = "",
+		isServer = isServer,
+	})
 	return validateFullBody(fullBodyData, isServer)
 end
 

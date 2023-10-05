@@ -1,5 +1,6 @@
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
@@ -35,6 +36,7 @@ local function validateMaterials(instance: Instance): (boolean, { string }?)
 			table.insert(reasons, name)
 		end
 		table.insert(reasons, "Accepted materials are " .. table.concat(acceptedMaterialNames, ", "))
+		Analytics.reportFailure(Analytics.ErrorType.validateMaterials)
 		return false, reasons
 	end
 

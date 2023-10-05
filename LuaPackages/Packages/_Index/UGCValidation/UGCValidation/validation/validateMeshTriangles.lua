@@ -2,6 +2,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
@@ -15,6 +16,7 @@ local function validateMeshTriangles(meshId: string, maxTriangles: number?, isSe
 		end)
 
 		if not success then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangles_FailedToExecute)
 			if getFFlagUGCValidateBodyParts() then
 				if nil ~= isServer and isServer then
 					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -27,6 +29,7 @@ local function validateMeshTriangles(meshId: string, maxTriangles: number?, isSe
 		end
 
 		if not result then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangles_TooManyTriangles)
 			return false, { "Your mesh exceeds the max triangle limit for UGC upload requirements." }
 		end
 	else
@@ -38,6 +41,7 @@ local function validateMeshTriangles(meshId: string, maxTriangles: number?, isSe
 			then maxTriangles
 			else Constants.MAX_HAT_TRIANGLES
 		if not success then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangles_FailedToLoadMesh)
 			if getFFlagUGCValidateBodyParts() then
 				if nil ~= isServer and isServer then
 					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -48,6 +52,7 @@ local function validateMeshTriangles(meshId: string, maxTriangles: number?, isSe
 			end
 			return false, { "Failed to load mesh data" }
 		elseif triangles > maxTriangles :: number then
+			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangles_TooManyTriangles)
 			return false,
 				{
 					string.format("Mesh has %d triangles, but the limit is %d", triangles, maxTriangles :: number),

@@ -1,7 +1,9 @@
 --!strict
-local root = script:FindFirstAncestor("UGCValidation")
+local root = script.Parent.Parent
 
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
+local getFFlagUGCValidateFixAccessories = require(root.flags.getFFlagUGCValidateFixAccessories)
+local getFFlagUGCValidateHandleRestrictedUserIds = require(root.flags.getFFlagUGCValidateHandleRestrictedUserIds)
 
 local Promise = require(root.Parent.Promise)
 
@@ -9,8 +11,9 @@ local ConstantsInterface = require(root.ConstantsInterface)
 
 local BundlesMetadata = require(root.util.BundlesMetadata)
 local Types = require(root.util.Types)
-
+local getRestrictedUserTable = require(root.util.getRestrictedUserTable)
 local createUGCBodyPartFolders = require(root.util.createUGCBodyPartFolders)
+local fixUpPreValidation = require(root.util.fixUpPreValidation)
 local validateInternal = require(root.validation.validateInternal)
 local validateFullBody = require(root.validation.validateFullBody)
 
@@ -50,6 +53,7 @@ export type AvatarValidationResponse = {
 	pieces: { AvatarValidationPiece },
 }
 
+-- remove when FFlagUGCValidateFixAccessories is remvoed true
 -- Delete stuff that Roblox makes automatically that is never valid for publish
 local function sanitizeAvatarForValidation(avatar: Instance)
 	avatar = avatar:Clone()
@@ -107,7 +111,9 @@ local function validateBundleReadyForUpload(
 		return Promise.resolve(response)
 	end
 
-	avatar = sanitizeAvatarForValidation(avatar)
+	avatar = if getFFlagUGCValidateFixAccessories()
+		then fixUpPreValidation(avatar)
+		else sanitizeAvatarForValidation(avatar)
 
 	-- Get all the body parts to be validated in the format that the validation code expects.
 	local ugcBodyPartFolders = createUGCBodyPartFolders(
@@ -190,7 +196,7 @@ local function validateBundleReadyForUpload(
 			piece.assetType,
 			false, -- isServer
 			false, -- allowUnreviewedAssets
-			{}, -- restrictedUserIds
+			if getFFlagUGCValidateHandleRestrictedUserIds() then getRestrictedUserTable() else {},
 			nil -- token
 		)
 

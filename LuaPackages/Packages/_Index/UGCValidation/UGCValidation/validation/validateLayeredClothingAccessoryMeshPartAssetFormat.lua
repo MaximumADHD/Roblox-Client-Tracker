@@ -8,8 +8,8 @@ local function validateLayeredClothingAccessoryMeshPartAssetFormat(
 	instances: { Instance },
 	specialMeshAssetFormatAccessory: Instance,
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean,
-	allowUnreviewedAssets: boolean
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?
 ): (boolean, { string }?)
 	local success: boolean, reasons: { string }?
 

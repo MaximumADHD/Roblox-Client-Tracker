@@ -1,6 +1,6 @@
 --!nonstrict
-local Root = script:FindFirstAncestor("UGCValidation").Parent
-local Cryo = require(Root.Cryo)
+local root = script.Parent.Parent
+local Cryo = require(root.Parent.Cryo)
 
 local function round(num, numDecimalPlaces)
 	local mult = 10 ^ (numDecimalPlaces or 0)

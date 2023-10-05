@@ -1,3 +1,7 @@
+local root = script.Parent.Parent
+
+local Analytics = require(root.Analytics)
+
 -- ensures no descendant of instance has attributes
 local function validateAttributes(instance: Instance): (boolean, { string }?)
 	local attributesFailures = {}
@@ -17,6 +21,7 @@ local function validateAttributes(instance: Instance): (boolean, { string }?)
 		for _, name in pairs(attributesFailures) do
 			table.insert(reasons, name)
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateAttributes)
 		return false, reasons
 	end
 

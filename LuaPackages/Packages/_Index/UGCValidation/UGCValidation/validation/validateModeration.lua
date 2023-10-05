@@ -3,7 +3,9 @@ local root = script.Parent.Parent
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
+
 local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
 local ParseContentIds = require(root.util.ParseContentIds)
 local Types = require(root.util.Types)
@@ -109,7 +111,7 @@ local function parseDescendantContentIds_DEPRECATED(contentIds, contentIdMap, ob
 end
 
 local function validateUser(
-	restrictedUserIds: Types.RestrictedUserIds,
+	restrictedUserIds: Types.RestrictedUserIds?,
 	endPointResponse: any,
 	contentIdMap: any
 ): (boolean, { string }?)
@@ -119,7 +121,7 @@ local function validateUser(
 	end
 
 	local idsHashTable = {}
-	for _, entry in ipairs(restrictedUserIds) do
+	for _, entry in ipairs(restrictedUserIds :: Types.RestrictedUserIds) do
 		idsHashTable[tonumber(entry.id)] = true
 	end
 
@@ -144,7 +146,7 @@ end
 -- ensures accessory content ids have all passed moderation review
 local function validateModeration(
 	instance: Instance,
-	restrictedUserIds: Types.RestrictedUserIds
+	restrictedUserIds: Types.RestrictedUserIds?
 ): (boolean, { string }?)
 	local contentIdMap = {}
 	local contentIds = {}
@@ -156,6 +158,7 @@ local function validateModeration(
 		parseSuccess, parseReasons = parseDescendantContentIds_DEPRECATED(contentIds, contentIdMap, instance)
 	end
 	if not parseSuccess then
+		Analytics.reportFailure(Analytics.ErrorType.validateModeration_FailedToParse)
 		return false, parseReasons
 	end
 
@@ -164,6 +167,7 @@ local function validateModeration(
 	local success, response = getAssetCreationDetails(contentIds)
 
 	if not success or #response ~= #contentIds then
+		Analytics.reportFailure(Analytics.ErrorType.validateModeration_CouldNotFetchModerationDetails)
 		if game:GetFastFlag("UGCBetterModerationErrorText") then
 			return false,
 				{
@@ -178,6 +182,7 @@ local function validateModeration(
 	if getFFlagUGCValidateBodyParts() then
 		local passedUserCheck, reasons = validateUser(restrictedUserIds, response, contentIdMap)
 		if not passedUserCheck then
+			Analytics.reportFailure(Analytics.ErrorType.validateModeration_ValidateUser)
 			return passedUserCheck, reasons
 		end
 	end
@@ -203,6 +208,7 @@ local function validateModeration(
 				moderationMessages[idx] = id
 			end
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateModeration_AssetsHaveNotPassedModeration)
 		return false, {
 			"The following asset IDs have not passed moderation:",
 			unpack(moderationMessages),

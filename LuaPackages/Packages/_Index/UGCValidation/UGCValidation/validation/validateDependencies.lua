@@ -11,7 +11,9 @@ local root = script.Parent.Parent
 local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebugUGCDisableRCCOwnershipCheck)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagUGCValidateAssetStatusNameChange = require(root.flags.getFFlagUGCValidateAssetStatusNameChange)
+local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local ParseContentIds = require(root.util.ParseContentIds)
@@ -48,8 +50,39 @@ else
 	}
 end
 
+local function validateCreatorId(idsHashTable, creatorId, instance, fieldName, id): (boolean, { string }?)
+	if not idsHashTable[tonumber(creatorId)] then
+		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsRestrictedUserId)
+		return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
+	end
+	return true
+end
+
+local function validateModerationState(moderationState, instance, fieldName, id): (boolean, { string }?)
+	local isReviewing = if getFFlagUGCValidateAssetStatusNameChange()
+		then ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[moderationState]
+		else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_REVIEWING == moderationState
+	if isReviewing then
+		-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
+		-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
+		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsReviewing)
+		error("Asset is under review")
+	end
+
+	local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
+		then ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[moderationState]
+		else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_APPROVED == moderationState
+
+	if not isApproved then
+		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsNotApproved)
+		return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
+	end
+
+	return true
+end
+
 local function validateModerationRCC(
-	restrictedUserIds: Types.RestrictedUserIds,
+	restrictedUserIds: Types.RestrictedUserIds?,
 	contentIdMap: any
 ): (boolean, { string }?)
 	-- if there are no users to validate against, we assume, it's not needed
@@ -58,7 +91,7 @@ local function validateModerationRCC(
 	end
 
 	local idsHashTable = {}
-	for _, entry in ipairs(restrictedUserIds) do
+	for _, entry in ipairs(restrictedUserIds :: Types.RestrictedUserIds) do
 		idsHashTable[tonumber(entry.id)] = true
 	end
 
@@ -73,35 +106,49 @@ local function validateModerationRCC(
 			error("Failed to load asset")
 		end
 
-		local failureMessage =
-			string.format("%s.%s ( %s ) is not owned by the developer", data.instance:GetFullName(), data.fieldName, id)
-
 		local creatorTable = response.creationContext.creator
 		local creatorId = if creatorTable.userId then creatorTable.userId else creatorTable.groupId
-		reasonsAccumulator:updateReasons(idsHashTable[tonumber(creatorId)], { failureMessage })
+		if getFFlagUGCValidationAnalytics() then
+			reasonsAccumulator:updateReasons(
+				validateCreatorId(idsHashTable, creatorId, data.instance, data.fieldName, id)
+			)
 
-		local isReviewing = if getFFlagUGCValidateAssetStatusNameChange()
-			then ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[response.moderationResult.moderationState]
-			else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_REVIEWING == response.moderationResult.moderationState
-		if isReviewing then
-			-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
-			-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
-			error("Asset is under review")
+			reasonsAccumulator:updateReasons(
+				validateModerationState(response.moderationResult.moderationState, data.instance, data.fieldName, id)
+			)
+		else
+			local failureMessage = string.format(
+				"%s.%s ( %s ) is not owned by the developer",
+				data.instance:GetFullName(),
+				data.fieldName,
+				id
+			)
+
+			reasonsAccumulator:updateReasons(idsHashTable[tonumber(creatorId)], { failureMessage })
+
+			local isReviewing = if getFFlagUGCValidateAssetStatusNameChange()
+				then ASSET_STATUS_RCC.MODERATION_STATE_REVIEWING[response.moderationResult.moderationState]
+				else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_REVIEWING == response.moderationResult.moderationState
+			if isReviewing then
+				-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
+				-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
+				error("Asset is under review")
+			end
+
+			local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
+				then ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[response.moderationResult.moderationState]
+				else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_APPROVED == response.moderationResult.moderationState
+			reasonsAccumulator:updateReasons(isApproved, { failureMessage })
 		end
-
-		local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
-			then ASSET_STATUS_RCC.MODERATION_STATE_APPROVED[response.moderationResult.moderationState]
-			else ASSET_STATUS_RCC_deprecated.MODERATION_STATE_APPROVED == response.moderationResult.moderationState
-		reasonsAccumulator:updateReasons(isApproved, { failureMessage })
 	end
 	return reasonsAccumulator:getFinalResults()
 end
 
 local function validateDependencies(
 	instance: Instance,
-	isServer: boolean,
-	allowUnreviewedAssets: boolean,
-	restrictedUserIds: Types.RestrictedUserIds
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?
 ): (boolean, { string }?)
 	local contentIdMap = {}
 	local contentIds = {}
@@ -114,6 +161,7 @@ local function validateDependencies(
 		Constants.CONTENT_ID_REQUIRED_FIELDS
 	)
 	if not parseSuccess then
+		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_ParseFailure)
 		return false, parseReasons
 	end
 
@@ -125,7 +173,9 @@ local function validateDependencies(
 
 	if not getFFlagDebugUGCDisableRCCOwnershipCheck() then
 		if isServer then
-			reasonsAccumulator:updateReasons(validateModerationRCC(restrictedUserIds, contentIdMap))
+			reasonsAccumulator:updateReasons(
+				validateModerationRCC(restrictedUserIds :: Types.RestrictedUserIds, contentIdMap)
+			)
 		end
 	end
 

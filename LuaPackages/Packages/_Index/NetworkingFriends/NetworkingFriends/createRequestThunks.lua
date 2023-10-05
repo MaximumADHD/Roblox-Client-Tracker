@@ -3,6 +3,8 @@ local networkingFriendsTypes = require(script.Parent.networkingFriendsTypes)
 
 local networkRequests: any = script.Parent.networkRequests
 local createGetFriendsFromUserId: (any) -> any = require(networkRequests.createGetFriendsFromUserId)
+local createFindFriendsFromUserId: (any) -> any = require(networkRequests.createFindFriendsFromUserId);
+local createSearchFriendsByQuery: (any) -> any = require(networkRequests.createSearchFriendsByQuery);
 local createGetFriendRequestsCount: (any) -> any = require(networkRequests.createGetFriendRequestsCount)
 local createUnfriendTargetUserId: (any) -> any = require(networkRequests.createUnfriendTargetUserId)
 local createGetFriendRequests: (any) -> any = require(networkRequests.createGetFriendRequests)
@@ -29,6 +31,8 @@ local createGetFollowingsCount: (any) -> any = require(networkRequests.createGet
 return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.RequestThunks
 	return {
 		GetFriendsFromUserId = createGetFriendsFromUserId(config),
+		FindFriendsFromUserId = createFindFriendsFromUserId(config),
+		SearchFriendsByQuery = createSearchFriendsByQuery(config),
 		GetFriendRequestsCount = createGetFriendRequestsCount(config),
 		UnfriendTargetUserId = createUnfriendTargetUserId(config),
 		GetFriendRequests = createGetFriendRequests(config),

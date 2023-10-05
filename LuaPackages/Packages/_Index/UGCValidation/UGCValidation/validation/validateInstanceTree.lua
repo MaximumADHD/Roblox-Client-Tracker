@@ -1,5 +1,6 @@
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local validateWithSchema = require(root.util.validateWithSchema)
 
@@ -8,6 +9,7 @@ local function validateInstanceTree(schema: any, instance: Instance): (boolean, 
 	-- validate using hat schema
 	local validationResult = validateWithSchema(schema, instance)
 	if validationResult.success == false then
+		Analytics.reportFailure(Analytics.ErrorType.validateInstanceTree)
 		return false, { validationResult.message }
 	end
 
@@ -32,6 +34,7 @@ local function validateInstanceTree(schema: any, instance: Instance): (boolean, 
 	end
 
 	if #invalidDescendantsReasons > 0 then
+		Analytics.reportFailure(Analytics.ErrorType.validateInstanceTree_InvalidDescendants)
 		return false, invalidDescendantsReasons
 	end
 

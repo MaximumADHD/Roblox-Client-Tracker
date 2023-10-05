@@ -425,6 +425,11 @@ local function initializeLibrary(configs)
 		UIBlox = UsageTracker.trackMemberAccess("UIBlox", UIBlox, UsageTracker.isReactComponent)
 	end
 
+	if configs.enableLogger and configs.enableTraceLevelLog then
+		local Logger = require(script.Logger)
+		Logger:enableTraceLog()
+	end
+
 	return UIBlox
 end
 

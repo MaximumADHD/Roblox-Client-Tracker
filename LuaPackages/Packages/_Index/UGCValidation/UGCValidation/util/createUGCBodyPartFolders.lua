@@ -1,5 +1,5 @@
 --!strict
-local root = script:FindFirstAncestor("UGCValidation")
+local root = script.Parent.Parent
 
 local BundlesMetadata = require(root.util.BundlesMetadata)
 local Constants = require(root.Constants)

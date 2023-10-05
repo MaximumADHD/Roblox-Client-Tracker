@@ -5,14 +5,23 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
+local getFFlagUGCValidateMoveDynamicHeadTest = require(root.flags.getFFlagUGCValidateMoveDynamicHeadTest)
+
+local Analytics = require(root.Analytics)
 
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateMeshPartBodyPart = require(root.validation.validateMeshPartBodyPart)
+local validateDynamicHeadData = require(root.validation.validateDynamicHeadData)
 
 local Types = require(root.util.Types)
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
 
-local function validateDynamicHeadMesh(meshPartHead: MeshPart, isServer: boolean): (boolean, { string }?)
+-- remove this function when FFlagUGCValidateMoveDynamicHeadTest is removed true
+local function validateDynamicHeadMesh(meshPartHead: MeshPart, isServer: boolean?): (boolean, { string }?)
+	if getFFlagUGCValidateMoveDynamicHeadTest() then
+		assert(false, "Should never get here")
+	end
+
 	if not getEngineFeatureEngineUGCValidateBodyParts() then
 		return true
 	end
@@ -30,10 +39,12 @@ local function validateDynamicHeadMesh(meshPartHead: MeshPart, isServer: boolean
 			-- happen when validation is called from RCC
 			error(errorMessage)
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateDynamicHeadMeshPartFormat_FailedToLoadMesh)
 		return false, { errorMessage }
 	end
 
 	if not testsPassed then
+		Analytics.reportFailure(Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh)
 		return false,
 			{
 				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is not correctly set-up to be a dynamic head mesh as it has no FACS information`,
@@ -44,9 +55,9 @@ end
 
 local function validateDynamicHeadMeshPartFormat(
 	allSelectedInstances: { Instance },
-	isServer: boolean,
-	allowUnreviewedAssets: boolean,
-	restrictedUserIds: Types.RestrictedUserIds
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?
 ): (boolean, { string }?)
 	local result, failureReasons = validateSingleInstance(allSelectedInstances)
 	if not result then
@@ -68,7 +79,11 @@ local function validateDynamicHeadMeshPartFormat(
 		return false, failureReasons
 	end
 
-	return validateDynamicHeadMesh(inst :: MeshPart, isServer)
+	if getFFlagUGCValidateMoveDynamicHeadTest() then
+		return validateDynamicHeadData(inst :: MeshPart, isServer)
+	else
+		return validateDynamicHeadMesh(inst :: MeshPart, isServer)
+	end
 end
 
 return validateDynamicHeadMeshPartFormat

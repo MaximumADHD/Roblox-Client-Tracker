@@ -6,6 +6,7 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local validateMeshComparison = require(root.validation.validateMeshComparison)
@@ -22,7 +23,7 @@ local function getMeshInfo(inst: Instance): string?
 	return nil
 end
 
-local function validateWrapTargetComparison(meshScale: Vector3, meshHandle: MeshPart, isServer: boolean)
+local function validateWrapTargetComparison(meshScale: Vector3, meshHandle: MeshPart, isServer: boolean?)
 	local meshId = getMeshInfo(meshHandle)
 	assert(meshId)
 
@@ -39,9 +40,10 @@ local function validateWrapTargetComparison(meshScale: Vector3, meshHandle: Mesh
 	return validateMeshComparison(mesh, otherMesh, Constants.RenderVsWrapMeshMaxDiff, isServer)
 end
 
-local function calculateMeshSize(meshHandle: MeshPart, isServer: boolean): (boolean, { string }?, Vector3?)
+local function calculateMeshSize(meshHandle: MeshPart, isServer: boolean?): (boolean, { string }?, Vector3?)
 	local success, meshSize = pcall(getMeshSize, meshHandle.MeshId)
 	if not success then
+		Analytics.reportFailure(Analytics.ErrorType.validateBodyPartMeshBounds_FailedToLoadMesh)
 		local errorMessage = "Failed to read mesh"
 		if isServer then
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -54,7 +56,7 @@ local function calculateMeshSize(meshHandle: MeshPart, isServer: boolean): (bool
 	return true, nil, meshSize
 end
 
-local function validateInternal(meshHandle: MeshPart, _validationData: any, isServer: boolean): (boolean, { string }?)
+local function validateInternal(meshHandle: MeshPart, _validationData: any, isServer: boolean?): (boolean, { string }?)
 	local success, failureReasons, meshSize = calculateMeshSize(meshHandle, isServer)
 	if (not success) or not meshSize then
 		return success, failureReasons
@@ -69,7 +71,7 @@ end
 local function validateBodyPartMeshBounds(
 	inst: Instance,
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 	if Enum.AssetType.DynamicHead == assetTypeEnum then

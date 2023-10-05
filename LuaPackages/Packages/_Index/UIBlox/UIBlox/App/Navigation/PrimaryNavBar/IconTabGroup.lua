@@ -25,15 +25,20 @@ local Types = require(script.Parent.Types)
 -- Constants
 local Constants = require(script.Parent.Constants)
 
-type Props = {
-	selection: { number }?,
-	-- List of `IconTab`s to display on the IconTabGroup
-	items: { [number]: Types.IconTabItem },
-}
+type Props = Types.IconTabGroupProps
 
 local defaultProps: Props = {
 	selection = { 1 },
 	items = {},
+	padding = {
+		left = Constants.ICON_TAB_PADDING,
+		right = Constants.ICON_TAB_PADDING,
+	},
+	itemSpacing = UDim.new(0, Constants.ICON_TAB_ITEM_SPACING),
+	itemPadding = {
+		left = Constants.ICON_TAB_ITEM_PADDING_LEFT,
+		right = Constants.ICON_TAB_ITEM_PADDING_RIGHT,
+	},
 }
 
 local function IconTabGroup(providedProps: Props)
@@ -43,10 +48,7 @@ local function IconTabGroup(providedProps: Props)
 		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_GROUP_HEIGHT),
 		showRoundedBackground = false,
 		automaticSize = Enum.AutomaticSize.X,
-		padding = {
-			left = Constants.ICON_TAB_PADDING,
-			right = Constants.ICON_TAB_PADDING,
-		},
+		padding = props.padding,
 	}, {
 		MainTabList = React.createElement(InteractableList, {
 			size = UDim2.new(0, 0, 1, 0),
@@ -67,6 +69,7 @@ local function IconTabGroup(providedProps: Props)
 					item = item,
 					selected = selected,
 					controlState = state,
+					padding = props.itemPadding,
 				}),
 					extraProps
 			end,
@@ -80,7 +83,7 @@ local function IconTabGroup(providedProps: Props)
 			end,
 			selection = props.selection,
 			selectionMode = SelectionMode.Single,
-			padding = UDim.new(0, Constants.ICON_TAB_ITEM_SPACING),
+			padding = props.itemSpacing,
 		}),
 	})
 end

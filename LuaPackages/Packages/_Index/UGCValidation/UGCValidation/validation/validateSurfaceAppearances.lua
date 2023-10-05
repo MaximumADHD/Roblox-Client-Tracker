@@ -7,6 +7,8 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
+
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
 local function validateSurfaceAppearances(instance: Instance): (boolean, { string }?)
@@ -22,20 +24,23 @@ local function validateSurfaceAppearances(instance: Instance): (boolean, { strin
 		end
 
 		local meshPartHasTexture = (descendant :: MeshPart).TextureID ~= ""
-		local surfaceAppearance = descendant:FindFirstChildWhichIsA("SurfaceAppearance") :: SurfaceAppearance
+		local surfaceAppearance = descendant:FindFirstChildWhichIsA("SurfaceAppearance")
 
 		if meshPartHasTexture then
 			if surfaceAppearance then
+				Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MeshPartHasTexture)
 				reasonsAccumulator:updateReasons(false, {
 					`SurfaceAppearance's parent ({(descendant :: Instance):GetFullName()}) must have an empty TextureID`,
 				})
 			end
 		elseif not surfaceAppearance then
+			Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MissingSurfaceAppearance)
 			reasonsAccumulator:updateReasons(false, {
 				`({(descendant :: Instance):GetFullName()}) has an empty TextureID, so must have a child SurfaceAppearance`,
 			})
 		end
 	end
+
 	return reasonsAccumulator:getFinalResults()
 end
 

@@ -10,6 +10,7 @@ local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBo
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
@@ -103,11 +104,12 @@ end
 
 local function validateInstanceHierarchy(
 	fullBodyData: Types.FullBodyData,
-	isServer: boolean,
+	isServer: boolean?,
 	requiredTopLevelFolders: { string }
 ): (boolean, { string }?)
 	if not validateCorrectAssetTypesExist(fullBodyData) then
 		local errorMsg = "Full body check did not receive the correct set of body part Asset Types"
+		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_IncorrectAssetTypeSet)
 		if isServer then
 			-- this is a code issue, where the wrong set of assets have been sent, this is not a fault on the UGC creator
 			error(errorMsg)
@@ -116,6 +118,7 @@ local function validateInstanceHierarchy(
 	end
 
 	if not validateAllAssetsWithSchema(fullBodyData, requiredTopLevelFolders) then
+		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_InstancesMissing)
 		-- don't need more detailed error, as this is a check which has been done for each individual asset
 		return false, { "Instances are missing or incorrectly named" }
 	end
@@ -131,7 +134,7 @@ local function resetAllPhysicsData(fullBodyData: Types.FullBodyData)
 	end
 end
 
-local function validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean): (boolean, { string }?)
+local function validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean?): (boolean, { string }?)
 	if not getFFlagUGCValidateBodyParts() or not getFFlagUGCValidateFullBody() then
 		return true
 	end

@@ -105,6 +105,9 @@ DropdownMenu.validateProps = t.strictInterface({
 
 	-- Indicate whether design override is enabled
 	enableTokenOverride = t.optional(t.boolean),
+
+	-- Override the internal menuOpen dropdown state to close dropdown when true
+	isForcedClosed = t.optional(t.boolean),
 })
 
 DropdownMenu.defaultProps = {
@@ -230,6 +233,12 @@ function DropdownMenu:render()
 		contentStateColorMap = {
 			[ControlState.Default] = textState,
 		}
+	end
+
+	if self.props.isForcedClosed and self.state.menuOpen then
+		self:setState({
+			menuOpen = false,
+		})
 	end
 
 	return Roact.createElement("Frame", {

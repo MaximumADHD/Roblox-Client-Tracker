@@ -1,5 +1,9 @@
 local CollectionService = game:GetService("CollectionService")
 
+local root = script.Parent.Parent
+
+local Analytics = require(root.Analytics)
+
 local function validateTags(instance: Instance): (boolean, { string }?)
 	local objects: { Instance } = instance:GetDescendants()
 	table.insert(objects, instance)
@@ -16,6 +20,7 @@ local function validateTags(instance: Instance): (boolean, { string }?)
 		for _, obj in ipairs(hasTags) do
 			table.insert(reasons, obj:GetFullName())
 		end
+		Analytics.reportFailure(Analytics.ErrorType.validateTags)
 		return false, reasons
 	end
 

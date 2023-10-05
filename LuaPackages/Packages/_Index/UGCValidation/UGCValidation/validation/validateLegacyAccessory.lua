@@ -28,8 +28,8 @@ local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationN
 local function validateLegacyAccessory(
 	instances: { Instance },
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean,
-	allowUnreviewedAssets: boolean
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?
 ): (boolean, { string }?)
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
 

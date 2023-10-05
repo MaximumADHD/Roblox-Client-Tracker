@@ -2,6 +2,7 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
@@ -50,6 +51,7 @@ local function compareFolderInfo(fromFolder: any, toFolder: any): (boolean, { st
 
 	for key, val in fromFolder do
 		if nil == toFolder[key] or toFolder[key] ~= val then
+			Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_FolderInfoMismatch)
 			reasonsAccumulator:updateReasons(false, { `{key} has a different value in different folders` })
 		end
 	end
@@ -110,6 +112,7 @@ local function validateR6Folder(inst: Instance)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	if #(inst:GetChildren()) > 0 then
+		Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_R6FolderHasChildren)
 		reasonsAccumulator:updateReasons(false, {
 			`{if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName} Folder should have no children!`,
 		})
@@ -127,9 +130,9 @@ end
 local function validateLimbsAndTorso(
 	allSelectedInstances: { Instance },
 	assetTypeEnum: Enum.AssetType,
-	isServer: boolean,
-	allowUnreviewedAssets: boolean,
-	restrictedUserIds: Types.RestrictedUserIds
+	isServer: boolean?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: Types.RestrictedUserIds?
 ): (boolean, { string }?)
 	local requiredTopLevelFolders: { string } = {
 		if getFFlagMoveToolboxCodeToUGCValidation()
@@ -151,6 +154,7 @@ local function validateLimbsAndTorso(
 	end
 
 	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
+		Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_TopLevelFolders)
 		return false,
 			{ "Incorrect hierarchy selection, folders required: " .. table.concat(requiredTopLevelFolders, ", ") }
 	end

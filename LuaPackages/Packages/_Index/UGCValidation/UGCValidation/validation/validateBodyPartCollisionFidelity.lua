@@ -1,9 +1,13 @@
+local root = script.Parent.Parent
+
+local Analytics = require(root.Analytics)
+
 local FStringUGCValidationBodyPartCollisionFidelity =
 	game:DefineFastString("UGCValidationBodyPartCollisionFidelity", "Default")
 
-local function validateBodyPartCollisionFidelity(root: Instance): (boolean, { string }?)
-	local instances = root:GetDescendants()
-	table.insert(instances, 1, root)
+local function validateBodyPartCollisionFidelity(rootInstance: Instance): (boolean, { string }?)
+	local instances = rootInstance:GetDescendants()
+	table.insert(instances, 1, rootInstance)
 
 	local expectedCollisionFidelity = Enum.CollisionFidelity.Default
 	pcall(function()
@@ -24,6 +28,7 @@ local function validateBodyPartCollisionFidelity(root: Instance): (boolean, { st
 	if #failures == 0 then
 		return true
 	else
+		Analytics.reportFailure(Analytics.ErrorType.validateBodyPartCollisionFidelity)
 		return false, failures
 	end
 end

@@ -40,6 +40,8 @@ export type GetFollowingsCount = {
 
 export type RequestThunks = {
 	GetFriendsFromUserId: any,
+	FindFriendsFromUserId: any,
+	SearchFriendsByQuery: any,
 	GetFriendRequestsCount: any,
 	UnfriendTargetUserId: any,
 	GetFriendRequests: any,

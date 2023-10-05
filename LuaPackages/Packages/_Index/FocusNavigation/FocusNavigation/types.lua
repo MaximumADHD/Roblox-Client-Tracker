@@ -28,7 +28,7 @@ export type EventMap = {
 -- can be generalized for use with FocusNavigationService if desired
 export type ContainerFocusBehavior = {
 	onDescendantFocusChanged: nil | (GuiObject?) -> (),
-	getTarget: () -> GuiObject?,
+	getTargets: () -> { GuiObject },
 }
 
 return {}

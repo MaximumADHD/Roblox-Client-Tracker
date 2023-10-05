@@ -48,9 +48,6 @@ return {
 	-- to avoid layout bug related to AutomaticSize
 	removePreviewAnchor = false,
 
-	-- Use automatic size in PillGroup to fix initial layout issues
-	pillGroupAutomaticSize = false,
-
 	-- Change how VR Panel3D aligned to the in-game panel
 	vrAlignPanel3DUnderInGamePanel = false,
 
@@ -126,4 +123,11 @@ return {
 
 	-- Bugfix for the coplay footer badge text being off center
 	fixCoPlayFooterBadgeTextCenteringAndZIndex = false,
+
+	-- enable logger in uiblox.
+	-- This is a FFlag config, it will be removed once Logger become stable in prod.
+	enableLogger = false,
+
+	-- enable trace level log
+	enableTraceLevelLog = false,
 }

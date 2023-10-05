@@ -1,10 +1,11 @@
 --!nonstrict
-local Root = script:FindFirstAncestor("UGCValidation").Parent
-local Cryo = require(Root.Cryo)
-
 local root = script.Parent.Parent
 
+local Cryo = require(root.Parent.Cryo)
+
+local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
+
 local valueToString = require(root.util.valueToString)
 
 local EPSILON = 1e-5
@@ -50,6 +51,7 @@ local function validateProperties(instance): (boolean, { string }?)
 					end)
 
 					if not propExists then
+						Analytics.reportFailure(Analytics.ErrorType.validateProperties_PropertyDoesNotExist)
 						return false,
 							{
 								string.format("Property %s does not exist on type %s", propName, object.ClassName),
@@ -57,6 +59,7 @@ local function validateProperties(instance): (boolean, { string }?)
 					end
 
 					if not propEq(propValue, expectedValue) then
+						Analytics.reportFailure(Analytics.ErrorType.validateProperties_PropertyMismatch)
 						return false,
 							{
 								string.format(

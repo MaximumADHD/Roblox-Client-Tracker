@@ -95,7 +95,7 @@ local function useFocusNavigationScrolling<T>(scrollConfig: ScrollConfig<T>)
 			})
 		end
 		return nil
-	end, { listRef, focusedIndex, cellRendererKey, onSelectedIndexChanged, animated, viewOffset } :: { any })
+	end, { listRef, focusedIndex, cellRendererKey, onSelectedIndexChanged, animated, viewOffset, data } :: { any })
 
 	return onSelectionChanged, onScrollToIndexFailed
 end

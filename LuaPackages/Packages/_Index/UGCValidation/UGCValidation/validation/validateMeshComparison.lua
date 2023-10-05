@@ -6,6 +6,8 @@
 
 local root = script.Parent.Parent
 
+local Analytics = require(root.Analytics)
+
 local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 
@@ -28,7 +30,7 @@ local function validateMeshComparison(
 	mesh: MeshInputData,
 	otherMesh: MeshInputData,
 	maxDiff: number,
-	isServer: boolean
+	isServer: boolean?
 ): (boolean, { string }?)
 	local success, failureReasons, meshMinOpt, meshMaxOpt = getMeshMinMax(mesh.id, isServer, mesh.scale)
 	if not success then
@@ -46,6 +48,7 @@ local function validateMeshComparison(
 	local otherMeshMax = meshMaxOptOther :: Vector3
 
 	if (meshMin - otherMeshMin).Magnitude > maxDiff or (meshMax - otherMeshMax).Magnitude > maxDiff then
+		Analytics.reportFailure(Analytics.ErrorType.validateMeshComparison)
 		return false, { formatError(mesh, otherMesh, maxDiff) }
 	end
 	return true

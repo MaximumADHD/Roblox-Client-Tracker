@@ -1,18 +1,24 @@
 --!nonstrict
-local Root = script:FindFirstAncestor("UGCValidation")
-local Cryo = require(Root.Parent.Cryo)
+local root = script.Parent
 
-local getFFlagMoveToolboxCodeToUGCValidation = require(Root.flags.getFFlagMoveToolboxCodeToUGCValidation)
-local getFFlagUGCValidateBodyParts = require(Root.flags.getFFlagUGCValidateBodyParts)
-local getFIntMeshDivision = require(Root.flags.getFIntMeshDivision)
-local getFIntMeshDivisionFull = require(Root.flags.getFIntMeshDivisionFull)
-local getFIntMeshDivisionFullExtended = require(Root.flags.getFIntMeshDivisionFullExtended)
-local getFIntMeshDivisionMedium = require(Root.flags.getFIntMeshDivisionMedium)
-local getFFlagAddUGCValidationForPackage = require(Root.flags.getFFlagAddUGCValidationForPackage)
-local getFFlagUGCValidationAdjustLegBounds = require(Root.flags.getFFlagUGCValidationAdjustLegBounds)
-local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(Root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
-local getFFlagFixPackageIDFieldName = require(Root.flags.getFFlagFixPackageIDFieldName)
-local getFFlagUGCValidateFullBody = require(Root.flags.getFFlagUGCValidateFullBody)
+local Cryo = require(root.Parent.Cryo)
+
+local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
+local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+
+local getFIntMeshDivision = require(root.flags.getFIntMeshDivision)
+local getFIntMeshDivisionFull = require(root.flags.getFIntMeshDivisionFull)
+local getFIntMeshDivisionFullExtended = require(root.flags.getFIntMeshDivisionFullExtended)
+local getFIntMeshDivisionMedium = require(root.flags.getFIntMeshDivisionMedium)
+local getFIntMeshDivisionNarrow = require(root.flags.getFIntMeshDivisionNarrow)
+
+local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
+local getFFlagUGCValidationAdjustLegBounds = require(root.flags.getFFlagUGCValidationAdjustLegBounds)
+local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
+local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
+local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
+local getFFlagUGCValidateRestrictAttachmentPositions =
+	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -137,18 +143,16 @@ Constants.EXTRA_BANNED_NAMES = {
 	"Humanoid",
 }
 
-if game:GetFastFlag("UGCExtraBannedNames") then
-	local extraBannedNames = {
-		"Body Colors",
-		"Shirt Graphic",
-		"Shirt",
-		"Pants",
-		"Health",
-		"Animate",
-	}
-	for _, name in ipairs(extraBannedNames) do
-		table.insert(Constants.EXTRA_BANNED_NAMES, name)
-	end
+local extraBannedNames = {
+	"Body Colors",
+	"Shirt Graphic",
+	"Shirt",
+	"Pants",
+	"Health",
+	"Animate",
+}
+for _, name in ipairs(extraBannedNames) do
+	table.insert(Constants.EXTRA_BANNED_NAMES, name)
 end
 
 Constants.BANNED_NAMES = convertArrayToTable(
@@ -325,6 +329,9 @@ if getFFlagUGCValidateBodyParts() then
 	local meshDivision = getFIntMeshDivision() / 100
 	local meshDivisionFull = getFIntMeshDivisionFull() / 100
 	local meshDivisionMedium = getFIntMeshDivisionMedium() / 100
+	local meshDivisionNarrow = if getFFlagUGCValidateRestrictAttachmentPositions()
+		then getFIntMeshDivisionNarrow() / 100
+		else nil
 
 	local fullMesh = {
 		min = Vector3.new(-meshDivisionFull, -meshDivisionFull, -meshDivisionFull),
@@ -351,6 +358,27 @@ if getFFlagUGCValidateBodyParts() then
 		max = fullMesh.max,
 	}
 
+	local topLeftMeshNarrow = if getFFlagUGCValidateRestrictAttachmentPositions()
+		then {
+			min = Vector3.new(fullMesh.min.X, meshDivision, -meshDivisionNarrow),
+			max = Vector3.new(-meshDivision, fullMesh.max.Y, meshDivisionNarrow),
+		}
+		else nil
+
+	local topRightMeshNarrow = if getFFlagUGCValidateRestrictAttachmentPositions()
+		then {
+			min = Vector3.new(meshDivision, meshDivision, -meshDivisionNarrow),
+			max = Vector3.new(fullMesh.max.X, fullMesh.max.Y, meshDivisionNarrow),
+		}
+		else nil
+
+	local topCenterMesh = if getFFlagUGCValidateRestrictAttachmentPositions()
+		then {
+			min = Vector3.new(-meshDivisionNarrow, meshDivision, -meshDivisionNarrow),
+			max = Vector3.new(meshDivisionNarrow, fullMesh.max.Y, meshDivisionNarrow),
+		}
+		else nil
+
 	local topMeshExtended = {
 		min = Vector3.new(fullMesh.min.x, meshDivision, fullMesh.min.z),
 		max = Vector3.new(fullMesh.max.x, meshDivisionFullExtended, fullMesh.max.z),
@@ -360,6 +388,27 @@ if getFFlagUGCValidateBodyParts() then
 		min = fullMesh.min,
 		max = Vector3.new(fullMesh.max.x, -meshDivision, fullMesh.max.z),
 	}
+
+	local bottomLeftMeshNarrow = if getFFlagUGCValidateRestrictAttachmentPositions()
+		then {
+			min = Vector3.new(fullMesh.min.X, fullMesh.min.Y, -meshDivisionNarrow),
+			max = Vector3.new(-meshDivision, -meshDivision, meshDivisionNarrow),
+		}
+		else nil
+
+	local bottomRightMeshNarrow = if getFFlagUGCValidateRestrictAttachmentPositions()
+		then {
+			min = Vector3.new(meshDivision, fullMesh.min.Y, -meshDivisionNarrow),
+			max = Vector3.new(fullMesh.max.X, -meshDivision, meshDivisionNarrow),
+		}
+		else nil
+
+	local bottomCenterMesh = if getFFlagUGCValidateRestrictAttachmentPositions()
+		then {
+			min = Vector3.new(-meshDivisionNarrow, fullMesh.min.Y, -meshDivisionNarrow),
+			max = Vector3.new(meshDivisionNarrow, -meshDivision, meshDivisionNarrow),
+		}
+		else nil
 
 	local frontMesh = {
 		min = fullMesh.min,
@@ -543,11 +592,13 @@ if getFFlagUGCValidateBodyParts() then
 			UpperTorso = {
 				rigAttachmentToParent = {
 					name = "WaistRigAttachment",
-					bounds = bottomMesh,
+					bounds = if getFFlagUGCValidateRestrictAttachmentPositions() then bottomCenterMesh else bottomMesh,
 				},
 				otherAttachments = {
 					LeftShoulderRigAttachment = {
-						bounds = leftMeshMedium,
+						bounds = if getFFlagUGCValidateRestrictAttachmentPositions()
+							then topLeftMeshNarrow
+							else leftMeshMedium,
 					},
 					RightCollarAttachment = {
 						bounds = rightMeshMedium,
@@ -562,7 +613,9 @@ if getFFlagUGCValidateBodyParts() then
 						bounds = frontMesh,
 					},
 					RightShoulderRigAttachment = {
-						bounds = rightMeshMedium,
+						bounds = if getFFlagUGCValidateRestrictAttachmentPositions()
+							then topRightMeshNarrow
+							else rightMeshMedium,
 					},
 					LeftCollarAttachment = {
 						bounds = leftMeshMedium,
@@ -582,13 +635,17 @@ if getFFlagUGCValidateBodyParts() then
 						bounds = fullMesh,
 					},
 					LeftHipRigAttachment = {
-						bounds = leftMeshMedium,
+						bounds = if getFFlagUGCValidateRestrictAttachmentPositions()
+							then bottomLeftMeshNarrow
+							else leftMeshMedium,
 					},
 					RightHipRigAttachment = {
-						bounds = rightMeshMedium,
+						bounds = if getFFlagUGCValidateRestrictAttachmentPositions()
+							then bottomRightMeshNarrow
+							else rightMeshMedium,
 					},
 					WaistRigAttachment = {
-						bounds = topMesh,
+						bounds = if getFFlagUGCValidateRestrictAttachmentPositions() then topCenterMesh else topMesh,
 					},
 					WaistBackAttachment = {
 						bounds = backMesh,
