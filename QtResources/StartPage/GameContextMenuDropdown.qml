@@ -86,14 +86,7 @@ ContextMenuDropdown {
 
         // if games is archived then show only restore option
         if (model.isArchived) {
-            if(FFlagStudioStartPageAgeGated)
-            {
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Restore"), "action": "restore_game", "disabled" : false});
-            }
-            else
-            {
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Restore"), "action": "restore_game"});
-            }
+            listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Restore"), "action": "restore_game", "disabled" : false});
             return;
         }
 
@@ -107,91 +100,41 @@ ContextMenuDropdown {
 
         var teamCreateEnabled = model.isTeamCreateEnabled;
 
-        var ageRestrictedExperience = FFlagStudioStartPageAgeGated ? model.minimumAge >= 17 : false;
-        var userAgeVerified = FFlagStudioStartPageAgeGated ? gameGridView.controller.isUserAuthorized(model.publishedRootPlaceId, ageRestrictedExperience) : true;
-        var ageGated = FFlagStudioStartPageAgeGated ?  ageRestrictedExperience && !userAgeVerified : false;
+        var ageRestrictedExperience = model.minimumAge >= 17;
+        var userAgeVerified = gameGridView.controller.isUserAuthorized(model.publishedRootPlaceId, ageRestrictedExperience);
+        var ageGated = ageRestrictedExperience && !userAgeVerified;
 
         if (canShare) {
-            if(FFlagStudioStartPageAgeGated)
-            {
-                listModel.append({"text": qsTr("Studio.Common.Action.Share"), "action": "share", "disabled" : ageGated});
-            }
-            else
-            {
-                listModel.append({"text": qsTr("Studio.Common.Action.Share"), "action": "share"});
-            }
+            listModel.append({"text": qsTr("Studio.Common.Action.Share"), "action": "share", "disabled" : ageGated});
         }
 
         if (canConfigure) {
                 if (isLocalFile) {
                     console.log("Game can configure but is local file", name);
                 } else {
-                    if(FFlagStudioStartPageAgeGated)
-                    {
-                        listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.ConfigureGame"), "action": "configure_game", "disabled" : ageGated});
-                    }
-                    else
-                    {
-                        listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.ConfigureGame"), "action": "configure_game"});
-                    }
+                    listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.ConfigureGame"), "action": "configure_game", "disabled" : ageGated});
                 if (gameHasRootPlace) {
-                    if(FFlagStudioStartPageAgeGated)
-                    {
-                        listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.ConfigurePlace"), "action": "configure_place", "disabled" : ageGated});
-                    }
-                    else
-                    {
-                        listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.ConfigurePlace"), "action": "configure_place"});
-                    }
+                    listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.ConfigurePlace"), "action": "configure_place", "disabled" : ageGated});
                 }
             }
         }
 
         if (gameHasRootPlace) {
-            if(FFlagStudioStartPageAgeGated)
-            {
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.OpenPlacePage"), "action": "place_page", "disabled" : ageGated});
-            }
-            else
-            {
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.OpenPlacePage"), "action": "place_page"});
-            }
+            listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.OpenPlacePage"), "action": "place_page", "disabled" : ageGated});
         }
 
         if (canConfigure && gameHasRootPlace) {
-            if(FFlagStudioStartPageAgeGated)
-            {
-                listModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active", "disabled" : ageGated});
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Archive"), "action": "archive_game", "disabled" : FFlagStartPageContextMenuDisableArchive ? ageGated : false});
-            }
-            else
-            {
-                listModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active"});
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Archive"), "action": "archive_game"});                
-            }
+            listModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active", "disabled" : ageGated});
+            listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Archive"), "action": "archive_game", "disabled" : FFlagStartPageContextMenuDisableArchive ? ageGated : false});
         }
 
         var recentPageIndex = 2;
         if (startPage.currentPageIndex === recentPageIndex) {
-            if(FFlagStudioStartPageAgeGated)
-            {
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.RemoveFromList"), "action": "remove", "disabled" : false});
-            }
-            else
-            {
-                listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.RemoveFromList"), "action": "remove"});
-            }
+            listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.RemoveFromList"), "action": "remove", "disabled" : false});
         }
 
         if (startPage.getCurrentTabElementId() === "myGames_SharedWithMe") {
-            if(FFlagStudioStartPageAgeGated)
-            {
-                listModel.append({"text": qsTr("Studio.Common.Action.Remove"), "action": "leave_team_create", "disabled" : false});
-            }
-            else
-            {
-                listModel.append({"text": qsTr("Studio.Common.Action.Remove"), "action": "leave_team_create"});
-            }
+            listModel.append({"text": qsTr("Studio.Common.Action.Remove"), "action": "leave_team_create", "disabled" : false});
         }
 
         if(FFlagLocalizationStartPageFixes)

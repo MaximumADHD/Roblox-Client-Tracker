@@ -442,13 +442,13 @@ TableView {
             GameTableViewText {
                 id: _nameText
                 anchors.left: parent.left
-                width: FFlagStudioStartPageAgeGated ? parent.width - elideMargin -  ageLabelWidth - standardMargin : parent.width - elideMargin
+                width: parent.width - elideMargin -  ageLabelWidth - standardMargin
                 text: model && model.name ? model.name : ""
             }
             Rectangle
             {
                 id: minimumAgeLabelContainer
-                visible: FFlagStudioStartPageAgeGated && model && model.minimumAge >= 17
+                visible: model && model.minimumAge >= 17
                 anchors.right: parent.right
                 anchors.rightMargin: standardMargin
                 anchors.verticalCenter: parent.verticalCenter

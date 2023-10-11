@@ -99,7 +99,7 @@ Studio.MaterialManager.Categories.Concrete,Concrete,Concrete,Hormigón,Béton,Ce
 Studio.MaterialManager.Materials.Concrete,Concrete,Concrete,Hormigón,Béton,Cemento,コンクリート,콘크리트,Concreto,水泥,水泥,混凝土
 Studio.MaterialManager.Materials.CorrodedMetal,Corroded Metal,Corroded Metal,Metal corroído,Métal corrodé,Metallo corroso,さびた金属,부식된 금속,Metal corroído,锈蚀金属,锈蚀金属,腐蝕金屬
 Studio.MaterialManager.Materials.Foil,Foil,Foil,Papel aluminio,Feuille d'aluminium,Alluminio,ホイル,포일,Papel alumínio,锡箔,锡箔,金屬箔
-Studio.MaterialManager.Materials.ForceField,Force Field,Force Field,Campo de fuerza,Forcer le champ,Campo Forza,フォースフィールド,역장,Campo de força,力场,力场,力場
+Studio.MaterialManager.Materials.ForceField,Force Field,Force Field,Campo de fuerza,Champ de force,Campo Forza,フォースフィールド,역장,Campo de força,力场,力场,力場
 Studio.MaterialManager.Materials.Ice,Ice,Ice,Hielo,Glace,Ghiaccio,氷,얼음,Gelo,冰,冰,冰
 Studio.MaterialManager.Materials.Limestone,Limestone,Limestone,Piedra caliza,Pierre calcaire,Calcare,ライムストーン,석회암,Calcário,石灰石,石灰石,石灰岩
 Studio.MaterialManager.Materials.Marble,Marble,Marble,Mármol,Marbre,Marmo,大理石,대리석,Mármore,大理石,大理石,大理石
@@ -170,7 +170,7 @@ Studio.MaterialManager.Materials.ConcreteVariant,Concrete Variant,Concrete Varia
 Studio.MaterialManager.Materials.CrackedLavaVariant,Cracked Lava Variant,Cracked Lava Variant,Variante de lava agrietada,Variante de lave fissurée,Variante Lava Incrinata,ひび割れた溶岩のバリエーション,갈라진 용암 변형,Variante de lava rachada,裂纹熔岩变量,裂纹熔岩变量,裂紋熔岩變種
 Studio.MaterialManager.Materials.FabricVariant,Fabric Variant,Fabric Variant,Variante de tela,Variante de tissu,Variante Tessuto,生地のバリエーション,직물 변형,Variante de tecido,布料变量,布料变量,布料變種
 Studio.MaterialManager.Materials.FoilVariant,Foil Variant,Foil Variant,Variante de papel aluminio,Variante de la feuille d'aluminium,Variante Lamina,ホイルのバリエーション,포일 변형,Variante de papel alumínio,锡箔变量,锡箔变量,金屬箔變種
-Studio.MaterialManager.Materials.ForceFieldVariant,Force Field Variant,Force Field Variant,Variante de campo de fuerza,Forcer la variante du champ,Variante Campo Forza,フォースフィールドのバリエーション,역장 변형,Variante de campo força,力场变量,力场变量,力場變種
+Studio.MaterialManager.Materials.ForceFieldVariant,Force Field Variant,Force Field Variant,Variante de campo de fuerza,Variante du champ de force,Variante Campo Forza,フォースフィールドのバリエーション,역장 변형,Variante de campo força,力场变量,力场变量,力場變種
 Studio.MaterialManager.Materials.CarpetVariant,Carpet Variant,Carpet Variant,Variante de alfombra,Variante de Tapis, ,カーペットのバリエーション,카펫 변형,Variante de tapete, , , 
 Studio.MaterialManager.Materials.GlacierVariant,Glacier Variant,Glacier Variant,Variante de glaciar,Variante du glacier,Variante Ghiacciaio,氷河のバリエーション,빙하 변형,Variante de geleira,冰川变量,冰川变量,冰河變種
 Studio.MaterialManager.Materials.GlassVariant,Glass Variant,Glass Variant,Variante de vidrio,Variante de verre,Variante Vetro,ガラスのバリエーション,유리 변형,Variante de vidro,玻璃变量,玻璃变量,玻璃變種

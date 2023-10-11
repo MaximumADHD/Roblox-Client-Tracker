@@ -10,10 +10,10 @@ Studio.Tutorials.StudioTour2.topic_parts,Parts,Parts
 Studio.Tutorials.Plugin.Button,Toggle,Toggle
 Studio.Tutorials.StudioTour.select_Title,Select Part,Select Part
 Studio.Tutorials.StudioTour.rotateCamera_Description,"Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around.","Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around"
-Studio.Tutorials.StudioTour2.rotateCamera_Description,"Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around.","Hold down the right mouse button or Ctrl key, then move your mouse to turn the camera around"
 Studio.Tutorials.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
 Studio.Tutorials.Plugin.Start,Start,Start
 Studio.Tutorials.StudioTour2.moveCamera_Compliment,Nice 👍,Nice 👍
+Studio.Tutorials.StudioTour2.rotate_Compliment,Nice 👍,Nice 👍
 Studio.Tutorials.Tutorial.StepSkipped,Step Skipped,Step Skipped
 Studio.Tutorials.Plugin.Welcome,"Welcome to Roblox Studio, %s!","Welcome to Roblox Studio, %s!"
 Studio.Tutorials.StudioTour2.select_Title,Select the car,Select the car
@@ -36,6 +36,7 @@ Studio.Tutorials.StudioTour2.welcome_Compliment,Well done!,Well done!
 Studio.Tutorials.Tutorial.Back,Back,Back
 Studio.Tutorials.Tutorial.Begin,Begin,Begin
 Studio.Tutorials.StudioTour.material_Title,Change Material,Change Material
+Studio.Tutorials.StudioTour2.scale_Description,"Select the Scale tool, then click and drag each of the handles to make the wedge big enough for the car to drive over.","Select the Scale tool, then click and drag each of the handles to make the wedge big enough for the car to drive over."
 Studio.Tutorials.StudioTour.color_Description,"With the ramp selected, press Color to choose a new color for the ramp.","With the ramp selected, press Color to choose a new color for the ramp."
 Studio.Tutorials.StudioTour.properties_Description,This is the Properties window. You can see and edit the properties of any object you select.,This is the Properties window. You can see and edit the properties of any object you select.
 Studio.Tutorials.StudioTour.Title,Studio Tour,Studio Tour
@@ -69,7 +70,6 @@ Studio.Tutorials.StudioTour2.rotateCamera_Title,Rotating the Camera,Rotating the
 Studio.Tutorials.StudioTour2.searchMarketplace_Description,Let's add a car to the place. Try typing 'car' in the search bar.,Let's add a car to the place. Try typing 'car' in the search bar.
 Studio.Tutorials.StudioTour.select_Description,Select a part you created earlier by clicking one in the Explorer or the 3D view.,Select a part you created earlier by clicking one in the Explorer or the 3D view.
 Studio.Tutorials.StudioTour.explorer_Title,Explorer,Explorer
-Studio.Tutorials.StudioTour2.explorerSelected_Title,Explorer,Explorer
 Studio.Tutorials.StudioTour2.explorer_Title,Explorer,Explorer
 Studio.Tutorials.StudioTour2.topic_explorer,Explorer,Explorer
 Studio.Tutorials.StudioTour.color_Title,Change Color,Change Color
@@ -78,6 +78,7 @@ Studio.Tutorials.StudioTour2.workspace_Title,Workspace,Workspace
 Studio.Tutorials.StudioTour.workspace_Description,The Workspace service displays everything in your 3D world.,The Workspace service displays everything in your 3D world.
 Studio.Tutorials.StudioTour2.workspace_Description,The Workspace service displays everything in your 3D world.,The Workspace service displays everything in your 3D world.
 Studio.Tutorials.StudioTour.parts_Description,"Parts are the basic building blocks in Studio.<br/><br/>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br/><br/>Add as many as you like now!","Parts are the basic building blocks in Studio.<br/><br/>Use the arrow below the button to choose a shape, like a Block, Sphere or Cylinder.<br/><br/>Add as many as you like now!"
+Studio.Tutorials.StudioTour2.rotateCamera_Description,"Hold down the right mouse button or Ctrl key and left mouse button, then move your mouse to turn the camera around.","Hold down the right mouse button or Ctrl key and left mouse button, then move your mouse to turn the camera around"
 Studio.Tutorials.StudioTour.focus_Title,Focus,Focus
 Studio.Tutorials.StudioTour2.focus_Title,Focus,Focus
 Studio.Tutorials.StudioTour.focus_Description,Press F to focus the camera on the part while it's selected.,Press F to focus the camera on the part while it's selected.
@@ -92,18 +93,15 @@ Studio.Tutorials.StudioTour2.topic_marketplace,Marketplace,Marketplace
 Studio.Tutorials.StudioTour2.searchMarketplace_Title,Search the Marketplace,Search the Marketplace
 Studio.Tutorials.StudioTour2.insertMarketplace_Title,Insert the car,Insert the car
 Studio.Tutorials.StudioTour2.insertMarketplace_Description,Click on the car's tile to insert it into your place.,Click on the car's tile to insert it into your place.
-Studio.Tutorials.StudioTour2.explorerSelected_Description,When you insert an asset it is automatically selected in Explorer.<br/><br/>Your currrent selection is also highlighted in the 3D world.,When you insert an asset it is automatically selected in Explorer.<br/><br/>Your currrent selection is also highlighted in the 3D world.
 Studio.Tutorials.StudioTour2.wedge_Title,Insert a Wedge,Insert a Wedge
 Studio.Tutorials.StudioTour2.wedge_Compliment,Perfect! 😊,Perfect! 😊
 Studio.Tutorials.StudioTour2.move_Title,Move,Move
 Studio.Tutorials.StudioTour2.move_Compliment,Great!,Great!
-Studio.Tutorials.StudioTour2.move_Description,Use the Move tool to move the ramp in front of the car.<br/><br/>Click and drag the handles to move the ramp.,Use the Move tool to move the ramp in front of the car.<br/><br/>Click and drag the handles to move the ramp.
+Studio.Tutorials.StudioTour2.move_Description,"Select the Move tool, then click and drag the blue and red handles to move the wedge along the road in front of the car.","Select the Move tool, then click and drag the blue and red handles to move the wedge along the road in front of the car."
 Studio.Tutorials.StudioTour2.rotate_Title,Rotate,Rotate
-Studio.Tutorials.StudioTour2.rotate_Compliment,Yep!,Yep!
-Studio.Tutorials.StudioTour2.rotate_Description,Use the rotate tool to turn the wedge around so it faces the car.<br/><br/>Click and drag the handles to rotate.,Use the rotate tool to turn the wedge around so it faces the car.<br/><br/>Click and drag the handles to rotate.
+Studio.Tutorials.StudioTour2.rotate_Description,"Select the Rotate tool, then click and drag the green handle to turn the wedge around so thatit faces the car.","Select the Rotate tool, then click and drag the green handle to turn the wedge around so thatit faces the car."
 Studio.Tutorials.StudioTour2.scale_Title,Scale,Scale
 Studio.Tutorials.StudioTour2.scale_Compliment,Fantastic! ✨,Fantastic! ✨
-Studio.Tutorials.StudioTour2.scale_Description,Use the Scale tool to make the ramp big enough for the car to drive over.<br/><br/>Click and drag the handles to change its size.,Use the Scale tool to make the ramp big enough for the car to drive over.<br/><br/>Click and drag the handles to change its size.
 Studio.Tutorials.StudioTour2.color_Title,Change the color of the ramp,Change the color of the ramp
 Studio.Tutorials.StudioTour2.color_Description,Click this button to choose a new color for the ramp.,Click this button to choose a new color for the ramp.
 Studio.Tutorials.StudioTour2.anchor_Title,Anchor the ramp,Anchor the ramp
@@ -113,7 +111,7 @@ Studio.Tutorials.StudioTour2.focus_Description,"With the car selected, press F t
 Studio.Tutorials.StudioTour2.properties_Description,This is the Properties window. You can see and edit the properties of the selected object.,This is the Properties window. You can see and edit the properties of the selected object.
 Studio.Tutorials.StudioTour2.maxSpeed_Title,Change Max Speed,Change Max Speed
 Studio.Tutorials.StudioTour2.maxSpeed_Compliment,"Woah, that's fast 🏎","Woah, that's fast 🏎"
-Studio.Tutorials.StudioTour2.maxSpeed_Description,You can add custom data to objects using attributes.<br/><br/>Search for the MaxSpeed attribute and update it to a new value to change the speed of the car.,You can add custom data to objects using attributes.<br/><br/>Search for the MaxSpeed attribute and update it to a new value to change the speed of the car.
+Studio.Tutorials.StudioTour2.maxSpeed_Description,You can add custom data to objects using attributes.<br/><br/>Type 'MaxSpeed' in the Filter Properties box to find and update the MaxSpeed value and change the speed of the car.,You can add custom data to objects using attributes.<br/><br/>Type 'MaxSpeed' in the Filter Properties box to find and update the MaxSpeed value and change the speed of the car.
 Studio.Tutorials.StudioTour2.playtest_Description,"Finally, playtest your place by clicking the Play button.","Finally, playtest your place by clicking the Play button."
 Studio.Tutorials.StudioTour2.avatar_Title,Control your avatar,Control your avatar
 Studio.Tutorials.StudioTour2.avatar_Compliment,Go for it! 🏎,Go for it! 🏎

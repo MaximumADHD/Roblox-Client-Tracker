@@ -44,6 +44,7 @@ Studio.TerrainEditor.BrushSettings.PlanePosition,Plane Position
 Studio.TerrainEditor.BrushSettings.PlaneRotation,Plane Rotation
 Studio.TerrainEditor.BrushSettings.Snapping,Snapping
 Studio.TerrainEditor.BrushSettings.Strength,Strength
+Studio.TerrainEditor.BrushSettings.WaterLevel,Water Level
 Studio.TerrainEditor.BrushShape.Cube,Cube
 Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
 Studio.TerrainEditor.BrushShape.Sphere,Sphere

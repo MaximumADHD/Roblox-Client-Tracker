@@ -177,6 +177,7 @@ version = "0.1.0"
 [[package]]
 name = "ArgCheck"
 version = "0.1.0"
+dependencies = ["JestGlobals JestGlobals 0.1.0"]
 
 [[package]]
 name = "AuthenticationProtocol"
@@ -480,7 +481,10 @@ dependencies = [
 [[package]]
 name = "FormFactor"
 version = "0.1.0"
-dependencies = ["Rodux Rodux 0.1.0"]
+dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
+    "Rodux Rodux 0.1.0",
+]
 
 [[package]]
 name = "FriendsCarousel"
@@ -928,6 +932,7 @@ version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "React React 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
@@ -1452,6 +1457,7 @@ name = "RoactServices"
 version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "Roact RoactCompat 0.1.0",
 ]
@@ -2176,7 +2182,9 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "LinkingProtocol LinkingProtocol 0.1.0",
+    "LoggingProtocol LoggingProtocol 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
+    "MessageBus MessageBus 0.1.0",
     "Navigation Navigation 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
@@ -2243,7 +2251,10 @@ version = "0.1.0"
 [[package]]
 name = "Time"
 version = "0.1.0"
-dependencies = ["ArgCheck ArgCheck 0.1.0"]
+dependencies = [
+    "ArgCheck ArgCheck 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+]
 
 [[package]]
 name = "TnSAdIdentification"
@@ -2393,6 +2404,7 @@ dependencies = [
     "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "SocialCommon SocialCommon 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "VerifiedBadges VerifiedBadges 0.8.1",

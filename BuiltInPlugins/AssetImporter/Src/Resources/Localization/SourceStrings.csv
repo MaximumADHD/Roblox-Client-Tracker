@@ -226,7 +226,9 @@ Studio.AssetImporter.Templates.Delete,Delete
 Studio.AssetImporter.Templates.LastImportTooltip,Root settings from the last time you imported a file
 Studio.AssetImporter.Templates.LastImported,Last Imported
 Studio.AssetImporter.Templates.ModifiedTemplateTooltip,You have made some changes based on the settings from your last imported file
-Studio.AssetImporter.Templates.PresetsRemaining1,{presetsRemaining} preset slots left.
+Studio.AssetImporter.Templates.OverwritingReservedName1,{name} is the name of a standard preset. Please choose a different name.
+Studio.AssetImporter.Templates.PresetNameOverwriteWarning,Saving will overwrite the existing configuration of this preset.
+Studio.AssetImporter.Templates.PresetsRemaining2,{presetsRemaining}/{totalPresets} preset slot(s) left.
 Studio.AssetImporter.Templates.Rename,Rename
 Studio.AssetImporter.Templates.Reset,Reset
 Studio.AssetImporter.Templates.ResetTooltip,Reset settings back to selected template

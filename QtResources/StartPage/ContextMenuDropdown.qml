@@ -167,7 +167,7 @@ Item {
                 console.log("Clicked on GameContextMenuDropdown but clickElement was null or undefined.");
                 return;
             }
-            if(FFlagStudioStartPageAgeGated && clickedElement.disabled)
+            if(clickedElement.disabled)
             {
                 return;
             }
@@ -238,7 +238,7 @@ Item {
                                 font.weight: FFlagLocalizationStartPageFixes ? container.listElementFontWeight : userPreferences.theme.style("CommonStyle fontWeight")
                                 renderType: userPreferences.theme.style("CommonStyle textRenderType")
                                 color: userPreferences.theme.style("CommonStyle mainText")
-                                opacity: (FFlagStudioStartPageAgeGated && model && model.disabled) ? .3 : 1
+                                opacity: (model && model.disabled) ? .3 : 1
                                 text: model.text ? model.text : ""
                             }
                         }

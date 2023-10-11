@@ -73,7 +73,7 @@ Class Accoutrement : Instance
 	Event Accoutrement.ServerEquipAccoutrement(Instance character) {RobloxSecurity} [Hidden]
 	Event Accoutrement.ServerUnequipAccoutrement(Instance oldCharacter) {RobloxSecurity} [Hidden]
 Class Accessory : Accoutrement
-	Property Enum.AccessoryType Accessory.AccessoryType {✏️NotAccessibleSecurity}
+	Property Enum.AccessoryType Accessory.AccessoryType {✏️RobloxScriptSecurity}
 Class Hat : Accoutrement [Deprecated]
 Class AdPortal : Instance
 	Property Enum.AdUnitStatus AdPortal.Status [ReadOnly]
@@ -807,7 +807,7 @@ Class Camera : Instance [NotReplicated]
 	Function void Camera:Interpolate(CFrame endPos, CFrame endFocus, float duration) [Deprecated]
 	Function void Camera:PanUnits(int units) [Deprecated]
 	Function Ray Camera:ScreenPointToRay(float x, float y, float depth = 0) {🧬Safe}
-	Function void Camera:SetCameraPanMode(Enum.CameraPanMode mode = "Classic")
+	Function void Camera:SetCameraPanMode(Enum.CameraPanMode mode = "Classic") [Deprecated]
 	Function void Camera:SetImageServerView(CFrame modelCoord) {RobloxScriptSecurity}
 	Function void Camera:SetRoll(float rollAngle)
 	Function bool Camera:TiltUnits(int units) [Deprecated]
@@ -900,7 +900,7 @@ Class ClickDetector : Instance
 	Event ClickDetector.MouseHoverEnter(Player playerWhoHovered)
 	Event ClickDetector.MouseHoverLeave(Player playerWhoHovered)
 	Event ClickDetector.RightMouseClick(Player playerWhoClicked)
-Class DragDetector : ClickDetector [NotBrowsable]
+Class DragDetector : ClickDetector
 	Property Enum.DragDetectorDragStyle DragDetector.DragStyle
 	Property bool DragDetector.Enabled
 	Property Enum.DragDetectorResponseStyle DragDetector.ResponseStyle
@@ -1764,10 +1764,10 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GamepadService.GamepadThumbstick1Changed(Vector2 event) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
 Class GeometryService : Instance [NotCreatable] [Service]
-	Function Array GeometryService:CalculateConstraintsToPreserve(Instance source, Objects destination, Dictionary options = nil)
-	Function Objects GeometryService:IntersectAsync(Instance part, Objects parts, Dictionary options = nil) [Yields]
-	Function Objects GeometryService:SubtractAsync(Instance part, Objects parts, Dictionary options = nil) [Yields]
-	Function Objects GeometryService:UnionAsync(Instance part, Objects parts, Dictionary options = nil) [Yields]
+	Function Array GeometryService:CalculateConstraintsToPreserve(Instance source, Array destination, Dictionary options = nil)
+	Function Array GeometryService:IntersectAsync(Instance part, Array parts, Dictionary options = nil) [Yields]
+	Function Array GeometryService:SubtractAsync(Instance part, Array parts, Dictionary options = nil) [Yields]
+	Function Array GeometryService:UnionAsync(Instance part, Array parts, Dictionary options = nil) [Yields]
 Class GetTextBoundsParams : Instance [NotReplicated]
 	Property Font GetTextBoundsParams.Font
 	Property float GetTextBoundsParams.Size
@@ -2305,6 +2305,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(Enum.SpecialKey key) {RobloxScriptSecurity}
 	Function void GuiService:Select(Instance selectionParent)
+	Function void GuiService:SendUIOcclusionMetricsForQueryRegion(UDim2 position, UDim2 size, string regionName) {RobloxScriptSecurity}
 	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
 	Function void GuiService:SetGameplayPausedNotificationEnabled(bool enabled)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
@@ -3199,6 +3200,9 @@ Class OpenCloudApiV1 : Instance [NotCreatable] [NotReplicated]
 	Function OpenCloudModel OpenCloudApiV1:CreateUserNotificationAsync(string user, OpenCloudModel userNotification) [Yields]
 Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function OpenCloudApiV1 OpenCloudService:GetApiV1()
+	Function Dictionary OpenCloudService:HttpRequestAsync(Dictionary options) {RobloxScriptSecurity} [Yields]
+	Function Dictionary OpenCloudService:InvokeAsync(string version, string methodName, Dictionary arguments) [Yields]
+	Function void OpenCloudService:RegisterOpenCloud(string version, string methodName, Function method) {RobloxScriptSecurity}
 Class OperationTree : Instance
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property CFrame PVInstance.Pivot Offset [NotReplicated] [NotScriptable]
@@ -4636,7 +4640,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool SocialService:CanSendIrisInviteAsync(Instance player) [Yields]
 	Function void SocialService:HideSelfView()
 	Function void SocialService:InvokeGameInvitePromptClosed(Instance player, Array recipientIds) {RobloxScriptSecurity}
-	Function void SocialService:InvokeIrisInvite(Instance player, string tag, Array irisParticipantIds) {RobloxScriptSecurity}
+	Function void SocialService:InvokeIrisInvite(Instance player, string tag, Array irisParticipants) {RobloxScriptSecurity}
 	Function void SocialService:InvokeIrisInvitePromptClosed(Instance player) {RobloxScriptSecurity}
 	Function void SocialService:PromptGameInvite(Instance player, Instance experienceInviteOptions = nil)
 	Function void SocialService:PromptIrisInvite(Instance player, string tag)
@@ -5068,6 +5072,7 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Event StudioDeviceEmulatorService.TouchPositionsChanged() {RobloxScriptSecurity}
 Class StudioObjectBase : Instance [NotCreatable] [NotReplicated]
 Class StudioWidget : StudioObjectBase [NotCreatable] [NotReplicated]
+	Function void StudioWidget:SetFixedSize(int width, int height) {RobloxScriptSecurity}
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:ClearUploadNames() {RobloxScriptSecurity}
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
@@ -5141,6 +5146,7 @@ Class StudioWidgetsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioWidgetsService:ApplySpotlight(StudioWidget target, string? rowName) {RobloxScriptSecurity}
 	Function void StudioWidgetsService:AttachPluginGui(StudioWidget target, PluginGui gui, StudioAttachment attachment) {RobloxScriptSecurity}
 	Function StudioWidget StudioWidgetsService:GetWidgetFromLabel(string label) {RobloxScriptSecurity}
+	Function StudioWidget StudioWidgetsService:GetWidgetFromPluginGui(PluginGui gui) {RobloxScriptSecurity}
 	Function void StudioWidgetsService:HideSpotlight() {RobloxScriptSecurity}
 Class StyleBase : Instance [NotCreatable]
 	Function Objects StyleBase:GetStyleRules()
@@ -5201,7 +5207,6 @@ Class TeamCreatePublishService : Instance [NotCreatable] [Service]
 	Event TeamCreatePublishService.TeamCreateSaveResult(bool saveSuccessful, int statusCode, string errMessage, string rawMessage) {RobloxSecurity} [Hidden]
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TeamCreateService:CloseGameIfUserDoesntHavePerms() {RobloxScriptSecurity}
-	Function bool TeamCreateService:GetIsUseUniverseSearchNewEndpoint() {RobloxScriptSecurity}
 	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
 Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
@@ -5517,6 +5522,9 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool UGCValidationService:ValidateNumTextureChannels(string textureId, int numChannelsRequired) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateOverlappingVertices(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateSkinnedMesh(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateTextureAlpha(string textureId, int pixelWidth) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateTextureAlphaByteString(string byteString, int pixelWidth) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateTextureRGBFromFile(string path1, string path2, int crop_x, int crop_y, int screen_x, int screen_y, Color3 color1, Color3 color2, int pixelWidth) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
 	Function bool UGCValidationService:ValidateUVValuesInReference(Array referenceValues, string meshId) {RobloxScriptSecurity} [Yields]
@@ -5536,6 +5544,11 @@ Class UITextSizeConstraint : UIConstraint
 	Property int UITextSizeConstraint.MinTextSize
 Class UICorner : UIComponent
 	Property UDim UICorner.CornerRadius
+Class UIFlexItem : UIComponent
+	Property Enum.UIFlexMode UIFlexItem.FlexMode
+	Property float UIFlexItem.GrowRatio
+	Property Enum.ItemLineAlignment UIFlexItem.ItemLineAlignment
+	Property float UIFlexItem.ShrinkRatio
 Class UIGradient : UIComponent
 	Property ColorSequence UIGradient.Color
 	Property bool UIGradient.Enabled
@@ -5560,6 +5573,9 @@ Class UIGridLayout : UIGridStyleLayout
 	Property Vector2 UIGridLayout.AbsoluteCellSize [ReadOnly] {🧬Unsafe}
 Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
+	Property bool UIListLayout.Wraps
+	Property Enum.UIFlexAlignment UIListLayout.HorizontalFlex
+	Property Enum.UIFlexAlignment UIListLayout.VerticalFlex
 Class UIPageLayout : UIGridStyleLayout
 	Property bool UIPageLayout.Animated
 	Property bool UIPageLayout.Circular
@@ -5973,6 +5989,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(Enum.MuteState muteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventClientToServer(int64 tag, string value) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventServerToClient(int64 tag, string value) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(int64 userId, bool muted, string sessionId) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(Enum.VoiceControlPath voiceControlPath, string serializedFailure, string sessionId) {RobloxSecurity} [Hidden]
 Class WeldConstraint : Instance
 	Property bool WeldConstraint.Active [ReadOnly]
@@ -7142,6 +7159,12 @@ Enum InterpolationThrottlingMode
 	EnumItem InterpolationThrottlingMode.Default : 0
 	EnumItem InterpolationThrottlingMode.Disabled : 1
 	EnumItem InterpolationThrottlingMode.Enabled : 2
+Enum ItemLineAlignment
+	EnumItem ItemLineAlignment.Automatic : 0
+	EnumItem ItemLineAlignment.Start : 1
+	EnumItem ItemLineAlignment.Center : 2
+	EnumItem ItemLineAlignment.End : 3
+	EnumItem ItemLineAlignment.Stretch : 4
 Enum JointCreationMode
 	EnumItem JointCreationMode.All : 0
 	EnumItem JointCreationMode.Surface : 1
@@ -8505,6 +8528,18 @@ Enum TriStateBoolean
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
+Enum UIFlexAlignment
+	EnumItem UIFlexAlignment.None : 0
+	EnumItem UIFlexAlignment.Fill : 1
+	EnumItem UIFlexAlignment.SpaceAround : 2
+	EnumItem UIFlexAlignment.SpaceBetween : 3
+	EnumItem UIFlexAlignment.SpaceEvenly : 4
+Enum UIFlexMode
+	EnumItem UIFlexMode.None : 0
+	EnumItem UIFlexMode.Grow : 1
+	EnumItem UIFlexMode.Shrink : 2
+	EnumItem UIFlexMode.Fill : 3
+	EnumItem UIFlexMode.Custom : 4
 Enum UITheme [Deprecated]
 	EnumItem UITheme.Light : 0 [Deprecated]
 	EnumItem UITheme.Dark : 1 [Deprecated]

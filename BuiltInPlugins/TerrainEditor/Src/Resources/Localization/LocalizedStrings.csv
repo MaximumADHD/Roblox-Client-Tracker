@@ -5,7 +5,7 @@ Studio.TerrainEditor.BaseTool.Paint,Paint, ,Paint,Pintar,Peindre,Dipingi,ペイ�
 Studio.TerrainEditor.MainButtons.Paint,Paint,Bemalen,Paint,Pintar,Peindre,Dipingi,ペイント,칠하기,Pintar,Раскрасить,绘制,绘制,上色
 Studio.TerrainEditor.MaterialMode.Paint,Paint, ,Paint,Pintar,Peindre, ,ペイント,칠하기,Pintar, , , , 
 Studio.TerrainEditor.MaterialSettings.Paint,Paint, ,Paint,Pintar,Peindre, ,ペイント,칠하기,Pintar, , , , 
-Studio.TerrainEditor.BrushSettings.ManualPlaneLock,Edit Plane, ,Edit Plane, , , , , , , , , , 
+Studio.TerrainEditor.BrushSettings.ManualPlaneLock,Edit Plane, ,Edit Plane,Editar plano,Modifier plan, , ,평면 편집,Editar plano, , , , 
 Studio.TerrainEditor.PluginActions.EditPlaneText,Edit Plane, ,Edit Plane,Editar plano,Modifier plan, ,平面を編集,평면 편집,Editar plano, , , , 
 Studio.TerrainEditor.Biomes.Hills,Hills, ,Hills,Colinas,Collines, ,丘,언덕,Colinas, , , , 
 Studio.TerrainEditor.Generate.BiomeHills,Hills,Hügel,Hills,Colinas,Collines,Colline,丘,언덕,Colinas,Холмы,丘陵,丘陵,山丘
@@ -177,9 +177,9 @@ Studio.TerrainEditor.PivotPosition.Bottom,Bottom, ,Bottom,Inferior,Bas,In basso,
 Studio.TerrainEditor.PivotPosition.Center,Center, ,Center,Centro,Centre,Centro,中央,중앙,Centro, ,中央,中央,中央
 Studio.TerrainEditor.PivotPosition.Top,Top, ,Top,Superior,Haut,Superiore,上,상단,Superior, ,顶部,顶部,頂
 Studio.TerrainEditor.PlaneLock.Off,Off, ,Off,Desactivado,Off,Off,オフ,끄기,A partir de, ,关闭,关闭,關閉
-Studio.TerrainEditor.Snapping.Off,Off, ,Off, , , , , , , , , , 
+Studio.TerrainEditor.Snapping.Off,Off, ,Off,Desact.,Off, , ,끄기,Desligado, , , , 
 Studio.TerrainEditor.PlaneLock.Manual,Manual, ,Manual,Manual,Manuel,Manuale,マニュアル,수동,Manual, ,手动,手动,手動
-Studio.TerrainEditor.BrushSettings.BrushMode,Brush Mode, ,Brush Mode, , , , , , , , , , 
+Studio.TerrainEditor.BrushSettings.BrushMode,Brush Mode, ,Brush Mode,Modo pincel,En mode brosse, , ,브러시 모드,Modo pincel, , , , 
 Studio.TerrainEditor.EditorEnum.BrushMode,Brush Mode, ,Brush Mode,Modo Pincel,En mode pinceau,Modalità pennello,ブラシモード,브러시 모드,Modo pincel, ,涂刷模式,涂刷模式,筆刷模式
 Studio.TerrainEditor.Materials.CorrodedMetal,Corroded Metal, ,Corroded Metal,Metal corroído,Métal corrodé, ,さびた金属,부식된 금속,Metal corroído, , , , 
 Studio.TerrainEditor.BrushSettings.BrushShape,Brush Shape, ,Brush Shape,Forma del pincel,Forme du pinceau,Forma pennello,ブラシの形状,브러시 모양,Forma de pincel, ,涂刷形状,涂刷形状,筆刷形狀
@@ -192,8 +192,8 @@ Studio.TerrainEditor.BrushSettings.BaseHeight,Base Height, ,Base Height,Altura d
 Studio.TerrainEditor.BrushSettings.BaseSize,Base Size, ,Base Size,Tamaño de la base,Taille de base,Dimensione base,ベースのサイズ,베이스 크기,Tamanho base, ,基本尺寸,基本尺寸,基礎尺寸
 Studio.TerrainEditor.BrushSettings.FixedPlane,Fixed Plane, ,Fixed Plane,Plano fijo,Plan fixe,Piano fisso,固定平面,고정된 평면,Plano fixo, ,固定平面,固定平面,固定平面
 Studio.TerrainEditor.BrushSettings.IgnoreParts,Ignore Parts, ,Ignore Parts,Omitir piezas,Ignorer les parties,Ignora parti,パーツを無視,파트 무시,Ignorar partes, ,忽略部件,忽略部件,忽略零件
-Studio.TerrainEditor.Operations.ImportDescription,Importing voxels to the target transform., ,Importing voxels to the target transform.,Importar vóxeles a la transformación de destino.,Importation de voxels vers la transformation cible.,Importazione di voxel nella trasformazione di destinazione., ,지형 Heightmap을 가져옵니다.,Importando voxels para a transformação do alvo., , , , 
-Studio.TerrainEditor.BrushSettings.FixedPlanePosition,Plane Position, ,Plane Position, , , , , , , , , , 
+Studio.TerrainEditor.Operations.ImportDescription,Importing voxels to the target transform., ,Importing voxels to the target transform.,Importar vóxeles a la transformación de destino.,Importation de voxels vers la transformation cible.,Importazione di voxel nella trasformazione di destinazione., ,복셀을 대상 변환으로 가져옵니다.,Importando voxels para a transformação do alvo., , , , 
+Studio.TerrainEditor.BrushSettings.FixedPlanePosition,Plane Position, ,Plane Position,Posición del plano,Position du plan, , ,평면 위치,Posição do plano, , , , 
 Studio.TerrainEditor.BrushSettings.PlanePosition,Plane Position, ,Plane Position,Posición del plano,Position du plan,Posizione piano,平面の位置,평면 위치,Posição do plano, ,平面位置,平面位置,平面位置
 Studio.TerrainEditor.BrushSettings.SnapToVoxels,Snap to Voxels, ,Snap to Voxels,Alinear a los vóxeles,Accrocher aux Voxels,Aderisci ai voxel,ボクセルに装着,복셀에 맞추기,Ajustar aos voxels, ,贴靠至体素,贴靠至体素,貼齊到體素
 Studio.TerrainEditor.TransformSettings.SnapToVoxels,Snap to Voxels, ,Snap to Voxels,Ajustar a vóxeles,Ajuster aux Voxels, ,ボクセルに装着,복셀에 맞추기,Alinhar aos voxels, , , , 
@@ -201,15 +201,15 @@ Studio.TerrainEditor.MaterialSettings.AutoMaterial,Auto Material, ,Auto Material
 Studio.TerrainEditor.Operations.MoveName,Move, ,Move,Mover,Déplacer, ,移動,이동,Mover, , , , 
 Studio.TerrainEditor.MaterialSettings.ReplaceMaterial,Replace Material, ,Replace Material,Reemplazar material,Remplacer le matériel,Sostituisci materiale,素材を置き換え,재질 바꾸기,Substituir material, ,替换材质,替换材质,取代材質
 Studio.TerrainEditor.MaterialSettings.SourceMaterial,Source Material, ,Source Material,Material de origen,Matériel source,Materiale sorgente,ソース素材,소스 재질,Material de origem, ,来源材质,来源材质,來源材質
-Studio.TerrainEditor.BrushSettings.Snapping,Snapping, ,Snapping, , , , , , , , , , 
-Studio.TerrainEditor.EditorEnum.Snapping,Snapping, ,Snapping, , , , , , , , , , 
+Studio.TerrainEditor.BrushSettings.Snapping,Snapping, ,Snapping,Ajuste,Snapping, , ,맞추기,Encaixando, , , , 
+Studio.TerrainEditor.EditorEnum.Snapping,Snapping, ,Snapping,Ajuste,Snapping, , ,맞추기,Encaixando, , , , 
 Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material, ,Target Material,Material meta,Matériel cible,Materiale target,対象素材,대상 재질,Material alvo, ,目标材质,目标材质,目標材質
 Studio.TerrainEditor.BaseTool.Select,Select, ,Select,Seleccionar,Sélectionner,Seleziona,選択,선택,Selecionar, , , , 
 Studio.TerrainEditor.SelectionSettings.Position,Position, ,Position,Posición,Position,Posizione,位置,위치,Posição, , , , 
 Studio.TerrainEditor.TransformSettings.Position,Position, ,Position,Posición,Position, ,位置,위치,Posição, , , , 
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation, ,Rotation,Rotación,Rotation,Rotazione,回転,회전,Rotação, , , , 
 Studio.TerrainEditor.TransformSettings.Rotation,Rotation, ,Rotation,Rotación,Rotation, ,回転,회전,Rotação, , , , 
-Studio.TerrainEditor.BrushSettings.Apply,Apply, ,Apply, , , , , , , , , , 
+Studio.TerrainEditor.BrushSettings.Apply,Apply, ,Apply,Aplicar,Appliquer, , ,적용,Aplicar, , , , 
 Studio.TerrainEditor.PluginActions.ApplyText,Apply, ,Apply,Aplicar,Appliquer, ,適用する,적용,Aplicar, , , , 
 Studio.TerrainEditor.TransformSettings.Apply,Apply, ,Apply,Aplicar,Appliquer, ,適用する,적용,Aplicar, , , , 
 Studio.TerrainEditor.ImportWarning.Scaling,"Image resolution ({ImageWidth:int}x{ImageHeight:int}) is too low for the target Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, decrease the size or import a new Heightmap.", ,"Image resolution ({ImageWidth:int}x{ImageHeight:int}) is too low for the target Size values (X {RegionWidth:int}, Z {RegionHeight:int}). For best results, decrease the size or import a new Heightmap.","La resolución de la imagen ({ImageWidth:int}x{ImageHeight:int}) es demasiada baja para los valores meta de Tamaño (X {RegionWidth:int}, Z {RegionHeight:int}). Para obtener mejores resultados, disminuye el tamaño o importa un nuevo Heightmap.","La résolution de l'image ({ImageWidth:int}x{ImageHeight:int}) est trop faible pour les valeurs de la Taille de la cible (X {RegionWidth:int}, Z {RegionHeight:int}). Pour de meilleurs résultats, diminue la taille ou importez une nouvelle Heightmap.", , ,"이미지 해상도({ImageWidth:int}x{ImageHeight:int})가 대상 크기 값(X {RegionWidth:int}, Z {RegionHeight:int})에 비해 너무 낮습니다. 최상의 결과를 얻으려면 크기를 줄이거나 새 Heightmap을 가져오세요.","A resolução da imagem ({ImageWidth:int}x{ImageHeight:int}) é baixa demais para os valores de tamanho alvo (X {RegionWidth:int}, Z {RegionHeight:int}). Para melhores resultados, diminua o tamanho ou importe um novo mapa de altura.", , , , 
@@ -232,7 +232,7 @@ Studio.TerrainEditor.PluginActions.CancelStatusTip,Cancel Region Transform, ,Can
 Studio.TerrainEditor.EditorEnum.FillMode,Fill Mode, ,Fill Mode,Modo de relleno,Mode de remplissage, ,塗りつぶしモード,채우기 모드,Modo de preenchimento, , , , 
 Studio.TerrainEditor.MaterialSettings.FillMode,Fill Mode, ,Fill Mode,Modo de Relleno,Mode de remplissage, ,塗りつぶしモード,채우기 모드,Modo de preenchimento, , , , 
 Studio.TerrainEditor.Tabs.Create,Create, ,Create,Crear,Créer, ,作成,만들기,Criar, , , , 
-Studio.TerrainEditor.BrushSettings.Edit,Edit, ,Edit, , , , , , , , , , 
+Studio.TerrainEditor.BrushSettings.Edit,Edit, ,Edit,Editar,Modifier, , ,편집,Editar, , , , 
 Studio.TerrainEditor.Tabs.Edit,Edit, ,Edit,Editar,Éditer, ,編集,편집,Editar, , , , 
 Studio.TerrainEditor.Operations.MoveDescription,Moving voxels to the target transform., ,Moving voxels to the target transform.,Moviendo los vóxeles a la transformación del objetivo.,Déplacer les voxels vers la transformation cible., ,ターゲット変換にボクセルを移動。,복셀을 대상 변환으로 이동합니다.,Movendo voxels para a transformação do alvo., , , , 
 Studio.TerrainEditor.Operations.PasteDescription,Pasting voxels to the target transform., ,Pasting voxels to the target transform.,Pegando los vóxeles a la transformación del objetivo.,Coller des voxels à la transformation cible., ,ターゲット変換にボクセルを貼り付け。,복셀을 대상 변환으로 붙여넣기합니다.,Colando voxels na transformação do alvo., , , , 
@@ -269,6 +269,6 @@ Studio.TerrainEditor.ImportWarning.FailedImport,Failed to import image: {Error},
 Studio.TerrainEditor.Image.ImagePreview,Image Preview, ,Image Preview,Vista previa de la imagen,Aperçu de l'image, ,画像プレビュー,이미지 미리 보기,Pré-visualização da imagem, , , , 
 Studio.TerrainEditor.BiomeSettings.BiomeBlending,Blending, ,Blending,Mezcla,Mélanger, , ,블렌딩,Mesclagem, , , , 
 Studio.TerrainEditor.Categories.BiomeSettings,Biome Settings, ,Biome Settings,Configuración de bioma,Réglages du Biome, ,バイオームの設定,생물군 설정,Configurações do bioma, , , , 
-Studio.TerrainEditor.Snapping.Voxel,Voxel, ,Voxel, , , , , , , , , , 
-Studio.TerrainEditor.Snapping.Increment,Increment, ,Increment, , , , , , , , , , 
-Studio.TerrainEditor.BrushSettings.PlaneRotation,Plane Rotation, ,Plane Rotation, , , , , , , , , , 
+Studio.TerrainEditor.Snapping.Voxel,Voxel, ,Voxel,Vóxel,Voxel, , ,복셀,Voxel, , , , 
+Studio.TerrainEditor.Snapping.Increment,Increment, ,Increment,Incremento,Incrément, , ,증가량,Incremento, , , , 
+Studio.TerrainEditor.BrushSettings.PlaneRotation,Plane Rotation, ,Plane Rotation,Rotación del plano,Rotation du plan, , ,평면 회전,Rotação do plano, , , , 

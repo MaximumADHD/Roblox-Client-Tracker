@@ -364,9 +364,9 @@ Item {
                 id: activeText
                 anchors.top: localFileText.top
                 anchors.bottom: localFileText.bottom
-                anchors.right: FFlagStudioStartPageAgeGated ? undefined : calculateLeftOrRight()
-                anchors.left: FFlagStudioStartPageAgeGated ? parent.left : undefined 
-                anchors.leftMargin: FFlagStudioStartPageAgeGated ? marginSize : undefined
+                anchors.right: undefined
+                anchors.left: parent.left
+                anchors.leftMargin: marginSize
                 text: getPrivacyText()
                 font.pixelSize: 14
                 renderType: userPreferences.theme.style("CommonStyle textRenderType")
@@ -397,7 +397,7 @@ Item {
             Rectangle
             {
                 id: minimumAgeLabelContainer
-                visible: FFlagStudioStartPageAgeGated && model.minimumAge >= 17
+                visible: model.minimumAge >= 17
                 anchors.bottom: localFileText.bottom
                 anchors.right: parent.right
                 anchors.rightMargin: marginSize

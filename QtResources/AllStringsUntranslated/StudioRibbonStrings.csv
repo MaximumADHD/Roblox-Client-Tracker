@@ -194,5 +194,3 @@ Studio.Common.Action.Animation,,Animation,Animation
 Studio.Common.Action.AvatarUnification,,Avatar Unification,Avatar Unification
 Studio.Common.Action.File,,File,File
 Studio.Common.Action.Home,,Home,Home
-Studio.App.RobloxRibbonMainWindow.CompositorDebugger,,Compositor Debugger,Compositor Debugger
-Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip,,Connect to an animation compositor graph to see its layers and their properties in real time,Connect to an animation compositor graph to see its layers and their properties in real time

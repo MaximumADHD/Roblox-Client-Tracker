@@ -1,4 +1,13 @@
 Key,Source,en-us
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.Back, ,Back
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.Center, ,Center
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.Face, ,Face
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.Front, ,Front
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.LeftCollar, ,Left Collar
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.LeftShoulder, ,Left Shoulder
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.Neck, ,Neck
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.RightCollar, ,Right Collar
+Studio.AvatarCompatibilityPreviewer.AccessoryAttachment.RightShoulder, ,Right Shoulder
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddHint, ,"Select Clothing, Accessories, or Heads in the Explorer to add to preview."
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderMultiple, ,The following items could not be added: {items}
 Studio.AvatarCompatibilityPreviewer.AddItems.FailedAddNoPaletteHeaderSingle, ,This item cannot be added.
@@ -32,14 +41,35 @@ Studio.AvatarCompatibilityPreviewer.AssetPalettes.Skirts, ,Skirts
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Sweaters, ,Sweaters
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Torso, ,Torso
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Waist, ,Waist
+Studio.AvatarCompatibilityPreviewer.AssetType.BackAccessory, ,Back
+Studio.AvatarCompatibilityPreviewer.AssetType.DressSkirtAccessory, ,Dress/Skirt
+Studio.AvatarCompatibilityPreviewer.AssetType.EyebrowAccessory, ,Eyebrow
+Studio.AvatarCompatibilityPreviewer.AssetType.EyelashAccessory, ,Eyelash
+Studio.AvatarCompatibilityPreviewer.AssetType.FaceAccessory, ,Face
+Studio.AvatarCompatibilityPreviewer.AssetType.FrontAccessory, ,Front
+Studio.AvatarCompatibilityPreviewer.AssetType.HairAccessory, ,Hair
+Studio.AvatarCompatibilityPreviewer.AssetType.Hat, ,Hat
+Studio.AvatarCompatibilityPreviewer.AssetType.JacketAccessory, ,Jacket
+Studio.AvatarCompatibilityPreviewer.AssetType.LeftShoeAccessory, ,Left Shoe
+Studio.AvatarCompatibilityPreviewer.AssetType.NeckAccessory, ,Neck
+Studio.AvatarCompatibilityPreviewer.AssetType.PantsAccessory, ,Pants
+Studio.AvatarCompatibilityPreviewer.AssetType.RightShoeAccessory, ,Right Shoe
+Studio.AvatarCompatibilityPreviewer.AssetType.ShirtAccessory, ,Shirt
+Studio.AvatarCompatibilityPreviewer.AssetType.ShortsAccessory, ,Shorts
+Studio.AvatarCompatibilityPreviewer.AssetType.ShoulderAccessory, ,Shoulder
+Studio.AvatarCompatibilityPreviewer.AssetType.SweaterAccessory, ,Sweater
+Studio.AvatarCompatibilityPreviewer.AssetType.TeeShirtAccessory, ,T-Shirt
+Studio.AvatarCompatibilityPreviewer.AssetType.WaistAccessory, ,Waist
 Studio.AvatarCompatibilityPreviewer.Categories.accessories, ,Accessories
 Studio.AvatarCompatibilityPreviewer.Categories.animations, ,Animations
 Studio.AvatarCompatibilityPreviewer.Categories.body, ,Body
 Studio.AvatarCompatibilityPreviewer.Categories.clothing, ,Clothing
 Studio.AvatarCompatibilityPreviewer.Categories.face, ,Face
 Studio.AvatarCompatibilityPreviewer.CheckFace.DynamicHeadNotice, ,This avatar's head does not support facial animation.
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.AssetTypeDropdownPlaceholder, ,Asset Type
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.CallToAction, ,Which palette do you want to add these items to?
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.DropdownPlaceholder, ,Palette
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Ignore, ,Ignore
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.OK, ,OK
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Title, ,Select Item Palettes
 Studio.AvatarCompatibilityPreviewer.DummyPreview.RevertToDefault, ,Revert to Default

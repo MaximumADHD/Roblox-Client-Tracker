@@ -50,7 +50,8 @@ Studio.AccessoryFittingTool.ClothesHelper.NoSelectionError,No selection found. P
 Studio.AccessoryFittingTool.ClothesHelper.NoWrapLayerError,The creation of the following accessories was skipped because no WrapLayer child was found
 Studio.AccessoryFittingTool.Dialog.Cancel,Cancel
 Studio.AccessoryFittingTool.Dialog.Confirm,Confirm
-Studio.AccessoryFittingTool.Dialog.DefaultTitle,Layered Clothing Editor
+Studio.AccessoryFittingTool.Dialog.Continue,Continue
+Studio.AccessoryFittingTool.Dialog.DefaultTitle,Accessory Fitting Tool
 Studio.AccessoryFittingTool.EditAndPreview.PromptCage,Adjust fitting by editing the cage mesh vertices. Use preview to access fitting quality with different options for bodies and animations.
 Studio.AccessoryFittingTool.EditAndPreview.PromptNoCage,"Move, rotate and scale accessory within the bounding box to adjust fitting. Use preview to access fitting quality on different bodies and animations."
 Studio.AccessoryFittingTool.EditingMode.AutoWeightOverride,Auto Skinning Behavior is set to EnabledOverride
@@ -80,6 +81,8 @@ Studio.AccessoryFittingTool.Flow.GenerateMeshPartAcc,Generate MeshPart Accessory
 Studio.AccessoryFittingTool.Flow.Next,Next
 Studio.AccessoryFittingTool.Generate.InvalidBounds,Item is not within the acceptable bounds for moderation. Please scale/position the item till it fits into the blue bounding box.
 Studio.AccessoryFittingTool.Generate.InvalidBoundsUGC,This item will fail UGC Validation when uploading to the marketplace due to not properly fitting into the required bounds. Please scale/position the item till it fits into the blue bounding box.
+Studio.AccessoryFittingTool.Generate.LearnMoreLegacy,Learn more about Legacy Accessories
+Studio.AccessoryFittingTool.Generate.LegacyConversionDialog,"The Legacy Accessory format does not support SurfaceAppearance. To continue with this format, the color map will be assigned as its texture (textureId)."
 Studio.AccessoryFittingTool.Generate.Prompt,The asset is ready.
 Studio.AccessoryFittingTool.Generate.Tooltip,Generate the final accessory item with all of your edits.
 Studio.AccessoryFittingTool.Generate.Wait,Please wait while the asset is being generated...
@@ -108,10 +111,10 @@ Studio.AccessoryFittingTool.Preview.Tooltip,Click to wear item in Accessory Fitt
 Studio.AccessoryFittingTool.Preview.Transparency,Transparency
 Studio.AccessoryFittingTool.Reset.InnerCage,Reset Inner Cage
 Studio.AccessoryFittingTool.Reset.OuterCage,Reset Outer Cage
-Studio.AccessoryFittingTool.ScaleType.Classic,Classic
-Studio.AccessoryFittingTool.ScaleType.ProportionsNormal,Proportions Normal
-Studio.AccessoryFittingTool.ScaleType.ProportionsSlender,Proportions Slender
-Studio.AccessoryFittingTool.ScaleType.Select,Select Avatar Part Scale Type
+Studio.AccessoryFittingTool.ScaleType.Classic,Classic Blocky
+Studio.AccessoryFittingTool.ScaleType.ProportionsNormal,Realistic Normal
+Studio.AccessoryFittingTool.ScaleType.ProportionsSlender,Realistic Slender
+Studio.AccessoryFittingTool.ScaleType.Select,Select Body Type
 Studio.AccessoryFittingTool.Select.Click,Click here to begin selecting...
 Studio.AccessoryFittingTool.Select.Invalid,Invalid Selection
 Studio.AccessoryFittingTool.Select.LoseChanges,You have unpublished changes on the previous item. You will lose those changes if you select this new item. Proceed?
