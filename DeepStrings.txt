@@ -64,6 +64,7 @@ AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -9002,6 +9003,7 @@ AXW4VoiceChatState
 AXW4VRTouchpad
 BA447F42A91111E2B410EF351327957B
 BA886F11E18561866242201959
+BAA3C620681180838E23F0DC62
 BAA3C620681180838E23F0DC6224
 BAA91211E2B410EF351327957B
 BAAEB11E38B9D871882A8E559
@@ -12573,6 +12575,7 @@ ContentProviderFixVideoPreload
 ContentProviderOnHeartbeat
 ContentProviderReportBlockedRequests
 ContentProviderReportBlockedRequestsRate
+ContentProviderReques
 ContentProviderRequests
 ContentProviderRequests]
 ContentProviderUseRealPlaceId
@@ -12829,8 +12832,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 CorrectCachedSeparatingAxis
 CorrectContactsFromEPA
 CorrectCylinderSupportPoint
@@ -13798,7 +13801,6 @@ CurrentUniverse
 CurrentUser
 CurrentValue
 CurrentView
-CurrentWidge
 CurrentWidget
 CurrentWidgetInStack
 CurrentWord
@@ -15738,9 +15740,6 @@ DigestAlgorithm_init_bio
 DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crt0E
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
 DigiCertTrustedRootG4.crl0
@@ -28648,7 +28647,6 @@ OrFirstTier
 OrFunction
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -36378,6 +36376,10 @@ SecondsPerBatchAwardPointsCall
 SecondsSinceLastPong
 SecondsSinceLastPong_
 SecondsTo_
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
