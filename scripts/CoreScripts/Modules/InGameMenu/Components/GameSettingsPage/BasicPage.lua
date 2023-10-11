@@ -56,7 +56,6 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagIGMVRSettingsPolish = require(Flags.GetFFlagIGMVRSettingsPolish)
-local GetFFlagIGMVRSafetyBubbleModeEntry = require(Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
 local EnableNewComfortSettingsUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRComfortSetting() and
 	game:GetEngineFeature("VRMoreComfortSettings")
@@ -228,7 +227,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
 				subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
 			}) else nil,
-			VRSafetyBubbleMode = if GetFFlagIGMVRSafetyBubbleModeEntry() and self.state.vrActive then Roact.createElement(SafetyBubbleModeEntry, {
+			VRSafetyBubbleMode = if self.state.vrActive then Roact.createElement(SafetyBubbleModeEntry, {
 				LayoutOrder = getNextLayoutOrder(),
 			}) else nil,
 			VRControlsDivider = if GetFFlagIGMVRSettingsPolish() and self.state.vrActive then Roact.createElement(Divider, {

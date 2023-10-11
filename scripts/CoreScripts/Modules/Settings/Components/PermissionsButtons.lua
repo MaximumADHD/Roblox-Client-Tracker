@@ -42,7 +42,6 @@ local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFri
 
 local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
-local FFlagAvatarChatFixMicText = game:DefineFastFlag("AvatarChatFixMicText", false)
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
@@ -88,11 +87,7 @@ function PermissionsButtons:init()
 	-- @TODO: Remove VideoCaptureService.Active when FaceAnimatorService.VideoAnimationEnabled gives correct values for voice-enabled experiences
 	-- Note that we have to add VideoCaptureService.Active here because FaceAnimatorService.VideoAnimationEnabled returns true for voice-enabled experiences
 	local isUsingCamera = FaceAnimatorService and FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
-
-	local microphoneEnabled = not VoiceChatServiceManager.localMuted or false
-	if FFlagAvatarChatFixMicText then
-		microphoneEnabled = if VoiceChatServiceManager.localMuted ~= nil and not VoiceChatServiceManager.localMuted then true else false
-	end
+	local microphoneEnabled = if VoiceChatServiceManager.localMuted ~= nil and not VoiceChatServiceManager.localMuted then true else false
 
 	self:setState({
 		allPlayersMuted = false,

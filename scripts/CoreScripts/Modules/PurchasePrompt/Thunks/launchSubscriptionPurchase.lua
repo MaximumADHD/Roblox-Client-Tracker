@@ -1,32 +1,52 @@
 local Root = script.Parent.Parent
-local Players = game:GetService("Players")
-
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local PurchaseCompleteRecieved = require(Root.Actions.PurchaseCompleteRecieved)
 local SetWindowState = require(Root.Actions.SetWindowState)
-local PurchaseError = require(Root.Enums.PurchaseError)
+local SetPromptState = require(Root.Actions.SetPromptState)
+local PromptState = require(Root.Enums.PromptState)
 local WindowState = require(Root.Enums.WindowState)
-local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
-local Analytics = require(Root.Services.Analytics)
-local PlatformInterface = require(Root.Services.PlatformInterface)
+local performSubscriptionPurchase = require(Root.Network.performSubscriptionPurchase)
 local ExternalSettings = require(Root.Services.ExternalSettings)
-local hideWindow = require(Root.Thunks.hideWindow)
+local Network = require(Root.Services.Network)
 local Thunk = require(Root.Thunk)
+local hideWindow = require(Root.Thunks.hideWindow)
+
+local GetFFlagEnableNativeSubscriptionPurchase = require(Root.Flags.GetFFlagEnableNativeSubscriptionPurchase)
 
 local requiredServices = {
 	ExternalSettings,
+	Network,
 }
 
 local function launchSubscriptionPurchase()
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local externalSettings = services[ExternalSettings]
+		local network = services[Network]
+
 
 		if externalSettings.isStudio() then
 			store:dispatch(PurchaseCompleteRecieved())
-			return store:dispatch(SetWindowState(WindowState.Hidden))
+			if GetFFlagEnableNativeSubscriptionPurchase() then
+				store:dispatch(hideWindow())
+				return nil
+			else
+				return store:dispatch(SetWindowState(WindowState.Hidden))
+			end
 		end
-		return nil
+
+		if GetFFlagEnableNativeSubscriptionPurchase() then
+			performSubscriptionPurchase(network, store:getState().promptRequest.id)
+			:catch(function(errorReason)
+				store:dispatch(ErrorOccurred(errorReason))
+			end)
+			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+			store:dispatch(hideWindow())
+			return nil
+		else
+			return nil
+		end
 	end)
+	
 end
 
 return launchSubscriptionPurchase

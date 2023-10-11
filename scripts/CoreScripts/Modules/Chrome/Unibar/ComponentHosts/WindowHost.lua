@@ -17,6 +17,7 @@ local Constants = require(Chrome.Unibar.Constants)
 local ChromeTypes = require(Chrome.Service.Types)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMultiTouchFix)
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
 
@@ -171,6 +172,14 @@ local WindowHost = function(props: WindowHostProps)
 				}
 				frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
+					if GetFFlagSelfViewMultiTouchFix() then
+						-- Multiple touches should not affect dragging the Self View. Only the original touch.
+						--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
+						if inputObj.UserInputType == Enum.UserInputType.Touch and inputChangedObj ~= inputObj then
+							return
+						end
+					end
+
 					setDragging(true)
 					local inputPosition = inputChangedObj.Position
 					local delta = inputPosition - dragStartPosition

@@ -82,7 +82,7 @@ local function NoItemView(props: Props)
 				BorderSizePixel = 0,
 				Font = font.Header2.Font,
 				LayoutOrder = 3,
-				Text = "Retry",
+				Text = "Retry", -- TODO(IRIS-864): Localization.
 				TextColor3 = theme.SystemPrimaryContent.Color,
 				TextSize = font.Header2.RelativeSize * font.BaseSize,
 				TextTransparency = theme.SystemPrimaryContent.Transparency,
@@ -132,7 +132,7 @@ local function NoItemView(props: Props)
 					BackgroundTransparency = 1,
 					Font = font.Header2.Font,
 					LayoutOrder = 2,
-					Text = "Start a call",
+					Text = "Start a call", -- TODO(IRIS-864): Localization.
 					TextColor3 = theme.SystemPrimaryContent.Color,
 					TextSize = font.Header2.RelativeSize * font.BaseSize,
 					TextTransparency = theme.SystemPrimaryContent.Transparency,

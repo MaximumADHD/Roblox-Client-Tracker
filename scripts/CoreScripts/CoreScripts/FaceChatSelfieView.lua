@@ -57,7 +57,6 @@ local FFlagDisableSelfViewReactingToSetCoreGuiEnabled = game:DefineFastFlag("Dis
 local FFlagSanitizeSelfView = game:DefineFastFlag("SanitizeSelfView", false)
 local FFlagSanitizeSelfViewStrict2 = game:DefineFastFlag("SanitizeSelfViewStrict2", false)
 local FFlagRemoveTagsFromSelfViewClone = game:DefineFastFlag("RemoveTagsFromSelfViewClone", false)
-local FFlagACSelfViewFixes = game:DefineFastFlag("ACSelfViewFixes", false)
 local FFlagOnlyUpdateButtonsWhenInitialized = game:DefineFastFlag("OnlyUpdateButtonsWhenInitialized", false)
 local FFlagSelfViewChecks = game:DefineFastFlag("SelfViewChecks", false)
 local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
@@ -103,7 +102,6 @@ local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local GetFFlagIrisGyroEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisGyroEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
-local FFlagUWPAvatarChatFixes = require(RobloxGui.Modules.Flags.FFlagUWPAvatarChatFixes)
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -378,7 +376,7 @@ end
 
 local LOCAL_STATE_MAP = {}
 -- VoiceChatState Enum is not available on devices where Voice Chat isn't supported.
-if not FFlagUWPAvatarChatFixes or (FFlagUWPAvatarChatFixes and game:GetEngineFeature("VoiceChatSupported")) then
+if game:GetEngineFeature("VoiceChatSupported") then
 	LOCAL_STATE_MAP = {
 		[(Enum::any).VoiceChatState.Joining] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
 		[(Enum::any).VoiceChatState.JoiningRetry] = VoiceChatServiceManager.VOICE_STATE.CONNECTING,
@@ -714,16 +712,6 @@ local function createViewport()
 		frame:Destroy()
 	end
 
-	-- This screen gui is now created once on initialization.
-	if not FFlagACSelfViewFixes then
-		inExperienceCoreGui = Instance.new("ScreenGui")
-		inExperienceCoreGui.Name = "InExperienceCoreGui"
-		inExperienceCoreGui.Parent = CoreGui
-		--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
-		inExperienceCoreGui.DisplayOrder = -2
-		inExperienceCoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	end
-
 	frame = Instance.new("Frame")
 	frame.Name = SELF_VIEW_NAME
 	frame.Parent = inExperienceCoreGui
@@ -1017,16 +1005,10 @@ local function createViewport()
 		else
 			micButton.Position = UDim2.new(0, 40, 0, -1)
 			micButton.Size = UDim2.new(0, 34, 0, 34)
-			if not FFlagACSelfViewFixes then
-				micButton.Parent = frame
-			end
 			micButton.ImageTransparency = 0.3
 
 			camButton.Position = UDim2.new(0, 80, 0, -1)
 			camButton.Size = UDim2.new(0, 34, 0, 34)
-			if not FFlagACSelfViewFixes then
-				camButton.Parent = frame
-			end
 			camButton.ImageTransparency = 0.3
 
 			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
@@ -2486,14 +2468,12 @@ function triggerAnalyticsReportExperienceSettings(settings)
 end
 
 function Initialize(player)
-	if FFlagACSelfViewFixes then
-		inExperienceCoreGui = Instance.new("ScreenGui")
-		inExperienceCoreGui.Name = "InExperienceCoreGui"
-		inExperienceCoreGui.Parent = CoreGui
-		--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
-		inExperienceCoreGui.DisplayOrder = -2
-		inExperienceCoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	end
+	inExperienceCoreGui = Instance.new("ScreenGui")
+	inExperienceCoreGui.Name = "InExperienceCoreGui"
+	inExperienceCoreGui.Parent = CoreGui
+	--SelfView should be behind both the Settings and Chat Menu (< -1 DisplayOrder).
+	inExperienceCoreGui.DisplayOrder = -2
+	inExperienceCoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	local shouldBeEnabledCoreGuiSetting = getShouldBeEnabledCoreGuiSetting()
 

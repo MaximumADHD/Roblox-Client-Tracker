@@ -27,6 +27,9 @@ local defaultProps = {
 	searchText = "",
 }
 
+local IMAGE_SIZE = 16
+local IN_BETWEEN_PADDING = 4
+
 local ContactListSearchBar = function(passedProps)
 	local props = Cryo.Dictionary.join(defaultProps, passedProps)
 	local style = useStyle()
@@ -51,7 +54,7 @@ local ContactListSearchBar = function(passedProps)
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, 4),
+			Padding = UDim.new(0, IN_BETWEEN_PADDING),
 		}),
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, 8),
@@ -69,15 +72,17 @@ local ContactListSearchBar = function(passedProps)
 			BackgroundTransparency = 1,
 			Image = Images["icons/common/search_small"],
 			ImageColor3 = if isFocused then Colors.White else Color3.fromHex("#696A6B"),
-			Size = UDim2.fromOffset(16, 16),
+			Size = UDim2.fromOffset(IMAGE_SIZE, IMAGE_SIZE),
 		}),
 		TextBox = React.createElement("TextBox", {
-			Size = UDim2.fromScale(1, 1),
+			Size = UDim2.new(1, -(IMAGE_SIZE + IN_BETWEEN_PADDING), 1, 0),
 			BackgroundTransparency = 1,
+			ClearTextOnFocus = false,
+			ClipsDescendants = true,
 			Font = font.Body.Font,
 			LayoutOrder = 2,
 			PlaceholderColor3 = Color3.fromHex("#696A6B"),
-			-- TODO (timothyhsu): Localization
+			-- TODO(IRIS-864): Localization.
 			PlaceholderText = "Search friends",
 			Text = props.searchText,
 			TextColor3 = Colors.White,

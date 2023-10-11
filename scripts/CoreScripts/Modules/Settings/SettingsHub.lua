@@ -88,6 +88,7 @@ local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGu
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHubDev", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
+local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -140,10 +141,10 @@ local selfViewVisibilityUpdatedSignal = require(RobloxGui.Modules.SelfView.selfV
 local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 
-local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant, GameInviteConstants
+local GameInvitePackage, GameInviteModalManager, GameInviteInviteExperimentVariant, GameInviteConstants
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
-	GameInviteModalService = GameInvitePackage.GameInviteModalService
+	GameInviteModalManager = GameInvitePackage.GameInviteModalManager
 	GameInviteInviteExperimentVariant = GameInvitePackage.GameInviteInviteExperimentVariant
 	GameInviteConstants = GameInvitePackage.GameInviteConstants
 end
@@ -3115,7 +3116,9 @@ local function CreateSettingsHub()
 	function this:InviteToGame()
 		local newGameInviteModalEnabled = false
 		if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() and FFlagLuaEnableGameInviteModalSettingsHub then
-			local layerData = IXPServiceWrapper:GetLayerData("Growth.Notifications.GameInviteMenu")
+			local layer = GetFStringGameInviteMenuLayer()
+			local layerData = IXPServiceWrapper:GetLayerData(layer)
+			IXPServiceWrapper:LogUserLayerExposure(layer)
 			newGameInviteModalEnabled = if (layerData and (layerData.inExperienceGameInviteUXRefresh2023==GameInviteInviteExperimentVariant.UxRefresh or layerData.inExperienceGameInviteUXRefresh2023==GameInviteInviteExperimentVariant.InviteLimit)) then true else false
 		end
 		if game:GetEngineFeature("PlatformFriendsService") and
@@ -3127,7 +3130,8 @@ local function CreateSettingsHub()
 				PlatformService:PopupGameInviteUI()
 			end
 		elseif newGameInviteModalEnabled then
-			GameInviteModalService:openModal({
+			this:ToggleVisibility()
+			GameInviteModalManager:openModal({
 				trigger = GameInviteConstants.Triggers.GameMenu
 			})
 		else
@@ -3260,7 +3264,7 @@ local function CreateSettingsHub()
 	this.GameSettingsPage:SetHub(this)
 
 	if GetFFlagAbuseReportMenuMigration() then
-		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.AbuseReportMenuNewContainerPage)
+		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
 	else
 		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
 	end

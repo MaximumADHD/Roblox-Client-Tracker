@@ -19,6 +19,7 @@ local ChromeService = require(Chrome.Service)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Chrome.Service.Types)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMultiTouchFix)
 
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
 local useNotificationCount = require(script.Parent.Parent.Parent.Hooks.useNotificationCount)
@@ -214,6 +215,14 @@ function TooltipButton(props: TooltipButtonProps)
 
 			if not connection.current then
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
+					if GetFFlagSelfViewMultiTouchFix() then
+						-- Multiple touches should not affect dragging the Self View. Only the original touch.
+						--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
+						if inputObj.UserInputType == Enum.UserInputType.Touch and inputChangedObj ~= inputObj then
+							return
+						end
+					end
+
 					local inputPosition = inputChangedObj.Position
 
 					-- Calculate the magnitude of the drag so far to determine whether to activate the integration

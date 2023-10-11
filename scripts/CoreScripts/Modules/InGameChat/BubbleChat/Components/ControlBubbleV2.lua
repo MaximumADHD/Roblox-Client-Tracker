@@ -22,6 +22,13 @@ local getVoiceIndicatorAssetName = require(script.Parent.Parent.Helpers.getVoice
 
 local Modules = CoreGui.RobloxGui.Modules
 local getFFlagEnableShimmeringIconLegacyChatService = require(Modules.Flags.getFFlagEnableShimmeringIconLegacyChatService)
+
+local SHIMMER_TRANSPARENCY = 0.6
+local FFlagEnableDarkerShimmerTransparencyLegacyChatService = game:DefineFastFlag("EnableDarkerShimmerTransparencyLegacyChatService", false)
+
+if FFlagEnableDarkerShimmerTransparencyLegacyChatService then
+	SHIMMER_TRANSPARENCY = 0.4
+end
 type propArgs = {
 	LayoutOrder: number,
 	onActivated: (() -> nil)?,
@@ -127,9 +134,15 @@ return function(props: propArgs)
 			}, {
 				ShimmerGradient = getFFlagEnableShimmeringIconLegacyChatService() and React.createElement("UIGradient", {
 					Color = ColorSequence.new({
-						ColorSequenceKeypoint.new(0, Color3.new(0.6, 0.6, 0.6)),
+						ColorSequenceKeypoint.new(
+							0,
+							Color3.new(SHIMMER_TRANSPARENCY, SHIMMER_TRANSPARENCY, SHIMMER_TRANSPARENCY)
+						),
 						ColorSequenceKeypoint.new(0.5, Color3.new(0.8, 0.8, 0.8)),
-						ColorSequenceKeypoint.new(1, Color3.new(0.6, 0.6, 0.6)),
+						ColorSequenceKeypoint.new(
+							1,
+							Color3.new(SHIMMER_TRANSPARENCY, SHIMMER_TRANSPARENCY, SHIMMER_TRANSPARENCY)
+						),
 					}),
 					Enabled = props.voiceState == "Connecting",
 					Rotation = -45,

@@ -43,6 +43,11 @@ local ActionEnums = {
 	PlayerUnfriended = "playerUnfriended",
 }
 
+local PartialOptions = {
+	Nobody = 1,
+	Everyone = 2,
+}
+
 local Options = {
 	Nobody = 1,
 	NonFriends = 2,
@@ -94,11 +99,14 @@ local function MuteToggles(props: Props)
 	local style = useStyle()
 	local fontStyle = style.Font.SubHeader1
 
-	local isProcessing, setIsProcessing = React.useState(true)
+	local isLoadingFriends, setIsLoadingFriends = React.useState(true)
+	local loadingFriendsError, setLoadingFriendsError = React.useState(false)
+	local isProcessing, setIsProcessing = React.useState(false)
 	local usersToProcess, setUsersToProcess = React.useState({})
 	local selectedIndex, setSelectedIndex =
-		React.useState(if not initialTogglesState then Options.Nobody else Options.Everyone)
+		React.useState(if not initialTogglesState then PartialOptions.Nobody else PartialOptions.Everyone)
 	local usersFriends, setUsersFriends = React.useState({})
+	local dropdownList, setDropdownList = React.useState({ nobodyLabel, everyoneLabel })
 
 	local muteAllUsers = React.useCallback(function()
 		VoiceChatServiceManager:MuteAll(true, Constants.VOICE_CONTEXT_TYPE.MUTE_TOGGLES)
@@ -116,7 +124,12 @@ local function MuteToggles(props: Props)
 			end
 		end
 		if not Cryo.isEmpty(nonFriends) then
-			VoiceChatServiceManager:ToggleMuteSome(nonFriends, true, Constants.VOICE_GROUP_TYPE.NONFRIENDS, Constants.VOICE_CONTEXT_TYPE.MUTE_TOGGLES)
+			VoiceChatServiceManager:ToggleMuteSome(
+				nonFriends,
+				true,
+				Constants.VOICE_GROUP_TYPE.NONFRIENDS,
+				Constants.VOICE_CONTEXT_TYPE.MUTE_TOGGLES
+			)
 		end
 		if FFlagMuteNonFriendsEvent then
 			VoiceChatServiceManager:FireMuteNonFriendsEvent()
@@ -131,14 +144,19 @@ local function MuteToggles(props: Props)
 			end
 		end
 		if not Cryo.isEmpty(friends) then
-			VoiceChatServiceManager:ToggleMuteSome(friends, false, Constants.VOICE_GROUP_TYPE.FRIENDS, Constants.VOICE_CONTEXT_TYPE.MUTE_TOGGLES)
+			VoiceChatServiceManager:ToggleMuteSome(
+				friends,
+				false,
+				Constants.VOICE_GROUP_TYPE.FRIENDS,
+				Constants.VOICE_CONTEXT_TYPE.MUTE_TOGGLES
+			)
 		end
 	end)
 
 	local onSelection = React.useCallback(function(index: number)
 		if index == Options.Nobody then
 			muteNobody()
-		elseif index == Options.NonFriends then
+		elseif index == Options.NonFriends and not (isLoadingFriends or loadingFriendsError) then
 			unmuteFriends()
 			muteNonFriends()
 		else
@@ -148,7 +166,13 @@ local function MuteToggles(props: Props)
 	end)
 
 	local muteAllChangedCallback = React.useCallback(function(allPlayersMuted)
-		setSelectedIndex(if allPlayersMuted then Options.Everyone else Options.Nobody)
+		-- If we are still loading the friends list or there is an error with loading friends,
+		-- the index of "Everyone" is 2. Otherwise, the index of "Everyone" is 3, because
+		-- index 2 is taken by "Non-friends".
+		local everyoneIndex = if isLoadingFriends or loadingFriendsError
+			then PartialOptions.Everyone
+			else Options.Everyone
+		setSelectedIndex(if allPlayersMuted then everyoneIndex else Options.Nobody)
 	end)
 
 	local playerJoinedVoiceCallback = React.useCallback(function(userId)
@@ -160,9 +184,8 @@ local function MuteToggles(props: Props)
 					[userId] = false,
 				})
 			end)
-
 			-- If we have Mute Non-friends selected, we should mute the new non-friend that joined
-			if selectedIndex == Options.NonFriends then
+			if not loadingFriendsError and selectedIndex == Options.NonFriends then
 				VoiceChatServiceManager:ToggleMuteSome({ userId }, true)
 			end
 		end
@@ -200,7 +223,7 @@ local function MuteToggles(props: Props)
 
 			-- If the currently selected option is non-friends, we should unmute this newly
 			-- friended player
-			if selectedIndex == Options.NonFriends then
+			if not loadingFriendsError and selectedIndex == Options.NonFriends then
 				VoiceChatServiceManager:ToggleMuteSome({ userId }, false)
 			end
 		elseif friendStatus == ActionEnums.PlayerUnfriended then
@@ -216,7 +239,7 @@ local function MuteToggles(props: Props)
 
 			-- If the currently selected option is non-friends, we should mute this newly
 			-- unfriended player
-			if selectedIndex == Options.NonFriends then
+			if not loadingFriendsError and selectedIndex == Options.NonFriends then
 				VoiceChatServiceManager:ToggleMuteSome({ userId }, true)
 			end
 		end
@@ -232,6 +255,22 @@ local function MuteToggles(props: Props)
 			})
 		end)
 	end)
+
+	--[[
+		If a user opens the in-game menu and chooses "Mute Everyone" while the friends list isn't loaded,
+		the dropdown will switch from "Everyone" to "Non-friends" after the friends list is loaded. This
+		happens because before the friends list is loaded in, the index for "Everyone" is 2, but after
+		the friends list is loaded in, 2 becomes the index of "Non-friends". To prevent this switch from
+		happening, we need to change the selected index to 3, which is the new index for "Everyone" in
+		the new dropdown list after we finish loading in the friends list.
+	]]
+	React.useEffect(function()
+		if not isLoadingFriends and not loadingFriendsError then
+			if initialTogglesState or selectedIndex == PartialOptions.Everyone then
+				setSelectedIndex(Options.Everyone)
+			end
+		end
+	end, { isLoadingFriends })
 
 	React.useEffect(function()
 		local function getUsersFriendsList()
@@ -293,11 +332,13 @@ local function MuteToggles(props: Props)
 				end
 				local usersFriends = Cryo.Dictionary.join(friends, nonFriends)
 				setUsersFriends(usersFriends)
-				setIsProcessing(false)
+				setIsLoadingFriends(false)
+				setDropdownList({ nobodyLabel, nonFriendsLabel, everyoneLabel })
 			end)
 			:catch(function()
 				-- Getting the user's friends list was a failure even with retries
-				setIsProcessing(false)
+				setIsLoadingFriends(false)
+				setLoadingFriendsError(true)
 				log:warning("MuteToggles: Failed to get list of friends from GetFriendsAsync")
 			end)
 	end, {})
@@ -312,7 +353,7 @@ local function MuteToggles(props: Props)
 		run the correct callback based on the user's action, and then remove them from the queue.
 	]]
 	React.useEffect(function()
-		if not isProcessing and not Cryo.isEmpty(usersToProcess) then
+		if not isLoadingFriends and not isProcessing and not Cryo.isEmpty(usersToProcess) then
 			setIsProcessing(true)
 
 			local userToProcess = usersToProcess[1]
@@ -329,7 +370,7 @@ local function MuteToggles(props: Props)
 
 			setIsProcessing(false)
 		end
-	end, { isProcessing, usersToProcess } :: { any })
+	end, { isProcessing, usersToProcess, isLoadingFriends } :: { any })
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, MUTE_TOGGLES_HEIGHT),
@@ -375,6 +416,7 @@ local function MuteToggles(props: Props)
 			}, {
 				UIPadding = Roact.createElement("UIPadding", {
 					PaddingLeft = if style.UIBloxThemeEnabled then UDim.new(0, 6) else UDim.new(0, 11),
+					PaddingTop = UDim.new(0, 4),
 				}),
 				TextLabel = Roact.createElement(StyledTextLabel, {
 					text = muteLabel,
@@ -390,7 +432,7 @@ local function MuteToggles(props: Props)
 		}),
 		DropdownMenu = Roact.createElement(DropdownMenu, {
 			buttonSize = UDim2.new(0.5, 0, 0, MUTE_TOGGLES_HEIGHT),
-			dropdownList = { nobodyLabel, nonFriendsLabel, everyoneLabel },
+			dropdownList = dropdownList,
 			selectedIndex = selectedIndex,
 			onSelection = onSelection,
 			layoutOrder = 2,

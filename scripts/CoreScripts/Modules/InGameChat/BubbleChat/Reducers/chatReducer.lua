@@ -8,9 +8,6 @@ local messages = require(script.Parent.messages)
 local userMessages = require(script.Parent.userMessages)
 local voiceState = require(RobloxGui.Modules.VoiceChat.Reducers.voiceState)
 local components = require(script.Parent.components)
-local playerBillboardSettings = require(script.Parent.playerBillboardSettings)
-local GetFFlagPlayerBillboardReducerEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerBillboardReducerEnabled
 
 local chatReducer = Rodux.combineReducers({
 	chatSettings = chatSettings,
@@ -18,7 +15,6 @@ local chatReducer = Rodux.combineReducers({
 	userMessages = userMessages,
 	voiceState = voiceState,
 	components = components,
-	playerBillboardSettings = if GetFFlagPlayerBillboardReducerEnabled() then playerBillboardSettings else nil,
 })
 
 return chatReducer

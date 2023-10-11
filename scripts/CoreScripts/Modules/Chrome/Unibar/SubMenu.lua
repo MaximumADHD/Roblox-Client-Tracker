@@ -9,14 +9,22 @@ local ControlState = UIBlox.Core.Control.Enum.ControlState
 local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
-local ChromeService = require(script.Parent.Parent.Service)
-local ChromeTypes = require(script.Parent.Parent.Service.Types)
+local Chrome = script.Parent.Parent
+local ChromeService = require(Chrome.Service)
+local ChromeTypes = require(Chrome.Service.Types)
+local ViewportUtil = require(Chrome.Service.ViewportUtil)
+local Constants = require(Chrome.Unibar.Constants)
+local TopBarConstants = require(Chrome.Parent.TopBar.Constants)
+
 local UserInputService = game:GetService("UserInputService")
 
-local useChromeMenuItems = require(script.Parent.Parent.Hooks.useChromeMenuItems)
-local useObservableValue = require(script.Parent.Parent.Hooks.useObservableValue)
+local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
+local useObservableValue = require(Chrome.Hooks.useObservableValue)
+
+local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
+local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
 
 type Table = { [any]: any }
 
@@ -46,7 +54,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	end)
 
 	return React.createElement(Interactable, {
-		Size = UDim2.new(1, 0, 0, 56),
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
 		BorderSizePixel = 0,
 		BackgroundTransparency = highlightColor:map(function(v)
 			return v.Transparency
@@ -90,6 +98,7 @@ function SubMenu(props: SubMenuProps)
 	local style = useStyle()
 	local theme = style.Theme
 	local menuRef = React.useRef(nil)
+	local screenSize = useObservableValue(ViewportUtil.screenSize) :: Vector2
 
 	React.useEffect(function()
 		-- A manual Left, Right exit out of the sub-menu, back into Unibar
@@ -114,6 +123,11 @@ function SubMenu(props: SubMenuProps)
 		end
 	end, {})
 
+	local EnableUnibarRespawn = GetFFlagUnibarRespawn()
+	local topBuffer = TopBarConstants.TopBarHeight + Constants.ICON_CELL_WIDTH
+	local canvasSize = if props and props.items then ROW_HEIGHT * #props.items else 0
+	local minSize = math.min(screenSize.Y - topBuffer, canvasSize)
+
 	local rows: Table = {
 		UIListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
@@ -122,7 +136,8 @@ function SubMenu(props: SubMenuProps)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 		UISizeConstraint = React.createElement("UISizeConstraint", {
-			MaxSize = Vector2.new(math.huge, 232),
+			MaxSize = if EnableUnibarRespawn then nil else Vector2.new(math.huge, 232),
+			MinSize = if EnableUnibarRespawn then Vector2.new(0, minSize) else nil,
 		}),
 		-- extra padding to account for broken AutomaticSize + Padding
 		BottomPadding = React.createElement("Frame", {
@@ -155,9 +170,10 @@ function SubMenu(props: SubMenuProps)
 			ScrollBarThickness = 1,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 0, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
+			CanvasSize = if EnableUnibarRespawn then UDim2.new(0, 0, 0, canvasSize) else nil,
+			AutomaticSize = if EnableUnibarRespawn then nil else Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
-			AutomaticCanvasSize = Enum.AutomaticSize.XY,
+			AutomaticCanvasSize = if EnableUnibarRespawn then nil else Enum.AutomaticSize.XY,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			SelectionGroup = true,
 			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
@@ -174,7 +190,7 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 	local children: Table = {}
 
 	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
-
+	local connectionTapped: { current: RBXScriptConnection? } = React.useRef(nil)
 	local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
 
 	-- close submenu on click outside
@@ -183,11 +199,29 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 			connection.current:Disconnect()
 			connection.current = nil
 		end
+		if not currentSubMenu and connectionTapped.current then
+			connectionTapped.current:Disconnect()
+			connectionTapped.current = nil
+		end
 
 		if currentSubMenu and connection.current == nil then
+			if GetFFlagUnibarRespawn() then
+				connectionTapped.current = UserInputService.TouchTap:Connect(function(evt)
+					local subMenuId = ChromeService:currentSubMenu():get()
+					if subMenuId then
+						ChromeService:toggleSubMenu(subMenuId)
+					end
+				end)
+			end
+
 			connection.current = UserInputService.InputEnded:Connect(function(inputChangedObj: InputObject, _)
-				local pressed = inputChangedObj.UserInputType == Enum.UserInputType.MouseButton1
-					or inputChangedObj.UserInputType == Enum.UserInputType.Touch
+				local pressed = false
+				if GetFFlagUnibarRespawn() then
+					pressed = inputChangedObj.UserInputType == Enum.UserInputType.MouseButton1
+				else
+					pressed = inputChangedObj.UserInputType == Enum.UserInputType.MouseButton1
+						or inputChangedObj.UserInputType == Enum.UserInputType.Touch
+				end
 
 				local subMenuId = ChromeService:currentSubMenu():get()
 				if subMenuId and pressed then

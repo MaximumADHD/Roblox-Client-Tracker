@@ -23,6 +23,7 @@ local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local PreviewExpandIcon = UIBloxImages["icons/actions/previewExpand"]
 local DropShadow = UIBloxImages["component_assets/dropshadow_25"]
 
+local VIEWPORT_HEIGHT = 400
 local DEFAULT_CAMERA_FOV = 30
 local DEFAULT_CAMERA_Y_ROT = 25
 local DROP_SHADOW_SIZE = UDim2.new(0.4, 50, 0.15, 10)
@@ -36,6 +37,7 @@ ObjectViewport.validateProps = t.strictInterface({
 	-- Consider changing how we determine the camera view if other assets need different behavior
 	useFullBodyCameraSettings = t.optional(t.boolean),
 	openPreviewView = t.optional(t.callback),
+	LayoutOrder = t.optional(t.number),
 })
 
 function ObjectViewport:createCamera()
@@ -110,9 +112,10 @@ function ObjectViewport:render()
 			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 			BackgroundTransparency = 0,
 			-- Extend X width due to padding in BasePublishPrompt to make the gradient take the whole prompt width
-			Size = UDim2.new(1, Constants.PromptSidePadding * 2, 1, 0),
+			Size = UDim2.new(1, Constants.PromptSidePadding * 2, 0, VIEWPORT_HEIGHT),
 			Position = UDim2.fromScale(0.5, 0.5),
 			AnchorPoint = Vector2.new(0.5, 0.5),
+			LayoutOrder = self.props.LayoutOrder,
 		}, {
 			ViewportFrame = Roact.createElement("ViewportFrame", {
 				BackgroundTransparency = 1,

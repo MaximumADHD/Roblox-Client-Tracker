@@ -1,6 +1,7 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
 
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -20,6 +21,7 @@ local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 
 local FindFriendsFromUserId = dependencies.NetworkingFriends.FindFriendsFromUserId
+local SearchFriendsByQuery = dependencies.NetworkingFriends.SearchFriendsByQuery
 
 local useStyle = UIBlox.Core.Style.useStyle
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
@@ -53,39 +55,78 @@ local function FriendListContainer(props: Props)
 	local overscrolling, setOverscrolling = React.useState(false)
 	local friends, setFriends = React.useState({})
 	local nextPageCursor, setNextPageCursor = React.useState(nil)
+	local currentGuid = React.useRef("")
 
-	local getFriends = React.useCallback(function(cursor)
+	local trimmedSearchText = React.useMemo(function()
+		return string.gsub(props.searchText, "%s+", "")
+	end, { props.searchText })
+
+	-- Note: Careful about dependencies to this function or else we might have
+	-- an infinite render.
+	local getFriends = React.useCallback(function(currentFriends, cursor)
 		if localUserId then
 			isLoading.current = true
 			setStatus(RetrievalStatus.Fetching)
-			dispatch(FindFriendsFromUserId.API(localUserId, { userSort = "CombinedName", cursor = nil, limit = 50 })):andThen(
-				function(result)
+
+			local secondTimeout = if currentGuid.current == "" then 0 else 0.5
+			local guid = HttpService:GenerateGUID(false)
+			currentGuid.current = guid
+
+			local request = function()
+				-- Used to debounce the requests so that we don't overload the server.
+				if currentGuid.current ~= guid then
+					return
+				end
+
+				local request = if trimmedSearchText == ""
+					then FindFriendsFromUserId.API(
+						localUserId,
+						{ userSort = "CombinedName", cursor = cursor, limit = 50 }
+					)
+					else SearchFriendsByQuery.API(
+						localUserId,
+						{ userSort = "CombinedName", cursor = cursor, limit = 50, query = trimmedSearchText }
+					)
+
+				dispatch(request):andThen(function(result)
+					if currentGuid.current ~= guid then
+						return
+					end
+
 					-- TODO (joshli): Need to validate that this fetch is for
 					-- the relevant cursor.
 					for _, friend in ipairs(result.responseBody.PageItems) do
-						table.insert(friends, friend)
+						table.insert(currentFriends, friend)
 					end
 
-					setFriends(friends)
+					setFriends(currentFriends)
 					setNextPageCursor(result.responseBody.NextPage)
 					setStatus(RetrievalStatus.Done)
-				end,
-				function()
+				end, function()
+					if currentGuid.current ~= guid then
+						return
+					end
 					setStatus(RetrievalStatus.Failed)
-				end
-			)
+				end)
+			end
+
+			if secondTimeout == 0 then
+				request()
+			else
+				delay(secondTimeout, request)
+			end
 		end
-	end, dependencyArray(friends))
+	end, dependencyArray(trimmedSearchText))
 
-	-- We do not depend on getFriends since it can cause an infinite bug.
-	-- Perhaps a better solution would be to use Rodux for updates to friends.
 	React.useEffect(function()
-		getFriends("")
-	end, {})
+		getFriends({}, "")
 
-	-- local trimmedSearchText = React.useMemo(function()
-	-- 	return string.gsub(props.searchText, "%s+", "")
-	-- end, { props.searchText })
+		return function()
+			-- Clear out results since getFriends changes when search changes.
+			setFriends({})
+			setNextPageCursor(nil)
+		end
+	end, dependencyArray(getFriends))
 
 	React.useEffect(function()
 		if status ~= RetrievalStatus.Fetching then
@@ -93,30 +134,31 @@ local function FriendListContainer(props: Props)
 		end
 	end, { status })
 
+	-- TODO(IRIS-864): Localization.
 	local noFriendsText = React.useMemo(function()
 		local message
-		if props.searchText ~= "" then
-			message = "No friends found"
-		elseif status == RetrievalStatus.Failed then
+		if status == RetrievalStatus.Failed then
 			message = "Something went wrong! Please try again."
+		elseif props.searchText ~= "" then
+			message = "No friends found"
 		else
-			message = "Oh no you have no friends."
+			message = "Add friends on Roblox to make a call"
 		end
 
 		return React.createElement(NoItemView, {
-			isImageEnabled = status ~= RetrievalStatus.Failed or props.searchText ~= "",
+			isImageEnabled = status ~= RetrievalStatus.Failed,
 			imageName = if props.searchText == ""
 				then "icons/graphic/findfriends_xlarge"
 				else "icons/status/oof_xlarge",
-			isFailedButtonEnabled = status == RetrievalStatus.Failed and props.searchText == "",
+			isFailedButtonEnabled = status == RetrievalStatus.Failed,
 			onFailedButtonActivated = function()
-				getFriends(nextPageCursor)
+				getFriends(friends, nextPageCursor)
 			end,
 			isCallButtonEnabled = false,
 			onCallButtonActivated = function() end,
 			messageText = message,
 		})
-	end, dependencyArray(props.searchText, getFriends, nextPageCursor, status))
+	end, dependencyArray(props.searchText, friends, getFriends, nextPageCursor, status))
 
 	local touchStarted = React.useCallback(function(touch: InputObject)
 		initialPositionY.current = touch.Position.Y
@@ -207,9 +249,9 @@ local function FriendListContainer(props: Props)
 			and nextPageCursor ~= nil
 			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
 		then
-			getFriends(nextPageCursor)
+			getFriends(friends, nextPageCursor)
 		end
-	end, dependencyArray(getFriends, nextPageCursor, status))
+	end, dependencyArray(friends, getFriends, nextPageCursor, status))
 
 	React.useEffect(function()
 		-- This is used to handle the case where the number of records is less

@@ -31,6 +31,8 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
+local OpenOrUpdateCFM = require(ContactList.Actions.OpenOrUpdateCFM)
+
 local rng = Random.new()
 
 export type Props = {
@@ -88,25 +90,25 @@ local function FriendListItem(props: Props)
 		coroutine.wrap(function()
 			local invokeIrisInviteRemoteEvent =
 				RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
-			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId))
+			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId), props.combinedName)
 		end)()
 
 		props.dismissCallback()
-	end, dependencyArray(props.dismissCallback, props.userId))
+	end, dependencyArray(props.combinedName, props.dismissCallback, props.userId))
 
 	local playerContext = React.useMemo(function()
 		local icon = Images["component_assets/circle_26_stroke_3"]
 		local iconColor = style.Theme.OfflineStatus.Color
 		local iconTransparency = style.Theme.OfflineStatus.Transparency
 		local iconSize = 12
-		local text = "Offline"
+		local text = "Offline" -- TODO(IRIS-864): Localization.
 		local textColorStyle = style.Theme.TextMuted
 		if presence then
 			if presence.userPresenceType == EnumPresenceType.Online then
 				icon = Images["component_assets/circle_16"]
 				iconColor = style.Theme.OnlineStatus.Color
 				iconTransparency = style.Theme.OnlineStatus.Transparency
-				text = "Online"
+				text = "Online" -- TODO(IRIS-864): Localization.
 				textColorStyle = style.Theme.TextMuted
 				iconSize = 12
 			elseif presence.userPresenceType == EnumPresenceType.InGame then
@@ -120,7 +122,7 @@ local function FriendListItem(props: Props)
 				icon = Images["icons/logo/studiologo_small"]
 				iconColor = style.Theme.TextDefault.Color
 				iconTransparency = style.Theme.TextDefault.Transparency
-				text = "Roblox Studio"
+				text = "Roblox Studio" -- TODO(IRIS-864): Localization.
 				textColorStyle = style.Theme.TextMuted
 				iconSize = 16
 			end
@@ -171,9 +173,16 @@ local function FriendListItem(props: Props)
 			PaddingTop = UDim.new(0, PADDING.Y),
 		}),
 
-		ProfileImage = React.createElement(ImageSetLabel, {
+		ProfileImage = React.createElement("ImageButton", {
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
+			[React.Event.MouseButton2Up] = function()
+				dispatch(OpenOrUpdateCFM(props.userId))
+			end,
+			[React.Event.TouchTap] = function()
+				dispatch(OpenOrUpdateCFM(props.userId))
+			end,
+			AutoButtonColor = false,
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
@@ -246,7 +255,7 @@ local function FriendListItem(props: Props)
 				Size = UDim2.fromOffset(CALL_IMAGE_SIZE, CALL_IMAGE_SIZE),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = "rbxassetid://14532752184", -- TODO: Replace with UIBLOX icon
+				Image = "rbxassetid://14532752184", -- TODO(IRIS-659): Replace with UIBLOX icon
 				ImageColor3 = theme.ContextualPrimaryDefault.Color,
 				ImageTransparency = theme.ContextualPrimaryDefault.Transparency,
 			})

@@ -28,6 +28,7 @@ local FFlagFacialAnimationStreamingPauseTrackWhenAllOff = game:DefineFastFlag("F
 local FFlagFacialAnimationStreamingDisableLipsyncForVRUser = game:DefineFastFlag("FacialAnimationStreamingDisableLipsyncForVRUser", false)
 game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
+game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack", false)
 local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
@@ -244,6 +245,13 @@ local function onAnimatorAdded(player, animator)
 		playerAnimation.animationTrack:Play(0.1, 1)
 
 		playerAnimations[player.UserId] = playerAnimation
+
+		if game:GetFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack") then
+			local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
+			if player == Players.LocalPlayer and not shouldPlayStreamTrack then
+				pauseStreamingAnimationForPlayer(player)
+			end
+		end
 
 		if game:GetFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving") then
 			-- set animator

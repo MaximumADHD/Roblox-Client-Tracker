@@ -74,6 +74,7 @@ return function()
 						},
 						localUserId = localUserId,
 						showDivider = true,
+						useUserProfilesFetch = false,
 						dismissCallback = function() end,
 					}),
 				}),

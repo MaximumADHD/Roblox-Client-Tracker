@@ -21,6 +21,8 @@ local IconHost = require(script.Parent.ComponentHosts.IconHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
+local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
+
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
 
@@ -32,7 +34,11 @@ ChromeService:configureMenu({
 	{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
 	{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
 })
-ChromeService:configureSubMenu("nine_dot", { "chat", "leaderboard", "emotes", "backpack" })
+if GetFFlagUnibarRespawn() then
+	ChromeService:configureSubMenu("nine_dot", { "chat", "leaderboard", "emotes", "backpack", "respawn" })
+else
+	ChromeService:configureSubMenu("nine_dot", { "chat", "leaderboard", "emotes", "backpack" })
+end
 ChromeService:setRecentlyUsed("chat", true)
 
 export type IconDividerProps = {

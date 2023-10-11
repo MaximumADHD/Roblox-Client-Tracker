@@ -510,15 +510,20 @@ local function MoveAndScaleLegs(character: Model, oldHitboxes: R15Hitboxes, scal
 end
 
 local function MoveAndScaleHead(character: Model, scalingFactors: { [string]: Vector3 })
-	local head = character["Head"]
+	local EPSILON = 0.00000001
+	local head = character.Head
+	local neck = head.NeckRigAttachment
+	local hat = head.HatAttachment
+	local height = (hat.Position.Y - neck.Position.Y)
+	height = math.max(height, EPSILON)
+	local scaleFactor = 1 / height
 	local headSize = head.Size
+	scaleFactor = math.clamp(scaleFactor, 0, 2 / math.max(headSize.Y, EPSILON))
+	local scaleFactorVec = Vector3.new(scaleFactor, scaleFactor, scaleFactor)
 
-	local constScaleNumber = 1.2
-	local scaleFactor = Vector3.new(constScaleNumber, constScaleNumber, constScaleNumber)
+	scalingFactors["Head"] = scaleFactorVec
 
-	scalingFactors["Head"] = scaleFactor
-
-	MoveAndScalePart(head, scaleFactor * headSize)
+	MoveAndScalePart(head, scaleFactorVec * headSize)
 end
 
 local function MoveAndScaleParts(
@@ -539,9 +544,12 @@ local function MoveAndScaleAccessories(character: Model, scalingFactors: { [stri
 	local humanoid = character:WaitForChild("Humanoid")
 	for _, accessory in pairs(humanoid:GetAccessories()) do
 		local accessoryHandle = accessory:WaitForChild("Handle") :: MeshPart
+		if not accessoryHandle or accessoryHandle:FindFirstChildWhichIsA("WrapLayer") then
+			continue
+		end
+
 		local accessoryAttachment = accessoryHandle:FindFirstChildOfClass("Attachment") :: Attachment
 		local accessoryWeld = accessoryHandle:FindFirstChildOfClass("Weld") :: Weld
-
 		if not accessoryAttachment or not accessoryWeld then
 			continue
 		end

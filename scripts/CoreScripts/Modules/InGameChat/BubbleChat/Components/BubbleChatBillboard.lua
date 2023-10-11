@@ -41,8 +41,6 @@ local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.G
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local FFlagBubbleChatCaratFix = require(RobloxGui.Modules.Flags.FFlagBubbleChatCaratFix)
-local GetFFlagPlayerBillboardReducerEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerBillboardReducerEnabled
 local FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService =
 	require(RobloxGui.Modules.Flags.FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
@@ -53,10 +51,13 @@ local FFlagDebugAllowControlButtonsNoVoiceChat = game:DefineFastFlag("DebugAllow
 
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 
-local FFlagEasierUnmuting = game:DefineFastFlag("EasierUnmuting", false)
+local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+local FFlagEasierUnmuting = game:DefineFastFlag("EasierUnmuting2", false)
 local FFlagEasierUnmutingBasedOnCamera = game:DefineFastFlag("EasierUnmutingBasedOnCamera", false)
 local FFlagEasierUnmutingHideIfMuted = game:DefineFastFlag("EasierUnmutingHideIfMuted", false)
 local FIntEasierUnmutingDisplayDistance = game:DefineFastInt("EasierUnmutingDisplayDistance", 20)
+local FStringEasierUnmutingIXPLayerName = game:DefineFastString("EasierUnmutingIXPLayerName", "Voice.UserAgency")
+local FStringEasierUnmutingIXPLayerValue = game:DefineFastString("EasierUnmutingIXPLayerValue", "VoiceUserAgencyEnabled")
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -81,9 +82,6 @@ BubbleChatBillboard.validateProps = t.strictInterface({
 	messageIds = t.optional(t.array(t.string)), -- messageIds == nil during the last bubble's fade out animation
 	lastMessage = t.optional(Types.IMessage),
 	voiceState = t.optional(t.string),
-	shouldNotRenderVoiceAndCameraBubble = if GetFFlagPlayerBillboardReducerEnabled()
-		then t.optional(t.boolean)
-		else nil,
 })
 
 function getEasierUnmutingDistance(adorneePosition): number | nil
@@ -125,6 +123,8 @@ function BubbleChatBillboard:init()
 		selfViewEnabled = selfViewEnabled,
 		isInsideEasierUnmutingDistance = if FFlagEasierUnmuting then false else nil,
 		isMuted = if FFlagEasierUnmuting and FFlagEasierUnmutingHideIfMuted then false else nil,
+		isInEasierUnmutingTreatment = if FFlagEasierUnmuting then false else nil,
+		haveLoggedUserExposure = if FFlagEasierUnmuting then false else nil
 	})
 
 	self.isMounted = false
@@ -214,7 +214,23 @@ function BubbleChatBillboard:init()
 		})
 	end)
 
-	if FFlagEasierUnmuting and FFlagEasierUnmutingHideIfMuted then
+	if FFlagEasierUnmuting then
+		local layerFetchSuccess, layerData = pcall(function()
+			return IXPServiceWrapper:GetLayerData(FStringEasierUnmutingIXPLayerName)
+		end)
+
+		if layerFetchSuccess and layerData and layerData[FStringEasierUnmutingIXPLayerValue] then
+			self:setState({
+				isInEasierUnmutingTreatment = true
+			})
+		end
+	end
+
+	if
+		FFlagEasierUnmuting and
+		self.state.isInEasierUnmutingTreatment and
+		FFlagEasierUnmutingHideIfMuted
+	then
 		self.participantsUpdateConnection = VoiceChatServiceManager.participantsUpdate.Event:Connect(
 			function(participants)
 				local participant = participants[self.props.userId]
@@ -235,6 +251,7 @@ end
 
 function BubbleChatBillboard:isShowingDueToEasierUnmuting()
 	return FFlagEasierUnmuting
+		and self.state.isInEasierUnmutingTreatment
 		and self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
 		and self.state.isInsideEasierUnmutingDistance
 		and not (FFlagEasierUnmutingHideIfMuted and self.state.isMuted)
@@ -263,7 +280,7 @@ end
 function BubbleChatBillboard:checkCounterForTimeoutWithEasierUnmuting(lastState)
 	local lastCounter = if lastState then lastState.voiceStateCounter else nil
 
-	if not FFlagEasierUnmuting then
+	if not (FFlagEasierUnmuting and self.state.isInEasierUnmutingTreatment) then
 		return self:checkCounterForTimeout(lastCounter)
 	end
 
@@ -336,7 +353,7 @@ function BubbleChatBillboard:didMount()
 			local isInsideMaximizeDistance = distance < self.state.savedChatSettings.MinimizeDistance
 			local isInsideEasierUnmutingDistance = false
 
-			if FFlagEasierUnmuting then
+			if FFlagEasierUnmuting and self.state.isInEasierUnmutingTreatment then
 				local easierUnmutingDistance = getEasierUnmutingDistance(position)
 
 				if easierUnmutingDistance ~= nil then
@@ -347,7 +364,7 @@ function BubbleChatBillboard:didMount()
 			if
 				isInsideMaximizeDistance ~= self.state.isInsideMaximizeDistance
 				or isInsideRenderDistance ~= self.state.isInsideRenderDistance
-				or (FFlagEasierUnmuting and isInsideEasierUnmutingDistance ~= self.state.isInsideEasierUnmutingDistance)
+				or (FFlagEasierUnmuting and self.state.isInEasierUnmutingTreatment and isInsideEasierUnmutingDistance ~= self.state.isInsideEasierUnmutingDistance)
 			then
 				self:setState({
 					isInsideRenderDistance = isInsideRenderDistance,
@@ -364,7 +381,7 @@ function BubbleChatBillboard:didMount()
 		end
 	end)
 
-	if FFlagEasierUnmuting then
+	if FFlagEasierUnmuting and self.state.isInEasierUnmutingTreatment then
 		self:checkCounterForTimeoutWithEasierUnmuting(nil)
 	else
 		self:checkCounterForTimeout(nil)
@@ -392,7 +409,7 @@ function BubbleChatBillboard:willUnmount()
 		self.selfViewVisibilityUpdatedSignal:disconnect()
 		self.selfViewVisibilityUpdatedSignal = nil
 	end
-	if FFlagEasierUnmuting and FFlagEasierUnmutingHideIfMuted and self.participantsUpdateConnection then
+	if FFlagEasierUnmuting and self.state.isInEasierUnmutingTreatment and FFlagEasierUnmutingHideIfMuted and self.participantsUpdateConnection then
 		self.participantsUpdateConnection:Disconnect()
 		self.participantsUpdateConnection = nil
 	end
@@ -539,10 +556,6 @@ function BubbleChatBillboard:getPermissions()
 end
 
 function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
-	if GetFFlagPlayerBillboardReducerEnabled() and self.props.shouldNotRenderVoiceAndCameraBubble then
-		return false
-	end
-
 	-- If voice isn't enabled, never render buttons
 	if
 		not self.props.voiceEnabled
@@ -607,6 +620,7 @@ function BubbleChatBillboard:render()
 	-- and they are outside of the distance or muted themselves
 	if
 		FFlagEasierUnmuting
+		and self.state.isInEasierUnmutingTreatment
 		and self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
 		and (not self.state.isInsideEasierUnmutingDistance or (FFlagEasierUnmutingHideIfMuted and self.state.isMuted))
 	then
@@ -729,10 +743,29 @@ function BubbleChatBillboard:didUpdate(_lastProps, lastState)
 		self.isFadingOut = false
 	end
 
-	if FFlagEasierUnmuting then
+	if FFlagEasierUnmuting and self.state.isInEasierUnmutingTreatment then
 		self:checkCounterForTimeoutWithEasierUnmuting(lastState)
 	else
 		self:checkCounterForTimeout(lastState.voiceStateCounter)
+	end
+
+	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
+
+	if
+		FFlagEasierUnmuting and
+		isLocalPlayer and
+		not self.state.haveLoggedUserExposure and
+		(
+			self.props.voiceState == Constants.VOICE_STATE.INACTIVE or
+			self.props.voiceState == Constants.VOICE_STATE.TALKING or
+			self.props.voiceState == Constants.VOICE_STATE.MUTED
+		)
+	then
+		-- user must have connected to voice session, so log exposure
+		IXPServiceWrapper:LogUserLayerExposure(FStringEasierUnmutingIXPLayerName)
+		self:setState({
+			haveLoggedUserExposure = true
+		})
 	end
 end
 
@@ -776,9 +809,6 @@ local function mapStateToProps(state, props)
 		messageIds = messageIds,
 		lastMessage = lastMessage,
 		voiceState = voiceState,
-		shouldNotRenderVoiceAndCameraBubble = if GetFFlagPlayerBillboardReducerEnabled()
-			then state.playerBillboardSettings.shouldNotRenderVoiceAndCameraBubble
-			else nil,
 	}
 end
 

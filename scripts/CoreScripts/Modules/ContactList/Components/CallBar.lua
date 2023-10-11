@@ -45,7 +45,7 @@ local defaultProps = {
 }
 
 local function getTextFromCallStatus(status)
-	-- TODO (joshli): Need to translate these.
+	-- TODO(IRIS-864): Localization.
 	if
 		status == RoduxCall.Enums.Status.Initializing.rawValue()
 		or status == RoduxCall.Enums.Status.Connecting.rawValue()
@@ -98,13 +98,6 @@ local function CallBar(passedProps: Props)
 		image = getStandardSizeAvatarHeadShotRbxthumb(otherEndParticipant.userId)
 	end
 
-	-- TODO (timothyhsu): Remove once CallEnded API is available
-	local sendLeaveCallEvent = React.useCallback(function()
-		local ReplicatedStorage = game:GetService("ReplicatedStorage")
-		local LeaveCallEvent = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("LeaveCallEvent") :: RemoteEvent
-		LeaveCallEvent:FireServer(localPlayer)
-	end, {})
-
 	local callStatusText = getTextFromCallStatus(callStatus)
 	local isEndButtonEnabled = callStatus == RoduxCall.Enums.Status.Active.rawValue()
 		or callStatus == RoduxCall.Enums.Status.Connecting.rawValue()
@@ -113,7 +106,6 @@ local function CallBar(passedProps: Props)
 		if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
 			SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 			props.callProtocol:finishCall(callId)
-			sendLeaveCallEvent()
 		elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
 			props.callProtocol:cancelCall(callId)
 		end

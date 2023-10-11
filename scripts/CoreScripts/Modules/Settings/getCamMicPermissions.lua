@@ -33,9 +33,6 @@ local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
 local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.GetFFlagSelfieViewEnabled)
--- Defaulting to true since this file is behind another flag.
-local FFlagAvatarChatLuaCameraToast = game:DefineFastFlag("AvatarChatLuaCameraToast", true)
-
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService : any = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
@@ -133,7 +130,7 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 				}
 
 				-- Remove with AVBURST-12354 once the C++ side fixes this.
-				if FFlagAvatarChatLuaCameraToast and checkingCamera and not hasCameraPermissions then
+				if checkingCamera and not hasCameraPermissions then
 					TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
 				end
 

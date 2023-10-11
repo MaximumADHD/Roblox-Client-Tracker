@@ -283,6 +283,10 @@ local function getSubscriptionPurchaseInfo(subscriptinId)
 	return MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptinId)
 end
 
+local function performSubscriptionPurchase(subscriptinId)
+	return MarketplaceService:performSubscriptionPurchase(subscriptinId)
+end
+
 local function getPurchaseWarning(mobileProductId: string?, productId: number?, isPremium: boolean)
 	local url = UrlBuilder.economy.purchaseWarning.getPurchaseWarning(mobileProductId, productId, not isPremium)
 	local options = {
@@ -341,6 +345,7 @@ function Network.new()
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
 		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),
 		getSubscriptionPurchaseInfo = Promise.promisify(getSubscriptionPurchaseInfo),
+		performSubscriptionPurchase = Promise.promisify(performSubscriptionPurchase),
 		getPurchaseWarning = Promise.promisify(getPurchaseWarning),
 		postPurchaseWarningAcknowledge = Promise.promisify(postPurchaseWarningAcknowledge),
 	}

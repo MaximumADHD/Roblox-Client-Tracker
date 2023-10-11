@@ -4,7 +4,7 @@ local CollectionService = game:GetService("CollectionService")
 local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
 local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent", false)
 local FFlagSelfViewMakeClonePartsNonTransparent2 = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent2", false)
-local FFlagSanitizeSelfViewStrict = game:DefineFastFlag("SanitizeSelfViewStrict", false)
+local FFlagSanitizeSelfViewStrict2 = game:DefineFastFlag("SanitizeSelfViewStrict2", false)
 
 -- Finds the FaceControls instance attached to the rig
 local function getFaceControls(rig: Model): FaceControls?
@@ -278,7 +278,11 @@ local function removeInstancesStrict(instance: Instance)
 	end
 end
 local function sanitizeCharacter(character: Model)
-	if FFlagSanitizeSelfViewStrict then
+	if not character then
+		return
+	end
+
+	if FFlagSanitizeSelfViewStrict2 then
 		removeInstancesStrict(character)
 	else
 		disableScripts(character)

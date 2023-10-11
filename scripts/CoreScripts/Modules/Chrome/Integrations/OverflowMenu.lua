@@ -64,7 +64,27 @@ local emotes = ChromeService:register({
 		end,
 	},
 })
-ChromeUtils.setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu)
+
+local coreGuiEmoteAvailable = false
+local emoteMounted = EmotesMenuMaster.MenuIsVisible
+
+function updateEmoteAvailability()
+	if coreGuiEmoteAvailable and emoteMounted then
+		emotes.availability:available()
+	else
+		emotes.availability:unavailable()
+	end
+end
+
+ChromeUtils.setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
+	coreGuiEmoteAvailable = available
+	updateEmoteAvailability()
+end)
+
+EmotesMenuMaster.MenuVisibilityChanged.Event:Connect(function()
+	emoteMounted = EmotesMenuMaster.MenuIsVisible
+	updateEmoteAvailability()
+end)
 
 local backpackVisibility = MappedSignal.new(BackpackModule.StateChanged.Event, function()
 	return BackpackModule.IsOpen
@@ -88,6 +108,35 @@ local backpack = ChromeService:register({
 	},
 })
 ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
+
+local respawn = ChromeService:register({
+	id = "respawn",
+	label = "CoreScripts.InGameMenu.QuickActions.Respawn",
+	activated = function(self)
+		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+		SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ResetCharacterPage)
+		SettingsHub:SwitchToPage(SettingsHub.Instance.ResetCharacterPage)
+	end,
+	components = {
+		Icon = function(props)
+			return CommonIcon("icons/actions/respawn")
+		end,
+	},
+})
+
+function updateRespawn(enabled)
+	if enabled then
+		respawn.availability:available()
+	else
+		respawn.availability:unavailable()
+	end
+end
+
+task.defer(function()
+	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+	SettingsHub.RespawnBehaviourChangedEvent.Event:connect(updateRespawn)
+	updateRespawn(SettingsHub:GetRespawnBehaviour())
+end)
 
 -- todo: reduce external boilerplate for a signal sourced directly from ChromeService
 local currentSubMenu = ChromeService:currentSubMenu()

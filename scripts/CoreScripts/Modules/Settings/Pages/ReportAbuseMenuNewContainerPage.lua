@@ -4,6 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
+local utility = require(RobloxGui.Modules.Settings.Utility)
 
 local AbuseReportMenu = require(CorePackages.Workspace.Packages.AbuseReportMenu).AbuseReportMenu
 
@@ -21,6 +22,35 @@ local FFlagUseNotificationsLocalization = success and result
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
+
+	this._onHiddenCallback = function() end
+	this._onDisplayedCallback = function() end
+
+	function this:SetHub(newHubRef)
+		-- Keep a reference to the hub so we can open and close the whole menu from here
+		this.HubRef = newHubRef
+		return this
+	end
+
+	function this:showAlert(text, buttonLabel, callback)
+		utility:ShowAlert(text, buttonLabel, this.HubRef, callback)
+	end
+
+	function this:HideMenu()
+		this.HubRef:SetVisibility(false, true)
+	end
+
+	function this:ShowMenu()
+		this.HubRef:SetVisibility(true, true, this, nil, "ScreenshotUnhide")
+	end
+
+	function this:onHidden()
+		this._onHiddenCallback()
+	end
+
+	function this:onDisplayed()
+		this._onDisplayedCallback()
+	end
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
@@ -41,11 +71,30 @@ local function Initialize()
 	end
 
 	------ PAGE CUSTOMIZATION -------
-	this.Page.Name = "AbuseReportMenuNewContainerPage"
+	this.Page.Name = "ReportAbuseMenuNewContainerPage"
 	this.ShouldShowBottomBar = true
 	this.ShouldShowHubBar = true
 
-	local abuseReportMenu = Roact.createElement(AbuseReportMenu, {})
+	local abuseReportMenu = Roact.createElement(AbuseReportMenu, {
+		hideContainer = function()
+			this:HideMenu()
+		end,
+		showContainer = function()
+			this:ShowMenu()
+		end,
+		registerOnContainerHidden = function(onHiddenCallback)
+			this._onHiddenCallback = onHiddenCallback
+		end,
+		registerOnContainerDisplayed = function(onDisplayedCallback)
+			this._onDisplayedCallback = onDisplayedCallback
+		end,
+		onReportComplete = function(text)
+			this:showAlert(text,"Ok", function()
+				-- callback function once we click "Ok" in the success screen
+				this:HideMenu()
+			end)
+		end,
+	})
 	Roact.mount(abuseReportMenu, this.Page, "AbuseReportMenu")
 
 	this.Page.Size = UDim2.new(1, 0, 1, 0)
@@ -55,5 +104,13 @@ end
 
 ----------- Public Facing API Additions --------------
 PageInstance = Initialize()
+
+PageInstance.Displayed.Event:connect(function()
+	PageInstance:onDisplayed()
+end)
+
+PageInstance.Hidden.Event:connect(function()
+	PageInstance:onHidden()
+end)
 
 return PageInstance

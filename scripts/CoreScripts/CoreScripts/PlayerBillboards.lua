@@ -25,7 +25,6 @@ local chatReducer = require(RobloxGui.Modules.InGameChat.BubbleChat.Reducers.cha
 local SetMessageText = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.SetMessageText)
 local AddMessageFromEvent = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMessageFromEvent)
 local AddMessageWithTimeout = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.AddMessageWithTimeout)
-local SetShouldNotRenderVoiceAndCameraBubble = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.SetShouldNotRenderVoiceAndCameraBubble)
 local UpdateChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.UpdateChatSettings)
 local BubbleChatEnabledChanged = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.BubbleChatEnabledChanged)
 local VoiceEnabledChanged = require(RobloxGui.Modules.VoiceChat.Actions.VoiceEnabledChanged)
@@ -45,8 +44,6 @@ local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableBubbleChatForExpChat
-local GetFFlagPipEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPipEnabled
-local GetFFlagPlayerBillboardReducerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerBillboardReducerEnabled
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
@@ -430,12 +427,6 @@ local function initVoiceChat()
 		local voiceState = muted and Constants.VOICE_STATE.MUTED or Constants.VOICE_STATE.INACTIVE
 		chatStore:dispatch(VoiceStateChanged(localUserId, voiceState))
 	end)
-
-	-- TODO (timothyhsu): Listen for game-engine ActionBar event
-	-- Since that event isn't implemented yet, we use a FFlag that has a list of whitelisted placeIds where we'd like to hide the camera and mic buttons		
-	if GetFFlagPlayerBillboardReducerEnabled() and GetFFlagPipEnabled() then
-		chatStore:dispatch(SetShouldNotRenderVoiceAndCameraBubble(true))
-	end
 
 	VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
 		for userId, participantState in pairs(participants) do

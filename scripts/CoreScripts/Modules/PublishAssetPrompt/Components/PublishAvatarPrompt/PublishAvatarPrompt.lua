@@ -10,6 +10,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local AvatarPartGrid = require(script.Parent.AvatarParts.AvatarPartGrid)
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -17,6 +18,7 @@ local Components = script.Parent.Parent
 local BasePublishPrompt = require(Components.BasePublishPrompt)
 local ObjectViewport = require(Components.Common.ObjectViewport)
 
+local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
 
 local TITLE_TEXT = "title"
@@ -52,17 +54,32 @@ function PublishAvatarPrompt:renderPromptBody()
 	local model =
 		Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
 	return Roact.createFragment({
-		layout = Roact.createElement("UIListLayout", {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			Padding = PADDING,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
 		}),
-		-- TODO AVBURST-13271, AVBURST-12723, add Item Cards when ready and tooltip to ObjectViewport
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = PADDING,
+			PaddingTop = PADDING,
+		}),
 		EmbeddedPreview = Roact.createElement(ObjectViewport, {
 			openPreviewView = self.openPreviewView,
 			model = model,
 			useFullBodyCameraSettings = true,
 			fieldOfView = CAMERA_FOV,
+			LayoutOrder = 1,
+		}),
+		AvatarPartGrid = Roact.createElement(AvatarPartGrid, {
+			-- TODO: AVBURST-13327 Placeholder until Humanoid Model can be passed to frontend
+			humanoidModel = Players:CreateHumanoidModelFromDescription(
+				Instance.new("HumanoidDescription"),
+				Enum.HumanoidRigType.R15
+			),
+			name = "Placeholder",
+			LayoutOrder = 2,
+			screenSize = self.props.screenSize,
 		}),
 	})
 end
@@ -72,7 +89,7 @@ local function GetLocalizedStrings()
 	strings[BODY_TEXT] = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body")
 
 	-- TODO: AVBURST-12954 placeholder title
-	strings[TITLE_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextClothing")
+	strings[TITLE_TEXT] = "Submit Creation"
 
 	return strings
 end
@@ -93,7 +110,7 @@ function PublishAvatarPrompt:render()
 			Enum.HumanoidRigType.R15
 		),
 		nameLabel = "Body Name", -- TODO AVBURST-12954 localize
-		nameMetadataString = "avatarName",
+		nameMetadataString = "avatarName", -- TODO: AVBURST-13424 have name propogate to BodyPartGrid
 		defaultName = LocalPlayer.Name .. "'s Body", -- TODO AVBURST-12954 localize
 		typeData = localized[BODY_TEXT],
 		titleText = localized[TITLE_TEXT],

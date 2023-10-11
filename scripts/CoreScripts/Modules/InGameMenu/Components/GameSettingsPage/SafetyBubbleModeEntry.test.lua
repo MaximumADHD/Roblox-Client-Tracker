@@ -16,14 +16,12 @@ local InGameMenuDependencies
 local Roact
 local UIBlox
 
-local InGameMenu = script.Parent.Parent.Parent
+local InGameMenu
 local Localization
 local LocalizationProvider
 
 local AppDarkTheme
 local AppFont
-
-local GetFFlagIGMVRSafetyBubbleModeEntry = require(InGameMenu.Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 
 local appStyle
 
@@ -54,69 +52,52 @@ local function resetModules()
 	}
 
 	SafetyBubbleModeEntry = require(script.Parent.SafetyBubbleModeEntry)
-
-	GetFFlagIGMVRSafetyBubbleModeEntry = require(InGameMenu.Flags.GetFFlagIGMVRSafetyBubbleModeEntry)
 end
 
--- TODO Remove when GetFFlagIGMVRSafetyBubbleModeEntry is removed
-it("Only runs when GetFFlagIGMVRSafetyBubbleModeEntry is active", function()
-	-- Because there seems to be no way to inject globals through jest 3 while code is running as part of a test,
-	-- And because these tests do depend on some fixes in AppStyleProvider.lua, DarkTheme.lua and LightTheme.lua
-	-- I'm flagging the entire test to only run when those fixes are in place. The old version of these tests is also
-	-- flagged to only run when GetFFlagIGMVRSafetyBubbleModeEntry is off, so to be removed together with the flag.
-
-	-- Furthermore, because running an empty test in Jest 3 fails with "Your test suite must contain at least one test."
-	-- Here is a fake test doing nothing:
-
-	expect(true).toBe(true)
-end)
-
-if GetFFlagIGMVRSafetyBubbleModeEntry() then
-	local function getMountableTreeAndStore(props)
-		return Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
+local function getMountableTreeAndStore(props)
+	return Roact.createElement(UIBlox.Core.Style.Provider, {
+			style = appStyle,
+		}, {
+			LocalizationProvider = Roact.createElement(LocalizationProvider, {
+				localization = Localization.new("en-us"),
 			}, {
-				LocalizationProvider = Roact.createElement(LocalizationProvider, {
-					localization = Localization.new("en-us"),
-				}, {
-					SafetyBubbleModeEntry = Roact.createElement(SafetyBubbleModeEntry),
-				}),
-			})
-	end
-
-	describe("SafetyBubble widget in IGMv2 VR Settings", function()
-		-- Need this to skip an afterEach hook within the RoactTestingLibrary
-		-- that is not necessary if we are resetting the modules ourselves
-		beforeAll(function()
-			_G.RTL_SKIP_AUTO_CLEANUP = "true"
-		end)
-
-		beforeEach(function()
-			resetModules()
-		end)
-
-		it("Should mount without errors", function()
-			local element = getMountableTreeAndStore()
-			render(element)
-		end)
-
-		it("Should be modifying the VRBubble settings when the user picks an option", function()
-			local element = getMountableTreeAndStore()
-			local result = render(element)
-			local noOne = result.getByText("No One")
-			expect(noOne).toBeDefined()
-			fireEvent.click(noOne)
-			expect(GameSettings.VRSafetyBubbleMode).toEqual(Enum.VRSafetyBubbleMode.NoOne)
-
-			local onlyFriends = result.getByText("Only Friends")
-			expect(onlyFriends).toBeDefined()
-			fireEvent.click(onlyFriends)
-			expect(GameSettings.VRSafetyBubbleMode).toEqual(Enum.VRSafetyBubbleMode.OnlyFriends)
-
-			local anyone = result.getByText("Anyone")
-			expect(anyone).toBeDefined()
-			fireEvent.click(anyone)
-			expect(GameSettings.VRSafetyBubbleMode).toEqual(Enum.VRSafetyBubbleMode.Anyone)
-		end)
-	end)
+				SafetyBubbleModeEntry = Roact.createElement(SafetyBubbleModeEntry),
+			}),
+		})
 end
+
+describe("SafetyBubble widget in IGMv2 VR Settings", function()
+	-- Need this to skip an afterEach hook within the RoactTestingLibrary
+	-- that is not necessary if we are resetting the modules ourselves
+	beforeAll(function()
+		_G.RTL_SKIP_AUTO_CLEANUP = "true"
+	end)
+
+	beforeEach(function()
+		resetModules()
+	end)
+
+	it("Should mount without errors", function()
+		local element = getMountableTreeAndStore()
+		render(element)
+	end)
+
+	it("Should be modifying the VRBubble settings when the user picks an option", function()
+		local element = getMountableTreeAndStore()
+		local result = render(element)
+		local noOne = result.getByText("No One")
+		expect(noOne).toBeDefined()
+		fireEvent.click(noOne)
+		expect(GameSettings.VRSafetyBubbleMode).toEqual(Enum.VRSafetyBubbleMode.NoOne)
+
+		local onlyFriends = result.getByText("Only Friends")
+		expect(onlyFriends).toBeDefined()
+		fireEvent.click(onlyFriends)
+		expect(GameSettings.VRSafetyBubbleMode).toEqual(Enum.VRSafetyBubbleMode.OnlyFriends)
+
+		local anyone = result.getByText("Anyone")
+		expect(anyone).toBeDefined()
+		fireEvent.click(anyone)
+		expect(GameSettings.VRSafetyBubbleMode).toEqual(Enum.VRSafetyBubbleMode.Anyone)
+	end)
+end)

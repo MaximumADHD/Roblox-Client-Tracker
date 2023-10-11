@@ -23,6 +23,7 @@ local RoduxCall = dependencies.RoduxCall
 local ContactListContainer = require(ContactList.Components.ContactListContainer)
 local CallBarContainer = require(ContactList.Components.CallBarContainer)
 local CallDialogContainer = require(ContactList.Components.CallDialogContainer)
+local PlayerMenuContainer = require(ContactList.Components.PlayerMenuContainer)
 
 export type Props = {
 	callProtocol: CallProtocol.CallProtocolModule | nil,
@@ -120,6 +121,7 @@ return function(passedProps: Props)
 	return React.createElement("Folder", {}, {
 		CallDialogContainer = React.createElement(CallDialogContainer),
 		ContactListContainer = React.createElement(ContactListContainer),
+		PlayerMenuContainer = React.createElement(PlayerMenuContainer),
 		CallBarContainer = React.createElement(CallBarContainer),
 	})
 end

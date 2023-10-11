@@ -101,8 +101,10 @@ return function()
 		jestExpect(containerElement).never.toBeNull()
 		local usernameElement: TextLabel = containerElement:FindFirstChild("Username", true) :: TextLabel
 		local displayNameElement: TextLabel = containerElement:FindFirstChild("DisplayName", true) :: TextLabel
-		jestExpect(usernameElement.Text).toEqual("@username_0")
-		jestExpect(displayNameElement.Text).toEqual("displayName_0")
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			jestExpect(usernameElement.Text).toEqual("@username_0")
+			jestExpect(displayNameElement.Text).toEqual("displayName_0")
+		end
 		local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
 		jestExpect(spinnerElement).never.toBeNull()
 

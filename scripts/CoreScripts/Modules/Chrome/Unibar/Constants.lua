@@ -21,6 +21,7 @@ return {
 	ICON_CELL_WIDTH = 44,
 	DIVIDER_CELL_WIDTH = 5,
 	ICON_SIZE = 36,
+	SUB_MENU_ROW_HEIGHT = 56,
 	MENU_ANIMATION_SPRING = {
 		dampingRatio = 1.1,
 		frequency = 1 / 0.15, -- @150ms size anim

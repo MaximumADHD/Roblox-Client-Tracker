@@ -1313,17 +1313,21 @@ local function Initialize()
 		end
 
 		local function setUpChatTranslationIxpDefaults(layerData)
-			TextChatService.ChatTranslationEnabled = layerData.ChatTranslationEnabled
-			TextChatService.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled
+			local success, _ = pcall(function ()
+				TextChatService.ChatTranslationEnabled = layerData.ChatTranslationEnabled
+				TextChatService.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled
+			end)
+
+			return success
 		end
 
 		if GetFFlagChatTranslationSettingEnabled() then
 			local layerName = GetFStringChatTranslationLayerName()
 			local layerData = getChatTranslationLayerData(layerName)
 
-			setUpChatTranslationIxpDefaults(layerData)
+			local success = setUpChatTranslationIxpDefaults(layerData)
 
-			if layerData.ChatTranslationEnabled then
+			if success and layerData.ChatTranslationEnabled then
 				createChatTranslationOption()
 			end
 		end

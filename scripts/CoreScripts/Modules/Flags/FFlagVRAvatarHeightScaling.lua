@@ -1,1 +1,0 @@
-return game:DefineFastFlag("VRAvatarHeightScaling4", false) and game:GetEngineFeature("VRHeightScalingAPI")

@@ -48,34 +48,37 @@ local function DropdownMenu(props: Props)
 	local style = useStyle()
 	local fontStyle = style.Font.CaptionHeader
 	local fontSize = fontStyle.RelativeSize * style.Font.BaseSize
-	local backgroundColor = if style.UIBloxThemeEnabled then style.color("ControlInputBackground") else Color3.fromRGB(79, 84, 95)
+	local backgroundColor = if style.UIBloxThemeEnabled
+		then style.color("ControlInputBackground")
+		else Color3.fromRGB(79, 84, 95)
 
 	local showDropdown, setShowDropdown = React.useState(false)
 	local buttonProps, setButtonProps = React.useState({})
 
 	local onMainButtonPressed = React.useCallback(function()
-		if not showDropdown then
-			local tempButtonProps = {}
-			for index, option in pairs(props.dropdownList) do
-				tempButtonProps[index] = {
-					text = option,
-					fontStyle = {
-						Font = fontStyle.Font,
-						RelativeSize = fontStyle.RelativeSize,
-					},
-					onActivated = function()
-						props.onSelection(index)
-						setShowDropdown(false)
-					end,
-					leftPaddingOffset = -TEXT_PADDING,
-					selected = index == props.selectedIndex,
-					selectedIconPaddingRight = TEXT_PADDING,
-				}
-			end
-			setButtonProps(tempButtonProps)
-		end
 		setShowDropdown(not showDropdown)
 	end)
+
+	React.useEffect(function()
+		local tempButtonProps = {}
+		for index, option in pairs(props.dropdownList) do
+			tempButtonProps[index] = {
+				text = option,
+				fontStyle = {
+					Font = fontStyle.Font,
+					RelativeSize = fontStyle.RelativeSize,
+				},
+				onActivated = function()
+					props.onSelection(index)
+					setShowDropdown(false)
+				end,
+				leftPaddingOffset = -TEXT_PADDING,
+				selected = index == props.selectedIndex,
+				selectedIconPaddingRight = TEXT_PADDING,
+			}
+		end
+		setButtonProps(tempButtonProps)
+	end, { props.dropdownList, props.selectedIndex } :: { any })
 
 	return Roact.createElement("Frame", {
 		Size = props.buttonSize,
@@ -112,7 +115,7 @@ local function DropdownMenu(props: Props)
 				Image = EXPAND_IMAGE,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
-				Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET - 4, .5, -ARROW_OFFSET),
+				Position = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET - 4, 0.5, -ARROW_OFFSET),
 			}),
 		}),
 		Dropdown = showDropdown and Roact.createElement(BaseMenu, {
@@ -120,7 +123,7 @@ local function DropdownMenu(props: Props)
 			position = UDim2.new(0, 0, 1, 6),
 			layoutOrder = 2,
 			elementHeight = ELEMENT_HEIGHT,
-			background = { 
+			background = {
 				Color = backgroundColor,
 			},
 			showDropShadow = true,

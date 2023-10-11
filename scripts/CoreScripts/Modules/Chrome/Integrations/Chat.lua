@@ -7,9 +7,11 @@ local Players = game:GetService("Players")
 
 local ChromeService = require(script.Parent.Parent.Service)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
+local ViewportUtil = require(script.Parent.Parent.Service.ViewportUtil)
 local MappedSignal = ChromeUtils.MappedSignal
 local CommonIcon = require(script.Parent.CommonIcon)
 local GameSettings = UserSettings().GameSettings
+local GuiService = game:GetService("GuiService")
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 
@@ -21,8 +23,12 @@ local chatChromeIntegration
 local chatVisibilitySignal = MappedSignal.new(ChatSelector.VisibilityStateChanged, function()
 	return chatVisibility
 end, function(visibility)
+	if not GuiService.MenuIsOpen then
+		-- chat is inhibited (visibility = false) during menu open; not user intent; don't save
+		GameSettings.ChatVisible = visibility :: boolean
+	end
+
 	chatVisibility = visibility :: boolean
-	GameSettings.ChatVisible = visibility :: boolean
 	if visibility and unreadMessages and chatChromeIntegration.notification then
 		unreadMessages = 0
 		chatChromeIntegration.notification:clear()
@@ -88,6 +94,13 @@ coroutine.wrap(function()
 
 	if canChat and chatChromeIntegration.availability then
 		ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat)
+		-- clone of ChatConnector.lua didMount()
+		local willEnableChat = GameSettings.ChatVisible
+		if ViewportUtil.isSmallTouchScreen() then
+			willEnableChat = false
+		end
+		chatVisibility = willEnableChat
+		ChatSelector:SetVisible(willEnableChat)
 	end
 end)()
 

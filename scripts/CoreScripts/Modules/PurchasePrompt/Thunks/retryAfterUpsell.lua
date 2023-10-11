@@ -28,6 +28,8 @@ local hasPendingRequest = require(Root.Utils.hasPendingRequest)
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local Thunk = require(Root.Thunk)
+local GetFFlagEnableNativeSubscriptionPurchase = require(Root.Flags.GetFFlagEnableNativeSubscriptionPurchase)
+
 
 local purchaseItem = require(script.Parent.purchaseItem)
 
@@ -65,7 +67,7 @@ local function retryAfterUpsell(retriesRemaining)
 			return
 		end
 
-		if requestType == RequestType.Premium then
+		if requestType == RequestType.Premium or (GetFFlagEnableNativeSubscriptionPurchase() and requestType == RequestType.Subscription) then
 			if promptState == PromptState.UpsellInProgress then
 				store:dispatch(PurchaseCompleteRecieved())
 				store:dispatch(completeRequest())

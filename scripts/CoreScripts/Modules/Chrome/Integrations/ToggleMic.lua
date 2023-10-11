@@ -9,6 +9,7 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
 local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
+local GetFFlagEnableChromeMicShimmer = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableChromeMicShimmer)
 
 local ChromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
@@ -55,6 +56,7 @@ local muteSelf = ChromeService:register({
 					hideOnError = false,
 					iconStyle = "MicLight",
 					size = ICON_SIZE,
+					showConnectingShimmer = if GetFFlagEnableChromeMicShimmer() then true else nil,
 				}) :: any,
 				React.createElement(RedVoiceDot, {
 					position = UDim2.new(1, -7, 1, -7),

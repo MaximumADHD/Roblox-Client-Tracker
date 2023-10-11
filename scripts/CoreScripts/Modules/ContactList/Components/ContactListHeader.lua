@@ -27,7 +27,7 @@ export type Props = {
 	dismissCallback: () -> (),
 }
 
--- TODO (timothyhsu): Localization
+-- TODO(IRIS-864): Localization.
 local getTitleFromPage = function(currentPage)
 	if currentPage == Pages.FriendList then
 		return "Start New Call"

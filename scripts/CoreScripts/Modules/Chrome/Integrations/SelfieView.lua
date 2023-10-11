@@ -44,7 +44,6 @@ local selfieViewChromeIntegration = ChromeService:register({
 	initialAvailability = AvailabilitySignalState.Unavailable,
 	activated = function()
 		ChromeService:toggleWindow(ID)
-		activatedSignal:fire()
 	end,
 	draggable = true,
 	cachePosition = true,

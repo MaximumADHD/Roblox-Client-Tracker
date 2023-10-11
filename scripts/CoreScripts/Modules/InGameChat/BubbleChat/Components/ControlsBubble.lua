@@ -26,7 +26,6 @@ local Constants = require(Modules.InGameChat.BubbleChat.Constants)
 local SelfViewAPI = require(Modules.SelfView.publicApi)
 local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
 local Analytics = require(Modules.SelfView.Analytics).new()
-local FFlagUWPAvatarChatFixes = require(Modules.Flags.FFlagUWPAvatarChatFixes)
 local FFlagBubbleSizingFix = require(Modules.Flags.FFlagBubbleSizingFix)
 local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
 local GetFFlagMicHandlingParity = require(Modules.Flags.GetFFlagMicHandlingParity)
@@ -48,6 +47,7 @@ ControlsBubble.validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.number),
 	hasCameraPermissions = t.boolean,
 	hasMicPermissions = t.boolean,
+	isShowingDueToEasierUnmuting = t.optional(t.boolean)
 })
 
 ControlsBubble.defaultProps = {
@@ -95,7 +95,10 @@ function ControlsBubble:init()
 			end
 		else
 			-- The billboards use strings, but the manager expects numbers
-			VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId), VoiceConstants.VOICE_CONTEXT_TYPE.BUBBLE_CHAT)
+			VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId), 
+				if self.props.isShowingDueToEasierUnmuting
+					then VoiceConstants.VOICE_CONTEXT_TYPE.EASIER_UNMUTING
+					else VoiceConstants.VOICE_CONTEXT_TYPE.BUBBLE_CHAT)
 		end
 	end
 
@@ -225,8 +228,7 @@ function ControlsBubble:didMount()
 end
 
 function ControlsBubble:render()
-	local shouldShowVoiceIndicator = self.props.hasMicPermissions
-		and (not FFlagUWPAvatarChatFixes or self.props.voiceEnabled)
+	local shouldShowVoiceIndicator = self.props.hasMicPermissions and self.props.voiceEnabled
 	local shouldShowCameraIndicator = self:shouldShowCameraIndicator()
 	local icon, imageSet = self:getMicIcon()
 	local chatSettings = self.props.chatSettings

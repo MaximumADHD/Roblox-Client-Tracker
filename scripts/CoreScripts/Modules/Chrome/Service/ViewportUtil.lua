@@ -38,4 +38,9 @@ setCurrentCamera(Workspace.CurrentCamera)
 return {
 	screenSize = screenSize,
 	mobileDevice = mobileDevice,
+	isSmallTouchScreen = function()
+		-- clone of isSmallTouchScreen from Utility.lua
+		local viewportSize = screenSize:get()
+		return UserInputService.TouchEnabled and (viewportSize.Y < 500 or viewportSize.X < 700)
+	end,
 }

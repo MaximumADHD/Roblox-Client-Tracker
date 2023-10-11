@@ -16,6 +16,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
+local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 
@@ -30,6 +31,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local CallState = require(ContactList.Enums.CallState)
 
 local rng = Random.new()
+
+local OpenOrUpdateCFM = require(ContactList.Actions.OpenOrUpdateCFM)
 
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
@@ -56,6 +59,7 @@ export type Props = {
 	},
 	localUserId: number,
 	showDivider: boolean,
+	useUserProfilesFetch: boolean,
 	dismissCallback: () -> (),
 	layoutOrder: number?,
 }
@@ -64,6 +68,7 @@ local function isMissedCall(caller, localUserId)
 	return caller.callerId ~= localUserId and CallState.fromRawValue(caller.status) ~= CallState.Finished
 end
 
+-- TODO(IRIS-864): Localization.
 local function getCallStatusText(caller, localUserId)
 	if isMissedCall(caller, localUserId) then
 		return "Missed"
@@ -74,9 +79,8 @@ local function getCallStatusText(caller, localUserId)
 	end
 end
 
--- TODO (joshualee) update icons to match design
 local function getCallContextImage(caller, localUserId)
-	-- TODO: Replace with UIBLOX icon
+	-- TODO(IRIS-659): Replace with UIBLOX icon
 	if isMissedCall(caller, localUserId) then
 		return "rbxassetid://14439512369"
 	elseif caller.callerId == localUserId then
@@ -117,7 +121,7 @@ local function getTimestampText(endUtc)
 	if diffDays == 0 then -- same day
 		return recordTimestamp:FormatLocalTime("LT", localeId)
 	elseif diffDays == 1 then -- yesterday
-		return "Yesterday"
+		return "Yesterday" -- TODO(IRIS-864): Localization.
 	elseif diffDays < 7 then -- within a week
 		return recordTimestamp:FormatLocalTime("dddd", localeId)
 	else -- more than a week
@@ -145,12 +149,14 @@ local function CallHistoryItem(props: Props)
 		query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
 	})
 
-	if namesFetch.data then
-		combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, participant.userId)
-		userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, participant.userId)
-		userName = UserProfiles.Formatters.formatUsername(userName)
+	if props.useUserProfilesFetch then
+		if namesFetch.data then
+			combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, participant.userId)
+			userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, participant.userId)
+			userName = UserProfiles.Formatters.formatUsername(userName)
+		end
 	else
-		-- Use fallback for default or if there's an error. Need a better pattern.
+		-- Used for testing.
 		combinedName = participant.displayName
 		userName = "@" .. participant.userName
 	end
@@ -158,6 +164,8 @@ local function CallHistoryItem(props: Props)
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
+
+	local dispatch = useDispatch()
 
 	local itemBackgroundTheme, setItemBackgroundTheme = React.useState("BackgroundDefault")
 	local onItemStateChanged = React.useCallback(function(oldState, newState)
@@ -181,7 +189,7 @@ local function CallHistoryItem(props: Props)
 		coroutine.wrap(function()
 			local invokeIrisInviteRemoteEvent =
 				RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
-			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId))
+			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId), combinedName)
 		end)()
 
 		props.dismissCallback()
@@ -222,9 +230,16 @@ local function CallHistoryItem(props: Props)
 			PaddingTop = UDim.new(0, PADDING.Y),
 		}),
 
-		ProfileImage = React.createElement(ImageSetLabel, {
+		ProfileImage = React.createElement("ImageButton", {
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
+			[React.Event.MouseButton2Up] = function()
+				dispatch(OpenOrUpdateCFM(props.localUserId))
+			end,
+			[React.Event.TouchTap] = function()
+				dispatch(OpenOrUpdateCFM(props.localUserId))
+			end,
+			AutoButtonColor = false,
 		}, {
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = UDim.new(1, 0),
@@ -324,7 +339,7 @@ local function CallHistoryItem(props: Props)
 				Size = UDim2.fromOffset(CALL_IMAGE_SIZE, CALL_IMAGE_SIZE),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = "rbxassetid://14532752184", -- TODO: Replace with UIBLOX icon
+				Image = "rbxassetid://14532752184", -- TODO(IRIS-659): Replace with UIBLOX icon
 				ImageColor3 = theme.ContextualPrimaryDefault.Color,
 				ImageTransparency = theme.ContextualPrimaryDefault.Transparency,
 			})

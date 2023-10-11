@@ -109,6 +109,7 @@ local function CallHistoryContainer(props: Props)
 
 	local noRecordsComponent = React.useMemo(function()
 		local message
+		-- TODO(IRIS-864): Localization.
 		if status == RetrievalStatus.Failed then
 			message = "Something went wrong! Please try again."
 		else
@@ -163,6 +164,7 @@ local function CallHistoryContainer(props: Props)
 				caller = caller,
 				localUserId = localUserId,
 				showDivider = i ~= #callRecords,
+				useUserProfilesFetch = true,
 				dismissCallback = props.dismissCallback,
 				layoutOrder = i,
 			})

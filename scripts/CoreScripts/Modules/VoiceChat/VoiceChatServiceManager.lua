@@ -71,6 +71,7 @@ local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceList
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 local FFlagOverwriteIsMutedLocally = game:DefineFastFlag("OverwriteIsMutedLocally", false)
 local FFlagVoiceMuteUnmuteAnalytics = game:DefineFastFlag("VoiceMuteUnmuteAnalytics", false)
+local FFlagHideVoiceUIUntilInputExists = game:DefineFastFlag("HideVoiceUIUntilInputExists", false)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
@@ -159,6 +160,8 @@ local VoiceChatServiceManager = {
 	muteAllChanged = if GetFFlagMuteAllEvent() then Instance.new("BindableEvent") else nil,
 	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
 	userAgencySelected = if GetFFlagShowMuteToggles() then Instance.new("BindableEvent") else nil,
+	audioDeviceInputAdded = if FFlagHideVoiceUIUntilInputExists then Instance.new("BindableEvent") else nil,
+	sendMuteEvent = nil,
 	muteAll = false,
 	mutedPlayers = {} :: { [number]: boolean },
 	talkingChanged = Instance.new("BindableEvent"),
@@ -306,7 +309,9 @@ function VoiceChatServiceManager:_asyncInit()
 			return Promise.reject()
 		else
 			self:watchSignalR()
-			return Promise.resolve()
+			return if FFlagHideVoiceUIUntilInputExists
+				then self:CheckAudioInputExists()
+				else Promise.resolve()
 		end
 	end)
 end
@@ -333,6 +338,25 @@ function VoiceChatServiceManager:asyncInit()
 	else
 		return self:_asyncInit()
 	end
+end
+
+local inputsExistPromise
+function VoiceChatServiceManager:CheckAudioInputExists()
+	log:trace("Checking for AudioDeviceInput")
+	if not inputsExistPromise then
+		inputsExistPromise = Promise.new(function(resolve, _)
+			if #Cryo.Dictionary.keys(self.audioDevices) > 0 then
+				log:trace("Found existing AudioDeviceInput")
+				resolve()
+			else
+				self.audioDeviceInputAdded.Event:Connect(function()
+					log:trace("Found new AudioDeviceInput")
+					resolve()
+				end)
+			end
+		end)
+	end
+	return inputsExistPromise
 end
 
 function VoiceChatServiceManager:getService()
@@ -1069,6 +1093,16 @@ function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput)
 		end
 	end
 
+	if isLocalPlayer and self.localMuted ~= nil and self.localMuted ~= not device.Active then
+		log:debug("Mismatch between LocalMuted and device.Active")
+		local newActive = not self.localMuted
+		device.Active = newActive
+		local SendMuteEvent = self:GetSendMuteEvent()
+		if SendMuteEvent then
+			SendMuteEvent:FireServer(newActive)
+		end
+	end
+
 	out.onPlayerChanged = device:GetPropertyChangedSignal("Player"):Connect(function()
 		-- We don't care if a non-active user leaves/joins. They don't have voice
 		-- TODO: Handle the case where Device.Player is changed
@@ -1111,6 +1145,9 @@ end
 
 function VoiceChatServiceManager:onInstanceAdded(inst: Instance)
 	if inst:IsA("AudioDeviceInput") then
+		if FFlagHideVoiceUIUntilInputExists then
+			self.audioDeviceInputAdded:Fire(inst)
+		end
 		local inst: AudioDeviceInput = inst
 		log:debug("Found new audio device instance for {}", inst.Player and inst.Player.Name)
 		self.audioDevices[inst] = self:CreateAudioDeviceData(inst)
@@ -1297,15 +1334,28 @@ end
 function VoiceChatServiceManager:ToggleMuteSome(userIds: { number }, muteState: boolean, groupType: string, context: string)
 	self:ensureInitialized("mute some players")
 	self._mutedAnyone = true
+	local userIdSet: { [number]: boolean } = {}
 	for _, userId in userIds do
-		self.service:SubscribePause(userId, muteState)
-
+		if GetFFlagVoiceUseAudioRoutingAPI() then
+			userIdSet[userId] = true
+			self.mutedPlayers[userId] = muteState
+		else
+			self.service:SubscribePause(userId, muteState)
+		end
 		local participant = self.participants[tostring(userId)]
 		if participant then
 			-- We need to update the state and fire the event locally because toggling local muting doesn't trigger
 			-- a participantStateChange for some reason.
 			participant.isMutedLocally = muteState
 			self.participantsUpdate:Fire(self.participants)
+		end
+	end
+
+	if GetFFlagVoiceUseAudioRoutingAPI() then
+		for device in self.audioDevices do
+			if device.Player and userIdSet[device.Player.UserId] then
+				device.Active = not muteState
+			end
 		end
 	end
 
@@ -1637,6 +1687,13 @@ function VoiceChatServiceManager:Disconnect()
 	end
 end
 
+function VoiceChatServiceManager:GetSendMuteEvent(): RemoteEvent | nil
+	if not self.SendMuteEvent then
+		self.SendMuteEvent = RobloxReplicatedStorage:WaitForChild("SetUserActive", 10) :: RemoteEvent | nil
+	end
+	return self.SendMuteEvent
+end
+
 function VoiceChatServiceManager:ToggleMic()
 	self:ensureInitialized("toggle mic")
 	if self.localMuted == nil then
@@ -1648,7 +1705,7 @@ function VoiceChatServiceManager:ToggleMic()
 		self.localMuted = not self.localMuted
 		local active = not self.localMuted -- .Active is the opposite of localMuted
 		log:trace("Setting self mute to {}", active)
-		local SendMuteEvent = RobloxReplicatedStorage:WaitForChild("SetUserActive", 10) :: RemoteEvent | nil
+		local SendMuteEvent = self:GetSendMuteEvent()
 		if SendMuteEvent then
 			SendMuteEvent:FireServer(active)
 			for audioDevice in self.audioDevices do

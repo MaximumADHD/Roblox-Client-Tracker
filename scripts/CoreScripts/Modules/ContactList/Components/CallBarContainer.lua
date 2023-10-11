@@ -81,7 +81,7 @@ local function CallBarContainer(passedProps: Props)
 			if params.callAction == CallAction.Cancel.rawValue() then
 				if GetFFlagCorescriptsSoundManagerEnabled() then
 					SoundManager:StopSound(Sounds.Ringtone.Name)
-					SoundManager:PlaySound(Sounds.CallCancel.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+					SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 				end
 				dispatch(RoduxCall.Actions.FailedCall(params.lastCall))
 			elseif params.callAction == CallAction.Decline.rawValue() then

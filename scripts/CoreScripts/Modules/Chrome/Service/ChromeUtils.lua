@@ -247,13 +247,21 @@ function MappedSignal:get<T>(): T
 	return self._fetchMapFunction()
 end
 
-function setCoreGuiAvailability(integration: { availability: AvailabilitySignal }, coreGui)
+function setCoreGuiAvailability(
+	integration: { availability: AvailabilitySignal },
+	coreGui,
+	customCallback: (boolean) -> ()?
+)
 	local function updateAvailable()
 		local available = StarterGui:GetCoreGuiEnabled(coreGui)
-		if available then
-			integration.availability:available()
+		if customCallback then
+			customCallback(available)
 		else
-			integration.availability:unavailable()
+			if available then
+				integration.availability:available()
+			else
+				integration.availability:unavailable()
+			end
 		end
 	end
 

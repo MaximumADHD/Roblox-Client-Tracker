@@ -9,6 +9,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules
 local SettingsHubDirectory = Modules.Settings
 local ShareGameDirectory = SettingsHubDirectory.Pages.ShareGame
+local SettingsHub = require(SettingsHubDirectory.SettingsHub)
 
 local GetFFlagEnableNewInviteMenuCustomization = require(Modules.Flags.GetFFlagEnableNewInviteMenuCustomization)
 local GetFFlagEnableInvitePromptLoadingState = require(Modules.Flags.GetFFlagEnableInvitePromptLoadingState)
@@ -20,13 +21,15 @@ local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
+local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 
-local GameInvitePackage, GameInviteModalService, GameInviteInviteExperimentVariant, GetCustomizedInvitePromptTrigger
+local GameInvitePackage, GameInviteModalManager, GameInviteInviteExperimentVariant, GetCustomizedInvitePromptTrigger, GameInviteConstants
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
-	GameInviteModalService = GameInvitePackage.GameInviteModalService
+	GameInviteModalManager = GameInvitePackage.GameInviteModalManager
 	GameInviteInviteExperimentVariant = GameInvitePackage.GameInviteInviteExperimentVariant
 	GetCustomizedInvitePromptTrigger = GameInvitePackage.GetCustomizedInvitePromptTrigger
+	GameInviteConstants = GameInvitePackage.GameInviteConstants
 end
 
 local inviteToGameAnalytics = InviteToGameAnalytics.new()
@@ -52,7 +55,9 @@ end
 SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOptions: Instance?)
 	local newGameInviteModalEnabled = false
 	if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() and FFlagLuaEnableGameInviteModalInvitePrompt then
-		local layerData = IXPServiceWrapper:GetLayerData("Growth.Notifications.GameInviteMenu")
+		local layer = GetFStringGameInviteMenuLayer()
+		local layerData = IXPServiceWrapper:GetLayerData(layer)
+		IXPServiceWrapper:LogUserLayerExposure(layer)
 		newGameInviteModalEnabled = (
 			layerData
 			and (
@@ -66,15 +71,32 @@ SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOpt
 		if player ~= Players.LocalPlayer then
 			return
 		end
+
+		if SettingsHub:GetVisibility() then
+			--if settingshub is open, dont open game invite modal triggered by
+			--Developer invite and inform developers of modal closure.
+			if Players and Players.LocalPlayer then
+				SocialService:InvokeGameInvitePromptClosed(Players.LocalPlayer, {})
+			end
+			return
+		end
+
 		local options: ExperienceInviteOptions? = if experienceInviteOptions
 			then experienceInviteOptions :: ExperienceInviteOptions
 			else nil
-		if GameInviteModalService then
-			GameInviteModalService:openModal({
-				trigger = GetCustomizedInvitePromptTrigger(options)
-			}, options)
+		if GameInviteModalManager then
+			local trigger = GetCustomizedInvitePromptTrigger(options)
+			--new flow only handles multi invite
+			if trigger == GameInviteConstants.Triggers.DeveloperMultiple then
+				GameInviteModalManager:openModal({
+					trigger = trigger :: any,
+				}, options)
+				return
+			end
 		end
-	elseif GetFFlagEnableNewInviteMenuCustomization() then
+	end
+
+	if GetFFlagEnableNewInviteMenuCustomization() then
 		if player ~= Players.LocalPlayer then
 			return
 		end

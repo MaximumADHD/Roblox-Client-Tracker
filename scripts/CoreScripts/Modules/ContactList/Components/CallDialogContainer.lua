@@ -77,7 +77,7 @@ local function CallDialogContainer(passedProps: Props)
 	React.useEffect(function()
 		local callMessageConn = props.callProtocol:listenToHandleCallMessage(function(params)
 			if params.messageType == CallProtocol.Enums.MessageType.CallError.rawValue() then
-				-- TODO (charlie): localization
+				-- TODO(IRIS-864): Localization.
 				if params.errorType == ErrorType.CallerIsInAnotherCall.rawValue() then
 					dispatch(OpenOrUpdateDialog("Couldn't make call", "You're already on a call."))
 				elseif params.errorType == ErrorType.CalleeIsInAnotherCall.rawValue() then
