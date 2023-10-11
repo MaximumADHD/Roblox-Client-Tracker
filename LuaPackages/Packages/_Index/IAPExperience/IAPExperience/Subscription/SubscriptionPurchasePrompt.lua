@@ -15,6 +15,7 @@ local withStyle = UIBlox.Style.withStyle
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 local SubscriptionTitle = require(IAPExperienceRoot.Subscription.SubscriptionTitle)
+local getEnableSubscriptionPromptScrollingFix = require(IAPExperienceRoot.Flags.getEnableSubscriptionPromptScrollingFix)
 
 local CONTENT_PADDING = 24
 local CONDENSED_CONTENT_PADDING = 12
@@ -22,6 +23,7 @@ local ICON_SIZE = 96
 local CONDENSED_ICON_SIZE = 40
 local BUTTON_HEIGHT = 48
 local MARGIN = 240
+local TITLE_CONTENT_HEIGHT = 92 -- title 20, place name 16, price 16, disclaimer 16, 3x padding of 8
 
 type Props = {
 	name: string,
@@ -72,7 +74,7 @@ local function generateFooter(isTestingMode, footerText, fonts, theme, middleCon
 	})
 end
 
-local function generatePromptText(props, fonts, theme, middleContentSize)
+local function DEPRECATED_generatePromptText(props, fonts, theme, middleContentSize)
 	return React.createElement("TextLabel", {
 		LayoutOrder = 3,
 		BackgroundTransparency = 1,
@@ -89,107 +91,254 @@ local function generatePromptText(props, fonts, theme, middleContentSize)
 	})
 end
 
+local function generatePromptText(props, fonts, theme, middleContentSize, calculatePromptHeight)
+	return React.createElement("TextLabel", {
+		LayoutOrder = 3,
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, middleContentSize, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		Font = fonts.Body.Font,
+		Text = props.description,
+		TextSize = 16,
+		TextWrapped = true,
+		TextColor3 = theme.TextDefault.Color,
+		TextTransparency = theme.TextDefault.Transparency,
+		RichText = true,
+		[React.Change.AbsoluteSize] = function(rbx)
+			local textHeight =
+				TextService:GetTextSize(rbx.Text, rbx.TextSize, rbx.Font, Vector2.new(rbx.AbsoluteSize.X, math.huge)).Y
+			calculatePromptHeight(textHeight)
+		end,
+	})
+end
+
 local function SubscriptionPurchasePrompt(props)
 	local promptHeight, setPromptHeight = React.useState(0)
 	local isCondensed, setIsCondensed = React.useState(false)
-	return React.createElement(MultiTextLocalizer, {
-		keys = {
-			titleText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription" },
-			subscribe = { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
-			footerText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer" },
-		},
-		render = function(locMap)
-			local disclaimerText = props.disclaimerText
-			return withStyle(function(stylePalette)
-				local theme = stylePalette.Theme
-				local fonts = stylePalette.Font
-				local middleContentSize = PartialPageModal:getMiddleContentWidth(props.screenSize.X)
-				return React.createElement(PartialPageModal, {
-					title = locMap.titleText,
-					screenSize = props.screenSize,
-					contentPadding = UDim.new(0, CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING),
-					buttonStackProps = {
-						buttons = {
-							{
-								buttonType = ButtonType.PrimarySystem,
-								props = {
-									onActivated = props.purchaseSubscriptionActivated,
-									text = locMap.subscribe,
+	local function calculatePromptHeight(textHeight)
+		setPromptHeight(textHeight + ICON_SIZE + CONTENT_PADDING * 2 + TITLE_CONTENT_HEIGHT)
+	end
+
+	if getEnableSubscriptionPromptScrollingFix() then
+		return React.createElement(MultiTextLocalizer, {
+			keys = {
+				titleText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription" },
+				subscribe = { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
+				footerText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer" },
+			},
+			render = function(locMap)
+				return withStyle(function(stylePalette)
+					local theme = stylePalette.Theme
+					local fonts = stylePalette.Font
+					local middleContentSize = PartialPageModal:getMiddleContentWidth(props.screenSize.X)
+					return React.createElement(PartialPageModal, {
+						title = locMap.titleText,
+						screenSize = props.screenSize,
+						contentPadding = UDim.new(0, CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING),
+						buttonStackProps = {
+							buttons = {
+								{
+									buttonType = ButtonType.PrimarySystem,
+									props = {
+										onActivated = props.purchaseSubscriptionActivated,
+										text = locMap.subscribe,
+									},
 								},
 							},
+							buttonHeight = BUTTON_HEIGHT,
 						},
-						buttonHeight = BUTTON_HEIGHT,
-					},
-					onCloseClicked = props.cancelPurchaseActivated,
-					footerContent = function()
-						return generateFooter(props.isTestingMode, locMap.footerText , fonts, theme, middleContentSize)
-				end,
-				}, {
-					React.createElement("Frame", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, 0),
-						AutomaticSize = Enum.AutomaticSize.Y,
-						[React.Change.AbsoluteSize] = function(rbx)
-							if isCondensed then
-								setIsCondensed(
-									props.screenSize.Y
-										< rbx.AbsoluteSize.Y
-											+ 120
-											+ ICON_SIZE
-											- CONDENSED_ICON_SIZE
-											+ (CONTENT_PADDING - CONDENSED_CONTENT_PADDING) * 2
-								)
-							else
-								setIsCondensed(props.screenSize.Y < rbx.AbsoluteSize.Y + 120)
-							end
+						onCloseClicked = props.cancelPurchaseActivated,
+						footerContent = function()
+							return generateFooter(
+								props.isTestingMode,
+								locMap.footerText,
+								fonts,
+								theme,
+								middleContentSize
+							)
 						end,
 					}, {
-						PromptScroll = React.createElement("ScrollingFrame", {
+						React.createElement("Frame", {
 							BackgroundTransparency = 1,
-							LayoutOrder = 3,
-							Size = UDim2.new(1, 0, 0, math.min(promptHeight, props.screenSize.Y - MARGIN)),
-							BorderSizePixel = 0,
-							ZIndex = 2,
-							ScrollingEnabled = promptHeight > (props.screenSize.Y - MARGIN),
-							ScrollBarThickness = promptHeight > (props.screenSize.Y - MARGIN) and 5,
-							ScrollingDirection = Enum.ScrollingDirection.Y,
-							Selectable = false,
-							AutomaticCanvasSize = Enum.AutomaticSize.Y,
-							[React.Change.AbsoluteCanvasSize] = function(rbx)
-								setPromptHeight(rbx.AbsoluteCanvasSize.Y)
+							Size = UDim2.new(1, 0, 0, 0),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							[React.Change.AbsoluteSize] = function(rbx)
+								if isCondensed then
+									setIsCondensed(
+										props.screenSize.Y
+											< rbx.AbsoluteSize.Y
+												+ 120
+												+ ICON_SIZE
+												- CONDENSED_ICON_SIZE
+												+ (CONTENT_PADDING - CONDENSED_CONTENT_PADDING) * 2
+									)
+								else
+									setIsCondensed(props.screenSize.Y < rbx.AbsoluteSize.Y + 120)
+								end
 							end,
 						}, {
-							Padding = React.createElement("UIPadding", {
-								PaddingTop = UDim.new(0, CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING),
-								PaddingBottom = UDim.new(0, CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING),
-							}),
-							Layout = React.createElement("UIListLayout", {
-								SortOrder = Enum.SortOrder.LayoutOrder,
-								HorizontalAlignment = Enum.HorizontalAlignment.Center,
-								Padding = UDim.new(0, 8),
-							}),
-							Icon = React.createElement(ImageSetLabel, {
-								LayoutOrder = 1,
+							PromptScroll = React.createElement("ScrollingFrame", {
 								BackgroundTransparency = 1,
-								Size = UDim2.new(1, 0, 0, isCondensed and CONDENSED_ICON_SIZE or ICON_SIZE),
-								ScaleType = Enum.ScaleType.Fit,
-								Image = props.itemIcon,
+								LayoutOrder = 3,
+								Size = UDim2.new(1, 0, 0, math.min(promptHeight, props.screenSize.Y - MARGIN)),
+								BorderSizePixel = 0,
+								ZIndex = 2,
+								ScrollingEnabled = promptHeight > (props.screenSize.Y - MARGIN),
+								ScrollBarThickness = promptHeight > (props.screenSize.Y - MARGIN) and 5,
+								ScrollingDirection = Enum.ScrollingDirection.Y,
+								Selectable = false,
+								CanvasSize = UDim2.new(1, 0, 0, promptHeight),
+							}, {
+								Padding = React.createElement("UIPadding", {
+									PaddingTop = UDim.new(
+										0,
+										CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING
+									),
+									PaddingBottom = UDim.new(
+										0,
+										CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING
+									),
+								}),
+								Layout = React.createElement("UIListLayout", {
+									SortOrder = Enum.SortOrder.LayoutOrder,
+									HorizontalAlignment = Enum.HorizontalAlignment.Center,
+									Padding = UDim.new(0, 8),
+								}),
+								Icon = React.createElement(ImageSetLabel, {
+									LayoutOrder = 1,
+									BackgroundTransparency = 1,
+									Size = UDim2.new(1, 0, 0, isCondensed and CONDENSED_ICON_SIZE or ICON_SIZE),
+									ScaleType = Enum.ScaleType.Fit,
+									Image = props.itemIcon,
+								}),
+								SubscriptionInfo = React.createElement(SubscriptionTitle, {
+									subscriptionProviderName = props.subscriptionProviderName,
+									name = props.name,
+									displayPrice = props.displayPrice,
+									period = props.period,
+									disclaimerText = props.disclaimerText,
+									layoutOrder = 2,
+								}),
+								generatePromptText(props, fonts, theme, middleContentSize, calculatePromptHeight),
 							}),
-							SubscriptionInfo = React.createElement(SubscriptionTitle, {
-								subscriptionProviderName = props.subscriptionProviderName,
-								name = props.name,
-								displayPrice = props.displayPrice,
-								period = props.period,
-								disclaimerText = props.disclaimerText,
-								layoutOrder = 2,
-							}),
-							generatePromptText(props, fonts, theme, middleContentSize),
 						}),
-					}),
-				})
-			end)
-		end,
-	})
+					})
+				end)
+			end,
+		})
+	else
+		return React.createElement(MultiTextLocalizer, {
+			keys = {
+				titleText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription" },
+				subscribe = { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
+				footerText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer" },
+			},
+			render = function(locMap)
+				local disclaimerText = props.disclaimerText
+				return withStyle(function(stylePalette)
+					local theme = stylePalette.Theme
+					local fonts = stylePalette.Font
+					local middleContentSize = PartialPageModal:getMiddleContentWidth(props.screenSize.X)
+					return React.createElement(PartialPageModal, {
+						title = locMap.titleText,
+						screenSize = props.screenSize,
+						contentPadding = UDim.new(0, CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING),
+						buttonStackProps = {
+							buttons = {
+								{
+									buttonType = ButtonType.PrimarySystem,
+									props = {
+										onActivated = props.purchaseSubscriptionActivated,
+										text = locMap.subscribe,
+									},
+								},
+							},
+							buttonHeight = BUTTON_HEIGHT,
+						},
+						onCloseClicked = props.cancelPurchaseActivated,
+						footerContent = function()
+							return generateFooter(
+								props.isTestingMode,
+								locMap.footerText,
+								fonts,
+								theme,
+								middleContentSize
+							)
+						end,
+					}, {
+						React.createElement("Frame", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 0, 0),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							[React.Change.AbsoluteSize] = function(rbx)
+								if isCondensed then
+									setIsCondensed(
+										props.screenSize.Y
+											< rbx.AbsoluteSize.Y
+												+ 120
+												+ ICON_SIZE
+												- CONDENSED_ICON_SIZE
+												+ (CONTENT_PADDING - CONDENSED_CONTENT_PADDING) * 2
+									)
+								else
+									setIsCondensed(props.screenSize.Y < rbx.AbsoluteSize.Y + 120)
+								end
+							end,
+						}, {
+							PromptScroll = React.createElement("ScrollingFrame", {
+								BackgroundTransparency = 1,
+								LayoutOrder = 3,
+								Size = UDim2.new(1, 0, 0, math.min(promptHeight, props.screenSize.Y - MARGIN)),
+								BorderSizePixel = 0,
+								ZIndex = 2,
+								ScrollingEnabled = promptHeight > (props.screenSize.Y - MARGIN),
+								ScrollBarThickness = promptHeight > (props.screenSize.Y - MARGIN) and 5,
+								ScrollingDirection = Enum.ScrollingDirection.Y,
+								Selectable = false,
+								AutomaticCanvasSize = Enum.AutomaticSize.Y,
+								[React.Change.AbsoluteCanvasSize] = function(rbx)
+									setPromptHeight(rbx.AbsoluteCanvasSize.Y)
+								end,
+							}, {
+								Padding = React.createElement("UIPadding", {
+									PaddingTop = UDim.new(
+										0,
+										CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING
+									),
+									PaddingBottom = UDim.new(
+										0,
+										CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING
+									),
+								}),
+								Layout = React.createElement("UIListLayout", {
+									SortOrder = Enum.SortOrder.LayoutOrder,
+									HorizontalAlignment = Enum.HorizontalAlignment.Center,
+									Padding = UDim.new(0, 8),
+								}),
+								Icon = React.createElement(ImageSetLabel, {
+									LayoutOrder = 1,
+									BackgroundTransparency = 1,
+									Size = UDim2.new(1, 0, 0, isCondensed and CONDENSED_ICON_SIZE or ICON_SIZE),
+									ScaleType = Enum.ScaleType.Fit,
+									Image = props.itemIcon,
+								}),
+								SubscriptionInfo = React.createElement(SubscriptionTitle, {
+									subscriptionProviderName = props.subscriptionProviderName,
+									name = props.name,
+									displayPrice = props.displayPrice,
+									period = props.period,
+									disclaimerText = props.disclaimerText,
+									layoutOrder = 2,
+								}),
+								DEPRECATED_generatePromptText(props, fonts, theme, middleContentSize),
+							}),
+						}),
+					})
+				end)
+			end,
+		})
+	end
 end
 
 return SubscriptionPurchasePrompt

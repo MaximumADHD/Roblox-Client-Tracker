@@ -939,4 +939,9 @@ if getFFlagAddUGCValidationForPackage() then
 	Constants.ApplicationJson = "application/json"
 end
 
+-- Name of the special attribute that is allowed on root instances
+-- see validateAttributes for more info
+Constants.GUIDAttributeName = "RBXGUID"
+Constants.GUIDAttributeMaxLength = 100
+
 return Constants

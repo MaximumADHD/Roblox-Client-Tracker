@@ -1,6 +1,11 @@
 -- Shared
 
 -- Models
+export type SuggestedCalleeModel = {
+	userId: number,
+	userPresenceType: string,
+	lastLocation: string,
+}
 
 export type HistoricalParticipantModel = { userId: number, displayName: string, userName: string }
 
@@ -43,6 +48,16 @@ export type CallStateModel = {
 }
 
 -- Reducer
+
+export type GetSuggestedCallees = {
+	suggestedCallees: { [number]: SuggestedCalleeModel },
+}
+
+export type GetSuggestedCalleesSucceeded = {
+	responseBody: {
+		suggestedCallees: { [number]: SuggestedCalleeModel },
+	},
+}
 
 export type GetCallHistorySucceeded = {
 	responseBody: {

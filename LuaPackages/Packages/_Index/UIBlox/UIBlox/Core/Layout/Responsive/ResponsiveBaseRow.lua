@@ -25,6 +25,8 @@ ResponsiveBaseRow.validateProps = t.strictInterface({
 	kind = t.optional(t.string),
 	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
+	-- ZIndex of the row
+	zIndex = t.optional(t.number),
 	-- \[Experimental\] Enables scrolling in the row.
 	-- Requires `relativeHeight`, disallows `multiLine`.
 	scrollable = t.optional(t.boolean),
@@ -198,6 +200,7 @@ function ResponsiveBaseRow:render()
 						AutomaticSize = if hasHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
 						BackgroundTransparency = 1,
 						LayoutOrder = self.props.layoutOrder,
+						ZIndex = self.props.zIndex,
 						[Roact.Ref] = self.props.gridBasicRowRef,
 					},
 					Object.assign(

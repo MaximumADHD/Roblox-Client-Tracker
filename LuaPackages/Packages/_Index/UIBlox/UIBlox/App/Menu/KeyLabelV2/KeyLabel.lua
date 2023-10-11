@@ -204,7 +204,7 @@ local function KeyLabel(props: KeyLabelProps)
 		if type(content.content) == "string" then
 			text = content.content
 		else
-			local size = content.content.ImageRectSize
+			local size = content.content.ImageRectSize / Images.ImagesResolutionScale
 			icon = React.createElement(ImageSetLabel, {
 				Image = content.content,
 				ImageColor3 = textTheme.Color,

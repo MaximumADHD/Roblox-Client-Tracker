@@ -12,6 +12,6 @@ dependencies = [
     "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 6df9abd6 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e9d83703 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

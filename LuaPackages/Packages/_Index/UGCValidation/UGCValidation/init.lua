@@ -12,6 +12,7 @@ local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyP
 local getFFlagUGCValidationMeshPartAccessoryUploads = require(root.flags.getFFlagUGCValidationMeshPartAccessoryUploads)
 
 local Analytics = require(root.Analytics)
+local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
 local BundlesMetadata = require(root.util.BundlesMetadata)
@@ -305,5 +306,7 @@ function UGCValidation.validateFullBody(fullBodyData: Types.FullBodyData, isServ
 	})
 	return validateFullBody(fullBodyData, isServer)
 end
+
+UGCValidation.GUIDAttributeName = Constants.GUIDAttributeName
 
 return UGCValidation

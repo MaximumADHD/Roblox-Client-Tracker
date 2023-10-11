@@ -29,6 +29,8 @@ ResponsiveRow.validateProps = t.strictInterface({
 	kind = t.optional(t.string),
 	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
+	-- ZIndex of the row
+	zIndex = t.optional(t.number),
 	-- \[experimental\] Enables scrolling in the row.
 	-- Requires `relativeHeight`, disallows `multiLine`.
 	scrollable = t.optional(t.boolean),
@@ -266,6 +268,7 @@ function ResponsiveRow:render()
 			return Roact.createElement(ResponsiveBaseRow, {
 				kind = self.props.kind,
 				layoutOrder = self.props.layoutOrder,
+				zIndex = self.props.zIndex,
 				scrollable = self.props.scrollable,
 				clipsDescendants = self.props.clipsDescendants,
 				selectable = self.props.selectable,

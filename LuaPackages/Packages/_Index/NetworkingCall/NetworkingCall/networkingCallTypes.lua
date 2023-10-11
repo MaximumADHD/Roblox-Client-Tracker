@@ -27,6 +27,7 @@ export type GetCallHistoryResponse = {
 
 export type RequestThunks = {
 	GetCallHistory: GetCallHistoryRequest,
+	GetSuggestedCallees: nil,
 }
 
 export type QueryArgs = {

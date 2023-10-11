@@ -16,6 +16,7 @@ local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 
 local ResponsiveRow = require(UIBlox.Core.Layout.Responsive.ResponsiveRow)
 local withGridConfig_DEPRECATED = require(UIBlox.Core.Layout.Grid.withGridConfig_DEPRECATED)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local HEADER_HEIGHT = 28
 local HEADER_PADDING = 12
@@ -236,6 +237,7 @@ function ResponsiveCarousel:render()
 				}),
 			ResponsiveCarouselRow = Roact.createElement(ResponsiveRow, {
 				layoutOrder = 2,
+				zIndex = if UIBloxConfig.fixResponsiveCarouselRowZIndex then 2 else nil,
 				kind = self.props.kind,
 				scrollable = self.props.scrollable,
 				clipsDescendants = self.props.clipsDescendants,

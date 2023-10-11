@@ -109,6 +109,9 @@ return {
 	-- Adds a UISizeLimit to PartialPageModal.lua
 	partialPageModalSizeLimit = false,
 
+	-- Bugfix for the zindex of ResponsiveRow inside ResponsiveCarousel not being high enough
+	fixResponsiveCarouselRowZIndex = false,
+
 	-- Increase the resolution in ImageSet components for ten foot UI
 	increaseImageResolutionForTenFoot = false,
 
