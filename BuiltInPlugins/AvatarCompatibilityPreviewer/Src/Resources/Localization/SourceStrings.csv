@@ -70,7 +70,11 @@ Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.AssetTypeDropdownPlacehol
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.CallToAction, ,Which palette do you want to add these items to?
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.DropdownPlaceholder, ,Palette
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Ignore, ,Ignore
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.LayeredClothing, ,Layered Clothing
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.LoneMeshPartBadMarketplaceLayeredClothing, ,Layered {name} accessories cannot be submitted to the Marketplace.
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.LoneMeshPartBadMarketplaceRigidAccessories, ,Rigid {name} accessories cannot be submitted to the Marketplace.
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.OK, ,OK
+Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.RigidAccessory, ,Rigid Accessory
 Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Title, ,Select Item Palettes
 Studio.AvatarCompatibilityPreviewer.DummyPreview.RevertToDefault, ,Revert to Default
 Studio.AvatarCompatibilityPreviewer.DummyPreview.Textured, ,Textured

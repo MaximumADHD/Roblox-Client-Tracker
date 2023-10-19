@@ -6,6 +6,9 @@ lockfile_format_version = 4
 name = "AbuseReportMenu"
 version = "0.1.0"
 dependencies = [
+    "AdIdentification TnSAdIdentification 0.1.0",
+    "Analytics Analytics 0.1.0",
+    "AvatarIdentification TnSAvatarIdentification 0.1.0",
     "Cryo Cryo 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
@@ -14,6 +17,7 @@ dependencies = [
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "Rodux Rodux 0.1.0",
+    "Screenshot TnSScreenshot 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "VerifiedBadges VerifiedBadges 0.8.1",
@@ -183,6 +187,7 @@ dependencies = ["JestGlobals JestGlobals 0.1.0"]
 name = "AuthenticationProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
@@ -307,6 +312,7 @@ dependencies = [
 name = "ContactsProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "t t 0.1.0",
@@ -316,6 +322,7 @@ dependencies = [
 name = "CredentialsProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "t t 0.1.0",
@@ -416,6 +423,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ErrorReporters"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "t t 0.1.0",
+]
+
+[[package]]
 name = "ExperienceAnalytics"
 version = "0.1.0"
 dependencies = [
@@ -437,6 +454,7 @@ name = "ExperienceService"
 version = "0.1.0"
 dependencies = [
     "Cryo Cryo 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "LoggingProtocol LoggingProtocol 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "t t 0.1.0",
@@ -779,6 +797,7 @@ version = "0.1.0"
 name = "IdentityProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
@@ -920,6 +939,7 @@ dependencies = [
 name = "LinkingProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
@@ -983,9 +1003,9 @@ version = "0.1.0"
 name = "MessageBus"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "t t 0.1.0",
-    "tutils tutils 0.1.0",
 ]
 
 [[package]]
@@ -1026,6 +1046,7 @@ dependencies = [
 name = "NativeUtilProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
@@ -1125,7 +1146,6 @@ dependencies = [
     "AbuseReports AbuseReports 0.1.0",
     "GameInvite GameInvite 0.1.0",
     "NotificationsCommon NotificationsCommon 0.1.0",
-    "SocialContextToasts SocialContextToasts 0.1.0",
     "StreamNotifications StreamNotifications 0.1.0",
     "ToastNotification ToastNotification 0.1.0",
 ]
@@ -1199,6 +1219,7 @@ dependencies = [
 name = "PermissionsProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "t t 0.1.0",
@@ -1212,7 +1233,10 @@ dependencies = ["SharedFlags SharedFlags 0.1.0"]
 [[package]]
 name = "PersonalizationTestSuite"
 version = "0.1.0"
-dependencies = ["ExperienceAnalytics ExperienceAnalytics 0.1.0"]
+dependencies = [
+    "ExperienceAnalytics ExperienceAnalytics 0.1.0",
+    "SocialContextToasts SocialContextToasts 0.1.0",
+]
 
 [[package]]
 name = "PlaceInfoRodux"
@@ -1580,6 +1604,7 @@ version = "0.1.0"
 name = "SMSProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "t t 0.1.0",
@@ -1776,8 +1801,25 @@ dependencies = [
 name = "SocialContextToasts"
 version = "0.1.0"
 dependencies = [
+    "Analytics Analytics 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "NotificationsCommon NotificationsCommon 0.1.0",
+    "Promise Promise 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppLocales RobloxAppLocales 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UserLib UserLib 0.1.0",
+    "UserProfiles UserProfiles 0.1.0",
 ]
 
 [[package]]
@@ -2182,6 +2224,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "LinkingProtocol LinkingProtocol 0.1.0",
+    "Loggers Loggers 0.1.0",
     "LoggingProtocol LoggingProtocol 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "MessageBus MessageBus 0.1.0",
@@ -2478,6 +2521,7 @@ dependencies = [
 name = "VideoProtocol"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "t t 0.1.0",
 ]

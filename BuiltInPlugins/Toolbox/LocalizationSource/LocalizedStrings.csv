@@ -22,6 +22,7 @@ Studio.Toolbox.General.CategoryPlugins,Plugins,Plug-ins,Plugins,Plugins,Plugins,
 Studio.Toolbox.Audio.SoundEffect.Category.suburban,Suburban, ,Suburban,Suburbano,Banlieusard,Suburbano,郊外,교외,Suburbano, ,郊区,郊区,郊區
 Studio.Toolbox.HomeView.Suburban,Suburban, ,Suburban,Suburbano,Banlieue,Periferia,郊外,교외,Suburbano, ,郊区,郊区,郊區
 Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider,Game development assets, ,Game development assets,Recursos para el desarrollo del juego,Contenus pour le développement du jeu,Risorse di sviluppo del gioco,ゲーム開発アセット,게임 개발 애셋,Recursos de desenvolvimento do jogo,Ресурсы разработки игры,游戏开发素材,游戏开发素材,遊戲開發素材
+Studio.Toolbox.GenresAmbient,Ambient, ,Ambient,Ambiente,Ambiant,Ambiente,環境音楽,앰비언트,Ambiente, ,环境,环境, 
 Studio.Toolbox.Subcategory.GenresAmbient,Ambient, ,Ambient,Ambiente,Ambiance,Ambiente,環境音楽,앰비언트,Ambiente, , , , 
 Studio.Toolbox.General.SalesOnsale,Onsale, ,Onsale,En venta,En vente,In vendita,販売中,판매 시작,À venda,В продаже,在售,在售,上架
 Studio.Toolbox.General.EndorseBadgeTooltipText,Marked as a high-quality item,Als hochwertiges Element gekennzeichnet,Marked as a high-quality item,Marcado como elemento de alta calidad,Marqué comme article de qualité,Segnato come oggetto di alta qualità,ハイクオリティアイテムとして登録済み,고품질 아이템으로 표시,Marcado como item de alta qualidade,Обозначен как высококачественный товар,标记为高品质的项目,标记为高品质的项目,已標記為高品質物品
@@ -46,7 +47,7 @@ Studio.Toolbox.AudioView.Creator,Creator, ,Creator,Creador(a),Créateur, ,クリ
 Studio.Toolbox.General.Ownership,Creator, ,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador,Автор,创作者,创作者,創作者
 Studio.Toolbox.General.SearchOptionCreator,Creator,Ersteller,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador,Автор,创作者,创作者,創作者
 Studio.Toolbox.SearchOptionsSort.Creator,Creator, ,Creator,Creador,Créateur,Creatore,クリエーター,크리에이터,Criador, , , , 
-Studio.Toolbox.UiSortIntent.Creator,Creator, ,Creator,Creador(a),Créateur, , ,크리에이터,Criador, , , , 
+Studio.Toolbox.UiSortIntent.Creator,Creator, ,Creator,Creador(a),Créateur, ,クリエーター,크리에이터,Criador, , , , 
 Studio.Toolbox.General.CategoryMyModels,My Models,Meine Modelle,My Models,Mis modelos,Mes modèles,I miei modelli,マイモデル,내 모델,Meus modelos,Мои модели,我的模型,我的模型,我的模型
 Studio.Toolbox.General.CategoryMyMeshes,My Meshes,Meine Meshes,My Meshes,Mis mallas,Mes maillages,Le mie mesh,マイメッシュ,내 메시,Minhas malhas,Мои сетки,我的网格,我的网格,我的網格
 Studio.Toolbox.Audio.Music.Genre.corporate,Corporate, ,Corporate,Empresarial,Entreprise,Corporate,コーポレート,코퍼레이트,Corporativo,Корпоративная,企业,企业,企業
@@ -93,7 +94,7 @@ Weiß,White,Blanco,Blanc,Bianco,白,흰색,Branco,Белый,白色,白色,白,S
  ,Name,Nombre,Nom,Nome,名前,이름,Nome, ,名称,名称, ,Studio.Toolbox.AudioView.Name,Name
  ,Name,Nombre,Nom,Nome,名前,이름,Nome,Имя,名称,名称,名稱,Studio.Toolbox.SearchOptionsSort.Name,Name
  ,Name,Nombre,Nom,Nome,名前,이름,Nome, , , , ,Studio.Toolbox.UiSortIntent.Name,Name
- ,Name,Nombre,Nom, , ,이름,Nome, , , , ,Studio.Toolbox.General.CategoryGroupDecals,Group Images
+ ,Name,Nombre,Nom, ,名前,이름,Nome, , , , ,Studio.Toolbox.General.CategoryGroupDecals,Group Images
 Gruppen-Bilder,Group Images,Imágenes del grupo,Images du groupe,Immagini del gruppo,グループ画像,그룹 이미지,Agrupar imagens,Изображения группы,群组图片,群组图片,組合圖像,Studio.Toolbox.General.SuggestionsBuilding,Building
 Gebäude,Building,Edificio,Bâtiment,Edificio,ビル,건물,Construção,Постройки,建造,建造,建築,Studio.Toolbox.General.CategoryGroupMeshes,Group Meshes
 Gruppen-Meshes,Group Meshes,Mallas del grupo,Maillages du groupe,Mesh del gruppo,グループメッシュ,그룹 메시,Agrupar malhas,Сетки группы,群组网格,群组网格,組合網格,Studio.Toolbox.AssetConfigPackage.CantConvertModelWithPrimaryPartNonArchivableWarning,Cannot publish a Model package when the PrimaryPart is not archivable.
@@ -104,7 +105,8 @@ Aktuelle,Recent,Reciente,Récents,Recenti,最近の編集,최근,Recentes,Нед
 Sortieren nach,Sort By,Ordenar por,Trier par,Ordina per,並べ替え順,정렬 기준,Ordenar por,Сортировка:,排序方式,排序方式,排序方式,Studio.Toolbox.Audio.Music.Genre.easy-listening,Easy Listening
  ,Easy Listening,Música fácil de escuchar,Musique d'ambiance,Di facile ascolto,イージーリスニング,이지 리스닝,Música suave,Фоновая музыка,轻音乐,轻音乐,輕音樂,Studio.Toolbox.Subcategory.AudioMusicEasyListening,Easy Listening
  ,Easy Listening,Música fácil de escuchar,Musique d'ambiance,Di facile ascolto,イージーリスニング,이지 리스닝,Música suave,Простое слушание,轻音乐,轻音乐,輕音樂,Studio.Toolbox.Subcategory.VibesEasyListening,Easy Listening
- ,Easy Listening,Música fácil de escuchar,Musique d'ambiance,Facile da ascoltare,イージーリスニング,이지 리스닝,Música suave, , , , ,Studio.Toolbox.General.CategoryGroupAudio,Group Audio
+ ,Easy Listening,Música fácil de escuchar,Musique d'ambiance,Facile da ascoltare,イージーリスニング,이지 리스닝,Música suave, , , , ,Studio.Toolbox.VibesEasyListening,Easy Listening
+ ,Easy Listening,Música fácil de escuchar,Musique d'ambiance,Facile da ascoltare,イージーリスニング,이지 리스닝,Música suave, ,轻音乐,轻音乐, ,Studio.Toolbox.General.CategoryGroupAudio,Group Audio
 Gruppen-Audiodateien,Group Audio,Audio del grupo,Sons du groupe,Audio del gruppo,グループオーディオ,그룹 오디오,Agrupar áudios,Звукозаписи группы,群组音频,群组音频,組合音效,Studio.Toolbox.Audio.SoundEffect.Category.explosions,Explosions
  ,Explosions,Explosiones,Explosions,Esplosione,爆発,폭발,Explosões, ,爆炸,爆炸,爆炸,Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import.
  ,Choose an asset to import.,Elige un recurso para importar.,Choisir un objet à importer.,Scegli una risorsa da importare.,インポートするアセットを選ぶ。,가져올 애셋을 선택하세요.,Escolha um ativo para importar.,Выбери ресурс для импорта.,请选择要导入的素材。,请选择要导入的素材。,選擇要匯入的素材。,Studio.Toolbox.Audio.SoundEffect.Category.Dog,Dog
@@ -130,7 +132,7 @@ Suchen,Search,Buscar,Rechercher,Cerca,サーチ,검색,Pesquisar,Поиск,搜�
  ,Misc,Misceláneo,Divers,Varie,その他,기타,Diversos, ,其他,其他,其他,Studio.Toolbox.General.AssetTypePlugin,Plugin
  ,Plugin,Plugin,Plugin,Plugin,プラグイン,플러그인,Plugin,Плагин,插件,插件,外掛程式,Studio.Toolbox.General.SortByFavorites,Favorites
 Favoriten,Favorites,Favoritos,Favoris,Preferiti,お気に入り,즐겨찾기,Favoritos,Избранное,收藏,收藏,最愛,Studio.Toolbox.UiSortIntent.Favorites,Favorites
- ,Favorites,Favoritos,Favoris, , ,즐겨찾기,Favoritos, , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Alarm,Alarm
+ ,Favorites,Favoritos,Favoris, ,お気に入り数,즐겨찾기,Favoritos, , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Alarm,Alarm
  ,Alarm,Alarma,Alarme,Allarme,アラーム,알람,Alarme, ,警报,警报,警報,Studio.Toolbox.Subcategory.SfxAlarm,Alarm
  ,Alarm,Alarma,Alarme,Allarme,アラーム,경보,Alarme, , , , ,Studio.Toolbox.General.SearchBarCreatorText,Search for users
 Nach Benutzern suchen,Search for users,Buscar usuarios,Rechercher des utilisateurs,Cerca utenti,ユーザーをサーチ,사용자 검색,Pesquisar usuários,Поиск пользователей,搜索用户,搜索用户,搜尋使用者,Studio.Toolbox.Audio.SoundEffect.Category.Classical music,Classical music
@@ -168,12 +170,12 @@ Licht,Light,Luz,Lumière,Luce,照明,조명,Luz,Свет,光,光,燈光,Studio.T
  ,Toilet,Baño,Toilettes,Bagno,トイレ,변기,Banheiro,Туалет,厕所,厕所,廁所,Studio.Toolbox.General.SortByRelevance,Relevance
 Relevanz,Relevance,Relevancia,Pertinence,Rilevanza,関連性,관련성,Relevância,Актуальность,关联,关联,相關性,Studio.Toolbox.SearchOptionsSort.Relevance,Relevance
  ,Relevance,Relevancia,Pertinence,Rilevanza,関連度,관련도,Relevância, , , , ,Studio.Toolbox.UiSortIntent.Relevance,Relevance
- ,Relevance,Relevancia,Pertinence, , ,관련도,Relevância, , , , ,Studio.Toolbox.Audio.SoundEffect.Category.foliage,Foliage
+ ,Relevance,Relevancia,Pertinence, ,関連度,관련도,Relevância, , , , ,Studio.Toolbox.Audio.SoundEffect.Category.foliage,Foliage
  ,Foliage,Hojas,Feuillage,Fogliame,グリーン,나뭇잎,Folhagem, ,叶片,叶片,葉子,Studio.Toolbox.General.CategoryCreationsShirts,Shirts
  ,Shirts,Camisas,Chemises,Camicie,シャツ,셔츠,Camisas,Рубашки,上衣,上衣,上衣,Studio.Toolbox.Common.Yes,Yes
  ,Yes,Sí,Oui,Sì,はい,예,Sim, ,是,是,是,Studio.Toolbox.General.SortByUpdated,Updated
 Aktualisiert,Updated,Actualizado,Mis à jour,Aggiornati,アップデート済み,업데이트,Atualizado,Обновление выполнено,已更新,已更新,更新時間,Studio.Toolbox.UiSortIntent.Updated,Updated
- ,Updated,Actualizado,Mis à jour, , ,업데이트 날짜,Atualizado, , , , ,Studio.Toolbox.General.AssetTypeRightLeg,Right Leg
+ ,Updated,Actualizado,Mis à jour, ,アップデート済み,업데이트 날짜,Atualizado, , , , ,Studio.Toolbox.General.AssetTypeRightLeg,Right Leg
  ,Right Leg,Pierna derecha,Jambe droite,Gamba destra,右足,오른 다리,Perna direita, ,右腿,右腿,右腿,Studio.Toolbox.General.AssetTypeHairAccessory,Hair
  ,Hair,Pelo,Cheveux,Capelli,髪,헤어,Cabelo,Волосы,头发,头发,髮型,Studio.Toolbox.General.CategoryCreationsHair,Hair
 Haare,Hair,Pelo,Cheveux,Capelli,髪,헤어,Cabelo,Волосы,头发,头发,髮型,Studio.Toolbox.Audio.SoundEffect.Category.Fowl,Fowl
@@ -186,7 +188,7 @@ Taille-Accessoires,Waist Accessories,Accesorios para la cintura,Accessoires tail
  ,Vocal music,Música vocal,Musique vocale,Musica vocale,声楽,보컬 음악,Vocalização, ,声乐,声乐,聲樂,Studio.Toolbox.Audio.SoundEffect.Category.Vocal_music,Vocal music
  ,Vocal music,Música vocal,Musique vocale,Musica vocale,声楽,보컬 음악,Vocalização, ,声乐,声乐,聲樂,Studio.Toolbox.General.SortByRatings,Ratings
 Bewertungen,Ratings,Calificaciones,Notes,Valutazioni,評価,평가,Avaliações,Рейтинги,评级,评级,評分,Studio.Toolbox.UiSortIntent.Ratings,Ratings
- ,Ratings,Valoraciones,Évaluations, , ,평가,Avaliações, , , , ,Studio.Toolbox.AssetConfig.PublishPluginHeader, Publish as Plugin
+ ,Ratings,Valoraciones,Évaluations, ,評価,평가,Avaliações, , , , ,Studio.Toolbox.AssetConfig.PublishPluginHeader, Publish as Plugin
  , Publish as Plugin, Publicar como plugin, Publier en tant que plugin, Pubblica come plugin, プラグインとして公開, 플러그인으로 게시, Publicar como plugin, , 发布为插件, 发布为插件,發布為外掛程式,Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets
  ,Avatar assets,Recursos para el avatar,Éléments avatars,Risorse avatar,アバターアセット,아바타 애셋,Recursos de avatar,Ресурсы аватара,虚拟形象素材,虚拟形象素材,虛擬人偶素材,Studio.Toolbox.Purchase.BuyRobux,Buy Robux
  ,Buy Robux,Comprar Robux,Acheter des Robux,Acquista Robux,Robuxを買う,Robux 구매,Comprar Robux,Купить Robux,购买 Robux,购买 Robux,購買 Robux,Studio.Toolbox.AssetConfigFooter.NewAsset,Save as a new asset...
@@ -211,7 +213,8 @@ Hintergrund:,Background:,Fondo:,Arrière-plan :,Sfondo:,背景:,배경:,Fundo:,
  ,Stream,Arroyo,Torrent,Acqua che scorre,流水,시냇물,Corrente de água, ,溪流,溪流,小溪流水聲,Studio.Toolbox.Subcategory.ModelWeaponsGun,Gun
  ,Gun,Pistola,Arme,Arma da fuoco,銃,총,Arma,Пистолет,枪,枪,槍,Studio.Toolbox.General.FooterButtonBlackName,Black
 Schwarz,Black,Negro,Noir,Nero,黒,검은색,Preto,Черный,黑色,黑色,黑,Studio.Toolbox.HomeView.essential,Essential
- ,Essential,Esencial,Essentiel,Essenziale,基本ツール,필수,Essencial, ,必备,必备,必備,Studio.Toolbox.Subcategory.GenresHoliday,Holiday
+ ,Essential,Esencial,Essentiel,Essenziale,基本ツール,필수,Essencial, ,必备,必备,必備,Studio.Toolbox.GenresHoliday,Holiday
+ ,Holiday,Música festiva,Fêtes de fin d'année,Vacanza,年末,홀리데이,Músicas Natalinas, ,节日,节日, ,Studio.Toolbox.Subcategory.GenresHoliday,Holiday
  ,Holiday,Música festiva,Fêtes de fin d'année,Feste,年末,홀리데이,Músicas natalinas, , , , ,Studio.Toolbox.Common.Cancel,Cancel
  ,Cancel,Cancelar,Annuler, ,キャンセル,취소,Cancelar, , , , ,Studio.Toolbox.General.Cancel,Cancel
  ,Cancel,Cancelar,Annuler,Annulla,キャンセル,취소,Cancelar, ,取消,取消,取消,Studio.Toolbox.General.SearchOptionsCancel,Cancel
@@ -248,7 +251,8 @@ Unterstützte Plug-ins,EndorsedPlugins,EndorsedPlugins,Plugins approuvés,Endors
 Suchergebnisse für,Search Results for,Buscar resultados para,Résultats de la recherche pour,Risultati di ricerca per,以下のサーチ結果,다음에 대한 검색 결과:,Pesquisar nos resultados por,Результаты поиска для:,搜索结果：,搜索结果：,以此條件搜尋的結果：,Studio.Toolbox.Audio.SoundEffect.Category.rattles,Rattles
  ,Rattles,Traqueteos,Hochets,Sonagli,ガラガラ,덜거덕 소리,Chocalhos, ,拨浪鼓,拨浪鼓,嘎嘎器,Studio.Toolbox.General.SearchResultsClearAll,Clear
 Löschen,Clear,Eliminar,Effacer,Cancella,消す,지우기,Limpar,Очистить,清除,清除,清除,Studio.Toolbox.Subcategory.VibesHopeful,Hopeful
- ,Hopeful,Esperanzadora,Plein d'espoir,Speranzoso,励まし,희망적,Esperançosa, , , , ,Studio.Toolbox.General.SearchTagCreator,by:
+ ,Hopeful,Esperanzadora,Plein d'espoir,Speranzoso,励まし,희망적,Esperançosa, , , , ,Studio.Toolbox.VibesHopeful,Hopeful
+ ,Hopeful,Esperanzadora,Plein d'espoir,Speranzoso,励まし,희망적,Esperançosa, ,正能量,正能量, ,Studio.Toolbox.General.SearchTagCreator,by:
 von:,by:,de:,par :,di:,作:,제작:,de:,параметр:,作者:,作者:,來自：,Studio.Toolbox.General.RightClickMenuCopyTextureID,Copy Texture ID
  ,Copy Texture ID,Copiar ID de la textura,Copier l'ID de texture,Copia l'ID texture,テクスチャIDをコピー,텍스처 ID 복사,Copiar ID da textura, ,复制纹理 ID,复制纹理 ID,複製紋理 ID,Studio.Toolbox.Audio.SoundEffect.Category.Harp,Harp
  ,Harp,Arpa,Harpe,Arpa,ハープ,하프,Harpa, ,竖琴,竖琴,豎琴,Studio.Toolbox.Audio.SoundEffect.Category.Pizzicato,Pizzicato
@@ -343,7 +347,8 @@ Invertir,Inversé,Inverso,リバース,역방향,Inverter, ,翻转,翻转,倒轉
 ¿Realmente quieres salir de {name}?,Es-tu sûr de vouloir envoyer "{name}"?,Sei sicuro di voler inviare "{name}"?,「{name}」から退出しますか？,'{name}'(을)를 정말 제출할까요?,Tem certeza de que deseja sair de "{name}"?, ,是否确定要提交“{name}”吗？,是否确定要提交“{name}”吗？,您是否確定要送出「{name}」？,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories, ,Group Neck Accessories
 Accesorios para el cuello del grupo,Accessoires pour le cou du groupe,Accessori collo del gruppo,グループの首用アクセサリ,그룹 목 장신구,Acessórios de pescoço de grupo, ,群组颈部配件,群组颈部配件,群組頸部飾品,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, ,Waist Accessory
 Accesorio para la cintura,Accessoire taille,Accessorio vita,腰用アクセサリ,허리 장신구,Acessório de cintura,Пояс: аксессуары,腰部配件,腰部配件,腰部飾品,Studio.Toolbox.Audio.Music.Genre.classical,Classical, ,Classical
-Clásica,Classique,Classica,クラシック,클래식,Clássico,Классика,古典,古典,古典,Studio.Toolbox.Subcategory.AudioMusicClassical,Classical, ,Classical
+Clásica,Classique,Classica,クラシック,클래식,Clássico,Классика,古典,古典,古典,Studio.Toolbox.GenresClassical,Classical, ,Classical
+Clásica,Classique,Classico,クラシック,클래식,Clássico, ,古典,古典, ,Studio.Toolbox.Subcategory.AudioMusicClassical,Classical, ,Classical
 Clásica,Classique,Classica,クラシック,클래식,Clássico,Классический,古典,古典,古典,Studio.Toolbox.Subcategory.GenresClassical,Classical, ,Classical
 Clásica,Classique,Classica,クラシック,클래식,Clássica, , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Moo,Moo, ,Moo
 Mugido,Mugir,Muggito,モー,음매,Mugido, ,牛叫声,牛叫声,哞,Studio.Toolbox.Audio.SoundEffect.Category.Gospel music,Gospel music, ,Gospel music
@@ -440,7 +445,8 @@ Cascabel,Cloche de Jingle,Campana natalizia,ジングルベル,징글벨,Sino de
 Error,Erreur,Errore,エラー,오류,Erro,Ошибка,错误,错误,錯誤,Studio.Toolbox.ThumbnailStatus.Error,Error, ,Error
 Error,Erreur,Errore,エラー,오류,Erro,Ошибка,错误,错误,錯誤,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!, ,Successfully submitted!
 ¡Enviado correctamente!,Soumis avec succès !,Invio riuscito!,送信できました！,제출 성공!,Enviado com sucesso!, ,提交成功！,提交成功！,提交成功！,Studio.Toolbox.Subcategory.VibesSuspenseful,Suspenseful, ,Suspenseful
-De suspenso,Suspense,Suspense,サスペンス,서스펜스,Suspense, , , , ,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner
+De suspenso,Suspense,Suspense,サスペンス,서스펜스,Suspense, , , , ,Studio.Toolbox.VibesSuspenseful,Suspenseful, ,Suspenseful
+De suspenso,Suspense,Suspense,サスペンス,서스펜스,Suspense, ,悬疑,悬疑, ,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, ,Package Owner
 Propietario del paquete,Propriétaire package,Proprietario del pacchetto,パッケージ所有者,패키지 소유자,Proprietário do pacote,Владелец пакета,包所有者,包所有者,套件主人,Studio.Toolbox.Audio.SoundEffect.Category.Pant,Pant, ,Pant
 Jadeo,Haleter,Pantaloni,息切れ,헥헥,Sem ar, ,喘息,喘息,喘息,Studio.Toolbox.AssetConfig.BundleUploadCreateBundleStep,Creating bundle..., ,Creating bundle...
 Creando paquete...,Création du bundle..., ,バンドルを作成中...,번들 생성 중...,Criando pacote..., , , , ,Studio.Toolbox.Audio.SoundEffect.Category.pumps,Pumps, ,Pumps
@@ -504,7 +510,7 @@ Caja,Caisse,Tamburo rullante,スネアドラム,스네어 드럼,Caixa, ,小鼓,
 La imagen será revisada por los moderadores antes de hacerse visible para otros usuarios,L'image sera revue par des modérateurs avant d'être visible par les autres utilisateurs,L'immagine sarà valutata dai moderatori prima di essere resa visibile agli altri utenti,画像は、他のユーザーに表示される前に内容審査スタッフによってレビューされます。,이미지는 검열팀의 검토가 끝난 후에 다른 사용자들에게 공개됩니다.,A imagem será revisada por moderadores antes de poder ser vista por outros usuários,"Изображение будет рассмотрено модераторами перед тем, как его увидят другие пользователи.",图片将由协调员审查，然后再对其他用户开放显示,图片将由协调员审查，然后再对其他用户开放显示,圖像將交由管理員審查後方得供其他使用者檢視,Studio.Toolbox.General.Sharing,Sharing, ,Sharing
 Compartiendo,Partage,Condivisione,シェア中,공유,Compartilhando, ,分享,分享,分享,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators
 No puedes añadir más de {maxNumCollaborators:int} colaboradores,Tu ne peux pas ajouter plus de {maxNumCollaborators:int} collaborateurs,Non puoi aggiungere più di {maxNumCollaborators:int} collaboratori,共同制作者は {maxNumCollaborators:int} 人以上、追加できません,공동 작업자는 최대 {maxNumCollaborators:int}명까지만 추가할 수 있습니다.,Você não pode adicionar mais do que {maxNumCollaborators:int} colaboradores,Можно добавить не более {maxNumCollaborators:int} участников,无法添加 {maxNumCollaborators:int} 位以上的协作者,无法添加 {maxNumCollaborators:int} 位以上的协作者,無法增加超過 {maxNumCollaborators:int} 名合夥人,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft, ,Aircraft
-Avión,Avion,Aereo,航空機,항공기,Aeronave, ,飞机,飞机,飛機,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:, ,Your current balance:
+Avión,Avion,Aereo,飛行機,항공기,Aeronave, ,飞机,飞机,飛機,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:, ,Your current balance:
 Tu saldo actual:,Votre solde actuel :,Fondi attuali:,現在の残高:,현재 잔액:,Seu saldo atual:,Ваш текущий баланс:,你当前的余额:,你当前的余额:,您目前的餘額：,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}., ,You need {robux:int} more Robux to buy "{name}" from {creator}.
 Necesitas {robux:int} Robux más para comprar "{name}" de {creator}.,Tu as besoin de {robux:int} Robux en plus pour acheter {name} de {creator}.,Hai bisogno di {robux:int} Robux in più per comprare "{name}" da {creator}.,{creator}さんから「{name}」を買うにはRobuxがあと{robux:int}必要です。,{creator}의 '{name}'(을)를 구매하려면 {robux:int} Robux가 더 필요합니다.,Você precisa de {robux:int} Robux a mais para comprar "{name}" de {creator}.,"Требуется еще {robux:int} Robux для покупки (\"{name}\", автор {creator}).",你还需要 {robux:int} Robux 才能从 {creator} 处购买到 "{name}"。,你还需要 {robux:int} Robux 才能从 {creator} 处购买到 "{name}"。,您還需要 {robux:int} Robux 才可向 {creator} 購買「{name}」。,Studio.Toolbox.Purchase.Retry,Retry, ,Retry
 Reintentar,Réessayer,Riprova,再試行,다시 시도,Tentar novamente,Повтор,重试,重试,重試,Studio.Toolbox.Audio.SoundEffect.Category.Glass,Glass, ,Glass
@@ -610,7 +616,8 @@ Solo yo,Seulement moi,Solo io,自分のみ,나만,Somente eu, ,只有我,只有�
 Máquina de coser,Machine à coudre,Macchina da cucire,ミシン,재봉틀,Máquina de costura, ,缝纫机,缝纫机,縫紉機,Studio.Toolbox.Audio.SoundEffect.Category.Sewing_machine,Sewing machine, ,Sewing machine
 Máquina de coser,Machine à coudre,Macchina da cucire,ミシン,재봉틀,Máquina de costura, ,缝纫机,缝纫机,縫紉機,Studio.Toolbox.Audio.SoundEffect.Category.Grunge,Grunge, ,Grunge
 Grunge,Grunge,Grunge,グランジ,그런지,Grunge, ,油渍摇滚,油渍摇滚,油漬搖滾,Studio.Toolbox.Audio.Music.Genre.electronic,Electronic, ,Electronic
-Electrónica,Électronique,Elettronica,エレクトロニック,일렉트로닉,Eletrônico,Электронная,电音,电音,電音,Studio.Toolbox.Subcategory.AudioMusicElectronic,Electronic, ,Electronic
+Electrónica,Électronique,Elettronica,エレクトロニック,일렉트로닉,Eletrônico,Электронная,电音,电音,電音,Studio.Toolbox.GenresElectronic,Electronic, ,Electronic
+Electrónica,Électronique,Elettronica,エレクトロニック,일렉트로닉,Eletrônica, ,电音,电音, ,Studio.Toolbox.Subcategory.AudioMusicElectronic,Electronic, ,Electronic
 Electrónica,Électronique,Elettronica,エレクトロニック,일렉트로닉,Eletrônica,Электронная,电音,电音,電音,Studio.Toolbox.Subcategory.GenresElectronic,Electronic, ,Electronic
 Electrónica,Électronique,Elettronica,エレクトロニック,일렉트로닉,Eletrônica, , , , ,Studio.Toolbox.Common.Loading,Loading, ,Loading
 Cargando,Chargement,Caricamento,読み込み中,불러오는 중,Carregando,Загрузка,正在加载,正在加载,正在載入,Studio.Toolbox.Audio.SoundEffect.Category.Filing (rasp),Filing (rasp), ,Filing (rasp)
@@ -716,7 +723,7 @@ Señal de ocupado,Signal occupé,Segnale occupato,通話中音,통화 중 신호
 Laboratorio,Laboratoire,Laboratorio,研究所,실험실,Laboratório,Лаборатория,实验室,实验室,實驗室,Studio.Toolbox.Audio.SoundEffect.Category.Opera,Opera, ,Opera
 Ópera,Opéra,Opera,オペラ,오페라,Ópera, ,歌剧,歌剧,歌劇,Studio.Toolbox.HomeView.trending,Trending, ,Trending
 Tendencia,Tendance,Di tendenza,トレンド,트렌드,Populares,Популярные,热门,热门,熱門,Studio.Toolbox.UiSortIntent.Trending,Trending, ,Trending
-Tendencia,Tendance, , ,트렌드,Tendências, , , , ,Studio.Toolbox.Subcategory.ModelStructureRoads,Roads, ,Roads
+Tendencia,Tendance, ,トレンド,트렌드,Tendências, , , , ,Studio.Toolbox.Subcategory.ModelStructureRoads,Roads, ,Roads
 Calles,Routes,Strade,道路,도로,Estradas,Дороги,道路,道路,道路,Studio.Toolbox.Audio.SoundEffect.Category.Civil defense siren,Civil defense siren, ,Civil defense siren
 Sirena de defensa civil,Sirène de la défense civile,Sirena di difesa civile,市民防災警報,민방위 사이렌,Sirene da defesa civil, ,民防警报器,民防警报器,民防警報器,Studio.Toolbox.Audio.SoundEffect.Category.Civil_defense_siren,Civil defense siren, ,Civil defense siren
 Sirena de protección civil,Sirène de la défense civile,Sirena di difesa civile,市民防災警報,민방위 사이렌,Sirene da defesa civil, ,民防警报器,民防警报器,民防警報器,Studio.Toolbox.HomeView.Castle,Castle, ,Castle
@@ -773,7 +780,8 @@ Puedes poner este objeto en venta y configurarlo en tu {creatorDashboardLink}.,T
 Escombros,Débris,Debris,デブリ,파편,Escombros, ,碎片,碎片,碎片,Studio.Toolbox.Subcategory.ModelWeaponsKnife,Knife, ,Knife
 Cuchillo,Couteau,Coltello,ナイフ,칼,Faca,Нож,刀,刀,刀,Studio.Toolbox.Audio.Music.Genre.jazz,Jazz, ,Jazz
 Jazz,Jazz,Jazz,ジャズ,재즈,Jazz,Джаз,爵士,爵士,爵士,Studio.Toolbox.Audio.SoundEffect.Category.Jazz,Jazz, ,Jazz
-Jazz,Jazz,Jazz,ジャズ,재즈,Jazz, ,爵士乐,爵士乐,爵士,Studio.Toolbox.Subcategory.AudioMusicJazz,Jazz, ,Jazz
+Jazz,Jazz,Jazz,ジャズ,재즈,Jazz, ,爵士乐,爵士乐,爵士,Studio.Toolbox.GenresJazz,Jazz, ,Jazz
+Jazz,Jazz,Jazz,ジャズ,재즈,Jazz, ,爵士,爵士, ,Studio.Toolbox.Subcategory.AudioMusicJazz,Jazz, ,Jazz
 Jazz,Jazz,Jazz,ジャズ,재즈,Jazz,Джаз,爵士,爵士,爵士,Studio.Toolbox.Subcategory.GenresJazz,Jazz, ,Jazz
 Jazz,Jazz,Jazz,ジャズ,재즈,Jazz, , , , ,Studio.Toolbox.Subcategory.ModelWeaponsShield,Shield, ,Shield
 Escudo,Bouclier,Scudo,盾,방패,Escudo,Щит,盾,盾,盾,Studio.Toolbox.Audio.SoundEffect.Category.burning,Burning, ,Burning
@@ -917,7 +925,8 @@ AssetId: {assetId:int},種類: {assetType},이름: {assetName},ID: {assetId:int}
  , , , ,Studio.Toolbox.Audio.SoundEffect.Category.plumbing,Plumbing, ,Plumbing,Plomería,Plomberie,Impianto idraulico,排水,배관,Encanamento
  ,排水管,排水管,排水,Studio.Toolbox.General.ShowLess,Show less, ,Show less,Mostrar menos,Afficher moins,Mostra di meno,表示を減らす,간단히 표시,Mostre menos
 Свернуть,缩起,缩起,顯示更少,Studio.Toolbox.Subcategory.VibesAngry,Angry, ,Angry,De enojo,En colère,Arrabbiato,怒り,분노,Raivosa
- , , , ,Studio.Toolbox.Audio.SoundEffect.Category.chops,Chops, ,Chops,Cortes,Coupes,Chops,切る音,써는 소리,Cortes
+ , , , ,Studio.Toolbox.VibesAngry,Angry, ,Angry,De enojo,En colère,Arrabbiato,怒り,분노,Raivosa
+ ,愤怒,愤怒, ,Studio.Toolbox.Audio.SoundEffect.Category.chops,Chops, ,Chops,Cortes,Coupes,Chops,切る音,써는 소리,Cortes
  ,劈砍,劈砍,劈聲,Studio.Toolbox.Audio.SoundEffect.Category.Crow,Crow, ,Crow,Cacareo,Faire cocorico,Corvo,カラス,까마귀,Corvo
  ,乌鸦,乌鸦,烏鴉,Studio.Toolbox.AudioView.Artist,Artist, ,Artist,Artista,Artiste,Artista,アーティスト,아티스트,Artista
 Исполнитель,表演者,表演者,表演者,Studio.Toolbox.HomeView.Western,Western, ,Western,Western,Western,Western,ウエスタン,서부극,Faroeste
@@ -925,7 +934,7 @@ AssetId: {assetId:int},種類: {assetType},이름: {assetName},ID: {assetId:int}
 Длина,长度,长度,長度,Studio.Toolbox.Audio.SoundEffect.Category.motorcycles,Motorcycles, ,Motorcycles,Motocicletas,Motos,Motocicli,オートバイ,오토바이,Motocicletas
  ,摩托车,摩托车,摩托車,Studio.Toolbox.Audio.SoundEffect.Category.swishes,Swishes, ,Swishes,Silbidos,Sifflements,Fischi,ヒュー音,휙 소리,Sibilos
  ,唰唰声,唰唰声,咻聲,Studio.Toolbox.AudioView.Duration,Duration, ,Duration,Duración,Durée,Durata,期間,지속 시간,Duração
-Продолжительность,时长,时长,時長,Studio.Toolbox.UiSortIntent.Duration,Duration, ,Duration,Duración,Durée, , ,기간,Duração
+Продолжительность,时长,时长,時長,Studio.Toolbox.UiSortIntent.Duration,Duration, ,Duration,Duración,Durée, ,期間,기간,Duração
  , , , ,Studio.Toolbox.Audio.SoundEffect.Category.impacts,Impacts, ,Impacts,Impactos,Impact,Impatti,インパクト,충격적,Impactos
  ,冲击,冲击,衝擊力,Studio.Toolbox.Audio.Music.Genre.hip-hop,Hip-Hop, ,Hip-Hop,Hip-Hop,Hip-Hop,Hip-Hop,ヒップホップ,힙합,Hip-Hop
 Хип-хоп,嘻哈,嘻哈,嘻哈,Studio.Toolbox.Audio.SoundEffect.Category.Laughter,Laughter, ,Laughter,Risa,Rire,Risate,笑い声,웃음,Riso
@@ -946,7 +955,8 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  ,岩石,岩石,岩石,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine,Answering Machine, ,Answering Machine,Contestadora,Répondeur,Segreteria Telefonica,留守電,자동 응답기,Secretária eletrônica
  ,答录机,答录机,答錄機,Studio.Toolbox.Audio.SoundEffect.Category.Applause,Applause, ,Applause,Aplauso,Applaudissements,Applausi,拍手,박수갈채,Aplausos
  ,掌声,掌声,掌聲,Studio.Toolbox.Audio.SoundEffect.Category.Funk,Funk, ,Funk,Funk,Funk,Funk,ファンク,펑크,Funk
- ,放克,放克,放克,Studio.Toolbox.Subcategory.GenresFunk,Funk, ,Funk,Funk,Funk,Funk,ファンク,펑크,Funk
+ ,放克,放克,放克,Studio.Toolbox.GenresFunk,Funk, ,Funk,Funk,Funk,Funk,ファンク,펑크,Funk
+ ,放克,放克, ,Studio.Toolbox.Subcategory.GenresFunk,Funk, ,Funk,Funk,Funk,Funk,ファンク,펑크,Funk
  , , , ,Studio.Toolbox.Audio.SoundEffect.Category.arrows,Arrows, ,Arrows,Flechas,Flèches,Frecce,矢,화살,Flechas
  ,箭,箭,箭,Studio.Toolbox.Audio.SoundEffect.Category.Turkey,Turkey, ,Turkey,Pavo,Dinde,Tacchino,七面鳥,칠면조,Peru
  ,火鸡,火鸡,火雞,Studio.Toolbox.General.AssetTypeLeftArm,Left Arm, ,Left Arm,Brazo izquierdo,Bras gauche,Braccio sinistro,左腕,왼팔,Braço esquerdo
@@ -1136,7 +1146,7 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  ,野外,野外,野外,Studio.Toolbox.Audio.SoundEffect.Category.winds,Winds, ,Winds,Vientos,Vents,Venti,風,바람,Ventos
  ,风,风,風,Studio.Toolbox.Audio.SoundEffect.Category.wingflaps,Wingflaps, ,Wingflaps,Aleteos,Battements d'ailes,Alette,パタパタ音,날갯짓,Asas
  ,振翅,振翅,振翅,Studio.Toolbox.General.AdditionalImages,Additional Images, ,Additional Images,Imágenes adicionales,Images supplémentaires,Ulteriori Immagini,その他の画像,추가 이미지,Imagens adicionais
- ,附加图像,附加图像,額外圖像,Studio.Toolbox.Audio.SoundEffect.Category.Wood,Wood, ,Wood,Madera,Bois,Legno,木材,목재,Madeira
+ ,附加图像,附加图像,額外圖像,Studio.Toolbox.Audio.SoundEffect.Category.Wood,Wood, ,Wood,Madera,Bois,Legno,木,목재,Madeira
  ,木头,木头,木材,Studio.Toolbox.Audio.FindTracks,Find Tracks by {creatorName}, ,Find Tracks by {creatorName},Encuentra pistas de {creatorName},Trouver des morceaux par {creatorName},Trova tracce da {creatorName},{creatorName} で曲を見つける,{creatorName}의 트랙 찾기,Encontrar faixas de {creatorName}
  ,按照“{creatorName}”寻找曲目,按照“{creatorName}”寻找曲目,尋找 {creatorName} 的曲目,Studio.Toolbox.AssetConfigSharing.PublicAllExperiences,Public - All Experiences, ,Public - All Experiences,Público - Todas las experiencias,Public - Toutes les Expériences,Pubblico - Tutte Le Esperienze,公開済み - すべてのバーチャル空間,공개 - 전체 체험,Público - Todas as experiências
  ,公开 - 所有作品,公开 - 所有作品,公開 - 所有體驗,Studio.Toolbox.AssetConfigSharing.PrivateInformationVersionTwo,You can grant permissions to specific experiences on web asset configuration., ,You can grant permissions to specific experiences on web asset configuration.,Puede otorgar permisos a experiencias específicas en la Configuración de recursos web.,Tu peux accorder des autorisations à des expériences spécifiques dans la configuration des ressources web.,È possibile concedere i permessi a specifiche esperienze sulla configurazione degli asset web.,ウェブアセット環境設定で特定のバーチャル空間に権限を付与できます。,특정 체험에 웹 애셋 구성에 대한 권한을 부여할 수 있습니다.,Você pode dar permissões para experiências específicas nas configurações de ativos web.
@@ -1366,7 +1376,8 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  ,教堂钟,教堂钟,教堂鐘聲,Studio.Toolbox.Audio.SoundEffect.Category.Car passing by,Car passing by, ,Car passing by,Coche pasando,Voiture qui passe,Auto che passa,車の通過音,지나가는 차,Carro passando
  ,车辆驶过,车辆驶过,汽車駛過,Studio.Toolbox.Audio.SoundEffect.Category.Car_passing_by,Car passing by, ,Car passing by,Coche pasando,Voiture qui passe,Auto che passa,車の通過音,지나가는 차,Carro passando
  ,车辆驶过,车辆驶过,汽車駛過,Studio.Toolbox.Audio.SoundEffect.Category.Chime,Chime, ,Chime,Campanilla,Carillon,Campanello,チャイム,차임,Badalo
- ,排钟,排钟,風鈴,Studio.Toolbox.Subcategory.GenresLofi,Lofi, ,Lofi,Lofi,Lofi,Lofi,ローファイ,로 파이,Lofi
+ ,排钟,排钟,風鈴,Studio.Toolbox.GenresLofi,Lofi, ,Lofi,Lofi,Lofi,Lofi,ローファイ,로 파이,Lofi
+ ,Lofi,Lofi, ,Studio.Toolbox.Subcategory.GenresLofi,Lofi, ,Lofi,Lofi,Lofi,Lofi,ローファイ,로 파이,Lofi
  , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Harmonica,Harmonica, ,Harmonica,Armónica,Harmonica,Armonica,ハーモニカ,하모니카,Gaita
  ,口琴,口琴,口琴,Studio.Toolbox.Audio.SoundEffect.Category.Bagpipes,Bagpipes, ,Bagpipes,Gaita,Cornemuses,Cornamusa,バグパイプ,백파이프,Gaita escocesa
  ,风笛,风笛,風笛,Studio.Toolbox.Audio.SoundEffect.Category.Didgeridoo,Didgeridoo, ,Didgeridoo,Didgeridoo,Luth,Didgeridoo,ディジュリドゥ,디제리두,Didgeridoo
@@ -1428,7 +1439,8 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  ,短曲,短曲,鈴鐺聲 (音樂),Studio.Toolbox.Audio.SoundEffect.Category.Christmas music,Christmas music, ,Christmas music,Música de Navidad,Musique de Noël,Musica natalizia,クリスマス音楽,크리스마스 음악,Música de Natal
  ,圣诞曲,圣诞曲,聖誕音樂,Studio.Toolbox.Audio.SoundEffect.Category.Christmas_music,Christmas music, ,Christmas music,Música de Navidad,Musique de Noël,Musica natalizia,クリスマス音楽,크리스마스 음악,Música de Natal
  ,圣诞曲,圣诞曲,聖誕音樂,Studio.Toolbox.Subcategory.VibesExciting,Exciting, ,Exciting,Emocionante,Excitant,Emozionanti,エキサイティング,익사이팅,Excitante
- , , , ,Studio.Toolbox.Audio.SoundEffect.Category.Wedding music,Wedding music, ,Wedding music,Música de boda,Musique de mariage,Musica nuziale,結婚式BGM,결혼식 음악,Música de casamento
+ , , , ,Studio.Toolbox.VibesExciting,Exciting, ,Exciting,Emocionante,Enthousiaste,Emozionanti,エキサイティング,익사이팅,Emocionante
+ ,激动人心,激动人心, ,Studio.Toolbox.Audio.SoundEffect.Category.Wedding music,Wedding music, ,Wedding music,Música de boda,Musique de mariage,Musica nuziale,結婚式BGM,결혼식 음악,Música de casamento
  ,婚礼音乐,婚礼音乐,婚禮音樂,Studio.Toolbox.Audio.SoundEffect.Category.Wedding_music,Wedding music, ,Wedding music,Música de boda,Musique de mariage,Musica nuziale,結婚式BGM,결혼식 음악,Música de casamento
  ,婚礼音乐,婚礼音乐,婚禮音樂,Studio.Toolbox.Audio.SoundEffect.Category.Jackhammer,Jackhammer, ,Jackhammer,Martillo neumático,Marteau-piqueur,Martello pneumatico,削岩機,잭해머,Britadeira
  ,手提钻,手提钻,電鑽,Studio.Toolbox.Audio.SoundEffect.Category.Tender music,Tender music, ,Tender music,Música suave,Musique douce,Musica leggera,やさしい音楽,부드러운 음악,Música suave
@@ -1628,8 +1640,9 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  ,躯干,躯干,軀幹,Studio.Toolbox.General.AssetTypeRightArm,Right Arm, ,Right Arm,Brazo derecho,Bras droit,Braccio destro,右腕,오른팔,Braço direito
  ,右臂,右臂,右臂,Studio.Toolbox.General.AssetTypeEyelashAccessory,Eyelash Accessory, ,Eyelash Accessory,Accesorio de pestaña,Accessoire cils,Accessorio Ciglia,まつげ用アクセサリ,속눈썹 장신구,Acessório de cílio
  ,睫毛配件,睫毛配件,睫毛配件,Studio.Toolbox.HomeView.top,Top, ,Top,Mejores,Au top,Superiore,トップ,인기,Mais populares
- ,最受欢迎,最受欢迎,熱門,Studio.Toolbox.UiSortIntent.Top,Top, ,Top,Superior,Haut, , ,인기,Mais populares
- , , , ,Studio.Toolbox.HomeView.vibes,Vibes, ,Vibes,Vibras,Ondes,Vibrazioni,バイブス,분위기,Vibes
+ ,最受欢迎,最受欢迎,熱門,Studio.Toolbox.UiSortIntent.Top,Top, ,Top,Superior,Haut, ,トップ,인기,Mais populares
+ , , , ,Studio.Toolbox.HomeView.genres,Genres, ,Genres,Géneros,Genres,Generi,ジャンル,장르,Gêneros
+ ,分类,分类,大類,Studio.Toolbox.HomeView.vibes,Vibes, ,Vibes,Vibras,Ondes,Vibrazioni,バイブス,분위기,Vibes
  ,氛围,氛围,氛圍,Studio.Toolbox.General.AssetTypeAnimation,Animation, ,Animation,Animación,Animation,Animazione,アニメーション,애니메이션,Animação
  ,动画,动画,動畫,Studio.Toolbox.General.ContentType,Content Type, ,Content Type,Tipo de contenido,Type de contenu,Tipo di contenuto,コンテンツの種類,콘텐츠 유형,Tipo de conteúdo
  ,内容类型,内容类型,內容類型,Studio.Toolbox.AssetConfig.DevelopmentItem,Development Item, ,Development Item,Objeto de desarrollo,Item de développement,Articolo sviluppo,開発アイテム,개발 아이템,Item de desenvolvimento
@@ -1641,30 +1654,38 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  ,虚拟形象道具类别错误,虚拟形象道具类别错误,虛擬人偶項目類別錯誤,Studio.Toolbox.AssetConfig.AvatarItemsErrorTextSingular,{errorCount:int} error found when validating Avatar Item Category, ,{errorCount:int} error found when validating Avatar Item Category,{errorCount:int} error encontrado al validar la categoría del objeto de avatar,{errorCount:int} erreur trouvée lors de la validation de la catégorie items d'avatar,{errorCount:int} errore trovato durante la convalida della categoria dell'articolo avatar,アバターアイテムのカテゴリ認証で {errorCount:int} 件のエラーが見つかりました,아바타 아이템 카테고리 유효성 검사 시 {errorCount:int}회의 오류가 발생했습니다,{errorCount:int} erro encontrado ao validar a categoria do item do avatar
  ,验证虚拟形象道具类别时发现 {errorCount:int} 个错误,验证虚拟形象道具类别时发现 {errorCount:int} 个错误,驗證虛擬人偶項目類別時，找到 {errorCount:int} 個錯誤,Studio.Toolbox.AssetConfig.AvatarItemsErrorTextPlural,{errorCount:int} errors found when validating Avatar Item Category, ,{errorCount:int} errors found when validating Avatar Item Category,{errorCount:int} errores encontrados al validar la categoría del objeto de avatar,{errorCount:int} erreurs trouvées lors de la validation de la catégorie items d'avatar,{errorCount:int} errori trovati durante la validazione della categoria dell'articolo avatar,アバターアイテムのカテゴリ認証で {errorCount:int} 件のエラーが見つかりました,아바타 아이템 카테고리 유효성 검사 시 {errorCount:int}회의 오류가 발생했습니다,{errorCount:int} erros encontrados ao validar a categoria do item do avatar
  ,验证虚拟形象道具类别时发现 {errorCount:int} 个错误,验证虚拟形象道具类别时发现 {errorCount:int} 个错误,驗證虛擬人偶項目類別時，找到 {errorCount:int} 個錯誤,Studio.Toolbox.AssetConfig.AssetConfigOutputErrorHeading,"{errorCount:int} Error Asset Configuration, Avatar Item Category", ,"{errorCount:int} Error Asset Configuration, Avatar Item Category",{errorCount:int} error de configuración de recurso: Categoría del objeto de avatar,"{errorCount:int} Erreur de configuration de contenu, catégorie items d'avatar","{errorCount:int} Configurazione dell'asset di errore, Categoria dell'articolo Avatar",アバターアイテムカテゴリのアセット環境設定で {errorCount:int} 件のエラー,"{errorCount:int}회 애셋 구성 오류, 아바타 아이템 카테고리","{errorCount:int} Erro de configuração de ativo, categoria item de avatar"
- ,{errorCount:int} 个错误素材配置，虚拟形象道具类别,{errorCount:int} 个错误素材配置，虚拟形象道具类别,{errorCount:int} 個資產配置錯誤，虛擬人偶項目類別,Studio.Toolbox.AssetTable.DateCreated,Date Created, ,Date Created,Fecha de creación,Date de création,Data Creazione,作成日,만든 날짜,Data de criação
+ ,{errorCount:int} 个错误素材配置，虚拟形象道具类别,{errorCount:int} 个错误素材配置，虚拟形象道具类别,{errorCount:int} 個資產配置錯誤，虛擬人偶項目類別,Studio.Toolbox.GenresBeats,Beats, ,Beats,Beats,Battements,Beats,ビート,비트,Batidas
+ ,节奏,节奏, ,Studio.Toolbox.Subcategory.GenresBeats,Beats, ,Beats,Beats,Beats,Beats,ビート,비트,Beats
+ , , , ,Studio.Toolbox.GenresWorld,World, ,World,World Music,Monde,Mondo,ワールドミュージック,월드,World Music
+ ,世界,世界, ,Studio.Toolbox.Subcategory.GenresWorld,World, ,World,World Music,Monde,Mondo,ワールドミュージック,월드,World Music
+ , , , ,Studio.Toolbox.GenresAcoustic,Acoustic, ,Acoustic,Acústica,Acoustique,Acustico,アコースティック,어쿠스틱,Acústico
+ ,原声,原声, ,Studio.Toolbox.Subcategory.GenresAcoustic,Acoustic, ,Acoustic,Acústica,Acoustique,Acustico,アコースティック,어쿠스틱,Acústico
+ , , , ,Studio.Toolbox.Subcategory.VibesChill,Chill, ,Chill,Chill,Chill,Rilassato,チル,칠,Relaxante
+ , , , ,Studio.Toolbox.VibesChill,Chill, ,Chill,Chill,Chill,Chill,チル,칠,Chill
+ ,弛放,弛放, ,Studio.Toolbox.Subcategory.VibesSad,Sad, ,Sad,Triste,Triste,Triste,悲しい音楽,슬픔,Triste
+ , , , ,Studio.Toolbox.VibesSad,Sad, ,Sad,Triste,Triste,Triste,悲しい音楽,슬픔,Triste
+ ,悲伤,悲伤, ,Studio.Toolbox.Subcategory.VibesScary,Scary, ,Scary,De miedo,Effrayant,Spaventoso,恐怖,무서움,Assustadora
+ , , , ,Studio.Toolbox.VibesScary,Scary, ,Scary,De miedo,Effrayant,Spaventoso,恐怖,무서움,Assustadora
+ ,恐怖,恐怖, ,Studio.Toolbox.AssetConfig.ProgressBarProgressText,Progress {percent:int}%, ,Progress {percent:int}%,Progreso {percent:int}%,Progrès {percent:int}%, ,進行状況 {percent:int}%,진행률 {percent:int}%,Progresso {percent:int}%
+ , , , ,Studio.Toolbox.Subcategory.VibesHappy,Happy, ,Happy,Feliz,Heureux,Felice,ハッピー,행복,Feliz
+ , , , ,Studio.Toolbox.VibesHappy,Happy, ,Happy,Feliz,Heureux,Felice,ハッピー,행복,Feliz
+ ,快乐,快乐, ,Studio.Toolbox.Subcategory.VibesDark,Dark, ,Dark,Sombría,Sombre,Scuro,ダーク,다크,Sombria
+ , , , ,Studio.Toolbox.VibesDark,Dark, ,Dark,Sombría,Sombre,Pessimista,ダーク,다크,Sombrio
+ ,暗黑,暗黑, ,Studio.Toolbox.AssetTable.DateCreated,Date Created, ,Date Created,Fecha de creación,Date de création,Data Creazione,作成日,만든 날짜,Data de criação
  ,创建日期,创建日期, ,Studio.Toolbox.SearchOptionsSort.DateCreated,Date Created, ,Date Created,Fecha de creación,Date de création,Data creazione,作成日,만든 날짜,Data de criação
- , , , ,Studio.Toolbox.UiSortIntent.DateCreated,Date Created, ,Date Created,Fecha de creación,Date de création, , ,만든 날짜,Data de criação
+ , , , ,Studio.Toolbox.UiSortIntent.DateCreated,Date Created, ,Date Created,Fecha de creación,Date de création, ,作成日,만든 날짜,Data de criação
  , , , ,Studio.Toolbox.AssetTable.DateUpdated,Date Modified, ,Date Modified,Fecha de modificación,Date de modification,Data di modifica,変更日,수정한 날짜,Data de modificação
  ,更新日期,更新日期, ,Studio.Toolbox.SearchOptionsSort.DateModified,Date Modified, ,Date Modified,Fecha de modificación,Date de modification,Data di modifica,変更日,수정한 날짜,Data de modificação
- , , , ,Studio.Toolbox.UiSortIntent.DateModified,Date Modified, ,Date Modified,Fecha de modificación,Date de modification, , ,수정한 날짜,Data de modificação
+ , , , ,Studio.Toolbox.UiSortIntent.DateModified,Date Modified, ,Date Modified,Fecha de modificación,Date de modification, ,変更日,수정한 날짜,Data de modificação
  , , , ,Studio.Toolbox.AssetConfig.ValidationErrorItemNotDetected,"{itemName} not detected. Please check naming, rigging, and attachments.", ,"{itemName} not detected. Please check naming, rigging, and attachments.","{itemName} no detectado. Comprueba nombres, rigging y uniones.","{itemName} non détecté. Vérifier la dénomination, le montage et les pièces jointes.","{itemName} non rilevato. Si prega di controllare il nome, il rigging e gli allegati.",{itemName} が検出されませんでした。名前、リグ、アタッチメントをチェックしてください。,"{itemName}(이)가 감지되지 않았습니다. 이름 지정, 리깅, 첨부 항목을 확인하세요.","{itemName} não detectado. Por favor, verifique o nome, rigging e os anexos."
  , , , ,Studio.Toolbox.General.SearchOptionCreatorAndGroups,Creator & Groups, ,Creator & Groups,Creador y grupos,Créateur et Groupes,Creatore & Gruppi,クリエーターとグループ,크리에이터 및 그룹,Criadores e grupos
  , , , ,Studio.Toolbox.General.DeleteLocal,Delete Local Instances, ,Delete Local Instances,Eliminar instancias locales,Supprimer les instances locales,Elimina Istanze locali,ローカルインスタンスを削除,로컬 인스턴스 삭제,Excluir instâncias locais
  , , , ,Studio.Toolbox.General.MyAssets,My Assets, ,My Assets,Mis recursos,Mes contenus,Le mie risorse,マイアセット,내 애셋,Meus ativos
  , , , ,Studio.Toolbox.SearchOptionsSort.MostUsed,Most Used, ,Most Used,Más usado,Les plus utilisés,Più usati,使用頻度の高い順,사용 빈도,Mais usado
- , , , ,Studio.Toolbox.UiSortIntent.MostTaken,Most Used, ,Most Used,Más usado,Les plus utilisés, , ,사용 빈도,Mais usado
+ , , , ,Studio.Toolbox.UiSortIntent.MostTaken,Most Used, ,Most Used,Más usado,Les plus utilisés, ,使用頻度順,사용 빈도,Mais usado
  , , , ,Studio.Toolbox.SearchOptionsSort.ShortestToLongest,Shortest to Longest, ,Shortest to Longest,De más corto a más largo,Le plus court au plus long,Più breve a più lungo,短い順,짧은 것 순,Mais curto para o mais longo
  , , , ,Studio.Toolbox.SearchOptionsType.All,All, ,All,Todo,Tout,Tutti,すべて,전체,Tudo
  , , , ,Studio.Toolbox.HomeView.sfx,Sound Effects, ,Sound Effects,Efecto de sonido,Effets sonores,Effetto sonoro,効果音,음향 효과,Efeitos sonoros
- , , , ,Studio.Toolbox.Subcategory.VibesChill,Chill, ,Chill,Chill,Chill,Rilassato,チル,칠,Relaxante
- , , , ,Studio.Toolbox.Subcategory.VibesDark,Dark, ,Dark,Sombría,Sombre,Scuro,ダーク,다크,Sombria
- , , , ,Studio.Toolbox.AssetConfig.ProgressBarProgressText,Progress {percent:int}%, ,Progress {percent:int}%,Progreso {percent:int}%,Progrès {percent:int}%, ,進行状況 {percent:int}%,진행률 {percent:int}%,Progresso {percent:int}%
- , , , ,Studio.Toolbox.Subcategory.VibesHappy,Happy, ,Happy,Feliz,Heureux,Felice,ハッピー,행복,Feliz
- , , , ,Studio.Toolbox.Subcategory.VibesSad,Sad, ,Sad,Triste,Triste,Triste,悲しい音楽,슬픔,Triste
- , , , ,Studio.Toolbox.Subcategory.VibesScary,Scary, ,Scary,De miedo,Effrayant,Spaventoso,恐怖,무서움,Assustadora
- , , , ,Studio.Toolbox.Subcategory.GenresAcoustic,Acoustic, ,Acoustic,Acústica,Acoustique,Acustico,アコースティック,어쿠스틱,Acústico
- , , , ,Studio.Toolbox.Subcategory.GenresBeats,Beats, ,Beats,Beats,Beats,Beats,ビート,비트,Beats
- , , , ,Studio.Toolbox.Subcategory.GenresWorld,World, ,World,World Music,Monde,Mondo,ワールドミュージック,월드,World Music
  , , , ,Studio.Toolbox.General.BodyValidation,Body Validation, ,Body Validation,Validación del cuerpo,Validation du corps,Convalida Corpo,ボディ検証,신체 검증,Validação do corpo
  , , , ,Studio.Toolbox.General.GridView,Grid View, ,Grid View,Vista de la cuadrícula,Affichage en grille,Visualizzazione griglia,グリッド表示,그리드 뷰,Exibição em grade
  , , , ,Studio.Toolbox.General.ListView,List View, ,List View,Vista de la lista,Vue Liste,Vista Elenco,リスト表示,목록 뷰,Exibição em lista
@@ -1699,10 +1720,10 @@ Air,天空,天空,空氣,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort, 
  , , , ,Studio.Toolbox.AssetConfig.UgcForAllWarning,ID Verification is required to upload Avatar Assets. Premium 1000 or Premium 2200 is also required to upload to groups., ,ID Verification is required to upload Avatar Assets. Premium 1000 or Premium 2200 is also required to upload to groups.,La verificación de una identificación es necesaria para cargar recursos de avatar. También se requiere Premium 1000 o Premium 2200 para subirlos a grupos.,La vérification d'identité est nécessaire pour télécharger des avatars . Les avatars Premium 1000 ou Premium 2200 sont également requis pour le téléchargement vers des groupes., ,アバターアセットをアップロードするには本人確認書類の認証が必要です。グループにアップロードするにはプレミアム1000かプレミアム2200が必要です。,아바타 애셋을 업로드하려면 본인 인증을 완료해야 합니다. 그룹에 업로드하려면 Premium 1000 또는 Premium 2200도 필요합니다.,A verificação de identidade é necessária para fazer upload de ativos de avatar. Premium 1000 ou Premium 2200 também é necessário para fazer upload para grupos.
  , , , ,Studio.Toolbox.AssetConfig.UGCMissingOptionalPartsMessage,The following optional accessories were not found:, ,The following optional accessories were not found:,No se encontraron los siguientes accesorios opcionales:,Les accessoires optionnels suivants n'ont pas été trouvés :,I seguenti accessori opzionali non sono stati trovati:,次のオプションのアクセサリは見つかりませんでした:,다음 옵션 장신구를 찾을 수 없습니다.,Os seguintes acessórios opcionais não foram encontrados:
  , , , ,Studio.Toolbox.HomeView.sceneSuggestions,Scene Suggestions, ,Scene Suggestions,Sugerencias de escena,Suggestions de scène,Suggerimenti Scene,おすすめシーン,추천 장면,Sugestões de cena
- , , , ,Studio.Toolbox.AssetConfig.UGCForAllCreationBanned,Suspended from 3D Avatar Item Creation for {bannedDays} days. You will not be able to upload 3D Avatar UGC from Studio or put it on sale. Please abide by our, ,Suspended from 3D Avatar Item Creation for {bannedDays} days. You will not be able to upload 3D Avatar UGC from Studio or put it on sale. Please abide by our,Te suspendieron de la creación de objetos de avatar 3D por {bannedDays} días. No podrás subir UGC de avatar 3D desde Studio o ponerlos a la venta.,Suspendu de la création d'objet d'avatar 3D pour {bannedDays} jours. Tu ne seras pas en mesure de télécharger un avatar 3D depuis le Studio ou de le mettre en vente., , ,3D 아바타 아이템 제작이 {bannedDays}일 간 일시 정지됩니다. Studio에서 3D 아바타 UGC를 업로드하거나 판매할 수 없게 됩니다. 항상,Suspensão da criação de itens 3D de avatar por {bannedDays} dias. Você não poderá fazer o upload de CGU 3D para avatares a partir do Studio ou colocá-los à venda. Respeite nossa
+ , , , ,Studio.Toolbox.AssetConfig.UGCForAllCreationBanned,Suspended from 3D Avatar Item Creation for {bannedDays} days. You will not be able to upload 3D Avatar UGC from Studio or put it on sale. Please abide by our, ,Suspended from 3D Avatar Item Creation for {bannedDays} days. You will not be able to upload 3D Avatar UGC from Studio or put it on sale. Please abide by our,Te suspendieron de la creación de objetos de avatar 3D por {bannedDays} días. No podrás subir UGC de avatar 3D desde Studio o ponerlos a la venta.,Suspendu de la création d'objet d'avatar 3D pour {bannedDays} jours. Tu ne seras pas en mesure de télécharger un avatar 3D depuis le Studio ou de le mettre en vente., ,{bannedDays} 日間、3Dアバターアイテム作成を一時停止しました。 Studioから3DアバターUGCをアップロードしたり販売したりすることはできません。以下の手順に従ってください。,3D 아바타 아이템 제작이 {bannedDays}일 간 일시 정지됩니다. Studio에서 3D 아바타 UGC를 업로드하거나 판매할 수 없게 됩니다. 항상,Suspensão da criação de itens 3D de avatar por {bannedDays} dias. Você não poderá fazer o upload de CGU 3D para avatares a partir do Studio ou colocá-los à venda. Respeite nossa
  , , , ,Studio.Toolbox.AssetConfigVersions.AddANote,Add a note or select to restore versions., ,Add a note or select to restore versions.,Añade o selecciona una nota para restaurar versiones.,Ajouter une note ou sélectionner pour restaurer les versions., ,メモを追加するか、バージョンの復元を選択。,메모를 추가하거나 버전 복원을 선택하세요.,Adicione uma nota ou selecione para restaurar versões.
- , , , ,Studio.Toolbox.AssetConfig.ValidationFullBody,Full Body, ,Full Body,Cuerpo entero,Corps entier, , ,전신,Corpo inteiro
- , , , ,Studio.Toolbox.UiSortIntent.AllTime,All Time, ,All Time,Todo los tiempos,Tout le temps, , ,전체 기간,Todos os tempos
- , , , ,Studio.Toolbox.SortDirection.Ascending,Ascending, ,Ascending,Ascendente,Ascendant, , ,오름차순,Ascendente
- , , , ,Studio.Toolbox.SortDirection.Descending,Descending, ,Descending,Descendente,Descendant, , ,내림차순,Descendente
+ , , , ,Studio.Toolbox.AssetConfig.ValidationFullBody,Full Body, ,Full Body,Cuerpo entero,Corps entier, ,全体,전신,Corpo inteiro
+ , , , ,Studio.Toolbox.UiSortIntent.AllTime,All Time, ,All Time,Todo los tiempos,Tout le temps, ,通算,전체 기간,Todos os tempos
+ , , , ,Studio.Toolbox.SortDirection.Ascending,Ascending, ,Ascending,Ascendente,Ascendant, ,昇順,오름차순,Ascendente
+ , , , ,Studio.Toolbox.SortDirection.Descending,Descending, ,Descending,Descendente,Descendant, ,降順,내림차순,Descendente
  , , , 

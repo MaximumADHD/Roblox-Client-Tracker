@@ -1,5 +1,15 @@
 Key,Source,en-us
+Studio.Notifications.ElapsedTime.Now,Now,Now
+Studio.Notifications.EmptyNotificationTray.LoadErrorSub,Check your internet and try again.,Check your internet and try again.
+Studio.Notifications.Header.MarkAllAsRead,Mark all as read,Mark all as read
 Studio.Notifications.Plugin.Name,Notifications,Notifications
-Studio.Notifications.Plugin.Toolbar,Notifications,Notifications
-Studio.Notifications.Plugin.Button,Toggle,Toggle
-Studio.Notifications.Plugin.Description,Toggles the Notifications plugin window.,Toggles the Notifications plugin window.
+Studio.Notifications.Header.Settings,Settings,Settings
+Studio.Notifications.EmptyNotificationTray.NoNewNotifications,You're all caught up,You're all caught up
+Studio.Notifications.EmptyNotificationTray.LoadErrorMain,Can't load notifications,Can't load notifications
+Studio.Notifications.EmptyNotificationTray.RefreshAction,Refresh,Refresh
+Studio.Notifications.ElapsedTime.Minutes,{minutes}m ago,{minutes}m ago
+Studio.Notifications.ElapsedTime.Hours,{hours}h ago,{hours}h ago
+Studio.Notifications.ElapsedTime.Days,{days}d ago,{days}d ago
+Studio.Notifications.ElapsedTime.Weeks,{weeks}w ago,{weeks}w ago
+Studio.Notifications.ElapsedTime.Months,{months}mo ago,{months}mo ago
+Studio.Notifications.ElapsedTime.Years,{years}y ago,{years}y ago

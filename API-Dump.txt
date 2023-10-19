@@ -73,7 +73,7 @@ Class Accoutrement : Instance
 	Event Accoutrement.ServerEquipAccoutrement(Instance character) {RobloxSecurity} [Hidden]
 	Event Accoutrement.ServerUnequipAccoutrement(Instance oldCharacter) {RobloxSecurity} [Hidden]
 Class Accessory : Accoutrement
-	Property Enum.AccessoryType Accessory.AccessoryType {✏️RobloxScriptSecurity}
+	Property Enum.AccessoryType Accessory.AccessoryType
 Class Hat : Accoutrement [Deprecated]
 Class AdPortal : Instance
 	Property Enum.AdUnitStatus AdPortal.Status [ReadOnly]
@@ -229,6 +229,7 @@ Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function void AssetImportSession:ApplyPreset(Dictionary preset) {RobloxScriptSecurity}
 	Function void AssetImportSession:ApplySettings() {RobloxScriptSecurity}
 	Function void AssetImportSession:Cancel() {RobloxScriptSecurity}
+	Function Map AssetImportSession:CreatePresetFromData(Instance importData) {RobloxScriptSecurity}
 	Function Dictionary AssetImportSession:GetCurrentStatusTable() {RobloxScriptSecurity}
 	Function string AssetImportSession:GetFilename() {RobloxScriptSecurity}
 	Function Instance AssetImportSession:GetImportTree() {RobloxScriptSecurity}
@@ -1310,6 +1311,7 @@ Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
 Class DynamicMesh : DataModelMesh
 	Property int DynamicMesh.MeshVersion {✏️NotAccessibleSecurity} [Hidden]
+	Property SharedString DynamicMesh.MeshData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Function int DynamicMesh:AddTriangle(int vertexId0, int vertexId1, int vertexId2)
 	Function int DynamicMesh:AddVertex(Vector3 p)
 	Function MeshPart DynamicMesh:CreateMeshPartAsync(Enum.CollisionFidelity collisionFidelity) [Yields]
@@ -2079,6 +2081,7 @@ Class ViewportFrame : GuiObject
 	Property Camera ViewportFrame.CurrentCamera [<📁> LoadOnly] [NotReplicated]
 	Property Color3 ViewportFrame.ImageColor3
 	Property float ViewportFrame.ImageTransparency
+	Function Content ViewportFrame:CaptureSnapshotAsync() {RobloxScriptSecurity} [Yields]
 Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property bool LayerCollector.Enabled
 	Property bool LayerCollector.ResetOnSpawn
@@ -2134,6 +2137,10 @@ Class AdGui : SurfaceGuiBase
 	Property Content AdGui.FallbackImage
 	Property Enum.AdUnitStatus AdGui.Status [ReadOnly]
 	Property Enum.AdShape AdGui.AdShape
+	Property bool AdGui.EnableVideoAds
+	Event AdGui.AdEvent(Enum.AdEventType adEventType) {RobloxSecurity} [Hidden]
+	Event AdGui.ReportIsSubscribedToVideoCompletion() {RobloxSecurity} [Hidden]
+	Callback bool AdGui.OnAdEvent(Dictionary eventInfo)
 Class SurfaceGui : SurfaceGuiBase
 	Property float SurfaceGui.HorizontalCurvature {RobloxScriptSecurity} [Hidden]
 	Property Enum.SurfaceGuiShape SurfaceGui.Shape {RobloxScriptSecurity} [Hidden]
@@ -2265,7 +2272,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool GuiService.ReducedMotionEnabled [Hidden] [ReadOnly]
 	Property GuiObject GuiService.SelectedCoreObject {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property GuiObject GuiService.SelectedObject
-	Property Rect GuiService.TopbarInset [Hidden] [ReadOnly]
+	Property Rect GuiService.TopbarInset [ReadOnly]
 	Property bool GuiService.TouchControlsEnabled
 	Function void GuiService:AddCenterDialog(Instance dialog, Enum.CenterDialogType centerDialogType, Function showFunction, Function hideFunction) {RobloxScriptSecurity}
 	Function void GuiService:AddKey(string key) {RobloxScriptSecurity}
@@ -2931,6 +2938,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ClientLuaDialogRequested(Tuple arguments) {RobloxScriptSecurity}
 	Event MarketplaceService.ClientPurchaseSuccess(string ticket, int64 playerId, int64 productId) {RobloxScriptSecurity}
 	Event MarketplaceService.ConfirmPlayerMembership() {RobloxScriptSecurity} [Hidden]
+	Event MarketplaceService.ConfirmUserSubscriptionPurchase(string subscriptionId) {RobloxSecurity} [Hidden]
 	Event MarketplaceService.LuaDialogCallbackSignal(bool value, Instance player) {RobloxScriptSecurity} [Hidden]
 	Event MarketplaceService.MockConfirmUserSubscriptionPurchase(int64 userId, string subscriptionId) {RobloxSecurity} [Hidden]
 	Event MarketplaceService.MockPurchasePremium() {RobloxScriptSecurity} [Hidden]
@@ -3578,6 +3586,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.IKControlConstraintSupport Workspace.IKControlConstraintSupport [NotScriptable]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
+	Property Enum.PhysicsSolver Workspace.NewPhysicsSolver [NotScriptable]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
 	Property Enum.ReplicateInstanceDestroySetting Workspace.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Enum.AnimatorRetargetingMode Workspace.Retargeting
@@ -4661,9 +4670,9 @@ Class Sound : Instance
 	Property bool Sound.IsSpatial {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Sound.PlayOnRemove
 	Property Enum.UsageContext Sound.UsageContextPermission {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property float Sound.EmitterSize [Deprecated]
-	Property float Sound.MaxDistance [Deprecated]
-	Property float Sound.MinDistance [<📁> LoadOnly] [Deprecated]
+	Property float Sound.EmitterSize
+	Property float Sound.MaxDistance
+	Property float Sound.MinDistance [<📁> LoadOnly]
 	Property float Sound.Pitch [<📁> LoadOnly] [Deprecated]
 	Property bool Sound.PlayingReplicator [Hidden] [NotScriptable]
 	Property double Sound.TimePositionReplicator [Hidden] [NotScriptable]
@@ -4769,6 +4778,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function void SoundService:SetListener(Enum.ListenerType listenerType, Tuple listener)
 	Function void SoundService:SetOutputDevice(string name, string guid) {RobloxScriptSecurity}
 	Function bool SoundService:SetRecordingDevice(int deviceIndex) {RobloxScriptSecurity}
+	Event SoundService.AudioInstanceAdded(Instance instance) {RobloxScriptSecurity}
 	Event SoundService.ClientLoggedEvent(string sessionIdRaw) {RobloxSecurity} [Hidden]
 	Event SoundService.DeviceListChanged(Tuple newDevices) {RobloxScriptSecurity}
 Class Sparkles : Instance
@@ -5377,8 +5387,9 @@ Class TextChatMessageProperties : Instance
 	Property string TextChatMessageProperties.Text
 	Property string TextChatMessageProperties.Translation
 Class TextChatService : Instance [NotCreatable] [Service]
-	Property bool TextChatService.ChatTranslationEnabled {✏️RobloxScriptSecurity}
-	Property bool TextChatService.ChatTranslationToggleEnabled {RobloxScriptSecurity}
+	Property bool TextChatService.ChatTranslationEnabled {✏️RobloxScriptSecurity} [NotReplicated]
+	Property bool TextChatService.ChatTranslationFTUXShown {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool TextChatService.ChatTranslationToggleEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Enum.ChatVersion TextChatService.ChatVersion {✏️NotAccessibleSecurity}
 	Property bool TextChatService.CreateDefaultCommands {✏️PluginSecurity}
 	Property bool TextChatService.CreateDefaultTextChannels {✏️PluginSecurity}
@@ -5575,7 +5586,10 @@ Class UIListLayout : UIGridStyleLayout
 	Property UDim UIListLayout.Padding
 	Property bool UIListLayout.Wraps
 	Property Enum.UIFlexAlignment UIListLayout.HorizontalFlex
+	Property UDim UIListLayout.HorizontalPadding [<📁> LoadOnly] [Hidden] [NotScriptable]
+	Property Enum.ItemLineAlignment UIListLayout.ItemLineAlignment
 	Property Enum.UIFlexAlignment UIListLayout.VerticalFlex
+	Property UDim UIListLayout.VerticalPadding [<📁> LoadOnly] [Hidden] [NotScriptable]
 Class UIPageLayout : UIGridStyleLayout
 	Property bool UIPageLayout.Animated
 	Property bool UIPageLayout.Circular
@@ -5632,6 +5646,9 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property Enum.VRSafetyBubbleMode UserGameSettings.VRSafetyBubbleMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.AllTutorialsDisabled {RobloxScriptSecurity}
 	Property bool UserGameSettings.CameraYInverted {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool UserGameSettings.ChatTranslationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool UserGameSettings.ChatTranslationFTUXShown {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool UserGameSettings.ChatTranslationToggleEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.ChatVisible {RobloxScriptSecurity}
 	Property string UserGameSettings.CompletedTutorials {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property bool UserGameSettings.ComputerCameraMovementChanged {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
@@ -6045,6 +6062,10 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
+Enum AdEventType
+	EnumItem AdEventType.VideoLoaded : 0
+	EnumItem AdEventType.VideoRemoved : 1
+	EnumItem AdEventType.UserCompletedVideo : 2
 Enum AdShape
 	EnumItem AdShape.HorizontalRectangle : 1
 Enum AdTeleportMethod
@@ -7704,6 +7725,10 @@ Enum PhysicsSimulationRate
 	EnumItem PhysicsSimulationRate.Fixed240Hz : 0
 	EnumItem PhysicsSimulationRate.Fixed120Hz : 1
 	EnumItem PhysicsSimulationRate.Fixed60Hz : 2
+Enum PhysicsSolver
+	EnumItem PhysicsSolver.Default : 0
+	EnumItem PhysicsSolver.Enabled : 1
+	EnumItem PhysicsSolver.Disabled : 2
 Enum PhysicsSteppingMethod
 	EnumItem PhysicsSteppingMethod.Default : 0
 	EnumItem PhysicsSteppingMethod.Fixed : 1
@@ -7728,6 +7753,7 @@ Enum Platform
 	EnumItem Platform.DOS : 16
 	EnumItem Platform.BeOS : 17
 	EnumItem Platform.UWP : 18
+	EnumItem Platform.PS5 : 19
 	EnumItem Platform.None : 20
 Enum PlaybackState
 	EnumItem PlaybackState.Begin : 0

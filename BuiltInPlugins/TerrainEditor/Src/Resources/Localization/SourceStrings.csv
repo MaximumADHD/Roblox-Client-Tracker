@@ -42,6 +42,7 @@ Studio.TerrainEditor.BrushSettings.PivotPosition,Pivot Position
 Studio.TerrainEditor.BrushSettings.PlaneLock,Plane Lock
 Studio.TerrainEditor.BrushSettings.PlanePosition,Plane Position
 Studio.TerrainEditor.BrushSettings.PlaneRotation,Plane Rotation
+Studio.TerrainEditor.BrushSettings.PullTerrain,Pull Terrain
 Studio.TerrainEditor.BrushSettings.Snapping,Snapping
 Studio.TerrainEditor.BrushSettings.Strength,Strength
 Studio.TerrainEditor.BrushSettings.WaterLevel,Water Level

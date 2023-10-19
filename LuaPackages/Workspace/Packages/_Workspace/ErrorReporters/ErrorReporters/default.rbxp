@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ErrorReporters",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/error-reporters/src"
+    }
+  }
+}

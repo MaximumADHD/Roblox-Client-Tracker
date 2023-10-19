@@ -1,47 +1,47 @@
-Key,Source,en-us
-Studio.MaterialGenerator.Plugin.Toolbar,MaterialGenerator,MaterialGenerator
-Studio.MaterialGenerator.Errors.AccountingFailedDecrement,Usage is limited during beta. Wait a moment and try again.,Usage is limited during beta. Wait a moment and try again.
-Studio.MaterialGenerator.Errors.TooManyRequests,Usage is limited during beta. Wait a moment and try again.,Usage is limited during beta. Wait a moment and try again.
-Studio.MaterialGenerator.Plugin.Button,Material Generator,Material Generator
-Studio.MaterialGenerator.Plugin.Name,Material Generator,Material Generator
-Studio.MaterialGenerator.Plugin.Description,Generate materials from text using AI,Generate materials from text using AI
-Studio.MaterialGenerator.Header.GenerateButton,Generate,Generate
-Studio.MaterialGenerator.Browser.GenerateVariations,Generate Variations,Generate Variations
-Studio.MaterialGenerator.TextureBrowser.GenerateVariations,Generate Variations,Generate Variations
-Studio.MaterialGenerator.Header.PromptPlaceholderText,Ancient stone wall...,Ancient stone wall...
-Studio.MaterialGenerator.Header.OutOfBudget,This feature is in beta and the servers are at capacity. Try again soon!,This feature is in beta and the servers are at capacity. Try again soon!
-Studio.MaterialGenerator.Header.BudgetErrorFormat,"Generation error, please try again.","Generation error, please try again."
-Studio.MaterialGenerator.Header.ErrorQueryingBudget,"Generation error, please try again.","Generation error, please try again."
-Studio.MaterialGenerator.Header.RetryBudgetQuery,"Generation error, please try again.","Generation error, please try again."
-Studio.MaterialGenerator.Editor.StudsPerTile,Studs Per Tile,Studs Per Tile
-Studio.MaterialGenerator.MaterialView.StudsPerTile,Studs Per Tile,Studs Per Tile
-Studio.MaterialGenerator.Header.RetryButton,Retry,Retry
-Studio.MaterialGenerator.Header.AddImageTooltip,Add base image,Add base image
-Studio.MaterialGenerator.Editor.MaterialPattern,Pattern,Pattern
-Studio.MaterialGenerator.MaterialView.MaterialPattern,Pattern,Pattern
-Studio.MaterialGenerator.Editor.MaterialPatternOrganic,Organic,Organic
-Studio.MaterialGenerator.MaterialView.MaterialPatternOrganic,Organic,Organic
-Studio.MaterialGenerator.Browser.RemoveAll,Discard All,Discard All
-Studio.MaterialGenerator.TextureBrowser.RemoveAll,Discard All,Discard All
-Studio.MaterialGenerator.Editor.Name,Name,Name
-Studio.MaterialGenerator.MaterialView.Name,Name,Name
-Studio.MaterialGenerator.Editor.BaseMaterial,Base Material,Base Material
-Studio.MaterialGenerator.MaterialView.BaseMaterial,Base Material,Base Material
-Studio.MaterialGenerator.Editor.SaveAndApplyVariant,Save & Apply Variant,Save & Apply Variant
-Studio.MaterialGenerator.MaterialView.SaveAndApplyVariant,Save & Apply Variant,Save & Apply Variant
-Studio.MaterialGenerator.Errors.FailedToGenerateMaps,Generation error. Please try again.,Generation error. Please try again.
-Studio.MaterialGenerator.Errors.NoSession,Generation error. Please try again.,Generation error. Please try again.
-Studio.MaterialGenerator.Errors.UnknownGenerationError,Generation error. Please try again.,Generation error. Please try again.
-Studio.MaterialGenerator.Editor.ApplyVariant,Apply Variant,Apply Variant
-Studio.MaterialGenerator.MaterialView.ApplyVariant,Apply Variant,Apply Variant
-Studio.MaterialGenerator.Editor.BaseMaterialPlaceholderText,None,None
-Studio.MaterialGenerator.MaterialView.BaseMaterialPlaceholderText,None,None
-Studio.MaterialGenerator.Editor.BaseMaterialNotGivenError,Required,Required
-Studio.MaterialGenerator.MaterialView.BaseMaterialNotGivenError,Required,Required
-Studio.MaterialGenerator.Browser.Remove,Discard,Discard
-Studio.MaterialGenerator.TextureBrowser.Remove,Discard,Discard
-Studio.MaterialGenerator.Errors.NoSelectedMaterial,Please choose a base material.,Please choose a base material.
-Studio.MaterialGenerator.Errors.ServerError500,"Server error, please try again.","Server error, please try again."
-Studio.MaterialGenerator.Errors.ServerError504,"Server error, please try again.","Server error, please try again."
-Studio.MaterialGenerator.Errors.TextFullyFiltered,Your text is fully filtered. Please try a different prompt.,Your text is fully filtered. Please try a different prompt.
-Studio.MaterialGenerator.Errors.FailedToSetImage,Failed to set image. Please try again.,Failed to set image. Please try again.
+Key,Source,en-us,es-es,ja-jp,ko-kr,pt-br
+Studio.MaterialGenerator.Plugin.Toolbar,MaterialGenerator,MaterialGenerator,Generador de materiales,MaterialGenerator,MaterialGenerator,Gerador de materiais
+Studio.MaterialGenerator.Errors.AccountingFailedDecrement,Usage is limited during beta. Wait a moment and try again.,Usage is limited during beta. Wait a moment and try again.,El uso está limitado durante la beta. Espera un momento e inténtalo de nuevo.,ベータ版の期間中は使用が制限されています。しばらくしてからお試しください。,베타 기간 동안에는 서비스가 제한적으로 제공됩니다. 잠시 기다렸다가 다시 시도하세요.,O uso é limitado durante o beta. Aguarde um momento e tente novamente.
+Studio.MaterialGenerator.Errors.TooManyRequests,Usage is limited during beta. Wait a moment and try again.,Usage is limited during beta. Wait a moment and try again.,El uso está limitado durante la beta. Espera un momento e inténtalo de nuevo.,ベータ版の期間中は使用が制限されています。しばらくしてからお試しください。,베타 기간 동안에는 서비스가 제한적으로 제공됩니다. 잠시 기다렸다가 다시 시도하세요.,O uso é limitado durante o beta. Aguarde um momento e tente novamente.
+Studio.MaterialGenerator.Plugin.Button,Material Generator,Material Generator,Generador de materiales,素材生成,재질 생성기,Gerador de materiais
+Studio.MaterialGenerator.Plugin.Name,Material Generator,Material Generator,Generador de materiales,素材生成,재질 생성기,Gerador de materiais
+Studio.MaterialGenerator.Plugin.Description,Generate materials from text using AI,Generate materials from text using AI,Genera materiales a partir de texto usando IA,AIを使用してテキストから素材を生成する,AI를 사용해 텍스트로부터 재질을 생성합니다,Gere materiais a partir de texto usando IA
+Studio.MaterialGenerator.Header.GenerateButton,Generate,Generate,Generar,生成する,생성,Gerar
+Studio.MaterialGenerator.Browser.GenerateVariations,Generate Variations,Generate Variations,Generar variaciones,バリエーションを生成,변형 생성,Gerar variações
+Studio.MaterialGenerator.TextureBrowser.GenerateVariations,Generate Variations,Generate Variations,Generar variaciones,バリエーションを生成,변형 생성,Gerar variações
+Studio.MaterialGenerator.Header.PromptPlaceholderText,Ancient stone wall...,Ancient stone wall...,Muro de piedra antiguo...,古代の石壁...,고대 돌담...,Parede de pedra antiga...
+Studio.MaterialGenerator.Header.OutOfBudget,This feature is in beta and the servers are at capacity. Try again soon!,This feature is in beta and the servers are at capacity. Try again soon!,Esta función está en beta y los servidores están llenos. Inténtalo de nuevo pronto.,この機能はベータ版でサーバーの容量が満杯です。後でまたお試しください。,"이 기능은 베타 버전이며, 서버 용량이 가득 찼습니다. 나중에 다시 시도하세요.",Este recurso está em beta e os servidores estão na capacidade máxima. Tente novamente em breve!
+Studio.MaterialGenerator.Header.BudgetErrorFormat,"Generation error, please try again.","Generation error, please try again.",Error de generación. Inténtalo de nuevo.,生成エラーです。後でまたお試しください。,생성 오류. 다시 시도하세요.,"Erro de geração, por favor, tente novamente."
+Studio.MaterialGenerator.Header.ErrorQueryingBudget,"Generation error, please try again.","Generation error, please try again.",Error de generación. Inténtalo de nuevo.,生成エラーです。後でまたお試しください。,생성 오류. 다시 시도하세요.,"Erro de geração, por favor, tente novamente."
+Studio.MaterialGenerator.Header.RetryBudgetQuery,"Generation error, please try again.","Generation error, please try again.",Error de generación. Inténtalo de nuevo.,生成エラーです。後でまたお試しください。,생성 오류. 다시 시도하세요.,"Erro de geração, por favor, tente novamente."
+Studio.MaterialGenerator.Editor.StudsPerTile,Studs Per Tile,Studs Per Tile,Studs por mosaico,タイルあたりのスタッド数,타일당 스터드 수,Quadrículas por ladrilho
+Studio.MaterialGenerator.MaterialView.StudsPerTile,Studs Per Tile,Studs Per Tile,Studs por mosaico,タイルあたりのスタッド数,타일당 스터드 수,Quadrículas por ladrilho
+Studio.MaterialGenerator.Header.RetryButton,Retry,Retry,Reintentar,再試行,다시 시도,Tentar novamente
+Studio.MaterialGenerator.Header.AddImageTooltip,Add base image,Add base image,Añadir imagen base,ベース画像を追加,기본 이미지 추가,Adicionar imagem de base
+Studio.MaterialGenerator.Editor.MaterialPattern,Pattern,Pattern,Patrón,模様,패턴,Padrão
+Studio.MaterialGenerator.MaterialView.MaterialPattern,Pattern,Pattern,Patrón,模様,패턴,Padrão
+Studio.MaterialGenerator.Editor.MaterialPatternOrganic,Organic,Organic,Orgánico,天然,오가닉,Orgânico
+Studio.MaterialGenerator.MaterialView.MaterialPatternOrganic,Organic,Organic,Orgánico,天然,오가닉,Orgânico
+Studio.MaterialGenerator.Browser.RemoveAll,Discard All,Discard All,Descartar todo,すべて破棄,모두 폐기,Descartar tudo
+Studio.MaterialGenerator.TextureBrowser.RemoveAll,Discard All,Discard All,Descartar todo,すべて破棄,모두 폐기,Descartar tudo
+Studio.MaterialGenerator.Editor.Name,Name,Name,Nombre,名前,이름,Nome
+Studio.MaterialGenerator.MaterialView.Name,Name,Name,Nombre,名前,이름,Nome
+Studio.MaterialGenerator.Editor.BaseMaterial,Base Material,Base Material,Material base,ベース素材,기본 재질,Material base
+Studio.MaterialGenerator.MaterialView.BaseMaterial,Base Material,Base Material,Material base,ベース素材,기본 재질,Material base
+Studio.MaterialGenerator.Editor.SaveAndApplyVariant,Save & Apply Variant,Save & Apply Variant,Guardar y aplicar variante,バリエーションの保存と適用,변형 저장 및 적용,Salvar e aplicar variante
+Studio.MaterialGenerator.MaterialView.SaveAndApplyVariant,Save & Apply Variant,Save & Apply Variant,Guardar y aplicar variante,バリエーションの保存と適用,변형 저장 및 적용,Salvar e aplicar variante
+Studio.MaterialGenerator.Errors.FailedToGenerateMaps,Generation error. Please try again.,Generation error. Please try again.,Error de generación. Inténtalo de nuevo.,生成エラーです。後でまたお試しください。,생성 오류. 다시 시도하세요.,"Erro de geração, tente novamente."
+Studio.MaterialGenerator.Errors.NoSession,Generation error. Please try again.,Generation error. Please try again.,Error de generación. Inténtalo de nuevo.,生成エラーです。後でまたお試しください。,생성 오류. 다시 시도하세요.,"Erro de geração, tente novamente."
+Studio.MaterialGenerator.Errors.UnknownGenerationError,Generation error. Please try again.,Generation error. Please try again.,Error de generación. Inténtalo de nuevo.,生成エラーです。後でまたお試しください。,생성 오류. 다시 시도하세요.,"Erro de geração, tente novamente."
+Studio.MaterialGenerator.Editor.ApplyVariant,Apply Variant,Apply Variant,Aplicar variante,バリエーションを適用,변형 적용,Aplicar variante
+Studio.MaterialGenerator.MaterialView.ApplyVariant,Apply Variant,Apply Variant,Aplicar variante,バリエーションを適用,변형 적용,Aplicar variante
+Studio.MaterialGenerator.Editor.BaseMaterialPlaceholderText,None,None,Ninguno,なし,없음,Nenhum
+Studio.MaterialGenerator.MaterialView.BaseMaterialPlaceholderText,None,None,Ninguno,なし,없음,Nenhum
+Studio.MaterialGenerator.Editor.BaseMaterialNotGivenError,Required,Required,Obligatorio,必須,필수,Obrigatório
+Studio.MaterialGenerator.MaterialView.BaseMaterialNotGivenError,Required,Required,Obligatorio,必須,필수,Obrigatório
+Studio.MaterialGenerator.Browser.Remove,Discard,Discard,Descartar,破棄,폐기,Descartar
+Studio.MaterialGenerator.TextureBrowser.Remove,Discard,Discard,Descartar,破棄,폐기,Descartar
+Studio.MaterialGenerator.Errors.NoSelectedMaterial,Please choose a base material.,Please choose a base material.,Selecciona un material base.,ベース素材を選択してください。,기본 재질을 선택하세요.,Escolha um material base.
+Studio.MaterialGenerator.Errors.ServerError500,"Server error, please try again.","Server error, please try again.",Error del servidor. Inténtelo de nuevo.,サーバーエラーです。もう一度お試しください。,서버 오류. 다시 시도하세요.,"Erro do servidor, tente novamente."
+Studio.MaterialGenerator.Errors.ServerError504,"Server error, please try again.","Server error, please try again.",Error del servidor. Inténtelo de nuevo.,サーバーエラーです。もう一度お試しください。,서버 오류. 다시 시도하세요.,"Erro do servidor, tente novamente."
+Studio.MaterialGenerator.Errors.TextFullyFiltered,Your text is fully filtered. Please try a different prompt.,Your text is fully filtered. Please try a different prompt.,El texto está completamente filtrado. Intente con una pregunta diferente.,テキストが完全にフィルタされています。別のプロンプトを試してください。,텍스트가 완전히 필터링되었습니다. 다른 질문을 해 보세요.,Seu texto foi totalmente filtrado. Tente uma entrada de texto diferente.
+Studio.MaterialGenerator.Errors.FailedToSetImage,Failed to set image. Please try again.,Failed to set image. Please try again.,Error al establecer la imagen. Inténtelo de nuevo.,画像を設定できませんでした。もう一度やり直してください。,이미지를 설정하지 못했습니다. 다시 시도하세요.,Falha ao definir imagem. Tente novamente.

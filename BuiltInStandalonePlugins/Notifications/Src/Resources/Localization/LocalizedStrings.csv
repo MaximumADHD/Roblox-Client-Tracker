@@ -1,5 +1,22 @@
 Key,Source,en-us,es-es,fr-fr,it-it,ja-jp,ko-kr,pt-br
+Studio.Notifications.EmptyNotificationTray.LoadErrorSub,Check your internet and try again.,Check your internet and try again., , , , , , 
+Studio.Notifications.IntermediateState.LoadErrorSub,Check your internet and try again.,Check your internet and try again., , , , , , 
+Studio.Notifications.Header.MarkAllAsRead,Mark all as read,Mark all as read, , , , , , 
 Studio.Notifications.Plugin.Name,Notifications,Notifications,Notificaciones,Notifications,Notifiche,通知,알림,Notificações
 Studio.Notifications.Plugin.Toolbar,Notifications,Notifications,Notificaciones,Notifications,Notifiche,通知,알림,Notificações
 Studio.Notifications.Plugin.Button,Toggle,Toggle,Alternar,Activer/désactiver,Attiva/disattiva,切り換え,전환,Alternador
 Studio.Notifications.Plugin.Description,Toggles the Notifications plugin window.,Toggles the Notifications plugin window.,Alterna la ventana del plugin Notificaciones.,Active/désactive la fenêtre du plugin Notifications .,Attiva/disattiva la finestra del plugin Notifiche.,通知のプラグインウィンドウを切り換え。,알림 플러그인 창을 전환합니다.,Ativa/desativa a janela do plugin Notificações.
+Studio.Notifications.Header.Settings,Settings,Settings, , , , , , 
+Studio.Notifications.EmptyNotificationTray.LoadErrorMain,Can't load notifications,Can't load notifications, , , , , , 
+Studio.Notifications.IntermediateState.LoadErrorMain,Can't load notifications,Can't load notifications, , , , , , 
+Studio.Notifications.EmptyNotificationTray.RefreshAction,Refresh,Refresh, , , , , , 
+Studio.Notifications.IntermediateState.RefreshAction,Refresh,Refresh, , , , , , 
+Studio.Notifications.EmptyNotificationTray.NoNewNotifications,You're all caught up,You're all caught up, , , , , , 
+Studio.Notifications.IntermediateState.NoNewNotifications,You're all caught up,You're all caught up, , , , , , 
+Studio.Notifications.ElapsedTime.Now,Now,Now, , , , , , 
+Studio.Notifications.ElapsedTime.Minutes,{minutes}m ago,{minutes}m ago, , , , , , 
+Studio.Notifications.ElapsedTime.Hours,{hours}h ago,{hours}h ago, , , , , , 
+Studio.Notifications.ElapsedTime.Days,{days}d ago,{days}d ago, , , , , , 
+Studio.Notifications.ElapsedTime.Weeks,{weeks}w ago,{weeks}w ago, , , , , , 
+Studio.Notifications.ElapsedTime.Months,{months}mo ago,{months}mo ago, , , , , , 
+Studio.Notifications.ElapsedTime.Years,{years}y ago,{years}y ago, , , , , , 

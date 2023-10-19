@@ -2,7 +2,7 @@
   "instanceHierarchy": {
     "name": "SocialContextToasts",
     "tree": {
-      "$path": "../../../../../../../modules/notifications/social-context-toasts/src"
+      "$path": "../../../../../../../modules/personalization/social-context-toasts/src"
     }
   }
 }

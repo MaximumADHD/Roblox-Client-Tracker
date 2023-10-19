@@ -225,7 +225,9 @@ Studio.AssetImporter.Templates.Default,Default
 Studio.AssetImporter.Templates.Delete,Delete
 Studio.AssetImporter.Templates.LastImportTooltip,Root settings from the last time you imported a file
 Studio.AssetImporter.Templates.LastImported,Last Imported
+Studio.AssetImporter.Templates.MenuTooltip,Preset Actions
 Studio.AssetImporter.Templates.ModifiedTemplateTooltip,You have made some changes based on the settings from your last imported file
+Studio.AssetImporter.Templates.NewPreset,New Preset
 Studio.AssetImporter.Templates.OverwritingReservedName1,{name} is the name of a standard preset. Please choose a different name.
 Studio.AssetImporter.Templates.PresetNameOverwriteWarning,Saving will overwrite the existing configuration of this preset.
 Studio.AssetImporter.Templates.PresetsRemaining2,{presetsRemaining}/{totalPresets} preset slot(s) left.
@@ -233,8 +235,9 @@ Studio.AssetImporter.Templates.Rename,Rename
 Studio.AssetImporter.Templates.Reset,Reset
 Studio.AssetImporter.Templates.ResetTooltip,Reset settings back to selected template
 Studio.AssetImporter.Templates.SaveChanges,Save changes
-Studio.AssetImporter.Templates.SaveInitialPreset,Save as initial preset
 Studio.AssetImporter.Templates.SaveNewPreset,Save as new preset
+Studio.AssetImporter.Templates.SetAsDefault,Set preset as my default
+Studio.AssetImporter.Templates.StudioDefault,Studio Default
 Studio.AssetImporter.Templates.TooManyPresets,No preset slots are left. Please delete or edit one of your other presets.
 Studio.AssetImporter.Templates.WindowTitleNewPreset,Create new preset
 Studio.AssetImporter.Templates.WindowTitleRenamePreset,Rename preset

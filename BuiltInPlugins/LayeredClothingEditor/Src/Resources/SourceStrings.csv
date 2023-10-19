@@ -71,9 +71,10 @@ Studio.AccessoryFittingTool.Editor.PointTool,Point Tool
 Studio.AccessoryFittingTool.Editor.Preview,Preview
 Studio.AccessoryFittingTool.Editor.Reset,Reset
 Studio.AccessoryFittingTool.Editor.ResumeEditing,Click here to resume editing cages.
+Studio.AccessoryFittingTool.Editor.ResumeEditingRigid,Click here to resume adjusting your Accessory.
 Studio.AccessoryFittingTool.Editor.RingTool,Ring Tool
 Studio.AccessoryFittingTool.Editor.Select,Select
-Studio.AccessoryFittingTool.EditorErrors.OpenedWhileRunning,Layered Clothing Editor cannot be used while game is running!
+Studio.AccessoryFittingTool.EditorErrors.OpenedWhileRunning,Accessory Fitting Tool cannot be used while game is running!
 Studio.AccessoryFittingTool.Flow.Back,Back
 Studio.AccessoryFittingTool.Flow.Generate,Generate
 Studio.AccessoryFittingTool.Flow.GenerateLegacyAcc,Generate Legacy Accessory
@@ -84,6 +85,7 @@ Studio.AccessoryFittingTool.Generate.InvalidBoundsUGC,This item will fail UGC Va
 Studio.AccessoryFittingTool.Generate.LearnMoreLegacy,Learn more about Legacy Accessories
 Studio.AccessoryFittingTool.Generate.LegacyConversionDialog,"The Legacy Accessory format does not support SurfaceAppearance. To continue with this format, the color map will be assigned as its texture (textureId)."
 Studio.AccessoryFittingTool.Generate.Prompt,The asset is ready.
+Studio.AccessoryFittingTool.Generate.Success,{name} has been successfully generated into Workspace!
 Studio.AccessoryFittingTool.Generate.Tooltip,Generate the final accessory item with all of your edits.
 Studio.AccessoryFittingTool.Generate.Wait,Please wait while the asset is being generated...
 Studio.AccessoryFittingTool.LatticeTool.GenerateMessageBoxText,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?
