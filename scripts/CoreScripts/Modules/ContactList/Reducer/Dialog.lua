@@ -9,12 +9,16 @@ return Rodux.createReducer({
 	isOpen = false,
 	title = "",
 	bodyText = "",
+	callerId = 0,
+	calleeId = 0,
 }, {
 	[OpenOrUpdateDialog.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isOpen = true,
 			title = action.title,
 			bodyText = action.bodyText,
+			callerId = action.callerId,
+			calleeId = action.calleeId,
 		})
 	end,
 	[CloseDialog.name] = function(state, action)
@@ -22,6 +26,8 @@ return Rodux.createReducer({
 			isOpen = false,
 			title = "",
 			bodyText = "",
+			callerId = 0,
+			calleeId = 0,
 		})
 	end,
 })

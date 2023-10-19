@@ -51,8 +51,14 @@ local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local FFlagShowAddFriendButtonForXboxUA = game:DefineFastFlag("ShowAddFriendButtonForXboxUA", false)
+local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
------------- Constants -------------------
+local GameInviteAnalyticsManager
+if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
+	GameInviteAnalyticsManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalyticsManager
+end
+
+	------------ Constants -------------------
 local Theme = require(script.Parent.Parent.Theme)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
@@ -1561,10 +1567,15 @@ local function Initialize()
 		-- We shouldn't create this button if we're not in a live game
 		local isNotStudio = (not RunService:IsStudio())
 		if canShareCurrentGame() and not shareGameButton and isNotStudio then
-			local inviteToGameAnalytics = InviteToGameAnalytics.new()
-				:withEventStream(EventStream.new())
-				:withDiag(Diag.new(AnalyticsService))
-				:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
+			local inviteToGameAnalytics
+			if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
+				inviteToGameAnalytics = GameInviteAnalyticsManager:withButtonName(GameInviteAnalyticsManager.ButtonName.SettingsHub)
+			else
+				inviteToGameAnalytics = InviteToGameAnalytics.new()
+					:withEventStream(EventStream.new())
+					:withDiag(Diag.new(AnalyticsService))
+					:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
+			end
 
 			shareGameButton = createShareGameButton()
 			shareGameButton.Activated:connect(function()

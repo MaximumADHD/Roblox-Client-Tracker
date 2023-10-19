@@ -51,7 +51,7 @@ return function()
 					client = client,
 				}, {
 					CallHistoryItem = Roact.createElement(CallHistoryItem, {
-						caller = {
+						callRecord = {
 							callId = "test_call_id",
 							callerId = callerId,
 							participants = {
@@ -74,7 +74,6 @@ return function()
 						},
 						localUserId = localUserId,
 						showDivider = true,
-						useUserProfilesFetch = false,
 						dismissCallback = function() end,
 					}),
 				}),
@@ -94,8 +93,13 @@ return function()
 		local instance = Roact.mount(element, folder)
 		local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 		local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
-		expect(usernameElement.Text).toBe("@testuser_1")
-		expect(displayNameElement.Text).toBe("testuser_1")
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			expect(usernameElement.Text).toBe("@testuser_1")
+			expect(displayNameElement.Text).toBe("testuser_1")
+		else
+			expect(usernameElement.Text).toBe("")
+			expect(displayNameElement.Text).toBe("")
+		end
 		Roact.unmount(instance)
 	end)
 
@@ -114,8 +118,14 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			expect(usernameElement.Text).toBe("@testuser_1")
-			expect(displayNameElement.Text).toBe("testuser_1")
+			if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+				expect(usernameElement.Text).toBe("@testuser_1")
+				expect(displayNameElement.Text).toBe("testuser_1")
+			else
+				expect(usernameElement.Text).toBe("")
+				expect(displayNameElement.Text).toBe("")
+			end
+
 			expect(string.sub(statusElement.Text, 1, 6)).toBe("Missed")
 			Roact.unmount(instance)
 		end)
@@ -134,8 +144,14 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			expect(usernameElement.Text).toBe("@testuser_1")
-			expect(displayNameElement.Text).toBe("testuser_1")
+			if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+				expect(usernameElement.Text).toBe("@testuser_1")
+				expect(displayNameElement.Text).toBe("testuser_1")
+			else
+				expect(usernameElement.Text).toBe("")
+				expect(displayNameElement.Text).toBe("")
+			end
+
 			expect(string.sub(statusElement.Text, 1, 8)).toBe("Incoming")
 			Roact.unmount(instance)
 		end)
@@ -154,8 +170,14 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			expect(usernameElement.Text).toBe("@testuser_0")
-			expect(displayNameElement.Text).toBe("testuser_0")
+			if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+				expect(usernameElement.Text).toBe("@testuser_0")
+				expect(displayNameElement.Text).toBe("testuser_0")
+			else
+				expect(usernameElement.Text).toBe("")
+				expect(displayNameElement.Text).toBe("")
+			end
+
 			expect(string.sub(statusElement.Text, 1, 8)).toBe("Outgoing")
 			Roact.unmount(instance)
 		end)

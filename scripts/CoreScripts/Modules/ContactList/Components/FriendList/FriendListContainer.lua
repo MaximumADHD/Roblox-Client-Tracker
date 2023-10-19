@@ -81,11 +81,11 @@ local function FriendListContainer(props: Props)
 				local request = if trimmedSearchText == ""
 					then FindFriendsFromUserId.API(
 						localUserId,
-						{ userSort = "CombinedName", cursor = cursor, limit = 50 }
+						{ userSort = "CombinedName", cursor = cursor, limit = 20 }
 					)
 					else SearchFriendsByQuery.API(
 						localUserId,
-						{ userSort = "CombinedName", cursor = cursor, limit = 50, query = trimmedSearchText }
+						{ userSort = "CombinedName", cursor = cursor, limit = 20, query = trimmedSearchText }
 					)
 
 				dispatch(request):andThen(function(result)
@@ -100,7 +100,7 @@ local function FriendListContainer(props: Props)
 					end
 
 					setFriends(currentFriends)
-					setNextPageCursor(result.responseBody.NextPage)
+					setNextPageCursor(result.responseBody.NextCursor)
 					setStatus(RetrievalStatus.Done)
 				end, function()
 					if currentGuid.current ~= guid then
@@ -280,11 +280,10 @@ local function FriendListContainer(props: Props)
 		else Roact.createFragment({
 			React.createElement("ScrollingFrame", {
 				Size = UDim2.fromScale(1, 1),
-				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
-				CanvasSize = UDim2.new(),
+				CanvasSize = UDim2.new(1, 0, 0, #children * Constants.ITEM_HEIGHT),
 				ElasticBehavior = Enum.ElasticBehavior.Never,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				ScrollingEnabled = not overscrolling and props.scrollingEnabled,

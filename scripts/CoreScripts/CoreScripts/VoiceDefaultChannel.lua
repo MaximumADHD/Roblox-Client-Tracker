@@ -7,10 +7,13 @@ local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
+local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaulChannelDontWaitOnCharacter = game:DefineFastFlag("DefaultChannelDontWaitOnCharacter", false)
+local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 
@@ -21,7 +24,7 @@ local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("Notificat
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 local Analytics = require(RobloxGui.Modules.VoiceChat.Analytics).new()
 
-local function initializeDefaultChannel()
+local function initializeDefaultChannel(defaultMuted)
 	local VoiceChatService = VoiceChatServiceManager:getService()
 
 	if not VoiceChatService then
@@ -30,12 +33,7 @@ local function initializeDefaultChannel()
 
 	log:info("Joining default channel")
 
-	local success
-	if GetFFlagIrisSettingsEnabled() then
-		success = VoiceChatServiceManager:JoinByGroupIdToken("default", false)
-	else
-		success = VoiceChatServiceManager:JoinByGroupIdToken("default", FFlagDebugDefaultChannelStartMuted)
-	end
+	local success = VoiceChatService:JoinByGroupIdToken("default", defaultMuted)
 	
 	if GetFFlagEnableLuaVoiceChatAnalytics() then
 		if success then
@@ -65,7 +63,7 @@ if not FFlagDefaulChannelDontWaitOnCharacter then
 	end
 end
 
-if EnableDefaultVoiceAvailable then
+if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 	local VoiceChatService = game:FindService("VoiceChatService")
 
 	if not VoiceChatService then
@@ -79,14 +77,36 @@ if EnableDefaultVoiceAvailable then
 	end
 end
 
-VoiceChatServiceManager:asyncInit():andThen(function()
-	local joinInProgress = initializeDefaultChannel()
-	if joinInProgress == false then
-		VoiceChatServiceManager:InitialJoinFailedPrompt()
-	end
-end):catch(function()
-	-- If voice chat doesn't initialize, silently halt rather than throwing
-	-- a unresolved promise error. Don't report an event since the manager
-	-- will handle that.
-	log:info("VoiceChatServiceManager did not initialize")
-end)
+if GetFFlagIrisSettingsEnabled() then
+	CallProtocol:getCallState():andThen(function(params)
+		-- If call exist, use the muted state from CallProtocol
+		local defaultMuted = if
+				params.status ~= CallProtocolEnums.CallStatus.Idle.rawValue()
+				and params.status ~= CallProtocolEnums.CallStatus.Ringing.rawValue()
+			then params.muted
+			else FFlagDebugDefaultChannelStartMuted
+		VoiceChatServiceManager:asyncInit():andThen(function()
+			local joinInProgress = initializeDefaultChannel(defaultMuted)
+			if joinInProgress == false then
+				VoiceChatServiceManager:InitialJoinFailedPrompt()
+			end
+		end):catch(function()
+			-- If voice chat doesn't initialize, silently halt rather than throwing
+			-- a unresolved promise error. Don't report an event since the manager
+			-- will handle that.
+			log:info("VoiceChatServiceManager did not initialize")
+		end)
+	end)
+else
+	VoiceChatServiceManager:asyncInit():andThen(function()
+		local joinInProgress = initializeDefaultChannel(FFlagDebugDefaultChannelStartMuted)
+		if joinInProgress == false then
+			VoiceChatServiceManager:InitialJoinFailedPrompt()
+		end
+	end):catch(function()
+		-- If voice chat doesn't initialize, silently halt rather than throwing
+		-- a unresolved promise error. Don't report an event since the manager
+		-- will handle that.
+		log:info("VoiceChatServiceManager did not initialize")
+	end)
+end

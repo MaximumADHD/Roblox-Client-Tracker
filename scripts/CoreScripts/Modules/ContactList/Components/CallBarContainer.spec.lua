@@ -19,7 +19,7 @@ return function()
 
 	beforeAll(function(c: any)
 		c.mockCurrentCall = {
-			status = RoduxCall.Enums.Status.Accepting.rawValue(),
+			status = RoduxCall.Enums.Status.Active.rawValue(),
 			callerId = 11111111,
 			calleeId = 12345678,
 			placeId = 789,
@@ -47,6 +47,40 @@ return function()
 		local instance = Roact.mount(element, folder)
 		local callBarElement = folder:FindFirstChild("CallBar", true) :: ImageButton
 		jestExpect(callBarElement).never.toBeNull()
+
+		Roact.unmount(instance)
+	end)
+
+	it("should not mount with an invalid state", function(c: any)
+		local store = Rodux.Store.new(Reducer, {
+			Call = {
+				currentCall = {
+					status = RoduxCall.Enums.Status.Accepting.rawValue(),
+					callerId = 11111111,
+					calleeId = 12345678,
+					placeId = 789,
+					callId = "123456",
+					callerDisplayName = "Display Name 1",
+					calleeDisplayName = "Display Name 2",
+					instanceId = "gameId",
+				},
+			},
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
+				CallBarContainer = Roact.createElement(CallBarContainer),
+			}),
+		})
+
+		local folder = Instance.new("Folder")
+		local instance = Roact.mount(element, folder)
+		local callBarElement = folder:FindFirstChild("CallBar", true) :: ImageButton
+		jestExpect(callBarElement).toBeNull()
 
 		Roact.unmount(instance)
 	end)

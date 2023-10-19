@@ -2,7 +2,12 @@ local Root = script.Parent.Parent
 local GetFFlagEnablePerformPurchaseGCSHandling = require(Root.Flags.GetFFlagEnablePerformPurchaseGCSHandling)
 
 -- isGenericChallengeResponse checks if a response matches the expected format for challenges.
-function isGenericChallengeResponse(response: string)
+function isGenericChallengeResponse(response: any)
+	-- Explicitly include this type guard, since GCS responses will always be strings.
+	if type(response) ~= "string" then
+		return false
+	end
+
 	-- Generic Challenge response patterns used to identify a challenge response.
 	local challengeResponsePattern = "rblx%-challenge%-response"
 	local challengeIDPattern = "rblx%-challenge%-id"

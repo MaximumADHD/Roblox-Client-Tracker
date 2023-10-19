@@ -16,6 +16,8 @@ return function()
 			isOpen = false,
 			title = "",
 			bodyText = "",
+			callerId = 0,
+			calleeId = 0,
 		})
 	end)
 
@@ -28,6 +30,8 @@ return function()
 				isOpen = true,
 				title = "title",
 				bodyText = "body",
+				callerId = 0,
+				calleeId = 0,
 			})
 
 			local closeState = Dialog(openState, CloseDialog())
@@ -36,6 +40,8 @@ return function()
 				isOpen = false,
 				title = "",
 				bodyText = "",
+				callerId = 0,
+				calleeId = 0,
 			})
 		end)
 	end)

@@ -88,6 +88,8 @@ local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local GetFFlagChatTranslationSettingEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFStringChatTranslationLayerName = require(RobloxGui.Modules.Flags.GetFStringChatTranslationLayerName)
 
+local ChatTranslationSettingsMoved = game:GetEngineFeature("TextChatServiceSettingsSaved")
+
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
@@ -1255,7 +1257,12 @@ local function Initialize()
 					local oldSettingsValue = TextChatService.ChatTranslationEnabled
 
 					if newSettingsValue ~= oldSettingsValue then
-						TextChatService.ChatTranslationEnabled = newSettingsValue
+						if ChatTranslationSettingsMoved then
+							GameSettings.ChatTranslationEnabled = newSettingsValue
+						else
+							TextChatService.ChatTranslationEnabled = newSettingsValue
+						end
+
 						reportSettingsChangeForAnalytics("chat_translation", oldSettingsValue, newSettingsValue, {
 							locale_id = LocalPlayer.LocaleId
 						})
@@ -1275,7 +1282,12 @@ local function Initialize()
 					local oldSettingsValue = TextChatService.ChatTranslationToggleEnabled
 
 					if newSettingsValue ~= oldSettingsValue then
-						TextChatService.ChatTranslationToggleEnabled = newSettingsValue
+						if ChatTranslationSettingsMoved then
+							GameSettings.ChatTranslationToggleEnabled = newSettingsValue
+						else
+							TextChatService.ChatTranslationToggleEnabled = newSettingsValue
+						end
+
 						reportSettingsChangeForAnalytics("chat_translation_toggle", oldSettingsValue, newSettingsValue, {
 							locale_id = LocalPlayer.LocaleId
 						})
@@ -1313,12 +1325,19 @@ local function Initialize()
 		end
 
 		local function setUpChatTranslationIxpDefaults(layerData)
-			local success, _ = pcall(function ()
-				TextChatService.ChatTranslationEnabled = layerData.ChatTranslationEnabled
-				TextChatService.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled
-			end)
+			if ChatTranslationSettingsMoved then
+				GameSettings.ChatTranslationEnabled = layerData.ChatTranslationEnabled
+				GameSettings.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled
+				
+				return true
+			else
+				local success, _ = pcall(function ()
+					TextChatService.ChatTranslationEnabled = layerData.ChatTranslationEnabled
+					TextChatService.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled
+				end)
 
-			return success
+				return success
+			end
 		end
 
 		if GetFFlagChatTranslationSettingEnabled() then

@@ -1,5 +1,8 @@
 --!nonstrict
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local CorePackages = game:GetService("CorePackages")
+
+local Dash = require(CorePackages.Packages.Dash)
 
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 local SetDevConsoleVisibility = require(script.Parent.Parent.Actions.SetDevConsoleVisibility)
@@ -11,6 +14,11 @@ local CLOSE_SESSION_TIME = "DevConsoleSessionTime"
 local TABBING_START_VISIBLE = "StartVisible"
 local TABBING_END_VISIBLE = "EndVisible"
 local TABBING_MINIMIZED = "Minimized"
+
+local FIntReportDevConsoleTabEventsThrottleHundredthsPercent = game:DefineFastInt("ReportDevConsoleTabEventsThrottleHundredthsPercent", 0)
+local FFlagDevConsoleThrottleTabMetrics = game:DefineFastFlag("DevConsoleUseThrottledMetrics", false)
+
+local DEV_CONSOLE_INFLUX_EVENT_NAME = "devConsoleMetric"
 
 function ReportDevConsoleOpenClose(store, action)
 	if action.type == SetDevConsoleVisibility.name then
@@ -37,7 +45,18 @@ function getTabAnalyticsKeyName(tabIndex, isClientView)
 end
 
 function dispatchTabAnalytics(additionArgs)
-	AnalyticsService:SendEventImmediately("client", "devConsoleMetric", "devConsoleTabChange", additionArgs)
+	if FFlagDevConsoleThrottleTabMetrics then
+		local args = Dash.join({
+			placeId = game.PlaceId,
+			calledFrom = "devConsoleTabChange",
+		}, additionArgs)
+		AnalyticsService:ReportInfluxSeries(
+			DEV_CONSOLE_INFLUX_EVENT_NAME,
+			args,
+			FIntReportDevConsoleTabEventsThrottleHundredthsPercent)
+	else
+		AnalyticsService:SendEventImmediately("client", "devConsoleMetric", "devConsoleTabChange", additionArgs)
+	end
 end
 
 function ReportTabChange(store, action)

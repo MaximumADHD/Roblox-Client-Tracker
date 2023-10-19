@@ -36,6 +36,12 @@ initify(CorePackages)
 initify(RobloxGui.Modules)
 
 --[[ Add Server CoreScript ]]--
+
+-- OpenCloud
+if game:DefineFastFlag("OpenCloudCoreScriptLuaEnabled", false) then
+    ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudV2", script.Parent)
+end
+
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
 
@@ -149,6 +155,11 @@ end
 local GetFFlagContactListEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListEnabled)
 if GetFFlagContactListEnabled() then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerContactList", script.Parent)
+end
+
+local GetFFlagPlayerViewCapabilityEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewCapabilityEnabled)
+if GetFFlagPlayerViewCapabilityEnabled() then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerViewCapability", script.Parent)
 end
 
 local GetFFlagEnableVoiceDefaultServerScript =

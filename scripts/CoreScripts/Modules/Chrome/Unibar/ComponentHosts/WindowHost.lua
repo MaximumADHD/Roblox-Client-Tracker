@@ -237,6 +237,10 @@ local WindowHost = function(props: WindowHostProps)
 		end
 
 		if requiresRepositioning(frame) then
+			if frame == nil then
+				return
+			end
+
 			local frameParent = windowRef.current.Parent :: ScreenGui
 
 			local frameHalfWidth = frameWidth:getValue() / 2

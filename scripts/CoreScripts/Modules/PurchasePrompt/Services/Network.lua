@@ -163,6 +163,13 @@ local function performPurchaseV2(infoType, productId, expectedPrice, requestId, 
 		return result
 	end
 
+	--[[ Generic Challenge Responses are HTTP 403 Forbidden responses with a unique
+	response pattern. We explicitly identify the response and return the result.
+	]]--
+	if isGenericChallengeResponse(result) then
+		return result
+	end
+
 	error(tostring(result))
 end
 

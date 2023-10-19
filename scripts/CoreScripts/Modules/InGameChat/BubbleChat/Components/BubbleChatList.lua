@@ -9,7 +9,6 @@ local ChatBubble = require(script.Parent.ChatBubble)
 local Types = require(script.Parent.Parent.Types)
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local FFlagBubbleChatCaratFix = require(RobloxGui.Modules.Flags.FFlagBubbleChatCaratFix)
 
 local BubbleChatList = Roact.Component:extend("BubbleChatList")
 
@@ -94,8 +93,7 @@ function BubbleChatList:render()
 
 	-- This padding pushes up the UI a bit so the first message's
 	-- caret shows up.
-	children.CaretPadding = chatSettings.TailVisible
-		and (not FFlagBubbleChatCaratFix or self.props.showCarat)
+	children.CaretPadding = chatSettings.TailVisible and self.props.showCarat
 		and Roact.createElement("UIPadding", {
 			PaddingBottom = UDim.new(0, 8),
 		})

@@ -7,6 +7,7 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 
 local Signal = SignalLib.Signal
 local utils = require(script.Parent.ChromeUtils)
+local LocalStore = require(script.Parent.LocalStore)
 local ViewportUtil = require(script.Parent.ViewportUtil)
 local WindowSizeSignal = require(script.Parent.WindowSizeSignal)
 local ObservableValue = utils.ObservableValue
@@ -14,8 +15,14 @@ local NotifySignal = utils.NotifySignal
 local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(script.Parent.Types)
 
+local GetFFlagEnableUnibarSneakPeak = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
+local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
+
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 1.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
+local CHROME_INTERACTED_KEY = "ChromeInteracted"
+local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
+local MAX_CHROME_SEEN_COUNT = 3
 
 -- todo: Consider how ChromeService could support multiple UI at the same time, not only the Unibar
 --       Does there need to be another layer "IntegrationsService" that ChromeService can pull from?
@@ -55,6 +62,8 @@ export type ChromeService = {
 	toggleSubMenu: (ChromeService, subMenuId: Types.IntegrationId) -> (),
 	currentSubMenu: (ChromeService) -> ObservableSubMenu,
 	toggleOpen: (ChromeService) -> (),
+	open: (ChromeService) -> (),
+	close: (ChromeService) -> (),
 	getLastInputToOpenMenu: (ChromeService) -> Enum.UserInputType,
 	status: (ChromeService) -> ObservableMenuStatus,
 	menuList: (ChromeService) -> ObservableMenuList,
@@ -80,6 +89,8 @@ export type ChromeService = {
 	withinCurrentSubmenu: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	isMostRecentlyUsed: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	setRecentlyUsed: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
+	storeChromeInteracted: (ChromeService) -> (),
+	storeChromeSeen: (ChromeService) -> (),
 	activate: (ChromeService, componentId: Types.IntegrationId) -> (),
 	toggleWindow: (ChromeService, componentId: Types.IntegrationId) -> (),
 	isWindowOpen: (ChromeService, componentId: Types.IntegrationId) -> boolean,
@@ -126,6 +137,7 @@ export type ChromeService = {
 	_onIntegrationStatusChanged: SignalLib.Signal,
 
 	_lastInputToOpenMenu: Enum.UserInputType,
+	_chromeSeenCount: number,
 
 	_localization: any,
 	_localizedLabelKeys: {
@@ -148,7 +160,10 @@ local DummyIntegration = {
 function ChromeService.new(): ChromeService
 	local localeId = LocalizationService.RobloxLocaleId
 	local self = {}
-	self._status = utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
+	self._chromeSeenCount = if GetFFlagEnableUnibarMaxDefaultOpen() then getChromeSeenCount() else 0
+	self._status = if GetFFlagEnableUnibarSneakPeak() or GetFFlagEnableUnibarMaxDefaultOpen()
+		then getInitialStatus(self._chromeSeenCount)
+		else utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
 	self._currentSubMenu = utils.ObservableValue.new(nil)
 	self._selectedItem = utils.ObservableValue.new(nil)
 	self._selectedItemIdx = 0
@@ -186,7 +201,55 @@ function ChromeService.new(): ChromeService
 		service:updateScreenSize(screenSize, ViewportUtil.mobileDevice:get())
 	end, true)
 
+	if GetFFlagEnableUnibarMaxDefaultOpen() then
+		service:storeChromeSeen()
+	end
+
 	return service
+end
+
+-- Get how many times user has seen chrome from local storage
+function getChromeSeenCount(): number
+	if GetFFlagEnableUnibarMaxDefaultOpen() and LocalStore.isEnabled() then
+		local chromeSeenCount = LocalStore.loadForLocalPlayer(CHROME_SEEN_COUNT_KEY)
+		if chromeSeenCount and tonumber(chromeSeenCount) then
+			return chromeSeenCount
+		end
+	end
+
+	return 0
+end
+
+-- Get initial status of menu: closed if interacted with before or seen enough times, open otherwise
+function getInitialStatus(chromeSeenCount: number): ObservableMenuStatus
+	if LocalStore.isEnabled() then
+		if GetFFlagEnableUnibarSneakPeak() then
+			local storedStatus = LocalStore.loadForLocalPlayer(CHROME_INTERACTED_KEY)
+			if storedStatus then
+				return utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
+			end
+		end
+
+		if GetFFlagEnableUnibarMaxDefaultOpen() and chromeSeenCount >= MAX_CHROME_SEEN_COUNT then
+			return utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
+		end
+	end
+
+	return utils.ObservableValue.new(ChromeService.MenuStatus.Open)
+end
+
+-- store that unibar was interacted with after anything activated
+function ChromeService:storeChromeInteracted()
+	if GetFFlagEnableUnibarSneakPeak() and LocalStore.isEnabled() then
+		LocalStore.storeForLocalPlayer(CHROME_INTERACTED_KEY, true)
+	end
+end
+
+-- store how many times the unibar has now been seen up to the max
+function ChromeService:storeChromeSeen()
+	if GetFFlagEnableUnibarMaxDefaultOpen() and LocalStore.isEnabled() and self._chromeSeenCount + 1 < math.huge then
+		LocalStore.storeForLocalPlayer(CHROME_SEEN_COUNT_KEY, self._chromeSeenCount + 1)
+	end
 end
 
 function ChromeService:updateScreenSize(screenSize: Vector2, isMobileDevice: boolean)
@@ -312,14 +375,47 @@ function ChromeService:currentSubMenu()
 end
 
 function ChromeService:toggleOpen()
-	local subMenu: ObservableSubMenu = self._currentSubMenu
 	local menuStatus: ObservableMenuStatus = self._status
+	local subMenu: ObservableSubMenu = self._currentSubMenu
+
+	if GetFFlagEnableUnibarSneakPeak() then
+		if menuStatus:get() == ChromeService.MenuStatus.Closed then
+			self:open()
+		else
+			self:close()
+		end
+	else
+		if menuStatus:get() == ChromeService.MenuStatus.Closed then
+			menuStatus:set(ChromeService.MenuStatus.Open)
+			self._lastDisplayedNotificationId = ""
+			self._notificationIndicator:set(nil)
+			self._lastInputToOpenMenu = UserInputService:GetLastInputType()
+		else
+			self._selectedItem:set(nil)
+			-- close any current submenu
+			subMenu:set(nil)
+			menuStatus:set(ChromeService.MenuStatus.Closed)
+			self._lastInputToOpenMenu = Enum.UserInputType.None
+		end
+	end
+end
+
+function ChromeService:open()
+	local menuStatus: ObservableMenuStatus = self._status
+
 	if menuStatus:get() == ChromeService.MenuStatus.Closed then
 		menuStatus:set(ChromeService.MenuStatus.Open)
 		self._lastDisplayedNotificationId = ""
 		self._notificationIndicator:set(nil)
 		self._lastInputToOpenMenu = UserInputService:GetLastInputType()
-	else
+	end
+end
+
+function ChromeService:close()
+	local menuStatus: ObservableMenuStatus = self._status
+	local subMenu: ObservableSubMenu = self._currentSubMenu
+
+	if menuStatus:get() == ChromeService.MenuStatus.Open then
 		self._selectedItem:set(nil)
 		-- close any current submenu
 		subMenu:set(nil)
@@ -816,6 +912,10 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 		local integrationActivated = self._integrations[componentId].activated
 		self._onIntegrationActivated:fire(componentId)
 
+		if GetFFlagEnableUnibarSneakPeak() then
+			self:storeChromeInteracted()
+		end
+
 		if integrationActivated then
 			-- override default
 
@@ -839,7 +939,14 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 			self._currentSubMenu:set(nil)
 		end
 
-		if not pressed and not toggledSubmenu and self._status:get() == ChromeService.MenuStatus.Open then
+		if GetFFlagEnableUnibarSneakPeak() and not pressed and not toggledSubmenu then
+			self:close()
+		elseif
+			not GetFFlagEnableUnibarSneakPeak()
+			and not pressed
+			and not toggledSubmenu
+			and self._status:get() == ChromeService.MenuStatus.Open
+		then
 			self:toggleOpen()
 		end
 	end

@@ -78,7 +78,7 @@ if not FFlagRefactorPlayerNameTag then
 				self:setState({
 					name = name,
 				})
-			end)
+			end, function() end)
 		end
 	end
 end

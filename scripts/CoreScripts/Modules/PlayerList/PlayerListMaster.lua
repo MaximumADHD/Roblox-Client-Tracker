@@ -177,6 +177,8 @@ function PlayerListMaster.new()
 		if FFlagRefactorPlayerNameTag then
 			self.root = Roact.createElement(ApolloProvider, {
 				client = ApolloClientInstance
+			}, {
+				StoreProvider = self.root,
 			})
 		end
 
@@ -201,6 +203,8 @@ function PlayerListMaster.new()
 		if FFlagRefactorPlayerNameTag then
 			self.root = Roact.createElement(ApolloProvider, {
 				client = ApolloClientInstance
+			}, {
+				StoreProvider = self.root,
 			})
 		end
 

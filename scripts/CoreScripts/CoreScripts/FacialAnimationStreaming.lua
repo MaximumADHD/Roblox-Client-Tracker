@@ -2,6 +2,8 @@
 
 local VRService = game:GetService("VRService")
 
+local AnalyticsService = game:GetService("RbxAnalyticsService")
+local AppStorageService = game:GetService("AppStorageService")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
@@ -10,7 +12,12 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
+
+local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
+local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
 local FFlagEnableSyncAudioWithVoiceChatMuteState = game:DefineFastFlag("EnableSyncAudioWithVoiceChatMuteState", false)
 local FFlagEnableFacialAnimationKickPlayerWhenServerDisabled = game:DefineFastFlag("EnableFacialAnimationKickPlayerWhenServerDisabled", false)
@@ -34,12 +41,20 @@ local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFla
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
+local FFlagUXForCameraPerformanceEnabled = game:DefineFastFlag("UXForCameraPerformanceEnabled", false)
+
+local FIntUXForCameraPerformanceSessionDelay = game:DefineFastInt("UXForCameraPerformanceSessionDelay", 300) -- in seconds
+local FIntUXForCameraPerformanceDeviceDelay = game:DefineFastInt("UXForCameraPerformanceDeviceDelay", 43200) -- in seconds
+local GetFFlagUXForCameraPerformanceIXPEnabled = require(RobloxGui.Modules.Flags.GetFFlagUXForCameraPerformanceIXPEnabled)
+local GetFStringUXForCameraPerformanceIXPLayerName = require(RobloxGui.Modules.Flags.GetFStringUXForCameraPerformanceIXPLayerName)
 
 local heartbeatStats = require(RobloxGui.Modules.FacialAnimationStreaming.FacialAnimationStreamingHeartbeatStats)
 
 if not FaceAnimatorService or not FacialAnimationStreamingService then
 	return
 end
+
+local LOCAL_STORAGE_KEY_UX_CAMERA_PERFORMANCE_TIMESTAMP = "CameraPerformanceUXUnixTimestamp"
 
 FaceAnimatorService.FlipHeadOrientation = true
 
@@ -64,6 +79,8 @@ local PlaceUnavailableMessage = RobloxTranslator:FormatByKey("Feature.FaceChat.M
 
 local facialAnimationStreamingInited = false
 local isPlayerAllowedViaThrottle = false
+
+local playerJoinUnixTime = os.time()
 
 local playerJoinedChat = {}
 local playerJoinedGame = {}
@@ -473,6 +490,64 @@ local function ConnectStateChangeCallback()
 	end)
 end
 
+local function AttemptToShowCameraPerformanceToast(isSkipSessionDurationCheck)
+	if GetFFlagUXForCameraPerformanceIXPEnabled() then
+		-- get ixp layer data
+		local layerFetchSuccess, layerData = pcall(function()
+			return IXPServiceWrapper:GetLayerData(GetFStringUXForCameraPerformanceIXPLayerName())
+		end)
+
+		-- bail if we aren't able to communicate with IXP service
+		if not layerFetchSuccess then
+			return
+		end
+
+		-- check if user is enrolled in experiment or not
+		if not layerData then
+			return
+		end
+		if not layerData.UXForCameraPerformanceEnabled then
+			return
+		end
+	end
+
+	-- check enougb time have passed since user joined DataModel instance
+	local currentSessionDuration = os.time() - playerJoinUnixTime
+	if (not isSkipSessionDurationCheck) and currentSessionDuration < FIntUXForCameraPerformanceSessionDelay then
+		task.delay(FIntUXForCameraPerformanceSessionDelay - currentSessionDuration, function()
+			AttemptToShowCameraPerformanceToast(true)
+		end)
+		return
+	end
+
+	-- check enough time have passed in local storage
+	local lastShownTimestamp = 0
+	local success, value = pcall(function()
+		return AppStorageService:GetItem(LOCAL_STORAGE_KEY_UX_CAMERA_PERFORMANCE_TIMESTAMP)
+	end)
+	if success then
+		lastShownTimestamp = tonumber(value)
+	else
+		return
+	end
+	if os.time() - lastShownTimestamp < FIntUXForCameraPerformanceDeviceDelay then
+		return
+	end
+
+	pcall(function()
+		AppStorageService:SetItem(LOCAL_STORAGE_KEY_UX_CAMERA_PERFORMANCE_TIMESTAMP, tostring(lastShownTimestamp))
+		AppStorageService:Flush()
+
+		TrackerMenu:showPrompt(TrackerPromptType.LODCameraRecommendDisable)
+
+		-- add analytics
+		AnalyticsService:SendEventDeferred("client", "avatarChat", "UXForCameraPerformanceShown", {
+			userId = Players.LocalPlayer.UserId,
+			pid = tostring(game.PlaceId),
+		})
+	end)
+end
+
 -- NOTE: The connection of players to the facial animation system needs to be deferred until mic permissions are
 -- completed. There is an issue where only one outstanding permissions request can happen at a time. This is a limitation of
 -- the MessageBus system and the implementation of permissions protocol.
@@ -592,14 +667,41 @@ function InitializeFacialAnimationStreaming(settings)
 		trackerPromptConnection = FaceAnimatorService.TrackerPrompt:Connect(function(prompt)
 			playerTrace(string.format("TrackerPrompt: %s", tostring(prompt)), nil)
 			if prompt == (Enum::any).TrackerPromptEvent.LODCameraRecommendDisable then
-				TrackerMenu:showPrompt(TrackerPromptType.LODCameraRecommendDisable)
+				if FFlagUXForCameraPerformanceEnabled then
+					AttemptToShowCameraPerformanceToast()
+				else
+					TrackerMenu:showPrompt(TrackerPromptType.LODCameraRecommendDisable)
+				end
 			end
 			-- TODO: Do we want to enable some idle cycle on the non-a2c inputs?
 		end)
 	end
 
-	InitializeVoiceChat()
-	heartbeatStats.Initialize()
+	if GetFFlagIrisSettingsEnabled() then
+		CallProtocol:getCallState():andThen(function(params)
+			if not facialAnimationStreamingInited then
+				return
+			end
+
+			if
+				params.status ~= CallProtocolEnums.CallStatus.Idle.rawValue()
+				and params.status ~= CallProtocolEnums.CallStatus.Ringing.rawValue()
+			then
+				-- If call exist, respect the cam settings for calling
+				FaceAnimatorService.VideoAnimationEnabled = params.camEnabled
+			elseif FFlagFaceAnimatorDisableVideoByDefault then
+				-- At start, turn off video until user turns it on manually.
+				-- This is what Settings should use to re-enable camera when user presses camera button.
+				FaceAnimatorService.VideoAnimationEnabled = false
+			end
+
+			InitializeVoiceChat()
+			heartbeatStats.Initialize()
+		end)
+	else
+		InitializeVoiceChat()
+		heartbeatStats.Initialize()
+	end
 end
 
 function CleanupFacialAnimationStreaming()

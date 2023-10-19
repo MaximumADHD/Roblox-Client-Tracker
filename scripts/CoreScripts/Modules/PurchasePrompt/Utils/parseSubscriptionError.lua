@@ -16,6 +16,8 @@ local function parseSubscriptionError(errorReason)
 		return PurchaseError.AlreadySubscribed
 	elseif errorReason == "ProductNotForSale" then
 		return PurchaseError.SubscriptionNotForSale
+	elseif errorReason == "VpcRequired" then
+		return PurchaseError.VpcRequired
 	end
 
 	return PurchaseError.UnknownFailure

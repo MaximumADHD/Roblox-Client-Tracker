@@ -3,6 +3,7 @@ local Root = script.Parent.Parent
 local PurchaseError = require(Root.Enums.PurchaseError)
 local Constants = require(Root.Misc.Constants)
 local Promise = require(Root.Promise)
+local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
 
 --[[
 	we will migrate to V2 for all usage.
@@ -47,6 +48,9 @@ local function performPurchaseV2(
 				return Promise.reject(PurchaseError.TwoFactorNeeded)
 			elseif result.transactionStatus == 24 then
 				return Promise.reject(PurchaseError.TwoFactorNeeded)
+			elseif isGenericChallengeResponse(result) then
+				-- For Generic Challenge responses the entire result is required for rendering.
+				return Promise.reject(result)
 			else
 				return Promise.reject(PurchaseError.UnknownFailure)
 			end

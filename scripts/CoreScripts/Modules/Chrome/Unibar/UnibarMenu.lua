@@ -22,6 +22,7 @@ local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
+local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -83,7 +84,11 @@ function AnimationStateHelper(props)
 
 			if not pressed then
 				ContextActionService:BindCoreAction("RBXEscapeUnibar", function()
-					ChromeService:toggleOpen()
+					if GetFFlagEnableUnibarSneakPeak() then
+						ChromeService:close()
+					else
+						ChromeService:toggleOpen()
+					end
 				end, false, Enum.KeyCode.Escape)
 				GuiService:Select(props.menuFrameRef.current)
 			end

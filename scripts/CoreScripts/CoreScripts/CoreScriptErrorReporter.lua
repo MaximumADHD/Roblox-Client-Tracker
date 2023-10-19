@@ -13,7 +13,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RateLimiter = require(RobloxGui.Modules.ErrorReporting.RateLimiter)
 local PiiFilter = require(RobloxGui.Modules.ErrorReporting.PiiFilter)
 
-local BacktraceReporter = require(CorePackages.ErrorReporters.Backtrace.BacktraceReporter)
+local BacktraceReporter = require(CorePackages.Workspace.Packages.ErrorReporters).BacktraceReporter
 local React = require(CorePackages.Packages.React)
 
 -- This flag is permanent; please do not remove it. It serves as a way to

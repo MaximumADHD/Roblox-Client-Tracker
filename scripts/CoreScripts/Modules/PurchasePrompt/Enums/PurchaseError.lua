@@ -42,7 +42,8 @@ local PurchaseError = createEnum("PurchaseError", {
 	"RestrictedUserAge",
 	"SubscriptionPurchasePlatformNotSupported",
 	"SubscriptionInvalidSaleLocation",
-	"SubscriptionNotForSale"
+	"SubscriptionNotForSale",
+	"VpcRequired"
 })
 
 return PurchaseError

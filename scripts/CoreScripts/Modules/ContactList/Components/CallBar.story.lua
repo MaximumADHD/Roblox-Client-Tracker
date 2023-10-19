@@ -10,11 +10,46 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local RoduxCall = dependencies.RoduxCall
 
+local createdUtc = os.time()
+
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+
+local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
+local ApolloProvider = ApolloClientModule.ApolloProvider
+
+local GraphQLServer = require(CorePackages.Workspace.Packages.GraphQLServer)
+local ApolloClientTestUtils = GraphQLServer.ApolloClientTestUtils
+local mockApolloClient = ApolloClientTestUtils.mockApolloClient
+
+local client = mockApolloClient({})
+local function writeNameQuery(userId: string, username: string)
+	UserProfiles.Mutations.writeNamesQuery({
+		userId = userId,
+		client = client,
+		names = {
+			alias = username,
+			contactName = username,
+			displayName = username,
+			username = username,
+			platformName = username,
+		},
+		query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
+	})
+end
+
+writeNameQuery("11111111", "Display Name 1")
+writeNameQuery("12345678", "Display Name 2")
+
 return {
 	stories = {
 		CallBar = function(props)
-			return React.createElement(CallBar, {
-				size = Vector2.new(200, 44),
+			return React.createElement(ApolloProvider, {
+				client = client,
+			}, {
+				React.createElement(CallBar, {
+					size = Vector2.new(200, 44),
+					createdUtc = createdUtc,
+				}),
 			})
 		end,
 	},
@@ -30,6 +65,7 @@ return {
 				callerDisplayName = "Display Name 1",
 				calleeDisplayName = "Display Name 2",
 				gameInstanceId = "gameId",
+				createdUtc = createdUtc,
 			},
 		},
 	},

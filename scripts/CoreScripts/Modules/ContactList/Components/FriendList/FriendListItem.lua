@@ -177,10 +177,10 @@ local function FriendListItem(props: Props)
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
 			[React.Event.MouseButton2Up] = function()
-				dispatch(OpenOrUpdateCFM(props.userId))
+				dispatch(OpenOrUpdateCFM(props.userId, props.combinedName))
 			end,
 			[React.Event.TouchTap] = function()
-				dispatch(OpenOrUpdateCFM(props.userId))
+				dispatch(OpenOrUpdateCFM(props.userId, props.combinedName))
 			end,
 			AutoButtonColor = false,
 		}, {

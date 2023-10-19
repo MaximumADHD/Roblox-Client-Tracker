@@ -17,6 +17,7 @@ return function()
 			PlayerMenu = {
 				isOpen = true,
 				userId = 1234567891,
+				combinedName = "testName",
 			},
 		}, {
 			Rodux.thunkMiddleware,

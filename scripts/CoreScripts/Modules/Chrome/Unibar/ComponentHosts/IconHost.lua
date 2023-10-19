@@ -20,6 +20,7 @@ local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Chrome.Service.Types)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMultiTouchFix)
+local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
 local useNotificationCount = require(script.Parent.Parent.Parent.Hooks.useNotificationCount)
@@ -231,6 +232,9 @@ function TooltipButton(props: TooltipButtonProps)
 					if magnitude > Constants.DRAG_MAGNITUDE_THRESHOLD then
 						if FFlagEnableChromeAnalytics then
 							ChromeAnalytics.default:onIconDrag(props.integration.id)
+						end
+						if GetFFlagEnableUnibarSneakPeak() then
+							ChromeService:storeChromeInteracted()
 						end
 						ChromeService:toggleWindow(props.integration.id)
 						ChromeService:gesture(props.integration.id, connection)

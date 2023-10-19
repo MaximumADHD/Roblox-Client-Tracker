@@ -1,11 +1,8 @@
 return function()
 	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
-	local MessageBus = game:GetService("MessageBusService")
-	local Players = game:GetService("Players")
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
-	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
@@ -28,13 +25,7 @@ return function()
 
 	local Constants = require(RobloxGui.Modules.Common.Constants)
 
-	local act = require(RobloxGui.Modules.act)
-
 	beforeAll(function(c: any)
-		local RemoteIrisInviteTeleport = Instance.new("RemoteEvent")
-		RemoteIrisInviteTeleport.Name = "ContactListIrisInviteTeleport"
-		RemoteIrisInviteTeleport.Parent = RobloxReplicatedStorage
-
 		local RemoteGetServerType = Instance.new("RemoteFunction")
 		RemoteGetServerType.Name = "GetServerType"
 		RemoteGetServerType.Parent = RobloxReplicatedStorage
@@ -116,141 +107,4 @@ return function()
 
 		Roact.unmount(instance)
 	end)
-
-	local function createMockCallProtocol(state: string, instanceId: string)
-		local MockCallProtocol = {}
-
-		function MockCallProtocol:listenToHandleInitCall(callback: (any) -> ())
-			-- Stub
-			return MessageBus:Subscribe("", callback, false, true)
-		end
-
-		function MockCallProtocol:listenToHandleConnectingCall(callback: (any) -> ())
-			-- Stub
-			return MessageBus:Subscribe("", callback, false, true)
-		end
-
-		function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
-			-- Stub
-			return MessageBus:Subscribe("", callback, false, true)
-		end
-
-		function MockCallProtocol:listenToHandleEndCall(callback: (any) -> ())
-			-- Stub
-			return MessageBus:Subscribe("", callback, false, true)
-		end
-
-		function MockCallProtocol:listenToHandleCallMessage(callback: (any) -> ())
-			-- Stub
-			return MessageBus:Subscribe("", function() end, false, true)
-		end
-
-		return MockCallProtocol
-	end
-
-	it(
-		"should not teleport the caller when the call becomes teleporting and caller is in correct private server",
-		function(c: any)
-			local remoteTeleportReceived = false
-			local teleportSuccessCallReceived = false
-			local RemoteIrisInviteTeleport =
-				RobloxReplicatedStorage:FindFirstChild("ContactListIrisInviteTeleport") :: any
-			local connection = RemoteIrisInviteTeleport.OnServerEvent:Connect(function()
-				remoteTeleportReceived = true
-			end)
-
-			-- Blank instance id will match game.JobId.
-			local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Connecting.rawValue(), "") :: any
-
-			function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
-				return MessageBus:Subscribe("TeleportTest", callback, false, true)
-			end
-
-			function MockCallProtocol:teleportSuccessCall(callId)
-				teleportSuccessCallReceived = true
-			end
-
-			local store = Rodux.Store.new(Reducer, {}, { Rodux.thunkMiddleware })
-
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
-				}),
-			})
-			local folder = Instance.new("Folder")
-			local root = ReactRoblox.createRoot(folder)
-
-			act(function()
-				root:render(element)
-			end)
-
-			MessageBus:Publish("TeleportTest", {
-				status = RoduxCall.Enums.Status.Teleporting.rawValue(),
-				callId = "123456",
-				callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
-				instanceId = "",
-			})
-			wait()
-
-			expect(remoteTeleportReceived).toBe(false)
-			expect(teleportSuccessCallReceived).toBe(true)
-
-			ReactRoblox.act(function()
-				connection:disconnect()
-				root:unmount()
-			end)
-		end
-	)
-
-	it(
-		"should teleport the caller when the call becomes teleporting and caller is in incorrect private server",
-		function(c: any)
-			local received = false
-			local RemoteIrisInviteTeleport =
-				RobloxReplicatedStorage:FindFirstChild("ContactListIrisInviteTeleport") :: any
-			local connection = RemoteIrisInviteTeleport.OnServerEvent:Connect(function()
-				received = true
-			end)
-
-			local MockCallProtocol =
-				createMockCallProtocol(RoduxCall.Enums.Status.Connecting.rawValue(), "WRONG_GAME_INSTANCE_ID") :: any
-
-			function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
-				return MessageBus:Subscribe("TeleportTest", callback, false, true)
-			end
-
-			local store = Rodux.Store.new(Reducer, {}, { Rodux.thunkMiddleware })
-
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = store,
-			}, {
-				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					ContactListApp = Roact.createElement(ContactListApp, { callProtocol = MockCallProtocol :: any }),
-				}),
-			})
-			local folder = Instance.new("Folder")
-			local root = ReactRoblox.createRoot(folder)
-
-			act(function()
-				root:render(element)
-			end)
-
-			MessageBus:Publish("TeleportTest", {
-				status = RoduxCall.Enums.Status.Teleporting.rawValue(),
-				callId = "123456",
-				callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
-				instanceId = "WRONG_GAME_INSTANCE_ID",
-			})
-			wait()
-
-			expect(received).toBe(true)
-
-			ReactRoblox.act(function()
-				connection:disconnect()
-				root:unmount()
-			end)
-		end
-	)
 end

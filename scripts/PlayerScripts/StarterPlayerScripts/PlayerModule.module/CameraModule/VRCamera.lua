@@ -4,6 +4,15 @@
 	2021 Roblox VR
 --]]
 
+
+local FFlagUserVRPlayerScriptsMisc
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRPlayerScriptsMisc")
+	end)
+	FFlagUserVRPlayerScriptsMisc = success and result
+end
+
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
 local VRService = game:GetService("VRService")
@@ -446,17 +455,29 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 end
 
 function VRCamera:EnterFirstPerson()
-	self.inFirstPerson = true
-
-	self:UpdateMouseBehavior()
+	if FFlagUserVRPlayerScriptsMisc then
+		VRBaseCamera.EnterFirstPerson(self) -- remove with FFlagUserVRPlayerScriptsMisc
+	else
+		self.inFirstPerson = true
+		self:UpdateMouseBehavior()
+	end
 end
 
 function VRCamera:LeaveFirstPerson()
-	self.inFirstPerson = false
-	self.needsReset = true
-	self:UpdateMouseBehavior()
-	if self.VRBlur then
-		self.VRBlur.Visible = false
+	if FFlagUserVRPlayerScriptsMisc then
+		VRBaseCamera.LeaveFirstPerson(self)
+		
+		self.needsReset = true
+		if self.VRBlur then
+			self.VRBlur.Visible = false
+		end
+	else
+		self.inFirstPerson = false
+		self.needsReset = true
+		self:UpdateMouseBehavior()
+		if self.VRBlur then
+			self.VRBlur.Visible = false
+		end
 	end
 end
 

@@ -23,10 +23,20 @@ local FFlagScriptProfilerSessionLength = game:DefineFastFlag("ScriptProfilerSess
 
 function ProfilerView:renderChildren()
 	local data = self.props.data
+
+	-- Remove with usingV2FormatFlag with ScriptProfilerTreeFormatV2
+	local usingV2FormatFlag = data.Version ~= nil
+	if usingV2FormatFlag then
+		assert(data.Version == 2);
+	end
+
 	return Roact.createElement(ProfilerViewEntry, {
 		layoutOrder = 0,
 		depth = 0,
 		data = data,
+		nodeId = 0,
+		functionId = nil,
+		usingV2FormatFlag = usingV2FormatFlag,
 		percentageRatio = if self.props.showAsPercentages
 			then data.TotalDuration / 100
 			else nil

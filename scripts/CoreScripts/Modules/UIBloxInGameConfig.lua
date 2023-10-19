@@ -24,4 +24,5 @@ return {
 	fixCoPlayFooterBadgeEmphasisBorder = UIBloxFlags.GetFFlagUIBloxUpgradeCoPlayFooter(),
 	toastButtonTypesAutoAlignAndNoBorder = UIBloxFlags.GetFFlagUIBloxToastButtonTypesAutoAlignAndNoBorder(),
 	coPlayFooterChangeColorAndShowMoreFaces = UIBloxFlags.GetFFlagUIBloxUpgradeCoPlayFooter(),
+	makeDefaultLoadingStrategyDefault = UIBloxFlags.GetFFlagChangeUIBloxLoadingStrategy(),
 }

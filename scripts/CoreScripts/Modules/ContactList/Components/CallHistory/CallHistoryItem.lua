@@ -42,12 +42,10 @@ local CALL_IMAGE_SIZE = 28
 
 export type Participant = {
 	userId: number,
-	displayName: string,
-	userName: string,
 }
 
 export type Props = {
-	caller: {
+	callRecord: {
 		callId: string,
 		callerId: number,
 		participants: { Participant },
@@ -59,31 +57,30 @@ export type Props = {
 	},
 	localUserId: number,
 	showDivider: boolean,
-	useUserProfilesFetch: boolean,
 	dismissCallback: () -> (),
 	layoutOrder: number?,
 }
 
-local function isMissedCall(caller, localUserId)
-	return caller.callerId ~= localUserId and CallState.fromRawValue(caller.status) ~= CallState.Finished
+local function getIsMissedCall(callRecord, localUserId)
+	return callRecord.callerId ~= localUserId and CallState.fromRawValue(callRecord.status) ~= CallState.Finished
 end
 
 -- TODO(IRIS-864): Localization.
-local function getCallStatusText(caller, localUserId)
-	if isMissedCall(caller, localUserId) then
+local function getCallStatusText(callRecord, localUserId)
+	if getIsMissedCall(callRecord, localUserId) then
 		return "Missed"
-	elseif caller.callerId == localUserId then
+	elseif callRecord.callerId == localUserId then
 		return "Outgoing"
 	else
 		return "Incoming"
 	end
 end
 
-local function getCallContextImage(caller, localUserId)
+local function getCallContextImage(callRecord, localUserId)
 	-- TODO(IRIS-659): Replace with UIBLOX icon
-	if isMissedCall(caller, localUserId) then
+	if getIsMissedCall(callRecord, localUserId) then
 		return "rbxassetid://14439512369"
-	elseif caller.callerId == localUserId then
+	elseif callRecord.callerId == localUserId then
 		return "rbxassetid://14439517793"
 	else
 		return "rbxassetid://14439507750"
@@ -130,35 +127,29 @@ local function getTimestampText(endUtc)
 end
 
 local function CallHistoryItem(props: Props)
-	local caller = props.caller
+	local callRecord = props.callRecord
 	local localUserId = props.localUserId
 
 	-- Will update this to support more participants in a follow up.
-	assert(#caller.participants == 2, "Expect a local user and single other participant in call.")
+	assert(#callRecord.participants == 2, "Expect a local user and single other participant in call.")
 
-	-- get the participant that is not the local user
-	local participant = caller.participants[1]
-	if caller.participants[1].userId == localUserId then
-		participant = caller.participants[2]
+	-- Get the participant that is not the local user
+	local otherParticipantId = callRecord.participants[1].userId
+	if otherParticipantId == localUserId then
+		otherParticipantId = callRecord.participants[2].userId
 	end
 
 	local combinedName = ""
 	local userName = ""
 	local namesFetch = UserProfiles.Hooks.useUserProfilesFetch({
-		userIds = { tostring(participant.userId) },
+		userIds = { tostring(otherParticipantId) },
 		query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
 	})
 
-	if props.useUserProfilesFetch then
-		if namesFetch.data then
-			combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, participant.userId)
-			userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, participant.userId)
-			userName = UserProfiles.Formatters.formatUsername(userName)
-		end
-	else
-		-- Used for testing.
-		combinedName = participant.displayName
-		userName = "@" .. participant.userName
+	if namesFetch.data then
+		combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, otherParticipantId)
+		userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, otherParticipantId)
+		userName = UserProfiles.Formatters.formatUsername(userName)
 	end
 
 	local style = useStyle()
@@ -189,11 +180,11 @@ local function CallHistoryItem(props: Props)
 		coroutine.wrap(function()
 			local invokeIrisInviteRemoteEvent =
 				RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
-			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(participant.userId), combinedName)
+			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(otherParticipantId), combinedName)
 		end)()
 
 		props.dismissCallback()
-	end, dependencyArray(participant, props.dismissCallback))
+	end, dependencyArray(otherParticipantId, props.dismissCallback))
 
 	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
 		if
@@ -209,9 +200,9 @@ local function CallHistoryItem(props: Props)
 		end
 	end, {})
 
-	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(participant.userId))
+	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(otherParticipantId))
 
-	local isMissedCall = isMissedCall(caller, localUserId)
+	local isMissedCall = getIsMissedCall(callRecord, localUserId)
 
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
@@ -234,10 +225,10 @@ local function CallHistoryItem(props: Props)
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
 			[React.Event.MouseButton2Up] = function()
-				dispatch(OpenOrUpdateCFM(props.localUserId))
+				dispatch(OpenOrUpdateCFM(otherParticipantId, combinedName))
 			end,
 			[React.Event.TouchTap] = function()
-				dispatch(OpenOrUpdateCFM(props.localUserId))
+				dispatch(OpenOrUpdateCFM(otherParticipantId, combinedName))
 			end,
 			AutoButtonColor = false,
 		}, {
@@ -314,7 +305,7 @@ local function CallHistoryItem(props: Props)
 					BackgroundTransparency = 1,
 					ImageColor3 = theme.TextDefault.Color,
 					ImageTransparency = theme.TextDefault.Transparency,
-					Image = getCallContextImage(caller, localUserId),
+					Image = getCallContextImage(callRecord, localUserId),
 				}),
 
 				DetailsText = React.createElement("TextLabel", {
@@ -323,7 +314,7 @@ local function CallHistoryItem(props: Props)
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
-					Text = getCallStatusText(caller, localUserId) .. " • " .. getTimestampText(caller.endUtc),
+					Text = getCallStatusText(callRecord, localUserId) .. " • " .. getTimestampText(callRecord.endUtc),
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,

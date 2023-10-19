@@ -9,6 +9,7 @@ local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -25,6 +26,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local useSelector = dependencies.Hooks.useSelector
 
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
 local localPlayer = Players.LocalPlayer
 local localUserId: number = localPlayer and localPlayer.UserId or 0
 
@@ -32,6 +35,7 @@ export type Props = {
 	callProtocol: CallProtocol.CallProtocolModule | nil,
 	size: Vector2,
 	callBarRef: { current: GuiObject? } | nil,
+	createdUtc: number,
 }
 
 local PROFILE_SIZE = 36
@@ -44,12 +48,19 @@ local defaultProps = {
 	callProtocol = CallProtocol.CallProtocol.default,
 }
 
-local function getTextFromCallStatus(status)
+local function formatDuration(duration: number): string
+	local minutes = math.floor(duration / 60)
+	local seconds = duration % 60
+	local minutesStr = string.format("%02d", minutes)
+	local secondsStr = string.format("%02d", seconds)
+	local formattedTime = minutesStr .. ":" .. secondsStr
+
+	return formattedTime
+end
+
+local function getTextFromCallStatus(status: string)
 	-- TODO(IRIS-864): Localization.
-	if
-		status == RoduxCall.Enums.Status.Initializing.rawValue()
-		or status == RoduxCall.Enums.Status.Connecting.rawValue()
-	then
+	if status == RoduxCall.Enums.Status.Connecting.rawValue() then
 		return "Calling…"
 	elseif status == RoduxCall.Enums.Status.Teleporting.rawValue() then
 		return "Teleporting…"
@@ -58,7 +69,7 @@ local function getTextFromCallStatus(status)
 	elseif status == RoduxCall.Enums.Status.Failed.rawValue() then
 		return "Call Ended"
 	else
-		return "Error"
+		error("Invalid status for call bar: " .. status .. ".")
 	end
 end
 
@@ -68,6 +79,7 @@ local function CallBar(passedProps: Props)
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
+	local currentCallDuration, setCurrentCallDuration = React.useState("00:00")
 
 	local selectCallId = React.useCallback(function(state: any)
 		return if state.Call.currentCall then state.Call.currentCall.callId else ""
@@ -79,23 +91,23 @@ local function CallBar(passedProps: Props)
 	end)
 	local callStatus = useSelector(selectCallStatus)
 
-	local selectOtherEndParticipant = React.useCallback(function(state: any)
+	local selectOtherParticipantId = React.useCallback(function(state: any)
 		local currentCall = state.Call.currentCall
 		if currentCall then
 			if localUserId == currentCall.callerId then
-				return { userId = currentCall.calleeId, displayName = currentCall.calleeDisplayName }
+				return currentCall.calleeId
 			else
-				return { userId = currentCall.callerId, displayName = currentCall.callerDisplayName }
+				return currentCall.callerId
 			end
 		end
 
 		return nil :: any
 	end)
-	local otherEndParticipant = useSelector(selectOtherEndParticipant)
+	local otherParticipantId = useSelector(selectOtherParticipantId)
 
 	local image
-	if otherEndParticipant then
-		image = getStandardSizeAvatarHeadShotRbxthumb(otherEndParticipant.userId)
+	if otherParticipantId then
+		image = getStandardSizeAvatarHeadShotRbxthumb(otherParticipantId)
 	end
 
 	local callStatusText = getTextFromCallStatus(callStatus)
@@ -110,6 +122,33 @@ local function CallBar(passedProps: Props)
 			props.callProtocol:cancelCall(callId)
 		end
 	end, { callStatus, props.callProtocol })
+
+	React.useEffect(function()
+		local callDurationTimerConnection = RunService.Heartbeat:Connect(function()
+			if not props.createdUtc then
+				return
+			end
+
+			local duration = os.time() - (props.createdUtc / 1000)
+			local durationString = formatDuration(duration)
+
+			setCurrentCallDuration(durationString)
+		end)
+
+		return function()
+			callDurationTimerConnection:Disconnect()
+		end
+	end, {})
+
+	local namesFetch = UserProfiles.Hooks.useUserProfilesFetch({
+		userIds = { tostring(otherParticipantId) },
+		query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
+	})
+
+	local combinedName = ""
+	if namesFetch.data then
+		combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, otherParticipantId)
+	end
 
 	return React.createElement("Frame", {
 		Size = UDim2.fromOffset(props.size.X, props.size.Y),
@@ -167,9 +206,7 @@ local function CallBar(passedProps: Props)
 				BorderSizePixel = 0,
 				Font = font.CaptionHeader.Font,
 				LayoutOrder = 1,
-				Text = if otherEndParticipant and otherEndParticipant.displayName
-					then otherEndParticipant.displayName
-					else "",
+				Text = combinedName,
 				TextColor3 = theme.TextEmphasis.Color,
 				TextSize = font.BaseSize * font.CaptionHeader.RelativeSize,
 				TextTransparency = theme.TextEmphasis.Transparency,
@@ -183,7 +220,9 @@ local function CallBar(passedProps: Props)
 				BorderSizePixel = 0,
 				Font = font.Footer.Font,
 				LayoutOrder = 2,
-				Text = callStatusText,
+				Text = if callStatus == RoduxCall.Enums.Status.Active.rawValue()
+					then currentCallDuration
+					else callStatusText,
 				TextColor3 = Colors.White,
 				TextSize = font.BaseSize * font.Footer.RelativeSize,
 				TextTransparency = 0.4,

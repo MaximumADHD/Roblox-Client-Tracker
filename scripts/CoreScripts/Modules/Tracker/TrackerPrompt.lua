@@ -16,6 +16,7 @@ local t = require(CorePackages.Packages.t)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
 local FFlagTrackerPromptNewCopyEnabled2 = game:DefineFastFlag("TrackerPromptNewCopyEnabled2", false)
+local FFlagTrackerPromptNewCopyForCameraPerformanceEnabled = game:DefineFastFlag("TrackerPromptNewCopyForCameraPerformanceEnabled", false)
 
 local TOAST_DURATION = 8
 local PROMPT_DISPLAY_ORDER = 10
@@ -33,7 +34,9 @@ local PromptTitle = {
 		else RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoNoPermission"),
 	[TrackerPromptType.NotAvailable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.NotAvailable"),
 	[TrackerPromptType.FeatureDisabled] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.FacialAnimation"),
-	[TrackerPromptType.LODCameraRecommendDisable] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoPerformancePromptDisable"),
+	[TrackerPromptType.LODCameraRecommendDisable] = if FFlagTrackerPromptNewCopyForCameraPerformanceEnabled
+		then RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.LowPerformanceDetected")
+		else RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoPerformancePromptDisable"),
 	[TrackerPromptType.NoDynamicHeadEquipped] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.PromptNoDynamicHeadEquipped"),
 	[TrackerPromptType.VideoUnsupported] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoUnsupported"),
 	[TrackerPromptType.UnsupportedDevice] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.NotAvailable"),

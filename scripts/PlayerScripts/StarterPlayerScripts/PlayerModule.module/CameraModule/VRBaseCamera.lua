@@ -25,6 +25,15 @@ local RunService = game:GetService("RunService")
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
+
+local FFlagUserVRPlayerScriptsMisc
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRPlayerScriptsMisc")
+	end)
+	FFlagUserVRPlayerScriptsMisc = success and result
+end
+
 local FFlagUserVRRotationUpdate do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserVRRotationUpdate")
@@ -53,11 +62,21 @@ VRBaseCamera.__index = VRBaseCamera
 
 function VRBaseCamera.new()
 	local self = setmetatable(BaseCamera.new(), VRBaseCamera)
-
-	-- distance is different in VR
-	self.defaultDistance = VR_ZOOM
-	self.defaultSubjectDistance = math.clamp(self.defaultDistance, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
-	self.currentSubjectDistance = math.clamp(self.defaultDistance, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
+	
+	if FFlagUserVRPlayerScriptsMisc then
+		-- zoom levels cycles when pressing R3 on a gamepad, not multiplied by headscale yet
+		self.gamepadZoomLevels = {0, VR_ZOOM}
+		
+		-- need to save headscale value to respond to changes
+		self.headScale = 1
+	
+		self:SetCameraToSubjectDistance(VR_ZOOM)
+	else
+		-- distance is different in VR
+		self.defaultDistance = VR_ZOOM
+		self.defaultSubjectDistance = math.clamp(self.defaultDistance, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
+		self.currentSubjectDistance = math.clamp(self.defaultDistance, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
+	end
 
 	-- VR screen effect
 	self.VRFadeResetTimer = 0
@@ -87,18 +106,26 @@ function VRBaseCamera:GetModuleName()
 end
 
 function VRBaseCamera:GamepadZoomPress()
-	local dist = self:GetCameraToSubjectDistance()
+	if FFlagUserVRPlayerScriptsMisc then
+		BaseCamera.GamepadZoomPress(self)
 
-	if dist > VR_ZOOM / 2 then
-		self:SetCameraToSubjectDistance(0)
-		self.currentSubjectDistance = 0
+		-- don't want the spring animation in VR, may cause motion sickness
+		self:GamepadReset()
+		self:ResetZoom()
 	else
-		self:SetCameraToSubjectDistance(VR_ZOOM)
-		self.currentSubjectDistance = VR_ZOOM
-	end
+		local dist = self:GetCameraToSubjectDistance()
 
-	self:GamepadReset()
-	self:ResetZoom()
+		if dist > VR_ZOOM / 2 then
+			self:SetCameraToSubjectDistance(0)
+			self.currentSubjectDistance = 0
+		else
+			self:SetCameraToSubjectDistance(VR_ZOOM)
+			self.currentSubjectDistance = VR_ZOOM
+		end
+
+		self:GamepadReset()
+		self:ResetZoom()
+	end
 end
 
 function VRBaseCamera:GamepadReset()
@@ -113,7 +140,12 @@ function VRBaseCamera:ResetZoom()
 	ZoomController.ReleaseSpring()
 end
 
-function VRBaseCamera:OnEnable(enable: boolean)
+function VRBaseCamera:OnEnabledChanged(enable: boolean --[[ remove with FFlagUserVRPlayerScriptsMisc ]])
+	if FFlagUserVRPlayerScriptsMisc then
+		BaseCamera.OnEnabledChanged(self)
+		enable = self.enabled
+	end
+
 	if enable then
 		self.gamepadResetConnection = CameraInput.gamepadReset:Connect(function()
 			self:GamepadReset()
@@ -134,22 +166,29 @@ function VRBaseCamera:OnEnable(enable: boolean)
 				end
 			end)
 		end
-
 	else
 		-- make sure zoom is reset when switching to another camera
 		if self.inFirstPerson then
 			self:GamepadZoomPress()
 		end
 
+		-- disconnect connections
 		if FFlagUserVRFollowCamera then
 			if self.thirdPersonOptionChanged then
 				self.thirdPersonOptionChanged:Disconnect()
 				self.thirdPersonOptionChanged = nil
 			end
-			
+
 			if self.vrRecentered then
 				self.vrRecentered:Disconnect()
 				self.vrRecentered = nil
+			end
+		end
+			
+		if FFlagUserVRPlayerScriptsMisc then
+			if self.cameraHeadScaleChangedConn then
+				self.cameraHeadScaleChangedConn:Disconnect()
+				self.cameraHeadScaleChangedConn = nil
 			end
 		end
 
@@ -168,37 +207,82 @@ function VRBaseCamera:OnEnable(enable: boolean)
 	end
 end
 
+-- remove with FFlagUserVRPlayerScriptsMisc
 function VRBaseCamera:UpdateDefaultSubjectDistance()
-	self.defaultSubjectDistance = math.clamp(VR_ZOOM, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
+		self.defaultSubjectDistance = math.clamp(VR_ZOOM, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
 end
 
 -- Nominal distance, set by dollying in and out with the mouse wheel or equivalent, not measured distance
+-- remove with FFlagUserVRPlayerScriptsMisc
 function VRBaseCamera:GetCameraToSubjectDistance(): number
-	return self.currentSubjectDistance
+	if FFlagUserVRPlayerScriptsMisc then
+		return BaseCamera.GetCameraToSubjectDistance(self)
+	else
+		return self.currentSubjectDistance
+	end
 end
 
 -- VR only supports 1st person or 3rd person and no overrides
 function VRBaseCamera:SetCameraToSubjectDistance(desiredSubjectDistance: number): number
-	local lastSubjectDistance = self.currentSubjectDistance
-
-	local newSubjectDistance = math.clamp(desiredSubjectDistance, 0, player.CameraMaxZoomDistance)
-	if newSubjectDistance < 1.0 then
-		self.currentSubjectDistance = 0.5
-		if not self.inFirstPerson then
-			self:EnterFirstPerson()
-		end
+	if FFlagUserVRPlayerScriptsMisc then
+		return BaseCamera.SetCameraToSubjectDistance(self, desiredSubjectDistance)
 	else
-		self.currentSubjectDistance = newSubjectDistance
-		if self.inFirstPerson then
-			self:LeaveFirstPerson()
+		local lastSubjectDistance = self.currentSubjectDistance
+
+		local newSubjectDistance = math.clamp(desiredSubjectDistance, 0, player.CameraMaxZoomDistance)
+		if newSubjectDistance < 1.0 then
+			self.currentSubjectDistance = 0.5
+			if not self.inFirstPerson then
+				self:EnterFirstPerson()
+			end
+		else
+			self.currentSubjectDistance = newSubjectDistance
+			if self.inFirstPerson then
+				self:LeaveFirstPerson()
+			end
+		end
+
+		-- Pass target distance and zoom direction to the zoom controller
+		ZoomController.SetZoomParameters(self.currentSubjectDistance, math.sign(desiredSubjectDistance - lastSubjectDistance))
+
+		-- Returned only for convenience to the caller to know the outcome
+		return self.currentSubjectDistance
+	end
+end
+
+function VRBaseCamera:OnCurrentCameraChanged()
+	BaseCamera.OnCurrentCameraChanged(self)
+
+	if FFlagUserVRPlayerScriptsMisc then
+		-- disconnect connections to reestablish on new camera
+		if self.cameraHeadScaleChangedConn then
+			self.cameraHeadScaleChangedConn:Disconnect()
+			self.cameraHeadScaleChangedConn = nil
+		end
+		
+		-- add new connections if camera is valid
+		local camera = workspace.CurrentCamera :: Camera
+		if camera then
+			self.cameraHeadScaleChangedConn = camera:GetPropertyChangedSignal("HeadScale"):Connect(function() self:OnHeadScaleChanged() end)
+			self:OnHeadScaleChanged()
 		end
 	end
+end
 
-	-- Pass target distance and zoom direction to the zoom controller
-	ZoomController.SetZoomParameters(self.currentSubjectDistance, math.sign(desiredSubjectDistance - lastSubjectDistance))
+function VRBaseCamera:OnHeadScaleChanged()
+	assert(FFlagUserVRPlayerScriptsMisc)
 
-	-- Returned only for convenience to the caller to know the outcome
-	return self.currentSubjectDistance
+	local camera = workspace.CurrentCamera :: Camera
+	local newHeadScale = camera.HeadScale
+	
+	-- scale zoom levels by headscale
+	for i, zoom in self.gamepadZoomLevels do
+		self.gamepadZoomLevels[i] = zoom * newHeadScale / self.headScale
+	end
+		
+	-- rescale current distance
+	self:SetCameraToSubjectDistance(self:GetCameraToSubjectDistance()  * newHeadScale / self.headScale)
+	self.headScale = newHeadScale
 end
 
 -- defines subject and height of VR camera

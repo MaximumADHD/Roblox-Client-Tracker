@@ -40,7 +40,6 @@ local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicCo
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
-local FFlagBubbleChatCaratFix = require(RobloxGui.Modules.Flags.FFlagBubbleChatCaratFix)
 local FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService =
 	require(RobloxGui.Modules.Flags.FFlagEnableAvatarChatToggleUIUpgradeForLegacyChatService)
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
@@ -698,7 +697,7 @@ function BubbleChatBillboard:render()
 					then self.renderInsert
 					else nil,
 				insertSize = self.insertSize,
-				showCarat = if FFlagBubbleChatCaratFix then self:shouldRenderCarat() else nil,
+				showCarat = self:shouldRenderCarat(),
 			})
 		else
 			children.DistantBubble = Roact.createElement(ChatBubbleDistant, {

@@ -30,9 +30,14 @@ local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientRe
 
 local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
 local FFlagScriptProfilerSaveState = game:DefineFastFlag("ScriptProfilerSaveState", false)
+local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTimedProfiling", false)
 
 function MainViewScriptProfiler:getActiveState()
 	return self.props.isClientView, if self.props.isClientView then self.props.client else self.props.server
+end
+
+function MainViewScriptProfiler:getState(isClient)
+	return if isClient then self.props.client else self.props.server
 end
 
 function MainViewScriptProfiler:UpdateState(isClient, newState)
@@ -80,10 +85,40 @@ function MainViewScriptProfiler:init()
 		end
 	end
 
+	local function StopTimedProfiling(isClient)
+		local state = self:getState(isClient)
+
+		if state.isProfiling then
+			local data = StopScriptProfiling(isClient)
+
+			local newState = table.clone(state)
+			newState.isProfiling = false
+			newState.data = data
+			self:UpdateState(isClient, newState)
+		end
+	end
+
 	self.onUtilTabHeightChanged = function(utilTabHeight)
 		self:setState({
 			utilTabHeight = utilTabHeight
 		})
+	end
+
+	local function UpdateTimedProfilingTimer(isClient)
+		local DELTA = 1 / 2
+
+		while wait(DELTA) do
+			local state = self:getState(isClient)
+			local countdown = state.timedProfilingCountdown
+
+			if countdown <= 0 then
+				break
+			end
+
+			local newState = table.clone(state)
+			newState.timedProfilingCountdown = countdown - DELTA
+			self:UpdateState(isClient, newState)
+		end
 	end
 
 	self.onBeginProfile = function ()
@@ -95,6 +130,19 @@ function MainViewScriptProfiler:init()
 
 			local newState = table.clone(state)
 			newState.isProfiling = true
+
+			if FFlagScriptProfilerTimedProfiling and state.timedProfilingDuration > 0 then
+				newState.timedProfilingCountdown = state.timedProfilingDuration
+
+				newState.timedProfilingThread = task.delay(state.timedProfilingDuration, function()
+					StopTimedProfiling(isClientView)
+				end)
+
+				newState.timedProfilingTimerThread = task.spawn(function()
+					UpdateTimedProfilingTimer(isClientView)
+				end)
+			end
+
 			self:UpdateState(isClientView, newState)
 			return
 		end
@@ -135,6 +183,19 @@ function MainViewScriptProfiler:init()
 			local newState = table.clone(state)
 			newState.isProfiling = false
 			newState.data = data
+
+			if FFlagScriptProfilerTimedProfiling then
+				if state.timedProfilingThread then
+					task.cancel(state.timedProfilingThread)
+					newState.timedProfilingThread = nil
+				end
+
+				if state.timedProfilingTimerThread then
+					task.cancel(state.timedProfilingTimerThread)
+					newState.timedProfilingTimerThread = nil
+				end
+			end
+
 			self:UpdateState(isClientView, newState)
 			return
 		end
@@ -156,6 +217,28 @@ function MainViewScriptProfiler:init()
 				serverProfilingData = nil,
 				serverIsProfiling = false
 			})
+		end
+	end
+
+	self.toggleTimedProfiling = function ()
+		if FFlagScriptProfilerSaveState then
+			local isClientView, state = self:getActiveState()
+
+			local duration = state.timedProfilingDuration
+
+			if duration == 0 then
+				duration = 60
+			elseif duration == 60 then
+				duration = 60 * 5
+			elseif duration == 60 * 5 then
+				duration = 60 * 10
+			else
+				duration = 0
+			end
+
+			local newState = table.clone(state)
+			newState.timedProfilingDuration = duration
+			self:UpdateState(isClientView, newState)
 		end
 	end
 
@@ -304,6 +387,20 @@ local function formatFreq(freq)
 	end
 end
 
+local function formatTimer(secs: number?): string
+	if secs ~= nil then
+		if secs == 0 then
+			return ""
+		elseif secs >= 60 then
+			return string.format(": %dm", secs / 60)
+		else
+			return string.format(": %ds", secs)
+		end
+	end
+
+	return ""
+end
+
 function MainViewScriptProfiler:render()
 	local size = self.props.size
 	local formFactor = self.props.formFactor
@@ -401,6 +498,23 @@ function MainViewScriptProfiler:render()
 				[Roact.Event.Activated] = function()
 					if not isProfiling then
 						self.toggleFrequency()
+					end
+				end,
+			}) :: any,
+
+			FFlagScriptProfilerTimedProfiling and FFlagScriptProfilerSaveState and Roact.createElement("TextButton", {
+				Text = "Time" .. formatTimer(if isProfiling then state.timedProfilingCountdown else state.timedProfilingDuration),
+				TextSize = TEXT_SIZE,
+				TextColor3 = TEXT_COLOR,
+				Font = FONT,
+
+				AutoButtonColor = true,
+				BackgroundColor3 = if isProfiling then Constants.Color.InactiveBox else BACKGROUND_COLOR,
+				BackgroundTransparency = 0,
+
+				[Roact.Event.Activated] = function()
+					if not isProfiling then
+						self.toggleTimedProfiling()
 					end
 				end,
 			}) :: any,

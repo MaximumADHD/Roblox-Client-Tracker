@@ -1,19 +1,36 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
+	local Rodux = require(CorePackages.Rodux)
+	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
+	local Reducer = require(script.Parent.Parent.Parent.Reducer)
 	local ConfigureFriendMenu = require(script.Parent.ConfigureFriendMenu)
 
 	it("menu items should be named block and unfriend", function()
-		local element = Roact.createElement(
-			UIBlox.Core.Style.Provider,
-			{},
-			{ ConfigureFriendMenu = Roact.createElement(ConfigureFriendMenu) }
-		)
+		local store = Rodux.Store.new(Reducer, {
+			PlayerMenu = {
+				isOpen = true,
+				userId = 1234567891,
+				combinedName = "testText",
+			},
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			StyleProvider = Roact.createElement(
+				UIBlox.Core.Style.Provider,
+				{},
+				{ ConfigureFriendMenu = Roact.createElement(ConfigureFriendMenu) }
+			),
+		})
 
 		local folder = Instance.new("Folder")
 
@@ -37,8 +54,8 @@ return function()
 		jestExpect(unfriendText).never.toBeNull()
 
 		-- check if buttons names are correct
-		jestExpect(blockText.Text).toBe("Block")
-		jestExpect(unfriendText.Text).toBe("Unfriend")
+		jestExpect(blockText.Text).toBe("Block testText")
+		jestExpect(unfriendText.Text).toBe("Unfriend testText")
 
 		Roact.unmount(instance)
 	end)

@@ -6,6 +6,11 @@ type SessionState = {
 	isProfiling: boolean,
 	data: {}?,
 	frequency: number,
+
+	timedProfilingThread: thread?,
+	timedProfilingTimerThread: thread?,
+	timedProfilingDuration: number,
+	timedProfilingCountdown: number,
 }
 
 export type State = {
@@ -19,8 +24,12 @@ return function(state: State?, action: {[string]: any}): State
 	local scriptProfilerState = state or {
 		isClientView = true,
 		usePercentages = false,
-		client = { isProfiling = false, data = nil, frequency = 1000, },
-		server = { isProfiling = false, data = nil, frequency = 1000, },
+		client = { isProfiling = false, data = nil, frequency = 1000,
+					timedProfilingThread = nil, timedProfilingTimerThread = nil,
+					timedProfilingDuration = 0, timedProfilingCountdown = 0, },
+		server = { isProfiling = false, data = nil, frequency = 1000,
+					timedProfilingThread = nil, timedProfilingTimerThread = nil,
+					timedProfilingDuration = 0, timedProfilingCountdown = 0,},
 	}
 
 	if action.type == SetScriptProfilerState.name then

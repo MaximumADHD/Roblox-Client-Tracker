@@ -12,12 +12,13 @@ local httpRequest = HttpRequest.config({
     end
 })
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
+local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 
 local services = {
     networking = httpRequest,
     playersService = Players, 
-    game = game, 
-    apolloClient = ApolloClient
+    apolloClient = ApolloClient,
+    analytics = Analytics.new(),
 }
 
-SocialContextToastContainer(services)
+SocialContextToastContainer(services, game.GameId, game.PlaceId)

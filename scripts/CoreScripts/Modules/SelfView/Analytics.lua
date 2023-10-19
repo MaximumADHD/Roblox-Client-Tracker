@@ -9,9 +9,6 @@ end
 
 debugPrint("Self View Analytics 10-19-2022__1")
 
-local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-local FFlagUpdatePlaySessionIdSelfView = game:DefineFastFlag("UpdatePlaySessionIdSelfView", false) and EngineFeatureRbxAnalyticsServiceExposePlaySessionId
-
 local FFlagAvatarChatIncludeSelfViewOnTelemetry = game:DefineFastFlag("AvatarChatIncludeSelfViewOnTelemetry", false)
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
@@ -128,7 +125,7 @@ function Analytics:reportMicState(isOn)
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
 		uid = tostring((Players.LocalPlayer :: Player).UserId),
-		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		sessionid = tostring(self._impl:GetPlaySessionId()),
 	})
 end
 
@@ -139,7 +136,7 @@ function Analytics:reportCamState(isOn)
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
 		uid = tostring((Players.LocalPlayer :: Player).UserId),
-		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		sessionid = tostring(self._impl:GetPlaySessionId()),
 	})
 end
 
@@ -149,7 +146,7 @@ function Analytics:reportSelfViewEnabledInCoreGuiState(isOn)
 		state = isOn,
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
-		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		sessionid = tostring(self._impl:GetPlaySessionId()),
 	})
 end
 
@@ -158,7 +155,7 @@ function Analytics:reportSelfViewSessionStarted(x, y, width, height, x_relative,
 	self:_report("SelfView", "sessionStarted", "true", {
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
-		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		sessionid = tostring(self._impl:GetPlaySessionId()),
 		x = tostring(x),
 		y = tostring(y),
 		width = tostring(width),
@@ -179,7 +176,7 @@ function Analytics:reportSelfViewSessionStopped()
 	self:_report("SelfView", "sessionStopped", "true", {
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
-		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		sessionid = tostring(self._impl:GetPlaySessionId()),
 	})
 
 	if FFlagAvatarChatIncludeSelfViewOnTelemetry then
@@ -192,7 +189,7 @@ function Analytics:reportUserAccountSettings(userAccount_videoEnabled: boolean, 
 	self:_report("SelfView", "userAccountSettings", "true", {
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
-		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		sessionid = tostring(self._impl:GetPlaySessionId()),
 		videoenabled = tostring(userAccount_videoEnabled),
 		audioenabled = tostring(userAccount_audioEnabled),
 	})
@@ -203,7 +200,7 @@ function Analytics:reportExperienceSettings(experienceSettings_placeEnabled:bool
 	self:_report("SelfView", "experienceSettings", "true", {
 		universeid = tostring(game.GameId),
 		pid = tostring(game.PlaceId),
-		sessionid = if FFlagUpdatePlaySessionIdSelfView then tostring(self._impl:GetPlaySessionId()) else tostring(self._impl:GetSessionId()),
+		sessionid = tostring(self._impl:GetPlaySessionId()),
 		placeenabled = tostring(experienceSettings_placeEnabled),
 		videoenabled = tostring(experienceSettings_videoEnabled),
 		audioenabled = tostring(experienceSettings_audioEnabled),

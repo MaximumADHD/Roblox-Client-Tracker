@@ -95,6 +95,8 @@ function SubscriptionPurchaseOverlay:getErrorType()
 		return PurchaseErrorType.SubscriptionInvalidSaleLocation
 	elseif props.purchaseError == PurchaseError.SubscriptionNotForSale then
 		return PurchaseErrorType.SubscriptionNotForSale
+	elseif props.purchaseError == PurchaseError.VpcRequired then
+		return PurchaseErrorType.VpcRequired
 	end
 
 	return PurchaseErrorType.Unknown

@@ -6,6 +6,7 @@ local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -15,14 +16,14 @@ local OpenOrUpdateDialog = require(ContactList.Actions.OpenOrUpdateDialog)
 local dependencies = require(ContactList.dependencies)
 local UIBlox = dependencies.UIBlox
 
-local GetUserV2FromUserId = dependencies.NetworkingUsers.GetUserV2FromUserId
-
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
 
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local IconSize = UIBlox.App.Constant.IconSize
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
+local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 local useStyle = UIBlox.Core.Style.useStyle
 
 local ErrorType = require(ContactList.Enums.ErrorType)
@@ -48,13 +49,6 @@ local function CallDialogContainer(passedProps: Props)
 	local dispatch = useDispatch()
 
 	local containerSize, setContainerSize = React.useState(Vector2.new(0, 0))
-	local busyCalleeUserId, setBusyCalleeUserId = React.useState(nil)
-
-	local busyCalleeDisplayName = useSelector(function(state)
-		return if busyCalleeUserId and state.Users.byUserId[tostring(busyCalleeUserId)]
-			then state.Users.byUserId[tostring(busyCalleeUserId)].displayName
-			else nil
-	end) :: string?
 
 	local title = useSelector(function(state)
 		return state.Dialog.title
@@ -68,6 +62,34 @@ local function CallDialogContainer(passedProps: Props)
 		return newBodyText == prevBodyText
 	end)
 
+	local callerId = useSelector(function(state)
+		return state.Dialog.callerId
+	end)
+
+	local calleeId = useSelector(function(state)
+		return state.Dialog.calleeId
+	end)
+
+	local callerCombinedName = ""
+	local calleeCombinedName = ""
+	local namesFetch = UserProfiles.Hooks.useUserProfilesFetch({
+		userIds = { tostring(callerId), tostring(calleeId) },
+		query = UserProfiles.Queries.userProfilesCombinedNameByUserIds,
+	})
+
+	-- The name should be cached since it must have been loaded for the call to
+	-- be placed.
+	if namesFetch.data then
+		callerCombinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, tostring(callerId))
+		calleeCombinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, tostring(calleeId))
+	end
+
+	local formattedBodyText = React.useMemo(function()
+		return bodyText
+			:gsub("{callerCombinedName}", callerCombinedName)
+			:gsub("{calleeCombinedName}", calleeCombinedName)
+	end, dependencyArray(bodyText, callerCombinedName, calleeCombinedName))
+
 	local isOpen = useSelector(function(state)
 		return state.Dialog.isOpen
 	end, function(newIsOpen, prevIsOpen)
@@ -78,12 +100,29 @@ local function CallDialogContainer(passedProps: Props)
 		local callMessageConn = props.callProtocol:listenToHandleCallMessage(function(params)
 			if params.messageType == CallProtocol.Enums.MessageType.CallError.rawValue() then
 				-- TODO(IRIS-864): Localization.
+				local callerId = params.callInfo.callerId
+				local calleeId = params.callInfo.calleeId
+
 				if params.errorType == ErrorType.CallerIsInAnotherCall.rawValue() then
-					dispatch(OpenOrUpdateDialog("Couldn't make call", "You're already on a call."))
+					dispatch(OpenOrUpdateDialog("Couldn't make call", "You're already on a call.", callerId, calleeId))
 				elseif params.errorType == ErrorType.CalleeIsInAnotherCall.rawValue() then
-					setBusyCalleeUserId(params.callInfo.calleeId)
+					dispatch(
+						OpenOrUpdateDialog(
+							"Caller is busy",
+							"{calleeCombinedName} is currently busy and can't receive your call right now. Please try again later.",
+							callerId,
+							calleeId
+						)
+					)
 				else
-					dispatch(OpenOrUpdateDialog("Oh No!", "Something went wrong. Please try again later."))
+					dispatch(
+						OpenOrUpdateDialog(
+							"Oh no!",
+							"Something went wrong. Please try again later.",
+							callerId,
+							calleeId
+						)
+					)
 				end
 			end
 		end)
@@ -93,25 +132,18 @@ local function CallDialogContainer(passedProps: Props)
 		end
 	end, { props.callProtocol })
 
-	React.useEffect(function()
-		if busyCalleeUserId and not busyCalleeDisplayName then
-			-- Make network request if user's display name was not cached
-			dispatch(GetUserV2FromUserId.API(busyCalleeUserId))
-		end
-	end, dependencyArray(busyCalleeUserId, busyCalleeDisplayName))
-
-	React.useEffect(function()
-		if busyCalleeDisplayName then
-			dispatch(
-				OpenOrUpdateDialog(
-					"Caller is busy",
-					busyCalleeDisplayName
-						.. " is currently busy and can't receive your call right now. Please try again later."
-				)
-			)
-			setBusyCalleeUserId(nil)
-		end
-	end, { busyCalleeDisplayName })
+	local renderLoading = React.useCallback(function()
+		return Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 48),
+			BackgroundTransparency = 1,
+		}, {
+			Spinner = Roact.createElement(LoadingSpinner, {
+				anchorPoint = Vector2.new(0.5, 0.5),
+				position = UDim2.fromScale(0.5, 0.5),
+				size = UDim2.fromOffset(IconSize.Large, IconSize.Large),
+			}),
+		})
+	end, {})
 
 	return React.createElement(Roact.Portal, {
 		target = CoreGui :: Instance,
@@ -138,7 +170,8 @@ local function CallDialogContainer(passedProps: Props)
 			CallDialog = React.createElement(InteractiveAlert, {
 				screenSize = containerSize,
 				title = title,
-				bodyText = bodyText,
+				bodyText = if callerCombinedName ~= "" and calleeCombinedName ~= "" then formattedBodyText else nil,
+				middleContent = if callerCombinedName == "" or calleeCombinedName == "" then renderLoading else nil,
 				buttonStackInfo = {
 					buttons = {
 						{

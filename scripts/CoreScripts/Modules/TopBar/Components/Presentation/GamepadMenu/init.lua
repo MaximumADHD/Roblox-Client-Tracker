@@ -77,6 +77,7 @@ local LocalPlayer = Players.LocalPlayer
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
 local FFlagAddMenuNavigationToggleDialog = require(script.Parent.Parent.Parent.Flags.FFlagAddMenuNavigationToggleDialog)
+local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -251,7 +252,16 @@ end
 
 function GamepadMenu.openUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-	ChromeService:toggleOpen()
+	if GetFFlagEnableUnibarSneakPeak() then 
+		ChromeService:open() 
+	else 
+		ChromeService:toggleOpen() 
+	end
+end
+
+function GamepadMenu.closeUnibarMenu()
+	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
+	ChromeService:close()
 end
 
 function GamepadMenu.toggleChatVisible()
@@ -586,6 +596,10 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 			GuiService.SelectedObject = nil
 
 			GuiService:SetMenuIsOpen(true, GAMEPAD_MENU_KEY)
+
+			if GetFFlagEnableUnibarSneakPeak() and ChromeEnabled() then
+				GamepadMenu.closeUnibarMenu()		
+			end	
 		else
 			self:unbindMenuOpenActions()
 

@@ -93,6 +93,7 @@ local DEFAULT_BUTTONS_BAR_HEIGHT = 36
 local DEFAULT_SELF_VIEW_FRAME_COLOR = Color3.new(1, 1, 1)
 local BACKGROUND_TRANSPARENCY = 0.65
 local SCREEN_BORDER_OFFSET = 3
+local SELF_VIEW_POSITION_OFFSET = 24
 local SELF_VIEW_NAME = "SelfView"
 local IS_STUDIO = RunService:IsStudio()
 local toggleSelfViewSignal = require(RobloxGui.Modules.SelfView.toggleSelfViewSignal)
@@ -101,6 +102,7 @@ local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalyti
 local selfViewPublicApi = require(RobloxGui.Modules.SelfView.publicApi)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local GetFFlagIrisGyroEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisGyroEnabled
+local GetFFlagSelfViewPositionDragFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewPositionDragFixEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -612,6 +614,11 @@ local function inputBegan(frame, inputObj)
 			return
 		end
 
+		if GetFFlagSelfViewPositionDragFixEnabled() then
+			-- Reset AnchorPoint back to (0, 0) in the case that the frame's anchor point has been adjusted
+			frame.AnchorPoint = Vector2.new(0, 0)
+		end
+		
 		local inputType = inputObject.UserInputType
 
 		-- Multiple touches should not affect dragging the Self View. Only the original touch.
@@ -1080,18 +1087,17 @@ local function createViewport()
 				-- use current position
 				local newSelfViewPosition = nil
 				local anchorPoint = nil
-				local screenSize = frame.Parent.AbsoluteSize
 				if selfViewPosition == Enum.SelfViewPosition.TopLeft then
-					newSelfViewPosition = UDim2.new(0, SCREEN_BORDER_OFFSET, 0, SCREEN_BORDER_OFFSET)
+					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
 					anchorPoint = Vector2.new(0, 0)
 				elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
-					newSelfViewPosition = UDim2.new(1, -SCREEN_BORDER_OFFSET, 0, SCREEN_BORDER_OFFSET)
+					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
 					anchorPoint = Vector2.new(1, 0)
 				elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
-					newSelfViewPosition = UDim2.new(0, SCREEN_BORDER_OFFSET, 1, -SCREEN_BORDER_OFFSET)
+					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
 					anchorPoint = Vector2.new(0, 1)
 				elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
-					newSelfViewPosition = UDim2.new(1, -SCREEN_BORDER_OFFSET, 1, -SCREEN_BORDER_OFFSET)
+					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
 					anchorPoint = Vector2.new(1, 1)
 				end
 				showSelfView(true, newSelfViewPosition, anchorPoint)

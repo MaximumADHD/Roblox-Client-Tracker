@@ -18,7 +18,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagEnableVoiceChatRejoinOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatRejoinOnBlock)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
-local GetFFlagVoiceCheckLocalNetworkSet = require(RobloxGui.Modules.Flags.GetFFlagVoiceCheckLocalNetworkSet)
 local GetFIntEnableVoiceChatRejoinOnBlockDelay =
 	require(RobloxGui.Modules.Flags.GetFIntEnableVoiceChatRejoinOnBlockDelay)
 local GetFFlagVoiceChatDUARGate = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatDUARGate)
@@ -49,10 +48,10 @@ local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
 local GetFFlagVoiceChatReportOutOfOrderSequence =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
-local GetFFlagAvatarChatBanMessage = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatBanMessage)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local GetFFlagVoiceChatServiceManagerUseAvatarChat =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
+local GetFFlagMutedNotSendOnLeavingOrEnded = require(RobloxGui.Modules.Flags.GetFFlagMutedNotSendOnLeavingOrEnded)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local GetFFlagLuaConsumePlayerModerated = require(RobloxGui.Modules.Flags.GetFFlagLuaConsumePlayerModerated)
@@ -739,19 +738,6 @@ function VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 	self:showPrompt(VoiceChatPromptType.VoiceLoading)
 end
 
-function VoiceChatServiceManager:checkLocalNetworkPermission()
-	if GetFFlagVoiceCheckLocalNetworkSet() then
-		return self.PermissionsService
-			:hasPermissions({
-				PermissionsProtocol.Permissions.LOCAL_NETWORK,
-			})
-			:andThen(function(permissionResponse)
-				return permissionResponse and Promise.resolve() or Promise.reject()
-			end)
-	end
-	return Promise.reject()
-end
-
 function VoiceChatServiceManager:requestMicPermission()
 	if self.permissionPromise then
 		-- We save this so that we only call PermissionProtocol once. It realy doesn't like getting called twice
@@ -760,9 +746,6 @@ function VoiceChatServiceManager:requestMicPermission()
 		return self.permissionPromise
 	end
 	local permissions = { PermissionsProtocol.Permissions.MICROPHONE_ACCESS }
-	if game:GetEngineFeature("PermissionsProtocolAllowsLocalNetworkAuthorization") then
-		table.insert(permissions, PermissionsProtocol.Permissions.LOCAL_NETWORK)
-	end
 
 	local promiseStart
 	if FFlagAvatarChatCoreScriptSupport then
@@ -799,35 +782,7 @@ function VoiceChatServiceManager:requestMicPermission()
 			else
 				permissionGranted = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
 			end
-			if GetFFlagVoiceCheckLocalNetworkSet() then
-				if permissionGranted then
-					return Promise.resolve()
-				else
-					if FFlagAvatarChatCoreScriptSupport then
-						return self.PermissionsService
-							:requestPermissions({ PermissionsProtocol.Permissions.LOCAL_NETWORK })
-							:andThen(function(localNetworkResponse)
-								self:_reportJoinFailed("missingPermissions")
-								local missingPermissions = localNetworkResponse.missingPermissions
-								local networkPermissionDenied = missingPermissions
-									and #missingPermissions == 1
-									and missingPermissions[1] == "LOCAL_NETWORK"
-								return networkPermissionDenied and (if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):checkLocalNetworkPermission()
-									or Promise.reject()
-							end)
-					else
-						self:_reportJoinFailed("missingPermissions")
-						local missingPermissions = permissionResponse.missingPermissions
-						local networkPermissionDenied = missingPermissions
-							and #missingPermissions == 1
-							and missingPermissions[1] == "LOCAL_NETWORK"
-						return networkPermissionDenied and (if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):checkLocalNetworkPermission()
-							or Promise.reject()
-					end
-				end
-			else
-				return permissionGranted and Promise.resolve() or Promise.reject()
-			end
+			return permissionGranted and Promise.resolve() or Promise.reject()
 		end)
 		:andThen(function()
 			-- Check volume settings. Show prompt if volume is 0
@@ -1532,13 +1487,24 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		self.stateConnection = self.service.StateChanged:Connect(function(oldState, newState)
 			local inFailedState = newState == (Enum :: any).VoiceChatState.Failed
 			local inConnectingState = newState == (Enum :: any).VoiceChatState.Joining
+			local inLeavingState = newState == (Enum :: any).VoiceChatState.Leaving
+			local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
 			local newMuted = self.service:IsPublishPaused()
 			if GetFFlagEnableErrorIconFix() then
-				if newMuted ~= self.localMuted and not inFailedState and not inConnectingState then
-					self.localMuted = newMuted
-					self.muteChanged:Fire(newMuted)
-				elseif inConnectingState then
-					self.localMuted = nil
+				if GetFFlagMutedNotSendOnLeavingOrEnded() then
+					if newMuted ~= self.localMuted and not inFailedState and not inConnectingState and not inLeavingState and not inEndedState then
+						self.localMuted = newMuted
+						self.muteChanged:Fire(newMuted)
+					elseif inConnectingState or inLeavingState or inEndedState then
+						self.localMuted = nil
+					end
+				else
+					if newMuted ~= self.localMuted and not inFailedState and not inConnectingState then
+						self.localMuted = newMuted
+						self.muteChanged:Fire(newMuted)
+					elseif inConnectingState then
+						self.localMuted = nil
+					end
 				end
 			else
 				if newMuted ~= self.localMuted then

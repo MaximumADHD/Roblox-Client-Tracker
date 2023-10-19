@@ -1,5 +1,5 @@
-game:DefineFastFlag("ChatTranslationSettingEnabled2", false)
+game:DefineFastFlag("ChatTranslationSettingEnabled3", false)
 
 return function()
-	return game:GetFastFlag("ChatTranslationSettingEnabled2")
+	return game:GetFastFlag("ChatTranslationSettingEnabled3")
 end

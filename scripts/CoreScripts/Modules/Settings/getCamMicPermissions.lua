@@ -34,6 +34,7 @@ local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local getFFlagDecoupleHasAndRequestPermissions = require(RobloxGui.Modules.Flags.getFFlagDecoupleHasAndRequestPermissions)
 local AvatarChatService : any = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
 type Table = { [any]: any }
@@ -65,7 +66,7 @@ local function removePermissionsBasedOnUserSetting(allowedSettings: AllowedSetti
 	return permissionsToCheck
 end
 
-local function requestPermissions(allowedSettings : AllowedSettings, callback, invokeNextRequest, permsToCheck)
+local function requestPermissions(allowedSettings : AllowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms:boolean?)
 	local cacheCamera = true
 	local cacheMic = true
 	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled() then
@@ -87,6 +88,33 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 		callback(response)
 		return
 	end
+
+	if getFFlagDecoupleHasAndRequestPermissions() and shouldNotRequestPerms == true then
+		-- Call PermissionsProtocol:hasPermissions but do not requestPermissions when denied
+		return Promise.new(function(resolve, _)
+			local hasPermissionAuthorizedResult = {}
+
+			for _, permission in ipairs(permissionsToCheck) do
+				local success, result = PermissionsProtocol:hasPermissions({ permission }):await()
+				if success then
+					hasPermissionAuthorizedResult[permission] = result.status == PermissionsProtocol.Status.AUTHORIZED
+				else
+					hasPermissionAuthorizedResult[permission] = false
+				end
+			end
+
+			local response = {
+				hasCameraPermissions = hasPermissionAuthorizedResult[PermissionsProtocol.Permissions.CAMERA_ACCESS] or false,
+				hasMicPermissions = hasPermissionAuthorizedResult[PermissionsProtocol.Permissions.MICROPHONE_ACCESS] or false,
+			}
+			callback(response)
+			inProgress = false
+			invokeNextRequest()
+
+			resolve(hasPermissionAuthorizedResult)
+		end)
+	end
+
 	-- First check if permissions were already given.
 	return PermissionsProtocol:hasPermissions(permissionsToCheck):andThen(function(hasPermissionsResult)
 		-- If permissions have already granted
@@ -172,7 +200,8 @@ local function tryGetCachedResults(permsToCheck) : CachedResult?
 end
 
 -- TODO Make callback required with removal of FFlagUpdateCamMicPermissioning
-local function getCamMicPermissions(callback, permissionsToRequest: Array<string>?)
+-- If shouldNotRequestPerms is true, we only obtain the current state of device permissions instead of requesting them.
+local function getCamMicPermissions(callback, permissionsToRequest: Array<string>?, shouldNotRequestPerms: boolean?)
 	local permsToCheck: Array<string> = {}
 	if permissionsToRequest then
 		permsToCheck = permissionsToRequest
@@ -188,7 +217,11 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 		if requestPermissionsQueue[1] then
 			local nextRequest = requestPermissionsQueue[1]
 			table.remove(requestPermissionsQueue, 1)
-			getCamMicPermissions(nextRequest.callback, nextRequest.permsToCheck)
+			if getFFlagDecoupleHasAndRequestPermissions() then
+				getCamMicPermissions(nextRequest.callback, nextRequest.permissionsToRequest, nextRequest.shouldNotRequestPerms)
+			else
+				getCamMicPermissions(nextRequest.callback, nextRequest.permsToCheck)
+			end
 		end
 	end
 
@@ -234,7 +267,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 					end)
 				end
 			end):andThen(function(allowedSettings)
-				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck)
+				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms)
 			end)
 		else
 			local placeSettingsPromise = Promise.new(function(resolve, _)
@@ -270,7 +303,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 				}
 				return combinedAllowedSettings
 			end):andThen(function(allowedSettings)
-				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck)
+				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms)
 			end)
 		end
 	else

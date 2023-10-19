@@ -23,13 +23,14 @@ local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 
-local GameInvitePackage, GameInviteModalManager, GameInviteInviteExperimentVariant, GetCustomizedInvitePromptTrigger, GameInviteConstants
+local GameInvitePackage, GameInviteModalManager, GameInviteInviteExperimentVariant, GetCustomizedInvitePromptTrigger, GameInviteConstants, GameInviteAnalyticsManager
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
 	GameInviteModalManager = GameInvitePackage.GameInviteModalManager
 	GameInviteInviteExperimentVariant = GameInvitePackage.GameInviteInviteExperimentVariant
 	GetCustomizedInvitePromptTrigger = GameInvitePackage.GetCustomizedInvitePromptTrigger
 	GameInviteConstants = GameInvitePackage.GameInviteConstants
+	GameInviteAnalyticsManager = GameInvitePackage.GameInviteAnalyticsManager
 end
 
 local inviteToGameAnalytics = InviteToGameAnalytics.new()
@@ -54,10 +55,9 @@ end
 
 SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOptions: Instance?)
 	local newGameInviteModalEnabled = false
+	local layer = GetFStringGameInviteMenuLayer()
 	if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() and FFlagLuaEnableGameInviteModalInvitePrompt then
-		local layer = GetFStringGameInviteMenuLayer()
 		local layerData = IXPServiceWrapper:GetLayerData(layer)
-		IXPServiceWrapper:LogUserLayerExposure(layer)
 		newGameInviteModalEnabled = (
 			layerData
 			and (
@@ -88,6 +88,10 @@ SocialService.PromptInviteRequested:Connect(function(player, experienceInviteOpt
 			local trigger = GetCustomizedInvitePromptTrigger(options)
 			--new flow only handles multi invite
 			if trigger == GameInviteConstants.Triggers.DeveloperMultiple then
+				GameInviteAnalyticsManager:withButtonName(GameInviteAnalyticsManager.ButtonName.ModalPrompt)
+				GameInviteAnalyticsManager:inputShareGameEntryPoint()
+
+				IXPServiceWrapper:LogUserLayerExposure(layer)
 				GameInviteModalManager:openModal({
 					trigger = trigger :: any,
 				}, options)

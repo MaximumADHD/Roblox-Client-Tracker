@@ -39,22 +39,35 @@ local function CallBarContainer(passedProps: Props)
 	local dispatch = useDispatch()
 	local callBarRef = React.useRef(nil)
 
-	local selectCurrentCall = React.useCallback(function(state: any)
-		return state.Call.currentCall
-	end)
-	local currentCall = useSelector(selectCurrentCall)
+	local selectCurrentCallStatus = React.useCallback(function(state: any)
+		return if state.Call.currentCall ~= nil then state.Call.currentCall.status else nil
+	end, {})
+	local currentCallStatus = useSelector(selectCurrentCallStatus)
 
-	local currentCallStatus = nil
+	local hideCallBarAndEndCall = React.useCallback(function()
+		pcall(function()
+			if callBarRef and callBarRef.current then
+				callBarRef.current:TweenPosition(
+					UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
+					Enum.EasingDirection.In,
+					Enum.EasingStyle.Quad,
+					0.3,
+					true,
+					function()
+						dispatch(RoduxCall.Actions.EndCall())
+					end
+				)
+			else
+				dispatch(RoduxCall.Actions.EndCall())
+			end
+		end)
+	end, {})
 
-	if currentCall ~= nil then
-		currentCallStatus = currentCall.status
-	end
+	local createdUtc, setCreatedUtc = React.useState(os.time())
 
 	React.useEffect(function()
-		local initCallConn = props.callProtocol:listenToHandleInitCall(function(params)
-			dispatch(RoduxCall.Actions.UpdateCall(params))
-		end)
-
+		-- We just listen for the transitions we care about here. However, it is
+		-- worth noting that GetCallState could return us a call in another state.
 		local connectingCallConn = props.callProtocol:listenToHandleConnectingCall(function(params)
 			if GetFFlagCorescriptsSoundManagerEnabled() then
 				SoundManager:PlaySound(
@@ -94,37 +107,23 @@ local function CallBarContainer(passedProps: Props)
 				if params.callAction == CallAction.Finish.rawValue() and GetFFlagCorescriptsSoundManagerEnabled() then
 					SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 				end
-				pcall(function()
-					if callBarRef and callBarRef.current then
-						callBarRef.current:TweenPosition(
-							UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
-							Enum.EasingDirection.In,
-							Enum.EasingStyle.Quad,
-							0.3,
-							true,
-							function()
-								dispatch(RoduxCall.Actions.EndCall())
-							end
-						)
-					else
-						dispatch(RoduxCall.Actions.EndCall())
-					end
-				end)
+				hideCallBarAndEndCall()
 			end
 		end)
 
 		props.callProtocol:getCallState():andThen(function(params)
 			dispatch(RoduxCall.Actions.UpdateCall(params))
+
+			setCreatedUtc(params.createdUtc)
 		end)
 
 		return function()
-			initCallConn:Disconnect()
 			connectingCallConn:Disconnect()
 			teleportingCallConn:Disconnect()
 			activeCallConn:Disconnect()
 			endCallConn:Disconnect()
 		end
-	end, { props.callProtocol })
+	end, { props.callProtocol, hideCallBarAndEndCall })
 
 	React.useEffect(function()
 		local taskThread: nil | thread
@@ -132,24 +131,13 @@ local function CallBarContainer(passedProps: Props)
 		if currentCallStatus then
 			if currentCallStatus == RoduxCall.Enums.Status.Failed.rawValue() then
 				taskThread = task.delay(0.5, function()
-					pcall(function()
-						if callBarRef and callBarRef.current then
-							callBarRef.current:TweenPosition(
-								UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
-								Enum.EasingDirection.In,
-								Enum.EasingStyle.Quad,
-								0.3,
-								true,
-								function()
-									dispatch(RoduxCall.Actions.EndCall())
-								end
-							)
-						else
-							dispatch(RoduxCall.Actions.EndCall())
-						end
-					end)
+					hideCallBarAndEndCall()
 				end)
-			else
+			elseif
+				currentCallStatus == RoduxCall.Enums.Status.Connecting.rawValue()
+				or currentCallStatus == RoduxCall.Enums.Status.Teleporting.rawValue()
+				or currentCallStatus == RoduxCall.Enums.Status.Active.rawValue()
+			then
 				pcall(function()
 					if callBarRef and callBarRef.current then
 						callBarRef.current:TweenPosition(
@@ -170,9 +158,16 @@ local function CallBarContainer(passedProps: Props)
 				taskThread = nil
 			end
 		end
+	end, { currentCallStatus, hideCallBarAndEndCall })
+
+	local isCallBarEnabled = React.useMemo(function()
+		return currentCallStatus == RoduxCall.Enums.Status.Connecting.rawValue()
+			or currentCallStatus == RoduxCall.Enums.Status.Teleporting.rawValue()
+			or currentCallStatus == RoduxCall.Enums.Status.Active.rawValue()
+			or currentCallStatus == RoduxCall.Enums.Status.Failed.rawValue()
 	end, { currentCallStatus })
 
-	return if currentCall
+	return if isCallBarEnabled
 		then React.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
@@ -184,6 +179,7 @@ local function CallBarContainer(passedProps: Props)
 			CallBar = React.createElement(CallBar, {
 				size = CALL_BAR_SIZE,
 				callBarRef = callBarRef,
+				createdUtc = createdUtc,
 			}),
 		})
 		else nil

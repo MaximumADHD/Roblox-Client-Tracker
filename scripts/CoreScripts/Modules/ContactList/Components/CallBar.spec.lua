@@ -32,6 +32,7 @@ return function()
 					callerDisplayName = "Display Name 1",
 					calleeDisplayName = "Display Name 2",
 					gameInstanceId = "gameId",
+					createdUtc = os.time(),
 				},
 			},
 		}, {
@@ -44,6 +45,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallBar = Roact.createElement(CallBar, {
 					size = Vector2.new(200, 44),
+					createdUtc = os.time(),
 				}),
 			}),
 		})
@@ -53,7 +55,7 @@ return function()
 
 		local detailTextElement: TextLabel = folder:FindFirstChild("DetailsText", true) :: TextLabel
 		expect(detailTextElement).never.toBeNil()
-		expect(detailTextElement.Text).toBe("Roblox Call")
+		expect(detailTextElement.Text).toBe("00:00")
 
 		Roact.unmount(instance)
 	end)

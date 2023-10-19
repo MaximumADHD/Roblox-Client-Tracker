@@ -98,7 +98,7 @@ local function onPlayerAdded(player: Player)
 	}):andThen(function(profile)
 		local profileData = profile.data.userProfiles[1]
 		setNameOnCharacterAdded(player, profileData)
-	end)
+	end, function() end)
 end
 
 local function onPlayerRemoving(player: Player)
