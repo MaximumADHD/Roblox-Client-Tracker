@@ -50,6 +50,8 @@ VerticalScrollView.validateProps = t.strictInterface({
 	isGamepadFocusable = t.optional(t.boolean),
 	-- If the vertical scrolling list can scroll or not
 	scrollingEnabled = t.optional(t.boolean),
+	-- Whether or not MainCanvas can be selected by a gamepad
+	selectable = t.optional(t.boolean),
 
 	-- Optional passthrough props for the scrolling frame
 	[Roact.Change.CanvasPosition] = t.optional(t.callback),
@@ -77,6 +79,7 @@ VerticalScrollView.defaultProps = {
 	canvasSizeY = UDim.new(2, 0),
 	useAutomaticCanvasSize = false,
 	isGamepadFocusable = false,
+	selectable = nil,
 	scrollingEnabled = true,
 	scrollBarType = ScrollBarType.Compact,
 }
@@ -322,6 +325,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			ScrollBarImageTransparency = 1,
 			ScrollBarThickness = 0,
 
+			Selectable = self.props.selectable,
 			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			onFocusGained = isGamepadFocusable and self.onGamepadFocused or nil,
 			onFocusLost = isGamepadFocusable and self.onGamepadFocusLost or nil,

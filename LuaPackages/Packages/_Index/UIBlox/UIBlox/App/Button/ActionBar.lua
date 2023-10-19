@@ -64,7 +64,7 @@ end
 
 ActionBar.validateProps = t.strictInterface({
 	-- buttons: A table of button tables that contain props that PrimaryContextualButton allow.
-	-- See [Button](Button.md) for more information.
+	-- See [[Button]] for more information.
 	button = t.optional(t.strictInterface({
 		props = Button.validateProps,
 	})),

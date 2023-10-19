@@ -58,7 +58,7 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	renderInfoContent = t.optional(t.callback),
 
 	-- Props for the embedded action bar component.
-	-- See [ActionBar](../../Button/ActionBar.md) for more information.
+	-- See [[ButtonStack]] for more information.
 	actionBarProps = t.optional(ActionBar.validateProps),
 
 	-- The table of props for the content of the details page

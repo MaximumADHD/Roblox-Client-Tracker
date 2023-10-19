@@ -148,6 +148,12 @@ local rawKeyToRawValue = {
 	--
 	SubscriptionInvalidSaleLocation = "SubscriptionInvalidSaleLocation",
 
+	--[[ PurchaseErrorType.VpcRequired
+	User is U18 and does not have VPC approval
+	]]
+	--
+	VpcRequired = "VpcRequired",
+
 	--[[ PurchaseErrorType.Unknown
     This error is for when the user runs into an error during a generic robux purchase
     ]]

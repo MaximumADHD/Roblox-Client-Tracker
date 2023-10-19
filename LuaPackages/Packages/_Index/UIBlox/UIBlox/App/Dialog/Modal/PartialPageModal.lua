@@ -46,7 +46,7 @@ PartialPageModal.validateProps = t.strictInterface({
 	-- Used to set the left/right margin's of the middle content in the modal
 	marginSize = t.optional(t.number),
 	-- Button stack validates the contents.
-	-- See [ButtonStack](../Button/ButtonStack.md) for more details.
+	-- See [[ButtonStack]] for more details.
 	buttonStackProps = t.optional(ButtonStack.validateProps),
 
 	-- Accepts any element

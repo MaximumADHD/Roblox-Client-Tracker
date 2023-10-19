@@ -99,6 +99,8 @@ function ErrorPrompt:getErrorMessage(locMap: { [string]: string }, errorType: an
 		or errorType == PurchaseErrorType.SubscriptionInvalidSaleLocation
 	then
 		return locMap.subscriptionUnsupportedPlatformText
+	elseif errorType == PurchaseErrorType.VpcRequired then
+		return locMap.vpcRequiredText
 	end
 
 	return locMap.unknownText
@@ -200,6 +202,9 @@ function ErrorPrompt:render()
 			},
 			subscriptionUnsupportedPlatformText = {
 				key = LOC_KEY:format("Text.SubscriptionUnsupportedPlatform"),
+			},
+			vpcRequiredText = {
+				key = LOC_KEY:format("Text.VpcRequired"),
 			},
 		},
 		render = function(locMap: { [string]: string })

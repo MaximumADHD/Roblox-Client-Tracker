@@ -51,7 +51,7 @@ Alert.validateProps = t.strictInterface({
 	-- Function that returns a Roact element to render. Use this for checkboxes and other custom components.
 	-- The content will render between the bodyText (if any) and buttons (if any)
 	middleContent = t.optional(t.callback),
-	-- Array of buttons. See [ButtonStack](../../Button/ButtonStack) for more info.
+	-- Array of buttons. See [[ButtonStack]] for more info.
 	buttonStackInfo = t.optional(ButtonStack.validateProps),
 	-- Function that returns a Roact element to render
 	footerContent = t.optional(t.callback),

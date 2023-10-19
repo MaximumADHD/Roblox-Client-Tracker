@@ -6,6 +6,7 @@
 	</auto-generated>
 --------------------------------------------------------------------------------------------------------]]
     return{
+    ["IAPExperience.RobuxUpsell.Action.Cancel"] = [[Hủy]],
     ["IAPExperience.PremiumUpsell.Title.GetPremium"] = [[Nhận Premium]],
     ["IAPExperience.PremiumUpsell.Action.Subscribe"] = [[Đăng ký]],
     ["IAPExperience.PremiumUpsell.Label.PremiumBenefitListDesc"] = [[Roblox Premium sẽ giúp bạn:]],
@@ -32,6 +33,7 @@
     ["IAPExperience.PurchaseSuccess.Action.Equip"] = [[Trang bị hình đại diện của tôi]],
     ["IAPExperience.PurchaseSuccess.Action.BackToShop"] = [[Quay lại Cửa hàng]],
     ["IAPExperience.PurchaseSuccess.Text.BalanceNow"] = [[Số dư của bạn bây giờ {robux}.]],
+    ["IAPExperience.U13Confirm.Action.Cancel"] = [[Hủy]],
     ["IAPExperience.PurchaseError.Text.AlreadySubscribed"] = [[Bạn có thể quản lý đăng ký của mình từ Cài đặt > Đăng ký.]],
     ["IAPExperience.Loading.Text.PurchasingRobux"] = [[Mua Robux...]],
     ["IAPExperience.Loading.Text.PurchasingItem"] = [[Đang mua vật phẩm...]],

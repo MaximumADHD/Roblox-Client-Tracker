@@ -144,6 +144,7 @@ function BaseMenu:renderFixedHeightMenu(props, stylePalette, children)
 			}, {
 				ScrollingFrame = Roact.createElement(VerticalScrollView, {
 					canvasSizeY = UDim.new(0, #props.buttonProps * props.elementHeight),
+					selectable = if UIBloxConfig.fixFixedHeightMenuFrameSelectable then false else nil,
 				}, children),
 			}),
 		}),

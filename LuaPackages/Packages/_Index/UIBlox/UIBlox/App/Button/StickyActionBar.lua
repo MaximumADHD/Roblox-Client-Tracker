@@ -37,7 +37,7 @@ local StickyActionBar = Roact.PureComponent:extend("StickyActionBar")
 
 StickyActionBar.validateProps = t.strictInterface({
 	-- Props to render the ActionBar component.
-	-- See [ActionBar](../Components/Button/ActionBar.md) for more information.
+	-- See [[ActionBar]] for more information.
 	actionBarProps = t.optional(ActionBar.validateProps),
 	-- Info used to render the info section in the `StickyActionBar`.
 	infoProps = t.optional(t.strictInterface({

@@ -70,8 +70,6 @@ PlayerTile.defaultProps = {
 	relevancyInfo = {},
 	tileSize = UDim2.new(0, 150, 0, 150),
 	onActivated = function() end,
-	title = if UIBloxConfig.removeDefaultValueForPlayerTileName then nil else "",
-	subtitle = if UIBloxConfig.removeDefaultValueForPlayerTileName then nil else "",
 	Selectable = false,
 }
 

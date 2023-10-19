@@ -73,7 +73,7 @@ function PropParser.parseProps(typechecking: Types.Typechecking, props: string, 
 			end
 		end
 
-		if string.match(line, "[{%(]$") then
+		if string.match(line, "[=:] .-[{%(]$") then
 			depth += 1
 			-- Beginning of a multi-line type definition
 			if depth > 1 then
@@ -162,6 +162,11 @@ function PropParser._sanitizeProps(typechecking: Types.Typechecking, props: stri
 	return props
 end
 
+function splitPropOnDelimiter(propType: string, joiner: string, isMultiline: boolean)
+	local delimiter = "," .. if isMultiline then "\n" else " "
+	return table.concat(string.split(propType, delimiter), " " .. joiner .. " ")
+end
+
 local tInterfacePattern = "s?t?r?i?c?t?[iI]nterface"
 local luauPropPattern = "^%s*(%[?%w+%]?):%s+(.*)"
 local luauKeyPattern = "^%s*%[(%w+)%]: %{\n(.*)\n%s*%}"
@@ -170,7 +175,7 @@ function PropParser._getProp(
 	typechecking: Types.Typechecking,
 	line: string
 ): (string?, string | Types.PropType | nil, boolean)
-	local isMultiline = string.match(line, "\n")
+	local isMultiline = string.match(line, "\n") ~= nil
 
 	-- Strip trailing whitespace
 	line = line:gsub("%s+$", "")
@@ -227,7 +232,7 @@ function PropParser._getProp(
 
 			local i = 0
 			local propTypeQualifier = nil
-			local innerPropPattern = "^(%w+)%((.+)" .. (if isMultiline then "\n" else "%)$")
+			local innerPropPattern = "^%s*(%w+)%((.+)" .. (if isMultiline then "\n" else "%s*%)$")
 			local outerClassifier, innerPropType = string.match(propType, innerPropPattern)
 			while outerClassifier and innerPropType and i < 20 do
 				assert(outerClassifier ~= nil, "outerClassifier cannot be nil in this codepath")
@@ -243,9 +248,9 @@ function PropParser._getProp(
 					propType = innerPropType
 					propFormat = "Map<" .. propFormat .. ">"
 				elseif outerClassifier == "union" then
-					propType = table.concat(string.split(innerPropType, ", "), " | ")
+					propType = splitPropOnDelimiter(innerPropType, "|", isMultiline)
 				elseif outerClassifier == "intersection" then
-					propType = table.concat(string.split(innerPropType, ", "), " & ")
+					propType = splitPropOnDelimiter(innerPropType, "&", isMultiline)
 				elseif outerClassifier == "numberMin" then
 					propType = innerPropType
 					propFormat = "number > " .. propFormat
@@ -262,18 +267,23 @@ function PropParser._getProp(
 				end
 
 				outerClassifier, innerPropType = string.match(propType, innerPropPattern)
+				if isMultiline and innerPropType then
+					innerPropType = innerPropType:gsub("\n%s*", "\n")
+				end
 				i += 1
 			end
 
 			if isMultiline then
 				local propsPattern = tInterfacePattern .. "%(%{\n(.*)\n%s*%}%).*"
 				local props = string.match(line, propsPattern)
-				return propName,
-					{
-						Qualifier = propTypeQualifier or Types.PropTypeQualifiers.Interface,
-						Props = PropParser.parseProps(typechecking, props),
-					},
-					isOptional
+				if props then
+					return propName,
+						{
+							Qualifier = propTypeQualifier or Types.PropTypeQualifiers.Interface,
+							Props = PropParser.parseProps(typechecking, props),
+						},
+						isOptional
+				end
 			end
 
 			if i == 20 then

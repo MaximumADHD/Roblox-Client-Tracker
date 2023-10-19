@@ -57,6 +57,7 @@ return function(UrlBuilder)
 			privacy = UrlBuilder.fromString("www:my/account#!/privacy"),
 			parentalControls = UrlBuilder.fromString("www:my/account#!/parental-controls"),
 			billing = UrlBuilder.fromString("www:my/account#!/billing"),
+			subscriptions = UrlBuilder.fromString("www:my/account#!/subscriptions"),
 			notifications = UrlBuilder.fromString("www:my/account#!/notifications"),
 		},
 		tencent = {

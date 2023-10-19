@@ -2,6 +2,7 @@ local RoduxCall = script:FindFirstAncestor("RoduxCall")
 local Root = RoduxCall.Parent
 local Rodux = require(Root.Rodux) :: any
 local SuggestedCalleeModel = require(RoduxCall.Models).SuggestedCalleeModel :: any
+local ClearSuggestedCallees = require(RoduxCall.Actions).ClearSuggestedCallees :: any
 
 local roduxCallTypes = require(script.Parent.Parent.roduxCallTypes)
 
@@ -24,6 +25,9 @@ return function(options)
 			end
 
 			return { suggestedCallees = suggestedCalleesResult }
+		end,
+		[ClearSuggestedCallees.name] = function(_: roduxCallTypes.GetSuggestedCallees, _)
+			return DEFAULT_STATE
 		end,
 	})
 end

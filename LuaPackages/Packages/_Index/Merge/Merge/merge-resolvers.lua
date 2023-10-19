@@ -68,7 +68,7 @@ local function mergeResolvers<TSource, TContext>(
 		-- end)())
 		not Boolean.toJSBoolean(resolversDefinitions)
 		-- ROBLOX FIXME Luau: should narrow options.exclusions type
-		or (Array.isArray(resolversDefinitions) and #(resolversDefinitions :: IResolvers<TSource, TContext>) == 0)
+		or (Array.isArray(resolversDefinitions) and #(resolversDefinitions :: Array<any>) == 0)
 		-- ROBLOX deviation END
 	then
 		return {}
@@ -82,7 +82,7 @@ local function mergeResolvers<TSource, TContext>(
 
 	-- ROBLOX deviation START: explicit cast, fix .length
 	-- if resolversDefinitions.length == 1 then
-	if #(resolversDefinitions :: IResolvers<TSource, TContext>) == 1 then
+	if #(resolversDefinitions :: Array<any>) == 1 then
 		-- ROBLOX deviation END
 		-- ROBLOX deviation START: explicit cast
 		-- return Boolean.toJSBoolean(resolversDefinitions[
