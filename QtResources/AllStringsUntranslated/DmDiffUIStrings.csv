@@ -2,7 +2,7 @@ Key,Context,Source,en-us
 Studio.App.DmDiffUI.Title1,,%1 Diff Viewer,%1 Diff Viewer
 Studio.App.DmDiffUI.Compare,,Compare,Compare
 Studio.App.DmDiffUI.with,,with,with
-Studio.App.DmDiffUI.Model,,Model,Model
+Studio.App.DmDiffUI.Visual.Diff.Tab,,Visual Overview,Visual Overview
 Studio.App.DmDiffUI.Properties,,Properties,Properties
 Studio.App.DmDiffUI.Added1,,%1 (added),%1 (added)
 Studio.App.DmDiffUI.Deleted1,,%1 (deleted),%1 (deleted)

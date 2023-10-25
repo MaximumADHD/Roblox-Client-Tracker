@@ -1059,6 +1059,7 @@ Class HingeConstraint : Constraint
 	Property HingeConstraint.AngularResponsiveness: number
 	Property HingeConstraint.AngularSpeed: number
 	Property HingeConstraint.ServoMaxTorque: number
+	Property HingeConstraint.SoftlockServoUponReachingTarget: boolean
 	Property HingeConstraint.TargetAngle: number
 Class LineForce : Constraint
 	Property LineForce.ApplyAtCenterOfMass: boolean
@@ -1111,6 +1112,7 @@ Class SlidingBallConstraint : Constraint [NotCreatable]
 	Property SlidingBallConstraint.Velocity: number
 	Property SlidingBallConstraint.LinearResponsiveness: number
 	Property SlidingBallConstraint.ServoMaxForce: number
+	Property SlidingBallConstraint.SoftlockServoUponReachingTarget: boolean
 	Property SlidingBallConstraint.Speed: number
 	Property SlidingBallConstraint.TargetPosition: number
 	Property SlidingBallConstraint.ActuatorType: Enum.ActuatorType
@@ -1125,6 +1127,7 @@ Class CylindricalConstraint : SlidingBallConstraint
 	Property CylindricalConstraint.AngularResponsiveness: number
 	Property CylindricalConstraint.AngularSpeed: number
 	Property CylindricalConstraint.ServoMaxTorque: number
+	Property CylindricalConstraint.SoftlockAngularServoUponReachingTarget: boolean
 	Property CylindricalConstraint.TargetAngle: number
 	Property CylindricalConstraint.RotationAxisVisible: boolean
 	Property CylindricalConstraint.AngularActuatorType: Enum.ActuatorType
@@ -1551,6 +1554,7 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.ShowHover: boolean [ReadOnly]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
 Class DynamicImage : Instance
+	Property DynamicImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property DynamicImage.Size: Vector2
 	Function DynamicImage:Copy(min: Vector2, max: Vector2) -> DynamicImage
 	Function DynamicImage:Crop(min: Vector2, max: Vector2) -> ()
@@ -1562,6 +1566,7 @@ Class DynamicImage : Instance
 	Function DynamicImage:Resize(size: Vector2) -> ()
 	Function DynamicImage:Rotate(degrees: number, changeSize: boolean) -> ()
 	Function DynamicImage:WritePixels(position: Vector2, size: Vector2, pixels: { any }) -> () [CustomLuaState]
+Class EngineAPICloudProcessingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class EulerRotationCurve : Instance
 	Property EulerRotationCurve.RotationOrder: Enum.RotationOrder
 	Function EulerRotationCurve:GetAnglesAtTime(time: number) -> { any }
@@ -1767,7 +1772,9 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Geometry : Instance [NotCreatable] [Service]
 Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:CalculateConstraintsToPreserve(source: Instance, destination: { any }, options: { [string]: any }? = nil) -> { any }
+	Function GeometryService:HashMeshAsync(meshId: string) -> string {RobloxScriptSecurity} [Yields]
 	Function GeometryService:IntersectAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } [Yields]
+	Function GeometryService:StitchMeshesAsync(meshParts: { any }) -> string {RobloxScriptSecurity} [Yields]
 	Function GeometryService:SubtractAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } [Yields]
 	Function GeometryService:UnionAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } [Yields]
 Class GetTextBoundsParams : Instance [NotReplicated]
@@ -3060,11 +3067,11 @@ Class MemoryStoreService : Instance [Service]
 	Function MemoryStoreService:GetQueue(name: string, invisibilityTimeout: number? = 30) -> MemoryStoreQueue
 	Function MemoryStoreService:GetSortedMap(name: string) -> MemoryStoreSortedMap
 Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
-	Function MemoryStoreSortedMap:GetAsync(key: string) -> any [Yields]
-	Function MemoryStoreSortedMap:GetRangeAsync(direction: Enum.SortDirection, count: number, exclusiveLowerBound: string? = "", exclusiveUpperBound: string? = "") -> { any } [Yields]
+	Function MemoryStoreSortedMap:GetAsync(key: string) -> ...any [Yields]
+	Function MemoryStoreSortedMap:GetRangeAsync(direction: Enum.SortDirection, count: number, exclusiveLowerBound: any, exclusiveUpperBound: any) -> { any } [Yields]
 	Function MemoryStoreSortedMap:RemoveAsync(key: string) -> () [Yields]
-	Function MemoryStoreSortedMap:SetAsync(key: string, value: any, expiration: number) -> boolean [Yields]
-	Function MemoryStoreSortedMap:UpdateAsync(key: string, transformFunction: (...any) -> ...any, expiration: number) -> any [Yields]
+	Function MemoryStoreSortedMap:SetAsync(key: string, value: any, expiration: number, sortKey: any) -> boolean [Yields]
+	Function MemoryStoreSortedMap:UpdateAsync(key: string, transformFunction: (...any) -> ...any, expiration: number) -> ...any [Yields]
 Class Message : Instance [Deprecated]
 	Property Message.Text: string [Deprecated]
 Class Hint : Message [Deprecated]
@@ -3162,6 +3169,7 @@ Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 	Function ClientReplicator:RequestRCCProfilerData(frameRate: number, timeFrame: number) -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerScriptProfiling(start: boolean, frequency: number?) -> () {RobloxScriptSecurity}
+	Function ClientReplicator:RequestServerScriptProfilingData() -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerStats(request: boolean) -> () {RobloxScriptSecurity}
 	Event ClientReplicator.RCCProfilerDataComplete(success: boolean, message: string) {RobloxScriptSecurity}
 	Event ClientReplicator.StatsReceived(stats: { [string]: any }) {RobloxScriptSecurity}
@@ -3211,6 +3219,7 @@ Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function OpenCloudService:HttpRequestAsync(options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function OpenCloudService:InvokeAsync(version: string, methodName: string, arguments: { [string]: any }) -> { [string]: any } [Yields]
 	Function OpenCloudService:RegisterOpenCloud(version: string, methodName: string, method: (...any) -> ...any) -> () {RobloxScriptSecurity}
+	Function OpenCloudService:RegistrationComplete() -> () {RobloxScriptSecurity}
 Class OperationTree : Instance
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property PVInstance.Pivot Offset: CFrame [NotReplicated] [NotScriptable]
@@ -3420,6 +3429,8 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:WorldToCellPreferSolid(position: Vector3) -> Vector3
 	Function Terrain:WriteVoxels(region: Region3, resolution: number, materials: { any }, occupancy: { any }) -> () [CustomLuaState]
 Class TriangleMeshPart : BasePart [NotCreatable]
+	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
+	Property TriangleMeshPart.FluidFidelityInternal: Enum.FluidFidelity {RobloxSecurity} [Hidden] [NotScriptable]
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.AeroMeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property TriangleMeshPart.MeshSize: Vector3 [ReadOnly]
@@ -3586,8 +3597,8 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity}
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
-	Property Workspace.NewPhysicsSolver: Enum.PhysicsSolver [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
+	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
 	Property Workspace.ReplicateInstanceDestroySetting: Enum.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Workspace.Retargeting: Enum.AnimatorRetargetingMode
 	Property Workspace.SignalBehavior: Enum.SignalBehavior [NotScriptable]
@@ -3798,7 +3809,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property PhysicsSettings.IsReceiveAgeShown: boolean
 	Property PhysicsSettings.IsTreeShown: boolean
 	Property PhysicsSettings.ShowDecompositionGeometry: boolean
-	Property PhysicsSettings.ShowFluidForcesForSelectedOrHoveredAssemblies: boolean {RobloxScriptSecurity}
+	Property PhysicsSettings.ShowFluidForcesForSelectedOrHoveredMechanisms: boolean {RobloxScriptSecurity}
 	Property PhysicsSettings.SolverConvergenceMetricType: Enum.SolverConvergenceMetricType {RobloxScriptSecurity}
 	Property PhysicsSettings.SolverConvergenceVisualizationMode: Enum.SolverConvergenceVisualizationMode {RobloxScriptSecurity}
 	Property PhysicsSettings.UseCSGv2: boolean
@@ -4331,6 +4342,8 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RibbonNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RibbonNotificationService:NewNotificationFromPlugin(notificationId: string) -> () {RobloxScriptSecurity}
+	Function RibbonNotificationService:NewNotificationFromPlugin2(notificationId: string) -> () {RobloxScriptSecurity}
+	Event RibbonNotificationService.NewNotificationFromRibbon(notificationId: string) {RobloxScriptSecurity}
 	Event RibbonNotificationService.NewNotificationId(notificationId: string) {RobloxScriptSecurity}
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
@@ -4413,6 +4426,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptContext:ClearScriptProfilingData() -> () {RobloxScriptSecurity}
 	Function ScriptContext:DeserializeScriptProfilerString(jsonString: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetCoverageStats() -> { any } {RobloxScriptSecurity}
+	Function ScriptContext:GetScriptProfilingData() -> string {RobloxScriptSecurity}
 	Function ScriptContext:SaveScriptProfilingData(filename: string) -> () {RobloxScriptSecurity}
 	Function ScriptContext:SetTimeout(seconds: number) -> () {PluginSecurity}
 	Function ScriptContext:StartScriptProfiling(frequency: number?) -> () {RobloxScriptSecurity}
@@ -4645,6 +4659,7 @@ Class SmoothVoxelsUpgraderService : Instance [NotCreatable] [Service] [NotReplic
 	Event SmoothVoxelsUpgraderService.Status(progressRatio: number) {RobloxScriptSecurity}
 Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean [Yields]
 	Function SocialService:CanSendIrisInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:HideSelfView() -> ()
@@ -4653,14 +4668,18 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:InvokeIrisInvitePromptClosed(player: Instance) -> () {RobloxScriptSecurity}
 	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> ()
 	Function SocialService:PromptIrisInvite(player: Instance, tag: string) -> ()
+	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
 	Function SocialService:ShowSelfView(selfViewPosition: Enum.SelfViewPosition? = "LastPosition") -> ()
+	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState)
 	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any })
 	Event SocialService.IrisInviteInitiated(message: string) {RobloxSecurity} [Hidden]
 	Event SocialService.IrisInvitePromptClosed(player: Instance)
+	Event SocialService.PhoneBookPromptClosed(player: Instance)
 	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {RobloxScriptSecurity}
 	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {RobloxScriptSecurity}
 	Event SocialService.SelfViewHidden() {RobloxScriptSecurity}
 	Event SocialService.SelfViewVisible(selfViewPosition: Enum.SelfViewPosition) {RobloxScriptSecurity}
+	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance
 	Callback SocialService.OnIrisInviteInvoked(tag: string, irisParticipantIds: { any }) -> Instance
 Class Sound : Instance
 	Property Sound.ChannelCount: number {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
@@ -5513,6 +5532,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CanLoadAsset(assetId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CheckMeshInCameraFrustum(meshId: string, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:GetDynamicHeadMeshInactiveControls(meshId: string, controlNames: { any }) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshTriCount(meshId: string) -> number {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVertColors(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
@@ -5525,6 +5545,8 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateCageUVTriangleArea(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateDynamicHeadMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateFullBodyCageDeletion(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidateImageTransparencyThresholdByteString(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidateImageTransparencyThresholdTextureID(textureId: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateMeshBounds(meshId: string, meshScale: Vector3, boundsOffset: Vector3, attachmentCF: CFrame, handleCF: CFrame) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateMeshTriangleArea(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateMeshTriangles(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
@@ -5535,7 +5557,6 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateSkinnedMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlpha(textureId: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlphaByteString(byteString: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:ValidateTextureRGBFromFile(path1: string, path2: string, crop_x: number, crop_y: number, screen_x: number, screen_y: number, color1: Color3, color2: Color3, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureSize(textureId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateUVSpace(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateUVValuesInReference(referenceValues: { any }, meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6006,6 +6027,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(muteState: Enum.MuteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventClientToServer(tag: number, value: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventServerToClient(tag: number, value: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceChatSubscriptionInitialBatchEmpty(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(userId: number, muted: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(voiceControlPath: Enum.VoiceControlPath, serializedFailure: string, sessionId: string) {RobloxSecurity} [Hidden]
 Class WeldConstraint : Instance
@@ -6881,6 +6903,10 @@ Enum FinishRecordingOperation
 	EnumItem FinishRecordingOperation.Cancel : 0
 	EnumItem FinishRecordingOperation.Commit : 1
 	EnumItem FinishRecordingOperation.Append : 2
+Enum FluidFidelity
+	EnumItem FluidFidelity.Automatic : 0
+	EnumItem FluidFidelity.UseCollisionGeometry : 1
+	EnumItem FluidFidelity.UsePreciseGeometry : 2
 Enum FluidForces
 	EnumItem FluidForces.Default : 0
 	EnumItem FluidForces.Experimental : 1
@@ -7180,6 +7206,11 @@ Enum InterpolationThrottlingMode
 	EnumItem InterpolationThrottlingMode.Default : 0
 	EnumItem InterpolationThrottlingMode.Disabled : 1
 	EnumItem InterpolationThrottlingMode.Enabled : 2
+Enum InviteState
+	EnumItem InviteState.Placed : 0
+	EnumItem InviteState.Accepted : 1
+	EnumItem InviteState.Declined : 2
+	EnumItem InviteState.Missed : 3
 Enum ItemLineAlignment
 	EnumItem ItemLineAlignment.Automatic : 0
 	EnumItem ItemLineAlignment.Start : 1
@@ -7725,10 +7756,6 @@ Enum PhysicsSimulationRate
 	EnumItem PhysicsSimulationRate.Fixed240Hz : 0
 	EnumItem PhysicsSimulationRate.Fixed120Hz : 1
 	EnumItem PhysicsSimulationRate.Fixed60Hz : 2
-Enum PhysicsSolver
-	EnumItem PhysicsSolver.Default : 0
-	EnumItem PhysicsSolver.Enabled : 1
-	EnumItem PhysicsSolver.Disabled : 2
 Enum PhysicsSteppingMethod
 	EnumItem PhysicsSteppingMethod.Default : 0
 	EnumItem PhysicsSteppingMethod.Fixed : 1
@@ -7785,6 +7812,10 @@ Enum PoseEasingStyle
 Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
+Enum PrimalPhysicsSolver
+	EnumItem PrimalPhysicsSolver.Default : 0
+	EnumItem PrimalPhysicsSolver.Experimental : 1
+	EnumItem PrimalPhysicsSolver.Disabled : 2
 Enum PrimitiveType
 	EnumItem PrimitiveType.Null : 0
 	EnumItem PrimitiveType.Ball : 1

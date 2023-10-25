@@ -303,9 +303,13 @@ Studio.GameSettings.General.NumberError,Please enter a number, ,Please enter a n
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
 Studio.GameSettings.General.ServerRestartWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing
+Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements, ,Requirements
+Studio.GameSettings.General.TitleScriptDraftsMode,Enable Drafts Mode, ,Enable Drafts Mode
+Studio.GameSettings.General.EnableTeamCreateForDraftsMode,Turn on Team Create to enable Drafts Mode for scripts, ,Turn on Team Create to enable Drafts Mode for scripts
 Studio.GameSettings.General.TitleJump,Jump, ,Jump
 Studio.GameSettings.General.TitleCollaborators,Collaborators, ,Collaborators
 Studio.GameSettings.General.ScriptCollabDesc,Enable collaborative editing for scripts., ,Enable collaborative editing for scripts.
+Studio.GameSettings.General.ScriptDraftsMode,Enable Drafts Mode for scripts., ,Enable Drafts Mode for scripts.
 Studio.GameSettings.Monetization.UnsavedDevProduct,(Not Saved), ,(Not Saved)
 Studio.GameSettings.General.ErrorDevSubMaxPrice,Must be less than {maxRobuxAmount:int}, ,Must be less than {maxRobuxAmount:int}
 Studio.GameSettings.Places.EditPlace,Edit Place, ,Edit Place
@@ -406,7 +410,6 @@ Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email
 Studio.GameSettings.OptInLocations.ConfirmEmailAddress,Confirm email address, ,Confirm email address
 Studio.GameSettings.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", ,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]"
 Studio.GameSettings.OptInLocations.ChinaRequirements, to publish to China, , to publish to China
-Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements, ,Requirements
 Studio.GameSettings.OptInLocations.Status,Status: , ,Status: 
 Studio.GameSettings.OptInLocations.EmailSubmitFailure,Failed to submit email for review feedback. Error code: , ,Failed to submit email for review feedback. Error code: 
 Studio.GameSettings.OptInLocations.SavedGameWarning,You must publish your game before publishing to opt-in locations., ,You must publish your game before publishing to opt-in locations.

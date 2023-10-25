@@ -104,4 +104,7 @@ Studio.App.DataModelPackageManager.DonTNotifyMeAgain,,Don't notify me again,Don'
 Studio.App.DataModelPackageManager.UnexpectedPlacementNewVersions,,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.
 Studio.Common.Action.Update,,Update,Update
 Studio.App.Package.Version1,,Version %1,Version %1
-Studio.App.Package.VersionCurrent,,Current,Current
+Studio.App.Package.Version.Current1,,Version %1 (Current),Version %1 (Current)
+Studio.App.Package.Version.Latest1,,Version %1 (Latest),Version %1 (Latest)
+Studio.App.Package.Version.Local,,Local Copy,Local Copy
+Studio.App.Package.ShowPackagesDiff1,,Compare %1 Package Versions,Compare %1 Package Versions

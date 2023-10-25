@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CommunityLinks",
+    "tree": {
+      "$path": "../../../../../../../modules/communities/community-links/src"
+    }
+  }
+}

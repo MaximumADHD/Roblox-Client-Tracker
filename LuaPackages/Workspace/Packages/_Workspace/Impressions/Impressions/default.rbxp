@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Impressions",
+    "tree": {
+      "$path": "../../../../../../../modules/impressions/src"
+    }
+  }
+}

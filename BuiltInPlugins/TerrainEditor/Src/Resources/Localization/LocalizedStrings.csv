@@ -79,6 +79,7 @@ Studio.TerrainEditor.BiomeSettings.Biomes,Biomes, ,Biomes,Biomas,Biomes, ,バイ
 Studio.TerrainEditor.Generate.Biomes,Biomes,Biomen,Biomes,Biomas,Biomes,Biomi,バイオーム,생물군,Biomas,Биомы,生态,生态,生物群系
 Studio.TerrainEditor.Biomes.Dunes,Dunes, ,Dunes,Dunas,Dunes, ,砂丘,모래 언덕,Dunas, , , , 
 Studio.TerrainEditor.Generate.BiomeDunes,Dunes,Dünen,Dunes,Dunas,Dunes,Dune,砂丘,모래 언덕,Dunas,Дюны,沙丘,沙丘,沙丘
+Studio.TerrainEditor.Operations.CreateDescription,Filling empty voxels with water in the transform., ,Filling empty voxels with water in the transform.,Rellenar vóxeles vacíos con agua en Transformación.,Remplir des voxels vides avec de l'eau dans la transformation.,Riempire i voxel vuoti con acqua nella trasformazione., ,변환에서 빈 복셀을 물로 채웁니다., , , , , 
 Studio.TerrainEditor.Generate.BiomeLavaflow,Lavaflow,Lavafluss,Lavaflow,Flujo de lava,Flot de lave,Flusso di lava,溶岩,용암,Fluxo de lava,Поток лавы,熔岩流,熔岩流,岩漿流
 Studio.TerrainEditor.Biomes.Plains,Plains, ,Plains,Llanuras,Plaines, ,平野,평야,Planícies, , , , 
 Studio.TerrainEditor.Generate.BiomePlains,Plains,Felder,Plains,Llanuras,Plaines,Pianure,平野,평야,Planícies,Равнины,平原,平原,平原
@@ -87,6 +88,7 @@ Studio.TerrainEditor.Generate.BiomeMarsh,Marsh,Sumpf,Marsh,Pantano,Marais,Palude
 Studio.TerrainEditor.Materials.Ice,Ice,Eis,Ice,Hielo,Glace,Ghiaccio,氷,얼음,Gelo,Лед,冰,冰,冰
 Studio.TerrainEditor.Generate.BiomeSizeSmall,Small (50),Klein (50),Small (50),Pequeño (50),Petit (50),Piccolo (50),小 (50),소형(50),Pequeno (50),Маленький (50),小 (50),小 (50),小 (50)
 Studio.TerrainEditor.Generate.BiomeSizeMedium,Medium (100),Mittel (100),Medium (100),Medio (100),Moyen (100),Medio (100),中 (100),중형(100),Médio (100),Средний (100),中 (100),中 (100),中 (100)
+Studio.TerrainEditor.Shorelines.Title,Shorelines, ,Shorelines, , , , , , , , , , 
 Studio.TerrainEditor.Materials.WoodPlanks,Wood Planks,Holzbretter,Wood Planks,Tablones de madera,Planches de bois,Assi di legno,木の板,나무 판자,Tábuas,Доски,木板,木板,木板
 Studio.TerrainEditor.Categories.HeightmapSettings,Heightmap Settings, ,Heightmap Settings,Configuración Heightmap,Paramètres Heightmap, , ,Heightmap 설정,Configurações do mapa de altura, , , , 
 Studio.TerrainEditor.Materials.Mud,Mud,Schlamm,Mud,Barro,Boue,Fango,泥,진흙,Lama,Грязь,泥,泥,泥巴
@@ -121,12 +123,14 @@ Studio.TerrainEditor.Brush.BrushSettings,Brush Settings,Pinseleinstellungen,Brus
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings, ,Brush Settings,Configuración del pincel,Paramètres du pinceau,Impostazioni pennello,ブラシ設定,브러시 설정,Configurações do pincel, ,涂刷设置,涂刷设置,筆刷設定
 Studio.TerrainEditor.Materials.Metal,Metal, ,Metal,Metal,Métal, ,金属,금속,Metal, , , , 
 Studio.TerrainEditor.Brush.Size,Size,Größe,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho,Размер,尺寸,尺寸,大小
+Studio.TerrainEditor.SeaLevelSettings.Size,Size, ,Size,Tamaño,Taille,Dimensione, ,크기, , , , , 
 Studio.TerrainEditor.SelectionSettings.Size,Size, ,Size,Tamaño,Taille,Dimensione,サイズ,크기,Tamanho, , , , 
 Studio.TerrainEditor.TransformSettings.Size,Size, ,Size,Tamaño,Taille, ,サイズ,크기,Tamanho, , , , 
 Studio.TerrainEditor.Dialog.Pause,Pause, ,Pause,Pausar,Pause, ,一時停止,일시 중지,Pausar, , , , 
 Studio.TerrainEditor.Brush.MaterialSettings,Material Settings,Materialeinstellungen,Material Settings,Configuración del material,Paramètres matériaux,Impostazioni materiale,素材の設定,재질 설정,Configurações do material,Свойства материала,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings, ,Material Settings,Configuración del material,Paramètres matériel,Impostazioni materiale,素材の設定,재질 설정,Configurações do material, ,材质设置,材质设置,材質設定
 Studio.TerrainEditor.Brush.Advanced,Advanced,Fortgeschritten,Advanced,Avanzado,Avancé,Avanzato,詳細設定,고급,Avançado,Расширенные настройки,高级,高级,進階
+Studio.TerrainEditor.Operations.EvaporateDescription,Evaporating water within the transform., ,Evaporating water within the transform.,Evapora agua dentro de la transformación.,Évaporation de l'eau dans la transformation.,Evaporazione dell'acqua all'interno della trasformazione., ,변환 내에서 물을 증발시킵니다., , , , , 
 Studio.TerrainEditor.Brush.PlaneLock,Plane Lock,Ebene sperren,Plane Lock,Bloquear plano,Verrouillage plan,Blocco piano,平面ロック,평면 고정,Bloquear plano,Блокировка поверхности,平面锁定,平面锁定,鎖定平面
 Studio.TerrainEditor.BrushSettings.PlaneLock,Plane Lock, ,Plane Lock,Bloqueo del plano,Plan fermé,Blocco piano,平面ロック,평면 고정,Bloquear plano, ,平面锁定,平面锁定,鎖定平面
 Studio.TerrainEditor.EditorEnum.PlaneLock,Plane Lock, ,Plane Lock,Bloqueo de plano,Plan fermé,Blocco piano,平面ロック,평면 고정,Bloquear plano, ,平面锁定,平面锁定,鎖定平面
@@ -205,6 +209,7 @@ Studio.TerrainEditor.BrushSettings.Snapping,Snapping, ,Snapping,Ajuste,Snapping,
 Studio.TerrainEditor.EditorEnum.Snapping,Snapping, ,Snapping,Ajuste,Snapping, ,装着,맞추기,Encaixando, , , , 
 Studio.TerrainEditor.MaterialSettings.TargetMaterial,Target Material, ,Target Material,Material meta,Matériel cible,Materiale target,対象素材,대상 재질,Material alvo, ,目标材质,目标材质,目標材質
 Studio.TerrainEditor.BaseTool.Select,Select, ,Select,Seleccionar,Sélectionner,Seleziona,選択,선택,Selecionar, , , , 
+Studio.TerrainEditor.SeaLevelSettings.Position,Position, ,Position,Posición,Position,Posizione, ,위치, , , , , 
 Studio.TerrainEditor.SelectionSettings.Position,Position, ,Position,Posición,Position,Posizione,位置,위치,Posição, , , , 
 Studio.TerrainEditor.TransformSettings.Position,Position, ,Position,Posición,Position, ,位置,위치,Posição, , , , 
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation, ,Rotation,Rotación,Rotation,Rotazione,回転,회전,Rotação, , , , 
@@ -231,6 +236,7 @@ Studio.TerrainEditor.PluginActions.ApplyStatusTip,Apply Region Transform, ,Apply
 Studio.TerrainEditor.PluginActions.CancelStatusTip,Cancel Region Transform, ,Cancel Region Transform,Cancela la transformación de región,Annuler la transformation de la région, ,地域変換をキャンセル,영역 변환 취소,Cancelar transformação de região, , , , 
 Studio.TerrainEditor.EditorEnum.FillMode,Fill Mode, ,Fill Mode,Modo de relleno,Mode de remplissage, ,塗りつぶしモード,채우기 모드,Modo de preenchimento, , , , 
 Studio.TerrainEditor.MaterialSettings.FillMode,Fill Mode, ,Fill Mode,Modo de Relleno,Mode de remplissage, ,塗りつぶしモード,채우기 모드,Modo de preenchimento, , , , 
+Studio.TerrainEditor.SeaLevelSettings.Create,Create, ,Create,Crear,Créer,Crea, ,만들기, , , , , 
 Studio.TerrainEditor.Tabs.Create,Create, ,Create,Crear,Créer, ,作成,만들기,Criar, , , , 
 Studio.TerrainEditor.BrushSettings.Edit,Edit, ,Edit,Editar,Modifier, ,編集,편집,Editar, , , , 
 Studio.TerrainEditor.Tabs.Edit,Edit, ,Edit,Editar,Éditer, ,編集,편집,Editar, , , , 
@@ -246,6 +252,7 @@ Studio.TerrainEditor.Materials.ClayRoofTiles,Clay Roof Tiles, ,Clay Roof Tiles,T
 Studio.TerrainEditor.Materials.DiamondPlate,Diamond Plate, ,Diamond Plate,Placa de diamante,Plaque en Diamant, ,ダイヤモンド板,다이아몬드판,Placa de diamante, , , , 
 Studio.TerrainEditor.Materials.Fabric,Fabric, ,Fabric,Tela,Tissu, ,布地,직물,Tecido, , , , 
 Studio.TerrainEditor.Materials.Foil,Foil, ,Foil,Papel aluminio,Feuille d'aluminium, ,ホイル,호일,Papel alumínio, , , , 
+Studio.TerrainEditor.BrushSettings.PullTerrain,Pull Terrain, ,Pull Terrain, ,Tirer terrain,Tirare Terreno, ,지형 끌어오기, , , , , 
 Studio.TerrainEditor.Materials.Glass,Glass, ,Glass,Vidrio,Verre, ,ガラス,유리,Vidro, , , , 
 Studio.TerrainEditor.Materials.Granite,Granite, ,Granite,Granito,Granite, ,花崗岩,화강암,Granito, , , , 
 Studio.TerrainEditor.Materials.Leather,Leather, ,Leather,Cuero,Cuir, ,レザー,가죽,Couro, , , , 
@@ -272,4 +279,17 @@ Studio.TerrainEditor.Categories.BiomeSettings,Biome Settings, ,Biome Settings,Co
 Studio.TerrainEditor.Snapping.Voxel,Voxel, ,Voxel,Vóxel,Voxel, ,ボクセル,복셀,Voxel, , , , 
 Studio.TerrainEditor.Snapping.Increment,Increment, ,Increment,Incremento,Incrément, , ,증가량,Incremento, , , , 
 Studio.TerrainEditor.BrushSettings.PlaneRotation,Plane Rotation, ,Plane Rotation,Rotación del plano,Rotation du plan, ,平面の回転,평면 회전,Rotação do plano, , , , 
-Studio.TerrainEditor.BrushSettings.WaterLevel,Water Level, ,Water Level,Nivel del agua,Niveau d'eau, ,水位, ,Nível de água, , , , 
+Studio.TerrainEditor.BrushSettings.WaterLevel,Water Level, ,Water Level,Nivel del agua,Niveau d'eau, ,水位,수위,Nível de água, , , , 
+Studio.TerrainEditor.BaseTool.SeaLevel,Sea Level, ,Sea Level,Nivel del mar,Niveau de la mer,Livello del mare, ,해수면, , , , , 
+Studio.TerrainEditor.SeaLevelSettings.Evaporate,Evaporate, ,Evaporate,Evaporar,Évaporation,Evapora, ,증발, , , , , 
+Studio.TerrainEditor.Categories.SeaLevelSettings,Sea Level Settings, ,Sea Level Settings,Configuración de nivel del mar,Paramètres du niveau de la mer,Impostazioni del livello del mare, ,해수면 설정, , , , , 
+Studio.TerrainEditor.Operations.CreateName,Create Sea Level, ,Create Sea Level,Crear Nivel del mar,Créer le niveau de la mer,Crea livello del mare, ,해수면 만들기, , , , , 
+Studio.TerrainEditor.Operations.EvaporateName,Evaporate Water, ,Evaporate Water,Evaporar agua,Évaporation de l'eau,Evaporare l'acqua, ,물 증발, , , , , 
+Studio.TerrainEditor.Categories.Upgrades,Upgrades, ,Upgrades, , , , , , , , , , 
+Studio.TerrainEditor.Operations.ShorelinesName,Upgrading Shorelines, ,Upgrading Shorelines, , , , , , , , , , 
+Studio.TerrainEditor.Upgrades.LearnMore,Click [link] to learn more., ,Click [link] to learn more., , , , , , , , , , 
+Studio.TerrainEditor.Operations.ShorelinesDescription,Replacing voxels..., ,Replacing voxels..., , , , , , , , , , 
+Studio.TerrainEditor.Shorelines.Description,Click Upgrade to improve the way water joins with terrain at the shores., ,Click Upgrade to improve the way water joins with terrain at the shores., , , , , , , , , , 
+Studio.TerrainEditor.Shorelines.Explanation,"The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. You might want to review and hand-edit the results afterwards, especially around streams, waterfalls and any other non-horizontal water surfaces. The upgrade can be reverted right after its completion using the Undo command.", ,"The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. You might want to review and hand-edit the results afterwards, especially around streams, waterfalls and any other non-horizontal water surfaces. The upgrade can be reverted right after its completion using the Undo command.", , , , , , , , , , 
+Studio.TerrainEditor.Upgrades.ActionButton,Upgrade, ,Upgrade, , , , , , , , , , 
+Studio.TerrainEditor.Upgrades.LearnMoreLink,here, ,here, , , , , , , , , , 

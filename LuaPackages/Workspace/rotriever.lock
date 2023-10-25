@@ -77,10 +77,14 @@ dependencies = [
 name = "AccountSelector"
 version = "0.1.0"
 dependencies = [
+    "Dash Dash 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
     "React React 0.1.0",
+    "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UserLib UserLib 0.1.0",
 ]
 
 [[package]]
@@ -122,7 +126,10 @@ dependencies = [
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
+    "RoactServiceTags RoactServiceTags 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UrlBuilder UrlBuilder 0.1.0",
@@ -252,15 +259,57 @@ name = "ChallengeDialog"
 version = "0.1.0"
 dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "Http Http 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "NavigationRodux NavigationRodux 0.1.0",
+    "Promise Promise 0.1.0",
     "React React 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactServices RoactServices 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "enumerate enumerate 0.1.0",
 ]
 
 [[package]]
 name = "CollisionMatchers2D"
 version = "0.1.0"
+
+[[package]]
+name = "CommunityLinks"
+version = "0.1.0"
+dependencies = [
+    "CentralOverlay CentralOverlay 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "Dash Dash 0.1.0",
+    "Http Http 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "Promise Promise 0.1.0",
+    "React React 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactServiceTags RoactServiceTags 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UrlBuilder UrlBuilder 0.1.0",
+]
 
 [[package]]
 name = "ContactImporter"
@@ -801,6 +850,26 @@ dependencies = [
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "t t 0.1.0",
+]
+
+[[package]]
+name = "Impressions"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "ArgCheck ArgCheck 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
     "t t 0.1.0",
 ]
 
@@ -2444,6 +2513,7 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
     "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "SharedFlags SharedFlags 0.1.0",

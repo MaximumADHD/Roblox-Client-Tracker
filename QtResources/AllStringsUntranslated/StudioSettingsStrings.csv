@@ -70,8 +70,6 @@ Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineDescription,,Enable Accelerated Collision Detection which improves collision performance for large assemblies.,Enable Accelerated Collision Detection which improves collision performance for large assemblies.
 Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
 Studio.App.BetaFeatures.ImprovedInnerBoxDescription,,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.,Enable a different algorithm for avatar Inner Box collision box sizing and positioning using margins around RigAttachment extents.
-Studio.App.BetaFeatures.RibbonBarGalleryMenuTitle,,Ribbon Bar Gallery Menu,Ribbon Bar Gallery Menu
-Studio.App.BetaFeatures.RibbonBarGalleryMenuDescription,,"Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view.","Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view."
 Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
 Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
 Studio.App.BetaFeatures.Import3DGltfSupportTitle,,3D Import gLTF Support,3D Import gLTF Support
@@ -141,5 +139,5 @@ Studio.App.BetaFeatures.DynamicImageMeshTitle,,DynamicImage and DynamicMesh,Dyna
 Studio.App.BetaFeatures.DynamicImageMeshDescription,,Enables the new DynamicImage and DynamicMesh instances which allow the runtime creation and editing of Images and Meshes,Enables the new DynamicImage and DynamicMesh instances which allow the runtime creation and editing of Images and Meshes
 Studio.App.BetaFeatures.GrassLengthCustomizationTitle,,Grass Length Customization,Grass Length Customization
 Studio.App.BetaFeatures.GrassLengthCustomizationDescription,,Enables customization of terrain grass length in Studio.,Enables customization of terrain grass length in Studio.
-Studio.App.BetaFeatures.AudioWiringApiTitle,,Audio Wiring API,Audio Wiring API
+Studio.App.BetaFeatures.AudioWiringApiTitle,,New Audio API,New Audio API
 Studio.App.BetaFeatures.AudioWiringApiDescription,,"Enables new instances for customizing, processing, and routing sounds or voices within the engine","Enables new instances for customizing, processing, and routing sounds or voices within the engine"

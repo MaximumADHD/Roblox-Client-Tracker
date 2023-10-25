@@ -61,7 +61,7 @@ Studio.LayeredClothingEditor.AssetType.Shorts,,,Shorts,Shorts,,,Pantalones corto
 Studio.LayeredClothingEditor.AssetType.LeftShoe,,,LeftShoe,LeftShoe,,,Zapato izquierdo,Chaussure gauche,,LeftShoe,LeftShoe,LeftShoe,LeftShoe,,,,,左脚鞋,左脚鞋,左鞋
 Studio.LayeredClothingEditor.AssetType.RightShoe,,,RightShoe,RightShoe,,,Zapato derecho,Chaussure droite,,RightShoe,RightShoe,RightShoe,RightShoe,,,,,右脚鞋,右脚鞋,右鞋
 Studio.LayeredClothingEditor.AssetType.Dress,,,Dress,Dress,,,Vestido,Robe,,Vestito,ワンピース,원피스,Vestido,,,,,连衣裙,连衣裙,裙子
-Studio.LayeredClothingEditor.AssetType.Skirt,,,Skirt,Skirt,,,Camisa,Jupe,,Gonna,スカート,스커트,Saia,,,,,裙子,裙子,短裙
+Studio.LayeredClothingEditor.AssetType.Skirt,,,Skirt,Skirt,,,Camisa,Jupe,,Gonna,スカート,치마,Saia,,,,,裙子,裙子,短裙
 Studio.LayeredClothingEditor.Generate.Prompt,,,The asset is ready.,The asset is ready.,,,El recurso está listo.,L'actif est prêt.,,La risorsa è disponibile.,アセットの準備ができました。,애셋이 준비되었습니다.,O ativo está pronto.,,,,,素材已就绪。,素材已就绪。,素材已準備完成。
 Studio.LayeredClothingEditor.Actions.Undo,,,Undo,Undo,,,Deshacer,Annuler,,Annulla,取り消す,실행 취소,Desfazer,,,,,撤消,撤消,復原
 Studio.LayeredClothingEditor.Actions.Redo,,,Redo,Redo,,,Rehacer,Refaire,,Ripeti,やり直す,다시 실행,Refazer,,,,,重做,重做,重做

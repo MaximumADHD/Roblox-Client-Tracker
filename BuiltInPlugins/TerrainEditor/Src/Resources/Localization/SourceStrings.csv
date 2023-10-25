@@ -6,6 +6,7 @@ Studio.TerrainEditor.BaseTool.Generate,Generate
 Studio.TerrainEditor.BaseTool.Import,Import
 Studio.TerrainEditor.BaseTool.Paint,Paint
 Studio.TerrainEditor.BaseTool.Sculpt,Sculpt
+Studio.TerrainEditor.BaseTool.SeaLevel,Sea Level
 Studio.TerrainEditor.BaseTool.Select,Select
 Studio.TerrainEditor.BaseTool.Smooth,Smooth
 Studio.TerrainEditor.BaseTool.Transform,Transform
@@ -53,8 +54,10 @@ Studio.TerrainEditor.Categories.BiomeSettings,Biome Settings
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
 Studio.TerrainEditor.Categories.HeightmapSettings,Heightmap Settings
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings
+Studio.TerrainEditor.Categories.SeaLevelSettings,Sea Level Settings
 Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings
 Studio.TerrainEditor.Categories.TransformSettings,Transform Settings
+Studio.TerrainEditor.Categories.Upgrades,Upgrades
 Studio.TerrainEditor.Dialog.Cancel,Cancel
 Studio.TerrainEditor.Dialog.Pause,Pause
 Studio.TerrainEditor.Dialog.Resume,Resume
@@ -143,8 +146,12 @@ Studio.TerrainEditor.Materials.Snow,Snow
 Studio.TerrainEditor.Materials.Water,Water
 Studio.TerrainEditor.Materials.Wood,Wood
 Studio.TerrainEditor.Materials.WoodPlanks,Wood Planks
+Studio.TerrainEditor.Operations.CreateDescription,Filling empty voxels with water in the transform.
+Studio.TerrainEditor.Operations.CreateName,Create Sea Level
 Studio.TerrainEditor.Operations.DuplicateDescription,Duplicating voxels to the target transform.
 Studio.TerrainEditor.Operations.DuplicateName,Duplicate
+Studio.TerrainEditor.Operations.EvaporateDescription,Evaporating water within the transform.
+Studio.TerrainEditor.Operations.EvaporateName,Evaporate Water
 Studio.TerrainEditor.Operations.FillDescription,Filling voxels in the selection with {material}.
 Studio.TerrainEditor.Operations.FillName,Fill
 Studio.TerrainEditor.Operations.ImportDescription,Importing voxels to the target transform.
@@ -155,6 +162,8 @@ Studio.TerrainEditor.Operations.PasteDescription,Pasting voxels to the target tr
 Studio.TerrainEditor.Operations.PasteName,Paste
 Studio.TerrainEditor.Operations.ReplaceDescription,Replacing {source} voxels in the selection with {target}.
 Studio.TerrainEditor.Operations.ReplaceName,Replace
+Studio.TerrainEditor.Operations.ShorelinesDescription,Replacing voxels...
+Studio.TerrainEditor.Operations.ShorelinesName,Upgrading Shorelines
 Studio.TerrainEditor.PivotPosition.Bottom,Bottom
 Studio.TerrainEditor.PivotPosition.Center,Center
 Studio.TerrainEditor.PivotPosition.Top,Top
@@ -182,10 +191,17 @@ Studio.TerrainEditor.PluginActions.EditPlaneStatusTip,Edit/apply plane when usin
 Studio.TerrainEditor.PluginActions.EditPlaneText,Edit Plane
 Studio.TerrainEditor.PluginActions.PasteStatusTip,Paste Region Selection
 Studio.TerrainEditor.PluginActions.PasteText,Paste
+Studio.TerrainEditor.SeaLevelSettings.Create,Create
+Studio.TerrainEditor.SeaLevelSettings.Evaporate,Evaporate
+Studio.TerrainEditor.SeaLevelSettings.Position,Position
+Studio.TerrainEditor.SeaLevelSettings.Size,Size
 Studio.TerrainEditor.SelectionSettings.Position,Position
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation
 Studio.TerrainEditor.SelectionSettings.Size,Size
 Studio.TerrainEditor.SelectionSettings.Transform,Transform
+Studio.TerrainEditor.Shorelines.Description,Click Upgrade to improve the way water joins with terrain at the shores.
+Studio.TerrainEditor.Shorelines.Explanation,"The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. You might want to review and hand-edit the results afterwards, especially around streams, waterfalls and any other non-horizontal water surfaces. The upgrade can be reverted right after its completion using the Undo command."
+Studio.TerrainEditor.Shorelines.Title,Shorelines
 Studio.TerrainEditor.Snapping.Increment,Increment
 Studio.TerrainEditor.Snapping.Off,Off
 Studio.TerrainEditor.Snapping.Voxel,Voxel
@@ -199,3 +215,6 @@ Studio.TerrainEditor.TransformSettings.Rotation,Rotation
 Studio.TerrainEditor.TransformSettings.Size,Size
 Studio.TerrainEditor.TransformSettings.SnapToVoxels,Snap to Voxels
 Studio.TerrainEditor.TransformSettings.Transform,Transform
+Studio.TerrainEditor.Upgrades.ActionButton,Upgrade
+Studio.TerrainEditor.Upgrades.LearnMore,Click [link] to learn more.
+Studio.TerrainEditor.Upgrades.LearnMoreLink,here

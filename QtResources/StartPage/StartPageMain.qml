@@ -19,32 +19,47 @@ StackView {
 
     initialItem: loginPage
 
+    function createStartPageComponent() {
+        // The models are initialized after a successfull login. We don't want
+        // to initialize the QML before the models are ready, otherwise some
+        // of the properties will not be defined yet.
+        var url = "qrc:/StartPage/StartPage.qml";
+
+        if (startPage === null) {
+            startPage = Qt.createComponent(url);
+        }
+
+        // The default is Component.PreferSynchronous so we should only get
+        // something different from Ready if there is an error in the QML.
+        if (startPage.status !== Component.Ready) {
+            console.error("Could not initialize " + url + " (" + startPage.errorString() + ")");
+            return;
+        }
+    }
+
+    function showStartPage() {
+        if (startPage.status !== Component.Ready) {
+            console.error("Cannot show start page. It isn't initialized.");
+            return;
+        }
+
+        replaceCurrentView(startPage);
+    }
+
+    Component.onCompleted: {
+        if (FFlagStudioCloseStartPageAtPlaceOpen && createGamesPageImmediately) {
+            createStartPageComponent();
+            showStartPage();
+        }
+    }
+
     Connections {
         target: startPageQmlController
         onStartPageModelsInitialized: {
-            // The models are initialized after a successfull login. We don't want
-            // to initialize the QML before the models are ready, otherwise some
-            // of the properties will not be defined yet.
-            var url = "qrc:/StartPage/StartPage.qml";
-
-            if (startPage === null) {
-                startPage = Qt.createComponent(url);
-            }
-
-            // The default is Component.PreferSynchronous so we should only get
-            // something different from Ready if there is an error in the QML.
-            if (startPage.status !== Component.Ready) {
-                console.error("Could not initialize " + url + " (" + startPage.errorString() + ")");
-                return;
-            }
+            createStartPageComponent();
         }
         onShowStartPageRequested: {
-            if (startPage.status !== Component.Ready) {
-                console.error("Cannot show start page. It isn't initialized.");
-                return;
-            }
-
-            replaceCurrentView(startPage);
+            showStartPage();
         }
         onShowLoginPageRequested: {
             replaceCurrentView(loginPage);

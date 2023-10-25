@@ -60,6 +60,17 @@ Studio.AvatarCompatibilityPreviewer.AssetType.ShoulderAccessory, ,Shoulder
 Studio.AvatarCompatibilityPreviewer.AssetType.SweaterAccessory, ,Sweater
 Studio.AvatarCompatibilityPreviewer.AssetType.TeeShirtAccessory, ,T-Shirt
 Studio.AvatarCompatibilityPreviewer.AssetType.WaistAccessory, ,Waist
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupErrorTitle, ,Something went wrong.
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressActionText, ,Cancel Auto Setup
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressDescription, ,This might take a few minutes. You can keep working in the editor in the meantime.
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressTitle, ,Avatar Auto Setup in Progress
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptConfirmText, ,Are you sure you want to cancel Auto Setup?
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptNo, ,No
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptTitle, ,Cancel Auto Setup
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptYes, ,Yes
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.ErrorMultipleBodies, ,"Multiple meshes named _Geo. Either change your model to only have the main body named _Geo, or select the specific one you want."
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.ErrorSourceFail, ,We hit an internal error while performing auto setup. Please check the output window.
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.StartAutoSetup, ,Auto Setup
 Studio.AvatarCompatibilityPreviewer.Categories.accessories, ,Accessories
 Studio.AvatarCompatibilityPreviewer.Categories.animations, ,Animations
 Studio.AvatarCompatibilityPreviewer.Categories.body, ,Body
@@ -115,7 +126,7 @@ Studio.AvatarCompatibilityPreviewer.SelectScreen.CurrentPlace, ,Current Place
 Studio.AvatarCompatibilityPreviewer.SelectScreen.ImportCharacterFrom, ,Select Character From
 Studio.AvatarCompatibilityPreviewer.Stages.CheckBody, ,Check Body
 Studio.AvatarCompatibilityPreviewer.Stages.CheckFace, ,Check Face
-Studio.AvatarCompatibilityPreviewer.Stages.Publish, ,Publish
+Studio.AvatarCompatibilityPreviewer.Stages.Publish, ,Submit
 Studio.AvatarCompatibilityPreviewer.Stages.Test, ,Test in Experience
 Studio.AvatarCompatibilityPreviewer.UGCValidation.AlertTitle, ,Body Errors
 Studio.AvatarCompatibilityPreviewer.UGCValidation.AssetNotFound, ,{asset} not found

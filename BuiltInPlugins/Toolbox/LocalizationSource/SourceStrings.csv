@@ -1,6 +1,6 @@
 Key,Source,Context,en-us
-Studio.Toolbox.General.FooterBGText,Background:, ,Background:
 Studio.Toolbox.Audio.SoundEffect.Category.Stream,Stream, ,Stream
+Studio.Toolbox.General.FooterBGText,Background:, ,Background:
 Studio.Toolbox.Audio.SoundEffect.Category.Engine knocking,Engine knocking, ,Engine knocking
 Studio.Toolbox.Audio.SoundEffect.Category.Engine_knocking,Engine knocking, ,Engine knocking
 Studio.Toolbox.Common.Submit,Submit, ,Submit
@@ -36,6 +36,7 @@ Studio.Toolbox.General.AllModels,AllModels, ,All Models
 Studio.Toolbox.General.CategoryMyModels,My Models, ,My Models
 Studio.Toolbox.Audio.SoundEffect.Category.Sewing machine,Sewing machine, ,Sewing machine
 Studio.Toolbox.Audio.SoundEffect.Category.Sewing_machine,Sewing machine, ,Sewing machine
+Studio.Toolbox.AssetConfig.BundleCreationInsufficientFunds,Insufficient Robux. You can not upload this bundle until you get more Robux., ,Insufficient Robux. You can not upload this bundle until you get more Robux.
 Studio.Toolbox.Audio.SoundEffect.Category.Grunge,Grunge, ,Grunge
 Studio.Toolbox.Audio.Music.Genre.electronic,Electronic, ,Electronic
 Studio.Toolbox.Common.Loading,Loading, ,Loading
@@ -100,10 +101,10 @@ Studio.Toolbox.Audio.SoundEffect.Category.Keys_jangling,Keys jangling, ,Keys jan
 Studio.Toolbox.General.AssetTypeAudio,Audio, ,Audio
 Studio.Toolbox.General.CategoryAudio,Audio, ,Audio
 Studio.Toolbox.General.CategoryCreationsAudio,Audio, ,Audio
+Studio.Toolbox.Audio.SoundEffect.Category.Waterfall,Waterfall, ,Waterfall
 Studio.Toolbox.General.CategoryCreationsWaistAccessory,Waist Accessories, ,Waist Accessories
 Studio.Toolbox.Audio.SoundEffect.Category.Soul music,Soul music, ,Soul music
 Studio.Toolbox.Audio.SoundEffect.Category.Soul_music,Soul music, ,Soul music
-Studio.Toolbox.Audio.SoundEffect.Category.Waterfall,Waterfall, ,Waterfall
 Studio.Toolbox.Audio.SoundEffect.Category.voice,Voice, ,Voice
 Studio.Toolbox.Audio.SoundEffect.Category.Vocal music,Vocal music, ,Vocal music
 Studio.Toolbox.Audio.SoundEffect.Category.Vocal_music,Vocal music, ,Vocal music
@@ -135,8 +136,6 @@ Studio.Toolbox.General.CategoryMyAnimations,My Animations, ,My Animations
 Studio.Toolbox.General.CategoryMyFonts,My Fonts, ,My Fonts
 Studio.Toolbox.Audio.SoundEffect.Category.squeaks,Squeaks, ,Squeaks
 Studio.Toolbox.General.SortByText,Sort by:, ,Sort by:
-Studio.Toolbox.Audio.SoundEffect.Category.Wind noise (microphone),Wind noise (microphone), ,Wind noise (microphone)
-Studio.Toolbox.Audio.SoundEffect.Category.Wind_noise_(microphone),Wind noise (microphone), ,Wind noise (microphone)
 Studio.Toolbox.General.CategoryRecentModels,Recent Models, ,Recent Models
 Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes, ,Recent Meshes
 Studio.Toolbox.General.CategoryRecentAnimations,Recent Animations, ,Recent Animations
@@ -284,7 +283,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Double bass,Studio.Toolbox.Audio.SoundEffect.Category.Double_bass,Double bass
  ,Double bass,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
  ,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.,Studio.Toolbox.HomeView.essential,Essential
- ,Essential,Studio.Toolbox.General.SearchOptionsDone,Done
+ ,Essential,Studio.Toolbox.AssetConfig.BundleCreationFeeMismatch,A mismatch in creation fee was found.
+ ,A mismatch in creation fee was found.,Studio.Toolbox.General.SearchOptionsDone,Done
  ,Done,Studio.Toolbox.Audio.SoundEffect.Category.Hum,Hum
  ,Hum,Studio.Toolbox.Audio.SoundEffect.Category.hum,Hum
  ,Hum,Studio.Toolbox.AudioView.Category,Category
@@ -401,7 +401,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Shoulder Accessory,Studio.Toolbox.General.CategoryCreationsGroupRightShoeAccessory,Group Right Shoe Accessories
  ,Group Right Shoe Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Clapping,Clapping
  ,Clapping,Studio.Toolbox.Audio.SoundEffect.Category.impact,Impact
- ,Impact,Studio.Toolbox.General.CategoryCreationsGroupDressSkirtAccessory,Group Dress Skirt Accessories
+ ,Impact,Studio.Toolbox.AssetConfig.PublishAssetBeforeConfiguringPrice,Publish your asset before distributing it for a price
+ ,Publish your asset before distributing it for a price,Studio.Toolbox.Audio.SoundEffect.Category.combustion,Combustion
+ ,Combustion,Studio.Toolbox.General.CategoryCreationsGroupDressSkirtAccessory,Group Dress Skirt Accessories
  ,Group Dress Skirt Accessories,Studio.Toolbox.AssetConfig.CreateBundleItemNotAllowedInBundle,Error creating bundle. Found an item that is not allowed to be part of a new bundle.
  ,Error creating bundle. Found an item that is not allowed to be part of a new bundle.,Studio.Toolbox.General.TabCreations,Creations
  ,Creations,Studio.Toolbox.General.RightClickMenuCopyAssetID,Copy Asset ID
@@ -452,7 +454,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,You can disable scripts by right-clicking in Explorer.,"Studio.Toolbox.Audio.SoundEffect.Category.Burping, eructation","Burping, eructation"
  ,"Burping, eructation",Studio.Toolbox.Audio.SoundEffect.Category.Burping_eructation,"Burping, eructation"
  ,"Burping, eructation",Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory
- ,Neck Accessory,Studio.Toolbox.Audio.SoundEffect.Category.Field recording,Field recording
+ ,Neck Accessory,Studio.Toolbox.Audio.SoundEffect.Category.elevators,Elevators
+ ,Elevators,Studio.Toolbox.AssetConfig.ConfigurePricingOnWeb,Configure Pricing on Web
+ ,Configure Pricing on Web,Studio.Toolbox.Audio.SoundEffect.Category.Field recording,Field recording
  ,Field recording,Studio.Toolbox.Audio.SoundEffect.Category.Field_recording,Field recording
  ,Field recording,Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory
  ,Back Accessory,Studio.Toolbox.General.AssetTypeShirtAccessory,Shirt Accessory
@@ -471,9 +475,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Torso,Studio.Toolbox.General.AssetTypeRightArm,Right Arm
  ,Right Arm,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard open or close,Cupboard open or close
  ,Cupboard open or close,Studio.Toolbox.Audio.SoundEffect.Category.Cupboard_open_or_close,Cupboard open or close
- ,Cupboard open or close,Studio.Toolbox.Audio.SoundEffect.Category.alien,Alien
- ,Alien,Studio.Toolbox.General.AssetTypeLeftLeg,Left Leg
- ,Left Leg,Studio.Toolbox.Audio.SoundEffect.Category.Buzz,Buzz
+ ,Cupboard open or close,Studio.Toolbox.General.AssetTypeLeftLeg,Left Leg
+ ,Left Leg,Studio.Toolbox.Audio.SoundEffect.Category.alien,Alien
+ ,Alien,Studio.Toolbox.Audio.SoundEffect.Category.Buzz,Buzz
  ,Buzz,Studio.Toolbox.Dropdown.ChooseOne,Choose one
  ,Choose one,Studio.Toolbox.AssetConfig.PayAndConfirmDescription,Your Roblox account will be charged {amount}.
  ,Your Roblox account will be charged {amount}.,Studio.Toolbox.General.AssetTypeDynamicHead,Dynamic Head
@@ -549,12 +553,12 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,New-age music,Studio.Toolbox.General.SalesVerification,Your account must be verified in order to set a price for your plugin.
  ,Your account must be verified in order to set a price for your plugin.,Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset...
  ,Overwrite an existing asset...,Studio.Toolbox.General.SideTabVersions,Versions
- ,Versions,Studio.Toolbox.General.SideTabGeneral,General
- ,General,Studio.Toolbox.Audio.SoundEffect.Category.Medium engine (mid frequency),Medium engine (mid frequency)
+ ,Versions,Studio.Toolbox.HomeView.newest,Newest
+ ,Newest,Studio.Toolbox.Audio.SoundEffect.Category.Medium engine (mid frequency),Medium engine (mid frequency)
  ,Medium engine (mid frequency),Studio.Toolbox.Audio.SoundEffect.Category.Medium_engine_(mid_frequency),Medium engine (mid frequency)
  ,Medium engine (mid frequency),Studio.Toolbox.Audio.SoundEffect.Category.alarms,Alarms
- ,Alarms,Studio.Toolbox.HomeView.newest,Newest
- ,Newest,Studio.Toolbox.General.SideTabPermissions,Permissions
+ ,Alarms,Studio.Toolbox.General.SideTabGeneral,General
+ ,General,Studio.Toolbox.General.SideTabPermissions,Permissions
  ,Permissions,Studio.Toolbox.Audio.SoundEffect.Category.Whimper,Whimper
  ,Whimper,Studio.Toolbox.Audio.SoundEffect.Category.Typing,Typing
  ,Typing,Studio.Toolbox.General.TermsOfUse,Terms of use
@@ -600,7 +604,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Video files cannot be made public at this time. Please check back at a later date.,Studio.Toolbox.Audio.SoundEffect.Category.Breaking,Breaking
  ,Breaking,Studio.Toolbox.Audio.SoundEffect.Category.breaking,Breaking
  ,Breaking,Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
- ,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.AssetConfigSharing.PublicAllExperiences,Public - All Experiences
+ ,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.AssetConfig.CreateBundleNoRobuxDeducted,No Robux was deducted.
+ ,No Robux was deducted.,Studio.Toolbox.AssetConfigSharing.PublicAllExperiences,Public - All Experiences
  ,Public - All Experiences,Studio.Toolbox.AssetConfigSharing.AllExperiences,All Experiences
  ,All Experiences,"Studio.Toolbox.Audio.SoundEffect.Category.Inside, public space","Inside, public space"
  ,"Inside, public space",Studio.Toolbox.Audio.SoundEffect.Category.Inside_public_space,"Inside, public space"
@@ -750,7 +755,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Development Item,Studio.Toolbox.Audio.Music.Genre.electronica,Electronica
  ,Electronica,Studio.Toolbox.Audio.SoundEffect.Category.Electronica,Electronica
  ,Electronica,Studio.Toolbox.AssetConfig.ValidatingInProgress,Validating...
- ,Validating...,Studio.Toolbox.Audio.SoundEffect.Category.Computer keyboard,Computer keyboard
+ ,Validating...,Studio.Toolbox.AssetConfig.BundleCreationValidationFailed,The body validation failed.
+ ,The body validation failed.,Studio.Toolbox.Audio.SoundEffect.Category.Computer keyboard,Computer keyboard
  ,Computer keyboard,Studio.Toolbox.Audio.SoundEffect.Category.Computer_keyboard,Computer keyboard
  ,Computer keyboard,Studio.Toolbox.AssetConfig.ValidationErrorSingular,{errorCount:int} Error
  ,{errorCount:int} Error,Studio.Toolbox.AssetConfig.CreationContextDailyLimitReached,Error preparing bundle for upload. Your daily bundle creation limit was reached.
@@ -786,7 +792,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,"Funk, Soul, R&B",Studio.Toolbox.AssetConfig.CreateBundleInvalidCreateBundleRequest,Error creating bundle. Invalid create bundle request.
  ,Error creating bundle. Invalid create bundle request.,Studio.Toolbox.AssetConfig.CreateBundleInvalidBundleDescription,Error creating bundle. The bundle description is invalid.
  ,Error creating bundle. The bundle description is invalid.,Studio.Toolbox.AssetConfig.CreateBundleGroupCreatorNotSupported,Error creating bundle. Creating a bundle for a Creator group is not supported.
- ,Error creating bundle. Creating a bundle for a Creator group is not supported.,Studio.Toolbox.AssetConfig.CreateBundleTokenValidationFailed,Error creating bundle. Token validation failed.
+ ,Error creating bundle. Creating a bundle for a Creator group is not supported.,Studio.Toolbox.AssetConfig.CreateBundleInvalidCreationFee,Error creating bundle. The creation fee is invalid.
+ ,Error creating bundle. The creation fee is invalid.,Studio.Toolbox.AssetConfig.CreateBundleTokenValidationFailed,Error creating bundle. Token validation failed.
  ,Error creating bundle. Token validation failed.,Studio.Toolbox.Audio.SoundEffect.Category.vacuums,Vacuums
  ,Vacuums,Studio.Toolbox.AssetConfig.CreateBundleCreatorMismatch,Error creating bundle. A Creator mismatch was found.
  ,Error creating bundle. A Creator mismatch was found.,Studio.Toolbox.Audio.SoundEffect.Category.jungle,Jungle
@@ -870,9 +877,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,to,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarningAllVersions,The user access granted here applies to all versions of this package.
  ,The user access granted here applies to all versions of this package.,Studio.Toolbox.Audio.SoundEffect.Category.drain,Drain
  ,Drain,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!
- ,Buy & Installation Complete!,Studio.Toolbox.Audio.SoundEffect.Category.antique-cars,Antique Cars
- ,Antique Cars,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
- ,Successfully installed "{name}".,Studio.Toolbox.Audio.SoundEffect.Category.Banjo,Banjo
+ ,Buy & Installation Complete!,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
+ ,Successfully installed "{name}".,Studio.Toolbox.Audio.SoundEffect.Category.antique-cars,Antique Cars
+ ,Antique Cars,Studio.Toolbox.Audio.SoundEffect.Category.Banjo,Banjo
  ,Banjo,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
  ,Add up to {max:int} tags from the tag library,Studio.Toolbox.Tags.MaxTagsDescription,Add up to {max:int} tags from the tag library
  ,Add up to {max:int} tags from the tag library,"Studio.Toolbox.Audio.SoundEffect.Category.Chewing, mastication","Chewing, mastication"
@@ -976,8 +983,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Crow,Studio.Toolbox.Audio.SoundEffect.Category.classic-cars,Classic Cars
  ,Classic Cars,Studio.Toolbox.Audio.SoundEffect.Category.clocks,Clocks
  ,Clocks,Studio.Toolbox.Audio.SoundEffect.Category.cloth,Cloth
- ,Cloth,Studio.Toolbox.Audio.SoundEffect.Category.combustion,Combustion
- ,Combustion,Studio.Toolbox.Audio.SoundEffect.Category.cooking,Cooking
+ ,Cloth,Studio.Toolbox.Audio.SoundEffect.Category.cooking,Cooking
  ,Cooking,Studio.Toolbox.Audio.SoundEffect.Category.Plop,Plop
  ,Plop,"Studio.Toolbox.Audio.SoundEffect.Category.Boat, Water vehicle","Boat, Water vehicle"
  ,"Boat, Water vehicle",Studio.Toolbox.Audio.SoundEffect.Category.Boat_Water_vehicle,"Boat, Water vehicle"
@@ -1001,8 +1007,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Heavy metal,Studio.Toolbox.Audio.SoundEffect.Category.Heavy_metal,Heavy metal
  ,Heavy metal,Studio.Toolbox.Audio.SoundEffect.Category.earthquakes,Earthquakes
  ,Earthquakes,Studio.Toolbox.Audio.SoundEffect.Category.eating,Eating
- ,Eating,Studio.Toolbox.Audio.SoundEffect.Category.elevators,Elevators
- ,Elevators,"Studio.Toolbox.Audio.SoundEffect.Category.Splash, splatter","Splash, splatter"
+ ,Eating,"Studio.Toolbox.Audio.SoundEffect.Category.Splash, splatter","Splash, splatter"
  ,"Splash, splatter",Studio.Toolbox.Audio.SoundEffect.Category.Splash_splatter,"Splash, splatter"
  ,"Splash, splatter",Studio.Toolbox.Audio.SoundEffect.Category.energy,Energy
  ,Energy,Studio.Toolbox.Audio.SoundEffect.Category.hits,Hits
@@ -1043,10 +1048,10 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Knives & Swords,Studio.Toolbox.Audio.SoundEffect.Category.land,Land
  ,Land,Studio.Toolbox.Audio.SoundEffect.Category.Croak,Croak
  ,Croak,Studio.Toolbox.Audio.SoundEffect.Category.lasers,Lasers
- ,Lasers,Studio.Toolbox.Audio.SoundEffect.Category.props,Props
+ ,Lasers,Studio.Toolbox.Audio.SoundEffect.Category.Ocean,Ocean
+ ,Ocean,Studio.Toolbox.Audio.SoundEffect.Category.props,Props
  ,Props,Studio.Toolbox.Audio.SoundEffect.Category.Flute,Flute
- ,Flute,Studio.Toolbox.Audio.SoundEffect.Category.Ocean,Ocean
- ,Ocean,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX
+ ,Flute,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx,Liquid FX
  ,Liquid FX,Studio.Toolbox.Audio.SoundEffect.Category.Siren,Siren
  ,Siren,Studio.Toolbox.Audio.SoundEffect.Category.machine,Machine
  ,Machine,Studio.Toolbox.Audio.SoundEffect.Category.microphone,Microphone
@@ -1174,8 +1179,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,"Wail, moan",Studio.Toolbox.Audio.SoundEffect.Category.Wail_moan,"Wail, moan"
  ,"Wail, moan",Studio.Toolbox.Audio.SoundEffect.Category.Sigh,Sigh
  ,Sigh,Studio.Toolbox.Audio.SoundEffect.Category.Singing,Singing
- ,Singing,Studio.Toolbox.Audio.SoundEffect.Category.Raindrop,Raindrop
- ,Raindrop,Studio.Toolbox.Audio.SoundEffect.Category.Yodeling,Yodeling
+ ,Singing,Studio.Toolbox.Audio.SoundEffect.Category.Yodeling,Yodeling
  ,Yodeling,Studio.Toolbox.Audio.SoundEffect.Category.Chant,Chant
  ,Chant,Studio.Toolbox.Audio.SoundEffect.Category.Whistle,Whistle
  ,Whistle,Studio.Toolbox.Audio.SoundEffect.Category.Synthetic singing,Synthetic singing
@@ -1366,8 +1370,11 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Angry music,Studio.Toolbox.Audio.SoundEffect.Category.Scary music,Scary music
  ,Scary music,Studio.Toolbox.Audio.SoundEffect.Category.Scary_music,Scary music
  ,Scary music,Studio.Toolbox.Audio.SoundEffect.Category.Wind,Wind
- ,Wind,Studio.Toolbox.Audio.SoundEffect.Category.Thunderstorm,Thunderstorm
- ,Thunderstorm,Studio.Toolbox.Audio.SoundEffect.Category.Rain on surface,Rain on surface
+ ,Wind,Studio.Toolbox.Audio.SoundEffect.Category.Wind noise (microphone),Wind noise (microphone)
+ ,Wind noise (microphone),Studio.Toolbox.Audio.SoundEffect.Category.Wind_noise_(microphone),Wind noise (microphone)
+ ,Wind noise (microphone),Studio.Toolbox.Audio.SoundEffect.Category.Thunderstorm,Thunderstorm
+ ,Thunderstorm,Studio.Toolbox.Audio.SoundEffect.Category.Raindrop,Raindrop
+ ,Raindrop,Studio.Toolbox.Audio.SoundEffect.Category.Rain on surface,Rain on surface
  ,Rain on surface,Studio.Toolbox.Audio.SoundEffect.Category.Rain_on_surface,Rain on surface
  ,Rain on surface,"Studio.Toolbox.Audio.SoundEffect.Category.Waves, surf","Waves, surf"
  ,"Waves, surf",Studio.Toolbox.Audio.SoundEffect.Category.Waves_surf,"Waves, surf"
