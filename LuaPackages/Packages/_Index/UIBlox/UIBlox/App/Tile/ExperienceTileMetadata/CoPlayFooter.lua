@@ -311,17 +311,19 @@ local function renderFaceImage(props: FaceProps, styleProps: StyleProps, style: 
 	})
 end
 
-local function renderFaces(props: Props, styleProps: StyleProps, style: StyleTypes.AppStyle, maxFaceZindex: number)
+local function renderFaces(
+	props: Props,
+	styleProps: StyleProps,
+	style: StyleTypes.AppStyle,
+	maxFaceZindex: number,
+	shouldRenderBadge: boolean,
+	faceGroupCount: number
+)
 	local users = props.users
-	local faceGroupCount = props.faceGroupCount :: number
 	local faceGroupGap = styleProps.faceGroupGap
 	local badgeBorderWidth = styleProps.badgeBorderWidth :: number
 	local faceBorderWidth = styleProps.faceBorderWidth :: number
 	local paddingTopBottom = math.max(badgeBorderWidth, faceBorderWidth)
-	local shouldRenderBadge = not UIBloxConfig.coPlayFooterChangeColorAndShowMoreFaces or #users > faceGroupCount + 1
-	if not shouldRenderBadge then
-		faceGroupCount = faceGroupCount + 1
-	end
 
 	local faces = {
 		ListLayout = React.createElement("UIListLayout", {
@@ -376,9 +378,18 @@ local function CoPlayFooter(passedProps: Props): React.ReactElement?
 	local containerGap = styleProps.containerGap
 	local labelContentColor = styleProps.labelContentColor or style.Theme.TextMuted
 
+	local faceGroupCount = props.faceGroupCount
+	local shouldRenderBadge = true
+	if UIBloxConfig.coPlayFooterChangeColorAndShowMoreFaces then
+		shouldRenderBadge = #props.users > faceGroupCount + 1
+		if not shouldRenderBadge then
+			faceGroupCount = faceGroupCount + 1
+		end
+	end
+
 	local maxFaceZindex
 	if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then
-		maxFaceZindex = props.faceGroupCount + 1
+		maxFaceZindex = faceGroupCount + 1
 	end
 	local onFacesFrameSizeChange = React.useCallback(function(rbx)
 		updateFacesFrameSize(rbx.AbsoluteSize)
@@ -403,7 +414,7 @@ local function CoPlayFooter(passedProps: Props): React.ReactElement?
 			AutomaticSize = Enum.AutomaticSize.XY,
 			[React.Change.AbsoluteSize] = onFacesFrameSizeChange,
 		}, {
-			Faces = renderFaces(props, styleProps, style, maxFaceZindex),
+			Faces = renderFaces(props, styleProps, style, maxFaceZindex, shouldRenderBadge, faceGroupCount),
 		}),
 		LabelFrame = if props.labelText
 			then React.createElement("Frame", {

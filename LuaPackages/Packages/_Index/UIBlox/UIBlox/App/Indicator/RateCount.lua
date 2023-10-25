@@ -194,7 +194,10 @@ function RateCount:render()
 		local containerSpacingLeading = styleProps.containerSpacingLeading
 		local containerSpacingTrailing = styleProps.containerSpacingTrailing
 		local containerBorderRadius = styleProps.containerBorderRadius
-		local containerBackgroundColor = styleProps.containerBackgroundColor or style.Theme.UIEmphasis
+		local containerBackgroundColor = styleProps.containerBackgroundColor
+			or if UIBloxConfig.enableRateCountBackgroundContrast
+				then style.Theme.BackgroundContrast
+				else style.Theme.UIEmphasis
 		local containerGap = styleProps.containerGap
 
 		local statWidgetContainerGap = styleProps.statWidgetContainerGap

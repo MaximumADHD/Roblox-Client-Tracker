@@ -92,8 +92,8 @@ function ErrorPrompt:getErrorMessage(locMap: { [string]: string }, errorType: an
 		return locMap.parentalRestrictionSubscriptionText
 	elseif errorType == PurchaseErrorType.SubscriptionUnsupportedLocale then
 		return locMap.subscriptionUnsupportedLocaleText
-	elseif errorType == PurchaseErrorType.RestrictedUserAge then
-		return locMap.restrictedUserAgeText
+	elseif errorType == PurchaseErrorType.RestrictedUser then
+		return locMap.restrictedUserText
 	elseif
 		errorType == PurchaseErrorType.SubscriptionPurchasePlatformNotSupported
 		or errorType == PurchaseErrorType.SubscriptionInvalidSaleLocation
@@ -197,8 +197,8 @@ function ErrorPrompt:render()
 			subscriptionUnsupportedLocaleText = {
 				key = LOC_KEY:format("Text.SubscriptionUnsupportedLocale"),
 			},
-			restrictedUserAgeText = {
-				key = LOC_KEY:format("Text.RestrictedUserAge"),
+			restrictedUserText = {
+				key = LOC_KEY:format("Text.RestrictedUser"),
 			},
 			subscriptionUnsupportedPlatformText = {
 				key = LOC_KEY:format("Text.SubscriptionUnsupportedPlatform"),

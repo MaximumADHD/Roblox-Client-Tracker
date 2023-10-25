@@ -6,12 +6,15 @@ local root = script.Parent.Parent
 
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFFlagUGCValidateMoveDynamicHeadTest = require(root.flags.getFFlagUGCValidateMoveDynamicHeadTest)
+local getFFlagUGCValidateDynamicHeadMoodClient = require(root.flags.getFFlagUGCValidateDynamicHeadMoodClient)
+local getFFlagUGCValidateDynamicHeadMoodRCC = require(root.flags.getFFlagUGCValidateDynamicHeadMoodRCC)
 
 local Analytics = require(root.Analytics)
 
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateMeshPartBodyPart = require(root.validation.validateMeshPartBodyPart)
 local validateDynamicHeadData = require(root.validation.validateDynamicHeadData)
+local validateDynamicHeadMood = require(root.validation.validateDynamicHeadMood)
 
 local Types = require(root.util.Types)
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
@@ -57,7 +60,8 @@ local function validateDynamicHeadMeshPartFormat(
 	allSelectedInstances: { Instance },
 	isServer: boolean?,
 	allowUnreviewedAssets: boolean?,
-	restrictedUserIds: Types.RestrictedUserIds?
+	restrictedUserIds: Types.RestrictedUserIds?,
+	universeId: number?
 ): (boolean, { string }?)
 	local result, failureReasons = validateSingleInstance(allSelectedInstances)
 	if not result then
@@ -71,12 +75,24 @@ local function validateDynamicHeadMeshPartFormat(
 		Enum.AssetType.DynamicHead,
 		isServer,
 		allowUnreviewedAssets,
-		restrictedUserIds
+		restrictedUserIds,
+		universeId
 	)
 	-- return if failure at this point, as the above function could've found whole Instances or meshes to be missing
 	-- carrying on would mean later functions called could not assume all Instances and meshes/textures are present
 	if not result then
 		return false, failureReasons
+	end
+
+	if
+		(isServer and getFFlagUGCValidateDynamicHeadMoodRCC())
+		or (not isServer and getFFlagUGCValidateDynamicHeadMoodClient())
+	then
+		result, failureReasons =
+			validateDynamicHeadMood(inst :: MeshPart, if nil ~= isServer then isServer :: boolean else false)
+		if not result then
+			return false, failureReasons
+		end
 	end
 
 	if getFFlagUGCValidateMoveDynamicHeadTest() then

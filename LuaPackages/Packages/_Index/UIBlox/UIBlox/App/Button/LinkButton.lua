@@ -22,6 +22,8 @@ local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local RoactGamepad = require(Packages.RoactGamepad)
+local Focusable = RoactGamepad.Focusable
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -70,12 +72,19 @@ LinkButton.validateProps = t.strictInterface({
 	-- Custom min padding Y
 	minPaddingY = t.optional(t.number),
 	-- Custom selection cursor kind
-	selectionCursorKind = t.optional(t.table),
+	selectionCursorKind = t.optional(t.userdata),
 	-- A callback that replaces getTextSize implementation
 	[LinkButton.debugProps.getTextSize] = t.optional(t.callback),
 
 	-- Override the default controlState
 	[LinkButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	buttonRef = t.optional(t.union(t.callback, t.table)),
 })
 
 LinkButton.defaultProps = {
@@ -170,36 +179,54 @@ function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor)
 			selectionCursor = getSelectionCursor(CursorKind.RoundedRectNoInset)
 		end
 
-		return Roact.createElement(Interactable, {
-			AnchorPoint = self.props.anchorPoint,
-			LayoutOrder = self.props.layoutOrder,
-			Position = self.props.position,
-			Size = self.props.size,
+		return Roact.createElement(
+			if UIBloxConfig.enableLinkButtonGamepadSupport then Focusable[Interactable] else Interactable,
+			{
+				AnchorPoint = self.props.anchorPoint,
+				LayoutOrder = self.props.layoutOrder,
+				Position = self.props.position,
+				Size = self.props.size,
 
-			isDisabled = self.props.isDisabled,
-			onStateChanged = self.onStateChanged,
-			userInteractionEnabled = self.props.userInteractionEnabled,
-			BackgroundTransparency = 1,
-			AutoButtonColor = false,
-			SelectionImageObject = selectionCursor,
-			[Roact.Event.Activated] = self.props.onActivated,
-		}, {
-			sizeConstraint = Roact.createElement("UISizeConstraint", {
-				MinSize = minSize,
-			}),
-			textLabel = Roact.createElement(GenericTextLabel, {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
+				isDisabled = self.props.isDisabled,
+				onStateChanged = self.onStateChanged,
+				userInteractionEnabled = self.props.userInteractionEnabled,
 				BackgroundTransparency = 1,
-				Text = manipulatedText,
-				fontStyle = fontStyle,
-				colorStyle = textStyle,
-				RichText = true,
-			}),
-			background = self.props.hoverBackgroundEnabled
-				and currentState == ControlState.Hover
-				and Roact.createElement(HoverButtonBackground),
-		})
+				AutoButtonColor = false,
+				SelectionImageObject = selectionCursor,
+				[Roact.Event.Activated] = self.props.onActivated,
+
+				[Roact.Ref] = if UIBloxConfig.enableLinkButtonGamepadSupport then self.props.buttonRef else nil,
+				NextSelectionLeft = if UIBloxConfig.enableLinkButtonGamepadSupport
+					then self.props.NextSelectionLeft
+					else nil,
+				NextSelectionRight = if UIBloxConfig.enableLinkButtonGamepadSupport
+					then self.props.NextSelectionRight
+					else nil,
+				NextSelectionUp = if UIBloxConfig.enableLinkButtonGamepadSupport
+					then self.props.NextSelectionUp
+					else nil,
+				NextSelectionDown = if UIBloxConfig.enableLinkButtonGamepadSupport
+					then self.props.NextSelectionDown
+					else nil,
+			},
+			{
+				sizeConstraint = Roact.createElement("UISizeConstraint", {
+					MinSize = minSize,
+				}),
+				textLabel = Roact.createElement(GenericTextLabel, {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.fromScale(0.5, 0.5),
+					BackgroundTransparency = 1,
+					Text = manipulatedText,
+					fontStyle = fontStyle,
+					colorStyle = textStyle,
+					RichText = true,
+				}),
+				background = self.props.hoverBackgroundEnabled
+					and currentState == ControlState.Hover
+					and Roact.createElement(HoverButtonBackground),
+			}
+		)
 	end)
 end
 

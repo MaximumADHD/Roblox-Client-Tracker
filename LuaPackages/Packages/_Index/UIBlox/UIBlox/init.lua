@@ -315,9 +315,7 @@ local function initializeLibrary(configs)
 
 			DropdownMenu = require(script.App.Menu.DropdownMenu),
 
-			KeyLabel = if configs.useNewKeyLabel
-				then require(script.App.Menu.KeyLabelV2)
-				else require(script.App.Menu.KeyLabel),
+			KeyLabel = require(script.App.Menu.KeyLabel.KeyLabel),
 		}),
 
 		Control = strict({

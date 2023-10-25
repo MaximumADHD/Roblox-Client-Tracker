@@ -1,7 +1,7 @@
 --!strict
 
-game:DefineFastFlag("UGCValidationMeshPartAccessoryUploads", false)
+game:DefineFastFlag("UGCValidationMeshPartAccessoryUploads2", false)
 
 return function()
-	return game:GetFastFlag("UGCValidationMeshPartAccessoryUploads")
+	return game:GetFastFlag("UGCValidationMeshPartAccessoryUploads2")
 end

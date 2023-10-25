@@ -27,12 +27,14 @@ local validateCageMeshIntersection = require(root.validation.validateCageMeshInt
 local validateCageNonManifoldAndHoles = require(root.validation.validateCageNonManifoldAndHoles)
 local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCageDeletion)
 
+local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
 local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
 
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
+local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 
 local function buildAllowedAssetTypeIdSet()
@@ -52,12 +54,21 @@ local function validateLayeredClothingAccessory(
 	isServer: boolean?,
 	allowUnreviewedAssets: boolean?
 ): (boolean, { string }?)
-	local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
-	if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
-		Analytics.reportFailure(
-			Analytics.ErrorType.validateLayeredClothingAccessory_AssetTypeNotAllowedAsLayeredClothing
-		)
-		return false, { "Asset type cannot be validated as Layered Clothing" }
+	if getFFlagUGCValidationLayeredAndRigidLists() then
+		if not RigidOrLayeredAllowed.isLayeredClothingAllowed(assetTypeEnum) then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_AssetTypeNotAllowedAsLayeredClothing
+			)
+			return false, { "Asset type cannot be validated as Layered Clothing" }
+		end
+	else
+		local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
+		if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_AssetTypeNotAllowedAsLayeredClothing
+			)
+			return false, { "Asset type cannot be validated as Layered Clothing" }
+		end
 	end
 
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]

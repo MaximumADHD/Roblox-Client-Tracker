@@ -27,6 +27,7 @@ local validateAttributes = require(root.validation.validateAttributes)
 local validateHSR = require(root.validation.validateHSR)
 local validateBodyPartCollisionFidelity = require(root.validation.validateBodyPartCollisionFidelity)
 local validateModeration = require(root.validation.validateModeration)
+local validateAssetTransparency = require(root.validation.validateAssetTransparency)
 
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -39,7 +40,8 @@ local function validateMeshPartBodyPart(
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean?,
 	allowUnreviewedAssets: boolean?,
-	restrictedUserIds: Types.RestrictedUserIds?
+	restrictedUserIds: Types.RestrictedUserIds?,
+	universeId: number?
 ): (boolean, { string }?)
 	-- do this ASAP
 	if getFFlagUGCValidationResetPhysicsData() then
@@ -60,7 +62,8 @@ local function validateMeshPartBodyPart(
 	end
 
 	do
-		local result, failureReasons = validateDependencies(inst, isServer, allowUnreviewedAssets, restrictedUserIds)
+		local result, failureReasons =
+			validateDependencies(inst, isServer, allowUnreviewedAssets, restrictedUserIds, universeId)
 		if not result then
 			return result, failureReasons
 		end
@@ -79,6 +82,8 @@ local function validateMeshPartBodyPart(
 	reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, isServer))
 
 	reasonsAccumulator:updateReasons(validateHSR(inst))
+
+	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
 
 	reasonsAccumulator:updateReasons(validateMaterials(inst))
 

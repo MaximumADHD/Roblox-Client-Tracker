@@ -22,14 +22,28 @@ local function validateBodyPartInternal(
 	assetTypeEnum,
 	isServer,
 	allowUnreviewedAssets,
-	restrictedUserIds
+	restrictedUserIds,
+	universeId
 )
 	assert(ConstantsInterface.isBodyPart(assetTypeEnum)) --checking in the calling function, so must be true
 
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		return validateDynamicHeadMeshPartFormat(instances, isServer, allowUnreviewedAssets, restrictedUserIds)
+		return validateDynamicHeadMeshPartFormat(
+			instances,
+			isServer,
+			allowUnreviewedAssets,
+			restrictedUserIds,
+			universeId
+		)
 	end
-	return validateLimbsAndTorso(instances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds)
+	return validateLimbsAndTorso(
+		instances,
+		assetTypeEnum,
+		isServer,
+		allowUnreviewedAssets,
+		restrictedUserIds,
+		universeId
+	)
 end
 
 local function validateInternal(
@@ -39,7 +53,8 @@ local function validateInternal(
 	isServer,
 	allowUnreviewedAssets,
 	restrictedUserIds,
-	token
+	token,
+	universeId
 ): (boolean, { string }?)
 	if getFFlagUGCValidateBodyParts() and ConstantsInterface.isBodyPart(assetTypeEnum) then
 		return validateBodyPartInternal(
@@ -48,7 +63,8 @@ local function validateInternal(
 			assetTypeEnum,
 			isServer,
 			allowUnreviewedAssets,
-			restrictedUserIds
+			restrictedUserIds,
+			universeId
 		)
 	end
 

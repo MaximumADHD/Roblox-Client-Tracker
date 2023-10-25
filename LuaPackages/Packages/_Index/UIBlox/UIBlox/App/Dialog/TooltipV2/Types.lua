@@ -6,7 +6,8 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 
-local KeyLabel = require(App.Menu.KeyLabelV2)
+local KeyLabelRoot = App.Menu.KeyLabel
+local KeyLabelTypes = require(KeyLabelRoot.Types)
 local StyleTypes = require(App.Style.StyleTypes)
 
 -- props supplied by user
@@ -20,7 +21,7 @@ export type TooltipPublicProps = {
 	-- props to be passed to button (if present)
 	buttonProps: { [string]: any }?,
 	-- array of hotkey keycodes to be passed to keyLabel
-	hotkeyCodes: { KeyLabel.FlexibleKeyCode }?,
+	hotkeyCodes: { KeyLabelTypes.FlexibleKeyCode }?,
 	-- render function to be rendered underneath the text
 	renderCustomComponents: ((width: number) -> React.ReactElement)?,
 	-- forward a ref to the tooltip box. this is not a real prop, but we include it for typechecking

@@ -13,8 +13,12 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local Button = require(App.Button.Button)
 local ButtonType = require(App.Button.Enum.ButtonType)
 local StandardButtonSize = require(UIBlox.Core.Button.Enum.StandardButtonSize)
-local KeyLabel = require(App.Menu.KeyLabelV2)
-local getKeyLabelWidth = require(App.Menu.KeyLabelV2.getKeyLabelWidth)
+
+local KeyLabelRoot = App.Menu.KeyLabel
+local KeyLabel = require(KeyLabelRoot.KeyLabel)
+local KeyLabelTypes = require(KeyLabelRoot.Types)
+local getKeyLabelWidth = require(KeyLabelRoot.Utilities).getKeyLabelWidth
+
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local Consts = require(Tooltip.Constants)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
@@ -58,7 +62,7 @@ local function addOffsets<K>(originalSize: Vector2, offset: { [K]: number }): Ve
 end
 
 local function getHotkeysAndWidth(
-	hotkeyCodes: { KeyLabel.FlexibleKeyCode }?,
+	hotkeyCodes: { KeyLabelTypes.FlexibleKeyCode }?,
 	contentWidth,
 	font
 ): (React.ReactElement?, number)

@@ -205,6 +205,13 @@ function VerticalScrollView:init()
 		end
 
 		self.onSelectionChanged = function(mainCanvas, mainCanvasSelected, _, newSelection)
+			if UIBloxConfig.fixVerticalScrollViewOnSelectionChanged then
+				if not mainCanvasSelected and newSelection == nil then
+					self.onGamepadFocusLost()
+					return
+				end
+			end
+
 			if mainCanvasSelected or newSelection:IsDescendantOf(mainCanvas) then
 				self.onGamepadFocused()
 			else

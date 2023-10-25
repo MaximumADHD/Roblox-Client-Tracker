@@ -7,6 +7,7 @@ local StudioService = if RunService:IsStudio() then game:GetService("StudioServi
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
+local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
 
 local function joinTables(...)
 	local result = {}
@@ -123,6 +124,11 @@ Analytics.ErrorType = {
 	validateUVSpace_FailedToExecute = "validateUVSpace_FailedToExecute",
 	validateUVSpace_InvalidUVSpace = "validateUVSpace_InvalidUVSpace",
 }
+
+if getFFlagUGCValidateTestInactiveControls() then
+	Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls =
+		"validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls"
+end
 
 setmetatable(Analytics.ErrorType, {
 	__index = function(_, index)

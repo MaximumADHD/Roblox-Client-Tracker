@@ -33,7 +33,7 @@ return function()
 
 		[UpdateCall.name] = function(_: roduxCallTypes.CurrentCall, action: roduxCallTypes.UpdateCallAction)
 			local call = action.payload.call
-			if call.status == Status.Idle.rawValue() then
+			if call.status == Status.Idle.rawValue() and call.instanceId == nil then
 				return nil
 			else
 				return CallStateModel.format(call)

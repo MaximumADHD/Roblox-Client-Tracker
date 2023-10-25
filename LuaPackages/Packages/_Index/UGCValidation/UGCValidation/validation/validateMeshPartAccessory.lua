@@ -99,7 +99,7 @@ local function validateMeshPartAccessory(
 
 	reasonsAccumulator:updateReasons(validateAttributes(instance))
 
-	reasonsAccumulator:updateReasons(validateTextureSize(textureId))
+	reasonsAccumulator:updateReasons(validateTextureSize(textureId, true))
 
 	if getFFlagUGCValidateThumbnailConfiguration() then
 		reasonsAccumulator:updateReasons(validateThumbnailConfiguration(instance, handle, meshId, meshScale))

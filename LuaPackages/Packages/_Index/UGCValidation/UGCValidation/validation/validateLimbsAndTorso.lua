@@ -132,7 +132,8 @@ local function validateLimbsAndTorso(
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean?,
 	allowUnreviewedAssets: boolean?,
-	restrictedUserIds: Types.RestrictedUserIds?
+	restrictedUserIds: Types.RestrictedUserIds?,
+	universeId: number?
 ): (boolean, { string }?)
 	local requiredTopLevelFolders: { string } = {
 		if getFFlagMoveToolboxCodeToUGCValidation()
@@ -176,7 +177,8 @@ local function validateLimbsAndTorso(
 				assetTypeEnum,
 				isServer,
 				allowUnreviewedAssets,
-				restrictedUserIds
+				restrictedUserIds,
+				universeId
 			)
 		end
 		if not result then

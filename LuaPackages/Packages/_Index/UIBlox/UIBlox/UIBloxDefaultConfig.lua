@@ -23,11 +23,14 @@ return {
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
-	-- if true, uses the new KeyLabelV2
-	useNewKeyLabel = false,
+	-- Enable BackgroundContrast background for RateCount
+	enableRateCountBackgroundContrast = false,
 
 	-- Bind all laser pointer buttons for left/right switching
 	bindAllLaserPointerButtons = false,
+
+	-- This fixes slider behavior when they are within a SurfaceGui instead of a ScreenGui
+	allowSlidersToWorkInSurfaceGuis = false,
 
 	-- Enable support for the new Collectible/Limited 2.0 item restriction type
 	enableCollectibleItemRestriction = false,
@@ -136,4 +139,10 @@ return {
 
 	-- Switch the LoadableImage default loading strategy to default.
 	makeDefaultLoadingStrategyDefault = false,
+
+	-- Fix VerticalScrollView error on Event.SelectionChanged
+	fixVerticalScrollViewOnSelectionChanged = false,
+
+	-- Add gamepad support to LinkButton
+	enableLinkButtonGamepadSupport = false,
 }

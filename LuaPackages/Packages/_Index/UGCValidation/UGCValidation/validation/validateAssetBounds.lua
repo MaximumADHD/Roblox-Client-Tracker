@@ -8,67 +8,75 @@ local root = script.Parent.Parent
 
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
 local getFFlagUGCValidateMinBoundsOnlyMesh = require(root.flags.getFFlagUGCValidateMinBoundsOnlyMesh)
+local getFFlagUGCValidationRefactorAssetTraversal = require(root.flags.getFFlagUGCValidationRefactorAssetTraversal)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
-local Types = require(root.util.Types)
 local calculateMinMax = require(root.util.calculateMinMax)
+local Types = require(root.util.Types)
+local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
-local assetHierarchy = {
-	[Enum.AssetType.DynamicHead] = {
-		root = "Head",
-	},
-	[Enum.AssetType.Torso] = {
-		root = "LowerTorso",
-		children = {
-			UpperTorso = {},
+local assetHierarchy
+
+if getFFlagUGCValidationRefactorAssetTraversal() then
+	assetHierarchy = AssetTraversalUtils.assetHierarchy
+else
+	assetHierarchy = {
+		[Enum.AssetType.DynamicHead] = {
+			root = "Head",
 		},
-	},
-	[Enum.AssetType.LeftArm] = {
-		root = "LeftUpperArm",
-		children = {
-			LeftLowerArm = {
-				children = {
-					LeftHand = {},
+		[Enum.AssetType.Torso] = {
+			root = "LowerTorso",
+			children = {
+				UpperTorso = {},
+			},
+		},
+		[Enum.AssetType.LeftArm] = {
+			root = "LeftUpperArm",
+			children = {
+				LeftLowerArm = {
+					children = {
+						LeftHand = {},
+					},
 				},
 			},
 		},
-	},
-	[Enum.AssetType.RightArm] = {
-		root = "RightUpperArm",
-		children = {
-			RightLowerArm = {
-				children = {
-					RightHand = {},
+		[Enum.AssetType.RightArm] = {
+			root = "RightUpperArm",
+			children = {
+				RightLowerArm = {
+					children = {
+						RightHand = {},
+					},
 				},
 			},
 		},
-	},
-	[Enum.AssetType.LeftLeg] = {
-		root = "LeftUpperLeg",
-		children = {
-			LeftLowerLeg = {
-				children = {
-					LeftFoot = {},
+		[Enum.AssetType.LeftLeg] = {
+			root = "LeftUpperLeg",
+			children = {
+				LeftLowerLeg = {
+					children = {
+						LeftFoot = {},
+					},
 				},
 			},
 		},
-	},
-	[Enum.AssetType.RightLeg] = {
-		root = "RightUpperLeg",
-		children = {
-			RightLowerLeg = {
-				children = {
-					RightFoot = {},
+		[Enum.AssetType.RightLeg] = {
+			root = "RightUpperLeg",
+			children = {
+				RightLowerLeg = {
+					children = {
+						RightFoot = {},
+					},
 				},
 			},
 		},
-	},
-}
+	}
+end
 
 local fullBody = {
 	root = "LowerTorso",
@@ -85,18 +93,12 @@ local fullBody = {
 	},
 }
 
-type BoundsData = {
-	minMeshCorner: Vector3?,
-	maxMeshCorner: Vector3?,
-
-	minRigAttachment: Vector3?,
-	maxRigAttachment: Vector3?,
-
-	minOverall: Vector3?,
-	maxOverall: Vector3?,
-}
-
-local function calculateBounds(singleAsset: Enum.AssetType?, part: MeshPart, cframe: CFrame, minMaxBounds: BoundsData)
+local function calculateBounds(
+	singleAsset: Enum.AssetType?,
+	part: MeshPart,
+	cframe: CFrame,
+	minMaxBounds: Types.BoundsData
+)
 	-- this relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
 	minMaxBounds.minMeshCorner, minMaxBounds.maxMeshCorner = calculateMinMax(
 		minMaxBounds.minMeshCorner,
@@ -152,7 +154,7 @@ local function traverseHierarchy(
 	parentCFrame: CFrame,
 	name: string,
 	details: any,
-	minMaxBounds: BoundsData
+	minMaxBounds: Types.BoundsData
 )
 	if getFFlagUGCValidateFullBody() then
 		local isSingleInstance = folder and singleAsset
@@ -336,24 +338,54 @@ local function validateAssetBounds(
 		assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
 	end
 
-	local minMaxBounds: BoundsData = {}
+	local minMaxBounds: Types.BoundsData = {}
 
 	if getFFlagUGCValidateFullBody() and fullBodyAssets then
-		traverseHierarchy(fullBodyAssets, nil, nil, nil, CFrame.new(), fullBody.root, fullBody, minMaxBounds)
+		if getFFlagUGCValidationRefactorAssetTraversal() then
+			AssetTraversalUtils.traverseHierarchy(
+				fullBodyAssets,
+				nil,
+				nil,
+				nil,
+				CFrame.new(),
+				fullBody.root,
+				fullBody,
+				minMaxBounds
+			)
+		else
+			traverseHierarchy(fullBodyAssets, nil, nil, nil, CFrame.new(), fullBody.root, fullBody, minMaxBounds)
+		end
 	elseif Enum.AssetType.DynamicHead == assetTypeEnum :: Enum.AssetType then
-		calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
+		if getFFlagUGCValidationRefactorAssetTraversal() then
+			AssetTraversalUtils.calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
+		else
+			calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
+		end
 	else
 		local hierarchy = assetHierarchy[assetTypeEnum :: Enum.AssetType]
-		traverseHierarchy(
-			nil,
-			inst :: Folder,
-			assetTypeEnum,
-			nil,
-			CFrame.new(),
-			hierarchy.root,
-			hierarchy,
-			minMaxBounds
-		)
+		if getFFlagUGCValidationRefactorAssetTraversal() then
+			AssetTraversalUtils.traverseHierarchy(
+				nil,
+				inst :: Folder,
+				assetTypeEnum,
+				nil,
+				CFrame.new(),
+				hierarchy.root,
+				hierarchy,
+				minMaxBounds
+			)
+		else
+			traverseHierarchy(
+				nil,
+				inst :: Folder,
+				assetTypeEnum,
+				nil,
+				CFrame.new(),
+				hierarchy.root,
+				hierarchy,
+				minMaxBounds
+			)
+		end
 	end
 
 	local success, reasons, scaleType = getScaleType(fullBodyAssets, inst, assetTypeEnum)

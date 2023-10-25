@@ -1,11 +1,5 @@
 local LuaSocialLibrariesDeps = script.Parent
 
-game:DefineFastFlag("SocialNetworkingShareLinksv131_v2", false)
-
-local getFFlagSocialNetworkingShareLinksv131 = function()
-	return game:GetFastFlag("SocialNetworkingShareLinksv131_v2")
-end
-
 return {
 	GenericPagination = require(LuaSocialLibrariesDeps.GenericPagination),
 	RoactFitComponents = require(LuaSocialLibrariesDeps.RoactFitComponents),
@@ -31,9 +25,7 @@ return {
 	NetworkingFriends = require(LuaSocialLibrariesDeps.NetworkingFriends),
 	NetworkingGames = require(LuaSocialLibrariesDeps.NetworkingGames),
 	NetworkingContacts = require(LuaSocialLibrariesDeps.NetworkingContacts),
-	NetworkingShareLinks = if getFFlagSocialNetworkingShareLinksv131()
-		then require(LuaSocialLibrariesDeps.NetworkingShareLinks_v131)
-		else require(LuaSocialLibrariesDeps.NetworkingShareLinks),
+	NetworkingShareLinks = require(LuaSocialLibrariesDeps.NetworkingShareLinks),
 	NetworkingPremiumFeatures = require(LuaSocialLibrariesDeps.NetworkingPremiumFeatures),
 	NetworkingCurrentlyWearing = require(LuaSocialLibrariesDeps.NetworkingCurrentlyWearing),
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),

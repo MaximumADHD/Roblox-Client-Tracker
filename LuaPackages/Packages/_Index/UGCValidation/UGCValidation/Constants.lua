@@ -17,6 +17,7 @@ local getFFlagUGCValidationAdjustLegBounds = require(root.flags.getFFlagUGCValid
 local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
+local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
 
@@ -178,6 +179,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.Hat] = {
 			size = Vector3.new(3, 4, 3),
 		},
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.HairAccessory] = {
@@ -188,6 +190,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.HairAccessory] = {
 			offset = Vector3.new(0, -0.5, 0.25),
 		},
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 local FACE_BOUNDS = { size = Vector3.new(3, 2, 2) }
@@ -197,6 +200,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.FaceAccessory] = {
 		FaceFrontAttachment = FACE_BOUNDS,
 		FaceCenterAttachment = FACE_BOUNDS,
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.NeckAccessory] = {
@@ -204,6 +208,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.NeckAccessory] = {
 	bounds = {
 		NeckAttachment = { size = Vector3.new(3, 3, 2) },
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 local SHOULDER_BOUNDS = { size = Vector3.new(3, 3, 3) }
@@ -222,6 +227,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.ShoulderAccessory] = {
 		LeftShoulderAttachment = SHOULDER_BOUNDS,
 		RightShoulderAttachment = SHOULDER_BOUNDS,
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.FrontAccessory] = {
@@ -229,6 +235,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.FrontAccessory] = {
 	bounds = {
 		BodyFrontAttachment = { size = Vector3.new(3, 3, 3) },
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.BackAccessory] = {
@@ -239,6 +246,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.BackAccessory] = {
 			offset = Vector3.new(0, 0, 0.75),
 		},
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 local WAIST_BOUNDS = {
@@ -256,6 +264,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.WaistAccessory] = {
 		WaistFrontAttachment = WAIST_BOUNDS,
 		WaistCenterAttachment = WAIST_BOUNDS,
 	},
+	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.TShirtAccessory] = {

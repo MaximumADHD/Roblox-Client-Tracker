@@ -129,11 +129,11 @@ local rawKeyToRawValue = {
 	--
 	SubscriptionUnsupportedLocale = "SubscriptionUnsupportedLocale",
 
-	--[[ PurchaseErrorType.RestrictedUserAge
-	The purchase is restricted for users under universe age recommendation guidelines
+	--[[ PurchaseErrorType.RestrictedUser
+	The purchase is restricted for users who do not meet playability criteria for associated experience
 	]]
 	--
-	RestrictedUserAge = "RestrictedUserAge",
+	RestrictedUser = "RestrictedUser",
 
 	--[[ PurchaseErrorType.SubscriptionPurchasePlatformNotSupported
 	The subscription is restricted for purchase on the current device

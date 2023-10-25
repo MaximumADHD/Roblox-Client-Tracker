@@ -12,7 +12,7 @@ local t = require(Packages.t)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
-local KeyLabel = require(App.Menu.KeyLabel)
+local KeyLabel = require(App.Menu.KeyLabel.KeyLabel)
 
 local PADDING = require(script.Parent.BarConstants).ControllerBarHintInternalPadding
 

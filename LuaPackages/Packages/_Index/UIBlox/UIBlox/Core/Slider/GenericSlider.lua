@@ -5,6 +5,7 @@ local CoreRoot = SliderRoot.Parent
 local UIBloxRoot = CoreRoot.Parent
 local Packages = UIBloxRoot.Parent
 
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
@@ -96,6 +97,7 @@ function GenericSlider:init()
 	self.rootRef = self.props.imageButtonRef or Roact.createRef()
 	self.lowerKnobRef = Roact.createRef()
 	self.upperKnobRef = Roact.createRef()
+	self.borderFrameRef = Roact.createRef()
 	self.moveDirection = 0
 
 	self.lowerKnobDrag = false
@@ -491,6 +493,14 @@ function GenericSlider:render()
 				end
 			end,
 		}, {
+			BorderFrame = if UIBloxConfig.allowSlidersToWorkInSurfaceGuis
+				then Roact.createElement("Frame", {
+					Size = UDim2.fromScale(3, 3),
+					Position = UDim2.new(-1, 0, -1, 0),
+					BackgroundTransparency = 1,
+					[Roact.Ref] = self.borderFrameRef,
+				})
+				else nil,
 			Track = self:renderTrack(fillSize, isTwoKnobs, fillPercentLower),
 			LowerKnob = self:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoKnobs, getSelectionCursor),
 			LowerKnobShadow = self:renderKnobShadow(self.props.knobShadowTransparencyLower, knobPositionLower),
@@ -577,7 +587,7 @@ function GenericSlider:startListeningForDrag()
 		-- This is the nice clean path, where we can just use UserInputService to
 		-- capture the mouse movements. We will use this path in all production
 		-- cases (desktop, mobile, console, etc.)
-		self.moveConnection = UserInputService.InputChanged:Connect(function(inputObject)
+		local inputChangedEvent = function(inputObject)
 			-- We don't check whether the input was processed by something else
 			-- because we don't care about it: when we move the mouse, we want to
 			-- move the slider to match the movement, regardless of whether the
@@ -598,7 +608,15 @@ function GenericSlider:startListeningForDrag()
 			end
 
 			self:processDrag(inputObject.Position.X)
-		end)
+		end
+
+		if UIBloxConfig.allowSlidersToWorkInSurfaceGuis then
+			if self.borderFrameRef.current then
+				self.moveConnection = self.borderFrameRef.current.InputChanged:Connect(inputChangedEvent)
+			end
+		else
+			self.moveConnection = UserInputService.InputChanged:Connect(inputChangedEvent)
+		end
 
 		self.releaseConnection = UserInputService.InputEnded:Connect(function(inputObject)
 			local inputType = inputObject.UserInputType
@@ -612,7 +630,9 @@ function GenericSlider:startListeningForDrag()
 			-- should not move if it is not being dragged (since the track is not clickable)
 			-- and, therefore, should not process if the drag is ending
 			self:stopListeningForDrag()
-			self:processOneKnobDrag(inputObject.Position.X)
+			if not UIBloxConfig.allowSlidersToWorkInSurfaceGuis then
+				self:processOneKnobDrag(inputObject.Position.X)
+			end
 		end)
 
 		-- If the window loses focus the user can release the mouse and we won't

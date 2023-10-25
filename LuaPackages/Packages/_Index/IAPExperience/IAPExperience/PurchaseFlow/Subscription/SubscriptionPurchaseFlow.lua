@@ -16,8 +16,8 @@ local Animator = require(IAPExperienceRoot.Generic.Animator)
 local PurchaseErrorPrompt = require(IAPExperienceRoot.Generic.PurchaseErrorPrompt)
 local SubscriptionPurchasePrompt = require(IAPExperienceRoot.Subscription.SubscriptionPurchasePrompt)
 
-local getModalShownEventData = require(IAPExperienceRoot.Utility.getModalShownEventData)
-local getUserInputEventData = require(IAPExperienceRoot.Utility.getUserInputEventData)
+local getEnableSubscriptionPurchaseInstrumentation = require(IAPExperienceRoot.Flags.getEnableSubscriptionPurchaseInstrumentation)
+local formatSubscriptionPurchaseEventData = require(IAPExperienceRoot.Utility.formatSubscriptionPurchaseEventData)
 
 local SubscriptionPurchaseFlow = Roact.Component:extend(script.Name)
 
@@ -30,7 +30,9 @@ type Props = {
 	purchaseState: any?,
 	errorType: any?,
 
+	subscriptionId: string,
 	name: string,
+	subscriptionProviderId: string,
 	subscriptionProviderName: string,
 	displayPrice: string,
 	period: string,
@@ -62,29 +64,25 @@ function SubscriptionPurchaseFlow:didUpdate(prevProps: Props, prevState: State)
 	local props: Props = self.props
 
 	if prevProps.purchaseState ~= props.purchaseState then
-		self:reportModalShown()
+		if getEnableSubscriptionPurchaseInstrumentation() then
+			self:reportPurchaseEvent("ViewShown")
+		end
 	end
-end
-
-function SubscriptionPurchaseFlow:reportModalShown()
-	local props: Props = self.props
-	local state: State = self.state
-
-	if not self.props.onAnalyticEvent then
-		return
-	end
-
-	local data = getModalShownEventData(
-		state.analyticId,
-		props.eventPrefix,
-		"SubscriptionPurchase",
-		SubscriptionPurchaseFlowState.toRawValue(props.purchaseState)
-	)
-
-	props.onAnalyticEvent("UserPurchaseFlow", data)
 end
 
 function SubscriptionPurchaseFlow:reportUserInput(inputType: string)
+	if not getEnableSubscriptionPurchaseInstrumentation() then
+		return
+	end
+
+	self:reportPurchaseEvent("UserInput", inputType)
+end
+
+function SubscriptionPurchaseFlow:reportPurchaseEvent(eventType: string, inputType: string?)
+	if not getEnableSubscriptionPurchaseInstrumentation() then
+		return
+	end
+
 	local props: Props = self.props
 	local state: State = self.state
 
@@ -92,15 +90,21 @@ function SubscriptionPurchaseFlow:reportUserInput(inputType: string)
 		return
 	end
 
-	local data = getUserInputEventData(
-		state.analyticId,
-		props.eventPrefix,
-		"SubscriptionPurchase",
+	local eventData = formatSubscriptionPurchaseEventData(
+		self.state.analyticId,
+		eventType,
 		SubscriptionPurchaseFlowState.toRawValue(props.purchaseState),
-		inputType
-	)
+		inputType,
 
-	props.onAnalyticEvent("UserPurchaseFlow", data)
+		props.subscriptionProviderId,
+		props.subscriptionId,
+		props.name,
+		props.description,
+		props.period,
+		props.priceTier,
+		props.displayPrice
+	)
+	props.onAnalyticEvent("SubscriptionPurchase", eventData)
 end
 
 function SubscriptionPurchaseFlow:render()

@@ -12,6 +12,7 @@ local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebu
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagUGCValidateAssetStatusNameChange = require(root.flags.getFFlagUGCValidateAssetStatusNameChange)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
+local FFlagValidateUserAndUniverseNoModeration = game:DefineFastFlag("ValidateUserAndUniverseNoModeration", false)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -23,6 +24,7 @@ local Types = require(root.util.Types)
 
 local validateModeration = require(root.validation.validateModeration)
 local validateCanLoad = require(root.validation.validateCanLoad)
+local validateAssetCreator = require(root.validation.validateAssetCreator)
 
 local function validateExistance(contentIdMap: any)
 	for _, data in pairs(contentIdMap) do
@@ -144,11 +146,20 @@ local function validateModerationRCC(
 	return reasonsAccumulator:getFinalResults()
 end
 
+local function validateAssetCreatorsRCC(
+	restrictedUserIds: Types.RestrictedUserIds?,
+	contentIdMap: any,
+	universeId: number
+)
+	return validateAssetCreator(contentIdMap, true --[[isServer]], restrictedUserIds or {}, "" --[[token]], universeId)
+end
+
 local function validateDependencies(
 	instance: Instance,
 	isServer: boolean?,
 	allowUnreviewedAssets: boolean?,
-	restrictedUserIds: Types.RestrictedUserIds?
+	restrictedUserIds: Types.RestrictedUserIds?,
+	universeId: number?
 ): (boolean, { string }?)
 	local contentIdMap = {}
 	local contentIds = {}
@@ -173,9 +184,15 @@ local function validateDependencies(
 
 	if not getFFlagDebugUGCDisableRCCOwnershipCheck() then
 		if isServer then
-			reasonsAccumulator:updateReasons(
-				validateModerationRCC(restrictedUserIds :: Types.RestrictedUserIds, contentIdMap)
-			)
+			-- This block will check user and universe permissions without considering moderation
+			-- This is from in experience creation, assets may not be moderated yet
+			if FFlagValidateUserAndUniverseNoModeration and universeId then
+				reasonsAccumulator:updateReasons(validateAssetCreatorsRCC(restrictedUserIds, contentIdMap, universeId))
+			else
+				reasonsAccumulator:updateReasons(
+					validateModerationRCC(restrictedUserIds :: Types.RestrictedUserIds, contentIdMap)
+				)
+			end
 		end
 	end
 

@@ -33,6 +33,7 @@ function CallStateModel.mock(mergeTable: any)
 		calleeDisplayName = mergeTable.calleeDisplayName or nil,
 		instanceId = mergeTable.instanceId or nil,
 		createdUtc = mergeTable.createdUtc or 0,
+		activeUtc = mergeTable.activeUtc or 0,
 	})
 
 	return self
@@ -50,6 +51,7 @@ function CallStateModel.format(CallStateData)
 		calleeDisplayName = CallStateData.calleeDisplayName,
 		instanceId = CallStateData.instanceId,
 		createdUtc = CallStateData.createdUtc,
+		activeUtc = CallStateData.activeUtc,
 	})
 
 	return self
@@ -66,6 +68,7 @@ CallStateModel.isValid = t.strictInterface({
 	calleeDisplayName = t.optional(t.string),
 	instanceId = t.optional(t.string),
 	createdUtc = t.optional(t.number),
+	activeUtc = t.optional(t.number),
 })
 
 return CallStateModel

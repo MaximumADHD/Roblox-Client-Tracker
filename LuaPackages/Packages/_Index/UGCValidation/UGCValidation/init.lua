@@ -1,5 +1,4 @@
 game:DefineFastFlag("UGCValidateMeshVertColors", false)
-game:DefineFastString("UGCLCAllowedAssetTypeIds", "")
 game:DefineFastFlag("UGCBetterModerationErrorText", false)
 game:DefineFastFlag("UGCLCQualityValidation", false)
 game:DefineFastFlag("UGCLCQualityReplaceLua", false)
@@ -9,6 +8,7 @@ local root = script
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
+local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidationMeshPartAccessoryUploads = require(root.flags.getFFlagUGCValidationMeshPartAccessoryUploads)
 
 local Analytics = require(root.Analytics)
@@ -19,6 +19,7 @@ local BundlesMetadata = require(root.util.BundlesMetadata)
 local createUGCBodyPartFolders = require(root.util.createUGCBodyPartFolders)
 local isMeshPartAccessory = require(root.util.isMeshPartAccessory)
 local isLayeredClothing = require(root.util.isLayeredClothing)
+local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local Types = require(root.util.Types)
 
 local validateInternal = require(root.validation.validateInternal)
@@ -34,6 +35,10 @@ local validateBundleReadyForUpload = require(root.validation.validateBundleReady
 local validateLimbsAndTorso = require(root.validation.validateLimbsAndTorso)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
 local validatePackage = require(root.validation.validatePackage)
+
+if not getFFlagUGCValidationLayeredAndRigidLists() then
+	game:DefineFastString("UGCLCAllowedAssetTypeIds", "")
+end
 
 -- Remove with FFlagMoveToolboxCodeToUGCValidation
 local function DEPRECATED_validateBodyPartInternal(
@@ -106,7 +111,8 @@ if getFFlagMoveToolboxCodeToUGCValidation() then
 		isServer: boolean?,
 		allowUnreviewedAssets: boolean?,
 		restrictedUserIds: Types.RestrictedUserIds?,
-		token: string?
+		token: string?,
+		universeId: number?
 	)
 		Analytics.setMetadata({
 			entrypoint = "validate",
@@ -120,7 +126,8 @@ if getFFlagMoveToolboxCodeToUGCValidation() then
 			isServer,
 			allowUnreviewedAssets,
 			restrictedUserIds,
-			token
+			token,
+			universeId
 		)
 		return success, reasons
 	end
@@ -296,6 +303,15 @@ if getFFlagMoveToolboxCodeToUGCValidation() then
 		-- You probably only want this on the client.
 		createUGCBodyPartFolders = createUGCBodyPartFolders,
 	}
+end
+
+if getFFlagUGCValidationLayeredAndRigidLists() then
+	if not getFFlagMoveToolboxCodeToUGCValidation() then
+		UGCValidation.util = {} :: any
+	end
+
+	UGCValidation.util.isLayeredClothingAllowed = RigidOrLayeredAllowed.isLayeredClothingAllowed
+	UGCValidation.util.isRigidAccessoryAllowed = RigidOrLayeredAllowed.isRigidAccessoryAllowed
 end
 
 function UGCValidation.validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean?): (boolean, { string }?)

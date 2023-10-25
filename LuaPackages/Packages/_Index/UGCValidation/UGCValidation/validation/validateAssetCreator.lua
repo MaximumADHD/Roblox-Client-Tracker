@@ -31,12 +31,16 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 
-local function createCanPublishPromise(url, assetIds, restrictedIds, token)
+local function createCanPublishPromise(url, assetIds, restrictedIds, token, universeId)
 	if #assetIds == 0 then
 		return Promise.resolve()
 	else
 		return Promise.new(function(resolve, reject)
-			local data = HttpService:JSONEncode({ assetIds = assetIds, restrictedEntities = restrictedIds })
+			local data = HttpService:JSONEncode({
+				assetIds = assetIds,
+				restrictedEntities = restrictedIds,
+				universeId = universeId,
+			})
 
 			local httpRequest = HttpService:RequestInternal({
 				Url = url,
@@ -64,7 +68,8 @@ local function validateAssetCreator(
 	contentIdMap: any,
 	isServer: boolean?,
 	restrictedUserIds: Types.RestrictedUserIds,
-	token: string
+	token: string,
+	universeId: number?
 ): (boolean, { string }?)
 	local canPublishUrl = API_URL .. if isServer then SERVER_URL else CLIENT_URL
 	local idsHashTable = { User = {}, Group = {} }
@@ -104,14 +109,14 @@ local function validateAssetCreator(
 		table.insert(assetIdList, assetId)
 
 		if #assetIdList >= pageSize then
-			local promise = createCanPublishPromise(canPublishUrl, assetIdList, restrictedUserIds, token)
+			local promise = createCanPublishPromise(canPublishUrl, assetIdList, restrictedUserIds, token, universeId)
 			table.insert(promises, promise)
 			assetIdList = {}
 		end
 	end
 
 	if #assetIdList > 0 then
-		local promise = createCanPublishPromise(canPublishUrl, assetIdList, restrictedUserIds, token)
+		local promise = createCanPublishPromise(canPublishUrl, assetIdList, restrictedUserIds, token, universeId)
 		table.insert(promises, promise)
 	end
 

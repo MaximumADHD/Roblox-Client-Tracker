@@ -23,7 +23,7 @@ local validateFontInfo = require(Packages.UIBlox.Core.Style.Validator.validateFo
 local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 
-local KeyLabel = require(script.Parent.KeyLabel)
+local KeyLabel = require(script.Parent.KeyLabel.KeyLabel)
 local RoundedFrame = require(script.Parent.RoundedFrame)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
