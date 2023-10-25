@@ -1,3 +1,4 @@
+?? ::EnumDesc<enum RBX::Enums::UiMessageTypeEnum::UiMessageType>
 _com_error
 `anonymous namespace'::AbnormalTerminateMessageBox
 `anonymous namespace'::AppQoSDefaultImpl

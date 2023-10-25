@@ -64,6 +64,7 @@ AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -10024,6 +10025,7 @@ BVCoordinateFrame
 BvhParallelMidPhase
 BVQItemSelection
 BVQJsonValue
+BVQModelIndex
 BVRegion3int16
 BVSystemAddress
 BW4DragDetectorDragStyle
@@ -10231,7 +10233,6 @@ CameraMinDistance
 CameraMinZoomDistance
 CameraMode
 CameraModeEnum
-CameraMovementModeEnum
 CameraOffset
 CameraPanLeft
 CameraPanLeft.png
@@ -12886,8 +12887,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 CorrectEarlyReturnInMarkDirty
 Correction
 Correctives
@@ -15803,9 +15804,6 @@ DigestAlgorithm_init_bio
 DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crt0E
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
 DigiCertTrustedRootG4.crl0
@@ -17813,7 +17811,6 @@ EvAudioVideoInput
 EvAV2CFaceIsOccluded
 EvAV2CFaceNotFound
 EvAV2CHasTrackingError
-EVCodeSigningSHA2
 EvenIfInvisible
 Event.button
 Event.clientX
@@ -25461,7 +25458,6 @@ LuaAppsDiagPageLoadTimeHome
 LuaAppsDiagRateLimitedErrorsCount
 LuaAppsDiagRateLimitedErrorsCounter
 LuaAppsErrorCount
-LuaAppsLoadTimeAvatar
 LuaAppsLoadTimeAvatarModel
 LuaAppsPageLoadTimeCatalog
 LuaAppsPageLoadTimeGames
@@ -26100,7 +26096,6 @@ MEAAXPEAVQObject
 MEAAXPEAVQPainter
 MEAAXPEAVQPaintEvent
 MEAAXPEAVQResizeEvent
-MEAAXPEAVQShowE
 MEAAXPEAVQShowEvent
 MEAAXPEAVQTabletEvent
 MEAAXPEAVQTimerEvent
@@ -28847,7 +28842,6 @@ OrFirstTier
 OrFunction
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -32313,6 +32307,7 @@ PxTNVxZr\x`
 PyJlf7IHZQpFHohBe
 QAbstractAnimation
 QAbstractButton
+QAbstractIt
 QAbstractItemDelegate
 QAbstractItemModel
 QAbstractItemView
@@ -36617,6 +36612,10 @@ SecondsSinceLastPong
 SecondsSinceLastPong_
 SecondsTo_
 SecretTransformationEnabled
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -51459,7 +51458,6 @@ VQGenericReturnArgument
 VQItemSelectionRange
 VQKeySequence
 VQModelIndex
-VQMouseEvent
 VQNetworkAddressEntry
 VQNetworkInterface
 VQPersistentModelIndex
