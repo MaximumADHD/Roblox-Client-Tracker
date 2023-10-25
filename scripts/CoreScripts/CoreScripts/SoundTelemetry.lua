@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local SoundService = game:GetService("SoundService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
@@ -10,6 +11,7 @@ local GetFFlagEnableSoundTelemetry = require(CoreGuiModules.Flags.GetFFlagEnable
 local GetFIntSoundTelemetryThrottlingPercentage = require(CoreGuiModules.Flags.GetFIntSoundTelemetryThrottlingPercentage)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 game:DefineFastFlag("SoundSessionTelemetryNewParams", false)
+game:DefineFastFlag("SoundSessionTelemetryInitialDMTraverse", false)
 
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
@@ -226,8 +228,13 @@ local function unhookSoundEvents(sound: Sound)
 	trackedSounds[sound] = nil
 end
 
-local function hookupSoundEvents(sound: Sound)
-	local playedSoundConnection = sound.Played:Connect(function()
+local function hookupSoundEvents(sound: Sound)	
+	-- Handle the case where the sound is already set to Playing when it's loaded into the DM
+	if sound.Playing then
+		onPlayed(sound)
+	end 
+
+	local playedSoundConnection = sound.Played:Connect(function()	
 		-- Wait for the sound to be loaded if it is not already loaded.
 		if sound.TimeLength == 0 or not sound.IsLoaded then
 			local loadedConnection = nil
@@ -273,18 +280,24 @@ end
 
 local shouldHookupSoundEvents = GetFFlagEnableSoundSessionTelemetry() or enableThrottledTelemetry
 
-if shouldHookupSoundEvents then 
-	for _, instance in ipairs(game:GetDescendants()) do
-		if instance.ClassName == "Sound" and not trackedSounds[instance :: Sound] then
-			hookupSoundEvents(instance :: Sound)
+if shouldHookupSoundEvents then
+	if game:GetFastFlag("SoundSessionTelemetryInitialDMTraverse") then 
+		for _, instance in ipairs(game:GetDescendants()) do
+			if instance:IsA("Sound") and not trackedSounds[instance :: Sound] then
+				hookupSoundEvents(instance :: Sound)
+			end
 		end
 	end
 
-	game.DescendantAdded:Connect(function(instance)
-		if instance.ClassName == "Sound" and not trackedSounds[instance :: Sound] then
-			hookupSoundEvents(instance :: Sound)
-		end
-	end)
+	if game:GetEngineFeature("AudioInstanceAddedApiEnabled") then
+		SoundService.AudioInstanceAdded:Connect(function(instance)		
+			local shouldTrack = instance:IsA("Sound") -- TODO: Add support for AudioListener here when we're ready
+
+			if shouldTrack and not trackedSounds[instance :: Sound] then
+				hookupSoundEvents(instance :: Sound)
+			end
+		end)
+	end
 end
 
 if GetFFlagEnableSoundSessionTelemetry() then

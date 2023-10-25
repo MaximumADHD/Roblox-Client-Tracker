@@ -26,6 +26,7 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local Constants = require(script.Constants)
+local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
 if ChromeEnabled and not TenFootInterface:IsEnabled() then
 	-- set this prior to TopBarApp require
@@ -59,6 +60,7 @@ local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFla
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local FFlagAddMenuNavigationToggleDialog = require(script.Flags.FFlagAddMenuNavigationToggleDialog)
+local FFlagEnableGamepadMenuSelector = require(script.Flags.FFlagEnableGamepadMenuSelector)
 
 -- FTUX
 local FTUX = RobloxGui.Modules.FTUX
@@ -150,7 +152,9 @@ function TopBar.new()
 
 	if FFlagAddMenuNavigationToggleDialog then
 		TopBarWithProviders = Roact.createElement(DesignTokenProvider, {
-			tokenMappers = {},
+			tokenMappers = {
+				MenuNavigationPrompt = if FFlagEnableGamepadMenuSelector then MenuNavigationPromptTokenMapper else nil,
+			},
 		}, {
 			TopBarApp = TopBarWithProviders,
 		})

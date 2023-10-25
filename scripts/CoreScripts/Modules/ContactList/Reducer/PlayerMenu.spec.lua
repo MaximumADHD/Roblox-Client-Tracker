@@ -14,21 +14,34 @@ return function()
 
 		expect(defaultState).toEqual({
 			isOpen = false,
-			userId = nil,
-			combinedName = "",
+			friend = {
+				userId = nil,
+				combinedName = "",
+				userName = "",
+			},
 		})
 	end)
 
 	describe("using actions", function()
 		it("should change with OpenOrUpdateCFM and CloseCFM", function()
 			local oldState = PlayerMenu(nil, {})
-			local openState = PlayerMenu(oldState, OpenOrUpdateCFM(1234567891, "testName"))
+			local openState = PlayerMenu(
+				oldState,
+				OpenOrUpdateCFM({
+					userName = "testName",
+					combinedName = "testDisplayName",
+					userId = 1234567891,
+				})
+			)
 
 			expect(oldState).never.toEqual(openState)
 			expect(openState).toEqual({
 				isOpen = true,
-				userId = 1234567891,
-				combinedName = "testName",
+				friend = {
+					userName = "testName",
+					combinedName = "testDisplayName",
+					userId = 1234567891,
+				},
 			})
 
 			local closeState = PlayerMenu(openState, CloseCFM())
@@ -36,8 +49,11 @@ return function()
 			expect(openState).never.toEqual(closeState)
 			expect(closeState).toEqual({
 				isOpen = false,
-				userId = nil,
-				combinedName = "",
+				friend = {
+					userId = nil,
+					combinedName = "",
+					userName = "",
+				},
 			})
 		end)
 	end)

@@ -3,13 +3,18 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
+local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
+local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local useApolloClient = ApolloClientModule.useApolloClient
 
 local ContactList = RobloxGui.Modules.ContactList
 local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
@@ -19,7 +24,6 @@ local NetworkingCall = dependencies.NetworkingCall
 local RoduxCall = dependencies.RoduxCall
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
-local useSelector = dependencies.Hooks.useSelector
 local UIBlox = dependencies.UIBlox
 
 local useStyle = UIBlox.Core.Style.useStyle
@@ -40,6 +44,7 @@ export type Props = {
 }
 
 local function CallHistoryContainer(props: Props)
+	local apolloClient = useApolloClient()
 	local dispatch = useDispatch()
 	local style = useStyle()
 	local theme = style.Theme
@@ -51,18 +56,44 @@ local function CallHistoryContainer(props: Props)
 	local initialPositionY = React.useRef(0)
 	local status, setStatus = React.useState(RetrievalStatus.Fetching)
 	local overscrolling, setOverscrolling = React.useState(false)
+	local callRecords, setCallRecords = React.useState({})
+	local nextPageCursor, setNextPageCursor = React.useState("")
 
-	local nextPageCursor = useSelector(function(state)
-		return state.Call.callHistory.nextPageCursor
-	end)
-
-	local getCallRecords = React.useCallback(function(cursor)
+	local getCallRecords = React.useCallback(function(currentRecords, cursor)
 		isLoading.current = true
 		setStatus(RetrievalStatus.Fetching)
 		local limit = if cursor == "" then 16 else 8
 		dispatch(NetworkingCall.GetCallHistory.API({ cursor = cursor, limit = limit, universeId = game.GameId })):andThen(
-			function()
-				setStatus(RetrievalStatus.Done)
+			function(result)
+				local updatedRecords = {}
+				for _, record in ipairs(currentRecords) do
+					table.insert(updatedRecords, record)
+				end
+				for _, record in ipairs(result.responseBody.callRecords) do
+					table.insert(updatedRecords, record)
+				end
+
+				local userIds = {}
+				for _, record in ipairs(updatedRecords) do
+					for _, participant in ipairs(record.participants) do
+						userIds[tostring(participant.userId)] = true
+					end
+				end
+
+				apolloClient
+					:query({
+						query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
+						variables = { userIds = Cryo.Dictionary.keys(userIds) },
+					})
+					:andThen(function()
+						-- Records names fetched, update the list with this page.
+						setCallRecords(updatedRecords)
+						setNextPageCursor(result.responseBody.nextPageCursor)
+						setStatus(RetrievalStatus.Done)
+					end)
+					:catch(function()
+						setStatus(RetrievalStatus.Failed)
+					end)
 			end,
 			function()
 				setStatus(RetrievalStatus.Failed)
@@ -71,31 +102,14 @@ local function CallHistoryContainer(props: Props)
 	end, {})
 
 	React.useEffect(function()
-		getCallRecords("")
+		getCallRecords({}, "")
 
 		return function()
 			dispatch(RoduxCall.Actions.ClearCallRecords())
+			setCallRecords({})
+			setNextPageCursor("")
 		end
 	end, { getCallRecords })
-
-	local selectCallRecords = React.useCallback(function(state: any)
-		return state.Call.callHistory.callRecords
-	end, {})
-
-	local callRecords = useSelector(selectCallRecords, function(newCallRecords: any, oldCallRecords: any)
-		if #newCallRecords ~= #oldCallRecords then
-			-- Shortcut for unmatched list lengths.
-			return false
-		else
-			-- Check to see if records list was changed.
-			for i, record in ipairs(newCallRecords) do
-				if record.callId ~= oldCallRecords[i].callId then
-					return false
-				end
-			end
-			return true
-		end
-	end)
 
 	local navigateToNewCall = React.useCallback(function()
 		dispatch(SetCurrentPage(Pages.FriendList))
@@ -121,13 +135,13 @@ local function CallHistoryContainer(props: Props)
 			imageName = "icons/graphic/findfriends_xlarge",
 			isFailedButtonEnabled = status == RetrievalStatus.Failed,
 			onFailedButtonActivated = function()
-				getCallRecords(nextPageCursor)
+				getCallRecords(callRecords, nextPageCursor)
 			end,
 			isCallButtonEnabled = status == RetrievalStatus.Done,
 			onCallButtonActivated = navigateToNewCall,
 			messageText = message,
 		})
-	end, dependencyArray(getCallRecords, navigateToNewCall, nextPageCursor, status))
+	end, dependencyArray(callRecords, getCallRecords, navigateToNewCall, nextPageCursor, status))
 
 	local touchStarted = React.useCallback(function(touch: InputObject)
 		initialPositionY.current = touch.Position.Y
@@ -199,9 +213,9 @@ local function CallHistoryContainer(props: Props)
 			and nextPageCursor ~= ""
 			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
 		then
-			getCallRecords(nextPageCursor)
+			getCallRecords(callRecords, nextPageCursor)
 		end
-	end, dependencyArray(getCallRecords, nextPageCursor, status))
+	end, dependencyArray(callRecords, getCallRecords, nextPageCursor, status))
 
 	React.useEffect(function()
 		-- This is used to handle the case where the number of records is less
@@ -230,10 +244,11 @@ local function CallHistoryContainer(props: Props)
 		else Roact.createFragment({
 			React.createElement("ScrollingFrame", {
 				Size = UDim2.fromScale(1, 1),
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
-				CanvasSize = UDim2.new(1, 0, 0, #children * Constants.ITEM_HEIGHT),
+				CanvasSize = UDim2.new(),
 				ElasticBehavior = Enum.ElasticBehavior.Never,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				ScrollingEnabled = not overscrolling and props.scrollingEnabled,

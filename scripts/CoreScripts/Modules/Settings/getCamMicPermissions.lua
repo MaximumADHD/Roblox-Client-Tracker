@@ -25,6 +25,8 @@ local Cryo = require(CorePackages.Cryo)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getVoiceCameraAccountSettings = require(CoreGui.RobloxGui.Modules.Settings.getVoiceCameraAccountSettings)
 local getPlaceVoiceCameraEnabled = require(CoreGui.RobloxGui.Modules.Settings.getPlaceVoiceCameraEnabled)
+local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
+
 local Promise = require(CorePackages.Promise)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -35,6 +37,10 @@ local FFlagAvatarChatCoreScriptSupport = require(CoreGui.RobloxGui.Modules.Flags
 local GetFFlagSelfieViewEnabled = require(CoreGui.RobloxGui.Modules.SelfieView.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local getFFlagDecoupleHasAndRequestPermissions = require(RobloxGui.Modules.Flags.getFFlagDecoupleHasAndRequestPermissions)
+local getFFlagPermissionsEarlyOutStallsQueue = require(RobloxGui.Modules.Flags.getFFlagPermissionsEarlyOutStallsQueue)
+local getFFlagUseCameraDeviceGrantedSignal = require(RobloxGui.Modules.Flags.getFFlagUseCameraDeviceGrantedSignal)
+local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+
 local AvatarChatService : any = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
 type Table = { [any]: any }
@@ -86,6 +92,10 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 		}
 
 		callback(response)
+		if getFFlagPermissionsEarlyOutStallsQueue() then
+			inProgress = false
+			invokeNextRequest()
+		end
 		return
 	end
 
@@ -140,9 +150,17 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 
 					hasCameraPermissions = if cacheCamera then hasCameraPermissionsResponse else nil
 					hasMicPermissions = if cacheMic then hasMicPermissionsResponse else nil
+
+					-- If camera permissions were authorized, we want to fire the granted signal
+					if getFFlagUseCameraDeviceGrantedSignal() and hasCameraPermissions then
+						cameraDevicePermissionGrantedSignal:fire()
+					end
 				else
 					-- If all permissions were authorized
 					if requestPermissionsResult == PermissionsProtocol.Status.AUTHORIZED then
+						if getFFlagUseCameraDeviceGrantedSignal() then
+							cameraDevicePermissionGrantedSignal:fire()
+						end
 						hasCameraPermissions = checkingCamera
 						hasMicPermissions = checkingMic
 					else
@@ -159,7 +177,10 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 
 				-- Remove with AVBURST-12354 once the C++ side fixes this.
 				if checkingCamera and not hasCameraPermissions then
-					TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
+					if not getFFlagDoNotPromptCameraPermissionsOnMount() then
+						-- We will be firing the prompt as well in the component that requests it. This extra toast is unncessary.
+						TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
+					end
 				end
 
 				callback(response)
@@ -239,6 +260,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 		table.insert(requestPermissionsQueue, {
 			callback = callback,
 			permissionsToRequest = permissionsToRequest,
+			shouldNotRequestPerms = getFFlagDecoupleHasAndRequestPermissions() and shouldNotRequestPerms,
 		})
 
 		return

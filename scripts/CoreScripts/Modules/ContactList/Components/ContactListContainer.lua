@@ -12,6 +12,7 @@ local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundG
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local GetFFlagCorescriptsSoundManagerEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
+local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -34,6 +35,7 @@ local ContactListSearchBar = require(ContactList.Components.ContactListSearchBar
 
 local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
 local SetCurrentTag = require(ContactList.Actions.SetCurrentTag)
+local OpenOrUpdateDialog = require(ContactList.Actions.OpenOrUpdateDialog)
 
 local Pages = require(ContactList.Enums.Pages)
 
@@ -84,11 +86,42 @@ local function ContactListContainer()
 			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
 				function(player: any, tag: string)
 					if localPlayer and localPlayer.UserId == player.UserId then
-						dispatch(SetCurrentTag(tag))
-						dispatch(SetCurrentPage(Pages.CallHistory))
+						local UserInputService = game:GetService("UserInputService")
+						local platformEnum = UserInputService:GetPlatform()
+						if
+							not UserInputService.VREnabled
+							and (
+								platformEnum == Enum.Platform.Windows
+								or platformEnum == Enum.Platform.UWP
+								or platformEnum == Enum.Platform.OSX
+								or platformEnum == Enum.Platform.IOS
+								or platformEnum == Enum.Platform.Android
+							)
+						then
+							dispatch(SetCurrentTag(tag))
+							dispatch(SetCurrentPage(Pages.CallHistory))
 
-						if GetFFlagCorescriptsSoundManagerEnabled() then
-							SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+							if GetFFlagCorescriptsSoundManagerEnabled() then
+								if GetFFlagSoundManagerRefactor() then
+									SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+								else
+									SoundManager:PlaySound_old(
+										Sounds.Swipe.Name,
+										{ Volume = 0.5, SoundGroup = SoundGroups.Iris }
+									)
+								end
+							end
+						else
+							dispatch(OpenOrUpdateDialog(
+								"Oh No!",
+								-- Todo: Localization
+								"Calling is currently not supported on your device. Please try again later.",
+								nil,
+								nil,
+								function()
+									SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+								end
+							))
 						end
 					end
 				end
@@ -112,7 +145,11 @@ local function ContactListContainer()
 	local dismissCallback = React.useCallback(function()
 		if not isSmallScreen and contactListContainerRef.current then
 			if GetFFlagCorescriptsSoundManagerEnabled() then
-				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				if GetFFlagSoundManagerRefactor() then
+					SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+				else
+					SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				end
 			end
 			pcall(function()
 				contactListContainerRef.current:TweenPosition(
@@ -183,7 +220,11 @@ local function ContactListContainer()
 			end
 
 			if GetFFlagCorescriptsSoundManagerEnabled() then
-				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				if GetFFlagSoundManagerRefactor() then
+					SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+				else
+					SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				end
 			end
 		end
 

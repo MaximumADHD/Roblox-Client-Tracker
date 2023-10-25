@@ -18,6 +18,7 @@ local ChromeTypes = require(Chrome.Service.Types)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMultiTouchFix)
+local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
 
@@ -67,7 +68,15 @@ local WindowHost = function(props: WindowHostProps)
 	-- a connection is active drive the window frame position with the input object and
 	-- adjust the size of the window to expand as if it was scaling up from the icon
 	React.useEffect(function()
-		local storedConnection = ChromeService:dragConnection(props.integration.id)
+		local storedConnection: { current: RBXScriptConnection? }? = nil
+		local originalInputObj: InputObject? = nil
+		if GetFFlagSelfViewMultiTouchFix() then
+			local dragConnection: any = ChromeService:dragConnection(props.integration.id)
+			storedConnection = dragConnection.connection
+			originalInputObj = dragConnection.inputObject
+		else
+			storedConnection = ChromeService:dragConnection(props.integration.id)
+		end
 		assert(windowRef.current ~= nil)
 		assert(windowRef.current.Parent ~= nil)
 
@@ -99,6 +108,12 @@ local WindowHost = function(props: WindowHostProps)
 
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					local inputPosition = inputChangedObj.Position
+
+					if GetFFlagSelfViewMultiTouchFix() then
+						if shouldRejectMultiTouch(originalInputObj, inputChangedObj) then
+							return
+						end
+					end
 
 					local delta = inputPosition - dragStartPosition
 					local newPosition = {
@@ -173,9 +188,7 @@ local WindowHost = function(props: WindowHostProps)
 				frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					if GetFFlagSelfViewMultiTouchFix() then
-						-- Multiple touches should not affect dragging the Self View. Only the original touch.
-						--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
-						if inputObj.UserInputType == Enum.UserInputType.Touch and inputChangedObj ~= inputObj then
+						if shouldRejectMultiTouch(inputObj, inputChangedObj) then
 							return
 						end
 					end

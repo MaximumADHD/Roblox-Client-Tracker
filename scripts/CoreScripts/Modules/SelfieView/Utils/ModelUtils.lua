@@ -6,6 +6,22 @@ local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewM
 local FFlagSelfViewMakeClonePartsNonTransparent2 = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent2", false)
 local FFlagSanitizeSelfViewStrict2 = game:DefineFastFlag("SanitizeSelfViewStrict2", false)
 
+--we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
+--so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
+--as to avoid unnecessary refreshes (e.g. Sound objects etc getting added to player avatar should not cause recreating the clone)
+local TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE = {
+	Accessory = "Accessory",
+	CharacterMesh = "CharacterMesh",
+	Decal = "Decal",
+	MeshPart = "MeshPart",
+	Pants = "Pants",
+	Part = "Part",
+	Shirt = "Shirt",
+	ShirtGraphic = "ShirtGraphic",
+	SpecialMesh = "SpecialMesh",
+	SurfaceAppearance = "SurfaceAppearance",
+}
+
 -- Finds the FaceControls instance attached to the rig
 local function getFaceControls(rig: Model): FaceControls?
 	if rig == nil then
@@ -171,6 +187,19 @@ local function updateTransparency(character: Model, partsOrgTransparency)
 	end
 end
 
+local function shouldMarkCloneDirtyForDescendant(descendant: any): boolean
+	-- we only want to refresh the avatar self view clone on descendant added if the descendant is actually visible
+	-- this is to avoid unnecessary refreshes in case of a dev for example adding a Sound object
+	-- to the avatar or some part which is for gameplay logic and turned transparent
+	if descendant:IsA("MeshPart") or descendant:IsA("Part") or descendant:IsA("Decal") then
+		if descendant.Transparency < 1 then
+			return true
+		end
+	elseif TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE[descendant.ClassName] then
+		return true
+	end
+	return false
+end
 local function resetPartOrientation(character: Model)
 	for _, part in ipairs(character:GetDescendants()) do
 		if part:IsA("Motor6D") then
@@ -314,6 +343,7 @@ return {
 	getHead = getHead,
 	getAnimator = getAnimator,
 	updateTransparency = updateTransparency,
+	shouldMarkCloneDirtyForDescendant = shouldMarkCloneDirtyForDescendant,
 	resetPartOrientation = resetPartOrientation,
 	removeScripts = removeScripts,
 	removeTags = removeTags,

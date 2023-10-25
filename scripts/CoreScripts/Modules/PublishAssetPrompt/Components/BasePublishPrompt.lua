@@ -54,10 +54,11 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	promptBody = t.any,
 	typeData = t.string,
 	titleText = t.string,
-	nameMetadataString = t.optional(t.string),
 	showingPreviewView = t.boolean,
 	closePreviewView = t.callback,
 	asset = t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip")),
+	onNameUpdated = t.callback,
+	confirmUploadReady = t.callback,
 
 	-- Mapped state
 	guid = t.any,
@@ -69,8 +70,6 @@ BasePublishPrompt.validateProps = t.strictInterface({
 
 function BasePublishPrompt:init()
 	self:setState({
-		name = self.props.defaultName,
-
 		-- if showUnsavedDataWarning is false, show the prompt
 		-- if true, we are showing a warning that says data is lost when prompt is closed
 		showUnsavedDataWarning = false,
@@ -105,29 +104,12 @@ function BasePublishPrompt:init()
 		self.closePrompt()
 	end
 
+	-- Intended to do what the Parent wants on submission before closing the prompt
+	-- AVBURST-13553 Currently no visual indicator that Submit should be disabled if not ready
 	self.confirmAndUpload = function()
-		local metadata = {}
-		if self.props.nameMetadataString then
-			metadata[self.props.nameMetadataString] = self.state.name
-		end
-		-- TODO: Name Validation should be done before submitting AVBURST-12725
-
-		-- We should never get to this point if this engine feature is off, but just in case:
-		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
-			ExperienceAuthService:ScopeCheckUIComplete(
-				self.props.guid,
-				self.props.scopes,
-				Enum.ScopeCheckResult.ConsentAccepted,
-				metadata
-			)
+		if self.props.confirmUploadReady() then
 			self.closePrompt()
 		end
-	end
-
-	self.onNameUpdated = function(newName, _)
-		self:setState({
-			name = newName,
-		})
 	end
 end
 
@@ -177,9 +159,9 @@ function BasePublishPrompt:renderMiddle(localized)
 				NameInput = Roact.createElement(NameTextBox, {
 					Size = UDim2.new(1, 0, 0, NAME_HEIGHT_PIXELS),
 					-- TODO: Investigate previous name updated AVBURST-13016 and name moderation AVBURST-12725, for now use placeholder
-					onNameUpdated = self.onNameUpdated,
+					onNameUpdated = self.props.onNameUpdated,
 					nameTextBoxRef = self.nameTextBoxRef,
-					defaultName = self.state.name,
+					defaultName = self.props.defaultName,
 					LayoutOrder = 2,
 				}),
 				PromptBody = Roact.createElement("Frame", {

@@ -10,6 +10,7 @@ local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -34,8 +35,8 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 export type Props = {
 	callProtocol: CallProtocol.CallProtocolModule | nil,
 	size: Vector2,
-	callBarRef: { current: GuiObject? } | nil,
-	createdUtc: number,
+	callBarRef: (any) -> () | nil,
+	activeUtc: number,
 }
 
 local PROFILE_SIZE = 36
@@ -58,7 +59,7 @@ local function formatDuration(duration: number): string
 	return formattedTime
 end
 
-local function getTextFromCallStatus(status: string)
+local function getTextFromCallStatus(status: string, instanceId: string)
 	-- TODO(IRIS-864): Localization.
 	if status == RoduxCall.Enums.Status.Connecting.rawValue() then
 		return "Calling…"
@@ -66,7 +67,10 @@ local function getTextFromCallStatus(status: string)
 		return "Teleporting…"
 	elseif status == RoduxCall.Enums.Status.Active.rawValue() then
 		return "Roblox Call"
-	elseif status == RoduxCall.Enums.Status.Failed.rawValue() then
+	elseif
+		status == RoduxCall.Enums.Status.Failed.rawValue()
+		or (status == RoduxCall.Enums.Status.Idle.rawValue() and game.JobId == instanceId)
+	then
 		return "Call Ended"
 	else
 		error("Invalid status for call bar: " .. status .. ".")
@@ -91,6 +95,11 @@ local function CallBar(passedProps: Props)
 	end)
 	local callStatus = useSelector(selectCallStatus)
 
+	local selectInstanceId = React.useCallback(function(state: any)
+		return if state.Call.currentCall ~= nil then state.Call.currentCall.instanceId else ""
+	end)
+	local instanceId = useSelector(selectInstanceId)
+
 	local selectOtherParticipantId = React.useCallback(function(state: any)
 		local currentCall = state.Call.currentCall
 		if currentCall then
@@ -110,13 +119,17 @@ local function CallBar(passedProps: Props)
 		image = getStandardSizeAvatarHeadShotRbxthumb(otherParticipantId)
 	end
 
-	local callStatusText = getTextFromCallStatus(callStatus)
+	local callStatusText = getTextFromCallStatus(callStatus, instanceId)
 	local isEndButtonEnabled = callStatus == RoduxCall.Enums.Status.Active.rawValue()
 		or callStatus == RoduxCall.Enums.Status.Connecting.rawValue()
 
 	local endButtonCallback = React.useCallback(function()
 		if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
-			SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+			if GetFFlagSoundManagerRefactor() then
+				SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
+			else
+				SoundManager:PlaySound_old(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+			end
 			props.callProtocol:finishCall(callId)
 		elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
 			props.callProtocol:cancelCall(callId)
@@ -125,11 +138,11 @@ local function CallBar(passedProps: Props)
 
 	React.useEffect(function()
 		local callDurationTimerConnection = RunService.Heartbeat:Connect(function()
-			if not props.createdUtc then
+			if not props.activeUtc then
 				return
 			end
 
-			local duration = os.time() - (props.createdUtc / 1000)
+			local duration = os.time() - (props.activeUtc / 1000)
 			local durationString = formatDuration(duration)
 
 			setCurrentCallDuration(durationString)
@@ -232,6 +245,7 @@ local function CallBar(passedProps: Props)
 		}),
 
 		EndButton = if callStatus ~= RoduxCall.Enums.Status.Failed.rawValue()
+				and callStatus ~= RoduxCall.Enums.Status.Idle.rawValue()
 			then React.createElement("ImageButton", {
 				Position = UDim2.fromOffset(0, 0),
 				Active = isEndButtonEnabled,

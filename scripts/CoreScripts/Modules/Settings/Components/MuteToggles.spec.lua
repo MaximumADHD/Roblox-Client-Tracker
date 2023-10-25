@@ -46,6 +46,7 @@ return function()
 				MuteToggles = Roact.createElement(MuteToggles, {
 					Players = MockPlayers.new(jest.fn(), jest.fn()) :: any,
 					initialTogglesState = false,
+					playersFriends = {},
 				}),
 			}),
 		})
@@ -55,6 +56,7 @@ return function()
 	end)
 
 	it("should get the user's friends list and get players in experience when mounted/rendered", function()
+		game:SetFastFlagForTesting("UseFriendsPropsInMuteToggles2", false)
 		local mockGetFriendsAsync = jest.fn()
 		local mockGetPlayers = jest.fn()
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
@@ -64,6 +66,7 @@ return function()
 				MuteToggles = Roact.createElement(MuteToggles, {
 					Players = MockPlayers.new(mockGetFriendsAsync, mockGetPlayers) :: any,
 					initialTogglesState = false,
+					playersFriends = {},
 				}),
 			}),
 		})
@@ -85,6 +88,7 @@ return function()
 				MuteToggles = Roact.createElement(MuteToggles, {
 					Players = MockPlayers.new(jest.fn(), jest.fn()) :: any,
 					initialTogglesState = false,
+					playersFriends = {},
 				}),
 			}),
 		})

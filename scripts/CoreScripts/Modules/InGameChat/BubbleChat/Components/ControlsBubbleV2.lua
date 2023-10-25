@@ -14,9 +14,11 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 
 local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = CoreGui.RobloxGui.Modules
 local ControlBubble = require(script.Parent.ControlBubbleV2)
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
@@ -27,6 +29,11 @@ local Analytics = require(Modules.SelfView.Analytics).new()
 local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
 local GetFFlagMicHandlingParity = require(Modules.Flags.GetFFlagMicHandlingParity)
 local VoiceConstants = require(Modules.VoiceChat.Constants)
+local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
+local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
+local displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
+
+local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
 local AvatarChatUISettings = Constants.AVATAR_CHAT_UI_SETTINGS
 
@@ -107,10 +114,31 @@ function ControlsBubble:init()
 		})
 	end
 
+	-- toggle video permissions and request device permissions if denied
+	self.onVideoButtonPressed = function()
+		if getFFlagDoNotPromptCameraPermissionsOnMount() and not self.props.hasCameraPermissions then
+			-- If the user has not granted permissions
+			local callback = function(response)
+				if response.hasCameraPermissions then
+					self:toggleVideo()
+					self.props.setCameraPermissionStateFromControl(response.hasCameraPermissions)
+				else
+					displayCameraDeniedToast()
+				end
+			end
+			getCamMicPermissions(callback, { PermissionsProtocol.Permissions.CAMERA_ACCESS :: string })
+		else
+			-- If the user has granted camera deveice permissions
+			self:toggleVideo()
+		end
+	end
+
 	-- toggle video permissions
 	self.toggleVideo = function()
-		if not self.props.hasCameraPermissions then
-			return
+		if not getFFlagDoNotPromptCameraPermissionsOnMount() then
+			if not self.props.hasCameraPermissions then
+				return
+			end
 		end
 
 		if not FaceAnimatorService or not FaceAnimatorService:IsStarted() then
@@ -141,8 +169,14 @@ end
 	Camera icon should only be shown to the local player.
 ]]
 function ControlsBubble:shouldShowCameraIndicator()
-	if self.props.isLocalPlayer and self.props.hasCameraPermissions then
-		return true
+	if getFFlagDoNotPromptCameraPermissionsOnMount() then
+		if self.props.isLocalPlayer and self:getCameraButtonVisibleAtMount() then
+			return true
+		end
+	else
+		if self.props.isLocalPlayer and self.props.hasCameraPermissions then
+			return true
+		end
 	end
 
 	return false
@@ -162,6 +196,10 @@ function ControlsBubble:shouldShowMicOffIndicator()
 	return false
 end
 
+function ControlsBubble:getCameraButtonVisibleAtMount()
+	return isCamEnabledForUserAndPlace()
+end
+
 function ControlsBubble:render()
 	local shouldShowVoiceIndicator = self.props.hasMicPermissions and self.props.voiceEnabled
 	local shouldShowCameraIndicator = self:shouldShowCameraIndicator()
@@ -175,6 +213,16 @@ function ControlsBubble:render()
 	local controlBubbleSize = (shouldShowBothIndicators and AvatarChatUISettings.DoubleIconButtonSize)
 		or AvatarChatUISettings.SingleIconButtonSize
 	local iconStyle = if self.props.isLocalPlayer then "microphone" else "speaker"
+
+	local cameraIconAssetName = if self.state.cameraEnabled and self.props.hasCameraPermissions
+		then VIDEO_ON_ASSET_NAME
+		else VIDEO_OFF_ASSET_NAME
+	if getFFlagDoNotPromptCameraPermissionsOnMount() then
+		-- The asset name will no longer depend on the Camera Device Permissions
+		cameraIconAssetName = if self.state.cameraEnabled and self:getCameraButtonVisibleAtMount()
+		then VIDEO_ON_ASSET_NAME
+		else VIDEO_OFF_ASSET_NAME
+	end
 
 	return Roact.createElement("Frame", {
 		AnchorPoint = Vector2.new(0.5, 1),
@@ -228,13 +276,11 @@ function ControlsBubble:render()
 			}),
 			CameraBubble = shouldShowCameraIndicator and Roact.createElement(ControlBubble, {
 				LayoutOrder = 3,
-				onActivated = self.toggleVideo,
+				onActivated = (getFFlagDoNotPromptCameraPermissionsOnMount() and self.onVideoButtonPressed) or self.toggleVideo,
 				chatSettings = chatSettings,
 				cornerRadiusOffset = cornerRadiusOffset,
 				controlBubbleSize = controlBubbleSize,
-				iconAssetName = if self.state.cameraEnabled and self.props.hasCameraPermissions
-					then VIDEO_ON_ASSET_NAME
-					else VIDEO_OFF_ASSET_NAME,
+				iconAssetName = cameraIconAssetName,
 				iconSize = AvatarChatUISettings.IconSize,
 				iconTransparency = AvatarChatUISettings.IconTransparency,
 				iconStyle = iconStyle,

@@ -49,7 +49,6 @@ local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 
 --FFlags
 local FFlagReportFirstGameInteractive = game:DefineFastFlag("ReportFirstGameInteractive", false)
-local FFlagRemoveMandatoryFiveSecondWait = game:DefineFastFlag("RemoveMandatoryFiveSecondWait", false)
 
 local debugMode = false
 
@@ -153,22 +152,17 @@ local function handleRemoveDefaultLoadingGui(instant)
 end
 
 local function handleFinishedReplicating()
-	if FFlagRemoveMandatoryFiveSecondWait or #ReplicatedFirst:GetChildren() == 0 then
-		if game:IsLoaded() then
+	if game:IsLoaded() then
+		waitForCharacterLoaded()
+		handleRemoveDefaultLoadingGui()
+	else
+		local gameLoadedCon = nil
+		gameLoadedCon = game.Loaded:Connect(function()
+			gameLoadedCon:disconnect()
+			gameLoadedCon = nil
 			waitForCharacterLoaded()
 			handleRemoveDefaultLoadingGui()
-		else
-			local gameLoadedCon = nil
-			gameLoadedCon = game.Loaded:Connect(function()
-				gameLoadedCon:disconnect()
-				gameLoadedCon = nil
-				waitForCharacterLoaded()
-				handleRemoveDefaultLoadingGui()
-			end)
-		end
-	else
-		wait(5) -- some games don't have custom loading screens, but still have Instances under ReplicatedFirst, and are stuck on loading screen longer because of it.
-		handleRemoveDefaultLoadingGui()
+		end)
 	end
 end
 

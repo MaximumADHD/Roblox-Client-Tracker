@@ -23,10 +23,12 @@ local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMulti
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
-local useNotificationCount = require(script.Parent.Parent.Parent.Hooks.useNotificationCount)
-local useMappedObservableValue = require(script.Parent.Parent.Parent.Hooks.useMappedObservableValue)
-local useMappedObservableValueBinding = require(script.Parent.Parent.Parent.Hooks.useMappedObservableValueBinding)
-local useTimeHysteresis = require(script.Parent.Parent.Parent.Hooks.useTimeHysteresis)
+local useNotificationCount = require(Chrome.Hooks.useNotificationCount)
+local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
+local useMappedObservableValueBinding = require(Chrome.Hooks.useMappedObservableValueBinding)
+local useTimeHysteresis = require(Chrome.Hooks.useTimeHysteresis)
+
+local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
 
 local BADGE_OFFSET_X = 20
 local BADGE_OFFSET_Y = 0
@@ -217,9 +219,7 @@ function TooltipButton(props: TooltipButtonProps)
 			if not connection.current then
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					if GetFFlagSelfViewMultiTouchFix() then
-						-- Multiple touches should not affect dragging the Self View. Only the original touch.
-						--the check inputType == Enum.UserInputType.Touch is so it does not block mouse dragging
-						if inputObj.UserInputType == Enum.UserInputType.Touch and inputChangedObj ~= inputObj then
+						if shouldRejectMultiTouch(inputObj, inputChangedObj) then
 							return
 						end
 					end
@@ -237,7 +237,11 @@ function TooltipButton(props: TooltipButtonProps)
 							ChromeService:storeChromeInteracted()
 						end
 						ChromeService:toggleWindow(props.integration.id)
-						ChromeService:gesture(props.integration.id, connection)
+						if GetFFlagSelfViewMultiTouchFix() then
+							ChromeService:gesture(props.integration.id, connection, inputObj)
+						else
+							ChromeService:gesture(props.integration.id, connection)
+						end
 					end
 				end)
 			end

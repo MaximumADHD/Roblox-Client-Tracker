@@ -11,6 +11,8 @@ local cloneStreamTrack: AnimationStreamTrack? = nil
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled =
 	game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 
+local FFlagSelfViewImprovedUpdateCloneTriggering = game:DefineFastFlag("SelfViewImprovedUpdateCloneTriggering", false)
+
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 
@@ -74,6 +76,7 @@ local Observer = {
 	Color = "Color",
 	CharacterAdded = "CharacterAdded",
 	CharacterRemoving = "CharacterRemoving",
+	HumanoidStateChanged = "HumanoidStateChanged",
 }
 
 local Players = game:GetService("Players")
@@ -378,7 +381,10 @@ local function updateClone(player: Player?)
 end
 
 local function hasProperty(object: any, prop)
-	local _ = object[prop] --this is just done to check if the property existed, if it did nothing would happen, if it didn't an error will pop, the object[prop] is a different way of writing object.prop, (object.Transparency or object["Transparency"])
+	-- this is just done to check if the property existed, if it did nothing would happen,
+	-- if it didn't an error will pop, the object[prop] is a different way of writing object.prop,
+	-- (object.Transparency or object["Transparency"])
+	local _ = object[prop]
 end
 
 function updateCachedHeadColor(headRefParam: MeshPart?)
@@ -402,6 +408,26 @@ function updateCachedHeadColor(headRefParam: MeshPart?)
 	end
 end
 
+-- we add this so after custom switch to ragdoll behavior and getting back up done
+-- by some devs the self view refreshes to show the avatar fine again
+local function addHumanoidStateChangedObserver(humanoid: any)
+	if not humanoid then
+		return
+	end
+	if not observerInstances[Observer.HumanoidStateChanged] then
+		observerInstances[Observer.HumanoidStateChanged] = humanoid.StateChanged:Connect(function(_oldState, newState)
+			--debugPrint("1_oldState: " .. tostring(_oldState) .. ",newState: " .. tostring(newState))
+			--come back from ragdoll state:
+			if _oldState == Enum.HumanoidStateType.PlatformStanding and newState == Enum.HumanoidStateType.Running then
+				setCloneDirty(true)
+			end
+			if newState == Enum.HumanoidStateType.GettingUp then
+				setCloneDirty(true)
+			end
+		end)
+	end
+end
+
 local function characterAdded(character)
 	if GetFFlagSelfieViewDontWaitForCharacter() then
 		if not character then
@@ -418,6 +444,13 @@ local function characterAdded(character)
 	clearObserver(Observer.HeadSize)
 	clearObserver(Observer.Color)
 
+	if FFlagSelfViewImprovedUpdateCloneTriggering then
+		local humanoid = character:FindFirstChild("Humanoid")
+		if humanoid then
+			addHumanoidStateChangedObserver(humanoid)
+		end
+	end
+
 	-- listen for updates on the original character's structure
 	observerInstances[Observer.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
 		if descendant.Name == "Head" then
@@ -426,7 +459,18 @@ local function characterAdded(character)
 			updateCachedHeadColor(headRef)
 		end
 
-		setCloneDirty(true)
+		if FFlagSelfViewImprovedUpdateCloneTriggering then
+			if descendant.Name == "Humanoid" or descendant:IsA("Humanoid") then
+				local humanoid = descendant
+				addHumanoidStateChangedObserver(humanoid)
+			end
+
+			if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
+				setCloneDirty(true)
+			end
+		else
+			setCloneDirty(true)
+		end
 	end)
 	observerInstances[Observer.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
 		--these checks are to avoid unnecessary additional refreshes
@@ -436,8 +480,15 @@ local function characterAdded(character)
 					return
 				end
 			end
+			if not FFlagSelfViewImprovedUpdateCloneTriggering then
+				setCloneDirty(true)
+			end
 
-			setCloneDirty(true)
+			if FFlagSelfViewImprovedUpdateCloneTriggering then
+				if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
+					setCloneDirty(true)
+				end
+			end
 		end
 	end)
 
@@ -502,6 +553,13 @@ local function onCharacterAdded(character: Model)
 		end
 	else
 		ReInit(LocalPlayer)
+	end
+	if FFlagSelfViewImprovedUpdateCloneTriggering then
+		clearObserver(Observer.HumanoidStateChanged)
+		local humanoid = character:FindFirstChild("Humanoid")
+		if humanoid then
+			addHumanoidStateChangedObserver(humanoid)
+		end
 	end
 end
 
@@ -783,6 +841,9 @@ local function Initialize(player: Player, passedWrapperFrame: Frame?): (() -> ()
 	Players.PlayerAdded:Connect(playerAdded)
 	Players.PlayerRemoving:Connect(function(player)
 		if player == LocalPlayer then
+			if FFlagSelfViewImprovedUpdateCloneTriggering then
+				clearObserver(Observer.HumanoidStateChanged)
+			end
 			clearObserver(Observer.CharacterAdded)
 			clearObserver(Observer.CharacterRemoving)
 			clearClone()

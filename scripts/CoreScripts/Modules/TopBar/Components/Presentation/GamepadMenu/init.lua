@@ -22,6 +22,7 @@ local MenuCell = require(script.MenuCell)
 local BottomBar = require(script.BottomBar)
 local ControllerBar = require(script.QuickMenuControllerBar)
 local MenuNavigationToggleDialog = require(script.MenuNavigationToggleDialog)
+local MenuNavigationDismissablePrompt = require(script.MenuNavigationDismissablePrompt)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -37,6 +38,7 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
+local MenuNavigationPromptLocalStorage = require(script.MenuNavigationPromptLocalStorage)
 
 local TOGGLE_GAMEPAD_MENU_ACTION = "TopBarGamepadToggleGamepadMenu"
 local FREEZE_CONTROLLER_ACTION_NAME = "TopBarGamepadFreezeController"
@@ -77,6 +79,7 @@ local LocalPlayer = Players.LocalPlayer
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
 local FFlagAddMenuNavigationToggleDialog = require(script.Parent.Parent.Parent.Flags.FFlagAddMenuNavigationToggleDialog)
+local FFlagEnableGamepadMenuSelector = require(script.Parent.Parent.Parent.Flags.FFlagEnableGamepadMenuSelector)
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 
 GamepadMenu.validateProps = t.strictInterface({
@@ -103,6 +106,9 @@ function GamepadMenu:init()
 	self:setState({
 		selectedIndex = 1,
 		menuActions = {},
+		shouldShowMenuNavigationPrompt = if FFlagEnableGamepadMenuSelector
+			then MenuNavigationPromptLocalStorage.getShouldShowMenuNavigationPrompt()
+			else nil,
 	})
 
 	self.boundMenuOpenActions = false
@@ -220,6 +226,14 @@ function GamepadMenu:init()
 			return Enum.ContextActionResult.Pass
 		end
 
+		if FFlagEnableGamepadMenuSelector and self.state.shouldShowMenuNavigationPrompt then
+			self:setState({
+				shouldShowMenuNavigationPrompt = false,
+			})
+			MenuNavigationPromptLocalStorage.setMenuNavigationPromptShown()
+			return Enum.ContextActionResult.Sink
+		end
+
 		local action = self.state.menuActions[self.state.selectedIndex]
 		self.props.setGamepadMenuOpen(false)
 
@@ -252,10 +266,10 @@ end
 
 function GamepadMenu.openUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-	if GetFFlagEnableUnibarSneakPeak() then 
-		ChromeService:open() 
-	else 
-		ChromeService:toggleOpen() 
+	if GetFFlagEnableUnibarSneakPeak() then
+		ChromeService:open()
+	else
+		ChromeService:toggleOpen()
 	end
 end
 
@@ -494,17 +508,14 @@ function GamepadMenu:render()
 			controllerBarComponent = Roact.createElement(BottomBar)
 		end
 
-		return Roact.createElement("TextButton", {
-			Visible = visible,
-			Text = "",
-			BackgroundTransparency = theme.Overlay.Transparency,
-			BackgroundColor3 = theme.Overlay.Color,
-			Size = UDim2.fromScale(1, 1),
-			BorderSizePixel = 0,
-			ZIndex = 10,
+		local menuNavigationPromptItems = {
+			MenuNavigationDismissablePrompt = Roact.createElement(MenuNavigationDismissablePrompt, {
+					Position = UDim2.fromScale(0.5, 0.5),
+					Visible = self.props.isGamepadMenuOpen,
+				})
+		}
 
-			[Roact.Event.Activated] = self.overlayDismiss,
-		}, {
+		local defaultMenuItems = {
 			Menu = Roact.createElement(ImageSetLabel, {
 				BackgroundTransparency = 1,
 				Image = MENU_BACKGROUND_ASSET,
@@ -521,7 +532,23 @@ function GamepadMenu:render()
 			MenuNavigationToggleDialog = if FFlagAddMenuNavigationToggleDialog then Roact.createElement(MenuNavigationToggleDialog, {
 				Position = UDim2.fromScale(0.5, 0.1),
 			}) else nil
-		})
+		}
+
+		local children = if FFlagEnableGamepadMenuSelector and self.state.shouldShowMenuNavigationPrompt
+			then menuNavigationPromptItems
+			else defaultMenuItems
+
+		return Roact.createElement("TextButton", {
+			Visible = visible,
+			Text = "",
+			BackgroundTransparency = theme.Overlay.Transparency,
+			BackgroundColor3 = theme.Overlay.Color,
+			Size = UDim2.fromScale(1, 1),
+			BorderSizePixel = 0,
+			ZIndex = 10,
+
+			[Roact.Event.Activated] = self.overlayDismiss,
+		}, children)
 	end)
 end
 
@@ -598,8 +625,8 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 			GuiService:SetMenuIsOpen(true, GAMEPAD_MENU_KEY)
 
 			if GetFFlagEnableUnibarSneakPeak() and ChromeEnabled() then
-				GamepadMenu.closeUnibarMenu()		
-			end	
+				GamepadMenu.closeUnibarMenu()
+			end
 		else
 			self:unbindMenuOpenActions()
 

@@ -48,7 +48,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				FriendListItem = Roact.createElement(FriendListItem, {
 					userId = "12345678",
-					userName = "@user name",
+					userName = "user name",
 					combinedName = "display name",
 					dismissCallback = function() end,
 					showDivider = true,

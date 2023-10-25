@@ -7,21 +7,38 @@ local CloseCFM = require(script.Parent.Parent.Actions.CloseCFM)
 
 return Rodux.createReducer({
 	isOpen = false,
-	userId = nil,
-	combinedName = "",
+	friend = {
+		userId = nil,
+		combinedName = "",
+		userName = "",
+	},
 }, {
 	[OpenOrUpdateCFM.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			isOpen = true,
-			userId = action.userId,
-			combinedName = action.combinedName,
-		})
+		if action.friend and action.friend.combinedName then
+			return Cryo.Dictionary.join(state, {
+				isOpen = true,
+				friend = action.friend,
+			})
+		end
+
+		local newState = {
+			isOpen = false,
+			friend = {
+				userId = nil,
+				combinedName = "",
+				userName = "",
+			},
+		}
+		return newState
 	end,
 	[CloseCFM.name] = function(state, action)
 		local newState = {
 			isOpen = false,
-			userId = nil,
-			combinedName = "",
+			friend = {
+				userId = nil,
+				combinedName = "",
+				userName = "",
+			},
 		}
 		return newState
 	end,

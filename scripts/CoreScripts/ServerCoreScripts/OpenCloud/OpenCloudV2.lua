@@ -135,3 +135,4 @@ function listInventoryItems(args : any)
 end
 
 OpenCloudService:RegisterOpenCloud(OPEN_CLOUD_V2, LIST_INVENTORY_ITEMS, listInventoryItems)
+OpenCloudService:RegistrationComplete()

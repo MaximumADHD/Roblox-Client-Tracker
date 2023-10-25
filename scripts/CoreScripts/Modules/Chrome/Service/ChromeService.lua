@@ -17,6 +17,9 @@ local Types = require(script.Parent.Types)
 
 local GetFFlagEnableUnibarSneakPeak = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
+local EnableInGameMenuChromeWithoutSeenClose =
+	require(script.Parent.Parent.Flags.GetFFlagEnableInGameMenuChromeWithoutSeenClose)
+local GetFFlagSelfViewMultiTouchFix = require(script.Parent.Parent.Flags.GetFFlagSelfViewMultiTouchFix)
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 1.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
@@ -47,6 +50,7 @@ export type ObservableIntegrationId = utils.ObservableValue<string?>
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 
 export type ObservableDragConnection = utils.ObservableValue<{ current: RBXScriptConnection? }?>
+type DragConnectionObjectType = any
 
 function noop() end
 
@@ -81,7 +85,12 @@ export type ChromeService = {
 	configureReset: (ChromeService) -> (),
 	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
 	configureSubMenu: (ChromeService, parent: Types.IntegrationId, menuConfig: Types.IntegrationIdList) -> (),
-	gesture: (ChromeService, componentId: Types.IntegrationId, connection: { current: RBXScriptConnection? }?) -> (),
+	gesture: (
+		ChromeService,
+		componentId: Types.IntegrationId,
+		connection: { current: RBXScriptConnection? }?,
+		inputObject: InputObject?
+	) -> (),
 	withinCurrentTopLevelMenu: (
 		ChromeService,
 		componentId: Types.IntegrationId
@@ -121,7 +130,7 @@ export type ChromeService = {
 	_subMenuConfig: { [Types.IntegrationId]: Types.IntegrationIdList },
 	_subMenuNotifications: { [Types.IntegrationId]: utils.NotifySignal },
 	_menuList: ObservableMenuList,
-	_dragConnection: { [Types.IntegrationId]: { current: RBXScriptConnection? }? },
+	_dragConnection: { [Types.IntegrationId]: DragConnectionObjectType },
 	_windowPositions: { [Types.IntegrationId]: UDim2? },
 	_windowList: ObservableWindowList,
 	_totalNotifications: utils.NotifySignal,
@@ -201,7 +210,7 @@ function ChromeService.new(): ChromeService
 		service:updateScreenSize(screenSize, ViewportUtil.mobileDevice:get())
 	end, true)
 
-	if GetFFlagEnableUnibarMaxDefaultOpen() then
+	if GetFFlagEnableUnibarMaxDefaultOpen() and not EnableInGameMenuChromeWithoutSeenClose() then
 		service:storeChromeSeen()
 	end
 
@@ -230,7 +239,11 @@ function getInitialStatus(chromeSeenCount: number): ObservableMenuStatus
 			end
 		end
 
-		if GetFFlagEnableUnibarMaxDefaultOpen() and chromeSeenCount >= MAX_CHROME_SEEN_COUNT then
+		if
+			GetFFlagEnableUnibarMaxDefaultOpen()
+			and chromeSeenCount >= MAX_CHROME_SEEN_COUNT
+			and not EnableInGameMenuChromeWithoutSeenClose()
+		then
 			return utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
 		end
 	end
@@ -821,9 +834,22 @@ function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig:
 	self:updateMenuList()
 end
 
-function ChromeService:gesture(componentId: Types.IntegrationId, connection: { current: RBXScriptConnection? }?)
-	if self._integrations[componentId] then
-		self._dragConnection[componentId] = connection
+function ChromeService:gesture(
+	componentId: Types.IntegrationId,
+	connection: { current: RBXScriptConnection? }?,
+	inputObject: InputObject?
+)
+	if GetFFlagSelfViewMultiTouchFix() then
+		if self._integrations[componentId] then
+			self._dragConnection[componentId] = {
+				connection = connection,
+				inputObject = inputObject,
+			}
+		end
+	else
+		if self._integrations[componentId] then
+			self._dragConnection[componentId] = connection
+		end
 	end
 end
 

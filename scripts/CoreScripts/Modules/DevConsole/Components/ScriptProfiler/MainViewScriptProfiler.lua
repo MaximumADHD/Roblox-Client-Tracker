@@ -9,13 +9,16 @@ local Components = script.Parent.Parent.Parent.Components
 local DataConsumer = require(Components.DataConsumer)
 local UtilAndTab = require(Components.UtilAndTab)
 local BoxButton = require(Components.BoxButton)
+local DropDown = require(Components.DropDown)
 local ProfilerView = require(script.Parent.ProfilerView)
+local ProfilerFunctionsView = require(script.Parent.ProfilerFunctionsView)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local SetScriptProfilerState = require(Actions.SetScriptProfilerState)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
+local SMALL_FRAME_HEIGHT = Constants.UtilityBarFormatting.SmallFrameHeight
 
 local FONT = Constants.Font.MainWindowHeader
 local TEXT_SIZE = Constants.DefaultFontSize.MainWindowHeader
@@ -31,6 +34,11 @@ local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientRe
 local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
 local FFlagScriptProfilerSaveState = game:DefineFastFlag("ScriptProfilerSaveState", false)
 local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTimedProfiling", false)
+local FFlagScriptProfilerFunctionsView = game:DefineFastFlag("ScriptProfilerFunctionsView", false)
+
+
+local DATA_VIEW_DROPDOWN_NAMES = { "Callgraph", "Functions", }
+local SMALL_DV_BUTTON_WIDTH = 100
 
 function MainViewScriptProfiler:getActiveState()
 	return self.props.isClientView, if self.props.isClientView then self.props.client else self.props.server
@@ -320,6 +328,20 @@ function MainViewScriptProfiler:init()
 		end
 	end
 
+	self.dataViewDropDownCallback = function(index)
+		local isClientView, state = self:getActiveState()
+
+		local newState = table.clone(state)
+
+		if index == 1 then
+			newState.isFunctionsView = false
+		elseif index == 2 then
+			newState.isFunctionsView = true
+		end
+
+		self:UpdateState(isClientView, newState)
+	end
+
 	-- TODO: Add support for searching the script profiler
 	-- self.onSearchTermChanged = function(newSearchTerm)
 		
@@ -414,12 +436,14 @@ function MainViewScriptProfiler:render()
 	local profilingData
 	local frequency
 	local usePercentages
+	local isFunctionsView
 
 	if FFlagScriptProfilerSaveState then
 		isClientView, state = self:getActiveState()
 		isProfiling = state.isProfiling
 		profilingData = state.data
 		frequency = state.frequency
+		isFunctionsView = state.isFunctionsView
 
 		usePercentages = self.props.usePercentages
 	else
@@ -518,9 +542,16 @@ function MainViewScriptProfiler:render()
 					end
 				end,
 			}) :: any,
+
+			FFlagScriptProfilerFunctionsView and FFlagScriptProfilerSaveState and Roact.createElement(DropDown, {
+				buttonSize = UDim2.new(0, SMALL_DV_BUTTON_WIDTH, 0, SMALL_FRAME_HEIGHT),
+				dropDownList = DATA_VIEW_DROPDOWN_NAMES,
+				selectedIndex = isFunctionsView and 2 or 1,
+				onSelection = self.dataViewDropDownCallback,
+			}) :: any,
 		}),
 
-		ProfilerView = Roact.createElement(ProfilerView, {
+		ProfilerView = Roact.createElement(if isFunctionsView then ProfilerFunctionsView else ProfilerView, {
 			size = UDim2.new(1, 0, 1, -utilTabHeight),
 			searchTerm = searchTerm,
 			layoutOrder = 2,

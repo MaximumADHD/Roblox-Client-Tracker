@@ -33,6 +33,7 @@ return function()
 					calleeDisplayName = "Display Name 2",
 					gameInstanceId = "gameId",
 					createdUtc = os.time(),
+					activeUtc = os.time(),
 				},
 			},
 		}, {
@@ -45,7 +46,7 @@ return function()
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				CallBar = Roact.createElement(CallBar, {
 					size = Vector2.new(200, 44),
-					createdUtc = os.time(),
+					activeUtc = os.time(),
 				}),
 			}),
 		})

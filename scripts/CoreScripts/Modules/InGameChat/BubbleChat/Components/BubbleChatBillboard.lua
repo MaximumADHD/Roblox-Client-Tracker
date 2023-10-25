@@ -20,6 +20,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 
 local BubbleChatList = require(script.Parent.BubbleChatList)
@@ -51,12 +52,14 @@ local FFlagDebugAllowControlButtonsNoVoiceChat = game:DefineFastFlag("DebugAllow
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
-local FFlagEasierUnmuting = game:DefineFastFlag("EasierUnmuting2", false)
+local FFlagEasierUnmuting = game:DefineFastFlag("EasierUnmuting3", false)
 local FFlagEasierUnmutingBasedOnCamera = game:DefineFastFlag("EasierUnmutingBasedOnCamera", false)
 local FFlagEasierUnmutingHideIfMuted = game:DefineFastFlag("EasierUnmutingHideIfMuted", false)
 local FIntEasierUnmutingDisplayDistance = game:DefineFastInt("EasierUnmutingDisplayDistance", 20)
 local FStringEasierUnmutingIXPLayerName = game:DefineFastString("EasierUnmutingIXPLayerName", "Voice.UserAgency")
 local FStringEasierUnmutingIXPLayerValue = game:DefineFastString("EasierUnmutingIXPLayerValue", "VoiceUserAgencyEnabled")
+local FFlagEasierUnmutingFixNonexistentCharacter = game:DefineFastFlag("EasierUnmutingFixNonexistentCharacter", false)
+local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -88,18 +91,41 @@ function getEasierUnmutingDistance(adorneePosition): number | nil
 		return nil
 	end
 
-	local humanoidRootPart = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-	local cameraPosition = workspace.CurrentCamera and workspace.CurrentCamera.CFrame.Position
+	if FFlagEasierUnmutingFixNonexistentCharacter then
+		local humanoidRootPart = Players.LocalPlayer
+			and Players.LocalPlayer.Character
+			and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		
+		local humanoidRootPartPosition = humanoidRootPart
+			and humanoidRootPart.CFrame
+			and humanoidRootPart.CFrame.Position
 
-	if FFlagEasierUnmutingBasedOnCamera or not humanoidRootPart then
-		if not cameraPosition then
-			return nil
+		local cameraPosition = workspace.CurrentCamera
+			and workspace.CurrentCamera.CFrame.Position
+
+		if FFlagEasierUnmutingBasedOnCamera or not humanoidRootPartPosition then
+			if not cameraPosition then
+				return nil
+			end
+
+			return (adorneePosition - cameraPosition).Magnitude
 		end
 
-		return (adorneePosition - cameraPosition).Magnitude
+		return (adorneePosition - humanoidRootPartPosition).Magnitude
+	else
+		local humanoidRootPart = Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		local cameraPosition = workspace.CurrentCamera and workspace.CurrentCamera.CFrame.Position
+	
+		if FFlagEasierUnmutingBasedOnCamera or not humanoidRootPart then
+			if not cameraPosition then
+				return nil
+			end
+	
+			return (adorneePosition - cameraPosition).Magnitude
+		end
+	
+		return (adorneePosition - humanoidRootPart.CFrame.Position).Magnitude
 	end
-
-	return (adorneePosition - humanoidRootPart.CFrame.Position).Magnitude
 end
 
 function BubbleChatBillboard:init()
@@ -319,7 +345,12 @@ function BubbleChatBillboard:didMount()
 	self.offsetMotor:setGoal(Otter.instant(initialOffset))
 
 	if FFlagAvatarChatCoreScriptSupport then
-		self:getPermissions()
+		if getFFlagDoNotPromptCameraPermissionsOnMount() then
+			self:getMicPermission()
+			self:getCameraPermissionWithoutRequest()
+		else
+			self:getPermissions()
+		end
 	end
 
 	-- When the character respawns, we need to update the adornee
@@ -554,6 +585,36 @@ function BubbleChatBillboard:getPermissions()
 	return getCamMicPermissions(callback)
 end
 
+--[[
+	Check if Roblox has permissions for mic access only.
+]]
+function BubbleChatBillboard:getMicPermission()
+	local callback = function(response)
+		self:setState({
+			hasMicPermissions = response.hasMicPermissions,
+		})
+	end
+	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string })
+end
+
+--[[
+	Check if Roblox has permissions for camera access only without requesting.
+]]
+function BubbleChatBillboard:getCameraPermissionWithoutRequest()
+	local callback = function(response)
+		self:setState({
+			hasCameraPermissions = response.hasCameraPermissions,
+		})
+	end
+	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.CAMERA_ACCESS :: string }, true)
+end
+
+function BubbleChatBillboard:setCameraPermissionStateFromControl(hasCameraPermissions: boolean)
+	self:setState({
+		hasCameraPermissions = hasCameraPermissions
+	})
+end
+
 function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 	-- If voice isn't enabled, never render buttons
 	if
@@ -652,6 +713,11 @@ function BubbleChatBillboard:render()
 				hasMicPermissions = self.state.hasMicPermissions,
 				userId = self.props.userId,
 				voiceEnabled = self.props.voiceEnabled,
+				setCameraPermissionStateFromControl = function(hasCameraPermissions: boolean)
+					if getFFlagDoNotPromptCameraPermissionsOnMount() then
+						self:setCameraPermissionStateFromControl(hasCameraPermissions)
+					end
+				end,
 				isShowingDueToEasierUnmuting = self:isShowingDueToEasierUnmuting()
 			}
 

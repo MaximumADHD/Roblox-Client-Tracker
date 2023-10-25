@@ -217,11 +217,13 @@ return function()
 		end
 	)
 
-	it("update call id based on call events", function(c: any)
+	it("update call id based on call events from idle", function(c: any)
 		local RemoteUpdateCallIdForUser = RobloxReplicatedStorage:FindFirstChild("UpdateCallIdForUser") :: any
 		local currentCallId = nil
-		local connection = RemoteUpdateCallIdForUser.OnServerEvent:Connect(function(player, callId)
+		local currentEndCallOnLeave = nil
+		local connection = RemoteUpdateCallIdForUser.OnServerEvent:Connect(function(player, callId, endCallOnLeave)
 			currentCallId = callId
+			currentEndCallOnLeave = endCallOnLeave
 		end)
 
 		local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Idle.rawValue(), "") :: any
@@ -244,6 +246,10 @@ return function()
 
 		initCall(MockCallProtocol)
 
+		wait()
+		expect(currentCallId).toBe("")
+		expect(currentEndCallOnLeave).toBe(false)
+
 		MessageBus:Publish("ActiveCall", {
 			status = RoduxCall.Enums.Status.Active.rawValue(),
 			callId = "123456",
@@ -252,18 +258,22 @@ return function()
 		})
 		wait()
 		expect(currentCallId).toBe("123456")
+		expect(currentEndCallOnLeave).toBe(true)
 
-		MessageBus:Publish("TransferCallTeleportLeave", {})
+		MessageBus:Publish("TransferCallTeleportLeave", { callId = "123456" })
 		wait()
-		expect(currentCallId).toBe(nil)
+		expect(currentCallId).toBe("123456")
+		expect(currentEndCallOnLeave).toBe(false)
 
 		MessageBus:Publish("TransferCallTeleportJoin", { callId = "123456" })
 		wait()
 		expect(currentCallId).toBe("123456")
+		expect(currentEndCallOnLeave).toBe(true)
 
 		MessageBus:Publish("EndCall", {})
 		wait()
-		expect(currentCallId).toBe(nil)
+		expect(currentCallId).toBe("")
+		expect(currentEndCallOnLeave).toBe(false)
 
 		connection:disconnect()
 	end)

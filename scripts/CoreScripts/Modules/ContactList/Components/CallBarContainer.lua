@@ -10,6 +10,7 @@ local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundG
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local GetFFlagCorescriptsSoundManagerEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
+local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -38,15 +39,33 @@ local function CallBarContainer(passedProps: Props)
 
 	local dispatch = useDispatch()
 	local callBarRef = React.useRef(nil)
+	local initCallBarCallback = React.useCallback(function(ref)
+		callBarRef.current = ref
+		pcall(function()
+			if ref then
+				ref:TweenPosition(UDim2.new(0.5, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true)
+			end
+		end)
+	end, {})
 
 	local selectCurrentCallStatus = React.useCallback(function(state: any)
 		return if state.Call.currentCall ~= nil then state.Call.currentCall.status else nil
 	end, {})
 	local currentCallStatus = useSelector(selectCurrentCallStatus)
 
-	local hideCallBarAndEndCall = React.useCallback(function()
+	local selectActiveUtc = React.useCallback(function(state: any)
+		return if state.Call.currentCall ~= nil then state.Call.currentCall.activeUtc else 0
+	end)
+	local activeUtc = useSelector(selectActiveUtc)
+
+	local selectInstanceId = React.useCallback(function(state: any)
+		return if state.Call.currentCall ~= nil then state.Call.currentCall.instanceId else nil
+	end)
+	local instanceId = useSelector(selectInstanceId)
+
+	local maybeHideCallBarAndEndCall = React.useCallback(function()
 		pcall(function()
-			if callBarRef and callBarRef.current then
+			if game.JobId ~= instanceId and callBarRef and callBarRef.current then
 				callBarRef.current:TweenPosition(
 					UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
 					Enum.EasingDirection.In,
@@ -57,23 +76,23 @@ local function CallBarContainer(passedProps: Props)
 						dispatch(RoduxCall.Actions.EndCall())
 					end
 				)
-			else
-				dispatch(RoduxCall.Actions.EndCall())
 			end
 		end)
-	end, {})
-
-	local createdUtc, setCreatedUtc = React.useState(os.time())
+	end, { instanceId })
 
 	React.useEffect(function()
 		-- We just listen for the transitions we care about here. However, it is
 		-- worth noting that GetCallState could return us a call in another state.
 		local connectingCallConn = props.callProtocol:listenToHandleConnectingCall(function(params)
 			if GetFFlagCorescriptsSoundManagerEnabled() then
-				SoundManager:PlaySound(
-					Sounds.Ringtone.Name,
-					{ Volume = 0.5, Looped = true, SoundGroup = SoundGroups.Iris }
-				)
+				if GetFFlagSoundManagerRefactor() then
+					SoundManager:PlaySound(Sounds.Ringtone.Name, { Volume = 0.5, Looped = true }, SoundGroups.Iris)
+				else
+					SoundManager:PlaySound_old(
+						Sounds.Ringtone.Name,
+						{ Volume = 0.5, Looped = true, SoundGroup = SoundGroups.Iris }
+					)
+				end
 			end
 			dispatch(RoduxCall.Actions.ConnectingCall(params))
 		end)
@@ -81,7 +100,11 @@ local function CallBarContainer(passedProps: Props)
 		local teleportingCallConn = props.callProtocol:listenToHandleTeleportingCall(function(params)
 			if GetFFlagCorescriptsSoundManagerEnabled() then
 				SoundManager:StopSound(Sounds.Ringtone.Name)
-				SoundManager:PlaySound(Sounds.CallAccept.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				if GetFFlagSoundManagerRefactor() then
+					SoundManager:PlaySound(Sounds.CallAccept.Name, { Volume = 0.5 }, SoundGroups.Iris)
+				else
+					SoundManager:PlaySound_old(Sounds.CallAccept.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+				end
 			end
 			dispatch(RoduxCall.Actions.UpdateCall(params))
 		end)
@@ -94,27 +117,41 @@ local function CallBarContainer(passedProps: Props)
 			if params.callAction == CallAction.Cancel.rawValue() then
 				if GetFFlagCorescriptsSoundManagerEnabled() then
 					SoundManager:StopSound(Sounds.Ringtone.Name)
-					SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+					if GetFFlagSoundManagerRefactor() then
+						SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
+					else
+						SoundManager:PlaySound_old(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+					end
 				end
 				dispatch(RoduxCall.Actions.FailedCall(params.lastCall))
 			elseif params.callAction == CallAction.Decline.rawValue() then
 				if GetFFlagCorescriptsSoundManagerEnabled() then
 					SoundManager:StopSound(Sounds.Ringtone.Name)
-					SoundManager:PlaySound(Sounds.CallDecline.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+					if GetFFlagSoundManagerRefactor() then
+						SoundManager:PlaySound(Sounds.CallDecline.Name, { Volume = 0.5 }, SoundGroups.Iris)
+					else
+						SoundManager:PlaySound_old(
+							Sounds.CallDecline.Name,
+							{ Volume = 0.5, SoundGroup = SoundGroups.Iris }
+						)
+					end
 				end
 				dispatch(RoduxCall.Actions.FailedCall(params.lastCall))
 			else
 				if params.callAction == CallAction.Finish.rawValue() and GetFFlagCorescriptsSoundManagerEnabled() then
-					SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+					if GetFFlagSoundManagerRefactor() then
+						SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
+					else
+						SoundManager:PlaySound_old(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
+					end
 				end
-				hideCallBarAndEndCall()
+				dispatch(RoduxCall.Actions.UpdateCall(params))
 			end
+			maybeHideCallBarAndEndCall()
 		end)
 
 		props.callProtocol:getCallState():andThen(function(params)
 			dispatch(RoduxCall.Actions.UpdateCall(params))
-
-			setCreatedUtc(params.createdUtc)
 		end)
 
 		return function()
@@ -123,48 +160,14 @@ local function CallBarContainer(passedProps: Props)
 			activeCallConn:Disconnect()
 			endCallConn:Disconnect()
 		end
-	end, { props.callProtocol, hideCallBarAndEndCall })
-
-	React.useEffect(function()
-		local taskThread: nil | thread
-
-		if currentCallStatus then
-			if currentCallStatus == RoduxCall.Enums.Status.Failed.rawValue() then
-				taskThread = task.delay(0.5, function()
-					hideCallBarAndEndCall()
-				end)
-			elseif
-				currentCallStatus == RoduxCall.Enums.Status.Connecting.rawValue()
-				or currentCallStatus == RoduxCall.Enums.Status.Teleporting.rawValue()
-				or currentCallStatus == RoduxCall.Enums.Status.Active.rawValue()
-			then
-				pcall(function()
-					if callBarRef and callBarRef.current then
-						callBarRef.current:TweenPosition(
-							UDim2.new(0.5, 0, 0, 0),
-							Enum.EasingDirection.Out,
-							Enum.EasingStyle.Quad,
-							0.3,
-							true
-						)
-					end
-				end)
-			end
-		end
-
-		return function()
-			if taskThread then
-				task.cancel(taskThread)
-				taskThread = nil
-			end
-		end
-	end, { currentCallStatus, hideCallBarAndEndCall })
+	end, { props.callProtocol, maybeHideCallBarAndEndCall })
 
 	local isCallBarEnabled = React.useMemo(function()
 		return currentCallStatus == RoduxCall.Enums.Status.Connecting.rawValue()
 			or currentCallStatus == RoduxCall.Enums.Status.Teleporting.rawValue()
 			or currentCallStatus == RoduxCall.Enums.Status.Active.rawValue()
 			or currentCallStatus == RoduxCall.Enums.Status.Failed.rawValue()
+			or (currentCallStatus == RoduxCall.Enums.Status.Idle.rawValue() and game.JobId == instanceId)
 	end, { currentCallStatus })
 
 	return if isCallBarEnabled
@@ -178,8 +181,8 @@ local function CallBarContainer(passedProps: Props)
 			}),
 			CallBar = React.createElement(CallBar, {
 				size = CALL_BAR_SIZE,
-				callBarRef = callBarRef,
-				createdUtc = createdUtc,
+				callBarRef = initCallBarCallback,
+				activeUtc = activeUtc,
 			}),
 		})
 		else nil

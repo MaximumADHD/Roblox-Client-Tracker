@@ -18,6 +18,8 @@ local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
 local GetVoiceRecordingIndicatorsCameraFix = require(Modules.Flags.GetVoiceRecordingIndicatorsCameraFix)
 local FFlagAvatarChatCoreScriptSupport = require(Modules.Flags.FFlagAvatarChatCoreScriptSupport)
+local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
+local getFFlagDoNotPromptCameraPermissionsOnMount = require(CoreGui.RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
 local ANIMATION_SPEED = 3
 local FLASHING_DOT = "rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png"
@@ -46,6 +48,10 @@ function FlashingDot:init()
 		-- @TODO: Remove VideoCaptureService.Active when FaceAnimatorService.VideoAnimationEnabled gives correct values for voice-enabled experiences
 		-- Note that we have to add VideoCaptureService.Active here because FaceAnimatorService.VideoAnimationEnabled returns true for voice-enabled experiences
 		local isUsingCamera = FaceAnimatorService.VideoAnimationEnabled and if GetVoiceRecordingIndicatorsCameraFix() then VideoCaptureService.Active else true
+		if getFFlagDoNotPromptCameraPermissionsOnMount() then
+			-- FaceAnimatorService.VideoAnimationEnabled is giving correct values now
+			isUsingCamera = FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled
+		end
 		local newVisible = isUsingMic or isUsingCamera
 
 		local updatedVisibility = self.state.Visible ~= newVisible
@@ -69,10 +75,30 @@ function FlashingDot:init()
 		self.prevTime = newAnimationTime
 		self.prevSinTime = newSinTime
 	end
+
+	if getFFlagDoNotPromptCameraPermissionsOnMount() then
+		self.teardownCameraPermissionGrantedListener = function()
+			-- Garbage collection
+			if self.cameraPermissionGrantedListener then
+				self.cameraPermissionGrantedListener:disconnect()
+				self.cameraPermissionGrantedListener = nil
+			end
+		end
+
+		self.cameraPermissionGrantedListener = cameraDevicePermissionGrantedSignal:connect(function()
+			self.checkNewVisibility()
+		end)
+	end
 end
 
 function FlashingDot:didMount()
 	self.checkNewVisibility()
+end
+
+function FlashingDot:willUnmount()
+	if self.teardownCameraPermissionGrantedListener then
+		self.teardownCameraPermissionGrantedListener()
+	end
 end
 
 function FlashingDot:render()
@@ -80,6 +106,9 @@ function FlashingDot:render()
 	local imageSize = UDim2.fromOffset(4, 4)
 	if FFlagAvatarChatCoreScriptSupport then
 		local isUsingCamera = FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
+		if getFFlagDoNotPromptCameraPermissionsOnMount() then
+			isUsingCamera = FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled
+		end
 		if self.state.isUsingMic then
 			image = FLASHING_DOT
 		elseif isUsingCamera then

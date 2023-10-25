@@ -30,6 +30,11 @@ local TextChatService = game:GetService("TextChatService")
 
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
+local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
+
+local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
+local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
+local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
 -------------- CONSTANTS --------------
 -- DEPRECATED Remove with FixGraphicsQuality
@@ -652,15 +657,15 @@ local function Initialize()
 			startIndex = 1
 		end
 
-		local reducedMotionLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.ReducedMotion") 
-		local reducedMotionDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.ReducedMotion") 
-		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On") 
-		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off") 
+		local reducedMotionLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.ReducedMotion")
+		local reducedMotionDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.ReducedMotion")
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
 
-		this.ReducedMotionFrame, this.ReducedMotionLabel, this.ReducedMotionMode = 
+		this.ReducedMotionFrame, this.ReducedMotionLabel, this.ReducedMotionMode =
 			utility:AddNewRow(this, reducedMotionLabel, "Selector", {onLabel, offLabel}, startIndex, nil, reducedMotionDescription)
 		this.ReducedMotionFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 12 else 11
-		
+
 		this.ReducedMotionMode.IndexChanged:connect(
 			function(newIndex)
 				local oldValue = GameSettings.ReducedMotion
@@ -677,15 +682,15 @@ local function Initialize()
 	local function createPreferredTransparencyOptions()
 		local startValue = 10 - math.clamp(math.floor(GameSettings.PreferredTransparency * 10 + 0.5), 0, 10)
 
-		local preferredTransparencyLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.PreferredTransparency") 
+		local preferredTransparencyLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.PreferredTransparency")
 		local preferredTransparencyDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.PreferredTransparency")
-		local preferredTransparencyLeftLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTransparency.Transparent") 
-		local preferredTransparencyRightLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTransparency.Opaque") 
+		local preferredTransparencyLeftLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTransparency.Transparent")
+		local preferredTransparencyRightLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.PreferredTransparency.Opaque")
 
-		this.PreferredTransparencyFrame, this.PreferredTransparencyLabel, this.PreferredTransparencySlider = 
+		this.PreferredTransparencyFrame, this.PreferredTransparencyLabel, this.PreferredTransparencySlider =
 			utility:AddNewRow(this, preferredTransparencyLabel, "Slider", 10, startValue, nil, preferredTransparencyDescription, preferredTransparencyLeftLabel, preferredTransparencyRightLabel)
 		this.PreferredTransparencyFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 13 else 12
-		
+
 		this.PreferredTransparencySlider.ValueChanged:connect(
 			function(newValue)
 				newValue = (10 - math.clamp(math.floor(newValue), 0, 10)) / 10
@@ -706,17 +711,17 @@ local function Initialize()
 			startIndex = 1
 		end
 
-		local uiNavigationKeyBindLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.UiNavigationKeyBind") 
+		local uiNavigationKeyBindLabel = RobloxTranslator:FormatByKey("Feature.Accessibility.Heading.UiNavigationKeyBind")
 		local uiNavigationKeyBindDescription = RobloxTranslator:FormatByKey("Feature.Accessibility.Description.UiNavigationKeyBind", {
 			uiNavigationKey = UserInputService:GetStringForKeyCode(Enum.KeyCode.BackSlash)
-		}) 
-		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On") 
-		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off") 
+		})
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
 
-		this.UiNavigationKeyBindEnabledFrame, this.UiNavigationKeyBindEnabledLabel, this.UiNavigationKeyBindEnabledMode = 
+		this.UiNavigationKeyBindEnabledFrame, this.UiNavigationKeyBindEnabledLabel, this.UiNavigationKeyBindEnabledMode =
 			utility:AddNewRow(this, uiNavigationKeyBindLabel, "Selector", {onLabel, offLabel}, startIndex, nil, uiNavigationKeyBindDescription)
 		this.UiNavigationKeyBindEnabledFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 14 else 13
-		
+
 		this.UiNavigationKeyBindEnabledMode.IndexChanged:connect(
 			function(newIndex)
 				local oldValue = GameSettings.UiNavigationKeyBindEnabled
@@ -1328,7 +1333,7 @@ local function Initialize()
 			if ChatTranslationSettingsMoved then
 				GameSettings.ChatTranslationEnabled = layerData.ChatTranslationEnabled
 				GameSettings.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled
-				
+
 				return true
 			else
 				local success, _ = pcall(function ()
@@ -2313,7 +2318,7 @@ local function Initialize()
 			if GetFFlagSupportsOverscanPolicy() then
 				if _G.IsLegacyAppShell then
 					overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
-				else 
+				else
 					overscan = require(RobloxGui.Modules.Shell.Components.Overscan10ft.Overscan)
 					overscan = require(RobloxGui.Modules.Settings.Components.OverscanWrapper)(overscan)
 				end
@@ -2713,7 +2718,7 @@ local function Initialize()
 	local videoCameraDeviceChangedConnection = nil
 
 	local function updateAudioOptions()
-		if this.VoiceChatOptionsEnabled then			
+		if this.VoiceChatOptionsEnabled then
 			updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
 			updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
 		elseif GetFFlagEnableAudioOutputDevice() then
@@ -2787,12 +2792,40 @@ local function Initialize()
 	end
 
 	this.VideoOptionsEnabled = false
+	local cameraPermissionGrantedListener = nil
+	local teardownCameraPermissionGrantedListener = function()
+		-- Garbage collection
+		if cameraPermissionGrantedListener then
+			cameraPermissionGrantedListener:disconnect()
+			cameraPermissionGrantedListener = nil
+		end
+	end
 	if FFlagAvatarChatCoreScriptSupport then
 		local callback = function(response)
 			this.VideoOptionsEnabled = response.hasCameraPermissions
 		end
-		getCamMicPermissions(callback)
+
+		if getFFlagDoNotPromptCameraPermissionsOnMount() then
+			if isCamEnabledForUserAndPlace() then
+				-- Only render video options setting if it's enabled + eligible for user and enabled for place
+				local shouldNotRequestPerms = true
+				getCamMicPermissions(callback, { PermissionsProtocol.Permissions.CAMERA_ACCESS :: string }, shouldNotRequestPerms)
+
+				if cameraPermissionGrantedListener then
+					cameraPermissionGrantedListener:disconnect()
+				end
+				cameraPermissionGrantedListener = cameraDevicePermissionGrantedSignal:connect(function()
+					-- Once we hear the granted signal, we'll show the Camera Device Game setting
+					this.VideoOptionsEnabled = true
+					updateCameraDevices()
+					setupVideoCameraDeviceChangedListener()
+				end)
+			end
+		else
+			getCamMicPermissions(callback)
+		end
 	end
+
 
 	createCameraModeOptions(
 		not isTenFootInterface and
@@ -2876,7 +2909,7 @@ local function Initialize()
 		createMicroProfilerOptions()
 	end
 
-	if GetFFlagSupportsOverscanPolicy() then 
+	if GetFFlagSupportsOverscanPolicy() then
 		if isTenFootInterface and getAppFeaturePolicies().getSupportsOverscan() then
 			createOverscanOption()
 		end
@@ -2960,6 +2993,10 @@ local function Initialize()
 		if FFlagAvatarChatCoreScriptSupport then
 			if game:GetEngineFeature("VideoCaptureService") then
 				teardownVideoCameraDeviceChangedListener()
+			end
+
+			if getFFlagDoNotPromptCameraPermissionsOnMount() then
+				teardownCameraPermissionGrantedListener()
 			end
 		end
 

@@ -19,6 +19,8 @@ return function()
 
 	local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
+	local waitUntil = require(CorePackages.Workspace.Packages.TestUtils).waitUntil
+
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -27,7 +29,9 @@ return function()
 	local FriendListContainer = require(ContactList.Components.FriendList.FriendListContainer)
 
 	local dependencies = require(ContactList.dependencies)
+	local EnumPresenceType = dependencies.RoduxCall.Enums.PresenceType
 	local NetworkingFriends = dependencies.NetworkingFriends
+	local NetworkingCall = dependencies.NetworkingCall
 	local PresenceModel = dependencies.RoduxPresence.Models.Presence
 
 	beforeAll(function(c: any)
@@ -35,24 +39,41 @@ return function()
 			return {
 				PageItems = {
 					[1] = {
-						id = "00000000",
+						id = "0",
 					},
 					[2] = {
-						id = "11111111",
+						id = "1",
 					},
 				},
-				NextPage = nextPageCursor,
-				PreviousPage = nil,
+				NextCursor = nextPageCursor,
+				PreviousCursor = nil,
+			}
+		end
+
+		c.mockGetSuggestedCallees = function()
+			return {
+				suggestedCallees = {
+					{
+						userId = 0,
+						userPresenceType = EnumPresenceType.Online.rawValue(),
+						lastLocation = "Roblox Connect",
+					},
+					{
+						userId = 1,
+						userPresenceType = EnumPresenceType.Offline.rawValue(),
+						lastLocation = "Iris (Staging)",
+					},
+				},
 			}
 		end
 
 		c.mockApolloClient = mockApolloClient({})
 		UserProfiles.TestUtils.writeProfileDataToCache(c.mockApolloClient, {
-			["00000000"] = {
+			["0"] = {
 				combinedName = "display name 0",
 				username = "user name 0",
 			},
-			["11111111"] = {
+			["1"] = {
 				combinedName = "display name 1",
 				username = "user name 1",
 			},
@@ -61,38 +82,14 @@ return function()
 
 	it("should mount and unmount without errors", function(c: any)
 		local store = Rodux.Store.new(Reducer, {
-			NetworkStatus = {
-				["https://friends.roblox.com/v1/users/12345678/friends"] = "Done",
-			},
 			Presence = {
 				byUserId = {
-					["00000000"] = PresenceModel.format(PresenceModel.mock()),
-					["11111111"] = PresenceModel.format(PresenceModel.mock()),
+					["0"] = PresenceModel.format(PresenceModel.mock()),
+					["1"] = PresenceModel.format(PresenceModel.mock()),
 				},
 			},
-			Users = {
-				byUserId = {
-					["00000000"] = {
-						id = "00000000",
-						username = "user name 0",
-						displayName = "display name 0",
-						hasVerifiedBadge = false,
-					},
-					["11111111"] = {
-						id = "11111111",
-						username = "user name 1",
-						displayName = "display name 1",
-						hasVerifiedBadge = false,
-					},
-				},
-			},
-			Friends = {
-				byUserId = {
-					["12345678"] = {
-						"00000000",
-						"11111111",
-					},
-				},
+			Call = {
+				suggestedCallees = c.mockGetSuggestedCallees(),
 			},
 		}, {
 			Rodux.thunkMiddleware,
@@ -102,6 +99,13 @@ return function()
 		NetworkingFriends.FindFriendsFromUserId.Mock.reply(function()
 			return {
 				responseBody = c.mockFindFriendsFromUserId(nil),
+			}
+		end)
+
+		NetworkingCall.GetSuggestedCallees.Mock.clear()
+		NetworkingCall.GetSuggestedCallees.Mock.reply(function()
+			return {
+				responseBody = c.mockGetSuggestedCallees(),
 			}
 		end)
 
@@ -123,11 +127,89 @@ return function()
 		})
 
 		local folder = Instance.new("Folder")
-		local instance = Roact.mount(element, folder)
-		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-		-- UIListLayout + 2 friend items
-		expect(#containerElement:GetChildren()).toBe(3)
-		Roact.unmount(instance)
+		local root = ReactRoblox.createRoot(folder)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			local containerElement = waitUntil(function()
+				-- Wait for the Apollo promise to complete.
+				local element = folder:FindFirstChild("FriendsScrollingFrame", true) :: ScrollingFrame
+				return element ~= nil, element
+			end, 1)
+			-- 1 UIListLayout + 1 friend section header + 2 friend items + 1 suggested callees section header + 2 suggested callees
+			expect(#containerElement:GetChildren()).toBe(7)
+		end
+
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
+	end)
+
+	it("should still show friends if friends fetch succeeds but suggested callees fetch fails", function(c: any)
+		local store = Rodux.Store.new(Reducer, {
+			Presence = {
+				byUserId = {
+					["0"] = PresenceModel.format(PresenceModel.mock()),
+					["1"] = PresenceModel.format(PresenceModel.mock()),
+				},
+			},
+			Call = {
+				suggestedCallees = {},
+			},
+		}, {
+			Rodux.thunkMiddleware,
+		})
+
+		NetworkingFriends.FindFriendsFromUserId.Mock.clear()
+		NetworkingFriends.FindFriendsFromUserId.Mock.reply(function()
+			return {
+				responseBody = c.mockFindFriendsFromUserId(nil),
+			}
+		end)
+
+		NetworkingCall.GetSuggestedCallees.Mock.clear()
+		NetworkingCall.GetSuggestedCallees.Mock.replyWithError("error")
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
+				ApolloProvider = Roact.createElement(ApolloProvider, {
+					client = c.mockApolloClient,
+				}, {
+					FriendListContainer = Roact.createElement(FriendListContainer, {
+						isSmallScreen = false,
+						dismissCallback = function() end,
+						scrollingEnabled = true,
+						searchText = "",
+					}),
+				}),
+			}),
+		})
+
+		local folder = Instance.new("Folder")
+		local root = ReactRoblox.createRoot(folder)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			local containerElement = waitUntil(function()
+				-- Wait for the Apollo promise to complete.
+				local element = folder:FindFirstChild("FriendsScrollingFrame", true) :: ScrollingFrame
+				return element ~= nil, element
+			end, 1)
+			-- 1 UIListLayout + 1 friend section header + 2 friend items
+			expect(#containerElement:GetChildren()).toBe(4)
+		end
+
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
 	end)
 
 	it("should show spinner on first load", function(c: any)
@@ -136,6 +218,10 @@ return function()
 		})
 
 		NetworkingFriends.FindFriendsFromUserId.Mock.clear()
+		NetworkingCall.GetSuggestedCallees.Mock.clear()
+		NetworkingCall.GetSuggestedCallees.Mock.replyWithError(function()
+			return "error"
+		end)
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
@@ -182,6 +268,10 @@ return function()
 				responseBody = c.mockFindFriendsFromUserId(nil),
 			}
 		end)
+		NetworkingCall.GetSuggestedCallees.Mock.clear()
+		NetworkingCall.GetSuggestedCallees.Mock.replyWithError(function()
+			return "error"
+		end)
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
@@ -207,23 +297,33 @@ return function()
 			root:render(element)
 		end)
 
-		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-		expect(containerElement).never.toBeNull()
-		local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
-		expect(spinnerElement).toBeNull()
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			local containerElement = waitUntil(function()
+				-- Wait for the Apollo promise to complete.
+				local element = folder:FindFirstChild("FriendsScrollingFrame", true) :: ScrollingFrame
+				return element ~= nil, element
+			end, 1)
+			expect(containerElement).never.toBeNull()
+			local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
+			expect(spinnerElement).toBeNull()
+		end
 
 		ReactRoblox.act(function()
 			root:unmount()
 		end)
 	end)
 
-	it("should show error state if fetch fails", function(c: any)
+	it("should show error state if friends fetch fails", function(c: any)
 		local store = Rodux.Store.new(Reducer, {}, {
 			Rodux.thunkMiddleware,
 		})
 
 		NetworkingFriends.FindFriendsFromUserId.Mock.clear()
 		NetworkingFriends.FindFriendsFromUserId.Mock.replyWithError(function()
+			return "error"
+		end)
+		NetworkingCall.GetSuggestedCallees.Mock.clear()
+		NetworkingCall.GetSuggestedCallees.Mock.replyWithError(function()
 			return "error"
 		end)
 

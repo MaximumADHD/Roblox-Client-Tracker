@@ -3,6 +3,7 @@
 	camera and mic permissions for the device being used.
 ]]
 local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Modules = CoreGui.RobloxGui.Modules
 local getCamMicPermissions = require(Modules.Settings.getCamMicPermissions)
@@ -10,12 +11,11 @@ local getCamMicPermissions = require(Modules.Settings.getCamMicPermissions)
 local CorePackages = game:GetService("CorePackages")
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 
-local FFlagDecoupleGetPermissionsExpChatHelper = game:DefineFastFlag("DecoupleGetPermissionsExpChatHelper", false)
-
+local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 type PermissionType = "camera" | "microphone"
 
-if FFlagDecoupleGetPermissionsExpChatHelper then
-	return function(callback, permissionType : PermissionType?)
+if getFFlagDoNotPromptCameraPermissionsOnMount() then
+	return function(callback, permissionType : PermissionType?, shouldNotRequestPerms: boolean?)
 		local permissionsToRequest
 
 		if permissionType then
@@ -30,7 +30,7 @@ if FFlagDecoupleGetPermissionsExpChatHelper then
 			callback(response.hasCameraPermissions, response.hasMicPermissions)
 		end
 
-		getCamMicPermissions(promiseCallback, permissionsToRequest)
+		getCamMicPermissions(promiseCallback, permissionsToRequest, shouldNotRequestPerms)
 	end
 end
 

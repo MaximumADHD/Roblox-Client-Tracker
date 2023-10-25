@@ -18,20 +18,23 @@ return function()
 			bodyText = "",
 			callerId = 0,
 			calleeId = 0,
+			dismissCallback = nil,
 		})
 	end)
 
 	describe("using actions", function()
 		it("should change with OpenOrUpdateDialog and CloseDialog", function()
+			local function mock() end
 			local oldState = Dialog(nil, {})
-			local openState = Dialog(oldState, OpenOrUpdateDialog("title", "body"))
+			local openState = Dialog(oldState, OpenOrUpdateDialog("title", "body", 123, 456, mock))
 			expect(oldState).never.toEqual(openState)
 			expect(openState).toEqual({
 				isOpen = true,
 				title = "title",
 				bodyText = "body",
-				callerId = 0,
-				calleeId = 0,
+				callerId = 123,
+				calleeId = 456,
+				dismissCallback = mock,
 			})
 
 			local closeState = Dialog(openState, CloseDialog())
@@ -42,6 +45,7 @@ return function()
 				bodyText = "",
 				callerId = 0,
 				calleeId = 0,
+				dismissCallback = nil,
 			})
 		end)
 	end)

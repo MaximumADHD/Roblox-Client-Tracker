@@ -65,12 +65,6 @@ local GetFFlagReportAnythingAnnotationIXP =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFIntIGMv1ARFlowScreenshotDelayFrames =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFIntIGMv1ARFlowScreenshotDelayFrames)
-local GetFFlagEnableARFlowAnalyticsCleanup =
-	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableARFlowAnalyticsCleanup)
-local GetFFlagEnableIGMv1ARFlowNilMoAFix =
-	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableIGMv1ARFlowNilMoAFix)
-local GetFFlagReportAnythingFixDefaultAnalytics =
-	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingFixDefaultAnalytics)
 local GetFFlagReportAnythingEnableAdReport =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
 local GetFFlagReportAnythingLocalizationEnabled =
@@ -80,6 +74,7 @@ local GetFFlagReportAbuseMenuAutosizeYEnabled =
 local GetFFlagRAScreenshotOncePerMenuOpenEnabled =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagRAScreenshotOncePerMenuOpenEnabled)
 local GetFFlagEnableOptionalScreenshotButton2 = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableOptionalScreenshotButton2)
+local GetFFlagShrinkReportMenuForVisibility = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagShrinkReportMenuForVisibility)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -236,10 +231,8 @@ local function Initialize()
 				end
 				voiceAllowed = this:shouldVoiceMOABeAvailable() -- stable
 			else
-				if GetFFlagEnableIGMv1ARFlowNilMoAFix() then
-					if currentIndex == nil then
-						return "Chat"
-					end
+				if currentIndex == nil then
+					return "Chat"
 				end
 				voiceAllowed = this:isVoiceReportMethodActive()
 			end
@@ -779,7 +772,7 @@ local function Initialize()
 		utility:Create'Frame'
 		{
 			Name = "PageViewInnerFrame",
-			Size = UDim2.new(1, 0, 0, 80),
+			Size = UDim2.new(1, 0, 0, if GetFFlagShrinkReportMenuForVisibility() then 40 else 80),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Selectable = false,
@@ -827,13 +820,8 @@ local function Initialize()
 		this.WhichPlayerFrame.LayoutOrder = 2
 
 		local typeOfAbuseText = "Reason for Abuse?"
-		if GetFFlagReportAnythingFixDefaultAnalytics() then
-			this.TypeOfAbuseFrame, this.TypeOfAbuseLabel, this.TypeOfAbuseMode =
-				utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME)
-		else
-			this.TypeOfAbuseFrame, this.TypeOfAbuseLabel, this.TypeOfAbuseMode =
-				utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME, 1)
-		end
+		this.TypeOfAbuseFrame, this.TypeOfAbuseLabel, this.TypeOfAbuseMode =
+			utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME)
 
 		this.TypeOfAbuseFrame.LayoutOrder = 3
 
@@ -843,7 +831,7 @@ local function Initialize()
 			this.AbuseDescription.Selection.PlaceholderText = DEFAULT_ABUSE_DESC_TEXT
 
 			this.AbuseDescriptionLabel.Text = "Abuse Description"
-			this.AbuseDescriptionFrame.Size = UDim2.new(1, 0, 0, 100)
+			this.AbuseDescriptionFrame.Size = UDim2.new(1, 0, 0, if GetFFlagShrinkReportMenuForVisibility() then 40 else 100)
 			this.AbuseDescriptionLabel.TextYAlignment = Enum.TextYAlignment.Top
 
 			utility:Create("UICorner")({
@@ -1070,10 +1058,12 @@ local function Initialize()
 			local icon_size = 40
 			local icon_end = icon_size / (button_width * 0.8)
 			local text_start = icon_end
+
+			local buttonHeight = if GetFFlagShrinkReportMenuForVisibility() then 40 else 50
 			
-			local attachScreenshotButtonsize = UDim2.new(0,button_width,0,50)
+			local attachScreenshotButtonsize = UDim2.new(0,button_width,0,buttonHeight)
 			if Theme.UIBloxThemeEnabled then
-				attachScreenshotButtonsize = UDim2.new(0,button_width,0,50)
+				attachScreenshotButtonsize = UDim2.new(0,button_width,0,buttonHeight)
 			end
 			local screenshotImage = "rbxasset://textures/ui/Settings/MenuBarIcons/CaptureTab.png"
 			
@@ -1086,15 +1076,16 @@ local function Initialize()
 			)
 			
 			this.ScreenshotButton.AnchorPoint = Vector2.new(0.5,0)
+			local screenshotButtonYOffset = if GetFFlagShrinkReportMenuForVisibility() then 7 else 0
 			if Theme.UIBloxThemeEnabled then
 				local hintOffset = 9 + 33
 				local rightPad = 9
-				this.ScreenshotButton.Position = UDim2.new(1, -button_width / 2, 0, 0)
+				this.ScreenshotButton.Position = UDim2.new(1, -button_width / 2, 0, screenshotButtonYOffset)
 				this.ScreenshotText.Size = UDim2.new(1,-(hintOffset+rightPad),1.0,0)
 				this.ScreenshotText.Position = UDim2.new(1,-rightPad,0,0)
 				this.ScreenshotText.AnchorPoint = Vector2.new(1,0)
 			else
-				this.ScreenshotButton.Position = UDim2.new(1, -button_width / 2, 0, 0)
+				this.ScreenshotButton.Position = UDim2.new(1, -button_width / 2, 0, screenshotButtonYOffset)
 				this.ScreenshotText.Size = UDim2.new(0.75,0,0.9,0)
 				this.ScreenshotText.Position = UDim2.new(text_start,0,0,0)
 			end	
@@ -1180,9 +1171,7 @@ local function Initialize()
 
 				this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_GAME > 1)
 
-				if GetFFlagReportAnythingFixDefaultAnalytics() then
-					this.TypeOfAbuseMode:SetSelectionIndex(1)
-				end
+				this.TypeOfAbuseMode:SetSelectionIndex(1)
 
 				this.TypeOfAbuseLabel.ZIndex = (#ABUSE_TYPES_GAME > 1 and 2 or 1)
 
@@ -1227,16 +1216,9 @@ local function Initialize()
 				abuseType = "Player"
 			end
 
-			if GetFFlagEnableARFlowAnalyticsCleanup() then
-				if isUserInitiated then
-					this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
-						field = "GameOrPlayer",
-						abuseType = abuseType,
-					})
-				end
-			else
+			if isUserInitiated then
 				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
-					field = "TypeOfAbuse",
+					field = "GameOrPlayer",
 					abuseType = abuseType,
 				})
 			end
@@ -1462,10 +1444,10 @@ local function Initialize()
 				end
 			end
 		end
-
-		local submitButtonSize = UDim2.new(0, 198, 0, 50)
+		local submitButtonHeight = if GetFFlagShrinkReportMenuForVisibility() then 36 else 50
+		local submitButtonSize = UDim2.new(0, 198, 0, submitButtonHeight)
 		if Theme.UIBloxThemeEnabled then
-			submitButtonSize = UDim2.new(1, 20, 0, 50)
+			submitButtonSize = UDim2.new(1, 20, 0, submitButtonHeight)
 		end
 
 		this.SubmitButton, this.SubmitText =
@@ -1516,13 +1498,9 @@ local function Initialize()
 		end
 		this.TypeOfAbuseMode.IndexChanged:connect(typeOfAbuseChanged)
 
-		if GetFFlagEnableARFlowAnalyticsCleanup() then
-			this.GameOrPlayerMode.IndexChanged:connect(function()
-				updateAbuseDropDown(true)
-			end)
-		else
-			this.GameOrPlayerMode.IndexChanged:connect(updateAbuseDropDown)
-		end
+		this.GameOrPlayerMode.IndexChanged:connect(function()
+			updateAbuseDropDown(true)
+		end)
 
 		local function abuseDescriptionChanged()
 			updateSubmitButton()
@@ -1653,10 +1631,6 @@ do
 				local abuseReasonSelected = if PageInstance.TypeOfAbuseMode.CurrentIndex then true else false
 				local abuserSelected = if PageInstance.WhichPlayerMode.CurrentIndex then true else false
 				local commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" then true else false
-
-				if GetFFlagReportAnythingFixDefaultAnalytics() then
-					commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" then true else false
-				end
 
 				local methodOfAbuseSelected = false
 				local reportContentType

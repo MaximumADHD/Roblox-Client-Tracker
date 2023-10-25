@@ -51,7 +51,9 @@ function SubscriptionPurchaseContainer:render()
 			promptState = props.promptState,
 			purchaseError = props.purchaseError,
 
+			subscriptionId = props.subscriptionId,
 			name = props.subscriptionPurchaseInfo.Name,
+			subscriptionProviderId = props.subscriptionPurchaseInfo.SubscriptionProviderId,
 			subscriptionProviderName = props.subscriptionPurchaseInfo.SubscriptionProviderName,
 			displayPrice = props.subscriptionPurchaseInfo.DisplayPrice,
 			period = props.subscriptionPurchaseInfo.DisplaySubscriptionPeriod,
@@ -90,6 +92,7 @@ SubscriptionPurchaseContainer = connectToStore(
 			purchaseError = state.purchaseError,
 
 			subscriptionPurchaseInfo = state.subscriptionPurchaseInfo,
+			subscriptionId = state.promptRequest.id,
 		}
 	end,
 	function(dispatch)

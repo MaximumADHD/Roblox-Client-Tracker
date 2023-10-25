@@ -13,12 +13,18 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local useSelector = dependencies.Hooks.useSelector
 
-local function ConfigureFriendMenu()
+local FriendAction = require(ContactList.Enums.FriendAction)
+
+local function ConfigureFriendMenu(props)
 	local style = useStyle()
 	local theme = style.Theme
 
 	local combinedName = useSelector(function(state)
-		return state.PlayerMenu.combinedName
+		if state.PlayerMenu.friend then
+			return state.PlayerMenu.friend.combinedName
+		else
+			return ""
+		end
 	end)
 
 	return Roact.createElement(BaseMenu, {
@@ -26,12 +32,16 @@ local function ConfigureFriendMenu()
 			{
 				icon = Images["icons/actions/block"],
 				text = "Block " .. combinedName, -- TODO(IRIS-864): Localization.
-				onActivated = function() end,
+				onActivated = function()
+					props.initiateConfirmation(FriendAction.Block.rawValue())
+				end,
 			},
 			{
 				icon = Images["icons/actions/friends/friendRemove"],
 				text = "Unfriend " .. combinedName, -- TODO(IRIS-864): Localization.
-				onActivated = function() end,
+				onActivated = function()
+					props.initiateConfirmation(FriendAction.Unfriend.rawValue())
+				end,
 			},
 		},
 		background = theme.BackgroundUIDefault,

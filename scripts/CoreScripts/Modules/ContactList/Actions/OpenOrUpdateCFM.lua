@@ -2,9 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 
 local Action = require(CorePackages.Rodux).makeActionCreator
 
-return Action(script.Name, function(userId, combinedName)
+return Action(script.Name, function(friend)
 	return {
-		userId = userId,
-		combinedName = combinedName,
+		friend = friend,
 	}
 end)

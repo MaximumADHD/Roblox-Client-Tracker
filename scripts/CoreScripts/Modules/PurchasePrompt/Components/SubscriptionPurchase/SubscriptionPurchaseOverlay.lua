@@ -24,7 +24,9 @@ type Props = {
 	promptState: any,
 	purchaseError: any?,
 
+	subscriptionId: string,
 	name: string,
+	subscriptionProviderId: string,
 	subscriptionProviderName: string,
 	displayPrice: string,
 	period: string,
@@ -112,7 +114,9 @@ function SubscriptionPurchaseOverlay:render()
 		purchaseState = self:getFlowState(),
 		errorType = self:getErrorType(),
 
+		subscriptionId = props.subscriptionId,
 		name = props.name,
+		subscriptionProviderId = props.subscriptionProviderId,
 		subscriptionProviderName = props.subscriptionProviderName,
 		displayPrice = props.displayPrice,
 		period = props.period,

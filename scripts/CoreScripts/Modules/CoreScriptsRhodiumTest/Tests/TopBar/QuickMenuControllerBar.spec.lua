@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
+local AppStorageService = game:GetService("AppStorageService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Modules = CoreGui.RobloxGui.Modules
@@ -18,11 +19,15 @@ local QuickMenu = require(TopBar.Components.Presentation.GamepadMenu)
 local SetGamepadMenuOpen = require(TopBar.Actions.SetGamepadMenuOpen)
 
 local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
+local FFlagEnableGamepadMenuSelector = require(TopBar.Flags.FFlagEnableGamepadMenuSelector)
 
 local act = require(Modules.act)
 
 return function()
 	beforeEach(function(c)
+		if FFlagEnableGamepadMenuSelector then
+			AppStorageService:SetItem("GamepadMenuVirtualCursorPromptShown", "true")
+		end
 		GuiService.SelectedCoreObject = nil
 		Players.LocalPlayer.PlayerGui:ClearAllChildren()
 		local path, store, cleanup, gamepad = c.mountTopBar({
@@ -118,4 +123,3 @@ return function()
 		end
 	end)
 end
-

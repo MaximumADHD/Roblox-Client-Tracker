@@ -4,6 +4,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
+local ExperienceAuthService = game:GetService("ExperienceAuthService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -12,14 +13,14 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local AvatarPartGrid = require(script.Parent.AvatarParts.AvatarPartGrid)
 
-local LocalPlayer = Players.LocalPlayer
-
 local Components = script.Parent.Parent
 local BasePublishPrompt = require(Components.BasePublishPrompt)
 local ObjectViewport = require(Components.Common.ObjectViewport)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
+
+local NAME_METADATA_STRING = "avatarName"
 
 local TITLE_TEXT = "title"
 local BODY_TEXT = "body"
@@ -29,11 +30,20 @@ local PublishAvatarPrompt = Roact.PureComponent:extend("PublishAvatarPrompt")
 PublishAvatarPrompt.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
 	humanoidDescription = t.any,
+
+	-- Mapped state
+	guid = t.any,
+	scopes = t.any,
 })
 
 function PublishAvatarPrompt:init()
+	local LocalPlayer = Players.LocalPlayer
+	assert(LocalPlayer, "Assert LocalPlayer is not nil to silence type checker")
+
 	self:setState({
 		showingPreviewView = false,
+		name = LocalPlayer.Name .. "'s Body", -- TODO AVBURST-12954 localize
+		isNameValid = true,
 	})
 	self.openPreviewView = function()
 		self:setState({
@@ -45,10 +55,36 @@ function PublishAvatarPrompt:init()
 			showingPreviewView = false,
 		})
 	end
+
+	self.confirmUploadReady = function(): boolean
+		if not self.state.isNameValid then
+			return false
+		end
+		local metadata = {}
+		metadata[NAME_METADATA_STRING] = self.state.name
+
+		-- We should never get to this point if this engine feature is off, but just in case:
+		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
+			ExperienceAuthService:ScopeCheckUIComplete(
+				self.props.guid,
+				self.props.scopes,
+				Enum.ScopeCheckResult.ConsentAccepted,
+				metadata
+			)
+		end
+
+		return true
+	end
+
+	self.onNameUpdated = function(newName, isNameValid)
+		self:setState({
+			name = newName,
+			isNameValid = isNameValid,
+		})
+	end
 end
 
 function PublishAvatarPrompt:renderPromptBody()
-	assert(LocalPlayer, "Assert LocalPlayer not nil to silence type checker")
 	-- TODO: Replace placeholder HD AVBURST-13327
 	-- Note it's nice to use LocalPlayer.Character.Humanoid.HumanoidDescription for debugging
 	local model =
@@ -77,7 +113,7 @@ function PublishAvatarPrompt:renderPromptBody()
 				Instance.new("HumanoidDescription"),
 				Enum.HumanoidRigType.R15
 			),
-			name = "Placeholder",
+			name = self.state.name,
 			LayoutOrder = 2,
 			screenSize = self.props.screenSize,
 		}),
@@ -97,7 +133,6 @@ end
 function PublishAvatarPrompt:render()
 	local localized = GetLocalizedStrings()
 	assert(Players, "Players should always be defined, silence type checker")
-	assert(LocalPlayer, "LocalPlayer should always be defined, silence type checker")
 	return Roact.createElement(BasePublishPrompt, {
 		promptBody = self:renderPromptBody(),
 		screenSize = self.props.screenSize,
@@ -110,10 +145,11 @@ function PublishAvatarPrompt:render()
 			Enum.HumanoidRigType.R15
 		),
 		nameLabel = "Body Name", -- TODO AVBURST-12954 localize
-		nameMetadataString = "avatarName", -- TODO: AVBURST-13424 have name propogate to BodyPartGrid
-		defaultName = LocalPlayer.Name .. "'s Body", -- TODO AVBURST-12954 localize
+		defaultName = self.state.name,
 		typeData = localized[BODY_TEXT],
 		titleText = localized[TITLE_TEXT],
+		onNameUpdated = self.onNameUpdated,
+		confirmUploadReady = self.confirmUploadReady,
 	})
 end
 
@@ -122,6 +158,8 @@ local function mapStateToProps(state)
 		-- TODO: Replace placeholder HD AVBURST-13327
 		-- Currently humanoidDescription is just a string, so the viewport uses a placeholder
 		humanoidDescription = state.promptRequest.promptInfo.humanoidDescription,
+		guid = state.promptRequest.promptInfo.guid,
+		scopes = state.promptRequest.promptInfo.scopes,
 	}
 end
 

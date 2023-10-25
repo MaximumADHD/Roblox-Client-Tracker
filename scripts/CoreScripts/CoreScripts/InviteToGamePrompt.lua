@@ -15,7 +15,7 @@ local GetFFlagEnableNewInviteMenuCustomization = require(Modules.Flags.GetFFlagE
 local GetFFlagEnableInvitePromptLoadingState = require(Modules.Flags.GetFFlagEnableInvitePromptLoadingState)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
-local FFlagLuaEnableGameInviteModalInvitePrompt = game:DefineFastFlag("LuaEnableGameInviteModalInvitePromptDev", false)
+local FFlagLuaEnableGameInviteModalInvitePrompt = game:DefineFastFlag("LuaEnableGameInviteModalInvitePrompt", false)
 
 local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag

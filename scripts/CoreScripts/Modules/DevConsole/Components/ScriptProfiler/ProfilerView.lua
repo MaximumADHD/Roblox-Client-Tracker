@@ -1,6 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
+local ProfilerUtil = require(script.Parent.ProfilerUtil)
+
+local getDurations = ProfilerUtil.getDurations
+local formatSessionLength = ProfilerUtil.formatSessionLength
+
 local Components = script.Parent.Parent.Parent.Components
 local HeaderButton = require(Components.HeaderButton)
 local ProfilerViewEntry = require(script.Parent.ProfilerViewEntry)
@@ -30,6 +35,8 @@ function ProfilerView:renderChildren()
 		assert(data.Version == 2);
 	end
 
+	local totalDuration = getDurations(data, 0, usingV2FormatFlag)
+
 	return Roact.createElement(ProfilerViewEntry, {
 		layoutOrder = 0,
 		depth = 0,
@@ -38,22 +45,9 @@ function ProfilerView:renderChildren()
 		functionId = nil,
 		usingV2FormatFlag = usingV2FormatFlag,
 		percentageRatio = if self.props.showAsPercentages
-			then data.TotalDuration / 100
+			then totalDuration / 100
 			else nil
 	})
-end
-
-local function formatSessionLength(len: number?): string?
-	if len then
-		local hours = len / (1000 * 60 * 60)
-		local mins = (len / (1000 * 60)) % 60
-		local secs = (len / 1000) % 60
-		local millis = len % 1000
-
-		return string.format("%02i:%02i:%02i.%04i", hours, mins, secs, millis)
-	end
-
-	return nil
 end
 
 function ProfilerView:render()

@@ -12,6 +12,22 @@ local VR_FADE_SPEED = 10 -- 1/10 second
 local VR_SCREEN_EGDE_BLEND_TIME = 0.14
 local VR_SEAT_OFFSET = Vector3.new(0,4,0)
 
+local FFlagUserVRPlayerScriptsMisc
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRPlayerScriptsMisc")
+	end)
+	FFlagUserVRPlayerScriptsMisc = success and result
+end
+
+local FFlagUserVRVehicleCamera
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRVehicleCamera")
+	end)
+	FFlagUserVRVehicleCamera = success and result and FFlagUserVRPlayerScriptsMisc
+end
+
 local VRService = game:GetService("VRService")
 
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
@@ -154,10 +170,14 @@ function VRBaseCamera:OnEnabledChanged(enable: boolean --[[ remove with FFlagUse
 		if FFlagUserVRFollowCamera then
 			-- reset on options change
 			self.thirdPersonOptionChanged = VRService:GetPropertyChangedSignal("ThirdPersonFollowCamEnabled"):Connect(function()
-				-- only need to reset third person options if in third person
-				if not self:IsInFirstPerson() then
+				if FFlagUserVRVehicleCamera then
 					self:Reset()
-				end 
+				else
+					-- only need to reset third person options if in third person
+					if not self:IsInFirstPerson() then
+						self:Reset()
+					end 
+				end
 			end)
 			
 			self.vrRecentered = VRService.UserCFrameChanged:Connect(function(userCFrame, _)

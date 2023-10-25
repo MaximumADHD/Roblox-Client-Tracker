@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableSoundTelemetry2", false)
+game:DefineFastFlag("EnableSoundTelemetry3", false)
 
 return function()
-    return game:GetFastFlag("EnableSoundTelemetry2")
+    return game:GetFastFlag("EnableSoundTelemetry3")
 end

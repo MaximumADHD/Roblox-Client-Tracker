@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
 local CoreGui = game:GetService("CoreGui")
 local LocalizationService = game:GetService("LocalizationService")
+local AppStorageService = game:GetService("AppStorageService")
 local Modules = CoreGui.RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
@@ -35,6 +36,8 @@ local TopBar = Modules.TopBar
 local Presentation = TopBar.Components.Presentation
 local GamepadMenu = require(Presentation.GamepadMenu)
 local Reducer = require(TopBar.Reducer)
+local MenuNavigationPromptTokenMapper = require(TopBar.TokenMappers.MenuNavigationPromptTokenMapper)
+local FFlagEnableGamepadMenuSelector = require(TopBar.Flags.FFlagEnableGamepadMenuSelector)
 
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 
@@ -45,6 +48,12 @@ return function()
 		afterAll(function(context)
 			if EmotesMenuMaster:isOpen() then
 				EmotesMenuMaster:close()
+			end
+		end)
+
+		beforeEach(function()
+			if FFlagEnableGamepadMenuSelector then
+				AppStorageService:SetItem("GamepadMenuVirtualCursorPromptShown", "true")
 			end
 		end)
 
@@ -63,7 +72,9 @@ return function()
 						style = defaultStyle,
 					}, {
 						DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
-							tokenMappers = {}
+							tokenMappers = {
+								MenuNavigationPrompt = MenuNavigationPromptTokenMapper
+							}
 						}, {
 							TopBarApp = Roact.createElement(GamepadMenu),
 						}),
@@ -112,7 +123,9 @@ return function()
 						style = defaultStyle,
 					}, {
 						DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
-							tokenMappers = {}
+							tokenMappers = {
+								MenuNavigationPrompt = MenuNavigationPromptTokenMapper
+							}
 						}, {
 							GamepadMenu = Roact.createElement(GamepadMenu),
 						}),

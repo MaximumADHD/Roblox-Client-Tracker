@@ -16,8 +16,11 @@ return function()
 		local store = Rodux.Store.new(Reducer, {
 			PlayerMenu = {
 				isOpen = true,
-				userId = 1234567891,
-				combinedName = "testName",
+				friend = {
+					userName = "testName",
+					combinedName = "testDisplayName",
+					userId = 1234567891,
+				},
 			},
 		}, {
 			Rodux.thunkMiddleware,

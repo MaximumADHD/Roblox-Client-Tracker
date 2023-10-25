@@ -323,11 +323,44 @@ return function()
 				-- on second session, we will read from the cache which is controls
 				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.chromeVersionId())
 				expect(manager:isChromeEnabled()).to.equal(true)
+				expect(manager:shouldDisableSeenClosure()).to.equal(false)
 				expect(manager:isMenuModernizationEnabled()).to.equal(false)
 				expect(manager:areMenuControlsEnabled()).to.equal(false)
 				expect(manager:isV2MenuEnabled()).to.equal(false)
 			end
 		end)
+
+		it("returns chrome without seen closure for user in the variant", function()
+			if IsExperienceMenuABTestEnabled() and isChromeValid then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).to.be.ok()
+				expect(manager._ixpServiceWrapper).to.be.ok()
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be version controls
+				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
+				expect(manager:isChromeEnabled()).to.equal(true)
+				expect(manager:shouldDisableSeenClosure()).to.equal(true)
+				expect(manager:isMenuModernizationEnabled()).to.equal(false)
+				expect(manager:areMenuControlsEnabled()).to.equal(false)
+				expect(manager:isV2MenuEnabled()).to.equal(false)
+			end
+		end)
+
 
 		it("returns default menu if ixp service is not providing valid value", function()
 			if IsExperienceMenuABTestEnabled() then

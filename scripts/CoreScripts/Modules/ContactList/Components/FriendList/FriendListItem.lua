@@ -1,7 +1,6 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -9,8 +8,10 @@ local React = require(CorePackages.Packages.React)
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local GetFFlagCorescriptsSoundManagerEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
+local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local dependencyArray = dependencies.Hooks.dependencyArray
@@ -33,12 +34,16 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local OpenOrUpdateCFM = require(ContactList.Actions.OpenOrUpdateCFM)
 
+local useStartCallCallback = require(ContactList.Hooks.useStartCallCallback)
+
 local rng = Random.new()
 
 export type Props = {
 	userId: number | string,
 	userName: string,
 	combinedName: string,
+	userPresenceType: string?,
+	lastLocation: string?,
 	dismissCallback: () -> (),
 	layoutOrder: number?,
 	showDivider: boolean,
@@ -57,9 +62,17 @@ local function FriendListItem(props: Props)
 
 	local dispatch = useDispatch()
 
+	local friend = {
+		userId = props.userId,
+		userName = props.userName,
+		combinedName = props.combinedName,
+	}
+
 	React.useEffect(function()
-		dispatch(GetPresencesFromUserIds.API({ props.userId }))
-	end, { props.userId })
+		if props.userPresenceType == nil then
+			dispatch(GetPresencesFromUserIds.API({ props.userId }))
+		end
+	end, dependencyArray(props.userId, props.userPresenceType))
 
 	local selectUserPresence = React.useCallback(function(state: any)
 		return state.Presence.byUserId[tostring(props.userId)]
@@ -84,17 +97,7 @@ local function FriendListItem(props: Props)
 
 	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
 
-	local startCall = React.useCallback(function()
-		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-
-		coroutine.wrap(function()
-			local invokeIrisInviteRemoteEvent =
-				RobloxReplicatedStorage:WaitForChild("ContactListInvokeIrisInvite", math.huge) :: RemoteEvent
-			invokeIrisInviteRemoteEvent:FireServer(tag, tonumber(props.userId), props.combinedName)
-		end)()
-
-		props.dismissCallback()
-	end, dependencyArray(props.combinedName, props.dismissCallback, props.userId))
+	local startCall = useStartCallCallback(tag, props.userId, props.combinedName, props.dismissCallback)
 
 	local playerContext = React.useMemo(function()
 		local icon = Images["component_assets/circle_26_stroke_3"]
@@ -103,29 +106,40 @@ local function FriendListItem(props: Props)
 		local iconSize = 12
 		local text = "Offline" -- TODO(IRIS-864): Localization.
 		local textColorStyle = style.Theme.TextMuted
+
+		local userPresenceType
+		local lastLocation
 		if presence then
-			if presence.userPresenceType == EnumPresenceType.Online then
-				icon = Images["component_assets/circle_16"]
-				iconColor = style.Theme.OnlineStatus.Color
-				iconTransparency = style.Theme.OnlineStatus.Transparency
-				text = "Online" -- TODO(IRIS-864): Localization.
-				textColorStyle = style.Theme.TextMuted
-				iconSize = 12
-			elseif presence.userPresenceType == EnumPresenceType.InGame then
-				icon = Images["icons/menu/games_small"]
-				iconColor = style.Theme.IconEmphasis.Color
-				iconTransparency = style.Theme.IconEmphasis.Transparency
-				text = presence.lastLocation
-				textColorStyle = theme.TextEmphasis
-				iconSize = 16
-			elseif presence.userPresenceType == EnumPresenceType.InStudio then
-				icon = Images["icons/logo/studiologo_small"]
-				iconColor = style.Theme.TextDefault.Color
-				iconTransparency = style.Theme.TextDefault.Transparency
-				text = "Roblox Studio" -- TODO(IRIS-864): Localization.
-				textColorStyle = style.Theme.TextMuted
-				iconSize = 16
-			end
+			userPresenceType = presence.userPresenceType
+			lastLocation = presence.lastLocation
+		else
+			userPresenceType = if props.userPresenceType
+				then EnumPresenceType.fromRawValue(props.userPresenceType)
+				else EnumPresenceType.Offline
+			lastLocation = props.lastLocation or ""
+		end
+
+		if userPresenceType == EnumPresenceType.Online then
+			icon = Images["component_assets/circle_16"]
+			iconColor = style.Theme.OnlineStatus.Color
+			iconTransparency = style.Theme.OnlineStatus.Transparency
+			text = "Online" -- TODO(IRIS-864): Localization.
+			textColorStyle = style.Theme.TextMuted
+			iconSize = 12
+		elseif userPresenceType == EnumPresenceType.InGame then
+			icon = Images["icons/menu/games_small"]
+			iconColor = style.Theme.IconEmphasis.Color
+			iconTransparency = style.Theme.IconEmphasis.Transparency
+			text = lastLocation
+			textColorStyle = theme.TextEmphasis
+			iconSize = 16
+		elseif userPresenceType == EnumPresenceType.InStudio then
+			icon = Images["icons/logo/studiologo_small"]
+			iconColor = style.Theme.TextDefault.Color
+			iconTransparency = style.Theme.TextDefault.Transparency
+			text = "Roblox Studio" -- TODO(IRIS-864): Localization.
+			textColorStyle = style.Theme.TextMuted
+			iconSize = 16
 		end
 
 		return React.createElement(PlayerContext, {
@@ -148,11 +162,18 @@ local function FriendListItem(props: Props)
 			and inputObject.UserInputType == Enum.UserInputType.MouseMovement
 			and GetFFlagCorescriptsSoundManagerEnabled()
 		then
-			SoundManager:PlaySound(Sounds.Hover.Name, {
-				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
-				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
-				SoundGroup = SoundGroups.Iris,
-			})
+			if GetFFlagSoundManagerRefactor() then
+				SoundManager:PlaySound(Sounds.Hover.Name, {
+					Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
+					PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
+				}, SoundGroups.Iris)
+			else
+				SoundManager:PlaySound_old(Sounds.Hover.Name, {
+					Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
+					PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
+					SoundGroup = SoundGroups.Iris,
+				})
+			end
 		end
 	end, {})
 
@@ -177,10 +198,10 @@ local function FriendListItem(props: Props)
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
 			[React.Event.MouseButton2Up] = function()
-				dispatch(OpenOrUpdateCFM(props.userId, props.combinedName))
+				dispatch(OpenOrUpdateCFM(friend))
 			end,
 			[React.Event.TouchTap] = function()
-				dispatch(OpenOrUpdateCFM(props.userId, props.combinedName))
+				dispatch(OpenOrUpdateCFM(friend))
 			end,
 			AutoButtonColor = false,
 		}, {
@@ -237,7 +258,7 @@ local function FriendListItem(props: Props)
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
 					LayoutOrder = 2,
-					Text = props.userName,
+					Text = UserProfiles.Formatters.formatUsername(props.userName),
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,

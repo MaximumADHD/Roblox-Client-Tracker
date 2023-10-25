@@ -30,6 +30,9 @@ local useLocalization = require(CorePackages.Workspace.Packages.Localization).Ho
 local DropdownMenu = require(Modules.Settings.Components.DropdownMenu)
 
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
+local GetFFlagUseFriendsPropsInMuteToggles =
+	require(RobloxGui.Modules.Settings.Flags.GetFFlagUseFriendsPropsInMuteToggles)
+local GetFFlagRetryMutingNonFriends = require(RobloxGui.Modules.Settings.Flags.GetFFlagRetryMutingNonFriends)
 
 local MUTE_ICON_SIZE = 38
 local MUTE_TOGGLES_HEIGHT = 40
@@ -57,6 +60,7 @@ local Options = {
 export type Props = {
 	Players: Players,
 	initialTogglesState: boolean,
+	playersFriends: { [number]: boolean },
 }
 
 local validateProps = ArgCheck.wrap(t.strictInterface({
@@ -75,6 +79,7 @@ local validateProps = ArgCheck.wrap(t.strictInterface({
 		})
 	),
 	initialTogglesState = t.boolean,
+	playersFriends = t.table,
 }))
 
 export type MuteTogglesType = (props: Props) -> React.ReactElement
@@ -99,14 +104,19 @@ local function MuteToggles(props: Props)
 	local style = useStyle()
 	local fontStyle = style.Font.SubHeader1
 
-	local isLoadingFriends, setIsLoadingFriends = React.useState(true)
+	local isLoadingFriends, setIsLoadingFriends = React.useState(not GetFFlagUseFriendsPropsInMuteToggles())
 	local loadingFriendsError, setLoadingFriendsError = React.useState(false)
 	local isProcessing, setIsProcessing = React.useState(false)
 	local usersToProcess, setUsersToProcess = React.useState({})
 	local selectedIndex, setSelectedIndex =
 		React.useState(if not initialTogglesState then PartialOptions.Nobody else PartialOptions.Everyone)
 	local usersFriends, setUsersFriends = React.useState({})
-	local dropdownList, setDropdownList = React.useState({ nobodyLabel, everyoneLabel })
+	local dropdownList, setDropdownList
+	if GetFFlagUseFriendsPropsInMuteToggles() then
+		dropdownList, setDropdownList = React.useState({ nobodyLabel, nonFriendsLabel, everyoneLabel })
+	else
+		dropdownList, setDropdownList = React.useState({ nobodyLabel, everyoneLabel })
+	end
 
 	local muteAllUsers = React.useCallback(function()
 		VoiceChatServiceManager:MuteAll(true, Constants.VOICE_CONTEXT_TYPE.MUTE_TOGGLES)
@@ -116,13 +126,7 @@ local function MuteToggles(props: Props)
 		VoiceChatServiceManager:MuteAll(false, Constants.VOICE_CONTEXT_TYPE.MUTE_TOGGLES)
 	end)
 
-	local muteNonFriends = React.useCallback(function()
-		local nonFriends = {}
-		for userId, isFriend in pairs(usersFriends) do
-			if not isFriend then
-				table.insert(nonFriends, userId)
-			end
-		end
+	local muteNonFriends = React.useCallback(function(nonFriends)
 		if not Cryo.isEmpty(nonFriends) then
 			VoiceChatServiceManager:ToggleMuteSome(
 				nonFriends,
@@ -136,13 +140,7 @@ local function MuteToggles(props: Props)
 		end
 	end)
 
-	local unmuteFriends = React.useCallback(function()
-		local friends = {}
-		for userId, isFriend in pairs(usersFriends) do
-			if isFriend then
-				table.insert(friends, userId)
-			end
-		end
+	local unmuteFriends = React.useCallback(function(friends)
 		if not Cryo.isEmpty(friends) then
 			VoiceChatServiceManager:ToggleMuteSome(
 				friends,
@@ -154,15 +152,28 @@ local function MuteToggles(props: Props)
 	end)
 
 	local onSelection = React.useCallback(function(index: number)
+		setSelectedIndex(index)
 		if index == Options.Nobody then
 			muteNobody()
 		elseif index == Options.NonFriends and not (isLoadingFriends or loadingFriendsError) then
-			unmuteFriends()
-			muteNonFriends()
+			local friendsList = if GetFFlagUseFriendsPropsInMuteToggles() then props.playersFriends else usersFriends
+			local nonFriends = {}
+			local friends = {}
+			for userId, isFriend in pairs(friendsList) do
+				table.insert(if isFriend then friends else nonFriends, userId)
+			end
+			unmuteFriends(friends)
+			muteNonFriends(nonFriends)
+
+			if GetFFlagRetryMutingNonFriends() then
+				task.delay(0.25, function()
+					VoiceChatServiceManager:EnsureCorrectMuteState(nonFriends, true)
+					VoiceChatServiceManager:EnsureCorrectMuteState(friends, false)
+				end)
+			end
 		else
 			muteAllUsers()
 		end
-		setSelectedIndex(index)
 	end)
 
 	local muteAllChangedCallback = React.useCallback(function(allPlayersMuted)
@@ -175,6 +186,12 @@ local function MuteToggles(props: Props)
 		setSelectedIndex(if allPlayersMuted then everyoneIndex else Options.Nobody)
 	end)
 
+	local toggleMuteIfNonFriendsMuted = React.useCallback(function(userId, muteState)
+		if not loadingFriendsError and selectedIndex == Options.NonFriends then
+			VoiceChatServiceManager:ToggleMuteSome({ userId }, muteState)
+		end
+	end)
+
 	local playerJoinedVoiceCallback = React.useCallback(function(userId)
 		-- If a friend joins, they'll already be in usersFriends so we don't need to do anything
 		-- We only need to add to usersFriends if a non-friend joins
@@ -185,9 +202,7 @@ local function MuteToggles(props: Props)
 				})
 			end)
 			-- If we have Mute Non-friends selected, we should mute the new non-friend that joined
-			if not loadingFriendsError and selectedIndex == Options.NonFriends then
-				VoiceChatServiceManager:ToggleMuteSome({ userId }, true)
-			end
+			toggleMuteIfNonFriendsMuted(userId, true)
 		end
 	end)
 
@@ -223,9 +238,7 @@ local function MuteToggles(props: Props)
 
 			-- If the currently selected option is non-friends, we should unmute this newly
 			-- friended player
-			if not loadingFriendsError and selectedIndex == Options.NonFriends then
-				VoiceChatServiceManager:ToggleMuteSome({ userId }, false)
-			end
+			toggleMuteIfNonFriendsMuted(userId, false)
 		elseif friendStatus == ActionEnums.PlayerUnfriended then
 			-- If the player is not a friend anymore, we need to update the state so that
 			-- checking usersFriends returns false for this player
@@ -239,9 +252,7 @@ local function MuteToggles(props: Props)
 
 			-- If the currently selected option is non-friends, we should mute this newly
 			-- unfriended player
-			if not loadingFriendsError and selectedIndex == Options.NonFriends then
-				VoiceChatServiceManager:ToggleMuteSome({ userId }, true)
-			end
+			toggleMuteIfNonFriendsMuted(userId, true)
 		end
 	end)
 
@@ -256,121 +267,123 @@ local function MuteToggles(props: Props)
 		end)
 	end)
 
-	--[[
-		If a user opens the in-game menu and chooses "Mute Everyone" while the friends list isn't loaded,
-		the dropdown will switch from "Everyone" to "Non-friends" after the friends list is loaded. This
-		happens because before the friends list is loaded in, the index for "Everyone" is 2, but after
-		the friends list is loaded in, 2 becomes the index of "Non-friends". To prevent this switch from
-		happening, we need to change the selected index to 3, which is the new index for "Everyone" in
-		the new dropdown list after we finish loading in the friends list.
-	]]
-	React.useEffect(function()
-		if not isLoadingFriends and not loadingFriendsError then
-			if initialTogglesState or selectedIndex == PartialOptions.Everyone then
-				setSelectedIndex(Options.Everyone)
-			end
-		end
-	end, { isLoadingFriends })
-
-	React.useEffect(function()
-		local function getUsersFriendsList()
-			return Promise.new(function(resolve, reject)
-				coroutine.wrap(function()
-					local success, friendsPages = pcall(function()
-						return if localPlayer then Players:GetFriendsAsync(localPlayer.UserId) else nil
-					end)
-
-					if not success then
-						reject("Error loading friends")
-						return
-					end
-
-					local friends = {}
-					if friendsPages then
-						while true do
-							for _, item in friendsPages:GetCurrentPage() do
-								friends[item.Id] = true
-							end
-
-							if not friendsPages.IsFinished then
-								success = pcall(function()
-									friendsPages:AdvanceToNextPageAsync()
-								end)
-								if not success then
-									reject("Error loading friends")
-									return
-								end
-							else
-								break
-							end
-						end
-					end
-
-					resolve(friends)
-				end)()
-			end)
-		end
-
-		local function getUsersFriendsListWithRetries(retries: number)
-			return getUsersFriendsList():catch(function()
-				return if retries > 0 then getUsersFriendsListWithRetries(retries - 1) else Promise.reject()
-			end)
-		end
-
-		local maxRetries = 3
-		getUsersFriendsListWithRetries(maxRetries)
-			:andThen(function(friends)
-				-- Getting the user's friend list was a success
-				local nonFriends = {}
-				local players = Players:GetPlayers()
-				for _, player in players do
-					if localPlayer and player then
-						if not (friends :: {})[player.UserId] then
-							nonFriends[player.UserId] = false
-						end
-					end
+	if not GetFFlagUseFriendsPropsInMuteToggles() then
+		--[[
+			If a user opens the in-game menu and chooses "Mute Everyone" while the friends list isn't loaded,
+			the dropdown will switch from "Everyone" to "Non-friends" after the friends list is loaded. This
+			happens because before the friends list is loaded in, the index for "Everyone" is 2, but after
+			the friends list is loaded in, 2 becomes the index of "Non-friends". To prevent this switch from
+			happening, we need to change the selected index to 3, which is the new index for "Everyone" in
+			the new dropdown list after we finish loading in the friends list.
+		]]
+		React.useEffect(function()
+			if not isLoadingFriends and not loadingFriendsError then
+				if initialTogglesState or selectedIndex == PartialOptions.Everyone then
+					setSelectedIndex(Options.Everyone)
 				end
-				local usersFriends = Cryo.Dictionary.join(friends, nonFriends)
-				setUsersFriends(usersFriends)
-				setIsLoadingFriends(false)
-				setDropdownList({ nobodyLabel, nonFriendsLabel, everyoneLabel })
-			end)
-			:catch(function()
-				-- Getting the user's friends list was a failure even with retries
-				setIsLoadingFriends(false)
-				setLoadingFriendsError(true)
-				log:warning("MuteToggles: Failed to get list of friends from GetFriendsAsync")
-			end)
-	end, {})
-
-	--[[
-		Certain events may happen at the same time (for example, a player joins while we are building
-		the user's friend list, or two players joining at the same time), which can cause inconsistent
-		states due to event callbacks running at the same time and overwriting each other's state changes.
-		To try to make the state more consistent, we maintain a queue of users to process that
-		gets updated when a player joins/leaves voice, or when their friend status gets updated.
-		When the queue gets updated, we check to see if a user is already being processed and if not, we
-		run the correct callback based on the user's action, and then remove them from the queue.
-	]]
-	React.useEffect(function()
-		if not isLoadingFriends and not isProcessing and not Cryo.isEmpty(usersToProcess) then
-			setIsProcessing(true)
-
-			local userToProcess = usersToProcess[1]
-			if userToProcess.Action == ActionEnums.PlayerJoined then
-				playerJoinedVoiceCallback(userToProcess.UserId)
-			elseif userToProcess.Action == ActionEnums.PlayerLeft then
-				playerLeftVoiceCallback(userToProcess.UserId)
-			else
-				friendStatusChangeCallback(userToProcess.UserId, userToProcess.Action)
 			end
-			setUsersToProcess(function(prevUsersToProcess)
-				return Cryo.List.removeIndex(prevUsersToProcess, 1)
-			end)
+		end, { isLoadingFriends })
 
-			setIsProcessing(false)
-		end
-	end, { isProcessing, usersToProcess, isLoadingFriends } :: { any })
+		React.useEffect(function()
+			local function getUsersFriendsList()
+				return Promise.new(function(resolve, reject)
+					coroutine.wrap(function()
+						local success, friendsPages = pcall(function()
+							return if localPlayer then Players:GetFriendsAsync(localPlayer.UserId) else nil
+						end)
+
+						if not success then
+							reject("Error loading friends")
+							return
+						end
+
+						local friends = {}
+						if friendsPages then
+							while true do
+								for _, item in friendsPages:GetCurrentPage() do
+									friends[item.Id] = true
+								end
+
+								if not friendsPages.IsFinished then
+									success = pcall(function()
+										friendsPages:AdvanceToNextPageAsync()
+									end)
+									if not success then
+										reject("Error loading friends")
+										return
+									end
+								else
+									break
+								end
+							end
+						end
+
+						resolve(friends)
+					end)()
+				end)
+			end
+
+			local function getUsersFriendsListWithRetries(retries: number)
+				return getUsersFriendsList():catch(function()
+					return if retries > 0 then getUsersFriendsListWithRetries(retries - 1) else Promise.reject()
+				end)
+			end
+
+			local maxRetries = 3
+			getUsersFriendsListWithRetries(maxRetries)
+				:andThen(function(friends)
+					-- Getting the user's friend list was a success
+					local nonFriends = {}
+					local players = Players:GetPlayers()
+					for _, player in players do
+						if localPlayer and player then
+							if not (friends :: {})[player.UserId] then
+								nonFriends[player.UserId] = false
+							end
+						end
+					end
+					local usersFriends = Cryo.Dictionary.join(friends, nonFriends)
+					setUsersFriends(usersFriends)
+					setIsLoadingFriends(false)
+					setDropdownList({ nobodyLabel, nonFriendsLabel, everyoneLabel })
+				end)
+				:catch(function()
+					-- Getting the user's friends list was a failure even with retries
+					setIsLoadingFriends(false)
+					setLoadingFriendsError(true)
+					log:warning("MuteToggles: Failed to get list of friends from GetFriendsAsync")
+				end)
+		end, {})
+
+		--[[
+			Certain events may happen at the same time (for example, a player joins while we are building
+			the user's friend list, or two players joining at the same time), which can cause inconsistent
+			states due to event callbacks running at the same time and overwriting each other's state changes.
+			To try to make the state more consistent, we maintain a queue of users to process that
+			gets updated when a player joins/leaves voice, or when their friend status gets updated.
+			When the queue gets updated, we check to see if a user is already being processed and if not, we
+			run the correct callback based on the user's action, and then remove them from the queue.
+		]]
+		React.useEffect(function()
+			if not isLoadingFriends and not isProcessing and not Cryo.isEmpty(usersToProcess) then
+				setIsProcessing(true)
+
+				local userToProcess = usersToProcess[1]
+				if userToProcess.Action == ActionEnums.PlayerJoined then
+					playerJoinedVoiceCallback(userToProcess.UserId)
+				elseif userToProcess.Action == ActionEnums.PlayerLeft then
+					playerLeftVoiceCallback(userToProcess.UserId)
+				else
+					friendStatusChangeCallback(userToProcess.UserId, userToProcess.Action)
+				end
+				setUsersToProcess(function(prevUsersToProcess)
+					return Cryo.List.removeIndex(prevUsersToProcess, 1)
+				end)
+
+				setIsProcessing(false)
+			end
+		end, { isProcessing, usersToProcess, isLoadingFriends } :: { any })
+	end
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, MUTE_TOGGLES_HEIGHT),
@@ -416,7 +429,6 @@ local function MuteToggles(props: Props)
 			}, {
 				UIPadding = Roact.createElement("UIPadding", {
 					PaddingLeft = if style.UIBloxThemeEnabled then UDim.new(0, 6) else UDim.new(0, 11),
-					PaddingTop = UDim.new(0, 4),
 				}),
 				TextLabel = Roact.createElement(StyledTextLabel, {
 					text = muteLabel,
@@ -446,23 +458,39 @@ local function MuteToggles(props: Props)
 		PlayerJoinedVoiceEvent = Roact.createElement(ExternalEventConnection, {
 			event = VoiceChatServiceManager.participantJoined.Event,
 			callback = function(_, userId)
-				addUserToProcess(userId, ActionEnums.PlayerJoined)
+				if GetFFlagUseFriendsPropsInMuteToggles() then
+					if not props.playersFriends[userId] then
+						toggleMuteIfNonFriendsMuted(userId, true)
+					end
+				else
+					addUserToProcess(userId, ActionEnums.PlayerJoined)
+				end
 			end,
 		}),
-		PlayerLeftVoiceEvent = Roact.createElement(ExternalEventConnection, {
-			event = VoiceChatServiceManager.participantLeft.Event,
-			callback = function(_, userId)
-				addUserToProcess(userId, ActionEnums.PlayerLeft)
-			end,
-		}),
+		PlayerLeftVoiceEvent = if not GetFFlagUseFriendsPropsInMuteToggles()
+			then Roact.createElement(ExternalEventConnection, {
+				event = VoiceChatServiceManager.participantLeft.Event,
+				callback = function(_, userId)
+					addUserToProcess(userId, ActionEnums.PlayerLeft)
+				end,
+			})
+			else nil,
 		FriendStatusChangeEvent = if localPlayer
 			then Roact.createElement(ExternalEventConnection, {
 				event = localPlayer.FriendStatusChanged,
 				callback = function(player, friendStatus)
 					if friendStatus == Enum.FriendStatus.Friend then
-						addUserToProcess(player.UserId, ActionEnums.PlayerFriended)
-					elseif friendStatus == Enum.FriendStatus.NotFriend then
-						addUserToProcess(player.UserId, ActionEnums.PlayerUnfriended)
+						if GetFFlagUseFriendsPropsInMuteToggles() then
+							toggleMuteIfNonFriendsMuted(player.UserId, false)
+						else
+							addUserToProcess(player.UserId, ActionEnums.PlayerFriended)
+						end
+					else
+						if GetFFlagUseFriendsPropsInMuteToggles() then
+							toggleMuteIfNonFriendsMuted(player.UserId, true)
+						else
+							addUserToProcess(player.UserId, ActionEnums.PlayerUnfriended)
+						end
 					end
 				end,
 			})

@@ -10,6 +10,7 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local RoduxCall = dependencies.RoduxCall
 
+local activeUtc = os.time()
 local createdUtc = os.time()
 
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
@@ -48,7 +49,7 @@ return {
 			}, {
 				React.createElement(CallBar, {
 					size = Vector2.new(200, 44),
-					createdUtc = createdUtc,
+					activeUtc = activeUtc,
 				}),
 			})
 		end,
@@ -66,6 +67,7 @@ return {
 				calleeDisplayName = "Display Name 2",
 				gameInstanceId = "gameId",
 				createdUtc = createdUtc,
+				activeUtc = activeUtc,
 			},
 		},
 	},

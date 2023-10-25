@@ -11,6 +11,7 @@ return function()
 	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 	local RobloxAppEnums = require(CorePackages.Workspace.Packages.RobloxAppEnums)
 	local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
+	local MenuNavigationPromptTokenMapper = require(script.Parent.Parent.TokenMappers.MenuNavigationPromptTokenMapper)
 
 	local defaultStyle = {
 		themeName = "dark",
@@ -38,7 +39,9 @@ return function()
 						style = defaultStyle,
 					}, {
 						DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
-							tokenMappers = {}
+							tokenMappers = {
+								MenuNavigationPrompt = MenuNavigationPromptTokenMapper
+							}
 						}, {
 							TopBarApp = Roact.createElement(TopBarApp)
 						}),

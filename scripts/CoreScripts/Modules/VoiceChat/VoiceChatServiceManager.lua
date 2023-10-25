@@ -71,6 +71,9 @@ local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDev
 local FFlagOverwriteIsMutedLocally = game:DefineFastFlag("OverwriteIsMutedLocally", false)
 local FFlagVoiceMuteUnmuteAnalytics = game:DefineFastFlag("VoiceMuteUnmuteAnalytics", false)
 local FFlagHideVoiceUIUntilInputExists = game:DefineFastFlag("HideVoiceUIUntilInputExists", false)
+local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
+local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false)
+	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
@@ -561,6 +564,7 @@ function VoiceChatServiceManager:voicePermissionGranted(permissionResponse)
 	local permissionGranted = false
 	-- If the return value is a table, that means multiple permissions have different values.
 	if typeof(permissionResponse) == "table" then
+		-- This currently panics every time that permissionResponse.missingPermissions is nil
 		local hasMicPermissionsResponse = permissionResponse.status == PermissionsProtocol.Status.AUTHORIZED
 			or not Cryo.List.find(
 				permissionResponse.missingPermissions,
@@ -978,6 +982,9 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 		if self.voiceEnabled or userEligible then
 			-- we already checked and requested permissions above. If we got here then Mic permissions were denied.
 			if FFlagAvatarChatCoreScriptSupport then
+				if FFlagFixMissingPermissionsAnalytics then
+					self:_reportJoinFailed("missingPermissions")				
+				end
 				self:showPrompt(VoiceChatPromptType.Permission)
 			else
 				return self.PermissionsService
@@ -1152,9 +1159,15 @@ end
 function VoiceChatServiceManager:hookupAudioDeviceInputListener()
 	log:debug("Hooking up audio device listeners")
 	local localPlayer = PlayersService.LocalPlayer
-	game.DescendantAdded:Connect(function(inst)
-		self:onInstanceAdded(inst)
-	end)
+	if FFlagUseAudioInstanceAdded then
+		SoundService.AudioInstanceAdded:Connect(function(inst)
+			self:onInstanceAdded(inst)
+		end)
+	else
+		game.DescendantAdded:Connect(function(inst)
+			self:onInstanceAdded(inst)
+		end)
+	end
 
 	local localAudioDevice = localPlayer:FindFirstChildOfClass("AudioDeviceInput")
 	log:debug("Found local user audio device {}", localAudioDevice)
@@ -1328,6 +1341,34 @@ end
 function VoiceChatServiceManager:FireMuteNonFriendsEvent()
 	if FFlagMuteNonFriendsEvent then
 		self.mutedNonFriends:Fire()
+	end
+end
+
+function VoiceChatServiceManager:EnsureCorrectMuteState(userIds: { number }, muteState: boolean)
+	local userIdSet: { [number]: boolean } = {}
+	for _, userId in userIds do
+		-- If the user does not have the correct isMutedLocally state, we need to override it so
+		-- the UI updates correctly
+		local participant = self.participants[tostring(userId)]
+		if participant and participant.isMutedLocally ~= muteState then
+			if GetFFlagVoiceUseAudioRoutingAPI() then
+				userIdSet[userId] = true
+				self.mutedPlayers[userId] = muteState
+			else
+				self.service:SubscribePause(userId, muteState)
+			end
+
+			participant.isMutedLocally = muteState
+			self.participantsUpdate:Fire(self.participants)
+		end
+	end
+
+	if GetFFlagVoiceUseAudioRoutingAPI() then
+		for device in self.audioDevices do
+			if device.Player and userIdSet[device.Player.UserId] then
+				device.Active = not muteState
+			end
+		end
 	end
 end
 

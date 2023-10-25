@@ -39,6 +39,7 @@ local MENU_VERSION_MODERNIZATION_ENUM = {
 }
 
 local MENU_VERSION_CHROME = "v6"..TEST_VERSION
+local MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE = "v6.1"..TEST_VERSION
 
 local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
@@ -51,6 +52,7 @@ local validVersion = {
 	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
 	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
 	[MENU_VERSION_CHROME] = true,
+	[MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE] = true,
 }
 
 local ExperienceMenuABTestManager = {}
@@ -113,6 +115,10 @@ end
 
 function ExperienceMenuABTestManager.chromeVersionId()
 	return MENU_VERSION_CHROME
+end
+
+function ExperienceMenuABTestManager.chromeWithoutSeenVersionId()
+	return MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE
 end
 
 function parseCountData(data)
@@ -198,7 +204,11 @@ function ExperienceMenuABTestManager:shouldShowStickyBar()
 end
 
 function ExperienceMenuABTestManager:isChromeEnabled()
-	return self:getVersion() == MENU_VERSION_CHROME
+	return self:getVersion() == MENU_VERSION_CHROME or self:getVersion() == MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE
+end
+
+function ExperienceMenuABTestManager:shouldDisableSeenClosure()
+	return self:getVersion() == MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE
 end
 
 -- this is called on the assumption that IXP layers are initialized

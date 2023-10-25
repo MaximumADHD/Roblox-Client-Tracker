@@ -20,6 +20,8 @@ return function()
 
 	local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
+	local waitUntil = require(CorePackages.Workspace.Packages.TestUtils).waitUntil
+
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -79,6 +81,13 @@ return function()
 			Rodux.thunkMiddleware,
 		})
 
+		NetworkingCall.GetCallHistory.Mock.clear()
+		NetworkingCall.GetCallHistory.Mock.reply(function()
+			return {
+				responseBody = c.mockCallHistory("test_cursor"),
+			}
+		end)
+
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
@@ -96,19 +105,30 @@ return function()
 		})
 
 		local folder = Instance.new("Folder")
-		local instance = Roact.mount(element, folder)
-		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-		jestExpect(containerElement).never.toBeNull()
-		local usernameElement: TextLabel = containerElement:FindFirstChild("Username", true) :: TextLabel
-		local displayNameElement: TextLabel = containerElement:FindFirstChild("DisplayName", true) :: TextLabel
+		local root = ReactRoblox.createRoot(folder)
+
+		Roact.act(function()
+			root:render(element)
+		end)
+
 		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			local containerElement = waitUntil(function()
+				-- Wait for the Apollo promise to complete.
+				local element = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
+				return element ~= nil, element
+			end, 1)
+			jestExpect(containerElement).never.toBeNull()
+			local usernameElement: TextLabel = containerElement:FindFirstChild("Username", true) :: TextLabel
+			local displayNameElement: TextLabel = containerElement:FindFirstChild("DisplayName", true) :: TextLabel
 			jestExpect(usernameElement.Text).toEqual("@username_0")
 			jestExpect(displayNameElement.Text).toEqual("displayName_0")
+			local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
+			jestExpect(spinnerElement).never.toBeNull()
 		end
-		local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
-		jestExpect(spinnerElement).never.toBeNull()
 
-		Roact.unmount(instance)
+		ReactRoblox.act(function()
+			root:unmount()
+		end)
 	end)
 
 	it("should show spinner on first load", function(c: any)
@@ -190,10 +210,16 @@ return function()
 			root:render(element)
 		end)
 
-		local containerElement = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-		jestExpect(containerElement).never.toBeNull()
-		local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
-		jestExpect(spinnerElement).toBeNull()
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			local containerElement = waitUntil(function()
+				-- Wait for the Apollo promise to complete.
+				local element = folder:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
+				return element ~= nil, element
+			end, 1)
+			jestExpect(containerElement).never.toBeNull()
+			local spinnerElement = containerElement:FindFirstChild("LoadingSpinner", true)
+			jestExpect(spinnerElement).toBeNull()
+		end
 
 		ReactRoblox.act(function()
 			root:unmount()
@@ -289,21 +315,27 @@ return function()
 			root:render(element)
 		end)
 
-		local containerElement = frame:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-		jestExpect(containerElement).never.toBeNull()
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			local containerElement = waitUntil(function()
+				-- Wait for the Apollo promise to complete.
+				local element = frame:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
+				return element ~= nil, element
+			end, 1)
+			jestExpect(containerElement).never.toBeNull()
 
-		-- Fetch the data first when component get mounted
-		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
+			-- Fetch the data first when component get mounted
+			jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
 
-		Roact.act(function()
-			-- Scroll to the bottom.
-			containerElement.CanvasPosition =
-				Vector2.new(0, containerElement.AbsoluteCanvasSize.Y - containerElement.AbsoluteSize.Y)
-			task.wait()
-		end)
+			Roact.act(function()
+				-- Scroll to the bottom.
+				containerElement.CanvasPosition =
+					Vector2.new(0, containerElement.AbsoluteCanvasSize.Y - containerElement.AbsoluteSize.Y)
+				task.wait()
+			end)
 
-		-- Fetch the data second when scroll to bottom
-		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(2)
+			-- Fetch the data second when scroll to bottom
+			jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(2)
+		end
 
 		ReactRoblox.act(function()
 			root:unmount()
@@ -336,11 +368,14 @@ return function()
 			}),
 		})
 
+		-- First fetch is good.
 		local mockGetCallHistory = jest.fn()
 		NetworkingCall.GetCallHistory.Mock.clear()
-		NetworkingCall.GetCallHistory.Mock.replyWithError(function()
+		NetworkingCall.GetCallHistory.Mock.reply(function()
 			mockGetCallHistory()
-			return "error"
+			return {
+				responseBody = c.mockCallHistory("test_cursor"),
+			}
 		end)
 
 		local frame = Instance.new("Frame")
@@ -352,21 +387,50 @@ return function()
 			root:render(element)
 		end)
 
-		local containerElement = frame:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
-		jestExpect(containerElement).never.toBeNull()
+		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
+			local containerElement = waitUntil(function()
+				-- Wait for the Apollo promise to complete.
+				local element = frame:FindFirstChildOfClass("ScrollingFrame") :: ScrollingFrame
+				return element ~= nil, element
+			end, 1)
+			jestExpect(containerElement).never.toBeNull()
 
-		-- Fetch the data first when component get mounted
-		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
+			-- Fetch the initial page when component get mounted
+			jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
 
-		Roact.act(function()
-			-- Scroll to the bottom.
-			containerElement.CanvasPosition =
-				Vector2.new(0, containerElement.AbsoluteCanvasSize.Y - containerElement.AbsoluteSize.Y)
-			task.wait()
-		end)
+			-- Second page will fail.
+			NetworkingCall.GetCallHistory.Mock.clear()
+			NetworkingCall.GetCallHistory.Mock.replyWithError(function()
+				mockGetCallHistory()
+				return "error"
+			end)
 
-		-- Do not fetch again because the fetch has failed
-		jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(1)
+			Roact.act(function()
+				-- Scroll to the bottom.
+				containerElement.CanvasPosition =
+					Vector2.new(0, containerElement.AbsoluteCanvasSize.Y - containerElement.AbsoluteSize.Y)
+				task.wait()
+			end)
+
+			-- Fetch the second page and get an error.
+			jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(2)
+
+			Roact.act(function()
+				-- Scroll to the top.
+				containerElement.CanvasPosition = Vector2.new(0, 0)
+				task.wait()
+			end)
+
+			Roact.act(function()
+				-- Scroll to the bottom.
+				containerElement.CanvasPosition =
+					Vector2.new(0, containerElement.AbsoluteCanvasSize.Y - containerElement.AbsoluteSize.Y)
+				task.wait()
+			end)
+
+			-- Should not fetch a third page because the second failed.
+			jestExpect(mockGetCallHistory).toHaveBeenCalledTimes(2)
+		end
 
 		ReactRoblox.act(function()
 			root:unmount()

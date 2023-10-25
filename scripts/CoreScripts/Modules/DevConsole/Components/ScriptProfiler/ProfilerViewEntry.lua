@@ -2,6 +2,13 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
 local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
+local ProfilerUtil = require(script.Parent.ProfilerUtil)
+
+local getDurations = ProfilerUtil.getDurations
+local getSourceName = ProfilerUtil.getSourceName
+local getLine = ProfilerUtil.getLine
+local getNativeFlag = ProfilerUtil.getNativeFlag
+local standardizeChildren = ProfilerUtil.standardizeChildren
 
 local Components = script.Parent.Parent.Parent.Components
 local CellLabel = require(Components.CellLabel)
@@ -52,68 +59,6 @@ local function BorderedCellLabel(props: BorderedCellLabelProps)
 	})
 end
 
-
-local function getDurations(_data: any, nodeId: number, usingV2FormatFlag: boolean)
-	if usingV2FormatFlag then
-		local data = _data :: ProfilerData.RootDataFormat
-		if nodeId > 0 then
-			local node = data.Nodes[nodeId]
-			assert(node ~= nil)
-
-			local totalDuration = node.TotalDuration
-			local selfDuration = node.Duration
-			return totalDuration, selfDuration
-		else
-			-- Assume root "node", calculate total duration from category roots
-			local totalDuration = 0
-
-			for _, category: ProfilerData.Category in data.Categories do
-				totalDuration += data.Nodes[category.NodeId].TotalDuration
-			end
-
-			return totalDuration, 0
-		end
-	else
-		return _data.TotalDuration, _data.Duration
-	end
-end
-
-local function getSourceName(data, func: ProfilerData.Function?, usingV2FormatFlag: boolean): string?
-	if usingV2FormatFlag then
-		if func then
-			return func.Source
-		else
-			return nil
-		end
-	else
-		return data.Source
-	end
-end
-
-local function getLine(data, func: ProfilerData.Function?, usingV2FormatFlag: boolean): number?
-	if usingV2FormatFlag then
-		if func then
-			return func.Line
-		else
-			return nil
-		end
-	else
-		return data.Line
-	end
-end
-
-local function getNativeFlag(data, func: ProfilerData.Function?, usingV2FormatFlag: boolean): boolean
-	if usingV2FormatFlag then
-		if func then
-			return func.IsNative or false
-		else
-			return false
-		end
-	else
-		return data.IsNative or false
-	end
-end
-
 function ProfilerViewEntry:init()
 
 	self.state = {
@@ -150,24 +95,6 @@ function ProfilerViewEntry:init()
 		})
 	end
 
-end
-
-function ProfilerViewEntry:standardizeChildren(data, node: ProfilerData.Node?, usingV2FormatFlag: boolean)
-	local childData = {}
-	if usingV2FormatFlag then
-		return node and node.Children
-	else
-		local children = data.Children
-		if children then
-			for k, v in pairs(children) do
-				childData["k" .. k] = v
-			end
-		end
-		for i, v in ipairs(data) do
-			childData["i" .. i] = v
-		end
-	end
-	return childData
 end
 
 function ProfilerViewEntry:renderChildren(childData, usingV2FormatFlag: boolean)
@@ -268,7 +195,7 @@ function ProfilerViewEntry:render()
 
 	local totalDuration, selfDuration = getDurations(data, nodeId, usingV2FormatFlag)
 
-	local childData = self:standardizeChildren(data, node, usingV2FormatFlag)
+	local childData = standardizeChildren(data, node, usingV2FormatFlag)
 
 	local isNative = getNativeFlag(data, func, usingV2FormatFlag)
 

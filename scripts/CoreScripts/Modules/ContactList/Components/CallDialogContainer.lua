@@ -72,14 +72,15 @@ local function CallDialogContainer(passedProps: Props)
 
 	local callerCombinedName = ""
 	local calleeCombinedName = ""
+	local hasCallParticipantInfo = callerId ~= 0 and calleeId ~= 0
 	local namesFetch = UserProfiles.Hooks.useUserProfilesFetch({
-		userIds = { tostring(callerId), tostring(calleeId) },
+		userIds = if hasCallParticipantInfo then { tostring(callerId), tostring(calleeId) } else {},
 		query = UserProfiles.Queries.userProfilesCombinedNameByUserIds,
 	})
 
 	-- The name should be cached since it must have been loaded for the call to
 	-- be placed.
-	if namesFetch.data then
+	if hasCallParticipantInfo and namesFetch.data then
 		callerCombinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, tostring(callerId))
 		calleeCombinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, tostring(calleeId))
 	end
@@ -89,6 +90,12 @@ local function CallDialogContainer(passedProps: Props)
 			:gsub("{callerCombinedName}", callerCombinedName)
 			:gsub("{calleeCombinedName}", calleeCombinedName)
 	end, dependencyArray(bodyText, callerCombinedName, calleeCombinedName))
+
+	local dismissCallback = useSelector(function(state)
+		return state.Dialog.dismissCallback
+	end, function(newDismissCallback, prevDismissCallback)
+		return newDismissCallback == prevDismissCallback
+	end)
 
 	local isOpen = useSelector(function(state)
 		return state.Dialog.isOpen
@@ -108,7 +115,7 @@ local function CallDialogContainer(passedProps: Props)
 				elseif params.errorType == ErrorType.CalleeIsInAnotherCall.rawValue() then
 					dispatch(
 						OpenOrUpdateDialog(
-							"Caller is busy",
+							"Friend is busy",
 							"{calleeCombinedName} is currently busy and can't receive your call right now. Please try again later.",
 							callerId,
 							calleeId
@@ -170,8 +177,14 @@ local function CallDialogContainer(passedProps: Props)
 			CallDialog = React.createElement(InteractiveAlert, {
 				screenSize = containerSize,
 				title = title,
-				bodyText = if callerCombinedName ~= "" and calleeCombinedName ~= "" then formattedBodyText else nil,
-				middleContent = if callerCombinedName == "" or calleeCombinedName == "" then renderLoading else nil,
+				bodyText = if not hasCallParticipantInfo
+						or (callerCombinedName ~= "" and calleeCombinedName ~= "")
+					then formattedBodyText
+					else nil,
+				middleContent = if hasCallParticipantInfo
+						and (callerCombinedName == "" or calleeCombinedName == "")
+					then renderLoading
+					else nil,
 				buttonStackInfo = {
 					buttons = {
 						{
@@ -179,6 +192,9 @@ local function CallDialogContainer(passedProps: Props)
 							props = {
 								text = RobloxTranslator:FormatByKey("InGame.CommonUI.Button.Ok"),
 								onActivated = function()
+									if dismissCallback then
+										dismissCallback()
+									end
 									dispatch(CloseDialog())
 								end,
 							},
