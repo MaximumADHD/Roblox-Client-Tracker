@@ -8,12 +8,14 @@
 
 The **Roblox Client Tracker** is an unofficial change tracker which aims to provide detailed difflogs for changes to Roblox's engine. It generates information by datamining builds of Roblox Studio retrieved from their CDN, using various publicly discovered developer channels of Roblox. The data that is analyzed and presented in this repository is generated using publicly reverse engineered Roblox protocols and file formats.
 
-# Comparison Links
-Use these links to compare development builds of Roblox Studio:
+# ~~Comparison Links~~
+>This is dead again because Roblox sucks.
 
-* Compare [roblox->zCanary](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/zCanary#files_bucket)
-* Compare [roblox->zIntegration](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/zIntegration#files_bucket)
-* Compare [zCanary->zIntegration](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/zCanary...zIntegration)
+~~Use these links to compare development builds of Roblox Studio:~~
+
+* ~~Compare [roblox->zCanary]~~
+* ~~Compare [roblox->zIntegration]~~
+* ~~Compare [zCanary->zIntegration]~~
 
 # Source Code
 
