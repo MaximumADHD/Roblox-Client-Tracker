@@ -33,7 +33,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
-local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
@@ -62,9 +61,7 @@ local function Initialize()
 				{
 					confirmed = Constants.AnalyticsConfirmedName,
 					universeid = tostring(game.GameId),
-					source = if GetFFlagEnableLeaveHomeResumeAnalytics()
-						then Constants.AnalyticsLeaveToHomeSource
-						else nil,
+					source = Constants.AnalyticsLeaveToHomeSource
 				}
 			)
 		end
@@ -94,9 +91,7 @@ local function Initialize()
 				{
 					confirmed = Constants.AnalyticsCancelledName,
 					universeid = tostring(game.GameId),
-					source = if GetFFlagEnableLeaveHomeResumeAnalytics()
-						then Constants.AnalyticsLeaveToHomeSource
-						else nil,
+					source = Constants.AnalyticsLeaveToHomeSource
 				}
 			)								
 		end

@@ -1,5 +1,8 @@
 local LocalStore = require(script.Parent.LocalStore)
 local AppStorageService = game:GetService("AppStorageService")
+local CorePackages = game:GetService("CorePackages")
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
 
 local APP_STORAGE_KEY = "InGameMenuState"
 
@@ -24,7 +27,7 @@ return function()
 				LocalStore.storeForAnyPlayer("test", testVal)
 				local a = LocalStore.loadForAnyPlayer("test")
 
-				expect(a).to.equal(testVal)
+				expect(a).toBe(testVal)
 			end)
 
 			it("should load value with a clean cache", function()
@@ -34,7 +37,7 @@ return function()
 				LocalStore.clearCache()
 				local a = LocalStore.loadForAnyPlayer("test")
 
-				expect(a).to.equal(testVal)
+				expect(a).toBe(testVal)
 			end)
 
 			it("should have no cross talk between local and any", function()
@@ -44,8 +47,8 @@ return function()
 				local a = LocalStore.loadForAnyPlayer("test")
 				local b = LocalStore.loadForLocalPlayer("test")
 
-				expect(a).to.equal(nil)
-				expect(b).to.equal(testVal)
+				expect(a).toBeNil()
+				expect(b).toBe(testVal)
 			end)
 
 			it("should store table types", function()
@@ -58,22 +61,16 @@ return function()
 				local a = LocalStore.loadForLocalPlayer("test")
 				local b = LocalStore.loadForAnyPlayer("test")
 
-				expect(a.abc).to.ok()
-				expect(b.abc).to.ok()
-
-				expect(a.abc).to.equal(testVal1.abc)
-				expect(b.abc).to.equal(testVal2.abc)
+				expect(a.abc).toBe(testVal1.abc)
+				expect(b.abc).toBe(testVal2.abc)
 
 				LocalStore.clearCache()
 
 				a = LocalStore.loadForLocalPlayer("test")
 				b = LocalStore.loadForAnyPlayer("test")
 
-				expect(a.abc).to.ok()
-				expect(b.abc).to.ok()
-
-				expect(a.abc).to.equal(testVal1.abc)
-				expect(b.abc).to.equal(testVal2.abc)
+				expect(a.abc).toBe(testVal1.abc)
+				expect(b.abc).toBe(testVal2.abc)
 			end)
 		end
 	end)

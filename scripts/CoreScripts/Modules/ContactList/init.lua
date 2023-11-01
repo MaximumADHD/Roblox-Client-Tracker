@@ -20,6 +20,8 @@ local ApolloClient = require(RobloxGui.Modules.ApolloClient)
 local initCall = require(script.initCall)
 local Reducer = require(script.Reducer)
 local ContactListApp = require(script.Components.ContactListApp)
+local ContactListContext = require(script.Context)
+local ContactListAnalytics = require(script.Analytics)
 
 -- Screen should be beneath the in game menu
 local CONTACT_LIST_DISPLAY_ORDER = -1
@@ -29,6 +31,12 @@ ContactList.__index = ContactList
 
 function ContactList.new()
 	local self = setmetatable({}, ContactList)
+
+	local AnalyticsFactory = ContactListAnalytics.Analytics()
+
+	local defaultContextValues = {
+		fireAnalyticsEvent = AnalyticsFactory.fireAnalyticsEvent,
+	}
 
 	-- Init call
 	initCall(CallProtocol.CallProtocol.default :: CallProtocol.CallProtocolModule)
@@ -58,7 +66,11 @@ function ContactList.new()
 				ApolloProvider = React.createElement(ApolloProvider, {
 					client = ApolloClient,
 				}, {
-					ContactListApp = React.createElement(ContactListApp),
+					ContextProvider = Roact.createElement(ContactListContext.Provider, {
+						value = defaultContextValues,
+					}, {
+						ContactListApp = React.createElement(ContactListApp),
+					}),
 				}),
 			}),
 		}),

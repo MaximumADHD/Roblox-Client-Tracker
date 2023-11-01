@@ -7,6 +7,9 @@ local Mock = InGameMenuDependencies.Mock
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(script.Parent.Parent.ExperienceMenuABTestManager)
 
+local JestGlobals = require(CorePackages.JestGlobals)
+local expect = JestGlobals.expect
+
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSATQualification"
 
@@ -37,8 +40,7 @@ return function()
 		it("should return instance without error", function()
 			if IsExperienceMenuABTestEnabled() then
 				local manager = ExperienceMenuABTestManager.new()
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 			end
 		end)
 
@@ -51,18 +53,17 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when we launch initially menu version should read from cache
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should still be v1 even though recently fetched version is v2
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isV2MenuEnabled()).toBe(false)
 			end
 		end)
 
@@ -75,21 +76,20 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version is v2
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v2VersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v2VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is v2
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v2VersionId())
-				expect(manager:isV2MenuEnabled()).to.equal(true)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v2VersionId())
+				expect(manager:isV2MenuEnabled()).toBe(true)
 			end
 		end)
 
@@ -102,25 +102,24 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsBaselineVersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.controlsBaselineVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsBaselineVersionId())
-				expect(manager:areMenuControlsEnabled()).to.equal(true)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.controlsBaselineVersionId())
+				expect(manager:areMenuControlsEnabled()).toBe(true)
+				expect(manager:isV2MenuEnabled()).toBe(false)
 
-				expect(manager:shouldShowNewNavigationLayout()).to.equal(true)
-				expect(manager:shouldShowHomeButton()).to.equal(false)
+				expect(manager:shouldShowNewNavigationLayout()).toBe(true)
+				expect(manager:shouldShowHomeButton()).toBe(false)
 			end
 		end)
 
@@ -133,25 +132,24 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsOldLayoutVersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.controlsOldLayoutVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsOldLayoutVersionId())
-				expect(manager:areMenuControlsEnabled()).to.equal(true)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.controlsOldLayoutVersionId())
+				expect(manager:areMenuControlsEnabled()).toBe(true)
+				expect(manager:isV2MenuEnabled()).toBe(false)
 
-				expect(manager:shouldShowNewNavigationLayout()).to.equal(false)
-				expect(manager:shouldShowHomeButton()).to.equal(false)
+				expect(manager:shouldShowNewNavigationLayout()).toBe(false)
+				expect(manager:shouldShowHomeButton()).toBe(false)
 			end
 		end)
 
@@ -164,25 +162,24 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsHomeButtonVersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.controlsHomeButtonVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.controlsHomeButtonVersionId())
-				expect(manager:areMenuControlsEnabled()).to.equal(true)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.controlsHomeButtonVersionId())
+				expect(manager:areMenuControlsEnabled()).toBe(true)
+				expect(manager:isV2MenuEnabled()).toBe(false)
 
-				expect(manager:shouldShowNewNavigationLayout()).to.equal(true)
-				expect(manager:shouldShowHomeButton()).to.equal(true)
+				expect(manager:shouldShowNewNavigationLayout()).toBe(true)
+				expect(manager:shouldShowHomeButton()).toBe(true)
 			end
 		end)
 
@@ -197,31 +194,30 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(
-					ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
 				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(
-					ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.modernizationModernizedVersionId()
 				)
-				expect(manager:isMenuModernizationEnabled()).to.equal(true)
-				expect(manager:areMenuControlsEnabled()).to.equal(false)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
-				expect(manager:isChromeEnabled()).to.equal(false)
+				expect(manager:isMenuModernizationEnabled()).toBe(true)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
+				expect(manager:isChromeEnabled()).toBe(false)
 
-				expect(manager:shouldShowBiggerText()).to.equal(false)
-				expect(manager:shouldShowStickyBar()).to.equal(false)
+				expect(manager:shouldShowBiggerText()).toBe(false)
+				expect(manager:shouldShowStickyBar()).toBe(false)
 			end
 		end)
 
@@ -234,30 +230,29 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(
-					ExperienceMenuABTestManager.default.modernizationBigTextVersionId()
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.modernizationBigTextVersionId()
 				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(
-					ExperienceMenuABTestManager.default.modernizationBigTextVersionId()
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.modernizationBigTextVersionId()
 				)
-				expect(manager:isMenuModernizationEnabled()).to.equal(true)
-				expect(manager:areMenuControlsEnabled()).to.equal(false)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:isMenuModernizationEnabled()).toBe(true)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
 
-				expect(manager:shouldShowBiggerText()).to.equal(true)
-				expect(manager:shouldShowStickyBar()).to.equal(false)
+				expect(manager:shouldShowBiggerText()).toBe(true)
+				expect(manager:shouldShowStickyBar()).toBe(false)
 			end
 		end)
 
@@ -272,30 +267,29 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(
-					ExperienceMenuABTestManager.default.modernizationStickyBarVersionId()
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.modernizationStickyBarVersionId()
 				)
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(
-					ExperienceMenuABTestManager.default.modernizationStickyBarVersionId()
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.modernizationStickyBarVersionId()
 				)
-				expect(manager:isMenuModernizationEnabled()).to.equal(true)
-				expect(manager:areMenuControlsEnabled()).to.equal(false)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:isMenuModernizationEnabled()).toBe(true)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
 
-				expect(manager:shouldShowBiggerText()).to.equal(false)
-				expect(manager:shouldShowStickyBar()).to.equal(true)
+				expect(manager:shouldShowBiggerText()).toBe(false)
+				expect(manager:shouldShowStickyBar()).toBe(true)
 			end
 		end)
 
@@ -308,25 +302,24 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.chromeVersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.chromeVersionId())
-				expect(manager:isChromeEnabled()).to.equal(true)
-				expect(manager:shouldDisableSeenClosure()).to.equal(false)
-				expect(manager:isMenuModernizationEnabled()).to.equal(false)
-				expect(manager:areMenuControlsEnabled()).to.equal(false)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeVersionId())
+				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldDisableSeenClosure()).toBe(false)
+				expect(manager:isMenuModernizationEnabled()).toBe(false)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
 			end
 		end)
 
@@ -339,25 +332,24 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
-				expect(manager:isChromeEnabled()).to.equal(true)
-				expect(manager:shouldDisableSeenClosure()).to.equal(true)
-				expect(manager:isMenuModernizationEnabled()).to.equal(false)
-				expect(manager:areMenuControlsEnabled()).to.equal(false)
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
+				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldDisableSeenClosure()).toBe(true)
+				expect(manager:isMenuModernizationEnabled()).toBe(false)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
 			end
 		end)
 
@@ -376,24 +368,23 @@ return function()
 				AppStorageService:Flush()
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when we launch initially menu version should read from cache
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should still be v1
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is v1
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
-				expect(manager:isV2MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isV2MenuEnabled()).toBe(false)
 			end
 		end)
 
@@ -404,25 +395,24 @@ return function()
 				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({ returnValue = { menuVersion = "v100" } })
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when we launch initially menu version should read from cache
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should be v3
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is v3
-				expect(manager:getVersion()).to.equal(ExperienceMenuABTestManager.default.v1VersionId())
-				expect(manager:isV2MenuEnabled()).to.equal(false)
-				expect(manager:isV3MenuEnabled()).to.equal(false)
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isV2MenuEnabled()).toBe(false)
+				expect(manager:isV3MenuEnabled()).toBe(false)
 			end
 		end)
 
@@ -435,30 +425,29 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should be v3
-				expect(manager:getVersion()).to.equal(manager.v3VersionId())
+				expect(manager:getVersion()).toBe(manager.v3VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
-				expect(manager:getCSATQualification()).to.equal(false)
+				expect(manager:getCSATQualification()).toBe(false)
 
 				for i = 1, manager.getCSATQualificationThreshold() - 1 do
 					manager:setCSATQualification()
-					expect(manager:getCSATQualification()).to.equal(false)
+					expect(manager:getCSATQualification()).toBe(false)
 				end
 
 				manager:setCSATQualification()
-				expect(manager:getCSATQualification()).to.equal(true)
+				expect(manager:getCSATQualification()).toBe(true)
 
 				manager:setCSATQualification()
-				expect(manager:getCSATQualification()).to.equal(true)
+				expect(manager:getCSATQualification()).toBe(true)
 			end
 		end)
 
@@ -473,30 +462,29 @@ return function()
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
-				expect(manager).to.be.ok()
-				expect(manager._ixpServiceWrapper).to.be.ok()
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
 
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
 				-- version should be v3
-				expect(manager:getVersion()).to.equal(manager.v3VersionId())
+				expect(manager:getVersion()).toBe(manager.v3VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
-				expect(manager:getCSATQualification()).to.equal(false)
+				expect(manager:getCSATQualification()).toBe(false)
 
 				for i = 1, manager.getCSATQualificationThreshold() - 1 do
 					manager:setCSATQualification()
-					expect(manager:getCSATQualification()).to.equal(false)
+					expect(manager:getCSATQualification()).toBe(false)
 				end
 
 				manager:setCSATQualification()
-				expect(manager:getCSATQualification()).to.equal(true)
+				expect(manager:getCSATQualification()).toBe(true)
 
 				manager:setCSATQualification()
-				expect(manager:getCSATQualification()).to.equal(true)
+				expect(manager:getCSATQualification()).toBe(true)
 			end
 		end)
 	end)

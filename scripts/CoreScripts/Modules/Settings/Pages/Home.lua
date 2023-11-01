@@ -24,7 +24,6 @@ local PageInstance = nil
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 local FFlagUseNotificationsLocalization = success and result
-local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 
 ----------- CLASS DECLARATION --------------
 
@@ -57,14 +56,12 @@ local function Initialize()
 	this.Page.Name = "Home"
 	local resumeGameFunc = function()
 		this.HubRef:SetVisibility(false)
-		if GetFFlagEnableLeaveHomeResumeAnalytics() then
-			AnalyticsService:SetRBXEventStream(
-				Constants.AnalyticsTargetName,
-				Constants.AnalyticsResumeGameName,
-				Constants.AnalyticsMenuActionName,
-				{ source = Constants.AnalyticsResumeButtonSource }
-			)
-		end
+		AnalyticsService:SetRBXEventStream(
+			Constants.AnalyticsTargetName,
+			Constants.AnalyticsResumeGameName,
+			Constants.AnalyticsMenuActionName,
+			{ source = Constants.AnalyticsResumeButtonSource }
+		)
 	end
 
 	local resumeGameText = "Resume"

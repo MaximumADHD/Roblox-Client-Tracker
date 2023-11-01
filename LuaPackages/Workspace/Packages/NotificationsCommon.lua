@@ -5,4 +5,10 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["NotificationsCommon"]["NotificationsCommon"])
 
+export type NotificationCardHandleAction = Package.NotificationCardHandleAction
+export type StreamNotificationApiContent = Package.StreamNotificationApiContent
+export type VisualActionableItem = Package.VisualActionableItem
+export type NotificationState = Package.NotificationState
+
+
 return Package

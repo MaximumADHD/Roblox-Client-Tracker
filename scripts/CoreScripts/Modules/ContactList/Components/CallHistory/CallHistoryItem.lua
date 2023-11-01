@@ -14,6 +14,7 @@ local GetFFlagCorescriptsSoundManagerEnabled =
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local useDispatch = dependencies.Hooks.useDispatch
@@ -66,14 +67,13 @@ local function getIsMissedCall(callRecord, localUserId)
 	return callRecord.callerId ~= localUserId and CallState.fromRawValue(callRecord.status) ~= CallState.Finished
 end
 
--- TODO(IRIS-864): Localization.
 local function getCallStatusText(callRecord, localUserId)
 	if getIsMissedCall(callRecord, localUserId) then
-		return "Missed"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.Missed")
 	elseif callRecord.callerId == localUserId then
-		return "Outgoing"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.Outgoing")
 	else
-		return "Incoming"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.Incoming")
 	end
 end
 
@@ -119,7 +119,7 @@ local function getTimestampText(endUtc)
 	if diffDays == 0 then -- same day
 		return recordTimestamp:FormatLocalTime("LT", localeId)
 	elseif diffDays == 1 then -- yesterday
-		return "Yesterday" -- TODO(IRIS-864): Localization.
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.Yesterday")
 	elseif diffDays < 7 then -- within a week
 		return recordTimestamp:FormatLocalTime("dddd", localeId)
 	else -- more than a week

@@ -11,6 +11,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 local ConfigureFriendMenu = require(ContactList.Components.common.ConfigureFriendMenu)
 local FriendAction = require(ContactList.Enums.FriendAction)
+local UpdateLastFriend = require(ContactList.Actions.UpdateLastFriend)
 
 local dependencies = require(ContactList.dependencies)
 local UnfriendTargetUserId = dependencies.NetworkingFriends.UnfriendTargetUserId
@@ -60,12 +61,15 @@ local function PlayerMenuContainer()
 			dispatch(BlockPlayer({
 				UserId = friend.userId,
 			}))
+			dispatch(UpdateLastFriend(friend.userId))
 		elseif dialogType == FriendAction.Unfriend.rawValue() then
 			local request = UnfriendTargetUserId.API({
 				currentUserId = localUserId,
 				targetUserId = friend.userId,
 			})
-			dispatch(request)
+			dispatch(request):andThen(function(res)
+				dispatch(UpdateLastFriend(friend.userId))
+			end)
 		end
 	end, { dialogType, friend.userId })
 
@@ -127,7 +131,7 @@ local function PlayerMenuContainer()
 				screenSize = containerSize,
 			})
 		end)
-	end, { title, buttonName, friend.combinedName, friend.userName })
+	end, { title, buttonName, dialogType, friend.combinedName, friend.userName })
 
 	return React.createElement(Roact.Portal, {
 		target = CoreGui :: Instance,

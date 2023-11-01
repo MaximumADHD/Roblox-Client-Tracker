@@ -65,7 +65,7 @@ function ObjectViewport:setupViewport()
 	if useFullBodyCameraSettings then
 		EmoteUtility.SetPlayerCharacterPoseWithMoodFallback(model)
 		-- wait for pose to apply
-		RunService.RenderStepped:Wait()
+		RunService.PostSimulation:Wait()
 		if not self.isMounted then
 			return
 		end

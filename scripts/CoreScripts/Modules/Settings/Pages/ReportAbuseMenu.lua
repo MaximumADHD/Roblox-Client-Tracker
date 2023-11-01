@@ -38,7 +38,7 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Url = require(RobloxGui.Modules.Common.Url)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
-local ReportAbuseAnalytics = require(Settings.Analytics.ReportAbuseAnalytics)
+local ReportAbuseAnalytics = require(CorePackages.Workspace.Packages.AbuseReportMenu).ReportAbuseAnalytics
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
@@ -66,7 +66,7 @@ local GetFFlagReportAnythingAnnotationIXP =
 local GetFIntIGMv1ARFlowScreenshotDelayFrames =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFIntIGMv1ARFlowScreenshotDelayFrames)
 local GetFFlagReportAnythingEnableAdReport =
-	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportAnythingEnableAdReport
 local GetFFlagReportAnythingLocalizationEnabled =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingLocalizationEnabled)
 local GetFFlagReportAbuseMenuAutosizeYEnabled =

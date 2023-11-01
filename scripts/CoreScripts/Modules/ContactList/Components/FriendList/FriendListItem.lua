@@ -13,6 +13,7 @@ local GetFFlagCorescriptsSoundManagerEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local ContactList = RobloxGui.Modules.ContactList
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
@@ -104,7 +105,7 @@ local function FriendListItem(props: Props)
 		local iconColor = style.Theme.OfflineStatus.Color
 		local iconTransparency = style.Theme.OfflineStatus.Transparency
 		local iconSize = 12
-		local text = "Offline" -- TODO(IRIS-864): Localization.
+		local text = RobloxTranslator:FormatByKey("InGame.Presence.Label.Offline")
 		local textColorStyle = style.Theme.TextMuted
 
 		local userPresenceType
@@ -123,7 +124,7 @@ local function FriendListItem(props: Props)
 			icon = Images["component_assets/circle_16"]
 			iconColor = style.Theme.OnlineStatus.Color
 			iconTransparency = style.Theme.OnlineStatus.Transparency
-			text = "Online" -- TODO(IRIS-864): Localization.
+			text = RobloxTranslator:FormatByKey("InGame.Presence.Label.Online")
 			textColorStyle = style.Theme.TextMuted
 			iconSize = 12
 		elseif userPresenceType == EnumPresenceType.InGame then
@@ -137,7 +138,7 @@ local function FriendListItem(props: Props)
 			icon = Images["icons/logo/studiologo_small"]
 			iconColor = style.Theme.TextDefault.Color
 			iconTransparency = style.Theme.TextDefault.Transparency
-			text = "Roblox Studio" -- TODO(IRIS-864): Localization.
+			text = RobloxTranslator:FormatByKey("InGame.Presence.Label.RobloxStudio")
 			textColorStyle = style.Theme.TextMuted
 			iconSize = 16
 		end

@@ -10,6 +10,7 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local useSelector = dependencies.Hooks.useSelector
 
@@ -31,14 +32,14 @@ local function ConfigureFriendMenu(props)
 		buttonProps = {
 			{
 				icon = Images["icons/actions/block"],
-				text = "Block " .. combinedName, -- TODO(IRIS-864): Localization.
+				text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Block") .. " " .. combinedName,
 				onActivated = function()
 					props.initiateConfirmation(FriendAction.Block.rawValue())
 				end,
 			},
 			{
 				icon = Images["icons/actions/friends/friendRemove"],
-				text = "Unfriend " .. combinedName, -- TODO(IRIS-864): Localization.
+				text = RobloxTranslator:FormatByKey("FriendPlayerPrompt.Label.Unfriend") .. " " .. combinedName,
 				onActivated = function()
 					props.initiateConfirmation(FriendAction.Unfriend.rawValue())
 				end,

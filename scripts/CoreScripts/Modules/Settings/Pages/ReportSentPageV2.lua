@@ -14,7 +14,7 @@ local Roact = require(CorePackages.Roact)
 local Settings = script:FindFirstAncestor("Settings")
 local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactory)
 local Utility = require(RobloxGuiModules.Settings.Utility)
-local ReportAbuseAnalytics = require(Settings.Analytics.ReportAbuseAnalytics)
+local ReportAbuseAnalytics = require(CorePackages.Workspace.Packages.AbuseReportMenu).ReportAbuseAnalytics
 local BlockingAnalytics = require(Settings.Analytics.BlockingAnalytics)
 
 local GetFFlagReportAbuseThankYouPageSizeFix = require(RobloxGui.Modules.Flags.GetFFlagReportAbuseThankYouPageSizeFix)

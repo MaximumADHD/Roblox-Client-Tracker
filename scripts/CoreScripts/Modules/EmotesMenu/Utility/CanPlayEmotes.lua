@@ -1,6 +1,8 @@
 --!nonstrict
 local Players = game:GetService("Players")
 
+game:DefineFastFlag("EmoteMenuSupportScriptRunContext", false)
+
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
     Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -20,6 +22,11 @@ local function getAnimateScript(character)
     local animate = character:FindFirstChild("Animate")
     if animate and animate:IsA("LocalScript") then
         return animate
+    end
+    if game:GetFastFlag("EmoteMenuSupportScriptRunContext") then
+        if animate and animate:IsA("Script") and animate.RunContext == Enum.RunContext.Client then
+            return animate
+        end
     end
 
     return nil
@@ -84,8 +91,15 @@ local function connectAnimateAddedListener(character)
     end
 
     animateAddedListener = character.ChildAdded:Connect(function(child)
-        if child:IsA("LocalScript") and child.Name == "Animate" then
-            checkUpdate(character)
+        if game:GetFastFlag("EmoteMenuSupportScriptRunContext") then
+            local isClientScript = child:IsA("LocalScript") or (child:IsA("Script") and child.RunContext == Enum.RunContext.Client)
+            if isClientScript and child.Name == "Animate" then
+                checkUpdate(character)
+            end
+        else
+            if child:IsA("LocalScript") and child.Name == "Animate" then
+                checkUpdate(character)
+            end
         end
     end)
 end

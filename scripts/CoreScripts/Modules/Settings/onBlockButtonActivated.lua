@@ -10,7 +10,6 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
 
 local BlockingModalScreen = require(script.Parent.Components.Blocking.BlockingModalScreen)
-local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFFlagEnableBlockAnalyticsSource)
 local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)
 
 local PAGE_CONTEXT_NAME = "BlockingModalScreen"
@@ -27,7 +26,7 @@ end
 return function(player, analytics, source, config)
 	analytics:action("SettingsHub", "blockUserButtonClick", {
 		blockeeUserId = player.UserId,
-		source = if GetFFlagEnableBlockAnalyticsSource() then source else nil,
+		source = source
 	})
 
 	unmount()
@@ -42,7 +41,7 @@ return function(player, analytics, source, config)
 		closeModal = closeModal,
 		analytics = analytics,
 		translator = (config and config.RobloxTranslator) or RobloxTranslator,
-		source = if GetFFlagEnableBlockAnalyticsSource() then source else nil,
+		source = source
 	})
 
 	if GetFFlagWrapBlockModalScreenInProvider() then

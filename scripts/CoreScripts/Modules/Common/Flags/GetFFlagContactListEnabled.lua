@@ -1,5 +1,5 @@
-game:DefineFastFlag("ContactListEnabled", false)
+game:DefineFastFlag("ContactListEnabled2", false)
 
 return function()
-	return game:GetFastFlag("ContactListEnabled")
+	return game:GetFastFlag("ContactListEnabled2")
 end

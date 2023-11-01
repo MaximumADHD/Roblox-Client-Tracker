@@ -16,6 +16,8 @@ local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.Sha
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 
@@ -112,16 +114,15 @@ local function ContactListContainer()
 								end
 							end
 						else
-							dispatch(OpenOrUpdateDialog(
-								"Oh No!",
-								-- Todo: Localization
-								"Calling is currently not supported on your device. Please try again later.",
-								nil,
-								nil,
-								function()
-									SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-								end
-							))
+							dispatch(
+								OpenOrUpdateDialog(
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"),
+									function()
+										SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+									end
+								)
+							)
 						end
 					end
 				end

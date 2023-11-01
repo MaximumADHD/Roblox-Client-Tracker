@@ -13,12 +13,18 @@ local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local ContactList = RobloxGui.Modules.ContactList
+
 local dependencies = require(ContactList.dependencies)
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
+
 local UIBlox = dependencies.UIBlox
 local RoduxCall = dependencies.RoduxCall
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
+local teleportToRootPlace = dependencies.teleportToRootPlace
 
 local Colors = UIBlox.App.Style.Colors
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
@@ -60,18 +66,17 @@ local function formatDuration(duration: number): string
 end
 
 local function getTextFromCallStatus(status: string, instanceId: string)
-	-- TODO(IRIS-864): Localization.
 	if status == RoduxCall.Enums.Status.Connecting.rawValue() then
-		return "Calling…"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.Calling")
 	elseif status == RoduxCall.Enums.Status.Teleporting.rawValue() then
-		return "Teleporting…"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.Teleporting")
 	elseif status == RoduxCall.Enums.Status.Active.rawValue() then
-		return "Roblox Call"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.RobloxCall")
 	elseif
 		status == RoduxCall.Enums.Status.Failed.rawValue()
 		or (status == RoduxCall.Enums.Status.Idle.rawValue() and game.JobId == instanceId)
 	then
-		return "Call Ended"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.CallEnded")
 	else
 		error("Invalid status for call bar: " .. status .. ".")
 	end
@@ -81,6 +86,7 @@ local function CallBar(passedProps: Props)
 	local props = Cryo.Dictionary.join(defaultProps, passedProps)
 
 	local style = useStyle()
+	local analytics = useAnalytics()
 	local theme = style.Theme
 	local font = style.Font
 	local currentCallDuration, setCurrentCallDuration = React.useState("00:00")
@@ -89,6 +95,16 @@ local function CallBar(passedProps: Props)
 		return if state.Call.currentCall then state.Call.currentCall.callId else ""
 	end)
 	local callId = useSelector(selectCallId)
+
+	local selectCallerId = React.useCallback(function(state: any)
+		return if state.Call.currentCall then state.Call.currentCall.callerId else ""
+	end)
+	local callerId = useSelector(selectCallerId)
+
+	local selectCalleeId = React.useCallback(function(state: any)
+		return if state.Call.currentCall then state.Call.currentCall.calleeId else ""
+	end)
+	local calleeId = useSelector(selectCalleeId)
 
 	local selectCallStatus = React.useCallback(function(state: any)
 		return if state.Call.currentCall then state.Call.currentCall.status else ""
@@ -120,11 +136,24 @@ local function CallBar(passedProps: Props)
 	end
 
 	local callStatusText = getTextFromCallStatus(callStatus, instanceId)
-	local isEndButtonEnabled = callStatus == RoduxCall.Enums.Status.Active.rawValue()
-		or callStatus == RoduxCall.Enums.Status.Connecting.rawValue()
 
-	local endButtonCallback = React.useCallback(function()
-		if callStatus == RoduxCall.Enums.Status.Active.rawValue() then
+	local isCallEndedInInstance = callStatus == RoduxCall.Enums.Status.Idle.rawValue() and game.JobId == instanceId
+
+	local isActionButtonEnabled = callStatus == RoduxCall.Enums.Status.Active.rawValue()
+		or callStatus == RoduxCall.Enums.Status.Connecting.rawValue()
+		or isCallEndedInInstance
+
+	local actionButtonCallback = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.CallBarHangUpClicked, {
+			callerUserId = callerId,
+			calleeUserId = calleeId,
+			callId = callId,
+			callStatus = callStatus,
+		})
+
+		if isCallEndedInInstance then
+			teleportToRootPlace()
+		elseif callStatus == RoduxCall.Enums.Status.Active.rawValue() then
 			if GetFFlagSoundManagerRefactor() then
 				SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
 			else
@@ -134,7 +163,11 @@ local function CallBar(passedProps: Props)
 		elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
 			props.callProtocol:cancelCall(callId)
 		end
-	end, { callStatus, props.callProtocol })
+	end, { callStatus, props.callProtocol, isCallEndedInInstance })
+
+	local actionButtonBackground = if isCallEndedInInstance then style.Theme.SystemPrimaryDefault else style.Theme.Alert
+	local actionButtonImage = if isCallEndedInInstance then "rbxassetid://15123605982" else "rbxassetid://14535614005"
+	local actionButtonImageColor = if isCallEndedInInstance then Colors.Slate else Colors.White
 
 	React.useEffect(function()
 		local callDurationTimerConnection = RunService.Heartbeat:Connect(function()
@@ -151,7 +184,7 @@ local function CallBar(passedProps: Props)
 		return function()
 			callDurationTimerConnection:Disconnect()
 		end
-	end, {})
+	end, { props.activeUtc })
 
 	local namesFetch = UserProfiles.Hooks.useUserProfilesFetch({
 		userIds = { tostring(otherParticipantId) },
@@ -244,19 +277,19 @@ local function CallBar(passedProps: Props)
 			}),
 		}),
 
-		EndButton = if callStatus ~= RoduxCall.Enums.Status.Failed.rawValue()
-				and callStatus ~= RoduxCall.Enums.Status.Idle.rawValue()
+		ActionButton = if callStatus ~= RoduxCall.Enums.Status.Failed.rawValue()
 			then React.createElement("ImageButton", {
 				Position = UDim2.fromOffset(0, 0),
-				Active = isEndButtonEnabled,
+				Active = isActionButtonEnabled,
 				AnchorPoint = Vector2.new(1, 1),
 				LayoutOrder = 3,
 				Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
-				BackgroundTransparency = style.Theme.Alert.Transparency,
-				BackgroundColor3 = style.Theme.Alert.Color,
+				BackgroundTransparency = actionButtonBackground.Transparency,
+				BackgroundColor3 = actionButtonBackground.Color,
 				BorderSizePixel = 0,
-				Image = "rbxassetid://14535614005",
-				[React.Event.Activated] = endButtonCallback,
+				Image = actionButtonImage,
+				ImageColor3 = actionButtonImageColor,
+				[React.Event.Activated] = actionButtonCallback,
 			}, {
 				UICorner = React.createElement("UICorner", {
 					CornerRadius = UDim.new(0, BUTTON_SIZE),

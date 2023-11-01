@@ -4,6 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 
@@ -82,8 +83,7 @@ local ContactListSearchBar = function(passedProps)
 			Font = font.Body.Font,
 			LayoutOrder = 2,
 			PlaceholderColor3 = Color3.fromHex("#696A6B"),
-			-- TODO(IRIS-864): Localization.
-			PlaceholderText = "Search friends",
+			PlaceholderText = RobloxTranslator:FormatByKey("Feature.Call.Prompt.SearchFriends"),
 			Text = props.searchText,
 			TextColor3 = Colors.White,
 			TextSize = font.BaseSize * font.Body.RelativeSize,

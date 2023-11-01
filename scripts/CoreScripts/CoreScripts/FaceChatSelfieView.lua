@@ -64,6 +64,7 @@ local FFlagSelfViewUseRealBoundingBox = game:DefineFastFlag("SelfViewUseRealBoun
 local FFlagSelfViewChecks3 = game:DefineFastFlag("SelfViewChecks3", false)
 local FFlagSelfViewAdaptToScreenOrientationChange = game:DefineFastFlag("SelfViewAdaptToScreenOrientationChange", false)
 local FFlagSelfViewImprovedUpdateCloneTriggering = game:DefineFastFlag("SelfViewImprovedUpdateCloneTriggering", false)
+local FFlagSelfViewCameraDefaultButtonInViewPort = game:DefineFastFlag("SelfViewCameraDefaultButtonInViewPort", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -764,8 +765,14 @@ local function createViewport()
 	--(also regarding aspect this may tween towards worldspace UI above player head once closed in progressed iteration)
 
 	local numButtonsShowing = 0
-	if hasCameraPermissions then
-		numButtonsShowing += 1
+	if getFFlagDoNotPromptCameraPermissionsOnMount() and FFlagSelfViewCameraDefaultButtonInViewPort then
+		if isCamEnabledForUserAndPlace() then
+			numButtonsShowing += 1
+		end
+	else
+		if hasCameraPermissions then
+			numButtonsShowing += 1
+		end
 	end
 	if getShouldShowMicButton() then
 		numButtonsShowing += 1

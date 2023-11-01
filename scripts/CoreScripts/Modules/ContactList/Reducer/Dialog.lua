@@ -9,8 +9,6 @@ return Rodux.createReducer({
 	isOpen = false,
 	title = "",
 	bodyText = "",
-	callerId = 0,
-	calleeId = 0,
 	dismissCallback = nil,
 }, {
 	[OpenOrUpdateDialog.name] = function(state, action)
@@ -18,8 +16,6 @@ return Rodux.createReducer({
 			isOpen = true,
 			title = action.title,
 			bodyText = action.bodyText,
-			callerId = action.callerId or 0,
-			calleeId = action.calleeId or 0,
 			dismissCallback = action.dismissCallback,
 		})
 	end,
@@ -28,8 +24,6 @@ return Rodux.createReducer({
 			isOpen = false,
 			title = "",
 			bodyText = "",
-			callerId = 0,
-			calleeId = 0,
 			dismissCallback = Cryo.None,
 		})
 	end,

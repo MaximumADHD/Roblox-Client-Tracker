@@ -32,7 +32,6 @@ local PolicyService = require(CoreGuiModules:WaitForChild("Common"):WaitForChild
 
 -- remove this when removing FFlagConnectErrorHandlerInLoadingScript
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
-local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
 
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
@@ -336,10 +335,6 @@ if FFlagAvatarChatCoreScriptSupport then
 	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/TrackerLodControllerDebugUI", script.Parent)
 	end
-end
-
-if FFlagVRAvatarGestures then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.AvatarGesturesController)
 end
 
 if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") and game:GetFastFlag("MoodsEmoteFix3") then

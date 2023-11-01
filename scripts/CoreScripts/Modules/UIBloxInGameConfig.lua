@@ -11,7 +11,6 @@ return {
 	enableRightSideGadgetView = UIBloxFlags.GetFFlagUIBloxUseRightSideGadget(),
 	useNewThemeColorPalettes = SharedFlags.GetFFlagLuaAppUseUIBloxColorPalettes()
 		and UIBloxFlags.GetUIBloxUseNewThemeColorPalettes(),
-	vrAlignPanel3DUnderInGamePanel = true,
 	vrFixUIJitter = UIBloxFlags.GetFFlagUIBloxVRFixUIJitter(),
 	allowNarrowerSegmentedControl = SharedFlags.GetFFlagIGMVRComfortSetting(),
 	dualVRLaserPointers = UIBloxFlags.GetFFlagUIBloxVRDualLaserPointers(),

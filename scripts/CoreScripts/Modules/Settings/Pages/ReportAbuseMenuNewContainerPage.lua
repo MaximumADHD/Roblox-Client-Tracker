@@ -44,6 +44,10 @@ local function Initialize()
 		utility:ShowAlert(text, buttonLabel, this.HubRef, callback)
 	end
 
+	function this:showReportSentPage(reportedPlayer)
+		this.HubRef.ReportSentPageV2:ShowReportedPlayer(reportedPlayer, true)
+	end
+
 	function this:HideMenu()
 		this.HubRef:SetVisibility(false, true)
 	end
@@ -98,6 +102,9 @@ local function Initialize()
 		end,
 		registerOnSettingsHidden = function(onSettingsHiddenCallback)
 			this._onSettingsHiddenCallback = onSettingsHiddenCallback
+		end,
+		showReportSentPage = function(reportedPlayer)
+			this:showReportSentPage(reportedPlayer)
 		end,
 		onReportComplete = function(text)
 			this:showAlert(text,"Ok", function()

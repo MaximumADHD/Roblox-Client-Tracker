@@ -131,12 +131,6 @@ local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagO
 local GetFFlagInviteTextTruncateFix = require(RobloxGui.Modules.Flags.GetFFlagInviteTextTruncateFix)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
-local GetFFlagRequestFriendshipAnalyticsSwitch = require(RobloxGui.Modules.Flags.GetFFlagRequestFriendshipAnalyticsSwitch)
-local GetFFlagEnableInspectFriendsAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInspectFriendsAnalytics)
-local GetFFlagVoiceChatToggleMuteAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagVoiceChatToggleMuteAnalytics)
-local GetFFlagEnableBlockAnalyticsSource = require(RobloxGui.Modules.Flags.GetFFlagEnableBlockAnalyticsSource)
-local GetFFlagFixMutePlayerAnalytics = require(RobloxGui.Modules.Flags.GetFFlagFixMutePlayerAnalytics)
-local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
 local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.GetFFlagWrapBlockModalScreenInProvider)
@@ -249,14 +243,9 @@ local function Initialize()
 					friendLabelText.Text = ""
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-						if GetFFlagRequestFriendshipAnalyticsSwitch() then
-							AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsRequestFriendContext, Constants.AnalyticsRequestFriendName, {
-								category = "Game"
-							})
-						else
-							AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
-						end
-
+						AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsRequestFriendContext, Constants.AnalyticsRequestFriendName, {
+							category = "Game"
+						})
 						localPlayer:RequestFriendship(player)
 					end
 				end
@@ -353,14 +342,9 @@ local function Initialize()
 					addFriendImage.ImageTransparency = 1
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-						if GetFFlagRequestFriendshipAnalyticsSwitch() then
-							AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsRequestFriendContext, Constants.AnalyticsRequestFriendName, {
-								category = "Game"
-							})
-						else
-							AnalyticsService:TrackEvent("Game", "RequestFriendship", "PlayersMenu")
-						end
-
+						AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsRequestFriendContext, Constants.AnalyticsRequestFriendName, {
+							category = "Game"
+						})
 						localPlayer:RequestFriendship(player)
 					end
 				end
@@ -378,13 +362,10 @@ local function Initialize()
 	local muteAllButton
 	local muteToggles
 	local muteImageButtons = {}
-	local voiceAnalytics
 	local shouldShowMuteToggles = GetFFlagShowMuteToggles()
 	local initialMuteTogglesState = false
 	local playersFriends = {}
-	if GetFFlagVoiceChatToggleMuteAnalytics() then
-		voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
-	end
+	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
 
 	local function friendStatusCreate(playerLabel, player)
 		local friendLabelParent = nil
@@ -472,15 +453,9 @@ local function Initialize()
 
 		local function blockUser()
 			local hasSelection = GuiService.SelectedCoreObject ~= nil or GuiService.SelectedObject ~= nil
-			if GetFFlagEnableBlockAnalyticsSource() then
-				onBlockButtonActivated(player, blockingAnalytics, Constants.AnalyticsInGameMenuName):andThen(function()
-					updateBlockButton(hasSelection)
-				end)
-			else
-				onBlockButtonActivated(player, blockingAnalytics):andThen(function()
-					updateBlockButton(hasSelection)
-				end)
-			end
+			onBlockButtonActivated(player, blockingAnalytics, Constants.AnalyticsInGameMenuName):andThen(function()
+				updateBlockButton(hasSelection)
+			end)
 		end
 
 		local function unBlockUser()
@@ -619,11 +594,7 @@ local function Initialize()
 					local status = VoiceChatServiceManager.participants[tostring(playerStatus.userId)]
 					if status.subscriptionCompleted then
 						if voiceAnalytics then
-							if GetFFlagFixMutePlayerAnalytics() then
-								voiceAnalytics:onToggleMutePlayer(playerStatus.userId, not status.isMutedLocally)
-							else
-								voiceAnalytics:onToggleMutePlayer(not playerStatus.isMutedLocally, playerStatus.userId)
-							end
+							voiceAnalytics:onToggleMutePlayer(playerStatus.userId, not status.isMutedLocally)
 						end
 						VoiceChatServiceManager:ToggleMutePlayer(
 							playerStatus.userId,
@@ -709,14 +680,12 @@ local function Initialize()
 
 	local resumeGameFunc = function()
 		this.HubRef:SetVisibility(false)
-		if GetFFlagEnableLeaveHomeResumeAnalytics() then
-			AnalyticsService:SetRBXEventStream(
-				Constants.AnalyticsTargetName,
-				Constants.AnalyticsResumeGameName,
-				Constants.AnalyticsMenuActionName,
-				{ source = Constants.AnalyticsResumeButtonSource }
-			)
-		end
+		AnalyticsService:SetRBXEventStream(
+			Constants.AnalyticsTargetName,
+			Constants.AnalyticsResumeGameName,
+			Constants.AnalyticsMenuActionName,
+			{ source = Constants.AnalyticsResumeButtonSource }
+		)
 	end
 
 	local resumeGameText = "Resume"
@@ -822,9 +791,7 @@ local function Initialize()
 		end
 		muteButton.Parent = buttonsContainer
 		VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-			if GetFFlagVoiceChatToggleMuteAnalytics() then
-				isLocalPlayerMutedState = muted
-			end
+			isLocalPlayerMutedState = muted
 			updateIcon()
 		end)
 	end
@@ -1128,9 +1095,7 @@ local function Initialize()
 		end
 
 		local activateInspectAndBuyMenu = function()
-			if GetFFlagEnableInspectFriendsAnalytics() then
-				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsExamineAvatarName, Constants.AnalyticsMenuActionName, {})
-			end
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsExamineAvatarName, Constants.AnalyticsMenuActionName, {})
 			GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
 			this.HubRef:SetVisibility(false)
 		end

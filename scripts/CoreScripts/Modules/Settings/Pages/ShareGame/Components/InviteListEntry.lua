@@ -22,7 +22,6 @@ local GetFFlagAbuseReportAnalyticsHasLaunchData =
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
-local GetFFlagEnableInviteSendAnalytics = require(Modules.Flags.GetFFlagEnableInviteSendAnalytics)
 
 local ENTRY_BG_IMAGE = "rbxasset://textures/ui/dialog_white.png"
 local ENTRY_BG_SLICE = Rect.new(10, 10, 10, 10)
@@ -74,7 +73,7 @@ return function(props: Props)
 
 			-- Pluck the userIds out of the user list
 			local participants = { user.id }
-			if (GetFFlagEnableInviteSendAnalytics() and Players.LocalPlayer and results) or (Players.LocalPlayer and results.conversationId) then
+			if Players.LocalPlayer and results then
 				local localPlayer = Players.LocalPlayer :: Player
 				analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
 			end

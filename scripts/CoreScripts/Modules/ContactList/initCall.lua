@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
+local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
@@ -9,6 +9,8 @@ local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 
 local dependencies = require(script.Parent.dependencies)
 local RoduxCall = dependencies.RoduxCall
+local CallAction = RoduxCall.Enums.CallAction
+local teleportToRootPlace = dependencies.teleportToRootPlace
 
 local _handleCamAndMicChangedFromCallConn
 local _handleTeleportingCallConn
@@ -162,5 +164,10 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 
 	_handleEndCallConn = callProtocol:listenToHandleEndCall(function(params)
 		updateCallIdForUser("", false)
+
+		-- We ended a call that was in this server, teleport them back to the root.
+		if params.callAction == CallAction.Finish.rawValue() and game.JobId == params.instanceId then
+			teleportToRootPlace()
+		end
 	end)
 end

@@ -1,6 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local AvatarIdentificationModule = require(CorePackages.Workspace.Packages.TnSAvatarIdentification)
 local AdIdentificationModule = require(CorePackages.Workspace.Packages.TnSAdIdentification)
 
@@ -19,10 +17,10 @@ type AdIDStats = AdIdentificationModule.AdIDStats
 
 type SerializedVector2 = {number}
 
-local GetFFlagReportAnythingEnableAdReport = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingEnableAdReport)
-local GetFFlagGetHumanoidDescription = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagGetHumanoidDescription)
-local GetFFlagRAEnableCircleRegion = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagRAEnableCircleRegion)
-local GetFFlagReportAnythingAbuseVectorRenameEnabled = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagReportAnythingAbuseVectorRenameEnabled)
+local GetFFlagReportAnythingEnableAdReport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportAnythingEnableAdReport
+local GetFFlagGetHumanoidDescription = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGetHumanoidDescription
+local GetFFlagRAEnableCircleRegion = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRAEnableCircleRegion
+local GetFFlagReportAnythingAbuseVectorRenameEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportAnythingAbuseVectorRenameEnabled
 
 
 local getHumanoidDescription = require(script.Parent.GetHumanoidDescription).getHumanoidDescription

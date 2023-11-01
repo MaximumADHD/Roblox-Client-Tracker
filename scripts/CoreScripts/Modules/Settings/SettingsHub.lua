@@ -82,13 +82,12 @@ local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
-local GetFFlagVoiceChatToggleMuteAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagVoiceChatToggleMuteAnalytics)
-local GetFFlagEnableLeaveHomeResumeAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLeaveHomeResumeAnalytics)
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
+local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -284,10 +283,7 @@ local function CreateSettingsHub()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 
-	local voiceAnalytics
-	if GetFFlagVoiceChatToggleMuteAnalytics() then
-		voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "SettingsHub")
-	end
+	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "SettingsHub")
 
 	if GetFFlagVoiceRecordingIndicatorsEnabled() then
 		this.isMuted = nil
@@ -1747,14 +1743,12 @@ local function CreateSettingsHub()
 
 		local resumeFunc = function()
 			setVisibilityInternal(false)
-			if GetFFlagEnableLeaveHomeResumeAnalytics() then
-				AnalyticsService:SetRBXEventStream(
-					Constants.AnalyticsTargetName,
-					Constants.AnalyticsResumeGameName,
-					Constants.AnalyticsMenuActionName,
-					{ source = if Theme.UIBloxThemeEnabled then Constants.AnalyticsResumeShieldSource else Constants.AnalyticsResumeButtonSource }
-				)
-			end
+			AnalyticsService:SetRBXEventStream(
+				Constants.AnalyticsTargetName,
+				Constants.AnalyticsResumeGameName,
+				Constants.AnalyticsMenuActionName,
+				{ source = if Theme.UIBloxThemeEnabled then Constants.AnalyticsResumeShieldSource else Constants.AnalyticsResumeButtonSource }
+			)
 		end
 
 		if Theme.UIBloxThemeEnabled then
@@ -3175,7 +3169,13 @@ local function CreateSettingsHub()
 		this.Shield.BackgroundTransparency = 1
 
 		if UserInputService.VREnabled then
-			this.FullscreenGui.Enabled = false
+			if GetFFlagFixSettingsHubVRBackgroundError() then
+				if this.FullscreenGui then
+					this.FullscreenGui.Enabled = false
+				end
+			else
+				this.FullscreenGui.Enabled = false
+			end
 		end
 	end
 

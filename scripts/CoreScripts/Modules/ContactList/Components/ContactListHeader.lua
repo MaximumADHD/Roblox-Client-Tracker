@@ -4,6 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local Pages = require(ContactList.Enums.Pages)
 local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
@@ -27,12 +28,11 @@ export type Props = {
 	dismissCallback: () -> (),
 }
 
--- TODO(IRIS-864): Localization.
 local getTitleFromPage = function(currentPage)
 	if currentPage == Pages.FriendList then
-		return "Start New Call"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.StartNewCall")
 	elseif currentPage == Pages.CallHistory then
-		return "Recent Calls"
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.RecentCalls")
 	end
 
 	return ""

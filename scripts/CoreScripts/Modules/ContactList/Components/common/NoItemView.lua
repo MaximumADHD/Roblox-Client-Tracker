@@ -7,6 +7,7 @@ local React = require(CorePackages.Packages.React)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ContactList = RobloxGui.Modules.ContactList
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local UIBlox = dependencies.UIBlox
 
@@ -82,7 +83,7 @@ local function NoItemView(props: Props)
 				BorderSizePixel = 0,
 				Font = font.Header2.Font,
 				LayoutOrder = 3,
-				Text = "Retry", -- TODO(IRIS-864): Localization.
+				Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Button.Retry"),
 				TextColor3 = theme.SystemPrimaryContent.Color,
 				TextSize = font.Header2.RelativeSize * font.BaseSize,
 				TextTransparency = theme.SystemPrimaryContent.Transparency,
@@ -132,7 +133,7 @@ local function NoItemView(props: Props)
 					BackgroundTransparency = 1,
 					Font = font.Header2.Font,
 					LayoutOrder = 2,
-					Text = "Start a call", -- TODO(IRIS-864): Localization.
+					Text = RobloxTranslator:FormatByKey("Feature.Call.Prompt.StartCall"),
 					TextColor3 = theme.SystemPrimaryContent.Color,
 					TextSize = font.Header2.RelativeSize * font.BaseSize,
 					TextTransparency = theme.SystemPrimaryContent.Transparency,

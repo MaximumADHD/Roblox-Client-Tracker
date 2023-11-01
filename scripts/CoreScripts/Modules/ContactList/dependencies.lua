@@ -70,4 +70,5 @@ return {
 	enumerate = require(CorePackages.enumerate),
 	getStandardSizeAvatarHeadShotRbxthumb = require(CorePackages.Workspace.Packages.UserLib).Utils.getStandardSizeAvatarHeadShotRbxthumb,
 	GetFFlagPeekViewEnableSnapToViewState = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPeekViewEnableSnapToViewState,
+	teleportToRootPlace = require(script.Parent.teleportToRootPlace),
 }

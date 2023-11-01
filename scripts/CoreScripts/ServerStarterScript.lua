@@ -12,6 +12,7 @@ while not runService:IsRunning() do
 end
 
 --[[ Services ]]--
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local ScriptContext = game:GetService("ScriptContext")
@@ -50,12 +51,6 @@ ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.P
 
 -- Default Alternate Death Ragdoll (China only for now)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerRagdollRigCreator", script.Parent)
-
-local FFlagVRAvatarGestures = game:DefineFastFlag("VRAvatarGestures", false)
-if FFlagVRAvatarGestures then
-	-- make the avatars match controller movement when the player is in VR
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerAvatarGesturesController", script.Parent)
-end
 
 -- FFlag for admin freecam (for easy disabling in case of security breach)
 game:DefineFastFlag("DebugFreeCameraForAdmins", true)
@@ -136,16 +131,13 @@ if chatVersion == Enum.ChatVersion.TextChatService then
 	ExperienceChat.mountServerApp({})
 end
 
-if game:DefineFastFlag("ExperienceChatOnLoadedCounters", false) then
-	if runService:IsStudio() == false then
-		local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-		local counterName = if chatVersion == Enum.ChatVersion.TextChatService
-			then "textChatServiceChatVersionTextChatService"
-			else "textChatServiceChatVersionLegacy"
+if runService:IsStudio() == false then
+	local counterName = if chatVersion == Enum.ChatVersion.TextChatService
+		then "textChatServiceChatVersionTextChatService"
+		else "textChatServiceChatVersionLegacy"
 
-		AnalyticsService:ReportCounter(counterName, 1)
-	end
+	AnalyticsService:ReportCounter(counterName, 1)
 end
 
 if game:DefineFastFlag("VersionedFlags_Dev", false) then

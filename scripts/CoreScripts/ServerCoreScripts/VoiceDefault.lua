@@ -4,6 +4,7 @@ local SoundService = game:GetService("SoundService")
 local FFlagDebugLogVoiceDefault = game:DefineFastFlag("DebugLogVoiceDefault", false)
 local FFlagSetNewDeviceToFalse = game:DefineFastFlag("SetNewDeviceToFalse", false)
 local FFlagFixNewPlayerCheck = game:DefineFastFlag("FixNewPlayerCheck", false)
+local FFlagOnlyMakeInputsForVoiceUsers = game:DefineFastFlag("OnlyMakeInputsForVoiceUsers", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("VoiceDefaultUseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
@@ -20,7 +21,7 @@ local playerDevices: { [Player]: AudioDeviceSet } = {}
 local audioDevices: { [AudioDeviceInput]: AudioDeviceConnections } = {}
 local playerCharacterHandlers: { [Player]: RBXScriptConnection } = {}
 
-function upsertDeviceList(list: AudioDeviceSet?, element: AudioDeviceInput): AudioDeviceSet
+local function upsertDeviceList(list: AudioDeviceSet?, element: AudioDeviceInput): AudioDeviceSet
 	if list == nil then
 		local set = {} :: AudioDeviceSet
 		set[element] = true
@@ -108,6 +109,17 @@ local function trackDevice(device: AudioDeviceInput)
 end
 
 local function createAudioDevice(forPlayer: Player)
+	if FFlagOnlyMakeInputsForVoiceUsers then
+		local ok, result = pcall(function()
+			return VoiceChatService:IsVoiceEnabledForUserIdAsync(forPlayer.UserId)
+		end)
+		if not ok then
+			log('Error getting voice enabled status: "', result, '"')
+		end
+		if not ok or not result then
+			return
+		end
+	end
 	-- TODO: Check to make sure that the player has voice enabled before we create an AudioDeviceInput for them
 	local input = Instance.new("AudioDeviceInput")
 	input.Player = forPlayer
